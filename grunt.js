@@ -113,10 +113,13 @@ module.exports = function(grunt) {
 					'src/css/fuelux-responsive.css': 'src/css/less/fuelux-responsive.less'
 				}
 			}
+		},
+		clean: {
+			dist: ['dist/build.txt', 'dist/css/less']
 		}
 	});
 
 	// Default task.
-	grunt.registerTask('default', 'lint qunit less requirejs min');
+	grunt.registerTask('default', 'lint qunit less requirejs min clean');
 
 };
