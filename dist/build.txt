@@ -1,4 +1,12 @@
 
+css/fuelux-responsive.css
+----------------
+css/fuelux-responsive.css
+
+css/fuelux.css
+----------------
+css/fuelux.css
+
 fuelux.js
 ----------------
 fuelux.js

@@ -102,10 +102,21 @@ module.exports = function(grunt) {
 					]
 				}
 			}
+		},
+		less: {
+			compile: {
+				options: {
+					paths: ['lib/bootstrap/less']
+				},
+				files: {
+					'src/css/fuelux.css': 'src/css/less/fuelux.less',
+					'src/css/fuelux-responsive.css': 'src/css/less/fuelux-responsive.less'
+				}
+			}
 		}
 	});
 
 	// Default task.
-	grunt.registerTask('default', 'lint qunit requirejs min');
+	grunt.registerTask('default', 'lint qunit less requirejs min');
 
 };
