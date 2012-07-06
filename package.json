@@ -41,7 +41,8 @@
     "baseDir": "lib",
     "dependencies": {
       "bootstrap": "github:twitter/bootstrap/v2.0.4",
-      "jquery": "github:jquery/jquery/1.8b1"
+      "jquery": "github:jquery/jquery/1.8b1",
+      "require": "github:jrburke/requirejs/2.0.2"
     }
   }
 }

@@ -1,3 +1,4 @@
+/*global define:false*/
 /*
  * FuelUX
  * https://github.com/ExactTarget/fuelux
@@ -6,7 +7,7 @@
  * Licensed under the Apache license.
  */
 
-(function($) {
+define(['jquery'], function ($) {
 
   // Collection method.
   $.fn.awesome = function() {
@@ -25,4 +26,4 @@
     return elem.textContent.indexOf('awesome') >= 0;
   };
 
-}(jQuery));
+});

@@ -1,7 +1,13 @@
-/*global QUnit:false, module:false, test:false, asyncTest:false, expect:false*/
+/*global QUnit:false, module:false, test:false, asyncTest:false, expect:false, require:false*/
 /*global start:false, stop:false ok:false, equal:false, notEqual:false, deepEqual:false*/
 /*global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false*/
-(function($) {
+require.config({
+	baseUrl: '../src',
+	paths: {
+		jquery: '../lib/jquery'
+	}
+});
+require(['jquery', 'fuelux'], function ($) {
 
   /*
     ======== A Handy Little QUnit Reference ========
@@ -54,4 +60,4 @@
     deepEqual(this.elems.filter(':awesome').get(), this.elems.last().get(), 'knows awesome when it sees it');
   });
 
-}(jQuery));
+});

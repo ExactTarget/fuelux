@@ -1,4 +1,5 @@
 
+/*global define:false*/
 /*
  * FuelUX
  * https://github.com/ExactTarget/fuelux
@@ -7,7 +8,7 @@
  * Licensed under the Apache license.
  */
 
-(function($) {
+define('fuelux',['jquery'], function ($) {
 
   // Collection method.
   $.fn.awesome = function() {
@@ -26,9 +27,7 @@
     return elem.textContent.indexOf('awesome') >= 0;
   };
 
-}(jQuery));
-
-define("fuelux", function(){});
+});
 
 /* ===================================================
  * bootstrap-transition.js v2.0.4
