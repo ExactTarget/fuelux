@@ -130,6 +130,6 @@ module.exports = function(grunt) {
 	});
 
 	// Default task.
-	grunt.registerTask('default', 'lint less qunit requirejs min clean copy:images');
+	grunt.registerTask('default', 'lint less qunit requirejs copy:images clean min');
 
 };
