@@ -34,5 +34,6 @@
 	"keywords": [
 		"fuelux",
 		"bootstrap"
-	]
+	],
+	"private": true
 }
