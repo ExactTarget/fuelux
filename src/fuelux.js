@@ -1,5 +1,5 @@
 /*
- * fuelux
+ * FuelUX
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2012 ExactTarget

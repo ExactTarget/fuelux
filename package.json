@@ -1,39 +1,46 @@
 {
-	"name": "fuelux",
-	"title": "FuelUX",
-	"version": "2.0.0",
-	"description": "Base FuelUX styles and controls",
-	"homepage": "https://github.com/ExactTarget/fuelux",
-	"author": {
-		"name": "ExactTarget",
-		"email": "aalexander@exacttarget.com",
-		"url": "http://code.exacttarget.com"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/ExactTarget/fuelux.git"
-	},
-	"bugs": {
-		"url": "https://github.com/ExactTarget/fuelux/issues"
-	},
-	"licenses": [
-		{
-			"type": "Apache",
-			"url": "https://github.com/ExactTarget/fuelux/blob/master/LICENSE"
-		}
-	],
-	"engines": {
-		"node": ">= 0.6.0"
-	},
-	"scripts": {
-		"test": "grunt qunit"
-	},
-	"devDependencies": {
-		"grunt": "~0.3.11"
-	},
-	"keywords": [
-		"fuelux",
-		"bootstrap"
-	],
-	"private": true
+  "name": "fuelux",
+  "title": "FuelUX",
+  "version": "2.0.0",
+  "description": "Base FuelUX styles and controls",
+  "homepage": "https://github.com/ExactTarget/fuelux",
+  "author": {
+    "name": "ExactTarget",
+    "email": "aalexander@exacttarget.com",
+    "url": "http://code.exacttarget.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ExactTarget/fuelux.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ExactTarget/fuelux/issues"
+  },
+  "licenses": [
+    {
+      "type": "Apache",
+      "url": "https://github.com/ExactTarget/fuelux/blob/master/LICENSE"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "scripts": {
+    "test": "grunt qunit"
+  },
+  "dependencies": {
+    "grunt": "~0.3.11",
+    "grunt-contrib": "~0.1.0"
+  },
+  "keywords": [
+    "fuelux",
+    "bootstrap"
+  ],
+  "private": true,
+  "volo": {
+    "baseDir": "lib",
+    "dependencies": {
+      "bootstrap": "github:twitter/bootstrap/v2.0.4"
+    }
+  }
 }
