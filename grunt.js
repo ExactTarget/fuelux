@@ -116,10 +116,20 @@ module.exports = function(grunt) {
 		},
 		clean: {
 			dist: ['dist/build.txt', 'dist/css/less']
+		},
+		copy: {
+			images: {
+				options: {
+					basePath: 'lib/bootstrap/img'
+				},
+				files: {
+					'dist/img': 'lib/bootstrap/img/**'
+				}
+			}
 		}
 	});
 
 	// Default task.
-	grunt.registerTask('default', 'lint qunit less requirejs min clean');
+	grunt.registerTask('default', 'lint less qunit requirejs min clean copy:images');
 
 };
