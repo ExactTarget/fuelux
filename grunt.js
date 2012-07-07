@@ -89,7 +89,7 @@ module.exports = function(grunt) {
 			}
 		},
 		clean: {
-			dist: ['dist/build.txt', 'dist/css/less']
+			dist: ['dist/build.txt', 'dist/css/less', 'dist/fuelux.zip']
 		},
 		copy: {
 			images: {
@@ -100,10 +100,21 @@ module.exports = function(grunt) {
 					'dist/img': 'lib/bootstrap/img/**'
 				}
 			}
+		},
+		compress: {
+			zip: {
+				files: {
+					'dist/fuelux.zip': 'dist/**'
+				},
+				options: {
+					mode: 'zip',
+					basePath: 'dist'
+				}
+			}
 		}
 	});
 
 	// Default task.
-	grunt.registerTask('default', 'lint less qunit requirejs copy:images clean min');
+	grunt.registerTask('default', 'lint less qunit requirejs copy:images clean min compress');
 
 };
