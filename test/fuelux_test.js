@@ -61,7 +61,7 @@ require(['jquery', 'fuelux'], function($) {
 	});
 	
 	test('alert is initialized', function() {
-		strictEqual(this.elems.alert(), this.alert, 'modal should be initialized');
+		strictEqual(this.elems.alert(), this.elems, 'alert should be initialized');
 	});
 	
 	test('button is initialized', function() {
@@ -73,11 +73,11 @@ require(['jquery', 'fuelux'], function($) {
 	});
 	
 	test('carousel is initialized', function() {
-		strictEqual(this.elems.carousel(), this.carousel, 'modal should be initialized');
+		strictEqual(this.elems.carousel(), this.elems, 'carousel should be initialized');
 	});
 	
 	test('typeahead is initialized', function() {
-		strictEqual(this.elems.typeahead(), this.typeahead, 'modal should be initialized');
+		strictEqual(this.elems.typeahead(), this.elems, 'typeahead should be initialized');
 	});
 
 });
