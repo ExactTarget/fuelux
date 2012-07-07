@@ -50,7 +50,9 @@ module.exports = function(grunt) {
 				browser: true
 			},
 			globals: {
-				jQuery: true
+				jQuery: true,
+				define: true,
+				require: true
 			}
 		},
 		uglify: {},
@@ -83,20 +85,6 @@ module.exports = function(grunt) {
 					modules: [
 						{
 							name: 'fuelux',
-							include: [
-								'bootstrap/js/bootstrap-transition',
-								'bootstrap/js/bootstrap-alert',
-								'bootstrap/js/bootstrap-button',
-								'bootstrap/js/bootstrap-carousel',
-								'bootstrap/js/bootstrap-collapse',
-								'bootstrap/js/bootstrap-dropdown',
-								'bootstrap/js/bootstrap-modal',
-								'bootstrap/js/bootstrap-popover',
-								'bootstrap/js/bootstrap-scrollspy',
-								'bootstrap/js/bootstrap-tab',
-								'bootstrap/js/bootstrap-tooltip',
-								'bootstrap/js/bootstrap-typeahead'
-							],
 							exclude: ['jquery']
 						}
 					]

@@ -1,5 +1,3 @@
-
-/*global define:false*/
 /*
  * FuelUX
  * https://github.com/ExactTarget/fuelux

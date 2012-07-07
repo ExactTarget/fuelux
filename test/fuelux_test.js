@@ -1,63 +1,83 @@
-/*global QUnit:false, module:false, test:false, asyncTest:false, expect:false, require:false*/
+/*global QUnit:false, module:false, test:false, asyncTest:false, expect:false*/
 /*global start:false, stop:false ok:false, equal:false, notEqual:false, deepEqual:false*/
 /*global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false*/
+
 require.config({
 	baseUrl: '../src',
 	paths: {
-		jquery: '../lib/jquery'
+		jquery: '../lib/jquery',
+		bootstrap: '../lib/bootstrap/js'
+	},
+	shim: {
+		'bootstrap/js/bootstrap-transition': ['jquery'],
+		'bootstrap/js/bootstrap-alert': ['bootstrap/js/bootstrap-transition'],
+		'bootstrap/js/bootstrap-button': ['bootstrap/js/bootstrap-transition'],
+		'bootstrap/js/bootstrap-carousel': ['bootstrap/js/bootstrap-transition'],
+		'bootstrap/js/bootstrap-collapse': ['bootstrap/js/bootstrap-transition'],
+		'bootstrap/js/bootstrap-dropdown': ['bootstrap/js/bootstrap-transition'],
+		'bootstrap/js/bootstrap-modal': ['bootstrap/js/bootstrap-transition'],
+		'bootstrap/js/bootstrap-popover': ['bootstrap/js/bootstrap-transition', 'bootstrap/js/bootstrap-tooltip'],
+		'bootstrap/js/bootstrap-scrollspy': ['bootstrap/js/bootstrap-transition'],
+		'bootstrap/js/bootstrap-tab': ['bootstrap/js/bootstrap-transition'],
+		'bootstrap/js/bootstrap-tooltip': ['bootstrap/js/bootstrap-transition'],
+		'bootstrap/js/bootstrap-typeahead': ['bootstrap/js/bootstrap-transition']
 	}
 });
-require(['jquery', 'fuelux'], function ($) {
 
-  /*
-    ======== A Handy Little QUnit Reference ========
-    http://docs.jquery.com/QUnit
+require(['jquery', 'fuelux'], function($) {
 
-    Test methods:
-      expect(numAssertions)
-      stop(increment)
-      start(decrement)
-    Test assertions:
-      ok(value, [message])
-      equal(actual, expected, [message])
-      notEqual(actual, expected, [message])
-      deepEqual(actual, expected, [message])
-      notDeepEqual(actual, expected, [message])
-      strictEqual(actual, expected, [message])
-      notStrictEqual(actual, expected, [message])
-      raises(block, [expected], [message])
-  */
+	module('Twitter Bootstrap plugins', {
+		setup: function() {
+			this.elems = $('#qunit-fixture').children();
+		}
+	});
 
-  module('jQuery#awesome', {
-    setup: function() {
-      this.elems = $('#qunit-fixture').children();
-    }
-  });
+	test('transitions are initialized', function() {
+		strictEqual(typeof $.support.transition, 'object', 'transitions should be initialized');
+	});
 
-  test('is chainable', 1, function() {
-    // Not a bad test to run on collection methods.
-    strictEqual(this.elems.awesome(), this.elems, 'should be chaninable');
-  });
-
-  test('is awesome', 1, function() {
-    strictEqual(this.elems.awesome().text(), 'awesomeawesomeawesome', 'should be thoroughly awesome');
-  });
-
-  module('jQuery.awesome');
-
-  test('is awesome', 1, function() {
-    strictEqual($.awesome(), 'awesome', 'should be thoroughly awesome');
-  });
-
-  module(':awesome selector', {
-    setup: function() {
-      this.elems = $('#qunit-fixture').children();
-    }
-  });
-
-  test('is awesome', 1, function() {
-    // Use deepEqual & .get() when comparing jQuery objects.
-    deepEqual(this.elems.filter(':awesome').get(), this.elems.last().get(), 'knows awesome when it sees it');
-  });
+	test('modal is initialized', function() {
+		strictEqual(this.elems.modal(), this.elems, 'modal should be initialized');
+	});
+	
+	test('dropdown is initialized', function() {
+		strictEqual(this.elems.dropdown(), this.elems, 'dropdown should be initialized');
+	});
+	
+	test('scrollspy is initialized', function() {
+		strictEqual(this.elems.scrollspy(), this.elems, 'scrollspy should be initialized');
+	});
+	
+	test('tab is initialized', function() {
+		strictEqual(this.elems.tab(), this.elems, 'tab should be initialized');
+	});
+	
+	test('tooltip is initialized', function() {
+		strictEqual(this.elems.tooltip(), this.elems, 'tooltip should be initialized');
+	});
+	
+	test('popover is initialized', function() {
+		strictEqual(this.elems.popover(), this.elems, 'popover should be initialized');
+	});
+	
+	test('alert is initialized', function() {
+		strictEqual(this.elems.alert(), this.alert, 'modal should be initialized');
+	});
+	
+	test('button is initialized', function() {
+		strictEqual(this.elems.button(), this.elems, 'button should be initialized');
+	});
+	
+	test('collapse is initialized', function() {
+		strictEqual(this.elems.collapse(), this.elems, 'collapse should be initialized');
+	});
+	
+	test('carousel is initialized', function() {
+		strictEqual(this.elems.carousel(), this.carousel, 'modal should be initialized');
+	});
+	
+	test('typeahead is initialized', function() {
+		strictEqual(this.elems.typeahead(), this.typeahead, 'modal should be initialized');
+	});
 
 });

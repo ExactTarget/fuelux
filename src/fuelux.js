@@ -1,4 +1,3 @@
-/*global define:false*/
 /*
  * FuelUX
  * https://github.com/ExactTarget/fuelux
@@ -7,23 +6,18 @@
  * Licensed under the Apache license.
  */
 
-define(['jquery'], function ($) {
-
-  // Collection method.
-  $.fn.awesome = function() {
-    return this.each(function() {
-      $(this).html('awesome');
-    });
-  };
-
-  // Static method.
-  $.awesome = function() {
-    return 'awesome';
-  };
-
-  // Custom selector.
-  $.expr[':'].awesome = function(elem) {
-    return elem.textContent.indexOf('awesome') >= 0;
-  };
-
+define(function (require) {
+	var $ = require('jquery');
+	require('bootstrap/bootstrap-alert');
+	require('bootstrap/bootstrap-button');
+	require('bootstrap/bootstrap-carousel');
+	require('bootstrap/bootstrap-collapse');
+	require('bootstrap/bootstrap-dropdown');
+	require('bootstrap/bootstrap-modal');
+	require('bootstrap/bootstrap-popover');
+	require('bootstrap/bootstrap-scrollspy');
+	require('bootstrap/bootstrap-tab');
+	require('bootstrap/bootstrap-tooltip');
+	require('bootstrap/bootstrap-transition');
+	require('bootstrap/bootstrap-typeahead');
 });
