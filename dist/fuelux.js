@@ -1,31 +1,6 @@
-/*
- * FuelUX
- * https://github.com/ExactTarget/fuelux
- *
- * Copyright (c) 2012 ExactTarget
- * Licensed under the Apache license.
- */
 
-define('fuelux',['jquery'], function ($) {
-
-  // Collection method.
-  $.fn.awesome = function() {
-    return this.each(function() {
-      $(this).html('awesome');
-    });
-  };
-
-  // Static method.
-  $.awesome = function() {
-    return 'awesome';
-  };
-
-  // Custom selector.
-  $.expr[':'].awesome = function(elem) {
-    return elem.textContent.indexOf('awesome') >= 0;
-  };
-
-});
+//Wrapped in an outer function to preserve global this
+(function (root) { var amdExports; define('bootstrap/bootstrap-transition',['jquery'], function () { (function () {
 
 /* ===================================================
  * bootstrap-transition.js v2.0.4
@@ -88,7 +63,14 @@ define('fuelux',['jquery'], function ($) {
   })
 
 }(window.jQuery);
-define("bootstrap/js/bootstrap-transition", function(){});
+
+
+}.call(root));
+    return amdExports;
+}); }(this));
+
+//Wrapped in an outer function to preserve global this
+(function (root) { var amdExports; define('bootstrap/bootstrap-alert',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ==========================================================
  * bootstrap-alert.js v2.0.4
@@ -180,7 +162,14 @@ define("bootstrap/js/bootstrap-transition", function(){});
   })
 
 }(window.jQuery);
-define("bootstrap/js/bootstrap-alert", function(){});
+
+
+}.call(root));
+    return amdExports;
+}); }(this));
+
+//Wrapped in an outer function to preserve global this
+(function (root) { var amdExports; define('bootstrap/bootstrap-button',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ============================================================
  * bootstrap-button.js v2.0.4
@@ -278,7 +267,14 @@ define("bootstrap/js/bootstrap-alert", function(){});
   })
 
 }(window.jQuery);
-define("bootstrap/js/bootstrap-button", function(){});
+
+
+}.call(root));
+    return amdExports;
+}); }(this));
+
+//Wrapped in an outer function to preserve global this
+(function (root) { var amdExports; define('bootstrap/bootstrap-carousel',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ==========================================================
  * bootstrap-carousel.js v2.0.4
@@ -449,7 +445,14 @@ define("bootstrap/js/bootstrap-button", function(){});
   })
 
 }(window.jQuery);
-define("bootstrap/js/bootstrap-carousel", function(){});
+
+
+}.call(root));
+    return amdExports;
+}); }(this));
+
+//Wrapped in an outer function to preserve global this
+(function (root) { var amdExports; define('bootstrap/bootstrap-collapse',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* =============================================================
  * bootstrap-collapse.js v2.0.4
@@ -608,7 +611,14 @@ define("bootstrap/js/bootstrap-carousel", function(){});
   })
 
 }(window.jQuery);
-define("bootstrap/js/bootstrap-collapse", function(){});
+
+
+}.call(root));
+    return amdExports;
+}); }(this));
+
+//Wrapped in an outer function to preserve global this
+(function (root) { var amdExports; define('bootstrap/bootstrap-dropdown',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ============================================================
  * bootstrap-dropdown.js v2.0.4
@@ -710,7 +720,14 @@ define("bootstrap/js/bootstrap-collapse", function(){});
   })
 
 }(window.jQuery);
-define("bootstrap/js/bootstrap-dropdown", function(){});
+
+
+}.call(root));
+    return amdExports;
+}); }(this));
+
+//Wrapped in an outer function to preserve global this
+(function (root) { var amdExports; define('bootstrap/bootstrap-modal',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* =========================================================
  * bootstrap-modal.js v2.0.4
@@ -930,7 +947,14 @@ define("bootstrap/js/bootstrap-dropdown", function(){});
   })
 
 }(window.jQuery);
-define("bootstrap/js/bootstrap-modal", function(){});
+
+
+}.call(root));
+    return amdExports;
+}); }(this));
+
+//Wrapped in an outer function to preserve global this
+(function (root) { var amdExports; define('bootstrap/bootstrap-tooltip',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ===========================================================
  * bootstrap-tooltip.js v2.0.4
@@ -1208,7 +1232,14 @@ define("bootstrap/js/bootstrap-modal", function(){});
 
 }(window.jQuery);
 
-define("bootstrap/js/bootstrap-tooltip", function(){});
+
+
+}.call(root));
+    return amdExports;
+}); }(this));
+
+//Wrapped in an outer function to preserve global this
+(function (root) { var amdExports; define('bootstrap/bootstrap-popover',['bootstrap/bootstrap-transition','bootstrap/bootstrap-tooltip'], function () { (function () {
 
 /* ===========================================================
  * bootstrap-popover.js v2.0.4
@@ -1308,7 +1339,14 @@ define("bootstrap/js/bootstrap-tooltip", function(){});
   })
 
 }(window.jQuery);
-define("bootstrap/js/bootstrap-popover", function(){});
+
+
+}.call(root));
+    return amdExports;
+}); }(this));
+
+//Wrapped in an outer function to preserve global this
+(function (root) { var amdExports; define('bootstrap/bootstrap-scrollspy',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* =============================================================
  * bootstrap-scrollspy.js v2.0.4
@@ -1461,7 +1499,14 @@ define("bootstrap/js/bootstrap-popover", function(){});
   })
 
 }(window.jQuery);
-define("bootstrap/js/bootstrap-scrollspy", function(){});
+
+
+}.call(root));
+    return amdExports;
+}); }(this));
+
+//Wrapped in an outer function to preserve global this
+(function (root) { var amdExports; define('bootstrap/bootstrap-tab',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ========================================================
  * bootstrap-tab.js v2.0.4
@@ -1598,7 +1643,14 @@ define("bootstrap/js/bootstrap-scrollspy", function(){});
   })
 
 }(window.jQuery);
-define("bootstrap/js/bootstrap-tab", function(){});
+
+
+}.call(root));
+    return amdExports;
+}); }(this));
+
+//Wrapped in an outer function to preserve global this
+(function (root) { var amdExports; define('bootstrap/bootstrap-typeahead',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* =============================================================
  * bootstrap-typeahead.js v2.0.4
@@ -1885,4 +1937,32 @@ define("bootstrap/js/bootstrap-tab", function(){});
   })
 
 }(window.jQuery);
-define("bootstrap/js/bootstrap-typeahead", function(){});
+
+
+}.call(root));
+    return amdExports;
+}); }(this));
+
+/*
+ * FuelUX
+ * https://github.com/ExactTarget/fuelux
+ *
+ * Copyright (c) 2012 ExactTarget
+ * Licensed under the Apache license.
+ */
+
+define('fuelux',['require','jquery','bootstrap/bootstrap-alert','bootstrap/bootstrap-button','bootstrap/bootstrap-carousel','bootstrap/bootstrap-collapse','bootstrap/bootstrap-dropdown','bootstrap/bootstrap-modal','bootstrap/bootstrap-popover','bootstrap/bootstrap-scrollspy','bootstrap/bootstrap-tab','bootstrap/bootstrap-tooltip','bootstrap/bootstrap-transition','bootstrap/bootstrap-typeahead'],function (require) {
+	var $ = require('jquery');
+	require('bootstrap/bootstrap-alert');
+	require('bootstrap/bootstrap-button');
+	require('bootstrap/bootstrap-carousel');
+	require('bootstrap/bootstrap-collapse');
+	require('bootstrap/bootstrap-dropdown');
+	require('bootstrap/bootstrap-modal');
+	require('bootstrap/bootstrap-popover');
+	require('bootstrap/bootstrap-scrollspy');
+	require('bootstrap/bootstrap-tab');
+	require('bootstrap/bootstrap-tooltip');
+	require('bootstrap/bootstrap-transition');
+	require('bootstrap/bootstrap-typeahead');
+});

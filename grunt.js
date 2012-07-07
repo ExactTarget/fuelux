@@ -64,23 +64,9 @@ module.exports = function(grunt) {
 					dir: 'dist',
 					optimize: 'none',
 					paths: {
-						bootstrap: '../lib/bootstrap',
+						bootstrap: '../lib/bootstrap/js',
 						jquery: '../lib/jquery'
 						
-					},
-					shim: {
-						'bootstrap/js/bootstrap-transition': ['jquery'],
-						'bootstrap/js/bootstrap-alert': ['bootstrap/js/bootstrap-transition'],
-						'bootstrap/js/bootstrap-button': ['bootstrap/js/bootstrap-transition'],
-						'bootstrap/js/bootstrap-carousel': ['bootstrap/js/bootstrap-transition'],
-						'bootstrap/js/bootstrap-collapse': ['bootstrap/js/bootstrap-transition'],
-						'bootstrap/js/bootstrap-dropdown': ['bootstrap/js/bootstrap-transition'],
-						'bootstrap/js/bootstrap-modal': ['bootstrap/js/bootstrap-transition'],
-						'bootstrap/js/bootstrap-popover': ['bootstrap/js/bootstrap-transition', 'bootstrap/js/bootstrap-tooltip'],
-						'bootstrap/js/bootstrap-scrollspy': ['bootstrap/js/bootstrap-transition'],
-						'bootstrap/js/bootstrap-tab': ['bootstrap/js/bootstrap-transition'],
-						'bootstrap/js/bootstrap-tooltip': ['bootstrap/js/bootstrap-transition'],
-						'bootstrap/js/bootstrap-typeahead': ['bootstrap/js/bootstrap-transition']
 					},
 					modules: [
 						{

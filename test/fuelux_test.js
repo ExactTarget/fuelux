@@ -7,20 +7,6 @@ require.config({
 	paths: {
 		jquery: '../lib/jquery',
 		bootstrap: '../lib/bootstrap/js'
-	},
-	shim: {
-		'bootstrap/js/bootstrap-transition': ['jquery'],
-		'bootstrap/js/bootstrap-alert': ['bootstrap/js/bootstrap-transition'],
-		'bootstrap/js/bootstrap-button': ['bootstrap/js/bootstrap-transition'],
-		'bootstrap/js/bootstrap-carousel': ['bootstrap/js/bootstrap-transition'],
-		'bootstrap/js/bootstrap-collapse': ['bootstrap/js/bootstrap-transition'],
-		'bootstrap/js/bootstrap-dropdown': ['bootstrap/js/bootstrap-transition'],
-		'bootstrap/js/bootstrap-modal': ['bootstrap/js/bootstrap-transition'],
-		'bootstrap/js/bootstrap-popover': ['bootstrap/js/bootstrap-transition', 'bootstrap/js/bootstrap-tooltip'],
-		'bootstrap/js/bootstrap-scrollspy': ['bootstrap/js/bootstrap-transition'],
-		'bootstrap/js/bootstrap-tab': ['bootstrap/js/bootstrap-transition'],
-		'bootstrap/js/bootstrap-tooltip': ['bootstrap/js/bootstrap-transition'],
-		'bootstrap/js/bootstrap-typeahead': ['bootstrap/js/bootstrap-transition']
 	}
 });
 
