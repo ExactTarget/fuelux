@@ -3,17 +3,9 @@
 <head>
   <meta charset="utf-8">
   <title>FuelUX Test Suite</title>
-  <!-- Load local jQuery. This can be overridden with a ?jquery=___ param. -->
-  <script src="../lib/jquery-loader.js"></script>
-  <!-- Load local QUnit (grunt requires v1.0.0 or newer). -->
   <link rel="stylesheet" href="../lib/qunit/qunit.css" media="screen">
   <script src="../lib/qunit/qunit.js"></script>
-  <!-- Load local lib and tests. -->
   <script src="../lib/require.js" data-main="fuelux_test.js"></script>
-  <!-- Removing access to jQuery and $. But it'll still be available as _$, if
-       you REALLY want to mess around with jQuery in the console. REMEMBER WE
-       ARE TESTING YOUR PLUGIN HERE -->
-  <script>window._$ = jQuery.noConflict(true);</script>
 </head>
 <body>
   <h1 id="qunit-header">FuelUX Test Suite</h1>
