@@ -137,6 +137,6 @@ module.exports = function(grunt) {
 	});
 
 	// Default task.
-	grunt.registerTask('default', 'lint recess qunit requirejs copy:images clean min compress');
+	grunt.registerTask('default', 'lint recess qunit requirejs copy clean min compress');
 
 };
