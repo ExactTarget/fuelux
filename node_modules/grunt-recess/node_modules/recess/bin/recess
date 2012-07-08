@@ -1,0 +1,50 @@
+#!/usr/bin/env node
+var RECESS = require('../lib')
+  , nopt = require('nopt')
+  , path = require('path')
+  , fs = require('fs')
+  , config = '.recessrc'
+  , options
+  , paths
+
+// exit with docs
+if (process.argv.length == 2) return RECESS.docs()
+
+// define expected options
+options = {
+  compile: Boolean
+, compress: Boolean
+, config: path
+, noIDs: Boolean
+, noJSPrefix: Boolean
+, noOverqualifying: Boolean
+, noUnderscores: Boolean
+, noUniversalSelectors: Boolean
+, prefixWhitespace: Boolean
+, strictPropertyOrder: Boolean
+, zeroUnits: Boolean
+}
+
+// parse options
+options = nopt(options, {}, process.argv)
+
+// if help exit
+if (options.help) return RECESS.docs()
+
+// set path from remaining arguments
+paths = options.argv.remain
+
+// clean options object
+delete options.argv
+
+// check for config or default .recessrc
+if (options.config || path.existsSync(config)) {
+  config = JSON.parse(fs.readFileSync(options.config || config))
+  for (i in options) config[i] = options[i]
+  options = config
+}
+
+// set CLI to true
+options.cli = true
+
+RECESS(paths, options)

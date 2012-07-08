@@ -2,6 +2,7 @@
 module.exports = function(grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib');
+	grunt.loadNpmTasks('grunt-recess');
 
 	// Project configuration.
 	grunt.initConfig({
@@ -33,7 +34,7 @@ module.exports = function(grunt) {
 		},
 		watch: {
 			files: ['grunt.js', 'lib/**', 'src/**', 'test/**'],
-			tasks: 'lint less qunit'
+			tasks: 'lint recess qunit'
 		},
 		jshint: {
 			options: {
@@ -63,10 +64,10 @@ module.exports = function(grunt) {
 					baseUrl: '.',
 					dir: 'dist',
 					optimize: 'none',
+					optimizeCss: 'none',
 					paths: {
 						bootstrap: '../lib/bootstrap/js',
 						jquery: '../lib/jquery'
-						
 					},
 					modules: [
 						{
@@ -77,14 +78,35 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		less: {
+		recess: {
 			compile: {
+				src: ['src/css/less/fuelux.less'],
+				dest: 'src/css/fuelux.css',
 				options: {
-					paths: ['lib/bootstrap/less']
-				},
-				files: {
-					'src/css/fuelux.css': 'src/css/less/fuelux.less',
-					'src/css/fuelux-responsive.css': 'src/css/less/fuelux-responsive.less'
+					compile: true
+				}
+			},
+			compile_responsive: {
+				src: ['src/css/less/fuelux-responsive.less'],
+				dest: 'src/css/fuelux-responsive.css',
+				options: {
+					compile: true
+				}
+			},
+			compress: {
+				src: ['src/css/less/fuelux.less'],
+				dest: 'src/css/fuelux.min.css',
+				options: {
+					compile: true,
+					compress: true
+				}
+			},
+			compress_responsive: {
+				src: ['src/css/less/fuelux-responsive.less'],
+				dest: 'src/css/fuelux-responsive.min.css',
+				options: {
+					compile: true,
+					compress: true
 				}
 			}
 		},
@@ -115,6 +137,6 @@ module.exports = function(grunt) {
 	});
 
 	// Default task.
-	grunt.registerTask('default', 'lint less qunit requirejs copy:images clean min compress');
+	grunt.registerTask('default', 'lint recess qunit requirejs copy:images clean min compress');
 
 };
