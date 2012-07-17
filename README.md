@@ -79,6 +79,10 @@ Note that the `phantomjs` executable needs to be in the system `PATH` for grunt 
 
 + http://github.com/kevinparkerson
 
+**Christopher McCulloh**
+
++ http://github.com/cmcculloh
+
 ## Copyright and license
 
 Copyright (c) 2012 ExactTarget
