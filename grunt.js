@@ -111,7 +111,7 @@ module.exports = function(grunt) {
 			}
 		},
 		clean: {
-			dist: ['dist/build.txt', 'dist/css/less', 'dist/fuelux.zip']
+			dist: ['dist/build.txt', 'dist/fuelux.zip']
 		},
 		copy: {
 			images: {
