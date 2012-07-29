@@ -1943,6 +1943,67 @@
     return amdExports;
 }); }(this));
 
+define('fuelux-combobox',['require','jquery'],function(require) {
+	
+	var $ = require('jquery');
+
+
+	// COMBOBOX CONSTRUCTOR AND PROTOTYPE
+
+	var Combobox = function (element, options) {
+		this.$element = $(element);
+		this.options = $.extend({}, $.fn.combobox.defaults, options);
+		this.$element.find('a').on('click', $.proxy(this.itemclicked, this));
+		this.$input = this.$element.find('input');
+	};
+
+	Combobox.prototype = {
+
+		constructor: Combobox,
+
+		select: function (val) {
+			this.$input.val(val);
+			return this;
+		},
+
+		itemclicked: function (e) {
+			this.select(e.target.text);
+			e.preventDefault();
+		}
+
+	};
+
+
+	// COMBOBOX PLUGIN DEFINITION
+
+	$.fn.combobox = function (option) {
+		return this.each(function () {
+			var $this = $(this);
+			var data = $this.data('combobox');
+			var options = typeof option === 'object' && option;
+
+			if (!data) $this.data('combobox', (data = new Combobox(this, options)));
+			if (typeof option === 'string') data[option]();
+		});
+	};
+
+	$.fn.combobox.defaults = {};
+
+	$.fn.combobox.Constructor = Combobox;
+
+
+	// COMBOBOX DATA-API
+
+	$(function () {
+		$('body').on('mousedown.combobox.data-api', '.combobox', function (e) {
+			var $this = $(this);
+			if ($this.data('combobox')) return;
+			$this.combobox($this.data());
+		});
+	});
+
+});
+
 /*
  * FuelUX
  * https://github.com/ExactTarget/fuelux
@@ -1951,8 +2012,8 @@
  * Licensed under the Apache license.
  */
 
-define('fuelux',['require','jquery','bootstrap/bootstrap-alert','bootstrap/bootstrap-button','bootstrap/bootstrap-carousel','bootstrap/bootstrap-collapse','bootstrap/bootstrap-dropdown','bootstrap/bootstrap-modal','bootstrap/bootstrap-popover','bootstrap/bootstrap-scrollspy','bootstrap/bootstrap-tab','bootstrap/bootstrap-tooltip','bootstrap/bootstrap-transition','bootstrap/bootstrap-typeahead'],function (require) {
-	var $ = require('jquery');
+define('fuelux',['require','jquery','bootstrap/bootstrap-alert','bootstrap/bootstrap-button','bootstrap/bootstrap-carousel','bootstrap/bootstrap-collapse','bootstrap/bootstrap-dropdown','bootstrap/bootstrap-modal','bootstrap/bootstrap-popover','bootstrap/bootstrap-scrollspy','bootstrap/bootstrap-tab','bootstrap/bootstrap-tooltip','bootstrap/bootstrap-transition','bootstrap/bootstrap-typeahead','fuelux-combobox'],function (require) {
+	require('jquery');
 	require('bootstrap/bootstrap-alert');
 	require('bootstrap/bootstrap-button');
 	require('bootstrap/bootstrap-carousel');
@@ -1965,4 +2026,5 @@ define('fuelux',['require','jquery','bootstrap/bootstrap-alert','bootstrap/boots
 	require('bootstrap/bootstrap-tooltip');
 	require('bootstrap/bootstrap-transition');
 	require('bootstrap/bootstrap-typeahead');
+	require('fuelux-combobox');
 });

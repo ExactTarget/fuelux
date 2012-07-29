@@ -2,14 +2,6 @@
 /*global start:false, stop:false ok:false, equal:false, notEqual:false, deepEqual:false*/
 /*global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false*/
 
-require.config({
-	baseUrl: '../src',
-	paths: {
-		jquery: '../lib/jquery',
-		bootstrap: '../lib/bootstrap/js'
-	}
-});
-
 require(['jquery', 'fuelux'], function($) {
 
 	module('Twitter Bootstrap plugins', {

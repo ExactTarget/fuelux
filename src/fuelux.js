@@ -7,7 +7,7 @@
  */
 
 define(function (require) {
-	var $ = require('jquery');
+	require('jquery');
 	require('bootstrap/bootstrap-alert');
 	require('bootstrap/bootstrap-button');
 	require('bootstrap/bootstrap-carousel');
@@ -20,4 +20,5 @@ define(function (require) {
 	require('bootstrap/bootstrap-tooltip');
 	require('bootstrap/bootstrap-transition');
 	require('bootstrap/bootstrap-typeahead');
+	require('fuelux-combobox');
 });

@@ -1,20 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>FuelUX Test Suite</title>
-  <link rel="stylesheet" href="../lib/qunit/qunit.css" media="screen">
-  <script src="../lib/qunit/qunit.js"></script>
-  <script src="../lib/require.js" data-main="fuelux_test.js"></script>
+	<meta charset="utf-8">
+	<title>FuelUX Test Suite</title>
+	<link rel="stylesheet" href="../lib/qunit/qunit.css" media="screen">
+	<script src="../lib/qunit/qunit.js"></script>
+	<script src="../lib/require.js"></script>
+
+	<script>
+	require.config({
+		baseUrl: '../src',
+		paths: {
+			jquery: '../lib/jquery',
+			bootstrap: '../lib/bootstrap/js'
+		}
+	});
+	</script>
+
+	<script src="fuelux-test.js"></script>
+	<script src="fuelux-combobox.js"></script>
 </head>
 <body>
-  <h1 id="qunit-header">FuelUX Test Suite</h1>
-  <h2 id="qunit-banner"></h2>
-  <div id="qunit-testrunner-toolbar"></div>
-  <h2 id="qunit-userAgent"></h2>
-  <ol id="qunit-tests"></ol>
-  <div id="qunit-fixture">
+	<h1 id="qunit-header">FuelUX Test Suite</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+	<div id="qunit-fixture">
 
-  </div>
+	</div>
 </body>
 </html>
