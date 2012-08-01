@@ -3,7 +3,7 @@
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2012 ExactTarget
- * Licensed under the Apache license.
+ * Licensed under the MIT license.
  */
 
 define(function (require) {

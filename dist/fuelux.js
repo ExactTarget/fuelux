@@ -2009,7 +2009,7 @@ define('fuelux-combobox',['require','jquery'],function(require) {
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2012 ExactTarget
- * Licensed under the Apache license.
+ * Licensed under the MIT license.
  */
 
 define('fuelux',['require','jquery','bootstrap/bootstrap-alert','bootstrap/bootstrap-button','bootstrap/bootstrap-carousel','bootstrap/bootstrap-collapse','bootstrap/bootstrap-dropdown','bootstrap/bootstrap-modal','bootstrap/bootstrap-popover','bootstrap/bootstrap-scrollspy','bootstrap/bootstrap-tab','bootstrap/bootstrap-tooltip','bootstrap/bootstrap-transition','bootstrap/bootstrap-typeahead','fuelux-combobox'],function (require) {
