@@ -1,0 +1,10 @@
+{
+	"folders":
+	[
+		{
+			"path": "/Users/kdecker/Dropbox/dev/public/handlebars.js",
+      "file_exclude_patterns": [ "Gemfile*" ],
+      "folder_exclude_patterns": [ "node_modules", "dist" ]
+		}
+	]
+}
