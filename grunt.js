@@ -111,7 +111,8 @@ module.exports = function(grunt) {
 			}
 		},
 		clean: {
-			dist: ['dist/build.txt', 'dist/fuelux.zip']
+			dist: ['dist/build.txt', 'dist/fuelux.zip'],
+			zipsrc: ['dist/fuelux']
 		},
 		copy: {
 			images: {
@@ -121,22 +122,30 @@ module.exports = function(grunt) {
 				files: {
 					'dist/img': 'lib/bootstrap/img/**'
 				}
+			},
+			zipsrc: {
+				options: {
+					basePath: 'dist'
+				},
+				files: {
+					'dist/fuelux': 'dist/**'
+				}
 			}
 		},
 		compress: {
 			zip: {
 				files: {
-					'dist/fuelux.zip': 'dist/**'
+					'dist/fuelux.zip': 'dist/fuelux/**'
 				},
 				options: {
 					mode: 'zip',
-					basePath: 'dist'
+					basePath: 'dist/'
 				}
 			}
 		}
 	});
 
 	// Default task.
-	grunt.registerTask('default', 'lint recess qunit requirejs copy clean min compress');
+	grunt.registerTask('default', 'lint recess qunit requirejs copy:images clean:dist min copy:zipsrc compress clean:zipsrc');
 
 };

@@ -26,7 +26,7 @@ CSSOM.CSSKeyframeRule.prototype.type = 9;
 
 // http://www.opensource.apple.com/source/WebCore/WebCore-955.66.1/css/WebKitCSSKeyframeRule.cpp
 CSSOM.CSSKeyframeRule.prototype.__defineGetter__("cssText", function() {
-	return this.keyText + " { " + this.style.cssText + " } ";
+	return this.keyText + " {" + this.style.cssText + "} ";
 });
 
 

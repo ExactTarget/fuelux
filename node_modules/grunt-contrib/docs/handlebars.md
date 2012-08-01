@@ -1,5 +1,5 @@
 ## Compile handlebars templates to JST file
-> Contributed By: Tim Branyen (@tbranyen)
+> Contributed By: [Tim Branyen](/tbranyen) (@tbranyen)
 
 ### Overview
 
