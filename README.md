@@ -1,10 +1,21 @@
 # FuelUX
 
-FuelUX is in an early stage of development and is not yet suitable for production use.  The project aims to help web developers integrate, manage, and customize quality frontend libraries and utilities to more efficiently develop, maintain, test, and distribute their projects.  Any improvements or fixes we make to these open source projects will be contributed upstream if they are useful to the rest of the community.
+_Base FuelUX styles and controls_
 
-## Technologies Used
+FuelUX is under development in preparation for initial release and is not yet intended for production use.  Our aim is to help web developers integrate, manage, and customize quality frontend libraries and utilities to more efficiently develop, maintain, test, and distribute their projects.  Any improvements or fixes we make to these open source projects will be contributed upstream if they are useful to the rest of the community.
 
-We are grateful to the maintainers, contributors, and sponsors of the following technologies which make FuelUX possible.
+## Technologies Provided
+
+This core FuelUX repo provides all of the styles and plugins from the revolutionary [Twitter Bootstrap](http://twitter.github.com/bootstrap) project, with the following additions:
+
+* [AMD](http://requirejs.org/docs/whyamd.html) compatibility
+* One-step install with [volo](https://github.com/volojs/volo)
+* [Grunt](https://github.com/cowboy/grunt)-based build script to easily build custom distribution files
+* Additional FuelUX controls, including unit tests
+  * Combobox
+  * _(watch this space)_
+
+We are grateful to the maintainers, contributors, and sponsors of the following technologies which make FuelUX possible:
 
 * [jQuery](http://jquery.com) (Library for DOM, events, animation, and AJAX)
 
@@ -17,16 +28,15 @@ We are grateful to the maintainers, contributors, and sponsors of the following 
 * [grunt](https://github.com/cowboy/grunt) (Build tool for JavaScript projects)
 
 ## Getting Started
-_(Coming soon)_
+* Clone the repo `git clone git://github.com/ExactTarget/fuelux.git`
+* Default FuelUX files for production use are located in the [dist](https://github.com/ExactTarget/fuelux/tree/master/dist) directory
+* To customize, modify the JS and LESS files under [src](https://github.com/ExactTarget/fuelux/tree/master/src) then run `grunt` to regenerate your [dist](https://github.com/ExactTarget/fuelux/tree/master/dist) directory (more below)
 
-## Documentation
-_(Coming soon)_
-
-## Examples
-_(Coming soon)_
+## Documentation and Examples
+_(Under development)_
 
 ## Release History
-_(Coming soon)_
+`2.0.0` _(Under development)_ First public release of FuelUX
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
