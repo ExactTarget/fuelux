@@ -5,7 +5,7 @@ Several helpers are included as part of grunt-contrib, often to help improve con
 ## Included Helpers
 
 ### Options
-> Contributed By: Tyler Kellen (@tkellen)
+> Contributed By: [Tyler Kellen](/tkellen) (@tkellen)
 
 #### Overview
 
