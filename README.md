@@ -13,7 +13,7 @@ This core FuelUX repo provides all of the styles and plugins from the revolution
 * [Grunt](https://github.com/cowboy/grunt)-based build script to easily build custom distribution files
 * Additional FuelUX controls, including unit tests
   * Combobox
-  * _(watch this space)_
+  * Search control
 
 We are grateful to the maintainers, contributors, and sponsors of the following technologies which make FuelUX possible:
 
