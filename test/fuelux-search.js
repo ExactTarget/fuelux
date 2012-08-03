@@ -37,10 +37,11 @@ require(['jquery', 'fuelux'], function($) {
 		equal(searchText, 'search text', 'search text was provided in event');
 	});
 
-	test("search can be cleared", function () {
+	test("should allow search to be cleared", function () {
 		var searchHTML = '<div><input><button><i></i></button></div>';
+		var clearedEventFired = false;
 
-		var $search = $(searchHTML).search();
+		var $search = $(searchHTML).search().on('cleared', function (e, text) { clearedEventFired = true; });
 
 		$search.find('input').val('search text');
 		$search.find('button').click();
@@ -48,6 +49,7 @@ require(['jquery', 'fuelux'], function($) {
 
 		equal($search.find('i').attr('class'), 'icon-search', 'search icon has returned');
 		equal($search.find('input').val(), '', 'search text has been cleared');
+		equal(clearedEventFired, true, 'cleared event was fired');
 	});
 
 });

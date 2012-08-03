@@ -2028,13 +2028,14 @@ define('fuelux-search',['require','jquery'],function(require) {
 			var val;
 
 			if (this.state === 'idle' && (val = this.$input.val())) {
-				this.$element.trigger('searched', val);
 				this.$icon.attr('class', 'icon-remove');
 				this.state = 'active';
+				this.$element.trigger('searched', val);
 			} else {
 				this.$icon.attr('class', 'icon-search');
-				this.$input.val('');
 				this.state = 'idle';
+				this.$input.val('');
+				this.$element.trigger('cleared');
 			}
 		},
 
