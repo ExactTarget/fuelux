@@ -21,4 +21,5 @@ define(function (require) {
 	require('bootstrap/bootstrap-transition');
 	require('bootstrap/bootstrap-typeahead');
 	require('fuelux-combobox');
+	require('fuelux-search');
 });
