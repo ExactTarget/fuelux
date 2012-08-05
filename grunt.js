@@ -34,7 +34,7 @@ module.exports = function(grunt) {
 		},
 		watch: {
 			files: ['grunt.js', 'lib/**', 'src/**', 'test/**'],
-			tasks: 'lint recess qunit'
+			tasks: 'lint qunit recess'
 		},
 		jshint: {
 			options: {
@@ -80,30 +80,30 @@ module.exports = function(grunt) {
 		},
 		recess: {
 			compile: {
-				src: ['src/css/less/fuelux.less'],
-				dest: 'src/css/fuelux.css',
+				src: ['src/less/fuelux.less'],
+				dest: 'dist/css/fuelux.css',
 				options: {
 					compile: true
 				}
 			},
 			compile_responsive: {
-				src: ['src/css/less/fuelux-responsive.less'],
-				dest: 'src/css/fuelux-responsive.css',
+				src: ['src/less/fuelux-responsive.less'],
+				dest: 'dist/css/fuelux-responsive.css',
 				options: {
 					compile: true
 				}
 			},
 			compress: {
-				src: ['src/css/less/fuelux.less'],
-				dest: 'src/css/fuelux.min.css',
+				src: ['src/less/fuelux.less'],
+				dest: 'dist/css/fuelux.min.css',
 				options: {
 					compile: true,
 					compress: true
 				}
 			},
 			compress_responsive: {
-				src: ['src/css/less/fuelux-responsive.less'],
-				dest: 'src/css/fuelux-responsive.min.css',
+				src: ['src/less/fuelux-responsive.less'],
+				dest: 'dist/css/fuelux-responsive.min.css',
 				options: {
 					compile: true,
 					compress: true
@@ -146,6 +146,6 @@ module.exports = function(grunt) {
 	});
 
 	// Default task.
-	grunt.registerTask('default', 'lint recess qunit requirejs copy:images clean:dist min copy:zipsrc compress clean:zipsrc');
+	grunt.registerTask('default', 'lint qunit requirejs recess copy:images clean:dist min copy:zipsrc compress clean:zipsrc');
 
 };
