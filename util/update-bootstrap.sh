@@ -2,7 +2,7 @@
 
 rm -rf lib/bootstrap
 
-volo add bootstrap
+volo add -nostamp bootstrap
 
 volo amdify lib/bootstrap/js/bootstrap-transition.js depends=jquery
 volo amdify lib/bootstrap/js/bootstrap-alert.js depends=bootstrap/bootstrap-transition
