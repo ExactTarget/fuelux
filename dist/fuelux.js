@@ -1943,6 +1943,14 @@
     return amdExports;
 }); }(this));
 
+/*
+ * FuelUX Combobox
+ * https://github.com/ExactTarget/fuelux
+ *
+ * Copyright (c) 2012 ExactTarget
+ * Licensed under the MIT license.
+ */
+
 define('fuelux-combobox',['require','jquery'],function(require) {
 	
 	var $ = require('jquery');
@@ -2003,6 +2011,14 @@ define('fuelux-combobox',['require','jquery'],function(require) {
 	});
 
 });
+
+/*
+ * FuelUX Search
+ * https://github.com/ExactTarget/fuelux
+ *
+ * Copyright (c) 2012 ExactTarget
+ * Licensed under the MIT license.
+ */
 
 define('fuelux-search',['require','jquery'],function(require) {
 
