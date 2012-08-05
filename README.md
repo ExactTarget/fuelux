@@ -6,13 +6,13 @@ _Base FuelUX styles and controls_
 
 FuelUX extends Twitter Bootstrap with additional lightweight JavaScript controls and provides simple workflows for installation into web projects, customization, update management, and deployment optimization.
 
-## Technologies Provided
+## Features
 
 FuelUX provides all of the styles and plugins from the revolutionary [Twitter Bootstrap](http://twitter.github.com/bootstrap) project, with the following additions:
 
 * One-step installation and updates through [volo](https://github.com/volojs/volo)
 * [AMD](http://requirejs.org/docs/whyamd.html) compatibility for modular structure and deployment optimization
-* [Grunt](https://github.com/cowboy/grunt)-based build script to easily build custom distribution files
+* [Grunt](https://github.com/cowboy/grunt)-based build script to easily create custom distribution files
 * Additional FuelUX controls (with unit tests)
   * Combobox - _combines input and dropdown for easy and flexible data selection_
   * Search control - _combines input and button for integrated search interaction_
