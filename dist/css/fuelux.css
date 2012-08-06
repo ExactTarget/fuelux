@@ -4981,3 +4981,99 @@ textarea.span1,
 .fuelux .invisible {
   visibility: hidden;
 }
+
+.fuelux .datagrid thead {
+  background-color: #f9f9f9;
+}
+
+.fuelux .datagrid thead .datagrid-header-title {
+  float: left;
+  margin-right: 10px;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 28px;
+}
+
+.fuelux .datagrid thead .datagrid-header-left {
+  float: left;
+}
+
+.fuelux .datagrid thead .datagrid-header-right {
+  float: right;
+}
+
+.fuelux .datagrid thead .sorted {
+  background-color: #f1f1f1;
+  background-image: -o-linear-gradient(top, #f9f9f9, #e5e5e5);
+  background-image: -ms-linear-gradient(top, #f9f9f9, #e5e5e5);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f9f9f9), to(#e5e5e5));
+  background-image: -webkit-linear-gradient(top, #f9f9f9, #e5e5e5);
+  background-image: -moz-linear-gradient(top, #f9f9f9, #e5e5e5);
+  background-image: linear-gradient(top, #f9f9f9, #e5e5e5);
+  background-repeat: repeat-x;
+  border-color: #e5e5e5 #e5e5e5 #bebebe;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#e5e5e5', GradientType=0);
+}
+
+.fuelux .datagrid thead .sorted i {
+  float: right;
+  margin-top: 2px;
+}
+
+.fuelux .datagrid thead .sortable {
+  cursor: pointer;
+}
+
+.fuelux .datagrid thead .sortable:hover {
+  background-color: #f1f1f1;
+  background-image: -o-linear-gradient(top, #f9f9f9, #e5e5e5);
+  background-image: -ms-linear-gradient(top, #f9f9f9, #e5e5e5);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f9f9f9), to(#e5e5e5));
+  background-image: -webkit-linear-gradient(top, #f9f9f9, #e5e5e5);
+  background-image: -moz-linear-gradient(top, #f9f9f9, #e5e5e5);
+  background-image: linear-gradient(top, #f9f9f9, #e5e5e5);
+  background-repeat: repeat-x;
+  border-color: #e5e5e5 #e5e5e5 #bebebe;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#e5e5e5', GradientType=0);
+}
+
+.fuelux .datagrid tfoot {
+  background-color: #f9f9f9;
+}
+
+.fuelux .datagrid tfoot .datagrid-footer-left {
+  float: left;
+}
+
+.fuelux .datagrid tfoot .datagrid-footer-left .grid-controls {
+  margin-top: 1px;
+}
+
+.fuelux .datagrid tfoot .datagrid-footer-left .grid-controls select {
+  width: 60px;
+  margin: 0 5px 1px;
+}
+
+.fuelux .datagrid tfoot .datagrid-footer-left .grid-controls span {
+  font-weight: normal;
+}
+
+.fuelux .datagrid tfoot .datagrid-footer-right {
+  float: right;
+}
+
+.fuelux .datagrid tfoot .datagrid-footer-right .grid-pager > span {
+  position: relative;
+  top: 2px;
+  font-weight: normal;
+}
+
+.fuelux .datagrid tfoot .datagrid-footer-right .grid-pager .dropdown-menu {
+  min-width: 50px;
+}
+
+.fuelux .datagrid tfoot .datagrid-footer-right .grid-pager .combobox {
+  display: inline-block;
+}
