@@ -13,7 +13,7 @@ FuelUX provides all of the styles and plugins from the revolutionary [Twitter Bo
 * One-step installation and updates through [volo](https://github.com/volojs/volo)
 * [AMD](http://requirejs.org/docs/whyamd.html) compatibility for modular structure and deployment optimization
 * [Grunt](https://github.com/cowboy/grunt)-based build script to easily create custom distribution files
-* Namespaced CSS (just add a `fuelux` class where you) for safe use on existing sites
+* Namespaced CSS (just add a `fuelux` class) for safe use on existing sites
 * Additional FuelUX controls (with unit tests)
   * Combobox - _combines input and dropdown for easy and flexible data selection_
   * Search control - _combines input and button for integrated search interaction_
