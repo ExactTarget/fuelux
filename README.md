@@ -13,13 +13,13 @@ FuelUX provides all of the styles and plugins from the revolutionary [Twitter Bo
 * One-step installation and updates through [volo](https://github.com/volojs/volo)
 * [AMD](http://requirejs.org/docs/whyamd.html) compatibility for modular structure and deployment optimization
 * [Grunt](https://github.com/cowboy/grunt)-based build script to easily create custom distribution files
+* Namespaced CSS (just add a `fuelux` class where you) for safe use on existing sites
 * Additional FuelUX controls (with unit tests)
   * Combobox - _combines input and dropdown for easy and flexible data selection_
   * Search control - _combines input and button for integrated search interaction_
 
 ## Getting Started
-`git clone git://github.com/ExactTarget/fuelux.git`
-
+* `git clone git://github.com/ExactTarget/fuelux.git`
 * Default FuelUX files for production use are located in the [dist](https://github.com/ExactTarget/fuelux/tree/master/dist) directory
 * To customize, modify the JS and LESS files under [src](https://github.com/ExactTarget/fuelux/tree/master/src) then run `grunt` to regenerate your [dist](https://github.com/ExactTarget/fuelux/tree/master/dist) directory (more below)
 
@@ -34,8 +34,6 @@ In lieu of a formal style guide, take care to maintain the existing coding style
 
 ### Important notes
 Please don't edit files in the `dist` directory as they are generated via grunt. You'll find source code in the `src` directory!
-
-All CSS files are regenerated on every grunt build.  Please modify styles by editing the LESS source and rerunning `grunt`.
 
 While grunt can run the included unit tests via PhantomJS, this shouldn't be considered a substitute for the real thing. Please be sure to test the `test/*.html` unit test file(s) in _actual_ browsers.
 
@@ -63,7 +61,7 @@ Note that the `phantomjs` executable needs to be in the system `PATH` for grunt 
 
 ## The FuelUX Philosophy
 
-Our aim is to provide a suite of related but independent projects that help web developers integrate, manage, and customize quality libraries and utilities to more efficiently develop, maintain, test, and distribute their projects.  Any improvements or fixes we make to these open source projects will be contributed upstream if they are useful to the rest of the community.
+Our aim is to provide a suite of related but independent projects that help web developers integrate, manage, and customize quality libraries and utilities to more efficiently develop, maintain, test, and distribute their projects.  Any improvements or fixes we make to the open source projects we use will be contributed upstream if they are useful to the rest of the community.
 
 ## Acknowledgements
 
