@@ -14,16 +14,10 @@ module.exports = function(grunt) {
 			'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
 			' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
 		},
-		concat: {
-			dist: {
-				src: ['<banner:meta.banner>', '<file_strip_banner:src/<%= pkg.name %>.js>'],
-				dest: 'dist/<%= pkg.name %>.js'
-			}
-		},
 		min: {
 			dist: {
-				src: ['<banner:meta.banner>', '<config:concat.dist.dest>'],
-				dest: 'dist/<%= pkg.name %>.min.js'
+				src: ['<banner:meta.banner>', 'dist/all.js'],
+				dest: 'dist/all.min.js'
 			}
 		},
 		qunit: {
@@ -67,11 +61,12 @@ module.exports = function(grunt) {
 					optimizeCss: 'none',
 					paths: {
 						bootstrap: '../lib/bootstrap/js',
-						jquery: '../lib/jquery'
+						jquery: '../lib/jquery',
+						fuelux: '../dist'
 					},
 					modules: [
 						{
-							name: 'fuelux',
+							name: 'fuelux/all',
 							exclude: ['jquery']
 						}
 					]

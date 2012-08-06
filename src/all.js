@@ -20,6 +20,6 @@ define(function (require) {
 	require('bootstrap/bootstrap-tooltip');
 	require('bootstrap/bootstrap-transition');
 	require('bootstrap/bootstrap-typeahead');
-	require('fuelux-combobox');
-	require('fuelux-search');
+	require('fuelux/combobox');
+	require('fuelux/search');
 });

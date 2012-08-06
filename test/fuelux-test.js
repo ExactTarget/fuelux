@@ -2,7 +2,7 @@
 /*global start:false, stop:false ok:false, equal:false, notEqual:false, deepEqual:false*/
 /*global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false*/
 
-require(['jquery', 'fuelux'], function($) {
+require(['jquery', 'fuelux/all'], function($) {
 
 	module('Twitter Bootstrap plugins', {
 		setup: function() {
