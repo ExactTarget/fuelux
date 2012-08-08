@@ -166,6 +166,7 @@ define(function(require) {
 
 		searchChanged: function (e, search) {
 			this.options.dataOptions.search = search;
+			this.options.dataOptions.pageIndex = 0;
 			this.renderData();
 		},
 
