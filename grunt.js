@@ -142,5 +142,6 @@ module.exports = function(grunt) {
 
 	// Default task.
 	grunt.registerTask('default', 'lint qunit requirejs recess copy:images clean:dist min copy:zipsrc compress clean:zipsrc');
+	grunt.registerTask('s', 'lint qunit recess server watch'); // development server
 
 };

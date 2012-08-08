@@ -16,7 +16,7 @@ define(function(require) {
 	var Combobox = function (element, options) {
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.combobox.defaults, options);
-		this.$element.find('a').on('click', $.proxy(this.itemclicked, this));
+		this.$element.on('click', 'a', $.proxy(this.itemclicked, this));
 		this.$input = this.$element.find('input');
 	};
 
@@ -25,7 +25,7 @@ define(function(require) {
 		constructor: Combobox,
 
 		select: function (val) {
-			this.$input.val(val);
+			this.$input.val(val).change();
 			return this;
 		},
 
