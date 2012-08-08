@@ -30,7 +30,7 @@ define(['require','jquery'],function(require) {
 		},
 
 		itemclicked: function (e) {
-			this.select(e.target.text);
+			this.select($(e.target).text());
 			e.preventDefault();
 		}
 
