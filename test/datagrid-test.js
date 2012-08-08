@@ -50,12 +50,35 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 		});
 	});
 
+	asyncTest("should handle data source with zero records", function () {
+		var $datagrid = $(datagridHTML).datagrid({ dataSource: emptyDataSource }).on('loaded', function () {
+
+			var $datarows = $datagrid.find('tbody tr');
+			equal($datarows.length, 1, 'row for status was rendered');
+
+			var $testcell = $datarows.eq(0).find('td');
+			equal($testcell.text(), '0 items', 'empty status is displayed');
+
+			start();
+		});
+	});
+
 	var emptyDataSource = {
 		columns: function () {
-			return [];
+			return [{
+				property: 'property1',
+				label: 'Property One',
+				sortable: true
+			}, {
+				property: 'property2',
+				label: 'Property Two',
+				sortable: true
+			}];
 		},
 		data: function (options, callback) {
-			callback({ data: [], start: 1, end: 0, count: 0, pages: 0, page: 1 });
+			setTimeout(function () {
+				callback({ data: [], start: 1, end: 0, count: 0, pages: 0, page: 1 });
+			}, 0);
 		}
 	};
 
@@ -103,7 +126,7 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 		'</th></tr></thead>' +
 		'<tfoot><tr><th>' +
 		'<div class="datagrid-footer-left"><div class="grid-controls">' +
-		'<span><span class="grid-start"></span> - <span class="grid-end"></span> of <span class="grid-count"></span> items</span>' +
+		'<span><span class="grid-start"></span> - <span class="grid-end"></span> of <span class="grid-count"></span> <span class="grid-items-label">items</span></span>' +
 		'<select class="grid-pagesize"><option>3</option></select>' +
 		'<span>Per Page</span>' +
 		'</div></div>' +

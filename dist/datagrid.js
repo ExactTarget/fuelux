@@ -22,6 +22,7 @@ define(['require','jquery'],function(require) {
 		this.$pagesize = this.$element.find('.grid-pagesize');
 		this.$pageinput = this.$element.find('.grid-pager input');
 		this.$pagedropdown = this.$element.find('.grid-pager .dropdown-menu');
+		this.$itemslabel = this.$element.find('.grid-items-label');
 		this.$prevpagebtn = this.$element.find('.grid-prevpage');
 		this.$nextpagebtn = this.$element.find('.grid-nextpage');
 		this.$pageslabel = this.$element.find('.grid-pages');
@@ -42,8 +43,6 @@ define(['require','jquery'],function(require) {
 		this.$colheader.on('click', 'th', $.proxy(this.headerClicked, this));
 		this.$pagesize.on('change', $.proxy(this.pagesizeChanged, this));
 		this.$pageinput.on('change', $.proxy(this.pageChanged, this));
-
-
 
 		this.renderColumns();
 		this.renderData();
@@ -110,6 +109,8 @@ define(['require','jquery'],function(require) {
 			this.options.dataSource.data(this.options.dataOptions, function (data) {
 				var rowHTML = '';
 
+				self.$footer.children().toggle(data.count > 0);
+
 				self.$pageinput.val(data.page);
 				self.$pageslabel.text(data.pages);
 				self.$countlabel.text(data.count);
@@ -126,6 +127,13 @@ define(['require','jquery'],function(require) {
 					});
 					rowHTML += '</tr>';
 				});
+
+				if (!rowHTML) {
+					rowHTML = '<tr><td ' +
+						'style="text-align:center;" ' +
+						'colspan="' + self.columns.length + '">' +
+						'0 ' + self.$itemslabel.text() + '</td></tr>';
+				}
 
 				self.$tbody.append(rowHTML);
 				self.$element.trigger('loaded');
