@@ -17,33 +17,55 @@ define(['require','jquery'],function(require) {
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.search.defaults, options);
 		this.$element.find('button').on('click', $.proxy(this.buttonclicked, this));
-		this.$input = this.$element.find('input');
+		this.$input = this.$element.find('input').on('keyup', $.proxy(this.keypressed, this));
 		this.$icon = this.$element.find('i');
-		this.state = 'idle';
+		this.activeSearch = '';
 	};
 
 	Search.prototype = {
 
 		constructor: Search,
 
-		action: function () {
-			var val;
+		search: function (searchText) {
+			this.$icon.attr('class', 'icon-remove');
+			this.activeSearch = searchText;
+			this.$element.trigger('searched', searchText);
+		},
 
-			if (this.state === 'idle' && (val = this.$input.val())) {
-				this.$icon.attr('class', 'icon-remove');
-				this.state = 'active';
-				this.$element.trigger('searched', val);
-			} else {
-				this.$icon.attr('class', 'icon-search');
-				this.state = 'idle';
-				this.$input.val('');
-				this.$element.trigger('cleared');
+		clear: function () {
+			this.$icon.attr('class', 'icon-search');
+			this.activeSearch = '';
+			this.$input.val('');
+			this.$element.trigger('cleared');
+		},
+
+		action: function () {
+			var val = this.$input.val();
+			var inputEmptyOrUnchanged = val === '' || val === this.activeSearch;
+
+			if (this.activeSearch && inputEmptyOrUnchanged) {
+				this.clear();
+			} else if (val) {
+				this.search(val);
 			}
 		},
 
 		buttonclicked: function (e) {
 			e.preventDefault();
 			this.action();
+		},
+
+		keypressed: function (e) {
+			var val, inputPresentAndUnchanged;
+
+			if (e.which === 13) {
+				e.preventDefault();
+				this.action();
+			} else {
+				val = this.$input.val();
+				inputPresentAndUnchanged = val && (val === this.activeSearch);
+				this.$icon.attr('class', inputPresentAndUnchanged ? 'icon-remove' : 'icon-search');
+			}
 		}
 
 	};

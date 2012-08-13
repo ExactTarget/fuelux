@@ -15,7 +15,7 @@ require(['jquery', 'fuelux/search'], function($) {
 	});
 
 	test("should ignore empty search", function () {
-		var searchHTML = '<div><input><button><i></i></button></div>';
+		var searchHTML = '<div><input><button><i class="icon-search"></i></button></div>';
 
 		var $search = $(searchHTML).search();
 
@@ -50,6 +50,27 @@ require(['jquery', 'fuelux/search'], function($) {
 		equal($search.find('i').attr('class'), 'icon-search', 'search icon has returned');
 		equal($search.find('input').val(), '', 'search text has been cleared');
 		equal(clearedEventFired, true, 'cleared event was fired');
+	});
+
+	test("should process sequential searches", function () {
+		var searchHTML = '<div><input><button><i></i></button></div>';
+		var searchText = '';
+
+		var $search = $(searchHTML).search().on('searched', function (e, text) { searchText = text; });
+
+		$search.find('input').val('search text');
+		$search.find('button').click();
+
+		equal($search.find('i').attr('class'), 'icon-remove', 'search icon has changed');
+		equal(searchText, 'search text', 'search text was provided in event');
+
+		$search.find('input').val('search text 2').keyup();
+		equal($search.find('i').attr('class'), 'icon-search', 'search icon has returned');
+
+		$search.find('button').click();
+
+		equal($search.find('i').attr('class'), 'icon-remove', 'search icon has changed');
+		equal(searchText, 'search text 2', 'search text was provided in event');
 	});
 
 });
