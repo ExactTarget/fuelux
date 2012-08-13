@@ -2031,12 +2031,12 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 		this.$element = $(element);
 		this.$thead = this.$element.find('thead');
 		this.$footer = this.$element.find('tfoot th');
+		this.$footerchildren = this.$footer.children();
 		this.$topheader = this.$element.find('thead th');
 		this.$searchcontrol = this.$element.find('.search');
 		this.$pagesize = this.$element.find('.grid-pagesize');
 		this.$pageinput = this.$element.find('.grid-pager input');
 		this.$pagedropdown = this.$element.find('.grid-pager .dropdown-menu');
-		this.$itemslabel = this.$element.find('.grid-items-label');
 		this.$prevpagebtn = this.$element.find('.grid-prevpage');
 		this.$nextpagebtn = this.$element.find('.grid-nextpage');
 		this.$pageslabel = this.$element.find('.grid-pages');
@@ -2118,16 +2118,18 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 		renderData: function () {
 			var self = this;
 
-			this.$tbody.empty();
+			this.$tbody.html(this.placeholderRowHTML(this.options.loadingHTML));
+			this.$footerchildren.hide();
 
 			this.options.dataSource.data(this.options.dataOptions, function (data) {
+				var itemdesc = (data.count === 1) ? self.options.itemText : self.options.itemsText;
 				var rowHTML = '';
 
-				self.$footer.children().toggle(data.count > 0);
+				self.$footerchildren.toggle(data.count > 0);
 
 				self.$pageinput.val(data.page);
 				self.$pageslabel.text(data.pages);
-				self.$countlabel.text(data.count);
+				self.$countlabel.text(data.count + ' ' + itemdesc);
 				self.$startlabel.text(data.start);
 				self.$endlabel.text(data.end);
 
@@ -2142,17 +2144,17 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 					rowHTML += '</tr>';
 				});
 
-				if (!rowHTML) {
-					rowHTML = '<tr><td ' +
-						'style="text-align:center;" ' +
-						'colspan="' + self.columns.length + '">' +
-						'0 ' + self.$itemslabel.text() + '</td></tr>';
-				}
+				if (!rowHTML) rowHTML = self.placeholderRowHTML('0 ' + self.options.itemsText);
 
-				self.$tbody.append(rowHTML);
+				self.$tbody.html(rowHTML);
 				self.$element.trigger('loaded');
 			});
 
+		},
+
+		placeholderRowHTML: function (content) {
+			return '<tr><td style="text-align:center;padding:20px;" colspan="' +
+				this.columns.length + '">' + content + '</td></tr>';
 		},
 
 		headerClicked: function (e) {
@@ -2218,7 +2220,12 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 		});
 	};
 
-	$.fn.datagrid.defaults = { dataOptions: { pageIndex: 0, pageSize: 10 } };
+	$.fn.datagrid.defaults = {
+		dataOptions: { pageIndex: 0, pageSize: 10 },
+		loadingHTML: '<div class="progress progress-striped active" style="width:50%;margin:auto;"><div class="bar" style="width:100%;"></div></div>',
+		itemsText: 'items',
+		itemText: 'item'
+	};
 
 	$.fn.datagrid.Constructor = Datagrid;
 

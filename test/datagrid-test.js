@@ -48,6 +48,9 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 
 			start();
 		});
+
+		var $activityrow = $datagrid.find('tbody tr');
+		equal($activityrow.length, 1, 'activity row was rendered');
 	});
 
 	asyncTest("should handle data source with zero records", function () {
@@ -61,6 +64,9 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 
 			start();
 		});
+
+		var $activityrow = $datagrid.find('tbody tr');
+		equal($activityrow.length, 1, 'activity row was rendered');
 	});
 
 	var emptyDataSource = {
@@ -126,7 +132,7 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 		'</th></tr></thead>' +
 		'<tfoot><tr><th>' +
 		'<div class="datagrid-footer-left"><div class="grid-controls">' +
-		'<span><span class="grid-start"></span> - <span class="grid-end"></span> of <span class="grid-count"></span> <span class="grid-items-label">items</span></span>' +
+		'<span><span class="grid-start"></span> - <span class="grid-end"></span> of <span class="grid-count"></span></span>' +
 		'<select class="grid-pagesize"><option>3</option></select>' +
 		'<span>Per Page</span>' +
 		'</div></div>' +

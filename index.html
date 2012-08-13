@@ -77,7 +77,7 @@
 
 							callback({ data: data, start: start, end: end, count: count, pages: pages, page: page });
 
-						}, 0)
+						}, 500)
 
 					}
 
@@ -144,14 +144,14 @@
 		<tfoot>
 		<tr>
 			<th>
-				<div class="datagrid-footer-left">
+				<div class="datagrid-footer-left" style="display:none;">
 					<div class="grid-controls">
-						<span><span class="grid-start"></span> - <span class="grid-end"></span> of <span class="grid-count"></span> <span class="grid-items-label">items</span></span>
+						<span><span class="grid-start"></span> - <span class="grid-end"></span> of <span class="grid-count"></span></span>
 						<select class="grid-pagesize"><option>10</option><option>20</option><option>50</option><option>100</option></select>
 						<span>Per Page</span>
 					</div>
 				</div>
-				<div class="datagrid-footer-right">
+				<div class="datagrid-footer-right" style="display:none;">
 					<div class="grid-pager">
 						<button class="btn grid-prevpage"><i class="icon-chevron-left"></i></button>
 						<span>Page</span>
