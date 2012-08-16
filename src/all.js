@@ -22,5 +22,6 @@ define(function (require) {
 	require('bootstrap/bootstrap-typeahead');
 	require('fuelux/combobox');
 	require('fuelux/datagrid');
+	require('fuelux/pillbox');
 	require('fuelux/search');
 });

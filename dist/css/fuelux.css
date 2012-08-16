@@ -5077,3 +5077,67 @@ textarea.span1,
 .fuelux .datagrid tfoot .datagrid-footer-right .grid-pager .combobox {
   display: inline-block;
 }
+
+.fuelux .pillbox {
+  padding: 3px;
+}
+
+.fuelux .pillbox ul {
+  display: inline-block;
+  margin: 0;
+}
+
+.fuelux .pillbox li {
+  display: inline-block;
+  float: left;
+  padding: 1px 4px 2px;
+  margin: 2px;
+  font-size: 10.998px;
+  font-weight: bold;
+  line-height: 18px;
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  white-space: nowrap;
+  vertical-align: baseline;
+  cursor: pointer;
+  background-color: #999999;
+  -webkit-border-radius: 3px;
+     -moz-border-radius: 3px;
+          border-radius: 3px;
+}
+
+.fuelux .pillbox li:after {
+  position: relative;
+  top: -2px;
+  float: right;
+  padding-left: 4px;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 18px;
+  color: #000000;
+  text-shadow: 0 1px 0 #ffffff;
+  content: " \00D7";
+  opacity: 0.2;
+  filter: alpha(opacity=20);
+}
+
+.fuelux .pillbox li:hover:after {
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
+
+.fuelux .pillbox li.status-important {
+  background-color: #b94a48;
+}
+
+.fuelux .pillbox li.status-warning {
+  background-color: #f89406;
+}
+
+.fuelux .pillbox li.status-success {
+  background-color: #468847;
+}
+
+.fuelux .pillbox li.status-info {
+  background-color: #3a87ad;
+}
