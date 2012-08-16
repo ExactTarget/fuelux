@@ -16,6 +16,8 @@ FuelUX provides all of the styles and plugins from the revolutionary [Twitter Bo
 * Namespaced CSS (just add a `fuelux` class) for safe use on existing sites
 * Additional FuelUX controls (with unit tests)
   * Combobox - _combines input and dropdown for easy and flexible data selection_
+  * Pillbox - _manages selected items with color-coded text labels_
+  * Datagrid - _renders data in a table with paging, sorting, and serching_
   * Search control - _combines input and button for integrated search interaction_
 
 ## Getting Started
