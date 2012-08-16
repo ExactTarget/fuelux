@@ -6,7 +6,7 @@
  * Licensed under the MIT license.
  */
 
-define(function(require) {
+define(['require','jquery'],function(require) {
 
 	var $ = require('jquery');
 

@@ -5141,3 +5141,82 @@ textarea.span1,
 .fuelux .pillbox li.status-info {
   background-color: #3a87ad;
 }
+
+.fuelux .fileupload .btn-file {
+  position: relative;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.fuelux .fileupload .btn-file > input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  cursor: pointer;
+  border: solid transparent;
+  border-width: 0 0 100px 200px;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -moz-transform: translate(-300px, 0) scale(4);
+  direction: ltr;
+}
+
+.fuelux .fileupload .fileupload {
+  margin-bottom: 9px;
+}
+
+.fuelux .fileupload .fileupload .uneditable-input {
+  display: inline-block;
+  margin-bottom: 0;
+  vertical-align: middle;
+  cursor: text;
+}
+
+.fuelux .fileupload .fileupload .thumbnail {
+  display: inline-block;
+  margin-bottom: 5px;
+  overflow: hidden;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.fuelux .fileupload .fileupload .thumbnail > img {
+  display: inline-block;
+  max-height: 100%;
+  vertical-align: middle;
+}
+
+.fuelux .fileupload .fileupload .btn {
+  vertical-align: middle;
+}
+
+.fuelux .fileupload .fileupload-exists .fileupload-new,
+.fuelux .fileupload .fileupload-new .fileupload-exists {
+  display: none;
+}
+
+.fuelux .fileupload .fileupload-inline .fileupload-controls {
+  display: inline;
+}
+
+.fuelux .fileupload .fileupload-new .input-append .btn-file {
+  -webkit-border-radius: 0 3px 3px 0;
+     -moz-border-radius: 0 3px 3px 0;
+          border-radius: 0 3px 3px 0;
+}
+
+.fuelux .fileupload .thumbnail-borderless .thumbnail {
+  padding: 0;
+  border: none;
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+  -webkit-box-shadow: none;
+     -moz-box-shadow: none;
+          box-shadow: none;
+}
+
+.fuelux .fileupload .fileupload-new.thumbnail-borderless .thumbnail {
+  border: 1px solid #ddd;
+}
