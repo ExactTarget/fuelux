@@ -23,5 +23,6 @@ define(function (require) {
 	require('fuelux/combobox');
 	require('fuelux/datagrid');
 	require('fuelux/pillbox');
+	require('fuelux/fileupload');
 	require('fuelux/search');
 });

@@ -1,0 +1,81 @@
+.fileupload {
+
+	.btn-file {
+	  position: relative;
+	  overflow: hidden;
+	  vertical-align: middle;
+	}
+
+	.btn-file > input {
+	  position: absolute;
+	  top: 0;
+	  right: 0;
+	  margin: 0;
+	  cursor: pointer;
+	  border: solid transparent;
+	  border-width: 0 0 100px 200px;
+	  opacity: 0;
+	  filter: alpha(opacity=0);
+	  -moz-transform: translate(-300px, 0) scale(4);
+	  direction: ltr;
+	}
+
+	.fileupload {
+	  margin-bottom: 9px;
+	}
+
+	.fileupload .uneditable-input {
+	  display: inline-block;
+	  margin-bottom: 0;
+	  vertical-align: middle;
+	  cursor: text;
+	}
+
+	.fileupload .thumbnail {
+	  display: inline-block;
+	  margin-bottom: 5px;
+	  overflow: hidden;
+	  text-align: center;
+	  vertical-align: middle;
+	}
+
+	.fileupload .thumbnail > img {
+	  display: inline-block;
+	  max-height: 100%;
+	  vertical-align: middle;
+	}
+
+	.fileupload .btn {
+	  vertical-align: middle;
+	}
+
+	.fileupload-exists .fileupload-new,
+	.fileupload-new .fileupload-exists {
+	  display: none;
+	}
+
+	.fileupload-inline .fileupload-controls {
+	  display: inline;
+	}
+
+	.fileupload-new .input-append .btn-file {
+	  -webkit-border-radius: 0 3px 3px 0;
+		 -moz-border-radius: 0 3px 3px 0;
+			  border-radius: 0 3px 3px 0;
+	}
+
+	.thumbnail-borderless .thumbnail {
+	  padding: 0;
+	  border: none;
+	  -webkit-border-radius: 0;
+		 -moz-border-radius: 0;
+			  border-radius: 0;
+	  -webkit-box-shadow: none;
+		 -moz-box-shadow: none;
+			  box-shadow: none;
+	}
+
+	.fileupload-new.thumbnail-borderless .thumbnail {
+	  border: 1px solid #ddd;
+	}
+}

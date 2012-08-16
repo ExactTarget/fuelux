@@ -34,7 +34,7 @@
 					var items = $('#pillbox1').pillbox('items');
 					console.log(items);
 				});
-			});
+			});			
 
 		});
 	</script>
@@ -61,8 +61,19 @@
 	<input type="button" class="btn" id="btnAdd" value="add">
 	<input type="button" class="btn" id="btnRemove" value="remove">
 	<input type="button" class="btn" id="btnItems" value="get items">
-
+	
 </div>
 
+<div class="container">
+	<div class="row">
+		<div class="span8 columns">
+			<div class="fileupload fileupload-new" data-provides="fileupload">
+				<div class="fileupload-preview uneditable-input span2"></div>
+				<span class="btn btn-file"><span class="fileupload-new">Select file</span><span class="fileupload-exists">Change</span><input type="file" /></span>
+				<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+			</div>
+		</div>
+	</div>
+</div>
 </body>
 </html>
