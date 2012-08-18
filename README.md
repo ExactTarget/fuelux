@@ -3,7 +3,8 @@
 **_FuelUX is under development in preparation for initial release and is not yet intended for production use._**
 
 FuelUX extends Twitter Bootstrap with additional lightweight JavaScript controls.
-Other benefits include easy installation into web projects, integrated scripts for customizing Bootstrap and FuelUX, simple updates, and solid optimization for deployment.
+Other benefits include easy installation into web projects, integrated scripts for customizing Bootstrap and FuelUX,
+simple updates, and solid optimization for deployment. All functionality is covered by live documentation and unit tests.
 
 ## Features
 
