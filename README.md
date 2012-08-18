@@ -1,7 +1,5 @@
 # FuelUX [![Build Status](https://secure.travis-ci.org/ExactTarget/fuelux.png?branch=master)](http://travis-ci.org/ExactTarget/fuelux)
 
-_Base FuelUX styles and controls_
-
 **_FuelUX is under development in preparation for initial release and is not yet intended for production use._**
 
 FuelUX extends Twitter Bootstrap with additional lightweight JavaScript controls.
@@ -11,7 +9,7 @@ Other benefits include easy installation into web projects, integrated scripts f
 
 FuelUX provides all of the styles and plugins from the revolutionary [Twitter Bootstrap](http://twitter.github.com/bootstrap) project, with the following additions:
 
-* FuelUX UI controls (with unit tests) [see them live](http://exacttarget.github.com/fuelux)
+* FuelUX JavaScript controls (with unit tests) [see them live](http://exacttarget.github.com/fuelux)
   * Combobox - _combines input and dropdown for easy and flexible data selection_
   * Pillbox - _manages selected items with color-coded text labels_
   * Datagrid - _renders data in a table with paging, sorting, and serching_
@@ -33,8 +31,8 @@ Live docs and demos can be found at http://exacttarget.github.com/fuelux
 `2.0.0` _(Under development)_ First public release of FuelUX
 
 ## Contributing
-Before writing code, we suggest you [search for related issues](https://github.com/ExactTarget/fuelux/issues?state=open)
-or [create a new one](https://github.com/ExactTarget/fuelux/issues/new) so we can confirm where your idea fits into
+Before writing code, we suggest you [search for issues](https://github.com/ExactTarget/fuelux/issues?state=open)
+or [create a new one](https://github.com/ExactTarget/fuelux/issues/new) to confirm where your contribution fits into
 our roadmap.
 
 In lieu of a formal style guide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
