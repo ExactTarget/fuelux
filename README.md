@@ -4,21 +4,22 @@ _Base FuelUX styles and controls_
 
 **_FuelUX is under development in preparation for initial release and is not yet intended for production use._**
 
-FuelUX extends Twitter Bootstrap with additional lightweight JavaScript controls and provides simple workflows for installation into web projects, customization, update management, and deployment optimization.
+FuelUX extends Twitter Bootstrap with additional lightweight JavaScript controls.
+Other benefits include easy installation into web projects, integrated scripts for customizing Bootstrap and FuelUX, simple updates, and solid optimization for deployment.
 
 ## Features
 
 FuelUX provides all of the styles and plugins from the revolutionary [Twitter Bootstrap](http://twitter.github.com/bootstrap) project, with the following additions:
 
-* One-step installation and updates through [volo](https://github.com/volojs/volo)
-* [AMD](http://requirejs.org/docs/whyamd.html) compatibility for modular structure and deployment optimization
-* [Grunt](https://github.com/cowboy/grunt)-based build script to easily create custom distribution files
-* Namespaced CSS (just add a `fuelux` class) for safe use on existing sites
-* Additional FuelUX controls (with unit tests)
+* FuelUX UI controls (with unit tests) [see them live](http://exacttarget.github.com/fuelux)
   * Combobox - _combines input and dropdown for easy and flexible data selection_
   * Pillbox - _manages selected items with color-coded text labels_
   * Datagrid - _renders data in a table with paging, sorting, and serching_
   * Search control - _combines input and button for integrated search interaction_
+* One-step installation and updates through [volo](https://github.com/volojs/volo)
+* [AMD](http://requirejs.org/docs/whyamd.html) compatibility for modular structure and deployment optimization
+* [Grunt](https://github.com/cowboy/grunt)-based build script to easily create custom distribution files
+* Namespaced CSS (just add a `fuelux` class) for safe use on existing sites
 
 ## Getting Started
 * `git clone git://github.com/ExactTarget/fuelux.git`
@@ -26,18 +27,22 @@ FuelUX provides all of the styles and plugins from the revolutionary [Twitter Bo
 * To customize, modify the JS and LESS files under [src](https://github.com/ExactTarget/fuelux/tree/master/src) then run `grunt` to regenerate your [dist](https://github.com/ExactTarget/fuelux/tree/master/dist) directory (more below)
 
 ## Documentation and Examples
-_(Under development)_
+Live docs and demos can be found at http://exacttarget.github.com/fuelux
 
 ## Release History
 `2.0.0` _(Under development)_ First public release of FuelUX
 
 ## Contributing
+Before writing code, we suggest you [search for related issues](https://github.com/ExactTarget/fuelux/issues?state=open)
+or [create a new one](https://github.com/ExactTarget/fuelux/issues/new) so we can confirm where your idea fits into
+our roadmap.
+
 In lieu of a formal style guide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
 
 ### Important notes
 Please don't edit files in the `dist` directory as they are generated via grunt. You'll find source code in the `src` directory!
 
-While grunt can run the included unit tests via PhantomJS, this shouldn't be considered a substitute for the real thing. Please be sure to test the `test/*.html` unit test file(s) in _actual_ browsers.
+While grunt can run the included unit tests via PhantomJS, this isn't a substitute for the real thing. Please be sure to test the `test/*.html` unit test file(s) in real browsers as well.
 
 More about [Installing grunt and PhantomJS](https://github.com/ExactTarget/fuelux/wiki/Installing-grunt-and-PhantomJS)
 
