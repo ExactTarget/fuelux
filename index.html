@@ -1,1 +1,501 @@
-FuelUX
+<!DOCTYPE html>
+<html lang="en" class="fuelux">
+<head>
+	<meta charset="utf-8">
+	<title>FuelUX</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Base FuelUX styles and controls">
+	<meta name="author" content="ExactTarget">
+
+	<link href="vendor/fuelux/css/fuelux.css" rel="stylesheet">
+	<style type="text/css">
+		body {
+			padding-top: 60px;
+			padding-bottom: 40px;
+		}
+		section {
+			padding-top: 60px;
+		}
+		.pillbox {
+			border: 1px solid #bbb;
+			margin-bottom: 10px;
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+			width: 237px;
+		}
+	</style>
+	<link href="vendor/fuelux/css/fuelux-responsive.css" rel="stylesheet">
+
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+	<![endif]-->
+
+	<script src="vendor/require.js"></script>
+
+	<script>
+		requirejs.config({ baseUrl: 'vendor', paths: { 'sample': '../sample' } });
+	</script>
+
+	<script>
+		require(['jquery', 'sample/data', 'sample/datasource', 'fuelux/all'], function ($, sampleData, StaticDataSource) {
+			$(function () {
+				$('#BrandLink, #ReturnLink').click(function () {
+					$('body').data('scrollspy').activate('#controls');
+				});
+
+				$('#MySearch').on('searched', function (e, text) {
+					alert('Searched: ' + text);
+				});
+
+				$('#btnAdd').click(function() {
+					$('#MyPillbox ul').append('<li>Item Eight</li>');
+				});
+
+				$('#btnRemove').click(function() {
+					$('#MyPillbox li[data-value="foo"]').remove();
+				});
+
+				$('#btnItems').click(function() {
+					var items = $('#MyPillbox').pillbox('items');
+					console.log(items);
+				});
+
+                // INITIALIZING THE DATAGRID
+                var dataSource = new StaticDataSource({
+                    columns: [{
+                        property: 'toponymName',
+                        label: 'Name',
+                        sortable: true
+                    }, {
+                        property: 'countrycode',
+                        label: 'Country',
+                        sortable: true
+                    }, {
+                        property: 'population',
+                        label: 'Population',
+                        sortable: true
+                    }, {
+                        property: 'fcodeName',
+                        label: 'Type',
+                        sortable: true
+                    }],
+                    data: sampleData.geonames,
+                    delay: 250
+                });
+
+                $('#MyGrid').datagrid({
+                    dataSource: dataSource
+                });
+			});
+		});
+	</script>
+
+	<link href="vendor/prettify/prettify.css" type="text/css" rel="stylesheet" />
+	<script type="text/javascript" src="vendor/prettify/prettify.js"></script>
+
+</head>
+
+<body data-spy="scroll" onload="prettyPrint()">
+
+<div class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container">
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</a>
+			<a id="BrandLink" class="brand" href="#">FuelUX</a>
+			<div class="nav-collapse">
+				<ul class="nav">
+					<li class="active"><a href="#controls">All Controls</a></li>
+					<li><a href="#combobox">Combobox</a></li>
+					<li><a href="#search">Search control</a></li>
+					<li><a href="#datagrid">Datagrid</a></li>
+					<li><a href="#pillbox">Pillbox</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+
+	<div class="hero-unit">
+		<h1>FuelUX</h1>
+		<p>FuelUX extends Twitter Bootstrap with additional lightweight JavaScript controls and provides simple workflows for installation into web projects, customization, update management, and deployment optimization.</p>
+		<p><a class="btn btn-primary btn-large" href="https://github.com/ExactTarget/fuelux">View On GitHub &raquo;</a></p>
+	</div>
+
+	<section id="controls">
+		<div class="page-header">
+			<h1>FuelUX Controls <small>Clean and lightweight UI controls for modern web projects</small></h1>
+		</div>
+	</section>
+
+	<div class="row">
+		<div class="span3">
+			<h3><a href="#combobox">Combobox</a></h3>
+			<p>Combines input and dropdown for easy and flexible data selection.</p>
+		</div>
+		<div class="span3">
+			<h3><a href="#search">Search control</a></h3>
+			<p>Combines input and button for integrated search interaction.</p>
+		</div>
+		<div class="span3">
+			<h3><a href="#datagrid">Datagrid</a></h3>
+			<p>Renders data in a table with paging, sorting, and serching.</p>
+		</div>
+		<div class="span3">
+			<h3><a href="#pillbox">Pillbox</a></h3>
+			<p>Manages selected items with color-coded text labels.</p>
+		</div>
+	</div>
+
+	<section id="combobox">
+		<div class="page-header">
+			<h1>Combobox <small>combobox.js</small></h1>
+		</div>
+		<div class="row">
+			<div class="span12 columns">
+				<h2>Example</h2>
+				<p>Below is a working combobox example.</p>
+				<div class="well combobox-example">
+					<div class="input-append dropdown combobox">
+						<input class="span2" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+						<ul class="dropdown-menu">
+							<li><a href="#">Item One</a></li>
+							<li><a href="#">Item Two</a></li>
+							<li><a href="#">Item Three</a></li>
+							<li class="divider"></li>
+							<li><a href="#">Item After Divider</a></li>
+						</ul>
+					</div>
+				</div> <!-- /well -->
+
+				<hr>
+
+				<h2>Using combobox</h2>
+				<p>Call the combobox via javascript (optional):</p>
+				<pre class="prettyprint linenums">$('#myCombobox').combobox()</pre>
+
+				<h3>Markup</h3>
+				<p>You can activate combobox on your page easily without having to write a single line of javascript. Just set <code>class="combobox"</code> on a div like the example markup below and the combobox will activate automatically.</p>
+
+
+<pre class="prettyprint linenums">
+&lt;div class="input-append dropdown combobox"&gt;
+	&lt;input class="span2" type="text"&gt;&lt;button class="btn" data-toggle="dropdown"&gt;&lt;i class="caret"&gt;&lt;/i&gt;&lt;/button&gt;
+	&lt;ul class="dropdown-menu"&gt;
+		&lt;li&gt;&lt;a href="#"&gt;Item One&lt;/a&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;a href="#"&gt;Item Two&lt;/a&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;a href="#"&gt;Item Three&lt;/a&gt;&lt;/li&gt;
+		&lt;li class="divider"&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;a href="#"&gt;Item After Divider&lt;/a&gt;&lt;/li&gt;
+	&lt;/ul&gt;
+&lt;/div&gt;
+</pre>
+
+
+			</div>
+		</div>
+	</section>
+
+	<section id="search">
+		<div class="page-header">
+			<h1>Search <small>search.js</small></h1>
+		</div>
+		<div class="row">
+			<div class="span12 columns">
+				<h2>Example</h2>
+				<p>Below is a working search control example.  Click (after entering text) to see your search text.</p>
+				<div class="well search-example">
+					<div id="MySearch" class="input-append search">
+						<input type="text" class="input-medium" placeholder="Search"><button class="btn"><i class="icon-search"></i></button>
+					</div>
+				</div> <!-- /well -->
+
+				<hr>
+
+				<h2>Using search</h2>
+				<p>Call the search via javascript (optional):</p>
+				<pre class="prettyprint linenums">$('#MySearch').search()</pre>
+
+				<h3>Markup</h3>
+				<p>You can activate the search control on your page easily without having to write a single line of javascript. Just set <code>class="search"</code> on a div like the example markup below and the search will activate automatically.</p>
+
+
+<pre class="prettyprint linenums">
+&lt;div id="MySearch" class="input-append search"&gt;
+	&lt;input type="text" class="input-medium" placeholder="Search"&gt;&lt;button class="btn"&gt;&lt;i class="icon-search"&gt;&lt;/i&gt;&lt;/button&gt;
+&lt;/div&gt;
+</pre>
+				<h3>Events</h3>
+				<p>FuelUX's search control exposes two events for hooking into its functionality.</p>
+				<table class="table table-bordered table-striped">
+					<thead>
+					<tr>
+						<th style="width: 150px;">Event</th>
+						<th>Description</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>searched</td>
+						<td>This event is fired when a search has been performed.  Arguments are <code>event, searchText</code></td>
+					</tr>
+					<tr>
+						<td>cleared</td>
+						<td>This event is fired when the search has been cleared.</td>
+					</tr>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	</section>
+
+	<section id="datagrid">
+		<div class="page-header">
+			<h1>Datagrid <small>datagrid.js</small></h1>
+		</div>
+		<div class="row">
+			<div class="span12 columns">
+				<h2>Example</h2>
+				<p>Below is a working datagrid example.</p>
+				<div class="datagrid-example">
+					<table id="MyGrid" class="table table-bordered datagrid">
+
+						<thead>
+						<tr>
+							<th>
+								<span class="datagrid-header-title">Geographic Data Sample</span>
+								<div class="datagrid-header-left">
+
+								</div>
+								<div class="datagrid-header-right">
+									<div class="input-append search">
+										<input type="text" class="input-medium" placeholder="Search"><button class="btn"><i class="icon-search"></i></button>
+									</div>
+								</div>
+							</th>
+						</tr>
+						</thead>
+
+						<tfoot>
+						<tr>
+							<th>
+								<div class="datagrid-footer-left" style="display:none;">
+									<div class="grid-controls">
+										<span><span class="grid-start"></span> - <span class="grid-end"></span> of <span class="grid-count"></span></span>
+										<select class="grid-pagesize"><option>10</option><option>20</option><option>50</option><option>100</option></select>
+										<span>Per Page</span>
+									</div>
+								</div>
+								<div class="datagrid-footer-right" style="display:none;">
+									<div class="grid-pager">
+										<button class="btn grid-prevpage"><i class="icon-chevron-left"></i></button>
+										<span>Page</span>
+										<div class="input-append dropdown combobox">
+											<input class="span1" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+											<ul class="dropdown-menu"></ul>
+										</div>
+										<span>of <span class="grid-pages"></span></span>
+										<button class="btn grid-nextpage"><i class="icon-chevron-right"></i></button>
+									</div>
+								</div>
+							</th>
+						</tr>
+						</tfoot>
+
+					</table>
+				</div> <!-- /well -->
+
+				<hr>
+
+				<h2>Using datagrid</h2>
+				<p>Call the datagrid via javascript:</p>
+				<pre class="prettyprint linenums">$('#MyGrid').datagrid({ dataSource: dataSource })</pre>
+
+				<h3>Data Source</h3>
+				<p>Provide a data source to the datagrid to supply column information and data. Your data source must support the following two methods.</p>
+				<table class="table table-bordered table-striped">
+					<thead>
+					<tr>
+						<th style="width: 150px;">Name</th>
+						<th style="width: 210px;">Parameters</th>
+						<th>Description</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>columns</td>
+						<td>(none)</td>
+						<td>Returns an array of objects containing column information</td>
+					</tr>
+					<tr>
+						<td>loaded</td>
+						<td><strong>options</strong> (object), <strong>callback</strong> (function)</td>
+						<td>The <strong>options</strong> parameter contains search, sortProperty, sortDirection, pageIndex, and pageSize.
+							Retrieve data then call <strong>callback</strong> with an object containing data, start, end, count, pages, and page.
+							View the source of this page for an example static data source.</td>
+					</tr>
+					</tbody>
+				</table>
+
+				<h3>Events</h3>
+				<p>FuelUX's datagrid exposes an event for hooking into its functionality.</p>
+				<table class="table table-bordered table-striped">
+					<thead>
+					<tr>
+						<th style="width: 150px;">Event</th>
+						<th>Description</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>loaded</td>
+						<td>This event is fired after the grid loads or reloads data</td>
+					</tr>
+					</tbody>
+				</table>
+
+				<h3>Markup</h3>
+				<p>Your initial datagrid markup should look like the example markup below. You can reconfigure the datagrid by omitting or moving some of the features, such as search and paging controls.</p>
+
+
+<pre class="prettyprint linenums">
+&lt;table id="MyGrid" class="table table-bordered datagrid"&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+  &lt;th&gt;
+   &lt;span class="datagrid-header-title"&gt;Geographic Data Sample&lt;/span&gt;
+   &lt;div class="datagrid-header-left"&gt;
+
+   &lt;/div&gt;
+   &lt;div class="datagrid-header-right"&gt;
+	&lt;div class="input-append search"&gt;
+	 &lt;input type="text" class="input-medium" placeholder="Search"&gt;&lt;button class="btn"&gt;&lt;i class="icon-search"&gt;&lt;/i&gt;&lt;/button&gt;
+	&lt;/div&gt;
+   &lt;/div&gt;
+  &lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+
+ &lt;tfoot&gt;
+ &lt;tr&gt;
+  &lt;th&gt;
+   &lt;div class="datagrid-footer-left" style="display:none;"&gt;
+	&lt;div class="grid-controls"&gt;
+	 &lt;span&gt;&lt;span class="grid-start"&gt;&lt;/span&gt; - &lt;span class="grid-end"&gt;&lt;/span&gt; of &lt;span class="grid-count"&gt;&lt;/span&gt;&lt;/span&gt;
+	 &lt;select class="grid-pagesize"&gt;&lt;option&gt;10&lt;/option&gt;&lt;option&gt;20&lt;/option&gt;&lt;option&gt;50&lt;/option&gt;&lt;option&gt;100&lt;/option&gt;&lt;/select&gt;
+	 &lt;span&gt;Per Page&lt;/span&gt;
+	&lt;/div&gt;
+   &lt;/div&gt;
+   &lt;div class="datagrid-footer-right" style="display:none;"&gt;
+	&lt;div class="grid-pager"&gt;
+	 &lt;button class="btn grid-prevpage"&gt;&lt;i class="icon-chevron-left"&gt;&lt;/i&gt;&lt;/button&gt;
+	 &lt;span&gt;Page&lt;/span&gt;
+	 &lt;div class="input-append dropdown combobox"&gt;
+	  &lt;input class="span1" type="text"&gt;&lt;button class="btn" data-toggle="dropdown"&gt;&lt;i class="caret"&gt;&lt;/i&gt;&lt;/button&gt;
+	  &lt;ul class="dropdown-menu"&gt;&lt;/ul&gt;
+	 &lt;/div&gt;
+	 &lt;span&gt;of &lt;span class="grid-pages"&gt;&lt;/span&gt;&lt;/span&gt;
+	 &lt;button class="btn grid-nextpage"&gt;&lt;i class="icon-chevron-right"&gt;&lt;/i&gt;&lt;/button&gt;
+	&lt;/div&gt;
+   &lt;/div&gt;
+  &lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/tfoot&gt;
+&lt;/table&gt;
+</pre>
+
+			</div>
+		</div>
+	</section>
+
+	<section id="pillbox">
+		<div class="page-header">
+			<h1>Pillbox <small>pillbox.js</small></h1>
+		</div>
+		<div class="row">
+			<div class="span12 columns">
+				<h2>Example</h2>
+				<p>Below is a working pillbox example.</p>
+				<div class="well pillbox-example">
+
+					<div id="MyPillbox" class="pillbox">
+						<ul>
+							<li data-value="foo">Item One</li>
+							<li class="status-success">Item Two</li>
+							<li class="status-warning">Item Three</li>
+							<li class="status-important">Item Four</li>
+							<li class="status-info">Item Five</li>
+							<li class="status-success">Item Six</li>
+							<li>Item Seven</li>
+						</ul>
+					</div>
+
+					<input type="button" class="btn" id="btnAdd" value="add">
+					<input type="button" class="btn" id="btnRemove" value="remove">
+					<input type="button" class="btn" id="btnItems" value="log items to console">
+
+				</div>
+
+				<hr>
+
+				<h2>Using pillbox</h2>
+				<p>Call the pillbox via javascript (optional):</p>
+				<pre class="prettyprint linenums">$('#MyPillbox').pillbox()</pre>
+
+				<h3>Methods</h3>
+				<p>FuelUX's pillbox exposes a method for retrieving selected item data.</p>
+				<table class="table table-bordered table-striped">
+					<thead>
+					<tr>
+						<th style="width: 150px;">Method</th>
+						<th>Description</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>items</td>
+						<td>Returns an array of objects, one per item, each containing the jQuery data() contents of the item <em><a href="http://api.jquery.com/data/#data-html5">which includes data-* attributes</a></em> plus a <code>text</code> property with the label's visible text</td>
+					</tr>
+					</tbody>
+				</table>
+
+				<h3>Markup</h3>
+				<p>You can activate the pillbox on your page easily without having to write a single line of javascript. Just set <code>class="pillbox"</code> on a div like the example markup below and the pillbox will activate automatically.</p>
+
+
+<pre class="prettyprint linenums">
+&lt;div id="MyPillbox" class="pillbox"&gt;
+  &lt;ul&gt;
+	&lt;li data-value="foo"&gt;Item One&lt;/li&gt;
+	&lt;li class="status-success"&gt;Item Two&lt;/li&gt;
+	&lt;li class="status-warning"&gt;Item Three&lt;/li&gt;
+	&lt;li class="status-important"&gt;Item Four&lt;/li&gt;
+	&lt;li class="status-info"&gt;Item Five&lt;/li&gt;
+	&lt;li class="status-success"&gt;Item Six&lt;/li&gt;
+	&lt;li&gt;Item Seven&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+</pre>
+
+			</div>
+		</div>
+	</section>
+
+	<hr>
+
+	<footer>
+		<p class="pull-right"><a href="#" id="ReturnLink">Back to top</a></p>
+		<p>&copy; ExactTarget 2012</p>
+	</footer>
+
+</div>
+
+</body>
+</html>
