@@ -23,7 +23,7 @@
 		}
 
 		.sorted {
-			.gradientBar(@tableBackgroundAccent, @tableBackgroundAccentDark);
+			.gradientBar(@tableBackgroundAccent, @tableBackgroundAccentDark, @textColor, 'none');
 
 			i {
 				float: right;
@@ -35,7 +35,7 @@
 			cursor: pointer;
 
 			&:hover {
-				.gradientBar(@tableBackgroundAccent, @tableBackgroundAccentDark);
+				.gradientBar(@tableBackgroundAccent, @tableBackgroundAccentDark, @textColor, 'none');
 			}
 		}
 
@@ -50,7 +50,7 @@
 			float: left;
 
 			.grid-controls {
-				margin-top: 1px;
+				margin-top: 7px;
 
 				select {
 					margin: 0 5px 1px;
@@ -72,7 +72,7 @@
 				> span {
 					font-weight: normal;
 					position: relative;
-					top: 2px;
+					top: 8px;
 				}
 
 				.dropdown-menu {
@@ -81,6 +81,13 @@
 
 				.combobox {
 					display: inline-block;
+					position: relative;
+					top: -2px;
+				}
+
+				> button {
+					position: relative;
+					top: 7px;
 				}
 			}
 
