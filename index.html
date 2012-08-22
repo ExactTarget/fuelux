@@ -9,6 +9,21 @@
 
 	<script src="lib/require.js"></script>
 
+	<style type="text/css">
+		.pillbox {
+			border: 1px solid #bbb;
+			margin-bottom: 10px;
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+			width: 251px;
+		}
+
+		.container > div, .container > table {
+			margin: 20px;
+		}
+	</style>
+
 	<script>
 		requirejs.config({
 			paths: {
@@ -19,21 +34,54 @@
 			}
 		});
 
-		require(['jquery', 'fuelux/all'], function ($) {
+		require(['jquery', 'sample/data', 'sample/datasource', 'fuelux/all'], function ($, sampleData, StaticDataSource) {
 
-			$(function () {
-				$('#btnAdd').click(function() {
-					$('#pillbox1 ul').append('<li>Item Eight</li>');
-				});
+			// SEARCH CONTROL
+			$('#MySearch').on('searched', function (e, text) {
+				alert('Searched: ' + text);
+			});
 
-				$('#btnRemove').click(function() {
-					$('#pillbox1 li[data-value="foo"]').remove();
-				});
 
-				$('#btnItems').click(function() {
-					var items = $('#pillbox1').pillbox('items');
-					console.log(items);
-				});
+			// PILLBOX
+			$('#btnAdd').click(function() {
+				$('#MyPillbox ul').append('<li>Item Eight</li>');
+			});
+
+			$('#btnRemove').click(function() {
+				$('#MyPillbox li[data-value="foo"]').remove();
+			});
+
+			$('#btnItems').click(function() {
+				var items = $('#MyPillbox').pillbox('items');
+				console.log(items);
+			});
+
+
+			// DATAGRID
+			var dataSource = new StaticDataSource({
+				columns: [{
+					property: 'toponymName',
+					label: 'Name',
+					sortable: true
+				}, {
+					property: 'countrycode',
+					label: 'Country',
+					sortable: true
+				}, {
+					property: 'population',
+					label: 'Population',
+					sortable: true
+				}, {
+					property: 'fcodeName',
+					label: 'Type',
+					sortable: true
+				}],
+				data: sampleData.geonames,
+				delay: 250
+			});
+
+			$('#MyGrid').datagrid({
+				dataSource: dataSource
 			});
 
 		});
@@ -44,9 +92,31 @@
 
 <body>
 
-<div class="container" style="padding: 10px;">
+<div class="container">
 
-	<div id="pillbox1" class="pillbox well" style="width:237px;">
+
+	<!-- COMBOBOX -->
+	<div class="input-append dropdown combobox">
+		<input class="span2" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+		<ul class="dropdown-menu">
+			<li><a href="#">Item One</a></li>
+			<li><a href="#">Item Two</a></li>
+			<li><a href="#">Item Three</a></li>
+			<li class="divider"></li>
+			<li><a href="#">Item After Divider</a></li>
+		</ul>
+	</div>
+
+
+	<!-- SEARCH CONTROL -->
+	<div id="MySearch" class="input-append search">
+		<input type="text" class="input-medium" placeholder="Search"><button class="btn"><i class="icon-search"></i></button>
+	</div>
+
+
+	<!-- PILLBOX -->
+	<div>
+	<div id="MyPillbox" class="pillbox">
 		<ul>
 			<li data-value="foo">Item One</li>
 			<li class="status-success">Item Two</li>
@@ -60,8 +130,11 @@
 
 	<input type="button" class="btn" id="btnAdd" value="add">
 	<input type="button" class="btn" id="btnRemove" value="remove">
-	<input type="button" class="btn" id="btnItems" value="get items">
-    
+	<input type="button" class="btn" id="btnItems" value="log items to console">
+	</div>
+
+
+	<!-- SPINNER -->
     <div id="ex-spinner" class="spinner">
         <input type="text" class="input-mini spinner-input">
         <div class="spinner-buttons">
@@ -73,6 +146,54 @@
             </button>
         </div>
     </div>
+
+
+	<!-- DATAGRID -->
+	<table id="MyGrid" class="table table-bordered datagrid">
+
+		<thead>
+		<tr>
+			<th>
+				<span class="datagrid-header-title">Geographic Data Sample</span>
+				<div class="datagrid-header-left">
+
+				</div>
+				<div class="datagrid-header-right">
+					<div class="input-append search">
+						<input type="text" class="input-medium" placeholder="Search"><button class="btn"><i class="icon-search"></i></button>
+					</div>
+				</div>
+			</th>
+		</tr>
+		</thead>
+
+		<tfoot>
+		<tr>
+			<th>
+				<div class="datagrid-footer-left" style="display:none;">
+					<div class="grid-controls">
+						<span><span class="grid-start"></span> - <span class="grid-end"></span> of <span class="grid-count"></span></span>
+						<select class="grid-pagesize"><option>10</option><option>20</option><option>50</option><option>100</option></select>
+						<span>Per Page</span>
+					</div>
+				</div>
+				<div class="datagrid-footer-right" style="display:none;">
+					<div class="grid-pager">
+						<button class="btn grid-prevpage"><i class="icon-chevron-left"></i></button>
+						<span>Page</span>
+						<div class="input-append dropdown combobox">
+							<input class="span1" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+							<ul class="dropdown-menu"></ul>
+						</div>
+						<span>of <span class="grid-pages"></span></span>
+						<button class="btn grid-nextpage"><i class="icon-chevron-right"></i></button>
+					</div>
+				</div>
+			</th>
+		</tr>
+		</tfoot>
+
+	</table>
 
 </div>
 

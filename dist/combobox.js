@@ -31,6 +31,7 @@ define(['require','jquery'],function(require) {
 
 		itemclicked: function (e) {
 			this.select($(e.target).text());
+			$('body').click();
 			e.preventDefault();
 		}
 

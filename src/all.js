@@ -8,6 +8,7 @@
 
 define(function (require) {
 	require('jquery');
+	require('bootstrap/bootstrap-affix');
 	require('bootstrap/bootstrap-alert');
 	require('bootstrap/bootstrap-button');
 	require('bootstrap/bootstrap-carousel');

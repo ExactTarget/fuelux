@@ -37,6 +37,10 @@ require(['jquery', 'fuelux/all'], function($) {
 	test('popover is initialized', function() {
 		strictEqual(this.elems.popover(), this.elems, 'popover should be initialized');
 	});
+
+	test('affix is initialized', function() {
+		strictEqual(this.elems.affix(), this.elems, 'affix should be initialized');
+	});
 	
 	test('alert is initialized', function() {
 		strictEqual(this.elems.alert(), this.elems, 'alert should be initialized');
