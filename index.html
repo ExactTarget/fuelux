@@ -155,21 +155,28 @@
 	</section>
 
 	<div class="row">
-		<div class="span3">
+		<div class="span4">
 			<h3><a href="#combobox">Combobox</a></h3>
 			<p>Combines input and dropdown for easy and flexible data selection.</p>
 		</div>
-		<div class="span3">
+		<div class="span4">
 			<h3><a href="#search">Search control</a></h3>
 			<p>Combines input and button for integrated search interaction.</p>
 		</div>
-		<div class="span3">
+		<div class="span4">
 			<h3><a href="#datagrid">Datagrid</a></h3>
 			<p>Renders data in a table with paging, sorting, and searching.</p>
 		</div>
-		<div class="span3">
+	</div>
+
+	<div class="row">
+		<div class="span4">
 			<h3><a href="#pillbox">Pillbox</a></h3>
-			<p>Manages selected items with color-coded text labels.</p>
+			<p>Easily manage selected items with color-coded text labels.</p>
+		</div>
+		<div class="span4">
+			<h3><a href="#spinner">Spinner</a></h3>
+			<p>Provides convenient numeric input with increment and decrement buttons.</p>
 		</div>
 	</div>
 
@@ -518,9 +525,9 @@
 				<p>Below is a working spinner example.</p>
 				<div class="well spinner-example">
 
-					<div id="MySpinner" class="spinner span1">
+					<div id="MySpinner" class="spinner">
 						<input type="text" class="input-mini spinner-input">
-						<div class="spinner-buttons">
+						<div class="spinner-buttons  btn-group btn-group-vertical">
 							<button class="btn spinner-up">
 								<i class="icon-chevron-up"></i>
 							</button>
@@ -556,7 +563,7 @@
 					<tbody>
 					<tr>
 						<td>value</td>
-						<td>Sets or returns the spinner value. As an example, <code>$('#MySpinner').spinner('value')</code> would return spinner value and <code>$('#MySpinner').spinner('value',37)</code> would set spinner value to 37.</td>
+						<td>Sets or returns the spinner value. As an example, <code>$('#MySpinner').spinner('value')</code> would return spinner value and <code style="white-space: nowrap;">$('#MySpinner').spinner('value', 37)</code> would set spinner value to 37.</td>
 					</tr>
 					<tr>
 						<td>disable</td>
@@ -624,15 +631,15 @@
 
 <pre class="prettyprint linenums">
 &lt;div id="MySpinner" class="spinner"&gt;
-  &lt;input type="text" class="input-mini spinner-input"&gt;
-  &lt;div class="spinner-buttons"&gt;
-     &lt;button class="btn spinner-up"&gt;
-       &lt;i class="icon-chevron-up"&gt;&lt;/i&gt;
-     &lt;/button&gt;
-     &lt;button class="btn spinner-down"&gt;
-       &lt;i class="icon-chevron-down"&gt;&lt;/i&gt;
-     &lt;/button&gt;
-  &lt;/div&gt;
+    &lt;input type="text" class="input-mini spinner-input"&gt;
+    &lt;div class="spinner-buttons  btn-group btn-group-vertical"&gt;
+        &lt;button class="btn spinner-up"&gt;
+            &lt;i class="icon-chevron-up"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+        &lt;button class="btn spinner-down"&gt;
+            &lt;i class="icon-chevron-down"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 </pre>
 
