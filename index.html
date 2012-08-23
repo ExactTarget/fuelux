@@ -87,6 +87,23 @@
                 $('#MyGrid').datagrid({
                     dataSource: dataSource
                 });
+
+				// INITIALIZING THE SPINNER
+
+				$('#MySpinner').spinner();
+
+				$('#spinner-enable').click(function () {
+					$('#MySpinner').spinner('enable');
+				});
+
+				$('#spinner-disable').click(function () {
+					$('#MySpinner').spinner('disable');
+				});
+
+				$('#spinner-log').click(function () {
+					console.log("Spinner value: ",$('#MySpinner').spinner('value'));
+				});
+
 			});
 		});
 	</script>
@@ -114,6 +131,7 @@
 					<li><a href="#search">Search control</a></li>
 					<li><a href="#datagrid">Datagrid</a></li>
 					<li><a href="#pillbox">Pillbox</a></li>
+					<li><a href="#spinner">Spinner</a></li>
 				</ul>
 			</div>
 		</div>
@@ -483,6 +501,138 @@
 	&lt;li class="status-success"&gt;Item Six&lt;/li&gt;
 	&lt;li&gt;Item Seven&lt;/li&gt;
   &lt;/ul&gt;
+&lt;/div&gt;
+</pre>
+
+			</div>
+		</div>
+	</section>
+
+	<section id="spinner">
+		<div class="page-header">
+			<h1>Spinner <small>spinner.js</small></h1>
+		</div>
+		<div class="row">
+			<div class="span12 columns">
+				<h2>Example</h2>
+				<p>Below is a working spinner example.</p>
+				<div class="well spinner-example">
+
+					<div id="MySpinner" class="spinner span1">
+						<input type="text" class="input-mini spinner-input">
+						<div class="spinner-buttons">
+							<button class="btn spinner-up">
+								<i class="icon-chevron-up"></i>
+							</button>
+							<button class="btn spinner-down">
+								<i class="icon-chevron-down"></i>
+							</button>
+						</div>
+					</div>
+
+					<div class="span8">
+						<input type="button" class="btn" id="spinner-enable" value="enable">
+						<input type="button" class="btn" id="spinner-disable" value="disable">
+						<input type="button" class="btn" id="spinner-log" value="log value to console">
+					</div>
+
+				</div>
+
+				<hr>
+
+				<h2>Using spinner</h2>
+				<p>Call the pillbox via javascript:</p>
+				<pre class="prettyprint linenums">$('#MySpinner').spinner()</pre>
+
+				<h3>Methods</h3>
+				<p>FuelUX's spinner exposes several methods for disabling, enabling, setting values, and retrieving values from the spinner.</p>
+				<table class="table table-bordered table-striped">
+					<thead>
+					<tr>
+						<th style="width: 150px;">Method</th>
+						<th>Description</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>value</td>
+						<td>Sets or returns the spinner value. As an example, <code>$('#MySpinner').spinner('value')</code> would return spinner value and <code>$('#MySpinner').spinner('value',37)</code> would set spinner value to 37.</td>
+					</tr>
+					<tr>
+						<td>disable</td>
+						<td>Disable the spinner.</td>
+					</tr>
+					<tr>
+						<td>enable</td>
+						<td>Enable the spinner.</td>
+					</tr>
+					</tbody>
+				</table>
+
+				<h3>Options</h3>
+				<p>FuelUX's spinner includes several convenient options for spinner behavioral preferences and value limits.</p>
+				<table class="table table-bordered table-striped">
+					<thead>
+					<tr>
+						<th style="width: 150px;">Options</th>
+						<th>Description</th>
+						<th>Default Value</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>value</td>
+						<td>Sets the initial spinner value.</td>
+						<td><code>1</code></td>
+					</tr>
+					<tr>
+						<td>min</td>
+						<td>Sets the minimum spinner value.</td>
+						<td><code>1</code></td>
+					</tr>
+					<tr>
+						<td>max</td>
+						<td>Sets the maximum spinner value.</td>
+						<td><code>999</code></td>
+					</tr>
+					<tr>
+						<td>increment</td>
+						<td>Sets the increment by which the value in the spinner will change each time the spinner buttons are pressed.</td>
+						<td><code>1</code></td>
+					</tr>
+					<tr>
+						<td>hold</td>
+						<td>If <code>true</code> the spinner will react to its buttons being pressed and held down.</td>
+						<td><code>true</code></td>
+					</tr>
+					<tr>
+						<td>speed</td>
+						<td>Spinner speed when buttons are held down. The options include: <code>"fast","medium","slow"</code>.</td>
+						<td><code>"medium"</code></td>
+					</tr>
+					<tr>
+						<td>disabled</td>
+						<td>Spinner will be disabled when it is created.</td>
+						<td><code>false</code></td>
+					</tr>
+					</tbody>
+				</table>
+
+				<h3>Markup</h3>
+				<p>Your spinner markup should look like the example markup below.</p>
+
+
+<pre class="prettyprint linenums">
+&lt;div id="MySpinner" class="spinner"&gt;
+  &lt;input type="text" class="input-mini spinner-input"&gt;
+  &lt;div class="spinner-buttons"&gt;
+     &lt;button class="btn spinner-up"&gt;
+       &lt;i class="icon-chevron-up"&gt;&lt;/i&gt;
+     &lt;/button&gt;
+     &lt;button class="btn spinner-down"&gt;
+       &lt;i class="icon-chevron-down"&gt;&lt;/i&gt;
+     &lt;/button&gt;
+  &lt;/div&gt;
 &lt;/div&gt;
 </pre>
 
