@@ -5799,12 +5799,14 @@ textarea.span1,
 }
 
 .fuelux .spinner input {
-  width: 42px;
+  float: left;
+  width: 43px;
 }
 
 .fuelux .spinner .btn {
-  width: 13px;
-  height: 13px;
+  position: relative;
+  width: 20px;
+  height: 14px;
   padding-top: 0;
   padding-right: 9px;
   padding-left: 9px;
@@ -5812,16 +5814,14 @@ textarea.span1,
 
 .fuelux .spinner .spinner-buttons {
   position: relative;
-  top: -40px;
-  left: 36px;
-  width: 22px;
+  left: -22px;
+  float: left;
+  width: 20px;
   height: 28px;
 }
 
 .fuelux .spinner .spinner-up {
-  position: relative;
-  top: -3px;
-  width: 20px;
+  top: 2px;
   padding: 0 0 4px 1px;
 }
 
@@ -5831,9 +5831,8 @@ textarea.span1,
 }
 
 .fuelux .spinner .spinner-down {
-  position: relative;
-  top: -8px;
-  width: 20px;
+  top: 2px;
+  height: 13px;
   padding: 0 0 4px 1px;
 }
 
