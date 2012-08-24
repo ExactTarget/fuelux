@@ -4,10 +4,10 @@
 
 require(['jquery', 'fuelux/spinner'], function($) {
 
-	module("FuelUX pillbox");
+	module("FuelUX spinner");
 
 	test("should be defined on jquery object", function () {
-		ok($(document.body).spinner, 'pillbox method is defined');
+		ok($(document.body).spinner, 'spinner method is defined');
 	});
 
 	test("should return element", function () {
@@ -42,12 +42,17 @@ require(['jquery', 'fuelux/spinner'], function($) {
 		$spinner.spinner('enable');
 		equal($spinner.find('.spinner-input').attr('disabled') ? false : true, true, 'spinner sets enabled');
 
+		//change
+		$spinner.spinner('value','b2');
+		$spinner.spinner('change');
+		equal($spinner.spinner('value'), 2, 'spinner change working for numbers only');
+
 		//increment positive
-		$spinner.spinner('increment',true);
+		$spinner.spinner('step',true);
 		equal($spinner.spinner('value'), 3, 'spinner increments positive');
 
 		//increment nagative
-		$spinner.spinner('increment',false);
+		$spinner.spinner('step',false);
 		equal($spinner.spinner('value'), 2, 'spinner increments negative');
 
 	});
