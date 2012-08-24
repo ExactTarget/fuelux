@@ -2646,8 +2646,8 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 			this.$element.on('mouseout', '.spinner-up, .spinner-down', $.proxy(this.stopSpin, this));
 			this.$element.on('mousedown', '.spinner-down', $.proxy(function() {this.startSpin(false);} , this));
 		} else {
-			this.$element.on('click', '.spinner-up', $.proxy(function() { this.increment(true); } , this));
-			this.$element.on('click', '.spinner-down', $.proxy(function() { this.increment(false); }, this));
+			this.$element.on('click', '.spinner-up', $.proxy(function() { this.step(true); } , this));
+			this.$element.on('click', '.spinner-down', $.proxy(function() { this.step(false); }, this));
 		}
 
 		this.switches = {
@@ -2679,7 +2679,16 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 		},
 
 		change: function () {
-			this.options.value = this.$input.val()/1;
+			var newVal = this.$input.val();
+
+			if(newVal/1){
+				this.options.value = newVal/1;
+			}else{
+				newVal = newVal.replace(/[^0-9]/g,'');
+				this.$input.val(newVal);
+				this.options.value = newVal/1;
+			}
+
 			this.$element.trigger('change');
 		},
 
@@ -2695,7 +2704,7 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 				var divisor = this.switches.count;
 
 				if (divisor === 1) {
-					this.increment(type);
+					this.step(type);
 					divisor = 1;
 				} else if (divisor < 3){
 					divisor = 1.5;
@@ -2711,16 +2720,16 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 		},
 
 		iterator: function (type) {
-			this.increment(type);
+			this.step(type);
 			this.startSpin(type);
 		},
 
-		increment: function (dir) {
+		step: function (dir) {
 			var curValue = this.options.value;
 			var limValue = dir ? this.options.max : this.options.min;
 
 			if ((dir ? curValue < limValue : curValue > limValue)) {
-				var newVal = curValue + (dir ? 1 : -1) * this.options.increment;
+				var newVal = curValue + (dir ? 1 : -1) * this.options.step;
 
 				if (dir ? newVal > limValue : newVal < limValue) {
 					this.value(limValue);
@@ -2775,7 +2784,7 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 		value: 1,
 		min: 1,
 		max: 999,
-		increment: 1,
+		step: 1,
 		hold: true,
 		speed: 'medium',
 		disabled: false
