@@ -2,15 +2,15 @@
 
 **_FuelUX is under development in preparation for initial release and is not yet intended for production use._**
 
-FuelUX extends Twitter Bootstrap with additional lightweight JavaScript controls.
-Other benefits include easy installation into web projects, integrated scripts for customizing Bootstrap and FuelUX,
+Fuel UX extends Twitter Bootstrap with additional lightweight JavaScript controls.
+Other benefits include easy installation into web projects, integrated scripts for customizing Bootstrap and Fuel UX,
 simple updates, and solid optimization for deployment. All functionality is covered by live documentation and unit tests.
 
 ## Features
 
-FuelUX provides all of the styles and plugins from the revolutionary [Twitter Bootstrap](http://twitter.github.com/bootstrap) project, with the following additions:
+Fuel UX provides all of the styles and plugins from the revolutionary [Twitter Bootstrap](http://twitter.github.com/bootstrap) project, with the following additions:
 
-* FuelUX JavaScript controls (with unit tests) [see them live](http://exacttarget.github.com/fuelux)
+* Fuel UX JavaScript controls (with unit tests) [see them live](http://exacttarget.github.com/fuelux)
   * Combobox - _combines input and dropdown for easy and flexible data selection_
   * Datagrid - _renders data in a table with paging, sorting, and searching_
   * Pillbox - _manages selected items with color-coded text labels_
@@ -24,14 +24,14 @@ FuelUX provides all of the styles and plugins from the revolutionary [Twitter Bo
 
 ## Getting Started
 * `git clone git://github.com/ExactTarget/fuelux.git`
-* Default FuelUX files for production use are located in the [dist](https://github.com/ExactTarget/fuelux/tree/master/dist) directory
+* Default Fuel UX files for production use are located in the [dist](https://github.com/ExactTarget/fuelux/tree/master/dist) directory
 * To customize, modify the JS and LESS files under [src](https://github.com/ExactTarget/fuelux/tree/master/src) then run `grunt` to regenerate your [dist](https://github.com/ExactTarget/fuelux/tree/master/dist) directory (more below)
 
 ## Documentation and Examples
 Live docs and demos can be found at http://exacttarget.github.com/fuelux
 
 ## Release History
-`2.0.0` _(Under development)_ First public release of FuelUX
+`2.0.0` _(Under development)_ First public release of Fuel UX
 
 ## Contributing
 Before writing code, we suggest you [search for issues](https://github.com/ExactTarget/fuelux/issues?state=open)
@@ -47,7 +47,7 @@ While grunt can run the included unit tests via PhantomJS, this isn't a substitu
 
 More about [Installing grunt and PhantomJS](https://github.com/ExactTarget/fuelux/wiki/Installing-grunt-and-PhantomJS)
 
-## The FuelUX Philosophy
+## The Fuel UX Philosophy
 
 Our aim is to provide a suite of related but independent projects that help web developers integrate, manage, and customize quality libraries and utilities to more efficiently develop, maintain, test, and distribute their projects.  Any improvements or fixes we make to the open source projects we use will be contributed upstream if they are useful to the rest of the community.
 
