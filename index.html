@@ -229,60 +229,6 @@
 		</div>
 	</section>
 
-	<section id="search">
-		<div class="page-header">
-			<h1>Search <small>search.js</small></h1>
-		</div>
-		<div class="row">
-			<div class="span12 columns">
-				<h2>Example</h2>
-				<p>Below is a working search control example.  Click (after entering text) to see your search text.</p>
-				<div class="well search-example">
-					<div id="MySearch" class="input-append search">
-						<input type="text" class="input-medium" placeholder="Search"><button class="btn"><i class="icon-search"></i></button>
-					</div>
-				</div> <!-- /well -->
-
-				<hr>
-
-				<h2>Using search</h2>
-				<p>Call the search via javascript (optional):</p>
-				<pre class="prettyprint linenums">$('#MySearch').search()</pre>
-
-				<h3>Markup</h3>
-				<p>You can activate the search control on your page easily without having to write a single line of javascript. Just set <code>class="search"</code> on a div like the example markup below and the search will activate automatically.</p>
-
-
-<pre class="prettyprint linenums">
-&lt;div id="MySearch" class="input-append search"&gt;
-	&lt;input type="text" class="input-medium" placeholder="Search"&gt;&lt;button class="btn"&gt;&lt;i class="icon-search"&gt;&lt;/i&gt;&lt;/button&gt;
-&lt;/div&gt;
-</pre>
-				<h3>Events</h3>
-				<p>FuelUX's search control exposes two events for hooking into its functionality.</p>
-				<table class="table table-bordered table-striped">
-					<thead>
-					<tr>
-						<th style="width: 150px;">Event</th>
-						<th>Description</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr>
-						<td>searched</td>
-						<td>This event is fired when a search has been performed.  Arguments are <code>event, searchText</code></td>
-					</tr>
-					<tr>
-						<td>cleared</td>
-						<td>This event is fired when the search has been cleared.</td>
-					</tr>
-					</tbody>
-				</table>
-
-			</div>
-		</div>
-	</section>
-
 	<section id="datagrid">
 		<div class="page-header">
 			<h1>Datagrid <small>datagrid.js</small></h1>
@@ -510,6 +456,60 @@
   &lt;/ul&gt;
 &lt;/div&gt;
 </pre>
+
+			</div>
+		</div>
+	</section>
+
+	<section id="search">
+		<div class="page-header">
+			<h1>Search <small>search.js</small></h1>
+		</div>
+		<div class="row">
+			<div class="span12 columns">
+				<h2>Example</h2>
+				<p>Below is a working search control example.  Click (after entering text) to see your search text.</p>
+				<div class="well search-example">
+					<div id="MySearch" class="input-append search">
+						<input type="text" class="input-medium" placeholder="Search"><button class="btn"><i class="icon-search"></i></button>
+					</div>
+				</div> <!-- /well -->
+
+				<hr>
+
+				<h2>Using search</h2>
+				<p>Call the search via javascript (optional):</p>
+				<pre class="prettyprint linenums">$('#MySearch').search()</pre>
+
+				<h3>Markup</h3>
+				<p>You can activate the search control on your page easily without having to write a single line of javascript. Just set <code>class="search"</code> on a div like the example markup below and the search will activate automatically.</p>
+
+
+<pre class="prettyprint linenums">
+&lt;div id="MySearch" class="input-append search"&gt;
+	&lt;input type="text" class="input-medium" placeholder="Search"&gt;&lt;button class="btn"&gt;&lt;i class="icon-search"&gt;&lt;/i&gt;&lt;/button&gt;
+&lt;/div&gt;
+</pre>
+				<h3>Events</h3>
+				<p>FuelUX's search control exposes two events for hooking into its functionality.</p>
+				<table class="table table-bordered table-striped">
+					<thead>
+					<tr>
+						<th style="width: 150px;">Event</th>
+						<th>Description</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>searched</td>
+						<td>This event is fired when a search has been performed.  Arguments are <code>event, searchText</code></td>
+					</tr>
+					<tr>
+						<td>cleared</td>
+						<td>This event is fired when the search has been cleared.</td>
+					</tr>
+					</tbody>
+				</table>
 
 			</div>
 		</div>
