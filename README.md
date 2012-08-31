@@ -12,8 +12,8 @@ FuelUX provides all of the styles and plugins from the revolutionary [Twitter Bo
 
 * FuelUX JavaScript controls (with unit tests) [see them live](http://exacttarget.github.com/fuelux)
   * Combobox - _combines input and dropdown for easy and flexible data selection_
-  * Pillbox - _manages selected items with color-coded text labels_
   * Datagrid - _renders data in a table with paging, sorting, and searching_
+  * Pillbox - _manages selected items with color-coded text labels_
   * Search - _combines input and button for integrated search interaction_
   * Spinner - _provides convenient numeric input with increment and decrement buttons_
 
