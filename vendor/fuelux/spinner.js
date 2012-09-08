@@ -1,5 +1,5 @@
 /*
- * FuelUX Spinner
+ * Fuel UX Spinner
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2012 ExactTarget

@@ -1,5 +1,5 @@
 /*!
- * Bootstrap Responsive v2.1.0
+ * Bootstrap Responsive v2.1.1
  *
  * Copyright 2012 Twitter, Inc
  * Licensed under the Apache License v2.0
@@ -107,6 +107,7 @@
   }
   .fuelux [class*="span"] {
     float: left;
+    min-height: 1px;
     margin-left: 30px;
   }
   .fuelux .container,
@@ -453,6 +454,7 @@
   }
   .fuelux [class*="span"] {
     float: left;
+    min-height: 1px;
     margin-left: 20px;
   }
   .fuelux .container,
@@ -780,7 +782,8 @@
     padding-left: 20px;
   }
   .fuelux .navbar-fixed-top,
-  .fuelux .navbar-fixed-bottom {
+  .fuelux .navbar-fixed-bottom,
+  .fuelux .navbar-static-top {
     margin-right: -20px;
     margin-left: -20px;
   }
@@ -814,8 +817,11 @@
   .fuelux .row-fluid [class*="span"] {
     display: block;
     float: none;
-    width: auto;
+    width: 100%;
     margin-left: 0;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
   }
   .fuelux .span12,
   .fuelux .row-fluid .span12 {
@@ -845,6 +851,9 @@
     display: inline-block;
     width: auto;
   }
+  .fuelux .controls-row [class*="span"] + [class*="span"] {
+    margin-left: 0;
+  }
   .fuelux .modal {
     position: fixed;
     top: 20px;
@@ -870,7 +879,7 @@
   .fuelux input[type="radio"] {
     border: 1px solid #ccc;
   }
-  .fuelux .form-horizontal .control-group > label {
+  .fuelux .form-horizontal .control-label {
     float: none;
     width: auto;
     padding-top: 0;
@@ -944,14 +953,14 @@
     display: none;
   }
   .fuelux .nav-collapse .nav .nav-header {
-    color: #555555;
+    color: #777777;
     text-shadow: none;
   }
   .fuelux .nav-collapse .nav > li > a,
   .fuelux .nav-collapse .dropdown-menu a {
     padding: 9px 15px;
     font-weight: bold;
-    color: #555555;
+    color: #777777;
     -webkit-border-radius: 3px;
        -moz-border-radius: 3px;
             border-radius: 3px;
@@ -1003,6 +1012,10 @@
   .fuelux .nav-collapse .dropdown-menu .divider {
     display: none;
   }
+  .fuelux .nav-collapse .nav > li > .dropdown-menu:before,
+  .fuelux .nav-collapse .nav > li > .dropdown-menu:after {
+    display: none;
+  }
   .fuelux .nav-collapse .navbar-form,
   .fuelux .nav-collapse .navbar-search {
     float: none;
@@ -1013,6 +1026,11 @@
     -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
        -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  .fuelux .navbar-inverse .nav-collapse .navbar-form,
+  .fuelux .navbar-inverse .nav-collapse .navbar-search {
+    border-top-color: #111111;
+    border-bottom-color: #111111;
   }
   .fuelux .navbar .nav-collapse .nav.pull-right {
     float: none;

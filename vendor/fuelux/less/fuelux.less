@@ -1,5 +1,5 @@
 /*!
- * Bootstrap v2.1.0
+ * Bootstrap v2.1.1
  *
  * Copyright 2012 Twitter, Inc
  * Licensed under the Apache License v2.0
@@ -10,9 +10,11 @@
 
 .fuelux {
 
-	// Core variables, reset, and mixins
-	@import "variables.less"; // Modify this for custom colors, font-sizes, etc
+	// CSS Reset
 	@import "../../lib/bootstrap/less/reset.less";
+
+	// Core variables and mixins
+	@import "variables.less"; // Modify this for custom colors, font-sizes, etc
 	@import "../../lib/bootstrap/less/mixins.less";
 
 	// Grid system and page structure
@@ -61,7 +63,7 @@
 	// Utility classes
 	@import "../../lib/bootstrap/less/utilities.less"; // Has to be last to override when necessary
 
-	// FuelUX controls
+	// Fuel UX controls
 	@import "combobox.less";
 	@import "datagrid.less";
 	@import "pillbox.less";
