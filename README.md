@@ -16,7 +16,7 @@ Fuel UX provides all of the styles and plugins from the revolutionary [Twitter B
   * Pillbox - _manages selected items with color-coded text labels_
   * Search - _combines input and button for integrated search interaction_
   * Spinner - _provides convenient numeric input with increment and decrement buttons_
-
+<p>
 * One-step installation and updates through [volo](https://github.com/volojs/volo)
 * [AMD](http://requirejs.org/docs/whyamd.html) compatibility for modular structure and deployment optimization
 * [Grunt](https://github.com/cowboy/grunt)-based build script to easily create custom distribution files
