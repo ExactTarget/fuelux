@@ -1,5 +1,5 @@
 /*
- * FuelUX Datagrid
+ * Fuel UX Datagrid
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2012 ExactTarget

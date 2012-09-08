@@ -4,7 +4,7 @@
 
 require(['jquery', 'fuelux/combobox'], function($) {
 
-	module("FuelUX combobox");
+	module("Fuel UX combobox");
 
 	test("should be defined on jquery object", function () {
 		ok($(document.body).combobox, 'combobox method is defined');

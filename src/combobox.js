@@ -1,5 +1,5 @@
 /*
- * FuelUX Combobox
+ * Fuel UX Combobox
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2012 ExactTarget

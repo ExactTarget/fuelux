@@ -4,7 +4,7 @@
 
 require(['jquery', 'fuelux/datagrid'], function($) {
 
-	module("FuelUX datagrid");
+	module("Fuel UX datagrid");
 
 	test("should be defined on jquery object", function () {
 		ok($(document.body).datagrid, 'datagrid method is defined');

@@ -1,8 +1,8 @@
 {
   "name": "fuelux",
-  "title": "FuelUX",
+  "title": "Fuel UX",
   "version": "2.0.0",
-  "description": "Base FuelUX styles and controls",
+  "description": "Base Fuel UX styles and controls",
   "homepage": "https://github.com/ExactTarget/fuelux",
   "author": {
     "name": "ExactTarget",
@@ -35,6 +35,7 @@
   },
   "keywords": [
     "fuelux",
+    "fuel ux",
     "bootstrap"
   ],
   "private": true,

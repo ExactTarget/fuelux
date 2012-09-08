@@ -4,7 +4,7 @@
 
 require(['jquery', 'fuelux/spinner'], function($) {
 
-	module("FuelUX spinner");
+	module("Fuel UX spinner");
 
 	test("should be defined on jquery object", function () {
 		ok($(document.body).spinner, 'spinner method is defined');

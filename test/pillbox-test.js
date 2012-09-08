@@ -4,7 +4,7 @@
 
 require(['jquery', 'fuelux/pillbox'], function($) {
 
-	module("FuelUX pillbox");
+	module("Fuel UX pillbox");
 
 	test("should be defined on jquery object", function () {
 		ok($(document.body).pillbox, 'pillbox method is defined');

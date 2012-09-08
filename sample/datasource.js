@@ -1,5 +1,5 @@
 /*
- * FuelUX Data components - static data source
+ * Fuel UX Data components - static data source
  * https://github.com/ExactTarget/fuelux-data
  *
  * Copyright (c) 2012 ExactTarget

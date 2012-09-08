@@ -1,5 +1,5 @@
 /*
- * FuelUX Pillbox
+ * Fuel UX Pillbox
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2012 ExactTarget

@@ -2156,7 +2156,7 @@
 }); }(this));
 
 /*
- * FuelUX Combobox
+ * Fuel UX Combobox
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2012 ExactTarget
@@ -2226,7 +2226,7 @@ define('fuelux/combobox',['require','jquery'],function(require) {
 });
 
 /*
- * FuelUX Datagrid
+ * Fuel UX Datagrid
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2012 ExactTarget
@@ -2444,7 +2444,7 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 
 });
 /*
- * FuelUX Pillbox
+ * Fuel UX Pillbox
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2012 ExactTarget
@@ -2517,7 +2517,7 @@ define('fuelux/pillbox',['require','jquery'],function(require) {
 
 
 /*
- * FuelUX Search
+ * Fuel UX Search
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2012 ExactTarget
@@ -2620,7 +2620,7 @@ define('fuelux/search',['require','jquery'],function(require) {
 });
 
 /*
- * FuelUX Spinner
+ * Fuel UX Spinner
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2012 ExactTarget
@@ -2805,7 +2805,7 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 
 });
 /*
- * FuelUX
+ * Fuel UX
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2012 ExactTarget

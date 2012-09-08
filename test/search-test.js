@@ -4,7 +4,7 @@
 
 require(['jquery', 'fuelux/search'], function($) {
 
-	module("FuelUX search");
+	module("Fuel UX search");
 
 	test("should be defined on jquery object", function () {
 		ok($(document.body).search, 'search method is defined');
