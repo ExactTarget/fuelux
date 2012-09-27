@@ -1,4 +1,10 @@
-define(function() {
+(function (root, factory) {
+	if (typeof define === 'function' && define.amd) {
+		define(factory);
+	} else {
+		root.sampleData = factory();
+	}
+}(this, function () {
 	return {
 		"geonames": [{
 			"fcodeName": "capital of a political entity",
@@ -1900,4 +1906,4 @@ define(function() {
 			"population": 617594
 		}]
 	};
-});
+}));
