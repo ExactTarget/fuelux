@@ -44,7 +44,6 @@
     "url": "https://github.com/ExactTarget/fuelux/raw/master/dist/fuelux.zip",
     "type": "directory",
     "dependencies": {
-      "jquery": "github:jquery/jquery/1.8.0"
     }
   }
 }

@@ -6,9 +6,13 @@
  * Licensed under the MIT license.
  */
 
-define(function (require) {
-
-	require('underscore');
+(function (root, factory) {
+	if (typeof define === 'function' && define.amd) {
+		define(['underscore'], factory);
+	} else {
+		root.StaticDataSource = factory();
+	}
+}(this, function () {
 
 	var StaticDataSource = function (options) {
 		this._formatter = options.formatter;
@@ -67,4 +71,4 @@ define(function (require) {
 	};
 
 	return StaticDataSource;
-});
+}));

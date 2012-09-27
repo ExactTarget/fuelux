@@ -15,9 +15,13 @@ module.exports = function(grunt) {
 			' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
 		},
 		min: {
-			dist: {
+			all: {
 				src: ['<banner:meta.banner>', 'dist/all.js'],
 				dest: 'dist/all.min.js'
+			},
+			loader: {
+				src: ['<banner:meta.banner>', 'dist/loader.js'],
+				dest: 'dist/loader.min.js'
 			}
 		},
 		qunit: {
@@ -60,6 +64,7 @@ module.exports = function(grunt) {
 					optimize: 'none',
 					optimizeCss: 'none',
 					paths: {
+						almond: '../lib/almond',
 						bootstrap: '../lib/bootstrap/js',
 						jquery: '../lib/jquery',
 						fuelux: '../dist'
@@ -67,6 +72,12 @@ module.exports = function(grunt) {
 					modules: [
 						{
 							name: 'fuelux/all',
+							exclude: ['jquery']
+						},
+						{
+							name: 'fuelux/loader',
+							include: ['almond', 'fuelux/all'],
+							insertRequire: ['fuelux/loader'],
 							exclude: ['jquery']
 						}
 					]
@@ -142,6 +153,6 @@ module.exports = function(grunt) {
 
 	// Default task.
 	grunt.registerTask('default', 'lint qunit requirejs recess copy:images clean:dist min copy:zipsrc compress clean:zipsrc');
-	grunt.registerTask('s', 'lint qunit recess server watch'); // development server
+	grunt.registerTask('devserver', 'lint qunit recess server watch'); // development server
 
 };
