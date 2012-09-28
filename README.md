@@ -1,7 +1,5 @@
 # Fuel UX [![Build Status](https://secure.travis-ci.org/ExactTarget/fuelux.png?branch=master)](http://travis-ci.org/ExactTarget/fuelux)
 
-**_Fuel UX is under development in preparation for initial release and is not yet intended for production use._**
-
 Fuel UX extends Twitter Bootstrap with additional lightweight JavaScript controls.
 Other benefits include easy installation into web projects, integrated scripts for customizing Bootstrap and Fuel UX,
 simple updates, and solid optimization for deployment. All functionality is covered by live documentation and unit tests.
@@ -33,7 +31,7 @@ Live docs and demos can be found at http://exacttarget.github.com/fuelux
 To see some work ExactTarget has made available to our client base, please check out our [Developer Community] (http://code.exacttarget.com/devcenter/home)
 
 ## Release History
-`2.0.0` _(Under development)_ First public release of Fuel UX
+`2.0.0` First public release of Fuel UX
 
 ## Contributing
 Before writing code, we suggest you [search for issues](https://github.com/ExactTarget/fuelux/issues?state=open)

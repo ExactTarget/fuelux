@@ -41,7 +41,7 @@
   "private": true,
   "volo": {
     "baseDir": "lib",
-    "url": "https://github.com/ExactTarget/fuelux/raw/master/dist/fuelux.zip",
+    "url": "https://raw.github.com/ExactTarget/fuelux/{version}/dist/fuelux.zip",
     "type": "directory",
     "dependencies": {
     }
