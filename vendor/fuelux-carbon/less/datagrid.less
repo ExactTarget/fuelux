@@ -1,0 +1,98 @@
+@tableBackgroundAccentDark: darken(@tableBackgroundAccent, 8%);
+
+.datagrid {
+
+	thead {
+
+		background-color: @tableBackgroundAccent;
+
+		.datagrid-header-title {
+			float: left;
+			line-height: 28px;
+			font-weight: normal;
+			font-size: 14px;
+			margin-right: 10px;
+		}
+
+		.datagrid-header-left {
+			float: left;
+		}
+
+		.datagrid-header-right {
+			float: right;
+		}
+
+		.sorted {
+			.gradientBar(@tableBackgroundAccent, @tableBackgroundAccentDark, @textColor, 'none');
+
+			i {
+				float: right;
+				margin-top: 2px;
+			}
+		}
+
+		.sortable {
+			cursor: pointer;
+
+			&:hover {
+				.gradientBar(@tableBackgroundAccent, @tableBackgroundAccentDark, @textColor, 'none');
+			}
+		}
+
+	}
+
+	tfoot {
+
+		background-color: @tableBackgroundAccent;
+
+		.datagrid-footer-left {
+
+			float: left;
+
+			.grid-controls {
+				margin-top: 7px;
+
+				select {
+					margin: 0 5px 1px;
+					width: 60px;
+				}
+
+				span {
+					font-weight: normal;
+				}
+			}
+
+		}
+
+		.datagrid-footer-right {
+
+			float: right;
+
+			.grid-pager {
+				> span {
+					font-weight: normal;
+					position: relative;
+					top: 8px;
+				}
+
+				.dropdown-menu {
+					min-width: 50px;
+				}
+
+				.combobox {
+					display: inline-block;
+					position: relative;
+					top: -2px;
+				}
+
+				> button {
+					position: relative;
+					top: 7px;
+				}
+			}
+
+		}
+
+	}
+
+}
