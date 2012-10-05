@@ -9,3 +9,5 @@
 define('jquery', [], function () { return jQuery; });
 
 define('fuelux/loader', ['fuelux/all'], function () {});
+
+require('fuelux/loader');

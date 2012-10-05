@@ -77,7 +77,6 @@ module.exports = function(grunt) {
 						{
 							name: 'fuelux/loader',
 							include: ['almond', 'fuelux/all'],
-							insertRequire: ['fuelux/loader'],
 							exclude: ['jquery']
 						}
 					]
