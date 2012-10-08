@@ -28,7 +28,7 @@ Fuel UX provides all of the styles and plugins from the revolutionary [Twitter B
 ## Documentation and Examples
 Live docs and demos can be found at http://exacttarget.github.com/fuelux
 
-To see some work ExactTarget has made available to our client base, please check out our [Developer Community] (http://code.exacttarget.com/devcenter/home)
+To see some work ExactTarget has made available to our client base, please check out [Fuel UX] (http://code.exacttarget.com/devcenter/fuel-ux) on our [Developer Community] (http://code.exacttarget.com/devcenter/home)
 
 ## Release History
 `2.0.1` Fix loader.js (used for non-AMD pages) to be synchronous
