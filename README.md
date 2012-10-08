@@ -26,9 +26,10 @@ Fuel UX provides all of the styles and plugins from the revolutionary [Twitter B
 * To customize, modify the JS and LESS files under [src](https://github.com/ExactTarget/fuelux/tree/master/src) then run `grunt` to regenerate your [dist](https://github.com/ExactTarget/fuelux/tree/master/dist) directory (more below)
 
 ## Documentation and Examples
-Live docs and demos can be found at http://exacttarget.github.com/fuelux
 
 To see some work ExactTarget has made available to our client base, please check out [Fuel UX] (http://code.exacttarget.com/devcenter/fuel-ux) on our [Developer Community] (http://code.exacttarget.com/devcenter/home)
+
+Live docs and demos can be found at http://exacttarget.github.com/fuelux
 
 ## Release History
 `2.0.1` Fix loader.js (used for non-AMD pages) to be synchronous
