@@ -32,8 +32,14 @@ To see some work ExactTarget has made available to our client base, please check
 Live docs and demos can be found at http://exacttarget.github.com/fuelux
 
 ## Release History
-`2.0.1` Fix loader.js (used for non-AMD pages) to be synchronous
-`2.0.0` First public release of Fuel UX
+
+### Version 2.0.1 `2012-10-05`
+
+* Fix loader.js (used for non-AMD pages) to be synchronous
+
+### Version 2.0.0 `2012-09-28`
+
+* First public release of Fuel UX
 
 ## Contributing
 Before writing code, we suggest you [search for issues](https://github.com/ExactTarget/fuelux/issues?state=open)
