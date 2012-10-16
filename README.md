@@ -1,8 +1,10 @@
-# Fuel UX [![Build Status](https://secure.travis-ci.org/ExactTarget/fuelux.png?branch=master)](http://travis-ci.org/ExactTarget/fuelux)
+[![Fuel UX](https://s3.amazonaws.com/fuelux/logo-gray.png)](http://exacttarget.github.com/fuelux)
 
 Fuel UX extends Twitter Bootstrap with additional lightweight JavaScript controls.
 Other benefits include easy installation into web projects, integrated scripts for customizing Bootstrap and Fuel UX,
 simple updates, and solid optimization for deployment. All functionality is covered by live documentation and unit tests.
+
+[![Build Status](https://secure.travis-ci.org/ExactTarget/fuelux.png?branch=master)](http://travis-ci.org/ExactTarget/fuelux)
 
 ## Features
 
