@@ -1,11 +1,15 @@
 /*global module:false*/
+var config = require('./config');
+var distDir = config.dist;
+var srcDir = config.src;
+
 module.exports = function(grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib');
 	grunt.loadNpmTasks('grunt-recess');
 
 	// Project configuration.
-	grunt.initConfig({
+	var gruntConfig = {
 		pkg: '<json:package.json>',
 		meta: {
 			banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
@@ -16,22 +20,22 @@ module.exports = function(grunt) {
 		},
 		min: {
 			all: {
-				src: ['<banner:meta.banner>', 'dist/all.js'],
-				dest: 'dist/all.min.js'
+				src: ['<banner:meta.banner>', distDir+'/all.js'],
+				dest: distDir+'/all.min.js'
 			},
 			loader: {
-				src: ['<banner:meta.banner>', 'dist/loader.js'],
-				dest: 'dist/loader.min.js'
+				src: ['<banner:meta.banner>', distDir+'/loader.js'],
+				dest: distDir+'/loader.min.js'
 			}
 		},
 		qunit: {
 			tests: ['test/**/*.html']
 		},
 		lint: {
-			files: ['grunt.js', 'src/**/*.js', 'test/**/*.js']
+			files: ['grunt.js', srcDir+'/**/*.js', 'test/**/*.js']
 		},
 		watch: {
-			files: ['grunt.js', 'lib/**', 'src/**', 'test/**'],
+			files: ['grunt.js', 'lib/**', srcDir+'/**', 'test/**'],
 			tasks: 'lint qunit recess'
 		},
 		jshint: {
@@ -58,16 +62,16 @@ module.exports = function(grunt) {
 		requirejs: {
 			combine: {
 				options: {
-					appDir: 'src',
+					appDir: srcDir,
 					baseUrl: '.',
-					dir: 'dist',
+					dir: distDir,
 					optimize: 'none',
 					optimizeCss: 'none',
 					paths: {
 						almond: '../lib/almond',
 						bootstrap: '../lib/bootstrap/js',
 						jquery: '../lib/jquery',
-						fuelux: '../dist'
+						fuelux: '../'+distDir
 					},
 					modules: [
 						{
@@ -85,30 +89,30 @@ module.exports = function(grunt) {
 		},
 		recess: {
 			compile: {
-				src: ['src/less/fuelux.less'],
-				dest: 'dist/css/fuelux.css',
+				src: [srcDir+'/less/fuelux.less'],
+				dest: distDir+'/css/fuelux.css',
 				options: {
 					compile: true
 				}
 			},
 			compile_responsive: {
-				src: ['src/less/fuelux-responsive.less'],
-				dest: 'dist/css/fuelux-responsive.css',
+				src: [srcDir+'/less/fuelux-responsive.less'],
+				dest: distDir+'/css/fuelux-responsive.css',
 				options: {
 					compile: true
 				}
 			},
 			compress: {
-				src: ['src/less/fuelux.less'],
-				dest: 'dist/css/fuelux.min.css',
+				src: [srcDir+'/less/fuelux.less'],
+				dest: distDir+'/css/fuelux.min.css',
 				options: {
 					compile: true,
 					compress: true
 				}
 			},
 			compress_responsive: {
-				src: ['src/less/fuelux-responsive.less'],
-				dest: 'dist/css/fuelux-responsive.min.css',
+				src: [srcDir+'/less/fuelux-responsive.less'],
+				dest: distDir+'/css/fuelux-responsive.min.css',
 				options: {
 					compile: true,
 					compress: true
@@ -116,39 +120,38 @@ module.exports = function(grunt) {
 			}
 		},
 		clean: {
-			dist: ['dist/build.txt', 'dist/fuelux.zip'],
-			zipsrc: ['dist/fuelux']
+			dist: [distDir+'/build.txt', 'dist/fuelux.zip'],
+			zipsrc: [distDir+'/fuelux']
 		},
 		copy: {
 			images: {
 				options: {
 					basePath: 'lib/bootstrap/img'
 				},
-				files: {
-					'dist/img': 'lib/bootstrap/img/**'
-				}
+				files: {}
 			},
 			zipsrc: {
 				options: {
-					basePath: 'dist'
+					basePath: distDir
 				},
-				files: {
-					'dist/fuelux': 'dist/**'
-				}
+				files: {}
 			}
 		},
 		compress: {
 			zip: {
-				files: {
-					'dist/fuelux.zip': 'dist/fuelux/**'
-				},
+				files: {},
 				options: {
 					mode: 'zip',
-					basePath: 'dist/'
+					basePath: distDir+'/'
 				}
 			}
 		}
-	});
+	};
+	gruntConfig.copy.images.files[distDir+'/img'] = 'lib/bootstrap/img/**';
+	gruntConfig.copy.zipsrc.files[distDir+'/fuelux'] = distDir+'/**';
+	gruntConfig.compress.zip.files[distDir+'/fuelux.zip'] = distDir+'/fuelux/**';
+
+	grunt.initConfig(gruntConfig);
 
 	// Default task.
 	grunt.registerTask('default', 'lint qunit requirejs recess copy:images clean:dist min copy:zipsrc compress clean:zipsrc');
