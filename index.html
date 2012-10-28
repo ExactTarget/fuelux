@@ -102,6 +102,30 @@
 
 				$('#MySpinner').spinner();
 
+				$('#combobox-enable').click(function () {
+					var $combobox = $('#MyCombobox');
+					$combobox.find('input').removeAttr('disabled');
+					$combobox.find('button').removeClass('disabled');
+				});
+
+				$('#combobox-disable').click(function () {
+					var $combobox = $('#MyCombobox');
+					$combobox.find('input').attr('disabled', 'disabled');
+					$combobox.find('button').addClass('disabled');
+				});
+
+				$('#search-enable').click(function () {
+					var $search = $('#MySearch');
+					$search.find('input').removeAttr('disabled');
+					$search.find('button').removeClass('disabled');
+				});
+
+				$('#search-disable').click(function () {
+					var $search = $('#MySearch');
+					$search.find('input').attr('disabled', 'disabled');
+					$search.find('button').addClass('disabled');
+				});
+
 				$('#spinner-enable').click(function () {
 					$('#MySpinner').spinner('enable');
 				});
@@ -199,16 +223,18 @@
 				<h2>Example</h2>
 				<p>Below is a working combobox example.</p>
 				<div class="well combobox-example">
-					<div class="input-append dropdown combobox">
-						<input class="span2" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
-						<ul class="dropdown-menu">
-							<li><a href="#">Item One</a></li>
-							<li><a href="#">Item Two</a></li>
-							<li><a href="#">Item Three</a></li>
-							<li class="divider"></li>
-							<li><a href="#">Item After Divider</a></li>
-						</ul>
-					</div>
+						<div id="MyCombobox" class="input-append dropdown combobox">
+							<input class="span2" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+							<ul class="dropdown-menu">
+								<li><a href="#">Item One</a></li>
+								<li><a href="#">Item Two</a></li>
+								<li><a href="#">Item Three</a></li>
+								<li class="divider"></li>
+								<li><a href="#">Item After Divider</a></li>
+							</ul>
+						</div>
+						<input type="button" class="btn" id="combobox-enable" value="enable">
+						<input type="button" class="btn" id="combobox-disable" value="disable">
 				</div> <!-- /well -->
 
 				<hr>
@@ -483,6 +509,8 @@
 					<div id="MySearch" class="input-append search">
 						<input type="text" class="input-medium" placeholder="Search"><button class="btn"><i class="icon-search"></i></button>
 					</div>
+					<input type="button" class="btn" id="search-enable" value="enable">
+					<input type="button" class="btn" id="search-disable" value="disable">
 				</div> <!-- /well -->
 
 				<hr>

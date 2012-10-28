@@ -14,7 +14,17 @@
 			padding-bottom: 40px;
 		}
 		section {
-			padding-top: 60px;
+			padding-top: 40px;
+		}
+		.fuelux .hero-unit {
+			padding: 20px 60px;
+			margin-bottom: 10px;
+		}
+		.hero-unit p {
+			margin-bottom: 20px;
+		}
+		.hero-unit img {
+			padding: 40px 0;
 		}
 		.pillbox {
 			border: 1px solid #bbb;
@@ -92,6 +102,30 @@
 
 				$('#MySpinner').spinner();
 
+				$('#combobox-enable').click(function () {
+					var $combobox = $('#MyCombobox');
+					$combobox.find('input').removeAttr('disabled');
+					$combobox.find('button').removeClass('disabled');
+				});
+
+				$('#combobox-disable').click(function () {
+					var $combobox = $('#MyCombobox');
+					$combobox.find('input').attr('disabled', 'disabled');
+					$combobox.find('button').addClass('disabled');
+				});
+
+				$('#search-enable').click(function () {
+					var $search = $('#MySearch');
+					$search.find('input').removeAttr('disabled');
+					$search.find('button').removeClass('disabled');
+				});
+
+				$('#search-disable').click(function () {
+					var $search = $('#MySearch');
+					$search.find('input').attr('disabled', 'disabled');
+					$search.find('button').addClass('disabled');
+				});
+
 				$('#spinner-enable').click(function () {
 					$('#MySpinner').spinner('enable');
 				});
@@ -141,11 +175,11 @@
 <div class="container">
 
 	<div class="hero-unit">
-		<h1>Fuel UX</h1>
+		<p><img src="https://s3.amazonaws.com/fuelux/logo-gray.png" width="600" height="122" alt="Fuel UX"></p>
 		<p>Fuel UX extends Twitter Bootstrap with additional lightweight JavaScript controls.
             Other benefits include easy installation into web projects, integrated scripts for customizing Bootstrap and Fuel UX, simple updates, and solid optimization for deployment.
             All functionality is covered by live documentation and unit tests.</p>
-		<p><a class="btn btn-primary btn-large" href="https://github.com/ExactTarget/fuelux">View On GitHub &raquo;</a></p>
+		<p><a class="btn btn-large" href="https://github.com/ExactTarget/fuelux">View On GitHub &raquo;</a></p>
 	</div>
 
 	<section id="controls">
@@ -189,16 +223,18 @@
 				<h2>Example</h2>
 				<p>Below is a working combobox example.</p>
 				<div class="well combobox-example">
-					<div class="input-append dropdown combobox">
-						<input class="span2" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
-						<ul class="dropdown-menu">
-							<li><a href="#">Item One</a></li>
-							<li><a href="#">Item Two</a></li>
-							<li><a href="#">Item Three</a></li>
-							<li class="divider"></li>
-							<li><a href="#">Item After Divider</a></li>
-						</ul>
-					</div>
+						<div id="MyCombobox" class="input-append dropdown combobox">
+							<input class="span2" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+							<ul class="dropdown-menu">
+								<li><a href="#">Item One</a></li>
+								<li><a href="#">Item Two</a></li>
+								<li><a href="#">Item Three</a></li>
+								<li class="divider"></li>
+								<li><a href="#">Item After Divider</a></li>
+							</ul>
+						</div>
+						<input type="button" class="btn" id="combobox-enable" value="enable">
+						<input type="button" class="btn" id="combobox-disable" value="disable">
 				</div> <!-- /well -->
 
 				<hr>
@@ -473,6 +509,8 @@
 					<div id="MySearch" class="input-append search">
 						<input type="text" class="input-medium" placeholder="Search"><button class="btn"><i class="icon-search"></i></button>
 					</div>
+					<input type="button" class="btn" id="search-enable" value="enable">
+					<input type="button" class="btn" id="search-disable" value="disable">
 				</div> <!-- /well -->
 
 				<hr>
@@ -548,7 +586,7 @@
 				<hr>
 
 				<h2>Using spinner</h2>
-				<p>Call the pillbox via javascript:</p>
+				<p>Call the spinner via javascript:</p>
 				<pre class="prettyprint linenums">$('#MySpinner').spinner()</pre>
 
 				<h3>Methods</h3>
@@ -655,6 +693,15 @@
 	</footer>
 
 </div>
+
+<script type="text/javascript">
+  var uvOptions = {};
+  (function() {
+    var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+    uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/CGJc97KN8ixLEOrjDGzDEg.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+  })();
+</script>
 
 </body>
 </html>
