@@ -24,6 +24,17 @@ require(['jquery', 'fuelux/search'], function($) {
 		equal($search.find('i').attr('class'), 'icon-search', 'search icon has not changed');
 	});
 
+	test("should ignore disabled button click", function () {
+		var searchHTML = '<div><input><button class="disabled"><i class="icon-search"></i></button></div>';
+
+		var $search = $(searchHTML).search();
+
+		$search.find('input').val('search text');
+		$search.find('button').click();
+
+		equal($search.find('i').attr('class'), 'icon-search', 'search icon has not changed');
+	});
+
 	test("should process valid search", function () {
 		var searchHTML = '<div><input><button><i></i></button></div>';
 		var searchText = '';

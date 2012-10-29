@@ -52,6 +52,7 @@ define(function(require) {
 
 		buttonclicked: function (e) {
 			e.preventDefault();
+			if ($(e.currentTarget).is('.disabled, :disabled')) return;
 			this.action();
 		},
 

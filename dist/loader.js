@@ -2911,6 +2911,7 @@ define('fuelux/search',['require','jquery'],function(require) {
 
 		buttonclicked: function (e) {
 			e.preventDefault();
+			if ($(e.currentTarget).is('.disabled, :disabled')) return;
 			this.action();
 		},
 
