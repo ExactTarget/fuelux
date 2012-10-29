@@ -5962,6 +5962,10 @@ textarea.span1,
   padding-left: 9px;
 }
 
+.fuelux .spinner .btn.disabled {
+  cursor: not-allowed;
+}
+
 .fuelux .spinner .spinner-buttons {
   position: relative;
   left: -22px;
