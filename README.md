@@ -49,6 +49,8 @@ Visit our UserVoice community: https://fuelux.uservoice.com
 
 ## Release History
 
+_Fuel UX is semantically versioned: <http://semver.org>_
+
 ### Version 2.0.1 `2012-10-05`
 
 * Fix loader.js (used for non-AMD pages) to be synchronous
