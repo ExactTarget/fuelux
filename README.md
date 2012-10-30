@@ -51,6 +51,13 @@ Visit our UserVoice community: https://fuelux.uservoice.com
 
 _Fuel UX is semantically versioned: <http://semver.org>_
 
+### Version 2.0.2 `2012-10-30`
+
+* Ignore click on disabled search button
+* Make cursor consistent on disabled spinner buttons
+* Improve live docs to show disabled states where available
+* Complete datagrid unit test coverage
+
 ### Version 2.0.1 `2012-10-05`
 
 * Fix loader.js (used for non-AMD pages) to be synchronous
