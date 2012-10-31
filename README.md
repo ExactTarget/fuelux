@@ -51,6 +51,10 @@ Visit our UserVoice community: https://fuelux.uservoice.com
 
 _Fuel UX is semantically versioned: <http://semver.org>_
 
+### Version 2.1.0 `2012-10-31`
+
+* Upgrade Bootstrap from 2.1.1 to 2.2.1
+
 ### Version 2.0.2 `2012-10-30`
 
 * Ignore click on disabled search button
