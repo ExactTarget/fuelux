@@ -34,6 +34,27 @@
 			border-radius: 4px;
 			width: 251px;
 		}
+		
+		.social {
+		  padding: 15px 0;
+		  text-align: center;		 
+		  border-top: 1px solid #fff;		  
+		}
+
+		.social-buttons {
+		  margin-left: 0;
+		  margin-bottom: 0;
+		  padding-left: 0;
+		  list-style: none;
+		}
+		
+		.social-buttons li {
+		  display: inline-block;
+		  padding: 5px 8px;
+		  line-height: 1;
+		  *display: inline;
+		  *zoom: 1;
+		}
 	</style>
 	<link href="http://fuelux.exacttargetapps.com/fuelux/2.1/css/fuelux-responsive.css" rel="stylesheet">
 
@@ -181,7 +202,26 @@
             All functionality is covered by live documentation and unit tests.</p>
 		<p><a class="btn btn-large" href="https://github.com/ExactTarget/fuelux">View On GitHub &raquo;</a></p>
 	</div>
-
+	
+	<div class="social">
+	  <div class="container">
+		<ul class="social-buttons">
+		  <li>
+			<iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=exacttarget&repo=fuelux&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
+		  </li>
+		  <li>
+			<iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=exacttarget&repo=fuelux&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="98px" height="20px"></iframe>
+		  </li>
+		  <li class="follow-btn">
+			<a href="https://twitter.com/ETfuel" class="twitter-follow-button" data-link-color="#0069D6" data-show-count="true">Follow @ETFuel</a>
+		  </li>
+		  <li class="tweet-btn">
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://exacttarget.github.com/fuelux/" data-count="horizontal" data-via="etfuel" data-related="etfuel:Creator of Fuel UX">Tweet</a>
+		  </li>
+		</ul>
+	  </div>
+	</div>
+	
 	<section id="controls">
 		<div class="page-header">
 			<h1>Fuel UX Controls <small>Clean and lightweight UI controls for modern web projects</small></h1>
@@ -714,6 +754,6 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
   })();
 </script>
-
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>	
 </body>
 </html>
