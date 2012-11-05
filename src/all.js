@@ -26,4 +26,5 @@ define(function (require) {
 	require('fuelux/pillbox');
 	require('fuelux/search');
 	require('fuelux/spinner');
+    require('fuelux/select');
 });
