@@ -27,4 +27,5 @@ define(function (require) {
 	require('fuelux/search');
 	require('fuelux/spinner');
     require('fuelux/select');
+	require('fuelux/tree');
 });
