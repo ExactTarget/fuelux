@@ -133,9 +133,6 @@ define(function(require) {
 			var $sel = this.$element.find('.tree-selected');
 			var data = [];
 
-			if($sel.length === 0) {
-				return;
-			}
 			$.each($sel, function (index, value) {
 				data.push($(value).data());
 			});
