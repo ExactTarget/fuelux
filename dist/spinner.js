@@ -119,7 +119,7 @@ define(['require','jquery'],function(require) {
 		},
 
 		value: function (value) {
-			if (value) {
+			if (typeof value !== 'undefined') {
 				this.options.value = value;
 				this.$input.val(value);
 				return this;

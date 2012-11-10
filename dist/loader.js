@@ -2874,6 +2874,7 @@ define('fuelux/search',['require','jquery'],function(require) {
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.search.defaults, options);
 		this.$element.find('button').on('click', $.proxy(this.buttonclicked, this));
+		this.$input = this.$element.find('input').on('keydown', $.proxy(this.keypress, this));
 		this.$input = this.$element.find('input').on('keyup', $.proxy(this.keypressed, this));
 		this.$icon = this.$element.find('i');
 		this.activeSearch = '';
@@ -2911,6 +2912,12 @@ define('fuelux/search',['require','jquery'],function(require) {
 			e.preventDefault();
 			if ($(e.currentTarget).is('.disabled, :disabled')) return;
 			this.action();
+		},
+
+		keypress: function (e) {
+			if (e.which === 13) {
+				e.preventDefault();
+			}
 		},
 
 		keypressed: function (e) {
@@ -3080,7 +3087,7 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 		},
 
 		value: function (value) {
-			if (value) {
+			if (typeof value !== 'undefined') {
 				this.options.value = value;
 				this.$input.val(value);
 				return this;

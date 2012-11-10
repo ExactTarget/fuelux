@@ -14,18 +14,18 @@ require(['jquery', 'fuelux/spinner'], function($) {
 		ok($(document.body).spinner()[0] === document.body, 'document.body returned');
 	});
 
-	test("should behave as designed", function () {
-		var spinnerHTML = ' <div id="ex-spinner" class="spinner">' +
-			'<input type="text" class="input-mini spinner-input">' +
-			'<button class="btn  spinner-up">' +
-			'<i class="icon-chevron-up"></i>' +
-			'</button>' +
-			'<button class="btn spinner-down">' +
-			'<i class="icon-chevron-down"></i>' +
-			'</button>' +
-			'</div>';
+	var spinnerHTML = ' <div id="ex-spinner" class="spinner">' +
+		'<input type="text" class="input-mini spinner-input">' +
+		'<button class="btn  spinner-up">' +
+		'<i class="icon-chevron-up"></i>' +
+		'</button>' +
+		'<button class="btn spinner-down">' +
+		'<i class="icon-chevron-down"></i>' +
+		'</button>' +
+		'</div>';
 
-		var $spinner = $( spinnerHTML).spinner();
+	test("should behave as designed", function () {
+		var $spinner = $(spinnerHTML).spinner();
 
 		//returning default value
 		equal($spinner.spinner('value'), 1, 'spinner returns selected item');
@@ -55,6 +55,12 @@ require(['jquery', 'fuelux/spinner'], function($) {
 		$spinner.spinner('step',false);
 		equal($spinner.spinner('value'), 2, 'spinner increments negative');
 
+	});
+
+	test("should allow setting value to zero", function () {
+		var $spinner = $(spinnerHTML).spinner();
+		$spinner.spinner('value', 0);
+		equal($spinner.spinner('value'), 0, 'spinner value was set to zero');
 	});
 
 });
