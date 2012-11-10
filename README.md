@@ -51,6 +51,11 @@ Visit our UserVoice community: https://fuelux.uservoice.com
 
 _Fuel UX is semantically versioned: <http://semver.org>_
 
+### Version 2.1.1 `2012-11-10`
+
+* Allow setting spinner value to zero
+* Fix search control keyboard operation in IE8
+
 ### Version 2.1.0 `2012-10-31`
 
 * Upgrade Bootstrap from 2.1.1 to 2.2.1
