@@ -1,14 +1,18 @@
 /*
- * FuelUX Data components - static data source
+ * Fuel UX Data components - static data source
  * https://github.com/ExactTarget/fuelux-data
  *
  * Copyright (c) 2012 ExactTarget
  * Licensed under the MIT license.
  */
 
-define(function (require) {
-
-	var _ = require('underscore');
+(function (root, factory) {
+	if (typeof define === 'function' && define.amd) {
+		define(['underscore'], factory);
+	} else {
+		root.StaticDataSource = factory();
+	}
+}(this, function () {
 
 	var StaticDataSource = function (options) {
 		this._formatter = options.formatter;
@@ -67,4 +71,4 @@ define(function (require) {
 	};
 
 	return StaticDataSource;
-});
+}));
