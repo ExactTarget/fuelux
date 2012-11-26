@@ -48,6 +48,32 @@
 
 		require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourcetree', 'fuelux/all'], function ($, sampleData, StaticDataSource, DataSourceTree) {
 
+            // COMBOBOX
+            $('#btnComboboxDisable').on('click', function() {
+                $('#MyCombobox').combobox('disable');
+            });
+            $('#btnComboboxEnable').on('click', function() {
+                $('#MyCombobox').combobox('enable');
+            });
+            $('#btnComboboxGetSelectedItem').on('click', function() {
+                console.log($('#MyCombobox').combobox('selectedItem'));
+            });
+            $('#btnComboboxSelectByValue').on('click', function() {
+                $('#MyCombobox').combobox('selectByValue', '3');
+            });
+            $('#btnComboboxSelectBySelector').on('click', function() {
+                $('#MyCombobox').combobox('selectBySelector', 'li[data-fizz=buzz]');
+            });
+            $('#btnComboboxSelectByIndex').on('click', function() {
+                $('#MyCombobox').combobox('selectByIndex', '3');
+            });
+            $('#btnComboboxSelectByText').on('click', function() {
+                $('#MyCombobox').combobox('selectByText', 'Four');
+            });
+            $('#MyCombobox').on('changed', function(evt, data) {
+                console.log(data);
+            });
+
 			// SEARCH CONTROL
 			$('#MySearch').on('searched', function (e, text) {
 				alert('Searched: ' + text);
@@ -168,17 +194,25 @@
 <div class="container">
 
 
-	<!-- COMBOBOX -->
-	<div class="input-append dropdown combobox">
-		<input class="span2" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
-		<ul class="dropdown-menu">
-			<li><a href="#">Item One</a></li>
-			<li><a href="#">Item Two</a></li>
-			<li><a href="#">Item Three</a></li>
-			<li class="divider"></li>
-			<li><a href="#">Item After Divider</a></li>
-		</ul>
-	</div>
+    <!-- COMBOBOX -->
+    <div>
+        <div id="MyCombobox" class="input-append dropdown combobox">
+            <input class="span2" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+            <ul class="dropdown-menu">
+                <li data-value="1" data-foo="bar"><a href="#">One</a></li>
+                <li data-value="2"><a href="#">Two</a></li>
+                <li data-value="3" data-selected="true"><a href="#">Three</a></li>
+                <li data-value="4" data-fizz="buzz"><a href="#">Four</a></li>
+            </ul>
+        </div>
+        <input id="btnComboboxGetSelectedItem" type="button" class="btn btn-mini" value="log item" />
+        <input id="btnComboboxSelectByValue" type="button" class="btn btn-mini" value="set by value" />
+        <input id="btnComboboxSelectByIndex" type="button" class="btn btn-mini" value="set by index" />
+        <input id="btnComboboxSelectByText" type="button" class="btn btn-mini" value="set by text" />
+        <input id="btnComboboxSelectBySelector" type="button" class="btn btn-mini" value="set by selector" />
+        <input id="btnComboboxDisable" type="button" class="btn btn-mini" value="disable" />
+        <input id="btnComboboxEnable" type="button" class="btn btn-mini" value="enable" />
+    </div>
 
 
 	<!-- SEARCH CONTROL -->
