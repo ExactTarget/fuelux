@@ -5895,6 +5895,61 @@ textarea.span1,
   position: fixed;
 }
 
+.fuelux .checkbox-custom input[type=checkbox] {
+  display: none;
+}
+
+.fuelux .checkbox-custom i {
+  width: 16px;
+  height: 16px;
+  padding-left: 16px;
+  margin-right: 4px;
+  margin-left: -20px;
+  background-image: url(../img/form.png);
+  background-position: 0 1px;
+  background-repeat: no-repeat;
+}
+
+.fuelux .checkbox-custom i.checked {
+  /* checked */
+
+  background-position: -48px 1px;
+}
+
+.fuelux .checkbox-custom i.disabled {
+  /* disabled */
+
+  background-position: -64px 1px;
+}
+
+.fuelux .checkbox-custom i.disabled.checked {
+  /* disabled and checked */
+
+  background-position: -80px 1px;
+}
+
+.fuelux .checkbox-custom:hover i {
+  background-position: -16px 1px;
+}
+
+.fuelux .checkbox-custom:hover i.checked {
+  /* checked */
+
+  background-position: -32px 1px;
+}
+
+.fuelux .checkbox-custom:hover i.disabled {
+  /* disabled */
+
+  background-position: -64px 1px;
+}
+
+.fuelux .checkbox-custom:hover i.disabled.checked {
+  /* disabled and checked */
+
+  background-position: -80px 1px;
+}
+
 .fuelux .combobox a {
   font-size: 14px;
 }
@@ -6065,6 +6120,61 @@ textarea.span1,
 
 .fuelux .pillbox li.status-info {
   background-color: #3a87ad;
+}
+
+.fuelux .radio-custom input[type=radio] {
+  display: none;
+}
+
+.fuelux .radio-custom i {
+  width: 16px;
+  height: 16px;
+  padding-left: 16px;
+  margin-right: 4px;
+  margin-left: -20px;
+  background-image: url(../img/form.png);
+  background-position: 0 -15px;
+  background-repeat: no-repeat;
+}
+
+.fuelux .radio-custom i.checked {
+  /* checked */
+
+  background-position: -48px -15px;
+}
+
+.fuelux .radio-custom i.disabled {
+  /* disabled */
+
+  background-position: -64px -15px;
+}
+
+.fuelux .radio-custom i.disabled.checked {
+  /* disabled and checked */
+
+  background-position: -80px -15px;
+}
+
+.fuelux .radio-custom:hover i {
+  background-position: -16px -15px;
+}
+
+.fuelux .radio-custom:hover i.checked {
+  /* checked */
+
+  background-position: -32px -15px;
+}
+
+.fuelux .radio-custom:hover i.disabled {
+  /* disabled */
+
+  background-position: -64px -15px;
+}
+
+.fuelux .radio-custom:hover i.disabled.checked {
+  /* disabled and checked */
+
+  background-position: -80px -15px;
 }
 
 .fuelux .spinner input {
