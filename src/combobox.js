@@ -29,11 +29,6 @@ define(function (require) {
 
 		constructor: Combobox,
 
-		select: function (val) {
-			this.$input.val(val).change();
-			return this;
-		},
-
 		selectedItem: function () {
 			var item = this.$selectedItem;
 			var data = {};
