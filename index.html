@@ -10,9 +10,10 @@
 	<script src="lib/require.js"></script>
 
 	<style type="text/css">
-        body {
-            padding-bottom: 200px;
-        }
+		body {
+			padding-bottom: 200px;
+		}
+
 		.pillbox {
 			border: 1px solid #bbb;
 			margin-bottom: 10px;
@@ -48,31 +49,31 @@
 
 		require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourcetree', 'fuelux/all'], function ($, sampleData, StaticDataSource, DataSourceTree) {
 
-            // COMBOBOX
-            $('#btnComboboxDisable').on('click', function() {
-                $('#MyCombobox').combobox('disable');
-            });
-            $('#btnComboboxEnable').on('click', function() {
-                $('#MyCombobox').combobox('enable');
-            });
-            $('#btnComboboxGetSelectedItem').on('click', function() {
-                console.log($('#MyCombobox').combobox('selectedItem'));
-            });
-            $('#btnComboboxSelectByValue').on('click', function() {
-                $('#MyCombobox').combobox('selectByValue', '3');
-            });
-            $('#btnComboboxSelectBySelector').on('click', function() {
-                $('#MyCombobox').combobox('selectBySelector', 'li[data-fizz=buzz]');
-            });
-            $('#btnComboboxSelectByIndex').on('click', function() {
-                $('#MyCombobox').combobox('selectByIndex', '3');
-            });
-            $('#btnComboboxSelectByText').on('click', function() {
-                $('#MyCombobox').combobox('selectByText', 'Four');
-            });
-            $('#MyCombobox').on('changed', function(evt, data) {
-                console.log(data);
-            });
+			// COMBOBOX
+			$('#btnComboboxDisable').on('click', function () {
+				$('#MyCombobox').combobox('disable');
+			});
+			$('#btnComboboxEnable').on('click', function () {
+				$('#MyCombobox').combobox('enable');
+			});
+			$('#btnComboboxGetSelectedItem').on('click', function () {
+				console.log($('#MyCombobox').combobox('selectedItem'));
+			});
+			$('#btnComboboxSelectByValue').on('click', function () {
+				$('#MyCombobox').combobox('selectByValue', '3');
+			});
+			$('#btnComboboxSelectBySelector').on('click', function () {
+				$('#MyCombobox').combobox('selectBySelector', 'li[data-fizz=buzz]');
+			});
+			$('#btnComboboxSelectByIndex').on('click', function () {
+				$('#MyCombobox').combobox('selectByIndex', '3');
+			});
+			$('#btnComboboxSelectByText').on('click', function () {
+				$('#MyCombobox').combobox('selectByText', 'Four');
+			});
+			$('#MyCombobox').on('changed', function (evt, data) {
+				console.log(data);
+			});
 
 			// SEARCH CONTROL
 			$('#MySearch').on('searched', function (e, text) {
@@ -81,15 +82,15 @@
 
 
 			// PILLBOX
-			$('#btnAdd').click(function() {
+			$('#btnAdd').click(function () {
 				$('#MyPillbox ul').append('<li>Item Eight</li>');
 			});
 
-			$('#btnRemove').click(function() {
+			$('#btnRemove').click(function () {
 				$('#MyPillbox li[data-value="foo"]').remove();
 			});
 
-			$('#btnItems').click(function() {
+			$('#btnItems').click(function () {
 				var items = $('#MyPillbox').pillbox('items');
 				console.log(items);
 			});
@@ -97,23 +98,28 @@
 
 			// DATAGRID
 			var dataSource = new StaticDataSource({
-				columns: [{
-					property: 'toponymName',
-					label: 'Name',
-					sortable: true
-				}, {
-					property: 'countrycode',
-					label: 'Country',
-					sortable: true
-				}, {
-					property: 'population',
-					label: 'Population',
-					sortable: true
-				}, {
-					property: 'fcodeName',
-					label: 'Type',
-					sortable: true
-				}],
+				columns: [
+					{
+						property: 'toponymName',
+						label: 'Name',
+						sortable: true
+					},
+					{
+						property: 'countrycode',
+						label: 'Country',
+						sortable: true
+					},
+					{
+						property: 'population',
+						label: 'Population',
+						sortable: true
+					},
+					{
+						property: 'fcodeName',
+						label: 'Type',
+						sortable: true
+					}
+				],
 				data: sampleData.geonames,
 				delay: 250
 			});
@@ -122,45 +128,45 @@
 				dataSource: dataSource
 			});
 
-            // SELECT
-            $('#MySelect').on('changed', function(evt, data) {
-                console.log(data);
-            });
-            $('#getSelectedItem').on('click', function() {
-                console.log($('#MySelect').select('selectedItem'));
-            });
-            $('#selectByValue').on('click', function() {
-                $('#MySelect').select('selectByValue', '3');
-            });
-            $('#selectBySelector').on('click', function() {
-                $('#MySelect').select('selectBySelector', 'li[data-fizz=buzz]');
-            });
-            $('#selectByIndex').on('click', function() {
-                $('#MySelect').select('selectByIndex', '3');
-            });
-            $('#selectByText').on('click', function() {
-                $('#MySelect').select('selectByText', 'One');
-            });
-            $('#enableSelect').on('click', function() {
-                $('#MySelect').select('enable');
-            });
-            $('#disableSelect').on('click', function() {
-                $('#MySelect').select('disable');
+			// SELECT
+			$('#MySelect').on('changed', function (evt, data) {
+				console.log(data);
+			});
+			$('#getSelectedItem').on('click', function () {
+				console.log($('#MySelect').select('selectedItem'));
+			});
+			$('#selectByValue').on('click', function () {
+				$('#MySelect').select('selectByValue', '3');
+			});
+			$('#selectBySelector').on('click', function () {
+				$('#MySelect').select('selectBySelector', 'li[data-fizz=buzz]');
+			});
+			$('#selectByIndex').on('click', function () {
+				$('#MySelect').select('selectByIndex', '3');
+			});
+			$('#selectByText').on('click', function () {
+				$('#MySelect').select('selectByText', 'One');
+			});
+			$('#enableSelect').on('click', function () {
+				$('#MySelect').select('enable');
+			});
+			$('#disableSelect').on('click', function () {
+				$('#MySelect').select('disable');
 
-            });
+			});
 
 			// TREE
 			var dataSourceTree = new DataSourceTree({
 				data: [
-					{ name:'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } },
-					{ name:'Test Folder 2', type: 'folder', additionalParameters: { id: 'F2' } },
-					{ name:'Test Item 1', type: 'item', additionalParameters: { id: 'I1' } },
-					{ name:'Test Item 2', type: 'item', additionalParameters: { id: 'I2' } }
+					{ name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } },
+					{ name: 'Test Folder 2', type: 'folder', additionalParameters: { id: 'F2' } },
+					{ name: 'Test Item 1', type: 'item', additionalParameters: { id: 'I1' } },
+					{ name: 'Test Item 2', type: 'item', additionalParameters: { id: 'I2' } }
 				],
 				delay: 400
 			});
 
-			$('#ex-tree').on('loaded',function ( e ) {
+			$('#ex-tree').on('loaded', function (e) {
 				console.log('Loaded');
 			});
 
@@ -171,15 +177,15 @@
 				cacheItems: true
 			});
 
-			$('#ex-tree').on('select', function ( e, info ) {
+			$('#ex-tree').on('select', function (e, info) {
 				console.log('Select Event: ', info);
 			});
 
-			$('#ex-tree').on('open', function ( e, info ) {
+			$('#ex-tree').on('open', function (e, info) {
 				console.log('Open Event: ', info);
 			});
 
-			$('#ex-tree').on('close', function ( e, info ) {
+			$('#ex-tree').on('close', function (e, info) {
 				console.log('Close Event: ', info);
 			});
 
@@ -194,65 +200,68 @@
 <div class="container">
 
 
-    <!-- COMBOBOX -->
-    <div>
-        <div id="MyCombobox" class="input-append dropdown combobox">
-            <input class="span2" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
-            <ul class="dropdown-menu">
-                <li data-value="1" data-foo="bar"><a href="#">One</a></li>
-                <li data-value="2"><a href="#">Two</a></li>
-                <li data-value="3" data-selected="true"><a href="#">Three</a></li>
-                <li data-value="4" data-fizz="buzz"><a href="#">Four</a></li>
-            </ul>
-        </div>
-        <input id="btnComboboxGetSelectedItem" type="button" class="btn btn-mini" value="log item" />
-        <input id="btnComboboxSelectByValue" type="button" class="btn btn-mini" value="set by value" />
-        <input id="btnComboboxSelectByIndex" type="button" class="btn btn-mini" value="set by index" />
-        <input id="btnComboboxSelectByText" type="button" class="btn btn-mini" value="set by text" />
-        <input id="btnComboboxSelectBySelector" type="button" class="btn btn-mini" value="set by selector" />
-        <input id="btnComboboxDisable" type="button" class="btn btn-mini" value="disable" />
-        <input id="btnComboboxEnable" type="button" class="btn btn-mini" value="enable" />
-    </div>
+	<!-- COMBOBOX -->
+	<div>
+		<div id="MyCombobox" class="input-append dropdown combobox">
+			<input class="span2" type="text">
+			<button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+			<ul class="dropdown-menu">
+				<li data-value="1" data-foo="bar"><a href="#">One</a></li>
+				<li data-value="2"><a href="#">Two</a></li>
+				<li data-value="3" data-selected="true"><a href="#">Three</a></li>
+				<li data-value="4" data-fizz="buzz"><a href="#">Four</a></li>
+			</ul>
+		</div>
+		<input id="btnComboboxGetSelectedItem" type="button" class="btn btn-mini" value="log item"/>
+		<input id="btnComboboxSelectByValue" type="button" class="btn btn-mini" value="set by value"/>
+		<input id="btnComboboxSelectByIndex" type="button" class="btn btn-mini" value="set by index"/>
+		<input id="btnComboboxSelectByText" type="button" class="btn btn-mini" value="set by text"/>
+		<input id="btnComboboxSelectBySelector" type="button" class="btn btn-mini" value="set by selector"/>
+		<input id="btnComboboxDisable" type="button" class="btn btn-mini" value="disable"/>
+		<input id="btnComboboxEnable" type="button" class="btn btn-mini" value="enable"/>
+	</div>
 
 
 	<!-- SEARCH CONTROL -->
 	<div id="MySearch" class="input-append search">
-		<input type="text" class="input-medium" placeholder="Search"><button class="btn"><i class="icon-search"></i></button>
+		<input type="text" class="input-medium" placeholder="Search">
+		<button class="btn"><i class="icon-search"></i></button>
 	</div>
 
 
 	<!-- PILLBOX -->
 	<div>
-	<div id="MyPillbox" class="pillbox">
-		<ul>
-			<li data-value="foo">Item One</li>
-			<li class="status-success">Item Two</li>
-			<li class="status-warning">Item Three</li>
-			<li class="status-important">Item Four</li>
-			<li class="status-info">Item Five</li>
-			<li class="status-success">Item Six</li>
-			<li>Item Seven</li>
-		</ul>
-	</div>
+		<div id="MyPillbox" class="pillbox">
+			<ul>
+				<li data-value="foo">Item One</li>
+				<li class="status-success">Item Two</li>
+				<li class="status-warning">Item Three</li>
+				<li class="status-important">Item Four</li>
+				<li class="status-info">Item Five</li>
+				<li class="status-success">Item Six</li>
+				<li>Item Seven</li>
+			</ul>
+		</div>
 
-	<input type="button" class="btn btn-mini" id="btnAdd" value="add">
-	<input type="button" class="btn btn-mini" id="btnRemove" value="remove">
-	<input type="button" class="btn btn-mini" id="btnItems" value="log items to console">
+		<input type="button" class="btn btn-mini" id="btnAdd" value="add">
+		<input type="button" class="btn btn-mini" id="btnRemove" value="remove">
+		<input type="button" class="btn btn-mini" id="btnItems" value="log items to console">
 	</div>
 
 
 	<!-- SPINNER -->
-    <div id="ex-spinner" class="spinner">
-        <input type="text" class="input-mini spinner-input">
-        <div class="spinner-buttons  btn-group btn-group-vertical">
-            <button class="btn spinner-up">
-                <i class="icon-chevron-up"></i>
-            </button>
-            <button class="btn spinner-down">
-                <i class="icon-chevron-down"></i>
-            </button>
-        </div>
-    </div>
+	<div id="ex-spinner" class="spinner">
+		<input type="text" class="input-mini spinner-input">
+
+		<div class="spinner-buttons  btn-group btn-group-vertical">
+			<button class="btn spinner-up">
+				<i class="icon-chevron-up"></i>
+			</button>
+			<button class="btn spinner-down">
+				<i class="icon-chevron-down"></i>
+			</button>
+		</div>
+	</div>
 
 
 	<!-- DATAGRID -->
@@ -262,12 +271,14 @@
 		<tr>
 			<th>
 				<span class="datagrid-header-title">Geographic Data Sample</span>
+
 				<div class="datagrid-header-left">
 
 				</div>
 				<div class="datagrid-header-right">
 					<div class="input-append search">
-						<input type="text" class="input-medium" placeholder="Search"><button class="btn"><i class="icon-search"></i></button>
+						<input type="text" class="input-medium" placeholder="Search">
+						<button class="btn"><i class="icon-search"></i></button>
 					</div>
 				</div>
 			</th>
@@ -279,8 +290,14 @@
 			<th>
 				<div class="datagrid-footer-left" style="display:none;">
 					<div class="grid-controls">
-						<span><span class="grid-start"></span> - <span class="grid-end"></span> of <span class="grid-count"></span></span>
-						<select class="grid-pagesize"><option>10</option><option>20</option><option>50</option><option>100</option></select>
+						<span><span class="grid-start"></span> - <span class="grid-end"></span> of <span
+								class="grid-count"></span></span>
+						<select class="grid-pagesize">
+							<option>10</option>
+							<option>20</option>
+							<option>50</option>
+							<option>100</option>
+						</select>
 						<span>Per Page</span>
 					</div>
 				</div>
@@ -288,8 +305,10 @@
 					<div class="grid-pager">
 						<button class="btn grid-prevpage"><i class="icon-chevron-left"></i></button>
 						<span>Page</span>
+
 						<div class="input-append dropdown combobox">
-							<input class="span1" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+							<input class="span1" type="text">
+							<button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
 							<ul class="dropdown-menu"></ul>
 						</div>
 						<span>of <span class="grid-pages"></span></span>
@@ -303,34 +322,36 @@
 	</table>
 
 
-    <!-- SELECT -->
-    <div>
-        <div id="MySelect" class="select btn-group" data-resize="auto">
-            <button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label"></span><span class="caret"></span></button>
-            <ul class="dropdown-menu">
-                <li data-value="1"><a href="#">One</a></li>
-                <li data-value="2"><a href="#">Two</a></li>
-                <li data-value="3" data-selected="true"><a href="#">Three</a></li>
-                <li data-value="4" data-fizz="buzz"><a href="#">Four</a></li>
-            </ul>
-        </div>
+	<!-- SELECT -->
+	<div>
+		<div id="MySelect" class="select btn-group" data-resize="auto">
+			<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label"></span><span
+					class="caret"></span></button>
+			<ul class="dropdown-menu">
+				<li data-value="1"><a href="#">One</a></li>
+				<li data-value="2"><a href="#">Two</a></li>
+				<li data-value="3" data-selected="true"><a href="#">Three</a></li>
+				<li data-value="4" data-fizz="buzz"><a href="#">Four</a></li>
+			</ul>
+		</div>
 
-        <br/>
-        <input id="getSelectedItem" type="button" class="btn btn-mini" value="log item" />
-        <input id="selectByValue" type="button" class="btn btn-mini" value="set by value" />
-        <input id="selectByIndex" type="button" class="btn btn-mini" value="set by index" />
-        <input id="selectByText" type="button" class="btn btn-mini" value="set by text" />
-        <input id="selectBySelector" type="button" class="btn btn-mini" value="set by selector" />
-        <input id="enableSelect" type="button" class="btn btn-mini" value="enable" />
-        <input id="disableSelect" type="button" class="btn btn-mini" value="disable" />
-    </div>
+		<br/>
+		<input id="getSelectedItem" type="button" class="btn btn-mini" value="log item"/>
+		<input id="selectByValue" type="button" class="btn btn-mini" value="set by value"/>
+		<input id="selectByIndex" type="button" class="btn btn-mini" value="set by index"/>
+		<input id="selectByText" type="button" class="btn btn-mini" value="set by text"/>
+		<input id="selectBySelector" type="button" class="btn btn-mini" value="set by selector"/>
+		<input id="enableSelect" type="button" class="btn btn-mini" value="enable"/>
+		<input id="disableSelect" type="button" class="btn btn-mini" value="disable"/>
+	</div>
 
 
 	<!-- TREE -->
 	<div id="ex-tree" class="tree">
-		<div class = "tree-folder" style="display:none;">
+		<div class="tree-folder" style="display:none;">
 			<div class="tree-folder-header">
 				<i class="icon-folder-close"></i>
+
 				<div class="tree-folder-name"></div>
 			</div>
 			<div class="tree-folder-content"></div>
@@ -339,6 +360,7 @@
 		</div>
 		<div class="tree-item" style="display:none;">
 			<i class="tree-dot"></i>
+
 			<div class="tree-item-name"></div>
 		</div>
 	</div>
