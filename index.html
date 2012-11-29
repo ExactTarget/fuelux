@@ -189,6 +189,27 @@
 				console.log('Close Event: ', info);
 			});
 
+
+			// CHECKBOX
+			$('#btnChkToggle').on('click', function() {
+				$('#chk1').checkbox('toggle');
+			});
+			$('#btnChkDisable').on('click', function() {
+				$('#chk1').checkbox('disable');
+			});
+			$('#btnChkEnable').on('click', function() {
+				$('#chk1').checkbox('enable');
+			});
+
+
+			// RADIO
+			$('#btnRadioDisable').on('click', function() {
+				$('#radio1').radio('disable');
+			});
+			$('#btnRadioEnable').on('click', function() {
+				$('#radio1').radio('enable');
+			});
+
 		});
 	</script>
 
@@ -199,6 +220,36 @@
 
 <div class="container">
 
+
+	<!-- CHECKBOX -->
+	<div>
+		<label class="checkbox checkbox-custom"><input type="checkbox" checked="checked"><i class="checkbox"></i>Custom: Checked Enabled<br/>Second Line</label>
+		<label class="checkbox checkbox-custom"><input type="checkbox" id="chk1"><i class="checkbox"></i>Custom: Unchecked Enabled</label>
+		<label class="checkbox checkbox-custom"><input type="checkbox" checked="checked" disabled="disabled"><i class="checkbox"></i>Custom: Checked Disabled</label>
+		<label class="checkbox checkbox-custom"><input type="checkbox" disabled="disabled"><i class="checkbox"></i>Custom: Unchecked Disabled</label>
+		<label class="checkbox"><input type="checkbox" checked="checked">Native: Checked Enabled<br/>Foo</label>
+		<label class="checkbox"><input type="checkbox">Native: Unchecked Enabled</label>
+		<label class="checkbox"><input type="checkbox" checked="checked" disabled="disabled">Native: Checked Disabled</label>
+		<label class="checkbox"><input type="checkbox" disabled="disabled">Native: Unchecked Disabled</label>
+		<button type="button" class="btn btn-mini" id="btnChkToggle">toggle</button>
+		<button type="button" class="btn btn-mini" id="btnChkDisable">disable</button>
+		<button type="button" class="btn btn-mini" id="btnChkEnable">enable</button>
+	</div>
+
+
+	<!-- RADIO -->
+	<div>
+		<label class="radio radio-custom"><input type="radio" name="radio1a" checked="checked"><i class="radio"></i>Custom: Checked Enabled</label>
+		<label class="radio radio-custom"><input type="radio" name="radio1a" id="radio1"><i class="radio"></i>Custom: Unchecked Enabled</label>
+		<label class="radio radio-custom"><input type="radio" name="radio1b" checked="checked" disabled="disabled"><i class="radio"></i>Custom: Checked Disabled</label>
+		<label class="radio radio-custom"><input type="radio" name="radio1b" disabled="disabled"><i class="radio"></i>Custom: Unchecked Disabled</label>
+		<label class="radio"><input type="radio" name="radio2a" checked="checked">Native: Checked Enabled</label>
+		<label class="radio"><input type="radio" name="radio2a">Native: Unchecked Enabled</label>
+		<label class="radio"><input type="radio" name="radio2b" checked="checked" disabled="disabled">Native: Checked Disabled</label>
+		<label class="radio"><input type="radio" name="radio2b" disabled="disabled">Native: Unchecked Disabled</label>
+		<button type="button" class="btn btn-mini" id="btnRadioDisable">disable</button>
+		<button type="button" class="btn btn-mini" id="btnRadioEnable">enable</button>
+	</div>
 
 	<!-- COMBOBOX -->
 	<div>

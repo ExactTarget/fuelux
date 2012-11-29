@@ -21,9 +21,11 @@ define(function (require) {
 	require('bootstrap/bootstrap-tooltip');
 	require('bootstrap/bootstrap-transition');
 	require('bootstrap/bootstrap-typeahead');
+	require('fuelux/checkbox');
 	require('fuelux/combobox');
 	require('fuelux/datagrid');
 	require('fuelux/pillbox');
+	require('fuelux/radio');
 	require('fuelux/search');
 	require('fuelux/spinner');
     require('fuelux/select');
