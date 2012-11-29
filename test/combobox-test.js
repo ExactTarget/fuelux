@@ -4,13 +4,6 @@
 
 require(['jquery', 'fuelux/combobox'], function ($) {
 
-	$.extend($.expr[':'], {
-		match: function (elem, index, match) {
-			var matchtext = (match && 3 in match) ? match[3] : '';
-			return ((elem.textContent || elem.innerText || $(elem).text() || "").toLowerCase() === matchtext.toLowerCase());
-		}
-	});
-
 	var html = '<div class="input-append dropdown combobox">' +
 		'<input class="span2" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>' +
 		'<ul class="dropdown-menu">' +
@@ -67,6 +60,15 @@ require(['jquery', 'fuelux/combobox'], function ($) {
 
 		var item = $combobox.combobox('selectedItem');
 		var expectedItem = { text: 'Two', value: 2 };
+		deepEqual(item, expectedItem, 'item selected');
+	});
+
+	test("should select by text", function() {
+		var $combobox = $(html).combobox();
+		$combobox.combobox('selectByText', 'THREE');
+
+		var item = $combobox.combobox('selectedItem');
+		var expectedItem = { text:'Three', value: 3 };
 		deepEqual(item, expectedItem, 'item selected');
 	});
 

@@ -6,16 +6,10 @@
  * Licensed under the MIT license.
  */
 
-define(['require','jquery'],function(require) {
+define(['require','jquery','./util'],function(require) {
 
     var $ = require('jquery');
-
-    // custom case-insensitive match expression
-    $.extend($.expr[':'], {
-        match: function(elem, index, match) {
-            return ((elem.textContent || elem.innerText || $(elem).text() || "").toLowerCase() === (match[3] || "").toLowerCase());
-        }
-    });
+	require('./util');
 
     // SELECT CONSTRUCTOR AND PROTOTYPE
 
@@ -83,7 +77,7 @@ define(['require','jquery'],function(require) {
         },
 
         selectByText: function(text) {
-            var selector = 'li a:match(' + text + ')';
+            var selector = 'li a:fuelTextExactCI(' + text + ')';
             this.selectBySelector(selector);
         },
 

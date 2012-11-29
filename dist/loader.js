@@ -2495,6 +2495,25 @@ define("almond", function(){});
 }); }(this));
 
 /*
+ * Fuel UX Utilities
+ * https://github.com/ExactTarget/fuelux
+ *
+ * Copyright (c) 2012 ExactTarget
+ * Licensed under the MIT license.
+ */
+
+define('fuelux/util',['require','jquery'],function (require) {
+
+	var $ = require('jquery');
+
+	// custom case-insensitive match expression
+	$.expr.pseudos.fuelTextExactCI = $.expr.createPseudo(function (arg) {
+		return function (elem) {
+			return (elem.textContent || elem.innerText || $(elem).text() || '').toLowerCase() === arg.toLowerCase();
+		};
+	});
+});
+/*
  * Fuel UX Combobox
  * https://github.com/ExactTarget/fuelux
  *
@@ -2502,9 +2521,10 @@ define("almond", function(){});
  * Licensed under the MIT license.
  */
 
-define('fuelux/combobox',['require','jquery'],function (require) {
+define('fuelux/combobox',['require','jquery','./util'],function (require) {
 
 	var $ = require('jquery');
+	require('./util');
 
 	// COMBOBOX CONSTRUCTOR AND PROTOTYPE
 
@@ -2515,14 +2535,6 @@ define('fuelux/combobox',['require','jquery'],function (require) {
 		this.$element.on('change', 'input', $.proxy(this.inputchanged, this));
 		this.$input = this.$element.find('input');
 		this.$button = this.$element.find('.btn');
-
-		// custom case-insensitive match expression
-		$.extend($.expr[':'], {
-			match: function (elem, index, match) {
-				var matchtext = (match && 3 in match) ? match[3] : '';
-				return ((elem.textContent || elem.innerText || $(elem).text() || "").toLowerCase() === matchtext.toLowerCase());
-			}
-		});
 
 		// set default selection
 		this.setDefaultSelection();
@@ -2553,7 +2565,7 @@ define('fuelux/combobox',['require','jquery'],function (require) {
 		},
 
 		selectByText: function (text) {
-			var selector = 'li:match(' + text + ')';
+			var selector = 'li:fuelTextExactCI(' + text + ')';
 			this.selectBySelector(selector);
 		},
 
@@ -3276,16 +3288,10 @@ define('fuelux/spinner',['require','jquery'],function(require) {
  * Licensed under the MIT license.
  */
 
-define('fuelux/select',['require','jquery'],function(require) {
+define('fuelux/select',['require','jquery','./util'],function(require) {
 
     var $ = require('jquery');
-
-    // custom case-insensitive match expression
-    $.extend($.expr[':'], {
-        match: function(elem, index, match) {
-            return ((elem.textContent || elem.innerText || $(elem).text() || "").toLowerCase() === (match[3] || "").toLowerCase());
-        }
-    });
+	require('./util');
 
     // SELECT CONSTRUCTOR AND PROTOTYPE
 
@@ -3353,7 +3359,7 @@ define('fuelux/select',['require','jquery'],function(require) {
         },
 
         selectByText: function(text) {
-            var selector = 'li a:match(' + text + ')';
+            var selector = 'li a:fuelTextExactCI(' + text + ')';
             this.selectBySelector(selector);
         },
 

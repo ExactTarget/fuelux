@@ -64,13 +64,14 @@ require(['jquery', 'fuelux/select'], function($) {
         deepEqual(item, expectedItem, 'item selected');
     });
 
-    /* TO DO: fix to work with custom match expression
     test("should select by text", function() {
-        $select.select('selectByText', 'Three');
+		var $select = $(html).select();
+        $select.select('selectByText', 'THREE');
 
         var item = $select.select('selectedItem');
-
-    });*/
+		var expectedItem = { text:'Three' };
+		deepEqual(item, expectedItem, 'item selected');
+    });
 
     test("should select by selector", function() {
         var $select = $(html).select();

@@ -6,9 +6,10 @@
  * Licensed under the MIT license.
  */
 
-define(['require','jquery'],function (require) {
+define(['require','jquery','./util'],function (require) {
 
 	var $ = require('jquery');
+	require('./util');
 
 	// COMBOBOX CONSTRUCTOR AND PROTOTYPE
 
@@ -19,14 +20,6 @@ define(['require','jquery'],function (require) {
 		this.$element.on('change', 'input', $.proxy(this.inputchanged, this));
 		this.$input = this.$element.find('input');
 		this.$button = this.$element.find('.btn');
-
-		// custom case-insensitive match expression
-		$.extend($.expr[':'], {
-			match: function (elem, index, match) {
-				var matchtext = (match && 3 in match) ? match[3] : '';
-				return ((elem.textContent || elem.innerText || $(elem).text() || "").toLowerCase() === matchtext.toLowerCase());
-			}
-		});
 
 		// set default selection
 		this.setDefaultSelection();
@@ -57,7 +50,7 @@ define(['require','jquery'],function (require) {
 		},
 
 		selectByText: function (text) {
-			var selector = 'li:match(' + text + ')';
+			var selector = 'li:fuelTextExactCI(' + text + ')';
 			this.selectBySelector(selector);
 		},
 
