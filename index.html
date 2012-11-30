@@ -39,6 +39,9 @@
 			border-radius: 4px;
 			width: 251px;
 		}
+		#mySelect {
+			margin-bottom: 10px;
+		}
 		
 		.social {
 		  padding: 15px 0;
@@ -80,22 +83,54 @@
 					$('body').data('scrollspy').activate('#controls');
 				});
 
-				$('#MySearch').on('searched', function (e, text) {
-					alert('Searched: ' + text);
+
+				// INITIALIZING CHECKBOX
+				$('#checkbox-toggle').on('click', function() {
+					$('#myCheckbox').checkbox('toggle');
 				});
 
-				$('#btnAdd').click(function() {
-					$('#MyPillbox ul').append('<li>Item Eight</li>');
+				$('#checkbox-disable').on('click', function() {
+					$('#myCheckbox').checkbox('disable');
 				});
 
-				$('#btnRemove').click(function() {
-					$('#MyPillbox li[data-value="foo"]').remove();
+				$('#checkbox-enable').on('click', function() {
+					$('#myCheckbox').checkbox('enable');
 				});
 
-				$('#btnItems').click(function() {
-					var items = $('#MyPillbox').pillbox('items');
-					console.log(items);
+
+				// INITIALIZING COMBOBOX
+				$('#myCombobox').on('changed', function (evt, data) {
+					console.log(data);
 				});
+
+				$('#combobox-logItem').on('click', function () {
+					console.log($('#myCombobox').combobox('selectedItem'));
+				});
+
+				$('#combobox-setByIndex').on('click', function () {
+					$('#myCombobox').combobox('selectByIndex', '1');
+				});
+
+				$('#combobox-setByText').on('click', function () {
+					$('#myCombobox').combobox('selectByText', 'Item Three');
+				});
+
+				$('#combobox-setBySelector').on('click', function () {
+					$('#myCombobox').combobox('selectBySelector', 'li[data-fizz=buzz]');
+				});
+
+				$('#combobox-setByValue').on('click', function () {
+					$('#myCombobox').combobox('selectByValue', '1');
+				});
+
+				$('#combobox-enable').on('click', function () {
+					$('#myCombobox').combobox('enable');
+				});
+
+				$('#combobox-disable').on('click', function () {
+					$('#myCombobox').combobox('disable');
+				});
+
 
                 // INITIALIZING THE DATAGRID
                 var dataSource = new StaticDataSource({
@@ -124,20 +159,25 @@
                     dataSource: dataSource
                 });
 
-				// INITIALIZING THE SPINNER
 
-				$('#MySpinner').spinner();
-
-				$('#combobox-enable').click(function () {
-					var $combobox = $('#MyCombobox');
-					$combobox.find('input').removeAttr('disabled');
-					$combobox.find('button').removeClass('disabled');
+				// INITIALIZING PILLBOX
+				$('#btnAdd').click(function() {
+					$('#MyPillbox ul').append('<li>Item Eight</li>');
 				});
 
-				$('#combobox-disable').click(function () {
-					var $combobox = $('#MyCombobox');
-					$combobox.find('input').attr('disabled', 'disabled');
-					$combobox.find('button').addClass('disabled');
+				$('#btnRemove').click(function() {
+					$('#MyPillbox li[data-value="foo"]').remove();
+				});
+
+				$('#btnItems').click(function() {
+					var items = $('#MyPillbox').pillbox('items');
+					console.log(items);
+				});
+
+
+				// INITIALIZING SEARCH
+				$('#MySearch').on('searched', function (e, text) {
+					alert('Searched: ' + text);
 				});
 
 				$('#search-enable').click(function () {
@@ -152,6 +192,10 @@
 					$search.find('button').addClass('disabled');
 				});
 
+
+				// INITIALIZING SPINNER
+				$('#MySpinner').spinner();
+
 				$('#spinner-enable').click(function () {
 					$('#MySpinner').spinner('enable');
 				});
@@ -162,6 +206,50 @@
 
 				$('#spinner-log').click(function () {
 					console.log("Spinner value: ",$('#MySpinner').spinner('value'));
+				});
+
+
+				// INITIALIZING RADIO
+				$('#radio-disable').on('click', function() {
+					$('#myRadio').radio('disable');
+				});
+
+				$('#radio-enable').on('click', function() {
+					$('#myRadio').radio('enable');
+				});
+
+
+				// INITIALIZING SELECT
+				$('#mySelect').on('changed', function (evt, data) {
+					console.log(data);
+				});
+
+				$('#select-logItem').on('click', function () {
+					console.log($('#mySelect').select('selectedItem'));
+				});
+
+				$('#select-setByIndex').on('click', function () {
+					$('#mySelect').select('selectByIndex', '1');
+				});
+
+				$('#select-setByText').on('click', function () {
+					$('#mySelect').select('selectByText', 'Item Three');
+				});
+
+				$('#select-setBySelector').on('click', function () {
+					$('#mySelect').select('selectBySelector', 'li[data-fizz=buzz]');
+				});
+
+				$('#select-setByValue').on('click', function () {
+					$('#mySelect').select('selectByValue', '1');
+				});
+
+				$('#select-enable').on('click', function () {
+					$('#mySelect').select('enable');
+				});
+
+				$('#select-disable').on('click', function () {
+					$('#mySelect').select('disable');
 				});
 
 			});
@@ -187,10 +275,13 @@
 			<div class="nav-collapse">
 				<ul class="nav">
 					<li class="active"><a href="#controls">All Controls</a></li>
+					<li><a href="#checkbox">Checkbox</a></li>
 					<li><a href="#combobox">Combobox</a></li>
 					<li><a href="#datagrid">Datagrid</a></li>
 					<li><a href="#pillbox">Pillbox</a></li>
+					<li><a href="#radio">Radio</a></li>
 					<li><a href="#search">Search</a></li>
+					<li><a href="#select">Select</a></li>
 					<li><a href="#spinner">Spinner</a></li>
 				</ul>
 			</div>
@@ -235,6 +326,10 @@
 
 	<div class="row">
 		<div class="span4">
+			<h3><a href="#checkbox">Checkbox</a></h3>
+			<p>Customized look and feel for checkbox element.</p>
+		</div>
+		<div class="span4">
 			<h3><a href="#combobox">Combobox</a></h3>
 			<p>Combines input and dropdown for easy and flexible data selection.</p>
 		</div>
@@ -242,22 +337,92 @@
 			<h3><a href="#datagrid">Datagrid</a></h3>
 			<p>Renders data in a table with paging, sorting, and searching.</p>
 		</div>
-                <div class="span4">
-			<h3><a href="#pillbox">Pillbox</a></h3>
-			<p>Easily manage selected items with color-coded text labels.</p>
-		</div>
 	</div>
 
 	<div class="row">
 		<div class="span4">
+			<h3><a href="#pillbox">Pillbox</a></h3>
+			<p>Easily manage selected items with color-coded text labels.</p>
+		</div>
+		<div class="span4">
+			<h3><a href="#radio">Radio</a></h3>
+			<p>Customized look and feel for radio button element.</p>
+		</div>
+		<div class="span4">
 			<h3><a href="#search">Search</a></h3>
 			<p>Combines input and button for integrated search interaction.</p>
+		</div>
+
+	</div>
+	<div class="row">
+		<div class="span4">
+			<h3><a href="#select">Select</a></h3>
+			<p>Extends button dropdown with additional functionality for setting and retrieving the selected item.</p>
 		</div>
 		<div class="span4">
 			<h3><a href="#spinner">Spinner</a></h3>
 			<p>Provides convenient numeric input with increment and decrement buttons.</p>
 		</div>
 	</div>
+
+	<section id="checkbox">
+		<div class="page-header">
+			<h1>Checkbox <small>checkbox.js</small></h1>
+		</div>
+		<div class="row">
+			<div class="span12 columns">
+				<h2>Example</h2>
+				<p>Below is a working checkbox example.</p>
+				<div class="well checkbox-example">
+					<label class="checkbox checkbox-custom"><input type="checkbox" checked="checked" id="myCheckbox"><i class="checkbox"></i>Checked Enabled</label>
+					<label class="checkbox checkbox-custom"><input type="checkbox"><i class="checkbox"></i>Unchecked Enabled</label>
+					<label class="checkbox checkbox-custom"><input type="checkbox" checked="checked" disabled="disabled"><i class="checkbox"></i>Checked Disabled</label>
+					<label class="checkbox checkbox-custom"><input type="checkbox" disabled="disabled"><i class="checkbox"></i>Unchecked Disabled</label>
+					<input type="button" class="btn" id="checkbox-toggle" value="toggle">
+					<input type="button" class="btn" id="checkbox-enable" value="enable">
+					<input type="button" class="btn" id="checkbox-disable" value="disable">
+				</div> <!-- /well -->
+
+				<hr>
+
+				<h2>Using checkbox</h2>
+				<p>Call the checkbox via javascript (optional):</p>
+				<pre class="prettyprint linenums">$('#myCheckbox').checkbox()</pre>
+
+				<h3>Methods</h3>
+				<p>Fuel UX's checkbox exposes the following methods:</p>
+				<table class="table table-bordered table-striped">
+					<thead>
+					<tr>
+						<th style="width: 150px;">Method</th>
+						<th>Description</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>disable</td>
+						<td>Disables the checkbox</td>
+					</tr>
+					<tr>
+						<td>enable</td>
+						<td>Enables the checkbox</td>
+					</tr>
+					<tr>
+						<td>toggle</td>
+						<td>Toggles the checked state of the checkbox</td>
+					</tr>
+					</tbody>
+				</table>
+
+				<h3>Markup</h3>
+				<p>You can activate checkbox on your page easily without having to write a single line of javascript. Just set <code>class="checkbox-custom"</code> on a label and include an i tag with <code>class="checkbox"</code> like the example markup below and the checkbox will activate automatically.</p>
+
+<pre class="prettyprint linenums">
+&lt;label class="checkbox checkbox-custom">&lt;input type="checkbox"&gt;&lt;i class="checkbox"&gt;&lt;/i&gt;Item One&lt;/label&gt;
+</pre>
+			</div>
+		</div>
+	</section>
 
 	<section id="combobox">
 		<div class="page-header">
@@ -268,18 +433,23 @@
 				<h2>Example</h2>
 				<p>Below is a working combobox example.</p>
 				<div class="well combobox-example">
-						<div id="MyCombobox" class="input-append dropdown combobox">
-							<input class="span2" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
-							<ul class="dropdown-menu">
-								<li><a href="#">Item One</a></li>
-								<li><a href="#">Item Two</a></li>
-								<li><a href="#">Item Three</a></li>
-								<li class="divider"></li>
-								<li><a href="#">Item After Divider</a></li>
-							</ul>
-						</div>
-						<input type="button" class="btn" id="combobox-enable" value="enable">
-						<input type="button" class="btn" id="combobox-disable" value="disable">
+					<div id="myCombobox" class="input-append dropdown combobox">
+						<input class="span2" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+						<ul class="dropdown-menu">
+							<li data-value="1" data-selected="true"><a href="#">Item One</a></li>
+							<li data-value="2"><a href="#">Item Two</a></li>
+							<li data-value="3" data-fizz="buzz"><a href="#">Item Three</a></li>
+							<li class="divider"></li>
+							<li data-value="4"><a href="#">Item Four</a></li>
+						</ul>
+					</div>
+					<input type="button" class="btn" id="combobox-enable" value="enable">
+					<input type="button" class="btn" id="combobox-disable" value="disable">
+					<input type="button" class="btn" id="combobox-setByIndex" value="set by index">
+					<input type="button" class="btn" id="combobox-setByText" value="set by text">
+					<input type="button" class="btn" id="combobox-setByValue" value="set by value">
+					<input type="button" class="btn" id="combobox-setBySelector" value="set by selector">
+					<input type="button" class="btn" id="combobox-logItem" value="log item to console">
 				</div> <!-- /well -->
 
 				<hr>
@@ -287,6 +457,64 @@
 				<h2>Using combobox</h2>
 				<p>Call the combobox via javascript (optional):</p>
 				<pre class="prettyprint linenums">$('#myCombobox').combobox()</pre>
+
+				<h3>Methods</h3>
+				<p>Fuel UX's combobox exposes the following methods:</p>
+				<table class="table table-bordered table-striped">
+					<thead>
+					<tr>
+						<th style="width: 150px;">Method</th>
+						<th>Description</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>disable</td>
+						<td>Disable the combobox</td>
+					</tr>
+					<tr>
+						<td>enable</td>
+						<td>Enable the combobox</td>
+					</tr>
+					<tr>
+						<td>selectedItem</td>
+						<td>Returns an object containing the jQuery data() contents of the selected item <em><a href="http://api.jquery.com/data/#data-html5">which includes data-* attributes</a></em> plus a <code>text</code> property with the items's visible text.</td>
+					</tr>
+					<tr>
+						<td>setByIndex</td>
+						<td>Set the selected item based on its index in the list (zero-based index).  Convenience method for <code>setBySelector('li:eq({index})')</td>
+					</tr>
+					<tr>
+						<td>setByText</td>
+						<td>Set the selected item based on its text value</td>
+					</tr>
+					<tr>
+						<td>setBySelector</td>
+						<td>Set the selected item based on a selector.  For example: <code>$('#myCombobox').select('setBySelector','li[data-fizz=buzz]');</code></td>
+					</tr>
+					<tr>
+						<td>setByValue</td>
+						<td>Set the selected item based on its value.  Convenience method for <code>setBySelector('data-value={value}')</code> that requires the item to have a <code>data-value="{value}"</code> attribute</td>
+					</tr>
+					</tbody>
+				</table>
+
+				<h3>Events</h3>
+				<p>Fuel UX's combobox control exposes the following events:</p>
+				<table class="table table-bordered table-striped">
+					<thead>
+					<tr>
+						<th style="width: 150px;">Event</th>
+						<th>Description</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>changed</td>
+						<td>This event is fired when the value has changed (either by selecting an item from the list or updating the input value directly). Arguments are <code>event, data</code> where data represents the same object structure returned by the <code>selectedItem</code> method.</td>
+					</tr>
+					</tbody>
+				</table>
 
 				<h3>Markup</h3>
 				<p>You can activate combobox on your page easily without having to write a single line of javascript. Just set <code>class="combobox"</code> on a div like the example markup below and the combobox will activate automatically.</p>
@@ -542,6 +770,60 @@
 		</div>
 	</section>
 
+	<section id="radio">
+		<div class="page-header">
+			<h1>Radio <small>radio.js</small></h1>
+		</div>
+		<div class="row">
+			<div class="span12 columns">
+				<h2>Example</h2>
+				<p>Below is a working radio example.</p>
+				<div class="well radio-example">
+					<label class="radio radio-custom"><input type="radio" name="radioA" checked="checked" id="myRadio"><i class="radio"></i>Checked Enabled</label>
+					<label class="radio radio-custom"><input type="radio" name="radioA"><i class="radio"></i>Unchecked Enabled</label>
+					<label class="radio radio-custom"><input type="radio" name="radioB" checked="checked" disabled="disabled"><i class="radio"></i>Checked Disabled</label>
+					<label class="radio radio-custom"><input type="radio" name="radioB" disabled="disabled"><i class="radio"></i>Unchecked Disabled</label>
+					<input type="button" class="btn" id="radio-enable" value="enable">
+					<input type="button" class="btn" id="radio-disable" value="disable">
+				</div> <!-- /well -->
+
+				<hr>
+
+				<h2>Using radio</h2>
+				<p>Call the radio via javascript (optional):</p>
+				<pre class="prettyprint linenums">$('#myRadio').radio()</pre>
+
+				<h3>Methods</h3>
+				<p>Fuel UX's radio exposes the following methods:</p>
+				<table class="table table-bordered table-striped">
+					<thead>
+					<tr>
+						<th style="width: 150px;">Method</th>
+						<th>Description</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>disable</td>
+						<td>Disable the radio</td>
+					</tr>
+					<tr>
+						<td>enable</td>
+						<td>Enable the radio</td>
+					</tr>
+					</tbody>
+				</table>
+
+				<h3>Markup</h3>
+				<p>You can activate radio on your page easily without having to write a single line of javascript. Just set <code>class="radio-custom"</code> on a label and include an i tag with <code>class="radio"</code> like the example markup below and the radio will activate automatically.</p>
+
+<pre class="prettyprint linenums">
+&lt;label class="radio radio-custom">&lt;input type="radio"&gt;&lt;i class="radio"&gt;&lt;/i&gt;Item One&lt;/label&gt;
+</pre>
+			</div>
+		</div>
+	</section>
+
 	<section id="search">
 		<div class="page-header">
 			<h1>Search <small>search.js</small></h1>
@@ -594,6 +876,123 @@
 					</tbody>
 				</table>
 
+			</div>
+		</div>
+	</section>
+
+	<section id="select">
+		<div class="page-header">
+			<h1>Select <small>select.js</small></h1>
+		</div>
+		<div class="row">
+			<div class="span12 columns">
+				<h2>Example</h2>
+				<p>Below is a working select example.</p>
+				<div class="well select-example">
+					<div id="mySelect" class="select btn-group" data-resize="auto">
+						<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label"></span><span class="caret"></span></button>
+						<ul class="dropdown-menu">
+							<li data-value="1" data-selected="true"><a href="#">Item One</a></li>
+							<li data-value="2"><a href="#">Item Two</a></li>
+							<li data-value="3" data-fizz="buzz"><a href="#">Item Three</a></li>
+							<li class="divider"></li>
+							<li data-value="4"><a href="#">Item Four</a></li>
+						</ul>
+					</div>
+					<div>
+						<input type="button" class="btn" id="select-enable" value="enable">
+						<input type="button" class="btn" id="select-disable" value="disable">
+						<input type="button" class="btn" id="select-setByIndex" value="set by index">
+						<input type="button" class="btn" id="select-setByText" value="set by text">
+						<input type="button" class="btn" id="select-setByValue" value="set by value">
+						<input type="button" class="btn" id="select-setBySelector" value="set by selector">
+						<input type="button" class="btn" id="select-logItem" value="log item to console">
+					</div>
+				</div> <!-- /well -->
+
+				<hr>
+
+				<h2>Using select</h2>
+				<p>Call the select via javascript (optional):</p>
+				<pre class="prettyprint linenums">$('#mySelect').select()</pre>
+
+				<h3>Methods</h3>
+				<p>Fuel UX's select exposes the following methods:</p>
+				<table class="table table-bordered table-striped">
+					<thead>
+					<tr>
+						<th style="width: 150px;">Method</th>
+						<th>Description</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>disable</td>
+						<td>Disable the select</td>
+					</tr>
+					<tr>
+						<td>enable</td>
+						<td>Enable the select</td>
+					</tr>
+					<tr>
+						<td>resize</td>
+						<td>Resize the select width based on the longest item in the list.  This can be accomplished automatically using <code>data-resize="auto"</code> as well</td>
+					</tr>
+					<tr>
+						<td>selectedItem</td>
+						<td>Returns an object containing the jQuery data() contents of the selected item <em><a href="http://api.jquery.com/data/#data-html5">which includes data-* attributes</a></em> plus a <code>text</code> property with the items's visible text</td>
+					</tr>
+					<tr>
+						<td>setByIndex</td>
+						<td>Set the select item based on its index in the list (zero-based index).  Convenience method for <code>setBySelector('li:eq({index})')</code></td>
+					</tr>
+					<tr>
+						<td>setByText</td>
+						<td>Set the selected item based on its text value</td>
+					</tr>
+					<tr>
+						<td>setBySelector</td>
+						<td>Set the selected item based on a selector.  For example: <code>$('#mySelect').select('setBySelector','li[data-fizz=buzz]');</code></td>
+					</tr>
+					<tr>
+						<td>setByValue</td>
+						<td>Set the selected item based on its value.  Convenience method for <code>setBySelector('data-value={value}')</code> that requires the item to have a <code>data-value="{value}"</code> attribute</td>
+					</tr>
+					</tbody>
+				</table>
+
+				<h3>Events</h3>
+				<p>Fuel UX's select control exposes the following events:</p>
+				<table class="table table-bordered table-striped">
+					<thead>
+					<tr>
+						<th style="width: 150px;">Event</th>
+						<th>Description</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>changed</td>
+						<td>This event is fired when the selected item has changed. Arguments are <code>event, data</code> where data represents the same object structure returned by the <code>selectedItem</code> method.</td>
+					</tr>
+					</tbody>
+				</table>
+
+				<h3>Markup</h3>
+				<p>You can activate select on your page easily without having to write a single line of javascript. Just set <code>class="select"</code> on a div like the example markup below and the select will activate automatically.</p>
+
+
+<pre class="prettyprint linenums">
+&lt;div class="select btn-group" data-resize="auto"&gt;
+	&lt;button data-toggle="dropdown" class="btn dropdown-toggle"&gt;&lt;span class="dropdown-label"&gt;&lt;/span&gt;&lt;span class="caret"&gt;&lt;/span&gt;&lt;/button&gt;
+	&lt;ul class="dropdown-menu"&gt;
+		&lt;li data-value="1"&gt;&lt;a href="#"&gt;One&lt;/a&gt;&lt;/li&gt;
+		&lt;li data-value="2"&gt;&lt;a href="#"&gt;Two&lt;/a&gt;&lt;/li&gt;
+		&lt;li data-value="3" data-selected="true"&gt;&lt;a href="#"&gt;Three&lt;/a&gt;&lt;/li&gt;
+		&lt;li data-value="4" data-fizz="buzz"&gt;&lt;a href="#"&gt;Four&lt;/a&gt;&lt;/li&gt;
+	&lt;/ul&gt;
+&lt;/div&gt;
+</pre>
 			</div>
 		</div>
 	</section>
