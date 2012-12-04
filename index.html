@@ -63,6 +63,21 @@
 		  *display: inline;
 		  *zoom: 1;
 		}
+
+		.spinner-example {
+			height: 28px;
+		}
+
+		#MyTree {
+			width: 400px;
+			height: 300px;
+			margin-bottom: 15px;
+		}
+
+		.tree-example {
+			height: 350px;
+		}
+
 	</style>
 	<link href="vendor/fuelux/css/fuelux-responsive.css" rel="stylesheet">
 
@@ -77,7 +92,7 @@
 	</script>
 
 	<script>
-		require(['jquery', 'sample/data', 'sample/datasource', 'fuelux/all'], function ($, sampleData, StaticDataSource) {
+		require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 'fuelux/all'], function ($, sampleData, StaticDataSource, TreeDataSource) {
 			$(function () {
 				$('#BrandLink, #ReturnLink').click(function () {
 					$('body').data('scrollspy').activate('#controls');
@@ -252,6 +267,38 @@
 					$('#mySelect').select('disable');
 				});
 
+				// INITIALIZING TREE
+				var treeDataSource = new TreeDataSource({
+					data: [
+						{ name:'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } },
+						{ name:'Test Folder 2', type: 'folder', additionalParameters: { id: 'F2' } },
+						{ name:'Test Item 1', type: 'item', additionalParameters: { id: 'I1' } },
+						{ name:'Test Item 2', type: 'item', additionalParameters: { id: 'I2' } }
+					],
+					delay: 400
+				});
+
+				$('#MyTree').tree({dataSource: treeDataSource});
+
+				$('#tree-selected-items').on('click', function () {
+					console.log("selected items: ", $('#MyTree').tree('selectedItems'));
+				});
+
+				$('#MyTree').on('loaded', function (evt, data) {
+					console.log('tree content loaded');
+				});
+
+				$('#MyTree').on('open', function (evt, data) {
+					console.log('sub-folder opened: ', data);
+				});
+
+				$('#MyTree').on('close', function (evt, data) {
+					console.log('sub-folder closed: ', data);
+				});
+
+				$('#MyTree').on('select', function (evt, data) {
+					console.log('item selected: ', data);
+				});
 			});
 		});
 	</script>
@@ -283,6 +330,7 @@
 					<li><a href="#search">Search</a></li>
 					<li><a href="#select">Select</a></li>
 					<li><a href="#spinner">Spinner</a></li>
+					<li><a href="#tree">Tree</a></li>
 				</ul>
 			</div>
 		</div>
@@ -1121,6 +1169,165 @@
         &lt;button class="btn spinner-down"&gt;
             &lt;i class="icon-chevron-down"&gt;&lt;/i&gt;
         &lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+			</div>
+		</div>
+	</section>
+
+	<section id="tree">
+		<div class="page-header">
+			<h1>Tree <small>tree.js</small></h1>
+		</div>
+		<div class="row">
+			<div class="span12 columns">
+				<h2>Example</h2>
+				<p>Below is a working tree example.</p>
+				<div class="well tree-example">
+
+					<div id="MyTree" class="tree">
+						<div class = "tree-folder" style="display:none;">
+							<div class="tree-folder-header">
+								<i class="icon-folder-close"></i>
+								<div class="tree-folder-name"></div>
+							</div>
+							<div class="tree-folder-content"></div>
+							<div class="tree-loader" style="display:none">
+							</div>
+						</div>
+						<div class="tree-item" style="display:none;">
+							<i class="tree-dot"></i>
+							<div class="tree-item-name"></div>
+						</div>
+					</div>
+
+					<div class="span8">
+						<input type="button" class="btn" id="tree-selected-items" value="log selected items">
+					</div>
+
+				</div>
+
+				<hr>
+
+				<h2>Using tree</h2>
+				<p>Call the tree via javascript:</p>
+				<pre class="prettyprint linenums">$('#MyTree').tree({ dataSource: dataSource })</pre>
+
+				<h3>Data Source</h3>
+				<p>Provide a data source to the tree to supply population information and data. Your data source must support the following methods.</p>
+				<table class="table table-bordered table-striped">
+					<thead>
+					<tr>
+						<th style="width: 150px;">Name</th>
+						<th style="width: 210px;">Parameters</th>
+						<th>Description</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>data</td>
+						<td><strong>options</strong> (object), <strong>callback</strong> (function)</td>
+						<td>The <strong>options</strong> parameter contains any data required to by the data source.
+							Retrieve data then call <strong>callback</strong> with an object containing data.
+							View the source of this page for an example static data source.</td>
+					</tr>
+					</tbody>
+				</table>
+
+				<h3>Methods</h3>
+				<p>Fuel UX's tree exposes a method for retrieving selected items.</p>
+				<table class="table table-bordered table-striped">
+					<thead>
+					<tr>
+						<th style="width: 150px;">Method</th>
+						<th>Description</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>selectedItems</td>
+						<td>This method returns an array containing selected items and associated data</td>
+					</tr>
+					</tbody>
+				</table>
+
+				<h3>Options</h3>
+				<p>Fuel UX's tree includes several convenient options for tree behavioral preferences.</p>
+				<table class="table table-bordered table-striped">
+					<thead>
+					<tr>
+						<th style="width: 150px;">Options</th>
+						<th>Description</th>
+						<th>Default Value</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>multiSelect</td>
+						<td>Allows multiple tree items to be selected at once.</td>
+						<td><code>false</code></td>
+					</tr>
+					<tr>
+						<td>loadingHTML</td>
+						<td>Sets the html that appears when a folder is selected and is hidden when the contents are loaded.</td>
+						<td><code>"Loading..."</code></td>
+					</tr>
+					<tr>
+						<td>cacheItems</td>
+						<td>When a folder is closed and re-opened sub-items will not be refreshed.</td>
+						<td><code>true</code></td>
+					</tr>
+					</tbody>
+				</table>
+
+				<h3>Events</h3>
+				<p>Fuel UX's select control exposes the following events:</p>
+				<table class="table table-bordered table-striped">
+					<thead>
+					<tr>
+						<th style="width: 150px;">Event</th>
+						<th>Description</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>loaded</td>
+						<td>This event is fired when sub-content has been is loaded.</td>
+					</tr>
+					<tr>
+						<td>select</td>
+						<td>This event is fired when item/items has been selected. An object containing <code>{info: data}</code> is returned. <code>data</code> represents an array of selected items</td>
+					</tr>
+					<tr>
+						<td>open</td>
+						<td>This event is fired when a sub-folder is opened. An object containing folder information is returned.</td>
+					</tr>
+					<tr>
+						<td>close</td>
+						<td>This event is fired when a sub-folder is closed. An object containing folder information is returned.</td>
+					</tr>
+					</tbody>
+				</table>
+
+				<h3>Markup</h3>
+				<p>Your tree markup should look like the example markup below.</p>
+
+
+<pre class="prettyprint linenums">
+&lt;div id="MyTree" class="tree"&gt;
+    &lt;div class = "tree-folder" style="display:none;"&gt;
+        &lt;div class="tree-folder-header"&gt;
+            &lt;i class="icon-folder-close"&gt;&lt;/i&gt;
+            &lt;div class="tree-folder-name"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="tree-folder-content"&gt;&lt;/div&gt;
+        &lt;div class="tree-loader" style="display:none"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="tree-item" style="display:none;"&gt;
+        &lt;i class="tree-dot"&gt;&lt;/i&gt;
+        &lt;div class="tree-item-name"&gt;&lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 </pre>
