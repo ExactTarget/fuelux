@@ -1,0 +1,147 @@
+.wizard {
+
+	.clearfix;
+
+	border: 1px solid @navbarBorder;
+	.border-radius(@baseBorderRadius);
+	.box-shadow(0 1px 4px rgba(0,0,0,.065));
+	background-color: @tableBackgroundAccent;
+
+	ul {
+		list-style: none outside none;
+		padding: 0;
+		margin: 0;
+
+		li {
+			float: left;
+			margin: 0;
+			padding: 0 20px 0 30px;
+			height: 46px;
+			line-height: 46px;
+			position: relative;
+			background: #ededed;
+			color: @grayLight;
+			font-size: 16px;
+			cursor: default;
+
+			.chevron {
+				border: 24px solid transparent;
+				border-left: 14px solid @navbarBorder;
+				border-right: 0;
+				display: block;
+				position: absolute;
+				right: -14px;
+				top: 0;
+			}
+
+			.chevron:before {
+				border: 24px solid transparent;
+				border-left: 14px solid #ededed;
+				border-right: 0;
+				content: "";
+				display: block;
+				position: absolute;
+				right: 1px;
+				top: -24px;
+			}
+
+			&.complete {
+				background: #f3f4f5;
+				color: @successText;
+
+				&:hover {
+					background: #e7eff8;
+					cursor: pointer;
+
+					.chevron:before {
+						border-left: 14px solid #e7eff8;
+					}
+				}
+
+				.chevron:before {
+					border-left: 14px solid #f3f4f5;
+				}
+			}
+			&.active {
+				background: #f1f6fc;
+				color: @infoText;
+
+				.chevron:before {
+					border-left: 14px solid #f1f6fc;
+				}
+			}
+			.badge {
+				margin-right: 8px;
+			}
+		}
+
+		/* set z-index on steps for chevron overlap */
+		li:nth-child(1) {
+			border-radius: 4px 0 0 4px;
+			padding-left: 20px;
+			z-index: 10;
+		}
+		li:nth-child(2) {
+			z-index: 9;
+		}
+		li:nth-child(3) {
+			z-index: 8;
+		}
+		li:nth-child(4) {
+			z-index: 7;
+		}
+		li:nth-child(5) {
+			z-index: 6;
+		}
+		li:nth-child(6) {
+			z-index: 5;
+		}
+		li:nth-child(7) {
+			z-index: 4;
+		}
+		li:nth-child(8) {
+			z-index: 3;
+		}
+		li:nth-child(9) {
+			z-index: 2;
+		}
+		li:nth-child(10) {
+			z-index: 1;
+		}
+	}
+
+	.actions {
+		line-height: 44px;
+		float: right;
+		padding-right: 15px;
+		vertical-align: middle;
+
+		a {
+			line-height: 45px;
+			font-size: 12px;
+			margin-right: 8px;
+		}
+
+		.btn-prev {
+			i {
+				margin-right: 5px;
+			}
+		}
+
+		.btn-next {
+			i {
+				margin-left: 5px;
+			}
+		}
+	}
+}
+
+.step-content {
+	.step-pane {
+		display: none;
+	}
+
+	.active {
+		display: block;
+	}
+}

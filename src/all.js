@@ -30,4 +30,5 @@ define(function (require) {
 	require('fuelux/spinner');
 	require('fuelux/select');
 	require('fuelux/tree');
+	require('fuelux/wizard');
 });

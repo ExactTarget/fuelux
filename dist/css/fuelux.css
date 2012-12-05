@@ -6330,3 +6330,168 @@ textarea.span1,
 .fuelux .tree .tree-selected:hover {
   background-color: #b9dff1;
 }
+
+.fuelux .wizard {
+  background-color: #f9f9f9;
+  border: 1px solid #d4d4d4;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+  *zoom: 1;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+     -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+}
+
+.fuelux .wizard:before,
+.fuelux .wizard:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+
+.fuelux .wizard:after {
+  clear: both;
+}
+
+.fuelux .wizard ul {
+  padding: 0;
+  margin: 0;
+  list-style: none outside none;
+}
+
+.fuelux .wizard ul li {
+  position: relative;
+  float: left;
+  height: 46px;
+  padding: 0 20px 0 30px;
+  margin: 0;
+  font-size: 16px;
+  line-height: 46px;
+  color: #999999;
+  cursor: default;
+  background: #ededed;
+}
+
+.fuelux .wizard ul li .chevron {
+  position: absolute;
+  top: 0;
+  right: -14px;
+  display: block;
+  border: 24px solid transparent;
+  border-right: 0;
+  border-left: 14px solid #d4d4d4;
+}
+
+.fuelux .wizard ul li .chevron:before {
+  position: absolute;
+  top: -24px;
+  right: 1px;
+  display: block;
+  border: 24px solid transparent;
+  border-right: 0;
+  border-left: 14px solid #ededed;
+  content: "";
+}
+
+.fuelux .wizard ul li.complete {
+  color: #468847;
+  background: #f3f4f5;
+}
+
+.fuelux .wizard ul li.complete:hover {
+  cursor: pointer;
+  background: #e7eff8;
+}
+
+.fuelux .wizard ul li.complete:hover .chevron:before {
+  border-left: 14px solid #e7eff8;
+}
+
+.fuelux .wizard ul li.complete .chevron:before {
+  border-left: 14px solid #f3f4f5;
+}
+
+.fuelux .wizard ul li.active {
+  color: #3a87ad;
+  background: #f1f6fc;
+}
+
+.fuelux .wizard ul li.active .chevron:before {
+  border-left: 14px solid #f1f6fc;
+}
+
+.fuelux .wizard ul li .badge {
+  margin-right: 8px;
+}
+
+.fuelux .wizard ul li:nth-child(1) {
+  z-index: 10;
+  padding-left: 20px;
+  border-radius: 4px 0 0 4px;
+}
+
+.fuelux .wizard ul li:nth-child(2) {
+  z-index: 9;
+}
+
+.fuelux .wizard ul li:nth-child(3) {
+  z-index: 8;
+}
+
+.fuelux .wizard ul li:nth-child(4) {
+  z-index: 7;
+}
+
+.fuelux .wizard ul li:nth-child(5) {
+  z-index: 6;
+}
+
+.fuelux .wizard ul li:nth-child(6) {
+  z-index: 5;
+}
+
+.fuelux .wizard ul li:nth-child(7) {
+  z-index: 4;
+}
+
+.fuelux .wizard ul li:nth-child(8) {
+  z-index: 3;
+}
+
+.fuelux .wizard ul li:nth-child(9) {
+  z-index: 2;
+}
+
+.fuelux .wizard ul li:nth-child(10) {
+  z-index: 1;
+}
+
+.fuelux .wizard .actions {
+  float: right;
+  padding-right: 15px;
+  line-height: 44px;
+  vertical-align: middle;
+}
+
+.fuelux .wizard .actions a {
+  margin-right: 8px;
+  font-size: 12px;
+  line-height: 45px;
+}
+
+.fuelux .wizard .actions .btn-prev i {
+  margin-right: 5px;
+}
+
+.fuelux .wizard .actions .btn-next i {
+  margin-left: 5px;
+}
+
+.fuelux .step-content .step-pane {
+  display: none;
+}
+
+.fuelux .step-content .active {
+  display: block;
+}
