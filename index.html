@@ -78,6 +78,14 @@
 			height: 350px;
 		}
 
+		.step-content {
+			border: 1px solid #D4D4D4;
+			border-top: 0;
+			border-radius: 0 0 4px 4px;
+			padding: 10px;
+			margin-bottom: 10px;
+		}
+
 	</style>
 	<link href="vendor/fuelux/css/fuelux-responsive.css" rel="stylesheet">
 
@@ -299,6 +307,28 @@
 				$('#MyTree').on('select', function (evt, data) {
 					console.log('item selected: ', data);
 				});
+
+
+				// INITIALIZE WIZARD
+				$('#myWizard').on('change', function(e, data) {
+					console.log('change');
+					if(data.step===3 && data.direction==='next') {
+						// return e.preventDefault();
+					}
+				});
+				$('#myWizard').on('changed', function(e, data) {
+					console.log('changed');
+				});
+				$('#wizard-prev').on('click', function() {
+					$('#myWizard').wizard('previous');
+				});
+				$('#wizard-next').on('click', function() {
+					$('#myWizard').wizard('next','foo');
+				});
+				$('#wizard-logItem').on('click', function() {
+					var item = $('#myWizard').wizard('selectedItem');
+					console.log(item.step);
+				});
 			});
 		});
 	</script>
@@ -331,6 +361,7 @@
 					<li><a href="#select">Select</a></li>
 					<li><a href="#spinner">Spinner</a></li>
 					<li><a href="#tree">Tree</a></li>
+					<li><a href="#wizard">Wizard</a></li>
 				</ul>
 			</div>
 		</div>
@@ -400,7 +431,6 @@
 			<h3><a href="#search">Search</a></h3>
 			<p>Combines input and button for integrated search interaction.</p>
 		</div>
-
 	</div>
 	<div class="row">
 		<div class="span4">
@@ -410,6 +440,16 @@
 		<div class="span4">
 			<h3><a href="#spinner">Spinner</a></h3>
 			<p>Provides convenient numeric input with increment and decrement buttons.</p>
+		</div>
+		<div class="span4">
+			<h3><a href="#tree">Tree</a></h3>
+			<p>Provides a visual display of hierarchical node data.</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span4">
+			<h3><a href="#wizard">Wizard</a></h3>
+			<p>Easily define a multi-step process that needs to be completed in a specific order.</p>
 		</div>
 	</div>
 
@@ -1332,6 +1372,123 @@
 &lt;/div&gt;
 </pre>
 
+			</div>
+		</div>
+	</section>
+
+	<section id="wizard">
+		<div class="page-header">
+			<h1>Wizard <small>wizard.js</small></h1>
+		</div>
+		<div class="row">
+			<div class="span12 columns">
+				<h2>Example</h2>
+				<p>Below is a working wizard example.</p>
+				<div class="well wizard-example">
+					<div id="myWizard" class="wizard">
+						<ul class="steps">
+							<li data-target="#step1" class="active"><span class="badge badge-info">1</span>Step 1<span class="chevron"></span></li>
+							<li data-target="#step2"><span class="badge">2</span>Step 2<span class="chevron"></span></li>
+							<li data-target="#step3"><span class="badge">3</span>Step 3<span class="chevron"></span></li>
+							<li data-target="#step4"><span class="badge">4</span>Step 4<span class="chevron"></span></li>
+							<li data-target="#step5"><span class="badge">5</span>Step 5<span class="chevron"></span></li>
+						</ul>
+						<div class="actions">
+							<button class="btn btn-mini btn-primary btn-prev"> <i class="icon-white icon-arrow-left"></i>Prev</button>
+							<button class="btn btn-mini btn-primary btn-next" data-last="Finish">Next<i class="icon-white icon-arrow-right"></i></button>
+						</div>
+					</div>
+					<div class="step-content">
+						<div class="step-pane active" id="step1">This is step 1</div>
+						<div class="step-pane" id="step2">This is step 2</div>
+						<div class="step-pane" id="step3">This is step 3</div>
+						<div class="step-pane" id="step4">This is step 4</div>
+						<div class="step-pane" id="step5">This is step 5</div>
+					</div>
+
+					<input type="button" class="btn btn-mini" id="wizard-prev" value="prev">
+					<input type="button" class="btn btn-mini" id="wizard-next" value="next">
+					<input type="button" class="btn btn-mini" id="wizard-logItem" value="current step">
+				</div> <!-- /well -->
+
+				<hr>
+
+				<h2>Using wizard</h2>
+				<p>Call the wizard via javascript (optional):</p>
+				<pre class="prettyprint linenums">$('#myWizard').wizard()</pre>
+
+				<h3>Methods</h3>
+				<p>Fuel UX's wizard exposes the following methods:</p>
+				<table class="table table-bordered table-striped">
+					<thead>
+					<tr>
+						<th style="width: 150px;">Method</th>
+						<th>Description</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>previous</td>
+						<td>Moves to the previous step</td>
+					</tr>
+					<tr>
+						<td>next</td>
+						<td>Moves to the next step</td>
+					</tr>
+					<tr>
+						<td>selectedItem</td>
+						<td>Returns the current step index</td>
+					</tr>
+					</tbody>
+				</table>
+
+				<h3>Events</h3>
+				<p>Fuel UX's wizard control exposes the following events:</p>
+				<table class="table table-bordered table-striped">
+					<thead>
+					<tr>
+						<th style="width: 150px;">Event</th>
+						<th>Description</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>change</td>
+						<td>This event fires immediately when the step changes, but before the new step has been shown. Use <code>event.preventDefault</code> to cancel the event.</td>
+					</tr>
+					<tr>
+						<td>changed</td>
+						<td>This event is fired when the step has changed and is shown to the user.</td>
+					</tr>
+					</tbody>
+				</table>
+
+				<h3>Markup</h3>
+				<p>You can activate wizard on your page easily without having to write a single line of javascript. Just set <code>class="wizard"</code> on a div like the example markup below and the select will activate automatically.</p>
+
+
+<pre class="prettyprint linenums">
+&lt;div id="myWizard" class="wizard"&gt;
+	&lt;ul class="steps"&gt;
+		&lt;li data-target="#step1" class="active"&gt;&lt;span class="badge badge-info"&gt;1&lt;/span&gt;Step 1&lt;span class="chevron"&gt;&lt;/span&gt;&lt;/li&gt;
+		&lt;li data-target="#step2"&gt;&lt;span class="badge"&gt;2&lt;/span&gt;Step 2&lt;span class="chevron"&gt;&lt;/span&gt;&lt;/li&gt;
+		&lt;li data-target="#step3"&gt;&lt;span class="badge"&gt;3&lt;/span&gt;Step 3&lt;span class="chevron"&gt;&lt;/span&gt;&lt;/li&gt;
+		&lt;li data-target="#step4"&gt;&lt;span class="badge"&gt;4&lt;/span&gt;Step 4&lt;span class="chevron"&gt;&lt;/span&gt;&lt;/li&gt;
+		&lt;li data-target="#step5"&gt;&lt;span class="badge"&gt;5&lt;/span&gt;Step 5&lt;span class="chevron"&gt;&lt;/span&gt;&lt;/li&gt;
+	&lt;/ul&gt;
+	&lt;div class="actions"&gt;
+		&lt;button class="btn btn-mini btn-primary btn-prev"&gt; &lt;i class="icon-white icon-arrow-left"&gt;&lt;/i&gt;Prev&lt;/button&gt;
+		&lt;button class="btn btn-mini btn-primary btn-next" data-last="Finish"&gt;Next&lt;i class="icon-white icon-arrow-right"&gt;&lt;/i&gt;&lt;/button&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="step-content"&gt;
+	&lt;div class="step-pane active" id="step1"&gt;This is step 1&lt;/div&gt;
+	&lt;div class="step-pane" id="step2"&gt;This is step 2&lt;/div&gt;
+	&lt;div class="step-pane" id="step3"&gt;This is step 3&lt;/div&gt;
+	&lt;div class="step-pane" id="step4"&gt;This is step 4&lt;/div&gt;
+	&lt;div class="step-pane" id="step5"&gt;This is step 5&lt;/div&gt;
+&lt;/div&gt;
+</pre>
 			</div>
 		</div>
 	</section>
