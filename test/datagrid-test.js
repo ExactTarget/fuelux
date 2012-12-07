@@ -201,6 +201,23 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 		});
 	});
 
+	asyncTest("should handle reload method", function () {
+		var $datagrid = $(datagridHTML).datagrid({ dataSource: stubDataSource, dataOptions: { pageIndex: 1, pageSize: 10 } }).one('loaded', function () {
+
+			var dataCallCount = stubDataSource.dataCallCount;
+
+			$datagrid.one('loaded', function () {
+
+				equal(stubDataSource.dataCallCount, dataCallCount + 1, 'reload was completed');
+				equal(stubDataSource.options.pageIndex, 0, 'first page was shown');
+				start();
+
+			});
+
+			$datagrid.datagrid('reload');
+		});
+	});
+
 	var emptyDataSource = {
 		columns: function () {
 			return [{
@@ -237,6 +254,9 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 			}];
 		},
 		data: function (options, callback) {
+			this.dataCallCount = this.dataCallCount || 0;
+			this.dataCallCount++;
+
 			this.options = options;
 
 			setTimeout(function () {

@@ -2997,6 +2997,11 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 		next: function () {
 			this.options.dataOptions.pageIndex++;
 			this.renderData();
+		},
+
+		reload: function () {
+			this.options.dataOptions.pageIndex = 0;
+			this.renderData();
 		}
 
 	};
