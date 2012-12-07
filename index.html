@@ -182,6 +182,10 @@
                     dataSource: dataSource
                 });
 
+				$('#datagrid-reload').on('click', function () {
+					$('#MyGrid').datagrid('reload');
+				});
+
 
 				// INITIALIZING PILLBOX
 				$('#btnAdd').click(function() {
@@ -680,7 +684,9 @@
 						</tfoot>
 
 					</table>
-				</div> <!-- /well -->
+				</div>
+
+				<input type="button" class="btn" id="datagrid-reload" value="reload">
 
 				<hr>
 
@@ -713,6 +719,24 @@
 					</tr>
 					</tbody>
 				</table>
+
+				<h3>Methods</h3>
+				<p>Fuel UX's datagrid exposes a method for reloading the grid.</p>
+				<table class="table table-bordered table-striped">
+					<thead>
+					<tr>
+						<th style="width: 150px;">Method</th>
+						<th>Description</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>reload</td>
+						<td>This method causes the datagrid to reload the data from the <code>dataSource</code> and return to the first page.</td>
+					</tr>
+					</tbody>
+				</table>
+
 
 				<h3>Events</h3>
 				<p>Fuel UX's datagrid exposes an event for hooking into its functionality.</p>
