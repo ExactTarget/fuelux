@@ -2617,11 +2617,20 @@ define('fuelux/util',['require','jquery'],function (require) {
 	var $ = require('jquery');
 
 	// custom case-insensitive match expression
-	$.expr.pseudos.fuelTextExactCI = $.expr.createPseudo(function (arg) {
-		return function (elem) {
-			return (elem.textContent || elem.innerText || $(elem).text() || '').toLowerCase() === arg.toLowerCase();
+	function fuelTextExactCI(elem, text) {
+		return (elem.textContent || elem.innerText || $(elem).text() || '').toLowerCase() === (text || '').toLowerCase();
+	}
+
+	$.expr[':'].fuelTextExactCI = $.expr.createPseudo ?
+		$.expr.createPseudo(function (text) {
+			return function (elem) {
+				return fuelTextExactCI(elem, text);
+			};
+		}) :
+		function (elem, i, match) {
+			return fuelTextExactCI(elem, match[3]);
 		};
-	});
+
 });
 /*
  * Fuel UX Combobox
@@ -3760,7 +3769,7 @@ define('fuelux/tree',['require','jquery'],function(require) {
 			}
 
 			if(data.length) {
-				this.$element.trigger('select', {info: data});
+				this.$element.trigger('selected', {info: data});
 			}
 
 		},
@@ -3780,7 +3789,7 @@ define('fuelux/tree',['require','jquery'],function(require) {
 					.removeClass('icon-folder-close')
 					.addClass('icon-folder-open');
 
-				this.$element.trigger('open', $el.data());
+				this.$element.trigger('opened', $el.data());
 			} else {
 				if(this.options.cacheItems) {
 					$par.find('.tree-folder-content:eq(0)').hide();
@@ -3792,7 +3801,7 @@ define('fuelux/tree',['require','jquery'],function(require) {
 					.removeClass('icon-folder-open')
 					.addClass('icon-folder-close');
 
-				this.$element.trigger('close', $el.data());
+				this.$element.trigger('closed', $el.data());
 			}
 		},
 

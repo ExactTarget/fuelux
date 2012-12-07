@@ -296,15 +296,15 @@
 					console.log('tree content loaded');
 				});
 
-				$('#MyTree').on('open', function (evt, data) {
+				$('#MyTree').on('opened', function (evt, data) {
 					console.log('sub-folder opened: ', data);
 				});
 
-				$('#MyTree').on('close', function (evt, data) {
+				$('#MyTree').on('closed', function (evt, data) {
 					console.log('sub-folder closed: ', data);
 				});
 
-				$('#MyTree').on('select', function (evt, data) {
+				$('#MyTree').on('selected', function (evt, data) {
 					console.log('item selected: ', data);
 				});
 
@@ -371,7 +371,7 @@
 <div class="container">
 
 	<div class="hero-unit">
-		<p class="title"><img src="https://s3.amazonaws.com/fuelux/logo-gray.png" width="600" height="122" alt="Fuel UX"> Version 2.1.1</p>
+		<p class="title"><img src="https://s3.amazonaws.com/fuelux/logo-gray.png" width="600" height="122" alt="Fuel UX"> Version 2.2.0</p>
 		<p>Fuel UX extends Twitter Bootstrap with additional lightweight JavaScript controls.
             Other benefits include easy installation into web projects, integrated scripts for customizing Bootstrap and Fuel UX, simple updates, and solid optimization for deployment.
             All functionality is covered by live documentation and unit tests.</p>
@@ -570,7 +570,7 @@
 					</tr>
 					<tr>
 						<td>setByIndex</td>
-						<td>Set the selected item based on its index in the list (zero-based index).  Convenience method for <code>setBySelector('li:eq({index})')</td>
+						<td>Set the selected item based on its index in the list (zero-based index).  Convenience method for <code>setBySelector('li:eq({index})')</code></td>
 					</tr>
 					<tr>
 						<td>setByText</td>
@@ -1323,7 +1323,7 @@
 				</table>
 
 				<h3>Events</h3>
-				<p>Fuel UX's select control exposes the following events:</p>
+				<p>Fuel UX's tree control exposes the following events:</p>
 				<table class="table table-bordered table-striped">
 					<thead>
 					<tr>
@@ -1337,15 +1337,15 @@
 						<td>This event is fired when sub-content has been is loaded.</td>
 					</tr>
 					<tr>
-						<td>select</td>
+						<td>selected</td>
 						<td>This event is fired when item/items has been selected. An object containing <code>{info: data}</code> is returned. <code>data</code> represents an array of selected items</td>
 					</tr>
 					<tr>
-						<td>open</td>
+						<td>opened</td>
 						<td>This event is fired when a sub-folder is opened. An object containing folder information is returned.</td>
 					</tr>
 					<tr>
-						<td>close</td>
+						<td>closed</td>
 						<td>This event is fired when a sub-folder is closed. An object containing folder information is returned.</td>
 					</tr>
 					</tbody>
