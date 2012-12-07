@@ -35,11 +35,11 @@ require(['jquery', 'fuelux/tree'], function($) {
 
 			$tree.off('loaded');
 
-			$tree.on('open', function () {
+			$tree.on('opened', function () {
 				event++;
 			});
 
-			$tree.on('close', function () {
+			$tree.on('closed', function () {
 				event++;
 			});
 
@@ -70,7 +70,7 @@ require(['jquery', 'fuelux/tree'], function($) {
 
 			var data;
 
-			$tree.on('select', function (e, items) {
+			$tree.on('selected', function (e, items) {
 				data = items.info;
 			});
 
@@ -92,7 +92,7 @@ require(['jquery', 'fuelux/tree'], function($) {
 
 			var data;
 
-			$tree.on('select', function (e, items) {
+			$tree.on('selected', function (e, items) {
 				data = items.info;
 			});
 

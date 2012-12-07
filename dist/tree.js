@@ -93,7 +93,7 @@ define(['require','jquery'],function(require) {
 			}
 
 			if(data.length) {
-				this.$element.trigger('select', {info: data});
+				this.$element.trigger('selected', {info: data});
 			}
 
 		},
@@ -113,7 +113,7 @@ define(['require','jquery'],function(require) {
 					.removeClass('icon-folder-close')
 					.addClass('icon-folder-open');
 
-				this.$element.trigger('open', $el.data());
+				this.$element.trigger('opened', $el.data());
 			} else {
 				if(this.options.cacheItems) {
 					$par.find('.tree-folder-content:eq(0)').hide();
@@ -125,7 +125,7 @@ define(['require','jquery'],function(require) {
 					.removeClass('icon-folder-open')
 					.addClass('icon-folder-close');
 
-				this.$element.trigger('close', $el.data());
+				this.$element.trigger('closed', $el.data());
 			}
 		},
 
