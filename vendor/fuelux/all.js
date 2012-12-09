@@ -3,7 +3,7 @@
 (function (root) { var amdExports; define('bootstrap/bootstrap-transition',['jquery'], function () { (function () {
 
 /* ===================================================
- * bootstrap-transition.js v2.2.1
+ * bootstrap-transition.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#transitions
  * ===================================================
  * Copyright 2012 Twitter, Inc.
@@ -72,7 +72,7 @@
 (function (root) { var amdExports; define('bootstrap/bootstrap-affix',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ==========================================================
- * bootstrap-affix.js v2.2.1
+ * bootstrap-affix.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#affix
  * ==========================================================
  * Copyright 2012 Twitter, Inc.
@@ -141,6 +141,8 @@
  /* AFFIX PLUGIN DEFINITION
   * ======================= */
 
+  var old = $.fn.affix
+
   $.fn.affix = function (option) {
     return this.each(function () {
       var $this = $(this)
@@ -155,6 +157,15 @@
 
   $.fn.affix.defaults = {
     offset: 0
+  }
+
+
+ /* AFFIX NO CONFLICT
+  * ================= */
+
+  $.fn.affix.noConflict = function () {
+    $.fn.affix = old
+    return this
   }
 
 
@@ -187,7 +198,7 @@
 (function (root) { var amdExports; define('bootstrap/bootstrap-alert',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ==========================================================
- * bootstrap-alert.js v2.2.1
+ * bootstrap-alert.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#alerts
  * ==========================================================
  * Copyright 2012 Twitter, Inc.
@@ -256,6 +267,8 @@
  /* ALERT PLUGIN DEFINITION
   * ======================= */
 
+  var old = $.fn.alert
+
   $.fn.alert = function (option) {
     return this.each(function () {
       var $this = $(this)
@@ -266,6 +279,15 @@
   }
 
   $.fn.alert.Constructor = Alert
+
+
+ /* ALERT NO CONFLICT
+  * ================= */
+
+  $.fn.alert.noConflict = function () {
+    $.fn.alert = old
+    return this
+  }
 
 
  /* ALERT DATA-API
@@ -284,7 +306,7 @@
 (function (root) { var amdExports; define('bootstrap/bootstrap-button',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ============================================================
- * bootstrap-button.js v2.2.1
+ * bootstrap-button.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#buttons
  * ============================================================
  * Copyright 2012 Twitter, Inc.
@@ -349,6 +371,8 @@
  /* BUTTON PLUGIN DEFINITION
   * ======================== */
 
+  var old = $.fn.button
+
   $.fn.button = function (option) {
     return this.each(function () {
       var $this = $(this)
@@ -365,6 +389,15 @@
   }
 
   $.fn.button.Constructor = Button
+
+
+ /* BUTTON NO CONFLICT
+  * ================== */
+
+  $.fn.button.noConflict = function () {
+    $.fn.button = old
+    return this
+  }
 
 
  /* BUTTON DATA-API
@@ -387,7 +420,7 @@
 (function (root) { var amdExports; define('bootstrap/bootstrap-carousel',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ==========================================================
- * bootstrap-carousel.js v2.2.1
+ * bootstrap-carousel.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#carousel
  * ==========================================================
  * Copyright 2012 Twitter, Inc.
@@ -417,7 +450,6 @@
   var Carousel = function (element, options) {
     this.$element = $(element)
     this.options = options
-    this.options.slide && this.slide(this.options.slide)
     this.options.pause == 'hover' && this.$element
       .on('mouseenter', $.proxy(this.pause, this))
       .on('mouseleave', $.proxy(this.cycle, this))
@@ -529,6 +561,8 @@
  /* CAROUSEL PLUGIN DEFINITION
   * ========================== */
 
+  var old = $.fn.carousel
+
   $.fn.carousel = function (option) {
     return this.each(function () {
       var $this = $(this)
@@ -549,6 +583,14 @@
 
   $.fn.carousel.Constructor = Carousel
 
+
+ /* CAROUSEL NO CONFLICT
+  * ==================== */
+
+  $.fn.carousel.noConflict = function () {
+    $.fn.carousel = old
+    return this
+  }
 
  /* CAROUSEL DATA-API
   * ================= */
@@ -572,7 +614,7 @@
 (function (root) { var amdExports; define('bootstrap/bootstrap-collapse',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* =============================================================
- * bootstrap-collapse.js v2.2.1
+ * bootstrap-collapse.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#collapse
  * =============================================================
  * Copyright 2012 Twitter, Inc.
@@ -693,8 +735,10 @@
   }
 
 
- /* COLLAPSIBLE PLUGIN DEFINITION
-  * ============================== */
+ /* COLLAPSE PLUGIN DEFINITION
+  * ========================== */
+
+  var old = $.fn.collapse
 
   $.fn.collapse = function (option) {
     return this.each(function () {
@@ -713,8 +757,17 @@
   $.fn.collapse.Constructor = Collapse
 
 
- /* COLLAPSIBLE DATA-API
+ /* COLLAPSE NO CONFLICT
   * ==================== */
+
+  $.fn.collapse.noConflict = function () {
+    $.fn.collapse = old
+    return this
+  }
+
+
+ /* COLLAPSE DATA-API
+  * ================= */
 
   $(document).on('click.collapse.data-api', '[data-toggle=collapse]', function (e) {
     var $this = $(this), href
@@ -737,7 +790,7 @@
 (function (root) { var amdExports; define('bootstrap/bootstrap-dropdown',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ============================================================
- * bootstrap-dropdown.js v2.2.1
+ * bootstrap-dropdown.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#dropdowns
  * ============================================================
  * Copyright 2012 Twitter, Inc.
@@ -791,8 +844,9 @@
 
       if (!isActive) {
         $parent.toggleClass('open')
-        $this.focus()
       }
+
+      $this.focus()
 
       return false
     }
@@ -820,7 +874,7 @@
 
       if (!isActive || (isActive && e.keyCode == 27)) return $this.click()
 
-      $items = $('[role=menu] li:not(.divider) a', $parent)
+      $items = $('[role=menu] li:not(.divider):visible a', $parent)
 
       if (!$items.length) return
 
@@ -862,6 +916,8 @@
   /* DROPDOWN PLUGIN DEFINITION
    * ========================== */
 
+  var old = $.fn.dropdown
+
   $.fn.dropdown = function (option) {
     return this.each(function () {
       var $this = $(this)
@@ -874,12 +930,22 @@
   $.fn.dropdown.Constructor = Dropdown
 
 
+ /* DROPDOWN NO CONFLICT
+  * ==================== */
+
+  $.fn.dropdown.noConflict = function () {
+    $.fn.dropdown = old
+    return this
+  }
+
+
   /* APPLY TO STANDARD DROPDOWN ELEMENTS
    * =================================== */
 
   $(document)
     .on('click.dropdown.data-api touchstart.dropdown.data-api', clearMenus)
     .on('click.dropdown touchstart.dropdown.data-api', '.dropdown form', function (e) { e.stopPropagation() })
+    .on('touchstart.dropdown.data-api', '.dropdown-menu', function (e) { e.stopPropagation() })
     .on('click.dropdown.data-api touchstart.dropdown.data-api'  , toggle, Dropdown.prototype.toggle)
     .on('keydown.dropdown.data-api touchstart.dropdown.data-api', toggle + ', [role=menu]' , Dropdown.prototype.keydown)
 
@@ -894,7 +960,7 @@
 (function (root) { var amdExports; define('bootstrap/bootstrap-modal',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* =========================================================
- * bootstrap-modal.js v2.2.1
+ * bootstrap-modal.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#modals
  * =========================================================
  * Copyright 2012 Twitter, Inc.
@@ -1088,6 +1154,8 @@
  /* MODAL PLUGIN DEFINITION
   * ======================= */
 
+  var old = $.fn.modal
+
   $.fn.modal = function (option) {
     return this.each(function () {
       var $this = $(this)
@@ -1106,6 +1174,15 @@
   }
 
   $.fn.modal.Constructor = Modal
+
+
+ /* MODAL NO CONFLICT
+  * ================= */
+
+  $.fn.modal.noConflict = function () {
+    $.fn.modal = old
+    return this
+  }
 
 
  /* MODAL DATA-API
@@ -1138,7 +1215,7 @@
 (function (root) { var amdExports; define('bootstrap/bootstrap-tooltip',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ===========================================================
- * bootstrap-tooltip.js v2.2.1
+ * bootstrap-tooltip.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#tooltips
  * Inspired by the original jQuery.tipsy by Jason Frame
  * ===========================================================
@@ -1389,6 +1466,8 @@
  /* TOOLTIP PLUGIN DEFINITION
   * ========================= */
 
+  var old = $.fn.tooltip
+
   $.fn.tooltip = function ( option ) {
     return this.each(function () {
       var $this = $(this)
@@ -1412,6 +1491,15 @@
   , html: false
   }
 
+
+ /* TOOLTIP NO CONFLICT
+  * =================== */
+
+  $.fn.tooltip.noConflict = function () {
+    $.fn.tooltip = old
+    return this
+  }
+
 }(window.jQuery);
 
 
@@ -1423,7 +1511,7 @@
 (function (root) { var amdExports; define('bootstrap/bootstrap-popover',['bootstrap/bootstrap-transition','bootstrap/bootstrap-tooltip'], function () { (function () {
 
 /* ===========================================================
- * bootstrap-popover.js v2.2.1
+ * bootstrap-popover.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#popovers
  * ===========================================================
  * Copyright 2012 Twitter, Inc.
@@ -1468,7 +1556,7 @@
         , content = this.getContent()
 
       $tip.find('.popover-title')[this.options.html ? 'html' : 'text'](title)
-      $tip.find('.popover-content > *')[this.options.html ? 'html' : 'text'](content)
+      $tip.find('.popover-content')[this.options.html ? 'html' : 'text'](content)
 
       $tip.removeClass('fade top bottom left right in')
     }
@@ -1505,6 +1593,8 @@
  /* POPOVER PLUGIN DEFINITION
   * ======================= */
 
+  var old = $.fn.popover
+
   $.fn.popover = function (option) {
     return this.each(function () {
       var $this = $(this)
@@ -1521,8 +1611,17 @@
     placement: 'right'
   , trigger: 'click'
   , content: ''
-  , template: '<div class="popover"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'
+  , template: '<div class="popover"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"></div></div></div>'
   })
+
+
+ /* POPOVER NO CONFLICT
+  * =================== */
+
+  $.fn.popover.noConflict = function () {
+    $.fn.popover = old
+    return this
+  }
 
 }(window.jQuery);
 
@@ -1535,7 +1634,7 @@
 (function (root) { var amdExports; define('bootstrap/bootstrap-scrollspy',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* =============================================================
- * bootstrap-scrollspy.js v2.2.1
+ * bootstrap-scrollspy.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#scrollspy
  * =============================================================
  * Copyright 2012 Twitter, Inc.
@@ -1595,7 +1694,7 @@
               , $href = /^#\w/.test(href) && $(href)
             return ( $href
               && $href.length
-              && [[ $href.position().top, href ]] ) || null
+              && [[ $href.position().top + self.$scrollElement.scrollTop(), href ]] ) || null
           })
           .sort(function (a, b) { return a[0] - b[0] })
           .each(function () {
@@ -1657,6 +1756,8 @@
  /* SCROLLSPY PLUGIN DEFINITION
   * =========================== */
 
+  var old = $.fn.scrollspy
+
   $.fn.scrollspy = function (option) {
     return this.each(function () {
       var $this = $(this)
@@ -1671,6 +1772,15 @@
 
   $.fn.scrollspy.defaults = {
     offset: 10
+  }
+
+
+ /* SCROLLSPY NO CONFLICT
+  * ===================== */
+
+  $.fn.scrollspy.noConflict = function () {
+    $.fn.scrollspy = old
+    return this
   }
 
 
@@ -1695,7 +1805,7 @@
 (function (root) { var amdExports; define('bootstrap/bootstrap-tab',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ========================================================
- * bootstrap-tab.js v2.2.1
+ * bootstrap-tab.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#tabs
  * ========================================================
  * Copyright 2012 Twitter, Inc.
@@ -1806,6 +1916,8 @@
  /* TAB PLUGIN DEFINITION
   * ===================== */
 
+  var old = $.fn.tab
+
   $.fn.tab = function ( option ) {
     return this.each(function () {
       var $this = $(this)
@@ -1816,6 +1928,15 @@
   }
 
   $.fn.tab.Constructor = Tab
+
+
+ /* TAB NO CONFLICT
+  * =============== */
+
+  $.fn.tab.noConflict = function () {
+    $.fn.tab = old
+    return this
+  }
 
 
  /* TAB DATA-API
@@ -1837,7 +1958,7 @@
 (function (root) { var amdExports; define('bootstrap/bootstrap-typeahead',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* =============================================================
- * bootstrap-typeahead.js v2.2.1
+ * bootstrap-typeahead.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#typeahead
  * =============================================================
  * Copyright 2012 Twitter, Inc.
@@ -1871,8 +1992,8 @@
     this.sorter = this.options.sorter || this.sorter
     this.highlighter = this.options.highlighter || this.highlighter
     this.updater = this.options.updater || this.updater
-    this.$menu = $(this.options.menu).appendTo('body')
     this.source = this.options.source
+    this.$menu = $(this.options.menu)
     this.shown = false
     this.listen()
   }
@@ -1894,16 +2015,18 @@
     }
 
   , show: function () {
-      var pos = $.extend({}, this.$element.offset(), {
+      var pos = $.extend({}, this.$element.position(), {
         height: this.$element[0].offsetHeight
       })
 
-      this.$menu.css({
-        top: pos.top + pos.height
-      , left: pos.left
-      })
+      this.$menu
+        .insertAfter(this.$element)
+        .css({
+          top: pos.top + pos.height
+        , left: pos.left
+        })
+        .show()
 
-      this.$menu.show()
       this.shown = true
       return this
     }
@@ -2055,7 +2178,7 @@
     }
 
   , keydown: function (e) {
-      this.suppressKeyPressRepeat = !~$.inArray(e.keyCode, [40,38,9,13,27])
+      this.suppressKeyPressRepeat = ~$.inArray(e.keyCode, [40,38,9,13,27])
       this.move(e)
     }
 
@@ -2114,6 +2237,8 @@
   /* TYPEAHEAD PLUGIN DEFINITION
    * =========================== */
 
+  var old = $.fn.typeahead
+
   $.fn.typeahead = function (option) {
     return this.each(function () {
       var $this = $(this)
@@ -2135,7 +2260,16 @@
   $.fn.typeahead.Constructor = Typeahead
 
 
- /*   TYPEAHEAD DATA-API
+ /* TYPEAHEAD NO CONFLICT
+  * =================== */
+
+  $.fn.typeahead.noConflict = function () {
+    $.fn.typeahead = old
+    return this
+  }
+
+
+ /* TYPEAHEAD DATA-API
   * ================== */
 
   $(document).on('focus.typeahead.data-api', '[data-provide="typeahead"]', function (e) {
