@@ -82,12 +82,12 @@ require(['jquery', 'fuelux/combobox'], function ($) {
 	});
 
 	test("should fire changed event - item selected", function () {
-		var eventFired = false;
+		var eventFireCount = 0;
 		var selectedText = '';
 		var selectedValue = '';
 
 		var $combobox = $(html).combobox().on('changed', function (evt, data) {
-			eventFired = true;
+			eventFireCount++;
 			selectedText = data.text;
 			selectedValue = data.value;
 		});
@@ -95,23 +95,53 @@ require(['jquery', 'fuelux/combobox'], function ($) {
 		// simulate changed event
 		$combobox.find('a:first').click();
 
-		equal(eventFired, true, 'changed event fired');
+		equal(eventFireCount, 1, 'changed event fired once');
 		equal(selectedText, 'One', 'text passed in from changed event');
 		equal(selectedValue, 1, 'value passed in from changed event');
 	});
 
+	test("should fire input change event - item selected", function () {
+		var eventFireCount = 0;
+
+		var $combobox = $(html).combobox();
+
+		$combobox.find('input').on('change', function () {
+			eventFireCount++;
+		});
+
+		// simulate changed event
+		$combobox.find('a:first').click();
+
+		equal(eventFireCount, 1, 'change event fired once');
+	});
+
+	test("should fire bubblable input change event - item selected", function () {
+		var eventFireCount = 0;
+
+		var $combobox = $(html).combobox();
+
+		$combobox.on('change', 'input', function () {
+			eventFireCount++;
+		});
+
+		// simulate changed event
+		$combobox.find('a:first').click();
+
+		equal(eventFireCount, 1, 'change event bubbled once');
+	});
+
 	test("should fire changed event - input changed", function () {
-		var eventFired = false;
+		var eventFireCount = 0;
 		var selectedText = '';
 
 		var $combobox = $(html).combobox().on('changed', function (evt, data) {
-			eventFired = true;
+			eventFireCount++;
 			selectedText = data.text;
 		});
 
 		$combobox.find('input').val('Seven').change();
 
-		equal(eventFired, true, 'changed event fired');
+		equal(eventFireCount, 1, 'changed event fired once');
 		equal(selectedText, 'Seven', 'text passed in from changed event');
 	});
 
