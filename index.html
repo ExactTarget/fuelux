@@ -220,15 +220,11 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 		});
 
 		$('#search-enable').click(function () {
-			var $search = $('#MySearch');
-			$search.find('input').removeAttr('disabled');
-			$search.find('button').removeClass('disabled');
+			$('#MySearch').search('enable');
 		});
 
 		$('#search-disable').click(function () {
-			var $search = $('#MySearch');
-			$search.find('input').attr('disabled', 'disabled');
-			$search.find('button').addClass('disabled');
+			$('#MySearch').search('disable');
 		});
 
 

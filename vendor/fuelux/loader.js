@@ -2867,7 +2867,9 @@ define('fuelux/combobox',['require','jquery','./util'],function (require) {
 
 		itemclicked: function (e) {
 			this.$selectedItem = $(e.target).parent();
-			this.$input.val(this.$selectedItem.text());
+
+			// set input text and trigger input change event marked as synthetic
+			this.$input.val(this.$selectedItem.text()).trigger('change', { synthetic: true });
 
 			// pass object including text and any data-attributes
 			// to onchange event
@@ -2879,7 +2881,12 @@ define('fuelux/combobox',['require','jquery','./util'],function (require) {
 			e.preventDefault();
 		},
 
-		inputchanged: function (e) {
+		inputchanged: function (e, extra) {
+
+			// skip processing for internally-generated synthetic event
+			// to avoid double processing
+			if (extra && extra.synthetic) return;
+
 			var val = $(e.target).val();
 			this.selectByText(val);
 
@@ -3365,9 +3372,14 @@ define('fuelux/search',['require','jquery'],function(require) {
 	var Search = function (element, options) {
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.search.defaults, options);
-		this.$element.find('button').on('click', $.proxy(this.buttonclicked, this));
-		this.$input = this.$element.find('input').on('keydown', $.proxy(this.keypress, this));
-		this.$input = this.$element.find('input').on('keyup', $.proxy(this.keypressed, this));
+
+		this.$button = this.$element.find('button')
+			.on('click', $.proxy(this.buttonclicked, this));
+
+		this.$input = this.$element.find('input')
+			.on('keydown', $.proxy(this.keypress, this))
+			.on('keyup', $.proxy(this.keypressed, this));
+
 		this.$icon = this.$element.find('i');
 		this.activeSearch = '';
 	};
@@ -3423,6 +3435,16 @@ define('fuelux/search',['require','jquery'],function(require) {
 				inputPresentAndUnchanged = val && (val === this.activeSearch);
 				this.$icon.attr('class', inputPresentAndUnchanged ? 'icon-remove' : 'icon-search');
 			}
+		},
+
+		disable: function () {
+			this.$input.attr('disabled', 'disabled');
+			this.$button.addClass('disabled');
+		},
+
+		enable: function () {
+			this.$input.removeAttr('disabled');
+			this.$button.removeClass('disabled');
 		}
 
 	};

@@ -99,7 +99,9 @@ define(['require','jquery','./util'],function (require) {
 
 		itemclicked: function (e) {
 			this.$selectedItem = $(e.target).parent();
-			this.$input.val(this.$selectedItem.text());
+
+			// set input text and trigger input change event marked as synthetic
+			this.$input.val(this.$selectedItem.text()).trigger('change', { synthetic: true });
 
 			// pass object including text and any data-attributes
 			// to onchange event
@@ -111,7 +113,12 @@ define(['require','jquery','./util'],function (require) {
 			e.preventDefault();
 		},
 
-		inputchanged: function (e) {
+		inputchanged: function (e, extra) {
+
+			// skip processing for internally-generated synthetic event
+			// to avoid double processing
+			if (extra && extra.synthetic) return;
+
 			var val = $(e.target).val();
 			this.selectByText(val);
 
