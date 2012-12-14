@@ -234,6 +234,9 @@
 			$('#MyWizard').on('changed', function(e, data) {
 				console.log('changed');
 			});
+			$('#MyWizard').on('finished', function(e, data) {
+				console.log('finished');
+			});
 			$('#btnWizardPrev').on('click', function() {
 				$('#MyWizard').wizard('previous');
 			});
