@@ -99,6 +99,23 @@ require(['jquery', 'fuelux/wizard'], function($) {
         equal(index, 1, 'step not changed');
     });
 
+	test("should fire finished event", function() {
+		var eventFired = false;
+
+		var $wizard = $(html).wizard().on('finished', function (evt, data) {
+			eventFired = true;
+		});
+
+		// move to next step
+		$wizard.wizard('next'); // move to step2
+		$wizard.wizard('next'); // move to step3
+		$wizard.wizard('next'); // move to step4
+		$wizard.wizard('next'); // move to step5
+		$wizard.wizard('next'); // calling next method on last step triggers event
+
+		equal(eventFired, true, 'finish event fired');
+	});
+
     /*test("should manage step panes", function() {
         var $wizard = $(html).wizard();
         var $step = $wizard.find('#step1');

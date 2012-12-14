@@ -3699,26 +3699,23 @@ define('fuelux/wizard',['require','jquery'],function(require) {
         constructor: Wizard,
 
         setState: function() {
-            var canMoveNext = (this.currentStep + 1 <= this.numSteps);
-            var lastStep = (this.currentStep === this.numSteps);
             var canMovePrev = (this.currentStep > 1);
             var firstStep = (this.currentStep === 1);
+			var lastStep = (this.currentStep === this.numSteps);
 
             // disable buttons based on current step
             this.$prevBtn.attr('disabled', (firstStep === true || canMovePrev === false));
-            this.$nextBtn.attr('disabled', (lastStep === true || canMoveNext === false));
 
             // change button text of last step, if specified
             var data = this.$nextBtn.data();
             if(data && data.last) {
                 this.lastText = data.last;
                 if(typeof this.lastText !== 'undefined') {
-                    var text = (lastStep !== true) ? this.nextText : this.lastText;
+                    // replace text
+					var text = (lastStep !== true) ? this.nextText : this.lastText;
                      this.$nextBtn
                      .contents()
-                     .filter(function() {
-                     return this.nodeType === 3;
-                     }).replaceWith(text);
+                     .filter(function() {return this.nodeType === 3;}).replaceWith(text);
                 }
             }
 
@@ -3769,6 +3766,8 @@ define('fuelux/wizard',['require','jquery'],function(require) {
 
         next: function() {
             var canMoveNext = (this.currentStep + 1 <= this.numSteps);
+			var lastStep = (this.currentStep === this.numSteps);
+
             if(canMoveNext) {
                 var e = $.Event('change');
                 this.$element.trigger(e, {step:this.currentStep, direction:'next'});
@@ -3778,6 +3777,9 @@ define('fuelux/wizard',['require','jquery'],function(require) {
                 this.currentStep += 1;
                 this.setState();
             }
+			else if(lastStep) {
+				this.$element.trigger('finished');
+			}
         },
 
         selectedItem: function(val) {
