@@ -331,6 +331,9 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 		$('#myWizard').on('changed', function (e, data) {
 			console.log('changed');
 		});
+		$('#myWizard').on('finished', function (e, data) {
+			console.log('finished');
+		});
 		$('#wizard-prev').on('click', function () {
 			$('#myWizard').wizard('previous');
 		});
@@ -1693,6 +1696,10 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 				<tr>
 					<td>changed</td>
 					<td>This event is fired when the step has changed and is shown to the user.</td>
+				</tr>
+				<tr>
+					<td>finished</td>
+					<td>This event is fired when the next button is clicked on the last step of the wizard.</td>
 				</tr>
 				</tbody>
 			</table>
