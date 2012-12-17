@@ -15,7 +15,7 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 	});
 
 	asyncTest("should render data source", function () {
-		var $datagrid = $(datagridHTML).datagrid({ dataSource: stubDataSource }).on('loaded', function () {
+		var $datagrid = $(datagridHTML).datagrid({ dataSource: new StubDataSource() }).on('loaded', function () {
 
 			var $topHeader = $datagrid.find('thead tr:first').find('th');
 			equal($topHeader.attr('colspan'), '3', 'header spans all columns');
@@ -80,6 +80,7 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 	});
 
 	asyncTest("should handle header clicks", function () {
+		var stubDataSource = new StubDataSource();
 		var $datagrid = $(datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
 
 			var $columnHeaders = $datagrid.find('thead tr').eq(1).find('th');
@@ -119,6 +120,7 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 	});
 
 	asyncTest("should handle page changes", function () {
+		var stubDataSource = new StubDataSource();
 		var $datagrid = $(datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
 
 			var $pagecontrols = $datagrid.find('.grid-pager');
@@ -161,6 +163,7 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 	});
 
 	asyncTest("should handle page size changes", function () {
+		var stubDataSource = new StubDataSource();
 		var $datagrid = $(datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
 
 			var $pagesize = $datagrid.find('.grid-pagesize');
@@ -178,6 +181,7 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 	});
 
 	asyncTest("should handle search changes", function () {
+		var stubDataSource = new StubDataSource();
 		var $datagrid = $(datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
 
 			var $searchcontrol = $datagrid.find('.search');
@@ -202,6 +206,7 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 	});
 
 	asyncTest("should handle reload method", function () {
+		var stubDataSource = new StubDataSource();
 		var $datagrid = $(datagridHTML).datagrid({ dataSource: stubDataSource, dataOptions: { pageIndex: 1, pageSize: 10 } }).one('loaded', function () {
 
 			var dataCallCount = stubDataSource.dataCallCount;
@@ -237,45 +242,45 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 		}
 	};
 
-	var stubDataSource = {
-		columns: function () {
-			return [{
-				property: 'property1',
-				label: 'Property One',
-				sortable: true
-			}, {
-				property: 'property2',
-				label: 'Property Two',
-				sortable: true
-			}, {
-				property: 'property3',
-				label: 'Property Three',
-				sortable: false
-			}];
-		},
-		data: function (options, callback) {
-			this.dataCallCount = this.dataCallCount || 0;
-			this.dataCallCount++;
+	var StubDataSource = function () {};
 
-			this.options = options;
+	StubDataSource.prototype.columns = function () {
+		return [{
+			property: 'property1',
+			label: 'Property One',
+			sortable: true
+		}, {
+			property: 'property2',
+			label: 'Property Two',
+			sortable: true
+		}, {
+			property: 'property3',
+			label: 'Property Three',
+			sortable: false
+		}];
+	};
 
-			setTimeout(function () {
-				callback({
-					data: [
-						{ property1: 'A', property2: 'B', property3: 'C' },
-						{ property1: 'D', property2: 'E', property3: 'F' },
-						{ property1: 'G', property2: 'H', property3: 'I' },
-						{ property1: 'J', property2: 'K', property3: 'L' },
-						{ property1: 'M', property2: 'N', property3: 'O' },
-						{ property1: 'P', property2: 'Q', property3: 'R' },
-						{ property1: 'S', property2: 'T', property3: 'U' },
-						{ property1: 'V', property2: 'W', property3: 'X' }
-					],
-					start: 1, end: 2, count: 3, pages: 5, page: options.pageIndex + 1
-				});
-			}, 0);
+	StubDataSource.prototype.data = function (options, callback) {
+		this.dataCallCount = this.dataCallCount || 0;
+		this.dataCallCount++;
 
-		}
+		this.options = options;
+
+		setTimeout(function () {
+			callback({
+				data: [
+					{ property1: 'A', property2: 'B', property3: 'C' },
+					{ property1: 'D', property2: 'E', property3: 'F' },
+					{ property1: 'G', property2: 'H', property3: 'I' },
+					{ property1: 'J', property2: 'K', property3: 'L' },
+					{ property1: 'M', property2: 'N', property3: 'O' },
+					{ property1: 'P', property2: 'Q', property3: 'R' },
+					{ property1: 'S', property2: 'T', property3: 'U' },
+					{ property1: 'V', property2: 'W', property3: 'X' }
+				],
+				start: 1, end: 2, count: 3, pages: 5, page: options.pageIndex + 1
+			});
+		}, 0);
 	};
 
 	var datagridHTML = '<table id="MyGrid" class="table table-bordered datagrid">' +
