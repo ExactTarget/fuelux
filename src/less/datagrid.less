@@ -96,3 +96,43 @@
 	}
 
 }
+
+.datagrid-stretch-header {
+	border-bottom: 0;
+	.border-bottom-radius(0);
+
+	border-collapse: collapse;
+	margin-bottom: 0;
+}
+
+.datagrid-stretch-wrapper {
+	border: 1px solid @tableBorder;
+	overflow: auto;
+
+	.datagrid {
+		border: none;
+		border-collapse: collapse;
+		.border-radius(0);
+
+		margin-bottom: 0;
+
+		td, th {
+			border-bottom: 1px solid @tableBorder;
+
+			&:first-child {
+				border-left: none;
+				.border-radius(0);
+			}
+		}
+	}
+}
+
+.datagrid-stretch-footer {
+	border-top: 0;
+	.border-top-radius(0);
+
+	th {
+		border-top: 0;
+	}
+}
+
