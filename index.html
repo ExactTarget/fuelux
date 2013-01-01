@@ -173,6 +173,12 @@
 
 			});
 
+			// SPINNER
+
+			$('#ex-spinner').on('changed', function (e, value) {
+				console.log('Spinner changed: ', value);
+			});
+
 			// TREE
 			var dataSourceTree = new DataSourceTree({
 				data: [
