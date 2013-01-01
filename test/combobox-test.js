@@ -14,6 +14,16 @@ require(['jquery', 'fuelux/combobox'], function ($) {
 		'</ul>' +
 		'</div>';
 
+	var htmlNoDefault = '<div class="input-append dropdown combobox">' +
+		'<input class="span2" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>' +
+		'<ul class="dropdown-menu">' +
+		'<li data-value="1"><a href="#">One</a></li>' +
+		'<li data-value="2"><a href="#">Two</a></li>' +
+		'<li data-value="3"><a href="#">Three</a></li>' +
+		'<li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Four</a></li>' +
+		'</ul>' +
+		'</div>';
+
 	module("Fuel UX combobox");
 
 	test("should be defined on jquery object", function () {
@@ -43,6 +53,13 @@ require(['jquery', 'fuelux/combobox'], function ($) {
 		var item = $combobox.combobox('selectedItem');
 		var expectedItem = { text: 'Three', value: 3 };
 		deepEqual(item, expectedItem, 'default item selected');
+	});
+
+	test("should not autoselect when no default selection", function () {
+		var $combobox = $(htmlNoDefault).combobox();
+		var item = $combobox.combobox('selectedItem');
+		var expectedItem = { text: '' };
+		deepEqual(item, expectedItem, 'no item selected');
 	});
 
 	test("should select by index", function () {

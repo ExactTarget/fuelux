@@ -2502,11 +2502,8 @@ define('fuelux/combobox',['require','jquery','./util'],function (require) {
 		setDefaultSelection: function () {
 			var selector = 'li[data-selected=true]:first';
 			var item = this.$element.find(selector);
-			if (item.length === 0) {
-				// select first item
-				this.selectByIndex(0);
-			}
-			else {
+
+			if (item.length > 0) {
 				// select by data-attribute
 				this.selectBySelector(selector);
 				item.removeData('selected');
