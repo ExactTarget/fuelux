@@ -11,11 +11,16 @@ simple updates, and solid optimization for deployment. All functionality is cove
 Fuel UX provides all of the styles and plugins from the revolutionary [Twitter Bootstrap](http://twitter.github.com/bootstrap) project, with the following additions:
 
 * Fuel UX JavaScript controls (with unit tests) [see them live](http://exacttarget.github.com/fuelux)
+  * Checkbox - _consistent cross-browser cross-platform look and feel for checkbox elements_
   * Combobox - _combines input and dropdown for easy and flexible data selection_
   * Datagrid - _renders data in a table with paging, sorting, and searching_
   * Pillbox - _manages selected items with color-coded text labels_
+  * Radio - _consistent cross-browser cross-platform look and feel for radio elements_
   * Search - _combines input and button for integrated search interaction_
+  * Select - _extends button dropdown with the ability to set and retrieve the selected item_
   * Spinner - _provides convenient numeric input with increment and decrement buttons_
+  * Tree - _renders data in a tree, supporting caching and optional multi-selection_
+  * Wizard - _displays a multi-step process to be completed in a specific order_
 <p>
 * One-step installation and updates through [volo](https://github.com/volojs/volo)
 * [AMD](http://requirejs.org/docs/whyamd.html) compatibility for modular structure and deployment optimization
@@ -50,6 +55,21 @@ Visit our UserVoice community: https://fuelux.uservoice.com
 ## Release History
 
 _Fuel UX is semantically versioned: <http://semver.org>_
+
+### Version 2.2.0 `2013-01-04`
+
+* _New Control_ - checkbox
+* _New Control_ - radio
+* _New Control_ - select
+* _New Control_ - tree
+* _New Control_ - wizard
+* Add stretchHeight option to datagrid
+* Add reload method to datagrid
+* Add enable and disable methods to search control
+* Add enable and disable methods to combobox
+* Add rich methods for getting/setting selected item to combobox
+* Fix triggering of superfluous spinner events
+* Upgrade Bootstrap from 2.2.1 to 2.2.2
 
 ### Version 2.1.1 `2012-11-10`
 
