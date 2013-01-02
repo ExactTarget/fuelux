@@ -191,7 +191,8 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 		});
 
 		$('#MyGrid').datagrid({
-			dataSource: dataSource
+			dataSource: dataSource,
+			stretchHeight: true
 		});
 
 		$('#datagrid-reload').on('click', function () {
@@ -714,6 +715,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 			<p>Below is a working datagrid example.</p>
 
 			<div class="datagrid-example">
+				<div style="height:400px;width:100%;margin-bottom:20px;">
 				<table id="MyGrid" class="table table-bordered datagrid">
 
 					<thead>
@@ -769,6 +771,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 					</tfoot>
 
 				</table>
+				</div>
 			</div>
 
 			<input type="button" class="btn" id="datagrid-reload" value="reload">
@@ -778,7 +781,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 			<h2>Using datagrid</h2>
 
 			<p>Call the datagrid via javascript:</p>
-			<pre class="prettyprint linenums">$('#MyGrid').datagrid({ dataSource: dataSource })</pre>
+			<pre class="prettyprint linenums">$('#MyGrid').datagrid({ dataSource: dataSource, stretchHeight: true })</pre>
 
 			<h3>Data Source</h3>
 
@@ -831,6 +834,63 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 				</tbody>
 			</table>
 
+			<h3>Options</h3>
+
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Options</th>
+					<th>Description</th>
+					<th>Default Value</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>dataSource</td>
+					<td>
+						See Data Source section above
+					</td>
+					<td><code>null</code> (must be provided)</td>
+				</tr>
+				<tr>
+					<td>dataOptions</td>
+					<td>
+						Options for current data to be displayed
+					</td>
+					<td><code>{ pageIndex: 0, pageSize: 10 }</code></td>
+				</tr>
+				<tr>
+					<td>stretchHeight</td>
+					<td>
+						Introduced in version 2.2. Enables stretchHeight rendering. This sets the datagrid's height to a stable height, matching its parent element.
+						The appearance of the datagrid becomes much more consistent while rendering and displaying different numbers of rows.
+						Rows will scroll within the table when they exceed the available height.
+					</td>
+					<td><code>false</code></td>
+				</tr>
+				<tr>
+					<td>loadingHTML</td>
+					<td>
+						HTML for loading indicator
+					</td>
+					<td>(bootstrap progress indicator)</td>
+				</tr>
+				<tr>
+					<td>itemsText</td>
+					<td>
+						Text for plural items
+					</td>
+					<td><code>items</code></td>
+				</tr>
+				<tr>
+					<td>itemText</td>
+					<td>
+						Text for singular item
+					</td>
+					<td><code>item</code></td>
+				</tr>
+				</tbody>
+			</table>
 
 			<h3>Events</h3>
 
@@ -1088,6 +1148,27 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 			<p>Call the search via javascript (optional):</p>
 			<pre class="prettyprint linenums">$('#MySearch').search()</pre>
+
+			<h3>Methods</h3>
+
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Method</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>disable</td>
+					<td>Disables the search control</td>
+				</tr>
+				<tr>
+					<td>enable</td>
+					<td>Enables the search control</td>
+				</tr>
+				</tbody>
+			</table>
 
 			<h3>Markup</h3>
 
@@ -1392,6 +1473,26 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 					<td>disabled</td>
 					<td>Spinner will be disabled when it is created.</td>
 					<td><code>false</code></td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Events</h3>
+
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Event</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>changed</td>
+					<td>This event is fired when the value has changed (either by selecting an item from the list or
+						updating the input value directly). Arguments are <code>event, value</code> where value is
+						the current value of the spinner.
+					</td>
 				</tr>
 				</tbody>
 			</table>
