@@ -2502,11 +2502,8 @@ define('fuelux/combobox',['require','jquery','./util'],function (require) {
 		setDefaultSelection: function () {
 			var selector = 'li[data-selected=true]:first';
 			var item = this.$element.find(selector);
-			if (item.length === 0) {
-				// select first item
-				this.selectByIndex(0);
-			}
-			else {
+
+			if (item.length > 0) {
 				// select by data-attribute
 				this.selectBySelector(selector);
 				item.removeData('selected');
@@ -2625,8 +2622,9 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 	var Datagrid = function (element, options) {
 		this.$element = $(element);
 		this.$thead = this.$element.find('thead');
+		this.$tfoot = this.$element.find('tfoot');
 		this.$footer = this.$element.find('tfoot th');
-		this.$footerchildren = this.$footer.children();
+		this.$footerchildren = this.$footer.children().show().css('visibility', 'hidden');
 		this.$topheader = this.$element.find('thead th');
 		this.$searchcontrol = this.$element.find('.search');
 		this.$pagesize = this.$element.find('.grid-pagesize');
@@ -2642,7 +2640,7 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 		this.$tbody = $('<tbody>').insertAfter(this.$thead);
 		this.$colheader = $('<tr>').appendTo(this.$thead);
 
-		this.options = $.extend({}, $.fn.datagrid.defaults, options);
+		this.options = $.extend(true, {}, $.fn.datagrid.defaults, options);
 		this.options.dataOptions.pageSize = parseInt(this.$pagesize.val(), 10);
 		this.columns = this.options.dataSource.columns();
 
@@ -2654,6 +2652,9 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 		this.$pageinput.on('change', $.proxy(this.pageChanged, this));
 
 		this.renderColumns();
+
+		if (this.options.stretchHeight) this.initStretchHeight();
+
 		this.renderData();
 	};
 
@@ -2714,13 +2715,14 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 			var self = this;
 
 			this.$tbody.html(this.placeholderRowHTML(this.options.loadingHTML));
-			this.$footerchildren.hide();
 
 			this.options.dataSource.data(this.options.dataOptions, function (data) {
 				var itemdesc = (data.count === 1) ? self.options.itemText : self.options.itemsText;
 				var rowHTML = '';
 
-				self.$footerchildren.toggle(data.count > 0);
+				self.$footerchildren.css('visibility', function () {
+					return (data.count > 0) ? 'visible' : 'hidden';
+				});
 
 				self.$pageinput.val(data.page);
 				self.$pageslabel.text(data.pages);
@@ -2742,13 +2744,15 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 				if (!rowHTML) rowHTML = self.placeholderRowHTML('0 ' + self.options.itemsText);
 
 				self.$tbody.html(rowHTML);
+				self.stretchHeight();
+
 				self.$element.trigger('loaded');
 			});
 
 		},
 
 		placeholderRowHTML: function (content) {
-			return '<tr><td style="text-align:center;padding:20px;" colspan="' +
+			return '<tr><td style="text-align:center;padding:20px;border-bottom:none;" colspan="' +
 				this.columns.length + '">' + content + '</td></tr>';
 		},
 
@@ -2802,8 +2806,58 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 		reload: function () {
 			this.options.dataOptions.pageIndex = 0;
 			this.renderData();
-		}
+		},
 
+		initStretchHeight: function () {
+			this.$gridContainer = this.$element.parent();
+
+			this.$element.wrap('<div class="datagrid-stretch-wrapper">');
+			this.$stretchWrapper = this.$element.parent();
+
+			this.$headerTable = $('<table>').attr('class', this.$element.attr('class'));
+			this.$footerTable = this.$headerTable.clone();
+
+			this.$headerTable.prependTo(this.$gridContainer).addClass('datagrid-stretch-header');
+			this.$thead.detach().appendTo(this.$headerTable);
+
+			this.$sizingHeader = this.$thead.clone();
+			this.$sizingHeader.find('tr:first').remove();
+
+			this.$footerTable.appendTo(this.$gridContainer).addClass('datagrid-stretch-footer');
+			this.$tfoot.detach().appendTo(this.$footerTable);
+		},
+
+		stretchHeight: function () {
+			if (!this.$gridContainer) return;
+
+			this.setColumnWidths();
+
+			var targetHeight = this.$gridContainer.height();
+			var headerHeight = this.$headerTable.outerHeight();
+			var footerHeight = this.$footerTable.outerHeight();
+			var overhead = headerHeight + footerHeight;
+
+			this.$stretchWrapper.height(targetHeight - overhead);
+		},
+
+		setColumnWidths: function () {
+			if (!this.$sizingHeader) return;
+
+			this.$element.prepend(this.$sizingHeader);
+
+			var $sizingCells = this.$sizingHeader.find('th');
+			var columnCount = $sizingCells.length;
+
+			function matchSizingCellWidth(i, el) {
+				if (i === columnCount - 1) return;
+				$(el).width($sizingCells.eq(i).width());
+			}
+
+			this.$colheader.find('th').each(matchSizingCellWidth);
+			this.$tbody.find('tr:first > td').each(matchSizingCellWidth);
+
+			this.$sizingHeader.detach();
+		}
 	};
 
 
@@ -3183,6 +3237,8 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 			this.switches.speed = 500;
 		}
 
+		this.lastValue = null;
+
 		this.render();
 
 		if (this.options.disabled) {
@@ -3209,12 +3265,25 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 				this.options.value = newVal/1;
 			}
 
-			this.$element.trigger('change');
+			this.triggerChangedEvent();
 		},
 
 		stopSpin: function () {
 			clearTimeout(this.switches.timeout);
 			this.switches.count = 1;
+			this.triggerChangedEvent();
+		},
+
+		triggerChangedEvent: function () {
+			var currentValue = this.value();
+			if (currentValue === this.lastValue) return;
+
+			this.lastValue = currentValue;
+
+			// Primary changed event
+			this.$element.trigger('changed', currentValue);
+
+			// Undocumented, kept for backward compatibility
 			this.$element.trigger('change');
 		},
 
@@ -3318,7 +3387,7 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 	$(function () {
 		$('body').on('mousedown.spinner.data-api', '.spinner', function (e) {
 			var $this = $(this);
-			if ($this.data('.spinner')) return;
+			if ($this.data('spinner')) return;
 			$this.spinner($this.data());
 		});
 	});
@@ -3672,153 +3741,157 @@ define('fuelux/tree',['require','jquery'],function(require) {
  * Licensed under the MIT license.
  */
 
-define('fuelux/wizard',['require','jquery'],function(require) {
+define('fuelux/wizard',['require','jquery'],function (require) {
 
-    var $ = require('jquery');
-
-
-    // WIZARD CONSTRUCTOR AND PROTOTYPE
-
-    var Wizard = function (element, options) {
-        this.$element = $(element);
-        this.options = $.extend({}, $.fn.wizard.defaults, options);
-        this.currentStep = 1;
-        this.numSteps = this.$element.find('li').length;
-        this.$prevBtn = this.$element.find('button.btn-prev');
-        this.$nextBtn = this.$element.find('button.btn-next');
-        this.nextText = this.$nextBtn.text();
-
-        // handle events
-        this.$prevBtn.on('click', $.proxy(this.previous, this));
-        this.$nextBtn.on('click', $.proxy(this.next, this));
-        this.$element.on('click', 'li.complete', $.proxy(this.stepclicked, this));
-    };
-
-    Wizard.prototype = {
-
-        constructor: Wizard,
-
-        setState: function() {
-            var canMoveNext = (this.currentStep + 1 <= this.numSteps);
-            var lastStep = (this.currentStep === this.numSteps);
-            var canMovePrev = (this.currentStep > 1);
-            var firstStep = (this.currentStep === 1);
-
-            // disable buttons based on current step
-            this.$prevBtn.attr('disabled', (firstStep === true || canMovePrev === false));
-            this.$nextBtn.attr('disabled', (lastStep === true || canMoveNext === false));
-
-            // change button text of last step, if specified
-            var data = this.$nextBtn.data();
-            if(data && data.last) {
-                this.lastText = data.last;
-                if(typeof this.lastText !== 'undefined') {
-                    var text = (lastStep !== true) ? this.nextText : this.lastText;
-                     this.$nextBtn
-                     .contents()
-                     .filter(function() {
-                     return this.nodeType === 3;
-                     }).replaceWith(text);
-                }
-            }
-
-            // reset classes for all steps
-            var $steps = this.$element.find('li');
-            $steps.removeClass('active').removeClass('complete');
-            $steps.find('span.badge').removeClass('badge-info').removeClass('badge-success');
-
-            // set class for all previous steps
-            var prevSelector = 'li:lt(' + (this.currentStep - 1) + ')';
-            var $prevSteps = this.$element.find(prevSelector);
-            $prevSteps.addClass('complete');
-            $prevSteps.find('span.badge').addClass('badge-success');
-
-            // set class for current step
-            var currentSelector = 'li:eq(' + (this.currentStep - 1) + ')';
-            var $currentStep = this.$element.find(currentSelector);
-            $currentStep.addClass('active');
-            $currentStep.find('span.badge').addClass('badge-info');
-
-            // set display of target element
-            var target = $currentStep.data().target;
-            $('.step-pane').removeClass('active');
-            $(target).addClass('active');
-
-            this.$element.trigger('changed');
-        },
-
-        stepclicked: function(e) {
-            var li = $(e.currentTarget);
-
-            var index = $('.steps li').index(li);
-            this.currentStep = (index + 1);
-            this.setState();
-        },
-
-        previous: function() {
-            var canMovePrev = (this.currentStep > 1);
-            if(canMovePrev) {
-                var e = $.Event('change');
-                this.$element.trigger(e, {step:this.currentStep, direction:'previous'});
-                if (e.isDefaultPrevented()) return;
-
-                this.currentStep -= 1;
-                this.setState();
-            }
-        },
-
-        next: function() {
-            var canMoveNext = (this.currentStep + 1 <= this.numSteps);
-            if(canMoveNext) {
-                var e = $.Event('change');
-                this.$element.trigger(e, {step:this.currentStep, direction:'next'});
-
-                if (e.isDefaultPrevented()) return;
-
-                this.currentStep += 1;
-                this.setState();
-            }
-        },
-
-        selectedItem: function(val) {
-            return {
-                step: this.currentStep
-            };
-        }
-    };
+	var $ = require('jquery');
 
 
-    // WIZARD PLUGIN DEFINITION
+	// WIZARD CONSTRUCTOR AND PROTOTYPE
 
-    $.fn.wizard = function (option,value) {
-        var methodReturn;
+	var Wizard = function (element, options) {
+		this.$element = $(element);
+		this.options = $.extend({}, $.fn.wizard.defaults, options);
+		this.currentStep = 1;
+		this.numSteps = this.$element.find('li').length;
+		this.$prevBtn = this.$element.find('button.btn-prev');
+		this.$nextBtn = this.$element.find('button.btn-next');
+		this.nextText = this.$nextBtn.text();
 
-        var $set = this.each(function () {
-            var $this = $(this);
-            var data = $this.data('wizard');
-            var options = typeof option === 'object' && option;
+		// handle events
+		this.$prevBtn.on('click', $.proxy(this.previous, this));
+		this.$nextBtn.on('click', $.proxy(this.next, this));
+		this.$element.on('click', 'li.complete', $.proxy(this.stepclicked, this));
+	};
 
-            if (!data) $this.data('wizard', (data = new Wizard(this, options)));
-            if (typeof option === 'string') methodReturn = data[option](value);
-        });
+	Wizard.prototype = {
 
-        return (methodReturn === undefined) ? $set : methodReturn;
-    };
+		constructor: Wizard,
 
-    $.fn.wizard.defaults = {};
+		setState: function () {
+			var canMovePrev = (this.currentStep > 1);
+			var firstStep = (this.currentStep === 1);
+			var lastStep = (this.currentStep === this.numSteps);
 
-    $.fn.wizard.Constructor = Wizard;
+			// disable buttons based on current step
+			this.$prevBtn.attr('disabled', (firstStep === true || canMovePrev === false));
+
+			// change button text of last step, if specified
+			var data = this.$nextBtn.data();
+			if (data && data.last) {
+				this.lastText = data.last;
+				if (typeof this.lastText !== 'undefined') {
+					// replace text
+					var text = (lastStep !== true) ? this.nextText : this.lastText;
+					this.$nextBtn
+						.contents()
+						.filter(function () {
+							return this.nodeType === 3;
+						}).replaceWith(text);
+				}
+			}
+
+			// reset classes for all steps
+			var $steps = this.$element.find('li');
+			$steps.removeClass('active').removeClass('complete');
+			$steps.find('span.badge').removeClass('badge-info').removeClass('badge-success');
+
+			// set class for all previous steps
+			var prevSelector = 'li:lt(' + (this.currentStep - 1) + ')';
+			var $prevSteps = this.$element.find(prevSelector);
+			$prevSteps.addClass('complete');
+			$prevSteps.find('span.badge').addClass('badge-success');
+
+			// set class for current step
+			var currentSelector = 'li:eq(' + (this.currentStep - 1) + ')';
+			var $currentStep = this.$element.find(currentSelector);
+			$currentStep.addClass('active');
+			$currentStep.find('span.badge').addClass('badge-info');
+
+			// set display of target element
+			var target = $currentStep.data().target;
+			$('.step-pane').removeClass('active');
+			$(target).addClass('active');
+
+			this.$element.trigger('changed');
+		},
+
+		stepclicked: function (e) {
+			var li = $(e.currentTarget);
+
+			var index = $('.steps li').index(li);
+			this.currentStep = (index + 1);
+			this.setState();
+		},
+
+		previous: function () {
+			var canMovePrev = (this.currentStep > 1);
+			if (canMovePrev) {
+				var e = $.Event('change');
+				this.$element.trigger(e, {step: this.currentStep, direction: 'previous'});
+				if (e.isDefaultPrevented()) return;
+
+				this.currentStep -= 1;
+				this.setState();
+			}
+		},
+
+		next: function () {
+			var canMoveNext = (this.currentStep + 1 <= this.numSteps);
+			var lastStep = (this.currentStep === this.numSteps);
+
+			if (canMoveNext) {
+				var e = $.Event('change');
+				this.$element.trigger(e, {step: this.currentStep, direction: 'next'});
+
+				if (e.isDefaultPrevented()) return;
+
+				this.currentStep += 1;
+				this.setState();
+			}
+			else if (lastStep) {
+				this.$element.trigger('finished');
+			}
+		},
+
+		selectedItem: function (val) {
+			return {
+				step: this.currentStep
+			};
+		}
+	};
 
 
-    // WIZARD DATA-API
+	// WIZARD PLUGIN DEFINITION
 
-    $(function () {
-        $('body').on('mousedown.wizard.data-api', '.wizard', function () {
-            var $this = $(this);
-            if ($this.data('wizard')) return;
-            $this.wizard($this.data());
-        });
-    });
+	$.fn.wizard = function (option, value) {
+		var methodReturn;
+
+		var $set = this.each(function () {
+			var $this = $(this);
+			var data = $this.data('wizard');
+			var options = typeof option === 'object' && option;
+
+			if (!data) $this.data('wizard', (data = new Wizard(this, options)));
+			if (typeof option === 'string') methodReturn = data[option](value);
+		});
+
+		return (methodReturn === undefined) ? $set : methodReturn;
+	};
+
+	$.fn.wizard.defaults = {};
+
+	$.fn.wizard.Constructor = Wizard;
+
+
+	// WIZARD DATA-API
+
+	$(function () {
+		$('body').on('mousedown.wizard.data-api', '.wizard', function () {
+			var $this = $(this);
+			if ($this.data('wizard')) return;
+			$this.wizard($this.data());
+		});
+	});
 
 });
 
