@@ -5919,6 +5919,11 @@ textarea.span1,
   float: right;
 }
 
+.fuelux .datagrid thead .datagrid-header-right .input-append {
+  float: left;
+  padding-left: 10px;
+}
+
 .fuelux .datagrid thead .sorted {
   color: #333333;
   text-shadow: 'none';
