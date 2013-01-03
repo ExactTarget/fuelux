@@ -7,7 +7,7 @@
  */
 
 define(function(require) {
-	
+
 	var $ = require('jquery');
 
 
@@ -33,6 +33,7 @@ define(function(require) {
 			this.select($(e.target).text());
 			$('body').click();
 			e.preventDefault();
+			this.$element.trigger('select', $(e.target).text());
 		}
 
 	};

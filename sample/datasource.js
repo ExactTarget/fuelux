@@ -44,6 +44,27 @@
 					});
 				}
 
+				// FILTERING
+				if (options.filter) {
+					data = _.filter(data, function (item) {
+						var result = false;
+
+						switch(options.filter) {
+							case 'Population < 5M':
+								if(item.population < 5000000) result = true;
+								break;
+							case 'Population >= 5M':
+								if(item.population >= 5000000) result = true;
+								break;
+							default:
+								result = true;
+								break;
+						}
+
+						return result;
+					});
+				}
+
 				var count = data.length;
 
 				// SORTING

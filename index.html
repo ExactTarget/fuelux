@@ -135,17 +135,17 @@
 
 
 	<!-- SPINNER -->
-    <div id="ex-spinner" class="spinner">
-        <input type="text" class="input-mini spinner-input">
-        <div class="spinner-buttons  btn-group btn-group-vertical">
-            <button class="btn spinner-up">
-                <i class="icon-chevron-up"></i>
-            </button>
-            <button class="btn spinner-down">
-                <i class="icon-chevron-down"></i>
-            </button>
-        </div>
-    </div>
+	<div id="ex-spinner" class="spinner">
+		<input type="text" class="input-mini spinner-input">
+		<div class="spinner-buttons  btn-group btn-group-vertical">
+			<button class="btn spinner-up">
+				<i class="icon-chevron-up"></i>
+			</button>
+			<button class="btn spinner-down">
+				<i class="icon-chevron-down"></i>
+			</button>
+		</div>
+	</div>
 
 
 	<!-- DATAGRID -->
@@ -159,6 +159,14 @@
 
 				</div>
 				<div class="datagrid-header-right">
+					<div class="input-append dropdown combobox">
+						<input class="span2" type="text" value="All"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+						<ul class="dropdown-menu">
+							<li><a href="#">All</a></li>
+							<li><a href="#">Population &lt; 5M</a></li>
+							<li><a href="#">Population &gt;= 5M</a></li>
+						</ul>
+					</div>
 					<div class="input-append search">
 						<input type="text" class="input-medium" placeholder="Search"><button class="btn"><i class="icon-search"></i></button>
 					</div>
