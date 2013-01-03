@@ -101,8 +101,12 @@
 	border-bottom: 0;
 	.border-bottom-radius(0);
 
-	border-collapse: collapse;
 	margin-bottom: 0;
+
+	thead:last-child tr:last-child > th:first-child,
+	thead:last-child tr:last-child > th:last-child {
+		.border-bottom-radius(0);
+	}
 }
 
 .datagrid-stretch-wrapper {

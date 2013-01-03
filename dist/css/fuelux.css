@@ -6207,8 +6207,17 @@ textarea.span1,
 
 .fuelux .datagrid-stretch-header {
   margin-bottom: 0;
-  border-collapse: collapse;
   border-bottom: 0;
+  -webkit-border-bottom-right-radius: 0;
+          border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+          border-bottom-left-radius: 0;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+}
+
+.fuelux .datagrid-stretch-header thead:last-child tr:last-child > th:first-child,
+.fuelux .datagrid-stretch-header thead:last-child tr:last-child > th:last-child {
   -webkit-border-bottom-right-radius: 0;
           border-bottom-right-radius: 0;
   -webkit-border-bottom-left-radius: 0;
