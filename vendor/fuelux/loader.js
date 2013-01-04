@@ -344,7 +344,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-transition',['jquery'], function () { (function () {
 
 /* ===================================================
- * bootstrap-transition.js v2.2.1
+ * bootstrap-transition.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#transitions
  * ===================================================
  * Copyright 2012 Twitter, Inc.
@@ -413,7 +413,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-affix',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ==========================================================
- * bootstrap-affix.js v2.2.1
+ * bootstrap-affix.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#affix
  * ==========================================================
  * Copyright 2012 Twitter, Inc.
@@ -482,6 +482,8 @@ define("almond", function(){});
  /* AFFIX PLUGIN DEFINITION
   * ======================= */
 
+  var old = $.fn.affix
+
   $.fn.affix = function (option) {
     return this.each(function () {
       var $this = $(this)
@@ -496,6 +498,15 @@ define("almond", function(){});
 
   $.fn.affix.defaults = {
     offset: 0
+  }
+
+
+ /* AFFIX NO CONFLICT
+  * ================= */
+
+  $.fn.affix.noConflict = function () {
+    $.fn.affix = old
+    return this
   }
 
 
@@ -528,7 +539,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-alert',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ==========================================================
- * bootstrap-alert.js v2.2.1
+ * bootstrap-alert.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#alerts
  * ==========================================================
  * Copyright 2012 Twitter, Inc.
@@ -597,6 +608,8 @@ define("almond", function(){});
  /* ALERT PLUGIN DEFINITION
   * ======================= */
 
+  var old = $.fn.alert
+
   $.fn.alert = function (option) {
     return this.each(function () {
       var $this = $(this)
@@ -607,6 +620,15 @@ define("almond", function(){});
   }
 
   $.fn.alert.Constructor = Alert
+
+
+ /* ALERT NO CONFLICT
+  * ================= */
+
+  $.fn.alert.noConflict = function () {
+    $.fn.alert = old
+    return this
+  }
 
 
  /* ALERT DATA-API
@@ -625,7 +647,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-button',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ============================================================
- * bootstrap-button.js v2.2.1
+ * bootstrap-button.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#buttons
  * ============================================================
  * Copyright 2012 Twitter, Inc.
@@ -690,6 +712,8 @@ define("almond", function(){});
  /* BUTTON PLUGIN DEFINITION
   * ======================== */
 
+  var old = $.fn.button
+
   $.fn.button = function (option) {
     return this.each(function () {
       var $this = $(this)
@@ -706,6 +730,15 @@ define("almond", function(){});
   }
 
   $.fn.button.Constructor = Button
+
+
+ /* BUTTON NO CONFLICT
+  * ================== */
+
+  $.fn.button.noConflict = function () {
+    $.fn.button = old
+    return this
+  }
 
 
  /* BUTTON DATA-API
@@ -728,7 +761,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-carousel',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ==========================================================
- * bootstrap-carousel.js v2.2.1
+ * bootstrap-carousel.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#carousel
  * ==========================================================
  * Copyright 2012 Twitter, Inc.
@@ -758,7 +791,6 @@ define("almond", function(){});
   var Carousel = function (element, options) {
     this.$element = $(element)
     this.options = options
-    this.options.slide && this.slide(this.options.slide)
     this.options.pause == 'hover' && this.$element
       .on('mouseenter', $.proxy(this.pause, this))
       .on('mouseleave', $.proxy(this.cycle, this))
@@ -870,6 +902,8 @@ define("almond", function(){});
  /* CAROUSEL PLUGIN DEFINITION
   * ========================== */
 
+  var old = $.fn.carousel
+
   $.fn.carousel = function (option) {
     return this.each(function () {
       var $this = $(this)
@@ -890,6 +924,14 @@ define("almond", function(){});
 
   $.fn.carousel.Constructor = Carousel
 
+
+ /* CAROUSEL NO CONFLICT
+  * ==================== */
+
+  $.fn.carousel.noConflict = function () {
+    $.fn.carousel = old
+    return this
+  }
 
  /* CAROUSEL DATA-API
   * ================= */
@@ -913,7 +955,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-collapse',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* =============================================================
- * bootstrap-collapse.js v2.2.1
+ * bootstrap-collapse.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#collapse
  * =============================================================
  * Copyright 2012 Twitter, Inc.
@@ -1034,8 +1076,10 @@ define("almond", function(){});
   }
 
 
- /* COLLAPSIBLE PLUGIN DEFINITION
-  * ============================== */
+ /* COLLAPSE PLUGIN DEFINITION
+  * ========================== */
+
+  var old = $.fn.collapse
 
   $.fn.collapse = function (option) {
     return this.each(function () {
@@ -1054,8 +1098,17 @@ define("almond", function(){});
   $.fn.collapse.Constructor = Collapse
 
 
- /* COLLAPSIBLE DATA-API
+ /* COLLAPSE NO CONFLICT
   * ==================== */
+
+  $.fn.collapse.noConflict = function () {
+    $.fn.collapse = old
+    return this
+  }
+
+
+ /* COLLAPSE DATA-API
+  * ================= */
 
   $(document).on('click.collapse.data-api', '[data-toggle=collapse]', function (e) {
     var $this = $(this), href
@@ -1078,7 +1131,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-dropdown',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ============================================================
- * bootstrap-dropdown.js v2.2.1
+ * bootstrap-dropdown.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#dropdowns
  * ============================================================
  * Copyright 2012 Twitter, Inc.
@@ -1132,8 +1185,9 @@ define("almond", function(){});
 
       if (!isActive) {
         $parent.toggleClass('open')
-        $this.focus()
       }
+
+      $this.focus()
 
       return false
     }
@@ -1161,7 +1215,7 @@ define("almond", function(){});
 
       if (!isActive || (isActive && e.keyCode == 27)) return $this.click()
 
-      $items = $('[role=menu] li:not(.divider) a', $parent)
+      $items = $('[role=menu] li:not(.divider):visible a', $parent)
 
       if (!$items.length) return
 
@@ -1203,6 +1257,8 @@ define("almond", function(){});
   /* DROPDOWN PLUGIN DEFINITION
    * ========================== */
 
+  var old = $.fn.dropdown
+
   $.fn.dropdown = function (option) {
     return this.each(function () {
       var $this = $(this)
@@ -1215,12 +1271,22 @@ define("almond", function(){});
   $.fn.dropdown.Constructor = Dropdown
 
 
+ /* DROPDOWN NO CONFLICT
+  * ==================== */
+
+  $.fn.dropdown.noConflict = function () {
+    $.fn.dropdown = old
+    return this
+  }
+
+
   /* APPLY TO STANDARD DROPDOWN ELEMENTS
    * =================================== */
 
   $(document)
     .on('click.dropdown.data-api touchstart.dropdown.data-api', clearMenus)
     .on('click.dropdown touchstart.dropdown.data-api', '.dropdown form', function (e) { e.stopPropagation() })
+    .on('touchstart.dropdown.data-api', '.dropdown-menu', function (e) { e.stopPropagation() })
     .on('click.dropdown.data-api touchstart.dropdown.data-api'  , toggle, Dropdown.prototype.toggle)
     .on('keydown.dropdown.data-api touchstart.dropdown.data-api', toggle + ', [role=menu]' , Dropdown.prototype.keydown)
 
@@ -1235,7 +1301,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-modal',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* =========================================================
- * bootstrap-modal.js v2.2.1
+ * bootstrap-modal.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#modals
  * =========================================================
  * Copyright 2012 Twitter, Inc.
@@ -1429,6 +1495,8 @@ define("almond", function(){});
  /* MODAL PLUGIN DEFINITION
   * ======================= */
 
+  var old = $.fn.modal
+
   $.fn.modal = function (option) {
     return this.each(function () {
       var $this = $(this)
@@ -1447,6 +1515,15 @@ define("almond", function(){});
   }
 
   $.fn.modal.Constructor = Modal
+
+
+ /* MODAL NO CONFLICT
+  * ================= */
+
+  $.fn.modal.noConflict = function () {
+    $.fn.modal = old
+    return this
+  }
 
 
  /* MODAL DATA-API
@@ -1479,7 +1556,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-tooltip',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ===========================================================
- * bootstrap-tooltip.js v2.2.1
+ * bootstrap-tooltip.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#tooltips
  * Inspired by the original jQuery.tipsy by Jason Frame
  * ===========================================================
@@ -1730,6 +1807,8 @@ define("almond", function(){});
  /* TOOLTIP PLUGIN DEFINITION
   * ========================= */
 
+  var old = $.fn.tooltip
+
   $.fn.tooltip = function ( option ) {
     return this.each(function () {
       var $this = $(this)
@@ -1753,6 +1832,15 @@ define("almond", function(){});
   , html: false
   }
 
+
+ /* TOOLTIP NO CONFLICT
+  * =================== */
+
+  $.fn.tooltip.noConflict = function () {
+    $.fn.tooltip = old
+    return this
+  }
+
 }(window.jQuery);
 
 
@@ -1764,7 +1852,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-popover',['bootstrap/bootstrap-transition','bootstrap/bootstrap-tooltip'], function () { (function () {
 
 /* ===========================================================
- * bootstrap-popover.js v2.2.1
+ * bootstrap-popover.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#popovers
  * ===========================================================
  * Copyright 2012 Twitter, Inc.
@@ -1809,7 +1897,7 @@ define("almond", function(){});
         , content = this.getContent()
 
       $tip.find('.popover-title')[this.options.html ? 'html' : 'text'](title)
-      $tip.find('.popover-content > *')[this.options.html ? 'html' : 'text'](content)
+      $tip.find('.popover-content')[this.options.html ? 'html' : 'text'](content)
 
       $tip.removeClass('fade top bottom left right in')
     }
@@ -1846,6 +1934,8 @@ define("almond", function(){});
  /* POPOVER PLUGIN DEFINITION
   * ======================= */
 
+  var old = $.fn.popover
+
   $.fn.popover = function (option) {
     return this.each(function () {
       var $this = $(this)
@@ -1862,8 +1952,17 @@ define("almond", function(){});
     placement: 'right'
   , trigger: 'click'
   , content: ''
-  , template: '<div class="popover"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'
+  , template: '<div class="popover"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"></div></div></div>'
   })
+
+
+ /* POPOVER NO CONFLICT
+  * =================== */
+
+  $.fn.popover.noConflict = function () {
+    $.fn.popover = old
+    return this
+  }
 
 }(window.jQuery);
 
@@ -1876,7 +1975,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-scrollspy',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* =============================================================
- * bootstrap-scrollspy.js v2.2.1
+ * bootstrap-scrollspy.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#scrollspy
  * =============================================================
  * Copyright 2012 Twitter, Inc.
@@ -1936,7 +2035,7 @@ define("almond", function(){});
               , $href = /^#\w/.test(href) && $(href)
             return ( $href
               && $href.length
-              && [[ $href.position().top, href ]] ) || null
+              && [[ $href.position().top + self.$scrollElement.scrollTop(), href ]] ) || null
           })
           .sort(function (a, b) { return a[0] - b[0] })
           .each(function () {
@@ -1998,6 +2097,8 @@ define("almond", function(){});
  /* SCROLLSPY PLUGIN DEFINITION
   * =========================== */
 
+  var old = $.fn.scrollspy
+
   $.fn.scrollspy = function (option) {
     return this.each(function () {
       var $this = $(this)
@@ -2012,6 +2113,15 @@ define("almond", function(){});
 
   $.fn.scrollspy.defaults = {
     offset: 10
+  }
+
+
+ /* SCROLLSPY NO CONFLICT
+  * ===================== */
+
+  $.fn.scrollspy.noConflict = function () {
+    $.fn.scrollspy = old
+    return this
   }
 
 
@@ -2036,7 +2146,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-tab',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ========================================================
- * bootstrap-tab.js v2.2.1
+ * bootstrap-tab.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#tabs
  * ========================================================
  * Copyright 2012 Twitter, Inc.
@@ -2147,6 +2257,8 @@ define("almond", function(){});
  /* TAB PLUGIN DEFINITION
   * ===================== */
 
+  var old = $.fn.tab
+
   $.fn.tab = function ( option ) {
     return this.each(function () {
       var $this = $(this)
@@ -2157,6 +2269,15 @@ define("almond", function(){});
   }
 
   $.fn.tab.Constructor = Tab
+
+
+ /* TAB NO CONFLICT
+  * =============== */
+
+  $.fn.tab.noConflict = function () {
+    $.fn.tab = old
+    return this
+  }
 
 
  /* TAB DATA-API
@@ -2178,7 +2299,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-typeahead',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* =============================================================
- * bootstrap-typeahead.js v2.2.1
+ * bootstrap-typeahead.js v2.2.2
  * http://twitter.github.com/bootstrap/javascript.html#typeahead
  * =============================================================
  * Copyright 2012 Twitter, Inc.
@@ -2212,8 +2333,8 @@ define("almond", function(){});
     this.sorter = this.options.sorter || this.sorter
     this.highlighter = this.options.highlighter || this.highlighter
     this.updater = this.options.updater || this.updater
-    this.$menu = $(this.options.menu).appendTo('body')
     this.source = this.options.source
+    this.$menu = $(this.options.menu)
     this.shown = false
     this.listen()
   }
@@ -2235,16 +2356,18 @@ define("almond", function(){});
     }
 
   , show: function () {
-      var pos = $.extend({}, this.$element.offset(), {
+      var pos = $.extend({}, this.$element.position(), {
         height: this.$element[0].offsetHeight
       })
 
-      this.$menu.css({
-        top: pos.top + pos.height
-      , left: pos.left
-      })
+      this.$menu
+        .insertAfter(this.$element)
+        .css({
+          top: pos.top + pos.height
+        , left: pos.left
+        })
+        .show()
 
-      this.$menu.show()
       this.shown = true
       return this
     }
@@ -2396,7 +2519,7 @@ define("almond", function(){});
     }
 
   , keydown: function (e) {
-      this.suppressKeyPressRepeat = !~$.inArray(e.keyCode, [40,38,9,13,27])
+      this.suppressKeyPressRepeat = ~$.inArray(e.keyCode, [40,38,9,13,27])
       this.move(e)
     }
 
@@ -2455,6 +2578,8 @@ define("almond", function(){});
   /* TYPEAHEAD PLUGIN DEFINITION
    * =========================== */
 
+  var old = $.fn.typeahead
+
   $.fn.typeahead = function (option) {
     return this.each(function () {
       var $this = $(this)
@@ -2476,7 +2601,16 @@ define("almond", function(){});
   $.fn.typeahead.Constructor = Typeahead
 
 
- /*   TYPEAHEAD DATA-API
+ /* TYPEAHEAD NO CONFLICT
+  * =================== */
+
+  $.fn.typeahead.noConflict = function () {
+    $.fn.typeahead = old
+    return this
+  }
+
+
+ /* TYPEAHEAD DATA-API
   * ================== */
 
   $(document).on('focus.typeahead.data-api', '[data-provide="typeahead"]', function (e) {
@@ -2495,6 +2629,144 @@ define("almond", function(){});
 }); }(this));
 
 /*
+ * Fuel UX Checkbox
+ * https://github.com/ExactTarget/fuelux
+ *
+ * Copyright (c) 2012 ExactTarget
+ * Licensed under the MIT license.
+ */
+
+define('fuelux/checkbox',['require','jquery'],function (require) {
+
+	var $ = require('jquery');
+
+
+	// CHECKBOX CONSTRUCTOR AND PROTOTYPE
+
+	var Checkbox = function (element, options) {
+
+		this.$element = $(element);
+		this.options = $.extend({}, $.fn.checkbox.defaults, options);
+
+		// cache elements
+		this.$label = this.$element.parent();
+		this.$icon = this.$label.find('i');
+		this.$chk = this.$label.find('input[type=checkbox]');
+
+		// set default state
+		this.setState(this.$chk);
+
+		// handle events
+		this.$chk.on('change', $.proxy(this.itemchecked, this));
+	};
+
+	Checkbox.prototype = {
+
+		constructor: Checkbox,
+
+		setState: function ($chk) {
+			var checked = $chk.is(':checked');
+			var disabled = $chk.is(':disabled');
+
+			// reset classes
+			this.$icon.removeClass('checked').removeClass('disabled');
+
+			// set state of checkbox
+			if (checked === true) {
+				this.$icon.addClass('checked');
+			}
+			if (disabled === true) {
+				this.$icon.addClass('disabled');
+			}
+		},
+
+		enable: function () {
+			this.$chk.attr('disabled', false);
+			this.$icon.removeClass('disabled');
+		},
+
+		disable: function () {
+			this.$chk.attr('disabled', true);
+			this.$icon.addClass('disabled');
+		},
+
+		toggle: function () {
+			this.$chk.click();
+		},
+
+		itemchecked: function (e) {
+			var chk = $(e.target);
+			this.setState(chk);
+		}
+	};
+
+
+	// CHECKBOX PLUGIN DEFINITION
+
+	$.fn.checkbox = function (option, value) {
+		var methodReturn;
+
+		var $set = this.each(function () {
+			var $this = $(this);
+			var data = $this.data('checkbox');
+			var options = typeof option === 'object' && option;
+
+			if (!data) $this.data('checkbox', (data = new Checkbox(this, options)));
+			if (typeof option === 'string') methodReturn = data[option](value);
+		});
+
+		return (methodReturn === undefined) ? $set : methodReturn;
+	};
+
+	$.fn.checkbox.defaults = {};
+
+	$.fn.checkbox.Constructor = Checkbox;
+
+
+	// CHECKBOX DATA-API
+
+	$(function () {
+		$(window).on('load', function () {
+			//$('i.checkbox').each(function () {
+			$('.checkbox-custom > input[type=checkbox]').each(function () {
+				var $this = $(this);
+				if ($this.data('checkbox')) return;
+				$this.checkbox($this.data());
+			});
+		});
+	});
+
+});
+
+/*
+ * Fuel UX Utilities
+ * https://github.com/ExactTarget/fuelux
+ *
+ * Copyright (c) 2012 ExactTarget
+ * Licensed under the MIT license.
+ */
+
+define('fuelux/util',['require','jquery'],function (require) {
+
+	var $ = require('jquery');
+
+	// custom case-insensitive match expression
+	function fuelTextExactCI(elem, text) {
+		return (elem.textContent || elem.innerText || $(elem).text() || '').toLowerCase() === (text || '').toLowerCase();
+	}
+
+	$.expr[':'].fuelTextExactCI = $.expr.createPseudo ?
+		$.expr.createPseudo(function (text) {
+			return function (elem) {
+				return fuelTextExactCI(elem, text);
+			};
+		}) :
+		function (elem, i, match) {
+			return fuelTextExactCI(elem, match[3]);
+		};
+
+});
+/*
  * Fuel UX Combobox
  * https://github.com/ExactTarget/fuelux
  *
@@ -2502,10 +2774,10 @@ define("almond", function(){});
  * Licensed under the MIT license.
  */
 
-define('fuelux/combobox',['require','jquery'],function(require) {
-	
-	var $ = require('jquery');
+define('fuelux/combobox',['require','jquery','./util'],function (require) {
 
+	var $ = require('jquery');
+	require('./util');
 
 	// COMBOBOX CONSTRUCTOR AND PROTOTYPE
 
@@ -2513,22 +2785,118 @@ define('fuelux/combobox',['require','jquery'],function(require) {
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.combobox.defaults, options);
 		this.$element.on('click', 'a', $.proxy(this.itemclicked, this));
+		this.$element.on('change', 'input', $.proxy(this.inputchanged, this));
 		this.$input = this.$element.find('input');
+		this.$button = this.$element.find('.btn');
+
+		// set default selection
+		this.setDefaultSelection();
 	};
 
 	Combobox.prototype = {
 
 		constructor: Combobox,
 
-		select: function (val) {
-			this.$input.val(val).change();
-			return this;
+		selectedItem: function () {
+			var item = this.$selectedItem;
+			var data = {};
+
+			if (item) {
+				var txt = this.$selectedItem.text();
+				data = $.extend({ text: txt }, this.$selectedItem.data());
+			}
+			else {
+				data = { text: this.$input.val()};
+			}
+
+			return data;
+		},
+
+		selectByText: function (text) {
+			var selector = 'li:fuelTextExactCI(' + text + ')';
+			this.selectBySelector(selector);
+		},
+
+		selectByValue: function (value) {
+			var selector = 'li[data-value=' + value + ']';
+			this.selectBySelector(selector);
+		},
+
+		selectByIndex: function (index) {
+			// zero-based index
+			var selector = 'li:eq(' + index + ')';
+			this.selectBySelector(selector);
+		},
+
+		selectBySelector: function (selector) {
+			var $item = this.$element.find(selector);
+
+			if (typeof $item[0] !== 'undefined') {
+				this.$selectedItem = $item;
+				this.$input.val(this.$selectedItem.text());
+			}
+			else {
+				this.$selectedItem = null;
+			}
+		},
+
+		setDefaultSelection: function () {
+			var selector = 'li[data-selected=true]:first';
+			var item = this.$element.find(selector);
+
+			if (item.length > 0) {
+				// select by data-attribute
+				this.selectBySelector(selector);
+				item.removeData('selected');
+				item.removeAttr('data-selected');
+			}
+		},
+
+		enable: function () {
+			this.$input.removeAttr('disabled');
+			this.$button.removeClass('disabled');
+		},
+
+		disable: function () {
+			this.$input.attr('disabled', true);
+			this.$button.addClass('disabled');
 		},
 
 		itemclicked: function (e) {
-			this.select($(e.target).text());
-			$('body').click();
+			this.$selectedItem = $(e.target).parent();
+
+			// set input text and trigger input change event marked as synthetic
+			this.$input.val(this.$selectedItem.text()).trigger('change', { synthetic: true });
+
+			// pass object including text and any data-attributes
+			// to onchange event
+			var data = this.selectedItem();
+
+			// trigger changed event
+			this.$element.trigger('changed', data);
+
 			e.preventDefault();
+		},
+
+		inputchanged: function (e, extra) {
+
+			// skip processing for internally-generated synthetic event
+			// to avoid double processing
+			if (extra && extra.synthetic) return;
+
+			var val = $(e.target).val();
+			this.selectByText(val);
+
+			// find match based on input
+			// if no match, pass the input value
+			var data = this.selectedItem();
+			if (data.text.length === 0) {
+				data = { text: val };
+			}
+
+			// trigger changed event
+			this.$element.trigger('changed', data);
+
 		}
 
 	};
@@ -2536,15 +2904,19 @@ define('fuelux/combobox',['require','jquery'],function(require) {
 
 	// COMBOBOX PLUGIN DEFINITION
 
-	$.fn.combobox = function (option) {
-		return this.each(function () {
+	$.fn.combobox = function (option, value) {
+		var methodReturn;
+
+		var $set = this.each(function () {
 			var $this = $(this);
 			var data = $this.data('combobox');
 			var options = typeof option === 'object' && option;
 
 			if (!data) $this.data('combobox', (data = new Combobox(this, options)));
-			if (typeof option === 'string') data[option]();
+			if (typeof option === 'string') methodReturn = data[option](value);
 		});
+
+		return (methodReturn === undefined) ? $set : methodReturn;
 	};
 
 	$.fn.combobox.defaults = {};
@@ -2555,6 +2927,15 @@ define('fuelux/combobox',['require','jquery'],function(require) {
 	// COMBOBOX DATA-API
 
 	$(function () {
+
+		$(window).on('load', function () {
+			$('.combobox').each(function () {
+				var $this = $(this);
+				if ($this.data('combobox')) return;
+				$this.combobox($this.data());
+			});
+		});
+
 		$('body').on('mousedown.combobox.data-api', '.combobox', function (e) {
 			var $this = $(this);
 			if ($this.data('combobox')) return;
@@ -2582,8 +2963,9 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 	var Datagrid = function (element, options) {
 		this.$element = $(element);
 		this.$thead = this.$element.find('thead');
+		this.$tfoot = this.$element.find('tfoot');
 		this.$footer = this.$element.find('tfoot th');
-		this.$footerchildren = this.$footer.children();
+		this.$footerchildren = this.$footer.children().show().css('visibility', 'hidden');
 		this.$topheader = this.$element.find('thead th');
 		this.$searchcontrol = this.$element.find('.search');
 		this.$pagesize = this.$element.find('.grid-pagesize');
@@ -2599,7 +2981,7 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 		this.$tbody = $('<tbody>').insertAfter(this.$thead);
 		this.$colheader = $('<tr>').appendTo(this.$thead);
 
-		this.options = $.extend({}, $.fn.datagrid.defaults, options);
+		this.options = $.extend(true, {}, $.fn.datagrid.defaults, options);
 		this.options.dataOptions.pageSize = parseInt(this.$pagesize.val(), 10);
 		this.columns = this.options.dataSource.columns();
 
@@ -2611,6 +2993,9 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 		this.$pageinput.on('change', $.proxy(this.pageChanged, this));
 
 		this.renderColumns();
+
+		if (this.options.stretchHeight) this.initStretchHeight();
+
 		this.renderData();
 	};
 
@@ -2671,13 +3056,14 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 			var self = this;
 
 			this.$tbody.html(this.placeholderRowHTML(this.options.loadingHTML));
-			this.$footerchildren.hide();
 
 			this.options.dataSource.data(this.options.dataOptions, function (data) {
 				var itemdesc = (data.count === 1) ? self.options.itemText : self.options.itemsText;
 				var rowHTML = '';
 
-				self.$footerchildren.toggle(data.count > 0);
+				self.$footerchildren.css('visibility', function () {
+					return (data.count > 0) ? 'visible' : 'hidden';
+				});
 
 				self.$pageinput.val(data.page);
 				self.$pageslabel.text(data.pages);
@@ -2699,13 +3085,15 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 				if (!rowHTML) rowHTML = self.placeholderRowHTML('0 ' + self.options.itemsText);
 
 				self.$tbody.html(rowHTML);
+				self.stretchHeight();
+
 				self.$element.trigger('loaded');
 			});
 
 		},
 
 		placeholderRowHTML: function (content) {
-			return '<tr><td style="text-align:center;padding:20px;" colspan="' +
+			return '<tr><td style="text-align:center;padding:20px;border-bottom:none;" colspan="' +
 				this.columns.length + '">' + content + '</td></tr>';
 		},
 
@@ -2754,8 +3142,63 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 		next: function () {
 			this.options.dataOptions.pageIndex++;
 			this.renderData();
-		}
+		},
 
+		reload: function () {
+			this.options.dataOptions.pageIndex = 0;
+			this.renderData();
+		},
+
+		initStretchHeight: function () {
+			this.$gridContainer = this.$element.parent();
+
+			this.$element.wrap('<div class="datagrid-stretch-wrapper">');
+			this.$stretchWrapper = this.$element.parent();
+
+			this.$headerTable = $('<table>').attr('class', this.$element.attr('class'));
+			this.$footerTable = this.$headerTable.clone();
+
+			this.$headerTable.prependTo(this.$gridContainer).addClass('datagrid-stretch-header');
+			this.$thead.detach().appendTo(this.$headerTable);
+
+			this.$sizingHeader = this.$thead.clone();
+			this.$sizingHeader.find('tr:first').remove();
+
+			this.$footerTable.appendTo(this.$gridContainer).addClass('datagrid-stretch-footer');
+			this.$tfoot.detach().appendTo(this.$footerTable);
+		},
+
+		stretchHeight: function () {
+			if (!this.$gridContainer) return;
+
+			this.setColumnWidths();
+
+			var targetHeight = this.$gridContainer.height();
+			var headerHeight = this.$headerTable.outerHeight();
+			var footerHeight = this.$footerTable.outerHeight();
+			var overhead = headerHeight + footerHeight;
+
+			this.$stretchWrapper.height(targetHeight - overhead);
+		},
+
+		setColumnWidths: function () {
+			if (!this.$sizingHeader) return;
+
+			this.$element.prepend(this.$sizingHeader);
+
+			var $sizingCells = this.$sizingHeader.find('th');
+			var columnCount = $sizingCells.length;
+
+			function matchSizingCellWidth(i, el) {
+				if (i === columnCount - 1) return;
+				$(el).width($sizingCells.eq(i).width());
+			}
+
+			this.$colheader.find('th').each(matchSizingCellWidth);
+			this.$tbody.find('tr:first > td').each(matchSizingCellWidth);
+
+			this.$sizingHeader.detach();
+		}
 	};
 
 
@@ -2856,6 +3299,116 @@ define('fuelux/pillbox',['require','jquery'],function(require) {
 
 
 /*
+ * Fuel UX Radio
+ * https://github.com/ExactTarget/fuelux
+ *
+ * Copyright (c) 2012 ExactTarget
+ * Licensed under the MIT license.
+ */
+
+define('fuelux/radio',['require','jquery'],function (require) {
+
+	var $ = require('jquery');
+
+
+	// RADIO CONSTRUCTOR AND PROTOTYPE
+
+	var Radio = function (element, options) {
+		this.$element = $(element);
+		this.options = $.extend({}, $.fn.radio.defaults, options);
+
+		// cache elements
+		this.$label = this.$element.parent();
+		this.$icon = this.$label.find('i');
+		this.$radio = this.$label.find('input[type=radio]');
+		this.groupName = this.$radio.attr('name');
+
+		// set default state
+		this.setState(this.$radio);
+
+		// handle events
+		this.$radio.on('change', $.proxy(this.itemchecked, this));
+	};
+
+	Radio.prototype = {
+
+		constructor: Radio,
+
+		setState: function ($radio, resetGroupState) {
+			var checked = $radio.is(':checked');
+			var disabled = $radio.is(':disabled');
+
+			// set state of radio
+			if (checked === true) {
+				this.$icon.addClass('checked');
+			}
+			if (disabled === true) {
+				this.$icon.addClass('disabled');
+			}
+		},
+
+		resetGroup: function () {
+			// reset all radio buttons in group
+			$('input[name=' + this.groupName + ']').next().removeClass('checked');
+		},
+
+		enable: function () {
+			this.$radio.attr('disabled', false);
+			this.$icon.removeClass('disabled');
+		},
+
+		disable: function () {
+			this.$radio.attr('disabled', true);
+			this.$icon.addClass('disabled');
+		},
+
+		itemchecked: function (e) {
+			var radio = $(e.target);
+
+			this.resetGroup();
+			this.setState(radio);
+		}
+	};
+
+
+	// RADIO PLUGIN DEFINITION
+
+	$.fn.radio = function (option, value) {
+		var methodReturn;
+
+		var $set = this.each(function () {
+			var $this = $(this);
+			var data = $this.data('radio');
+			var options = typeof option === 'object' && option;
+
+			if (!data) $this.data('radio', (data = new Radio(this, options)));
+			if (typeof option === 'string') methodReturn = data[option](value);
+		});
+
+		return (methodReturn === undefined) ? $set : methodReturn;
+	};
+
+	$.fn.radio.defaults = {};
+
+	$.fn.radio.Constructor = Radio;
+
+
+	// RADIO DATA-API
+
+	$(function () {
+		$(window).on('load', function () {
+			//$('i.radio').each(function () {
+			$('.radio-custom > input[type=radio]').each(function () {
+				var $this = $(this);
+				if ($this.data('radio')) return;
+				$this.radio($this.data());
+			});
+		});
+	});
+
+});
+
+/*
  * Fuel UX Search
  * https://github.com/ExactTarget/fuelux
  *
@@ -2873,9 +3426,14 @@ define('fuelux/search',['require','jquery'],function(require) {
 	var Search = function (element, options) {
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.search.defaults, options);
-		this.$element.find('button').on('click', $.proxy(this.buttonclicked, this));
-		this.$input = this.$element.find('input').on('keydown', $.proxy(this.keypress, this));
-		this.$input = this.$element.find('input').on('keyup', $.proxy(this.keypressed, this));
+
+		this.$button = this.$element.find('button')
+			.on('click', $.proxy(this.buttonclicked, this));
+
+		this.$input = this.$element.find('input')
+			.on('keydown', $.proxy(this.keypress, this))
+			.on('keyup', $.proxy(this.keypressed, this));
+
 		this.$icon = this.$element.find('i');
 		this.activeSearch = '';
 	};
@@ -2931,6 +3489,16 @@ define('fuelux/search',['require','jquery'],function(require) {
 				inputPresentAndUnchanged = val && (val === this.activeSearch);
 				this.$icon.attr('class', inputPresentAndUnchanged ? 'icon-remove' : 'icon-search');
 			}
+		},
+
+		disable: function () {
+			this.$input.attr('disabled', 'disabled');
+			this.$button.addClass('disabled');
+		},
+
+		enable: function () {
+			this.$input.removeAttr('disabled');
+			this.$button.removeClass('disabled');
 		}
 
 	};
@@ -3010,6 +3578,8 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 			this.switches.speed = 500;
 		}
 
+		this.lastValue = null;
+
 		this.render();
 
 		if (this.options.disabled) {
@@ -3036,12 +3606,25 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 				this.options.value = newVal/1;
 			}
 
-			this.$element.trigger('change');
+			this.triggerChangedEvent();
 		},
 
 		stopSpin: function () {
 			clearTimeout(this.switches.timeout);
 			this.switches.count = 1;
+			this.triggerChangedEvent();
+		},
+
+		triggerChangedEvent: function () {
+			var currentValue = this.value();
+			if (currentValue === this.lastValue) return;
+
+			this.lastValue = currentValue;
+
+			// Primary changed event
+			this.$element.trigger('changed', currentValue);
+
+			// Undocumented, kept for backward compatibility
 			this.$element.trigger('change');
 		},
 
@@ -3145,12 +3728,514 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 	$(function () {
 		$('body').on('mousedown.spinner.data-api', '.spinner', function (e) {
 			var $this = $(this);
-			if ($this.data('.spinner')) return;
+			if ($this.data('spinner')) return;
 			$this.spinner($this.data());
 		});
 	});
 
 });
+/*
+ * Fuel UX Select
+ * https://github.com/ExactTarget/fuelux
+ *
+ * Copyright (c) 2012 ExactTarget
+ * Licensed under the MIT license.
+ */
+
+define('fuelux/select',['require','jquery','./util'],function(require) {
+
+    var $ = require('jquery');
+	require('./util');
+
+    // SELECT CONSTRUCTOR AND PROTOTYPE
+
+    var Select = function (element, options) {
+        this.$element = $(element);
+        this.options = $.extend({}, $.fn.select.defaults, options);
+        this.$element.on('click', 'a', $.proxy(this.itemclicked, this));
+        this.$button = this.$element.find('.btn');
+        this.$label = this.$element.find('.dropdown-label');
+        this.setDefaultSelection();
+
+        if (options.resize === 'auto') {
+            this.resize();
+        }
+    };
+
+    Select.prototype = {
+
+        constructor: Select,
+
+        itemclicked: function (e) {
+            this.$selectedItem = $(e.target).parent();
+            this.$label.text(this.$selectedItem.text());
+
+            // pass object including text and any data-attributes
+            // to onchange event
+            var data = this.selectedItem();
+
+            // trigger changed event
+            this.$element.trigger('changed', data);
+
+            e.preventDefault();
+        },
+
+        resize: function() {
+            var el = $('#selectTextSize')[0];
+
+            // create element if it doesn't exist
+            // used to calculate the length of the longest string
+            if(!el) {
+                $('<div/>').attr({id:'selectTextSize'}).appendTo('body');
+            }
+
+            var width = 0;
+            var newWidth = 0;
+
+            // iterate through each item to find longest string
+            this.$element.find('a').each(function () {
+                var $this = $(this);
+                var txt = $this.text();
+                var $txtSize = $('#selectTextSize');
+                $txtSize.text(txt);
+                newWidth = $txtSize.outerWidth();
+                if(newWidth > width) {
+                    width = newWidth;
+                }
+            });
+
+            this.$label.width(width);
+        },
+
+        selectedItem: function() {
+            var txt = this.$selectedItem.text();
+            return $.extend({ text: txt }, this.$selectedItem.data());
+        },
+
+        selectByText: function(text) {
+            var selector = 'li a:fuelTextExactCI(' + text + ')';
+            this.selectBySelector(selector);
+        },
+
+        selectByValue: function(value) {
+            var selector = 'li[data-value=' + value + ']';
+            this.selectBySelector(selector);
+        },
+
+        selectByIndex: function(index) {
+            // zero-based index
+            var selector = 'li:eq(' + index + ')';
+            this.selectBySelector(selector);
+        },
+
+        selectBySelector: function(selector) {
+            var item = this.$element.find(selector);
+
+            this.$selectedItem = item;
+            this.$label.text(this.$selectedItem.text());
+        },
+
+        setDefaultSelection: function() {
+            var selector = 'li[data-selected=true]:first';
+            var item = this.$element.find(selector);
+            if(item.length === 0) {
+                // select first item
+                this.selectByIndex(0);
+            }
+            else {
+                // select by data-attribute
+                this.selectBySelector(selector);
+                item.removeData('selected');
+                item.removeAttr('data-selected');
+            }
+        },
+
+        enable: function() {
+            this.$button.removeClass('disabled');
+        },
+
+        disable: function() {
+            this.$button.addClass('disabled');
+        }
+
+    };
+
+
+    // SELECT PLUGIN DEFINITION
+
+    $.fn.select = function (option,value) {
+        var methodReturn;
+
+        var $set = this.each(function () {
+            var $this = $(this);
+            var data = $this.data('select');
+            var options = typeof option === 'object' && option;
+
+            if (!data) $this.data('select', (data = new Select(this, options)));
+            if (typeof option === 'string') methodReturn = data[option](value);
+        });
+
+        return (methodReturn === undefined) ? $set : methodReturn;
+    };
+
+    $.fn.select.defaults = {};
+
+    $.fn.select.Constructor = Select;
+
+
+    // SELECT DATA-API
+
+    $(function () {
+
+        $(window).on('load', function () {
+            $('.select').each(function () {
+                var $this = $(this);
+                if ($this.data('select')) return;
+                $this.select($this.data());
+            });
+        });
+
+        $('body').on('mousedown.select.data-api', '.select', function (e) {
+            var $this = $(this);
+            if ($this.data('select')) return;
+            $this.select($this.data());
+        });
+    });
+
+});
+
+/*
+ * Fuel UX Tree
+ * https://github.com/ExactTarget/fuelux
+ *
+ * Copyright (c) 2012 ExactTarget
+ * Licensed under the MIT license.
+ */
+
+define('fuelux/tree',['require','jquery'],function(require) {
+
+	var $ = require('jquery');
+
+
+	// TREE CONSTRUCTOR AND PROTOTYPE
+
+	var Tree = function (element, options) {
+		this.$element = $(element);
+		this.options = $.extend({}, $.fn.tree.defaults, options);
+
+		this.$element.on('click', '.tree-item', $.proxy( function(ev) { this.selectItem(ev.currentTarget); } ,this));
+		this.$element.on('click', '.tree-folder-header', $.proxy( function(ev) { this.selectFolder(ev.currentTarget); }, this));
+
+		this.render();
+	};
+
+	Tree.prototype = {
+		constructor: Tree,
+
+		render: function () {
+			this.populate(this.$element);
+		},
+
+		populate: function ($el) {
+			var self = this;
+			var loader = $el.parent().find('.tree-loader:eq(0)');
+
+			loader.show();
+			this.options.dataSource.data($el.data(), function (items) {
+				loader.hide();
+
+				$.each( items.data, function(index, value) {
+					var $entity;
+
+					if(value.type === "folder") {
+						$entity = self.$element.find('.tree-folder:eq(0)').clone().show();
+						$entity.find('.tree-folder-name').html(value.name);
+						$entity.find('.tree-loader').html(self.options.loadingHTML);
+						$entity.find('.tree-folder-header').data(value);
+					} else if (value.type === "item") {
+						$entity = self.$element.find('.tree-item:eq(0)').clone().show();
+						$entity.find('.tree-item-name').html(value.name);
+						$entity.data(value);
+					}
+
+					if($el.hasClass('tree-folder-header')) {
+						$el.parent().find('.tree-folder-content:eq(0)').append($entity);
+					} else {
+						$el.append($entity);
+					}
+				});
+
+				self.$element.trigger('loaded');
+			});
+		},
+
+		selectItem: function (el) {
+			var $el = $(el);
+			var $all = this.$element.find('.tree-selected');
+			var data = [];
+
+			if (this.options.multiSelect) {
+				$.each($all, function(index, value) {
+					var $val = $(value);
+					if($val[0] !== $el[0]) {
+						data.push( $(value).data() );
+					}
+				});
+			} else if ($all[0] !== $el[0]) {
+				$all.removeClass('tree-selected')
+					.find('i').removeClass('icon-ok').addClass('tree-dot');
+				data.push($el.data());
+			}
+
+			if($el.hasClass('tree-selected')) {
+				$el.removeClass('tree-selected');
+				$el.find('i').removeClass('icon-ok').addClass('tree-dot');
+			} else {
+				$el.addClass ('tree-selected');
+				$el.find('i').removeClass('tree-dot').addClass('icon-ok');
+				if (this.options.multiSelect) {
+					data.push( $el.data() );
+				}
+			}
+
+			if(data.length) {
+				this.$element.trigger('selected', {info: data});
+			}
+
+		},
+
+		selectFolder: function (el) {
+			var $el = $(el);
+			var $par = $el.parent();
+
+			if($el.find('.icon-folder-close').length) {
+				if ($par.find('.tree-folder-content').children().length) {
+					$par.find('.tree-folder-content:eq(0)').show();
+				} else {
+					this.populate( $el );
+				}
+
+				$par.find('.icon-folder-close:eq(0)')
+					.removeClass('icon-folder-close')
+					.addClass('icon-folder-open');
+
+				this.$element.trigger('opened', $el.data());
+			} else {
+				if(this.options.cacheItems) {
+					$par.find('.tree-folder-content:eq(0)').hide();
+				} else {
+					$par.find('.tree-folder-content:eq(0)').empty();
+				}
+
+				$par.find('.icon-folder-open:eq(0)')
+					.removeClass('icon-folder-open')
+					.addClass('icon-folder-close');
+
+				this.$element.trigger('closed', $el.data());
+			}
+		},
+
+		selectedItems: function () {
+			var $sel = this.$element.find('.tree-selected');
+			var data = [];
+
+			$.each($sel, function (index, value) {
+				data.push($(value).data());
+			});
+			return data;
+		}
+	};
+
+
+	// TREE PLUGIN DEFINITION
+
+	$.fn.tree = function (option, value) {
+		var methodReturn;
+
+		var $set = this.each(function () {
+			var $this = $(this);
+			var data = $this.data('tree');
+			var options = typeof option === 'object' && option;
+
+			if (!data) $this.data('tree', (data = new Tree(this, options)));
+			if (typeof option === 'string') methodReturn = data[option](value);
+		});
+
+		return (methodReturn === undefined) ? $set : methodReturn;
+	};
+
+	$.fn.tree.defaults = {
+		multiSelect: false,
+		loadingHTML: '<div>Loading...</div>',
+		cacheItems: true
+	};
+
+	$.fn.tree.Constructor = Tree;
+
+});
+
+/*
+ * Fuel UX Wizard
+ * https://github.com/ExactTarget/fuelux
+ *
+ * Copyright (c) 2012 ExactTarget
+ * Licensed under the MIT license.
+ */
+
+define('fuelux/wizard',['require','jquery'],function (require) {
+
+	var $ = require('jquery');
+
+
+	// WIZARD CONSTRUCTOR AND PROTOTYPE
+
+	var Wizard = function (element, options) {
+		this.$element = $(element);
+		this.options = $.extend({}, $.fn.wizard.defaults, options);
+		this.currentStep = 1;
+		this.numSteps = this.$element.find('li').length;
+		this.$prevBtn = this.$element.find('button.btn-prev');
+		this.$nextBtn = this.$element.find('button.btn-next');
+		this.nextText = this.$nextBtn.text();
+
+		// handle events
+		this.$prevBtn.on('click', $.proxy(this.previous, this));
+		this.$nextBtn.on('click', $.proxy(this.next, this));
+		this.$element.on('click', 'li.complete', $.proxy(this.stepclicked, this));
+	};
+
+	Wizard.prototype = {
+
+		constructor: Wizard,
+
+		setState: function () {
+			var canMovePrev = (this.currentStep > 1);
+			var firstStep = (this.currentStep === 1);
+			var lastStep = (this.currentStep === this.numSteps);
+
+			// disable buttons based on current step
+			this.$prevBtn.attr('disabled', (firstStep === true || canMovePrev === false));
+
+			// change button text of last step, if specified
+			var data = this.$nextBtn.data();
+			if (data && data.last) {
+				this.lastText = data.last;
+				if (typeof this.lastText !== 'undefined') {
+					// replace text
+					var text = (lastStep !== true) ? this.nextText : this.lastText;
+					this.$nextBtn
+						.contents()
+						.filter(function () {
+							return this.nodeType === 3;
+						}).replaceWith(text);
+				}
+			}
+
+			// reset classes for all steps
+			var $steps = this.$element.find('li');
+			$steps.removeClass('active').removeClass('complete');
+			$steps.find('span.badge').removeClass('badge-info').removeClass('badge-success');
+
+			// set class for all previous steps
+			var prevSelector = 'li:lt(' + (this.currentStep - 1) + ')';
+			var $prevSteps = this.$element.find(prevSelector);
+			$prevSteps.addClass('complete');
+			$prevSteps.find('span.badge').addClass('badge-success');
+
+			// set class for current step
+			var currentSelector = 'li:eq(' + (this.currentStep - 1) + ')';
+			var $currentStep = this.$element.find(currentSelector);
+			$currentStep.addClass('active');
+			$currentStep.find('span.badge').addClass('badge-info');
+
+			// set display of target element
+			var target = $currentStep.data().target;
+			$('.step-pane').removeClass('active');
+			$(target).addClass('active');
+
+			this.$element.trigger('changed');
+		},
+
+		stepclicked: function (e) {
+			var li = $(e.currentTarget);
+
+			var index = $('.steps li').index(li);
+			this.currentStep = (index + 1);
+			this.setState();
+		},
+
+		previous: function () {
+			var canMovePrev = (this.currentStep > 1);
+			if (canMovePrev) {
+				var e = $.Event('change');
+				this.$element.trigger(e, {step: this.currentStep, direction: 'previous'});
+				if (e.isDefaultPrevented()) return;
+
+				this.currentStep -= 1;
+				this.setState();
+			}
+		},
+
+		next: function () {
+			var canMoveNext = (this.currentStep + 1 <= this.numSteps);
+			var lastStep = (this.currentStep === this.numSteps);
+
+			if (canMoveNext) {
+				var e = $.Event('change');
+				this.$element.trigger(e, {step: this.currentStep, direction: 'next'});
+
+				if (e.isDefaultPrevented()) return;
+
+				this.currentStep += 1;
+				this.setState();
+			}
+			else if (lastStep) {
+				this.$element.trigger('finished');
+			}
+		},
+
+		selectedItem: function (val) {
+			return {
+				step: this.currentStep
+			};
+		}
+	};
+
+
+	// WIZARD PLUGIN DEFINITION
+
+	$.fn.wizard = function (option, value) {
+		var methodReturn;
+
+		var $set = this.each(function () {
+			var $this = $(this);
+			var data = $this.data('wizard');
+			var options = typeof option === 'object' && option;
+
+			if (!data) $this.data('wizard', (data = new Wizard(this, options)));
+			if (typeof option === 'string') methodReturn = data[option](value);
+		});
+
+		return (methodReturn === undefined) ? $set : methodReturn;
+	};
+
+	$.fn.wizard.defaults = {};
+
+	$.fn.wizard.Constructor = Wizard;
+
+
+	// WIZARD DATA-API
+
+	$(function () {
+		$('body').on('mousedown.wizard.data-api', '.wizard', function () {
+			var $this = $(this);
+			if ($this.data('wizard')) return;
+			$this.wizard($this.data());
+		});
+	});
+
+});
+
 /*
  * Fuel UX
  * https://github.com/ExactTarget/fuelux
@@ -3159,7 +4244,7 @@ define('fuelux/spinner',['require','jquery'],function(require) {
  * Licensed under the MIT license.
  */
 
-define('fuelux/all',['require','jquery','bootstrap/bootstrap-affix','bootstrap/bootstrap-alert','bootstrap/bootstrap-button','bootstrap/bootstrap-carousel','bootstrap/bootstrap-collapse','bootstrap/bootstrap-dropdown','bootstrap/bootstrap-modal','bootstrap/bootstrap-popover','bootstrap/bootstrap-scrollspy','bootstrap/bootstrap-tab','bootstrap/bootstrap-tooltip','bootstrap/bootstrap-transition','bootstrap/bootstrap-typeahead','fuelux/combobox','fuelux/datagrid','fuelux/pillbox','fuelux/search','fuelux/spinner'],function (require) {
+define('fuelux/all',['require','jquery','bootstrap/bootstrap-affix','bootstrap/bootstrap-alert','bootstrap/bootstrap-button','bootstrap/bootstrap-carousel','bootstrap/bootstrap-collapse','bootstrap/bootstrap-dropdown','bootstrap/bootstrap-modal','bootstrap/bootstrap-popover','bootstrap/bootstrap-scrollspy','bootstrap/bootstrap-tab','bootstrap/bootstrap-tooltip','bootstrap/bootstrap-transition','bootstrap/bootstrap-typeahead','fuelux/checkbox','fuelux/combobox','fuelux/datagrid','fuelux/pillbox','fuelux/radio','fuelux/search','fuelux/spinner','fuelux/select','fuelux/tree','fuelux/wizard'],function (require) {
 	require('jquery');
 	require('bootstrap/bootstrap-affix');
 	require('bootstrap/bootstrap-alert');
@@ -3174,11 +4259,16 @@ define('fuelux/all',['require','jquery','bootstrap/bootstrap-affix','bootstrap/b
 	require('bootstrap/bootstrap-tooltip');
 	require('bootstrap/bootstrap-transition');
 	require('bootstrap/bootstrap-typeahead');
+	require('fuelux/checkbox');
 	require('fuelux/combobox');
 	require('fuelux/datagrid');
 	require('fuelux/pillbox');
+	require('fuelux/radio');
 	require('fuelux/search');
 	require('fuelux/spinner');
+	require('fuelux/select');
+	require('fuelux/tree');
+	require('fuelux/wizard');
 });
 
 /*

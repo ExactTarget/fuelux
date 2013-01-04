@@ -16,9 +16,14 @@ define(['require','jquery'],function(require) {
 	var Search = function (element, options) {
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.search.defaults, options);
-		this.$element.find('button').on('click', $.proxy(this.buttonclicked, this));
-		this.$input = this.$element.find('input').on('keydown', $.proxy(this.keypress, this));
-		this.$input = this.$element.find('input').on('keyup', $.proxy(this.keypressed, this));
+
+		this.$button = this.$element.find('button')
+			.on('click', $.proxy(this.buttonclicked, this));
+
+		this.$input = this.$element.find('input')
+			.on('keydown', $.proxy(this.keypress, this))
+			.on('keyup', $.proxy(this.keypressed, this));
+
 		this.$icon = this.$element.find('i');
 		this.activeSearch = '';
 	};
@@ -74,6 +79,16 @@ define(['require','jquery'],function(require) {
 				inputPresentAndUnchanged = val && (val === this.activeSearch);
 				this.$icon.attr('class', inputPresentAndUnchanged ? 'icon-remove' : 'icon-search');
 			}
+		},
+
+		disable: function () {
+			this.$input.attr('disabled', 'disabled');
+			this.$button.addClass('disabled');
+		},
+
+		enable: function () {
+			this.$input.removeAttr('disabled');
+			this.$button.removeClass('disabled');
 		}
 
 	};

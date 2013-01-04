@@ -16,8 +16,9 @@ define(['require','jquery'],function(require) {
 	var Datagrid = function (element, options) {
 		this.$element = $(element);
 		this.$thead = this.$element.find('thead');
+		this.$tfoot = this.$element.find('tfoot');
 		this.$footer = this.$element.find('tfoot th');
-		this.$footerchildren = this.$footer.children();
+		this.$footerchildren = this.$footer.children().show().css('visibility', 'hidden');
 		this.$topheader = this.$element.find('thead th');
 		this.$searchcontrol = this.$element.find('.search');
 		this.$pagesize = this.$element.find('.grid-pagesize');
@@ -33,7 +34,7 @@ define(['require','jquery'],function(require) {
 		this.$tbody = $('<tbody>').insertAfter(this.$thead);
 		this.$colheader = $('<tr>').appendTo(this.$thead);
 
-		this.options = $.extend({}, $.fn.datagrid.defaults, options);
+		this.options = $.extend(true, {}, $.fn.datagrid.defaults, options);
 		this.options.dataOptions.pageSize = parseInt(this.$pagesize.val(), 10);
 		this.columns = this.options.dataSource.columns();
 
@@ -45,6 +46,9 @@ define(['require','jquery'],function(require) {
 		this.$pageinput.on('change', $.proxy(this.pageChanged, this));
 
 		this.renderColumns();
+
+		if (this.options.stretchHeight) this.initStretchHeight();
+
 		this.renderData();
 	};
 
@@ -105,13 +109,14 @@ define(['require','jquery'],function(require) {
 			var self = this;
 
 			this.$tbody.html(this.placeholderRowHTML(this.options.loadingHTML));
-			this.$footerchildren.hide();
 
 			this.options.dataSource.data(this.options.dataOptions, function (data) {
 				var itemdesc = (data.count === 1) ? self.options.itemText : self.options.itemsText;
 				var rowHTML = '';
 
-				self.$footerchildren.toggle(data.count > 0);
+				self.$footerchildren.css('visibility', function () {
+					return (data.count > 0) ? 'visible' : 'hidden';
+				});
 
 				self.$pageinput.val(data.page);
 				self.$pageslabel.text(data.pages);
@@ -133,13 +138,15 @@ define(['require','jquery'],function(require) {
 				if (!rowHTML) rowHTML = self.placeholderRowHTML('0 ' + self.options.itemsText);
 
 				self.$tbody.html(rowHTML);
+				self.stretchHeight();
+
 				self.$element.trigger('loaded');
 			});
 
 		},
 
 		placeholderRowHTML: function (content) {
-			return '<tr><td style="text-align:center;padding:20px;" colspan="' +
+			return '<tr><td style="text-align:center;padding:20px;border-bottom:none;" colspan="' +
 				this.columns.length + '">' + content + '</td></tr>';
 		},
 
@@ -188,8 +195,63 @@ define(['require','jquery'],function(require) {
 		next: function () {
 			this.options.dataOptions.pageIndex++;
 			this.renderData();
-		}
+		},
 
+		reload: function () {
+			this.options.dataOptions.pageIndex = 0;
+			this.renderData();
+		},
+
+		initStretchHeight: function () {
+			this.$gridContainer = this.$element.parent();
+
+			this.$element.wrap('<div class="datagrid-stretch-wrapper">');
+			this.$stretchWrapper = this.$element.parent();
+
+			this.$headerTable = $('<table>').attr('class', this.$element.attr('class'));
+			this.$footerTable = this.$headerTable.clone();
+
+			this.$headerTable.prependTo(this.$gridContainer).addClass('datagrid-stretch-header');
+			this.$thead.detach().appendTo(this.$headerTable);
+
+			this.$sizingHeader = this.$thead.clone();
+			this.$sizingHeader.find('tr:first').remove();
+
+			this.$footerTable.appendTo(this.$gridContainer).addClass('datagrid-stretch-footer');
+			this.$tfoot.detach().appendTo(this.$footerTable);
+		},
+
+		stretchHeight: function () {
+			if (!this.$gridContainer) return;
+
+			this.setColumnWidths();
+
+			var targetHeight = this.$gridContainer.height();
+			var headerHeight = this.$headerTable.outerHeight();
+			var footerHeight = this.$footerTable.outerHeight();
+			var overhead = headerHeight + footerHeight;
+
+			this.$stretchWrapper.height(targetHeight - overhead);
+		},
+
+		setColumnWidths: function () {
+			if (!this.$sizingHeader) return;
+
+			this.$element.prepend(this.$sizingHeader);
+
+			var $sizingCells = this.$sizingHeader.find('th');
+			var columnCount = $sizingCells.length;
+
+			function matchSizingCellWidth(i, el) {
+				if (i === columnCount - 1) return;
+				$(el).width($sizingCells.eq(i).width());
+			}
+
+			this.$colheader.find('th').each(matchSizingCellWidth);
+			this.$tbody.find('tr:first > td').each(matchSizingCellWidth);
+
+			this.$sizingHeader.detach();
+		}
 	};
 
 
