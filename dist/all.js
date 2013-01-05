@@ -2627,6 +2627,7 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 		this.$footerchildren = this.$footer.children().show().css('visibility', 'hidden');
 		this.$topheader = this.$element.find('thead th');
 		this.$searchcontrol = this.$element.find('.search');
+		this.$filtercontrol = this.$element.find('.filter');
 		this.$pagesize = this.$element.find('.grid-pagesize');
 		this.$pageinput = this.$element.find('.grid-pager input');
 		this.$pagedropdown = this.$element.find('.grid-pager .dropdown-menu');
@@ -2647,6 +2648,7 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 		this.$nextpagebtn.on('click', $.proxy(this.next, this));
 		this.$prevpagebtn.on('click', $.proxy(this.previous, this));
 		this.$searchcontrol.on('searched cleared', $.proxy(this.searchChanged, this));
+		this.$filtercontrol.on('changed', $.proxy(this.filterChanged, this));
 		this.$colheader.on('click', 'th', $.proxy(this.headerClicked, this));
 		this.$pagesize.on('change', $.proxy(this.pagesizeChanged, this));
 		this.$pageinput.on('change', $.proxy(this.pageChanged, this));
@@ -2793,6 +2795,11 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 			this.renderData();
 		},
 
+		filterChanged: function (e, filter) {
+			this.options.dataOptions.filter = filter;
+			this.renderData();
+		},
+
 		previous: function () {
 			this.options.dataOptions.pageIndex--;
 			this.renderData();
@@ -2884,6 +2891,7 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 	$.fn.datagrid.Constructor = Datagrid;
 
 });
+
 /*
  * Fuel UX Pillbox
  * https://github.com/ExactTarget/fuelux

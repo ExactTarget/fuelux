@@ -6120,6 +6120,17 @@ textarea.span1,
   float: right;
 }
 
+.fuelux .datagrid thead .datagrid-header-right .input-append {
+  float: left;
+  margin-bottom: 0;
+  margin-left: 8px;
+}
+
+.fuelux .datagrid thead .datagrid-header-right .input-append .dropdown-menu {
+  top: auto !important;
+  left: auto !important;
+}
+
 .fuelux .datagrid thead .sorted {
   color: #333333;
   text-shadow: 'none';
