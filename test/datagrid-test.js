@@ -304,6 +304,9 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 	var datagridHTML = '<table id="MyGrid" class="table table-bordered datagrid">' +
 		'<thead><tr><th>' +
 		'<div class="datagrid-header-right">' +
+		'<div class="input-append search">' +
+		'<input type="text" class="input-medium" placeholder="Search"><button class="btn"><i class="icon-search"></i></button>' +
+		'</div>' + 
 		'<div class="input-append select filter" data-resize="auto">' +
 		'<button data-toggle="dropdown" class="btn dropdown-toggle">' +
 		'<span class="dropdown-label"></span>' +
@@ -315,9 +318,7 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 		'<li data-value="gte5m"><a href="#">Population >= 5m</a></li>' +
 		'</ul>' +
 		'</div>' +
-		'<div class="input-append search">' +
-		'<input type="text" class="input-medium" placeholder="Search"><button class="btn"><i class="icon-search"></i></button>' +
-		'</div></div>' +
+		'</div>' +
 		'</th></tr></thead>' +
 		'<tfoot><tr><th>' +
 		'<div class="datagrid-footer-left"><div class="grid-controls">' +
