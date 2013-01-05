@@ -14,7 +14,7 @@ define(function (require) {
 	// WIZARD CONSTRUCTOR AND PROTOTYPE
 
 	var Wizard = function (element, options) {
-        var kids;
+		var kids;
 
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.wizard.defaults, options);
@@ -23,9 +23,9 @@ define(function (require) {
 		this.$prevBtn = this.$element.find('button.btn-prev');
 		this.$nextBtn = this.$element.find('button.btn-next');
 
-        kids = this.$nextBtn.children().detach();
+		kids = this.$nextBtn.children().detach();
 		this.nextText = $.trim(this.$nextBtn.text());
-        this.$nextBtn.append(kids);
+		this.$nextBtn.append(kids);
 
 		// handle events
 		this.$prevBtn.on('click', $.proxy(this.previous, this));
@@ -52,8 +52,8 @@ define(function (require) {
 				if (typeof this.lastText !== 'undefined') {
 					// replace text
 					var text = (lastStep !== true) ? this.nextText : this.lastText;
-                    var kids = this.$nextBtn.children().detach();
-                    this.$nextBtn.text(text).append(kids);
+					var kids = this.$nextBtn.children().detach();
+					this.$nextBtn.text(text).append(kids);
 				}
 			}
 
