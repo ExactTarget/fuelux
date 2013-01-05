@@ -314,8 +314,8 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 		'</button>' +
 		'<ul class="dropdown-menu">' +
 		'<li data-value="all" data-selected="true"><a href="#">All</a></li>' +
-		'<li data-value="lt5m"><a href="#">Population < 5m</a></li>' +
-		'<li data-value="gte5m"><a href="#">Population >= 5m</a></li>' +
+		'<li data-value="lt5m"><a href="#">Population &lt; 5M</a></li>' +
+		'<li data-value="gte5m"><a href="#">Population &gt;= 5M</a></li>' +
 		'</ul>' +
 		'</div>' +
 		'</div>' +
