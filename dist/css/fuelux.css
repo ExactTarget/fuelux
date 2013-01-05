@@ -6129,8 +6129,8 @@ textarea.span1,
 
 .fuelux .datagrid thead .datagrid-header-right .search .dropdown-menu,
 .fuelux .datagrid thead .datagrid-header-right .filter .dropdown-menu {
-  top: auto !important;
-  left: auto !important;
+  top: auto;
+  left: auto;
 }
 
 .fuelux .datagrid thead .sorted {
