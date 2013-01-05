@@ -307,7 +307,7 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 		'<div class="input-append search">' +
 		'<input type="text" class="input-medium" placeholder="Search"><button class="btn"><i class="icon-search"></i></button>' +
 		'</div>' + 
-		'<div class="input-append select filter" data-resize="auto">' +
+		'<div class="select filter" data-resize="auto">' +
 		'<button data-toggle="dropdown" class="btn dropdown-toggle">' +
 		'<span class="dropdown-label"></span>' +
 		'<span class="caret"></span>' +
