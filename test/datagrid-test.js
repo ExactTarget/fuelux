@@ -205,6 +205,24 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 		});
 	});
 
+	asyncTest("should handle filter changes", function () {
+		var stubDataSource = new StubDataSource();
+		var $datagrid = $(datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
+
+			var $filtercontrol = $datagrid.find('.filter');
+
+			equal(stubDataSource.options.filter, undefined, 'filter is undefined by default');
+
+			$datagrid.one('loaded', function () {
+				equal(JSON.stringify(stubDataSource.options.filter), JSON.stringify({ text: 'Population < 5M', value: 'lt5m' }), 'filter was changed');
+				start();
+
+			});
+
+			$filtercontrol.trigger('changed', { text: 'Population < 5M', value: 'lt5m' });
+		});
+	});
+
 	asyncTest("should handle reload method", function () {
 		var stubDataSource = new StubDataSource();
 		var $datagrid = $(datagridHTML).datagrid({ dataSource: stubDataSource, dataOptions: { pageIndex: 1, pageSize: 10 } }).one('loaded', function () {
@@ -285,9 +303,22 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 
 	var datagridHTML = '<table id="MyGrid" class="table table-bordered datagrid">' +
 		'<thead><tr><th>' +
-		'<div class="datagrid-header-right"><div class="input-append search">' +
+		'<div class="datagrid-header-right">' +
+		'<div class="input-append search">' +
 		'<input type="text" class="input-medium" placeholder="Search"><button class="btn"><i class="icon-search"></i></button>' +
-		'</div></div>' +
+		'</div>' + 
+		'<div class="select filter" data-resize="auto">' +
+		'<button data-toggle="dropdown" class="btn dropdown-toggle">' +
+		'<span class="dropdown-label"></span>' +
+		'<span class="caret"></span>' +
+		'</button>' +
+		'<ul class="dropdown-menu">' +
+		'<li data-value="all" data-selected="true"><a href="#">All</a></li>' +
+		'<li data-value="lt5m"><a href="#">Population &lt; 5M</a></li>' +
+		'<li data-value="gte5m"><a href="#">Population &gt;= 5M</a></li>' +
+		'</ul>' +
+		'</div>' +
+		'</div>' +
 		'</th></tr></thead>' +
 		'<tfoot><tr><th>' +
 		'<div class="datagrid-footer-left"><div class="grid-controls">' +

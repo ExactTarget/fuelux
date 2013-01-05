@@ -383,6 +383,17 @@
 						<input type="text" class="input-medium" placeholder="Search">
 						<button class="btn"><i class="icon-search"></i></button>
 					</div>
+					<div class="select filter" data-resize="auto">
+						<button data-toggle="dropdown" class="btn dropdown-toggle">
+							<span class="dropdown-label"></span>
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li data-value="all" data-selected="true"><a href="#">All</a></li>
+							<li data-value="lt5m"><a href="#">Population &lt; 5M</a></li>
+							<li data-value="gte5m"><a href="#">Population &gt;= 5M</a></li>
+						</ul>
+					</div>
 				</div>
 			</th>
 		</tr>
@@ -441,6 +452,17 @@
 						<div class="input-append search">
 							<input type="text" class="input-medium" placeholder="Search">
 							<button class="btn"><i class="icon-search"></i></button>
+						</div>
+						<div class="select filter" data-resize="auto">
+							<button data-toggle="dropdown" class="btn dropdown-toggle">
+								<span class="dropdown-label"></span>
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li data-value="all" data-selected="true"><a href="#">All</a></li>
+								<li data-value="lt5m"><a href="#">Population &lt; 5M</a></li>
+								<li data-value="gte5m"><a href="#">Population &gt;= 5M</a></li>
+							</ul>
 						</div>
 					</div>
 				</th>
