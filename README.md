@@ -156,6 +156,11 @@ We are grateful to the maintainers, contributors, and sponsors of the following 
 
 + https://github.com/dwaltz
 
+**Dustin McCormick**
+
++ http://twitter.com/djmccormick
++ http://github.com/djmccormick
+
 ## Copyright and license
 
 Copyright (c) 2012 ExactTarget
