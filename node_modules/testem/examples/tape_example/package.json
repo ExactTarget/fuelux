@@ -1,0 +1,11 @@
+{
+  "name": "tape_example",
+  "version": "0.0.0",
+  "description": "Example tests using tape",
+  "devDependencies": {
+    "tape": "~0.1.1"
+  },
+  "scripts": {
+    "test": "node tests.js"
+  }
+}

@@ -1,0 +1,14 @@
+{
+    "framework": "mocha",
+    "src_files": [
+        "chai.js",
+        "hello.js",
+        "tests.js"
+    ],
+    "launchers": {
+        "Node": {
+            "command": "mocha tests.js -R tap",
+            "protocol": "tap"
+        }
+    }
+}

@@ -1,0 +1,14 @@
+framework: mocha
+before_tests: coffee -c src test
+on_exit: rm src/*.js test/*.js
+src_files:
+- src/*.coffee
+- test/*.coffee
+launchers:
+  Mocha:
+    command: mocha --compilers coffee:coffee-script -R tap test/*.coffee
+    protocol: tap
+launch_in_dev:
+  - Mocha
+launch_in_ci:
+  - Mocha
