@@ -4,22 +4,23 @@
 
 require(['jquery', 'fuelux/pillbox'], function($) {
 
-	module("Fuel UX pillbox");
+	module("Fuel UX pillbox", {
+		setup: function(){
+			this.pillboxHTML = '<div><ul>' +
+				'<li data-value="foo">one</li><li>two</li>' +
+			'</ul></div>';
+		}
+	});
 
 	test("should be defined on jquery object", function () {
-		ok($(document.body).pillbox, 'pillbox method is defined');
+		ok($(this.pillboxHTML).pillbox, 'pillbox method is defined');
 	});
-
 	test("should return element", function () {
-		ok($(document.body).pillbox()[0] === document.body, 'document.body returned');
+		var $pillbox = $(this.pillboxHTML);
+		ok($pillbox.pillbox() === $pillbox, 'pillbox should be initialized');
 	});
-
 	test("should behave as designed", function () {
-		var pillboxHTML = '<div><ul>' +
-			'<li data-value="foo">one</li><li>two</li>' +
-		'</ul></div>';
-
-		var $pillbox = $(pillboxHTML).pillbox();
+		var $pillbox = $(this.pillboxHTML).pillbox();
 
 		equal($pillbox.pillbox('items').length, 2, 'pillbox returns both items');
 

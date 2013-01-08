@@ -15,51 +15,50 @@ require(['jquery', 'fuelux/all'], function($) {
 	});
 
 	test('modal is initialized', function() {
-		strictEqual(this.elems.modal(), this.elems, 'modal should be initialized');
+		ok(this.elems.modal() === this.elems, 'modal should be initilized');
 	});
-	
+
 	test('dropdown is initialized', function() {
-		strictEqual(this.elems.dropdown(), this.elems, 'dropdown should be initialized');
+		ok(this.elems.dropdown() === this.elems, 'dropdown should be initialized');
 	});
-	
+
 	test('scrollspy is initialized', function() {
-		strictEqual(this.elems.scrollspy(), this.elems, 'scrollspy should be initialized');
+		ok(this.elems.scrollspy() === this.elems, 'scrollspy should be initialized');
 	});
-	
+
 	test('tab is initialized', function() {
-		strictEqual(this.elems.tab(), this.elems, 'tab should be initialized');
+		ok(this.elems.tab() === this.elems, 'tab should be initialized');
 	});
-	
+
 	test('tooltip is initialized', function() {
-		strictEqual(this.elems.tooltip(), this.elems, 'tooltip should be initialized');
+		ok(this.elems.tooltip() === this.elems, 'tooltip should be initialized');
 	});
-	
+
 	test('popover is initialized', function() {
-		strictEqual(this.elems.popover(), this.elems, 'popover should be initialized');
+		ok(this.elems.popover() === this.elems, 'popover should be initialized');
 	});
 
 	test('affix is initialized', function() {
-		strictEqual(this.elems.affix(), this.elems, 'affix should be initialized');
-	});
-	
-	test('alert is initialized', function() {
-		strictEqual(this.elems.alert(), this.elems, 'alert should be initialized');
-	});
-	
-	test('button is initialized', function() {
-		strictEqual(this.elems.button(), this.elems, 'button should be initialized');
-	});
-	
-	test('collapse is initialized', function() {
-		strictEqual(this.elems.collapse(), this.elems, 'collapse should be initialized');
-	});
-	
-	test('carousel is initialized', function() {
-		strictEqual(this.elems.carousel(), this.elems, 'carousel should be initialized');
-	});
-	
-	test('typeahead is initialized', function() {
-		strictEqual(this.elems.typeahead(), this.elems, 'typeahead should be initialized');
+		ok(this.elems.affix() === this.elems, 'affix should be initialized');
 	});
 
+	test('alert is initialized', function() {
+		ok(this.elems.alert() === this.elems, 'alert should be initialized');
+	});
+
+	test('button is initialized', function() {
+		ok(this.elems.button() === this.elems, 'button should be initialized');
+	});
+
+	test('collapse is initialized', function() {
+		ok(this.elems.collapse() === this.elems, 'collapse should be initialized');
+	});
+
+	test('carousel is initialized', function() {
+		ok(this.elems.carousel() === this.elems, 'carousel should be initialized');
+	});
+
+	test('typeahead is initialized', function() {
+		ok(this.elems.typeahead() === this.elems, 'typeahead should be initialized');
+	});
 });
