@@ -1,0 +1,10 @@
+{
+    "launchers": {
+        "tap": {
+            "command": "node tests.js",
+            "protocol": "tap"
+        }
+    },
+    "launch_in_dev": [ "tap" ],
+    "launch_in_ci": [ "tap" ]
+}

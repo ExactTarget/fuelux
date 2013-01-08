@@ -1,0 +1,7 @@
+{
+    "test_page": "test.html",
+    "src_files": [
+        "src/*.js",
+        "tests/*.js"
+    ]
+}

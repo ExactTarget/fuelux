@@ -1,0 +1,5 @@
+In order to run the saucelabs tests, first copy config-sample.coffee 
+to config.coffee, and then configure your sauce username and access-key in
+config.coffee.
+
+config.coffee and config.js are in .gitignore.
