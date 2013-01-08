@@ -1,0 +1,5 @@
+{
+	"launch_in_dev": ["chrome", "firefox", "phantomjs"],
+	"test_page": "test/fuelux.html",
+	"framework": "qunit"
+}

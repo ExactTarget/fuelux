@@ -1,0 +1,8 @@
+{
+    "test_page": "tests.html",
+    "routes": {
+        "/tests.html": "public/tests.html",
+        "/js": "src",
+        "/css": "css"
+    }
+}
