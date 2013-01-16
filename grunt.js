@@ -64,6 +64,7 @@ module.exports = function(grunt) {
 					dir: 'dist',
 					optimize: 'none',
 					optimizeCss: 'none',
+					wrap: true,
 					paths: {
 						almond: '../lib/almond',
 						bootstrap: '../lib/bootstrap/js',
