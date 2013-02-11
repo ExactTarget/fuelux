@@ -14,7 +14,7 @@ require(['jquery', 'fuelux/spinner'], function($) {
 		ok($(document.body).spinner()[0] === document.body, 'document.body returned');
 	});
 
-	var spinnerHTML = ' <div id="ex-spinner" class="spinner">' +
+	var spinnerHTML = '<div id="ex-spinner" class="spinner">' +
 		'<input type="text" class="input-mini spinner-input">' +
 		'<button class="btn  spinner-up">' +
 		'<i class="icon-chevron-up"></i>' +
