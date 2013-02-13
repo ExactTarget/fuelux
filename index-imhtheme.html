@@ -1,175 +1,356 @@
 <!DOCTYPE html>
 <html lang="en" class="fuelux">
 <head>
-	<meta charset="utf-8">
-	<title>Fuel UX</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="Base Fuel UX styles and controls">
-	<meta name="author" content="ExactTarget">
+<meta charset="utf-8">
+<title>Fuel UX</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Base Fuel UX styles and controls">
+<meta name="author" content="ExactTarget">
 
-	<link href="vendor/fuelux-imhtheme/css/fuelux.css" rel="stylesheet">
-	<style type="text/css">
-		body {
-			padding-top: 60px;
-			padding-bottom: 40px;
-		}
-		section {
-			padding-top: 40px;
-		}
-		.fuelux .hero-unit {
-			padding: 20px 60px;
-			margin-bottom: 10px;
-		}
-		.hero-unit p {
-			margin-bottom: 20px;
-		}
-		.title {
-			font-size: 14px;
-			padding: 40px 0;
-			color: #999;
-		}
-		.title img {
-			vertical-align: text-bottom;
-		}
-		.pillbox {
-			border: 1px solid #bbb;
-			margin-bottom: 10px;
-			-webkit-border-radius: 4px;
-			-moz-border-radius: 4px;
-			border-radius: 4px;
-			width: 251px;
-		}
-		
-		.social {
-		  padding: 15px 0;
-		  text-align: center;		 
-		  border-top: 1px solid #fff;		  
-		}
+<link href="vendor/fuelux-imhtheme/css/fuelux.css" rel="stylesheet">
+<style type="text/css">
+	body {
+		padding-top: 60px;
+		padding-bottom: 40px;
+	}
 
-		.social-buttons {
-		  margin-left: 0;
-		  margin-bottom: 0;
-		  padding-left: 0;
-		  list-style: none;
-		}
-		
-		.social-buttons li {
-		  display: inline-block;
-		  padding: 5px 8px;
-		  line-height: 1;
-		  *display: inline;
-		  *zoom: 1;
-		}
-	</style>
-	<link href="vendor/fuelux-imhtheme/css/fuelux-responsive.css" rel="stylesheet">
+	section {
+		padding-top: 40px;
+	}
 
-	<!--[if lt IE 9]>
-	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
-	<![endif]-->
+	.fuelux .hero-unit {
+		padding: 20px 60px;
+		margin-bottom: 10px;
+	}
 
-	<script src="vendor/require.js"></script>
+	.hero-unit p {
+		margin-bottom: 20px;
+	}
 
-	<script>
-		requirejs.config({ baseUrl: 'vendor', paths: { 'sample': '../sample', 'fuelux': 'fuelux-imhtheme' } });
-	</script>
+	.title {
+		font-size: 14px;
+		padding: 40px 0;
+		color: #999;
+	}
 
-	<script>
-		require(['jquery', 'sample/data', 'sample/datasource', 'fuelux/all'], function ($, sampleData, StaticDataSource) {
-			$(function () {
-				$('#BrandLink, #ReturnLink').click(function () {
-					$('body').data('scrollspy').activate('#controls');
-				});
+	.title img {
+		vertical-align: text-bottom;
+	}
 
-				$('#MySearch').on('searched', function (e, text) {
-					alert('Searched: ' + text);
-				});
+	.pillbox {
+		border: 1px solid #bbb;
+		margin-bottom: 10px;
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+		width: 251px;
+	}
 
-				$('#btnAdd').click(function() {
-					$('#MyPillbox ul').append('<li>Item Eight</li>');
-				});
+	#mySelect {
+		margin-bottom: 10px;
+	}
 
-				$('#btnRemove').click(function() {
-					$('#MyPillbox li[data-value="foo"]').remove();
-				});
+	.social {
+		padding: 15px 0;
+		text-align: center;
+		border-top: 1px solid #fff;
+	}
 
-				$('#btnItems').click(function() {
-					var items = $('#MyPillbox').pillbox('items');
-					console.log(items);
-				});
+	.social-buttons {
+		margin-left: 0;
+		margin-bottom: 0;
+		padding-left: 0;
+		list-style: none;
+	}
 
-                // INITIALIZING THE DATAGRID
-                var dataSource = new StaticDataSource({
-                    columns: [{
-                        property: 'toponymName',
-                        label: 'Name',
-                        sortable: true
-                    }, {
-                        property: 'countrycode',
-                        label: 'Country',
-                        sortable: true
-                    }, {
-                        property: 'population',
-                        label: 'Population',
-                        sortable: true
-                    }, {
-                        property: 'fcodeName',
-                        label: 'Type',
-                        sortable: true
-                    }],
-                    data: sampleData.geonames,
-                    delay: 250
-                });
+	.social-buttons li {
+		display: inline-block;
+		padding: 5px 8px;
+		line-height: 1;
+		*display: inline;
+		*zoom: 1;
+	}
 
-                $('#MyGrid').datagrid({
-                    dataSource: dataSource
-                });
+	.spinner-example {
+		height: 28px;
+	}
 
-				// INITIALIZING THE SPINNER
+	#MyTree {
+		width: 400px;
+		height: 300px;
+		margin-bottom: 15px;
+	}
 
-				$('#MySpinner').spinner();
+	.tree-example {
+		height: 350px;
+	}
 
-				$('#combobox-enable').click(function () {
-					var $combobox = $('#MyCombobox');
-					$combobox.find('input').removeAttr('disabled');
-					$combobox.find('button').removeClass('disabled');
-				});
+	.step-content {
+		border: 1px solid #D4D4D4;
+		border-top: 0;
+		border-radius: 0 0 4px 4px;
+		padding: 10px;
+		margin-bottom: 10px;
+	}
 
-				$('#combobox-disable').click(function () {
-					var $combobox = $('#MyCombobox');
-					$combobox.find('input').attr('disabled', 'disabled');
-					$combobox.find('button').addClass('disabled');
-				});
+</style>
+<link href="vendor/fuelux-imhtheme/css/fuelux-responsive.css" rel="stylesheet">
 
-				$('#search-enable').click(function () {
-					var $search = $('#MySearch');
-					$search.find('input').removeAttr('disabled');
-					$search.find('button').removeClass('disabled');
-				});
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+<![endif]-->
 
-				$('#search-disable').click(function () {
-					var $search = $('#MySearch');
-					$search.find('input').attr('disabled', 'disabled');
-					$search.find('button').addClass('disabled');
-				});
+<script src="vendor/require.js"></script>
 
-				$('#spinner-enable').click(function () {
-					$('#MySpinner').spinner('enable');
-				});
+<script>
+	requirejs.config({ baseUrl: 'vendor', paths: { 'sample': '../sample', 'fuelux': 'fuelux-imhtheme' } });
+</script>
 
-				$('#spinner-disable').click(function () {
-					$('#MySpinner').spinner('disable');
-				});
-
-				$('#spinner-log').click(function () {
-					console.log("Spinner value: ",$('#MySpinner').spinner('value'));
-				});
-
-			});
+<script>
+require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 'fuelux/all'], function ($, sampleData, StaticDataSource, TreeDataSource) {
+	$(function () {
+		$('#BrandLink, #ReturnLink').click(function () {
+			$('body').data('scrollspy').activate('#controls');
 		});
-	</script>
 
-	<link href="vendor/prettify/prettify.css" type="text/css" rel="stylesheet" />
-	<script type="text/javascript" src="vendor/prettify/prettify.js"></script>
+
+		// INITIALIZING CHECKBOX
+		$('#checkbox-toggle').on('click', function () {
+			$('#myCheckbox').checkbox('toggle');
+		});
+
+		$('#checkbox-disable').on('click', function () {
+			$('#myCheckbox').checkbox('disable');
+		});
+
+		$('#checkbox-enable').on('click', function () {
+			$('#myCheckbox').checkbox('enable');
+		});
+
+
+		// INITIALIZING COMBOBOX
+		$('#myCombobox').on('changed', function (evt, data) {
+			console.log(data);
+		});
+
+		$('#combobox-logItem').on('click', function () {
+			console.log($('#myCombobox').combobox('selectedItem'));
+		});
+
+		$('#combobox-setByIndex').on('click', function () {
+			$('#myCombobox').combobox('selectByIndex', '1');
+		});
+
+		$('#combobox-setByText').on('click', function () {
+			$('#myCombobox').combobox('selectByText', 'Item Three');
+		});
+
+		$('#combobox-setBySelector').on('click', function () {
+			$('#myCombobox').combobox('selectBySelector', 'li[data-fizz=buzz]');
+		});
+
+		$('#combobox-setByValue').on('click', function () {
+			$('#myCombobox').combobox('selectByValue', '1');
+		});
+
+		$('#combobox-enable').on('click', function () {
+			$('#myCombobox').combobox('enable');
+		});
+
+		$('#combobox-disable').on('click', function () {
+			$('#myCombobox').combobox('disable');
+		});
+
+
+		// INITIALIZING THE DATAGRID
+		var dataSource = new StaticDataSource({
+			columns: [
+				{
+					property: 'toponymName',
+					label: 'Name',
+					sortable: true
+				},
+				{
+					property: 'countrycode',
+					label: 'Country',
+					sortable: true
+				},
+				{
+					property: 'population',
+					label: 'Population',
+					sortable: true
+				},
+				{
+					property: 'fcodeName',
+					label: 'Type',
+					sortable: true
+				}
+			],
+			data: sampleData.geonames,
+			delay: 250
+		});
+
+		$('#MyGrid').datagrid({
+			dataSource: dataSource,
+			stretchHeight: true
+		});
+
+		$('#datagrid-reload').on('click', function () {
+			$('#MyGrid').datagrid('reload');
+		});
+
+
+		// INITIALIZING PILLBOX
+		$('#btnAdd').click(function () {
+			$('#MyPillbox ul').append('<li>Item Eight</li>');
+		});
+
+		$('#btnRemove').click(function () {
+			$('#MyPillbox li[data-value="foo"]').remove();
+		});
+
+		$('#btnItems').click(function () {
+			var items = $('#MyPillbox').pillbox('items');
+			console.log(items);
+		});
+
+
+		// INITIALIZING SEARCH
+		$('#MySearch').on('searched', function (e, text) {
+			alert('Searched: ' + text);
+		});
+
+		$('#search-enable').click(function () {
+			$('#MySearch').search('enable');
+		});
+
+		$('#search-disable').click(function () {
+			$('#MySearch').search('disable');
+		});
+
+
+		// INITIALIZING SPINNER
+		$('#MySpinner').spinner();
+
+		$('#spinner-enable').click(function () {
+			$('#MySpinner').spinner('enable');
+		});
+
+		$('#spinner-disable').click(function () {
+			$('#MySpinner').spinner('disable');
+		});
+
+		$('#spinner-log').click(function () {
+			console.log("Spinner value: ", $('#MySpinner').spinner('value'));
+		});
+
+
+		// INITIALIZING RADIO
+		$('#radio-disable').on('click', function () {
+			$('#myRadio').radio('disable');
+		});
+
+		$('#radio-enable').on('click', function () {
+			$('#myRadio').radio('enable');
+		});
+
+
+		// INITIALIZING SELECT
+		$('#mySelect').on('changed', function (evt, data) {
+			console.log(data);
+		});
+
+		$('#select-logItem').on('click', function () {
+			console.log($('#mySelect').select('selectedItem'));
+		});
+
+		$('#select-setByIndex').on('click', function () {
+			$('#mySelect').select('selectByIndex', '1');
+		});
+
+		$('#select-setByText').on('click', function () {
+			$('#mySelect').select('selectByText', 'Item Three');
+		});
+
+		$('#select-setBySelector').on('click', function () {
+			$('#mySelect').select('selectBySelector', 'li[data-fizz=buzz]');
+		});
+
+		$('#select-setByValue').on('click', function () {
+			$('#mySelect').select('selectByValue', '1');
+		});
+
+		$('#select-enable').on('click', function () {
+			$('#mySelect').select('enable');
+		});
+
+		$('#select-disable').on('click', function () {
+			$('#mySelect').select('disable');
+		});
+
+		// INITIALIZING TREE
+		var treeDataSource = new TreeDataSource({
+			data: [
+				{ name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } },
+				{ name: 'Test Folder 2', type: 'folder', additionalParameters: { id: 'F2' } },
+				{ name: 'Test Item 1', type: 'item', additionalParameters: { id: 'I1' } },
+				{ name: 'Test Item 2', type: 'item', additionalParameters: { id: 'I2' } }
+			],
+			delay: 400
+		});
+
+		$('#MyTree').tree({dataSource: treeDataSource});
+
+		$('#tree-selected-items').on('click', function () {
+			console.log("selected items: ", $('#MyTree').tree('selectedItems'));
+		});
+
+		$('#MyTree').on('loaded', function (evt, data) {
+			console.log('tree content loaded');
+		});
+
+		$('#MyTree').on('opened', function (evt, data) {
+			console.log('sub-folder opened: ', data);
+		});
+
+		$('#MyTree').on('closed', function (evt, data) {
+			console.log('sub-folder closed: ', data);
+		});
+
+		$('#MyTree').on('selected', function (evt, data) {
+			console.log('item selected: ', data);
+		});
+
+
+		// INITIALIZE WIZARD
+		$('#myWizard').on('change', function (e, data) {
+			console.log('change');
+			if (data.step === 3 && data.direction === 'next') {
+				// return e.preventDefault();
+			}
+		});
+		$('#myWizard').on('changed', function (e, data) {
+			console.log('changed');
+		});
+		$('#myWizard').on('finished', function (e, data) {
+			console.log('finished');
+		});
+		$('#wizard-prev').on('click', function () {
+			$('#myWizard').wizard('previous');
+		});
+		$('#wizard-next').on('click', function () {
+			$('#myWizard').wizard('next', 'foo');
+		});
+		$('#wizard-logItem').on('click', function () {
+			var item = $('#myWizard').wizard('selectedItem');
+			console.log(item.step);
+		});
+	});
+});
+</script>
+
+<link href="vendor/prettify/prettify.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="vendor/prettify/prettify.js"></script>
 
 </head>
 
@@ -184,14 +365,20 @@
 				<span class="icon-bar"></span>
 			</a>
 			<a id="BrandLink" class="brand" href="#">Fuel UX</a>
+
 			<div class="nav-collapse">
 				<ul class="nav">
 					<li class="active"><a href="#controls">All Controls</a></li>
+					<li><a href="#checkbox">Checkbox</a></li>
 					<li><a href="#combobox">Combobox</a></li>
 					<li><a href="#datagrid">Datagrid</a></li>
 					<li><a href="#pillbox">Pillbox</a></li>
+					<li><a href="#radio">Radio</a></li>
 					<li><a href="#search">Search</a></li>
+					<li><a href="#select">Select</a></li>
 					<li><a href="#spinner">Spinner</a></li>
+					<li><a href="#tree">Tree</a></li>
+					<li><a href="#wizard">Wizard</a></li>
 				</ul>
 			</div>
 		</div>
@@ -200,96 +387,301 @@
 
 <div class="container">
 
-	<div class="hero-unit">
-		<p class="title"><img src="https://s3.amazonaws.com/fuelux/logo-gray.png" width="600" height="122" alt="Fuel UX"> Version 2.1.1</p>
-		<p>Fuel UX extends Twitter Bootstrap with additional lightweight JavaScript controls.
-            Other benefits include easy installation into web projects, integrated scripts for customizing Bootstrap and Fuel UX, simple updates, and solid optimization for deployment.
-            All functionality is covered by live documentation and unit tests.</p>
-		<p><a class="btn btn-large" href="https://github.com/ExactTarget/fuelux">View On GitHub &raquo;</a></p>
-	</div>
-	
-	<div class="social">
-	  <div class="container">
+<div class="hero-unit">
+	<p class="title"><img src="https://s3.amazonaws.com/fuelux/logo-gray.png" width="600" height="122" alt="Fuel UX">
+		Version 2.2.0</p>
+
+	<p>Fuel UX extends Twitter Bootstrap with additional lightweight JavaScript controls.
+		Other benefits include easy installation into web projects, integrated scripts for customizing Bootstrap and
+		Fuel UX, simple updates, and solid optimization for deployment.
+		All functionality is covered by live documentation and unit tests.</p>
+
+	<p><a class="btn btn-large" href="https://github.com/ExactTarget/fuelux">View On GitHub &raquo;</a></p>
+</div>
+
+<div class="social">
+	<div class="container">
 		<ul class="social-buttons">
-		  <li>
-			<iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=exacttarget&repo=fuelux&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
-		  </li>
-		  <li>
-			<iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=exacttarget&repo=fuelux&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="98px" height="20px"></iframe>
-		  </li>
-		  <li class="follow-btn">
-			<a href="https://twitter.com/ETfuel" class="twitter-follow-button" data-link-color="#0069D6" data-show-count="true">Follow @ETFuel</a>
-		  </li>
-		  <li class="tweet-btn">
-			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://exacttarget.github.com/fuelux/" data-count="horizontal" data-via="etfuel" data-related="etfuel:Creator of Fuel UX">Tweet</a>
-		  </li>
+			<li>
+				<iframe class="github-btn"
+						src="http://ghbtns.com/github-btn.html?user=exacttarget&repo=fuelux&type=watch&count=true"
+						allowtransparency="true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
+			</li>
+			<li>
+				<iframe class="github-btn"
+						src="http://ghbtns.com/github-btn.html?user=exacttarget&repo=fuelux&type=fork&count=true"
+						allowtransparency="true" frameborder="0" scrolling="0" width="98px" height="20px"></iframe>
+			</li>
+			<li class="follow-btn">
+				<a href="https://twitter.com/ETfuel" class="twitter-follow-button" data-link-color="#0069D6"
+				   data-show-count="true">Follow @ETFuel</a>
+			</li>
+			<li class="tweet-btn">
+				<a href="https://twitter.com/share" class="twitter-share-button"
+				   data-url="http://exacttarget.github.com/fuelux/" data-count="horizontal" data-via="etfuel"
+				   data-related="etfuel:Creator of Fuel UX">Tweet</a>
+			</li>
 		</ul>
-	  </div>
 	</div>
-	
-	<section id="controls">
-		<div class="page-header">
-			<h1>Fuel UX Controls <small>Clean and lightweight UI controls for modern web projects</small></h1>
-		</div>
-	</section>
+</div>
 
+<section id="controls">
+	<div class="page-header">
+		<h1>Fuel UX Controls
+			<small>Clean and lightweight UI controls for modern web projects</small>
+		</h1>
+	</div>
+</section>
+
+<div class="row">
+	<div class="span4">
+		<h3><a href="#checkbox">Checkbox</a></h3>
+
+		<p>Customized look and feel for checkbox element.</p>
+	</div>
+	<div class="span4">
+		<h3><a href="#combobox">Combobox</a></h3>
+
+		<p>Combines input and dropdown for easy and flexible data selection.</p>
+	</div>
+	<div class="span4">
+		<h3><a href="#datagrid">Datagrid</a></h3>
+
+		<p>Renders data in a table with paging, sorting, and searching.</p>
+	</div>
+</div>
+
+<div class="row">
+	<div class="span4">
+		<h3><a href="#pillbox">Pillbox</a></h3>
+
+		<p>Easily manage selected items with color-coded text labels.</p>
+	</div>
+	<div class="span4">
+		<h3><a href="#radio">Radio</a></h3>
+
+		<p>Customized look and feel for radio button element.</p>
+	</div>
+	<div class="span4">
+		<h3><a href="#search">Search</a></h3>
+
+		<p>Combines input and button for integrated search interaction.</p>
+	</div>
+</div>
+<div class="row">
+	<div class="span4">
+		<h3><a href="#select">Select</a></h3>
+
+		<p>Extends button dropdown with additional functionality for setting and retrieving the selected item.</p>
+	</div>
+	<div class="span4">
+		<h3><a href="#spinner">Spinner</a></h3>
+
+		<p>Provides convenient numeric input with increment and decrement buttons.</p>
+	</div>
+	<div class="span4">
+		<h3><a href="#tree">Tree</a></h3>
+
+		<p>Provides a visual display of hierarchical node data.</p>
+	</div>
+</div>
+<div class="row">
+	<div class="span4">
+		<h3><a href="#wizard">Wizard</a></h3>
+
+		<p>Easily define a multi-step process that needs to be completed in a specific order.</p>
+	</div>
+</div>
+
+<section id="checkbox">
+	<div class="page-header">
+		<h1>Checkbox
+			<small>checkbox.js</small>
+		</h1>
+	</div>
 	<div class="row">
-		<div class="span4">
-			<h3><a href="#combobox">Combobox</a></h3>
-			<p>Combines input and dropdown for easy and flexible data selection.</p>
-		</div>
-		<div class="span4">
-			<h3><a href="#datagrid">Datagrid</a></h3>
-			<p>Renders data in a table with paging, sorting, and searching.</p>
-		</div>
-                <div class="span4">
-			<h3><a href="#pillbox">Pillbox</a></h3>
-			<p>Easily manage selected items with color-coded text labels.</p>
+		<div class="span12 columns">
+			<h2>Example</h2>
+
+			<p>Below is a working checkbox example.</p>
+
+			<div class="well checkbox-example">
+				<label class="checkbox checkbox-custom"><input type="checkbox" checked="checked" id="myCheckbox"><i
+						class="checkbox"></i>Checked Enabled</label>
+				<label class="checkbox checkbox-custom"><input type="checkbox"><i class="checkbox"></i>Unchecked Enabled</label>
+				<label class="checkbox checkbox-custom"><input type="checkbox" checked="checked" disabled="disabled"><i
+						class="checkbox"></i>Checked Disabled</label>
+				<label class="checkbox checkbox-custom"><input type="checkbox" disabled="disabled"><i
+						class="checkbox"></i>Unchecked Disabled</label>
+				<input type="button" class="btn" id="checkbox-toggle" value="toggle">
+				<input type="button" class="btn" id="checkbox-enable" value="enable">
+				<input type="button" class="btn" id="checkbox-disable" value="disable">
+			</div>
+			<!-- /well -->
+
+			<hr>
+
+			<h2>Using checkbox</h2>
+
+			<p>Call the checkbox via javascript (optional):</p>
+			<pre class="prettyprint linenums">$('#myCheckbox').checkbox()</pre>
+
+			<h3>Methods</h3>
+
+			<p>Fuel UX's checkbox exposes the following methods:</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Method</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>disable</td>
+					<td>Disables the checkbox</td>
+				</tr>
+				<tr>
+					<td>enable</td>
+					<td>Enables the checkbox</td>
+				</tr>
+				<tr>
+					<td>toggle</td>
+					<td>Toggles the checked state of the checkbox</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Markup</h3>
+
+			<p>You can activate checkbox on your page easily without having to write a single line of javascript. Just
+				set <code>class="checkbox-custom"</code> on a label and include an i tag with
+				<code>class="checkbox"</code> like the example markup below and the checkbox will activate
+				automatically.</p>
+
+<pre class="prettyprint linenums">
+&lt;label class="checkbox checkbox-custom">&lt;input type="checkbox"&gt;&lt;i class="checkbox"&gt;&lt;/i&gt;Item One&lt;/label&gt;
+</pre>
 		</div>
 	</div>
+</section>
 
+<section id="combobox">
+	<div class="page-header">
+		<h1>Combobox
+			<small>combobox.js</small>
+		</h1>
+	</div>
 	<div class="row">
-		<div class="span4">
-			<h3><a href="#search">Search</a></h3>
-			<p>Combines input and button for integrated search interaction.</p>
-		</div>
-		<div class="span4">
-			<h3><a href="#spinner">Spinner</a></h3>
-			<p>Provides convenient numeric input with increment and decrement buttons.</p>
-		</div>
-	</div>
+		<div class="span12 columns">
+			<h2>Example</h2>
 
-	<section id="combobox">
-		<div class="page-header">
-			<h1>Combobox <small>combobox.js</small></h1>
-		</div>
-		<div class="row">
-			<div class="span12 columns">
-				<h2>Example</h2>
-				<p>Below is a working combobox example.</p>
-				<div class="well combobox-example">
-						<div id="MyCombobox" class="input-append dropdown combobox">
-							<input class="span2" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
-							<ul class="dropdown-menu">
-								<li><a href="#">Item One</a></li>
-								<li><a href="#">Item Two</a></li>
-								<li><a href="#">Item Three</a></li>
-								<li class="divider"></li>
-								<li><a href="#">Item After Divider</a></li>
-							</ul>
-						</div>
-						<input type="button" class="btn" id="combobox-enable" value="enable">
-						<input type="button" class="btn" id="combobox-disable" value="disable">
-				</div> <!-- /well -->
+			<p>Below is a working combobox example.</p>
 
-				<hr>
+			<div class="well combobox-example">
+				<div id="myCombobox" class="input-append dropdown combobox">
+					<input class="span2" type="text">
+					<button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+					<ul class="dropdown-menu">
+						<li data-value="1" data-selected="true"><a href="#">Item One</a></li>
+						<li data-value="2"><a href="#">Item Two</a></li>
+						<li data-value="3" data-fizz="buzz"><a href="#">Item Three</a></li>
+						<li class="divider"></li>
+						<li data-value="4"><a href="#">Item Four</a></li>
+					</ul>
+				</div>
+				<input type="button" class="btn" id="combobox-enable" value="enable">
+				<input type="button" class="btn" id="combobox-disable" value="disable">
+				<input type="button" class="btn" id="combobox-setByIndex" value="set by index">
+				<input type="button" class="btn" id="combobox-setByText" value="set by text">
+				<input type="button" class="btn" id="combobox-setByValue" value="set by value">
+				<input type="button" class="btn" id="combobox-setBySelector" value="set by selector">
+				<input type="button" class="btn" id="combobox-logItem" value="log item to console">
+			</div>
+			<!-- /well -->
 
-				<h2>Using combobox</h2>
-				<p>Call the combobox via javascript (optional):</p>
-				<pre class="prettyprint linenums">$('#myCombobox').combobox()</pre>
+			<hr>
 
-				<h3>Markup</h3>
-				<p>You can activate combobox on your page easily without having to write a single line of javascript. Just set <code>class="combobox"</code> on a div like the example markup below and the combobox will activate automatically.</p>
+			<h2>Using combobox</h2>
+
+			<p>Call the combobox via javascript (optional):</p>
+			<pre class="prettyprint linenums">$('#myCombobox').combobox()</pre>
+
+			<h3>Methods</h3>
+
+			<p>Fuel UX's combobox exposes the following methods:</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Method</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>disable</td>
+					<td>Disable the combobox</td>
+				</tr>
+				<tr>
+					<td>enable</td>
+					<td>Enable the combobox</td>
+				</tr>
+				<tr>
+					<td>selectedItem</td>
+					<td>Returns an object containing the jQuery data() contents of the selected item <em><a
+							href="http://api.jquery.com/data/#data-html5">which includes data-* attributes</a></em> plus
+						a <code>text</code> property with the items's visible text.
+					</td>
+				</tr>
+				<tr>
+					<td>setByIndex</td>
+					<td>Set the selected item based on its index in the list (zero-based index). Convenience method for
+						<code>setBySelector('li:eq({index})')</code></td>
+				</tr>
+				<tr>
+					<td>setByText</td>
+					<td>Set the selected item based on its text value</td>
+				</tr>
+				<tr>
+					<td>setBySelector</td>
+					<td>Set the selected item based on a selector. For example: <code>$('#myCombobox').select('setBySelector','li[data-fizz=buzz]');</code>
+					</td>
+				</tr>
+				<tr>
+					<td>setByValue</td>
+					<td>Set the selected item based on its value. Convenience method for <code>setBySelector('data-value={value}')</code>
+						that requires the item to have a <code>data-value="{value}"</code> attribute
+					</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Events</h3>
+
+			<p>Fuel UX's combobox control exposes the following events:</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Event</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>changed</td>
+					<td>This event is fired when the value has changed (either by selecting an item from the list or
+						updating the input value directly). Arguments are <code>event, data</code> where data represents
+						the same object structure returned by the <code>selectedItem</code> method.
+					</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Markup</h3>
+
+			<p>You can activate combobox on your page easily without having to write a single line of javascript. Just
+				set <code>class="combobox"</code> on a div like the example markup below and the combobox will activate
+				automatically.</p>
 
 
 <pre class="prettyprint linenums">
@@ -306,117 +698,222 @@
 </pre>
 
 
+		</div>
+	</div>
+</section>
+
+<section id="datagrid">
+	<div class="page-header">
+		<h1>Datagrid
+			<small>datagrid.js</small>
+		</h1>
+	</div>
+	<div class="row">
+		<div class="span12 columns">
+			<h2>Example</h2>
+
+			<p>Below is a working datagrid example.</p>
+
+			<div class="datagrid-example">
+				<div style="height:400px;width:100%;margin-bottom:20px;">
+				<table id="MyGrid" class="table table-bordered datagrid">
+
+					<thead>
+					<tr>
+						<th>
+							<span class="datagrid-header-title">Geographic Data Sample</span>
+
+							<div class="datagrid-header-left">
+
+							</div>
+							<div class="datagrid-header-right">
+								<div class="input-append search">
+									<input type="text" class="input-medium" placeholder="Search">
+									<button class="btn"><i class="icon-search"></i></button>
+								</div>
+							</div>
+						</th>
+					</tr>
+					</thead>
+
+					<tfoot>
+					<tr>
+						<th>
+							<div class="datagrid-footer-left" style="display:none;">
+								<div class="grid-controls">
+									<span><span class="grid-start"></span> - <span class="grid-end"></span> of <span
+											class="grid-count"></span></span>
+									<select class="grid-pagesize">
+										<option>10</option>
+										<option>20</option>
+										<option>50</option>
+										<option>100</option>
+									</select>
+									<span>Per Page</span>
+								</div>
+							</div>
+							<div class="datagrid-footer-right" style="display:none;">
+								<div class="grid-pager">
+									<button class="btn grid-prevpage"><i class="icon-chevron-left"></i></button>
+									<span>Page</span>
+
+									<div class="input-append dropdown combobox">
+										<input class="span1" type="text">
+										<button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+										<ul class="dropdown-menu"></ul>
+									</div>
+									<span>of <span class="grid-pages"></span></span>
+									<button class="btn grid-nextpage"><i class="icon-chevron-right"></i></button>
+								</div>
+							</div>
+						</th>
+					</tr>
+					</tfoot>
+
+				</table>
+				</div>
 			</div>
-		</div>
-	</section>
 
-	<section id="datagrid">
-		<div class="page-header">
-			<h1>Datagrid <small>datagrid.js</small></h1>
-		</div>
-		<div class="row">
-			<div class="span12 columns">
-				<h2>Example</h2>
-				<p>Below is a working datagrid example.</p>
-				<div class="datagrid-example">
-					<table id="MyGrid" class="table table-bordered datagrid">
+			<input type="button" class="btn" id="datagrid-reload" value="reload">
 
-						<thead>
-						<tr>
-							<th>
-								<span class="datagrid-header-title">Geographic Data Sample</span>
-								<div class="datagrid-header-left">
+			<hr>
 
-								</div>
-								<div class="datagrid-header-right">
-									<div class="input-append search">
-										<input type="text" class="input-medium" placeholder="Search"><button class="btn"><i class="icon-search"></i></button>
-									</div>
-								</div>
-							</th>
-						</tr>
-						</thead>
+			<h2>Using datagrid</h2>
 
-						<tfoot>
-						<tr>
-							<th>
-								<div class="datagrid-footer-left" style="display:none;">
-									<div class="grid-controls">
-										<span><span class="grid-start"></span> - <span class="grid-end"></span> of <span class="grid-count"></span></span>
-										<select class="grid-pagesize"><option>10</option><option>20</option><option>50</option><option>100</option></select>
-										<span>Per Page</span>
-									</div>
-								</div>
-								<div class="datagrid-footer-right" style="display:none;">
-									<div class="grid-pager">
-										<button class="btn grid-prevpage"><i class="icon-chevron-left"></i></button>
-										<span>Page</span>
-										<div class="input-append dropdown combobox">
-											<input class="span1" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
-											<ul class="dropdown-menu"></ul>
-										</div>
-										<span>of <span class="grid-pages"></span></span>
-										<button class="btn grid-nextpage"><i class="icon-chevron-right"></i></button>
-									</div>
-								</div>
-							</th>
-						</tr>
-						</tfoot>
+			<p>Call the datagrid via javascript:</p>
+			<pre class="prettyprint linenums">$('#MyGrid').datagrid({ dataSource: dataSource, stretchHeight: true })</pre>
 
-					</table>
-				</div> <!-- /well -->
+			<h3>Data Source</h3>
 
-				<hr>
+			<p>Provide a data source to the datagrid to supply column information and data. Your data source must
+				support the following two methods.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Name</th>
+					<th style="width: 210px;">Parameters</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>columns</td>
+					<td>(none)</td>
+					<td>Returns an array of objects containing column information</td>
+				</tr>
+				<tr>
+					<td>data</td>
+					<td><strong>options</strong> (object), <strong>callback</strong> (function)</td>
+					<td>The <strong>options</strong> parameter contains search, sortProperty, sortDirection, pageIndex,
+						and pageSize.
+						Retrieve data then call <strong>callback</strong> with an object containing data, start, end,
+						count, pages, and page.
+						View the source of this page for an example static data source.
+					</td>
+				</tr>
+				</tbody>
+			</table>
 
-				<h2>Using datagrid</h2>
-				<p>Call the datagrid via javascript:</p>
-				<pre class="prettyprint linenums">$('#MyGrid').datagrid({ dataSource: dataSource })</pre>
+			<h3>Methods</h3>
 
-				<h3>Data Source</h3>
-				<p>Provide a data source to the datagrid to supply column information and data. Your data source must support the following two methods.</p>
-				<table class="table table-bordered table-striped">
-					<thead>
-					<tr>
-						<th style="width: 150px;">Name</th>
-						<th style="width: 210px;">Parameters</th>
-						<th>Description</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr>
-						<td>columns</td>
-						<td>(none)</td>
-						<td>Returns an array of objects containing column information</td>
-					</tr>
-					<tr>
-						<td>data</td>
-						<td><strong>options</strong> (object), <strong>callback</strong> (function)</td>
-						<td>The <strong>options</strong> parameter contains search, sortProperty, sortDirection, pageIndex, and pageSize.
-							Retrieve data then call <strong>callback</strong> with an object containing data, start, end, count, pages, and page.
-							View the source of this page for an example static data source.</td>
-					</tr>
-					</tbody>
-				</table>
+			<p>Fuel UX's datagrid exposes a method for reloading the grid.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Method</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>reload</td>
+					<td>This method causes the datagrid to reload the data from the <code>dataSource</code> and return
+						to the first page.
+					</td>
+				</tr>
+				</tbody>
+			</table>
 
-				<h3>Events</h3>
-				<p>Fuel UX's datagrid exposes an event for hooking into its functionality.</p>
-				<table class="table table-bordered table-striped">
-					<thead>
-					<tr>
-						<th style="width: 150px;">Event</th>
-						<th>Description</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr>
-						<td>loaded</td>
-						<td>This event is fired after the grid loads or reloads data</td>
-					</tr>
-					</tbody>
-				</table>
+			<h3>Options</h3>
 
-				<h3>Markup</h3>
-				<p>Your initial datagrid markup should look like the example markup below. You can reconfigure the datagrid by omitting or moving some of the features, such as search and paging controls.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Options</th>
+					<th>Description</th>
+					<th>Default Value</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>dataSource</td>
+					<td>
+						See Data Source section above
+					</td>
+					<td><code>null</code> (must be provided)</td>
+				</tr>
+				<tr>
+					<td>dataOptions</td>
+					<td>
+						Options for current data to be displayed
+					</td>
+					<td><code>{ pageIndex: 0, pageSize: 10 }</code></td>
+				</tr>
+				<tr>
+					<td>stretchHeight</td>
+					<td>
+						Introduced in version 2.2. Enables stretchHeight rendering. This sets the datagrid's height to a stable height, matching its parent element.
+						The appearance of the datagrid becomes much more consistent while rendering and displaying different numbers of rows.
+						Rows will scroll within the table when they exceed the available height.
+					</td>
+					<td><code>false</code></td>
+				</tr>
+				<tr>
+					<td>loadingHTML</td>
+					<td>
+						HTML for loading indicator
+					</td>
+					<td>(bootstrap progress indicator)</td>
+				</tr>
+				<tr>
+					<td>itemsText</td>
+					<td>
+						Text for plural items
+					</td>
+					<td><code>items</code></td>
+				</tr>
+				<tr>
+					<td>itemText</td>
+					<td>
+						Text for singular item
+					</td>
+					<td><code>item</code></td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Events</h3>
+
+			<p>Fuel UX's datagrid exposes an event for hooking into its functionality.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Event</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>loaded</td>
+					<td>This event is fired after the grid loads or reloads data</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Markup</h3>
+
+			<p>Your initial datagrid markup should look like the example markup below. You can reconfigure the datagrid
+				by omitting or moving some of the features, such as search and paging controls.</p>
 
 
 <pre class="prettyprint linenums">
@@ -465,63 +962,75 @@
 &lt;/table&gt;
 </pre>
 
-			</div>
 		</div>
-	</section>
+	</div>
+</section>
 
-	<section id="pillbox">
-		<div class="page-header">
-			<h1>Pillbox <small>pillbox.js</small></h1>
-		</div>
-		<div class="row">
-			<div class="span12 columns">
-				<h2>Example</h2>
-				<p>Below is a working pillbox example.</p>
-				<div class="well pillbox-example">
+<section id="pillbox">
+	<div class="page-header">
+		<h1>Pillbox
+			<small>pillbox.js</small>
+		</h1>
+	</div>
+	<div class="row">
+		<div class="span12 columns">
+			<h2>Example</h2>
 
-					<div id="MyPillbox" class="pillbox">
-						<ul>
-							<li data-value="foo">Item One</li>
-							<li class="status-success">Item Two</li>
-							<li class="status-warning">Item Three</li>
-							<li class="status-important">Item Four</li>
-							<li class="status-info">Item Five</li>
-							<li class="status-success">Item Six</li>
-							<li>Item Seven</li>
-						</ul>
-					</div>
+			<p>Below is a working pillbox example.</p>
 
-					<input type="button" class="btn" id="btnAdd" value="add">
-					<input type="button" class="btn" id="btnRemove" value="remove">
-					<input type="button" class="btn" id="btnItems" value="log items to console">
+			<div class="well pillbox-example">
 
+				<div id="MyPillbox" class="pillbox">
+					<ul>
+						<li data-value="foo">Item One</li>
+						<li class="status-success">Item Two</li>
+						<li class="status-warning">Item Three</li>
+						<li class="status-important">Item Four</li>
+						<li class="status-info">Item Five</li>
+						<li class="status-success">Item Six</li>
+						<li>Item Seven</li>
+					</ul>
 				</div>
 
-				<hr>
+				<input type="button" class="btn" id="btnAdd" value="add">
+				<input type="button" class="btn" id="btnRemove" value="remove">
+				<input type="button" class="btn" id="btnItems" value="log items to console">
 
-				<h2>Using pillbox</h2>
-				<p>Call the pillbox via javascript (optional):</p>
-				<pre class="prettyprint linenums">$('#MyPillbox').pillbox()</pre>
+			</div>
 
-				<h3>Methods</h3>
-				<p>Fuel UX's pillbox exposes a method for retrieving selected item data.</p>
-				<table class="table table-bordered table-striped">
-					<thead>
-					<tr>
-						<th style="width: 150px;">Method</th>
-						<th>Description</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr>
-						<td>items</td>
-						<td>Returns an array of objects, one per item, each containing the jQuery data() contents of the item <em><a href="http://api.jquery.com/data/#data-html5">which includes data-* attributes</a></em> plus a <code>text</code> property with the label's visible text</td>
-					</tr>
-					</tbody>
-				</table>
+			<hr>
 
-				<h3>Markup</h3>
-				<p>You can activate the pillbox on your page easily without having to write a single line of javascript. Just set <code>class="pillbox"</code> on a div like the example markup below and the pillbox will activate automatically.</p>
+			<h2>Using pillbox</h2>
+
+			<p>Call the pillbox via javascript (optional):</p>
+			<pre class="prettyprint linenums">$('#MyPillbox').pillbox()</pre>
+
+			<h3>Methods</h3>
+
+			<p>Fuel UX's pillbox exposes a method for retrieving selected item data.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Method</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>items</td>
+					<td>Returns an array of objects, one per item, each containing the jQuery data() contents of the
+						item <em><a href="http://api.jquery.com/data/#data-html5">which includes data-*
+							attributes</a></em> plus a <code>text</code> property with the label's visible text
+					</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Markup</h3>
+
+			<p>You can activate the pillbox on your page easily without having to write a single line of javascript.
+				Just set <code>class="pillbox"</code> on a div like the example markup below and the pillbox will
+				activate automatically.</p>
 
 
 <pre class="prettyprint linenums">
@@ -538,34 +1047,134 @@
 &lt;/div&gt;
 </pre>
 
+		</div>
+	</div>
+</section>
+
+<section id="radio">
+	<div class="page-header">
+		<h1>Radio
+			<small>radio.js</small>
+		</h1>
+	</div>
+	<div class="row">
+		<div class="span12 columns">
+			<h2>Example</h2>
+
+			<p>Below is a working radio example.</p>
+
+			<div class="well radio-example">
+				<label class="radio radio-custom"><input type="radio" name="radioA" checked="checked" id="myRadio"><i
+						class="radio"></i>Checked Enabled</label>
+				<label class="radio radio-custom"><input type="radio" name="radioA"><i class="radio"></i>Unchecked
+					Enabled</label>
+				<label class="radio radio-custom"><input type="radio" name="radioB" checked="checked"
+														 disabled="disabled"><i class="radio"></i>Checked
+					Disabled</label>
+				<label class="radio radio-custom"><input type="radio" name="radioB" disabled="disabled"><i
+						class="radio"></i>Unchecked Disabled</label>
+				<input type="button" class="btn" id="radio-enable" value="enable">
+				<input type="button" class="btn" id="radio-disable" value="disable">
 			</div>
+			<!-- /well -->
+
+			<hr>
+
+			<h2>Using radio</h2>
+
+			<p>Call the radio via javascript (optional):</p>
+			<pre class="prettyprint linenums">$('#myRadio').radio()</pre>
+
+			<h3>Methods</h3>
+
+			<p>Fuel UX's radio exposes the following methods:</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Method</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>disable</td>
+					<td>Disable the radio</td>
+				</tr>
+				<tr>
+					<td>enable</td>
+					<td>Enable the radio</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Markup</h3>
+
+			<p>You can activate radio on your page easily without having to write a single line of javascript. Just set
+				<code>class="radio-custom"</code> on a label and include an i tag with <code>class="radio"</code> like
+				the example markup below and the radio will activate automatically.</p>
+
+<pre class="prettyprint linenums">
+&lt;label class="radio radio-custom">&lt;input type="radio"&gt;&lt;i class="radio"&gt;&lt;/i&gt;Item One&lt;/label&gt;
+</pre>
 		</div>
-	</section>
+	</div>
+</section>
 
-	<section id="search">
-		<div class="page-header">
-			<h1>Search <small>search.js</small></h1>
-		</div>
-		<div class="row">
-			<div class="span12 columns">
-				<h2>Example</h2>
-				<p>Below is a working search control example.  Click (after entering text) to see your search text.</p>
-				<div class="well search-example">
-					<div id="MySearch" class="input-append search">
-						<input type="text" class="input-medium" placeholder="Search"><button class="btn"><i class="icon-search"></i></button>
-					</div>
-					<input type="button" class="btn" id="search-enable" value="enable">
-					<input type="button" class="btn" id="search-disable" value="disable">
-				</div> <!-- /well -->
+<section id="search">
+	<div class="page-header">
+		<h1>Search
+			<small>search.js</small>
+		</h1>
+	</div>
+	<div class="row">
+		<div class="span12 columns">
+			<h2>Example</h2>
 
-				<hr>
+			<p>Below is a working search control example. Click (after entering text) to see your search text.</p>
 
-				<h2>Using search</h2>
-				<p>Call the search via javascript (optional):</p>
-				<pre class="prettyprint linenums">$('#MySearch').search()</pre>
+			<div class="well search-example">
+				<div id="MySearch" class="input-append search">
+					<input type="text" class="input-medium" placeholder="Search">
+					<button class="btn"><i class="icon-search"></i></button>
+				</div>
+				<input type="button" class="btn" id="search-enable" value="enable">
+				<input type="button" class="btn" id="search-disable" value="disable">
+			</div>
+			<!-- /well -->
 
-				<h3>Markup</h3>
-				<p>You can activate the search control on your page easily without having to write a single line of javascript. Just set <code>class="search"</code> on a div like the example markup below and the search will activate automatically.</p>
+			<hr>
+
+			<h2>Using search</h2>
+
+			<p>Call the search via javascript (optional):</p>
+			<pre class="prettyprint linenums">$('#MySearch').search()</pre>
+
+			<h3>Methods</h3>
+
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Method</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>disable</td>
+					<td>Disables the search control</td>
+				</tr>
+				<tr>
+					<td>enable</td>
+					<td>Enables the search control</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Markup</h3>
+
+			<p>You can activate the search control on your page easily without having to write a single line of
+				javascript. Just set <code>class="search"</code> on a div like the example markup below and the search
+				will activate automatically.</p>
 
 
 <pre class="prettyprint linenums">
@@ -573,143 +1182,324 @@
 	&lt;input type="text" class="input-medium" placeholder="Search"&gt;&lt;button class="btn"&gt;&lt;i class="icon-search"&gt;&lt;/i&gt;&lt;/button&gt;
 &lt;/div&gt;
 </pre>
-				<h3>Events</h3>
-				<p>Fuel UX's search control exposes two events for hooking into its functionality.</p>
-				<table class="table table-bordered table-striped">
-					<thead>
-					<tr>
-						<th style="width: 150px;">Event</th>
-						<th>Description</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr>
-						<td>searched</td>
-						<td>This event is fired when a search has been performed.  Arguments are <code>event, searchText</code></td>
-					</tr>
-					<tr>
-						<td>cleared</td>
-						<td>This event is fired when the search has been cleared.</td>
-					</tr>
-					</tbody>
-				</table>
+			<h3>Events</h3>
 
+			<p>Fuel UX's search control exposes two events for hooking into its functionality.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Event</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>searched</td>
+					<td>This event is fired when a search has been performed. Arguments are <code>event,
+						searchText</code></td>
+				</tr>
+				<tr>
+					<td>cleared</td>
+					<td>This event is fired when the search has been cleared.</td>
+				</tr>
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+</section>
+
+<section id="select">
+	<div class="page-header">
+		<h1>Select
+			<small>select.js</small>
+		</h1>
+	</div>
+	<div class="row">
+		<div class="span12 columns">
+			<h2>Example</h2>
+
+			<p>Below is a working select example.</p>
+
+			<div class="well select-example">
+				<div id="mySelect" class="select btn-group" data-resize="auto">
+					<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label"></span><span
+							class="caret"></span></button>
+					<ul class="dropdown-menu">
+						<li data-value="1" data-selected="true"><a href="#">Item One</a></li>
+						<li data-value="2"><a href="#">Item Two</a></li>
+						<li data-value="3" data-fizz="buzz"><a href="#">Item Three</a></li>
+						<li class="divider"></li>
+						<li data-value="4"><a href="#">Item Four</a></li>
+					</ul>
+				</div>
+				<div>
+					<input type="button" class="btn" id="select-enable" value="enable">
+					<input type="button" class="btn" id="select-disable" value="disable">
+					<input type="button" class="btn" id="select-setByIndex" value="set by index">
+					<input type="button" class="btn" id="select-setByText" value="set by text">
+					<input type="button" class="btn" id="select-setByValue" value="set by value">
+					<input type="button" class="btn" id="select-setBySelector" value="set by selector">
+					<input type="button" class="btn" id="select-logItem" value="log item to console">
+				</div>
 			</div>
+			<!-- /well -->
+
+			<hr>
+
+			<h2>Using select</h2>
+
+			<p>Call the select via javascript (optional):</p>
+			<pre class="prettyprint linenums">$('#mySelect').select()</pre>
+
+			<h3>Methods</h3>
+
+			<p>Fuel UX's select exposes the following methods:</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Method</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>disable</td>
+					<td>Disable the select</td>
+				</tr>
+				<tr>
+					<td>enable</td>
+					<td>Enable the select</td>
+				</tr>
+				<tr>
+					<td>resize</td>
+					<td>Resize the select width based on the longest item in the list. This can be accomplished
+						automatically using <code>data-resize="auto"</code> as well
+					</td>
+				</tr>
+				<tr>
+					<td>selectedItem</td>
+					<td>Returns an object containing the jQuery data() contents of the selected item <em><a
+							href="http://api.jquery.com/data/#data-html5">which includes data-* attributes</a></em> plus
+						a <code>text</code> property with the items's visible text
+					</td>
+				</tr>
+				<tr>
+					<td>setByIndex</td>
+					<td>Set the select item based on its index in the list (zero-based index). Convenience method for
+						<code>setBySelector('li:eq({index})')</code></td>
+				</tr>
+				<tr>
+					<td>setByText</td>
+					<td>Set the selected item based on its text value</td>
+				</tr>
+				<tr>
+					<td>setBySelector</td>
+					<td>Set the selected item based on a selector. For example: <code>$('#mySelect').select('setBySelector','li[data-fizz=buzz]');</code>
+					</td>
+				</tr>
+				<tr>
+					<td>setByValue</td>
+					<td>Set the selected item based on its value. Convenience method for <code>setBySelector('data-value={value}')</code>
+						that requires the item to have a <code>data-value="{value}"</code> attribute
+					</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Events</h3>
+
+			<p>Fuel UX's select control exposes the following events:</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Event</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>changed</td>
+					<td>This event is fired when the selected item has changed. Arguments are <code>event, data</code>
+						where data represents the same object structure returned by the <code>selectedItem</code>
+						method.
+					</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Markup</h3>
+
+			<p>You can activate select on your page easily without having to write a single line of javascript. Just set
+				<code>class="select"</code> on a div like the example markup below and the select will activate
+				automatically.</p>
+
+
+<pre class="prettyprint linenums">
+&lt;div class="select btn-group" data-resize="auto"&gt;
+	&lt;button data-toggle="dropdown" class="btn dropdown-toggle"&gt;&lt;span class="dropdown-label"&gt;&lt;/span&gt;&lt;span class="caret"&gt;&lt;/span&gt;&lt;/button&gt;
+	&lt;ul class="dropdown-menu"&gt;
+		&lt;li data-value="1"&gt;&lt;a href="#"&gt;One&lt;/a&gt;&lt;/li&gt;
+		&lt;li data-value="2"&gt;&lt;a href="#"&gt;Two&lt;/a&gt;&lt;/li&gt;
+		&lt;li data-value="3" data-selected="true"&gt;&lt;a href="#"&gt;Three&lt;/a&gt;&lt;/li&gt;
+		&lt;li data-value="4" data-fizz="buzz"&gt;&lt;a href="#"&gt;Four&lt;/a&gt;&lt;/li&gt;
+	&lt;/ul&gt;
+&lt;/div&gt;
+</pre>
 		</div>
-	</section>
+	</div>
+</section>
 
-	<section id="spinner">
-		<div class="page-header">
-			<h1>Spinner <small>spinner.js</small></h1>
-		</div>
-		<div class="row">
-			<div class="span12 columns">
-				<h2>Example</h2>
-				<p>Below is a working spinner example.</p>
-				<div class="well spinner-example">
+<section id="spinner">
+	<div class="page-header">
+		<h1>Spinner
+			<small>spinner.js</small>
+		</h1>
+	</div>
+	<div class="row">
+		<div class="span12 columns">
+			<h2>Example</h2>
 
-					<div id="MySpinner" class="spinner">
-						<input type="text" class="input-mini spinner-input">
-						<div class="spinner-buttons  btn-group btn-group-vertical">
-							<button class="btn spinner-up">
-								<i class="icon-chevron-up"></i>
-							</button>
-							<button class="btn spinner-down">
-								<i class="icon-chevron-down"></i>
-							</button>
-						</div>
+			<p>Below is a working spinner example.</p>
+
+			<div class="well spinner-example">
+
+				<div id="MySpinner" class="spinner">
+					<input type="text" class="input-mini spinner-input">
+
+					<div class="spinner-buttons  btn-group btn-group-vertical">
+						<button class="btn spinner-up">
+							<i class="icon-chevron-up"></i>
+						</button>
+						<button class="btn spinner-down">
+							<i class="icon-chevron-down"></i>
+						</button>
 					</div>
-
-					<div class="span8">
-						<input type="button" class="btn" id="spinner-enable" value="enable">
-						<input type="button" class="btn" id="spinner-disable" value="disable">
-						<input type="button" class="btn" id="spinner-log" value="log value to console">
-					</div>
-
 				</div>
 
-				<hr>
+				<div class="span8">
+					<input type="button" class="btn" id="spinner-enable" value="enable">
+					<input type="button" class="btn" id="spinner-disable" value="disable">
+					<input type="button" class="btn" id="spinner-log" value="log value to console">
+				</div>
 
-				<h2>Using spinner</h2>
-				<p>Call the spinner via javascript:</p>
-				<pre class="prettyprint linenums">$('#MySpinner').spinner()</pre>
+			</div>
 
-				<h3>Methods</h3>
-				<p>Fuel UX's spinner exposes several methods for disabling, enabling, setting values, and retrieving values from the spinner.</p>
-				<table class="table table-bordered table-striped">
-					<thead>
-					<tr>
-						<th style="width: 150px;">Method</th>
-						<th>Description</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr>
-						<td>value</td>
-						<td>Sets or returns the spinner value. As an example, <code>$('#MySpinner').spinner('value')</code> would return spinner value and <code style="white-space: nowrap;">$('#MySpinner').spinner('value', 37)</code> would set spinner value to 37.</td>
-					</tr>
-					<tr>
-						<td>disable</td>
-						<td>Disable the spinner.</td>
-					</tr>
-					<tr>
-						<td>enable</td>
-						<td>Enable the spinner.</td>
-					</tr>
-					</tbody>
-				</table>
+			<hr>
 
-				<h3>Options</h3>
-				<p>Fuel UX's spinner includes several convenient options for spinner behavioral preferences and value limits.</p>
-				<table class="table table-bordered table-striped">
-					<thead>
-					<tr>
-						<th style="width: 150px;">Options</th>
-						<th>Description</th>
-						<th>Default Value</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr>
-						<td>value</td>
-						<td>Sets the initial spinner value.</td>
-						<td><code>1</code></td>
-					</tr>
-					<tr>
-						<td>min</td>
-						<td>Sets the minimum spinner value.</td>
-						<td><code>1</code></td>
-					</tr>
-					<tr>
-						<td>max</td>
-						<td>Sets the maximum spinner value.</td>
-						<td><code>999</code></td>
-					</tr>
-					<tr>
-						<td>step</td>
-						<td>Sets the increment by which the value in the spinner will change each time the spinner buttons are pressed.</td>
-						<td><code>1</code></td>
-					</tr>
-					<tr>
-						<td>hold</td>
-						<td>If <code>true</code> the spinner will react to its buttons being pressed and held down.</td>
-						<td><code>true</code></td>
-					</tr>
-					<tr>
-						<td>speed</td>
-						<td>Spinner speed when buttons are held down. The options include: <code>"fast","medium","slow"</code>.</td>
-						<td><code>"medium"</code></td>
-					</tr>
-					<tr>
-						<td>disabled</td>
-						<td>Spinner will be disabled when it is created.</td>
-						<td><code>false</code></td>
-					</tr>
-					</tbody>
-				</table>
+			<h2>Using spinner</h2>
 
-				<h3>Markup</h3>
-				<p>Your spinner markup should look like the example markup below.</p>
+			<p>Call the spinner via javascript:</p>
+			<pre class="prettyprint linenums">$('#MySpinner').spinner()</pre>
+
+			<h3>Methods</h3>
+
+			<p>Fuel UX's spinner exposes several methods for disabling, enabling, setting values, and retrieving values
+				from the spinner.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Method</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>value</td>
+					<td>Sets or returns the spinner value. As an example, <code>$('#MySpinner').spinner('value')</code>
+						would return spinner value and <code style="white-space: nowrap;">$('#MySpinner').spinner('value',
+							37)</code> would set spinner value to 37.
+					</td>
+				</tr>
+				<tr>
+					<td>disable</td>
+					<td>Disable the spinner.</td>
+				</tr>
+				<tr>
+					<td>enable</td>
+					<td>Enable the spinner.</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Options</h3>
+
+			<p>Fuel UX's spinner includes several convenient options for spinner behavioral preferences and value
+				limits.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Options</th>
+					<th>Description</th>
+					<th>Default Value</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>value</td>
+					<td>Sets the initial spinner value.</td>
+					<td><code>1</code></td>
+				</tr>
+				<tr>
+					<td>min</td>
+					<td>Sets the minimum spinner value.</td>
+					<td><code>1</code></td>
+				</tr>
+				<tr>
+					<td>max</td>
+					<td>Sets the maximum spinner value.</td>
+					<td><code>999</code></td>
+				</tr>
+				<tr>
+					<td>step</td>
+					<td>Sets the increment by which the value in the spinner will change each time the spinner buttons
+						are pressed.
+					</td>
+					<td><code>1</code></td>
+				</tr>
+				<tr>
+					<td>hold</td>
+					<td>If <code>true</code> the spinner will react to its buttons being pressed and held down.</td>
+					<td><code>true</code></td>
+				</tr>
+				<tr>
+					<td>speed</td>
+					<td>Spinner speed when buttons are held down. The options include:
+						<code>"fast","medium","slow"</code>.
+					</td>
+					<td><code>"medium"</code></td>
+				</tr>
+				<tr>
+					<td>disabled</td>
+					<td>Spinner will be disabled when it is created.</td>
+					<td><code>false</code></td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Events</h3>
+
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Event</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>changed</td>
+					<td>This event is fired when the value has changed (either by selecting an item from the list or
+						updating the input value directly). Arguments are <code>event, value</code> where value is
+						the current value of the spinner.
+					</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Markup</h3>
+
+			<p>Your spinner markup should look like the example markup below.</p>
 
 
 <pre class="prettyprint linenums">
@@ -726,39 +1516,372 @@
 &lt;/div&gt;
 </pre>
 
-			</div>
 		</div>
-	</section>
+	</div>
+</section>
 
-	<hr>
+<section id="tree">
+	<div class="page-header">
+		<h1>Tree
+			<small>tree.js</small>
+		</h1>
+	</div>
+	<div class="row">
+		<div class="span12 columns">
+			<h2>Example</h2>
 
-	<footer>
-		<p class="pull-right"><a href="#" id="ReturnLink">Back to top</a></p>
-		<p>&copy; ExactTarget 2013</p>
-	</footer>
+			<p>Below is a working tree example.</p>
+
+			<div class="well tree-example">
+
+				<div id="MyTree" class="tree">
+					<div class="tree-folder" style="display:none;">
+						<div class="tree-folder-header">
+							<i class="icon-folder-close"></i>
+
+							<div class="tree-folder-name"></div>
+						</div>
+						<div class="tree-folder-content"></div>
+						<div class="tree-loader" style="display:none">
+						</div>
+					</div>
+					<div class="tree-item" style="display:none;">
+						<i class="tree-dot"></i>
+
+						<div class="tree-item-name"></div>
+					</div>
+				</div>
+
+				<div class="span8">
+					<input type="button" class="btn" id="tree-selected-items" value="log selected items">
+				</div>
+
+			</div>
+
+			<hr>
+
+			<h2>Using tree</h2>
+
+			<p>Call the tree via javascript:</p>
+			<pre class="prettyprint linenums">$('#MyTree').tree({ dataSource: dataSource })</pre>
+
+			<h3>Data Source</h3>
+
+			<p>Provide a data source to the tree to supply population information and data. Your data source must
+				support the following methods.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Name</th>
+					<th style="width: 210px;">Parameters</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>data</td>
+					<td><strong>options</strong> (object), <strong>callback</strong> (function)</td>
+					<td>The <strong>options</strong> parameter contains any data required to by the data source.
+						Retrieve data then call <strong>callback</strong> with an object containing data.
+						View the source of this page for an example static data source.
+					</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Methods</h3>
+
+			<p>Fuel UX's tree exposes a method for retrieving selected items.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Method</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>selectedItems</td>
+					<td>This method returns an array containing selected items and associated data</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Options</h3>
+
+			<p>Fuel UX's tree includes several convenient options for tree behavioral preferences.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Options</th>
+					<th>Description</th>
+					<th>Default Value</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>multiSelect</td>
+					<td>Allows multiple tree items to be selected at once.</td>
+					<td><code>false</code></td>
+				</tr>
+				<tr>
+					<td>loadingHTML</td>
+					<td>Sets the html that appears when a folder is selected and is hidden when the contents are
+						loaded.
+					</td>
+					<td><code>"Loading..."</code></td>
+				</tr>
+				<tr>
+					<td>cacheItems</td>
+					<td>When a folder is closed and re-opened sub-items will not be refreshed.</td>
+					<td><code>true</code></td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Events</h3>
+
+			<p>Fuel UX's tree control exposes the following events:</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Event</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>loaded</td>
+					<td>This event is fired when sub-content has been is loaded.</td>
+				</tr>
+				<tr>
+					<td>selected</td>
+					<td>This event is fired when item/items has been selected. An object containing <code>{info:
+						data}</code> is returned. <code>data</code> represents an array of selected items
+					</td>
+				</tr>
+				<tr>
+					<td>opened</td>
+					<td>This event is fired when a sub-folder is opened. An object containing folder information is
+						returned.
+					</td>
+				</tr>
+				<tr>
+					<td>closed</td>
+					<td>This event is fired when a sub-folder is closed. An object containing folder information is
+						returned.
+					</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Markup</h3>
+
+			<p>Your tree markup should look like the example markup below.</p>
+
+
+<pre class="prettyprint linenums">
+&lt;div id="MyTree" class="tree"&gt;
+    &lt;div class = "tree-folder" style="display:none;"&gt;
+        &lt;div class="tree-folder-header"&gt;
+            &lt;i class="icon-folder-close"&gt;&lt;/i&gt;
+            &lt;div class="tree-folder-name"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="tree-folder-content"&gt;&lt;/div&gt;
+        &lt;div class="tree-loader" style="display:none"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="tree-item" style="display:none;"&gt;
+        &lt;i class="tree-dot"&gt;&lt;/i&gt;
+        &lt;div class="tree-item-name"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+		</div>
+	</div>
+</section>
+
+<section id="wizard">
+	<div class="page-header">
+		<h1>Wizard
+			<small>wizard.js</small>
+		</h1>
+	</div>
+	<div class="row">
+		<div class="span12 columns">
+			<h2>Example</h2>
+
+			<p>Below is a working wizard example.</p>
+
+			<div class="well wizard-example">
+				<div id="myWizard" class="wizard">
+					<ul class="steps">
+						<li data-target="#step1" class="active"><span class="badge badge-info">1</span>Step 1<span
+								class="chevron"></span></li>
+						<li data-target="#step2"><span class="badge">2</span>Step 2<span class="chevron"></span></li>
+						<li data-target="#step3"><span class="badge">3</span>Step 3<span class="chevron"></span></li>
+						<li data-target="#step4"><span class="badge">4</span>Step 4<span class="chevron"></span></li>
+						<li data-target="#step5"><span class="badge">5</span>Step 5<span class="chevron"></span></li>
+					</ul>
+					<div class="actions">
+						<button class="btn btn-mini btn-prev"><i class="icon-arrow-left"></i>Prev
+						</button>
+						<button class="btn btn-mini btn-next btn-primary" data-last="Finish">Next<i
+								class="icon-arrow-right"></i></button>
+					</div>
+				</div>
+				<div class="step-content">
+					<div class="step-pane active" id="step1">This is step 1</div>
+					<div class="step-pane" id="step2">This is step 2</div>
+					<div class="step-pane" id="step3">This is step 3</div>
+					<div class="step-pane" id="step4">This is step 4</div>
+					<div class="step-pane" id="step5">This is step 5</div>
+				</div>
+
+				<input type="button" class="btn btn-mini" id="wizard-prev" value="prev">
+				<input type="button" class="btn btn-mini" id="wizard-next" value="next">
+				<input type="button" class="btn btn-mini" id="wizard-logItem" value="current step">
+			</div>
+			<!-- /well -->
+
+			<hr>
+
+			<h2>Using wizard</h2>
+
+			<p>Call the wizard via javascript (optional):</p>
+			<pre class="prettyprint linenums">$('#myWizard').wizard()</pre>
+
+			<h3>Methods</h3>
+
+			<p>Fuel UX's wizard exposes the following methods:</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Method</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>previous</td>
+					<td>Moves to the previous step</td>
+				</tr>
+				<tr>
+					<td>next</td>
+					<td>Moves to the next step</td>
+				</tr>
+				<tr>
+					<td>selectedItem</td>
+					<td>Returns the current step index</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Events</h3>
+
+			<p>Fuel UX's wizard control exposes the following events:</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Event</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>change</td>
+					<td>This event fires immediately when the step changes, but before the new step has been shown. Use
+						<code>event.preventDefault</code> to cancel the event.
+					</td>
+				</tr>
+				<tr>
+					<td>changed</td>
+					<td>This event is fired when the step has changed and is shown to the user.</td>
+				</tr>
+				<tr>
+					<td>finished</td>
+					<td>This event is fired when the next button is clicked on the last step of the wizard.</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Markup</h3>
+
+			<p>You can activate wizard on your page easily without having to write a single line of javascript. Just set
+				<code>class="wizard"</code> on a div like the example markup below and the select will activate
+				automatically.</p>
+
+
+<pre class="prettyprint linenums">
+&lt;div id="myWizard" class="wizard"&gt;
+	&lt;ul class="steps"&gt;
+		&lt;li data-target="#step1" class="active"&gt;&lt;span class="badge badge-info"&gt;1&lt;/span&gt;Step 1&lt;span class="chevron"&gt;&lt;/span&gt;&lt;/li&gt;
+		&lt;li data-target="#step2"&gt;&lt;span class="badge"&gt;2&lt;/span&gt;Step 2&lt;span class="chevron"&gt;&lt;/span&gt;&lt;/li&gt;
+		&lt;li data-target="#step3"&gt;&lt;span class="badge"&gt;3&lt;/span&gt;Step 3&lt;span class="chevron"&gt;&lt;/span&gt;&lt;/li&gt;
+		&lt;li data-target="#step4"&gt;&lt;span class="badge"&gt;4&lt;/span&gt;Step 4&lt;span class="chevron"&gt;&lt;/span&gt;&lt;/li&gt;
+		&lt;li data-target="#step5"&gt;&lt;span class="badge"&gt;5&lt;/span&gt;Step 5&lt;span class="chevron"&gt;&lt;/span&gt;&lt;/li&gt;
+	&lt;/ul&gt;
+	&lt;div class="actions"&gt;
+		&lt;button class="btn btn-mini btn-prev"&gt; &lt;i class="icon-arrow-left"&gt;&lt;/i&gt;Prev&lt;/button&gt;
+		&lt;button class="btn btn-mini btn-next btn-primary" data-last="Finish"&gt;Next&lt;i class="icon-arrow-right"&gt;&lt;/i&gt;&lt;/button&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="step-content"&gt;
+	&lt;div class="step-pane active" id="step1"&gt;This is step 1&lt;/div&gt;
+	&lt;div class="step-pane" id="step2"&gt;This is step 2&lt;/div&gt;
+	&lt;div class="step-pane" id="step3"&gt;This is step 3&lt;/div&gt;
+	&lt;div class="step-pane" id="step4"&gt;This is step 4&lt;/div&gt;
+	&lt;div class="step-pane" id="step5"&gt;This is step 5&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+		</div>
+	</div>
+</section>
+
+<hr>
+
+<footer>
+	<p class="pull-right"><a href="#" id="ReturnLink">Back to top</a></p>
+
+	<p>&copy; ExactTarget 2013</p>
+</footer>
 
 </div>
 
 
 <script type="text/javascript">
-	
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-4655221-19']);
-  _gaq.push(['_trackPageview']);
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-	
-  var uvOptions = {};
-  (function() {
-    var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
-    uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/CGJc97KN8ixLEOrjDGzDEg.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
-  })();
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-4655221-19']);
+	_gaq.push(['_trackPageview']);
+
+	(function () {
+		var ga = document.createElement('script');
+		ga.type = 'text/javascript';
+		ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(ga, s);
+	})();
+
+	var uvOptions = {};
+	(function () {
+		var uv = document.createElement('script');
+		uv.type = 'text/javascript';
+		uv.async = true;
+		uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/CGJc97KN8ixLEOrjDGzDEg.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(uv, s);
+	})();
 </script>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>	
+<script>!function (d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (!d.getElementById(id)) {
+		js = d.createElement(s);
+		js.id = id;
+		js.src = "//platform.twitter.com/widgets.js";
+		fjs.parentNode.insertBefore(js, fjs);
+	}
+}(document, "script", "twitter-wjs");</script>
 </body>
 </html>
