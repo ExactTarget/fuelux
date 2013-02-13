@@ -56,6 +56,14 @@ Visit our UserVoice community: https://fuelux.uservoice.com
 
 _Fuel UX is semantically versioned: <http://semver.org>_
 
+### Version 2.2.1 `2013-02-13`
+
+* Fix whitespace issue in wizard
+* Improve encapsulation of AMD globals
+* Introduce Testem for cross-browser testing
+* Fix tree datasource reference for local development
+* Upgrade unit tests to be compatible with jQuery 1.9
+
 ### Version 2.2.0 `2013-01-04`
 
 * _New Control_ - checkbox
