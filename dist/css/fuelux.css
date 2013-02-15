@@ -6330,6 +6330,8 @@ textarea.span1,
   position: relative;
   top: -2px;
   display: inline-block;
+  margin-bottom: 5px;
+  vertical-align: baseline;
 }
 
 .fuelux .datagrid tfoot .datagrid-footer-right .grid-pager > button {
