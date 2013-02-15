@@ -6100,6 +6100,10 @@ textarea.span1,
   display: inline-block;
 }
 
+.fuelux .combobox a {
+  font-size: 14px;
+}
+
 .fuelux .datagrid thead {
   background-color: #f9f9f9;
 }
