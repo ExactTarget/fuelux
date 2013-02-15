@@ -6215,6 +6215,10 @@ textarea.span1,
   background-position: -80px 1px;
 }
 
+.fuelux .combobox {
+  display: inline-block;
+}
+
 .fuelux .combobox a {
   font-size: 14px;
 }
@@ -6567,6 +6571,10 @@ textarea.span1,
 .fuelux .spinner .spinner-down i {
   position: relative;
   top: -5px;
+}
+
+.fuelux .search {
+  display: inline-block;
 }
 
 .fuelux .select .dropdown-label {
