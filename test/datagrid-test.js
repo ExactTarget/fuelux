@@ -168,15 +168,16 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 
 			var $pagesize = $datagrid.find('.grid-pagesize');
 
-			equal(stubDataSource.options.pageSize, 3, 'page size has default value');
+			equal(stubDataSource.options.pageSize, 5, 'page size has default value');
 
 			$datagrid.one('loaded', function () {
 
-				equal(stubDataSource.options.pageSize, 6, 'page size was changed');
+				equal(stubDataSource.options.pageSize, 100, 'page size was changed');
 				start();
 			});
 
-			$pagesize.val('6').change();
+			// simulate changed event
+			$pagesize.find('a:last').click();
 		});
 	});
 
@@ -323,7 +324,19 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 		'<tfoot><tr><th>' +
 		'<div class="datagrid-footer-left"><div class="grid-controls">' +
 		'<span><span class="grid-start"></span> - <span class="grid-end"></span> of <span class="grid-count"></span></span>' +
-		'<select class="grid-pagesize"><option>3</option><option>6</option></select>' +
+		'<div class="select grid-pagesize" data-resize="auto">' +
+		'<button data-toggle="dropdown" class="btn dropdown-toggle">' +
+		'<span class="dropdown-label"></span>' +
+		'<span class="caret"></span>' +
+		'</button>' +
+		'<ul class="dropdown-menu">' +
+		'<li data-value="5" data-selected="true"><a href="#">5</a></li>' +
+		'<li data-value="10"><a href="#">10</a></li>' +
+		'<li data-value="20"><a href="#">20</a></li>' +
+		'<li data-value="50"><a href="#">50</a></li>' +
+		'<li data-value="100"><a href="#">100</a></li>' +
+		'</ul>' +
+		'</div>' +
 		'<span>Per Page</span>' +
 		'</div></div>' +
 		'<div class="datagrid-footer-right"><div class="grid-pager">' +
