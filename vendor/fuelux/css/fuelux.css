@@ -6215,8 +6215,16 @@ textarea.span1,
   background-position: -80px 1px;
 }
 
+.fuelux .combobox {
+  display: inline-block;
+}
+
 .fuelux .combobox a {
   font-size: 14px;
+}
+
+.fuelux .combobox button.btn {
+  border-radius: 0 4px 4px 0;
 }
 
 .fuelux .datagrid thead {
@@ -6240,14 +6248,17 @@ textarea.span1,
 }
 
 .fuelux .datagrid thead .datagrid-header-right .search,
-.fuelux .datagrid thead .datagrid-header-right .filter {
-  float: left;
+.fuelux .datagrid thead .datagrid-header-left .search,
+.fuelux .datagrid thead .datagrid-header-right .filter,
+.fuelux .datagrid thead .datagrid-header-left .filter {
   margin-bottom: 0;
   margin-left: 8px;
 }
 
 .fuelux .datagrid thead .datagrid-header-right .search .dropdown-menu,
-.fuelux .datagrid thead .datagrid-header-right .filter .dropdown-menu {
+.fuelux .datagrid thead .datagrid-header-left .search .dropdown-menu,
+.fuelux .datagrid thead .datagrid-header-right .filter .dropdown-menu,
+.fuelux .datagrid thead .datagrid-header-left .filter .dropdown-menu {
   top: auto;
   left: auto;
 }
@@ -6330,6 +6341,8 @@ textarea.span1,
   position: relative;
   top: -2px;
   display: inline-block;
+  margin-bottom: 4px;
+  vertical-align: baseline;
 }
 
 .fuelux .datagrid tfoot .datagrid-footer-right .grid-pager > button {
@@ -6562,6 +6575,10 @@ textarea.span1,
 .fuelux .spinner .spinner-down i {
   position: relative;
   top: -5px;
+}
+
+.fuelux .search {
+  display: inline-block;
 }
 
 .fuelux .select .dropdown-label {
