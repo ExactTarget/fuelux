@@ -6223,6 +6223,10 @@ textarea.span1,
   font-size: 14px;
 }
 
+.fuelux .combobox button.btn {
+  border-radius: 0 4px 4px 0;
+}
+
 .fuelux .datagrid thead {
   background-color: #f9f9f9;
 }
