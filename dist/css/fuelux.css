@@ -6240,14 +6240,17 @@ textarea.span1,
 }
 
 .fuelux .datagrid thead .datagrid-header-right .search,
-.fuelux .datagrid thead .datagrid-header-right .filter {
-  float: left;
+.fuelux .datagrid thead .datagrid-header-left .search,
+.fuelux .datagrid thead .datagrid-header-right .filter,
+.fuelux .datagrid thead .datagrid-header-left .filter {
   margin-bottom: 0;
   margin-left: 8px;
 }
 
 .fuelux .datagrid thead .datagrid-header-right .search .dropdown-menu,
-.fuelux .datagrid thead .datagrid-header-right .filter .dropdown-menu {
+.fuelux .datagrid thead .datagrid-header-left .search .dropdown-menu,
+.fuelux .datagrid thead .datagrid-header-right .filter .dropdown-menu,
+.fuelux .datagrid thead .datagrid-header-left .filter .dropdown-menu {
   top: auto;
   left: auto;
 }
