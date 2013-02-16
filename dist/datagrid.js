@@ -36,7 +36,13 @@ define(['require','jquery'],function(require) {
 		this.$colheader = $('<tr>').appendTo(this.$thead);
 
 		this.options = $.extend(true, {}, $.fn.datagrid.defaults, options);
-		this.options.dataOptions.pageSize = parseInt(this.$pagesize.select('selectedItem').value, 10);
+
+		if(this.$pagesize.hasClass('select')) {
+			this.options.dataOptions.pageSize = parseInt(this.$pagesize.select('selectedItem').value, 10);
+		} else {
+			this.options.dataOptions.pageSize = parseInt(this.$pagesize.val(), 10);
+		}
+
 		this.columns = this.options.dataSource.columns();
 
 		this.$nextpagebtn.on('click', $.proxy(this.next, this));
@@ -44,7 +50,13 @@ define(['require','jquery'],function(require) {
 		this.$searchcontrol.on('searched cleared', $.proxy(this.searchChanged, this));
 		this.$filtercontrol.on('changed', $.proxy(this.filterChanged, this));
 		this.$colheader.on('click', 'th', $.proxy(this.headerClicked, this));
-		this.$pagesize.on('changed', $.proxy(this.pagesizeChanged, this));
+
+		if(this.$pagesize.hasClass('select')) {
+			this.$pagesize.on('changed', $.proxy(this.pagesizeChanged, this));
+		} else {
+			this.$pagesize.on('change', $.proxy(this.pagesizeChanged, this));
+		}
+
 		this.$pageinput.on('change', $.proxy(this.pageChanged, this));
 
 		this.renderColumns();
@@ -173,7 +185,12 @@ define(['require','jquery'],function(require) {
 		},
 
 		pagesizeChanged: function (e, pageSize) {
-			this.options.dataOptions.pageSize = parseInt(pageSize.value, 10);
+			if(pageSize) {
+				this.options.dataOptions.pageSize = parseInt(pageSize.value, 10);
+			} else {
+				this.options.dataOptions.pageSize = parseInt($(e.target).val(), 10);
+			}
+
 			this.options.dataOptions.pageIndex = 0;
 			this.renderData();
 		},

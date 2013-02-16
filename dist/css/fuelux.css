@@ -6303,6 +6303,11 @@ textarea.span1,
   margin-top: 7px;
 }
 
+.fuelux .datagrid tfoot .datagrid-footer-left .grid-controls select {
+  width: 60px;
+  margin: 0 5px 1px;
+}
+
 .fuelux .datagrid tfoot .datagrid-footer-left .grid-controls .grid-pagesize {
   display: inline-block;
   margin-bottom: 5px;
