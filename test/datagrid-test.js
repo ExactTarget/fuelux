@@ -162,21 +162,40 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 		});
 	});
 
-	asyncTest("should handle page size changes", function () {
+	asyncTest("should handle dropdown page size changes", function () {
 		var stubDataSource = new StubDataSource();
 		var $datagrid = $(datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
 
 			var $pagesize = $datagrid.find('.grid-pagesize');
 
-			equal(stubDataSource.options.pageSize, 3, 'page size has default value');
+			equal(stubDataSource.options.pageSize, 5, 'page size has default value');
 
 			$datagrid.one('loaded', function () {
 
-				equal(stubDataSource.options.pageSize, 6, 'page size was changed');
+				equal(stubDataSource.options.pageSize, 100, 'page size was changed');
 				start();
 			});
 
-			$pagesize.val('6').change();
+			$pagesize.find('a:last').click();
+		});
+	});
+
+	asyncTest("should handle select element page size changes", function () {
+		var stubDataSource = new StubDataSource();
+		var $datagrid = $(datagridSelHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
+
+			var $pagesize = $datagrid.find('.grid-pagesize');
+
+			equal(stubDataSource.options.pageSize, 5, 'page size has default value');
+
+			$datagrid.one('loaded', function () {
+
+				equal(stubDataSource.options.pageSize, 100, 'page size was changed');
+				start();
+			});
+
+			// simulate changed event
+			$pagesize.val('100').change();
 		});
 	});
 
@@ -323,7 +342,56 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 		'<tfoot><tr><th>' +
 		'<div class="datagrid-footer-left"><div class="grid-controls">' +
 		'<span><span class="grid-start"></span> - <span class="grid-end"></span> of <span class="grid-count"></span></span>' +
-		'<select class="grid-pagesize"><option>3</option><option>6</option></select>' +
+		'<div class="select grid-pagesize" data-resize="auto">' +
+		'<button data-toggle="dropdown" class="btn dropdown-toggle">' +
+		'<span class="dropdown-label"></span>' +
+		'<span class="caret"></span>' +
+		'</button>' +
+		'<ul class="dropdown-menu">' +
+		'<li data-value="5" data-selected="true"><a href="#">5</a></li>' +
+		'<li data-value="10"><a href="#">10</a></li>' +
+		'<li data-value="20"><a href="#">20</a></li>' +
+		'<li data-value="50"><a href="#">50</a></li>' +
+		'<li data-value="100"><a href="#">100</a></li>' +
+		'</ul>' +
+		'</div>' +
+		'<span>Per Page</span>' +
+		'</div></div>' +
+		'<div class="datagrid-footer-right"><div class="grid-pager">' +
+		'<button class="btn grid-prevpage"><i class="icon-chevron-left"></i></button>' +
+		'<span>Page</span>' +
+		'<div class="input-append dropdown combobox">' +
+		'<input class="span1" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>' +
+		'<ul class="dropdown-menu"></ul>' +
+		'</div>' +
+		'<span>of <span class="grid-pages"></span></span>' +
+		'<button class="btn grid-nextpage"><i class="icon-chevron-right"></i></button>' +
+		'</div></div>' +
+		'</th></tr></tfoot></table>';
+
+	var datagridSelHTML = '<table id="MyGrid" class="table table-bordered datagrid">' +
+		'<thead><tr><th>' +
+		'<div class="datagrid-header-right">' +
+		'<div class="input-append search">' +
+		'<input type="text" class="input-medium" placeholder="Search"><button class="btn"><i class="icon-search"></i></button>' +
+		'</div>' + 
+		'<div class="select filter" data-resize="auto">' +
+		'<button data-toggle="dropdown" class="btn dropdown-toggle">' +
+		'<span class="dropdown-label"></span>' +
+		'<span class="caret"></span>' +
+		'</button>' +
+		'<ul class="dropdown-menu">' +
+		'<li data-value="all" data-selected="true"><a href="#">All</a></li>' +
+		'<li data-value="lt5m"><a href="#">Population &lt; 5M</a></li>' +
+		'<li data-value="gte5m"><a href="#">Population &gt;= 5M</a></li>' +
+		'</ul>' +
+		'</div>' +
+		'</div>' +
+		'</th></tr></thead>' +
+		'<tfoot><tr><th>' +
+		'<div class="datagrid-footer-left"><div class="grid-controls">' +
+		'<span><span class="grid-start"></span> - <span class="grid-end"></span> of <span class="grid-count"></span></span>' +
+		'<select class="grid-pagesize"><option>5</option><option>10</option><option>20</option><option>50</option><option>100</option></select>' +
 		'<span>Per Page</span>' +
 		'</div></div>' +
 		'<div class="datagrid-footer-right"><div class="grid-pager">' +
