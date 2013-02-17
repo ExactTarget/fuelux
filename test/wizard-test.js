@@ -122,6 +122,27 @@ require(['jquery', 'fuelux/wizard'], function ($) {
 		equal(index, 1, 'step not changed');
 	});
 
+	test("should suppress stepClick event", function () {
+		var eventFired = false;
+
+		var $wizard = $(html).wizard().on('stepClick', function (evt, data) {
+			eventFired = true;
+			return evt.preventDefault(); // prevent action
+		});
+		
+		// move to second step
+		$wizard.wizard('next');
+
+		// click first step
+		$wizard.find('.steps li:first').click();
+
+		var index = $wizard.wizard('selectedItem').step;
+
+		equal(eventFired, true, 'stepClick event fired');
+		equal(index, 2, 'step not changed');
+	});
+
+
 	test("should fire finished event", function () {
 		var eventFired = false;
 
