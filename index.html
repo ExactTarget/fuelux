@@ -323,27 +323,33 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 
 		// INITIALIZE WIZARD
-		$('#myWizard').on('change', function (e, data) {
+		$('#MyWizard').on('change', function(e, data) {
 			console.log('change');
-			if (data.step === 3 && data.direction === 'next') {
+			if(data.step===3 && data.direction==='next') {
 				// return e.preventDefault();
 			}
 		});
-		$('#myWizard').on('changed', function (e, data) {
+		$('#MyWizard').on('changed', function(e, data) {
 			console.log('changed');
 		});
-		$('#myWizard').on('finished', function (e, data) {
+		$('#MyWizard').on('finished', function(e, data) {
 			console.log('finished');
 		});
-		$('#wizard-prev').on('click', function () {
-			$('#myWizard').wizard('previous');
+		$('#btnWizardPrev').on('click', function() {
+			$('#MyWizard').wizard('previous');
 		});
-		$('#wizard-next').on('click', function () {
-			$('#myWizard').wizard('next', 'foo');
+		$('#btnWizardNext').on('click', function() {
+			$('#MyWizard').wizard('next','foo');
 		});
-		$('#wizard-logItem').on('click', function () {
-			var item = $('#myWizard').wizard('selectedItem');
+		$('#btnWizardStep').on('click', function() {
+			var item = $('#MyWizard').wizard('selectedItem');
 			console.log(item.step);
+		});
+		$('#MyWizard').on('stepClick', function(e, data) {
+			console.log('step' + data.step + ' clicked');
+			if(data.step===1) {
+				// return e.preventDefault();
+			}
 		});
 	});
 });
@@ -1736,20 +1742,17 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 			<p>Below is a working wizard example.</p>
 
 			<div class="well wizard-example">
-				<div id="myWizard" class="wizard">
+				<div id="MyWizard" class="wizard">
 					<ul class="steps">
-						<li data-target="#step1" class="active"><span class="badge badge-info">1</span>Step 1<span
-								class="chevron"></span></li>
+						<li data-target="#step1" class="active"><span class="badge badge-info">1</span>Step 1<span class="chevron"></span></li>
 						<li data-target="#step2"><span class="badge">2</span>Step 2<span class="chevron"></span></li>
 						<li data-target="#step3"><span class="badge">3</span>Step 3<span class="chevron"></span></li>
 						<li data-target="#step4"><span class="badge">4</span>Step 4<span class="chevron"></span></li>
 						<li data-target="#step5"><span class="badge">5</span>Step 5<span class="chevron"></span></li>
 					</ul>
 					<div class="actions">
-						<button class="btn btn-mini btn-prev"><i class="icon-arrow-left"></i>Prev
-						</button>
-						<button class="btn btn-mini btn-next" data-last="Finish">Next<i
-								class="icon-arrow-right"></i></button>
+						<button class="btn btn-mini btn-prev"> <i class="icon-arrow-left"></i>Prev</button>
+						<button class="btn btn-mini btn-next" data-last="Finish">Next<i class="icon-arrow-right"></i></button>
 					</div>
 				</div>
 				<div class="step-content">
@@ -1760,9 +1763,9 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 					<div class="step-pane" id="step5">This is step 5</div>
 				</div>
 
-				<input type="button" class="btn btn-mini" id="wizard-prev" value="prev">
-				<input type="button" class="btn btn-mini" id="wizard-next" value="next">
-				<input type="button" class="btn btn-mini" id="wizard-logItem" value="current step">
+				<input type="button" class="btn btn-mini" id="btnWizardPrev" value="prev">
+				<input type="button" class="btn btn-mini" id="btnWizardNext" value="next">
+				<input type="button" class="btn btn-mini" id="btnWizardStep" value="current step">
 			</div>
 			<!-- /well -->
 
@@ -1824,6 +1827,10 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 					<td>finished</td>
 					<td>This event is fired when the next button is clicked on the last step of the wizard.</td>
 				</tr>
+				<tr>
+					<td>stepClick</td>
+					<td>This event is fired when a completed step is clicked.</td>
+				</tr>
 				</tbody>
 			</table>
 
@@ -1835,25 +1842,25 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 
 <pre class="prettyprint linenums">
-&lt;div id="myWizard" class="wizard"&gt;
-	&lt;ul class="steps"&gt;
-		&lt;li data-target="#step1" class="active"&gt;&lt;span class="badge badge-info"&gt;1&lt;/span&gt;Step 1&lt;span class="chevron"&gt;&lt;/span&gt;&lt;/li&gt;
-		&lt;li data-target="#step2"&gt;&lt;span class="badge"&gt;2&lt;/span&gt;Step 2&lt;span class="chevron"&gt;&lt;/span&gt;&lt;/li&gt;
-		&lt;li data-target="#step3"&gt;&lt;span class="badge"&gt;3&lt;/span&gt;Step 3&lt;span class="chevron"&gt;&lt;/span&gt;&lt;/li&gt;
-		&lt;li data-target="#step4"&gt;&lt;span class="badge"&gt;4&lt;/span&gt;Step 4&lt;span class="chevron"&gt;&lt;/span&gt;&lt;/li&gt;
-		&lt;li data-target="#step5"&gt;&lt;span class="badge"&gt;5&lt;/span&gt;Step 5&lt;span class="chevron"&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;div id=&quot;MyWizard&quot; class=&quot;wizard&quot;&gt;
+	&lt;ul class=&quot;steps&quot;&gt;
+		&lt;li data-target=&quot;#step1&quot; class=&quot;active&quot;&gt;&lt;span class=&quot;badge badge-info&quot;&gt;1&lt;/span&gt;Step 1&lt;span class=&quot;chevron&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+		&lt;li data-target=&quot;#step2&quot;&gt;&lt;span class=&quot;badge&quot;&gt;2&lt;/span&gt;Step 2&lt;span class=&quot;chevron&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+		&lt;li data-target=&quot;#step3&quot;&gt;&lt;span class=&quot;badge&quot;&gt;3&lt;/span&gt;Step 3&lt;span class=&quot;chevron&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+		&lt;li data-target=&quot;#step4&quot;&gt;&lt;span class=&quot;badge&quot;&gt;4&lt;/span&gt;Step 4&lt;span class=&quot;chevron&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+		&lt;li data-target=&quot;#step5&quot;&gt;&lt;span class=&quot;badge&quot;&gt;5&lt;/span&gt;Step 5&lt;span class=&quot;chevron&quot;&gt;&lt;/span&gt;&lt;/li&gt;
 	&lt;/ul&gt;
-	&lt;div class="actions"&gt;
-		&lt;button class="btn btn-mini btn-prev"&gt; &lt;i class="icon-arrow-left"&gt;&lt;/i&gt;Prev&lt;/button&gt;
-		&lt;button class="btn btn-mini btn-next" data-last="Finish"&gt;Next&lt;i class="icon-arrow-right"&gt;&lt;/i&gt;&lt;/button&gt;
+	&lt;div class=&quot;actions&quot;&gt;
+		&lt;button class=&quot;btn btn-mini btn-prev&quot;&gt; &lt;i class=&quot;icon-arrow-left&quot;&gt;&lt;/i&gt;Prev&lt;/button&gt;
+		&lt;button class=&quot;btn btn-mini btn-next&quot; data-last=&quot;Finish&quot;&gt;Next&lt;i class=&quot;icon-arrow-right&quot;&gt;&lt;/i&gt;&lt;/button&gt;
 	&lt;/div&gt;
 &lt;/div&gt;
-&lt;div class="step-content"&gt;
-	&lt;div class="step-pane active" id="step1"&gt;This is step 1&lt;/div&gt;
-	&lt;div class="step-pane" id="step2"&gt;This is step 2&lt;/div&gt;
-	&lt;div class="step-pane" id="step3"&gt;This is step 3&lt;/div&gt;
-	&lt;div class="step-pane" id="step4"&gt;This is step 4&lt;/div&gt;
-	&lt;div class="step-pane" id="step5"&gt;This is step 5&lt;/div&gt;
+&lt;div class=&quot;step-content&quot;&gt;
+	&lt;div class=&quot;step-pane active&quot; id=&quot;step1&quot;&gt;This is step 1&lt;/div&gt;
+	&lt;div class=&quot;step-pane&quot; id=&quot;step2&quot;&gt;This is step 2&lt;/div&gt;
+	&lt;div class=&quot;step-pane&quot; id=&quot;step3&quot;&gt;This is step 3&lt;/div&gt;
+	&lt;div class=&quot;step-pane&quot; id=&quot;step4&quot;&gt;This is step 4&lt;/div&gt;
+	&lt;div class=&quot;step-pane&quot; id=&quot;step5&quot;&gt;This is step 5&lt;/div&gt;
 &lt;/div&gt;
 </pre>
 		</div>
