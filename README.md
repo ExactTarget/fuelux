@@ -56,6 +56,15 @@ Visit our UserVoice community: https://fuelux.uservoice.com
 
 _Fuel UX is semantically versioned: <http://semver.org>_
 
+### Version 2.3.0 `2013-02-18`
+
+* Add custom filter support to datagrid
+* Use select control for datagrid page size dropdown
+* Add stepclick event to wizard to support canceling clicks on steps
+* Improve rounded corners of combobox button to match Bootstrap
+* Improve support for installation within Yeoman
+* Upgrade Bootstrap from 2.2.2 to 2.3.0
+
 ### Version 2.2.1 `2013-02-13`
 
 * Fix whitespace issue in wizard
