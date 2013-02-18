@@ -323,27 +323,33 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 
 		// INITIALIZE WIZARD
-		$('#myWizard').on('change', function (e, data) {
+		$('#MyWizard').on('change', function(e, data) {
 			console.log('change');
-			if (data.step === 3 && data.direction === 'next') {
+			if(data.step===3 && data.direction==='next') {
 				// return e.preventDefault();
 			}
 		});
-		$('#myWizard').on('changed', function (e, data) {
+		$('#MyWizard').on('changed', function(e, data) {
 			console.log('changed');
 		});
-		$('#myWizard').on('finished', function (e, data) {
+		$('#MyWizard').on('finished', function(e, data) {
 			console.log('finished');
 		});
-		$('#wizard-prev').on('click', function () {
-			$('#myWizard').wizard('previous');
+		$('#btnWizardPrev').on('click', function() {
+			$('#MyWizard').wizard('previous');
 		});
-		$('#wizard-next').on('click', function () {
-			$('#myWizard').wizard('next', 'foo');
+		$('#btnWizardNext').on('click', function() {
+			$('#MyWizard').wizard('next','foo');
 		});
-		$('#wizard-logItem').on('click', function () {
-			var item = $('#myWizard').wizard('selectedItem');
+		$('#btnWizardStep').on('click', function() {
+			var item = $('#MyWizard').wizard('selectedItem');
 			console.log(item.step);
+		});
+		$('#MyWizard').on('stepclick', function(e, data) {
+			console.log('step' + data.step + ' clicked');
+			if(data.step===1) {
+				// return e.preventDefault();
+			}
 		});
 	});
 });
@@ -590,6 +596,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 						<li data-value="4"><a href="#">Item Four</a></li>
 					</ul>
 				</div>
+                <br/>
 				<input type="button" class="btn" id="combobox-enable" value="enable">
 				<input type="button" class="btn" id="combobox-disable" value="disable">
 				<input type="button" class="btn" id="combobox-setByIndex" value="set by index">
@@ -716,61 +723,81 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 			<div class="datagrid-example">
 				<div style="height:400px;width:100%;margin-bottom:20px;">
-				<table id="MyGrid" class="table table-bordered datagrid">
+					<table id="MyGrid" class="table table-bordered datagrid">
 
-					<thead>
-					<tr>
-						<th>
-							<span class="datagrid-header-title">Geographic Data Sample</span>
+						<thead>
+						<tr>
+							<th>
+								<span class="datagrid-header-title">Geographic Data Sample</span>
 
-							<div class="datagrid-header-left">
-
-							</div>
-							<div class="datagrid-header-right">
-								<div class="input-append search">
-									<input type="text" class="input-medium" placeholder="Search">
-									<button class="btn"><i class="icon-search"></i></button>
-								</div>
-							</div>
-						</th>
-					</tr>
-					</thead>
-
-					<tfoot>
-					<tr>
-						<th>
-							<div class="datagrid-footer-left" style="display:none;">
-								<div class="grid-controls">
-									<span><span class="grid-start"></span> - <span class="grid-end"></span> of <span
-											class="grid-count"></span></span>
-									<select class="grid-pagesize">
-										<option>10</option>
-										<option>20</option>
-										<option>50</option>
-										<option>100</option>
-									</select>
-									<span>Per Page</span>
-								</div>
-							</div>
-							<div class="datagrid-footer-right" style="display:none;">
-								<div class="grid-pager">
-									<button class="btn grid-prevpage"><i class="icon-chevron-left"></i></button>
-									<span>Page</span>
-
-									<div class="input-append dropdown combobox">
-										<input class="span1" type="text">
-										<button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
-										<ul class="dropdown-menu"></ul>
+								<div class="datagrid-header-left">
+									<div class="input-append search">
+										<input type="text" class="input-medium" placeholder="Search">
+										<button class="btn"><i class="icon-search"></i></button>
 									</div>
-									<span>of <span class="grid-pages"></span></span>
-									<button class="btn grid-nextpage"><i class="icon-chevron-right"></i></button>
 								</div>
-							</div>
-						</th>
-					</tr>
-					</tfoot>
+								<div class="datagrid-header-right">
+									<div class="select filter" data-resize="auto">
+										<button data-toggle="dropdown" class="btn dropdown-toggle">
+											<span class="dropdown-label"></span>
+											<span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu">
+											<li data-value="all" data-selected="true"><a href="#">All</a></li>
+											<li data-value="lt5m"><a href="#">Population &lt; 5M</a></li>
+											<li data-value="gte5m"><a href="#">Population &gt;= 5M</a></li>
+										</ul>
+									</div>
+								</div>
+							</th>
+						</tr>
+						</thead>
 
-				</table>
+						<tfoot>
+						<tr>
+							<th>
+								<div class="datagrid-footer-left" style="display:none;">
+									<div class="grid-controls">
+										<span>
+											<span class="grid-start"></span> -
+											<span class="grid-end"></span> of
+											<span class="grid-count"></span>
+										</span>
+										<div class="select grid-pagesize" data-resize="auto">
+											<button data-toggle="dropdown" class="btn dropdown-toggle">
+												<span class="dropdown-label"></span>
+												<span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu">
+												<li data-value="5"><a href="#">5</a></li>
+												<li data-value="10" data-selected="true"><a href="#">10</a></li>
+												<li data-value="20"><a href="#">20</a></li>
+												<li data-value="50"><a href="#">50</a></li>
+												<li data-value="100"><a href="#">100</a></li>
+											</ul>
+										</div>
+										<span>Per Page</span>
+									</div>
+								</div>
+								<div class="datagrid-footer-right" style="display:none;">
+									<div class="grid-pager">
+										<button class="btn grid-prevpage"><i class="icon-chevron-left"></i></button>
+										<span>Page</span>
+
+										<div class="input-append dropdown combobox">
+											<input class="span1" type="text">
+											<button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+											<ul class="dropdown-menu"></ul>
+										</div>
+										<span>of <span class="grid-pages"></span></span>
+										<button class="btn grid-nextpage"><i class="icon-chevron-right"></i></button>
+									</div>
+								</div>
+							</th>
+						</tr>
+						</tfoot>
+
+					</table>
 				</div>
 			</div>
 
@@ -917,48 +944,77 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 
 <pre class="prettyprint linenums">
-&lt;table id="MyGrid" class="table table-bordered datagrid"&gt;
- &lt;thead&gt;
- &lt;tr&gt;
-  &lt;th&gt;
-   &lt;span class="datagrid-header-title"&gt;Geographic Data Sample&lt;/span&gt;
-   &lt;div class="datagrid-header-left"&gt;
+&lt;table id=&quot;MyGrid&quot; class=&quot;table table-bordered datagrid&quot;&gt;
+    &lt;thead&gt;
+    &lt;tr&gt;
+        &lt;th&gt;
+            &lt;span class=&quot;datagrid-header-title&quot;&gt;Geographic Data Sample&lt;/span&gt;
 
-   &lt;/div&gt;
-   &lt;div class="datagrid-header-right"&gt;
-	&lt;div class="input-append search"&gt;
-	 &lt;input type="text" class="input-medium" placeholder="Search"&gt;&lt;button class="btn"&gt;&lt;i class="icon-search"&gt;&lt;/i&gt;&lt;/button&gt;
-	&lt;/div&gt;
-   &lt;/div&gt;
-  &lt;/th&gt;
- &lt;/tr&gt;
- &lt;/thead&gt;
+            &lt;div class=&quot;datagrid-header-left&quot;&gt;
+                &lt;div class=&quot;input-append search&quot;&gt;
+                    &lt;input type=&quot;text&quot; class=&quot;input-medium&quot; placeholder=&quot;Search&quot;&gt;
+                    &lt;button class=&quot;btn&quot;&gt;&lt;i class=&quot;icon-search&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;datagrid-header-right&quot;&gt;
+                &lt;div class=&quot;select filter&quot; data-resize=&quot;auto&quot;&gt;
+                    &lt;button data-toggle=&quot;dropdown&quot; class=&quot;btn dropdown-toggle&quot;&gt;
+                        &lt;span class=&quot;dropdown-label&quot;&gt;&lt;/span&gt;
+                        &lt;span class=&quot;caret&quot;&gt;&lt;/span&gt;
+                    &lt;/button&gt;
+                    &lt;ul class=&quot;dropdown-menu&quot;&gt;
+                        &lt;li data-value=&quot;all&quot; data-selected=&quot;true&quot;&gt;&lt;a href=&quot;#&quot;&gt;All&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-value=&quot;lt5m&quot;&gt;&lt;a href=&quot;#&quot;&gt;Population &lt; 5M&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-value=&quot;gte5m&quot;&gt;&lt;a href=&quot;#&quot;&gt;Population &gt;= 5M&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tfoot&gt;
+    &lt;tr&gt;
+        &lt;th&gt;
+            &lt;div class=&quot;datagrid-footer-left&quot; style=&quot;display:none;&quot;&gt;
+                &lt;div class=&quot;grid-controls&quot;&gt;
+                    &lt;span&gt;
+                        &lt;span class=&quot;grid-start&quot;&gt;&lt;/span&gt; -
+                        &lt;span class=&quot;grid-end&quot;&gt;&lt;/span&gt; of
+                        &lt;span class=&quot;grid-count&quot;&gt;&lt;/span&gt;
+                    &lt;/span&gt;
+                    &lt;div class=&quot;select grid-pagesize&quot; data-resize=&quot;auto&quot;&gt;
+                        &lt;button data-toggle=&quot;dropdown&quot; class=&quot;btn dropdown-toggle&quot;&gt;
+                            &lt;span class=&quot;dropdown-label&quot;&gt;&lt;/span&gt;
+                            &lt;span class=&quot;caret&quot;&gt;&lt;/span&gt;
+                        &lt;/button&gt;
+                        &lt;ul class=&quot;dropdown-menu&quot;&gt;
+                            &lt;li data-value=&quot;5&quot; data-selected=&quot;true&quot;&gt;&lt;a href=&quot;#&quot;&gt;5&lt;/a&gt;&lt;/li&gt;
+                            &lt;li data-value=&quot;10&quot;&gt;&lt;a href=&quot;#&quot;&gt;10&lt;/a&gt;&lt;/li&gt;
+                            &lt;li data-value=&quot;20&quot;&gt;&lt;a href=&quot;#&quot;&gt;20&lt;/a&gt;&lt;/li&gt;
+                            &lt;li data-value=&quot;50&quot;&gt;&lt;a href=&quot;#&quot;&gt;50&lt;/a&gt;&lt;/li&gt;
+                            &lt;li data-value=&quot;100&quot;&gt;&lt;a href=&quot;#&quot;&gt;100&lt;/a&gt;&lt;/li&gt;
+                        &lt;/ul&gt;
+                    &lt;/div&gt;
+                    &lt;span&gt;Per Page&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;datagrid-footer-right&quot; style=&quot;display:none;&quot;&gt;
+                &lt;div class=&quot;grid-pager&quot;&gt;
+                    &lt;button class=&quot;btn grid-prevpage&quot;&gt;&lt;i class=&quot;icon-chevron-left&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+                    &lt;span&gt;Page&lt;/span&gt;
 
- &lt;tfoot&gt;
- &lt;tr&gt;
-  &lt;th&gt;
-   &lt;div class="datagrid-footer-left" style="display:none;"&gt;
-	&lt;div class="grid-controls"&gt;
-	 &lt;span&gt;&lt;span class="grid-start"&gt;&lt;/span&gt; - &lt;span class="grid-end"&gt;&lt;/span&gt; of &lt;span class="grid-count"&gt;&lt;/span&gt;&lt;/span&gt;
-	 &lt;select class="grid-pagesize"&gt;&lt;option&gt;10&lt;/option&gt;&lt;option&gt;20&lt;/option&gt;&lt;option&gt;50&lt;/option&gt;&lt;option&gt;100&lt;/option&gt;&lt;/select&gt;
-	 &lt;span&gt;Per Page&lt;/span&gt;
-	&lt;/div&gt;
-   &lt;/div&gt;
-   &lt;div class="datagrid-footer-right" style="display:none;"&gt;
-	&lt;div class="grid-pager"&gt;
-	 &lt;button class="btn grid-prevpage"&gt;&lt;i class="icon-chevron-left"&gt;&lt;/i&gt;&lt;/button&gt;
-	 &lt;span&gt;Page&lt;/span&gt;
-	 &lt;div class="input-append dropdown combobox"&gt;
-	  &lt;input class="span1" type="text"&gt;&lt;button class="btn" data-toggle="dropdown"&gt;&lt;i class="caret"&gt;&lt;/i&gt;&lt;/button&gt;
-	  &lt;ul class="dropdown-menu"&gt;&lt;/ul&gt;
-	 &lt;/div&gt;
-	 &lt;span&gt;of &lt;span class="grid-pages"&gt;&lt;/span&gt;&lt;/span&gt;
-	 &lt;button class="btn grid-nextpage"&gt;&lt;i class="icon-chevron-right"&gt;&lt;/i&gt;&lt;/button&gt;
-	&lt;/div&gt;
-   &lt;/div&gt;
-  &lt;/th&gt;
- &lt;/tr&gt;
- &lt;/tfoot&gt;
+                    &lt;div class=&quot;input-append dropdown combobox&quot;&gt;
+                        &lt;input class=&quot;span1&quot; type=&quot;text&quot;&gt;
+                        &lt;button class=&quot;btn&quot; data-toggle=&quot;dropdown&quot;&gt;&lt;i class=&quot;caret&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+                        &lt;ul class=&quot;dropdown-menu&quot;&gt;&lt;/ul&gt;
+                    &lt;/div&gt;
+                    &lt;span&gt;of &lt;span class=&quot;grid-pages&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+                    &lt;button class=&quot;btn grid-nextpage&quot;&gt;&lt;i class=&quot;icon-chevron-right&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;/tfoot&gt;
 &lt;/table&gt;
 </pre>
 
@@ -1137,6 +1193,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 					<input type="text" class="input-medium" placeholder="Search">
 					<button class="btn"><i class="icon-search"></i></button>
 				</div>
+                <br/>
 				<input type="button" class="btn" id="search-enable" value="enable">
 				<input type="button" class="btn" id="search-disable" value="disable">
 			</div>
@@ -1714,20 +1771,17 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 			<p>Below is a working wizard example.</p>
 
 			<div class="well wizard-example">
-				<div id="myWizard" class="wizard">
+				<div id="MyWizard" class="wizard">
 					<ul class="steps">
-						<li data-target="#step1" class="active"><span class="badge badge-info">1</span>Step 1<span
-								class="chevron"></span></li>
+						<li data-target="#step1" class="active"><span class="badge badge-info">1</span>Step 1<span class="chevron"></span></li>
 						<li data-target="#step2"><span class="badge">2</span>Step 2<span class="chevron"></span></li>
 						<li data-target="#step3"><span class="badge">3</span>Step 3<span class="chevron"></span></li>
 						<li data-target="#step4"><span class="badge">4</span>Step 4<span class="chevron"></span></li>
 						<li data-target="#step5"><span class="badge">5</span>Step 5<span class="chevron"></span></li>
 					</ul>
 					<div class="actions">
-						<button class="btn btn-mini btn-prev"><i class="icon-arrow-left"></i>Prev
-						</button>
-						<button class="btn btn-mini btn-next" data-last="Finish">Next<i
-								class="icon-arrow-right"></i></button>
+						<button class="btn btn-mini btn-prev"> <i class="icon-arrow-left"></i>Prev</button>
+						<button class="btn btn-mini btn-next" data-last="Finish">Next<i class="icon-arrow-right"></i></button>
 					</div>
 				</div>
 				<div class="step-content">
@@ -1738,9 +1792,9 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 					<div class="step-pane" id="step5">This is step 5</div>
 				</div>
 
-				<input type="button" class="btn btn-mini" id="wizard-prev" value="prev">
-				<input type="button" class="btn btn-mini" id="wizard-next" value="next">
-				<input type="button" class="btn btn-mini" id="wizard-logItem" value="current step">
+				<input type="button" class="btn btn-mini" id="btnWizardPrev" value="prev">
+				<input type="button" class="btn btn-mini" id="btnWizardNext" value="next">
+				<input type="button" class="btn btn-mini" id="btnWizardStep" value="current step">
 			</div>
 			<!-- /well -->
 
@@ -1802,6 +1856,10 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 					<td>finished</td>
 					<td>This event is fired when the next button is clicked on the last step of the wizard.</td>
 				</tr>
+				<tr>
+					<td>stepclick</td>
+					<td>This event is fired when a completed step is clicked.</td>
+				</tr>
 				</tbody>
 			</table>
 
@@ -1813,25 +1871,25 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 
 <pre class="prettyprint linenums">
-&lt;div id="myWizard" class="wizard"&gt;
-	&lt;ul class="steps"&gt;
-		&lt;li data-target="#step1" class="active"&gt;&lt;span class="badge badge-info"&gt;1&lt;/span&gt;Step 1&lt;span class="chevron"&gt;&lt;/span&gt;&lt;/li&gt;
-		&lt;li data-target="#step2"&gt;&lt;span class="badge"&gt;2&lt;/span&gt;Step 2&lt;span class="chevron"&gt;&lt;/span&gt;&lt;/li&gt;
-		&lt;li data-target="#step3"&gt;&lt;span class="badge"&gt;3&lt;/span&gt;Step 3&lt;span class="chevron"&gt;&lt;/span&gt;&lt;/li&gt;
-		&lt;li data-target="#step4"&gt;&lt;span class="badge"&gt;4&lt;/span&gt;Step 4&lt;span class="chevron"&gt;&lt;/span&gt;&lt;/li&gt;
-		&lt;li data-target="#step5"&gt;&lt;span class="badge"&gt;5&lt;/span&gt;Step 5&lt;span class="chevron"&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;div id=&quot;MyWizard&quot; class=&quot;wizard&quot;&gt;
+	&lt;ul class=&quot;steps&quot;&gt;
+		&lt;li data-target=&quot;#step1&quot; class=&quot;active&quot;&gt;&lt;span class=&quot;badge badge-info&quot;&gt;1&lt;/span&gt;Step 1&lt;span class=&quot;chevron&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+		&lt;li data-target=&quot;#step2&quot;&gt;&lt;span class=&quot;badge&quot;&gt;2&lt;/span&gt;Step 2&lt;span class=&quot;chevron&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+		&lt;li data-target=&quot;#step3&quot;&gt;&lt;span class=&quot;badge&quot;&gt;3&lt;/span&gt;Step 3&lt;span class=&quot;chevron&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+		&lt;li data-target=&quot;#step4&quot;&gt;&lt;span class=&quot;badge&quot;&gt;4&lt;/span&gt;Step 4&lt;span class=&quot;chevron&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+		&lt;li data-target=&quot;#step5&quot;&gt;&lt;span class=&quot;badge&quot;&gt;5&lt;/span&gt;Step 5&lt;span class=&quot;chevron&quot;&gt;&lt;/span&gt;&lt;/li&gt;
 	&lt;/ul&gt;
-	&lt;div class="actions"&gt;
-		&lt;button class="btn btn-mini btn-prev"&gt; &lt;i class="icon-arrow-left"&gt;&lt;/i&gt;Prev&lt;/button&gt;
-		&lt;button class="btn btn-mini btn-next" data-last="Finish"&gt;Next&lt;i class="icon-arrow-right"&gt;&lt;/i&gt;&lt;/button&gt;
+	&lt;div class=&quot;actions&quot;&gt;
+		&lt;button class=&quot;btn btn-mini btn-prev&quot;&gt; &lt;i class=&quot;icon-arrow-left&quot;&gt;&lt;/i&gt;Prev&lt;/button&gt;
+		&lt;button class=&quot;btn btn-mini btn-next&quot; data-last=&quot;Finish&quot;&gt;Next&lt;i class=&quot;icon-arrow-right&quot;&gt;&lt;/i&gt;&lt;/button&gt;
 	&lt;/div&gt;
 &lt;/div&gt;
-&lt;div class="step-content"&gt;
-	&lt;div class="step-pane active" id="step1"&gt;This is step 1&lt;/div&gt;
-	&lt;div class="step-pane" id="step2"&gt;This is step 2&lt;/div&gt;
-	&lt;div class="step-pane" id="step3"&gt;This is step 3&lt;/div&gt;
-	&lt;div class="step-pane" id="step4"&gt;This is step 4&lt;/div&gt;
-	&lt;div class="step-pane" id="step5"&gt;This is step 5&lt;/div&gt;
+&lt;div class=&quot;step-content&quot;&gt;
+	&lt;div class=&quot;step-pane active&quot; id=&quot;step1&quot;&gt;This is step 1&lt;/div&gt;
+	&lt;div class=&quot;step-pane&quot; id=&quot;step2&quot;&gt;This is step 2&lt;/div&gt;
+	&lt;div class=&quot;step-pane&quot; id=&quot;step3&quot;&gt;This is step 3&lt;/div&gt;
+	&lt;div class=&quot;step-pane&quot; id=&quot;step4&quot;&gt;This is step 4&lt;/div&gt;
+	&lt;div class=&quot;step-pane&quot; id=&quot;step5&quot;&gt;This is step 5&lt;/div&gt;
 &lt;/div&gt;
 </pre>
 		</div>
