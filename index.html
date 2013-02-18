@@ -395,7 +395,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 <div class="hero-unit">
 	<p class="title"><img src="https://s3.amazonaws.com/fuelux/logo-gray.png" width="600" height="122" alt="Fuel UX">
-		Version 2.2.1</p>
+		Version 2.3.0</p>
 
 	<p>Fuel UX extends Twitter Bootstrap with additional lightweight JavaScript controls.
 		Other benefits include easy installation into web projects, integrated scripts for customizing Bootstrap and
@@ -1858,7 +1858,8 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 				</tr>
 				<tr>
 					<td>stepclick</td>
-					<td>This event is fired when a completed step is clicked.</td>
+					<td>This event is fired when a completed step is clicked. Use
+						<code>event.preventDefault</code> to cancel the event.</td>
 				</tr>
 				</tbody>
 			</table>
