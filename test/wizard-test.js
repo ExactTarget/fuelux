@@ -122,10 +122,10 @@ require(['jquery', 'fuelux/wizard'], function ($) {
 		equal(index, 1, 'step not changed');
 	});
 
-	test("should suppress stepClick event", function () {
+	test("should suppress stepclick event", function () {
 		var eventFired = false;
 
-		var $wizard = $(html).wizard().on('stepClick', function (evt, data) {
+		var $wizard = $(html).wizard().on('stepclick', function (evt, data) {
 			eventFired = true;
 			return evt.preventDefault(); // prevent action
 		});
@@ -138,7 +138,7 @@ require(['jquery', 'fuelux/wizard'], function ($) {
 
 		var index = $wizard.wizard('selectedItem').step;
 
-		equal(eventFired, true, 'stepClick event fired');
+		equal(eventFired, true, 'stepclick event fired');
 		equal(index, 2, 'step not changed');
 	});
 

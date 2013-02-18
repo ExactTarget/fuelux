@@ -3956,7 +3956,7 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 
 			var index = $('.steps li').index(li);
 
-			var evt = $.Event('stepClick');
+			var evt = $.Event('stepclick');
 			this.$element.trigger(evt, {step: index + 1});
 			if (evt.isDefaultPrevented()) return;
 
