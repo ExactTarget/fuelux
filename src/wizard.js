@@ -86,6 +86,11 @@ define(function (require) {
 			var li = $(e.currentTarget);
 
 			var index = $('.steps li').index(li);
+
+			var evt = $.Event('stepclick');
+			this.$element.trigger(evt, {step: index + 1});
+			if (evt.isDefaultPrevented()) return;
+
 			this.currentStep = (index + 1);
 			this.setState();
 		},

@@ -21,6 +21,7 @@ define(function(require) {
 		this.$footerchildren = this.$footer.children().show().css('visibility', 'hidden');
 		this.$topheader = this.$element.find('thead th');
 		this.$searchcontrol = this.$element.find('.search');
+		this.$filtercontrol = this.$element.find('.filter');
 		this.$pagesize = this.$element.find('.grid-pagesize');
 		this.$pageinput = this.$element.find('.grid-pager input');
 		this.$pagedropdown = this.$element.find('.grid-pager .dropdown-menu');
@@ -35,14 +36,27 @@ define(function(require) {
 		this.$colheader = $('<tr>').appendTo(this.$thead);
 
 		this.options = $.extend(true, {}, $.fn.datagrid.defaults, options);
-		this.options.dataOptions.pageSize = parseInt(this.$pagesize.val(), 10);
+
+		if(this.$pagesize.hasClass('select')) {
+			this.options.dataOptions.pageSize = parseInt(this.$pagesize.select('selectedItem').value, 10);
+		} else {
+			this.options.dataOptions.pageSize = parseInt(this.$pagesize.val(), 10);
+		}
+
 		this.columns = this.options.dataSource.columns();
 
 		this.$nextpagebtn.on('click', $.proxy(this.next, this));
 		this.$prevpagebtn.on('click', $.proxy(this.previous, this));
 		this.$searchcontrol.on('searched cleared', $.proxy(this.searchChanged, this));
+		this.$filtercontrol.on('changed', $.proxy(this.filterChanged, this));
 		this.$colheader.on('click', 'th', $.proxy(this.headerClicked, this));
-		this.$pagesize.on('change', $.proxy(this.pagesizeChanged, this));
+
+		if(this.$pagesize.hasClass('select')) {
+			this.$pagesize.on('changed', $.proxy(this.pagesizeChanged, this));
+		} else {
+			this.$pagesize.on('change', $.proxy(this.pagesizeChanged, this));
+		}
+
 		this.$pageinput.on('change', $.proxy(this.pageChanged, this));
 
 		this.renderColumns();
@@ -170,8 +184,13 @@ define(function(require) {
 			this.renderData();
 		},
 
-		pagesizeChanged: function (e) {
-			this.options.dataOptions.pageSize = parseInt($(e.target).val(), 10);
+		pagesizeChanged: function (e, pageSize) {
+			if(pageSize) {
+				this.options.dataOptions.pageSize = parseInt(pageSize.value, 10);
+			} else {
+				this.options.dataOptions.pageSize = parseInt($(e.target).val(), 10);
+			}
+
 			this.options.dataOptions.pageIndex = 0;
 			this.renderData();
 		},
@@ -184,6 +203,11 @@ define(function(require) {
 		searchChanged: function (e, search) {
 			this.options.dataOptions.search = search;
 			this.options.dataOptions.pageIndex = 0;
+			this.renderData();
+		},
+
+		filterChanged: function (e, filter) {
+			this.options.dataOptions.filter = filter;
 			this.renderData();
 		},
 
