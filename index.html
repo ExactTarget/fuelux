@@ -345,7 +345,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 			var item = $('#MyWizard').wizard('selectedItem');
 			console.log(item.step);
 		});
-		$('#MyWizard').on('stepClick', function(e, data) {
+		$('#MyWizard').on('stepclick', function(e, data) {
 			console.log('step' + data.step + ' clicked');
 			if(data.step===1) {
 				// return e.preventDefault();
@@ -1828,7 +1828,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 					<td>This event is fired when the next button is clicked on the last step of the wizard.</td>
 				</tr>
 				<tr>
-					<td>stepClick</td>
+					<td>stepclick</td>
 					<td>This event is fired when a completed step is clicked.</td>
 				</tr>
 				</tbody>
