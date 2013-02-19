@@ -36,11 +36,15 @@
 				// SEARCHING
 				if (options.search) {
 					data = _.filter(data, function (item) {
-						for (var prop in item) {
-							if (!item.hasOwnProperty(prop)) continue;
-							if (~item[prop].toString().toLowerCase().indexOf(options.search.toLowerCase())) return true;
-						}
-						return false;
+						var match = false;
+
+						_.each(item, function (prop) {
+							if (_.isString(prop) || _.isFinite(prop)) {
+								if (prop.toString().toLowerCase().indexOf(options.search.toLowerCase()) !== -1) match = true;
+							}
+						});
+
+						return match;
 					});
 				}
 
