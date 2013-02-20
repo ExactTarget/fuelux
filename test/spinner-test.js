@@ -30,9 +30,16 @@ require(['jquery', 'fuelux/spinner'], function($) {
 		//returning default value
 		equal($spinner.spinner('value'), 1, 'spinner returns selected item');
 
-		//set value
+		//set number value
 		$spinner.spinner('value',2);
-		equal($spinner.spinner('value'), 2, 'spinner sets value');
+		equal($spinner.spinner('value'), 2, 'spinner sets number value');
+
+		//set numeric string value
+		$spinner.spinner('value','2.1');
+		equal($spinner.spinner('value'), 2.1, 'spinner sets floating point numeric string value');
+
+		$spinner.spinner('value','2');
+		equal($spinner.spinner('value'), 2, 'spinner sets integer numeric string value');
 
 		//disable
 		$spinner.spinner('disable');
@@ -45,7 +52,7 @@ require(['jquery', 'fuelux/spinner'], function($) {
 		//change
 		$spinner.spinner('value','b2');
 		$spinner.spinner('change');
-		equal($spinner.spinner('value'), 2, 'spinner change working for numbers only');
+		equal($spinner.spinner('value'), 2, 'spinner change not working for alpha strings');
 
 		//increment positive
 		$spinner.spinner('step',true);
