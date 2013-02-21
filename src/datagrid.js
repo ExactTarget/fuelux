@@ -196,7 +196,16 @@ define(function(require) {
 		},
 
 		pageChanged: function (e) {
-			this.options.dataOptions.pageIndex = parseInt($(e.target).val(), 10) - 1;
+			var pageRequested = parseInt($(e.target).val(), 10);
+
+			var dataRowsAvailable = parseInt(this.$countlabel.text(),10);
+			dataRowsAvailable = isNaN(dataRowsAvailable) ? 1 : dataRowsAvailable;
+			
+			var maxPages = Math.ceil(dataRowsAvailable / this.options.dataOptions.pageSize);
+		
+			this.options.dataOptions.pageIndex = 
+				(pageRequested > maxPages) ? maxPages - 1 : pageRequested - 1;
+
 			this.renderData();
 		},
 
