@@ -197,11 +197,8 @@ define(function(require) {
 
 		pageChanged: function (e) {
 			var pageRequested = parseInt($(e.target).val(), 10);
-
-			var dataRowsAvailable = parseInt(this.$countlabel.text(),10);
-			dataRowsAvailable = isNaN(dataRowsAvailable) ? 1 : dataRowsAvailable;
-			
-			var maxPages = Math.ceil(dataRowsAvailable / this.options.dataOptions.pageSize);
+			pageRequested = (isNaN(pageRequested)) ? pageRequested = 1 : pageRequested;
+			var maxPages = this.$pageslabel.text();
 		
 			this.options.dataOptions.pageIndex = 
 				(pageRequested > maxPages) ? maxPages - 1 : pageRequested - 1;
