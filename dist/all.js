@@ -2911,7 +2911,13 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 		},
 
 		pageChanged: function (e) {
-			this.options.dataOptions.pageIndex = parseInt($(e.target).val(), 10) - 1;
+			var pageRequested = parseInt($(e.target).val(), 10);
+			pageRequested = (isNaN(pageRequested)) ? 1 : pageRequested;
+			var maxPages = this.$pageslabel.text();
+		
+			this.options.dataOptions.pageIndex = 
+				(pageRequested > maxPages) ? maxPages - 1 : pageRequested - 1;
+
 			this.renderData();
 		},
 
