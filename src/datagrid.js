@@ -197,7 +197,7 @@ define(function(require) {
 
 		pageChanged: function (e) {
 			var pageRequested = parseInt($(e.target).val(), 10);
-			pageRequested = (isNaN(pageRequested)) ? pageRequested = 1 : pageRequested;
+			pageRequested = (isNaN(pageRequested)) ? 1 : pageRequested;
 			var maxPages = this.$pageslabel.text();
 		
 			this.options.dataOptions.pageIndex = 
