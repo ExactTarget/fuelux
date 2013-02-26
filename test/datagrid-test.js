@@ -162,6 +162,40 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 		});
 	});
 
+	asyncTest("should handle page change with nonexistent page", function () {
+		var stubDataSource = new StubDataSource();
+		var $datagrid = $(datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
+
+			var $pagecontrols = $datagrid.find('.grid-pager');
+			var $pageinput = $pagecontrols.find('input');
+
+			$datagrid.one('loaded', function () {
+
+				equal(stubDataSource.options.pageIndex, 4, 'moves to last page when nonexistent page requested');
+				start();
+			});
+
+			$pageinput.val('10').change();
+		});
+	});
+
+	asyncTest("should handle page change with non-numeric page", function () {
+		var stubDataSource = new StubDataSource();
+		var $datagrid = $(datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
+
+			var $pagecontrols = $datagrid.find('.grid-pager');
+			var $pageinput = $pagecontrols.find('input');
+
+			$datagrid.one('loaded', function () {
+
+				equal(stubDataSource.options.pageIndex, 0, 'stays on current page when nonnumeric page requested');
+				start();
+			});
+
+			$pageinput.val('a').change();
+		});
+	});
+
 	asyncTest("should handle dropdown page size changes", function () {
 		var stubDataSource = new StubDataSource();
 		var $datagrid = $(datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
