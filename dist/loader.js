@@ -3804,7 +3804,8 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 		},
 
 		value: function (value) {
-			if (typeof value !== 'undefined') {
+			if (!isNaN(parseFloat(value)) && isFinite(value)) {
+				value = parseFloat(value);
 				this.options.value = value;
 				this.$input.val(value);
 				return this;
@@ -3868,6 +3869,7 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 	});
 
 });
+
 /*
  * Fuel UX Select
  * https://github.com/ExactTarget/fuelux
