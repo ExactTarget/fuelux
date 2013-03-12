@@ -6,7 +6,7 @@
  * Licensed under the MIT license.
  */
 
-define(function(require) {
+define(function (require) {
 
 	var $ = require('jquery');
 
@@ -37,7 +37,7 @@ define(function(require) {
 
 		this.options = $.extend(true, {}, $.fn.datagrid.defaults, options);
 
-		if(this.$pagesize.hasClass('select')) {
+		if (this.$pagesize.hasClass('select')) {
 			this.options.dataOptions.pageSize = parseInt(this.$pagesize.select('selectedItem').value, 10);
 		} else {
 			this.options.dataOptions.pageSize = parseInt(this.$pagesize.val(), 10);
@@ -51,7 +51,7 @@ define(function(require) {
 		this.$filtercontrol.on('changed', $.proxy(this.filterChanged, this));
 		this.$colheader.on('click', 'th', $.proxy(this.headerClicked, this));
 
-		if(this.$pagesize.hasClass('select')) {
+		if (this.$pagesize.hasClass('select')) {
 			this.$pagesize.on('changed', $.proxy(this.pagesizeChanged, this));
 		} else {
 			this.$pagesize.on('change', $.proxy(this.pagesizeChanged, this));
@@ -145,7 +145,9 @@ define(function(require) {
 					rowHTML += '<tr>';
 					$.each(self.columns, function (index, column) {
 						rowHTML += '<td';
-						if (column.class) rowHTML += ' class="' + column.class + '"';
+						if (column.cssClass) {
+							rowHTML += ' class="' + column.cssClass + '"';
+						}
 						rowHTML += '>' + row[column.property] + '</td>';
 					});
 					rowHTML += '</tr>';
@@ -187,7 +189,7 @@ define(function(require) {
 		},
 
 		pagesizeChanged: function (e, pageSize) {
-			if(pageSize) {
+			if (pageSize) {
 				this.options.dataOptions.pageSize = parseInt(pageSize.value, 10);
 			} else {
 				this.options.dataOptions.pageSize = parseInt($(e.target).val(), 10);
@@ -201,8 +203,8 @@ define(function(require) {
 			var pageRequested = parseInt($(e.target).val(), 10);
 			pageRequested = (isNaN(pageRequested)) ? 1 : pageRequested;
 			var maxPages = this.$pageslabel.text();
-		
-			this.options.dataOptions.pageIndex = 
+
+			this.options.dataOptions.pageIndex =
 				(pageRequested > maxPages) ? maxPages - 1 : pageRequested - 1;
 
 			this.renderData();

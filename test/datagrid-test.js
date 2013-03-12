@@ -41,6 +41,7 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 			equal($testcells.length, 3, 'rows have three columns');
 			equal($testcells.eq(0).html(), 'M', 'column 1 data was rendered');
 			equal($testcells.eq(1).html(), 'N', 'column 2 data was rendered');
+			ok($testcells.eq(1).hasClass('column-two'), 'column 2 has requested class');
 			equal($testcells.eq(2).html(), 'O', 'column 3 data was rendered');
 
 			var $status = $datagrid.find('.grid-controls span:first');
@@ -323,7 +324,8 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 		}, {
 			property: 'property2',
 			label: 'Property Two',
-			sortable: true
+			sortable: true,
+			cssClass: 'column-two'
 		}, {
 			property: 'property3',
 			label: 'Property Three',
