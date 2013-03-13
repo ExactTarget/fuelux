@@ -6644,8 +6644,10 @@ textarea.span1,
 }
 
 .fuelux .tree .tree-folder .tree-folder-header .tree-folder-name {
-  position: absolute;
-  left: 29px;
+  padding-left: 29px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .fuelux .tree .tree-folder .tree-folder-content {
