@@ -3084,7 +3084,7 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 		this.$footer = this.$element.find('tfoot th');
 		this.$footerchildren = this.$footer.children().show().css('visibility', 'hidden');
 		this.$topheader = this.$element.find('thead th');
-		this.$searchcontrol = this.$element.find('.search');
+		this.$searchcontrol = this.$element.find('.datagrid-search');
 		this.$filtercontrol = this.$element.find('.filter');
 		this.$pagesize = this.$element.find('.grid-pagesize');
 		this.$pageinput = this.$element.find('.grid-pager input');
@@ -3101,10 +3101,16 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 
 		this.options = $.extend(true, {}, $.fn.datagrid.defaults, options);
 
-		if(this.$pagesize.hasClass('select')) {
+		// Shim until v3 -- account for FuelUX select or native select for page size:
+		if (this.$pagesize.hasClass('select')) {
 			this.options.dataOptions.pageSize = parseInt(this.$pagesize.select('selectedItem').value, 10);
 		} else {
 			this.options.dataOptions.pageSize = parseInt(this.$pagesize.val(), 10);
+		}
+
+		// Shim until v3 -- account for older search class:
+		if (this.$searchcontrol.length <= 0) {
+			this.$searchcontrol = this.$element.find('.search');
 		}
 
 		this.columns = this.options.dataSource.columns();
