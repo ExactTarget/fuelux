@@ -38,8 +38,13 @@ define(['require','jquery'],function (require) {
 		this.options = $.extend(true, {}, $.fn.datagrid.defaults, options);
 
 		if (this.$pagesize.hasClass('select')) {
+			this.$pagesize.select('selectByValue', this.options.dataOptions.pageSize);
 			this.options.dataOptions.pageSize = parseInt(this.$pagesize.select('selectedItem').value, 10);
 		} else {
+			var pageSize = this.options.dataOptions.pageSize;
+			this.$pagesize.find('option').filter(function() {
+				return $(this).text() === pageSize.toString();
+			}).attr('selected', true);
 			this.options.dataOptions.pageSize = parseInt(this.$pagesize.val(), 10);
 		}
 
