@@ -6160,6 +6160,14 @@ textarea.span1,
   position: fixed;
 }
 
+.fuelux .form-inline .checkbox-custom {
+  padding-left: 20px;
+}
+
+.fuelux .form-inline .checkbox-custom .checkbox {
+  padding-left: 16px;
+}
+
 .fuelux .checkbox-custom input[type=checkbox] {
   display: none;
 }

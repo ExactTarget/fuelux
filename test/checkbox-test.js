@@ -57,13 +57,16 @@ require(['jquery', 'fuelux/checkbox'], function ($) {
 	});
 
 	test("should check/uncheck checkbox", function () {
-		var $chk1 = $(html).find('#chk1');
+		var $fixture = $(html).appendTo('#qunit-fixture');
+		var $chk1 = $fixture.find('#chk1');
 
 		equal($chk1.is(':checked'), true, 'checked');
 		$chk1.checkbox('toggle');
 		equal($chk1.is(':checked'), false, 'unchecked');
 		$chk1.checkbox('toggle');
 		equal($chk1.is(':checked'), true, 'checked');
+
+		$fixture.remove();
 	});
 
 });
