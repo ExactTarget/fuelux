@@ -6272,13 +6272,14 @@ textarea.span1,
 }
 
 .fuelux .datagrid thead .sorted {
+  padding-right: 30px;
   color: #333333;
   text-shadow: 'none';
   background-color: #f1f1f1;
-  background-image: -moz-linear-gradient(top, #f9f9f9, #e5e5e5);
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f9f9f9), to(#e5e5e5));
   background-image: -webkit-linear-gradient(top, #f9f9f9, #e5e5e5);
   background-image: -o-linear-gradient(top, #f9f9f9, #e5e5e5);
+  background-image: -moz-linear-gradient(top, #f9f9f9, #e5e5e5);
   background-image: linear-gradient(to bottom, #f9f9f9, #e5e5e5);
   background-repeat: repeat-x;
   border-color: #e5e5e5 #e5e5e5 #bebebe;
@@ -6289,6 +6290,7 @@ textarea.span1,
 .fuelux .datagrid thead .sorted i {
   float: right;
   margin-top: 2px;
+  margin-right: -22px;
 }
 
 .fuelux .datagrid thead .sortable {
