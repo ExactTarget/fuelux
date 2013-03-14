@@ -6272,6 +6272,7 @@ textarea.span1,
 }
 
 .fuelux .datagrid thead .sorted {
+  padding-right: 30px;
   color: #333333;
   text-shadow: 'none';
   background-color: #f1f1f1;
@@ -6289,6 +6290,7 @@ textarea.span1,
 .fuelux .datagrid thead .sorted i {
   float: right;
   margin-top: 2px;
+  margin-right: -22px;
 }
 
 .fuelux .datagrid thead .sortable {
@@ -6652,8 +6654,10 @@ textarea.span1,
 }
 
 .fuelux .tree .tree-folder .tree-folder-header .tree-folder-name {
-  position: absolute;
-  left: 29px;
+  padding-left: 29px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .fuelux .tree .tree-folder .tree-folder-content {
