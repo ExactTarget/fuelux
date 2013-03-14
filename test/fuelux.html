@@ -9,14 +9,19 @@
 	<script src="../lib/require.js"></script>
 
 	<script>
-		require.config({
-			baseUrl: '../src',
-			paths: {
-				jquery: '../lib/jquery',
-				bootstrap: '../lib/bootstrap/js',
-				fuelux: '../src'
-			}
-		});
+		(function () {
+			var jqverParam = location.search.match(/[?&]jquery=(.*?)(?=&|$)/);
+			var jqver = (jqverParam) ? jqverParam[1] : '1.9.1';
+
+			require.config({
+				baseUrl: '../src',
+				paths: {
+					jquery: '../lib/jquery-' + jqver + '.min',
+					bootstrap: '../lib/bootstrap/js',
+					fuelux: '../src'
+				}
+			});
+		})();
 	</script>
 
 	<script src="fuelux-test.js"></script>

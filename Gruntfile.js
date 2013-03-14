@@ -35,11 +35,18 @@ module.exports = function (grunt) {
 			}
 		},
 		qunit: {
-			tests: ['test/**/*.html']
+			simple: ['test/**/*.html'],
+			full: {
+				options: {
+					urls: ['1.9.1', '1.8.3', '1.7.2'].map(function (ver) {
+						return 'http://localhost:<%= connect.server.options.port %>/test/fuelux.html?jquery=' + ver;
+					})
+				}
+			}
 		},
 		watch: {
 			files: ['Gruntfile.js', 'lib/**', 'src/**', 'test/**'],
-			tasks: ['jshint', 'qunit', 'recess']
+			tasks: ['quicktest', 'quickcss']
 		},
 		connect: {
 			server: {
@@ -92,7 +99,7 @@ module.exports = function (grunt) {
 					paths: {
 						almond: '../lib/almond',
 						bootstrap: '../lib/bootstrap/js',
-						jquery: '../lib/jquery',
+						jquery: '../lib/jquery-1.9.1.min',
 						fuelux: '../dist'
 					},
 					modules: [
@@ -176,8 +183,13 @@ module.exports = function (grunt) {
 		}
 	});
 
-	// Default task.
-	grunt.registerTask('default', ['jshint', 'qunit', 'requirejs', 'recess', 'copy:images', 'clean:dist', 'uglify', 'copy:zipsrc', 'compress', 'clean:zipsrc']);
-	grunt.registerTask('devserver', ['jshint', 'qunit', 'recess', 'connect', 'watch']); // development server
+	grunt.registerTask('quicktest', ['jshint', 'qunit:simple']);
+	grunt.registerTask('fulltest', ['connect', 'jshint', 'qunit:full']);
+
+	grunt.registerTask('quickcss', ['recess:compile', 'recess:compile_responsive']);
+	grunt.registerTask('fullcss', ['quickcss', 'recess:compress', 'recess:compress_responsive']);
+
+	grunt.registerTask('default', ['fulltest', 'requirejs', 'fullcss', 'copy:images', 'clean:dist', 'uglify', 'copy:zipsrc', 'compress', 'clean:zipsrc']);
+	grunt.registerTask('devserver', ['quicktest', 'quickcss', 'connect', 'watch']);
 
 };
