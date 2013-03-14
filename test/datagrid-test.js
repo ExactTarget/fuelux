@@ -237,7 +237,7 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 		var stubDataSource = new StubDataSource();
 		var $datagrid = $(datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
 
-			var $searchcontrol = $datagrid.find('.search');
+			var $searchcontrol = $datagrid.find('.datagrid-search');
 
 			equal(stubDataSource.options.search, undefined, 'search is undefined by default');
 
@@ -361,7 +361,7 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 				'<th>' +
 					'<span class="datagrid-header-title">Geographic Data Sample</span>' +
 					'<div class="datagrid-header-left">' +
-						'<div class="input-append search">' +
+						'<div class="input-append search datagrid-search">' +
 							'<input type="text" class="input-medium" placeholder="Search">' +
 							'<button class="btn"><i class="icon-search"></i></button>' +
 						'</div>' +
@@ -433,7 +433,7 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 				'<th>' +
 					'<span class="datagrid-header-title">Geographic Data Sample</span>' +
 					'<div class="datagrid-header-left">' +
-						'<div class="input-append search">' +
+						'<div class="input-append search datagrid-search">' +
 							'<input type="text" class="input-medium" placeholder="Search">' +
 							'<button class="btn"><i class="icon-search"></i></button>' +
 						'</div>' +
