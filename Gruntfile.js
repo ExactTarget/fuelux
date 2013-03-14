@@ -3,11 +3,13 @@ module.exports = function (grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-compress');
+	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-recess');
 
 	// Project configuration.
@@ -36,8 +38,15 @@ module.exports = function (grunt) {
 			tests: ['test/**/*.html']
 		},
 		watch: {
-			files: ['grunt.js', 'lib/**', 'src/**', 'test/**'],
-			tasks: 'lint qunit recess'
+			files: ['Gruntfile.js', 'lib/**', 'src/**', 'test/**'],
+			tasks: ['jshint', 'qunit', 'recess']
+		},
+		connect: {
+			server: {
+				options: {
+					port: 8000
+				}
+			}
 		},
 		jshint: {
 			options: {
@@ -59,7 +68,7 @@ module.exports = function (grunt) {
 					require: true
 				}
 			},
-			source: ['grunt.js', 'src/**/*.js'],
+			source: ['Gruntfile.js', 'src/**/*.js'],
 			tests: {
 				options: {
 					undef: false,
@@ -169,6 +178,6 @@ module.exports = function (grunt) {
 
 	// Default task.
 	grunt.registerTask('default', ['jshint', 'qunit', 'requirejs', 'recess', 'copy:images', 'clean:dist', 'uglify', 'copy:zipsrc', 'compress', 'clean:zipsrc']);
-	grunt.registerTask('devserver', ['jshint', 'qunit', 'recess', 'server', 'watch']); // development server
+	grunt.registerTask('devserver', ['jshint', 'qunit', 'recess', 'connect', 'watch']); // development server
 
 };
