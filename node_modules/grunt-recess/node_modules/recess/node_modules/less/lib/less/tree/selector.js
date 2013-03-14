@@ -2,20 +2,22 @@
 
 tree.Selector = function (elements) {
     this.elements = elements;
-    if (this.elements[0].combinator.value === "") {
-        this.elements[0].combinator.value = ' ';
-    }
 };
 tree.Selector.prototype.match = function (other) {
-    var len  = this.elements.length,
-        olen = other.elements.length,
-        max  = Math.min(len, olen);
+    var elements = this.elements,
+        len = elements.length,
+        oelements, olen, max, i;
 
-    if (len < olen) {
+    oelements = other.elements.slice(
+        (other.elements.length && other.elements[0].value === "&") ? 1 : 0);
+    olen = oelements.length;
+    max = Math.min(len, olen)
+
+    if (olen === 0 || len < olen) {
         return false;
     } else {
-        for (var i = 0; i < max; i++) {
-            if (this.elements[i].value !== other.elements[i].value) {
+        for (i = 0; i < max; i++) {
+            if (elements[i].value !== oelements[i].value) {
                 return false;
             }
         }
@@ -29,14 +31,22 @@ tree.Selector.prototype.eval = function (env) {
 };
 tree.Selector.prototype.toCSS = function (env) {
     if (this._css) { return this._css }
-
-    return this._css = this.elements.map(function (e) {
+    
+    if (this.elements[0].combinator.value === "") {
+        this._css = ' ';
+    } else {
+        this._css = '';
+    }
+    
+    this._css += this.elements.map(function (e) {
         if (typeof(e) === 'string') {
             return ' ' + e.trim();
         } else {
             return e.toCSS(env);
         }
     }).join('');
+    
+    return this._css;
 };
 
 })(require('../tree'));

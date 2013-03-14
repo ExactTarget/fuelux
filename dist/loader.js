@@ -3053,7 +3053,7 @@ define('fuelux/combobox',['require','jquery','./util'],function (require) {
 			});
 		});
 
-		$('body').on('mousedown.combobox.data-api', '.combobox', function (e) {
+		$('body').on('mousedown.combobox.data-api', '.combobox', function () {
 			var $this = $(this);
 			if ($this.data('combobox')) return;
 			$this.combobox($this.data());
@@ -3445,7 +3445,7 @@ define('fuelux/pillbox',['require','jquery'],function(require) {
 	// PILLBOX DATA-API
 
 	$(function () {
-		$('body').on('mousedown.pillbox.data-api', '.pillbox', function (e) {
+		$('body').on('mousedown.pillbox.data-api', '.pillbox', function () {
 			var $this = $(this);
 			if ($this.data('pillbox')) return;
 			$this.pillbox($this.data());
@@ -3491,7 +3491,7 @@ define('fuelux/radio',['require','jquery'],function (require) {
 
 		constructor: Radio,
 
-		setState: function ($radio, resetGroupState) {
+		setState: function ($radio) {
 			var checked = $radio.is(':checked');
 			var disabled = $radio.is(':disabled');
 
@@ -3884,7 +3884,7 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 	// SPINNER DATA-API
 
 	$(function () {
-		$('body').on('mousedown.spinner.data-api', '.spinner', function (e) {
+		$('body').on('mousedown.spinner.data-api', '.spinner', function () {
 			var $this = $(this);
 			if ($this.data('spinner')) return;
 			$this.spinner($this.data());
@@ -4054,7 +4054,7 @@ define('fuelux/select',['require','jquery','./util'],function(require) {
             });
         });
 
-        $('body').on('mousedown.select.data-api', '.select', function (e) {
+        $('body').on('mousedown.select.data-api', '.select', function () {
             var $this = $(this);
             if ($this.data('select')) return;
             $this.select($this.data());
@@ -4360,7 +4360,7 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 			}
 		},
 
-		selectedItem: function (val) {
+		selectedItem: function () {
 			return {
 				step: this.currentStep
 			};

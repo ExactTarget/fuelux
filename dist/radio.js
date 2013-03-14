@@ -34,7 +34,7 @@ define(['require','jquery'],function (require) {
 
 		constructor: Radio,
 
-		setState: function ($radio, resetGroupState) {
+		setState: function ($radio) {
 			var checked = $radio.is(':checked');
 			var disabled = $radio.is(':disabled');
 

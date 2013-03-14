@@ -191,7 +191,7 @@ define(['require','jquery'],function(require) {
 	// SPINNER DATA-API
 
 	$(function () {
-		$('body').on('mousedown.spinner.data-api', '.spinner', function (e) {
+		$('body').on('mousedown.spinner.data-api', '.spinner', function () {
 			var $this = $(this);
 			if ($this.data('spinner')) return;
 			$this.spinner($this.data());

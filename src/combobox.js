@@ -168,7 +168,7 @@ define(function (require) {
 			});
 		});
 
-		$('body').on('mousedown.combobox.data-api', '.combobox', function (e) {
+		$('body').on('mousedown.combobox.data-api', '.combobox', function () {
 			var $this = $(this);
 			if ($this.data('combobox')) return;
 			$this.combobox($this.data());

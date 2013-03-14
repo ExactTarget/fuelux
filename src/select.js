@@ -159,7 +159,7 @@ define(function(require) {
             });
         });
 
-        $('body').on('mousedown.select.data-api', '.select', function (e) {
+        $('body').on('mousedown.select.data-api', '.select', function () {
             var $this = $(this);
             if ($this.data('select')) return;
             $this.select($this.data());

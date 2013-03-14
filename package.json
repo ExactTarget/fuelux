@@ -29,9 +29,15 @@
     "test": "grunt qunit"
   },
   "devDependencies": {
-    "grunt": "~0.3.11",
-    "grunt-contrib": "~0.1.0",
-    "grunt-recess": "~0.1.0"
+    "grunt-contrib-clean": "~0.4.0",
+    "grunt-contrib-copy": "~0.4.0",
+    "grunt-contrib-requirejs": "~0.4.0",
+    "grunt-contrib-compress": "~0.4.2",
+    "grunt-contrib-uglify": "~0.1.2",
+    "grunt-recess": "~0.3.1",
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.2.0",
+    "grunt-contrib-qunit": "~0.2.0"
   },
   "keywords": [
     "fuelux",
@@ -43,7 +49,6 @@
     "baseDir": "lib",
     "url": "https://raw.github.com/ExactTarget/fuelux/{version}/dist/fuelux.zip",
     "type": "directory",
-    "dependencies": {
-    }
+    "dependencies": {}
   }
 }

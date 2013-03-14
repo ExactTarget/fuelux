@@ -1,10 +1,5 @@
 /* Fat's blog styles */
 
-@font-face {
-  font-family: "Mistral";
-  src: url("/fonts/Mistral.ttf");
-}
-
 html,
 body {
   overflow: auto;
