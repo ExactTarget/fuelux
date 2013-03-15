@@ -1,7 +1,9 @@
 language: node_js
 node_js:
-  - 0.8
+- 0.8
 before_script:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - "npm install -g grunt-cli"
+- npm install -g grunt-cli
+env:
+    global:
+      - secure: "DyKLN9WdrH5LVQ3RMxtt9PJhxmtIABABRHj/mRvxD0BT5kN9tZjcYq6nLvX/\nwqkTVnGGUZrKPBpZVjStKcseFlgXyaoXchKZR1ExT2Jzu3yCi6ZGPDAyMbNf\nRtxrJh1RwE50y4yzW48Dy87iEWogK6qrTF4ybZp4c5xmy3+Fblo="
+      - secure: "J+A3lVyAP9JTZV6IpyOaFw81ui+d8IapsXa2MVy99JaKseJq3bGbatLrU4/z\n7AEkwV6fHWCEHzuwLMvfembqTbxg+rugvS1gXhtv1d1nmgk3xgLcf6huh13A\nEaHmeH9Qfh6qas+pg8dnapHtgGYA01X9Byz7WzD8lukya2b8T04="

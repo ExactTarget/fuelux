@@ -11,6 +11,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-recess');
+	grunt.loadNpmTasks('grunt-saucelabs');
 
 	// Project configuration.
 	grunt.initConfig({
@@ -34,14 +35,31 @@ module.exports = function (grunt) {
 				}
 			}
 		},
+		testUrls: ['1.9.1', '1.8.3', '1.7.2'].map(function (ver) {
+			return 'http://localhost:<%= connect.server.options.port %>/test/fuelux.html?jquery=' + ver;
+		}),
 		qunit: {
 			simple: ['test/**/*.html'],
 			full: {
 				options: {
-					urls: ['1.9.1', '1.8.3', '1.7.2'].map(function (ver) {
-						return 'http://localhost:<%= connect.server.options.port %>/test/fuelux.html?jquery=' + ver;
-					})
+					urls: '<%= testUrls %>'
 				}
+			}
+		},
+		'saucelabs-qunit': {
+			all: {
+				urls: '<%= testUrls %>',
+				concurrency: '3',
+				browsers: [
+					/*{ browserName: 'internet explorer', platform: 'Windows 2008', version: '9' },*/
+					{ browserName: 'firefox', platform: 'Windows 2012', version: '19' },
+					{ browserName: 'firefox', platform: 'Mac 10.6', version: '19' },
+					{ browserName: 'safari', platform: 'Mac 10.8', version: '6' },
+					{ browserName: 'chrome', platform: 'Windows 2008' },
+					{ browserName: 'chrome', platform: 'Mac 10.8' },
+					{ browserName: 'iphone', platform: 'Mac 10.8', version: '6' },
+					{ browserName: 'ipad', platform: 'Mac 10.8', version: '6' }
+				]
 			}
 		},
 		watch: {
