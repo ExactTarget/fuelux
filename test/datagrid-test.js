@@ -45,7 +45,8 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 			equal($testcells.eq(2).html(), 'O', 'column 3 data was rendered');
 
 			var $status = $datagrid.find('.grid-controls span:first');
-			equal($status.text(), '1 - 2 of 3 items', 'status is correctly displayed');
+			equal($status.text().replace(/\s+/g, ''), '1-2of3items', 'status is correctly displayed');
+			// ignores whitespace due to IE issue only affecting the unit test
 
 			var $page = $datagrid.find('.grid-pager input');
 			equal($page.val(), '1', 'page is correctly displayed');
