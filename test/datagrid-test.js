@@ -4,18 +4,18 @@
 
 require(['jquery', 'fuelux/datagrid'], function($) {
 
-	module("Fuel UX datagrid");
+	module("Fuel UX datagrid", { setup: testSetup });
 
 	test("should be defined on jquery object", function () {
 		ok($(document.body).datagrid, 'datagrid method is defined');
 	});
 
 	test("should return element", function () {
-		ok($(document.body).datagrid({ dataSource: emptyDataSource })[0] === document.body, 'document.body returned');
+		ok($(document.body).datagrid({ dataSource: this.emptyDataSource })[0] === document.body, 'document.body returned');
 	});
 
 	asyncTest("should render data source", function () {
-		var $datagrid = $(datagridHTML).datagrid({ dataSource: new StubDataSource() }).on('loaded', function () {
+		var $datagrid = $(this.datagridHTML).datagrid({ dataSource: new this.StubDataSource() }).on('loaded', function () {
 
 			var $topHeader = $datagrid.find('thead tr:first').find('th');
 			equal($topHeader.attr('colspan'), '3', 'header spans all columns');
@@ -65,7 +65,7 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 	});
 
 	asyncTest("should handle data source with zero records", function () {
-		var $datagrid = $(datagridHTML).datagrid({ dataSource: emptyDataSource }).on('loaded', function () {
+		var $datagrid = $(this.datagridHTML).datagrid({ dataSource: this.emptyDataSource }).on('loaded', function () {
 
 			var $datarows = $datagrid.find('tbody tr');
 			equal($datarows.length, 1, 'row for status was rendered');
@@ -82,8 +82,8 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 	});
 
 	asyncTest("should handle header clicks", function () {
-		var stubDataSource = new StubDataSource();
-		var $datagrid = $(datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
+		var stubDataSource = new this.StubDataSource();
+		var $datagrid = $(this.datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
 
 			var $columnHeaders = $datagrid.find('thead tr').eq(1).find('th');
 
@@ -122,8 +122,8 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 	});
 
 	asyncTest("should handle page changes", function () {
-		var stubDataSource = new StubDataSource();
-		var $datagrid = $(datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
+		var stubDataSource = new this.StubDataSource();
+		var $datagrid = $(this.datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
 
 			var $pagecontrols = $datagrid.find('.grid-pager');
 			var $previousbutton = $pagecontrols.find('button:first');
@@ -165,8 +165,8 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 	});
 
 	asyncTest("should handle page change with nonexistent page", function () {
-		var stubDataSource = new StubDataSource();
-		var $datagrid = $(datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
+		var stubDataSource = new this.StubDataSource();
+		var $datagrid = $(this.datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
 
 			var $pagecontrols = $datagrid.find('.grid-pager');
 			var $pageinput = $pagecontrols.find('input');
@@ -182,8 +182,8 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 	});
 
 	asyncTest("should handle page change with non-numeric page", function () {
-		var stubDataSource = new StubDataSource();
-		var $datagrid = $(datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
+		var stubDataSource = new this.StubDataSource();
+		var $datagrid = $(this.datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
 
 			var $pagecontrols = $datagrid.find('.grid-pager');
 			var $pageinput = $pagecontrols.find('input');
@@ -199,8 +199,8 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 	});
 
 	asyncTest("should handle dropdown page size changes", function () {
-		var stubDataSource = new StubDataSource();
-		var $datagrid = $(datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
+		var stubDataSource = new this.StubDataSource();
+		var $datagrid = $(this.datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
 
 			var $pagesize = $datagrid.find('.grid-pagesize');
 
@@ -217,8 +217,8 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 	});
 
 	asyncTest("should handle select element page size changes", function () {
-		var stubDataSource = new StubDataSource();
-		var $datagrid = $(datagridSelHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
+		var stubDataSource = new this.StubDataSource();
+		var $datagrid = $(this.datagridSelHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
 
 			var $pagesize = $datagrid.find('.grid-pagesize');
 
@@ -236,8 +236,8 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 	});
 
 	asyncTest("should handle search changes", function () {
-		var stubDataSource = new StubDataSource();
-		var $datagrid = $(datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
+		var stubDataSource = new this.StubDataSource();
+		var $datagrid = $(this.datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
 
 			var $searchcontrol = $datagrid.find('.datagrid-search');
 
@@ -261,8 +261,8 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 	});
 
 	asyncTest("should handle filter changes", function () {
-		var stubDataSource = new StubDataSource();
-		var $datagrid = $(datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
+		var stubDataSource = new this.StubDataSource();
+		var $datagrid = $(this.datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
 
 			var $filtercontrol = $datagrid.find('.filter');
 
@@ -279,8 +279,8 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 	});
 
 	asyncTest("should handle reload method", function () {
-		var stubDataSource = new StubDataSource();
-		var $datagrid = $(datagridHTML).datagrid({ dataSource: stubDataSource, dataOptions: { pageIndex: 1, pageSize: 10 } }).one('loaded', function () {
+		var stubDataSource = new this.StubDataSource();
+		var $datagrid = $(this.datagridHTML).datagrid({ dataSource: stubDataSource, dataOptions: { pageIndex: 1, pageSize: 10 } }).one('loaded', function () {
 
 			var dataCallCount = stubDataSource.dataCallCount;
 
@@ -296,8 +296,30 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 		});
 	});
 
-	var emptyDataSource = {
-		columns: function () {
+	function testSetup() {
+
+		this.emptyDataSource = {
+			columns: function () {
+				return [{
+					property: 'property1',
+					label: 'Property One',
+					sortable: true
+				}, {
+					property: 'property2',
+					label: 'Property Two',
+					sortable: true
+				}];
+			},
+			data: function (options, callback) {
+				setTimeout(function () {
+					callback({ data: [], start: 1, end: 0, count: 0, pages: 0, page: 1 });
+				}, 0);
+			}
+		};
+
+		this.StubDataSource = function () {};
+
+		this.StubDataSource.prototype.columns = function () {
 			return [{
 				property: 'property1',
 				label: 'Property One',
@@ -305,194 +327,174 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 			}, {
 				property: 'property2',
 				label: 'Property Two',
-				sortable: true
+				sortable: true,
+				cssClass: 'column-two'
+			}, {
+				property: 'property3',
+				label: 'Property Three',
+				sortable: false
 			}];
-		},
-		data: function (options, callback) {
+		};
+
+		this.StubDataSource.prototype.data = function (options, callback) {
+			this.dataCallCount = this.dataCallCount || 0;
+			this.dataCallCount++;
+
+			this.options = options;
+
 			setTimeout(function () {
-				callback({ data: [], start: 1, end: 0, count: 0, pages: 0, page: 1 });
+				callback({
+					data: [
+						{ property1: 'A', property2: 'B', property3: 'C' },
+						{ property1: 'D', property2: 'E', property3: 'F' },
+						{ property1: 'G', property2: 'H', property3: 'I' },
+						{ property1: 'J', property2: 'K', property3: 'L' },
+						{ property1: 'M', property2: 'N', property3: 'O' },
+						{ property1: 'P', property2: 'Q', property3: 'R' },
+						{ property1: 'S', property2: 'T', property3: 'U' },
+						{ property1: 'V', property2: 'W', property3: 'X' }
+					],
+					start: 1, end: 2, count: 3, pages: 5, page: options.pageIndex + 1
+				});
 			}, 0);
-		}
-	};
+		};
 
-	var StubDataSource = function () {};
-
-	StubDataSource.prototype.columns = function () {
-		return [{
-			property: 'property1',
-			label: 'Property One',
-			sortable: true
-		}, {
-			property: 'property2',
-			label: 'Property Two',
-			sortable: true,
-			cssClass: 'column-two'
-		}, {
-			property: 'property3',
-			label: 'Property Three',
-			sortable: false
-		}];
-	};
-
-	StubDataSource.prototype.data = function (options, callback) {
-		this.dataCallCount = this.dataCallCount || 0;
-		this.dataCallCount++;
-
-		this.options = options;
-
-		setTimeout(function () {
-			callback({
-				data: [
-					{ property1: 'A', property2: 'B', property3: 'C' },
-					{ property1: 'D', property2: 'E', property3: 'F' },
-					{ property1: 'G', property2: 'H', property3: 'I' },
-					{ property1: 'J', property2: 'K', property3: 'L' },
-					{ property1: 'M', property2: 'N', property3: 'O' },
-					{ property1: 'P', property2: 'Q', property3: 'R' },
-					{ property1: 'S', property2: 'T', property3: 'U' },
-					{ property1: 'V', property2: 'W', property3: 'X' }
-				],
-				start: 1, end: 2, count: 3, pages: 5, page: options.pageIndex + 1
-			});
-		}, 0);
-	};
-
-	var datagridHTML = '' +
-		'<table id="MyGrid" class="table table-bordered datagrid">' +
-			'<thead>' +
-			'<tr>' +
-				'<th>' +
-					'<span class="datagrid-header-title">Geographic Data Sample</span>' +
-					'<div class="datagrid-header-left">' +
-						'<div class="input-append search datagrid-search">' +
-							'<input type="text" class="input-medium" placeholder="Search">' +
-							'<button class="btn"><i class="icon-search"></i></button>' +
+		this.datagridHTML = '' +
+			'<table id="MyGrid" class="table table-bordered datagrid">' +
+				'<thead>' +
+				'<tr>' +
+					'<th>' +
+						'<span class="datagrid-header-title">Geographic Data Sample</span>' +
+						'<div class="datagrid-header-left">' +
+							'<div class="input-append search datagrid-search">' +
+								'<input type="text" class="input-medium" placeholder="Search">' +
+								'<button class="btn"><i class="icon-search"></i></button>' +
+							'</div>' +
 						'</div>' +
-					'</div>' +
-					'<div class="datagrid-header-right">' +
-						'<div class="select filter" data-resize="auto">' +
-							'<button data-toggle="dropdown" class="btn dropdown-toggle">' +
-								'<span class="dropdown-label"></span>' +
-								'<span class="caret"></span>' +
-							'</button>' +
-							'<ul class="dropdown-menu">' +
-								'<li data-value="all" data-selected="true"><a href="#">All</a></li>' +
-								'<li data-value="lt5m"><a href="#">Population &lt; 5M</a></li>' +
-								'<li data-value="gte5m"><a href="#">Population &gt;= 5M</a></li>' +
-							'</ul>' +
-						'</div>' +
-					'</div>' +
-				'</th>' +
-			'</tr>' +
-			'</thead>' +
-			'<tfoot>' +
-			'<tr>' +
-				'<th>' +
-					'<div class="datagrid-footer-left" style="display:none;">' +
-						'<div class="grid-controls">' +
-							'<span>' +
-								'<span class="grid-start"></span> - ' +
-								'<span class="grid-end"></span> of ' +
-								'<span class="grid-count"></span>' +
-							'</span>' +
-							'<div class="select grid-pagesize" data-resize="auto">' +
+						'<div class="datagrid-header-right">' +
+							'<div class="select filter" data-resize="auto">' +
 								'<button data-toggle="dropdown" class="btn dropdown-toggle">' +
 									'<span class="dropdown-label"></span>' +
 									'<span class="caret"></span>' +
 								'</button>' +
 								'<ul class="dropdown-menu">' +
-									'<li data-value="5" data-selected="true"><a href="#">5</a></li>' +
-									'<li data-value="10"><a href="#">10</a></li>' +
-									'<li data-value="20"><a href="#">20</a></li>' +
-									'<li data-value="50"><a href="#">50</a></li>' +
-									'<li data-value="100"><a href="#">100</a></li>' +
+									'<li data-value="all" data-selected="true"><a href="#">All</a></li>' +
+									'<li data-value="lt5m"><a href="#">Population &lt; 5M</a></li>' +
+									'<li data-value="gte5m"><a href="#">Population &gt;= 5M</a></li>' +
 								'</ul>' +
 							'</div>' +
-							'<span>Per Page</span>' +
 						'</div>' +
-					'</div>' +
-					'<div class="datagrid-footer-right" style="display:none;">' +
-						'<div class="grid-pager">' +
-							'<button class="btn grid-prevpage"><i class="icon-chevron-left"></i></button>' +
-							'<span>Page</span>' +
-							'<div class="input-append dropdown combobox">' +
-								'<input class="span1" type="text">' +
-								'<button class="btn" data-toggle="dropdown"><i class="caret"></i></button>' +
-								'<ul class="dropdown-menu"></ul>' +
+					'</th>' +
+				'</tr>' +
+				'</thead>' +
+				'<tfoot>' +
+				'<tr>' +
+					'<th>' +
+						'<div class="datagrid-footer-left" style="display:none;">' +
+							'<div class="grid-controls">' +
+								'<span>' +
+									'<span class="grid-start"></span> - ' +
+									'<span class="grid-end"></span> of ' +
+									'<span class="grid-count"></span>' +
+								'</span>' +
+								'<div class="select grid-pagesize" data-resize="auto">' +
+									'<button data-toggle="dropdown" class="btn dropdown-toggle">' +
+										'<span class="dropdown-label"></span>' +
+										'<span class="caret"></span>' +
+									'</button>' +
+									'<ul class="dropdown-menu">' +
+										'<li data-value="5" data-selected="true"><a href="#">5</a></li>' +
+										'<li data-value="10"><a href="#">10</a></li>' +
+										'<li data-value="20"><a href="#">20</a></li>' +
+										'<li data-value="50"><a href="#">50</a></li>' +
+										'<li data-value="100"><a href="#">100</a></li>' +
+									'</ul>' +
+								'</div>' +
+								'<span>Per Page</span>' +
 							'</div>' +
-							'<span> of <span class="grid-pages"></span></span>' +
-							'<button class="btn grid-nextpage"><i class="icon-chevron-right"></i></button>' +
 						'</div>' +
-					'</div>' +
-				'</th>' +
-			'</tr>' +
-			'</tfoot>' +
-		'</table>';
-
-	var datagridSelHTML = '' +
-		'<table id="MyGrid" class="table table-bordered datagrid">' +
-			'<thead>' +
-			'<tr>' +
-				'<th>' +
-					'<span class="datagrid-header-title">Geographic Data Sample</span>' +
-					'<div class="datagrid-header-left">' +
-						'<div class="input-append search datagrid-search">' +
-							'<input type="text" class="input-medium" placeholder="Search">' +
-							'<button class="btn"><i class="icon-search"></i></button>' +
-						'</div>' +
-					'</div>' +
-					'<div class="datagrid-header-right">' +
-						'<div class="select filter" data-resize="auto">' +
-							'<button data-toggle="dropdown" class="btn dropdown-toggle">' +
-								'<span class="dropdown-label"></span>' +
-								'<span class="caret"></span>' +
-							'</button>' +
-							'<ul class="dropdown-menu">' +
-								'<li data-value="all" data-selected="true"><a href="#">All</a></li>' +
-								'<li data-value="lt5m"><a href="#">Population &lt; 5M</a></li>' +
-								'<li data-value="gte5m"><a href="#">Population &gt;= 5M</a></li>' +
-							'</ul>' +
-						'</div>' +
-					'</div>' +
-				'</th>' +
-			'</tr>' +
-			'</thead>' +
-			'<tfoot>' +
-			'<tr>' +
-				'<th>' +
-					'<div class="datagrid-footer-left" style="display:none;">' +
-						'<div class="grid-controls">' +
-							'<span>' +
-								'<span class="grid-start"></span> - ' +
-								'<span class="grid-end"></span> of ' +
-								'<span class="grid-count"></span>' +
-							'</span>' +
-							'<select class="grid-pagesize">' +
-								'<option>5</option>' +
-								'<option>10</option>' +
-								'<option>20</option>' +
-								'<option>50</option>' +
-								'<option>100</option>' +
-							'</select>' +
-							'<span>Per Page</span>' +
-						'</div>' +
-					'</div>' +
-					'<div class="datagrid-footer-right" style="display:none;">' +
-						'<div class="grid-pager">' +
-							'<button class="btn grid-prevpage"><i class="icon-chevron-left"></i></button>' +
-							'<span>Page</span>' +
-							'<div class="input-append dropdown combobox">' +
-								'<input class="span1" type="text">' +
-								'<button class="btn" data-toggle="dropdown"><i class="caret"></i></button>' +
-								'<ul class="dropdown-menu"></ul>' +
+						'<div class="datagrid-footer-right" style="display:none;">' +
+							'<div class="grid-pager">' +
+								'<button class="btn grid-prevpage"><i class="icon-chevron-left"></i></button>' +
+								'<span>Page</span>' +
+								'<div class="input-append dropdown combobox">' +
+									'<input class="span1" type="text">' +
+									'<button class="btn" data-toggle="dropdown"><i class="caret"></i></button>' +
+									'<ul class="dropdown-menu"></ul>' +
+								'</div>' +
+								'<span> of <span class="grid-pages"></span></span>' +
+								'<button class="btn grid-nextpage"><i class="icon-chevron-right"></i></button>' +
 							'</div>' +
-							'<span> of <span class="grid-pages"></span></span>' +
-							'<button class="btn grid-nextpage"><i class="icon-chevron-right"></i></button>' +
 						'</div>' +
-					'</div>' +
-				'</th>' +
-			'</tr>' +
-			'</tfoot>' +
-		'</table>';
+					'</th>' +
+				'</tr>' +
+				'</tfoot>' +
+			'</table>';
 
+		this.datagridSelHTML = '' +
+			'<table id="MyGrid" class="table table-bordered datagrid">' +
+				'<thead>' +
+				'<tr>' +
+					'<th>' +
+						'<span class="datagrid-header-title">Geographic Data Sample</span>' +
+						'<div class="datagrid-header-left">' +
+							'<div class="input-append search datagrid-search">' +
+								'<input type="text" class="input-medium" placeholder="Search">' +
+								'<button class="btn"><i class="icon-search"></i></button>' +
+							'</div>' +
+						'</div>' +
+						'<div class="datagrid-header-right">' +
+							'<div class="select filter" data-resize="auto">' +
+								'<button data-toggle="dropdown" class="btn dropdown-toggle">' +
+									'<span class="dropdown-label"></span>' +
+									'<span class="caret"></span>' +
+								'</button>' +
+								'<ul class="dropdown-menu">' +
+									'<li data-value="all" data-selected="true"><a href="#">All</a></li>' +
+									'<li data-value="lt5m"><a href="#">Population &lt; 5M</a></li>' +
+									'<li data-value="gte5m"><a href="#">Population &gt;= 5M</a></li>' +
+								'</ul>' +
+							'</div>' +
+						'</div>' +
+					'</th>' +
+				'</tr>' +
+				'</thead>' +
+				'<tfoot>' +
+				'<tr>' +
+					'<th>' +
+						'<div class="datagrid-footer-left" style="display:none;">' +
+							'<div class="grid-controls">' +
+								'<span>' +
+									'<span class="grid-start"></span> - ' +
+									'<span class="grid-end"></span> of ' +
+									'<span class="grid-count"></span>' +
+								'</span>' +
+								'<select class="grid-pagesize">' +
+									'<option>5</option>' +
+									'<option>10</option>' +
+									'<option>20</option>' +
+									'<option>50</option>' +
+									'<option>100</option>' +
+								'</select>' +
+								'<span>Per Page</span>' +
+							'</div>' +
+						'</div>' +
+						'<div class="datagrid-footer-right" style="display:none;">' +
+							'<div class="grid-pager">' +
+								'<button class="btn grid-prevpage"><i class="icon-chevron-left"></i></button>' +
+								'<span>Page</span>' +
+								'<div class="input-append dropdown combobox">' +
+									'<input class="span1" type="text">' +
+									'<button class="btn" data-toggle="dropdown"><i class="caret"></i></button>' +
+									'<ul class="dropdown-menu"></ul>' +
+								'</div>' +
+								'<span> of <span class="grid-pages"></span></span>' +
+								'<button class="btn grid-nextpage"><i class="icon-chevron-right"></i></button>' +
+							'</div>' +
+						'</div>' +
+					'</th>' +
+				'</tr>' +
+				'</tfoot>' +
+			'</table>';
+	}
 });
