@@ -82,7 +82,7 @@ define(function(require) {
         },
 
         selectByValue: function(value) {
-            var selector = 'li[data-value=' + value + ']';
+            var selector = 'li[data-value="' + value + '"]';
             this.selectBySelector(selector);
         },
 

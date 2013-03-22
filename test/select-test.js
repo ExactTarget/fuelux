@@ -11,6 +11,7 @@ require(['jquery', 'fuelux/select'], function ($) {
 		'<li data-value="2"><a href="#">Two</a></li>' +
 		'<li data-value="3" data-selected="true"><a href="#">Three</a></li>' +
 		'<li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Four</a></li>' +
+		'<li data-value="Item Five"><a href="#">Item Five</a></li>' +
 		'</ul>' +
 		'</div>';
 
@@ -64,12 +65,30 @@ require(['jquery', 'fuelux/select'], function ($) {
 		deepEqual(item, expectedItem, 'item selected');
 	});
 
+	test("should select by value with whitespace", function () {
+		var $select = $(html).select();
+		$select.select('selectByValue', 'Item Five');
+
+		var item = $select.select('selectedItem');
+		var expectedItem = { text: 'Item Five', value: 'Item Five' };
+		deepEqual(item, expectedItem, 'item selected');
+	});
+
 	test("should select by text", function () {
 		var $select = $(html).select();
 		$select.select('selectByText', 'THREE');
 
 		var item = $select.select('selectedItem');
 		var expectedItem = { text: 'Three' };
+		deepEqual(item, expectedItem, 'item selected');
+	});
+
+	test("should select by text with whitespace", function () {
+		var $select = $(html).select();
+		$select.select('selectByText', 'Item Five');
+
+		var item = $select.select('selectedItem');
+		var expectedItem = { text: 'Item Five' };
 		deepEqual(item, expectedItem, 'item selected');
 	});
 

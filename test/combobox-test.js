@@ -11,6 +11,7 @@ require(['jquery', 'fuelux/combobox'], function ($) {
 		'<li data-value="2"><a href="#">Two</a></li>' +
 		'<li data-value="3" data-selected="true"><a href="#">Three</a></li>' +
 		'<li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Four</a></li>' +
+		'<li data-value="Item Five"><a href="#">Item Five</a></li>' +
 		'</ul>' +
 		'</div>';
 
@@ -80,12 +81,30 @@ require(['jquery', 'fuelux/combobox'], function ($) {
 		deepEqual(item, expectedItem, 'item selected');
 	});
 
+	test("should select by value with whitespace", function () {
+		var $combobox = $(html).combobox();
+		$combobox.combobox('selectByValue', 'Item Five');
+
+		var item = $combobox.combobox('selectedItem');
+		var expectedItem = { text: 'Item Five', value: 'Item Five' };
+		deepEqual(item, expectedItem, 'item selected');
+	});
+
 	test("should select by text", function() {
 		var $combobox = $(html).combobox();
 		$combobox.combobox('selectByText', 'THREE');
 
 		var item = $combobox.combobox('selectedItem');
 		var expectedItem = { text:'Three', value: 3 };
+		deepEqual(item, expectedItem, 'item selected');
+	});
+
+	test("should select by text with whitespace", function() {
+		var $combobox = $(html).combobox();
+		$combobox.combobox('selectByText', 'Item Five');
+
+		var item = $combobox.combobox('selectedItem');
+		var expectedItem = { text:'Item Five', value: 'Item Five' };
 		deepEqual(item, expectedItem, 'item selected');
 	});
 
