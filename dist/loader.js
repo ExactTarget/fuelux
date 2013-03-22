@@ -2935,7 +2935,7 @@ define('fuelux/combobox',['require','jquery','./util'],function (require) {
 		},
 
 		selectByValue: function (value) {
-			var selector = 'li[data-value=' + value + ']';
+			var selector = 'li[data-value="' + value + '"]';
 			this.selectBySelector(selector);
 		},
 
@@ -3983,7 +3983,7 @@ define('fuelux/select',['require','jquery','./util'],function(require) {
         },
 
         selectByValue: function(value) {
-            var selector = 'li[data-value=' + value + ']';
+            var selector = 'li[data-value="' + value + '"]';
             this.selectBySelector(selector);
         },
 
