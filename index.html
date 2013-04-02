@@ -137,19 +137,19 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 			console.log($('#myCombobox').combobox('selectedItem'));
 		});
 
-		$('#combobox-setByIndex').on('click', function () {
+		$('#combobox-selectByIndex').on('click', function () {
 			$('#myCombobox').combobox('selectByIndex', '1');
 		});
 
-		$('#combobox-setByText').on('click', function () {
+		$('#combobox-selectByText').on('click', function () {
 			$('#myCombobox').combobox('selectByText', 'Item Three');
 		});
 
-		$('#combobox-setBySelector').on('click', function () {
+		$('#combobox-selectBySelector').on('click', function () {
 			$('#myCombobox').combobox('selectBySelector', 'li[data-fizz=buzz]');
 		});
 
-		$('#combobox-setByValue').on('click', function () {
+		$('#combobox-selectByValue').on('click', function () {
 			$('#myCombobox').combobox('selectByValue', '1');
 		});
 
@@ -264,19 +264,19 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 			console.log($('#mySelect').select('selectedItem'));
 		});
 
-		$('#select-setByIndex').on('click', function () {
+		$('#select-selectByIndex').on('click', function () {
 			$('#mySelect').select('selectByIndex', '1');
 		});
 
-		$('#select-setByText').on('click', function () {
+		$('#select-selectByText').on('click', function () {
 			$('#mySelect').select('selectByText', 'Item Three');
 		});
 
-		$('#select-setBySelector').on('click', function () {
+		$('#select-selectBySelector').on('click', function () {
 			$('#mySelect').select('selectBySelector', 'li[data-fizz=buzz]');
 		});
 
-		$('#select-setByValue').on('click', function () {
+		$('#select-selectByValue').on('click', function () {
 			$('#mySelect').select('selectByValue', '1');
 		});
 
@@ -596,13 +596,13 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 						<li data-value="4"><a href="#">Item Four</a></li>
 					</ul>
 				</div>
-                <br/>
+				<br/>
 				<input type="button" class="btn" id="combobox-enable" value="enable">
 				<input type="button" class="btn" id="combobox-disable" value="disable">
-				<input type="button" class="btn" id="combobox-setByIndex" value="set by index">
-				<input type="button" class="btn" id="combobox-setByText" value="set by text">
-				<input type="button" class="btn" id="combobox-setByValue" value="set by value">
-				<input type="button" class="btn" id="combobox-setBySelector" value="set by selector">
+				<input type="button" class="btn" id="combobox-selectByIndex" value="select by index">
+				<input type="button" class="btn" id="combobox-selectByText" value="select by text">
+				<input type="button" class="btn" id="combobox-selectByValue" value="select by value">
+				<input type="button" class="btn" id="combobox-selectBySelector" value="select by selector">
 				<input type="button" class="btn" id="combobox-logItem" value="log item to console">
 			</div>
 			<!-- /well -->
@@ -641,22 +641,22 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 					</td>
 				</tr>
 				<tr>
-					<td>setByIndex</td>
+					<td>selectByIndex</td>
 					<td>Set the selected item based on its index in the list (zero-based index). Convenience method for
-						<code>setBySelector('li:eq({index})')</code></td>
+						<code>selectBySelector('li:eq({index})')</code></td>
 				</tr>
 				<tr>
-					<td>setByText</td>
+					<td>selectByText</td>
 					<td>Set the selected item based on its text value</td>
 				</tr>
 				<tr>
-					<td>setBySelector</td>
-					<td>Set the selected item based on a selector. For example: <code>$('#myCombobox').select('setBySelector','li[data-fizz=buzz]');</code>
+					<td>selectBySelector</td>
+					<td>Set the selected item based on a selector. For example: <code>$('#myCombobox').combobox('selectBySelector','li[data-fizz=buzz]');</code>
 					</td>
 				</tr>
 				<tr>
-					<td>setByValue</td>
-					<td>Set the selected item based on its value. Convenience method for <code>setBySelector('data-value={value}')</code>
+					<td>selectByValue</td>
+					<td>Set the selected item based on its value. Convenience method for <code>selectBySelector('data-value={value}')</code>
 						that requires the item to have a <code>data-value="{value}"</code> attribute
 					</td>
 				</tr>
@@ -945,76 +945,76 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 <pre class="prettyprint linenums">
 &lt;table id=&quot;MyGrid&quot; class=&quot;table table-bordered datagrid&quot;&gt;
-    &lt;thead&gt;
-    &lt;tr&gt;
-        &lt;th&gt;
-            &lt;span class=&quot;datagrid-header-title&quot;&gt;Geographic Data Sample&lt;/span&gt;
+	&lt;thead&gt;
+	&lt;tr&gt;
+		&lt;th&gt;
+			&lt;span class=&quot;datagrid-header-title&quot;&gt;Geographic Data Sample&lt;/span&gt;
 
-            &lt;div class=&quot;datagrid-header-left&quot;&gt;
-                &lt;div class=&quot;input-append search datagrid-search&quot;&gt;
-                    &lt;input type=&quot;text&quot; class=&quot;input-medium&quot; placeholder=&quot;Search&quot;&gt;
-                    &lt;button class=&quot;btn&quot;&gt;&lt;i class=&quot;icon-search&quot;&gt;&lt;/i&gt;&lt;/button&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;datagrid-header-right&quot;&gt;
-                &lt;div class=&quot;select filter&quot; data-resize=&quot;auto&quot;&gt;
-                    &lt;button data-toggle=&quot;dropdown&quot; class=&quot;btn dropdown-toggle&quot;&gt;
-                        &lt;span class=&quot;dropdown-label&quot;&gt;&lt;/span&gt;
-                        &lt;span class=&quot;caret&quot;&gt;&lt;/span&gt;
-                    &lt;/button&gt;
-                    &lt;ul class=&quot;dropdown-menu&quot;&gt;
-                        &lt;li data-value=&quot;all&quot; data-selected=&quot;true&quot;&gt;&lt;a href=&quot;#&quot;&gt;All&lt;/a&gt;&lt;/li&gt;
-                        &lt;li data-value=&quot;lt5m&quot;&gt;&lt;a href=&quot;#&quot;&gt;Population &lt; 5M&lt;/a&gt;&lt;/li&gt;
-                        &lt;li data-value=&quot;gte5m&quot;&gt;&lt;a href=&quot;#&quot;&gt;Population &gt;= 5M&lt;/a&gt;&lt;/li&gt;
-                    &lt;/ul&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
-        &lt;/th&gt;
-    &lt;/tr&gt;
-    &lt;/thead&gt;
-    &lt;tfoot&gt;
-    &lt;tr&gt;
-        &lt;th&gt;
-            &lt;div class=&quot;datagrid-footer-left&quot; style=&quot;display:none;&quot;&gt;
-                &lt;div class=&quot;grid-controls&quot;&gt;
-                    &lt;span&gt;
-                        &lt;span class=&quot;grid-start&quot;&gt;&lt;/span&gt; -
-                        &lt;span class=&quot;grid-end&quot;&gt;&lt;/span&gt; of
-                        &lt;span class=&quot;grid-count&quot;&gt;&lt;/span&gt;
-                    &lt;/span&gt;
-                    &lt;div class=&quot;select grid-pagesize&quot; data-resize=&quot;auto&quot;&gt;
-                        &lt;button data-toggle=&quot;dropdown&quot; class=&quot;btn dropdown-toggle&quot;&gt;
-                            &lt;span class=&quot;dropdown-label&quot;&gt;&lt;/span&gt;
-                            &lt;span class=&quot;caret&quot;&gt;&lt;/span&gt;
-                        &lt;/button&gt;
-                        &lt;ul class=&quot;dropdown-menu&quot;&gt;
-                            &lt;li data-value=&quot;5&quot; data-selected=&quot;true&quot;&gt;&lt;a href=&quot;#&quot;&gt;5&lt;/a&gt;&lt;/li&gt;
-                            &lt;li data-value=&quot;10&quot;&gt;&lt;a href=&quot;#&quot;&gt;10&lt;/a&gt;&lt;/li&gt;
-                            &lt;li data-value=&quot;20&quot;&gt;&lt;a href=&quot;#&quot;&gt;20&lt;/a&gt;&lt;/li&gt;
-                            &lt;li data-value=&quot;50&quot;&gt;&lt;a href=&quot;#&quot;&gt;50&lt;/a&gt;&lt;/li&gt;
-                            &lt;li data-value=&quot;100&quot;&gt;&lt;a href=&quot;#&quot;&gt;100&lt;/a&gt;&lt;/li&gt;
-                        &lt;/ul&gt;
-                    &lt;/div&gt;
-                    &lt;span&gt;Per Page&lt;/span&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;datagrid-footer-right&quot; style=&quot;display:none;&quot;&gt;
-                &lt;div class=&quot;grid-pager&quot;&gt;
-                    &lt;button type=&quot;button&quot; class=&quot;btn grid-prevpage&quot;&gt;&lt;i class=&quot;icon-chevron-left&quot;&gt;&lt;/i&gt;&lt;/button&gt;
-                    &lt;span&gt;Page&lt;/span&gt;
+			&lt;div class=&quot;datagrid-header-left&quot;&gt;
+				&lt;div class=&quot;input-append search datagrid-search&quot;&gt;
+					&lt;input type=&quot;text&quot; class=&quot;input-medium&quot; placeholder=&quot;Search&quot;&gt;
+					&lt;button class=&quot;btn&quot;&gt;&lt;i class=&quot;icon-search&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;div class=&quot;datagrid-header-right&quot;&gt;
+				&lt;div class=&quot;select filter&quot; data-resize=&quot;auto&quot;&gt;
+					&lt;button data-toggle=&quot;dropdown&quot; class=&quot;btn dropdown-toggle&quot;&gt;
+						&lt;span class=&quot;dropdown-label&quot;&gt;&lt;/span&gt;
+						&lt;span class=&quot;caret&quot;&gt;&lt;/span&gt;
+					&lt;/button&gt;
+					&lt;ul class=&quot;dropdown-menu&quot;&gt;
+						&lt;li data-value=&quot;all&quot; data-selected=&quot;true&quot;&gt;&lt;a href=&quot;#&quot;&gt;All&lt;/a&gt;&lt;/li&gt;
+						&lt;li data-value=&quot;lt5m&quot;&gt;&lt;a href=&quot;#&quot;&gt;Population &lt; 5M&lt;/a&gt;&lt;/li&gt;
+						&lt;li data-value=&quot;gte5m&quot;&gt;&lt;a href=&quot;#&quot;&gt;Population &gt;= 5M&lt;/a&gt;&lt;/li&gt;
+					&lt;/ul&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/th&gt;
+	&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tfoot&gt;
+	&lt;tr&gt;
+		&lt;th&gt;
+			&lt;div class=&quot;datagrid-footer-left&quot; style=&quot;display:none;&quot;&gt;
+				&lt;div class=&quot;grid-controls&quot;&gt;
+					&lt;span&gt;
+						&lt;span class=&quot;grid-start&quot;&gt;&lt;/span&gt; -
+						&lt;span class=&quot;grid-end&quot;&gt;&lt;/span&gt; of
+						&lt;span class=&quot;grid-count&quot;&gt;&lt;/span&gt;
+					&lt;/span&gt;
+					&lt;div class=&quot;select grid-pagesize&quot; data-resize=&quot;auto&quot;&gt;
+						&lt;button data-toggle=&quot;dropdown&quot; class=&quot;btn dropdown-toggle&quot;&gt;
+							&lt;span class=&quot;dropdown-label&quot;&gt;&lt;/span&gt;
+							&lt;span class=&quot;caret&quot;&gt;&lt;/span&gt;
+						&lt;/button&gt;
+						&lt;ul class=&quot;dropdown-menu&quot;&gt;
+							&lt;li data-value=&quot;5&quot; data-selected=&quot;true&quot;&gt;&lt;a href=&quot;#&quot;&gt;5&lt;/a&gt;&lt;/li&gt;
+							&lt;li data-value=&quot;10&quot;&gt;&lt;a href=&quot;#&quot;&gt;10&lt;/a&gt;&lt;/li&gt;
+							&lt;li data-value=&quot;20&quot;&gt;&lt;a href=&quot;#&quot;&gt;20&lt;/a&gt;&lt;/li&gt;
+							&lt;li data-value=&quot;50&quot;&gt;&lt;a href=&quot;#&quot;&gt;50&lt;/a&gt;&lt;/li&gt;
+							&lt;li data-value=&quot;100&quot;&gt;&lt;a href=&quot;#&quot;&gt;100&lt;/a&gt;&lt;/li&gt;
+						&lt;/ul&gt;
+					&lt;/div&gt;
+					&lt;span&gt;Per Page&lt;/span&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;div class=&quot;datagrid-footer-right&quot; style=&quot;display:none;&quot;&gt;
+				&lt;div class=&quot;grid-pager&quot;&gt;
+					&lt;button type=&quot;button&quot; class=&quot;btn grid-prevpage&quot;&gt;&lt;i class=&quot;icon-chevron-left&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+					&lt;span&gt;Page&lt;/span&gt;
 
-                    &lt;div class=&quot;input-append dropdown combobox&quot;&gt;
-                        &lt;input class=&quot;span1&quot; type=&quot;text&quot;&gt;
-                        &lt;button class=&quot;btn&quot; data-toggle=&quot;dropdown&quot;&gt;&lt;i class=&quot;caret&quot;&gt;&lt;/i&gt;&lt;/button&gt;
-                        &lt;ul class=&quot;dropdown-menu&quot;&gt;&lt;/ul&gt;
-                    &lt;/div&gt;
-                    &lt;span&gt;of &lt;span class=&quot;grid-pages&quot;&gt;&lt;/span&gt;&lt;/span&gt;
-                    &lt;button type=&quot;button&quot; class=&quot;btn grid-nextpage&quot;&gt;&lt;i class=&quot;icon-chevron-right&quot;&gt;&lt;/i&gt;&lt;/button&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
-        &lt;/th&gt;
-    &lt;/tr&gt;
-    &lt;/tfoot&gt;
+					&lt;div class=&quot;input-append dropdown combobox&quot;&gt;
+						&lt;input class=&quot;span1&quot; type=&quot;text&quot;&gt;
+						&lt;button class=&quot;btn&quot; data-toggle=&quot;dropdown&quot;&gt;&lt;i class=&quot;caret&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+						&lt;ul class=&quot;dropdown-menu&quot;&gt;&lt;/ul&gt;
+					&lt;/div&gt;
+					&lt;span&gt;of &lt;span class=&quot;grid-pages&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+					&lt;button type=&quot;button&quot; class=&quot;btn grid-nextpage&quot;&gt;&lt;i class=&quot;icon-chevron-right&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/th&gt;
+	&lt;/tr&gt;
+	&lt;/tfoot&gt;
 &lt;/table&gt;
 </pre>
 
@@ -1193,7 +1193,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 					<input type="text" class="input-medium" placeholder="Search">
 					<button class="btn"><i class="icon-search"></i></button>
 				</div>
-                <br/>
+				<br/>
 				<input type="button" class="btn" id="search-enable" value="enable">
 				<input type="button" class="btn" id="search-disable" value="disable">
 			</div>
@@ -1293,10 +1293,10 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 				<div>
 					<input type="button" class="btn" id="select-enable" value="enable">
 					<input type="button" class="btn" id="select-disable" value="disable">
-					<input type="button" class="btn" id="select-setByIndex" value="set by index">
-					<input type="button" class="btn" id="select-setByText" value="set by text">
-					<input type="button" class="btn" id="select-setByValue" value="set by value">
-					<input type="button" class="btn" id="select-setBySelector" value="set by selector">
+					<input type="button" class="btn" id="select-selectByIndex" value="select by index">
+					<input type="button" class="btn" id="select-selectByText" value="select by text">
+					<input type="button" class="btn" id="select-selectByValue" value="select by value">
+					<input type="button" class="btn" id="select-selectBySelector" value="select by selector">
 					<input type="button" class="btn" id="select-logItem" value="log item to console">
 				</div>
 			</div>
@@ -1344,7 +1344,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 				<tr>
 					<td>selectByIndex</td>
 					<td>Set the select item based on its index in the list (zero-based index). Convenience method for
-						<code>setBySelector('li:eq({index})')</code></td>
+						<code>selectBySelector('li:eq({index})')</code></td>
 				</tr>
 				<tr>
 					<td>selectByText</td>
@@ -1352,12 +1352,12 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 				</tr>
 				<tr>
 					<td>selectBySelector</td>
-					<td>Set the selected item based on a selector. For example: <code>$('#mySelect').select('setBySelector','li[data-fizz=buzz]');</code>
+					<td>Set the selected item based on a selector. For example: <code>$('#mySelect').select('selectBySelector','li[data-fizz=buzz]');</code>
 					</td>
 				</tr>
 				<tr>
 					<td>selectByValue</td>
-					<td>Set the selected item based on its value. Convenience method for <code>setBySelector('data-value={value}')</code>
+					<td>Set the selected item based on its value. Convenience method for <code>selectBySelector('data-value={value}')</code>
 						that requires the item to have a <code>data-value="{value}"</code> attribute
 					</td>
 				</tr>
@@ -1424,7 +1424,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 				<div id="MySpinner" class="spinner">
 					<input type="text" class="input-mini spinner-input">
 
-					<div class="spinner-buttons  btn-group btn-group-vertical">
+					<div class="spinner-buttons	 btn-group btn-group-vertical">
 						<button class="btn spinner-up">
 							<i class="icon-chevron-up"></i>
 						</button>
@@ -1561,15 +1561,15 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 <pre class="prettyprint linenums">
 &lt;div id="MySpinner" class="spinner"&gt;
-    &lt;input type="text" class="input-mini spinner-input"&gt;
-    &lt;div class="spinner-buttons  btn-group btn-group-vertical"&gt;
-        &lt;button class="btn spinner-up"&gt;
-            &lt;i class="icon-chevron-up"&gt;&lt;/i&gt;
-        &lt;/button&gt;
-        &lt;button class="btn spinner-down"&gt;
-            &lt;i class="icon-chevron-down"&gt;&lt;/i&gt;
-        &lt;/button&gt;
-    &lt;/div&gt;
+	&lt;input type="text" class="input-mini spinner-input"&gt;
+	&lt;div class="spinner-buttons	btn-group btn-group-vertical"&gt;
+		&lt;button class="btn spinner-up"&gt;
+			&lt;i class="icon-chevron-up"&gt;&lt;/i&gt;
+		&lt;/button&gt;
+		&lt;button class="btn spinner-down"&gt;
+			&lt;i class="icon-chevron-down"&gt;&lt;/i&gt;
+		&lt;/button&gt;
+	&lt;/div&gt;
 &lt;/div&gt;
 </pre>
 
@@ -1739,18 +1739,18 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 <pre class="prettyprint linenums">
 &lt;div id="MyTree" class="tree"&gt;
-    &lt;div class = "tree-folder" style="display:none;"&gt;
-        &lt;div class="tree-folder-header"&gt;
-            &lt;i class="icon-folder-close"&gt;&lt;/i&gt;
-            &lt;div class="tree-folder-name"&gt;&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class="tree-folder-content"&gt;&lt;/div&gt;
-        &lt;div class="tree-loader" style="display:none"&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="tree-item" style="display:none;"&gt;
-        &lt;i class="tree-dot"&gt;&lt;/i&gt;
-        &lt;div class="tree-item-name"&gt;&lt;/div&gt;
-    &lt;/div&gt;
+	&lt;div class = "tree-folder" style="display:none;"&gt;
+		&lt;div class="tree-folder-header"&gt;
+			&lt;i class="icon-folder-close"&gt;&lt;/i&gt;
+			&lt;div class="tree-folder-name"&gt;&lt;/div&gt;
+		&lt;/div&gt;
+		&lt;div class="tree-folder-content"&gt;&lt;/div&gt;
+		&lt;div class="tree-loader" style="display:none"&gt;&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class="tree-item" style="display:none;"&gt;
+		&lt;i class="tree-dot"&gt;&lt;/i&gt;
+		&lt;div class="tree-item-name"&gt;&lt;/div&gt;
+	&lt;/div&gt;
 &lt;/div&gt;
 </pre>
 
