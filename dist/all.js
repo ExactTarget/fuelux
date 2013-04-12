@@ -3605,28 +3605,24 @@ define('fuelux/select',['require','jquery','./util'],function(require) {
         },
 
         resize: function() {
-            var el = $('#selectTextSize')[0];
-
-            // create element if it doesn't exist
-            // used to calculate the length of the longest string
-            if(!el) {
-                $('<div/>').attr({id:'selectTextSize'}).appendTo('body');
-            }
-
+            var sizer = $('<div/>').addClass('select-sizer');
             var width = 0;
             var newWidth = 0;
+
+            $('body').append(sizer);
 
             // iterate through each item to find longest string
             this.$element.find('a').each(function () {
                 var $this = $(this);
                 var txt = $this.text();
-                var $txtSize = $('#selectTextSize');
-                $txtSize.text(txt);
-                newWidth = $txtSize.outerWidth();
+                sizer.text(txt);
+                newWidth = sizer.outerWidth();
                 if(newWidth > width) {
                     width = newWidth;
                 }
             });
+
+            sizer.remove();
 
             this.$label.width(width);
         },
