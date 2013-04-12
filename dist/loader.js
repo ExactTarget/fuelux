@@ -3946,17 +3946,15 @@ define('fuelux/select',['require','jquery','./util'],function(require) {
         },
 
         resize: function() {
+            var newWidth = 0;
             var sizer = $('<div/>').addClass('select-sizer');
             var width = 0;
-            var newWidth = 0;
 
             $('body').append(sizer);
 
             // iterate through each item to find longest string
             this.$element.find('a').each(function () {
-                var $this = $(this);
-                var txt = $this.text();
-                sizer.text(txt);
+                sizer.text($(this).text());
                 newWidth = sizer.outerWidth();
                 if(newWidth > width) {
                     width = newWidth;
