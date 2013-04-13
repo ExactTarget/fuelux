@@ -6611,7 +6611,7 @@ textarea.span1,
   text-align: left;
 }
 
-.fuelux #selectTextSize {
+.fuelux .select-sizer {
   position: absolute;
   top: 0;
   display: inline-block;
