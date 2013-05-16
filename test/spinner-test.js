@@ -24,6 +24,16 @@ require(['jquery', 'fuelux/spinner'], function($) {
 		'</button>' +
 		'</div>';
 
+	var spinnerHTMLWithDefault = '<div id="ex-spinner" class="spinner">' +
+		'<input type="text" value="3" class="input-mini spinner-input">' +
+		'<button class="btn  spinner-up">' +
+		'<i class="icon-chevron-up"></i>' +
+		'</button>' +
+		'<button class="btn spinner-down">' +
+		'<i class="icon-chevron-down"></i>' +
+		'</button>' +
+		'</div>';
+
 	test("should behave as designed", function () {
 		var $spinner = $(spinnerHTML).spinner();
 
@@ -68,6 +78,11 @@ require(['jquery', 'fuelux/spinner'], function($) {
 		var $spinner = $(spinnerHTML).spinner();
 		$spinner.spinner('value', 0);
 		equal($spinner.spinner('value'), 0, 'spinner value was set to zero');
+	});
+
+	test("should keep existing value", function () {
+		var $spinner = $(spinnerHTMLWithDefault).spinner();
+		equal($spinner.spinner('value'), 3, 'spinner kept existing value');
 	});
 
 });
