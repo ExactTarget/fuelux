@@ -55,8 +55,15 @@ define(['require','jquery'],function(require) {
 		constructor: Spinner,
 
 		render: function () {
-			this.$input.val(this.options.value);
-			this.$input.attr('maxlength',(this.options.max + '').split('').length);
+			var inputValue = this.$input.val();
+
+			if (inputValue) {
+				this.value(inputValue);
+			} else {
+				this.$input.val(this.options.value);
+			}
+
+			this.$input.attr('maxlength', (this.options.max + '').split('').length);
 		},
 
 		change: function () {
