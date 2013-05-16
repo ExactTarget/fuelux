@@ -55,7 +55,9 @@ define(function(require) {
 		constructor: Spinner,
 
 		render: function () {
-			this.$input.val(this.options.value);
+			if(!this.$input.val()){
+				this.$input.val(this.options.value);
+			}
 			this.$input.attr('maxlength',(this.options.max + '').split('').length);
 		},
 
