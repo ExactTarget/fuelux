@@ -2,7 +2,7 @@
  * grunt-contrib-jshint
  * http://gruntjs.com/
  *
- * Copyright (c) 2012 "Cowboy" Ben Alman, contributors
+ * Copyright (c) 2013 "Cowboy" Ben Alman, contributors
  * Licensed under the MIT license.
  */
 
@@ -73,6 +73,7 @@ exports.init = function(grunt) {
       // Sometimes there's no error object.
       if (!e) { return; }
       var pos;
+      var code = '';
       var evidence = e.evidence;
       var character = e.character;
       if (evidence) {
@@ -80,7 +81,10 @@ exports.init = function(grunt) {
         grunt.fail.errorcount++;
         // Descriptive code error.
         pos = '['.red + ('L' + e.line).yellow + ':'.red + ('C' + character).yellow + ']'.red;
-        grunt.log.writeln(pos + ' ' + e.reason.yellow);
+        if (e.code) {
+          code = e.code.yellow + ':'.red + ' ';
+        }
+        grunt.log.writeln(pos + ' ' + code + e.reason.yellow);
         // If necessary, eplace each tab char with something that can be
         // swapped out later.
         if (tabstr) {

@@ -57,6 +57,12 @@ module.exports = function(grunt) {
         files: [
           {src: ['test/fixtures/test.js'], dest: 'tmp/single.js'}
         ]
+      },
+
+      verbose: {
+        files: [
+          {expand: true, src: ['test/fixtures/**'], dest: 'tmp/copy_test_verbose/'}
+        ]
       }
     },
 

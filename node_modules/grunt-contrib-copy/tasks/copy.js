@@ -29,6 +29,10 @@ module.exports = function(grunt) {
 
     var dest;
     var isExpandedPair;
+    var tally = {
+      dirs: 0,
+      files: 0
+    };
 
     this.files.forEach(function(filePair) {
       isExpandedPair = filePair.orig.expand || false;
@@ -41,14 +45,26 @@ module.exports = function(grunt) {
         }
 
         if (grunt.file.isDir(src)) {
-          grunt.log.writeln('Creating ' + dest.cyan);
+          grunt.verbose.writeln('Creating ' + dest.cyan);
           grunt.file.mkdir(dest);
+          tally.dirs++;
         } else {
-          grunt.log.writeln('Copying ' + src.cyan + ' -> ' + dest.cyan);
+          grunt.verbose.writeln('Copying ' + src.cyan + ' -> ' + dest.cyan);
           grunt.file.copy(src, dest, copyOptions);
+          tally.files++;
         }
       });
     });
+
+    if (tally.dirs) {
+      grunt.log.write('Created ' + tally.dirs.toString().cyan + ' directories');
+    }
+
+    if (tally.files) {
+      grunt.log.write((tally.dirs ? ', copied ' : 'Copied ') + tally.files.toString().cyan + ' files');
+    }
+
+    grunt.log.writeln();
   });
 
   var detectDestType = function(dest) {

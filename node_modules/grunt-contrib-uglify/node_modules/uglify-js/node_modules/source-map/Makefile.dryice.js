@@ -107,7 +107,8 @@ function buildFirefox() {
     ],
     filter: [
       copy.filter.moduleDefines,
-      removeAmdefine
+      removeAmdefine,
+      makeNonRelative
     ],
     dest: 'dist/test/Utils.jsm'
   });

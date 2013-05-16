@@ -70,3 +70,4 @@ code = run(requires.map(require).map(function (mod, i) {
     testCase: mod
   };
 }));
+process.exit(code);

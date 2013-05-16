@@ -15,6 +15,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 
-var EXPORTED_SYMBOLS = [ "SourceMapConsumer", "SourceMapGenerator", "SourceNode" ];
+this.EXPORTED_SYMBOLS = [ "SourceMapConsumer", "SourceMapGenerator", "SourceNode" ];
 
 Components.utils.import('resource://gre/modules/devtools/Require.jsm');

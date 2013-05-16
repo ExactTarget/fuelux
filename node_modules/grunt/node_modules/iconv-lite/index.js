@@ -194,6 +194,7 @@ function applyEncodings(encodings) {
 
 applyEncodings(require('./encodings/singlebyte'));
 applyEncodings(require('./encodings/gbk'));
+applyEncodings(require('./encodings/big5'));
 
 
 // Utilities

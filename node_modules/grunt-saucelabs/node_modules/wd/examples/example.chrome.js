@@ -1,18 +1,14 @@
-var wd;
-try {
-  wd = require('wd');
-} catch( err ) { 
-  wd = require('../lib/main');
-}
-var assert = require('assert');
-var browser = wd.remote();
+var wd = require('../lib/main')
+  , assert = require('assert')
+  , colors = require('colors')
+  , browser = wd.remote();
 
-browser.on('status', function(info){
-  console.log('\x1b[36m%s\x1b[0m', info);
+browser.on('status', function(info) {
+  console.log(info.cyan);
 });
 
-browser.on('command', function(meth, path, data){
-  console.log(' > \x1b[33m%s\x1b[0m: %s', meth, path, data || '');
+browser.on('command', function(meth, path, data) {
+  console.log(' > ' + meth.yellow, path.grey, data || '');
 });
 
 browser.init({

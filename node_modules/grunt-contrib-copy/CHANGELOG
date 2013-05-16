@@ -1,4 +1,8 @@
 v0.4.0:
+  date: 2013-03-26
+  changes:
+    - Output summary by default ("Copied N files, created M folders"). Individual transaction output available via `--verbose`.
+v0.4.0:
   date: 2013-02-15
   changes:
     - First official release for Grunt 0.4.0.

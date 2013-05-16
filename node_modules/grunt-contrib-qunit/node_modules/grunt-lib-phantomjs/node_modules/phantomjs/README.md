@@ -1,7 +1,7 @@
 phantom
 =======
 
-An NPM wrapper for [PhantomJS](phantomjs.org), headless webkit with JS API.
+An NPM wrapper for [PhantomJS](http://phantomjs.org/), headless webkit with JS API.
 
 Building and Installing
 -----------------------

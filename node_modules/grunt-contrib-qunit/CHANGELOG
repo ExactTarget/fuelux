@@ -1,3 +1,7 @@
+v0.2.1:
+  date: 2013-04-05
+  changes: 
+    - Update to use PhantomJS 1.9.0. Fixes PhantomJS not found errors.
 v0.2.0:
   date: 2013-02-28
   changes:
