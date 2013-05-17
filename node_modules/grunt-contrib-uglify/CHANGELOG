@@ -1,3 +1,8 @@
+v0.2.0:
+  date: 2013-03-14
+  changes:
+    - No longer report gzip results by default.
+    - Support `report` option.
 v0.1.2:
   date: 2013-01-30
   changes:

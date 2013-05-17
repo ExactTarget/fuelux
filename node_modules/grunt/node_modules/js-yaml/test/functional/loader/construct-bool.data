@@ -1,9 +1,0 @@
-canonical: !!bool yes
-answer: !!bool NO
-logical: !!bool True
-option: !!bool on
-
-
-but:
-    y: is a string
-    n: is a string

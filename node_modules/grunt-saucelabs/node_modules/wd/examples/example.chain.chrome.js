@@ -29,7 +29,7 @@ browser
   })
   .elementById('i am a link', function(err, el) {
     //we should make clickElement not require a callback
-    browser.clickElement(el, function() {
+    browser.next('clickElement', el, function() {
       console.log("did the click!");
     });
   })

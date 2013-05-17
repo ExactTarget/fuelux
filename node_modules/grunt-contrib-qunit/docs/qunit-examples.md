@@ -47,16 +47,23 @@ In the following example, if a web server isn't running at `localhost:8000`, run
 // Project configuration.
 grunt.initConfig({
   qunit: {
-    all: ['http://localhost:8000/test/foo.html', 'http://localhost:8000/test/bar.html']
+    all: {
+      options: {
+        urls: [
+          'http://localhost:8000/test/foo.html',
+          'http://localhost:8000/test/bar.html',
+        ],
+      },
+    },
   },
   connect: {
     server: {
       options: {
         port: 8000,
-        base: '.'
-      }
-    }
-  }
+        base: '.',
+      },
+    },
+  },
 });
 
 // This plugin provides the "connect" task.

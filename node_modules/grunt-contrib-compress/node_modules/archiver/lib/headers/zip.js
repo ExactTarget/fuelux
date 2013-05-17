@@ -6,7 +6,7 @@
  * https://github.com/ctalkington/node-archiver/blob/master/LICENSE-MIT
  */
 
-var headers = module.exports = {};
+var headers = {};
 
 headers.file = {
   fields: [
@@ -59,7 +59,7 @@ headers.file = {
   }
 };
 
-headers.descriptor = {
+headers.fileDescriptor = {
   fields: [
     {'field': 'signature', 'length': 4, 'type': 'UInt32LE', 'default': 0x08074b50},
     {'field': 'crc32', 'length': 4, 'type': 'Int32LE'},
@@ -195,5 +195,21 @@ headers.centralFooter = {
     });
 
     return buffer.slice(0, offset);
+  }
+};
+
+var encode = exports.encode = function(type, data) {
+  if (typeof headers[type].toBuffer === 'function') {
+    return headers[type].toBuffer(data);
+  } else {
+    return false;
+  }
+};
+
+var decode = exports.decode = function(type, data) {
+  if (typeof headers[type].toObject === 'function') {
+    return headers[type].toObject(data);
+  } else {
+    return false;
   }
 };

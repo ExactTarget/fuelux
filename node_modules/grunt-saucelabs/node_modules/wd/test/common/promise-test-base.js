@@ -47,20 +47,33 @@ test = function(remoteWdConfig, desired, markAsPassed) {
           this.timeout(TIMEOUT);
           browser.get("http://admc.io/wd/test-pages/guinea-pig.html").then(function() {
             return browser.title();
-          }).then(function(title) {
+          }).done(function(title) {
             assert.ok(~title.indexOf("I am a page title - Sauce Labs"), "Wrong title!");
             done(null);
           });
         });
       });
-      describe("clicking submit", function(done) {
-        it("submit element should be clicked", function() {
+      describe("getting subelement", function() {
+        it("subelement value should be retrieved", function(done) {
+          this.timeout(TIMEOUT);
+          browser.elementById('the_forms_id').then(function(el) {
+              return el.elementById('unchecked_checkbox');
+          }).then(function(el) {
+              return el.getAttribute('type');
+          }).done(function(value) {
+              assert.equal(value, 'checkbox');
+              done(null);
+          });
+        });
+      });
+      describe("clicking submit", function() {
+        it("submit element should be clicked", function(done) {
           this.timeout(TIMEOUT);
           browser.elementById("submit").then(function(el) {
             return browser.clickElement(el);
           }).then(function() {
             return browser["eval"]("window.location.href");
-          }).then(function(location) {
+          }).done(function(location) {
             assert.ok(~location.indexOf("http://"), "Wrong location!");
             done(null);
           });

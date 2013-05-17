@@ -10,7 +10,7 @@ module.exports = function(grunt) {
     },
     watch: {
       one: {
-        files: ['lib/one.js'],
+        files: ['lib/one.js', 'Gruntfile.js'],
         tasks: ['echo:one']
       },
       two: {

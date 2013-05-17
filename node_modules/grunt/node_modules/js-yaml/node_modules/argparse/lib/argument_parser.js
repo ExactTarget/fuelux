@@ -7,8 +7,9 @@
  **/
 'use strict';
 
-var util = require('util');
-var Path = require('path');
+var util    = require('util');
+var format  = require('util').format;
+var Path    = require('path');
 
 var _ = require('underscore');
 _.str = require('underscore.string');
@@ -233,9 +234,7 @@ ArgumentParser.prototype.parseArgs = function (args, namespace) {
   argv = result[1];
   if (argv && argv.length > 0) {
     this.error(
-      _.str.sprintf('Unrecognized arguments: %(args)s.', {
-        args: argv.join(' ')
-      })
+      format('Unrecognized arguments: %s.', argv.join(' '))
     );
   }
   return args;
@@ -381,10 +380,7 @@ ArgumentParser.prototype._parseKnownArgs = function (argStrings, namespace) {
           if (seenNonDefaultActions.indexOf(actionConflict) >= 0) {
             throw argumentErrorHelper(
               action,
-               _.str.sprintf(
-                'Not allowed with argument "%(argument)s".',
-                {argument: actionConflict.getName()}
-              )
+              format('Not allowed with argument "%s".', actionConflict.getName())
             );
           }
         });
@@ -580,7 +576,7 @@ ArgumentParser.prototype._parseKnownArgs = function (argStrings, namespace) {
   self._actions.forEach(function (action) {
     if (action.required) {
       if (_.indexOf(seenActions, action) < 0) {
-        self.error(_.str.sprintf('Argument "%(name)s" is required', {name: action.getName()}));
+        self.error(format('Argument "%s" is required', action.getName()));
       }
     }
   });
@@ -668,13 +664,13 @@ ArgumentParser.prototype._matchArgument = function (action, regexpArgStrings) {
       message = 'Expected at least one argument.';
       break;
     default:
-      message = 'Expected %(count)s argument(s)';
+      message = 'Expected %s argument(s)';
     }
 
     throw argumentErrorHelper(
       action,
-      _.str.sprintf(message, {count: action.nargs}
-    ));
+      format(message, action.nargs)
+    );
   }
   // return the number of arguments matched
   return matches[1].length;
@@ -758,9 +754,9 @@ ArgumentParser.prototype._parseOptional = function (argString) {
     var optionStrings = optionTuples.map(function (optionTuple) {
       return optionTuple[1];
     });
-    this.error(_.str.sprintf(
-          'Ambiguous option: "%(argument)s" could match %(values)s.',
-          {argument: argString, values: optionStrings.join(', ')}
+    this.error(format(
+          'Ambiguous option: "%s" could match %s.',
+          argString, optionStrings.join(', ')
     ));
   // if exactly one action matched, this segmentation is good,
   // so return the parsed action
@@ -834,10 +830,7 @@ ArgumentParser.prototype._getOptionTuples = function (optionString) {
 
   // shouldn't ever get here
   } else {
-    throw new Error(_.str.sprintf(
-        'Unexpected option string: %(argument)s.',
-        {argument: optionString}
-    ));
+    throw new Error(format('Unexpected option string: %s.', optionString));
   }
   // return the collected option tuples
   return result;
@@ -963,10 +956,7 @@ ArgumentParser.prototype._getValue = function (action, argString) {
 
   var typeFunction = this._registryGet('type', action.type, action.type);
   if (!_.isFunction(typeFunction)) {
-    var message = _.str.sprintf(
-      '%(callback)s is not callable',
-      {callback: typeFunction}
-    );
+    var message = format('%s is not callable', typeFunction);
     throw argumentErrorHelper(action, message);
   }
 
@@ -985,10 +975,7 @@ ArgumentParser.prototype._getValue = function (action, argString) {
     } else {
       name = action.type.name || action.type.displayName || '<function>';
     }
-    var msg = _.str.sprintf('Invalid %(type)s value: %(value)s', {
-      type: name,
-      value: argString
-    });
+    var msg = format('Invalid %s value: %s', name, argString);
     if (name === '<function>') {msg += '\n' + e.message; }
     throw argumentErrorHelper(action, msg);
   }
@@ -1019,10 +1006,7 @@ ArgumentParser.prototype._checkValue = function (action, value) {
     else {
       choices =  _.keys(choices).join(', ');
     }
-    var message = _.str.sprintf(
-      'Invalid choice: %(value)s (choose from [%(choices)s])',
-      {value: value, choices: choices}
-    );
+    var message = format('Invalid choice: %s (choose from [%s])', value, choices);
     throw argumentErrorHelper(action, message);
   }
 };
@@ -1169,9 +1153,7 @@ ArgumentParser.prototype.error = function (err) {
   else {
     message = err;
   }
-  var msg = _.str.sprintf(
-      '%(prog)s: error: %(err)s',
-      {prog: this.prog, err: message}) + $$.EOL;
+  var msg = format('%s: error: %s', this.prog, message) + $$.EOL;
 
   if (this.debug === true) {
     throw new Error(msg);

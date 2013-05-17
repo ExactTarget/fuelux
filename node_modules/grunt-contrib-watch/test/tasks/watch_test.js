@@ -6,19 +6,20 @@ var fs = require('fs');
 var helper = require('./helper');
 
 var fixtures = helper.fixtures;
+var useFixtures = ['multiTargets', 'oneTarget'];
 
 function cleanUp() {
-  helper.cleanUp([
-    'multiTargets/node_modules',
-    'oneTarget/node_modules'
-  ]);
+  useFixtures.forEach(function(fixture) {
+    helper.cleanUp(fixture + '/node_modules');
+  });
 }
 
 exports.watchConfig = {
   setUp: function(done) {
     cleanUp();
-    fs.symlinkSync(path.join(__dirname, '../../node_modules'), path.join(fixtures, 'multiTargets', 'node_modules'));
-    fs.symlinkSync(path.join(__dirname, '../../node_modules'), path.join(fixtures, 'oneTarget', 'node_modules'));
+    useFixtures.forEach(function(fixture) {
+      fs.symlinkSync(path.join(__dirname, '../../node_modules'), path.join(fixtures, fixture, 'node_modules'));
+    });
     done();
   },
   tearDown: function(done) {

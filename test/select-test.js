@@ -101,6 +101,10 @@ require(['jquery', 'fuelux/select'], function ($) {
 		deepEqual(item, expectedItem, 'item selected');
 	});
 
+	test("should fail", function () {
+		ok(false);
+	});
+
 	test("should fire changed event", function () {
 		var eventFired = false;
 		var selectedText = '';

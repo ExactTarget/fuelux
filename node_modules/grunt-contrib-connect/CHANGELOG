@@ -1,7 +1,11 @@
+v0.3.0:
+  date: 2013-04-10
+  changes:
+    - Add ability to listen on system-assigned port.
 v0.2.0:
   date: 2013-03-07
   changes:
-    - Upgrade connect dependency
+    - Upgrade connect dependency.
 v0.1.2:
   date: 2013-02-17
   changes:

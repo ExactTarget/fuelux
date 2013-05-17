@@ -1,4 +1,5 @@
-/*global module:false*/
+/*jshint expr:true*/
+/*global module:false, process:false*/
 module.exports = function (grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib-clean');
@@ -206,11 +207,16 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('quicktest', ['jshint', 'qunit:simple']);
 	grunt.registerTask('fulltest', ['connect', 'jshint', 'qunit:full']);
+	grunt.registerTask('saucelabs', ['connect', 'jshint', 'saucelabs-qunit']);
 
 	grunt.registerTask('quickcss', ['recess:compile', 'recess:compile_responsive']);
 	grunt.registerTask('fullcss', ['quickcss', 'recess:compress', 'recess:compress_responsive']);
 
 	grunt.registerTask('default', ['fulltest', 'requirejs', 'fullcss', 'copy:images', 'clean:dist', 'uglify', 'copy:zipsrc', 'compress', 'clean:zipsrc']);
 	grunt.registerTask('devserver', ['quicktest', 'quickcss', 'connect', 'watch']);
+
+	grunt.registerTask('travisci', 'Run appropriate test strategy for Travis CI', function () {
+		(process.env['TRAVIS_SECURE_ENV_VARS'] === 'true') ? grunt.task.run('saucelabs') : grunt.task.run('fulltest');
+	});
 
 };

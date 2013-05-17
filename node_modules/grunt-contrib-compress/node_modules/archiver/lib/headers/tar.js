@@ -8,7 +8,7 @@
 
 var util = require('../util');
 
-var headers = module.exports = {};
+var headers = {};
 
 headers.file = {
   fields: [
@@ -85,5 +85,21 @@ headers.file = {
     }
 
     return checksum;
+  }
+};
+
+var encode = exports.encode = function(type, data) {
+  if (typeof headers[type].toBuffer === 'function') {
+    return headers[type].toBuffer(data);
+  } else {
+    return false;
+  }
+};
+
+var decode = exports.decode = function(type, data) {
+  if (typeof headers[type].toObject === 'function') {
+    return headers[type].toObject(data);
+  } else {
+    return false;
   }
 };

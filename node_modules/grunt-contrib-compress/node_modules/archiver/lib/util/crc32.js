@@ -81,6 +81,8 @@ CRC32.prototype.update = function(buffer) {
   for (var i = 0; i < buffer.length; i++) {
     this.crc = (this.crc >>> 8) ^ lookup[(this.crc ^ buffer[i]) & 0xff];
   }
+
+  return this;
 };
 
 CRC32.prototype.digest = function() {
