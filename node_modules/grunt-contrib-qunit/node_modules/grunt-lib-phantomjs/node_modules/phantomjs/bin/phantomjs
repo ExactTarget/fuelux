@@ -3,7 +3,7 @@
 var path = require('path')
 var spawn = require('child_process').spawn
 
-var binPath = require('../lib/phantomjs').path
+var binPath = require(path.join(__dirname, '..', 'lib', 'phantomjs')).path
 
 var args = process.argv.slice(2)
 

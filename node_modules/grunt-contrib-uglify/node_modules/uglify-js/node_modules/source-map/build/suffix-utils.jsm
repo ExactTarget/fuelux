@@ -18,3 +18,4 @@ function runSourceMapTests(modName, do_throw) {
   }
 
 }
+this.runSourceMapTests = runSourceMapTests;

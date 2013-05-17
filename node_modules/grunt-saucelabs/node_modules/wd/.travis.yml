@@ -1,6 +1,8 @@
 language: node_js
 node_js:
-  - 0.8
+  - "0.11"
+  - "0.10"
+  - "0.8"
 env:
   - [
       {secure: "P6rr9zRzJfodqw7dCKZAQtBi8rcMwYAhXwyk27k+8tRbKdoMyxPDGByo1EEW\n39Y7W53gmXYgjb6FZcwwJ/d+yr6DpZuxbcGt75HmsHltJPTJB4OzXQCliod+\nMRw6VQmHdnZVMS2yHBc4OXrVfM99o4k2uNcq4dapgX8K3oflY5A="},

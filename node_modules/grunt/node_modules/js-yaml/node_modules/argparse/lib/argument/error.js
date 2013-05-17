@@ -1,7 +1,9 @@
 'use strict';
 
-var _ = require('underscore');
-_.str = require('underscore.string');
+
+var format  = require('util').format;
+
+
 var ERR_CODE = 'ARGError';
 
 /*:nodoc:*
@@ -20,16 +22,13 @@ var ERR_CODE = 'ARGError';
  *      if (conflictOptionals.length > 0) {
  *        throw argumentErrorHelper(
  *          action,
- *          _.str.sprintf('Conflicting option string(s): %(conflict)s', {
- *            conflict: conflictOptionals.join(', ')
- *          })
+ *          format('Conflicting option string(s): %s', conflictOptionals.join(', '))
  *        );
  *      }
  *
  **/
 module.exports = function (argument, message) {
   var argumentName = null;
-  var format;
   var errMessage;
   var err;
 
@@ -38,12 +37,13 @@ module.exports = function (argument, message) {
   } else {
     argumentName = '' + argument;
   }
-  format = !argumentName ? '%(message)s' : 'argument "%(argumentName)s": %(message)s';
 
-  errMessage =  _.str.sprintf(format, {
-    message: message,
-    argumentName: argumentName
-  });
+  if (!argumentName) {
+    errMessage = message;
+  } else {
+    errMessage = format('argument "%s": %s', argumentName, message);
+  }
+
   err = new TypeError(errMessage);
   err.code = ERR_CODE;
   return err;

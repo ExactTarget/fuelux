@@ -1,3 +1,7 @@
+v0.4.1:
+  date: 2013-04-16
+  changes:
+    - Check if file exists to avoid trying to delete a non-existent file.
 v0.4.0:
   date: 2013-02-15
   changes:

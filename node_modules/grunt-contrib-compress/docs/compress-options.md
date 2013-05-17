@@ -8,7 +8,7 @@ This is used to define where to output the archive. Each target can only have on
 ## mode
 Type: `String`
 
-This is used to define which mode to use, currently supports `gzip`, `tar`, `tgz` (tar gzip) and `zip`.
+This is used to define which mode to use, currently supports `gzip`, `deflate`, `deflateRaw`, `tar`, `tgz` (tar gzip) and `zip`.
 
 Automatically detected per dest:src pair, but can be overridden per target if desired.
 

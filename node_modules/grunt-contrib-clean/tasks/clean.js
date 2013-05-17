@@ -20,6 +20,7 @@ module.exports = function(grunt) {
 
     // Clean specified files / dirs.
     this.filesSrc.forEach(function(filepath) {
+      if (!grunt.file.exists(filepath)) { return; }
       grunt.log.write('Cleaning "' + filepath + '"...');
 
       try {

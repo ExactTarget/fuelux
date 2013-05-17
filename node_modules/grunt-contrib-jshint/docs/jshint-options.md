@@ -30,3 +30,9 @@ If this filename is specified, options and globals defined therein will be used.
   }
 }
 ```
+
+## force
+Type: `Boolean`
+Default value: `false`
+
+Set `force` to `true` to report JSHint errors but not fail the task.

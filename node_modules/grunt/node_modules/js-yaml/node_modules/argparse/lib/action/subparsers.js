@@ -7,9 +7,10 @@
  **/
 'use strict';
 
-var util = require('util');
-var _ = require('underscore');
-_.str = require('underscore.string');
+var util    = require('util');
+var format  = require('util').format;
+var _       = require('underscore');
+
 
 var Action = require('../action');
 
@@ -133,12 +134,10 @@ ActionSubparsers.prototype.call = function (parser, namespace, values) {
   if (!!this._nameParserMap[parserName]) {
     parser = this._nameParserMap[parserName];
   } else {
-    throw argumentErrorHelper(_.str.sprintf(
-      'Unknown parser "%(name)s" (choices: [%(choices)s]).',
-      {
-        name: parserName,
-        choices: _.keys(this._nameParserMap).join(', ')
-      }
+    throw argumentErrorHelper(format(
+      'Unknown parser "%s" (choices: [%s]).',
+        parserName,
+        _.keys(this._nameParserMap).join(', ')
     ));
   }
 

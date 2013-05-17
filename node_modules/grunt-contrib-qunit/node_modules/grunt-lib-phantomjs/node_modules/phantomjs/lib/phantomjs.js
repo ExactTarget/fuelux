@@ -1,10 +1,24 @@
+// Copyright 2013 The Obvious Corporation.
+
+/**
+ * @fileoverview Helpers made available via require('phantomjs') once package is
+ * installed.
+ */
+
 var path = require('path')
-var binPath = path.join(__dirname, 'phantom')
 
-if (process.platform === 'win32') {
-  binPath = path.join(binPath, 'phantomjs.exe')
-} else {
-  binPath = path.join(binPath, 'bin' ,'phantomjs')
-}
 
-exports.path = binPath
+/**
+ * Where the phantom binary can be found.
+ * @type {string}
+ */
+exports.path = process.platform === 'win32' ?
+    path.join(__dirname, 'phantom', 'phantomjs.exe') :
+    path.join(__dirname, 'phantom', 'bin' ,'phantomjs')
+
+
+/**
+ * The version of phantomjs installed by this package.
+ * @type {number}
+ */
+exports.version = '1.9.0'
