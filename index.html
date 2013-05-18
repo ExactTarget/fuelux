@@ -587,7 +587,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 			<div class="well combobox-example">
 				<div id="myCombobox" class="input-append dropdown combobox">
 					<input class="span2" type="text">
-					<button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+					<button type="button" class="btn" data-toggle="dropdown"><i class="caret"></i></button>
 					<ul class="dropdown-menu">
 						<li data-value="1" data-selected="true"><a href="#">Item One</a></li>
 						<li data-value="2"><a href="#">Item Two</a></li>
@@ -693,7 +693,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 <pre class="prettyprint linenums">
 &lt;div class="input-append dropdown combobox"&gt;
-	&lt;input class="span2" type="text"&gt;&lt;button class="btn" data-toggle="dropdown"&gt;&lt;i class="caret"&gt;&lt;/i&gt;&lt;/button&gt;
+	&lt;input class="span2" type="text"&gt;&lt;button type=&quot;button&quot; class="btn" data-toggle="dropdown"&gt;&lt;i class="caret"&gt;&lt;/i&gt;&lt;/button&gt;
 	&lt;ul class="dropdown-menu"&gt;
 		&lt;li&gt;&lt;a href="#"&gt;Item One&lt;/a&gt;&lt;/li&gt;
 		&lt;li&gt;&lt;a href="#"&gt;Item Two&lt;/a&gt;&lt;/li&gt;
@@ -733,12 +733,12 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 								<div class="datagrid-header-left">
 									<div class="input-append search datagrid-search">
 										<input type="text" class="input-medium" placeholder="Search">
-										<button class="btn"><i class="icon-search"></i></button>
+										<button type="button" class="btn"><i class="icon-search"></i></button>
 									</div>
 								</div>
 								<div class="datagrid-header-right">
 									<div class="select filter" data-resize="auto">
-										<button data-toggle="dropdown" class="btn dropdown-toggle">
+										<button type="button" data-toggle="dropdown" class="btn dropdown-toggle">
 											<span class="dropdown-label"></span>
 											<span class="caret"></span>
 										</button>
@@ -764,7 +764,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 											<span class="grid-count"></span>
 										</span>
 										<div class="select grid-pagesize" data-resize="auto">
-											<button data-toggle="dropdown" class="btn dropdown-toggle">
+											<button type="button" data-toggle="dropdown" class="btn dropdown-toggle">
 												<span class="dropdown-label"></span>
 												<span class="caret"></span>
 											</button>
@@ -786,7 +786,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 										<div class="input-append dropdown combobox">
 											<input class="span1" type="text">
-											<button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+											<button type="button" class="btn" data-toggle="dropdown"><i class="caret"></i></button>
 											<ul class="dropdown-menu"></ul>
 										</div>
 										<span>of <span class="grid-pages"></span></span>
@@ -953,12 +953,12 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 			&lt;div class=&quot;datagrid-header-left&quot;&gt;
 				&lt;div class=&quot;input-append search datagrid-search&quot;&gt;
 					&lt;input type=&quot;text&quot; class=&quot;input-medium&quot; placeholder=&quot;Search&quot;&gt;
-					&lt;button class=&quot;btn&quot;&gt;&lt;i class=&quot;icon-search&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+					&lt;button type=&quot;button&quot; class=&quot;btn&quot;&gt;&lt;i class=&quot;icon-search&quot;&gt;&lt;/i&gt;&lt;/button&gt;
 				&lt;/div&gt;
 			&lt;/div&gt;
 			&lt;div class=&quot;datagrid-header-right&quot;&gt;
 				&lt;div class=&quot;select filter&quot; data-resize=&quot;auto&quot;&gt;
-					&lt;button data-toggle=&quot;dropdown&quot; class=&quot;btn dropdown-toggle&quot;&gt;
+					&lt;button type=&quot;button&quot; data-toggle=&quot;dropdown&quot; class=&quot;btn dropdown-toggle&quot;&gt;
 						&lt;span class=&quot;dropdown-label&quot;&gt;&lt;/span&gt;
 						&lt;span class=&quot;caret&quot;&gt;&lt;/span&gt;
 					&lt;/button&gt;
@@ -983,7 +983,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 						&lt;span class=&quot;grid-count&quot;&gt;&lt;/span&gt;
 					&lt;/span&gt;
 					&lt;div class=&quot;select grid-pagesize&quot; data-resize=&quot;auto&quot;&gt;
-						&lt;button data-toggle=&quot;dropdown&quot; class=&quot;btn dropdown-toggle&quot;&gt;
+						&lt;button type=&quot;button&quot; data-toggle=&quot;dropdown&quot; class=&quot;btn dropdown-toggle&quot;&gt;
 							&lt;span class=&quot;dropdown-label&quot;&gt;&lt;/span&gt;
 							&lt;span class=&quot;caret&quot;&gt;&lt;/span&gt;
 						&lt;/button&gt;
@@ -1005,7 +1005,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 					&lt;div class=&quot;input-append dropdown combobox&quot;&gt;
 						&lt;input class=&quot;span1&quot; type=&quot;text&quot;&gt;
-						&lt;button class=&quot;btn&quot; data-toggle=&quot;dropdown&quot;&gt;&lt;i class=&quot;caret&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+						&lt;button type=&quot;button&quot; class=&quot;btn&quot; data-toggle=&quot;dropdown&quot;&gt;&lt;i class=&quot;caret&quot;&gt;&lt;/i&gt;&lt;/button&gt;
 						&lt;ul class=&quot;dropdown-menu&quot;&gt;&lt;/ul&gt;
 					&lt;/div&gt;
 					&lt;span&gt;of &lt;span class=&quot;grid-pages&quot;&gt;&lt;/span&gt;&lt;/span&gt;
@@ -1191,7 +1191,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 			<div class="well search-example">
 				<div id="MySearch" class="input-append search">
 					<input type="text" class="input-medium" placeholder="Search">
-					<button class="btn"><i class="icon-search"></i></button>
+					<button type="button" class="btn"><i class="icon-search"></i></button>
 				</div>
 				<br/>
 				<input type="button" class="btn" id="search-enable" value="enable">
@@ -1236,7 +1236,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 <pre class="prettyprint linenums">
 &lt;div id="MySearch" class="input-append search"&gt;
-	&lt;input type="text" class="input-medium" placeholder="Search"&gt;&lt;button class="btn"&gt;&lt;i class="icon-search"&gt;&lt;/i&gt;&lt;/button&gt;
+	&lt;input type="text" class="input-medium" placeholder="Search"&gt;&lt;button type=&quot;button&quot; class="btn"&gt;&lt;i class="icon-search"&gt;&lt;/i&gt;&lt;/button&gt;
 &lt;/div&gt;
 </pre>
 			<h3>Events</h3>
@@ -1280,7 +1280,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 			<div class="well select-example">
 				<div id="mySelect" class="select btn-group" data-resize="auto">
-					<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label"></span><span
+					<button type="button" data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label"></span><span
 							class="caret"></span></button>
 					<ul class="dropdown-menu">
 						<li data-value="1" data-selected="true"><a href="#">Item One</a></li>
@@ -1394,7 +1394,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 <pre class="prettyprint linenums">
 &lt;div class="select btn-group" data-resize="auto"&gt;
-	&lt;button data-toggle="dropdown" class="btn dropdown-toggle"&gt;&lt;span class="dropdown-label"&gt;&lt;/span&gt;&lt;span class="caret"&gt;&lt;/span&gt;&lt;/button&gt;
+	&lt;button type=&quot;button&quot; data-toggle="dropdown" class="btn dropdown-toggle"&gt;&lt;span class="dropdown-label"&gt;&lt;/span&gt;&lt;span class="caret"&gt;&lt;/span&gt;&lt;/button&gt;
 	&lt;ul class="dropdown-menu"&gt;
 		&lt;li data-value="1"&gt;&lt;a href="#"&gt;One&lt;/a&gt;&lt;/li&gt;
 		&lt;li data-value="2"&gt;&lt;a href="#"&gt;Two&lt;/a&gt;&lt;/li&gt;
@@ -1425,10 +1425,10 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 					<input type="text" class="input-mini spinner-input">
 
 					<div class="spinner-buttons	 btn-group btn-group-vertical">
-						<button class="btn spinner-up">
+						<button type="button" class="btn spinner-up">
 							<i class="icon-chevron-up"></i>
 						</button>
-						<button class="btn spinner-down">
+						<button type="button" class="btn spinner-down">
 							<i class="icon-chevron-down"></i>
 						</button>
 					</div>
@@ -1563,10 +1563,10 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 &lt;div id="MySpinner" class="spinner"&gt;
 	&lt;input type="text" class="input-mini spinner-input"&gt;
 	&lt;div class="spinner-buttons	btn-group btn-group-vertical"&gt;
-		&lt;button class="btn spinner-up"&gt;
+		&lt;button type=&quot;button&quot; class="btn spinner-up"&gt;
 			&lt;i class="icon-chevron-up"&gt;&lt;/i&gt;
 		&lt;/button&gt;
-		&lt;button class="btn spinner-down"&gt;
+		&lt;button type=&quot;button&quot; class="btn spinner-down"&gt;
 			&lt;i class="icon-chevron-down"&gt;&lt;/i&gt;
 		&lt;/button&gt;
 	&lt;/div&gt;
@@ -1780,8 +1780,8 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 						<li data-target="#step5"><span class="badge">5</span>Step 5<span class="chevron"></span></li>
 					</ul>
 					<div class="actions">
-						<button class="btn btn-mini btn-prev"> <i class="icon-arrow-left"></i>Prev</button>
-						<button class="btn btn-mini btn-next" data-last="Finish">Next<i class="icon-arrow-right"></i></button>
+						<button type="button" class="btn btn-mini btn-prev"> <i class="icon-arrow-left"></i>Prev</button>
+						<button type="button" class="btn btn-mini btn-next" data-last="Finish">Next<i class="icon-arrow-right"></i></button>
 					</div>
 				</div>
 				<div class="step-content">
@@ -1881,8 +1881,8 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 		&lt;li data-target=&quot;#step5&quot;&gt;&lt;span class=&quot;badge&quot;&gt;5&lt;/span&gt;Step 5&lt;span class=&quot;chevron&quot;&gt;&lt;/span&gt;&lt;/li&gt;
 	&lt;/ul&gt;
 	&lt;div class=&quot;actions&quot;&gt;
-		&lt;button class=&quot;btn btn-mini btn-prev&quot;&gt; &lt;i class=&quot;icon-arrow-left&quot;&gt;&lt;/i&gt;Prev&lt;/button&gt;
-		&lt;button class=&quot;btn btn-mini btn-next&quot; data-last=&quot;Finish&quot;&gt;Next&lt;i class=&quot;icon-arrow-right&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+		&lt;button type=&quot;button&quot; class=&quot;btn btn-mini btn-prev&quot;&gt; &lt;i class=&quot;icon-arrow-left&quot;&gt;&lt;/i&gt;Prev&lt;/button&gt;
+		&lt;button type=&quot;button&quot; class=&quot;btn btn-mini btn-next&quot; data-last=&quot;Finish&quot;&gt;Next&lt;i class=&quot;icon-arrow-right&quot;&gt;&lt;/i&gt;&lt;/button&gt;
 	&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;step-content&quot;&gt;
