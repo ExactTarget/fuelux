@@ -91,6 +91,7 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 				equal(stubDataSource.options.sortDirection, 'asc', 'iteration one - sort direction was set properly');
 				ok($columnHeaders.eq(0).hasClass('sorted'), 'iteration one - header has sorted class');
 				ok($columnHeaders.eq(0).find('i').hasClass('icon-chevron-up'), 'iteration one - header has sorting indicator');
+				equal($columnHeaders.eq(0).find('i').length, 1, 'iteration one - there is exactly one sorting indicator');
 
 				$datagrid.one('loaded', function () {
 
@@ -98,6 +99,7 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 					equal(stubDataSource.options.sortDirection, 'desc', 'iteration two - sort direction was set properly');
 					ok($columnHeaders.eq(0).hasClass('sorted'), 'iteration two - header has sorted class');
 					ok($columnHeaders.eq(0).find('i').hasClass('icon-chevron-down'), 'iteration two - header has sorting indicator');
+					equal($columnHeaders.eq(0).find('i').length, 1, 'iteration two - there is exactly one sorting indicator');
 
 					$datagrid.one('loaded', function () {
 
@@ -105,6 +107,8 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 						equal(stubDataSource.options.sortDirection, 'asc', 'iteration three - sort direction was set properly');
 						ok($columnHeaders.eq(1).hasClass('sorted'), 'iteration three - header has sorted class');
 						ok($columnHeaders.eq(1).find('i').hasClass('icon-chevron-up'), 'iteration three - header has sorting indicator');
+						equal($columnHeaders.eq(0).find('i').length, 0, 'iteration three - previous sorting indicator has been removed');
+						equal($columnHeaders.eq(1).find('i').length, 1, 'iteration three - there is exactly one sorting indicator');
 
 						start();
 					});

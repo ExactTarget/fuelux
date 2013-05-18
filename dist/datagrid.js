@@ -95,9 +95,9 @@ define(['require','jquery'],function(require) {
 
 		updateColumns: function ($target, direction) {
 			var className = (direction === 'asc') ? 'icon-chevron-up' : 'icon-chevron-down';
-			this.$colheader.find('i').remove();
+			this.$colheader.find('i.datagrid-sort').remove();
 			this.$colheader.find('th').removeClass('sorted');
-			$('<i>').addClass(className).appendTo($target);
+			$('<i>').addClass(className + ' datagrid-sort').appendTo($target);
 			$target.addClass('sorted');
 		},
 
