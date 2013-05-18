@@ -276,6 +276,34 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 		});
 	});
 
+	asyncTest("should reset to first page on filter change", function () {
+		var stubDataSource = new StubDataSource();
+		var $datagrid = $(datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
+
+			var $filtercontrol = $datagrid.find('.filter');
+			var $pagecontrols = $datagrid.find('.grid-pager');
+			var $pageinput = $pagecontrols.find('input');
+
+			equal(stubDataSource.options.filter, undefined, 'filter is undefined by default');
+			equal(stubDataSource.options.pageIndex, 0, 'datagrid is on first page by default');
+
+			$datagrid.one('loaded', function () {
+				equal(stubDataSource.options.pageIndex, 1, 'datagrid moved to second page');
+
+				$datagrid.one('loaded', function () {
+					equal(JSON.stringify(stubDataSource.options.filter), JSON.stringify({ text: 'Population < 5M', value: 'lt5m' }), 'filter was changed');
+					equal(stubDataSource.options.pageIndex, 0, 'datagrid moved back to first page');
+					start();
+				});
+
+				$filtercontrol.trigger('changed', { text: 'Population < 5M', value: 'lt5m' });
+			});
+
+			$pageinput.val('2').change();
+		});
+	});
+
+
 	asyncTest("should handle reload method", function () {
 		var stubDataSource = new StubDataSource();
 		var $datagrid = $(datagridHTML).datagrid({ dataSource: stubDataSource, dataOptions: { pageIndex: 1, pageSize: 10 } }).one('loaded', function () {

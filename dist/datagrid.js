@@ -220,6 +220,7 @@ define(['require','jquery'],function(require) {
 
 		filterChanged: function (e, filter) {
 			this.options.dataOptions.filter = filter;
+			this.options.dataOptions.pageIndex = 0;
 			this.renderData();
 		},
 
