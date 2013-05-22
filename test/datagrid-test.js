@@ -93,6 +93,7 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 				equal(stubDataSource.options.sortDirection, 'asc', 'iteration one - sort direction was set properly');
 				ok($columnHeaders.eq(0).hasClass('sorted'), 'iteration one - header has sorted class');
 				ok($columnHeaders.eq(0).find('i').hasClass('icon-chevron-up'), 'iteration one - header has sorting indicator');
+				equal($columnHeaders.eq(0).find('i').length, 1, 'iteration one - there is exactly one sorting indicator');
 
 				$datagrid.one('loaded', function () {
 
@@ -100,6 +101,7 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 					equal(stubDataSource.options.sortDirection, 'desc', 'iteration two - sort direction was set properly');
 					ok($columnHeaders.eq(0).hasClass('sorted'), 'iteration two - header has sorted class');
 					ok($columnHeaders.eq(0).find('i').hasClass('icon-chevron-down'), 'iteration two - header has sorting indicator');
+					equal($columnHeaders.eq(0).find('i').length, 1, 'iteration two - there is exactly one sorting indicator');
 
 					$datagrid.one('loaded', function () {
 
@@ -107,6 +109,8 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 						equal(stubDataSource.options.sortDirection, 'asc', 'iteration three - sort direction was set properly');
 						ok($columnHeaders.eq(1).hasClass('sorted'), 'iteration three - header has sorted class');
 						ok($columnHeaders.eq(1).find('i').hasClass('icon-chevron-up'), 'iteration three - header has sorting indicator');
+						equal($columnHeaders.eq(0).find('i').length, 0, 'iteration three - previous sorting indicator has been removed');
+						equal($columnHeaders.eq(1).find('i').length, 1, 'iteration three - there is exactly one sorting indicator');
 
 						start();
 					});
@@ -277,6 +281,34 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 			$filtercontrol.trigger('changed', { text: 'Population < 5M', value: 'lt5m' });
 		});
 	});
+
+	asyncTest("should reset to first page on filter change", function () {
+		var stubDataSource = new this.StubDataSource();
+		var $datagrid = $(this.datagridHTML).datagrid({ dataSource: stubDataSource }).one('loaded', function () {
+
+			var $filtercontrol = $datagrid.find('.filter');
+			var $pagecontrols = $datagrid.find('.grid-pager');
+			var $pageinput = $pagecontrols.find('input');
+
+			equal(stubDataSource.options.filter, undefined, 'filter is undefined by default');
+			equal(stubDataSource.options.pageIndex, 0, 'datagrid is on first page by default');
+
+			$datagrid.one('loaded', function () {
+				equal(stubDataSource.options.pageIndex, 1, 'datagrid moved to second page');
+
+				$datagrid.one('loaded', function () {
+					equal(JSON.stringify(stubDataSource.options.filter), JSON.stringify({ text: 'Population < 5M', value: 'lt5m' }), 'filter was changed');
+					equal(stubDataSource.options.pageIndex, 0, 'datagrid moved back to first page');
+					start();
+				});
+
+				$filtercontrol.trigger('changed', { text: 'Population < 5M', value: 'lt5m' });
+			});
+
+			$pageinput.val('2').change();
+		});
+	});
+
 
 	asyncTest("should handle reload method", function () {
 		var stubDataSource = new this.StubDataSource();
