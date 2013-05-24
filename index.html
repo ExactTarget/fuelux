@@ -1169,16 +1169,17 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 				<code>class="radio-custom"</code> on a label and include an i tag with <code>class="radio"</code> like
 				the example markup below and the radio will activate automatically.</p>
 				
-			<p>If you need to programmatically deactivate a radio button, the only way to do this currently is through javascript using:<p>
-			<p><code>
-					//note that this will deselect ALL radio buttons on the page. Change the query to target a specific group or button<br>
-					$('.radio-custom i').removeClass('checked');<br>
-					$('.radio-custom input').prop('checked', false);					
-			</code></p>
-
 <pre class="prettyprint linenums">
 &lt;label class="radio radio-custom">&lt;input type="radio"&gt;&lt;i class="radio"&gt;&lt;/i&gt;Item One&lt;/label&gt;
 </pre>
+
+			<p>If you need to programmatically deactivate a radio button, the only way to do this currently is through javascript using:<p>
+<pre class="prettyprint linenums">
+//note that this will deselect ALL radio buttons on the page. Change the query to target a specific group or button
+$('.radio-custom i').removeClass('checked');<br>
+$('.radio-custom input').prop('checked', false);					
+</pre>
+	
 		</div>
 	</div>
 </section>
