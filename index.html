@@ -1141,6 +1141,13 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 			<p>Call the radio via javascript (optional):</p>
 			<pre class="prettyprint linenums">$('#myRadio').radio()</pre>
 
+			<p>If you need to deactivate a radio button, the only way to do this currently is through javascript using:<p>
+<pre class="prettyprint linenums">
+//note that this will deselect ALL radio buttons on the page. Change the query to target a specific group or button
+$('.radio-custom i').removeClass('checked');<br>
+$('.radio-custom input').prop('checked', false);					
+</pre>
+
 			<h3>Methods</h3>
 
 			<p>Fuel UX's radio exposes the following methods:</p>
@@ -1173,13 +1180,6 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 &lt;label class="radio radio-custom">&lt;input type="radio"&gt;&lt;i class="radio"&gt;&lt;/i&gt;Item One&lt;/label&gt;
 </pre>
 
-			<p>If you need to programmatically deactivate a radio button, the only way to do this currently is through javascript using:<p>
-<pre class="prettyprint linenums">
-//note that this will deselect ALL radio buttons on the page. Change the query to target a specific group or button
-$('.radio-custom i').removeClass('checked');<br>
-$('.radio-custom input').prop('checked', false);					
-</pre>
-	
 		</div>
 	</div>
 </section>
