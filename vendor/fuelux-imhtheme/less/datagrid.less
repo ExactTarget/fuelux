@@ -22,6 +22,18 @@
 			float: right;
 		}
 
+		.datagrid-header-right, .datagrid-header-left {
+			.search, .filter {
+				margin-left: 8px;
+				margin-bottom: 0;
+
+				.dropdown-menu {
+					top: auto;
+					left: auto;
+				}
+			}
+		}
+
 		.sorted {
 			.gradientBar(@tableBackgroundAccent, @tableBackgroundAccentDark, @textColor, 'none');
 
@@ -57,6 +69,17 @@
 					width: 60px;
 				}
 
+				.grid-pagesize {
+					display: inline-block;
+					margin-bottom: 5px;
+					vertical-align: middle;
+
+					.dropdown-menu {
+						top: auto;
+						left: auto;
+					}
+				}
+
 				span {
 					font-weight: normal;
 				}
@@ -83,6 +106,8 @@
 					display: inline-block;
 					position: relative;
 					top: -2px;
+					vertical-align: baseline;
+					margin-bottom: 4px;
 				}
 
 				> button {

@@ -7,7 +7,7 @@
       "underscore": "github:amdjs/underscore/1.3.3",
       "require": "github:jrburke/requirejs/2.0.5",
       "fuelux": "github:ExactTarget/fuelux/2.3.0",
-      "fuelux-imhtheme": "github:ExactTarget/fuelux-imhtheme/2.2.1"
+      "fuelux-imhtheme": "github:ExactTarget/fuelux-imhtheme/2.3.0"
     }
   }
 }
