@@ -96,13 +96,11 @@ define(function (require) {
 	// RADIO DATA-API
 
 	$(function () {
-		$(window).on('load', function () {
-			//$('i.radio').each(function () {
-			$('.radio-custom > input[type=radio]').each(function () {
-				var $this = $(this);
-				if ($this.data('radio')) return;
-				$this.radio($this.data());
-			});
+		//$('i.radio').each(function () {
+		$('.radio-custom > input[type=radio]').each(function () {
+			var $this = $(this);
+			if ($this.data('radio')) return;
+			$this.radio($this.data());
 		});
 	});
 
