@@ -96,13 +96,11 @@ define(function (require) {
 	// CHECKBOX DATA-API
 
 	$(function () {
-		$(window).on('load', function () {
-			//$('i.checkbox').each(function () {
-			$('.checkbox-custom > input[type=checkbox]').each(function () {
-				var $this = $(this);
-				if ($this.data('checkbox')) return;
-				$this.checkbox($this.data());
-			});
+		//$('i.checkbox').each(function () {
+		$('.checkbox-custom > input[type=checkbox]').each(function () {
+			var $this = $(this);
+			if ($this.data('checkbox')) return;
+			$this.checkbox($this.data());
 		});
 	});
 
