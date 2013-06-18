@@ -1,15 +1,6 @@
-@import "import-test-d.css";
-
 @import url(http://fonts.googleapis.com/css?family=Open+Sans);
 
 @import url(something.css) screen and (color) and (max-width: 600px);
-#import {
-  color: #ff0000;
-}
-.mixin {
-  height: 10px;
-  color: #ff0000;
-}
 #import-test {
   height: 10px;
   color: #ff0000;
@@ -20,4 +11,11 @@
   body {
     width: 100%;
   }
+}
+#import {
+  color: #ff0000;
+}
+.mixin {
+  height: 10px;
+  color: #ff0000;
 }

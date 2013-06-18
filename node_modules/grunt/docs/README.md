@@ -1,1 +1,1 @@
-[Grunt homepage](https://github.com/cowboy/grunt) | [Documentation table of contents](/cowboy/grunt/blob/master/docs/toc.md)
+Visit the [gruntjs.com](http://gruntjs.com/) website for all the things.

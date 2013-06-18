@@ -2716,7 +2716,7 @@ define('fuelux/combobox',['require','jquery','./util'],function (require) {
 			});
 		});
 
-		$('body').on('mousedown.combobox.data-api', '.combobox', function (e) {
+		$('body').on('mousedown.combobox.data-api', '.combobox', function () {
 			var $this = $(this);
 			if ($this.data('combobox')) return;
 			$this.combobox($this.data());
@@ -2733,7 +2733,7 @@ define('fuelux/combobox',['require','jquery','./util'],function (require) {
  * Licensed under the MIT license.
  */
 
-define('fuelux/datagrid',['require','jquery'],function(require) {
+define('fuelux/datagrid',['require','jquery'],function (require) {
 
 	var $ = require('jquery');
 
@@ -2769,8 +2769,13 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 
 		// Shim until v3 -- account for FuelUX select or native select for page size:
 		if (this.$pagesize.hasClass('select')) {
+			this.$pagesize.select('selectByValue', this.options.dataOptions.pageSize);
 			this.options.dataOptions.pageSize = parseInt(this.$pagesize.select('selectedItem').value, 10);
 		} else {
+			var pageSize = this.options.dataOptions.pageSize;
+			this.$pagesize.find('option').filter(function() {
+				return $(this).text() === pageSize.toString();
+			}).attr('selected', true);
 			this.options.dataOptions.pageSize = parseInt(this.$pagesize.val(), 10);
 		}
 
@@ -2787,7 +2792,7 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 		this.$filtercontrol.on('changed', $.proxy(this.filterChanged, this));
 		this.$colheader.on('click', 'th', $.proxy(this.headerClicked, this));
 
-		if(this.$pagesize.hasClass('select')) {
+		if (this.$pagesize.hasClass('select')) {
 			this.$pagesize.on('changed', $.proxy(this.pagesizeChanged, this));
 		} else {
 			this.$pagesize.on('change', $.proxy(this.pagesizeChanged, this));
@@ -2888,7 +2893,11 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 				$.each(data.data, function (index, row) {
 					rowHTML += '<tr>';
 					$.each(self.columns, function (index, column) {
-						rowHTML += '<td>' + row[column.property] + '</td>';
+						rowHTML += '<td';
+						if (column.cssClass) {
+							rowHTML += ' class="' + column.cssClass + '"';
+						}
+						rowHTML += '>' + row[column.property] + '</td>';
 					});
 					rowHTML += '</tr>';
 				});
@@ -2929,7 +2938,7 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 		},
 
 		pagesizeChanged: function (e, pageSize) {
-			if(pageSize) {
+			if (pageSize) {
 				this.options.dataOptions.pageSize = parseInt(pageSize.value, 10);
 			} else {
 				this.options.dataOptions.pageSize = parseInt($(e.target).val(), 10);
@@ -2943,8 +2952,8 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 			var pageRequested = parseInt($(e.target).val(), 10);
 			pageRequested = (isNaN(pageRequested)) ? 1 : pageRequested;
 			var maxPages = this.$pageslabel.text();
-		
-			this.options.dataOptions.pageIndex = 
+
+			this.options.dataOptions.pageIndex =
 				(pageRequested > maxPages) ? maxPages - 1 : pageRequested - 1;
 
 			this.renderData();
@@ -3063,6 +3072,85 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 });
 
 /*
+ * Fuel UX Intelligent Bootstrap Dropdowns
+ * https://github.com/ExactTarget/fuelux
+ *
+ * Copyright (c) 2013 ExactTarget
+ * Licensed under the MIT license.
+ */
+
+define('fuelux/intelligent-dropdown',[ "jquery", "fuelux/all"], function($) {
+
+	$(function() {
+		$(document.body).on("click", "[data-toggle=dropdown][data-direction=auto]", function( event ) {
+
+			// only changing css positioning if position is set to static
+			// if this doesn"t happen, dropUp will not be correct
+			// works correctly for absolute, relative, and fixed positioning
+			if( $(this).parent().css("position") === "static" ) {
+				$(this).parent().css({"position": "relative"});
+			}
+
+			// only continue into this function if the click came from a user
+			if( event.hasOwnProperty("originalEvent") ) {
+				event.stopPropagation();
+				dropDownClicked( $(this) );
+			}
+		});
+
+		function dropDownClicked( element ) {
+
+			var dropDown      = element.next();
+			var dropUpPadding = 5;
+			var topPosition;
+
+			// setting this so I can get height of dropDown without it being shown
+			dropDown.css({ visibility: "hidden" });
+
+			// deciding where to put menu
+			if( dropUpCheck( dropDown ) ) {
+				$(dropDown).addClass("dropUp");
+				topPosition = ( ( dropDown.outerHeight() + dropUpPadding ) * -1 ) + "px";
+			} else {
+				$(dropDown).removeClass("dropUp");
+				topPosition = "auto";
+			}
+
+			dropDown.css({ visibility: "visible", top: topPosition });
+			element.click();
+		}
+
+		function dropUpCheck( element ) {
+			// caching $(window)
+			var $window = $(window);
+
+			// building object with distances for later use
+			var dist = {
+				fromTop: element.parent().offset().top - $window.scrollTop(),
+				fromBottom: $window.height() - element.parent().outerHeight() - ( element.parent().offset().top - $window.scrollTop() ),
+				dropdownHeight: element.outerHeight(),
+				parentHeight: element.parent().outerHeight()
+			};
+
+			// actual determination of where to put menu
+			// false = drop down
+			// true = drop up
+			if( dist.dropdownHeight < dist.fromBottom ) {
+				return false;
+			} else if ( dist.dropdownHeight < dist.fromTop ) {
+				return true;
+			} else if ( dist.dropdownHeight >= dist.fromTop && dist.dropdownHeight >= dist.fromBottom ) {
+				// decide which one is bigger and put it there
+				if( dist.fromTop >= dist.fromBottom ) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}
+	});
+});
+/*
  * Fuel UX Pillbox
  * https://github.com/ExactTarget/fuelux
  *
@@ -3125,7 +3213,7 @@ define('fuelux/pillbox',['require','jquery'],function(require) {
 	// PILLBOX DATA-API
 
 	$(function () {
-		$('body').on('mousedown.pillbox.data-api', '.pillbox', function (e) {
+		$('body').on('mousedown.pillbox.data-api', '.pillbox', function () {
 			var $this = $(this);
 			if ($this.data('pillbox')) return;
 			$this.pillbox($this.data());
@@ -3171,7 +3259,7 @@ define('fuelux/radio',['require','jquery'],function (require) {
 
 		constructor: Radio,
 
-		setState: function ($radio, resetGroupState) {
+		setState: function ($radio) {
 			var checked = $radio.is(':checked');
 			var disabled = $radio.is(':disabled');
 
@@ -3428,8 +3516,15 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 		constructor: Spinner,
 
 		render: function () {
-			this.$input.val(this.options.value);
-			this.$input.attr('maxlength',(this.options.max + '').split('').length);
+			var inputValue = this.$input.val();
+
+			if (inputValue) {
+				this.value(inputValue);
+			} else {
+				this.$input.val(this.options.value);
+			}
+
+			this.$input.attr('maxlength', (this.options.max + '').split('').length);
 		},
 
 		change: function () {
@@ -3564,7 +3659,7 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 	// SPINNER DATA-API
 
 	$(function () {
-		$('body').on('mousedown.spinner.data-api', '.spinner', function (e) {
+		$('body').on('mousedown.spinner.data-api', '.spinner', function () {
 			var $this = $(this);
 			if ($this.data('spinner')) return;
 			$this.spinner($this.data());
@@ -3620,28 +3715,22 @@ define('fuelux/select',['require','jquery','./util'],function(require) {
         },
 
         resize: function() {
-            var el = $('#selectTextSize')[0];
-
-            // create element if it doesn't exist
-            // used to calculate the length of the longest string
-            if(!el) {
-                $('<div/>').attr({id:'selectTextSize'}).appendTo('body');
-            }
-
-            var width = 0;
             var newWidth = 0;
+            var sizer = $('<div/>').addClass('select-sizer');
+            var width = 0;
+
+            $('body').append(sizer);
 
             // iterate through each item to find longest string
             this.$element.find('a').each(function () {
-                var $this = $(this);
-                var txt = $this.text();
-                var $txtSize = $('#selectTextSize');
-                $txtSize.text(txt);
-                newWidth = $txtSize.outerWidth();
+                sizer.text($(this).text());
+                newWidth = sizer.outerWidth();
                 if(newWidth > width) {
                     width = newWidth;
                 }
             });
+
+            sizer.remove();
 
             this.$label.width(width);
         },
@@ -3734,7 +3823,7 @@ define('fuelux/select',['require','jquery','./util'],function(require) {
             });
         });
 
-        $('body').on('mousedown.select.data-api', '.select', function (e) {
+        $('body').on('mousedown.select.data-api', '.select', function () {
             var $this = $(this);
             if ($this.data('select')) return;
             $this.select($this.data());
@@ -4040,7 +4129,7 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 			}
 		},
 
-		selectedItem: function (val) {
+		selectedItem: function () {
 			return {
 				step: this.currentStep
 			};
@@ -4090,7 +4179,7 @@ define('fuelux/wizard',['require','jquery'],function (require) {
  * Licensed under the MIT license.
  */
 
-define('fuelux/all',['require','jquery','bootstrap/bootstrap-affix','bootstrap/bootstrap-alert','bootstrap/bootstrap-button','bootstrap/bootstrap-carousel','bootstrap/bootstrap-collapse','bootstrap/bootstrap-dropdown','bootstrap/bootstrap-modal','bootstrap/bootstrap-popover','bootstrap/bootstrap-scrollspy','bootstrap/bootstrap-tab','bootstrap/bootstrap-tooltip','bootstrap/bootstrap-transition','bootstrap/bootstrap-typeahead','fuelux/checkbox','fuelux/combobox','fuelux/datagrid','fuelux/pillbox','fuelux/radio','fuelux/search','fuelux/spinner','fuelux/select','fuelux/tree','fuelux/wizard'],function (require) {
+define('fuelux/all',['require','jquery','bootstrap/bootstrap-affix','bootstrap/bootstrap-alert','bootstrap/bootstrap-button','bootstrap/bootstrap-carousel','bootstrap/bootstrap-collapse','bootstrap/bootstrap-dropdown','bootstrap/bootstrap-modal','bootstrap/bootstrap-popover','bootstrap/bootstrap-scrollspy','bootstrap/bootstrap-tab','bootstrap/bootstrap-tooltip','bootstrap/bootstrap-transition','bootstrap/bootstrap-typeahead','fuelux/checkbox','fuelux/combobox','fuelux/datagrid','fuelux/intelligent-dropdown','fuelux/pillbox','fuelux/radio','fuelux/search','fuelux/spinner','fuelux/select','fuelux/tree','fuelux/wizard'],function (require) {
 	require('jquery');
 	require('bootstrap/bootstrap-affix');
 	require('bootstrap/bootstrap-alert');
@@ -4108,6 +4197,7 @@ define('fuelux/all',['require','jquery','bootstrap/bootstrap-affix','bootstrap/b
 	require('fuelux/checkbox');
 	require('fuelux/combobox');
 	require('fuelux/datagrid');
+	require('fuelux/intelligent-dropdown');
 	require('fuelux/pillbox');
 	require('fuelux/radio');
 	require('fuelux/search');

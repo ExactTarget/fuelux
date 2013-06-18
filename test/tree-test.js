@@ -4,19 +4,19 @@
 
 require(['jquery', 'fuelux/tree'], function($) {
 
-	module("Fuel UX tree");
+	module("Fuel UX tree", { setup: testSetup });
 
 	test("should be defined on jquery object", function () {
 		ok($(document.body).tree, 'tree method is defined');
 	});
 
 	test("should return element", function () {
-		ok($(document.body).tree({ dataSource: emptyDataSource })[0] === document.body, 'document.body returned');
+		ok($(document.body).tree({ dataSource: this.emptyDataSource })[0] === document.body, 'document.body returned');
 	});
 
 	asyncTest("Tree should be populated by items on initialization", function () {
 
-		var $tree = $(treeHTML).tree({ dataSource: stubDataSource }).on('loaded', function () {
+		var $tree = $(this.treeHTML).tree({ dataSource: this.stubDataSource }).on('loaded', function () {
 
 			equal($tree.find('.tree-folder').length, 3, 'Initial set of folders have been added');
 			equal($tree.find('.tree-item').length, 3, 'Initial set of items have been added');
@@ -28,7 +28,7 @@ require(['jquery', 'fuelux/tree'], function($) {
 
 	asyncTest("Folders should be populated when folder is clicked", function () {
 
-		var $tree = $(treeHTML).tree({ dataSource: stubDataSource }).on('loaded', function () {
+		var $tree = $(this.treeHTML).tree({ dataSource: this.stubDataSource }).on('loaded', function () {
 
 			var $folder = $tree.find('.tree-folder:eq(1)');
 			var event = 0;
@@ -66,7 +66,7 @@ require(['jquery', 'fuelux/tree'], function($) {
 
 	asyncTest("Single item selection works as designed", function () {
 
-		var $tree = $(treeHTML).tree({ dataSource: stubDataSource }).on('loaded',function() {
+		var $tree = $(this.treeHTML).tree({ dataSource: this.stubDataSource }).on('loaded',function() {
 
 			var data;
 
@@ -88,7 +88,7 @@ require(['jquery', 'fuelux/tree'], function($) {
 
 	asyncTest("Multiple item selection works as designed", function () {
 
-		var $tree = $(treeHTML).tree({ dataSource: stubDataSource, multiSelect: true }).on('loaded',function() {
+		var $tree = $(this.treeHTML).tree({ dataSource: this.stubDataSource, multiSelect: true }).on('loaded',function() {
 
 			var data;
 
@@ -110,44 +110,46 @@ require(['jquery', 'fuelux/tree'], function($) {
 
 	});
 
-	var emptyDataSource = {
-		data: function (options, callback) {
-			setTimeout(function () {
-				callback({ data: []});
-			}, 0);
-		}
-	};
+	function testSetup() {
 
-	var stubDataSource = {
-		data: function (options, callback) {
+		this.emptyDataSource = {
+			data: function (options, callback) {
+				setTimeout(function () {
+					callback({ data: []});
+				}, 0);
+			}
+		};
 
-			setTimeout(function () {
-				callback({
-					data: [
-						{ name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } },
-						{ name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F2' } },
-						{ name: 'Test Item 1', type: 'item', additionalParameters: { id: 'I1' } },
-						{ name: 'Test Item 2', type: 'item', additionalParameters: { id: 'I2' } }
-					]
-				});
-			}, 0);
+		this.stubDataSource = {
+			data: function (options, callback) {
 
-		}
-	};
+				setTimeout(function () {
+					callback({
+						data: [
+							{ name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } },
+							{ name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F2' } },
+							{ name: 'Test Item 1', type: 'item', additionalParameters: { id: 'I1' } },
+							{ name: 'Test Item 2', type: 'item', additionalParameters: { id: 'I2' } }
+						]
+					});
+				}, 0);
 
-	var treeHTML =	'<div id="ex-tree" class="tree">' +
-						'<div class = "tree-folder" style="display:none;">' +
-							'<div class="tree-folder-header">' +
-								'<i class="icon-folder-close"></i>' +
-								'<div class="tree-folder-name"></div>' +
+			}
+		};
+
+		this.treeHTML =	'<div id="ex-tree" class="tree">' +
+							'<div class = "tree-folder" style="display:none;">' +
+								'<div class="tree-folder-header">' +
+									'<i class="icon-folder-close"></i>' +
+									'<div class="tree-folder-name"></div>' +
+								'</div>' +
+								'<div class="tree-folder-content"></div>' +
+								'<div class="tree-loader" style="display:none"></div>' +
 							'</div>' +
-							'<div class="tree-folder-content"></div>' +
-							'<div class="tree-loader" style="display:none"></div>' +
-						'</div>' +
-						'<div class="tree-item" style="display:none;">' +
-							'<i class="tree-dot"></i>' +
-							'<div class="tree-item-name"></div>' +
-						'</div>' +
-					'</div>';
-
+							'<div class="tree-item" style="display:none;">' +
+								'<i class="tree-dot"></i>' +
+								'<div class="tree-item-name"></div>' +
+							'</div>' +
+						'</div>';
+	}
 });

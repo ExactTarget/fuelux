@@ -1,11 +1,13 @@
 /*
  * grunt
- * https://github.com/cowboy/grunt
+ * http://gruntjs.com/
  *
- * Copyright (c) 2012 "Cowboy" Ben Alman
+ * Copyright (c) 2013 "Cowboy" Ben Alman
  * Licensed under the MIT license.
- * http://benalman.com/about/license/
+ * https://github.com/gruntjs/grunt/blob/master/LICENSE-MIT
  */
+
+'use strict';
 
 // The actual option data.
 var data = {};
