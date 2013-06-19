@@ -48,32 +48,54 @@ define([ "jquery", "fuelux/all"], function($) {
 		}
 
 		function dropUpCheck( element ) {
-			// caching $(window)
-			var $window = $(window);
+			// caching container
+			var $container = getContainer( element );
 
-			// building object with distances for later use
-			var dist = {
-				fromTop: element.parent().offset().top - $window.scrollTop(),
-				fromBottom: $window.height() - element.parent().outerHeight() - ( element.parent().offset().top - $window.scrollTop() ),
-				dropdownHeight: element.outerHeight(),
-				parentHeight: element.parent().outerHeight()
-			};
+			// building object with measurementsances for later use
+			var measurements                = {};
+			measurements.parentHeight       = element.parent().outerHeight();
+			measurements.parentOffsetTop    = element.parent().offset().top;
+			measurements.dropdownHeight     = element.outerHeight();
+			measurements.containerHeight    = $container.overflowElement.outerHeight();
+
+			// this needs to be different if the window is the container or another element is
+			measurements.containerOffsetTop = ( !! $container.isWindow ) ? $container.overflowElement.scrollTop() : $container.overflowElement.offset().top;
+
+			// doing the calculations
+			measurements.fromTop    = measurements.parentOffsetTop - measurements.containerOffsetTop;
+			measurements.fromBottom = measurements.containerHeight - measurements.parentHeight - ( measurements.parentOffsetTop - measurements.containerOffsetTop );
 
 			// actual determination of where to put menu
 			// false = drop down
 			// true = drop up
-			if( dist.dropdownHeight < dist.fromBottom ) {
+			if( measurements.dropdownHeight < measurements.fromBottom ) {
 				return false;
-			} else if ( dist.dropdownHeight < dist.fromTop ) {
+			} else if ( measurements.dropdownHeight < measurements.fromTop ) {
 				return true;
-			} else if ( dist.dropdownHeight >= dist.fromTop && dist.dropdownHeight >= dist.fromBottom ) {
+			} else if ( measurements.dropdownHeight >= measurements.fromTop && measurements.dropdownHeight >= measurements.fromBottom ) {
 				// decide which one is bigger and put it there
-				if( dist.fromTop >= dist.fromBottom ) {
+				if( measurements.fromTop >= measurements.fromBottom ) {
 					return true;
 				} else {
 					return false;
 				}
 			}
+		}
+
+		function getContainer( element ) {
+			var containerElement = window;
+			var isWindow         = true;
+			$.each( element.parents(), function(index, value) {
+				if( $(value).css('overflow') !== 'visible' ) {
+					containerElement = value;
+					isWindow         = false;
+					return false;
+				}
+			});
+			return {
+				overflowElement: $( containerElement ),
+				isWindow: isWindow
+			};
 		}
 	});
 });
