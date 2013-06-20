@@ -80,6 +80,23 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 		var $activityrow = $datagrid.find('tbody tr');
 		equal($activityrow.length, 1, 'activity row was rendered');
 	});
+	
+	asyncTest("should handle data source with zero records - custom no records text", function () {
+        var $datagrid = $(this.datagridHTML).datagrid({ dataSource: this.emptyDataSource, noDataFoundHTML: '<div style="background-color:blue;">NO DATA FOUND</div>' }).on('loaded', function () {
+
+            var $datarows = $datagrid.find('tbody tr');
+            equal($datarows.length, 1, 'row for status was rendered');
+
+            var $testcell = $datarows.eq(0).find('td');
+            equal($testcell.html(), '<div style="background-color:blue;">NO DATA FOUND</div>', 'empty status is displayed');
+            equal($testcell.attr('colspan'), '2', 'empty status spans all columns');
+
+            start();
+        });
+
+        var $activityrow = $datagrid.find('tbody tr');
+        equal($activityrow.length, 1, 'activity row was rendered');
+    });
 
 	asyncTest("should handle header clicks", function () {
 		var stubDataSource = new this.StubDataSource();
