@@ -11,7 +11,8 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 	});
 
 	test("should return element", function () {
-		ok($(document.body).datagrid({ dataSource: this.emptyDataSource })[0] === document.body, 'document.body returned');
+		var emptyDataSource = new this.EmptyDataSource();
+		ok($(document.body).datagrid({ dataSource: emptyDataSource })[0] === document.body, 'document.body returned');
 	});
 
 	asyncTest("should render data source", function () {
@@ -65,7 +66,8 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 	});
 
 	asyncTest("should handle data source with zero records", function () {
-		var $datagrid = $(this.datagridHTML).datagrid({ dataSource: this.emptyDataSource }).on('loaded', function () {
+		var emptyDataSource = new this.EmptyDataSource();
+		var $datagrid = $(this.datagridHTML).datagrid({ dataSource: emptyDataSource }).on('loaded', function () {
 
 			var $datarows = $datagrid.find('tbody tr');
 			equal($datarows.length, 1, 'row for status was rendered');
@@ -82,13 +84,14 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 	});
 	
 	asyncTest("should handle data source with zero records - custom no records text", function () {
-        var $datagrid = $(this.datagridHTML).datagrid({ dataSource: this.emptyDataSource, noDataFoundHTML: '<div style="background-color:blue;">NO DATA FOUND</div>' }).on('loaded', function () {
+		var emptyDataSource = new this.EmptyDataSource();
+        var $datagrid = $(this.datagridHTML).datagrid({ dataSource: emptyDataSource, noDataFoundHTML: 'NO DATA FOUND' }).on('loaded', function () {
 
             var $datarows = $datagrid.find('tbody tr');
             equal($datarows.length, 1, 'row for status was rendered');
 
             var $testcell = $datarows.eq(0).find('td');
-            equal($testcell.html(), '<div style="background-color:blue;">NO DATA FOUND</div>', 'empty status is displayed');
+            equal($testcell.html(), 'NO DATA FOUND', 'empty status is displayed');
             equal($testcell.attr('colspan'), '2', 'empty status spans all columns');
 
             start();
@@ -347,24 +350,26 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 
 	function testSetup() {
 
-		this.emptyDataSource = {
-			columns: function () {
-				return [{
-					property: 'property1',
-					label: 'Property One',
-					sortable: true
-				}, {
-					property: 'property2',
-					label: 'Property Two',
-					sortable: true
-				}];
-			},
-			data: function (options, callback) {
-				setTimeout(function () {
-					callback({ data: [], start: 1, end: 0, count: 0, pages: 0, page: 1 });
-				}, 0);
-			}
+		this.EmptyDataSource = function () {};
+
+		this.EmptyDataSource.prototype.columns = function () {
+			return [{
+				property: 'property1',
+				label: 'Property One',
+				sortable: true
+			}, {
+				property: 'property2',
+				label: 'Property Two',
+				sortable: true
+			}];
 		};
+
+		this.EmptyDataSource.prototype.data = function (options, callback) {
+			setTimeout(function () {
+				callback({ data: [], start: 1, end: 0, count: 0, pages: 0, page: 1 });
+			}, 0);
+		};
+
 
 		this.StubDataSource = function () {};
 
