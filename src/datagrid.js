@@ -166,7 +166,7 @@ define(function(require) {
 					rowHTML += '</tr>';
 				});
 
-				if (!rowHTML) rowHTML = self.placeholderRowHTML('0 ' + self.options.itemsText);
+				if (!rowHTML) rowHTML = self.placeholderRowHTML(self.options.noDataFoundHTML);
 
 				self.$tbody.html(rowHTML);
 				self.stretchHeight();
@@ -328,7 +328,8 @@ define(function(require) {
 		dataOptions: { pageIndex: 0, pageSize: 10 },
 		loadingHTML: '<div class="progress progress-striped active" style="width:50%;margin:auto;"><div class="bar" style="width:100%;"></div></div>',
 		itemsText: 'items',
-		itemText: 'item'
+		itemText: 'item',
+		noDataFoundHTML: '0 items'
 	};
 
 	$.fn.datagrid.Constructor = Datagrid;
