@@ -126,9 +126,13 @@ define(function(require) {
 				}
 			}
 
+			if(data.length) {
+				this.$element.trigger('selected', {info: data});
+			}
+
 			// Return new list of selected items, the item
 			// clicked, and the type of event:
-			$el.trigger('selected', {
+			$el.trigger('updated', {
 				info: data,
 				item: $el,
 				eventType: eventType
