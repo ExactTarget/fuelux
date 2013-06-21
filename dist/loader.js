@@ -4369,7 +4369,11 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 				// position if it has been moved out of view
 				if ($('.wizard li.active').position().left < 200) {
 					newMargin += $('.wizard li.active').position().left - 200;
-					$('.wizard .steps').attr('style','margin-left: -' + newMargin + 'px');
+					if (newMargin < 1) {
+						$('.wizard .steps').attr('style','margin-left: 0');
+					} else {
+						$('.wizard .steps').attr('style','margin-left: -' + newMargin + 'px');
+					}
 				}
 			}
 

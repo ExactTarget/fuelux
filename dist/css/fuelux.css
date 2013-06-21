@@ -6746,13 +6746,10 @@ textarea.span1,
 }
 
 .fuelux .wizard ul {
+  width: 4000px;
   padding: 0;
   margin: 0;
   list-style: none outside none;
-}
-
-.fuelux .wizard ul .steps {
-  width: 4000px;
 }
 
 .fuelux .wizard ul li {
