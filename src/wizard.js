@@ -18,7 +18,7 @@ define(function (require) {
 
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.wizard.defaults, options);
-		this.currentStep = 1;
+		this.currentStep = this.options.selectedItem.step;
 		this.numSteps = this.$element.find('li').length;
 		this.$prevBtn = this.$element.find('button.btn-prev');
 		this.$nextBtn = this.$element.find('button.btn-next');
@@ -31,6 +31,10 @@ define(function (require) {
 		this.$prevBtn.on('click', $.proxy(this.previous, this));
 		this.$nextBtn.on('click', $.proxy(this.next, this));
 		this.$element.on('click', 'li.complete', $.proxy(this.stepclicked, this));
+		
+		if(this.currentStep > 1) {
+		    this.setSelectedItem(this.options.selectedItem);
+		}
 	};
 
 	Wizard.prototype = {
@@ -129,6 +133,15 @@ define(function (require) {
 			return {
 				step: this.currentStep
 			};
+		},
+		
+		setSelectedItem: function (selectedItem) { 
+		  var step = selectedItem.step || -1;
+		  
+		  if(step >= 1 && step <= this.numSteps) {
+		      this.currentStep = step;
+		      this.setState();    
+		  }    
 		}
 	};
 
@@ -150,7 +163,9 @@ define(function (require) {
 		return (methodReturn === undefined) ? $set : methodReturn;
 	};
 
-	$.fn.wizard.defaults = {};
+	$.fn.wizard.defaults = {
+	    selectedItem: {step:1}
+	};
 
 	$.fn.wizard.Constructor = Wizard;
 
