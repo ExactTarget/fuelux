@@ -67,6 +67,20 @@ define(function (require) {
 		itemchecked: function (e) {
 			var chk = $(e.target);
 			this.setState(chk);
+		},
+		
+		check: function () {
+		    this.$chk.prop('checked', true);
+		    this.setState(this.$chk);
+		},
+		
+		uncheck: function () {
+		    this.$chk.prop('checked', false);
+            this.setState(this.$chk);
+		},
+		
+		isChecked: function () {
+		    return this.$chk.is(':checked');
 		}
 	};
 

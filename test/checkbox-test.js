@@ -9,6 +9,7 @@ require(['jquery', 'fuelux/checkbox'], function ($) {
 		'<label class="checkbox checkbox-custom" id="lbl2"><input id="chk2" type="checkbox"><i class="checkbox"></i>Custom: Unchecked Enabled</label>' +
 		'<label class="checkbox checkbox-custom" id="lbl3"><input id="chk3" type="checkbox" checked="checked" disabled="disabled" ><i class="checkbox"></i>Custom: Checked Disabled</label>' +
 		'<label class="checkbox checkbox-custom" id="lbl4"><input id="chk4" type="checkbox" disabled="disabled"><i class="checkbox"></i>Custom: Unchecked Disabled</label>' +
+		'<label class="checkbox checkbox-custom" id="lbl5"><input id="chk5" type="checkbox"><i class="checkbox"></i>Convenience Methods</label>' +
 		'</div>';
 
 	module("Fuel UX checkbox");
@@ -68,5 +69,26 @@ require(['jquery', 'fuelux/checkbox'], function ($) {
 
 		$fixture.remove();
 	});
-
+	
+	test("test check/uncheck/isChecked convenience methods", function () {
+	   var $fixture = $(html).appendTo('#qunit-fixture');
+       var $chk5 = $fixture.find('#chk5');
+	   var $i5 = $fixture.find('#lbl5 i');
+	   
+	   $chk5.checkbox();
+	   
+	   equal($chk5.is(':checked'), false, 'unchecked - default value');
+	   
+	   $chk5.checkbox('check');
+	   equal($chk5.is(':checked'), true, 'checked - confirmation by is(:checked)');
+	   equal($i5.hasClass('checked'), true, 'checked - confirmation by css class');
+	   equal($chk5.checkbox('isChecked'), true, 'checked - confirmation by isChecked method');
+	   
+	   $chk5.checkbox('uncheck');
+       equal($chk5.is(':checked'), false, 'unchecked - confirmation by is(:checked)');
+       equal($i5.hasClass('checked'), false, 'unchecked - confirmation by css class');
+       equal($chk5.checkbox('isChecked'), false, 'unchecked - confirmation by isChecked method');
+       
+       $fixture.remove();
+	});
 });
