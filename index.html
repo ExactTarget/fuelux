@@ -301,6 +301,46 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 		$('#MyTree').tree({dataSource: treeDataSource});
 
+        var selectTreeFolder = function($treeEl, folder, $parentEl) {
+            var $parentEl = $parentEl || $treeEl;
+            if (folder.type == "folder") {
+                var $folderEl = $parentEl.find("div.tree-folder-name").filter(function (_, treeFolder) {
+                    return $(treeFolder).text() == folder.name;
+                }).parent();
+                $treeEl.one("loaded", function () {
+                    $.each(folder.children, function (i, item) {
+                        selectTreeFolder($treeEl, item, $folderEl.parent());
+                    });
+                });
+                $treeEl.tree("selectFolder", $folderEl);
+            }
+            else {
+                selectTreeItem($treeEl, folder, $parentEl);
+            }
+        };
+
+        var selectTreeItem = function ($treeEl, item, $parentEl) {
+            var $parentEl = $parentEl || $treeEl;
+            if (item.type == "item") {
+                var $itemEl = $parentEl.find("div.tree-item-name").filter(function (_, treeItem) {
+                    return $(treeItem).text() == item.name && !$(treeItem).parent().is(".tree-selected");
+                }).parent();
+                $treeEl.tree("selectItem", $itemEl);
+            }
+            else if (item.type == "folder") {
+                selectTreeFolder($treeEl, item, $parentEl);
+            }
+        };
+
+		$('#tree-select-item').on('click', function () {
+            var folder1 = { name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } };
+            var folder2 = { name: 'Test Folder 2', type: 'folder', additionalParameters: { id: 'F2' } };
+            var item1 = { name: 'Test Item 1', type: 'item', additionalParameters: { id: 'I1' } };
+            folder1.children = [folder2, ];
+            folder2.children = [item1, ];
+            selectTreeItem($("#MyTree"), folder1);
+		});
+
 		$('#tree-selected-items').on('click', function () {
 			console.log("selected items: ", $('#MyTree').tree('selectedItems'));
 		});
@@ -1618,6 +1658,7 @@ $('.radio-custom input').prop('checked', false);
 				</div>
 
 				<div class="span8">
+                    <input type="button" class="btn" id="tree-select-item" value="select nested Test Item 1">
 					<input type="button" class="btn" id="tree-selected-items" value="log selected items">
 				</div>
 
