@@ -71,24 +71,24 @@ require(['jquery', 'fuelux/checkbox'], function ($) {
 	});
 	
 	test("test check/uncheck/isChecked convenience methods", function () {
-	   var $fixture = $(html).appendTo('#qunit-fixture');
-       var $chk5 = $fixture.find('#chk5');
-	   var $i5 = $fixture.find('#lbl5 i');
-	   
-	   $chk5.checkbox();
-	   
-	   equal($chk5.is(':checked'), false, 'unchecked - default value');
-	   
-	   $chk5.checkbox('check');
-	   equal($chk5.is(':checked'), true, 'checked - confirmation by is(:checked)');
-	   equal($i5.hasClass('checked'), true, 'checked - confirmation by css class');
-	   equal($chk5.checkbox('isChecked'), true, 'checked - confirmation by isChecked method');
-	   
-	   $chk5.checkbox('uncheck');
-       equal($chk5.is(':checked'), false, 'unchecked - confirmation by is(:checked)');
-       equal($i5.hasClass('checked'), false, 'unchecked - confirmation by css class');
-       equal($chk5.checkbox('isChecked'), false, 'unchecked - confirmation by isChecked method');
-       
-       $fixture.remove();
+        var $fixture = $(html).appendTo('#qunit-fixture');
+        var $chk5 = $fixture.find('#chk5');
+        var $i5 = $fixture.find('#lbl5 i');
+
+        $chk5.checkbox();
+
+        equal($chk5.is(':checked'), false, 'unchecked - default value');
+
+        $chk5.checkbox('check');
+        equal($chk5.is(':checked'), true, 'checked - confirmation by is(:checked)');
+        equal($i5.hasClass('checked'), true, 'checked - confirmation by css class');
+        equal($chk5.checkbox('isChecked'), true, 'checked - confirmation by isChecked method');
+
+        $chk5.checkbox('uncheck');
+        equal($chk5.is(':checked'), false, 'unchecked - confirmation by is(:checked)');
+        equal($i5.hasClass('checked'), false, 'unchecked - confirmation by css class');
+        equal($chk5.checkbox('isChecked'), false, 'unchecked - confirmation by isChecked method');
+
+        $fixture.remove();
 	});
 });

@@ -76,9 +76,9 @@ require(['jquery', 'fuelux/radio'], function ($) {
         equal($i2.hasClass('checked'), true, 'checked - radio 2 confirmation by css class');
         equal($radio2.is(':checked'), true, 'checked - radio 2 confirmation by is(:checked)');
         equal($radio2.radio('isChecked'), true, 'checked - radio 2 confirmation by isChecked method');
-        
+
         $radio1.radio('check');
-        
+
         $fixture.remove();
     });
 });

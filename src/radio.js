@@ -73,7 +73,7 @@ define(function (require) {
 		},
 		
 		check: function () {
-		    this.resetGroup();
+            this.resetGroup();
             this.$radio.prop('checked', true);
             this.setState(this.$radio);
         },
