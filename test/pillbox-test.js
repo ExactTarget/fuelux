@@ -9,6 +9,7 @@ require(['jquery', 'fuelux/pillbox'], function($) {
 			this.pillboxHTML = '<div><ul>' +
 				'<li data-value="foo">one</li><li>two</li>' +
 			'</ul></div>';
+			this.emptyPillboxHTML = '<div><ul></ul></div>';
 		}
 	});
 

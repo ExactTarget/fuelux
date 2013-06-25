@@ -30,8 +30,61 @@ define(function(require) {
 		},
 
 		itemclicked: function (e) {
-			$(e.currentTarget).remove();
+		    
+		    var $li = $(e.currentTarget);
+		    var data = $.extend({ text: $li.html() }, $li.data());
+		  
+			$li.remove();
 			e.preventDefault();
+			
+			this.$element.trigger('remove', data);
+		},
+		
+		getItemCount: function () {
+		    
+		    return this.$element.find('li').length;
+		},
+		
+		addItem: function (text, value) {
+		    
+		    value = value || text;
+		    
+		    //<li data-value="foo">Item One</li>
+		    
+		    var $li = $('<li />');
+		    
+		    $li
+		      .prop('data-value', value)
+		      .html(text)
+		    ;
+		    
+		    this.$element.find('ul').append($li);
+		    
+		    return $li;
+		},
+		
+		removeItemsBySelector: function (selector) {
+            
+           this.$element.find('ul').find(selector).remove();   
+        },
+		
+		removeItemsByValue: function (value) {
+		    
+		    var selector = 'li[data-value=' + value + ']';
+		    
+		    this.removeItemsBySelector(selector);       
+		},
+		
+		removeItemsByText: function (text) {
+		    
+		    var selector = 'li:contains("' + value + '")';
+		    
+		    this.removeItemsBySelector(selector);
+		},
+		
+		removeItems: function () {
+		    
+		    this.$element.find('ul').empty();    
 		}
 	};
 
