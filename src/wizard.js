@@ -33,7 +33,7 @@ define(function (require) {
 		this.$element.on('click', 'li.complete', $.proxy(this.stepclicked, this));
 		
 		if(this.currentStep > 1) {
-		    this.setSelectedItem(this.options.selectedItem);
+            this.setSelectedItem(this.options.selectedItem);
 		}
 	};
 
@@ -135,14 +135,14 @@ define(function (require) {
 			};
 		},
 		
-		setSelectedItem: function (selectedItem) { 
-		  var step = selectedItem.step || -1;
-		  
-		  if(step >= 1 && step <= this.numSteps) {
-		      this.currentStep = step;
-		      this.setState();    
-		  }    
-		}
+		setSelectedItem: function (selectedItem) {
+            var step = selectedItem.step || -1;
+            
+            if(step >= 1 && step <= this.numSteps) {
+                this.currentStep = step;
+                this.setState();    
+            }    
+        }
 	};
 
 
@@ -164,7 +164,7 @@ define(function (require) {
 	};
 
 	$.fn.wizard.defaults = {
-	    selectedItem: {step:1}
+        selectedItem: {step:1}
 	};
 
 	$.fn.wizard.Constructor = Wizard;

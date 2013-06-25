@@ -203,10 +203,10 @@ require(['jquery', 'fuelux/wizard'], function ($) {
     });
 	
 	test("pass init parameter to set current step > 1", function () {
-	   var step = 3;
-	   var $wizard = $(html).wizard({selectedItem:{step:step}});
-	   
-	   testWizardStepStates($wizard, step);  
+        var step = 3;
+        var $wizard = $(html).wizard({selectedItem:{step:step}});
+
+        testWizardStepStates($wizard, step);  
 	});
 	
 	test("use setSelectedItem to set current step > 1", function () {
