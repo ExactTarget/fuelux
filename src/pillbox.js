@@ -12,7 +12,7 @@ define(function(require) {
 
 	// PILLBOX CONSTRUCTOR AND PROTOTYPE
 
-	var Pillbox = function(element, options) {
+	var Pillbox = function (element, options) {
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.pillbox.defaults, options);
 		this.$element.on('click', 'li', $.proxy(this.itemclicked, this));
@@ -21,7 +21,7 @@ define(function(require) {
 	Pillbox.prototype = {
 		constructor : Pillbox,
 
-		items : function() {
+		items: function() {
 			return this.$element.find('li').map(function() {
 				var $this = $(this);
 				return $.extend({
@@ -30,7 +30,7 @@ define(function(require) {
 			}).get();
 		},
 
-		itemclicked : function(e) {
+		itemclicked: function(e) {
 
 			var $li = $(e.currentTarget);
 			var data = $.extend({
@@ -43,12 +43,12 @@ define(function(require) {
 			this.$element.trigger('remove', data);
 		},
 
-		getItemCount : function() {
+		getItemCount: function() {
 
 			return this.$element.find('li').length;
 		},
 
-		addItem : function(text, value) {
+		addItem: function(text, value) {
 
 			value = value || text;
 
@@ -61,26 +61,26 @@ define(function(require) {
 			return $li;
 		},
 
-		removeItemsBySelector : function(selector) {
+		removeItemsBySelector: function(selector) {
 
 			this.$element.find('ul').find(selector).remove();
 		},
 
-		removeItemsByValue : function(value) {
+		removeItemsByValue: function(value) {
 
 			var selector = 'li[data-value=' + value + ']';
 
 			this.removeItemsBySelector(selector);
 		},
 
-		removeItemsByText : function(text) {
+		removeItemsByText: function(text) {
 
 			var selector = 'li:contains("' + text + '")';
 
 			this.removeItemsBySelector(selector);
 		},
 
-		removeItems : function() {
+		removeItems: function() {
 
 			this.$element.find('ul').empty();
 		}
@@ -88,18 +88,16 @@ define(function(require) {
 
 	// PILLBOX PLUGIN DEFINITION
 
-	$.fn.pillbox = function(option, value1, value2) {
+	$.fn.pillbox = function (option, value1, value2) {
 		var methodReturn;
 
-		var $set = this.each(function() {
+		var $set = this.each(function () {
 			var $this = $(this);
 			var data = $this.data('pillbox');
 			var options = typeof option === 'object' && option;
 
-			if (!data)
-				$this.data('pillbox', ( data = new Pillbox(this, options)));
-			if ( typeof option === 'string')
-				methodReturn = data[option](value1, value2);
+			if (!data) $this.data('pillbox', ( data = new Pillbox(this, options)));
+			if ( typeof option === 'string') methodReturn = data[option](value1, value2);
 		});
 
 		return (methodReturn === undefined) ? $set : methodReturn;
@@ -111,14 +109,12 @@ define(function(require) {
 
 	// PILLBOX DATA-API
 
-	$(function() {
-		$('body').on('mousedown.pillbox.data-api', '.pillbox', function() {
+	$(function () {
+		$('body').on('mousedown.pillbox.data-api', '.pillbox', function () {
 			var $this = $(this);
-			if ($this.data('pillbox'))
-				return;
+			if ($this.data('pillbox')) return;
 			$this.pillbox($this.data());
 		});
 	});
-
 });
 
