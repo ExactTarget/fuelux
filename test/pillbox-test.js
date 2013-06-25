@@ -58,7 +58,7 @@ require(['jquery', 'fuelux/pillbox'], function($) {
 		equal($pillbox.pillbox('getItemCount'), 0, 'pillbox is initially empty');
 		
 		var $item = $pillbox.pillbox('addItem', 'Item 1', 1);
-		$item.data('emailid', 123)
+		$item.data('emailid', 123);
 		
 		equal($pillbox.pillbox('getItemCount'), 1, 'pillbox has 1 item after addItem called');		
 		deepEqual($pillbox.pillbox('items')[0], {text: 'Item 1', value: 1, emailid: 123}, 'item added has correct text, value, and emailid');
