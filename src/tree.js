@@ -32,7 +32,7 @@ define(function(require) {
 
 		populate: function ($el) {
 			var self = this;
-			var parent = $el.parent();
+			var $parent = $el.parent();
 			var loader = $parent.find('.tree-loader:eq(0)');
 
 			loader.show();
