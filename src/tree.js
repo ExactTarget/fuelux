@@ -59,7 +59,8 @@ define(function(require) {
 					}
 				});
 
-				self.$element.trigger('loaded');
+				// return newly populated folder
+				self.$element.trigger('loaded', $el);
 			});
 		},
 
