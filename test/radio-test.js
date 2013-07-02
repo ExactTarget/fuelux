@@ -56,4 +56,29 @@ require(['jquery', 'fuelux/radio'], function ($) {
 		equal($radio1.is(':disabled'), false, 're-enabled');
 	});
 
+    test("should check/uncheck radio group", function () {
+        var $fixture = $(html).appendTo('#qunit-fixture');
+        var $radio1 = $fixture.find('#radio1');
+        var $i1 = $fixture.find('#lbl1 i');
+        var $radio2 = $fixture.find('#radio2');
+        var $i2 = $fixture.find('#lbl2 i');
+        
+        $fixture.find('input').radio();
+        
+        equal($i1.hasClass('checked'), true, 'checked - default state radio 1');
+        equal($i2.hasClass('checked'), false, 'unchecked - default state radio 2');
+        
+        $radio2.radio('check');
+        
+        equal($i1.hasClass('checked'), false, 'unchecked - radio 1 confirmation by css class');
+        equal($radio1.is(':checked'), false, 'unchecked - radio 1 confirmation by is(:checked)');
+        equal($radio1.radio('isChecked'), false, 'unchecked - radio 1 confirmation by isChecked method');
+        equal($i2.hasClass('checked'), true, 'checked - radio 2 confirmation by css class');
+        equal($radio2.is(':checked'), true, 'checked - radio 2 confirmation by is(:checked)');
+        equal($radio2.radio('isChecked'), true, 'checked - radio 2 confirmation by isChecked method');
+
+        $radio1.radio('check');
+
+        $fixture.remove();
+    });
 });
