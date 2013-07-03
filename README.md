@@ -24,12 +24,8 @@ Fuel UX provides all of the styles and plugins from the revolutionary [Twitter B
   * Tree - _renders data in a tree, supporting caching and optional multi-selection_
   * Wizard - _displays a multi-step process to be completed in a specific order_
 <p>
-* Intelligent Bootstrap Dropdown Menus
-    * The dropdown menu will automatically decide if it should be placed above or below the clicked element.
-    * It decides based on the size of the dropdown and the distance between the clicked element and the top/bottom of the window.
-    * **How to Use**
-        * Add `data-direction="auto"` to element that has `data-toggle="dropdown"` to activate
-        * Setting data-direction to either "top" or "bottom" will **NOT** change where the dropdown appears
+* Smart Dropdowns - _dropdown automatically decides whether it should be placed above or below the clicked element (can also force position). Add `data-direction="auto|up|down"` to element that has `data-toggle="dropdown"` _
+
 * One-step installation and updates through [volo](https://github.com/volojs/volo)
 * [AMD](http://requirejs.org/docs/whyamd.html) compatibility for modular structure and deployment optimization
 * [Grunt](https://github.com/cowboy/grunt)-based build script to easily create custom distribution files

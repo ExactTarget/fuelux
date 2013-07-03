@@ -9,24 +9,52 @@
 define([ "jquery", "fuelux/all"], function($) {
 
 	$(function() {
-		$(document.body).on("click", "[data-toggle=dropdown][data-direction=auto]", function( event ) {
+		$(document.body).on("click", "[data-toggle=dropdown][data-direction]", function( event ) {
 
-			// only changing css positioning if position is set to static
-			// if this doesn"t happen, dropUp will not be correct
-			// works correctly for absolute, relative, and fixed positioning
-			if( $(this).parent().css("position") === "static" ) {
-				$(this).parent().css({"position": "relative"});
+			var dataDirection = $(this).data().direction;
+
+			// if data-direction is not auto or up, default to bootstraps dropdown
+			if( dataDirection === "auto" || dataDirection === "up" ) {
+				// only changing css positioning if position is set to static
+				// if this doesn"t happen, dropUp will not be correct
+				// works correctly for absolute, relative, and fixed positioning
+				if( $(this).parent().css("position") === "static" ) {
+					$(this).parent().css({ position: "relative"});
+				}
+
+				// only continue into this function if the click came from a user
+				if( event.hasOwnProperty("originalEvent") ) {
+					// stopping bootstrap event propagation
+					event.stopPropagation();
+
+					// deciding what to do based on data-direction attribute
+					if( dataDirection === "auto" ) {
+						// have the drop down intelligently decide where to place itself
+						dataDirectionAutoDDClicked( $(this) );
+					} else if ( dataDirection === "up" ) {
+						forceDropUp( $(this) );
+					}
+				}
 			}
 
-			// only continue into this function if the click came from a user
-			if( event.hasOwnProperty("originalEvent") ) {
-				event.stopPropagation();
-				dropDownClicked( $(this) );
-			}
 		});
 
-		function dropDownClicked( element ) {
+		function forceDropUp( element ) {
+			var dropDown      = element.next();
+			var dropUpPadding = 5;
+			var topPosition;
 
+			$(dropDown).addClass("dropUp");
+			topPosition = ( ( dropDown.outerHeight() + dropUpPadding ) * -1 ) + "px";
+
+			dropDown.css({
+				visibility: "visible",
+				top: topPosition
+			});
+			element.click();
+		}
+
+		function dataDirectionAutoDDClicked( element ) {
 			var dropDown      = element.next();
 			var dropUpPadding = 5;
 			var topPosition;
@@ -43,7 +71,10 @@ define([ "jquery", "fuelux/all"], function($) {
 				topPosition = "auto";
 			}
 
-			dropDown.css({ visibility: "visible", top: topPosition });
+			dropDown.css({
+				visibility: "visible",
+				top: topPosition
+			});
 			element.click();
 		}
 
