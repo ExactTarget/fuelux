@@ -30,7 +30,7 @@ define([ "jquery", "fuelux/all"], function($) {
 					// deciding what to do based on data-direction attribute
 					if( dataDirection === "auto" ) {
 						// have the drop down intelligently decide where to place itself
-						dataDirectionAutoDDClicked( $(this) );
+						forceAutoDropDown( $(this) );
 					} else if ( dataDirection === "up" ) {
 						forceDropUp( $(this) );
 					}
@@ -54,7 +54,7 @@ define([ "jquery", "fuelux/all"], function($) {
 			element.click();
 		}
 
-		function dataDirectionAutoDDClicked( element ) {
+		function forceAutoDropDown( element ) {
 			var dropDown      = element.next();
 			var dropUpPadding = 5;
 			var topPosition;
