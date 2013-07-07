@@ -141,33 +141,36 @@ define(function(require) {
 
 		selectFolder: function (el) {
 			var $el = $(el);
-			var $par = $el.parent();
+			var $parent = $el.parent();
+			var $treeFolderContent = $parent.find('.tree-folder-content');
+			var $treeFolderContentFirstChild = $treeFolderContent.eq(0);
 
-			if($el.find('.icon-folder-close').length) {
-				if ($par.find('.tree-folder-content').children().length) {
-					$par.find('.tree-folder-content:eq(0)').show();
-				} else {
-					this.populate( $el );
+			var eventType, classToTarget, classToAdd;
+			if ($el.find('.icon-folder-close').length) {
+				eventType = 'opened';
+				classToTarget = '.icon-folder-close';
+				classToAdd = 'icon-folder-open';
+
+				$treeFolderContentFirstChild.show();
+				if (!$treeFolderContent.children().length) {
+					this.populate($el);
 				}
-
-				$par.find('.icon-folder-close:eq(0)')
-					.removeClass('icon-folder-close')
-					.addClass('icon-folder-open');
-
-				this.$element.trigger('opened', $el.data());
 			} else {
-				if(this.options.cacheItems) {
-					$par.find('.tree-folder-content:eq(0)').hide();
-				} else {
-					$par.find('.tree-folder-content:eq(0)').empty();
+				eventType = 'closed';
+				classToTarget = '.icon-folder-open';
+				classToAdd = 'icon-folder-close';
+
+				$treeFolderContentFirstChild.hide();
+				if (!this.options.cacheItems) {
+					$treeFolderContentFirstChild.empty();
 				}
-
-				$par.find('.icon-folder-open:eq(0)')
-					.removeClass('icon-folder-open')
-					.addClass('icon-folder-close');
-
-				this.$element.trigger('closed', $el.data());
 			}
+
+			$parent.find(classToTarget).eq(0)
+				.removeClass('icon-folder-close icon-folder-open')
+				.addClass(classToAdd);
+
+			this.$element.trigger(eventType, $el.data());
 		},
 
 		selectedItems: function () {
@@ -178,6 +181,28 @@ define(function(require) {
 				data.push($(value).data());
 			});
 			return data;
+		},
+
+		// collapses open folders
+		collapse: function () {
+			var cacheItems = this.options.cacheItems;
+
+			// find open folders
+			this.$element.find('.icon-folder-open').each(function () {
+				// update icon class
+				var $this = $(this)
+					.removeClass('icon-folder-close icon-folder-open')
+					.addClass('icon-folder-close');
+
+				// "close" or empty folder contents
+				var $parent = $this.parent().parent();
+				var $folder = $parent.children('.tree-folder-content');
+
+				$folder.hide();
+				if (!cacheItems) {
+					$folder.empty();
+				}
+			});
 		}
 	};
 
