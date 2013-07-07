@@ -32,7 +32,8 @@ define(function(require) {
 
 		populate: function ($el) {
 			var self = this;
-			var loader = $el.parent().find('.tree-loader:eq(0)');
+			var $parent = $el.parent();
+			var loader = $parent.find('.tree-loader:eq(0)');
 
 			loader.show();
 			this.options.dataSource.data($el.data(), function (items) {
@@ -53,13 +54,14 @@ define(function(require) {
 					}
 
 					if($el.hasClass('tree-folder-header')) {
-						$el.parent().find('.tree-folder-content:eq(0)').append($entity);
+						$parent.find('.tree-folder-content:eq(0)').append($entity);
 					} else {
 						$el.append($entity);
 					}
 				});
 
-				self.$element.trigger('loaded');
+				// return newly populated folder
+				self.$element.trigger('loaded', $parent);
 			});
 		},
 
