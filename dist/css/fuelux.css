@@ -6178,7 +6178,10 @@ textarea.span1,
 }
 
 .fuelux .checkbox-custom input[type=checkbox] {
-  display: none;
+  /* IE cannot fire events if display none or visibility hidden */
+
+  position: relative;
+  top: -99999px;
 }
 
 .fuelux .checkbox-custom i {

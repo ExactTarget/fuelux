@@ -2477,6 +2477,20 @@ define('fuelux/checkbox',['require','jquery'],function (require) {
 		itemchecked: function (e) {
 			var chk = $(e.target);
 			this.setState(chk);
+		},
+		
+		check: function () {
+            this.$chk.prop('checked', true);
+            this.setState(this.$chk);
+		},
+		
+		uncheck: function () {
+            this.$chk.prop('checked', false);
+            this.setState(this.$chk);
+		},
+		
+		isChecked: function () {
+            return this.$chk.is(':checked');
 		}
 	};
 
@@ -3184,6 +3198,9 @@ define('fuelux/radio',['require','jquery'],function (require) {
 		setState: function ($radio) {
 			var checked = $radio.is(':checked');
 			var disabled = $radio.is(':disabled');
+			
+			// reset classes
+            this.$icon.removeClass('checked').removeClass('disabled');
 
 			// set state of radio
 			if (checked === true) {
@@ -3214,7 +3231,22 @@ define('fuelux/radio',['require','jquery'],function (require) {
 
 			this.resetGroup();
 			this.setState(radio);
-		}
+		},
+		
+		check: function () {
+            this.resetGroup();
+            this.$radio.prop('checked', true);
+            this.setState(this.$radio);
+        },
+        
+        uncheck: function () {
+            this.$radio.prop('checked', false);
+            this.setState(this.$radio);
+        },
+        
+        isChecked: function () {
+            return this.$radio.is(':checked');
+        }
 	};
 
 
@@ -3788,7 +3820,8 @@ define('fuelux/tree',['require','jquery'],function(require) {
 
 		populate: function ($el) {
 			var self = this;
-			var loader = $el.parent().find('.tree-loader:eq(0)');
+			var $parent = $el.parent();
+			var loader = $parent.find('.tree-loader:eq(0)');
 
 			loader.show();
 			this.options.dataSource.data($el.data(), function (items) {
@@ -3808,14 +3841,47 @@ define('fuelux/tree',['require','jquery'],function(require) {
 						$entity.data(value);
 					}
 
+					// Decorate $entity with data making the element
+					// easily accessable with libraries like jQuery.
+					//
+					// Values are contained within the object returned
+					// for folders and items as dataAttributes:
+					//
+					// {
+					//     name: "An Item",
+					//     type: 'item',
+					//     dataAttributes = {
+					//         'classes': 'required-item red-text',
+					//         'data-parent': parentId,
+					//         'guid': guid
+					//     }
+					// };
+
+					var dataAttributes = value.dataAttributes || [];
+					$.each(dataAttributes, function(key, value) {
+						switch (key) {
+						case 'class':
+						case 'classes':
+						case 'className':
+							$entity.addClass(value);
+							break;
+
+						// id, style, data-*
+						default:
+							$entity.attr(key, value);
+							break;
+						}
+					});
+
 					if($el.hasClass('tree-folder-header')) {
-						$el.parent().find('.tree-folder-content:eq(0)').append($entity);
+						$parent.find('.tree-folder-content:eq(0)').append($entity);
 					} else {
 						$el.append($entity);
 					}
 				});
 
-				self.$element.trigger('loaded');
+				// return newly populated folder
+				self.$element.trigger('loaded', $parent);
 			});
 		},
 
@@ -3837,7 +3903,9 @@ define('fuelux/tree',['require','jquery'],function(require) {
 				data.push($el.data());
 			}
 
+			var eventType = 'selected';
 			if($el.hasClass('tree-selected')) {
+				eventType = 'unselected';
 				$el.removeClass('tree-selected');
 				$el.find('i').removeClass('icon-ok').addClass('tree-dot');
 			} else {
@@ -3852,37 +3920,47 @@ define('fuelux/tree',['require','jquery'],function(require) {
 				this.$element.trigger('selected', {info: data});
 			}
 
+			// Return new list of selected items, the item
+			// clicked, and the type of event:
+			$el.trigger('updated', {
+				info: data,
+				item: $el,
+				eventType: eventType
+			});
 		},
 
 		selectFolder: function (el) {
 			var $el = $(el);
-			var $par = $el.parent();
+			var $parent = $el.parent();
+			var $treeFolderContent = $parent.find('.tree-folder-content');
+			var $treeFolderContentFirstChild = $treeFolderContent.eq(0);
 
-			if($el.find('.icon-folder-close').length) {
-				if ($par.find('.tree-folder-content').children().length) {
-					$par.find('.tree-folder-content:eq(0)').show();
-				} else {
-					this.populate( $el );
+			var eventType, classToTarget, classToAdd;
+			if ($el.find('.icon-folder-close').length) {
+				eventType = 'opened';
+				classToTarget = '.icon-folder-close';
+				classToAdd = 'icon-folder-open';
+
+				$treeFolderContentFirstChild.show();
+				if (!$treeFolderContent.children().length) {
+					this.populate($el);
 				}
-
-				$par.find('.icon-folder-close:eq(0)')
-					.removeClass('icon-folder-close')
-					.addClass('icon-folder-open');
-
-				this.$element.trigger('opened', $el.data());
 			} else {
-				if(this.options.cacheItems) {
-					$par.find('.tree-folder-content:eq(0)').hide();
-				} else {
-					$par.find('.tree-folder-content:eq(0)').empty();
+				eventType = 'closed';
+				classToTarget = '.icon-folder-open';
+				classToAdd = 'icon-folder-close';
+
+				$treeFolderContentFirstChild.hide();
+				if (!this.options.cacheItems) {
+					$treeFolderContentFirstChild.empty();
 				}
-
-				$par.find('.icon-folder-open:eq(0)')
-					.removeClass('icon-folder-open')
-					.addClass('icon-folder-close');
-
-				this.$element.trigger('closed', $el.data());
 			}
+
+			$parent.find(classToTarget).eq(0)
+				.removeClass('icon-folder-close icon-folder-open')
+				.addClass(classToAdd);
+
+			this.$element.trigger(eventType, $el.data());
 		},
 
 		selectedItems: function () {
@@ -3893,6 +3971,28 @@ define('fuelux/tree',['require','jquery'],function(require) {
 				data.push($(value).data());
 			});
 			return data;
+		},
+
+		// collapses open folders
+		collapse: function () {
+			var cacheItems = this.options.cacheItems;
+
+			// find open folders
+			this.$element.find('.icon-folder-open').each(function () {
+				// update icon class
+				var $this = $(this)
+					.removeClass('icon-folder-close icon-folder-open')
+					.addClass('icon-folder-close');
+
+				// "close" or empty folder contents
+				var $parent = $this.parent().parent();
+				var $folder = $parent.children('.tree-folder-content');
+
+				$folder.hide();
+				if (!cacheItems) {
+					$folder.empty();
+				}
+			});
 		}
 	};
 
