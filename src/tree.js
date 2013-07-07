@@ -52,6 +52,38 @@ define(function(require) {
 						$entity.data(value);
 					}
 
+					// Decorate $entity with data making the element
+					// easily accessable with libraries like jQuery.
+					//
+					// Values are contained within the object returned
+					// for folders and items as dataAttributes:
+					//
+					// {
+					//     name: "An Item",
+					//     type: 'item',
+					//     dataAttributes = {
+					//         'classes': 'required-item red-text',
+					//         'data-parent': parentId,
+					//         'guid': guid
+					//     }
+					// };
+
+					var dataAttributes = value.dataAttributes || [];
+					$.each(dataAttributes, function(key, value) {
+						switch (key) {
+						case 'class':
+						case 'classes':
+						case 'className':
+							$entity.addClass(value);
+							break;
+
+						// id, style, data-*
+						default:
+							$entity.attr(key, value);
+							break;
+						}
+					});
+
 					if($el.hasClass('tree-folder-header')) {
 						$el.parent().find('.tree-folder-content:eq(0)').append($entity);
 					} else {
@@ -81,7 +113,9 @@ define(function(require) {
 				data.push($el.data());
 			}
 
+			var eventType = 'selected';
 			if($el.hasClass('tree-selected')) {
+				eventType = 'unselected';
 				$el.removeClass('tree-selected');
 				$el.find('i').removeClass('icon-ok').addClass('tree-dot');
 			} else {
@@ -96,6 +130,13 @@ define(function(require) {
 				this.$element.trigger('selected', {info: data});
 			}
 
+			// Return new list of selected items, the item
+			// clicked, and the type of event:
+			$el.trigger('updated', {
+				info: data,
+				item: $el,
+				eventType: eventType
+			});
 		},
 
 		selectFolder: function (el) {
