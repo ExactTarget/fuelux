@@ -33,7 +33,7 @@ define(function (require) {
 		this.$element.on('click', 'li.complete', $.proxy(this.stepclicked, this));
 		
 		if(this.currentStep > 1) {
-            this.setSelectedItem(this.options.selectedItem);
+            this.selectedItem(this.options.selectedItem);
 		}
 	};
 
@@ -129,20 +129,26 @@ define(function (require) {
 			}
 		},
 
-		selectedItem: function () {
-			return {
-				step: this.currentStep
-			};
-		},
-		
-		setSelectedItem: function (selectedItem) {
-            var step = selectedItem.step || -1;
+		selectedItem: function (selectedItem) {
+			var retVal, step;
+			
+			if(selectedItem) {
+			
+				step = selectedItem.step || -1;
             
-            if(step >= 1 && step <= this.numSteps) {
-                this.currentStep = step;
-                this.setState();    
-            }    
-        }
+	            if(step >= 1 && step <= this.numSteps) {
+	                this.currentStep = step;
+	                this.setState();    
+	            }
+	            
+	            retVal = this;	
+			}
+			else {
+				retVal = { step: this.currentStep };
+			}
+			
+			return retVal;
+		}
 	};
 
 
