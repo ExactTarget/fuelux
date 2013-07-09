@@ -30,6 +30,7 @@ define(['require','jquery'],function(require) {
 		},
 
 		itemclicked: function (e) {
+			this.options.itemRemoved($(e.currentTarget));
 			$(e.currentTarget).remove();
 			e.preventDefault();
 		}
@@ -53,7 +54,9 @@ define(['require','jquery'],function(require) {
 		return (methodReturn === undefined) ? $set : methodReturn;
 	};
 
-	$.fn.pillbox.defaults = {};
+	$.fn.pillbox.defaults = {
+		itemRemoved: function(item){}
+	};
 
 	$.fn.pillbox.Constructor = Pillbox;
 
