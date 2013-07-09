@@ -260,7 +260,7 @@
 			});
 			$('#btnWizardSetStep4').on('click', function() {
 				var step = 4;
-				$('#MyWizard').wizard('setSelectedItem', {step:step});
+				$('#MyWizard').wizard('selectedItem', {step:step});
 			});
 			$('#MyWizard').on('stepclick', function(e, data) {
 				console.log('step' + data.step + ' clicked');
