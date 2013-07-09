@@ -131,22 +131,22 @@ define(function (require) {
 
 		selectedItem: function (selectedItem) {
 			var retVal, step;
-			
+
 			if(selectedItem) {
-			
+
 				step = selectedItem.step || -1;
-            
-	            if(step >= 1 && step <= this.numSteps) {
-	                this.currentStep = step;
-	                this.setState();    
-	            }
-	            
-	            retVal = this;	
+
+				if(step >= 1 && step <= this.numSteps) {
+					this.currentStep = step;
+					this.setState();    
+				}
+
+				retVal = this;	
 			}
 			else {
 				retVal = { step: this.currentStep };
 			}
-			
+
 			return retVal;
 		}
 	};
