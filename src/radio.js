@@ -40,7 +40,7 @@ define(function (require) {
 			var checked = $radio.is(':checked');
 			var disabled = $radio.is(':disabled');
 
-			this.$icon.removeClass('checked disable');
+			this.$icon.removeClass('checked disabled');
 
 			// set state of radio
 			if (checked === true) {
