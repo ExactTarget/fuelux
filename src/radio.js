@@ -35,8 +35,12 @@ define(function (require) {
 		constructor: Radio,
 
 		setState: function ($radio) {
+			$radio = $radio || this.$radio;
+
 			var checked = $radio.is(':checked');
 			var disabled = $radio.is(':disabled');
+
+			this.$icon.removeClass('checked disable');
 
 			// set state of radio
 			if (checked === true) {
