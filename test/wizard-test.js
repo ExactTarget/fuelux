@@ -48,7 +48,22 @@ require(['jquery', 'fuelux/wizard'], function ($) {
 		'<div class="step-pane" id="step2">This is step 2</div>' +
 		'</div>' +
 		'</div>';
-
+		
+    function testWizardStepStates($wizard, activeStep) {
+       var $steps = $wizard.find('li');
+       
+       for(var i = 0; i < $steps.length; i++) {
+           if(i === (activeStep - 1)){
+               equal($steps.eq(i).hasClass('active'), true, 'step ' + activeStep + ' is active');
+           }
+           else if (i < (activeStep - 1)) {
+               equal($steps.eq(i).hasClass('complete'), true, 'step ' + (i + 1) + ' is complete');
+           }
+           else {
+               equal($steps.eq(i).hasClass('complete'), false, 'step ' + (i + 1) + ' is not complete');    
+           }
+       }    
+    }
 
 	module("Fuel UX wizard");
 
@@ -179,6 +194,31 @@ require(['jquery', 'fuelux/wizard'], function ($) {
 		$nextClone.children().remove();
 		equal($.trim($nextClone.text()), 'Next', 'nextBtn text equal to "Next"');
 	});
+	
+	test("pass no init parameter to set current step", function () {
+       var step = 1;
+       var $wizard = $(html).wizard();
+       
+       testWizardStepStates($wizard, step);  
+    });
+	
+	test("pass init parameter to set current step > 1", function () {
+        var step = 3;
+        var $wizard = $(html).wizard({selectedItem:{step:step}});
+
+        testWizardStepStates($wizard, step);  
+	});
+	
+	test("use selectedItem to set current step > 1", function () {
+       var step = 3;
+       var $wizard = $(html).wizard();
+       
+       testWizardStepStates($wizard, 1);
+       
+       $wizard.wizard('selectedItem', {step:step});
+       
+       testWizardStepStates($wizard, step);
+    });
 
 	/*
 	test("should manage step panes", function() {

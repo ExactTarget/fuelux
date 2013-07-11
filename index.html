@@ -258,6 +258,10 @@
 				var item = $('#MyWizard').wizard('selectedItem');
 				console.log(item.step);
 			});
+			$('#btnWizardSetStep4').on('click', function() {
+				var step = 4;
+				$('#MyWizard').wizard('selectedItem', {step:step});
+			});
 			$('#MyWizard').on('stepclick', function(e, data) {
 				console.log('step' + data.step + ' clicked');
 				if(data.step===1) {
@@ -602,6 +606,7 @@
 		<input type="button" class="btn btn-mini" id="btnWizardPrev" value="prev">
 		<input type="button" class="btn btn-mini" id="btnWizardNext" value="next">
 		<input type="button" class="btn btn-mini" id="btnWizardStep" value="current step">
+		<input type="button" class="btn btn-mini" id="btnWizardSetStep4" value="step 4">
 	</div>
 
 </div>
