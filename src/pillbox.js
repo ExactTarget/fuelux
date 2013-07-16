@@ -40,10 +40,10 @@ define(function(require) {
 			$li.remove();
 			e.preventDefault();
 
-			this.$element.trigger('remove', data);
+			this.$element.trigger('removed', data);
 		},
 
-		getItemCount: function() {
+		itemCount: function() {
 
 			return this.$element.find('li').length;
 		},
@@ -61,26 +61,26 @@ define(function(require) {
 			return $li;
 		},
 
-		removeItemsBySelector: function(selector) {
+		removeBySelector: function(selector) {
 
 			this.$element.find('ul').find(selector).remove();
 		},
 
-		removeItemsByValue: function(value) {
+		removeByValue: function(value) {
 
-			var selector = 'li[data-value=' + value + ']';
+			var selector = 'li[data-value="' + value + '"]';
 
-			this.removeItemsBySelector(selector);
+			this.removeBySelector(selector);
 		},
 
-		removeItemsByText: function(text) {
+		removeByText: function(text) {
 
 			var selector = 'li:contains("' + text + '")';
 
-			this.removeItemsBySelector(selector);
+			this.removeBySelector(selector);
 		},
 
-		removeItems: function() {
+		clear: function() {
 
 			this.$element.find('ul').empty();
 		}

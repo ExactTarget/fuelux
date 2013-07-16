@@ -31,68 +31,68 @@ require(['jquery', 'fuelux/pillbox'], function($) {
 		deepEqual($pillbox.pillbox('items')[0], {text: 'one', value: 'foo'}, 'pillbox returns item data');
 	});
 	
-	test("getItemCount function", function(){
+	test("itemCount function", function(){
 		var $pillbox = $(this.emptyPillboxHTML).pillbox();
 		
-		equal($pillbox.pillbox('getItemCount'), 0, 'getItemCount on empty pillbox');
+		equal($pillbox.pillbox('itemCount'), 0, 'itemCount on empty pillbox');
 		
 		$pillbox = $(this.pillboxHTML).pillbox();
 		
-		equal($pillbox.pillbox('getItemCount'), 2, 'getItemCount on pillbox with 2 items');	
+		equal($pillbox.pillbox('itemCount'), 2, 'itemCount on pillbox with 2 items');	
 	});
 	
 	test("addItem function", function(){
 		var $pillbox = $(this.emptyPillboxHTML).pillbox();
 		
-		equal($pillbox.pillbox('getItemCount'), 0, 'pillbox is initially empty');
+		equal($pillbox.pillbox('itemCount'), 0, 'pillbox is initially empty');
 		
 		$pillbox.pillbox('addItem', 'Item 1', 1);
 		
-		equal($pillbox.pillbox('getItemCount'), 1, 'pillbox has 1 item after addItem called');		
+		equal($pillbox.pillbox('itemCount'), 1, 'pillbox has 1 item after addItem called');		
 		deepEqual($pillbox.pillbox('items')[0], {text: 'Item 1', value: 1}, 'item added has correct text and value');
 	});
 	
 	test("addItem function with return value manipulation", function(){
 		var $pillbox = $(this.emptyPillboxHTML).pillbox();
 		
-		equal($pillbox.pillbox('getItemCount'), 0, 'pillbox is initially empty');
+		equal($pillbox.pillbox('itemCount'), 0, 'pillbox is initially empty');
 		
 		var $item = $pillbox.pillbox('addItem', 'Item 1', 1);
 		$item.data('emailid', 123);
 		
-		equal($pillbox.pillbox('getItemCount'), 1, 'pillbox has 1 item after addItem called');		
+		equal($pillbox.pillbox('itemCount'), 1, 'pillbox has 1 item after addItem called');		
 		deepEqual($pillbox.pillbox('items')[0], {text: 'Item 1', value: 1, emailid: 123}, 'item added has correct text, value, and emailid');
 	});
 	
-	test("removeItemsByValue function", function(){
+	test("removeByValue function", function(){
 		var $pillbox = $(this.pillboxHTML).pillbox();
 		
-		equal($pillbox.pillbox('getItemCount'), 2, 'pillbox has 2 items initially');
+		equal($pillbox.pillbox('itemCount'), 2, 'pillbox has 2 items initially');
 		
-		$pillbox.pillbox('removeItemsByValue', 'foo');
+		$pillbox.pillbox('removeByValue', 'foo');
 		
-		equal($pillbox.pillbox('getItemCount'), 1, 'pillbox has 1 item after removeItemsByValue');		
+		equal($pillbox.pillbox('itemCount'), 1, 'pillbox has 1 item after removeByValue');		
 		deepEqual($pillbox.pillbox('items')[0], {text: 'two'}, 'item not removed has correct text and value');
 	});
 	
-	test("removeItemsByText function", function(){
+	test("removeByText function", function(){
 		var $pillbox = $(this.pillboxHTML).pillbox();
 		
-		equal($pillbox.pillbox('getItemCount'), 2, 'pillbox has 2 items initially');
+		equal($pillbox.pillbox('itemCount'), 2, 'pillbox has 2 items initially');
 		
-		$pillbox.pillbox('removeItemsByText', 'two');
+		$pillbox.pillbox('removeByText', 'two');
 		
-		equal($pillbox.pillbox('getItemCount'), 1, 'pillbox has 1 item after removeItemsByText');		
+		equal($pillbox.pillbox('itemCount'), 1, 'pillbox has 1 item after removeByText');		
 		deepEqual($pillbox.pillbox('items')[0], {text: 'one', value: 'foo'}, 'item not removed has correct text and value');
 	});
 	
-	test("removeItems function", function(){
+	test("clear function", function(){
 		var $pillbox = $(this.pillboxHTML).pillbox();
 		
-		equal($pillbox.pillbox('getItemCount'), 2, 'pillbox has 2 items initially');
+		equal($pillbox.pillbox('itemCount'), 2, 'pillbox has 2 items initially');
 		
-		$pillbox.pillbox('removeItems');
+		$pillbox.pillbox('clear');
 		
-		equal($pillbox.pillbox('getItemCount'), 0, 'pillbox empty after removeItems');
+		equal($pillbox.pillbox('itemCount'), 0, 'pillbox empty after clear');
 	});
 });
