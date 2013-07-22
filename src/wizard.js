@@ -83,6 +83,38 @@ define(function (require) {
 			$('.step-pane').removeClass('active');
 			$(target).addClass('active');
 
+			// reset the wizard position to the left
+			$('.wizard .steps').attr('style','margin-left: 0');
+
+			// check if the steps are wider than the container div
+			var totalWidth = 0;
+			$('.wizard .steps > li').each(function () {
+				totalWidth += $(this).outerWidth();
+			});
+			var containerWidth = 0;
+			if ($('.wizard .actions').length) {
+				containerWidth = $('.wizard').width() - $('.wizard .actions').outerWidth();
+			} else {
+				containerWidth = $('.wizard').width();
+			}
+			if (totalWidth > containerWidth) {
+			
+				// set the position so that the last step is on the right
+				var newMargin = totalWidth - containerWidth;
+				$('.wizard .steps').attr('style','margin-left: -' + newMargin + 'px');
+				
+				// set the position so that the active step is in a good
+				// position if it has been moved out of view
+				if ($('.wizard li.active').position().left < 200) {
+					newMargin += $('.wizard li.active').position().left - 200;
+					if (newMargin < 1) {
+						$('.wizard .steps').attr('style','margin-left: 0');
+					} else {
+						$('.wizard .steps').attr('style','margin-left: -' + newMargin + 'px');
+					}
+				}
+			}
+
 			this.$element.trigger('changed');
 		},
 

@@ -6730,6 +6730,8 @@ textarea.span1,
 }
 
 .fuelux .wizard {
+  position: relative;
+  overflow: hidden;
   background-color: #f9f9f9;
   border: 1px solid #d4d4d4;
   -webkit-border-radius: 4px;
@@ -6753,6 +6755,7 @@ textarea.span1,
 }
 
 .fuelux .wizard ul {
+  width: 4000px;
   padding: 0;
   margin: 0;
   list-style: none outside none;
@@ -6866,10 +6869,16 @@ textarea.span1,
 }
 
 .fuelux .wizard .actions {
+  position: absolute;
+  right: 0;
+  z-index: 1000;
   float: right;
   padding-right: 15px;
-  line-height: 44px;
+  padding-left: 15px;
+  line-height: 46px;
   vertical-align: middle;
+  background-color: #e5e5e5;
+  border-left: 1px solid #d4d4d4;
 }
 
 .fuelux .wizard .actions a {
