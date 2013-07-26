@@ -88,7 +88,9 @@ define(function(require) {
 			var colHTML = '';
 
 			$.each(this.columns, function (index, column) {
-				colHTML += '<th data-property="' + column.property + '"';
+				if(typeof column.sortProperty === 'undefined')
+					column.sortProperty = column.property;
+				colHTML += '<th data-property="' + column.sortProperty + '"';
 				if (column.sortable) colHTML += ' class="sortable"';
 				colHTML += '>' + column.label + '</th>';
 			});
