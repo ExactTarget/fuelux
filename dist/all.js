@@ -1335,7 +1335,7 @@
 
       this._options && $.each(this._options, function (key, value) {
         if (defaults[key] != value) options[key] = value
-      }, this)
+      })
 
       self = $(e.currentTarget)[this.type](options).data(this.type)
 
@@ -2988,11 +2988,15 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 		},
 
 		previous: function () {
+			this.$nextpagebtn.attr('disabled', 'disabled');
+			this.$prevpagebtn.attr('disabled', 'disabled');
 			this.options.dataOptions.pageIndex--;
 			this.renderData();
 		},
 
 		next: function () {
+			this.$nextpagebtn.attr('disabled', 'disabled');
+			this.$prevpagebtn.attr('disabled', 'disabled');
 			this.options.dataOptions.pageIndex++;
 			this.renderData();
 		},
@@ -3229,9 +3233,8 @@ define('fuelux/intelligent-dropdown',[ "jquery", "fuelux/all"], function($) {
  */
 
 define('fuelux/pillbox',['require','jquery'],function(require) {
-	
-	var $ = require('jquery');
 
+	var $ = require('jquery');
 
 	// PILLBOX CONSTRUCTOR AND PROTOTYPE
 
@@ -3242,25 +3245,76 @@ define('fuelux/pillbox',['require','jquery'],function(require) {
 	};
 
 	Pillbox.prototype = {
-		constructor: Pillbox,
+		constructor : Pillbox,
 
 		items: function() {
 			return this.$element.find('li').map(function() {
 				var $this = $(this);
-				return $.extend({ text: $this.text() }, $this.data());
+				return $.extend({
+					text : $this.text()
+				}, $this.data());
 			}).get();
 		},
 
-		itemclicked: function (e) {
-			$(e.currentTarget).remove();
+		itemclicked: function(e) {
+
+			var $li = $(e.currentTarget);
+			var data = $.extend({
+				text : $li.html()
+			}, $li.data());
+
+			$li.remove();
 			e.preventDefault();
+
+			this.$element.trigger('removed', data);
+		},
+
+		itemCount: function() {
+
+			return this.$element.find('li').length;
+		},
+
+		addItem: function(text, value) {
+
+			value = value || text;
+
+			//<li data-value="foo">Item One</li>
+
+			var $li = $('<li data-value="' + value + '">' + text + '</li>');
+
+			this.$element.find('ul').append($li);
+
+			return $li;
+		},
+
+		removeBySelector: function(selector) {
+
+			this.$element.find('ul').find(selector).remove();
+		},
+
+		removeByValue: function(value) {
+
+			var selector = 'li[data-value="' + value + '"]';
+
+			this.removeBySelector(selector);
+		},
+
+		removeByText: function(text) {
+
+			var selector = 'li:contains("' + text + '")';
+
+			this.removeBySelector(selector);
+		},
+
+		clear: function() {
+
+			this.$element.find('ul').empty();
 		}
 	};
 
-
 	// PILLBOX PLUGIN DEFINITION
 
-	$.fn.pillbox = function (option) {
+	$.fn.pillbox = function (option, value1, value2) {
 		var methodReturn;
 
 		var $set = this.each(function () {
@@ -3268,8 +3322,8 @@ define('fuelux/pillbox',['require','jquery'],function(require) {
 			var data = $this.data('pillbox');
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('pillbox', (data = new Pillbox(this, options)));
-			if (typeof option === 'string') methodReturn = data[option]();
+			if (!data) $this.data('pillbox', ( data = new Pillbox(this, options)));
+			if ( typeof option === 'string') methodReturn = data[option](value1, value2);
 		});
 
 		return (methodReturn === undefined) ? $set : methodReturn;
@@ -3278,7 +3332,6 @@ define('fuelux/pillbox',['require','jquery'],function(require) {
 	$.fn.pillbox.defaults = {};
 
 	$.fn.pillbox.Constructor = Pillbox;
-
 
 	// PILLBOX DATA-API
 
@@ -3289,7 +3342,6 @@ define('fuelux/pillbox',['require','jquery'],function(require) {
 			$this.pillbox($this.data());
 		});
 	});
-	
 });
 
 
@@ -3690,6 +3742,9 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 				} else {
 					this.value(newVal);
 				}
+			} else if (this.options.cycle) {
+				var cycleVal = dir ? this.options.min : this.options.max;
+				this.value(cycleVal);
 			}
 		},
 

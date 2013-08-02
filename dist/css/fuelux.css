@@ -6902,3 +6902,7 @@ textarea.span1,
 .fuelux .step-content .active {
   display: block;
 }
+
+.fuelux .step-content .active .btn-group .active {
+  display: inline-block;
+}

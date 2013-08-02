@@ -137,6 +137,9 @@ define(['require','jquery'],function(require) {
 				} else {
 					this.value(newVal);
 				}
+			} else if (this.options.cycle) {
+				var cycleVal = dir ? this.options.min : this.options.max;
+				this.value(cycleVal);
 			}
 		},
 
