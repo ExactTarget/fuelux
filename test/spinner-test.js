@@ -85,4 +85,21 @@ require(['jquery', 'fuelux/spinner'], function($) {
 		equal($spinner.spinner('value'), 3, 'spinner kept existing value');
 	});
 
+	test("should cycle when min or max values are reached", function () {
+		var $spinner = $(spinnerHTML).spinner({
+			min: 1,
+			max: 3,
+			cycle: true
+			});
+		$spinner.spinner('step',true); // 2
+		$spinner.spinner('step',true); // 3
+		$spinner.spinner('step',true); // 1
+		$spinner.spinner('step',true); // 2
+		equal($spinner.spinner('value'), 2, 'spinner value cycled at max');
+		$spinner.spinner('step',false); // 1
+		$spinner.spinner('step',false); // 3
+		$spinner.spinner('step',false); // 2
+		equal($spinner.spinner('value'), 2, 'spinner value cycled at min');
+	});
+
 });
