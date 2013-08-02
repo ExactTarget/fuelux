@@ -134,7 +134,8 @@ define(['require','jquery'],function(require) {
 		},
 
 		value: function (value) {
-			if (typeof value !== 'undefined') {
+			if (!isNaN(parseFloat(value)) && isFinite(value)) {
+				value = parseFloat(value);
 				this.options.value = value;
 				this.$input.val(value);
 				return this;

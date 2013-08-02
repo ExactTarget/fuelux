@@ -10,6 +10,9 @@ define(['require','jquery'],function(require) {
 
 	var $ = require('jquery');
 
+	// Relates to thead .sorted styles in datagrid.less
+	var SORTED_HEADER_OFFSET = 22;
+
 
 	// DATAGRID CONSTRUCTOR AND PROTOTYPE
 
@@ -20,7 +23,7 @@ define(['require','jquery'],function(require) {
 		this.$footer = this.$element.find('tfoot th');
 		this.$footerchildren = this.$footer.children().show().css('visibility', 'hidden');
 		this.$topheader = this.$element.find('thead th');
-		this.$searchcontrol = this.$element.find('.search');
+		this.$searchcontrol = this.$element.find('.datagrid-search');
 		this.$filtercontrol = this.$element.find('.filter');
 		this.$pagesize = this.$element.find('.grid-pagesize');
 		this.$pageinput = this.$element.find('.grid-pager input');
@@ -37,10 +40,16 @@ define(['require','jquery'],function(require) {
 
 		this.options = $.extend(true, {}, $.fn.datagrid.defaults, options);
 
-		if(this.$pagesize.hasClass('select')) {
+		// Shim until v3 -- account for FuelUX select or native select for page size:
+		if (this.$pagesize.hasClass('select')) {
 			this.options.dataOptions.pageSize = parseInt(this.$pagesize.select('selectedItem').value, 10);
 		} else {
 			this.options.dataOptions.pageSize = parseInt(this.$pagesize.val(), 10);
+		}
+
+		// Shim until v3 -- account for older search class:
+		if (this.$searchcontrol.length <= 0) {
+			this.$searchcontrol = this.$element.find('.search');
 		}
 
 		this.columns = this.options.dataSource.columns();
@@ -88,10 +97,18 @@ define(['require','jquery'],function(require) {
 		},
 
 		updateColumns: function ($target, direction) {
+			this._updateColumns(this.$colheader, $target, direction);
+
+			if (this.$sizingHeader) {
+				this._updateColumns(this.$sizingHeader, this.$sizingHeader.find('th').eq($target.index()), direction);
+			}
+		},
+
+		_updateColumns: function ($header, $target, direction) {
 			var className = (direction === 'asc') ? 'icon-chevron-up' : 'icon-chevron-down';
-			this.$colheader.find('i').remove();
-			this.$colheader.find('th').removeClass('sorted');
-			$('<i>').addClass(className).appendTo($target);
+			$header.find('i.datagrid-sort').remove();
+			$header.find('th').removeClass('sorted');
+			$('<i>').addClass(className + ' datagrid-sort').appendTo($target);
 			$target.addClass('sorted');
 		},
 
@@ -196,7 +213,13 @@ define(['require','jquery'],function(require) {
 		},
 
 		pageChanged: function (e) {
-			this.options.dataOptions.pageIndex = parseInt($(e.target).val(), 10) - 1;
+			var pageRequested = parseInt($(e.target).val(), 10);
+			pageRequested = (isNaN(pageRequested)) ? 1 : pageRequested;
+			var maxPages = this.$pageslabel.text();
+		
+			this.options.dataOptions.pageIndex = 
+				(pageRequested > maxPages) ? maxPages - 1 : pageRequested - 1;
+
 			this.renderData();
 		},
 
@@ -208,15 +231,20 @@ define(['require','jquery'],function(require) {
 
 		filterChanged: function (e, filter) {
 			this.options.dataOptions.filter = filter;
+			this.options.dataOptions.pageIndex = 0;
 			this.renderData();
 		},
 
 		previous: function () {
+			this.$nextpagebtn.attr('disabled', 'disabled');
+			this.$prevpagebtn.attr('disabled', 'disabled');
 			this.options.dataOptions.pageIndex--;
 			this.renderData();
 		},
 
 		next: function () {
+			this.$nextpagebtn.attr('disabled', 'disabled');
+			this.$prevpagebtn.attr('disabled', 'disabled');
 			this.options.dataOptions.pageIndex++;
 			this.renderData();
 		},
@@ -268,7 +296,15 @@ define(['require','jquery'],function(require) {
 
 			function matchSizingCellWidth(i, el) {
 				if (i === columnCount - 1) return;
-				$(el).width($sizingCells.eq(i).width());
+
+				var $el = $(el);
+				var $sourceCell = $sizingCells.eq(i);
+				var width = $sourceCell.width();
+
+				// TD needs extra width to match sorted column header
+				if ($sourceCell.hasClass('sorted') && $el.prop('tagName') === 'TD') width = width + SORTED_HEADER_OFFSET;
+
+				$el.width(width);
 			}
 
 			this.$colheader.find('th').each(matchSizingCellWidth);

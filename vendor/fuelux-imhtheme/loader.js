@@ -344,7 +344,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-transition',['jquery'], function () { (function () {
 
 /* ===================================================
- * bootstrap-transition.js v2.3.0
+ * bootstrap-transition.js v2.3.2
  * http://twitter.github.com/bootstrap/javascript.html#transitions
  * ===================================================
  * Copyright 2012 Twitter, Inc.
@@ -413,7 +413,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-affix',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ==========================================================
- * bootstrap-affix.js v2.3.0
+ * bootstrap-affix.js v2.3.2
  * http://twitter.github.com/bootstrap/javascript.html#affix
  * ==========================================================
  * Copyright 2012 Twitter, Inc.
@@ -539,7 +539,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-alert',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ==========================================================
- * bootstrap-alert.js v2.3.0
+ * bootstrap-alert.js v2.3.2
  * http://twitter.github.com/bootstrap/javascript.html#alerts
  * ==========================================================
  * Copyright 2012 Twitter, Inc.
@@ -647,7 +647,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-button',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ============================================================
- * bootstrap-button.js v2.3.0
+ * bootstrap-button.js v2.3.2
  * http://twitter.github.com/bootstrap/javascript.html#buttons
  * ============================================================
  * Copyright 2012 Twitter, Inc.
@@ -761,7 +761,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-carousel',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ==========================================================
- * bootstrap-carousel.js v2.3.0
+ * bootstrap-carousel.js v2.3.2
  * http://twitter.github.com/bootstrap/javascript.html#carousel
  * ==========================================================
  * Copyright 2012 Twitter, Inc.
@@ -837,7 +837,7 @@ define("almond", function(){});
       if (!e) this.paused = true
       if (this.$element.find('.next, .prev').length && $.support.transition.end) {
         this.$element.trigger($.support.transition.end)
-        this.cycle()
+        this.cycle(true)
       }
       clearInterval(this.interval)
       this.interval = null
@@ -977,7 +977,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-collapse',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* =============================================================
- * bootstrap-collapse.js v2.3.0
+ * bootstrap-collapse.js v2.3.2
  * http://twitter.github.com/bootstrap/javascript.html#collapse
  * =============================================================
  * Copyright 2012 Twitter, Inc.
@@ -1153,7 +1153,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-dropdown',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ============================================================
- * bootstrap-dropdown.js v2.3.0
+ * bootstrap-dropdown.js v2.3.2
  * http://twitter.github.com/bootstrap/javascript.html#dropdowns
  * ============================================================
  * Copyright 2012 Twitter, Inc.
@@ -1206,6 +1206,10 @@ define("almond", function(){});
       clearMenus()
 
       if (!isActive) {
+        if ('ontouchstart' in document.documentElement) {
+          // if mobile we we use a backdrop because click events don't delegate
+          $('<div class="dropdown-backdrop"/>').insertBefore($(this)).on('click', clearMenus)
+        }
         $parent.toggleClass('open')
       }
 
@@ -1258,6 +1262,7 @@ define("almond", function(){});
   }
 
   function clearMenus() {
+    $('.dropdown-backdrop').remove()
     $(toggle).each(function () {
       getParent($(this)).removeClass('open')
     })
@@ -1312,7 +1317,6 @@ define("almond", function(){});
   $(document)
     .on('click.dropdown.data-api', clearMenus)
     .on('click.dropdown.data-api', '.dropdown form', function (e) { e.stopPropagation() })
-    .on('.dropdown-menu', function (e) { e.stopPropagation() })
     .on('click.dropdown.data-api'  , toggle, Dropdown.prototype.toggle)
     .on('keydown.dropdown.data-api', toggle + ', [role=menu]' , Dropdown.prototype.keydown)
 
@@ -1328,7 +1332,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-modal',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* =========================================================
- * bootstrap-modal.js v2.3.0
+ * bootstrap-modal.js v2.3.2
  * http://twitter.github.com/bootstrap/javascript.html#modals
  * =========================================================
  * Copyright 2012 Twitter, Inc.
@@ -1477,7 +1481,7 @@ define("almond", function(){});
       }
 
     , removeBackdrop: function () {
-        this.$backdrop.remove()
+        this.$backdrop && this.$backdrop.remove()
         this.$backdrop = null
       }
 
@@ -1585,7 +1589,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-tooltip',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ===========================================================
- * bootstrap-tooltip.js v2.3.0
+ * bootstrap-tooltip.js v2.3.2
  * http://twitter.github.com/bootstrap/javascript.html#tooltips
  * Inspired by the original jQuery.tipsy by Jason Frame
  * ===========================================================
@@ -1666,7 +1670,15 @@ define("almond", function(){});
     }
 
   , enter: function (e) {
-      var self = $(e.currentTarget)[this.type](this._options).data(this.type)
+      var defaults = $.fn[this.type].defaults
+        , options = {}
+        , self
+
+      this._options && $.each(this._options, function (key, value) {
+        if (defaults[key] != value) options[key] = value
+      })
+
+      self = $(e.currentTarget)[this.type](options).data(this.type)
 
       if (!self.options.delay || !self.options.delay.show) return self.show()
 
@@ -1948,7 +1960,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-popover',['bootstrap/bootstrap-transition','bootstrap/bootstrap-tooltip'], function () { (function () {
 
 /* ===========================================================
- * bootstrap-popover.js v2.3.0
+ * bootstrap-popover.js v2.3.2
  * http://twitter.github.com/bootstrap/javascript.html#popovers
  * ===========================================================
  * Copyright 2012 Twitter, Inc.
@@ -2072,7 +2084,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-scrollspy',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* =============================================================
- * bootstrap-scrollspy.js v2.3.0
+ * bootstrap-scrollspy.js v2.3.2
  * http://twitter.github.com/bootstrap/javascript.html#scrollspy
  * =============================================================
  * Copyright 2012 Twitter, Inc.
@@ -2243,7 +2255,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-tab',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* ========================================================
- * bootstrap-tab.js v2.3.0
+ * bootstrap-tab.js v2.3.2
  * http://twitter.github.com/bootstrap/javascript.html#tabs
  * ========================================================
  * Copyright 2012 Twitter, Inc.
@@ -2396,7 +2408,7 @@ define("almond", function(){});
 (function (root) { var amdExports; define('bootstrap/bootstrap-typeahead',['bootstrap/bootstrap-transition'], function () { (function () {
 
 /* =============================================================
- * bootstrap-typeahead.js v2.3.0
+ * bootstrap-typeahead.js v2.3.2
  * http://twitter.github.com/bootstrap/javascript.html#typeahead
  * =============================================================
  * Copyright 2012 Twitter, Inc.
@@ -2927,7 +2939,7 @@ define('fuelux/combobox',['require','jquery','./util'],function (require) {
 		},
 
 		selectByValue: function (value) {
-			var selector = 'li[data-value=' + value + ']';
+			var selector = 'li[data-value="' + value + '"]';
 			this.selectBySelector(selector);
 		},
 
@@ -3066,6 +3078,9 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 
 	var $ = require('jquery');
 
+	// Relates to thead .sorted styles in datagrid.less
+	var SORTED_HEADER_OFFSET = 22;
+
 
 	// DATAGRID CONSTRUCTOR AND PROTOTYPE
 
@@ -3076,7 +3091,7 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 		this.$footer = this.$element.find('tfoot th');
 		this.$footerchildren = this.$footer.children().show().css('visibility', 'hidden');
 		this.$topheader = this.$element.find('thead th');
-		this.$searchcontrol = this.$element.find('.search');
+		this.$searchcontrol = this.$element.find('.datagrid-search');
 		this.$filtercontrol = this.$element.find('.filter');
 		this.$pagesize = this.$element.find('.grid-pagesize');
 		this.$pageinput = this.$element.find('.grid-pager input');
@@ -3093,10 +3108,16 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 
 		this.options = $.extend(true, {}, $.fn.datagrid.defaults, options);
 
-		if(this.$pagesize.hasClass('select')) {
+		// Shim until v3 -- account for FuelUX select or native select for page size:
+		if (this.$pagesize.hasClass('select')) {
 			this.options.dataOptions.pageSize = parseInt(this.$pagesize.select('selectedItem').value, 10);
 		} else {
 			this.options.dataOptions.pageSize = parseInt(this.$pagesize.val(), 10);
+		}
+
+		// Shim until v3 -- account for older search class:
+		if (this.$searchcontrol.length <= 0) {
+			this.$searchcontrol = this.$element.find('.search');
 		}
 
 		this.columns = this.options.dataSource.columns();
@@ -3144,10 +3165,18 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 		},
 
 		updateColumns: function ($target, direction) {
+			this._updateColumns(this.$colheader, $target, direction);
+
+			if (this.$sizingHeader) {
+				this._updateColumns(this.$sizingHeader, this.$sizingHeader.find('th').eq($target.index()), direction);
+			}
+		},
+
+		_updateColumns: function ($header, $target, direction) {
 			var className = (direction === 'asc') ? 'icon-chevron-up' : 'icon-chevron-down';
-			this.$colheader.find('i').remove();
-			this.$colheader.find('th').removeClass('sorted');
-			$('<i>').addClass(className).appendTo($target);
+			$header.find('i.datagrid-sort').remove();
+			$header.find('th').removeClass('sorted');
+			$('<i>').addClass(className + ' datagrid-sort').appendTo($target);
 			$target.addClass('sorted');
 		},
 
@@ -3252,7 +3281,13 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 		},
 
 		pageChanged: function (e) {
-			this.options.dataOptions.pageIndex = parseInt($(e.target).val(), 10) - 1;
+			var pageRequested = parseInt($(e.target).val(), 10);
+			pageRequested = (isNaN(pageRequested)) ? 1 : pageRequested;
+			var maxPages = this.$pageslabel.text();
+		
+			this.options.dataOptions.pageIndex = 
+				(pageRequested > maxPages) ? maxPages - 1 : pageRequested - 1;
+
 			this.renderData();
 		},
 
@@ -3264,15 +3299,20 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 
 		filterChanged: function (e, filter) {
 			this.options.dataOptions.filter = filter;
+			this.options.dataOptions.pageIndex = 0;
 			this.renderData();
 		},
 
 		previous: function () {
+			this.$nextpagebtn.attr('disabled', 'disabled');
+			this.$prevpagebtn.attr('disabled', 'disabled');
 			this.options.dataOptions.pageIndex--;
 			this.renderData();
 		},
 
 		next: function () {
+			this.$nextpagebtn.attr('disabled', 'disabled');
+			this.$prevpagebtn.attr('disabled', 'disabled');
 			this.options.dataOptions.pageIndex++;
 			this.renderData();
 		},
@@ -3324,7 +3364,15 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 
 			function matchSizingCellWidth(i, el) {
 				if (i === columnCount - 1) return;
-				$(el).width($sizingCells.eq(i).width());
+
+				var $el = $(el);
+				var $sourceCell = $sizingCells.eq(i);
+				var width = $sourceCell.width();
+
+				// TD needs extra width to match sorted column header
+				if ($sourceCell.hasClass('sorted') && $el.prop('tagName') === 'TD') width = width + SORTED_HEADER_OFFSET;
+
+				$el.width(width);
 			}
 
 			this.$colheader.find('th').each(matchSizingCellWidth);
@@ -3804,7 +3852,8 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 		},
 
 		value: function (value) {
-			if (typeof value !== 'undefined') {
+			if (!isNaN(parseFloat(value)) && isFinite(value)) {
+				value = parseFloat(value);
 				this.options.value = value;
 				this.$input.val(value);
 				return this;
@@ -3868,6 +3917,7 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 	});
 
 });
+
 /*
  * Fuel UX Select
  * https://github.com/ExactTarget/fuelux
@@ -3952,7 +4002,7 @@ define('fuelux/select',['require','jquery','./util'],function(require) {
         },
 
         selectByValue: function(value) {
-            var selector = 'li[data-value=' + value + ']';
+            var selector = 'li[data-value="' + value + '"]';
             this.selectBySelector(selector);
         },
 

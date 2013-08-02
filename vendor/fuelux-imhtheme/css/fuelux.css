@@ -3014,6 +3014,15 @@ textarea.span1,
   display: block;
 }
 
+.fuelux .dropdown-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 990;
+}
+
 .fuelux .pull-right > .dropdown-menu {
   right: 0;
   left: auto;
@@ -6160,8 +6169,19 @@ textarea.span1,
   position: fixed;
 }
 
+.fuelux .form-inline .checkbox-custom {
+  padding-left: 20px;
+}
+
+.fuelux .form-inline .checkbox-custom .checkbox {
+  padding-left: 16px;
+}
+
 .fuelux .checkbox-custom input[type=checkbox] {
-  display: none;
+  /* IE cannot fire events if display none or visibility hidden */
+
+  position: relative;
+  top: -99999px;
 }
 
 .fuelux .checkbox-custom i {
@@ -6264,13 +6284,14 @@ textarea.span1,
 }
 
 .fuelux .datagrid thead .sorted {
+  padding-right: 30px;
   color: #333333;
   text-shadow: 'none';
   background-color: #ddf0f8;
-  background-image: -moz-linear-gradient(top, #ebf6fb, #c9e7f4);
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ebf6fb), to(#c9e7f4));
   background-image: -webkit-linear-gradient(top, #ebf6fb, #c9e7f4);
   background-image: -o-linear-gradient(top, #ebf6fb, #c9e7f4);
+  background-image: -moz-linear-gradient(top, #ebf6fb, #c9e7f4);
   background-image: linear-gradient(to bottom, #ebf6fb, #c9e7f4);
   background-repeat: repeat-x;
   border-color: #c9e7f4 #c9e7f4 #89cae7;
@@ -6281,6 +6302,7 @@ textarea.span1,
 .fuelux .datagrid thead .sorted i {
   float: right;
   margin-top: 2px;
+  margin-right: -22px;
 }
 
 .fuelux .datagrid thead .sortable {
@@ -6644,8 +6666,10 @@ textarea.span1,
 }
 
 .fuelux .tree .tree-folder .tree-folder-header .tree-folder-name {
-  position: absolute;
-  left: 29px;
+  padding-left: 29px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .fuelux .tree .tree-folder .tree-folder-content {
@@ -6862,6 +6886,10 @@ textarea.span1,
 
 .fuelux .step-content .active {
   display: block;
+}
+
+.fuelux .step-content .active .btn-group .active {
+  display: inline-block;
 }
 
 .fuelux .alert .close {
