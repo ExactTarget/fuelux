@@ -58,6 +58,25 @@ Visit our UserVoice community: https://fuelux.uservoice.com
 
 _Fuel UX is semantically versioned: <http://semver.org>_
 
+### Version 2.3.1 `2013-08-02`
+
+* Reset datagrid to first page on filter change
+* Fix datagrid operation inside HTML form
+* Fix datagrid header wrapping for narrow columns
+* Improve datagrid class specificity for inner controls
+* Fix datagrid race condition with next and previous buttons
+* Improve datagrid fault tolerance around paging operations
+* Improve sample datasource to handle null values when searching
+* Fix select control value selection when value contains spaces
+* Fix checkbox operation inside datagrid
+* Fix checkbox operation inside form-inline
+* Fix checkbox operation for IE8
+* Fix tree text wrapping issue
+* Fix spinner issue when passing a string as a value
+* Fix button group operation inside wizard step
+* Backport tooltip options fix from Bootstrap 3
+* Upgrade Bootstrap from 2.3.0 to 2.3.2
+
 ### Version 2.3.0 `2013-02-18`
 
 * Add custom filter support to datagrid
@@ -179,6 +198,11 @@ We are grateful to the maintainers, contributors, and sponsors of the following 
 
 + http://twitter.com/djmccormick
 + http://github.com/djmccormick
+
+**Scott Plumlee**
+
++ http://twitter.com/scottplumlee
++ http://github.com/plumlee
 
 ## Copyright and license
 
