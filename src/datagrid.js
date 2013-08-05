@@ -161,7 +161,18 @@ define(function(require) {
 				$.each(data.data, function (index, row) {
 					rowHTML += '<tr>';
 					$.each(self.columns, function (index, column) {
-						rowHTML += '<td>' + row[column.property] + '</td>';
+						var pros = column.property.split('.');
+						if(pros.length > 1) {
+						    var tick = 1;
+						    var result = row[pros[0]];
+						    while(result && tick < pros.length) {
+						        result = result[pros[tick]]
+						        tick++;
+						    }
+						    rowHTML += '<td>' + result + '</td>';
+						}
+						else
+						    rowHTML += '<td>' + row[column.property] + '</td>';
 					});
 					rowHTML += '</tr>';
 				});
