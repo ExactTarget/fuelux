@@ -6515,7 +6515,10 @@ textarea.span1,
 }
 
 .fuelux .radio-custom input[type=radio] {
-  display: none;
+  /* IE cannot fire events if display none or visibility hidden */
+
+  position: relative;
+  top: -99999px;
 }
 
 .fuelux .radio-custom i {
