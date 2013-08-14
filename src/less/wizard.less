@@ -35,6 +35,7 @@
 				position: absolute;
 				right: -14px;
 				top: 0;
+                z-index: 1;
 			}
 
 			.chevron:before {
@@ -78,38 +79,9 @@
 			}
 		}
 
-		/* set z-index on steps for chevron overlap */
-		li:nth-child(1) {
+		li:first-child {
 			border-radius: 4px 0 0 4px;
 			padding-left: 20px;
-			z-index: 10;
-		}
-		li:nth-child(2) {
-			z-index: 9;
-		}
-		li:nth-child(3) {
-			z-index: 8;
-		}
-		li:nth-child(4) {
-			z-index: 7;
-		}
-		li:nth-child(5) {
-			z-index: 6;
-		}
-		li:nth-child(6) {
-			z-index: 5;
-		}
-		li:nth-child(7) {
-			z-index: 4;
-		}
-		li:nth-child(8) {
-			z-index: 3;
-		}
-		li:nth-child(9) {
-			z-index: 2;
-		}
-		li:nth-child(10) {
-			z-index: 1;
 		}
 	}
 
