@@ -24,6 +24,8 @@ Fuel UX provides all of the styles and plugins from the revolutionary [Twitter B
   * Tree - _renders data in a tree, supporting caching and optional multi-selection_
   * Wizard - _displays a multi-step process to be completed in a specific order_
 <p>
+* Smart Dropdowns - _dropdown automatically decides whether it should be placed above or below the clicked element (can also force position). Add `data-direction="auto|up|down"` to element that has `data-toggle="dropdown"`_
+
 * One-step installation and updates through [volo](https://github.com/volojs/volo)
 * [AMD](http://requirejs.org/docs/whyamd.html) compatibility for modular structure and deployment optimization
 * [Grunt](https://github.com/cowboy/grunt)-based build script to easily create custom distribution files
@@ -198,6 +200,11 @@ We are grateful to the maintainers, contributors, and sponsors of the following 
 
 + http://twitter.com/djmccormick
 + http://github.com/djmccormick
+
+**Alex Vernacchia**
+
++ http://twitter.com/vernacchia
++ http://github.com/vernak2539
 
 **Scott Plumlee**
 
