@@ -76,7 +76,7 @@ define(function (require) {
 
 			// set display of target element
 			var target = $currentStep.data().target;
-			$('.step-pane').removeClass('active');
+			this.$element.find('.step-pane').removeClass('active');
 			$(target).addClass('active');
 
 			this.$element.trigger('changed');
@@ -85,7 +85,7 @@ define(function (require) {
 		stepclicked: function (e) {
 			var li = $(e.currentTarget);
 
-			var index = $('.steps li').index(li);
+			var index = this.$element.find('.steps li').index(li);
 
 			var evt = $.Event('stepclick');
 			this.$element.trigger(evt, {step: index + 1});
