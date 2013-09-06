@@ -13,8 +13,7 @@ define(function (require) {
 
 	// WIZARD CONSTRUCTOR AND PROTOTYPE
 
-	var Wizard = function(element, options)
-	{
+	var Wizard = function (element, options) {
 		var kids;
 		var self = this;
 
@@ -42,8 +41,7 @@ define(function (require) {
 
 		constructor: Wizard,
 
-		setState: function()
-		{
+		setState: function () {
 			var self = this;
 
 			var canMovePrev = (this.currentStep > 1);
@@ -58,11 +56,9 @@ define(function (require) {
 			{
 				var data = $(this).data();
 
-				if(data && data.last)
-				{
+				if (data && data.last) {
 					self.lastText = data.last;
-					if(typeof self.lastText !== 'undefined')
-					{
+					if (typeof self.lastText !== 'undefined') {
 						// replace text
 						var text = (lastStep !== true) ? self.nextText : self.lastText;
 						var kids = $(this).children().detach();
@@ -76,7 +72,7 @@ define(function (require) {
 			$steps.removeClass('active').removeClass('complete');
 			$steps.find('span.badge').removeClass('badge-info').removeClass('badge-success');
 
-
+			
 			var targetChanged = false;
 
 			this.$element.find('.steps').each(function()
@@ -108,57 +104,50 @@ define(function (require) {
 			this.$element.trigger('changed');
 		},
 
-		stepclicked: function(e)
-		{
+		stepclicked: function (e) {
 			var li = $(e.currentTarget);
 
 			var index = $(e.currentTarget).closest('.steps').find('li').index(li);
 
 			var evt = $.Event('stepclick');
-			this.$element.trigger(evt, { step: index + 1 });
-			if(evt.isDefaultPrevented()) return;
+			this.$element.trigger(evt, {step: index + 1});
+			if (evt.isDefaultPrevented()) return;
 
 			this.currentStep = (index + 1);
 			this.setState();
 		},
 
-		previous: function()
-		{
+		previous: function () {
 			var canMovePrev = (this.currentStep > 1);
-			if(canMovePrev)
-			{
+			if (canMovePrev) {
 				var e = $.Event('change');
-				this.$element.trigger(e, { step: this.currentStep, direction: 'previous' });
-				if(e.isDefaultPrevented()) return;
+				this.$element.trigger(e, {step: this.currentStep, direction: 'previous'});
+				if (e.isDefaultPrevented()) return;
 
 				this.currentStep -= 1;
 				this.setState();
 			}
 		},
 
-		next: function()
-		{
+		next: function () {
 			var canMoveNext = (this.currentStep + 1 <= this.numSteps);
 			var lastStep = (this.currentStep === this.numSteps);
 
-			if(canMoveNext)
-			{
+			if (canMoveNext) {
 				var e = $.Event('change');
-				this.$element.trigger(e, { step: this.currentStep, direction: 'next' });
+				this.$element.trigger(e, {step: this.currentStep, direction: 'next'});
 
-				if(e.isDefaultPrevented()) return;
+				if (e.isDefaultPrevented()) return;
 
 				this.currentStep += 1;
 				this.setState();
 			}
-			else if(lastStep)
-			{
+			else if (lastStep) {
 				this.$element.trigger('finished');
 			}
 		},
 
-		selectedItem: function(val)
-		{
+		selectedItem: function (val) {
 			return {
 				step: this.currentStep
 			};
@@ -168,18 +157,16 @@ define(function (require) {
 
 	// WIZARD PLUGIN DEFINITION
 
-	$.fn.wizard = function(option, value)
-	{
+	$.fn.wizard = function (option, value) {
 		var methodReturn;
 
-		var $set = this.each(function()
-		{
+		var $set = this.each(function () {
 			var $this = $(this);
 			var data = $this.data('wizard');
 			var options = typeof option === 'object' && option;
 
-			if(!data) $this.data('wizard', (data = new Wizard(this, options)));
-			if(typeof option === 'string') methodReturn = data[option](value);
+			if (!data) $this.data('wizard', (data = new Wizard(this, options)));
+			if (typeof option === 'string') methodReturn = data[option](value);
 		});
 
 		return (methodReturn === undefined) ? $set : methodReturn;
@@ -192,12 +179,10 @@ define(function (require) {
 
 	// WIZARD DATA-API
 
-	$(function()
-	{
-		$('body').on('mousedown.wizard.data-api', '.wizard', function()
-		{
+	$(function () {
+		$('body').on('mousedown.wizard.data-api', '.wizard', function () {
 			var $this = $(this);
-			if($this.data('wizard')) return;
+			if ($this.data('wizard')) return;
 			$this.wizard($this.data());
 		});
 	});
