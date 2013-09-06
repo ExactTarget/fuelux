@@ -35,6 +35,9 @@ define(function (require) {
 		this.$prevBtn.on('click', $.proxy(this.previous, this));
 		this.$nextBtn.on('click', $.proxy(this.next, this));
 		this.$element.on('click', 'li.complete', $.proxy(this.stepclicked, this));
+
+		// initialize state
+		this.setState();
 	};
 
 	Wizard.prototype = {
@@ -180,11 +183,14 @@ define(function (require) {
 	// WIZARD DATA-API
 
 	$(function () {
-		$('body').on('mousedown.wizard.data-api', '.wizard', function () {
+		$('body').on('mousedown.wizard.data-api keydown.wizard.data-api', '.wizard', function () {
 			var $this = $(this);
 			if ($this.data('wizard')) return;
 			$this.wizard($this.data());
 		});
+
+		// faux-mousedown to initialize wizards present in the DOM on document load
+		$('.wizard').mousedown();
 	});
 
 });
