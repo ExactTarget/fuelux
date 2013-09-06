@@ -85,7 +85,7 @@ define(function (require) {
 		stepclicked: function (e) {
 			var li = $(e.currentTarget);
 
-			var index = $('.steps li').index(li);
+			var index = this.$element.find('.steps li').index(li);
 
 			var evt = $.Event('stepclick');
 			this.$element.trigger(evt, {step: index + 1});
