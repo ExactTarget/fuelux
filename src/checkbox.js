@@ -36,7 +36,7 @@ define(function (require) {
 
 		setState: function ($chk) {
 			var checked = $chk.is(':checked');
-			var disabled = $chk.is(':disabled');
+			var disabled = !!$chk.prop('disabled');
 
 			// reset classes
 			this.$icon.removeClass('checked').removeClass('disabled');
