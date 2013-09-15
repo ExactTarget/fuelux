@@ -36,7 +36,7 @@ define(function (require) {
 
 		setState: function ($radio, resetGroupState) {
 			var checked = $radio.is(':checked');
-			var disabled = $radio.is(':disabled');
+			var disabled = !!$radio.prop('disabled');
 
 			// set state of radio
 			if (checked === true) {
