@@ -9,13 +9,32 @@
 	position: relative;
 	overflow: hidden;
 
-	ul {
+    .wizard-header, .wizard-footer
+    {
+        overflow: hidden;
+        position: relative;
+    }
+
+    .wizard-header
+    {
+        margin-bottom: 10px;
+        border-bottom: 1px solid @navbarBorder;
+    }
+
+    .wizard-footer
+    {
+        margin-top: 10px;
+        border-top: 1px solid @navbarBorder;
+    }
+
+	.steps {
 		list-style: none outside none;
 		padding: 0;
 		margin: 0;
 		width: 4000px;
+        overflow: hidden;
 		
-		li {
+		> li {
 			float: left;
 			margin: 0;
 			padding: 0 20px 0 30px;
@@ -88,6 +107,7 @@
 	.actions {
 		z-index: 1000;
 		position: absolute;
+        top: 0;
 		right: 0;
 		line-height: 46px;
 		float: right;
