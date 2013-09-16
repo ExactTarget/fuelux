@@ -37,9 +37,6 @@
 		}
 
 		.step-content {
-			border: 1px solid #D4D4D4;
-			border-top: 0;
-			border-radius: 0 0 4px 4px;
 			padding: 10px;
 			margin-bottom: 10px;
 		}
@@ -583,35 +580,93 @@
 	<!-- WIZARD -->
 	<div>
 		<div id="MyWizard" class="wizard">
-			<ul class="steps">
-				<li data-target="#step1" class="active"><span class="badge badge-info">1</span>Step 1<span class="chevron"></span></li>
-				<li data-target="#step2"><span class="badge">2</span>Step 2<span class="chevron"></span></li>
-				<li data-target="#step3"><span class="badge">3</span>Step 3<span class="chevron"></span></li>
-				<li data-target="#step4"><span class="badge">4</span>Step 4<span class="chevron"></span></li>
-				<li data-target="#step5"><span class="badge">5</span>Step 5<span class="chevron"></span></li>
-				<li data-target="#step6"><span class="badge">6</span>Step 6<span class="chevron"></span></li>
-				<li data-target="#step7"><span class="badge">7</span>Step 7<span class="chevron"></span></li>
-				<li data-target="#step8"><span class="badge">8</span>Step 8<span class="chevron"></span></li>
-				<li data-target="#step9"><span class="badge">9</span>Step 9<span class="chevron"></span></li>
-				<li data-target="#step10"><span class="badge">10</span>Step 10<span class="chevron"></span></li>
-			</ul>
-			<div class="actions">
-				<button class="btn btn-mini btn-prev"> <i class="icon-arrow-left"></i>Prev</button>
-				<button class="btn btn-mini btn-next" data-last="Finish">Next<i class="icon-arrow-right"></i></button>
-			</div>
-		</div>
-		<div class="step-content">
-			<div class="step-pane active" id="step1">This is step 1</div>
-			<div class="step-pane" id="step2">This is step 2</div>
-			<div class="step-pane" id="step3">This is step 3</div>
-			<div class="step-pane" id="step4">This is step 4</div>
-			<div class="step-pane" id="step5">This is step 5</div>
-			<div class="step-pane" id="step6">This is step 6</div>
-			<div class="step-pane" id="step7">This is step 7</div>
-			<div class="step-pane" id="step8">This is step 8</div>
-			<div class="step-pane" id="step9">This is step 9</div>
-			<div class="step-pane" id="step10">This is step 10</div>
-		</div>
+            <div class="wizard-header">
+			    <ul class="steps">
+				    <li data-target="#step1" class="active"><span class="badge badge-info">1</span>Step 1<span class="chevron"></span></li>
+				    <li data-target="#step2"><span class="badge">2</span>Step 2<span class="chevron"></span></li>
+				    <li data-target="#step3"><span class="badge">3</span>Step 3<span class="chevron"></span></li>
+				    <li data-target="#step4"><span class="badge">4</span>Step 4<span class="chevron"></span></li>
+				    <li data-target="#step5"><span class="badge">5</span>Step 5<span class="chevron"></span></li>
+				    <li data-target="#step6"><span class="badge">6</span>Step 6<span class="chevron"></span></li>
+				    <li data-target="#step7"><span class="badge">7</span>Step 7<span class="chevron"></span></li>
+				    <li data-target="#step8"><span class="badge">8</span>Step 8<span class="chevron"></span></li>
+				    <li data-target="#step9"><span class="badge">9</span>Step 9<span class="chevron"></span></li>
+				    <li data-target="#step10"><span class="badge">10</span>Step 10<span class="chevron"></span></li>
+			    </ul>
+			    <div class="actions">
+				    <button class="btn btn-mini btn-prev"> <i class="icon-arrow-left"></i>Prev</button>
+				    <button class="btn btn-mini btn-next" data-last="Finish">Next<i class="icon-arrow-right"></i></button>
+			    </div>
+            </div>
+		
+		    <div class="step-content">
+			    <div class="step-pane active" id="step1">This is step 1</div>
+			    <div class="step-pane" id="step2">This is step 2</div>
+			    <div class="step-pane" id="step3">This is step 3</div>
+			    <div class="step-pane" id="step4">This is step 4</div>
+			    <div class="step-pane" id="step5">This is step 5</div>
+			    <div class="step-pane" id="step6">This is step 6</div>
+			    <div class="step-pane" id="step7">This is step 7</div>
+			    <div class="step-pane" id="step8">This is step 8</div>
+			    <div class="step-pane" id="step9">This is step 9</div>
+			    <div class="step-pane" id="step10">This is step 10</div>
+		    </div>
+        </div>
+
+        <h2>Wizard with multiple .steps and .actions sections</h2>
+
+        <div id="MyWizard2" class="wizard">
+            <div class="wizard-header">
+			    <ul class="steps">
+				    <li data-target="#wizard2-step1" class="active"><span class="badge badge-info">1</span>Step 1<span class="chevron"></span></li>
+				    <li data-target="#wizard2-step2"><span class="badge">2</span>Step 2<span class="chevron"></span></li>
+				    <li data-target="#wizard2-step3"><span class="badge">3</span>Step 3<span class="chevron"></span></li>
+				    <li data-target="#wizard2-step4"><span class="badge">4</span>Step 4<span class="chevron"></span></li>
+				    <li data-target="#wizard2-step5"><span class="badge">5</span>Step 5<span class="chevron"></span></li>
+				    <li data-target="#wizard2-step6"><span class="badge">6</span>Step 6<span class="chevron"></span></li>
+				    <li data-target="#wizard2-step7"><span class="badge">7</span>Step 7<span class="chevron"></span></li>
+				    <li data-target="#wizard2-step8"><span class="badge">8</span>Step 8<span class="chevron"></span></li>
+				    <li data-target="#wizard2-step9"><span class="badge">9</span>Step 9<span class="chevron"></span></li>
+				    <li data-target="#wizard2-step10"><span class="badge">10</span>Step 10<span class="chevron"></span></li>
+			    </ul>
+			    <div class="actions">
+				    <button class="btn btn-mini btn-prev"> <i class="icon-arrow-left"></i>Prev</button>
+				    <button class="btn btn-mini btn-next" data-last="Finish">Next<i class="icon-arrow-right"></i></button>
+			    </div>
+            </div>
+		
+		    <div class="step-content">
+			    <div class="step-pane active" id="wizard2-step1">This is step 1</div>
+			    <div class="step-pane" id="wizard2-step2">This is step 2</div>
+			    <div class="step-pane" id="wizard2-step3">This is step 3</div>
+			    <div class="step-pane" id="wizard2-step4">This is step 4</div>
+			    <div class="step-pane" id="wizard2-step5">This is step 5</div>
+			    <div class="step-pane" id="wizard2-step6">This is step 6</div>
+			    <div class="step-pane" id="wizard2-step7">This is step 7</div>
+			    <div class="step-pane" id="wizard2-step8">This is step 8</div>
+			    <div class="step-pane" id="wizard2-step9">This is step 9</div>
+			    <div class="step-pane" id="wizard2-step10">This is step 10</div>
+		    </div>
+
+            <div class="wizard-footer">
+                <ul class="steps">
+				    <li data-target="#wizard2-step1" class="active"><span class="badge badge-info">1</span>Step 1<span class="chevron"></span></li>
+				    <li data-target="#wizard2-step2"><span class="badge">2</span>Step 2<span class="chevron"></span></li>
+				    <li data-target="#wizard2-step3"><span class="badge">3</span>Step 3<span class="chevron"></span></li>
+				    <li data-target="#wizard2-step4"><span class="badge">4</span>Step 4<span class="chevron"></span></li>
+				    <li data-target="#wizard2-step5"><span class="badge">5</span>Step 5<span class="chevron"></span></li>
+				    <li data-target="#wizard2-step6"><span class="badge">6</span>Step 6<span class="chevron"></span></li>
+				    <li data-target="#wizard2-step7"><span class="badge">7</span>Step 7<span class="chevron"></span></li>
+				    <li data-target="#wizard2-step8"><span class="badge">8</span>Step 8<span class="chevron"></span></li>
+				    <li data-target="#wizard2-step9"><span class="badge">9</span>Step 9<span class="chevron"></span></li>
+				    <li data-target="#wizard2-step10"><span class="badge">10</span>Step 10<span class="chevron"></span></li>
+			    </ul>
+			    <div class="actions">
+				    <button class="btn btn-mini btn-prev"> <i class="icon-arrow-left"></i>Prev</button>
+				    <button class="btn btn-mini btn-next" data-last="Finish">Next<i class="icon-arrow-right"></i></button>
+			    </div>
+            </div>
+        </div>
 
 		<input type="button" class="btn btn-mini" id="btnWizardPrev" value="prev">
 		<input type="button" class="btn btn-mini" id="btnWizardNext" value="next">
