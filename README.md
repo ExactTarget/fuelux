@@ -30,6 +30,15 @@ Fuel UX provides all of the styles and plugins from the revolutionary [Twitter B
 * Namespaced CSS (just add a `fuelux` class) for safe use on existing sites
 
 ## Getting Started
+
+### volo
+
+You can install FuelUX using volo. You will want to pass the `-amdoff` flag to volo to tell it not to try and amdify the project:
+
+`volo add -amdoff fuelux`
+
+### Git
+
 * `git clone git://github.com/ExactTarget/fuelux.git`
 * Default Fuel UX files for production use are located in the [dist](https://github.com/ExactTarget/fuelux/tree/master/dist) directory
 * To customize, modify the JS and LESS files under [src](https://github.com/ExactTarget/fuelux/tree/master/src) then run `grunt` to regenerate your [dist](https://github.com/ExactTarget/fuelux/tree/master/dist) directory (more below)
