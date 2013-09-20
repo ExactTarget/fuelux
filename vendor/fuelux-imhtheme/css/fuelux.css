@@ -6576,7 +6576,7 @@ textarea.span1,
   text-align: left;
 }
 
-.fuelux #selectTextSize {
+.fuelux .select-sizer {
   position: absolute;
   top: 0;
   display: inline-block;
@@ -6886,10 +6886,6 @@ textarea.span1,
 
 .fuelux .step-content .active {
   display: block;
-}
-
-.fuelux .step-content .active .btn-group .active {
-  display: inline-block;
 }
 
 .fuelux .alert .close {

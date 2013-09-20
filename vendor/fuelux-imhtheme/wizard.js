@@ -125,7 +125,7 @@ define(['require','jquery'],function (require) {
 			}
 		},
 
-		selectedItem: function (val) {
+		selectedItem: function () {
 			return {
 				step: this.currentStep
 			};
