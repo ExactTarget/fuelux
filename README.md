@@ -60,6 +60,21 @@ Visit our UserVoice community: https://fuelux.uservoice.com
 
 _Fuel UX is semantically versioned: <http://semver.org>_
 
+### Version 2.4.0 `2013-09-20`
+
+* Tree control fixed event when unselecting last item. Adds supports for decorating folders with markup. Adds updated event
+* Wizard selectItem method now supports set current step
+* Wizard horizontally scrolls when many steps are present
+* Added many conveniece methods to Pillbox
+* FuelUX updated to use GruntJS 0.4.x
+* FuelUX Intelligent Dropdowns
+* Tree control selectFolder method fixed and collapse method added
+* Convenience methods added to radio and checkbox controls 
+* New option "noDataFoundHTML" added to datagrid control
+* Select control fixed for leftover resizing element
+* Datagrid control supports custom class on a column
+* Fixed initial page size on datagrid
+
 ### Version 2.3.1 `2013-08-02`
 
 * Reset datagrid to first page on filter change
@@ -214,6 +229,14 @@ We are grateful to the maintainers, contributors, and sponsors of the following 
 **Marvin Pribble**
 
 + http://github.com/marvinpribble
+
+**Ryan Moore**
+
++ http://github.com/rbmoore
+
+**Steven Rogers**
+
++ http://github.com/soldoutactivist
 
 ## Copyright and license
 

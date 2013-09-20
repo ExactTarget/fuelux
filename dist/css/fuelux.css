@@ -6781,6 +6781,7 @@ textarea.span1,
   position: absolute;
   top: 0;
   right: -14px;
+  z-index: 1;
   display: block;
   border: 24px solid transparent;
   border-right: 0;
@@ -6829,46 +6830,9 @@ textarea.span1,
   margin-right: 8px;
 }
 
-.fuelux .wizard ul li:nth-child(1) {
-  z-index: 10;
+.fuelux .wizard ul li:first-child {
   padding-left: 20px;
   border-radius: 4px 0 0 4px;
-}
-
-.fuelux .wizard ul li:nth-child(2) {
-  z-index: 9;
-}
-
-.fuelux .wizard ul li:nth-child(3) {
-  z-index: 8;
-}
-
-.fuelux .wizard ul li:nth-child(4) {
-  z-index: 7;
-}
-
-.fuelux .wizard ul li:nth-child(5) {
-  z-index: 6;
-}
-
-.fuelux .wizard ul li:nth-child(6) {
-  z-index: 5;
-}
-
-.fuelux .wizard ul li:nth-child(7) {
-  z-index: 4;
-}
-
-.fuelux .wizard ul li:nth-child(8) {
-  z-index: 3;
-}
-
-.fuelux .wizard ul li:nth-child(9) {
-  z-index: 2;
-}
-
-.fuelux .wizard ul li:nth-child(10) {
-  z-index: 1;
 }
 
 .fuelux .wizard .actions {
