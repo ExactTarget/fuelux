@@ -57,6 +57,9 @@
 
 		require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 'fuelux/all'], function ($, sampleData, StaticDataSource, DataSourceTree) {
 
+			// DATEPICKER
+			$('#datepicker').datepicker();
+
 			// COMBOBOX
 			$('#btnComboboxDisable').on('click', function () {
 				$('#MyCombobox').combobox('disable');
@@ -279,6 +282,17 @@
 
 <div class="container">
 
+	<!-- DATEPICKER -->
+	<!--div id="datepicker"></div-->
+	<div class="dropdowndatepicker dropdown" id="datepicker">
+		<div class="input-append ">
+			<div class="dropdown-menu replaceWithDatepicker"></div>
+			<input type="text" class="span2" readonly value="" data-toggle="dropdown">
+			<button class="btn" data-toggle="dropdown"><span class="caret"></span></button>
+		</div>
+
+	</div>
+
 
 	<!-- CHECKBOX -->
 	<div>
@@ -322,7 +336,7 @@
 				<li data-value="4" data-fizz="buzz"><a href="#">Four</a></li>
 			</ul>
 		</div>
-        <br/>
+				<br/>
 		<input id="btnComboboxGetSelectedItem" type="button" class="btn btn-mini" value="log item"/>
 		<input id="btnComboboxSelectByValue" type="button" class="btn btn-mini" value="set by value"/>
 		<input id="btnComboboxSelectByIndex" type="button" class="btn btn-mini" value="set by index"/>
@@ -339,9 +353,9 @@
 			<input type="text" class="input-medium" placeholder="Search">
 			<button class="btn"><i class="icon-search"></i></button>
 		</div>
-        <br/>
-        <input id="btnSearchDisable" type="button" class="btn btn-mini" value="disable"/>
-        <input id="btnSearchEnable" type="button" class="btn btn-mini" value="enable"/>
+				<br/>
+				<input id="btnSearchDisable" type="button" class="btn btn-mini" value="disable"/>
+				<input id="btnSearchEnable" type="button" class="btn btn-mini" value="enable"/>
 	</div>
 
 	<!-- PILLBOX -->
