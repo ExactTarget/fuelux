@@ -41,8 +41,6 @@ define(function (require) {
 			var disabled = $radio.is(':disabled');
 			
 			// reset classes
-            this.$icon.removeClass('checked').removeClass('disabled');
-
 			this.$icon.removeClass('checked disabled');
 
 			// set state of radio
