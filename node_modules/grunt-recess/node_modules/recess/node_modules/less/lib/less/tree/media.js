@@ -1,8 +1,7 @@
 (function (tree) {
 
 tree.Media = function (value, features) {
-    var el = new(tree.Element)('&', null, 0),
-        selectors = [new(tree.Selector)([el])];
+    var selectors = this.emptySelectors();
 
     this.features = new(tree.Value)(features);
     this.ruleset = new(tree.Ruleset)(selectors, value);
@@ -23,18 +22,20 @@ tree.Media.prototype = {
             env.mediaPath = [];
         }
         
-        var blockIndex = env.mediaBlocks.length;
-        env.mediaPath.push(this);
-        env.mediaBlocks.push(this);
-
         var media = new(tree.Media)([], []);
+        if(this.debugInfo) {
+            this.ruleset.debugInfo = this.debugInfo;
+            media.debugInfo = this.debugInfo;
+        }
         media.features = this.features.eval(env);
+        
+        env.mediaPath.push(media);
+        env.mediaBlocks.push(media);
         
         env.frames.unshift(this.ruleset);
         media.ruleset = this.ruleset.eval(env);
         env.frames.shift();
         
-        env.mediaBlocks[blockIndex] = media;
         env.mediaPath.pop();
 
         return env.mediaPath.length === 0 ? media.evalTop(env) :
@@ -43,14 +44,17 @@ tree.Media.prototype = {
     variable: function (name) { return tree.Ruleset.prototype.variable.call(this.ruleset, name) },
     find: function () { return tree.Ruleset.prototype.find.apply(this.ruleset, arguments) },
     rulesets: function () { return tree.Ruleset.prototype.rulesets.apply(this.ruleset) },
+    emptySelectors: function() { 
+        var el = new(tree.Element)('', '&', 0);
+        return [new(tree.Selector)([el])];
+    },
 
     evalTop: function (env) {
         var result = this;
 
         // Render all dependent Media blocks.
         if (env.mediaBlocks.length > 1) {
-            var el = new(tree.Element)('&', null, 0);
-            var selectors = [new(tree.Selector)([el])];
+            var selectors = this.emptySelectors();
             result = new(tree.Ruleset)(selectors, env.mediaBlocks);
             result.multiMedia = true;
         }
@@ -108,6 +112,9 @@ tree.Media.prototype = {
           }
           return result;
       }
+    },
+    bubbleSelectors: function (selectors) {
+      this.ruleset = new(tree.Ruleset)(selectors.slice(0), [this.ruleset]);
     }
 };
 

@@ -35,11 +35,13 @@ define(function (require) {
 		constructor: Checkbox,
 
 		setState: function ($chk) {
+			$chk = $chk || this.$chk;
+
 			var checked = $chk.is(':checked');
 			var disabled = !!$chk.prop('disabled');
 
 			// reset classes
-			this.$icon.removeClass('checked').removeClass('disabled');
+			this.$icon.removeClass('checked disabled');
 
 			// set state of checkbox
 			if (checked === true) {
@@ -67,6 +69,20 @@ define(function (require) {
 		itemchecked: function (e) {
 			var chk = $(e.target);
 			this.setState(chk);
+		},
+		
+		check: function () {
+            this.$chk.prop('checked', true);
+            this.setState(this.$chk);
+		},
+		
+		uncheck: function () {
+            this.$chk.prop('checked', false);
+            this.setState(this.$chk);
+		},
+		
+		isChecked: function () {
+            return this.$chk.is(':checked');
 		}
 	};
 

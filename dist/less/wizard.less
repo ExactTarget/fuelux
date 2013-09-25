@@ -6,12 +6,15 @@
 	.border-radius(@baseBorderRadius);
 	.box-shadow(0 1px 4px rgba(0,0,0,.065));
 	background-color: @tableBackgroundAccent;
+	position: relative;
+	overflow: hidden;
 
 	ul {
 		list-style: none outside none;
 		padding: 0;
 		margin: 0;
-
+		width: 4000px;
+		
 		li {
 			float: left;
 			margin: 0;
@@ -32,6 +35,7 @@
 				position: absolute;
 				right: -14px;
 				top: 0;
+                z-index: 1;
 			}
 
 			.chevron:before {
@@ -75,46 +79,23 @@
 			}
 		}
 
-		/* set z-index on steps for chevron overlap */
-		li:nth-child(1) {
+		li:first-child {
 			border-radius: 4px 0 0 4px;
 			padding-left: 20px;
-			z-index: 10;
-		}
-		li:nth-child(2) {
-			z-index: 9;
-		}
-		li:nth-child(3) {
-			z-index: 8;
-		}
-		li:nth-child(4) {
-			z-index: 7;
-		}
-		li:nth-child(5) {
-			z-index: 6;
-		}
-		li:nth-child(6) {
-			z-index: 5;
-		}
-		li:nth-child(7) {
-			z-index: 4;
-		}
-		li:nth-child(8) {
-			z-index: 3;
-		}
-		li:nth-child(9) {
-			z-index: 2;
-		}
-		li:nth-child(10) {
-			z-index: 1;
 		}
 	}
 
 	.actions {
-		line-height: 44px;
+		z-index: 1000;
+		position: absolute;
+		right: 0;
+		line-height: 46px;
 		float: right;
-		padding-right: 15px;
+		padding-left: 15px;
+		padding-right: 15px;		
 		vertical-align: middle;
+		background-color: #e5e5e5;
+		border-left: 1px solid @navbarBorder;
 
 		a {
 			line-height: 45px;

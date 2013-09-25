@@ -79,7 +79,9 @@ module.exports.DEFAULTS = RECESS.DEFAULTS = {
 , prefixWhitespace: true
 , strictPropertyOrder: true
 , stripColors: false
+, watch: false
 , zeroUnits: true
+, inlineImages: false
 }
 
 

@@ -10,38 +10,66 @@ tree.mixin.Call = function (elements, args, index, filename, important) {
 };
 tree.mixin.Call.prototype = {
     eval: function (env) {
-        var mixins, args, rules = [], match = false;
+        var mixins, mixin, args, rules = [], match = false, i, m, f, isRecursive, isOneFound;
 
-        for (var i = 0; i < env.frames.length; i++) {
+        args = this.arguments && this.arguments.map(function (a) {
+            return { name: a.name, value: a.value.eval(env) };
+        });
+
+        for (i = 0; i < env.frames.length; i++) {
             if ((mixins = env.frames[i].find(this.selector)).length > 0) {
-                args = this.arguments && this.arguments.map(function (a) { return a.eval(env) });
-                for (var m = 0; m < mixins.length; m++) {
-                    if (mixins[m].match(args, env)) {
-                        try {
-                            Array.prototype.push.apply(
-                                  rules, mixins[m].eval(env, this.arguments, this.important).rules);
-                            match = true;
-                        } catch (e) {
-                            throw { message: e.message, index: this.index, filename: this.filename, stack: e.stack };
+                isOneFound = true;
+                for (m = 0; m < mixins.length; m++) {
+                    mixin = mixins[m];
+                    isRecursive = false;
+                    for(f = 0; f < env.frames.length; f++) {
+                        if ((!(mixin instanceof tree.mixin.Definition)) && mixin === (env.frames[f].originalRuleset || env.frames[f])) {
+                            isRecursive = true;
+                            break;
                         }
+                    }
+                    if (isRecursive) {
+                        continue;
+                    }
+                    if (mixin.matchArgs(args, env)) {
+                        if (!mixin.matchCondition || mixin.matchCondition(args, env)) {
+                            try {
+                                Array.prototype.push.apply(
+                                      rules, mixin.eval(env, args, this.important).rules);
+                            } catch (e) {
+                                throw { message: e.message, index: this.index, filename: this.filename, stack: e.stack };
+                            }
+                        }
+                        match = true;
                     }
                 }
                 if (match) {
                     return rules;
-                } else {
-                    throw { type:    'Runtime',
-                            message: 'No matching definition was found for `' +
-                                      this.selector.toCSS().trim() + '('      +
-                                      this.arguments.map(function (a) {
-                                          return a.toCSS();
-                                      }).join(', ') + ")`",
-                            index:   this.index, filename: this.filename };
                 }
             }
         }
-        throw { type: 'Name',
+        if (isOneFound) {
+            throw { type:    'Runtime',
+                    message: 'No matching definition was found for `' +
+                              this.selector.toCSS().trim() + '('      +
+                              (args ? args.map(function (a) {
+                                  var argValue = "";
+                                  if (a.name) {
+                                      argValue += a.name + ":";
+                                  }
+                                  if (a.value.toCSS) {
+                                      argValue += a.value.toCSS();
+                                  } else {
+                                      argValue += "???";
+                                  }
+                                  return argValue;
+                              }).join(', ') : "") + ")`",
+                    index:   this.index, filename: this.filename };
+        } else {
+            throw { type: 'Name',
                 message: this.selector.toCSS().trim() + " is undefined",
                 index: this.index, filename: this.filename };
+        }
     }
 };
 
@@ -68,45 +96,98 @@ tree.mixin.Definition.prototype = {
     find:      function ()     { return this.parent.find.apply(this, arguments) },
     rulesets:  function ()     { return this.parent.rulesets.apply(this) },
 
-    evalParams: function (env, args) {
-        var frame = new(tree.Ruleset)(null, []), varargs;
+    evalParams: function (env, mixinEnv, args, evaldArguments) {
+        var frame = new(tree.Ruleset)(null, []), varargs, arg, params = this.params.slice(0), i, j, val, name, isNamedFound, argIndex;
+        
+        if (args) {
+            args = args.slice(0);
 
-        for (var i = 0, val, name; i < this.params.length; i++) {
-            if (name = this.params[i].name) {
-                if (this.params[i].variadic && args) {
-                    varargs = [];
-                    for (var j = i; j < args.length; j++) {
-                        varargs.push(args[j].eval(env));
+            for(i = 0; i < args.length; i++) {
+                arg = args[i];
+                if (name = (arg && arg.name)) {
+                    isNamedFound = false;
+                    for(j = 0; j < params.length; j++) {
+                        if (!evaldArguments[j] && name === params[j].name) {
+                            evaldArguments[j] = arg.value.eval(env);
+                            frame.rules.unshift(new(tree.Rule)(name, arg.value.eval(env)));
+                            isNamedFound = true;
+                            break;
+                        }
                     }
-                    frame.rules.unshift(new(tree.Rule)(name, new(tree.Expression)(varargs).eval(env)));
-                } else if (val = (args && args[i]) || this.params[i].value) {
-                    frame.rules.unshift(new(tree.Rule)(name, val.eval(env)));
-                } else {
-                    throw { type: 'Runtime', message: "wrong number of arguments for " + this.name +
-                            ' (' + args.length + ' for ' + this.arity + ')' };
+                    if (isNamedFound) {
+                        args.splice(i, 1);
+                        i--;
+                        continue;
+                    } else {
+                        throw { type: 'Runtime', message: "Named argument for " + this.name +
+                            ' ' + args[i].name + ' not found' };
+                    }
                 }
             }
         }
+        argIndex = 0;
+        for (i = 0; i < params.length; i++) {
+            if (evaldArguments[i]) continue;
+            
+            arg = args && args[argIndex];
+
+            if (name = params[i].name) {
+                if (params[i].variadic && args) {
+                    varargs = [];
+                    for (j = argIndex; j < args.length; j++) {
+                        varargs.push(args[j].value.eval(env));
+                    }
+                    frame.rules.unshift(new(tree.Rule)(name, new(tree.Expression)(varargs).eval(env)));
+                } else {
+                    val = arg && arg.value;
+                    if (val) {
+                        val = val.eval(env);
+                    } else if (params[i].value) {
+                        val = params[i].value.eval(mixinEnv);
+                    } else {
+                        throw { type: 'Runtime', message: "wrong number of arguments for " + this.name +
+                            ' (' + args.length + ' for ' + this.arity + ')' };
+                    }
+                    
+                    frame.rules.unshift(new(tree.Rule)(name, val));
+                    evaldArguments[i] = val;
+                }
+            }
+            
+            if (params[i].variadic && args) {
+                for (j = argIndex; j < args.length; j++) {
+                    evaldArguments[j] = args[j].value.eval(env);
+                }
+            }
+            argIndex++;
+        }
+
         return frame;
     },
     eval: function (env, args, important) {
-        var frame = this.evalParams(env, args), context, _arguments = [], rules, start;
+        var _arguments = [],
+            mixinFrames = this.frames.concat(env.frames),
+            frame = this.evalParams(env, {frames: mixinFrames}, args, _arguments), 
+            context, rules, start, ruleset;
 
-        for (var i = 0; i < Math.max(this.params.length, args && args.length); i++) {
-            _arguments.push(args[i] || this.params[i].value);
-        }
         frame.rules.unshift(new(tree.Rule)('@arguments', new(tree.Expression)(_arguments).eval(env)));
 
         rules = important ?
-            this.rules.map(function (r) {
-                return new(tree.Rule)(r.name, r.value, '!important', r.index);
-            }) : this.rules.slice(0);
+            this.parent.makeImportant.apply(this).rules : this.rules.slice(0);
 
-        return new(tree.Ruleset)(null, rules).eval({
-            frames: [this, frame].concat(this.frames, env.frames)
+        ruleset = new(tree.Ruleset)(null, rules).eval({
+            frames: [this, frame].concat(mixinFrames)
         });
+        ruleset.originalRuleset = this;
+        return ruleset;
     },
-    match: function (args, env) {
+    matchCondition: function (args, env) {
+        if (this.condition && !this.condition.eval({
+            frames: [this.evalParams(env, {frames: this.frames.concat(env.frames)}, args, [])].concat(env.frames)
+        }))                                                           { return false }
+        return true;
+    },
+    matchArgs: function (args, env) {
         var argsLength = (args && args.length) || 0, len, frame;
 
         if (! this.variadic) {
@@ -115,15 +196,11 @@ tree.mixin.Definition.prototype = {
             if ((this.required > 0) && (argsLength > this.params.length)) { return false }
         }
 
-        if (this.condition && !this.condition.eval({
-            frames: [this.evalParams(env, args)].concat(env.frames)
-        }))                                                           { return false }
-
         len = Math.min(argsLength, this.arity);
 
         for (var i = 0; i < len; i++) {
-            if (!this.params[i].name) {
-                if (args[i].eval(env).toCSS() != this.params[i].value.eval(env).toCSS()) {
+            if (!this.params[i].name && !this.params[i].variadic) {
+                if (args[i].value.eval(env).toCSS() != this.params[i].value.eval(env).toCSS()) {
                     return false;
                 }
             }

@@ -6,7 +6,7 @@
  * Licensed under the MIT license.
  */
 
-define(function(require) {
+define(function (require) {
 
 	var $ = require('jquery');
 
@@ -42,8 +42,13 @@ define(function(require) {
 
 		// Shim until v3 -- account for FuelUX select or native select for page size:
 		if (this.$pagesize.hasClass('select')) {
+			this.$pagesize.select('selectByValue', this.options.dataOptions.pageSize);
 			this.options.dataOptions.pageSize = parseInt(this.$pagesize.select('selectedItem').value, 10);
 		} else {
+			var pageSize = this.options.dataOptions.pageSize;
+			this.$pagesize.find('option').filter(function() {
+				return $(this).text() === pageSize.toString();
+			}).attr('selected', true);
 			this.options.dataOptions.pageSize = parseInt(this.$pagesize.val(), 10);
 		}
 
@@ -60,7 +65,7 @@ define(function(require) {
 		this.$filtercontrol.on('changed', $.proxy(this.filterChanged, this));
 		this.$colheader.on('click', 'th', $.proxy(this.headerClicked, this));
 
-		if(this.$pagesize.hasClass('select')) {
+		if (this.$pagesize.hasClass('select')) {
 			this.$pagesize.on('changed', $.proxy(this.pagesizeChanged, this));
 		} else {
 			this.$pagesize.on('change', $.proxy(this.pagesizeChanged, this));
@@ -161,12 +166,16 @@ define(function(require) {
 				$.each(data.data, function (index, row) {
 					rowHTML += '<tr>';
 					$.each(self.columns, function (index, column) {
-						rowHTML += '<td>' + row[column.property] + '</td>';
+						rowHTML += '<td';
+						if (column.cssClass) {
+							rowHTML += ' class="' + column.cssClass + '"';
+						}
+						rowHTML += '>' + row[column.property] + '</td>';
 					});
 					rowHTML += '</tr>';
 				});
 
-				if (!rowHTML) rowHTML = self.placeholderRowHTML('0 ' + self.options.itemsText);
+				if (!rowHTML) rowHTML = self.placeholderRowHTML(self.options.noDataFoundHTML);
 
 				self.$tbody.html(rowHTML);
 				self.stretchHeight();
@@ -202,7 +211,7 @@ define(function(require) {
 		},
 
 		pagesizeChanged: function (e, pageSize) {
-			if(pageSize) {
+			if (pageSize) {
 				this.options.dataOptions.pageSize = parseInt(pageSize.value, 10);
 			} else {
 				this.options.dataOptions.pageSize = parseInt($(e.target).val(), 10);
@@ -216,8 +225,8 @@ define(function(require) {
 			var pageRequested = parseInt($(e.target).val(), 10);
 			pageRequested = (isNaN(pageRequested)) ? 1 : pageRequested;
 			var maxPages = this.$pageslabel.text();
-		
-			this.options.dataOptions.pageIndex = 
+
+			this.options.dataOptions.pageIndex =
 				(pageRequested > maxPages) ? maxPages - 1 : pageRequested - 1;
 
 			this.renderData();
@@ -332,7 +341,8 @@ define(function(require) {
 		dataOptions: { pageIndex: 0, pageSize: 10 },
 		loadingHTML: '<div class="progress progress-striped active" style="width:50%;margin:auto;"><div class="bar" style="width:100%;"></div></div>',
 		itemsText: 'items',
-		itemText: 'item'
+		itemText: 'item',
+        noDataFoundHTML: '0 items'
 	};
 
 	$.fn.datagrid.Constructor = Datagrid;

@@ -2,10 +2,7 @@
 // browser.js - client-side engine
 //
 
-var isFileProtocol = (location.protocol === 'file:'    ||
-                      location.protocol === 'chrome:'  ||
-                      location.protocol === 'chrome-extension:'  ||
-                      location.protocol === 'resource:');
+var isFileProtocol = /^(file|chrome(-extension)?|resource|qrc|app):/.test(location.protocol);
 
 less.env = less.env || (location.hostname == '127.0.0.1' ||
                         location.hostname == '0.0.0.0'   ||
@@ -20,42 +17,64 @@ less.env = less.env || (location.hostname == '127.0.0.1' ||
 // doesn't start loading before the stylesheets are parsed.
 // Setting this to `true` can result in flickering.
 //
-less.async = false;
+less.async = less.async || false;
+less.fileAsync = less.fileAsync || false;
 
 // Interval between watch polls
 less.poll = less.poll || (isFileProtocol ? 1000 : 1500);
 
+//Setup user functions
+if (less.functions) {
+    for(var func in less.functions) {
+        less.tree.functions[func] = less.functions[func];
+   }
+}
+
+var dumpLineNumbers = /!dumpLineNumbers:(comments|mediaquery|all)/.exec(location.hash);
+if (dumpLineNumbers) {
+    less.dumpLineNumbers = dumpLineNumbers[1];
+}
+
 //
 // Watch mode
 //
-less.watch   = function () { return this.watchMode = true };
-less.unwatch = function () { return this.watchMode = false };
+less.watch   = function () {	
+	if (!less.watchMode ){		
+		less.env = 'development';
+		initRunningMode();
+	}
+	return this.watchMode = true 
+};
 
-if (less.env === 'development') {
-    less.optimization = 0;
+less.unwatch = function () {clearInterval(less.watchTimer); return this.watchMode = false; };
 
-    if (/!watch/.test(location.hash)) {
-        less.watch();
-    }
-    less.watchTimer = setInterval(function () {
-        if (less.watchMode) {
-            loadStyleSheets(function (e, root, _, sheet, env) {
-                if (root) {
-                    createCSS(root.toCSS(), sheet, env.lastModified);
-                }
-            });
-        }
-    }, less.poll);
-} else {
-    less.optimization = 3;
+function initRunningMode(){
+	if (less.env === 'development') {		
+		less.optimization = 0;		
+		less.watchTimer = setInterval(function () {			
+			if (less.watchMode) {
+				loadStyleSheets(function (e, root, _, sheet, env) {
+					if (root) {
+						createCSS(root.toCSS(), sheet, env.lastModified);
+					}
+				});
+			}
+		}, less.poll);
+	} else {
+		less.optimization = 3;
+	}
 }
 
-var cache;
+if (/!watch/.test(location.hash)) {
+	less.watch();
+}
 
-try {
-    cache = (typeof(window.localStorage) === 'undefined') ? null : window.localStorage;
-} catch (_) {
-    cache = null;
+var cache = null;
+
+if (less.env != 'development') {
+    try {
+        cache = (typeof(window.localStorage) === 'undefined') ? null : window.localStorage;
+    } catch (_) {}
 }
 
 //
@@ -73,6 +92,21 @@ for (var i = 0; i < links.length; i++) {
     }
 }
 
+//
+// With this function, it's possible to alter variables and re-render
+// CSS without reloading less-files
+//
+var session_cache = '';
+less.modifyVars = function(record) {
+	var str = session_cache;
+    for (name in record) {
+        str += ((name.slice(0,1) === '@')? '' : '@') + name +': '+ 
+                ((record[name].slice(-1) === ';')? record[name] : record[name] +';');
+    }
+    new(less.Parser)().parse(str, function (e, root) {
+        createCSS(root.toCSS(), less.sheets[less.sheets.length - 1]);
+    });
+};
 
 less.refresh = function (reload) {
     var startTime, endTime;
@@ -100,7 +134,10 @@ function loadStyles() {
     var styles = document.getElementsByTagName('style');
     for (var i = 0; i < styles.length; i++) {
         if (styles[i].type.match(typePattern)) {
-            new(less.Parser)().parse(styles[i].innerHTML || '', function (e, tree) {
+            new(less.Parser)({
+                filename: document.location.href.replace(/#.*$/, ''),
+                dumpLineNumbers: less.dumpLineNumbers
+            }).parse(styles[i].innerHTML || '', function (e, tree) {
                 var css = tree.toCSS();
                 var style = styles[i];
                 style.type = 'text/css';
@@ -120,42 +157,139 @@ function loadStyleSheets(callback, reload) {
     }
 }
 
+function pathDiff(url, baseUrl) {
+    // diff between two paths to create a relative path
+
+    var urlParts = extractUrlParts(url),
+        baseUrlParts = extractUrlParts(baseUrl),
+        i, max, urlDirectories, baseUrlDirectories, diff = "";
+    if (urlParts.hostPart !== baseUrlParts.hostPart) {
+        return "";
+    }
+    max = Math.max(baseUrlParts.directories.length, urlParts.directories.length);
+    for(i = 0; i < max; i++) {
+        if (baseUrlParts.directories[i] !== urlParts.directories[i]) { break; }
+    }
+    baseUrlDirectories = baseUrlParts.directories.slice(i);
+    urlDirectories = urlParts.directories.slice(i);
+    for(i = 0; i < baseUrlDirectories.length-1; i++) {
+        diff += "../";
+    }
+    for(i = 0; i < urlDirectories.length-1; i++) {
+        diff += urlDirectories[i] + "/";
+    }
+    return diff;
+}
+
+function extractUrlParts(url, baseUrl) {
+    // urlParts[1] = protocol&hostname || /
+    // urlParts[2] = / if path relative to host base
+    // urlParts[3] = directories
+    // urlParts[4] = filename
+    // urlParts[5] = parameters
+
+    var urlPartsRegex = /^((?:[a-z-]+:)?\/\/(?:[^\/\?#]+\/)|([\/\\]))?((?:[^\/\\\?#]+[\/\\])*)([^\/\\\?#]*)([#\?].*)?$/,
+        urlParts = url.match(urlPartsRegex),
+        returner = {}, directories = [], i, baseUrlParts;
+
+    if (!urlParts) {
+        throw new Error("Could not parse sheet href - '"+url+"'");
+    }
+
+    // Stylesheets in IE don't always return the full path    
+    if (!urlParts[1] || urlParts[2]) {
+        baseUrlParts = baseUrl.match(urlPartsRegex);
+        if (!baseUrlParts) {
+            throw new Error("Could not parse page url - '"+baseUrl+"'");
+        }
+        urlParts[1] = baseUrlParts[1];
+        if (!urlParts[2]) {
+            urlParts[3] = baseUrlParts[3] + urlParts[3];
+        }
+    }
+    
+    if (urlParts[3]) {
+        directories = urlParts[3].replace("\\", "/").split("/");
+
+        for(i = 0; i < directories.length; i++) {
+            if (directories[i] === ".." && i > 0) {
+                directories.splice(i-1, 2);
+                i -= 2;
+            }
+        }
+    }
+
+    returner.hostPart = urlParts[1];
+    returner.directories = directories;
+    returner.path = urlParts[1] + directories.join("/");
+    returner.fileUrl = returner.path + (urlParts[4] || "");
+    returner.url = returner.fileUrl + (urlParts[5] || "");
+    return returner;
+}
+
 function loadStyleSheet(sheet, callback, reload, remaining) {
-    var url       = window.location.href.replace(/[#?].*$/, '');
-    var href      = sheet.href.replace(/\?.*$/, '');
+    // sheet may be set to the stylesheet for the initial load or a collection of properties including
+    // some env variables for imports
+    var contents  = sheet.contents || {};
+    var files     = sheet.files || {};
+    var hrefParts = extractUrlParts(sheet.href, window.location.href);
+    var href      = hrefParts.url;
     var css       = cache && cache.getItem(href);
     var timestamp = cache && cache.getItem(href + ':timestamp');
     var styles    = { css: css, timestamp: timestamp };
+    var rootpath;
 
-    // Stylesheets in IE don't always return the full path
-    if (! /^(https?|file):/.test(href)) {
-        if (href.charAt(0) == "/") {
-            href = window.location.protocol + "//" + window.location.host + href;
+    if (less.relativeUrls) {
+        if (less.rootpath) {
+            if (sheet.entryPath) {
+                rootpath = extractUrlParts(less.rootpath + pathDiff(hrefParts.path, sheet.entryPath)).path;
+            } else {
+                rootpath = less.rootpath;
+            }
         } else {
-            href = url.slice(0, url.lastIndexOf('/') + 1) + href;
+            rootpath = hrefParts.path;
+        }
+    } else  {
+        if (less.rootpath) {
+            rootpath = less.rootpath;
+        } else {
+            if (sheet.entryPath) {
+                rootpath = sheet.entryPath;
+            } else {
+                rootpath = hrefParts.path;
+            }
         }
     }
-    var filename = href.match(/([^\/]+)$/)[1];
 
-    xhr(sheet.href, sheet.type, function (data, lastModified) {
+    xhr(href, sheet.type, function (data, lastModified) {
+        // Store data this session
+        session_cache += data.replace(/@import .+?;/ig, '');
+
         if (!reload && styles && lastModified &&
            (new(Date)(lastModified).valueOf() ===
             new(Date)(styles.timestamp).valueOf())) {
             // Use local copy
             createCSS(styles.css, sheet);
-            callback(null, null, data, sheet, { local: true, remaining: remaining });
+            callback(null, null, data, sheet, { local: true, remaining: remaining }, href);
         } else {
             // Use remote copy (re-parse)
             try {
+                contents[href] = data;  // Updating top importing parser content cache
                 new(less.Parser)({
                     optimization: less.optimization,
-                    paths: [href.replace(/[\w\.-]+$/, '')],
+                    paths: [hrefParts.path],
+                    entryPath: sheet.entryPath || hrefParts.path,
                     mime: sheet.type,
-                    filename: filename
+                    filename: href,
+                    rootpath: rootpath,
+                    relativeUrls: sheet.relativeUrls,
+                    contents: contents,    // Passing top importing parser content cache ref down.
+                    files: files,
+                    dumpLineNumbers: less.dumpLineNumbers
                 }).parse(data, function (e, root) {
                     if (e) { return error(e, href) }
                     try {
-                        callback(e, root, data, sheet, { local: false, lastModified: lastModified, remaining: remaining });
+                        callback(e, root, data, sheet, { local: false, lastModified: lastModified, remaining: remaining }, href);
                         removeNode(document.getElementById('less-error-message:' + extractId(href)));
                     } catch (e) {
                         error(e, href);
@@ -173,8 +307,7 @@ function loadStyleSheet(sheet, callback, reload, remaining) {
 function extractId(href) {
     return href.replace(/^[a-z]+:\/\/?[^\/]+/, '' )  // Remove protocol & domain
                .replace(/^\//,                 '' )  // Remove root /
-               .replace(/\?.*$/,               '' )  // Remove query
-               .replace(/\.[^\.\/]+$/,         '' )  // Remove file extension
+               .replace(/\.[a-zA-Z]+$/,        '' )  // Remove simple extension
                .replace(/[^\.\w-]+/g,          '-')  // Replace illegal characters
                .replace(/\./g,                 ':'); // Replace dots with colons(for valid id)
 }
@@ -183,7 +316,7 @@ function createCSS(styles, sheet, lastModified) {
     var css;
 
     // Strip the query-string
-    var href = sheet.href ? sheet.href.replace(/\?.*$/, '') : '';
+    var href = sheet.href || '';
 
     // If there is no title set, use the filename, minus the extension
     var id = 'less:' + (sheet.title || extractId(href));
@@ -192,9 +325,10 @@ function createCSS(styles, sheet, lastModified) {
     if ((css = document.getElementById(id)) === null) {
         css = document.createElement('style');
         css.type = 'text/css';
-        css.media = sheet.media || 'screen';
+        if( sheet.media ){ css.media = sheet.media; }
         css.id = id;
-        document.getElementsByTagName('head')[0].appendChild(css);
+        var nextEl = sheet && sheet.nextSibling || null;
+        (nextEl || document.getElementsByTagName('head')[0]).parentNode.insertBefore(css, nextEl);
     }
 
     if (css.styleSheet) { // IE
@@ -218,14 +352,19 @@ function createCSS(styles, sheet, lastModified) {
     // Don't update the local store if the file wasn't modified
     if (lastModified && cache) {
         log('saving ' + href + ' to cache.');
-        cache.setItem(href, styles);
-        cache.setItem(href + ':timestamp', lastModified);
+        try {
+            cache.setItem(href, styles);
+            cache.setItem(href + ':timestamp', lastModified);
+        } catch(e) {
+            //TODO - could do with adding more robust error handling
+            log('failed to save');
+        }
     }
 }
 
 function xhr(url, type, callback, errback) {
     var xhr = getXMLHttpRequest();
-    var async = isFileProtocol ? false : less.async;
+    var async = isFileProtocol ? less.fileAsync : less.async;
 
     if (typeof(xhr.overrideMimeType) === 'function') {
         xhr.overrideMimeType('text/css');
@@ -234,7 +373,7 @@ function xhr(url, type, callback, errback) {
     xhr.setRequestHeader('Accept', type || 'text/x-less, text/css; q=0.9, */*; q=0.5');
     xhr.send(null);
 
-    if (isFileProtocol) {
+    if (isFileProtocol && !less.fileAsync) {
         if (xhr.status === 0 || (xhr.status >= 200 && xhr.status < 300)) {
             callback(xhr.responseText);
         } else {
@@ -286,12 +425,13 @@ function error(e, href) {
     var template = '<li><label>{line}</label><pre class="{class}">{content}</pre></li>';
     var elem = document.createElement('div'), timer, content, error = [];
     var filename = e.filename || href;
+    var filenameNoPath = filename.match(/([^\/]+(\?.*)?)$/)[1];
 
     elem.id        = id;
     elem.className = "less-error-message";
 
     content = '<h3>'  + (e.message || 'There is an error in your .less file') +
-              '</h3>' + '<p>in <a href="' + filename   + '">' + filename + "</a> ";
+              '</h3>' + '<p>in <a href="' + filename   + '">' + filenameNoPath + "</a> ";
 
     var errorline = function (e, i, classname) {
         if (e.extract[i]) {
@@ -377,4 +517,3 @@ function error(e, href) {
         }, 10);
     }
 }
-

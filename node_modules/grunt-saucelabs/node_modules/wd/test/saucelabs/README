@@ -1,0 +1,3 @@
+In order to run the saucelabs tests, set the following environment variables:
+SAUCE_USERNAME
+SAUCE_ACCESS_KEY
