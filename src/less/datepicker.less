@@ -1,7 +1,11 @@
-.dropdowndatepicker {
+@dropdownBorderRadius: 6px;
+@headerHeight: 24px;
+@selectedDayBg: #68ACE7;
+@hoverDayBg: #DFEEF5;
+@todayBg: #E6E6E6;
 
-	@dropdownBorderRadius: 6px;
-	@headerHeight: 24px;
+
+.dropdowndatepicker {
 
 	.input-append {
 		margin-bottom: 1px;
@@ -152,9 +156,12 @@
 
 		.lastmonth, .thismonth, .nextmonth, .monthsView, .yearsView {
 			div {
+				border: 1px solid @white;
+
 				&:not(.restrict) {
 					&:hover {
-						background-color: #f1f6fc;
+						background-color: @hoverDayBg;
+						border: 1px solid #98D2EE;
 						//font-weight: bold;
 						cursor: pointer;
 					}
@@ -166,6 +173,7 @@
 			div {
 				color: #a3a4a4;
 				background-color: @grayLighter;
+				border: 1px solid @grayLighter;
 			}
 		}
 
@@ -176,25 +184,26 @@
 			}
 		}
 
-		.today {
-			background-color: darken( #f1f6fc, 7% ) !important;
-			color: #fff;
-
-			&:hover {
-				background-color: darken( #f1f6fc, 7% ) !important;
-			}
+		.today, .today:hover {
+			background-color: @todayBg !important;
+			color: #333;
+			border: 1px solid #999 !important;
+			opacity: .7;
 		}
-		.selected {
-			background-color: darken( #f1f6fc, 10% ) !important;
-			font-weight: bold;
 
-			&:hover {
-				background-color: darken( #f1f6fc, 10% ) !important;
-			}
+		.selected, .selected:hover {
+			color: @white;
+			background-color: @selectedDayBg !important;
+			border-color: @selectedDayBg !important;
+			box-shadow: inset 0px 2px 8px -5px #000;
+			font-weight: bold;
 		}
 		.restrict {
-			color: grey !important;
+			color: @grayLight !important;
 			cursor: default;
+		}
+		.past {
+			color: @grayLight !important;
 		}
 		.range {
 			background-color: #648182;

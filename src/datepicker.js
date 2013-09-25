@@ -208,7 +208,11 @@ define(function (require) {
 
 				var dt = new Date( viewedYear, viewedMonth, daysOfThisMonth[ i ], 0, 0, 0, 0 );
 				if( dt <= this.scope.min || dt >= this.scope.max ) {
-					weekDayClass += ' restrict';
+					if( !!this.options && !!this.options.restrictDateSelection ) {
+						weekDayClass += ' restrict';
+					} else {
+						weekDayClass += ' past';
+					}
 					if( daysOfThisMonth[ i ] === 1 ) {
 						this.scope.restrictLastMonth = true;
 					}
@@ -248,7 +252,9 @@ define(function (require) {
 				var minDt = new Date( viewedYear, j, daysInMonth, 23, 59, 59, 999 );
 				var maxDt = new Date( viewedYear, j, 0, 0, 0, 0, 0 );
 				if( minDt <= this.scope.min || maxDt >= this.scope.max ) {
-					this.scope.months[ j ][ 'class' ] += ' restrict';
+					if( !!this.options.restrictDateSelection ) {
+						this.scope.months[ j ][ 'class' ] += ' restrict';
+					}
 				}
 			}
 
@@ -266,7 +272,9 @@ define(function (require) {
 				var minDt2 = new Date( this.scope.years[ z ].number, 11, daysInMonth, 23, 59, 59, 999);
 				var maxDt2 = new Date( this.scope.years[ z ].number, 0, 0, 0, 0, 0, 0);
 				if( minDt2 <= this.scope.min || maxDt2 >= this.scope.max ) {
-					this.scope.years[ z ]['class'] += ' restrict';
+					if( !!this.options.restrictDateSelection ) {
+						this.scope.years[ z ]['class'] += ' restrict';
+					}
 				}
 			}
 		},
@@ -281,7 +289,7 @@ define(function (require) {
 			this.$header.css('width', this.scope.size + 'px' );
 			this.$labelDiv.css('width', ( this.scope.size - 60 ) + 'px' );
 			this.$footer.css('width', this.scope.size + 'px' );
-			var labelSize     = this.scope.size * 0.25;
+			var labelSize     = ( this.scope.size * 0.25 ) - 2;
 			var paddingTop    = Math.round( ( this.scope.size - ( labelSize * 3 ) ) / 2 );
 			var paddingBottom = paddingTop;
 			while( paddingBottom + paddingTop + ( labelSize * 3 ) < this.scope.size ) {
@@ -307,10 +315,11 @@ define(function (require) {
 				'padding-bottom': paddingBottom + 'px'
 			});
 
-			var cellSize = Math.round( this.scope.size / 7.0 ) + 'px';
+			var cellSize = Math.round( this.scope.size / 7.0 ) - 2 + 'px';
+			var headerCellSize = Math.round( this.scope.size / 7.0 ) + 'px';
 			this.applySize( this.$yearsView.children(), labelSize + 'px' );
 			this.applySize( this.$monthsView.children(), labelSize + 'px' );
-			this.applySize( this.$weekdaysDiv.children(), cellSize );
+			this.applySize( this.$weekdaysDiv.children(), headerCellSize );
 			this.applySize( this.$lastMonthDiv.children(), cellSize );
 			this.applySize( this.$thisMonthDiv.children(), cellSize );
 			this.applySize( this.$nextMonthDiv.children(), cellSize );
@@ -468,6 +477,7 @@ define(function (require) {
 
 		renderCalendar: function() {
 			var self = this;
+			self.restrictDateSelection();
 
 			return '<div class="calendar">' +
 				'<div class="header clearfix">' +
@@ -631,6 +641,13 @@ define(function (require) {
 		padTwo: function( value ) {
 			var s = '0' + value;
 			return s.substr( s.length - 2 );
+		},
+
+		restrictDateSelection: function() {
+			if( !!this.options && !this.options.restrictDateSelection ) {
+				this.scope.restrictLastMonth = false;
+				this.scope.restrictNextMonth = false;
+			}
 		}
 	};
 
@@ -657,7 +674,8 @@ define(function (require) {
 		native: false,
 		date: new Date(),
 		createInput: false,
-		size: 200
+		size: 200,
+		restrictDateSelection: true
 	};
 
 	$.fn.datepicker.Constructor = Datepicker;
