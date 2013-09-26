@@ -57,9 +57,6 @@
 
 		require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 'fuelux/all'], function ($, sampleData, StaticDataSource, DataSourceTree) {
 
-			// DATEPICKER
-			$('#datepicker').datepicker();
-
 			// COMBOBOX
 			$('#btnComboboxDisable').on('click', function () {
 				$('#MyCombobox').combobox('disable');
@@ -272,6 +269,55 @@
 				}
 			});
 
+			// DATEPICKER
+			// markup is present
+			$('#datepicker1').datepicker();
+
+			// input created dynamicall
+			$('#datepicker2').datepicker({
+				createInput: true
+			});
+
+			// withoud dropdown button
+			$('#datepicker3').datepicker({
+				createInput: true
+				, dropDownBtn: false
+			});
+
+			// native implementation
+			$('#datepicker4').datepicker({
+				native: true
+				, inputSize: 'span3'
+			});
+
+			// custom input size
+			$('#datepicker5').datepicker({
+				createInput: true
+				, inputSize: 'span4'
+			});
+
+			// custom dropdown size (has to be bigger than 170px)
+			$('#datepicker6').datepicker({
+				createInput: true
+				, dropdownSize: 240
+			});
+
+			// custom dropdown size (has to be bigger than 170px)
+			$('#datepicker7').datepicker({
+				createInput: true
+				, dropDownBtn: false
+				, inputSize: 'span4'
+				, restrictDateSelection: false
+			});
+
+			// inputSize with px representation
+			$('#datepicker8').datepicker({
+				createInput: true
+				, dropDownBtn: false
+				, inputSize: 250
+				, dropdownSize: 250
+			});
+
 		});
 	</script>
 
@@ -283,15 +329,68 @@
 <div class="container">
 
 	<!-- DATEPICKER -->
-	<!--div id="datepicker"></div-->
-	<div class="dropdowndatepicker dropdown" id="datepicker">
-		<div class="input-append ">
-			<div class="dropdown-menu replaceWithDatepicker"></div>
-			<input type="text" class="span2" readonly value="" data-toggle="dropdown">
-			<button class="btn" data-toggle="dropdown"><span class="caret"></span></button>
+	<div class="row">
+		<div class="span3">
+			<p><strong>HTML Markup - no options</strong></p>
+			<div id="datepicker1">
+				<div class="dropdowndatepicker dropdown">
+					<div class="input-append ">
+						<div class="dropdown-menu replaceWithDatepicker"></div>
+						<input type="text" class="span2" readonly value="" data-toggle="dropdown">
+						<button type="button" class="btn" data-toggle="dropdown"><span class="caret"></span></button>
+					</div>
+				</div>
+			</div>
 		</div>
-
+		<div class="span4">
+			<p><strong>Generated Input</strong></p>
+			<div id="datepicker2"></div>
+		</div>
+		<div class="span4">
+			<p><strong>Generated input w/o dropdown button</strong></p>
+			<div id="datepicker3"></div>
+		</div>
 	</div>
+
+	<div class="row">
+		<div class="span3">
+			<p><strong>Native datepicker</strong></p>
+			<div id="datepicker4"></div>
+		</div>
+		<div class="span4">
+			<p><strong>Date selection unrestricted</strong></p>
+			<div id="datepicker7"></div>
+		</div>
+		<div class="span4">
+			<p><strong>Custom input width via pixels</strong></p>
+			<div id="datepicker8"></div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="span3">
+			<p><strong>Custom dropdown width</strong></p>
+			<div id="datepicker6"></div>
+		</div>
+		<div class="span6">
+			<p><strong>Custom input width via class</strong></p>
+			<div id="datepicker5"></div>
+		</div>
+	</div>
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
 
 
 	<!-- CHECKBOX -->
