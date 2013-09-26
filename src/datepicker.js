@@ -13,16 +13,25 @@ define(function (require) {
 	// DATEPICKER CONSTRUCTOR AND PROTOTYPE
 
 	var Datepicker = function (element, options) {
-		console.log( element );
-		this.$element      = $(element);
-		this.options       = $.extend(true, {}, $.fn.datepicker.defaults, options);
+		this.$element = $(element);
+
+		// getting native inputSize before combination of options
+		if( !!options.native ) {
+			if( !options.inputSize ) {
+				$.fn.datepicker.defaults.inputSize = null;
+			}
+		} else {
+			$.fn.datepicker.defaults.inputSize = 'span2';
+		}
+
+		this.options = $.extend(true, {}, $.fn.datepicker.defaults, options);
 
 		this.monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
 		this.done = false;
 		this.callbacks = [];
 		this.scope = {
 			date: null,
-			size: 200,
+			dropdownSize: 170,
 			min: null,
 			max: null,
 			range: null,
@@ -48,6 +57,11 @@ define(function (require) {
 			restrictLastMonth: false,
 			restrictNextMonth: false
 		};
+
+		if( !!this.options.native ) {
+			this.options.createInput = true;
+			this.options.inputSize = this.options.inputSize || 'span3';
+		}
 
 		this.importOptions();
 
@@ -280,22 +294,22 @@ define(function (require) {
 		},
 
 		updateCss: function() {
-			this.scope.size = Math.max( this.scope.size || 0, 150 );
-			while( this.scope.size % 7 !== 0 ) {
-				this.scope.size++;
+			this.options.dropdownSize = Math.max( this.options.dropdownSize || 0, this.scope.dropdownSize );
+			while( this.options.dropdownSize % 7 !== 0 ) {
+				this.options.dropdownSize++;
 			}
 
-			this.$view.css('width', this.scope.size + 'px' );
-			this.$header.css('width', this.scope.size + 'px' );
-			this.$labelDiv.css('width', ( this.scope.size - 60 ) + 'px' );
-			this.$footer.css('width', this.scope.size + 'px' );
-			var labelSize     = ( this.scope.size * 0.25 ) - 2;
-			var paddingTop    = Math.round( ( this.scope.size - ( labelSize * 3 ) ) / 2 );
+			this.$view.css('width', this.options.dropdownSize + 'px' );
+			this.$header.css('width', this.options.dropdownSize + 'px' );
+			this.$labelDiv.css('width', ( this.options.dropdownSize - 60 ) + 'px' );
+			this.$footer.css('width', this.options.dropdownSize + 'px' );
+			var labelSize     = ( this.options.dropdownSize * 0.25 ) - 2;
+			var paddingTop    = Math.round( ( this.options.dropdownSize - ( labelSize * 3 ) ) / 2 );
 			var paddingBottom = paddingTop;
-			while( paddingBottom + paddingTop + ( labelSize * 3 ) < this.scope.size ) {
+			while( paddingBottom + paddingTop + ( labelSize * 3 ) < this.options.dropdownSize ) {
 				paddingBottom += 0.1;
 			}
-			while( paddingBottom + paddingTop + ( labelSize * 3 ) > this.scope.size ) {
+			while( paddingBottom + paddingTop + ( labelSize * 3 ) > this.options.dropdownSize ) {
 				paddingBottom -= 0.1;
 			}
 			
@@ -304,19 +318,19 @@ define(function (require) {
 			});
 
 			this.$monthsView.css({
-				'width': this.scope.size + 'px',
+				'width': this.options.dropdownSize + 'px',
 				'padding-top': paddingTop + 'px',
 				'padding-bottom': paddingBottom + 'px'
 			});
 
 			this.$yearsView.css({
-				'width': this.scope.size + 'px',
+				'width': this.options.dropdownSize + 'px',
 				'padding-top': paddingTop + 'px',
 				'padding-bottom': paddingBottom + 'px'
 			});
 
-			var cellSize = Math.round( this.scope.size / 7.0 ) - 2 + 'px';
-			var headerCellSize = Math.round( this.scope.size / 7.0 ) + 'px';
+			var cellSize = Math.round( this.options.dropdownSize / 7.0 ) - 2 + 'px';
+			var headerCellSize = Math.round( this.options.dropdownSize / 7.0 ) + 'px';
 			this.applySize( this.$yearsView.children(), labelSize + 'px' );
 			this.applySize( this.$monthsView.children(), labelSize + 'px' );
 			this.applySize( this.$weekdaysDiv.children(), headerCellSize );
@@ -540,19 +554,38 @@ define(function (require) {
 		},
 
 		renderInput: function() {
-			this.$element.html( this.renderInputHTML() );
+			var input = ( !!this.options.native ) ? this.renderInputNative() : this.renderInputHTML();
+			this.$element.html( input );
 			this.render();
 		},
 
+		renderInputNative: function() {
+			//return '<input type="date" min="' + minRaw + '" max="' + maxRaw + '" value="' + rawDate + '" class="native form-control input-small">';
+			return '<input type="date" value="' + this.formatDate( this.options.date ) + '"' + this.calculateInputSize( [ 'native' ] ) + '>';
+		},
+
 		renderInputHTML: function() {
-			var dropdownHtml = '<div class="input-group">' +
-						'<span class="input-group-btn dropdown">' +
-							'<input type="text" readonly value="'+ this.formatDate( this.options.date ) +'" class="form-control input-small" data-toggle="dropdown">' +
-							'<button class="btn btn-small btn-default" type="button" data-toggle="dropdown"><span class="caret"></span></button>' +
-							'<div class="dropdown-menu replaceWithDatepicker"></div>' +
-						'</span>' +
-					'</div>';
-			return '<div class="dropdowndatepicker">' + dropdownHtml + '</div>';
+			var inputClass = ( !!this.options.dropDownBtn ) ? 'input-append' : 'input-group';
+
+			var dropdownHtml = '<div class="' + inputClass + '">' +
+						'<div class="dropdown-menu replaceWithDatepicker"></div>' +
+						'<input type="text" '+ this.calculateInputSize() +' readonly value="'+this.formatDate( this.options.date ) +'" data-toggle="dropdown">';
+			if( !!this.options.dropDownBtn ) {
+				dropdownHtml = dropdownHtml + '<button type="button" class="btn" data-toggle="dropdown"><span class="caret"></span></button>';
+			}
+			dropdownHtml = dropdownHtml + '</div>';
+
+			return '<div class="dropdowndatepicker dropdown">' + dropdownHtml + '</div>';
+		},
+
+		calculateInputSize: function( options ) {
+			if( !!parseInt( this.options.inputSize, 10 ) ) {
+				return 'style="width:'+ this.options.inputSize +'px"';
+			} else {
+				options = ( !!options ) ? " " + options.join(' ') : '';
+				return 'class="' + this.options.inputSize + options + '"';
+			}
+
 		},
 
 		insertDateIntoInput: function( date ) {
@@ -620,7 +653,8 @@ define(function (require) {
 
 			this.scope.range = options.range;
 
-			this.scope.size = options.size ? options.size : 150;
+			// defaults to 
+			this.options.dropdownSize = options.dropdownSize ? options.dropdownSize : this.scope.dropdownSize;
 
 			this.scope.date = options.date;
 			this.scope.date.setHours( 0,0,0,0 );
@@ -674,8 +708,11 @@ define(function (require) {
 		native: false,
 		date: new Date(),
 		createInput: false,
-		size: 200,
-		restrictDateSelection: true
+		dropDownBtn: true,
+		dropdownSize: 200,
+		restrictDateSelection: true,
+		defaultDateFormat: '',
+		inputSize: 'span2'
 	};
 
 	$.fn.datepicker.Constructor = Datepicker;

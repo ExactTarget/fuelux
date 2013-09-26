@@ -7,7 +7,7 @@
 
 .dropdowndatepicker {
 
-	.input-append {
+	.input-append, .input-group {
 		margin-bottom: 1px;
 	}
 
@@ -192,7 +192,7 @@
 		}
 
 		.selected, .selected:hover {
-			color: @white;
+			color: @white !important;
 			background-color: @selectedDayBg !important;
 			border-color: @selectedDayBg !important;
 			box-shadow: inset 0px 2px 8px -5px #000;
@@ -204,6 +204,10 @@
 		}
 		.past {
 			color: @grayLight !important;
+
+			&.selected {
+				color: @white !important;
+			}
 		}
 		.range {
 			background-color: #648182;
@@ -230,6 +234,6 @@
 
 	input {
 		margin-bottom: 0;
-		width: 173px !important;
+		//width: 173px !important;
 	}
 }
