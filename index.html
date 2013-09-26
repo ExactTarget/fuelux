@@ -273,7 +273,19 @@
 			// markup is present
 			$('#datepicker1').datepicker();
 
-			// input created dynamicall
+			$('#datepicker-enable').on('click', function() {
+				$('#datepicker1').datepicker('enable');
+			});
+
+			$('#datepicker-disabled').on('click', function() {
+				$('#datepicker1').datepicker('disable');
+			});
+
+			$('#datepicker-destroy').on('click', function() {
+				$('#datepicker1').datepicker('destroy');
+			});
+
+			/*// input created dynamicall
 			$('#datepicker2').datepicker({
 				createInput: true
 			});
@@ -316,7 +328,7 @@
 				, dropDownBtn: false
 				, inputSize: 250
 				, dropdownSize: 250
-			});
+			});*/
 
 		});
 	</script>
@@ -333,16 +345,21 @@
 		<div class="span3">
 			<p><strong>HTML Markup - no options</strong></p>
 			<div id="datepicker1">
-				<div class="dropdowndatepicker dropdown">
+				<div class="dropdowndatepicker dropdown datepicker">
 					<div class="input-append ">
 						<div class="dropdown-menu replaceWithDatepicker"></div>
-						<input type="text" class="span2" readonly value="" data-toggle="dropdown">
+						<input type="text" class="span2" value="" data-toggle="dropdown">
 						<button type="button" class="btn" data-toggle="dropdown"><span class="caret"></span></button>
 					</div>
 				</div>
 			</div>
+			<div style="margin-top: 10px">
+				<span class="btn btn-small" id="datepicker-enable">enable</span>
+				<span class="btn btn-small" id="datepicker-disabled">disable</span>
+				<span class="btn btn-small" id="datepicker-destroy">destroy</span>
+			</div>
 		</div>
-		<div class="span4">
+		<!--div class="span4">
 			<p><strong>Generated Input</strong></p>
 			<div id="datepicker2"></div>
 		</div>
@@ -375,7 +392,7 @@
 		<div class="span6">
 			<p><strong>Custom input width via class</strong></p>
 			<div id="datepicker5"></div>
-		</div>
+		</div-->
 	</div>
 
 	

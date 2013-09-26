@@ -15,60 +15,72 @@ define(function (require) {
 	var Datepicker = function (element, options) {
 		this.$element = $(element);
 
-		// getting native inputSize before combination of options
-		if( !!options.native ) {
-			if( !options.inputSize ) {
-				$.fn.datepicker.defaults.inputSize = null;
-			}
-		} else {
-			$.fn.datepicker.defaults.inputSize = 'span2';
-		}
-
 		this.options = $.extend(true, {}, $.fn.datepicker.defaults, options);
 
-		this.monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
-		this.done = false;
+		this.date = this.options.date || new Date();
+		this.date.setHours( 0,0,0,0 );
+
+		this.viewDate   = new Date( this.date.valueOf() );
+		this.stagedDate = new Date( this.date.valueOf() );
+		this.viewDate.setHours( 0,0,0,0 );
+		this.stagedDate.setHours( 0,0,0,0 );
+
+		this.done      = false;
 		this.callbacks = [];
-		this.scope = {
-			date: null,
-			dropdownSize: 170,
-			min: null,
-			max: null,
-			range: null,
-			weekdays: [ "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
-			viewDate: new Date(),
-			showDays: true,
-			showMonths: false,
-			showYears: false,
-			months: [
-				{ abbreviation: this.monthNames[0], 'class': '', number: 0 },
-				{ abbreviation: this.monthNames[1], 'class': '', number: 1 },
-				{ abbreviation: this.monthNames[2], 'class': '', number: 2 },
-				{ abbreviation: this.monthNames[3], 'class': '', number: 3 },
-				{ abbreviation: this.monthNames[4], 'class': '', number: 4 },
-				{ abbreviation: this.monthNames[5], 'class': '', number: 5 },
-				{ abbreviation: this.monthNames[6], 'class': '', number: 6 },
-				{ abbreviation: this.monthNames[7], 'class': '', number: 7 },
-				{ abbreviation: this.monthNames[8], 'class': '', number: 8 },
-				{ abbreviation: this.monthNames[9], 'class': '', number: 9 },
-				{ abbreviation: this.monthNames[10], 'class': '', number: 10 },
-				{ abbreviation: this.monthNames[11], 'class': '', number: 11 }
-			],
-			restrictLastMonth: false,
-			restrictNextMonth: false
-		};
 
-		if( !!this.options.native ) {
-			this.options.createInput = true;
-			this.options.inputSize = this.options.inputSize || 'span3';
-		}
+		this.minDate = new Date();
+		this.minDate.setUTCDate( this.minDate.getUTCDate() - 1 );
+		this.minDate.setHours( 0,0,0,0 );
 
-		this.importOptions();
+		this.maxDate = new Date();
+		this.maxDate.setUTCFullYear( this.maxDate.getUTCFullYear() + 10 );
+		this.maxDate.setHours( 23,59,59,999 );
+
+		this.years = this.yearRange( this.viewDate );
+
+		// OPTIONS
+		this.options.dropdownWidth = this.options.dropdownWidth || 170;
+		this.options.monthNames    = this.options.monthNames || [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+		this.options.weekdays      = this.options.weekdays || [ "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+
+		this.options.showYears  = false;
+		this.options.showDays   = true;
+		this.options.showMonths = false;
+
+		this.options.restrictLastMonth = false;
+		this.options.restrictNextMonth = false;
+
+		this.months = [
+			{ abbreviation: this.options.monthNames[0], 'class': '', number: 0 },
+			{ abbreviation: this.options.monthNames[1], 'class': '', number: 1 },
+			{ abbreviation: this.options.monthNames[2], 'class': '', number: 2 },
+			{ abbreviation: this.options.monthNames[3], 'class': '', number: 3 },
+			{ abbreviation: this.options.monthNames[4], 'class': '', number: 4 },
+			{ abbreviation: this.options.monthNames[5], 'class': '', number: 5 },
+			{ abbreviation: this.options.monthNames[6], 'class': '', number: 6 },
+			{ abbreviation: this.options.monthNames[7], 'class': '', number: 7 },
+			{ abbreviation: this.options.monthNames[8], 'class': '', number: 8 },
+			{ abbreviation: this.options.monthNames[9], 'class': '', number: 9 },
+			{ abbreviation: this.options.monthNames[10], 'class': '', number: 10 },
+			{ abbreviation: this.options.monthNames[11], 'class': '', number: 11 }
+		];
 
 		if( !!this.options.createInput ) {
-			this.renderInput();
+			if( typeof this.options.createInput === "boolean" && !!this.options.createInput ) {
+				this.options.createInput = {};
+			}
+
+			if( typeof this.options.createInput === 'object' && isNaN( this.options.createInput.length ) ) {
+				this.options.createInput.inputSize = this.options.createInput.inputSize || 'span3';
+				this.renderInput();
+			} else {
+				throw new Error( 'createInput option needs to be an object or boolean true' );
+			}
+
 		} else {
-			this.render({ addDateToInput: true });
+			this.render({
+				addDateToInput: true
+			});
 		}
 	};
 
@@ -76,10 +88,30 @@ define(function (require) {
 
 		constructor: Datepicker,
 
+		restrictDateSelection: function() {
+			if( !!this.options && !this.options.restrictDateSelection ) {
+				this.options.restrictLastMonth = false;
+				this.options.restrictNextMonth = false;
+			}
+		},
+
+		// functions that can be called on object
+		destroy: function() {
+			this.$element.remove();
+		},
+
+		disable: function() {
+			this.$element.find('input, button').attr( 'disabled', true );
+		},
+
+		enable: function() {
+			this.$element.find('input, button').attr( 'disabled', false );
+		},
+
 		repeat: function( head, collection, iterator, tail) {
 			var value = head;
-			for (var i = 0; i < collection.length; i++) {
-				value += iterator(collection[i]);
+			for (var i = 0, ii = collection.length; i < ii; i++) {
+				value += iterator( collection[i] );
 			}
 			value += tail;
 			return value;
@@ -103,7 +135,7 @@ define(function (require) {
 			var years    = this.range(start, end);
 			var interval = [];
 
-			for (var i = 0; i < years.length; i++) {
+			for (var i = 0, ii = years.length; i < ii; i++) {
 				var clazz = '';
 				if( i === 0 ) {
 					clazz = 'previous';
@@ -150,32 +182,32 @@ define(function (require) {
 
 		runCallbacks: function() {
 			for (var i = 0; i < this.callbacks.length; i++) {
-				this.callbacks[ i ]( this.scope.date );
+				this.callbacks[ i ]( this.date );
 			}
 		},
 
 		showView: function( view ) {
 			if( view === 1 ) {
-				this.scope.showDays   = true;
-				this.scope.showMonths = false;
-				this.scope.showYears  = false;
+				this.options.showDays   = true;
+				this.options.showMonths = false;
+				this.options.showYears  = false;
 			} else if( view === 2 ) {
-				this.scope.showDays   = false;
-				this.scope.showMonths = true;
-				this.scope.showYears  = false;
+				this.options.showDays   = false;
+				this.options.showMonths = true;
+				this.options.showYears  = false;
 			} else if( view === 3 ) {
-				this.scope.showDays   = false;
-				this.scope.showMonths = false;
-				this.scope.showYears  = true;
+				this.options.showDays   = false;
+				this.options.showMonths = false;
+				this.options.showYears  = true;
 			}
 		},
 
 		updateCalendarData: function() {
-			var viewedMonth            = this.scope.viewDate.getUTCMonth();
-			var viewedYear             = this.scope.viewDate.getUTCFullYear();
-			var selectedDay            = this.scope.stagedDate.getUTCDate();
-			var selectedMonth          = this.scope.stagedDate.getUTCMonth();
-			var selectedYear           = this.scope.stagedDate.getUTCFullYear();
+			var viewedMonth            = this.viewDate.getUTCMonth();
+			var viewedYear             = this.viewDate.getUTCFullYear();
+			var selectedDay            = this.stagedDate.getUTCDate();
+			var selectedMonth          = this.stagedDate.getUTCMonth();
+			var selectedYear           = this.stagedDate.getUTCFullYear();
 			var firstDayOfMonthWeekday = new Date( viewedYear, viewedMonth, 1 ).getUTCDay();
 			var lastDayOfMonth         = this.getDaysInMonth( viewedMonth, viewedYear );
 			var lastDayOfLastMonth     = this.getDaysInMonth( viewedMonth - 1, viewedYear );
@@ -186,8 +218,8 @@ define(function (require) {
 
 			var addToEnd = ( 42 - lastDayOfMonth ) - firstDayOfMonthWeekday;
 
-			this.scope.daysOfLastMonth = this.range(lastDayOfLastMonth - firstDayOfMonthWeekday + 1, lastDayOfLastMonth + 1);
-			this.scope.daysOfNextMonth = this.range(1, addToEnd + 1);
+			this.daysOfLastMonth = this.range(lastDayOfLastMonth - firstDayOfMonthWeekday + 1, lastDayOfLastMonth + 1);
+			this.daysOfNextMonth = this.range(1, addToEnd + 1);
 
 			var now                  = new Date();
 			var currentDay           = now.getUTCDate();
@@ -199,9 +231,9 @@ define(function (require) {
 			var viewingSelectedYear  = viewedYear === selectedYear;
 
 			var daysOfThisMonth = this.range( 1, lastDayOfMonth + 1 );
-			this.scope.daysOfThisMonth = [];
+			this.daysOfThisMonth = [];
 
-			for (var i = 0; i < daysOfThisMonth.length; i++) {
+			for( var i = 0, ii = daysOfThisMonth.length; i < ii; i++) {
 
 				var weekDay      = new Date(viewedYear, viewedMonth, daysOfThisMonth[ i ]).getUTCDay();
 				var weekDayClass = 'weekday';
@@ -221,95 +253,90 @@ define(function (require) {
 				}
 
 				var dt = new Date( viewedYear, viewedMonth, daysOfThisMonth[ i ], 0, 0, 0, 0 );
-				if( dt <= this.scope.min || dt >= this.scope.max ) {
+				if( dt <= this.minDate || dt >= this.maxDate ) {
 					if( !!this.options && !!this.options.restrictDateSelection ) {
 						weekDayClass += ' restrict';
 					} else {
 						weekDayClass += ' past';
 					}
 					if( daysOfThisMonth[ i ] === 1 ) {
-						this.scope.restrictLastMonth = true;
+						this.options.restrictLastMonth = true;
 					}
 					if( daysOfThisMonth.length - 1 === i ) {
-						this.scope.restrictNextMonth = true;
+						this.options.restrictNextMonth = true;
 					}
 				} else {
 					if( daysOfThisMonth[i] === 1 ) {
-						this.scope.restrictLastMonth = false;
+						this.options.restrictLastMonth = false;
 					}
 					if( daysOfThisMonth.length - 1 === i ) {
-						this.scope.restrictNextMonth = false;
+						this.options.restrictNextMonth = false;
 					}
 				}
 
-				if( this.scope.range && ( ( dt <= this.scope.range && dt >= this.scope.date ) || ( dt >= this.scope.range && dt <= this.scope.date ) ) ) {
-					weekDayClass += ' range';
-				}
-
-				this.scope.daysOfThisMonth[ this.scope.daysOfThisMonth.length ] = {
+				this.daysOfThisMonth[ this.daysOfThisMonth.length ] = {
 					'number': daysOfThisMonth[ i ],
 					'class' : weekDayClass
 				};
 			}
 
-			var daysInMonth = this.getDaysInMonth( this.scope.min.getUTCFullYear(), this.scope.min.getUTCMonth() );
-			for( var j = 0; j < this.scope.months.length; j++ ) {
+			var daysInMonth = this.getDaysInMonth( this.minDate.getUTCFullYear(), this.minDate.getUTCMonth() );
+			for( var j = 0, jj = this.months.length; j < jj; j++ ) {
 
-				this.scope.months[ j ][ 'class' ] = '';
+				this.months[ j ][ 'class' ] = '';
 				if( viewingCurrentYear && j === currentMonth ) {
-					this.scope.months[ j ][ 'class' ] += ' today';
+					this.months[ j ][ 'class' ] += ' today';
 				}
 				if( i === selectedMonth && viewingSelectedYear ) {
-					this.scope.months[ j ][ 'class' ] += ' selected';
+					this.months[ j ][ 'class' ] += ' selected';
 				}
 
 				var minDt = new Date( viewedYear, j, daysInMonth, 23, 59, 59, 999 );
 				var maxDt = new Date( viewedYear, j, 0, 0, 0, 0, 0 );
-				if( minDt <= this.scope.min || maxDt >= this.scope.max ) {
+				if( minDt <= this.minDate || maxDt >= this.maxDate ) {
 					if( !!this.options.restrictDateSelection ) {
-						this.scope.months[ j ][ 'class' ] += ' restrict';
+						this.months[ j ][ 'class' ] += ' restrict';
 					}
 				}
 			}
 
-			this.scope.years = this.yearRange( this.scope.viewDate);
-			daysInMonth = this.getDaysInMonth( this.scope.min.getUTCFullYear(), 11 );
+			this.years = this.yearRange( this.viewDate);
+			daysInMonth = this.getDaysInMonth( this.minDate.getUTCFullYear(), 11 );
 
-			for( var z = 0; z < this.scope.years.length; z++ ) {
-				if( this.scope.years[ z ].number === currentYear ) {
-					this.scope.years[ z ][ 'class' ] += ' today';
+			for( var z = 0, zz = this.years.length; z < zz; z++ ) {
+				if( this.years[ z ].number === currentYear ) {
+					this.years[ z ][ 'class' ] += ' today';
 				}
-				if( this.scope.years[ z ].number === selectedYear ) {
-					this.scope.years[ z ][ 'class' ] += ' selected';
+				if( this.years[ z ].number === selectedYear ) {
+					this.years[ z ][ 'class' ] += ' selected';
 				}
 
-				var minDt2 = new Date( this.scope.years[ z ].number, 11, daysInMonth, 23, 59, 59, 999);
-				var maxDt2 = new Date( this.scope.years[ z ].number, 0, 0, 0, 0, 0, 0);
-				if( minDt2 <= this.scope.min || maxDt2 >= this.scope.max ) {
+				var minDt2 = new Date( this.years[ z ].number, 11, daysInMonth, 23, 59, 59, 999);
+				var maxDt2 = new Date( this.years[ z ].number, 0, 0, 0, 0, 0, 0);
+				if( minDt2 <= this.minDate || maxDt2 >= this.maxDate ) {
 					if( !!this.options.restrictDateSelection ) {
-						this.scope.years[ z ]['class'] += ' restrict';
+						this.years[ z ]['class'] += ' restrict';
 					}
 				}
 			}
 		},
 
 		updateCss: function() {
-			this.options.dropdownSize = Math.max( this.options.dropdownSize || 0, this.scope.dropdownSize );
-			while( this.options.dropdownSize % 7 !== 0 ) {
-				this.options.dropdownSize++;
+			while( this.options.dropdownWidth % 7 !== 0 ) {
+				this.options.dropdownWidth++;
 			}
 
-			this.$view.css('width', this.options.dropdownSize + 'px' );
-			this.$header.css('width', this.options.dropdownSize + 'px' );
-			this.$labelDiv.css('width', ( this.options.dropdownSize - 60 ) + 'px' );
-			this.$footer.css('width', this.options.dropdownSize + 'px' );
-			var labelSize     = ( this.options.dropdownSize * 0.25 ) - 2;
-			var paddingTop    = Math.round( ( this.options.dropdownSize - ( labelSize * 3 ) ) / 2 );
+			this.$view.css('width', this.options.dropdownWidth + 'px' );
+			this.$header.css('width', this.options.dropdownWidth + 'px' );
+			this.$labelDiv.css('width', ( this.options.dropdownWidth - 60 ) + 'px' );
+			this.$footer.css('width', this.options.dropdownWidth + 'px' );
+			var labelSize     = ( this.options.dropdownWidth * 0.25 ) - 2;
+			var paddingTop    = Math.round( ( this.options.dropdownWidth - ( labelSize * 3 ) ) / 2 );
 			var paddingBottom = paddingTop;
-			while( paddingBottom + paddingTop + ( labelSize * 3 ) < this.options.dropdownSize ) {
+			while( paddingBottom + paddingTop + ( labelSize * 3 ) < this.options.dropdownWidth ) {
 				paddingBottom += 0.1;
 			}
-			while( paddingBottom + paddingTop + ( labelSize * 3 ) > this.options.dropdownSize ) {
+			while( paddingBottom + paddingTop + ( labelSize * 3 ) > this.options.dropdownWidth ) {
 				paddingBottom -= 0.1;
 			}
 			
@@ -318,19 +345,19 @@ define(function (require) {
 			});
 
 			this.$monthsView.css({
-				'width': this.options.dropdownSize + 'px',
+				'width': this.options.dropdownWidth + 'px',
 				'padding-top': paddingTop + 'px',
 				'padding-bottom': paddingBottom + 'px'
 			});
 
 			this.$yearsView.css({
-				'width': this.options.dropdownSize + 'px',
+				'width': this.options.dropdownWidth + 'px',
 				'padding-top': paddingTop + 'px',
 				'padding-bottom': paddingBottom + 'px'
 			});
 
-			var cellSize = Math.round( this.options.dropdownSize / 7.0 ) - 2 + 'px';
-			var headerCellSize = Math.round( this.options.dropdownSize / 7.0 ) + 'px';
+			var cellSize = Math.round( this.options.dropdownWidth / 7.0 ) - 2 + 'px';
+			var headerCellSize = Math.round( this.options.dropdownWidth / 7.0 ) + 'px';
 			this.applySize( this.$yearsView.children(), labelSize + 'px' );
 			this.applySize( this.$monthsView.children(), labelSize + 'px' );
 			this.applySize( this.$weekdaysDiv.children(), headerCellSize );
@@ -344,13 +371,13 @@ define(function (require) {
 				return this.killEvent(e);
 			}
 
-			this.scope.stagedDate = this.scope.viewDate;
-			this.scope.stagedDate.setDate( parseInt( e.target.innerHTML, 10 ) );
+			this.stagedDate = this.viewDate;
+			this.stagedDate.setDate( parseInt( e.target.innerHTML, 10 ) );
 
-			this.scope.date.setUTCFullYear( this.scope.stagedDate.getUTCFullYear() );
-			this.scope.date.setUTCMonth( this.scope.stagedDate.getUTCMonth() );
-			this.scope.date.setUTCDate( this.scope.stagedDate.getUTCDate() );
-			this.insertDateIntoInput( this.scope.date );
+			this.date.setUTCFullYear( this.stagedDate.getUTCFullYear() );
+			this.date.setUTCMonth( this.stagedDate.getUTCMonth() );
+			this.date.setUTCDate( this.stagedDate.getUTCDate() );
+			this.insertDateIntoInput( this.date );
 			this.render();
 			this.done = true;
 			this.runCallbacks();
@@ -362,7 +389,7 @@ define(function (require) {
 				return this.killEvent(e);
 			}
 
-			this.scope.viewDate = new Date( year, this.scope.viewDate.getUTCMonth(), 1 );
+			this.viewDate = new Date( year, this.viewDate.getUTCMonth(), 1 );
 			this.showView( 2 );
 			this.render();
 
@@ -375,7 +402,7 @@ define(function (require) {
 				return this.killEvent(e);
 			}
 
-			this.scope.viewDate = new Date( this.scope.viewDate.getUTCFullYear(), month, 1 );
+			this.viewDate = new Date( this.viewDate.getUTCFullYear(), month, 1 );
 			this.showView(1);
 			this.render();
 
@@ -383,9 +410,9 @@ define(function (require) {
 		},
 
 		done: function() {
-			this.scope.date.setUTCFullYear( this.scope.stagedDate.getUTCFullYear() );
-			this.scope.date.setUTCMonth( this.scope.stagedDate.getUTCMonth() );
-			this.scope.date.setUTCDate( this.scope.stagedDate.getUTCDate() );
+			this.date.setUTCFullYear( this.stagedDate.getUTCFullYear() );
+			this.date.setUTCMonth( this.stagedDate.getUTCMonth() );
+			this.date.setUTCDate( this.stagedDate.getUTCDate() );
 			this.render();
 			this.done = true;
 			this.runCallbacks();
@@ -400,12 +427,12 @@ define(function (require) {
 				return this.killEvent(e);
 			}
 			
-			if( this.scope.showDays) {
-				this.scope.viewDate = new Date( this.scope.viewDate.getUTCFullYear(), this.scope.viewDate.getUTCMonth() - 1, 1 );
-			} else if( this.scope.showMonths ) {
-				this.scope.viewDate = new Date( this.scope.viewDate.getUTCFullYear() - 1, this.scope.viewDate.getUTCMonth(), 1 );
-			} else if( this.scope.showYears ) {
-				this.scope.viewDate = new Date( this.scope.viewDate.getUTCFullYear() - 10, this.scope.viewDate.getUTCMonth(), 1 );
+			if( this.options.showDays) {
+				this.viewDate = new Date( this.viewDate.getUTCFullYear(), this.viewDate.getUTCMonth() - 1, 1 );
+			} else if( this.options.showMonths ) {
+				this.viewDate = new Date( this.viewDate.getUTCFullYear() - 1, this.viewDate.getUTCMonth(), 1 );
+			} else if( this.options.showYears ) {
+				this.viewDate = new Date( this.viewDate.getUTCFullYear() - 10, this.viewDate.getUTCMonth(), 1 );
 			}
 
 			if( !!set ) {
@@ -426,12 +453,12 @@ define(function (require) {
 				return this.killEvent(e);
 			}
 			
-			if( this.scope.showDays ) {
-				this.scope.viewDate = new Date( this.scope.viewDate.getUTCFullYear(), this.scope.viewDate.getUTCMonth() + 1, 1 );
-			} else if( this.scope.showMonths ) {
-				this.scope.viewDate = new Date( this.scope.viewDate.getUTCFullYear() + 1, this.scope.viewDate.getUTCMonth(), 1 );
-			} else if( this.scope.showYears ) {
-				this.scope.viewDate = new Date( this.scope.viewDate.getUTCFullYear() + 10, this.scope.viewDate.getUTCMonth(), 1 );
+			if( this.options.showDays ) {
+				this.viewDate = new Date( this.viewDate.getUTCFullYear(), this.viewDate.getUTCMonth() + 1, 1 );
+			} else if( this.options.showMonths ) {
+				this.viewDate = new Date( this.viewDate.getUTCFullYear() + 1, this.viewDate.getUTCMonth(), 1 );
+			} else if( this.options.showYears ) {
+				this.viewDate = new Date( this.viewDate.getUTCFullYear() + 10, this.viewDate.getUTCMonth(), 1 );
 			}
 
 			if( !!set ) {
@@ -444,7 +471,7 @@ define(function (require) {
 		},
 
 		today: function( e ) {
-			this.scope.viewDate = new Date();
+			this.viewDate = new Date();
 			this.render();
 			return this.killEvent(e);
 		},
@@ -458,31 +485,31 @@ define(function (require) {
 		},
 
 		monthLabel: function() {
-			return this.monthNames[ this.scope.viewDate.getUTCMonth() ];
+			return this.options.monthNames[ this.viewDate.getUTCMonth() ];
 		},
 
 		yearLabel: function() {
-			return this.scope.viewDate.getUTCFullYear();
+			return this.viewDate.getUTCFullYear();
 		},
 
 		monthYearLabel: function() {
 			var label;
-			if( this.scope.showDays ) {
+			if( this.options.showDays ) {
 				label = this.monthLabel() + ' ' + this.yearLabel();
-			} else if( this.scope.showMonths ) {
+			} else if( this.options.showMonths ) {
 				label = this.yearLabel();
-			} else if( this.scope.showYears ) {
-				label = this.scope.years[ 0 ].number + ' - ' + this.scope.years[ this.scope.years.length - 1 ].number;
+			} else if( this.options.showYears ) {
+				label = this.years[ 0 ].number + ' - ' + this.years[ this.years.length - 1 ].number;
 			}
 			return label;
 		},
 
 		toggleMonthYearPicker: function( e ) {
-			if( this.scope.showDays ) {
+			if( this.options.showDays ) {
 				this.showView(2);
-			} else if( this.scope.showMonths ) {
+			} else if( this.options.showMonths ) {
 				this.showView(3);
-			} else if( this.scope.showYears ) {
+			} else if( this.options.showYears ) {
 				this.showView(1);
 			}
 			this.render();
@@ -499,41 +526,41 @@ define(function (require) {
 					'<div class="right hover"><div class="rightArrow"></div></div>' +
 					'<div class="center hover">' + self.monthYearLabel() + '</div>' +
 				'</div>' +
-				'<div class="daysView" style="' + self.show( self.scope.showDays ) + '">' +
+				'<div class="daysView" style="' + self.show( self.options.showDays ) + '">' +
 
-					self.repeat( '<div class="weekdays">', self.scope.weekdays,
+					self.repeat( '<div class="weekdays">', self.options.weekdays,
 						function( weekday ) {
 							return '<div >' + weekday + '</div>';
 						}, '</div>' ) +
 
-					self.repeat( '<div class="lastmonth">', self.scope.daysOfLastMonth,
+					self.repeat( '<div class="lastmonth">', self.daysOfLastMonth,
 						function( day ) {
-							var clazz = self.scope.restrictLastMonth ? 'restrict' : '';
+							var clazz = self.options.restrictLastMonth ? 'restrict' : '';
 							return '<div class="' + clazz + '">' + day + '</div>';
 						}, '</div>' ) +
 
-					self.repeat( '<div class="thismonth">', self.scope.daysOfThisMonth,
+					self.repeat( '<div class="thismonth">', self.daysOfThisMonth,
 						function( day ) {
 							return '<div class="' + day[ 'class' ] + '">' + day.number + '</div>';
 						}, '</div>' ) +
 
-					self.repeat( '<div class="nextmonth">', self.scope.daysOfNextMonth,
+					self.repeat( '<div class="nextmonth">', self.daysOfNextMonth,
 						function( day ) {
-							var clazz = self.scope.restrictNextMonth ? 'restrict' : '';
+							var clazz = self.options.restrictNextMonth ? 'restrict' : '';
 							return '<div class="' + clazz + '">' + day + '</div>';
 						}, '</div>' ) +
 				'</div>' +
 
-				self.repeat( '<div class="monthsView" style="' + self.show( self.scope.showMonths ) + '">', self.scope.months,
+				self.repeat( '<div class="monthsView" style="' + self.show( self.options.showMonths ) + '">', self.months,
 					function( month ) {
 						return '<div data-month-number="' + month.number +
 							'" class="' + month[ 'class' ] + '">' + month.abbreviation + '</div>';
 					}, '</div>' ) +
 
-				self.repeat( '<div class="yearsView" style="' + self.show( self.scope.showYears ) + '">', self.scope.years,
+				self.repeat( '<div class="yearsView" style="' + self.show( self.options.showYears ) + '">', self.years,
 					function( year ) {
 						return '<div data-year-number="' + year.number +
-							'" class="' + year['class'] + '">' + year.number + '</div>';
+							'" class="' + year[ 'class' ] + '">' + year.number + '</div>';
 					}, '</div>' ) +
 
 				'<div class="footer">' +
@@ -554,7 +581,7 @@ define(function (require) {
 		},
 
 		renderInput: function() {
-			var input = ( !!this.options.native ) ? this.renderInputNative() : this.renderInputHTML();
+			var input = ( !!this.options.createInput.native ) ? this.renderInputNative() : this.renderInputHTML();
 			this.$element.html( input );
 			this.render();
 		},
@@ -565,12 +592,12 @@ define(function (require) {
 		},
 
 		renderInputHTML: function() {
-			var inputClass = ( !!this.options.dropDownBtn ) ? 'input-append' : 'input-group';
+			var inputClass = ( !!this.options.createInput.dropDownBtn ) ? 'input-append' : 'input-group';
 
 			var dropdownHtml = '<div class="' + inputClass + '">' +
 						'<div class="dropdown-menu replaceWithDatepicker"></div>' +
-						'<input type="text" '+ this.calculateInputSize() +' readonly value="'+this.formatDate( this.options.date ) +'" data-toggle="dropdown">';
-			if( !!this.options.dropDownBtn ) {
+						'<input type="text" '+ this.calculateInputSize() +' value="'+this.formatDate( this.options.date ) +'" data-toggle="dropdown">';
+			if( !!this.options.createInput.dropDownBtn ) {
 				dropdownHtml = dropdownHtml + '<button type="button" class="btn" data-toggle="dropdown"><span class="caret"></span></button>';
 			}
 			dropdownHtml = dropdownHtml + '</div>';
@@ -579,11 +606,11 @@ define(function (require) {
 		},
 
 		calculateInputSize: function( options ) {
-			if( !!parseInt( this.options.inputSize, 10 ) ) {
-				return 'style="width:'+ this.options.inputSize +'px"';
+			if( !!parseInt( this.options.createInput.inputSize, 10 ) ) {
+				return 'style="width:'+ this.options.createInput.inputSize +'px"';
 			} else {
 				options = ( !!options ) ? " " + options.join(' ') : '';
-				return 'class="' + this.options.inputSize + options + '"';
+				return 'class="' + this.options.createInput.inputSize + options + '"';
 			}
 
 		},
@@ -630,44 +657,6 @@ define(function (require) {
 			this.$footer.find( '.center' ).on( 'click', $.proxy( this.today, this ) );
 		},
 
-		importOptions: function() {
-			var options = this.options || {};
-
-			if( options.min ) {
-				this.scope.min = options.min;
-			} else {
-				this.scope.min = new Date();
-				this.scope.min.setUTCDate( this.scope.min.getUTCDate() - 1 );
-			}
-
-			this.scope.min.setHours( 0,0,0,0 );
-
-			if( options.max ) {
-				this.scope.max = options.max;
-			} else {
-				this.scope.max = new Date();
-				this.scope.max.setUTCFullYear( this.scope.max.getUTCFullYear() + 10 );
-			}
-
-			this.scope.max.setHours( 23,59,59,999 );
-
-			this.scope.range = options.range;
-
-			// defaults to 
-			this.options.dropdownSize = options.dropdownSize ? options.dropdownSize : this.scope.dropdownSize;
-
-			this.scope.date = options.date;
-			this.scope.date.setHours( 0,0,0,0 );
-
-			this.scope.viewDate = new Date( this.scope.date.valueOf() );
-			this.scope.stagedDate = new Date( this.scope.date.valueOf() );
-			this.scope.viewDate.setHours( 0,0,0,0 );
-			this.scope.stagedDate.setHours( 0,0,0,0 );
-
-			this.scope.years = this.yearRange( this.scope.viewDate );
-			//wrapper = element; not sure what this translates to since we already have a wrapper
-		},
-
 		formatDate: function( date ) {
 			return date.getUTCFullYear() + '-' + this.padTwo( date.getUTCMonth() + 1 ) + '-' + this.padTwo( date.getUTCDate() );
 		},
@@ -675,13 +664,6 @@ define(function (require) {
 		padTwo: function( value ) {
 			var s = '0' + value;
 			return s.substr( s.length - 2 );
-		},
-
-		restrictDateSelection: function() {
-			if( !!this.options && !this.options.restrictDateSelection ) {
-				this.scope.restrictLastMonth = false;
-				this.scope.restrictNextMonth = false;
-			}
 		}
 	};
 
@@ -704,17 +686,17 @@ define(function (require) {
 	};
 
 	$.fn.datepicker.defaults = {
-		callbacks: [],
-		native: false,
 		date: new Date(),
 		createInput: false,
-		dropDownBtn: true,
-		dropdownSize: 200,
-		restrictDateSelection: true,
-		defaultDateFormat: '',
-		inputSize: 'span2'
+		dropdownWidth: 170,
+		restrictDateSelection: true
 	};
 
 	$.fn.datepicker.Constructor = Datepicker;
+
+	$.fn.datepicker.noConflict = function () {
+		$.fn.Datepicker = old;
+		return this;
+	};
 
 });
