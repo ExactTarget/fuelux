@@ -38,10 +38,7 @@ define(function (require) {
 			$radio = $radio || this.$radio;
 
 			var checked = $radio.is(':checked');
-			var disabled = $radio.is(':disabled');
-			
-			// reset classes
-            this.$icon.removeClass('checked').removeClass('disabled');
+			var disabled = !!$radio.prop('disabled');
 
 			this.$icon.removeClass('checked disabled');
 
@@ -74,6 +71,21 @@ define(function (require) {
 
 			this.resetGroup();
 			this.setState(radio);
+		},
+
+		check: function () {
+			this.resetGroup();
+			this.$radio.prop('checked', true);
+			this.setState(this.$radio);
+		},
+
+		uncheck: function () {
+			this.$radio.prop('checked', false);
+			this.setState(this.$radio);
+		},
+
+		isChecked: function () {
+			return this.$radio.is(':checked');
 		}
 	};
 
