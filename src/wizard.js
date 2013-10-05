@@ -76,7 +76,13 @@ define(function (require) {
 
 			// set display of target element
 			var target = $currentStep.data().target;
-			$('.step-pane').removeClass('active');
+                
+            // globally select all .step-pane will cause
+            // conflict if there are more than 1 wizard in the page
+			//$('.step-pane').removeClass('active');
+			// therefore select the .step-pane contained in this wizard only
+            this.$element.siblings('.step-content').find('.step-pane').removeClass('active');
+
 			$(target).addClass('active');
 
 			this.$element.trigger('changed');
@@ -85,7 +91,11 @@ define(function (require) {
 		stepclicked: function (e) {
 			var li = $(e.currentTarget);
 
-			var index = $('.steps li').index(li);
+            // same reasone as .step-pane. Instead of globally
+            // selecting all .steps li, select the one
+            // related to this wizard only
+			// /var index = $('.steps li').index(li);
+			var index = this.$element.find('.steps li').index(li);
 
 			var evt = $.Event('stepclick');
 			this.$element.trigger(evt, {step: index + 1});
