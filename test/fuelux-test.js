@@ -10,10 +10,6 @@ require(['jquery', 'fuelux/all'], function($) {
 		}
 	});
 
-	test('transitions are initialized', function() {
-		strictEqual(typeof $.support.transition, 'object', 'transitions should be initialized');
-	});
-
 	test('modal is initialized', function() {
 		ok(this.elems.modal() === this.elems, 'modal should be initilized');
 	});

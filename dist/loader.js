@@ -2786,11 +2786,13 @@ define('fuelux/checkbox',['require','jquery'],function (require) {
 		constructor: Checkbox,
 
 		setState: function ($chk) {
+			$chk = $chk || this.$chk;
+
 			var checked = $chk.is(':checked');
 			var disabled = $chk.is(':disabled');
 
 			// reset classes
-			this.$icon.removeClass('checked').removeClass('disabled');
+			this.$icon.removeClass('checked disabled');
 
 			// set state of checkbox
 			if (checked === true) {
@@ -2818,6 +2820,20 @@ define('fuelux/checkbox',['require','jquery'],function (require) {
 		itemchecked: function (e) {
 			var chk = $(e.target);
 			this.setState(chk);
+		},
+		
+		check: function () {
+            this.$chk.prop('checked', true);
+            this.setState(this.$chk);
+		},
+		
+		uncheck: function () {
+            this.$chk.prop('checked', false);
+            this.setState(this.$chk);
+		},
+		
+		isChecked: function () {
+            return this.$chk.is(':checked');
 		}
 	};
 
@@ -3057,7 +3073,7 @@ define('fuelux/combobox',['require','jquery','./util'],function (require) {
 			});
 		});
 
-		$('body').on('mousedown.combobox.data-api', '.combobox', function (e) {
+		$('body').on('mousedown.combobox.data-api', '.combobox', function () {
 			var $this = $(this);
 			if ($this.data('combobox')) return;
 			$this.combobox($this.data());
@@ -3074,7 +3090,7 @@ define('fuelux/combobox',['require','jquery','./util'],function (require) {
  * Licensed under the MIT license.
  */
 
-define('fuelux/datagrid',['require','jquery'],function(require) {
+define('fuelux/datagrid',['require','jquery'],function (require) {
 
 	var $ = require('jquery');
 
@@ -3110,8 +3126,13 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 
 		// Shim until v3 -- account for FuelUX select or native select for page size:
 		if (this.$pagesize.hasClass('select')) {
+			this.$pagesize.select('selectByValue', this.options.dataOptions.pageSize);
 			this.options.dataOptions.pageSize = parseInt(this.$pagesize.select('selectedItem').value, 10);
 		} else {
+			var pageSize = this.options.dataOptions.pageSize;
+			this.$pagesize.find('option').filter(function() {
+				return $(this).text() === pageSize.toString();
+			}).attr('selected', true);
 			this.options.dataOptions.pageSize = parseInt(this.$pagesize.val(), 10);
 		}
 
@@ -3128,7 +3149,7 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 		this.$filtercontrol.on('changed', $.proxy(this.filterChanged, this));
 		this.$colheader.on('click', 'th', $.proxy(this.headerClicked, this));
 
-		if(this.$pagesize.hasClass('select')) {
+		if (this.$pagesize.hasClass('select')) {
 			this.$pagesize.on('changed', $.proxy(this.pagesizeChanged, this));
 		} else {
 			this.$pagesize.on('change', $.proxy(this.pagesizeChanged, this));
@@ -3229,12 +3250,16 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 				$.each(data.data, function (index, row) {
 					rowHTML += '<tr>';
 					$.each(self.columns, function (index, column) {
-						rowHTML += '<td>' + row[column.property] + '</td>';
+						rowHTML += '<td';
+						if (column.cssClass) {
+							rowHTML += ' class="' + column.cssClass + '"';
+						}
+						rowHTML += '>' + row[column.property] + '</td>';
 					});
 					rowHTML += '</tr>';
 				});
 
-				if (!rowHTML) rowHTML = self.placeholderRowHTML('0 ' + self.options.itemsText);
+				if (!rowHTML) rowHTML = self.placeholderRowHTML(self.options.noDataFoundHTML);
 
 				self.$tbody.html(rowHTML);
 				self.stretchHeight();
@@ -3270,7 +3295,7 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 		},
 
 		pagesizeChanged: function (e, pageSize) {
-			if(pageSize) {
+			if (pageSize) {
 				this.options.dataOptions.pageSize = parseInt(pageSize.value, 10);
 			} else {
 				this.options.dataOptions.pageSize = parseInt($(e.target).val(), 10);
@@ -3284,8 +3309,8 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 			var pageRequested = parseInt($(e.target).val(), 10);
 			pageRequested = (isNaN(pageRequested)) ? 1 : pageRequested;
 			var maxPages = this.$pageslabel.text();
-		
-			this.options.dataOptions.pageIndex = 
+
+			this.options.dataOptions.pageIndex =
 				(pageRequested > maxPages) ? maxPages - 1 : pageRequested - 1;
 
 			this.renderData();
@@ -3400,13 +3425,146 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
 		dataOptions: { pageIndex: 0, pageSize: 10 },
 		loadingHTML: '<div class="progress progress-striped active" style="width:50%;margin:auto;"><div class="bar" style="width:100%;"></div></div>',
 		itemsText: 'items',
-		itemText: 'item'
+		itemText: 'item',
+        noDataFoundHTML: '0 items'
 	};
 
 	$.fn.datagrid.Constructor = Datagrid;
 
 });
 
+/*
+ * Fuel UX Intelligent Bootstrap Dropdowns
+ * https://github.com/ExactTarget/fuelux
+ *
+ * Copyright (c) 2013 ExactTarget
+ * Licensed under the MIT license.
+ */
+
+define('fuelux/intelligent-dropdown',[ "jquery", "fuelux/all"], function($) {
+
+	$(function() {
+		$(document.body).on("click", "[data-toggle=dropdown][data-direction]", function( event ) {
+
+			var dataDirection = $(this).data().direction;
+
+			// if data-direction is not auto or up, default to bootstraps dropdown
+			if( dataDirection === "auto" || dataDirection === "up" ) {
+				// only changing css positioning if position is set to static
+				// if this doesn"t happen, dropUp will not be correct
+				// works correctly for absolute, relative, and fixed positioning
+				if( $(this).parent().css("position") === "static" ) {
+					$(this).parent().css({ position: "relative"});
+				}
+
+				// only continue into this function if the click came from a user
+				if( event.hasOwnProperty("originalEvent") ) {
+					// stopping bootstrap event propagation
+					event.stopPropagation();
+
+					// deciding what to do based on data-direction attribute
+					if( dataDirection === "auto" ) {
+						// have the drop down intelligently decide where to place itself
+						forceAutoDropDown( $(this) );
+					} else if ( dataDirection === "up" ) {
+						forceDropUp( $(this) );
+					}
+				}
+			}
+
+		});
+
+		function forceDropUp( element ) {
+			var dropDown      = element.next();
+			var dropUpPadding = 5;
+			var topPosition;
+
+			$(dropDown).addClass("dropUp");
+			topPosition = ( ( dropDown.outerHeight() + dropUpPadding ) * -1 ) + "px";
+
+			dropDown.css({
+				visibility: "visible",
+				top: topPosition
+			});
+			element.click();
+		}
+
+		function forceAutoDropDown( element ) {
+			var dropDown      = element.next();
+			var dropUpPadding = 5;
+			var topPosition;
+
+			// setting this so I can get height of dropDown without it being shown
+			dropDown.css({ visibility: "hidden" });
+
+			// deciding where to put menu
+			if( dropUpCheck( dropDown ) ) {
+				$(dropDown).addClass("dropUp");
+				topPosition = ( ( dropDown.outerHeight() + dropUpPadding ) * -1 ) + "px";
+			} else {
+				$(dropDown).removeClass("dropUp");
+				topPosition = "auto";
+			}
+
+			dropDown.css({
+				visibility: "visible",
+				top: topPosition
+			});
+			element.click();
+		}
+
+		function dropUpCheck( element ) {
+			// caching container
+			var $container = getContainer( element );
+
+			// building object with measurementsances for later use
+			var measurements                = {};
+			measurements.parentHeight       = element.parent().outerHeight();
+			measurements.parentOffsetTop    = element.parent().offset().top;
+			measurements.dropdownHeight     = element.outerHeight();
+			measurements.containerHeight    = $container.overflowElement.outerHeight();
+
+			// this needs to be different if the window is the container or another element is
+			measurements.containerOffsetTop = ( !! $container.isWindow ) ? $container.overflowElement.scrollTop() : $container.overflowElement.offset().top;
+
+			// doing the calculations
+			measurements.fromTop    = measurements.parentOffsetTop - measurements.containerOffsetTop;
+			measurements.fromBottom = measurements.containerHeight - measurements.parentHeight - ( measurements.parentOffsetTop - measurements.containerOffsetTop );
+
+			// actual determination of where to put menu
+			// false = drop down
+			// true = drop up
+			if( measurements.dropdownHeight < measurements.fromBottom ) {
+				return false;
+			} else if ( measurements.dropdownHeight < measurements.fromTop ) {
+				return true;
+			} else if ( measurements.dropdownHeight >= measurements.fromTop && measurements.dropdownHeight >= measurements.fromBottom ) {
+				// decide which one is bigger and put it there
+				if( measurements.fromTop >= measurements.fromBottom ) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}
+
+		function getContainer( element ) {
+			var containerElement = window;
+			var isWindow         = true;
+			$.each( element.parents(), function(index, value) {
+				if( $(value).css('overflow') !== 'visible' ) {
+					containerElement = value;
+					isWindow         = false;
+					return false;
+				}
+			});
+			return {
+				overflowElement: $( containerElement ),
+				isWindow: isWindow
+			};
+		}
+	});
+});
 /*
  * Fuel UX Pillbox
  * https://github.com/ExactTarget/fuelux
@@ -3416,9 +3574,8 @@ define('fuelux/datagrid',['require','jquery'],function(require) {
  */
 
 define('fuelux/pillbox',['require','jquery'],function(require) {
-	
-	var $ = require('jquery');
 
+	var $ = require('jquery');
 
 	// PILLBOX CONSTRUCTOR AND PROTOTYPE
 
@@ -3429,25 +3586,76 @@ define('fuelux/pillbox',['require','jquery'],function(require) {
 	};
 
 	Pillbox.prototype = {
-		constructor: Pillbox,
+		constructor : Pillbox,
 
 		items: function() {
 			return this.$element.find('li').map(function() {
 				var $this = $(this);
-				return $.extend({ text: $this.text() }, $this.data());
+				return $.extend({
+					text : $this.text()
+				}, $this.data());
 			}).get();
 		},
 
-		itemclicked: function (e) {
-			$(e.currentTarget).remove();
+		itemclicked: function(e) {
+
+			var $li = $(e.currentTarget);
+			var data = $.extend({
+				text : $li.html()
+			}, $li.data());
+
+			$li.remove();
 			e.preventDefault();
+
+			this.$element.trigger('removed', data);
+		},
+
+		itemCount: function() {
+
+			return this.$element.find('li').length;
+		},
+
+		addItem: function(text, value) {
+
+			value = value || text;
+
+			//<li data-value="foo">Item One</li>
+
+			var $li = $('<li data-value="' + value + '">' + text + '</li>');
+
+			this.$element.find('ul').append($li);
+
+			return $li;
+		},
+
+		removeBySelector: function(selector) {
+
+			this.$element.find('ul').find(selector).remove();
+		},
+
+		removeByValue: function(value) {
+
+			var selector = 'li[data-value="' + value + '"]';
+
+			this.removeBySelector(selector);
+		},
+
+		removeByText: function(text) {
+
+			var selector = 'li:contains("' + text + '")';
+
+			this.removeBySelector(selector);
+		},
+
+		clear: function() {
+
+			this.$element.find('ul').empty();
 		}
 	};
 
-
 	// PILLBOX PLUGIN DEFINITION
 
-	$.fn.pillbox = function (option) {
+	$.fn.pillbox = function (option, value1, value2) {
 		var methodReturn;
 
 		var $set = this.each(function () {
@@ -3455,8 +3663,8 @@ define('fuelux/pillbox',['require','jquery'],function(require) {
 			var data = $this.data('pillbox');
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('pillbox', (data = new Pillbox(this, options)));
-			if (typeof option === 'string') methodReturn = data[option]();
+			if (!data) $this.data('pillbox', ( data = new Pillbox(this, options)));
+			if ( typeof option === 'string') methodReturn = data[option](value1, value2);
 		});
 
 		return (methodReturn === undefined) ? $set : methodReturn;
@@ -3466,17 +3674,15 @@ define('fuelux/pillbox',['require','jquery'],function(require) {
 
 	$.fn.pillbox.Constructor = Pillbox;
 
-
 	// PILLBOX DATA-API
 
 	$(function () {
-		$('body').on('mousedown.pillbox.data-api', '.pillbox', function (e) {
+		$('body').on('mousedown.pillbox.data-api', '.pillbox', function () {
 			var $this = $(this);
 			if ($this.data('pillbox')) return;
 			$this.pillbox($this.data());
 		});
 	});
-	
 });
 
 
@@ -3516,9 +3722,16 @@ define('fuelux/radio',['require','jquery'],function (require) {
 
 		constructor: Radio,
 
-		setState: function ($radio, resetGroupState) {
+		setState: function ($radio) {
+			$radio = $radio || this.$radio;
+
 			var checked = $radio.is(':checked');
 			var disabled = $radio.is(':disabled');
+			
+			// reset classes
+            this.$icon.removeClass('checked').removeClass('disabled');
+
+			this.$icon.removeClass('checked disabled');
 
 			// set state of radio
 			if (checked === true) {
@@ -3549,7 +3762,22 @@ define('fuelux/radio',['require','jquery'],function (require) {
 
 			this.resetGroup();
 			this.setState(radio);
-		}
+		},
+		
+		check: function () {
+            this.resetGroup();
+            this.$radio.prop('checked', true);
+            this.setState(this.$radio);
+        },
+        
+        uncheck: function () {
+            this.$radio.prop('checked', false);
+            this.setState(this.$radio);
+        },
+        
+        isChecked: function () {
+            return this.$radio.is(':checked');
+        }
 	};
 
 
@@ -3773,8 +4001,15 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 		constructor: Spinner,
 
 		render: function () {
-			this.$input.val(this.options.value);
-			this.$input.attr('maxlength',(this.options.max + '').split('').length);
+			var inputValue = this.$input.val();
+
+			if (inputValue) {
+				this.value(inputValue);
+			} else {
+				this.$input.val(this.options.value);
+			}
+
+			this.$input.attr('maxlength', (this.options.max + '').split('').length);
 		},
 
 		change: function () {
@@ -3848,6 +4083,9 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 				} else {
 					this.value(newVal);
 				}
+			} else if (this.options.cycle) {
+				var cycleVal = dir ? this.options.min : this.options.max;
+				this.value(cycleVal);
 			}
 		},
 
@@ -3909,7 +4147,7 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 	// SPINNER DATA-API
 
 	$(function () {
-		$('body').on('mousedown.spinner.data-api', '.spinner', function (e) {
+		$('body').on('mousedown.spinner.data-api', '.spinner', function () {
 			var $this = $(this);
 			if ($this.data('spinner')) return;
 			$this.spinner($this.data());
@@ -3965,28 +4203,22 @@ define('fuelux/select',['require','jquery','./util'],function(require) {
         },
 
         resize: function() {
-            var el = $('#selectTextSize')[0];
-
-            // create element if it doesn't exist
-            // used to calculate the length of the longest string
-            if(!el) {
-                $('<div/>').attr({id:'selectTextSize'}).appendTo('body');
-            }
-
-            var width = 0;
             var newWidth = 0;
+            var sizer = $('<div/>').addClass('select-sizer');
+            var width = 0;
+
+            $('body').append(sizer);
 
             // iterate through each item to find longest string
             this.$element.find('a').each(function () {
-                var $this = $(this);
-                var txt = $this.text();
-                var $txtSize = $('#selectTextSize');
-                $txtSize.text(txt);
-                newWidth = $txtSize.outerWidth();
+                sizer.text($(this).text());
+                newWidth = sizer.outerWidth();
                 if(newWidth > width) {
                     width = newWidth;
                 }
             });
+
+            sizer.remove();
 
             this.$label.width(width);
         },
@@ -4079,7 +4311,7 @@ define('fuelux/select',['require','jquery','./util'],function(require) {
             });
         });
 
-        $('body').on('mousedown.select.data-api', '.select', function (e) {
+        $('body').on('mousedown.select.data-api', '.select', function () {
             var $this = $(this);
             if ($this.data('select')) return;
             $this.select($this.data());
@@ -4122,7 +4354,8 @@ define('fuelux/tree',['require','jquery'],function(require) {
 
 		populate: function ($el) {
 			var self = this;
-			var loader = $el.parent().find('.tree-loader:eq(0)');
+			var $parent = $el.parent();
+			var loader = $parent.find('.tree-loader:eq(0)');
 
 			loader.show();
 			this.options.dataSource.data($el.data(), function (items) {
@@ -4142,14 +4375,47 @@ define('fuelux/tree',['require','jquery'],function(require) {
 						$entity.data(value);
 					}
 
+					// Decorate $entity with data making the element
+					// easily accessable with libraries like jQuery.
+					//
+					// Values are contained within the object returned
+					// for folders and items as dataAttributes:
+					//
+					// {
+					//     name: "An Item",
+					//     type: 'item',
+					//     dataAttributes = {
+					//         'classes': 'required-item red-text',
+					//         'data-parent': parentId,
+					//         'guid': guid
+					//     }
+					// };
+
+					var dataAttributes = value.dataAttributes || [];
+					$.each(dataAttributes, function(key, value) {
+						switch (key) {
+						case 'class':
+						case 'classes':
+						case 'className':
+							$entity.addClass(value);
+							break;
+
+						// id, style, data-*
+						default:
+							$entity.attr(key, value);
+							break;
+						}
+					});
+
 					if($el.hasClass('tree-folder-header')) {
-						$el.parent().find('.tree-folder-content:eq(0)').append($entity);
+						$parent.find('.tree-folder-content:eq(0)').append($entity);
 					} else {
 						$el.append($entity);
 					}
 				});
 
-				self.$element.trigger('loaded');
+				// return newly populated folder
+				self.$element.trigger('loaded', $parent);
 			});
 		},
 
@@ -4171,7 +4437,9 @@ define('fuelux/tree',['require','jquery'],function(require) {
 				data.push($el.data());
 			}
 
+			var eventType = 'selected';
 			if($el.hasClass('tree-selected')) {
+				eventType = 'unselected';
 				$el.removeClass('tree-selected');
 				$el.find('i').removeClass('icon-ok').addClass('tree-dot');
 			} else {
@@ -4186,37 +4454,47 @@ define('fuelux/tree',['require','jquery'],function(require) {
 				this.$element.trigger('selected', {info: data});
 			}
 
+			// Return new list of selected items, the item
+			// clicked, and the type of event:
+			$el.trigger('updated', {
+				info: data,
+				item: $el,
+				eventType: eventType
+			});
 		},
 
 		selectFolder: function (el) {
 			var $el = $(el);
-			var $par = $el.parent();
+			var $parent = $el.parent();
+			var $treeFolderContent = $parent.find('.tree-folder-content');
+			var $treeFolderContentFirstChild = $treeFolderContent.eq(0);
 
-			if($el.find('.icon-folder-close').length) {
-				if ($par.find('.tree-folder-content').children().length) {
-					$par.find('.tree-folder-content:eq(0)').show();
-				} else {
-					this.populate( $el );
+			var eventType, classToTarget, classToAdd;
+			if ($el.find('.icon-folder-close').length) {
+				eventType = 'opened';
+				classToTarget = '.icon-folder-close';
+				classToAdd = 'icon-folder-open';
+
+				$treeFolderContentFirstChild.show();
+				if (!$treeFolderContent.children().length) {
+					this.populate($el);
 				}
-
-				$par.find('.icon-folder-close:eq(0)')
-					.removeClass('icon-folder-close')
-					.addClass('icon-folder-open');
-
-				this.$element.trigger('opened', $el.data());
 			} else {
-				if(this.options.cacheItems) {
-					$par.find('.tree-folder-content:eq(0)').hide();
-				} else {
-					$par.find('.tree-folder-content:eq(0)').empty();
+				eventType = 'closed';
+				classToTarget = '.icon-folder-open';
+				classToAdd = 'icon-folder-close';
+
+				$treeFolderContentFirstChild.hide();
+				if (!this.options.cacheItems) {
+					$treeFolderContentFirstChild.empty();
 				}
-
-				$par.find('.icon-folder-open:eq(0)')
-					.removeClass('icon-folder-open')
-					.addClass('icon-folder-close');
-
-				this.$element.trigger('closed', $el.data());
 			}
+
+			$parent.find(classToTarget).eq(0)
+				.removeClass('icon-folder-close icon-folder-open')
+				.addClass(classToAdd);
+
+			this.$element.trigger(eventType, $el.data());
 		},
 
 		selectedItems: function () {
@@ -4227,6 +4505,28 @@ define('fuelux/tree',['require','jquery'],function(require) {
 				data.push($(value).data());
 			});
 			return data;
+		},
+
+		// collapses open folders
+		collapse: function () {
+			var cacheItems = this.options.cacheItems;
+
+			// find open folders
+			this.$element.find('.icon-folder-open').each(function () {
+				// update icon class
+				var $this = $(this)
+					.removeClass('icon-folder-close icon-folder-open')
+					.addClass('icon-folder-close');
+
+				// "close" or empty folder contents
+				var $parent = $this.parent().parent();
+				var $folder = $parent.children('.tree-folder-content');
+
+				$folder.hide();
+				if (!cacheItems) {
+					$folder.empty();
+				}
+			});
 		}
 	};
 
@@ -4278,7 +4578,7 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.wizard.defaults, options);
-		this.currentStep = 1;
+		this.currentStep = this.options.selectedItem.step;
 		this.numSteps = this.$element.find('.steps li').length;
 		this.$prevBtn = this.$element.find('button.btn-prev');
 		this.$nextBtn = this.$element.find('button.btn-next');
@@ -4291,6 +4591,10 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 		this.$prevBtn.on('click', $.proxy(this.previous, this));
 		this.$nextBtn.on('click', $.proxy(this.next, this));
 		this.$element.on('click', 'li.complete', $.proxy(this.stepclicked, this));
+		
+		if(this.currentStep > 1) {
+            this.selectedItem(this.options.selectedItem);
+		}
 	};
 
 	Wizard.prototype = {
@@ -4339,6 +4643,38 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 			$('.step-pane').removeClass('active');
 			$(target).addClass('active');
 
+			// reset the wizard position to the left
+			$('.wizard .steps').attr('style','margin-left: 0');
+
+			// check if the steps are wider than the container div
+			var totalWidth = 0;
+			$('.wizard .steps > li').each(function () {
+				totalWidth += $(this).outerWidth();
+			});
+			var containerWidth = 0;
+			if ($('.wizard .actions').length) {
+				containerWidth = $('.wizard').width() - $('.wizard .actions').outerWidth();
+			} else {
+				containerWidth = $('.wizard').width();
+			}
+			if (totalWidth > containerWidth) {
+			
+				// set the position so that the last step is on the right
+				var newMargin = totalWidth - containerWidth;
+				$('.wizard .steps').attr('style','margin-left: -' + newMargin + 'px');
+				
+				// set the position so that the active step is in a good
+				// position if it has been moved out of view
+				if ($('.wizard li.active').position().left < 200) {
+					newMargin += $('.wizard li.active').position().left - 200;
+					if (newMargin < 1) {
+						$('.wizard .steps').attr('style','margin-left: 0');
+					} else {
+						$('.wizard .steps').attr('style','margin-left: -' + newMargin + 'px');
+					}
+				}
+			}
+
 			this.$element.trigger('changed');
 		},
 
@@ -4385,10 +4721,25 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 			}
 		},
 
-		selectedItem: function (val) {
-			return {
-				step: this.currentStep
-			};
+		selectedItem: function (selectedItem) {
+			var retVal, step;
+
+			if(selectedItem) {
+
+				step = selectedItem.step || -1;
+
+				if(step >= 1 && step <= this.numSteps) {
+					this.currentStep = step;
+					this.setState();    
+				}
+
+				retVal = this;	
+			}
+			else {
+				retVal = { step: this.currentStep };
+			}
+
+			return retVal;
 		}
 	};
 
@@ -4410,7 +4761,9 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 		return (methodReturn === undefined) ? $set : methodReturn;
 	};
 
-	$.fn.wizard.defaults = {};
+	$.fn.wizard.defaults = {
+        selectedItem: {step:1}
+	};
 
 	$.fn.wizard.Constructor = Wizard;
 
@@ -4435,7 +4788,7 @@ define('fuelux/wizard',['require','jquery'],function (require) {
  * Licensed under the MIT license.
  */
 
-define('fuelux/all',['require','jquery','bootstrap/bootstrap-affix','bootstrap/bootstrap-alert','bootstrap/bootstrap-button','bootstrap/bootstrap-carousel','bootstrap/bootstrap-collapse','bootstrap/bootstrap-dropdown','bootstrap/bootstrap-modal','bootstrap/bootstrap-popover','bootstrap/bootstrap-scrollspy','bootstrap/bootstrap-tab','bootstrap/bootstrap-tooltip','bootstrap/bootstrap-transition','bootstrap/bootstrap-typeahead','fuelux/checkbox','fuelux/combobox','fuelux/datagrid','fuelux/pillbox','fuelux/radio','fuelux/search','fuelux/spinner','fuelux/select','fuelux/tree','fuelux/wizard'],function (require) {
+define('fuelux/all',['require','jquery','bootstrap/bootstrap-affix','bootstrap/bootstrap-alert','bootstrap/bootstrap-button','bootstrap/bootstrap-carousel','bootstrap/bootstrap-collapse','bootstrap/bootstrap-dropdown','bootstrap/bootstrap-modal','bootstrap/bootstrap-popover','bootstrap/bootstrap-scrollspy','bootstrap/bootstrap-tab','bootstrap/bootstrap-tooltip','bootstrap/bootstrap-transition','bootstrap/bootstrap-typeahead','fuelux/checkbox','fuelux/combobox','fuelux/datagrid','fuelux/intelligent-dropdown','fuelux/pillbox','fuelux/radio','fuelux/search','fuelux/spinner','fuelux/select','fuelux/tree','fuelux/wizard'],function (require) {
 	require('jquery');
 	require('bootstrap/bootstrap-affix');
 	require('bootstrap/bootstrap-alert');
@@ -4453,6 +4806,7 @@ define('fuelux/all',['require','jquery','bootstrap/bootstrap-affix','bootstrap/b
 	require('fuelux/checkbox');
 	require('fuelux/combobox');
 	require('fuelux/datagrid');
+	require('fuelux/intelligent-dropdown');
 	require('fuelux/pillbox');
 	require('fuelux/radio');
 	require('fuelux/search');
