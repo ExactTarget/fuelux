@@ -62,25 +62,25 @@ define(['require','jquery'],function (require) {
 			}
 
 			// reset classes for all steps
-			var $steps = this.$element.find('li');
+			var $steps = this.$element.find('.steps li');
 			$steps.removeClass('active').removeClass('complete');
 			$steps.find('span.badge').removeClass('badge-info').removeClass('badge-success');
 
 			// set class for all previous steps
-			var prevSelector = 'li:lt(' + (this.currentStep - 1) + ')';
+			var prevSelector = '.steps li:lt(' + (this.currentStep - 1) + ')';
 			var $prevSteps = this.$element.find(prevSelector);
 			$prevSteps.addClass('complete');
 			$prevSteps.find('span.badge').addClass('badge-success');
 
 			// set class for current step
-			var currentSelector = 'li:eq(' + (this.currentStep - 1) + ')';
+			var currentSelector = '.steps li:eq(' + (this.currentStep - 1) + ')';
 			var $currentStep = this.$element.find(currentSelector);
 			$currentStep.addClass('active');
 			$currentStep.find('span.badge').addClass('badge-info');
 
 			// set display of target element
 			var target = $currentStep.data().target;
-			$('.step-pane').removeClass('active');
+			this.$element.find('.step-pane').removeClass('active');
 			$(target).addClass('active');
 
 			// reset the wizard position to the left
@@ -121,7 +121,7 @@ define(['require','jquery'],function (require) {
 		stepclicked: function (e) {
 			var li = $(e.currentTarget);
 
-			var index = $('.steps li').index(li);
+			var index = this.$element.find('.steps li').index(li);
 
 			var evt = $.Event('stepclick');
 			this.$element.trigger(evt, {step: index + 1});
