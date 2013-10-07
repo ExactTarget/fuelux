@@ -170,10 +170,10 @@ define(function (require) {
 
 				if(step >= 1 && step <= this.numSteps) {
 					this.currentStep = step;
-					this.setState();    
+					this.setState();
 				}
 
-				retVal = this;	
+				retVal = this;
 			}
 			else {
 				retVal = { step: this.currentStep };
