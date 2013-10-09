@@ -38,6 +38,8 @@ define(function (require) {
 
 		this.years = this.yearRange( this.viewDate );
 
+		this.formatDate = this.options.formatDate;
+
 		// OPTIONS
 		this.options.dropdownWidth = this.options.dropdownWidth || 170;
 		this.options.monthNames    = this.options.monthNames || [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
@@ -657,10 +659,6 @@ define(function (require) {
 			this.$footer.find( '.center' ).on( 'click', $.proxy( this.today, this ) );
 		},
 
-		formatDate: function( date ) {
-			return date.getUTCFullYear() + '-' + this.padTwo( date.getUTCMonth() + 1 ) + '-' + this.padTwo( date.getUTCDate() );
-		},
-
 		padTwo: function( value ) {
 			var s = '0' + value;
 			return s.substr( s.length - 2 );
@@ -689,7 +687,11 @@ define(function (require) {
 		date: new Date(),
 		createInput: false,
 		dropdownWidth: 170,
-		restrictDateSelection: true
+		restrictDateSelection: true,
+		formatDate: function( date ) {
+			// this.pad to is function on extension
+			return  this.padTwo( date.getUTCMonth() + 1 ) + '-' + this.padTwo( date.getUTCDate() ) + '-' + date.getUTCFullYear();
+		}
 	};
 
 	$.fn.datepicker.Constructor = Datepicker;
