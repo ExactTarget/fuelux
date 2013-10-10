@@ -17,8 +17,11 @@ define(function (require) {
 
 		this.options = $.extend(true, {}, $.fn.datepicker.defaults, options);
 
+		this.formatDate = ( !!this.options.createInput && !!this.options.createInput.native ) ? this.formatNativeDate : this.options.formatDate || this.formatDate;
+		this.parseDate  = this.options.parseDate || this.parseDate;
+
 		this.date = this.options.date || new Date();
-		this.date.setHours( 0,0,0,0 );
+		this.date = this.parseDate( this.date );
 
 		this.viewDate   = new Date( this.date.valueOf() );
 		this.stagedDate = new Date( this.date.valueOf() );
@@ -29,16 +32,14 @@ define(function (require) {
 		this.callbacks = [];
 
 		this.minDate = new Date();
-		this.minDate.setUTCDate( this.minDate.getUTCDate() - 1 );
+		this.minDate.setDate( this.minDate.getDate() - 1 );
 		this.minDate.setHours( 0,0,0,0 );
 
 		this.maxDate = new Date();
-		this.maxDate.setUTCFullYear( this.maxDate.getUTCFullYear() + 10 );
+		this.maxDate.setFullYear( this.maxDate.getFullYear() + 10 );
 		this.maxDate.setHours( 23,59,59,999 );
 
 		this.years = this.yearRange( this.viewDate );
-
-		this.formatDate = this.options.formatDate;
 
 		// OPTIONS
 		this.options.dropdownWidth = this.options.dropdownWidth || 170;
@@ -78,11 +79,8 @@ define(function (require) {
 			} else {
 				throw new Error( 'createInput option needs to be an object or boolean true' );
 			}
-
 		} else {
-			this.render({
-				addDateToInput: true
-			});
+			this.render();
 		}
 	};
 
@@ -98,16 +96,43 @@ define(function (require) {
 		},
 
 		// functions that can be called on object
-		destroy: function() {
-			this.$element.remove();
-		},
-
 		disable: function() {
 			this.$element.find('input, button').attr( 'disabled', true );
 		},
 
 		enable: function() {
 			this.$element.find('input, button').attr( 'disabled', false );
+		},
+
+		getDate: function( options ) {
+			if( !!options && !!options.unix ) {
+				return this.date.getTime();
+			} else {
+				return this.formatDate( this.date );
+			}
+		},
+
+		setDate: function( date ) {
+			var tmpDate = this.parseDate( date );
+
+			this.date.setFullYear( tmpDate.getFullYear() );
+			this.date.setMonth( tmpDate.getMonth() );
+			this.date.setDate( tmpDate.getDate() );
+
+			return this.date;
+		},
+
+		formatDate: function( date ) {
+			// this.pad to is function on extension
+			return this.padTwo( date.getMonth() + 1 ) + '-' + this.padTwo( date.getDate() ) + '-' + date.getFullYear();
+		},
+
+		formatNativeDate: function( date ) {
+			return date.getFullYear() + '-' + this.padTwo( date.getMonth() + 1 ) + '-' + this.padTwo( date.getDate() );
+		},
+
+		parseDate: function( date ) {
+			return new Date( date );
 		},
 
 		repeat: function( head, collection, iterator, tail) {
@@ -120,7 +145,7 @@ define(function (require) {
 		},
 
 		getDaysInMonth: function( month, year ) {
-			return 32 - new Date(year, month, 32).getUTCDate();
+			return 32 - new Date(year, month, 32).getDate();
 		},
 
 		range: function( start, end ) {
@@ -132,7 +157,7 @@ define(function (require) {
 		},
 
 		yearRange: function( date ) {
-			var start    = ( Math.floor(date.getUTCFullYear() / 10 ) * 10) - 1;
+			var start    = ( Math.floor(date.getFullYear() / 10 ) * 10) - 1;
 			var end      = start + 12;
 			var years    = this.range(start, end);
 			var interval = [];
@@ -205,12 +230,12 @@ define(function (require) {
 		},
 
 		updateCalendarData: function() {
-			var viewedMonth            = this.viewDate.getUTCMonth();
-			var viewedYear             = this.viewDate.getUTCFullYear();
-			var selectedDay            = this.stagedDate.getUTCDate();
-			var selectedMonth          = this.stagedDate.getUTCMonth();
-			var selectedYear           = this.stagedDate.getUTCFullYear();
-			var firstDayOfMonthWeekday = new Date( viewedYear, viewedMonth, 1 ).getUTCDay();
+			var viewedMonth            = this.viewDate.getMonth();
+			var viewedYear             = this.viewDate.getFullYear();
+			var selectedDay            = this.stagedDate.getDate();
+			var selectedMonth          = this.stagedDate.getMonth();
+			var selectedYear           = this.stagedDate.getFullYear();
+			var firstDayOfMonthWeekday = new Date( viewedYear, viewedMonth, 1 ).getDay();
 			var lastDayOfMonth         = this.getDaysInMonth( viewedMonth, viewedYear );
 			var lastDayOfLastMonth     = this.getDaysInMonth( viewedMonth - 1, viewedYear );
 
@@ -224,9 +249,9 @@ define(function (require) {
 			this.daysOfNextMonth = this.range(1, addToEnd + 1);
 
 			var now                  = new Date();
-			var currentDay           = now.getUTCDate();
-			var currentMonth         = now.getUTCMonth();
-			var currentYear          = now.getUTCFullYear();
+			var currentDay           = now.getDate();
+			var currentMonth         = now.getMonth();
+			var currentYear          = now.getFullYear();
 			var viewingCurrentMonth  = viewedMonth === currentMonth;
 			var viewingCurrentYear   = viewedYear === currentYear;
 			var viewingSelectedMonth = viewedMonth === selectedMonth;
@@ -237,7 +262,7 @@ define(function (require) {
 
 			for( var i = 0, ii = daysOfThisMonth.length; i < ii; i++) {
 
-				var weekDay      = new Date(viewedYear, viewedMonth, daysOfThisMonth[ i ]).getUTCDay();
+				var weekDay      = new Date(viewedYear, viewedMonth, daysOfThisMonth[ i ]).getDay();
 				var weekDayClass = 'weekday';
 
 				if(weekDay === 6 || weekDay === 0) {
@@ -282,7 +307,7 @@ define(function (require) {
 				};
 			}
 
-			var daysInMonth = this.getDaysInMonth( this.minDate.getUTCFullYear(), this.minDate.getUTCMonth() );
+			var daysInMonth = this.getDaysInMonth( this.minDate.getFullYear(), this.minDate.getMonth() );
 			for( var j = 0, jj = this.months.length; j < jj; j++ ) {
 
 				this.months[ j ][ 'class' ] = '';
@@ -303,7 +328,7 @@ define(function (require) {
 			}
 
 			this.years = this.yearRange( this.viewDate);
-			daysInMonth = this.getDaysInMonth( this.minDate.getUTCFullYear(), 11 );
+			daysInMonth = this.getDaysInMonth( this.minDate.getFullYear(), 11 );
 
 			for( var z = 0, zz = this.years.length; z < zz; z++ ) {
 				if( this.years[ z ].number === currentYear ) {
@@ -376,11 +401,9 @@ define(function (require) {
 			this.stagedDate = this.viewDate;
 			this.stagedDate.setDate( parseInt( e.target.innerHTML, 10 ) );
 
-			this.date.setUTCFullYear( this.stagedDate.getUTCFullYear() );
-			this.date.setUTCMonth( this.stagedDate.getUTCMonth() );
-			this.date.setUTCDate( this.stagedDate.getUTCDate() );
-			this.insertDateIntoInput( this.date );
+			this.setDate( this.stagedDate );
 			this.render();
+			this.insertDateIntoInput( this.date );
 			this.done = true;
 			this.runCallbacks();
 		},
@@ -391,7 +414,7 @@ define(function (require) {
 				return this.killEvent(e);
 			}
 
-			this.viewDate = new Date( year, this.viewDate.getUTCMonth(), 1 );
+			this.viewDate = new Date( year, this.viewDate.getMonth(), 1 );
 			this.showView( 2 );
 			this.render();
 
@@ -404,7 +427,7 @@ define(function (require) {
 				return this.killEvent(e);
 			}
 
-			this.viewDate = new Date( this.viewDate.getUTCFullYear(), month, 1 );
+			this.viewDate = new Date( this.viewDate.getFullYear(), month, 1 );
 			this.showView(1);
 			this.render();
 
@@ -412,9 +435,9 @@ define(function (require) {
 		},
 
 		done: function() {
-			this.date.setUTCFullYear( this.stagedDate.getUTCFullYear() );
-			this.date.setUTCMonth( this.stagedDate.getUTCMonth() );
-			this.date.setUTCDate( this.stagedDate.getUTCDate() );
+			this.date.setFullYear( this.stagedDate.getFullYear() );
+			this.date.setMonth( this.stagedDate.getMonth() );
+			this.date.setDate( this.stagedDate.getDate() );
 			this.render();
 			this.done = true;
 			this.runCallbacks();
@@ -430,11 +453,11 @@ define(function (require) {
 			}
 			
 			if( this.options.showDays) {
-				this.viewDate = new Date( this.viewDate.getUTCFullYear(), this.viewDate.getUTCMonth() - 1, 1 );
+				this.viewDate = new Date( this.viewDate.getFullYear(), this.viewDate.getMonth() - 1, 1 );
 			} else if( this.options.showMonths ) {
-				this.viewDate = new Date( this.viewDate.getUTCFullYear() - 1, this.viewDate.getUTCMonth(), 1 );
+				this.viewDate = new Date( this.viewDate.getFullYear() - 1, this.viewDate.getMonth(), 1 );
 			} else if( this.options.showYears ) {
-				this.viewDate = new Date( this.viewDate.getUTCFullYear() - 10, this.viewDate.getUTCMonth(), 1 );
+				this.viewDate = new Date( this.viewDate.getFullYear() - 10, this.viewDate.getMonth(), 1 );
 			}
 
 			if( !!set ) {
@@ -456,11 +479,11 @@ define(function (require) {
 			}
 			
 			if( this.options.showDays ) {
-				this.viewDate = new Date( this.viewDate.getUTCFullYear(), this.viewDate.getUTCMonth() + 1, 1 );
+				this.viewDate = new Date( this.viewDate.getFullYear(), this.viewDate.getMonth() + 1, 1 );
 			} else if( this.options.showMonths ) {
-				this.viewDate = new Date( this.viewDate.getUTCFullYear() + 1, this.viewDate.getUTCMonth(), 1 );
+				this.viewDate = new Date( this.viewDate.getFullYear() + 1, this.viewDate.getMonth(), 1 );
 			} else if( this.options.showYears ) {
-				this.viewDate = new Date( this.viewDate.getUTCFullYear() + 10, this.viewDate.getUTCMonth(), 1 );
+				this.viewDate = new Date( this.viewDate.getFullYear() + 10, this.viewDate.getMonth(), 1 );
 			}
 
 			if( !!set ) {
@@ -487,11 +510,11 @@ define(function (require) {
 		},
 
 		monthLabel: function() {
-			return this.options.monthNames[ this.viewDate.getUTCMonth() ];
+			return this.options.monthNames[ this.viewDate.getMonth() ];
 		},
 
 		yearLabel: function() {
-			return this.viewDate.getUTCFullYear();
+			return this.viewDate.getFullYear();
 		},
 
 		monthYearLabel: function() {
@@ -572,9 +595,7 @@ define(function (require) {
 		},
 
 		render: function( localOptions ) {
-			if( !!localOptions && !!localOptions.addDateToInput ) {
-				this.insertDateIntoInput();
-			}
+			this.insertDateIntoInput();
 			this.updateCalendarData();
 			this.$element.find('.replaceWithDatepicker').html( this.renderCalendar() );
 			this.initializeCalendarElements();
@@ -590,7 +611,7 @@ define(function (require) {
 
 		renderInputNative: function() {
 			//return '<input type="date" min="' + minRaw + '" max="' + maxRaw + '" value="' + rawDate + '" class="native form-control input-small">';
-			return '<input type="date" value="' + this.formatDate( this.options.date ) + '"' + this.calculateInputSize( [ 'native' ] ) + '>';
+			return '<input type="date" value="' + this.formatDate( this.date ) + '"' + this.calculateInputSize( [ 'native' ] ) + '>';
 		},
 
 		renderInputHTML: function() {
@@ -598,7 +619,7 @@ define(function (require) {
 
 			var dropdownHtml = '<div class="' + inputClass + '">' +
 						'<div class="dropdown-menu replaceWithDatepicker"></div>' +
-						'<input type="text" '+ this.calculateInputSize() +' value="'+this.formatDate( this.options.date ) +'" data-toggle="dropdown">';
+						'<input type="text" '+ this.calculateInputSize() +' value="'+this.formatDate( this.date ) +'" data-toggle="dropdown">';
 			if( !!this.options.createInput.dropDownBtn ) {
 				dropdownHtml = dropdownHtml + '<button type="button" class="btn" data-toggle="dropdown"><span class="caret"></span></button>';
 			}
@@ -617,16 +638,8 @@ define(function (require) {
 
 		},
 
-		insertDateIntoInput: function( date ) {
-			var displayDate;
-			if( !!date ) {
-				// came from an update on the calendar
-				displayDate = date;
-			} else {
-				// was set at initialization
-				displayDate = this.options.date;
-			}
-			this.$element.find('input[type="text"]').val( this.formatDate( displayDate ) );
+		insertDateIntoInput: function() {
+			this.$element.find('input[type="text"]').val( this.formatDate( this.date ) );
 		},
 
 		initializeCalendarElements: function() {
@@ -669,29 +682,27 @@ define(function (require) {
 	// DATEPICKER PLUGIN DEFINITION
 
 	$.fn.datepicker = function (option) {
-		return this.each(function () {
-			var $this = $( this );
-			var data = $this.data( 'datepicker' );
+		var args         = Array.prototype.slice.call( arguments, 1 );
+		var matchString  = '~@_UnDeFiNeD_@~';
+		var methodReturn = matchString;
+
+		var $set = this.each(function () {
+			var $this   = $( this );
+			var data    = $this.data( 'datepicker' );
 			var options = typeof option === 'object' && option;
 
-			if( !data ) {
-				$this.data('datepicker', (data = new Datepicker( this, options ) ) );
-			}
-			if( typeof option === 'string' ) {
-				data[ option ]();
-			}
+			if( !data ) $this.data('datepicker', (data = new Datepicker( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
+
+		return ( methodReturn === matchString ) ? $set : methodReturn;
 	};
 
 	$.fn.datepicker.defaults = {
 		date: new Date(),
 		createInput: false,
 		dropdownWidth: 170,
-		restrictDateSelection: true,
-		formatDate: function( date ) {
-			// this.pad to is function on extension
-			return  this.padTwo( date.getUTCMonth() + 1 ) + '-' + this.padTwo( date.getUTCDate() ) + '-' + date.getUTCFullYear();
-		}
+		restrictDateSelection: true
 	};
 
 	$.fn.datepicker.Constructor = Datepicker;
