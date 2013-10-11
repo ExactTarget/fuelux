@@ -18,8 +18,8 @@ define(['require','jquery'],function (require) {
 
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.wizard.defaults, options);
-		this.currentStep = 1;
-		this.numSteps = this.$element.find('li').length;
+		this.currentStep = this.options.selectedItem.step;
+		this.numSteps = this.$element.find('.steps li').length;
 		this.$prevBtn = this.$element.find('button.btn-prev');
 		this.$nextBtn = this.$element.find('button.btn-next');
 
@@ -31,6 +31,10 @@ define(['require','jquery'],function (require) {
 		this.$prevBtn.on('click', $.proxy(this.previous, this));
 		this.$nextBtn.on('click', $.proxy(this.next, this));
 		this.$element.on('click', 'li.complete', $.proxy(this.stepclicked, this));
+		
+		if(this.currentStep > 1) {
+            this.selectedItem(this.options.selectedItem);
+		}
 	};
 
 	Wizard.prototype = {
@@ -58,26 +62,58 @@ define(['require','jquery'],function (require) {
 			}
 
 			// reset classes for all steps
-			var $steps = this.$element.find('li');
+			var $steps = this.$element.find('.steps li');
 			$steps.removeClass('active').removeClass('complete');
 			$steps.find('span.badge').removeClass('badge-info').removeClass('badge-success');
 
 			// set class for all previous steps
-			var prevSelector = 'li:lt(' + (this.currentStep - 1) + ')';
+			var prevSelector = '.steps li:lt(' + (this.currentStep - 1) + ')';
 			var $prevSteps = this.$element.find(prevSelector);
 			$prevSteps.addClass('complete');
 			$prevSteps.find('span.badge').addClass('badge-success');
 
 			// set class for current step
-			var currentSelector = 'li:eq(' + (this.currentStep - 1) + ')';
+			var currentSelector = '.steps li:eq(' + (this.currentStep - 1) + ')';
 			var $currentStep = this.$element.find(currentSelector);
 			$currentStep.addClass('active');
 			$currentStep.find('span.badge').addClass('badge-info');
 
 			// set display of target element
 			var target = $currentStep.data().target;
-			$('.step-pane').removeClass('active');
+			this.$element.next('.step-content').find('.step-pane').removeClass('active');
 			$(target).addClass('active');
+
+			// reset the wizard position to the left
+            this.$element.find('.steps').first().attr('style','margin-left: 0');
+
+			// check if the steps are wider than the container div
+			var totalWidth = 0;
+			this.$element.find('.steps > li').each(function () {
+				totalWidth += $(this).outerWidth();
+			});
+			var containerWidth = 0;
+            if (this.$element.find('.actions').length) {
+                containerWidth = this.$element.width() - this.$element.find('.actions').first().outerWidth();
+			} else {
+				containerWidth = this.$element.width();
+			}
+			if (totalWidth > containerWidth) {
+			
+				// set the position so that the last step is on the right
+				var newMargin = totalWidth - containerWidth;
+                this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
+				
+				// set the position so that the active step is in a good
+				// position if it has been moved out of view
+                if (this.$element.find('li.active').first().position().left < 200) {
+                    newMargin += this.$element.find('li.active').first().position().left - 200;
+					if (newMargin < 1) {
+                        this.$element.find('.steps').first().attr('style','margin-left: 0');
+					} else {
+                        this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
+					}
+				}
+			}
 
 			this.$element.trigger('changed');
 		},
@@ -85,7 +121,7 @@ define(['require','jquery'],function (require) {
 		stepclicked: function (e) {
 			var li = $(e.currentTarget);
 
-			var index = $('.steps li').index(li);
+			var index = this.$element.find('.steps li').index(li);
 
 			var evt = $.Event('stepclick');
 			this.$element.trigger(evt, {step: index + 1});
@@ -125,10 +161,25 @@ define(['require','jquery'],function (require) {
 			}
 		},
 
-		selectedItem: function () {
-			return {
-				step: this.currentStep
-			};
+		selectedItem: function (selectedItem) {
+			var retVal, step;
+
+			if(selectedItem) {
+
+				step = selectedItem.step || -1;
+
+				if(step >= 1 && step <= this.numSteps) {
+					this.currentStep = step;
+					this.setState();
+				}
+
+				retVal = this;
+			}
+			else {
+				retVal = { step: this.currentStep };
+			}
+
+			return retVal;
 		}
 	};
 
@@ -150,7 +201,9 @@ define(['require','jquery'],function (require) {
 		return (methodReturn === undefined) ? $set : methodReturn;
 	};
 
-	$.fn.wizard.defaults = {};
+	$.fn.wizard.defaults = {
+        selectedItem: {step:1}
+	};
 
 	$.fn.wizard.Constructor = Wizard;
 

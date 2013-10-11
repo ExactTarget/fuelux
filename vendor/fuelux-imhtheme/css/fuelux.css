@@ -6306,6 +6306,7 @@ textarea.span1,
 }
 
 .fuelux .datagrid thead .sortable {
+  position: relative;
   cursor: pointer;
 }
 
@@ -6509,7 +6510,10 @@ textarea.span1,
 }
 
 .fuelux .radio-custom input[type=radio] {
-  display: none;
+  /* IE cannot fire events if display none or visibility hidden */
+
+  position: relative;
+  top: -99999px;
 }
 
 .fuelux .radio-custom i {
@@ -6724,6 +6728,8 @@ textarea.span1,
 }
 
 .fuelux .wizard {
+  position: relative;
+  overflow: hidden;
   background-color: #ebf6fb;
   border: 1px solid #d4d4d4;
   -webkit-border-radius: 4px;
@@ -6747,6 +6753,7 @@ textarea.span1,
 }
 
 .fuelux .wizard ul {
+  width: 4000px;
   padding: 0;
   margin: 0;
   list-style: none outside none;
@@ -6769,6 +6776,7 @@ textarea.span1,
   position: absolute;
   top: 0;
   right: -14px;
+  z-index: 1;
   display: block;
   border: 24px solid transparent;
   border-right: 0;
@@ -6817,53 +6825,22 @@ textarea.span1,
   margin-right: 8px;
 }
 
-.fuelux .wizard ul li:nth-child(1) {
-  z-index: 10;
+.fuelux .wizard ul li:first-child {
   padding-left: 20px;
   border-radius: 4px 0 0 4px;
 }
 
-.fuelux .wizard ul li:nth-child(2) {
-  z-index: 9;
-}
-
-.fuelux .wizard ul li:nth-child(3) {
-  z-index: 8;
-}
-
-.fuelux .wizard ul li:nth-child(4) {
-  z-index: 7;
-}
-
-.fuelux .wizard ul li:nth-child(5) {
-  z-index: 6;
-}
-
-.fuelux .wizard ul li:nth-child(6) {
-  z-index: 5;
-}
-
-.fuelux .wizard ul li:nth-child(7) {
-  z-index: 4;
-}
-
-.fuelux .wizard ul li:nth-child(8) {
-  z-index: 3;
-}
-
-.fuelux .wizard ul li:nth-child(9) {
-  z-index: 2;
-}
-
-.fuelux .wizard ul li:nth-child(10) {
-  z-index: 1;
-}
-
 .fuelux .wizard .actions {
+  position: absolute;
+  right: 0;
+  z-index: 1000;
   float: right;
   padding-right: 15px;
-  line-height: 44px;
+  padding-left: 15px;
+  line-height: 46px;
   vertical-align: middle;
+  background-color: #e5e5e5;
+  border-left: 1px solid #d4d4d4;
 }
 
 .fuelux .wizard .actions a {
@@ -6886,6 +6863,10 @@ textarea.span1,
 
 .fuelux .step-content .active {
   display: block;
+}
+
+.fuelux .step-content .active .btn-group .active {
+  display: inline-block;
 }
 
 .fuelux .alert .close {

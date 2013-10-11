@@ -1335,7 +1335,7 @@
 
       this._options && $.each(this._options, function (key, value) {
         if (defaults[key] != value) options[key] = value
-      }, this)
+      })
 
       self = $(e.currentTarget)[this.type](options).data(this.type)
 
@@ -2445,11 +2445,13 @@ define('fuelux/checkbox',['require','jquery'],function (require) {
 		constructor: Checkbox,
 
 		setState: function ($chk) {
+			$chk = $chk || this.$chk;
+
 			var checked = $chk.is(':checked');
-			var disabled = $chk.is(':disabled');
+			var disabled = !!$chk.prop('disabled');
 
 			// reset classes
-			this.$icon.removeClass('checked').removeClass('disabled');
+			this.$icon.removeClass('checked disabled');
 
 			// set state of checkbox
 			if (checked === true) {
@@ -2986,11 +2988,15 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 		},
 
 		previous: function () {
+			this.$nextpagebtn.attr('disabled', 'disabled');
+			this.$prevpagebtn.attr('disabled', 'disabled');
 			this.options.dataOptions.pageIndex--;
 			this.renderData();
 		},
 
 		next: function () {
+			this.$nextpagebtn.attr('disabled', 'disabled');
+			this.$prevpagebtn.attr('disabled', 'disabled');
 			this.options.dataOptions.pageIndex++;
 			this.renderData();
 		},
@@ -3227,9 +3233,8 @@ define('fuelux/intelligent-dropdown',[ "jquery", "fuelux/all"], function($) {
  */
 
 define('fuelux/pillbox',['require','jquery'],function(require) {
-	
-	var $ = require('jquery');
 
+	var $ = require('jquery');
 
 	// PILLBOX CONSTRUCTOR AND PROTOTYPE
 
@@ -3240,25 +3245,76 @@ define('fuelux/pillbox',['require','jquery'],function(require) {
 	};
 
 	Pillbox.prototype = {
-		constructor: Pillbox,
+		constructor : Pillbox,
 
 		items: function() {
 			return this.$element.find('li').map(function() {
 				var $this = $(this);
-				return $.extend({ text: $this.text() }, $this.data());
+				return $.extend({
+					text : $this.text()
+				}, $this.data());
 			}).get();
 		},
 
-		itemclicked: function (e) {
-			$(e.currentTarget).remove();
+		itemclicked: function(e) {
+
+			var $li = $(e.currentTarget);
+			var data = $.extend({
+				text : $li.html()
+			}, $li.data());
+
+			$li.remove();
 			e.preventDefault();
+
+			this.$element.trigger('removed', data);
+		},
+
+		itemCount: function() {
+
+			return this.$element.find('li').length;
+		},
+
+		addItem: function(text, value) {
+
+			value = value || text;
+
+			//<li data-value="foo">Item One</li>
+
+			var $li = $('<li data-value="' + value + '">' + text + '</li>');
+
+			this.$element.find('ul').append($li);
+
+			return $li;
+		},
+
+		removeBySelector: function(selector) {
+
+			this.$element.find('ul').find(selector).remove();
+		},
+
+		removeByValue: function(value) {
+
+			var selector = 'li[data-value="' + value + '"]';
+
+			this.removeBySelector(selector);
+		},
+
+		removeByText: function(text) {
+
+			var selector = 'li:contains("' + text + '")';
+
+			this.removeBySelector(selector);
+		},
+
+		clear: function() {
+
+			this.$element.find('ul').empty();
 		}
 	};
 
-
 	// PILLBOX PLUGIN DEFINITION
 
-	$.fn.pillbox = function (option) {
+	$.fn.pillbox = function (option, value1, value2) {
 		var methodReturn;
 
 		var $set = this.each(function () {
@@ -3266,8 +3322,8 @@ define('fuelux/pillbox',['require','jquery'],function(require) {
 			var data = $this.data('pillbox');
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('pillbox', (data = new Pillbox(this, options)));
-			if (typeof option === 'string') methodReturn = data[option]();
+			if (!data) $this.data('pillbox', ( data = new Pillbox(this, options)));
+			if ( typeof option === 'string') methodReturn = data[option](value1, value2);
 		});
 
 		return (methodReturn === undefined) ? $set : methodReturn;
@@ -3276,7 +3332,6 @@ define('fuelux/pillbox',['require','jquery'],function(require) {
 	$.fn.pillbox.defaults = {};
 
 	$.fn.pillbox.Constructor = Pillbox;
-
 
 	// PILLBOX DATA-API
 
@@ -3287,7 +3342,6 @@ define('fuelux/pillbox',['require','jquery'],function(require) {
 			$this.pillbox($this.data());
 		});
 	});
-	
 });
 
 
@@ -3328,11 +3382,12 @@ define('fuelux/radio',['require','jquery'],function (require) {
 		constructor: Radio,
 
 		setState: function ($radio) {
+			$radio = $radio || this.$radio;
+
 			var checked = $radio.is(':checked');
-			var disabled = $radio.is(':disabled');
-			
-			// reset classes
-            this.$icon.removeClass('checked').removeClass('disabled');
+			var disabled = !!$radio.prop('disabled');
+
+			this.$icon.removeClass('checked disabled');
 
 			// set state of radio
 			if (checked === true) {
@@ -3364,21 +3419,21 @@ define('fuelux/radio',['require','jquery'],function (require) {
 			this.resetGroup();
 			this.setState(radio);
 		},
-		
+
 		check: function () {
-            this.resetGroup();
-            this.$radio.prop('checked', true);
-            this.setState(this.$radio);
-        },
-        
-        uncheck: function () {
-            this.$radio.prop('checked', false);
-            this.setState(this.$radio);
-        },
-        
-        isChecked: function () {
-            return this.$radio.is(':checked');
-        }
+			this.resetGroup();
+			this.$radio.prop('checked', true);
+			this.setState(this.$radio);
+		},
+
+		uncheck: function () {
+			this.$radio.prop('checked', false);
+			this.setState(this.$radio);
+		},
+
+		isChecked: function () {
+			return this.$radio.is(':checked');
+		}
 	};
 
 
@@ -3684,6 +3739,9 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 				} else {
 					this.value(newVal);
 				}
+			} else if (this.options.cycle) {
+				var cycleVal = dir ? this.options.min : this.options.max;
+				this.value(cycleVal);
 			}
 		},
 
@@ -4176,8 +4234,8 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.wizard.defaults, options);
-		this.currentStep = 1;
-		this.numSteps = this.$element.find('li').length;
+		this.currentStep = this.options.selectedItem.step;
+		this.numSteps = this.$element.find('.steps li').length;
 		this.$prevBtn = this.$element.find('button.btn-prev');
 		this.$nextBtn = this.$element.find('button.btn-next');
 
@@ -4189,6 +4247,10 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 		this.$prevBtn.on('click', $.proxy(this.previous, this));
 		this.$nextBtn.on('click', $.proxy(this.next, this));
 		this.$element.on('click', 'li.complete', $.proxy(this.stepclicked, this));
+		
+		if(this.currentStep > 1) {
+            this.selectedItem(this.options.selectedItem);
+		}
 	};
 
 	Wizard.prototype = {
@@ -4216,26 +4278,58 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 			}
 
 			// reset classes for all steps
-			var $steps = this.$element.find('li');
+			var $steps = this.$element.find('.steps li');
 			$steps.removeClass('active').removeClass('complete');
 			$steps.find('span.badge').removeClass('badge-info').removeClass('badge-success');
 
 			// set class for all previous steps
-			var prevSelector = 'li:lt(' + (this.currentStep - 1) + ')';
+			var prevSelector = '.steps li:lt(' + (this.currentStep - 1) + ')';
 			var $prevSteps = this.$element.find(prevSelector);
 			$prevSteps.addClass('complete');
 			$prevSteps.find('span.badge').addClass('badge-success');
 
 			// set class for current step
-			var currentSelector = 'li:eq(' + (this.currentStep - 1) + ')';
+			var currentSelector = '.steps li:eq(' + (this.currentStep - 1) + ')';
 			var $currentStep = this.$element.find(currentSelector);
 			$currentStep.addClass('active');
 			$currentStep.find('span.badge').addClass('badge-info');
 
 			// set display of target element
 			var target = $currentStep.data().target;
-			$('.step-pane').removeClass('active');
+			this.$element.next('.step-content').find('.step-pane').removeClass('active');
 			$(target).addClass('active');
+
+			// reset the wizard position to the left
+            this.$element.find('.steps').first().attr('style','margin-left: 0');
+
+			// check if the steps are wider than the container div
+			var totalWidth = 0;
+			this.$element.find('.steps > li').each(function () {
+				totalWidth += $(this).outerWidth();
+			});
+			var containerWidth = 0;
+            if (this.$element.find('.actions').length) {
+                containerWidth = this.$element.width() - this.$element.find('.actions').first().outerWidth();
+			} else {
+				containerWidth = this.$element.width();
+			}
+			if (totalWidth > containerWidth) {
+			
+				// set the position so that the last step is on the right
+				var newMargin = totalWidth - containerWidth;
+                this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
+				
+				// set the position so that the active step is in a good
+				// position if it has been moved out of view
+                if (this.$element.find('li.active').first().position().left < 200) {
+                    newMargin += this.$element.find('li.active').first().position().left - 200;
+					if (newMargin < 1) {
+                        this.$element.find('.steps').first().attr('style','margin-left: 0');
+					} else {
+                        this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
+					}
+				}
+			}
 
 			this.$element.trigger('changed');
 		},
@@ -4243,7 +4337,7 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 		stepclicked: function (e) {
 			var li = $(e.currentTarget);
 
-			var index = $('.steps li').index(li);
+			var index = this.$element.find('.steps li').index(li);
 
 			var evt = $.Event('stepclick');
 			this.$element.trigger(evt, {step: index + 1});
@@ -4283,10 +4377,25 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 			}
 		},
 
-		selectedItem: function () {
-			return {
-				step: this.currentStep
-			};
+		selectedItem: function (selectedItem) {
+			var retVal, step;
+
+			if(selectedItem) {
+
+				step = selectedItem.step || -1;
+
+				if(step >= 1 && step <= this.numSteps) {
+					this.currentStep = step;
+					this.setState();
+				}
+
+				retVal = this;
+			}
+			else {
+				retVal = { step: this.currentStep };
+			}
+
+			return retVal;
 		}
 	};
 
@@ -4308,7 +4417,9 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 		return (methodReturn === undefined) ? $set : methodReturn;
 	};
 
-	$.fn.wizard.defaults = {};
+	$.fn.wizard.defaults = {
+        selectedItem: {step:1}
+	};
 
 	$.fn.wizard.Constructor = Wizard;
 

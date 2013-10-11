@@ -2789,7 +2789,7 @@ define('fuelux/checkbox',['require','jquery'],function (require) {
 			$chk = $chk || this.$chk;
 
 			var checked = $chk.is(':checked');
-			var disabled = $chk.is(':disabled');
+			var disabled = !!$chk.prop('disabled');
 
 			// reset classes
 			this.$icon.removeClass('checked disabled');
@@ -3726,10 +3726,7 @@ define('fuelux/radio',['require','jquery'],function (require) {
 			$radio = $radio || this.$radio;
 
 			var checked = $radio.is(':checked');
-			var disabled = $radio.is(':disabled');
-			
-			// reset classes
-            this.$icon.removeClass('checked').removeClass('disabled');
+			var disabled = !!$radio.prop('disabled');
 
 			this.$icon.removeClass('checked disabled');
 
@@ -3763,21 +3760,21 @@ define('fuelux/radio',['require','jquery'],function (require) {
 			this.resetGroup();
 			this.setState(radio);
 		},
-		
+
 		check: function () {
-            this.resetGroup();
-            this.$radio.prop('checked', true);
-            this.setState(this.$radio);
-        },
-        
-        uncheck: function () {
-            this.$radio.prop('checked', false);
-            this.setState(this.$radio);
-        },
-        
-        isChecked: function () {
-            return this.$radio.is(':checked');
-        }
+			this.resetGroup();
+			this.$radio.prop('checked', true);
+			this.setState(this.$radio);
+		},
+
+		uncheck: function () {
+			this.$radio.prop('checked', false);
+			this.setState(this.$radio);
+		},
+
+		isChecked: function () {
+			return this.$radio.is(':checked');
+		}
 	};
 
 
@@ -4622,55 +4619,55 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 			}
 
 			// reset classes for all steps
-			var $steps = this.$element.find('li');
+			var $steps = this.$element.find('.steps li');
 			$steps.removeClass('active').removeClass('complete');
 			$steps.find('span.badge').removeClass('badge-info').removeClass('badge-success');
 
 			// set class for all previous steps
-			var prevSelector = 'li:lt(' + (this.currentStep - 1) + ')';
+			var prevSelector = '.steps li:lt(' + (this.currentStep - 1) + ')';
 			var $prevSteps = this.$element.find(prevSelector);
 			$prevSteps.addClass('complete');
 			$prevSteps.find('span.badge').addClass('badge-success');
 
 			// set class for current step
-			var currentSelector = 'li:eq(' + (this.currentStep - 1) + ')';
+			var currentSelector = '.steps li:eq(' + (this.currentStep - 1) + ')';
 			var $currentStep = this.$element.find(currentSelector);
 			$currentStep.addClass('active');
 			$currentStep.find('span.badge').addClass('badge-info');
 
 			// set display of target element
 			var target = $currentStep.data().target;
-			$('.step-pane').removeClass('active');
+			this.$element.next('.step-content').find('.step-pane').removeClass('active');
 			$(target).addClass('active');
 
 			// reset the wizard position to the left
-			$('.wizard .steps').attr('style','margin-left: 0');
+            this.$element.find('.steps').first().attr('style','margin-left: 0');
 
 			// check if the steps are wider than the container div
 			var totalWidth = 0;
-			$('.wizard .steps > li').each(function () {
+			this.$element.find('.steps > li').each(function () {
 				totalWidth += $(this).outerWidth();
 			});
 			var containerWidth = 0;
-			if ($('.wizard .actions').length) {
-				containerWidth = $('.wizard').width() - $('.wizard .actions').outerWidth();
+            if (this.$element.find('.actions').length) {
+                containerWidth = this.$element.width() - this.$element.find('.actions').first().outerWidth();
 			} else {
-				containerWidth = $('.wizard').width();
+				containerWidth = this.$element.width();
 			}
 			if (totalWidth > containerWidth) {
 			
 				// set the position so that the last step is on the right
 				var newMargin = totalWidth - containerWidth;
-				$('.wizard .steps').attr('style','margin-left: -' + newMargin + 'px');
+                this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
 				
 				// set the position so that the active step is in a good
 				// position if it has been moved out of view
-				if ($('.wizard li.active').position().left < 200) {
-					newMargin += $('.wizard li.active').position().left - 200;
+                if (this.$element.find('li.active').first().position().left < 200) {
+                    newMargin += this.$element.find('li.active').first().position().left - 200;
 					if (newMargin < 1) {
-						$('.wizard .steps').attr('style','margin-left: 0');
+                        this.$element.find('.steps').first().attr('style','margin-left: 0');
 					} else {
-						$('.wizard .steps').attr('style','margin-left: -' + newMargin + 'px');
+                        this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
 					}
 				}
 			}
@@ -4681,7 +4678,7 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 		stepclicked: function (e) {
 			var li = $(e.currentTarget);
 
-			var index = $('.steps li').index(li);
+			var index = this.$element.find('.steps li').index(li);
 
 			var evt = $.Event('stepclick');
 			this.$element.trigger(evt, {step: index + 1});
@@ -4730,10 +4727,10 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 
 				if(step >= 1 && step <= this.numSteps) {
 					this.currentStep = step;
-					this.setState();    
+					this.setState();
 				}
 
-				retVal = this;	
+				retVal = this;
 			}
 			else {
 				retVal = { step: this.currentStep };
