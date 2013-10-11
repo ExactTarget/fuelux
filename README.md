@@ -69,6 +69,13 @@ Visit our UserVoice community: https://fuelux.uservoice.com
 
 _Fuel UX is semantically versioned: <http://semver.org>_
 
+### Version 2.4.1 `2013-10-11`
+
+* Fix disappearing borders in datagrid headers in IE on hover
+* Fixing selection of wizard step content
+* Fixing how one wizard's controls (prev, next) caused all other wizard's steps to slide
+
+
 ### Version 2.4.0 `2013-09-20`
 
 * Tree control fixed event when unselecting last item. Adds supports for decorating folders with markup. Adds updated event

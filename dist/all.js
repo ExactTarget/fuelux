@@ -4296,37 +4296,37 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 
 			// set display of target element
 			var target = $currentStep.data().target;
-			this.$element.find('.step-pane').removeClass('active');
+			this.$element.next('.step-content').find('.step-pane').removeClass('active');
 			$(target).addClass('active');
 
 			// reset the wizard position to the left
-			$('.wizard .steps').attr('style','margin-left: 0');
+            this.$element.find('.steps').first().attr('style','margin-left: 0');
 
 			// check if the steps are wider than the container div
 			var totalWidth = 0;
-			$('.wizard .steps > li').each(function () {
+			this.$element.find('.steps > li').each(function () {
 				totalWidth += $(this).outerWidth();
 			});
 			var containerWidth = 0;
-			if ($('.wizard .actions').length) {
-				containerWidth = $('.wizard').width() - $('.wizard .actions').outerWidth();
+            if (this.$element.find('.actions').length) {
+                containerWidth = this.$element.width() - this.$element.find('.actions').first().outerWidth();
 			} else {
-				containerWidth = $('.wizard').width();
+				containerWidth = this.$element.width();
 			}
 			if (totalWidth > containerWidth) {
 			
 				// set the position so that the last step is on the right
 				var newMargin = totalWidth - containerWidth;
-				$('.wizard .steps').attr('style','margin-left: -' + newMargin + 'px');
+                this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
 				
 				// set the position so that the active step is in a good
 				// position if it has been moved out of view
-				if ($('.wizard li.active').position().left < 200) {
-					newMargin += $('.wizard li.active').position().left - 200;
+                if (this.$element.find('li.active').first().position().left < 200) {
+                    newMargin += this.$element.find('li.active').first().position().left - 200;
 					if (newMargin < 1) {
-						$('.wizard .steps').attr('style','margin-left: 0');
+                        this.$element.find('.steps').first().attr('style','margin-left: 0');
 					} else {
-						$('.wizard .steps').attr('style','margin-left: -' + newMargin + 'px');
+                        this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
 					}
 				}
 			}
@@ -4386,10 +4386,10 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 
 				if(step >= 1 && step <= this.numSteps) {
 					this.currentStep = step;
-					this.setState();    
+					this.setState();
 				}
 
-				retVal = this;	
+				retVal = this;
 			}
 			else {
 				retVal = { step: this.currentStep };

@@ -6306,6 +6306,7 @@ textarea.span1,
 }
 
 .fuelux .datagrid thead .sortable {
+  position: relative;
   cursor: pointer;
 }
 
