@@ -89,7 +89,15 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 	});
 
 	test( 'should set new date using setDate method', function() {
-		equal( true, true, 'setDate method works' );
+		var $sample = $( html ).find( '#datepicker1' ).datepicker();
+		var newDate = new Date().getTime();
+
+		$sample.datepicker( 'setDate', newDate );
+
+		var datepickerNewDate = $sample.datepicker( 'getDate', { unix: true });
+
+
+		equal( datepickerNewDate, newDate, 'setDate method works' );
 	});
 
 	test( 'should enable/disable datepicker', function() {

@@ -113,12 +113,7 @@ define(function (require) {
 		},
 
 		setDate: function( date ) {
-			var tmpDate = this.parseDate( date );
-
-			this.date.setFullYear( tmpDate.getFullYear() );
-			this.date.setMonth( tmpDate.getMonth() );
-			this.date.setDate( tmpDate.getDate() );
-
+			this.date = this.parseDate( date );
 			return this.date;
 		},
 
@@ -132,7 +127,11 @@ define(function (require) {
 		},
 
 		parseDate: function( date ) {
-			return new Date( date );
+			if( !!new Date( date ) ) {
+				return new Date( date );
+			} else {
+				throw new Error( 'could not parse date' );
+			}
 		},
 
 		repeat: function( head, collection, iterator, tail) {
