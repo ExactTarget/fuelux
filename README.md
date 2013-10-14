@@ -45,6 +45,40 @@ You can install FuelUX using volo. You will want to pass the `-amdoff` flag to v
 * Default Fuel UX files for production use are located in the [dist](https://github.com/ExactTarget/fuelux/tree/master/dist) directory
 * To customize, modify the JS and LESS files under [src](https://github.com/ExactTarget/fuelux/tree/master/src) then run `grunt` to regenerate your [dist](https://github.com/ExactTarget/fuelux/tree/master/dist) directory (more below)
 
+### Styles
+Be sure to add the fuelux stylesheet to your page's head tag, along with the responsive stylesheet if desired:
+```html
+<link href="//www.fuelcdn.com/fuelux/2.4.1/css/fuelux.min.css" rel="stylesheet" type="text/css">
+<link href="//www.fuelcdn.com/fuelux/2.4.1/css/fuelux-responsive.css" rel="stylesheet" type="text/css">
+```
+
+### AMD
+
+If using AMD (such as [RequireJS](http://require.js.org)) reference the the fuelux directory in your paths configuration, wherever it is located:
+```javascript
+require.config({
+    paths: {
+        'fuelux': 'http://www.fuelcdn.com/fuelux/2.4.1/'
+        //...
+    }
+});
+```
+Then list any individial fuelux controls needed as dependencies within your application modules:
+```javascript
+define(function(require) {
+	var spinner = require('fuelux/spinner');
+	//...
+});
+```
+Alternatively, 'fuelux/all' can be used as a dependency to bring in all available controls at once.
+
+### Non-AMD
+
+If you'd prefer not to use AMD, simply add the loader script to the head tag of your page:
+```html
+<script src="http://www.fuelcdn.com/fuelux/2.4.1/loader.min.js" type="text/javascript"></script>
+```
+
 ## Documentation and Examples
 
 ### Live docs and demos
