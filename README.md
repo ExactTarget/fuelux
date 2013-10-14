@@ -91,6 +91,10 @@ Hosted on our [Developer Community](http://code.exacttarget.com/devcenter/home):
 
 ## Issues and Feature Requests
 
+### Search for questions tagged "Fuel UX" on our developer community
+
+https://code.exacttarget.com/tags/fuelux
+
 ### Search for or report a bug
 
 Use GitHub issues: https://github.com/ExactTarget/fuelux/issues
