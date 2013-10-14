@@ -41,10 +41,12 @@ define(function (require) {
 			var disabled = !!$radio.prop('disabled');
 
 			this.$icon.removeClass('checked disabled');
+            this.$label.removeClass('checked');
 
 			// set state of radio
 			if (checked === true) {
 				this.$icon.addClass('checked');
+                this.$label.addClass('checked');
 			}
 			if (disabled === true) {
 				this.$icon.addClass('disabled');
@@ -52,8 +54,11 @@ define(function (require) {
 		},
 
 		resetGroup: function () {
+            var group = $('input[name=' + this.groupName + ']');
+
 			// reset all radio buttons in group
-			$('input[name=' + this.groupName + ']').next().removeClass('checked');
+			group.next().removeClass('checked');
+            group.parent().removeClass('checked');
 		},
 
 		enable: function () {
