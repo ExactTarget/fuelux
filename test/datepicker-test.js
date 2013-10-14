@@ -27,7 +27,7 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 		ok( $(document.body).datepicker()[0] === document.body, 'document.body returned' );
 	});
 
-	test( 'should initialize with current date', function() {
+	test( 'should initialize with current date and restrict past dates by default', function() {
 		// might be weird if you're running around midnight
 
 		// using default formatDate function
@@ -50,6 +50,10 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 
 		var pickerDate2 = $sample2.datepicker( 'getDate' );
 		equal( pickerDate2, today, 'w/ markup - initialized with todays date' );
+
+		// restricted past dates
+		var pastRestrictionCheck = $sample.find( '.restrict' ).length > 0;
+		equal( pastRestrictionCheck, true, 'restricted past dates are default' );
 	});
 
 	test( 'should initialize with date other than now', function() {
@@ -114,6 +118,42 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 		// disabled
 		$sample.datepicker( 'enable' );
 		equal( !!$sampleInput.prop('disabled'), false, 'datepicker1 is enabled again' );
+	});
+
+	test( 'should restrict dates when using custom blackoutDates() default', function() {
+		var $sample      = $( html ).find( '#datepicker1' );
+		var blackoutDate = new Date(+new Date() + ( 1 * 24 * 60 * 60 * 1000 ) ).getTime(); // 1 day in the future;
+
+		$sample.datepicker({
+			blackoutDates: function( date ) {
+				var passedDate = this.parseDate( date ).getTime();
+
+				// setting up two day interval
+				var min = new Date( blackoutDate ).setHours( 0, 0, 0, 0 );
+				var max = new Date( blackoutDate +  ( 1 * 24 * 60 * 60 * 1000 ) ).setHours( 23, 59, 59, 999 );
+
+				if( passedDate <= max && passedDate >= min ) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		});
+
+		// finding blackout dates. should be 2 based on interval set above
+		var renderedBlackoutDates = $sample.find( '.restrict.blackout' ).length;
+		equal( renderedBlackoutDates, 2, 'blackouts dates correctly' );
+	});
+
+	test( "should not restrict past dates when overriding restrictDateSelection to false", function() {
+		var $sample = $( html ).find( '#datepicker1' );
+		$sample.datepicker({
+			restrictDateSelection: false
+		});
+
+		// non-restricted past dates should have .past class on them
+		var pastRestrictionCheck = $sample.find( '.past' ).length > 0;
+		equal( pastRestrictionCheck, true, 'restricted past dates are default' );
 	});
 
 	test( 'should create dropdown with custom dropdown', function() {
