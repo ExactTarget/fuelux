@@ -335,7 +335,7 @@ define(function (require) {
 				if( viewingCurrentYear && j === currentMonth ) {
 					this.months[ j ][ 'class' ] += ' today';
 				}
-				if( i === selectedMonth && viewingSelectedYear ) {
+				if( j === selectedMonth && viewingSelectedYear ) {
 					this.months[ j ][ 'class' ] += ' selected';
 				}
 
@@ -662,12 +662,27 @@ define(function (require) {
 			this.$element.find('input[type="text"]').val( this.formatDate( this.date ) );
 		},
 
-		_blurDateUpdate: function( event ) {
+		_keyupDateUpdate: function( e ) {
 			var validLength = this.formatDate( this.date ).length;
 			var inputValue  = this.$input.val();
 
-			if( validLength === inputValue.length ) {
+			if( validLength === inputValue.length && this._checkKeyCode( e ) ) {
 				this.setDate( inputValue );
+			}
+		},
+
+		_checkKeyCode: function( e ) {
+			// only allow numbers, function keys, and date formatting symbols
+			// Allow: Ctrl+A
+			// Allow: home, end, left, right
+			if ( $.inArray( e.keyCode, [ 46,8,9,27,13,32 ] ) !== -1 || ( e.keyCode == 65 && e.ctrlKey === true ) || ( e.keyCode >= 35 && e.keyCode <= 39 ) ) {
+				// let it happen, don't do anything
+				return false;
+			} else if ( e.shiftKey || ( e.keyCode >= 48 || e.keyCode <= 57 ) || ( e.keyCode >= 96 || e.keyCode <= 105 ) || e.keyCode === 110 ||  e.keyCode === 190 || e.keyCode === 191 ) {
+				// Ensure that it is a number and return true
+				return true;
+			} else {
+				return false;
 			}
 		},
 
@@ -687,7 +702,7 @@ define(function (require) {
 		},
 
 		_addBindings: function() {
-			this.$input.on( 'blur', $.proxy( this._blurDateUpdate, this ) );
+			this.$input.on( 'keyup', $.proxy( this._keyupDateUpdate, this ) );
 			this.$calendar.on( 'click', $.proxy( this._emptySpace, this) );
 
 			this.$header.find( '.left' ).on( 'click', $.proxy( this._previous, this ) );
@@ -706,7 +721,7 @@ define(function (require) {
 		},
 
 		_removeBindings: function() {
-			this.$input.off( 'blur' );
+			this.$input.off( 'keyup' );
 			this.$calendar.off( 'click' );
 
 			this.$header.find( '.left' ).off( 'click' );
