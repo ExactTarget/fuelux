@@ -38,7 +38,7 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 
 		// markup already there
 		var $sample    = $( html ).find( '#datepicker1' ).datepicker();
-		var pickerDate = $sample.datepicker( 'getDate' );
+		var pickerDate = $sample.datepicker( 'getFormattedDate' );
 		equal( pickerDate, today, 'w/ markup - initialized with todays date' );
 
 		// markup generated
@@ -48,7 +48,7 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 			createInput: true
 		});
 
-		var pickerDate2 = $sample2.datepicker( 'getDate' );
+		var pickerDate2 = $sample2.datepicker( 'getFormattedDate' );
 		equal( pickerDate2, today, 'w/ markup - initialized with todays date' );
 
 		// restricted past dates
@@ -79,16 +79,22 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 	});
 
 	test( 'should return date using getDate method', function() {
-		var $sample = $( html ).find( '#datepicker1' ).datepicker();
-		var date = new Date( $sample.datepicker( 'getDate' ) );
-		var dateUnix = $sample.datepicker( 'getDate', { unix: true } );
-		if( date !== 'Invalid Date' ) {
-			date = true;
+		var $sample       = $( html ).find( '#datepicker1' ).datepicker();
+		var dateFormatted = new Date( $sample.datepicker( 'getFormattedDate' ) );
+		var dateObject    = new Date( $sample.datepicker( 'getDate' ) );
+		var dateUnix      = $sample.datepicker( 'getDate', { unix: true } );
+		
+		if( dateFormatted !== 'Invalid Date' ) {
+			dateFormatted = true;
+		}
+		if( dateObject !== 'Invalid Date' ) {
+			dateObject = true;
 		}
 		if( !!parseInt( dateUnix, 10 ) && new Date( dateUnix !== 'Invalid Date' ) ) {
 			dateUnix = true;
 		}
-		equal( date, true, 'returned a valid date' );
+		equal( dateFormatted, true, 'returned a valid formatted date' );
+		equal( dateObject, true, 'returned a valid date object' );
 		equal( dateUnix, true, 'returned a valid unix timestamp' );
 	});
 

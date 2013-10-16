@@ -270,10 +270,7 @@
 			});
 
 			// DATEPICKER
-			// markup is present
-			var test = $('#datepicker1').datepicker({
-				date: new Date(+new Date() + ( 7 * 24 * 60 * 60 * 1000 ) )
-			});
+			var test = $('#datepicker1').datepicker();
 
 			$('#datepicker-enable').on('click', function() {
 				$('#datepicker1').datepicker('enable');
@@ -283,56 +280,23 @@
 				$('#datepicker1').datepicker('disable');
 			});
 
-			console.log( test.datepicker( 'getDate' ) );
-
-			// input created dynamically
-			$('#datepicker2').datepicker({
-				createInput: {
-					dropDownBtn: true
-				}
+			$('#datepicker-logFormattedDate').on('click', function() {
+				console.log( $('#datepicker1').datepicker('getFormattedDate') );
 			});
 
-			// withoud dropdown button
-			$('#datepicker3').datepicker({
-				createInput: {
-					dropDownBtn: false
-				}
+			$('#datepicker-logDateUnix').on('click', function() {
+				console.log( $('#datepicker1').datepicker('getDate', { unix: true } ) );
 			});
 
-			// native implementation
-			$('#datepicker4').datepicker({
-				createInput: {
-					native: true,
-					inputSize: 'span3'
-				}
+			$('#datepicker-logDateObj').on('click', function() {
+				console.log( $('#datepicker1').datepicker('getDate') );
 			});
 
-			// custom input size
-			$('#datepicker5').datepicker({
-				createInput: {
-					inputSize: 'span4'
-				}
-			});
-
-			// custom dropdown size (has to be bigger than 170px)
-			$('#datepicker6').datepicker({
-				createInput: true
-				, dropdownWidth: 240
-			});
-
-			// no date restrictions
-			$('#datepicker7').datepicker({
-				createInput: true
-				, restrictDateSelection: false
-			});
-
-			// inputSize with px representation
-			$('#datepicker8').datepicker({
-				createInput: {
-					inputSize: 250
-				}
-			});
-
+			$('#datepicker-setDate').on('click', function() {
+				var futureDate = new Date(+new Date() + ( 7 * 24 * 60 * 60 * 1000 ) );
+				$('#datepicker1').datepicker('setDate', futureDate );
+				console.log( $('#datepicker1').datepicker('getDate') );
+			})
 		});
 	</script>
 
@@ -342,61 +306,6 @@
 <body>
 
 <div class="container">
-
-	<!-- DATEPICKER -->
-	<div class="row">
-		<div class="span3">
-			<p><strong>HTML Markup - no options</strong></p>
-			<div id="datepicker1">
-				<div class="dropdowndatepicker dropdown datepicker">
-					<div class="input-append ">
-						<div class="dropdown-menu replaceWithDatepicker"></div>
-						<input type="text" class="span2" value="" data-toggle="dropdown">
-						<button type="button" class="btn" data-toggle="dropdown"><span class="caret"></span></button>
-					</div>
-				</div>
-			</div>
-			<div style="margin-top: 10px">
-				<span class="btn btn-small" id="datepicker-enable">enable</span>
-				<span class="btn btn-small" id="datepicker-disabled">disable</span>
-			</div>
-		</div>
-		<div class="span4">
-			<p><strong>Generated Input</strong></p>
-			<div id="datepicker2"></div>
-		</div>
-		<div class="span4">
-			<p><strong>Generated input w/o dropdown button</strong></p>
-			<div id="datepicker3"></div>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="span3">
-			<p><strong>Native datepicker</strong></p>
-			<div id="datepicker4"></div>
-		</div>
-		<div class="span4">
-			<p><strong>Date selection unrestricted</strong></p>
-			<div id="datepicker7"></div>
-		</div>
-		<div class="span4">
-			<p><strong>Custom input width via pixels</strong></p>
-			<div id="datepicker8"></div>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="span3">
-			<p><strong>Custom dropdown width</strong></p>
-			<div id="datepicker6"></div>
-		</div>
-		<div class="span6">
-			<p><strong>Custom input width via class</strong></p>
-			<div id="datepicker5"></div>
-		</div>
-	</div>
-
 
 	<!-- CHECKBOX -->
 	<div>
@@ -735,6 +644,26 @@
 		<input type="button" class="btn btn-mini" id="btnWizardNext" value="next">
 		<input type="button" class="btn btn-mini" id="btnWizardStep" value="current step">
 		<input type="button" class="btn btn-mini" id="btnWizardSetStep4" value="step 4">
+	</div>
+
+	<!-- DATEPICKER -->
+	<div>
+		<div id="datepicker1">
+			<div class="dropdowndatepicker dropdown datepicker">
+				<div class="input-group">
+					<div class="dropdown-menu replaceWithDatepicker"></div>
+					<input type="text" class="span2" value="" data-toggle="dropdown">
+				</div>
+			</div>
+		</div>
+		<div style="margin-top: 10px">
+			<span class="btn btn-small" id="datepicker-enable">enable</span>
+			<span class="btn btn-small" id="datepicker-disabled">disable</span>
+			<span class="btn btn-small" id="datepicker-logFormattedDate">log formatted date</span>
+			<span class="btn btn-small" id="datepicker-logDateObj">log date object</span>
+			<span class="btn btn-small" id="datepicker-logDateUnix">log unix date</span>
+			<span class="btn btn-small" id="datepicker-setDate">set date 7 days ahead (will log new value)</span>
+		</div>
 	</div>
 
 </div>

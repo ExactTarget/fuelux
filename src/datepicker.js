@@ -101,11 +101,15 @@ define(function (require) {
 			this.$element.find('input, button').attr( 'disabled', false );
 		},
 
+		getFormattedDate: function() {
+			return this.formatDate( this.date );
+		},
+
 		getDate: function( options ) {
 			if( Boolean( options ) && Boolean( options.unix ) ) {
 				return this.date.getTime();
 			} else {
-				return this.formatDate( this.date );
+				return this.date;
 			}
 		},
 
