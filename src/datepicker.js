@@ -147,6 +147,7 @@ define(function (require) {
 		},
 
 		blackoutDates: function( date ) {
+			date = date;
 			return false;
 		},
 
@@ -679,7 +680,7 @@ define(function (require) {
 			// only allow numbers, function keys, and date formatting symbols
 			// Allow: Ctrl+A
 			// Allow: home, end, left, right
-			if ( $.inArray( e.keyCode, [ 46,8,9,27,13,32 ] ) !== -1 || ( e.keyCode == 65 && e.ctrlKey === true ) || ( e.keyCode >= 35 && e.keyCode <= 39 ) ) {
+			if ( $.inArray( e.keyCode, [ 46,8,9,27,13,32 ] ) !== -1 || ( e.keyCode === 65 && e.ctrlKey === true ) || ( e.keyCode >= 35 && e.keyCode <= 39 ) ) {
 				// let it happen, don't do anything
 				return false;
 			} else if ( e.shiftKey || ( e.keyCode >= 48 || e.keyCode <= 57 ) || ( e.keyCode >= 96 || e.keyCode <= 105 ) || e.keyCode === 110 ||  e.keyCode === 190 || e.keyCode === 191 ) {
