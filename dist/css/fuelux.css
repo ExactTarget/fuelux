@@ -6629,6 +6629,10 @@ textarea.span1,
   top: -5px;
 }
 
+.fuelux .scheduler-end {
+  display: none;
+}
+
 .fuelux .scheduler-end .select {
   float: left;
 }
@@ -6659,6 +6663,7 @@ textarea.span1,
 }
 
 .fuelux .scheduler-repeat .repeat-interval-panel {
+  display: none;
   float: left;
 }
 

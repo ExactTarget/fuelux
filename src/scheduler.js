@@ -135,11 +135,13 @@ define(function(require) {
 
             // if both UNTIL and COUNT are not specified, the recurrence will repeat forever
             // http://tools.ietf.org/html/rfc2445#section-4.3.10
-            if(end === 'after') {
-                duration = 'COUNT=' + this.$endAfter.spinner('value') + ';';
-            }
-            else if(end === 'on') {
-                duration = 'UNTIL=' + this.$endDate.val() + ';';
+            if(repeat !=='none'){
+                if(end === 'after') {
+                    duration = 'COUNT=' + this.$endAfter.spinner('value') + ';';
+                }
+                else if(end === 'on') {
+                    duration = 'UNTIL=' + this.$endDate.val() + ';';
+                }
             }
 
             pattern += duration;
