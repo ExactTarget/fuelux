@@ -54,7 +54,7 @@ Be sure to add the fuelux stylesheet to your page's head tag, along with the res
 
 ### AMD
 
-If using AMD (such as [RequireJS](http://require.js.org)) reference the the fuelux directory in your paths configuration, wherever it is located:
+If using AMD (such as [RequireJS](http://require.js.org)) reference the fuelux directory in your paths configuration, wherever it is located:
 ```javascript
 require.config({
     paths: {
@@ -63,7 +63,7 @@ require.config({
     }
 });
 ```
-Then list any individial fuelux controls needed as dependencies within your application modules:
+Then list any individual fuelux controls needed as dependencies within your application modules:
 ```javascript
 define(function(require) {
 	var spinner = require('fuelux/spinner');
