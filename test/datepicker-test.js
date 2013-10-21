@@ -5,13 +5,11 @@
 require(['jquery', 'fuelux/datepicker'], function ($) {
 
 	var html = '<div>' +
-		'<div id="datepicker1">' +
-			'<div class="dropdowndatepicker dropdown datepicker">' +
-				'<div class="input-append ">' +
-					'<div class="dropdown-menu replaceWithDatepicker"></div>' +
-					'<input type="text" class="span2" value="" data-toggle="dropdown">' +
-					'<button type="button" class="btn" data-toggle="dropdown"><span class="caret"></span></button>' +
-				'</div>' +
+		'<div class="datepicker dropdown" id="datepicker1">' +
+			'<div class="input-append">' +
+				'<div class="dropdown-menu"></div>' +
+				'<input type="text" class="span2" value="" data-toggle="dropdown">' +
+				'<button type="button" class="btn" data-toggle="dropdown"><i class="icon-calendar"></i></button>' +
 			'</div>' +
 		'</div>' +
 		'<div id="datepicker2"></div>' +
@@ -171,7 +169,7 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 			dropdownWidth: customWidth
 		});
 
-		var $dropdown        = $sansMarkup.find( '.dropdown-menu.replaceWithDatepicker' );
+		var $dropdown        = $sansMarkup.find( '.dropdown-menu' );
 		var headerWidth     = $dropdown.find( '.header' ).width();
 		var daysViewWidth   = $dropdown.find( '.daysView' ).width();
 		var monthsViewWidth = $dropdown.find( '.monthsView' ).width();
@@ -196,7 +194,7 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 			dropdownWidth: customWidth
 		});
 
-		var $dropdown2       = $markup.find( '.dropdown-menu.replaceWithDatepicker' );
+		var $dropdown2       = $markup.find( '.dropdown-menu' );
 		var headerWidth2     = $dropdown2.find( '.header' ).width();
 		var daysViewWidth2   = $dropdown2.find( '.daysView' ).width();
 		var monthsViewWidth2 = $dropdown2.find( '.monthsView' ).width();
@@ -221,7 +219,7 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 			createInput: true
 		});
 		var input1    = $sansMarkup.find( 'input' ).length;
-		var dropdown1 = $sansMarkup.find( '.replaceWithDatepicker.dropdown-menu' ).length;
+		var dropdown1 = $sansMarkup.find( '.dropdown-menu' ).length;
 		var button1   = $sansMarkup.find( 'button' ).length;
 
 		equal( input1, 1, 'input was created' );
@@ -239,7 +237,7 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 		});
 
 		var input1    = $sansMarkup.find( 'input' ).length;
-		var dropdown1 = $sansMarkup.find( '.replaceWithDatepicker.dropdown-menu' ).length;
+		var dropdown1 = $sansMarkup.find( '.dropdown-menu' ).length;
 		var button1   = $sansMarkup.find( 'button' ).length;
 
 		equal( input1, 1, 'input was created' );

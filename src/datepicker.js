@@ -621,7 +621,7 @@ define(function (require) {
 			this._insertDateIntoInput();
 			this._updateCalendarData();
 			if ( Boolean( this.bindingsAdded ) ) this._removeBindings();
-			this.$element.find('.replaceWithDatepicker').html( this._renderCalendar() );
+			this.$element.find( '.dropdown-menu' ).html( this._renderCalendar() );
 			this._initializeCalendarElements();
 			this._addBindings();
 			this._updateCss();
@@ -641,16 +641,16 @@ define(function (require) {
 			var inputClass = ( Boolean( this.options.createInput.dropDownBtn ) ) ? 'input-append' : 'input-group';
 
 			var dropdownHtml = '<div class="' + inputClass + '">' +
-						'<div class="dropdown-menu replaceWithDatepicker"></div>' +
+						'<div class="dropdown-menu"></div>' +
 						'<input type="text" '+ this._calculateInputSize() +' value="'+this.formatDate( this.date ) +'" data-toggle="dropdown">';
 			
 			if( Boolean( this.options.createInput.dropDownBtn ) ) {
-				dropdownHtml = dropdownHtml + '<button type="button" class="btn" data-toggle="dropdown"><span class="caret"></span></button>';
+				dropdownHtml = dropdownHtml + '<button type="button" class="btn" data-toggle="dropdown"><i class="icon-calendar"></i></button>';
 			}
 
 			dropdownHtml = dropdownHtml + '</div>';
 
-			return '<div class="dropdowndatepicker dropdown">' + dropdownHtml + '</div>';
+			return '<div class="datepicker dropdown">' + dropdownHtml + '</div>';
 		},
 
 		_calculateInputSize: function( options ) {
