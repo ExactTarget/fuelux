@@ -8,7 +8,7 @@
 
 define(function(require) {
 
-    /*var $ = require('jquery');
+    var $ = require('jquery');
 
 
     // SCHEDULER CONSTRUCTOR AND PROTOTYPE
@@ -18,31 +18,31 @@ define(function(require) {
         this.options = $.extend({}, $.fn.scheduler.defaults, options);
 
         // cache elements
-        this.$startDate = this.$element.find('input.start-date');
-        this.$startTime = this.$element.find('.start-time');
-        this.$timeZone = this.$element.find('.timezone');
+        //this.$startDate = this.$element.find('input.start-date');
+        //this.$startTime = this.$element.find('.start-time');
+        this.$timeZone = this.$element.find('.scheduler-timezone .select');
 
-        this.$repeatInterval = this.$element.find('.repeat-interval');
         this.$repeatIntervalPanel = this.$element.find('.repeat-interval-panel');
         this.$repeatIntervalTxt = this.$element.find('.repeat-interval-text');
+        this.$repeatIntervalSelect = this.$element.find('.repeat-interval .select');
         this.$repeatIntervalSpinner = this.$element.find('.repeat-interval-panel .spinner-input');
 
-        this.$endRange = this.$element.find('.end-range');
-        *//*this.$hourlyInterval = this.$element.find('input.hours');
+        this.$endSelect= this.$element.find('.scheduler-end .select');
+        /*this.$hourlyInterval = this.$element.find('input.hours');
          this.$dailyInterval = this.$element.find('input.days');
          this.$weeklyInterval = this.$element.find('input.weeks');
-         this.$monthlyInterval = this.$element.find('input.months');*//*
+         this.$monthlyInterval = this.$element.find('input.months');*/
 
-        this.$endAfter = this.$element.find('.end-after');
+        this.$end = this.$element.find('.scheduler-end');
+        this.$endAfter = this.$element.find('.scheduler-end .end-after');
         this.$endDate = this.$element.find('input.end-date');
 
         // panels
         this.$recurrencePanels = this.$element.find('.recurrence-panel');
-        this.$endPanel = this.$element.find('.end-panel');
 
         // bind events
-        this.$repeatInterval.on('changed', $.proxy(this.repeatIntervalChanged, this));
-        this.$endRange.on('changed', $.proxy(this.endRangeChanged, this));
+        this.$repeatIntervalSelect.on('changed', $.proxy(this.repeatIntervalSelectChanged, this));
+        this.$endSelect.on('changed', $.proxy(this.$endSelectChanged, this));
 
     };
 
@@ -57,7 +57,7 @@ define(function(require) {
             // BYMONTHDAY = when picking days of the month (1,2,3...)
             // BYSETPOS = when picking First,Second,Third,Fourth,Last (1,2,3,4,-1)
 
-            var repeat = this.$repeatInterval.select('selectedItem').value;
+            var repeat = this.$repeatIntervalSelect.select('selectedItem').value;
             var interval = this.$repeatIntervalSpinner.val();
             var pattern = '';
             var showRepeatEveryTxt = true;
@@ -82,7 +82,7 @@ define(function(require) {
             }
             else if(repeat === 'weekly') {
                 var days = [];
-                $('.weekdays button.active').each(function() {
+                this.$element.find('.scheduler-weekly .btn-group button.active').each(function() {
                     days.push($(this).data().value);
                 });
 
@@ -96,7 +96,7 @@ define(function(require) {
 
                 var type = parseInt(this.$element.find('input[name=scheduler-month]:checked').val());
                 if(type === 1) {
-                    var day = parseInt(this.$element.find('.month-day').select('selectedItem').text);
+                    var day = parseInt(this.$element.find('.scheduler-monthly-date .select').select('selectedItem').text);
                     pattern += 'BYMONTHDAY=' + day + ';';
                 }
                 else if(type === 2) {
@@ -113,7 +113,7 @@ define(function(require) {
 
                 var type = parseInt(this.$element.find('input[name=scheduler-year]:checked').val());
                 if(type === 1) {
-                    var month = this.$element.find('.year-month').select('selectedItem').value;
+                    var month = this.$element.find('.scheduler-yearly-date .year-month').select('selectedItem').value;
                     var day = this.$element.find('.year-month-day').select('selectedItem').text;
 
                     pattern += 'BYMONTH=' + month + ';';
@@ -122,7 +122,7 @@ define(function(require) {
                 else if(type === 2) {
                     var days = this.$element.find('.year-month-days').select('selectedItem').value;
                     var pos = this.$element.find('.year-month-day-pos').select('selectedItem').value;
-                    var month = this.$element.find('.year-month-2').select('selectedItem').value;
+                    var month = this.$element.find('.scheduler-yearly-day .year-month').select('selectedItem').value;
 
                     pattern += 'BYDAY=' + days + ';';
                     pattern += 'BYSETPOS=' + pos + ';';
@@ -130,7 +130,7 @@ define(function(require) {
                 }
             }
 
-            var end = this.$endRange.select('selectedItem').value;
+            var end = this.$endSelect.select('selectedItem').value;
             var duration = '';
 
             // if both UNTIL and COUNT are not specified, the recurrence will repeat forever
@@ -145,8 +145,8 @@ define(function(require) {
             pattern += duration;
 
             var data = {
-                startDate: this.$startDate.val(),
-                startTime: this.$startTime.val(), // change when combobox has value property
+                //startDate: this.$startDate.val(),
+                //startTime: this.$startTime.val(), // change when combobox has value property
                 timeZone: this.$timeZone.select('selectedItem').text,
                 recurrencePattern: pattern
             }
@@ -156,7 +156,7 @@ define(function(require) {
 
         // called when the repeat interval changes
         // (None, Hourly, Daily, Weekdays, Weekly, Monthly, Yearly
-        repeatIntervalChanged: function(e, data) {
+        repeatIntervalSelectChanged: function(e, data) {
 
             // get the currently selected repeat interval
             var val = data.value,
@@ -186,19 +186,18 @@ define(function(require) {
             // the end selection should only be shown when
             // the repeat interval is not "None (run once)"
             if(val === 'none') {
-                this.$endPanel.hide();
+                this.$end.hide();
             }
             else {
-                this.$endPanel.show();
+                this.$end.show();
             }
         },
 
         // called when the end range changes
         // (Never, After, On date)
-        endRangeChanged: function(e, data) {
-
+        $endSelectChanged: function(e, data) {
             // hide all panels
-            this.$element.find('.schedule-end').hide();
+            this.$endAfter.hide();
 
             // show panel for current selection
             this.$element.find('.end-' + data.value).show();
@@ -227,16 +226,14 @@ define(function(require) {
 
     $.fn.scheduler.Constructor = Scheduler;
 
-
     // SCHEDULER DATA-API
 
     $(function () {
-
         $('body').on('mousedown.scheduler.data-api', '.scheduler', function (e) {
             var $this = $(this);
             if ($this.data('scheduler')) return;
             $this.scheduler($this.data());
         });
-    });*/
+    });
 
 });
