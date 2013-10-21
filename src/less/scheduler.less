@@ -1,0 +1,148 @@
+.scheduler {
+    &-end {
+        .select {
+            float: left;
+        }
+
+        .spinner {
+            display: none;
+            float: left;
+            margin-left: 10px;
+
+            span {
+                line-height: 27px;
+            }
+        }
+    }
+
+    &-repeat {
+        .repeat-interval {
+            .clearfix;
+
+            &-panel {
+                float: left;
+
+                .repeat-interval-pretext,
+                .repeat-interval-text
+                {
+                    float: left;
+                    line-height: 27px;
+                }
+
+                .repeat-interval-pretext {
+                    padding: 0 10px;
+                }
+
+                .spinner {
+                    float: left;
+                    margin-right: 0;
+
+                    input {
+                        width: 30px;
+                    }
+                }
+            }
+        }
+
+        .scheduler-monthly {
+            padding-left: 15px;
+
+            &-date {
+                .clearfix;
+
+                .select {
+                    margin-left: 5px;
+                }
+            }
+
+            &-day {
+                .clearfix;
+
+                .month-day-pos {
+                    margin: 0 5px;
+                }
+            }
+        }
+
+        .scheduler-yearly {
+            padding-left: 15px;
+
+            &-date {
+                .clearfix;
+
+                .select {
+                    &.year-month {
+                        margin-left: 5px;
+
+                        &-day {
+                            margin-left: 10px;
+                        }
+                    }
+                }
+            }
+
+            &-day {
+                .clearfix;
+
+                .scheduler-yearly-day-text {
+                    float: left;
+                    line-height: 27px;
+                    margin: 0 10px;
+                }
+
+                .year-month-day-pos {
+                    margin: 0 5px;
+                }
+            }
+        }
+
+        .scheduler-weekly {
+            padding-left: 15px;
+        }
+
+        .select {
+            float: left;
+        }
+
+        label.radio {
+            float: left;
+            line-height: 27px;
+
+            input {
+                margin-top: 8px;
+            }
+        }
+    }
+
+    &-table {
+        td {
+            margin: 0;
+            padding: 5px;
+            vertical-align: top;
+
+            &.scheduler-title {
+                padding-top: 8px;
+            }
+        }
+    }
+
+    &-timezone {
+        .dropdown-label {
+            height: 18px;
+            white-space: nowrap;
+            width: 334px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .dropdown-menu {
+            height: 200px;
+            overflow: auto;
+            width: 376px;
+        }
+    }
+
+    .recurrence-panel {
+        display: none;
+    }
+}
