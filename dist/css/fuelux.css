@@ -6898,6 +6898,10 @@ textarea.span1,
   visibility: hidden;
 }
 
+.fuelux .select input.hidden-field {
+  display: none;
+}
+
 .fuelux .tree {
   position: relative;
   padding: 10px 15px 0 15px;
