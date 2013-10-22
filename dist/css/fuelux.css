@@ -6446,6 +6446,254 @@ textarea.span1,
   border-top: 0;
 }
 
+.fuelux .datepicker .input-append,
+.fuelux .datepicker .input-group {
+  margin-bottom: 1px;
+}
+
+.fuelux .datepicker .input-append button,
+.fuelux .datepicker .input-group button {
+  outline: none;
+}
+
+.fuelux .datepicker .calendar {
+  float: left;
+  background: #ffffff;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+     -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box;
+     -moz-background-clip: padding;
+          background-clip: padding-box;
+}
+
+.fuelux .datepicker .calendar .header {
+  height: 24px;
+}
+
+.fuelux .datepicker .calendar .header .left {
+  float: left;
+  height: 24px;
+  padding-top: 2px;
+  padding-right: 8px;
+  padding-left: 10px;
+  cursor: pointer;
+  -webkit-border-bottom-right-radius: 6px;
+          border-bottom-right-radius: 6px;
+  -webkit-border-top-left-radius: 6px;
+          border-top-left-radius: 6px;
+  -moz-border-radius-bottomright: 6px;
+  -moz-border-radius-topleft: 6px;
+}
+
+.fuelux .datepicker .calendar .header .left .leftArrow {
+  width: 7px;
+  height: 7px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-bottom: 3px solid #333333;
+  border-left: 3px solid #333333;
+  -webkit-transform: rotate(45deg);
+     -moz-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+       -o-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+.fuelux .datepicker .calendar .header .right {
+  float: right;
+  height: 24px;
+  padding-top: 2px;
+  padding-right: 10px;
+  padding-left: 8px;
+  cursor: pointer;
+  -webkit-border-top-right-radius: 6px;
+          border-top-right-radius: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+          border-bottom-left-radius: 6px;
+  -moz-border-radius-topright: 6px;
+  -moz-border-radius-bottomleft: 6px;
+}
+
+.fuelux .datepicker .calendar .header .right .rightArrow {
+  width: 7px;
+  height: 7px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-top: 3px solid #333333;
+  border-right: 3px solid #333333;
+  -webkit-transform: rotate(45deg);
+     -moz-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+       -o-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+.fuelux .datepicker .calendar .header .center {
+  height: 26px;
+  margin: 0 auto;
+  font-size: 13px;
+  line-height: 1.9em;
+  text-align: center;
+  cursor: pointer;
+  -webkit-border-bottom-right-radius: 6px;
+          border-bottom-right-radius: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+          border-bottom-left-radius: 6px;
+  -moz-border-radius-bottomright: 6px;
+  -moz-border-radius-bottomleft: 6px;
+}
+
+.fuelux .datepicker .calendar .header,
+.fuelux .datepicker .calendar .footer {
+  font-weight: bold;
+  line-height: 20px;
+}
+
+.fuelux .datepicker .calendar .footer {
+  -webkit-border-bottom-right-radius: 6px;
+          border-bottom-right-radius: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+          border-bottom-left-radius: 6px;
+  -moz-border-radius-bottomright: 6px;
+  -moz-border-radius-bottomleft: 6px;
+}
+
+.fuelux .datepicker .calendar .footer .hover:hover,
+.fuelux .datepicker .calendar .header .hover:hover {
+  cursor: pointer;
+  background-color: #f1f6fc;
+}
+
+.fuelux .datepicker .calendar * {
+  font-size: 13px;
+  color: #333333;
+  text-align: center;
+  -webkit-user-select: none;
+   -khtml-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.fuelux .datepicker .calendar .monthsView div,
+.fuelux .datepicker .calendar .yearsView div {
+  float: left;
+  font-size: 17px;
+}
+
+.fuelux .datepicker .calendar .daysView,
+.fuelux .datepicker .calendar .footer,
+.fuelux .datepicker .calendar .monthsView,
+.fuelux .datepicker .calendar .yearsView {
+  overflow: auto;
+}
+
+.fuelux .datepicker .calendar .daysView div div {
+  float: left;
+}
+
+.fuelux .datepicker .calendar .weekdays div {
+  font-weight: bold;
+  color: #666;
+  border-bottom: 1px solid #777;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+      -ms-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.fuelux .datepicker .calendar .lastmonth div,
+.fuelux .datepicker .calendar .thismonth div,
+.fuelux .datepicker .calendar .nextmonth div,
+.fuelux .datepicker .calendar .monthsView div,
+.fuelux .datepicker .calendar .yearsView div {
+  border: 1px solid #ffffff;
+}
+
+.fuelux .datepicker .calendar .lastmonth div:not(.restrict):hover,
+.fuelux .datepicker .calendar .thismonth div:not(.restrict):hover,
+.fuelux .datepicker .calendar .nextmonth div:not(.restrict):hover,
+.fuelux .datepicker .calendar .monthsView div:not(.restrict):hover,
+.fuelux .datepicker .calendar .yearsView div:not(.restrict):hover {
+  cursor: pointer;
+  background-color: #dfeef5;
+  border: 1px solid #98D2EE;
+}
+
+.fuelux .datepicker .calendar .lastmonth div,
+.fuelux .datepicker .calendar .nextmonth div {
+  color: #a3a4a4;
+  background-color: #eeeeee;
+  border: 1px solid #eeeeee;
+}
+
+.fuelux .datepicker .calendar .yearsView .previous,
+.fuelux .datepicker .calendar .yearsView .next {
+  color: #a3a4a4;
+}
+
+.fuelux .datepicker .calendar .today,
+.fuelux .datepicker .calendar .today:hover {
+  color: #333;
+  background-color: #e6e6e6 !important;
+  border: 1px solid #999 !important;
+  opacity: .7;
+}
+
+.fuelux .datepicker .calendar .selected,
+.fuelux .datepicker .calendar .selected:hover {
+  font-weight: bold;
+  color: #ffffff !important;
+  background-color: #68ace7 !important;
+  border-color: #68ace7 !important;
+  box-shadow: inset 0px 2px 8px -5px #000000;
+}
+
+.fuelux .datepicker .calendar .restrict {
+  color: #999999 !important;
+  cursor: default;
+}
+
+.fuelux .datepicker .calendar .past {
+  color: #999999 !important;
+}
+
+.fuelux .datepicker .calendar .past.selected {
+  color: #ffffff !important;
+}
+
+.fuelux .datepicker .calendar .range {
+  color: #ddd !important;
+  background-color: #648182;
+}
+
+.fuelux .datepicker .dropdown-menu {
+  padding: 0;
+  margin: 0;
+  margin-top: 1px;
+  background: none;
+  border: 0;
+}
+
+.fuelux .datepicker input,
+.fuelux .datepicker input:focus {
+  outline: 0 !important;
+}
+
+.fuelux .datepicker input {
+  margin-bottom: 0;
+}
+
 .fuelux .dropUp {
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
      -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
