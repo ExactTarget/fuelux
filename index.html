@@ -269,6 +269,34 @@
 				}
 			});
 
+			// DATEPICKER
+			var test = $('#datepicker1').datepicker();
+
+			$('#datepicker-enable').on('click', function() {
+				$('#datepicker1').datepicker('enable');
+			});
+
+			$('#datepicker-disabled').on('click', function() {
+				$('#datepicker1').datepicker('disable');
+			});
+
+			$('#datepicker-logFormattedDate').on('click', function() {
+				console.log( $('#datepicker1').datepicker('getFormattedDate') );
+			});
+
+			$('#datepicker-logDateUnix').on('click', function() {
+				console.log( $('#datepicker1').datepicker('getDate', { unix: true } ) );
+			});
+
+			$('#datepicker-logDateObj').on('click', function() {
+				console.log( $('#datepicker1').datepicker('getDate') );
+			});
+
+			$('#datepicker-setDate').on('click', function() {
+				var futureDate = new Date(+new Date() + ( 7 * 24 * 60 * 60 * 1000 ) );
+				$('#datepicker1').datepicker('setDate', futureDate );
+				console.log( $('#datepicker1').datepicker('getDate') );
+			})
 		});
 	</script>
 
@@ -278,7 +306,6 @@
 <body>
 
 <div class="container">
-
 
 	<!-- CHECKBOX -->
 	<div>
@@ -324,7 +351,7 @@
 				<li data-value="4" data-fizz="buzz"><a href="#">Four</a></li>
 			</ul>
 		</div>
-        <br/>
+				<br/>
 		<input id="btnComboboxGetSelectedItem" type="button" class="btn btn-mini" value="log item"/>
 		<input id="btnComboboxSelectByValue" type="button" class="btn btn-mini" value="set by value"/>
 		<input id="btnComboboxSelectByIndex" type="button" class="btn btn-mini" value="set by index"/>
@@ -341,9 +368,9 @@
 			<input type="text" class="input-medium" placeholder="Search">
 			<button class="btn"><i class="icon-search"></i></button>
 		</div>
-        <br/>
-        <input id="btnSearchDisable" type="button" class="btn btn-mini" value="disable"/>
-        <input id="btnSearchEnable" type="button" class="btn btn-mini" value="enable"/>
+				<br/>
+				<input id="btnSearchDisable" type="button" class="btn btn-mini" value="disable"/>
+				<input id="btnSearchEnable" type="button" class="btn btn-mini" value="enable"/>
 	</div>
 
 	<!-- PILLBOX -->
@@ -619,6 +646,25 @@
 		<input type="button" class="btn btn-mini" id="btnWizardNext" value="next">
 		<input type="button" class="btn btn-mini" id="btnWizardStep" value="current step">
 		<input type="button" class="btn btn-mini" id="btnWizardSetStep4" value="step 4">
+	</div>
+
+	<!-- DATEPICKER -->
+	<div>
+		<div class="datepicker dropdown" id="datepicker1">
+			<div class="input-append">
+				<div class="dropdown-menu"></div>
+				<input type="text" class="span2" value="" data-toggle="dropdown">
+				<button type="button" class="btn" data-toggle="dropdown"><i class="icon-calendar"></i></button>
+			</div>
+		</div>
+		<div style="margin-top: 10px">
+			<span class="btn btn-small" id="datepicker-enable">enable</span>
+			<span class="btn btn-small" id="datepicker-disabled">disable</span>
+			<span class="btn btn-small" id="datepicker-logFormattedDate">log formatted date</span>
+			<span class="btn btn-small" id="datepicker-logDateObj">log date object</span>
+			<span class="btn btn-small" id="datepicker-logDateUnix">log unix date</span>
+			<span class="btn btn-small" id="datepicker-setDate">set date 7 days ahead (will log new value)</span>
+		</div>
 	</div>
 
 </div>
