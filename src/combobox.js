@@ -137,19 +137,21 @@ define(function (require) {
 
 	// COMBOBOX PLUGIN DEFINITION
 
-	$.fn.combobox = function (option, value) {
-		var methodReturn;
+	$.fn.combobox = function (option) {
+		var args         = Array.prototype.slice.call( arguments, 1 );
+		var matchString  = '@~_~@';
+		var methodReturn = matchString;
 
 		var $set = this.each(function () {
-			var $this = $(this);
-			var data = $this.data('combobox');
+			var $this   = $( this );
+			var data    = $this.data( 'combobox' );
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('combobox', (data = new Combobox(this, options)));
-			if (typeof option === 'string') methodReturn = data[option](value);
+			if( !data ) $this.data('combobox', (data = new Combobox( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
-		return (methodReturn === undefined) ? $set : methodReturn;
+		return ( methodReturn === matchString ) ? $set : methodReturn;
 	};
 
 	$.fn.combobox.defaults = {};

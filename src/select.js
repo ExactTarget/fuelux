@@ -121,19 +121,21 @@ define(function(require) {
 
 	// SELECT PLUGIN DEFINITION
 
-	$.fn.select = function (option,value) {
-			var methodReturn;
+	$.fn.select = function (option) {
+		var args         = Array.prototype.slice.call( arguments, 1 );
+		var matchString  = '@~_~@';
+		var methodReturn = matchString;
 
-			var $set = this.each(function () {
-					var $this = $(this);
-					var data = $this.data('select');
-					var options = typeof option === 'object' && option;
+		var $set = this.each(function () {
+			var $this   = $( this );
+			var data    = $this.data( 'select' );
+			var options = typeof option === 'object' && option;
 
-					if (!data) $this.data('select', (data = new Select(this, options)));
-					if (typeof option === 'string') methodReturn = data[option](value);
-			});
+			if( !data ) $this.data('select', (data = new Select( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+		});
 
-			return (methodReturn === undefined) ? $set : methodReturn;
+		return ( methodReturn === matchString ) ? $set : methodReturn;
 	};
 
 	$.fn.select.defaults = {};

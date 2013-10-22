@@ -333,14 +333,20 @@ define(function (require) {
 	// DATAGRID PLUGIN DEFINITION
 
 	$.fn.datagrid = function (option) {
-		return this.each(function () {
-			var $this = $(this);
-			var data = $this.data('datagrid');
+		var args         = Array.prototype.slice.call( arguments, 1 );
+		var matchString  = '@~_~@';
+		var methodReturn = matchString;
+
+		var $set = this.each(function () {
+			var $this   = $( this );
+			var data    = $this.data( 'datagrid' );
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('datagrid', (data = new Datagrid(this, options)));
-			if (typeof option === 'string') data[option]();
+			if( !data ) $this.data('datagrid', (data = new Datagrid( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
+
+		return ( methodReturn === matchString ) ? $set : methodReturn;
 	};
 
 	$.fn.datagrid.defaults = {
