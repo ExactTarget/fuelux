@@ -85,7 +85,7 @@ define(['require','jquery'],function (require) {
 		constructor: Datagrid,
 
 		renderColumns: function () {
-			var self = this;
+			var $target;
 
 			this.$footer.attr('colspan', this.columns.length);
 			this.$topheader.attr('colspan', this.columns.length);
@@ -98,7 +98,12 @@ define(['require','jquery'],function (require) {
 				colHTML += '>' + column.label + '</th>';
 			});
 
-			self.$colheader.append(colHTML);
+			this.$colheader.append(colHTML);
+
+			if (this.options.dataOptions.sortProperty) {
+				$target = this.$colheader.children('th[data-property="' + this.options.dataOptions.sortProperty + '"]');
+				this.updateColumns($target, this.options.dataOptions.sortDirection);
+			}
 		},
 
 		updateColumns: function ($target, direction) {
