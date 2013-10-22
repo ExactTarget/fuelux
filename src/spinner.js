@@ -72,7 +72,7 @@ define(function(require) {
 			if(newVal/1){
 				this.options.value = newVal/1;
 			}else{
-				newVal = newVal.replace(/[^0-9]/g,'');
+				newVal = newVal.replace(/[^0-9]/g,'') || '';
 				this.$input.val(newVal);
 				this.options.value = newVal/1;
 			}
@@ -170,19 +170,21 @@ define(function(require) {
 
 	// SPINNER PLUGIN DEFINITION
 
-	$.fn.spinner = function (option,value) {
-		var methodReturn;
+	$.fn.spinner = function (option) {
+		var args         = Array.prototype.slice.call( arguments, 1 );
+		var matchString  = '@~_~@';
+		var methodReturn = matchString;
 
 		var $set = this.each(function () {
-			var $this = $(this);
-			var data = $this.data('spinner');
+			var $this   = $( this );
+			var data    = $this.data( 'spinner' );
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('spinner', (data = new Spinner(this, options)));
-			if (typeof option === 'string') methodReturn = data[option](value);
+			if( !data ) $this.data('spinner', (data = new Spinner( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
-		return (methodReturn === undefined) ? $set : methodReturn;
+		return ( methodReturn === matchString ) ? $set : methodReturn;
 	};
 
 	$.fn.spinner.defaults = {

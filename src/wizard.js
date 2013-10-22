@@ -186,19 +186,21 @@ define(function (require) {
 
 	// WIZARD PLUGIN DEFINITION
 
-	$.fn.wizard = function (option, value) {
-		var methodReturn;
+	$.fn.wizard = function (option) {
+		var args         = Array.prototype.slice.call( arguments, 1 );
+		var matchString  = '@~_~@';
+		var methodReturn = matchString;
 
 		var $set = this.each(function () {
-			var $this = $(this);
-			var data = $this.data('wizard');
+			var $this   = $( this );
+			var data    = $this.data( 'wizard' );
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('wizard', (data = new Wizard(this, options)));
-			if (typeof option === 'string') methodReturn = data[option](value);
+			if( !data ) $this.data('wizard', (data = new Wizard( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
-		return (methodReturn === undefined) ? $set : methodReturn;
+		return ( methodReturn === matchString ) ? $set : methodReturn;
 	};
 
 	$.fn.wizard.defaults = {

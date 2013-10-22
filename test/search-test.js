@@ -87,7 +87,8 @@ require(['jquery', 'fuelux/search'], function($) {
 	test("should correctly respond to disable and enable methods", function () {
 		var searchHTML = '<div><input><button><i></i></button></div>';
 
-		var $search = $(searchHTML).search('disable');
+		var $search = $(searchHTML).search();
+		$search.search('disable');
 
 		equal($search.find('input').attr('disabled'), 'disabled', 'input was disabled');
 		equal($search.find('button').hasClass('disabled'), true, 'button was disabled');
