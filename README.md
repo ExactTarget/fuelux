@@ -45,6 +45,40 @@ You can install FuelUX using volo. You will want to pass the `-amdoff` flag to v
 * Default Fuel UX files for production use are located in the [dist](https://github.com/ExactTarget/fuelux/tree/master/dist) directory
 * To customize, modify the JS and LESS files under [src](https://github.com/ExactTarget/fuelux/tree/master/src) then run `grunt` to regenerate your [dist](https://github.com/ExactTarget/fuelux/tree/master/dist) directory (more below)
 
+### Styles
+Be sure to add the fuelux stylesheet to your page's head tag, along with the responsive stylesheet if desired:
+```html
+<link href="//www.fuelcdn.com/fuelux/2.4.1/css/fuelux.min.css" rel="stylesheet" type="text/css">
+<link href="//www.fuelcdn.com/fuelux/2.4.1/css/fuelux-responsive.css" rel="stylesheet" type="text/css">
+```
+
+### AMD
+
+If using AMD (such as [RequireJS](http://require.js.org)) reference the fuelux directory in your paths configuration, wherever it is located:
+```javascript
+require.config({
+    paths: {
+        'fuelux': 'http://www.fuelcdn.com/fuelux/2.4.1/'
+        //...
+    }
+});
+```
+Then list any individual fuelux controls needed as dependencies within your application modules:
+```javascript
+define(function(require) {
+	var spinner = require('fuelux/spinner');
+	//...
+});
+```
+Alternatively, 'fuelux/all' can be used as a dependency to bring in all available controls at once.
+
+### Non-AMD
+
+If you'd prefer not to use AMD, simply add the loader script to the head tag of your page:
+```html
+<script src="http://www.fuelcdn.com/fuelux/2.4.1/loader.min.js" type="text/javascript"></script>
+```
+
 ## Documentation and Examples
 
 ### Live docs and demos
@@ -56,6 +90,10 @@ Hosted on GitHub pages: http://exacttarget.github.com/fuelux
 Hosted on our [Developer Community](http://code.exacttarget.com/devcenter/home): http://code.exacttarget.com/devcenter/fuel-ux
 
 ## Issues and Feature Requests
+
+### Search for questions tagged "Fuel UX" on our developer community
+
+https://code.exacttarget.com/tags/fuelux
 
 ### Search for or report a bug
 
@@ -69,95 +107,8 @@ Visit our UserVoice community: https://fuelux.uservoice.com
 
 _Fuel UX is semantically versioned: <http://semver.org>_
 
-### Version 2.4.0 `2013-09-20`
+Release history can be found [here](https://github.com/ExactTarget/fuelux/wiki/Release-History).
 
-* Tree control fixed event when unselecting last item. Adds supports for decorating folders with markup. Adds updated event
-* Wizard selectItem method now supports set current step
-* Wizard horizontally scrolls when many steps are present
-* Added many conveniece methods to Pillbox
-* FuelUX updated to use GruntJS 0.4.x
-* FuelUX Intelligent Dropdowns
-* Tree control selectFolder method fixed and collapse method added
-* Convenience methods added to radio and checkbox controls 
-* New option "noDataFoundHTML" added to datagrid control
-* Select control fixed for leftover resizing element
-* Datagrid control supports custom class on a column
-* Fixed initial page size on datagrid
-
-### Version 2.3.1 `2013-08-02`
-
-* Reset datagrid to first page on filter change
-* Fix datagrid operation inside HTML form
-* Fix datagrid header wrapping for narrow columns
-* Improve datagrid class specificity for inner controls
-* Fix datagrid race condition with next and previous buttons
-* Improve datagrid fault tolerance around paging operations
-* Improve sample datasource to handle null values when searching
-* Fix select control value selection when value contains spaces
-* Fix checkbox operation inside datagrid
-* Fix checkbox operation inside form-inline
-* Fix checkbox operation for IE8
-* Fix tree text wrapping issue
-* Fix spinner issue when passing a string as a value
-* Fix button group operation inside wizard step
-* Backport tooltip options fix from Bootstrap 3
-* Upgrade Bootstrap from 2.3.0 to 2.3.2
-
-### Version 2.3.0 `2013-02-18`
-
-* Add custom filter support to datagrid
-* Use select control for datagrid page size dropdown
-* Add stepclick event to wizard to support canceling clicks on steps
-* Improve rounded corners of combobox button to match Bootstrap
-* Improve support for installation within Yeoman
-* Upgrade Bootstrap from 2.2.2 to 2.3.0
-
-### Version 2.2.1 `2013-02-13`
-
-* Fix whitespace issue in wizard
-* Improve encapsulation of AMD globals
-* Introduce Testem for cross-browser testing
-* Fix tree datasource reference for local development
-* Upgrade unit tests to be compatible with jQuery 1.9
-
-### Version 2.2.0 `2013-01-04`
-
-* _New Control_ - checkbox
-* _New Control_ - radio
-* _New Control_ - select
-* _New Control_ - tree
-* _New Control_ - wizard
-* Add stretchHeight option to datagrid
-* Add reload method to datagrid
-* Add enable and disable methods to search control
-* Add enable and disable methods to combobox
-* Add rich methods for getting/setting selected item to combobox
-* Fix triggering of superfluous spinner events
-* Upgrade Bootstrap from 2.2.1 to 2.2.2
-
-### Version 2.1.1 `2012-11-10`
-
-* Allow setting spinner value to zero
-* Fix search control keyboard operation in IE8
-
-### Version 2.1.0 `2012-10-31`
-
-* Upgrade Bootstrap from 2.1.1 to 2.2.1
-
-### Version 2.0.2 `2012-10-30`
-
-* Ignore click on disabled search button
-* Make cursor consistent on disabled spinner buttons
-* Improve live docs to show disabled states where available
-* Complete datagrid unit test coverage
-
-### Version 2.0.1 `2012-10-05`
-
-* Fix loader.js (used for non-AMD pages) to be synchronous
-
-### Version 2.0.0 `2012-09-28`
-
-* First public release of Fuel UX
 
 ## Contributing
 Before writing code, we suggest you [search for issues](https://github.com/ExactTarget/fuelux/issues?state=open)

@@ -348,6 +348,19 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 		});
 	});
 
+	asyncTest("should be set to start out sorted", function () {
+		var stubDataSource = new this.StubDataSource();
+		var $datagrid = $(this.datagridHTML).datagrid({ dataSource: stubDataSource, dataOptions: { sortProperty: 'property1' } }).one('loaded', function () {
+
+			var $columnHeaders = $datagrid.find('thead tr').eq(1).find('th');
+			ok($columnHeaders.eq(0).hasClass('sorted'), 'header has sorted class');
+			ok($columnHeaders.eq(0).find('i').hasClass('icon-chevron-down'), 'header has sorting indicator');
+			equal($columnHeaders.eq(0).find('i').length, 1, 'there is exactly one sorting indicator');
+
+			start();
+		});
+	});
+
 	function testSetup() {
 
 		this.EmptyDataSource = function () {};

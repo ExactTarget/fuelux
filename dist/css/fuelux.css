@@ -6306,6 +6306,7 @@ textarea.span1,
 }
 
 .fuelux .datagrid thead .sortable {
+  position: relative;
   cursor: pointer;
 }
 
@@ -6711,8 +6712,10 @@ textarea.span1,
 }
 
 .fuelux .tree .tree-item .tree-item-name {
-  position: absolute;
-  left: 29px;
+  padding-left: 29px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .fuelux .tree .tree-item .tree-dot {
