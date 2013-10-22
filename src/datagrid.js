@@ -8,7 +8,8 @@
 
 define(function (require) {
 
-	var $ = require('jquery');
+	var $   = require('jquery');
+	var old = $.fn.datagrid;
 
 	// Relates to thead .sorted styles in datagrid.less
 	var SORTED_HEADER_OFFSET = 22;
@@ -352,4 +353,8 @@ define(function (require) {
 
 	$.fn.datagrid.Constructor = Datagrid;
 
+	$.fn.datagrid.noConflict = function () {
+		$.fn.Datagrid = old;
+		return this;
+	};
 });

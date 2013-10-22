@@ -8,8 +8,8 @@
 
 define(function(require) {
 
-	var $ = require('jquery');
-
+	var $   = require('jquery');
+	var old = $.fn.search;
 
 	// SEARCH CONSTRUCTOR AND PROTOTYPE
 
@@ -111,6 +111,11 @@ define(function(require) {
 
 	$.fn.search.Constructor = Search;
 
+	$.fn.search.noConflict = function () {
+		$.fn.Search = old;
+		return this;
+	};
+
 
 	// SEARCH DATA-API
 
@@ -121,5 +126,4 @@ define(function(require) {
 			$this.search($this.data());
 		});
 	});
-
 });

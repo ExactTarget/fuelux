@@ -8,7 +8,8 @@
 
 define(function (require) {
 
-	var $ = require('jquery');
+	var $   = require('jquery');
+	var old = $.fn.combobox;
 	require('./util');
 
 	// COMBOBOX CONSTRUCTOR AND PROTOTYPE
@@ -155,11 +156,15 @@ define(function (require) {
 
 	$.fn.combobox.Constructor = Combobox;
 
+	$.fn.combobox.noConflict = function () {
+		$.fn.Combobox = old;
+		return this;
+	};
+
 
 	// COMBOBOX DATA-API
 
 	$(function () {
-
 		$(window).on('load', function () {
 			$('.combobox').each(function () {
 				var $this = $(this);
@@ -174,5 +179,4 @@ define(function (require) {
 			$this.combobox($this.data());
 		});
 	});
-
 });

@@ -8,8 +8,8 @@
 
 define(function(require) {
 
-	var $ = require('jquery');
-
+	var $   = require('jquery');
+	var old = $.fn.tree;
 
 	// TREE CONSTRUCTOR AND PROTOTYPE
 
@@ -234,4 +234,8 @@ define(function(require) {
 
 	$.fn.tree.Constructor = Tree;
 
+	$.fn.tree.noConflict = function () {
+		$.fn.Tree = old;
+		return this;
+	};
 });

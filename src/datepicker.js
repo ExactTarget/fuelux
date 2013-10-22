@@ -778,5 +778,4 @@ define(function (require) {
 		$.fn.Datepicker = old;
 		return this;
 	};
-
 });

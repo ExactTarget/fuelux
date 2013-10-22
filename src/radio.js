@@ -8,8 +8,8 @@
 
 define(function (require) {
 
-	var $ = require('jquery');
-
+	var $   = require('jquery');
+	var old = $.fn.radio;
 
 	// RADIO CONSTRUCTOR AND PROTOTYPE
 
@@ -116,6 +116,11 @@ define(function (require) {
 
 	$.fn.radio.Constructor = Radio;
 
+	$.fn.radio.noConflict = function () {
+		$.fn.Radio = old;
+		return this;
+	};
+
 
 	// RADIO DATA-API
 
@@ -129,5 +134,4 @@ define(function (require) {
 			});
 		});
 	});
-
 });

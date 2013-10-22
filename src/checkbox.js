@@ -8,8 +8,8 @@
 
 define(function (require) {
 
-	var $ = require('jquery');
-
+	var $   = require('jquery');
+	var old = $.fn.checkbox;
 
 	// CHECKBOX CONSTRUCTOR AND PROTOTYPE
 
@@ -108,6 +108,11 @@ define(function (require) {
 
 	$.fn.checkbox.Constructor = Checkbox;
 
+	$.fn.checkbox.noConflict = function () {
+		$.fn.Checkbox = old;
+		return this;
+	};
+
 
 	// CHECKBOX DATA-API
 
@@ -121,5 +126,4 @@ define(function (require) {
 			});
 		});
 	});
-
 });

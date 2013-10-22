@@ -8,8 +8,8 @@
 
 define(function (require) {
 
-	var $ = require('jquery');
-
+	var $   = require('jquery');
+	var old = $.fn.wizard;
 
 	// WIZARD CONSTRUCTOR AND PROTOTYPE
 
@@ -207,6 +207,11 @@ define(function (require) {
 
 	$.fn.wizard.Constructor = Wizard;
 
+	$.fn.wizard.noConflict = function () {
+		$.fn.Wizard = old;
+		return this;
+	};
+
 
 	// WIZARD DATA-API
 
@@ -217,5 +222,4 @@ define(function (require) {
 			$this.wizard($this.data());
 		});
 	});
-
 });

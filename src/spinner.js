@@ -8,8 +8,8 @@
 
 define(function(require) {
 
-	var $ = require('jquery');
-
+	var $   = require('jquery');
+	var old = $.fn.spinner;
 
 	// SPINNER CONSTRUCTOR AND PROTOTYPE
 
@@ -197,6 +197,11 @@ define(function(require) {
 
 	$.fn.spinner.Constructor = Spinner;
 
+	$.fn.spinner.noConflict = function () {
+		$.fn.Spinner = old;
+		return this;
+	};
+
 
 	// SPINNER DATA-API
 
@@ -207,5 +212,4 @@ define(function(require) {
 			$this.spinner($this.data());
 		});
 	});
-
 });

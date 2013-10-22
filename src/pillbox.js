@@ -8,7 +8,8 @@
 
 define(function(require) {
 
-	var $ = require('jquery');
+	var $   = require('jquery');
+	var old = $.fn.pillbox;
 
 	// PILLBOX CONSTRUCTOR AND PROTOTYPE
 
@@ -107,6 +108,12 @@ define(function(require) {
 
 	$.fn.pillbox.Constructor = Pillbox;
 
+	$.fn.pillbox.noConflict = function () {
+		$.fn.Pillbox = old;
+		return this;
+	};
+
+
 	// PILLBOX DATA-API
 
 	$(function () {
@@ -117,4 +124,3 @@ define(function(require) {
 		});
 	});
 });
-
