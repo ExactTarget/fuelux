@@ -152,6 +152,18 @@ define(function (require) {
 			this.$tbody.html(this.placeholderRowHTML(this.options.loadingHTML));
 
 			this.options.dataSource.data(this.options.dataOptions, function (data) {
+				if (typeof data === 'string') {
+					// Error-handling
+
+					self.$footerchildren.css('visibility', 'hidden');
+
+					self.$tbody.html(self.errorRowHTML(data));
+					self.stretchHeight();
+
+					self.$element.trigger('loaded');
+					return;
+				}
+
 				var itemdesc = (data.count === 1) ? self.options.itemText : self.options.itemsText;
 				var rowHTML = '';
 
@@ -188,6 +200,11 @@ define(function (require) {
 				self.$element.trigger('loaded');
 			});
 
+		},
+
+		errorRowHTML: function (content) {
+			return '<tr><td style="text-align:center;padding:20px 20px 0 20px;border-bottom:none;" colspan="' +
+				this.columns.length + '"><div class="alert alert-error">' + content + '</div></td></tr>';
 		},
 
 		placeholderRowHTML: function (content) {
