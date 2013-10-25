@@ -4533,9 +4533,11 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 		},
 
 		stopSpin: function () {
-			clearTimeout(this.switches.timeout);
-			this.switches.count = 1;
-			this.triggerChangedEvent();
+            if(this.switches.timeout!==undefined){
+                clearTimeout(this.switches.timeout);
+                this.switches.count = 1;
+                this.triggerChangedEvent();
+            }
 		},
 
 		triggerChangedEvent: function () {
