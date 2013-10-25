@@ -6891,15 +6891,15 @@ textarea.span1,
   text-align: left;
 }
 
+.fuelux .select .hidden-field {
+  display: none;
+}
+
 .fuelux .select-sizer {
   position: absolute;
   top: 0;
   display: inline-block;
   visibility: hidden;
-}
-
-.fuelux .select input.hidden-field {
-  display: none;
 }
 
 .fuelux .tree {

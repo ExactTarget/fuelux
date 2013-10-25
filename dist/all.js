@@ -4176,12 +4176,12 @@ define('fuelux/radio',['require','jquery'],function (require) {
 			var disabled = !!$radio.prop('disabled');
 
 			this.$icon.removeClass('checked disabled');
-            this.$label.removeClass('checked');
+			this.$label.removeClass('checked');
 
 			// set state of radio
 			if (checked === true) {
 				this.$icon.addClass('checked');
-                this.$label.addClass('checked');
+				this.$label.addClass('checked');
 			}
 			if (disabled === true) {
 				this.$icon.addClass('disabled');
@@ -4189,11 +4189,11 @@ define('fuelux/radio',['require','jquery'],function (require) {
 		},
 
 		resetGroup: function () {
-            var group = $('input[name=' + this.groupName + ']');
+			var group = $('input[name="' + this.groupName + '"]');
 
 			// reset all radio buttons in group
 			group.next().removeClass('checked');
-            group.parent().removeClass('checked');
+			group.parent().removeClass('checked');
 		},
 
 		enable: function () {
@@ -4625,6 +4625,7 @@ define('fuelux/select',['require','jquery','./util'],function(require) {
         this.options = $.extend({}, $.fn.select.defaults, options);
         this.$element.on('click', 'a', $.proxy(this.itemclicked, this));
         this.$button = this.$element.find('.btn');
+        this.$hiddenField = this.$element.find('.hidden-field');
         this.$label = this.$element.find('.dropdown-label');
         this.setDefaultSelection();
 
@@ -4639,6 +4640,7 @@ define('fuelux/select',['require','jquery','./util'],function(require) {
 
         itemclicked: function (e) {
             this.$selectedItem = $(e.target).parent();
+            this.$hiddenField.val(this.$selectedItem.attr('data-value'));
             this.$label.text(this.$selectedItem.text());
 
             // pass object including text and any data-attributes
@@ -4697,6 +4699,7 @@ define('fuelux/select',['require','jquery','./util'],function(require) {
             var item = this.$element.find(selector);
 
             this.$selectedItem = item;
+            this.$hiddenField.val(this.$selectedItem.attr('data-value'));
             this.$label.text(this.$selectedItem.text());
         },
 
