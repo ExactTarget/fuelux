@@ -348,16 +348,42 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 		});
 	});
 
-	asyncTest("should be set to start out sorted", function () {
-		var stubDataSource = new this.StubDataSource();
-		var $datagrid = $(this.datagridHTML).datagrid({ dataSource: stubDataSource, dataOptions: { sortProperty: 'property1' } }).one('loaded', function () {
+	asyncTest("should display data source error messages", function () {
+		var errorDataSource = new this.ErrorDataSource();
+		var $datagrid = $(this.datagridHTML).datagrid({ dataSource: errorDataSource }).one('loaded', function () {
 
 			var $columnHeaders = $datagrid.find('thead tr').eq(1).find('th');
-			ok($columnHeaders.eq(0).hasClass('sorted'), 'header has sorted class');
-			ok($columnHeaders.eq(0).find('i').hasClass('icon-chevron-down'), 'header has sorting indicator');
-			equal($columnHeaders.eq(0).find('i').length, 1, 'there is exactly one sorting indicator');
 
-			start();
+			var $datarows = $datagrid.find('tbody tr');
+			equal($datarows.length, 2, 'all rows were rendered');
+
+			$datagrid.one('loaded', function () {
+
+				var $datarows = $datagrid.find('tbody tr');
+				equal($datarows.length, 1, 'only error row rendered');
+
+				var $testcell = $datarows.eq(0).find('td');
+				var $testerroralert = $testcell.children();
+				equal($testcell.attr('colspan'), '2', 'error status spans all columns');
+				equal($testerroralert.length, 1, 'error alert in cell');
+				ok($testerroralert.hasClass('alert alert-error'), 'error alert has correct classes');
+				equal($testerroralert.html(), 'An error occurred on the server: <strong>500 Internal Server Error</strong>', 'error status is displayed');
+
+				var $footerchildren = $datagrid.find('.datagrid-footer-left');
+				equal($footerchildren.css('visibility'), 'hidden', 'footer is correctly hidden');
+
+				$datagrid.one('loaded', function () {
+
+					var $datarows = $datagrid.find('tbody tr');
+					equal($datarows.length, 2, 'all rows were rendered');
+
+					start();
+				});
+
+				$columnHeaders.eq(0).click();
+			});
+
+			$columnHeaders.eq(1).click();
 		});
 	});
 
@@ -381,6 +407,38 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 			setTimeout(function () {
 				callback({ data: [], start: 1, end: 0, count: 0, pages: 0, page: 1 });
 			}, 0);
+		};
+
+		this.ErrorDataSource = function () {};
+
+		this.ErrorDataSource.prototype.columns = function () {
+			return [{
+				property: 'property1',
+				label: 'Property One',
+				sortable: true
+			}, {
+				property: 'property2',
+				label: 'Property Two',
+				sortable: true
+			}];
+		};
+
+		this.ErrorDataSource.prototype.data = function (options, callback) {
+			if (options.sortProperty === 'property2') {
+				setTimeout(function () {
+					callback('An error occurred on the server: <strong>500 Internal Server Error</strong>');
+				}, 0);
+			} else {
+				setTimeout(function () {
+					callback({
+						data: [
+							{ property1: 'A', property2: 'B' },
+							{ property1: 'D', property2: 'E' }
+						],
+						start: 1, end: 2, count: 2, pages: 1, page: 1
+					});
+				}, 0);
+			}
 		};
 
 
