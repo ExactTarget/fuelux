@@ -750,7 +750,7 @@ define(['require','jquery'],function (require) {
 
 	$.fn.datepicker = function (option) {
 		var args         = Array.prototype.slice.call( arguments, 1 );
-		var matchString  = '~@_UnDeFiNeD_@~';
+		var matchString  = '@~_~@';
 		var methodReturn = matchString;
 
 		var $set = this.each(function () {
@@ -778,5 +778,4 @@ define(['require','jquery'],function (require) {
 		$.fn.Datepicker = old;
 		return this;
 	};
-
 });

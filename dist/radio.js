@@ -8,8 +8,8 @@
 
 define(['require','jquery'],function (require) {
 
-	var $ = require('jquery');
-
+	var $   = require('jquery');
+	var old = $.fn.radio;
 
 	// RADIO CONSTRUCTOR AND PROTOTYPE
 
@@ -97,24 +97,31 @@ define(['require','jquery'],function (require) {
 
 	// RADIO PLUGIN DEFINITION
 
-	$.fn.radio = function (option, value) {
-		var methodReturn;
+	$.fn.radio = function (option) {
+		var args         = Array.prototype.slice.call( arguments, 1 );
+		var matchString  = '@~_~@';
+		var methodReturn = matchString;
 
 		var $set = this.each(function () {
-			var $this = $(this);
-			var data = $this.data('radio');
+			var $this   = $( this );
+			var data    = $this.data( 'radio' );
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('radio', (data = new Radio(this, options)));
-			if (typeof option === 'string') methodReturn = data[option](value);
+			if( !data ) $this.data('radio', (data = new Radio( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
-		return (methodReturn === undefined) ? $set : methodReturn;
+		return ( methodReturn === matchString ) ? $set : methodReturn;
 	};
 
 	$.fn.radio.defaults = {};
 
 	$.fn.radio.Constructor = Radio;
+
+	$.fn.radio.noConflict = function () {
+		$.fn.Radio = old;
+		return this;
+	};
 
 
 	// RADIO DATA-API
@@ -129,5 +136,4 @@ define(['require','jquery'],function (require) {
 			});
 		});
 	});
-
 });
