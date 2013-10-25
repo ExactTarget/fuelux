@@ -200,6 +200,36 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 		});
 
 
+		// DATEPICKER
+		var test = $('#myDatepicker').datepicker();
+
+		$('#datepicker-enable').on('click', function() {
+			$('#myDatepicker').datepicker('enable');
+		});
+
+		$('#datepicker-disabled').on('click', function() {
+			$('#myDatepicker').datepicker('disable');
+		});
+
+		$('#datepicker-logFormattedDate').on('click', function() {
+			console.log( $('#myDatepicker').datepicker('getFormattedDate') );
+		});
+
+		$('#datepicker-logDateUnix').on('click', function() {
+			console.log( $('#myDatepicker').datepicker('getDate', { unix: true } ) );
+		});
+
+		$('#datepicker-logDateObj').on('click', function() {
+			console.log( $('#myDatepicker').datepicker('getDate') );
+		});
+
+		$('#datepicker-setDate').on('click', function() {
+			var futureDate = new Date(+new Date() + ( 7 * 24 * 60 * 60 * 1000 ) );
+			$('#myDatepicker').datepicker('setDate', futureDate );
+			console.log( $('#myDatepicker').datepicker('getDate') );
+		});
+
+
 		// INITIALIZING PILLBOX
 		$('#btnAdd').click(function () {
 			$('#MyPillbox ul').append('<li>Item Eight</li>');
@@ -301,44 +331,44 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 		$('#MyTree').tree({dataSource: treeDataSource});
 
-        var selectTreeFolder = function($treeEl, folder, $parentEl) {
-            var $parentEl = $parentEl || $treeEl;
-            if (folder.type == "folder") {
-                var $folderEl = $parentEl.find("div.tree-folder-name").filter(function (_, treeFolder) {
-                    return $(treeFolder).text() == folder.name;
-                }).parent();
-                $treeEl.one("loaded", function () {
-                    $.each(folder.children, function (i, item) {
-                        selectTreeFolder($treeEl, item, $folderEl.parent());
-                    });
-                });
-                $treeEl.tree("selectFolder", $folderEl);
-            }
-            else {
-                selectTreeItem($treeEl, folder, $parentEl);
-            }
-        };
+				var selectTreeFolder = function($treeEl, folder, $parentEl) {
+						var $parentEl = $parentEl || $treeEl;
+						if (folder.type == "folder") {
+								var $folderEl = $parentEl.find("div.tree-folder-name").filter(function (_, treeFolder) {
+										return $(treeFolder).text() == folder.name;
+								}).parent();
+								$treeEl.one("loaded", function () {
+										$.each(folder.children, function (i, item) {
+												selectTreeFolder($treeEl, item, $folderEl.parent());
+										});
+								});
+								$treeEl.tree("selectFolder", $folderEl);
+						}
+						else {
+								selectTreeItem($treeEl, folder, $parentEl);
+						}
+				};
 
-        var selectTreeItem = function ($treeEl, item, $parentEl) {
-            var $parentEl = $parentEl || $treeEl;
-            if (item.type == "item") {
-                var $itemEl = $parentEl.find("div.tree-item-name").filter(function (_, treeItem) {
-                    return $(treeItem).text() == item.name && !$(treeItem).parent().is(".tree-selected");
-                }).parent();
-                $treeEl.tree("selectItem", $itemEl);
-            }
-            else if (item.type == "folder") {
-                selectTreeFolder($treeEl, item, $parentEl);
-            }
-        };
+				var selectTreeItem = function ($treeEl, item, $parentEl) {
+						var $parentEl = $parentEl || $treeEl;
+						if (item.type == "item") {
+								var $itemEl = $parentEl.find("div.tree-item-name").filter(function (_, treeItem) {
+										return $(treeItem).text() == item.name && !$(treeItem).parent().is(".tree-selected");
+								}).parent();
+								$treeEl.tree("selectItem", $itemEl);
+						}
+						else if (item.type == "folder") {
+								selectTreeFolder($treeEl, item, $parentEl);
+						}
+				};
 
 		$('#tree-select-item').on('click', function () {
-            var folder1 = { name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } };
-            var folder2 = { name: 'Test Folder 2', type: 'folder', additionalParameters: { id: 'F2' } };
-            var item1 = { name: 'Test Item 1', type: 'item', additionalParameters: { id: 'I1' } };
-            folder1.children = [folder2, ];
-            folder2.children = [item1, ];
-            selectTreeItem($("#MyTree"), folder1);
+						var folder1 = { name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } };
+						var folder2 = { name: 'Test Folder 2', type: 'folder', additionalParameters: { id: 'F2' } };
+						var item1 = { name: 'Test Item 1', type: 'item', additionalParameters: { id: 'I1' } };
+						folder1.children = [folder2, ];
+						folder2.children = [item1, ];
+						selectTreeItem($("#MyTree"), folder1);
 		});
 
 		$('#tree-selected-items').on('click', function () {
@@ -420,6 +450,13 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 					<li><a href="#datagrid">Datagrid</a></li>
 					<li><a href="#pillbox">Pillbox</a></li>
 					<li><a href="#radio">Radio</a></li>
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Scheduling <i class="caret"></i></a>
+						<ul class="dropdown-menu">
+							<li><a tabindex="-1" href="#datepicker">Datepicker</a></li>
+							<li><a tabindex="-1" href="#scheduler">Scheduler</a></li>
+						</ul>
+					</li>
 					<li><a href="#search">Search</a></li>
 					<li><a href="#select">Select</a></li>
 					<li><a href="#spinner">Spinner</a></li>
@@ -460,12 +497,12 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 			</li>
 			<li class="follow-btn">
 				<a href="https://twitter.com/ETfuel" class="twitter-follow-button" data-link-color="#0069D6"
-				   data-show-count="true">Follow @ETFuel</a>
+					 data-show-count="true">Follow @ETFuel</a>
 			</li>
 			<li class="tweet-btn">
 				<a href="https://twitter.com/share" class="twitter-share-button"
-				   data-url="http://exacttarget.github.com/fuelux/" data-count="horizontal" data-via="etfuel"
-				   data-related="etfuel:Creator of Fuel UX">Tweet</a>
+					 data-url="http://exacttarget.github.com/fuelux/" data-count="horizontal" data-via="etfuel"
+					 data-related="etfuel:Creator of Fuel UX">Tweet</a>
 			</li>
 		</ul>
 	</div>
@@ -499,6 +536,11 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 <div class="row">
 	<div class="span4">
+		<h3><a href="#datepicker">Datepicker</a></h3>
+
+		<p>Makes picking dates easy. Custom date parsing and formatting available.</p>
+	</div>
+	<div class="span4">
 		<h3><a href="#pillbox">Pillbox</a></h3>
 
 		<p>Easily manage selected items with color-coded text labels.</p>
@@ -508,18 +550,25 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 		<p>Customized look and feel for radio button element.</p>
 	</div>
+</div>
+<div class="row">
+	<div class="span4">
+		<h3><a href="#scheduler">Scheduler</a></h3>
+
+		<p>Combines Datepicker and time to help you schedule events.</p>
+	</div>
 	<div class="span4">
 		<h3><a href="#search">Search</a></h3>
 
 		<p>Combines input and button for integrated search interaction.</p>
 	</div>
-</div>
-<div class="row">
 	<div class="span4">
 		<h3><a href="#select">Select</a></h3>
 
 		<p>Extends button dropdown with additional functionality for setting and retrieving the selected item.</p>
 	</div>
+</div>
+<div class="row">
 	<div class="span4">
 		<h3><a href="#spinner">Spinner</a></h3>
 
@@ -530,8 +579,6 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 		<p>Provides a visual display of hierarchical node data.</p>
 	</div>
-</div>
-<div class="row">
 	<div class="span4">
 		<h3><a href="#wizard">Wizard</a></h3>
 
@@ -1062,6 +1109,159 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 	</div>
 </section>
 
+<section id="datepicker">
+	<div class="page-header">
+		<h1>Datepicker
+			<small>datepicker.js</small>
+		</h1>
+	</div>
+	<div class="row">
+		<div class="span12 columns">
+			<h2>Example</h2>
+
+			<p>Below is a working datepicker example.</p>
+
+			<div class="well datepicker-example">
+				<div class="datepicker dropdown" id="myDatepicker">
+					<div class="input-append">
+						<div class="dropdown-menu"></div>
+						<input type="text" class="span2" value="" data-toggle="dropdown">
+						<button type="button" class="btn" data-toggle="dropdown"><i class="icon-calendar"></i></button>
+					</div>
+				</div>
+				<div style="margin-top: 10px">
+					<span class="btn btn-small" id="datepicker-enable">enable</span>
+					<span class="btn btn-small" id="datepicker-disabled">disable</span>
+					<span class="btn btn-small" id="datepicker-logFormattedDate">log formatted date</span>
+					<span class="btn btn-small" id="datepicker-logDateObj">log date object</span>
+					<span class="btn btn-small" id="datepicker-logDateUnix">log unix date</span>
+					<span class="btn btn-small" id="datepicker-setDate">set date 7 days ahead (will log new value)</span>
+				</div>
+			</div>
+
+			<hr>
+
+			<h2>Using datepicker</h2>
+
+			<p>Call the datepicker via javascript:</p>
+			<pre class="prettyprint linenums">$('#myDatepicker').datepicker()</pre>
+
+			<h3>Methods</h3>
+
+			<p>Fuel UX's datepicker exposes the following methods:</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th style="width: 150px;">Method</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>disable</td>
+						<td>Disable the datepicker</td>
+					</tr>
+					<tr>
+						<td>enable</td>
+						<td>Enable the datepicker</td>
+					</tr>
+					<tr>
+						<td>getFormattedDate</td>
+						<td>Returns selected formatted date</td>
+					</tr>
+					<tr>
+						<td>getDate</td>
+						<td>
+							Returns selected date object (not formatted)<br />
+							Returns Unix timestamp when using arguments { unix: true }. For example: <code>$('myDatepicker').datepicker('getDate', { unix: true });</code>
+						</td>
+					</tr>
+					<tr>
+						<td>setDate</td>
+						<td>Set's datepicker to date provided. Date provided must be a valid Date Object. For example: <code>$('#myDatepicker').datepicker('setDate', new Date());</code></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<h3>Options</h3>
+
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th style="width: 150px;">Options</th>
+						<th>Description</th>
+						<th>Default Value</th>
+					</tr>
+					</thead>
+				<tbody>
+					<tr>
+						<td>date</td>
+						<td>Initializes datepicker with this date</td>
+						<td><code>new Date()</code></td>
+					</tr>
+					<tr>
+						<td>createInput</td>
+						<td>
+							Allows control to generate HTML Markup. This can be <code>true</code>, <code>false</code>, or an object like below:
+							<pre class="prettyprint linenums">{
+    native: false,
+    dropDownBtn: false,
+    inputSize: 'span3'
+}</pre>
+							<ul>
+								<li><code>native</code> can have a value of <code>true</code> or <code>false</code>. If true, dropDownBtn will be ignored</li>
+								<li><code>dropDownBtn</code> can have a value of <code>true</code> or <code>false</code></li>
+								<li><code>inputSize</code> can either be a CSS class or a integer.</li>
+							</ul>
+						</td>
+						<td><code>false</code></td>
+					</tr>
+					<tr>
+						<td>dropdownWidth</td>
+						<td>Sets pixel width of dropdown. Must be an integer</td>
+						<td><code>170</code></td>
+					</tr>
+					<tr>
+						<td>restrictDateSelection</td>
+						<td>Disables ability to select dates in the past. Based current date</td>
+						<td>true</td>
+					</tr>
+					<tr>
+						<td>parseDate</td>
+						<td>Function allows custom date parsing. A date is passed as a parameter. A Date Object should be returned by this function</td>
+						<td><code>return new Date( date );</code></td>
+					</tr>
+					<tr>
+						<td>formatDate</td>
+						<td>Function allows custom formatting of date. Will never modify the main Date Object. A date is passed as a parameter. A formatted date should be returned by this function</td>
+						<td>Default Format: <code>MM-DD-YYYY</code></td>
+					</tr>
+					<tr>
+						<td>blackoutDates</td>
+						<td>Function restricts date selection. A date is passed as a parameter. Boolean value should be returned</td>
+						<td><code>false</code></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<h3>Markup</h3>
+
+			<p>If this control is generating markup all that's needed is <code>&lt;div id="myDatepicker"&gt;&lt;/div&gt;</code> with the correct options at initialization.</p>
+
+<pre class="prettyprint linenums">
+&lt;div class=&quot;datepicker dropdown&quot; id=&quot;myDatepicker&quot;&gt;
+    &lt;div class=&quot;input-append&quot;&gt;
+        &lt;div class=&quot;dropdown-menu&quot;&gt;&lt;/div&gt;
+        &lt;input type=&quot;text&quot; class=&quot;span2&quot; value=&quot;&quot; data-toggle=&quot;dropdown&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-toggle=&quot;dropdown&quot;&gt;&lt;i class=&quot;icon-calendar&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+		</div>
+	</div>
+</section>
+
 <section id="pillbox">
 	<div class="page-header">
 		<h1>Pillbox
@@ -1131,7 +1331,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 <pre class="prettyprint linenums">
 &lt;div id="MyPillbox" class="pillbox"&gt;
-  &lt;ul&gt;
+	&lt;ul&gt;
 	&lt;li data-value="foo"&gt;Item One&lt;/li&gt;
 	&lt;li class="status-success"&gt;Item Two&lt;/li&gt;
 	&lt;li class="status-warning"&gt;Item Three&lt;/li&gt;
@@ -1139,7 +1339,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 	&lt;li class="status-info"&gt;Item Five&lt;/li&gt;
 	&lt;li class="status-success"&gt;Item Six&lt;/li&gt;
 	&lt;li&gt;Item Seven&lt;/li&gt;
-  &lt;/ul&gt;
+	&lt;/ul&gt;
 &lt;/div&gt;
 </pre>
 
@@ -1658,7 +1858,7 @@ $('.radio-custom input').prop('checked', false);
 				</div>
 
 				<div class="span8">
-                    <input type="button" class="btn" id="tree-select-item" value="select nested Test Item 1">
+										<input type="button" class="btn" id="tree-select-item" value="select nested Test Item 1">
 					<input type="button" class="btn" id="tree-selected-items" value="log selected items">
 				</div>
 
@@ -1980,14 +2180,14 @@ $('.radio-custom input').prop('checked', false);
 <script>
 UserVoice = window.UserVoice || [];
 UserVoice.push(['showTab', 'classic_widget', {
-  mode: 'feedback',
-  primary_color: '#cc6d00',
-  link_color: '#007dbf',
-  forum_id: 181290,
-  tab_label: 'feedback',
-  tab_color: '#fd8e3a',
-  tab_position: 'middle-right',
-  tab_inverted: false
+	mode: 'feedback',
+	primary_color: '#cc6d00',
+	link_color: '#007dbf',
+	forum_id: 181290,
+	tab_label: 'feedback',
+	tab_color: '#fd8e3a',
+	tab_position: 'middle-right',
+	tab_inverted: false
 }]);
 </script>
 
