@@ -18,6 +18,7 @@ define(function(require) {
         this.options = $.extend({}, $.fn.select.defaults, options);
         this.$element.on('click', 'a', $.proxy(this.itemclicked, this));
         this.$button = this.$element.find('.btn');
+        this.$hiddenField = this.$element.find('.hidden-field');
         this.$label = this.$element.find('.dropdown-label');
         this.setDefaultSelection();
 
@@ -32,6 +33,7 @@ define(function(require) {
 
         itemclicked: function (e) {
             this.$selectedItem = $(e.target).parent();
+            this.$hiddenField.val(this.$selectedItem.attr('data-value'));
             this.$label.text(this.$selectedItem.text());
 
             // pass object including text and any data-attributes
@@ -90,6 +92,7 @@ define(function(require) {
             var item = this.$element.find(selector);
 
             this.$selectedItem = item;
+            this.$hiddenField.val(this.$selectedItem.attr('data-value'));
             this.$label.text(this.$selectedItem.text());
         },
 
