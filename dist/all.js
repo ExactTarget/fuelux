@@ -2418,8 +2418,8 @@
 
 define('fuelux/checkbox',['require','jquery'],function (require) {
 
-	var $ = require('jquery');
-
+	var $   = require('jquery');
+	var old = $.fn.checkbox;
 
 	// CHECKBOX CONSTRUCTOR AND PROTOTYPE
 
@@ -2499,24 +2499,31 @@ define('fuelux/checkbox',['require','jquery'],function (require) {
 
 	// CHECKBOX PLUGIN DEFINITION
 
-	$.fn.checkbox = function (option, value) {
-		var methodReturn;
+	$.fn.checkbox = function (option) {
+		var args         = Array.prototype.slice.call( arguments, 1 );
+		var matchString  = '@~_~@';
+		var methodReturn = matchString;
 
 		var $set = this.each(function () {
-			var $this = $(this);
-			var data = $this.data('checkbox');
+			var $this   = $( this );
+			var data    = $this.data('checkbox');
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('checkbox', (data = new Checkbox(this, options)));
-			if (typeof option === 'string') methodReturn = data[option](value);
+			if( !data ) $this.data('checkbox', (data = new Checkbox(this, options)));
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
-		return (methodReturn === undefined) ? $set : methodReturn;
+		return ( methodReturn === matchString ) ? $set : methodReturn;
 	};
 
 	$.fn.checkbox.defaults = {};
 
 	$.fn.checkbox.Constructor = Checkbox;
+
+	$.fn.checkbox.noConflict = function () {
+		$.fn.Checkbox = old;
+		return this;
+	};
 
 
 	// CHECKBOX DATA-API
@@ -2531,9 +2538,7 @@ define('fuelux/checkbox',['require','jquery'],function (require) {
 			});
 		});
 	});
-
 });
-
 /*
  * Fuel UX Utilities
  * https://github.com/ExactTarget/fuelux
@@ -2572,7 +2577,8 @@ define('fuelux/util',['require','jquery'],function (require) {
 
 define('fuelux/combobox',['require','jquery','./util'],function (require) {
 
-	var $ = require('jquery');
+	var $   = require('jquery');
+	var old = $.fn.combobox;
 	require('./util');
 
 	// COMBOBOX CONSTRUCTOR AND PROTOTYPE
@@ -2700,30 +2706,36 @@ define('fuelux/combobox',['require','jquery','./util'],function (require) {
 
 	// COMBOBOX PLUGIN DEFINITION
 
-	$.fn.combobox = function (option, value) {
-		var methodReturn;
+	$.fn.combobox = function (option) {
+		var args         = Array.prototype.slice.call( arguments, 1 );
+		var matchString  = '@~_~@';
+		var methodReturn = matchString;
 
 		var $set = this.each(function () {
-			var $this = $(this);
-			var data = $this.data('combobox');
+			var $this   = $( this );
+			var data    = $this.data( 'combobox' );
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('combobox', (data = new Combobox(this, options)));
-			if (typeof option === 'string') methodReturn = data[option](value);
+			if( !data ) $this.data('combobox', (data = new Combobox( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
-		return (methodReturn === undefined) ? $set : methodReturn;
+		return ( methodReturn === matchString ) ? $set : methodReturn;
 	};
 
 	$.fn.combobox.defaults = {};
 
 	$.fn.combobox.Constructor = Combobox;
 
+	$.fn.combobox.noConflict = function () {
+		$.fn.Combobox = old;
+		return this;
+	};
+
 
 	// COMBOBOX DATA-API
 
 	$(function () {
-
 		$(window).on('load', function () {
 			$('.combobox').each(function () {
 				var $this = $(this);
@@ -2738,9 +2750,7 @@ define('fuelux/combobox',['require','jquery','./util'],function (require) {
 			$this.combobox($this.data());
 		});
 	});
-
 });
-
 /*
  * Fuel UX Datagrid
  * https://github.com/ExactTarget/fuelux
@@ -2751,7 +2761,8 @@ define('fuelux/combobox',['require','jquery','./util'],function (require) {
 
 define('fuelux/datagrid',['require','jquery'],function (require) {
 
-	var $ = require('jquery');
+	var $   = require('jquery');
+	var old = $.fn.datagrid;
 
 	// Relates to thead .sorted styles in datagrid.less
 	var SORTED_HEADER_OFFSET = 22;
@@ -2895,6 +2906,18 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 			this.$tbody.html(this.placeholderRowHTML(this.options.loadingHTML));
 
 			this.options.dataSource.data(this.options.dataOptions, function (data) {
+				if (typeof data === 'string') {
+					// Error-handling
+
+					self.$footerchildren.css('visibility', 'hidden');
+
+					self.$tbody.html(self.errorRowHTML(data));
+					self.stretchHeight();
+
+					self.$element.trigger('loaded');
+					return;
+				}
+
 				var itemdesc = (data.count === 1) ? self.options.itemText : self.options.itemsText;
 				var rowHTML = '';
 
@@ -2931,6 +2954,11 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 				self.$element.trigger('loaded');
 			});
 
+		},
+
+		errorRowHTML: function (content) {
+			return '<tr><td style="text-align:center;padding:20px 20px 0 20px;border-bottom:none;" colspan="' +
+				this.columns.length + '"><div class="alert alert-error">' + content + '</div></td></tr>';
 		},
 
 		placeholderRowHTML: function (content) {
@@ -3075,14 +3103,20 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 	// DATAGRID PLUGIN DEFINITION
 
 	$.fn.datagrid = function (option) {
-		return this.each(function () {
-			var $this = $(this);
-			var data = $this.data('datagrid');
+		var args         = Array.prototype.slice.call( arguments, 1 );
+		var matchString  = '@~_~@';
+		var methodReturn = matchString;
+
+		var $set = this.each(function () {
+			var $this   = $( this );
+			var data    = $this.data( 'datagrid' );
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('datagrid', (data = new Datagrid(this, options)));
-			if (typeof option === 'string') data[option]();
+			if( !data ) $this.data('datagrid', (data = new Datagrid( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
+
+		return ( methodReturn === matchString ) ? $set : methodReturn;
 	};
 
 	$.fn.datagrid.defaults = {
@@ -3095,6 +3129,10 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 
 	$.fn.datagrid.Constructor = Datagrid;
 
+	$.fn.datagrid.noConflict = function () {
+		$.fn.Datagrid = old;
+		return this;
+	};
 });
 
 /*
@@ -3849,7 +3887,7 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 
 	$.fn.datepicker = function (option) {
 		var args         = Array.prototype.slice.call( arguments, 1 );
-		var matchString  = '~@_UnDeFiNeD_@~';
+		var matchString  = '@~_~@';
 		var methodReturn = matchString;
 
 		var $set = this.each(function () {
@@ -3877,9 +3915,7 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 		$.fn.Datepicker = old;
 		return this;
 	};
-
 });
-
 /*
  * Fuel UX Intelligent Bootstrap Dropdowns
  * https://github.com/ExactTarget/fuelux
@@ -4022,7 +4058,8 @@ define('fuelux/intelligent-dropdown',[ "jquery", "fuelux/all"], function($) {
 
 define('fuelux/pillbox',['require','jquery'],function(require) {
 
-	var $ = require('jquery');
+	var $   = require('jquery');
+	var old = $.fn.pillbox;
 
 	// PILLBOX CONSTRUCTOR AND PROTOTYPE
 
@@ -4102,24 +4139,32 @@ define('fuelux/pillbox',['require','jquery'],function(require) {
 
 	// PILLBOX PLUGIN DEFINITION
 
-	$.fn.pillbox = function (option, value1, value2) {
-		var methodReturn;
+	$.fn.pillbox = function (option) {
+		var args         = Array.prototype.slice.call( arguments, 1 );
+		var matchString  = '@~_~@';
+		var methodReturn = matchString;
 
 		var $set = this.each(function () {
-			var $this = $(this);
-			var data = $this.data('pillbox');
+			var $this   = $( this );
+			var data    = $this.data( 'pillbox' );
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('pillbox', ( data = new Pillbox(this, options)));
-			if ( typeof option === 'string') methodReturn = data[option](value1, value2);
+			if( !data ) $this.data('pillbox', (data = new Pillbox( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
-		return (methodReturn === undefined) ? $set : methodReturn;
+		return ( methodReturn === matchString ) ? $set : methodReturn;
 	};
 
 	$.fn.pillbox.defaults = {};
 
 	$.fn.pillbox.Constructor = Pillbox;
+
+	$.fn.pillbox.noConflict = function () {
+		$.fn.Pillbox = old;
+		return this;
+	};
+
 
 	// PILLBOX DATA-API
 
@@ -4131,8 +4176,6 @@ define('fuelux/pillbox',['require','jquery'],function(require) {
 		});
 	});
 });
-
-
 /*
  * Fuel UX Radio
  * https://github.com/ExactTarget/fuelux
@@ -4143,8 +4186,8 @@ define('fuelux/pillbox',['require','jquery'],function(require) {
 
 define('fuelux/radio',['require','jquery'],function (require) {
 
-	var $ = require('jquery');
-
+	var $   = require('jquery');
+	var old = $.fn.radio;
 
 	// RADIO CONSTRUCTOR AND PROTOTYPE
 
@@ -4176,12 +4219,12 @@ define('fuelux/radio',['require','jquery'],function (require) {
 			var disabled = !!$radio.prop('disabled');
 
 			this.$icon.removeClass('checked disabled');
-            this.$label.removeClass('checked');
+			this.$label.removeClass('checked');
 
 			// set state of radio
 			if (checked === true) {
 				this.$icon.addClass('checked');
-                this.$label.addClass('checked');
+				this.$label.addClass('checked');
 			}
 			if (disabled === true) {
 				this.$icon.addClass('disabled');
@@ -4189,11 +4232,11 @@ define('fuelux/radio',['require','jquery'],function (require) {
 		},
 
 		resetGroup: function () {
-            var group = $('input[name=' + this.groupName + ']');
+			var group = $('input[name="' + this.groupName + '"]');
 
 			// reset all radio buttons in group
 			group.next().removeClass('checked');
-            group.parent().removeClass('checked');
+			group.parent().removeClass('checked');
 		},
 
 		enable: function () {
@@ -4232,24 +4275,31 @@ define('fuelux/radio',['require','jquery'],function (require) {
 
 	// RADIO PLUGIN DEFINITION
 
-	$.fn.radio = function (option, value) {
-		var methodReturn;
+	$.fn.radio = function (option) {
+		var args         = Array.prototype.slice.call( arguments, 1 );
+		var matchString  = '@~_~@';
+		var methodReturn = matchString;
 
 		var $set = this.each(function () {
-			var $this = $(this);
-			var data = $this.data('radio');
+			var $this   = $( this );
+			var data    = $this.data( 'radio' );
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('radio', (data = new Radio(this, options)));
-			if (typeof option === 'string') methodReturn = data[option](value);
+			if( !data ) $this.data('radio', (data = new Radio( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
-		return (methodReturn === undefined) ? $set : methodReturn;
+		return ( methodReturn === matchString ) ? $set : methodReturn;
 	};
 
 	$.fn.radio.defaults = {};
 
 	$.fn.radio.Constructor = Radio;
+
+	$.fn.radio.noConflict = function () {
+		$.fn.Radio = old;
+		return this;
+	};
 
 
 	// RADIO DATA-API
@@ -4264,9 +4314,7 @@ define('fuelux/radio',['require','jquery'],function (require) {
 			});
 		});
 	});
-
 });
-
 /*
  * Fuel UX Search
  * https://github.com/ExactTarget/fuelux
@@ -4277,8 +4325,8 @@ define('fuelux/radio',['require','jquery'],function (require) {
 
 define('fuelux/search',['require','jquery'],function(require) {
 
-	var $ = require('jquery');
-
+	var $   = require('jquery');
+	var old = $.fn.search;
 
 	// SEARCH CONSTRUCTOR AND PROTOTYPE
 
@@ -4366,19 +4414,30 @@ define('fuelux/search',['require','jquery'],function(require) {
 	// SEARCH PLUGIN DEFINITION
 
 	$.fn.search = function (option) {
-		return this.each(function () {
-			var $this = $(this);
-			var data = $this.data('search');
+		var args         = Array.prototype.slice.call( arguments, 1 );
+		var matchString  = '@~_~@';
+		var methodReturn = matchString;
+
+		var $set = this.each(function () {
+			var $this = $( this );
+			var data = $this.data( 'search' );
 			var options = typeof option === 'object' && option;
 
 			if (!data) $this.data('search', (data = new Search(this, options)));
-			if (typeof option === 'string') data[option]();
+			if (typeof option === 'string') methodReturn = data[ option ].apply( data, args );
 		});
+
+		return ( methodReturn === matchString ) ? $set : methodReturn;
 	};
 
 	$.fn.search.defaults = {};
 
 	$.fn.search.Constructor = Search;
+
+	$.fn.search.noConflict = function () {
+		$.fn.Search = old;
+		return this;
+	};
 
 
 	// SEARCH DATA-API
@@ -4390,9 +4449,7 @@ define('fuelux/search',['require','jquery'],function(require) {
 			$this.search($this.data());
 		});
 	});
-
 });
-
 /*
  * Fuel UX Spinner
  * https://github.com/ExactTarget/fuelux
@@ -4403,8 +4460,8 @@ define('fuelux/search',['require','jquery'],function(require) {
 
 define('fuelux/spinner',['require','jquery'],function(require) {
 
-	var $ = require('jquery');
-
+	var $   = require('jquery');
+	var old = $.fn.spinner;
 
 	// SPINNER CONSTRUCTOR AND PROTOTYPE
 
@@ -4467,7 +4524,7 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 			if(newVal/1){
 				this.options.value = newVal/1;
 			}else{
-				newVal = newVal.replace(/[^0-9]/g,'');
+				newVal = newVal.replace(/[^0-9]/g,'') || '';
 				this.$input.val(newVal);
 				this.options.value = newVal/1;
 			}
@@ -4565,19 +4622,21 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 
 	// SPINNER PLUGIN DEFINITION
 
-	$.fn.spinner = function (option,value) {
-		var methodReturn;
+	$.fn.spinner = function (option) {
+		var args         = Array.prototype.slice.call( arguments, 1 );
+		var matchString  = '@~_~@';
+		var methodReturn = matchString;
 
 		var $set = this.each(function () {
-			var $this = $(this);
-			var data = $this.data('spinner');
+			var $this   = $( this );
+			var data    = $this.data( 'spinner' );
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('spinner', (data = new Spinner(this, options)));
-			if (typeof option === 'string') methodReturn = data[option](value);
+			if( !data ) $this.data('spinner', (data = new Spinner( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
-		return (methodReturn === undefined) ? $set : methodReturn;
+		return ( methodReturn === matchString ) ? $set : methodReturn;
 	};
 
 	$.fn.spinner.defaults = {
@@ -4592,6 +4651,11 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 
 	$.fn.spinner.Constructor = Spinner;
 
+	$.fn.spinner.noConflict = function () {
+		$.fn.Spinner = old;
+		return this;
+	};
+
 
 	// SPINNER DATA-API
 
@@ -4602,9 +4666,7 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 			$this.spinner($this.data());
 		});
 	});
-
 });
-
 /*
  * Fuel UX Select
  * https://github.com/ExactTarget/fuelux
@@ -4625,6 +4687,7 @@ define('fuelux/select',['require','jquery','./util'],function(require) {
         this.options = $.extend({}, $.fn.select.defaults, options);
         this.$element.on('click', 'a', $.proxy(this.itemclicked, this));
         this.$button = this.$element.find('.btn');
+        this.$hiddenField = this.$element.find('.hidden-field');
         this.$label = this.$element.find('.dropdown-label');
         this.setDefaultSelection();
 
@@ -4639,6 +4702,7 @@ define('fuelux/select',['require','jquery','./util'],function(require) {
 
         itemclicked: function (e) {
             this.$selectedItem = $(e.target).parent();
+            this.$hiddenField.val(this.$selectedItem.attr('data-value'));
             this.$label.text(this.$selectedItem.text());
 
             // pass object including text and any data-attributes
@@ -4697,6 +4761,7 @@ define('fuelux/select',['require','jquery','./util'],function(require) {
             var item = this.$element.find(selector);
 
             this.$selectedItem = item;
+            this.$hiddenField.val(this.$selectedItem.attr('data-value'));
             this.$label.text(this.$selectedItem.text());
         },
 
@@ -4779,8 +4844,8 @@ define('fuelux/select',['require','jquery','./util'],function(require) {
 
 define('fuelux/tree',['require','jquery'],function(require) {
 
-	var $ = require('jquery');
-
+	var $   = require('jquery');
+	var old = $.fn.tree;
 
 	// TREE CONSTRUCTOR AND PROTOTYPE
 
@@ -4982,19 +5047,21 @@ define('fuelux/tree',['require','jquery'],function(require) {
 
 	// TREE PLUGIN DEFINITION
 
-	$.fn.tree = function (option, value) {
-		var methodReturn;
+	$.fn.tree = function (option) {
+		var args         = Array.prototype.slice.call( arguments, 1 );
+		var matchString  = '@~_~@';
+		var methodReturn = matchString;
 
 		var $set = this.each(function () {
-			var $this = $(this);
-			var data = $this.data('tree');
+			var $this   = $( this );
+			var data    = $this.data( 'tree' );
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('tree', (data = new Tree(this, options)));
-			if (typeof option === 'string') methodReturn = data[option](value);
+			if( !data ) $this.data('tree', (data = new Tree( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
-		return (methodReturn === undefined) ? $set : methodReturn;
+		return ( methodReturn === matchString ) ? $set : methodReturn;
 	};
 
 	$.fn.tree.defaults = {
@@ -5005,8 +5072,11 @@ define('fuelux/tree',['require','jquery'],function(require) {
 
 	$.fn.tree.Constructor = Tree;
 
+	$.fn.tree.noConflict = function () {
+		$.fn.Tree = old;
+		return this;
+	};
 });
-
 /*
  * Fuel UX Wizard
  * https://github.com/ExactTarget/fuelux
@@ -5017,8 +5087,8 @@ define('fuelux/tree',['require','jquery'],function(require) {
 
 define('fuelux/wizard',['require','jquery'],function (require) {
 
-	var $ = require('jquery');
-
+	var $   = require('jquery');
+	var old = $.fn.wizard;
 
 	// WIZARD CONSTRUCTOR AND PROTOTYPE
 
@@ -5195,19 +5265,21 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 
 	// WIZARD PLUGIN DEFINITION
 
-	$.fn.wizard = function (option, value) {
-		var methodReturn;
+	$.fn.wizard = function (option) {
+		var args         = Array.prototype.slice.call( arguments, 1 );
+		var matchString  = '@~_~@';
+		var methodReturn = matchString;
 
 		var $set = this.each(function () {
-			var $this = $(this);
-			var data = $this.data('wizard');
+			var $this   = $( this );
+			var data    = $this.data( 'wizard' );
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('wizard', (data = new Wizard(this, options)));
-			if (typeof option === 'string') methodReturn = data[option](value);
+			if( !data ) $this.data('wizard', (data = new Wizard( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
-		return (methodReturn === undefined) ? $set : methodReturn;
+		return ( methodReturn === matchString ) ? $set : methodReturn;
 	};
 
 	$.fn.wizard.defaults = {
@@ -5215,6 +5287,11 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 	};
 
 	$.fn.wizard.Constructor = Wizard;
+
+	$.fn.wizard.noConflict = function () {
+		$.fn.Wizard = old;
+		return this;
+	};
 
 
 	// WIZARD DATA-API
@@ -5226,9 +5303,7 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 			$this.wizard($this.data());
 		});
 	});
-
 });
-
 /*
  * Fuel UX
  * https://github.com/ExactTarget/fuelux

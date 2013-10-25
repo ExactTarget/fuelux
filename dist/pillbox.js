@@ -8,7 +8,8 @@
 
 define(['require','jquery'],function(require) {
 
-	var $ = require('jquery');
+	var $   = require('jquery');
+	var old = $.fn.pillbox;
 
 	// PILLBOX CONSTRUCTOR AND PROTOTYPE
 
@@ -88,24 +89,32 @@ define(['require','jquery'],function(require) {
 
 	// PILLBOX PLUGIN DEFINITION
 
-	$.fn.pillbox = function (option, value1, value2) {
-		var methodReturn;
+	$.fn.pillbox = function (option) {
+		var args         = Array.prototype.slice.call( arguments, 1 );
+		var matchString  = '@~_~@';
+		var methodReturn = matchString;
 
 		var $set = this.each(function () {
-			var $this = $(this);
-			var data = $this.data('pillbox');
+			var $this   = $( this );
+			var data    = $this.data( 'pillbox' );
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('pillbox', ( data = new Pillbox(this, options)));
-			if ( typeof option === 'string') methodReturn = data[option](value1, value2);
+			if( !data ) $this.data('pillbox', (data = new Pillbox( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
-		return (methodReturn === undefined) ? $set : methodReturn;
+		return ( methodReturn === matchString ) ? $set : methodReturn;
 	};
 
 	$.fn.pillbox.defaults = {};
 
 	$.fn.pillbox.Constructor = Pillbox;
+
+	$.fn.pillbox.noConflict = function () {
+		$.fn.Pillbox = old;
+		return this;
+	};
+
 
 	// PILLBOX DATA-API
 
@@ -117,4 +126,3 @@ define(['require','jquery'],function(require) {
 		});
 	});
 });
-

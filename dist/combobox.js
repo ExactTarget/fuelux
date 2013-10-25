@@ -8,7 +8,8 @@
 
 define(['require','jquery','./util'],function (require) {
 
-	var $ = require('jquery');
+	var $   = require('jquery');
+	var old = $.fn.combobox;
 	require('./util');
 
 	// COMBOBOX CONSTRUCTOR AND PROTOTYPE
@@ -136,30 +137,36 @@ define(['require','jquery','./util'],function (require) {
 
 	// COMBOBOX PLUGIN DEFINITION
 
-	$.fn.combobox = function (option, value) {
-		var methodReturn;
+	$.fn.combobox = function (option) {
+		var args         = Array.prototype.slice.call( arguments, 1 );
+		var matchString  = '@~_~@';
+		var methodReturn = matchString;
 
 		var $set = this.each(function () {
-			var $this = $(this);
-			var data = $this.data('combobox');
+			var $this   = $( this );
+			var data    = $this.data( 'combobox' );
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('combobox', (data = new Combobox(this, options)));
-			if (typeof option === 'string') methodReturn = data[option](value);
+			if( !data ) $this.data('combobox', (data = new Combobox( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
-		return (methodReturn === undefined) ? $set : methodReturn;
+		return ( methodReturn === matchString ) ? $set : methodReturn;
 	};
 
 	$.fn.combobox.defaults = {};
 
 	$.fn.combobox.Constructor = Combobox;
 
+	$.fn.combobox.noConflict = function () {
+		$.fn.Combobox = old;
+		return this;
+	};
+
 
 	// COMBOBOX DATA-API
 
 	$(function () {
-
 		$(window).on('load', function () {
 			$('.combobox').each(function () {
 				var $this = $(this);
@@ -174,5 +181,4 @@ define(['require','jquery','./util'],function (require) {
 			$this.combobox($this.data());
 		});
 	});
-
 });

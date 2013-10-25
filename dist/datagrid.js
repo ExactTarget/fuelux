@@ -8,7 +8,8 @@
 
 define(['require','jquery'],function (require) {
 
-	var $ = require('jquery');
+	var $   = require('jquery');
+	var old = $.fn.datagrid;
 
 	// Relates to thead .sorted styles in datagrid.less
 	var SORTED_HEADER_OFFSET = 22;
@@ -152,6 +153,18 @@ define(['require','jquery'],function (require) {
 			this.$tbody.html(this.placeholderRowHTML(this.options.loadingHTML));
 
 			this.options.dataSource.data(this.options.dataOptions, function (data) {
+				if (typeof data === 'string') {
+					// Error-handling
+
+					self.$footerchildren.css('visibility', 'hidden');
+
+					self.$tbody.html(self.errorRowHTML(data));
+					self.stretchHeight();
+
+					self.$element.trigger('loaded');
+					return;
+				}
+
 				var itemdesc = (data.count === 1) ? self.options.itemText : self.options.itemsText;
 				var rowHTML = '';
 
@@ -188,6 +201,11 @@ define(['require','jquery'],function (require) {
 				self.$element.trigger('loaded');
 			});
 
+		},
+
+		errorRowHTML: function (content) {
+			return '<tr><td style="text-align:center;padding:20px 20px 0 20px;border-bottom:none;" colspan="' +
+				this.columns.length + '"><div class="alert alert-error">' + content + '</div></td></tr>';
 		},
 
 		placeholderRowHTML: function (content) {
@@ -332,14 +350,20 @@ define(['require','jquery'],function (require) {
 	// DATAGRID PLUGIN DEFINITION
 
 	$.fn.datagrid = function (option) {
-		return this.each(function () {
-			var $this = $(this);
-			var data = $this.data('datagrid');
+		var args         = Array.prototype.slice.call( arguments, 1 );
+		var matchString  = '@~_~@';
+		var methodReturn = matchString;
+
+		var $set = this.each(function () {
+			var $this   = $( this );
+			var data    = $this.data( 'datagrid' );
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('datagrid', (data = new Datagrid(this, options)));
-			if (typeof option === 'string') data[option]();
+			if( !data ) $this.data('datagrid', (data = new Datagrid( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
+
+		return ( methodReturn === matchString ) ? $set : methodReturn;
 	};
 
 	$.fn.datagrid.defaults = {
@@ -352,4 +376,8 @@ define(['require','jquery'],function (require) {
 
 	$.fn.datagrid.Constructor = Datagrid;
 
+	$.fn.datagrid.noConflict = function () {
+		$.fn.Datagrid = old;
+		return this;
+	};
 });
