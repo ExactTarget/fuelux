@@ -367,7 +367,7 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 				equal($testcell.attr('colspan'), '2', 'error status spans all columns');
 				equal($testerroralert.length, 1, 'error alert in cell');
 				ok($testerroralert.hasClass('alert alert-error'), 'error alert has correct classes');
-				equal($testerroralert.html(), 'An error occurred on the server: <strong>500 Internal Server Error</strong>', 'error status is displayed');
+				equal($testerroralert.html().toLowerCase(), 'An error occurred on the server: <strong>500 Internal Server Error</strong>'.toLowerCase(), 'error status is displayed');
 
 				var $footerchildren = $datagrid.find('.datagrid-footer-left');
 				equal($footerchildren.css('visibility'), 'hidden', 'footer is correctly hidden');
