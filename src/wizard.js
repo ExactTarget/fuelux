@@ -18,7 +18,7 @@ define(function (require) {
 
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.wizard.defaults, options);
-		this.options.disablePreviousStep = ( this.$element.data().restrict === "prev" ) ? true : false;
+		this.options.disablePreviousStep = ( this.$element.data().restrict === "previous" ) ? true : false;
 		this.currentStep = this.options.selectedItem.step;
 		this.numSteps = this.$element.find('.steps li').length;
 		this.$prevBtn = this.$element.find('button.btn-prev');
@@ -92,7 +92,7 @@ define(function (require) {
 			$(target).addClass('active');
 
 			// reset the wizard position to the left
-            this.$element.find('.steps').first().attr('style','margin-left: 0');
+			this.$element.find('.steps').first().attr('style','margin-left: 0');
 
 			// check if the steps are wider than the container div
 			var totalWidth = 0;
@@ -100,8 +100,8 @@ define(function (require) {
 				totalWidth += $(this).outerWidth();
 			});
 			var containerWidth = 0;
-            if (this.$element.find('.actions').length) {
-                containerWidth = this.$element.width() - this.$element.find('.actions').first().outerWidth();
+			if (this.$element.find('.actions').length) {
+				containerWidth = this.$element.width() - this.$element.find('.actions').first().outerWidth();
 			} else {
 				containerWidth = this.$element.width();
 			}
@@ -109,16 +109,16 @@ define(function (require) {
 			
 				// set the position so that the last step is on the right
 				var newMargin = totalWidth - containerWidth;
-                this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
+				this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
 				
 				// set the position so that the active step is in a good
 				// position if it has been moved out of view
-                if (this.$element.find('li.active').first().position().left < 200) {
-                    newMargin += this.$element.find('li.active').first().position().left - 200;
+				if (this.$element.find('li.active').first().position().left < 200) {
+					newMargin += this.$element.find('li.active').first().position().left - 200;
 					if (newMargin < 1) {
-                        this.$element.find('.steps').first().attr('style','margin-left: 0');
+						this.$element.find('.steps').first().attr('style','margin-left: 0');
 					} else {
-                        this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
+						this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
 					}
 				}
 			}
