@@ -18,6 +18,7 @@ define(function (require) {
 
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.wizard.defaults, options);
+		this.options.disablePreviousStep = ( this.$element.data().restrict === "previous" ) ? true : false;
 		this.currentStep = this.options.selectedItem.step;
 		this.numSteps = this.$element.find('.steps li').length;
 		this.$prevBtn = this.$element.find('button.btn-prev');
@@ -33,7 +34,12 @@ define(function (require) {
 		this.$element.on('click', 'li.complete', $.proxy(this.stepclicked, this));
 		
 		if(this.currentStep > 1) {
-            this.selectedItem(this.options.selectedItem);
+			this.selectedItem(this.options.selectedItem);
+		}
+
+		if( this.options.disablePreviousStep ) {
+			this.$prevBtn.attr( 'disabled', true );
+			this.$element.find( '.steps' ).addClass( 'previous-disabled' );
 		}
 	};
 
@@ -47,7 +53,9 @@ define(function (require) {
 			var lastStep = (this.currentStep === this.numSteps);
 
 			// disable buttons based on current step
-			this.$prevBtn.attr('disabled', (firstStep === true || canMovePrev === false));
+			if( !this.options.disablePreviousStep ) {
+				this.$prevBtn.attr('disabled', (firstStep === true || canMovePrev === false));
+			}
 
 			// change button text of last step, if specified
 			var data = this.$nextBtn.data();
@@ -84,7 +92,7 @@ define(function (require) {
 			$(target).addClass('active');
 
 			// reset the wizard position to the left
-            this.$element.find('.steps').first().attr('style','margin-left: 0');
+			this.$element.find('.steps').first().attr('style','margin-left: 0');
 
 			// check if the steps are wider than the container div
 			var totalWidth = 0;
@@ -92,8 +100,8 @@ define(function (require) {
 				totalWidth += $(this).outerWidth();
 			});
 			var containerWidth = 0;
-            if (this.$element.find('.actions').length) {
-                containerWidth = this.$element.width() - this.$element.find('.actions').first().outerWidth();
+			if (this.$element.find('.actions').length) {
+				containerWidth = this.$element.width() - this.$element.find('.actions').first().outerWidth();
 			} else {
 				containerWidth = this.$element.width();
 			}
@@ -101,16 +109,16 @@ define(function (require) {
 			
 				// set the position so that the last step is on the right
 				var newMargin = totalWidth - containerWidth;
-                this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
+				this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
 				
 				// set the position so that the active step is in a good
 				// position if it has been moved out of view
-                if (this.$element.find('li.active').first().position().left < 200) {
-                    newMargin += this.$element.find('li.active').first().position().left - 200;
+				if (this.$element.find('li.active').first().position().left < 200) {
+					newMargin += this.$element.find('li.active').first().position().left - 200;
 					if (newMargin < 1) {
-                        this.$element.find('.steps').first().attr('style','margin-left: 0');
+						this.$element.find('.steps').first().attr('style','margin-left: 0');
 					} else {
-                        this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
+						this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
 					}
 				}
 			}
@@ -119,20 +127,31 @@ define(function (require) {
 		},
 
 		stepclicked: function (e) {
-			var li = $(e.currentTarget);
+			var li          = $(e.currentTarget);
+			var index       = this.$element.find('.steps li').index(li);
+			var canMovePrev = true;
 
-			var index = this.$element.find('.steps li').index(li);
+			if( this.options.disablePreviousStep ) {
+				if( index < this.currentStep ) {
+					canMovePrev = false;
+				}
+			}
 
-			var evt = $.Event('stepclick');
-			this.$element.trigger(evt, {step: index + 1});
-			if (evt.isDefaultPrevented()) return;
+			if( canMovePrev ) {
+				var evt = $.Event('stepclick');
+				this.$element.trigger(evt, {step: index + 1});
+				if (evt.isDefaultPrevented()) return;
 
-			this.currentStep = (index + 1);
-			this.setState();
+				this.currentStep = (index + 1);
+				this.setState();
+			}
 		},
 
 		previous: function () {
 			var canMovePrev = (this.currentStep > 1);
+			if( this.options.disablePreviousStep ) {
+				canMovePrev = false;
+			}
 			if (canMovePrev) {
 				var e = $.Event('change');
 				this.$element.trigger(e, {step: this.currentStep, direction: 'previous'});
@@ -218,7 +237,7 @@ define(function (require) {
 	// WIZARD DATA-API
 
 	$(function () {
-		$('body').on('mousedown.wizard.data-api', '.wizard', function () {
+		$('body').on('mouseover.wizard.data-api', '.wizard', function () {
 			var $this = $(this);
 			if ($this.data('wizard')) return;
 			$this.wizard($this.data());

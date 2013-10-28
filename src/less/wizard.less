@@ -14,6 +14,24 @@
 		padding: 0;
 		margin: 0;
 		width: 4000px;
+
+		&.previous-disabled {
+			li {
+				&.complete {
+					cursor: default;
+
+					&:hover {
+						background: #f3f4f5;
+						color: @successText;
+						cursor: default;
+
+						.chevron:before {
+							border-left-color: #f3f4f5;
+						}
+					}
+				}
+			}
+		}
 		
 		li {
 			float: left;
@@ -35,7 +53,7 @@
 				position: absolute;
 				right: -14px;
 				top: 0;
-                z-index: 1;
+				z-index: 1;
 			}
 
 			.chevron:before {
@@ -92,7 +110,7 @@
 		line-height: 46px;
 		float: right;
 		padding-left: 15px;
-		padding-right: 15px;		
+		padding-right: 15px;
 		vertical-align: middle;
 		background-color: #e5e5e5;
 		border-left: 1px solid @navbarBorder;
