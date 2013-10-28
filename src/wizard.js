@@ -206,9 +206,8 @@ define(function (require) {
 	// WIZARD PLUGIN DEFINITION
 
 	$.fn.wizard = function (option) {
-		var args         = Array.prototype.slice.call( arguments, 1 );
-		var matchString  = '@~_~@';
-		var methodReturn = matchString;
+		var args = Array.prototype.slice.call( arguments, 1 );
+		var methodReturn;
 
 		var $set = this.each(function () {
 			var $this   = $( this );
@@ -219,7 +218,7 @@ define(function (require) {
 			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
-		return ( methodReturn === matchString ) ? $set : methodReturn;
+		return ( methodReturn === undefined ) ? $set : methodReturn;
 	};
 
 	$.fn.wizard.defaults = {
