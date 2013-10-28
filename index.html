@@ -296,8 +296,17 @@
 				var futureDate = new Date(+new Date() + ( 7 * 24 * 60 * 60 * 1000 ) );
 				$('#datepicker1').datepicker('setDate', futureDate );
 				console.log( $('#datepicker1').datepicker('getDate') );
-			})
-		});
+			});
+
+            //SCHEDULER
+
+            $('#schedulerBtn').on('click', function(){
+                var val = $('#MyScheduler').scheduler('value');
+                if(window.console && window.console.log){
+                    window.console.log(val);
+                }
+            });
+        });
 	</script>
 
 
