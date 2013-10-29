@@ -204,10 +204,16 @@ define(function(require) {
         // called when the repeat interval changes
         // (None, Hourly, Daily, Weekdays, Weekly, Monthly, Yearly
         repeatIntervalSelectChanged: function(e, data) {
+            var selectedItem, val, txt;
 
-            // get the currently selected repeat interval
-            var val = data.value,
+            if(!data){
+                selectedItem = this.$repeatIntervalSelect.select('selectedItem');
+                val = selectedItem.value;
+                txt = selectedItem.text;
+            }else{
+                val = data.value;
                 txt = data.text;
+            }
 
             // set the text
             this.$repeatIntervalTxt.text(txt);
@@ -241,7 +247,7 @@ define(function(require) {
         },
 
         setValue: function(options){
-            var hours, minutes, offset, period, selector, startDate;
+            var hours, i, item, l, minutes, period, recur, startDate, temp, val;
 
             if(options.startDateTime){
                 startDate = new Date(options.startDateTime);
@@ -261,50 +267,105 @@ define(function(require) {
                 this.$startTime.find('input').val(hours + ':' + minutes + ' ' + period);
             }
 
-            selector = 'li[data';
+            item = 'li[data';
             if(options.timeZone){
                 if(typeof(options.timeZone)==='string'){
-                    selector += '-name="' + options.timeZone;
+                    item += '-name="' + options.timeZone;
                 }else{
                     if(options.timeZone.name){
-                        selector += '-name="' + options.timeZone.name;
+                        item += '-name="' + options.timeZone.name;
                     }else{
-                        selector += '-offset="' + options.timeZone.offset;
+                        item += '-offset="' + options.timeZone.offset;
                     }
                 }
-                selector += '"]';
+                item += '"]';
             }else{
-                offset = options.startDateTime.split('T')[1];
-                if(offset){
-                    if(offset.search(/\+/)>-1){
-                        offset = '+' + $.trim(offset.split('+')[1]);
-                    }else if(offset.search(/\-/)>-1){
-                        offset = '-' + $.trim(offset.split('-')[1]);
+                temp = options.startDateTime.split('T')[1];
+                if(temp){
+                    if(temp.search(/\+/)>-1){
+                        temp = '+' + $.trim(temp.split('+')[1]);
+                    }else if(temp.search(/\-/)>-1){
+                        temp = '-' + $.trim(temp.split('-')[1]);
                     }else{
-                        offset = '+00:00';
+                        temp = '+00:00';
                     }
                 }else{
-                    offset = '+00:00';
+                    temp = '+00:00';
                 }
-                selector += '-offset="' + offset + '"]';
+                item += '-offset="' + temp + '"]';
             }
-            this.$timeZone.select('selectBySelector', selector);
+            this.$timeZone.select('selectBySelector', item);
 
             if(options.recurrencePattern){
+                recur = {};
+                temp = options.recurrencePattern.toUpperCase().split(';');
+                for(i=0, l=temp.length; i<l; i++){
+                    if(temp[i]!==''){
+                        item = temp[i].split('=');
+                        recur[item[0]] = item[1];
+                    }
+                }
 
+                if(recur.FREQ==='DAILY'){
+                    if(recur.BYDAY==='MO,TU,WE,TH,FR'){
+                        item = 'weekdays';
+                    }else{
+                        if(recur.INTERVAL==='1' && recur.COUNT==='1'){
+                            item = 'none';
+                        }else{
+                            item = 'daily';
+                            if(recur.INTERVAL){
+                                val = recur.INTERVAL;
+                            }
+                        }
+                    }
+                }else if(recur.FREQ==='HOURLY' && recur.INTERVAL){
+                    item = 'hourly';
+                    val = recur.INTERVAL;
+                }else if(recur.FREQ==='WEEKLY' && recur.BYDAY && recur.INTERVAL){
+                    item = this.$element.find('.scheduler-weekly .btn-group');
+                    item.find('button').removeClass('active');
+                    temp = recur.BYDAY.split(',');
+                    for(i=0,l=temp.length; i<l; i++){
+                        item.find('button[data-value="' + temp[i] + '"]').addClass('active');
+                    }
+                    item = 'weekly';
+                    val = recur.INTERVAL;
+                }else if(recur.FREQ==='MONTHLY'){
+
+                }else if(recur.FREQ==='YEARLY'){
+
+                }else{
+                    item = 'none';
+                }
+
+                if(val!==undefined){
+                    this.$repeatIntervalSpinner.spinner('value', parseInt(val, 10));
+                }
+                this.$repeatIntervalSelect.select('selectByValue', item);
+                this.$repeatIntervalSelect.trigger('changed');
             }
         },
 
         // called when the end range changes
         // (Never, After, On date)
         $endSelectChanged: function(e, data) {
+            var selectedItem, val;
+
+            if(!data){
+                selectedItem = this.$endSelect.select('selectedItem');
+                val = selectedItem.value;
+            }else{
+                val = data.value;
+            }
+
             // hide all panels
             this.$endAfter.hide();
             this.$endDate.hide();
 
-            if(data.value==='after'){
+            if(val==='after'){
                 this.$endAfter.show();
-            }else if(data.value==='date'){
+            }else if(val==='date'){
                 this.$endDate.show();
             }
         }
