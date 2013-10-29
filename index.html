@@ -300,11 +300,18 @@
 
             //SCHEDULER
 
-            $('#schedulerBtn').on('click', function(){
+            $('#schedulerLogValueBtn').on('click', function(){
                 var val = $('#MyScheduler').scheduler('value');
                 if(window.console && window.console.log){
                     window.console.log(val);
                 }
+            });
+
+            $('#schedulerSetValueBtn').on('click', function(){
+                $('#MyScheduler').scheduler('value', {
+                    startDateTime: '2014-03-31T03:23+02:00',
+                    recurrencePattern: ''
+                });
             });
         });
 	</script>
@@ -1093,7 +1100,8 @@
             </table>
         </div>
 
-        <input id="schedulerBtn" type="button" class="btn btn-mini" value="log value" />
+        <input id="schedulerLogValueBtn" type="button" class="btn btn-mini" value="log value" />
+        <input id="schedulerSetValueBtn" type="button" class="btn btn-mini" value="set value" />
     </div>
 
 

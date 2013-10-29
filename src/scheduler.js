@@ -53,8 +53,15 @@ define(function(require) {
     Scheduler.prototype = {
         constructor: Scheduler,
 
-        value: function() {
+        value: function(options) {
+            if(options){
+                return this.setValue(options);
+            }else{
+                return this.getValue();
+            }
+        },
 
+        getValue: function(){
             // FREQ = frequency (hourly, daily, monthly...)
             // BYDAY = when picking days (MO,TU,WE,etc)
             // BYMONTH = when picking months (Jan,Feb,March) - note the values should be 1,2,3...
@@ -85,8 +92,8 @@ define(function(require) {
             startDateTime = '' + getFormattedDate(this.$startDate.datepicker('getDate'), '-');
 
             startDateTime += 'T';
-            hasAm = !!(startTime.search('am')>0);
-            hasPm = !!(startTime.search('pm')>0);
+            hasAm = !!(startTime.search('am')>-1);
+            hasPm = !!(startTime.search('pm')>-1);
             startTime = $.trim(startTime.replace(/am/g, '').replace(/pm/g, '')).split(':');
             startTime[0] = parseInt(startTime[0], 10);
             startTime[1] = parseInt(startTime[1], 10);
@@ -230,6 +237,48 @@ define(function(require) {
             }
             else {
                 this.$end.show();
+            }
+        },
+
+        setValue: function(options){
+            var hours, minutes, offset, period, startDate;
+
+            if(options.startDateTime){
+                startDate = new Date(options.startDateTime);
+                this.$startDate.datepicker('setDate', startDate);
+
+                hours = startDate.getHours();
+                minutes = startDate.getMinutes();
+                period = (hours<12) ? 'AM' : 'PM';
+
+                if(hours===0){
+                    hours = 12;
+                }else if(hours>12){
+                    hours -= 12;
+                }
+                minutes = (minutes<10) ? '0' + minutes : minutes;
+
+                this.$startTime.find('input').val(hours + ':' + minutes + ' ' + period);
+
+                if(!options.timeZone){
+                    offset = options.startDateTime.split('T')[1];
+                    if(offset){
+                        if(offset.search(/\+/)>-1){
+                            offset = '+' + $.trim(offset.split('+')[1]);
+                        }else if(offset.search(/\-/)>-1){
+                            offset = '-' + $.trim(offset.split('-')[1]);
+                        }else{
+                            offset = '+00:00';
+                        }
+                    }else{
+                        offset = '+00:00';
+                    }
+                    this.$timeZone.select('selectBySelector', 'li[data-offset="' + offset + '"]');
+                }
+            }
+
+            if(options.recurrencePattern){
+
             }
         },
 
