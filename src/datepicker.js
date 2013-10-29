@@ -130,17 +130,9 @@ define(function (require) {
 			return date.getFullYear() + '-' + this.padTwo( date.getMonth() + 1 ) + '-' + this.padTwo( date.getDate() );
 		},
 
-		parseDate: function( date, returnBoolean ) {
-			// need this for date entry on keyup
-			var validDateCheck = Boolean( date) && new Date( date ) !== 'Invalid Date';
-			returnBoolean      = returnBoolean || false;
-
-			if( returnBoolean && validDateCheck ) {
-				return true;
-			} else if( !returnBoolean && validDateCheck ) {
+		parseDate: function( date ) {
+			if( Boolean( date) && new Date( date ) !== 'Invalid Date' ) {
 				return new Date( date );
-			} else if( returnBoolean && !validDateCheck ) {
-				return false;
 			} else {
 				throw new Error( 'could not parse date' );
 			}
