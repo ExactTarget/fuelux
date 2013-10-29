@@ -18,8 +18,9 @@ define(function(require) {
         this.options = $.extend({}, $.fn.scheduler.defaults, options);
 
         // cache elements
-        //this.$startDate = this.$element.find('input.start-date');
-        //this.$startTime = this.$element.find('.start-time');
+        this.$startDate = this.$element.find('.scheduler-start .datepicker');
+        this.$startTime = this.$element.find('.scheduler-start .combobox');
+
         this.$timeZone = this.$element.find('.scheduler-timezone .select');
 
         this.$repeatIntervalPanel = this.$element.find('.repeat-interval-panel');
@@ -34,8 +35,8 @@ define(function(require) {
          this.$monthlyInterval = this.$element.find('input.months');*/
 
         this.$end = this.$element.find('.scheduler-end');
-        this.$endAfter = this.$element.find('.scheduler-end .end-after');
-        this.$endDate = this.$element.find('input.end-date');
+        this.$endAfter = this.$element.find('.scheduler-end .spinner');
+        this.$endDate = this.$element.find('.scheduler-end .datepicker');
 
         // panels
         this.$recurrencePanels = this.$element.find('.recurrence-panel');
@@ -44,6 +45,9 @@ define(function(require) {
         this.$repeatIntervalSelect.on('changed', $.proxy(this.repeatIntervalSelectChanged, this));
         this.$endSelect.on('changed', $.proxy(this.$endSelectChanged, this));
 
+        //initialize sub-controls
+        this.$startDate.datepicker();
+        this.$endDate.datepicker();
     };
 
     Scheduler.prototype = {
@@ -57,15 +61,48 @@ define(function(require) {
             // BYMONTHDAY = when picking days of the month (1,2,3...)
             // BYSETPOS = when picking First,Second,Third,Fourth,Last (1,2,3,4,-1)
 
-            var repeat = this.$repeatIntervalSelect.select('selectedItem').value;
             var interval = this.$repeatIntervalSpinner.val();
             var pattern = '';
-            var showRepeatEveryTxt = true;
-            var day, days, month, pos, type;
+            var repeat = this.$repeatIntervalSelect.select('selectedItem').value;
+            var startTime = this.$startTime.combobox('selectedItem').text.toLowerCase();
+            var timeZone = this.$timeZone.select('selectedItem');
+            var getFormattedDate = function(dateObj, dash){
+                var fdate = '';
+                var item;
+
+                fdate += dateObj.getFullYear();
+                fdate += dash;
+                item = dateObj.getMonth();
+                fdate += (item<10) ? '0' + item : item;
+                fdate += dash;
+                item = dateObj.getDate();
+                fdate += (item<10) ? '0' + item : item;
+
+                return fdate;
+            };
+            var day, days, hasAm, hasPm, month, pos, startDateTime, type;
+
+            startDateTime = '' + getFormattedDate(this.$startDate.datepicker('getDate'), '-');
+
+            startDateTime += 'T';
+            hasAm = !!(startTime.search('am')>0);
+            hasPm = !!(startTime.search('pm')>0);
+            startTime = $.trim(startTime.replace(/am/g, '').replace(/pm/g, '')).split(':');
+            startTime[0] = parseInt(startTime[0], 10);
+            startTime[1] = parseInt(startTime[1], 10);
+            if(hasAm && startTime[0]>11){
+                startTime[0] = 0;
+            }else if(hasPm && startTime[0]<12){
+                startTime[0] += 12;
+            }
+            startDateTime += (startTime[0]<10) ? '0' + startTime[0] : startTime[0];
+            startDateTime += ':';
+            startDateTime += (startTime[1]<10) ? '0' + startTime[1] : startTime[1];
+
+            startDateTime += (timeZone.offset==='+00:00') ? 'Z' : timeZone.offset;
 
             if(repeat === 'none') {
                 pattern = 'FREQ=DAILY;INTERVAL=1;COUNT=1;';
-                showRepeatEveryTxt = false;
             }
             else if(repeat === 'hourly') {
                 pattern = 'FREQ=HOURLY;';
@@ -79,7 +116,6 @@ define(function(require) {
                 pattern += 'FREQ=DAILY;';
                 pattern += 'BYDAY=MO,TU,WE,TH,FR;';
                 pattern += 'INTERVAL=1;';
-                showRepeatEveryTxt = false;
             }
             else if(repeat === 'weekly') {
                 days = [];
@@ -110,7 +146,6 @@ define(function(require) {
             }
             else if(repeat === 'yearly') {
                 pattern += 'FREQ=YEARLY;';
-                showRepeatEveryTxt = false;
 
                 type = parseInt(this.$element.find('input[name=scheduler-year]:checked').val(), 10);
                 if(type === 1) {
@@ -140,18 +175,20 @@ define(function(require) {
                 if(end === 'after') {
                     duration = 'COUNT=' + this.$endAfter.spinner('value') + ';';
                 }
-                else if(end === 'on') {
-                    duration = 'UNTIL=' + this.$endDate.val() + ';';
+                else if(end === 'date') {
+                    duration = 'UNTIL=' + getFormattedDate(this.$endDate.datepicker('getDate'), '') + ';';
                 }
             }
 
             pattern += duration;
 
             var data = {
-                //startDate: this.$startDate.val(),
-                //startTime: this.$startTime.val(), // change when combobox has value property
-                timeZone: this.$timeZone.select('selectedItem').text,
-                recurrencePattern: pattern
+                startDateTime: startDateTime,
+                recurrencePattern: pattern,
+                timeZone: {
+                    name: timeZone.name,
+                    offset: timeZone.offset
+                }
             };
 
             return data;
@@ -201,9 +238,13 @@ define(function(require) {
         $endSelectChanged: function(e, data) {
             // hide all panels
             this.$endAfter.hide();
+            this.$endDate.hide();
 
-            // show panel for current selection
-            this.$element.find('.end-' + data.value).show();
+            if(data.value==='after'){
+                this.$endAfter.show();
+            }else if(data.value==='date'){
+                this.$endDate.show();
+            }
         }
     };
 
@@ -211,7 +252,9 @@ define(function(require) {
     // SCHEDULER PLUGIN DEFINITION
 
     $.fn.scheduler = function (option) {
-        var methodReturn;
+        var args = Array.prototype.slice.call( arguments, 1 );
+        var matchString = '@~_~@';
+        var methodReturn = matchString;
 
         var $set = this.each(function () {
             var $this = $(this);
@@ -219,10 +262,10 @@ define(function(require) {
             var options = typeof option === 'object' && option;
 
             if (!data) $this.data('scheduler', (data = new Scheduler(this, options)));
-            if (typeof option === 'string') methodReturn = data[option]();
+            if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
         });
 
-        return (methodReturn === undefined) ? $set : methodReturn;
+        return ( methodReturn === matchString ) ? $set : methodReturn;
     };
 
     $.fn.scheduler.defaults = {};

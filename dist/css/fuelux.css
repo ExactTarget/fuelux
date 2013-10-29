@@ -6882,6 +6882,12 @@ textarea.span1,
   display: none;
 }
 
+.fuelux .scheduler-end .datepicker {
+  display: none;
+  float: left;
+  margin-left: 10px;
+}
+
 .fuelux .scheduler-end .select {
   float: left;
 }
@@ -7046,13 +7052,27 @@ textarea.span1,
   margin-top: 8px;
 }
 
+.fuelux .scheduler-start .combobox .dropdown-menu {
+  height: 200px;
+  overflow: auto;
+}
+
+.fuelux .scheduler-start .combobox input {
+  width: 65px;
+}
+
+.fuelux .scheduler-start .dropdown {
+  float: left;
+  margin-right: 10px;
+}
+
 .fuelux .scheduler-table td {
   padding: 5px;
   margin: 0;
   vertical-align: top;
 }
 
-.fuelux .scheduler-table td.scheduler-title {
+.fuelux .scheduler-table td.scheduler-label {
   padding-top: 8px;
 }
 

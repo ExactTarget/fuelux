@@ -2,6 +2,12 @@
     &-end {
         display: none;
 
+        .datepicker {
+            display: none;
+            float: left;
+            margin-left: 10px;
+        }
+
         .select {
             float: left;
         }
@@ -117,13 +123,31 @@
         }
     }
 
+    &-start {
+        .combobox {
+            .dropdown-menu {
+                height: 200px;
+                overflow: auto;
+            }
+
+            input {
+                width: 65px;
+            }
+        }
+
+        .dropdown {
+            float: left;
+            margin-right: 10px;
+        }
+    }
+
     &-table {
         td {
             margin: 0;
             padding: 5px;
             vertical-align: top;
 
-            &.scheduler-title {
+            &.scheduler-label {
                 padding-top: 8px;
             }
         }
