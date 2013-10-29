@@ -114,10 +114,10 @@ define(function (require) {
 		},
 
 		setDate: function( date ) {
-			this.date = this.parseDate( date );
+			this.date       = this.parseDate( date );
 			this.stagedDate = new Date( this.date );
+			this.viewDate   = new Date( this.date );
 			this._render();
-			this._insertDateIntoInput();
 			return this.date;
 		},
 
