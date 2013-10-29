@@ -310,6 +310,10 @@
             $('#schedulerSetValueBtn').on('click', function(){
                 $('#MyScheduler').scheduler('value', {
                     startDateTime: '2014-03-31T03:23+02:00',
+                    timeZone: {
+                        name: 'Namibia Standard Time',
+                        offset: '+02:00'
+                    },
                     recurrencePattern: ''
                 });
             });

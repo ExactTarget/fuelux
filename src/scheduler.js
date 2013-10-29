@@ -191,11 +191,11 @@ define(function(require) {
 
             var data = {
                 startDateTime: startDateTime,
-                recurrencePattern: pattern,
                 timeZone: {
                     name: timeZone.name,
                     offset: timeZone.offset
-                }
+                },
+                recurrencePattern: pattern
             };
 
             return data;
@@ -241,7 +241,7 @@ define(function(require) {
         },
 
         setValue: function(options){
-            var hours, minutes, offset, period, startDate;
+            var hours, minutes, offset, period, selector, startDate;
 
             if(options.startDateTime){
                 startDate = new Date(options.startDateTime);
@@ -259,23 +259,36 @@ define(function(require) {
                 minutes = (minutes<10) ? '0' + minutes : minutes;
 
                 this.$startTime.find('input').val(hours + ':' + minutes + ' ' + period);
+            }
 
-                if(!options.timeZone){
-                    offset = options.startDateTime.split('T')[1];
-                    if(offset){
-                        if(offset.search(/\+/)>-1){
-                            offset = '+' + $.trim(offset.split('+')[1]);
-                        }else if(offset.search(/\-/)>-1){
-                            offset = '-' + $.trim(offset.split('-')[1]);
-                        }else{
-                            offset = '+00:00';
-                        }
+            selector = 'li[data';
+            if(options.timeZone){
+                if(typeof(options.timeZone)==='string'){
+                    selector += '-name="' + options.timeZone;
+                }else{
+                    if(options.timeZone.name){
+                        selector += '-name="' + options.timeZone.name;
+                    }else{
+                        selector += '-offset="' + options.timeZone.offset;
+                    }
+                }
+                selector += '"]';
+            }else{
+                offset = options.startDateTime.split('T')[1];
+                if(offset){
+                    if(offset.search(/\+/)>-1){
+                        offset = '+' + $.trim(offset.split('+')[1]);
+                    }else if(offset.search(/\-/)>-1){
+                        offset = '-' + $.trim(offset.split('-')[1]);
                     }else{
                         offset = '+00:00';
                     }
-                    this.$timeZone.select('selectBySelector', 'li[data-offset="' + offset + '"]');
+                }else{
+                    offset = '+00:00';
                 }
+                selector += '-offset="' + offset + '"]';
             }
+            this.$timeZone.select('selectBySelector', selector);
 
             if(options.recurrencePattern){
 
