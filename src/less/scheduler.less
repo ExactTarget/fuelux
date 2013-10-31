@@ -17,6 +17,10 @@
             float: left;
             margin-left: 10px;
 
+            input {
+                margin-bottom: 0;
+            }
+
             span {
                 line-height: 27px;
             }
@@ -24,6 +28,11 @@
     }
 
     &-repeat {
+        .dropdown-menu {
+            max-height: 200px;
+            overflow: auto;
+        }
+
         .repeat-interval {
             .clearfix;
 
@@ -47,6 +56,7 @@
                     margin-right: 0;
 
                     input {
+                        margin-bottom: 0;
                         width: 30px;
                     }
                 }
@@ -57,6 +67,7 @@
             padding-left: 15px;
 
             &-date {
+                margin-top: 10px;
                 .clearfix;
 
                 .select {
@@ -65,6 +76,7 @@
             }
 
             &-day {
+                margin-top: 10px;
                 .clearfix;
 
                 .month-day-pos {
@@ -77,6 +89,7 @@
             padding-left: 15px;
 
             &-date {
+                margin-top: 10px;
                 .clearfix;
 
                 .select {
@@ -91,6 +104,7 @@
             }
 
             &-day {
+                margin-top: 10px;
                 .clearfix;
 
                 .scheduler-yearly-day-text {
@@ -106,7 +120,7 @@
         }
 
         .scheduler-weekly {
-            padding-left: 15px;
+            padding: 10px 0 0 15px;
         }
 
         .select {
@@ -126,7 +140,7 @@
     &-start {
         .combobox {
             .dropdown-menu {
-                height: 200px;
+                max-height: 200px;
                 overflow: auto;
             }
 
@@ -137,7 +151,7 @@
 
         .dropdown {
             float: left;
-            margin-right: 10px;
+            margin: 0 10px 0 0;
         }
     }
 
@@ -163,7 +177,7 @@
         }
 
         .dropdown-menu {
-            height: 200px;
+            max-height: 200px;
             overflow: auto;
             width: 376px;
         }

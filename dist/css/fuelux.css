@@ -6898,8 +6898,17 @@ textarea.span1,
   margin-left: 10px;
 }
 
+.fuelux .scheduler-end .spinner input {
+  margin-bottom: 0;
+}
+
 .fuelux .scheduler-end .spinner span {
   line-height: 27px;
+}
+
+.fuelux .scheduler-repeat .dropdown-menu {
+  max-height: 200px;
+  overflow: auto;
 }
 
 .fuelux .scheduler-repeat .repeat-interval {
@@ -6939,6 +6948,7 @@ textarea.span1,
 
 .fuelux .scheduler-repeat .repeat-interval-panel .spinner input {
   width: 30px;
+  margin-bottom: 0;
 }
 
 .fuelux .scheduler-repeat .scheduler-monthly {
@@ -6946,6 +6956,7 @@ textarea.span1,
 }
 
 .fuelux .scheduler-repeat .scheduler-monthly-date {
+  margin-top: 10px;
   *zoom: 1;
 }
 
@@ -6965,6 +6976,7 @@ textarea.span1,
 }
 
 .fuelux .scheduler-repeat .scheduler-monthly-day {
+  margin-top: 10px;
   *zoom: 1;
 }
 
@@ -6988,6 +7000,7 @@ textarea.span1,
 }
 
 .fuelux .scheduler-repeat .scheduler-yearly-date {
+  margin-top: 10px;
   *zoom: 1;
 }
 
@@ -7011,6 +7024,7 @@ textarea.span1,
 }
 
 .fuelux .scheduler-repeat .scheduler-yearly-day {
+  margin-top: 10px;
   *zoom: 1;
 }
 
@@ -7036,7 +7050,7 @@ textarea.span1,
 }
 
 .fuelux .scheduler-repeat .scheduler-weekly {
-  padding-left: 15px;
+  padding: 10px 0 0 15px;
 }
 
 .fuelux .scheduler-repeat .select {
@@ -7053,7 +7067,7 @@ textarea.span1,
 }
 
 .fuelux .scheduler-start .combobox .dropdown-menu {
-  height: 200px;
+  max-height: 200px;
   overflow: auto;
 }
 
@@ -7063,7 +7077,7 @@ textarea.span1,
 
 .fuelux .scheduler-start .dropdown {
   float: left;
-  margin-right: 10px;
+  margin: 0 10px 0 0;
 }
 
 .fuelux .scheduler-table td {
@@ -7086,7 +7100,7 @@ textarea.span1,
 
 .fuelux .scheduler-timezone .dropdown-menu {
   width: 376px;
-  height: 200px;
+  max-height: 200px;
   overflow: auto;
 }
 
