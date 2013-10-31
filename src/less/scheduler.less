@@ -121,6 +121,24 @@
 
         .scheduler-weekly {
             padding: 10px 0 0 15px;
+
+            .btn-group {
+                &.disabled {
+                    position: relative;
+                    opacity: 0.65;
+
+                    &:before {
+                        background: transparent;
+                        bottom: 0;
+                        content: "";
+                        left: 0;
+                        position: absolute;
+                        right: 0;
+                        top: 0;
+                        z-index: 5;
+                    }
+                }
+            }
         }
 
         .select {

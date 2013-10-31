@@ -300,6 +300,14 @@
 
             //SCHEDULER
 
+            $('#schedulerEnableBtn').on('click', function(){
+                $('#MyScheduler').scheduler('enable');
+            });
+
+            $('#schedulerDisableBtn').on('click', function(){
+                $('#MyScheduler').scheduler('disable');
+            });
+
             $('#schedulerLogValueBtn').on('click', function(){
                 var val = $('#MyScheduler').scheduler('value');
                 if(window.console && window.console.log){
@@ -314,7 +322,7 @@
                         name: 'Namibia Standard Time',
                         offset: '+02:00'
                     },
-                    recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20130919;'
+                    recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
                 });
             });
         });
@@ -1104,6 +1112,8 @@
             </table>
         </div>
 
+        <input id="schedulerEnableBtn" type="button" class="btn btn-mini" value="enable" />
+        <input id="schedulerDisableBtn" type="button" class="btn btn-mini" value="disable" />
         <input id="schedulerLogValueBtn" type="button" class="btn btn-mini" value="log value" />
         <input id="schedulerSetValueBtn" type="button" class="btn btn-mini" value="set value" />
     </div>

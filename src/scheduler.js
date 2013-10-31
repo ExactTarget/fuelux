@@ -24,40 +24,61 @@ define(function(require) {
         this.$timeZone = this.$element.find('.scheduler-timezone .select');
 
         this.$repeatIntervalPanel = this.$element.find('.repeat-interval-panel');
-        this.$repeatIntervalTxt = this.$element.find('.repeat-interval-text');
         this.$repeatIntervalSelect = this.$element.find('.repeat-interval .select');
         this.$repeatIntervalSpinner = this.$element.find('.repeat-interval-panel .spinner-input');
-
-        this.$endSelect= this.$element.find('.scheduler-end .select');
-        /*this.$hourlyInterval = this.$element.find('input.hours');
-         this.$dailyInterval = this.$element.find('input.days');
-         this.$weeklyInterval = this.$element.find('input.weeks');
-         this.$monthlyInterval = this.$element.find('input.months');*/
+        this.$repeatIntervalTxt = this.$element.find('.repeat-interval-text');
 
         this.$end = this.$element.find('.scheduler-end');
-        this.$endAfter = this.$element.find('.scheduler-end .spinner');
-        this.$endDate = this.$element.find('.scheduler-end .datepicker');
+        this.$endAfter = this.$end.find('.spinner');
+        this.$endSelect= this.$end.find('.select');
+        this.$endDate = this.$end.find('.datepicker');
 
         // panels
         this.$recurrencePanels = this.$element.find('.recurrence-panel');
 
         // bind events
         this.$repeatIntervalSelect.on('changed', $.proxy(this.repeatIntervalSelectChanged, this));
-        this.$endSelect.on('changed', $.proxy(this.$endSelectChanged, this));
+        this.$endSelect.on('changed', $.proxy(this.endSelectChanged, this));
 
         //initialize sub-controls
         this.$startDate.datepicker();
+        this.$startTime.combobox();
+        this.$repeatIntervalSpinner.spinner();
+        this.$endAfter.spinner();
         this.$endDate.datepicker();
     };
 
     Scheduler.prototype = {
         constructor: Scheduler,
 
-        value: function(options) {
-            if(options){
-                return this.setValue(options);
+        disable: function(){
+            this.toggleState('disable');
+        },
+
+        enable: function(){
+            this.toggleState('enable');
+        },
+
+        // called when the end range changes
+        // (Never, After, On date)
+        endSelectChanged: function(e, data) {
+            var selectedItem, val;
+
+            if(!data){
+                selectedItem = this.$endSelect.select('selectedItem');
+                val = selectedItem.value;
             }else{
-                return this.getValue();
+                val = data.value;
+            }
+
+            // hide all panels
+            this.$endAfter.hide();
+            this.$endDate.hide();
+
+            if(val==='after'){
+                this.$endAfter.show();
+            }else if(val==='date'){
+                this.$endDate.show();
             }
         },
 
@@ -392,26 +413,26 @@ define(function(require) {
             }
         },
 
-        // called when the end range changes
-        // (Never, After, On date)
-        $endSelectChanged: function(e, data) {
-            var selectedItem, val;
+        toggleState: function(action){
+            this.$element.find('.combobox').combobox(action);
+            this.$element.find('.datepicker').datepicker(action);
+            this.$element.find('.select').select(action);
+            this.$element.find('.spinner').spinner(action);
+            this.$element.find('.radio').radio(action);
 
-            if(!data){
-                selectedItem = this.$endSelect.select('selectedItem');
-                val = selectedItem.value;
+            if(action==='disable'){
+                action = 'addClass';
             }else{
-                val = data.value;
+                action = 'removeClass';
             }
+            this.$element.find('.scheduler-weekly .btn-group')[action]('disabled');
+        },
 
-            // hide all panels
-            this.$endAfter.hide();
-            this.$endDate.hide();
-
-            if(val==='after'){
-                this.$endAfter.show();
-            }else if(val==='date'){
-                this.$endDate.show();
+        value: function(options) {
+            if(options){
+                return this.setValue(options);
+            }else{
+                return this.getValue();
             }
         }
     };
