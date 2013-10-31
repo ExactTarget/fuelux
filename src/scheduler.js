@@ -247,7 +247,7 @@ define(function(require) {
         },
 
         setValue: function(options){
-            var hours, i, item, l, minutes, period, recur, startDate, temp, val;
+            var hours, i, item, l, minutes, period, recur, startDate, temp;
 
             if(options.startDateTime){
                 startDate = new Date(options.startDateTime);
@@ -314,33 +314,78 @@ define(function(require) {
                             item = 'none';
                         }else{
                             item = 'daily';
-                            if(recur.INTERVAL){
-                                val = recur.INTERVAL;
-                            }
                         }
                     }
-                }else if(recur.FREQ==='HOURLY' && recur.INTERVAL){
+                }else if(recur.FREQ==='HOURLY'){
                     item = 'hourly';
-                    val = recur.INTERVAL;
-                }else if(recur.FREQ==='WEEKLY' && recur.BYDAY && recur.INTERVAL){
-                    item = this.$element.find('.scheduler-weekly .btn-group');
-                    item.find('button').removeClass('active');
-                    temp = recur.BYDAY.split(',');
-                    for(i=0,l=temp.length; i<l; i++){
-                        item.find('button[data-value="' + temp[i] + '"]').addClass('active');
+                }else if(recur.FREQ==='WEEKLY'){
+                    if(recur.BYDAY){
+                        item = this.$element.find('.scheduler-weekly .btn-group');
+                        item.find('button').removeClass('active');
+                        temp = recur.BYDAY.split(',');
+                        for(i=0,l=temp.length; i<l; i++){
+                            item.find('button[data-value="' + temp[i] + '"]').addClass('active');
+                        }
                     }
                     item = 'weekly';
-                    val = recur.INTERVAL;
                 }else if(recur.FREQ==='MONTHLY'){
-
+                    this.$element.find('.scheduler-monthly input').removeClass('checked');
+                    if(recur.BYMONTHDAY){
+                        temp = this.$element.find('.scheduler-monthly-date');
+                        temp.find('input').addClass('checked');
+                        temp.find('.select').select('selectByValue', recur.BYMONTHDAY);
+                    }else if(recur.BYDAY){
+                        temp = this.$element.find('.scheduler-monthly-day');
+                        temp.find('input').addClass('checked');
+                        if(recur.BYSETPOS){
+                            temp.find('.month-day-pos').select('selectByValue', recur.BYSETPOS);
+                        }
+                        temp.find('.month-days').select('selectByValue', recur.BYDAY);
+                    }
+                    item = 'monthly';
                 }else if(recur.FREQ==='YEARLY'){
-
+                    this.$element.find('.scheduler-yearly input').removeClass('checked');
+                    if(recur.BYMONTHDAY){
+                        temp = this.$element.find('.scheduler-yearly-date');
+                        temp.find('input').addClass('checked');
+                        if(recur.BYMONTH){
+                            temp.find('.year-month').select('selectByValue', recur.BYMONTH);
+                        }
+                        temp.find('.year-month-day').select('selectByValue', recur.BYMONTHDAY);
+                    }else if(recur.BYSETPOS){
+                        temp = this.$element.find('.scheduler-yearly-day');
+                        temp.find('input').addClass('checked');
+                        temp.find('.year-month-day-pos').select('selectByValue', recur.BYSETPOS);
+                        if(recur.BYDAY){
+                            temp.find('.year-month-days').select('selectByValue', recur.BYDAY);
+                        }
+                        if(recur.BYMONTH){
+                            temp.find('.year-month').select('selectByValue', recur.BYMONTH);
+                        }
+                    }
+                    item = 'yearly';
                 }else{
                     item = 'none';
                 }
 
-                if(val!==undefined){
-                    this.$repeatIntervalSpinner.spinner('value', parseInt(val, 10));
+                if(recur.COUNT){
+                    this.$endAfter.spinner('value', parseInt(recur.COUNT, 10));
+                    this.$endSelect.select('selectByValue', 'after');
+                }else if(recur.UNTIL){
+                    temp = recur.UNTIL;
+                    if(temp.length===8){
+                        temp = temp.split('');
+                        temp.splice(4, 0, '-');
+                        temp.splice(7, 0, '-');
+                        temp = temp.join('');
+                    }
+                    this.$endDate.datepicker('setDate', temp);
+                    this.$endSelect.select('selectByValue', 'date');
+                }
+                this.$endSelect.trigger('changed');
+
+                if(recur.INTERVAL){
+                    this.$repeatIntervalSpinner.spinner('value', parseInt(recur.INTERVAL, 10));
                 }
                 this.$repeatIntervalSelect.select('selectByValue', item);
                 this.$repeatIntervalSelect.trigger('changed');
