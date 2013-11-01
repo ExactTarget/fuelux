@@ -7,9 +7,14 @@
  */
 
 define(function(require) {
-
     var $ = require('jquery');
+    var old = $.fn.scheduler;
 
+    require('fuelux/combobox');
+    require('fuelux/datepicker');
+    require('fuelux/radio');
+    require('fuelux/select');
+    require('fuelux/spinner');
 
     // SCHEDULER CONSTRUCTOR AND PROTOTYPE
 
@@ -460,6 +465,11 @@ define(function(require) {
     $.fn.scheduler.defaults = {};
 
     $.fn.scheduler.Constructor = Scheduler;
+
+    $.fn.scheduler.noConflict = function () {
+        $.fn.scheduler = old;
+        return this;
+    };
 
     // SCHEDULER DATA-API
 
