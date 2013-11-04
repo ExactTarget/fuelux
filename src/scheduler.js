@@ -48,6 +48,9 @@ define(function(require) {
         //initialize sub-controls
         this.$startDate.datepicker();
         this.$startTime.combobox();
+        if(this.$startTime.find('input').val()===''){
+            this.$startTime.combobox('selectByIndex', 0);
+        }
         this.$repeatIntervalSpinner.spinner();
         this.$endAfter.spinner();
         this.$endDate.datepicker();

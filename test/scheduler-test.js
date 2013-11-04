@@ -14,11 +14,11 @@ require(['jquery', 'test/scheduler-markup', 'fuelux/scheduler'], function ($, sc
         ok( $(document.body).scheduler, 'scheduler method is defined' );
     });
 
-    test("should return element", function () {
+    test('should return element', function () {
         ok($(document.body).scheduler()[0] === document.body, 'document.body returned');
     });
 
-    test("should disable control (all inputs)", function () {
+    test('should disable control (all inputs)', function () {
         var disabled = true;
         var $scheduler = this.$markup.scheduler();
 
@@ -63,7 +63,7 @@ require(['jquery', 'test/scheduler-markup', 'fuelux/scheduler'], function ($, sc
         equal(disabled, true, 'scheduler weekly btn-group disabled');
     });
 
-    test("should enable control (all inputs)", function () {
+    test('should enable control (all inputs)', function () {
         var enabled = true;
         var $scheduler = this.$markup.scheduler();
 
@@ -107,5 +107,19 @@ require(['jquery', 'test/scheduler-markup', 'fuelux/scheduler'], function ($, sc
 
         enabled = ($scheduler.find('.scheduler-weekly .btn-group').hasClass('disabled')) ? false : true;
         equal(enabled, true, 'scheduler weekly btn-group enabled');
+    });
+
+    test('should return proper value object', function () {
+        var $scheduler = this.$markup.scheduler();
+        var obj = 'object';
+        var str = 'string';
+        var val = $scheduler.scheduler('value');
+
+        ok(typeof(val)===obj, 'return value is object');
+        ok(typeof(val.recurrencePattern)===str, 'return value contains recurrencePattern string');
+        ok(typeof(val.startDateTime)===str, 'return value contains startDateTime string');
+        ok(typeof(val.timeZone)===obj, 'return value contains timeZone object');
+        ok(typeof(val.timeZone.name)===str, 'timeZone contains name string');
+        ok(typeof(val.timeZone.offset)===str, 'timeZone contains offset string');
     });
 });
