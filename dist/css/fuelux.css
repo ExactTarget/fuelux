@@ -6181,7 +6181,7 @@ textarea.span1,
   /* IE cannot fire events if display none or visibility hidden */
 
   position: relative;
-  top: -99999px;
+  left: -99999px;
 }
 
 .fuelux .checkbox-custom i {
@@ -6767,7 +6767,7 @@ textarea.span1,
   /* IE cannot fire events if display none or visibility hidden */
 
   position: relative;
-  top: -99999px;
+  left: -99999px;
 }
 
 .fuelux .radio-custom.highlight {
@@ -7027,6 +7027,20 @@ textarea.span1,
   padding: 0;
   margin: 0;
   list-style: none outside none;
+}
+
+.fuelux .wizard ul.previous-disabled li.complete {
+  cursor: default;
+}
+
+.fuelux .wizard ul.previous-disabled li.complete:hover {
+  color: #468847;
+  cursor: default;
+  background: #f3f4f5;
+}
+
+.fuelux .wizard ul.previous-disabled li.complete:hover .chevron:before {
+  border-left-color: #f3f4f5;
 }
 
 .fuelux .wizard ul li {
