@@ -228,7 +228,7 @@ define(function (require) {
 	$.fn.wizard.Constructor = Wizard;
 
 	$.fn.wizard.noConflict = function () {
-		$.fn.Wizard = old;
+		$.fn.wizard = old;
 		return this;
 	};
 
