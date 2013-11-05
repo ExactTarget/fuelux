@@ -121,8 +121,8 @@ define(function(require) {
             startDateTime = '' + getFormattedDate(this.$startDate.datepicker('getDate'), '-');
 
             startDateTime += 'T';
-            hasAm = !!(startTime.search('am')>-1);
-            hasPm = !!(startTime.search('pm')>-1);
+            hasAm = (startTime.search('am')>=0);
+            hasPm = (startTime.search('pm')>=0);
             startTime = $.trim(startTime.replace(/am/g, '').replace(/pm/g, '')).split(':');
             startTime[0] = parseInt(startTime[0], 10);
             startTime[1] = parseInt(startTime[1], 10);
@@ -276,7 +276,7 @@ define(function(require) {
         },
 
         setValue: function(options){
-            var hours, i, item, l, minutes, period, recur, startDate, temp;
+            var hours, i, item, l, minutes, period, recur, temp;
 
             if(options.startDateTime){
                 temp = options.startDateTime.split('T');

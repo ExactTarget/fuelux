@@ -2,6 +2,12 @@
     &-end {
         display: none;
 
+        .datepicker {
+            display: none;
+            float: left;
+            margin-left: 10px;
+        }
+
         .select {
             float: left;
         }
@@ -11,6 +17,10 @@
             float: left;
             margin-left: 10px;
 
+            input {
+                margin-bottom: 0;
+            }
+
             span {
                 line-height: 27px;
             }
@@ -18,6 +28,11 @@
     }
 
     &-repeat {
+        .dropdown-menu {
+            max-height: 200px;
+            overflow: auto;
+        }
+
         .repeat-interval {
             .clearfix;
 
@@ -41,6 +56,7 @@
                     margin-right: 0;
 
                     input {
+                        margin-bottom: 0;
                         width: 30px;
                     }
                 }
@@ -51,6 +67,7 @@
             padding-left: 15px;
 
             &-date {
+                margin-top: 10px;
                 .clearfix;
 
                 .select {
@@ -59,6 +76,7 @@
             }
 
             &-day {
+                margin-top: 10px;
                 .clearfix;
 
                 .month-day-pos {
@@ -71,6 +89,7 @@
             padding-left: 15px;
 
             &-date {
+                margin-top: 10px;
                 .clearfix;
 
                 .select {
@@ -85,6 +104,7 @@
             }
 
             &-day {
+                margin-top: 10px;
                 .clearfix;
 
                 .scheduler-yearly-day-text {
@@ -100,7 +120,25 @@
         }
 
         .scheduler-weekly {
-            padding-left: 15px;
+            padding: 10px 0 0 15px;
+
+            .btn-group {
+                &.disabled {
+                    position: relative;
+                    opacity: 0.65;
+
+                    &:before {
+                        background: transparent;
+                        bottom: 0;
+                        content: "";
+                        left: 0;
+                        position: absolute;
+                        right: 0;
+                        top: 0;
+                        z-index: 5;
+                    }
+                }
+            }
         }
 
         .select {
@@ -117,13 +155,31 @@
         }
     }
 
+    &-start {
+        .combobox {
+            .dropdown-menu {
+                max-height: 200px;
+                overflow: auto;
+            }
+
+            input {
+                width: 65px;
+            }
+        }
+
+        .dropdown {
+            float: left;
+            margin: 0 10px 0 0;
+        }
+    }
+
     &-table {
         td {
             margin: 0;
             padding: 5px;
             vertical-align: top;
 
-            &.scheduler-title {
+            &.scheduler-label {
                 padding-top: 8px;
             }
         }
@@ -139,7 +195,7 @@
         }
 
         .dropdown-menu {
-            height: 200px;
+            max-height: 200px;
             overflow: auto;
             width: 376px;
         }

@@ -6,10 +6,15 @@
  * Licensed under the MIT license.
  */
 
-define(['require','jquery'],function(require) {
-
+define(['require','jquery','fuelux/combobox','fuelux/datepicker','fuelux/radio','fuelux/select','fuelux/spinner'],function(require) {
     var $ = require('jquery');
+    var old = $.fn.scheduler;
 
+    require('fuelux/combobox');
+    require('fuelux/datepicker');
+    require('fuelux/radio');
+    require('fuelux/select');
+    require('fuelux/spinner');
 
     // SCHEDULER CONSTRUCTOR AND PROTOTYPE
 
@@ -18,54 +23,122 @@ define(['require','jquery'],function(require) {
         this.options = $.extend({}, $.fn.scheduler.defaults, options);
 
         // cache elements
-        //this.$startDate = this.$element.find('input.start-date');
-        //this.$startTime = this.$element.find('.start-time');
+        this.$startDate = this.$element.find('.scheduler-start .datepicker');
+        this.$startTime = this.$element.find('.scheduler-start .combobox');
+
         this.$timeZone = this.$element.find('.scheduler-timezone .select');
 
         this.$repeatIntervalPanel = this.$element.find('.repeat-interval-panel');
-        this.$repeatIntervalTxt = this.$element.find('.repeat-interval-text');
         this.$repeatIntervalSelect = this.$element.find('.repeat-interval .select');
-        this.$repeatIntervalSpinner = this.$element.find('.repeat-interval-panel .spinner-input');
-
-        this.$endSelect= this.$element.find('.scheduler-end .select');
-        /*this.$hourlyInterval = this.$element.find('input.hours');
-         this.$dailyInterval = this.$element.find('input.days');
-         this.$weeklyInterval = this.$element.find('input.weeks');
-         this.$monthlyInterval = this.$element.find('input.months');*/
+        this.$repeatIntervalSpinner = this.$element.find('.repeat-interval-panel .spinner');
+        this.$repeatIntervalTxt = this.$element.find('.repeat-interval-text');
 
         this.$end = this.$element.find('.scheduler-end');
-        this.$endAfter = this.$element.find('.scheduler-end .end-after');
-        this.$endDate = this.$element.find('input.end-date');
+        this.$endAfter = this.$end.find('.spinner');
+        this.$endSelect= this.$end.find('.select');
+        this.$endDate = this.$end.find('.datepicker');
 
         // panels
         this.$recurrencePanels = this.$element.find('.recurrence-panel');
 
         // bind events
         this.$repeatIntervalSelect.on('changed', $.proxy(this.repeatIntervalSelectChanged, this));
-        this.$endSelect.on('changed', $.proxy(this.$endSelectChanged, this));
+        this.$endSelect.on('changed', $.proxy(this.endSelectChanged, this));
 
+        //initialize sub-controls
+        this.$startDate.datepicker();
+        this.$startTime.combobox();
+        if(this.$startTime.find('input').val()===''){
+            this.$startTime.combobox('selectByIndex', 0);
+        }
+        this.$repeatIntervalSpinner.spinner();
+        this.$endAfter.spinner();
+        this.$endDate.datepicker();
     };
 
     Scheduler.prototype = {
         constructor: Scheduler,
 
-        value: function() {
+        disable: function(){
+            this.toggleState('disable');
+        },
 
+        enable: function(){
+            this.toggleState('enable');
+        },
+
+        // called when the end range changes
+        // (Never, After, On date)
+        endSelectChanged: function(e, data) {
+            var selectedItem, val;
+
+            if(!data){
+                selectedItem = this.$endSelect.select('selectedItem');
+                val = selectedItem.value;
+            }else{
+                val = data.value;
+            }
+
+            // hide all panels
+            this.$endAfter.hide();
+            this.$endDate.hide();
+
+            if(val==='after'){
+                this.$endAfter.show();
+            }else if(val==='date'){
+                this.$endDate.show();
+            }
+        },
+
+        getValue: function(){
             // FREQ = frequency (hourly, daily, monthly...)
             // BYDAY = when picking days (MO,TU,WE,etc)
             // BYMONTH = when picking months (Jan,Feb,March) - note the values should be 1,2,3...
             // BYMONTHDAY = when picking days of the month (1,2,3...)
             // BYSETPOS = when picking First,Second,Third,Fourth,Last (1,2,3,4,-1)
 
-            var repeat = this.$repeatIntervalSelect.select('selectedItem').value;
-            var interval = this.$repeatIntervalSpinner.val();
+            var interval = this.$repeatIntervalSpinner.spinner('value');
             var pattern = '';
-            var showRepeatEveryTxt = true;
-            var day, days, month, pos, type;
+            var repeat = this.$repeatIntervalSelect.select('selectedItem').value;
+            var startTime = this.$startTime.combobox('selectedItem').text.toLowerCase();
+            var timeZone = this.$timeZone.select('selectedItem');
+            var getFormattedDate = function(dateObj, dash){
+                var fdate = '';
+                var item;
+
+                fdate += dateObj.getFullYear();
+                fdate += dash;
+                item = dateObj.getMonth() + 1;  //because 0 indexing makes sense when dealing with months /sarcasm
+                fdate += (item<10) ? '0' + item : item;
+                fdate += dash;
+                item = dateObj.getDate();
+                fdate += (item<10) ? '0' + item : item;
+
+                return fdate;
+            };
+            var day, days, hasAm, hasPm, month, pos, startDateTime, type;
+
+            startDateTime = '' + getFormattedDate(this.$startDate.datepicker('getDate'), '-');
+
+            startDateTime += 'T';
+            hasAm = (startTime.search('am')>=0);
+            hasPm = (startTime.search('pm')>=0);
+            startTime = $.trim(startTime.replace(/am/g, '').replace(/pm/g, '')).split(':');
+            startTime[0] = parseInt(startTime[0], 10);
+            startTime[1] = parseInt(startTime[1], 10);
+            if(hasAm && startTime[0]>11){
+                startTime[0] = 0;
+            }else if(hasPm && startTime[0]<12){
+                startTime[0] += 12;
+            }
+            startDateTime += (startTime[0]<10) ? '0' + startTime[0] : startTime[0];
+            startDateTime += ':';
+            startDateTime += (startTime[1]<10) ? '0' + startTime[1] : startTime[1];
+
+            startDateTime += (timeZone.offset==='+00:00') ? 'Z' : timeZone.offset;
 
             if(repeat === 'none') {
                 pattern = 'FREQ=DAILY;INTERVAL=1;COUNT=1;';
-                showRepeatEveryTxt = false;
             }
             else if(repeat === 'hourly') {
                 pattern = 'FREQ=HOURLY;';
@@ -79,7 +152,6 @@ define(['require','jquery'],function(require) {
                 pattern += 'FREQ=DAILY;';
                 pattern += 'BYDAY=MO,TU,WE,TH,FR;';
                 pattern += 'INTERVAL=1;';
-                showRepeatEveryTxt = false;
             }
             else if(repeat === 'weekly') {
                 days = [];
@@ -110,7 +182,6 @@ define(['require','jquery'],function(require) {
             }
             else if(repeat === 'yearly') {
                 pattern += 'FREQ=YEARLY;';
-                showRepeatEveryTxt = false;
 
                 type = parseInt(this.$element.find('input[name=scheduler-year]:checked').val(), 10);
                 if(type === 1) {
@@ -140,17 +211,19 @@ define(['require','jquery'],function(require) {
                 if(end === 'after') {
                     duration = 'COUNT=' + this.$endAfter.spinner('value') + ';';
                 }
-                else if(end === 'on') {
-                    duration = 'UNTIL=' + this.$endDate.val() + ';';
+                else if(end === 'date') {
+                    duration = 'UNTIL=' + getFormattedDate(this.$endDate.datepicker('getDate'), '') + ';';
                 }
             }
 
             pattern += duration;
 
             var data = {
-                //startDate: this.$startDate.val(),
-                //startTime: this.$startTime.val(), // change when combobox has value property
-                timeZone: this.$timeZone.select('selectedItem').text,
+                startDateTime: startDateTime,
+                timeZone: {
+                    name: timeZone.name,
+                    offset: timeZone.offset
+                },
                 recurrencePattern: pattern
             };
 
@@ -160,10 +233,16 @@ define(['require','jquery'],function(require) {
         // called when the repeat interval changes
         // (None, Hourly, Daily, Weekdays, Weekly, Monthly, Yearly
         repeatIntervalSelectChanged: function(e, data) {
+            var selectedItem, val, txt;
 
-            // get the currently selected repeat interval
-            var val = data.value,
+            if(!data){
+                selectedItem = this.$repeatIntervalSelect.select('selectedItem');
+                val = selectedItem.value;
+                txt = selectedItem.text;
+            }else{
+                val = data.value;
                 txt = data.text;
+            }
 
             // set the text
             this.$repeatIntervalTxt.text(txt);
@@ -196,14 +275,179 @@ define(['require','jquery'],function(require) {
             }
         },
 
-        // called when the end range changes
-        // (Never, After, On date)
-        $endSelectChanged: function(e, data) {
-            // hide all panels
-            this.$endAfter.hide();
+        setValue: function(options){
+            var hours, i, item, l, minutes, period, recur, temp;
 
-            // show panel for current selection
-            this.$element.find('.end-' + data.value).show();
+            if(options.startDateTime){
+                temp = options.startDateTime.split('T');
+                this.$startDate.datepicker('setDate', temp[0]);
+
+                if(temp[1]){
+                    temp[1] = temp[1].split(':');
+                    hours = parseInt(temp[1][0], 10);
+                    minutes = (temp[1][1]) ? parseInt(temp[1][1].split('+')[0].split('-')[0].split('Z')[0], 10) : 0;
+                    period = (hours<12) ? 'AM' : 'PM';
+
+                    if(hours===0){
+                        hours = 12;
+                    }else if(hours>12){
+                        hours -= 12;
+                    }
+                    minutes = (minutes<10) ? '0' + minutes : minutes;
+
+                    temp = hours + ':' + minutes + ' ' + period;
+                    this.$startTime.find('input').val(temp);
+                    this.$startTime.combobox('selectByText', temp);
+                }
+            }
+
+            item = 'li[data';
+            if(options.timeZone){
+                if(typeof(options.timeZone)==='string'){
+                    item += '-name="' + options.timeZone;
+                }else{
+                    if(options.timeZone.name){
+                        item += '-name="' + options.timeZone.name;
+                    }else{
+                        item += '-offset="' + options.timeZone.offset;
+                    }
+                }
+                item += '"]';
+                this.$timeZone.select('selectBySelector', item);
+            }else if(options.startDateTime){
+                temp = options.startDateTime.split('T')[1];
+                if(temp){
+                    if(temp.search(/\+/)>-1){
+                        temp = '+' + $.trim(temp.split('+')[1]);
+                    }else if(temp.search(/\-/)>-1){
+                        temp = '-' + $.trim(temp.split('-')[1]);
+                    }else{
+                        temp = '+00:00';
+                    }
+                }else{
+                    temp = '+00:00';
+                }
+                item += '-offset="' + temp + '"]';
+                this.$timeZone.select('selectBySelector', item);
+            }
+
+            if(options.recurrencePattern){
+                recur = {};
+                temp = options.recurrencePattern.toUpperCase().split(';');
+                for(i=0, l=temp.length; i<l; i++){
+                    if(temp[i]!==''){
+                        item = temp[i].split('=');
+                        recur[item[0]] = item[1];
+                    }
+                }
+
+                if(recur.FREQ==='DAILY'){
+                    if(recur.BYDAY==='MO,TU,WE,TH,FR'){
+                        item = 'weekdays';
+                    }else{
+                        if(recur.INTERVAL==='1' && recur.COUNT==='1'){
+                            item = 'none';
+                        }else{
+                            item = 'daily';
+                        }
+                    }
+                }else if(recur.FREQ==='HOURLY'){
+                    item = 'hourly';
+                }else if(recur.FREQ==='WEEKLY'){
+                    if(recur.BYDAY){
+                        item = this.$element.find('.scheduler-weekly .btn-group');
+                        item.find('button').removeClass('active');
+                        temp = recur.BYDAY.split(',');
+                        for(i=0,l=temp.length; i<l; i++){
+                            item.find('button[data-value="' + temp[i] + '"]').addClass('active');
+                        }
+                    }
+                    item = 'weekly';
+                }else if(recur.FREQ==='MONTHLY'){
+                    this.$element.find('.scheduler-monthly input').removeClass('checked');
+                    if(recur.BYMONTHDAY){
+                        temp = this.$element.find('.scheduler-monthly-date');
+                        temp.find('input').addClass('checked');
+                        temp.find('.select').select('selectByValue', recur.BYMONTHDAY);
+                    }else if(recur.BYDAY){
+                        temp = this.$element.find('.scheduler-monthly-day');
+                        temp.find('input').addClass('checked');
+                        if(recur.BYSETPOS){
+                            temp.find('.month-day-pos').select('selectByValue', recur.BYSETPOS);
+                        }
+                        temp.find('.month-days').select('selectByValue', recur.BYDAY);
+                    }
+                    item = 'monthly';
+                }else if(recur.FREQ==='YEARLY'){
+                    this.$element.find('.scheduler-yearly input').removeClass('checked');
+                    if(recur.BYMONTHDAY){
+                        temp = this.$element.find('.scheduler-yearly-date');
+                        temp.find('input').addClass('checked');
+                        if(recur.BYMONTH){
+                            temp.find('.year-month').select('selectByValue', recur.BYMONTH);
+                        }
+                        temp.find('.year-month-day').select('selectByValue', recur.BYMONTHDAY);
+                    }else if(recur.BYSETPOS){
+                        temp = this.$element.find('.scheduler-yearly-day');
+                        temp.find('input').addClass('checked');
+                        temp.find('.year-month-day-pos').select('selectByValue', recur.BYSETPOS);
+                        if(recur.BYDAY){
+                            temp.find('.year-month-days').select('selectByValue', recur.BYDAY);
+                        }
+                        if(recur.BYMONTH){
+                            temp.find('.year-month').select('selectByValue', recur.BYMONTH);
+                        }
+                    }
+                    item = 'yearly';
+                }else{
+                    item = 'none';
+                }
+
+                if(recur.COUNT){
+                    this.$endAfter.spinner('value', parseInt(recur.COUNT, 10));
+                    this.$endSelect.select('selectByValue', 'after');
+                }else if(recur.UNTIL){
+                    temp = recur.UNTIL;
+                    if(temp.length===8){
+                        temp = temp.split('');
+                        temp.splice(4, 0, '-');
+                        temp.splice(7, 0, '-');
+                        temp = temp.join('');
+                    }
+                    this.$endDate.datepicker('setDate', temp);
+                    this.$endSelect.select('selectByValue', 'date');
+                }
+                this.$endSelect.trigger('changed');
+
+                if(recur.INTERVAL){
+                    this.$repeatIntervalSpinner.spinner('value', parseInt(recur.INTERVAL, 10));
+                }
+                this.$repeatIntervalSelect.select('selectByValue', item);
+                this.$repeatIntervalSelect.trigger('changed');
+            }
+        },
+
+        toggleState: function(action){
+            this.$element.find('.combobox').combobox(action);
+            this.$element.find('.datepicker').datepicker(action);
+            this.$element.find('.select').select(action);
+            this.$element.find('.spinner').spinner(action);
+            this.$element.find('.radio').radio(action);
+
+            if(action==='disable'){
+                action = 'addClass';
+            }else{
+                action = 'removeClass';
+            }
+            this.$element.find('.scheduler-weekly .btn-group')[action]('disabled');
+        },
+
+        value: function(options) {
+            if(options){
+                return this.setValue(options);
+            }else{
+                return this.getValue();
+            }
         }
     };
 
@@ -211,7 +455,9 @@ define(['require','jquery'],function(require) {
     // SCHEDULER PLUGIN DEFINITION
 
     $.fn.scheduler = function (option) {
-        var methodReturn;
+        var args = Array.prototype.slice.call( arguments, 1 );
+        var matchString = '@~_~@';
+        var methodReturn = matchString;
 
         var $set = this.each(function () {
             var $this = $(this);
@@ -219,15 +465,20 @@ define(['require','jquery'],function(require) {
             var options = typeof option === 'object' && option;
 
             if (!data) $this.data('scheduler', (data = new Scheduler(this, options)));
-            if (typeof option === 'string') methodReturn = data[option]();
+            if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
         });
 
-        return (methodReturn === undefined) ? $set : methodReturn;
+        return ( methodReturn === matchString ) ? $set : methodReturn;
     };
 
     $.fn.scheduler.defaults = {};
 
     $.fn.scheduler.Constructor = Scheduler;
+
+    $.fn.scheduler.noConflict = function () {
+        $.fn.scheduler = old;
+        return this;
+    };
 
     // SCHEDULER DATA-API
 
