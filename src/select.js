@@ -124,7 +124,8 @@ define(function(require) {
 
     // SELECT PLUGIN DEFINITION
 
-    $.fn.select = function (option,value) {
+    $.fn.select = function (option) {
+        var args = Array.prototype.slice.call(arguments, 1);
         var methodReturn;
 
         var $set = this.each(function () {
@@ -133,10 +134,10 @@ define(function(require) {
             var options = typeof option === 'object' && option;
 
             if (!data) $this.data('select', (data = new Select(this, options)));
-            if (typeof option === 'string') methodReturn = data[option](value);
+            if (typeof option === 'string') methodReturn = data[option].apply(data, args);
         });
 
-        return (methodReturn === undefined) ? $set : methodReturn;
+        return ( methodReturn === undefined ) ? $set : methodReturn;
     };
 
     $.fn.select.defaults = {};
