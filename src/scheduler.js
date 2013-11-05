@@ -30,7 +30,7 @@ define(function(require) {
 
         this.$repeatIntervalPanel = this.$element.find('.repeat-interval-panel');
         this.$repeatIntervalSelect = this.$element.find('.repeat-interval .select');
-        this.$repeatIntervalSpinner = this.$element.find('.repeat-interval-panel .spinner-input');
+        this.$repeatIntervalSpinner = this.$element.find('.repeat-interval-panel .spinner');
         this.$repeatIntervalTxt = this.$element.find('.repeat-interval-text');
 
         this.$end = this.$element.find('.scheduler-end');
@@ -97,7 +97,7 @@ define(function(require) {
             // BYMONTHDAY = when picking days of the month (1,2,3...)
             // BYSETPOS = when picking First,Second,Third,Fourth,Last (1,2,3,4,-1)
 
-            var interval = this.$repeatIntervalSpinner.val();
+            var interval = this.$repeatIntervalSpinner.spinner('value');
             var pattern = '';
             var repeat = this.$repeatIntervalSelect.select('selectedItem').value;
             var startTime = this.$startTime.combobox('selectedItem').text.toLowerCase();
@@ -108,7 +108,7 @@ define(function(require) {
 
                 fdate += dateObj.getFullYear();
                 fdate += dash;
-                item = dateObj.getMonth();
+                item = dateObj.getMonth() + 1;  //because 0 indexing makes sense when dealing with months /sarcasm
                 fdate += (item<10) ? '0' + item : item;
                 fdate += dash;
                 item = dateObj.getDate();
@@ -279,21 +279,26 @@ define(function(require) {
             var hours, i, item, l, minutes, period, recur, startDate, temp;
 
             if(options.startDateTime){
-                startDate = new Date(options.startDateTime);
-                this.$startDate.datepicker('setDate', startDate);
+                temp = options.startDateTime.split('T');
+                this.$startDate.datepicker('setDate', temp[0]);
 
-                hours = startDate.getHours();
-                minutes = startDate.getMinutes();
-                period = (hours<12) ? 'AM' : 'PM';
+                if(temp[1]){
+                    temp[1] = temp[1].split(':');
+                    hours = parseInt(temp[1][0], 10);
+                    minutes = (temp[1][1]) ? parseInt(temp[1][1].split('+')[0].split('-')[0].split('Z')[0], 10) : 0;
+                    period = (hours<12) ? 'AM' : 'PM';
 
-                if(hours===0){
-                    hours = 12;
-                }else if(hours>12){
-                    hours -= 12;
+                    if(hours===0){
+                        hours = 12;
+                    }else if(hours>12){
+                        hours -= 12;
+                    }
+                    minutes = (minutes<10) ? '0' + minutes : minutes;
+
+                    temp = hours + ':' + minutes + ' ' + period;
+                    this.$startTime.find('input').val(temp);
+                    this.$startTime.combobox('selectByText', temp);
                 }
-                minutes = (minutes<10) ? '0' + minutes : minutes;
-
-                this.$startTime.find('input').val(hours + ':' + minutes + ' ' + period);
             }
 
             item = 'li[data';
@@ -308,7 +313,8 @@ define(function(require) {
                     }
                 }
                 item += '"]';
-            }else{
+                this.$timeZone.select('selectBySelector', item);
+            }else if(options.startDateTime){
                 temp = options.startDateTime.split('T')[1];
                 if(temp){
                     if(temp.search(/\+/)>-1){
@@ -322,8 +328,8 @@ define(function(require) {
                     temp = '+00:00';
                 }
                 item += '-offset="' + temp + '"]';
+                this.$timeZone.select('selectBySelector', item);
             }
-            this.$timeZone.select('selectBySelector', item);
 
             if(options.recurrencePattern){
                 recur = {};
