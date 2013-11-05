@@ -130,7 +130,7 @@ require(['jquery', 'test/scheduler-markup', 'fuelux/scheduler'], function ($, sc
         var test, val;
 
         $scheduler.scheduler('value', { startDateTime: '2050-03-31T05:00' });
-        //equal($scheduler.find('.scheduler-start .datepicker input').val(), '03-31-2050', 'startDate set correctly');
+        equal($scheduler.find('.scheduler-start .datepicker input').val(), '03-31-2050', 'startDate set correctly');
         equal($scheduler.find('.scheduler-start .combobox input').val(), '5:00 AM', 'startTime set correctly');
 
         $scheduler.scheduler('value', { timeZone: { name: 'Namibia Standard Time', offset: '+02:00' }});
@@ -170,7 +170,7 @@ require(['jquery', 'test/scheduler-markup', 'fuelux/scheduler'], function ($, sc
             'end after occurence(s) set correctly');
 
         $scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;INTERVAL=9;UNTIL=20510331;' });
-        ok(($scheduler.find('.scheduler-end .select .dropdown-label').html()==='On date' /*&& $scheduler.find('.scheduler-end .datepicker input').val()==='03-31-2051'*/),
+        ok(($scheduler.find('.scheduler-end .select .dropdown-label').html()==='On date' && $scheduler.find('.scheduler-end .datepicker input').val()==='03-31-2051'),
             'end on date set correctly');
     });
 });

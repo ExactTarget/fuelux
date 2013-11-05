@@ -131,8 +131,22 @@ define(function (require) {
 		},
 
 		parseDate: function( date ) {
+            var offset, sign;
+
 			if( Boolean( date) && new Date( date ) !== 'Invalid Date' ) {
-				return new Date( date );
+                if(typeof(date)==='string'){
+                    offset = new Date().getTimezoneOffset();
+                    sign = (offset<0) ? '+' : '-';
+
+                    offset = ((offset / 60) + '').split('.');
+                    offset[0] = (parseInt(offset[0], 10)<10) ? '0' + offset[0] : offset[0];
+                    offset[1] = (offset[1]) ? Math.round(parseFloat('.' + offset[1]) * 60) : '00';
+                    offset = offset.join('');
+
+                    return new Date(date + 'T00:00' + sign + offset );
+                }
+
+                return new Date(date);
 			} else {
 				throw new Error( 'could not parse date' );
 			}
