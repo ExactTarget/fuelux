@@ -118,7 +118,7 @@ define(function (require) {
 	$.fn.radio.Constructor = Radio;
 
 	$.fn.radio.noConflict = function () {
-		$.fn.Radio = old;
+		$.fn.radio = old;
 		return this;
 	};
 
