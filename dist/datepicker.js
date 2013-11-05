@@ -54,7 +54,7 @@ define(['require','jquery'],function (require) {
 		this.options.showDays   = true;
 		this.options.showMonths = false;
 
-		this.options.restrictLastMonth = false;
+		this.options.restrictLastMonth = Boolean( this.options.restrictDateSelection );
 		this.options.restrictNextMonth = false;
 
 		this.months = [
@@ -114,10 +114,10 @@ define(['require','jquery'],function (require) {
 		},
 
 		setDate: function( date ) {
-			this.date = this.parseDate( date );
+			this.date       = this.parseDate( date );
 			this.stagedDate = new Date( this.date );
+			this.viewDate   = new Date( this.date );
 			this._render();
-			this._insertDateIntoInput();
 			return this.date;
 		},
 
@@ -130,17 +130,23 @@ define(['require','jquery'],function (require) {
 			return date.getFullYear() + '-' + this.padTwo( date.getMonth() + 1 ) + '-' + this.padTwo( date.getDate() );
 		},
 
-		parseDate: function( date, returnBoolean ) {
-			// need this for date entry on keyup
-			var validDateCheck = Boolean( date) && new Date( date ) !== 'Invalid Date';
-			returnBoolean      = returnBoolean || false;
+		parseDate: function( date ) {
+            var offset, sign;
 
-			if( returnBoolean && validDateCheck ) {
-				return true;
-			} else if( !returnBoolean && validDateCheck ) {
-				return new Date( date );
-			} else if( returnBoolean && !validDateCheck ) {
-				return false;
+			if( Boolean( date) && new Date( date ) !== 'Invalid Date' ) {
+                if(typeof(date)==='string'){
+                    offset = new Date().getTimezoneOffset();
+                    sign = (offset<0) ? '+' : '-';
+
+                    offset = ((offset / 60) + '').split('.');
+                    offset[0] = (parseInt(offset[0], 10)<10) ? '0' + offset[0] : offset[0];
+                    offset[1] = (offset[1]) ? Math.round(parseFloat('.' + offset[1]) * 60) : '00';
+                    offset = offset.join('');
+
+                    return new Date(date + 'T00:00' + sign + offset );
+                }
+
+                return new Date(date);
 			} else {
 				throw new Error( 'could not parse date' );
 			}
@@ -157,10 +163,18 @@ define(['require','jquery'],function (require) {
 		},
 
 		_restrictDateSelectionSetup: function() {
-			if( Boolean( this.options && !this.options.restrictDateSelection ) ) {
-				this.options.restrictLastMonth = false;
-				this.options.restrictNextMonth = false;
+			var scopedLastMonth, scopedNextMonth;
+			if( Boolean( this.options ) ) {
+				if( !this.options.restrictDateSelection ) {
+					scopedLastMonth = false;
+					scopedNextMonth = false;
+				} else {
+					scopedNextMonth = ( this.viewDate.getMonth() < new Date().getMonth() ) ? true : false;
+					scopedLastMonth = ( this.viewDate.getMonth() > new Date().getMonth() ) ? false : true;
+				}
 			}
+			this.options.restrictLastMonth = scopedLastMonth;
+			this.options.restrictNextMonth = scopedNextMonth;
 		},
 
 		_repeat: function( head, collection, iterator, tail) {
@@ -253,14 +267,6 @@ define(['require','jquery'],function (require) {
 		},
 
 		_updateCalendarData: function() {
-			function localRestrictMonth( daysOfThisMonth, index, context ) {
-				if( daysOfThisMonth[ index ] === 1 ) {
-					context.options.restrictLastMonth= false;
-				}
-				if( daysOfThisMonth.length - 1 === i ) {
-					context.options.restrictNextMonth = false;
-				}
-			}
 			var viewedMonth            = this.viewDate.getMonth();
 			var viewedYear             = this.viewDate.getFullYear();
 			var selectedDay            = this.stagedDate.getDate();
@@ -278,6 +284,32 @@ define(['require','jquery'],function (require) {
 
 			this.daysOfLastMonth = this._range( lastDayOfLastMonth - firstDayOfMonthWeekday + 1, lastDayOfLastMonth + 1 );
 			this.daysOfNextMonth = this._range( 1, addToEnd + 1 );
+
+			// blackout functionality for dates of last month on current calendar view
+			for( var x = 0, xx = this.daysOfLastMonth.length; x < xx; x++ ) {
+				var tmpLastMonthDaysObj        = {};
+				tmpLastMonthDaysObj.number     = this.daysOfLastMonth[ x ];
+				tmpLastMonthDaysObj[ 'class' ] = '';
+
+				if( Boolean( this.blackoutDates( new Date( viewedYear, viewedMonth + 1, this.daysOfLastMonth[ x ], 0, 0, 0, 0 ) ) ) ) {
+					tmpLastMonthDaysObj[ 'class' ] = 'restrict blackout';
+				}
+
+				this.daysOfLastMonth[ x ] = tmpLastMonthDaysObj;
+			}
+
+			// blackout functionality for dates of next month on current calendar view
+			for( var b = 0, bb = this.daysOfNextMonth.length; b < bb; b++ ) {
+				var tmpNextMonthDaysObj        = {};
+				tmpNextMonthDaysObj.number     = this.daysOfNextMonth[ b ];
+				tmpNextMonthDaysObj[ 'class' ] = '';
+
+				if( Boolean( this.blackoutDates( new Date( viewedYear, viewedMonth + 1, this.daysOfNextMonth[ b ], 0, 0, 0, 0 ) ) ) ) {
+					tmpNextMonthDaysObj[ 'class' ] = 'restrict blackout';
+				}
+
+				this.daysOfNextMonth[ b ] = tmpNextMonthDaysObj;
+			}
 
 			var now                  = new Date();
 			var currentDay           = now.getDate();
@@ -319,12 +351,8 @@ define(['require','jquery'],function (require) {
 					} else {
 						weekDayClass += ' past';
 					}
-					localRestrictMonth( daysOfThisMonth, i, this );
 				} else if(  Boolean( this.blackoutDates( dt ) ) ) {
 					weekDayClass += ' restrict blackout';
-					localRestrictMonth( daysOfThisMonth, i, this );
-				} else {
-					localRestrictMonth( daysOfThisMonth, i, this );
 				}
 
 				this.daysOfThisMonth[ this.daysOfThisMonth.length ] = {
@@ -583,8 +611,10 @@ define(['require','jquery'],function (require) {
 
 					self._repeat( '<div class="lastmonth">', self.daysOfLastMonth,
 						function( day ) {
-							var clazz = self.options.restrictLastMonth ? 'restrict' : '';
-							return '<div class="' + clazz + '">' + day + '</div>';
+							if( self.options.restrictLastMonth ) {
+								day['class'] = day['class'].replace('restrict', '') + " restrict";
+							}
+							return '<div class="' + day[ 'class' ] + '">' + day.number + '</div>';
 						}, '</div>' ) +
 
 					self._repeat( '<div class="thismonth">', self.daysOfThisMonth,
@@ -594,8 +624,10 @@ define(['require','jquery'],function (require) {
 
 					self._repeat( '<div class="nextmonth">', self.daysOfNextMonth,
 						function( day ) {
-							var clazz = self.options.restrictNextMonth ? 'restrict' : '';
-							return '<div class="' + clazz + '">' + day + '</div>';
+							if( self.options.restrictNextMonth ) {
+								day['class'] = day['class'].replace('restrict', '') + " restrict";
+							}
+							return '<div class="' + day[ 'class' ] + '">' + day.number + '</div>';
 						}, '</div>' ) +
 				'</div>' +
 
@@ -749,9 +781,8 @@ define(['require','jquery'],function (require) {
 	// DATEPICKER PLUGIN DEFINITION
 
 	$.fn.datepicker = function (option) {
-		var args         = Array.prototype.slice.call( arguments, 1 );
-		var matchString  = '@~_~@';
-		var methodReturn = matchString;
+		var args = Array.prototype.slice.call( arguments, 1 );
+		var methodReturn;
 
 		var $set = this.each(function () {
 			var $this   = $( this );
@@ -762,7 +793,7 @@ define(['require','jquery'],function (require) {
 			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
-		return ( methodReturn === matchString ) ? $set : methodReturn;
+		return ( methodReturn === undefined ) ? $set : methodReturn;
 	};
 
 	$.fn.datepicker.defaults = {

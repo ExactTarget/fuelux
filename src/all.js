@@ -28,6 +28,7 @@ define(function (require) {
 	require('fuelux/intelligent-dropdown');
 	require('fuelux/pillbox');
 	require('fuelux/radio');
+    require('fuelux/scheduler');
 	require('fuelux/search');
 	require('fuelux/spinner');
 	require('fuelux/select');
