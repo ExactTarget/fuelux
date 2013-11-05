@@ -26,8 +26,6 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 	});
 
 	test( 'should initialize with current date and restrict past dates by default', function() {
-		// might be weird if you're running around midnight
-
 		// using default formatDate function
 		var today       = new Date();
 		var todaysDate  = ( today.getDate() < 10 ) ? '0' + today.getDate() : today.getDate();
@@ -118,8 +116,8 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 		// disabled
 		$sample.datepicker( 'disable' );
 		equal( !!$sampleInput.prop('disabled'), true, 'datepicker1 is disabled' );
-		
-		// disabled
+
+		// enable again
 		$sample.datepicker( 'enable' );
 		equal( !!$sampleInput.prop('disabled'), false, 'datepicker1 is enabled again' );
 	});
