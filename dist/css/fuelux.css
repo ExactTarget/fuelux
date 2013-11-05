@@ -7338,6 +7338,252 @@ textarea.span1,
   top: -5px;
 }
 
+.fuelux .scheduler-end {
+  display: none;
+}
+
+.fuelux .scheduler-end .datepicker {
+  display: none;
+  float: left;
+  margin-left: 10px;
+}
+
+.fuelux .scheduler-end .select {
+  float: left;
+}
+
+.fuelux .scheduler-end .spinner {
+  display: none;
+  float: left;
+  margin-left: 10px;
+}
+
+.fuelux .scheduler-end .spinner input {
+  margin-bottom: 0;
+}
+
+.fuelux .scheduler-end .spinner span {
+  line-height: 27px;
+}
+
+.fuelux .scheduler-repeat .dropdown-menu {
+  max-height: 200px;
+  overflow: auto;
+}
+
+.fuelux .scheduler-repeat .repeat-interval {
+  *zoom: 1;
+}
+
+.fuelux .scheduler-repeat .repeat-interval:before,
+.fuelux .scheduler-repeat .repeat-interval:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+
+.fuelux .scheduler-repeat .repeat-interval:after {
+  clear: both;
+}
+
+.fuelux .scheduler-repeat .repeat-interval-panel {
+  display: none;
+  float: left;
+}
+
+.fuelux .scheduler-repeat .repeat-interval-panel .repeat-interval-pretext,
+.fuelux .scheduler-repeat .repeat-interval-panel .repeat-interval-text {
+  float: left;
+  line-height: 27px;
+}
+
+.fuelux .scheduler-repeat .repeat-interval-panel .repeat-interval-pretext {
+  padding: 0 10px;
+}
+
+.fuelux .scheduler-repeat .repeat-interval-panel .spinner {
+  float: left;
+  margin-right: 0;
+}
+
+.fuelux .scheduler-repeat .repeat-interval-panel .spinner input {
+  width: 30px;
+  margin-bottom: 0;
+}
+
+.fuelux .scheduler-repeat .scheduler-monthly {
+  padding-left: 15px;
+}
+
+.fuelux .scheduler-repeat .scheduler-monthly-date {
+  margin-top: 10px;
+  *zoom: 1;
+}
+
+.fuelux .scheduler-repeat .scheduler-monthly-date:before,
+.fuelux .scheduler-repeat .scheduler-monthly-date:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+
+.fuelux .scheduler-repeat .scheduler-monthly-date:after {
+  clear: both;
+}
+
+.fuelux .scheduler-repeat .scheduler-monthly-date .select {
+  margin-left: 5px;
+}
+
+.fuelux .scheduler-repeat .scheduler-monthly-day {
+  margin-top: 10px;
+  *zoom: 1;
+}
+
+.fuelux .scheduler-repeat .scheduler-monthly-day:before,
+.fuelux .scheduler-repeat .scheduler-monthly-day:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+
+.fuelux .scheduler-repeat .scheduler-monthly-day:after {
+  clear: both;
+}
+
+.fuelux .scheduler-repeat .scheduler-monthly-day .month-day-pos {
+  margin: 0 5px;
+}
+
+.fuelux .scheduler-repeat .scheduler-yearly {
+  padding-left: 15px;
+}
+
+.fuelux .scheduler-repeat .scheduler-yearly-date {
+  margin-top: 10px;
+  *zoom: 1;
+}
+
+.fuelux .scheduler-repeat .scheduler-yearly-date:before,
+.fuelux .scheduler-repeat .scheduler-yearly-date:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+
+.fuelux .scheduler-repeat .scheduler-yearly-date:after {
+  clear: both;
+}
+
+.fuelux .scheduler-repeat .scheduler-yearly-date .select.year-month {
+  margin-left: 5px;
+}
+
+.fuelux .scheduler-repeat .scheduler-yearly-date .select.year-month-day {
+  margin-left: 10px;
+}
+
+.fuelux .scheduler-repeat .scheduler-yearly-day {
+  margin-top: 10px;
+  *zoom: 1;
+}
+
+.fuelux .scheduler-repeat .scheduler-yearly-day:before,
+.fuelux .scheduler-repeat .scheduler-yearly-day:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+
+.fuelux .scheduler-repeat .scheduler-yearly-day:after {
+  clear: both;
+}
+
+.fuelux .scheduler-repeat .scheduler-yearly-day .scheduler-yearly-day-text {
+  float: left;
+  margin: 0 10px;
+  line-height: 27px;
+}
+
+.fuelux .scheduler-repeat .scheduler-yearly-day .year-month-day-pos {
+  margin: 0 5px;
+}
+
+.fuelux .scheduler-repeat .scheduler-weekly {
+  padding: 10px 0 0 15px;
+}
+
+.fuelux .scheduler-repeat .scheduler-weekly .btn-group.disabled {
+  position: relative;
+  opacity: 0.65;
+}
+
+.fuelux .scheduler-repeat .scheduler-weekly .btn-group.disabled:before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 5;
+  background: transparent;
+  content: "";
+}
+
+.fuelux .scheduler-repeat .select {
+  float: left;
+}
+
+.fuelux .scheduler-repeat label.radio {
+  float: left;
+  line-height: 27px;
+}
+
+.fuelux .scheduler-repeat label.radio input {
+  margin-top: 8px;
+}
+
+.fuelux .scheduler-start .combobox .dropdown-menu {
+  max-height: 200px;
+  overflow: auto;
+}
+
+.fuelux .scheduler-start .combobox input {
+  width: 65px;
+}
+
+.fuelux .scheduler-start .dropdown {
+  float: left;
+  margin: 0 10px 0 0;
+}
+
+.fuelux .scheduler-table td {
+  padding: 5px;
+  margin: 0;
+  vertical-align: top;
+}
+
+.fuelux .scheduler-table td.scheduler-label {
+  padding-top: 8px;
+}
+
+.fuelux .scheduler-timezone .dropdown-label {
+  width: 334px;
+  height: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fuelux .scheduler-timezone .dropdown-menu {
+  width: 376px;
+  max-height: 200px;
+  overflow: auto;
+}
+
+.fuelux .scheduler .recurrence-panel {
+  display: none;
+}
+
 .fuelux .search {
   display: inline-block;
 }
