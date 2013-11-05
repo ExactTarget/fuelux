@@ -806,7 +806,7 @@ define(function (require) {
 	$.fn.datepicker.Constructor = Datepicker;
 
 	$.fn.datepicker.noConflict = function () {
-		$.fn.Datepicker = old;
+		$.fn.datepicker = old;
 		return this;
 	};
 });

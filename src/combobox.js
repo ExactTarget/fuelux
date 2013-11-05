@@ -158,7 +158,7 @@ define(function (require) {
 	$.fn.combobox.Constructor = Combobox;
 
 	$.fn.combobox.noConflict = function () {
-		$.fn.Combobox = old;
+		$.fn.combobox = old;
 		return this;
 	};
 
