@@ -161,6 +161,23 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 		equal( pastRestrictionCheck, true, 'restricted past dates are default' );
 	});
 
+	test( "should fire change event when new date is set", function() {
+		var eventsLogged            = 0;
+		var validDateOnEventTrigger = false;
+
+		var $sample = $( html ).find( '#datepicker1' ).datepicker().on( 'changed', function( event, date ) {
+			eventsLogged++;
+			if( new Date( date ) !== 'Invalid Date' ) {
+				validDateOnEventTrigger = true;
+			}
+		});
+
+		$sample.datepicker( 'setDate', new Date() );
+
+		equal( eventsLogged, 1, "Event was triggered when date was set" );
+		equal( validDateOnEventTrigger, true, "Event trigger returned a valid date object" );
+	});
+
 	test( 'should create dropdown with custom dropdown', function() {
 		var $sansMarkup = $( html ).find( '#datepicker2' );
 		var customWidth = 240;
