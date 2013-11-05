@@ -140,10 +140,10 @@ define(function (require) {
 
                     offset = ((offset / 60) + '').split('.');
                     offset[0] = (parseInt(offset[0], 10)<10) ? '0' + offset[0] : offset[0];
-                    offset[1] = (offset[1]) ? Math.round(parseFloat('.' + offset[1]) * 60) : '00';
+                    offset[1] = (offset[1]) ? ':' + Math.round(parseFloat('.' + offset[1]) * 60) : ':00';
                     offset = offset.join('');
 
-                    return new Date(date + 'T00:00' + sign + offset );
+                    return new Date(date + 'T12:00' + sign + offset );
                 }
 
                 return new Date(date);
