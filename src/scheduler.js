@@ -59,6 +59,10 @@ define(function(require) {
     Scheduler.prototype = {
         constructor: Scheduler,
 
+        changed: function(){
+            this.$element.trigger('changed');
+        },
+
         disable: function(){
             this.toggleState('disable');
         },
