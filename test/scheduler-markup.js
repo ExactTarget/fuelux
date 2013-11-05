@@ -244,6 +244,7 @@ define(function (require) {
                                         '<li data-value="28"><a href="#">28</a></li>' +
                                         '<li data-value="29"><a href="#">29</a></li>' +
                                         '<li data-value="30"><a href="#">30</a></li>' +
+                                        '<li data-value="31"><a href="#">31</a></li>' +
                                     '</ul>' +
                                 '</div>' +
                             '</div>' +
@@ -329,6 +330,7 @@ define(function (require) {
                                         '<li data-value="28"><a href="#">28</a></li>' +
                                         '<li data-value="29"><a href="#">29</a></li>' +
                                         '<li data-value="30"><a href="#">30</a></li>' +
+                                        '<li data-value="31"><a href="#">31</a></li>' +
                                     '</ul>' +
                                 '</div>' +
                             '</div>' +
