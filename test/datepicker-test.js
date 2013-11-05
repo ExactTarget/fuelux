@@ -26,8 +26,6 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 	});
 
 	test( 'should initialize with current date and restrict past dates by default', function() {
-		// might be weird if you're running around midnight
-
 		// using default formatDate function
 		var today       = new Date();
 		var todaysDate  = ( today.getDate() < 10 ) ? '0' + today.getDate() : today.getDate();
@@ -109,19 +107,22 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 	});
 
 	test( 'should enable/disable datepicker', function() {
-		var $sample = $( html ).find( '#datepicker1' ).datepicker();
+		var $sample      = $( html ).find( '#datepicker1' ).datepicker();
 		var $sampleInput = $sample.find( 'input' );
 
 		// enabled
-		equal( !!$sampleInput.prop('disabled'), false, 'datepicker1 is enabled' );
+		var defaultState = !!$sampleInput.prop( 'disabled' ) && !!$sample.find( 'button' ).prop( 'disabled' );
+		equal( defaultState, false, 'datepicker1 is enabled' );
 
 		// disabled
 		$sample.datepicker( 'disable' );
-		equal( !!$sampleInput.prop('disabled'), true, 'datepicker1 is disabled' );
-		
-		// disabled
+		var disabledState = !!$sampleInput.prop( 'disabled' ) && !!$sample.find( 'button' ).prop( 'disabled' );
+		equal( disabledState, true, 'datepicker1 is disabled' );
+
+		// enable again
 		$sample.datepicker( 'enable' );
-		equal( !!$sampleInput.prop('disabled'), false, 'datepicker1 is enabled again' );
+		var enabledState = !!$sampleInput.prop( 'disabled' ) && !!$sample.find( 'button' ).prop( 'disabled' );
+		equal( enabledState, false, 'datepicker1 is enabled again' );
 	});
 
 	test( 'should restrict dates when using custom blackoutDates() default', function() {
