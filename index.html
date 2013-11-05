@@ -392,6 +392,25 @@
 		<input type="button" class="btn btn-mini" id="btnItems" value="log items to console">
 	</div>
 
+    <!-- PRELOADER -->
+    <div>
+        <div class="preloader"><i></i><i></i><i></i><i></i></div>
+
+        <!-- if IE<10 must be supported use this: -->
+        <div class="preloader" id="myPreloader">
+            <i></i><i></i><i></i><i></i>
+            <!--[if lt IE 10]>
+            <script type="text/javascript">
+                (function(e){
+                    var t,n;t=function(e){n.innerHTML=e;e++;if(e===9)e=1;setTimeout(function(){t(e)},125)};
+                    e=document.getElementById(e);n="preloader_"+(new Date).getTime();e.className+=" iefix";
+                    e.innerHTML='<span>0</span><b id="'+n+'"></b>'+e.innerHTML;n=document.getElementById(n);t(1)
+                })("myPreloader");
+            </script>
+            <![endif]-->
+        </div>
+    </div>
+
 
 	<!-- SPINNER -->
 	<div id="ex-spinner" class="spinner">
