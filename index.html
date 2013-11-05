@@ -449,6 +449,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 					<li><a href="#combobox">Combobox</a></li>
 					<li><a href="#datagrid">Datagrid</a></li>
 					<li><a href="#pillbox">Pillbox</a></li>
+                    <li><a href="#preloader">Preloader</a></li>
 					<li><a href="#radio">Radio</a></li>
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Scheduling <i class="caret"></i></a>
@@ -545,30 +546,35 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 		<p>Easily manage selected items with color-coded text labels.</p>
 	</div>
-	<div class="span4">
-		<h3><a href="#radio">Radio</a></h3>
+    <div class="span4">
+        <h3><a href="#preloader">Preloader</a></h3>
 
-		<p>Customized look and feel for radio button element.</p>
-	</div>
+        <p>Fully CSS-driven loading animation for visual indication of wait times.</p>
+    </div>
 </div>
 <div class="row">
+    <div class="span4">
+        <h3><a href="#radio">Radio</a></h3>
+
+        <p>Customized look and feel for radio button element.</p>
+    </div>
 	<div class="span4">
 		<h3><a href="#scheduler">Scheduler</a></h3>
 
-		<p>Combines Datepicker and time to help you schedule events.</p>
+		<p>Composite form control to quickly schedule events.</p>
 	</div>
 	<div class="span4">
 		<h3><a href="#search">Search</a></h3>
 
 		<p>Combines input and button for integrated search interaction.</p>
 	</div>
-	<div class="span4">
-		<h3><a href="#select">Select</a></h3>
-
-		<p>Extends button dropdown with additional functionality for setting and retrieving the selected item.</p>
-	</div>
 </div>
 <div class="row">
+    <div class="span4">
+        <h3><a href="#select">Select</a></h3>
+
+        <p>Extends button dropdown with additional functionality for setting and retrieving the selected item.</p>
+    </div>
 	<div class="span4">
 		<h3><a href="#spinner">Spinner</a></h3>
 
@@ -579,11 +585,13 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 		<p>Provides a visual display of hierarchical node data.</p>
 	</div>
-	<div class="span4">
-		<h3><a href="#wizard">Wizard</a></h3>
+</div>
+<div class="row">
+    <div class="span4">
+        <h3><a href="#wizard">Wizard</a></h3>
 
-		<p>Easily define a multi-step process that needs to be completed in a specific order.</p>
-	</div>
+        <p>Easily define a multi-step process that needs to be completed in a specific order.</p>
+    </div>
 </div>
 
 <section id="checkbox">
@@ -1347,6 +1355,54 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 	</div>
 </section>
 
+<section id="preloader">
+    <div class="page-header">
+        <h1>Preloader
+            <small style="font-style: italic;">(css only)</small>
+        </h1>
+    </div>
+    <div class="row">
+        <div class="span12 columns">
+            <h2>Example</h2>
+
+            <p>Below is a working preloader example.</p>
+
+            <div class="well preloader-example">
+                <div class="preloader"><i></i><i></i><i></i><i></i></div>
+            </div>
+
+            <hr>
+
+            <h2>Using preloader</h2>
+
+            <h3>Markup</h3>
+
+            <p>Include the following markup in all modern browsers to use the preloader control.</p>
+
+<pre class="prettyprint linenums">
+&lt;div class="preloader"&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;
+</pre>
+            <br/>
+            <p>If IE<10 support is needed, use the following markup instead. NOTE: the id <b>must</b> be present and the value passed in the script must match that id <b>exactly</b>.</p>
+
+<pre class="prettyprint linenums">
+&lt;div class="preloader" id="myPreloader"&gt;
+    &lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;
+    &lt;!--[if lt IE 10]&gt;
+    &lt;script type="text/javascript"&gt;
+        (function(e){
+            var t,n;t=function(e){n.innerHTML=e;e++;if(e===9)e=1;setTimeout(function(){t(e)},125)};
+            e=document.getElementById(e);n="preloader_"+(new Date).getTime();e.className+=" iefix";
+            e.innerHTML='&lt;span&gt;0&lt;/span&gt;&lt;b id="'+n+'"&gt;&lt;/b&gt;'+e.innerHTML;n=document.getElementById(n);t(1)
+        })("myPreloader");
+    &lt;/script&gt;
+    &lt;![endif]--&gt;
+&lt;/div&gt;
+</pre>
+        </div>
+    </div>
+</section>
+
 <section id="radio">
 	<div class="page-header">
 		<h1>Radio
@@ -1422,6 +1478,29 @@ $('.radio-custom input').prop('checked', false);
 
 		</div>
 	</div>
+</section>
+
+<section id="scheduler">
+    <div class="page-header">
+        <h1>Scheduler
+            <small>scheduler.js</small>
+        </h1>
+    </div>
+    <div class="row">
+        <div class="span12 columns">
+            <h2>Example</h2>
+
+            <p>Below is a working scheduler example.</p>
+
+            <div class="well scheduler-example">
+            </div>
+
+            <hr>
+
+            <h2>Using scheduler</h2>
+
+        </div>
+    </div>
 </section>
 
 <section id="search">
