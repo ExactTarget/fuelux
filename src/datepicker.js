@@ -146,7 +146,7 @@ define(function (require) {
                     if(parts) {
                         month = +parts[2];
                         dt.setFullYear(parts[1], month - 1, parts[3]);
-                        if(month != dt.getMonth() + 1) {
+                        if(month !== dt.getMonth() + 1) {
                             dt.setTime(NaN);
                         }
                     }
