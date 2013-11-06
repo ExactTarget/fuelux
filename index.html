@@ -483,18 +483,11 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 					<li><a href="#checkbox">Checkbox</a></li>
 					<li><a href="#combobox">Combobox</a></li>
 					<li><a href="#datagrid">Datagrid</a></li>
-                    <li><a href="#datepicker">Datepicker</a></li>
+					<li><a href="#datepicker">Datepicker</a></li>
 					<li><a href="#pillbox">Pillbox</a></li>
-                    <li><a href="#preloader">Preloader</a></li>
+					<li><a href="#preloader">Preloader</a></li>
 					<li><a href="#radio">Radio</a></li>
-                    <li><a href="#scheduler">Scheduler</a></li>
-					<!--<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Scheduling <i class="caret"></i></a>
-						<ul class="dropdown-menu">
-							<li><a tabindex="-1" href="#datepicker">Datepicker</a></li>
-							<li><a tabindex="-1" href="#scheduler">Scheduler</a></li>
-						</ul>
-					</li>-->
+					<li><a href="#scheduler">Scheduler</a></li>
 					<li><a href="#search">Search</a></li>
 					<li><a href="#select">Select</a></li>
 					<li><a href="#spinner">Spinner</a></li>
@@ -1286,6 +1279,24 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 						<td>Function restricts date selection. A date is passed as a parameter. Boolean value should be returned</td>
 						<td><code>false</code></td>
 					</tr>
+				</tbody>
+			</table>
+
+			<h3>Events</h3>
+
+			<p>Fuel UX's datepicker exposes an event for hooking into its functionality.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Event</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>changed</td>
+					<td>This event is fired when the date of the datepicker is changed.</td>
+				</tr>
 				</tbody>
 			</table>
 
