@@ -285,6 +285,41 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 		});
 
 
+        //INITIALIZING SCHEDULER
+        $('#scheduler-enable').on('click', function(){
+            $('#myScheduler').scheduler('enable');
+        });
+
+        $('#scheduler-disable').on('click', function(){
+            $('#myScheduler').scheduler('disable');
+        });
+
+        $('#scheduler-logValue').on('click', function(){
+            var val = $('#myScheduler').scheduler('value');
+            if(window.console && window.console.log){
+                window.console.log(val);
+            }
+        });
+
+        $('#scheduler-setValue').on('click', function(){
+            $('#myScheduler').scheduler('value', {
+                startDateTime: '2014-03-31T03:23+02:00',
+                timeZone: {
+                    name: 'Namibia Standard Time',
+                    offset: '+02:00'
+                },
+                recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
+            });
+        });
+
+        $('#myScheduler').on('changed', function(){
+            if(window.console && window.console.log){
+                window.console.log('scheduler changed: ', arguments);
+            }
+        });
+
+        $('#myScheduler').scheduler();
+
 		// INITIALIZING SELECT
 		$('#mySelect').on('changed', function (evt, data) {
 			console.log(data);
@@ -1988,7 +2023,14 @@ $('myScheduler').scheduler('value', {
                 <tbody>
                 <tr>
                     <td>changed</td>
-                    <td>This event is fired when any form item within the scheduler has changed. Arguments are TBD</td>
+                    <td>
+                        This event is fired when any form item within the scheduler has changed. Returned arguments are an event object representing the control event, as well as a data object with the following structure:
+                        <ul>
+                            <li>data - useful data object returned from the underlying form item</li>
+                            <li>originalEvent - event object representing underlying form item event</li>
+                            <li>value - current value of the scheduler, equivalent object to one returned via 'value' method</li>
+                        </ul>
+                    </td>
                 </tr>
                 </tbody>
             </table>
