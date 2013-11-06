@@ -132,20 +132,26 @@ define(function (require) {
 			return date.getFullYear() + '-' + this.padTwo( date.getMonth() + 1 ) + '-' + this.padTwo( date.getDate() );
 		},
 
+        //some code ripped from http://stackoverflow.com/questions/2182246/javascript-dates-in-ie-nan-firefox-chrome-ok
 		parseDate: function( date, inputUpdate ) {
-			var offset, sign;
+			var dt, isoExp, month, parts;
 
 			if( Boolean( date) && new Date( date ) !== 'Invalid Date' ) {
 				if( typeof( date ) === 'string' && !inputUpdate  ) {
-					offset = new Date().getTimezoneOffset();
-					sign   = ( offset < 0 ) ? '+' : '-';
+                    date = date.split('T')[0];
+                    isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/;
+                    dt = new Date(NaN);
+                    parts = isoExp.exec(date);
 
-					offset = ( (offset / 60 ) + '' ).split( '.' );
-					offset[ 0 ] = ( parseInt( offset[ 0 ], 10 ) < 10 ) ? '0' + offset[ 0 ] : offset[ 0 ];
-					offset[ 1 ] = ( offset[ 1 ] ) ? ':' + Math.round( parseFloat( '.' + offset[ 1 ] ) * 60 ) : ':00';
-					offset = offset.join( '' );
+                    if(parts) {
+                        month = +parts[2];
+                        dt.setFullYear(parts[1], month - 1, parts[3]);
+                        if(month != dt.getMonth() + 1) {
+                            dt.setTime(NaN);
+                        }
+                    }
 
-					return new Date( date + 'T12:00' + sign + offset );
+                    return dt;
 				}
 				return new Date( date );
 			} else {
