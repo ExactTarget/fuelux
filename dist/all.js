@@ -2520,7 +2520,7 @@ define('fuelux/checkbox',['require','jquery'],function (require) {
 	$.fn.checkbox.Constructor = Checkbox;
 
 	$.fn.checkbox.noConflict = function () {
-		$.fn.Checkbox = old;
+		$.fn.checkbox = old;
 		return this;
 	};
 
@@ -2726,7 +2726,7 @@ define('fuelux/combobox',['require','jquery','./util'],function (require) {
 	$.fn.combobox.Constructor = Combobox;
 
 	$.fn.combobox.noConflict = function () {
-		$.fn.Combobox = old;
+		$.fn.combobox = old;
 		return this;
 	};
 
@@ -3127,7 +3127,7 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 	$.fn.datagrid.Constructor = Datagrid;
 
 	$.fn.datagrid.noConflict = function () {
-		$.fn.Datagrid = old;
+		$.fn.datagrid = old;
 		return this;
 	};
 });
@@ -3247,11 +3247,13 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 			}
 		},
 
-		setDate: function( date ) {
-			this.date       = this.parseDate( date );
+		setDate: function( date, inputUpdate ) {
+			inputUpdate     = inputUpdate || false;
+			this.date       = this.parseDate( date, inputUpdate );
 			this.stagedDate = new Date( this.date );
 			this.viewDate   = new Date( this.date );
 			this._render();
+			this.$element.trigger( 'changed', this.date );
 			return this.date;
 		},
 
@@ -3264,23 +3266,27 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 			return date.getFullYear() + '-' + this.padTwo( date.getMonth() + 1 ) + '-' + this.padTwo( date.getDate() );
 		},
 
-		parseDate: function( date ) {
-            var offset, sign;
+		//some code ripped from http://stackoverflow.com/questions/2182246/javascript-dates-in-ie-nan-firefox-chrome-ok
+		parseDate: function( date, inputUpdate ) {
+			var dt, isoExp, month, parts;
 
 			if( Boolean( date) && new Date( date ) !== 'Invalid Date' ) {
-                if(typeof(date)==='string'){
-                    offset = new Date().getTimezoneOffset();
-                    sign = (offset<0) ? '+' : '-';
+				if( typeof( date ) === 'string' && !inputUpdate  ) {
+					date   = date.split( 'T' )[ 0 ];
+					isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/;
+					dt     = new Date( NaN );
+					parts  = isoExp.exec( date );
 
-                    offset = ((offset / 60) + '').split('.');
-                    offset[0] = (parseInt(offset[0], 10)<10) ? '0' + offset[0] : offset[0];
-                    offset[1] = (offset[1]) ? Math.round(parseFloat('.' + offset[1]) * 60) : '00';
-                    offset = offset.join('');
-
-                    return new Date(date + 'T00:00' + sign + offset );
-                }
-
-                return new Date(date);
+					if( parts ) {
+						month = +parts[ 2 ];
+						dt.setFullYear( parts[ 1 ], month - 1, parts[ 3 ] );
+						if( month !== dt.getMonth() + 1 ) {
+								dt.setTime( NaN );
+						}
+					}
+					return dt;
+				}
+				return new Date( date );
 			} else {
 				throw new Error( 'could not parse date' );
 			}
@@ -3838,7 +3844,7 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 			var inputValue  = this.$input.val();
 
 			if( validLength === inputValue.length && this._checkKeyCode( e ) ) {
-				this.setDate( inputValue );
+				this.setDate( inputValue, true );
 			}
 		},
 
@@ -3940,7 +3946,7 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 	$.fn.datepicker.Constructor = Datepicker;
 
 	$.fn.datepicker.noConflict = function () {
-		$.fn.Datepicker = old;
+		$.fn.datepicker = old;
 		return this;
 	};
 });
@@ -4188,7 +4194,7 @@ define('fuelux/pillbox',['require','jquery'],function(require) {
 	$.fn.pillbox.Constructor = Pillbox;
 
 	$.fn.pillbox.noConflict = function () {
-		$.fn.Pillbox = old;
+		$.fn.pillbox = old;
 		return this;
 	};
 
@@ -4323,7 +4329,7 @@ define('fuelux/radio',['require','jquery'],function (require) {
 	$.fn.radio.Constructor = Radio;
 
 	$.fn.radio.noConflict = function () {
-		$.fn.Radio = old;
+		$.fn.radio = old;
 		return this;
 	};
 
@@ -4351,8 +4357,9 @@ define('fuelux/radio',['require','jquery'],function (require) {
 
 define('fuelux/select',['require','jquery','./util'],function(require) {
 
-    var $ = require('jquery');
-	require('./util');
+    var $   = require('jquery');
+    var old = $.fn.select;
+    require('./util');
 
     // SELECT CONSTRUCTOR AND PROTOTYPE
 
@@ -4486,6 +4493,11 @@ define('fuelux/select',['require','jquery','./util'],function(require) {
     $.fn.select.defaults = {};
 
     $.fn.select.Constructor = Select;
+
+    $.fn.select.noConflict = function () {
+      $.fn.select = old;
+      return this;
+    };
 
 
     // SELECT DATA-API
@@ -4712,7 +4724,7 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 	$.fn.spinner.Constructor = Spinner;
 
 	$.fn.spinner.noConflict = function () {
-		$.fn.Spinner = old;
+		$.fn.spinner = old;
 		return this;
 	};
 
@@ -4748,6 +4760,8 @@ define('fuelux/scheduler',['require','jquery','fuelux/combobox','fuelux/datepick
     // SCHEDULER CONSTRUCTOR AND PROTOTYPE
 
     var Scheduler = function (element, options) {
+        var self = this;
+
         this.$element = $(element);
         this.options = $.extend({}, $.fn.scheduler.defaults, options);
 
@@ -4771,6 +4785,13 @@ define('fuelux/scheduler',['require','jquery','fuelux/combobox','fuelux/datepick
         this.$recurrencePanels = this.$element.find('.recurrence-panel');
 
         // bind events
+        this.$element.find('.scheduler-weekly .btn-group .btn').on('click', function(e, data){ self.changed(e, data, true); });
+        this.$element.find('.combobox').on('changed', $.proxy(this.changed, this));
+        this.$element.find('.datepicker').on('changed', $.proxy(this.changed, this));
+        this.$element.find('.select').on('changed', $.proxy(this.changed, this));
+        this.$element.find('.spinner').on('changed', $.proxy(this.changed, this));
+        this.$element.find('.scheduler-monthly label.radio, .scheduler-yearly label.radio').on('mouseup', $.proxy(this.changed, this));
+
         this.$repeatIntervalSelect.on('changed', $.proxy(this.repeatIntervalSelectChanged, this));
         this.$endSelect.on('changed', $.proxy(this.endSelectChanged, this));
 
@@ -4787,6 +4808,17 @@ define('fuelux/scheduler',['require','jquery','fuelux/combobox','fuelux/datepick
 
     Scheduler.prototype = {
         constructor: Scheduler,
+
+        changed: function(e, data, propagate){
+            if(!propagate){
+                e.stopPropagation();
+            }
+            this.$element.trigger('changed', {
+                data: (data!==undefined) ? data : $(e.currentTarget).data(),
+                originalEvent: e,
+                value: this.getValue()
+            });
+        },
 
         disable: function(){
             this.toggleState('disable');
@@ -5146,13 +5178,13 @@ define('fuelux/scheduler',['require','jquery','fuelux/combobox','fuelux/datepick
                     this.$endDate.datepicker('setDate', temp);
                     this.$endSelect.select('selectByValue', 'date');
                 }
-                this.$endSelect.trigger('changed');
+                this.endSelectChanged();
 
                 if(recur.INTERVAL){
                     this.$repeatIntervalSpinner.spinner('value', parseInt(recur.INTERVAL, 10));
                 }
                 this.$repeatIntervalSelect.select('selectByValue', item);
-                this.$repeatIntervalSelect.trigger('changed');
+                this.repeatIntervalSelectChanged();
             }
         },
 
@@ -5185,8 +5217,7 @@ define('fuelux/scheduler',['require','jquery','fuelux/combobox','fuelux/datepick
 
     $.fn.scheduler = function (option) {
         var args = Array.prototype.slice.call( arguments, 1 );
-        var matchString = '@~_~@';
-        var methodReturn = matchString;
+        var methodReturn;
 
         var $set = this.each(function () {
             var $this = $(this);
@@ -5197,7 +5228,7 @@ define('fuelux/scheduler',['require','jquery','fuelux/combobox','fuelux/datepick
             if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
         });
 
-        return ( methodReturn === matchString ) ? $set : methodReturn;
+        return ( methodReturn === undefined ) ? $set : methodReturn;
     };
 
     $.fn.scheduler.defaults = {};
@@ -5340,7 +5371,7 @@ define('fuelux/search',['require','jquery'],function(require) {
 	$.fn.search.Constructor = Search;
 
 	$.fn.search.noConflict = function () {
-		$.fn.Search = old;
+		$.fn.search = old;
 		return this;
 	};
 
@@ -5593,7 +5624,7 @@ define('fuelux/tree',['require','jquery'],function(require) {
 	$.fn.tree.Constructor = Tree;
 
 	$.fn.tree.noConflict = function () {
-		$.fn.Tree = old;
+		$.fn.tree = old;
 		return this;
 	};
 });
@@ -5827,7 +5858,7 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 	$.fn.wizard.Constructor = Wizard;
 
 	$.fn.wizard.noConflict = function () {
-		$.fn.Wizard = old;
+		$.fn.wizard = old;
 		return this;
 	};
 

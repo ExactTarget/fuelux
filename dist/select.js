@@ -8,8 +8,9 @@
 
 define(['require','jquery','./util'],function(require) {
 
-    var $ = require('jquery');
-	require('./util');
+    var $   = require('jquery');
+    var old = $.fn.select;
+    require('./util');
 
     // SELECT CONSTRUCTOR AND PROTOTYPE
 
@@ -143,6 +144,11 @@ define(['require','jquery','./util'],function(require) {
     $.fn.select.defaults = {};
 
     $.fn.select.Constructor = Select;
+
+    $.fn.select.noConflict = function () {
+      $.fn.select = old;
+      return this;
+    };
 
 
     // SELECT DATA-API

@@ -19,6 +19,8 @@ define(['require','jquery','fuelux/combobox','fuelux/datepicker','fuelux/radio',
     // SCHEDULER CONSTRUCTOR AND PROTOTYPE
 
     var Scheduler = function (element, options) {
+        var self = this;
+
         this.$element = $(element);
         this.options = $.extend({}, $.fn.scheduler.defaults, options);
 
@@ -42,6 +44,13 @@ define(['require','jquery','fuelux/combobox','fuelux/datepicker','fuelux/radio',
         this.$recurrencePanels = this.$element.find('.recurrence-panel');
 
         // bind events
+        this.$element.find('.scheduler-weekly .btn-group .btn').on('click', function(e, data){ self.changed(e, data, true); });
+        this.$element.find('.combobox').on('changed', $.proxy(this.changed, this));
+        this.$element.find('.datepicker').on('changed', $.proxy(this.changed, this));
+        this.$element.find('.select').on('changed', $.proxy(this.changed, this));
+        this.$element.find('.spinner').on('changed', $.proxy(this.changed, this));
+        this.$element.find('.scheduler-monthly label.radio, .scheduler-yearly label.radio').on('mouseup', $.proxy(this.changed, this));
+
         this.$repeatIntervalSelect.on('changed', $.proxy(this.repeatIntervalSelectChanged, this));
         this.$endSelect.on('changed', $.proxy(this.endSelectChanged, this));
 
@@ -58,6 +67,17 @@ define(['require','jquery','fuelux/combobox','fuelux/datepicker','fuelux/radio',
 
     Scheduler.prototype = {
         constructor: Scheduler,
+
+        changed: function(e, data, propagate){
+            if(!propagate){
+                e.stopPropagation();
+            }
+            this.$element.trigger('changed', {
+                data: (data!==undefined) ? data : $(e.currentTarget).data(),
+                originalEvent: e,
+                value: this.getValue()
+            });
+        },
 
         disable: function(){
             this.toggleState('disable');
@@ -417,13 +437,13 @@ define(['require','jquery','fuelux/combobox','fuelux/datepicker','fuelux/radio',
                     this.$endDate.datepicker('setDate', temp);
                     this.$endSelect.select('selectByValue', 'date');
                 }
-                this.$endSelect.trigger('changed');
+                this.endSelectChanged();
 
                 if(recur.INTERVAL){
                     this.$repeatIntervalSpinner.spinner('value', parseInt(recur.INTERVAL, 10));
                 }
                 this.$repeatIntervalSelect.select('selectByValue', item);
-                this.$repeatIntervalSelect.trigger('changed');
+                this.repeatIntervalSelectChanged();
             }
         },
 
@@ -456,8 +476,7 @@ define(['require','jquery','fuelux/combobox','fuelux/datepicker','fuelux/radio',
 
     $.fn.scheduler = function (option) {
         var args = Array.prototype.slice.call( arguments, 1 );
-        var matchString = '@~_~@';
-        var methodReturn = matchString;
+        var methodReturn;
 
         var $set = this.each(function () {
             var $this = $(this);
@@ -468,7 +487,7 @@ define(['require','jquery','fuelux/combobox','fuelux/datepicker','fuelux/radio',
             if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
         });
 
-        return ( methodReturn === matchString ) ? $set : methodReturn;
+        return ( methodReturn === undefined ) ? $set : methodReturn;
     };
 
     $.fn.scheduler.defaults = {};

@@ -201,7 +201,7 @@ define(['require','jquery'],function(require) {
 	$.fn.spinner.Constructor = Spinner;
 
 	$.fn.spinner.noConflict = function () {
-		$.fn.Spinner = old;
+		$.fn.spinner = old;
 		return this;
 	};
 

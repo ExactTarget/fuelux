@@ -236,7 +236,7 @@ define(['require','jquery'],function(require) {
 	$.fn.tree.Constructor = Tree;
 
 	$.fn.tree.noConflict = function () {
-		$.fn.Tree = old;
+		$.fn.tree = old;
 		return this;
 	};
 });

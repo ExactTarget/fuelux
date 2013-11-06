@@ -117,7 +117,7 @@ define(['require','jquery'],function(require) {
 	$.fn.search.Constructor = Search;
 
 	$.fn.search.noConflict = function () {
-		$.fn.Search = old;
+		$.fn.search = old;
 		return this;
 	};
 

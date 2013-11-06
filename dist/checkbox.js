@@ -110,7 +110,7 @@ define(['require','jquery'],function (require) {
 	$.fn.checkbox.Constructor = Checkbox;
 
 	$.fn.checkbox.noConflict = function () {
-		$.fn.Checkbox = old;
+		$.fn.checkbox = old;
 		return this;
 	};
 

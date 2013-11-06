@@ -376,7 +376,7 @@ define(['require','jquery'],function (require) {
 	$.fn.datagrid.Constructor = Datagrid;
 
 	$.fn.datagrid.noConflict = function () {
-		$.fn.Datagrid = old;
+		$.fn.datagrid = old;
 		return this;
 	};
 });

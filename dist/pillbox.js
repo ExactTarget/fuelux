@@ -110,7 +110,7 @@ define(['require','jquery'],function(require) {
 	$.fn.pillbox.Constructor = Pillbox;
 
 	$.fn.pillbox.noConflict = function () {
-		$.fn.Pillbox = old;
+		$.fn.pillbox = old;
 		return this;
 	};
 
