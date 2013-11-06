@@ -46,8 +46,7 @@ define(function(require) {
         // bind events
         this.$element.find('.scheduler-weekly .btn-group .btn').on('click', function(e, data){ self.changed(e, data, true); });
         this.$element.find('.combobox').on('changed', $.proxy(this.changed, this));
-            //UNCOMMENT - once datepicker has changed event
-            //this.$element.find('.datepicker').on('changed', $.proxy(this.changed, this));
+        this.$element.find('.datepicker').on('changed', $.proxy(this.changed, this));
         this.$element.find('.select').on('changed', $.proxy(this.changed, this));
         this.$element.find('.spinner').on('changed', $.proxy(this.changed, this));
         this.$element.find('.scheduler-monthly label.radio, .scheduler-yearly label.radio').on('mouseup', $.proxy(this.changed, this));
