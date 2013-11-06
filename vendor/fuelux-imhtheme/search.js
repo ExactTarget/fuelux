@@ -8,8 +8,8 @@
 
 define(['require','jquery'],function(require) {
 
-	var $ = require('jquery');
-
+	var $   = require('jquery');
+	var old = $.fn.search;
 
 	// SEARCH CONSTRUCTOR AND PROTOTYPE
 
@@ -97,19 +97,29 @@ define(['require','jquery'],function(require) {
 	// SEARCH PLUGIN DEFINITION
 
 	$.fn.search = function (option) {
-		return this.each(function () {
-			var $this = $(this);
-			var data = $this.data('search');
+		var args = Array.prototype.slice.call( arguments, 1 );
+		var methodReturn;
+
+		var $set = this.each(function () {
+			var $this = $( this );
+			var data = $this.data( 'search' );
 			var options = typeof option === 'object' && option;
 
 			if (!data) $this.data('search', (data = new Search(this, options)));
-			if (typeof option === 'string') data[option]();
+			if (typeof option === 'string') methodReturn = data[ option ].apply( data, args );
 		});
+
+		return ( methodReturn === undefined ) ? $set : methodReturn;
 	};
 
 	$.fn.search.defaults = {};
 
 	$.fn.search.Constructor = Search;
+
+	$.fn.search.noConflict = function () {
+		$.fn.search = old;
+		return this;
+	};
 
 
 	// SEARCH DATA-API
@@ -121,5 +131,4 @@ define(['require','jquery'],function(require) {
 			$this.search($this.data());
 		});
 	});
-
 });

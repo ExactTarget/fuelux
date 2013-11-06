@@ -8,8 +8,9 @@
 
 define(['require','jquery','./util'],function(require) {
 
-    var $ = require('jquery');
-	require('./util');
+    var $   = require('jquery');
+    var old = $.fn.select;
+    require('./util');
 
     // SELECT CONSTRUCTOR AND PROTOTYPE
 
@@ -18,6 +19,7 @@ define(['require','jquery','./util'],function(require) {
         this.options = $.extend({}, $.fn.select.defaults, options);
         this.$element.on('click', 'a', $.proxy(this.itemclicked, this));
         this.$button = this.$element.find('.btn');
+        this.$hiddenField = this.$element.find('.hidden-field');
         this.$label = this.$element.find('.dropdown-label');
         this.setDefaultSelection();
 
@@ -32,6 +34,7 @@ define(['require','jquery','./util'],function(require) {
 
         itemclicked: function (e) {
             this.$selectedItem = $(e.target).parent();
+            this.$hiddenField.val(this.$selectedItem.attr('data-value'));
             this.$label.text(this.$selectedItem.text());
 
             // pass object including text and any data-attributes
@@ -90,6 +93,7 @@ define(['require','jquery','./util'],function(require) {
             var item = this.$element.find(selector);
 
             this.$selectedItem = item;
+            this.$hiddenField.val(this.$selectedItem.attr('data-value'));
             this.$label.text(this.$selectedItem.text());
         },
 
@@ -121,7 +125,8 @@ define(['require','jquery','./util'],function(require) {
 
     // SELECT PLUGIN DEFINITION
 
-    $.fn.select = function (option,value) {
+    $.fn.select = function (option) {
+        var args = Array.prototype.slice.call(arguments, 1);
         var methodReturn;
 
         var $set = this.each(function () {
@@ -130,15 +135,20 @@ define(['require','jquery','./util'],function(require) {
             var options = typeof option === 'object' && option;
 
             if (!data) $this.data('select', (data = new Select(this, options)));
-            if (typeof option === 'string') methodReturn = data[option](value);
+            if (typeof option === 'string') methodReturn = data[option].apply(data, args);
         });
 
-        return (methodReturn === undefined) ? $set : methodReturn;
+        return ( methodReturn === undefined ) ? $set : methodReturn;
     };
 
     $.fn.select.defaults = {};
 
     $.fn.select.Constructor = Select;
+
+    $.fn.select.noConflict = function () {
+      $.fn.select = old;
+      return this;
+    };
 
 
     // SELECT DATA-API

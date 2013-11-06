@@ -2759,8 +2759,8 @@ define("almond", function(){});
 
 define('fuelux/checkbox',['require','jquery'],function (require) {
 
-	var $ = require('jquery');
-
+	var $   = require('jquery');
+	var old = $.fn.checkbox;
 
 	// CHECKBOX CONSTRUCTOR AND PROTOTYPE
 
@@ -2840,24 +2840,30 @@ define('fuelux/checkbox',['require','jquery'],function (require) {
 
 	// CHECKBOX PLUGIN DEFINITION
 
-	$.fn.checkbox = function (option, value) {
+	$.fn.checkbox = function (option) {
+		var args = Array.prototype.slice.call( arguments, 1 );
 		var methodReturn;
 
 		var $set = this.each(function () {
-			var $this = $(this);
-			var data = $this.data('checkbox');
+			var $this   = $( this );
+			var data    = $this.data('checkbox');
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('checkbox', (data = new Checkbox(this, options)));
-			if (typeof option === 'string') methodReturn = data[option](value);
+			if( !data ) $this.data('checkbox', (data = new Checkbox(this, options)));
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
-		return (methodReturn === undefined) ? $set : methodReturn;
+		return ( methodReturn === undefined ) ? $set : methodReturn;
 	};
 
 	$.fn.checkbox.defaults = {};
 
 	$.fn.checkbox.Constructor = Checkbox;
+
+	$.fn.checkbox.noConflict = function () {
+		$.fn.checkbox = old;
+		return this;
+	};
 
 
 	// CHECKBOX DATA-API
@@ -2872,9 +2878,7 @@ define('fuelux/checkbox',['require','jquery'],function (require) {
 			});
 		});
 	});
-
 });
-
 /*
  * Fuel UX Utilities
  * https://github.com/ExactTarget/fuelux
@@ -2913,7 +2917,8 @@ define('fuelux/util',['require','jquery'],function (require) {
 
 define('fuelux/combobox',['require','jquery','./util'],function (require) {
 
-	var $ = require('jquery');
+	var $   = require('jquery');
+	var old = $.fn.combobox;
 	require('./util');
 
 	// COMBOBOX CONSTRUCTOR AND PROTOTYPE
@@ -3041,30 +3046,35 @@ define('fuelux/combobox',['require','jquery','./util'],function (require) {
 
 	// COMBOBOX PLUGIN DEFINITION
 
-	$.fn.combobox = function (option, value) {
+	$.fn.combobox = function (option) {
+		var args = Array.prototype.slice.call( arguments, 1 );
 		var methodReturn;
 
 		var $set = this.each(function () {
-			var $this = $(this);
-			var data = $this.data('combobox');
+			var $this   = $( this );
+			var data    = $this.data( 'combobox' );
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('combobox', (data = new Combobox(this, options)));
-			if (typeof option === 'string') methodReturn = data[option](value);
+			if( !data ) $this.data('combobox', (data = new Combobox( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
-		return (methodReturn === undefined) ? $set : methodReturn;
+		return ( methodReturn === undefined ) ? $set : methodReturn;
 	};
 
 	$.fn.combobox.defaults = {};
 
 	$.fn.combobox.Constructor = Combobox;
 
+	$.fn.combobox.noConflict = function () {
+		$.fn.combobox = old;
+		return this;
+	};
+
 
 	// COMBOBOX DATA-API
 
 	$(function () {
-
 		$(window).on('load', function () {
 			$('.combobox').each(function () {
 				var $this = $(this);
@@ -3079,9 +3089,7 @@ define('fuelux/combobox',['require','jquery','./util'],function (require) {
 			$this.combobox($this.data());
 		});
 	});
-
 });
-
 /*
  * Fuel UX Datagrid
  * https://github.com/ExactTarget/fuelux
@@ -3092,7 +3100,8 @@ define('fuelux/combobox',['require','jquery','./util'],function (require) {
 
 define('fuelux/datagrid',['require','jquery'],function (require) {
 
-	var $ = require('jquery');
+	var $   = require('jquery');
+	var old = $.fn.datagrid;
 
 	// Relates to thead .sorted styles in datagrid.less
 	var SORTED_HEADER_OFFSET = 22;
@@ -3169,7 +3178,7 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 		constructor: Datagrid,
 
 		renderColumns: function () {
-			var self = this;
+			var $target;
 
 			this.$footer.attr('colspan', this.columns.length);
 			this.$topheader.attr('colspan', this.columns.length);
@@ -3182,7 +3191,12 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 				colHTML += '>' + column.label + '</th>';
 			});
 
-			self.$colheader.append(colHTML);
+			this.$colheader.append(colHTML);
+
+			if (this.options.dataOptions.sortProperty) {
+				$target = this.$colheader.children('th[data-property="' + this.options.dataOptions.sortProperty + '"]');
+				this.updateColumns($target, this.options.dataOptions.sortDirection);
+			}
 		},
 
 		updateColumns: function ($target, direction) {
@@ -3231,6 +3245,18 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 			this.$tbody.html(this.placeholderRowHTML(this.options.loadingHTML));
 
 			this.options.dataSource.data(this.options.dataOptions, function (data) {
+				if (typeof data === 'string') {
+					// Error-handling
+
+					self.$footerchildren.css('visibility', 'hidden');
+
+					self.$tbody.html(self.errorRowHTML(data));
+					self.stretchHeight();
+
+					self.$element.trigger('loaded');
+					return;
+				}
+
 				var itemdesc = (data.count === 1) ? self.options.itemText : self.options.itemsText;
 				var rowHTML = '';
 
@@ -3267,6 +3293,11 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 				self.$element.trigger('loaded');
 			});
 
+		},
+
+		errorRowHTML: function (content) {
+			return '<tr><td style="text-align:center;padding:20px 20px 0 20px;border-bottom:none;" colspan="' +
+				this.columns.length + '"><div class="alert alert-error">' + content + '</div></td></tr>';
 		},
 
 		placeholderRowHTML: function (content) {
@@ -3411,14 +3442,19 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 	// DATAGRID PLUGIN DEFINITION
 
 	$.fn.datagrid = function (option) {
-		return this.each(function () {
-			var $this = $(this);
-			var data = $this.data('datagrid');
+		var args = Array.prototype.slice.call( arguments, 1 );
+		var methodReturn;
+
+		var $set = this.each(function () {
+			var $this   = $( this );
+			var data    = $this.data( 'datagrid' );
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('datagrid', (data = new Datagrid(this, options)));
-			if (typeof option === 'string') data[option]();
+			if( !data ) $this.data('datagrid', (data = new Datagrid( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
+
+		return ( methodReturn === undefined ) ? $set : methodReturn;
 	};
 
 	$.fn.datagrid.defaults = {
@@ -3431,8 +3467,830 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 
 	$.fn.datagrid.Constructor = Datagrid;
 
+	$.fn.datagrid.noConflict = function () {
+		$.fn.datagrid = old;
+		return this;
+	};
 });
 
+/*
+ * Fuel UX Datepicker
+ * https://github.com/ExactTarget/fuelux
+ *
+ * Copyright (c) 2013 ExactTarget
+ * Licensed under the MIT license.
+ */
+
+define('fuelux/datepicker',['require','jquery'],function (require) {
+
+	var $   = require('jquery');
+	var old = $.fn.datepicker;
+
+	// DATEPICKER CONSTRUCTOR AND PROTOTYPE
+
+	var Datepicker = function (element, options) {
+		this.$element = $(element);
+
+		this.options = $.extend(true, {}, $.fn.datepicker.defaults, options);
+
+		this.formatDate    = ( Boolean( this.options.createInput ) && Boolean( this.options.createInput.native ) ) ? this.formatNativeDate : this.options.formatDate || this.formatDate;
+		this.parseDate     = this.options.parseDate || this.parseDate;
+		this.blackoutDates = this.options.blackoutDates || this.blackoutDates;
+
+		this.date = this.options.date || new Date();
+		this.date = this.parseDate( this.date );
+
+		this.viewDate   = new Date( this.date.valueOf() );
+		this.stagedDate = new Date( this.date.valueOf() );
+		this.viewDate.setHours( 0,0,0,0 );
+		this.stagedDate.setHours( 0,0,0,0 );
+
+		this.done      = false;
+		this.callbacks = [];
+
+		this.minDate = new Date();
+		this.minDate.setDate( this.minDate.getDate() - 1 );
+		this.minDate.setHours( 0,0,0,0 );
+
+		this.maxDate = new Date();
+		this.maxDate.setFullYear( this.maxDate.getFullYear() + 10 );
+		this.maxDate.setHours( 23,59,59,999 );
+
+		this.years = this._yearRange( this.viewDate );
+
+		this.bindingsAdded = false;
+
+		// OPTIONS
+		this.options.dropdownWidth = this.options.dropdownWidth || 170;
+		this.options.monthNames    = this.options.monthNames || [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+		this.options.weekdays      = this.options.weekdays || [ "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+
+		this.options.showYears  = false;
+		this.options.showDays   = true;
+		this.options.showMonths = false;
+
+		this.options.restrictLastMonth = Boolean( this.options.restrictDateSelection );
+		this.options.restrictNextMonth = false;
+
+		this.months = [
+			{ abbreviation: this.options.monthNames[0], 'class': '', number: 0 },
+			{ abbreviation: this.options.monthNames[1], 'class': '', number: 1 },
+			{ abbreviation: this.options.monthNames[2], 'class': '', number: 2 },
+			{ abbreviation: this.options.monthNames[3], 'class': '', number: 3 },
+			{ abbreviation: this.options.monthNames[4], 'class': '', number: 4 },
+			{ abbreviation: this.options.monthNames[5], 'class': '', number: 5 },
+			{ abbreviation: this.options.monthNames[6], 'class': '', number: 6 },
+			{ abbreviation: this.options.monthNames[7], 'class': '', number: 7 },
+			{ abbreviation: this.options.monthNames[8], 'class': '', number: 8 },
+			{ abbreviation: this.options.monthNames[9], 'class': '', number: 9 },
+			{ abbreviation: this.options.monthNames[10], 'class': '', number: 10 },
+			{ abbreviation: this.options.monthNames[11], 'class': '', number: 11 }
+		];
+
+		if( Boolean( this.options.createInput ) ) {
+			if( typeof this.options.createInput === "boolean" && Boolean( this.options.createInput ) ) {
+				this.options.createInput = {};
+			}
+
+			if( typeof this.options.createInput === 'object' && isNaN( this.options.createInput.length ) ) {
+				this.options.createInput.inputSize = this.options.createInput.inputSize || 'span3';
+				this._renderInput();
+			} else {
+				throw new Error( 'createInput option needs to be an object or boolean true' );
+			}
+		} else {
+			this._render();
+		}
+	};
+
+	Datepicker.prototype = {
+
+		constructor: Datepicker,
+
+		// functions that can be called on object
+		disable: function() {
+			this.$element.find('input, button').attr( 'disabled', true );
+		},
+
+		enable: function() {
+			this.$element.find('input, button').attr( 'disabled', false );
+		},
+
+		getFormattedDate: function() {
+			return this.formatDate( this.date );
+		},
+
+		getDate: function( options ) {
+			if( Boolean( options ) && Boolean( options.unix ) ) {
+				return this.date.getTime();
+			} else {
+				return this.date;
+			}
+		},
+
+		setDate: function( date, inputUpdate ) {
+			inputUpdate     = inputUpdate || false;
+			this.date       = this.parseDate( date, inputUpdate );
+			this.stagedDate = new Date( this.date );
+			this.viewDate   = new Date( this.date );
+			this._render();
+			this.$element.trigger( 'changed', this.date );
+			return this.date;
+		},
+
+		formatDate: function( date ) {
+			// this.pad to is function on extension
+			return this.padTwo( date.getMonth() + 1 ) + '-' + this.padTwo( date.getDate() ) + '-' + date.getFullYear();
+		},
+
+		formatNativeDate: function( date ) {
+			return date.getFullYear() + '-' + this.padTwo( date.getMonth() + 1 ) + '-' + this.padTwo( date.getDate() );
+		},
+
+		//some code ripped from http://stackoverflow.com/questions/2182246/javascript-dates-in-ie-nan-firefox-chrome-ok
+		parseDate: function( date, inputUpdate ) {
+			var dt, isoExp, month, parts;
+
+			if( Boolean( date) && new Date( date ) !== 'Invalid Date' ) {
+				if( typeof( date ) === 'string' && !inputUpdate  ) {
+					date   = date.split( 'T' )[ 0 ];
+					isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/;
+					dt     = new Date( NaN );
+					parts  = isoExp.exec( date );
+
+					if( parts ) {
+						month = +parts[ 2 ];
+						dt.setFullYear( parts[ 1 ], month - 1, parts[ 3 ] );
+						if( month !== dt.getMonth() + 1 ) {
+								dt.setTime( NaN );
+						}
+					}
+					return dt;
+				}
+				return new Date( date );
+			} else {
+				throw new Error( 'could not parse date' );
+			}
+		},
+
+		blackoutDates: function( date ) {
+			date = date;
+			return false;
+		},
+
+		padTwo: function( value ) {
+			var s = '0' + value;
+			return s.substr( s.length - 2 );
+		},
+
+		_restrictDateSelectionSetup: function() {
+			var scopedLastMonth, scopedNextMonth;
+			if( Boolean( this.options ) ) {
+				if( !this.options.restrictDateSelection ) {
+					scopedLastMonth = false;
+					scopedNextMonth = false;
+				} else {
+					scopedNextMonth = ( this.viewDate.getMonth() < new Date().getMonth() ) ? true : false;
+					scopedLastMonth = ( this.viewDate.getMonth() > new Date().getMonth() ) ? false : true;
+				}
+			}
+			this.options.restrictLastMonth = scopedLastMonth;
+			this.options.restrictNextMonth = scopedNextMonth;
+		},
+
+		_repeat: function( head, collection, iterator, tail) {
+			var value = head;
+			for (var i = 0, ii = collection.length; i < ii; i++) {
+				value += iterator( collection[i] );
+			}
+			value += tail;
+			return value;
+		},
+
+		_getDaysInMonth: function( month, year ) {
+			return 32 - new Date( year, month, 32 ).getDate();
+		},
+
+		_range: function( start, end ) {
+			var numbers = [];
+			for ( var i = start; i < end; i++ ) {
+				numbers[ numbers.length ] = i;
+			}
+			return numbers;
+		},
+
+		_yearRange: function( date ) {
+			var start    = ( Math.floor(date.getFullYear() / 10 ) * 10) - 1;
+			var end      = start + 12;
+			var years    = this._range(start, end);
+			var interval = [];
+
+			for (var i = 0, ii = years.length; i < ii; i++) {
+				var clazz = '';
+				if( i === 0 ) {
+					clazz = 'previous';
+				}
+				if( i === years.length - 1 ) {
+					clazz = 'next';
+				}
+				interval[i] = {
+					number: years[ i ],
+					'class': clazz
+				};
+			}
+			return interval;
+		},
+
+		_killEvent: function( e ) {
+			e.stopPropagation();
+			e.preventDefault();
+			return false;
+		},
+
+		_applySize: function( elements, size ) {
+			for (var i = 0; i < elements.length; i++) {
+				$(elements[ i ]).css({
+					'width': size,
+					'height': size,
+					'line-height': size
+				});
+			}
+		},
+
+		_show: function( show ) {
+			return show ? '' : 'display: none;';
+		},
+
+		_hide: function( hide ) {
+			return this._show( !hide );
+		},
+
+		_runCallbacks: function() {
+			for (var i = 0; i < this.callbacks.length; i++) {
+				this.callbacks[ i ]( this.date );
+			}
+		},
+
+		_showView: function( view ) {
+			if( view === 1 ) {
+				this.options.showDays   = true;
+				this.options.showMonths = false;
+				this.options.showYears  = false;
+			} else if( view === 2 ) {
+				this.options.showDays   = false;
+				this.options.showMonths = true;
+				this.options.showYears  = false;
+			} else if( view === 3 ) {
+				this.options.showDays   = false;
+				this.options.showMonths = false;
+				this.options.showYears  = true;
+			}
+		},
+
+		_updateCalendarData: function() {
+			var viewedMonth            = this.viewDate.getMonth();
+			var viewedYear             = this.viewDate.getFullYear();
+			var selectedDay            = this.stagedDate.getDate();
+			var selectedMonth          = this.stagedDate.getMonth();
+			var selectedYear           = this.stagedDate.getFullYear();
+			var firstDayOfMonthWeekday = new Date( viewedYear, viewedMonth, 1 ).getDay();
+			var lastDayOfMonth         = this._getDaysInMonth( viewedMonth, viewedYear );
+			var lastDayOfLastMonth     = this._getDaysInMonth( viewedMonth - 1, viewedYear );
+
+			if( firstDayOfMonthWeekday === 0 ) {
+				firstDayOfMonthWeekday = 7;
+			}
+
+			var addToEnd = ( 42 - lastDayOfMonth ) - firstDayOfMonthWeekday;
+
+			this.daysOfLastMonth = this._range( lastDayOfLastMonth - firstDayOfMonthWeekday + 1, lastDayOfLastMonth + 1 );
+			this.daysOfNextMonth = this._range( 1, addToEnd + 1 );
+
+			// blackout functionality for dates of last month on current calendar view
+			for( var x = 0, xx = this.daysOfLastMonth.length; x < xx; x++ ) {
+				var tmpLastMonthDaysObj        = {};
+				tmpLastMonthDaysObj.number     = this.daysOfLastMonth[ x ];
+				tmpLastMonthDaysObj[ 'class' ] = '';
+
+				if( Boolean( this.blackoutDates( new Date( viewedYear, viewedMonth + 1, this.daysOfLastMonth[ x ], 0, 0, 0, 0 ) ) ) ) {
+					tmpLastMonthDaysObj[ 'class' ] = 'restrict blackout';
+				}
+
+				this.daysOfLastMonth[ x ] = tmpLastMonthDaysObj;
+			}
+
+			// blackout functionality for dates of next month on current calendar view
+			for( var b = 0, bb = this.daysOfNextMonth.length; b < bb; b++ ) {
+				var tmpNextMonthDaysObj        = {};
+				tmpNextMonthDaysObj.number     = this.daysOfNextMonth[ b ];
+				tmpNextMonthDaysObj[ 'class' ] = '';
+
+				if( Boolean( this.blackoutDates( new Date( viewedYear, viewedMonth + 1, this.daysOfNextMonth[ b ], 0, 0, 0, 0 ) ) ) ) {
+					tmpNextMonthDaysObj[ 'class' ] = 'restrict blackout';
+				}
+
+				this.daysOfNextMonth[ b ] = tmpNextMonthDaysObj;
+			}
+
+			var now                  = new Date();
+			var currentDay           = now.getDate();
+			var currentMonth         = now.getMonth();
+			var currentYear          = now.getFullYear();
+			var viewingCurrentMonth  = viewedMonth === currentMonth;
+			var viewingCurrentYear   = viewedYear === currentYear;
+			var viewingSelectedMonth = viewedMonth === selectedMonth;
+			var viewingSelectedYear  = viewedYear === selectedYear;
+
+			var daysOfThisMonth  = this._range( 1, lastDayOfMonth + 1 );
+			this.daysOfThisMonth = [];
+
+			for( var i = 0, ii = daysOfThisMonth.length; i < ii; i++) {
+
+				var weekDay      = new Date(viewedYear, viewedMonth, daysOfThisMonth[ i ]).getDay();
+				var weekDayClass = 'weekday';
+
+				if(weekDay === 6 || weekDay === 0) {
+					weekDayClass = 'weekend';
+				}
+				if( weekDay === 1 ) {
+					weekDayClass = '';
+				}
+				weekDayClass += ' weekday' + weekDay;
+
+				if( daysOfThisMonth[ i ] === selectedDay && viewingSelectedMonth && viewingSelectedYear ) {
+					weekDayClass += ' selected';
+				} else if( daysOfThisMonth[ i ] === currentDay && viewingCurrentMonth && viewingCurrentYear ) {
+					weekDayClass += ' today';
+				}
+
+				var dt = new Date( viewedYear, viewedMonth, daysOfThisMonth[ i ], 0, 0, 0, 0 );
+				if( dt <= this.minDate || dt >= this.maxDate ) {
+					if ( Boolean( this.blackoutDates( dt ) ) ) {
+						weekDayClass += ' restrict blackout';
+					} else if ( Boolean( this.options ) && Boolean( this.options.restrictDateSelection ) ) {
+						weekDayClass += ' restrict';
+					} else {
+						weekDayClass += ' past';
+					}
+				} else if(  Boolean( this.blackoutDates( dt ) ) ) {
+					weekDayClass += ' restrict blackout';
+				}
+
+				this.daysOfThisMonth[ this.daysOfThisMonth.length ] = {
+					'number': daysOfThisMonth[ i ],
+					'class' : weekDayClass
+				};
+			}
+
+			var daysInMonth = this._getDaysInMonth( this.minDate.getFullYear(), this.minDate.getMonth() );
+			for( var j = 0, jj = this.months.length; j < jj; j++ ) {
+
+				this.months[ j ][ 'class' ] = '';
+				if( viewingCurrentYear && j === currentMonth ) {
+					this.months[ j ][ 'class' ] += ' today';
+				}
+				if( j === selectedMonth && viewingSelectedYear ) {
+					this.months[ j ][ 'class' ] += ' selected';
+				}
+
+				var minDt = new Date( viewedYear, j, daysInMonth, 23, 59, 59, 999 );
+				var maxDt = new Date( viewedYear, j, 0, 0, 0, 0, 0 );
+				if( minDt <= this.minDate || maxDt >= this.maxDate ) {
+					if( Boolean( this.options.restrictDateSelection ) ) {
+						this.months[ j ][ 'class' ] += ' restrict';
+					}
+				}
+			}
+
+			this.years  = this._yearRange( this.viewDate);
+			daysInMonth = this._getDaysInMonth( this.minDate.getFullYear(), 11 );
+
+			for( var z = 0, zz = this.years.length; z < zz; z++ ) {
+				if( this.years[ z ].number === currentYear ) {
+					this.years[ z ][ 'class' ] += ' today';
+				}
+				if( this.years[ z ].number === selectedYear ) {
+					this.years[ z ][ 'class' ] += ' selected';
+				}
+
+				var minDt2 = new Date( this.years[ z ].number, 11, daysInMonth, 23, 59, 59, 999);
+				var maxDt2 = new Date( this.years[ z ].number, 0, 0, 0, 0, 0, 0);
+				if( minDt2 <= this.minDate || maxDt2 >= this.maxDate ) {
+					if( Boolean( this.options.restrictDateSelection ) ) {
+						this.years[ z ]['class'] += ' restrict';
+					}
+				}
+			}
+		},
+
+		_updateCss: function() {
+			while( this.options.dropdownWidth % 7 !== 0 ) {
+				this.options.dropdownWidth++;
+			}
+
+			this.$view.css('width', this.options.dropdownWidth + 'px' );
+			this.$header.css('width', this.options.dropdownWidth + 'px' );
+			this.$labelDiv.css('width', ( this.options.dropdownWidth - 60 ) + 'px' );
+			this.$footer.css('width', this.options.dropdownWidth + 'px' );
+			var labelSize     = ( this.options.dropdownWidth * 0.25 ) - 2;
+			var paddingTop    = Math.round( ( this.options.dropdownWidth - ( labelSize * 3 ) ) / 2 );
+			var paddingBottom = paddingTop;
+			while( paddingBottom + paddingTop + ( labelSize * 3 ) < this.options.dropdownWidth ) {
+				paddingBottom += 0.1;
+			}
+			while( paddingBottom + paddingTop + ( labelSize * 3 ) > this.options.dropdownWidth ) {
+				paddingBottom -= 0.1;
+			}
+			
+			this.$calendar.css({
+				'float': 'left'
+			});
+
+			this.$monthsView.css({
+				'width': this.options.dropdownWidth + 'px',
+				'padding-top': paddingTop + 'px',
+				'padding-bottom': paddingBottom + 'px'
+			});
+
+			this.$yearsView.css({
+				'width': this.options.dropdownWidth + 'px',
+				'padding-top': paddingTop + 'px',
+				'padding-bottom': paddingBottom + 'px'
+			});
+
+			var cellSize       = Math.round( this.options.dropdownWidth / 7.0 ) - 2 + 'px';
+			var headerCellSize = Math.round( this.options.dropdownWidth / 7.0 ) + 'px';
+			this._applySize( this.$yearsView.children(), labelSize + 'px' );
+			this._applySize( this.$monthsView.children(), labelSize + 'px' );
+			this._applySize( this.$weekdaysDiv.children(), headerCellSize );
+			this._applySize( this.$lastMonthDiv.children(), cellSize );
+			this._applySize( this.$thisMonthDiv.children(), cellSize );
+			this._applySize( this.$nextMonthDiv.children(), cellSize );
+		},
+
+		_close: function() {
+			this.$input.dropdown( 'toggle' );
+		},
+
+		_select: function( e ) {
+			if( e.target.className.indexOf( 'restrict' ) > -1 ) {
+				return this._killEvent(e);
+			} else {
+				this._killEvent( e );
+				this._close();
+			}
+
+			this.stagedDate = this.viewDate;
+			this.stagedDate.setDate( parseInt( e.target.innerHTML, 10 ) );
+
+			this.setDate( this.stagedDate );
+			this._render();
+			this.done = true;
+			this._runCallbacks();
+		},
+
+		_pickYear: function( e ) {
+			var year = parseInt( $( e.target ).data( 'yearNumber' ), 10 );
+			if( e.target.className.indexOf('restrict') > -1 ) {
+				return this._killEvent(e);
+			}
+
+			this.viewDate = new Date( year, this.viewDate.getMonth(), 1 );
+			this._showView( 2 );
+			this._render();
+
+			return this._killEvent(e);
+		},
+
+		_pickMonth: function( e ) {
+			var month = parseInt( $(e.target).data( 'monthNumber' ), 10 );
+			if( e.target.className.indexOf( 'restrict' ) > -1 ) {
+				return this._killEvent(e);
+			}
+
+			this.viewDate = new Date( this.viewDate.getFullYear(), month, 1 );
+			this._showView( 1 );
+			this._render();
+
+			return this._killEvent(e);
+		},
+
+		_previousSet: function( e ) {
+			this._previous( e, true );
+		},
+
+		_previous: function( e, set ) {
+			if( e.target.className.indexOf( 'restrict' ) > -1 ) {
+				return this._killEvent(e);
+			}
+			
+			if( this.options.showDays) {
+				this.viewDate = new Date( this.viewDate.getFullYear(), this.viewDate.getMonth() - 1, 1 );
+			} else if( this.options.showMonths ) {
+				this.viewDate = new Date( this.viewDate.getFullYear() - 1, this.viewDate.getMonth(), 1 );
+			} else if( this.options.showYears ) {
+				this.viewDate = new Date( this.viewDate.getFullYear() - 10, this.viewDate.getMonth(), 1 );
+			}
+
+			if( Boolean( set ) ) {
+				this._select( e );
+			} else {
+				this._render();
+			}
+			// move this below 'this._render()' if you want it to go to the previous month when you select a day from the current month
+			return this._killEvent( e );
+		},
+
+		_nextSet: function( e ) {
+			this._next( e, true );
+		},
+
+		_next: function( e, set ) {
+			if( e.target.className.indexOf('restrict') > -1 ) {
+				return this._killEvent(e);
+			}
+			
+			if( this.options.showDays ) {
+				this.viewDate = new Date( this.viewDate.getFullYear(), this.viewDate.getMonth() + 1, 1 );
+			} else if( this.options.showMonths ) {
+				this.viewDate = new Date( this.viewDate.getFullYear() + 1, this.viewDate.getMonth(), 1 );
+			} else if( this.options.showYears ) {
+				this.viewDate = new Date( this.viewDate.getFullYear() + 10, this.viewDate.getMonth(), 1 );
+			}
+
+			if( Boolean( set ) ) {
+				this._select( e );
+			} else {
+				this._render();
+			}
+			// move this below 'this._render()' if you want it to go to the next month when you select a day from the current month
+			return this._killEvent(e);
+		},
+
+		_today: function( e ) {
+			this.viewDate = new Date();
+			this._showView( 1 );
+			this._render();
+			return this._killEvent(e);
+		},
+
+		_emptySpace: function( e ) {
+			if( Boolean( this.done ) ) {
+				this.done = false;
+			}
+			return this._killEvent(e);
+		},
+
+		_monthLabel: function() {
+			return this.options.monthNames[ this.viewDate.getMonth() ];
+		},
+
+		_yearLabel: function() {
+			return this.viewDate.getFullYear();
+		},
+
+		_monthYearLabel: function() {
+			var label;
+			if( this.options.showDays ) {
+				label = this._monthLabel() + ' ' + this._yearLabel();
+			} else if( this.options.showMonths ) {
+				label = this._yearLabel();
+			} else if( this.options.showYears ) {
+				label = this.years[ 0 ].number + ' - ' + this.years[ this.years.length - 1 ].number;
+			}
+			return label;
+		},
+
+		_toggleMonthYearPicker: function( e ) {
+			if( this.options.showDays ) {
+				this._showView( 2 );
+			} else if( this.options.showMonths ) {
+				this._showView( 3 );
+			} else if( this.options.showYears ) {
+				this._showView( 1 );
+			}
+			this._render();
+			return this._killEvent( e );
+		},
+
+		_renderCalendar: function() {
+			var self = this;
+			self._restrictDateSelectionSetup();
+
+			return '<div class="calendar">' +
+				'<div class="header clearfix">' +
+					'<div class="left hover"><div class="leftArrow"></div></div>' +
+					'<div class="right hover"><div class="rightArrow"></div></div>' +
+					'<div class="center hover">' + self._monthYearLabel() + '</div>' +
+				'</div>' +
+				'<div class="daysView" style="' + self._show( self.options.showDays ) + '">' +
+
+					self._repeat( '<div class="weekdays">', self.options.weekdays,
+						function( weekday ) {
+							return '<div >' + weekday + '</div>';
+						}, '</div>' ) +
+
+					self._repeat( '<div class="lastmonth">', self.daysOfLastMonth,
+						function( day ) {
+							if( self.options.restrictLastMonth ) {
+								day['class'] = day['class'].replace('restrict', '') + " restrict";
+							}
+							return '<div class="' + day[ 'class' ] + '">' + day.number + '</div>';
+						}, '</div>' ) +
+
+					self._repeat( '<div class="thismonth">', self.daysOfThisMonth,
+						function( day ) {
+							return '<div class="' + day[ 'class' ] + '">' + day.number + '</div>';
+						}, '</div>' ) +
+
+					self._repeat( '<div class="nextmonth">', self.daysOfNextMonth,
+						function( day ) {
+							if( self.options.restrictNextMonth ) {
+								day['class'] = day['class'].replace('restrict', '') + " restrict";
+							}
+							return '<div class="' + day[ 'class' ] + '">' + day.number + '</div>';
+						}, '</div>' ) +
+				'</div>' +
+
+				self._repeat( '<div class="monthsView" style="' + self._show( self.options.showMonths ) + '">', self.months,
+					function( month ) {
+						return '<div data-month-number="' + month.number +
+							'" class="' + month[ 'class' ] + '">' + month.abbreviation + '</div>';
+					}, '</div>' ) +
+
+				self._repeat( '<div class="yearsView" style="' + self._show( self.options.showYears ) + '">', self.years,
+					function( year ) {
+						return '<div data-year-number="' + year.number +
+							'" class="' + year[ 'class' ] + '">' + year.number + '</div>';
+					}, '</div>' ) +
+
+				'<div class="footer">' +
+					'<div class="center hover">Today</div>' +
+				'</div>' +
+			'</div>';
+		},
+
+		_render: function() {
+			this._insertDateIntoInput();
+			this._updateCalendarData();
+			if ( Boolean( this.bindingsAdded ) ) this._removeBindings();
+			this.$element.find( '.dropdown-menu' ).html( this._renderCalendar() );
+			this._initializeCalendarElements();
+			this._addBindings();
+			this._updateCss();
+		},
+
+		_renderInput: function() {
+			var input = ( Boolean( this.options.createInput.native ) ) ? this._renderInputNative() : this._renderInputHTML();
+			this.$element.html( input );
+			this._render();
+		},
+
+		_renderInputNative: function() {
+			return '<input type="date" value="' + this.formatDate( this.date ) + '"' + this._calculateInputSize( [ 'native' ] ) + '>';
+		},
+
+		_renderInputHTML: function() {
+			var inputClass = ( Boolean( this.options.createInput.dropDownBtn ) ) ? 'input-append' : 'input-group';
+
+			var dropdownHtml = '<div class="' + inputClass + '">' +
+						'<div class="dropdown-menu"></div>' +
+						'<input type="text" '+ this._calculateInputSize() +' value="'+this.formatDate( this.date ) +'" data-toggle="dropdown">';
+			
+			if( Boolean( this.options.createInput.dropDownBtn ) ) {
+				dropdownHtml = dropdownHtml + '<button type="button" class="btn" data-toggle="dropdown"><i class="icon-calendar"></i></button>';
+			}
+
+			dropdownHtml = dropdownHtml + '</div>';
+
+			return '<div class="datepicker dropdown">' + dropdownHtml + '</div>';
+		},
+
+		_calculateInputSize: function( options ) {
+			if( Boolean( parseInt( this.options.createInput.inputSize, 10 ) ) ) {
+				return 'style="width:'+ this.options.createInput.inputSize +'px"';
+			} else {
+				options = ( Boolean( options ) ) ? " " + options.join(' ') : '';
+				return 'class="' + this.options.createInput.inputSize + options + '"';
+			}
+
+		},
+
+		_insertDateIntoInput: function() {
+			this.$element.find('input[type="text"]').val( this.formatDate( this.date ) );
+		},
+
+		_keyupDateUpdate: function( e ) {
+			var validLength = this.formatDate( this.date ).length;
+			var inputValue  = this.$input.val();
+
+			if( validLength === inputValue.length && this._checkKeyCode( e ) ) {
+				this.setDate( inputValue, true );
+			}
+		},
+
+		_checkKeyCode: function( e ) {
+			// only allow numbers, function keys, and date formatting symbols
+			// Allow: Ctrl+A
+			// Allow: home, end, left, right
+			if ( $.inArray( e.keyCode, [ 46,8,9,27,13,32 ] ) !== -1 || ( e.keyCode === 65 && e.ctrlKey === true ) || ( e.keyCode >= 35 && e.keyCode <= 39 ) ) {
+				// let it happen, don't do anything
+				return false;
+			} else if ( e.shiftKey || ( e.keyCode >= 48 || e.keyCode <= 57 ) || ( e.keyCode >= 96 || e.keyCode <= 105 ) || e.keyCode === 110 ||  e.keyCode === 190 || e.keyCode === 191 ) {
+				// Ensure that it is a number and return true
+				return true;
+			} else {
+				return false;
+			}
+		},
+
+		_initializeCalendarElements: function() {
+			this.$input        = this.$element.find( 'input[type="text"]' );
+			this.$calendar     = this.$element.find('div.calendar');
+			this.$header       = this.$calendar.children().eq(0);
+			this.$labelDiv     = this.$header.children().eq(2);
+			this.$view         = this.$calendar.children().eq(1);
+			this.$monthsView   = this.$calendar.children().eq(2);
+			this.$yearsView    = this.$calendar.children().eq(3);
+			this.$weekdaysDiv  = this.$view.children().eq(0);
+			this.$lastMonthDiv = this.$view.children().eq(1);
+			this.$thisMonthDiv = this.$view.children().eq(2);
+			this.$nextMonthDiv = this.$view.children().eq(3);
+			this.$footer       = this.$calendar.children().eq(4);
+		},
+
+		_addBindings: function() {
+			this.$input.on( 'keyup', $.proxy( this._keyupDateUpdate, this ) );
+			this.$calendar.on( 'click', $.proxy( this._emptySpace, this) );
+
+			this.$header.find( '.left' ).on( 'click', $.proxy( this._previous, this ) );
+			this.$header.find( '.right' ).on( 'click', $.proxy( this._next, this ) );
+			this.$header.find( '.center' ).on( 'click', $.proxy( this._toggleMonthYearPicker, this ) );
+
+			this.$lastMonthDiv.find( 'div' ).on( 'click', $.proxy( this._previousSet, this ) );
+			this.$thisMonthDiv.find( 'div' ).on( 'click', $.proxy( this._select, this ) );
+			this.$nextMonthDiv.find( 'div' ).on( 'click', $.proxy( this._nextSet, this ) );
+
+			this.$monthsView.find( 'div' ).on( 'click', $.proxy( this._pickMonth, this ) );
+			this.$yearsView.find( 'div' ).on( 'click', $.proxy( this._pickYear, this ) );
+			this.$footer.find( '.center' ).on( 'click', $.proxy( this._today, this ) );
+
+			this.bindingsAdded = true;
+		},
+
+		_removeBindings: function() {
+			this.$input.off( 'keyup' );
+			this.$calendar.off( 'click' );
+
+			this.$header.find( '.left' ).off( 'click' );
+			this.$header.find( '.right' ).off( 'click' );
+			this.$header.find( '.center' ).off( 'click' );
+
+			this.$lastMonthDiv.find( 'div' ).off( 'click' );
+			this.$thisMonthDiv.find( 'div' ).off( 'click' );
+			this.$nextMonthDiv.find( 'div' ).off( 'click' );
+
+			this.$monthsView.find( 'div' ).off( 'click' );
+			this.$yearsView.find( 'div' ).off( 'click' );
+			this.$footer.find( '.center' ).off( 'click' );
+
+			this.bindingsAdded = false;
+		}
+	};
+
+
+	// DATEPICKER PLUGIN DEFINITION
+
+	$.fn.datepicker = function (option) {
+		var args = Array.prototype.slice.call( arguments, 1 );
+		var methodReturn;
+
+		var $set = this.each(function () {
+			var $this   = $( this );
+			var data    = $this.data( 'datepicker' );
+			var options = typeof option === 'object' && option;
+
+			if( !data ) $this.data('datepicker', (data = new Datepicker( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+		});
+
+		return ( methodReturn === undefined ) ? $set : methodReturn;
+	};
+
+	$.fn.datepicker.defaults = {
+		date: new Date(),
+		createInput: false,
+		dropdownWidth: 170,
+		restrictDateSelection: true
+	};
+
+	$.fn.datepicker.Constructor = Datepicker;
+
+	$.fn.datepicker.noConflict = function () {
+		$.fn.datepicker = old;
+		return this;
+	};
+});
 /*
  * Fuel UX Intelligent Bootstrap Dropdowns
  * https://github.com/ExactTarget/fuelux
@@ -3575,7 +4433,8 @@ define('fuelux/intelligent-dropdown',[ "jquery", "fuelux/all"], function($) {
 
 define('fuelux/pillbox',['require','jquery'],function(require) {
 
-	var $ = require('jquery');
+	var $   = require('jquery');
+	var old = $.fn.pillbox;
 
 	// PILLBOX CONSTRUCTOR AND PROTOTYPE
 
@@ -3655,24 +4514,31 @@ define('fuelux/pillbox',['require','jquery'],function(require) {
 
 	// PILLBOX PLUGIN DEFINITION
 
-	$.fn.pillbox = function (option, value1, value2) {
+	$.fn.pillbox = function (option) {
+		var args = Array.prototype.slice.call( arguments, 1 );
 		var methodReturn;
 
 		var $set = this.each(function () {
-			var $this = $(this);
-			var data = $this.data('pillbox');
+			var $this   = $( this );
+			var data    = $this.data( 'pillbox' );
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('pillbox', ( data = new Pillbox(this, options)));
-			if ( typeof option === 'string') methodReturn = data[option](value1, value2);
+			if( !data ) $this.data('pillbox', (data = new Pillbox( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
-		return (methodReturn === undefined) ? $set : methodReturn;
+		return ( methodReturn === undefined ) ? $set : methodReturn;
 	};
 
 	$.fn.pillbox.defaults = {};
 
 	$.fn.pillbox.Constructor = Pillbox;
+
+	$.fn.pillbox.noConflict = function () {
+		$.fn.pillbox = old;
+		return this;
+	};
+
 
 	// PILLBOX DATA-API
 
@@ -3684,8 +4550,6 @@ define('fuelux/pillbox',['require','jquery'],function(require) {
 		});
 	});
 });
-
-
 /*
  * Fuel UX Radio
  * https://github.com/ExactTarget/fuelux
@@ -3696,8 +4560,8 @@ define('fuelux/pillbox',['require','jquery'],function(require) {
 
 define('fuelux/radio',['require','jquery'],function (require) {
 
-	var $ = require('jquery');
-
+	var $   = require('jquery');
+	var old = $.fn.radio;
 
 	// RADIO CONSTRUCTOR AND PROTOTYPE
 
@@ -3729,10 +4593,12 @@ define('fuelux/radio',['require','jquery'],function (require) {
 			var disabled = !!$radio.prop('disabled');
 
 			this.$icon.removeClass('checked disabled');
+			this.$label.removeClass('checked');
 
 			// set state of radio
 			if (checked === true) {
 				this.$icon.addClass('checked');
+				this.$label.addClass('checked');
 			}
 			if (disabled === true) {
 				this.$icon.addClass('disabled');
@@ -3740,8 +4606,11 @@ define('fuelux/radio',['require','jquery'],function (require) {
 		},
 
 		resetGroup: function () {
+			var group = $('input[name="' + this.groupName + '"]');
+
 			// reset all radio buttons in group
-			$('input[name=' + this.groupName + ']').next().removeClass('checked');
+			group.next().removeClass('checked');
+			group.parent().removeClass('checked');
 		},
 
 		enable: function () {
@@ -3780,24 +4649,30 @@ define('fuelux/radio',['require','jquery'],function (require) {
 
 	// RADIO PLUGIN DEFINITION
 
-	$.fn.radio = function (option, value) {
+	$.fn.radio = function (option) {
+		var args = Array.prototype.slice.call( arguments, 1 );
 		var methodReturn;
 
 		var $set = this.each(function () {
-			var $this = $(this);
-			var data = $this.data('radio');
+			var $this   = $( this );
+			var data    = $this.data( 'radio' );
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('radio', (data = new Radio(this, options)));
-			if (typeof option === 'string') methodReturn = data[option](value);
+			if( !data ) $this.data('radio', (data = new Radio( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
-		return (methodReturn === undefined) ? $set : methodReturn;
+		return ( methodReturn === undefined ) ? $set : methodReturn;
 	};
 
 	$.fn.radio.defaults = {};
 
 	$.fn.radio.Constructor = Radio;
+
+	$.fn.radio.noConflict = function () {
+		$.fn.radio = old;
+		return this;
+	};
 
 
 	// RADIO DATA-API
@@ -3812,6 +4687,909 @@ define('fuelux/radio',['require','jquery'],function (require) {
 			});
 		});
 	});
+});
+/*
+ * Fuel UX Select
+ * https://github.com/ExactTarget/fuelux
+ *
+ * Copyright (c) 2012 ExactTarget
+ * Licensed under the MIT license.
+ */
+
+define('fuelux/select',['require','jquery','./util'],function(require) {
+
+    var $   = require('jquery');
+    var old = $.fn.select;
+    require('./util');
+
+    // SELECT CONSTRUCTOR AND PROTOTYPE
+
+    var Select = function (element, options) {
+        this.$element = $(element);
+        this.options = $.extend({}, $.fn.select.defaults, options);
+        this.$element.on('click', 'a', $.proxy(this.itemclicked, this));
+        this.$button = this.$element.find('.btn');
+        this.$hiddenField = this.$element.find('.hidden-field');
+        this.$label = this.$element.find('.dropdown-label');
+        this.setDefaultSelection();
+
+        if (options.resize === 'auto') {
+            this.resize();
+        }
+    };
+
+    Select.prototype = {
+
+        constructor: Select,
+
+        itemclicked: function (e) {
+            this.$selectedItem = $(e.target).parent();
+            this.$hiddenField.val(this.$selectedItem.attr('data-value'));
+            this.$label.text(this.$selectedItem.text());
+
+            // pass object including text and any data-attributes
+            // to onchange event
+            var data = this.selectedItem();
+
+            // trigger changed event
+            this.$element.trigger('changed', data);
+
+            e.preventDefault();
+        },
+
+        resize: function() {
+            var newWidth = 0;
+            var sizer = $('<div/>').addClass('select-sizer');
+            var width = 0;
+
+            $('body').append(sizer);
+
+            // iterate through each item to find longest string
+            this.$element.find('a').each(function () {
+                sizer.text($(this).text());
+                newWidth = sizer.outerWidth();
+                if(newWidth > width) {
+                    width = newWidth;
+                }
+            });
+
+            sizer.remove();
+
+            this.$label.width(width);
+        },
+
+        selectedItem: function() {
+            var txt = this.$selectedItem.text();
+            return $.extend({ text: txt }, this.$selectedItem.data());
+        },
+
+        selectByText: function(text) {
+            var selector = 'li a:fuelTextExactCI(' + text + ')';
+            this.selectBySelector(selector);
+        },
+
+        selectByValue: function(value) {
+            var selector = 'li[data-value="' + value + '"]';
+            this.selectBySelector(selector);
+        },
+
+        selectByIndex: function(index) {
+            // zero-based index
+            var selector = 'li:eq(' + index + ')';
+            this.selectBySelector(selector);
+        },
+
+        selectBySelector: function(selector) {
+            var item = this.$element.find(selector);
+
+            this.$selectedItem = item;
+            this.$hiddenField.val(this.$selectedItem.attr('data-value'));
+            this.$label.text(this.$selectedItem.text());
+        },
+
+        setDefaultSelection: function() {
+            var selector = 'li[data-selected=true]:first';
+            var item = this.$element.find(selector);
+            if(item.length === 0) {
+                // select first item
+                this.selectByIndex(0);
+            }
+            else {
+                // select by data-attribute
+                this.selectBySelector(selector);
+                item.removeData('selected');
+                item.removeAttr('data-selected');
+            }
+        },
+
+        enable: function() {
+            this.$button.removeClass('disabled');
+        },
+
+        disable: function() {
+            this.$button.addClass('disabled');
+        }
+
+    };
+
+
+    // SELECT PLUGIN DEFINITION
+
+    $.fn.select = function (option) {
+        var args = Array.prototype.slice.call(arguments, 1);
+        var methodReturn;
+
+        var $set = this.each(function () {
+            var $this = $(this);
+            var data = $this.data('select');
+            var options = typeof option === 'object' && option;
+
+            if (!data) $this.data('select', (data = new Select(this, options)));
+            if (typeof option === 'string') methodReturn = data[option].apply(data, args);
+        });
+
+        return ( methodReturn === undefined ) ? $set : methodReturn;
+    };
+
+    $.fn.select.defaults = {};
+
+    $.fn.select.Constructor = Select;
+
+    $.fn.select.noConflict = function () {
+      $.fn.select = old;
+      return this;
+    };
+
+
+    // SELECT DATA-API
+
+    $(function () {
+
+        $(window).on('load', function () {
+            $('.select').each(function () {
+                var $this = $(this);
+                if ($this.data('select')) return;
+                $this.select($this.data());
+            });
+        });
+
+        $('body').on('mousedown.select.data-api', '.select', function () {
+            var $this = $(this);
+            if ($this.data('select')) return;
+            $this.select($this.data());
+        });
+    });
+
+});
+
+/*
+ * Fuel UX Spinner
+ * https://github.com/ExactTarget/fuelux
+ *
+ * Copyright (c) 2012 ExactTarget
+ * Licensed under the MIT license.
+ */
+
+define('fuelux/spinner',['require','jquery'],function(require) {
+
+	var $   = require('jquery');
+	var old = $.fn.spinner;
+
+	// SPINNER CONSTRUCTOR AND PROTOTYPE
+
+	var Spinner = function (element, options) {
+		this.$element = $(element);
+		this.options = $.extend({}, $.fn.spinner.defaults, options);
+		this.$input = this.$element.find('.spinner-input');
+		this.$element.on('keyup', this.$input, $.proxy(this.change, this));
+
+		if (this.options.hold) {
+			this.$element.on('mousedown', '.spinner-up', $.proxy(function() { this.startSpin(true); } , this));
+			this.$element.on('mouseup', '.spinner-up, .spinner-down', $.proxy(this.stopSpin, this));
+			this.$element.on('mouseout', '.spinner-up, .spinner-down', $.proxy(this.stopSpin, this));
+			this.$element.on('mousedown', '.spinner-down', $.proxy(function() {this.startSpin(false);} , this));
+		} else {
+			this.$element.on('click', '.spinner-up', $.proxy(function() { this.step(true); } , this));
+			this.$element.on('click', '.spinner-down', $.proxy(function() { this.step(false); }, this));
+		}
+
+		this.switches = {
+			count: 1,
+			enabled: true
+		};
+
+		if (this.options.speed === 'medium') {
+			this.switches.speed = 300;
+		} else if (this.options.speed === 'fast') {
+			this.switches.speed = 100;
+		} else {
+			this.switches.speed = 500;
+		}
+
+		this.lastValue = null;
+
+		this.render();
+
+		if (this.options.disabled) {
+			this.disable();
+		}
+	};
+
+	Spinner.prototype = {
+		constructor: Spinner,
+
+		render: function () {
+			var inputValue = this.$input.val();
+
+			if (inputValue) {
+				this.value(inputValue);
+			} else {
+				this.$input.val(this.options.value);
+			}
+
+			this.$input.attr('maxlength', (this.options.max + '').split('').length);
+		},
+
+		change: function () {
+			var newVal = this.$input.val();
+
+			if(newVal/1){
+				this.options.value = newVal/1;
+			}else{
+				newVal = newVal.replace(/[^0-9]/g,'') || '';
+				this.$input.val(newVal);
+				this.options.value = newVal/1;
+			}
+
+			this.triggerChangedEvent();
+		},
+
+		stopSpin: function () {
+            if(this.switches.timeout!==undefined){
+                clearTimeout(this.switches.timeout);
+                this.switches.count = 1;
+                this.triggerChangedEvent();
+            }
+		},
+
+		triggerChangedEvent: function () {
+			var currentValue = this.value();
+			if (currentValue === this.lastValue) return;
+
+			this.lastValue = currentValue;
+
+			// Primary changed event
+			this.$element.trigger('changed', currentValue);
+
+			// Undocumented, kept for backward compatibility
+			this.$element.trigger('change');
+		},
+
+		startSpin: function (type) {
+
+			if (!this.options.disabled) {
+				var divisor = this.switches.count;
+
+				if (divisor === 1) {
+					this.step(type);
+					divisor = 1;
+				} else if (divisor < 3){
+					divisor = 1.5;
+				} else if (divisor < 8){
+					divisor = 2.5;
+				} else {
+					divisor = 4;
+				}
+
+				this.switches.timeout = setTimeout($.proxy(function() {this.iterator(type);} ,this),this.switches.speed/divisor);
+				this.switches.count++;
+			}
+		},
+
+		iterator: function (type) {
+			this.step(type);
+			this.startSpin(type);
+		},
+
+		step: function (dir) {
+			var curValue = this.options.value;
+			var limValue = dir ? this.options.max : this.options.min;
+
+			if ((dir ? curValue < limValue : curValue > limValue)) {
+				var newVal = curValue + (dir ? 1 : -1) * this.options.step;
+
+				if (dir ? newVal > limValue : newVal < limValue) {
+					this.value(limValue);
+				} else {
+					this.value(newVal);
+				}
+			} else if (this.options.cycle) {
+				var cycleVal = dir ? this.options.min : this.options.max;
+				this.value(cycleVal);
+			}
+		},
+
+		value: function (value) {
+			if (!isNaN(parseFloat(value)) && isFinite(value)) {
+				value = parseFloat(value);
+				this.options.value = value;
+				this.$input.val(value);
+				return this;
+			} else {
+				return this.options.value;
+			}
+		},
+
+		disable: function () {
+			this.options.disabled = true;
+			this.$input.attr('disabled','');
+			this.$element.find('button').addClass('disabled');
+		},
+
+		enable: function () {
+			this.options.disabled = false;
+			this.$input.removeAttr("disabled");
+			this.$element.find('button').removeClass('disabled');
+		}
+	};
+
+
+	// SPINNER PLUGIN DEFINITION
+
+	$.fn.spinner = function (option) {
+		var args = Array.prototype.slice.call( arguments, 1 );
+		var methodReturn;
+
+		var $set = this.each(function () {
+			var $this   = $( this );
+			var data    = $this.data( 'spinner' );
+			var options = typeof option === 'object' && option;
+
+			if( !data ) $this.data('spinner', (data = new Spinner( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+		});
+
+		return ( methodReturn === undefined ) ? $set : methodReturn;
+	};
+
+	$.fn.spinner.defaults = {
+		value: 1,
+		min: 1,
+		max: 999,
+		step: 1,
+		hold: true,
+		speed: 'medium',
+		disabled: false
+	};
+
+	$.fn.spinner.Constructor = Spinner;
+
+	$.fn.spinner.noConflict = function () {
+		$.fn.spinner = old;
+		return this;
+	};
+
+
+	// SPINNER DATA-API
+
+	$(function () {
+		$('body').on('mousedown.spinner.data-api', '.spinner', function () {
+			var $this = $(this);
+			if ($this.data('spinner')) return;
+			$this.spinner($this.data());
+		});
+	});
+});
+/*
+ * Fuel UX Scheduler
+ * https://github.com/ExactTarget/fuelux
+ *
+ * Copyright (c) 2012 ExactTarget
+ * Licensed under the MIT license.
+ */
+
+define('fuelux/scheduler',['require','jquery','fuelux/combobox','fuelux/datepicker','fuelux/radio','fuelux/select','fuelux/spinner'],function(require) {
+    var $ = require('jquery');
+    var old = $.fn.scheduler;
+
+    require('fuelux/combobox');
+    require('fuelux/datepicker');
+    require('fuelux/radio');
+    require('fuelux/select');
+    require('fuelux/spinner');
+
+    // SCHEDULER CONSTRUCTOR AND PROTOTYPE
+
+    var Scheduler = function (element, options) {
+        var self = this;
+
+        this.$element = $(element);
+        this.options = $.extend({}, $.fn.scheduler.defaults, options);
+
+        // cache elements
+        this.$startDate = this.$element.find('.scheduler-start .datepicker');
+        this.$startTime = this.$element.find('.scheduler-start .combobox');
+
+        this.$timeZone = this.$element.find('.scheduler-timezone .select');
+
+        this.$repeatIntervalPanel = this.$element.find('.repeat-interval-panel');
+        this.$repeatIntervalSelect = this.$element.find('.repeat-interval .select');
+        this.$repeatIntervalSpinner = this.$element.find('.repeat-interval-panel .spinner');
+        this.$repeatIntervalTxt = this.$element.find('.repeat-interval-text');
+
+        this.$end = this.$element.find('.scheduler-end');
+        this.$endAfter = this.$end.find('.spinner');
+        this.$endSelect= this.$end.find('.select');
+        this.$endDate = this.$end.find('.datepicker');
+
+        // panels
+        this.$recurrencePanels = this.$element.find('.recurrence-panel');
+
+        // bind events
+        this.$element.find('.scheduler-weekly .btn-group .btn').on('click', function(e, data){ self.changed(e, data, true); });
+        this.$element.find('.combobox').on('changed', $.proxy(this.changed, this));
+        this.$element.find('.datepicker').on('changed', $.proxy(this.changed, this));
+        this.$element.find('.select').on('changed', $.proxy(this.changed, this));
+        this.$element.find('.spinner').on('changed', $.proxy(this.changed, this));
+        this.$element.find('.scheduler-monthly label.radio, .scheduler-yearly label.radio').on('mouseup', $.proxy(this.changed, this));
+
+        this.$repeatIntervalSelect.on('changed', $.proxy(this.repeatIntervalSelectChanged, this));
+        this.$endSelect.on('changed', $.proxy(this.endSelectChanged, this));
+
+        //initialize sub-controls
+        this.$startDate.datepicker();
+        this.$startTime.combobox();
+        if(this.$startTime.find('input').val()===''){
+            this.$startTime.combobox('selectByIndex', 0);
+        }
+        this.$repeatIntervalSpinner.spinner();
+        this.$endAfter.spinner();
+        this.$endDate.datepicker();
+    };
+
+    Scheduler.prototype = {
+        constructor: Scheduler,
+
+        changed: function(e, data, propagate){
+            if(!propagate){
+                e.stopPropagation();
+            }
+            this.$element.trigger('changed', {
+                data: (data!==undefined) ? data : $(e.currentTarget).data(),
+                originalEvent: e,
+                value: this.getValue()
+            });
+        },
+
+        disable: function(){
+            this.toggleState('disable');
+        },
+
+        enable: function(){
+            this.toggleState('enable');
+        },
+
+        // called when the end range changes
+        // (Never, After, On date)
+        endSelectChanged: function(e, data) {
+            var selectedItem, val;
+
+            if(!data){
+                selectedItem = this.$endSelect.select('selectedItem');
+                val = selectedItem.value;
+            }else{
+                val = data.value;
+            }
+
+            // hide all panels
+            this.$endAfter.hide();
+            this.$endDate.hide();
+
+            if(val==='after'){
+                this.$endAfter.show();
+            }else if(val==='date'){
+                this.$endDate.show();
+            }
+        },
+
+        getValue: function(){
+            // FREQ = frequency (hourly, daily, monthly...)
+            // BYDAY = when picking days (MO,TU,WE,etc)
+            // BYMONTH = when picking months (Jan,Feb,March) - note the values should be 1,2,3...
+            // BYMONTHDAY = when picking days of the month (1,2,3...)
+            // BYSETPOS = when picking First,Second,Third,Fourth,Last (1,2,3,4,-1)
+
+            var interval = this.$repeatIntervalSpinner.spinner('value');
+            var pattern = '';
+            var repeat = this.$repeatIntervalSelect.select('selectedItem').value;
+            var startTime = this.$startTime.combobox('selectedItem').text.toLowerCase();
+            var timeZone = this.$timeZone.select('selectedItem');
+            var getFormattedDate = function(dateObj, dash){
+                var fdate = '';
+                var item;
+
+                fdate += dateObj.getFullYear();
+                fdate += dash;
+                item = dateObj.getMonth() + 1;  //because 0 indexing makes sense when dealing with months /sarcasm
+                fdate += (item<10) ? '0' + item : item;
+                fdate += dash;
+                item = dateObj.getDate();
+                fdate += (item<10) ? '0' + item : item;
+
+                return fdate;
+            };
+            var day, days, hasAm, hasPm, month, pos, startDateTime, type;
+
+            startDateTime = '' + getFormattedDate(this.$startDate.datepicker('getDate'), '-');
+
+            startDateTime += 'T';
+            hasAm = (startTime.search('am')>=0);
+            hasPm = (startTime.search('pm')>=0);
+            startTime = $.trim(startTime.replace(/am/g, '').replace(/pm/g, '')).split(':');
+            startTime[0] = parseInt(startTime[0], 10);
+            startTime[1] = parseInt(startTime[1], 10);
+            if(hasAm && startTime[0]>11){
+                startTime[0] = 0;
+            }else if(hasPm && startTime[0]<12){
+                startTime[0] += 12;
+            }
+            startDateTime += (startTime[0]<10) ? '0' + startTime[0] : startTime[0];
+            startDateTime += ':';
+            startDateTime += (startTime[1]<10) ? '0' + startTime[1] : startTime[1];
+
+            startDateTime += (timeZone.offset==='+00:00') ? 'Z' : timeZone.offset;
+
+            if(repeat === 'none') {
+                pattern = 'FREQ=DAILY;INTERVAL=1;COUNT=1;';
+            }
+            else if(repeat === 'hourly') {
+                pattern = 'FREQ=HOURLY;';
+                pattern += 'INTERVAL=' + interval + ';';
+            }
+            else if(repeat === 'daily') {
+                pattern += 'FREQ=DAILY;';
+                pattern += 'INTERVAL=' + interval + ';';
+            }
+            else if(repeat === 'weekdays') {
+                pattern += 'FREQ=DAILY;';
+                pattern += 'BYDAY=MO,TU,WE,TH,FR;';
+                pattern += 'INTERVAL=1;';
+            }
+            else if(repeat === 'weekly') {
+                days = [];
+                this.$element.find('.scheduler-weekly .btn-group button.active').each(function() {
+                    days.push($(this).data().value);
+                });
+
+                pattern += 'FREQ=WEEKLY;';
+                pattern += 'BYDAY=' + days.join(',') + ';';
+                pattern += 'INTERVAL=' + interval + ';';
+            }
+            else if(repeat === 'monthly') {
+                pattern += 'FREQ=MONTHLY;';
+                pattern += 'INTERVAL=' + interval + ';';
+
+                type = parseInt(this.$element.find('input[name=scheduler-month]:checked').val(), 10);
+                if(type === 1) {
+                    day = parseInt(this.$element.find('.scheduler-monthly-date .select').select('selectedItem').text, 10);
+                    pattern += 'BYMONTHDAY=' + day + ';';
+                }
+                else if(type === 2) {
+                    days = this.$element.find('.month-days').select('selectedItem').value;
+                    pos = this.$element.find('.month-day-pos').select('selectedItem').value;
+
+                    pattern += 'BYDAY=' + days + ';';
+                    pattern += 'BYSETPOS=' + pos + ';';
+                }
+            }
+            else if(repeat === 'yearly') {
+                pattern += 'FREQ=YEARLY;';
+
+                type = parseInt(this.$element.find('input[name=scheduler-year]:checked').val(), 10);
+                if(type === 1) {
+                    month = this.$element.find('.scheduler-yearly-date .year-month').select('selectedItem').value;
+                    day = this.$element.find('.year-month-day').select('selectedItem').text;
+
+                    pattern += 'BYMONTH=' + month + ';';
+                    pattern += 'BYMONTHDAY=' + day + ';';
+                }
+                else if(type === 2) {
+                    days = this.$element.find('.year-month-days').select('selectedItem').value;
+                    pos = this.$element.find('.year-month-day-pos').select('selectedItem').value;
+                    month = this.$element.find('.scheduler-yearly-day .year-month').select('selectedItem').value;
+
+                    pattern += 'BYDAY=' + days + ';';
+                    pattern += 'BYSETPOS=' + pos + ';';
+                    pattern += 'BYMONTH=' + month + ';';
+                }
+            }
+
+            var end = this.$endSelect.select('selectedItem').value;
+            var duration = '';
+
+            // if both UNTIL and COUNT are not specified, the recurrence will repeat forever
+            // http://tools.ietf.org/html/rfc2445#section-4.3.10
+            if(repeat !=='none'){
+                if(end === 'after') {
+                    duration = 'COUNT=' + this.$endAfter.spinner('value') + ';';
+                }
+                else if(end === 'date') {
+                    duration = 'UNTIL=' + getFormattedDate(this.$endDate.datepicker('getDate'), '') + ';';
+                }
+            }
+
+            pattern += duration;
+
+            var data = {
+                startDateTime: startDateTime,
+                timeZone: {
+                    name: timeZone.name,
+                    offset: timeZone.offset
+                },
+                recurrencePattern: pattern
+            };
+
+            return data;
+        },
+
+        // called when the repeat interval changes
+        // (None, Hourly, Daily, Weekdays, Weekly, Monthly, Yearly
+        repeatIntervalSelectChanged: function(e, data) {
+            var selectedItem, val, txt;
+
+            if(!data){
+                selectedItem = this.$repeatIntervalSelect.select('selectedItem');
+                val = selectedItem.value;
+                txt = selectedItem.text;
+            }else{
+                val = data.value;
+                txt = data.text;
+            }
+
+            // set the text
+            this.$repeatIntervalTxt.text(txt);
+
+            switch(val.toLowerCase()) {
+                case 'hourly':
+                case 'daily':
+                case 'weekly':
+                case 'monthly':
+                    this.$repeatIntervalPanel.show();
+                    break;
+                default:
+                    this.$repeatIntervalPanel.hide();
+                    break;
+            }
+
+            // hide all panels
+            this.$recurrencePanels.hide();
+
+            // show panel for current selection
+            this.$element.find('.scheduler-' + val).show();
+
+            // the end selection should only be shown when
+            // the repeat interval is not "None (run once)"
+            if(val === 'none') {
+                this.$end.hide();
+            }
+            else {
+                this.$end.show();
+            }
+        },
+
+        setValue: function(options){
+            var hours, i, item, l, minutes, period, recur, temp;
+
+            if(options.startDateTime){
+                temp = options.startDateTime.split('T');
+                this.$startDate.datepicker('setDate', temp[0]);
+
+                if(temp[1]){
+                    temp[1] = temp[1].split(':');
+                    hours = parseInt(temp[1][0], 10);
+                    minutes = (temp[1][1]) ? parseInt(temp[1][1].split('+')[0].split('-')[0].split('Z')[0], 10) : 0;
+                    period = (hours<12) ? 'AM' : 'PM';
+
+                    if(hours===0){
+                        hours = 12;
+                    }else if(hours>12){
+                        hours -= 12;
+                    }
+                    minutes = (minutes<10) ? '0' + minutes : minutes;
+
+                    temp = hours + ':' + minutes + ' ' + period;
+                    this.$startTime.find('input').val(temp);
+                    this.$startTime.combobox('selectByText', temp);
+                }
+            }
+
+            item = 'li[data';
+            if(options.timeZone){
+                if(typeof(options.timeZone)==='string'){
+                    item += '-name="' + options.timeZone;
+                }else{
+                    if(options.timeZone.name){
+                        item += '-name="' + options.timeZone.name;
+                    }else{
+                        item += '-offset="' + options.timeZone.offset;
+                    }
+                }
+                item += '"]';
+                this.$timeZone.select('selectBySelector', item);
+            }else if(options.startDateTime){
+                temp = options.startDateTime.split('T')[1];
+                if(temp){
+                    if(temp.search(/\+/)>-1){
+                        temp = '+' + $.trim(temp.split('+')[1]);
+                    }else if(temp.search(/\-/)>-1){
+                        temp = '-' + $.trim(temp.split('-')[1]);
+                    }else{
+                        temp = '+00:00';
+                    }
+                }else{
+                    temp = '+00:00';
+                }
+                item += '-offset="' + temp + '"]';
+                this.$timeZone.select('selectBySelector', item);
+            }
+
+            if(options.recurrencePattern){
+                recur = {};
+                temp = options.recurrencePattern.toUpperCase().split(';');
+                for(i=0, l=temp.length; i<l; i++){
+                    if(temp[i]!==''){
+                        item = temp[i].split('=');
+                        recur[item[0]] = item[1];
+                    }
+                }
+
+                if(recur.FREQ==='DAILY'){
+                    if(recur.BYDAY==='MO,TU,WE,TH,FR'){
+                        item = 'weekdays';
+                    }else{
+                        if(recur.INTERVAL==='1' && recur.COUNT==='1'){
+                            item = 'none';
+                        }else{
+                            item = 'daily';
+                        }
+                    }
+                }else if(recur.FREQ==='HOURLY'){
+                    item = 'hourly';
+                }else if(recur.FREQ==='WEEKLY'){
+                    if(recur.BYDAY){
+                        item = this.$element.find('.scheduler-weekly .btn-group');
+                        item.find('button').removeClass('active');
+                        temp = recur.BYDAY.split(',');
+                        for(i=0,l=temp.length; i<l; i++){
+                            item.find('button[data-value="' + temp[i] + '"]').addClass('active');
+                        }
+                    }
+                    item = 'weekly';
+                }else if(recur.FREQ==='MONTHLY'){
+                    this.$element.find('.scheduler-monthly input').removeClass('checked');
+                    if(recur.BYMONTHDAY){
+                        temp = this.$element.find('.scheduler-monthly-date');
+                        temp.find('input').addClass('checked');
+                        temp.find('.select').select('selectByValue', recur.BYMONTHDAY);
+                    }else if(recur.BYDAY){
+                        temp = this.$element.find('.scheduler-monthly-day');
+                        temp.find('input').addClass('checked');
+                        if(recur.BYSETPOS){
+                            temp.find('.month-day-pos').select('selectByValue', recur.BYSETPOS);
+                        }
+                        temp.find('.month-days').select('selectByValue', recur.BYDAY);
+                    }
+                    item = 'monthly';
+                }else if(recur.FREQ==='YEARLY'){
+                    this.$element.find('.scheduler-yearly input').removeClass('checked');
+                    if(recur.BYMONTHDAY){
+                        temp = this.$element.find('.scheduler-yearly-date');
+                        temp.find('input').addClass('checked');
+                        if(recur.BYMONTH){
+                            temp.find('.year-month').select('selectByValue', recur.BYMONTH);
+                        }
+                        temp.find('.year-month-day').select('selectByValue', recur.BYMONTHDAY);
+                    }else if(recur.BYSETPOS){
+                        temp = this.$element.find('.scheduler-yearly-day');
+                        temp.find('input').addClass('checked');
+                        temp.find('.year-month-day-pos').select('selectByValue', recur.BYSETPOS);
+                        if(recur.BYDAY){
+                            temp.find('.year-month-days').select('selectByValue', recur.BYDAY);
+                        }
+                        if(recur.BYMONTH){
+                            temp.find('.year-month').select('selectByValue', recur.BYMONTH);
+                        }
+                    }
+                    item = 'yearly';
+                }else{
+                    item = 'none';
+                }
+
+                if(recur.COUNT){
+                    this.$endAfter.spinner('value', parseInt(recur.COUNT, 10));
+                    this.$endSelect.select('selectByValue', 'after');
+                }else if(recur.UNTIL){
+                    temp = recur.UNTIL;
+                    if(temp.length===8){
+                        temp = temp.split('');
+                        temp.splice(4, 0, '-');
+                        temp.splice(7, 0, '-');
+                        temp = temp.join('');
+                    }
+                    this.$endDate.datepicker('setDate', temp);
+                    this.$endSelect.select('selectByValue', 'date');
+                }
+                this.endSelectChanged();
+
+                if(recur.INTERVAL){
+                    this.$repeatIntervalSpinner.spinner('value', parseInt(recur.INTERVAL, 10));
+                }
+                this.$repeatIntervalSelect.select('selectByValue', item);
+                this.repeatIntervalSelectChanged();
+            }
+        },
+
+        toggleState: function(action){
+            this.$element.find('.combobox').combobox(action);
+            this.$element.find('.datepicker').datepicker(action);
+            this.$element.find('.select').select(action);
+            this.$element.find('.spinner').spinner(action);
+            this.$element.find('.radio').radio(action);
+
+            if(action==='disable'){
+                action = 'addClass';
+            }else{
+                action = 'removeClass';
+            }
+            this.$element.find('.scheduler-weekly .btn-group')[action]('disabled');
+        },
+
+        value: function(options) {
+            if(options){
+                return this.setValue(options);
+            }else{
+                return this.getValue();
+            }
+        }
+    };
+
+
+    // SCHEDULER PLUGIN DEFINITION
+
+    $.fn.scheduler = function (option) {
+        var args = Array.prototype.slice.call( arguments, 1 );
+        var methodReturn;
+
+        var $set = this.each(function () {
+            var $this = $(this);
+            var data = $this.data('scheduler');
+            var options = typeof option === 'object' && option;
+
+            if (!data) $this.data('scheduler', (data = new Scheduler(this, options)));
+            if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+        });
+
+        return ( methodReturn === undefined ) ? $set : methodReturn;
+    };
+
+    $.fn.scheduler.defaults = {};
+
+    $.fn.scheduler.Constructor = Scheduler;
+
+    $.fn.scheduler.noConflict = function () {
+        $.fn.scheduler = old;
+        return this;
+    };
+
+    // SCHEDULER DATA-API
+
+    $(function () {
+        $('body').on('mousedown.scheduler.data-api', '.scheduler', function () {
+            var $this = $(this);
+            if ($this.data('scheduler')) return;
+            $this.scheduler($this.data());
+        });
+    });
 
 });
 
@@ -3825,8 +5603,8 @@ define('fuelux/radio',['require','jquery'],function (require) {
 
 define('fuelux/search',['require','jquery'],function(require) {
 
-	var $ = require('jquery');
-
+	var $   = require('jquery');
+	var old = $.fn.search;
 
 	// SEARCH CONSTRUCTOR AND PROTOTYPE
 
@@ -3914,19 +5692,29 @@ define('fuelux/search',['require','jquery'],function(require) {
 	// SEARCH PLUGIN DEFINITION
 
 	$.fn.search = function (option) {
-		return this.each(function () {
-			var $this = $(this);
-			var data = $this.data('search');
+		var args = Array.prototype.slice.call( arguments, 1 );
+		var methodReturn;
+
+		var $set = this.each(function () {
+			var $this = $( this );
+			var data = $this.data( 'search' );
 			var options = typeof option === 'object' && option;
 
 			if (!data) $this.data('search', (data = new Search(this, options)));
-			if (typeof option === 'string') data[option]();
+			if (typeof option === 'string') methodReturn = data[ option ].apply( data, args );
 		});
+
+		return ( methodReturn === undefined ) ? $set : methodReturn;
 	};
 
 	$.fn.search.defaults = {};
 
 	$.fn.search.Constructor = Search;
+
+	$.fn.search.noConflict = function () {
+		$.fn.search = old;
+		return this;
+	};
 
 
 	// SEARCH DATA-API
@@ -3938,385 +5726,7 @@ define('fuelux/search',['require','jquery'],function(require) {
 			$this.search($this.data());
 		});
 	});
-
 });
-
-/*
- * Fuel UX Spinner
- * https://github.com/ExactTarget/fuelux
- *
- * Copyright (c) 2012 ExactTarget
- * Licensed under the MIT license.
- */
-
-define('fuelux/spinner',['require','jquery'],function(require) {
-
-	var $ = require('jquery');
-
-
-	// SPINNER CONSTRUCTOR AND PROTOTYPE
-
-	var Spinner = function (element, options) {
-		this.$element = $(element);
-		this.options = $.extend({}, $.fn.spinner.defaults, options);
-		this.$input = this.$element.find('.spinner-input');
-		this.$element.on('keyup', this.$input, $.proxy(this.change, this));
-
-		if (this.options.hold) {
-			this.$element.on('mousedown', '.spinner-up', $.proxy(function() { this.startSpin(true); } , this));
-			this.$element.on('mouseup', '.spinner-up, .spinner-down', $.proxy(this.stopSpin, this));
-			this.$element.on('mouseout', '.spinner-up, .spinner-down', $.proxy(this.stopSpin, this));
-			this.$element.on('mousedown', '.spinner-down', $.proxy(function() {this.startSpin(false);} , this));
-		} else {
-			this.$element.on('click', '.spinner-up', $.proxy(function() { this.step(true); } , this));
-			this.$element.on('click', '.spinner-down', $.proxy(function() { this.step(false); }, this));
-		}
-
-		this.switches = {
-			count: 1,
-			enabled: true
-		};
-
-		if (this.options.speed === 'medium') {
-			this.switches.speed = 300;
-		} else if (this.options.speed === 'fast') {
-			this.switches.speed = 100;
-		} else {
-			this.switches.speed = 500;
-		}
-
-		this.lastValue = null;
-
-		this.render();
-
-		if (this.options.disabled) {
-			this.disable();
-		}
-	};
-
-	Spinner.prototype = {
-		constructor: Spinner,
-
-		render: function () {
-			var inputValue = this.$input.val();
-
-			if (inputValue) {
-				this.value(inputValue);
-			} else {
-				this.$input.val(this.options.value);
-			}
-
-			this.$input.attr('maxlength', (this.options.max + '').split('').length);
-		},
-
-		change: function () {
-			var newVal = this.$input.val();
-
-			if(newVal/1){
-				this.options.value = newVal/1;
-			}else{
-				newVal = newVal.replace(/[^0-9]/g,'');
-				this.$input.val(newVal);
-				this.options.value = newVal/1;
-			}
-
-			this.triggerChangedEvent();
-		},
-
-		stopSpin: function () {
-			clearTimeout(this.switches.timeout);
-			this.switches.count = 1;
-			this.triggerChangedEvent();
-		},
-
-		triggerChangedEvent: function () {
-			var currentValue = this.value();
-			if (currentValue === this.lastValue) return;
-
-			this.lastValue = currentValue;
-
-			// Primary changed event
-			this.$element.trigger('changed', currentValue);
-
-			// Undocumented, kept for backward compatibility
-			this.$element.trigger('change');
-		},
-
-		startSpin: function (type) {
-
-			if (!this.options.disabled) {
-				var divisor = this.switches.count;
-
-				if (divisor === 1) {
-					this.step(type);
-					divisor = 1;
-				} else if (divisor < 3){
-					divisor = 1.5;
-				} else if (divisor < 8){
-					divisor = 2.5;
-				} else {
-					divisor = 4;
-				}
-
-				this.switches.timeout = setTimeout($.proxy(function() {this.iterator(type);} ,this),this.switches.speed/divisor);
-				this.switches.count++;
-			}
-		},
-
-		iterator: function (type) {
-			this.step(type);
-			this.startSpin(type);
-		},
-
-		step: function (dir) {
-			var curValue = this.options.value;
-			var limValue = dir ? this.options.max : this.options.min;
-
-			if ((dir ? curValue < limValue : curValue > limValue)) {
-				var newVal = curValue + (dir ? 1 : -1) * this.options.step;
-
-				if (dir ? newVal > limValue : newVal < limValue) {
-					this.value(limValue);
-				} else {
-					this.value(newVal);
-				}
-			} else if (this.options.cycle) {
-				var cycleVal = dir ? this.options.min : this.options.max;
-				this.value(cycleVal);
-			}
-		},
-
-		value: function (value) {
-			if (!isNaN(parseFloat(value)) && isFinite(value)) {
-				value = parseFloat(value);
-				this.options.value = value;
-				this.$input.val(value);
-				return this;
-			} else {
-				return this.options.value;
-			}
-		},
-
-		disable: function () {
-			this.options.disabled = true;
-			this.$input.attr('disabled','');
-			this.$element.find('button').addClass('disabled');
-		},
-
-		enable: function () {
-			this.options.disabled = false;
-			this.$input.removeAttr("disabled");
-			this.$element.find('button').removeClass('disabled');
-		}
-	};
-
-
-	// SPINNER PLUGIN DEFINITION
-
-	$.fn.spinner = function (option,value) {
-		var methodReturn;
-
-		var $set = this.each(function () {
-			var $this = $(this);
-			var data = $this.data('spinner');
-			var options = typeof option === 'object' && option;
-
-			if (!data) $this.data('spinner', (data = new Spinner(this, options)));
-			if (typeof option === 'string') methodReturn = data[option](value);
-		});
-
-		return (methodReturn === undefined) ? $set : methodReturn;
-	};
-
-	$.fn.spinner.defaults = {
-		value: 1,
-		min: 1,
-		max: 999,
-		step: 1,
-		hold: true,
-		speed: 'medium',
-		disabled: false
-	};
-
-	$.fn.spinner.Constructor = Spinner;
-
-
-	// SPINNER DATA-API
-
-	$(function () {
-		$('body').on('mousedown.spinner.data-api', '.spinner', function () {
-			var $this = $(this);
-			if ($this.data('spinner')) return;
-			$this.spinner($this.data());
-		});
-	});
-
-});
-
-/*
- * Fuel UX Select
- * https://github.com/ExactTarget/fuelux
- *
- * Copyright (c) 2012 ExactTarget
- * Licensed under the MIT license.
- */
-
-define('fuelux/select',['require','jquery','./util'],function(require) {
-
-    var $ = require('jquery');
-	require('./util');
-
-    // SELECT CONSTRUCTOR AND PROTOTYPE
-
-    var Select = function (element, options) {
-        this.$element = $(element);
-        this.options = $.extend({}, $.fn.select.defaults, options);
-        this.$element.on('click', 'a', $.proxy(this.itemclicked, this));
-        this.$button = this.$element.find('.btn');
-        this.$label = this.$element.find('.dropdown-label');
-        this.setDefaultSelection();
-
-        if (options.resize === 'auto') {
-            this.resize();
-        }
-    };
-
-    Select.prototype = {
-
-        constructor: Select,
-
-        itemclicked: function (e) {
-            this.$selectedItem = $(e.target).parent();
-            this.$label.text(this.$selectedItem.text());
-
-            // pass object including text and any data-attributes
-            // to onchange event
-            var data = this.selectedItem();
-
-            // trigger changed event
-            this.$element.trigger('changed', data);
-
-            e.preventDefault();
-        },
-
-        resize: function() {
-            var newWidth = 0;
-            var sizer = $('<div/>').addClass('select-sizer');
-            var width = 0;
-
-            $('body').append(sizer);
-
-            // iterate through each item to find longest string
-            this.$element.find('a').each(function () {
-                sizer.text($(this).text());
-                newWidth = sizer.outerWidth();
-                if(newWidth > width) {
-                    width = newWidth;
-                }
-            });
-
-            sizer.remove();
-
-            this.$label.width(width);
-        },
-
-        selectedItem: function() {
-            var txt = this.$selectedItem.text();
-            return $.extend({ text: txt }, this.$selectedItem.data());
-        },
-
-        selectByText: function(text) {
-            var selector = 'li a:fuelTextExactCI(' + text + ')';
-            this.selectBySelector(selector);
-        },
-
-        selectByValue: function(value) {
-            var selector = 'li[data-value="' + value + '"]';
-            this.selectBySelector(selector);
-        },
-
-        selectByIndex: function(index) {
-            // zero-based index
-            var selector = 'li:eq(' + index + ')';
-            this.selectBySelector(selector);
-        },
-
-        selectBySelector: function(selector) {
-            var item = this.$element.find(selector);
-
-            this.$selectedItem = item;
-            this.$label.text(this.$selectedItem.text());
-        },
-
-        setDefaultSelection: function() {
-            var selector = 'li[data-selected=true]:first';
-            var item = this.$element.find(selector);
-            if(item.length === 0) {
-                // select first item
-                this.selectByIndex(0);
-            }
-            else {
-                // select by data-attribute
-                this.selectBySelector(selector);
-                item.removeData('selected');
-                item.removeAttr('data-selected');
-            }
-        },
-
-        enable: function() {
-            this.$button.removeClass('disabled');
-        },
-
-        disable: function() {
-            this.$button.addClass('disabled');
-        }
-
-    };
-
-
-    // SELECT PLUGIN DEFINITION
-
-    $.fn.select = function (option,value) {
-        var methodReturn;
-
-        var $set = this.each(function () {
-            var $this = $(this);
-            var data = $this.data('select');
-            var options = typeof option === 'object' && option;
-
-            if (!data) $this.data('select', (data = new Select(this, options)));
-            if (typeof option === 'string') methodReturn = data[option](value);
-        });
-
-        return (methodReturn === undefined) ? $set : methodReturn;
-    };
-
-    $.fn.select.defaults = {};
-
-    $.fn.select.Constructor = Select;
-
-
-    // SELECT DATA-API
-
-    $(function () {
-
-        $(window).on('load', function () {
-            $('.select').each(function () {
-                var $this = $(this);
-                if ($this.data('select')) return;
-                $this.select($this.data());
-            });
-        });
-
-        $('body').on('mousedown.select.data-api', '.select', function () {
-            var $this = $(this);
-            if ($this.data('select')) return;
-            $this.select($this.data());
-        });
-    });
-
-});
-
 /*
  * Fuel UX Tree
  * https://github.com/ExactTarget/fuelux
@@ -4327,8 +5737,8 @@ define('fuelux/select',['require','jquery','./util'],function(require) {
 
 define('fuelux/tree',['require','jquery'],function(require) {
 
-	var $ = require('jquery');
-
+	var $   = require('jquery');
+	var old = $.fn.tree;
 
 	// TREE CONSTRUCTOR AND PROTOTYPE
 
@@ -4530,19 +5940,20 @@ define('fuelux/tree',['require','jquery'],function(require) {
 
 	// TREE PLUGIN DEFINITION
 
-	$.fn.tree = function (option, value) {
+	$.fn.tree = function (option) {
+		var args = Array.prototype.slice.call( arguments, 1 );
 		var methodReturn;
 
 		var $set = this.each(function () {
-			var $this = $(this);
-			var data = $this.data('tree');
+			var $this   = $( this );
+			var data    = $this.data( 'tree' );
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('tree', (data = new Tree(this, options)));
-			if (typeof option === 'string') methodReturn = data[option](value);
+			if( !data ) $this.data('tree', (data = new Tree( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
-		return (methodReturn === undefined) ? $set : methodReturn;
+		return ( methodReturn === undefined ) ? $set : methodReturn;
 	};
 
 	$.fn.tree.defaults = {
@@ -4553,8 +5964,11 @@ define('fuelux/tree',['require','jquery'],function(require) {
 
 	$.fn.tree.Constructor = Tree;
 
+	$.fn.tree.noConflict = function () {
+		$.fn.tree = old;
+		return this;
+	};
 });
-
 /*
  * Fuel UX Wizard
  * https://github.com/ExactTarget/fuelux
@@ -4565,8 +5979,8 @@ define('fuelux/tree',['require','jquery'],function(require) {
 
 define('fuelux/wizard',['require','jquery'],function (require) {
 
-	var $ = require('jquery');
-
+	var $   = require('jquery');
+	var old = $.fn.wizard;
 
 	// WIZARD CONSTRUCTOR AND PROTOTYPE
 
@@ -4575,6 +5989,7 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.wizard.defaults, options);
+		this.options.disablePreviousStep = ( this.$element.data().restrict === "previous" ) ? true : false;
 		this.currentStep = this.options.selectedItem.step;
 		this.numSteps = this.$element.find('.steps li').length;
 		this.$prevBtn = this.$element.find('button.btn-prev');
@@ -4590,7 +6005,12 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 		this.$element.on('click', 'li.complete', $.proxy(this.stepclicked, this));
 		
 		if(this.currentStep > 1) {
-            this.selectedItem(this.options.selectedItem);
+			this.selectedItem(this.options.selectedItem);
+		}
+
+		if( this.options.disablePreviousStep ) {
+			this.$prevBtn.attr( 'disabled', true );
+			this.$element.find( '.steps' ).addClass( 'previous-disabled' );
 		}
 	};
 
@@ -4604,7 +6024,9 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 			var lastStep = (this.currentStep === this.numSteps);
 
 			// disable buttons based on current step
-			this.$prevBtn.attr('disabled', (firstStep === true || canMovePrev === false));
+			if( !this.options.disablePreviousStep ) {
+				this.$prevBtn.attr('disabled', (firstStep === true || canMovePrev === false));
+			}
 
 			// change button text of last step, if specified
 			var data = this.$nextBtn.data();
@@ -4641,7 +6063,7 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 			$(target).addClass('active');
 
 			// reset the wizard position to the left
-            this.$element.find('.steps').first().attr('style','margin-left: 0');
+			this.$element.find('.steps').first().attr('style','margin-left: 0');
 
 			// check if the steps are wider than the container div
 			var totalWidth = 0;
@@ -4649,8 +6071,8 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 				totalWidth += $(this).outerWidth();
 			});
 			var containerWidth = 0;
-            if (this.$element.find('.actions').length) {
-                containerWidth = this.$element.width() - this.$element.find('.actions').first().outerWidth();
+			if (this.$element.find('.actions').length) {
+				containerWidth = this.$element.width() - this.$element.find('.actions').first().outerWidth();
 			} else {
 				containerWidth = this.$element.width();
 			}
@@ -4658,16 +6080,16 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 			
 				// set the position so that the last step is on the right
 				var newMargin = totalWidth - containerWidth;
-                this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
+				this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
 				
 				// set the position so that the active step is in a good
 				// position if it has been moved out of view
-                if (this.$element.find('li.active').first().position().left < 200) {
-                    newMargin += this.$element.find('li.active').first().position().left - 200;
+				if (this.$element.find('li.active').first().position().left < 200) {
+					newMargin += this.$element.find('li.active').first().position().left - 200;
 					if (newMargin < 1) {
-                        this.$element.find('.steps').first().attr('style','margin-left: 0');
+						this.$element.find('.steps').first().attr('style','margin-left: 0');
 					} else {
-                        this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
+						this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
 					}
 				}
 			}
@@ -4676,20 +6098,31 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 		},
 
 		stepclicked: function (e) {
-			var li = $(e.currentTarget);
+			var li          = $(e.currentTarget);
+			var index       = this.$element.find('.steps li').index(li);
+			var canMovePrev = true;
 
-			var index = this.$element.find('.steps li').index(li);
+			if( this.options.disablePreviousStep ) {
+				if( index < this.currentStep ) {
+					canMovePrev = false;
+				}
+			}
 
-			var evt = $.Event('stepclick');
-			this.$element.trigger(evt, {step: index + 1});
-			if (evt.isDefaultPrevented()) return;
+			if( canMovePrev ) {
+				var evt = $.Event('stepclick');
+				this.$element.trigger(evt, {step: index + 1});
+				if (evt.isDefaultPrevented()) return;
 
-			this.currentStep = (index + 1);
-			this.setState();
+				this.currentStep = (index + 1);
+				this.setState();
+			}
 		},
 
 		previous: function () {
 			var canMovePrev = (this.currentStep > 1);
+			if( this.options.disablePreviousStep ) {
+				canMovePrev = false;
+			}
 			if (canMovePrev) {
 				var e = $.Event('change');
 				this.$element.trigger(e, {step: this.currentStep, direction: 'previous'});
@@ -4743,19 +6176,20 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 
 	// WIZARD PLUGIN DEFINITION
 
-	$.fn.wizard = function (option, value) {
+	$.fn.wizard = function (option) {
+		var args = Array.prototype.slice.call( arguments, 1 );
 		var methodReturn;
 
 		var $set = this.each(function () {
-			var $this = $(this);
-			var data = $this.data('wizard');
+			var $this   = $( this );
+			var data    = $this.data( 'wizard' );
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('wizard', (data = new Wizard(this, options)));
-			if (typeof option === 'string') methodReturn = data[option](value);
+			if( !data ) $this.data('wizard', (data = new Wizard( this, options ) ) );
+			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
-		return (methodReturn === undefined) ? $set : methodReturn;
+		return ( methodReturn === undefined ) ? $set : methodReturn;
 	};
 
 	$.fn.wizard.defaults = {
@@ -4764,19 +6198,22 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 
 	$.fn.wizard.Constructor = Wizard;
 
+	$.fn.wizard.noConflict = function () {
+		$.fn.wizard = old;
+		return this;
+	};
+
 
 	// WIZARD DATA-API
 
 	$(function () {
-		$('body').on('mousedown.wizard.data-api', '.wizard', function () {
+		$('body').on('mouseover.wizard.data-api', '.wizard', function () {
 			var $this = $(this);
 			if ($this.data('wizard')) return;
 			$this.wizard($this.data());
 		});
 	});
-
 });
-
 /*
  * Fuel UX
  * https://github.com/ExactTarget/fuelux
@@ -4785,7 +6222,7 @@ define('fuelux/wizard',['require','jquery'],function (require) {
  * Licensed under the MIT license.
  */
 
-define('fuelux/all',['require','jquery','bootstrap/bootstrap-affix','bootstrap/bootstrap-alert','bootstrap/bootstrap-button','bootstrap/bootstrap-carousel','bootstrap/bootstrap-collapse','bootstrap/bootstrap-dropdown','bootstrap/bootstrap-modal','bootstrap/bootstrap-popover','bootstrap/bootstrap-scrollspy','bootstrap/bootstrap-tab','bootstrap/bootstrap-tooltip','bootstrap/bootstrap-transition','bootstrap/bootstrap-typeahead','fuelux/checkbox','fuelux/combobox','fuelux/datagrid','fuelux/intelligent-dropdown','fuelux/pillbox','fuelux/radio','fuelux/search','fuelux/spinner','fuelux/select','fuelux/tree','fuelux/wizard'],function (require) {
+define('fuelux/all',['require','jquery','bootstrap/bootstrap-affix','bootstrap/bootstrap-alert','bootstrap/bootstrap-button','bootstrap/bootstrap-carousel','bootstrap/bootstrap-collapse','bootstrap/bootstrap-dropdown','bootstrap/bootstrap-modal','bootstrap/bootstrap-popover','bootstrap/bootstrap-scrollspy','bootstrap/bootstrap-tab','bootstrap/bootstrap-tooltip','bootstrap/bootstrap-transition','bootstrap/bootstrap-typeahead','fuelux/checkbox','fuelux/combobox','fuelux/datagrid','fuelux/datepicker','fuelux/intelligent-dropdown','fuelux/pillbox','fuelux/radio','fuelux/scheduler','fuelux/search','fuelux/spinner','fuelux/select','fuelux/tree','fuelux/wizard'],function (require) {
 	require('jquery');
 	require('bootstrap/bootstrap-affix');
 	require('bootstrap/bootstrap-alert');
@@ -4803,9 +6240,11 @@ define('fuelux/all',['require','jquery','bootstrap/bootstrap-affix','bootstrap/b
 	require('fuelux/checkbox');
 	require('fuelux/combobox');
 	require('fuelux/datagrid');
+	require('fuelux/datepicker');
 	require('fuelux/intelligent-dropdown');
 	require('fuelux/pillbox');
 	require('fuelux/radio');
+    require('fuelux/scheduler');
 	require('fuelux/search');
 	require('fuelux/spinner');
 	require('fuelux/select');
