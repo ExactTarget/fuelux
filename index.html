@@ -232,16 +232,33 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 		// INITIALIZING PILLBOX
 		$('#btnAdd').click(function () {
-			$('#MyPillbox ul').append('<li>Item Eight</li>');
+			var newItemCount = $('#MyPillbox ul li').length + 1;
+			$('#MyPillbox ul').pillbox('addItem', 'Item ' + newItemCount, 'Item ' + newItemCount );
 		});
 
-		$('#btnRemove').click(function () {
-			$('#MyPillbox li[data-value="foo"]').remove();
+		$('#btnRemoveByValue').click(function () {
+			$('#MyPillbox').pillbox('removeByValue', 'foo');
+		});
+
+		$('#btnRemoveBySelector').click(function () {
+			$('#MyPillbox').pillbox('removeBySelector', '.status-warning');
+		});
+
+		$('#btnRemoveByText').click(function () {
+			$('#MyPillbox').pillbox('removeByText', 'Item 6');
 		});
 
 		$('#btnItems').click(function () {
 			var items = $('#MyPillbox').pillbox('items');
 			console.log(items);
+		});
+
+		$('#MyPillbox').on( 'added', function( event, data ) {
+			console.log( 'pillbox added', data );
+		});
+
+		$('#MyPillbox').on( 'removed', function( event, data ) {
+			console.log( 'pillbox removed', data );
 		});
 
 
@@ -1334,18 +1351,20 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 
 				<div id="MyPillbox" class="pillbox">
 					<ul>
-						<li data-value="foo">Item One</li>
-						<li class="status-success">Item Two</li>
-						<li class="status-warning">Item Three</li>
-						<li class="status-important">Item Four</li>
-						<li class="status-info">Item Five</li>
-						<li class="status-success">Item Six</li>
-						<li>Item Seven</li>
+						<li data-value="foo">Item 1</li>
+						<li class="status-success">Item 2</li>
+						<li class="status-warning">Item 3</li>
+						<li class="status-important">Item 4</li>
+						<li class="status-info">Item 5</li>
+						<li class="status-success">Item 6</li>
+						<li>Item 7</li>
 					</ul>
 				</div>
 
 				<input type="button" class="btn" id="btnAdd" value="add">
-				<input type="button" class="btn" id="btnRemove" value="remove">
+				<input type="button" class="btn" id="btnRemoveByValue" value="remove by value">
+				<input type="button" class="btn" id="btnRemoveBySelector" value="remove by selector">
+				<input type="button" class="btn" id="btnRemoveByText" value="remove by text">
 				<input type="button" class="btn" id="btnItems" value="log items to console">
 
 			</div>
@@ -1378,6 +1397,34 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 				</tbody>
 			</table>
 
+			<h3>Events</h3>
+
+			<p>Fuel UX's pillbox exposes an event for hooking into its functionality.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Event</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>added</td>
+					<td>This event is fired when a pillbox is added. It will return data in the following format: <code>{ text: 'added node text', value: 'added node value' }</code></td>
+				</tr>
+				<tr>
+					<td>removed</td>
+					<td>This event is fired when a pillbox is removed. It will return data in the following format:
+						<pre class="prettyprint linenums">
+{ 
+	method: 'methodUsedToRemove', 
+	removedSelector|removedValue|removedText: selector|value|text 
+}</pre>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+
 			<h3>Markup</h3>
 
 			<p>You can activate the pillbox on your page easily without having to write a single line of javascript.
@@ -1388,13 +1435,13 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 <pre class="prettyprint linenums">
 &lt;div id="MyPillbox" class="pillbox"&gt;
 	&lt;ul&gt;
-	&lt;li data-value="foo"&gt;Item One&lt;/li&gt;
-	&lt;li class="status-success"&gt;Item Two&lt;/li&gt;
-	&lt;li class="status-warning"&gt;Item Three&lt;/li&gt;
-	&lt;li class="status-important"&gt;Item Four&lt;/li&gt;
-	&lt;li class="status-info"&gt;Item Five&lt;/li&gt;
-	&lt;li class="status-success"&gt;Item Six&lt;/li&gt;
-	&lt;li&gt;Item Seven&lt;/li&gt;
+		&lt;li data-value="foo"&gt;Item 1&lt;/li&gt;
+		&lt;li class="status-success"&gt;Item 2&lt;/li&gt;
+		&lt;li class="status-warning"&gt;Item 3&lt;/li&gt;
+		&lt;li class="status-important"&gt;Item 4&lt;/li&gt;
+		&lt;li class="status-info"&gt;Item 5&lt;/li&gt;
+		&lt;li class="status-success"&gt;Item 6&lt;/li&gt;
+		&lt;li&gt;Item 7&lt;/li&gt;
 	&lt;/ul&gt;
 &lt;/div&gt;
 </pre>
