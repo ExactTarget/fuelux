@@ -115,7 +115,7 @@ require(['jquery', 'fuelux/pillbox'], function($) {
 		equal( eventsLogged, 1, "added event was fired succesfully" );
 	});
 
-	test( "should fire added removed", function() {
+	test( "should fire removed event", function() {
 		var eventsLogged = 0;
 		var removedData  = {};
 
