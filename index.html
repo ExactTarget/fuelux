@@ -1251,7 +1251,10 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 				<tbody>
 					<tr>
 						<td>date</td>
-						<td>Initializes datepicker with this date</td>
+						<td>
+							Initializes datepicker with this date.<br />
+							If date is set to <code>null</code> when the datepicker is initialized the getDate method will return null until a date is selected (programmatically or by the user). Otherwise, the date will be parsed.
+						</td>
 						<td><code>new Date()</code></td>
 					</tr>
 					<tr>
