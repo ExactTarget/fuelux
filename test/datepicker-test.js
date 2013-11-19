@@ -74,6 +74,15 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 		equal( pickerDate2, futureDate, 'no markup datepicker initialized with different date than now' );
 	});
 
+	test( 'should initialize with null date', function() {
+		var $sample         = $( html ).find( '#datepicker1' ).datepicker({ date: null });
+		var initializedDate = $sample.datepicker( 'getDate' );
+		var inputValue      = $sample.find( 'input[type="text"]' ).val();
+
+		equal( initializedDate, null, 'datepicker was initialized with null value' );
+		equal( inputValue, '', 'datepicker does not have value in input field' );
+	});
+
 	test( 'should return date using getDate method', function() {
 		var $sample       = $( html ).find( '#datepicker1' ).datepicker();
 		var dateFormatted = new Date( $sample.datepicker( 'getFormattedDate' ) );

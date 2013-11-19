@@ -22,11 +22,17 @@ define(function (require) {
 		this.parseDate     = this.options.parseDate || this.parseDate;
 		this.blackoutDates = this.options.blackoutDates || this.blackoutDates;
 
-		this.date = this.options.date || new Date();
-		this.date = this.parseDate( this.date );
+		if( this.options.date !== null ) {
+			this.date       = this.options.date || new Date();
+			this.date       = this.parseDate( this.date );
+			this.viewDate   = new Date( this.date.valueOf() );
+			this.stagedDate = new Date( this.date.valueOf() );
+		} else {
+			this.date       = null;
+			this.viewDate   = new Date();
+			this.stagedDate = new Date();
+		}
 
-		this.viewDate   = new Date( this.date.valueOf() );
-		this.stagedDate = new Date( this.date.valueOf() );
 		this.viewDate.setHours( 0,0,0,0 );
 		this.stagedDate.setHours( 0,0,0,0 );
 
@@ -702,7 +708,9 @@ define(function (require) {
 		},
 
 		_insertDateIntoInput: function() {
-			this.$element.find('input[type="text"]').val( this.formatDate( this.date ) );
+			if( this.date !== null ) {
+				this.$element.find('input[type="text"]').val( this.formatDate( this.date ) );
+			}
 		},
 
 		_keyupDateUpdate: function( e ) {
