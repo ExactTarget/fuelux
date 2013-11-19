@@ -142,7 +142,7 @@ define(function (require) {
 		parseDate: function( date, inputUpdate ) {
 			var dt, isoExp, month, parts;
 
-			if( Boolean( date) && new Date( date ) !== 'Invalid Date' ) {
+			if( Boolean( date) && new Date( date ).toString() !== 'Invalid Date' ) {
 				if( typeof( date ) === 'string' && !inputUpdate  ) {
 					date   = date.split( 'T' )[ 0 ];
 					isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/;
@@ -718,7 +718,9 @@ define(function (require) {
 			var inputValue  = this.$input.val();
 
 			if( validLength === inputValue.length && this._checkKeyCode( e ) ) {
-				this.setDate( inputValue, true );
+				if( this.parseDate( inputValue, true ).toString() !== "Invalid Date" ) {
+					this.setDate( inputValue, true );
+				}
 			}
 		},
 
