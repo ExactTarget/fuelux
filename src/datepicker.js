@@ -723,9 +723,9 @@ define(function (require) {
 
 		_keyupDateUpdate: function( e ) {
 			var validLength  = this.formatDate( this.date ).length;
-			var inputValue   = this.$input.val();
+			var $localInput  = this.$input;
+			var inputValue   = $localInput.val();
 			var tmpModalText = '';
-			var $localInput  = this.$element.find( 'input' );
 
 			if( validLength === inputValue.length && this._checkKeyCode( e ) ) {
 				if( this.parseDate( inputValue, true ).toString() !== "Invalid Date" ) {
