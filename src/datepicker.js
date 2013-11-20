@@ -179,7 +179,7 @@ define(function (require) {
 			this.viewDate   = new Date();
 			this.stagedDate = new Date();
 			if( Boolean( clearInput ) ) {
-				this._insertDateIntoInput();
+				this._insertDateIntoInput( clearInput );
 			}
 		},
 
@@ -724,10 +724,10 @@ define(function (require) {
 
 		},
 
-		_insertDateIntoInput: function() {
+		_insertDateIntoInput: function( clearInput ) {
 			if( this.date !== null ) {
 				this.$element.find('input[type="text"]').val( this.formatDate( this.date ) );
-			} else {
+			} else if( Boolean( clearInput ) ) {
 				this.$element.find('input[type="text"]').val( '' );
 			}
 		},
