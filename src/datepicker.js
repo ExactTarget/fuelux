@@ -189,6 +189,32 @@ define(function (require) {
 			this.options.restrictNextMonth = scopedNextMonth;
 		},
 
+		_processDateRestriction: function( date, returnClasses ) {
+			var classes         = '';
+			var restrictBoolean = false;
+			returnClasses       = returnClasses || false;
+
+			if( date <= this.minDate || date >= this.maxDate ) {
+				if ( Boolean( this.blackoutDates( date ) ) ) {
+					classes += ' restrict blackout';
+					restrictBoolean = true;
+				} else if ( Boolean( this.options ) && Boolean( this.options.restrictDateSelection ) ) {
+					classes += ' restrict';
+					restrictBoolean = true;
+				} else {
+					classes += ' past';
+				}
+			} else if(  Boolean( this.blackoutDates( date ) ) ) {
+				classes += ' restrict blackout';
+				restrictBoolean = true;
+			}
+			if( Boolean( returnClasses ) ) {
+				return classes;
+			} else {
+				return restrictBoolean;
+			}
+		},
+
 		_repeat: function( head, collection, iterator, tail) {
 			var value = head;
 			for (var i = 0, ii = collection.length; i < ii; i++) {
@@ -302,12 +328,8 @@ define(function (require) {
 				var tmpLastMonthDaysObj        = {};
 				tmpLastMonthDaysObj.number     = this.daysOfLastMonth[ x ];
 				tmpLastMonthDaysObj[ 'class' ] = '';
-
-				if( Boolean( this.blackoutDates( new Date( viewedYear, viewedMonth + 1, this.daysOfLastMonth[ x ], 0, 0, 0, 0 ) ) ) ) {
-					tmpLastMonthDaysObj[ 'class' ] = 'restrict blackout';
-				}
-
-				this.daysOfLastMonth[ x ] = tmpLastMonthDaysObj;
+				tmpLastMonthDaysObj[ 'class' ] = this._processDateRestriction( new Date( viewedYear, viewedMonth + 1, this.daysOfLastMonth[ x ], 0, 0, 0, 0 ), true );
+				this.daysOfLastMonth[ x ]      = tmpLastMonthDaysObj;
 			}
 
 			// blackout functionality for dates of next month on current calendar view
@@ -315,12 +337,8 @@ define(function (require) {
 				var tmpNextMonthDaysObj        = {};
 				tmpNextMonthDaysObj.number     = this.daysOfNextMonth[ b ];
 				tmpNextMonthDaysObj[ 'class' ] = '';
-
-				if( Boolean( this.blackoutDates( new Date( viewedYear, viewedMonth + 1, this.daysOfNextMonth[ b ], 0, 0, 0, 0 ) ) ) ) {
-					tmpNextMonthDaysObj[ 'class' ] = 'restrict blackout';
-				}
-
-				this.daysOfNextMonth[ b ] = tmpNextMonthDaysObj;
+				tmpNextMonthDaysObj[ 'class' ] = this._processDateRestriction( new Date( viewedYear, viewedMonth + 1, this.daysOfNextMonth[ b ], 0, 0, 0, 0 ), true );
+				this.daysOfNextMonth[ b ]      = tmpNextMonthDaysObj;
 			}
 
 			var now                  = new Date();
@@ -354,18 +372,8 @@ define(function (require) {
 					weekDayClass += ' today';
 				}
 
-				var dt = new Date( viewedYear, viewedMonth, daysOfThisMonth[ i ], 0, 0, 0, 0 );
-				if( dt <= this.minDate || dt >= this.maxDate ) {
-					if ( Boolean( this.blackoutDates( dt ) ) ) {
-						weekDayClass += ' restrict blackout';
-					} else if ( Boolean( this.options ) && Boolean( this.options.restrictDateSelection ) ) {
-						weekDayClass += ' restrict';
-					} else {
-						weekDayClass += ' past';
-					}
-				} else if(  Boolean( this.blackoutDates( dt ) ) ) {
-					weekDayClass += ' restrict blackout';
-				}
+				var dt       = new Date( viewedYear, viewedMonth, daysOfThisMonth[ i ], 0, 0, 0, 0 );
+				weekDayClass += this._processDateRestriction( dt, true );
 
 				this.daysOfThisMonth[ this.daysOfThisMonth.length ] = {
 					'number': daysOfThisMonth[ i ],
@@ -714,12 +722,40 @@ define(function (require) {
 		},
 
 		_keyupDateUpdate: function( e ) {
-			var validLength = this.formatDate( this.date ).length;
-			var inputValue  = this.$input.val();
+			var validLength  = this.formatDate( this.date ).length;
+			var inputValue   = this.$input.val();
+			var tmpModalText = '';
+			var $localInput  = this.$element.find( 'input' );
 
 			if( validLength === inputValue.length && this._checkKeyCode( e ) ) {
 				if( this.parseDate( inputValue, true ).toString() !== "Invalid Date" ) {
-					this.setDate( inputValue, true );
+					if( !this._processDateRestriction( this.parseDate( inputValue, true ) ) ) {
+						this.setDate( inputValue, true );
+					} else {
+						if( Boolean( $.isFunction( $().modal ) ) ) {
+							var $tmpModal = $('<div/>', {
+								id: 'datepickerError',
+								'class': 'modal hide',
+								tabindex: -1,
+								role: 'dialog'
+							});
+
+							tmpModalText = '<div class="modal-header"><button type="button" class="close" data-dismiss="modal">×</button><h3>Invalid Date Selected</h3></div>';
+							tmpModalText += '<div class="modal-body">The date you selected is unavailable because it is either blacked out or in the past.</div>';
+							tmpModalText += '<div class="modal-footer"><button class="btn btn-small" data-dismiss="modal">Close</button></div>';
+
+							$( document.body ).append( $tmpModal.append( tmpModalText ) );
+
+							$tmpModal.on( 'hidden', function() {
+								$(this).remove();
+								$localInput.focus();
+							});
+
+							$tmpModal.modal();
+						} else {
+							alert( 'The date you selected is unavailable.' );
+						}
+					}
 				}
 			}
 		},
