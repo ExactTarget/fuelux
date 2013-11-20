@@ -174,6 +174,15 @@ define(function (require) {
 			return s.substr( s.length - 2 );
 		},
 
+		_setNullDate: function( clearInput ) {
+			this.date       = null;
+			this.viewDate   = new Date();
+			this.stagedDate = new Date();
+			if( Boolean( clearInput ) ) {
+				this._insertDateIntoInput();
+			}
+		},
+
 		_restrictDateSelectionSetup: function() {
 			var scopedLastMonth, scopedNextMonth;
 			if( Boolean( this.options ) ) {
@@ -718,6 +727,8 @@ define(function (require) {
 		_insertDateIntoInput: function() {
 			if( this.date !== null ) {
 				this.$element.find('input[type="text"]').val( this.formatDate( this.date ) );
+			} else {
+				this.$element.find('input[type="text"]').val( '' );
 			}
 		},
 
@@ -725,6 +736,7 @@ define(function (require) {
 			var validLength  = this.formatDate( this.date ).length;
 			var $localInput  = this.$input;
 			var inputValue   = $localInput.val();
+			var self         = this;
 			var tmpModalText = '';
 
 			if( validLength === inputValue.length && this._checkKeyCode( e ) ) {
@@ -749,6 +761,7 @@ define(function (require) {
 							$tmpModal.on( 'hidden', function() {
 								$(this).remove();
 								$localInput.focus();
+								self._setNullDate( true );
 							});
 
 							$tmpModal.modal();
