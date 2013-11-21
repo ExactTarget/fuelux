@@ -713,7 +713,9 @@ define(function (require) {
 			}
 		},
 
-		_keyupDateUpdate: function( e ) {
+		// removed this because of an issue with date parsing in Firefox (really wish all the apis were the same)
+		// will be put back in 2.6 using moment.js
+		/*_keyupDateUpdate: function( e ) {
 			var validLength = this.formatDate( this.date ).length;
 			var inputValue  = this.$input.val();
 
@@ -737,7 +739,7 @@ define(function (require) {
 			} else {
 				return false;
 			}
-		},
+		},*/
 
 		_initializeCalendarElements: function() {
 			this.$input        = this.$element.find( 'input[type="text"]' );
@@ -755,7 +757,9 @@ define(function (require) {
 		},
 
 		_addBindings: function() {
-			this.$input.on( 'keyup', $.proxy( this._keyupDateUpdate, this ) );
+			// removed this because of an issue with date parsing in Firefox (really wish all the apis were the same)
+			// will be put back in 2.6 using moment.js
+			//this.$input.on( 'keyup', $.proxy( this._keyupDateUpdate, this ) );
 			this.$calendar.on( 'click', $.proxy( this._emptySpace, this) );
 
 			this.$header.find( '.left' ).on( 'click', $.proxy( this._previous, this ) );
