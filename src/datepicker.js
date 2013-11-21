@@ -51,6 +51,13 @@ define(function (require) {
 
 		this.bindingsAdded = false;
 
+		// moment set up for parsing input dates
+		if( this._checkForMomentJS() ) {
+			this.moment = true;
+			this.momentFormat = this.options.formatCode;
+			moment.lang( this.options.culture );
+		}
+
 		// OPTIONS
 		this.options.dropdownWidth = this.options.dropdownWidth || 170;
 		this.options.monthNames    = this.options.monthNames || [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
@@ -122,8 +129,8 @@ define(function (require) {
 		setDate: function( date, inputUpdate ) {
 			inputUpdate     = inputUpdate || false;
 			this.date       = this.parseDate( date, inputUpdate );
-			this.stagedDate = new Date( this.date );
-			this.viewDate   = new Date( this.date );
+			this.stagedDate = this.date;
+			this.viewDate   = this.date;
 			this._render();
 			this.$element.trigger( 'changed', this.date );
 			return this.date;
@@ -140,27 +147,31 @@ define(function (require) {
 
 		//some code ripped from http://stackoverflow.com/questions/2182246/javascript-dates-in-ie-nan-firefox-chrome-ok
 		parseDate: function( date, inputUpdate ) {
-			var dt, isoExp, month, parts;
-
-			if( Boolean( date) && new Date( date ).toString() !== 'Invalid Date' ) {
-				if( typeof( date ) === 'string' && !inputUpdate  ) {
-					date   = date.split( 'T' )[ 0 ];
-					isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/;
-					dt     = new Date( NaN );
-					parts  = isoExp.exec( date );
-
-					if( parts ) {
-						month = +parts[ 2 ];
-						dt.setFullYear( parts[ 1 ], month - 1, parts[ 3 ] );
-						if( month !== dt.getMonth() + 1 ) {
-								dt.setTime( NaN );
-						}
-					}
-					return dt;
-				}
-				return new Date( date );
+			if( this.moment ) {
+				return moment( date )._d; //example of using moment for parsing
 			} else {
-				throw new Error( 'could not parse date' );
+				var dt, isoExp, month, parts;
+
+				if( Boolean( date) && new Date( date ).toString() !== 'Invalid Date' ) {
+					if( typeof( date ) === 'string' && !inputUpdate  ) {
+						date   = date.split( 'T' )[ 0 ];
+						isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/;
+						dt     = new Date( NaN );
+						parts  = isoExp.exec( date );
+
+						if( parts ) {
+							month = +parts[ 2 ];
+							dt.setFullYear( parts[ 1 ], month - 1, parts[ 3 ] );
+							if( month !== dt.getMonth() + 1 ) {
+									dt.setTime( NaN );
+							}
+						}
+						return dt;
+					}
+					return new Date( date );
+				} else {
+					throw new Error( 'could not parse date' );
+				}
 			}
 		},
 
@@ -713,9 +724,7 @@ define(function (require) {
 			}
 		},
 
-		// removed this because of an issue with date parsing in Firefox (really wish all the apis were the same)
-		// will be put back in 2.6 using moment.js
-		/*_keyupDateUpdate: function( e ) {
+		_keyupDateUpdate: function( e ) {
 			var validLength = this.formatDate( this.date ).length;
 			var inputValue  = this.$input.val();
 
@@ -739,7 +748,7 @@ define(function (require) {
 			} else {
 				return false;
 			}
-		},*/
+		},
 
 		_initializeCalendarElements: function() {
 			this.$input        = this.$element.find( 'input[type="text"]' );
@@ -757,9 +766,9 @@ define(function (require) {
 		},
 
 		_addBindings: function() {
-			// removed this because of an issue with date parsing in Firefox (really wish all the apis were the same)
-			// will be put back in 2.6 using moment.js
-			//this.$input.on( 'keyup', $.proxy( this._keyupDateUpdate, this ) );
+			if( Boolean( this.moment ) ) {
+				this.$input.on( 'keyup', $.proxy( this._keyupDateUpdate, this ) );
+			}
 			this.$calendar.on( 'click', $.proxy( this._emptySpace, this) );
 
 			this.$header.find( '.left' ).on( 'click', $.proxy( this._previous, this ) );
@@ -794,6 +803,18 @@ define(function (require) {
 			this.$footer.find( '.center' ).off( 'click' );
 
 			this.bindingsAdded = false;
+		},
+
+		_checkForMomentJS: function() {
+			if( $.isFunction( window.moment ) || ( typeof moment !== "undefined" && $.isFunction( moment ) ) ) {
+				if( Boolean( this.options.culture ) && Boolean( this.options.formatCode ) ) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
 		}
 	};
 
@@ -818,6 +839,8 @@ define(function (require) {
 
 	$.fn.datepicker.defaults = {
 		date: new Date(),
+		culture: 'en',
+		formatCode: 'L',
 		createInput: false,
 		dropdownWidth: 170,
 		restrictDateSelection: true
