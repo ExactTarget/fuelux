@@ -24,7 +24,7 @@ define(function (require) {
 
 		// moment set up for parsing input dates
 		if( this._checkForMomentJS() ) {
-			this.moment = true;
+			this.moment       = true;
 			this.momentFormat = this.options.momentConfig.formatCode;
 			moment.lang( this.options.momentConfig.culture );
 		}
@@ -136,6 +136,7 @@ define(function (require) {
 		},
 
 		formatDate: function( date ) {
+			// if we have moment available use it to format dates. otherwise use default
 			if( this.moment ) {
 				return moment( date ).format( this.momentFormat );
 			} else {
@@ -150,8 +151,10 @@ define(function (require) {
 
 		//some code ripped from http://stackoverflow.com/questions/2182246/javascript-dates-in-ie-nan-firefox-chrome-ok
 		parseDate: function( date, silent ) {
+			// if we have moment, use that to parse the dates
 			if( this.moment ) {
 				silent = silent || false;
+				// if silent is requested (direct user input parsing) return true or false not a date object, otherwise return a date object
 				if( silent ) {
 					if( moment( date )._d.toString() === "Invalid Date" ) {
 						return false;
@@ -162,6 +165,7 @@ define(function (require) {
 					return moment( date )._d; //example of using moment for parsing
 				}
 			} else {
+				// if moment isn't present, use previous date parsing strategry
 				var dt, isoExp, month, parts;
 
 				if( Boolean( date) && new Date( date ).toString() !== 'Invalid Date' ) {
@@ -737,6 +741,7 @@ define(function (require) {
 		},
 
 		_keyupDateUpdate: function( e ) {
+			// only gets run if _checkForMomentJS returns true
 			var validLength = this.formatDate( this.date ).length;
 			var inputValue  = this.$input.val();
 
@@ -748,6 +753,7 @@ define(function (require) {
 		},
 
 		_checkKeyCode: function( e ) {
+			// only gets run if _checkForMomentJS returns true
 			// only allow numbers, function keys, and date formatting symbols
 			// Allow: Ctrl+A
 			// Allow: home, end, left, right
@@ -763,6 +769,7 @@ define(function (require) {
 		},
 
 		_checkForMomentJS: function() {
+			// this function get's run on initialization to determin if momentjs is available
 			if( $.isFunction( window.moment ) || ( typeof moment !== "undefined" && $.isFunction( moment ) ) ) {
 				if( $.isPlainObject( this.options.momentConfig ) ) {
 					if( Boolean( this.options.momentConfig.culture ) && Boolean( this.options.momentConfig.formatCode ) ) {
@@ -794,9 +801,11 @@ define(function (require) {
 		},
 
 		_addBindings: function() {
+			// parsing dates on user input is only available when momentjs is used
 			if( Boolean( this.moment ) ) {
 				this.$input.on( 'keyup', $.proxy( this._keyupDateUpdate, this ) );
 			}
+
 			this.$calendar.on( 'click', $.proxy( this._emptySpace, this) );
 
 			this.$header.find( '.left' ).on( 'click', $.proxy( this._previous, this ) );
@@ -815,7 +824,11 @@ define(function (require) {
 		},
 
 		_removeBindings: function() {
-			this.$input.off( 'keyup' );
+			// remove event only if moment is available (meaning it was initialized in the first place)
+			if( Boolean( this.moment ) ) {
+				this.$input.off( 'keyup' );
+			}
+
 			this.$calendar.off( 'click' );
 
 			this.$header.find( '.left' ).off( 'click' );
