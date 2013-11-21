@@ -22,6 +22,13 @@ define(function (require) {
 		this.parseDate     = this.options.parseDate || this.parseDate;
 		this.blackoutDates = this.options.blackoutDates || this.blackoutDates;
 
+		// moment set up for parsing input dates
+		if( this._checkForMomentJS() ) {
+			this.moment = true;
+			this.momentFormat = this.options.momentConfig.formatCode;
+			moment.lang( this.options.momentConfig.culture );
+		}
+
 		if( this.options.date !== null ) {
 			this.date       = this.options.date || new Date();
 			this.date       = this.parseDate( this.date );
@@ -50,13 +57,6 @@ define(function (require) {
 		this.years = this._yearRange( this.viewDate );
 
 		this.bindingsAdded = false;
-
-		// moment set up for parsing input dates
-		if( this._checkForMomentJS() ) {
-			this.moment = true;
-			this.momentFormat = this.options.formatCode;
-			moment.lang( this.options.culture );
-		}
 
 		// OPTIONS
 		this.options.dropdownWidth = this.options.dropdownWidth || 170;
@@ -126,9 +126,8 @@ define(function (require) {
 			}
 		},
 
-		setDate: function( date, inputUpdate ) {
-			inputUpdate     = inputUpdate || false;
-			this.date       = this.parseDate( date, inputUpdate );
+		setDate: function( date ) {
+			this.date       = this.parseDate( date );
 			this.stagedDate = this.date;
 			this.viewDate   = this.date;
 			this._render();
@@ -137,8 +136,12 @@ define(function (require) {
 		},
 
 		formatDate: function( date ) {
-			// this.pad to is function on extension
-			return this.padTwo( date.getMonth() + 1 ) + '-' + this.padTwo( date.getDate() ) + '-' + date.getFullYear();
+			if( this.moment ) {
+				return moment( date ).format( this.momentFormat );
+			} else {
+				// this.pad to is function on extension
+				return this.padTwo( date.getMonth() + 1 ) + '-' + this.padTwo( date.getDate() ) + '-' + date.getFullYear();
+			}
 		},
 
 		formatNativeDate: function( date ) {
@@ -146,14 +149,23 @@ define(function (require) {
 		},
 
 		//some code ripped from http://stackoverflow.com/questions/2182246/javascript-dates-in-ie-nan-firefox-chrome-ok
-		parseDate: function( date, inputUpdate ) {
+		parseDate: function( date, silent ) {
 			if( this.moment ) {
-				return moment( date )._d; //example of using moment for parsing
+				silent = silent || false;
+				if( silent ) {
+					if( moment( date )._d.toString() === "Invalid Date" ) {
+						return false;
+					} else {
+						return true;
+					}
+				} else {
+					return moment( date )._d; //example of using moment for parsing
+				}
 			} else {
 				var dt, isoExp, month, parts;
 
 				if( Boolean( date) && new Date( date ).toString() !== 'Invalid Date' ) {
-					if( typeof( date ) === 'string' && !inputUpdate  ) {
+					if( typeof( date ) === 'string' ) {
 						date   = date.split( 'T' )[ 0 ];
 						isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/;
 						dt     = new Date( NaN );
@@ -729,8 +741,8 @@ define(function (require) {
 			var inputValue  = this.$input.val();
 
 			if( validLength === inputValue.length && this._checkKeyCode( e ) ) {
-				if( this.parseDate( inputValue, true ).toString() !== "Invalid Date" ) {
-					this.setDate( inputValue, true );
+				if( Boolean( this.parseDate( inputValue, true ) ) ) {
+					this.setDate( inputValue );
 				}
 			}
 		},
@@ -745,6 +757,22 @@ define(function (require) {
 			} else if ( e.shiftKey || ( e.keyCode >= 48 || e.keyCode <= 57 ) || ( e.keyCode >= 96 || e.keyCode <= 105 ) || e.keyCode === 110 ||  e.keyCode === 190 || e.keyCode === 191 ) {
 				// Ensure that it is a number and return true
 				return true;
+			} else {
+				return false;
+			}
+		},
+
+		_checkForMomentJS: function() {
+			if( $.isFunction( window.moment ) || ( typeof moment !== "undefined" && $.isFunction( moment ) ) ) {
+				if( $.isPlainObject( this.options.momentConfig ) ) {
+					if( Boolean( this.options.momentConfig.culture ) && Boolean( this.options.momentConfig.formatCode ) ) {
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					return false;
+				}
 			} else {
 				return false;
 			}
@@ -803,18 +831,6 @@ define(function (require) {
 			this.$footer.find( '.center' ).off( 'click' );
 
 			this.bindingsAdded = false;
-		},
-
-		_checkForMomentJS: function() {
-			if( $.isFunction( window.moment ) || ( typeof moment !== "undefined" && $.isFunction( moment ) ) ) {
-				if( Boolean( this.options.culture ) && Boolean( this.options.formatCode ) ) {
-					return true;
-				} else {
-					return false;
-				}
-			} else {
-				return false;
-			}
 		}
 	};
 
@@ -839,8 +855,10 @@ define(function (require) {
 
 	$.fn.datepicker.defaults = {
 		date: new Date(),
-		culture: 'en',
-		formatCode: 'L',
+		momentConfig: {
+			culture: 'en',
+			formatCode: 'L' // more formats can be found here http://momentjs.com/docs/#/customization/long-date-formats/. You should use "L" or "l"
+		},
 		createInput: false,
 		dropdownWidth: 170,
 		restrictDateSelection: true
