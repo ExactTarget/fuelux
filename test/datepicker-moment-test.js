@@ -15,7 +15,14 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 		'<div id="datepicker2"></div>' +
 	'</div>';
 
-	module('Fuel UX datepicker');
+	module('Fuel UX datepicker with Moment.js', {
+		setup: function(){
+			window.moment = window.tmpMoment;
+		},
+		teardown: function(){
+			window.moment = undefined;
+		}
+	});
 
 	test( 'should be defined on the jQuery object', function() {
 		ok( $(document.body).datepicker, 'datepicker method is defined' );
@@ -30,7 +37,7 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 		var today       = new Date();
 		var todaysDate  = ( today.getDate() < 10 ) ? '0' + today.getDate() : today.getDate();
 		var todaysMonth = ( ( today.getMonth() + 1 ) < 10 ) ?  '0' + ( today.getMonth() + 1 ) : ( today.getMonth() + 1 );
-		today           =  todaysMonth + '-' + todaysDate + '-' + today.getFullYear();
+		today           =  todaysMonth + '/' + todaysDate + '/' + today.getFullYear();
 
 		// markup already there
 		var $sample    = $( html ).find( '#datepicker1' ).datepicker();
@@ -311,51 +318,129 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 		equal( inputWidthCheck, true, 'input has custom width via pixels' );
 	});
 
-	test( 'should not use momentjs if not available', function() {
+	test( "should have moment js doing the date parsing", function() {
 		var $sample       = $( html ).datepicker();
 		var momentBoolean = $sample.datepicker( '_checkForMomentJS' );
+		var today         = new Date();
+		var todaysDate    = ( today.getDate() < 10 ) ? '0' + today.getDate() : today.getDate();
+		var todaysMonth   = ( ( today.getMonth() + 1 ) < 10 ) ?  '0' + ( today.getMonth() + 1 ) : ( today.getMonth() + 1 );
+		today             =  todaysMonth + '/' + todaysDate + '/' + today.getFullYear();
 
-		equal( momentBoolean, false, "not using moment if it's not there" );
+		equal( momentBoolean, true, "Moment JS is being used" );
+		equal( $sample.datepicker( 'getFormattedDate'), today, "Moment JS parsed date correctly for default implementation (en culture)" );
 	});
 
-	test( 'should not be able to use any extra features if momentjs is not loaded', function() {
-		var $sample              = $( html ).datepicker();
-		var momentBoolean        = $sample.datepicker( '_checkForMomentJS' );
-		var defaultErrorReturned = "moment.js is not available so you cannot use this function";
-		var getCultureError, setCultureError, getFormatCodeError, setFormatCodeError;
+	test( "should not use moment if either formatCode or culture is missing ", function() {
+		// checking if moment is used when culture is null
+		var $sample = $( html ).datepicker({
+			momentConfig: {
+				culture: null
+			}
+		});
+		var momentBoolean1 = $sample.datepicker( '_checkForMomentJS' );
 
-		// trying to get culture
-		try {
-			$sample.datepicker( 'getCulture' );
-		} catch( e ) {
-			getCultureError = e;
-		}
+		// checking if moment is used when formatCode is null
+		var $sample2 = $( html ).datepicker({
+			momentConfig: {
+				formatCode: null
+			}
+		});
+		var momentBoolean2 = $sample2.datepicker( '_checkForMomentJS' );
 
-		// trying to set culture
-		try {
-			$sample.datepicker( 'setCulture', 'de' );
-		} catch( e ) {
-			setCultureError = e;
-		}
+		// checking if moment is used when culture and formatCode are null.
+		var $sample3 = $( html ).datepicker({
+			momentConfig: {
+				culture: null,
+				formatCode: null
+			}
+		});
+		var momentBoolean3 = $sample3.datepicker( '_checkForMomentJS' );
 
-		// trying to get formatCode
-		try {
-			$sample.datepicker( 'getFormatCode' );
-		} catch( e ) {
-			getFormatCodeError = e;
-		}
+		var $sample4 = $( html ).datepicker({
+			momentConfig: {
+				culture: 'en',
+				formatCode: 'L'
+			}
+		});
+		var momentBoolean4 = $sample4.datepicker( '_checkForMomentJS' );
 
-		// trying to set formatCode
-		try {
-			$sample.datepicker( 'setFormatCode', 'l' );
-		} catch( e ) {
-			setFormatCodeError = e;
-		}
+		// since the defaults are initilized, we don't need to check any other configs
+		equal( momentBoolean1, false, "moment is not used because the option momentConfig.culture is null" );
+		equal( momentBoolean2, false, "moment is not used because the option momentConfig.formatCode is null" );
+		equal( momentBoolean3, false, "moment is not used because the options momentConfig.culture is null and momentConfig.formatCode is null" );
+		equal( momentBoolean4, true, "moment is used because both momentConfig options are set" );
+	});
 
-		equal( momentBoolean, false, "not using moment if it's not there" );
-		equal( getCultureError, defaultErrorReturned, "getCulture is not available for use" );
-		equal( setCultureError, defaultErrorReturned, "setCulture is not available for use" );
-		equal( getFormatCodeError, defaultErrorReturned, "getFormatCode is not available for use" );
-		equal( setFormatCodeError, defaultErrorReturned, "setFormatCode is not available for use" );
+	test( "should be initialized with different culture", function() {
+		var culture = "de";
+		var $sample = $( html ).datepicker({
+			momentConfig: {
+				culture: culture
+			}
+		});
+		var today       = new Date();
+		var todaysDate  = ( today.getDate() < 10 ) ? '0' + today.getDate() : today.getDate();
+		var todaysMonth = ( ( today.getMonth() + 1 ) < 10 ) ?  '0' + ( today.getMonth() + 1 ) : ( today.getMonth() + 1 );
+		today           = todaysDate + '.' + todaysMonth + '.' + today.getFullYear();
+
+		equal( $sample.datepicker( 'getFormattedDate'), today, "Moment JS parsed date correctly for default implementation (en culture)" );
+	});
+
+	test( "should be initialized with different culture and different format", function() {
+		// testing for german culture and l as a format code
+		// more formats can be found here http://momentjs.com/docs/#/customization/long-date-formats/. You should use "L" or "l"
+		var culture    = "de";
+		var formatCode = "l";
+		var $sample = $( html ).datepicker({
+			momentConfig: {
+				culture: culture,
+				formatCode: formatCode
+			}
+		});
+		var today = new Date();
+		today     = today.getDate() + '.' + ( today.getMonth() + 1 ) + '.' + today.getFullYear();
+
+		equal( $sample.datepicker( 'getFormattedDate'), today, "Moment JS parsed date correctly for default implementation (en culture)" );
+	});
+
+	test( "should get current culture", function() {
+		// initialized with en
+		var $sample = $( html ).datepicker();
+		equal( $sample.datepicker( 'getCulture' ), 'en', 'returned correct culture from initialization' );
+
+		// changing to de to make sure it's not cached
+		$sample.datepicker( 'setCulture', 'de' );
+		equal( $sample.datepicker( 'getCulture' ), 'de', 'returned correct culture after being changed' );
+	});
+
+	test( "should set new culture", function() {
+		var $sample = $( html ).datepicker();
+		var today       = new Date();
+		var todaysDate  = ( today.getDate() < 10 ) ? '0' + today.getDate() : today.getDate();
+		var todaysMonth = ( ( today.getMonth() + 1 ) < 10 ) ?  '0' + ( today.getMonth() + 1 ) : ( today.getMonth() + 1 );
+		today           = todaysDate + '.' + todaysMonth + '.' + today.getFullYear();
+		$sample.datepicker( 'setCulture', 'de' );
+
+		equal( $sample.datepicker( 'getCulture' ), 'de', 'returned correct culture after being changed' );
+		equal( $sample.datepicker( 'getFormattedDate'), today, 'did correct formatting after dynamic update' );
+	});
+
+	test( "should get formatCode", function() {
+		// initialized with L
+		var $sample = $( html ).datepicker();
+		equal( $sample.datepicker( 'getFormatCode' ), 'L', 'returned correct formatCode from initialization' );
+
+		// changing to de to make sure it's not cached
+		$sample.datepicker( 'setFormatCode', 'l' );
+		equal( $sample.datepicker( 'getFormatCode' ), 'l', 'returned correct culture after being changed' );
+	});
+
+	test( "should set new formatCode", function() {
+		var $sample = $( html ).datepicker();
+		var today   = new Date();
+		today       = ( today.getMonth() + 1 ) + '/' +  today.getDate() + '/' + today.getFullYear();
+
+		$sample.datepicker( 'setFormatCode', 'l' );
+		equal( $sample.datepicker( 'getFormattedDate' ), today, 'returned correct culture after being changed' );
 	});
 });
