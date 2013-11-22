@@ -51,7 +51,7 @@ define(function (require) {
 
 		if( this.options.date !== null ) {
 			this.date       = this.options.date || new Date();
-			this.date       = this.parseDate( this.date, false, true );
+			this.date       = this.parseDate( this.date, false );
 			this.viewDate   = new Date( this.date.valueOf() );
 			this.stagedDate = new Date( this.date.valueOf() );
 		} else {
@@ -147,7 +147,7 @@ define(function (require) {
 		},
 
 		setDate: function( date ) {
-			this.date       = this.parseDate( date, false, true );
+			this.date       = this.parseDate( date, false );
 			this.stagedDate = this.date;
 			this.viewDate   = this.date;
 			this._render();
@@ -208,12 +208,9 @@ define(function (require) {
 		},
 
 		//some code ripped from http://stackoverflow.com/questions/2182246/javascript-dates-in-ie-nan-firefox-chrome-ok
-		parseDate: function( date, silent, datepickerEvent ) {
-			// making sure parseDate is called from datepicker, because scheduler uses it also
-			datepickerEvent = datepickerEvent || false;
-
+		parseDate: function( date, silent ) {
 			// if we have moment, use that to parse the dates
-			if( this.moment && datepickerEvent ) {
+			if( this.moment ) {
 				silent = silent || false;
 				// if silent is requested (direct user input parsing) return true or false not a date object, otherwise return a date object
 				if( silent ) {
@@ -807,7 +804,7 @@ define(function (require) {
 			var inputValue  = this.$input.val();
 
 			if( validLength === inputValue.length && this._checkKeyCode( e ) ) {
-				if( Boolean( this.parseDate( inputValue, true, true ) ) ) {
+				if( Boolean( this.parseDate( inputValue, true ) ) ) {
 					this.setDate( inputValue );
 				}
 			}
