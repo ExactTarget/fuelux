@@ -20,9 +20,12 @@ define(function (require) {
 		var failedId = err.requireModules && err.requireModules[0];
 		if (failedId === 'moment') {
 			// do nothing cause that's the point of progressive enhancement
-			if( typeof console !== 'undefined' ) {
-				console.log( "Don't worry if you're seeing a 404 that's looking for moment.js. The Fuel UX Datepicker is trying to use moment.js to give you extra features." );
-				console.log( "Checkout the Fuel UX docs (http://exacttarget.github.io/fuelux/#datepicker) to see how to integrate moment.js for more features" );
+			if( typeof window.console !== 'undefined' ) {
+				if( window.navigator.userAgent.search( 'PhantomJS' ) < 0 ) {
+					// don't show this in phantomjs tests
+					window.console.log( "Don't worry if you're seeing a 404 that's looking for moment.js. The Fuel UX Datepicker is trying to use moment.js to give you extra features." );
+					window.console.log( "Checkout the Fuel UX docs (http://exacttarget.github.io/fuelux/#datepicker) to see how to integrate moment.js for more features" );
+				}
 			}
 		}
 	});
@@ -40,6 +43,7 @@ define(function (require) {
 
 		// moment set up for parsing input dates
 		if( this._checkForMomentJS() ) {
+			moment            = moment || window.moment; // need to pull in the global moment if they didn't do it via require
 			this.moment       = true;
 			this.momentFormat = this.options.momentConfig.formatCode;
 			this.setCulture( this.options.momentConfig.culture );
@@ -151,13 +155,41 @@ define(function (require) {
 			return this.date;
 		},
 
+		getCulture: function() {
+			if( Boolean( this.moment ) ) {
+				return moment.lang();
+			} else {
+				throw "moment.js is not available so you cannot use this function";
+			}
+		},
+
 		setCulture: function( cultureCode ) {
-			moment.lang( cultureCode );
+			if( Boolean( this.moment ) ) {
+				moment.lang( cultureCode );
+			} else {
+				throw "moment.js is not available so you cannot use this function";
+			}
+		},
+
+		getFormatCode: function() {
+			if( Boolean( this.moment ) ) {
+				return this.momentFormat;
+			} else {
+				throw "moment.js is not available so you cannot use this function";
+			}
+		},
+
+		setFormatCode: function( formatCode ) {
+			if( Boolean( this.moment ) ) {
+				this.momentFormat = formatCode;
+			} else {
+				throw "moment.js is not available so you cannot use this function";
+			}
 		},
 
 		formatDate: function( date ) {
 			// if we have moment available use it to format dates. otherwise use default
-			if( this.moment ) {
+			if( Boolean( this.moment ) ) {
 				return moment( date ).format( this.momentFormat );
 			} else {
 				// this.pad to is function on extension
