@@ -164,6 +164,9 @@ define(function (require) {
 		},
 
 		setCulture: function( cultureCode ) {
+			if( !Boolean( cultureCode) ) {
+				return false;
+			}
 			if( Boolean( this.moment ) ) {
 				moment.lang( cultureCode );
 			} else {
@@ -180,6 +183,9 @@ define(function (require) {
 		},
 
 		setFormatCode: function( formatCode ) {
+			if( !Boolean( formatCode ) ) {
+				return false;
+			}
 			if( Boolean( this.moment ) ) {
 				this.momentFormat = formatCode;
 			} else {

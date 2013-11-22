@@ -310,4 +310,52 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 		var inputWidthCheck = Boolean( $sansMarkup.find( 'input' ).width() === inputWidth );
 		equal( inputWidthCheck, true, 'input has custom width via pixels' );
 	});
+
+	test( 'should not use momentjs if not available', function() {
+		var $sample       = $( html ).datepicker();
+		var momentBoolean = $sample.datepicker( '_checkForMomentJS' );
+
+		equal( momentBoolean, false, "not using moment if it's not there" );
+	});
+
+	test( 'should not be able to use any extra features if momentjs is not loaded', function() {
+		var $sample              = $( html ).datepicker();
+		var momentBoolean        = $sample.datepicker( '_checkForMomentJS' );
+		var defaultErrorReturned = "moment.js is not available so you cannot use this function";
+		var getCultureError, setCultureError, getFormatCodeError, setFormatCodeError;
+
+		// trying to get culture
+		try {
+			$sample.datepicker( 'getCulture' );
+		} catch( e ) {
+			getCultureError = e;
+		}
+
+		// trying to set culture
+		try {
+			$sample.datepicker( 'setCulture', 'de' );
+		} catch( e ) {
+			setCultureError = e;
+		}
+
+		// trying to get formatCode
+		try {
+			$sample.datepicker( 'getFormatCode' );
+		} catch( e ) {
+			getFormatCodeError = e;
+		}
+
+		// trying to set formatCode
+		try {
+			$sample.datepicker( 'setFormatCode', 'l' );
+		} catch( e ) {
+			setFormatCodeError = e;
+		}
+
+		equal( momentBoolean, false, "not using moment if it's not there" );
+		equal( getCultureError, defaultErrorReturned, "getCulture is not available for use" );
+		equal( setCultureError, defaultErrorReturned, "setCulture is not available for use" );
+		equal( getFormatCodeError, defaultErrorReturned, "getFormatCode is not available for use" );
+		equal( setFormatCodeError, defaultErrorReturned, "setFormatCode is not available for use" );
+	});
 });
