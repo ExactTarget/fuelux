@@ -111,7 +111,6 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 
 		var datepickerNewDate = $sample.datepicker( 'getDate', { unix: true });
 
-
 		equal( datepickerNewDate, newDate, 'setDate method works' );
 	});
 

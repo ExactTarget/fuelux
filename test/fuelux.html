@@ -15,11 +15,18 @@
 
 			require.config({
 				baseUrl: '../src',
+				config: {
+					moment: {
+						noGlobal: true
+					}
+				},
 				paths: {
 					jquery: '../lib/jquery-' + jqver + '.min',
 					bootstrap: '../lib/bootstrap/js',
 					fuelux: '../src',
-                    test: '../test'
+					test: '../test',
+					moment: '../path/to/moment', // wrong url because we need to test it without moment first
+					testMoment: '../lib/moment-for-tests'
 				}
 			});
 		})();
@@ -30,9 +37,10 @@
 	<script src="combobox-test.js"></script>
 	<script src="datagrid-test.js"></script>
 	<script src="datepicker-test.js"></script>
+	<script src="datepicker-moment-test.js"></script>
 	<script src="pillbox-test.js"></script>
 	<script src="radio-test.js"></script>
-    <script src="scheduler-test.js"></script>
+	<script src="scheduler-test.js"></script>
 	<script src="search-test.js"></script>
 	<script src="spinner-test.js"></script>
 	<script src="select-test.js"></script>

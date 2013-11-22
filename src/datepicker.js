@@ -8,8 +8,24 @@
 
 define(function (require) {
 
-	var $   = require('jquery');
-	var old = $.fn.datepicker;
+	var $      = require('jquery');
+	var old    = $.fn.datepicker;
+	var moment = false;
+
+	// only load moment if it's there. otherwise we'll look for it in window.moment
+	// you need to make sure moment is loaded before the rest of this module
+	require(['moment'], function( amdMoment ) {
+		moment = amdMoment;
+	}, function( err ) {
+		var failedId = err.requireModules && err.requireModules[0];
+		if (failedId === 'moment') {
+			// do nothing cause that's the point of progressive enhancement
+			if( typeof console !== 'undefined' ) {
+				console.log( "Don't worry if you're seeing a 404 that's looking for moment.js. The Fuel UX Datepicker is trying to use moment.js to give you extra features." );
+				console.log( "Checkout the Fuel UX docs (http://exacttarget.github.io/fuelux/#datepicker) to see how to integrate moment.js for more features" );
+			}
+		}
+	});
 
 	// DATEPICKER CONSTRUCTOR AND PROTOTYPE
 
@@ -26,7 +42,7 @@ define(function (require) {
 		if( this._checkForMomentJS() ) {
 			this.moment       = true;
 			this.momentFormat = this.options.momentConfig.formatCode;
-			moment.lang( this.options.momentConfig.culture );
+			this.setCulture( this.options.momentConfig.culture );
 		}
 
 		if( this.options.date !== null ) {
@@ -133,6 +149,10 @@ define(function (require) {
 			this._render();
 			this.$element.trigger( 'changed', this.date );
 			return this.date;
+		},
+
+		setCulture: function( cultureCode ) {
+			moment.lang( cultureCode );
 		},
 
 		formatDate: function( date ) {
