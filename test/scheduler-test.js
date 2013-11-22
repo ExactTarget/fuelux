@@ -130,11 +130,17 @@ require(['jquery', 'test/scheduler-markup', 'fuelux/scheduler'], function ($, sc
         var $repIntSelDrop = $scheduler.find('.repeat-interval .select .dropdown-label');
         var $repPanSpinner = $scheduler.find('.repeat-interval-panel .spinner');
         var test;
+        var tmpDatepickerVal;
+        var tmpValBool = false;
 
         $scheduler.scheduler('value', { startDateTime: '2050-03-31T05:00' });
         //make this test always present once PhantomJS fixes their bug
         if(!isPhantomJS){
-            equal($scheduler.find('.scheduler-start .datepicker input').val(), '03-31-2050', 'startDate set correctly');
+            tmpDatepickerVal = $scheduler.find('.scheduler-start .datepicker input').val();
+            if( tmpDatepickerVal === '03-31-2050' || tmpDatepickerVal === '03/31/2050' ) {
+                tmpValBool = true;
+            }
+            equal( tmpValBool, true, 'startDate set correctly');
         }
         equal($scheduler.find('.scheduler-start .combobox input').val(), '5:00 AM', 'startTime set correctly');
 
@@ -176,7 +182,7 @@ require(['jquery', 'test/scheduler-markup', 'fuelux/scheduler'], function ($, sc
 
         $scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;INTERVAL=9;UNTIL=20510331;' });
         //make this test always present once PhantomJS fixes their bug
-        test = (!isPhantomJS) ? ($scheduler.find('.scheduler-end .datepicker input').val()==='03-31-2051') : true;
+        test = (!isPhantomJS) ? ($scheduler.find('.scheduler-end .datepicker input').val() ==='03-31-2051' || $scheduler.find('.scheduler-end .datepicker input').val() ==='03/31/2051' ) : true;
         ok(($scheduler.find('.scheduler-end .select .dropdown-label').html()==='On date' && test), 'end on date set correctly');
     });
 });
