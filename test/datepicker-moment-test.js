@@ -9,10 +9,9 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 					v = 3,
 					div = document.createElement('div'),
 					all = div.getElementsByTagName('i');
-			while (
-					div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
-					all[0]
-			);
+			while ( !all[0] ) {
+				div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->';
+			}
 			return v > 4 ? v : undef;
 	}());
 
