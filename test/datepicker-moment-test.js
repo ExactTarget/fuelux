@@ -4,18 +4,31 @@
 
 require(['jquery', 'fuelux/datepicker'], function ($) {
 
-	var ie = (function(){
-			var undef,
-					v = 3,
-					div = document.createElement('div'),
-					all = div.getElementsByTagName('i');
-			while ( !all[0] ) {
-				div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->';
-			}
-			return v > 4 ? v : undef;
-	}());
+	function uaMatch( ua ) {
+		ua = ua.toLowerCase();
+		var match = /(chrome)[ \/]([\w.]+)/.exec( ua ) ||
+			/(webkit)[ \/]([\w.]+)/.exec( ua ) ||
+			/(opera)(?:.*version|)[ \/]([\w.]+)/.exec( ua ) ||
+			/(msie) ([\w.]+)/.exec( ua ) ||
+			ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec( ua ) ||
+			[];
 
-	if( ie > 9 || !Boolean( ie ) ) {
+		return {
+			browser: match[ 1 ] || "",
+			version: match[ 2 ] || "0"
+		};
+	}
+
+	var UA              = uaMatch( navigator.userAgent );
+	var runTestsBoolean = true;
+
+	if( UA.browser === "msie" ) {
+		if( parseInt( UA.version, 10 ) <= 9) {
+			runTestsBoolean = false;
+		}
+	}
+
+	if( runTestsBoolean ) {
 
 		var html = '<div>' +
 			'<div class="datepicker dropdown" id="datepicker1">' +
