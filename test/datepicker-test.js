@@ -15,7 +15,36 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 		'<div id="datepicker2"></div>' +
 	'</div>';
 
-	module('Fuel UX datepicker');
+	module('Fuel UX datepicker', {
+		setup: function() {
+			// need to do this because window.moment is inconsistent when it's loaded in IE9 or less. stupid IE
+			$.fn.extend($.fn.datepicker.Constructor.prototype, {
+				_checkForMomentJS: function () {
+					return false;
+				}
+			});
+		},
+		teardown: function() {
+			// need to do this because window.moment is inconsistent when it's loaded in IE9 or less. stupid IE
+			$.fn.extend($.fn.datepicker.Constructor.prototype, {
+				_checkForMomentJS: function () {
+					if( $.isFunction( window.moment ) || ( typeof moment !== "undefined" && $.isFunction( moment ) ) ) {
+						if( $.isPlainObject( this.options.momentConfig ) ) {
+							if( Boolean( this.options.momentConfig.culture ) && Boolean( this.options.momentConfig.formatCode ) ) {
+								return true;
+							} else {
+								return false;
+							}
+						} else {
+							return false;
+						}
+					} else {
+						return false;
+					}
+				}
+			});
+		}
+	});
 
 	test( 'should be defined on the jQuery object', function() {
 		ok( $(document.body).datepicker, 'datepicker method is defined' );
