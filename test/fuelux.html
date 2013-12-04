@@ -4,6 +4,11 @@
 	<meta charset="utf-8">
 	<title>Fuel UX Test Suite</title>
 	<link rel="stylesheet" href="../lib/qunit/qunit.css" media="screen">
+	<script src="../lib/moment.js"></script>
+	<script>
+		window.tmpMoment = window.moment;
+		window.moment    = undefined;
+	</script>
 	<script src="../lib/qunit/qunit.js"></script>
 	<script src="/testem.js"></script>
 	<script src="../lib/require.js"></script>
@@ -15,11 +20,17 @@
 
 			require.config({
 				baseUrl: '../src',
+				config: {
+					moment: {
+						noGlobal: true
+					}
+				},
 				paths: {
 					jquery: '../lib/jquery-' + jqver + '.min',
 					bootstrap: '../lib/bootstrap/js',
 					fuelux: '../src',
-                    test: '../test'
+					test: '../test',
+					moment: '../path/to/moment' // wrong url because we need to test it without moment first
 				}
 			});
 		})();
@@ -30,9 +41,10 @@
 	<script src="combobox-test.js"></script>
 	<script src="datagrid-test.js"></script>
 	<script src="datepicker-test.js"></script>
+	<script src="datepicker-moment-test.js"></script>
 	<script src="pillbox-test.js"></script>
 	<script src="radio-test.js"></script>
-    <script src="scheduler-test.js"></script>
+	<script src="scheduler-test.js"></script>
 	<script src="search-test.js"></script>
 	<script src="spinner-test.js"></script>
 	<script src="select-test.js"></script>

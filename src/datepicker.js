@@ -43,9 +43,10 @@ define(function (require) {
 
 		// moment set up for parsing input dates
 		if( this._checkForMomentJS() ) {
-			moment            = moment || window.moment; // need to pull in the global moment if they didn't do it via require
-			this.moment       = true;
-			this.momentFormat = this.options.momentConfig.formatCode;
+			moment                     = moment || window.moment; // need to pull in the global moment if they didn't do it via require
+			this.moment                = true;
+			this.momentFormat          = this.options.momentConfig.formatCode;
+			this.inputParsingKeyStokes = '';
 			this.setCulture( this.options.momentConfig.culture );
 		}
 
@@ -259,13 +260,11 @@ define(function (require) {
 			return s.substr( s.length - 2 );
 		},
 
-		_setNullDate: function( clearInput ) {
+		_setNullDate: function( showStagedDate ) {
 			this.date       = null;
 			this.viewDate   = new Date();
 			this.stagedDate = new Date();
-			if( Boolean( clearInput ) ) {
-				this._insertDateIntoInput( clearInput );
-			}
+			this._insertDateIntoInput( showStagedDate || "" );
 		},
 
 		_restrictDateSelectionSetup: function() {
@@ -809,70 +808,39 @@ define(function (require) {
 
 		},
 
-		_insertDateIntoInput: function( clearInput ) {
-			if( this.date !== null ) {
-				this.$element.find('input[type="text"]').val( this.formatDate( this.date ) );
-			} else if( Boolean( clearInput ) ) {
-				this.$element.find('input[type="text"]').val( '' );
+		_insertDateIntoInput: function( showStagedDate ) {
+			var displayDate;
+			if( Boolean( showStagedDate ) ) {
+				displayDate = this.formatDate( this.stagedDate );
+			} else if( this.date !== null ) {
+				displayDate = this.formatDate( this.date );
+			} else {
+				displayDate = '';
 			}
+			this.$element.find('input[type="text"]').val( displayDate );
 		},
 
-		_keyupDateUpdate: function( e ) {
-			var validLength  = this.formatDate( this.date ).length;
-			var $localInput  = this.$input;
-			var inputValue   = $localInput.val();
-			var self         = this;
-			var tmpModalText = '';
+		_inputDateParsing: function( e ) {
+			// the formats we support when using moment.js are either "L" or "l"
+			// these can be found here http://momentjs.com/docs/#/customization/long-date-formats/
+			var inputValue     = this.$input.val();
+			var triggerError   = true;
+			var validLengthMax = 10; // since the length of the longest date format we are going to parse is 10 ("L" format code) we will set this here.
+			var validLengthMin = validLengthMax - 2; // since the shortest date format we are going to parse is 8 ("l" format code) we will subtract the difference from the max
 
-			// change to look for 4 consecutive keystrokes that are numbers
-
-			if( validLength === inputValue.length && this._checkKeyCode( e ) ) {
+			if( inputValue >= validLengthMin || inputValue <= validLengthMax ) {
 				if( Boolean( this.parseDate( inputValue, true ) ) ) {
 					if( !this._processDateRestriction( this.parseDate( inputValue, true ) ) ) {
-						this.setDate( inputValue, true );
-					} else {
-						if( Boolean( $.isFunction( $().modal ) ) ) {
-							var $tmpModal = $('<div/>', {
-								id: 'datepickerError',
-								'class': 'modal hide',
-								tabindex: -1,
-								role: 'dialog'
-							});
-
-							tmpModalText = '<div class="modal-header"><button type="button" class="close" data-dismiss="modal">×</button><h3>Invalid Date Selected</h3></div>';
-							tmpModalText += '<div class="modal-body">The date you selected is unavailable because it is either blacked out or in the past.</div>';
-							tmpModalText += '<div class="modal-footer"><button class="btn btn-small" data-dismiss="modal">Close</button></div>';
-
-							$( document.body ).append( $tmpModal.append( tmpModalText ) );
-
-							$tmpModal.on( 'hidden', function() {
-								$(this).remove();
-								$localInput.focus();
-								self._setNullDate( true );
-							});
-
-							$tmpModal.modal();
-						} else {
-							alert( 'The date you selected is unavailable.' );
-						}
+						triggerError = false;
+						this.setDate( inputValue );
 					}
 				}
 			}
-		},
 
-		_checkKeyCode: function( e ) {
-			// only gets run if _checkForMomentJS returns true
-			// only allow numbers, function keys, and date formatting symbols
-			// Allow: Ctrl+A
-			// Allow: home, end, left, right
-			if ( $.inArray( e.keyCode, [ 46,8,9,27,13,32 ] ) !== -1 || ( e.keyCode === 65 && e.ctrlKey === true ) || ( e.keyCode >= 35 && e.keyCode <= 39 ) ) {
-				// let it happen, don't do anything
-				return false;
-			} else if ( e.shiftKey || ( e.keyCode >= 48 || e.keyCode <= 57 ) || ( e.keyCode >= 96 || e.keyCode <= 105 ) || e.keyCode === 110 ||  e.keyCode === 190 || e.keyCode === 191 ) {
-				// Ensure that it is a number and return true
-				return true;
-			} else {
-				return false;
+			if( !!triggerError ) {
+				// we will insert the staged date into the input 
+				this._setNullDate( true );
+				this.$element.trigger( 'inputParsingFailed' );
 			}
 		},
 
@@ -911,7 +879,7 @@ define(function (require) {
 		_addBindings: function() {
 			// parsing dates on user input is only available when momentjs is used
 			if( Boolean( this.moment ) ) {
-				this.$input.on( 'keyup', $.proxy( this._keyupDateUpdate, this ) );
+				this.$input.on( 'blur', $.proxy( this._inputDateParsing, this ) );
 			}
 
 			this.$calendar.on( 'click', $.proxy( this._emptySpace, this) );
@@ -978,7 +946,7 @@ define(function (require) {
 		date: new Date(),
 		momentConfig: {
 			culture: 'en',
-			formatCode: 'L' // more formats can be found here http://momentjs.com/docs/#/customization/long-date-formats/. You should use "L" or "l"
+			formatCode: 'L' // more formats can be found here http://momentjs.com/docs/#/customization/long-date-formats/. We only support "L" or "l"
 		},
 		createInput: false,
 		dropdownWidth: 170,
