@@ -72,17 +72,17 @@ define(function (require) {
 		},
 		
 		check: function () {
-            this.$chk.prop('checked', true);
-            this.setState(this.$chk);
+			this.$chk.prop('checked', true);
+			this.setState(this.$chk);
 		},
 		
 		uncheck: function () {
-            this.$chk.prop('checked', false);
-            this.setState(this.$chk);
+			this.$chk.prop('checked', false);
+			this.setState(this.$chk);
 		},
 		
 		isChecked: function () {
-            return this.$chk.is(':checked');
+			return this.$chk.is(':checked');
 		}
 	};
 
