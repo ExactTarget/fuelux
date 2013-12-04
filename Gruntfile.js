@@ -214,7 +214,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('quickcss', ['recess:compile', 'recess:compile_responsive']);
 	grunt.registerTask('fullcss', ['quickcss', 'recess:compress', 'recess:compress_responsive']);
 
-	grunt.registerTask('default', ['requirejs', 'fullcss', 'copy:images', 'clean:dist', 'uglify', 'copy:zipsrc', 'compress', 'clean:zipsrc']);
+	grunt.registerTask('default', ['fulltest', 'requirejs', 'fullcss', 'copy:images', 'clean:dist', 'uglify', 'copy:zipsrc', 'compress', 'clean:zipsrc']);
 	grunt.registerTask('devserver', ['quicktest', 'quickcss', 'connect', 'watch']);
 
 	grunt.registerTask('travisci', 'Run appropriate test strategy for Travis CI', function () {
