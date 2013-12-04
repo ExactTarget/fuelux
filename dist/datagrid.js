@@ -85,6 +85,8 @@ define(['require','jquery'],function (require) {
 
 		constructor: Datagrid,
 
+		selectedItems: {},
+
 		renderColumns: function () {
 			var $target;
 
@@ -121,6 +123,14 @@ define(['require','jquery'],function (require) {
 			$header.find('th').removeClass('sorted');
 			$('<i>').addClass(className + ' datagrid-sort').appendTo($target);
 			$target.addClass('sorted');
+		},
+
+		getSelectedItems: function () {
+			return this.selectedItems;
+		},
+
+		clearSelectedItems: function() {
+			this.selectedItems = {};
 		},
 
 		updatePageDropdown: function (data) {
@@ -181,21 +191,73 @@ define(['require','jquery'],function (require) {
 				self.updatePageDropdown(data);
 				self.updatePageButtons(data);
 
+				var multiSelect = self.options.multiSelect || false;
+				var enableSelect = self.options.enableSelect || false;
+				var selectedItemsKeys = [];
+
 				$.each(data.data, function (index, row) {
-					rowHTML += '<tr>';
-					$.each(self.columns, function (index, column) {
-						rowHTML += '<td';
-						if (column.cssClass) {
-							rowHTML += ' class="' + column.cssClass + '"';
+
+					var $tr = $('<tr/>');
+					$.each(self.columns, function(index, column) {
+						var $td = $('<td/>');
+						if(column.cssClass) {
+							$td.addClass(column.cssClass);
 						}
-						rowHTML += '>' + row[column.property] + '</td>';
+						$td.html(row[column.property]);
+						$tr.append($td);
 					});
-					rowHTML += '</tr>';
+
+					if(enableSelect) {
+						$tr.attr('data-id', row[self.options.primaryKey]);
+					}
+
+					if(enableSelect) {
+
+						if($.inArray(row[self.options.primaryKey].toString(), selectedItemsKeys) > -1) {
+							$tr.addClass('selected');
+						}
+
+						$tr.bind('click', function(e) {
+							var id = $(e.currentTarget).data('id');
+
+							if(!multiSelect) {
+
+								console.log("I am doing the multiselect block.");
+
+								// These are the keys in the selectedItems object
+								selectedItemsKeys = $.map(self.selectedItems, function(element,index) { return index; });
+
+								$.each(selectedItemsKeys, function(index, itemKey) {
+									if(itemKey !== id) {
+										$("tr[data-id='" + itemKey +"']").removeClass('selected');
+										delete self.selectedItems[itemKey];
+									}
+								});
+							}
+
+							if(self.selectedItems.hasOwnProperty(id)) {
+								delete self.selectedItems[id];
+								$(e.currentTarget).removeClass('selected');
+								self.$element.trigger('itemDeselected', row);
+							} else {
+								self.selectedItems[id] = row;
+								$(e.currentTarget).addClass('selected');
+								self.$element.trigger('itemSelected', row);
+							}
+						});
+					}
+
+					if(index === 0) {
+						self.$tbody.empty();
+					}
+
+					self.$tbody.append($tr);
 				});
 
-				if (!rowHTML) rowHTML = self.placeholderRowHTML(self.options.noDataFoundHTML);
+				if($.trim(self.$tbody.html()) === '') {
+					self.$tbody.html(self.placeholderRowHTML(self.options.noDataFoundHTML));
+				}
 
-				self.$tbody.html(rowHTML);
 				self.stretchHeight();
 
 				self.$element.trigger('loaded');

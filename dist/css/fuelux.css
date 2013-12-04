@@ -6247,6 +6247,25 @@ textarea.span1,
   border-radius: 0 4px 4px 0;
 }
 
+.fuelux .datagrid .selected {
+  background-color: #68ace7;
+}
+
+.fuelux .datagrid .selected > td {
+  color: #ffffff;
+}
+
+.fuelux .datagrid .selected > td:first-child {
+  text-indent: 30px;
+  background-image: url(../img/checkmark-white.png);
+  background-position: 8px 10px;
+  background-repeat: no-repeat;
+}
+
+.fuelux .datagrid th {
+  cursor: pointer;
+}
+
 .fuelux .datagrid thead {
   background-color: #f9f9f9;
 }

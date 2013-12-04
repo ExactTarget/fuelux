@@ -2,6 +2,27 @@
 
 .datagrid {
 
+	.selected {
+
+		background-color: #68ace7;
+
+		& > td {
+  			color: #ffffff;
+  		}
+
+		& > td:first-child {
+			padding-left: 30px;
+			background-image: url(../img/checkmark-white.png);
+			background-position: 8px 10px;
+			background-repeat: no-repeat;
+		}
+
+	}
+
+	th {
+		cursor: pointer;
+	}
+
 	thead {
 
 		background-color: @tableBackgroundAccent;
@@ -128,6 +149,7 @@
 
 }
 
+
 .datagrid-stretch-header {
 	border-bottom: 0;
 	.border-bottom-radius(0);
@@ -170,4 +192,3 @@
 		border-top: 0;
 	}
 }
-
