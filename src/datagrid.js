@@ -191,12 +191,12 @@ define(function (require) {
 				self.updatePageDropdown(data);
 				self.updatePageButtons(data);
 
-				var multiSelect = self.options.multiSelect || false;
-				var enableSelect = self.options.enableSelect || false;
+				var multiSelect = !!self.options.multiSelect;
+				var enableSelect = !!self.options.enableSelect;
 				var selectedItemsKeys = [];
 
-				if(data.data.length === 0) {
-					if(self.options.dataOptions.search !== '') {
+				if (data.data.length === 0) {
+					if (self.options.dataOptions.search !== '') {
 						self.$tbody.html(self.placeholderRowHTML('No search results found for "' + self.options.dataOptions.search + '".'));
 					} else {
 						self.$tbody.html(self.placeholderRowHTML(self.options.noDataFoundHTML));
@@ -207,63 +207,62 @@ define(function (require) {
 						var $tr = $('<tr/>');
 						$.each(self.columns, function(index, column) {
 							var $td = $('<td/>');
-							if(column.cssClass) {
+							if (column.cssClass) {
 								$td.addClass(column.cssClass);
 							}
 							$td.html(row[column.property]);
 							$tr.append($td);
 						});
 
-						if(enableSelect) {
+						if (enableSelect) {
 							$tr.attr('data-id', row[self.options.primaryKey]);
-						}
 
-						if(enableSelect) {
-
-							if($.inArray(row[self.options.primaryKey].toString(), selectedItemsKeys) > -1) {
+							if ($.inArray(row[self.options.primaryKey].toString(), selectedItemsKeys) > -1) {
 								$tr.addClass('selected');
 							}
-
-							$tr.bind('click', function(e) {
-								var id = $(e.currentTarget).data('id');
-
-								if(!multiSelect) {
-
-									console.log("I am doing the multiselect block.");
-
-									// These are the keys in the selectedItems object
-									selectedItemsKeys = $.map(self.selectedItems, function(element,index) { return index; });
-
-									$.each(selectedItemsKeys, function(index, itemKey) {
-										if(itemKey !== id) {
-											$("tr[data-id='" + itemKey +"']").removeClass('selected');
-											delete self.selectedItems[itemKey];
-										}
-									});
-								}
-
-								if(self.selectedItems.hasOwnProperty(id)) {
-									delete self.selectedItems[id];
-									$(e.currentTarget).removeClass('selected');
-									self.$element.trigger('itemDeselected', row);
-								} else {
-									self.selectedItems[id] = row;
-									$(e.currentTarget).addClass('selected');
-									self.$element.trigger('itemSelected', row);
-								}
-							});
 						}
 
-						if(index === 0) {
+						if (index === 0) {
 							self.$tbody.empty();
 						}
 
 						self.$tbody.append($tr);
 					});
 
+					if (enableSelect) {
+						self.$tbody.find('tr').bind('click', function (e) {
+							var id = $(e.currentTarget).data('id');
+
+							if (!multiSelect) {
+								$.each(self.selectedItems, function (itemKey, row) {
+									if (itemKey.toString() !== id.toString()) {
+										$("tr[data-id='" + itemKey +"']").removeClass('selected');
+										delete self.selectedItems[itemKey];
+									}
+								});
+							}
+
+							var currentRow;
+							$.each(data.data, function (index, row) {
+								if (id === row[self.options.primaryKey]) {
+									currentRow = row;
+								}
+							});
+
+							if (self.selectedItems.hasOwnProperty(id)) {
+								delete self.selectedItems[id];
+								$(e.currentTarget).removeClass('selected');
+								self.$element.trigger('itemDeselected', currentRow);
+							} else {
+								self.selectedItems[id] = currentRow;
+								$(e.currentTarget).addClass('selected');
+								self.$element.trigger('itemSelected', currentRow);
+							}
+						});
+					}
 				}
 
-				if($.trim(self.$tbody.html()) === '') {
+				if ($.trim(self.$tbody.html()) === '') {
 					self.$tbody.html(self.placeholderRowHTML(self.options.noDataFoundHTML));
 				}
 
@@ -429,8 +428,8 @@ define(function (require) {
 			var data    = $this.data( 'datagrid' );
 			var options = typeof option === 'object' && option;
 
-			if( !data ) $this.data('datagrid', (data = new Datagrid( this, options ) ) );
-			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+			if ( !data ) $this.data('datagrid', (data = new Datagrid( this, options ) ) );
+			if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
 		return ( methodReturn === undefined ) ? $set : methodReturn;
