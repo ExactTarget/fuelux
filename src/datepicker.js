@@ -8,8 +8,27 @@
 
 define(function (require) {
 
-	var $   = require('jquery');
-	var old = $.fn.datepicker;
+	var $      = require('jquery');
+	var old    = $.fn.datepicker;
+	var moment = false;
+
+	// only load moment if it's there. otherwise we'll look for it in window.moment
+	// you need to make sure moment is loaded before the rest of this module
+	require(['moment'], function( amdMoment ) {
+		moment = amdMoment;
+	}, function( err ) {
+		var failedId = err.requireModules && err.requireModules[0];
+		if (failedId === 'moment') {
+			// do nothing cause that's the point of progressive enhancement
+			if( typeof window.console !== 'undefined' ) {
+				if( window.navigator.userAgent.search( 'PhantomJS' ) < 0 ) {
+					// don't show this in phantomjs tests
+					window.console.log( "Don't worry if you're seeing a 404 that's looking for moment.js. The Fuel UX Datepicker is trying to use moment.js to give you extra features." );
+					window.console.log( "Checkout the Fuel UX docs (http://exacttarget.github.io/fuelux/#datepicker) to see how to integrate moment.js for more features" );
+				}
+			}
+		}
+	});
 
 	// DATEPICKER CONSTRUCTOR AND PROTOTYPE
 
@@ -22,9 +41,17 @@ define(function (require) {
 		this.parseDate     = this.options.parseDate || this.parseDate;
 		this.blackoutDates = this.options.blackoutDates || this.blackoutDates;
 
+		// moment set up for parsing input dates
+		if( this._checkForMomentJS() ) {
+			moment            = moment || window.moment; // need to pull in the global moment if they didn't do it via require
+			this.moment       = true;
+			this.momentFormat = this.options.momentConfig.formatCode;
+			this.setCulture( this.options.momentConfig.culture );
+		}
+
 		if( this.options.date !== null ) {
 			this.date       = this.options.date || new Date();
-			this.date       = this.parseDate( this.date );
+			this.date       = this.parseDate( this.date, false );
 			this.viewDate   = new Date( this.date.valueOf() );
 			this.stagedDate = new Date( this.date.valueOf() );
 		} else {
@@ -119,19 +146,61 @@ define(function (require) {
 			}
 		},
 
-		setDate: function( date, inputUpdate ) {
-			inputUpdate     = inputUpdate || false;
-			this.date       = this.parseDate( date, inputUpdate );
-			this.stagedDate = new Date( this.date );
-			this.viewDate   = new Date( this.date );
+		setDate: function( date ) {
+			this.date       = this.parseDate( date, false );
+			this.stagedDate = this.date;
+			this.viewDate   = this.date;
 			this._render();
 			this.$element.trigger( 'changed', this.date );
 			return this.date;
 		},
 
+		getCulture: function() {
+			if( Boolean( this.moment ) ) {
+				return moment.lang();
+			} else {
+				throw "moment.js is not available so you cannot use this function";
+			}
+		},
+
+		setCulture: function( cultureCode ) {
+			if( !Boolean( cultureCode) ) {
+				return false;
+			}
+			if( Boolean( this.moment ) ) {
+				moment.lang( cultureCode );
+			} else {
+				throw "moment.js is not available so you cannot use this function";
+			}
+		},
+
+		getFormatCode: function() {
+			if( Boolean( this.moment ) ) {
+				return this.momentFormat;
+			} else {
+				throw "moment.js is not available so you cannot use this function";
+			}
+		},
+
+		setFormatCode: function( formatCode ) {
+			if( !Boolean( formatCode ) ) {
+				return false;
+			}
+			if( Boolean( this.moment ) ) {
+				this.momentFormat = formatCode;
+			} else {
+				throw "moment.js is not available so you cannot use this function";
+			}
+		},
+
 		formatDate: function( date ) {
-			// this.pad to is function on extension
-			return this.padTwo( date.getMonth() + 1 ) + '-' + this.padTwo( date.getDate() ) + '-' + date.getFullYear();
+			// if we have moment available use it to format dates. otherwise use default
+			if( Boolean( this.moment ) ) {
+				return moment( date ).format( this.momentFormat );
+			} else {
+				// this.pad to is function on extension
+				return this.padTwo( date.getMonth() + 1 ) + '-' + this.padTwo( date.getDate() ) + '-' + date.getFullYear();
+			}
 		},
 
 		formatNativeDate: function( date ) {
@@ -139,28 +208,44 @@ define(function (require) {
 		},
 
 		//some code ripped from http://stackoverflow.com/questions/2182246/javascript-dates-in-ie-nan-firefox-chrome-ok
-		parseDate: function( date, inputUpdate ) {
-			var dt, isoExp, month, parts;
-
-			if( Boolean( date) && new Date( date ).toString() !== 'Invalid Date' ) {
-				if( typeof( date ) === 'string' && !inputUpdate  ) {
-					date   = date.split( 'T' )[ 0 ];
-					isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/;
-					dt     = new Date( NaN );
-					parts  = isoExp.exec( date );
-
-					if( parts ) {
-						month = +parts[ 2 ];
-						dt.setFullYear( parts[ 1 ], month - 1, parts[ 3 ] );
-						if( month !== dt.getMonth() + 1 ) {
-								dt.setTime( NaN );
-						}
+		parseDate: function( date, silent ) {
+			// if we have moment, use that to parse the dates
+			if( this.moment ) {
+				silent = silent || false;
+				// if silent is requested (direct user input parsing) return true or false not a date object, otherwise return a date object
+				if( silent ) {
+					if( moment( date )._d.toString() === "Invalid Date" ) {
+						return false;
+					} else {
+						return true;
 					}
-					return dt;
+				} else {
+					return moment( date )._d; //example of using moment for parsing
 				}
-				return new Date( date );
 			} else {
-				throw new Error( 'could not parse date' );
+				// if moment isn't present, use previous date parsing strategry
+				var dt, isoExp, month, parts;
+
+				if( Boolean( date) && new Date( date ).toString() !== 'Invalid Date' ) {
+					if( typeof( date ) === 'string' ) {
+						date   = date.split( 'T' )[ 0 ];
+						isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/;
+						dt     = new Date( NaN );
+						parts  = isoExp.exec( date );
+
+						if( parts ) {
+							month = +parts[ 2 ];
+							dt.setFullYear( parts[ 1 ], month - 1, parts[ 3 ] );
+							if( month !== dt.getMonth() + 1 ) {
+									dt.setTime( NaN );
+							}
+						}
+						return dt;
+					}
+					return new Date( date );
+				} else {
+					throw new Error( 'could not parse date' );
+				}
 			}
 		},
 
@@ -739,8 +824,10 @@ define(function (require) {
 			var self         = this;
 			var tmpModalText = '';
 
+			// change to look for 4 consecutive keystrokes that are numbers
+
 			if( validLength === inputValue.length && this._checkKeyCode( e ) ) {
-				if( this.parseDate( inputValue, true ).toString() !== "Invalid Date" ) {
+				if( Boolean( this.parseDate( inputValue, true ) ) ) {
 					if( !this._processDateRestriction( this.parseDate( inputValue, true ) ) ) {
 						this.setDate( inputValue, true );
 					} else {
@@ -774,6 +861,7 @@ define(function (require) {
 		},
 
 		_checkKeyCode: function( e ) {
+			// only gets run if _checkForMomentJS returns true
 			// only allow numbers, function keys, and date formatting symbols
 			// Allow: Ctrl+A
 			// Allow: home, end, left, right
@@ -783,6 +871,23 @@ define(function (require) {
 			} else if ( e.shiftKey || ( e.keyCode >= 48 || e.keyCode <= 57 ) || ( e.keyCode >= 96 || e.keyCode <= 105 ) || e.keyCode === 110 ||  e.keyCode === 190 || e.keyCode === 191 ) {
 				// Ensure that it is a number and return true
 				return true;
+			} else {
+				return false;
+			}
+		},
+
+		_checkForMomentJS: function() {
+			// this function get's run on initialization to determin if momentjs is available
+			if( $.isFunction( window.moment ) || ( typeof moment !== "undefined" && $.isFunction( moment ) ) ) {
+				if( $.isPlainObject( this.options.momentConfig ) ) {
+					if( Boolean( this.options.momentConfig.culture ) && Boolean( this.options.momentConfig.formatCode ) ) {
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					return false;
+				}
 			} else {
 				return false;
 			}
@@ -804,7 +909,11 @@ define(function (require) {
 		},
 
 		_addBindings: function() {
-			this.$input.on( 'keyup', $.proxy( this._keyupDateUpdate, this ) );
+			// parsing dates on user input is only available when momentjs is used
+			if( Boolean( this.moment ) ) {
+				this.$input.on( 'keyup', $.proxy( this._keyupDateUpdate, this ) );
+			}
+
 			this.$calendar.on( 'click', $.proxy( this._emptySpace, this) );
 
 			this.$header.find( '.left' ).on( 'click', $.proxy( this._previous, this ) );
@@ -823,7 +932,11 @@ define(function (require) {
 		},
 
 		_removeBindings: function() {
-			this.$input.off( 'keyup' );
+			// remove event only if moment is available (meaning it was initialized in the first place)
+			if( Boolean( this.moment ) ) {
+				this.$input.off( 'keyup' );
+			}
+
 			this.$calendar.off( 'click' );
 
 			this.$header.find( '.left' ).off( 'click' );
@@ -863,6 +976,10 @@ define(function (require) {
 
 	$.fn.datepicker.defaults = {
 		date: new Date(),
+		momentConfig: {
+			culture: 'en',
+			formatCode: 'L' // more formats can be found here http://momentjs.com/docs/#/customization/long-date-formats/. You should use "L" or "l"
+		},
 		createInput: false,
 		dropdownWidth: 170,
 		restrictDateSelection: true
