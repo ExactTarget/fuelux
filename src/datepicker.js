@@ -43,10 +43,9 @@ define(function (require) {
 
 		// moment set up for parsing input dates
 		if( this._checkForMomentJS() ) {
-			moment                     = moment || window.moment; // need to pull in the global moment if they didn't do it via require
-			this.moment                = true;
-			this.momentFormat          = this.options.momentConfig.formatCode;
-			this.inputParsingKeyStokes = '';
+			moment            = moment || window.moment; // need to pull in the global moment if they didn't do it via require
+			this.moment       = true;
+			this.momentFormat = this.options.momentConfig.formatCode;
 			this.setCulture( this.options.momentConfig.culture );
 		}
 
