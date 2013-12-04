@@ -52,7 +52,13 @@ define(function(require) {
             var sizer = $('<div/>').addClass('select-sizer');
             var width = 0;
 
-            $('body').append(sizer);
+            if( Boolean( $(document).find( 'html' ).hasClass( 'fuelux' ) ) ) {
+                // default behavior for fuel ux setup. means fuelux was a class on the html tag
+                $( document.body ).append( sizer );
+            } else {
+                // fuelux is not a class on the html tag. So we'll look for the first one we find so the correct styles get applied to the sizer
+                $( '.fuelux:first' ).append( sizer );
+            }
 
             // iterate through each item to find longest string
             this.$element.find('a').each(function () {
