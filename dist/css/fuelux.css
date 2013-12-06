@@ -6256,7 +6256,7 @@ textarea.span1,
 }
 
 .fuelux .datagrid .selected > td:first-child {
-  text-indent: 30px;
+  padding-left: 30px;
   background-image: url(../img/checkmark-white.png);
   background-position: 8px 10px;
   background-repeat: no-repeat;

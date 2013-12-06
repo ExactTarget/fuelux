@@ -3221,6 +3221,18 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 			return this.selectedItems;
 		},
 
+		setSelectedItems: function (selectedItems) {
+			// This merges the two arrays without carrying over any duplicates.
+			$.extend(true, this.selectedItems, selectedItems);
+
+			// Highlight the rows already rendered.
+			$.each(this.$tbody.find('tr'), function (index, row) {
+				if(selectedItems.hasOwnProperty($(row).attr('data-id'))) {
+					$(row).addClass('selected');
+				}
+			});
+		},
+
 		clearSelectedItems: function() {
 			this.selectedItems = {};
 		},
@@ -3283,68 +3295,77 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 				self.updatePageDropdown(data);
 				self.updatePageButtons(data);
 
-				var multiSelect = self.options.multiSelect || false;
-				var enableSelect = self.options.enableSelect || false;
+				var multiSelect = !!self.options.multiSelect;
+				var enableSelect = !!self.options.enableSelect;
 				var selectedItemsKeys = [];
 
-				$.each(data.data, function (index, row) {
-
-					var $tr = $('<tr/>');
-					$.each(self.columns, function(index, column) {
-						var $td = $('<td/>');
-						if(column.cssClass) {
-							$td.addClass(column.cssClass);
-						}
-						$td.html(row[column.property]);
-						$tr.append($td);
-					});
-
-					if(enableSelect) {
-						$tr.attr('data-id', row[self.options.primaryKey]);
+				if(data.data.length === 0) {
+					if(self.options.dataOptions.search !== '') {
+						self.$tbody.html(self.placeholderRowHTML('No search results found for "' + self.options.dataOptions.search + '".'));
+					} else {
+						self.$tbody.html(self.placeholderRowHTML(self.options.noDataFoundHTML));
 					}
+				} else {
 
-					if(enableSelect) {
+					// These are the keys in the selectedItems object
+					selectedItemsKeys = $.map(self.selectedItems, function(element,index) { return index.toString(); });
 
-						if($.inArray(row[self.options.primaryKey].toString(), selectedItemsKeys) > -1) {
-							$tr.addClass('selected');
-						}
+					$.each(data.data, function (index, row) {
 
-						$tr.bind('click', function(e) {
-							var id = $(e.currentTarget).data('id');
-
-							if(!multiSelect) {
-
-								console.log("I am doing the multiselect block.");
-
-								// These are the keys in the selectedItems object
-								selectedItemsKeys = $.map(self.selectedItems, function(element,index) { return index; });
-
-								$.each(selectedItemsKeys, function(index, itemKey) {
-									if(itemKey !== id) {
-										$("tr[data-id='" + itemKey +"']").removeClass('selected');
-										delete self.selectedItems[itemKey];
-									}
-								});
+						var $tr = $('<tr/>');
+						$.each(self.columns, function(index, column) {
+							var $td = $('<td/>');
+							if(column.cssClass) {
+								$td.addClass(column.cssClass);
 							}
-
-							if(self.selectedItems.hasOwnProperty(id)) {
-								delete self.selectedItems[id];
-								$(e.currentTarget).removeClass('selected');
-								self.$element.trigger('itemDeselected', row);
-							} else {
-								self.selectedItems[id] = row;
-								$(e.currentTarget).addClass('selected');
-								self.$element.trigger('itemSelected', row);
-							}
+							$td.html(row[column.property]);
+							$tr.append($td);
 						});
-					}
 
-					if(index === 0) {
-						self.$tbody.empty();
-					}
+						if(enableSelect) {
+							$tr.attr('data-id', row[self.options.primaryKey]);
 
-					self.$tbody.append($tr);
-				});
+							if($.inArray(row[self.options.primaryKey].toString(), selectedItemsKeys) > -1) {
+								$tr.addClass('selected');
+							}
+
+							$tr.bind('click', function(e) {
+								var id = $(e.currentTarget).data('id');
+
+								// These are the keys in the selectedItems object when the click occurs.
+								// Although similar, this differs from selectedItemsKeys above.
+								var clickSelectedItemsKeys = $.map(self.selectedItems, function(element,index) {
+									return index.toString();
+								});
+
+								if(!multiSelect) {
+									$.each(mySelectedItemsKeys, function(index, itemKey) {
+										if(itemKey !== id) {
+											$("tr[data-id='" + itemKey +"']").removeClass('selected');
+											delete self.selectedItems[itemKey];
+										}
+									});
+								}
+
+								if(self.selectedItems.hasOwnProperty(id)) {
+									delete self.selectedItems[id];
+									$(e.currentTarget).removeClass('selected');
+									self.$element.trigger('itemDeselected', row);
+								} else {
+									self.selectedItems[id] = row;
+									$(e.currentTarget).addClass('selected');
+									self.$element.trigger('itemSelected', row);
+								}
+							});
+						}
+
+						if(index === 0) {
+							self.$tbody.empty();
+						}
+
+						self.$tbody.append($tr);
+					});
+				}
 
 				if($.trim(self.$tbody.html()) === '') {
 					self.$tbody.html(self.placeholderRowHTML(self.options.noDataFoundHTML));

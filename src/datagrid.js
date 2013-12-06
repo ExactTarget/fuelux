@@ -129,6 +129,18 @@ define(function (require) {
 			return this.selectedItems;
 		},
 
+		setSelectedItems: function (selectedItems) {
+			// This merges the two arrays without carrying over any duplicates.
+			$.extend(true, this.selectedItems, selectedItems);
+
+			// Highlight the rows already rendered.
+			$.each(this.$tbody.find('tr'), function (index, row) {
+				if(selectedItems.hasOwnProperty($(row).attr('data-id'))) {
+					$(row).addClass('selected');
+				}
+			});
+		},
+
 		clearSelectedItems: function() {
 			this.selectedItems = {};
 		},
@@ -191,8 +203,8 @@ define(function (require) {
 				self.updatePageDropdown(data);
 				self.updatePageButtons(data);
 
-				var multiSelect = self.options.multiSelect || false;
-				var enableSelect = self.options.enableSelect || false;
+				var multiSelect = !!self.options.multiSelect;
+				var enableSelect = !!self.options.enableSelect;
 				var selectedItemsKeys = [];
 
 				if(data.data.length === 0) {
@@ -202,6 +214,10 @@ define(function (require) {
 						self.$tbody.html(self.placeholderRowHTML(self.options.noDataFoundHTML));
 					}
 				} else {
+
+					// These are the keys in the selectedItems object
+					selectedItemsKeys = $.map(self.selectedItems, function(element,index) { return index.toString(); });
+
 					$.each(data.data, function (index, row) {
 
 						var $tr = $('<tr/>');
@@ -216,9 +232,6 @@ define(function (require) {
 
 						if(enableSelect) {
 							$tr.attr('data-id', row[self.options.primaryKey]);
-						}
-
-						if(enableSelect) {
 
 							if($.inArray(row[self.options.primaryKey].toString(), selectedItemsKeys) > -1) {
 								$tr.addClass('selected');
@@ -227,14 +240,14 @@ define(function (require) {
 							$tr.bind('click', function(e) {
 								var id = $(e.currentTarget).data('id');
 
+								// These are the keys in the selectedItems object when the click occurs.
+								// Although similar, this differs from selectedItemsKeys above.
+								var clickSelectedItemsKeys = $.map(self.selectedItems, function(element,index) {
+									return index.toString();
+								});
+
 								if(!multiSelect) {
-
-									console.log("I am doing the multiselect block.");
-
-									// These are the keys in the selectedItems object
-									selectedItemsKeys = $.map(self.selectedItems, function(element,index) { return index; });
-
-									$.each(selectedItemsKeys, function(index, itemKey) {
+									$.each(mySelectedItemsKeys, function(index, itemKey) {
 										if(itemKey !== id) {
 											$("tr[data-id='" + itemKey +"']").removeClass('selected');
 											delete self.selectedItems[itemKey];
@@ -260,7 +273,6 @@ define(function (require) {
 
 						self.$tbody.append($tr);
 					});
-
 				}
 
 				if($.trim(self.$tbody.html()) === '') {
