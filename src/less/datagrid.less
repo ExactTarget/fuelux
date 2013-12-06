@@ -2,23 +2,6 @@
 
 .datagrid {
 
-	.selected {
-
-		background-color: #68ace7;
-
-		& > td {
-  			color: #ffffff;
-  		}
-
-		& > td:first-child {
-			padding-left: 30px;
-			background-image: url(../img/checkmark-white.png);
-			background-position: 8px 10px;
-			background-repeat: no-repeat;
-		}
-
-	}
-
 	th {
 		cursor: pointer;
 	}
@@ -78,6 +61,25 @@
 			}
 		}
 
+	}
+
+	tbody {
+		tr.selected {
+
+			background-color: #68ace7;
+
+			& > td {
+				color: #ffffff;
+			}
+
+			& > td:first-child {
+				padding-left: 30px;
+				background-image: url(../img/checkmark-white.png);
+				background-position: 8px 10px;
+				background-repeat: no-repeat;
+			}
+
+		}
 	}
 
 	tfoot {
