@@ -142,6 +142,11 @@ define(function (require) {
 		},
 
 		clearSelectedItems: function() {
+			// Remove highlight from any selected rows.
+			$.each(this.$tbody.find('tr'), function (index, row) {
+				$(row).removeClass('selected');
+			});
+
 			this.selectedItems = {};
 		},
 
