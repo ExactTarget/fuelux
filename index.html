@@ -297,7 +297,11 @@
 
 			$('#datepicker1').on('changed', function( event, data ) {
 				console.log( 'datepicker change event fired' );
-			})
+			});
+
+			$('#datepicker1').on('inputParsingFailed', function() {
+				console.log( 'datepicker inputParsingFailed event fired' );
+			});
 
 			$('#datepicker-enable').on('click', function() {
 				$('#datepicker1').datepicker('enable');

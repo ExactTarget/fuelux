@@ -60,6 +60,8 @@ define(function (require) {
 			this.stagedDate = new Date();
 		}
 
+		this.elementClicked = null;
+
 		this.viewDate.setHours( 0,0,0,0 );
 		this.stagedDate.setHours( 0,0,0,0 );
 
@@ -264,6 +266,7 @@ define(function (require) {
 			this.viewDate   = new Date();
 			this.stagedDate = new Date();
 			this._insertDateIntoInput( showStagedDate || "" );
+			this._renderWithoutInputManipulation();
 		},
 
 		_restrictDateSelectionSetup: function() {
@@ -532,7 +535,10 @@ define(function (require) {
 			while( paddingBottom + paddingTop + ( labelSize * 3 ) > this.options.dropdownWidth ) {
 				paddingBottom -= 0.1;
 			}
-			
+
+			paddingTop    = parseInt( paddingTop / 2, 10 );
+			paddingBottom = parseInt( paddingBottom / 2, 10 );
+
 			this.$calendar.css({
 				'float': 'left'
 			});
@@ -771,6 +777,15 @@ define(function (require) {
 			this._updateCss();
 		},
 
+		_renderWithoutInputManipulation: function() {
+			this._updateCalendarData();
+			if ( Boolean( this.bindingsAdded ) ) this._removeBindings();
+			this.$element.find( '.dropdown-menu' ).html( this._renderCalendar() );
+			this._initializeCalendarElements();
+			this._addBindings();
+			this._updateCss();
+		},
+
 		_renderInput: function() {
 			var input = ( Boolean( this.options.createInput.native ) ) ? this._renderInputNative() : this._renderInputHTML();
 			this.$element.html( input );
@@ -827,13 +842,15 @@ define(function (require) {
 			var validLengthMax = 10; // since the length of the longest date format we are going to parse is 10 ("L" format code) we will set this here.
 			var validLengthMin = validLengthMax - 2; // since the shortest date format we are going to parse is 8 ("l" format code) we will subtract the difference from the max
 
-			if( inputValue >= validLengthMin || inputValue <= validLengthMax ) {
+			if( inputValue.length >= validLengthMin && inputValue.length <= validLengthMax ) {
 				if( Boolean( this.parseDate( inputValue, true ) ) ) {
-					if( !this._processDateRestriction( this.parseDate( inputValue, true ) ) ) {
+					if( !this._processDateRestriction( this.parseDate( inputValue ) ) ) {
 						triggerError = false;
 						this.setDate( inputValue );
 					}
 				}
+			} else {
+				triggerError = false; // don't want to trigger an error because they don't have the correct length
 			}
 
 			if( !!triggerError ) {
@@ -876,9 +893,21 @@ define(function (require) {
 		},
 
 		_addBindings: function() {
+			var self = this;
 			// parsing dates on user input is only available when momentjs is used
 			if( Boolean( this.moment ) ) {
-				this.$input.on( 'blur', $.proxy( this._inputDateParsing, this ) );
+				$(document.body).on( 'mousedown', function( mousedownEvent ) {
+					if( self.$calendar.find( mousedownEvent.target ).length > 0 ) {
+						self.elementClicked = 'calendar';
+					} else {
+						self.elementClicked = null;
+					}
+				});
+				this.$input.on( 'blur', function() {
+					if( self.elementClicked === null ) {
+						self._inputDateParsing();
+					}
+				});
 			}
 
 			this.$calendar.on( 'click', $.proxy( this._emptySpace, this) );
@@ -901,7 +930,7 @@ define(function (require) {
 		_removeBindings: function() {
 			// remove event only if moment is available (meaning it was initialized in the first place)
 			if( Boolean( this.moment ) ) {
-				this.$input.off( 'keyup' );
+				this.$input.off( 'blur' );
 			}
 
 			this.$calendar.off( 'click' );
