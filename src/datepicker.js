@@ -66,7 +66,6 @@ define(function (require) {
 		this.stagedDate.setHours( 0,0,0,0 );
 
 		this.done      = false;
-		this.callbacks = [];
 
 		this.minDate = new Date();
 		this.minDate.setDate( this.minDate.getDate() - 1 );
@@ -377,12 +376,6 @@ define(function (require) {
 			return this._show( !hide );
 		},
 
-		_runCallbacks: function() {
-			for (var i = 0; i < this.callbacks.length; i++) {
-				this.callbacks[ i ]( this.date );
-			}
-		},
-
 		_showView: function( view ) {
 			if( view === 1 ) {
 				this.options.showDays   = true;
@@ -583,7 +576,6 @@ define(function (require) {
 			this.setDate( this.stagedDate );
 			this._render();
 			this.done = true;
-			this._runCallbacks();
 		},
 
 		_pickYear: function( e ) {
