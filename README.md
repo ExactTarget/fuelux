@@ -10,7 +10,7 @@ simple updates, and solid optimization for deployment. All functionality is cove
 
 ## Features
 
-Fuel UX provides all of the styles and plugins from the revolutionary [Twitter Bootstrap](http://twitter.github.com/bootstrap) project, with the following additions:
+Fuel UX provides all of the styles and plugins from the revolutionary [Twitter Bootstrap](https://github.com/twbs/bootstrap) project, with the following additions:
 
 * Fuel UX JavaScript controls (with unit tests) [see them live](http://exacttarget.github.com/fuelux)
   * Checkbox - _consistent cross-browser cross-platform look and feel for checkbox elements_
@@ -139,7 +139,7 @@ We are grateful to the maintainers, contributors, and sponsors of the following 
 
 * [jQuery](http://jquery.com) (Library for DOM, events, animation, and AJAX)
 
-* [Twitter Bootstrap](http://twitter.github.com/bootstrap) (Modern UI components and interactions)
+* [Twitter Bootstrap](https://github.com/twbs/bootstrap) (Modern UI components and interactions)
 
 * [LESS](http://lesscss.org) and [recess](http://twitter.github.com/recess) (Stylesheet definition and management)
 
