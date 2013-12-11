@@ -6338,10 +6338,15 @@ textarea.span1,
 }
 
 .fuelux .datagrid tbody tr.selected > td:first-child {
-  padding-left: 30px;
   background-image: url(../img/checkmark-white.png);
   background-position: 8px 10px;
   background-repeat: no-repeat;
+}
+
+.fuelux .datagrid tbody tr.selected > td:first-child > div:first-child {
+  position: relative;
+  left: 22px;
+  padding-left: 0;
 }
 
 .fuelux .datagrid tfoot {

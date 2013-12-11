@@ -2890,9 +2890,19 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 					$(row).addClass('selected');
 				}
 			});
+
+
+
+
+
 		},
 
 		clearSelectedItems: function() {
+			// Remove highlight from any selected rows.
+			$.each(this.$tbody.find('tr'), function (index, row) {
+				$(row).removeClass('selected');
+			});
+
 			this.selectedItems = {};
 		},
 
@@ -2976,7 +2986,15 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 							if (column.cssClass) {
 								$td.addClass(column.cssClass);
 							}
-							$td.html(row[column.property]);
+
+							// The content for this first <td> is being placed
+							// in a div to better control the left offset needed
+							// to show the checkmark.  This div will be moved to
+							// the right by 22px when the row is selected.
+							var $md = $('<div/>');
+							$md.html(row[column.property]);
+
+							$td.html($md);
 							$tr.append($td);
 						});
 
@@ -3155,6 +3173,9 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 		},
 
 		setColumnWidths: function () {
+
+console.log("I am calling setColumnWidths"); // TEMP
+
 			if (!this.$sizingHeader) return;
 
 			this.$element.prepend(this.$sizingHeader);
