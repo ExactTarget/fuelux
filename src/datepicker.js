@@ -60,7 +60,7 @@ define(function (require) {
 			this.stagedDate = new Date();
 		}
 
-		this.elementClicked = null;
+		this.inputParsingTarget = null;
 
 		this.viewDate.setHours( 0,0,0,0 );
 		this.stagedDate.setHours( 0,0,0,0 );
@@ -563,6 +563,7 @@ define(function (require) {
 		},
 
 		_select: function( e ) {
+			this.inputParsingTarget = null;
 			if( e.target.className.indexOf( 'restrict' ) > -1 ) {
 				return this._killEvent(e);
 			} else {
@@ -826,7 +827,7 @@ define(function (require) {
 			this.$element.find('input[type="text"]').val( displayDate );
 		},
 
-		_inputDateParsing: function( e ) {
+		_inputDateParsing: function() {
 			// the formats we support when using moment.js are either "L" or "l"
 			// these can be found here http://momentjs.com/docs/#/customization/long-date-formats/
 			var inputValue     = this.$input.val();
@@ -886,17 +887,18 @@ define(function (require) {
 
 		_addBindings: function() {
 			var self = this;
+
 			// parsing dates on user input is only available when momentjs is used
 			if( Boolean( this.moment ) ) {
-				$(document.body).on( 'mousedown', function( mousedownEvent ) {
-					if( self.$calendar.find( mousedownEvent.target ).length > 0 ) {
-						self.elementClicked = 'calendar';
-					} else {
-						self.elementClicked = null;
-					}
+				this.$calendar.on( 'mouseover', function() {
+					self.inputParsingTarget = 'calendar';
 				});
+				this.$calendar.on( 'mouseout', function() {
+					self.inputParsingTarget = null;
+				});
+
 				this.$input.on( 'blur', function() {
-					if( self.elementClicked === null ) {
+					if( self.inputParsingTarget === null ) {
 						self._inputDateParsing();
 					}
 				});
@@ -922,6 +924,8 @@ define(function (require) {
 		_removeBindings: function() {
 			// remove event only if moment is available (meaning it was initialized in the first place)
 			if( Boolean( this.moment ) ) {
+				this.$calendar.off( 'mouseover' );
+				this.$calendar.off( 'mouseout' );
 				this.$input.off( 'blur' );
 			}
 
