@@ -1235,6 +1235,22 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 						<td>setDate</td>
 						<td>Set's datepicker to date provided. Date provided must be a valid Date Object. For example: <code>$('#myDatepicker').datepicker('setDate', new Date());</code></td>
 					</tr>
+					<tr>
+						<td>getCulture</td>
+						<td>Returns the culture the datepicker is currently using. <strong>Only available with Moment JS</strong></td>
+					</tr>
+					<tr>
+						<td>setCulture</td>
+						<td>Updates the culture the datepicker uses. <strong>Only available with Moment JS</strong></td>
+					</tr>
+					<tr>
+						<td>getFormatCode</td>
+						<td>Returns the format code the datepicker is currently using. <strong>Only available with Moment JS</strong></td>
+					</tr>
+					<tr>
+						<td>setFormatCode</td>
+						<td>Updates the format code the datepicker uses. <strong>Only available with Moment JS</strong></td>
+					</tr>
 				</tbody>
 			</table>
 
@@ -1299,6 +1315,16 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 						<td>Function restricts date selection. A date is passed as a parameter. Boolean value should be returned</td>
 						<td><code>false</code></td>
 					</tr>
+					<tr>
+						<td>momentConfig</td>
+						<td>Object that handles culture and format if Moment JS is available</td>
+						<td><pre class="prettyprint">{
+  culture: 'en',
+  formatCode: 'L'
+}
+</pre>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 
@@ -1317,6 +1343,10 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 					<td>changed</td>
 					<td>This event is fired when the date of the datepicker is changed.</td>
 				</tr>
+				<tr>
+					<td>inputParsingFailed</td>
+					<td>This event is fired when an invalid date is parsed on blur of the datepicker. <strong>Only available with Moment JS</strong></td>
+				</tr>
 				</tbody>
 			</table>
 
@@ -1334,6 +1364,8 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 &lt;/div&gt;
 </pre>
 
+			<h3>Sample Initializations</h3>
+			<p>I have put together some <a href="https://gist.github.com/vernak2539/7589085" target="_blank">sample code for different initializations</a> of the Datepicker. Let us know if anything is missing.</p>
 		</div>
 	</div>
 </section>
