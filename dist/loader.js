@@ -2823,17 +2823,17 @@ define('fuelux/checkbox',['require','jquery'],function (require) {
 		},
 		
 		check: function () {
-            this.$chk.prop('checked', true);
-            this.setState(this.$chk);
+			this.$chk.prop('checked', true);
+			this.setState(this.$chk);
 		},
 		
 		uncheck: function () {
-            this.$chk.prop('checked', false);
-            this.setState(this.$chk);
+			this.$chk.prop('checked', false);
+			this.setState(this.$chk);
 		},
 		
 		isChecked: function () {
-            return this.$chk.is(':checked');
+			return this.$chk.is(':checked');
 		}
 	};
 
@@ -2879,6 +2879,7 @@ define('fuelux/checkbox',['require','jquery'],function (require) {
 		});
 	});
 });
+
 /*
  * Fuel UX Utilities
  * https://github.com/ExactTarget/fuelux
@@ -3483,8 +3484,27 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 
 define('fuelux/datepicker',['require','jquery'],function (require) {
 
-	var $   = require('jquery');
-	var old = $.fn.datepicker;
+	var $      = require('jquery');
+	var old    = $.fn.datepicker;
+	var moment = false;
+
+	// only load moment if it's there. otherwise we'll look for it in window.moment
+	// you need to make sure moment is loaded before the rest of this module
+	require(['moment'], function( amdMoment ) {
+		moment = amdMoment;
+	}, function( err ) {
+		var failedId = err.requireModules && err.requireModules[0];
+		if (failedId === 'moment') {
+			// do nothing cause that's the point of progressive enhancement
+			if( typeof window.console !== 'undefined' ) {
+				if( window.navigator.userAgent.search( 'PhantomJS' ) < 0 ) {
+					// don't show this in phantomjs tests
+					window.console.log( "Don't worry if you're seeing a 404 that's looking for moment.js. The Fuel UX Datepicker is trying to use moment.js to give you extra features." );
+					window.console.log( "Checkout the Fuel UX docs (http://exacttarget.github.io/fuelux/#datepicker) to see how to integrate moment.js for more features" );
+				}
+			}
+		}
+	});
 
 	// DATEPICKER CONSTRUCTOR AND PROTOTYPE
 
@@ -3497,16 +3517,31 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 		this.parseDate     = this.options.parseDate || this.parseDate;
 		this.blackoutDates = this.options.blackoutDates || this.blackoutDates;
 
-		this.date = this.options.date || new Date();
-		this.date = this.parseDate( this.date );
+		// moment set up for parsing input dates
+		if( this._checkForMomentJS() ) {
+			moment            = moment || window.moment; // need to pull in the global moment if they didn't do it via require
+			this.moment       = true;
+			this.momentFormat = this.options.momentConfig.formatCode;
+			this.setCulture( this.options.momentConfig.culture );
+		}
 
-		this.viewDate   = new Date( this.date.valueOf() );
-		this.stagedDate = new Date( this.date.valueOf() );
+		if( this.options.date !== null ) {
+			this.date       = this.options.date || new Date();
+			this.date       = this.parseDate( this.date, false );
+			this.viewDate   = new Date( this.date.valueOf() );
+			this.stagedDate = new Date( this.date.valueOf() );
+		} else {
+			this.date       = null;
+			this.viewDate   = new Date();
+			this.stagedDate = new Date();
+		}
+
+		this.inputParsingTarget = null;
+
 		this.viewDate.setHours( 0,0,0,0 );
 		this.stagedDate.setHours( 0,0,0,0 );
 
 		this.done      = false;
-		this.callbacks = [];
 
 		this.minDate = new Date();
 		this.minDate.setDate( this.minDate.getDate() - 1 );
@@ -3588,19 +3623,61 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 			}
 		},
 
-		setDate: function( date, inputUpdate ) {
-			inputUpdate     = inputUpdate || false;
-			this.date       = this.parseDate( date, inputUpdate );
-			this.stagedDate = new Date( this.date );
-			this.viewDate   = new Date( this.date );
+		setDate: function( date ) {
+			this.date       = this.parseDate( date, false );
+			this.stagedDate = this.date;
+			this.viewDate   = this.date;
 			this._render();
 			this.$element.trigger( 'changed', this.date );
 			return this.date;
 		},
 
+		getCulture: function() {
+			if( Boolean( this.moment ) ) {
+				return moment.lang();
+			} else {
+				throw "moment.js is not available so you cannot use this function";
+			}
+		},
+
+		setCulture: function( cultureCode ) {
+			if( !Boolean( cultureCode) ) {
+				return false;
+			}
+			if( Boolean( this.moment ) ) {
+				moment.lang( cultureCode );
+			} else {
+				throw "moment.js is not available so you cannot use this function";
+			}
+		},
+
+		getFormatCode: function() {
+			if( Boolean( this.moment ) ) {
+				return this.momentFormat;
+			} else {
+				throw "moment.js is not available so you cannot use this function";
+			}
+		},
+
+		setFormatCode: function( formatCode ) {
+			if( !Boolean( formatCode ) ) {
+				return false;
+			}
+			if( Boolean( this.moment ) ) {
+				this.momentFormat = formatCode;
+			} else {
+				throw "moment.js is not available so you cannot use this function";
+			}
+		},
+
 		formatDate: function( date ) {
-			// this.pad to is function on extension
-			return this.padTwo( date.getMonth() + 1 ) + '-' + this.padTwo( date.getDate() ) + '-' + date.getFullYear();
+			// if we have moment available use it to format dates. otherwise use default
+			if( Boolean( this.moment ) ) {
+				return moment( date ).format( this.momentFormat );
+			} else {
+				// this.pad to is function on extension
+				return this.padTwo( date.getMonth() + 1 ) + '-' + this.padTwo( date.getDate() ) + '-' + date.getFullYear();
+			}
 		},
 
 		formatNativeDate: function( date ) {
@@ -3608,28 +3685,44 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 		},
 
 		//some code ripped from http://stackoverflow.com/questions/2182246/javascript-dates-in-ie-nan-firefox-chrome-ok
-		parseDate: function( date, inputUpdate ) {
-			var dt, isoExp, month, parts;
-
-			if( Boolean( date) && new Date( date ) !== 'Invalid Date' ) {
-				if( typeof( date ) === 'string' && !inputUpdate  ) {
-					date   = date.split( 'T' )[ 0 ];
-					isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/;
-					dt     = new Date( NaN );
-					parts  = isoExp.exec( date );
-
-					if( parts ) {
-						month = +parts[ 2 ];
-						dt.setFullYear( parts[ 1 ], month - 1, parts[ 3 ] );
-						if( month !== dt.getMonth() + 1 ) {
-								dt.setTime( NaN );
-						}
+		parseDate: function( date, silent ) {
+			// if we have moment, use that to parse the dates
+			if( this.moment ) {
+				silent = silent || false;
+				// if silent is requested (direct user input parsing) return true or false not a date object, otherwise return a date object
+				if( silent ) {
+					if( moment( date )._d.toString() === "Invalid Date" ) {
+						return false;
+					} else {
+						return true;
 					}
-					return dt;
+				} else {
+					return moment( date )._d; //example of using moment for parsing
 				}
-				return new Date( date );
 			} else {
-				throw new Error( 'could not parse date' );
+				// if moment isn't present, use previous date parsing strategry
+				var dt, isoExp, month, parts;
+
+				if( Boolean( date) && new Date( date ).toString() !== 'Invalid Date' ) {
+					if( typeof( date ) === 'string' ) {
+						date   = date.split( 'T' )[ 0 ];
+						isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/;
+						dt     = new Date( NaN );
+						parts  = isoExp.exec( date );
+
+						if( parts ) {
+							month = +parts[ 2 ];
+							dt.setFullYear( parts[ 1 ], month - 1, parts[ 3 ] );
+							if( month !== dt.getMonth() + 1 ) {
+									dt.setTime( NaN );
+							}
+						}
+						return dt;
+					}
+					return new Date( date );
+				} else {
+					throw new Error( 'could not parse date' );
+				}
 			}
 		},
 
@@ -3641,6 +3734,14 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 		padTwo: function( value ) {
 			var s = '0' + value;
 			return s.substr( s.length - 2 );
+		},
+
+		_setNullDate: function( showStagedDate ) {
+			this.date       = null;
+			this.viewDate   = new Date();
+			this.stagedDate = new Date();
+			this._insertDateIntoInput( showStagedDate || "" );
+			this._renderWithoutInputManipulation();
 		},
 
 		_restrictDateSelectionSetup: function() {
@@ -3656,6 +3757,32 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 			}
 			this.options.restrictLastMonth = scopedLastMonth;
 			this.options.restrictNextMonth = scopedNextMonth;
+		},
+
+		_processDateRestriction: function( date, returnClasses ) {
+			var classes         = '';
+			var restrictBoolean = false;
+			returnClasses       = returnClasses || false;
+
+			if( date <= this.minDate || date >= this.maxDate ) {
+				if ( Boolean( this.blackoutDates( date ) ) ) {
+					classes += ' restrict blackout';
+					restrictBoolean = true;
+				} else if ( Boolean( this.options ) && Boolean( this.options.restrictDateSelection ) ) {
+					classes += ' restrict';
+					restrictBoolean = true;
+				} else {
+					classes += ' past';
+				}
+			} else if(  Boolean( this.blackoutDates( date ) ) ) {
+				classes += ' restrict blackout';
+				restrictBoolean = true;
+			}
+			if( Boolean( returnClasses ) ) {
+				return classes;
+			} else {
+				return restrictBoolean;
+			}
 		},
 
 		_repeat: function( head, collection, iterator, tail) {
@@ -3725,12 +3852,6 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 			return this._show( !hide );
 		},
 
-		_runCallbacks: function() {
-			for (var i = 0; i < this.callbacks.length; i++) {
-				this.callbacks[ i ]( this.date );
-			}
-		},
-
 		_showView: function( view ) {
 			if( view === 1 ) {
 				this.options.showDays   = true;
@@ -3771,12 +3892,8 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 				var tmpLastMonthDaysObj        = {};
 				tmpLastMonthDaysObj.number     = this.daysOfLastMonth[ x ];
 				tmpLastMonthDaysObj[ 'class' ] = '';
-
-				if( Boolean( this.blackoutDates( new Date( viewedYear, viewedMonth + 1, this.daysOfLastMonth[ x ], 0, 0, 0, 0 ) ) ) ) {
-					tmpLastMonthDaysObj[ 'class' ] = 'restrict blackout';
-				}
-
-				this.daysOfLastMonth[ x ] = tmpLastMonthDaysObj;
+				tmpLastMonthDaysObj[ 'class' ] = this._processDateRestriction( new Date( viewedYear, viewedMonth + 1, this.daysOfLastMonth[ x ], 0, 0, 0, 0 ), true );
+				this.daysOfLastMonth[ x ]      = tmpLastMonthDaysObj;
 			}
 
 			// blackout functionality for dates of next month on current calendar view
@@ -3784,12 +3901,8 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 				var tmpNextMonthDaysObj        = {};
 				tmpNextMonthDaysObj.number     = this.daysOfNextMonth[ b ];
 				tmpNextMonthDaysObj[ 'class' ] = '';
-
-				if( Boolean( this.blackoutDates( new Date( viewedYear, viewedMonth + 1, this.daysOfNextMonth[ b ], 0, 0, 0, 0 ) ) ) ) {
-					tmpNextMonthDaysObj[ 'class' ] = 'restrict blackout';
-				}
-
-				this.daysOfNextMonth[ b ] = tmpNextMonthDaysObj;
+				tmpNextMonthDaysObj[ 'class' ] = this._processDateRestriction( new Date( viewedYear, viewedMonth + 1, this.daysOfNextMonth[ b ], 0, 0, 0, 0 ), true );
+				this.daysOfNextMonth[ b ]      = tmpNextMonthDaysObj;
 			}
 
 			var now                  = new Date();
@@ -3823,18 +3936,8 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 					weekDayClass += ' today';
 				}
 
-				var dt = new Date( viewedYear, viewedMonth, daysOfThisMonth[ i ], 0, 0, 0, 0 );
-				if( dt <= this.minDate || dt >= this.maxDate ) {
-					if ( Boolean( this.blackoutDates( dt ) ) ) {
-						weekDayClass += ' restrict blackout';
-					} else if ( Boolean( this.options ) && Boolean( this.options.restrictDateSelection ) ) {
-						weekDayClass += ' restrict';
-					} else {
-						weekDayClass += ' past';
-					}
-				} else if(  Boolean( this.blackoutDates( dt ) ) ) {
-					weekDayClass += ' restrict blackout';
-				}
+				var dt       = new Date( viewedYear, viewedMonth, daysOfThisMonth[ i ], 0, 0, 0, 0 );
+				weekDayClass += this._processDateRestriction( dt, true );
 
 				this.daysOfThisMonth[ this.daysOfThisMonth.length ] = {
 					'number': daysOfThisMonth[ i ],
@@ -3901,7 +4004,10 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 			while( paddingBottom + paddingTop + ( labelSize * 3 ) > this.options.dropdownWidth ) {
 				paddingBottom -= 0.1;
 			}
-			
+
+			paddingTop    = parseInt( paddingTop / 2, 10 );
+			paddingBottom = parseInt( paddingBottom / 2, 10 );
+
 			this.$calendar.css({
 				'float': 'left'
 			});
@@ -3933,6 +4039,7 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 		},
 
 		_select: function( e ) {
+			this.inputParsingTarget = null;
 			if( e.target.className.indexOf( 'restrict' ) > -1 ) {
 				return this._killEvent(e);
 			} else {
@@ -3946,7 +4053,6 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 			this.setDate( this.stagedDate );
 			this._render();
 			this.done = true;
-			this._runCallbacks();
 		},
 
 		_pickYear: function( e ) {
@@ -4140,6 +4246,15 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 			this._updateCss();
 		},
 
+		_renderWithoutInputManipulation: function() {
+			this._updateCalendarData();
+			if ( Boolean( this.bindingsAdded ) ) this._removeBindings();
+			this.$element.find( '.dropdown-menu' ).html( this._renderCalendar() );
+			this._initializeCalendarElements();
+			this._addBindings();
+			this._updateCss();
+		},
+
 		_renderInput: function() {
 			var input = ( Boolean( this.options.createInput.native ) ) ? this._renderInputNative() : this._renderInputHTML();
 			this.$element.html( input );
@@ -4176,29 +4291,56 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 
 		},
 
-		_insertDateIntoInput: function() {
-			this.$element.find('input[type="text"]').val( this.formatDate( this.date ) );
+		_insertDateIntoInput: function( showStagedDate ) {
+			var displayDate;
+			if( Boolean( showStagedDate ) ) {
+				displayDate = this.formatDate( this.stagedDate );
+			} else if( this.date !== null ) {
+				displayDate = this.formatDate( this.date );
+			} else {
+				displayDate = '';
+			}
+			this.$element.find('input[type="text"]').val( displayDate );
 		},
 
-		_keyupDateUpdate: function( e ) {
-			var validLength = this.formatDate( this.date ).length;
-			var inputValue  = this.$input.val();
+		_inputDateParsing: function() {
+			// the formats we support when using moment.js are either "L" or "l"
+			// these can be found here http://momentjs.com/docs/#/customization/long-date-formats/
+			var inputValue     = this.$input.val();
+			var triggerError   = true;
+			var validLengthMax = 10; // since the length of the longest date format we are going to parse is 10 ("L" format code) we will set this here.
+			var validLengthMin = validLengthMax - 2; // since the shortest date format we are going to parse is 8 ("l" format code) we will subtract the difference from the max
 
-			if( validLength === inputValue.length && this._checkKeyCode( e ) ) {
-				this.setDate( inputValue, true );
+			if( inputValue.length >= validLengthMin && inputValue.length <= validLengthMax ) {
+				if( Boolean( this.parseDate( inputValue, true ) ) ) {
+					if( !this._processDateRestriction( this.parseDate( inputValue ) ) ) {
+						triggerError = false;
+						this.setDate( inputValue );
+					}
+				}
+			} else {
+				triggerError = false; // don't want to trigger an error because they don't have the correct length
+			}
+
+			if( !!triggerError ) {
+				// we will insert the staged date into the input 
+				this._setNullDate( true );
+				this.$element.trigger( 'inputParsingFailed' );
 			}
 		},
 
-		_checkKeyCode: function( e ) {
-			// only allow numbers, function keys, and date formatting symbols
-			// Allow: Ctrl+A
-			// Allow: home, end, left, right
-			if ( $.inArray( e.keyCode, [ 46,8,9,27,13,32 ] ) !== -1 || ( e.keyCode === 65 && e.ctrlKey === true ) || ( e.keyCode >= 35 && e.keyCode <= 39 ) ) {
-				// let it happen, don't do anything
-				return false;
-			} else if ( e.shiftKey || ( e.keyCode >= 48 || e.keyCode <= 57 ) || ( e.keyCode >= 96 || e.keyCode <= 105 ) || e.keyCode === 110 ||  e.keyCode === 190 || e.keyCode === 191 ) {
-				// Ensure that it is a number and return true
-				return true;
+		_checkForMomentJS: function() {
+			// this function get's run on initialization to determin if momentjs is available
+			if( $.isFunction( window.moment ) || ( typeof moment !== "undefined" && $.isFunction( moment ) ) ) {
+				if( $.isPlainObject( this.options.momentConfig ) ) {
+					if( Boolean( this.options.momentConfig.culture ) && Boolean( this.options.momentConfig.formatCode ) ) {
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					return false;
+				}
 			} else {
 				return false;
 			}
@@ -4220,7 +4362,24 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 		},
 
 		_addBindings: function() {
-			this.$input.on( 'keyup', $.proxy( this._keyupDateUpdate, this ) );
+			var self = this;
+
+			// parsing dates on user input is only available when momentjs is used
+			if( Boolean( this.moment ) ) {
+				this.$calendar.on( 'mouseover', function() {
+					self.inputParsingTarget = 'calendar';
+				});
+				this.$calendar.on( 'mouseout', function() {
+					self.inputParsingTarget = null;
+				});
+
+				this.$input.on( 'blur', function() {
+					if( self.inputParsingTarget === null ) {
+						self._inputDateParsing();
+					}
+				});
+			}
+
 			this.$calendar.on( 'click', $.proxy( this._emptySpace, this) );
 
 			this.$header.find( '.left' ).on( 'click', $.proxy( this._previous, this ) );
@@ -4239,7 +4398,13 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 		},
 
 		_removeBindings: function() {
-			this.$input.off( 'keyup' );
+			// remove event only if moment is available (meaning it was initialized in the first place)
+			if( Boolean( this.moment ) ) {
+				this.$calendar.off( 'mouseover' );
+				this.$calendar.off( 'mouseout' );
+				this.$input.off( 'blur' );
+			}
+
 			this.$calendar.off( 'click' );
 
 			this.$header.find( '.left' ).off( 'click' );
@@ -4279,6 +4444,10 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 
 	$.fn.datepicker.defaults = {
 		date: new Date(),
+		momentConfig: {
+			culture: 'en',
+			formatCode: 'L' // more formats can be found here http://momentjs.com/docs/#/customization/long-date-formats/. We only support "L" or "l"
+		},
 		createInput: false,
 		dropdownWidth: 170,
 		restrictDateSelection: true
@@ -4457,7 +4626,6 @@ define('fuelux/pillbox',['require','jquery'],function(require) {
 		},
 
 		itemclicked: function(e) {
-
 			var $li = $(e.currentTarget);
 			var data = $.extend({
 				text : $li.html()
@@ -4470,45 +4638,56 @@ define('fuelux/pillbox',['require','jquery'],function(require) {
 		},
 
 		itemCount: function() {
-
 			return this.$element.find('li').length;
 		},
 
 		addItem: function(text, value) {
-
-			value = value || text;
-
-			//<li data-value="foo">Item One</li>
-
+			value   = value || text;
 			var $li = $('<li data-value="' + value + '">' + text + '</li>');
 
-			this.$element.find('ul').append($li);
+			if( this.$element.find('ul').length > 0 ) {
+				this.$element.find('ul').append($li);
+			} else {
+				this.$element.append($li);
+			}
+
+			this.$element.trigger( 'added', { text: text, value: value } );
 
 			return $li;
 		},
 
-		removeBySelector: function(selector) {
+		removeBySelector: function(selector, trigger) {
+			if( typeof trigger === "undefined" ) {
+				trigger = true;
+			}
 
 			this.$element.find('ul').find(selector).remove();
+
+			if( !!trigger ) {
+				this._removePillTrigger( { method: 'removeBySelector', removedSelector: selector } );
+			}
 		},
 
 		removeByValue: function(value) {
-
 			var selector = 'li[data-value="' + value + '"]';
 
-			this.removeBySelector(selector);
+			this.removeBySelector( selector, false );
+			this._removePillTrigger( { method: 'removeByValue', removedValue: value } );
 		},
 
 		removeByText: function(text) {
-
 			var selector = 'li:contains("' + text + '")';
 
-			this.removeBySelector(selector);
+			this.removeBySelector( selector, false );
+			this._removePillTrigger( { method: 'removeByText', removedText: text } );
 		},
 
 		clear: function() {
-
 			this.$element.find('ul').empty();
+		},
+
+		_removePillTrigger: function( removedBy ) {
+			this.$element.trigger( 'removed', removedBy );
 		}
 	};
 
@@ -4742,7 +4921,13 @@ define('fuelux/select',['require','jquery','./util'],function(require) {
             var sizer = $('<div/>').addClass('select-sizer');
             var width = 0;
 
-            $('body').append(sizer);
+            if( Boolean( $(document).find( 'html' ).hasClass( 'fuelux' ) ) ) {
+                // default behavior for fuel ux setup. means fuelux was a class on the html tag
+                $( document.body ).append( sizer );
+            } else {
+                // fuelux is not a class on the html tag. So we'll look for the first one we find so the correct styles get applied to the sizer
+                $( '.fuelux:first' ).append( sizer );
+            }
 
             // iterate through each item to find longest string
             this.$element.find('a').each(function () {
