@@ -47,11 +47,17 @@
 
 	<script>
 		requirejs.config({
+			config: {
+				moment: {
+					noGlobal: true
+				}
+			},
 			paths: {
-				'jquery': 'lib/jquery-1.9.1.min',
-				'underscore': 'http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min',
-				'bootstrap': 'lib/bootstrap/js',
-				'fuelux': 'src'
+				jquery: 'lib/jquery-1.9.1.min',
+				underscore: 'http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min',
+				bootstrap: 'lib/bootstrap/js',
+				fuelux: 'src',
+				moment: 'lib/moment' // comment out if you dont want momentjs to be default
 			}
 		});
 
@@ -96,16 +102,33 @@
 
 			// PILLBOX
 			$('#btnAdd').click(function () {
-				$('#MyPillbox ul').append('<li>Item Eight</li>');
+				var newItemCount = $('#MyPillbox ul li').length + 1;
+				$('#MyPillbox ul').pillbox('addItem', 'Item ' + newItemCount, 'Item ' + newItemCount );
 			});
 
-			$('#btnRemove').click(function () {
-				$('#MyPillbox li[data-value="foo"]').remove();
+			$('#btnRemoveByValue').click(function () {
+				$('#MyPillbox').pillbox('removeByValue', 'foo');
+			});
+
+			$('#btnRemoveBySelector').click(function () {
+				$('#MyPillbox').pillbox('removeBySelector', '.status-warning');
+			});
+
+			$('#btnRemoveByText').click(function () {
+				$('#MyPillbox').pillbox('removeByText', 'Item 6');
 			});
 
 			$('#btnItems').click(function () {
 				var items = $('#MyPillbox').pillbox('items');
 				console.log(items);
+			});
+
+			$('#MyPillbox').on( 'added', function( event, data ) {
+				console.log( 'pillbox added', data );
+			});
+
+			$('#MyPillbox').on( 'removed', function( event, data ) {
+				console.log( 'pillbox removed', data );
 			});
 
 
@@ -270,11 +293,15 @@
 			});
 
 			// DATEPICKER
-			var test = $('#datepicker1').datepicker();
+			$('#datepicker1').datepicker();
 
 			$('#datepicker1').on('changed', function( event, data ) {
 				console.log( 'datepicker change event fired' );
-			})
+			});
+
+			$('#datepicker1').on('inputParsingFailed', function() {
+				console.log( 'datepicker inputParsingFailed event fired' );
+			});
 
 			$('#datepicker-enable').on('click', function() {
 				$('#datepicker1').datepicker('enable');
@@ -417,18 +444,20 @@
 	<div>
 		<div id="MyPillbox" class="pillbox">
 			<ul>
-				<li data-value="foo">Item One</li>
-				<li class="status-success">Item Two</li>
-				<li class="status-warning">Item Three</li>
-				<li class="status-important">Item Four</li>
-				<li class="status-info">Item Five</li>
-				<li class="status-success">Item Six</li>
-				<li>Item Seven</li>
+				<li data-value="foo">Item 1</li>
+				<li class="status-success">Item 2</li>
+				<li class="status-warning">Item 3</li>
+				<li class="status-important">Item 4</li>
+				<li class="status-info">Item 5</li>
+				<li class="status-success">Item 6</li>
+				<li>Item 7</li>
 			</ul>
 		</div>
 
 		<input type="button" class="btn btn-mini" id="btnAdd" value="add">
-		<input type="button" class="btn btn-mini" id="btnRemove" value="remove">
+		<input type="button" class="btn btn-mini" id="btnRemoveByValue" value="remove by value">
+		<input type="button" class="btn btn-mini" id="btnRemoveBySelector" value="remove by selector">
+		<input type="button" class="btn btn-mini" id="btnRemoveByText" value="remove by text">
 		<input type="button" class="btn btn-mini" id="btnItems" value="log items to console">
 	</div>
 
