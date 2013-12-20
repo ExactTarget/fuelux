@@ -59,7 +59,9 @@
         "src",
         "test",
         "util",
-        "COPYING",
+        "Gruntfile.js",
+        "package.json",
+        "testem.json",
         "*.html"
     ],
     "dependencies": {
