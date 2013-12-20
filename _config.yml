@@ -1,0 +1,8 @@
+# Server
+#destination:      ./_gh_pages
+#exclude:          [".editorconfig", ".gitignore", "bower.json", "composer.json", "CONTRIBUTING.md", "CNAME", "LICENSE", "Gruntfile.js", "package.json", "node_modules", "README.md", "less"]
+#port:             9001
+
+# Custom vars
+current_version:  3.0.0
+repo:             https://github.com/ExactTarget/fuelux
