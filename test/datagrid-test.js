@@ -40,10 +40,10 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 
 			var $testcells = $datarows.eq(4).find('td');
 			equal($testcells.length, 3, 'rows have three columns');
-			equal($testcells.eq(0).html(), 'M', 'column 1 data was rendered');
-			equal($testcells.eq(1).html(), 'N', 'column 2 data was rendered');
+			equal($testcells.eq(0).html(), '<div>M</div>', 'column 1 data was rendered');
+			equal($testcells.eq(1).html(), '<div>N</div>', 'column 2 data was rendered');
 			ok($testcells.eq(1).hasClass('column-two'), 'column 2 has requested class');
-			equal($testcells.eq(2).html(), 'O', 'column 3 data was rendered');
+			equal($testcells.eq(2).html(), '<div>O</div>', 'column 3 data was rendered');
 
 			var $status = $datagrid.find('.grid-controls span:first');
 			equal($status.text().replace(/\s+/g, ''), '1-2of3items', 'status is correctly displayed');
@@ -82,7 +82,7 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 		var $activityrow = $datagrid.find('tbody tr');
 		equal($activityrow.length, 1, 'activity row was rendered');
 	});
-	
+
 	asyncTest("should handle data source with zero records - custom no records text", function () {
 		var emptyDataSource = new this.EmptyDataSource();
         var $datagrid = $(this.datagridHTML).datagrid({ dataSource: emptyDataSource, noDataFoundHTML: 'NO DATA FOUND' }).on('loaded', function () {
@@ -387,6 +387,103 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 		});
 	});
 
+	asyncTest("should handle single row selection", function () {
+		var selectableDataSource = new this.SelectableDataSource();
+		var $datagrid = $(this.datagridHTML).datagrid({
+			dataSource: selectableDataSource,
+			enableSelect: true,
+			primaryKey: 'guid',
+			multiSelect: false
+		}).one('loaded', function () {
+			var $datarows = $datagrid.find('tbody tr');
+			equal($datarows.length, 6, 'all rows were rendered');
+
+			// Click the first row and verify it has the "selected" class.
+			$datarows[0].click();
+			equal($($datarows[0]).hasClass('selected'), true, 'the first selected row has the "selected" class applied');
+			equal(Object.keys($datagrid.datagrid('getSelectedItems')).length, 1, 'the datagrid has only one row selected');
+
+			// Click the third row and verify it has the "selected" class but
+			// the first clicked row does not. Also, confirm that the datagrid
+			// object has only one row selected.
+			$datarows[2].click();
+			equal($($datarows[0]).hasClass('selected'), false, 'the first row no longer has the "selected" class applied');
+			equal($($datarows[2]).hasClass('selected'), true, 'the third row has the "selected" class applied');
+			equal(Object.keys($datagrid.datagrid('getSelectedItems')).length, 1, 'the datagrid has only one row selected');
+
+			// Click the third row again and verify it no longer has the
+			// "selected" class.  Verify the datagrid objects has no selected
+			// items.
+			$datarows[2].click();
+			equal($($datarows[2]).hasClass('selected'), false, 'the third row no longer has the "selected" class applied');
+			equal(Object.keys($datagrid.datagrid('getSelectedItems')).length, 0, 'the datagrid has no rows selected');
+
+			start();
+		});
+	});
+
+	asyncTest("should handle multiple row selection", function () {
+		var selectableDataSource = new this.SelectableDataSource();
+		var $datagrid = $(this.datagridHTML).datagrid({
+			dataSource: selectableDataSource,
+			enableSelect: true,
+			primaryKey: 'guid',
+			multiSelect: true
+		}).one('loaded', function () {
+			var $datarows = $datagrid.find('tbody tr');
+			equal($datarows.length, 6, 'all rows were rendered');
+
+			// Click the first row and verify it has the "selected" class.
+			// Confirm that the datagrid object has only one row selected.
+			$datarows[0].click();
+			equal($($datarows[0]).hasClass('selected'), true, 'the first selected row has the "selected" class applied');
+			equal(Object.keys($datagrid.datagrid('getSelectedItems')).length, 1, 'the datagrid has only one row selected');
+
+			// Click the third row and verify it has the "selected" class and
+			// that the first clicked row does as well. Confirm that the
+			// datagrid object has only two rows selected.
+			$datarows[2].click();
+			equal($($datarows[0]).hasClass('selected'), true, 'the first row has the "selected" class applied');
+			equal($($datarows[2]).hasClass('selected'), true, 'the third row has the "selected" class applied');
+			equal(Object.keys($datagrid.datagrid('getSelectedItems')).length, 2, 'the datagrid has only two rows selected');
+
+			// Click the third row again and verify it no longer has the
+			// "selected" class but that the first row still does.  Verify the
+			// datagrid object has only one selected item.
+			$datarows[2].click();
+			equal($($datarows[0]).hasClass('selected'), true, 'the first row has the "selected" class applied');
+			equal($($datarows[2]).hasClass('selected'), false, 'the third row no longer has the "selected" class applied');
+			equal(Object.keys($datagrid.datagrid('getSelectedItems')).length, 1, 'the datagrid has one row selected');
+
+			// Click the third row again and verify it has the "selected" class
+			// and that the first clicked row does also. Confirm that the
+			// datagrid object has only two rows selected.
+			$datarows[2].click();
+			equal($($datarows[0]).hasClass('selected'), true, 'the first row has the "selected" class applied');
+			equal($($datarows[2]).hasClass('selected'), true, 'the third row has the "selected" class applied');
+			equal(Object.keys($datagrid.datagrid('getSelectedItems')).length, 2, 'the datagrid has two rows selected');
+
+			// Click the first row and verify it does not have the "selected"
+			// but the third row does. Confirm that the datagrid object has only
+			// one row selected.
+			$datarows[0].click();
+			equal($($datarows[0]).hasClass('selected'), false, 'the first row no longer has the "selected" class applied');
+			equal($($datarows[2]).hasClass('selected'), true, 'the third row has the "selected" class applied');
+			equal(Object.keys($datagrid.datagrid('getSelectedItems')).length, 1, 'the datagrid has only one row selected');
+
+			// Click the third row, then verify that neither the first nor third
+			// rows have the "selected" class.  Finally, confirm that the
+			// datagrid object has zero rows selected.
+			$datarows[2].click();
+			equal($($datarows[0]).hasClass('selected'), false, 'the first row no longer has the "selected" class applied');
+			equal($($datarows[2]).hasClass('selected'), false, 'the third row no longer has the "selected" class applied');
+			equal(Object.keys($datagrid.datagrid('getSelectedItems')).length, 0, 'the datagrid has no rows selected');
+
+			start();
+		});
+	});
+
+
 	function testSetup() {
 
 		this.EmptyDataSource = function () {};
@@ -483,6 +580,68 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 				});
 			}, 0);
 		};
+
+		this.SelectableDataSource = function () {};
+
+		this.SelectableDataSource.prototype.columns = function () {
+			return [{
+				property: 'guid',
+				label: 'guid',
+				sortable: true
+			},
+			{
+				property: 'char',
+				label: 'char',
+				sortable: true
+			},
+			{
+				property: 'num',
+				label: 'num',
+				sortable: true
+			}];
+		};
+
+		this.SelectableDataSource.prototype.data = function (options, callback) {
+			this.dataCallCount = this.dataCallCount || 0;
+			this.dataCallCount++;
+
+			this.options = options;
+
+			setTimeout(function () {
+				callback({
+					data: [
+						{
+							"guid": 1,
+							"char": 'a',
+							"num": 10
+						}, {
+							"guid": 2,
+							"char": 'b',
+							"num": 11
+						}, {
+							"guid": 3,
+							"char": 'c',
+							"num": 12
+						}, {
+							"guid": 4,
+							"char": 'd',
+							"num": 13
+						}, {
+							"guid": 5,
+							"char": 'e',
+							"num": 14
+						}, {
+							"guid": 6,
+							"char": 'f',
+							"num": 15
+						}
+					]
+				});
+			}, 0);
+		};
+
+
+
 
 		this.datagridHTML = '' +
 			'<table id="MyGrid" class="table table-bordered datagrid">' +

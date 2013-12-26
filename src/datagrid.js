@@ -139,11 +139,6 @@ define(function (require) {
 					$(row).addClass('selected');
 				}
 			});
-
-
-
-
-
 		},
 
 		clearSelectedItems: function() {
@@ -217,11 +212,7 @@ define(function (require) {
 				var selectedItemsKeys = [];
 
 				if (data.data.length === 0) {
-					if (self.options.dataOptions.search !== '') {
-						self.$tbody.html(self.placeholderRowHTML('No search results found for "' + self.options.dataOptions.search + '".'));
-					} else {
-						self.$tbody.html(self.placeholderRowHTML(self.options.noDataFoundHTML));
-					}
+					self.$tbody.html(self.placeholderRowHTML(self.options.noDataFoundHTML));
 				} else {
 
 					// These are the keys in the selectedItems object
@@ -269,7 +260,7 @@ define(function (require) {
 							if (!multiSelect) {
 								$.each(self.selectedItems, function (itemKey) {
 									if (itemKey.toString() !== id.toString()) {
-										$("tr[data-id='" + itemKey +"']").removeClass('selected');
+										self.$tbody.find("tr[data-id='" + itemKey +"']").removeClass('selected');
 										delete self.selectedItems[itemKey];
 									}
 								});
@@ -422,9 +413,6 @@ define(function (require) {
 		},
 
 		setColumnWidths: function () {
-
-console.log("I am calling setColumnWidths"); // TEMP
-
 			if (!this.$sizingHeader) return;
 
 			this.$element.prepend(this.$sizingHeader);
