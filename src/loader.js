@@ -8,6 +8,8 @@
 
 define('jquery', [], function () { return jQuery; });
 
+define('moment', [], function () {});
+
 define('fuelux/loader', ['fuelux/all'], function () {});
 
 require('fuelux/loader');
