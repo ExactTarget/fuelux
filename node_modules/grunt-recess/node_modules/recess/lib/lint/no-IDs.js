@@ -32,13 +32,14 @@ module.exports = function (def, data) {
     selector.elements.forEach(function (element) {
 
       var extract
+        , line
 
       // continue to next element if no js- prefix
       if (!RULE.exp.test(element.value)) return
 
       // calculate line number for the extract
-      extract = util.getLine(element.index - element.value.length, data)
-      extract = util.padLine(extract)
+      line = util.getLine(element.index - element.value.length, data)
+      extract = util.padLine(line)
 
       // highlight invalid styling of ID
       extract += element.value.replace(RULE.exp, '#'.magenta)
@@ -51,6 +52,7 @@ module.exports = function (def, data) {
         type: RULE.type
       , message: RULE.message
       , extract: extract
+      , line: line
       })
 
     })

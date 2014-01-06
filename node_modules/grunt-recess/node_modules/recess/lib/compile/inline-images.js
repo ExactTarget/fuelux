@@ -26,7 +26,7 @@ function compile () {
       , mimetype = 'image/' + ext.replace(/jpg/, 'jpeg')
       , pathParts = path.split(seperator)
       , filePath = pathParts.slice(0, pathParts.length - 1).join(seperator)
-      , imgBuffer = new Buffer(fs.readFileSync(filePath+seperator+fileName)).toString('base64')
+      , imgBuffer = new Buffer(fs.readFileSync((filePath?filePath:'.')+seperator+fileName)).toString('base64')
       , urlData = 'url(data:' + mimetype + ';base64,' + imgBuffer + ')'
 
     return props.replace(/url\([^\)]*\)/, urlData)

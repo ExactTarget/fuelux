@@ -39,6 +39,7 @@ module.exports = function (def, data) {
   // loop over rules
   def.rules.forEach(function (rule) {
     var extract
+      , line
 
     // continue to next rule if no 0 units are present
     if ( !(rule.value
@@ -46,8 +47,8 @@ module.exports = function (def, data) {
         && RULE.exp.test(rule.value.toCSS({}))) ) return
 
     // calculate line number for the extract
-    extract = util.getLine(rule.index, data)
-    extract = util.padLine(extract)
+    line = util.getLine(rule.index, data)
+    extract = util.padLine(line)
 
     // highlight invalid 0 units
     extract += rule.toCSS({}).replace(RULE.exp, function ($1) {
@@ -62,6 +63,7 @@ module.exports = function (def, data) {
       type: RULE.type
     , message: RULE.message
     , extract: extract
+    , line: line
     })
 
   })
