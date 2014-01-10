@@ -6235,6 +6235,13 @@ textarea.span1,
   background-position: -80px 1px;
 }
 
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .fuelux .checkbox-custom i {
+    background-image: url(../img/form-hdpi.png);
+    background-size: 96px auto;
+  }
+}
+
 .fuelux .combobox {
   display: inline-block;
 }
@@ -7289,6 +7296,13 @@ textarea.span1,
   /* disabled and checked */
 
   background-position: -80px -15px;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .fuelux .radio-custom i {
+    background-image: url(../img/form-hdpi.png);
+    background-size: 96px auto;
+  }
 }
 
 .fuelux .spinner input {

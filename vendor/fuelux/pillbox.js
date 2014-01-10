@@ -32,7 +32,6 @@ define(['require','jquery'],function(require) {
 		},
 
 		itemclicked: function(e) {
-
 			var $li = $(e.currentTarget);
 			var data = $.extend({
 				text : $li.html()
@@ -45,45 +44,56 @@ define(['require','jquery'],function(require) {
 		},
 
 		itemCount: function() {
-
 			return this.$element.find('li').length;
 		},
 
 		addItem: function(text, value) {
-
-			value = value || text;
-
-			//<li data-value="foo">Item One</li>
-
+			value   = value || text;
 			var $li = $('<li data-value="' + value + '">' + text + '</li>');
 
-			this.$element.find('ul').append($li);
+			if( this.$element.find('ul').length > 0 ) {
+				this.$element.find('ul').append($li);
+			} else {
+				this.$element.append($li);
+			}
+
+			this.$element.trigger( 'added', { text: text, value: value } );
 
 			return $li;
 		},
 
-		removeBySelector: function(selector) {
+		removeBySelector: function(selector, trigger) {
+			if( typeof trigger === "undefined" ) {
+				trigger = true;
+			}
 
 			this.$element.find('ul').find(selector).remove();
+
+			if( !!trigger ) {
+				this._removePillTrigger( { method: 'removeBySelector', removedSelector: selector } );
+			}
 		},
 
 		removeByValue: function(value) {
-
 			var selector = 'li[data-value="' + value + '"]';
 
-			this.removeBySelector(selector);
+			this.removeBySelector( selector, false );
+			this._removePillTrigger( { method: 'removeByValue', removedValue: value } );
 		},
 
 		removeByText: function(text) {
-
 			var selector = 'li:contains("' + text + '")';
 
-			this.removeBySelector(selector);
+			this.removeBySelector( selector, false );
+			this._removePillTrigger( { method: 'removeByText', removedText: text } );
 		},
 
 		clear: function() {
-
 			this.$element.find('ul').empty();
+		},
+
+		_removePillTrigger: function( removedBy ) {
+			this.$element.trigger( 'removed', removedBy );
 		}
 	};
 
