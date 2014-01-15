@@ -258,12 +258,8 @@ define(function (require) {
 							var id = $(e.currentTarget).data('id');
 
 							if (!multiSelect) {
-								$.each(self.selectedItems, function (itemKey) {
-									if (itemKey.toString() !== id.toString()) {
-										self.$tbody.find("tr[data-id='" + itemKey +"']").removeClass('selected');
-										delete self.selectedItems[itemKey];
-									}
-								});
+								self.$tbody.find('tr.selected').removeClass('selected');
+								self.clearSelectedItems();
 							}
 
 							var currentRow;
