@@ -231,10 +231,14 @@ define(function (require) {
 							// in a div to better control the left offset needed
 							// to show the checkmark.  This div will be moved to
 							// the right by 22px when the row is selected.
-							var $md = $('<div/>');
-							$md.html(row[column.property]);
+							if (enableSelect) {
+								var $md = $('<div/>');
+								$md.html(row[column.property]);
+								$td.html($md);
+							} else {
+								$td.html(row[column.property]);
+							}
 
-							$td.html($md);
 							$tr.append($td);
 						});
 
@@ -256,23 +260,22 @@ define(function (require) {
 					if (enableSelect) {
 						self.$tbody.find('tr').bind('click', function (e) {
 							var id = $(e.currentTarget).data('id');
-
-							if (!multiSelect) {
-								self.$tbody.find('tr.selected').removeClass('selected');
-								self.clearSelectedItems();
-							}
-
 							var currentRow;
+
 							$.each(data.data, function (index, row) {
 								if (id === row[self.options.primaryKey]) {
 									currentRow = row;
 								}
 							});
 
-							if (self.selectedItems.hasOwnProperty(id)) {
+							var isSelected = self.selectedItems.hasOwnProperty(id);
+							if (!multiSelect) { self.clearSelectedItems(); }
+
+							if (isSelected && !multiSelect) {
+								self.$element.trigger('itemDeselected', currentRow);
+							} else if (isSelected && multiSelect) {
 								delete self.selectedItems[id];
 								$(e.currentTarget).removeClass('selected');
-								self.$element.trigger('itemDeselected', currentRow);
 							} else {
 								self.selectedItems[id] = currentRow;
 								$(e.currentTarget).addClass('selected');
@@ -460,7 +463,7 @@ define(function (require) {
 		loadingHTML: '<div class="progress progress-striped active" style="width:50%;margin:auto;"><div class="bar" style="width:100%;"></div></div>',
 		itemsText: 'items',
 		itemText: 'item',
-        noDataFoundHTML: '0 items'
+		noDataFoundHTML: '0 items'
 	};
 
 	$.fn.datagrid.Constructor = Datagrid;

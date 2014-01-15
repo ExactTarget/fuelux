@@ -3231,11 +3231,6 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 					$(row).addClass('selected');
 				}
 			});
-
-
-
-
-
 		},
 
 		clearSelectedItems: function() {
@@ -3309,11 +3304,7 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 				var selectedItemsKeys = [];
 
 				if (data.data.length === 0) {
-					if (self.options.dataOptions.search !== '') {
-						self.$tbody.html(self.placeholderRowHTML('No search results found for "' + self.options.dataOptions.search + '".'));
-					} else {
-						self.$tbody.html(self.placeholderRowHTML(self.options.noDataFoundHTML));
-					}
+					self.$tbody.html(self.placeholderRowHTML(self.options.noDataFoundHTML));
 				} else {
 
 					// These are the keys in the selectedItems object
@@ -3332,10 +3323,14 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 							// in a div to better control the left offset needed
 							// to show the checkmark.  This div will be moved to
 							// the right by 22px when the row is selected.
-							var $md = $('<div/>');
-							$md.html(row[column.property]);
+							if (enableSelect) {
+								var $md = $('<div/>');
+								$md.html(row[column.property]);
+								$td.html($md);
+							} else {
+								$td.html(row[column.property]);
+							}
 
-							$td.html($md);
 							$tr.append($td);
 						});
 
@@ -3357,27 +3352,22 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 					if (enableSelect) {
 						self.$tbody.find('tr').bind('click', function (e) {
 							var id = $(e.currentTarget).data('id');
-
-							if (!multiSelect) {
-								$.each(self.selectedItems, function (itemKey) {
-									if (itemKey.toString() !== id.toString()) {
-										$("tr[data-id='" + itemKey +"']").removeClass('selected');
-										delete self.selectedItems[itemKey];
-									}
-								});
-							}
-
 							var currentRow;
+
 							$.each(data.data, function (index, row) {
 								if (id === row[self.options.primaryKey]) {
 									currentRow = row;
 								}
 							});
 
-							if (self.selectedItems.hasOwnProperty(id)) {
+							var isSelected = self.selectedItems.hasOwnProperty(id);
+							if (!multiSelect) self.clearSelectedItems();
+
+							if (isSelected && !multiSelect) {
+								self.$element.trigger('itemDeselected', currentRow);
+							} else if (isSelected && multiSelect) {
 								delete self.selectedItems[id];
 								$(e.currentTarget).removeClass('selected');
-								self.$element.trigger('itemDeselected', currentRow);
 							} else {
 								self.selectedItems[id] = currentRow;
 								$(e.currentTarget).addClass('selected');
@@ -3514,9 +3504,6 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 		},
 
 		setColumnWidths: function () {
-
-console.log("I am calling setColumnWidths"); // TEMP
-
 			if (!this.$sizingHeader) return;
 
 			this.$element.prepend(this.$sizingHeader);
@@ -3568,7 +3555,7 @@ console.log("I am calling setColumnWidths"); // TEMP
 		loadingHTML: '<div class="progress progress-striped active" style="width:50%;margin:auto;"><div class="bar" style="width:100%;"></div></div>',
 		itemsText: 'items',
 		itemText: 'item',
-        noDataFoundHTML: '0 items'
+		noDataFoundHTML: '0 items'
 	};
 
 	$.fn.datagrid.Constructor = Datagrid;

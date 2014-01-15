@@ -40,10 +40,10 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 
 			var $testcells = $datarows.eq(4).find('td');
 			equal($testcells.length, 3, 'rows have three columns');
-			equal($testcells.eq(0).html(), '<div>M</div>', 'column 1 data was rendered');
-			equal($testcells.eq(1).html(), '<div>N</div>', 'column 2 data was rendered');
+			equal($testcells.eq(0).html(), 'M', 'column 1 data was rendered');
+			equal($testcells.eq(1).html(), 'N', 'column 2 data was rendered');
 			ok($testcells.eq(1).hasClass('column-two'), 'column 2 has requested class');
-			equal($testcells.eq(2).html(), '<div>O</div>', 'column 3 data was rendered');
+			equal($testcells.eq(2).html(), 'O', 'column 3 data was rendered');
 
 			var $status = $datagrid.find('.grid-controls span:first');
 			equal($status.text().replace(/\s+/g, ''), '1-2of3items', 'status is correctly displayed');
