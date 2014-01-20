@@ -576,7 +576,6 @@ define(function (require) {
 			this.stagedDate.setDate( parseInt( e.target.innerHTML, 10 ) );
 
 			this.setDate( this.stagedDate );
-			this._render();
 			this.done = true;
 		},
 
