@@ -1302,12 +1302,12 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 					</tr>
 					<tr>
 						<td>parseDate</td>
-						<td>Function allows custom date parsing. A date is passed as a parameter. A Date Object should be returned by this function</td>
+						<td>Function allows custom date parsing. A date is passed as a parameter. A Date Object should be returned by this function. <br /><strong>Do not overwrite this function if using Moment JS</strong></td>
 						<td><code>return new Date( date );</code></td>
 					</tr>
 					<tr>
 						<td>formatDate</td>
-						<td>Function allows custom formatting of date. Will never modify the main Date Object. A date is passed as a parameter. A formatted date should be returned by this function</td>
+						<td>Function allows custom formatting of date. Will never modify the main Date Object. A date is passed as a parameter. A formatted date should be returned by this function. <br /><strong>Do not overwrite this function if using Moment JS</strong></td>
 						<td>Default Format: <code>MM-DD-YYYY</code></td>
 					</tr>
 					<tr>
