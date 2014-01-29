@@ -91,11 +91,17 @@ define(function (require) {
 			this.$footer.attr('colspan', this.columns.length);
 			this.$topheader.attr('colspan', this.columns.length);
 
-			var colHTML = '';
+			var colHTML = '', classes = [];
 
 			$.each(this.columns, function (index, column) {
+				classes = [];
+				if (column.sortable) classes.push('sortable');
+				if (column.cssClass) classes.push(column.cssClass);
+
 				colHTML += '<th data-property="' + column.property + '"';
-				if (column.sortable) colHTML += ' class="sortable"';
+				if (classes.length) {
+					colHTML += ' class="' + classes.join(' ') + '"';
+				}
 				colHTML += '>' + column.label + '</th>';
 			});
 
@@ -287,22 +293,29 @@ define(function (require) {
 		},
 
 		initStretchHeight: function () {
+			var self = this;
 			this.$gridContainer = this.$element.parent();
 
 			this.$element.wrap('<div class="datagrid-stretch-wrapper">');
 			this.$stretchWrapper = this.$element.parent();
 
-			this.$headerTable = $('<table>').attr('class', this.$element.attr('class'));
-			this.$footerTable = this.$headerTable.clone();
+			this.$headerTitleTable = $('<table>').attr('class', this.$element.attr('class'));
+			this.$headerColumnsTable = this.$headerTitleTable.clone();
+			this.$footerTable = this.$headerTitleTable.clone();
 
-			this.$headerTable.prependTo(this.$gridContainer).addClass('datagrid-stretch-header');
-			this.$thead.detach().appendTo(this.$headerTable);
-
-			this.$sizingHeader = this.$thead.clone();
-			this.$sizingHeader.find('tr:first').remove();
+			this.$headerColumnsTable.append($('<thead>')).addClass('datagrid-stretch-header datagrid-stretch-header-columns').prependTo(this.$gridContainer);
+			this.$headerColumnsTable.wrap('<div class="datagrid-stretch-header-columns">');
+			this.$headerTitleTable.append($('<thead>')).addClass('datagrid-stretch-header datagrid-stretch-header-title').prependTo(this.$gridContainer);
+			this.$thead.children('tr:first').detach().appendTo(this.$headerTitleTable.children('thead'));
+			this.$thead.children('tr:last').detach().appendTo(this.$headerColumnsTable.children('thead'));
+			this.$thead.detach();
 
 			this.$footerTable.appendTo(this.$gridContainer).addClass('datagrid-stretch-footer');
 			this.$tfoot.detach().appendTo(this.$footerTable);
+
+			this.$stretchWrapper.on('scroll', function () {
+				self.$headerColumnsTable.parent().scrollLeft($(this).scrollLeft());
+			});
 		},
 
 		stretchHeight: function () {
@@ -311,7 +324,7 @@ define(function (require) {
 			this.setColumnWidths();
 
 			var targetHeight = this.$gridContainer.height();
-			var headerHeight = this.$headerTable.outerHeight();
+			var headerHeight = this.$headerTitleTable.outerHeight() + this.$headerColumnsTable.outerHeight();
 			var footerHeight = this.$footerTable.outerHeight();
 			var overhead = headerHeight + footerHeight;
 
@@ -319,30 +332,18 @@ define(function (require) {
 		},
 
 		setColumnWidths: function () {
-			if (!this.$sizingHeader) return;
+			var self = this;
+			var $headerItem, $bodyItem, newWidth;
 
-			this.$element.prepend(this.$sizingHeader);
+			this.$headerColumnsTable.width(this.$element.width());
 
-			var $sizingCells = this.$sizingHeader.find('th');
-			var columnCount = $sizingCells.length;
+			this.$element.find('tr:first').find('td').each(function (index, el) {
+				$headerItem = $(self.$headerColumnsTable.find('th').get(index));
+				$bodyItem = $(el);
+				newWidth = $bodyItem.width();
 
-			function matchSizingCellWidth(i, el) {
-				if (i === columnCount - 1) return;
-
-				var $el = $(el);
-				var $sourceCell = $sizingCells.eq(i);
-				var width = $sourceCell.width();
-
-				// TD needs extra width to match sorted column header
-				if ($sourceCell.hasClass('sorted') && $el.prop('tagName') === 'TD') width = width + SORTED_HEADER_OFFSET;
-
-				$el.width(width);
-			}
-
-			this.$colheader.find('th').each(matchSizingCellWidth);
-			this.$tbody.find('tr:first > td').each(matchSizingCellWidth);
-
-			this.$sizingHeader.detach();
+				$headerItem.width(newWidth - ($headerItem.hasClass('sorted') ? SORTED_HEADER_OFFSET : 0));
+			});
 		}
 	};
 
