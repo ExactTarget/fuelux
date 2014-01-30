@@ -337,16 +337,29 @@ define(function (require) {
 
 			this.$headerColumnsTable.width(this.$element.width());
 
+			// Sync the header column widths to those on the body columns
 			this.$element.find('tr:first').find('td').each(function (index, el) {
 				$headerItem = $(self.$headerColumnsTable.find('th').get(index));
 				$bodyItem = $(el);
 				newWidth = $bodyItem.width();
 
-				$headerItem.width(newWidth - ($headerItem.hasClass('sorted') ? SORTED_HEADER_OFFSET : 0));
+				if ($headerItem.width() > newWidth) {
+					$bodyItem.width($headerItem.width());
+				} else {
+					$headerItem.width(newWidth - ($headerItem.hasClass('sorted') ? SORTED_HEADER_OFFSET : 0));
+				}
+			});
+
+			// Sync the body column widths to those on the header columns
+			this.$headerColumnsTable.find('tr:first').find('th').each(function (index, el) {
+				$headerItem = $(el);
+				$bodyItem = $(self.$element.find('tr:first td').get(index));
+				newWidth = $headerItem.width();
+
+				$bodyItem.width(newWidth + ($headerItem.hasClass('sorted') ? SORTED_HEADER_OFFSET : 0));
 			});
 		}
 	};
-
 
 	// DATAGRID PLUGIN DEFINITION
 
