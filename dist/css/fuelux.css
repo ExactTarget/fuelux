@@ -6380,10 +6380,9 @@ textarea.span1,
 
 .fuelux .datagrid tfoot .datagrid-footer-right .grid-pager .combobox {
   position: relative;
-  top: -2px;
+  top: 9px;
   display: inline-block;
   margin-bottom: 4px;
-  vertical-align: baseline;
 }
 
 .fuelux .datagrid tfoot .datagrid-footer-right .grid-pager > button {
@@ -6412,6 +6411,11 @@ textarea.span1,
   -moz-border-radius-bottomleft: 0;
 }
 
+.fuelux .datagrid-stretch-wrapper .datagrid,
+.fuelux .datagrid-stretch-header-columns .datagrid {
+  max-width: none;
+}
+
 .fuelux .datagrid-stretch-wrapper {
   overflow: auto;
   border: 1px solid #dddddd;
@@ -6424,6 +6428,10 @@ textarea.span1,
   -webkit-border-radius: 0;
      -moz-border-radius: 0;
           border-radius: 0;
+}
+
+.fuelux .datagrid-stretch-wrapper .datagrid tr:first-child td {
+  border-top: none;
 }
 
 .fuelux .datagrid-stretch-wrapper .datagrid td,
@@ -6451,6 +6459,36 @@ textarea.span1,
 
 .fuelux .datagrid-stretch-footer th {
   border-top: 0;
+}
+
+.fuelux div.datagrid-stretch-header-columns {
+  overflow: hidden;
+  border-right: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
+}
+
+.fuelux div.datagrid-stretch-header-columns table {
+  border-right: none;
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+}
+
+.fuelux div.datagrid-stretch-header-columns th:first-child {
+  border-left: none;
+}
+
+.fuelux div.datagrid-stretch-header-columns th:last-child {
+  border-right: none;
+}
+
+.fuelux div.datagrid-stretch-header-columns tr th {
+  -webkit-border-bottom-right-radius: 0;
+          border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+          border-bottom-left-radius: 0;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
 }
 
 .fuelux .datepicker .input-append,
