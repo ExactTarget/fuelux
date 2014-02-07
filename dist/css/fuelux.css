@@ -6247,10 +6247,6 @@ textarea.span1,
   border-radius: 0 4px 4px 0;
 }
 
-.fuelux .datagrid th {
-  cursor: pointer;
-}
-
 .fuelux .datagrid thead {
   background-color: #f9f9f9;
 }
@@ -6327,26 +6323,6 @@ textarea.span1,
   border-color: #e5e5e5 #e5e5e5 #bebebe;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff9f9f9', endColorstr='#ffe5e5e5', GradientType=0);
-}
-
-.fuelux .datagrid tbody tr.selected {
-  background-color: #68ace7;
-}
-
-.fuelux .datagrid tbody tr.selected > td {
-  color: #ffffff;
-}
-
-.fuelux .datagrid tbody tr.selected > td:first-child {
-  background-image: url(../img/checkmark-white.png);
-  background-position: 8px 10px;
-  background-repeat: no-repeat;
-}
-
-.fuelux .datagrid tbody tr.selected > td:first-child > div:first-child {
-  position: relative;
-  left: 22px;
-  padding-left: 0;
 }
 
 .fuelux .datagrid tfoot {
