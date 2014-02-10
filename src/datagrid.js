@@ -254,6 +254,7 @@ define(function (require) {
 							// the right by 22px when the row is selected.
 							if (enableSelect && (index === 0)) {
 								var $md = $('<div/>');
+								$md.addClass('selectWrap');
 								$md.append(row[column.property]);
 								$td.html($md);
 							} else {
