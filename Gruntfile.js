@@ -178,10 +178,10 @@ module.exports = function (grunt) {
 		},
 		copy: {
 			images: {
-					expand: true,
-					cwd: 'lib/bootstrap/img/',
-					src: ['**'],
-					dest: 'dist/img/'
+				expand: true,
+				cwd: 'lib/bootstrap/img/',
+				src: ['**'],
+				dest: 'dist/img/'
 			},
 			zipsrc: {
 				expand: true,

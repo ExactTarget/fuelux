@@ -129,16 +129,38 @@ define(function (require) {
 			return this.selectedItems;
 		},
 
-		setSelectedItems: function (selectedItems) {
-			// This merges the two arrays without carrying over any duplicates.
-			$.extend(true, this.selectedItems, selectedItems);
+		setSelectedItems: function (selectItems) {
+			// Here, selectItems contains the keys (strings) of items to be selected.
+			// Copy those in to itemsToSelect; that array may be modified later based
+			// on selection rules.
+			var itemsToSelect = [];
+			$.extend(true, itemsToSelect, selectItems);
 
-			// Highlight the rows already rendered.
-			$.each(this.$tbody.find('tr'), function (index, row) {
-				if(selectedItems.hasOwnProperty($(row).attr('data-id'))) {
+			// If multiSelect is not enabled for this table and the user is
+			// attempting to select more than one row, reset the selected
+			// rows and then limit itemsToSelect to only its first entry.
+			if((this.options.multiSelect === false) && (itemsToSelect.length > 1)) {
+				this.clearSelectedItems();
+				itemsToSelect.splice(1);
+			}
+
+			// Next, search through the data set to find those objects which
+			// match any of the keys in itemsToSelect.  This will prevent
+			// this.selectedItems from being loaded with faulty data.
+			$.each(itemsToSelect, $.proxy(function(index, selectedItemKey) {
+				$.each(this.options.dataSource._data, $.proxy(function(index, data) {
+					if(data[this.options.primaryKey].toString() === selectedItemKey.toString()) {
+						this.selectedItems[data[this.options.primaryKey]] = data;
+					}
+				}, this));
+			}, this));
+
+			// Finally, highlight rows based upon their "selected" status.
+			$.each(this.$tbody.find('tr'), $.proxy(function (index, row) {
+				if(this.selectedItems.hasOwnProperty($(row).attr('data-id'))) {
 					$(row).addClass('selected');
 				}
-			});
+			}, this));
 		},
 
 		clearSelectedItems: function() {
@@ -231,9 +253,10 @@ define(function (require) {
 							// in a div to better control the left offset needed
 							// to show the checkmark.  This div will be moved to
 							// the right by 22px when the row is selected.
-							if (enableSelect) {
+							if (enableSelect && (index === 0)) {
 								var $md = $('<div/>');
-								$md.html(row[column.property]);
+								$md.append( $('<i/>' ).addClass('checked') );
+								$md.append(row[column.property]);
 								$td.html($md);
 							} else {
 								$td.html(row[column.property]);
@@ -243,6 +266,7 @@ define(function (require) {
 						});
 
 						if (enableSelect) {
+							$tr.addClass('selectable');
 							$tr.attr('data-id', row[self.options.primaryKey]);
 
 							if ($.inArray(row[self.options.primaryKey].toString(), selectedItemsKeys) > -1) {
