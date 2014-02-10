@@ -80,15 +80,15 @@
 				left: 22px;
 				position: relative;
 
-				i.checked {
-					background-image: url(../img/form.png);
-					background-position: -96px 0px;
-					background-repeat: no-repeat;
-					margin-left: -20px;
-					margin-right: 4px;
-					padding-left: 16px;
+				&:before {
+					background: url(../img/form.png) -96px 0 no-repeat;
+					content: ' ';
+					display: block;
+					height: 15px;
+					left: -22px;
+					position: absolute;
+					top: 2px;
 					width: 16px;
-					height: 16px;
 				}
 			}
 		}
