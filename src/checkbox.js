@@ -42,10 +42,12 @@ define(function (require) {
 
 			// reset classes
 			this.$icon.removeClass('checked disabled');
+			this.$label.removeClass('checked');
 
 			// set state of checkbox
 			if (checked === true) {
 				this.$icon.addClass('checked');
+				this.$label.addClass('checked');
 			}
 			if (disabled === true) {
 				this.$icon.addClass('disabled');
