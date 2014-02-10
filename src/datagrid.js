@@ -40,6 +40,7 @@ define(function (require) {
 		this.$colheader = $('<tr>').appendTo(this.$thead);
 
 		this.options = $.extend(true, {}, $.fn.datagrid.defaults, options);
+		this.selectedItems = {};
 
 		// Shim until v3 -- account for FuelUX select or native select for page size:
 		if (this.$pagesize.hasClass('select')) {
@@ -84,8 +85,6 @@ define(function (require) {
 	Datagrid.prototype = {
 
 		constructor: Datagrid,
-
-		selectedItems: {},
 
 		renderColumns: function () {
 			var $target;
