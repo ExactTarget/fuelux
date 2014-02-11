@@ -32,13 +32,14 @@ module.exports = function validate(def, data) {
     selector.elements.forEach(function (element) {
 
       var extract
+        , line
 
       // continue to next element if no underscore
       if (!RULE.exp.test(element.value)) return
 
       // calculate line number for the extract
-      extract = util.getLine(element.index - element.value.length, data)
-      extract = util.padLine(extract)
+      line = util.getLine(element.index - element.value.length, data)
+      extract = util.padLine(line)
 
       // highlight invalid underscores
       extract += element.value.replace(RULE.exp, '_'.magenta)
@@ -51,6 +52,7 @@ module.exports = function validate(def, data) {
         type: RULE.type
       , message: RULE.message
       , extract: extract
+      , line: line
       })
 
     })

@@ -3552,6 +3552,7 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 				tmpLastMonthDaysObj.number     = this.daysOfLastMonth[ x ];
 				tmpLastMonthDaysObj[ 'class' ] = '';
 				tmpLastMonthDaysObj[ 'class' ] = this._processDateRestriction( new Date( viewedYear, viewedMonth + 1, this.daysOfLastMonth[ x ], 0, 0, 0, 0 ), true );
+				tmpLastMonthDaysObj[ 'class' ] += ' past';
 				this.daysOfLastMonth[ x ]      = tmpLastMonthDaysObj;
 			}
 
@@ -4838,9 +4839,16 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 		step: function (dir) {
 			var curValue = this.options.value;
 			var limValue = dir ? this.options.max : this.options.min;
+			var digits, multiple;
 
 			if ((dir ? curValue < limValue : curValue > limValue)) {
 				var newVal = curValue + (dir ? 1 : -1) * this.options.step;
+
+				if(this.options.step % 1 !== 0){
+					digits = (this.options.step + '').split('.')[1].length;
+					multiple = Math.pow(10, digits);
+					newVal = Math.round(newVal * multiple) / multiple;
+				}
 
 				if (dir ? newVal > limValue : newVal < limValue) {
 					this.value(limValue);

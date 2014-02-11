@@ -215,13 +215,13 @@ define(function (require) {
 				silent = silent || false;
 				// if silent is requested (direct user input parsing) return true or false not a date object, otherwise return a date object
 				if( silent ) {
-					if( moment( date )._d.toString() === "Invalid Date" ) {
+					if( moment( date ).toDate().toString() === "Invalid Date" ) {
 						return false;
 					} else {
 						return true;
 					}
 				} else {
-					return moment( date )._d; //example of using moment for parsing
+					return moment( date ).toDate(); //example of using moment for parsing
 				}
 			} else {
 				// if moment isn't present, use previous date parsing strategry
@@ -417,6 +417,7 @@ define(function (require) {
 				tmpLastMonthDaysObj.number     = this.daysOfLastMonth[ x ];
 				tmpLastMonthDaysObj[ 'class' ] = '';
 				tmpLastMonthDaysObj[ 'class' ] = this._processDateRestriction( new Date( viewedYear, viewedMonth + 1, this.daysOfLastMonth[ x ], 0, 0, 0, 0 ), true );
+				tmpLastMonthDaysObj[ 'class' ] += ' past';
 				this.daysOfLastMonth[ x ]      = tmpLastMonthDaysObj;
 			}
 
@@ -575,7 +576,6 @@ define(function (require) {
 			this.stagedDate.setDate( parseInt( e.target.innerHTML, 10 ) );
 
 			this.setDate( this.stagedDate );
-			this._render();
 			this.done = true;
 		},
 
