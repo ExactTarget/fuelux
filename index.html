@@ -1000,6 +1000,24 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 						to the first page.
 					</td>
 				</tr>
+				<tr>
+					<td>clearSelectedItems</td>
+					<td>If row selection is enabled, this method will clear all rows currently selected.
+					</td>
+				</tr>
+				<tr>
+					<td>setSelectedItems</td>
+					<td>If row selection is enabled, this method will programmatically set specified rows within the datagrid by each element's primary key value.
+						The argument passed to this method should be an array of string values. Note, this relies on the <code>_data</code> array being included in the
+						DataSource as provided in the samples directory.
+					</td>
+				</tr>
+				<tr>
+					<td>getSelectedItems</td>
+					<td>If row selection is enabled, this method returns an object containing all the selected items within the datagrid.  Each property in the returned object
+						represents a selected value (by primary key) with the corresponding values being the selected data elements.
+					</td>
+				</tr>
 				</tbody>
 			</table>
 
@@ -1058,6 +1076,28 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 					</td>
 					<td><code>item</code></td>
 				</tr>
+				<tr>
+					<td>enableSelect</td>
+					<td>
+						Boolean value to enable/disable datagrid row selection
+					</td>
+					<td><code>false</code></td>
+				</tr>
+				<tr>
+					<td>primaryKey</td>
+					<td>
+						If datagrid row selection is enabled, this specifies the property in each data element which should be used as the primary key.
+					</td>
+					<td><code>null</code> (must be provided)</td>
+				</tr>
+				<tr>
+					<td>multiSelect</td>
+					<td>
+						If datagrid row selection is enabled, multiple rows may selected with a boolean value of <code>true</code>, or disallowed with
+						a value of <code>false</code>.
+					</td>
+					<td><code>true</code></td>
+				</tr>
 				</tbody>
 			</table>
 
@@ -1075,6 +1115,14 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 				<tr>
 					<td>loaded</td>
 					<td>This event is fired after the grid loads or reloads data</td>
+				</tr>
+				<tr>
+					<td>itemSelected</td>
+					<td>If row selection is enabled, this event is fired when a row is selected. The value of the selected row is returned.</td>
+				</tr>
+				<tr>
+					<td>itemDeselected</td>
+					<td>If row selection is enabled, this event is fired when a row is deselected. The value of the deselected row is returned.</td>
 				</tr>
 				</tbody>
 			</table>
@@ -1452,9 +1500,9 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 					<td>removed</td>
 					<td>This event is fired when a pillbox is removed. It will return data in the following format:
 						<pre class="prettyprint linenums">
-{ 
-	method: 'methodUsedToRemove', 
-	removedSelector|removedValue|removedText: selector|value|text 
+{
+	method: 'methodUsedToRemove',
+	removedSelector|removedValue|removedText: selector|value|text
 }</pre>
 					</td>
 				</tr>
@@ -1572,7 +1620,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 <pre class="prettyprint linenums">
 //note that this will deselect ALL radio buttons on the page. Change the query to target a specific group or button
 $('.radio-custom i').removeClass('checked');
-$('.radio-custom input').prop('checked', false);					
+$('.radio-custom input').prop('checked', false);
 </pre>
 
 			<h3>Methods</h3>
@@ -1602,7 +1650,7 @@ $('.radio-custom input').prop('checked', false);
 			<p>You can activate radio on your page easily without having to write a single line of javascript. Just set
 				<code>class="radio-custom"</code> on a label and include an i tag with <code>class="radio"</code> like
 				the example markup below and the radio will activate automatically.</p>
-				
+
 <pre class="prettyprint linenums">
 &lt;label class="radio radio-custom">&lt;input type="radio"&gt;&lt;i class="radio"&gt;&lt;/i&gt;Item One&lt;/label&gt;
 </pre>
