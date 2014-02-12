@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title></title>
-</head>
+<html lang="en">
+	<head>
+		<!-- Meta, title, CSS, favicons, etc. -->
+		{% include header.html %}
+	</head>
 <body>
-    <!-- Page content of course! -->
-    {{ content }}
+	<!-- Master Nav -->
+	{% include nav-main.html %}
+
+	<!-- Page Content -->
+	{{ content }}
+
+	<!-- Footer -->
+	{% include footer.html %}
 </body>
 </html>
