@@ -1,4 +1,96 @@
 /*
+ * Scaffolding
+ *
+ * Update the basics of our documents to prep for docs content.
+ */
+
+body {
+	position: relative; /* For scrollyspy */
+}
+
+a {
+	color: #8fa5b7;
+}
+
+a:hover,
+a:focus
+{
+	color: #436078;
+}
+
+/* Keep code small in tables on account of limited space */
+/*.table code {
+	font-size: 13px;
+	font-weight: normal;
+}*/
+
+/* Outline button for use within the docs */
+.btn-outline {
+	color: #555;
+	background-color: transparent;
+	border-color: #555;
+}
+.btn-outline:hover,
+.btn-outline:focus,
+.btn-outline:active {
+	color: #eee;
+	background-color: #555;
+	border-color: #555;
+}
+
+/* Inverted outline button (white on dark) */
+.btn-outline-inverse {
+	color: #333;
+	background-color: transparent;
+	border-color: #666;
+}
+.btn-outline-inverse:hover,
+.btn-outline-inverse:focus,
+.btn-outline-inverse:active {
+	color: #eee;
+	text-shadow: none;
+	background-color: #333;
+	border-color: #333;
+}
+
+/*
+ * Main navigation
+ *
+ * Turn the `.navbar` at the top of the docs purple.
+ */
+
+.fu-docs-nav {
+	margin-bottom: 0;
+	background-color: #333;
+	border-bottom: 0;
+}
+.fu-home-nav .fu-nav-b {
+	display: none;
+}
+.fu-docs-nav .navbar-brand,
+.fu-docs-nav .navbar-nav > li > a {
+	color: #eee;
+	font-weight: 500;
+}
+.fu-docs-nav .navbar-nav > li > a:hover,
+.fu-docs-nav .navbar-nav > .active > a,
+.fu-docs-nav .navbar-nav > .active > a:hover {
+	color: #ddd;
+	background-color: #444;
+}
+.fu-docs-nav .navbar-toggle .icon-bar {
+	background-color: #eee;
+}
+.fu-docs-nav .navbar-header .navbar-toggle {
+	border-color: #fff;
+}
+.fu-docs-nav .navbar-header .navbar-toggle:hover,
+.fu-docs-nav .navbar-header .navbar-toggle:focus {
+	background-color: #f9f9f9;
+	border-color: #f9f9f9;
+}
+
+/*
  * Footer
  *
  * Separated section of content at the bottom of all pages, save the homepage.
@@ -62,4 +154,129 @@
 .github-btn {
 	border: 0;
 	overflow: hidden;
+}
+
+/*
+ * Homepage
+ *
+ * Tweaks to the custom homepage and the masthead (main jumbotron).
+ */
+
+.fu-logo {
+	margin: 0 auto 30px;
+}
+
+/* Share masthead with page headers */
+.fu-masthead,
+.fu-header {
+	/*color: #333;*/
+	position: relative;
+	padding: 30px 15px;
+	text-align: center;
+	text-shadow: 0 1px 0 rgba(0,0,0,.1);
+
+	background-color: #eee;
+	background-image: -webkit-linear-gradient(top, #ddd 0%, #eee 100%);
+	background-image: linear-gradient(to bottom, #ddd 0%, #eee 100%);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ddd', endColorstr='#eee', GradientType=0);
+}
+
+/* Masthead (headings and download button) */
+.fu-masthead .fu-booticon {
+	margin: 0 auto 30px;
+}
+.fu-masthead h1 {
+	color: #fff;
+	font-weight: 300;
+	line-height: 1;
+}
+.fu-masthead .lead {
+	color: #333;
+	font-size: 20px;
+	margin: 0 auto 30px;
+}
+.fu-masthead .lead:last-child {
+	margin-bottom: 0;
+}
+.fu-masthead .btn {
+	width: 100%;
+	padding: 15px 30px;
+	font-size: 20px;
+}
+
+@media (min-width: 480px) {
+	.fu-masthead .btn {
+		width: auto;
+	}
+}
+
+@media (min-width: 768px) {
+	.fu-masthead {
+		padding-top: 80px;
+		padding-bottom: 80px;
+	}
+	.fu-masthead h1 {
+		font-size: 60px;
+	}
+	.fu-masthead .lead {
+		font-size: 24px;
+	}
+}
+
+@media (min-width: 992px) {
+	.fu-masthead .lead {
+		width: 80%;
+		font-size: 30px;
+	}
+}
+
+/*
+ * Homepage featurettes
+ *
+ * Reasons to use Fuel UX and more.
+ */
+
+.fu-featurette {
+	padding-top:    40px;
+	padding-bottom: 40px;
+	font-size: 16px;
+	line-height: 1.5;
+	color: #555;
+	text-align: center;
+	background-color: #fff;
+	border-bottom: 1px solid #e5e5e5;
+}
+.fu-featurette + .fu-footer {
+	margin-top: 0;
+	border-top: 0;
+}
+
+.fu-featurette-title {
+	font-size: 30px;
+	font-weight: normal;
+	color: #333;
+	margin-bottom: 5px;
+}
+.half-rule {
+	width: 100px;
+	margin: 40px auto;
+}
+.fu-featurette h3 {
+	font-weight: normal;
+	color: #333;
+	margin-bottom: 5px;
+}
+.fu-featurette-img {
+	display: block;
+	margin-bottom: 20px;
+	color: #333;
+}
+.fu-featurette-img:hover {
+	text-decoration: none;
+	color: #428bca;
+}
+.fu-featurette-img img {
+	display: block;
+	margin-bottom: 15px;
 }
