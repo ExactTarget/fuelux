@@ -1,0 +1,65 @@
+/*
+ * Footer
+ *
+ * Separated section of content at the bottom of all pages, save the homepage.
+ */
+
+.fu-footer {
+	padding-top: 40px;
+	padding-bottom: 40px;
+	margin-top: 100px;
+	color: #777;
+	text-align: center;
+	border-top: 1px solid #e5e5e5;
+}
+.footer-links {
+	margin-top: 20px;
+	padding-left: 0;
+	color: #999;
+}
+.footer-links li {
+	display: inline;
+	padding: 0 2px;
+}
+.footer-links li:first-child {
+	padding-left: 0;
+}
+
+@media (min-width: 768px) {
+	.fu-footer p {
+		margin-bottom: 0;
+	}
+}
+
+/*
+ * Social buttons
+ *
+ * Twitter and GitHub social action buttons (for homepage and footer).
+ */
+
+.fu-social {
+	margin-bottom: 20px;
+	text-align: center;
+}
+.fu-social-buttons {
+	display: inline-block;
+	margin-bottom: 0;
+	padding-left: 0;
+	list-style: none;
+}
+.fu-social-buttons li {
+	display: inline-block;
+	line-height: 1;
+	padding: 5px 8px;
+}
+.fu-social-buttons .twitter-follow-button {
+	width: 225px !important;
+}
+.fu-social-buttons .twitter-share-button {
+	width: 98px !important;
+}
+/* Style the GitHub buttons via CSS instead of inline attributes */
+.github-btn {
+	border: 0;
+	overflow: hidden;
+}
