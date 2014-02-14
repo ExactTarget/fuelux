@@ -2,6 +2,10 @@
 
 .datagrid {
 
+	th {
+		cursor: pointer;
+	}
+
 	thead {
 
 		background-color: @tableBackgroundAccent;
@@ -57,6 +61,37 @@
 			}
 		}
 
+	}
+
+	tbody {
+		tr.selectable {
+			cursor: pointer;
+		}
+
+		tr.selected {
+			background-color: #68ace7;
+
+			& > td {
+				color: #ffffff;
+			}
+
+			& > td:first-child > div.selectWrap {
+				padding-left: 0px;
+				left: 22px;
+				position: relative;
+
+				&:before {
+					background: url(../img/form.png) -96px 0 no-repeat;
+					content: ' ';
+					display: block;
+					height: 15px;
+					left: -22px;
+					position: absolute;
+					top: 2px;
+					width: 16px;
+				}
+			}
+		}
 	}
 
 	tfoot {
@@ -128,6 +163,7 @@
 
 }
 
+
 .datagrid-stretch-header {
 	border-bottom: 0;
 	.border-bottom-radius(0);
@@ -170,4 +206,3 @@
 		border-top: 0;
 	}
 }
-
