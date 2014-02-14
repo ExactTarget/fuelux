@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Meta, title, CSS, favicons, etc. -->
+	{% include header.html %}
+</head>
+<body>
+<a class="sr-only" href="#content">Skip to main content</a>
+
+<!-- Docs master nav -->
+{% include nav-main.html %}
+
+<!-- Docs page layout -->
+<div class="fu-header" id="content">
+	<div class="container">
+		<h1>{{ page.title }}</h1>
+		<p>{{ page.lead }}</p>
+	</div>
+</div>
+
+<div class="container fu-docs-container">
+
+	<div class="row">
+		<div class="col-md-9" role="main">
+			{{ content }}
+		</div>
+		<div class="col-md-3">
+			<div class="fu-sidebar hidden-print" role="complementary">
+				<ul class="nav fu-sidenav">
+					{% if page.slug == "getting-started" %}
+						{% include nav-getting-started.html %}
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+{% include footer.html %}
+</body>
+</html>
