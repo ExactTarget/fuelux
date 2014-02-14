@@ -686,6 +686,10 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 				</thead>
 				<tbody>
 				<tr>
+					<td>check</td>
+					<td>Checks the checkbox</td>
+				</tr>
+				<tr>
 					<td>disable</td>
 					<td>Disables the checkbox</td>
 				</tr>
@@ -694,8 +698,16 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 					<td>Enables the checkbox</td>
 				</tr>
 				<tr>
+					<td>isChecked</td>
+					<td>Returns true or false, based on whether the checkbox is checked</td>
+				</tr>
+				<tr>
 					<td>toggle</td>
 					<td>Toggles the checked state of the checkbox</td>
+				</tr>
+				<tr>
+					<td>uncheck</td>
+					<td>Unchecks the checkbox</td>
 				</tr>
 				</tbody>
 			</table>
@@ -1425,11 +1437,31 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 				</thead>
 				<tbody>
 				<tr>
+					<td>addItem</td>
+					<td>Adds an additional item to the pillbox. Parameters are <code>text</code> string for display name and <code>value</code> string for item value.</td>
+				</tr>
+				<tr>
+					<td>itemCount</td>
+					<td>Returns an int representing the current number of items.</td>
+				</tr>
+				<tr>
 					<td>items</td>
 					<td>Returns an array of objects, one per item, each containing the jQuery data() contents of the
 						item <em><a href="http://api.jquery.com/data/#data-html5">which includes data-*
 							attributes</a></em> plus a <code>text</code> property with the label's visible text
 					</td>
+				</tr>
+				<tr>
+					<td>removeBySelector</td>
+					<td>Removes an item based on selector matching that of the provided <code>selector</code> string parameter.</td>
+				</tr>
+				<tr>
+					<td>removeByText</td>
+					<td>Removes an item with contained text matching that of the provided <code>text</code> string parameter.</td>
+				</tr>
+				<tr>
+					<td>removeByValue</td>
+					<td>Removes an item with value matching that of the provided <code>value</code> string parameter.</td>
 				</tr>
 				</tbody>
 			</table>
@@ -1453,9 +1485,9 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 					<td>removed</td>
 					<td>This event is fired when a pillbox is removed. It will return data in the following format:
 						<pre class="prettyprint linenums">
-{ 
-	method: 'methodUsedToRemove', 
-	removedSelector|removedValue|removedText: selector|value|text 
+{
+	method: 'methodUsedToRemove',
+	removedSelector|removedValue|removedText: selector|value|text
 }</pre>
 					</td>
 				</tr>
@@ -1573,7 +1605,7 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 <pre class="prettyprint linenums">
 //note that this will deselect ALL radio buttons on the page. Change the query to target a specific group or button
 $('.radio-custom i').removeClass('checked');
-$('.radio-custom input').prop('checked', false);					
+$('.radio-custom input').prop('checked', false);
 </pre>
 
 			<h3>Methods</h3>
@@ -1588,12 +1620,24 @@ $('.radio-custom input').prop('checked', false);
 				</thead>
 				<tbody>
 				<tr>
+					<td>checked</td>
+					<td>Checks the radio, unchecking other related radio items</td>
+				</tr>
+				<tr>
 					<td>disable</td>
 					<td>Disable the radio</td>
 				</tr>
 				<tr>
 					<td>enable</td>
 					<td>Enable the radio</td>
+				</tr>
+				<tr>
+					<td>isChecked</td>
+					<td>Returns true or false based on whether the radio is checked</td>
+				</tr>
+				<tr>
+					<td>uncheck</td>
+					<td>Unchecks the radio</td>
 				</tr>
 				</tbody>
 			</table>
@@ -1603,7 +1647,7 @@ $('.radio-custom input').prop('checked', false);
 			<p>You can activate radio on your page easily without having to write a single line of javascript. Just set
 				<code>class="radio-custom"</code> on a label and include an i tag with <code>class="radio"</code> like
 				the example markup below and the radio will activate automatically.</p>
-				
+
 <pre class="prettyprint linenums">
 &lt;label class="radio radio-custom">&lt;input type="radio"&gt;&lt;i class="radio"&gt;&lt;/i&gt;Item One&lt;/label&gt;
 </pre>
