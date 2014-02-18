@@ -4,7 +4,7 @@
 
 require(['jquery', 'fuelux/all'], function($) {
 
-	module('Twitter Bootstrap plugins', {
+	module('Bootstrap plugins', {
 		setup: function() {
 			this.elems = $('#qunit-fixture').children();
 		}
