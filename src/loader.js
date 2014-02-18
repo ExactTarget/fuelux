@@ -6,10 +6,12 @@
  * Licensed under the MIT license.
  */
 
-define('jquery', [], function () { return jQuery; });
+// REMOVE?
 
-define('moment', [], function () {});
+// define('jquery', [], function () { return jQuery; });
 
-define('fuelux/loader', ['fuelux/all'], function () {});
+// define('moment', [], function () {});
 
-require('fuelux/loader');
+// define('fuelux/loader', ['fuelux/all'], function () {});
+
+// require('fuelux/loader');
