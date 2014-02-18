@@ -11,7 +11,7 @@ require(['jquery', 'fuelux/all'], function($) {
 	});
 
 	test('modal is initialized', function() {
-		ok(this.elems.modal() === this.elems, 'modal should be initilized');
+		ok(this.elems.modal() === this.elems, 'modal should be initialized');
 	});
 
 	test('dropdown is initialized', function() {
