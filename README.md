@@ -201,6 +201,11 @@ We are grateful to the maintainers, contributors, and sponsors of the following 
 
 + http://github.com/soldoutactivist
 
+**Andy Engle**
+
++ http://twitter.com/andyengle
++ https://github.com/andyengle
+
 ## Copyright and license
 
 Copyright (c) 2012 ExactTarget
