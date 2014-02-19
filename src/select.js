@@ -177,14 +177,18 @@
         $(window).on('load', function () {
             $('.select').each(function () {
                 var $this = $(this);
-                if ($this.data('select')) return;
+                if ($this.data('select')) {
+                    return;
+                }
                 $this.select($this.data());
             });
         });
 
         $('body').on('mousedown.select.data-api', '.select', function () {
             var $this = $(this);
-            if ($this.data('select')) return;
+            if ($this.data('select')) {
+                return;
+            }
             $this.select($this.data());
         });
     });

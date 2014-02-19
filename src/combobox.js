@@ -14,7 +14,7 @@
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
         // if AMD loader is available, register as an anonymous module.
-         define(['jquery', 'combobox', 'datepicker', 'radio', 'select', 'spinner'], factory);
+         define(['jquery', 'util'], factory);
     } else {
         // OR use browser globals if AMD is not present
         factory(jQuery);
@@ -25,7 +25,6 @@
     // -- BEGIN MODULE CODE HERE --
     
 	var old = $.fn.combobox;
-	require('./util');
 
 	// COMBOBOX CONSTRUCTOR AND PROTOTYPE
 
