@@ -8,31 +8,34 @@ lead: "An overview of Fuel UX, how to download and use and more."
 
 <!-- Getting started
 ================================================== -->
-<div class="bs-docs-section">
+<div class="fu-docs-section">
 	<h1 id="download" class="page-header">Download</h1>
 
-	<p class="lead">Bootstrap has a few easy ways to quickly get started, each one appealing to a different skill level and use case. Read through to see what suits your particular needs.</p>
+	<p class="lead">Fuel UX has a few easy ways to quickly get started, each one appealing to a different skill level and use case. Read through to see what suits your particular needs.</p>
 
-	<div class="row bs-downloads">
+	<div class="row fu-downloads">
 		<div class="col-sm-4">
 			<h3 id="download-bootstrap">Bootstrap</h3>
 			<p>Compiled and minified CSS, JavaScript, and fonts. No docs or original source files are included.</p>
-			<a href="{{ site.download.dist }}" class="btn btn-lg btn-outline" role="button" onclick="_gaq.push(['_trackEvent', 'Getting started', 'Download', 'Download compiled']);">Download Bootstrap</a>
+			<a href="#" class="btn btn-lg btn-outline" role="button">Download Bootstrap</a>
+			<!--<a href="{{ site.download.dist }}" class="btn btn-lg btn-outline" role="button">Download Bootstrap</a>-->
 		</div>
 		<div class="col-sm-4">
 			<h3 id="download-source">Source code</h3>
-			<p>Source Less, JavaScript, and font files, along with our docs. <strong>Requires a Less compiler and <a href="{{ site.repo }}#compiling-css-and-javascript">some setup.</a></strong></p>
-			<a href="{{ site.download.source }}" class="btn btn-lg btn-outline" role="button" onclick="_gaq.push(['_trackEvent', 'Getting started', 'Download', 'Download source']);">Download source</a>
+			<p>Source Less, JavaScript, and font files, along with our docs. <strong>Requires a Less compiler and <!--<a href="{{ site.repo }}#compiling-css-and-javascript">some setup.</a>--><a href="#">some setup.</a></strong></p>
+			<a href="#" class="btn btn-lg btn-outline" role="button">Download source</a>
+			<!--<a href="{{ site.download.source }}" class="btn btn-lg btn-outline" role="button">Download source</a>-->
 		</div>
 		<div class="col-sm-4">
 			<h3 id="download-sass">Sass</h3>
-			<p><a href="{{ site.sass_repo }}">Bootstrap ported from Less to Sass</a> for easy inclusion in Rails, Compass, or Sass-only projects.</p>
-			<a href="{{ site.download.sass }}" class="btn btn-lg btn-outline" role="button" onclick="_gaq.push(['_trackEvent', 'Getting started', 'Download', 'Download Sass']);">Download Sass</a>
+			<p><a href="#">Fuel UX ported from Less to Sass</a><!--<a href="{{ site.sass_repo }}">Fuel UX ported from Less to Sass</a>--> for easy inclusion in Rails, Compass, or Sass-only projects.</p>
+			<a href="#" class="btn btn-lg btn-outline" role="button">Download Sass</a>
+			<!--<a href="{{ site.download.sass }}" class="btn btn-lg btn-outline" role="button">Download Sass</a>-->
 		</div>
 	</div>
 
-	<h3 id="download-cdn">Bootstrap CDN</h3>
-	<p>The folks over at <a href="http://www.maxcdn.com/">MaxCDN</a> graciously provide CDN support for Bootstrap's CSS and JavaScript. Just use these <a href="http://www.bootstrapcdn.com/">Bootstrap CDN</a> links.</p>
+	<h3 id="download-cdn">Fuel UX CDN</h3>
+	<p>ExactTarget hosts Fuel UX on it's <a href="http://www.fuelcdn.com/">FuelCDN.</a> Just use these <a href="http://www.fuelcdn.com/fuelux-resources">Fuel CDN</a> links.</p>
 	{% highlight html %}
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="{{ site.cdn.css }}">
@@ -47,4 +50,58 @@ lead: "An overview of Fuel UX, how to download and use and more."
 	<h3 id="download-bower">Install with Bower</h3>
 	<p>Install and manage Bootstrap's Less, CSS, JavaScript, and fonts using <a href="http://bower.io">Bower</a>.</p>
 	{% highlight bash %}$ bower install bootstrap{% endhighlight %}
+</div>
+
+
+
+<!-- File structure
+================================================== -->
+<div class="fu-docs-section">
+	<h1 id="whats-included" class="page-header">What's included</h1>
+
+	<p class="lead">Bootstrap is downloadable in two forms, within which you'll find the following directories and files, logically grouping common resources and providing both compiled and minified variations.</p>
+
+	<div class="fu-callout fu-callout-warning" id="jquery-required">
+		<h4>jQuery required</h4>
+		<p>Please note that <strong>all JavaScript plugins require jQuery</strong> to be included, as shown in the <a href="#template">starter template</a>. <a href="{{ site.repo }}/blob/v{{ site.current_version }}/bower.json">Consult our <code>bower.json</code></a> to see which versions of jQuery are supported.</p>
+	</div>
+
+	<h2 id="whats-included-precompiled">Precompiled Bootstrap</h2>
+	<p>Once downloaded, unzip the compressed folder to see the structure of (the compiled) Bootstrap. You'll see something like this:</p>
+	<!-- NOTE: This info is intentionally duplicated in the README.
+	Copy any changes made here over to the README too. -->
+	{% highlight bash %}
+	bootstrap/
+	├── css/
+	│   ├── bootstrap.css
+	│   ├── bootstrap.min.css
+	│   ├── bootstrap-theme.css
+	│   └── bootstrap-theme.min.css
+	├── js/
+	│   ├── bootstrap.js
+	│   └── bootstrap.min.js
+	└── fonts/
+	├── glyphicons-halflings-regular.eot
+	├── glyphicons-halflings-regular.svg
+	├── glyphicons-halflings-regular.ttf
+	└── glyphicons-halflings-regular.woff
+	{% endhighlight %}
+
+	<p>This is the most basic form of Bootstrap: precompiled files for quick drop-in usage in nearly any web project. We provide compiled CSS and JS (<code>bootstrap.*</code>), as well as compiled and minified CSS and JS (<code>bootstrap.min.*</code>). Fonts from Glyphicons are included, as is the optional Bootstrap theme.</p>
+
+	<h2 id="whats-included-source">Bootstrap source code</h2>
+	<p>The Bootstrap source code download includes the precompiled CSS, JavaScript, and font assets, along with source Less, JavaScript, and documentation. More specifically, it includes the following and more:</p>
+	{% highlight bash %}
+	bootstrap/
+	├── less/
+	├── js/
+	├── fonts/
+	├── dist/
+	│   ├── css/
+	│   ├── js/
+	│   └── fonts/
+	└── docs/
+	└── examples/
+	{% endhighlight %}
+	<p>The <code>less/</code>, <code>js/</code>, and <code>fonts/</code> are the source code for our CSS, JS, and icon fonts (respectively). The <code>dist/</code> folder includes everything listed in the precompiled download section above. The <code>docs/</code> folder includes the source code for our documentation, and <code>examples/</code> of Bootstrap usage. Beyond that, any other included file provides support for packages, license information, and development.</p>
 </div>
