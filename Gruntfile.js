@@ -261,7 +261,7 @@ module.exports = function (grunt) {
 
 	//grunt.registerTask('build', ['urequire:UMD']);
 
-	grunt.registerTask('default', ['fulltest', 'fullcss', 'copy:images', 'clean:dist', 'uglify', 'copy:zipsrc', 'compress', 'clean:zipsrc']);
+	grunt.registerTask('default', ['fulltest', 'fullcss', 'copy:images', 'clean:dist', 'concat', 'uglify', 'jsbeautifier', 'copy:zipsrc', 'compress', 'clean:zipsrc']);
 
 	grunt.registerTask('serve', ['quicktest', 'quickcss', 'connect', 'concat', 'uglify', 'jsbeautifier', 'watch']);
 	grunt.registerTask('devserver', function () {
