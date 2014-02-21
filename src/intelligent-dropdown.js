@@ -2,12 +2,28 @@
  * Fuel UX Intelligent Bootstrap Dropdowns
  * https://github.com/ExactTarget/fuelux
  *
- * Copyright (c) 2013 ExactTarget
+ * Copyright (c) 2014 ExactTarget
  * Licensed under the MIT license.
  */
 
-define([ "jquery", "fuelux/all"], function($) {
+// -- BEGIN UMD WRAPPER PREFACE --
 
+// For more information on UMD visit: 
+// https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
+
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // if AMD loader is available, register as an anonymous module.
+         define(['jquery'], factory);
+    } else {
+        // OR use browser globals if AMD is not present
+        factory(jQuery);
+    }
+}(function ($) {
+    // -- END UMD WRAPPER PREFACE --
+        
+    // -- BEGIN MODULE CODE HERE --
+	
 	$(function() {
 		$(document.body).on("click", "[data-toggle=dropdown][data-direction]", function( event ) {
 
@@ -129,4 +145,7 @@ define([ "jquery", "fuelux/all"], function($) {
 			};
 		}
 	});
-});
+
+// -- BEGIN UMD WRAPPER AFTERWORD --
+}));
+    // -- END UMD WRAPPER AFTERWORD --

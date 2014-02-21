@@ -2,16 +2,29 @@
  * Fuel UX Select
  * https://github.com/ExactTarget/fuelux
  *
- * Copyright (c) 2012 ExactTarget
+ * Copyright (c) 2014 ExactTarget
  * Licensed under the MIT license.
  */
 
-define(function(require) {
+// -- BEGIN UMD WRAPPER PREFACE --
 
-    var $   = require('jquery');
+// For more information on UMD visit: 
+// https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
+
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // if AMD loader is available, register as an anonymous module.
+        define(['jquery', 'util'], factory);
+    } else {
+        // OR use browser globals if AMD is not present
+        factory(jQuery);
+    }
+}(function ($) {
+    // -- END UMD WRAPPER PREFACE --
+        
+    // -- BEGIN MODULE CODE HERE --
+
     var old = $.fn.select;
-    require('./util');
-
     // SELECT CONSTRUCTOR AND PROTOTYPE
 
     var Select = function (element, options) {
@@ -164,16 +177,22 @@ define(function(require) {
         $(window).on('load', function () {
             $('.select').each(function () {
                 var $this = $(this);
-                if ($this.data('select')) return;
+                if ($this.data('select')) {
+                    return;
+                }
                 $this.select($this.data());
             });
         });
 
         $('body').on('mousedown.select.data-api', '.select', function () {
             var $this = $(this);
-            if ($this.data('select')) return;
+            if ($this.data('select')) {
+                return;
+            }
             $this.select($this.data());
         });
     });
 
-});
+// -- BEGIN UMD WRAPPER AFTERWORD --
+}));
+    // -- END UMD WRAPPER AFTERWORD --

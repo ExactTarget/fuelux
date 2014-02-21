@@ -2,33 +2,54 @@
  * Fuel UX Datepicker
  * https://github.com/ExactTarget/fuelux
  *
- * Copyright (c) 2013 ExactTarget
+ * Copyright (c) 2014 ExactTarget
  * Licensed under the MIT license.
  */
 
-define(function (require) {
+// Should we be using Moment.JS?
 
-	var $      = require('jquery');
+// -- BEGIN UMD WRAPPER PREFACE --
+
+// For more information on UMD visit: 
+// https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
+
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // if AMD loader is available, register as an anonymous module.
+         define(['jquery'], factory);
+    } else {
+        // OR use browser globals if AMD is not present
+        factory(jQuery);
+    }
+}(function ($) {
+    // -- END UMD WRAPPER PREFACE --
+        
+    // -- BEGIN MODULE CODE HERE --
+    
 	var old    = $.fn.datepicker;
 	var moment = false;
 
 	// only load moment if it's there. otherwise we'll look for it in window.moment
 	// you need to make sure moment is loaded before the rest of this module
-	require(['moment'], function( amdMoment ) {
-		moment = amdMoment;
-	}, function( err ) {
-		var failedId = err.requireModules && err.requireModules[0];
-		if (failedId === 'moment') {
-			// do nothing cause that's the point of progressive enhancement
-			if( typeof window.console !== 'undefined' ) {
-				if( window.navigator.userAgent.search( 'PhantomJS' ) < 0 ) {
-					// don't show this in phantomjs tests
-					window.console.log( "Don't worry if you're seeing a 404 that's looking for moment.js. The Fuel UX Datepicker is trying to use moment.js to give you extra features." );
-					window.console.log( "Checkout the Fuel UX docs (http://exacttarget.github.io/fuelux/#datepicker) to see how to integrate moment.js for more features" );
+
+	// check if AMD is available
+	if(typeof define === 'function' && define.amd) {
+		require(['moment'], function( amdMoment ) {
+			moment = amdMoment;
+		}, function( err ) {
+			var failedId = err.requireModules && err.requireModules[0];
+			if (failedId === 'moment') {
+				// do nothing cause that's the point of progressive enhancement
+				if( typeof window.console !== 'undefined' ) {
+					if( window.navigator.userAgent.search( 'PhantomJS' ) < 0 ) {
+						// don't show this in phantomjs tests
+						window.console.log( "Don't worry if you're seeing a 404 that's looking for moment.js. The Fuel UX Datepicker is trying to use moment.js to give you extra features." );
+						window.console.log( "Checkout the Fuel UX docs (http://exacttarget.github.io/fuelux/#datepicker) to see how to integrate moment.js for more features" );
+					}
 				}
 			}
-		}
-	});
+		});
+	}
 
 	// DATEPICKER CONSTRUCTOR AND PROTOTYPE
 
@@ -215,13 +236,13 @@ define(function (require) {
 				silent = silent || false;
 				// if silent is requested (direct user input parsing) return true or false not a date object, otherwise return a date object
 				if( silent ) {
-					if( moment( date )._d.toString() === "Invalid Date" ) {
+					if( moment( date ).toDate().toString() === "Invalid Date" ) {
 						return false;
 					} else {
 						return true;
 					}
 				} else {
-					return moment( date )._d; //example of using moment for parsing
+					return moment( date ).toDate(); //example of using moment for parsing
 				}
 			} else {
 				// if moment isn't present, use previous date parsing strategry
@@ -417,6 +438,7 @@ define(function (require) {
 				tmpLastMonthDaysObj.number     = this.daysOfLastMonth[ x ];
 				tmpLastMonthDaysObj[ 'class' ] = '';
 				tmpLastMonthDaysObj[ 'class' ] = this._processDateRestriction( new Date( viewedYear, viewedMonth + 1, this.daysOfLastMonth[ x ], 0, 0, 0, 0 ), true );
+				tmpLastMonthDaysObj[ 'class' ] += ' past';
 				this.daysOfLastMonth[ x ]      = tmpLastMonthDaysObj;
 			}
 
@@ -575,7 +597,6 @@ define(function (require) {
 			this.stagedDate.setDate( parseInt( e.target.innerHTML, 10 ) );
 
 			this.setDate( this.stagedDate );
-			this._render();
 			this.done = true;
 		},
 
@@ -983,4 +1004,6 @@ define(function (require) {
 		$.fn.datepicker = old;
 		return this;
 	};
-});
+// -- BEGIN UMD WRAPPER AFTERWORD --
+}));
+    // -- END UMD WRAPPER AFTERWORD --

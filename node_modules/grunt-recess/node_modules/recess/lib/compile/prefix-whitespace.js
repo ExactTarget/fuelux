@@ -54,7 +54,7 @@ function space(rules, i) {
     peekRoot = peek.name.replace(VENDOR_PREFIX, '')
 
 
-    // if they share the same root calculte the offset in spacing
+    // if they share the same root calculate the offset in spacing
     if (ruleRoot === peekRoot) {
 
       // calculate the rules val

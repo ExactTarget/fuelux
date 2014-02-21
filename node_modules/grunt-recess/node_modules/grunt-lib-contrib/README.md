@@ -33,21 +33,31 @@ Convert an object to an array of CLI arguments, which can be used with `child_pr
 
 Strip a path from a path. normalize both paths for best results.
 
-#### minMaxInfo(min, max)
+#### minMaxInfo(min, max, report)
 
 Helper for logging compressed, uncompressed and gzipped sizes of strings.
+
+#### report
+Choices: `false`, `'min'`, `'gzip'`
+Default: `false`
+
+Either do not report anything, report only minification result, or report minification and gzip results.
+
+**Important** Including `'gzip'` results can make this task 5-10x slower depending on the size of the file.
+
 
 ```js
 var max = grunt.file.read('max.js');
 var min = minify(max);
-minMaxInfo(min, max);
+minMaxInfo(min, max, 'gzip');
 ```
 
 Would print:
 
 ```
-Uncompressed size: 495 bytes.
-Compressed size: 36 bytes gzipped (396 bytes minified).
+Original: 495 bytes.
+Minified: 396 bytes.
+Gzipped: 36 bytes.
 ```
 
 --

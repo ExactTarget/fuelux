@@ -2,15 +2,29 @@
  * Fuel UX Combobox
  * https://github.com/ExactTarget/fuelux
  *
- * Copyright (c) 2012 ExactTarget
+ * Copyright (c) 2014 ExactTarget
  * Licensed under the MIT license.
  */
 
-define(function (require) {
+// -- BEGIN UMD WRAPPER PREFACE --
 
-	var $   = require('jquery');
+// For more information on UMD visit: 
+// https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
+
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // if AMD loader is available, register as an anonymous module.
+         define(['jquery', 'util'], factory);
+    } else {
+        // OR use browser globals if AMD is not present
+        factory(jQuery);
+    }
+}(function ($) {
+    // -- END UMD WRAPPER PREFACE --
+        
+    // -- BEGIN MODULE CODE HERE --
+    
 	var old = $.fn.combobox;
-	require('./util');
 
 	// COMBOBOX CONSTRUCTOR AND PROTOTYPE
 
@@ -180,4 +194,7 @@ define(function (require) {
 			$this.combobox($this.data());
 		});
 	});
-});
+
+// -- BEGIN UMD WRAPPER AFTERWORD --
+}));
+    // -- END UMD WRAPPER AFTERWORD --

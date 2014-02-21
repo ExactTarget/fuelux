@@ -3,6 +3,7 @@
 module.exports = function (grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-copy');
@@ -13,26 +14,68 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-recess');
 	grunt.loadNpmTasks('grunt-saucelabs');
+	grunt.loadNpmTasks('grunt-jsbeautifier');
 
 	// Project configuration.
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-		uglify: {
-			options: {
-				banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
-					'<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-					'<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
-					'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
-					' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n'
-			},
-			all: {
+		concat: {
+			dist: {
+				options: {
+					banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
+						'<%= grunt.template.today("yyyy-mm-dd") %>\n' +
+						'<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
+						'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
+						' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n\n' +
+						'// For more information on UMD visit: https://github.com/umdjs/umd/' + '\n' +
+						'(function (factory) {' + '\n' +
+							'\tif (typeof define === \'function\' && define.amd) {' + '\n' +
+								'\t\tdefine([\'jquery\'], factory);' + '\n' +
+							'\t} else {' + '\n' +
+								'\t\tfactory(jQuery);' + '\n' +
+							'\t}' + '\n' +
+						'}(function (jQuery) {\n\n',
+					footer: '\n}));',
+					process: function(source) {
+						source = '(function ($) {\n\n' +
+							source.replace(/\/\/ -- BEGIN UMD WRAPPER PREFACE --(\n|.)*\/\/ -- END UMD WRAPPER PREFACE --/g, '');
+						source = source.replace(/\/\/ -- BEGIN UMD WRAPPER AFTERWORD --(\n|.)*\/\/ -- END UMD WRAPPER AFTERWORD --/g, '') +
+							'\n})(jQuery);\n\n';
+						return source;
+						}
+					},
 				files: {
-					'dist/all.min.js': ['dist/all.js']
+					'dist/fuelux.js': ['src/*.js', '!src/all.js']
 				}
-			},
-			loader: {
+			}
+		},
+		jsbeautifier: {
+			files: ['dist/fuelux.js'],
+				options: {
+					js: {
+						braceStyle: 'collapse',
+						breakChainedMethods: false,
+						e4x: false,
+						evalCode: false,
+						indentLevel: 0,
+						indentSize: 4,
+						indentWithTabs: true,
+						jslintHappy: false,
+						keepArrayIndentation: false,
+						keepFunctionIndentation: false,
+						maxPreserveNewlines: 10,
+						preserveNewlines: true,
+						spaceBeforeConditional: true,
+						spaceInParen: true,
+						unescapeStrings: false,
+						wrapLineLength: 0
+				}
+			}
+		},
+		uglify: {
+			fuelux: {
 				files: {
-					'dist/loader.min.js': ['dist/loader.js']
+					'dist/fuelux.min.js': ['dist/fuelux.js']
 				}
 			}
 		},
@@ -68,8 +111,9 @@ module.exports = function (grunt) {
 			}
 		},
 		watch: {
-			files: ['Gruntfile.js', 'lib/**', 'src/**', 'test/**'],
-			tasks: ['quicktest', 'quickcss']
+			options: { livereload: true },
+			files: ['Gruntfile.js', 'lib/**', 'src/**', 'test/**', 'index.html'],
+			tasks: ['quicktest', 'quickcss', 'concat', 'jshint', 'jsbeautifier'] 
 		},
 		connect: {
 			server: {
@@ -88,7 +132,7 @@ module.exports = function (grunt) {
 				noarg: true,
 				sub: true,
 				undef: true,
-				unused: true,
+				unused: false, // changed
 				boss: true,
 				eqnull: true,
 				browser: true,
@@ -98,7 +142,7 @@ module.exports = function (grunt) {
 					require: true
 				}
 			},
-			source: ['Gruntfile.js', 'src/**/*.js'],
+			source: ['Gruntfile.js', 'src/**/*.js', 'dist/fuelux.js'],
 			tests: {
 				options: {
 					undef: false,
@@ -110,7 +154,7 @@ module.exports = function (grunt) {
 				}
 			}
 		},
-		requirejs: {
+		/* requirejs: {
 			combine: {
 				options: {
 					appDir: 'src',
@@ -139,7 +183,7 @@ module.exports = function (grunt) {
 					]
 				}
 			}
-		},
+		}, */
 		recess: {
 			compile: {
 				src: ['src/less/fuelux.less'],
@@ -214,8 +258,20 @@ module.exports = function (grunt) {
 	grunt.registerTask('quickcss', ['recess:compile', 'recess:compile_responsive']);
 	grunt.registerTask('fullcss', ['quickcss', 'recess:compress', 'recess:compress_responsive']);
 
-	grunt.registerTask('default', ['fulltest', 'requirejs', 'fullcss', 'copy:images', 'clean:dist', 'uglify', 'copy:zipsrc', 'compress', 'clean:zipsrc']);
-	grunt.registerTask('devserver', ['quicktest', 'quickcss', 'connect', 'watch']);
+
+	//grunt.registerTask('build', ['urequire:UMD']);
+
+	grunt.registerTask('default', ['fulltest', 'fullcss', 'copy:images', 'clean:dist', 'concat', 'uglify', 'jsbeautifier', 'copy:zipsrc', 'compress', 'clean:zipsrc']);
+
+	grunt.registerTask('serve', ['quicktest', 'quickcss', 'connect', 'concat', 'uglify', 'jsbeautifier', 'watch']);
+	grunt.registerTask('devserver', function () {
+		grunt.log.warn('The `devserver` task has been deprecated. Use `grunt serve` to start a server.');
+		grunt.task.run(['serve']);
+	});
+	grunt.registerTask('server', function () {
+		grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
+		grunt.task.run(['serve']);
+	});
 
 	grunt.registerTask('travisci', 'Run appropriate test strategy for Travis CI', function () {
 		(process.env['TRAVIS_SECURE_ENV_VARS'] === 'true') ? grunt.task.run('saucelabs') : grunt.task.run('fulltest');

@@ -2,13 +2,28 @@
  * Fuel UX Datagrid
  * https://github.com/ExactTarget/fuelux
  *
- * Copyright (c) 2012 ExactTarget
+ * Copyright (c) 2014 ExactTarget
  * Licensed under the MIT license.
  */
 
-define(function (require) {
+// -- BEGIN UMD WRAPPER PREFACE --
 
-	var $   = require('jquery');
+// For more information on UMD visit: 
+// https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
+
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // if AMD loader is available, register as an anonymous module.
+         define(['jquery', 'combobox', 'datepicker', 'radio', 'select', 'spinner'], factory);
+    } else {
+        // OR use browser globals if AMD is not present
+        factory(jQuery);
+    }
+}(function ($) {
+    // -- END UMD WRAPPER PREFACE --
+        
+    // -- BEGIN MODULE CODE HERE --
+    
 	var old = $.fn.datagrid;
 
 	// Relates to thead .sorted styles in datagrid.less
@@ -40,6 +55,7 @@ define(function (require) {
 		this.$colheader = $('<tr>').appendTo(this.$thead);
 
 		this.options = $.extend(true, {}, $.fn.datagrid.defaults, options);
+		this.selectedItems = {};
 
 		// Shim until v3 -- account for FuelUX select or native select for page size:
 		if (this.$pagesize.hasClass('select')) {
@@ -123,6 +139,53 @@ define(function (require) {
 			$target.addClass('sorted');
 		},
 
+		getSelectedItems: function () {
+			return this.selectedItems;
+		},
+
+		setSelectedItems: function (selectItems) {
+			// Here, selectItems contains the keys (strings) of items to be selected.
+			// Copy those in to itemsToSelect; that array may be modified later based
+			// on selection rules.
+			var itemsToSelect = [];
+			$.extend(true, itemsToSelect, selectItems);
+
+			// If multiSelect is not enabled for this table and the user is
+			// attempting to select more than one row, reset the selected
+			// rows and then limit itemsToSelect to only its first entry.
+			if((this.options.multiSelect === false) && (itemsToSelect.length > 1)) {
+				this.clearSelectedItems();
+				itemsToSelect.splice(1);
+			}
+
+			// Next, search through the data set to find those objects which
+			// match any of the keys in itemsToSelect.  This will prevent
+			// this.selectedItems from being loaded with faulty data.
+			$.each(itemsToSelect, $.proxy(function(index, selectedItemKey) {
+				$.each(this.options.dataSource._data, $.proxy(function(index, data) {
+					if(data[this.options.primaryKey].toString() === selectedItemKey.toString()) {
+						this.selectedItems[data[this.options.primaryKey]] = data;
+					}
+				}, this));
+			}, this));
+
+			// Finally, highlight rows based upon their "selected" status.
+			$.each(this.$tbody.find('tr'), $.proxy(function (index, row) {
+				if(this.selectedItems.hasOwnProperty($(row).attr('data-id'))) {
+					$(row).addClass('selected');
+				}
+			}, this));
+		},
+
+		clearSelectedItems: function() {
+			// Remove highlight from any selected rows.
+			$.each(this.$tbody.find('tr'), function (index, row) {
+				$(row).removeClass('selected');
+			});
+
+			this.selectedItems = {};
+		},
+
 		updatePageDropdown: function (data) {
 			var pageHTML = '';
 
@@ -166,7 +229,6 @@ define(function (require) {
 				}
 
 				var itemdesc = (data.count === 1) ? self.options.itemText : self.options.itemsText;
-				var rowHTML = '';
 
 				self.$footerchildren.css('visibility', function () {
 					return (data.count > 0) ? 'visible' : 'hidden';
@@ -181,21 +243,90 @@ define(function (require) {
 				self.updatePageDropdown(data);
 				self.updatePageButtons(data);
 
-				$.each(data.data, function (index, row) {
-					rowHTML += '<tr>';
-					$.each(self.columns, function (index, column) {
-						rowHTML += '<td';
-						if (column.cssClass) {
-							rowHTML += ' class="' + column.cssClass + '"';
+				var multiSelect = !!self.options.multiSelect;
+				var enableSelect = !!self.options.enableSelect;
+				var selectedItemsKeys = [];
+
+				if (data.data.length === 0) {
+					self.$tbody.html(self.placeholderRowHTML(self.options.noDataFoundHTML));
+				} else {
+
+					// These are the keys in the selectedItems object
+					selectedItemsKeys = $.map(self.selectedItems, function(element,index) { return index.toString(); });
+
+					$.each(data.data, function (index, row) {
+
+						var $tr = $('<tr/>');
+						$.each(self.columns, function(index, column) {
+							var $td = $('<td/>');
+							if (column.cssClass) {
+								$td.addClass(column.cssClass);
+							}
+
+							// The content for this first <td> is being placed
+							// in a div to better control the left offset needed
+							// to show the checkmark.  This div will be moved to
+							// the right by 22px when the row is selected.
+							if (enableSelect && (index === 0)) {
+								var $md = $('<div/>');
+								$md.append( $('<i/>' ).addClass('checked') );
+								$md.append(row[column.property]);
+								$td.html($md);
+							} else {
+								$td.html(row[column.property]);
+							}
+
+							$tr.append($td);
+						});
+
+						if (enableSelect) {
+							$tr.addClass('selectable');
+							$tr.attr('data-id', row[self.options.primaryKey]);
+
+							if ($.inArray(row[self.options.primaryKey].toString(), selectedItemsKeys) > -1) {
+								$tr.addClass('selected');
+							}
 						}
-						rowHTML += '>' + row[column.property] + '</td>';
+
+						if (index === 0) {
+							self.$tbody.empty();
+						}
+
+						self.$tbody.append($tr);
 					});
-					rowHTML += '</tr>';
-				});
 
-				if (!rowHTML) rowHTML = self.placeholderRowHTML(self.options.noDataFoundHTML);
+					if (enableSelect) {
+						self.$tbody.find('tr').bind('click', function (e) {
+							var id = $(e.currentTarget).data('id');
+							var currentRow;
 
-				self.$tbody.html(rowHTML);
+							$.each(data.data, function (index, row) {
+								if (id === row[self.options.primaryKey]) {
+									currentRow = row;
+								}
+							});
+
+							var isSelected = self.selectedItems.hasOwnProperty(id);
+							if (!multiSelect) { self.clearSelectedItems(); }
+
+							if (isSelected && !multiSelect) {
+								self.$element.trigger('itemDeselected', currentRow);
+							} else if (isSelected && multiSelect) {
+								delete self.selectedItems[id];
+								$(e.currentTarget).removeClass('selected');
+							} else {
+								self.selectedItems[id] = currentRow;
+								$(e.currentTarget).addClass('selected');
+								self.$element.trigger('itemSelected', currentRow);
+							}
+						});
+					}
+				}
+
+				if ($.trim(self.$tbody.html()) === '') {
+					self.$tbody.html(self.placeholderRowHTML(self.options.noDataFoundHTML));
+				}
+
 				self.stretchHeight();
 
 				self.$element.trigger('loaded');
@@ -358,8 +489,8 @@ define(function (require) {
 			var data    = $this.data( 'datagrid' );
 			var options = typeof option === 'object' && option;
 
-			if( !data ) $this.data('datagrid', (data = new Datagrid( this, options ) ) );
-			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+			if ( !data ) $this.data('datagrid', (data = new Datagrid( this, options ) ) );
+			if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
 		return ( methodReturn === undefined ) ? $set : methodReturn;
@@ -370,7 +501,7 @@ define(function (require) {
 		loadingHTML: '<div class="progress progress-striped active" style="width:50%;margin:auto;"><div class="bar" style="width:100%;"></div></div>',
 		itemsText: 'items',
 		itemText: 'item',
-        noDataFoundHTML: '0 items'
+		noDataFoundHTML: '0 items'
 	};
 
 	$.fn.datagrid.Constructor = Datagrid;
@@ -379,4 +510,6 @@ define(function (require) {
 		$.fn.datagrid = old;
 		return this;
 	};
-});
+// -- BEGIN UMD WRAPPER AFTERWORD --
+}));
+    // -- END UMD WRAPPER AFTERWORD --

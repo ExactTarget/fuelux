@@ -2,13 +2,28 @@
  * Fuel UX Spinner
  * https://github.com/ExactTarget/fuelux
  *
- * Copyright (c) 2012 ExactTarget
+ * Copyright (c) 2014 ExactTarget
  * Licensed under the MIT license.
  */
 
-define(function(require) {
+// -- BEGIN UMD WRAPPER PREFACE --
 
-	var $   = require('jquery');
+// For more information on UMD visit: 
+// https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
+
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // if AMD loader is available, register as an anonymous module.
+         define(['jquery'], factory);
+    } else {
+        // OR use browser globals if AMD is not present
+        factory(jQuery);
+    }
+}(function ($) {
+    // -- END UMD WRAPPER PREFACE --
+        
+    // -- BEGIN MODULE CODE HERE --
+
 	var old = $.fn.spinner;
 
 	// SPINNER CONSTRUCTOR AND PROTOTYPE
@@ -130,9 +145,16 @@ define(function(require) {
 		step: function (dir) {
 			var curValue = this.options.value;
 			var limValue = dir ? this.options.max : this.options.min;
+			var digits, multiple;
 
 			if ((dir ? curValue < limValue : curValue > limValue)) {
 				var newVal = curValue + (dir ? 1 : -1) * this.options.step;
+
+				if(this.options.step % 1 !== 0){
+					digits = (this.options.step + '').split('.')[1].length;
+					multiple = Math.pow(10, digits);
+					newVal = Math.round(newVal * multiple) / multiple;
+				}
 
 				if (dir ? newVal > limValue : newVal < limValue) {
 					this.value(limValue);
@@ -215,4 +237,7 @@ define(function(require) {
 			$this.spinner($this.data());
 		});
 	});
-});
+
+// -- BEGIN UMD WRAPPER AFTERWORD --
+}));
+    // -- END UMD WRAPPER AFTERWORD --

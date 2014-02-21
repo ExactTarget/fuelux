@@ -31,13 +31,14 @@ module.exports = function (def, data) {
     // evaluate selector to string and trim whitespace
     var selectorString = selector.toCSS().trim()
       , extract
+      , line
 
     // if selector isn't overqualified continue
     if (!RULE.exp.test(selectorString)) return
 
     // calculate line number for the extract
-    extract = util.getLine(selector.elements[0].index - selector.elements[0].value.length, data)
-    extract = util.padLine(extract)
+    line = util.getLine(selector.elements[0].index - selector.elements[0].value.length, data)
+    extract = util.padLine(line)
 
     // highlight selector overqualification
     extract += selectorString.replace(RULE.exp, function ($1) { return $1.magenta })
@@ -50,6 +51,7 @@ module.exports = function (def, data) {
       type: RULE.type
     , message: RULE.message
     , extract: extract
+    , line: line
     })
 
   })
