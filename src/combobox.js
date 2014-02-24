@@ -14,7 +14,7 @@
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
         // if AMD loader is available, register as an anonymous module.
-         define(['jquery', 'util'], factory);
+         define(['jquery', 'fuelux/util'], factory);
     } else {
         // OR use browser globals if AMD is not present
         factory(jQuery);
