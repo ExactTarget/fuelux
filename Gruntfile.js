@@ -221,6 +221,12 @@ module.exports = function (grunt) {
 			zipsrc: ['dist/fuelux']
 		},
 		copy: {
+			fonts: {
+				expand: true,
+				cwd: 'src/fonts/',
+				src: ['**'],
+				dest: 'dist/fonts/'
+			},
 			images: {
 				expand: true,
 				cwd: 'lib/bootstrap/img/',
@@ -261,17 +267,9 @@ module.exports = function (grunt) {
 
 	//grunt.registerTask('build', ['urequire:UMD']);
 
-	grunt.registerTask('default', ['fulltest', 'fullcss', 'copy:images', 'clean:dist', 'concat', 'uglify', 'jsbeautifier', 'copy:zipsrc', 'compress', 'clean:zipsrc']);
+	grunt.registerTask('default', ['fulltest', 'fullcss', 'copy:fonts', 'copy:images', 'clean:dist', 'concat', 'uglify', 'jsbeautifier', 'copy:zipsrc', 'compress', 'clean:zipsrc']);
 
 	grunt.registerTask('serve', ['quicktest', 'quickcss', 'connect', 'concat', 'uglify', 'jsbeautifier', 'watch']);
-	grunt.registerTask('devserver', function () {
-		grunt.log.warn('The `devserver` task has been deprecated. Use `grunt serve` to start a server.');
-		grunt.task.run(['serve']);
-	});
-	grunt.registerTask('server', function () {
-		grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-		grunt.task.run(['serve']);
-	});
 
 	grunt.registerTask('travisci', 'Run appropriate test strategy for Travis CI', function () {
 		(process.env['TRAVIS_SECURE_ENV_VARS'] === 'true') ? grunt.task.run('saucelabs') : grunt.task.run('fulltest');
