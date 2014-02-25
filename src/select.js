@@ -98,7 +98,9 @@ define(function(require) {
         selectBySelector: function(selector) {
             var item = this.$element.find(selector);
 
+            $('li', this.$element).removeAttr('data-selected');
             this.$selectedItem = item;
+            this.$selectedItem.attr('data-selected', 'true');
             this.$hiddenField.val(this.$selectedItem.attr('data-value'));
             this.$label.text(this.$selectedItem.text());
         },
@@ -114,7 +116,6 @@ define(function(require) {
                 // select by data-attribute
                 this.selectBySelector(selector);
                 item.removeData('selected');
-                item.removeAttr('data-selected');
             }
         },
 
