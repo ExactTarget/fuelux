@@ -387,4 +387,21 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 		equal( getFormatCodeError, defaultErrorReturned, "getFormatCode is not available for use" );
 		equal( setFormatCodeError, defaultErrorReturned, "setFormatCode is not available for use" );
 	});
+
+	test( 'should render days inactive using custom blackoutDates function when they are displayed on the next month view', function() {
+		var $sample      = $( html ).find( '#datepicker1' );
+		var minDate = new Date(2014, 1, 1);
+		var maxDate = new Date(2014, 2, 31);
+
+		$sample.datepicker({
+			blackoutDates: function( date ) {
+				var passedDate = this.parseDate( date ).getTime();
+				return passedDate < minDate || passedDate > maxDate;
+			}
+		});
+
+		// finding blackout dates. should be 2 based on interval set above
+		var renderedBlackoutDates = $sample.find( '.restrict.blackout' ).length;
+		equal( renderedBlackoutDates, 6, 'blackouts dates correctly' ); // 6 days from January are visible
+	});
 });
