@@ -6344,8 +6344,8 @@ textarea.span1,
   margin-left: -20px;
 }
 
-.fuelux .checkbox-custom i:before,
-.fuelux .checkbox-custom i:after {
+.fuelux .checkbox-custom i:after,
+.fuelux .checkbox-custom i:before {
   position: relative;
   top: 3px;
   left: 0;
@@ -6362,15 +6362,15 @@ textarea.span1,
   -moz-osx-font-smoothing: grayscale;
 }
 
-.fuelux .checkbox-custom i:before {
-  color: #ebebeb;
-  content: "\e00d";
-}
-
 .fuelux .checkbox-custom i:after {
   position: absolute;
   top: 0;
   content: "\e00c";
+}
+
+.fuelux .checkbox-custom i:before {
+  color: #ebebeb;
+  content: "\e00d";
 }
 
 .fuelux .checkbox-custom i.checked:after {
@@ -6381,12 +6381,12 @@ textarea.span1,
   opacity: .5;
 }
 
-.fuelux .checkbox-custom:hover i:before {
-  color: #d4d4d4;
-}
-
 .fuelux .checkbox-custom:hover i:after {
   color: #888;
+}
+
+.fuelux .checkbox-custom:hover i:before {
+  color: #d4d4d4;
 }
 
 .fuelux .checkbox-custom:hover i.disabled:after {
@@ -7441,54 +7441,65 @@ textarea.span1,
 }
 
 .fuelux .radio-custom i {
+  position: relative;
   width: 16px;
   height: 16px;
-  padding-left: 16px;
+  padding-left: 0;
   margin-right: 4px;
   margin-left: -20px;
-  background-image: url(../img/form.png);
-  background-position: 0 -15px;
-  background-repeat: no-repeat;
 }
 
-.fuelux .radio-custom i.checked {
-  /* checked */
+.fuelux .radio-custom i:after,
+.fuelux .radio-custom i:before {
+  position: relative;
+  top: 3px;
+  left: 0;
+  font-family: "fuelux" !important;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  font-style: normal !important;
+  font-weight: normal !important;
+  line-height: 1;
+  color: #aaa;
+  text-transform: none !important;
+  font-variant: normal !important;
+  speak: none;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-  background-position: -48px -15px;
+.fuelux .radio-custom i:after {
+  position: absolute;
+  top: 0;
+  content: "\e009";
+}
+
+.fuelux .radio-custom i:before {
+  color: #ebebeb;
+  content: "\e00a";
+}
+
+.fuelux .radio-custom i.checked:after {
+  content: "\e00b";
 }
 
 .fuelux .radio-custom i.disabled {
-  /* disabled */
-
-  background-position: -64px -15px;
+  opacity: .5;
 }
 
-.fuelux .radio-custom i.disabled.checked {
-  /* disabled and checked */
-
-  background-position: -80px -15px;
+.fuelux .radio-custom:hover i:after {
+  color: #888;
 }
 
-.fuelux .radio-custom:hover i {
-  background-position: -16px -15px;
+.fuelux .radio-custom:hover i:before {
+  color: #d4d4d4;
 }
 
-.fuelux .radio-custom:hover i.checked {
-  /* checked */
-
-  background-position: -32px -15px;
+.fuelux .radio-custom:hover i.disabled:after {
+  color: #aaa;
 }
 
-.fuelux .radio-custom:hover i.disabled {
-  /* disabled */
-
-  background-position: -64px -15px;
-}
-
-.fuelux .radio-custom:hover i.disabled.checked {
-  /* disabled and checked */
-
-  background-position: -80px -15px;
+.fuelux .radio-custom:hover i.disabled:before {
+  color: #ebebeb;
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
