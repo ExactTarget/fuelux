@@ -6519,12 +6519,27 @@ textarea.span1,
 .fuelux .datagrid tbody tr.selected > td:first-child > div:first-child i.checked {
   width: 16px;
   height: 16px;
-  padding-left: 16px;
+  padding-left: 0;
   margin-right: 4px;
   margin-left: -20px;
-  background-image: url(../img/form.png);
-  background-position: -96px 0;
-  background-repeat: no-repeat;
+}
+
+.fuelux .datagrid tbody tr.selected > td:first-child > div:first-child i.checked:before {
+  position: relative;
+  top: 3px;
+  left: 0;
+  font-family: "fuelux" !important;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  font-style: normal !important;
+  font-weight: normal !important;
+  line-height: 1;
+  color: #fff;
+  text-transform: none !important;
+  content: "\e00f";
+  font-variant: normal !important;
+  speak: none;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .fuelux .datagrid tfoot {
