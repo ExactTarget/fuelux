@@ -14,11 +14,7 @@
  (function (factory) {
      if (typeof define === 'function' && define.amd) {
          // if AMD loader is available, register as an anonymous module.
-<<<<<<< HEAD
-          define(['jquery', 'fuelux/combobox', 'fuelux/datepicker', 'fuelux/radio', 'fuelux/select', 'fuelux/spinner'], factory);
-=======
           define(['jquery'], factory);
->>>>>>> refs/heads/add-urequire
      } else {
          // OR use browser globals if AMD is not present
          factory(jQuery);
