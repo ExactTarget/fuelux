@@ -45,7 +45,10 @@ module.exports = function (grunt) {
 						}
 					},
 				files: {
-					'dist/fuelux.js': ['src/*.js', '!src/all.js']
+					// manually concatenate JS files (due to dependency management)
+					'dist/fuelux.js': ['src/util.js', 'src/checkbox.js', 'src/combobox.js', 'src/datagrid.js', 'src/datepicker.js', 'src/pillbox.js', 
+										'src/radio.js', 'src/search.js', 'src/select.js', 'src/spinner.js', 'src/tree.js', 'src/wizard.js', 
+										'src/intelligent-dropdown.js', 'src/scheduler.js', '!src/all.js']
 				}
 			}
 		},
