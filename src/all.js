@@ -5,6 +5,8 @@
  * Copyright (c) 2012 ExactTarget
  * Licensed under the MIT license.
  */
+ 
+// Be sure to define a path alias for FuelUX and Bootstrap.
 
 define(function (require) {
 	require('jquery');
