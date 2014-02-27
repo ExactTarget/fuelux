@@ -91,6 +91,8 @@ define(function (require) {
 		this.options.restrictLastMonth = Boolean( this.options.restrictDateSelection );
 		this.options.restrictNextMonth = false;
 
+		this.options.restrictToYear = this.options.restrictToYear || null;
+
 		this.months = [
 			{ abbreviation: this.options.monthNames[0], 'class': '', number: 0 },
 			{ abbreviation: this.options.monthNames[1], 'class': '', number: 1 },
@@ -288,7 +290,10 @@ define(function (require) {
 			var restrictBoolean = false;
 			returnClasses       = returnClasses || false;
 
-			if( date <= this.minDate || date >= this.maxDate ) {
+			if( this.options.restrictToYear && this.options.restrictToYear !== date.getFullYear() ) {
+				classes += ' restrict';
+				restrictBoolean = true;
+			} else if( date <= this.minDate || date >= this.maxDate ) {
 				if ( Boolean( this.blackoutDates( date ) ) ) {
 					classes += ' restrict blackout';
 					restrictBoolean = true;
@@ -694,7 +699,7 @@ define(function (require) {
 		_toggleMonthYearPicker: function( e ) {
 			if( this.options.showDays ) {
 				this._showView( 2 );
-			} else if( this.options.showMonths ) {
+			} else if( this.options.showMonths && !this.options.restrictToYear ) {
 				this._showView( 3 );
 			} else if( this.options.showYears ) {
 				this._showView( 1 );
@@ -906,8 +911,18 @@ define(function (require) {
 
 			this.$calendar.on( 'click', $.proxy( this._emptySpace, this) );
 
-			this.$header.find( '.left' ).on( 'click', $.proxy( this._previous, this ) );
-			this.$header.find( '.right' ).on( 'click', $.proxy( this._next, this ) );
+			if ( this.options.restrictToYear !== this.viewDate.getFullYear() || this.viewDate.getMonth() > 0 ) {
+				this.$header.find( '.left' ).on( 'click', $.proxy( this._previous, this ) );
+			} else {
+				this.$header.find( '.left' ).addClass('disabled');
+			}
+
+			if ( this.options.restrictToYear !== this.viewDate.getFullYear() || this.viewDate.getMonth() < 11 ) {
+				this.$header.find( '.right' ).on( 'click', $.proxy( this._next, this ) );
+			} else {
+				this.$header.find( '.right' ).addClass('disabled');
+			}
+
 			this.$header.find( '.center' ).on( 'click', $.proxy( this._toggleMonthYearPicker, this ) );
 
 			this.$lastMonthDiv.find( 'div' ).on( 'click', $.proxy( this._previousSet, this ) );
