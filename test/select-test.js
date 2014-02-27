@@ -43,7 +43,7 @@ require(['jquery', 'fuelux/select'], function ($) {
 		// should be "Three" based on the data-selected attribute
 		var $select = $(html).select();
 		var item = $select.select('selectedItem');
-		var expectedItem = { text: 'Three', value: 3 };
+		var expectedItem = { text: 'Three', value: 3, selected: true };
 		deepEqual(item, expectedItem, 'default item selected');
 	});
 
@@ -52,7 +52,7 @@ require(['jquery', 'fuelux/select'], function ($) {
 		$select.select('selectByIndex', 0);
 
 		var item = $select.select('selectedItem');
-		var expectedItem = { text: 'One', value: 1 };
+		var expectedItem = { text: 'One', value: 1, selected: true };
 		deepEqual(item, expectedItem, 'item selected');
 	});
 
@@ -61,7 +61,7 @@ require(['jquery', 'fuelux/select'], function ($) {
 		$select.select('selectByValue', 2);
 
 		var item = $select.select('selectedItem');
-		var expectedItem = { text: 'Two', value: 2 };
+		var expectedItem = { text: 'Two', value: 2, selected: true };
 		deepEqual(item, expectedItem, 'item selected');
 	});
 
@@ -70,7 +70,7 @@ require(['jquery', 'fuelux/select'], function ($) {
 		$select.select('selectByValue', 'Item Five');
 
 		var item = $select.select('selectedItem');
-		var expectedItem = { text: 'Item Five', value: 'Item Five' };
+		var expectedItem = { text: 'Item Five', value: 'Item Five', selected: true };
 		deepEqual(item, expectedItem, 'item selected');
 	});
 
@@ -79,7 +79,7 @@ require(['jquery', 'fuelux/select'], function ($) {
 		$select.select('selectByText', 'THREE');
 
 		var item = $select.select('selectedItem');
-		var expectedItem = { text: 'Three' };
+		var expectedItem = { text: 'Three', selected: true };
 		deepEqual(item, expectedItem, 'item selected');
 	});
 
@@ -88,7 +88,7 @@ require(['jquery', 'fuelux/select'], function ($) {
 		$select.select('selectByText', 'Item Five');
 
 		var item = $select.select('selectedItem');
-		var expectedItem = { text: 'Item Five' };
+		var expectedItem = { text: 'Item Five', selected: true };
 		deepEqual(item, expectedItem, 'item selected');
 	});
 
@@ -97,7 +97,7 @@ require(['jquery', 'fuelux/select'], function ($) {
 		$select.select('selectBySelector', 'li[data-fizz=buzz]');
 
 		var item = $select.select('selectedItem');
-		var expectedItem = { text: 'Four', value: 4, foo: 'bar', fizz: 'buzz' };
+		var expectedItem = { text: 'Four', value: 4, foo: 'bar', fizz: 'buzz', selected: true };
 		deepEqual(item, expectedItem, 'item selected');
 	});
 
@@ -118,5 +118,18 @@ require(['jquery', 'fuelux/select'], function ($) {
 		equal(eventFired, true, 'changed event fired');
 		equal(selectedText, 'One', 'text passed in from changed event');
 		equal(selectedValue, 1, 'value passed in from changed event');
+	});
+
+	test("should leave item selected while setting disabled state", function () {
+		var $select = $(html).select();
+		$select.select('selectByValue', 4);
+		var expectedItem = $select.select('selectedItem');
+		var expectedItemText = expectedItem.text;
+
+		var htmlAfterValueSelected = '<div class="select btn-group">' + $select.html() + '</div>';
+		$select = $(htmlAfterValueSelected).select('disable');
+		var item = $select.select('selectedItem');
+		var itemText = item.text;
+		equal(itemText, expectedItemText, 'item left selected');
 	});
 });
