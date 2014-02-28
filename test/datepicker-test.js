@@ -388,7 +388,6 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 		equal( setFormatCodeError, defaultErrorReturned, "setFormatCode is not available for use" );
 	});
 
-
 	test( 'should render days inactive using custom blackoutDates function when they are displayed on the next month view', function() {
 		var $sample      = $( html ).find( '#datepicker1' );
 		var minDate = new Date(2014, 1, 1);
@@ -404,5 +403,45 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 		// finding blackout dates. should be 2 based on interval set above
 		var renderedBlackoutDates = $sample.find( '.restrict.blackout' ).length;
 		equal( renderedBlackoutDates, 6, 'blackouts dates correctly' ); // 6 days from January are visible
+	});
+
+	test( 'should restrict navigation to the previous year if option restrictToYear is set to the current year', function() {
+		var currentYear = new Date().getFullYear();
+		var options = {
+			date: new Date( currentYear, 0, 10 ), // January 10th
+			restrictToYear: currentYear
+		};
+		var $sample = $( html ).datepicker( options );
+		var disabledLeftArrow = $sample.find('.left.disabled').length;
+		var previousMonthDaysVisible = $sample.find('.lastmonth div').length;
+		var disabledDaysVisible = $sample.find('.lastmonth .restrict').length;
+		equal( disabledLeftArrow, 1, 'navigation left is disabled' );
+		equal( disabledDaysVisible, previousMonthDaysVisible, 'visible previous month days are disabled' );
+	});
+
+	test( 'should restrict navigation to the next year if option restrictToYear is set to the current year', function() {
+		var currentYear = new Date().getFullYear();
+		var options = {
+			date: new Date( currentYear, 11, 10 ), // December 10th
+			restrictToYear: currentYear
+		};
+		var $sample = $( html ).datepicker( options );
+		var disabledLeftArrow = $sample.find('.right.disabled').length;
+		var nextMonthDaysVisible = $sample.find('.nextmonth div').length;
+		var disabledDaysVisible = $sample.find('.nextmonth .restrict').length;
+		equal( disabledLeftArrow, 1, 'navigation right is disabled' );
+		equal( disabledDaysVisible, nextMonthDaysVisible, 'visible next month days are disabled' );
+	});
+
+	test( 'should disable dates not in the restrictToYear year', function() {
+		var options = {
+			date: new Date( 2010, 11, 10 ),
+			restrictToYear: 2014
+		};
+		var $sample = $( html ).datepicker( options );
+		var daysDisplayed = $sample.find( '.thismonth .weekday' ).length;
+		var daysDisplayedDisabled = $sample.find( '.thismonth .weekday.restrict' ).length;
+		ok( daysDisplayedDisabled > 0, 'some days are disabled' );
+		equal( daysDisplayedDisabled, daysDisplayed, 'all days are disabled' );
 	});
 });
