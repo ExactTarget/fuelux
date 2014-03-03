@@ -40,7 +40,7 @@ module.exports = function (grunt) {
 			dist: {
 				files: {
 					// manually concatenate JS files (due to dependency management)
-					'dist/fuelux.js': [
+					'dist/js/fuelux.js': [
 						'src/util.js',
 						'src/checkbox.js',
 						'src/combobox.js',
@@ -103,7 +103,7 @@ module.exports = function (grunt) {
 			}
 		},
 		jsbeautifier: {
-			files: ['dist/fuelux.js'],
+			files: ['dist/js/fuelux.js'],
 			options: {
 				js: {
 					braceStyle: 'collapse',
@@ -209,7 +209,7 @@ module.exports = function (grunt) {
 		uglify: {
 			fuelux: {
 				files: {
-					'dist/fuelux.min.js': ['dist/fuelux.js']
+					'dist/js/fuelux.min.js': ['dist/js/fuelux.js']
 				}
 			}
 		},
