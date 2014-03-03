@@ -27,29 +27,16 @@
 				},
 				paths: {
 					jquery: '../lib/jquery-' + jqver + '.min',
-					bootstrap: '../lib/bootstrap/js',
+					bootstrap: '../lib/bootstrap/dist/js',
 					fuelux: '../src',
 					test: '../test',
 					moment: '../path/to/moment' // wrong url because we need to test it without moment first
 				}
 			});
+
+			require(['test/fuelux-test'], function() {});
 		})();
 	</script>
-
-	<script src="fuelux-test.js"></script>
-	<script src="checkbox-test.js"></script>
-	<script src="combobox-test.js"></script>
-	<script src="datagrid-test.js"></script>
-	<script src="datepicker-test.js"></script>
-	<script src="datepicker-moment-test.js"></script>
-	<script src="pillbox-test.js"></script>
-	<script src="radio-test.js"></script>
-	<script src="scheduler-test.js"></script>
-	<script src="search-test.js"></script>
-	<script src="spinner-test.js"></script>
-	<script src="select-test.js"></script>
-	<script src="tree-test.js"></script>
-	<script src="wizard-test.js"></script>
 </head>
 <body>
 <h1 id="qunit-header">Fuel UX Test Suite</h1>

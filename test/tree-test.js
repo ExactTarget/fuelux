@@ -1,8 +1,11 @@
 /*global QUnit:false, module:false, test:false, asyncTest:false, expect:false*/
 /*global start:false, stop:false ok:false, equal:false, notEqual:false, deepEqual:false*/
 /*global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false*/
+define(function(require){
+	var $ = require('jquery');
 
-require(['jquery', 'fuelux/tree'], function($) {
+	require('bootstrap');
+	require('fuelux/tree');
 
 	module("Fuel UX tree", { setup: testSetup });
 

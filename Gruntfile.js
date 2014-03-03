@@ -3,47 +3,41 @@
 module.exports = function (grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib-clean');
-	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-compress');
+	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-qunit');
-	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-jsbeautifier');
 	grunt.loadNpmTasks('grunt-recess');
 	grunt.loadNpmTasks('grunt-saucelabs');
-	grunt.loadNpmTasks('grunt-jsbeautifier');
 
 	// Project configuration.
 	grunt.initConfig({
-		pkg: grunt.file.readJSON('package.json'),
+		clean: {
+			dist: ['dist/build.txt', 'dist/fuelux.zip'],
+			zipsrc: ['dist/fuelux']
+		},
+		compress: {
+			zip: {
+				files: [
+					{
+						cwd: 'dist/',
+						expand: true,
+						src: ['fuelux/**']
+					}
+				],
+				options: {
+					archive: 'dist/fuelux.zip',
+					mode: 'zip'
+				}
+			}
+		},
 		concat: {
 			dist: {
-				options: {
-					banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
-						'<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-						'<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
-						'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
-						' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n\n' +
-						'// For more information on UMD visit: https://github.com/umdjs/umd/' + '\n' +
-						'(function (factory) {' + '\n' +
-							'\tif (typeof define === \'function\' && define.amd) {' + '\n' +
-								'\t\tdefine([\'jquery\'], factory);' + '\n' +
-							'\t} else {' + '\n' +
-								'\t\tfactory(jQuery);' + '\n' +
-							'\t}' + '\n' +
-						'}(function (jQuery) {\n\n',
-					footer: '\n}));',
-					process: function(source) {
-						source = '(function ($) {\n\n' +
-							source.replace(/\/\/ -- BEGIN UMD WRAPPER PREFACE --(\n|.)*\/\/ -- END UMD WRAPPER PREFACE --/g, '');
-						source = source.replace(/\/\/ -- BEGIN UMD WRAPPER AFTERWORD --(\n|.)*\/\/ -- END UMD WRAPPER AFTERWORD --/g, '') +
-							'\n})(jQuery);\n\n';
-						return source;
-						}
-					},
 				files: {
 					// manually concatenate JS files (due to dependency management)
 					'dist/fuelux.js': [
@@ -62,55 +56,136 @@ module.exports = function (grunt) {
 						'src/intelligent-dropdown.js',
 						'src/scheduler.js'
 					]
+				},
+				options: {
+					banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
+						'<%= grunt.template.today("yyyy-mm-dd") %>\n' +
+						'<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
+						'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
+						' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n\n' +
+						'// For more information on UMD visit: https://github.com/umdjs/umd/' + '\n' +
+						'(function (factory) {' + '\n' +
+							'\tif (typeof define === \'function\' && define.amd) {' + '\n' +
+								'\t\tdefine([\'jquery\'], factory);' + '\n' +
+							'\t} else {' + '\n' +
+								'\t\tfactory(jQuery);' + '\n' +
+							'\t}' + '\n' +
+						'}(function (jQuery) {\n\n',
+					footer: '\n}));',
+					process: function(source) {
+						source = '(function ($) {\n\n' +
+						source.replace(/\/\/ -- BEGIN UMD WRAPPER PREFACE --(\n|.)*\/\/ -- END UMD WRAPPER PREFACE --/g, '');
+						source = source.replace(/\/\/ -- BEGIN UMD WRAPPER AFTERWORD --(\n|.)*\/\/ -- END UMD WRAPPER AFTERWORD --/g, '') + '\n})(jQuery);\n\n';
+						return source;
+					}
 				}
+			}
+		},
+		connect: {
+			server: {
+				options: {
+					port: 8000
+				}
+			}
+		},
+		copy: {
+			fonts: {
+				cwd: 'src/fonts/',
+				dest: 'dist/fonts/',
+				expand: true,
+				src: ['**']
+			},
+			zipsrc: {
+				cwd: 'dist/',
+				dest: 'dist/fuelux/',
+				expand: true,
+				src: ['**']
 			}
 		},
 		jsbeautifier: {
 			files: ['dist/fuelux.js'],
+			options: {
+				js: {
+					braceStyle: 'collapse',
+					breakChainedMethods: false,
+					e4x: false,
+					evalCode: false,
+					indentLevel: 0,
+					indentSize: 4,
+					indentWithTabs: true,
+					jslintHappy: false,
+					keepArrayIndentation: false,
+					keepFunctionIndentation: false,
+					maxPreserveNewlines: 10,
+					preserveNewlines: true,
+					spaceBeforeConditional: true,
+					spaceInParen: true,
+					unescapeStrings: false,
+					wrapLineLength: 0
+				}
+			}
+		},
+		jshint: {
+			options: {
+				boss: true,
+				browser: true,
+				curly: false,
+				eqeqeq: true,
+				eqnull: true,
+				globals: {
+					jQuery: true,
+					define: true,
+					require: true
+				},
+				immed: true,
+				latedef: true,
+				newcap: true,
+				noarg: true,
+				sub: true,
+				undef: true,
+				unused: false	// changed
+			},
+			source: ['Gruntfile.js', 'src/**/*.js', 'dist/fuelux.js'],
+			tests: {
 				options: {
-					js: {
-						braceStyle: 'collapse',
-						breakChainedMethods: false,
-						e4x: false,
-						evalCode: false,
-						indentLevel: 0,
-						indentSize: 4,
-						indentWithTabs: true,
-						jslintHappy: false,
-						keepArrayIndentation: false,
-						keepFunctionIndentation: false,
-						maxPreserveNewlines: 10,
-						preserveNewlines: true,
-						spaceBeforeConditional: true,
-						spaceInParen: true,
-						unescapeStrings: false,
-						wrapLineLength: 0
-				}
-			}
-		},
-		uglify: {
-			fuelux: {
+					latedef: false,
+					undef: false,
+					unused: false
+				},
 				files: {
-					'dist/fuelux.min.js': ['dist/fuelux.js']
+					src: ['test/**/*.js']
 				}
 			}
 		},
-		testUrls: ['1.9.1', '1.8.3', '1.7.2'].map(function (ver) {
-			return 'http://localhost:<%= connect.server.options.port %>/test/fuelux.html?jquery=' + ver;
-		}),
+		pkg: grunt.file.readJSON('package.json'),
 		qunit: {
-			simple: ['test/**/*.html'],
 			full: {
 				options: {
 					urls: '<%= testUrls %>'
 				}
+			},
+			simple: ['test/**/*.html']
+		},
+		recess: {
+			compile: {
+				dest: 'dist/css/fuelux.css',
+				options: {
+					compile: true
+				},
+				src: ['src/less/fuelux.less']
+			},
+			compress: {
+				dest: 'dist/css/fuelux.min.css',
+				options: {
+					compile: true,
+					compress: true
+				},
+				src: ['src/less/fuelux.less']
 			}
 		},
 		'saucelabs-qunit': {
 			all: {
 				options: {
-					urls: '<%= testUrls %>',
-					concurrency: '3',
 					browsers: [
 						{ browserName: 'internet explorer', platform: 'Windows 2012', version: '10' },
 						{ browserName: 'internet explorer', platform: 'Windows 2008', version: '9' },
@@ -122,141 +197,45 @@ module.exports = function (grunt) {
 						{ browserName: 'chrome', platform: 'Mac 10.8' },
 						{ browserName: 'iphone', platform: 'Mac 10.8', version: '6' },
 						{ browserName: 'ipad', platform: 'Mac 10.8', version: '6' }
-					]
+					],
+					concurrency: '3',
+					urls: '<%= testUrls %>'
+				}
+			}
+		},
+		testUrls: ['1.9.1', '1.8.3', '1.7.2'].map(function (ver) {
+			return 'http://localhost:<%= connect.server.options.port %>/test/fuelux.html?jquery=' + ver;
+		}),
+		uglify: {
+			fuelux: {
+				files: {
+					'dist/fuelux.min.js': ['dist/fuelux.js']
 				}
 			}
 		},
 		watch: {
-			options: { livereload: true },
 			files: ['Gruntfile.js', 'lib/**', 'src/**', 'test/**', 'index.html'],
+			options: { livereload: true },
 			tasks: ['quicktest', 'quickcss', 'concat', 'jshint', 'jsbeautifier'] 
-		},
-		connect: {
-			server: {
-				options: {
-					port: 8000
-				}
-			}
-		},
-		jshint: {
-			options: {
-				curly: false,
-				eqeqeq: true,
-				immed: true,
-				latedef: true,
-				newcap: true,
-				noarg: true,
-				sub: true,
-				undef: true,
-				unused: false, // changed
-				boss: true,
-				eqnull: true,
-				browser: true,
-				globals: {
-					jQuery: true,
-					define: true,
-					require: true
-				}
-			},
-			source: ['Gruntfile.js', 'src/**/*.js', 'dist/fuelux.js'],
-			tests: {
-				options: {
-					undef: false,
-					unused: false,
-					latedef: false
-				},
-				files: {
-					src: ['test/**/*.js']
-				}
-			}
-		},
-		recess: {
-			compile: {
-				src: ['src/less/fuelux.less'],
-				dest: 'dist/css/fuelux.css',
-				options: {
-					compile: true
-				}
-			},
-			compile_responsive: {
-				src: ['src/less/fuelux-responsive.less'],
-				dest: 'dist/css/fuelux-responsive.css',
-				options: {
-					compile: true
-				}
-			},
-			compress: {
-				src: ['src/less/fuelux.less'],
-				dest: 'dist/css/fuelux.min.css',
-				options: {
-					compile: true,
-					compress: true
-				}
-			},
-			compress_responsive: {
-				src: ['src/less/fuelux-responsive.less'],
-				dest: 'dist/css/fuelux-responsive.min.css',
-				options: {
-					compile: true,
-					compress: true
-				}
-			}
-		},
-		clean: {
-			dist: ['dist/build.txt', 'dist/fuelux.zip'],
-			zipsrc: ['dist/fuelux']
-		},
-		copy: {
-			fonts: {
-				expand: true,
-				cwd: 'src/fonts/',
-				src: ['**'],
-				dest: 'dist/fonts/'
-			},
-			images: {
-				expand: true,
-				cwd: 'lib/bootstrap/img/',
-				src: ['**'],
-				dest: 'dist/img/'
-			},
-			zipsrc: {
-				expand: true,
-				cwd: 'dist/',
-				src: ['**'],
-				dest: 'dist/fuelux/'
-			}
-		},
-		compress: {
-			zip: {
-				options: {
-					mode: 'zip',
-					archive: 'dist/fuelux.zip'
-				},
-				files: [
-					{
-						expand: true,
-						cwd: 'dist/',
-						src: ['fuelux/**']
-					}
-				]
-			}
 		}
 	});
 
+	//The default task
+	grunt.registerTask('default', ['fulltest', 'fullcss', 'copy:fonts', 'clean:dist', 'concat', 'uglify', 'jsbeautifier', 'copy:zipsrc', 'compress', 'clean:zipsrc']);
+
+	//Testing tasks
 	grunt.registerTask('quicktest', ['jshint', 'qunit:simple']);
 	grunt.registerTask('fulltest', ['connect', 'jshint', 'qunit:full']);
 	grunt.registerTask('saucelabs', ['connect', 'jshint', 'saucelabs-qunit']);
 
-	grunt.registerTask('quickcss', ['recess:compile', 'recess:compile_responsive']);
-	grunt.registerTask('fullcss', ['quickcss', 'recess:compress', 'recess:compress_responsive']);
+	//Style tasks
+	grunt.registerTask('quickcss', ['recess:compile']);
+	grunt.registerTask('fullcss', ['quickcss', 'recess:compress']);
 
-
-	//grunt.registerTask('build', ['urequire:UMD']);
-
-	grunt.registerTask('default', ['fulltest', 'fullcss', 'copy:fonts', 'copy:images', 'clean:dist', 'concat', 'uglify', 'jsbeautifier', 'copy:zipsrc', 'compress', 'clean:zipsrc']);
-
+	//Serve task
 	grunt.registerTask('serve', ['quicktest', 'quickcss', 'connect', 'concat', 'uglify', 'jsbeautifier', 'watch']);
 
+	//Travis CI task
 	grunt.registerTask('travisci', 'Run appropriate test strategy for Travis CI', function () {
 		(process.env['TRAVIS_SECURE_ENV_VARS'] === 'true') ? grunt.task.run('saucelabs') : grunt.task.run('fulltest');
 	});

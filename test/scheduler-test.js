@@ -2,7 +2,12 @@
 /*global start:false, stop:false ok:false, equal:false, notEqual:false, deepEqual:false*/
 /*global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false*/
 
-require(['jquery', 'test/scheduler-markup', 'fuelux/scheduler'], function ($, schedulerMarkup) {
+define(function(require){
+	var $ = require('jquery');
+	var schedulerMarkup = require('test/scheduler-markup');
+
+	require('bootstrap');
+	require('fuelux/scheduler');
 
 	module('Fuel UX scheduler', {
         setup: function(){
