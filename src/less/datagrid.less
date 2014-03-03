@@ -81,14 +81,22 @@
 				position: relative;
 
 				i.checked {
-					background-image: url(../img/form.png);
-					background-position: -96px 0px;
-					background-repeat: no-repeat;
 					margin-left: -20px;
 					margin-right: 4px;
-					padding-left: 16px;
+					padding-left: 0;
 					width: 16px;
 					height: 16px;
+
+					&:before {
+						.iconBaseStyles();
+
+						color: #fff;
+						content: "\e00f";
+						font-size: 16px;
+						left: 0;
+						position: relative;
+						top: 3px;
+					}
 				}
 			}
 		}
