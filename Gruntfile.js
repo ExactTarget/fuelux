@@ -46,9 +46,22 @@ module.exports = function (grunt) {
 					},
 				files: {
 					// manually concatenate JS files (due to dependency management)
-					'dist/fuelux.js': ['src/util.js', 'src/checkbox.js', 'src/combobox.js', 'src/datagrid.js', 'src/datepicker.js', 'src/pillbox.js', 
-										'src/radio.js', 'src/search.js', 'src/select.js', 'src/spinner.js', 'src/tree.js', 'src/wizard.js', 
-										'src/intelligent-dropdown.js', 'src/scheduler.js', '!src/all.js']
+					'dist/fuelux.js': [
+						'src/util.js',
+						'src/checkbox.js',
+						'src/combobox.js',
+						'src/datagrid.js',
+						'src/datepicker.js',
+						'src/pillbox.js',
+						'src/radio.js',
+						'src/search.js',
+						'src/select.js',
+						'src/spinner.js',
+						'src/tree.js',
+						'src/wizard.js',
+						'src/intelligent-dropdown.js',
+						'src/scheduler.js'
+					]
 				}
 			}
 		},
@@ -157,36 +170,6 @@ module.exports = function (grunt) {
 				}
 			}
 		},
-		/* requirejs: {
-			combine: {
-				options: {
-					appDir: 'src',
-					baseUrl: '.',
-					dir: 'dist',
-					optimize: 'none',
-					optimizeCss: 'none',
-					normalizeDirDefines: 'all',
-					wrap: true,
-					paths: {
-						almond: '../lib/almond',
-						bootstrap: '../lib/bootstrap/js',
-						jquery: '../lib/jquery-1.9.1.min',
-						fuelux: '../dist'
-					},
-					modules: [
-						{
-							name: 'fuelux/all',
-							exclude: ['jquery']
-						},
-						{
-							name: 'fuelux/loader',
-							include: ['almond', 'fuelux/all'],
-							exclude: ['jquery']
-						}
-					]
-				}
-			}
-		}, */
 		recess: {
 			compile: {
 				src: ['src/less/fuelux.less'],
