@@ -16,48 +16,65 @@
 	}
 
 	i {
-		background-image: url(../img/form.png);
-		background-position: 0 1px;
-		background-repeat: no-repeat;
 		margin-left: -20px;
 		margin-right: 4px;
-		padding-left: 16px;
+		padding-left: 0;
+		position: relative;
 		width: 16px;
 		height: 16px;
 
+		&:after,
+		&:before
+		{
+			.iconBaseStyles();
+
+			color: #aaa;
+			font-size: 16px;
+			left: 0;
+			position: relative;
+			top: 3px;
+		}
+
+		&:after {
+			content: "\e00c";
+			position: absolute;
+			top: 0;
+		}
+
+		&:before {
+			color: #ebebeb;
+			content: "\e00d";
+		}
+
 		&.checked {
-			/* checked */
-			background-position: -48px 1px;
+			&:after {
+				content: "\e00e";
+			}
 		}
 
 		&.disabled {
-			/* disabled */
-			background-position: -64px 1px;
-
-			&.checked {
-				/* disabled and checked */
-				background-position: -80px 1px;
-			}
+			opacity: .5;
 		}
 	}
 }
 
 .checkbox-custom:hover {
 	i {
-		background-position: -16px 1px;
+		&:after {
+			color: #888;
+		}
 
-		&.checked {
-			/* checked */
-			background-position: -32px 1px;
+		&:before {
+			color: #d4d4d4;
 		}
 
 		&.disabled {
-			/* disabled */
-			background-position: -64px 1px;
+			&:after {
+				color: #aaa;
+			}
 
-			&.checked {
-				/* disabled and checked */
-				background-position: -80px 1px;
+			&:before {
+				color: #ebebeb;
 			}
 		}
 	}
