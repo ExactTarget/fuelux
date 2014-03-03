@@ -93,7 +93,8 @@ module.exports = function (grunt) {
 				cwd: 'src/fonts/',
 				dest: 'dist/fonts/',
 				expand: true,
-				src: ['**']
+				filter: 'isFile',
+				src: ['*']
 			},
 			zipsrc: {
 				cwd: 'dist/',
