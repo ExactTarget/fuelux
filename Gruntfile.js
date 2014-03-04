@@ -84,6 +84,7 @@ module.exports = function (grunt) {
 		connect: {
 			server: {
 				options: {
+					hostname: '*',
 					port: 8000
 				}
 			}
@@ -217,7 +218,7 @@ module.exports = function (grunt) {
 		watch: {
 			files: ['Gruntfile.js', 'lib/**', 'src/**', 'test/**', 'index.html'],
 			options: { livereload: true },
-			tasks: ['quicktest', 'quickcss', 'concat', 'jshint', 'jsbeautifier'] 
+			tasks: ['quicktest', 'quickcss', 'copy:fonts', 'concat', 'jshint', 'jsbeautifier']
 		}
 	});
 
@@ -234,7 +235,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('fullcss', ['quickcss', 'recess:compress']);
 
 	//Serve task
-	grunt.registerTask('serve', ['quicktest', 'quickcss', 'connect', 'concat', 'uglify', 'jsbeautifier', 'watch']);
+	grunt.registerTask('serve', ['quicktest', 'quickcss', 'copy:fonts', 'concat', 'uglify', 'jsbeautifier', 'connect', 'watch']);
 
 	//Travis CI task
 	grunt.registerTask('travisci', 'Run appropriate test strategy for Travis CI', function () {
