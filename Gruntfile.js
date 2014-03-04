@@ -116,7 +116,7 @@ module.exports = function (grunt) {
 		watch: {
 			options: { livereload: true },
 			files: ['Gruntfile.js', 'lib/**', 'src/**', 'test/**', 'index.html'],
-			tasks: ['quicktest', 'quickcss', 'concat', 'jshint', 'jsbeautifier'] 
+			tasks: ['quicktest', 'compilecss', 'copy:fonts', 'concat:dist', 'jshint', 'jsbeautifier'] 
 		},
 		connect: {
 			server: {
@@ -158,36 +158,6 @@ module.exports = function (grunt) {
 				}
 			}
 		},
-		/* requirejs: {
-			combine: {
-				options: {
-					appDir: 'src',
-					baseUrl: '.',
-					dir: 'dist',
-					optimize: 'none',
-					optimizeCss: 'none',
-					normalizeDirDefines: 'all',
-					wrap: true,
-					paths: {
-						almond: '../lib/almond',
-						bootstrap: '../lib/bootstrap/js',
-						jquery: '../lib/jquery-1.9.1.min',
-						fuelux: '../dist'
-					},
-					modules: [
-						{
-							name: 'fuelux/all',
-							exclude: ['jquery']
-						},
-						{
-							name: 'fuelux/loader',
-							include: ['almond', 'fuelux/all'],
-							exclude: ['jquery']
-						}
-					]
-				}
-			}
-		}, */
 		recess: {
 			compile: {
 				src: ['src/less/fuelux.less'],
@@ -231,12 +201,6 @@ module.exports = function (grunt) {
 				src: ['**'],
 				dest: 'dist/fonts/'
 			},
-			images: {
-				expand: true,
-				cwd: 'lib/bootstrap/img/',
-				src: ['**'],
-				dest: 'dist/img/'
-			},
 			zipsrc: {
 				expand: true,
 				cwd: 'dist/',
@@ -261,22 +225,20 @@ module.exports = function (grunt) {
 		}
 	});
 
+	// tests
 	grunt.registerTask('quicktest', ['jshint', 'qunit:simple']);
 	grunt.registerTask('fulltest', ['connect', 'jshint', 'qunit:full']);
 	grunt.registerTask('saucelabs', ['connect', 'jshint', 'saucelabs-qunit']);
-
-	grunt.registerTask('quickcss', ['recess:compile', 'recess:compile_responsive']);
-	grunt.registerTask('fullcss', ['quickcss', 'recess:compress', 'recess:compress_responsive']);
-
-
-	//grunt.registerTask('build', ['urequire:UMD']);
-
-	grunt.registerTask('default', ['fulltest', 'fullcss', 'copy:fonts', 'copy:images', 'clean:dist', 'concat', 'uglify', 'jsbeautifier', 'copy:zipsrc', 'compress', 'clean:zipsrc']);
-
-	grunt.registerTask('serve', ['quicktest', 'quickcss', 'connect', 'concat', 'uglify', 'jsbeautifier', 'watch']);
-
 	grunt.registerTask('travisci', 'Run appropriate test strategy for Travis CI', function () {
 		(process.env['TRAVIS_SECURE_ENV_VARS'] === 'true') ? grunt.task.run('saucelabs') : grunt.task.run('fulltest');
 	});
+
+	// CSS build
+	grunt.registerTask('compilecss', ['recess:compile', 'recess:compile_responsive']);
+	grunt.registerTask('minifycss', ['recess:compress', 'recess:compress_responsive']);
+
+	// Build and development server
+	grunt.registerTask('default', ['fulltest', 'compilecss', 'minifycss', 'copy:fonts', 'clean:dist', 'concat:dist', 'uglify', 'jsbeautifier', 'copy:zipsrc', 'compress', 'clean:zipsrc']);
+	grunt.registerTask('serve', ['quicktest', 'compilecss', 'copy:fonts', 'concat', 'uglify', 'jsbeautifier', 'connect', 'watch']);
 
 };
