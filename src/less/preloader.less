@@ -1,17 +1,3 @@
-@charset "UTF-8";
-
-@font-face {
-    font-family: "fuelux-preloader";
-    src:url("../fonts/fuelux-preloader.eot");
-    src:url("../fonts/fuelux-preloader.eot?#iefix") format("embedded-opentype"),
-    url("../fonts/fuelux-preloader.ttf") format("truetype"),
-    url("../fonts/fuelux-preloader.svg#fuelux-preloader") format("svg"),
-    url("../fonts/fuelux-preloader.woff") format("woff");
-    font-weight: normal;
-    font-style: normal;
-}
-
-
 @keyframes fuelux-preloader-1
 {
     0%      {opacity: 1;}
@@ -175,19 +161,11 @@
     width: 64px;
 
     &.iefix span, &:before, b, i {
-        font-family: "fuelux-preloader" !important;
-        font-style: normal !important;
-        font-weight: normal !important;
-        font-variant: normal !important;
-        text-transform: none !important;
-        speak: none;
-        line-height: 1;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
+		.iconBaseStyles();
     }
 
     &:before {
-        content: "0";
+        content: "\e00b";	/*.fueluxicon-loader-full:before*/
         left: 0;
         opacity: 0.33;
         position: absolute;
@@ -251,13 +229,13 @@
 
         &:nth-child(1){
             &:before {
-                content: "1";
+                content: "\e003";	/*.fueluxicon-loader-1:before*/
                 animation-name: fuelux-preloader-1;
                 -webkit-animation-name: fuelux-preloader-1;
             }
 
             &:after {
-                content: "2";
+                content: "\e004";	/*.fueluxicon-loader-2:before*/
                 animation-name: fuelux-preloader-2;
                 -webkit-animation-name: fuelux-preloader-2;
             }
@@ -265,13 +243,13 @@
 
         &:nth-child(2){
             &:before {
-                content: "3";
+                content: "\e005";	/*.fueluxicon-loader-3:before*/
                 animation-name: fuelux-preloader-3;
                 -webkit-animation-name: fuelux-preloader-3;
             }
 
             &:after {
-                content: "4";
+                content: "\e006";	/*.fueluxicon-loader-4:before*/
                 animation-name: fuelux-preloader-4;
                 -webkit-animation-name: fuelux-preloader-4;
             }
@@ -279,13 +257,13 @@
 
         &:nth-child(3){
             &:before {
-                content: "5";
+                content: "\e007";	/*.fueluxicon-loader-5:before*/
                 animation-name: fuelux-preloader-5;
                 -webkit-animation-name: fuelux-preloader-5;
             }
 
             &:after {
-                content: "6";
+                content: "\e008";	/*.fueluxicon-loader-6:before*/
                 animation-name: fuelux-preloader-6;
                 -webkit-animation-name: fuelux-preloader-6;
             }
@@ -293,13 +271,13 @@
 
         &:nth-child(4){
             &:before {
-                content: "7";
+                content: "\e009";	/*.fueluxicon-loader-7:before*/
                 animation-name: fuelux-preloader-7;
                 -webkit-animation-name: fuelux-preloader-7;
             }
 
             &:after {
-                content: "8";
+                content: "\e00a";	/*.fueluxicon-loader-8:before*/
                 animation-name: fuelux-preloader-8;
                 -webkit-animation-name: fuelux-preloader-8;
             }
