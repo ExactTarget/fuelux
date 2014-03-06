@@ -395,26 +395,84 @@
 
 		<!--
 		*
-		* STEPHEN CONVERT ALL CONTROLS BELOW
+		* STEPHEN EDITS BELOW
 		*
 		-->
 
 
-
-		<!-- RADIO -->
+		<!-- RADIO: tags, classes edited. Currently not working -->
 		<div>
-			<label class="radio radio-custom"><input type="radio" name="radio1a" checked="checked"><i class="radio"></i>Custom: Checked Enabled</label>
-			<label class="radio radio-custom"><input type="radio" name="radio1a" id="radio1"><i class="radio"></i>Custom: Unchecked Enabled</label>
-			<label class="radio radio-custom"><input type="radio" name="radio1b" checked="checked" disabled="disabled"><i class="radio"></i>Custom: Checked Disabled</label>
-			<label class="radio radio-custom"><input type="radio" name="radio1b" disabled="disabled"><i class="radio"></i>Custom: Unchecked Disabled</label>
-			<label class="radio radio-custom highlight"><input type="radio" name="radio1c" checked="checked"><i class="radio"></i>Custom: Checked Enabled w/Highlight</label>
-			<label class="radio radio-custom highlight"><input type="radio" name="radio1c" ><i class="radio"></i>Custom: Checked Disabled w/Highlight</label>
-			<label class="radio"><input type="radio" name="radio2a" checked="checked">Native: Checked Enabled</label>
-			<label class="radio"><input type="radio" name="radio2a">Native: Unchecked Enabled</label>
-			<label class="radio"><input type="radio" name="radio2b" checked="checked" disabled="disabled">Native: Checked Disabled</label>
-			<label class="radio"><input type="radio" name="radio2b" disabled="disabled">Native: Unchecked Disabled</label>
-			<button type="button" class="btn btn-default btn-xs" id="btnRadioDisable">disable</button>
-			<button type="button" class="btn btn-default btn-xs" id="btnRadioEnable">enable</button>
+			<div class="radio fuelux-radio">
+				<label>
+					<input type="radio" name="radio1a" checked="checked">
+					<span class="fueluxicon fueluxicon-radio"></span>
+					Custom: Checked Enabled
+				</label>
+			</div>
+
+			<div class="radio fuelux-radio">
+				<label>
+					<input type="radio" name="radio1a" id="radio1">
+					<span class="fueluxicon fueluxicon-radio"></span>
+					Custom: Unchecked Enabled
+				</label>
+			</div>
+
+			<div class="radio fuelux-radio">
+				<label>
+					<input type="radio" name="radio1b" checked="checked" disabled="disabled">
+					<span class="fueluxicon fueluxicon-radio"></span>
+					Custom: Checked Disabled
+				</label>
+			</div>
+
+			<div class="radio fuelux-radio">
+				<label>
+					<input type="radio" name="radio1b" disabled="disabled">
+					<span class="fueluxicon fueluxicon-radio"></span>
+					Custom: Unchecked Disabled
+				</label>
+			</div>
+
+			<div class="radio fuelux-radio highlight">
+				<label>
+					<input type="radio" name="radio1c" checked="checked">
+					<span class="fueluxicon fueluxicon-radio"></span>
+					Custom: Checked Enabled w/Highlight
+				</label>
+			</div>
+
+			<div class="radio fuelux-radio highlight">
+				<label>
+					<input type="radio" name="radio1c" checked="checked" disabled="disabled">
+					<span class="fueluxicon fueluxicon-radio"></span>
+					Custom: Checked Disabled w/Highlight
+				</label>
+			</div>
+
+			<div class="radio">
+				<label>
+					<input type="radio" name="radio2a" checked="checked">
+					Native: Checked Enabled
+				</label>
+			</div>
+
+			<div class="radio">
+				<label><input type="radio" name="radio2a">Native: Unchecked Enabled</label>
+			</div>
+
+			<div class="radio">
+				<label><input type="radio" name="radio2b" checked="checked" disabled="disabled">Native: Checked Disabled</label>
+			</div>
+
+			<div class="radio">
+				<label><input type="radio" name="radio2b" disabled="disabled">Native: Unchecked Disabled</label>
+			</div>
+
+			<div class="btn-group">
+				<button type="button" class="btn btn-default" id="btnRadioDisable">disable</button>
+				<button type="button" class="btn btn-default" id="btnRadioEnable">enable</button>
+			</div>
 		</div>
 
 
