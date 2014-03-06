@@ -5,8 +5,6 @@
 define(function(require){
 	var $ = require('jquery');
 
-	//TODO: make sure test files have appropriate dependencies
-
 	require('test/checkbox-test');
 	require('test/combobox-test');
 	require('test/datagrid-test');
