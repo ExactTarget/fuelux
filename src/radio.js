@@ -29,13 +29,11 @@
 	// RADIO CONSTRUCTOR AND PROTOTYPE
 
 	var Radio = function (element, options) {
-		this.$element = $(element);
 		this.options = $.extend({}, $.fn.radio.defaults, options);
 
 		// cache elements
-		this.$label = this.$element.parent();
-		this.$icon = this.$label.find('span.fueluxicon');
-		this.$radio = this.$label.find('input[type=radio]');
+		this.$radio = $(element);
+		this.$label = this.$radio.parent();
 		this.groupName = this.$radio.attr('name');
 
 		// set default state
@@ -55,16 +53,14 @@
 			var checked = $radio.is(':checked');
 			var disabled = !!$radio.prop('disabled');
 
-			this.$icon.removeClass('checked disabled');
 			this.$label.removeClass('checked');
 
 			// set state of radio
 			if (checked === true) {
-				this.$icon.addClass('checked');
 				this.$label.addClass('checked');
 			}
 			if (disabled === true) {
-				this.$icon.addClass('disabled');
+				this.$label.addClass('disabled');
 			}
 		},
 
@@ -78,12 +74,12 @@
 
 		enable: function () {
 			this.$radio.attr('disabled', false);
-			this.$icon.removeClass('disabled');
+			this.$label.removeClass('disabled');
 		},
 
 		disable: function () {
 			this.$radio.attr('disabled', true);
-			this.$icon.addClass('disabled');
+			this.$label.addClass('disabled');
 		},
 
 		itemchecked: function (e) {
@@ -142,7 +138,6 @@
 
 	$(function () {
 		$(window).on('load', function () {
-			//$('i.radio').each(function () {
 			$('.radio-custom > input[type=radio]').each(function () {
 				var $this = $(this);
 				if ($this.data('radio')) return;

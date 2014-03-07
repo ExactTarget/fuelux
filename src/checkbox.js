@@ -8,7 +8,7 @@
 
  // -- BEGIN UMD WRAPPER PREFACE --
 
- // For more information on UMD visit: 
+ // For more information on UMD visit:
  // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
  (function (factory) {
@@ -21,7 +21,7 @@
      }
  }(function ($) {
      // -- END UMD WRAPPER PREFACE --
-         
+
      // -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.checkbox;
@@ -29,14 +29,12 @@
 	// CHECKBOX CONSTRUCTOR AND PROTOTYPE
 
 	var Checkbox = function (element, options) {
-
-		this.$element = $(element);
 		this.options = $.extend({}, $.fn.checkbox.defaults, options);
 
 		// cache elements
-		this.$label = this.$element.parent();
-		this.$icon = this.$label.find('i');
-		this.$chk = this.$label.find('input[type=checkbox]');
+		this.$chk = $(element);
+		this.$label = this.$chk.parent();
+
 
 		// set default state
 		this.setState(this.$chk);
@@ -56,25 +54,25 @@
 			var disabled = !!$chk.prop('disabled');
 
 			// reset classes
-			this.$icon.removeClass('checked disabled');
+			this.$label.removeClass('checked disabled');
 
 			// set state of checkbox
 			if (checked === true) {
-				this.$icon.addClass('checked');
+				this.$label.addClass('checked');
 			}
 			if (disabled === true) {
-				this.$icon.addClass('disabled');
+				this.$label.addClass('disabled');
 			}
 		},
 
 		enable: function () {
 			this.$chk.attr('disabled', false);
-			this.$icon.removeClass('disabled');
+			this.$label.removeClass('disabled');
 		},
 
 		disable: function () {
 			this.$chk.attr('disabled', true);
-			this.$icon.addClass('disabled');
+			this.$label.addClass('disabled');
 		},
 
 		toggle: function () {
@@ -85,17 +83,17 @@
 			var chk = $(e.target);
 			this.setState(chk);
 		},
-		
+
 		check: function () {
 			this.$chk.prop('checked', true);
 			this.setState(this.$chk);
 		},
-		
+
 		uncheck: function () {
 			this.$chk.prop('checked', false);
 			this.setState(this.$chk);
 		},
-		
+
 		isChecked: function () {
 			return this.$chk.is(':checked');
 		}

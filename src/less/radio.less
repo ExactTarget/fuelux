@@ -1,92 +1,90 @@
-.fuelux-radio {
-	input[type=radio] {
-        /* IE cannot fire events if display none or visibility hidden */
-        position: relative;
-        left: -99999px;
+//TODO: figure out highlight
+
+.radio-custom {
+	position: relative;
+
+	&:after,
+	&:before
+	{
+		.iconBaseStyles();
+
+		color: #aaa;
+		font-size: 16px;
+		left: 0;
+		margin-left: -20px;
+		position: relative;
+		top: 0;
 	}
 
-    &.highlight label {
-        padding: 4px 4px 4px 24px;
+	&:after {
+		content: "\e00c";	/*.fueluxicon-radio-1:before*/
+		position: absolute;
+	}
 
-        .checked {
-            background: #e9e9e9;
-            -webkit-border-radius: @borderRadiusSmall;
-            border-radius: @borderRadiusSmall;
-        }
-    }
+	&:before {
+		color: #ebebeb;
+		content: "\e00d";	/*.fueluxicon-radio-2:before*/
+		top: 2px;
+	}
 
-	span.fueluxicon {
-		margin-left: -20px;
-		margin-right: 4px;
-		padding-left: 0;
-		position: relative;
-		width: 16px;
-		height: 16px;
+	&.checked {
+		&:after {
+			content: "\e00e";	/*.fueluxicon-radio-3:before*/
+		}
+	}
+
+	&.disabled {
+		&:after,
+		&:before
+		{
+			opacity: .6;
+		}
+	}
+
+	//TODO: Make sure this works well for various sizes of fonts
+	&.radio-inline {
+		padding-left: 4px;
 
 		&:after,
 		&:before
 		{
-			.iconBaseStyles();
-
-			color: #aaa;
-			font-size: 16px;
-			left: 0;
-			position: relative;
-			top: 3px;
+			display: block;
+			float: left;
+			margin: 0;
 		}
 
 		&:after {
-			content: "\e00c";	/*.fueluxicon-radio-1:before*/
-			position: absolute;
-			top: 0;
+			top: 2px;
 		}
 
 		&:before {
-			color: #ebebeb;
-			content: "\e00d";	/*.fueluxicon-radio-2:before*/
+			left: -4px;
 		}
+	}
 
-		&.checked {
-			&:after {
-				content: "\e00e";	/*.fueluxicon-radio-3:before*/
-			}
-		}
-
-		&.disabled {
-			opacity: .5;
-		}
+	input[type=radio] {
+		/* IE cannot fire events if display none or visibility hidden */
+		position: relative;
+		left: -99999px;
 	}
 }
 
 .radio-custom:hover {
-	i {
+	&:after {
+		color: #888;
+	}
+
+	&:before {
+		color: #d4d4d4;
+	}
+
+	&.disabled {
 		&:after {
-			color: #888;
+			color: #aaa;
 		}
 
 		&:before {
-			color: #d4d4d4;
-		}
-
-		&.disabled {
-			&:after {
-				color: #aaa;
-			}
-
-			&:before {
-				color: #ebebeb;
-			}
+			color: #ebebeb;
 		}
 	}
-}
-
-@media
-(-webkit-min-device-pixel-ratio: 2),
-(min-resolution: 192dpi) {
-  .radio-custom {
-    i {
-      background-image: url(../img/form-hdpi.png);
-      background-size: 96px auto;
-    }
-  }
 }
