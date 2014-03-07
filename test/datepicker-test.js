@@ -393,8 +393,10 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 		var $sample      = $( html ).find( '#datepicker1' );
 		var minDate = new Date(2014, 1, 1);
 		var maxDate = new Date(2014, 2, 31);
+		var janDate = new Date(2014, 1, 3);
 
 		$sample.datepicker({
+			date: janDate,
 			blackoutDates: function( date ) {
 				var passedDate = this.parseDate( date ).getTime();
 				return passedDate < minDate || passedDate > maxDate;
