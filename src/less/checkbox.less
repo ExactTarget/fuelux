@@ -1,92 +1,67 @@
-.form-inline {
-	.checkbox-custom {
-		padding-left: 20px;
-	}
-
-	.checkbox-custom .checkbox {
-		padding-left: 16px;
-	}
-}
-
 .checkbox-custom {
-	input[type=checkbox] {
-	/* IE cannot fire events if display none or visibility hidden */
 	position: relative;
-	left: -99999px;
+
+	&:after,
+	&:before
+	{
+		.iconBaseStyles();
+
+		color: #aaa;
+		font-size: 16px;
+		left: 0;
+		margin-left: -20px;
+		position: relative;
+		top: 0;
 	}
 
-	i {
-		margin-left: -20px;
-		margin-right: 4px;
-		padding-left: 0;
-		position: relative;
-		width: 16px;
-		height: 16px;
+	&:after {
+		content: "\e000";	/*.fueluxicon-checkbox-1:before*/
+		position: absolute;
+	}
 
+	&:before {
+		color: #ebebeb;
+		content: "\e001";	/*.fueluxicon-checkbox-2:before*/
+		top: 2px;
+	}
+
+	&.checked {
+		&:after {
+			content: "\e002";	/*.fueluxicon-checkbox-3:before*/
+		}
+	}
+
+	&.disabled {
 		&:after,
 		&:before
 		{
-			.iconBaseStyles();
-
-			color: #aaa;
-			font-size: 16px;
-			left: 0;
-			position: relative;
-			top: 3px;
+			opacity: .6;
 		}
+	}
 
-		&:after {
-			content: "\e000";	/*.fueluxicon-checkbox-1:before*/
-			position: absolute;
-			top: 0;
-		}
-
-		&:before {
-			color: #ebebeb;
-			content: "\e001";	/*.fueluxicon-checkbox-2:before*/
-		}
-
-		&.checked {
-			&:after {
-				content: "\e002";	/*.fueluxicon-checkbox-3:before*/
-			}
-		}
-
-		&.disabled {
-			opacity: .5;
-		}
+	input[type=checkbox] {
+		/* IE cannot fire events if display none or visibility hidden */
+		position: relative;
+		left: -99999px;
 	}
 }
 
 .checkbox-custom:hover {
-	i {
+	&:after {
+		color: #888;
+	}
+
+	&:before {
+		color: #d4d4d4;
+	}
+
+	&.disabled {
 		&:after {
-			color: #888;
+			color: #aaa;
 		}
 
 		&:before {
-			color: #d4d4d4;
-		}
-
-		&.disabled {
-			&:after {
-				color: #aaa;
-			}
-
-			&:before {
-				color: #ebebeb;
-			}
+			color: #ebebeb;
 		}
 	}
-}
-
-@media
-(-webkit-min-device-pixel-ratio: 2),
-(min-resolution: 192dpi) {
-  .checkbox-custom {
-    i {
-      background-image: url(../img/form-hdpi.png);
-      background-size: 96px auto;
-    }
-  }
 }
