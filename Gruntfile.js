@@ -41,20 +41,20 @@ module.exports = function (grunt) {
 				files: {
 					// manually concatenate JS files (due to dependency management)
 					'dist/js/fuelux.js': [
-						'src/util.js',
-						'src/checkbox.js',
-						'src/combobox.js',
-						'src/datagrid.js',
-						'src/datepicker.js',
-						'src/pillbox.js',
-						'src/radio.js',
-						'src/search.js',
-						'src/select.js',
-						'src/spinner.js',
-						'src/tree.js',
-						'src/wizard.js',
-						'src/intelligent-dropdown.js',
-						'src/scheduler.js'
+						'js/util.js',
+						'js/checkbox.js',
+						'js/combobox.js',
+						'js/datagrid.js',
+						'js/datepicker.js',
+						'js/pillbox.js',
+						'js/radio.js',
+						'js/search.js',
+						'js/select.js',
+						'js/spinner.js',
+						'js/tree.js',
+						'js/wizard.js',
+						'js/intelligent-dropdown.js',
+						'js/scheduler.js'
 					]
 				},
 				options: {
@@ -91,7 +91,7 @@ module.exports = function (grunt) {
 		},
 		copy: {
 			fonts: {
-				cwd: 'src/fonts/',
+				cwd: 'fonts/',
 				dest: 'dist/fonts/',
 				expand: true,
 				filter: 'isFile',
@@ -147,7 +147,7 @@ module.exports = function (grunt) {
 				undef: true,
 				unused: false	// changed
 			},
-			source: ['Gruntfile.js', 'src/**/*.js', 'dist/fuelux.js'],
+			source: ['Gruntfile.js', 'js/*.js', 'dist/fuelux.js'],
 			tests: {
 				options: {
 					latedef: false,
@@ -174,7 +174,7 @@ module.exports = function (grunt) {
 				options: {
 					compile: true
 				},
-				src: ['src/less/fuelux.less']
+				src: ['less/fuelux.less']
 			},
 			compress: {
 				dest: 'dist/css/fuelux.min.css',
@@ -182,7 +182,7 @@ module.exports = function (grunt) {
 					compile: true,
 					compress: true
 				},
-				src: ['src/less/fuelux.less']
+				src: ['less/fuelux.less']
 			}
 		},
 		'saucelabs-qunit': {
@@ -219,7 +219,7 @@ module.exports = function (grunt) {
 			}
 		},
 		watch: {
-			files: ['Gruntfile.js', 'lib/**', 'src/**', 'test/**', 'index.html'],
+			files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html'],
 			options: { livereload: true },
 			tasks: ['quicktest', 'quickcss', 'copy:fonts', 'concat', 'jshint', 'jsbeautifier']
 		}
