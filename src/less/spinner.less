@@ -1,14 +1,16 @@
-.spinner{
+.fuelux-spinner {
 
-	input {
+	.spinner-input {
 		width: 43px;
 		float: left;
+		padding-bottom: 3px; /* Magic number */
+		padding: 0px 7px;
 	}
 
 	.btn {
 	    position: relative;
 		width: 20px;
-		height: 14px;
+		height: 13px;
 		padding-top: 0;
 		padding-right: 9px;
 		padding-left: 9px;
@@ -28,24 +30,25 @@
 
 	.spinner-up {
 
-		padding: 0 0 4px 1px;
+		padding: 0 0 14px 1px;
 		top: 2px;
 
-		i {
+		.glyphicon-chevron-up {
 			position:relative;
-			top: -4px;
+			top: -1px;
+			left: 1px; /* Magic number */
 		}
 	}
 
 	.spinner-down {
 
-		padding: 0 0 4px 1px;
+		padding: 0 0 8px 1px;
 		top: 2px;
 		height: 13px;
 
-		i {
+		.glyphicon-chevron-down {
 			position:relative;
-			top: -5px;
+			top: -1px;
 		}
 	}
 }

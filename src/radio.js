@@ -34,7 +34,7 @@
 
 		// cache elements
 		this.$label = this.$element.parent();
-		this.$icon = this.$label.find('i');
+		this.$icon = this.$label.find('span.fueluxicon');
 		this.$radio = this.$label.find('input[type=radio]');
 		this.groupName = this.$radio.attr('name');
 

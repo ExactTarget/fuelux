@@ -418,26 +418,84 @@
 
 		<!--
 		*
-		* STEPHEN CONVERT ALL CONTROLS BELOW
+		* STEPHEN EDITS BELOW
 		*
 		-->
 
 
-
-		<!-- RADIO -->
+		<!-- RADIO: tags, classes edited. Currently not working -->
 		<div>
-			<label class="radio radio-custom"><input type="radio" name="radio1a" checked="checked"><i class="radio"></i>Custom: Checked Enabled</label>
-			<label class="radio radio-custom"><input type="radio" name="radio1a" id="radio1"><i class="radio"></i>Custom: Unchecked Enabled</label>
-			<label class="radio radio-custom"><input type="radio" name="radio1b" checked="checked" disabled="disabled"><i class="radio"></i>Custom: Checked Disabled</label>
-			<label class="radio radio-custom"><input type="radio" name="radio1b" disabled="disabled"><i class="radio"></i>Custom: Unchecked Disabled</label>
-			<label class="radio radio-custom highlight"><input type="radio" name="radio1c" checked="checked"><i class="radio"></i>Custom: Checked Enabled w/Highlight</label>
-			<label class="radio radio-custom highlight"><input type="radio" name="radio1c" ><i class="radio"></i>Custom: Checked Disabled w/Highlight</label>
-			<label class="radio"><input type="radio" name="radio2a" checked="checked">Native: Checked Enabled</label>
-			<label class="radio"><input type="radio" name="radio2a">Native: Unchecked Enabled</label>
-			<label class="radio"><input type="radio" name="radio2b" checked="checked" disabled="disabled">Native: Checked Disabled</label>
-			<label class="radio"><input type="radio" name="radio2b" disabled="disabled">Native: Unchecked Disabled</label>
-			<button type="button" class="btn btn-default btn-xs" id="btnRadioDisable">disable</button>
-			<button type="button" class="btn btn-default btn-xs" id="btnRadioEnable">enable</button>
+			<div class="radio fuelux-radio">
+				<label>
+					<input type="radio" name="radio1a" checked="checked">
+					<span class="fueluxicon fueluxicon-radio"></span>
+					Custom: Checked Enabled
+				</label>
+			</div>
+
+			<div class="radio fuelux-radio">
+				<label>
+					<input type="radio" name="radio1a" id="radio1">
+					<span class="fueluxicon fueluxicon-radio"></span>
+					Custom: Unchecked Enabled
+				</label>
+			</div>
+
+			<div class="radio fuelux-radio">
+				<label>
+					<input type="radio" name="radio1b" checked="checked" disabled="disabled">
+					<span class="fueluxicon fueluxicon-radio"></span>
+					Custom: Checked Disabled
+				</label>
+			</div>
+
+			<div class="radio fuelux-radio">
+				<label>
+					<input type="radio" name="radio1b" disabled="disabled">
+					<span class="fueluxicon fueluxicon-radio"></span>
+					Custom: Unchecked Disabled
+				</label>
+			</div>
+
+			<div class="radio fuelux-radio highlight">
+				<label>
+					<input type="radio" name="radio1c" checked="checked">
+					<span class="fueluxicon fueluxicon-radio"></span>
+					Custom: Checked Enabled w/Highlight
+				</label>
+			</div>
+
+			<div class="radio fuelux-radio highlight">
+				<label>
+					<input type="radio" name="radio1c" checked="checked" disabled="disabled">
+					<span class="fueluxicon fueluxicon-radio"></span>
+					Custom: Checked Disabled w/Highlight
+				</label>
+			</div>
+
+			<div class="radio">
+				<label>
+					<input type="radio" name="radio2a" checked="checked">
+					Native: Checked Enabled
+				</label>
+			</div>
+
+			<div class="radio">
+				<label><input type="radio" name="radio2a">Native: Unchecked Enabled</label>
+			</div>
+
+			<div class="radio">
+				<label><input type="radio" name="radio2b" checked="checked" disabled="disabled">Native: Checked Disabled</label>
+			</div>
+
+			<div class="radio">
+				<label><input type="radio" name="radio2b" disabled="disabled">Native: Unchecked Disabled</label>
+			</div>
+
+			<div class="btn-group">
+				<button type="button" class="btn btn-default" id="btnRadioDisable">disable</button>
+				<button type="button" class="btn btn-default" id="btnRadioEnable">enable</button>
+			</div>
 		</div>
 
 
@@ -867,40 +925,44 @@
 
 
 
-		<!-- SEARCH CONTROL -->
-		<div>
-			<div id="MySearch" class="input-append search">
-				<input type="text" class="input-medium" placeholder="Search">
-				<button class="btn"><i class="icon-search"></i></button>
-			</div>
-			<br/>
-			<input id="btnSearchDisable" type="button" class="btn btn-default btn-xs" value="disable"/>
-			<input id="btnSearchEnable" type="button" class="btn btn-default btn-xs" value="enable"/>
+		<!-- SEARCH CONTROL: tags, classes edited. -->
+
+		<div class="navbar-form">
+			<form role="search">
+				<div id="MySearch" class="fuelux-search">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Search">
+					</div>
+					<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span><span class="sr-only">Search</span></button>
+				</div>
+				<br/>
+				<div class="btn-group">
+					<button type="button" class="btn btn-default" id="btnSearchDisable" value="disable">disable</button>
+					<button type="button" class="btn btn-default" id="btnSearchEnable" value="enable">enable</button>
+				</div>
+			</form>
 		</div>
 
 
+		<!-- SPINNER tags, classes edited, screen reader text added -->
+		<div id="ex-spinner" class="fuelux-spinner">
+			<input type="number" class="form-control input-mini spinner-input">
 
-		<!-- SPINNER -->
-		<div id="ex-spinner" class="spinner">
-			<input type="text" class="input-mini spinner-input">
-
-			<div class="spinner-buttons  btn-group btn-group-vertical">
-				<button class="btn spinner-up">
-					<i class="icon-chevron-up"></i>
+			<div class="spinner-buttons btn-group btn-group-vertical">
+				<button class="btn btn-default spinner-up btn-xs">
+					<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
 				</button>
-				<button class="btn spinner-down">
-					<i class="icon-chevron-down"></i>
+				<button class="btn btn-default spinner-down btn-xs">
+					<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
 				</button>
 			</div>
 		</div>
-
 
 
 		<!-- SELECT -->
 		<div>
 			<div id="MySelect" class="select btn-group" data-resize="auto">
-				<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label"></span><span
-						class="caret"></span></button>
+				<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label"></span><span class="caret"></span></button>
 				<ul class="dropdown-menu">
 					<li data-value="1"><a href="#">One</a></li>
 					<li data-value="2"><a href="#">Two</a></li>
