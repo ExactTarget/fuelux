@@ -205,7 +205,10 @@ module.exports = function (grunt) {
 				}
 			}
 		},
-		testUrls: ['1.9.1', '1.8.3', '1.7.2'].map(function (ver) {
+		testUrls: ['BG', '1.9.1', '1.8.3', '1.7.2'].map(function (ver) {
+			if(ver==='BG'){
+				return 'http://localhost:<%= connect.server.options.port %>/test/fuelux-browser-globals.html';
+			}
 			return 'http://localhost:<%= connect.server.options.port %>/test/fuelux.html?jquery=' + ver;
 		}),
 		uglify: {
