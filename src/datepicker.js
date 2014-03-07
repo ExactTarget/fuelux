@@ -10,7 +10,7 @@
 
 // -- BEGIN UMD WRAPPER PREFACE --
 
-// For more information on UMD visit: 
+// For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
@@ -23,9 +23,9 @@
     }
 }(function ($) {
     // -- END UMD WRAPPER PREFACE --
-        
+
     // -- BEGIN MODULE CODE HERE --
-    
+
 	var old    = $.fn.datepicker;
 	var moment = false;
 
@@ -111,6 +111,8 @@
 
 		this.options.restrictLastMonth = Boolean( this.options.restrictDateSelection );
 		this.options.restrictNextMonth = false;
+
+		this.options.restrictToYear = this.options.restrictToYear || null;
 
 		this.months = [
 			{ abbreviation: this.options.monthNames[0], 'class': '', number: 0 },
@@ -309,7 +311,10 @@
 			var restrictBoolean = false;
 			returnClasses       = returnClasses || false;
 
-			if( date <= this.minDate || date >= this.maxDate ) {
+			if( this.options.restrictToYear && this.options.restrictToYear !== date.getFullYear() ) {
+				classes += ' restrict';
+				restrictBoolean = true;
+			} else if( date <= this.minDate || date >= this.maxDate ) {
 				if ( Boolean( this.blackoutDates( date ) ) ) {
 					classes += ' restrict blackout';
 					restrictBoolean = true;
@@ -634,7 +639,7 @@
 			if( e.target.className.indexOf( 'restrict' ) > -1 ) {
 				return this._killEvent(e);
 			}
-			
+
 			if( this.options.showDays) {
 				this.viewDate = new Date( this.viewDate.getFullYear(), this.viewDate.getMonth() - 1, 1 );
 			} else if( this.options.showMonths ) {
@@ -660,7 +665,7 @@
 			if( e.target.className.indexOf('restrict') > -1 ) {
 				return this._killEvent(e);
 			}
-			
+
 			if( this.options.showDays ) {
 				this.viewDate = new Date( this.viewDate.getFullYear(), this.viewDate.getMonth() + 1, 1 );
 			} else if( this.options.showMonths ) {
@@ -715,7 +720,7 @@
 		_toggleMonthYearPicker: function( e ) {
 			if( this.options.showDays ) {
 				this._showView( 2 );
-			} else if( this.options.showMonths ) {
+			} else if( this.options.showMonths && !this.options.restrictToYear ) {
 				this._showView( 3 );
 			} else if( this.options.showYears ) {
 				this._showView( 1 );
@@ -816,7 +821,7 @@
 			var dropdownHtml = '<div class="' + inputClass + '">' +
 						'<div class="dropdown-menu"></div>' +
 						'<input type="text" '+ this._calculateInputSize() +' value="'+this.formatDate( this.date ) +'" data-toggle="dropdown">';
-			
+
 			if( Boolean( this.options.createInput.dropDownBtn ) ) {
 				dropdownHtml = dropdownHtml + '<button type="button" class="btn" data-toggle="dropdown"><i class="icon-calendar"></i></button>';
 			}
@@ -868,7 +873,7 @@
 			}
 
 			if( !!triggerError ) {
-				// we will insert the staged date into the input 
+				// we will insert the staged date into the input
 				this._setNullDate( true );
 				this.$element.trigger( 'inputParsingFailed' );
 			}
@@ -927,8 +932,18 @@
 
 			this.$calendar.on( 'click', $.proxy( this._emptySpace, this) );
 
-			this.$header.find( '.left' ).on( 'click', $.proxy( this._previous, this ) );
-			this.$header.find( '.right' ).on( 'click', $.proxy( this._next, this ) );
+			if ( this.options.restrictToYear !== this.viewDate.getFullYear() || this.viewDate.getMonth() > 0 ) {
+				this.$header.find( '.left' ).on( 'click', $.proxy( this._previous, this ) );
+			} else {
+				this.$header.find( '.left' ).addClass('disabled');
+			}
+
+			if ( this.options.restrictToYear !== this.viewDate.getFullYear() || this.viewDate.getMonth() < 11 ) {
+				this.$header.find( '.right' ).on( 'click', $.proxy( this._next, this ) );
+			} else {
+				this.$header.find( '.right' ).addClass('disabled');
+			}
+
 			this.$header.find( '.center' ).on( 'click', $.proxy( this._toggleMonthYearPicker, this ) );
 
 			this.$lastMonthDiv.find( 'div' ).on( 'click', $.proxy( this._previousSet, this ) );
