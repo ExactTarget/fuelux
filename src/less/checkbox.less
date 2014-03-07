@@ -1,3 +1,5 @@
+//TODO: Figure out highlight
+
 .checkbox-custom {
 	position: relative;
 
@@ -36,6 +38,27 @@
 		&:before
 		{
 			opacity: .6;
+		}
+	}
+
+	//TODO: Make sure this works well for various sizes of fonts
+	&.checkbox-inline {
+		padding-left: 4px;
+
+		&:after,
+		&:before
+		{
+			display: block;
+			float: left;
+			margin: 0;
+		}
+
+		&:after {
+			top: 2px;
+		}
+
+		&:before {
+			left: -4px;
 		}
 	}
 
