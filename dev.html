@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" class="fuelux">
+<head>
+	<meta charset="utf-8">
+	<title>Testing</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<!--<link href="dist/css/fuelux.css" rel="stylesheet" type="text/css">-->
+	<link href="src/less/fuelux.less" rel="stylesheet/less" type="text/css" />
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js"></script>
+
+	<script src="lib/require.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		if(window.console && window.console.clear){
+			window.console.clear();
+		}
+
+		requirejs.config({
+			paths: {
+				jquery: 'lib/jquery-1.9.1.min',
+				bootstrap: 'lib/bootstrap/dist/js/bootstrap.min',
+				fuelux: 'src'
+			}
+		});
+
+		require(['jquery', 'fuelux/all'], function ($){});
+	</script>
+</head>
+
+<body>
+	<div class="container" style="margin-top:20px;">
+
+
+
+	</div>
+</body>
+</html>

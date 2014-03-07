@@ -2,7 +2,11 @@
 /*global start:false, stop:false ok:false, equal:false, notEqual:false, deepEqual:false*/
 /*global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false*/
 
-require(['jquery', 'fuelux/wizard'], function ($) {
+define(function(require){
+	var $ = require('jquery');
+
+	require('bootstrap');
+	require('fuelux/wizard');
 
 	var html = '<div class="wizard">' +
 		'<ul class="steps">' +

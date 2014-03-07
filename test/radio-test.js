@@ -2,13 +2,17 @@
 /*global start:false, stop:false ok:false, equal:false, notEqual:false, deepEqual:false*/
 /*global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false*/
 
-require(['jquery', 'fuelux/radio'], function ($) {
+define(function(require){
+	var $ = require('jquery');
+
+	require('bootstrap');
+	require('fuelux/radio');
 
 	var html = '<div>' +
-		'<label class="radio radio-custom" id="lbl1"><input id="radio1" type="radio" name="radio1" checked="checked"><i class="radio"></i>Custom: Checked Enabled</label>' +
-		'<label class="radio radio-custom" id="lbl2"><input id="radio2" type="radio" name="radio1"><i class="radio"></i>Custom: Unchecked Enabled</label>' +
-		'<label class="radio radio-custom" id="lbl3"><input id="radio3" type="radio" name="radio2" checked="checked" disabled="disabled"><i class="radio"></i>Custom: Checked Disabled</label>' +
-		'<label class="radio radio-custom" id="lbl4"><input id="radio4" type="radio" name="radio2" disabled="disabled"><i class="radio"></i>Custom: Unchecked Disabled</label>' +
+		'<label class="radio radio-custom" id="lbl1"><input id="radio1" type="radio" name="radio1" checked="checked"><span class="fueluxicon fueluxicon-radio"></span>Custom: Checked Enabled</label>' +
+		'<label class="radio radio-custom" id="lbl2"><input id="radio2" type="radio" name="radio1"><span class="fueluxicon fueluxicon-radio"></span>Custom: Unchecked Enabled</label>' +
+		'<label class="radio radio-custom" id="lbl3"><input id="radio3" type="radio" name="radio2" checked="checked" disabled="disabled"><span class="fueluxicon fueluxicon-radio"></span>Custom: Checked Disabled</label>' +
+		'<label class="radio radio-custom" id="lbl4"><input id="radio4" type="radio" name="radio2" disabled="disabled"><span class="fueluxicon fueluxicon-radio"></span>Custom: Unchecked Disabled</label>' +
 		'</div>';
 
 	module("Fuel UX radio");
@@ -26,22 +30,22 @@ require(['jquery', 'fuelux/radio'], function ($) {
 		var $radios = $list.find('input').radio();
 
 		// checked/enabled
-		var i1 = $list.find('#lbl1 i');
+		var i1 = $list.find('#lbl1 span');
 		equal(i1.hasClass('checked'), true, 'radio1 has checked class');
 		equal(i1.hasClass('disabled'), false, 'radio1 does not have disabled class');
 
 		// unchecked/enabled
-		var i2 = $list.find('#lbl2 i');
+		var i2 = $list.find('#lbl2 span');
 		equal(i2.hasClass('checked'), false, 'radio2 does not have checked class');
 		equal(i2.hasClass('disabled'), false, 'radio2 does not have disabled class');
 
 		// checked/disabled
-		var i3 = $list.find('#lbl3 i');
+		var i3 = $list.find('#lbl3 span');
 		equal(i3.hasClass('checked'), true, 'radio3 has checked class');
 		equal(i3.hasClass('disabled'), true, 'radio3 has disabled class');
 
 		// unchecked/disabled
-		var i4 = $list.find('#lbl4 i');
+		var i4 = $list.find('#lbl4 span');
 		equal(i4.hasClass('checked'), false, 'radio4 does not have checked class');
 		equal(i4.hasClass('disabled'), true, 'radio4 has disabled class');
 	});
@@ -59,9 +63,9 @@ require(['jquery', 'fuelux/radio'], function ($) {
     test("should check/uncheck radio group", function () {
         var $fixture = $(html).appendTo('#qunit-fixture');
         var $radio1 = $fixture.find('#radio1');
-        var $i1 = $fixture.find('#lbl1 i');
+        var $i1 = $fixture.find('#lbl1 span');
         var $radio2 = $fixture.find('#radio2');
-        var $i2 = $fixture.find('#lbl2 i');
+        var $i2 = $fixture.find('#lbl2 span');
         
         $fixture.find('input').radio();
         

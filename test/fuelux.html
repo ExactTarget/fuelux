@@ -3,17 +3,19 @@
 <head>
 	<meta charset="utf-8">
 	<title>Fuel UX Test Suite</title>
+
 	<link rel="stylesheet" href="../lib/qunit/qunit.css" media="screen">
+
 	<script src="../lib/moment.js"></script>
+	<script src="../lib/qunit/qunit.js"></script>
+	<script src="../lib/require.js"></script>
+	<!--What is this about?-->
+	<script src="/testem.js"></script>
+
 	<script>
 		window.tmpMoment = window.moment;
 		window.moment    = undefined;
-	</script>
-	<script src="../lib/qunit/qunit.js"></script>
-	<script src="/testem.js"></script>
-	<script src="../lib/require.js"></script>
 
-	<script>
 		(function () {
 			var jqverParam = location.search.match(/[?&]jquery=(.*?)(?=&|$)/);
 			var jqver = (jqverParam) ? jqverParam[1] : '1.9.1';
@@ -27,40 +29,23 @@
 				},
 				paths: {
 					jquery: '../lib/jquery-' + jqver + '.min',
-					bootstrap: '../lib/bootstrap/js',
+					bootstrap: '../lib/bootstrap/dist/js/bootstrap',
 					fuelux: '../src',
 					test: '../test',
 					moment: '../path/to/moment' // wrong url because we need to test it without moment first
 				}
 			});
+
+			require(['test/fuelux-test'], function() {});
 		})();
 	</script>
-
-	<script src="fuelux-test.js"></script>
-	<script src="checkbox-test.js"></script>
-	<script src="combobox-test.js"></script>
-	<script src="datagrid-test.js"></script>
-	<script src="datepicker-test.js"></script>
-	<script src="datepicker-moment-test.js"></script>
-	<script src="pillbox-test.js"></script>
-	<script src="radio-test.js"></script>
-	<script src="scheduler-test.js"></script>
-	<script src="search-test.js"></script>
-	<script src="spinner-test.js"></script>
-	<script src="select-test.js"></script>
-	<script src="tree-test.js"></script>
-	<script src="wizard-test.js"></script>
 </head>
 <body>
-<h1 id="qunit-header">Fuel UX Test Suite</h1>
-
-<h2 id="qunit-banner"></h2>
-
-<div id="qunit-testrunner-toolbar"></div>
-<h2 id="qunit-userAgent"></h2>
-<ol id="qunit-tests"></ol>
-<div id="qunit-fixture">
-
-</div>
+	<h1 id="qunit-header">Fuel UX Test Suite</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+	<div id="qunit-fixture"></div>
 </body>
 </html>
