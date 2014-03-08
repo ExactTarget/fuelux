@@ -1,5 +1,5 @@
 /*
- * Fuel UX Select
+ * Fuel UX Button Dropdown
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2014 ExactTarget
@@ -24,12 +24,12 @@
         
     // -- BEGIN MODULE CODE HERE --
 
-    var old = $.fn.select;
+    var old = $.fn.buttonDropdown;
     // SELECT CONSTRUCTOR AND PROTOTYPE
 
-    var Select = function (element, options) {
+    var ButtonDropdown = function (element, options) {
         this.$element = $(element);
-        this.options = $.extend({}, $.fn.select.defaults, options);
+        this.options = $.extend({}, $.fn.buttonDropdown.defaults, options);
         this.$element.on('click', 'a', $.proxy(this.itemclicked, this));
         this.$button = this.$element.find('.btn');
         this.$hiddenField = this.$element.find('.hidden-field');
@@ -41,9 +41,9 @@
         }
     };
 
-    Select.prototype = {
+    ButtonDropdown.prototype = {
 
-        constructor: Select,
+        constructor: ButtonDropdown,
 
         itemclicked: function (e) {
             this.$selectedItem = $(e.target).parent();
@@ -62,7 +62,7 @@
 
         resize: function() {
             var newWidth = 0;
-            var sizer = $('<div/>').addClass('select-sizer');
+            var sizer = $('<div/>').addClass('button-dropdown-sizer');
             var width = 0;
 
             if( Boolean( $(document).find( 'html' ).hasClass( 'fuelux' ) ) ) {
@@ -144,28 +144,28 @@
 
     // SELECT PLUGIN DEFINITION
 
-    $.fn.select = function (option) {
+    $.fn.buttonDropdown = function (option) {
         var args = Array.prototype.slice.call(arguments, 1);
         var methodReturn;
 
         var $set = this.each(function () {
             var $this = $(this);
-            var data = $this.data('select');
+            var data = $this.data('button-dropdown');
             var options = typeof option === 'object' && option;
 
-            if (!data) $this.data('select', (data = new Select(this, options)));
+            if (!data) $this.data('button-dropdown', (data = new ButtonDropdown(this, options)));
             if (typeof option === 'string') methodReturn = data[option].apply(data, args);
         });
 
         return ( methodReturn === undefined ) ? $set : methodReturn;
     };
 
-    $.fn.select.defaults = {};
+    $.fn.buttonDropdown.defaults = {};
 
-    $.fn.select.Constructor = Select;
+    $.fn.buttonDropdown.Constructor = ButtonDropdown;
 
-    $.fn.select.noConflict = function () {
-      $.fn.select = old;
+    $.fn.buttonDropdown.noConflict = function () {
+      $.fn.buttonDropdown = old;
       return this;
     };
 
@@ -175,21 +175,21 @@
     $(function () {
 
         $(window).on('load', function () {
-            $('.select').each(function () {
+            $('.button-dropdown').each(function () {
                 var $this = $(this);
-                if ($this.data('select')) {
+                if ($this.data('button-dropdown')) {
                     return;
                 }
-                $this.select($this.data());
+                $this.buttonDropdown($this.data());
             });
         });
 
-        $('body').on('mousedown.select.data-api', '.select', function () {
+        $('body').on('mousedown.select.data-api', '.button-dropdown', function () {
             var $this = $(this);
-            if ($this.data('select')) {
+            if ($this.data('buttonDropdown')) {
                 return;
             }
-            $this.select($this.data());
+            $this.buttonDropdown($this.data());
         });
     });
 
