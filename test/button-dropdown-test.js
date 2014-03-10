@@ -16,10 +16,10 @@ require(['jquery', 'fuelux/button-dropdown'], function ($) {
 		'</div>';
 
 
-	module("Fuel UX select");
+	module("Fuel UX button dropdown");
 
 	test("should be defined on jquery object", function () {
-		ok($(document.body).buttonDropdown, 'select method is defined');
+		ok($(document.body).buttonDropdown, 'buttonDropdown method is defined');
 	});
 
 	test("should return element", function () {
@@ -39,7 +39,7 @@ require(['jquery', 'fuelux/button-dropdown'], function ($) {
 		equal($buttonDropdown.find('.btn').hasClass('disabled'), false, 'element enabled');
 	});
 
-	test("should set default buttonDropdownion", function () {
+	test("should set default selection", function () {
 		// should be "Three" based on the data-selected attribute
 		var $buttonDropdown = $(html).buttonDropdown();
 		var item = $buttonDropdown.buttonDropdown('selectedItem');
