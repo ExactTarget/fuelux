@@ -126,7 +126,7 @@
 				});
 			} else if ($all[0] !== $el[0]) {
 				$all.removeClass('tree-selected')
-					.find('i').removeClass('icon-ok').addClass('tree-dot');
+					.find('i').removeClass('glyphicon-ok').addClass('tree-dot');
 				data.push($el.data());
 			}
 
@@ -134,10 +134,10 @@
 			if($el.hasClass('tree-selected')) {
 				eventType = 'unselected';
 				$el.removeClass('tree-selected');
-				$el.find('i').removeClass('icon-ok').addClass('tree-dot');
+				$el.find('i').removeClass('glyphicon-ok').addClass('tree-dot');
 			} else {
 				$el.addClass ('tree-selected');
-				$el.find('i').removeClass('tree-dot').addClass('icon-ok');
+				$el.find('i').removeClass('tree-dot').addClass('glyphicon-ok');
 				if (this.options.multiSelect) {
 					data.push( $el.data() );
 				}
@@ -163,10 +163,10 @@
 			var $treeFolderContentFirstChild = $treeFolderContent.eq(0);
 
 			var eventType, classToTarget, classToAdd;
-			if ($el.find('.icon-folder-close').length) {
+			if ($el.find('.glyphicon-folder-close').length) {
 				eventType = 'opened';
-				classToTarget = '.icon-folder-close';
-				classToAdd = 'icon-folder-open';
+				classToTarget = '.glyphicon-folder-close';
+				classToAdd = 'glyphicon-folder-open';
 
 				$treeFolderContentFirstChild.show();
 				if (!$treeFolderContent.children().length) {
@@ -174,8 +174,8 @@
 				}
 			} else {
 				eventType = 'closed';
-				classToTarget = '.icon-folder-open';
-				classToAdd = 'icon-folder-close';
+				classToTarget = '.glyphicon-folder-open';
+				classToAdd = 'glyphicon-folder-close';
 
 				$treeFolderContentFirstChild.hide();
 				if (!this.options.cacheItems) {
@@ -184,7 +184,7 @@
 			}
 
 			$parent.find(classToTarget).eq(0)
-				.removeClass('icon-folder-close icon-folder-open')
+				.removeClass('glyphicon-folder-close glyphicon-folder-open')
 				.addClass(classToAdd);
 
 			this.$element.trigger(eventType, $el.data());
