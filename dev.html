@@ -24,38 +24,16 @@
 				fuelux: 'js'
 			}
 		});
-		$('#btnComboboxEnable').on('click', function () {
-			$('#MyCombobox').combobox('enable');
-		});
-		$('#btnComboboxGetSelectedItem').on('click', function () {
-			console.log($('#MyCombobox').combobox('selectedItem'));
-		});
-		$('#btnComboboxSelectByValue').on('click', function () {
-			$('#MyCombobox').combobox('selectByValue', '3');
-		});
-		$('#btnComboboxSelectBySelector').on('click', function () {
-			$('#MyCombobox').combobox('selectBySelector', 'li[data-fizz=buzz]');
-		});
-		$('#btnComboboxSelectByIndex').on('click', function () {
-			$('#MyCombobox').combobox('selectByIndex', '3');
-		});
-		$('#btnComboboxSelectByText').on('click', function () {
-			$('#MyCombobox').combobox('selectByText', 'Four');
-		});
-		$('#MyCombobox').on('changed', function (evt, data) {
-			console.log(data);
-		});
 
 		require(['jquery', 'fuelux/all'], function ($){});
 	</script>
 </head>
 
 <body>
-<div class="container" style="margin-top:20px;">
-
-	<div class="container">
+	<div class="container" style="margin-top:20px;">
 
 
-</div>
+
+	</div>
 </body>
 </html>
