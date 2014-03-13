@@ -31,3 +31,7 @@ body {
 	padding: 10px;
 	margin-bottom: 10px;
 }
+
+.search-form {
+	width: 300px;
+}
