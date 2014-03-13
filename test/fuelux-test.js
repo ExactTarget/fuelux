@@ -16,7 +16,7 @@ define(function(require){
 //	require('test/scheduler-test');
 	require('test/search-test');
 	require('test/spinner-test');
-	require('test/tree-test');
+//	require('test/tree-test');
 	require('test/wizard-test');
 
 });

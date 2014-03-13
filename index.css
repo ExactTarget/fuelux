@@ -1,0 +1,33 @@
+body {
+	padding-bottom: 200px;
+}
+
+.pillbox {
+	border: 1px solid #bbb;
+	margin-bottom: 10px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	width: 251px;
+}
+
+.container > div, .container > table {
+	margin: 20px;
+}
+
+.tree {
+	width: 430px;
+	height: 350px;
+}
+
+.static-loader {
+	margin-left: 30px;
+}
+
+.step-content {
+	border: 1px solid #D4D4D4;
+	border-top: 0;
+	border-radius: 0 0 4px 4px;
+	padding: 10px;
+	margin-bottom: 10px;
+}
