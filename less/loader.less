@@ -159,7 +159,7 @@
     position: relative;
     width: 64px;
 
-    &:before, i {
+    &:before, &.iefix span, i {
 		.iconBaseStyles();
     }
 
@@ -169,7 +169,39 @@
         opacity: 0.33;
         position: absolute;
         top: 0;
+
+		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=33)";
+		filter: alpha(opacity=33);
     }
+
+	&.iefix {
+		&:before {
+			display: none;
+		}
+
+		b, span {
+			bottom: 0;
+			left: 0;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+
+		i {
+			display: none;
+
+			&:after,
+			&:before
+			{
+				display: none;
+			}
+		}
+
+		span {
+			-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=33)";
+			filter: alpha(opacity=33);
+		}
+	}
 
     i {
 		bottom: 0;
