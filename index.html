@@ -9,6 +9,7 @@
 	<link href="dist/css/fuelux.css" rel="stylesheet" type="text/css">
 	<link href="index.css" rel="stylesheet" type="text/css">
 
+	<script src="js/loader.js"></script>	<!-- for loader IE<10 support -->
 	<script src="lib/require.js"></script>
 	<script type="text/javascript">
 		requirejs.config({
@@ -357,6 +358,12 @@
 		<!-- LOADER -->
 		<div>
 			<div class="loader"><i></i><i></i><i></i><i></i></div>
+		</div>
+
+		<!-- if IE<10 must be supported, include loader.js on the page, and use the following: -->
+		<div class="loader">
+			<i></i><i></i><i></i><i></i>
+			<!--[if lt IE 10]><script type="text/javascript">window.fuelux_loader.scan();</script><![endif]-->
 		</div>
 
 

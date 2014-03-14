@@ -30,7 +30,7 @@
 				var bTag, cycle;
 
 				cycle = function(i, item){
-					item.className = 'fueluxicon-loader-' + i;
+					item.innerHTML = '&#992' + i + ';';
 					i++;
 					if(i===9){
 						i = 1;
@@ -43,7 +43,7 @@
 				loader.className += " iefix";
 
 				bTag = "loader_" + id;
-				loader.innerHTML = '<span>0</span><b id="' + bTag + '"></b>' + loader.innerHTML;
+				loader.innerHTML = '<span>&#9920;</span><b id="' + bTag + '"></b>' + loader.innerHTML;
 
 				bTag = document.getElementById(bTag);
 				cycle(1, bTag);
