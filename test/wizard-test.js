@@ -23,8 +23,8 @@ define(function(require){
 		'</ul>' +
 		'<div class="actions">' +
 		'<a href="#">Cancel</a>' +
-		'<button class="btn btn-mini btn-primary btn-prev"> <i class="icon-white icon-arrow-left"></i>Prev</button>' +
-		'<button class="btn btn-mini btn-primary btn-next" data-last="Finish">Next<i class="icon-white icon-arrow-right"></i></button>' +
+		'<button class="btn btn-mini btn-primary btn-prev"> <i class="glyphicon glyphicon-arrow-left"></i>Prev</button>' +
+		'<button class="btn btn-mini btn-primary btn-next" data-last="Finish">Next<i class="glyphicon glyphicon-arrow-right"></i></button>' +
 		'</div>' +
 		'</div>' +
 		'<div class="step-content">' +
@@ -55,8 +55,8 @@ define(function(require){
 		'</ul>' +
 		'<div class="actions">' +
 		'<a href="#">Cancel</a>' +
-		'<button class="btn btn-mini btn-primary btn-prev"> <i class="icon-white icon-arrow-left"></i>Prev</button>' +
-		'<button class="btn btn-mini btn-primary btn-next" data-last="Finish">Next<i class="icon-white icon-arrow-right"></i></button>' +
+		'<button class="btn btn-mini btn-primary btn-prev"> <i class="glyphicon glyphicon-arrow-left"></i>Prev</button>' +
+		'<button class="btn btn-mini btn-primary btn-next" data-last="Finish">Next<i class="glyphicon glyphicon-arrow-right"></i></button>' +
 		'</div>' +
 		'</div>' +
 		'<div class="step-content">' +
@@ -79,10 +79,10 @@ define(function(require){
 		'</ul>' +
 		'<div class="actions">' +
 		'<a href="#">Cancel</a>' +
-		'<button class="btn btn-mini btn-primary btn-prev"> <i class="icon-white icon-arrow-left"></i>Prev</button>' +
+		'<button class="btn btn-mini btn-primary btn-prev"> <i class="glyphicon glyphicon-arrow-left"></i>Prev</button>' +
 		'<button class="btn btn-mini btn-primary btn-next nextBtn" data-last="Finish">' +
 		'Next\n' +
-		'<i class="icon-white icon-arrow-right"></i>\n' +
+		'<i class="glyphicon glyphicon-arrow-right"></i>\n' +
 		'</button>' +
 		'</div>' +
 		'</div>' +
