@@ -18,29 +18,30 @@ define(function(require){
 		ok($(document.body).search()[0] === document.body, 'document.body returned');
 	});
 
+
 	test("should ignore empty search", function () {
-		var searchHTML = '<div><input><button><i class="icon-search"></i></button></div>';
+		var searchHTML = '<div><input><span><button><span class="glyphicon glyphicon-search"></span></button></span></div>';
 
 		var $search = $(searchHTML).search();
 
 		$search.find('button').click();
 
-		equal($search.find('i').attr('class'), 'icon-search', 'search icon has not changed');
+		equal($search.find('.glyphicon').attr('class'), 'glyphicon glyphicon-search', 'search icon has not changed');
 	});
 
 	test("should ignore disabled button click", function () {
-		var searchHTML = '<div><input><button class="disabled"><i class="icon-search"></i></button></div>';
+		var searchHTML = '<div><input><span><button class="disabled"><span class="glyphicon glyphicon-search"></span></button></span></div>';
 
 		var $search = $(searchHTML).search();
 
 		$search.find('input').val('search text');
 		$search.find('button').click();
 
-		equal($search.find('i').attr('class'), 'icon-search', 'search icon has not changed');
+		equal($search.find('.glyphicon').attr('class'), 'glyphicon glyphicon-search', 'search icon has not changed');
 	});
 
 	test("should process valid search", function () {
-		var searchHTML = '<div><input><button><i></i></button></div>';
+		var searchHTML = '<div><input><span><button><span class="glyphicon glyphicon-search"></span></button></span></div>';
 		var searchText = '';
 
 		var $search = $(searchHTML).search().on('searched', function (e, text) { searchText = text; });
@@ -48,12 +49,12 @@ define(function(require){
 		$search.find('input').val('search text');
 		$search.find('button').click();
 
-		equal($search.find('i').attr('class'), 'icon-remove', 'search icon has changed');
+		equal($search.find('.glyphicon').attr('class'), 'glyphicon glyphicon-remove', 'search icon has changed');
 		equal(searchText, 'search text', 'search text was provided in event');
 	});
 
 	test("should allow search to be cleared", function () {
-		var searchHTML = '<div><input><button><i></i></button></div>';
+		var searchHTML = '<div><input><span><button><span class="glyphicon glyphicon-search"></span></button></span></div>';
 		var clearedEventFired = false;
 
 		var $search = $(searchHTML).search().on('cleared', function (e, text) { clearedEventFired = true; });
@@ -62,13 +63,13 @@ define(function(require){
 		$search.find('button').click();
 		$search.find('button').click();
 
-		equal($search.find('i').attr('class'), 'icon-search', 'search icon has returned');
+		equal($search.find('.glyphicon').attr('class'), 'glyphicon glyphicon-search', 'search icon has returned');
 		equal($search.find('input').val(), '', 'search text has been cleared');
 		equal(clearedEventFired, true, 'cleared event was fired');
 	});
 
 	test("should process sequential searches", function () {
-		var searchHTML = '<div><input><button><i></i></button></div>';
+		var searchHTML = '<div><input><span><button><span class="glyphicon glyphicon-search"></span></button></span></div>';
 		var searchText = '';
 
 		var $search = $(searchHTML).search().on('searched', function (e, text) { searchText = text; });
@@ -76,15 +77,15 @@ define(function(require){
 		$search.find('input').val('search text');
 		$search.find('button').click();
 
-		equal($search.find('i').attr('class'), 'icon-remove', 'search icon has changed');
+		equal($search.find('.glyphicon').attr('class'), 'glyphicon glyphicon-remove', 'search icon has changed');
 		equal(searchText, 'search text', 'search text was provided in event');
 
 		$search.find('input').val('search text 2').keyup();
-		equal($search.find('i').attr('class'), 'icon-search', 'search icon has returned');
+		equal($search.find('.glyphicon').attr('class'), 'glyphicon glyphicon-search', 'search icon has returned');
 
 		$search.find('button').click();
 
-		equal($search.find('i').attr('class'), 'icon-remove', 'search icon has changed');
+		equal($search.find('.glyphicon').attr('class'), 'glyphicon glyphicon-remove', 'search icon has changed');
 		equal(searchText, 'search text 2', 'search text was provided in event');
 	});
 

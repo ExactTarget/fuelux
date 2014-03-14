@@ -39,7 +39,7 @@
 			.on('keydown', $.proxy(this.keypress, this))
 			.on('keyup', $.proxy(this.keypressed, this));
 
-		this.$icon = this.$element.find('i');
+		this.$icon = this.$element.find('.glyphicon');
 		this.activeSearch = '';
 	};
 
@@ -48,13 +48,13 @@
 		constructor: Search,
 
 		search: function (searchText) {
-			this.$icon.attr('class', 'icon-remove');
+			this.$icon.attr('class', 'glyphicon glyphicon-remove');
 			this.activeSearch = searchText;
 			this.$element.trigger('searched', searchText);
 		},
 
 		clear: function () {
-			this.$icon.attr('class', 'icon-search');
+			this.$icon.attr('class', 'glyphicon glyphicon-search');
 			this.activeSearch = '';
 			this.$input.val('');
 			this.$element.trigger('cleared');
@@ -92,7 +92,7 @@
 			} else {
 				val = this.$input.val();
 				inputPresentAndUnchanged = val && (val === this.activeSearch);
-				this.$icon.attr('class', inputPresentAndUnchanged ? 'icon-remove' : 'icon-search');
+				this.$icon.attr('class', inputPresentAndUnchanged ? 'glyphicon glyphicon-remove' : 'glyphicon glyphicon-search');
 			}
 		},
 
