@@ -28,6 +28,7 @@
 	require('fuelux/datagrid');
 	require('fuelux/datepicker');
 	require('fuelux/intelligent-dropdown');
+	require('fuelux/loader');
 	require('fuelux/pillbox');
 	require('fuelux/radio');
 	require('fuelux/scheduler');
