@@ -9,10 +9,10 @@ define(function(require){
 	require('fuelux/radio');
 
 	var html = '<div>' +
-		'<label class="radio radio-custom" id="lbl1"><input id="radio1" type="radio" name="radio1" checked="checked"><span class="fueluxicon fueluxicon-radio"></span>Custom: Checked Enabled</label>' +
-		'<label class="radio radio-custom" id="lbl2"><input id="radio2" type="radio" name="radio1"><span class="fueluxicon fueluxicon-radio"></span>Custom: Unchecked Enabled</label>' +
-		'<label class="radio radio-custom" id="lbl3"><input id="radio3" type="radio" name="radio2" checked="checked" disabled="disabled"><span class="fueluxicon fueluxicon-radio"></span>Custom: Checked Disabled</label>' +
-		'<label class="radio radio-custom" id="lbl4"><input id="radio4" type="radio" name="radio2" disabled="disabled"><span class="fueluxicon fueluxicon-radio"></span>Custom: Unchecked Disabled</label>' +
+			'<div class="radio"><label class="radio-custom" id="lbl1"><input id="radio1" checked="checked" name="radio1" type="radio">Custom: Checked Enabled</label></div>' +
+			'<div class="radio"><label class="radio-custom" id="lbl2"><input id="radio2" name="radio1" type="radio">Custom: Unchecked Enabled</label></div>' +
+			'<div class="radio"><label class="radio-custom" id="lbl3"><input id="radio3" checked="checked" disabled="disabled" name="radio2" type="radio">Custom: Checked Disabled</label></div>' +
+			'<div class="radio"><label class="radio-custom" id="lbl4"><input id="radio4" disabled="disabled" name="radio2" type="radio">Custom: Unchecked Disabled</label></div>' +
 		'</div>';
 
 	module("Fuel UX radio");
@@ -27,27 +27,28 @@ define(function(require){
 
 	test("should set initial state", function () {
 		var $list = $(html);
-		var $radios = $list.find('input').radio();
+
+		$list.find('input').radio();
 
 		// checked/enabled
-		var i1 = $list.find('#lbl1 span');
-		equal(i1.hasClass('checked'), true, 'radio1 has checked class');
-		equal(i1.hasClass('disabled'), false, 'radio1 does not have disabled class');
+		var l1 = $list.find('#lbl1');
+		equal(l1.hasClass('checked'), true, 'radio1 has checked class');
+		equal(l1.hasClass('disabled'), false, 'radio1 does not have disabled class');
 
 		// unchecked/enabled
-		var i2 = $list.find('#lbl2 span');
-		equal(i2.hasClass('checked'), false, 'radio2 does not have checked class');
-		equal(i2.hasClass('disabled'), false, 'radio2 does not have disabled class');
+		var l2 = $list.find('#lbl2');
+		equal(l2.hasClass('checked'), false, 'radio2 does not have checked class');
+		equal(l2.hasClass('disabled'), false, 'radio2 does not have disabled class');
 
 		// checked/disabled
-		var i3 = $list.find('#lbl3 span');
-		equal(i3.hasClass('checked'), true, 'radio3 has checked class');
-		equal(i3.hasClass('disabled'), true, 'radio3 has disabled class');
+		var l3 = $list.find('#lbl3');
+		equal(l3.hasClass('checked'), true, 'radio3 has checked class');
+		equal(l3.hasClass('disabled'), true, 'radio3 has disabled class');
 
 		// unchecked/disabled
-		var i4 = $list.find('#lbl4 span');
-		equal(i4.hasClass('checked'), false, 'radio4 does not have checked class');
-		equal(i4.hasClass('disabled'), true, 'radio4 has disabled class');
+		var l4 = $list.find('#lbl4');
+		equal(l4.hasClass('checked'), false, 'radio4 does not have checked class');
+		equal(l4.hasClass('disabled'), true, 'radio4 has disabled class');
 	});
 
 	test("should disable/enable radio", function () {
@@ -63,21 +64,21 @@ define(function(require){
     test("should check/uncheck radio group", function () {
         var $fixture = $(html).appendTo('#qunit-fixture');
         var $radio1 = $fixture.find('#radio1');
-        var $i1 = $fixture.find('#lbl1 span');
+        var $l1 = $fixture.find('#lbl1');
         var $radio2 = $fixture.find('#radio2');
-        var $i2 = $fixture.find('#lbl2 span');
+        var $l2 = $fixture.find('#lbl2');
         
         $fixture.find('input').radio();
         
-        equal($i1.hasClass('checked'), true, 'checked - default state radio 1');
-        equal($i2.hasClass('checked'), false, 'unchecked - default state radio 2');
-        
+        equal($l1.hasClass('checked'), true, 'checked - default state radio 1');
+        equal($l2.hasClass('checked'), false, 'unchecked - default state radio 2');
+
         $radio2.radio('check');
         
-        equal($i1.hasClass('checked'), false, 'unchecked - radio 1 confirmation by css class');
+        equal($l1.hasClass('checked'), false, 'unchecked - radio 1 confirmation by css class');
         equal($radio1.is(':checked'), false, 'unchecked - radio 1 confirmation by is(:checked)');
         equal($radio1.radio('isChecked'), false, 'unchecked - radio 1 confirmation by isChecked method');
-        equal($i2.hasClass('checked'), true, 'checked - radio 2 confirmation by css class');
+        equal($l2.hasClass('checked'), true, 'checked - radio 2 confirmation by css class');
         equal($radio2.is(':checked'), true, 'checked - radio 2 confirmation by is(:checked)');
         equal($radio2.radio('isChecked'), true, 'checked - radio 2 confirmation by isChecked method');
 

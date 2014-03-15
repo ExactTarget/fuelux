@@ -34,7 +34,11 @@
 		// cache elements
 		this.$chk = $(element);
 		this.$label = this.$chk.parent();
+		this.$parent = this.$label.parent('.checkbox');
 
+		if(this.$parent.length===0){
+			this.$parent = null;
+		}
 
 		// set default state
 		this.setState(this.$chk);
@@ -55,24 +59,39 @@
 
 			// reset classes
 			this.$label.removeClass('checked disabled');
+			if(this.$parent){
+				this.$parent.removeClass('checked disabled');
+			}
 
 			// set state of checkbox
 			if (checked === true) {
 				this.$label.addClass('checked');
+				if(this.$parent){
+					this.$parent.addClass('checked');
+				}
 			}
 			if (disabled === true) {
 				this.$label.addClass('disabled');
+				if(this.$parent){
+					this.$parent.addClass('disabled');
+				}
 			}
 		},
 
 		enable: function () {
 			this.$chk.attr('disabled', false);
 			this.$label.removeClass('disabled');
+			if(this.$parent){
+				this.$parent.removeClass('disabled');
+			}
 		},
 
 		disable: function () {
 			this.$chk.attr('disabled', true);
 			this.$label.addClass('disabled');
+			if(this.$parent){
+				this.$parent.addClass('disabled');
+			}
 		},
 
 		toggle: function () {

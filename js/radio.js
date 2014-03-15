@@ -35,6 +35,11 @@
 		this.$radio = $(element);
 		this.$label = this.$radio.parent();
 		this.groupName = this.$radio.attr('name');
+		this.$parent = this.$label.parent('.radio');
+
+		if(this.$parent.length===0){
+			this.$parent = null;
+		}
 
 		// set default state
 		this.setState(this.$radio);
@@ -54,32 +59,49 @@
 			var disabled = !!$radio.prop('disabled');
 
 			this.$label.removeClass('checked');
+			if(this.$parent){
+				this.$parent.removeClass('checked disabled');
+			}
 
 			// set state of radio
 			if (checked === true) {
 				this.$label.addClass('checked');
+				if(this.$parent){
+					this.$parent.addClass('checked');
+				}
 			}
 			if (disabled === true) {
 				this.$label.addClass('disabled');
+				if(this.$parent){
+					this.$parent.addClass('disabled');
+				}
 			}
 		},
 
 		resetGroup: function () {
 			var group = $('input[name="' + this.groupName + '"]');
 
-			// reset all radio buttons in group
-			group.next().removeClass('checked');
-			group.parent().removeClass('checked');
+			group.each(function(){
+				var lbl = $(this).parent('label');
+				lbl.removeClass('checked');
+				lbl.parent('.radio').removeClass('checked');
+			});
 		},
 
 		enable: function () {
 			this.$radio.attr('disabled', false);
 			this.$label.removeClass('disabled');
+			if(this.$parent){
+				this.$parent.removeClass('disabled');
+			}
 		},
 
 		disable: function () {
 			this.$radio.attr('disabled', true);
 			this.$label.addClass('disabled');
+			if(this.$parent){
+				this.$parent.addClass('disabled');
+			}
 		},
 
 		itemchecked: function (e) {
