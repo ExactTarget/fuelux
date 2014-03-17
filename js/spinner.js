@@ -32,7 +32,7 @@
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.spinner.defaults, options);
 		this.$input = this.$element.find('.spinner-input');
-		this.$element.on('keyup', this.$input, $.proxy(this.change, this));
+		this.$element.on('focusout', this.$input, $.proxy(this.change, this));
 
 		if (this.options.hold) {
 			this.$element.on('mousedown', '.spinner-up', $.proxy(function() { this.startSpin(true); } , this));
@@ -71,6 +71,7 @@
 
 		render: function () {
 			var inputValue = this.$input.val();
+			var maxUnitLength = '';
 
 			if (inputValue) {
 				this.value(inputValue);
@@ -78,15 +79,25 @@
 				this.$input.val(this.options.value);
 			}
 
-			this.$input.attr('maxlength', (this.options.max + '').split('').length);
+			if ( this.options.units.length ) {
+				$.each(this.options.units, function(index, value){
+					if( value.length > maxUnitLength.length) {
+						maxUnitLength = value;
+					}
+				});
+			}
+
+			this.$input.attr('maxlength', (this.options.max + maxUnitLength).split('').length);
 		},
 
 		change: function () {
 			var newVal = this.$input.val();
 
-			if(newVal/1){
+			if(this.options.units.length){
+				this.setMixedValue(newVal);
+			} else if (newVal/1){
 				this.options.value = newVal/1;
-			}else{
+			} else {
 				newVal = newVal.replace(/[^0-9]/g,'') || '';
 				this.$input.val(newVal);
 				this.options.value = newVal/1;
@@ -168,14 +179,46 @@
 		},
 
 		value: function (value) {
-			if (!isNaN(parseFloat(value)) && isFinite(value)) {
-				value = parseFloat(value);
-				this.options.value = value;
-				this.$input.val(value);
-				return this;
+
+			if ( value ) {
+				if( this.options.units.length ) {
+					this.setMixedValue(value + (this.options.unit || ''));
+					return this;
+				} else if ( !isNaN(parseFloat(value)) && isFinite(value) ) {
+					this.options.value = value/1;
+					this.$input.val(value + (this.options.unit ? this.options.unit : ''));
+					return this;
+				}
 			} else {
+				//this.change();
 				return this.options.value;
 			}
+		},
+
+		isUnitLegal: function (unit) {
+			var legalUnit;
+
+			$.each(this.options.units, function(index, value){
+				if( value.toLowerCase() === unit.toLowerCase()){
+					legalUnit = unit.toLowerCase();
+					return false;
+				}
+			});
+
+			return legalUnit;
+		},
+
+		setMixedValue: function( value ){
+			var unit = value.replace(/[^a-zA-Z]/g,'');
+			var newVal = value.replace(/[^0-9]/g,'');
+
+			if(unit){
+				unit = this.isUnitLegal(unit);
+			}
+
+			this.options.value = newVal/1;
+			this.options.unit = unit || undefined;
+			this.$input.val(newVal + (unit || '') );
 		},
 
 		disable: function () {
@@ -212,12 +255,14 @@
 
 	$.fn.spinner.defaults = {
 		value: 1,
+		unit: undefined,
 		min: 1,
 		max: 999,
 		step: 1,
 		hold: true,
 		speed: 'medium',
-		disabled: false
+		disabled: false,
+		units: ['px','en']
 	};
 
 	$.fn.spinner.Constructor = Spinner;
