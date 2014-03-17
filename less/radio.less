@@ -1,4 +1,14 @@
-//TODO: figure out highlight
+.radio {
+	&.highlight {
+		padding: 4px 4px 4px 24px;
+
+		&.checked {
+			background: #e9e9e9;
+			-webkit-border-radius: @borderRadiusSmall;
+			border-radius: @borderRadiusSmall;
+		}
+	}
+}
 
 .radio-custom {
 	position: relative;
@@ -59,6 +69,26 @@
 
 		&:before {
 			left: -4px;
+		}
+
+		&.highlight {
+			padding: 4px 4px 4px 6px;
+
+			&:after {
+				left: 3px;
+				top: 6px;
+			}
+
+			&:before {
+				left: -3px;
+				top: 2px;
+			}
+
+			&.checked {
+				background: #e9e9e9;
+				-webkit-border-radius: @borderRadiusSmall;
+				border-radius: @borderRadiusSmall;
+			}
 		}
 	}
 
