@@ -32,6 +32,7 @@
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.spinner.defaults, options);
 		this.$input = this.$element.find('.spinner-input');
+		this.$element.on('focusin', this.$input, $.proxy(this.changeFlag, this));
 		this.$element.on('focusout', this.$input, $.proxy(this.change, this));
 
 		if (this.options.hold) {
@@ -98,12 +99,17 @@
 			} else if (newVal/1){
 				this.options.value = newVal/1;
 			} else {
-				newVal = newVal.replace(/[^0-9]/g,'') || '';
+				newVal = newVal.replace(/[^0-9.-]/g,'') || '';
 				this.$input.val(newVal);
 				this.options.value = newVal/1;
 			}
 
+			this.changeFlag = false;
 			this.triggerChangedEvent();
+		},
+
+		changeFlag: function(){
+			this.changeFlag = true;
 		},
 
 		stopSpin: function () {
@@ -154,9 +160,12 @@
 		},
 
 		step: function (dir) {
-			var curValue = this.options.value;
-			var limValue = dir ? this.options.max : this.options.min;
-			var digits, multiple;
+			var digits, multiple, curValue, limValue;
+
+			if( this.changeFlag ) this.change();
+
+			curValue = this.options.value;
+			limValue = dir ? this.options.max : this.options.min;
 
 			if ((dir ? curValue < limValue : curValue > limValue)) {
 				var newVal = curValue + (dir ? 1 : -1) * this.options.step;
@@ -180,18 +189,23 @@
 
 		value: function (value) {
 
-			if ( value ) {
+			if ( value || value === 0 ) {
 				if( this.options.units.length ) {
-					this.setMixedValue(value + (this.options.unit || ''));
+					this.setMixedValue(value + (this.unit || ''));
 					return this;
 				} else if ( !isNaN(parseFloat(value)) && isFinite(value) ) {
 					this.options.value = value/1;
-					this.$input.val(value + (this.options.unit ? this.options.unit : ''));
+					this.$input.val(value + (this.unit ? this.unit : ''));
 					return this;
 				}
 			} else {
-				//this.change();
-				return this.options.value;
+				if( this.changeFlag ) this.change();
+
+				if( this.unit ){
+					return this.options.value + this.unit;
+				} else {
+					return this.options.value;
+				}
 			}
 		},
 
@@ -210,14 +224,15 @@
 
 		setMixedValue: function( value ){
 			var unit = value.replace(/[^a-zA-Z]/g,'');
-			var newVal = value.replace(/[^0-9]/g,'');
+			var newVal = value.replace(/[^0-9.-]/g,'');
 
 			if(unit){
 				unit = this.isUnitLegal(unit);
 			}
 
+
 			this.options.value = newVal/1;
-			this.options.unit = unit || undefined;
+			this.unit = unit || undefined;
 			this.$input.val(newVal + (unit || '') );
 		},
 
@@ -255,14 +270,13 @@
 
 	$.fn.spinner.defaults = {
 		value: 1,
-		unit: undefined,
-		min: 1,
+		min: 0,
 		max: 999,
 		step: 1,
 		hold: true,
 		speed: 'medium',
 		disabled: false,
-		units: ['px','en']
+		units: []
 	};
 
 	$.fn.spinner.Constructor = Spinner;
