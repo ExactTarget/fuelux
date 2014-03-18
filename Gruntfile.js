@@ -46,6 +46,7 @@ module.exports = function (grunt) {
 						'js/combobox.js',
 						'js/datagrid.js',
 						'js/datepicker.js',
+						'js/loader.js',
 						'js/pillbox.js',
 						'js/radio.js',
 						'js/search.js',

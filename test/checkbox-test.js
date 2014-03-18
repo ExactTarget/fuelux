@@ -9,11 +9,11 @@ define(function(require){
 	require('fuelux/checkbox');
 
 	var html = '<div>' +
-		'<label class="checkbox checkbox-custom" id="lbl1"><input id="chk1" type="checkbox" checked="checked"><i class="checkbox"></i>Custom: Checked Enabled<br/>Second Line</label>' +
-		'<label class="checkbox checkbox-custom" id="lbl2"><input id="chk2" type="checkbox"><i class="checkbox"></i>Custom: Unchecked Enabled</label>' +
-		'<label class="checkbox checkbox-custom" id="lbl3"><input id="chk3" type="checkbox" checked="checked" disabled="disabled" ><i class="checkbox"></i>Custom: Checked Disabled</label>' +
-		'<label class="checkbox checkbox-custom" id="lbl4"><input id="chk4" type="checkbox" disabled="disabled"><i class="checkbox"></i>Custom: Unchecked Disabled</label>' +
-		'<label class="checkbox checkbox-custom" id="lbl5"><input id="chk5" type="checkbox"><i class="checkbox"></i>Convenience Methods</label>' +
+			'<div class="checkbox"><label class="checkbox-custom" id="lbl1"><input id="chk1" checked="checked" class="checkbox" type="checkbox" value="">Custom: Checked Enabled<br/>Second Line</label></div>' +
+			'<div class="checkbox"><label class="checkbox-custom" id="lbl2"><input id="chk2" class="checkbox" type="checkbox" value="">Custom: Unchecked Enabled</label></div>' +
+			'<div class="checkbox"><label class="checkbox-custom" id="lbl3"><input id="chk3" checked="checked" disabled="disabled" class="checkbox" type="checkbox" value="">Custom: Checked Disabled<br/>Second Line</label></div>' +
+			'<div class="checkbox"><label class="checkbox-custom" id="lbl4"><input id="chk4" class="checkbox" disabled="disabled" type="checkbox" value="">Custom: Unchecked Disabled</label></div>' +
+			'<div class="checkbox"><label class="checkbox-custom" id="lbl5"><input id="chk5" class="checkbox" type="checkbox" value="">Convenience Methods</label></div>' +
 		'</div>';
 
 	module("Fuel UX checkbox");
@@ -28,27 +28,28 @@ define(function(require){
 
 	test("should set initial state", function () {
 		var $list = $(html);
-		var $chks = $list.find('input').checkbox();
+
+		$list.find('input').checkbox();
 
 		// checked/enabled
-		var i1 = $list.find('#lbl1 i');
-		equal(i1.hasClass('checked'), true, 'chk1 has checked class');
-		equal(i1.hasClass('disabled'), false, 'chk1 does not have disabled class');
+		var l1 = $list.find('#lbl1');
+		equal(l1.hasClass('checked'), true, 'lbl1 has checked class');
+		equal(l1.hasClass('disabled'), false, 'lbl1 does not have disabled class');
 
 		// unchecked/enabled
-		var i2 = $list.find('#lbl2 i');
-		equal(i2.hasClass('checked'), false, 'chk2 does not have checked class');
-		equal(i2.hasClass('disabled'), false, 'chk2 does not have disabled class');
+		var l2 = $list.find('#lbl2');
+		equal(l2.hasClass('checked'), false, 'lbl2 does not have checked class');
+		equal(l2.hasClass('disabled'), false, 'lbl2 does not have disabled class');
 
 		// checked/disabled
-		var i3 = $list.find('#lbl3 i');
-		equal(i3.hasClass('checked'), true, 'chk3 has checked class');
-		equal(i3.hasClass('disabled'), true, 'chk3 has disabled class');
+		var l3 = $list.find('#lbl3');
+		equal(l3.hasClass('checked'), true, 'lbl3 has checked class');
+		equal(l3.hasClass('disabled'), true, 'lbl3 has disabled class');
 
-		// unchecked/disabled
-		var i4 = $list.find('#lbl4 i');
-		equal(i4.hasClass('checked'), false, 'chk4 does not have checked class');
-		equal(i4.hasClass('disabled'), true, 'chk4 has disabled class');
+		// checked/disabled
+		var l4 = $list.find('#lbl4');
+		equal(l4.hasClass('checked'), false, 'lbl4 does not have checked class');
+		equal(l4.hasClass('disabled'), true, 'lbl4 has disabled class');
 	});
 
 	test("should disable/enable checkbox", function () {
@@ -77,7 +78,7 @@ define(function(require){
 	test("test check/uncheck/isChecked convenience methods", function () {
         var $fixture = $(html).appendTo('#qunit-fixture');
         var $chk5 = $fixture.find('#chk5');
-        var $i5 = $fixture.find('#lbl5 i');
+        var $l5 = $fixture.find('#lbl5');
 
         $chk5.checkbox();
 
@@ -85,12 +86,12 @@ define(function(require){
 
         $chk5.checkbox('check');
         equal($chk5.is(':checked'), true, 'checked - confirmation by is(:checked)');
-        equal($i5.hasClass('checked'), true, 'checked - confirmation by css class');
+        equal($l5.hasClass('checked'), true, 'checked - confirmation by css class');
         equal($chk5.checkbox('isChecked'), true, 'checked - confirmation by isChecked method');
 
         $chk5.checkbox('uncheck');
         equal($chk5.is(':checked'), false, 'unchecked - confirmation by is(:checked)');
-        equal($i5.hasClass('checked'), false, 'unchecked - confirmation by css class');
+        equal($l5.hasClass('checked'), false, 'unchecked - confirmation by css class');
         equal($chk5.checkbox('isChecked'), false, 'unchecked - confirmation by isChecked method');
 
         $fixture.remove();

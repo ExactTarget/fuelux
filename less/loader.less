@@ -1,17 +1,3 @@
-@charset "UTF-8";
-
-@font-face {
-    font-family: "fuelux-loader";
-    src:url("../fonts/fuelux-loader.eot");
-    src:url("../fonts/fuelux-loader.eot?#iefix") format("embedded-opentype"),
-    url("../fonts/fuelux-loader.ttf") format("truetype"),
-    url("../fonts/fuelux-loader.svg#fuelux-loader") format("svg"),
-    url("../fonts/fuelux-loader.woff") format("woff");
-    font-weight: normal;
-    font-style: normal;
-}
-
-
 @keyframes fuelux-loader-1
 {
     0%      {opacity: 1;}
@@ -167,71 +153,61 @@
     100%    {opacity: 0;}
 }
 
-
 .loader {
     height: 64px;
     font-size: 64px;
     position: relative;
     width: 64px;
 
-    &.iefix span, &:before, b, i {
-        font-family: "fuelux-loader" !important;
-        font-style: normal !important;
-        font-weight: normal !important;
-        font-variant: normal !important;
-        text-transform: none !important;
-        speak: none;
-        line-height: 1;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
+    &:before, &.iefix span, &.iefix b, i {
+		.iconBaseStyles();
     }
 
     &:before {
-        content: "0";
+		content: "\26c0";	/*.fueluxicon-loader-full:before*/
         left: 0;
         opacity: 0.33;
         position: absolute;
         top: 0;
     }
 
-    &.iefix {
-        &:before {
-            display: none;
-        }
+	&.iefix {
+		&:before {
+			display: none;
+		}
 
-        b {
-            display: block;
-            left: 0;
-            position: absolute;
-            top: 0;
-        }
+		b, span {
+			bottom: 0;
+			display: block;
+			left: 0;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
 
-        i {
-            display: none;
+		i {
+			display: none;
 
-            &:after,
-            &:before
-            {
-                display: none;
-            }
-        }
+			&:after,
+			&:before
+			{
+				display: none;
+			}
+		}
 
-        span {
-            display: block;
-            font-size: inherit;
-            height: 100%;
-            left: 0;
-            opacity: 0.33;
-            position: absolute;
-            top: 0;
-            width: 100%;
-
-            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=33)";
-            filter: alpha(opacity=33);
-        }
-    }
+		span {
+			-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=33)";
+			filter: alpha(opacity=33);
+		}
+	}
 
     i {
+		bottom: 0;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+
         &:after,
         &:before
         {
@@ -251,13 +227,13 @@
 
         &:nth-child(1){
             &:before {
-                content: "1";
+				content: "\26c1";	/*.fueluxicon-loader-1:before*/
                 animation-name: fuelux-loader-1;
                 -webkit-animation-name: fuelux-loader-1;
             }
 
             &:after {
-                content: "2";
+				content: "\26c2";	/*.fueluxicon-loader-2:before*/
                 animation-name: fuelux-loader-2;
                 -webkit-animation-name: fuelux-loader-2;
             }
@@ -265,13 +241,13 @@
 
         &:nth-child(2){
             &:before {
-                content: "3";
+				content: "\26c3";	/*.fueluxicon-loader-3:before*/
                 animation-name: fuelux-loader-3;
                 -webkit-animation-name: fuelux-loader-3;
             }
 
             &:after {
-                content: "4";
+				content: "\26c4";	/*.fueluxicon-loader-4:before*/
                 animation-name: fuelux-loader-4;
                 -webkit-animation-name: fuelux-loader-4;
             }
@@ -279,13 +255,13 @@
 
         &:nth-child(3){
             &:before {
-                content: "5";
+				content: "\26c5";	/*.fueluxicon-loader-5:before*/
                 animation-name: fuelux-loader-5;
                 -webkit-animation-name: fuelux-loader-5;
             }
 
             &:after {
-                content: "6";
+				content: "\26c6";	/*.fueluxicon-loader-6:before*/
                 animation-name: fuelux-loader-6;
                 -webkit-animation-name: fuelux-loader-6;
             }
@@ -293,13 +269,13 @@
 
         &:nth-child(4){
             &:before {
-                content: "7";
+				content: "\26c7";	/*.fueluxicon-loader-7:before*/
                 animation-name: fuelux-loader-7;
                 -webkit-animation-name: fuelux-loader-7;
             }
 
             &:after {
-                content: "8";
+				content: "\26c8";	/*.fueluxicon-loader-8:before*/
                 animation-name: fuelux-loader-8;
                 -webkit-animation-name: fuelux-loader-8;
             }
