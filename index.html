@@ -74,21 +74,21 @@
 			<button type="button" class="btn btn-default btn-xs" id="btnChkEnable">enable</button>
 		</div>
 
-
-
-		<!--THIS IS NOW IN BOOTSTRAP 3-->
 		<!-- COMBOBOX -->
-		<!--<div>
-			<div id="MyCombobox" class="input-append dropdown combobox">
-				<input class="span2" type="text">
-				<button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
-				<ul class="dropdown-menu">
+		<div class="row" style="width: 300px;">
+			<div id="MyCombobox" class="input-group input-append dropdown combobox">
+				<input type="text" class="form-control span2">
+				<div class="input-group-btn">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+				<ul class="dropdown-menu pull-right">
 					<li data-value="1" data-foo="bar"><a href="#">One</a></li>
 					<li data-value="2"><a href="#">Two</a></li>
 					<li data-value="3" data-selected="true"><a href="#">Three</a></li>
 					<li data-value="4" data-fizz="buzz"><a href="#">Four</a></li>
 				</ul>
-			</div>
+				</div><!-- /btn-group -->
+			</div><!-- /input-group -->
+
 			<br/>
 			<input id="btnComboboxGetSelectedItem" type="button" class="btn btn-default btn-xs" value="log item"/>
 			<input id="btnComboboxSelectByValue" type="button" class="btn btn-default btn-xs" value="set by value"/>
@@ -97,8 +97,8 @@
 			<input id="btnComboboxSelectBySelector" type="button" class="btn btn-default btn-xs" value="set by selector"/>
 			<input id="btnComboboxDisable" type="button" class="btn btn-default btn-xs" value="disable"/>
 			<input id="btnComboboxEnable" type="button" class="btn btn-default btn-xs" value="enable"/>
-		</div>-->
 
+		</div>
 
 
 		<!-- DATAGRID -->
