@@ -97,10 +97,9 @@
 			if(this.options.units.length){
 				this.setMixedValue(newVal);
 			} else if (newVal/1){
-				this.options.value = newVal/1;
+				this.options.value = this.checkMaxMin(newVal/1);
 			} else {
-				newVal = newVal.replace(/[^0-9.-]/g,'') || '';
-				this.$input.val(newVal);
+				newVal = this.checkMaxMin(newVal.replace(/[^0-9.-]/g,'') || '');
 				this.options.value = newVal/1;
 			}
 
@@ -230,10 +229,26 @@
 				unit = this.isUnitLegal(unit);
 			}
 
-
 			this.options.value = newVal/1;
 			this.unit = unit || undefined;
 			this.$input.val(newVal + (unit || '') );
+		},
+
+		checkMaxMin: function(value){
+			var limit;
+
+			if ( isNaN(parseFloat(value)) ) {
+				return value;
+			}
+
+			if ( value < this.options.max && value > this.options.min ){
+				return value;
+			} else {
+				limit = value > this.options.max ? this.options.max : this.options.min;
+
+				this.$input.val(limit);
+				return limit;
+			}
 		},
 
 		disable: function () {
@@ -271,11 +286,12 @@
 	$.fn.spinner.defaults = {
 		value: 1,
 		min: 0,
-		max: 999,
+		max: 500,
 		step: 1,
 		hold: true,
 		speed: 'medium',
 		disabled: false,
+		cycle: false,
 		units: []
 	};
 
