@@ -32,7 +32,8 @@
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.spinner.defaults, options);
 		this.$input = this.$element.find('.spinner-input');
-		this.$element.on('keyup', this.$input, $.proxy(this.change, this));
+		this.$element.on('focusin', this.$input, $.proxy(this.changeFlag, this));
+		this.$element.on('focusout', this.$input, $.proxy(this.change, this));
 
 		if (this.options.hold) {
 			this.$element.on('mousedown', '.spinner-up', $.proxy(function() { this.startSpin(true); } , this));
@@ -71,6 +72,7 @@
 
 		render: function () {
 			var inputValue = this.$input.val();
+			var maxUnitLength = '';
 
 			if (inputValue) {
 				this.value(inputValue);
@@ -78,21 +80,35 @@
 				this.$input.val(this.options.value);
 			}
 
-			this.$input.attr('maxlength', (this.options.max + '').split('').length);
+			if ( this.options.units.length ) {
+				$.each(this.options.units, function(index, value){
+					if( value.length > maxUnitLength.length) {
+						maxUnitLength = value;
+					}
+				});
+			}
+
+			this.$input.attr('maxlength', (this.options.max + maxUnitLength).split('').length);
 		},
 
 		change: function () {
 			var newVal = this.$input.val();
 
-			if(newVal/1){
-				this.options.value = newVal/1;
-			}else{
-				newVal = newVal.replace(/[^0-9]/g,'') || '';
-				this.$input.val(newVal);
+			if(this.options.units.length){
+				this.setMixedValue(newVal);
+			} else if (newVal/1){
+				this.options.value = this.checkMaxMin(newVal/1);
+			} else {
+				newVal = this.checkMaxMin(newVal.replace(/[^0-9.-]/g,'') || '');
 				this.options.value = newVal/1;
 			}
 
+			this.changeFlag = false;
 			this.triggerChangedEvent();
+		},
+
+		changeFlag: function(){
+			this.changeFlag = true;
 		},
 
 		stopSpin: function () {
@@ -143,9 +159,12 @@
 		},
 
 		step: function (dir) {
-			var curValue = this.options.value;
-			var limValue = dir ? this.options.max : this.options.min;
-			var digits, multiple;
+			var digits, multiple, curValue, limValue;
+
+			if( this.changeFlag ) this.change();
+
+			curValue = this.options.value;
+			limValue = dir ? this.options.max : this.options.min;
 
 			if ((dir ? curValue < limValue : curValue > limValue)) {
 				var newVal = curValue + (dir ? 1 : -1) * this.options.step;
@@ -168,13 +187,67 @@
 		},
 
 		value: function (value) {
-			if (!isNaN(parseFloat(value)) && isFinite(value)) {
-				value = parseFloat(value);
-				this.options.value = value;
-				this.$input.val(value);
-				return this;
+
+			if ( value || value === 0 ) {
+				if( this.options.units.length ) {
+					this.setMixedValue(value + (this.unit || ''));
+					return this;
+				} else if ( !isNaN(parseFloat(value)) && isFinite(value) ) {
+					this.options.value = value/1;
+					this.$input.val(value + (this.unit ? this.unit : ''));
+					return this;
+				}
 			} else {
-				return this.options.value;
+				if( this.changeFlag ) this.change();
+
+				if( this.unit ){
+					return this.options.value + this.unit;
+				} else {
+					return this.options.value;
+				}
+			}
+		},
+
+		isUnitLegal: function (unit) {
+			var legalUnit;
+
+			$.each(this.options.units, function(index, value){
+				if( value.toLowerCase() === unit.toLowerCase()){
+					legalUnit = unit.toLowerCase();
+					return false;
+				}
+			});
+
+			return legalUnit;
+		},
+
+		setMixedValue: function( value ){
+			var unit = value.replace(/[^a-zA-Z]/g,'');
+			var newVal = value.replace(/[^0-9.-]/g,'');
+
+			if(unit){
+				unit = this.isUnitLegal(unit);
+			}
+
+			this.options.value = newVal/1;
+			this.unit = unit || undefined;
+			this.$input.val(newVal + (unit || '') );
+		},
+
+		checkMaxMin: function(value){
+			var limit;
+
+			if ( isNaN(parseFloat(value)) ) {
+				return value;
+			}
+
+			if ( value < this.options.max && value > this.options.min ){
+				return value;
+			} else {
+				limit = value > this.options.max ? this.options.max : this.options.min;
+
+				this.$input.val(limit);
+				return limit;
 			}
 		},
 
@@ -212,12 +285,14 @@
 
 	$.fn.spinner.defaults = {
 		value: 1,
-		min: 1,
-		max: 999,
+		min: 0,
+		max: 500,
 		step: 1,
 		hold: true,
 		speed: 'medium',
-		disabled: false
+		disabled: false,
+		cycle: false,
+		units: []
 	};
 
 	$.fn.spinner.Constructor = Spinner;
