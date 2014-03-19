@@ -131,36 +131,35 @@
 		}
 
 		.btn-prev {
-			i {
+			span {
 				margin-right: 5px;
 			}
 		}
 
 		.btn-next {
-			i {
+			span {
 				margin-left: 5px;
 			}
 		}
 	}
-}
 
-.step-content {
-	border: 1px solid #D4D4D4;
-	border-top: 0;
-	border-radius: 0 0 4px 4px;
-	padding: 10px;
-	margin-bottom: 10px;
+	.step-content {
+		border-top: 1px solid #D4D4D4;
+		padding: 10px;
+		float: left;
+		width: 100%;
 
-	.step-pane {
-		display: none;
-	}
+		.step-pane {
+			display: none;
+		}
 
-	.active {
-		display: block;
-		
-		.btn-group {
-			.active {
-				display: inline-block;
+		.active {
+			display: block;
+
+			.btn-group {
+				.active {
+					display: inline-block;
+				}
 			}
 		}
 	}
