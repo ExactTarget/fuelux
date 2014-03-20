@@ -530,7 +530,7 @@
 			this.$header.css('width', this.options.dropdownWidth + 'px' );
 			this.$labelDiv.css('width', ( this.options.dropdownWidth - 60 ) + 'px' );
 			this.$footer.css('width', this.options.dropdownWidth + 'px' );
-			var labelSize     = ( this.options.dropdownWidth * 0.25 ) - 2;
+			var labelSize     = ( this.options.dropdownWidth * 0.25 );
 			var paddingTop    = Math.round( ( this.options.dropdownWidth - ( labelSize * 3 ) ) / 2 );
 			var paddingBottom = paddingTop;
 			while( paddingBottom + paddingTop + ( labelSize * 3 ) < this.options.dropdownWidth ) {
@@ -559,7 +559,7 @@
 				'padding-bottom': paddingBottom + 'px'
 			});
 
-			var cellSize       = Math.round( this.options.dropdownWidth / 7.0 ) - 2 + 'px';
+			var cellSize       = Math.round( this.options.dropdownWidth / 7.0 ) + 'px';
 			var headerCellSize = Math.round( this.options.dropdownWidth / 7.0 ) + 'px';
 			this._applySize( this.$yearsView.children(), labelSize + 'px' );
 			this._applySize( this.$monthsView.children(), labelSize + 'px' );
