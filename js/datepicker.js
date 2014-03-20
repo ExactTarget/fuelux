@@ -140,10 +140,22 @@
 		// functions that can be called on object
 		disable: function() {
 			this.$element.find('input, button').attr( 'disabled', true );
+			this._showDropdow( false );
 		},
 
 		enable: function() {
 			this.$element.find('input, button').attr( 'disabled', false );
+			this._showDropdow( true );
+		},
+
+		_showDropdow: function( disable ) {
+			if( !Boolean( disable ) ) {
+				this.$element.on( 'show.bs.dropdown', function( event ) {
+					event.preventDefault();
+				});
+			} else {
+				this.$element.off( 'show.bs.dropdown' );
+			}
 		},
 
 		getFormattedDate: function() {
