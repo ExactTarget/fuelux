@@ -333,17 +333,23 @@
 		</div>
 
 
-
 		<!-- DATEPICKER -->
-		<div>
-			<div class="datepicker dropdown" id="datepicker1">
-				<div class="input-append">
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="input-group dropdown">
+					<input type="text" class="form-control" data-toggle="dropdown" />
+					<!-- this must go aver the input. if button is present, it must go in between or the input group will not look right -->
 					<div class="dropdown-menu"></div>
-					<input type="text" class="span2" value="" data-toggle="dropdown">
-					<button type="button" class="btn btn-default" data-toggle="dropdown"><i class="glyphicon glyphicon-calendar"></i></button>
+					<span class="input-group-btn" data-toggle="dropdown">
+						<button type="button" class="btn btn-default">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
 				</div>
 			</div>
-			<div style="margin-top: 10px">
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
 				<span class="btn btn-default btn-sm" id="datepicker-enable">enable</span>
 				<span class="btn btn-default btn-sm" id="datepicker-disabled">disable</span>
 				<span class="btn btn-default btn-sm" id="datepicker-logFormattedDate">log formatted date</span>
@@ -352,8 +358,6 @@
 				<span class="btn btn-default btn-sm" id="datepicker-setDate">set date 7 days ahead (will log new value)</span>
 			</div>
 		</div>
-
-
 
 		<!-- LOADER -->
 		<div>
