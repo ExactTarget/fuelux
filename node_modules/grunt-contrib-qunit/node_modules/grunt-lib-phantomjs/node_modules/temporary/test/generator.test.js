@@ -22,8 +22,8 @@ describe('generator', function() {
   describe('build', function() {
     it('should build full names', function() {
       var tmp = detector.tmp();
-      generator.build().should.match(new RegExp("^" + tmp));
-      generator.build('foo').should.match(new RegExp("^" + tmp + 'foo.'));
+      generator.build().indexOf(tmp).should.equal(0);
+      generator.build('foo').indexOf(tmp + 'foo.').should.equal(0);
     });
   });
 });
