@@ -106,4 +106,31 @@ define(function(require){
 		equal($spinner.spinner('value'), 2, 'spinner value cycled at min');
 	});
 
+	test("spinner should behave correctly when units are included", function () {
+		var $spinner = $(spinnerHTML).spinner({
+			units: ['px']
+		});
+
+		//spinner behaves when units are enabled for non-unit values
+		$spinner.spinner('value', 1);
+		ok($spinner.spinner('value') === 1, 'spinner returned integer');
+
+		//spinner handles string with appropriate unit
+		$spinner.spinner('value', '1px');
+		ok($spinner.spinner('value') === '1px', 'spinner returned string and supported units');
+
+		//increment positive
+		$spinner.spinner('step',true);
+		equal($spinner.spinner('value'), '2px', 'spinner increments positive');
+
+		//increment nagative
+		$spinner.spinner('step',false);
+		equal($spinner.spinner('value'), '1px', 'spinner increments negative');
+
+		//Should not allow units not supported
+		$spinner.spinner('value','2pp');
+		equal($spinner.spinner('value'), 2, 'spinner not allowing units not supported');
+
+	});
+
 });
