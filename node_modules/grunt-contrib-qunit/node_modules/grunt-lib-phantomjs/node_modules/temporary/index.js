@@ -18,9 +18,9 @@ module.exports.version = package.version;
 /**
  * Exporting the temp file
  */
-module.exports.File = require('./file');
+module.exports.File = require('./lib/file');
 
 /**
  * Exporting the temp directory.
  */
-module.exports.Dir = require('./dir');
+module.exports.Dir = require('./lib/dir');
