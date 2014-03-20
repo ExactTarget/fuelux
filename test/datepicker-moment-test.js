@@ -125,7 +125,7 @@ define(function(require){
 			var dateFormatted = new Date( $sample.datepicker( 'getFormattedDate' ) );
 			var dateObject    = new Date( $sample.datepicker( 'getDate' ) );
 			var dateUnix      = $sample.datepicker( 'getDate', { unix: true } );
-			
+
 			if( dateFormatted !== 'Invalid Date' ) {
 				dateFormatted = true;
 			}
@@ -273,79 +273,6 @@ define(function(require){
 			var customWidthCheck2 = Boolean( headerWidth2 >= customWidth2 );
 
 			equal( customWidthCheck2, true, 'with markup - dropdown has a custom width (only via pixels)' );
-		});
-
-		test( 'should create datepicker without markup being present - basic', function() {
-			var $sansMarkup = $( html ).find( '#datepicker2' );
-
-			$sansMarkup.datepicker({
-				createInput: true
-			});
-			var input1    = $sansMarkup.find( 'input' ).length;
-			var dropdown1 = $sansMarkup.find( '.dropdown-menu' ).length;
-			var button1   = $sansMarkup.find( 'button' ).length;
-
-			equal( input1, 1, 'input was created' );
-			equal( dropdown1, 1, 'dropdown for calendar was created' );
-			equal( button1, 0, 'no button is added by default' );
-		});
-
-		test( 'should create datepicker without markup being present - w/ dropdown button', function() {
-			var $sansMarkup = $( html ).find( '#datepicker2' );
-
-			$sansMarkup.datepicker({
-				createInput: {
-					dropDownBtn: true
-				}
-			});
-
-			var input1    = $sansMarkup.find( 'input' ).length;
-			var dropdown1 = $sansMarkup.find( '.dropdown-menu' ).length;
-			var button1   = $sansMarkup.find( 'button' ).length;
-
-			equal( input1, 1, 'input was created' );
-			equal( dropdown1, 1, 'dropdown for calendar was created' );
-			equal( button1, 1, 'dropdown button is added' );
-		});
-
-		test( 'should create datepicker without markup being present - native', function() {
-			var $sansMarkup = $( html ).find( '#datepicker2' );
-
-			$sansMarkup.datepicker({
-				createInput: {
-					native: true
-				}
-			});
-
-			var inputType = $sansMarkup.find( 'input[type="date"]' ).length;
-			equal( inputType, 1, 'input was created with type date for native integration' );
-		});
-
-		test( 'should create datepicker without markup being present - w/ custom input size via CSS class', function() {
-			var $sansMarkup = $( html ).find( '#datepicker2' );
-
-			$sansMarkup.datepicker({
-				createInput: {
-					inputSize: 'span4'
-				}
-			});
-
-			var inputClass = !!$sansMarkup.find( 'input' ).hasClass( 'span4' );
-			equal( inputClass, true, 'input has custom width via class' );
-		});
-
-		test( 'should create datepicker without markup being present - w/ custom input size via pixel', function() {
-			var $sansMarkup = $( html ).find( '#datepicker2' );
-			var inputWidth  = 300;
-
-			$sansMarkup.datepicker({
-				createInput: {
-					inputSize: inputWidth
-				}
-			});
-
-			var inputWidthCheck = Boolean( $sansMarkup.find( 'input' ).width() === inputWidth );
-			equal( inputWidthCheck, true, 'input has custom width via pixels' );
 		});
 
 		test( "should have moment js doing the date parsing", function() {
