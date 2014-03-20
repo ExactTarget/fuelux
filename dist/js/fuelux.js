@@ -952,7 +952,7 @@
 
 			this.options = $.extend( true, {}, $.fn.datepicker.defaults, options );
 
-			this.formatDate = ( Boolean( this.options.createInput ) && Boolean( this.options.createInput.native ) ) ? this.formatNativeDate : this.options.formatDate || this.formatDate;
+			this.formatDate = this.options.formatDate || this.formatDate;
 			this.parseDate = this.options.parseDate || this.parseDate;
 			this.blackoutDates = this.options.blackoutDates || this.blackoutDates;
 
@@ -1058,20 +1058,8 @@
 				number: 11
 			} ];
 
-			if ( Boolean( this.options.createInput ) ) {
-				if ( typeof this.options.createInput === "boolean" && Boolean( this.options.createInput ) ) {
-					this.options.createInput = {};
-				}
-
-				if ( typeof this.options.createInput === 'object' && isNaN( this.options.createInput.length ) ) {
-					this.options.createInput.inputSize = this.options.createInput.inputSize || 'span3';
-					this._renderInput();
-				} else {
-					throw new Error( 'createInput option needs to be an object or boolean true' );
-				}
-			} else {
-				this._render();
-			}
+			// rendering the calendar
+			this._render();
 		};
 
 		Datepicker.prototype = {
@@ -1081,10 +1069,22 @@
 			// functions that can be called on object
 			disable: function() {
 				this.$element.find( 'input, button' ).attr( 'disabled', true );
+				this._showDropdow( false );
 			},
 
 			enable: function() {
 				this.$element.find( 'input, button' ).attr( 'disabled', false );
+				this._showDropdow( true );
+			},
+
+			_showDropdow: function( disable ) {
+				if ( !Boolean( disable ) ) {
+					this.$element.on( 'show.bs.dropdown', function( event ) {
+						event.preventDefault();
+					} );
+				} else {
+					this.$element.off( 'show.bs.dropdown' );
+				}
 			},
 
 			getFormattedDate: function() {
@@ -1154,10 +1154,6 @@
 					// this.pad to is function on extension
 					return this.padTwo( date.getMonth() + 1 ) + '-' + this.padTwo( date.getDate() ) + '-' + date.getFullYear();
 				}
-			},
-
-			formatNativeDate: function( date ) {
-				return date.getFullYear() + '-' + this.padTwo( date.getMonth() + 1 ) + '-' + this.padTwo( date.getDate() );
 			},
 
 			//some code ripped from http://stackoverflow.com/questions/2182246/javascript-dates-in-ie-nan-firefox-chrome-ok
@@ -1475,7 +1471,7 @@
 				this.$header.css( 'width', this.options.dropdownWidth + 'px' );
 				this.$labelDiv.css( 'width', ( this.options.dropdownWidth - 60 ) + 'px' );
 				this.$footer.css( 'width', this.options.dropdownWidth + 'px' );
-				var labelSize = ( this.options.dropdownWidth * 0.25 ) - 2;
+				var labelSize = ( this.options.dropdownWidth * 0.25 );
 				var paddingTop = Math.round( ( this.options.dropdownWidth - ( labelSize * 3 ) ) / 2 );
 				var paddingBottom = paddingTop;
 				while ( paddingBottom + paddingTop + ( labelSize * 3 ) < this.options.dropdownWidth ) {
@@ -1504,7 +1500,7 @@
 					'padding-bottom': paddingBottom + 'px'
 				} );
 
-				var cellSize = Math.round( this.options.dropdownWidth / 7.0 ) - 2 + 'px';
+				var cellSize = Math.round( this.options.dropdownWidth / 7.0 ) + 'px';
 				var headerCellSize = Math.round( this.options.dropdownWidth / 7.0 ) + 'px';
 				this._applySize( this.$yearsView.children(), labelSize + 'px' );
 				this._applySize( this.$monthsView.children(), labelSize + 'px' );
@@ -1734,32 +1730,6 @@
 				this._updateCss();
 			},
 
-			_renderInput: function() {
-				var input = ( Boolean( this.options.createInput.native ) ) ? this._renderInputNative() : this._renderInputHTML();
-				this.$element.html( input );
-				this._render();
-			},
-
-			_renderInputNative: function() {
-				return '<input type="date" value="' + this.formatDate( this.date ) + '"' + this._calculateInputSize( [ 'native' ] ) + '>';
-			},
-
-			_renderInputHTML: function() {
-				var inputClass = ( Boolean( this.options.createInput.dropDownBtn ) ) ? 'input-append' : 'input-group';
-
-				var dropdownHtml = '<div class="' + inputClass + '">' +
-					'<div class="dropdown-menu"></div>' +
-					'<input type="text" ' + this._calculateInputSize() + ' value="' + this.formatDate( this.date ) + '" data-toggle="dropdown">';
-
-				if ( Boolean( this.options.createInput.dropDownBtn ) ) {
-					dropdownHtml = dropdownHtml + '<button type="button" class="btn" data-toggle="dropdown"><i class="icon-calendar"></i></button>';
-				}
-
-				dropdownHtml = dropdownHtml + '</div>';
-
-				return '<div class="datepicker dropdown">' + dropdownHtml + '</div>';
-			},
-
 			_calculateInputSize: function( options ) {
 				if ( Boolean( parseInt( this.options.createInput.inputSize, 10 ) ) ) {
 					return 'style="width:' + this.options.createInput.inputSize + 'px"';
@@ -1937,7 +1907,6 @@
 				culture: 'en',
 				formatCode: 'L' // more formats can be found here http://momentjs.com/docs/#/customization/long-date-formats/. We only support "L" or "l"
 			},
-			createInput: false,
 			dropdownWidth: 170,
 			restrictDateSelection: true
 		};
@@ -1948,6 +1917,7 @@
 			$.fn.datepicker = old;
 			return this;
 		};
+
 
 	} )( jQuery );
 

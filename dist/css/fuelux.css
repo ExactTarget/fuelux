@@ -635,6 +635,10 @@
   overflow: auto;
 }
 
+.fuelux .datepicker .calendar .daysView {
+  overflow: hidden;
+}
+
 .fuelux .datepicker .calendar .daysView div div {
   float: left;
 }

@@ -70,16 +70,6 @@ define(function(require){
 		var pickerDate = $sample.datepicker( 'getFormattedDate' );
 		equal( pickerDate, today, 'w/ markup - initialized with todays date' );
 
-		// markup generated
-		var $sample2 = $( html ).find( '#datepicker2' );
-
-		$sample2.datepicker({
-			createInput: true
-		});
-
-		var pickerDate2 = $sample2.datepicker( 'getFormattedDate' );
-		equal( pickerDate2, today, 'w/ markup - initialized with todays date' );
-
 		// restricted past dates
 		var pastRestrictionCheck = $sample.find( '.restrict' ).length > 0;
 		equal( pastRestrictionCheck, true, 'restricted past dates are default' );
@@ -95,16 +85,6 @@ define(function(require){
 
 		var pickerDate = $sample.datepicker( 'getDate', { unix: true } );
 		equal( pickerDate, futureDate, 'markup datepicker initialized with different date than now' );
-
-		var $sample2 = $( html ).find( '#datepicker2' );
-
-		$sample2.datepicker({
-			date: futureDate,
-			createInput: true
-		});
-
-		var pickerDate2 = $sample2.datepicker( 'getDate', { unix: true } );
-		equal( pickerDate2, futureDate, 'no markup datepicker initialized with different date than now' );
 	});
 
 	test( 'should initialize with null date', function() {
@@ -220,37 +200,11 @@ define(function(require){
 	});
 
 	test( 'should create dropdown with custom dropdown', function() {
-		var $sansMarkup = $( html ).find( '#datepicker2' );
-		var customWidth = 240;
-
-		$sansMarkup.datepicker({
-			createInput: true,
-			dropdownWidth: customWidth
-		});
-
-		var $dropdown        = $sansMarkup.find( '.dropdown-menu' );
-		var headerWidth     = $dropdown.find( '.header' ).width();
-		var daysViewWidth   = $dropdown.find( '.daysView' ).width();
-		var monthsViewWidth = $dropdown.find( '.monthsView' ).width();
-		var yearsViewWidth  = $dropdown.find( '.yearsView' ).width();
-
-		equal( headerWidth, daysViewWidth, 'header and days view are same width' );
-		equal( headerWidth, monthsViewWidth, 'header and months view are same width' );
-		equal( headerWidth, yearsViewWidth, 'header and years view are same width' );
-		equal( daysViewWidth, monthsViewWidth, 'days view and months view are same width' );
-		equal( daysViewWidth, yearsViewWidth, 'days view and years view are same width' );
-		equal( monthsViewWidth, yearsViewWidth, 'months view and years view are same width' );
-
-		var customWidthCheck = Boolean( headerWidth >= customWidth );
-
-		equal( customWidthCheck, true, 'no markup - dropdown has a custom width (only via pixels)' );
-
 		var $markup = $( html ).find( '#datepicker1' );
 		var customWidth2 = 240;
 
 		$markup.datepicker({
-			createInput: true,
-			dropdownWidth: customWidth
+			dropdownWidth: customWidth2
 		});
 
 		var $dropdown2       = $markup.find( '.dropdown-menu' );
