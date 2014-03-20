@@ -20,7 +20,7 @@
 			},
 			paths: {
 				jquery: 'lib/jquery-1.9.1.min',
-				underscore: 'http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min',
+				underscore: 'lib/underscore/underscore',
 				bootstrap: 'lib/bootstrap/dist/js/bootstrap.min',
 				fuelux: 'js',
 				moment: 'lib/moment', // comment out if you dont want momentjs to be default
@@ -336,7 +336,7 @@
 		<!-- DATEPICKER -->
 		<div class="row">
 			<div class="col-lg-4">
-				<div class="input-group dropdown">
+				<div class="datepicker input-group dropdown" id="datepicker1">
 					<input type="text" class="form-control" data-toggle="dropdown" />
 					<!-- this must go aver the input. if button is present, it must go in between or the input group will not look right -->
 					<div class="dropdown-menu"></div>

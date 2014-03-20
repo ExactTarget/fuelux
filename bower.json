@@ -1,32 +1,32 @@
 {
-	"dependencies": {
-		"jquery": ">= 1.9.0"
-	},
-	"ignore": [
-		"**/.*",
-		"_*",
-		"lib",
-		"node_modules",
-		"testem.json"
-	],
-	"keywords": [
-		"css",
-		"js",
-		"less",
-		"mobile-first",
-		"responsive",
-		"front-end",
-		"framework",
-		"web"
-	],
-	"main": [
-		"dist/css/fuelux.css",
-		"dist/js/fuelux.js",
-		"dist/fonts/fuelux.eot",
-		"dist/fonts/fuelux.svg",
-		"dist/fonts/fuelux.ttf",
-		"dist/fonts/fuelux.woff"
-	],
-	"name": "fuelux",
-	"version": "3.0.0"
+  "dependencies": {
+    "underscore": "~1.6.0"
+  },
+  "ignore": [
+    "**/.*",
+    "_*",
+    "lib",
+    "node_modules",
+    "testem.json"
+  ],
+  "keywords": [
+    "css",
+    "js",
+    "less",
+    "mobile-first",
+    "responsive",
+    "front-end",
+    "framework",
+    "web"
+  ],
+  "main": [
+    "dist/css/fuelux.css",
+    "dist/js/fuelux.js",
+    "dist/fonts/fuelux.eot",
+    "dist/fonts/fuelux.svg",
+    "dist/fonts/fuelux.ttf",
+    "dist/fonts/fuelux.woff"
+  ],
+  "name": "fuelux",
+  "version": "3.0.0"
 }
