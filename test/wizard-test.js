@@ -26,7 +26,6 @@ define(function(require){
 		'<button class="btn btn-mini btn-primary btn-prev"> <i class="glyphicon glyphicon-arrow-left"></i>Prev</button>' +
 		'<button class="btn btn-mini btn-primary btn-next" data-last="Finish">Next<i class="glyphicon glyphicon-arrow-right"></i></button>' +
 		'</div>' +
-		'</div>' +
 		'<div class="step-content">' +
 		'<div class="step-pane active" id="step1">This is step 1</div>' +
 		'<div class="step-pane" id="step2">This is step 2</div>' +
@@ -38,6 +37,7 @@ define(function(require){
 		'<div class="step-pane" id="step8">This is step 8</div>' +
 		'<div class="step-pane" id="step9">This is step 9</div>' +
 		'<div class="step-pane" id="step10">This is step 10</div>' +
+		'</div>' +
 		'</div>';
 
 	var previousStepDisabledHTML = '<div class="wizard" data-restrict="previous">' +
@@ -58,7 +58,6 @@ define(function(require){
 		'<button class="btn btn-mini btn-primary btn-prev"> <i class="glyphicon glyphicon-arrow-left"></i>Prev</button>' +
 		'<button class="btn btn-mini btn-primary btn-next" data-last="Finish">Next<i class="glyphicon glyphicon-arrow-right"></i></button>' +
 		'</div>' +
-		'</div>' +
 		'<div class="step-content">' +
 		'<div class="step-pane active" id="step1">This is step 1</div>' +
 		'<div class="step-pane" id="step2">This is step 2</div>' +
@@ -70,6 +69,7 @@ define(function(require){
 		'<div class="step-pane" id="step8">This is step 8</div>' +
 		'<div class="step-pane" id="step9">This is step 9</div>' +
 		'<div class="step-pane" id="step10">This is step 10</div>' +
+		'</div>' +
 		'</div>';
 
 	var htmlWithSpaces = '<div class="wizard">' +
