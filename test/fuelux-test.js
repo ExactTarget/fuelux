@@ -5,6 +5,8 @@
 define(function(require){
 	var $ = require('jquery');
 
+	QUnit.start(); // starting qunit, or phantom js will have a problem
+
 	require('test/button-dropdown-test');
 	require('test/checkbox-test');
 	require('test/combobox-test');

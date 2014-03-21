@@ -4,11 +4,12 @@
 	<meta charset="utf-8">
 	<title>Fuel UX Test Suite</title>
 
-	<link rel="stylesheet" href="../lib/qunit/qunit.css" media="screen">
+	<link rel="stylesheet" href="../bower_components/qunit/qunit/qunit.css" media="screen">
 
-	<script src="../lib/moment.js"></script>
-	<script src="../lib/qunit/qunit.js"></script>
-	<script src="../lib/require.js"></script>
+	<script src="../bower_components/moment-with-langs/index.js"></script>
+	<script src="../bower_components/qunit/qunit/qunit.js"></script>
+	<script>QUnit.config.autostart = false;</script>
+	<script src="../bower_components/requirejs/require.js"></script>
 	<!--What is this about?-->
 	<script src="/testem.js"></script>
 
@@ -28,8 +29,8 @@
 					}
 				},
 				paths: {
-					jquery: '../lib/jquery-' + jqver + '.min',
-					bootstrap: '../lib/bootstrap/dist/js/bootstrap',
+					jquery: '../bower_components/jquery-' + jqver + '/jquery.min',
+					bootstrap: '../bower_components/bootstrap/dist/js/bootstrap',
 					fuelux: '../js',
 					test: '../test',
 					moment: '../path/to/moment' // wrong url because we need to test it without moment first

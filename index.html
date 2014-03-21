@@ -5,12 +5,12 @@
 	<title>Fuel UX 3</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="dist/css/fuelux.css" rel="stylesheet" type="text/css">
 	<link href="index.css" rel="stylesheet" type="text/css">
 
 	<script src="js/loader.js"></script>	<!-- for loader IE<10 support -->
-	<script src="lib/require.js"></script>
+	<script src="bower_components/requirejs/require.js"></script>
 	<script type="text/javascript">
 		requirejs.config({
 			config: {
@@ -19,11 +19,11 @@
 				}
 			},
 			paths: {
-				jquery: 'lib/jquery-1.9.1.min',
-				underscore: 'lib/underscore/underscore',
-				bootstrap: 'lib/bootstrap/dist/js/bootstrap.min',
+				jquery: 'bower_components/jquery/dist/jquery.min',
+				underscore: 'bower_components/underscore/underscore',
+				bootstrap: 'bower_components/bootstrap/dist/js/bootstrap.min',
+				moment: 'bower_components/moment-with-langs/index', // comment out if you dont want momentjs to be default
 				fuelux: 'js',
-				moment: 'lib/moment', // comment out if you dont want momentjs to be default
 				sample: 'sample'
 			}
 		});
