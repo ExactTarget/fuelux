@@ -24,84 +24,84 @@ require(['jquery', 'fuelux/selectlist'], function ($) {
 	module("Fuel UX button dropdown");
 
 	test("should be defined on jquery object", function () {
-		ok($(document.body).selectList, 'selectList method is defined');
+		ok($(document.body).selectlist, 'selectlist method is defined');
 	});
 
 	test("should return element", function () {
-		ok($(document.body).selectList()[0] === document.body, 'document.body returned');
+		ok($(document.body).selectlist()[0] === document.body, 'document.body returned');
 	});
 
 	test("should set disabled state", function () {
-		var $selectList = $(html).selectList();
-		$selectList.selectList('disable');
-		equal($selectList.find('.btn').hasClass('disabled'), true, 'element disabled');
+		var $selectlist = $(html).selectlist();
+		$selectlist.selectlist('disable');
+		equal($selectlist.find('.btn').hasClass('disabled'), true, 'element disabled');
 	});
 
 	test("should set enabled state", function () {
-		var $selectList = $(html).selectList();
-		$selectList.selectList('disable');
-		$selectList.selectList('enable');
-		equal($selectList.find('.btn').hasClass('disabled'), false, 'element enabled');
+		var $selectlist = $(html).selectlist();
+		$selectlist.selectlist('disable');
+		$selectlist.selectlist('enable');
+		equal($selectlist.find('.btn').hasClass('disabled'), false, 'element enabled');
 	});
 
 	test("should set default selection", function () {
 		// should be "Three" based on the data-selected attribute
-		var $selectList = $(html).selectList();
-		var item = $selectList.selectList('selectedItem');
+		var $selectlist = $(html).selectlist();
+		var item = $selectlist.selectlist('selectedItem');
 		var expectedItem = { text: 'Two', value: 2 };
 		deepEqual(item, expectedItem, 'default item selected');
 	});
 
 	test("should select by index", function () {
-		var $selectList = $(html).selectList();
-		$selectList.selectList('selectByIndex', 0);
+		var $selectlist = $(html).selectlist();
+		$selectlist.selectlist('selectByIndex', 0);
 
-		var item = $selectList.selectList('selectedItem');
+		var item = $selectlist.selectlist('selectedItem');
 		var expectedItem = { text: 'One', value: 1 };
 		deepEqual(item, expectedItem, 'item selected');
 	});
 
 	test("should select by value", function () {
-		var $selectList = $(html).selectList();
-		$selectList.selectList('selectByValue', 2);
+		var $selectlist = $(html).selectlist();
+		$selectlist.selectlist('selectByValue', 2);
 
-		var item = $selectList.selectList('selectedItem');
+		var item = $selectlist.selectlist('selectedItem');
 		var expectedItem = { text: 'Two', value: 2 };
 		deepEqual(item, expectedItem, 'item selected');
 	});
 
 	test("should select by value with whitespace", function () {
-		var $selectList = $(html).selectList();
-		$selectList.selectList('selectByValue', 'Item Five');
+		var $selectlist = $(html).selectlist();
+		$selectlist.selectlist('selectByValue', 'Item Five');
 
-		var item = $selectList.selectList('selectedItem');
+		var item = $selectlist.selectlist('selectedItem');
 		var expectedItem = { text: 'Item Five', value: 'Item Five' };
 		deepEqual(item, expectedItem, 'item selected');
 	});
 
 	test("should select by text", function () {
-		var $selectList = $(html).selectList();
-		$selectList.selectList('selectByText', 'THREE');
+		var $selectlist = $(html).selectlist();
+		$selectlist.selectlist('selectByText', 'THREE');
 
-		var item = $selectList.selectList('selectedItem');
+		var item = $selectlist.selectlist('selectedItem');
 		var expectedItem = { text: 'Three' };
 		deepEqual(item, expectedItem, 'item selected');
 	});
 
 	test("should select by text with whitespace", function () {
-		var $selectList = $(html).selectList();
-		$selectList.selectList('selectByText', 'Item Five');
+		var $selectlist = $(html).selectlist();
+		$selectlist.selectlist('selectByText', 'Item Five');
 
-		var item = $selectList.selectList('selectedItem');
+		var item = $selectlist.selectlist('selectedItem');
 		var expectedItem = { text: 'Item Five' };
 		deepEqual(item, expectedItem, 'item selected');
 	});
 
 	test("should select by selector", function () {
-		var $selectList = $(html).selectList();
-		$selectList.selectList('selectBySelector', 'li[data-fizz=buzz]');
+		var $selectlist = $(html).selectlist();
+		$selectlist.selectlist('selectBySelector', 'li[data-fizz=buzz]');
 
-		var item = $selectList.selectList('selectedItem');
+		var item = $selectlist.selectlist('selectedItem');
 		var expectedItem = { text: 'Buzz', value: 4, foo: 'bar', fizz: 'buzz' };
 		deepEqual(item, expectedItem, 'item selected');
 	});
@@ -111,14 +111,14 @@ require(['jquery', 'fuelux/selectlist'], function ($) {
 		var selectedText = '';
 		var selectedValue = '';
 
-		var $selectList = $(html).selectList().on('changed', function (evt, data) {
+		var $selectlist = $(html).selectlist().on('changed', function (evt, data) {
 			eventFired = true;
 			selectedText = data.text;
 			selectedValue = data.value;
 		});
 
 		// simulate changed event
-		$selectList.find('a:first').click();
+		$selectlist.find('a:first').click();
 
 		equal(eventFired, true, 'changed event fired');
 		equal(selectedText, 'One', 'text passed in from changed event');

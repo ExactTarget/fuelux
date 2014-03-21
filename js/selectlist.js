@@ -24,15 +24,15 @@
 		
 	// -- BEGIN MODULE CODE HERE --
 
-	var old = $.fn.selectList;
+	var old = $.fn.selectlist;
 	// SELECT CONSTRUCTOR AND PROTOTYPE
 
-	var SelectList = function (element, options) {
+	var Selectlist = function (element, options) {
 		this.$element = $(element);
-		this.options = $.extend({}, $.fn.selectList.defaults, options);
+		this.options = $.extend({}, $.fn.selectlist.defaults, options);
 		this.$element.on('click', 'a', $.proxy(this.itemclicked, this));
 		this.$button = this.$element.find('.btn-label');
-		this.$selectList = this.$element.find('.btn-dropdown');
+		this.$selectlist = this.$element.find('.btn-dropdown');
 		this.$hiddenField = this.$element.find('.hidden-field');
 		this.$label = this.$element.find('.selected-label');
 		this.setDefaultSelection();
@@ -42,9 +42,9 @@
 		}
 	};
 
-	SelectList.prototype = {
+	Selectlist.prototype = {
 
-		constructor: SelectList,
+		constructor: Selectlist,
 
 		itemclicked: function (e) {
 			this.$selectedItem = $(e.target).parent();
@@ -134,12 +134,12 @@
 
 		enable: function() {
 			this.$button.removeClass('disabled');
-			this.$selectList.removeClass('disabled');
+			this.$selectlist.removeClass('disabled');
 		},
 
 		disable: function() {
 			this.$button.addClass('disabled');
-			this.$selectList.addClass('disabled');
+			this.$selectlist.addClass('disabled');
 		}
 
 	};
@@ -147,7 +147,7 @@
 
 	// SELECT PLUGIN DEFINITION
 
-	$.fn.selectList = function (option) {
+	$.fn.selectlist = function (option) {
 		var args = Array.prototype.slice.call(arguments, 1);
 		var methodReturn;
 
@@ -156,19 +156,19 @@
 			var data = $this.data('selectlist');
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('selectlist', (data = new SelectList(this, options)));
+			if (!data) $this.data('selectlist', (data = new Selectlist(this, options)));
 			if (typeof option === 'string') methodReturn = data[option].apply(data, args);
 		});
 
 		return ( methodReturn === undefined ) ? $set : methodReturn;
 	};
 
-	$.fn.selectList.defaults = {};
+	$.fn.selectlist.defaults = {};
 
-	$.fn.selectList.Constructor = SelectList;
+	$.fn.selectlist.Constructor = Selectlist;
 
-	$.fn.selectList.noConflict = function () {
-		$.fn.selectList = old;
+	$.fn.selectlist.noConflict = function () {
+		$.fn.selectlist = old;
 		return this;
 	};
 
@@ -183,16 +183,16 @@
 				if ($this.data('selectlist')) {
 					return;
 				}
-				$this.selectList($this.data());
+				$this.selectlist($this.data());
 			});
 		});
 
 		$('body').on('mousedown.select.data-api', '.selectlist', function () {
 			var $this = $(this);
-			if ($this.data('selectList')) {
+			if ($this.data('selectlist')) {
 				return;
 			}
-			$this.selectList($this.data());
+			$this.selectlist($this.data());
 		});
 	});
 
