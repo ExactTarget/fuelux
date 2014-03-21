@@ -34,7 +34,7 @@
 	require('fuelux/scheduler');
 	require('fuelux/search');
 	require('fuelux/spinner');
-	require('fuelux/button-dropdown');
+	require('fuelux/selectlist');
 	require('fuelux/tree');
 	require('fuelux/wizard');
 
