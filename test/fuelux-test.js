@@ -5,7 +5,7 @@
 define(function(require){
 	var $ = require('jquery');
 
-	require('test/button-dropdown-test');
+	require('test/selectlist-test');
 	require('test/checkbox-test');
 	require('test/combobox-test');
 //	require('test/datagrid-test');
