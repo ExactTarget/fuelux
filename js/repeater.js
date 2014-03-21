@@ -50,7 +50,7 @@
 		constructor: Repeater,
 
 		render: function(container, renderer, data, callback){
-			var async = {};
+			var async = { after: false, before: false, complete: false, render: false };
 			var self = this;
 			var dataset, repeat, i, l;
 
@@ -131,7 +131,9 @@
 
 			if(renderer.async){
 				if(renderer.async===true){
-					async = { after: true, before: true, complete: true, render: true };
+					for(i in async){
+						async[i] = true;
+					}
 				}else{
 					async = renderer.async;
 				}
@@ -180,6 +182,7 @@
 			//after: function(data, item, [dataset, index]){},
 			//complete: function(data, item, [dataset, index]){},
 			//repeat: 'parameter.subparameter.etc',
+			//async: { after: false, before: false, complete: false, render: false }  (passing true sets all to true)
 			//render: function(data, [dataset, index]){},
 			//nest: [ *array of renderer objects* ]
 		//}
