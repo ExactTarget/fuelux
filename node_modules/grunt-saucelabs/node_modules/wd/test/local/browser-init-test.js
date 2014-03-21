@@ -4,10 +4,10 @@ var utils = require('../common/utils'),
     wd = require('../common/wd-with-cov');
 
 var browser1 = 'firefox',
-    browser2 = 'chrome'
+    browser2 = 'chrome';
 
 if(utils.isTravis()){
-  browser2 = 'firefox'
+  browser2 = 'firefox';
 }
 
 describe("wd", function() {

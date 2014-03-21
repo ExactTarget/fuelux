@@ -14,9 +14,9 @@
 
   function configure(conf) {
     if (conf) {
-      
+
       this._conf = conf;
-      
+
       conf.delimiter && (this.delimiter = conf.delimiter);
       conf.maxListeners && (this._events.maxListeners = conf.maxListeners);
       conf.wildcard && (this.wildcard = conf.wildcard);
@@ -109,7 +109,7 @@
       //
       searchListenerTree(handlers, type, xTree, i+1);
     }
-    
+
     xxTree = tree['**'];
     if(xxTree) {
       if(i < typeLength) {
@@ -117,7 +117,7 @@
           // If we have a listener on a '**', it will catch all, so add its handler.
           searchListenerTree(handlers, type, xxTree, typeLength);
         }
-        
+
         // Build arrays of matching next branches and others.
         for(branch in xxTree) {
           if(branch !== '_listeners' && xxTree.hasOwnProperty(branch)) {
@@ -148,7 +148,7 @@
   function growListenerTree(type, listener) {
 
     type = typeof type === 'string' ? type.split(this.delimiter) : type.slice();
-    
+
     //
     // Looks for two consecutive '**', if so, don't add the event at all.
     //
@@ -184,7 +184,7 @@
           if (!tree._listeners.warned) {
 
             var m = defaultMaxListeners;
-            
+
             if (typeof this._events.maxListeners !== 'undefined') {
               m = this._events.maxListeners;
             }
@@ -205,7 +205,7 @@
       name = type.shift();
     }
     return true;
-  };
+  }
 
   // By default EventEmitters will print a warning if more than
   // 10 listeners are added to it. This is a useful default which
@@ -242,7 +242,7 @@
         self.off(event, listener);
       }
       fn.apply(this, arguments);
-    };
+    }
 
     listener._origin = fn;
 
@@ -252,7 +252,7 @@
   };
 
   EventEmitter.prototype.emit = function() {
-    
+
     this._events || init.call(this);
 
     var type = arguments[0];
@@ -274,9 +274,9 @@
 
     // If there is no 'error' event listener then throw.
     if (type === 'error') {
-      
-      if (!this._all && 
-        !this._events.error && 
+
+      if (!this._all &&
+        !this._events.error &&
         !(this.wildcard && this.listenerTree.error)) {
 
         if (arguments[1] instanceof Error) {
@@ -340,7 +340,7 @@
   };
 
   EventEmitter.prototype.on = function(type, listener) {
-    
+
     if (typeof type === 'function') {
       this.onAny(type);
       return this;
@@ -376,7 +376,7 @@
       if (!this._events[type].warned) {
 
         var m = defaultMaxListeners;
-        
+
         if (typeof this._events.maxListeners !== 'undefined') {
           m = this._events.maxListeners;
         }
@@ -447,11 +447,11 @@
         }
 
         if (position < 0) {
-          return this;
+          continue;
         }
 
         if(this.wildcard) {
-          leaf._listeners.splice(position, 1)
+          leaf._listeners.splice(position, 1);
         }
         else {
           this._events[type].splice(position, 1);
@@ -465,6 +465,7 @@
             delete this._events[type];
           }
         }
+        return this;
       }
       else if (handlers === listener ||
         (handlers.listener && handlers.listener === listener) ||
@@ -554,7 +555,7 @@
       return EventEmitter;
     });
   } else {
-    exports.EventEmitter2 = EventEmitter; 
+    exports.EventEmitter2 = EventEmitter;
   }
 
 }(typeof process !== 'undefined' && typeof process.title !== 'undefined' && typeof exports !== 'undefined' ? exports : window);

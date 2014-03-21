@@ -1,4 +1,3 @@
-/*global describe,before,it,after */
 var desired, remoteWdConfig, test, _ref;
 
 _ref = require('./config');

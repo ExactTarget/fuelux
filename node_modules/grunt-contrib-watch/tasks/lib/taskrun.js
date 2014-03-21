@@ -25,6 +25,9 @@ module.exports = function(grunt) {
     this.startedAt = false;
     this.spawned = null;
     this.changedFiles = Object.create(null);
+    if (typeof this.tasks === 'string') {
+      this.tasks = [this.tasks];
+    }
   }
 
   // Run it

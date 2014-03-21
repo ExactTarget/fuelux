@@ -1,3 +1,8 @@
+v0.4.4:
+  date: 2013-05-27
+  changes:
+    - Remove gracefully closing SIGINT. Not needed and causes problems for Windows.
+    - Ensure tasks are an array to not conflict with cliArgs.
 v0.4.3:
   date: 2013-05-11
   changes:

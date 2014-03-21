@@ -1,4 +1,3 @@
-/*global describe,before,it,after */
 var TIMEOUT, assert, should, test;
 
 should = require('should');
@@ -32,7 +31,7 @@ test = function(remoteWdConfig, desired, markAsPassed) {
         done(null);
       });
     });
-    describe("init", function(done) {
+    describe("init", function() {
       it("should initialize browser", function(done) {
         this.timeout(TIMEOUT);
         browser.init(desired).then(function() {
@@ -72,7 +71,8 @@ test = function(remoteWdConfig, desired, markAsPassed) {
           browser.elementById("submit").then(function(el) {
             return browser.clickElement(el);
           }).then(function() {
-            return browser["eval"]("window.location.href");
+            /* jshint evil: true */
+            return browser.eval("window.location.href");
           }).done(function(location) {
             assert.ok(~location.indexOf("http://"), "Wrong location!");
             done(null);

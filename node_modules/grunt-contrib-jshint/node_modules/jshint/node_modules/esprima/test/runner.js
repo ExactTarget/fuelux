@@ -71,6 +71,21 @@ function errorToObject(e) {
     };
 }
 
+function hasAttachedComment(syntax) {
+    var key;
+    for (key in syntax) {
+        if (key === 'leadingComments' || key === 'trailingComments') {
+            return true;
+        }
+       if (typeof syntax[key] === 'object' && syntax[key] !== null) {
+           if (hasAttachedComment(syntax[key])) {
+               return true;
+           }
+       }
+    }
+    return false;
+}
+
 function testParse(esprima, code, syntax) {
     'use strict';
     var expected, tree, actual, options, StringObject, i, len, err;
@@ -87,6 +102,10 @@ function testParse(esprima, code, syntax) {
         tolerant: (typeof syntax.errors !== 'undefined'),
         source: null
     };
+
+    if (options.comment) {
+        options.attachComment = hasAttachedComment(syntax);
+    }
 
     if (typeof syntax.tokens !== 'undefined') {
         if (syntax.tokens.length > 0) {
@@ -398,6 +417,7 @@ if (typeof window !== 'undefined') {
         var esprima = require('../esprima'),
             vm = require('vm'),
             fs = require('fs'),
+            diff = require('json-diff').diffString,
             total = 0,
             failures = [],
             tick = new Date(),
@@ -425,9 +445,19 @@ if (typeof window !== 'undefined') {
         if (failures.length) {
             console.error(header);
             failures.forEach(function (failure) {
-                console.error(failure.source + ': Expected\n    ' +
-                    failure.expected.split('\n').join('\n    ') +
-                    '\nto match\n    ' + failure.actual);
+                try {
+                    var expectedObject = JSON.parse(failure.expected);
+                    var actualObject = JSON.parse(failure.actual);
+
+                    console.error(failure.source + ': Expected\n    ' +
+                        failure.expected.split('\n').join('\n    ') +
+                        '\nto match\n    ' + failure.actual + '\nDiff:\n' +
+                        diff(expectedObject, actualObject));
+                } catch (ex) {
+                    console.error(failure.source + ': Expected\n    ' +
+                        failure.expected.split('\n').join('\n    ') +
+                        '\nto match\n    ' + failure.actual);
+                }
             });
         } else {
             console.log(header);

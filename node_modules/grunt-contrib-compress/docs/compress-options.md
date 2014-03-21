@@ -1,9 +1,10 @@
 # Options
 
 ## archive
-Type: `String`
+Type: `String` or `Function`
 
 This is used to define where to output the archive. Each target can only have one output file.
+If the type is a Function it must return a String.
 
 ## mode
 Type: `String`

@@ -75,8 +75,11 @@
     //// nextTick implementation with browser-compatible fallback ////
     if (typeof process === 'undefined' || !(process.nextTick)) {
         if (typeof setImmediate === 'function') {
-            async.setImmediate = setImmediate;
-            async.nextTick = setImmediate;
+            async.nextTick = function (fn) {
+                // not a direct alias for IE10 compatibility
+                setImmediate(fn);
+            };
+            async.setImmediate = async.nextTick;
         }
         else {
             async.nextTick = function (fn) {
@@ -88,7 +91,10 @@
     else {
         async.nextTick = process.nextTick;
         if (typeof setImmediate !== 'undefined') {
-            async.setImmediate = setImmediate;
+            async.setImmediate = function (fn) {
+              // not a direct alias for IE10 compatibility
+              setImmediate(fn);
+            };
         }
         else {
             async.setImmediate = async.nextTick;

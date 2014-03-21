@@ -8,9 +8,11 @@ var url = require("url")
   , path = require("path")
   , Stream = require("stream").Stream
   , abbrev = require("abbrev")
+  , usage = require("./usage")
 
 module.exports = exports = nopt
 exports.clean = clean
+exports.usage = usage
 
 exports.typeDefs =
   { String  : { type: String,  validate: validateString  }

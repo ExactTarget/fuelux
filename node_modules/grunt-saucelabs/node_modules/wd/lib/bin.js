@@ -3,9 +3,9 @@
 var net = require('net')
   , repl = require('repl')
   , assert = require('assert')
-  , wd = require('./main')
-  , underscore = require('underscore')
-  ;
+  , wd = require('./main');
+
+var connections = 0;
 
 var startRepl = function() {
   var r = repl.start('(wd): ');

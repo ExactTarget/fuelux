@@ -85,6 +85,18 @@ exports.compress = {
         });
     }, test.done);
   },
+  gzipCustomExt: function(test) {
+    test.expect(3);
+    [
+      'test',
+      'folder_one/one',
+      'folder_two/two',
+    ].forEach(function(file) {
+      var expected = path.join('tmp', 'gzipCustomExt', file + '.gz.js');
+      test.ok(grunt.file.exists(expected), 'should of had a correct extension.');
+    });
+    test.done();
+  },
   deflate: function(test) {
     test.expect(3);
     grunt.util.async.forEachSeries([

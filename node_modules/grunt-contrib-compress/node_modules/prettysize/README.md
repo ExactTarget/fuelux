@@ -33,7 +33,7 @@ var str = pretty(123456789);
 It supports the following sizes:
 
 * bytes
-* Kb
+* kB
 * MB
 * GB
 * TB

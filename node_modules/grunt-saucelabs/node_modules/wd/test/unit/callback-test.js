@@ -1,5 +1,4 @@
-/*global describe,before,it,after */
-var nock, should, wd, pwd;
+var nock, should, wd;
 
 wd = require('../common/wd-with-cov');
 

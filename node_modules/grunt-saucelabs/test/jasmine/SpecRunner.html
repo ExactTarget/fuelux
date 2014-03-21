@@ -8,6 +8,7 @@
   <link rel="stylesheet" type="text/css" href="lib/jasmine-1.3.1/jasmine.css">
   <script type="text/javascript" src="lib/jasmine-1.3.1/jasmine.js"></script>
   <script type="text/javascript" src="lib/jasmine-1.3.1/jasmine-html.js"></script>
+  <script type="text/javascript" src="lib/jasmine-jsreporter.js"></script>
 
   <!-- include source files here... -->
   <script type="text/javascript" src="src/Player.js"></script>
@@ -25,6 +26,7 @@
       var htmlReporter = new jasmine.HtmlReporter();
 
       jasmineEnv.addReporter(htmlReporter);
+      jasmineEnv.addReporter(new jasmine.JSReporter());
 
       jasmineEnv.specFilter = function(spec) {
         return htmlReporter.specFilter(spec);

@@ -1,5 +1,5 @@
 var isTravis = function () {
-  return process.env.TRAVIS_JOB_ID
+  return process.env.TRAVIS_JOB_ID;
 };
 
 var browsers = ['firefox'];

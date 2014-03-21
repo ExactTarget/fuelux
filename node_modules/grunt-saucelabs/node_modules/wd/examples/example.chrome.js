@@ -1,6 +1,7 @@
+require('colors');
+
 var wd = require('../lib/main')
   , assert = require('assert')
-  , colors = require('colors')
   , browser = wd.remote();
 
 browser.on('status', function(info) {
@@ -22,6 +23,7 @@ browser.init({
       assert.ok(~title.indexOf('I am a page title - Sauce Labs'), 'Wrong title!');
       browser.elementById('i am a link', function(err, el) {
         browser.clickElement(el, function() {
+          /* jshint evil: true */
           browser.eval("window.location.href", function(err, href) {
             assert.ok(~href.indexOf('guinea-pig2'));
             browser.quit();

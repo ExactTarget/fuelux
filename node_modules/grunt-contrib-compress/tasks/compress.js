@@ -18,6 +18,10 @@ module.exports = function(grunt) {
       level: 1,
     });
 
+    if (typeof compress.options.archive === 'function') {
+        compress.options.archive = compress.options.archive();
+    }
+
     compress.options.mode = compress.options.mode || compress.autoDetectMode(compress.options.archive);
     grunt.verbose.writeflags(compress.options, 'Options');
 

@@ -29,7 +29,7 @@ exports.watchConfig = {
   oneTarget: function(test) {
     test.expect(2);
     var cwd = path.resolve(fixtures, 'oneTarget');
-    var assertWatch = helper.assertTask('watch', {cwd:cwd});
+    var assertWatch = helper.assertTask(['watch', '--debug'], {cwd:cwd});
     assertWatch(function() {
       var write = 'var test = true;';
       grunt.file.write(path.join(cwd, 'lib', 'one.js'), write);

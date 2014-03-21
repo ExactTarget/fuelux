@@ -23,7 +23,7 @@ The callback takes 3 arguments. The first is the file that was modified. The sec
 
 When a file is new the previous stat object is null.
 
-When watchTree is finished walking the tree and adding all the listeners it passes the file hash (key if the file/directory names and the values are the current stat objects) as the first argument and null as both the previous and current stat object arguments.
+When watchTree is finished walking the tree and adding all the listeners it passes the file hash (keys are the file/directory names and the values are the current stat objects) as the first argument and null as both the previous and current stat object arguments.
 
 <pre>
   watch.watchTree('/home/mikeal', function (f, curr, prev) {

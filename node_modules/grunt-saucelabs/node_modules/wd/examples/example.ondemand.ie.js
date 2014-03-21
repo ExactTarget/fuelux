@@ -33,6 +33,7 @@ browser.init(desired, function() {
       assert.ok(~title.indexOf('I am a page title - Sauce Labs'), 'Wrong title!');
       browser.elementById('i am a link', function(err, el) {
         browser.clickElement(el, function() {
+          /* jshint evil: true */
           browser.eval("window.location.href", function(err, href) {
             assert.ok(~href.indexOf('guinea-pig2'));
             browser.quit();

@@ -29,6 +29,7 @@ browser.init({
 }).then(function (el) {
     return browser.clickElement(el);
 }).then(function () {
+    /* jshint evil: true */
     return browser.eval("window.location.href");
 }).then(function (href) {
     assert.ok(~href.indexOf('guinea-pig2'));
