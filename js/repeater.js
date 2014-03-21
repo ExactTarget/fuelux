@@ -40,15 +40,92 @@
 		this.currentView = 'list';
 
 		this.options.dataSource({}, function(data){
-			self.render(self.$main, $.fn.repeater.views[self.currentView], data);
+			self.render(self.$main, $.fn.repeater.views[self.currentView], data, function(){
+				//do next steps
+			});
 		});
 	};
 
 	Repeater.prototype = {
 		constructor: Repeater,
 
-		render: function(container, renderer, data){
-			var args1, args2, cont, dataset, i, item, j, l, len, repeat;
+		render: function(container, renderer, data, callback){
+			var async = false;
+			var self = this;
+			var args1, args2, args3, cont, dataset, i, item, j, l, len, repeat;
+
+			var beforeCallback = function(resp){
+				if(renderer.render){
+					if(async.render){
+						args2 = $.extend([], args1).push(renderCallback);
+						renderer.render.apply(self, args2);
+					}else{
+						renderCallback(renderer.render.apply(self, args1));
+					}
+				}else{
+					renderCallback(null);
+				}
+			};
+
+			var renderCallback = function(resp){
+				item = resp;
+				if(item!==null){
+					container.append(item);
+				}
+
+				args2 = $.extend([], args1);
+				args2.splice(1, 0, item);
+
+				if(renderer.after){
+					if(async.after){
+						args3 = $.extend([], args2).push(afterCallback);
+						renderer.after.apply(self, args3);
+					}else{
+						afterCallback(renderer.after.apply(self, args3));
+					}
+				}else{
+					afterCallback(null);
+				}
+			};
+
+			var afterCallback = function(resp){
+				if(renderer.nest){
+					cont = container.find('[data-container="true"]:first');
+					if(cont.length<1){
+						cont = container;
+					}
+					for(j=0, len=renderer.nest.length; j<len; j++){
+						self.render(cont, renderer.nest[j], data, function(){
+							if(renderer.complete){
+								if(async.complete){
+									args3 = $.extend([], args2).push(completeCallback);
+									renderer.complete.apply(self, args3);
+								}else{
+									completeCallback(renderer.complete.apply(self, args3));
+								}
+							}else{
+								completeCallback(null);
+							}
+						});
+					}
+				}else{
+					completeCallback(null);
+				}
+			};
+
+			var completeCallback = function(resp){
+				if(callback){
+					callback();
+				}
+			};
+
+			if(renderer.async){
+				if(renderer.async===true){
+					async = { after: true, before: true, complete: true, render: true };
+				}else{
+					async = renderer.async;
+				}
+			}
 
 			if(renderer.repeat){
 				repeat = renderer.repeat.split('.');
@@ -67,35 +144,14 @@
 				}
 
 				if(renderer.before){
-					renderer.before.apply(this, args1);
-				}
-
-				if(renderer.render){
-					item = $(renderer.render.apply(this, args1));
-					container.append(item);
+					if(async.before){
+						args2 = $.extend([], args1).push(beforeCallback);
+						renderer.before.apply(this, args2);
+					}else{
+						beforeCallback(renderer.before.apply(this, args1));
+					}
 				}else{
-					item = null;
-				}
-
-				args2 = $.extend([], args1);
-				args2.splice(1, 0, item);
-
-				if(renderer.after){
-					renderer.after.apply(this, args2);
-				}
-
-				if(renderer.nest){
-					cont = container.find('[data-container="true"]:first');
-					if(cont.length<1){
-						cont = container;
-					}
-					for(j=0, len=renderer.nest.length; j<len; j++){
-						this.render(cont, renderer.nest[j], data);
-					}
-				}
-
-				if(renderer.complete){
-					renderer.complete.apply(this, args2);
+					beforeCallback(null);
 				}
 			}
 		}
