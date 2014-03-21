@@ -5,12 +5,12 @@
 	<title>Fuel UX 3</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="dist/css/fuelux.css" rel="stylesheet" type="text/css">
 	<link href="index.css" rel="stylesheet" type="text/css">
 
 	<script src="js/loader.js"></script>	<!-- for loader IE<10 support -->
-	<script src="lib/require.js"></script>
+	<script src="bower_components/requirejs/require.js"></script>
 	<script type="text/javascript">
 		requirejs.config({
 			config: {
@@ -19,11 +19,11 @@
 				}
 			},
 			paths: {
-				jquery: 'lib/jquery-1.9.1.min',
-				underscore: 'http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min',
-				bootstrap: 'lib/bootstrap/dist/js/bootstrap.min',
+				jquery: 'bower_components/jquery/dist/jquery.min',
+				underscore: 'bower_components/underscore/underscore',
+				bootstrap: 'bower_components/bootstrap/dist/js/bootstrap.min',
+				moment: 'bower_components/moment-with-langs/index', // comment out if you dont want momentjs to be default
 				fuelux: 'js',
-				moment: 'lib/moment', // comment out if you dont want momentjs to be default
 				sample: 'sample'
 			}
 		});
@@ -338,15 +338,22 @@
 		<h2>Datepicker</h2>
 
 		<!-- DATEPICKER -->
-		<div>
-			<div class="datepicker dropdown" id="datepicker1">
-				<div class="input-append">
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="datepicker input-group dropdown" id="datepicker1">
+					<input type="text" class="form-control" data-toggle="dropdown" />
+					<!-- this must go aver the input. if button is present, it must go in between or the input group will not look right -->
 					<div class="dropdown-menu"></div>
-					<input type="text" class="span2" value="" data-toggle="dropdown">
-					<button type="button" class="btn btn-default" data-toggle="dropdown"><i class="glyphicon glyphicon-calendar"></i></button>
+					<span class="input-group-btn" data-toggle="dropdown">
+						<button type="button" class="btn btn-default">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</button>
+					</span>
 				</div>
 			</div>
-			<div style="margin-top: 10px">
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
 				<span class="btn btn-default btn-sm" id="datepicker-enable">enable</span>
 				<span class="btn btn-default btn-sm" id="datepicker-disabled">disable</span>
 				<span class="btn btn-default btn-sm" id="datepicker-logFormattedDate">log formatted date</span>
