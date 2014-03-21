@@ -52,55 +52,81 @@
 		render: function(container, renderer, data, callback){
 			var async = {};
 			var self = this;
-			var args, dataset, repeat, i, l;
+			var dataset, repeat, i, l;
 
-			var callbacks = {
-				before: function(){
-					proceed('render', args);
-				},
-				render: function(item){
-					item = $(item);
-					if(item!==null){
-						container.append(item);
-					}
-					args.splice(1, 0, item);
-					proceed('after', args);
-				},
-				after: function(){
-					var cont, j, k;
-					if(renderer.nest){
-						cont = container.find('[data-container="true"]:first');
-						if(cont.length<1){
-							cont = container;
-						}
-						for(j=0, k=renderer.nest.length; j<k; j++){
-							self.render(cont, renderer.nest[j], data, function(){
-								proceed('complete', args);
-							});
-						}
+			var loopDataset = function(index){
+				var args = [data];
+				if(renderer.repeat){
+					args.push(dataset, index);
+				}
+				start(args, function(){
+					index++;
+					if(index<dataset.length){
+						loopDataset(index);
 					}else{
-						callbacks.complete(null);
-					}
-				},
-				complete: function(){
-					if(callback){
 						callback();
 					}
-				}
+				});
 			};
 
-			var proceed = function(stage, argus){
-				argus = $.extend([], argus);
-				if(renderer[stage]){
-					if(async[stage]){
-						argus.push(callbacks[stage]);
-						renderer[stage].apply(self, argus);
-					}else{
-						callbacks[stage](renderer[stage].apply(self, argus));
+			var start = function(args, cb){
+				var callbacks = {
+					before: function(){
+						proceed('render', args);
+					},
+					render: function(item){
+						item = $(item);
+						if(item!==null){
+							container.append(item);
+						}
+						args.splice(1, 0, item);
+						proceed('after', args);
+					},
+					after: function(){
+						var cont;
+						var loopNested = function(cont, index){
+							self.render(cont, renderer.nest[index], data, function(){
+								index++;
+								if(index<renderer.nest.length){
+									loopNested(cont, index);
+								}else{
+									proceed('complete', args);
+								}
+							});
+						};
+
+						if(renderer.nest){
+							cont = container.find('[data-container="true"]:first');
+							if(cont.length<1){
+								cont = container;
+							}
+							loopNested(cont, 0);
+						}else{
+							callbacks.complete(null);
+						}
+					},
+					complete: function(){
+						if(cb){
+							cb();
+						}
 					}
-				}else{
-					callbacks[stage](null);
-				}
+				};
+
+				var proceed = function(stage, argus){
+					argus = $.extend([], argus);
+					if(renderer[stage]){
+						if(async[stage]){
+							argus.push(callbacks[stage]);
+							renderer[stage].apply(self, argus);
+						}else{
+							callbacks[stage](renderer[stage].apply(self, argus));
+						}
+					}else{
+						callbacks[stage](null);
+					}
+				};
+
+				proceed('before', args);
 			};
 
 			if(renderer.async){
@@ -121,13 +147,7 @@
 				dataset = [''];
 			}
 
-			for(i=0, l=dataset.length; i<l; i++){
-				args = [data];
-				if(renderer.repeat){
-					args.push(dataset, i);
-				}
-				proceed('before', args);
-			}
+			loopDataset(0);
 		}
 	};
 
@@ -168,13 +188,29 @@
 		list: {
 			nest: [
 				{
+					complete: function(){
+						console.log('COMPLETE');
+					},
 					render: function(data){
 						return '<table class="list-view-header"><tr data-container="true"></tr></table>';
 					},
 					nest: [
 						{
-							render: function(data, dataset, i){
-								return '<td>' + dataset[i].label + '</td>';
+							async: { before: true, render: true },
+							before: function(data, dataset, i, callback){
+								var delay = 1000;
+								if(i===1){
+									delay = 3000;
+								}
+								setTimeout(function(){
+									console.log('before');
+									callback();
+								}, delay);
+							},
+							render: function(data, dataset, i, callback){
+								setTimeout(function(){
+									callback('<td>' + dataset[i].label + '</td>');
+								}, 2000);
 							},
 							repeat: 'columns'
 						}
