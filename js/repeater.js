@@ -30,17 +30,23 @@
 
 	var Repeater = function (element, options) {
 		var self = this;
+		var i;
 
 		this.$element = $(element);
 		this.$main = this.$element.find('.repeater-main');
 
-
-		this.options = $.extend(true, {}, $.fn.repeater.defaults, options);
+		this.options = $.extend(true, {}, $.fn.repeater.defaults);
+		for(i in $.fn.repeater.views){
+			if($.fn.repeater.views[i].defaults){
+				this.options = $.extend(true, this.options, $.fn.repeater.views[i].defaults);
+			}
+		}
+		this.options = $.extend(true, this.options, options);
 
 		this.currentView = 'list';
 
 		this.options.dataSource({}, function(data){
-			self.render(self.$main, $.fn.repeater.views[self.currentView], data, function(){
+			self.render(self.$main, $.fn.repeater.views[self.currentView].renderer, data, function(){
 				//do next steps
 			});
 		});
@@ -131,9 +137,7 @@
 
 			if(renderer.async){
 				if(renderer.async===true){
-					for(i in async){
-						async[i] = true;
-					}
+					async = { after: true, before: true, complete: true, render: true };
 				}else{
 					async = renderer.async;
 				}
@@ -175,57 +179,63 @@
 		dataSource: function(options, callback){}
 	};
 
-	//views object contains keyed list of renderer objects.
-	//renderer object contains following optional parameters:
-		//{
-			//before: function(data, [dataset, index]){},
-			//after: function(data, item, [dataset, index]){},
-			//complete: function(data, item, [dataset, index]){},
-			//repeat: 'parameter.subparameter.etc',
-			//async: { after: false, before: false, complete: false, render: false }  (passing true sets all to true)
-			//render: function(data, [dataset, index]){},
-			//nest: [ *array of renderer objects* ]
-		//}
-		//*NOTE - the dataset and index arguments appear if repeat is present
+	//views object contains keyed list of view plugins.
+		//renderer object contains following optional parameters:
+			//{
+				//before: function(data, [dataset, index]){},
+				//after: function(data, item, [dataset, index]){},
+				//complete: function(data, item, [dataset, index]){},
+				//repeat: 'parameter.subparameter.etc',
+				//async: { after: false, before: false, complete: false, render: false }  (passing true sets all to true)
+				//render: function(data, [dataset, index]){},
+				//nest: [ *array of renderer objects* ]
+			//}
+			//*NOTE - the dataset and index arguments appear if repeat is present
 	$.fn.repeater.views = {
 		list: {
-			nest: [
-				{
-					complete: function(){
-						console.log('COMPLETE');
-					},
-					render: function(data){
-						return '<table class="list-view-header"><tr data-container="true"></tr></table>';
-					},
-					nest: [
-						{
-							async: { before: true, render: true },
-							before: function(data, dataset, i, callback){
-								var delay = 1000;
-								if(i===1){
-									delay = 3000;
-								}
-								setTimeout(function(){
-									console.log('before');
-									callback();
-								}, delay);
-							},
-							render: function(data, dataset, i, callback){
-								setTimeout(function(){
-									callback('<td>' + dataset[i].label + '</td>');
-								}, 2000);
-							},
-							repeat: 'columns'
-						}
-					]
-				}
-			]
+			//defaults: {},
+			renderer: {
+				nest: [
+					{
+						complete: function(){
+							console.log('COMPLETE');
+						},
+						render: function(data){
+							return '<table class="list-view-header"><tr data-container="true"></tr></table>';
+						},
+						nest: [
+							{
+								async: { before: true, render: true },
+								before: function(data, dataset, i, callback){
+									var delay = 1000;
+									if(i===1){
+										delay = 3000;
+									}
+									setTimeout(function(){
+										console.log('before');
+										callback();
+									}, delay);
+								},
+								render: function(data, dataset, i, callback){
+									setTimeout(function(){
+										callback('<td>' + dataset[i].label + '</td>');
+									}, 2000);
+								},
+								repeat: 'columns'
+							}
+						]
+					}
+				]
+			}
+
 		},
 		thumbnail: {
-			render: function(data, dataset, i){
-				return '<div class="thumbnail">' + dataset[i].name + '</div>';
-			},
-			repeat: 'thumbnails'
+			renderer: {
+				render: function(data, dataset, i){
+					return '<div class="thumbnail">' + dataset[i].name + '</div>';
+				},
+				repeat: 'thumbnails'
+			}
 		}
 	};
 
