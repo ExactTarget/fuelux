@@ -1,6 +1,6 @@
 # EventEmitter2
 
-EventEmitter2 is a an implementation of the EventEmitter found in Node.js
+EventEmitter2 is an implementation of the EventEmitter found in Node.js
 
 ## Features
 

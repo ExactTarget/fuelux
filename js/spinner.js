@@ -229,9 +229,9 @@
 				unit = this.isUnitLegal(unit);
 			}
 
-			this.options.value = newVal/1;
+			this.options.value = this.checkMaxMin(newVal/1);
 			this.unit = unit || undefined;
-			this.$input.val(newVal + (unit || '') );
+			this.$input.val(this.options.value + (unit || '') );
 		},
 
 		checkMaxMin: function(value){
@@ -241,10 +241,10 @@
 				return value;
 			}
 
-			if ( value < this.options.max && value > this.options.min ){
+			if ( value <= this.options.max && value >= this.options.min ){
 				return value;
 			} else {
-				limit = value > this.options.max ? this.options.max : this.options.min;
+				limit = value >= this.options.max ? this.options.max : this.options.min;
 
 				this.$input.val(limit);
 				return limit;
@@ -286,7 +286,7 @@
 	$.fn.spinner.defaults = {
 		value: 1,
 		min: 0,
-		max: 500,
+		max: 999,
 		step: 1,
 		hold: true,
 		speed: 'medium',

@@ -24,14 +24,6 @@ body {
 	margin-left: 30px;
 }
 
-.step-content {
-	border: 1px solid #D4D4D4;
-	border-top: 0;
-	border-radius: 0 0 4px 4px;
-	padding: 10px;
-	margin-bottom: 10px;
-}
-
 .search-form {
 	width: 300px;
 }
