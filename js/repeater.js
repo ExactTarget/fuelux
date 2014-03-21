@@ -50,72 +50,56 @@
 		constructor: Repeater,
 
 		render: function(container, renderer, data, callback){
-			var async = false;
+			var async = {};
 			var self = this;
-			var args1, args2, args3, cont, dataset, i, item, j, l, len, repeat;
+			var args, dataset, repeat, i, l;
 
-			var beforeCallback = function(resp){
-				if(renderer.render){
-					if(async.render){
-						args2 = $.extend([], args1).push(renderCallback);
-						renderer.render.apply(self, args2);
+			var callbacks = {
+				before: function(){
+					proceed('render', args);
+				},
+				render: function(item){
+					item = $(item);
+					if(item!==null){
+						container.append(item);
+					}
+					args.splice(1, 0, item);
+					proceed('after', args);
+				},
+				after: function(){
+					var cont, j, k;
+					if(renderer.nest){
+						cont = container.find('[data-container="true"]:first');
+						if(cont.length<1){
+							cont = container;
+						}
+						for(j=0, k=renderer.nest.length; j<k; j++){
+							self.render(cont, renderer.nest[j], data, function(){
+								proceed('complete', args);
+							});
+						}
 					}else{
-						renderCallback(renderer.render.apply(self, args1));
+						callbacks.complete(null);
 					}
-				}else{
-					renderCallback(null);
+				},
+				complete: function(){
+					if(callback){
+						callback();
+					}
 				}
 			};
 
-			var renderCallback = function(resp){
-				item = resp;
-				if(item!==null){
-					container.append(item);
-				}
-
-				args2 = $.extend([], args1);
-				args2.splice(1, 0, item);
-
-				if(renderer.after){
-					if(async.after){
-						args3 = $.extend([], args2).push(afterCallback);
-						renderer.after.apply(self, args3);
+			var proceed = function(stage, argus){
+				argus = $.extend([], argus);
+				if(renderer[stage]){
+					if(async[stage]){
+						argus.push(callbacks[stage]);
+						renderer[stage].apply(self, argus);
 					}else{
-						afterCallback(renderer.after.apply(self, args3));
+						callbacks[stage](renderer[stage].apply(self, argus));
 					}
 				}else{
-					afterCallback(null);
-				}
-			};
-
-			var afterCallback = function(resp){
-				if(renderer.nest){
-					cont = container.find('[data-container="true"]:first');
-					if(cont.length<1){
-						cont = container;
-					}
-					for(j=0, len=renderer.nest.length; j<len; j++){
-						self.render(cont, renderer.nest[j], data, function(){
-							if(renderer.complete){
-								if(async.complete){
-									args3 = $.extend([], args2).push(completeCallback);
-									renderer.complete.apply(self, args3);
-								}else{
-									completeCallback(renderer.complete.apply(self, args3));
-								}
-							}else{
-								completeCallback(null);
-							}
-						});
-					}
-				}else{
-					completeCallback(null);
-				}
-			};
-
-			var completeCallback = function(resp){
-				if(callback){
-					callback();
+					callbacks[stage](null);
 				}
 			};
 
@@ -138,21 +122,11 @@
 			}
 
 			for(i=0, l=dataset.length; i<l; i++){
-				args1 = [data];
+				args = [data];
 				if(renderer.repeat){
-					args1.push(dataset, i);
+					args.push(dataset, i);
 				}
-
-				if(renderer.before){
-					if(async.before){
-						args2 = $.extend([], args1).push(beforeCallback);
-						renderer.before.apply(this, args2);
-					}else{
-						beforeCallback(renderer.before.apply(this, args1));
-					}
-				}else{
-					beforeCallback(null);
-				}
+				proceed('before', args);
 			}
 		}
 	};
