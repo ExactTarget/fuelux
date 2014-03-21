@@ -906,31 +906,39 @@
 			</div>
 		</div>
 
-		<h2>Select</h2>
+		<div class="clearfix">
+			<h2>Selectlist</h2>
 
-		<!--THIS IS NOW IN BOOTSTRAP 3 (SELECT http://getbootstrap.com/css/#forms-controls)-->
-		<!-- SELECT -->
-		<!--<div>-->
-			<!--<div id="MySelect" class="select btn-group" data-resize="auto">-->
-				<!--<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label"></span><span class="caret"></span></button>-->
-				<!--<ul class="dropdown-menu">-->
-					<!--<li data-value="1"><a href="#">One</a></li>-->
-					<!--<li data-value="2"><a href="#">Two</a></li>-->
-					<!--<li data-value="3" data-selected="true"><a href="#">Three</a></li>-->
-					<!--<li data-value="4" data-fizz="buzz"><a href="#">Four</a></li>-->
-				<!--</ul>-->
-				<!--<input class="hidden-field" name="MySelect" readonly="readonly" type="text"/>-->
-			<!--</div>-->
+			<!-- SELECTLIST -->
+			<div id="MySelectList" class="selectlist btn-group" data-resize="auto">
+				<button type="button" class="btn btn-label"><span class="selected-label">&nbsp;</span></button>
+				<button type="button" class="btn btn-dropdown dropdown-toggle" data-toggle="dropdown">
+				  <span class="caret"></span>
+				  <span class="sr-only">Toggle Dropdown</span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li data-value="1"><a href="#">One</a></li>
+					<li data-value="2" data-selected="true"><a href="#">Two</a></li>
+					<li data-value="3"><a href="#">Three</a></li>
+					<li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>
+					<li data-value="Item Five"><a href="#">Item Five</a></li>
+				</ul>
+				<input class="hidden hidden-field" name="MySelectList" readonly="readonly" aria-hidden="true" type="text"/>
+			</div>
 
-			<!--<br/>-->
-			<!--<input id="getSelectedItem" type="button" class="btn btn-default btn-xs" value="log item"/>-->
-			<!--<input id="selectByValue" type="button" class="btn btn-default btn-xs" value="set by value"/>-->
-			<!--<input id="selectByIndex" type="button" class="btn btn-default btn-xs" value="set by index"/>-->
-			<!--<input id="selectByText" type="button" class="btn btn-default btn-xs" value="set by text"/>-->
-			<!--<input id="selectBySelector" type="button" class="btn btn-default btn-xs" value="set by selector"/>-->
-			<!--<input id="enableSelect" type="button" class="btn btn-default btn-xs" value="enable"/>-->
-			<!--<input id="disableSelect" type="button" class="btn btn-default btn-xs" value="disable"/>-->
-		<!--</div>-->
+			<div style="margin-top:20px;">
+				<input id="getSelectedItem" type="button" class="btn btn-default btn-xs" value="log selected item/value"/>
+				<input id="selectByValue" type="button" class="btn btn-default btn-xs" value="set by value ('Item Five')"/>
+				<input id="selectByIndex" type="button" class="btn btn-default btn-xs" value="set by element index (zero-based) ('2')"/>
+			</div>
+
+			<div style="margin-top:20px;">
+				<input id="selectByText" type="button" class="btn btn-default btn-xs" value="set by text ('One')"/>
+				<input id="selectBySelector" type="button" class="btn btn-default btn-xs" value="set by CSS selector ('li[data-fizz=buzz]')"/>
+				<input id="enableSelect" type="button" class="btn btn-default btn-xs" value="enable"/>
+				<input id="disableSelect" type="button" class="btn btn-default btn-xs" value="disable"/>
+			</div>
+		</div>
 
 		<h2>Tree</h2>
 

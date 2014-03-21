@@ -7,7 +7,7 @@ define(function(require){
 
 	QUnit.start(); // starting qunit, or phantom js will have a problem
 
-	require('test/button-dropdown-test');
+	require('test/selectlist-test');
 	require('test/checkbox-test');
 	require('test/combobox-test');
 //	require('test/datagrid-test');

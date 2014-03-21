@@ -76,6 +76,16 @@ define(function(require){
 		$spinner.spinner('step',false);
 		equal($spinner.spinner('value'), 2, 'spinner increments negative');
 
+		//Spinner should upadate value on focusout
+		$spinner.find('.spinner-input').val(4);
+		$spinner.find('.spinner-input').focusout();
+		equal($spinner.spinner('value'), 4, 'spinner updates value on focus out');
+
+		//Spinner should update value before initiating increment
+		$spinner.find('.spinner-input').val(5);
+		$spinner.find('.spinner-input').focusin();
+		$spinner.spinner('step',true);
+		equal($spinner.spinner('value'), 6, 'spinner updates value before initiating increment');
 	});
 
 	test("should allow setting value to zero", function () {
@@ -89,12 +99,29 @@ define(function(require){
 		equal($spinner.spinner('value'), 3, 'spinner kept existing value');
 	});
 
+	test("spinner should not allow maximum/minimum values to be surpassed by manual input", function () {
+		var $spinner = $(spinnerHTMLWithDefault).spinner({
+			min: -10,
+			max: 10
+		});
+
+		//Spinner does not allow max value to be surpassed
+		$spinner.find('.spinner-input').val(15);
+		$spinner.find('.spinner-input').focusout();
+		equal($spinner.spinner('value'), 10, 'spinner resets to max value when max value is surpassed');
+
+		//Spinner does not allow min value to be surpassed
+		$spinner.find('.spinner-input').val(-15);
+		$spinner.find('.spinner-input').focusout();
+		equal($spinner.spinner('value'), -10, 'spinner resets to min value when min value is surpassed');
+	});
+
 	test("should cycle when min or max values are reached", function () {
 		var $spinner = $(spinnerHTML).spinner({
 			min: 1,
 			max: 3,
 			cycle: true
-			});
+		});
 		$spinner.spinner('step',true); // 2
 		$spinner.spinner('step',true); // 3
 		$spinner.spinner('step',true); // 1
@@ -108,6 +135,7 @@ define(function(require){
 
 	test("spinner should behave correctly when units are included", function () {
 		var $spinner = $(spinnerHTML).spinner({
+			min: -10,
 			units: ['px']
 		});
 
@@ -130,6 +158,11 @@ define(function(require){
 		//Should not allow units not supported
 		$spinner.spinner('value','2pp');
 		equal($spinner.spinner('value'), 2, 'spinner not allowing units not supported');
+
+		//Spinner should change on focusout with units
+		$spinner.find('.spinner-input').val('4px');
+		$spinner.find('.spinner-input').focusout();
+		equal($spinner.spinner('value'), '4px', 'spinner updates string value on focus out');
 
 	});
 
