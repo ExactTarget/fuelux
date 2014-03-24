@@ -43,7 +43,7 @@
 		}
 		this.options = $.extend(true, this.options, options);
 
-		this.currentView = 'list';
+		this.currentView = 'thumbnail';
 
 		this.options.dataSource({}, function(data){
 			self.render(self.$main, $.fn.repeater.views[self.currentView].renderer, data, function(){
@@ -192,7 +192,7 @@
 			//}
 			//*NOTE - the dataset and index arguments appear if repeat is present
 	$.fn.repeater.views = {
-		list: {
+		/*list: {
 			//defaults: {},
 			renderer: {
 				nest: [
@@ -227,12 +227,12 @@
 					}
 				]
 			}
-
-		},
+		},*/
 		thumbnail: {
 			renderer: {
 				render: function(data, dataset, i){
-					return '<div class="thumbnail">' + dataset[i].name + '</div>';
+					//return '<div class="thumbnail">' + dataset[i].name + '</div>';
+					return '';
 				},
 				repeat: 'thumbnails'
 			}
