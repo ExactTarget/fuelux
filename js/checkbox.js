@@ -33,6 +33,7 @@
 
 		// cache elements
 		this.$chk = $(element);
+		console.log(this.$chk);
 		this.$label = this.$chk.parent();
 		this.$parent = this.$label.parent('.checkbox');
 
@@ -80,6 +81,7 @@
 
 		enable: function () {
 			this.$chk.attr('disabled', false);
+			console.log(this.$chk);
 			this.$label.removeClass('disabled');
 			if(this.$parent){
 				this.$parent.removeClass('disabled');
@@ -88,6 +90,7 @@
 
 		disable: function () {
 			this.$chk.attr('disabled', true);
+			console.log(this.$chk);
 			this.$label.addClass('disabled');
 			if(this.$parent){
 				this.$parent.addClass('disabled');
