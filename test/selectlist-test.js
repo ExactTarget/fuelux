@@ -4,22 +4,22 @@
 
 require(['jquery', 'fuelux/selectlist'], function ($) {
 
-	var html = '<div id="MySelectList" class="selectlist btn-group" data-resize="auto">' +
-			'		<button type="button" class="btn btn-label"><span class="selected-label"></span></button>' +
-			'		<button type="button" class="btn btn-dropdown dropdown-toggle" data-toggle="dropdown">' +
-			'			<span class="caret"></span>' +
-			'			<span class="sr-only">Toggle Dropdown</span>' +
-			'		</button>' +
-			'		<ul class="dropdown-menu" role="menu">' +
-			'			<li data-value="1"><a href="#">One</a></li>' +
-			'			<li data-value="2" data-selected="true"><a href="#">Two</a></li>' +
-			'			<li data-value="3"><a href="#">Three</a></li>' +
-			'			<li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>' +
-			'			<li data-value="Item Five"><a href="#">Item Five</a></li>' +
-			'		</ul>' +
-			'		<input class="hidden hidden-field" name="MySelectList" readonly="readonly" aria-hidden="true" type="text"/>' +
-			'	</div>';
-
+	var html = '' +
+		'<div id="MySelectlist" class="btn-group selectlist" data-resize="auto">' +
+			'<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">' +
+				'<span class="selected-label">&nbsp;</span>' +
+				'<span class="caret"></span>' +
+				'<span class="sr-only">Toggle Dropdown</span>' +
+			'</button>' +
+			'<ul class="dropdown-menu" role="menu">' +
+				'<li data-value="1"><a href="#">One</a></li>' +
+				'<li data-value="2" data-selected="true"><a href="#">Two</a></li>' +
+				'<li data-value="3"><a href="#">Three</a></li>' +
+				'<li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>' +
+				'<li data-value="Item Five"><a href="#">Item Five</a></li>' +
+			'</ul>' +
+			'<input class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>' +
+		'</div>';
 
 	module("Fuel UX button dropdown");
 

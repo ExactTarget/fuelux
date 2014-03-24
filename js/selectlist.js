@@ -30,11 +30,12 @@
 	var Selectlist = function (element, options) {
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.selectlist.defaults, options);
-		this.$element.on('click', 'a', $.proxy(this.itemclicked, this));
-		this.$button = this.$element.find('.btn-label');
-		this.$selectlist = this.$element.find('.btn-dropdown');
+
+		this.$button = this.$element.find('.btn.dropdown-toggle');
 		this.$hiddenField = this.$element.find('.hidden-field');
 		this.$label = this.$element.find('.selected-label');
+
+		this.$element.on('click', 'a', $.proxy(this.itemclicked, this));
 		this.setDefaultSelection();
 
 		if (options.resize === 'auto') {
@@ -134,12 +135,10 @@
 
 		enable: function() {
 			this.$button.removeClass('disabled');
-			this.$selectlist.removeClass('disabled');
 		},
 
 		disable: function() {
 			this.$button.addClass('disabled');
-			this.$selectlist.addClass('disabled');
 		}
 
 	};
