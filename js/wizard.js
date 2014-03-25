@@ -33,7 +33,7 @@
 
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.wizard.defaults, options);
-		this.options.disablePreviousStep = ( this.$element.data().restrict === "previous" ) ? true : false;
+		this.options.disablePreviousStep = ( this.$element.attr('data-restrict') === "previous" ) ? true : this.options.disablePreviousStep;
 		this.currentStep = this.options.selectedItem.step;
 		this.numSteps = this.$element.find('.steps li').length;
 		this.$prevBtn = this.$element.find('button.btn-prev');
@@ -48,9 +48,7 @@
 		this.$nextBtn.on('click', $.proxy(this.next, this));
 		this.$element.on('click', 'li.complete', $.proxy(this.stepclicked, this));
 		
-		if(this.currentStep > 1) {
-			this.selectedItem(this.options.selectedItem);
-		}
+		this.selectedItem(this.options.selectedItem);
 
 		if( this.options.disablePreviousStep ) {
 			this.$prevBtn.attr( 'disabled', true );
@@ -73,15 +71,13 @@
 			}
 
 			// change button text of last step, if specified
-			var data = this.$nextBtn.data();
-			if (data && data.last) {
-				this.lastText = data.last;
-				if (typeof this.lastText !== 'undefined') {
-					// replace text
-					var text = (lastStep !== true) ? this.nextText : this.lastText;
-					var kids = this.$nextBtn.children().detach();
-					this.$nextBtn.text(text).append(kids);
-				}
+			var last = this.$nextBtn.attr('data-last');
+			if (last) {
+				this.lastText = last;
+				// replace text
+				var text = (lastStep !== true) ? this.nextText : this.lastText;
+				var kids = this.$nextBtn.children().detach();
+				this.$nextBtn.text(text).append(kids);
 			}
 
 			// reset classes for all steps
@@ -102,9 +98,10 @@
 			$currentStep.find('span.badge').addClass('badge-info');
 
 			// set display of target element
-			var target = $currentStep.data().target;
-			this.$element.find('.step-content').find('.step-pane').removeClass('active');
-			$(target).addClass('active');
+			var $stepContent = this.$element.find('.step-content');
+			var target = $currentStep.attr('data-step');
+			$stepContent.find('.step-pane').removeClass('active');
+			$stepContent.find('.step-pane[data-step="' + target + '"]:first').addClass('active');
 
 			// reset the wizard position to the left
 			this.$element.find('.steps').first().attr('style','margin-left: 0');
@@ -205,6 +202,12 @@
 				if(step >= 1 && step <= this.numSteps) {
 					this.currentStep = step;
 					this.setState();
+				}else{
+					step = this.$element.find('.steps li.active:first').attr('data-step');
+					if(!isNaN(step)){
+						this.currentStep = parseInt(step, 10);
+						this.setState();
+					}
 				}
 
 				retVal = this;
@@ -237,7 +240,8 @@
 	};
 
 	$.fn.wizard.defaults = {
-        selectedItem: {step:1}
+		disablePreviousStep: false,
+        selectedItem: { step: -1 }	//-1 means it will attempt to look for "active" class in order to set the step
 	};
 
 	$.fn.wizard.Constructor = Wizard;
