@@ -12,17 +12,17 @@
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        // if AMD loader is available, register as an anonymous module.
-         define(['jquery'], factory);
-    } else {
-        // OR use browser globals if AMD is not present
-        factory(jQuery);
-    }
+	if (typeof define === 'function' && define.amd) {
+		// if AMD loader is available, register as an anonymous module.
+		define(['jquery'], factory);
+	} else {
+		// OR use browser globals if AMD is not present
+		factory(jQuery);
+	}
 }(function ($) {
-    // -- END UMD WRAPPER PREFACE --
-        
-    // -- BEGIN MODULE CODE HERE --
+	// -- END UMD WRAPPER PREFACE --
+
+	// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.radio;
 
@@ -159,15 +159,14 @@
 	// RADIO DATA-API
 
 	$(function () {
-		$(window).on('load', function () {
-			$('.radio-custom > input[type=radio]').each(function () {
-				var $this = $(this);
-				if ($this.data('radio')) return;
+		$('.radio-custom > input[type=radio]').each(function () {
+			var $this = $(this);
+			if (!$this.data('radio')) {
 				$this.radio($this.data());
-			});
+			}
 		});
 	});
 
 // -- BEGIN UMD WRAPPER AFTERWORD --
 }));
-    // -- END UMD WRAPPER AFTERWORD --
+	// -- END UMD WRAPPER AFTERWORD --
