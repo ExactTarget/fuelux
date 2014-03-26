@@ -140,6 +140,38 @@
 			this.setState();
 		},
 
+		removeSteps: function(index, howMany){
+			var action = 'nextAll';
+			var i = 0;
+			var $steps = this.$element.find('.steps');
+			var $start = $steps.find('li:nth-child(' + index + ')').prev();
+			var $stepContent = this.$element.find('.step-content');
+
+			howMany = (howMany!==undefined) ? howMany : 1;
+
+			if($start.length<1){
+				action = 'children';
+				$start = $steps;
+			}
+
+			$start[action]().each(function(){
+				var item = $(this);
+				var step = item.attr('data-step');
+				if(i<howMany){
+					item.remove();
+					$stepContent.find('.step-pane[data-step="' + step + '"]:first').remove();
+				}else{
+					return false;
+				}
+				i++;
+			});
+
+			this.syncSteps();
+
+			this.numSteps = $steps.find('li').length;
+			this.setState();
+		},
+
 		setState: function () {
 			var canMovePrev = (this.currentStep > 1);
 			var firstStep = (this.currentStep === 1);
@@ -237,6 +269,25 @@
 				this.currentStep = (index + 1);
 				this.setState();
 			}
+		},
+
+		syncSteps: function(){
+			var i = 1;
+			var $steps = this.$element.find('.steps');
+			var $stepContent = this.$element.find('.step-content');
+
+			$steps.children().each(function(){
+				var item = $(this);
+				var badge = item.find('.badge');
+				var step = item.attr('data-step');
+
+				if(!isNaN(parseInt(badge.html()), 10)){
+					badge.html(i);
+				}
+				item.attr('data-step', i);
+				$stepContent.find('.step-pane[data-step="' + step + '"]:last').attr('data-step', i);
+				i++;
+			});
 		},
 
 		previous: function () {
