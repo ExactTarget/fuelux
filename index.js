@@ -229,31 +229,30 @@ define(function(require){
 
 
 
-	// SELECT
-	$('#MySelect').on('changed', function (evt, data) {
+	// SELECTLIST
+	$('#MySelectlist').on('changed', function (evt, data) {
 		console.log(data);
 	});
 	$('#getSelectedItem').on('click', function () {
-		console.log($('#MySelect').select('selectedItem'));
+		console.log($('#MySelectlist').selectlist('selectedItem'));
 	});
 	$('#selectByValue').on('click', function () {
-		$('#MySelect').select('selectByValue', '3');
+		$('#MySelectlist').selectlist('selectByValue', '3');
 	});
 	$('#selectBySelector').on('click', function () {
-		$('#MySelect').select('selectBySelector', 'li[data-fizz=buzz]');
+		$('#MySelectlist').selectlist('selectBySelector', 'li[data-fizz=buzz]');
 	});
 	$('#selectByIndex').on('click', function () {
-		$('#MySelect').select('selectByIndex', '3');
+		$('#MySelectlist').selectlist('selectByIndex', '4');
 	});
 	$('#selectByText').on('click', function () {
-		$('#MySelect').select('selectByText', 'One');
+		$('#MySelectlist').selectlist('selectByText', 'One');
 	});
 	$('#enableSelect').on('click', function () {
-		$('#MySelect').select('enable');
+		$('#MySelectlist').selectlist('enable');
 	});
 	$('#disableSelect').on('click', function () {
-		$('#MySelect').select('disable');
-
+		$('#MySelectlist').selectlist('disable');
 	});
 
 
