@@ -60,6 +60,86 @@
 
 		constructor: Wizard,
 
+		addSteps: function(index, remove){
+			var action = 'nextAll';
+			var items = [].slice.call(arguments).slice(2);
+			var $steps = this.$element.find('.steps');
+			var $stepContent = this.$element.find('.step-content');
+			var count, i, l, $lastPane, $lastStep, $startPane, $startStep, step;
+
+			remove = remove || 0;
+
+			count = (index>(this.numSteps+1)) ? this.numSteps+1 : index;
+
+			if(items[0] instanceof Array){
+				items = items[0];
+			}
+
+			$startStep = $steps.find('li[data-step="' + index + '"]:first');
+			$startPane = $stepContent.find('.step-pane[data-step="' + index + '"]:first');
+
+			if($startStep.length===0){
+				$startStep = null;
+			}
+
+			for(i=0, l=items.length; i<l; i++){
+				$lastStep = $('<li data-step="' + count + '"><span class="badge badge-info"></span></li>');
+				$lastStep.find('.badge').append(items[i].badge);
+				$lastStep.append(items[i].label).append('<span class="chevron"></span>');
+
+				$lastPane = $('<div class="step-pane" data-step="' + count + '"></div>');
+				$lastPane.append(items[i].pane);
+
+				if(!$startStep){
+					$steps.append($lastStep);
+					$stepContent.append($lastPane);
+				}else{
+					$startStep.before($lastStep);
+					$startPane.before($lastPane);
+				}
+				count++;
+			}
+
+			if(!$lastStep){
+				$lastStep = (!$startStep) ? $steps.find('li:last') : $startStep.prev();
+				if($lastStep.length===0){
+					action = 'children';
+					$lastStep = $steps;
+				}
+			}
+
+			if(remove!==0){
+				i = 0;
+				$lastStep[action]().each(function(){
+					var item = $(this);
+					var s = item.attr('data-step');
+					if(i<remove){
+						item.remove();
+						$stepContent.find('.step-pane[data-step="' + s + '"]:last').remove();
+					}else{
+						return false;
+					}
+					i++;
+				});
+			}
+
+			$lastStep[action]().each(function(){
+				var item = $(this);
+				var badge = item.find('.badge');
+				var s = item.attr('data-step');
+
+				if(!isNaN(parseInt(badge.html()), 10)){
+					badge.html(count);
+				}
+				item.attr('data-step', count);
+				$stepContent.find('.step-pane[data-step="' + s + '"]:last').attr('data-step', count);
+				count++;
+			});
+
+			this.numSteps = $steps.find('li').length;
+			this.setState();
+		},
+
 		setState: function () {
 			var canMovePrev = (this.currentStep > 1);
 			var firstStep = (this.currentStep === 1);
