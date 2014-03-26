@@ -96,26 +96,31 @@
 					<div class="input-group-btn">
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 					<ul class="dropdown-menu pull-right">
-						<li data-value="1" data-foo="bar"><a href="#">One</a></li>
-						<li data-value="2" data-selected="true"><a href="#">Two</a></li>
-						<li data-value="3" data-fizz="buzz"><a href="#">Three</a></li>
-						<li data-value="4"><a href="#">Four</a></li>
+						<li data-value="1"><a href="#">One</a></li>
+						<li data-value="2"><a href="#">Two</a></li>
+						<li data-value="3" data-selected="true"><a href="#">Three</a></li>
+						<li data-value="4" ><a href="#">Four</a></li>
+						<li data-value="Item Five"><a href="#">Item Five</a></li>
+						<li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>
 					</ul>
-					</div><!-- /btn-group -->
-				</div><!-- /input-group -->
+					</div>
+				</div>
 			</div>
 
-			<!-- Sample component methods -->
 			<br/>
-			<input id="btnComboboxGetSelectedItem" type="button" class="btn btn-default btn-xs" value="log item"/>
-			<input id="btnComboboxSelectByValue" type="button" class="btn btn-default btn-xs" value="set by value (1)"/>
-			<input id="btnComboboxSelectByIndex" type="button" class="btn btn-default btn-xs" value="set by element index (2)"/>
-			<input id="btnComboboxSelectByText" type="button" class="btn btn-default btn-xs" value="set by text (Four)"/>
-			<br/>
-			<input id="btnComboboxSelectBySelector" type="button" class="btn btn-default btn-xs" value="set by CSS selector (li[data-fizz=buzz])"/>
-			<input id="btnComboboxDisable" type="button" class="btn btn-default btn-xs" value="disable"/>
-			<input id="btnComboboxEnable" type="button" class="btn btn-default btn-xs" value="enable"/>
-
+			<p>Sample Methods</p>
+			<div class="btn-group">
+				<input id="btnComboboxGetSelectedItem" type="button" class="btn btn-default" value="log item"/>
+				<input id="btnComboboxSelectByValue" type="button" class="btn btn-default" value="set by value (1)"/>
+				<input id="btnComboboxSelectByIndex" type="button" class="btn btn-default" value="set by element index (1)"/>
+				<input id="btnComboboxSelectByText" type="button" class="btn btn-default" value="set by text (Four)"/>
+			</div>
+			<div class="btn-group">
+				<input id="btnComboboxSelectBySelector" type="button" class="btn btn-default" 
+					value="set by CSS selector li[data-fizz=buzz] (6)"/>
+				<input id="btnComboboxDisable" type="button" class="btn btn-default" value="disable"/>
+				<input id="btnComboboxEnable" type="button" class="btn btn-default" value="enable"/>
+			</div>
 		</div>
 
 		<h2>Datagrid</h2>
