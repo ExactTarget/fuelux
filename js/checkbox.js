@@ -33,7 +33,6 @@
 
 		// cache elements
 		this.$chk = $(element);
-		console.log(this.$chk);
 		this.$label = this.$chk.parent();
 		this.$parent = this.$label.parent('.checkbox');
 
@@ -81,7 +80,6 @@
 
 		enable: function () {
 			this.$chk.attr('disabled', false);
-			console.log(this.$chk);
 			this.$label.removeClass('disabled');
 			if(this.$parent){
 				this.$parent.removeClass('disabled');
@@ -90,7 +88,6 @@
 
 		disable: function () {
 			this.$chk.attr('disabled', true);
-			console.log(this.$chk);
 			this.$label.addClass('disabled');
 			if(this.$parent){
 				this.$parent.addClass('disabled');
@@ -133,8 +130,13 @@
 			var data    = $this.data('checkbox');
 			var options = typeof option === 'object' && option;
 
-			if( !data ) $this.data('checkbox', (data = new Checkbox(this, options)));
-			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+			if( !data ) {
+				$this.data('checkbox', (data = new Checkbox(this, options)));
+			}
+
+			if( typeof option === 'string' ) {
+				methodReturn = data[ option ].apply( data, args );
+			}
 		});
 
 		return ( methodReturn === undefined ) ? $set : methodReturn;
@@ -150,16 +152,14 @@
 	};
 
 
-	// CHECKBOX DATA-API
+	// CHECKBOX INITIALIZATION ON DOMCONTENTLOADED
 
 	$(function () {
-		$(window).on('load', function () {
-			//$('i.checkbox').each(function () {
-			$('.checkbox-custom > input[type=checkbox]').each(function () {
-				var $this = $(this);
-				if ($this.data('checkbox')) return;
+		$('.checkbox-custom > input[type=checkbox]').each(function () {
+			var $this = $(this);
+			if (!$this.data('checkbox')) {
 				$this.checkbox($this.data());
-			});
+			}
 		});
 	});
 
