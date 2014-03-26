@@ -12,6 +12,17 @@
 	<script src="js/loader.js"></script>	<!-- for loader IE<10 support -->
 	<script src="bower_components/requirejs/require.js"></script>
 	<script type="text/javascript">
+
+		// Feature detect for jQuery version
+		var pathToJQuery;
+		if('querySelector' in document
+			&& 'localStorage' in window
+			&& 'addEventListener' in window ) {
+			pathToJQuery = 'bower_components/jquery/dist/jquery';
+		} else {
+			pathToJQuery = 'bower_components/jquery-1.9.1/jquery';
+		}
+
 		requirejs.config({
 			config: {
 				moment: {
@@ -19,7 +30,7 @@
 				}
 			},
 			paths: {
-				jquery: 'bower_components/jquery/dist/jquery.min',
+				jquery: pathToJQuery,
 				underscore: 'bower_components/underscore/underscore',
 				bootstrap: 'bower_components/bootstrap/dist/js/bootstrap.min',
 				moment: 'bower_components/moment-with-langs/index', // comment out if you dont want momentjs to be default
