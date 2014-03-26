@@ -524,9 +524,14 @@
 					<tr class="scheduler-timezone">
 						<td class="scheduler-label">Timezone</td>
 						<td>
-							<div class="btn-group select">
-								<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label">(GMT-06:00) Central Standard Time</span><span class="caret"></span></button>
-								<ul class="dropdown-menu">
+
+							<div data-resize="auto" class="btn-group selectlist">
+								<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
+									<span class="selected-label" style="width: 67px;">(GMT-06:00) Central Standard Time</span>
+									<span class="caret"></span>
+									<span class="sr-only">Toggle Dropdown</span>
+								</button>
+								<ul role="menu" class="dropdown-menu">
 									<li data-name="Central Standard Time (no DST)" data-offset="-06:00"><a href="#">(GMT-06:00) Central Standard Time</a></li>
 									<li data-name="Morocco Standard Time" data-offset="+00:00"><a href="#">(GMT) Casablanca *</a></li>
 									<li data-name="GMT Standard Time" data-offset="+00:00"><a href="#">(GMT) Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London *</a></li>
@@ -620,6 +625,7 @@
 									<li data-name="Samoa Standard Time" data-offset="-11:00"><a href="#">(GMT-11:00) Midway Island, Samoa</a></li>
 									<li data-name="Dateline Standard Time" data-offset="-12:00"><a href="#">(GMT-12:00) International Date Line West</a></li>
 								</ul>
+								<input type="text" aria-hidden="true" readonly="readonly" name="TimeZoneSelectlist" class="hidden hidden-field">
 							</div>
 						</td>
 					</tr>
@@ -627,6 +633,44 @@
 						<td class="scheduler-label">Repeat</td>
 						<td>
 							<div class="repeat-interval">
+								<div data-resize="auto" class="btn-group selectlist pull-left">
+									<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
+										<span class="selected-label" style="width: 67px;">None (run once)</span>
+										<span class="caret"></span>
+										<span class="sr-only">None (run once)</span>
+									</button>
+									<ul role="menu" class="dropdown-menu">
+										<li data-value="none"><a href="#">None (run once)</a></li>
+										<li data-value="hourly" data-text="hour(s)"><a href="#">Hourly</a></li>
+										<li data-value="daily" data-text="day(s)"><a href="#">Daily</a></li>
+										<li data-value="weekdays"><a href="#">Weekdays</a></li>
+										<li data-value="weekly" data-text="week(s)"><a href="#">Weekly</a></li>
+										<li data-value="monthly" data-text="month(s)"><a href="#">Monthly</a></li>
+										<li data-value="yearly"><a href="#">Yearly</a></li>
+									</ul>
+									<input type="text" aria-hidden="true" readonly="readonly" name="intervalSelectlist" class="hidden hidden-field">
+								</div>
+								<div class="repeat-interval-panel pull-left">
+									<div class="repeat-interval-pretext">every</div>
+
+									<div class="spinner">
+										<input type="number" class="form-control input-mini spinner-input">
+
+										<div class="spinner-buttons btn-group btn-group-vertical">
+											<button class="btn btn-default spinner-up btn-xs">
+												<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
+											</button>
+											<button class="btn btn-default spinner-down btn-xs">
+												<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
+											</button>
+										</div>
+									</div>
+
+									<div class="repeat-interval-text">day(s)</div>
+								</div>
+							</div>
+
+							<!--<div class="repeat-interval">
 								<div class="btn-group select">
 									<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label">None (run once)</span><span class="caret"></span></button>
 									<ul class="dropdown-menu">
@@ -639,6 +683,7 @@
 										<li data-value="yearly"><a href="#">Yearly</a></li>
 									</ul>
 								</div>
+
 								<div class="repeat-interval-panel">
 									<div class="repeat-interval-pretext">every</div>
 									<div class="spinner">
@@ -650,24 +695,33 @@
 									</div>
 									<div class="repeat-interval-text">day(s)</div>
 								</div>
-							</div>
+
+							</div>-->
+
 							<div class="recurrence-panel scheduler-weekly">
 								<div class="btn-group" data-toggle="buttons-checkbox">
-									<button type="button" class="btn" data-value="SU">Sun</button>
-									<button type="button" class="btn" data-value="MO">Mon</button>
-									<button type="button" class="btn" data-value="TU">Tue</button>
-									<button type="button" class="btn" data-value="WE">Wed</button>
-									<button type="button" class="btn" data-value="TH">Thu</button>
-									<button type="button" class="btn" data-value="FR">Fri</button>
-									<button type="button" class="btn" data-value="SA">Sat</button>
+									<button type="button" class="btn btn-default" data-value="SU">Sun</button>
+									<button type="button" class="btn btn-default" data-value="MO">Mon</button>
+									<button type="button" class="btn btn-default" data-value="TU">Tue</button>
+									<button type="button" class="btn btn-default" data-value="WE">Wed</button>
+									<button type="button" class="btn btn-default" data-value="TH">Thu</button>
+									<button type="button" class="btn btn-default" data-value="FR">Fri</button>
+									<button type="button" class="btn btn-default" data-value="SA">Sat</button>
 								</div>
 							</div>
+
+
 							<div class="recurrence-panel scheduler-monthly">
 								<div class="scheduler-monthly-date">
-									<label class="radio radio-custom"><input type="radio" name="scheduler-month" checked="checked" value="1"><i class="radio"></i>on day</label>
-									<div class="btn-group select">
-										<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label">1</span><span class="caret"></span></button>
-										<ul class="dropdown-menu">
+									<div class="radio pull-left"><label><input type="radio" checked="checked" name="scheduler-month">on day</label></div>
+
+									<div data-resize="auto" class="btn-group selectlist pull-left">
+										<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
+											<span class="selected-label" style="width: 67px;">1</span>
+											<span class="caret"></span>
+											<span class="sr-only">1</span>
+										</button>
+										<ul role="menu" class="dropdown-menu" style="height:200px; overflow:auto;">
 											<li data-value="1"><a href="#">1</a></li>
 											<li data-value="2"><a href="#">2</a></li>
 											<li data-value="3"><a href="#">3</a></li>
@@ -700,23 +754,36 @@
 											<li data-value="30"><a href="#">30</a></li>
 											<li data-value="31"><a href="#">31</a></li>
 										</ul>
+										<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field">
 									</div>
 								</div>
+
 								<div class="scheduler-monthly-day">
-									<label class="radio radio-custom"><input type="radio" name="scheduler-month" value="2"><i class="radio"></i>on the</label>
-									<div class="select btn-group month-day-pos">
-										<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label">First</span><span class="caret"></span></button>
-										<ul class="dropdown-menu">
+									<div class="radio pull-left"><label><input type="radio" checked="checked" name="scheduler-month">on the</label></div>
+
+									<div data-resize="auto" class="btn-group selectlist month-day-pos pull-left">
+										<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
+											<span class="selected-label" style="width: 67px;">First</span>
+											<span class="caret"></span>
+											<span class="sr-only">First</span>
+										</button>
+										<ul role="menu" class="dropdown-menu">
 											<li data-value="1"><a href="#">First</a></li>
 											<li data-value="2"><a href="#">Second</a></li>
 											<li data-value="3"><a href="#">Third</a></li>
 											<li data-value="4"><a href="#">Fourth</a></li>
 											<li data-value="-1"><a href="#">Last</a></li>
 										</ul>
+										<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field">
 									</div>
-									<div class="select btn-group month-days">
-										<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label">Sunday</span><span class="caret"></span></button>
-										<ul class="dropdown-menu">
+
+									<div data-resize="auto" class="btn-group selectlist month-days pull-left">
+										<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
+											<span class="selected-label" style="width: 67px;">Sunday</span>
+											<span class="caret"></span>
+											<span class="sr-only">Sunday</span>
+										</button>
+										<ul role="menu" class="dropdown-menu">
 											<li data-value="SU"><a href="#">Sunday</a></li>
 											<li data-value="MO"><a href="#">Monday</a></li>
 											<li data-value="TU"><a href="#">Tuesday</a></li>
@@ -728,15 +795,23 @@
 											<li data-value="MO,TU,WE,TH,FR"><a href="#">Weekday</a></li>
 											<li data-value="SU,SA"><a href="#">Weekend day</a></li>
 										</ul>
+										<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field">
 									</div>
+
 								</div>
 							</div>
 							<div class="recurrence-panel scheduler-yearly">
 								<div class="scheduler-yearly-date">
-									<label class="radio radio-custom"><input type="radio" name="scheduler-year" checked="checked" value="1"><i class="radio"></i>on</label>
-									<div class="btn-group select year-month">
-										<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label">January</span><span class="caret"></span></button>
-										<ul class="dropdown-menu">
+
+									<div class="radio pull-left"><label><input type="radio" checked="checked" name="scheduler-year" value="1">on</label></div>
+
+									<div data-resize="auto" class="btn-group selectlist year-month pull-left">
+										<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
+											<span class="selected-label" style="width: 67px;">January</span>
+											<span class="caret"></span>
+											<span class="sr-only">January</span>
+										</button>
+										<ul role="menu" class="dropdown-menu">
 											<li data-value="1"><a href="#">January</a></li>
 											<li data-value="2"><a href="#">February</a></li>
 											<li data-value="3"><a href="#">March</a></li>
@@ -750,10 +825,16 @@
 											<li data-value="11"><a href="#">November</a></li>
 											<li data-value="12"><a href="#">December</a></li>
 										</ul>
+										<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field">
 									</div>
-									<div class="btn-group select year-month-day">
-										<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label">1</span><span class="caret"></span></button>
-										<ul class="dropdown-menu" style="height:200px; overflow:auto;">
+
+									<div data-resize="auto" class="btn-group selectlist year-month-day pull-left">
+										<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
+											<span class="selected-label" style="width: 67px;">1</span>
+											<span class="caret"></span>
+											<span class="sr-only">1</span>
+										</button>
+										<ul role="menu" class="dropdown-menu" style="height:200px; overflow:auto;">
 											<li data-value="1"><a href="#">1</a></li>
 											<li data-value="2"><a href="#">2</a></li>
 											<li data-value="3"><a href="#">3</a></li>
@@ -786,23 +867,36 @@
 											<li data-value="30"><a href="#">30</a></li>
 											<li data-value="31"><a href="#">31</a></li>
 										</ul>
+										<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field">
 									</div>
 								</div>
 								<div class="scheduler-yearly-day">
-									<label class="radio radio-custom"><input type="radio" name="scheduler-year" value="2"><i class="radio"></i>on the</label>
-									<div class="btn-group select year-month-day-pos">
-										<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label">First</span><span class="caret"></span></button>
-										<ul class="dropdown-menu">
+
+									<div class="radio pull-left"><label><input type="radio" name="scheduler-year" value="2">on the</label></div>
+
+									<div data-resize="auto" class="btn-group selectlist year-month-day-pos pull-left">
+										<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
+											<span class="selected-label" style="width: 67px;">First</span>
+											<span class="caret"></span>
+											<span class="sr-only">First</span>
+										</button>
+										<ul role="menu" class="dropdown-menu">
 											<li data-value="1"><a href="#">First</a></li>
 											<li data-value="2"><a href="#">Second</a></li>
 											<li data-value="3"><a href="#">Third</a></li>
 											<li data-value="4"><a href="#">Fourth</a></li>
 											<li data-value="5"><a href="#">Last</a></li>
 										</ul>
+										<input type="text" aria-hidden="true" readonly="readonly" name="yearlyDateSelectlist" class="hidden hidden-field">
 									</div>
-									<div class="btn-group select year-month-days">
-										<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label">Sunday</span><span class="caret"></span></button>
-										<ul class="dropdown-menu">
+
+									<div data-resize="auto" class="btn-group selectlist year-month-days pull-left">
+										<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
+											<span class="selected-label" style="width: 67px;">Sunday</span>
+											<span class="caret"></span>
+											<span class="sr-only">Sunday</span>
+										</button>
+										<ul role="menu" class="dropdown-menu" style="height:200px; overflow:auto;">
 											<li data-value="SU"><a href="#">Sunday</a></li>
 											<li data-value="MO"><a href="#">Monday</a></li>
 											<li data-value="TU"><a href="#">Tuesday</a></li>
@@ -814,11 +908,17 @@
 											<li data-value="MO,TU,WE,TH,FR"><a href="#">Weekday</a></li>
 											<li data-value="SU,SA"><a href="#">Weekend day</a></li>
 										</ul>
+										<input type="text" aria-hidden="true" readonly="readonly" name="yearlyDaySelectlist" class="hidden hidden-field">
 									</div>
 									<div class="scheduler-yearly-day-text">of</div>
-									<div class="btn-group select year-month">
-										<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label">January</span><span class="caret"></span></button>
-										<ul class="dropdown-menu">
+
+									<div data-resize="auto" class="btn-group selectlist year-month pull-left">
+										<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
+											<span class="selected-label" style="width: 67px;">January</span>
+											<span class="caret"></span>
+											<span class="sr-only">January</span>
+										</button>
+										<ul role="menu" class="dropdown-menu" style="height:200px; overflow:auto;">
 											<li data-value="1"><a href="#">January</a></li>
 											<li data-value="2"><a href="#">February</a></li>
 											<li data-value="3"><a href="#">March</a></li>
@@ -832,6 +932,7 @@
 											<li data-value="11"><a href="#">November</a></li>
 											<li data-value="12"><a href="#">December</a></li>
 										</ul>
+										<input type="text" aria-hidden="true" readonly="readonly" name="yearlyDaySelectlist" class="hidden hidden-field">
 									</div>
 								</div>
 							</div>
@@ -840,29 +941,44 @@
 					<tr class="scheduler-end">
 						<td class="scheduler-label">End</td>
 						<td>
-							<div class="btn-group select">
-								<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label">Never</span><span class="caret"></span></button>
-								<ul class="dropdown-menu">
+
+							<div data-resize="auto" class="btn-group selectlist pull-left">
+								<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
+									<span class="selected-label" style="width: 67px;">Never</span>
+									<span class="caret"></span>
+									<span class="sr-only">Never</span>
+								</button>
+								<ul role="menu" class="dropdown-menu">
 									<li data-value="never"><a href="#">Never</a></li>
 									<li data-value="after"><a href="#">After</a></li>
 									<li data-value="date"><a href="#">On date</a></li>
 								</ul>
+								<input type="text" aria-hidden="true" readonly="readonly" name="EndSelectlist" class="hidden hidden-field">
 							</div>
+
 							<div class="spinner">
-								<input type="text" value="1" class="input-mini spinner-input">
+								<input type="number" class="form-control input-mini spinner-input">
+
 								<div class="spinner-buttons btn-group btn-group-vertical">
-									<button class="btn spinner-up"><i class="icon-chevron-up"></i></button>
-									<button class="btn spinner-down"><i class="icon-chevron-down"></i></button>
-								</div>
-								<span>occurrence(s)</span>
-							</div>
-							<div class="datepicker dropdown">
-								<div class="input-append">
-									<div class="dropdown-menu"></div>
-									<input type="text" class="span2" value="" data-toggle="dropdown">
-									<button type="button" class="btn" data-toggle="dropdown"><i class="icon-calendar"></i></button>
+									<button class="btn btn-default spinner-up btn-xs">
+										<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
+									</button>
+									<button class="btn btn-default spinner-down btn-xs">
+										<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
+									</button>
 								</div>
 							</div>
+
+							<div class="datepicker input-group dropdown">
+								<input type="text" class="form-control  pull-left" data-toggle="dropdown" />
+								<div class="dropdown-menu"></div>
+								<span class="input-group-btn pull-left" data-toggle="dropdown">
+									<button type="button" class="btn btn-default">
+										<i class="glyphicon glyphicon-calendar"></i>
+									</button>
+								</span>
+							</div>
+
 						</td>
 					</tr>
 				</table>

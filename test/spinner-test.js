@@ -21,20 +21,20 @@ define(function(require){
 	var spinnerHTML = '<div id="ex-spinner" class="spinner">' +
 		'<input type="text" class="input-mini spinner-input">' +
 		'<button class="btn  spinner-up">' +
-		'<i class="icon-chevron-up"></i>' +
+		'<i class="gyphicon gyphicon-chevron-up"></i>' +
 		'</button>' +
 		'<button class="btn spinner-down">' +
-		'<i class="icon-chevron-down"></i>' +
+		'<i class="gyphicon gyphicon-chevron-down"></i>' +
 		'</button>' +
 		'</div>';
 
 	var spinnerHTMLWithDefault = '<div id="ex-spinner" class="spinner">' +
 		'<input type="text" value="3" class="input-mini spinner-input">' +
 		'<button class="btn  spinner-up">' +
-		'<i class="icon-chevron-up"></i>' +
+		'<i class="gyphicon gyphicon-chevron-up"></i>' +
 		'</button>' +
 		'<button class="btn spinner-down">' +
-		'<i class="icon-chevron-down"></i>' +
+		'<i class="gyphicon gyphicon-chevron-down"></i>' +
 		'</button>' +
 		'</div>';
 
