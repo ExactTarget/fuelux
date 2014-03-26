@@ -85,29 +85,34 @@
 			<button type="button" class="btn btn-default btn-xs" id="btnChkEnable">enable</button>
 		</div>
 
-		<h2>Combobox</h2>
+		<div class="clearfix">
 
-		<!-- COMBOBOX -->
-		<div class="row" style="width: 300px;">
-			<div id="MyCombobox" class="input-group input-append dropdown combobox">
-				<input type="text" class="form-control span2">
-				<div class="input-group-btn">
-					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-				<ul class="dropdown-menu pull-right">
-					<li data-value="1" data-foo="bar"><a href="#">One</a></li>
-					<li data-value="2"><a href="#">Two</a></li>
-					<li data-value="3" data-selected="true"><a href="#">Three</a></li>
-					<li data-value="4" data-fizz="buzz"><a href="#">Four</a></li>
-				</ul>
-				</div><!-- /btn-group -->
-			</div><!-- /input-group -->
+			<h2>Combobox</h2>
 
+			<!-- COMBOBOX -->
+			<div class="" style="width: 300px;">
+				<div id="MyCombobox" class="input-group input-append dropdown combobox">
+					<input type="text" class="form-control span2">
+					<div class="input-group-btn">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+					<ul class="dropdown-menu pull-right">
+						<li data-value="1" data-foo="bar"><a href="#">One</a></li>
+						<li data-value="2" data-selected="true"><a href="#">Two</a></li>
+						<li data-value="3" data-fizz="buzz"><a href="#">Three</a></li>
+						<li data-value="4"><a href="#">Four</a></li>
+					</ul>
+					</div><!-- /btn-group -->
+				</div><!-- /input-group -->
+			</div>
+
+			<!-- Sample component methods -->
 			<br/>
 			<input id="btnComboboxGetSelectedItem" type="button" class="btn btn-default btn-xs" value="log item"/>
-			<input id="btnComboboxSelectByValue" type="button" class="btn btn-default btn-xs" value="set by value"/>
-			<input id="btnComboboxSelectByIndex" type="button" class="btn btn-default btn-xs" value="set by index"/>
-			<input id="btnComboboxSelectByText" type="button" class="btn btn-default btn-xs" value="set by text"/>
-			<input id="btnComboboxSelectBySelector" type="button" class="btn btn-default btn-xs" value="set by selector"/>
+			<input id="btnComboboxSelectByValue" type="button" class="btn btn-default btn-xs" value="set by value (1)"/>
+			<input id="btnComboboxSelectByIndex" type="button" class="btn btn-default btn-xs" value="set by element index (2)"/>
+			<input id="btnComboboxSelectByText" type="button" class="btn btn-default btn-xs" value="set by text (Four)"/>
+			<br/>
+			<input id="btnComboboxSelectBySelector" type="button" class="btn btn-default btn-xs" value="set by CSS selector (li[data-fizz=buzz])"/>
 			<input id="btnComboboxDisable" type="button" class="btn btn-default btn-xs" value="disable"/>
 			<input id="btnComboboxEnable" type="button" class="btn btn-default btn-xs" value="enable"/>
 
