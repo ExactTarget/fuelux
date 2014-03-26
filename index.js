@@ -29,7 +29,7 @@ define(function(require){
 		$('#MyCombobox').combobox('selectByValue', '1');
 	});
 	$('#btnComboboxSelectByIndex').on('click', function () {
-		$('#MyCombobox').combobox('selectByIndex', '2');
+		$('#MyCombobox').combobox('selectByIndex', '1');
 	});
 	$('#btnComboboxSelectByText').on('click', function () {
 		$('#MyCombobox').combobox('selectByText', 'Four');
