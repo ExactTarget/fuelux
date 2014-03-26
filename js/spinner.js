@@ -12,17 +12,17 @@
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        // if AMD loader is available, register as an anonymous module.
-         define(['jquery'], factory);
-    } else {
-        // OR use browser globals if AMD is not present
-        factory(jQuery);
-    }
+	if (typeof define === 'function' && define.amd) {
+		// if AMD loader is available, register as an anonymous module.
+		define(['jquery'], factory);
+	} else {
+		// OR use browser globals if AMD is not present
+		factory(jQuery);
+	}
 }(function ($) {
-    // -- END UMD WRAPPER PREFACE --
-        
-    // -- BEGIN MODULE CODE HERE --
+	// -- END UMD WRAPPER PREFACE --
+		
+	// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.spinner;
 
@@ -112,11 +112,11 @@
 		},
 
 		stopSpin: function () {
-            if(this.switches.timeout!==undefined){
-                clearTimeout(this.switches.timeout);
-                this.switches.count = 1;
-                this.triggerChangedEvent();
-            }
+			if(this.switches.timeout!==undefined){
+				clearTimeout(this.switches.timeout);
+				this.switches.count = 1;
+				this.triggerChangedEvent();
+			}
 		},
 
 		triggerChangedEvent: function () {
@@ -315,4 +315,4 @@
 
 // -- BEGIN UMD WRAPPER AFTERWORD --
 }));
-    // -- END UMD WRAPPER AFTERWORD --
+	// -- END UMD WRAPPER AFTERWORD --
