@@ -61,97 +61,67 @@
 		constructor: Wizard,
 
 		addSteps: function(index, remove){
-			var action = 'nextAll';
 			var items = [].slice.call(arguments).slice(2);
 			var $steps = this.$element.find('.steps');
 			var $stepContent = this.$element.find('.step-content');
-			var count, i, l, $lastPane, $lastStep, $startPane, $startStep, step;
+			var i, l, $pane, $startPane, $startStep, $step;
 
 			remove = remove || 0;
-
-			count = (index>(this.numSteps+1)) ? this.numSteps+1 : index;
-
+			index = (index>(this.numSteps+1)) ? this.numSteps+1 : index;
 			if(items[0] instanceof Array){
 				items = items[0];
 			}
 
-			$startStep = $steps.find('li[data-step="' + index + '"]:first');
-			$startPane = $stepContent.find('.step-pane[data-step="' + index + '"]:first');
-
-			if($startStep.length===0){
+			$startStep = $steps.find('li:nth-child(' + index + ')');
+			$startPane = $stepContent.find('.step-pane:nth-child(' + index + ')');
+			if($startStep.length<1){
 				$startStep = null;
 			}
 
 			for(i=0, l=items.length; i<l; i++){
-				$lastStep = $('<li data-step="' + count + '"><span class="badge badge-info"></span></li>');
-				$lastStep.find('.badge').append(items[i].badge);
-				$lastStep.append(items[i].label).append('<span class="chevron"></span>');
+				$step = $('<li data-step="' + index + '"><span class="badge badge-info"></span></li>');
+				$step.append(items[i].label || '').append('<span class="chevron"></span>');
+				$step.find('.badge').append(items[i].badge || index);
 
-				$lastPane = $('<div class="step-pane" data-step="' + count + '"></div>');
-				$lastPane.append(items[i].pane);
+				$pane = $('<div class="step-pane" data-step="' + index + '"></div>');
+				$pane.append(items[i].pane || '');
 
 				if(!$startStep){
-					$steps.append($lastStep);
-					$stepContent.append($lastPane);
+					$steps.append($step);
+					$stepContent.append($pane);
 				}else{
-					$startStep.before($lastStep);
-					$startPane.before($lastPane);
+					$startStep.before($step);
+					$startPane.before($pane);
 				}
-				count++;
+				index++;
 			}
 
-			if(!$lastStep){
-				$lastStep = (!$startStep) ? $steps.find('li:last') : $startStep.prev();
-				if($lastStep.length===0){
-					action = 'children';
-					$lastStep = $steps;
-				}
+			if(remove>0){
+				this.removeSteps(index, remove);
+			}else{
+				this.syncSteps();
+				this.numSteps = $steps.find('li').length;
+				this.setState();
 			}
-
-			if(remove!==0){
-				i = 0;
-				$lastStep[action]().each(function(){
-					var item = $(this);
-					var s = item.attr('data-step');
-					if(i<remove){
-						item.remove();
-						$stepContent.find('.step-pane[data-step="' + s + '"]:last').remove();
-					}else{
-						return false;
-					}
-					i++;
-				});
-			}
-
-			$lastStep[action]().each(function(){
-				var item = $(this);
-				var badge = item.find('.badge');
-				var s = item.attr('data-step');
-
-				if(!isNaN(parseInt(badge.html()), 10)){
-					badge.html(count);
-				}
-				item.attr('data-step', count);
-				$stepContent.find('.step-pane[data-step="' + s + '"]:last').attr('data-step', count);
-				count++;
-			});
-
-			this.numSteps = $steps.find('li').length;
-			this.setState();
 		},
 
 		removeSteps: function(index, howMany){
 			var action = 'nextAll';
 			var i = 0;
 			var $steps = this.$element.find('.steps');
-			var $start = $steps.find('li:nth-child(' + index + ')').prev();
 			var $stepContent = this.$element.find('.step-content');
+			var $start;
 
 			howMany = (howMany!==undefined) ? howMany : 1;
 
-			if($start.length<1){
-				action = 'children';
-				$start = $steps;
+			if(index>$steps.find('li').length){
+				$start = $steps.find('li:last');
+			}else{
+				$start = $steps.find('li:nth-child(' + index + ')').prev();
+				if($start.length<1){
+					action = 'children';
+					$start = $steps;
+				}
 			}
 
 			$start[action]().each(function(){
@@ -167,7 +137,6 @@
 			});
 
 			this.syncSteps();
-
 			this.numSteps = $steps.find('li').length;
 			this.setState();
 		},
