@@ -18,25 +18,31 @@ define(function(require){
 		ok($(document.body).spinner()[0] === document.body, 'document.body returned');
 	});
 
-	var spinnerHTML = '<div id="ex-spinner" class="spinner">' +
-		'<input type="text" class="input-mini spinner-input">' +
-		'<button class="btn  spinner-up">' +
-		'<i class="icon-chevron-up"></i>' +
-		'</button>' +
-		'<button class="btn spinner-down">' +
-		'<i class="icon-chevron-down"></i>' +
-		'</button>' +
-		'</div>';
+	var spinnerHTML =	'<div id="ex-spinner" class="spinner">' +
+						'	<input type="text" class="form-control input-mini spinner-input">' +
 
-	var spinnerHTMLWithDefault = '<div id="ex-spinner" class="spinner">' +
-		'<input type="text" value="3" class="input-mini spinner-input">' +
-		'<button class="btn  spinner-up">' +
-		'<i class="icon-chevron-up"></i>' +
-		'</button>' +
-		'<button class="btn spinner-down">' +
-		'<i class="icon-chevron-down"></i>' +
-		'</button>' +
-		'</div>';
+						'	<div class="spinner-buttons btn-group btn-group-vertical">' +
+						'		<button class="btn btn-default spinner-up btn-xs">' +
+						'			<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>' +
+						'		</button>' +
+						'		<button class="btn btn-default spinner-down btn-xs">' +
+						'			<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>' +
+						'		</button>' +
+						'	</div>' +
+						'</div>';
+
+	var spinnerHTMLWithDefault ='<div id="ex-spinner" class="spinner">' +
+								'	<input type="text" value="3" class="form-control input-mini spinner-input">' +
+								'	<div class="spinner-buttons btn-group btn-group-vertical">' +
+								'		<button class="btn btn-default spinner-up btn-xs">' +
+								'			<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>' +
+								'		</button>' +
+								'		<button class="btn btn-default spinner-down btn-xs">' +
+								'			<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>' +
+								'		</button>' +
+								'	</div>' +
+								'</div>';
+
 
 	test("should behave as designed", function () {
 		var $spinner = $(spinnerHTML).spinner();

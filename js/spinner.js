@@ -306,6 +306,14 @@
 	// SPINNER DATA-API
 
 	$(function () {
+
+		$('.spinner').each(function () {
+			var $this = $(this);
+			if (!$this.data('spinner')) {
+				$this.spinner($this.data());
+			}
+		});
+
 		$('body').on('mousedown.spinner.data-api', '.spinner', function () {
 			var $this = $(this);
 			if ($this.data('spinner')) return;
