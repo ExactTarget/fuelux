@@ -257,9 +257,9 @@ define(function(require){
 
 
 
-	// SPINNER
-	$('#ex-spinner').on('changed', function (e, value) {
-		console.log('Spinner changed: ', value);
+	// SPINBOX
+	$('#ex-spinbox').on('changed', function (e, value) {
+		console.log('Spinbox changed: ', value);
 	});
 
 

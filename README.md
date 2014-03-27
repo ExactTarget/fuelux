@@ -23,7 +23,7 @@ Fuel UX provides all of the styles and plugins from the revolutionary [Twitter B
   * Scheduler - _composite form control to quickly schedule events_
   * Search - _combines input and button for integrated search interaction_
   * Select - _extends button dropdown with the ability to set and retrieve the selected item_
-  * Spinner - _provides convenient numeric input with increment and decrement buttons_
+  * Spinbox - _provides convenient numeric input with increment and decrement buttons_
   * Tree - _renders data in a tree, supporting caching and optional multi-selection_
   * Wizard - _displays a multi-step process to be completed in a specific order_
 <p>
@@ -69,7 +69,7 @@ require.config({
 Then list any individual fuelux controls needed as dependencies within your application modules:
 ```javascript
 define(function(require) {
-	var spinner = require('fuelux/spinner');
+	var spinbox = require('fuelux/spinbox');
 	//...
 });
 ```
