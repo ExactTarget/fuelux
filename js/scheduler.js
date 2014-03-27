@@ -42,11 +42,11 @@
 
         this.$repeatIntervalPanel = this.$element.find('.repeat-interval-panel');
         this.$repeatIntervalSelect = this.$element.find('.repeat-interval .select');
-        this.$repeatIntervalSpinner = this.$element.find('.repeat-interval-panel .spinner');
+        this.$repeatIntervalSpinbox = this.$element.find('.repeat-interval-panel .spinbox');
         this.$repeatIntervalTxt = this.$element.find('.repeat-interval-text');
 
         this.$end = this.$element.find('.scheduler-end');
-        this.$endAfter = this.$end.find('.spinner');
+        this.$endAfter = this.$end.find('.spinbox');
         this.$endSelect= this.$end.find('.select');
         this.$endDate = this.$end.find('.datepicker');
 
@@ -58,7 +58,7 @@
         this.$element.find('.combobox').on('changed', $.proxy(this.changed, this));
         this.$element.find('.datepicker').on('changed', $.proxy(this.changed, this));
         this.$element.find('.select').on('changed', $.proxy(this.changed, this));
-        this.$element.find('.spinner').on('changed', $.proxy(this.changed, this));
+        this.$element.find('.spinbox').on('changed', $.proxy(this.changed, this));
         this.$element.find('.scheduler-monthly label.radio, .scheduler-yearly label.radio').on('mouseup', $.proxy(this.changed, this));
 
         this.$repeatIntervalSelect.on('changed', $.proxy(this.repeatIntervalSelectChanged, this));
@@ -70,8 +70,8 @@
         if(this.$startTime.find('input').val()===''){
             this.$startTime.combobox('selectByIndex', 0);
         }
-        this.$repeatIntervalSpinner.spinner();
-        this.$endAfter.spinner();
+        this.$repeatIntervalSpinbox.spinbox();
+        this.$endAfter.spinbox();
         this.$endDate.datepicker();
     };
 
@@ -127,7 +127,7 @@
             // BYMONTHDAY = when picking days of the month (1,2,3...)
             // BYSETPOS = when picking First,Second,Third,Fourth,Last (1,2,3,4,-1)
 
-            var interval = this.$repeatIntervalSpinner.spinner('value');
+            var interval = this.$repeatIntervalSpinbox.spinbox('value');
             var pattern = '';
             var repeat = this.$repeatIntervalSelect.select('selectedItem').value;
             var startTime = this.$startTime.combobox('selectedItem').text.toLowerCase();
@@ -239,7 +239,7 @@
             // http://tools.ietf.org/html/rfc2445#section-4.3.10
             if(repeat !=='none'){
                 if(end === 'after') {
-                    duration = 'COUNT=' + this.$endAfter.spinner('value') + ';';
+                    duration = 'COUNT=' + this.$endAfter.spinbox('value') + ';';
                 }
                 else if(end === 'date') {
                     duration = 'UNTIL=' + getFormattedDate(this.$endDate.datepicker('getDate'), '') + ';';
@@ -434,7 +434,7 @@
                 }
 
                 if(recur.COUNT){
-                    this.$endAfter.spinner('value', parseInt(recur.COUNT, 10));
+                    this.$endAfter.spinbox('value', parseInt(recur.COUNT, 10));
                     this.$endSelect.select('selectByValue', 'after');
                 }else if(recur.UNTIL){
                     temp = recur.UNTIL;
@@ -450,7 +450,7 @@
                 this.endSelectChanged();
 
                 if(recur.INTERVAL){
-                    this.$repeatIntervalSpinner.spinner('value', parseInt(recur.INTERVAL, 10));
+                    this.$repeatIntervalSpinbox.spinbox('value', parseInt(recur.INTERVAL, 10));
                 }
                 this.$repeatIntervalSelect.select('selectByValue', item);
                 this.repeatIntervalSelectChanged();
@@ -461,7 +461,7 @@
             this.$element.find('.combobox').combobox(action);
             this.$element.find('.datepicker').datepicker(action);
             this.$element.find('.select').select(action);
-            this.$element.find('.spinner').spinner(action);
+            this.$element.find('.spinbox').spinbox(action);
             this.$element.find('.radio').radio(action);
 
             if(action==='disable'){

@@ -26,7 +26,7 @@
 
 	var old = $.fn.spinbox;
 
-	// SPINNER CONSTRUCTOR AND PROTOTYPE
+	// SPINBOX CONSTRUCTOR AND PROTOTYPE
 
 	var Spinbox = function (element, options) {
 		this.$element = $(element);
@@ -265,7 +265,7 @@
 	};
 
 
-	// SPINNER PLUGIN DEFINITION
+	// SPINBOX PLUGIN DEFINITION
 
 	$.fn.spinbox = function (option) {
 		var args = Array.prototype.slice.call( arguments, 1 );
@@ -303,7 +303,7 @@
 	};
 
 
-	// SPINNER DATA-API
+	// SPINBOX DATA-API
 
 	$(function () {
 

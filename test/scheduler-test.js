@@ -57,12 +57,12 @@ define(function(require){
 		});
 		equal(disabled, true, 'all select controls disabled');
 
-		$scheduler.find('.spinner .spinner-input').each(function(){
+		$scheduler.find('.spinbox .spinbox-input').each(function(){
 			if(!$(this).prop('disabled')){
 				disabled = false;
 			}
 		});
-		equal(disabled, true, 'all spinner controls disabled');
+		equal(disabled, true, 'all spinbox controls disabled');
 
 		disabled = $scheduler.find('.scheduler-weekly .btn-group').hasClass('disabled');
 		equal(disabled, true, 'scheduler weekly btn-group disabled');
@@ -103,12 +103,12 @@ define(function(require){
 		});
 		equal(enabled, true, 'all select controls enabled');
 
-		$scheduler.find('.spinner .spinner-input').each(function(){
+		$scheduler.find('.spinbox .spinbox-input').each(function(){
 			if($(this).prop('disabled')){
 				enabled = false;
 			}
 		});
-		equal(enabled, true, 'all spinner controls enabled');
+		equal(enabled, true, 'all spinbox controls enabled');
 
 		enabled = ($scheduler.find('.scheduler-weekly .btn-group').hasClass('disabled')) ? false : true;
 		equal(enabled, true, 'scheduler weekly btn-group enabled');
@@ -133,7 +133,7 @@ define(function(require){
 		var isPhantomJS = (window.navigator.userAgent.search('PhantomJS')>=0);
 		var $scheduler = this.$markup.scheduler();
 		var $repIntSelDrop = $scheduler.find('.repeat-interval .select .dropdown-label');
-		var $repPanSpinner = $scheduler.find('.repeat-interval-panel .spinner');
+		var $repPanSpinbox = $scheduler.find('.repeat-interval-panel .spinbox');
 		var test;
 		var tmpDatepickerVal;
 		var tmpValBool = false;
@@ -156,10 +156,10 @@ define(function(require){
 		equal($repIntSelDrop.html(), 'None (run once)', 'no recurrence set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=HOURLY;INTERVAL=3;' });
-		ok(($repIntSelDrop.html()==='Hourly' && $repPanSpinner.spinner('value')===3), 'hourly recurrence set correctly');
+		ok(($repIntSelDrop.html()==='Hourly' && $repPanSpinbox.spinbox('value')===3), 'hourly recurrence set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;INTERVAL=4;' });
-		ok(($repIntSelDrop.html()==='Daily' && $repPanSpinner.spinner('value')===4), 'daily recurrence set correctly');
+		ok(($repIntSelDrop.html()==='Daily' && $repPanSpinbox.spinbox('value')===4), 'daily recurrence set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;BYDAY=MO,TU,WE,TH,FR;INTERVAL=1;' });
 		equal($repIntSelDrop.html(), 'Weekdays', 'weekday recurrence set correctly');
@@ -167,11 +167,11 @@ define(function(require){
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=WEEKLY;BYDAY=MO,TH;INTERVAL=7;' });
 		test = $scheduler.find('.scheduler-weekly .btn-group');
 		test = (test.find('[data-value="MO"]').hasClass('active') && test.find('[data-value="TH"]').hasClass('active')) ? true : false;
-		ok(($repIntSelDrop.html()==='Weekly' && $repPanSpinner.spinner('value')===7 && test), 'weekly recurrence set correctly');
+		ok(($repIntSelDrop.html()==='Weekly' && $repPanSpinbox.spinbox('value')===7 && test), 'weekly recurrence set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=MONTHLY;INTERVAL=9;BYDAY=SA;BYSETPOS=4;' });
 		test = $scheduler.find('.scheduler-monthly-day');
-		ok(($repIntSelDrop.html()==='Monthly' && $repPanSpinner.spinner('value')===9 && test.find('label.radio input').hasClass('checked') &&
+		ok(($repIntSelDrop.html()==='Monthly' && $repPanSpinbox.spinbox('value')===9 && test.find('label.radio input').hasClass('checked') &&
 			test.find('.month-day-pos .dropdown-label').html()==='Fourth' && test.find('.month-days .dropdown-label').html()==='Saturday'),
 			'monthly recurrence set correctly');
 
@@ -182,7 +182,7 @@ define(function(require){
 			test.find('.year-month .dropdown-label').html()==='October'), 'yearly recurrence set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;INTERVAL=9;COUNT=4;' });
-		ok(($scheduler.find('.scheduler-end .select .dropdown-label').html()==='After' && $scheduler.find('.scheduler-end .spinner').spinner('value')===4),
+		ok(($scheduler.find('.scheduler-end .select .dropdown-label').html()==='After' && $scheduler.find('.scheduler-end .spinbox').spinbox('value')===4),
 			'end after occurence(s) set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;INTERVAL=9;UNTIL=20510331;' });
