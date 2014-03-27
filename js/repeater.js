@@ -77,19 +77,20 @@
 			};
 
 			var start = function(args, cb){
+				var item = '';
+
 				var callbacks = {
 					before: function(){
 						proceed('render', args);
 					},
-					render: function(item){
-						var itm;
-						if(item!==null){
-							container.append(item);
-							itm = $(item);
-							if(itm.length<1){
-								itm = item;
+					render: function(resp){
+						if(resp!==null){
+							item = $(resp);
+							if(item.length<1){
+								item = resp;
 							}
-							args.item = itm;
+							container.append(item);
+							args.item = item;
 						}
 						proceed('after', args);
 					},
@@ -107,7 +108,8 @@
 						};
 
 						if(renderer.nested){
-							cont = container.find('[data-container="true"]:first');
+							cont = $(item);
+							cont = (cont.attr('data-container')==='true') ? cont : cont.find('[data-container="true"]:first');
 							if(cont.length<1){
 								cont = container;
 							}
@@ -200,9 +202,22 @@
 		thumbnail: {
 			renderer: {
 				render: function(helpers){
-					return '<div class="thumbnail">' + helpers.subset[helpers.index].name + '</div>';
+					return '<div class="thumbnail" data-container="true">' + helpers.subset[helpers.index].name + '</div>';
 				},
-				repeat: 'thumbnails'
+				repeat: 'thumbnails',
+				nested: [
+					{
+						render: function(helpers){
+							return '<div class="thumbnail">' + helpers.subset[helpers.index].name + '</div>';
+						},
+						repeat: 'thumbnails'
+					},
+					{
+						render: function(helpers){
+							return 'BIG OL HAT';
+						}
+					}
+				]
 			}
 		}
 	};
