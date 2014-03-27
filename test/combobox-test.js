@@ -8,26 +8,35 @@ define(function(require){
 	require('bootstrap');
 	require('fuelux/combobox');
 
-	var html = '<div class="input-append dropdown combobox">' +
-		'<input class="span2" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>' +
-		'<ul class="dropdown-menu">' +
-		'<li data-value="1"><a href="#">One</a></li>' +
-		'<li data-value="2"><a href="#">Two</a></li>' +
-		'<li data-value="3" data-selected="true"><a href="#">Three</a></li>' +
-		'<li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Four</a></li>' +
-		'<li data-value="Item Five"><a href="#">Item Five</a></li>' +
-		'</ul>' +
-		'</div>';
+	var html =	'<div id="MyCombobox" class="input-group input-append dropdown combobox">' +
+				'	<input type="text" class="form-control span2">' +
+				'	<div class="input-group-btn">' +
+				'	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>' +
+				'	<ul class="dropdown-menu pull-right">' +
+				'		<li data-value="1"><a href="#">One</a></li>' +
+				'		<li data-value="2"><a href="#">Two</a></li>' +
+				'		<li data-value="3" data-selected="true"><a href="#">Three</a></li>' +
+				'		<li data-value="4" ><a href="#">Four</a></li>' +
+				'		<li data-value="Item Five"><a href="#">Item Five</a></li>' +
+				'		<li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>' +
+				'	</ul>' +
+				'	</div>' +
+				'</div>';
 
-	var htmlNoDefault = '<div class="input-append dropdown combobox">' +
-		'<input class="span2" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>' +
-		'<ul class="dropdown-menu">' +
-		'<li data-value="1"><a href="#">One</a></li>' +
-		'<li data-value="2"><a href="#">Two</a></li>' +
-		'<li data-value="3"><a href="#">Three</a></li>' +
-		'<li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Four</a></li>' +
-		'</ul>' +
-		'</div>';
+	var htmlNoDefault =	'<div id="MyCombobox" class="input-group input-append dropdown combobox">' +
+				'	<input type="text" class="form-control span2">' +
+				'	<div class="input-group-btn">' +
+				'	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>' +
+				'	<ul class="dropdown-menu pull-right">' +
+				'		<li data-value="1"><a href="#">One</a></li>' +
+				'		<li data-value="2"><a href="#">Two</a></li>' +
+				'		<li data-value="3"><a href="#">Three</a></li>' +
+				'		<li data-value="4"><a href="#">Four</a></li>' +
+				'		<li data-value="Item Five"><a href="#">Item Five</a></li>' +
+				'		<li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>' +
+				'	</ul>' +
+				'	</div>' +
+				'</div>';
 
 	module("Fuel UX combobox");
 
@@ -117,7 +126,7 @@ define(function(require){
 		$combobox.combobox('selectBySelector', 'li[data-fizz=buzz]');
 
 		var item = $combobox.combobox('selectedItem');
-		var expectedItem = { text: 'Four', value: 4, foo: 'bar', fizz: 'buzz' };
+		var expectedItem = { text: 'Six', value: 6, foo: 'bar', fizz: 'buzz' };
 		deepEqual(item, expectedItem, 'item selected');
 	});
 

@@ -22,29 +22,29 @@ define(function(require){
 
 
 	// COMBOBOX
+	$('#btnComboboxGetSelectedItem').on('click', function () {
+		console.log($('#MyCombobox').combobox('selectedItem'));
+	});
+	$('#btnComboboxSelectByValue').on('click', function () {
+		$('#MyCombobox').combobox('selectByValue', '1');
+	});
+	$('#btnComboboxSelectByIndex').on('click', function () {
+		$('#MyCombobox').combobox('selectByIndex', '1');
+	});
+	$('#btnComboboxSelectByText').on('click', function () {
+		$('#MyCombobox').combobox('selectByText', 'Four');
+	});
+	$('#btnComboboxSelectBySelector').on('click', function () {
+		$('#MyCombobox').combobox('selectBySelector', 'li[data-fizz=buzz]');
+	});
+	$('#MyCombobox').on('changed', function (evt, data) {
+		console.log(data);
+	});
 	$('#btnComboboxDisable').on('click', function () {
 		$('#MyCombobox').combobox('disable');
 	});
 	$('#btnComboboxEnable').on('click', function () {
 		$('#MyCombobox').combobox('enable');
-	});
-	$('#btnComboboxGetSelectedItem').on('click', function () {
-		console.log($('#MyCombobox').combobox('selectedItem'));
-	});
-	$('#btnComboboxSelectByValue').on('click', function () {
-		$('#MyCombobox').combobox('selectByValue', '3');
-	});
-	$('#btnComboboxSelectBySelector').on('click', function () {
-		$('#MyCombobox').combobox('selectBySelector', 'li[data-fizz=buzz]');
-	});
-	$('#btnComboboxSelectByIndex').on('click', function () {
-		$('#MyCombobox').combobox('selectByIndex', '3');
-	});
-	$('#btnComboboxSelectByText').on('click', function () {
-		$('#MyCombobox').combobox('selectByText', 'Four');
-	});
-	$('#MyCombobox').on('changed', function (evt, data) {
-		console.log(data);
 	});
 
 
@@ -257,9 +257,9 @@ define(function(require){
 
 
 
-	// SPINNER
-	$('#ex-spinner').on('changed', function (e, value) {
-		console.log('Spinner changed: ', value);
+	// SPINBOX
+	$('#ex-spinbox').on('changed', function (e, value) {
+		console.log('Spinbox changed: ', value);
 	});
 
 

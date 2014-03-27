@@ -51,7 +51,7 @@ module.exports = function (grunt) {
 						'js/radio.js',
 						'js/search.js',
 						'js/select.js',
-						'js/spinner.js',
+						'js/spinbox.js',
 						'js/tree.js',
 						'js/wizard.js',
 						'js/intelligent-dropdown.js',

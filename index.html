@@ -46,14 +46,15 @@
 
 	<div class="container">
 
-		<h2>Checkbox</h2>
+		<div class="clearfix">
 
-		<!-- CHECKBOX -->
-		<div>
+			<h2>Checkbox</h2>
+
+			<!-- CHECKBOX -->
 			<div class="checkbox">
 				<label class="checkbox-custom">
-					<input checked="checked" class="checkbox" type="checkbox" value="">
-					Custom: Checked Enabled<br/>Second Line
+					<input id="chk1" checked="checked" class="checked" type="checkbox" value="">
+					Custom: Checked Enabled<br/>Second Line (#chk1)
 				</label>
 			</div>
 			<div class="checkbox">
@@ -80,37 +81,50 @@
 			<div class="checkbox"><label><input checked="checked" disabled="disabled" type="checkbox" value="">Native: Checked Disabled</label></div>
 			<div class="checkbox"><label><input disabled="disabled" type="checkbox" value="">Native: Unchecked Disabled</label></div>
 
-			<button type="button" class="btn btn-default btn-xs" id="btnChkToggle">toggle</button>
-			<button type="button" class="btn btn-default btn-xs" id="btnChkDisable">disable</button>
-			<button type="button" class="btn btn-default btn-xs" id="btnChkEnable">enable</button>
+			<div class="buttons">
+				<button type="button" class="btn btn-default btn-xs" id="btnChkToggle">toggle #chk1</button>
+				<button type="button" class="btn btn-default btn-xs" id="btnChkDisable">disable #chk1</button>
+				<button type="button" class="btn btn-default btn-xs" id="btnChkEnable">enable #chk1</button>
+			</div>
+
 		</div>
 
-		<h2>Combobox</h2>
+		<div class="clearfix">
 
-		<!-- COMBOBOX -->
-		<div class="row" style="width: 300px;">
-			<div id="MyCombobox" class="input-group input-append dropdown combobox">
-				<input type="text" class="form-control span2">
-				<div class="input-group-btn">
-					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-				<ul class="dropdown-menu pull-right">
-					<li data-value="1" data-foo="bar"><a href="#">One</a></li>
-					<li data-value="2"><a href="#">Two</a></li>
-					<li data-value="3" data-selected="true"><a href="#">Three</a></li>
-					<li data-value="4" data-fizz="buzz"><a href="#">Four</a></li>
-				</ul>
-				</div><!-- /btn-group -->
-			</div><!-- /input-group -->
+			<h2>Combobox</h2>
+
+			<!-- COMBOBOX -->
+			<div class="" style="width: 300px;">
+				<div id="MyCombobox" class="input-group input-append dropdown combobox">
+					<input type="text" class="form-control span2">
+					<div class="input-group-btn">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+					<ul class="dropdown-menu pull-right">
+						<li data-value="1"><a href="#">One</a></li>
+						<li data-value="2"><a href="#">Two</a></li>
+						<li data-value="3" data-selected="true"><a href="#">Three</a></li>
+						<li data-value="4" ><a href="#">Four</a></li>
+						<li data-value="Item Five"><a href="#">Item Five</a></li>
+						<li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>
+					</ul>
+					</div>
+				</div>
+			</div>
 
 			<br/>
-			<input id="btnComboboxGetSelectedItem" type="button" class="btn btn-default btn-xs" value="log item"/>
-			<input id="btnComboboxSelectByValue" type="button" class="btn btn-default btn-xs" value="set by value"/>
-			<input id="btnComboboxSelectByIndex" type="button" class="btn btn-default btn-xs" value="set by index"/>
-			<input id="btnComboboxSelectByText" type="button" class="btn btn-default btn-xs" value="set by text"/>
-			<input id="btnComboboxSelectBySelector" type="button" class="btn btn-default btn-xs" value="set by selector"/>
-			<input id="btnComboboxDisable" type="button" class="btn btn-default btn-xs" value="disable"/>
-			<input id="btnComboboxEnable" type="button" class="btn btn-default btn-xs" value="enable"/>
-
+			<p>Sample Methods</p>
+			<div class="btn-group">
+				<input id="btnComboboxGetSelectedItem" type="button" class="btn btn-default" value="log item"/>
+				<input id="btnComboboxSelectByValue" type="button" class="btn btn-default" value="set by value (1)"/>
+				<input id="btnComboboxSelectByIndex" type="button" class="btn btn-default" value="set by element index (1)"/>
+				<input id="btnComboboxSelectByText" type="button" class="btn btn-default" value="set by text (Four)"/>
+			</div>
+			<div class="btn-group">
+				<input id="btnComboboxSelectBySelector" type="button" class="btn btn-default" 
+					value="set by CSS selector li[data-fizz=buzz] (6)"/>
+				<input id="btnComboboxDisable" type="button" class="btn btn-default" value="disable"/>
+				<input id="btnComboboxEnable" type="button" class="btn btn-default" value="enable"/>
+			</div>
 		</div>
 
 		<h2>Datagrid</h2>
@@ -697,11 +711,11 @@
 
 								<div class="repeat-interval-panel">
 									<div class="repeat-interval-pretext">every</div>
-									<div class="spinner">
-										<input type="text" value="1" class="input-mini spinner-input">
-										<div class="spinner-buttons btn-group btn-group-vertical">
-											<button class="btn spinner-up"><i class="icon-chevron-up"></i></button>
-											<button class="btn spinner-down"><i class="icon-chevron-down"></i></button>
+									<div class="spinbox">
+										<input type="text" value="1" class="input-mini spinbox-input">
+										<div class="spinbox-buttons btn-group btn-group-vertical">
+											<button class="btn spinbox-up"><i class="icon-chevron-up"></i></button>
+											<button class="btn spinbox-down"><i class="icon-chevron-down"></i></button>
 										</div>
 									</div>
 									<div class="repeat-interval-text">day(s)</div>
@@ -1001,11 +1015,12 @@
 			<input id="schedulerSetValueBtn" type="button" class="btn btn-default btn-xs" value="set value" />
 		</div>
 
-		<h2>Search</h2>
 
-		<!-- SEARCH CONTROL: tags, classes edited. -->
-		<div class="navbar-form">
+		<div class="clearfix">
+			<h2>Search</h2>
+
 			<form class="search-form" role="search">
+
 				<div id="MySearch" class="search input-group">
 					<input type="search" class="form-control" placeholder="Search">
 					<span class="input-group-btn">
@@ -1016,34 +1031,49 @@
 					</span>
 				</div>
 
-				<br/>
-				<div class="btn-group">
-					<button type="button" class="btn btn-default" id="btnSearchDisable" value="disable">disable</button>
-					<button type="button" class="btn btn-default" id="btnSearchEnable" value="enable">enable</button>
-				</div>
 			</form>
+
+			<br/>
+			<p>Sample Methods</p>
+			<div class="btn-group">
+				<button type="button" class="btn btn-default" id="btnSearchDisable" value="disable">disable</button>
+				<button type="button" class="btn btn-default" id="btnSearchEnable" value="enable">enable</button>
+			</div>
+
 		</div>
 
-		<h2>Spinner</h2>
+		<div class="clearfix">
 
-		<!-- SPINNER tags, classes edited, screen reader text added -->
-		<div id="ex-spinner" class="spinner">
-			<input type="number" class="form-control input-mini spinner-input">
+			<h2>Spinbox</h2>
 
-			<div class="spinner-buttons btn-group btn-group-vertical">
-				<button class="btn btn-default spinner-up btn-xs">
-					<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
-				</button>
-				<button class="btn btn-default spinner-down btn-xs">
-					<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
-				</button>
+			<div class="clearfix">
+
+				<div id="ex-spinbox" class="spinbox">
+					<input type="text" class="form-control input-mini spinbox-input">
+
+					<div class="spinbox-buttons btn-group btn-group-vertical">
+						<button class="btn btn-default spinbox-up btn-xs">
+							<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
+						</button>
+						<button class="btn btn-default spinbox-down btn-xs">
+							<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
+						</button>
+					</div>
+				</div>
+
 			</div>
+
+			<br/>
+			<p>Sample Methods</p>
+			<div class="btn-group">
+				<!-- which methods? -->
+			</div>
+
 		</div>
 
 		<div class="clearfix">
 			<h2>Selectlist</h2>
 
-			<!-- SELECTLIST -->
 			<div id="MySelectlist" class="btn-group selectlist" data-resize="auto">
 				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 					<span class="selected-label">&nbsp;</span>
@@ -1060,18 +1090,22 @@
 				<input class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
 			</div>
 
-			<div style="margin-top:20px;">
-				<input id="getSelectedItem" type="button" class="btn btn-default btn-xs" value="log selected item/value"/>
-				<input id="selectByValue" type="button" class="btn btn-default btn-xs" value="set by value (3)"/>
-				<input id="selectByIndex" type="button" class="btn btn-default btn-xs" value="set by element index (zero-based) ('4')"/>
+			<br/>
+			<br/>
+			<p>Sample Methods</p>
+			<div class="btn-group">
+				<input id="getSelectedItem" type="button" class="btn btn-default" value="log selected item/value"/>
+				<input id="selectByValue" type="button" class="btn btn-default" value="set by value (3)"/>
+				<input id="selectByIndex" type="button" class="btn btn-default" value="set by element index (zero-based) ('4')"/>
 			</div>
 
-			<div style="margin-top:20px;">
-				<input id="selectByText" type="button" class="btn btn-default btn-xs" value="set by text ('One')"/>
-				<input id="selectBySelector" type="button" class="btn btn-default btn-xs" value="set by CSS selector ('li[data-fizz=buzz]')"/>
-				<input id="enableSelect" type="button" class="btn btn-default btn-xs" value="enable"/>
-				<input id="disableSelect" type="button" class="btn btn-default btn-xs" value="disable"/>
+			<div class="btn-group">
+				<input id="selectByText" type="button" class="btn btn-default" value="set by text ('One')"/>
+				<input id="selectBySelector" type="button" class="btn btn-default" value="set by CSS selector ('li[data-fizz=buzz]')"/>
+				<input id="enableSelect" type="button" class="btn btn-default" value="enable"/>
+				<input id="disableSelect" type="button" class="btn btn-default" value="disable"/>
 			</div>
+
 		</div>
 
 		<h2>Tree</h2>
