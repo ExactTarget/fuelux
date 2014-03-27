@@ -50,7 +50,6 @@
 
 			<h2>Checkbox</h2>
 
-			<!-- CHECKBOX -->
 			<div class="checkbox">
 				<label class="checkbox-custom">
 					<input id="chk1" checked="checked" data-toggle="#checkboxToggle1" class="checked" type="checkbox" value="">
@@ -84,11 +83,15 @@
 			<div id="checkboxToggle1" style="display: none;">Here is checkbox toggle 1</div>
 			<div class="checkboxToggle2" style="display: none;">Here is checkbox toggle 2</div>
 
-			<div class="buttons">
+			<br/>
+			<h5>Sample Methods</h5>
+
+			<div class="btn-group">
 				<button type="button" class="btn btn-default btn-xs" id="btnChkToggle">toggle #chk1</button>
 				<button type="button" class="btn btn-default btn-xs" id="btnChkDisable">disable #chk1</button>
 				<button type="button" class="btn btn-default btn-xs" id="btnChkEnable">enable #chk1</button>
 			</div>
+			<hr/>
 
 		</div>
 
@@ -115,7 +118,7 @@
 			</div>
 
 			<br/>
-			<p>Sample Methods</p>
+			<h5>Sample Methods</h5>
 			<div class="btn-group">
 				<input id="btnComboboxGetSelectedItem" type="button" class="btn btn-default" value="log item"/>
 				<input id="btnComboboxSelectByValue" type="button" class="btn btn-default" value="set by value (1)"/>
@@ -128,12 +131,13 @@
 				<input id="btnComboboxDisable" type="button" class="btn btn-default" value="disable"/>
 				<input id="btnComboboxEnable" type="button" class="btn btn-default" value="enable"/>
 			</div>
+
+			<hr/>
 		</div>
 
-		<h2>Datagrid</h2>
-
-		<!-- DATAGRID -->
-		<table id="MyGrid" class="table table-bordered datagrid">
+		<!-- 
+			<h2>Datagrid</h2>
+			<table id="MyGrid" class="table table-bordered datagrid">
 			<thead>
 			<tr>
 				<th>
@@ -204,10 +208,10 @@
 				</th>
 			</tr>
 			</tfoot>
-		</table>
+		</table> -->
 
 		<!-- STRETCH DATAGRID -->
-		<div style="height:250px;width:100%">
+		<!-- <div style="height:250px;width:100%">
 			<table id="MyStretchGrid" class="table table-bordered datagrid">
 
 				<thead>
@@ -285,7 +289,7 @@
 			</table>
 		</div>
 
-		<!-- STRETCH DATAGRID WITH MULTISELECT -->
+		STRETCH DATAGRID WITH MULTISELECT
 		<div style="height:365px;width:100%">
 			<table id="MySelectStretchGrid" class="table table-bordered datagrid">
 
@@ -361,53 +365,59 @@
 				</tr>
 				</tfoot>
 			</table>
-		</div>
+		</div> -->
 
-		<h2>Datepicker</h2>
+		<div class="clearfix">
+			<h2>Datepicker</h2>
 
-		<!-- DATEPICKER -->
-		<div class="row">
-			<div class="col-lg-4">
-				<div class="datepicker input-group dropdown" id="datepicker1">
-					<input type="text" class="form-control" data-toggle="dropdown" />
-					<!-- this must go aver the input. if button is present, it must go in between or the input group will not look right -->
-					<div class="dropdown-menu"></div>
-					<span class="input-group-btn" data-toggle="dropdown">
-						<button type="button" class="btn btn-default">
-							<i class="glyphicon glyphicon-calendar"></i>
-						</button>
-					</span>
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="datepicker input-group dropdown" id="datepicker1">
+						<input type="text" class="form-control" data-toggle="dropdown" />
+						<!-- this must go aver the input. if button is present, it must go in between or the input group will not look right -->
+						<div class="dropdown-menu"></div>
+						<span class="input-group-btn" data-toggle="dropdown">
+							<button type="button" class="btn btn-default">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-12">
-				<span class="btn btn-default btn-sm" id="datepicker-enable">enable</span>
-				<span class="btn btn-default btn-sm" id="datepicker-disabled">disable</span>
-				<span class="btn btn-default btn-sm" id="datepicker-logFormattedDate">log formatted date</span>
-				<span class="btn btn-default btn-sm" id="datepicker-logDateObj">log date object</span>
-				<span class="btn btn-default btn-sm" id="datepicker-logDateUnix">log unix date</span>
-				<span class="btn btn-default btn-sm" id="datepicker-setDate">set date 7 days ahead (will log new value)</span>
+			
+			<br/>
+			<h5>Sample Methods</h5>
+			<div class="btn-group">
+				<span class="btn btn-default" id="datepicker-enable">enable</span>
+				<span class="btn btn-default" id="datepicker-disabled">disable</span>
+				<span class="btn btn-default" id="datepicker-logFormattedDate">log formatted date</span>
+				<span class="btn btn-default" id="datepicker-logDateObj">log date object</span>
+				<span class="btn btn-default" id="datepicker-logDateUnix">log unix date</span>
+				<span class="btn btn-default" id="datepicker-setDate">set date 7 days ahead (will log new value)</span>
 			</div>
+			<hr/>
+
 		</div>
 
-		<h2>Loader</h2>
+		<div class="clearfix">
+			<h2>Loader</h2>
 
-		<!-- LOADER -->
-		<div>
-			<div class="loader"><i></i><i></i><i></i><i></i></div>
+			<div>
+				<div class="loader"><i></i><i></i><i></i><i></i></div>
+			</div>
+
+			<!-- if IE<10 must be supported, include loader.js on the page, and use the following: -->
+			<div class="loader">
+				<i></i><i></i><i></i><i></i>
+				<!--[if lt IE 10]><script type="text/javascript">window.fuelux_loader.scan();</script><![endif]-->
+			</div>
+
+			<hr/>
 		</div>
 
-		<!-- if IE<10 must be supported, include loader.js on the page, and use the following: -->
-		<div class="loader">
-			<i></i><i></i><i></i><i></i>
-			<!--[if lt IE 10]><script type="text/javascript">window.fuelux_loader.scan();</script><![endif]-->
-		</div>
+		<div class="clearfix">
+			<h2>Pillbox</h2>
 
-		<h2>Pillbox</h2>
-
-		<!-- PILLBOX -->
-		<div>
 			<div id="MyPillbox" class="pillbox">
 				<ul>
 					<li data-value="foo">Item 1</li>
@@ -420,17 +430,23 @@
 				</ul>
 			</div>
 
-			<input type="button" class="btn btn-default btn-xs" id="btnAdd" value="add">
-			<input type="button" class="btn btn-default btn-xs" id="btnRemoveByValue" value="remove by value">
-			<input type="button" class="btn btn-default btn-xs" id="btnRemoveBySelector" value="remove by selector">
-			<input type="button" class="btn btn-default btn-xs" id="btnRemoveByText" value="remove by text">
-			<input type="button" class="btn btn-default btn-xs" id="btnItems" value="log items to console">
+			<br/>
+			<h5>Sample Methods</h5>
+			<div class="btn-group">
+				<input type="button" class="btn btn-default" id="btnAdd" value="add">
+				<input type="button" class="btn btn-default" id="btnRemoveByValue" value="remove by value">
+				<input type="button" class="btn btn-default" id="btnRemoveBySelector" value="remove by selector">
+				<input type="button" class="btn btn-default" id="btnRemoveByText" value="remove by text">
+				<input type="button" class="btn btn-default" id="btnItems" value="log items to console">
+			</div>
+			<hr/>
+
 		</div>
 
-		<h2>Radio</h2>
+		<div class="clearfix">
 
-		<!-- RADIO -->
-		<div>
+			<h2>Radio</h2>
+
 			<div class="radio">
 				<label class="radio-custom">
 					<input checked="checked" data-toggle="#radioToggle1" name="radio1a" type="radio">
@@ -467,10 +483,14 @@
 			<div id="radioToggle1" style="display: none;">Here is radio toggle 1.</div>
 			<div class="radioToggle2" style="display: none;">Here is radio toggle 2.</div>
 
+			<br/>
+			<h5>Sample Methods</h5>
+
 			<div class="btn-group">
 				<button type="button" class="btn btn-default" id="btnRadioDisable">disable</button>
 				<button type="button" class="btn btn-default" id="btnRadioEnable">enable</button>
 			</div>
+			<hr/>
 		</div>
 
 		<div class="clearfix">
@@ -987,14 +1007,15 @@
 				</table>
 			</div>
 
-				<br/>
-				<p>Sample Methods</p>
-				<div class="btn-group">
-					<input id="schedulerEnableBtn" type="button" class="btn btn-default" value="enable" />
-					<input id="schedulerDisableBtn" type="button" class="btn btn-default" value="disable" />
-					<input id="schedulerLogValueBtn" type="button" class="btn btn-default" value="log value" />
-					<input id="schedulerSetValueBtn" type="button" class="btn btn-default" value="set value" />
-				</div>
+			<br/>
+			<h5>Sample Methods</h5>
+			<div class="btn-group">
+				<input id="schedulerEnableBtn" type="button" class="btn btn-default" value="enable" />
+				<input id="schedulerDisableBtn" type="button" class="btn btn-default" value="disable" />
+				<input id="schedulerLogValueBtn" type="button" class="btn btn-default" value="log value" />
+				<input id="schedulerSetValueBtn" type="button" class="btn btn-default" value="set value" />
+			</div>
+			<hr/>
 
 		</div>
 
@@ -1017,11 +1038,12 @@
 			</form>
 
 			<br/>
-			<p>Sample Methods</p>
+			<h5>Sample Methods</h5>
 			<div class="btn-group">
 				<button type="button" class="btn btn-default" id="btnSearchDisable" value="disable">disable</button>
 				<button type="button" class="btn btn-default" id="btnSearchEnable" value="enable">enable</button>
 			</div>
+			<hr/>
 
 		</div>
 
@@ -1047,10 +1069,11 @@
 			</div>
 
 			<br/>
-			<p>Sample Methods</p>
+			<!-- <h5>Sample Methods</h5>-->
 			<div class="btn-group">
 				<!-- which methods? -->
 			</div>
+			<hr/>
 
 		</div>
 
@@ -1075,7 +1098,7 @@
 
 			<br/>
 			<br/>
-			<p>Sample Methods</p>
+			<h5>Sample Methods</h5>
 			<div class="btn-group">
 				<input id="getSelectedItem" type="button" class="btn btn-default" value="log selected item/value"/>
 				<input id="selectByValue" type="button" class="btn btn-default" value="set by value (3)"/>
@@ -1088,34 +1111,40 @@
 				<input id="enableSelect" type="button" class="btn btn-default" value="enable"/>
 				<input id="disableSelect" type="button" class="btn btn-default" value="disable"/>
 			</div>
+			<hr/>
 
 		</div>
 
-		<h2>Tree</h2>
+		<div class="clearfix">
 
-		<!-- TREE -->
-		<div id="ex-tree" class="tree">
-			<div class="tree-folder" style="display:none;">
-				<div class="tree-folder-header">
-					<i class="glyphicon glyphicon-folder-close"></i>
+			<h2>Tree</h2>
 
-					<div class="tree-folder-name"></div>
+			<div id="ex-tree" class="tree">
+				<div class="tree-folder" style="display:none;">
+					<div class="tree-folder-header">
+						<i class="glyphicon glyphicon-folder-close"></i>
+
+						<div class="tree-folder-name"></div>
+					</div>
+					<div class="tree-folder-content"></div>
+					<div class="tree-loader" style="display:none">
+					</div>
 				</div>
-				<div class="tree-folder-content"></div>
-				<div class="tree-loader" style="display:none">
+				<div class="tree-item" style="display:none;">
+					<i class="glyphicon tree-dot"></i>
+
+					<div class="tree-item-name"></div>
 				</div>
 			</div>
-			<div class="tree-item" style="display:none;">
-				<i class="glyphicon tree-dot"></i>
 
-				<div class="tree-item-name"></div>
-			</div>
+			<hr/>
+
 		</div>
 
-		<h2>Wizard</h2>
+		<div class="clearfix">
 
-		<!-- WIZARD -->
-		<div>
+			<h2>Wizard</h2>
+
 			<div id="MyWizard" class="wizard">
 				<ul class="steps">
 					<li class="active" data-step="1"><span class="badge badge-info">1</span>Step 1<span class="chevron"></span></li>
@@ -1147,13 +1176,19 @@
 				</div>
 			</div>
 
-			<input type="button" class="btn btn-default btn-xs" id="btnWizardPrev" value="prev">
-			<input type="button" class="btn btn-default btn-xs" id="btnWizardNext" value="next">
-			<input type="button" class="btn btn-default btn-xs" id="btnWizardStep" value="current step">
-			<input type="button" class="btn btn-default btn-xs" id="btnWizardSetStep4" value="step 4">
+			<br/>
+			<h5>Sample Methods</h5>
+			<div class="btn-group">
+				<input type="button" class="btn btn-default" id="btnWizardPrev" value="prev">
+				<input type="button" class="btn btn-default" id="btnWizardNext" value="next">
+				<input type="button" class="btn btn-default" id="btnWizardStep" value="current step">
+				<input type="button" class="btn btn-default" id="btnWizardSetStep4" value="step 4">
+			</div>
+			<hr/>
+
 		</div>
 
-	</div>
+	</div><!-- container -->
 
 </body>
 </html>
