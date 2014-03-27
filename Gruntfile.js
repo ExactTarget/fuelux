@@ -167,7 +167,7 @@ module.exports = function (grunt) {
 					urls: '<%= testUrls %>'
 				}
 			},
-			simple: ['test/**/*.html']
+			simple: ['test/fuelux.html']
 		},
 		recess: {
 			compile: {
