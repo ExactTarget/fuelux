@@ -250,7 +250,7 @@
 				var badge = item.find('.badge');
 				var step = item.attr('data-step');
 
-				if(!isNaN(parseInt(badge.html()), 10)){
+				if(!isNaN(parseInt(badge.html(), 10))){
 					badge.html(i);
 				}
 				item.attr('data-step', i);
