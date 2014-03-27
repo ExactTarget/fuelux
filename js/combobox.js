@@ -12,19 +12,20 @@
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        // if AMD loader is available, register as an anonymous module.
-         define(['jquery', 'fuelux/util'], factory);
-    } else {
-        // OR use browser globals if AMD is not present
-        factory(jQuery);
-    }
+	if (typeof define === 'function' && define.amd) {
+		// if AMD loader is available, register as an anonymous module.
+		define(['jquery', 'fuelux/util'], factory);
+	} else {
+		// OR use browser globals if AMD is not present
+		factory(jQuery);
+	}
 }(function ($) {
-    // -- END UMD WRAPPER PREFACE --
-        
-    // -- BEGIN MODULE CODE HERE --
-    
+	// -- END UMD WRAPPER PREFACE --
+
+	// -- BEGIN MODULE CODE HERE --
+
 	var old = $.fn.combobox;
+
 
 	// COMBOBOX CONSTRUCTOR AND PROTOTYPE
 
@@ -177,15 +178,13 @@
 	};
 
 
-	// COMBOBOX DATA-API
+	// COMBOBOX INITIALIZATION ON DOMCONTENTLOADED AND DATA-API
 
 	$(function () {
-		$(window).on('load', function () {
-			$('.combobox').each(function () {
-				var $this = $(this);
-				if ($this.data('combobox')) return;
-				$this.combobox($this.data());
-			});
+		$('.combobox').each(function () {
+			var $this = $(this);
+			if ($this.data('combobox')) return;
+			$this.combobox($this.data());
 		});
 
 		$('body').on('mousedown.combobox.data-api', '.combobox', function () {
@@ -197,4 +196,4 @@
 
 // -- BEGIN UMD WRAPPER AFTERWORD --
 }));
-    // -- END UMD WRAPPER AFTERWORD --
+	// -- END UMD WRAPPER AFTERWORD --
