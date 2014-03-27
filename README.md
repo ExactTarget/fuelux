@@ -69,7 +69,7 @@ require.config({
 Then list any individual fuelux controls needed as dependencies within your application modules:
 ```javascript
 define(function(require) {
-	var spinner = require('fuelux/spinner');
+	var spinbox = require('fuelux/spinbox');
 	//...
 });
 ```
