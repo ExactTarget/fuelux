@@ -22,6 +22,10 @@ define(function (require) {
 		this.$icon = this.$label.find('i');
 		this.$radio = this.$label.find('input[type=radio]');
 		this.groupName = this.$radio.attr('name');
+		var toggleSelector = this.$radio.data('toggle');
+		if (toggleSelector) {
+			this.$toggleContainer = $(toggleSelector);
+		}
 
 		// set default state
 		this.setState(this.$radio);
@@ -51,6 +55,9 @@ define(function (require) {
 			if (disabled === true) {
 				this.$icon.addClass('disabled');
 			}
+
+			// toggle container
+			this.toggleContainer();
 		},
 
 		resetGroup: function () {
@@ -59,6 +66,23 @@ define(function (require) {
 			// reset all radio buttons in group
 			group.next().removeClass('checked');
 			group.parent().removeClass('checked');
+		},
+
+		toggleContainer: function() {
+			if(this.$toggleContainer) {
+				// hide containers for each item in group
+				var selector = '[data-group="' + this.groupName + '"]';
+				$(selector).hide();
+
+				// show corresponding container for currently selected radio
+				if (this.isChecked()) {
+					this.$toggleContainer.show();
+				}
+				else {
+					this.$toggleContainer.hide();
+				}
+
+			}
 		},
 
 		enable: function () {

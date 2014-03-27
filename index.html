@@ -386,7 +386,8 @@
 	<!-- CHECKBOX -->
 	<div>
 		<label class="checkbox checkbox-custom"><input type="checkbox" checked="checked"><i class="checkbox"></i>Custom: Checked Enabled<br/>Second Line</label>
-		<label class="checkbox checkbox-custom"><input type="checkbox" id="chk1"><i class="checkbox"></i>Custom: Unchecked Enabled</label>
+		<label class="checkbox checkbox-custom"><input type="checkbox" id="chk1" data-toggle="#panel1"><i class="checkbox"></i>Custom: Unchecked Enabled</label>
+		<div id="panel1" style="display:none;">panel1</div>
 		<label class="checkbox checkbox-custom"><input type="checkbox" checked="checked" disabled="disabled"><i class="checkbox"></i>Custom: Checked Disabled</label>
 		<label class="checkbox checkbox-custom"><input type="checkbox" disabled="disabled"><i class="checkbox"></i>Custom: Unchecked Disabled</label>
 		<label class="checkbox checkbox-custom checked highlight"><input type="checkbox" checked="checked"><i class="checkbox"></i>Custom: Checked Enabled w/Highlight<br/>Second Line</label>
@@ -409,6 +410,14 @@
 		<label class="radio radio-custom"><input type="radio" name="radio1b" disabled="disabled"><i class="radio"></i>Custom: Unchecked Disabled</label>
         <label class="radio radio-custom highlight"><input type="radio" name="radio1c" checked="checked"><i class="radio"></i>Custom: Checked Enabled w/Highlight</label>
         <label class="radio radio-custom highlight"><input type="radio" name="radio1c" ><i class="radio"></i>Custom: Unchecked Enabled w/Highlight</label>
+
+		<label class="radio radio-custom highlight inline"><input type="radio" name="radio1d" data-toggle="#radio1d-option1"><i class="radio"></i>Custom (w/ Toggle): Option 1</label>
+		<label class="radio radio-custom highlight inline"><input type="radio" name="radio1d" data-toggle="#radio1d-option2"><i class="radio"></i>Custom (w/ Toggle): Option 2</label>
+		<label class="radio radio-custom highlight inline"><input type="radio" name="radio1d" data-toggle="#radio1d-option3"><i class="radio"></i>Custom (w/ Toggle): Option 3</label>
+		<div id="radio1d-option1" data-group="radio1d" class="panel panel-default">Container for Option 1</div>
+		<div id="radio1d-option2" data-group="radio1d" class="radio1d panel panel-default" style="display:none;">Container for Option 2</div>
+		<div id="radio1d-option3" data-group="radio1d" class="radio1d panel panel-default" style="display:none;">Container for Option 3</div>
+
 		<label class="radio"><input type="radio" name="radio2a" checked="checked">Native: Checked Enabled</label>
 		<label class="radio"><input type="radio" name="radio2a">Native: Unchecked Enabled</label>
 		<label class="radio"><input type="radio" name="radio2b" checked="checked" disabled="disabled">Native: Checked Disabled</label>

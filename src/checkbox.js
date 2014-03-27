@@ -23,6 +23,11 @@ define(function (require) {
 		this.$icon = this.$label.find('i');
 		this.$chk = this.$label.find('input[type=checkbox]');
 
+		var toggleSelector = this.$chk.data('toggle');
+		if (toggleSelector) {
+			this.$toggleContainer = $(toggleSelector);
+		}
+
 		// set default state
 		this.setState(this.$chk);
 
@@ -52,6 +57,9 @@ define(function (require) {
 			if (disabled === true) {
 				this.$icon.addClass('disabled');
 			}
+
+			// toggle container
+			this.toggleContainer();
 		},
 
 		enable: function () {
@@ -66,6 +74,17 @@ define(function (require) {
 
 		toggle: function () {
 			this.$chk.click();
+		},
+
+		toggleContainer: function() {
+			if (this.$toggleContainer) {
+				if (this.isChecked()) {
+					this.$toggleContainer.show();
+				}
+				else {
+					this.$toggleContainer.hide();
+				}
+			}
 		},
 
 		itemchecked: function (e) {
