@@ -42,11 +42,11 @@
 
         this.$repeatIntervalPanel = this.$element.find('.repeat-interval-panel');
         this.$repeatIntervalSelect = this.$element.find('.repeat-interval .selectlist');
-        this.$repeatIntervalSpinner = this.$element.find('.repeat-interval-panel .spinner');
+        this.$repeatIntervalSpinbox = this.$element.find('.repeat-interval-panel .spinbox');
         this.$repeatIntervalTxt = this.$element.find('.repeat-interval-text');
 
         this.$end = this.$element.find('.scheduler-end');
-        this.$endAfter = this.$end.find('.spinner');
+        this.$endAfter = this.$end.find('.spinbox');
         this.$endSelect= this.$end.find('.selectlist');
         this.$endDate = this.$end.find('.datepicker');
 
@@ -58,7 +58,7 @@
         this.$element.find('.combobox').on('changed', $.proxy(this.changed, this));
         this.$element.find('.datepicker').on('changed', $.proxy(this.changed, this));
         this.$element.find('.selectlist').on('changed', $.proxy(this.changed, this));
-        this.$element.find('.spinner').on('changed', $.proxy(this.changed, this));
+        this.$element.find('.spinbox').on('changed', $.proxy(this.changed, this));
         this.$element.find('.scheduler-monthly label.radio, .scheduler-yearly label.radio').on('mouseup', $.proxy(this.changed, this));
 
         this.$repeatIntervalSelect.on('changed', $.proxy(this.repeatIntervalSelectChanged, this));
@@ -434,7 +434,7 @@
                 }
 
                 if(recur.COUNT){
-                    this.$endAfter.spinner('value', parseInt(recur.COUNT, 10));
+                    this.$endAfter.spinbox('value', parseInt(recur.COUNT, 10));
                     this.$endSelect.select('selectByValue', 'after');
                 }else if(recur.UNTIL){
                     temp = recur.UNTIL;
@@ -461,7 +461,7 @@
             this.$element.find('.combobox').combobox(action);
             this.$element.find('.datepicker').datepicker(action);
             this.$element.find('.selectlist').selectlist(action);
-            this.$element.find('.spinner').spinner(action);
+            this.$element.find('.spinbox').spinbox(action);
             this.$element.find('.radio').radio(action);
 
             if(action==='disable'){
