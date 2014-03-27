@@ -44,6 +44,7 @@
 		this.options = $.extend(true, this.options, options);
 
 		this.currentView = 'thumbnail';
+		this.skipNested = false;
 
 		this.options.dataSource({}, function(data){
 			self.render(self.$main, $.fn.repeater.views[self.currentView].renderer, data, function(){
@@ -107,7 +108,7 @@
 							});
 						};
 
-						if(renderer.nested){
+						if(renderer.nested && !self.skipNested){
 							cont = $(item);
 							cont = (cont.attr('data-container')==='true') ? cont : cont.find('[data-container="true"]:first');
 							if(cont.length<1){
@@ -139,6 +140,7 @@
 					}
 				};
 
+				self.skipNested = false;
 				proceed('before', args);
 			};
 
@@ -208,14 +210,38 @@
 				nested: [
 					{
 						render: function(helpers){
-							return '<div class="thumbnail">' + helpers.subset[helpers.index].name + '</div>';
+							return '<div class="this" data-container="true"></div>';
 						},
-						repeat: 'thumbnails'
+						nested: [
+							{
+								render: function(helpers){
+									return 'BLEH';
+								}
+							},
+							{
+								render: function(helpers){
+									return 'BLOO';
+								}
+							}
+						]
 					},
 					{
 						render: function(helpers){
-							return 'BIG OL HAT';
-						}
+							this.skipNested = true;
+							return '<div class="that" data-container="true"></div>';
+						},
+						nested: [
+							{
+								render: function(helpers){
+									return 'BLEH';
+								}
+							},
+							{
+								render: function(helpers){
+									return 'BLOO';
+								}
+							}
+						]
 					}
 				]
 			}
