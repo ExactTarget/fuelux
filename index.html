@@ -958,7 +958,6 @@
 		<div class="clearfix">
 			<h2>Selectlist</h2>
 
-			<!-- SELECTLIST -->
 			<div id="MySelectlist" class="btn-group selectlist" data-resize="auto">
 				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 					<span class="selected-label">&nbsp;</span>
@@ -975,18 +974,22 @@
 				<input class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
 			</div>
 
-			<div style="margin-top:20px;">
-				<input id="getSelectedItem" type="button" class="btn btn-default btn-xs" value="log selected item/value"/>
-				<input id="selectByValue" type="button" class="btn btn-default btn-xs" value="set by value (3)"/>
-				<input id="selectByIndex" type="button" class="btn btn-default btn-xs" value="set by element index (zero-based) ('4')"/>
+			<br/>
+			<br/>
+			<p>Sample Methods</p>
+			<div class="btn-group">
+				<input id="getSelectedItem" type="button" class="btn btn-default" value="log selected item/value"/>
+				<input id="selectByValue" type="button" class="btn btn-default" value="set by value (3)"/>
+				<input id="selectByIndex" type="button" class="btn btn-default" value="set by element index (zero-based) ('4')"/>
 			</div>
 
-			<div style="margin-top:20px;">
-				<input id="selectByText" type="button" class="btn btn-default btn-xs" value="set by text ('One')"/>
-				<input id="selectBySelector" type="button" class="btn btn-default btn-xs" value="set by CSS selector ('li[data-fizz=buzz]')"/>
-				<input id="enableSelect" type="button" class="btn btn-default btn-xs" value="enable"/>
-				<input id="disableSelect" type="button" class="btn btn-default btn-xs" value="disable"/>
+			<div class="btn-group">
+				<input id="selectByText" type="button" class="btn btn-default" value="set by text ('One')"/>
+				<input id="selectBySelector" type="button" class="btn btn-default" value="set by CSS selector ('li[data-fizz=buzz]')"/>
+				<input id="enableSelect" type="button" class="btn btn-default" value="enable"/>
+				<input id="disableSelect" type="button" class="btn btn-default" value="disable"/>
 			</div>
+
 		</div>
 
 		<h2>Tree</h2>
