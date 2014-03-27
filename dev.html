@@ -102,6 +102,19 @@
 					</div>
 				</div>
 				<div class="repeater-header-right">
+					<div class="btn-group selectlist repeater-filters" data-resize="auto">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							<span class="selected-label">&nbsp;</span>
+							<span class="caret"></span>
+							<span class="sr-only">Toggle Filters</span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li data-value="All"><a href="#">All</a></li>
+							<li data-value="Bleh" data-selected="true"><a href="#">Bleh</a></li>
+							<li data-value="Bloo"><a href="#">Bloo</a></li>
+						</ul>
+						<input class="hidden hidden-field" name="filterSelection" readonly="readonly" aria-hidden="true" type="text"/>
+					</div>
 				</div>
 			</div>
 			<div class="repeater-main"></div>
@@ -109,6 +122,21 @@
 				<div class="repeater-footer-left">
 					<div class="repeater-itemization">
 						<span><span class="repeater-start">1</span> - <span class="repeater-end">10</span> of <span class="repeater-count">146</span> items</span>
+						<div class="btn-group selectlist" data-resize="auto">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+								<span class="selected-label">&nbsp;</span>
+								<span class="caret"></span>
+								<span class="sr-only">Toggle Dropdown</span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li data-value="5"><a href="#">5</a></li>
+								<li data-value="10" data-selected="true"><a href="#">10</a></li>
+								<li data-value="20"><a href="#">20</a></li>
+								<li data-value="50" data-foo="bar" data-fizz="buzz"><a href="#">50</a></li>
+								<li data-value="100"><a href="#">100</a></li>
+							</ul>
+							<input class="hidden hidden-field" name="itemsPerPage" readonly="readonly" aria-hidden="true" type="text"/>
+						</div>
 						<span>Per Page</span>
 					</div>
 				</div>
@@ -116,6 +144,16 @@
 					<div class="repeater-pagination">
 						<button type="button" class="btn btn-default btn-sm repeater-prev"><span class="glyphicon glyphicon-chevron-left"></span></button>
 						<span>Page</span>
+						<div class="repeater-primaryPaging active">
+							<div class="input-group input-append dropdown combobox">
+								<input type="text" class="form-control">
+								<div class="input-group-btn">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+									<ul class="dropdown-menu pull-right"></ul>
+								</div>
+							</div>
+						</div>
+						<input type="text" class="form-control repeater-secondaryPaging">
 						<span>of <span class="repeater-pages">15</span></span>
 						<button type="button" class="btn btn-default btn-sm repeater-next"><span class="glyphicon glyphicon-chevron-right"></span></button>
 					</div>

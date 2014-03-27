@@ -43,6 +43,30 @@
 		overflow: auto;
 	}
 
+	&-pagination {
+		.repeater-primaryPaging {
+			display: none;
+			vertical-align: middle;
+
+			&.active {
+				display: inline-block;
+			}
+
+			input.form-control {
+				width: 82px;
+			}
+		}
+
+		.repeater-secondaryPaging {
+			display: none;
+			width: 82px;
+
+			&.active {
+				display: inline-block;
+			}
+		}
+	}
+
 	&-search {
 		float: left;
 	}
