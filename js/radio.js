@@ -36,9 +36,15 @@
 		this.$label = this.$radio.parent();
 		this.groupName = this.$radio.attr('name');
 		this.$parent = this.$label.parent('.radio');
+		this.$toggleContainer = null;
 
 		if(this.$parent.length===0){
 			this.$parent = null;
+		}
+
+		var toggleSelector = this.$radio.attr('data-toggle');
+		if(toggleSelector) {
+			this.$toggleContainer = $(toggleSelector);
 		}
 
 		// set default state
@@ -76,6 +82,9 @@
 					this.$parent.addClass('disabled');
 				}
 			}
+
+			//toggle container
+			this.toggleContainer();
 		},
 
 		resetGroup: function () {
@@ -115,6 +124,25 @@
 			this.resetGroup();
 			this.$radio.prop('checked', true);
 			this.setState(this.$radio);
+		},
+
+		toggleContainer: function() {
+			var group;
+			if(this.$toggleContainer) {
+				// show corresponding container for currently selected radio
+				if(this.isChecked()) {
+					// hide containers for each item in group
+					group = $('input[name="' + this.groupName + '"]');
+					group.each(function(){
+						var selector = $(this).attr('data-toggle');
+						$(selector).hide();
+					});
+					this.$toggleContainer.show();
+				}else {
+					this.$toggleContainer.hide();
+				}
+
+			}
 		},
 
 		uncheck: function () {

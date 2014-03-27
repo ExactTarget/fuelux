@@ -35,9 +35,15 @@
 		this.$chk = $(element);
 		this.$label = this.$chk.parent();
 		this.$parent = this.$label.parent('.checkbox');
+		this.$toggleContainer = null;
 
 		if(this.$parent.length===0){
 			this.$parent = null;
+		}
+
+		var toggleSelector = this.$chk.attr('data-toggle');
+		if(toggleSelector) {
+			this.$toggleContainer = $(toggleSelector);
 		}
 
 		// set default state
@@ -76,6 +82,9 @@
 					this.$parent.addClass('disabled');
 				}
 			}
+
+			//toggle container
+			this.toggleContainer();
 		},
 
 		enable: function () {
@@ -96,6 +105,16 @@
 
 		toggle: function () {
 			this.$chk.click();
+		},
+
+		toggleContainer: function(){
+			if(this.$toggleContainer) {
+				if(this.isChecked()) {
+					this.$toggleContainer.show();
+				}else {
+					this.$toggleContainer.hide();
+				}
+			}
 		},
 
 		itemchecked: function (e) {
