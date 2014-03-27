@@ -467,11 +467,10 @@
 			</div>
 		</div>
 
-		<h2>Scheduler</h2>
+		<div class="clearfix">
 
-		<!-- SCHEDULER -->
+			<h2>Scheduler</h2>
 
-		<div>
 			<div id="MyScheduler" class="scheduler">
 				<table class="scheduler-table">
 					<tr class="scheduler-start">
@@ -654,6 +653,7 @@
 							</div>
 						</td>
 					</tr>
+
 					<tr class="scheduler-repeat">
 						<td class="scheduler-label">Repeat</td>
 						<td>
@@ -678,14 +678,14 @@
 								<div class="repeat-interval-panel pull-left">
 									<div class="repeat-interval-pretext">every</div>
 
-									<div class="spinner">
-										<input type="number" class="form-control input-mini spinner-input">
+									<div class="spinbox">
+										<input type="number" class="form-control input-mini spinbox-input">
 
-										<div class="spinner-buttons btn-group btn-group-vertical">
-											<button class="btn btn-default spinner-up btn-xs">
+										<div class="spinbox-buttons btn-group btn-group-vertical">
+											<button class="btn btn-default spinbox-up btn-xs">
 												<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
 											</button>
-											<button class="btn btn-default spinner-down btn-xs">
+											<button class="btn btn-default spinbox-down btn-xs">
 												<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
 											</button>
 										</div>
@@ -694,34 +694,6 @@
 									<div class="repeat-interval-text">day(s)</div>
 								</div>
 							</div>
-
-							<!--<div class="repeat-interval">
-								<div class="btn-group select">
-									<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label">None (run once)</span><span class="caret"></span></button>
-									<ul class="dropdown-menu">
-										<li data-value="none"><a href="#">None (run once)</a></li>
-										<li data-value="hourly" data-text="hour(s)"><a href="#">Hourly</a></li>
-										<li data-value="daily" data-text="day(s)"><a href="#">Daily</a></li>
-										<li data-value="weekdays"><a href="#">Weekdays</a></li>
-										<li data-value="weekly" data-text="week(s)"><a href="#">Weekly</a></li>
-										<li data-value="monthly" data-text="month(s)"><a href="#">Monthly</a></li>
-										<li data-value="yearly"><a href="#">Yearly</a></li>
-									</ul>
-								</div>
-
-								<div class="repeat-interval-panel">
-									<div class="repeat-interval-pretext">every</div>
-									<div class="spinbox">
-										<input type="text" value="1" class="input-mini spinbox-input">
-										<div class="spinbox-buttons btn-group btn-group-vertical">
-											<button class="btn spinbox-up"><i class="icon-chevron-up"></i></button>
-											<button class="btn spinbox-down"><i class="icon-chevron-down"></i></button>
-										</div>
-									</div>
-									<div class="repeat-interval-text">day(s)</div>
-								</div>
-
-							</div>-->
 
 							<div class="recurrence-panel scheduler-weekly">
 								<div class="btn-group" data-toggle="buttons-checkbox">
@@ -981,14 +953,14 @@
 								<input type="text" aria-hidden="true" readonly="readonly" name="EndSelectlist" class="hidden hidden-field">
 							</div>
 
-							<div class="spinner">
-								<input type="number" class="form-control input-mini spinner-input">
+							<div class="spinbox">
+								<input type="number" class="form-control input-mini spinbox-input">
 
-								<div class="spinner-buttons btn-group btn-group-vertical">
-									<button class="btn btn-default spinner-up btn-xs">
+								<div class="spinbox-buttons btn-group btn-group-vertical">
+									<button class="btn btn-default spinbox-up btn-xs">
 										<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
 									</button>
-									<button class="btn btn-default spinner-down btn-xs">
+									<button class="btn btn-default spinbox-down btn-xs">
 										<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
 									</button>
 								</div>
@@ -1009,10 +981,15 @@
 				</table>
 			</div>
 
-			<input id="schedulerEnableBtn" type="button" class="btn btn-default btn-xs" value="enable" />
-			<input id="schedulerDisableBtn" type="button" class="btn btn-default btn-xs" value="disable" />
-			<input id="schedulerLogValueBtn" type="button" class="btn btn-default btn-xs" value="log value" />
-			<input id="schedulerSetValueBtn" type="button" class="btn btn-default btn-xs" value="set value" />
+				<br/>
+				<p>Sample Methods</p>
+				<div class="btn-group">
+					<input id="schedulerEnableBtn" type="button" class="btn btn-default" value="enable" />
+					<input id="schedulerDisableBtn" type="button" class="btn btn-default" value="disable" />
+					<input id="schedulerLogValueBtn" type="button" class="btn btn-default" value="log value" />
+					<input id="schedulerSetValueBtn" type="button" class="btn btn-default" value="set value" />
+				</div>
+
 		</div>
 
 
