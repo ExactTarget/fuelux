@@ -52,13 +52,13 @@
 
 			<div class="checkbox">
 				<label class="checkbox-custom">
-					<input id="chk1" checked="checked" class="checked" type="checkbox" value="">
+					<input id="chk1" checked="checked" data-toggle="#checkboxToggle1" class="checked" type="checkbox" value="">
 					Custom: Checked Enabled<br/>Second Line (#chk1)
 				</label>
 			</div>
 			<div class="checkbox">
 				<label class="checkbox-custom">
-					<input class="checkbox" type="checkbox" value="">
+					<input class="checkbox" data-toggle=".checkboxToggle2" type="checkbox" value="">
 					Custom: Unchecked Enabled
 				</label>
 			</div>
@@ -80,13 +80,16 @@
 			<div class="checkbox"><label><input checked="checked" disabled="disabled" type="checkbox" value="">Native: Checked Disabled</label></div>
 			<div class="checkbox"><label><input disabled="disabled" type="checkbox" value="">Native: Unchecked Disabled</label></div>
 
+			<div id="checkboxToggle1" style="display: none;">Here is checkbox toggle 1</div>
+			<div class="checkboxToggle2" style="display: none;">Here is checkbox toggle 2</div>
+
 			<br/>
 			<h5>Sample Methods</h5>
 
 			<div class="btn-group">
-				<button type="button" class="btn btn-default" id="btnChkToggle">toggle #chk1</button>
-				<button type="button" class="btn btn-default" id="btnChkDisable">disable #chk1</button>
-				<button type="button" class="btn btn-default" id="btnChkEnable">enable #chk1</button>
+				<button type="button" class="btn btn-default btn-xs" id="btnChkToggle">toggle #chk1</button>
+				<button type="button" class="btn btn-default btn-xs" id="btnChkDisable">disable #chk1</button>
+				<button type="button" class="btn btn-default btn-xs" id="btnChkEnable">enable #chk1</button>
 			</div>
 			<hr/>
 
@@ -446,14 +449,14 @@
 
 			<div class="radio">
 				<label class="radio-custom">
-					<input checked="checked" name="radio1a" type="radio">
+					<input checked="checked" data-toggle="#radioToggle1" name="radio1a" type="radio">
 					Custom: Checked Enabled
 				</label>
 			</div>
 
 			<div class="radio">
 				<label class="radio-custom">
-					<input name="radio1a" type="radio">
+					<input data-toggle=".radioToggle2" name="radio1a" type="radio">
 					Custom: Unchecked Enabled
 				</label>
 			</div>
@@ -477,8 +480,12 @@
 			<div class="radio"><label><input type="radio" name="radio2b" checked="checked" disabled="disabled">Native: Checked Disabled</label></div>
 			<div class="radio"><label><input type="radio" name="radio2b" disabled="disabled">Native: Unchecked Disabled</label></div>
 
+			<div id="radioToggle1" style="display: none;">Here is radio toggle 1.</div>
+			<div class="radioToggle2" style="display: none;">Here is radio toggle 2.</div>
+
 			<br/>
 			<h5>Sample Methods</h5>
+
 			<div class="btn-group">
 				<button type="button" class="btn btn-default" id="btnRadioDisable">disable</button>
 				<button type="button" class="btn btn-default" id="btnRadioEnable">enable</button>
