@@ -58,17 +58,18 @@
 		render: function(container, renderer, data, callback){
 			var async = { after: false, before: false, complete: false, render: false };
 			var self = this;
-			var dataset, repeat, i, l;
+			var repeat, subset, i, l;
 
-			var loopDataset = function(index){
-				var args = [data];
+			var loopSubset = function(index){
+				var args = { container: container, data: data };
 				if(renderer.repeat){
-					args.push(dataset, index);
+					args.subset = subset;
+					args.index = index;
 				}
 				start(args, function(){
 					index++;
-					if(index<dataset.length){
-						loopDataset(index);
+					if(index<subset.length){
+						loopSubset(index);
 					}else{
 						callback();
 					}
@@ -81,19 +82,23 @@
 						proceed('render', args);
 					},
 					render: function(item){
-						item = $(item);
+						var itm;
 						if(item!==null){
 							container.append(item);
+							itm = $(item);
+							if(itm.length<1){
+								itm = item;
+							}
+							args.item = itm;
 						}
-						args.splice(1, 0, item);
 						proceed('after', args);
 					},
 					after: function(){
 						var cont;
 						var loopNested = function(cont, index){
-							self.render(cont, renderer.nest[index], data, function(){
+							self.render(cont, renderer.nested[index], data, function(){
 								index++;
-								if(index<renderer.nest.length){
+								if(index<renderer.nested.length){
 									loopNested(cont, index);
 								}else{
 									proceed('complete', args);
@@ -101,7 +106,7 @@
 							});
 						};
 
-						if(renderer.nest){
+						if(renderer.nested){
 							cont = container.find('[data-container="true"]:first');
 							if(cont.length<1){
 								cont = container;
@@ -119,13 +124,13 @@
 				};
 
 				var proceed = function(stage, argus){
-					argus = $.extend([], argus);
+					argus = $.extend({}, argus);
 					if(renderer[stage]){
 						if(async[stage]){
-							argus.push(callbacks[stage]);
-							renderer[stage].apply(self, argus);
+							argus.callback = callbacks[stage];
+							renderer[stage].call(self, argus);
 						}else{
-							callbacks[stage](renderer[stage].apply(self, argus));
+							callbacks[stage](renderer[stage].call(self, argus));
 						}
 					}else{
 						callbacks[stage](null);
@@ -145,15 +150,15 @@
 
 			if(renderer.repeat){
 				repeat = renderer.repeat.split('.');
-				dataset = data;
+				subset = data;
 				for(i=0, l=repeat.length; i<l; i++){
-					dataset = dataset[repeat[i]];
+					subset = subset[repeat[i]];
 				}
 			}else{
-				dataset = [''];
+				subset = [''];
 			}
 
-			loopDataset(0);
+			loopSubset(0);
 		}
 	};
 
@@ -188,51 +193,14 @@
 				//repeat: 'parameter.subparameter.etc',
 				//async: { after: false, before: false, complete: false, render: false }  (passing true sets all to true)
 				//render: function(data, [dataset, index]){},
-				//nest: [ *array of renderer objects* ]
+				//nested: [ *array of renderer objects* ]
 			//}
 			//*NOTE - the dataset and index arguments appear if repeat is present
 	$.fn.repeater.views = {
-		/*list: {
-			//defaults: {},
-			renderer: {
-				nest: [
-					{
-						complete: function(){
-							console.log('COMPLETE');
-						},
-						render: function(data){
-							return '<table class="list-view-header"><tr data-container="true"></tr></table>';
-						},
-						nest: [
-							{
-								async: { before: true, render: true },
-								before: function(data, dataset, i, callback){
-									var delay = 1000;
-									if(i===1){
-										delay = 3000;
-									}
-									setTimeout(function(){
-										console.log('before');
-										callback();
-									}, delay);
-								},
-								render: function(data, dataset, i, callback){
-									setTimeout(function(){
-										callback('<td>' + dataset[i].label + '</td>');
-									}, 2000);
-								},
-								repeat: 'columns'
-							}
-						]
-					}
-				]
-			}
-		},*/
 		thumbnail: {
 			renderer: {
-				render: function(data, dataset, i){
-					//return '<div class="thumbnail">' + dataset[i].name + '</div>';
-					return '';
+				render: function(helpers){
+					return '<div class="thumbnail">' + helpers.subset[helpers.index].name + '</div>';
 				},
 				repeat: 'thumbnails'
 			}
