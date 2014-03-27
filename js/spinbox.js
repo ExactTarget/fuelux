@@ -1,5 +1,5 @@
 /*
- * Fuel UX Spinner
+ * Fuel UX Spinbox
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2014 ExactTarget
@@ -24,25 +24,25 @@
 		
 	// -- BEGIN MODULE CODE HERE --
 
-	var old = $.fn.spinner;
+	var old = $.fn.spinbox;
 
 	// SPINNER CONSTRUCTOR AND PROTOTYPE
 
-	var Spinner = function (element, options) {
+	var Spinbox = function (element, options) {
 		this.$element = $(element);
-		this.options = $.extend({}, $.fn.spinner.defaults, options);
-		this.$input = this.$element.find('.spinner-input');
+		this.options = $.extend({}, $.fn.spinbox.defaults, options);
+		this.$input = this.$element.find('.spinbox-input');
 		this.$element.on('focusin', this.$input, $.proxy(this.changeFlag, this));
 		this.$element.on('focusout', this.$input, $.proxy(this.change, this));
 
 		if (this.options.hold) {
-			this.$element.on('mousedown', '.spinner-up', $.proxy(function() { this.startSpin(true); } , this));
-			this.$element.on('mouseup', '.spinner-up, .spinner-down', $.proxy(this.stopSpin, this));
-			this.$element.on('mouseout', '.spinner-up, .spinner-down', $.proxy(this.stopSpin, this));
-			this.$element.on('mousedown', '.spinner-down', $.proxy(function() {this.startSpin(false);} , this));
+			this.$element.on('mousedown', '.spinbox-up', $.proxy(function() { this.startSpin(true); } , this));
+			this.$element.on('mouseup', '.spinbox-up, .spinbox-down', $.proxy(this.stopSpin, this));
+			this.$element.on('mouseout', '.spinbox-up, .spinbox-down', $.proxy(this.stopSpin, this));
+			this.$element.on('mousedown', '.spinbox-down', $.proxy(function() {this.startSpin(false);} , this));
 		} else {
-			this.$element.on('click', '.spinner-up', $.proxy(function() { this.step(true); } , this));
-			this.$element.on('click', '.spinner-down', $.proxy(function() { this.step(false); }, this));
+			this.$element.on('click', '.spinbox-up', $.proxy(function() { this.step(true); } , this));
+			this.$element.on('click', '.spinbox-down', $.proxy(function() { this.step(false); }, this));
 		}
 
 		this.switches = {
@@ -67,8 +67,8 @@
 		}
 	};
 
-	Spinner.prototype = {
-		constructor: Spinner,
+	Spinbox.prototype = {
+		constructor: Spinbox,
 
 		render: function () {
 			var inputValue = this.$input.val();
@@ -267,23 +267,23 @@
 
 	// SPINNER PLUGIN DEFINITION
 
-	$.fn.spinner = function (option) {
+	$.fn.spinbox = function (option) {
 		var args = Array.prototype.slice.call( arguments, 1 );
 		var methodReturn;
 
 		var $set = this.each(function () {
 			var $this   = $( this );
-			var data    = $this.data( 'spinner' );
+			var data    = $this.data( 'spinbox' );
 			var options = typeof option === 'object' && option;
 
-			if( !data ) $this.data('spinner', (data = new Spinner( this, options ) ) );
+			if( !data ) $this.data('spinbox', (data = new Spinbox( this, options ) ) );
 			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
 		return ( methodReturn === undefined ) ? $set : methodReturn;
 	};
 
-	$.fn.spinner.defaults = {
+	$.fn.spinbox.defaults = {
 		value: 1,
 		min: 0,
 		max: 999,
@@ -295,10 +295,10 @@
 		units: []
 	};
 
-	$.fn.spinner.Constructor = Spinner;
+	$.fn.spinbox.Constructor = Spinbox;
 
-	$.fn.spinner.noConflict = function () {
-		$.fn.spinner = old;
+	$.fn.spinbox.noConflict = function () {
+		$.fn.spinbox = old;
 		return this;
 	};
 
@@ -307,17 +307,17 @@
 
 	$(function () {
 
-		$('.spinner').each(function () {
+		$('.spinbox').each(function () {
 			var $this = $(this);
-			if (!$this.data('spinner')) {
-				$this.spinner($this.data());
+			if (!$this.data('spinbox')) {
+				$this.spinbox($this.data());
 			}
 		});
 
-		$('body').on('mousedown.spinner.data-api', '.spinner', function () {
+		$('body').on('mousedown.spinbox.data-api', '.spinbox', function () {
 			var $this = $(this);
-			if ($this.data('spinner')) return;
-			$this.spinner($this.data());
+			if ($this.data('spinbox')) return;
+			$this.spinbox($this.data());
 		});
 	});
 

@@ -52,7 +52,7 @@
 	});
 
 	test('should return element', function () {
-		ok($(document.body).spinner()[0] === document.body, 'document.body returned');
+		ok($(document.body).spinbox()[0] === document.body, 'document.body returned');
 	});
 
 	test('should be defined on jquery object', function () {
