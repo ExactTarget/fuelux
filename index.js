@@ -171,10 +171,10 @@ define(function(require){
 
 	// RADIO
 	$('#btnRadioDisable').on('click', function() {
-		$('input[name=radio1a]').radio('disable');
+		$('#radio1').radio('disable');
 	});
 	$('#btnRadioEnable').on('click', function() {
-		$('input[name=radio1a]').radio('enable');
+		$('#radio1').radio('enable');
 	});
 
 

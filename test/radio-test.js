@@ -8,33 +8,12 @@ define(function(require){
 	require('bootstrap');
 	require('fuelux/radio');
 
-	var html =	'<div class="radio">' +
-				'	<label id="lbl1" class="radio-custom">' +
-				'		<input id="radio1" checked="checked" name="radio1a" type="radio">' +
-				'		Custom: Checked Enabled' +
-				'	</label>' +
-				'</div>' +
-
-				'<div class="radio">' +
-				'	<label id="lbl2" class="radio-custom">' +
-				'		<input id="radio2" name="radio1a" type="radio">' +
-				'		Custom: Unchecked Enabled' +
-				'	</label>' +
-				'</div>' +
-
-				'<div class="radio">' +
-				'	<label id="lbl3" class="radio-custom">' +
-				'		<input id="radio3" checked="checked" disabled="disabled" name="radio1b" type="radio">' +
-				'		Custom: Checked Disabled' +
-				'	</label>' +
-				'</div>' +
-
-				'<div class="radio">' +
-				'	<label id="lbl4" class="radio-custom">' +
-				'		<input id="radio4" disabled="disabled" name="radio1b" type="radio">' +
-				'		Custom: Unchecked Disabled' +
-				'	</label>' +
-				'</div>';
+	var html = '<div>' +
+			'<div class="radio"><label class="radio-custom" id="lbl1"><input id="radio1" checked="checked" name="radio1" type="radio">Custom: Checked Enabled</label></div>' +
+			'<div class="radio"><label class="radio-custom" id="lbl2"><input id="radio2" name="radio1" type="radio">Custom: Unchecked Enabled</label></div>' +
+			'<div class="radio"><label class="radio-custom" id="lbl3"><input id="radio3" checked="checked" disabled="disabled" name="radio2" type="radio">Custom: Checked Disabled</label></div>' +
+			'<div class="radio"><label class="radio-custom" id="lbl4"><input id="radio4" disabled="disabled" name="radio2" type="radio">Custom: Unchecked Disabled</label></div>' +
+		'</div>';
 
 	module("Fuel UX radio");
 
