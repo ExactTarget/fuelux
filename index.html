@@ -46,14 +46,15 @@
 
 	<div class="container">
 
-		<h2>Checkbox</h2>
+		<div class="clearfix">
 
-		<!-- CHECKBOX -->
-		<div>
+			<h2>Checkbox</h2>
+
+			<!-- CHECKBOX -->
 			<div class="checkbox">
 				<label class="checkbox-custom">
-					<input checked="checked" class="checkbox" type="checkbox" value="">
-					Custom: Checked Enabled<br/>Second Line
+					<input id="chk1" checked="checked" class="checked" type="checkbox" value="">
+					Custom: Checked Enabled<br/>Second Line (#chk1)
 				</label>
 			</div>
 			<div class="checkbox">
@@ -80,9 +81,12 @@
 			<div class="checkbox"><label><input checked="checked" disabled="disabled" type="checkbox" value="">Native: Checked Disabled</label></div>
 			<div class="checkbox"><label><input disabled="disabled" type="checkbox" value="">Native: Unchecked Disabled</label></div>
 
-			<button type="button" class="btn btn-default btn-xs" id="btnChkToggle">toggle</button>
-			<button type="button" class="btn btn-default btn-xs" id="btnChkDisable">disable</button>
-			<button type="button" class="btn btn-default btn-xs" id="btnChkEnable">enable</button>
+			<div class="buttons">
+				<button type="button" class="btn btn-default btn-xs" id="btnChkToggle">toggle #chk1</button>
+				<button type="button" class="btn btn-default btn-xs" id="btnChkDisable">disable #chk1</button>
+				<button type="button" class="btn btn-default btn-xs" id="btnChkEnable">enable #chk1</button>
+			</div>
+
 		</div>
 
 		<div class="clearfix">
