@@ -6,23 +6,23 @@
             display: none;
             float: left;
             margin-left: 10px;
+
+	        > input {
+		        width: 100px
+	        }
         }
 
-        .select {
+        .selectlist {
             float: left;
         }
 
-        .spinner {
+        .spinbox {
             display: none;
             float: left;
             margin-left: 10px;
 
             input {
                 margin-bottom: 0;
-            }
-
-            span {
-                line-height: 27px;
             }
         }
     }
@@ -45,13 +45,14 @@
                 {
                     float: left;
                     line-height: 27px;
+	                margin-top:2px;
                 }
 
                 .repeat-interval-pretext {
                     padding: 0 10px;
                 }
 
-                .spinner {
+                .spinbox {
                     float: left;
                     margin-right: 0;
 
@@ -63,13 +64,16 @@
         }
 
         .scheduler-monthly {
-            padding-left: 15px;
 
             &-date {
                 margin-top: 10px;
                 .clearfix;
 
-                .select {
+	            .radio {
+		            margin: 6px 10px 0 0;
+	            }
+
+                .selectlist {
                     margin-left: 5px;
                 }
             }
@@ -78,20 +82,27 @@
                 margin-top: 10px;
                 .clearfix;
 
+	            .radio {
+		            margin: 6px 10px 0 0;
+	            }
+
                 .month-day-pos {
-                    margin: 0 5px;
+                    margin: 0 5px 0 0;
                 }
             }
         }
 
         .scheduler-yearly {
-            padding-left: 15px;
 
             &-date {
                 margin-top: 10px;
                 .clearfix;
 
-                .select {
+	            .radio {
+		            margin: 6px 10px 0 0;
+	            }
+
+                .selectlist {
                     &.year-month {
                         margin-left: 5px;
 
@@ -106,10 +117,14 @@
                 margin-top: 10px;
                 .clearfix;
 
+	            .radio {
+		            margin: 6px 10px 0 0;
+	            }
+
                 .scheduler-yearly-day-text {
                     float: left;
                     line-height: 27px;
-                    margin: 0 10px;
+                    margin: 3px 10px 0;
                 }
 
                 .year-month-day-pos {
@@ -119,7 +134,7 @@
         }
 
         .scheduler-weekly {
-            padding: 10px 0 0 15px;
+            padding: 10px 0 0 0;
 
             .btn-group {
                 &.disabled {
@@ -140,7 +155,7 @@
             }
         }
 
-        .select {
+        .selectlist {
             float: left;
         }
 
@@ -155,6 +170,7 @@
     }
 
     &-start {
+
         .combobox {
             .dropdown-menu {
                 max-height: 200px;
@@ -162,7 +178,7 @@
             }
 
             input {
-                width: 65px;
+                width: 90px;
             }
         }
 

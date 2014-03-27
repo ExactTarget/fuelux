@@ -34,7 +34,7 @@
 	require('fuelux/repeater');
 	require('fuelux/scheduler');
 	require('fuelux/search');
-	require('fuelux/spinner');
+	require('fuelux/spinbox');
 	require('fuelux/selectlist');
 	require('fuelux/tree');
 	require('fuelux/wizard');

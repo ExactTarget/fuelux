@@ -11,18 +11,18 @@
  // For more information on UMD visit:
  // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
- (function (factory) {
-     if (typeof define === 'function' && define.amd) {
-         // if AMD loader is available, register as an anonymous module.
-          define(['jquery'], factory);
-     } else {
-         // OR use browser globals if AMD is not present
-         factory(jQuery);
-     }
- }(function ($) {
-     // -- END UMD WRAPPER PREFACE --
+(function (factory) {
+	if (typeof define === 'function' && define.amd) {
+		// if AMD loader is available, register as an anonymous module.
+		define(['jquery'], factory);
+	} else {
+		// OR use browser globals if AMD is not present
+		factory(jQuery);
+	}
+}(function ($) {
+	// -- END UMD WRAPPER PREFACE --
 
-     // -- BEGIN MODULE CODE HERE --
+	// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.checkbox;
 
@@ -130,8 +130,13 @@
 			var data    = $this.data('checkbox');
 			var options = typeof option === 'object' && option;
 
-			if( !data ) $this.data('checkbox', (data = new Checkbox(this, options)));
-			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+			if( !data ) {
+				$this.data('checkbox', (data = new Checkbox(this, options)));
+			}
+
+			if( typeof option === 'string' ) {
+				methodReturn = data[ option ].apply( data, args );
+			}
 		});
 
 		return ( methodReturn === undefined ) ? $set : methodReturn;
@@ -147,19 +152,17 @@
 	};
 
 
-	// CHECKBOX DATA-API
+	// CHECKBOX INITIALIZATION ON DOMCONTENTLOADED
 
 	$(function () {
-		$(window).on('load', function () {
-			//$('i.checkbox').each(function () {
-			$('.checkbox-custom > input[type=checkbox]').each(function () {
-				var $this = $(this);
-				if ($this.data('checkbox')) return;
+		$('.checkbox-custom > input[type=checkbox]').each(function () {
+			var $this = $(this);
+			if (!$this.data('checkbox')) {
 				$this.checkbox($this.data());
-			});
+			}
 		});
 	});
 
 // -- BEGIN UMD WRAPPER AFTERWORD --
 }));
-    // -- END UMD WRAPPER AFTERWORD --
+	// -- END UMD WRAPPER AFTERWORD --

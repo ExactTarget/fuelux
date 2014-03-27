@@ -159,12 +159,10 @@
 	// RADIO DATA-API
 
 	$(function () {
-		$(window).on('load', function () {
-			$('.radio-custom > input[type=radio]').each(function () {
-				var $this = $(this);
-				if ($this.data('radio')) return;
-				$this.radio($this.data());
-			});
+		$('.radio-custom > input[type=radio]').each(function () {
+			var $this = $(this);
+			if ($this.data('radio')) return;
+			$this.radio($this.data());
 		});
 	});
 

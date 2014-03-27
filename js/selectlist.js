@@ -172,18 +172,15 @@
 	};
 
 
-	// SELECT DATA-API
+	// SELECTLIST INITIALIZATION AND DATA-API
 
 	$(function () {
 
-		$(window).on('load', function () {
-			$('.selectlist').each(function () {
-				var $this = $(this);
-				if ($this.data('selectlist')) {
-					return;
-				}
+		$('.selectlist').each(function () {
+			var $this = $(this);
+			if (!$this.data('selectlist')) {
 				$this.selectlist($this.data());
-			});
+			}
 		});
 
 		$('body').on('mousedown.select.data-api', '.selectlist', function () {
