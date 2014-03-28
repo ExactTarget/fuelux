@@ -60,7 +60,9 @@
 		this.$nextBtn.on('click', $.proxy(this.next, this));
 		this.$pageSize.on('changed', $.proxy(this.render, this, { pageIncrement: null }));
 		this.$prevBtn.on('click', $.proxy(this.previous, this));
+		this.$primaryPaging.find('.combobox').on('changed', function(evt, data){ self.pageInputChange(data.text); });
 		this.$search.on('searched cleared', $.proxy(this.render, this, { pageIncrement: null }));
+		this.$secondaryPaging.on('blur', function(){ self.pageInputChange(self.$secondaryPaging.val()); });
 
 		this.render();
 	};
@@ -111,6 +113,13 @@
 			this.render({ pageIncrement: 1 });
 		},
 
+		pageInputChange: function(val){
+			var pageInc;
+			val = parseInt(val, 10) - 1;
+			pageInc = val - this.currentPage;
+			this.render({ pageIncrement: pageInc });
+		},
+
 		pagination: function(data){
 			var act = 'active';
 			var dsbl = 'disabled';
@@ -141,9 +150,13 @@
 
 			if((this.currentPage+1)<pages){
 				this.$nextBtn.removeAttr(dsbl);
+			}else{
+				this.$nextBtn.attr(dsbl, dsbl);
 			}
 			if((this.currentPage-1)>=0){
 				this.$prevBtn.removeAttr(dsbl);
+			}else{
+				this.$prevBtn.attr(dsbl, dsbl);
 			}
 		},
 
