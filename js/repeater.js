@@ -33,7 +33,13 @@
 		var i;
 
 		this.$element = $(element);
+
+		this.$filters = this.$element.find('.repeater-filters');
+		this.$pageSize = this.$element.find('.repeater-itemization .selectlist');
 		this.$main = this.$element.find('.repeater-main');
+		this.$primaryPager = this.$element.find('.repeater-primaryPaging');
+		this.$search = this.$element.find('.repeater-search');
+		this.$secondaryPager = this.$element.find('.repeater-secondaryPaging');
 
 		this.options = $.extend(true, {}, $.fn.repeater.defaults);
 		for(i in $.fn.repeater.views){
@@ -43,20 +49,72 @@
 		}
 		this.options = $.extend(true, this.options, options);
 
+		this.currentPage = 1;
 		this.currentView = 'thumbnail';
 		this.skipNested = false;
 
-		this.options.dataSource({}, function(data){
-			self.render(self.$main, $.fn.repeater.views[self.currentView].renderer, data, function(){
-				//do next steps
-			});
-		});
+		//this.$nextpagebtn.on('click', $.proxy(this.next, this));
+		//this.$prevpagebtn.on('click', $.proxy(this.previous, this));
+		this.$filters.on('changed', $.proxy(this.render, this, { pageIncrement: null }));
+		this.$pageSize.on('changed', $.proxy(this.render, this, { pageIncrement: null }));
+		this.$search.on('searched cleared', $.proxy(this.render, this, { pageIncrement: null }));
+
+		this.render();
 	};
 
 	Repeater.prototype = {
 		constructor: Repeater,
 
-		render: function(container, renderer, data, callback){
+		clear: function(){
+			this.$main.empty();
+		},
+
+		getDataOptions: function(options){
+			var opts = {};
+			var val;
+
+			options = options || {};
+
+			opts.filter = this.$filters.selectlist('selectedItem');
+			opts.pageSize = parseInt(this.$pageSize.selectlist('selectedItem').value, 10);
+
+			if(options.pageIncrement!==undefined){
+				if(options.pageIncrement===null){
+					opts.pageIndex = 0;
+				}else{
+					opts.pageIndex = this.currentPage + options.pageIncrement;
+				}
+			}else{
+				opts.pageIndex = this.currentPage;
+			}
+
+			val = this.$search.find('input').val();
+			if(val!==''){
+				opts.search = val;
+			}
+
+			delete opts.pageIncrement;
+
+			if($.fn.repeater.views[this.currentView].dataOptions){
+				opts = $.fn.repeater.views[this.currentView].dataOptions();
+			}
+
+			return opts;
+		},
+
+		render: function(options){
+			var dataOptions = this.getDataOptions(options);
+			var self = this;
+
+			this.clear();
+			this.options.dataSource(dataOptions, function(data){
+				self.runRenderer(self.$main, $.fn.repeater.views[self.currentView].renderer, data, function(){
+					//do next steps
+				});
+			});
+		},
+
+		runRenderer: function(container, renderer, data, callback){
 			var async = { after: false, before: false, complete: false, render: false };
 			var self = this;
 			var repeat, subset, i, l;
@@ -98,7 +156,7 @@
 					after: function(){
 						var cont;
 						var loopNested = function(cont, index){
-							self.render(cont, renderer.nested[index], data, function(){
+							self.runRenderer(cont, renderer.nested[index], data, function(){
 								index++;
 								if(index<renderer.nested.length){
 									loopNested(cont, index);
