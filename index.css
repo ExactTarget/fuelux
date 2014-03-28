@@ -27,3 +27,11 @@ body {
 .search-form {
 	width: 300px;
 }
+
+.wizard .sample-pane {
+	margin-bottom: 0;
+}
+
+.wizard .alert {
+	margin-bottom: 0;
+}
