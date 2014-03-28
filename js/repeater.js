@@ -37,6 +37,8 @@
 		this.$filters = this.$element.find('.repeater-filters');
 		this.$pageSize = this.$element.find('.repeater-itemization .selectlist');
 		this.$main = this.$element.find('.repeater-main');
+		this.$nextBtn = this.$element.find('.repeater-next');
+		this.$prevBtn = this.$element.find('.repeater-prev');
 		this.$primaryPager = this.$element.find('.repeater-primaryPaging');
 		this.$search = this.$element.find('.repeater-search');
 		this.$secondaryPager = this.$element.find('.repeater-secondaryPaging');
@@ -49,14 +51,14 @@
 		}
 		this.options = $.extend(true, this.options, options);
 
-		this.currentPage = 1;
+		this.currentPage = 0;
 		this.currentView = 'thumbnail';
 		this.skipNested = false;
 
-		//this.$nextpagebtn.on('click', $.proxy(this.next, this));
-		//this.$prevpagebtn.on('click', $.proxy(this.previous, this));
 		this.$filters.on('changed', $.proxy(this.render, this, { pageIncrement: null }));
+		this.$nextBtn.on('click', $.proxy(this.next, this));
 		this.$pageSize.on('changed', $.proxy(this.render, this, { pageIncrement: null }));
+		this.$prevBtn.on('click', $.proxy(this.previous, this));
 		this.$search.on('searched cleared', $.proxy(this.render, this, { pageIncrement: null }));
 
 		this.render();
@@ -80,13 +82,12 @@
 
 			if(options.pageIncrement!==undefined){
 				if(options.pageIncrement===null){
-					opts.pageIndex = 0;
+					this.currentPage = 0;
 				}else{
-					opts.pageIndex = this.currentPage + options.pageIncrement;
+					this.currentPage += options.pageIncrement;
 				}
-			}else{
-				opts.pageIndex = this.currentPage;
 			}
+			opts.pageIndex = this.currentPage;
 
 			val = this.$search.find('input').val();
 			if(val!==''){
@@ -102,9 +103,25 @@
 			return opts;
 		},
 
+		next: function(){
+			var d = 'disabled';
+			this.$nextBtn.attr(d, d);
+			this.$prevBtn.attr(d, d);
+			this.render({ pageIncrement: 1 });
+		},
+
+		previous: function(){
+			var d = 'disabled';
+			this.$nextBtn.attr(d, d);
+			this.$prevBtn.attr(d, d);
+			this.render({ pageIncrement: -1 });
+		},
+
 		render: function(options){
 			var dataOptions = this.getDataOptions(options);
 			var self = this;
+
+			//console.log(dataOptions);
 
 			this.clear();
 			this.options.dataSource(dataOptions, function(data){
