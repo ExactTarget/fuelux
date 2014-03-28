@@ -9,7 +9,7 @@ define(function(require){
 	require('fuelux/combobox');
 
 	var html =	'<div id="MyCombobox" class="input-group input-append dropdown combobox">' +
-				'	<input type="text" class="form-control span2">' +
+				'	<input type="text" class="form-control">' +
 				'	<div class="input-group-btn">' +
 				'	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>' +
 				'	<ul class="dropdown-menu pull-right">' +
@@ -24,7 +24,7 @@ define(function(require){
 				'</div>';
 
 	var htmlNoDefault =	'<div id="MyCombobox" class="input-group input-append dropdown combobox">' +
-				'	<input type="text" class="form-control span2">' +
+				'	<input type="text" class="form-control">' +
 				'	<div class="input-group-btn">' +
 				'	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>' +
 				'	<ul class="dropdown-menu pull-right">' +

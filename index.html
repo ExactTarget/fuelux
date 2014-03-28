@@ -50,42 +50,57 @@
 
 			<h2>Checkbox</h2>
 
-			<!-- CHECKBOX -->
 			<div class="checkbox">
 				<label class="checkbox-custom">
 					<input id="chk1" checked="checked" class="checked" type="checkbox" value="">
-					Custom: Checked Enabled<br/>Second Line (#chk1)
+					Custom appearance checkbox checked at page load (#chk1)
 				</label>
 			</div>
 			<div class="checkbox">
 				<label class="checkbox-custom">
-					<input class="checkbox" type="checkbox" value="">
-					Custom: Unchecked Enabled
+					<input checked="checked" data-toggle="#checkboxToggle1" class="checked" type="checkbox" value="">
+					Custom appearance checkbox checked at page load <br/><i>with linked element visibility toggle by id</i>
+				</label>
+			</div>
+			<div class="checkbox">
+				<label class="checkbox-custom">
+					<input class="checkbox" data-toggle=".checkboxToggle2" type="checkbox" value="">
+					Custom appearance checkbox unchecked on page load<br/><i>with linked element visibility toggle by class</i>
 				</label>
 			</div>
 			<div class="checkbox">
 				<label class="checkbox-custom">
 					<input checked="checked" disabled="disabled" class="checkbox" type="checkbox" value="">
-					Custom: Checked Disabled<br/>Second Line
+					Disabled custom appearance checkbox <br/><i>checked on page load</i>
 				</label>
 			</div>
 			<div class="checkbox">
 				<label class="checkbox-custom">
 					<input class="checkbox" disabled="disabled" type="checkbox" value="">
-					Custom: Unchecked Disabled
+					Disabled Custom appearance checkbox <br/><i>unchecked on page load</i>
 				</label>
 			</div>
 
-			<div class="checkbox"><label><input checked="checked" type="checkbox" value="">Native: Checked Enabled</label></div>
-			<div class="checkbox"><label><input type="checkbox" value="">Native: Unchecked Enabled</label></div>
-			<div class="checkbox"><label><input checked="checked" disabled="disabled" type="checkbox" value="">Native: Checked Disabled</label></div>
-			<div class="checkbox"><label><input disabled="disabled" type="checkbox" value="">Native: Unchecked Disabled</label></div>
+			<div class="checkbox"><label><input checked="checked" type="checkbox" value="">Native Checkbox: Checked Enabled</label></div>
+			<div class="checkbox"><label><input type="checkbox" value="">Native Checkbox: Unchecked Enabled</label></div>
+			<div class="checkbox"><label><input checked="checked" disabled="disabled" type="checkbox" value="">Native Checkbox: Checked Disabled</label></div>
+			<div class="checkbox"><label><input disabled="disabled" type="checkbox" value="">Native Checkbox: Unchecked Disabled</label></div>
 
-			<div class="buttons">
-				<button type="button" class="btn btn-default btn-xs" id="btnChkToggle">toggle #chk1</button>
-				<button type="button" class="btn btn-default btn-xs" id="btnChkDisable">disable #chk1</button>
-				<button type="button" class="btn btn-default btn-xs" id="btnChkEnable">enable #chk1</button>
+			<br/>
+			<h5>Sample element visibility toggle bound to checkboxes</h5>
+			<div id="checkboxToggle1" class="alert bg-info" style="display: none;">This message's visibility toggles by id with a checkbox above.</div>
+			<div class="checkboxToggle2 alert bg-warning" style="display: none;">This message's visibility toggles by class with a checkbox above.</div>
+			<div class="checkboxToggle2 alert bg-success" style="display: none;">This message's visibility toggles by class with a checkbox above.</div>
+
+			<br/>
+			<h5>Sample Methods</h5>
+
+			<div class="btn-group">
+				<button type="button" class="btn btn-default" id="btnChkToggle">toggle #chk1</button>
+				<button type="button" class="btn btn-default" id="btnChkDisable">disable #chk1</button>
+				<button type="button" class="btn btn-default" id="btnChkEnable">enable #chk1</button>
 			</div>
+			<hr/>
 
 		</div>
 
@@ -96,7 +111,7 @@
 			<!-- COMBOBOX -->
 			<div class="" style="width: 300px;">
 				<div id="MyCombobox" class="input-group input-append dropdown combobox">
-					<input type="text" class="form-control span2">
+					<input type="text" class="form-control">
 					<div class="input-group-btn">
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 					<ul class="dropdown-menu pull-right">
@@ -112,7 +127,7 @@
 			</div>
 
 			<br/>
-			<p>Sample Methods</p>
+			<h5>Sample Methods</h5>
 			<div class="btn-group">
 				<input id="btnComboboxGetSelectedItem" type="button" class="btn btn-default" value="log item"/>
 				<input id="btnComboboxSelectByValue" type="button" class="btn btn-default" value="set by value (1)"/>
@@ -125,12 +140,13 @@
 				<input id="btnComboboxDisable" type="button" class="btn btn-default" value="disable"/>
 				<input id="btnComboboxEnable" type="button" class="btn btn-default" value="enable"/>
 			</div>
+
+			<hr/>
 		</div>
 
-		<h2>Datagrid</h2>
-
-		<!-- DATAGRID -->
-		<table id="MyGrid" class="table table-bordered datagrid">
+		<!-- 
+			<h2>Datagrid</h2>
+			<table id="MyGrid" class="table table-bordered datagrid">
 			<thead>
 			<tr>
 				<th>
@@ -201,10 +217,10 @@
 				</th>
 			</tr>
 			</tfoot>
-		</table>
+		</table> -->
 
 		<!-- STRETCH DATAGRID -->
-		<div style="height:250px;width:100%">
+		<!-- <div style="height:250px;width:100%">
 			<table id="MyStretchGrid" class="table table-bordered datagrid">
 
 				<thead>
@@ -282,7 +298,7 @@
 			</table>
 		</div>
 
-		<!-- STRETCH DATAGRID WITH MULTISELECT -->
+		STRETCH DATAGRID WITH MULTISELECT
 		<div style="height:365px;width:100%">
 			<table id="MySelectStretchGrid" class="table table-bordered datagrid">
 
@@ -358,53 +374,59 @@
 				</tr>
 				</tfoot>
 			</table>
-		</div>
+		</div> -->
 
-		<h2>Datepicker</h2>
+		<div class="clearfix">
+			<h2>Datepicker</h2>
 
-		<!-- DATEPICKER -->
-		<div class="row">
-			<div class="col-lg-4">
-				<div class="datepicker input-group dropdown" id="datepicker1">
-					<input type="text" class="form-control" data-toggle="dropdown" />
-					<!-- this must go aver the input. if button is present, it must go in between or the input group will not look right -->
-					<div class="dropdown-menu"></div>
-					<span class="input-group-btn" data-toggle="dropdown">
-						<button type="button" class="btn btn-default">
-							<i class="glyphicon glyphicon-calendar"></i>
-						</button>
-					</span>
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="datepicker input-group dropdown" id="datepicker1">
+						<input type="text" class="form-control" data-toggle="dropdown" />
+						<!-- this must go aver the input. if button is present, it must go in between or the input group will not look right -->
+						<div class="dropdown-menu"></div>
+						<span class="input-group-btn" data-toggle="dropdown">
+							<button type="button" class="btn btn-default">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-12">
-				<span class="btn btn-default btn-sm" id="datepicker-enable">enable</span>
-				<span class="btn btn-default btn-sm" id="datepicker-disabled">disable</span>
-				<span class="btn btn-default btn-sm" id="datepicker-logFormattedDate">log formatted date</span>
-				<span class="btn btn-default btn-sm" id="datepicker-logDateObj">log date object</span>
-				<span class="btn btn-default btn-sm" id="datepicker-logDateUnix">log unix date</span>
-				<span class="btn btn-default btn-sm" id="datepicker-setDate">set date 7 days ahead (will log new value)</span>
+			
+			<br/>
+			<h5>Sample Methods</h5>
+			<div class="btn-group">
+				<span class="btn btn-default" id="datepicker-enable">enable</span>
+				<span class="btn btn-default" id="datepicker-disabled">disable</span>
+				<span class="btn btn-default" id="datepicker-logFormattedDate">log formatted date</span>
+				<span class="btn btn-default" id="datepicker-logDateObj">log date object</span>
+				<span class="btn btn-default" id="datepicker-logDateUnix">log unix date</span>
+				<span class="btn btn-default" id="datepicker-setDate">set date 7 days ahead (will log new value)</span>
 			</div>
+			<hr/>
+
 		</div>
 
-		<h2>Loader</h2>
+		<div class="clearfix">
+			<h2>Loader</h2>
 
-		<!-- LOADER -->
-		<div>
-			<div class="loader"><i></i><i></i><i></i><i></i></div>
+			<div>
+				<div class="loader"><i></i><i></i><i></i><i></i></div>
+			</div>
+
+			<!-- if IE<10 must be supported, include loader.js on the page, and use the following: -->
+			<div class="loader">
+				<i></i><i></i><i></i><i></i>
+				<!--[if lt IE 10]><script type="text/javascript">window.fuelux_loader.scan();</script><![endif]-->
+			</div>
+
+			<hr/>
 		</div>
 
-		<!-- if IE<10 must be supported, include loader.js on the page, and use the following: -->
-		<div class="loader">
-			<i></i><i></i><i></i><i></i>
-			<!--[if lt IE 10]><script type="text/javascript">window.fuelux_loader.scan();</script><![endif]-->
-		</div>
+		<div class="clearfix">
+			<h2>Pillbox</h2>
 
-		<h2>Pillbox</h2>
-
-		<!-- PILLBOX -->
-		<div>
 			<div id="MyPillbox" class="pillbox">
 				<ul>
 					<li data-value="foo">Item 1</li>
@@ -418,27 +440,33 @@
 				</ul>
 			</div>
 
-			<input type="button" class="btn btn-default btn-xs" id="btnAdd" value="add">
-			<input type="button" class="btn btn-default btn-xs" id="btnRemoveByValue" value="remove by value">
-			<input type="button" class="btn btn-default btn-xs" id="btnRemoveBySelector" value="remove by selector">
-			<input type="button" class="btn btn-default btn-xs" id="btnRemoveByText" value="remove by text">
-			<input type="button" class="btn btn-default btn-xs" id="btnItems" value="log items to console">
+			<br/>
+			<h5>Sample Methods</h5>
+			<div class="btn-group">
+				<input type="button" class="btn btn-default" id="btnAdd" value="add">
+				<input type="button" class="btn btn-default" id="btnRemoveByValue" value="remove by value">
+				<input type="button" class="btn btn-default" id="btnRemoveBySelector" value="remove by selector">
+				<input type="button" class="btn btn-default" id="btnRemoveByText" value="remove by text">
+				<input type="button" class="btn btn-default" id="btnItems" value="log items to console">
+			</div>
+			<hr/>
+
 		</div>
 
-		<h2>Radio</h2>
+		<div class="clearfix">
 
-		<!-- RADIO -->
-		<div>
+			<h2>Radio</h2>
+
 			<div class="radio">
 				<label class="radio-custom">
-					<input checked="checked" name="radio1a" type="radio">
+					<input checked="checked" data-toggle="#radioToggle1" name="radio1a" type="radio">
 					Custom: Checked Enabled
 				</label>
 			</div>
 
 			<div class="radio">
 				<label class="radio-custom">
-					<input name="radio1a" type="radio">
+					<input data-toggle=".radioToggle2" name="radio1a" type="radio">
 					Custom: Unchecked Enabled
 				</label>
 			</div>
@@ -462,17 +490,23 @@
 			<div class="radio"><label><input type="radio" name="radio2b" checked="checked" disabled="disabled">Native: Checked Disabled</label></div>
 			<div class="radio"><label><input type="radio" name="radio2b" disabled="disabled">Native: Unchecked Disabled</label></div>
 
+			<div id="radioToggle1" style="display: none;">Here is radio toggle 1.</div>
+			<div class="radioToggle2" style="display: none;">Here is radio toggle 2.</div>
+
+			<br/>
+			<h5>Sample Methods</h5>
+
 			<div class="btn-group">
 				<button type="button" class="btn btn-default" id="btnRadioDisable">disable</button>
 				<button type="button" class="btn btn-default" id="btnRadioEnable">enable</button>
 			</div>
+			<hr/>
 		</div>
 
-		<h2>Scheduler</h2>
+		<div class="clearfix">
 
-		<!-- SCHEDULER -->
+			<h2>Scheduler</h2>
 
-		<div>
 			<div id="MyScheduler" class="scheduler">
 				<table class="scheduler-table">
 					<tr class="scheduler-start">
@@ -490,7 +524,7 @@
 						</td>
 						<td>
 							<div class="input-group input-append dropdown combobox">
-								<input type="text" class="form-control span2">
+								<input type="text" class="form-control">
 								<div class="input-group-btn">
 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 									<ul class="dropdown-menu pull-right">
@@ -655,6 +689,7 @@
 							</div>
 						</td>
 					</tr>
+
 					<tr class="scheduler-repeat">
 						<td class="scheduler-label">Repeat</td>
 						<td>
@@ -679,14 +714,14 @@
 								<div class="repeat-interval-panel pull-left">
 									<div class="repeat-interval-pretext">every</div>
 
-									<div class="spinner">
-										<input type="number" class="form-control input-mini spinner-input">
+									<div class="spinbox">
+										<input type="number" class="form-control input-mini spinbox-input">
 
-										<div class="spinner-buttons btn-group btn-group-vertical">
-											<button class="btn btn-default spinner-up btn-xs">
+										<div class="spinbox-buttons btn-group btn-group-vertical">
+											<button class="btn btn-default spinbox-up btn-xs">
 												<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
 											</button>
-											<button class="btn btn-default spinner-down btn-xs">
+											<button class="btn btn-default spinbox-down btn-xs">
 												<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
 											</button>
 										</div>
@@ -695,34 +730,6 @@
 									<div class="repeat-interval-text">day(s)</div>
 								</div>
 							</div>
-
-							<!--<div class="repeat-interval">
-								<div class="btn-group select">
-									<button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label">None (run once)</span><span class="caret"></span></button>
-									<ul class="dropdown-menu">
-										<li data-value="none"><a href="#">None (run once)</a></li>
-										<li data-value="hourly" data-text="hour(s)"><a href="#">Hourly</a></li>
-										<li data-value="daily" data-text="day(s)"><a href="#">Daily</a></li>
-										<li data-value="weekdays"><a href="#">Weekdays</a></li>
-										<li data-value="weekly" data-text="week(s)"><a href="#">Weekly</a></li>
-										<li data-value="monthly" data-text="month(s)"><a href="#">Monthly</a></li>
-										<li data-value="yearly"><a href="#">Yearly</a></li>
-									</ul>
-								</div>
-
-								<div class="repeat-interval-panel">
-									<div class="repeat-interval-pretext">every</div>
-									<div class="spinbox">
-										<input type="text" value="1" class="input-mini spinbox-input">
-										<div class="spinbox-buttons btn-group btn-group-vertical">
-											<button class="btn spinbox-up"><i class="icon-chevron-up"></i></button>
-											<button class="btn spinbox-down"><i class="icon-chevron-down"></i></button>
-										</div>
-									</div>
-									<div class="repeat-interval-text">day(s)</div>
-								</div>
-
-							</div>-->
 
 							<div class="recurrence-panel scheduler-weekly">
 								<div class="btn-group" data-toggle="buttons-checkbox">
@@ -982,14 +989,14 @@
 								<input type="text" aria-hidden="true" readonly="readonly" name="EndSelectlist" class="hidden hidden-field">
 							</div>
 
-							<div class="spinner">
-								<input type="number" class="form-control input-mini spinner-input">
+							<div class="spinbox">
+								<input type="number" class="form-control input-mini spinbox-input">
 
-								<div class="spinner-buttons btn-group btn-group-vertical">
-									<button class="btn btn-default spinner-up btn-xs">
+								<div class="spinbox-buttons btn-group btn-group-vertical">
+									<button class="btn btn-default spinbox-up btn-xs">
 										<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
 									</button>
-									<button class="btn btn-default spinner-down btn-xs">
+									<button class="btn btn-default spinbox-down btn-xs">
 										<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
 									</button>
 								</div>
@@ -1010,10 +1017,16 @@
 				</table>
 			</div>
 
-			<input id="schedulerEnableBtn" type="button" class="btn btn-default btn-xs" value="enable" />
-			<input id="schedulerDisableBtn" type="button" class="btn btn-default btn-xs" value="disable" />
-			<input id="schedulerLogValueBtn" type="button" class="btn btn-default btn-xs" value="log value" />
-			<input id="schedulerSetValueBtn" type="button" class="btn btn-default btn-xs" value="set value" />
+			<br/>
+			<h5>Sample Methods</h5>
+			<div class="btn-group">
+				<input id="schedulerEnableBtn" type="button" class="btn btn-default" value="enable" />
+				<input id="schedulerDisableBtn" type="button" class="btn btn-default" value="disable" />
+				<input id="schedulerLogValueBtn" type="button" class="btn btn-default" value="log value" />
+				<input id="schedulerSetValueBtn" type="button" class="btn btn-default" value="set value" />
+			</div>
+			<hr/>
+
 		</div>
 
 
@@ -1035,11 +1048,12 @@
 			</form>
 
 			<br/>
-			<p>Sample Methods</p>
+			<h5>Sample Methods</h5>
 			<div class="btn-group">
 				<button type="button" class="btn btn-default" id="btnSearchDisable" value="disable">disable</button>
 				<button type="button" class="btn btn-default" id="btnSearchEnable" value="enable">enable</button>
 			</div>
+			<hr/>
 
 		</div>
 
@@ -1065,10 +1079,11 @@
 			</div>
 
 			<br/>
-			<p>Sample Methods</p>
+			<!-- <h5>Sample Methods</h5>-->
 			<div class="btn-group">
 				<!-- which methods? -->
 			</div>
+			<hr/>
 
 		</div>
 
@@ -1093,7 +1108,7 @@
 
 			<br/>
 			<br/>
-			<p>Sample Methods</p>
+			<h5>Sample Methods</h5>
 			<div class="btn-group">
 				<input id="getSelectedItem" type="button" class="btn btn-default" value="log selected item/value"/>
 				<input id="selectByValue" type="button" class="btn btn-default" value="set by value (3)"/>
@@ -1106,72 +1121,84 @@
 				<input id="enableSelect" type="button" class="btn btn-default" value="enable"/>
 				<input id="disableSelect" type="button" class="btn btn-default" value="disable"/>
 			</div>
+			<hr/>
 
 		</div>
 
-		<h2>Tree</h2>
+		<div class="clearfix">
 
-		<!-- TREE -->
-		<div id="ex-tree" class="tree">
-			<div class="tree-folder" style="display:none;">
-				<div class="tree-folder-header">
-					<i class="glyphicon glyphicon-folder-close"></i>
+			<h2>Tree</h2>
 
-					<div class="tree-folder-name"></div>
+			<div id="ex-tree" class="tree">
+				<div class="tree-folder" style="display:none;">
+					<div class="tree-folder-header">
+						<i class="glyphicon glyphicon-folder-close"></i>
+
+						<div class="tree-folder-name"></div>
+					</div>
+					<div class="tree-folder-content"></div>
+					<div class="tree-loader" style="display:none">
+					</div>
 				</div>
-				<div class="tree-folder-content"></div>
-				<div class="tree-loader" style="display:none">
+				<div class="tree-item" style="display:none;">
+					<i class="glyphicon tree-dot"></i>
+
+					<div class="tree-item-name"></div>
 				</div>
 			</div>
-			<div class="tree-item" style="display:none;">
-				<i class="glyphicon tree-dot"></i>
 
-				<div class="tree-item-name"></div>
-			</div>
+			<hr/>
+
 		</div>
 
-		<h2>Wizard</h2>
+		<div class="clearfix">
 
-		<!-- WIZARD -->
-		<div>
+			<h2>Wizard</h2>
+
 			<div id="MyWizard" class="wizard">
 				<ul class="steps">
-					<li data-target="#step1" class="active"><span class="badge badge-info">1</span>Step 1<span class="chevron"></span></li>
-					<li data-target="#step2"><span class="badge">2</span>Step 2<span class="chevron"></span></li>
-					<li data-target="#step3"><span class="badge">3</span>Step 3<span class="chevron"></span></li>
-					<li data-target="#step4"><span class="badge">4</span>Step 4<span class="chevron"></span></li>
-					<li data-target="#step5"><span class="badge">5</span>Step 5<span class="chevron"></span></li>
-					<li data-target="#step6"><span class="badge">6</span>Step 6<span class="chevron"></span></li>
-					<li data-target="#step7"><span class="badge">7</span>Step 7<span class="chevron"></span></li>
-					<li data-target="#step8"><span class="badge">8</span>Step 8<span class="chevron"></span></li>
-					<li data-target="#step9"><span class="badge">9</span>Step 9<span class="chevron"></span></li>
-					<li data-target="#step10"><span class="badge">10</span>Step 10<span class="chevron"></span></li>
+					<li class="active" data-step="1"><span class="badge badge-info">1</span>Step 1<span class="chevron"></span></li>
+					<li data-step="2"><span class="badge">2</span>Step 2<span class="chevron"></span></li>
+					<li data-step="3"><span class="badge">3</span>Step 3<span class="chevron"></span></li>
+					<li data-step="4"><span class="badge">4</span>Step 4<span class="chevron"></span></li>
+					<li data-step="5"><span class="badge">5</span>Step 5<span class="chevron"></span></li>
+					<li data-step="6"><span class="badge">6</span>Step 6<span class="chevron"></span></li>
+					<li data-step="7"><span class="badge">7</span>Step 7<span class="chevron"></span></li>
+					<li data-step="8"><span class="badge">8</span>Step 8<span class="chevron"></span></li>
+					<li data-step="9"><span class="badge">9</span>Step 9<span class="chevron"></span></li>
+					<li data-step="10"><span class="badge">10</span>Step 10<span class="chevron"></span></li>
 				</ul>
 				<div class="actions">
 					<button class="btn btn-default btn-xs btn-prev"> <span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
 					<button class="btn btn-default btn-xs btn-next" data-last="Finish">Next<span class="glyphicon glyphicon-arrow-right"></span></button>
 				</div>
 				<div class="step-content">
-					<div class="step-pane active" id="step1">This is step 1</div>
-					<div class="step-pane" id="step2">This is step 2</div>
-					<div class="step-pane" id="step3">This is step 3</div>
-					<div class="step-pane" id="step4">This is step 4</div>
-					<div class="step-pane" id="step5">This is step 5</div>
-					<div class="step-pane" id="step6">This is step 6</div>
-					<div class="step-pane" id="step7">This is step 7</div>
-					<div class="step-pane" id="step8">This is step 8</div>
-					<div class="step-pane" id="step9">This is step 9</div>
-					<div class="step-pane" id="step10">This is step 10</div>
+					<div class="step-pane active" data-step="1">This is step 1</div>
+					<div class="step-pane" data-step="2">This is step 2</div>
+					<div class="step-pane" data-step="3">This is step 3</div>
+					<div class="step-pane" data-step="4">This is step 4</div>
+					<div class="step-pane" data-step="5">This is step 5</div>
+					<div class="step-pane" data-step="6">This is step 6</div>
+					<div class="step-pane" data-step="7">This is step 7</div>
+					<div class="step-pane" data-step="8">This is step 8</div>
+					<div class="step-pane" data-step="9">This is step 9</div>
+					<div class="step-pane" data-step="10">This is step 10</div>
 				</div>
 			</div>
 
-			<input type="button" class="btn btn-default btn-xs" id="btnWizardPrev" value="prev">
-			<input type="button" class="btn btn-default btn-xs" id="btnWizardNext" value="next">
-			<input type="button" class="btn btn-default btn-xs" id="btnWizardStep" value="current step">
-			<input type="button" class="btn btn-default btn-xs" id="btnWizardSetStep4" value="step 4">
+			<br/>
+			<h5>Sample Methods</h5>
+			<div class="btn-group">
+				<input type="button" class="btn btn-default" id="btnWizardPrev" value="prev">
+				<input type="button" class="btn btn-default" id="btnWizardNext" value="next">
+				<input type="button" class="btn btn-default" id="btnWizardStep" value="current step">
+				<input type="button" class="btn btn-default" id="btnWizardSetStep4" value="step 4">
+			</div>
+			<hr/>
+
 		</div>
 
-	</div>
+	</div><!-- container -->
 
 </body>
 </html>

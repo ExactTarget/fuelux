@@ -86,6 +86,7 @@
 
 			sizer.remove();
 
+			//TODO: betting this is somewhat off with box-sizing: border-box
 			this.$label.width(width);
 		},
 

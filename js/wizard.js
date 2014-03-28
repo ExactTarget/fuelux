@@ -33,7 +33,7 @@
 
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.wizard.defaults, options);
-		this.options.disablePreviousStep = ( this.$element.data().restrict === "previous" ) ? true : false;
+		this.options.disablePreviousStep = ( this.$element.attr('data-restrict') === "previous" ) ? true : this.options.disablePreviousStep;
 		this.currentStep = this.options.selectedItem.step;
 		this.numSteps = this.$element.find('.steps li').length;
 		this.$prevBtn = this.$element.find('button.btn-prev');
@@ -48,9 +48,7 @@
 		this.$nextBtn.on('click', $.proxy(this.next, this));
 		this.$element.on('click', 'li.complete', $.proxy(this.stepclicked, this));
 		
-		if(this.currentStep > 1) {
-			this.selectedItem(this.options.selectedItem);
-		}
+		this.selectedItem(this.options.selectedItem);
 
 		if( this.options.disablePreviousStep ) {
 			this.$prevBtn.attr( 'disabled', true );
@@ -61,6 +59,91 @@
 	Wizard.prototype = {
 
 		constructor: Wizard,
+
+		//index is 1 based, remove is how many to remove after adding items
+		//third parameter can be array of objects [{ ... }, { ... }] or you can pass n additional objects as args
+		//object structure is as follows (all params are optional): { badge: '', label: '', pane: '' }
+		addSteps: function(index, remove){
+			var items = [].slice.call(arguments).slice(2);
+			var $steps = this.$element.find('.steps');
+			var $stepContent = this.$element.find('.step-content');
+			var i, l, $pane, $startPane, $startStep, $step;
+
+			remove = remove || 0;
+			index = (index>(this.numSteps+1)) ? this.numSteps+1 : index;
+			if(items[0] instanceof Array){
+				items = items[0];
+			}
+
+			$startStep = $steps.find('li:nth-child(' + index + ')');
+			$startPane = $stepContent.find('.step-pane:nth-child(' + index + ')');
+			if($startStep.length<1){
+				$startStep = null;
+			}
+
+			for(i=0, l=items.length; i<l; i++){
+				$step = $('<li data-step="' + index + '"><span class="badge badge-info"></span></li>');
+				$step.append(items[i].label || '').append('<span class="chevron"></span>');
+				$step.find('.badge').append(items[i].badge || index);
+
+				$pane = $('<div class="step-pane" data-step="' + index + '"></div>');
+				$pane.append(items[i].pane || '');
+
+				if(!$startStep){
+					$steps.append($step);
+					$stepContent.append($pane);
+				}else{
+					$startStep.before($step);
+					$startPane.before($pane);
+				}
+				index++;
+			}
+
+			if(remove>0){
+				this.removeSteps(index, remove);
+			}else{
+				this.syncSteps();
+				this.numSteps = $steps.find('li').length;
+				this.setState();
+			}
+		},
+
+		//index is 1 based, howMany is number to remove
+		removeSteps: function(index, howMany){
+			var action = 'nextAll';
+			var i = 0;
+			var $steps = this.$element.find('.steps');
+			var $stepContent = this.$element.find('.step-content');
+			var $start;
+
+			howMany = (howMany!==undefined) ? howMany : 1;
+
+			if(index>$steps.find('li').length){
+				$start = $steps.find('li:last');
+			}else{
+				$start = $steps.find('li:nth-child(' + index + ')').prev();
+				if($start.length<1){
+					action = 'children';
+					$start = $steps;
+				}
+			}
+
+			$start[action]().each(function(){
+				var item = $(this);
+				var step = item.attr('data-step');
+				if(i<howMany){
+					item.remove();
+					$stepContent.find('.step-pane[data-step="' + step + '"]:first').remove();
+				}else{
+					return false;
+				}
+				i++;
+			});
+
+			this.syncSteps();
+			this.numSteps = $steps.find('li').length;
+			this.setState();
+		},
 
 		setState: function () {
 			var canMovePrev = (this.currentStep > 1);
@@ -73,15 +156,13 @@
 			}
 
 			// change button text of last step, if specified
-			var data = this.$nextBtn.data();
-			if (data && data.last) {
-				this.lastText = data.last;
-				if (typeof this.lastText !== 'undefined') {
-					// replace text
-					var text = (lastStep !== true) ? this.nextText : this.lastText;
-					var kids = this.$nextBtn.children().detach();
-					this.$nextBtn.text(text).append(kids);
-				}
+			var last = this.$nextBtn.attr('data-last');
+			if (last) {
+				this.lastText = last;
+				// replace text
+				var text = (lastStep !== true) ? this.nextText : this.lastText;
+				var kids = this.$nextBtn.children().detach();
+				this.$nextBtn.text(text).append(kids);
 			}
 
 			// reset classes for all steps
@@ -102,9 +183,10 @@
 			$currentStep.find('span.badge').addClass('badge-info');
 
 			// set display of target element
-			var target = $currentStep.data().target;
-			this.$element.find('.step-content').find('.step-pane').removeClass('active');
-			$(target).addClass('active');
+			var $stepContent = this.$element.find('.step-content');
+			var target = $currentStep.attr('data-step');
+			$stepContent.find('.step-pane').removeClass('active');
+			$stepContent.find('.step-pane[data-step="' + target + '"]:first').addClass('active');
 
 			// reset the wizard position to the left
 			this.$element.find('.steps').first().attr('style','margin-left: 0');
@@ -162,6 +244,25 @@
 			}
 		},
 
+		syncSteps: function(){
+			var i = 1;
+			var $steps = this.$element.find('.steps');
+			var $stepContent = this.$element.find('.step-content');
+
+			$steps.children().each(function(){
+				var item = $(this);
+				var badge = item.find('.badge');
+				var step = item.attr('data-step');
+
+				if(!isNaN(parseInt(badge.html(), 10))){
+					badge.html(i);
+				}
+				item.attr('data-step', i);
+				$stepContent.find('.step-pane[data-step="' + step + '"]:last').attr('data-step', i);
+				i++;
+			});
+		},
+
 		previous: function () {
 			var canMovePrev = (this.currentStep > 1);
 			if( this.options.disablePreviousStep ) {
@@ -205,6 +306,12 @@
 				if(step >= 1 && step <= this.numSteps) {
 					this.currentStep = step;
 					this.setState();
+				}else{
+					step = this.$element.find('.steps li.active:first').attr('data-step');
+					if(!isNaN(step)){
+						this.currentStep = parseInt(step, 10);
+						this.setState();
+					}
 				}
 
 				retVal = this;
@@ -237,7 +344,8 @@
 	};
 
 	$.fn.wizard.defaults = {
-        selectedItem: {step:1}
+		disablePreviousStep: false,
+        selectedItem: { step: -1 }	//-1 means it will attempt to look for "active" class in order to set the step
 	};
 
 	$.fn.wizard.Constructor = Wizard;

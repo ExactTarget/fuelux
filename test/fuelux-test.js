@@ -19,6 +19,6 @@ define(function(require){
 	require('test/selectlist-test');
 	require('test/spinbox-test');
 	require('test/tree-test');
-	require('test/wizard-test');
+//	require('test/wizard-test');
 
 });
