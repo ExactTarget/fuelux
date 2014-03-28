@@ -60,6 +60,9 @@
 
 		constructor: Wizard,
 
+		//index is 1 based, remove is how many to remove after adding items
+		//third parameter can be array of objects [{ ... }, { ... }] or you can pass n additional objects as args
+		//object structure is as follows (all params are optional): { badge: '', label: '', pane: '' }
 		addSteps: function(index, remove){
 			var items = [].slice.call(arguments).slice(2);
 			var $steps = this.$element.find('.steps');
@@ -105,6 +108,7 @@
 			}
 		},
 
+		//index is 1 based, howMany is number to remove
 		removeSteps: function(index, howMany){
 			var action = 'nextAll';
 			var i = 0;
