@@ -2,6 +2,18 @@
 	border: 1px solid #ddd;
 	.border-radius(4px);
 
+	&-canvas {
+		bottom: 0;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+
+		&.scrolling{
+			overflow-y: auto;
+		}
+	}
+
 	&-header,
 	&-footer
 	{
@@ -38,12 +50,17 @@
 		}
 	}
 
-	&-main {
-		min-height: 32px;
+	&-loader {
+		display: none;
+		left: 50%;
+		position: absolute;
+		margin: -32px 0 0 -32px;
+		top: 50%;
+	}
 
-		&.scrolling{
-			overflow-y: auto;
-		}
+	&-viewport {
+		min-height: 32px;
+		position: relative;
 	}
 
 	&-pagination {

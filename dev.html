@@ -47,6 +47,7 @@
 				dataSource: function(options, callback){
 					var categories = ['abstract', 'animals', 'business', 'cats', 'city', 'food', 'nature', 'technics', 'transport'];
 					var colors = ['#D9EDF7', '#F2DEDE', '#FCF8E3', '#DFF0D8'];
+					var delays = ['300', '600', '900', '1200'];
 					var resp = {
 						count: numItems,
 						items: [],
@@ -71,9 +72,9 @@
 					if(window.console && window.console.log){
 						console.log(options);
 					}
-					//setTimeout(function(){
+					setTimeout(function(){
 						callback(resp);
-					//}, 1000);
+					}, delays[Math.floor(Math.random() * 4)]);
 				}
 			});
 
@@ -146,7 +147,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="repeater-main"></div>
+			<div class="repeater-viewport">
+				<div class="repeater-canvas"></div>
+				<div class="loader repeater-loader">
+					<i></i><i></i><i></i><i></i>
+					<!--[if lt IE 10]><script type="text/javascript">window.fuelux_loader.scan();</script><![endif]-->
+				</div>
+			</div>
 			<div class="repeater-footer">
 				<div class="repeater-footer-left">
 					<div class="repeater-itemization">

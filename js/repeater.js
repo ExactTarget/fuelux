@@ -34,11 +34,12 @@
 
 		this.$element = $(element);
 
+		this.$canvas = this.$element.find('.repeater-canvas');
 		this.$count = this.$element.find('.repeater-count');
 		this.$end = this.$element.find('.repeater-end');
 		this.$filters = this.$element.find('.repeater-filters');
+		this.$loader = this.$element.find('.repeater-loader');
 		this.$pageSize = this.$element.find('.repeater-itemization .selectlist');
-		this.$main = this.$element.find('.repeater-main');
 		this.$nextBtn = this.$element.find('.repeater-next');
 		this.$pages = this.$element.find('.repeater-pages');
 		this.$prevBtn = this.$element.find('.repeater-prev');
@@ -46,6 +47,7 @@
 		this.$search = this.$element.find('.repeater-search');
 		this.$secondaryPaging = this.$element.find('.repeater-secondaryPaging');
 		this.$start = this.$element.find('.repeater-start');
+		this.$viewport = this.$element.find('.repeater-viewport');
 
 		this.options = $.extend(true, {}, $.fn.repeater.defaults);
 		for(i in $.fn.repeater.views){
@@ -75,7 +77,7 @@
 		constructor: Repeater,
 
 		clear: function(){
-			this.$main.empty();
+			this.$canvas.empty();
 		},
 
 		getDataOptions: function(options){
@@ -181,11 +183,13 @@
 			var self = this;
 
 			this.clear();
+			this.$loader.show();
 			this.options.dataSource(dataOptions, function(data){
 				self.itemization(data);
 				self.pagination(data);
-				self.runRenderer(self.$main, $.fn.repeater.views[self.currentView].renderer, data, function(){
-					//do next steps
+				self.runRenderer(self.$canvas, $.fn.repeater.views[self.currentView].renderer, data, function(){
+					self.$loader.hide();
+					//throw event
 				});
 			});
 		},
@@ -195,15 +199,15 @@
 			var height;
 
 			if(staticHeight==='true' || staticHeight===true){
-				this.$main.addClass('scrolling');
+				this.$canvas.addClass('scrolling');
 				height = this.$element.height()
 					- this.$element.find('.repeater-header').outerHeight()
 					- this.$element.find('.repeater-footer').outerHeight()
 					- parseInt(this.$element.css('margin-bottom'), 10)
 					- parseInt(this.$element.css('margin-top'), 10);
-				this.$main.height(height);
+				this.$viewport.height(height);
 			}else{
-				this.$main.removeClass('scrolling');
+				this.$canvas.removeClass('scrolling');
 			}
 		},
 
