@@ -316,15 +316,23 @@
 	//views object contains keyed list of view plugins.
 		//renderer object contains following optional parameters:
 			//{
-				//before: function(data, [dataset, index]){},
-				//after: function(data, item, [dataset, index]){},
-				//complete: function(data, item, [dataset, index]){},
+				//before: function(helpers){},
+				//after: function(helpers){},
+				//complete: function(helpers){},
 				//repeat: 'parameter.subparameter.etc',
 				//async: { after: false, before: false, complete: false, render: false }  (passing true sets all to true)
-				//render: function(data, [dataset, index]){},
+				//render: function(helpers){},
 				//nested: [ *array of renderer objects* ]
 			//}
-			//*NOTE - the dataset and index arguments appear if repeat is present
+
+			//helpers object structure:
+				//{
+					//container: jQuery object,	(current renderer parent)
+					//data: {...}, (data returned from dataSource)
+					//index: int, (only there if repeat was set. current item index)
+					//item: str or jQuery object, (only there if rendered function returned value)
+					//subset: {}, (only there if repeat was set. subset of data being repeated on)
+				//}
 	$.fn.repeater.views = {
 		thumbnail: {
 			//defualts: {},
