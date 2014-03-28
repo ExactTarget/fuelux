@@ -262,44 +262,14 @@
 		thumbnail: {
 			renderer: {
 				render: function(helpers){
-					return '<div class="thumbnail" data-container="true">' + helpers.subset[helpers.index].name + '</div>';
+					return '<div class="clearfix thumbnailCont" data-container="true"></div>';
 				},
-				repeat: 'thumbnails',
 				nested: [
 					{
 						render: function(helpers){
-							return '<div class="this" data-container="true"></div>';
+							return '<div class="thumbnail" data-container="true">' + helpers.subset[helpers.index].name + '</div>';
 						},
-						nested: [
-							{
-								render: function(helpers){
-									return 'BLEH';
-								}
-							},
-							{
-								render: function(helpers){
-									return 'BLOO';
-								}
-							}
-						]
-					},
-					{
-						render: function(helpers){
-							this.skipNested = true;
-							return '<div class="that" data-container="true"></div>';
-						},
-						nested: [
-							{
-								render: function(helpers){
-									return 'BLEH';
-								}
-							},
-							{
-								render: function(helpers){
-									return 'BLOO';
-								}
-							}
-						]
+						repeat: 'thumbnails'
 					}
 				]
 			}

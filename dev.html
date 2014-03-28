@@ -44,42 +44,38 @@
 
 			myRepeater.repeater({
 				dataSource: function(options, callback){
-					callback({
-						columns: [
-							{
-								property: 'name',
-								label: 'Name',
-								sortable: true
-							},
-							{
-								property: 'cost',
-								label: 'Cost',
-								sortable: true
-							},
-							{
-								property: 'color',
-								label: 'Color',
-								sortable: true
-							}
-						],
-						thumbnails: [
-							{
-								name: 'gud stuff'
-							},
-							{
-								name: 'yay'
-							},
-							{
-								name: 'works'
-							}
-						]
-					});
+					var i, l;
+					var resp = { thumbnails: [] };
+
+					for(i=1,l=23; i<l; i++){
+						resp.thumbnails.push({ name: ('Thumbnail ' + i) });
+					}
+
+					callback(resp);
 				}
 			});
 
 
 		});
 	</script>
+
+	<style type="text/css">
+		.thumbnail {
+			float: left;
+			font-size: 14px;
+			height: 130px;
+			line-height: 116px;
+			margin: 10px 12px;
+			text-align: center;
+			width: 100px;
+		}
+
+		.thumbnailCont {
+			height: 100%;
+			padding: 10px;
+			width: 100%;
+		}
+	</style>
 </head>
 
 <body>
