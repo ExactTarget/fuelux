@@ -38,10 +38,11 @@
 		this.$pageSize = this.$element.find('.repeater-itemization .selectlist');
 		this.$main = this.$element.find('.repeater-main');
 		this.$nextBtn = this.$element.find('.repeater-next');
+		this.$pages = this.$element.find('.repeater-pages');
 		this.$prevBtn = this.$element.find('.repeater-prev');
-		this.$primaryPager = this.$element.find('.repeater-primaryPaging');
+		this.$primaryPaging = this.$element.find('.repeater-primaryPaging');
 		this.$search = this.$element.find('.repeater-search');
-		this.$secondaryPager = this.$element.find('.repeater-secondaryPaging');
+		this.$secondaryPaging = this.$element.find('.repeater-secondaryPaging');
 
 		this.options = $.extend(true, {}, $.fn.repeater.defaults);
 		for(i in $.fn.repeater.views){
@@ -110,6 +111,42 @@
 			this.render({ pageIncrement: 1 });
 		},
 
+		pagination: function(data){
+			var act = 'active';
+			var dsbl = 'disabled';
+			var page = data.page;
+			var pages = data.pages;
+			var dropMenu, i, l;
+
+			this.currentPage = (page!==undefined) ? page : NaN;
+
+			this.$primaryPaging.removeClass(act);
+			this.$secondaryPaging.removeClass(act);
+
+			if(pages<=this.options.dropPagingCap){
+				this.$primaryPaging.addClass(act);
+				dropMenu = this.$primaryPaging.find('.dropdown-menu');
+				dropMenu.empty();
+				for(i=0; i<pages; i++){
+					l = i + 1;
+					dropMenu.append('<li data-value="' + l + '"><a href="#">' + l + '</a></li>');
+				}
+				this.$primaryPaging.find('input.form-control').val(this.currentPage+1);
+			}else{
+				this.$secondaryPaging.addClass(act);
+				this.$secondaryPaging.val(this.currentPage+1);
+			}
+
+			this.$pages.html(pages);
+
+			if((this.currentPage+1)<pages){
+				this.$nextBtn.removeAttr(dsbl);
+			}
+			if((this.currentPage-1)>=0){
+				this.$prevBtn.removeAttr(dsbl);
+			}
+		},
+
 		previous: function(){
 			var d = 'disabled';
 			this.$nextBtn.attr(d, d);
@@ -121,10 +158,9 @@
 			var dataOptions = this.getDataOptions(options);
 			var self = this;
 
-			//console.log(dataOptions);
-
 			this.clear();
 			this.options.dataSource(dataOptions, function(data){
+				self.pagination(data);
 				self.runRenderer(self.$main, $.fn.repeater.views[self.currentView].renderer, data, function(){
 					//do next steps
 				});
@@ -260,7 +296,8 @@
 	};
 
 	$.fn.repeater.defaults = {
-		dataSource: function(options, callback){}
+		dataSource: function(options, callback){},
+		dropPagingCap: 10
 	};
 
 	//views object contains keyed list of view plugins.
@@ -277,6 +314,8 @@
 			//*NOTE - the dataset and index arguments appear if repeat is present
 	$.fn.repeater.views = {
 		thumbnail: {
+			//defualts: {},
+			//initialize: function(){},
 			renderer: {
 				render: function(helpers){
 					return '<div class="clearfix thumbnailCont" data-container="true"></div>';
@@ -288,7 +327,7 @@
 							var j = Math.floor(Math.random() * 9) + 1;
 							return '<div class="thumbnail" data-container="true" style="background: ' + helpers.subset[helpers.index].color + ';"><img height="75" src="http://lorempixel.com/65/75/' + categories[j] + '/?_=' + helpers.index + '" width="65">' + helpers.subset[helpers.index].name + '</div>';
 						},
-						repeat: 'thumbnails'
+						repeat: 'items'
 					}
 				]
 			}

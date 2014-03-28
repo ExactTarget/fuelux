@@ -45,15 +45,21 @@
 			myRepeater.repeater({
 				dataSource: function(options, callback){
 					var colors = ['', '#D9EDF7', '#F2DEDE', '#FCF8E3', '#DFF0D8'];
-					var resp = { thumbnails: [] };
+					var resp = { items: [], pages: 15, page: options.pageIndex };
 					var i, j, l;
 
 					for(i=1,l=23; i<l; i++){
 						j = Math.floor(Math.random() * 4) + 1;
-						resp.thumbnails.push({ color: colors[j], name: ('Thumbnail ' + i) });
+						resp.items.push({ color: colors[j], name: ('Thumbnail ' + i) });
 					}
 
-					callback(resp);
+					if(window.console && window.console.log){
+						console.log(options);
+					}
+
+					//setTimeout(function(){
+						callback(resp);
+					//}, 1000);
 				}
 			});
 
@@ -162,7 +168,7 @@
 							</div>
 						</div>
 						<input type="text" class="form-control repeater-secondaryPaging">
-						<span>of <span class="repeater-pages">15</span></span>
+						<span>of <span class="repeater-pages"></span></span>
 						<button type="button" class="btn btn-default btn-sm repeater-next"><span class="glyphicon glyphicon-chevron-right"></span></button>
 					</div>
 				</div>
