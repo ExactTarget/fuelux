@@ -267,7 +267,9 @@
 				nested: [
 					{
 						render: function(helpers){
-							return '<div class="thumbnail" data-container="true" style="background: ' + helpers.subset[helpers.index].color + ';">' + helpers.subset[helpers.index].name + '</div>';
+							var categories = ['', 'abstract', 'animals', 'business', 'cats', 'city', 'food', 'nature', 'technics', 'transport'];
+							var j = Math.floor(Math.random() * 9) + 1;
+							return '<div class="thumbnail" data-container="true" style="background: ' + helpers.subset[helpers.index].color + ';"><img height="75" src="http://lorempixel.com/65/75/' + categories[j] + '/?new=' + helpers.index + '" width="65">' + helpers.subset[helpers.index].name + '</div>';
 						},
 						repeat: 'thumbnails'
 					}
