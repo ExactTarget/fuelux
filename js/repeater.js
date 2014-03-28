@@ -34,6 +34,8 @@
 
 		this.$element = $(element);
 
+		this.$count = this.$element.find('.repeater-count');
+		this.$end = this.$element.find('.repeater-end');
 		this.$filters = this.$element.find('.repeater-filters');
 		this.$pageSize = this.$element.find('.repeater-itemization .selectlist');
 		this.$main = this.$element.find('.repeater-main');
@@ -43,6 +45,7 @@
 		this.$primaryPaging = this.$element.find('.repeater-primaryPaging');
 		this.$search = this.$element.find('.repeater-search');
 		this.$secondaryPaging = this.$element.find('.repeater-secondaryPaging');
+		this.$start = this.$element.find('.repeater-start');
 
 		this.options = $.extend(true, {}, $.fn.repeater.defaults);
 		for(i in $.fn.repeater.views){
@@ -106,6 +109,12 @@
 			return opts;
 		},
 
+		itemization: function(data){
+			this.$count.html(data.count || '');
+			this.$end.html(data.end || '');
+			this.$start.html(data.start || '');
+		},
+
 		next: function(){
 			var d = 'disabled';
 			this.$nextBtn.attr(d, d);
@@ -114,9 +123,8 @@
 		},
 
 		pageInputChange: function(val){
-			var pageInc;
 			val = parseInt(val, 10) - 1;
-			pageInc = val - this.currentPage;
+			var pageInc = val - this.currentPage;
 			this.render({ pageIncrement: pageInc });
 		},
 
@@ -173,6 +181,7 @@
 
 			this.clear();
 			this.options.dataSource(dataOptions, function(data){
+				self.itemization(data);
 				self.pagination(data);
 				self.runRenderer(self.$main, $.fn.repeater.views[self.currentView].renderer, data, function(){
 					//do next steps
@@ -344,9 +353,7 @@
 				nested: [
 					{
 						render: function(helpers){
-							var categories = ['', 'abstract', 'animals', 'business', 'cats', 'city', 'food', 'nature', 'technics', 'transport'];
-							var j = Math.floor(Math.random() * 9) + 1;
-							return '<div class="thumbnail" data-container="true" style="background: ' + helpers.subset[helpers.index].color + ';"><img height="75" src="http://lorempixel.com/65/75/' + categories[j] + '/?_=' + helpers.index + '" width="65">' + helpers.subset[helpers.index].name + '</div>';
+							return '<div class="thumbnail" data-container="true" style="background: ' + helpers.subset[helpers.index].color + ';"><img height="75" src="' + helpers.subset[helpers.index].src + '" width="65">' + helpers.subset[helpers.index].name + '</div>';
 						},
 						repeat: 'items'
 					}
