@@ -30,8 +30,13 @@
 
 	var Pillbox = function (element, options) {
 		this.$element = $(element);
+		this.$input = this.$element.find('.pill-input');
+
 		this.options = $.extend({}, $.fn.pillbox.defaults, options);
 		this.$element.on('click', 'li', $.proxy(this.itemclicked, this));
+		this.$element.on('click', $.proxy(this.inputFocus, this));
+
+		this.$element.on('keydown', '.pill-input', $.proxy(this.inputEvent, this));
 	};
 
 	Pillbox.prototype = {
@@ -67,14 +72,29 @@
 			var $li = $('<li data-value="' + value + '">' + text + '</li>');
 
 			if( this.$element.find('ul').length > 0 ) {
-				this.$element.find('ul').append($li);
+				this.$element.find('ul > li:last').after($li);
 			} else {
-				this.$element.append($li);
+				if( this.$element.find('li') > 0 ){
+					this.$element.find('li:last').after($li);
+				} else {
+					this.$element.prepend($li);
+				}
 			}
 
 			this.$element.trigger( 'added', { text: text, value: value } );
 
 			return $li;
+		},
+
+		inputEvent: function(e){
+			var val = this.$input.val();
+
+			if( e.keyCode === 13 ){
+				this.addItem(val);
+				this.$input.val('').attr({size:10});
+			} else if ( val.length > 10 ) {
+				this.$input.attr({size:val.length});
+			}
 		},
 
 		removeBySelector: function(selector, trigger) {
@@ -103,6 +123,12 @@
 			this._removePillTrigger( { method: 'removeByText', removedText: text } );
 		},
 
+		inputFocus: function(e) {
+			this.$element.find('.pill-input').focus();
+		},
+
+
+
 		clear: function() {
 			this.$element.find('ul').empty();
 		},
@@ -130,7 +156,9 @@
 		return ( methodReturn === undefined ) ? $set : methodReturn;
 	};
 
-	$.fn.pillbox.defaults = {};
+	$.fn.pillbox.defaults = {
+		filter: undefined
+	};
 
 	$.fn.pillbox.Constructor = Pillbox;
 
