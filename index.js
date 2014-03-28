@@ -360,7 +360,7 @@ define(function(require){
 		]);
 	});
 	$('#btnWizardRemoveStep').on('click', function() {
-		$('#MyWizard').wizard('removeSteps', 5, 1);
+		$('#MyWizard').wizard('removeSteps', 4, 1);
 	});
 	$('#MyWizard').on('stepclick', function(e, data) {
 		console.log('step ' + data.step + ' clicked');
