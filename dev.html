@@ -45,8 +45,8 @@
 
 			myRepeater.repeater({
 				dataSource: function(options, callback){
-					var categories = ['', 'abstract', 'animals', 'business', 'cats', 'city', 'food', 'nature', 'technics', 'transport'];
-					var colors = ['', '#D9EDF7', '#F2DEDE', '#FCF8E3', '#DFF0D8'];
+					var categories = ['abstract', 'animals', 'business', 'cats', 'city', 'food', 'nature', 'technics', 'transport'];
+					var colors = ['#D9EDF7', '#F2DEDE', '#FCF8E3', '#DFF0D8'];
 					var resp = {
 						count: numItems,
 						items: [],
@@ -62,9 +62,9 @@
 
 					for(i; i<l; i++){
 						resp.items.push({
-							color: colors[(Math.floor(Math.random() * 4) + 1)],
+							color: colors[Math.floor(Math.random() * 4)],
 							name: ('Thumbnail ' + (i + 1)),
-							src: 'http://lorempixel.com/65/75/' + categories[(Math.floor(Math.random() * 9) + 1)] + '/?_=' + i
+							src: 'http://lorempixel.com/65/75/' + categories[Math.floor(Math.random() * 9)] + '/?_=' + i
 						});
 					}
 
