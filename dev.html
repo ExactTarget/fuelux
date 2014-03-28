@@ -44,11 +44,13 @@
 
 			myRepeater.repeater({
 				dataSource: function(options, callback){
-					var i, l;
+					var colors = ['', '#D9EDF7', '#F2DEDE', '#FCF8E3', '#DFF0D8'];
 					var resp = { thumbnails: [] };
+					var i, j, l;
 
 					for(i=1,l=23; i<l; i++){
-						resp.thumbnails.push({ name: ('Thumbnail ' + i) });
+						j = Math.floor(Math.random() * 4) + 1;
+						resp.thumbnails.push({ color: colors[j], name: ('Thumbnail ' + i) });
 					}
 
 					callback(resp);
@@ -61,6 +63,8 @@
 
 	<style type="text/css">
 		.thumbnail {
+			border: 1px solid #aaa;
+			color: #666;
 			float: left;
 			font-size: 14px;
 			height: 130px;
@@ -68,6 +72,9 @@
 			margin: 10px 12px;
 			text-align: center;
 			width: 100px;
+
+			-webkit-box-shadow: 0 2px 6px 0 #AAAAAA;
+			box-shadow: 0 2px 6px 0 #AAAAAA;
 		}
 
 		.thumbnailCont {

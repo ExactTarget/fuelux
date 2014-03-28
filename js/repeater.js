@@ -267,7 +267,7 @@
 				nested: [
 					{
 						render: function(helpers){
-							return '<div class="thumbnail" data-container="true">' + helpers.subset[helpers.index].name + '</div>';
+							return '<div class="thumbnail" data-container="true" style="background: ' + helpers.subset[helpers.index].color + ';">' + helpers.subset[helpers.index].name + '</div>';
 						},
 						repeat: 'thumbnails'
 					}
