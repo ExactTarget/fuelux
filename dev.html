@@ -104,6 +104,7 @@
 
 		.thumbnailCont {
 			height: 100%;
+			overflow-y: auto;
 			padding: 10px;
 			width: 100%;
 		}
@@ -113,7 +114,7 @@
 <body>
 	<div class="container" style="margin-top:20px;">
 
-		<div class="repeater" id="MyRepeater">
+		<div class="repeater" data-staticheight="true" id="MyRepeater" style="height: 600px;">
 			<div class="repeater-header">
 				<div class="repeater-header-left">
 					<span class="repeater-title">Awesome Repeater</span>

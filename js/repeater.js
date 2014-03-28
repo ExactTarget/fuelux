@@ -67,6 +67,7 @@
 		this.$search.on('searched cleared', $.proxy(this.render, this, { pageIncrement: null }));
 		this.$secondaryPaging.on('blur', function(){ self.pageInputChange(self.$secondaryPaging.val()); });
 
+		this.resize();
 		this.render();
 	};
 
@@ -189,6 +190,23 @@
 			});
 		},
 
+		resize: function(){
+			var staticHeight = (this.options.staticHeight===-1) ? this.$element.attr('data-staticheight') : this.options.staticHeight;
+			var height;
+
+			if(staticHeight==='true' || staticHeight===true){
+				this.$main.addClass('scrolling');
+				height = this.$element.height()
+					- this.$element.find('.repeater-header').outerHeight()
+					- this.$element.find('.repeater-footer').outerHeight()
+					- parseInt(this.$element.css('margin-bottom'), 10)
+					- parseInt(this.$element.css('margin-top'), 10);
+				this.$main.height(height);
+			}else{
+				this.$main.removeClass('scrolling');
+			}
+		},
+
 		runRenderer: function(container, renderer, data, callback){
 			var async = { after: false, before: false, complete: false, render: false };
 			var self = this;
@@ -200,14 +218,18 @@
 					args.subset = subset;
 					args.index = index;
 				}
-				start(args, function(){
-					index++;
-					if(index<subset.length){
-						loopSubset(index);
-					}else{
-						callback();
-					}
-				});
+				if(subset.length<1){
+					callback();
+				}else{
+					start(args, function(){
+						index++;
+						if(index<subset.length){
+							loopSubset(index);
+						}else{
+							callback();
+						}
+					});
+				}
 			};
 
 			var start = function(args, cb){
@@ -319,7 +341,8 @@
 
 	$.fn.repeater.defaults = {
 		dataSource: function(options, callback){},
-		dropPagingCap: 10
+		dropPagingCap: 10,
+		staticHeight: -1	//normally true or false. -1 means it will look for data-staticheight on the element
 	};
 
 	//views object contains keyed list of view plugins.
