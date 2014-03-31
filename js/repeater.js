@@ -30,7 +30,7 @@
 
 	var Repeater = function (element, options) {
 		var self = this;
-		var i;
+		var i, view;
 
 		this.$element = $(element);
 
@@ -52,8 +52,12 @@
 
 		this.options = $.extend(true, {}, $.fn.repeater.defaults);
 		for(i in $.fn.repeater.views){
-			if($.fn.repeater.views[i].defaults){
-				this.options = $.extend(true, this.options, $.fn.repeater.views[i].defaults);
+			view = $.fn.repeater.views[i];
+			if(view.defaults){
+				this.options = $.extend(true, this.options, view.defaults);
+			}
+			if(view.initialize){
+				view.initialize();
 			}
 		}
 		this.options = $.extend(true, this.options, options);
