@@ -48,6 +48,7 @@
 		this.$secondaryPaging = this.$element.find('.repeater-secondaryPaging');
 		this.$start = this.$element.find('.repeater-start');
 		this.$viewport = this.$element.find('.repeater-viewport');
+		this.$views = this.$element.find('.repeater-views');
 
 		this.options = $.extend(true, {}, $.fn.repeater.defaults);
 		for(i in $.fn.repeater.views){
@@ -58,7 +59,7 @@
 		this.options = $.extend(true, this.options, options);
 
 		this.currentPage = 0;
-		this.currentView = 'thumbnail';
+		this.currentView = (this.options.defaultView!==-1) ? this.options.defaultView : this.$views.find('label.active input').val();
 		this.skipNested = false;
 
 		this.$filters.on('changed', $.proxy(this.render, this, { pageIncrement: null }));
@@ -68,6 +69,7 @@
 		this.$primaryPaging.find('.combobox').on('changed', function(evt, data){ self.pageInputChange(data.text); });
 		this.$search.on('searched cleared', $.proxy(this.render, this, { pageIncrement: null }));
 		this.$secondaryPaging.on('blur', function(){ self.pageInputChange(self.$secondaryPaging.val()); });
+		this.$views.find('input').on('change', $.proxy(this.viewChanged, this));
 
 		this.resize();
 		this.render();
@@ -88,6 +90,7 @@
 
 			opts.filter = this.$filters.selectlist('selectedItem');
 			opts.pageSize = parseInt(this.$pageSize.selectlist('selectedItem').value, 10);
+			opts.view = this.currentView;
 
 			if(options.pageIncrement!==undefined){
 				if(options.pageIncrement===null){
@@ -102,8 +105,6 @@
 			if(val!==''){
 				opts.search = val;
 			}
-
-			delete opts.pageIncrement;
 
 			if($.fn.repeater.views[this.currentView].dataOptions){
 				opts = $.fn.repeater.views[this.currentView].dataOptions();
@@ -181,17 +182,38 @@
 		render: function(options){
 			var dataOptions = this.getDataOptions(options);
 			var self = this;
+			var viewObj = $.fn.repeater.views[self.currentView];
 
-			this.clear();
-			this.$loader.show();
-			this.options.dataSource(dataOptions, function(data){
-				self.itemization(data);
-				self.pagination(data);
-				self.runRenderer(self.$canvas, $.fn.repeater.views[self.currentView].renderer, data, function(){
-					self.$loader.hide();
-					//throw event
+			var start = function(){
+				self.$loader.show();
+				self.options.dataSource(dataOptions, function(data){
+					var renderer = viewObj.renderer;
+					self.itemization(data);
+					self.pagination(data);
+					if(renderer){
+						self.runRenderer(self.$canvas, renderer, data, function(){
+							self.$loader.hide();
+							//throw event
+						});
+					}
 				});
-			});
+			};
+
+			options = options || {};
+			this.clear();
+			if(options.changeView && this.currentView!==options.changeView){
+				this.currentView = options.changeView;
+				viewObj = $.fn.repeater.views[self.currentView];
+				if(viewObj.selected){
+					viewObj.selected({ callback: function(){
+						start();
+					}});
+				}else{
+					start();
+				}
+			}else{
+				start();
+			}
 		},
 
 		resize: function(){
@@ -322,6 +344,13 @@
 			}
 
 			loopSubset(0);
+		},
+
+		viewChanged: function(){
+			var self = this;
+			setTimeout(function(){
+				self.render({ changeView: self.$views.find('label.active input').val(), pageIncrement: null });
+			},0);
 		}
 	};
 
@@ -345,6 +374,7 @@
 
 	$.fn.repeater.defaults = {
 		dataSource: function(options, callback){},
+		defaultView: -1,	//should be a string value. -1 means it will grab the active view from the view controls
 		dropPagingCap: 10,
 		staticHeight: -1	//normally true or false. -1 means it will look for data-staticheight on the element
 	};
@@ -370,6 +400,9 @@
 					//subset: {}, (only there if repeat was set. subset of data being repeated on)
 				//}
 	$.fn.repeater.views = {
+		list: {
+			renderer: {}
+		},
 		thumbnail: {
 			//defualts: {},
 			//initialize: function(){},
