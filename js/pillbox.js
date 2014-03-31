@@ -30,13 +30,17 @@
 
 	var Pillbox = function (element, options) {
 		this.$element = $(element);
-		this.$input = this.$element.find('.pill-input');
+		this.$input = this.$element.find('.pillbox-input');
+		this.$ul    = this.$element.find('ul');
 
 		this.options = $.extend({}, $.fn.pillbox.defaults, options);
+		//CREATING AN OBJECT OUT OF THE KEY CODE ARRAY SO WE DONT HAVE TO LOOP THROUGH IT ON EVERY KEY STROKE
+		this.acceptKeyCodes = this._generateObject(this.options.acceptKeyCodes);
+
 		this.$element.on('click', 'li', $.proxy(this.itemclicked, this));
 		this.$element.on('click', $.proxy(this.inputFocus, this));
 
-		this.$element.on('keydown', '.pill-input', $.proxy(this.inputEvent, this));
+		this.$element.on('keydown', '.pillbox-input', $.proxy(this.inputEvent, this));
 	};
 
 	Pillbox.prototype = {
@@ -68,32 +72,59 @@
 		},
 
 		addItem: function(text, value) {
-			value   = value || text;
-			var $li = $('<li data-value="' + value + '">' + text + '</li>');
+			var data = {
+				text: text,
+				value: value ? value : text,
+				el: '<li></li>'
+			};
 
-			if( this.$element.find('ul').length > 0 ) {
-				this.$element.find('ul > li:last').after($li);
+			if(this.options.dataSource){
+				this.options.dataSource( data, $.proxy(this.placeItem,this));
 			} else {
-				if( this.$element.find('li') > 0 ){
-					this.$element.find('li:last').after($li);
-				} else {
-					this.$element.prepend($li);
-				}
+				this.placeItem(data);
+			}
+		},
+
+		placeItem: function(data){
+			var $li = $(data.el);
+
+			$li.attr('data-value',data.value);
+			$li.html(data.text);
+
+			if( this.$element.find('li').length > 0 ) {
+				this.$element.find('li:last').after($li);
+			} else {
+				this.$ul.prepend($li);
 			}
 
-			this.$element.trigger( 'added', { text: text, value: value } );
+			this.$element.trigger( 'added', { text: data.text, value: data.value } );
 
-			return $li;
+			if( !this.options.dataSource ) {
+				return $li;
+			}
 		},
 
 		inputEvent: function(e){
+			var self = this;
 			var val = this.$input.val();
 
-			if( e.keyCode === 13 ){
-				this.addItem(val);
-				this.$input.val('').attr({size:10});
+			if( this.acceptKeyCodes[e.keyCode] ){
+				if( val.length ) {
+					this.addItem(val);
+
+					//this is kinda weird but prevents commas and other accepts characters from showing up in the input
+					//the hide and show are to prevent character flashing
+					this.$input.hide();
+					setTimeout(function(){
+						self.$input.show().val('').attr({size:10});
+					});
+				}
+			} else if( e.keyCode === 8 || e.keyCode === 46 ) {
+				if( !val.length ) {
+					this.$element.find('li:last').remove();
+				}
 			} else if ( val.length > 10 ) {
-				this.$input.attr({size:val.length});
+				this.$input.attr({size:val.length + 2});
 			}
 		},
 
@@ -124,10 +155,8 @@
 		},
 
 		inputFocus: function(e) {
-			this.$element.find('.pill-input').focus();
+			this.$element.find('.pillbox-input').focus();
 		},
-
-
 
 		clear: function() {
 			this.$element.find('ul').empty();
@@ -135,6 +164,16 @@
 
 		_removePillTrigger: function( removedBy ) {
 			this.$element.trigger( 'removed', removedBy );
+		},
+
+		_generateObject: function(data){
+			var obj = {};
+
+			$.each(data, function(index,value){
+				obj[value] = true;
+			});
+
+			return obj;
 		}
 	};
 
@@ -157,7 +196,18 @@
 	};
 
 	$.fn.pillbox.defaults = {
-		filter: undefined
+		dataSource: undefined,
+		acceptKeyCodes: [
+			//Enter
+			13,
+			//Comma
+			188
+		]
+		//example dataSource
+		/*dataSource: function( data, callback ){
+			console.log(data, callback);
+			callback(data);
+		}*/
 	};
 
 	$.fn.pillbox.Constructor = Pillbox;
