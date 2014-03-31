@@ -64,7 +64,6 @@
 
 		this.currentPage = 0;
 		this.currentView = (this.options.defaultView!==-1) ? this.options.defaultView : this.$views.find('label.active input').val();
-		this.skipNested = false;
 
 		this.$filters.on('changed', $.proxy(this.render, this, { pageIncrement: null }));
 		this.$nextBtn.on('click', $.proxy(this.next, this));
@@ -238,8 +237,8 @@
 		},
 
 		runRenderer: function(container, renderer, data, callback){
-			var async = { after: false, before: false, complete: false, render: false };
 			var self = this;
+			var skipNested = false;
 			var repeat, subset, i, l;
 
 			var loopSubset = function(index){
@@ -266,21 +265,27 @@
 				var item = '';
 
 				var callbacks = {
-					before: function(){
+					before: function(resp){
+						if(resp && resp.skipNested===true){
+							skipNested = true;
+						}
 						proceed('render', args);
 					},
 					render: function(resp){
-						if(resp!==null){
-							item = $(resp);
+						if(resp && resp.item!==undefined){
+							item = $(resp.item);
 							if(item.length<1){
-								item = resp;
+								item = resp.item;
 							}
 							container.append(item);
 							args.item = item;
 						}
+						if(resp && resp.skipNested===true){
+							skipNested = true;
+						}
 						proceed('after', args);
 					},
-					after: function(){
+					after: function(resp){
 						var cont;
 						var loopNested = function(cont, index){
 							self.runRenderer(cont, renderer.nested[index], data, function(){
@@ -293,7 +298,11 @@
 							});
 						};
 
-						if(renderer.nested && !self.skipNested){
+						if(resp && resp.skipNested===true){
+							skipNested = true;
+						}
+
+						if(renderer.nested && !skipNested){
 							cont = $(item);
 							cont = (cont.attr('data-container')==='true') ? cont : cont.find('[data-container="true"]:first');
 							if(cont.length<1){
@@ -304,7 +313,7 @@
 							callbacks.complete(null);
 						}
 					},
-					complete: function(){
+					complete: function(resp){
 						if(cb){
 							cb();
 						}
@@ -314,28 +323,15 @@
 				var proceed = function(stage, argus){
 					argus = $.extend({}, argus);
 					if(renderer[stage]){
-						if(async[stage]){
-							argus.callback = callbacks[stage];
-							renderer[stage].call(self, argus);
-						}else{
-							callbacks[stage](renderer[stage].call(self, argus));
-						}
+						argus.callback = callbacks[stage];
+						renderer[stage].call(self, argus);
 					}else{
 						callbacks[stage](null);
 					}
 				};
 
-				self.skipNested = false;
 				proceed('before', args);
 			};
-
-			if(renderer.async){
-				if(renderer.async===true){
-					async = { after: true, before: true, complete: true, render: true };
-				}else{
-					async = renderer.async;
-				}
-			}
 
 			if(renderer.repeat){
 				repeat = renderer.repeat.split('.');
@@ -390,7 +386,6 @@
 				//after: function(helpers){},
 				//complete: function(helpers){},
 				//repeat: 'parameter.subparameter.etc',
-				//async: { after: false, before: false, complete: false, render: false }  (passing true sets all to true)
 				//render: function(helpers){},
 				//nested: [ *array of renderer objects* ]
 			//}
@@ -400,7 +395,7 @@
 					//container: jQuery object,	(current renderer parent)
 					//data: {...}, (data returned from dataSource)
 					//index: int, (only there if repeat was set. current item index)
-					//item: str or jQuery object, (only there if rendered function returned value)
+					//item: str or jQuery object, (only there if rendered function returned item)
 					//subset: {}, (only there if repeat was set. subset of data being repeated on)
 				//}
 	$.fn.repeater.views = {
@@ -410,14 +405,15 @@
 		thumbnail: {
 			//defualts: {},
 			//initialize: function(){},
+			//selected: function(){},
 			renderer: {
 				render: function(helpers){
-					return '<div class="clearfix thumbnailCont" data-container="true"></div>';
+					helpers.callback({ item: '<div class="clearfix thumbnailCont" data-container="true"></div>' });
 				},
 				nested: [
 					{
 						render: function(helpers){
-							return '<div class="thumbnail" data-container="true" style="background: ' + helpers.subset[helpers.index].color + ';"><img height="75" src="' + helpers.subset[helpers.index].src + '" width="65">' + helpers.subset[helpers.index].name + '</div>';
+							helpers.callback({ item: '<div class="thumbnail" data-container="true" style="background: ' + helpers.subset[helpers.index].color + ';"><img height="75" src="' + helpers.subset[helpers.index].src + '" width="65">' + helpers.subset[helpers.index].name + '</div>' });
 						},
 						repeat: 'items'
 					}
