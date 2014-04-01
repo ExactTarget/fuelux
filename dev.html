@@ -40,17 +40,58 @@
 		});
 
 		require(['jquery', 'fuelux/all'], function ($){
+			var delays = ['300', '600', '900', '1200'];
 			var myRepeater = $('#MyRepeater');
 			var numItems = 200;
 
 			var list = function(options, callback){
-				callback({});
+				var resp = {
+					count: numItems,
+					items: [],
+					pages: (Math.ceil(numItems/options.pageSize)),
+					page: options.pageIndex
+				};
+				var i, l;
+
+				i = options.pageIndex * options.pageSize;
+				l = i + options.pageSize;
+				resp.start = i + 1;
+				resp.end = l;
+
+				resp.columns = [
+					{
+						label: 'Common Name',
+						property: 'commonName',
+						sortable: true
+					},
+					{
+						label: 'Latin Name',
+						property: 'latinName',
+						sortable: true
+					},
+					{
+						label: 'Appearance',
+						property: 'appearance',
+						sortable: true
+					},
+					{
+						label: 'Behavior',
+						property: 'behavior',
+						sortable: true
+					}
+				];
+
+				if(window.console && window.console.log){
+					console.log(options);
+				}
+				setTimeout(function(){
+					callback(resp);
+				}, delays[Math.floor(Math.random() * 4)]);
 			};
 
 			var thumbnail = function(options, callback){
 				var categories = ['abstract', 'animals', 'business', 'cats', 'city', 'food', 'nature', 'technics', 'transport'];
 				var colors = ['#D9EDF7', '#F2DEDE', '#FCF8E3', '#DFF0D8'];
-				var delays = ['300', '600', '900', '1200'];
 				var resp = {
 					count: numItems,
 					items: [],
@@ -82,7 +123,6 @@
 
 			myRepeater.repeater({
 				dataSource: function(options, callback){
-					console.log(options.view);
 					if(options.view==='list'){
 						list(options, callback);
 					}else if(options.view==='thumbnail'){
@@ -97,7 +137,7 @@
 <body>
 	<div class="container" style="margin-top:20px;">
 
-		<div class="repeater" data-staticheight="true" id="MyRepeater" style="height: 600px;">
+		<div class="repeater" data-staticheight="600px" id="MyRepeater">
 			<div class="repeater-header">
 				<div class="repeater-header-left">
 					<span class="repeater-title">Awesome Repeater</span>

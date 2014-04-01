@@ -28,13 +28,14 @@
 
 		$.fn.repeater.views.list = {
 			renderer: {
-				render: function(){
-
+				render: function(helpers, callback){
+					callback();
 				},
 				nested: [
 					{
 						render: function(helpers, callback){
-							callback({ item: '<table class="repeater-list-header"><tr data-container="true"></tr></table>' });
+							console.log('RENDER');
+							callback({ item: '<table class="table repeater-list-header"><tr data-container="true"></tr></table>' });
 						},
 						nested: [
 							{

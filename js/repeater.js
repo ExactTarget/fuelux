@@ -222,9 +222,9 @@
 			var staticHeight = (this.options.staticHeight===-1) ? this.$element.attr('data-staticheight') : this.options.staticHeight;
 			var height;
 
-			if(staticHeight==='true' || staticHeight===true){
+			if(staticHeight!==undefined){
 				this.$canvas.addClass('scrolling');
-				height = this.$element.height()
+				height = ((staticHeight==='true' || staticHeight===true) ? this.$element.height() : parseInt(staticHeight, 10))
 					- this.$element.find('.repeater-header').outerHeight()
 					- this.$element.find('.repeater-footer').outerHeight()
 					- parseInt(this.$element.css('margin-bottom'), 10)
