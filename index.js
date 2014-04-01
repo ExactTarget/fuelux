@@ -159,6 +159,15 @@ define(function(require){
 		console.log(items);
 	});
 
+	$('#MyPillbox').pillbox({
+		onKeyDown: function( data, callback ){
+			callback({data:[
+				{text: Math.random(),value:'sdfsdfsdf'},
+				{text: Math.random(),value:'sdfsdfsdf'}
+			]});
+		}
+	});
+
 	$('#MyPillbox').on( 'added', function( event, data ) {
 		console.log( 'pillbox added', data );
 	});

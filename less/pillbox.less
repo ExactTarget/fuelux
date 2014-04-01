@@ -2,14 +2,82 @@
 
 	padding: 3px;
 
-	ul {
+	> ul {
 		display: inline-block;
 		margin: 0;
 		padding: 0;
+
+		> li {
+
+			// Begin Bootstrap .label
+			font-size: @baseFontSize * .846;
+			font-weight: bold;
+			line-height: 21px; // modified
+			color: @white;
+			vertical-align: baseline;
+			//white-space: nowrap; //removed
+			background-color: @grayLight;
+			padding: 1px 4px 2px;
+			.border-radius(3px);
+			// End Bootstrap .label
+
+			display: inline-block;
+			margin: 2px;
+			cursor: pointer;
+			float:left;
+
+			&:after {
+
+				// Begin Bootstrap .close
+				float: right;
+				font-size: 14px;
+				font-weight: bold;
+				line-height: @baseLineHeight;
+				color: @black;
+				.opacity(20);
+
+				// End Bootstrap .close
+
+				padding-left: 4px;
+				position: relative;
+				top: -2px;
+				content: " \00D7"
+			}
+
+			&:hover {
+				&:after {
+					.opacity(40);
+				}
+			}
+
+			&.status {
+				&-important {
+					background-color: @errorText;
+				}
+
+				&-warning {
+					background-color: @orange;
+				}
+
+				&-success {
+					background-color: @successText;
+				}
+
+				&-info {
+					background-color: @infoText;
+				}
+			}
+
+		}
+	}
+
+	.pillbox-input-wrap {
+		position: relative;
+		margin: 4px 0 3px 3px;
+		float: left;
 	}
 
 	.pillbox-input {
-		margin: 4px 0 0 1px;
 		border: none;
 
 		&:focus {
@@ -18,67 +86,25 @@
 		}
 	}
 
-	li {
+	.pillbox-suggest {
+		position: absolute;
+		margin: 0;
+		padding: 4px 0;
+		left: -4px;
+		background-color: @white;
+		border: 1px solid @grayLight;
+		border-radius: 4px;
 
-		// Begin Bootstrap .label
-		font-size: @baseFontSize * .846;
-		font-weight: bold;
-		line-height: 21px; // modified
-		color: @white;
-		vertical-align: baseline;
-		//white-space: nowrap; //removed
-		background-color: @grayLight;
-		padding: 1px 4px 2px;
-		.border-radius(3px);
-		// End Bootstrap .label
+		> li {
+			list-style: none;
+			white-space: nowrap;
+			cursor: pointer;
+			padding: 0 4px;
 
-		display: inline-block;
-		margin: 2px;
-		cursor: pointer;
-		float:left;
 
-		&:after {
-
-			// Begin Bootstrap .close
-			float: right;
-			font-size: 14px;
-			font-weight: bold;
-			line-height: @baseLineHeight;
-			color: @black;
-			.opacity(20);
-
-			// End Bootstrap .close
-
-			padding-left: 4px;
-			position: relative;
-			top: -2px;
-			content: " \00D7"
-		}
-
-		&:hover {
-			&:after {
-				.opacity(40);
+			&:hover {
+				background-color: @grayLighter;
 			}
 		}
-
-		&.status {
-			&-important {
-				background-color: @errorText;
-			}
-
-			&-warning {
-				background-color: @orange;
-			}
-
-			&-success {
-				background-color: @successText;
-			}
-
-			&-info {
-				background-color: @infoText;
-			}
-		}
-
 	}
-
 }
