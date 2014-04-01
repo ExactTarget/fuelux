@@ -93,6 +93,29 @@
 		margin-bottom: 10px;
 	}
 
+/* bootstrap overrides */
+@media (min-width: 979px) {
+	.fuelux .navbar-fixed-top .container {
+		white-space: nowrap;
+		position: relative;
+	}
+
+	.fuelux .navbar-fixed-top .container #BrandLink,
+	.fuelux .navbar-fixed-top .container #BrandLink + .nav-collapse,
+	.fuelux .navbar-fixed-top .container #BrandLink + .nav-collapse .nav,
+	.fuelux .navbar-fixed-top .container #BrandLink + .nav-collapse .nav > li
+	{
+		display: inline-block;
+		float: none;
+	}
+
+	.fuelux .navbar-fixed-top .container #BrandLink + .nav-collapse {
+		position: absolute;
+		left: 91px;
+		right: 0px;
+		overflow-x: auto;
+	}
+}
 </style>
 <link href="vendor/fuelux/css/fuelux-responsive.css" rel="stylesheet">
 
@@ -473,6 +496,17 @@ require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 
 				// return e.preventDefault();
 			}
 		});
+	});
+
+	$('ul.nav li').on('activate.bs.scrollspy', function(e) {
+		// disable when bootstrap collapse is active (small screen)
+		if($(window).width() < 979) return;
+
+		var $anchor = $(e.currentTarget).find('a');
+
+		if(!$anchor.is(':focus')) {
+			$anchor.focus().blur();
+		}
 	});
 });
 </script>
