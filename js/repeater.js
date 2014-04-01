@@ -14,7 +14,7 @@
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
         // if AMD loader is available, register as an anonymous module.
-         define(['jquery'], factory);
+         define(['jquery', 'fuelux/combobox', 'fuelux/search', 'fuelux/selectlist'], factory);
     } else {
         // OR use browser globals if AMD is not present
         factory(jQuery);
@@ -23,7 +23,7 @@
 // -- END UMD WRAPPER PREFACE --
 
 // -- BEGIN MODULE CODE HERE --
-    
+
 	var old = $.fn.repeater;
 
 	// REPEATER CONSTRUCTOR AND PROTOTYPE
@@ -379,48 +379,32 @@
 		staticHeight: -1	//normally true or false. -1 means it will look for data-staticheight on the element
 	};
 
-	//views object contains keyed list of view plugins.
-		//renderer object contains following optional parameters:
-			//{
-				//before: function(helpers){},
-				//after: function(helpers){},
-				//complete: function(helpers){},
-				//repeat: 'parameter.subparameter.etc',
-				//render: function(helpers){},
-				//nested: [ *array of renderer objects* ]
-			//}
-
-			//helpers object structure:
-				//{
-					//container: jQuery object,	(current renderer parent)
-					//data: {...}, (data returned from dataSource)
-					//index: int, (only there if repeat was set. current item index)
-					//item: str or jQuery object, (only there if rendered function returned item)
-					//subset: {}, (only there if repeat was set. subset of data being repeated on)
-				//}
-	$.fn.repeater.views = {
-		list: {
-			renderer: {}
-		},
-		thumbnail: {
+	//views object contains keyed list of view plugins, each an object with following optional parameters:
+		//{
 			//defualts: {},
 			//initialize: function(){},
 			//selected: function(){},
-			renderer: {
-				render: function(helpers){
-					helpers.callback({ item: '<div class="clearfix thumbnailCont" data-container="true"></div>' });
-				},
-				nested: [
-					{
-						render: function(helpers){
-							helpers.callback({ item: '<div class="thumbnail" data-container="true" style="background: ' + helpers.subset[helpers.index].color + ';"><img height="75" src="' + helpers.subset[helpers.index].src + '" width="65">' + helpers.subset[helpers.index].name + '</div>' });
-						},
-						repeat: 'items'
-					}
-				]
-			}
-		}
-	};
+			//renderer: {}
+		//}
+			//renderer object contains following optional parameters:
+				//{
+					//before: function(helpers){},
+					//after: function(helpers){},
+					//complete: function(helpers){},
+					//repeat: 'parameter.subparameter.etc',
+					//render: function(helpers){},
+					//nested: [ *array of renderer objects* ]
+				//}
+
+				//helpers object structure:
+					//{
+						//container: jQuery object,	(current renderer parent)
+						//data: {...}, (data returned from dataSource)
+						//index: int, (only there if repeat was set. current item index)
+						//item: str or jQuery object, (only there if rendered function returned item)
+						//subset: {}, (only there if repeat was set. subset of data being repeated on)
+					//}
+	$.fn.repeater.views = {};
 
 	$.fn.repeater.Constructor = Repeater;
 

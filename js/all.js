@@ -32,6 +32,7 @@
 	require('fuelux/pillbox');
 	require('fuelux/radio');
 	require('fuelux/repeater');
+	require('fuelux/repeater-thumbnail');
 	require('fuelux/scheduler');
 	require('fuelux/search');
 	require('fuelux/spinbox');
