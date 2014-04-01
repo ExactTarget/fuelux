@@ -206,9 +206,10 @@
 				this.currentView = options.changeView;
 				viewObj = $.fn.repeater.views[self.currentView];
 				if(viewObj.selected){
-					viewObj.selected({ callback: function(){
+					//TODO: provide valuable helpers object here
+					viewObj.selected({}, function(){
 						start();
-					}});
+					});
 				}else{
 					start();
 				}
@@ -321,8 +322,7 @@
 				var proceed = function(stage, argus){
 					argus = $.extend({}, argus);
 					if(renderer[stage]){
-						argus.callback = callbacks[stage];
-						renderer[stage].call(self, argus);
+						renderer[stage].call(self, argus, callbacks[stage]);
 					}else{
 						callbacks[stage](null);
 					}

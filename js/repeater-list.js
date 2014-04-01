@@ -33,13 +33,13 @@
 				},
 				nested: [
 					{
-						render: function(helpers){
-							helpers.callback({ item: '<table class="repeater-list-header"><tr data-container="true"></tr></table>' });
+						render: function(helpers, callback){
+							callback({ item: '<table class="repeater-list-header"><tr data-container="true"></tr></table>' });
 						},
 						nested: [
 							{
-								render: function(helpers){
-									helpers.callback('<td>' + helpers.subset[helpers.index].label + '</td>');
+								render: function(helpers, callback){
+									callback({ item: '<td>' + helpers.subset[helpers.index].label + '</td>' });
 								},
 								repeat: 'columns'
 							}
