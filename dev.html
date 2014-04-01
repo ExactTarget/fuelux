@@ -39,14 +39,14 @@
 			}
 		});
 
-		require(['jquery', 'fuelux/all'], function ($){
+		require(['jquery', 'data', 'fuelux/all'], function ($, data){
 			var delays = ['300', '600', '900', '1200'];
 			var myRepeater = $('#MyRepeater');
 			var numItems = 200;
 
 			var list = function(options, callback){
 				var resp = {
-					count: numItems,
+					count: data.length,
 					items: [],
 					pages: (Math.ceil(numItems/options.pageSize)),
 					page: options.pageIndex
@@ -55,6 +55,7 @@
 
 				i = options.pageIndex * options.pageSize;
 				l = i + options.pageSize;
+				l = (l <= resp.count) ? l : resp.count;
 				resp.start = i + 1;
 				resp.end = l;
 
@@ -75,11 +76,15 @@
 						sortable: true
 					},
 					{
-						label: 'Behavior',
-						property: 'behavior',
+						label: 'Sound',
+						property: 'sound',
 						sortable: true
 					}
 				];
+
+				for(i; i<l; i++){
+					resp.items.push(data[i]);
+				}
 
 				if(window.console && window.console.log){
 					console.log(options);

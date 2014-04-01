@@ -107,7 +107,7 @@
 			}
 
 			if($.fn.repeater.views[this.currentView].dataOptions){
-				opts = $.fn.repeater.views[this.currentView].dataOptions();
+				opts = $.fn.repeater.views[this.currentView].dataOptions(opts);
 			}
 
 			return opts;

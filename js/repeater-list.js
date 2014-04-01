@@ -1,5 +1,5 @@
 /*
- * Fuel UX Repeater - Thumbnail View Plugin
+ * Fuel UX Repeater - List View Plugin
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2014 ExactTarget
@@ -34,15 +34,39 @@
 				nested: [
 					{
 						render: function(helpers, callback){
-							console.log('RENDER');
+							this.listView_columns = [];
 							callback({ item: '<table class="table repeater-list-header"><tr data-container="true"></tr></table>' });
 						},
 						nested: [
 							{
 								render: function(helpers, callback){
-									callback({ item: '<td>' + helpers.subset[helpers.index].label + '</td>' });
+									var index = helpers.index;
+									var subset = helpers.subset;
+									this.listView_columns.push(subset[index].property);
+									callback({ item: '<td>' + subset[index].label + '</td>' });
 								},
 								repeat: 'columns'
+							}
+						]
+					},
+					{
+						render: function(helpers, callback){
+							callback({ item: '<table class="table repeater-list-items" data-container="true"></table>' });
+						},
+						nested: [
+							{
+								render: function(helpers, callback){
+									var cols = this.listView_columns;
+									var row = $('<tr></tr>');
+									var i, l;
+
+									for(i=0, l=cols.length; i<l; i++){
+										row.append('<td>' + helpers.subset[helpers.index][cols[i]] + '</td>');
+									}
+
+									callback({ item: row });
+								},
+								repeat: 'items'
 							}
 						]
 					}
