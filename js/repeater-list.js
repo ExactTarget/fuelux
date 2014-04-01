@@ -28,6 +28,9 @@
 
 		$.fn.repeater.views.list = {
 			renderer: {
+				/*after: function(helpers, callback){
+					callback();
+				},*/
 				render: function(helpers, callback){
 					callback();
 				},
@@ -35,6 +38,7 @@
 					{
 						render: function(helpers, callback){
 							this.listView_columns = [];
+							this.listView_column_width = (100/helpers.data.columns.length) + '%';
 							callback({ item: '<table class="table repeater-list-header"><tr data-container="true"></tr></table>' });
 						},
 						nested: [
@@ -43,15 +47,21 @@
 									var index = helpers.index;
 									var subset = helpers.subset;
 									this.listView_columns.push(subset[index].property);
-									callback({ item: '<td>' + subset[index].label + '</td>' });
+									callback({ item: '<td style="width: ' + this.listView_column_width + ';">' + subset[index].label + '</td>' });
 								},
 								repeat: 'columns'
 							}
 						]
 					},
 					{
+						after: function(helpers, callback){
+							var canvas = this.$element.find('.repeater-canvas');
+							var header = this.$element.find('.repeater-list-header');
+							helpers.item.height(canvas.height()-header.outerHeight());
+							callback();
+						},
 						render: function(helpers, callback){
-							callback({ item: '<table class="table repeater-list-items" data-container="true"></table>' });
+							callback({ item: '<div class="repeater-list-wrapper"><table class="table repeater-list-items" data-container="true"></table></div>' });
 						},
 						nested: [
 							{
@@ -61,7 +71,7 @@
 									var i, l;
 
 									for(i=0, l=cols.length; i<l; i++){
-										row.append('<td>' + helpers.subset[helpers.index][cols[i]] + '</td>');
+										row.append('<td style="width: ' + this.listView_column_width  + ';">' + helpers.subset[helpers.index][cols[i]] + '</td>');
 									}
 
 									callback({ item: row });

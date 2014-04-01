@@ -184,10 +184,9 @@
 			var viewObj = $.fn.repeater.views[self.currentView];
 
 			var start = function(){
-				var dataOptions = self.getDataOptions(options);
-
+				self.clear();
 				self.$loader.show();
-				self.options.dataSource(dataOptions, function(data){
+				self.options.dataSource(self.getDataOptions(options), function(data){
 					var renderer = viewObj.renderer;
 					self.itemization(data);
 					self.pagination(data);
@@ -201,7 +200,7 @@
 			};
 
 			options = options || {};
-			this.clear();
+
 			if(options.changeView && this.currentView!==options.changeView){
 				this.currentView = options.changeView;
 				viewObj = $.fn.repeater.views[self.currentView];
