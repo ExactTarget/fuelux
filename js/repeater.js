@@ -30,7 +30,7 @@
 
 	var Repeater = function (element, options) {
 		var self = this;
-		var i, view;
+		var i, views;
 
 		this.$element = $(element);
 
@@ -50,17 +50,14 @@
 		this.$viewport = this.$element.find('.repeater-viewport');
 		this.$views = this.$element.find('.repeater-views');
 
-		this.options = $.extend(true, {}, $.fn.repeater.defaults);
+		this.options = $.extend({}, $.fn.repeater.defaults, options);
+
+		views = $.fn.repeater.views;
 		for(i in $.fn.repeater.views){
-			view = $.fn.repeater.views[i];
-			if(view.defaults){
-				this.options = $.extend(true, this.options, view.defaults);
-			}
-			if(view.initialize){
-				view.initialize();
+			if(views[i].initialize){
+				views[i].initialize();
 			}
 		}
-		this.options = $.extend(true, this.options, options);
 
 		this.currentPage = 0;
 		this.currentView = (this.options.defaultView!==-1) ? this.options.defaultView : this.$views.find('label.active input').val();
@@ -381,7 +378,6 @@
 
 	//views object contains keyed list of view plugins, each an object with following optional parameters:
 		//{
-			//defualts: {},
 			//initialize: function(){},
 			//selected: function(){},
 			//renderer: {}

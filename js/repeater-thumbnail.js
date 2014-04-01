@@ -25,6 +25,7 @@
 // -- BEGIN MODULE CODE HERE --
 
 	if($.fn.repeater && $.fn.repeater.views){
+
 		$.fn.repeater.views.thumbnail = {
 			renderer: {
 				render: function(helpers){
@@ -40,6 +41,7 @@
 				]
 			}
 		};
+
 	}
 
 // -- BEGIN UMD WRAPPER AFTERWORD --

@@ -25,9 +25,33 @@
 // -- BEGIN MODULE CODE HERE --
 
 	if($.fn.repeater && $.fn.repeater.views){
+
 		$.fn.repeater.views.list = {
-			renderer: {}
+			renderer: {
+				render: function(){
+
+				},
+				nested: [
+					{
+						render: function(helpers){
+							helpers.callback({ item: '' });
+						},
+						nested: [
+							{
+								before: function(helpers){
+
+								},
+								render: function(helpers){
+
+								},
+								repeat: 'columns'
+							}
+						]
+					}
+				]
+			}
 		};
+
 	}
 
 // -- BEGIN UMD WRAPPER AFTERWORD --
