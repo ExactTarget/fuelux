@@ -43,38 +43,51 @@
 			var myRepeater = $('#MyRepeater');
 			var numItems = 200;
 
+			var list = function(options, callback){
+				callback({});
+			};
+
+			var thumbnail = function(options, callback){
+				var categories = ['abstract', 'animals', 'business', 'cats', 'city', 'food', 'nature', 'technics', 'transport'];
+				var colors = ['#D9EDF7', '#F2DEDE', '#FCF8E3', '#DFF0D8'];
+				var delays = ['300', '600', '900', '1200'];
+				var resp = {
+					count: numItems,
+					items: [],
+					pages: (Math.ceil(numItems/options.pageSize)),
+					page: options.pageIndex
+				};
+				var i, l;
+
+				i = options.pageIndex * options.pageSize;
+				l = i + options.pageSize;
+				resp.start = i + 1;
+				resp.end = l;
+
+				for(i; i<l; i++){
+					resp.items.push({
+						color: colors[Math.floor(Math.random() * 4)],
+						name: ('Thumbnail ' + (i + 1)),
+						src: 'http://lorempixel.com/65/75/' + categories[Math.floor(Math.random() * 9)] + '/?_=' + i
+					});
+				}
+
+				if(window.console && window.console.log){
+					console.log(options);
+				}
+				setTimeout(function(){
+					callback(resp);
+				}, delays[Math.floor(Math.random() * 4)]);
+			};
+
 			myRepeater.repeater({
 				dataSource: function(options, callback){
-					var categories = ['abstract', 'animals', 'business', 'cats', 'city', 'food', 'nature', 'technics', 'transport'];
-					var colors = ['#D9EDF7', '#F2DEDE', '#FCF8E3', '#DFF0D8'];
-					var delays = ['300', '600', '900', '1200'];
-					var resp = {
-						count: numItems,
-						items: [],
-						pages: (Math.ceil(numItems/options.pageSize)),
-						page: options.pageIndex
-					};
-					var i, l;
-
-					i = options.pageIndex * options.pageSize;
-					l = i + options.pageSize;
-					resp.start = i + 1;
-					resp.end = l;
-
-					for(i; i<l; i++){
-						resp.items.push({
-							color: colors[Math.floor(Math.random() * 4)],
-							name: ('Thumbnail ' + (i + 1)),
-							src: 'http://lorempixel.com/65/75/' + categories[Math.floor(Math.random() * 9)] + '/?_=' + i
-						});
+					console.log(options.view);
+					if(options.view==='list'){
+						list(options, callback);
+					}else if(options.view==='thumbnail'){
+						thumbnail(options, callback);
 					}
-
-					if(window.console && window.console.log){
-						console.log(options);
-					}
-					setTimeout(function(){
-						callback(resp);
-					}, delays[Math.floor(Math.random() * 4)]);
 				}
 			});
 		});

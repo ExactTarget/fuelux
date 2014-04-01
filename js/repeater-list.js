@@ -34,15 +34,12 @@
 				nested: [
 					{
 						render: function(helpers){
-							helpers.callback({ item: '' });
+							helpers.callback({ item: '<table class="repeater-list-header"><tr data-container="true"></tr></table>' });
 						},
 						nested: [
 							{
-								before: function(helpers){
-
-								},
 								render: function(helpers){
-
+									helpers.callback('<td>' + helpers.subset[helpers.index].label + '</td>');
 								},
 								repeat: 'columns'
 							}

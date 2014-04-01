@@ -180,11 +180,12 @@
 		},
 
 		render: function(options){
-			var dataOptions = this.getDataOptions(options);
 			var self = this;
 			var viewObj = $.fn.repeater.views[self.currentView];
 
 			var start = function(){
+				var dataOptions = self.getDataOptions(options);
+
 				self.$loader.show();
 				self.options.dataSource(dataOptions, function(data){
 					var renderer = viewObj.renderer;
