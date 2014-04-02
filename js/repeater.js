@@ -30,7 +30,7 @@
 
 	var Repeater = function (element, options) {
 		var self = this;
-		var i, views;
+		var currentView, i, views;
 
 		this.$element = $(element);
 
@@ -55,12 +55,12 @@
 		views = $.fn.repeater.views;
 		for(i in $.fn.repeater.views){
 			if(views[i].initialize){
-				views[i].initialize();
+				views[i].initialize.call(this);
 			}
 		}
 
 		this.currentPage = 0;
-		this.currentView = (this.options.defaultView!==-1) ? this.options.defaultView : this.$views.find('label.active input').val();
+		this.currentView = null;
 
 		this.$filters.on('changed', $.proxy(this.render, this, { pageIncrement: null }));
 		this.$nextBtn.on('click', $.proxy(this.next, this));
@@ -71,8 +71,10 @@
 		this.$secondaryPaging.on('blur', function(){ self.pageInputChange(self.$secondaryPaging.val()); });
 		this.$views.find('input').on('change', $.proxy(this.viewChanged, this));
 
+		currentView = (this.options.defaultView!==-1) ? this.options.defaultView : this.$views.find('label.active input').val();
+
 		this.resize();
-		this.render();
+		this.render({ changeView: currentView });
 	};
 
 	Repeater.prototype = {
@@ -226,11 +228,12 @@
 
 			if(options.changeView && this.currentView!==options.changeView){
 				this.currentView = options.changeView;
+				this.$element.attr('data-currentview', this.currentView);
 				viewChanged = true;
 				viewObj = $.fn.repeater.views[self.currentView];
 				if(viewObj.selected){
 					//TODO: provide valuable helpers object here
-					viewObj.selected({}, function(){
+					viewObj.selected.call(this, {}, function(){
 						start();
 					});
 				}else{

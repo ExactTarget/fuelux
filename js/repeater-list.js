@@ -27,26 +27,50 @@
 	if($.fn.repeater && $.fn.repeater.views){
 
 		$.fn.repeater.views.list = {
+			selected: function(helpers, callback){
+				this.listView_firstRender = true;
+				this.$loader.addClass('noHeader');
+				callback();
+			},
 			renderer: {
-				/*after: function(helpers, callback){
-					callback();
-				},*/
-				render: function(helpers, callback){
-					callback();
-				},
 				nested: [
 					{
 						render: function(helpers, callback){
-							this.listView_columns = [];
-							this.listView_column_width = (100/helpers.data.columns.length) + '%';
-							callback({ item: '<table class="table repeater-list-header"><tr data-container="true"></tr></table>' });
+							var differentColumns = function(oldCols, newCols){
+								var i, j, l;
+								if(!oldCols){ return true; }
+								if(!newCols){ return false; }
+								for(i=0, l=newCols.length; i<l; i++){
+									if(!oldCols[i]){
+										return true;
+									}else{
+										for(j in newCols[i]){
+											if(oldCols[i][j]!==newCols[i][j]){
+												return true;
+											}
+										}
+									}
+								}
+								return false;
+							};
+
+							if(this.listView_firstRender || differentColumns(this.listView_columns, helpers.data.columns)){
+								this.listView_columns = helpers.data.columns;
+								this.listView_columnProperties = [];
+								this.listView_column_width = (100/helpers.data.columns.length) + '%';
+								this.listView_firstRender = false;
+								this.$loader.removeClass('noHeader');
+								callback({ item: '<table class="table repeater-list-header" data-preserve="deep"><tr data-container="true"></tr></table>' });
+							}else{
+								callback({ skipNested: true });
+							}
 						},
 						nested: [
 							{
 								render: function(helpers, callback){
 									var index = helpers.index;
 									var subset = helpers.subset;
-									this.listView_columns.push(subset[index].property);
+									this.listView_columnProperties.push(subset[index].property);
 									callback({ item: '<td style="width: ' + this.listView_column_width + ';">' + subset[index].label + '</td>' });
 								},
 								repeat: 'columns'
@@ -66,7 +90,7 @@
 						nested: [
 							{
 								render: function(helpers, callback){
-									var cols = this.listView_columns;
+									var cols = this.listView_columnProperties;
 									var row = $('<tr></tr>');
 									var i, l;
 
