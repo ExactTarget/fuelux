@@ -31,13 +31,15 @@
 	var Pillbox = function (element, options) {
 		this.$element = $(element);
 		this.$input = this.$element.find('.pillbox-input');
-		this.$ul    = this.$element.find('ul');
+		this.$ul    = this.$element.find('.pillbox-list');
+		this.$sugs  = this.$element.find('.pillbox-suggest');
 
 		this.options = $.extend({}, $.fn.pillbox.defaults, options);
 		//CREATING AN OBJECT OUT OF THE KEY CODE ARRAY SO WE DONT HAVE TO LOOP THROUGH IT ON EVERY KEY STROKE
 		this.acceptKeyCodes = this._generateObject(this.options.acceptKeyCodes);
 
-		this.$element.on('click', 'li', $.proxy(this.itemclicked, this));
+		this.$element.on('click', '.pillbox-list > li', $.proxy(this.itemclicked, this));
+		this.$element.on('click', '.pillbox-suggest > li', $.proxy(this.suggestionClick, this));
 		this.$element.on('click', $.proxy(this.inputFocus, this));
 
 		this.$element.on('keydown', '.pillbox-input', $.proxy(this.inputEvent, this));
@@ -47,7 +49,7 @@
 		constructor : Pillbox,
 
 		items: function() {
-			return this.$element.find('li').map(function() {
+			return this.$ul.children('li').map(function() {
 				var $this = $(this);
 				return $.extend({
 					text : $this.text()
@@ -67,8 +69,17 @@
 			this.$element.trigger('removed', data);
 		},
 
+		suggestionClick: function(e){
+			var $li = $(e.currentTarget);
+
+			e.preventDefault();
+			this._closeSuggestions();
+			this.$input.val('');
+			this.addItem($li.html(), $li.data('value'));
+		},
+
 		itemCount: function() {
-			return this.$element.find('li').length;
+			return this.$ul.children('li').length;
 		},
 
 		addItem: function(text, value) {
@@ -91,8 +102,8 @@
 			$li.attr('data-value',data.value);
 			$li.html(data.text);
 
-			if( this.$element.find('li').length > 0 ) {
-				this.$element.find('li:last').after($li);
+			if( this.$ul.children('li').length > 0 ) {
+				this.$ul.children('li:last').after($li);
 			} else {
 				this.$ul.prepend($li);
 			}
@@ -109,22 +120,31 @@
 			var val = this.$input.val();
 
 			if( this.acceptKeyCodes[e.keyCode] ){
+				this._closeSuggestions();
+
 				if( val.length ) {
+					this.$input.hide();
 					this.addItem(val);
 
-					//this is kinda weird but prevents commas and other accepts characters from showing up in the input
-					//the hide and show are to prevent character flashing
-					this.$input.hide();
 					setTimeout(function(){
 						self.$input.show().val('').attr({size:10});
-					});
+					},0);
 				}
+
+				return true;
 			} else if( e.keyCode === 8 || e.keyCode === 46 ) {
 				if( !val.length ) {
-					this.$element.find('li:last').remove();
+					this._closeSuggestions();
+					this.$ul.children('li:last').remove();
+
+					return true;
 				}
 			} else if ( val.length > 10 ) {
 				this.$input.attr({size:val.length + 2});
+			}
+
+			if( this.options.onKeyDown ){
+				this.options.onKeyDown({value: val}, $.proxy(this._openSuggestions,this));
 			}
 		},
 
@@ -133,7 +153,7 @@
 				trigger = true;
 			}
 
-			this.$element.find('ul').find(selector).remove();
+			this.$element.children('ul').find(selector).remove();
 
 			if( !!trigger ) {
 				this._removePillTrigger( { method: 'removeBySelector', removedSelector: selector } );
@@ -141,14 +161,14 @@
 		},
 
 		removeByValue: function(value) {
-			var selector = 'li[data-value="' + value + '"]';
+			var selector = '> li[data-value="' + value + '"]';
 
 			this.removeBySelector( selector, false );
 			this._removePillTrigger( { method: 'removeByValue', removedValue: value } );
 		},
 
 		removeByText: function(text) {
-			var selector = 'li:contains("' + text + '")';
+			var selector = '> li:contains("' + text + '")';
 
 			this.removeBySelector( selector, false );
 			this._removePillTrigger( { method: 'removeByText', removedText: text } );
@@ -159,7 +179,7 @@
 		},
 
 		clear: function() {
-			this.$element.find('ul').empty();
+			this.$element.children('ul').empty();
 		},
 
 		_removePillTrigger: function( removedBy ) {
@@ -174,6 +194,25 @@
 			});
 
 			return obj;
+		},
+
+		_openSuggestions: function(data){
+			var markup = '';
+
+			if(data.data && data.data.length){
+				$.each(data.data, function(index, value){
+					var val = value.value ? value.value : value.text;
+					markup += '<li data-value="' + val + '">' + value.text + '</li>';
+				});
+
+				this.$sugs.html('').append(markup).show();
+			} else {
+				this._closeSuggestions();
+			}
+		},
+
+		_closeSuggestions: function(){
+			this.$sugs.html('').hide();
 		}
 	};
 
@@ -203,6 +242,16 @@
 			//Comma
 			188
 		]
+
+		//example on key down
+		/*
+		onKeyDown: function( data, callback ){
+			callback({data:[
+				{text: Math.random(),value:'sdfsdfsdf'},
+				{text: Math.random(),value:'sdfsdfsdf'}
+			]});
+		}
+		*/
 		//example dataSource
 		/*dataSource: function( data, callback ){
 			console.log(data, callback);
