@@ -78,8 +78,30 @@
 	Repeater.prototype = {
 		constructor: Repeater,
 
-		clear: function(){
-			this.$canvas.empty();
+		clear: function(preserve){
+			var scan = function(cont){
+				var keep = [];
+				cont.children().each(function(){
+					var item = $(this);
+					var pres = item.attr('data-preserve');
+					if(pres==='deep'){
+						item.detach();
+						keep.push(item);
+					}else if(pres==='shallow'){
+						scan(item);
+						item.detach();
+						keep.push(item);
+					}
+				});
+				cont.empty();
+				cont.append(keep);
+			};
+
+			if(!preserve){
+				this.$canvas.empty();
+			}else{
+				scan(this.$canvas);
+			}
 		},
 
 		getDataOptions: function(options){
@@ -181,10 +203,11 @@
 
 		render: function(options){
 			var self = this;
+			var viewChanged = false;
 			var viewObj = $.fn.repeater.views[self.currentView];
 
 			var start = function(){
-				self.clear();
+				self.clear(!viewChanged);
 				self.$loader.show();
 				self.options.dataSource(self.getDataOptions(options), function(data){
 					var renderer = viewObj.renderer;
@@ -203,6 +226,7 @@
 
 			if(options.changeView && this.currentView!==options.changeView){
 				this.currentView = options.changeView;
+				viewChanged = true;
 				viewObj = $.fn.repeater.views[self.currentView];
 				if(viewObj.selected){
 					//TODO: provide valuable helpers object here
@@ -270,12 +294,15 @@
 						proceed('render', args);
 					},
 					render: function(resp){
+						var action = (resp && resp.action) ? resp.action : 'append';
 						if(resp && resp.item!==undefined){
 							item = $(resp.item);
 							if(item.length<1){
 								item = resp.item;
 							}
-							container.append(item);
+							if(action!=='none'){
+								container[action](item);
+							}
 							args.item = item;
 						}
 						if(resp && resp.skipNested===true){
