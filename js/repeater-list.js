@@ -73,14 +73,14 @@
 									this.listView_columnProperties.push(subset[index].property);
 									callback({ item: '<td style="width: ' + this.listView_column_width + ';">' + subset[index].label + '</td>' });
 								},
-								repeat: 'columns'
+								repeat: 'data.columns'
 							}
 						]
 					},
 					{
 						after: function(helpers, callback){
-							var canvas = this.$element.find('.repeater-canvas');
-							var header = this.$element.find('.repeater-list-header');
+							var canvas = this.$canvas;
+							var header = canvas.find('.repeater-list-header');
 							helpers.item.height(canvas.height()-header.outerHeight());
 							callback();
 						},
@@ -89,24 +89,58 @@
 						},
 						nested: [
 							{
-								render: function(helpers, callback){
-									var cols = this.listView_columnProperties;
-									var row = $('<tr></tr>');
-									var i, l;
-
-									for(i=0, l=cols.length; i<l; i++){
-										row.append('<td style="width: ' + this.listView_column_width  + ';">' + helpers.subset[helpers.index][cols[i]] + '</td>');
+								after: function(helpers, callback){
+									var obj = { container: helpers.container };
+									if(helpers.item!==undefined){
+										obj.item = helpers.item;
 									}
-
-									callback({ item: row });
+									if(this.options.listView_rowRendered){
+										this.options.listView_rowRendered(obj, function(){
+											callback();
+										});
+									}else{
+										callback();
+									}
 								},
-								repeat: 'items'
+								render: function(helpers, callback){
+									this.listView_curRowIndex = helpers.index;
+									callback({ item: '<tr data-container="true"></tr>' });
+								},
+								repeat: 'data.items',
+								nested: [
+									{
+										after: function(helpers, callback){
+											var obj = { container: helpers.container };
+											if(helpers.item!==undefined){
+												obj.item = helpers.item;
+											}
+											if(this.options.listView_columnRendered){
+												this.options.listView_columnRendered(obj, function(){
+													callback();
+												});
+											}else{
+												callback();
+											}
+										},
+										render: function(helpers, callback){
+											var items = helpers.data.items;
+											var content = items[this.listView_curRowIndex][helpers.subset[helpers.index]];
+											callback({ item: '<td style="width: ' + this.listView_column_width  + ';">' + content + '</td>' });
+										},
+										repeat: 'this.listView_columnProperties'
+									}
+								]
 							}
 						]
 					}
 				]
 			}
 		};
+
+		$.fn.repeater.defaults = $.extend({}, $.fn.repeater.defaults, {
+			listView_columnRendered: null,
+			listView_rowRendered: null
+		});
 
 	}
 

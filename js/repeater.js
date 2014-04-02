@@ -362,7 +362,14 @@
 
 			if(renderer.repeat){
 				repeat = renderer.repeat.split('.');
-				subset = data;
+				if(repeat[0]==='data' || repeat[0]==='this'){
+					subset = (repeat[0]==='this') ? this : data;
+					repeat.shift();
+				}else{
+					repeat = [];
+					subset = [''];
+				}
+
 				for(i=0, l=repeat.length; i<l; i++){
 					subset = subset[repeat[i]];
 				}
