@@ -24,7 +24,7 @@
 
 // -- BEGIN MODULE CODE HERE --
 
-	if($.fn.repeater && $.fn.repeater.views){
+	if($.fn.repeater){
 
 		$.fn.repeater.views.list = {
 			selected: function(helpers, callback){
