@@ -428,7 +428,7 @@
 			<h2>Pillbox</h2>
 
 			<div id="MyPillbox" class="pillbox">
-				<ul>
+				<ul class="pillbox-list">
 					<li data-value="foo">Item 1</li>
 					<li class="status-success">Item 2</li>
 					<li class="status-warning">Item 3</li>
@@ -436,7 +436,12 @@
 					<li class="status-info">Item 5</li>
 					<li class="status-success">Item 6</li>
 					<li>Item 7</li>
-					<input type="text" class="pillbox-input" size="10">
+					<div class="pillbox-input-wrap">
+						<input type="text" class="pillbox-input" size="10" placeholder="add item">
+						<ul class="pillbox-suggest" style="display:none;">
+							<li>blah blah blah blah</li>
+						</ul>
+					</div>
 				</ul>
 			</div>
 
