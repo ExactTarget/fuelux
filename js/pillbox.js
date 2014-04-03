@@ -140,7 +140,9 @@
 					return true;
 				}
 			} else if ( val.length > 10 ) {
-				this.$input.attr({size:val.length + 2});
+				if( this.$input.width() < (this.$ul.width() - 6) ){
+					this.$input.attr({size:val.length + 3});
+				}
 			}
 
 			if( this.options.onKeyDown ){
@@ -206,6 +208,7 @@
 				});
 
 				this.$sugs.html('').append(markup).show();
+				$(document.body).trigger('suggestions',this.$sugs);
 			} else {
 				this._closeSuggestions();
 			}
