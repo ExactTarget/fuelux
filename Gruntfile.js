@@ -8,11 +8,11 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-jsbeautifier');
-	grunt.loadNpmTasks('grunt-recess');
 	grunt.loadNpmTasks('grunt-saucelabs');
 
 	// Project configuration.
@@ -169,6 +169,20 @@ module.exports = function (grunt) {
 			},
 			simple: ['test/**/*.html']
 		},
+		less: {
+			compile: {
+				options: {
+					strictMath: true,
+					sourceMap: true,
+					outputSourceFiles: true,
+					sourceMapURL: '<%= pkg.name %>.css.map',
+					sourceMapFilename: 'dist/css/<%= pkg.name %>.css.map'
+				}
+			},
+			files: {
+				'dist/css/fuelux.css': 'less/fuelux.less'
+			}
+		},
 		recess: {
 			compile: {
 				dest: 'dist/css/fuelux.css',
@@ -220,7 +234,7 @@ module.exports = function (grunt) {
 			}
 		},
 		watch: {
-			files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html'],
+			files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
 			options: { livereload: true },
 			tasks: ['quicktest', 'quickcss', 'copy:fonts', 'concat', 'jshint', 'jsbeautifier']
 		}
@@ -235,7 +249,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('saucelabs', ['connect', 'jshint', 'saucelabs-qunit']);
 
 	//Style tasks
-	grunt.registerTask('quickcss', ['recess:compile']);
+	grunt.registerTask('quickcss', ['less:compile']);
 	grunt.registerTask('fullcss', ['quickcss', 'recess:compress']);
 
 	//Serve task
