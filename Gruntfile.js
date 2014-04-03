@@ -2,6 +2,7 @@
 /*global module:false, process:false*/
 module.exports = function (grunt) {
 
+	grunt.loadNpmTasks('grunt-banner');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks('grunt-contrib-concat');
@@ -17,6 +18,11 @@ module.exports = function (grunt) {
 
 	// Project configuration.
 	grunt.initConfig({
+		banner: '/*!\n' +
+			' * FuelUX v<%= pkg.version %> \n' +
+			' * Copyright 2012-<%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
+			' * Licensed under <%= pkg.license.type %> (<%= pkg.license.url %>)\n' +
+			' */\n',
 		clean: {
 			dist: ['dist/build.txt', 'dist/fuelux.zip'],
 			zipsrc: ['dist/fuelux']
@@ -181,6 +187,14 @@ module.exports = function (grunt) {
 			},
 			files: {
 				'dist/css/fuelux.css': 'less/fuelux.less'
+			},
+			compress: {
+				dest: 'dist/css/fuelux.min.css',
+				options: {
+					compile: true,
+					compress: true
+				},
+				src: ['less/fuelux.less']
 			}
 		},
 		recess: {
@@ -233,6 +247,20 @@ module.exports = function (grunt) {
 				}
 			}
 		},
+		usebanner: {
+			dist: {
+				options: {
+					position: 'top',
+					banner: '<%= banner %>'
+				},
+				files: {
+					src: [
+						'dist/css/<%= pkg.name %>.css',
+						'dist/css/<%= pkg.name %>.min.css'
+					]
+				}
+			}
+		},
 		watch: {
 			files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
 			options: { livereload: true },
@@ -249,8 +277,8 @@ module.exports = function (grunt) {
 	grunt.registerTask('saucelabs', ['connect', 'jshint', 'saucelabs-qunit']);
 
 	//Style tasks
-	grunt.registerTask('quickcss', ['less:compile']);
-	grunt.registerTask('fullcss', ['quickcss', 'recess:compress']);
+	grunt.registerTask('quickcss', ['less:compile', 'usebanner']);
+	grunt.registerTask('fullcss', ['quickcss', 'less:compress']);
 
 	//Serve task
 	grunt.registerTask('serve', ['quicktest', 'quickcss', 'copy:fonts', 'concat', 'uglify', 'jsbeautifier', 'connect', 'watch']);
