@@ -4,14 +4,14 @@
 
 require(['jquery', 'fuelux/all'], function($) {
 
-	module('Twitter Bootstrap plugins', {
+	module('Bootstrap plugins', {
 		setup: function() {
 			this.elems = $('#qunit-fixture').children();
 		}
 	});
 
 	test('modal is initialized', function() {
-		ok(this.elems.modal() === this.elems, 'modal should be initilized');
+		ok(this.elems.modal() === this.elems, 'modal should be initialized');
 	});
 
 	test('dropdown is initialized', function() {
