@@ -3,16 +3,6 @@
 	BOOTSTRAP BASED MIXINS
 =========================== */
 
-// Clearfix
-// Source: http://nicolasgallagher.com/micro-clearfix-hack/
-//
-// For modern browsers
-// 1. The space content is one way to avoid an Opera bug when the
-//		contenteditable attribute is included anywhere else in the document.
-//		Otherwise it causes space to appear at the top and bottom of elements
-//		that are clearfixed.
-// 2. The use of `table` rather than `block` is only necessary if using
-//		`:before` to contain the top-margins of child elements.
 .clearfix() {
 	&:before,
 	&:after {
@@ -101,6 +91,19 @@
 /* ========================
 	CUSTOM FUELUX MIXINS
 =========================== */
+
+// Icon Base Styles
+.iconBaseStyles(){
+	font-family: "fuelux" !important;
+	font-style: normal !important;
+	font-weight: normal !important;
+	font-variant: normal !important;
+	text-transform: none !important;
+	speak: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
 
 // Gradient Bar Colors for buttons and alerts
 .gradientBar(@primaryColor, @secondaryColor, @textColor: #fff, @textShadow: 0 -1px 0 rgba(0,0,0,.25)) {
