@@ -23,7 +23,6 @@
 		border: 1px solid @dropdownBorder;
 		*border-right-width: 2px;
 		*border-bottom-width: 2px;
-		.border-radius(@dropdownBorderRadius);
 		.box-shadow(0 5px 10px rgba(0,0,0,.2));
 		-webkit-background-clip: padding-box;
 		   -moz-background-clip: padding;
@@ -40,8 +39,8 @@
 				//padding-bottom: 2px;
 				padding-left: 10px;
 				cursor: pointer;
-				.border-top-left-radius(@dropdownBorderRadius);
-				.border-bottom-right-radius(@dropdownBorderRadius);
+				border-top-left-radius: @dropdownBorderRadius;
+				border-bottom-right-radius: @dropdownBorderRadius;
 
 				.leftArrow {
 					margin-top: 5px;
@@ -73,8 +72,8 @@
 				//padding-bottom: 2px;
 				padding-left: 8px;
 				cursor: pointer;
-				.border-top-right-radius(@dropdownBorderRadius);
-				.border-bottom-left-radius(@dropdownBorderRadius);
+				border-top-right-radius: @dropdownBorderRadius;
+				border-bottom-left-radius: @dropdownBorderRadius;
 
 				.rightArrow {
 					margin-top: 5px;
