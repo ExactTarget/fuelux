@@ -163,12 +163,6 @@ define(function(require){
 		onKeyDown: function( data, callback ){
 			callback({data:[
 				{text: Math.random(),value:'sdfsdfsdf'},
-				{text: Math.random(),value:'sdfsdfsdf'},
-				{text: Math.random(),value:'sdfsdfsdf'},
-				{text: Math.random(),value:'sdfsdfsdf'},
-				{text: Math.random(),value:'sdfsdfsdf'},
-				{text: Math.random(),value:'sdfsdfsdf'},
-				{text: Math.random(),value:'sdfsdfsdf'},
 				{text: Math.random(),value:'sdfsdfsdf'}
 			]});
 		}
