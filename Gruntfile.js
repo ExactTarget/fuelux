@@ -176,6 +176,14 @@ module.exports = function (grunt) {
 			simple: ['test/**/*.html']
 		},
 		less: {
+			dist: {
+				options: {
+					cleancss: true
+				},
+				files: {
+					'dist/css/fuelux.css': 'less/fuelux.less'
+				}
+			},
 			compile: {
 				options: {
 					strictMath: true,
@@ -260,7 +268,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('saucelabs', ['connect', 'jshint', 'saucelabs-qunit']);
 
 	//Style tasks
-	grunt.registerTask('quickcss', ['less:compile', 'usebanner']);
+	grunt.registerTask('quickcss', ['less:dist', 'usebanner']);
 	grunt.registerTask('fullcss', ['quickcss', 'less:compress']);
 
 	//Serve task
