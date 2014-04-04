@@ -6,6 +6,7 @@
 		display: inline-block;
 		margin: 0;
 		padding: 0;
+		width: 100%;
 
 		> li {
 
@@ -17,7 +18,7 @@
 			vertical-align: baseline;
 			//white-space: nowrap; //removed
 			background-color: @grayLight;
-			padding: 1px 4px 2px;
+			padding: 1px 0 2px 4px;
 			.border-radius(3px);
 			// End Bootstrap .label
 
@@ -25,10 +26,25 @@
 			margin: 2px;
 			cursor: pointer;
 			float:left;
+			word-break: break-all;
 
-			&:after {
+			&.pillbox-highlight {
+				outline: 1px dotted @grayLight;
+			}
 
-				// Begin Bootstrap .close
+			.pillbox-list-edit {
+				border: none;
+				color: @grayDark;
+				font-weight: normal;
+				border-radius: 2px;
+
+				&:focus {
+					outline: none;
+					border: none;
+				}
+			}
+
+			span:last-child {
 				float: right;
 				font-size: 14px;
 				font-weight: bold;
@@ -36,16 +52,12 @@
 				color: @black;
 				.opacity(20);
 
-				// End Bootstrap .close
-
 				padding-left: 4px;
+				padding-right: 4px;
 				position: relative;
 				top: -2px;
-				content: " \00D7"
-			}
 
-			&:hover {
-				&:after {
+				&:hover {
 					.opacity(40);
 				}
 			}
@@ -88,19 +100,25 @@
 
 	.pillbox-suggest {
 		position: absolute;
+		z-index: @zindexDropdown;
 		margin: 0;
 		padding: 4px 0;
 		left: -4px;
 		background-color: @white;
 		border: 1px solid @grayLight;
 		border-radius: 4px;
+		max-height: 166px;
+		overflow-y: auto;
 
 		> li {
 			list-style: none;
 			white-space: nowrap;
 			cursor: pointer;
-			padding: 0 4px;
+			padding: 3px 20px;
 
+			&.pillbox-suggest-sel {
+				background-color: @grayLighter;
+			}
 
 			&:hover {
 				background-color: @grayLighter;

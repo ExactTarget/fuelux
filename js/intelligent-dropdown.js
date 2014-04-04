@@ -55,6 +55,13 @@
 
 		});
 
+		//Intelligent suggestions dropdown
+		$(document.body).on("suggestions", function(event, element) {
+			var $drp = $(element);
+
+			$drp.css({top: dropUpCheck($drp) ? ( ( $drp.outerHeight() + 5 ) * -1 ) + "px" : "20px"});
+		});
+
 		function forceDropUp( element ) {
 			var dropDown      = element.next();
 			var dropUpPadding = 5;
