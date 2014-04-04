@@ -197,23 +197,6 @@ module.exports = function (grunt) {
 				src: ['less/fuelux.less']
 			}
 		},
-		recess: {
-			compile: {
-				dest: 'dist/css/fuelux.css',
-				options: {
-					compile: true
-				},
-				src: ['less/fuelux.less']
-			},
-			compress: {
-				dest: 'dist/css/fuelux.min.css',
-				options: {
-					compile: true,
-					compress: true
-				},
-				src: ['less/fuelux.less']
-			}
-		},
 		'saucelabs-qunit': {
 			all: {
 				options: {
