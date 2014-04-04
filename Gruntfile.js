@@ -178,31 +178,25 @@ module.exports = function (grunt) {
 		less: {
 			dist: {
 				options: {
-					cleancss: false
-				},
-				files: {
-					'dist/css/fuelux.css': 'less/fuelux.less'
-				}
-			},
-			compile: {
-				options: {
+					cleancss: false,
 					strictMath: true,
 					sourceMap: true,
 					outputSourceFiles: true,
 					sourceMapURL: '<%= pkg.name %>.css.map',
 					sourceMapFilename: 'dist/css/<%= pkg.name %>.css.map'
+				},
+				files: {
+					'dist/css/fuelux.css': 'less/fuelux.less'
 				}
 			},
-			files: {
-				'dist/css/fuelux.css': 'less/fuelux.less'
-			},
-			compress: {
-				dest: 'dist/css/fuelux.min.css',
+			minify: {
 				options: {
-					compile: true,
-					compress: true
+					cleancss: true,
+					report: 'min'
 				},
-				src: ['less/fuelux.less']
+				files: {
+					'dist/css/<%= pkg.name %>.min.css': 'dist/css/<%= pkg.name %>.css'
+				}
 			}
 		},
 		'saucelabs-qunit': {
@@ -269,7 +263,7 @@ module.exports = function (grunt) {
 
 	//Style tasks
 	grunt.registerTask('quickcss', ['less:dist', 'usebanner']);
-	grunt.registerTask('fullcss', ['quickcss', 'less:compress']);
+	grunt.registerTask('fullcss', ['quickcss', 'less:minify']);
 
 	//Serve task
 	grunt.registerTask('serve', ['quicktest', 'quickcss', 'copy:fonts', 'concat', 'uglify', 'jsbeautifier', 'connect', 'watch']);
