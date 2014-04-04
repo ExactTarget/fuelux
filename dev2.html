@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" class="fuelux">
+<head>
+	<meta charset="utf-8">
+	<title>Testing</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<!--<link href="dist/css/fuelux.css" rel="stylesheet" type="text/css">-->
+	<link href="less/fuelux.less" rel="stylesheet/less" type="text/css" />
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js"></script>
+
+	<script src="js/loader.js" type="text/javascript"></script>
+	<script src="bower_components/requirejs/require.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		if(window.console && window.console.clear){
+			window.console.clear();
+		}
+
+		// Feature detect for jQuery version
+		var pathToJQuery;
+		if('querySelector' in document
+			&& 'localStorage' in window
+			&& 'addEventListener' in window ) {
+			pathToJQuery = 'bower_components/jquery/dist/jquery';
+		} else {
+			pathToJQuery = 'bower_components/jquery-1.9.1/jquery';
+		}
+
+		requirejs.config({
+			paths: {
+				jquery: pathToJQuery,
+				underscore: 'bower_components/underscore/underscore',
+				bootstrap: 'bower_components/bootstrap/dist/js/bootstrap.min',
+				moment: 'bower_components/moment-with-langs/index', // comment out if you dont want momentjs to be default
+				fuelux: 'js',
+				sample: 'sample'
+			}
+		});
+
+		require(['jquery', 'fuelux/all'], function ($){
+			var delays = ['300', '600', '900', '1200'];
+			$('#MyInfiniteScroll').infinitescroll({
+				dataSource: function(helpers, callback){
+					setTimeout(function(){
+						callback({ content: $('#dataSource').html() });
+					}, delays[Math.floor(Math.random() * 4)]);
+				}
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<div class="container" style="margin-top:20px;">
+
+		<div class="infinitescroll" id="MyInfiniteScroll" style="border: 1px solid black; height: 500px; width: 300px;">
+			<p>Hodor, hodor. Hodor. Hodor, hodor hodor hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor - hodor hodor hodor? Hodor hodor HODOR! Hodor hodor, hodor. Hodor hodor... Hodor hodor hodor hodor?! Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor hodor! Hodor hodor - hodor... Hodor hodor hodor, hodor, hodor hodor. Hodor hodor - hodor; hodor hodor hodor hodor?! Hodor, HODOR hodor, hodor hodor? Hodor! Hodor hodor, hodor, hodor. Hodor hodor? </p>
+			<p>Hodor hodor HODOR! Hodor hodor hodor - hodor, hodor, hodor hodor. Hodor. Hodor hodor - hodor?! Hodor HODOR hodor, hodor hodor. Hodor. Hodor hodor - hodor HODOR hodor, hodor hodor hodor! Hodor. Hodor hodor hodor hodor hodor?! Hodor hodor HODOR! Hodor hodor hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor; hodor hodor hodor, hodor, hodor hodor. </p>
+			<p>Hodor hodor hodor - hodor? Hodor hodor hodor hodor hodor hodor! Hodor! Hodor hodor, hodor, hodor. Hodor hodor; hodor hodor - hodor. Hodor. Hodor hodor hodor. Hodor! Hodor hodor, hodor - hodor? </p>
+			<p>Hodor hodor HODOR! Hodor hodor hodor; hodor hodor hodor! Hodor. Hodor hodor... Hodor hodor hodor hodor. Hodor, hodor, hodor. Hodor hodor - HODOR hodor, hodor hodor? Hodor, hodor. Hodor. Hodor, hodor - HODOR hodor, hodor hodor - hodor. Hodor hodor, hodor. Hodor hodor?! Hodor hodor... Hodor hodor hodor - hodor. Hodor. </p>
+			<p>Hodor, hodor. Hodor. Hodor, HODOR hodor, hodor HODOR hodor, hodor hodor hodor, hodor. Hodor hodor. Hodor. Hodor hodor - hodor... Hodor hodor hodor, hodor, hodor hodor. Hodor, hodor. Hodor. Hodor, hodor hodor hodor? Hodor hodor - hodor... Hodor hodor hodor?! Hodor, hodor hodor hodor; hodor hodor; hodor hodor hodor! </p>
+		</div>
+
+
+
+
+
+		<!--JS grabs this html for dataSource-->
+		<div id="dataSource" style="display:none;">
+			<p>Hodor, hodor. Hodor. Hodor, hodor hodor hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor - hodor hodor hodor? Hodor hodor HODOR! Hodor hodor, hodor. Hodor hodor... Hodor hodor hodor hodor?! Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor hodor! Hodor hodor - hodor... Hodor hodor hodor, hodor, hodor hodor. Hodor hodor - hodor; hodor hodor hodor hodor?! Hodor, HODOR hodor, hodor hodor? Hodor! Hodor hodor, hodor, hodor. Hodor hodor? </p>
+			<p>Hodor hodor HODOR! Hodor hodor hodor - hodor, hodor, hodor hodor. Hodor. Hodor hodor - hodor?! Hodor HODOR hodor, hodor hodor. Hodor. Hodor hodor - hodor HODOR hodor, hodor hodor hodor! Hodor. Hodor hodor hodor hodor hodor?! Hodor hodor HODOR! Hodor hodor hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor; hodor hodor hodor, hodor, hodor hodor. </p>
+			<p>Hodor hodor hodor - hodor? Hodor hodor hodor hodor hodor hodor! Hodor! Hodor hodor, hodor, hodor. Hodor hodor; hodor hodor - hodor. Hodor. Hodor hodor hodor. Hodor! Hodor hodor, hodor - hodor? </p>
+			<p>Hodor hodor HODOR! Hodor hodor hodor; hodor hodor hodor! Hodor. Hodor hodor... Hodor hodor hodor hodor. Hodor, hodor, hodor. Hodor hodor - HODOR hodor, hodor hodor? Hodor, hodor. Hodor. Hodor, hodor - HODOR hodor, hodor hodor - hodor. Hodor hodor, hodor. Hodor hodor?! Hodor hodor... Hodor hodor hodor - hodor. Hodor. </p>
+			<p>Hodor, hodor. Hodor. Hodor, HODOR hodor, hodor HODOR hodor, hodor hodor hodor, hodor. Hodor hodor. Hodor. Hodor hodor - hodor... Hodor hodor hodor, hodor, hodor hodor. Hodor, hodor. Hodor. Hodor, hodor hodor hodor? Hodor hodor - hodor... Hodor hodor hodor?! Hodor, hodor hodor hodor; hodor hodor; hodor hodor hodor! </p>
+		</div>
+
+	</div>
+</body>
+</html>
