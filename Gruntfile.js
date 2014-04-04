@@ -178,7 +178,7 @@ module.exports = function (grunt) {
 		less: {
 			dist: {
 				options: {
-					cleancss: true
+					cleancss: false
 				},
 				files: {
 					'dist/css/fuelux.css': 'less/fuelux.less'
