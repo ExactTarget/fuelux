@@ -1,4 +1,106 @@
 
+/* ========================
+	BOOTSTRAP BASED MIXINS
+=========================== */
+
+// Clearfix
+// Source: http://nicolasgallagher.com/micro-clearfix-hack/
+//
+// For modern browsers
+// 1. The space content is one way to avoid an Opera bug when the
+//		contenteditable attribute is included anywhere else in the document.
+//		Otherwise it causes space to appear at the top and bottom of elements
+//		that are clearfixed.
+// 2. The use of `table` rather than `block` is only necessary if using
+//		`:before` to contain the top-margins of child elements.
+.clearfix() {
+	&:before,
+	&:after {
+	content: " "; // 1
+	display: table; // 2
+	}
+	&:after {
+	clear: both;
+	}
+}
+
+// WebKit-style focus
+.tab-focus() {
+	// Default
+	outline: thin dotted;
+	// WebKit
+	outline: 5px auto -webkit-focus-ring-color;
+	outline-offset: -2px;
+}
+
+// Single side border-radius
+.border-top-radius(@radius) {
+	border-top-right-radius: @radius;
+	 border-top-left-radius: @radius;
+}
+.border-right-radius(@radius) {
+	border-bottom-right-radius: @radius;
+	 border-top-right-radius: @radius;
+}
+.border-bottom-radius(@radius) {
+	border-bottom-right-radius: @radius;
+	 border-bottom-left-radius: @radius;
+}
+.border-left-radius(@radius) {
+	border-bottom-left-radius: @radius;
+	 border-top-left-radius: @radius;
+}
+
+// Drop shadows
+//
+// Note: Deprecated `.box-shadow()` as of v3.1.0 since all of Bootstrap's
+//	 supported browsers that have box shadow capabilities now support the
+//	 standard `box-shadow` property.
+.box-shadow(@shadow) {
+	-webkit-box-shadow: @shadow; // iOS <4.3 & Android <4.1
+			box-shadow: @shadow;
+}
+
+// Opacity
+.opacity(@opacity) {
+	opacity: @opacity;
+	// IE8 filter
+	@opacity-ie: (@opacity * 100);
+	filter: ~"alpha(opacity=@{opacity-ie})";
+}
+
+// GRADIENTS
+// --------------------------------------------------
+
+#gradient {
+
+	// Horizontal gradient, from left to right
+	//
+	// Creates two color stops, start and end, by specifying a color and position for each color stop.
+	// Color stops are not available in IE9 and below.
+	.horizontal(@start-color: #555; @end-color: #333; @start-percent: 0%; @end-percent: 100%) {
+	background-image: -webkit-linear-gradient(left, color-stop(@start-color @start-percent), color-stop(@end-color @end-percent)); // Safari 5.1-6, Chrome 10+
+	background-image:	linear-gradient(to right, @start-color @start-percent, @end-color @end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+	background-repeat: repeat-x;
+	filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",argb(@start-color),argb(@end-color))); // IE9 and down
+	}
+
+	// Vertical gradient, from top to bottom
+	//
+	// Creates two color stops, start and end, by specifying a color and position for each color stop.
+	// Color stops are not available in IE9 and below.
+	.vertical(@start-color: #555; @end-color: #333; @start-percent: 0%; @end-percent: 100%) {
+	background-image: -webkit-linear-gradient(top, @start-color @start-percent, @end-color @end-percent);	// Safari 5.1-6, Chrome 10+
+	background-image: linear-gradient(to bottom, @start-color @start-percent, @end-color @end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+	background-repeat: repeat-x;
+	filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",argb(@start-color),argb(@end-color))); // IE9 and down
+	}
+
+}
+
+/* ========================
+	CUSTOM FUELUX MIXINS
+=========================== */
 
 // Gradient Bar Colors for buttons and alerts
 .gradientBar(@primaryColor, @secondaryColor, @textColor: #fff, @textShadow: 0 -1px 0 rgba(0,0,0,.25)) {
