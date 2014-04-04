@@ -1,95 +1,92 @@
-// For clearing floats
-.clearfix {
-	*zoom: 1;
+
+/* ========================
+	BOOTSTRAP BASED MIXINS
+=========================== */
+
+.clearfix() {
 	&:before,
 	&:after {
-		display: table;
-		content: "";
-		// Fixes Opera/contenteditable bug:
-		// http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
-		line-height: 0;
+		content: " "; // 1
+		display: table; // 2
 	}
 	&:after {
 		clear: both;
 	}
 }
 
-// Border Radius
-.border-radius(@radius) {
-	-webkit-border-radius: @radius;
-	-moz-border-radius: @radius;
-	border-radius: @radius;
+// WebKit-style focus
+.tab-focus() {
+	// Default
+	outline: thin dotted;
+	// WebKit
+	outline: 5px auto -webkit-focus-ring-color;
+	outline-offset: -2px;
 }
 
-// Single Corner Border Radius
-.border-top-left-radius(@radius) {
-	-webkit-border-top-left-radius: @radius;
-	-moz-border-radius-topleft: @radius;
-	border-top-left-radius: @radius;
-}
-.border-top-right-radius(@radius) {
-	-webkit-border-top-right-radius: @radius;
-	-moz-border-radius-topright: @radius;
-	border-top-right-radius: @radius;
-}
-.border-bottom-right-radius(@radius) {
-	-webkit-border-bottom-right-radius: @radius;
-	-moz-border-radius-bottomright: @radius;
-	border-bottom-right-radius: @radius;
-}
-.border-bottom-left-radius(@radius) {
-	-webkit-border-bottom-left-radius: @radius;
-	-moz-border-radius-bottomleft: @radius;
-	border-bottom-left-radius: @radius;
-}
-
-// Single Side Border Radius
+// Single side border-radius
 .border-top-radius(@radius) {
-	.border-top-right-radius(@radius);
-	.border-top-left-radius(@radius);
+	border-top-right-radius: @radius;
+	 border-top-left-radius: @radius;
 }
 .border-right-radius(@radius) {
-	.border-top-right-radius(@radius);
-	.border-bottom-right-radius(@radius);
+	border-bottom-right-radius: @radius;
+	 border-top-right-radius: @radius;
 }
 .border-bottom-radius(@radius) {
-	.border-bottom-right-radius(@radius);
-	.border-bottom-left-radius(@radius);
+	border-bottom-right-radius: @radius;
+	 border-bottom-left-radius: @radius;
 }
 .border-left-radius(@radius) {
-	.border-top-left-radius(@radius);
-	.border-bottom-left-radius(@radius);
+	border-bottom-left-radius: @radius;
+	 border-top-left-radius: @radius;
 }
 
 // Drop shadows
 .box-shadow(@shadow) {
-	-webkit-box-shadow: @shadow;
-	-moz-box-shadow: @shadow;
-	box-shadow: @shadow;
+	-webkit-box-shadow: @shadow; // iOS <4.3 & Android <4.1
+			box-shadow: @shadow;
 }
 
-// Gradient Bar Colors for buttons and alerts
-.gradientBar(@primaryColor, @secondaryColor, @textColor: #fff, @textShadow: 0 -1px 0 rgba(0,0,0,.25)) {
-	color: @textColor;
-	text-shadow: @textShadow;
-	#gradient > .vertical(@primaryColor, @secondaryColor);
-	border-color: @secondaryColor @secondaryColor darken(@secondaryColor, 15%);
-	border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) fadein(rgba(0,0,0,.1), 15%);
+// Opacity
+.opacity(@opacity) {
+	opacity: @opacity;
+	// IE8 filter
+	@opacity-ie: (@opacity * 100);
+	filter: ~"alpha(opacity=@{opacity-ie})";
 }
 
-// Gradients
+// GRADIENTS
+// --------------------------------------------------
+
 #gradient {
-	.vertical(@startColor: #555, @endColor: #333) {
-		background-color: mix(@startColor, @endColor, 60%);
-		background-image: -moz-linear-gradient(top, @startColor, @endColor); // FF 3.6+
-		background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@startColor), to(@endColor)); // Safari 4+, Chrome 2+
-		background-image: -webkit-linear-gradient(top, @startColor, @endColor); // Safari 5.1+, Chrome 10+
-		background-image: -o-linear-gradient(top, @startColor, @endColor); // Opera 11.10
-		background-image: linear-gradient(to bottom, @startColor, @endColor); // Standard, IE10
-		background-repeat: repeat-x;
-		filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",argb(@startColor),argb(@endColor))); // IE9 and down
+
+	// Horizontal gradient, from left to right
+	//
+	// Creates two color stops, start and end, by specifying a color and position for each color stop.
+	// Color stops are not available in IE9 and below.
+	.horizontal(@start-color: #555; @end-color: #333; @start-percent: 0%; @end-percent: 100%) {
+	background-image: -webkit-linear-gradient(left, color-stop(@start-color @start-percent), color-stop(@end-color @end-percent)); // Safari 5.1-6, Chrome 10+
+	background-image:	linear-gradient(to right, @start-color @start-percent, @end-color @end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+	background-repeat: repeat-x;
+	filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",argb(@start-color),argb(@end-color))); // IE9 and down
 	}
+
+	// Vertical gradient, from top to bottom
+	//
+	// Creates two color stops, start and end, by specifying a color and position for each color stop.
+	// Color stops are not available in IE9 and below.
+	.vertical(@start-color: #555; @end-color: #333; @start-percent: 0%; @end-percent: 100%) {
+	background-image: -webkit-linear-gradient(top, @start-color @start-percent, @end-color @end-percent);	// Safari 5.1-6, Chrome 10+
+	background-image: linear-gradient(to bottom, @start-color @start-percent, @end-color @end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+	background-repeat: repeat-x;
+	filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",argb(@start-color),argb(@end-color))); // IE9 and down
+	}
+
 }
+
+/* ========================
+	CUSTOM FUELUX MIXINS
+=========================== */
 
 // Icon Base Styles
 .iconBaseStyles(){
@@ -104,8 +101,11 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-// Opacity
-.opacity(@opacity) {
-	opacity: @opacity / 100;
-	filter: ~"alpha(opacity=@{opacity})";
+// Gradient Bar Colors for buttons and alerts
+.gradientBar(@primaryColor, @secondaryColor, @textColor: #fff, @textShadow: 0 -1px 0 rgba(0,0,0,.25)) {
+	color: @textColor;
+	text-shadow: @textShadow;
+	#gradient > .vertical(@primaryColor, @secondaryColor);
+	border-color: @secondaryColor @secondaryColor darken(@secondaryColor, 15%);
+	border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) fadein(rgba(0,0,0,.1), 15%);
 }
