@@ -96,43 +96,109 @@
 
 			e.preventDefault();
 			this.$input.val('');
-			this.addItem($li.html(), $li.data('value'));
+			this.addItems({text:$li.html(), value:$li.data('value')});
 		},
 
 		itemCount: function() {
 			return this.$ul.children('li').length;
 		},
 
-		addItem: function(text, value) {
-			var data = {
-				text: text,
-				value: value ? value : text,
-				el: '<li><span></span><span>x</span></li>'
-			};
+		// First parameter is 1 based index
+		// Second parameter can be array of objects [{ ... }, { ... }] or you can pass n additional objects as args
+		//object structure is as follows (index and value are optional): { text: '', value: '' }
+		addItems: function(){
+			var self = this;
+			var items, index;
 
-			if(this.options.onAdd){
-				this.options.onAdd( data, $.proxy(this.placeItem,this));
+			//is index included as a parameter or ignored?
+			if( isFinite(String(arguments[0])) && !(arguments[0] instanceof Array) ) {
+				items = [].slice.call(arguments).slice(1);
+				index = arguments[0];
 			} else {
-				this.placeItem(data);
+				items = [].slice.call(arguments).slice(0);
 			}
+
+			//Accounting for array parameter
+			if(items[0] instanceof Array){
+				items = items[0];
+			}
+
+			if( items.length ){
+				$.each(items, function(i, value){
+					var data = {
+						text: value.text,
+						value: value.value ? value.value : value.text,
+						el: '<li><span></span><span>x</span></li>',
+						index: value.index
+					};
+
+					items[i] = data;
+				});
+
+				if(self.options.onAdd){
+					if( index ){
+						self.options.onAdd( items, $.proxy(self.placeItems,this,index));
+					} else {
+						self.options.onAdd( items, $.proxy(self.placeItems,this));
+					}
+				} else {
+					if( index ){
+						self.placeItems(index, items);
+					} else {
+						self.placeItems(items);
+					}
+				}
+			}
+
 		},
 
-		placeItem: function(data){
-			var $li = $(data.el);
+		//First parameter is index (optional)
+		//Second parameter is new arguments
+		placeItems: function(){
+			var items,index;
+			var newHtml = '';
+			var $neighbor;
 
-			$li.attr('data-value',data.value);
-			$li.find('span:first').html(data.text);
-
-			if( this.$ul.children('li').length > 0 ) {
-				this.$ul.children('li:last').after($li);
+			//is index included as a parameter or ignored?
+			if( isFinite(String(arguments[0])) && !(arguments[0] instanceof Array) ) {
+				items = [].slice.call(arguments).slice(1);
+				index = arguments[0];
 			} else {
-				this.$ul.prepend($li);
+				items = [].slice.call(arguments).slice(0);
 			}
 
-			this.$element.trigger( 'added', { text: data.text, value: data.value } );
+			if(items[0] instanceof Array){
+				items = items[0];
+			}
 
-			if( !this.options.onAdd ) {
-				return $li;
+			if( items.length ){
+				$.each(items, function(i, item){
+					var $li = $(item.el);
+					var $neighbor;
+
+					$li.attr('data-value', item.value);
+					$li.find('span:first').html( item.text );
+
+					newHtml += $li.wrap('<div></div>').parent().html();
+				});
+
+				if( this.$ul.children('li').length > 0 ) {
+					if( index ){
+						$neighbor = this.$ul.find('li:nth-child(' + index + ')');
+
+						if( $neighbor.length ){
+							$neighbor.before(newHtml);
+						} else {
+							this.$ul.children('li:last').after(newHtml);
+						}
+					} else {
+						this.$ul.children('li:last').after(newHtml);
+					}
+				} else {
+					this.$ul.prepend(newHtml);
+				}
+
+				this.$element.trigger( 'added', items );
 			}
 		},
 
@@ -155,7 +221,7 @@
 					this._closeSuggestions();
 					this.$input.hide();
 
-					this.addItem(txt, val);
+					this.addItems({text:txt,value:val});
 
 					setTimeout(function(){
 						self.$input.show().val('').attr({size:10});
