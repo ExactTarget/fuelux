@@ -305,19 +305,21 @@
 
 	// SPINBOX DATA-API
 
-	$(function () {
+	$('body').on('mousedown.spinbox.data-api', '.spinbox', function () {
+		var $this = $(this);
+		if ($this.data('spinbox')) return;
+		$this.spinbox($this.data());
+	});
 
+
+	// SET SPINBOX DEFAULT VALUE ON DOMCONTENTLOADED
+
+	$(function () {
 		$('.spinbox').each(function () {
 			var $this = $(this);
 			if (!$this.data('spinbox')) {
 				$this.spinbox($this.data());
 			}
-		});
-
-		$('body').on('mousedown.spinbox.data-api', '.spinbox', function () {
-			var $this = $(this);
-			if ($this.data('spinbox')) return;
-			$this.spinbox($this.data());
 		});
 	});
 

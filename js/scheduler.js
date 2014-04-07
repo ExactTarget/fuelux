@@ -509,14 +509,13 @@
 		return this;
 	};
 
+
 	// SCHEDULER DATA-API
 
-	$(function () {
-		$('body').on('mousedown.scheduler.data-api', '.scheduler', function () {
-			var $this = $(this);
-			if ($this.data('scheduler')) return;
-			$this.scheduler($this.data());
-		});
+	$('body').on('mousedown.scheduler.data-api', '.scheduler', function () {
+		var $this = $(this);
+		if ($this.data('scheduler')) return;
+		$this.scheduler($this.data());
 	});
 
 // -- BEGIN UMD WRAPPER AFTERWORD --

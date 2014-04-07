@@ -139,12 +139,10 @@
 
 	// SEARCH DATA-API
 
-	$(function () {
-		$('body').on('mousedown.search.data-api', '.search', function () {
-			var $this = $(this);
-			if ($this.data('search')) return;
-			$this.search($this.data());
-		});
+	$('body').on('mousedown.search.data-api', '.search', function () {
+		var $this = $(this);
+		if ($this.data('search')) return;
+		$this.search($this.data());
 	});
 
 // -- BEGIN UMD WRAPPER AFTERWORD --

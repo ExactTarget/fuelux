@@ -3,7 +3,6 @@
 	padding: 3px;
 
 	> ul {
-		display: inline-block;
 		margin: 0;
 		padding: 0;
 		width: 100%;
@@ -18,8 +17,8 @@
 			vertical-align: baseline;
 			//white-space: nowrap; //removed
 			background-color: @grayLight;
-			padding: 1px 0 2px 4px;
-			.border-radius(3px);
+			padding: 1px 4px 2px;
+			border-radius: 3px;
 			// End Bootstrap .label
 
 			display: inline-block;
@@ -48,7 +47,7 @@
 				float: right;
 				font-size: 14px;
 				font-weight: bold;
-				line-height: @baseLineHeight;
+				line-height: @baseLineHeight + 1;
 				color: @black;
 				.opacity(20);
 
@@ -85,7 +84,7 @@
 
 	.pillbox-input-wrap {
 		position: relative;
-		margin: 4px 0 3px 3px;
+		margin: 2px 0 3px 3px;
 		float: left;
 	}
 
