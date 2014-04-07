@@ -41,7 +41,7 @@ module.exports = function (grunt) {
 						'js/util.js',
 						'js/checkbox.js',
 						'js/combobox.js',
-						'js/datagrid.js',
+						'js/datagrid.js', /* Remove */
 						'js/datepicker.js',
 						'js/loader.js',
 						'js/pillbox.js',
@@ -96,16 +96,6 @@ module.exports = function (grunt) {
 				dest: 'dist/fuelux/',
 				expand: true,
 				src: ['**']
-			}
-		},
-		csscomb: {
-			options: {
-				config: 'less/.csscomb.json'
-			},
-			dist: {
-				files: {
-					'dist/css/<%= pkg.name %>.css': 'dist/css/<%= pkg.name %>.css'
-				}
 			}
 		},
 		jsbeautifier: {
@@ -221,10 +211,15 @@ module.exports = function (grunt) {
 			return 'http://localhost:<%= connect.server.options.port %>/test/fuelux.html?jquery=' + ver;
 		}),
 		uglify: {
+			options: {
+				report: 'min'
+			},
 			fuelux: {
-				files: {
-					'dist/js/fuelux.min.js': ['dist/js/fuelux.js']
-				}
+				options: {
+					banner: '<%= banner %>'
+				},
+				src: 'dist/js/<%= pkg.name %>.js',
+				dest: 'dist/js/<%= pkg.name %>.min.js'
 			}
 		},
 		usebanner: {
@@ -260,8 +255,8 @@ module.exports = function (grunt) {
 	grunt.registerTask('saucelabs', ['connect', 'jshint', 'saucelabs-qunit']);
 
 	//Style tasks
-	grunt.registerTask('quickcss', ['less:dist', 'usebanner']);
-	grunt.registerTask('fullcss', ['quickcss', 'less:minify']);
+	grunt.registerTask('quickcss', ['less', 'usebanner']);
+	grunt.registerTask('fullcss', ['quickcss']); /* Remove */
 
 	//Serve task
 	grunt.registerTask('serve', ['quicktest', 'quickcss', 'copy:fonts', 'concat', 'uglify', 'jsbeautifier', 'connect', 'watch']);
