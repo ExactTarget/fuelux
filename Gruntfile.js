@@ -18,11 +18,15 @@ module.exports = function (grunt) {
 
 	// Project configuration.
 	grunt.initConfig({
+		// Metadata
 		banner: '/*!\n' +
 			' * FuelUX v<%= pkg.version %> \n' +
 			' * Copyright 2012-<%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
 			' * Licensed under <%= pkg.license.type %> (<%= pkg.license.url %>)\n' +
 			' */\n',
+		pkg: grunt.file.readJSON('package.json'),
+
+		//Tasks configuration
 		clean: {
 			dist: ['dist/build.txt', 'dist/fuelux.zip'],
 			zipsrc: ['dist/fuelux']
@@ -50,7 +54,7 @@ module.exports = function (grunt) {
 						'js/util.js',
 						'js/checkbox.js',
 						'js/combobox.js',
-						'js/datagrid.js',
+						'js/datagrid.js', /* Remove */
 						'js/datepicker.js',
 						'js/loader.js',
 						'js/pillbox.js',
@@ -65,11 +69,7 @@ module.exports = function (grunt) {
 					]
 				},
 				options: {
-					banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
-						'<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-						'<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
-						'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
-						' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n\n' +
+					banner: '<%= banner %>' + '\n\n' +
 						'// For more information on UMD visit: https://github.com/umdjs/umd/' + '\n' +
 						'(function (factory) {' + '\n' +
 							'\tif (typeof define === \'function\' && define.amd) {' + '\n' +
@@ -166,7 +166,6 @@ module.exports = function (grunt) {
 				}
 			}
 		},
-		pkg: grunt.file.readJSON('package.json'),
 		qunit: {
 			full: {
 				options: {
@@ -178,31 +177,24 @@ module.exports = function (grunt) {
 		less: {
 			dist: {
 				options: {
-					cleancss: true
-				},
-				files: {
-					'dist/css/fuelux.css': 'less/fuelux.less'
-				}
-			},
-			compile: {
-				options: {
 					strictMath: true,
 					sourceMap: true,
 					outputSourceFiles: true,
 					sourceMapURL: '<%= pkg.name %>.css.map',
 					sourceMapFilename: 'dist/css/<%= pkg.name %>.css.map'
+				},
+				files: {
+					'dist/css/fuelux.css': 'less/fuelux.less'
 				}
 			},
-			files: {
-				'dist/css/fuelux.css': 'less/fuelux.less'
-			},
-			compress: {
-				dest: 'dist/css/fuelux.min.css',
+			minify: {
 				options: {
-					compile: true,
-					compress: true
+					cleancss: true,
+					report: 'min'
 				},
-				src: ['less/fuelux.less']
+				files: {
+					'dist/css/<%= pkg.name %>.min.css': 'dist/css/<%= pkg.name %>.css'
+				}
 			}
 		},
 		'saucelabs-qunit': {
@@ -268,7 +260,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('saucelabs', ['connect', 'jshint', 'saucelabs-qunit']);
 
 	//Style tasks
-	grunt.registerTask('quickcss', ['less:dist', 'usebanner']);
+	grunt.registerTask('quickcss', ['less:dist', 'less:minify', 'usebanner']);
 	grunt.registerTask('fullcss', ['quickcss', 'less:compress']);
 
 	//Serve task
