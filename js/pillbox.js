@@ -467,18 +467,14 @@
 
 	// PILLBOX DATA-API
 
-	$(function () {
-		var $body = $('body');
+	$('body').on('mousedown.pillbox.data-api', '.pillbox', function () {
+		var $this = $(this);
+		if ($this.data('pillbox')) return;
+		$this.pillbox($this.data());
+	});
 
-		$body.on('mousedown.pillbox.data-api', '.pillbox', function () {
-			var $this = $(this);
-			if ($this.data('pillbox')) return;
-			$this.pillbox($this.data());
-		});
-
-		$body.on('click.pillbox.data-api',function(){
-			$('.pillbox-suggest').hide();
-		});
+	$('body').on('click.pillbox.data-api',function(){
+		$('.pillbox-suggest').hide();
 	});
 	
 // -- BEGIN UMD WRAPPER AFTERWORD --

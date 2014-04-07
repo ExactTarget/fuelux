@@ -358,12 +358,10 @@
 
 	// WIZARD DATA-API
 
-	$(function () {
-		$('body').on('mouseover.wizard.data-api', '.wizard', function () {
-			var $this = $(this);
-			if ($this.data('wizard')) return;
-			$this.wizard($this.data());
-		});
+	$('body').on('mouseover.wizard.data-api', '.wizard', function () {
+		var $this = $(this);
+		if ($this.data('wizard')) return;
+		$this.wizard($this.data());
 	});
 
 // -- BEGIN UMD WRAPPER AFTERWORD --

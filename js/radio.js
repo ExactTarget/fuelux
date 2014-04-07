@@ -184,7 +184,7 @@
 	};
 
 
-	// RADIO DATA-API
+	// SET RADIO DEFAULT VALUE ON DOMCONTENTLOADED
 
 	$(function () {
 		$('.radio-custom > input[type=radio]').each(function () {

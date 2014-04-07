@@ -1,4 +1,5 @@
 define(function(require){
+	var data = require('data');
 	var jquery = require('jquery');
 	var DataSourceTree = require('sample/datasourceTree');
 	var sampleData = require('sample/data');
@@ -132,6 +133,26 @@ define(function(require){
 		var futureDate = new Date(+new Date() + ( 7 * 24 * 60 * 60 * 1000 ) );
 		$('#datepicker1').datepicker('setDate', futureDate );
 		console.log( $('#datepicker1').datepicker('getDate') );
+	});
+
+
+
+	// INFINITE SCROLL
+	$('#MyInfiniteScroll1').infinitescroll({
+		dataSource: function(helpers, callback){
+			setTimeout(function(){
+				callback({ content: data.infiniteScroll.content });
+			}, data.infiniteScroll.delays[Math.floor(Math.random() * 4)]);
+		}
+	});
+
+	$('#MyInfiniteScroll2').infinitescroll({
+		dataSource: function(helpers, callback){
+			setTimeout(function(){
+				callback({ content: data.infiniteScroll.content });
+			}, data.infiniteScroll.delays[Math.floor(Math.random() * 4)]);
+		},
+		hybrid: true
 	});
 
 

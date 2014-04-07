@@ -27,6 +27,7 @@
 	require('fuelux/combobox');
 	require('fuelux/datagrid');
 	require('fuelux/datepicker');
+	require('fuelux/infinite-scroll');
 	require('fuelux/intelligent-dropdown');
 	require('fuelux/loader');
 	require('fuelux/pillbox');
