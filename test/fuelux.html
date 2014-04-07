@@ -22,19 +22,19 @@
 			var jqver = (jqverParam) ? jqverParam[1] : '1.9.1';
 
 			require.config({
-				baseUrl: '../src',
+				baseUrl: '../',
 				config: {
 					moment: {
 						noGlobal: true
 					}
 				},
 				paths: {
-					jquery: '../bower_components/jquery-' + jqver + '/jquery.min',
-					bootstrap: '../bower_components/bootstrap/dist/js/bootstrap',
-					fuelux: '../js',
-					test: '../test',
-					moment: '../path/to/moment', // wrong url because we need to test it without moment first
-					text: '../bower_components/requirejs-text/text'
+					jquery: 'bower_components/jquery-' + jqver + '/jquery.min',
+					bootstrap: 'bower_components/bootstrap/dist/js/bootstrap',
+					fuelux: 'js',
+					test: 'test',
+					moment: 'path/to/moment', // wrong url because we need to test it without moment first
+					text: 'bower_components/requirejs-text/text'
 				}
 			});
 
