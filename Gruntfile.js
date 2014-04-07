@@ -1,20 +1,7 @@
 /*jshint expr:true*/
 /*global module:false, process:false*/
 module.exports = function (grunt) {
-
-	grunt.loadNpmTasks('grunt-banner');
-	grunt.loadNpmTasks('grunt-contrib-clean');
-	grunt.loadNpmTasks('grunt-contrib-compress');
-	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-contrib-connect');
-	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-less');
-	grunt.loadNpmTasks('grunt-contrib-qunit');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-jsbeautifier');
-	grunt.loadNpmTasks('grunt-saucelabs');
+	'use strict';
 
 	// Project configuration.
 	grunt.initConfig({
@@ -251,6 +238,9 @@ module.exports = function (grunt) {
 		}
 	});
 
+	// Look ma! Load all grunt plugins in one line from package.json
+	require('load-grunt-tasks')(grunt, {scope: 'devDependencies'});
+
 	//The default task
 	grunt.registerTask('default', ['fulltest', 'fullcss', 'copy:fonts', 'clean:dist', 'concat', 'uglify', 'jsbeautifier', 'copy:zipsrc', 'compress', 'clean:zipsrc']);
 
@@ -260,8 +250,8 @@ module.exports = function (grunt) {
 	grunt.registerTask('saucelabs', ['connect', 'jshint', 'saucelabs-qunit']);
 
 	//Style tasks
-	grunt.registerTask('quickcss', ['less:dist', 'less:minify', 'usebanner']);
-	grunt.registerTask('fullcss', ['quickcss', 'less:compress']);
+	grunt.registerTask('quickcss', ['less:dist', 'usebanner']);
+	grunt.registerTask('fullcss', ['quickcss', 'less:minify']);
 
 	//Serve task
 	grunt.registerTask('serve', ['quicktest', 'quickcss', 'copy:fonts', 'concat', 'uglify', 'jsbeautifier', 'connect', 'watch']);
