@@ -39,14 +39,42 @@
 			}
 		});
 
-		require(['jquery', 'fuelux/all', 'index'], function ($){});
+		require(['jquery', 'fuelux/all', 'index'], function ($){
+			var delays = ['300', '600', '900', '1200'];
+			$('#MyInfiniteScroll').infinitescroll({
+				dataSource: function(helpers, callback){
+					setTimeout(function(){
+						callback({ content: $('#dataSource').html() });
+					}, delays[Math.floor(Math.random() * 4)]);
+				}
+			});
+		});
 	</script>
 </head>
 
 <body>
 	<div class="container" style="margin-top:20px;">
 
-		<!-- code to test goes here -->
+		<div class="infinitescroll" id="MyInfiniteScroll" style="border: 1px solid black; height: 500px; width: 300px;">
+			<p>Hodor, hodor. Hodor. Hodor, hodor hodor hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor - hodor hodor hodor? Hodor hodor HODOR! Hodor hodor, hodor. Hodor hodor... Hodor hodor hodor hodor?! Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor hodor! Hodor hodor - hodor... Hodor hodor hodor, hodor, hodor hodor. Hodor hodor - hodor; hodor hodor hodor hodor?! Hodor, HODOR hodor, hodor hodor? Hodor! Hodor hodor, hodor, hodor. Hodor hodor? </p>
+			<p>Hodor hodor HODOR! Hodor hodor hodor - hodor, hodor, hodor hodor. Hodor. Hodor hodor - hodor?! Hodor HODOR hodor, hodor hodor. Hodor. Hodor hodor - hodor HODOR hodor, hodor hodor hodor! Hodor. Hodor hodor hodor hodor hodor?! Hodor hodor HODOR! Hodor hodor hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor; hodor hodor hodor, hodor, hodor hodor. </p>
+			<p>Hodor hodor hodor - hodor? Hodor hodor hodor hodor hodor hodor! Hodor! Hodor hodor, hodor, hodor. Hodor hodor; hodor hodor - hodor. Hodor. Hodor hodor hodor. Hodor! Hodor hodor, hodor - hodor? </p>
+			<p>Hodor hodor HODOR! Hodor hodor hodor; hodor hodor hodor! Hodor. Hodor hodor... Hodor hodor hodor hodor. Hodor, hodor, hodor. Hodor hodor - HODOR hodor, hodor hodor? Hodor, hodor. Hodor. Hodor, hodor - HODOR hodor, hodor hodor - hodor. Hodor hodor, hodor. Hodor hodor?! Hodor hodor... Hodor hodor hodor - hodor. Hodor. </p>
+			<p>Hodor, hodor. Hodor. Hodor, HODOR hodor, hodor HODOR hodor, hodor hodor hodor, hodor. Hodor hodor. Hodor. Hodor hodor - hodor... Hodor hodor hodor, hodor, hodor hodor. Hodor, hodor. Hodor. Hodor, hodor hodor hodor? Hodor hodor - hodor... Hodor hodor hodor?! Hodor, hodor hodor hodor; hodor hodor; hodor hodor hodor! </p>
+		</div>
+
+
+
+
+
+		<!--JS grabs this html for dataSource-->
+		<div id="dataSource" style="display:none;">
+			<p>Hodor, hodor. Hodor. Hodor, hodor hodor hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor - hodor hodor hodor? Hodor hodor HODOR! Hodor hodor, hodor. Hodor hodor... Hodor hodor hodor hodor?! Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor hodor! Hodor hodor - hodor... Hodor hodor hodor, hodor, hodor hodor. Hodor hodor - hodor; hodor hodor hodor hodor?! Hodor, HODOR hodor, hodor hodor? Hodor! Hodor hodor, hodor, hodor. Hodor hodor? </p>
+			<p>Hodor hodor HODOR! Hodor hodor hodor - hodor, hodor, hodor hodor. Hodor. Hodor hodor - hodor?! Hodor HODOR hodor, hodor hodor. Hodor. Hodor hodor - hodor HODOR hodor, hodor hodor hodor! Hodor. Hodor hodor hodor hodor hodor?! Hodor hodor HODOR! Hodor hodor hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor; hodor hodor hodor, hodor, hodor hodor. </p>
+			<p>Hodor hodor hodor - hodor? Hodor hodor hodor hodor hodor hodor! Hodor! Hodor hodor, hodor, hodor. Hodor hodor; hodor hodor - hodor. Hodor. Hodor hodor hodor. Hodor! Hodor hodor, hodor - hodor? </p>
+			<p>Hodor hodor HODOR! Hodor hodor hodor; hodor hodor hodor! Hodor. Hodor hodor... Hodor hodor hodor hodor. Hodor, hodor, hodor. Hodor hodor - HODOR hodor, hodor hodor? Hodor, hodor. Hodor. Hodor, hodor - HODOR hodor, hodor hodor - hodor. Hodor hodor, hodor. Hodor hodor?! Hodor hodor... Hodor hodor hodor - hodor. Hodor. </p>
+			<p>Hodor, hodor. Hodor. Hodor, HODOR hodor, hodor HODOR hodor, hodor hodor hodor, hodor. Hodor hodor. Hodor. Hodor hodor - hodor... Hodor hodor hodor, hodor, hodor hodor. Hodor, hodor. Hodor. Hodor, hodor hodor hodor? Hodor hodor - hodor... Hodor hodor hodor?! Hodor, hodor hodor hodor; hodor hodor; hodor hodor hodor! </p>
+		</div>
 
 	</div>
 </body>
