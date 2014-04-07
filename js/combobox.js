@@ -178,16 +178,19 @@
 	};
 
 
-	// COMBOBOX INITIALIZATION ON DOMCONTENTLOADED AND DATA-API
+	// COMBOBOX DATA-API
+
+	$('body').on('mousedown.combobox.data-api', '.combobox', function () {
+		var $this = $(this);
+		if ($this.data('combobox')) return;
+		$this.combobox($this.data());
+	});
+
+
+	// SET COMBOBOX DEFAULT VALUE ON DOMCONTENTLOADED
 
 	$(function () {
 		$('.combobox').each(function () {
-			var $this = $(this);
-			if ($this.data('combobox')) return;
-			$this.combobox($this.data());
-		});
-
-		$('body').on('mousedown.combobox.data-api', '.combobox', function () {
 			var $this = $(this);
 			if ($this.data('combobox')) return;
 			$this.combobox($this.data());

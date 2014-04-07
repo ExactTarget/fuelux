@@ -171,7 +171,7 @@
 	};
 
 
-	// CHECKBOX INITIALIZATION ON DOMCONTENTLOADED
+	// SET CHECKBOX DEFAULT VALUE ON DOMCONTENTLOADED
 
 	$(function () {
 		$('.checkbox-custom > input[type=checkbox]').each(function () {

@@ -173,23 +173,25 @@
 	};
 
 
-	// SELECTLIST INITIALIZATION AND DATA-API
+	// SELECTLIST DATA-API
+
+	$('body').on('mousedown.select.data-api', '.selectlist', function () {
+		var $this = $(this);
+		if ($this.data('selectlist')) {
+			return;
+		}
+		$this.selectlist($this.data());
+	});
+
+
+	// SET SELECTLIST DEFAULT VALUE ON DOMCONTENTLOADED
 
 	$(function () {
-
 		$('.selectlist').each(function () {
 			var $this = $(this);
 			if (!$this.data('selectlist')) {
 				$this.selectlist($this.data());
 			}
-		});
-
-		$('body').on('mousedown.select.data-api', '.selectlist', function () {
-			var $this = $(this);
-			if ($this.data('selectlist')) {
-				return;
-			}
-			$this.selectlist($this.data());
 		});
 	});
 
