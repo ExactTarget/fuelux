@@ -20,6 +20,9 @@
 		factory(jQuery);
 	}
 }(function ($) {
+	if(!$.fn.combobox || !$.fn.datepicker || !$.fn.radio || !$.fn.selectlist || !$.fn.spinbox){
+		throw new Error('Fuel UX scheduler control requires combobox, datepicker, radio, selectlist, and spinbox.');
+	}
 	// -- END UMD WRAPPER PREFACE --
 		
 	// -- BEGIN MODULE CODE HERE --

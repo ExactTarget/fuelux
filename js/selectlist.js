@@ -14,7 +14,7 @@
 (function (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
-		define(['jquery', 'fuelux/util'], factory);
+		define(['jquery'], factory);
 	} else {
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
@@ -46,6 +46,12 @@
 	Selectlist.prototype = {
 
 		constructor: Selectlist,
+
+		doSelect: function($item){
+			this.$selectedItem = $item;
+			this.$hiddenField.val(this.$selectedItem.attr('data-value'));
+			this.$label.text(this.$selectedItem.text());
+		},
 
 		itemclicked: function (e) {
 			this.$selectedItem = $(e.target).parent();
@@ -96,8 +102,14 @@
 		},
 
 		selectByText: function(text) {
-			var selector = 'li a:fuelTextExactCI(' + text + ')';
-			this.selectBySelector(selector);
+			var $item = $([]);
+			this.$element.find('li').each(function(){
+				if((this.textContent || this.innerText || $(this).text() || '').toLowerCase() === (text || '').toLowerCase()){
+					$item = $(this);
+					return false;
+				}
+			});
+			this.doSelect($item);
 		},
 
 		selectByValue: function(value) {
@@ -112,11 +124,8 @@
 		},
 
 		selectBySelector: function(selector) {
-			var item = this.$element.find(selector);
-
-			this.$selectedItem = item;
-			this.$hiddenField.val(this.$selectedItem.attr('data-value'));
-			this.$label.text(this.$selectedItem.text());
+			var $item = this.$element.find(selector);
+			this.doSelect($item);
 		},
 
 		setDefaultSelection: function() {

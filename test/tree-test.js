@@ -7,7 +7,7 @@ define(function(require){
 	require('bootstrap');
 	require('fuelux/tree');
 
-	module("Fuel UX tree", { setup: testSetup });
+	module("Fuel UX Tree", { setup: testSetup });
 
 	test("should be defined on jquery object", function () {
 		ok($(document.body).tree, 'tree method is defined');

@@ -8,7 +8,7 @@ define(function(require){
 	require('bootstrap');
 	require('fuelux/pillbox');
 
-	module("Fuel UX pillbox", {
+	module("Fuel UX Pillbox", {
 		setup: function(){
 			this.pillboxHTML = '<div><ul>' +
 				'<li data-value="foo">one</li><li>two</li>' +
