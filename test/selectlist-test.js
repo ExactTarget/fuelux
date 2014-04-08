@@ -21,7 +21,7 @@ require(['jquery', 'fuelux/selectlist'], function ($) {
 			'<input class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>' +
 		'</div>';
 
-	module("Fuel UX button dropdown");
+	module("Fuel UX Selectlist");
 
 	test("should be defined on jquery object", function () {
 		ok($(document.body).selectlist, 'selectlist method is defined');
@@ -84,7 +84,7 @@ require(['jquery', 'fuelux/selectlist'], function ($) {
 		$selectlist.selectlist('selectByText', 'THREE');
 
 		var item = $selectlist.selectlist('selectedItem');
-		var expectedItem = { text: 'Three' };
+		var expectedItem = { text: 'Three', value: 3 };
 		deepEqual(item, expectedItem, 'item selected');
 	});
 
@@ -93,7 +93,7 @@ require(['jquery', 'fuelux/selectlist'], function ($) {
 		$selectlist.selectlist('selectByText', 'Item Five');
 
 		var item = $selectlist.selectlist('selectedItem');
-		var expectedItem = { text: 'Item Five' };
+		var expectedItem = { text: 'Item Five', value: 'Item Five' };
 		deepEqual(item, expectedItem, 'item selected');
 	});
 

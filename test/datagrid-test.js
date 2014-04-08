@@ -8,7 +8,7 @@ define(function(require){
 	require('bootstrap');
 	require('fuelux/datagrid');
 
-	module("Fuel UX datagrid", { setup: testSetup });
+	module("Fuel UX Datagrid", { setup: testSetup });
 
 	test("should be defined on jquery object", function () {
 		ok($(document.body).datagrid, 'datagrid method is defined');

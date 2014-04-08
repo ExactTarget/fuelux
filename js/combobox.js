@@ -14,7 +14,7 @@
 (function (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
-		define(['jquery', 'fuelux/util'], factory);
+		define(['jquery'], factory);
 	} else {
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
@@ -45,6 +45,16 @@
 
 		constructor: Combobox,
 
+		doSelect: function($item){
+			if (typeof $item[0] !== 'undefined') {
+				this.$selectedItem = $item;
+				this.$input.val(this.$selectedItem.text());
+			}
+			else {
+				this.$selectedItem = null;
+			}
+		},
+
 		selectedItem: function () {
 			var item = this.$selectedItem;
 			var data = {};
@@ -61,8 +71,14 @@
 		},
 
 		selectByText: function (text) {
-			var selector = 'li:fuelTextExactCI(' + text + ')';
-			this.selectBySelector(selector);
+			var $item = $([]);
+			this.$element.find('li').each(function(){
+				if((this.textContent || this.innerText || $(this).text() || '').toLowerCase() === (text || '').toLowerCase()){
+					$item = $(this);
+					return false;
+				}
+			});
+			this.doSelect($item);
 		},
 
 		selectByValue: function (value) {
@@ -78,14 +94,7 @@
 
 		selectBySelector: function (selector) {
 			var $item = this.$element.find(selector);
-
-			if (typeof $item[0] !== 'undefined') {
-				this.$selectedItem = $item;
-				this.$input.val(this.$selectedItem.text());
-			}
-			else {
-				this.$selectedItem = null;
-			}
+			this.doSelect($item);
 		},
 
 		setDefaultSelection: function () {

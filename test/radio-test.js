@@ -15,7 +15,7 @@ define(function(require){
 			'<div class="radio"><label class="radio-custom" id="lbl4"><input id="radio4" disabled="disabled" name="radio2" type="radio">Custom: Unchecked Disabled</label></div>' +
 		'</div>';
 
-	module("Fuel UX radio");
+	module("Fuel UX Radio");
 
 	test("should be defined on jquery object", function () {
 		ok($(document.body).radio, 'radio method is defined');
