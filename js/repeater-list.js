@@ -68,17 +68,39 @@
 						nested: [
 							{
 								render: function(helpers, callback){
+									var chev = 'glyphicon-chevron';
+									var chevDown = chev + '-down';
+									var chevUp = chev + '-up';
 									var index = helpers.index;
+									var self = this;
 									var subset = helpers.subset;
-									var $item;
+									var $item, $span;
 
 									this.listView_columnProperties.push(subset[index].property);
-									$item = $('<td style="' + this.listView_column_width + '">' + subset[index].label + '<span class="glyphicon glyphicon-chevron-down"></span></td>');
+									$item = $('<td style="' + this.listView_column_width + '">' + subset[index].label + '<span class="glyphicon"></span></td>');
+									$span = $item.find('span.glyphicon:first');
 									if(subset[index].sortable){
 										$item.addClass('sortable');
 										$item.on('click', function(){
-
+											if($item.hasClass('sorted')){
+												if($span.hasClass(chevDown)){
+													$span.removeClass(chevDown).addClass(chevUp);
+												}else{
+													$span.removeClass(chevUp).addClass(chevDown);
+												}
+											}else{
+												self.$element.find('.repeater-list-header td').removeClass('sorted');
+												$span.removeClass(chevDown).addClass(chevUp);
+												$item.addClass('sorted');
+											}
 										});
+									}
+									if(subset[index].sortASC){
+										$item.addClass('sortable sorted');
+										$span.removeClass(chevDown).addClass(chevUp);
+									}else if(subset[index].sortDESC){
+										$item.addClass('sortable sorted');
+										$span.removeClass(chevUp).addClass(chevDown);
 									}
 
 									callback({ item: $item });
