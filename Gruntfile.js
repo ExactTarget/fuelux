@@ -11,6 +11,9 @@ module.exports = function (grunt) {
 			' * Copyright 2012-<%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
 			' * Licensed under <%= pkg.license.type %> (<%= pkg.license.url %>)\n' +
 			' */\n',
+		jqueryCheck: 'if (typeof jQuery === \'undefined\') { throw new Error(\'FuelUX\\\'s JavaScript requires jQuery\') }\n\n',
+		bootstrapCheck: 'if (typeof $.fn.dropdown === \'undefined\' || typeof $.fn.collapse === \'undefined\') ' +
+			'{ throw new Error(\'FuelUX\\\'s JavaScript requires Bootstrap\') }\n\n',
 		pkg: grunt.file.readJSON('package.json'),
 
 		//Tasks configuration
@@ -64,7 +67,9 @@ module.exports = function (grunt) {
 							'\t} else {' + '\n' +
 								'\t\tfactory(jQuery);' + '\n' +
 							'\t}' + '\n' +
-						'}(function (jQuery) {\n\n',
+						'}(function (jQuery) {\n\n' +
+							'<%= jqueryCheck %>' +
+							'<%= bootstrapCheck %>',
 					footer: '\n}));',
 					process: function(source) {
 						source = '(function ($) {\n\n' +
