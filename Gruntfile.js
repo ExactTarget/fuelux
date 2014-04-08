@@ -41,11 +41,11 @@ module.exports = function (grunt) {
 				files: {
 					// manually concatenate JS files (due to dependency management)
 					'dist/js/fuelux.js': [
-						'js/util.js',
 						'js/checkbox.js',
 						'js/combobox.js',
 						'js/datagrid.js', /* Remove */
 						'js/datepicker.js',
+						'js/infinite-scroll.js',
 						'js/loader.js',
 						'js/pillbox.js',
 						'js/radio.js',
