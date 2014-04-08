@@ -20,6 +20,9 @@
 		factory(jQuery);
 	}
 }(function ($) {
+	if(!$.fn.combobox || !$.fn.datepicker || !$.fn.radio || !$.fn.selectlist || !$.fn.spinbox){
+		throw new Error('Fuel UX scheduler control requires combobox, datepicker, radio, selectlist, and spinbox.');
+	}
 	// -- END UMD WRAPPER PREFACE --
 		
 	// -- BEGIN MODULE CODE HERE --
@@ -509,14 +512,13 @@
 		return this;
 	};
 
+
 	// SCHEDULER DATA-API
 
-	$(function () {
-		$('body').on('mousedown.scheduler.data-api', '.scheduler', function () {
-			var $this = $(this);
-			if ($this.data('scheduler')) return;
-			$this.scheduler($this.data());
-		});
+	$('body').on('mousedown.scheduler.data-api', '.scheduler', function () {
+		var $this = $(this);
+		if ($this.data('scheduler')) return;
+		$this.scheduler($this.data());
 	});
 
 // -- BEGIN UMD WRAPPER AFTERWORD --

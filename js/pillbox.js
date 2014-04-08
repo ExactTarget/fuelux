@@ -31,8 +31,9 @@
 	var Pillbox = function (element, options) {
 		this.$element = $(element);
 		this.$input = this.$element.find('.pillbox-input');
-		this.$ul    = this.$element.find('.pillbox-list');
-		this.$sugs  = this.$element.find('.pillbox-suggest');
+		this.$ul = this.$element.find('.pillbox-list');
+		this.$sugs = this.$element.find('.pillbox-suggest');
+		this.$inputWrap = this.$input.parent();
 
 		this.options = $.extend({}, $.fn.pillbox.defaults, options);
 		//CREATING AN OBJECT OUT OF THE KEY CODE ARRAY SO WE DONT HAVE TO LOOP THROUGH IT ON EVERY KEY STROKE
@@ -45,8 +46,7 @@
 		this.$element.on('keydown', '.pillbox-input', $.proxy(this.inputEvent, this));
 
 		if( this.options.editPill ){
-			this.$element.on('blur', '.pillbox-list-edit', $.proxy(this.cancelEdit, this));
-			this.$element.on('keydown', '.pillbox-list-edit', $.proxy(this.editInputEvent, this));
+			this.$element.on('blur', '.pillbox-input', $.proxy(this.cancelEdit, this));
 		}
 	};
 
@@ -79,6 +79,7 @@
 				} else {
 					this.removeItem(this.getItemData($li,{el:$li}));
 				}
+				return false;
 			} else if ( this.options.editPill ) {
 				if( $li.find('.pillbox-list-edit').length )
 				{
@@ -86,9 +87,9 @@
 				}
 
 				this.openEdit($li);
-			} else {
-				this.$element.trigger( 'clicked', this.getItemData($li));
 			}
+
+			this.$element.trigger( 'clicked', this.getItemData($li));
 		},
 
 		suggestionClick: function(e){
@@ -96,43 +97,120 @@
 
 			e.preventDefault();
 			this.$input.val('');
-			this.addItem($li.html(), $li.data('value'));
+
+			this.addItems({text:$li.html(), value:$li.data('value')});
 		},
 
 		itemCount: function() {
 			return this.$ul.children('li').length;
 		},
 
-		addItem: function(text, value) {
-			var data = {
-				text: text,
-				value: value ? value : text,
-				el: '<li><span></span><span>x</span></li>'
-			};
+		// First parameter is 1 based index
+		// Second parameter can be array of objects [{ ... }, { ... }] or you can pass n additional objects as args
+		//object structure is as follows (index and value are optional): { text: '', value: '' }
+		addItems: function(){
+			var self = this;
+			var items, index;
 
-			if(this.options.onAdd){
-				this.options.onAdd( data, $.proxy(this.placeItem,this));
+			if( isFinite(String(arguments[0])) && !(arguments[0] instanceof Array) ) {
+				items = [].slice.call(arguments).slice(1);
+				index = arguments[0];
 			} else {
-				this.placeItem(data);
+				items = [].slice.call(arguments).slice(0);
 			}
+
+			//Accounting for array parameter
+			if(items[0] instanceof Array){
+				items = items[0];
+			}
+
+			if( items.length ){
+				$.each(items, function(i, value){
+					var data = {
+						text: value.text,
+						value: value.value ? value.value : value.text,
+						el: '<li><span></span><span>x</span></li>',
+						index: value.index
+					};
+
+					items[i] = data;
+				});
+
+				if( this.options.editPill && this.currentEdit ){
+					items[0].el = this.currentEdit.wrap('<div></div>').parent().html();
+				}
+
+				if(self.options.onAdd){
+					if( this.options.editPill && this.currentEdit ){
+						self.options.onAdd( items, $.proxy(self.saveEdit,this));
+					} else {
+						if( index ){
+							self.options.onAdd( items, $.proxy(self.placeItems,this,index));
+						} else {
+							self.options.onAdd( items, $.proxy(self.placeItems,this));
+						}
+					}
+				} else {
+					if( this.options.editPill && this.currentEdit ){
+						self.saveEdit(items);
+					} else {
+						if( index ){
+							self.placeItems(index, items);
+						} else {
+							self.placeItems(items);
+						}
+					}
+				}
+			}
+
 		},
 
-		placeItem: function(data){
-			var $li = $(data.el);
+		//First parameter is index (optional)
+		//Second parameter is new arguments
+		placeItems: function(){
+			var items,index;
+			var newHtml = '';
+			var $neighbor;
 
-			$li.attr('data-value',data.value);
-			$li.find('span:first').html(data.text);
-
-			if( this.$ul.children('li').length > 0 ) {
-				this.$ul.children('li:last').after($li);
+			if( isFinite(String(arguments[0])) && !(arguments[0] instanceof Array) ) {
+				items = [].slice.call(arguments).slice(1);
+				index = arguments[0];
 			} else {
-				this.$ul.prepend($li);
+				items = [].slice.call(arguments).slice(0);
 			}
 
-			this.$element.trigger( 'added', { text: data.text, value: data.value } );
+			if(items[0] instanceof Array){
+				items = items[0];
+			}
 
-			if( !this.options.onAdd ) {
-				return $li;
+			if( items.length ){
+				$.each(items, function(i, item){
+					var $li = $(item.el);
+					var $neighbor;
+
+					$li.attr('data-value', item.value);
+					$li.find('span:first').html( item.text );
+
+					newHtml += $li.wrap('<div></div>').parent().html();
+				});
+
+				if( this.$ul.children('li').length > 0 ) {
+					if( index ){
+						$neighbor = this.$ul.find('li:nth-child(' + index + ')');
+
+						if( $neighbor.length ){
+							$neighbor.before(newHtml);
+						} else {
+							this.$ul.children('li:last').after(newHtml);
+						}
+					} else {
+						this.$ul.children('li:last').after(newHtml);
+					}
+				} else {
+					this.$ul.prepend(newHtml);
+				}
+
+				this.$element.trigger( 'added', items );
 			}
 		},
 
@@ -155,7 +233,7 @@
 					this._closeSuggestions();
 					this.$input.hide();
 
-					this.addItem(txt, val);
+					this.addItems({text:txt,value:val});
 
 					setTimeout(function(){
 						self.$input.show().val('').attr({size:10});
@@ -164,6 +242,7 @@
 
 				return true;
 			} else if( e.keyCode === 8 || e.keyCode === 46 ) {
+				//this does not work as expected for an edit
 				if( !txt.length ) {
 					this._closeSuggestions();
 					$lastLi = this.$ul.children('li:last');
@@ -195,41 +274,50 @@
 			}
 		},
 
-		openEdit: function( el ){
-			var $text = el.find('span:first');
+		openEdit: function(el){
+			var index = el.index() + 1;
+			var $inputWrap = this.$inputWrap.detach().hide();
+			var $child;
 
-			el.prepend('<input class="pillbox-list-edit" type="text" style="width:' + $text.width() + 'px;" value="' + $text.html() + '">');
-			$text.hide();
-			el.find('input').focus().select();
-			this.$element.trigger( 'edit', this.getItemData(el));
+			this.$ul.find('li:nth-child(' + index + ')').before($inputWrap);
+			this.currentEdit = el.detach();
+
+			this.$input.val(el.find('span:first').html());
+			$inputWrap.show();
+			this.$input.focus().select();
 		},
 
 		cancelEdit: function(e) {
-			var $input = $(e.currentTarget);
-			var $parent = $input.parent();
+			var $inputWrap, $parent;
+			if( !this.currentEdit ){
+				return false;
+			}
 
-			$input.remove();
-			$parent.find('span:first').show();
+			this._closeSuggestions();
+			this.$inputWrap.before(this.currentEdit);
+			this.currentEdit = false;
+
+			$inputWrap = this.$inputWrap.detach();
+			this.$input.val('');
+			this.$ul.append($inputWrap);
 		},
 
-		editInputEvent: function(e){
-			var txt, $input, $li;
+		//Must match syntax of placeItem so addItem callback is called when an item is edited
+		//expecting to receive an array back from the callback containing edited items
+		saveEdit: function(){
+			var item = arguments[0][0];
 
-			if( this.acceptKeyCodes[e.keyCode] ){
-				$input = $(e.currentTarget);
-				$li = $input.parent();
-				txt = $input.val();
+			this.currentEdit = $(item.el);
+			this.currentEdit.data('value', item.value);
+			this.currentEdit.find('span:first').html(item.text);
 
+			this.$inputWrap.hide();
+			this.$inputWrap.before(this.currentEdit);
+			this.currentEdit = false;
 
-				if( txt.length ){
-					$li.data('value',txt);
-					$li.find('span:first').html(txt).show();
-				} else {
-					$li.find('span:first').show();
-				}
-
-				$input.remove();
-			}
+			this.$input.val('');
+			this.$ul.append(this.$inputWrap.detach().show());
+			this.$element.trigger( 'edit', {value:item.value, text:item.text});
 		},
 
 		removeBySelector: function(selector, trigger) {
@@ -361,7 +449,7 @@
 		onAdd: undefined,
 		onRemove: undefined,
 		onKeyDown: undefined,
-		editPill: false,
+		editPill: true,
 		acceptKeyCodes: [
 			//Enter
 			13,
@@ -401,18 +489,14 @@
 
 	// PILLBOX DATA-API
 
-	$(function () {
-		var $body = $('body');
+	$('body').on('mousedown.pillbox.data-api', '.pillbox', function () {
+		var $this = $(this);
+		if ($this.data('pillbox')) return;
+		$this.pillbox($this.data());
+	});
 
-		$body.on('mousedown.pillbox.data-api', '.pillbox', function () {
-			var $this = $(this);
-			if ($this.data('pillbox')) return;
-			$this.pillbox($this.data());
-		});
-
-		$body.on('click.pillbox.data-api',function(){
-			$('.pillbox-suggest').hide();
-		});
+	$('body').on('click.pillbox.data-api',function(){
+		$('.pillbox-suggest').hide();
 	});
 	
 // -- BEGIN UMD WRAPPER AFTERWORD --

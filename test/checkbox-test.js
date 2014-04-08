@@ -16,7 +16,7 @@ define(function(require){
 			'<div class="checkbox"><label class="checkbox-custom" id="lbl5"><input id="chk5" class="checkbox" type="checkbox" value="">Convenience Methods</label></div>' +
 		'</div>';
 
-	module("Fuel UX checkbox");
+	module("Fuel UX Checkbox");
 
 	test("should be defined on jquery object", function () {
 		ok($(document.body).checkbox, 'checkbox method is defined');

@@ -8,7 +8,7 @@ define(function(require){
 	require('bootstrap');
 	require('fuelux/search');
 
-	module("Fuel UX search");
+	module("Fuel UX Search");
 
 	test("should be defined on jquery object", function () {
 		ok($(document.body).search, 'search method is defined');

@@ -3,7 +3,6 @@
 	padding: 3px;
 
 	> ul {
-		display: inline-block;
 		margin: 0;
 		padding: 0;
 		width: 100%;
@@ -11,18 +10,20 @@
 		> li {
 
 			// Begin Bootstrap .label
-			font-size: @baseFontSize * .846;
+			//font-size: @baseFontSize * .846;
+			font-size: 12px;
 			font-weight: bold;
 			line-height: 21px; // modified
 			color: @white;
 			vertical-align: baseline;
 			//white-space: nowrap; //removed
 			background-color: @grayLight;
-			padding: 1px 0 2px 4px;
-			.border-radius(3px);
+			padding: 1px 4px 2px;
+			border-radius: 3px;
 			// End Bootstrap .label
 
-			display: inline-block;
+
+			display: block;
 			margin: 2px;
 			cursor: pointer;
 			float:left;
@@ -45,20 +46,24 @@
 			}
 
 			span:last-child {
+
 				float: right;
 				font-size: 14px;
 				font-weight: bold;
-				line-height: @baseLineHeight;
+				//line-height: @baseLineHeight + 1;
+				line-height: 18px;
 				color: @black;
-				.opacity(20);
+				//.opacity(20);
+				opacity: .2;
 
 				padding-left: 4px;
-				padding-right: 4px;
+				padding-right: 2px;
 				position: relative;
 				top: -2px;
 
 				&:hover {
-					.opacity(40);
+					opacity: .4;
+					//.opacity(40);
 				}
 			}
 
