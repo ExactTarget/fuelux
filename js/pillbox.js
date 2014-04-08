@@ -31,8 +31,9 @@
 	var Pillbox = function (element, options) {
 		this.$element = $(element);
 		this.$input = this.$element.find('.pillbox-input');
-		this.$ul    = this.$element.find('.pillbox-list');
-		this.$sugs  = this.$element.find('.pillbox-suggest');
+		this.$ul = this.$element.find('.pillbox-list');
+		this.$sugs = this.$element.find('.pillbox-suggest');
+		this.$inputWrap = this.$input.parent();
 
 		this.options = $.extend({}, $.fn.pillbox.defaults, options);
 		//CREATING AN OBJECT OUT OF THE KEY CODE ARRAY SO WE DONT HAVE TO LOOP THROUGH IT ON EVERY KEY STROKE
@@ -45,8 +46,7 @@
 		this.$element.on('keydown', '.pillbox-input', $.proxy(this.inputEvent, this));
 
 		if( this.options.editPill ){
-			this.$element.on('blur', '.pillbox-list-edit', $.proxy(this.cancelEdit, this));
-			this.$element.on('keydown', '.pillbox-list-edit', $.proxy(this.editInputEvent, this));
+			this.$element.on('blur', '.pillbox-input', $.proxy(this.cancelEdit, this));
 		}
 	};
 
@@ -79,6 +79,7 @@
 				} else {
 					this.removeItem(this.getItemData($li,{el:$li}));
 				}
+				return false;
 			} else if ( this.options.editPill ) {
 				if( $li.find('.pillbox-list-edit').length )
 				{
@@ -86,9 +87,9 @@
 				}
 
 				this.openEdit($li);
-			} else {
-				this.$element.trigger( 'clicked', this.getItemData($li));
 			}
+
+			this.$element.trigger( 'clicked', this.getItemData($li));
 		},
 
 		suggestionClick: function(e){
@@ -96,6 +97,7 @@
 
 			e.preventDefault();
 			this.$input.val('');
+
 			this.addItems({text:$li.html(), value:$li.data('value')});
 		},
 
@@ -110,7 +112,6 @@
 			var self = this;
 			var items, index;
 
-			//is index included as a parameter or ignored?
 			if( isFinite(String(arguments[0])) && !(arguments[0] instanceof Array) ) {
 				items = [].slice.call(arguments).slice(1);
 				index = arguments[0];
@@ -135,17 +136,29 @@
 					items[i] = data;
 				});
 
+				if( this.options.editPill && this.currentEdit ){
+					items[0].el = this.currentEdit.wrap('<div></div>').parent().html();
+				}
+
 				if(self.options.onAdd){
-					if( index ){
-						self.options.onAdd( items, $.proxy(self.placeItems,this,index));
+					if( this.options.editPill && this.currentEdit ){
+						self.options.onAdd( items, $.proxy(self.saveEdit,this));
 					} else {
-						self.options.onAdd( items, $.proxy(self.placeItems,this));
+						if( index ){
+							self.options.onAdd( items, $.proxy(self.placeItems,this,index));
+						} else {
+							self.options.onAdd( items, $.proxy(self.placeItems,this));
+						}
 					}
 				} else {
-					if( index ){
-						self.placeItems(index, items);
+					if( this.options.editPill && this.currentEdit ){
+						self.saveEdit(items);
 					} else {
-						self.placeItems(items);
+						if( index ){
+							self.placeItems(index, items);
+						} else {
+							self.placeItems(items);
+						}
 					}
 				}
 			}
@@ -159,7 +172,6 @@
 			var newHtml = '';
 			var $neighbor;
 
-			//is index included as a parameter or ignored?
 			if( isFinite(String(arguments[0])) && !(arguments[0] instanceof Array) ) {
 				items = [].slice.call(arguments).slice(1);
 				index = arguments[0];
@@ -230,6 +242,7 @@
 
 				return true;
 			} else if( e.keyCode === 8 || e.keyCode === 46 ) {
+				//this does not work as expected for an edit
 				if( !txt.length ) {
 					this._closeSuggestions();
 					$lastLi = this.$ul.children('li:last');
@@ -261,41 +274,50 @@
 			}
 		},
 
-		openEdit: function( el ){
-			var $text = el.find('span:first');
+		openEdit: function(el){
+			var index = el.index() + 1;
+			var $inputWrap = this.$inputWrap.detach().hide();
+			var $child;
 
-			el.prepend('<input class="pillbox-list-edit" type="text" style="width:' + $text.width() + 'px;" value="' + $text.html() + '">');
-			$text.hide();
-			el.find('input').focus().select();
-			this.$element.trigger( 'edit', this.getItemData(el));
+			this.$ul.find('li:nth-child(' + index + ')').before($inputWrap);
+			this.currentEdit = el.detach();
+
+			this.$input.val(el.find('span:first').html());
+			$inputWrap.show();
+			this.$input.focus().select();
 		},
 
 		cancelEdit: function(e) {
-			var $input = $(e.currentTarget);
-			var $parent = $input.parent();
+			var $inputWrap, $parent;
+			if( !this.currentEdit ){
+				return false;
+			}
 
-			$input.remove();
-			$parent.find('span:first').show();
+			this._closeSuggestions();
+			this.$inputWrap.before(this.currentEdit);
+			this.currentEdit = false;
+
+			$inputWrap = this.$inputWrap.detach();
+			this.$input.val('');
+			this.$ul.append($inputWrap);
 		},
 
-		editInputEvent: function(e){
-			var txt, $input, $li;
+		//Must match syntax of placeItem so addItem callback is called when an item is edited
+		//expecting to receive an array back from the callback containing edited items
+		saveEdit: function(){
+			var item = arguments[0][0];
 
-			if( this.acceptKeyCodes[e.keyCode] ){
-				$input = $(e.currentTarget);
-				$li = $input.parent();
-				txt = $input.val();
+			this.currentEdit = $(item.el);
+			this.currentEdit.data('value', item.value);
+			this.currentEdit.find('span:first').html(item.text);
 
+			this.$inputWrap.hide();
+			this.$inputWrap.before(this.currentEdit);
+			this.currentEdit = false;
 
-				if( txt.length ){
-					$li.data('value',txt);
-					$li.find('span:first').html(txt).show();
-				} else {
-					$li.find('span:first').show();
-				}
-
-				$input.remove();
-			}
+			this.$input.val('');
+			this.$ul.append(this.$inputWrap.detach().show());
+			this.$element.trigger( 'edit', {value:item.value, text:item.text});
 		},
 
 		removeBySelector: function(selector, trigger) {
@@ -427,7 +449,7 @@
 		onAdd: undefined,
 		onRemove: undefined,
 		onKeyDown: undefined,
-		editPill: false,
+		editPill: true,
 		acceptKeyCodes: [
 			//Enter
 			13,
