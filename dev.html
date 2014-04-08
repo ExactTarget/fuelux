@@ -46,7 +46,7 @@
 
 			var list = function(options, callback){
 				var resp = {
-					count: data.length,
+					count: data.repeater.listData.length,
 					items: [],
 					pages: (Math.ceil(numItems/options.pageSize)),
 					page: options.pageIndex
@@ -83,7 +83,7 @@
 				];
 
 				for(i; i<l; i++){
-					resp.items.push(data[i]);
+					resp.items.push(data.repeater.listData[i]);
 				}
 
 				if(window.console && window.console.log){
