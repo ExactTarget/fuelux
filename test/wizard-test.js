@@ -107,7 +107,7 @@ define(function(require){
 		}
 	}
 
-	module("Fuel UX wizard");
+	module("Fuel UX Wizard");
 
 	test("should be defined on jquery object", function () {
 		ok($(document.body).wizard, 'wizard method is defined');

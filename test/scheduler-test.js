@@ -9,7 +9,7 @@ define(function(require){
 	require('bootstrap');
 	require('fuelux/scheduler');
 
-	module('Fuel UX scheduler', {
+	module('Fuel UX Scheduler', {
 		setup: function(){
 			this.$markup = $(schedulerMarkup);
 		}

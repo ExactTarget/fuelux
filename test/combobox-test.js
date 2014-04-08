@@ -38,7 +38,7 @@ define(function(require){
 				'	</div>' +
 				'</div>';
 
-	module("Fuel UX combobox");
+	module("Fuel UX Combobox");
 
 	test("should be defined on jquery object", function () {
 		ok($(document.body).combobox, 'combobox method is defined');

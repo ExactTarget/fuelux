@@ -21,7 +21,7 @@ require(['jquery', 'fuelux/selectlist'], function ($) {
 			'<input class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>' +
 		'</div>';
 
-	module("Fuel UX selectlist");
+	module("Fuel UX Selectlist");
 
 	test("should be defined on jquery object", function () {
 		ok($(document.body).selectlist, 'selectlist method is defined');
