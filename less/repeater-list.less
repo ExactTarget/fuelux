@@ -22,6 +22,28 @@
 			&:first-child {
 				border-left: none;
 			}
+
+			&.sortable {
+				&:hover,
+				&.sorted
+				{
+					background: #F1F1F1;
+					cursor: pointer;
+					#gradient > .vertical(@startColor: #F9F9F9; @endColor: #E5E5E5);
+				}
+
+				&.sorted {
+					span.glyphicon {
+						display: block;
+					}
+				}
+			}
+
+			span.glyphicon {
+				display: none;
+				float: right;
+				margin-top: 3px;
+			}
 		}
 	}
 

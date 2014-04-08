@@ -57,7 +57,7 @@
 							if(this.listView_firstRender || differentColumns(this.listView_columns, helpers.data.columns)){
 								this.listView_columns = helpers.data.columns;
 								this.listView_columnProperties = [];
-								this.listView_column_width = (100/helpers.data.columns.length) + '%';
+								this.listView_column_width = 'width: ' + (100/helpers.data.columns.length) + '%;';
 								this.listView_firstRender = false;
 								this.$loader.removeClass('noHeader');
 								callback({ item: '<table class="table repeater-list-header" data-preserve="deep"><tr data-container="true"></tr></table>' });
@@ -70,8 +70,18 @@
 								render: function(helpers, callback){
 									var index = helpers.index;
 									var subset = helpers.subset;
+									var $item;
+
 									this.listView_columnProperties.push(subset[index].property);
-									callback({ item: '<td style="width: ' + this.listView_column_width + ';">' + subset[index].label + '</td>' });
+									$item = $('<td style="' + this.listView_column_width + '">' + subset[index].label + '<span class="glyphicon glyphicon-chevron-down"></span></td>');
+									if(subset[index].sortable){
+										$item.addClass('sortable');
+										$item.on('click', function(){
+
+										});
+									}
+
+									callback({ item: $item });
 								},
 								repeat: 'data.columns'
 							}
@@ -125,7 +135,7 @@
 										render: function(helpers, callback){
 											var items = helpers.data.items;
 											var content = items[this.listView_curRowIndex][helpers.subset[helpers.index]];
-											callback({ item: '<td style="width: ' + this.listView_column_width  + ';">' + content + '</td>' });
+											callback({ item: '<td style="' + this.listView_column_width  + '">' + content + '</td>' });
 										},
 										repeat: 'this.listView_columnProperties'
 									}
