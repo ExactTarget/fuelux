@@ -27,6 +27,16 @@
 	if($.fn.repeater){
 
 		$.fn.repeater.views.list = {
+			dataOptions: function(opts, callback){
+				if(this.listView_sortDirection){
+					opts.sortDirection = this.listView_sortDirection;
+				}
+				callback(opts);
+			},
+			initialize: function(){
+				this.listView_sortDirection = null;
+				//callback();
+			},
 			selected: function(helpers, callback){
 				this.listView_firstRender = true;
 				this.$loader.addClass('noHeader');
@@ -85,22 +95,28 @@
 											if($item.hasClass('sorted')){
 												if($span.hasClass(chevDown)){
 													$span.removeClass(chevDown).addClass(chevUp);
+													self.listView_sortDirection = 'asc';
 												}else{
 													$span.removeClass(chevUp).addClass(chevDown);
+													self.listView_sortDirection = 'down';
 												}
 											}else{
 												self.$element.find('.repeater-list-header td').removeClass('sorted');
 												$span.removeClass(chevDown).addClass(chevUp);
+												self.listView_sortDirection = 'asc';
 												$item.addClass('sorted');
 											}
+											self.render();
 										});
 									}
 									if(subset[index].sortASC){
 										$item.addClass('sortable sorted');
 										$span.removeClass(chevDown).addClass(chevUp);
+										this.listView_sortDirection = 'asc';
 									}else if(subset[index].sortDESC){
 										$item.addClass('sortable sorted');
 										$span.removeClass(chevUp).addClass(chevDown);
+										this.listView_sortDirection = 'desc';
 									}
 
 									callback({ item: $item });

@@ -106,9 +106,9 @@
 			}
 		},
 
-		getDataOptions: function(options){
+		getDataOptions: function(options, callback){
 			var opts = {};
-			var val;
+			var val, viewDataOpts;
 
 			options = options || {};
 
@@ -130,11 +130,14 @@
 				opts.search = val;
 			}
 
-			if($.fn.repeater.views[this.currentView].dataOptions){
-				opts = $.fn.repeater.views[this.currentView].dataOptions(opts);
+			viewDataOpts = $.fn.repeater.views[this.currentView].dataOptions;
+			if(viewDataOpts){
+				viewDataOpts.call(this, opts, function(obj){
+					callback(obj);
+				});
+			}else{
+				callback(opts);
 			}
-
-			return opts;
 		},
 
 		itemization: function(data){
@@ -211,16 +214,18 @@
 			var start = function(){
 				self.clear(!viewChanged);
 				self.$loader.show();
-				self.options.dataSource(self.getDataOptions(options), function(data){
-					var renderer = viewObj.renderer;
-					self.itemization(data);
-					self.pagination(data);
-					if(renderer){
-						self.runRenderer(self.$canvas, renderer, data, function(){
-							self.$loader.hide();
-							//throw event
-						});
-					}
+				self.getDataOptions(options, function(opts){
+					self.options.dataSource(opts, function(data){
+						var renderer = viewObj.renderer;
+						self.itemization(data);
+						self.pagination(data);
+						if(renderer){
+							self.runRenderer(self.$canvas, renderer, data, function(){
+								self.$loader.hide();
+								//throw event
+							});
+						}
+					});
 				});
 			};
 
