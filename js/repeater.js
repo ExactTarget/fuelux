@@ -30,7 +30,7 @@
 
 	var Repeater = function (element, options) {
 		var self = this;
-		var currentView, i, views;
+		var currentView;
 
 		this.$element = $(element);
 
@@ -50,17 +50,9 @@
 		this.$viewport = this.$element.find('.repeater-viewport');
 		this.$views = this.$element.find('.repeater-views');
 
-		this.options = $.extend({}, $.fn.repeater.defaults, options);
-
-		views = $.fn.repeater.views;
-		for(i in $.fn.repeater.views){
-			if(views[i].initialize){
-				views[i].initialize.call(this);
-			}
-		}
-
 		this.currentPage = 0;
 		this.currentView = null;
+		this.options = $.extend({}, $.fn.repeater.defaults, options);
 
 		this.$filters.on('changed', $.proxy(this.render, this, { pageIncrement: null }));
 		this.$nextBtn.on('click', $.proxy(this.next, this));
@@ -73,8 +65,10 @@
 
 		currentView = (this.options.defaultView!==-1) ? this.options.defaultView : this.$views.find('label.active input').val();
 
-		this.resize();
-		this.render({ changeView: currentView });
+		this.initViews(function(){
+			self.resize();
+			self.render({ changeView: currentView });
+		});
 	};
 
 	Repeater.prototype = {
@@ -137,6 +131,38 @@
 				});
 			}else{
 				callback(opts);
+			}
+		},
+
+		initViews: function(callback){
+			var views = [];
+			var i, viewsLength;
+
+			var init = function(index){
+				var next = function(){
+					index++;
+					if(index<viewsLength){
+						init(index);
+					}else{
+						callback();
+					}
+				};
+
+				if(views[index].initialize){
+					views[index].initialize.call(this, {}, function(){
+						next();
+					});
+				}else{
+					next();
+				}
+			};
+
+			for(i in $.fn.repeater.views){
+				views.push($.fn.repeater.views[i]);
+			}
+			viewsLength = views.length;
+			if(viewsLength>0){
+				init(0);
 			}
 		},
 

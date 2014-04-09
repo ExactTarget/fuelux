@@ -33,9 +33,9 @@
 				}
 				callback(opts);
 			},
-			initialize: function(){
+			initialize: function(helpers, callback){
 				this.listView_sortDirection = null;
-				//callback();
+				callback();
 			},
 			selected: function(helpers, callback){
 				this.listView_firstRender = true;
