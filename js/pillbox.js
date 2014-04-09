@@ -40,7 +40,7 @@
 		this.acceptKeyCodes = this._generateObject(this.options.acceptKeyCodes);
 
 		this.$element.on('click', '.pillbox-list > li', $.proxy(this.itemClicked, this));
-		this.$element.on('click', '.pillbox-suggest > li', $.proxy(this.suggestionClick, this));
+		this.$element.on('mousedown', '.pillbox-suggest > li', $.proxy(this.suggestionClick, this));
 		this.$element.on('click', $.proxy(this.inputFocus, this));
 
 		this.$element.on('keydown', '.pillbox-input', $.proxy(this.inputEvent, this));
@@ -75,9 +75,9 @@
 			if( $text.length && !$target.parent().hasClass('pillbox-list') ){
 
 				if(this.options.onRemove){
-					this.options.onRemove(this.getItemData($li,{el:$li}) ,$.proxy(this.removeItem, this));
+					this.options.onRemove(this.getItemData($li,{el:$li}) ,$.proxy(this._removeElement, this));
 				} else {
-					this.removeItem(this.getItemData($li,{el:$li}));
+					this._removeElement(this.getItemData($li,{el:$li}));
 				}
 				return false;
 			} else if ( this.options.editPill ) {
@@ -97,26 +97,28 @@
 
 			e.preventDefault();
 			this.$input.val('');
+			this._closeSuggestions();
 
-			this.addItems({text:$li.html(), value:$li.data('value')});
+			this.addItems({text:$li.html(), value:$li.data('value')}, true);
 		},
 
 		itemCount: function() {
 			return this.$ul.children('li').length;
 		},
 
-		// First parameter is 1 based index
+		// First parameter is 1 based index (optional, if index is not passed all new items will be appended)
 		// Second parameter can be array of objects [{ ... }, { ... }] or you can pass n additional objects as args
-		//object structure is as follows (index and value are optional): { text: '', value: '' }
+		// object structure is as follows (index and value are optional): { text: '', value: '' }
 		addItems: function(){
 			var self = this;
-			var items, index;
+			var items, index, isInternal;
 
 			if( isFinite(String(arguments[0])) && !(arguments[0] instanceof Array) ) {
 				items = [].slice.call(arguments).slice(1);
 				index = arguments[0];
 			} else {
 				items = [].slice.call(arguments).slice(0);
+				isInternal = items[1] && !items[1].text;
 			}
 
 			//Accounting for array parameter
@@ -140,14 +142,19 @@
 					items[0].el = this.currentEdit.wrap('<div></div>').parent().html();
 				}
 
-				if(self.options.onAdd){
+				if( isInternal ){
+					items.pop(1);
+				}
+
+				if(self.options.onAdd && isInternal){
+
 					if( this.options.editPill && this.currentEdit ){
-						self.options.onAdd( items, $.proxy(self.saveEdit,this));
+						self.options.onAdd( items[0], $.proxy(self.saveEdit,this));
 					} else {
 						if( index ){
-							self.options.onAdd( items, $.proxy(self.placeItems,this,index));
+							self.options.onAdd( items[0], $.proxy(self.placeItems,this,index));
 						} else {
-							self.options.onAdd( items, $.proxy(self.placeItems,this));
+							self.options.onAdd( items[0], $.proxy(self.placeItems,this));
 						}
 					}
 				} else {
@@ -161,8 +168,34 @@
 						}
 					}
 				}
+
+				this.$element.trigger('added', items);
 			}
 
+		},
+
+		//First parameter is the index (1 based) to start removing items
+		//Second parameter is the number of items to be removed
+		removeItems: function(index, howMany){
+			var self = this;
+			var count, $cur;
+
+			if( !index ){
+				this.$ul.find('li').remove();
+				this._removePillTrigger( { method: 'removeAll' } );
+			} else {
+				howMany = howMany ? howMany : 1;
+
+				for (count = 0; count < howMany; count++){
+					$cur =  self.$ul.find('> li:nth-child('+ index +')');
+
+					if( $cur ){
+						$cur.remove();
+					} else {
+						break;
+					}
+				}
+			}
 		},
 
 		//First parameter is index (optional)
@@ -233,7 +266,7 @@
 					this._closeSuggestions();
 					this.$input.hide();
 
-					this.addItems({text:txt,value:val});
+					this.addItems({text:txt,value:val}, true);
 
 					setTimeout(function(){
 						self.$input.show().val('').attr({size:10});
@@ -242,13 +275,20 @@
 
 				return true;
 			} else if( e.keyCode === 8 || e.keyCode === 46 ) {
-				//this does not work as expected for an edit
+
 				if( !txt.length ) {
+					e.preventDefault();
+
+					if( this.options.editPill && this.currentEdit ) {
+						this.cancelEdit();
+						return true;
+					}
+
 					this._closeSuggestions();
 					$lastLi = this.$ul.children('li:last');
 
 					if( $lastLi.hasClass('pillbox-highlight') ){
-						this.removeItem(this.getItemData($lastLi,{el:$lastLi}));
+						this._removeElement(this.getItemData($lastLi,{el:$lastLi}));
 					} else {
 						$lastLi.addClass('pillbox-highlight');
 					}
@@ -294,7 +334,9 @@
 			}
 
 			this._closeSuggestions();
-			this.$inputWrap.before(this.currentEdit);
+			if(e){
+				this.$inputWrap.before(this.currentEdit);
+			}
 			this.currentEdit = false;
 
 			$inputWrap = this.$inputWrap.detach();
@@ -304,7 +346,7 @@
 
 		//Must match syntax of placeItem so addItem callback is called when an item is edited
 		//expecting to receive an array back from the callback containing edited items
-		saveEdit: function(){
+		saveEdit: function() {
 			var item = arguments[0][0];
 
 			this.currentEdit = $(item.el);
@@ -320,36 +362,37 @@
 			this.$element.trigger( 'edit', {value:item.value, text:item.text});
 		},
 
-		removeBySelector: function(selector, trigger) {
-			if( typeof trigger === "undefined" ) {
-				trigger = true;
-			}
+		removeBySelector: function() {
+			var selectors = [].slice.call(arguments).slice(0);
+			var self = this;
 
-			this.$element.children('ul').find(selector).remove();
+			$.each(selectors, function(i, sel){
+				self.$ul.find(sel).remove();
+			});
 
-			if( !!trigger ) {
-				this._removePillTrigger( { method: 'removeBySelector', removedSelector: selector } );
-			}
+			this._removePillTrigger( { method: 'removeBySelector', removedSelectors: selectors } );
 		},
 
-		removeByValue: function(value) {
-			var selector = '> li[data-value="' + value + '"]';
+		removeByValue: function() {
+			var values = [].slice.call(arguments).slice(0);
+			var self = this;
 
-			this.removeBySelector( selector, false );
-			this._removePillTrigger( { method: 'removeByValue', removedValue: value } );
+			$.each(values, function(i, val){
+				self.$ul.find('> li[data-value="' + val + '"]').remove();
+			});
+
+			this._removePillTrigger( { method: 'removeByValue', removedValues: values } );
 		},
 
-		removeByText: function(text) {
-			var selector = '> li:contains("' + text + '")';
+		removeByText: function() {
+			var text = [].slice.call(arguments).slice(0);
+			var self = this;
 
-			this.removeBySelector( selector, false );
+			$.each(text, function(i, txt){
+				self.$ul.find('> li:contains("' + txt + '")').remove();
+			});
+
 			this._removePillTrigger( { method: 'removeByText', removedText: text } );
-		},
-
-		removeItem: function(data){
-			data.el.remove();
-			delete data.el;
-			this.$element.trigger('removed', data);
 		},
 
 		inputFocus: function(e) {
@@ -364,6 +407,12 @@
 			return $.extend({
 				text: el.find('span:first').html()
 			}, el.data(), data);
+		},
+
+		_removeElement: function(data){
+			data.el.remove();
+			delete data.el;
+			this.$element.trigger('removed', data);
 		},
 
 		_removePillTrigger: function( removedBy ) {
