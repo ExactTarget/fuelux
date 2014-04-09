@@ -31,10 +31,14 @@
 				if(this.listView_sortDirection){
 					opts.sortDirection = this.listView_sortDirection;
 				}
+				if(this.listView_sortProperty){
+					opts.sortProperty = this.listView_sortProperty;
+				}
 				callback(opts);
 			},
 			initialize: function(helpers, callback){
 				this.listView_sortDirection = null;
+				self.listView_sortProperty = null;
 				callback();
 			},
 			selected: function(helpers, callback){
@@ -92,13 +96,16 @@
 									if(subset[index].sortable){
 										$item.addClass('sortable');
 										$item.on('click', function(){
+											self.listView_sortProperty = subset[index].property;
 											if($item.hasClass('sorted')){
-												if($span.hasClass(chevDown)){
-													$span.removeClass(chevDown).addClass(chevUp);
-													self.listView_sortDirection = 'asc';
-												}else{
+												if($span.hasClass(chevUp)){
 													$span.removeClass(chevUp).addClass(chevDown);
 													self.listView_sortDirection = 'down';
+												}else{
+													$item.removeClass('sorted');
+													$span.removeClass(chevDown);
+													self.listView_sortDirection = null;
+													self.listView_sortProperty = null;
 												}
 											}else{
 												self.$element.find('.repeater-list-header td').removeClass('sorted');
@@ -113,10 +120,12 @@
 										$item.addClass('sortable sorted');
 										$span.removeClass(chevDown).addClass(chevUp);
 										this.listView_sortDirection = 'asc';
+										self.listView_sortProperty = subset[index].property;
 									}else if(subset[index].sortDESC){
 										$item.addClass('sortable sorted');
 										$span.removeClass(chevUp).addClass(chevDown);
 										this.listView_sortDirection = 'desc';
+										self.listView_sortProperty = subset[index].property;
 									}
 
 									callback({ item: $item });
