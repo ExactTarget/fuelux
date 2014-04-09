@@ -168,8 +168,6 @@
 						}
 					}
 				}
-
-				this.$element.trigger('added', items);
 			}
 
 		},
@@ -498,7 +496,7 @@
 		onAdd: undefined,
 		onRemove: undefined,
 		onKeyDown: undefined,
-		editPill: true,
+		editPill: false,
 		acceptKeyCodes: [
 			//Enter
 			13,

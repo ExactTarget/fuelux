@@ -159,8 +159,8 @@ define(function(require){
 
 	// PILLBOX
 	$('#btnAdd').click(function () {
-		var newItemCount = $('#MyPillbox ul li').length + 1;
-		$('#MyPillbox ul').pillbox('addItem', 'Item ' + newItemCount, 'Item ' + newItemCount );
+		var newItemCount = $('#MyPillbox ul li').length;
+		$('#MyPillbox').pillbox('addItems', {text: 'item ' + newItemCount, value: 'item ' + newItemCount} );
 	});
 
 	$('#btnRemoveByValue').click(function () {
@@ -168,7 +168,7 @@ define(function(require){
 	});
 
 	$('#btnRemoveBySelector').click(function () {
-		$('#MyPillbox').pillbox('removeBySelector', '.status-warning');
+		$('#MyPillbox').pillbox('removeBySelector', '.status-success');
 	});
 
 	$('#btnRemoveByText').click(function () {
