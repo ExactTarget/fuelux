@@ -10,6 +10,7 @@
 		}
 	});
 
+	// Needed for saucelab testing
 	var log = [];
 	var testName;
 

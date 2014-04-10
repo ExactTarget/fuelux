@@ -7,6 +7,7 @@ define(function(require){
 
 	QUnit.start(); // starting qunit, or phantom js will have a problem
 	
+	// Needed for saucelab testing
 	var log = [];
 	var testName;
 
