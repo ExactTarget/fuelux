@@ -152,7 +152,7 @@
 						},
 						nested: [
 							{
-								after: function(helpers, callback){
+								complete: function(helpers, callback){
 									var obj = { container: helpers.container };
 									if(helpers.item!==undefined){
 										obj.item = helpers.item;
