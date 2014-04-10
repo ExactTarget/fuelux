@@ -40,10 +40,13 @@
 		this.acceptKeyCodes = this._generateObject(this.options.acceptKeyCodes);
 
 		this.$element.on('click', '.pillbox-list > li', $.proxy(this.itemClicked, this));
-		this.$element.on('mousedown', '.pillbox-suggest > li', $.proxy(this.suggestionClick, this));
 		this.$element.on('click', $.proxy(this.inputFocus, this));
 
 		this.$element.on('keydown', '.pillbox-input', $.proxy(this.inputEvent, this));
+
+		if( this.options.onKeyDown ){
+			this.$element.on('mousedown', '.pillbox-suggest > li', $.proxy(this.suggestionClick, this));
+		}
 
 		if( this.options.editPill ){
 			this.$element.on('blur', '.pillbox-input', $.proxy(this.cancelEdit, this));
@@ -89,7 +92,7 @@
 				this.openEdit($li);
 			}
 
-			this.$element.trigger( 'clicked', this.getItemData($li));
+			this.$element.trigger('clicked', this.getItemData($li));
 		},
 
 		suggestionClick: function(e){
@@ -252,15 +255,16 @@
 
 			if( this.acceptKeyCodes[e.keyCode] ){
 
-				if( txt.length ) {
-					if( this.options.onKeyDown && this._isSuggestionsOpen() ){
-						$selItem = this.$sugs.find('.pillbox-suggest-sel');
+				if( this.options.onKeyDown && this._isSuggestionsOpen() ){
+					$selItem = this.$sugs.find('.pillbox-suggest-sel');
 
-						if($selItem.length){
-							txt = $selItem.html();
-							val = $selItem.data('value');
-						}
+					if($selItem.length){
+						txt = $selItem.html();
+						val = $selItem.data('value');
 					}
+				}
+
+				if( txt.length ) {
 					this._closeSuggestions();
 					this.$input.hide();
 
@@ -308,14 +312,16 @@
 					}
 					return true;
 				}
-				this.options.onKeyDown({value: txt}, $.proxy(this._openSuggestions,this));
+
+				//only allowing most recent event callback to register
+				this.callbackId = e.timeStamp;
+				this.options.onKeyDown(e, {value: txt}, $.proxy(this._openSuggestions,this));
 			}
 		},
 
 		openEdit: function(el){
 			var index = el.index() + 1;
 			var $inputWrap = this.$inputWrap.detach().hide();
-			var $child;
 
 			this.$ul.find('li:nth-child(' + index + ')').before($inputWrap);
 			this.currentEdit = el.detach();
@@ -326,7 +332,7 @@
 		},
 
 		cancelEdit: function(e) {
-			var $inputWrap, $parent;
+			var $inputWrap;
 			if( !this.currentEdit ){
 				return false;
 			}
@@ -397,10 +403,6 @@
 			this.$element.find('.pillbox-input').focus();
 		},
 
-		clear: function() {
-			this.$element.children('ul').empty();
-		},
-
 		getItemData: function(el, data) {
 			return $.extend({
 				text: el.find('span:first').html()
@@ -427,8 +429,12 @@
 			return obj;
 		},
 
-		_openSuggestions: function(data){
+		_openSuggestions: function(e, data){
 			var markup = '';
+
+			if( this.callbackId !== e.timeStamp) {
+				return false;
+			}
 
 			if(data.data && data.data.length){
 				$.each(data.data, function(index, value){
@@ -437,7 +443,7 @@
 				});
 
 				this.$sugs.html('').append(markup).show();
-				$(document.body).trigger('suggestions',this.$sugs);
+				$(document.body).trigger('suggestions', data.data);
 			}
 		},
 
@@ -511,8 +517,7 @@
 		}*/
 
 		//example on key down
-		/*
-		onKeyDown: function(ta, callback ){
+		/*onKeyDown: function(event, data, callback ){
 			callback({data:[
 				{text: Math.random(),value:'sdfsdfsdf'},
 				{text: Math.random(),value:'sdfsdfsdf'}

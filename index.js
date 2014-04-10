@@ -159,7 +159,7 @@ define(function(require){
 
 	// PILLBOX
 	$('#btnAdd').click(function () {
-		var newItemCount = $('#MyPillbox ul li').length;
+		var newItemCount = $('#MyPillbox ul li').length + 1;
 		$('#MyPillbox').pillbox('addItems', {text: 'item ' + newItemCount, value: 'item ' + newItemCount} );
 	});
 
@@ -181,8 +181,8 @@ define(function(require){
 	});
 
 	$('#MyPillbox').pillbox({
-		onKeyDown: function( data, callback ){
-			callback({data:[
+		onKeyDown: function( e, data, callback ){
+			callback(e, {data:[
 				{text: Math.random(),value:'sdfsdfsdf'},
 				{text: Math.random(),value:'sdfsdfsdf'}
 			]});
