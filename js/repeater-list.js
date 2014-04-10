@@ -38,7 +38,7 @@
 			},
 			initialize: function(helpers, callback){
 				this.listView_sortDirection = null;
-				self.listView_sortProperty = null;
+				this.listView_sortProperty = null;
 				callback();
 			},
 			selected: function(helpers, callback){
@@ -72,7 +72,7 @@
 								this.$element.find('.repeater-list-header').remove();
 								this.listView_columns = helpers.data.columns;
 								this.listView_columnProperties = [];
-								this.listView_column_width = 'width: ' + (100/helpers.data.columns.length) + '%;';
+								this.listView_columnWidth = 'width: ' + ((100/helpers.data.columns.length) *.01)*this.$canvas.width() + 'px;';
 								this.listView_firstRender = false;
 								this.$loader.removeClass('noHeader');
 								callback({ item: '<table class="table repeater-list-header" data-preserve="deep"><tr data-container="true"></tr></table>' });
@@ -89,10 +89,11 @@
 									var index = helpers.index;
 									var self = this;
 									var subset = helpers.subset;
+									var width = (index+1<subset.length) ? this.listView_columnWidth : '';
 									var $item, $span;
 
 									this.listView_columnProperties.push(subset[index].property);
-									$item = $('<td style="' + this.listView_column_width + '">' + subset[index].label + '<span class="glyphicon"></span></td>');
+									$item = $('<td style="' + width + '">' + subset[index].label + '<span class="glyphicon"></span></td>');
 									$span = $item.find('span.glyphicon:first');
 									if(subset[index].sortable){
 										$item.addClass('sortable');
@@ -189,7 +190,8 @@
 										render: function(helpers, callback){
 											var items = helpers.data.items;
 											var content = items[this.listView_curRowIndex][helpers.subset[helpers.index]];
-											callback({ item: '<td style="' + this.listView_column_width  + '">' + content + '</td>' });
+											var width = (helpers.index+1<helpers.subset.length) ? this.listView_columnWidth : '';
+											callback({ item: '<td style="' + width  + '">' + content + '</td>' });
 										},
 										repeat: 'this.listView_columnProperties'
 									}
