@@ -103,10 +103,15 @@
 													$span.removeClass(chevUp).addClass(chevDown);
 													self.listView_sortDirection = 'down';
 												}else{
-													$item.removeClass('sorted');
-													$span.removeClass(chevDown);
-													self.listView_sortDirection = null;
-													self.listView_sortProperty = null;
+													if(!self.options.listView_sortClearing){
+														$span.removeClass(chevDown).addClass(chevUp);
+														self.listView_sortDirection = 'up';
+													}else{
+														$item.removeClass('sorted');
+														$span.removeClass(chevDown);
+														self.listView_sortDirection = null;
+														self.listView_sortProperty = null;
+													}
 												}
 											}else{
 												self.$element.find('.repeater-list-header td').removeClass('sorted');
