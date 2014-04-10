@@ -12,6 +12,15 @@ module.exports = function (grunt) {
 			' * Licensed under <%= pkg.license.type %> (<%= pkg.license.url %>)\n' +
 			' */\n',
 		pkg: grunt.file.readJSON('package.json'),
+		// Try ENV variables (export SAUCE_ACCESS_KEY=XXXX), if key doesn't exist, try key file 
+		sauceLoginFile: grunt.file.exists('SAUCE_API_KEY.yml') ? grunt.file.readYAML('SAUCE_API_KEY.yml') : undefined,
+		sauceKey: process.env['SAUCE_ACCESS_KEY'] ? process.env['SAUCE_ACCESS_KEY'] : '<%= sauceLoginFile.key %>',
+		testUrls: ['2.1.0', '1.11.0', '1.9.1', 'browserGlobals'].map(function (ver) {
+			if(ver==='browserGlobals'){
+				return 'http://localhost:<%= connect.server.options.port %>/test/fuelux-browser-globals.html';
+			}
+			return 'http://localhost:<%= connect.server.options.port %>/test/fuelux.html?jquery=' + ver;
+		}),
 
 		//Tasks configuration
 		clean: {
@@ -187,18 +196,14 @@ module.exports = function (grunt) {
 		'saucelabs-qunit': {
 			all: {
 				options: {
+					username: 'fuelux',
+					key: '<%= sauceKey %>',
 					browsers: grunt.file.readYAML('sauce_browsers.yml'),
-					concurrency: '3',
+					testname: 'grunt-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
 					urls: '<%= testUrls %>'
 				}
 			}
 		},
-		testUrls: ['BG', '1.9.1', '1.8.3', '1.7.2'].map(function (ver) {
-			if(ver==='BG'){
-				return 'http://localhost:<%= connect.server.options.port %>/test/fuelux-browser-globals.html';
-			}
-			return 'http://localhost:<%= connect.server.options.port %>/test/fuelux.html?jquery=' + ver;
-		}),
 		uglify: {
 			options: {
 				report: 'min'
