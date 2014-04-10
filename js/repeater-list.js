@@ -69,6 +69,7 @@
 							};
 
 							if(this.listView_firstRender || differentColumns(this.listView_columns, helpers.data.columns)){
+								this.$element.find('.repeater-list-header').remove();
 								this.listView_columns = helpers.data.columns;
 								this.listView_columnProperties = [];
 								this.listView_column_width = 'width: ' + (100/helpers.data.columns.length) + '%;';

@@ -27,9 +27,23 @@
 	if($.fn.repeater){
 
 		$.fn.repeater.views.thumbnail = {
+			selected: function(helpers, callback){
+				var infScroll = this.options.thumbnailView_infiniteScroll;
+				var opts;
+				if(infScroll){
+					opts = (typeof infScroll === 'object') ? infScroll : {};
+					this.infiniteScrolling(true, opts);
+				}
+				callback({});
+			},
 			renderer: {
 				render: function(helpers, callback){
-					callback({ item: '<div class="clearfix repeater-thumbnail-cont" data-container="true"></div>' });
+					var $item = this.$element.find('.repeater-thumbnail-cont');
+					if($item.length>0){
+						callback({ action: 'none', item: $item });
+					}else{
+						callback({ item: '<div class="clearfix repeater-thumbnail-cont" data-container="true" data-infinite="true" data-preserve="shallow"></div>' });
+					}
 				},
 				nested: [
 					{

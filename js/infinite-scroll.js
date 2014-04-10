@@ -34,7 +34,7 @@
 		this.options = $.extend({}, $.fn.infinitescroll.defaults, options);
 
 		this.curScrollTop = this.$element.scrollTop();
-		this.curPercentage = (this.$element.height() / (this.$element.get(0).scrollHeight - this.curScrollTop)) * 100;
+		this.curPercentage = this.getPercentage();
 		this.fetchingData = false;
 
 		this.$element.on('scroll', $.proxy(this.onScroll, this));
@@ -43,6 +43,11 @@
 	InfiniteScroll.prototype = {
 
 		constructor: InfiniteScroll,
+
+		getPercentage: function(){
+			var height = (this.$element.css('box-sizing')==='border-box') ? this.$element.outerHeight() : this.$element.height();
+			return (height / (this.$element.get(0).scrollHeight - this.curScrollTop)) * 100;
+		},
 
 		fetchData: function(){
 			var load = $('<div class="infinitescroll-load"></div>');
@@ -85,7 +90,7 @@
 
 		onScroll: function(e){
 			this.curScrollTop = this.$element.scrollTop();
-			this.curPercentage = (this.$element.height() / (this.$element.get(0).scrollHeight - this.curScrollTop)) * 100;
+			this.curPercentage = this.getPercentage();
 			if(!this.fetchingData && this.curPercentage>=this.options.percentage){
 				this.fetchData();
 			}

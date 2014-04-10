@@ -14,7 +14,7 @@
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
         // if AMD loader is available, register as an anonymous module.
-         define(['jquery', 'fuelux/combobox', 'fuelux/search', 'fuelux/selectlist'], factory);
+         define(['jquery', 'fuelux/combobox', 'fuelux/infinite-scroll', 'fuelux/search', 'fuelux/selectlist'], factory);
     } else {
         // OR use browser globals if AMD is not present
         factory(jQuery);
@@ -52,6 +52,10 @@
 
 		this.currentPage = 0;
 		this.currentView = null;
+		this.infiniteScrollingCallback = function(){};
+		this.infiniteScrollingCont = null;
+		this.infiniteScrollingEnabled = false;
+		this.infiniteScrollingOptions = {};
 		this.options = $.extend({}, $.fn.repeater.defaults, options);
 
 		this.$filters.on('changed', $.proxy(this.render, this, { pageIncrement: null }));
@@ -95,7 +99,7 @@
 
 			if(!preserve){
 				this.$canvas.empty();
-			}else{
+			}else if(!this.infiniteScrollingEnabled){
 				scan(this.$canvas);
 			}
 		},
@@ -107,9 +111,11 @@
 			options = options || {};
 
 			opts.filter = this.$filters.selectlist('selectedItem');
-			opts.pageSize = parseInt(this.$pageSize.selectlist('selectedItem').value, 10);
 			opts.view = this.currentView;
 
+			if(!this.infiniteScrollingEnabled){
+				opts.pageSize = parseInt(this.$pageSize.selectlist('selectedItem').value, 10);
+			}
 			if(options.pageIncrement!==undefined){
 				if(options.pageIncrement===null){
 					this.currentPage = 0;
@@ -132,6 +138,47 @@
 			}else{
 				callback(opts);
 			}
+		},
+
+		infiniteScrolling: function(enable, options){
+			var itemization = this.$element.find('.repeater-itemization');
+			var pagination = this.$element.find('.repeater-pagination');
+			var cont, data;
+
+			options = options || {};
+
+			if(enable){
+				this.infiniteScrollingEnabled = true;
+				this.infiniteScrollingOptions = options;
+				itemization.hide();
+				pagination.hide();
+			}else{
+				cont = this.infiniteScrollingCont;
+				data = cont.data();
+				delete data.infinitescroll;
+				cont.off('scroll');
+				cont.removeClass('infinitescroll');
+
+				this.infiniteScrollingCont = null;
+				this.infiniteScrollingEnabled = false;
+				this.infiniteScrollingOptions = {};
+				itemization.show();
+				pagination.show();
+			}
+		},
+
+		initInfiniteScrolling: function(){
+			var cont = this.$canvas.find('[data-infinite="true"]:first');
+			var opts = $.extend({}, this.infiniteScrollingOptions);
+			var self = this;
+
+			cont = (cont.length<1) ? this.$canvas : cont;
+			opts.dataSource = function(helpers, callback){
+				self.infiniteScrollingCallback = callback;
+				self.render({ pageIncrement: 1 });
+			};
+			cont.infinitescroll(opts);
+			this.infiniteScrollingCont = cont;
 		},
 
 		initViews: function(callback){
@@ -239,14 +286,23 @@
 
 			var start = function(){
 				self.clear(!viewChanged);
-				self.$loader.show();
+				if(!self.infiniteScrollingEnabled || (self.infiniteScrollingEnabled && viewChanged)){
+					self.$loader.show();
+				}
 				self.getDataOptions(options, function(opts){
 					self.options.dataSource(opts, function(data){
 						var renderer = viewObj.renderer;
-						self.itemization(data);
-						self.pagination(data);
+						if(self.infiniteScrollingEnabled){
+							self.infiniteScrollingCallback({});
+						}else{
+							self.itemization(data);
+							self.pagination(data);
+						}
 						if(renderer){
 							self.runRenderer(self.$canvas, renderer, data, function(){
+								if(viewChanged && self.infiniteScrollingEnabled){
+									self.initInfiniteScrolling();
+								}
 								self.$loader.hide();
 								//throw event
 							});
@@ -261,6 +317,9 @@
 				this.currentView = options.changeView;
 				this.$element.attr('data-currentview', this.currentView);
 				viewChanged = true;
+				if(this.infiniteScrollingEnabled){
+					self.infiniteScrolling(false);
+				}
 				viewObj = $.fn.repeater.views[self.currentView];
 				if(viewObj.selected){
 					//TODO: provide valuable helpers object here

@@ -39,7 +39,7 @@
 			}
 		});
 
-		require(['jquery', 'data', 'fuelux/all', 'index'], function ($, data){
+		require(['jquery', 'data', 'fuelux/all'], function ($, data){
 			var delays = ['300', '600', '900', '1200'];
 			var myRepeater = $('#MyRepeater');
 			var numItems = 200;
@@ -100,13 +100,13 @@
 				var resp = {
 					count: numItems,
 					items: [],
-					pages: (Math.ceil(numItems/options.pageSize)),
+					pages: (Math.ceil(numItems/(options.pageSize || 30))),
 					page: options.pageIndex
 				};
 				var i, l;
 
-				i = options.pageIndex * options.pageSize;
-				l = i + options.pageSize;
+				i = options.pageIndex * (options.pageSize || 30);
+				l = i + (options.pageSize || 30);
 				resp.start = i + 1;
 				resp.end = l;
 
@@ -119,7 +119,7 @@
 				}
 
 				if(window.console && window.console.log){
-					console.log(options);
+					//console.log(options);
 				}
 				setTimeout(function(){
 					callback(resp);
@@ -133,7 +133,8 @@
 					}else if(options.view==='thumbnail'){
 						thumbnail(options, callback);
 					}
-				}
+				},
+				thumbnailView_infiniteScroll: { hybrid: true }
 			});
 		});
 	</script>
@@ -173,10 +174,10 @@
 						<input class="hidden hidden-field" name="filterSelection" readonly="readonly" aria-hidden="true" type="text"/>
 					</div>
 					<div class="btn-group repeater-views" data-toggle="buttons">
-						<label class="btn btn-default active">
+						<label class="btn btn-default">
 							<input name="repeaterViews" type="radio" value="list"><span class="glyphicon glyphicon-list"></span>
 						</label>
-						<label class="btn btn-default">
+						<label class="btn btn-default active">
 							<input name="repeaterViews" type="radio" value="thumbnail"><span class="glyphicon glyphicon-th"></span>
 						</label>
 					</div>
