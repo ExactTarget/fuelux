@@ -151,16 +151,18 @@
 									var index = helpers.index;
 									var self = this;
 									var subset = helpers.subset;
-									var cssClass, $item, $span;
+									var cssClass, $item, sortable, $span;
 
 									cssClass = subset[index].cssClass;
 									$item = $('<td><span class="glyphicon"></span></td>');
 									$item.addClass(((cssClass!==undefined) ? cssClass : '')).prepend(subset[index].label);
 									$span = $item.find('span.glyphicon:first');
-									if(subset[index].sortable){
+
+									sortable = subset[index].sortable;
+									if(sortable){
 										$item.addClass('sortable');
 										$item.on('click', function(){
-											self.listView_sortProperty = subset[index].property;
+											self.listView_sortProperty = (typeof sortable === 'string') ? sortable : subset[index].property;
 											if($item.hasClass('sorted')){
 												if($span.hasClass(chevUp)){
 													$span.removeClass(chevUp).addClass(chevDown);
@@ -195,7 +197,7 @@
 											$span.addClass(chevDown);
 											this.listView_sortDirection = 'desc';
 										}
-										this.listView_sortProperty = subset[index].property;
+										this.listView_sortProperty = (typeof sortable === 'string') ? sortable : subset[index].property;
 									}
 
 									callback({ item: $item });
