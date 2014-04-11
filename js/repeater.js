@@ -57,6 +57,7 @@
 		this.infiniteScrollingEnabled = false;
 		this.infiniteScrollingOptions = {};
 		this.options = $.extend({}, $.fn.repeater.defaults, options);
+		this.staticHeight = (this.options.staticHeight===-1) ? this.$element.attr('data-staticheight') : this.options.staticHeight;
 
 		this.$filters.on('changed', $.proxy(this.render, this, { pageIncrement: null }));
 		this.$nextBtn.on('click', $.proxy(this.next, this));
@@ -335,7 +336,7 @@
 		},
 
 		resize: function(){
-			var staticHeight = (this.options.staticHeight===-1) ? this.$element.attr('data-staticheight') : this.options.staticHeight;
+			var staticHeight = this.staticHeight;
 			var height;
 
 			if(staticHeight!==undefined){

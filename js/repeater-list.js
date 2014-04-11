@@ -146,7 +146,9 @@
 						after: function(helpers, callback){
 							var canvas = this.$canvas;
 							var header = canvas.find('.repeater-list-header');
-							helpers.item.height(canvas.height()-header.outerHeight());
+							if(this.staticHeight){
+								helpers.item.height(canvas.height()-header.outerHeight());
+							}
 							callback();
 						},
 						render: function(helpers, callback){
