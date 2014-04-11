@@ -49,6 +49,47 @@
 			renderer: {
 				nested: [
 					{
+						complete: function(helpers, callback){
+							var auto = [];
+							var self = this;
+							var i, l, newWidth, taken;
+
+							if(this.listView_columnsSame){ callback(); }
+
+							i = 0;
+							taken = 0;
+							helpers.item.find('td').each(function(){
+								var $col = $(this);
+								var isLast = ($col.next('td').length===0) ? true : false;
+								var width;
+								if(self.listView_columns[i].width!==undefined){
+									width = self.listView_columns[i].width;
+									$col.css('width', width);
+									taken += width;
+									if(!isLast){
+										self.listView_columns[i]._auto_width = width;
+									}else{
+										$col.css('width', '');
+									}
+								}else{
+									auto.push({ col: $col, index: i, last: isLast });
+								}
+								i++;
+							});
+
+							l=auto.length;
+							if(l>0){
+								newWidth = (this.$canvas.width() - taken) / l;
+								for(i=0; i<l; i++){
+									if(!auto[i].last){
+										auto[i].col.css('width', newWidth);
+										this.listView_columns[auto[i].index]._auto_width = newWidth;
+									}
+								}
+							}
+
+							callback();
+						},
 						render: function(helpers, callback){
 							var differentColumns = function(oldCols, newCols){
 								var i, j, l;
@@ -71,12 +112,12 @@
 							if(this.listView_firstRender || differentColumns(this.listView_columns, helpers.data.columns)){
 								this.$element.find('.repeater-list-header').remove();
 								this.listView_columns = helpers.data.columns;
-								this.listView_columnProperties = [];
-								this.listView_columnWidth = 'width: ' + ((100/helpers.data.columns.length) *.01)*this.$canvas.width() + 'px;';
+								this.listView_columnsSame = false;
 								this.listView_firstRender = false;
 								this.$loader.removeClass('noHeader');
 								callback({ item: '<table class="table repeater-list-header" data-preserve="deep"><tr data-container="true"></tr></table>' });
 							}else{
+								this.listView_columnsSame = true;
 								callback({ skipNested: true });
 							}
 						},
@@ -89,11 +130,10 @@
 									var index = helpers.index;
 									var self = this;
 									var subset = helpers.subset;
-									var width = (index+1<subset.length) ? this.listView_columnWidth : '';
 									var $item, $span;
 
-									this.listView_columnProperties.push(subset[index].property);
-									$item = $('<td style="' + width + '">' + subset[index].label + '<span class="glyphicon"></span></td>');
+									$item = $('<td><span class="glyphicon"></span></td>');
+									$item.prepend(subset[index].label);
 									$span = $item.find('span.glyphicon:first');
 									if(subset[index].sortable){
 										$item.addClass('sortable');
@@ -190,12 +230,14 @@
 											}
 										},
 										render: function(helpers, callback){
-											var items = helpers.data.items;
-											var content = items[this.listView_curRowIndex][helpers.subset[helpers.index]];
-											var width = (helpers.index+1<helpers.subset.length) ? this.listView_columnWidth : '';
-											callback({ item: '<td style="' + width  + '">' + content + '</td>' });
+											var content = helpers.data.items[this.listView_curRowIndex][helpers.subset[helpers.index].property];
+											var $item = $('<td></td>');
+											var width = helpers.subset[helpers.index]._auto_width;
+
+											$item.append(content).css('width', width);
+											callback({ item: $item });
 										},
-										repeat: 'this.listView_columnProperties'
+										repeat: 'this.listView_columns'
 									}
 								]
 							}
