@@ -15,7 +15,7 @@ module.exports = function (grunt) {
 		// Try ENV variables (export SAUCE_ACCESS_KEY=XXXX), if key doesn't exist, try key file 
 		sauceLoginFile: grunt.file.exists('SAUCE_API_KEY.yml') ? grunt.file.readYAML('SAUCE_API_KEY.yml') : undefined,
 		sauceKey: process.env['SAUCE_ACCESS_KEY'] ? process.env['SAUCE_ACCESS_KEY'] : '<%= sauceLoginFile.key %>',
-		testUrls: ['2.1.0', '1.11.0', '1.9.1', 'browserGlobals'].map(function (ver) {
+		testUrls: ['2.1.0', '1.9.1', 'browserGlobals'].map(function (ver) {
 			if(ver==='browserGlobals'){
 				return 'http://localhost:<%= connect.server.options.port %>/test/fuelux-browser-globals.html';
 			}
@@ -233,7 +233,7 @@ module.exports = function (grunt) {
 		watch: {
 			files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
 			options: { livereload: true },
-			tasks: ['quicktest', 'quickcss', 'copy:fonts', 'concat', 'jshint', 'jsbeautifier']
+			tasks: ['devtest', 'quickcss', 'copy:fonts', 'concat', 'jshint', 'jsbeautifier']
 		}
 	});
 
@@ -241,11 +241,11 @@ module.exports = function (grunt) {
 	require('load-grunt-tasks')(grunt, {scope: 'devDependencies'});
 
 	//The default task
-	grunt.registerTask('default', ['fulltest', 'fullcss', 'copy:fonts', 'clean:dist', 'concat', 'uglify', 'jsbeautifier', 'copy:zipsrc', 'compress', 'clean:zipsrc']);
+	grunt.registerTask('default', ['releasetest', 'fullcss', 'copy:fonts', 'clean:dist', 'concat', 'uglify', 'jsbeautifier', 'copy:zipsrc', 'compress', 'clean:zipsrc']);
 
 	//Testing tasks
-	grunt.registerTask('quicktest', ['jshint', 'qunit:simple']);
-	grunt.registerTask('fulltest', ['connect', 'jshint', 'qunit:full']);
+	grunt.registerTask('devtest', ['jshint', 'qunit:simple']);
+	grunt.registerTask('releasetest', ['connect', 'jshint', 'qunit:full']);
 	grunt.registerTask('saucelabs', ['connect', 'jshint', 'saucelabs-qunit']);
 
 	//Style tasks
@@ -253,11 +253,11 @@ module.exports = function (grunt) {
 	grunt.registerTask('fullcss', ['quickcss']); /* Remove */
 
 	//Serve task
-	grunt.registerTask('serve', ['quicktest', 'quickcss', 'copy:fonts', 'concat', 'uglify', 'jsbeautifier', 'connect', 'watch']);
+	grunt.registerTask('serve', ['devtest', 'quickcss', 'copy:fonts', 'concat', 'uglify', 'jsbeautifier', 'connect', 'watch']);
 
 	//Travis CI task
 	grunt.registerTask('travisci', 'Run appropriate test strategy for Travis CI', function () {
-		(process.env['TRAVIS_SECURE_ENV_VARS'] === 'true') ? grunt.task.run('saucelabs') : grunt.task.run('fulltest');
+		(process.env['TRAVIS_SECURE_ENV_VARS'] === 'true') ? grunt.task.run('saucelabs') : grunt.task.run('releasetest');
 	});
 
 };
