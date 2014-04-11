@@ -15,7 +15,7 @@ module.exports = function (grunt) {
 		// Try ENV variables (export SAUCE_ACCESS_KEY=XXXX), if key doesn't exist, try key file 
 		sauceLoginFile: grunt.file.exists('SAUCE_API_KEY.yml') ? grunt.file.readYAML('SAUCE_API_KEY.yml') : undefined,
 		sauceKey: process.env['SAUCE_ACCESS_KEY'] ? process.env['SAUCE_ACCESS_KEY'] : '<%= sauceLoginFile.key %>',
-		testUrls: ['2.1.0', '1.9.1', 'browserGlobals'].map(function (ver) {
+		testUrls: ['2.1.0', '1.11.0', '1.9.1', 'browserGlobals'].map(function (ver) {
 			if(ver==='browserGlobals'){
 				return 'http://localhost:<%= connect.server.options.port %>/test/fuelux-browser-globals.html';
 			}
