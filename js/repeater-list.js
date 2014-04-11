@@ -47,6 +47,26 @@
 				callback();
 			},
 			renderer: {
+				complete: function(helpers, callback){
+					var i = 0;
+					var widths = [];
+					var $header, $items;
+
+					if(!this.options.listView_columnSyncing){
+						callback();
+					}else{
+						$header = this.$element.find('.repeater-list-header:first');
+						$items = this.$element.find('.repeater-list-items:first');
+						$items.find('tr:first td').each(function(){
+							widths.push($(this).outerWidth());
+						});
+						$header.find('td').each(function(){
+							$(this).outerWidth(widths[i]);
+							i++;
+						});
+						callback();
+					}
+				},
 				nested: [
 					{
 						complete: function(helpers, callback){
@@ -54,41 +74,42 @@
 							var self = this;
 							var i, l, newWidth, taken;
 
-							if(this.listView_columnsSame){ callback(); }
-
-							i = 0;
-							taken = 0;
-							helpers.item.find('td').each(function(){
-								var $col = $(this);
-								var isLast = ($col.next('td').length===0) ? true : false;
-								var width;
-								if(self.listView_columns[i].width!==undefined){
-									width = self.listView_columns[i].width;
-									$col.outerWidth(width);
-									taken +=  $col.outerWidth();
-									if(!isLast){
-										self.listView_columns[i]._auto_width = width;
+							if(!this.options.listView_columnSizing || this.listView_columnsSame){
+								callback();
+							}else{
+								i = 0;
+								taken = 0;
+								helpers.item.find('td').each(function(){
+									var $col = $(this);
+									var isLast = ($col.next('td').length===0) ? true : false;
+									var width;
+									if(self.listView_columns[i].width!==undefined){
+										width = self.listView_columns[i].width;
+										$col.outerWidth(width);
+										taken +=  $col.outerWidth();
+										if(!isLast){
+											self.listView_columns[i]._auto_width = width;
+										}else{
+											$col.outerWidth('');
+										}
 									}else{
-										$col.outerWidth('');
+										auto.push({ col: $col, index: i, last: isLast });
 									}
-								}else{
-									auto.push({ col: $col, index: i, last: isLast });
-								}
-								i++;
-							});
+									i++;
+								});
 
-							l=auto.length;
-							if(l>0){
-								newWidth = (this.$canvas.width() - taken) / l;
-								for(i=0; i<l; i++){
-									if(!auto[i].last){
-										auto[i].col.css('width', newWidth);
-										this.listView_columns[auto[i].index]._auto_width = newWidth;
+								l=auto.length;
+								if(l>0){
+									newWidth = (this.$canvas.width() - taken) / l;
+									for(i=0; i<l; i++){
+										if(!auto[i].last){
+											auto[i].col.outerWidth(newWidth);
+											this.listView_columns[auto[i].index]._auto_width = newWidth;
+										}
 									}
 								}
+								callback();
 							}
-
-							callback();
 						},
 						render: function(helpers, callback){
 							var differentColumns = function(oldCols, newCols){
@@ -252,6 +273,9 @@
 
 		$.fn.repeater.defaults = $.extend({}, $.fn.repeater.defaults, {
 			listView_columnRendered: null,
+			listView_columnSizing: true,
+			listView_columnSyncing: true,
+			listView_sortClearing: false,
 			listView_rowRendered: null
 		});
 
