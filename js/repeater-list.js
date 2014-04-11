@@ -151,10 +151,11 @@
 									var index = helpers.index;
 									var self = this;
 									var subset = helpers.subset;
-									var $item, $span;
+									var cssClass, $item, $span;
 
+									cssClass = subset[index].cssClass;
 									$item = $('<td><span class="glyphicon"></span></td>');
-									$item.prepend(subset[index].label);
+									$item.addClass(((cssClass!==undefined) ? cssClass : '')).prepend(subset[index].label);
 									$span = $item.find('span.glyphicon:first');
 									if(subset[index].sortable){
 										$item.addClass('sortable');
@@ -251,11 +252,12 @@
 											}
 										},
 										render: function(helpers, callback){
+											var cssClass = helpers.subset[helpers.index].cssClass;
 											var content = helpers.data.items[this.listView_curRowIndex][helpers.subset[helpers.index].property];
 											var $item = $('<td></td>');
 											var width = helpers.subset[helpers.index]._auto_width;
 
-											$item.append(content);
+											$item.addClass(((cssClass!==undefined) ? cssClass : '')).append(content);
 											if(width!==undefined){
 												$item.outerWidth(width);
 											}
