@@ -64,12 +64,12 @@
 								var width;
 								if(self.listView_columns[i].width!==undefined){
 									width = self.listView_columns[i].width;
-									$col.css('width', width);
-									taken += width;
+									$col.outerWidth(width);
+									taken +=  $col.outerWidth();
 									if(!isLast){
 										self.listView_columns[i]._auto_width = width;
 									}else{
-										$col.css('width', '');
+										$col.outerWidth('');
 									}
 								}else{
 									auto.push({ col: $col, index: i, last: isLast });
@@ -234,7 +234,10 @@
 											var $item = $('<td></td>');
 											var width = helpers.subset[helpers.index]._auto_width;
 
-											$item.append(content).css('width', width);
+											$item.append(content);
+											if(width!==undefined){
+												$item.outerWidth(width);
+											}
 											callback({ item: $item });
 										},
 										repeat: 'this.listView_columns'
