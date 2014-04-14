@@ -86,6 +86,10 @@
 					resp.items.push(data.repeater.listData[i]);
 				}
 
+//				if(options.search){
+//					resp.items = [];
+//				}
+
 				if(window.console && window.console.log){
 					console.log(options);
 				}
@@ -135,7 +139,8 @@
 						thumbnail(options, callback);
 					}
 				},
-				listView_selectable: 'multi'
+				listView_selectable: 'multi',
+				listView_noItemsHTML: 'no items found'
 			});
 		});
 	</script>

@@ -79,6 +79,7 @@
 			listView_columnSizing: true,
 			listView_columnSyncing: true,
 			listView_infiniteScroll: false,
+			listView_noItemsHTML: '',
 			listView_selectable: false,
 			listView_sortClearing: false,
 			listView_rowRendered: null
@@ -119,7 +120,7 @@
 					var widths = [];
 					var $header, $items;
 
-					if(!this.options.listView_columnSyncing){
+					if(!this.options.listView_columnSyncing || (helpers.data.items.length<1)){
 						callback();
 					}else{
 						$header = this.$element.find('.repeater-list-header:first');
@@ -283,12 +284,23 @@
 							callback();
 						},
 						render: function(helpers, callback){
-							var wrapper = this.$canvas.find('.repeater-list-wrapper');
-							if(wrapper.length>0){
-								callback({ action: 'none', item: wrapper });
+							var obj = {};
+							var $wrapper = this.$canvas.find('.repeater-list-wrapper');
+							var $item, $empty;
+							if($wrapper.length>0){
+								obj.action = 'none';
+								$item = $wrapper;
 							}else{
-								callback({ item: '<div class="repeater-list-wrapper" data-infinite="true"><table class="table repeater-list-items" data-container="true"></table></div>' });
+								$item = $('<div class="repeater-list-wrapper" data-infinite="true"><table class="table repeater-list-items" data-container="true"></table></div>');
 							}
+							obj.item = $item;
+							if(helpers.data.items.length<1){
+								obj.skipNested = true;
+								$empty = $('<tr class="empty"><td></td></tr>');
+								$empty.find('td').append(this.options.listView_noItemsHTML);
+								$item.find('.repeater-list-items').append($empty);
+							}
+							callback(obj);
 						},
 						nested: [
 							{
