@@ -42,7 +42,6 @@
 		require(['jquery', 'data', 'fuelux/all'], function ($, data){
 			var delays = ['300', '600', '900', '1200'];
 			var myRepeater = $('#MyRepeater');
-			var numItems = 200;
 
 			var list = function(options, callback){
 				var resp = {
@@ -52,10 +51,10 @@
 				};
 				var i, l;
 
-				resp.pages = Math.ceil(resp.count/(options.pageSize || 100));
+				resp.pages = Math.ceil(resp.count/(options.pageSize || 50));
 
-				i = options.pageIndex * (options.pageSize || 100);
-				l = i + (options.pageSize || 100);
+				i = options.pageIndex * (options.pageSize || 50);
+				l = i + (options.pageSize || 50);
 				l = (l <= resp.count) ? l : resp.count;
 				resp.start = i + 1;
 				resp.end = l;
@@ -92,12 +91,13 @@
 				}
 				setTimeout(function(){
 					callback(resp);
-				}, 200);//delays[Math.floor(Math.random() * 4)]);
+				}, delays[Math.floor(Math.random() * 4)]);
 			};
 
 			var thumbnail = function(options, callback){
 				var categories = ['abstract', 'animals', 'business', 'cats', 'city', 'food', 'nature', 'technics', 'transport'];
 				var colors = ['#D9EDF7', '#F2DEDE', '#FCF8E3', '#DFF0D8'];
+				var numItems = 200;
 				var resp = {
 					count: numItems,
 					items: [],

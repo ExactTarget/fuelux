@@ -52,6 +52,17 @@
 			this.$element.on('scroll', $.proxy(this.onScroll, this));
 		},
 
+		end: function(content){
+			var end = $('<div class="infinitescroll-end"></div>');
+			if(content){
+				end.append(content);
+			}else{
+				end.append('---------');
+			}
+			this.$element.append(end);
+			this.disable();
+		},
+
 		getPercentage: function(){
 			var height = (this.$element.css('box-sizing')==='border-box') ? this.$element.outerHeight() : this.$element.height();
 			return (height / (this.$element.get(0).scrollHeight - this.curScrollTop)) * 100;
@@ -74,14 +85,8 @@
 							self.$element.append(resp.content);
 						}
 						if(resp.end){
-							end = $('<div class="infinitescroll-end"></div>');
-							if(resp.end!==true){
-								end.append(resp.end);
-							}else{
-								end.append('---------');
-							}
-							self.$element.append(end);
-							self.disable();
+							end = (resp.end!==true) ? resp.end : undefined;
+							self.end(end);
 						}
 						self.fetchingData = false;
 					});

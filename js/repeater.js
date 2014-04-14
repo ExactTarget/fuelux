@@ -55,6 +55,7 @@
 		this.infiniteScrollingCallback = function(){};
 		this.infiniteScrollingCont = null;
 		this.infiniteScrollingEnabled = false;
+		this.infiniteScrollingEnd = null;
 		this.infiniteScrollingOptions = {};
 		this.options = $.extend({}, $.fn.repeater.defaults, options);
 		this.staticHeight = (this.options.staticHeight===-1) ? this.$element.attr('data-staticheight') : this.options.staticHeight;
@@ -150,6 +151,9 @@
 
 			if(enable){
 				this.infiniteScrollingEnabled = true;
+				this.infiniteScrollingEnd = options.end;
+				delete options.dataSource;
+				delete options.end;
 				this.infiniteScrollingOptions = options;
 				itemization.hide();
 				pagination.hide();
@@ -162,9 +166,22 @@
 
 				this.infiniteScrollingCont = null;
 				this.infiniteScrollingEnabled = false;
+				this.infiniteScrollingEnd = null;
 				this.infiniteScrollingOptions = {};
 				itemization.show();
 				pagination.show();
+			}
+		},
+
+		infiniteScrollPaging: function(data){
+			var end = (this.infiniteScrollingEnd!==true) ? this.infiniteScrollingEnd : undefined;
+			var page = data.page;
+			var pages = data.pages;
+
+			this.currentPage = (page!==undefined) ? page : NaN;
+
+			if((this.currentPage+1)>=pages){
+				this.infiniteScrollingCont.infinitescroll('end', end);
 			}
 		},
 
@@ -301,8 +318,11 @@
 						}
 						if(renderer){
 							self.runRenderer(self.$canvas, renderer, data, function(){
-								if(viewChanged && self.infiniteScrollingEnabled){
-									self.initInfiniteScrolling();
+								if(self.infiniteScrollingEnabled){
+									if(viewChanged){
+										self.initInfiniteScrolling();
+									}
+									self.infiniteScrollPaging(data);
 								}
 								self.$loader.hide();
 								//throw event
