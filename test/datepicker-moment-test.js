@@ -45,7 +45,7 @@ define(function(require){
 			'<div id="datepicker2"></div>' +
 		'</div>';
 
-		module('Fuel UX datepicker with Moment.js', {
+		module('Fuel UX Datepicker with Moment.js', {
 			setup: function(){
 				window.moment = window.tmpMoment;
 			},

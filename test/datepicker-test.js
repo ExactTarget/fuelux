@@ -19,7 +19,7 @@ define(function(require){
 		'<div id="datepicker2"></div>' +
 	'</div>';
 
-	module('Fuel UX datepicker', {
+	module('Fuel UX Datepicker', {
 		setup: function() {
 			// need to do this because window.moment is inconsistent when it's loaded in IE9 or less. stupid IE
 			$.fn.extend($.fn.datepicker.Constructor.prototype, {

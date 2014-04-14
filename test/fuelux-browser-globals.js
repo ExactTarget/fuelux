@@ -64,6 +64,10 @@
 		ok( $(document.body).infinitescroll, 'infinitescroll method is defined' );
 	});
 
+	test( 'should be defined on the jQuery object', function() {
+		ok( window.fuelux_loader, 'loader method is defined' );
+	});
+
 	test('should be defined on jquery object', function () {
 		ok($(this.pillboxHTML).pillbox, 'pillbox method is defined');
 	});
@@ -81,7 +85,7 @@
 	});
 
 	test('should be defined on jquery object', function () {
-		ok($(document.body).select, 'select method is defined');
+		ok($(document.body).selectlist, 'selectlist method is defined');
 	});
 
 	test('should return element', function () {

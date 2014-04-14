@@ -42,7 +42,7 @@ define(function(require){
 	require('test/datepicker-test');
 	require('test/datepicker-moment-test');
 	require('test/infinite-scroll-test');
-	//require('test/pillbox-test');
+	require('test/pillbox-test');
 	require('test/radio-test');
 	//require('test/scheduler-test');
 	require('test/search-test');
