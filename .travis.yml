@@ -7,7 +7,8 @@ env:
     - secure: "rrbobgc5ZJnt9NnILcJs5CNFQf/fVBGOuFDo8UqSOxNtqmpHeuLTTTqKgvdo\nsHZL3GDo5ujm/pPvrKv41BGi81rPPLMnQyGdmTDRgW5/F5BaKbKoOvK8opuP\n+M1cvJ2Cq14pEK6y2OMAooY2TY4p8MynxsqoKUGOYjmKXsLp1ZE="
 cache:
   directories:
-  - node_modules/
-  - bower_components/
+  - node_modules
+  - bower_components
+install: npm update
 matrix:
   fast_finish: true
