@@ -284,12 +284,11 @@
 							callback();
 						},
 						render: function(helpers, callback){
+							var $item = this.$canvas.find('.repeater-list-wrapper');
 							var obj = {};
-							var $wrapper = this.$canvas.find('.repeater-list-wrapper');
-							var $item, $empty;
-							if($wrapper.length>0){
+							var $empty;
+							if($item.length>0){
 								obj.action = 'none';
-								$item = $wrapper;
 							}else{
 								$item = $('<div class="repeater-list-wrapper" data-infinite="true"><table class="table repeater-list-items" data-container="true"></table></div>');
 							}
@@ -299,6 +298,8 @@
 								$empty = $('<tr class="empty"><td></td></tr>');
 								$empty.find('td').append(this.options.listView_noItemsHTML);
 								$item.find('.repeater-list-items').append($empty);
+							}else{
+								$item.find('.repeater-list-items tr.empty:first').remove();
 							}
 							callback(obj);
 						},

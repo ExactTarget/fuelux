@@ -86,9 +86,9 @@
 					resp.items.push(data.repeater.listData[i]);
 				}
 
-//				if(options.search){
-//					resp.items = [];
-//				}
+				//if(options.search){
+					//resp.items = [];
+				//}
 
 				if(window.console && window.console.log){
 					console.log(options);
@@ -123,6 +123,10 @@
 					});
 				}
 
+				//if(options.search){
+					//resp.items = [];
+				//}
+
 				if(window.console && window.console.log){
 					//console.log(options);
 				}
@@ -140,7 +144,8 @@
 					}
 				},
 				listView_selectable: 'multi',
-				listView_noItemsHTML: 'no items found'
+				listView_noItemsHTML: 'no items found',
+				thumbnailView_noItemsHTML: 'no items found'
 			});
 		});
 	</script>

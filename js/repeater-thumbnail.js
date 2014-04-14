@@ -44,11 +44,23 @@
 			renderer: {
 				render: function(helpers, callback){
 					var $item = this.$element.find('.repeater-thumbnail-cont');
+					var obj = {};
+					var $empty;
 					if($item.length>0){
-						callback({ action: 'none', item: $item });
+						obj.action = 'none';
 					}else{
-						callback({ item: '<div class="clearfix repeater-thumbnail-cont" data-container="true" data-infinite="true" data-preserve="shallow"></div>' });
+						$item = $('<div class="clearfix repeater-thumbnail-cont" data-container="true" data-infinite="true" data-preserve="shallow"></div>');
 					}
+					obj.item = $item;
+					if(helpers.data.items.length<1){
+						obj.skipNested = true;
+						$empty = $('<div class="empty"></div>');
+						$empty.append(this.options.thumbnailView_noItemsHTML);
+						$item.append($empty);
+					}else{
+						$item.find('.empty:first').remove();
+					}
+					callback(obj);
 				},
 				nested: [
 					{
