@@ -9,6 +9,21 @@
 }
 
 .repeater-list {
+	&-check {
+		display: inline-block;
+		height: 0;
+		line-height: 0;
+		position: relative;
+		vertical-align: top;
+		width: 0;
+
+		span.glyphicon {
+			left: -22px;
+			position: absolute;
+			top: 2px;
+		}
+	}
+
 	&-header,
 	&-items {
 		margin-bottom: 0;
@@ -22,6 +37,14 @@
 			&:first-child {
 				border-left: none;
 			}
+		}
+	}
+
+	&-header {
+		background: #F9F9F9;
+
+		td {
+			font-weight: bold;
 
 			&.sortable {
 				&:hover,
@@ -47,11 +70,23 @@
 		}
 	}
 
-	&-header {
-		background: #F9F9F9;
+	&-items {
+		tr {
+			&.selectable{
+				&:hover {
+					background: #e9eff9;
+					cursor: pointer;
+				}
 
-		td {
-			font-weight: bold;
+				&.selected {
+					background: #68ACE7;
+					color: #fff;
+
+					td:first-child {
+						padding-left: 30px;
+					}
+				}
+			}
 		}
 	}
 

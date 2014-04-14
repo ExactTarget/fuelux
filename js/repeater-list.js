@@ -26,6 +26,20 @@
 
 	if($.fn.repeater){
 
+//		$.fn.repeater.Constructor.prototype.getSelectedItems = function(){
+//			console.log('BLARG');
+//		};
+
+		$.fn.repeater.defaults = $.extend({}, $.fn.repeater.defaults, {
+			listView_columnRendered: null,
+			listView_columnSizing: true,
+			listView_columnSyncing: true,
+			listView_infiniteScroll: false,
+			listView_selectable: false,
+			listView_sortClearing: false,
+			listView_rowRendered: null
+		});
+
 		$.fn.repeater.views.list = {
 			dataOptions: function(opts, callback){
 				if(this.listView_sortDirection){
@@ -248,8 +262,26 @@
 									}
 								},
 								render: function(helpers, callback){
+									var $item = $('<tr data-container="true"></tr>');
+									var self = this;
+									if(this.options.listView_selectable){
+										$item.addClass('selectable');
+										$item.on('click', function(){
+											var $row = $(this);
+											if($row.hasClass('selected')){
+												$row.removeClass('selected');
+											}else{
+												if(self.options.listView_selectable!=='multi'){
+													self.$canvas.find('.repeater-list-check').remove();
+													self.$canvas.find('.repeater-list-items tr.selected').removeClass('selected');
+												}
+												$row.addClass('selected');
+												$row.find('td:first').prepend('<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>');
+											}
+										});
+									}
 									this.listView_curRowIndex = helpers.index;
-									callback({ item: '<tr data-container="true"></tr>' });
+									callback({ item: $item });
 								},
 								repeat: 'data.items',
 								nested: [
@@ -288,15 +320,6 @@
 				]
 			}
 		};
-
-		$.fn.repeater.defaults = $.extend({}, $.fn.repeater.defaults, {
-			listView_columnRendered: null,
-			listView_columnSizing: true,
-			listView_columnSyncing: true,
-			listView_infiniteScroll: false,
-			listView_sortClearing: false,
-			listView_rowRendered: null
-		});
 
 	}
 

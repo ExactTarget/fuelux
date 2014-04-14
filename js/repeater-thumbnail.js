@@ -26,6 +26,11 @@
 
 	if($.fn.repeater){
 
+		$.fn.repeater.defaults = $.extend({}, $.fn.repeater.defaults, {
+			thumbnailView_infiniteScroll: false,
+			thumbnailView_itemRendered: null
+		});
+
 		$.fn.repeater.views.thumbnail = {
 			selected: function(helpers, callback){
 				var infScroll = this.options.thumbnailView_infiniteScroll;
@@ -47,6 +52,19 @@
 				},
 				nested: [
 					{
+						after: function(helpers, callback){
+							var obj = { container: helpers.container };
+							if(helpers.item!==undefined){
+								obj.item = helpers.item;
+							}
+							if(this.options.thumbnailView_itemRendered){
+								this.options.thumbnailView_itemRendered(obj, function(){
+									callback();
+								});
+							}else{
+								callback();
+							}
+						},
 						render: function(helpers, callback){
 							callback({ item: '<div class="thumbnail repeater-thumbnail" style="background: ' + helpers.subset[helpers.index].color + ';"><img height="75" src="' + helpers.subset[helpers.index].src + '" width="65">' + helpers.subset[helpers.index].name + '</div>' });
 						},
