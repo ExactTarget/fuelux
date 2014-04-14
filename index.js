@@ -146,10 +146,17 @@ define(function(require){
 		}
 	});
 
+	var infiniteScrollCount = 0;
 	$('#MyInfiniteScroll2').infinitescroll({
 		dataSource: function(helpers, callback){
 			setTimeout(function(){
-				callback({ content: data.infiniteScroll.content });
+				var resp = {};
+				infiniteScrollCount++;
+				resp.content = data.infiniteScroll.content;
+				if(infiniteScrollCount>=5){
+					resp.end = true;
+				}
+				callback(resp);
 			}, data.infiniteScroll.delays[Math.floor(Math.random() * 4)]);
 		},
 		hybrid: true

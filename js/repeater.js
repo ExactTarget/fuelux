@@ -341,11 +341,11 @@
 
 			if(staticHeight!==undefined){
 				this.$canvas.addClass('scrolling');
-				height = ((staticHeight==='true' || staticHeight===true) ? this.$element.height() : parseInt(staticHeight, 10))
-					- this.$element.find('.repeater-header').outerHeight()
-					- this.$element.find('.repeater-footer').outerHeight()
-					- parseInt(this.$viewport.css('margin-bottom'), 10)
-					- parseInt(this.$viewport.css('margin-top'), 10);
+				height = ((staticHeight==='true' || staticHeight===true) ? this.$element.height() : parseInt(staticHeight, 10)) -
+					this.$element.find('.repeater-header').outerHeight() -
+					this.$element.find('.repeater-footer').outerHeight() -
+					parseInt(this.$viewport.css('margin-bottom'), 10) -
+					parseInt(this.$viewport.css('margin-top'), 10);
 				this.$viewport.outerHeight(height);
 			}else{
 				this.$canvas.removeClass('scrolling');

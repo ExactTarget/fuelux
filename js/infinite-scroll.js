@@ -44,6 +44,14 @@
 
 		constructor: InfiniteScroll,
 
+		disable: function(){
+			this.$element.off('scroll');
+		},
+
+		enable: function(){
+			this.$element.on('scroll', $.proxy(this.onScroll, this));
+		},
+
 		getPercentage: function(){
 			var height = (this.$element.css('box-sizing')==='border-box') ? this.$element.outerHeight() : this.$element.height();
 			return (height / (this.$element.get(0).scrollHeight - this.curScrollTop)) * 100;
@@ -60,9 +68,20 @@
 					'ipt type="text/javascript">window.fuelux_loader.scan();</scr' + 'ipt><![endif]--></div>');
 				if(self.options.dataSource){
 					self.options.dataSource(helpers, function(resp){
+						var end;
 						load.remove();
 						if(resp.content){
 							self.$element.append(resp.content);
+						}
+						if(resp.end){
+							end = $('<div class="infinitescroll-end"></div>');
+							if(resp.end!==true){
+								end.append(resp.end);
+							}else{
+								end.append('---------');
+							}
+							self.$element.append(end);
+							self.disable();
 						}
 						self.fetchingData = false;
 					});
