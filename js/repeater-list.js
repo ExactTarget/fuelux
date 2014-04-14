@@ -26,9 +26,53 @@
 
 	if($.fn.repeater){
 
-//		$.fn.repeater.Constructor.prototype.getSelectedItems = function(){
-//			console.log('BLARG');
-//		};
+		$.fn.repeater.Constructor.prototype.clearSelectedItems = function(){
+			this.$canvas.find('.repeater-list-check').remove();
+			this.$canvas.find('.repeater-list-items tr.selected').removeClass('selected');
+		};
+
+		$.fn.repeater.Constructor.prototype.getSelectedItems = function(){
+			var selected = [];
+			this.$canvas.find('.repeater-list-items tr.selected').each(function(){
+				var $item = $(this);
+				selected.push({ data: $item.data('item_data'), element: $item });
+			});
+			return selected;
+		};
+
+		$.fn.repeater.Constructor.prototype.setSelectedItems = function(items){
+			var data, i, $item, l;
+
+			var selectItem = function($itm, select){
+				select = (select!==undefined) ? select : true;
+				if(select){
+					if(!$itm.hasClass('selected')){
+						$item.addClass('selected');
+						$item.find('td:first').prepend('<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>');
+					}
+				}else{
+					$item.find('.repeater-list-check').remove();
+					$item.removeClass('selected');
+				}
+			};
+
+			for(i=0, l=items.length; i<l; i++){
+				if(items[i].index!==undefined){
+					$item = this.$canvas.find('.repeater-list-items tr:nth-child(' + (items[i].index + 1) + ')');
+					if($item.length>0){
+						selectItem($item, items[i].selected);
+					}
+				}else if(items[i].property!==undefined && items[i].value!==undefined){
+					this.$canvas.find('.repeater-list-items tr').each(function(){
+						$item = $(this);
+						data = $item.data('item_data') || {};
+						if(data[items[i].property]===items[i].value){
+							selectItem($item, items[i].selected);
+						}
+					});
+				}
+			}
+		};
 
 		$.fn.repeater.defaults = $.extend({}, $.fn.repeater.defaults, {
 			listView_columnRendered: null,
@@ -266,6 +310,7 @@
 									var self = this;
 									if(this.options.listView_selectable){
 										$item.addClass('selectable');
+										$item.data('item_data', helpers.subset[helpers.index]);
 										$item.on('click', function(){
 											var $row = $(this);
 											if($row.hasClass('selected')){
