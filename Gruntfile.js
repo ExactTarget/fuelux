@@ -24,6 +24,9 @@ module.exports = function (grunt) {
 			}
 			return 'http://localhost:<%= connect.server.options.port %>/test/fuelux.html?jquery=' + ver;
 		}),
+		ieTestUrls: ['1.9.1'].map(function (ver) {
+			return 'http://localhost:<%= connect.server.options.port %>/test/fuelux.html?jquery=' + ver;
+		}),
 
 		//Tasks configuration
 		clean: {
@@ -207,6 +210,15 @@ module.exports = function (grunt) {
 					testname: 'grunt-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
 					urls: '<%= testUrls %>'
 				}
+			},
+			internetExplorer: {
+				options: {
+					username: 'fuelux',
+					key: '<%= sauceKey %>',
+					browsers: grunt.file.readYAML('sauce_ie_only.yml'),
+					testname: 'grunt-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
+					urls: '<%= ieTestUrls %>'
+				}
 			}
 		},
 		uglify: {
@@ -251,7 +263,8 @@ module.exports = function (grunt) {
 	//Testing tasks
 	grunt.registerTask('devtest', ['jshint', 'qunit:simple']);
 	grunt.registerTask('releasetest', ['connect', 'jshint', 'qunit:full']);
-	grunt.registerTask('saucelabs', ['connect', 'jshint', 'saucelabs-qunit']);
+	grunt.registerTask('saucelabs', ['connect', 'jshint', 'saucelabs-qunit:all']);
+	grunt.registerTask('saucelabs-ie', ['connect', 'jshint', 'saucelabs-qunit:internetExplorer']);
 
 	//Style tasks
 	grunt.registerTask('quickcss', ['less', 'usebanner']);

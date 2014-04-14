@@ -1,0 +1,1074 @@
+2014-04-14 13:02:26,789 - sauce_connect:575 - INFO - / Starting \
+2014-04-14 13:02:26,792 - sauce_connect:576 - INFO - Please wait for "You may start your tests" to start your tests.
+2014-04-14 13:02:26,799 - sauce_connect:588 - DEBUG - System is -4.0 hours off UTC
+2014-04-14 13:02:26,799 - sauce_connect:590 - DEBUG - options: {'user': 'fuelux', 'ports': ['59955'], 'no_ssl_bump_domains': '', 'domains': None, 'debug_ssh': False, 'tunnel_ports': ['80'], 'allow_unclean_exit': False, 'rest_url': 'https://saucelabs.com/rest/v1', 'logfile': 'sauce_connect.log', 'squid_opts': '', 'logfilesize': '31457280', 'boost_mode': True, 'tunnel_identifier': '166726938', 'fast_fail_regexps': '', 'vm_version': '', 'quiet': False, 'latency_log': 150, 'use_ssh_config': False, 'ssh': False, 'se_port': '4445', 'readyfile': None, 'shared_tunnel': False, 'ssh_port': 443, 'direct_domains': '', 'host': '127.0.0.1'}
+2014-04-14 13:02:26,802 - sauce_connect:591 - DEBUG - metadata: {'PythonVersion': '2.5.1', 'OwnerHost': '127.0.0.1', 'Release': '3.0-r30', 'OwnerPorts': ['59955'], 'Ports': ['80'], 'Platform': 'Java-1.6.0_65-Java_HotSpot-TM-_64-Bit_Server_VM,_20.65-b04-462,_Apple_Inc.-on-Mac_OS_X-10.8.5-x86_64', 'Build': '46', 'ScriptRelease': 46, 'ScriptName': 'sauce_connect'}
+2014-04-14 13:02:26,802 - sauce_connect:593 - INFO - Forwarding: None:['80'] -> 127.0.0.1:['59955']
+2014-04-14 13:02:26,815 - sauce_connect:385 - INFO - Succesfully connected to local server 127.0.0.1:59955 in 6ms
+2014-04-14 13:02:27,078 - sauce_connect:248 - INFO - {"squid_config":null,"no_ssl_bump_domains":null,"use_caching_proxy":true,"metadata":{"PythonVersion":"2.5.1","OwnerHost":"127.0.0.1","Release":"3.0-r30","OwnerPorts":["59955"],"Ports":["80"],"Platform":"Java-1.6.0_65-Java_HotSpot-TM-_64-Bit_Server_VM,_20.65-b04-462,_Apple_Inc.-on-Mac_OS_X-10.8.5-x86_64","Build":"46","ScriptRelease":46,"ScriptName":"sauce_connect"},"use_kgp":true,"tunnel_identifier":"166726938","shared_tunnel":false,"fast_fail_regexps":null,"ssh_port":443,"direct_domains":null,"vm_version":"","domain_names":[]}
+2014-04-14 13:02:30,996 - sauce_connect:260 - INFO - Tunnel remote VM is provisioned (588ae6f95fbb45deb090c6c1871ebf37)
+2014-04-14 13:02:31,145 - sauce_connect:278 - INFO - Tunnel remote VM is booting ..
+2014-04-14 13:02:56,951 - sauce_connect:282 - INFO - Tunnel remote VM is running at maki77037.miso.saucelabs.com
+2014-04-14 13:02:56,966 - sauce_connect:385 - INFO - Succesfully connected to local server 127.0.0.1:59955 in 0ms
+2014-04-14 13:02:56,967 - sauce_connect:665 - INFO - Starting connection to tunnel host...
+2014-04-14 13:02:56,970 - sauce_connect:665 - INFO - Connecting to tunnel host maki77037.miso.saucelabs.com as fuelux
+2014-04-14 13:02:57,117 - sauce_connect:665 - INFO - Forwarding Selenium with ephemeral port 60014
+2014-04-14 13:02:57,121 - sauce_connect:665 - INFO - Selenium HTTP proxy listening on port 4445
+2014-04-14 13:02:57,519 - sauce_connect:0 - INFO - Successful handshake with Sauce Connect server
+2014-04-14 13:02:57,532 - sauce_connect:0 - INFO - Tunnel host version: 0.1.0, remote endpoint ID: 557fef2223a94d2a9b1cf9d8641f1b69
+2014-04-14 13:02:57,535 - sauce_connect:665 - INFO - Connected! You may start your tests.
+2014-04-14 13:09:31,716 - sauce_connect:0 - INFO - received SIGTERM
+2014-04-14 13:10:17,885 - sauce_connect:575 - INFO - / Starting \
+2014-04-14 13:10:17,888 - sauce_connect:576 - INFO - Please wait for "You may start your tests" to start your tests.
+2014-04-14 13:10:17,894 - sauce_connect:588 - DEBUG - System is -4.0 hours off UTC
+2014-04-14 13:10:17,894 - sauce_connect:590 - DEBUG - options: {'user': 'fuelux', 'ports': ['61457'], 'no_ssl_bump_domains': '', 'domains': None, 'debug_ssh': False, 'tunnel_ports': ['80'], 'allow_unclean_exit': False, 'rest_url': 'https://saucelabs.com/rest/v1', 'logfile': 'sauce_connect.log', 'squid_opts': '', 'logfilesize': '31457280', 'boost_mode': True, 'tunnel_identifier': '166727410', 'fast_fail_regexps': '', 'vm_version': '', 'quiet': False, 'latency_log': 150, 'use_ssh_config': False, 'ssh': False, 'se_port': '4445', 'readyfile': None, 'shared_tunnel': False, 'ssh_port': 443, 'direct_domains': '', 'host': '127.0.0.1'}
+2014-04-14 13:10:17,897 - sauce_connect:591 - DEBUG - metadata: {'PythonVersion': '2.5.1', 'OwnerHost': '127.0.0.1', 'Release': '3.0-r30', 'OwnerPorts': ['61457'], 'Ports': ['80'], 'Platform': 'Java-1.6.0_65-Java_HotSpot-TM-_64-Bit_Server_VM,_20.65-b04-462,_Apple_Inc.-on-Mac_OS_X-10.8.5-x86_64', 'Build': '46', 'ScriptRelease': 46, 'ScriptName': 'sauce_connect'}
+2014-04-14 13:10:17,898 - sauce_connect:593 - INFO - Forwarding: None:['80'] -> 127.0.0.1:['61457']
+2014-04-14 13:10:17,907 - sauce_connect:385 - INFO - Succesfully connected to local server 127.0.0.1:61457 in 3ms
+2014-04-14 13:10:18,312 - sauce_connect:248 - INFO - {"squid_config":null,"no_ssl_bump_domains":null,"use_caching_proxy":true,"metadata":{"PythonVersion":"2.5.1","OwnerHost":"127.0.0.1","Release":"3.0-r30","OwnerPorts":["61457"],"Ports":["80"],"Platform":"Java-1.6.0_65-Java_HotSpot-TM-_64-Bit_Server_VM,_20.65-b04-462,_Apple_Inc.-on-Mac_OS_X-10.8.5-x86_64","Build":"46","ScriptRelease":46,"ScriptName":"sauce_connect"},"use_kgp":true,"tunnel_identifier":"166727410","shared_tunnel":false,"fast_fail_regexps":null,"ssh_port":443,"direct_domains":null,"vm_version":"","domain_names":[]}
+2014-04-14 13:10:23,589 - sauce_connect:260 - INFO - Tunnel remote VM is provisioned (b3675f8bb2fe4f5d942cc210c6a15e16)
+2014-04-14 13:10:23,990 - sauce_connect:278 - INFO - Tunnel remote VM is booting ..
+2014-04-14 13:10:39,779 - sauce_connect:282 - INFO - Tunnel remote VM is running at maki77020.miso.saucelabs.com
+2014-04-14 13:10:39,789 - sauce_connect:385 - INFO - Succesfully connected to local server 127.0.0.1:61457 in 0ms
+2014-04-14 13:10:39,792 - sauce_connect:665 - INFO - Starting connection to tunnel host...
+2014-04-14 13:10:39,793 - sauce_connect:665 - INFO - Connecting to tunnel host maki77020.miso.saucelabs.com as fuelux
+2014-04-14 13:10:39,881 - sauce_connect:665 - INFO - Forwarding Selenium with ephemeral port 61467
+2014-04-14 13:10:39,887 - sauce_connect:665 - INFO - Selenium HTTP proxy listening on port 4445
+2014-04-14 13:10:40,282 - sauce_connect:0 - INFO - Successful handshake with Sauce Connect server
+2014-04-14 13:10:40,289 - sauce_connect:0 - INFO - Tunnel host version: 0.1.0, remote endpoint ID: 6114dbce9ab34ca4ad078e96e2f20cfb
+2014-04-14 13:10:40,292 - sauce_connect:665 - INFO - Connected! You may start your tests.
+2014-04-14 13:13:57,844 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/fuelux-browser-globals.html
+2014-04-14 13:13:57,875 - sauce_connect:0 - INFO - GET http://localhost:8000/test/fuelux-browser-globals.html -> 200 (33ms, 2219 bytes)
+2014-04-14 13:13:58,002 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/qunit/qunit/qunit.css
+2014-04-14 13:13:58,009 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/qunit/qunit/qunit.css -> 200 (8ms, 4362 bytes)
+2014-04-14 13:13:58,022 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/js/alert.js
+2014-04-14 13:13:58,019 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/testem.js
+2014-04-14 13:13:58,029 - sauce_connect:0 - INFO - GET http://localhost:8000/testem.js -> 404 (10ms, 21 bytes)
+2014-04-14 13:13:58,029 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/js/alert.js -> 200 (10ms, 2113 bytes)
+2014-04-14 13:13:58,078 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/jquery/dist/jquery.js
+2014-04-14 13:13:58,078 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/js/affix.js
+2014-04-14 13:13:58,078 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/qunit/qunit/qunit.js
+2014-04-14 13:13:58,085 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/js/affix.js -> 200 (7ms, 4039 bytes)
+2014-04-14 13:13:58,088 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/qunit/qunit/qunit.js -> 200 (8ms, 61033 bytes)
+2014-04-14 13:13:58,088 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/jquery/dist/jquery.js -> 200 (9ms, 244963 bytes)
+2014-04-14 13:13:58,154 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/js/button.js
+2014-04-14 13:13:58,157 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/js/carousel.js
+2014-04-14 13:13:58,163 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/js/button.js -> 200 (8ms, 2883 bytes)
+2014-04-14 13:13:58,164 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/js/carousel.js -> 200 (8ms, 6018 bytes)
+2014-04-14 13:13:58,233 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/js/collapse.js
+2014-04-14 13:13:58,240 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/js/collapse.js -> 200 (7ms, 4840 bytes)
+2014-04-14 13:13:58,335 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/js/dropdown.js
+2014-04-14 13:13:58,341 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/js/dropdown.js -> 200 (6ms, 4246 bytes)
+2014-04-14 13:13:58,525 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/js/modal.js
+2014-04-14 13:13:58,532 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/js/modal.js -> 200 (6ms, 6687 bytes)
+2014-04-14 13:13:58,605 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/js/tooltip.js
+2014-04-14 13:13:58,611 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/js/tooltip.js -> 200 (6ms, 12133 bytes)
+2014-04-14 13:13:58,617 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/js/tab.js
+2014-04-14 13:13:58,617 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/js/scrollspy.js
+2014-04-14 13:13:58,624 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/js/tab.js -> 200 (6ms, 2945 bytes)
+2014-04-14 13:13:58,624 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/js/scrollspy.js -> 200 (7ms, 4352 bytes)
+2014-04-14 13:13:58,684 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/js/popover.js
+2014-04-14 13:13:58,684 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/js/transition.js
+2014-04-14 13:13:58,684 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/checkbox.js
+2014-04-14 13:13:58,691 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/js/popover.js -> 200 (6ms, 3178 bytes)
+2014-04-14 13:13:58,691 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/js/transition.js -> 200 (7ms, 1544 bytes)
+2014-04-14 13:13:58,693 - sauce_connect:0 - INFO - GET http://localhost:8000/js/checkbox.js -> 200 (8ms, 3964 bytes)
+2014-04-14 13:13:58,717 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/datagrid.js
+2014-04-14 13:13:58,717 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/datepicker.js
+2014-04-14 13:13:58,717 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/combobox.js
+2014-04-14 13:13:58,723 - sauce_connect:0 - INFO - GET http://localhost:8000/js/datagrid.js -> 200 (5ms, 16080 bytes)
+2014-04-14 13:13:58,723 - sauce_connect:0 - INFO - GET http://localhost:8000/js/datepicker.js -> 200 (6ms, 32536 bytes)
+2014-04-14 13:13:58,724 - sauce_connect:0 - INFO - GET http://localhost:8000/js/combobox.js -> 200 (7ms, 4805 bytes)
+2014-04-14 13:13:58,796 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/infinite-scroll.js
+2014-04-14 13:13:58,796 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/intelligent-dropdown.js
+2014-04-14 13:13:58,802 - sauce_connect:0 - INFO - GET http://localhost:8000/js/infinite-scroll.js -> 200 (5ms, 3709 bytes)
+2014-04-14 13:13:58,802 - sauce_connect:0 - INFO - GET http://localhost:8000/js/intelligent-dropdown.js -> 200 (6ms, 5010 bytes)
+2014-04-14 13:13:58,828 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/pillbox.js
+2014-04-14 13:13:58,828 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/radio.js
+2014-04-14 13:13:58,828 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/scheduler.js
+2014-04-14 13:13:58,832 - sauce_connect:0 - INFO - GET http://localhost:8000/js/pillbox.js -> 200 (5ms, 10047 bytes)
+2014-04-14 13:13:58,835 - sauce_connect:0 - INFO - GET http://localhost:8000/js/radio.js -> 200 (8ms, 4515 bytes)
+2014-04-14 13:13:58,838 - sauce_connect:0 - INFO - GET http://localhost:8000/js/scheduler.js -> 200 (12ms, 16028 bytes)
+2014-04-14 13:13:58,874 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/search.js
+2014-04-14 13:13:58,878 - sauce_connect:0 - INFO - GET http://localhost:8000/js/search.js -> 200 (4ms, 3567 bytes)
+2014-04-14 13:13:58,937 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/select.js
+2014-04-14 13:13:58,937 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/tree.js
+2014-04-14 13:13:58,937 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/spinbox.js
+2014-04-14 13:13:58,950 - sauce_connect:0 - INFO - GET http://localhost:8000/js/select.js -> 404 (13ms, 24 bytes)
+2014-04-14 13:13:58,950 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/util.js
+2014-04-14 13:13:58,950 - sauce_connect:0 - INFO - GET http://localhost:8000/js/tree.js -> 200 (13ms, 6779 bytes)
+2014-04-14 13:13:58,951 - sauce_connect:0 - INFO - GET http://localhost:8000/js/spinbox.js -> 200 (16ms, 7910 bytes)
+2014-04-14 13:13:58,954 - sauce_connect:0 - INFO - GET http://localhost:8000/js/util.js -> 200 (5ms, 1202 bytes)
+2014-04-14 13:13:59,026 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/fuelux-browser-globals.js
+2014-04-14 13:13:59,026 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/wizard.js
+2014-04-14 13:13:59,032 - sauce_connect:0 - INFO - GET http://localhost:8000/test/fuelux-browser-globals.js -> 200 (4ms, 2915 bytes)
+2014-04-14 13:13:59,032 - sauce_connect:0 - INFO - GET http://localhost:8000/js/wizard.js -> 200 (5ms, 10791 bytes)
+2014-04-14 13:13:59,256 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/favicon.ico
+2014-04-14 13:13:59,259 - sauce_connect:0 - INFO - GET http://localhost:8000/favicon.ico -> 404 (4ms, 23 bytes)
+2014-04-14 13:14:29,334 - sauce_connect:0 - INFO - Request started: GET https://configuration.apple.com/configurations/pep/config/pepconfig.plist
+2014-04-14 13:14:29,516 - sauce_connect:0 - INFO - GET https://configuration.apple.com/configurations/pep/config/pepconfig.plist -> 200 (182ms, 870 bytes)
+2014-04-14 13:14:36,309 - sauce_connect:0 - INFO - Request started: GET https://configuration.apple.com/configurations/internetservices/mobilesafari/SearchProviders-7.0.plist
+2014-04-14 13:14:37,609 - sauce_connect:0 - INFO - GET https://configuration.apple.com/configurations/internetservices/mobilesafari/SearchProviders-7.0.plist -> 200 (1299ms, 46905 bytes)
+2014-04-14 13:14:40,767 - sauce_connect:0 - INFO - Request started: GET http://www.apple.com/
+2014-04-14 13:14:40,841 - sauce_connect:0 - INFO - GET http://www.apple.com/ -> 200 (73ms, 2805 bytes)
+2014-04-14 13:14:41,068 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/nav/styles/navigation.css
+2014-04-14 13:14:41,082 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/styles/base.css
+2014-04-14 13:14:41,082 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/v/home/au/styles/home.css
+2014-04-14 13:14:41,082 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/v/home/au/styles/billboard.css
+2014-04-14 13:14:41,144 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/styles/billboard.css
+2014-04-14 13:14:41,331 - sauce_connect:0 - INFO - GET http://images.apple.com/v/home/au/styles/home.css -> 200 (248ms, 1008 bytes)
+2014-04-14 13:14:41,331 - sauce_connect:0 - INFO - GET http://images.apple.com/home/styles/billboard.css -> 200 (185ms, 20 bytes)
+2014-04-14 13:14:41,331 - sauce_connect:0 - INFO - GET http://images.apple.com/global/nav/styles/navigation.css -> 200 (263ms, 2392 bytes)
+2014-04-14 13:14:41,331 - sauce_connect:0 - INFO - GET http://images.apple.com/v/home/au/styles/billboard.css -> 200 (249ms, 918 bytes)
+2014-04-14 13:14:41,332 - sauce_connect:0 - INFO - GET http://images.apple.com/global/styles/base.css -> 200 (250ms, 6940 bytes)
+2014-04-14 13:14:41,417 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/scripts/browserdetect.js
+2014-04-14 13:14:41,417 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/scripts/lib/sizzle.js
+2014-04-14 13:14:41,417 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/scripts/lib/prototype.js
+2014-04-14 13:14:41,424 - sauce_connect:0 - INFO - GET http://images.apple.com/global/scripts/browserdetect.js -> 200 (6ms, 3449 bytes)
+2014-04-14 13:14:41,427 - sauce_connect:0 - INFO - GET http://images.apple.com/global/scripts/lib/sizzle.js -> 200 (9ms, 6254 bytes)
+2014-04-14 13:14:41,433 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/scripts/apple_core.js
+2014-04-14 13:14:41,443 - sauce_connect:0 - INFO - GET http://images.apple.com/global/scripts/apple_core.js -> 200 (9ms, 7486 bytes)
+2014-04-14 13:14:41,444 - sauce_connect:0 - INFO - GET http://images.apple.com/global/scripts/lib/prototype.js -> 200 (26ms, 37451 bytes)
+2014-04-14 13:14:41,510 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/scripts/lib/scriptaculous.js
+2014-04-14 13:14:41,510 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/ac_retina/ac_retina.js
+2014-04-14 13:14:41,519 - sauce_connect:0 - INFO - GET http://images.apple.com/global/ac_retina/ac_retina.js -> 200 (9ms, 5652 bytes)
+2014-04-14 13:14:41,523 - sauce_connect:0 - INFO - GET http://images.apple.com/global/scripts/lib/scriptaculous.js -> 200 (12ms, 27988 bytes)
+2014-04-14 13:14:41,588 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/ac_base/ac_base.js
+2014-04-14 13:14:41,596 - sauce_connect:0 - INFO - GET http://images.apple.com/global/ac_base/ac_base.js -> 200 (8ms, 15051 bytes)
+2014-04-14 13:14:41,664 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/scripts/promomanager.js
+2014-04-14 13:14:41,671 - sauce_connect:0 - INFO - GET http://images.apple.com/global/scripts/promomanager.js -> 200 (7ms, 1144 bytes)
+2014-04-14 13:14:41,742 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/scripts/search_decorator.js
+2014-04-14 13:14:41,742 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/metrics/scripts/homepage.js
+2014-04-14 13:14:41,750 - sauce_connect:0 - INFO - GET http://images.apple.com/global/scripts/search_decorator.js -> 200 (8ms, 328 bytes)
+2014-04-14 13:14:41,752 - sauce_connect:0 - INFO - GET http://images.apple.com/metrics/scripts/homepage.js -> 200 (10ms, 1255 bytes)
+2014-04-14 13:14:41,818 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/scripts/feedstatistics.js
+2014-04-14 13:14:41,818 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/your_verse_title_large.png
+2014-04-14 13:14:41,825 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/your_verse_title_large.png -> 200 (7ms, 14635 bytes)
+2014-04-14 13:14:41,825 - sauce_connect:0 - INFO - GET http://images.apple.com/global/scripts/feedstatistics.js -> 200 (8ms, 2229 bytes)
+2014-04-14 13:14:41,894 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/nav/scripts/globalnav.js
+2014-04-14 13:14:41,894 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/your_verse_subhead_medium.png
+2014-04-14 13:14:41,894 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/metrics/scripts/touch_forcedlink.js
+2014-04-14 13:14:41,901 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/your_verse_subhead_medium.png -> 200 (7ms, 14203 bytes)
+2014-04-14 13:14:41,901 - sauce_connect:0 - INFO - GET http://images.apple.com/metrics/scripts/touch_forcedlink.js -> 200 (7ms, 214 bytes)
+2014-04-14 13:14:41,904 - sauce_connect:0 - INFO - GET http://images.apple.com/global/nav/scripts/globalnav.js -> 200 (10ms, 10563 bytes)
+2014-04-14 13:14:41,973 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/metrics/scripts/s_code_h.js
+2014-04-14 13:14:41,973 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/your_verse_subhead_small.png
+2014-04-14 13:14:41,982 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/your_verse_subhead_small.png -> 200 (8ms, 14772 bytes)
+2014-04-14 13:14:41,986 - sauce_connect:0 - INFO - GET http://images.apple.com/metrics/scripts/s_code_h.js -> 200 (13ms, 24439 bytes)
+2014-04-14 13:14:42,049 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/your_verse_subhead_large.png
+2014-04-14 13:14:42,049 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/promo_iphone5c.jpg
+2014-04-14 13:14:42,051 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/your_verse_title_medium.png
+2014-04-14 13:14:42,059 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/your_verse_title_medium.png -> 200 (9ms, 12218 bytes)
+2014-04-14 13:14:42,059 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/promo_iphone5c.jpg -> 200 (9ms, 12184 bytes)
+2014-04-14 13:14:42,062 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/your_verse_subhead_large.png -> 200 (12ms, 24355 bytes)
+2014-04-14 13:14:42,127 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/promo_supplier_responsibility.jpg
+2014-04-14 13:14:42,142 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/promo_supplier_responsibility.jpg -> 200 (16ms, 15631 bytes)
+2014-04-14 13:14:42,186 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/cta_explore_story_27pt.png
+2014-04-14 13:14:42,186 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/your_verse_title_small.png
+2014-04-14 13:14:42,194 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/cta_explore_story_27pt.png -> 200 (8ms, 4990 bytes)
+2014-04-14 13:14:42,194 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/your_verse_title_small.png -> 200 (9ms, 11182 bytes)
+2014-04-14 13:14:42,203 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/nav/images/globalheader.png
+2014-04-14 13:14:42,209 - sauce_connect:0 - INFO - GET http://images.apple.com/global/nav/images/globalheader.png -> 200 (5ms, 206 bytes)
+2014-04-14 13:14:42,282 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/promo_iphone5s.jpg
+2014-04-14 13:14:42,289 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/promo_iphone5s.jpg -> 200 (7ms, 9881 bytes)
+2014-04-14 13:14:42,303 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/promo_wwdc.jpg
+2014-04-14 13:14:42,303 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/nav/images/globalnav_text.png
+2014-04-14 13:14:42,312 - sauce_connect:0 - INFO - GET http://images.apple.com/global/nav/images/globalnav_text.png -> 200 (8ms, 7455 bytes)
+2014-04-14 13:14:42,316 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/promo_wwdc.jpg -> 200 (12ms, 41516 bytes)
+2014-04-14 13:14:42,361 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/cta_explore_story_46pt.png
+2014-04-14 13:14:42,361 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/nav/images/globalsearch_bg.png
+2014-04-14 13:14:42,365 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/cta_explore_story_46pt.png -> 200 (6ms, 6244 bytes)
+2014-04-14 13:14:42,367 - sauce_connect:0 - INFO - GET http://images.apple.com/global/nav/images/globalsearch_bg.png -> 200 (6ms, 793 bytes)
+2014-04-14 13:14:42,394 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/nav/images/globalnav.png
+2014-04-14 13:14:42,401 - sauce_connect:0 - INFO - GET http://images.apple.com/global/nav/images/globalnav.png -> 200 (7ms, 3043 bytes)
+2014-04-14 13:14:42,437 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/nav/images/globalsearch_reset.gif
+2014-04-14 13:14:42,444 - sauce_connect:0 - INFO - GET http://images.apple.com/global/nav/images/globalsearch_reset.gif -> 200 (7ms, 195 bytes)
+2014-04-14 13:14:42,515 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/fuelux.html?jquery=1.9.1
+2014-04-14 13:14:42,523 - sauce_connect:0 - INFO - GET http://localhost:8000/test/fuelux.html?jquery=1.9.1 -> 200 (8ms, 1681 bytes)
+2014-04-14 13:14:42,750 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/qunit/qunit/qunit.css
+2014-04-14 13:14:42,753 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/qunit/qunit/qunit.css -> 200 (3ms, 4362 bytes)
+2014-04-14 13:14:42,851 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/moment-with-langs/index.js
+2014-04-14 13:14:42,861 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/moment-with-langs/index.js -> 200 (9ms, 272860 bytes)
+2014-04-14 13:14:42,888 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/testem.js
+2014-04-14 13:14:42,888 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/requirejs/require.js
+2014-04-14 13:14:42,891 - sauce_connect:0 - INFO - GET http://localhost:8000/testem.js -> 404 (3ms, 21 bytes)
+2014-04-14 13:14:42,895 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/requirejs/require.js -> 200 (7ms, 82718 bytes)
+2014-04-14 13:14:42,928 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/qunit/qunit/qunit.js
+2014-04-14 13:14:42,933 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/qunit/qunit/qunit.js -> 200 (4ms, 61033 bytes)
+2014-04-14 13:14:44,072 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/apple-touch-icon-precomposed.png
+2014-04-14 13:14:44,075 - sauce_connect:0 - INFO - GET http://localhost:8000/apple-touch-icon-precomposed.png -> 404 (3ms, 44 bytes)
+2014-04-14 13:14:44,148 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/fuelux-test.js
+2014-04-14 13:14:44,151 - sauce_connect:0 - INFO - GET http://localhost:8000/test/fuelux-test.js -> 200 (3ms, 1468 bytes)
+2014-04-14 13:14:44,223 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/apple-touch-icon.png
+2014-04-14 13:14:44,226 - sauce_connect:0 - INFO - GET http://localhost:8000/apple-touch-icon.png -> 404 (3ms, 32 bytes)
+2014-04-14 13:14:44,255 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/jquery-1.9.1/jquery.js
+2014-04-14 13:14:44,255 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/checkbox-test.js
+2014-04-14 13:14:44,257 - sauce_connect:0 - INFO - GET http://localhost:8000/test/checkbox-test.js -> 200 (4ms, 4204 bytes)
+2014-04-14 13:14:44,263 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/combobox-test.js
+2014-04-14 13:14:44,263 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/jquery-1.9.1/jquery.js -> 200 (9ms, 268380 bytes)
+2014-04-14 13:14:44,272 - sauce_connect:0 - INFO - GET http://localhost:8000/test/combobox-test.js -> 200 (9ms, 6759 bytes)
+2014-04-14 13:14:44,272 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/datepicker-test.js
+2014-04-14 13:14:44,272 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/infinite-scroll-test.js
+2014-04-14 13:14:44,276 - sauce_connect:0 - INFO - GET http://localhost:8000/test/datepicker-test.js -> 200 (4ms, 12288 bytes)
+2014-04-14 13:14:44,276 - sauce_connect:0 - INFO - GET http://localhost:8000/test/infinite-scroll-test.js -> 200 (4ms, 3289 bytes)
+2014-04-14 13:14:44,301 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/datepicker-moment-test.js
+2014-04-14 13:14:44,305 - sauce_connect:0 - INFO - GET http://localhost:8000/test/datepicker-moment-test.js -> 200 (4ms, 14253 bytes)
+2014-04-14 13:14:44,378 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/search-test.js
+2014-04-14 13:14:44,378 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/favicon.ico
+2014-04-14 13:14:44,381 - sauce_connect:0 - INFO - GET http://localhost:8000/favicon.ico -> 404 (3ms, 23 bytes)
+2014-04-14 13:14:44,381 - sauce_connect:0 - INFO - GET http://localhost:8000/test/search-test.js -> 200 (3ms, 4212 bytes)
+2014-04-14 13:14:44,664 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/radio-test.js
+2014-04-14 13:14:44,667 - sauce_connect:0 - INFO - GET http://localhost:8000/test/radio-test.js -> 200 (3ms, 3822 bytes)
+2014-04-14 13:14:44,776 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/spinbox-test.js
+2014-04-14 13:14:44,776 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/dist/js/bootstrap.js
+2014-04-14 13:14:44,779 - sauce_connect:0 - INFO - GET http://localhost:8000/test/spinbox-test.js -> 200 (3ms, 6696 bytes)
+2014-04-14 13:14:44,782 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/dist/js/bootstrap.js -> 200 (7ms, 55258 bytes)
+2014-04-14 13:14:44,821 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/selectlist-test.js
+2014-04-14 13:14:44,821 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/tree-test.js
+2014-04-14 13:14:44,821 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/checkbox.js
+2014-04-14 13:14:44,825 - sauce_connect:0 - INFO - GET http://localhost:8000/test/selectlist-test.js -> 200 (3ms, 4680 bytes)
+2014-04-14 13:14:44,825 - sauce_connect:0 - INFO - GET http://localhost:8000/test/tree-test.js -> 200 (4ms, 4865 bytes)
+2014-04-14 13:14:44,825 - sauce_connect:0 - INFO - GET http://localhost:8000/js/checkbox.js -> 200 (5ms, 3964 bytes)
+2014-04-14 13:14:44,898 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/combobox.js
+2014-04-14 13:14:44,898 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/datepicker.js
+2014-04-14 13:14:44,904 - sauce_connect:0 - INFO - GET http://localhost:8000/js/combobox.js -> 200 (5ms, 4805 bytes)
+2014-04-14 13:14:44,905 - sauce_connect:0 - INFO - GET http://localhost:8000/js/datepicker.js -> 200 (7ms, 32536 bytes)
+2014-04-14 13:14:44,957 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/radio.js
+2014-04-14 13:14:44,957 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/search.js
+2014-04-14 13:14:44,960 - sauce_connect:0 - INFO - GET http://localhost:8000/js/radio.js -> 200 (4ms, 4515 bytes)
+2014-04-14 13:14:44,960 - sauce_connect:0 - INFO - GET http://localhost:8000/js/search.js -> 200 (4ms, 3567 bytes)
+2014-04-14 13:14:44,974 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/tree.js
+2014-04-14 13:14:44,974 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/infinite-scroll.js
+2014-04-14 13:14:44,977 - sauce_connect:0 - INFO - GET http://localhost:8000/js/infinite-scroll.js -> 200 (4ms, 3709 bytes)
+2014-04-14 13:14:44,977 - sauce_connect:0 - INFO - GET http://localhost:8000/js/tree.js -> 200 (3ms, 6779 bytes)
+2014-04-14 13:14:45,052 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/data.js
+2014-04-14 13:14:45,052 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/spinbox.js
+2014-04-14 13:14:45,055 - sauce_connect:0 - INFO - GET http://localhost:8000/data.js -> 200 (4ms, 2131 bytes)
+2014-04-14 13:14:45,055 - sauce_connect:0 - INFO - GET http://localhost:8000/js/spinbox.js -> 200 (5ms, 7910 bytes)
+2014-04-14 13:14:45,130 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/util.js
+2014-04-14 13:14:45,130 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/selectlist.js
+2014-04-14 13:14:45,132 - sauce_connect:0 - INFO - GET http://localhost:8000/js/util.js -> 200 (3ms, 1202 bytes)
+2014-04-14 13:14:45,134 - sauce_connect:0 - INFO - GET http://localhost:8000/js/selectlist.js -> 200 (4ms, 5019 bytes)
+2014-04-14 13:14:45,207 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/path/to/moment.js
+2014-04-14 13:14:45,210 - sauce_connect:0 - INFO - GET http://localhost:8000/path/to/moment.js -> 404 (3ms, 29 bytes)
+2014-04-14 13:15:04,875 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/fuelux.html?jquery=2.1.0
+2014-04-14 13:15:04,880 - sauce_connect:0 - INFO - GET http://localhost:8000/test/fuelux.html?jquery=2.1.0 -> 200 (3ms, 1681 bytes)
+2014-04-14 13:15:04,990 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/qunit/qunit/qunit.css
+2014-04-14 13:15:04,993 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/qunit/qunit/qunit.css -> 200 (3ms, 4362 bytes)
+2014-04-14 13:15:05,017 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/requirejs/require.js
+2014-04-14 13:15:05,017 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/qunit/qunit/qunit.js
+2014-04-14 13:15:05,022 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/requirejs/require.js -> 200 (3ms, 82718 bytes)
+2014-04-14 13:15:05,023 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/qunit/qunit/qunit.js -> 200 (4ms, 61033 bytes)
+2014-04-14 13:15:05,069 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/moment-with-langs/index.js
+2014-04-14 13:15:05,069 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/testem.js
+2014-04-14 13:15:05,073 - sauce_connect:0 - INFO - GET http://localhost:8000/testem.js -> 404 (3ms, 21 bytes)
+2014-04-14 13:15:05,076 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/moment-with-langs/index.js -> 200 (7ms, 272860 bytes)
+2014-04-14 13:15:06,312 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/fuelux-test.js
+2014-04-14 13:15:06,315 - sauce_connect:0 - INFO - GET http://localhost:8000/test/fuelux-test.js -> 200 (3ms, 1468 bytes)
+2014-04-14 13:15:06,390 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/favicon.ico
+2014-04-14 13:15:06,391 - sauce_connect:0 - INFO - GET http://localhost:8000/favicon.ico -> 404 (2ms, 23 bytes)
+2014-04-14 13:15:06,430 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/combobox-test.js
+2014-04-14 13:15:06,430 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/jquery-2.1.0/dist/jquery.js
+2014-04-14 13:15:06,430 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/checkbox-test.js
+2014-04-14 13:15:06,434 - sauce_connect:0 - INFO - GET http://localhost:8000/test/combobox-test.js -> 200 (3ms, 6759 bytes)
+2014-04-14 13:15:06,434 - sauce_connect:0 - INFO - GET http://localhost:8000/test/checkbox-test.js -> 200 (4ms, 4204 bytes)
+2014-04-14 13:15:06,440 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/jquery-2.1.0/dist/jquery.js -> 200 (10ms, 244963 bytes)
+2014-04-14 13:15:06,466 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/datepicker-moment-test.js
+2014-04-14 13:15:06,466 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/datepicker-test.js
+2014-04-14 13:15:06,469 - sauce_connect:0 - INFO - GET http://localhost:8000/test/datepicker-moment-test.js -> 200 (3ms, 14253 bytes)
+2014-04-14 13:15:06,469 - sauce_connect:0 - INFO - GET http://localhost:8000/test/datepicker-test.js -> 200 (3ms, 12288 bytes)
+2014-04-14 13:15:06,542 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/radio-test.js
+2014-04-14 13:15:06,543 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/search-test.js
+2014-04-14 13:15:06,542 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/infinite-scroll-test.js
+2014-04-14 13:15:06,546 - sauce_connect:0 - INFO - GET http://localhost:8000/test/radio-test.js -> 200 (3ms, 3822 bytes)
+2014-04-14 13:15:06,546 - sauce_connect:0 - INFO - GET http://localhost:8000/test/search-test.js -> 200 (3ms, 4212 bytes)
+2014-04-14 13:15:06,546 - sauce_connect:0 - INFO - GET http://localhost:8000/test/infinite-scroll-test.js -> 200 (4ms, 3289 bytes)
+2014-04-14 13:15:06,903 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/selectlist-test.js
+2014-04-14 13:15:06,905 - sauce_connect:0 - INFO - GET http://localhost:8000/test/selectlist-test.js -> 200 (2ms, 4680 bytes)
+2014-04-14 13:15:06,980 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/spinbox-test.js
+2014-04-14 13:15:06,983 - sauce_connect:0 - INFO - GET http://localhost:8000/test/spinbox-test.js -> 200 (2ms, 6696 bytes)
+2014-04-14 13:15:06,983 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/tree-test.js
+2014-04-14 13:15:06,983 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/dist/js/bootstrap.js
+2014-04-14 13:15:06,983 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/combobox.js
+2014-04-14 13:15:06,986 - sauce_connect:0 - INFO - GET http://localhost:8000/test/tree-test.js -> 200 (3ms, 4865 bytes)
+2014-04-14 13:15:06,987 - sauce_connect:0 - INFO - GET http://localhost:8000/js/combobox.js -> 200 (3ms, 4805 bytes)
+2014-04-14 13:15:06,987 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/dist/js/bootstrap.js -> 200 (4ms, 55258 bytes)
+2014-04-14 13:15:07,055 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/checkbox.js
+2014-04-14 13:15:07,055 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/datepicker.js
+2014-04-14 13:15:07,059 - sauce_connect:0 - INFO - GET http://localhost:8000/js/checkbox.js -> 200 (3ms, 3964 bytes)
+2014-04-14 13:15:07,059 - sauce_connect:0 - INFO - GET http://localhost:8000/js/datepicker.js -> 200 (3ms, 32536 bytes)
+2014-04-14 13:15:07,134 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/data.js
+2014-04-14 13:15:07,134 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/radio.js
+2014-04-14 13:15:07,138 - sauce_connect:0 - INFO - GET http://localhost:8000/data.js -> 200 (4ms, 2131 bytes)
+2014-04-14 13:15:07,138 - sauce_connect:0 - INFO - GET http://localhost:8000/js/radio.js -> 200 (5ms, 4515 bytes)
+2014-04-14 13:15:07,210 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/search.js
+2014-04-14 13:15:07,210 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/selectlist.js
+2014-04-14 13:15:07,210 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/infinite-scroll.js
+2014-04-14 13:15:07,213 - sauce_connect:0 - INFO - GET http://localhost:8000/js/search.js -> 200 (3ms, 3567 bytes)
+2014-04-14 13:15:07,213 - sauce_connect:0 - INFO - GET http://localhost:8000/js/selectlist.js -> 200 (3ms, 5019 bytes)
+2014-04-14 13:15:07,214 - sauce_connect:0 - INFO - GET http://localhost:8000/js/infinite-scroll.js -> 200 (4ms, 3709 bytes)
+2014-04-14 13:15:07,288 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/spinbox.js
+2014-04-14 13:15:07,288 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/tree.js
+2014-04-14 13:15:07,288 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/util.js
+2014-04-14 13:15:07,290 - sauce_connect:0 - INFO - GET http://localhost:8000/js/spinbox.js -> 200 (3ms, 7910 bytes)
+2014-04-14 13:15:07,290 - sauce_connect:0 - INFO - GET http://localhost:8000/js/tree.js -> 200 (3ms, 6779 bytes)
+2014-04-14 13:15:07,292 - sauce_connect:0 - INFO - GET http://localhost:8000/js/util.js -> 200 (4ms, 1202 bytes)
+2014-04-14 13:15:07,364 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/path/to/moment.js
+2014-04-14 13:15:07,367 - sauce_connect:0 - INFO - GET http://localhost:8000/path/to/moment.js -> 404 (3ms, 29 bytes)
+2014-04-14 13:15:26,844 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/fuelux-browser-globals.html
+2014-04-14 13:15:26,848 - sauce_connect:0 - INFO - GET http://localhost:8000/test/fuelux-browser-globals.html -> 200 (5ms, 2219 bytes)
+2014-04-14 13:15:26,973 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/js/affix.js
+2014-04-14 13:15:26,973 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/qunit/qunit/qunit.css
+2014-04-14 13:15:26,973 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/testem.js
+2014-04-14 13:15:26,973 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/jquery/dist/jquery.js
+2014-04-14 13:15:26,973 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/qunit/qunit/qunit.js
+2014-04-14 13:15:26,983 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/js/affix.js -> 200 (10ms, 4039 bytes)
+2014-04-14 13:15:26,983 - sauce_connect:0 - INFO - GET http://localhost:8000/testem.js -> 404 (11ms, 21 bytes)
+2014-04-14 13:15:26,983 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/qunit/qunit/qunit.css -> 200 (11ms, 4362 bytes)
+2014-04-14 13:15:26,984 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/qunit/qunit/qunit.js -> 200 (12ms, 61033 bytes)
+2014-04-14 13:15:26,989 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/jquery/dist/jquery.js -> 200 (15ms, 244963 bytes)
+2014-04-14 13:15:26,996 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/js/alert.js
+2014-04-14 13:15:26,999 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/js/alert.js -> 200 (4ms, 2113 bytes)
+2014-04-14 13:15:27,072 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/js/button.js
+2014-04-14 13:15:27,073 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/js/button.js -> 200 (2ms, 2883 bytes)
+2014-04-14 13:15:27,148 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/js/carousel.js
+2014-04-14 13:15:27,153 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/js/carousel.js -> 200 (4ms, 6018 bytes)
+2014-04-14 13:15:27,437 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/js/dropdown.js
+2014-04-14 13:15:27,437 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/js/collapse.js
+2014-04-14 13:15:27,441 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/js/dropdown.js -> 200 (3ms, 4246 bytes)
+2014-04-14 13:15:27,441 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/js/collapse.js -> 200 (4ms, 4840 bytes)
+2014-04-14 13:15:27,898 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/js/modal.js
+2014-04-14 13:15:27,901 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/js/modal.js -> 200 (3ms, 6687 bytes)
+2014-04-14 13:15:27,914 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/js/popover.js
+2014-04-14 13:15:27,914 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/js/tooltip.js
+2014-04-14 13:15:27,917 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/js/popover.js -> 200 (3ms, 3178 bytes)
+2014-04-14 13:15:27,917 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/js/tooltip.js -> 200 (3ms, 12133 bytes)
+2014-04-14 13:15:27,974 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/js/scrollspy.js
+2014-04-14 13:15:27,977 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/js/scrollspy.js -> 200 (2ms, 4352 bytes)
+2014-04-14 13:15:27,994 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/checkbox.js
+2014-04-14 13:15:27,994 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/js/transition.js
+2014-04-14 13:15:27,997 - sauce_connect:0 - INFO - GET http://localhost:8000/js/checkbox.js -> 200 (3ms, 3964 bytes)
+2014-04-14 13:15:27,997 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/js/transition.js -> 200 (3ms, 1544 bytes)
+2014-04-14 13:15:28,053 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/datagrid.js
+2014-04-14 13:15:28,053 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/js/tab.js
+2014-04-14 13:15:28,053 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/combobox.js
+2014-04-14 13:15:28,056 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/js/tab.js -> 200 (3ms, 2945 bytes)
+2014-04-14 13:15:28,056 - sauce_connect:0 - INFO - GET http://localhost:8000/js/datagrid.js -> 200 (3ms, 16080 bytes)
+2014-04-14 13:15:28,058 - sauce_connect:0 - INFO - GET http://localhost:8000/js/combobox.js -> 200 (4ms, 4805 bytes)
+2014-04-14 13:15:28,130 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/datepicker.js
+2014-04-14 13:15:28,131 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/intelligent-dropdown.js
+2014-04-14 13:15:28,131 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/infinite-scroll.js
+2014-04-14 13:15:28,134 - sauce_connect:0 - INFO - GET http://localhost:8000/js/intelligent-dropdown.js -> 200 (5ms, 5010 bytes)
+2014-04-14 13:15:28,134 - sauce_connect:0 - INFO - GET http://localhost:8000/js/datepicker.js -> 200 (5ms, 32536 bytes)
+2014-04-14 13:15:28,134 - sauce_connect:0 - INFO - GET http://localhost:8000/js/infinite-scroll.js -> 200 (4ms, 3709 bytes)
+2014-04-14 13:15:28,207 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/pillbox.js
+2014-04-14 13:15:28,207 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/scheduler.js
+2014-04-14 13:15:28,207 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/radio.js
+2014-04-14 13:15:28,209 - sauce_connect:0 - INFO - GET http://localhost:8000/js/pillbox.js -> 200 (2ms, 10047 bytes)
+2014-04-14 13:15:28,210 - sauce_connect:0 - INFO - GET http://localhost:8000/js/scheduler.js -> 200 (3ms, 16028 bytes)
+2014-04-14 13:15:28,210 - sauce_connect:0 - INFO - GET http://localhost:8000/js/radio.js -> 200 (3ms, 4515 bytes)
+2014-04-14 13:15:28,283 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/spinbox.js
+2014-04-14 13:15:28,283 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/search.js
+2014-04-14 13:15:28,283 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/select.js
+2014-04-14 13:15:28,286 - sauce_connect:0 - INFO - GET http://localhost:8000/js/spinbox.js -> 200 (3ms, 7910 bytes)
+2014-04-14 13:15:28,286 - sauce_connect:0 - INFO - GET http://localhost:8000/js/search.js -> 200 (4ms, 3567 bytes)
+2014-04-14 13:15:28,288 - sauce_connect:0 - INFO - GET http://localhost:8000/js/select.js -> 404 (3ms, 24 bytes)
+2014-04-14 13:15:28,361 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/util.js
+2014-04-14 13:15:28,361 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/tree.js
+2014-04-14 13:15:28,361 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/wizard.js
+2014-04-14 13:15:28,364 - sauce_connect:0 - INFO - GET http://localhost:8000/js/util.js -> 200 (3ms, 1202 bytes)
+2014-04-14 13:15:28,367 - sauce_connect:0 - INFO - GET http://localhost:8000/js/tree.js -> 200 (5ms, 6779 bytes)
+2014-04-14 13:15:28,367 - sauce_connect:0 - INFO - GET http://localhost:8000/js/wizard.js -> 200 (6ms, 10791 bytes)
+2014-04-14 13:15:28,441 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/fuelux-browser-globals.js
+2014-04-14 13:15:28,444 - sauce_connect:0 - INFO - GET http://localhost:8000/test/fuelux-browser-globals.js -> 200 (2ms, 2915 bytes)
+2014-04-14 13:15:28,864 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/favicon.ico
+2014-04-14 13:15:28,867 - sauce_connect:0 - INFO - GET http://localhost:8000/favicon.ico -> 404 (3ms, 23 bytes)
+2014-04-14 13:15:58,029 - sauce_connect:0 - INFO - received SIGTERM
+2014-04-14 13:19:47,697 - sauce_connect:575 - INFO - / Starting \
+2014-04-14 13:19:47,700 - sauce_connect:576 - INFO - Please wait for "You may start your tests" to start your tests.
+2014-04-14 13:19:47,704 - sauce_connect:588 - DEBUG - System is -4.0 hours off UTC
+2014-04-14 13:19:47,706 - sauce_connect:590 - DEBUG - options: {'user': 'fuelux', 'ports': ['62782'], 'no_ssl_bump_domains': '', 'domains': None, 'debug_ssh': False, 'tunnel_ports': ['80'], 'allow_unclean_exit': False, 'rest_url': 'https://saucelabs.com/rest/v1', 'logfile': 'sauce_connect.log', 'squid_opts': '', 'logfilesize': '31457280', 'boost_mode': True, 'tunnel_identifier': '166727980', 'fast_fail_regexps': '', 'vm_version': '', 'quiet': False, 'latency_log': 150, 'use_ssh_config': False, 'ssh': False, 'se_port': '4445', 'readyfile': None, 'shared_tunnel': False, 'ssh_port': 443, 'direct_domains': '', 'host': '127.0.0.1'}
+2014-04-14 13:19:47,707 - sauce_connect:591 - DEBUG - metadata: {'PythonVersion': '2.5.1', 'OwnerHost': '127.0.0.1', 'Release': '3.0-r30', 'OwnerPorts': ['62782'], 'Ports': ['80'], 'Platform': 'Java-1.6.0_65-Java_HotSpot-TM-_64-Bit_Server_VM,_20.65-b04-462,_Apple_Inc.-on-Mac_OS_X-10.8.5-x86_64', 'Build': '46', 'ScriptRelease': 46, 'ScriptName': 'sauce_connect'}
+2014-04-14 13:19:47,709 - sauce_connect:593 - INFO - Forwarding: None:['80'] -> 127.0.0.1:['62782']
+2014-04-14 13:19:47,717 - sauce_connect:385 - INFO - Succesfully connected to local server 127.0.0.1:62782 in 4ms
+2014-04-14 13:19:47,878 - sauce_connect:248 - INFO - {"squid_config":null,"no_ssl_bump_domains":null,"use_caching_proxy":true,"metadata":{"PythonVersion":"2.5.1","OwnerHost":"127.0.0.1","Release":"3.0-r30","OwnerPorts":["62782"],"Ports":["80"],"Platform":"Java-1.6.0_65-Java_HotSpot-TM-_64-Bit_Server_VM,_20.65-b04-462,_Apple_Inc.-on-Mac_OS_X-10.8.5-x86_64","Build":"46","ScriptRelease":46,"ScriptName":"sauce_connect"},"use_kgp":true,"tunnel_identifier":"166727980","shared_tunnel":false,"fast_fail_regexps":null,"ssh_port":443,"direct_domains":null,"vm_version":"","domain_names":[]}
+2014-04-14 13:19:51,733 - sauce_connect:260 - INFO - Tunnel remote VM is provisioned (5b129d3aff53416fb40eae7a1e0b89e1)
+2014-04-14 13:19:51,928 - sauce_connect:278 - INFO - Tunnel remote VM is booting ..
+2014-04-14 13:20:45,532 - sauce_connect:282 - INFO - Tunnel remote VM is running at maki76093.miso.saucelabs.com
+2014-04-14 13:20:45,543 - sauce_connect:385 - INFO - Succesfully connected to local server 127.0.0.1:62782 in 1ms
+2014-04-14 13:20:45,546 - sauce_connect:665 - INFO - Starting connection to tunnel host...
+2014-04-14 13:20:45,548 - sauce_connect:665 - INFO - Connecting to tunnel host maki76093.miso.saucelabs.com as fuelux
+2014-04-14 13:20:45,640 - sauce_connect:665 - INFO - Forwarding Selenium with ephemeral port 62818
+2014-04-14 13:20:45,644 - sauce_connect:665 - INFO - Selenium HTTP proxy listening on port 4445
+2014-04-14 13:20:46,038 - sauce_connect:0 - INFO - Successful handshake with Sauce Connect server
+2014-04-14 13:20:46,046 - sauce_connect:0 - INFO - Tunnel host version: 0.1.0, remote endpoint ID: 6b51df2e57214b5988153570abfb513d
+2014-04-14 13:20:46,051 - sauce_connect:665 - INFO - Connected! You may start your tests.
+2014-04-14 13:20:58,559 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/fuelux.html?jquery=1.9.1
+2014-04-14 13:20:58,588 - sauce_connect:0 - INFO - GET http://localhost:8000/test/fuelux.html?jquery=1.9.1 -> 200 (31ms, 1681 bytes)
+2014-04-14 13:20:58,845 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/qunit/qunit/qunit.css
+2014-04-14 13:20:58,854 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/qunit/qunit/qunit.css -> 200 (10ms, 4362 bytes)
+2014-04-14 13:20:58,861 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/qunit/qunit/qunit.js
+2014-04-14 13:20:58,858 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/moment-with-langs/index.js
+2014-04-14 13:20:58,868 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/qunit/qunit/qunit.js -> 200 (9ms, 61033 bytes)
+2014-04-14 13:20:58,874 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/moment-with-langs/index.js -> 200 (14ms, 272860 bytes)
+2014-04-14 13:20:58,936 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/requirejs/require.js
+2014-04-14 13:20:58,937 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/testem.js
+2014-04-14 13:20:58,941 - sauce_connect:0 - INFO - GET http://localhost:8000/testem.js -> 404 (5ms, 21 bytes)
+2014-04-14 13:20:58,943 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/requirejs/require.js -> 200 (8ms, 82718 bytes)
+2014-04-14 13:20:59,641 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/favicon.ico
+2014-04-14 13:20:59,645 - sauce_connect:0 - INFO - GET http://localhost:8000/favicon.ico -> 404 (4ms, 23 bytes)
+2014-04-14 13:20:59,733 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/fuelux-test.js
+2014-04-14 13:20:59,739 - sauce_connect:0 - INFO - GET http://localhost:8000/test/fuelux-test.js -> 200 (6ms, 1468 bytes)
+2014-04-14 13:20:59,957 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/jquery-1.9.1/jquery.js
+2014-04-14 13:20:59,966 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/datepicker-moment-test.js
+2014-04-14 13:20:59,966 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/checkbox-test.js
+2014-04-14 13:20:59,966 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/combobox-test.js
+2014-04-14 13:20:59,969 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/datepicker-test.js
+2014-04-14 13:20:59,971 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/infinite-scroll-test.js
+2014-04-14 13:20:59,973 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/radio-test.js
+2014-04-14 13:20:59,971 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/jquery-1.9.1/jquery.js -> 200 (15ms, 268380 bytes)
+2014-04-14 13:20:59,973 - sauce_connect:0 - INFO - GET http://localhost:8000/test/datepicker-moment-test.js -> 200 (6ms, 14253 bytes)
+2014-04-14 13:20:59,982 - sauce_connect:0 - INFO - GET http://localhost:8000/test/checkbox-test.js -> 200 (8ms, 4204 bytes)
+2014-04-14 13:20:59,984 - sauce_connect:0 - INFO - GET http://localhost:8000/test/combobox-test.js -> 200 (17ms, 6759 bytes)
+2014-04-14 13:20:59,984 - sauce_connect:0 - INFO - GET http://localhost:8000/test/datepicker-test.js -> 200 (14ms, 12288 bytes)
+2014-04-14 13:20:59,990 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/selectlist-test.js
+2014-04-14 13:20:59,992 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/search-test.js
+2014-04-14 13:21:00,023 - sauce_connect:0 - INFO - GET http://localhost:8000/test/infinite-scroll-test.js -> 200 (52ms, 3289 bytes)
+2014-04-14 13:21:00,023 - sauce_connect:0 - INFO - GET http://localhost:8000/test/radio-test.js -> 200 (52ms, 3822 bytes)
+2014-04-14 13:21:00,026 - sauce_connect:0 - INFO - GET http://localhost:8000/test/selectlist-test.js -> 200 (35ms, 4680 bytes)
+2014-04-14 13:21:00,026 - sauce_connect:0 - INFO - GET http://localhost:8000/test/search-test.js -> 200 (35ms, 4212 bytes)
+2014-04-14 13:21:00,032 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/spinbox-test.js
+2014-04-14 13:21:00,036 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/tree-test.js
+2014-04-14 13:21:00,042 - sauce_connect:0 - INFO - GET http://localhost:8000/test/spinbox-test.js -> 200 (9ms, 6696 bytes)
+2014-04-14 13:21:00,042 - sauce_connect:0 - INFO - GET http://localhost:8000/test/tree-test.js -> 200 (7ms, 4865 bytes)
+2014-04-14 13:21:00,188 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/dist/js/bootstrap.js
+2014-04-14 13:21:00,188 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/datepicker.js
+2014-04-14 13:21:00,188 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/combobox.js
+2014-04-14 13:21:00,188 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/checkbox.js
+2014-04-14 13:21:00,196 - sauce_connect:0 - INFO - GET http://localhost:8000/js/datepicker.js -> 200 (6ms, 32536 bytes)
+2014-04-14 13:21:00,196 - sauce_connect:0 - INFO - GET http://localhost:8000/js/combobox.js -> 200 (7ms, 4805 bytes)
+2014-04-14 13:21:00,196 - sauce_connect:0 - INFO - GET http://localhost:8000/js/checkbox.js -> 200 (7ms, 3964 bytes)
+2014-04-14 13:21:00,197 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/dist/js/bootstrap.js -> 200 (10ms, 55258 bytes)
+2014-04-14 13:21:00,342 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/radio.js
+2014-04-14 13:21:00,342 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/tree.js
+2014-04-14 13:21:00,348 - sauce_connect:0 - INFO - GET http://localhost:8000/js/radio.js -> 200 (6ms, 4515 bytes)
+2014-04-14 13:21:00,351 - sauce_connect:0 - INFO - GET http://localhost:8000/js/tree.js -> 200 (9ms, 6779 bytes)
+2014-04-14 13:21:00,365 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/data.js
+2014-04-14 13:21:00,365 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/infinite-scroll.js
+2014-04-14 13:21:00,367 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/selectlist.js
+2014-04-14 13:21:00,365 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/search.js
+2014-04-14 13:21:00,368 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/spinbox.js
+2014-04-14 13:21:00,368 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/util.js
+2014-04-14 13:21:00,374 - sauce_connect:0 - INFO - GET http://localhost:8000/data.js -> 200 (9ms, 2131 bytes)
+2014-04-14 13:21:00,374 - sauce_connect:0 - INFO - GET http://localhost:8000/js/infinite-scroll.js -> 200 (9ms, 3709 bytes)
+2014-04-14 13:21:00,377 - sauce_connect:0 - INFO - GET http://localhost:8000/js/selectlist.js -> 200 (10ms, 5019 bytes)
+2014-04-14 13:21:00,378 - sauce_connect:0 - INFO - GET http://localhost:8000/js/search.js -> 200 (15ms, 3567 bytes)
+2014-04-14 13:21:00,380 - sauce_connect:0 - INFO - GET http://localhost:8000/js/spinbox.js -> 200 (12ms, 7910 bytes)
+2014-04-14 13:21:00,381 - sauce_connect:0 - INFO - GET http://localhost:8000/js/util.js -> 200 (13ms, 1202 bytes)
+2014-04-14 13:21:00,417 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/path/to/moment.js
+2014-04-14 13:21:00,421 - sauce_connect:0 - INFO - GET http://localhost:8000/path/to/moment.js -> 404 (3ms, 29 bytes)
+2014-04-14 13:21:57,681 - sauce_connect:0 - INFO - Request started: GET http://ie9cvlist.ie.microsoft.com/IE9CompatViewList.xml
+2014-04-14 13:21:57,786 - sauce_connect:0 - INFO - GET http://ie9cvlist.ie.microsoft.com/IE9CompatViewList.xml -> 200 (104ms, 147043 bytes)
+2014-04-14 13:22:25,759 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/fuelux.html?jquery=1.9.1
+2014-04-14 13:22:25,766 - sauce_connect:0 - INFO - GET http://localhost:8000/test/fuelux.html?jquery=1.9.1 -> 200 (6ms, 1681 bytes)
+2014-04-14 13:22:25,890 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/qunit/qunit/qunit.css
+2014-04-14 13:22:25,891 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/qunit/qunit/qunit.js
+2014-04-14 13:22:25,891 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/moment-with-langs/index.js
+2014-04-14 13:22:25,895 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/qunit/qunit/qunit.css -> 200 (5ms, 4362 bytes)
+2014-04-14 13:22:25,897 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/qunit/qunit/qunit.js -> 200 (6ms, 61033 bytes)
+2014-04-14 13:22:25,900 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/moment-with-langs/index.js -> 200 (9ms, 272860 bytes)
+2014-04-14 13:22:25,964 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/requirejs/require.js
+2014-04-14 13:22:25,967 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/testem.js
+2014-04-14 13:22:25,973 - sauce_connect:0 - INFO - GET http://localhost:8000/testem.js -> 404 (6ms, 21 bytes)
+2014-04-14 13:22:25,973 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/requirejs/require.js -> 200 (9ms, 82718 bytes)
+2014-04-14 13:22:26,523 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/favicon.ico
+2014-04-14 13:22:26,526 - sauce_connect:0 - INFO - GET http://localhost:8000/favicon.ico -> 404 (3ms, 23 bytes)
+2014-04-14 13:22:26,598 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/fuelux-test.js
+2014-04-14 13:22:26,601 - sauce_connect:0 - INFO - GET http://localhost:8000/test/fuelux-test.js -> 200 (4ms, 1468 bytes)
+2014-04-14 13:22:26,796 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/datepicker-test.js
+2014-04-14 13:22:26,799 - sauce_connect:0 - INFO - GET http://localhost:8000/test/datepicker-test.js -> 200 (3ms, 12288 bytes)
+2014-04-14 13:22:26,802 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/checkbox-test.js
+2014-04-14 13:22:26,802 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/datepicker-moment-test.js
+2014-04-14 13:22:26,802 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/jquery-1.9.1/jquery.js
+2014-04-14 13:22:26,805 - sauce_connect:0 - INFO - GET http://localhost:8000/test/checkbox-test.js -> 200 (3ms, 4204 bytes)
+2014-04-14 13:22:26,805 - sauce_connect:0 - INFO - GET http://localhost:8000/test/datepicker-moment-test.js -> 200 (4ms, 14253 bytes)
+2014-04-14 13:22:26,806 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/combobox-test.js
+2014-04-14 13:22:26,812 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/infinite-scroll-test.js
+2014-04-14 13:22:26,813 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/radio-test.js
+2014-04-14 13:22:26,813 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/search-test.js
+2014-04-14 13:22:26,815 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/selectlist-test.js
+2014-04-14 13:22:26,815 - sauce_connect:0 - INFO - GET http://localhost:8000/test/combobox-test.js -> 200 (8ms, 6759 bytes)
+2014-04-14 13:22:26,819 - sauce_connect:0 - INFO - GET http://localhost:8000/test/infinite-scroll-test.js -> 200 (6ms, 3289 bytes)
+2014-04-14 13:22:26,819 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/jquery-1.9.1/jquery.js -> 200 (17ms, 268380 bytes)
+2014-04-14 13:22:26,819 - sauce_connect:0 - INFO - GET http://localhost:8000/test/radio-test.js -> 200 (6ms, 3822 bytes)
+2014-04-14 13:22:26,821 - sauce_connect:0 - INFO - GET http://localhost:8000/test/search-test.js -> 200 (8ms, 4212 bytes)
+2014-04-14 13:22:26,822 - sauce_connect:0 - INFO - GET http://localhost:8000/test/selectlist-test.js -> 200 (7ms, 4680 bytes)
+2014-04-14 13:22:26,872 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/tree-test.js
+2014-04-14 13:22:26,872 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/spinbox-test.js
+2014-04-14 13:22:26,878 - sauce_connect:0 - INFO - GET http://localhost:8000/test/spinbox-test.js -> 200 (4ms, 6696 bytes)
+2014-04-14 13:22:26,878 - sauce_connect:0 - INFO - GET http://localhost:8000/test/tree-test.js -> 200 (4ms, 4865 bytes)
+2014-04-14 13:22:26,948 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/dist/js/bootstrap.js
+2014-04-14 13:22:26,954 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/dist/js/bootstrap.js -> 200 (7ms, 55258 bytes)
+2014-04-14 13:22:27,026 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/checkbox.js
+2014-04-14 13:22:27,026 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/datepicker.js
+2014-04-14 13:22:27,026 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/combobox.js
+2014-04-14 13:22:27,032 - sauce_connect:0 - INFO - GET http://localhost:8000/js/checkbox.js -> 200 (7ms, 3964 bytes)
+2014-04-14 13:22:27,032 - sauce_connect:0 - INFO - GET http://localhost:8000/js/datepicker.js -> 200 (7ms, 32536 bytes)
+2014-04-14 13:22:27,032 - sauce_connect:0 - INFO - GET http://localhost:8000/js/combobox.js -> 200 (7ms, 4805 bytes)
+2014-04-14 13:22:27,132 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/data.js
+2014-04-14 13:22:27,134 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/infinite-scroll.js
+2014-04-14 13:22:27,134 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/search.js
+2014-04-14 13:22:27,138 - sauce_connect:0 - INFO - GET http://localhost:8000/data.js -> 200 (6ms, 2131 bytes)
+2014-04-14 13:22:27,138 - sauce_connect:0 - INFO - GET http://localhost:8000/js/infinite-scroll.js -> 200 (6ms, 3709 bytes)
+2014-04-14 13:22:27,140 - sauce_connect:0 - INFO - GET http://localhost:8000/js/search.js -> 200 (5ms, 3567 bytes)
+2014-04-14 13:22:27,164 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/radio.js
+2014-04-14 13:22:27,164 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/spinbox.js
+2014-04-14 13:22:27,164 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/tree.js
+2014-04-14 13:22:27,167 - sauce_connect:0 - INFO - GET http://localhost:8000/js/radio.js -> 200 (3ms, 4515 bytes)
+2014-04-14 13:22:27,168 - sauce_connect:0 - INFO - GET http://localhost:8000/js/spinbox.js -> 200 (4ms, 7910 bytes)
+2014-04-14 13:22:27,170 - sauce_connect:0 - INFO - GET http://localhost:8000/js/tree.js -> 200 (4ms, 6779 bytes)
+2014-04-14 13:22:27,177 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/util.js
+2014-04-14 13:22:27,180 - sauce_connect:0 - INFO - GET http://localhost:8000/js/util.js -> 200 (3ms, 1202 bytes)
+2014-04-14 13:22:27,253 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/selectlist.js
+2014-04-14 13:22:27,253 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/path/to/moment.js
+2014-04-14 13:22:27,257 - sauce_connect:0 - INFO - GET http://localhost:8000/js/selectlist.js -> 200 (5ms, 5019 bytes)
+2014-04-14 13:22:27,257 - sauce_connect:0 - INFO - GET http://localhost:8000/path/to/moment.js -> 404 (5ms, 29 bytes)
+2014-04-14 13:22:46,424 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/fuelux.html?jquery=1.9.1
+2014-04-14 13:22:46,427 - sauce_connect:0 - INFO - GET http://localhost:8000/test/fuelux.html?jquery=1.9.1 -> 200 (3ms, 1681 bytes)
+2014-04-14 13:22:46,559 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/moment-with-langs/index.js
+2014-04-14 13:22:46,568 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/moment-with-langs/index.js -> 200 (8ms, 272860 bytes)
+2014-04-14 13:22:46,605 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/qunit/qunit/qunit.js
+2014-04-14 13:22:46,605 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/qunit/qunit/qunit.css
+2014-04-14 13:22:46,605 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/requirejs/require.js
+2014-04-14 13:22:46,608 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/qunit/qunit/qunit.js -> 200 (4ms, 61033 bytes)
+2014-04-14 13:22:46,608 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/qunit/qunit/qunit.css -> 200 (4ms, 4362 bytes)
+2014-04-14 13:22:46,611 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/requirejs/require.js -> 200 (6ms, 82718 bytes)
+2014-04-14 13:22:46,637 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/testem.js
+2014-04-14 13:22:46,640 - sauce_connect:0 - INFO - GET http://localhost:8000/testem.js -> 404 (3ms, 21 bytes)
+2014-04-14 13:22:47,220 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/favicon.ico
+2014-04-14 13:22:47,223 - sauce_connect:0 - INFO - GET http://localhost:8000/favicon.ico -> 404 (4ms, 23 bytes)
+2014-04-14 13:22:47,309 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/fuelux-test.js
+2014-04-14 13:22:47,312 - sauce_connect:0 - INFO - GET http://localhost:8000/test/fuelux-test.js -> 200 (4ms, 1468 bytes)
+2014-04-14 13:22:47,492 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/jquery-1.9.1/jquery.js
+2014-04-14 13:22:47,494 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/datepicker-moment-test.js
+2014-04-14 13:22:47,494 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/combobox-test.js
+2014-04-14 13:22:47,494 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/datepicker-test.js
+2014-04-14 13:22:47,502 - sauce_connect:0 - INFO - GET http://localhost:8000/test/datepicker-moment-test.js -> 200 (7ms, 14253 bytes)
+2014-04-14 13:22:47,503 - sauce_connect:0 - INFO - GET http://localhost:8000/test/combobox-test.js -> 200 (7ms, 6759 bytes)
+2014-04-14 13:22:47,503 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/jquery-1.9.1/jquery.js -> 200 (11ms, 268380 bytes)
+2014-04-14 13:22:47,505 - sauce_connect:0 - INFO - GET http://localhost:8000/test/datepicker-test.js -> 200 (10ms, 12288 bytes)
+2014-04-14 13:22:47,568 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/infinite-scroll-test.js
+2014-04-14 13:22:47,569 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/checkbox-test.js
+2014-04-14 13:22:47,572 - sauce_connect:0 - INFO - GET http://localhost:8000/test/infinite-scroll-test.js -> 200 (4ms, 3289 bytes)
+2014-04-14 13:22:47,572 - sauce_connect:0 - INFO - GET http://localhost:8000/test/checkbox-test.js -> 200 (5ms, 4204 bytes)
+2014-04-14 13:22:47,674 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/radio-test.js
+2014-04-14 13:22:47,676 - sauce_connect:0 - INFO - GET http://localhost:8000/test/radio-test.js -> 200 (3ms, 3822 bytes)
+2014-04-14 13:22:47,786 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/selectlist-test.js
+2014-04-14 13:22:47,786 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/search-test.js
+2014-04-14 13:22:47,786 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/tree-test.js
+2014-04-14 13:22:47,789 - sauce_connect:0 - INFO - GET http://localhost:8000/test/selectlist-test.js -> 200 (4ms, 4680 bytes)
+2014-04-14 13:22:47,790 - sauce_connect:0 - INFO - GET http://localhost:8000/test/search-test.js -> 200 (5ms, 4212 bytes)
+2014-04-14 13:22:47,790 - sauce_connect:0 - INFO - GET http://localhost:8000/test/tree-test.js -> 200 (5ms, 4865 bytes)
+2014-04-14 13:22:47,825 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/dist/js/bootstrap.js
+2014-04-14 13:22:47,825 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/spinbox-test.js
+2014-04-14 13:22:47,825 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/datepicker.js
+2014-04-14 13:22:47,829 - sauce_connect:0 - INFO - GET http://localhost:8000/test/spinbox-test.js -> 200 (4ms, 6696 bytes)
+2014-04-14 13:22:47,829 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/dist/js/bootstrap.js -> 200 (4ms, 55258 bytes)
+2014-04-14 13:22:47,829 - sauce_connect:0 - INFO - GET http://localhost:8000/js/datepicker.js -> 200 (4ms, 32536 bytes)
+2014-04-14 13:22:47,901 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/infinite-scroll.js
+2014-04-14 13:22:47,904 - sauce_connect:0 - INFO - GET http://localhost:8000/js/infinite-scroll.js -> 200 (3ms, 3709 bytes)
+2014-04-14 13:22:47,946 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/combobox.js
+2014-04-14 13:22:47,946 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/data.js
+2014-04-14 13:22:47,946 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/checkbox.js
+2014-04-14 13:22:47,950 - sauce_connect:0 - INFO - GET http://localhost:8000/js/combobox.js -> 200 (4ms, 4805 bytes)
+2014-04-14 13:22:47,950 - sauce_connect:0 - INFO - GET http://localhost:8000/data.js -> 200 (5ms, 2131 bytes)
+2014-04-14 13:22:47,950 - sauce_connect:0 - INFO - GET http://localhost:8000/js/checkbox.js -> 200 (5ms, 3964 bytes)
+2014-04-14 13:22:47,977 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/radio.js
+2014-04-14 13:22:47,977 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/search.js
+2014-04-14 13:22:47,982 - sauce_connect:0 - INFO - GET http://localhost:8000/js/radio.js -> 200 (4ms, 4515 bytes)
+2014-04-14 13:22:47,982 - sauce_connect:0 - INFO - GET http://localhost:8000/js/search.js -> 200 (4ms, 3567 bytes)
+2014-04-14 13:22:48,053 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/tree.js
+2014-04-14 13:22:48,056 - sauce_connect:0 - INFO - GET http://localhost:8000/js/tree.js -> 200 (4ms, 6779 bytes)
+2014-04-14 13:22:48,095 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/selectlist.js
+2014-04-14 13:22:48,095 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/spinbox.js
+2014-04-14 13:22:48,095 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/path/to/moment.js
+2014-04-14 13:22:48,098 - sauce_connect:0 - INFO - GET http://localhost:8000/js/selectlist.js -> 200 (4ms, 5019 bytes)
+2014-04-14 13:22:48,099 - sauce_connect:0 - INFO - GET http://localhost:8000/js/spinbox.js -> 200 (4ms, 7910 bytes)
+2014-04-14 13:22:48,099 - sauce_connect:0 - INFO - GET http://localhost:8000/path/to/moment.js -> 404 (4ms, 29 bytes)
+2014-04-14 13:22:48,128 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/util.js
+2014-04-14 13:22:48,131 - sauce_connect:0 - INFO - GET http://localhost:8000/js/util.js -> 200 (3ms, 1202 bytes)
+2014-04-14 13:23:18,891 - sauce_connect:0 - INFO - Request started: GET https://configuration.apple.com/configurations/pep/config/pepconfig.plist
+2014-04-14 13:23:19,035 - sauce_connect:0 - INFO - GET https://configuration.apple.com/configurations/pep/config/pepconfig.plist -> 200 (143ms, 870 bytes)
+2014-04-14 13:23:24,519 - sauce_connect:0 - INFO - Request started: GET https://configuration.apple.com/configurations/internetservices/mobilesafari/SearchProviders-7.0.plist
+2014-04-14 13:23:24,690 - sauce_connect:0 - INFO - GET https://configuration.apple.com/configurations/internetservices/mobilesafari/SearchProviders-7.0.plist -> 200 (171ms, 46905 bytes)
+2014-04-14 13:23:29,269 - sauce_connect:0 - INFO - Request started: GET http://www.apple.com/
+2014-04-14 13:23:29,342 - sauce_connect:0 - INFO - GET http://www.apple.com/ -> 200 (74ms, 2877 bytes)
+2014-04-14 13:23:29,558 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/nav/styles/navigation.css
+2014-04-14 13:23:29,572 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/v/home/au/styles/billboard.css
+2014-04-14 13:23:29,572 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/v/home/au/styles/home.css
+2014-04-14 13:23:29,572 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/styles/base.css
+2014-04-14 13:23:29,605 - sauce_connect:0 - INFO - GET http://images.apple.com/global/nav/styles/navigation.css -> 200 (48ms, 2392 bytes)
+2014-04-14 13:23:29,608 - sauce_connect:0 - INFO - GET http://images.apple.com/global/styles/base.css -> 200 (35ms, 6940 bytes)
+2014-04-14 13:23:29,608 - sauce_connect:0 - INFO - GET http://images.apple.com/v/home/au/styles/home.css -> 200 (35ms, 1008 bytes)
+2014-04-14 13:23:29,608 - sauce_connect:0 - INFO - GET http://images.apple.com/v/home/au/styles/billboard.css -> 200 (36ms, 918 bytes)
+2014-04-14 13:23:29,634 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/styles/billboard.css
+2014-04-14 13:23:29,638 - sauce_connect:0 - INFO - GET http://images.apple.com/home/styles/billboard.css -> 200 (5ms, 20 bytes)
+2014-04-14 13:23:29,710 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/scripts/lib/sizzle.js
+2014-04-14 13:23:29,710 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/scripts/lib/prototype.js
+2014-04-14 13:23:29,717 - sauce_connect:0 - INFO - GET http://images.apple.com/global/scripts/lib/sizzle.js -> 200 (8ms, 6254 bytes)
+2014-04-14 13:23:29,726 - sauce_connect:0 - INFO - GET http://images.apple.com/global/scripts/lib/prototype.js -> 200 (17ms, 37451 bytes)
+2014-04-14 13:23:29,786 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/scripts/browserdetect.js
+2014-04-14 13:23:29,786 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/scripts/lib/scriptaculous.js
+2014-04-14 13:23:29,786 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/scripts/apple_core.js
+2014-04-14 13:23:29,792 - sauce_connect:0 - INFO - GET http://images.apple.com/global/scripts/browserdetect.js -> 200 (5ms, 3449 bytes)
+2014-04-14 13:23:29,801 - sauce_connect:0 - INFO - GET http://images.apple.com/global/scripts/apple_core.js -> 200 (14ms, 7486 bytes)
+2014-04-14 13:23:29,803 - sauce_connect:0 - INFO - GET http://images.apple.com/global/scripts/lib/scriptaculous.js -> 200 (18ms, 27988 bytes)
+2014-04-14 13:23:29,865 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/ac_base/ac_base.js
+2014-04-14 13:23:29,888 - sauce_connect:0 - INFO - GET http://images.apple.com/global/ac_base/ac_base.js -> 200 (25ms, 15051 bytes)
+2014-04-14 13:23:29,940 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/scripts/search_decorator.js
+2014-04-14 13:23:29,940 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/scripts/promomanager.js
+2014-04-14 13:23:29,940 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/ac_retina/ac_retina.js
+2014-04-14 13:23:29,947 - sauce_connect:0 - INFO - GET http://images.apple.com/global/scripts/search_decorator.js -> 200 (6ms, 328 bytes)
+2014-04-14 13:23:29,948 - sauce_connect:0 - INFO - GET http://images.apple.com/global/scripts/promomanager.js -> 200 (8ms, 1144 bytes)
+2014-04-14 13:23:29,948 - sauce_connect:0 - INFO - GET http://images.apple.com/global/ac_retina/ac_retina.js -> 200 (8ms, 5652 bytes)
+2014-04-14 13:23:30,017 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/scripts/feedstatistics.js
+2014-04-14 13:23:30,017 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/metrics/scripts/touch_forcedlink.js
+2014-04-14 13:23:30,039 - sauce_connect:0 - INFO - GET http://images.apple.com/global/scripts/feedstatistics.js -> 200 (22ms, 2229 bytes)
+2014-04-14 13:23:30,089 - sauce_connect:0 - INFO - GET http://images.apple.com/metrics/scripts/touch_forcedlink.js -> 200 (72ms, 214 bytes)
+2014-04-14 13:23:30,092 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/your_verse_title_large.png
+2014-04-14 13:23:30,094 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/metrics/scripts/homepage.js
+2014-04-14 13:23:30,094 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/nav/scripts/globalnav.js
+2014-04-14 13:23:30,101 - sauce_connect:0 - INFO - GET http://images.apple.com/metrics/scripts/homepage.js -> 200 (7ms, 1255 bytes)
+2014-04-14 13:23:30,111 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/your_verse_title_large.png -> 200 (18ms, 14635 bytes)
+2014-04-14 13:23:30,111 - sauce_connect:0 - INFO - GET http://images.apple.com/global/nav/scripts/globalnav.js -> 200 (19ms, 10563 bytes)
+2014-04-14 13:23:30,180 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/metrics/scripts/s_code_h.js
+2014-04-14 13:23:30,196 - sauce_connect:0 - INFO - GET http://images.apple.com/metrics/scripts/s_code_h.js -> 200 (15ms, 24439 bytes)
+2014-04-14 13:23:30,221 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/your_verse_subhead_medium.png
+2014-04-14 13:23:30,221 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/your_verse_subhead_large.png
+2014-04-14 13:23:30,221 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/your_verse_title_medium.png
+2014-04-14 13:23:30,230 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/your_verse_subhead_medium.png -> 200 (9ms, 14203 bytes)
+2014-04-14 13:23:30,230 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/your_verse_subhead_large.png -> 200 (10ms, 24355 bytes)
+2014-04-14 13:23:30,233 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/your_verse_title_medium.png -> 200 (12ms, 12218 bytes)
+2014-04-14 13:23:30,256 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/your_verse_subhead_small.png
+2014-04-14 13:23:30,263 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/your_verse_subhead_small.png -> 200 (5ms, 14772 bytes)
+2014-04-14 13:23:30,332 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/your_verse_title_small.png
+2014-04-14 13:23:30,332 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/cta_explore_story_27pt.png
+2014-04-14 13:23:30,338 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/cta_explore_story_27pt.png -> 200 (6ms, 4990 bytes)
+2014-04-14 13:23:30,339 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/your_verse_title_small.png -> 200 (7ms, 11182 bytes)
+2014-04-14 13:23:30,408 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/promo_iphone5c.jpg
+2014-04-14 13:23:30,410 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/promo_iphone5s.jpg
+2014-04-14 13:23:30,410 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/promo_supplier_responsibility.jpg
+2014-04-14 13:23:30,415 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/promo_iphone5c.jpg -> 200 (7ms, 12184 bytes)
+2014-04-14 13:23:30,417 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/promo_iphone5s.jpg -> 200 (7ms, 9881 bytes)
+2014-04-14 13:23:30,417 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/promo_supplier_responsibility.jpg -> 200 (9ms, 15631 bytes)
+2014-04-14 13:23:30,484 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/promo_wwdc.jpg
+2014-04-14 13:23:30,484 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/cta_explore_story_46pt.png
+2014-04-14 13:23:30,490 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/cta_explore_story_46pt.png -> 200 (5ms, 6244 bytes)
+2014-04-14 13:23:30,494 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/promo_wwdc.jpg -> 200 (10ms, 41516 bytes)
+2014-04-14 13:23:30,499 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/nav/images/globalnav.png
+2014-04-14 13:23:30,506 - sauce_connect:0 - INFO - GET http://images.apple.com/global/nav/images/globalnav.png -> 200 (6ms, 3043 bytes)
+2014-04-14 13:23:30,561 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/nav/images/globalheader.png
+2014-04-14 13:23:30,561 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/nav/images/globalnav_text.png
+2014-04-14 13:23:30,565 - sauce_connect:0 - INFO - GET http://images.apple.com/global/nav/images/globalheader.png -> 200 (5ms, 206 bytes)
+2014-04-14 13:23:30,565 - sauce_connect:0 - INFO - GET http://images.apple.com/global/nav/images/globalnav_text.png -> 200 (5ms, 7455 bytes)
+2014-04-14 13:23:30,617 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/elements/flags/16x16/usa.png
+2014-04-14 13:23:30,617 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/nav/styles/enhanced.css
+2014-04-14 13:23:30,624 - sauce_connect:0 - INFO - GET http://images.apple.com/global/elements/flags/16x16/usa.png -> 200 (8ms, 922 bytes)
+2014-04-14 13:23:30,624 - sauce_connect:0 - INFO - GET http://images.apple.com/global/nav/styles/enhanced.css -> 200 (8ms, 4809 bytes)
+2014-04-14 13:23:30,635 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/nav/images/globalsearch_bg.png
+2014-04-14 13:23:30,642 - sauce_connect:0 - INFO - GET http://images.apple.com/global/nav/images/globalsearch_bg.png -> 200 (7ms, 793 bytes)
+2014-04-14 13:23:30,648 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/nav/images/globalsearch_reset.gif
+2014-04-14 13:23:30,654 - sauce_connect:0 - INFO - GET http://images.apple.com/global/nav/images/globalsearch_reset.gif -> 200 (4ms, 195 bytes)
+2014-04-14 13:23:30,711 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/nav/images/globalsearch_field.png
+2014-04-14 13:23:30,711 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/nav/images/globalnav_text.svg
+2014-04-14 13:23:30,717 - sauce_connect:0 - INFO - GET http://images.apple.com/global/nav/images/globalsearch_field.png -> 200 (6ms, 1224 bytes)
+2014-04-14 13:23:30,723 - sauce_connect:0 - INFO - GET http://images.apple.com/global/nav/images/globalnav_text.svg -> 200 (12ms, 54875 bytes)
+2014-04-14 13:23:30,740 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/nav/images/reset.svg
+2014-04-14 13:23:30,746 - sauce_connect:0 - INFO - GET http://images.apple.com/global/nav/images/reset.svg -> 200 (5ms, 619 bytes)
+2014-04-14 13:23:30,790 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/nav/images/globalsearch_spinner.gif
+2014-04-14 13:23:30,796 - sauce_connect:0 - INFO - GET http://images.apple.com/global/nav/images/globalsearch_spinner.gif -> 200 (6ms, 3965 bytes)
+2014-04-14 13:23:30,868 - sauce_connect:0 - INFO - Request started: GET http://metrics.apple.com/b/ss/appleglobal,applehome/1/H.25.5/s79307486852630?AQB=1&ndh=1&t=14%2F3%2F2014%2010%3A23%3A30%201%20420&fid=587A292064399D72-0F17C10D0EB91A48&pageName=apple%20-%20index%2Ftab%20%28us%29&g=http%3A%2F%2Fwww.apple.com%2F&cc=USD&ch=www.us.homepage&server=new%20approach&c4=D%3Dg&c5=iphone%20simulator%202x&c6=D%3D%22%3A%20%22%2BpageName&c9=ios%207.0.3&c20=non-store%20kiosk&c25=other%20nav%20or%20none&v43=iphone%2Fipod%20touch&v44=1472&c48=1&c49=D%3Ds_vi&c50=homepage%3D1&h1=www.us.homepage&s=320x568&c=32&j=1.6&v=N&k=Y&bw=1024&bh=1472&p=QuickTime%20Plug-in%3B&AQE=1
+2014-04-14 13:23:30,868 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/v/home/au/images/your_verse_hero.jpg
+2014-04-14 13:23:30,918 - sauce_connect:0 - INFO - GET http://images.apple.com/v/home/au/images/your_verse_hero.jpg -> 200 (51ms, 358082 bytes)
+2014-04-14 13:23:31,085 - sauce_connect:0 - INFO - GET http://metrics.apple.com/b/ss/appleglobal,applehome/1/H.25.5/s79307486852630?AQB=1&ndh=1&t=14%2F3%2F2014%2010%3A23%3A30%201%20420&fid=587A292064399D72-0F17C10D0EB91A48&pageName=apple%20-%20index%2Ftab%20%28us%29&g=http%3A%2F%2Fwww.apple.com%2F&cc=USD&ch=www.us.homepage&server=new%20approach&c4=D%3Dg&c5=iphone%20simulator%202x&c6=D%3D%22%3A%20%22%2BpageName&c9=ios%207.0.3&c20=non-store%20kiosk&c25=other%20nav%20or%20none&v43=iphone%2Fipod%20touch&v44=1472&c48=1&c49=D%3Ds_vi&c50=homepage%3D1&h1=www.us.homepage&s=320x568&c=32&j=1.6&v=N&k=Y&bw=1024&bh=1472&p=QuickTime%20Plug-in%3B&AQE=1 -> 302 (216ms, 0 bytes)
+2014-04-14 13:23:31,312 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/fuelux.html?jquery=1.9.1
+2014-04-14 13:23:31,315 - sauce_connect:0 - INFO - GET http://localhost:8000/test/fuelux.html?jquery=1.9.1 -> 200 (3ms, 1681 bytes)
+2014-04-14 13:23:31,536 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/qunit/qunit/qunit.css
+2014-04-14 13:23:31,539 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/qunit/qunit/qunit.css -> 200 (4ms, 4362 bytes)
+2014-04-14 13:23:31,630 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/moment-with-langs/index.js
+2014-04-14 13:23:31,640 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/moment-with-langs/index.js -> 200 (10ms, 272860 bytes)
+2014-04-14 13:23:31,670 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/qunit/qunit/qunit.js
+2014-04-14 13:23:31,670 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/requirejs/require.js
+2014-04-14 13:23:31,674 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/qunit/qunit/qunit.js -> 200 (4ms, 61033 bytes)
+2014-04-14 13:23:31,676 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/requirejs/require.js -> 200 (6ms, 82718 bytes)
+2014-04-14 13:23:31,706 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/testem.js
+2014-04-14 13:23:31,709 - sauce_connect:0 - INFO - GET http://localhost:8000/testem.js -> 404 (3ms, 21 bytes)
+2014-04-14 13:23:32,278 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/apple-touch-icon-precomposed.png
+2014-04-14 13:23:32,280 - sauce_connect:0 - INFO - GET http://localhost:8000/apple-touch-icon-precomposed.png -> 404 (2ms, 44 bytes)
+2014-04-14 13:23:32,357 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/fuelux-test.js
+2014-04-14 13:23:32,358 - sauce_connect:0 - INFO - GET http://localhost:8000/test/fuelux-test.js -> 200 (3ms, 1468 bytes)
+2014-04-14 13:23:32,431 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/apple-touch-icon.png
+2014-04-14 13:23:32,434 - sauce_connect:0 - INFO - GET http://localhost:8000/apple-touch-icon.png -> 404 (3ms, 32 bytes)
+2014-04-14 13:23:32,487 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/checkbox-test.js
+2014-04-14 13:23:32,487 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/jquery-1.9.1/jquery.js
+2014-04-14 13:23:32,490 - sauce_connect:0 - INFO - GET http://localhost:8000/test/checkbox-test.js -> 200 (3ms, 4204 bytes)
+2014-04-14 13:23:32,494 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/jquery-1.9.1/jquery.js -> 200 (6ms, 268380 bytes)
+2014-04-14 13:23:32,509 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/combobox-test.js
+2014-04-14 13:23:32,512 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/datepicker-test.js
+2014-04-14 13:23:32,512 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/datepicker-moment-test.js
+2014-04-14 13:23:32,513 - sauce_connect:0 - INFO - GET http://localhost:8000/test/combobox-test.js -> 200 (3ms, 6759 bytes)
+2014-04-14 13:23:32,513 - sauce_connect:0 - INFO - GET http://localhost:8000/test/datepicker-test.js -> 200 (2ms, 12288 bytes)
+2014-04-14 13:23:32,515 - sauce_connect:0 - INFO - GET http://localhost:8000/test/datepicker-moment-test.js -> 200 (2ms, 14253 bytes)
+2014-04-14 13:23:32,585 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/infinite-scroll-test.js
+2014-04-14 13:23:32,588 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/favicon.ico
+2014-04-14 13:23:32,588 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/search-test.js
+2014-04-14 13:23:32,591 - sauce_connect:0 - INFO - GET http://localhost:8000/test/infinite-scroll-test.js -> 200 (4ms, 3289 bytes)
+2014-04-14 13:23:32,591 - sauce_connect:0 - INFO - GET http://localhost:8000/favicon.ico -> 404 (3ms, 23 bytes)
+2014-04-14 13:23:32,592 - sauce_connect:0 - INFO - GET http://localhost:8000/test/search-test.js -> 200 (4ms, 4212 bytes)
+2014-04-14 13:23:32,765 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/checkbox.js
+2014-04-14 13:23:32,767 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/selectlist-test.js
+2014-04-14 13:23:32,767 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/radio-test.js
+2014-04-14 13:23:32,769 - sauce_connect:0 - INFO - GET http://localhost:8000/js/checkbox.js -> 200 (3ms, 3964 bytes)
+2014-04-14 13:23:32,769 - sauce_connect:0 - INFO - GET http://localhost:8000/test/selectlist-test.js -> 200 (2ms, 4680 bytes)
+2014-04-14 13:23:32,770 - sauce_connect:0 - INFO - GET http://localhost:8000/test/radio-test.js -> 200 (2ms, 3822 bytes)
+2014-04-14 13:23:32,841 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/tree-test.js
+2014-04-14 13:23:32,841 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/dist/js/bootstrap.js
+2014-04-14 13:23:32,841 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/spinbox-test.js
+2014-04-14 13:23:32,844 - sauce_connect:0 - INFO - GET http://localhost:8000/test/tree-test.js -> 200 (3ms, 4865 bytes)
+2014-04-14 13:23:32,845 - sauce_connect:0 - INFO - GET http://localhost:8000/test/spinbox-test.js -> 200 (4ms, 6696 bytes)
+2014-04-14 13:23:32,845 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/dist/js/bootstrap.js -> 200 (4ms, 55258 bytes)
+2014-04-14 13:23:32,868 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/data.js
+2014-04-14 13:23:32,868 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/combobox.js
+2014-04-14 13:23:32,871 - sauce_connect:0 - INFO - GET http://localhost:8000/data.js -> 200 (3ms, 2131 bytes)
+2014-04-14 13:23:32,871 - sauce_connect:0 - INFO - GET http://localhost:8000/js/combobox.js -> 200 (3ms, 4805 bytes)
+2014-04-14 13:23:32,917 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/radio.js
+2014-04-14 13:23:32,920 - sauce_connect:0 - INFO - GET http://localhost:8000/js/radio.js -> 200 (3ms, 4515 bytes)
+2014-04-14 13:23:32,944 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/datepicker.js
+2014-04-14 13:23:32,944 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/search.js
+2014-04-14 13:23:32,947 - sauce_connect:0 - INFO - GET http://localhost:8000/js/search.js -> 200 (4ms, 3567 bytes)
+2014-04-14 13:23:32,947 - sauce_connect:0 - INFO - GET http://localhost:8000/js/datepicker.js -> 200 (4ms, 32536 bytes)
+2014-04-14 13:23:32,993 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/spinbox.js
+2014-04-14 13:23:32,993 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/infinite-scroll.js
+2014-04-14 13:23:32,993 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/selectlist.js
+2014-04-14 13:23:32,996 - sauce_connect:0 - INFO - GET http://localhost:8000/js/spinbox.js -> 200 (3ms, 7910 bytes)
+2014-04-14 13:23:32,996 - sauce_connect:0 - INFO - GET http://localhost:8000/js/infinite-scroll.js -> 200 (3ms, 3709 bytes)
+2014-04-14 13:23:32,996 - sauce_connect:0 - INFO - GET http://localhost:8000/js/selectlist.js -> 200 (4ms, 5019 bytes)
+2014-04-14 13:23:33,069 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/path/to/moment.js
+2014-04-14 13:23:33,072 - sauce_connect:0 - INFO - GET http://localhost:8000/path/to/moment.js -> 404 (4ms, 29 bytes)
+2014-04-14 13:23:33,145 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/util.js
+2014-04-14 13:23:33,145 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/tree.js
+2014-04-14 13:23:33,150 - sauce_connect:0 - INFO - GET http://localhost:8000/js/util.js -> 200 (5ms, 1202 bytes)
+2014-04-14 13:23:33,150 - sauce_connect:0 - INFO - GET http://localhost:8000/js/tree.js -> 200 (4ms, 6779 bytes)
+2014-04-14 13:24:17,180 - sauce_connect:0 - INFO - received SIGTERM
+2014-04-14 13:31:17,612 - sauce_connect:575 - INFO - / Starting \
+2014-04-14 13:31:17,619 - sauce_connect:576 - INFO - Please wait for "You may start your tests" to start your tests.
+2014-04-14 13:31:17,630 - sauce_connect:588 - DEBUG - System is -4.0 hours off UTC
+2014-04-14 13:31:17,634 - sauce_connect:590 - DEBUG - options: {'user': 'fuelux', 'ports': ['63646'], 'no_ssl_bump_domains': '', 'domains': None, 'debug_ssh': False, 'tunnel_ports': ['80'], 'allow_unclean_exit': False, 'rest_url': 'https://saucelabs.com/rest/v1', 'logfile': 'sauce_connect.log', 'squid_opts': '', 'logfilesize': '31457280', 'boost_mode': True, 'tunnel_identifier': '166728668', 'fast_fail_regexps': '', 'vm_version': '', 'quiet': False, 'latency_log': 150, 'use_ssh_config': False, 'ssh': False, 'se_port': '4445', 'readyfile': None, 'shared_tunnel': False, 'ssh_port': 443, 'direct_domains': '', 'host': '127.0.0.1'}
+2014-04-14 13:31:17,641 - sauce_connect:591 - DEBUG - metadata: {'PythonVersion': '2.5.1', 'OwnerHost': '127.0.0.1', 'Release': '3.0-r30', 'OwnerPorts': ['63646'], 'Ports': ['80'], 'Platform': 'Java-1.6.0_65-Java_HotSpot-TM-_64-Bit_Server_VM,_20.65-b04-462,_Apple_Inc.-on-Mac_OS_X-10.8.5-x86_64', 'Build': '46', 'ScriptRelease': 46, 'ScriptName': 'sauce_connect'}
+2014-04-14 13:31:17,644 - sauce_connect:593 - INFO - Forwarding: None:['80'] -> 127.0.0.1:['63646']
+2014-04-14 13:31:17,661 - sauce_connect:385 - INFO - Succesfully connected to local server 127.0.0.1:63646 in 9ms
+2014-04-14 13:31:17,933 - sauce_connect:248 - INFO - {"squid_config":null,"no_ssl_bump_domains":null,"use_caching_proxy":true,"metadata":{"PythonVersion":"2.5.1","OwnerHost":"127.0.0.1","Release":"3.0-r30","OwnerPorts":["63646"],"Ports":["80"],"Platform":"Java-1.6.0_65-Java_HotSpot-TM-_64-Bit_Server_VM,_20.65-b04-462,_Apple_Inc.-on-Mac_OS_X-10.8.5-x86_64","Build":"46","ScriptRelease":46,"ScriptName":"sauce_connect"},"use_kgp":true,"tunnel_identifier":"166728668","shared_tunnel":false,"fast_fail_regexps":null,"ssh_port":443,"direct_domains":null,"vm_version":"","domain_names":[]}
+2014-04-14 13:31:21,802 - sauce_connect:260 - INFO - Tunnel remote VM is provisioned (478451fbcd494625a3d983c657a1eae2)
+2014-04-14 13:31:21,954 - sauce_connect:278 - INFO - Tunnel remote VM is booting ..
+2014-04-14 13:32:02,920 - sauce_connect:282 - INFO - Tunnel remote VM is running at maki77024.miso.saucelabs.com
+2014-04-14 13:32:02,931 - sauce_connect:385 - INFO - Succesfully connected to local server 127.0.0.1:63646 in 0ms
+2014-04-14 13:32:02,934 - sauce_connect:665 - INFO - Starting connection to tunnel host...
+2014-04-14 13:32:02,936 - sauce_connect:665 - INFO - Connecting to tunnel host maki77024.miso.saucelabs.com as fuelux
+2014-04-14 13:32:03,026 - sauce_connect:665 - INFO - Forwarding Selenium with ephemeral port 63669
+2014-04-14 13:32:03,032 - sauce_connect:665 - INFO - Selenium HTTP proxy listening on port 4445
+2014-04-14 13:32:03,430 - sauce_connect:0 - INFO - Successful handshake with Sauce Connect server
+2014-04-14 13:32:03,436 - sauce_connect:0 - INFO - Tunnel host version: 0.1.0, remote endpoint ID: cfadc633311244c69eebbf5d401b60ad
+2014-04-14 13:32:03,437 - sauce_connect:665 - INFO - Connected! You may start your tests.
+2014-04-14 13:32:13,477 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/fuelux.html?jquery=1.9.1
+2014-04-14 13:32:13,509 - sauce_connect:0 - INFO - GET http://localhost:8000/test/fuelux.html?jquery=1.9.1 -> 200 (32ms, 1681 bytes)
+2014-04-14 13:32:13,831 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/qunit/qunit/qunit.css
+2014-04-14 13:32:13,836 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/qunit/qunit/qunit.css -> 200 (7ms, 4362 bytes)
+2014-04-14 13:32:13,855 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/qunit/qunit/qunit.js
+2014-04-14 13:32:13,855 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/moment-with-langs/index.js
+2014-04-14 13:32:13,865 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/qunit/qunit/qunit.js -> 200 (9ms, 61033 bytes)
+2014-04-14 13:32:13,869 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/moment-with-langs/index.js -> 200 (14ms, 272860 bytes)
+2014-04-14 13:32:13,907 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/requirejs/require.js
+2014-04-14 13:32:13,907 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/testem.js
+2014-04-14 13:32:13,914 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/requirejs/require.js -> 200 (8ms, 82718 bytes)
+2014-04-14 13:32:13,914 - sauce_connect:0 - INFO - GET http://localhost:8000/testem.js -> 404 (7ms, 21 bytes)
+2014-04-14 13:32:14,635 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/favicon.ico
+2014-04-14 13:32:14,635 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/fuelux-test.js
+2014-04-14 13:32:14,642 - sauce_connect:0 - INFO - GET http://localhost:8000/favicon.ico -> 404 (6ms, 23 bytes)
+2014-04-14 13:32:14,642 - sauce_connect:0 - INFO - GET http://localhost:8000/test/fuelux-test.js -> 200 (6ms, 1471 bytes)
+2014-04-14 13:32:14,887 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/checkbox-test.js
+2014-04-14 13:32:14,890 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/combobox-test.js
+2014-04-14 13:32:14,890 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/datepicker-test.js
+2014-04-14 13:32:14,890 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/jquery-1.9.1/jquery.js
+2014-04-14 13:32:14,891 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/selectlist-test.js
+2014-04-14 13:32:14,894 - sauce_connect:0 - INFO - GET http://localhost:8000/test/checkbox-test.js -> 200 (8ms, 4204 bytes)
+2014-04-14 13:32:14,894 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/radio-test.js
+2014-04-14 13:32:14,895 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/search-test.js
+2014-04-14 13:32:14,895 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/datepicker-moment-test.js
+2014-04-14 13:32:14,898 - sauce_connect:0 - INFO - GET http://localhost:8000/test/combobox-test.js -> 200 (9ms, 6759 bytes)
+2014-04-14 13:32:14,898 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/spinbox-test.js
+2014-04-14 13:32:14,901 - sauce_connect:0 - INFO - GET http://localhost:8000/test/datepicker-test.js -> 200 (12ms, 12288 bytes)
+2014-04-14 13:32:14,928 - sauce_connect:0 - INFO - GET http://localhost:8000/test/selectlist-test.js -> 200 (36ms, 4680 bytes)
+2014-04-14 13:32:14,931 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/jquery-1.9.1/jquery.js -> 200 (42ms, 268380 bytes)
+2014-04-14 13:32:14,933 - sauce_connect:0 - INFO - GET http://localhost:8000/test/search-test.js -> 200 (38ms, 4212 bytes)
+2014-04-14 13:32:14,933 - sauce_connect:0 - INFO - GET http://localhost:8000/test/radio-test.js -> 200 (39ms, 3822 bytes)
+2014-04-14 13:32:14,934 - sauce_connect:0 - INFO - GET http://localhost:8000/test/spinbox-test.js -> 200 (35ms, 6696 bytes)
+2014-04-14 13:32:14,934 - sauce_connect:0 - INFO - GET http://localhost:8000/test/datepicker-moment-test.js -> 200 (38ms, 14253 bytes)
+2014-04-14 13:32:14,963 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/tree-test.js
+2014-04-14 13:32:14,969 - sauce_connect:0 - INFO - GET http://localhost:8000/test/tree-test.js -> 200 (6ms, 4865 bytes)
+2014-04-14 13:32:15,059 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/dist/js/bootstrap.js
+2014-04-14 13:32:15,065 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/dist/js/bootstrap.js -> 200 (7ms, 55258 bytes)
+2014-04-14 13:32:15,105 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/combobox.js
+2014-04-14 13:32:15,105 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/checkbox.js
+2014-04-14 13:32:15,107 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/datepicker.js
+2014-04-14 13:32:15,111 - sauce_connect:0 - INFO - GET http://localhost:8000/js/combobox.js -> 200 (6ms, 4805 bytes)
+2014-04-14 13:32:15,111 - sauce_connect:0 - INFO - GET http://localhost:8000/js/checkbox.js -> 200 (7ms, 3964 bytes)
+2014-04-14 13:32:15,114 - sauce_connect:0 - INFO - GET http://localhost:8000/js/datepicker.js -> 200 (7ms, 32536 bytes)
+2014-04-14 13:32:15,134 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/selectlist.js
+2014-04-14 13:32:15,138 - sauce_connect:0 - INFO - GET http://localhost:8000/js/selectlist.js -> 200 (4ms, 5019 bytes)
+2014-04-14 13:32:15,211 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/search.js
+2014-04-14 13:32:15,216 - sauce_connect:0 - INFO - GET http://localhost:8000/js/search.js -> 200 (4ms, 3567 bytes)
+2014-04-14 13:32:15,289 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/radio.js
+2014-04-14 13:32:15,292 - sauce_connect:0 - INFO - GET http://localhost:8000/js/radio.js -> 200 (5ms, 4515 bytes)
+2014-04-14 13:32:15,309 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/tree.js
+2014-04-14 13:32:15,309 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/spinbox.js
+2014-04-14 13:32:15,309 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/util.js
+2014-04-14 13:32:15,313 - sauce_connect:0 - INFO - GET http://localhost:8000/js/tree.js -> 200 (5ms, 6779 bytes)
+2014-04-14 13:32:15,313 - sauce_connect:0 - INFO - GET http://localhost:8000/js/spinbox.js -> 200 (5ms, 7910 bytes)
+2014-04-14 13:32:15,315 - sauce_connect:0 - INFO - GET http://localhost:8000/js/util.js -> 200 (6ms, 1202 bytes)
+2014-04-14 13:32:15,365 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/path/to/moment.js
+2014-04-14 13:32:15,368 - sauce_connect:0 - INFO - GET http://localhost:8000/path/to/moment.js -> 404 (4ms, 29 bytes)
+2014-04-14 13:32:21,773 - sauce_connect:0 - INFO - Request started: GET https://configuration.apple.com/configurations/pep/config/pepconfig.plist
+2014-04-14 13:32:21,951 - sauce_connect:0 - INFO - GET https://configuration.apple.com/configurations/pep/config/pepconfig.plist -> 200 (178ms, 870 bytes)
+2014-04-14 13:32:27,959 - sauce_connect:0 - INFO - Request started: GET https://configuration.apple.com/configurations/internetservices/mobilesafari/SearchProviders-7.0.plist
+2014-04-14 13:32:28,130 - sauce_connect:0 - INFO - GET https://configuration.apple.com/configurations/internetservices/mobilesafari/SearchProviders-7.0.plist -> 200 (170ms, 46905 bytes)
+2014-04-14 13:32:30,128 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/fuelux.html?jquery=1.9.1
+2014-04-14 13:32:30,132 - sauce_connect:0 - INFO - GET http://localhost:8000/test/fuelux.html?jquery=1.9.1 -> 200 (4ms, 1681 bytes)
+2014-04-14 13:32:30,308 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/qunit/qunit/qunit.css
+2014-04-14 13:32:30,312 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/qunit/qunit/qunit.css -> 200 (5ms, 4362 bytes)
+2014-04-14 13:32:30,371 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/qunit/qunit/qunit.js
+2014-04-14 13:32:30,371 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/testem.js
+2014-04-14 13:32:30,371 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/moment-with-langs/index.js
+2014-04-14 13:32:30,381 - sauce_connect:0 - INFO - GET http://localhost:8000/testem.js -> 404 (9ms, 21 bytes)
+2014-04-14 13:32:30,381 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/qunit/qunit/qunit.js -> 200 (9ms, 61033 bytes)
+2014-04-14 13:32:30,384 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/requirejs/require.js
+2014-04-14 13:32:30,387 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/moment-with-langs/index.js -> 200 (16ms, 272860 bytes)
+2014-04-14 13:32:30,388 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/requirejs/require.js -> 200 (4ms, 82718 bytes)
+2014-04-14 13:32:30,786 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/favicon.ico
+2014-04-14 13:32:30,789 - sauce_connect:0 - INFO - GET http://localhost:8000/favicon.ico -> 404 (4ms, 23 bytes)
+2014-04-14 13:32:30,862 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/fuelux-test.js
+2014-04-14 13:32:30,867 - sauce_connect:0 - INFO - GET http://localhost:8000/test/fuelux-test.js -> 200 (4ms, 1471 bytes)
+2014-04-14 13:32:31,125 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/jquery-1.9.1/jquery.js
+2014-04-14 13:32:31,128 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/datepicker-test.js
+2014-04-14 13:32:31,128 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/checkbox-test.js
+2014-04-14 13:32:31,128 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/datepicker-moment-test.js
+2014-04-14 13:32:31,134 - sauce_connect:0 - INFO - GET http://localhost:8000/test/datepicker-test.js -> 200 (7ms, 12288 bytes)
+2014-04-14 13:32:31,134 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/selectlist-test.js
+2014-04-14 13:32:31,134 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/combobox-test.js
+2014-04-14 13:32:31,138 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/radio-test.js
+2014-04-14 13:32:31,138 - sauce_connect:0 - INFO - GET http://localhost:8000/test/checkbox-test.js -> 200 (11ms, 4204 bytes)
+2014-04-14 13:32:31,140 - sauce_connect:0 - INFO - GET http://localhost:8000/test/datepicker-moment-test.js -> 200 (12ms, 14253 bytes)
+2014-04-14 13:32:31,141 - sauce_connect:0 - INFO - GET http://localhost:8000/test/selectlist-test.js -> 200 (8ms, 4680 bytes)
+2014-04-14 13:32:31,142 - sauce_connect:0 - INFO - GET http://localhost:8000/test/combobox-test.js -> 200 (8ms, 6759 bytes)
+2014-04-14 13:32:31,142 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/jquery-1.9.1/jquery.js -> 200 (18ms, 268380 bytes)
+2014-04-14 13:32:31,144 - sauce_connect:0 - INFO - GET http://localhost:8000/test/radio-test.js -> 200 (7ms, 3822 bytes)
+2014-04-14 13:32:31,204 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/tree-test.js
+2014-04-14 13:32:31,204 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/search-test.js
+2014-04-14 13:32:31,204 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/spinbox-test.js
+2014-04-14 13:32:31,210 - sauce_connect:0 - INFO - GET http://localhost:8000/test/tree-test.js -> 200 (5ms, 4865 bytes)
+2014-04-14 13:32:31,211 - sauce_connect:0 - INFO - GET http://localhost:8000/test/search-test.js -> 200 (7ms, 4212 bytes)
+2014-04-14 13:32:31,211 - sauce_connect:0 - INFO - GET http://localhost:8000/test/spinbox-test.js -> 200 (7ms, 6696 bytes)
+2014-04-14 13:32:31,280 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/dist/js/bootstrap.js
+2014-04-14 13:32:31,280 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/datepicker.js
+2014-04-14 13:32:31,286 - sauce_connect:0 - INFO - GET http://localhost:8000/js/datepicker.js -> 200 (4ms, 32536 bytes)
+2014-04-14 13:32:31,286 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/dist/js/bootstrap.js -> 200 (4ms, 55258 bytes)
+2014-04-14 13:32:31,423 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/checkbox.js
+2014-04-14 13:32:31,426 - sauce_connect:0 - INFO - GET http://localhost:8000/js/checkbox.js -> 200 (3ms, 3964 bytes)
+2014-04-14 13:32:31,640 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/selectlist.js
+2014-04-14 13:32:31,644 - sauce_connect:0 - INFO - GET http://localhost:8000/js/selectlist.js -> 200 (4ms, 5019 bytes)
+2014-04-14 13:32:31,724 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/combobox.js
+2014-04-14 13:32:31,729 - sauce_connect:0 - INFO - GET http://localhost:8000/js/combobox.js -> 200 (4ms, 4805 bytes)
+2014-04-14 13:32:31,812 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/radio.js
+2014-04-14 13:32:31,815 - sauce_connect:0 - INFO - GET http://localhost:8000/js/radio.js -> 200 (2ms, 4515 bytes)
+2014-04-14 13:32:31,875 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/spinbox.js
+2014-04-14 13:32:31,875 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/search.js
+2014-04-14 13:32:31,875 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/tree.js
+2014-04-14 13:32:31,878 - sauce_connect:0 - INFO - GET http://localhost:8000/js/spinbox.js -> 200 (3ms, 7910 bytes)
+2014-04-14 13:32:31,880 - sauce_connect:0 - INFO - GET http://localhost:8000/js/search.js -> 200 (4ms, 3567 bytes)
+2014-04-14 13:32:31,880 - sauce_connect:0 - INFO - GET http://localhost:8000/js/tree.js -> 200 (4ms, 6779 bytes)
+2014-04-14 13:32:31,888 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/path/to/moment.js
+2014-04-14 13:32:31,891 - sauce_connect:0 - INFO - GET http://localhost:8000/path/to/moment.js -> 404 (3ms, 29 bytes)
+2014-04-14 13:32:31,966 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/util.js
+2014-04-14 13:32:31,969 - sauce_connect:0 - INFO - GET http://localhost:8000/js/util.js -> 200 (3ms, 1202 bytes)
+2014-04-14 13:32:33,085 - sauce_connect:0 - INFO - Request started: GET http://www.apple.com/
+2014-04-14 13:32:33,157 - sauce_connect:0 - INFO - GET http://www.apple.com/ -> 200 (72ms, 2805 bytes)
+2014-04-14 13:32:33,380 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/nav/styles/navigation.css
+2014-04-14 13:32:33,392 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/v/home/au/styles/billboard.css
+2014-04-14 13:32:33,392 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/styles/base.css
+2014-04-14 13:32:33,392 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/v/home/au/styles/home.css
+2014-04-14 13:32:33,405 - sauce_connect:0 - INFO - GET http://images.apple.com/v/home/au/styles/billboard.css -> 200 (13ms, 918 bytes)
+2014-04-14 13:32:33,405 - sauce_connect:0 - INFO - GET http://images.apple.com/v/home/au/styles/home.css -> 200 (13ms, 1008 bytes)
+2014-04-14 13:32:33,407 - sauce_connect:0 - INFO - GET http://images.apple.com/global/nav/styles/navigation.css -> 200 (27ms, 2392 bytes)
+2014-04-14 13:32:33,407 - sauce_connect:0 - INFO - GET http://images.apple.com/global/styles/base.css -> 200 (15ms, 6940 bytes)
+2014-04-14 13:32:33,456 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/styles/billboard.css
+2014-04-14 13:32:33,461 - sauce_connect:0 - INFO - GET http://images.apple.com/home/styles/billboard.css -> 200 (6ms, 20 bytes)
+2014-04-14 13:32:33,532 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/scripts/browserdetect.js
+2014-04-14 13:32:33,532 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/scripts/lib/sizzle.js
+2014-04-14 13:32:33,538 - sauce_connect:0 - INFO - GET http://images.apple.com/global/scripts/browserdetect.js -> 200 (6ms, 3449 bytes)
+2014-04-14 13:32:33,539 - sauce_connect:0 - INFO - GET http://images.apple.com/global/scripts/lib/sizzle.js -> 200 (8ms, 6254 bytes)
+2014-04-14 13:32:33,608 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/scripts/lib/prototype.js
+2014-04-14 13:32:33,624 - sauce_connect:0 - INFO - GET http://images.apple.com/global/scripts/lib/prototype.js -> 200 (15ms, 37451 bytes)
+2014-04-14 13:32:33,688 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/scripts/apple_core.js
+2014-04-14 13:32:33,697 - sauce_connect:0 - INFO - GET http://images.apple.com/global/scripts/apple_core.js -> 200 (9ms, 7486 bytes)
+2014-04-14 13:32:33,766 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/ac_retina/ac_retina.js
+2014-04-14 13:32:33,766 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/scripts/lib/scriptaculous.js
+2014-04-14 13:32:33,773 - sauce_connect:0 - INFO - GET http://images.apple.com/global/ac_retina/ac_retina.js -> 200 (8ms, 5652 bytes)
+2014-04-14 13:32:33,779 - sauce_connect:0 - INFO - GET http://images.apple.com/global/scripts/lib/scriptaculous.js -> 200 (14ms, 27988 bytes)
+2014-04-14 13:32:33,845 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/ac_base/ac_base.js
+2014-04-14 13:32:33,855 - sauce_connect:0 - INFO - GET http://images.apple.com/global/ac_base/ac_base.js -> 200 (10ms, 15051 bytes)
+2014-04-14 13:32:34,112 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/scripts/search_decorator.js
+2014-04-14 13:32:34,118 - sauce_connect:0 - INFO - GET http://images.apple.com/global/scripts/search_decorator.js -> 200 (6ms, 328 bytes)
+2014-04-14 13:32:34,188 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/scripts/promomanager.js
+2014-04-14 13:32:34,194 - sauce_connect:0 - INFO - GET http://images.apple.com/global/scripts/promomanager.js -> 200 (5ms, 1144 bytes)
+2014-04-14 13:32:34,267 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/metrics/scripts/homepage.js
+2014-04-14 13:32:34,273 - sauce_connect:0 - INFO - GET http://images.apple.com/metrics/scripts/homepage.js -> 200 (6ms, 1255 bytes)
+2014-04-14 13:32:34,346 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/scripts/feedstatistics.js
+2014-04-14 13:32:34,359 - sauce_connect:0 - INFO - GET http://images.apple.com/global/scripts/feedstatistics.js -> 200 (13ms, 2229 bytes)
+2014-04-14 13:32:34,423 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/metrics/scripts/touch_forcedlink.js
+2014-04-14 13:32:34,424 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/global/nav/scripts/globalnav.js
+2014-04-14 13:32:34,424 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/your_verse_title_large.png
+2014-04-14 13:32:34,428 - sauce_connect:0 - INFO - GET http://images.apple.com/metrics/scripts/touch_forcedlink.js -> 200 (6ms, 214 bytes)
+2014-04-14 13:32:34,434 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/your_verse_title_large.png -> 200 (9ms, 14635 bytes)
+2014-04-14 13:32:34,434 - sauce_connect:0 - INFO - GET http://images.apple.com/global/nav/scripts/globalnav.js -> 200 (10ms, 10563 bytes)
+2014-04-14 13:32:34,499 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/metrics/scripts/s_code_h.js
+2014-04-14 13:32:34,499 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/your_verse_subhead_medium.png
+2014-04-14 13:32:34,506 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/your_verse_subhead_medium.png -> 200 (8ms, 14203 bytes)
+2014-04-14 13:32:34,510 - sauce_connect:0 - INFO - GET http://images.apple.com/metrics/scripts/s_code_h.js -> 200 (11ms, 24439 bytes)
+2014-04-14 13:32:34,575 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/your_verse_subhead_large.png
+2014-04-14 13:32:34,575 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/your_verse_subhead_small.png
+2014-04-14 13:32:34,585 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/your_verse_subhead_small.png -> 200 (9ms, 14772 bytes)
+2014-04-14 13:32:34,585 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/your_verse_subhead_large.png -> 200 (10ms, 24355 bytes)
+2014-04-14 13:32:34,651 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/your_verse_title_medium.png
+2014-04-14 13:32:34,658 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/your_verse_title_medium.png -> 200 (7ms, 12218 bytes)
+2014-04-14 13:32:34,729 - sauce_connect:0 - INFO - Request started: GET http://images.apple.com/home/images/promo_iphone5c.jpg
+2014-04-14 13:32:34,734 - sauce_connect:0 - INFO - GET http://images.apple.com/home/images/promo_iphone5c.jpg -> 200 (7ms, 12184 bytes)
+2014-04-14 13:32:34,806 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/fuelux.html?jquery=1.9.1
+2014-04-14 13:32:34,809 - sauce_connect:0 - INFO - GET http://localhost:8000/test/fuelux.html?jquery=1.9.1 -> 200 (3ms, 1681 bytes)
+2014-04-14 13:32:35,056 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/qunit/qunit/qunit.css
+2014-04-14 13:32:35,059 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/qunit/qunit/qunit.css -> 200 (3ms, 4362 bytes)
+2014-04-14 13:32:35,151 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/moment-with-langs/index.js
+2014-04-14 13:32:35,157 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/moment-with-langs/index.js -> 200 (7ms, 272860 bytes)
+2014-04-14 13:32:35,171 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/qunit/qunit/qunit.js
+2014-04-14 13:32:35,171 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/requirejs/require.js
+2014-04-14 13:32:35,176 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/qunit/qunit/qunit.js -> 200 (3ms, 61033 bytes)
+2014-04-14 13:32:35,176 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/requirejs/require.js -> 200 (4ms, 82718 bytes)
+2014-04-14 13:32:35,227 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/testem.js
+2014-04-14 13:32:35,230 - sauce_connect:0 - INFO - GET http://localhost:8000/testem.js -> 404 (3ms, 21 bytes)
+2014-04-14 13:32:36,388 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/apple-touch-icon-precomposed.png
+2014-04-14 13:32:36,392 - sauce_connect:0 - INFO - GET http://localhost:8000/apple-touch-icon-precomposed.png -> 404 (4ms, 44 bytes)
+2014-04-14 13:32:36,464 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/fuelux-test.js
+2014-04-14 13:32:36,467 - sauce_connect:0 - INFO - GET http://localhost:8000/test/fuelux-test.js -> 200 (3ms, 1471 bytes)
+2014-04-14 13:32:36,540 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/apple-touch-icon.png
+2014-04-14 13:32:36,542 - sauce_connect:0 - INFO - GET http://localhost:8000/apple-touch-icon.png -> 404 (3ms, 32 bytes)
+2014-04-14 13:32:36,598 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/jquery-1.9.1/jquery.js
+2014-04-14 13:32:36,598 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/checkbox-test.js
+2014-04-14 13:32:36,602 - sauce_connect:0 - INFO - GET http://localhost:8000/test/checkbox-test.js -> 200 (4ms, 4204 bytes)
+2014-04-14 13:32:36,605 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/jquery-1.9.1/jquery.js -> 200 (7ms, 268380 bytes)
+2014-04-14 13:32:36,617 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/datepicker-test.js
+2014-04-14 13:32:36,617 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/datepicker-moment-test.js
+2014-04-14 13:32:36,617 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/combobox-test.js
+2014-04-14 13:32:36,619 - sauce_connect:0 - INFO - GET http://localhost:8000/test/datepicker-test.js -> 200 (4ms, 12288 bytes)
+2014-04-14 13:32:36,621 - sauce_connect:0 - INFO - GET http://localhost:8000/test/datepicker-moment-test.js -> 200 (4ms, 14253 bytes)
+2014-04-14 13:32:36,621 - sauce_connect:0 - INFO - GET http://localhost:8000/test/combobox-test.js -> 200 (5ms, 6759 bytes)
+2014-04-14 13:32:36,693 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/radio-test.js
+2014-04-14 13:32:36,696 - sauce_connect:0 - INFO - GET http://localhost:8000/test/radio-test.js -> 200 (3ms, 3822 bytes)
+2014-04-14 13:32:36,769 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/selectlist-test.js
+2014-04-14 13:32:36,769 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/favicon.ico
+2014-04-14 13:32:36,773 - sauce_connect:0 - INFO - GET http://localhost:8000/test/selectlist-test.js -> 200 (3ms, 4680 bytes)
+2014-04-14 13:32:36,773 - sauce_connect:0 - INFO - GET http://localhost:8000/favicon.ico -> 404 (3ms, 23 bytes)
+2014-04-14 13:32:37,125 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/search-test.js
+2014-04-14 13:32:37,128 - sauce_connect:0 - INFO - GET http://localhost:8000/test/search-test.js -> 200 (3ms, 4212 bytes)
+2014-04-14 13:32:37,164 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/tree-test.js
+2014-04-14 13:32:37,164 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/checkbox.js
+2014-04-14 13:32:37,167 - sauce_connect:0 - INFO - GET http://localhost:8000/test/tree-test.js -> 200 (3ms, 4865 bytes)
+2014-04-14 13:32:37,167 - sauce_connect:0 - INFO - GET http://localhost:8000/js/checkbox.js -> 200 (4ms, 3964 bytes)
+2014-04-14 13:32:37,201 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/dist/js/bootstrap.js
+2014-04-14 13:32:37,201 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/datepicker.js
+2014-04-14 13:32:37,201 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/spinbox-test.js
+2014-04-14 13:32:37,206 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/dist/js/bootstrap.js -> 200 (4ms, 55258 bytes)
+2014-04-14 13:32:37,206 - sauce_connect:0 - INFO - GET http://localhost:8000/test/spinbox-test.js -> 200 (4ms, 6696 bytes)
+2014-04-14 13:32:37,206 - sauce_connect:0 - INFO - GET http://localhost:8000/js/datepicker.js -> 200 (4ms, 32536 bytes)
+2014-04-14 13:32:37,279 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/combobox.js
+2014-04-14 13:32:37,279 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/tree.js
+2014-04-14 13:32:37,280 - sauce_connect:0 - INFO - GET http://localhost:8000/js/combobox.js -> 200 (3ms, 4805 bytes)
+2014-04-14 13:32:37,282 - sauce_connect:0 - INFO - GET http://localhost:8000/js/tree.js -> 200 (3ms, 6779 bytes)
+2014-04-14 13:32:37,380 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/radio.js
+2014-04-14 13:32:37,381 - sauce_connect:0 - INFO - GET http://localhost:8000/js/radio.js -> 200 (3ms, 4515 bytes)
+2014-04-14 13:32:37,392 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/selectlist.js
+2014-04-14 13:32:37,391 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/search.js
+2014-04-14 13:32:37,395 - sauce_connect:0 - INFO - GET http://localhost:8000/js/selectlist.js -> 200 (4ms, 5019 bytes)
+2014-04-14 13:32:37,397 - sauce_connect:0 - INFO - GET http://localhost:8000/js/search.js -> 200 (4ms, 3567 bytes)
+2014-04-14 13:32:37,457 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/spinbox.js
+2014-04-14 13:32:37,457 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/util.js
+2014-04-14 13:32:37,461 - sauce_connect:0 - INFO - GET http://localhost:8000/js/spinbox.js -> 200 (4ms, 7910 bytes)
+2014-04-14 13:32:37,463 - sauce_connect:0 - INFO - GET http://localhost:8000/js/util.js -> 200 (4ms, 1202 bytes)
+2014-04-14 13:32:37,533 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/path/to/moment.js
+2014-04-14 13:32:37,538 - sauce_connect:0 - INFO - GET http://localhost:8000/path/to/moment.js -> 404 (4ms, 29 bytes)
+2014-04-14 13:32:54,913 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/fuelux.html?jquery=1.9.1
+2014-04-14 13:32:54,917 - sauce_connect:0 - INFO - GET http://localhost:8000/test/fuelux.html?jquery=1.9.1 -> 200 (4ms, 1681 bytes)
+2014-04-14 13:32:55,019 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/qunit/qunit/qunit.css
+2014-04-14 13:32:55,022 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/qunit/qunit/qunit.css -> 200 (3ms, 4362 bytes)
+2014-04-14 13:32:55,029 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/moment-with-langs/index.js
+2014-04-14 13:32:55,029 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/qunit/qunit/qunit.js
+2014-04-14 13:32:55,033 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/qunit/qunit/qunit.js -> 200 (5ms, 61033 bytes)
+2014-04-14 13:32:55,038 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/moment-with-langs/index.js -> 200 (8ms, 272860 bytes)
+2014-04-14 13:32:55,095 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/testem.js
+2014-04-14 13:32:55,095 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/requirejs/require.js
+2014-04-14 13:32:55,098 - sauce_connect:0 - INFO - GET http://localhost:8000/testem.js -> 404 (3ms, 21 bytes)
+2014-04-14 13:32:55,099 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/requirejs/require.js -> 200 (5ms, 82718 bytes)
+2014-04-14 13:32:56,937 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/favicon.ico
+2014-04-14 13:32:56,940 - sauce_connect:0 - INFO - GET http://localhost:8000/favicon.ico -> 404 (4ms, 23 bytes)
+2014-04-14 13:32:57,013 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/fuelux-test.js
+2014-04-14 13:32:57,016 - sauce_connect:0 - INFO - GET http://localhost:8000/test/fuelux-test.js -> 200 (3ms, 1471 bytes)
+2014-04-14 13:32:57,164 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/jquery-1.9.1/jquery.js
+2014-04-14 13:32:57,164 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/checkbox-test.js
+2014-04-14 13:32:57,164 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/search-test.js
+2014-04-14 13:32:57,164 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/radio-test.js
+2014-04-14 13:32:57,168 - sauce_connect:0 - INFO - GET http://localhost:8000/test/checkbox-test.js -> 200 (4ms, 4204 bytes)
+2014-04-14 13:32:57,170 - sauce_connect:0 - INFO - GET http://localhost:8000/test/search-test.js -> 200 (6ms, 4212 bytes)
+2014-04-14 13:32:57,170 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/jquery-1.9.1/jquery.js -> 200 (7ms, 268380 bytes)
+2014-04-14 13:32:57,171 - sauce_connect:0 - INFO - GET http://localhost:8000/test/radio-test.js -> 200 (6ms, 3822 bytes)
+2014-04-14 13:32:57,240 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/combobox-test.js
+2014-04-14 13:32:57,240 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/datepicker-test.js
+2014-04-14 13:32:57,243 - sauce_connect:0 - INFO - GET http://localhost:8000/test/combobox-test.js -> 200 (3ms, 6759 bytes)
+2014-04-14 13:32:57,243 - sauce_connect:0 - INFO - GET http://localhost:8000/test/datepicker-test.js -> 200 (3ms, 12288 bytes)
+2014-04-14 13:32:57,496 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/selectlist-test.js
+2014-04-14 13:32:57,500 - sauce_connect:0 - INFO - GET http://localhost:8000/test/selectlist-test.js -> 200 (2ms, 4680 bytes)
+2014-04-14 13:32:57,723 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/spinbox-test.js
+2014-04-14 13:32:57,726 - sauce_connect:0 - INFO - GET http://localhost:8000/test/spinbox-test.js -> 200 (2ms, 6696 bytes)
+2014-04-14 13:32:57,806 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/tree-test.js
+2014-04-14 13:32:57,809 - sauce_connect:0 - INFO - GET http://localhost:8000/test/tree-test.js -> 200 (4ms, 4865 bytes)
+2014-04-14 13:32:57,865 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/bower_components/bootstrap/dist/js/bootstrap.js
+2014-04-14 13:32:57,865 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/test/datepicker-moment-test.js
+2014-04-14 13:32:57,865 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/checkbox.js
+2014-04-14 13:32:57,871 - sauce_connect:0 - INFO - GET http://localhost:8000/js/checkbox.js -> 200 (5ms, 3964 bytes)
+2014-04-14 13:32:57,871 - sauce_connect:0 - INFO - GET http://localhost:8000/test/datepicker-moment-test.js -> 200 (6ms, 14253 bytes)
+2014-04-14 13:32:57,871 - sauce_connect:0 - INFO - GET http://localhost:8000/bower_components/bootstrap/dist/js/bootstrap.js -> 200 (5ms, 55258 bytes)
+2014-04-14 13:32:57,882 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/radio.js
+2014-04-14 13:32:57,882 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/search.js
+2014-04-14 13:32:57,885 - sauce_connect:0 - INFO - GET http://localhost:8000/js/radio.js -> 200 (3ms, 4515 bytes)
+2014-04-14 13:32:57,885 - sauce_connect:0 - INFO - GET http://localhost:8000/js/search.js -> 200 (4ms, 3567 bytes)
+2014-04-14 13:32:58,016 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/combobox.js
+2014-04-14 13:32:58,020 - sauce_connect:0 - INFO - GET http://localhost:8000/js/combobox.js -> 200 (5ms, 4805 bytes)
+2014-04-14 13:32:58,066 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/datepicker.js
+2014-04-14 13:32:58,066 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/spinbox.js
+2014-04-14 13:32:58,066 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/selectlist.js
+2014-04-14 13:32:58,072 - sauce_connect:0 - INFO - GET http://localhost:8000/js/spinbox.js -> 200 (4ms, 7910 bytes)
+2014-04-14 13:32:58,072 - sauce_connect:0 - INFO - GET http://localhost:8000/js/datepicker.js -> 200 (5ms, 32536 bytes)
+2014-04-14 13:32:58,072 - sauce_connect:0 - INFO - GET http://localhost:8000/js/selectlist.js -> 200 (5ms, 5019 bytes)
+2014-04-14 13:32:58,092 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/tree.js
+2014-04-14 13:32:58,095 - sauce_connect:0 - INFO - GET http://localhost:8000/js/tree.js -> 200 (2ms, 6779 bytes)
+2014-04-14 13:32:58,167 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/js/util.js
+2014-04-14 13:32:58,171 - sauce_connect:0 - INFO - GET http://localhost:8000/js/util.js -> 200 (4ms, 1202 bytes)
+2014-04-14 13:32:58,253 - sauce_connect:0 - INFO - Request started: GET http://localhost:8000/path/to/moment.js
+2014-04-14 13:32:58,256 - sauce_connect:0 - INFO - GET http://localhost:8000/path/to/moment.js -> 404 (3ms, 29 bytes)
+2014-04-14 13:33:07,923 - sauce_connect:0 - INFO - received SIGTERM
