@@ -52,10 +52,10 @@
 				};
 				var i, l;
 
-				resp.pages = Math.ceil(resp.count/options.pageSize);
+				resp.pages = Math.ceil(resp.count/(options.pageSize || 100));
 
-				i = options.pageIndex * options.pageSize;
-				l = i + options.pageSize;
+				i = options.pageIndex * (options.pageSize || 100);
+				l = i + (options.pageSize || 100);
 				l = (l <= resp.count) ? l : resp.count;
 				resp.start = i + 1;
 				resp.end = l;
@@ -135,7 +135,8 @@
 						thumbnail(options, callback);
 					}
 				},
-				thumbnailView_infiniteScroll: { hybrid: true }
+				thumbnailView_infiniteScroll: { hybrid: true },
+				listView_infiniteScroll: true
 			});
 		});
 	</script>

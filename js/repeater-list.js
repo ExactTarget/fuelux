@@ -42,9 +42,18 @@
 				callback();
 			},
 			selected: function(helpers, callback){
+				var infScroll = this.options.listView_infiniteScroll;
+				var opts;
+
 				this.listView_firstRender = true;
 				this.$loader.addClass('noHeader');
-				callback();
+
+				if(infScroll){
+					opts = (typeof infScroll === 'object') ? infScroll : {};
+					this.infiniteScrolling(true, opts);
+				}
+
+				callback({});
 			},
 			renderer: {
 				complete: function(helpers, callback){
@@ -136,7 +145,7 @@
 								this.listView_columnsSame = false;
 								this.listView_firstRender = false;
 								this.$loader.removeClass('noHeader');
-								callback({ item: '<table class="table repeater-list-header" data-preserve="deep"><tr data-container="true"></tr></table>' });
+								callback({ action: 'prepend', item: '<table class="table repeater-list-header" data-preserve="deep"><tr data-container="true"></tr></table>' });
 							}else{
 								this.listView_columnsSame = true;
 								callback({ skipNested: true });
@@ -216,7 +225,12 @@
 							callback();
 						},
 						render: function(helpers, callback){
-							callback({ item: '<div class="repeater-list-wrapper"><table class="table repeater-list-items" data-container="true"></table></div>' });
+							var wrapper = this.$canvas.find('.repeater-list-wrapper');
+							if(wrapper.length>0){
+								callback({ action: 'none', item: wrapper });
+							}else{
+								callback({ item: '<div class="repeater-list-wrapper" data-infinite="true"><table class="table repeater-list-items" data-container="true"></table></div>' });
+							}
 						},
 						nested: [
 							{
@@ -279,6 +293,7 @@
 			listView_columnRendered: null,
 			listView_columnSizing: true,
 			listView_columnSyncing: true,
+			listView_infiniteScroll: false,
 			listView_sortClearing: false,
 			listView_rowRendered: null
 		});
