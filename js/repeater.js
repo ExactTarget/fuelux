@@ -134,7 +134,8 @@
 				opts.search = val;
 			}
 
-			viewDataOpts = $.fn.repeater.views[this.currentView].dataOptions;
+			viewDataOpts = $.fn.repeater.views[this.currentView] || {};
+			viewDataOpts = viewDataOpts.dataOptions;
 			if(viewDataOpts){
 				viewDataOpts.call(this, opts, function(obj){
 					callback(obj);
@@ -235,6 +236,8 @@
 			viewsLength = views.length;
 			if(viewsLength>0){
 				init(0);
+			}else{
+				callback();
 			}
 		},
 
@@ -307,7 +310,7 @@
 		render: function(options){
 			var self = this;
 			var viewChanged = false;
-			var viewObj = $.fn.repeater.views[self.currentView];
+			var viewObj = $.fn.repeater.views[self.currentView] || {};
 			var prevView;
 
 			var start = function(){
@@ -351,7 +354,7 @@
 				if(this.infiniteScrollingEnabled){
 					self.infiniteScrolling(false);
 				}
-				viewObj = $.fn.repeater.views[self.currentView];
+				viewObj = $.fn.repeater.views[self.currentView] || {};
 				if(viewObj.selected){
 					viewObj.selected.call(this, { prevView: prevView }, function(){
 						start();
