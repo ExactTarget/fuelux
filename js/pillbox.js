@@ -48,7 +48,7 @@
 			this.$element.on('mousedown', '.pillbox-suggest > li', $.proxy(this.suggestionClick, this));
 		}
 
-		if( this.options.editPill ){
+		if( this.options.edit ){
 			this.$element.on('blur', '.pillbox-input', $.proxy(this.cancelEdit, this));
 		}
 	};
@@ -83,7 +83,7 @@
 					this._removeElement(this.getItemData($li,{el:$li}));
 				}
 				return false;
-			} else if ( this.options.editPill ) {
+			} else if ( this.options.edit ) {
 				if( $li.find('.pillbox-list-edit').length )
 				{
 					return false;
@@ -134,14 +134,13 @@
 					var data = {
 						text: value.text,
 						value: value.value ? value.value : value.text,
-						el: '<li><span></span><span>x</span></li>',
-						index: value.index
+						el: '<li><span></span><span>x</span></li>'
 					};
 
 					items[i] = data;
 				});
 
-				if( this.options.editPill && this.currentEdit ){
+				if( this.options.edit && this.currentEdit ){
 					items[0].el = this.currentEdit.wrap('<div></div>').parent().html();
 				}
 
@@ -151,23 +150,19 @@
 
 				if(self.options.onAdd && isInternal){
 
-					if( this.options.editPill && this.currentEdit ){
+					if( this.options.edit && this.currentEdit ){
 						self.options.onAdd( items[0], $.proxy(self.saveEdit,this));
 					} else {
-						if( index ){
-							self.options.onAdd( items[0], $.proxy(self.placeItems,this,index));
-						} else {
-							self.options.onAdd( items[0], $.proxy(self.placeItems,this));
-						}
+						self.options.onAdd( items[0], $.proxy(self.placeItems,this, true));
 					}
 				} else {
-					if( this.options.editPill && this.currentEdit ){
+					if( this.options.edit && this.currentEdit ){
 						self.saveEdit(items);
 					} else {
 						if( index ){
 							self.placeItems(index, items);
 						} else {
-							self.placeItems(items);
+							self.placeItems(items, isInternal);
 						}
 					}
 				}
@@ -204,13 +199,14 @@
 		placeItems: function(){
 			var items,index;
 			var newHtml = '';
-			var $neighbor;
+			var $neighbor, isInternal;
 
 			if( isFinite(String(arguments[0])) && !(arguments[0] instanceof Array) ) {
 				items = [].slice.call(arguments).slice(1);
 				index = arguments[0];
 			} else {
 				items = [].slice.call(arguments).slice(0);
+				isInternal = items[1] && !items[1].text;
 			}
 
 			if(items[0] instanceof Array){
@@ -244,7 +240,9 @@
 					this.$ul.prepend(newHtml);
 				}
 
-				this.$element.trigger( 'added', items );
+				if( isInternal ){
+					this.$element.trigger('added', {text: items[0].text,value: items[0].value});
+				}
 			}
 		},
 
@@ -281,7 +279,7 @@
 				if( !txt.length ) {
 					e.preventDefault();
 
-					if( this.options.editPill && this.currentEdit ) {
+					if( this.options.edit && this.currentEdit ) {
 						this.cancelEdit();
 						return true;
 					}
@@ -363,7 +361,7 @@
 
 			this.$input.val('');
 			this.$ul.append(this.$inputWrap.detach().show());
-			this.$element.trigger( 'edit', {value:item.value, text:item.text});
+			this.$element.trigger( 'edited', {value:item.value, text:item.text});
 		},
 
 		removeBySelector: function() {
@@ -443,7 +441,6 @@
 				});
 
 				this.$sugs.html('').append(markup).show();
-				$(document.body).trigger('suggestions', data.data);
 			}
 		},
 
@@ -502,7 +499,7 @@
 		onAdd: undefined,
 		onRemove: undefined,
 		onKeyDown: undefined,
-		editPill: false,
+		edit: true,
 		acceptKeyCodes: [
 			//Enter
 			13,
