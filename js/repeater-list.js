@@ -128,8 +128,11 @@
 						$items.find('tr:first td').each(function(){
 							widths.push($(this).outerWidth());
 						});
+						widths.pop();
 						$header.find('td').each(function(){
-							$(this).outerWidth(widths[i]);
+							if(widths[i]!==undefined){
+								$(this).outerWidth(widths[i]);
+							}
 							i++;
 						});
 						callback();
@@ -168,7 +171,7 @@
 
 								l=auto.length;
 								if(l>0){
-									newWidth = (this.$canvas.width() - taken) / l;
+									newWidth = Math.floor((this.$canvas.width() - taken) / l);
 									for(i=0; i<l; i++){
 										if(!auto[i].last){
 											auto[i].col.outerWidth(newWidth);
