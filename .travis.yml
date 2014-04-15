@@ -9,6 +9,8 @@ before_install:
   - wget http://www.interactivellama.com/fuelux/node_modules.zip
   - unzip -q node_modules.zip
   - chmod +x ./node_modules
-install: npm update
+install: 
+  - npm update
+  - bower update
 matrix:
   fast_finish: true
