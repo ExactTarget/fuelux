@@ -308,6 +308,7 @@
 			var self = this;
 			var viewChanged = false;
 			var viewObj = $.fn.repeater.views[self.currentView];
+			var prevView;
 
 			var start = function(){
 				options.preserve = (options.preserve!==undefined) ? options.preserve : !viewChanged;
@@ -343,6 +344,7 @@
 			options = options || {};
 
 			if(options.changeView && this.currentView!==options.changeView){
+				prevView = this.currentView;
 				this.currentView = options.changeView;
 				this.$element.attr('data-currentview', this.currentView);
 				viewChanged = true;
@@ -351,8 +353,7 @@
 				}
 				viewObj = $.fn.repeater.views[self.currentView];
 				if(viewObj.selected){
-					//TODO: provide valuable helpers object here
-					viewObj.selected.call(this, {}, function(){
+					viewObj.selected.call(this, { prevView: prevView }, function(){
 						start();
 					});
 				}else{
