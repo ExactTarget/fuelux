@@ -27,13 +27,13 @@
 	if($.fn.repeater){
 
 		$.fn.repeater.defaults = $.extend({}, $.fn.repeater.defaults, {
-			thumbnailView_infiniteScroll: false,
-			thumbnailView_itemRendered: null
+			thumbnail_infiniteScroll: false,
+			thumbnail_itemRendered: null
 		});
 
 		$.fn.repeater.views.thumbnail = {
 			selected: function(helpers, callback){
-				var infScroll = this.options.thumbnailView_infiniteScroll;
+				var infScroll = this.options.thumbnail_infiniteScroll;
 				var opts;
 				if(infScroll){
 					opts = (typeof infScroll === 'object') ? infScroll : {};
@@ -55,7 +55,7 @@
 					if(helpers.data.items.length<1){
 						obj.skipNested = true;
 						$empty = $('<div class="empty"></div>');
-						$empty.append(this.options.thumbnailView_noItemsHTML);
+						$empty.append(this.options.thumbnail_noItemsHTML);
 						$item.append($empty);
 					}else{
 						$item.find('.empty:first').remove();
@@ -69,8 +69,8 @@
 							if(helpers.item!==undefined){
 								obj.item = helpers.item;
 							}
-							if(this.options.thumbnailView_itemRendered){
-								this.options.thumbnailView_itemRendered(obj, function(){
+							if(this.options.thumbnail_itemRendered){
+								this.options.thumbnail_itemRendered(obj, function(){
 									callback();
 								});
 							}else{

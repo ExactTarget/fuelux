@@ -75,36 +75,36 @@
 		};
 
 		$.fn.repeater.defaults = $.extend({}, $.fn.repeater.defaults, {
-			listView_columnRendered: null,
-			listView_columnSizing: true,
-			listView_columnSyncing: true,
-			listView_infiniteScroll: false,
-			listView_noItemsHTML: '',
-			listView_selectable: false,
-			listView_sortClearing: false,
-			listView_rowRendered: null
+			list_columnRendered: null,
+			list_columnSizing: true,
+			list_columnSyncing: true,
+			list_infiniteScroll: false,
+			list_noItemsHTML: '',
+			list_selectable: false,
+			list_sortClearing: false,
+			list_rowRendered: null
 		});
 
 		$.fn.repeater.views.list = {
 			dataOptions: function(opts, callback){
-				if(this.listView_sortDirection){
-					opts.sortDirection = this.listView_sortDirection;
+				if(this.list_sortDirection){
+					opts.sortDirection = this.list_sortDirection;
 				}
-				if(this.listView_sortProperty){
-					opts.sortProperty = this.listView_sortProperty;
+				if(this.list_sortProperty){
+					opts.sortProperty = this.list_sortProperty;
 				}
 				callback(opts);
 			},
 			initialize: function(helpers, callback){
-				this.listView_sortDirection = null;
-				this.listView_sortProperty = null;
+				this.list_sortDirection = null;
+				this.list_sortProperty = null;
 				callback();
 			},
 			selected: function(helpers, callback){
-				var infScroll = this.options.listView_infiniteScroll;
+				var infScroll = this.options.list_infiniteScroll;
 				var opts;
 
-				this.listView_firstRender = true;
+				this.list_firstRender = true;
 				this.$loader.addClass('noHeader');
 
 				if(infScroll){
@@ -120,7 +120,7 @@
 					var widths = [];
 					var $header, $items;
 
-					if(!this.options.listView_columnSyncing || (helpers.data.items.length<1)){
+					if(!this.options.list_columnSyncing || (helpers.data.items.length<1)){
 						callback();
 					}else{
 						$header = this.$element.find('.repeater-list-header:first');
@@ -142,7 +142,7 @@
 							var self = this;
 							var i, l, newWidth, taken;
 
-							if(!this.options.listView_columnSizing || this.listView_columnsSame){
+							if(!this.options.list_columnSizing || this.list_columnsSame){
 								callback();
 							}else{
 								i = 0;
@@ -151,12 +151,12 @@
 									var $col = $(this);
 									var isLast = ($col.next('td').length===0) ? true : false;
 									var width;
-									if(self.listView_columns[i].width!==undefined){
-										width = self.listView_columns[i].width;
+									if(self.list_columns[i].width!==undefined){
+										width = self.list_columns[i].width;
 										$col.outerWidth(width);
 										taken +=  $col.outerWidth();
 										if(!isLast){
-											self.listView_columns[i]._auto_width = width;
+											self.list_columns[i]._auto_width = width;
 										}else{
 											$col.outerWidth('');
 										}
@@ -172,7 +172,7 @@
 									for(i=0; i<l; i++){
 										if(!auto[i].last){
 											auto[i].col.outerWidth(newWidth);
-											this.listView_columns[auto[i].index]._auto_width = newWidth;
+											this.list_columns[auto[i].index]._auto_width = newWidth;
 										}
 									}
 								}
@@ -198,15 +198,15 @@
 								return false;
 							};
 
-							if(this.listView_firstRender || differentColumns(this.listView_columns, helpers.data.columns)){
+							if(this.list_firstRender || differentColumns(this.list_columns, helpers.data.columns)){
 								this.$element.find('.repeater-list-header').remove();
-								this.listView_columns = helpers.data.columns;
-								this.listView_columnsSame = false;
-								this.listView_firstRender = false;
+								this.list_columns = helpers.data.columns;
+								this.list_columnsSame = false;
+								this.list_firstRender = false;
 								this.$loader.removeClass('noHeader');
 								callback({ action: 'prepend', item: '<table class="table repeater-list-header" data-preserve="deep"><tr data-container="true"></tr></table>' });
 							}else{
-								this.listView_columnsSame = true;
+								this.list_columnsSame = true;
 								callback({ skipNested: true });
 							}
 						},
@@ -230,26 +230,26 @@
 									if(sortable){
 										$item.addClass('sortable');
 										$item.on('click', function(){
-											self.listView_sortProperty = (typeof sortable === 'string') ? sortable : subset[index].property;
+											self.list_sortProperty = (typeof sortable === 'string') ? sortable : subset[index].property;
 											if($item.hasClass('sorted')){
 												if($span.hasClass(chevUp)){
 													$span.removeClass(chevUp).addClass(chevDown);
-													self.listView_sortDirection = 'down';
+													self.list_sortDirection = 'down';
 												}else{
-													if(!self.options.listView_sortClearing){
+													if(!self.options.list_sortClearing){
 														$span.removeClass(chevDown).addClass(chevUp);
-														self.listView_sortDirection = 'up';
+														self.list_sortDirection = 'up';
 													}else{
 														$item.removeClass('sorted');
 														$span.removeClass(chevDown);
-														self.listView_sortDirection = null;
-														self.listView_sortProperty = null;
+														self.list_sortDirection = null;
+														self.list_sortProperty = null;
 													}
 												}
 											}else{
 												helpers.container.find('td').removeClass('sorted');
 												$span.removeClass(chevDown).addClass(chevUp);
-												self.listView_sortDirection = 'asc';
+												self.list_sortDirection = 'asc';
 												$item.addClass('sorted');
 											}
 											self.render({ clearInfinite: true, pageIncrement: null });
@@ -260,12 +260,12 @@
 										$item.addClass('sortable sorted');
 										if(subset[index].sortDirection==='asc'){
 											$span.addClass(chevUp);
-											this.listView_sortDirection = 'asc';
+											this.list_sortDirection = 'asc';
 										}else{
 											$span.addClass(chevDown);
-											this.listView_sortDirection = 'desc';
+											this.list_sortDirection = 'desc';
 										}
-										this.listView_sortProperty = (typeof sortable === 'string') ? sortable : subset[index].property;
+										this.list_sortProperty = (typeof sortable === 'string') ? sortable : subset[index].property;
 									}
 
 									callback({ item: $item });
@@ -296,7 +296,7 @@
 							if(helpers.data.items.length<1){
 								obj.skipNested = true;
 								$empty = $('<tr class="empty"><td></td></tr>');
-								$empty.find('td').append(this.options.listView_noItemsHTML);
+								$empty.find('td').append(this.options.list_noItemsHTML);
 								$item.find('.repeater-list-items').append($empty);
 							}else{
 								$item.find('.repeater-list-items tr.empty:first').remove();
@@ -310,8 +310,8 @@
 									if(helpers.item!==undefined){
 										obj.item = helpers.item;
 									}
-									if(this.options.listView_rowRendered){
-										this.options.listView_rowRendered(obj, function(){
+									if(this.options.list_rowRendered){
+										this.options.list_rowRendered(obj, function(){
 											callback();
 										});
 									}else{
@@ -321,7 +321,7 @@
 								render: function(helpers, callback){
 									var $item = $('<tr data-container="true"></tr>');
 									var self = this;
-									if(this.options.listView_selectable){
+									if(this.options.list_selectable){
 										$item.addClass('selectable');
 										$item.data('item_data', helpers.subset[helpers.index]);
 										$item.on('click', function(){
@@ -329,7 +329,7 @@
 											if($row.hasClass('selected')){
 												$row.removeClass('selected');
 											}else{
-												if(self.options.listView_selectable!=='multi'){
+												if(self.options.list_selectable!=='multi'){
 													self.$canvas.find('.repeater-list-check').remove();
 													self.$canvas.find('.repeater-list-items tr.selected').removeClass('selected');
 												}
@@ -338,7 +338,7 @@
 											}
 										});
 									}
-									this.listView_curRowIndex = helpers.index;
+									this.list_curRowIndex = helpers.index;
 									callback({ item: $item });
 								},
 								repeat: 'data.items',
@@ -349,8 +349,8 @@
 											if(helpers.item!==undefined){
 												obj.item = helpers.item;
 											}
-											if(this.options.listView_columnRendered){
-												this.options.listView_columnRendered(obj, function(){
+											if(this.options.list_columnRendered){
+												this.options.list_columnRendered(obj, function(){
 													callback();
 												});
 											}else{
@@ -359,7 +359,7 @@
 										},
 										render: function(helpers, callback){
 											var cssClass = helpers.subset[helpers.index].cssClass;
-											var content = helpers.data.items[this.listView_curRowIndex][helpers.subset[helpers.index].property];
+											var content = helpers.data.items[this.list_curRowIndex][helpers.subset[helpers.index].property];
 											var $item = $('<td></td>');
 											var width = helpers.subset[helpers.index]._auto_width;
 
@@ -369,7 +369,7 @@
 											}
 											callback({ item: $item });
 										},
-										repeat: 'this.listView_columns'
+										repeat: 'this.list_columns'
 									}
 								]
 							}
