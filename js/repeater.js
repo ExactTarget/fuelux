@@ -60,12 +60,12 @@
 		this.options = $.extend({}, $.fn.repeater.defaults, options);
 		this.staticHeight = (this.options.staticHeight===-1) ? this.$element.attr('data-staticheight') : this.options.staticHeight;
 
-		this.$filters.on('changed', $.proxy(this.render, this, { pageIncrement: null }));
+		this.$filters.on('changed', $.proxy(this.render, this, { clearInfinite: true, pageIncrement: null }));
 		this.$nextBtn.on('click', $.proxy(this.next, this));
 		this.$pageSize.on('changed', $.proxy(this.render, this, { pageIncrement: null }));
 		this.$prevBtn.on('click', $.proxy(this.previous, this));
 		this.$primaryPaging.find('.combobox').on('changed', function(evt, data){ self.pageInputChange(data.text); });
-		this.$search.on('searched cleared', $.proxy(this.render, this, { pageIncrement: null }));
+		this.$search.on('searched cleared', $.proxy(this.render, this, { clearInfinite: true, pageIncrement: null }));
 		this.$secondaryPaging.on('blur', function(){ self.pageInputChange(self.$secondaryPaging.val()); });
 		this.$views.find('input').on('change', $.proxy(this.viewChanged, this));
 
@@ -80,7 +80,7 @@
 	Repeater.prototype = {
 		constructor: Repeater,
 
-		clear: function(preserve){
+		clear: function(options){
 			var scan = function(cont){
 				var keep = [];
 				cont.children().each(function(){
@@ -99,9 +99,11 @@
 				cont.append(keep);
 			};
 
-			if(!preserve){
+			options = options || {};
+
+			if(!options.preserve){
 				this.$canvas.empty();
-			}else if(!this.infiniteScrollingEnabled){
+			}else if(!this.infiniteScrollingEnabled || options.clearInfinite){
 				scan(this.$canvas);
 			}
 		},
@@ -173,7 +175,7 @@
 			}
 		},
 
-		infiniteScrollPaging: function(data){
+		infiniteScrollPaging: function(data, options){
 			var end = (this.infiniteScrollingEnd!==true) ? this.infiniteScrollingEnd : undefined;
 			var page = data.page;
 			var pages = data.pages;
@@ -187,16 +189,21 @@
 
 		initInfiniteScrolling: function(){
 			var cont = this.$canvas.find('[data-infinite="true"]:first');
-			var opts = $.extend({}, this.infiniteScrollingOptions);
-			var self = this;
+			var opts, self;
 
 			cont = (cont.length<1) ? this.$canvas : cont;
-			opts.dataSource = function(helpers, callback){
-				self.infiniteScrollingCallback = callback;
-				self.render({ pageIncrement: 1 });
-			};
-			cont.infinitescroll(opts);
-			this.infiniteScrollingCont = cont;
+			if(cont.data('infinitescroll')){
+				cont.infinitescroll('enable');
+			}else{
+				self = this;
+				opts = $.extend({}, this.infiniteScrollingOptions);
+				opts.dataSource = function(helpers, callback){
+					self.infiniteScrollingCallback = callback;
+					self.render({ pageIncrement: 1 });
+				};
+				cont.infinitescroll(opts);
+				this.infiniteScrollingCont = cont;
+			}
 		},
 
 		initViews: function(callback){
@@ -303,7 +310,8 @@
 			var viewObj = $.fn.repeater.views[self.currentView];
 
 			var start = function(){
-				self.clear(!viewChanged);
+				options.preserve = (options.preserve!==undefined) ? options.preserve : !viewChanged;
+				self.clear(options);
 				if(!self.infiniteScrollingEnabled || (self.infiniteScrollingEnabled && viewChanged)){
 					self.$loader.show();
 				}
@@ -319,10 +327,10 @@
 						if(renderer){
 							self.runRenderer(self.$canvas, renderer, data, function(){
 								if(self.infiniteScrollingEnabled){
-									if(viewChanged){
+									if(viewChanged || options.clearInfinite){
 										self.initInfiniteScrolling();
 									}
-									self.infiniteScrollPaging(data);
+									self.infiniteScrollPaging(data, options);
 								}
 								self.$loader.hide();
 								//throw event

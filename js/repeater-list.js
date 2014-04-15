@@ -252,7 +252,7 @@
 												self.listView_sortDirection = 'asc';
 												$item.addClass('sorted');
 											}
-											self.render();
+											self.render({ clearInfinite: true, pageIncrement: null });
 										});
 									}
 									if(subset[index].sortDirection==='asc' || subset[index].sortDirection==='desc'){
