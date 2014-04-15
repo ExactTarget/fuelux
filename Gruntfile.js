@@ -20,12 +20,12 @@ module.exports = function (grunt) {
 		sauceKey: process.env['SAUCE_ACCESS_KEY'] ? process.env['SAUCE_ACCESS_KEY'] : '<%= sauceLoginFile.key %>',
 		testUrls: ['2.1.0', '1.11.0', '1.9.1', 'browserGlobals'].map(function (ver) {
 			if(ver==='browserGlobals'){
-				return 'http://localhost:<%= connect.server.options.port %>/test/fuelux-browser-globals.html';
+				return 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux-browser-globals.html';
 			}
-			return 'http://localhost:<%= connect.server.options.port %>/test/fuelux.html?jquery=' + ver;
+			return 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + ver;
 		}),
 		ieTestUrls: ['1.9.1'].map(function (ver) {
-			return 'http://localhost:<%= connect.server.options.port %>/test/fuelux.html?jquery=' + ver;
+			return 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + ver;
 		}),
 
 		//Tasks configuration
@@ -93,6 +93,12 @@ module.exports = function (grunt) {
 			}
 		},
 		connect: {
+			testServer: {
+				options: {
+					hostname: '*',
+					port: 9000		// allows main server to be run simultaneously 
+				}
+			},
 			server: {
 				options: {
 					hostname: '*',
@@ -262,16 +268,16 @@ module.exports = function (grunt) {
 
 	//Testing tasks
 	grunt.registerTask('devtest', ['jshint', 'qunit:simple']);
-	grunt.registerTask('releasetest', ['connect', 'jshint', 'qunit:full']);
-	grunt.registerTask('saucelabs', ['connect', 'jshint', 'saucelabs-qunit:all']);
-	grunt.registerTask('saucelabs-ie', ['connect', 'jshint', 'saucelabs-qunit:internetExplorer']);
+	grunt.registerTask('releasetest', ['connect:testServer', 'jshint', 'qunit:full']);
+	grunt.registerTask('saucelabs', ['connect:testServer', 'jshint', 'saucelabs-qunit:all']);
+	grunt.registerTask('saucelabs-ie', ['connect:testServer', 'jshint', 'saucelabs-qunit:internetExplorer']);
 
 	//Style tasks
 	grunt.registerTask('quickcss', ['less', 'usebanner']);
 	grunt.registerTask('fullcss', ['quickcss']); /* Remove */
 
 	//Serve task
-	grunt.registerTask('serve', ['devtest', 'quickcss', 'copy:fonts', 'concat', 'uglify', 'jsbeautifier', 'connect', 'watch']);
+	grunt.registerTask('serve', ['devtest', 'quickcss', 'copy:fonts', 'concat', 'uglify', 'jsbeautifier', 'connect:server', 'watch']);
 
 	//Travis CI task
 	grunt.registerTask('travisci', 'Run appropriate test strategy for Travis CI', function () {
