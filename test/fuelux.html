@@ -11,7 +11,6 @@
 	<script>QUnit.config.autostart = false;</script>
 	<script src="../bower_components/requirejs/require.js"></script>
 	<!--What is this about?-->
-	<script src="/testem.js"></script>
 
 	<script>
 		window.tmpMoment = window.moment;
@@ -39,7 +38,7 @@
 					bootstrap: 'bower_components/bootstrap/dist/js/bootstrap',
 					fuelux: 'js',
 					test: 'test',
-					moment: 'path/to/moment', // wrong url because we need to test it without moment first
+					moment: '../bower_components/moment-with-langs/index', // wrong url because we need to test it without moment first
 					text: 'bower_components/requirejs-text/text'
 				}
 			});
