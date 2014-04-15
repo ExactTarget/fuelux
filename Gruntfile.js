@@ -15,6 +15,18 @@ module.exports = function (grunt) {
 		bootstrapCheck: 'if (typeof $.fn.dropdown === \'undefined\' || typeof $.fn.collapse === \'undefined\') ' +
 			'{ throw new Error(\'FuelUX\\\'s JavaScript requires Bootstrap\') }\n\n',
 		pkg: grunt.file.readJSON('package.json'),
+		// Try ENV variables (export SAUCE_ACCESS_KEY=XXXX), if key doesn't exist, try key file 
+		sauceLoginFile: grunt.file.exists('SAUCE_API_KEY.yml') ? grunt.file.readYAML('SAUCE_API_KEY.yml') : undefined,
+		sauceKey: process.env['SAUCE_ACCESS_KEY'] ? process.env['SAUCE_ACCESS_KEY'] : '<%= sauceLoginFile.key %>',
+		testUrls: ['2.1.0', '1.11.0', '1.9.1', 'browserGlobals'].map(function (ver) {
+			if(ver==='browserGlobals'){
+				return 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux-browser-globals.html';
+			}
+			return 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + ver;
+		}),
+		ieTestUrls: ['1.9.1'].map(function (ver) {
+			return 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + ver;
+		}),
 
 		//Tasks configuration
 		clean: {
@@ -81,6 +93,12 @@ module.exports = function (grunt) {
 			}
 		},
 		connect: {
+			testServer: {
+				options: {
+					hostname: '*',
+					port: 9000		// allows main server to be run simultaneously 
+				}
+			},
 			server: {
 				options: {
 					hostname: '*',
@@ -192,29 +210,23 @@ module.exports = function (grunt) {
 		'saucelabs-qunit': {
 			all: {
 				options: {
-					browsers: [
-						{ browserName: 'internet explorer', platform: 'Windows 2012', version: '10' },
-						{ browserName: 'internet explorer', platform: 'Windows 2008', version: '9' },
-						{ browserName: 'internet explorer', platform: 'Windows 2008', version: '8' },
-						{ browserName: 'firefox', platform: 'Windows 2008', version: '19' },
-						{ browserName: 'firefox', platform: 'Mac 10.6', version: '19' },
-						{ browserName: 'safari', platform: 'Mac 10.8', version: '6' },
-						{ browserName: 'chrome', platform: 'Windows 2008' },
-						{ browserName: 'chrome', platform: 'Mac 10.8' },
-						{ browserName: 'iphone', platform: 'Mac 10.8', version: '6' },
-						{ browserName: 'ipad', platform: 'Mac 10.8', version: '6' }
-					],
-					concurrency: '3',
+					username: 'fuelux',
+					key: '<%= sauceKey %>',
+					browsers: grunt.file.readYAML('sauce_browsers.yml'),
+					testname: 'grunt-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
 					urls: '<%= testUrls %>'
+				}
+			},
+			internetExplorer: {
+				options: {
+					username: 'fuelux',
+					key: '<%= sauceKey %>',
+					browsers: grunt.file.readYAML('sauce_ie_only.yml'),
+					testname: 'grunt-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
+					urls: '<%= ieTestUrls %>'
 				}
 			}
 		},
-		testUrls: ['BG', '1.9.1', '1.8.3', '1.7.2'].map(function (ver) {
-			if(ver==='BG'){
-				return 'http://localhost:<%= connect.server.options.port %>/test/fuelux-browser-globals.html';
-			}
-			return 'http://localhost:<%= connect.server.options.port %>/test/fuelux.html?jquery=' + ver;
-		}),
 		uglify: {
 			options: {
 				report: 'min'
@@ -244,7 +256,7 @@ module.exports = function (grunt) {
 		watch: {
 			files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
 			options: { livereload: true },
-			tasks: ['quicktest', 'quickcss', 'copy:fonts', 'concat', 'jshint', 'jsbeautifier']
+			tasks: ['devtest', 'quickcss', 'copy:fonts', 'concat', 'jshint', 'jsbeautifier']
 		}
 	});
 
@@ -252,23 +264,24 @@ module.exports = function (grunt) {
 	require('load-grunt-tasks')(grunt, {scope: 'devDependencies'});
 
 	//The default task
-	grunt.registerTask('default', ['fulltest', 'fullcss', 'copy:fonts', 'clean:dist', 'concat', 'uglify', 'jsbeautifier', 'copy:zipsrc', 'compress', 'clean:zipsrc']);
+	grunt.registerTask('default', ['releasetest', 'fullcss', 'copy:fonts', 'clean:dist', 'concat', 'uglify', 'jsbeautifier', 'copy:zipsrc', 'compress', 'clean:zipsrc']);
 
 	//Testing tasks
-	grunt.registerTask('quicktest', ['jshint', 'qunit:simple']);
-	grunt.registerTask('fulltest', ['connect', 'jshint', 'qunit:full']);
-	grunt.registerTask('saucelabs', ['connect', 'jshint', 'saucelabs-qunit']);
+	grunt.registerTask('devtest', ['jshint', 'qunit:simple']);
+	grunt.registerTask('releasetest', ['connect:testServer', 'jshint', 'qunit:full']);
+	grunt.registerTask('saucelabs', ['connect:testServer', 'jshint', 'saucelabs-qunit:all']);
+	grunt.registerTask('saucelabs-ie', ['connect:testServer', 'jshint', 'saucelabs-qunit:internetExplorer']);
 
 	//Style tasks
 	grunt.registerTask('quickcss', ['less', 'usebanner']);
 	grunt.registerTask('fullcss', ['quickcss']); /* Remove */
 
 	//Serve task
-	grunt.registerTask('serve', ['quicktest', 'quickcss', 'copy:fonts', 'concat', 'uglify', 'jsbeautifier', 'connect', 'watch']);
+	grunt.registerTask('serve', ['devtest', 'quickcss', 'copy:fonts', 'concat', 'uglify', 'jsbeautifier', 'connect:server', 'watch']);
 
 	//Travis CI task
 	grunt.registerTask('travisci', 'Run appropriate test strategy for Travis CI', function () {
-		(process.env['TRAVIS_SECURE_ENV_VARS'] === 'true') ? grunt.task.run('saucelabs') : grunt.task.run('fulltest');
+		(process.env['TRAVIS_SECURE_ENV_VARS'] === 'true') ? grunt.task.run('saucelabs') : grunt.task.run('releasetest');
 	});
 
 };
