@@ -26,7 +26,7 @@
   "scripts": {
     "main": "server.js",
     "test": "grunt saucelabs",
-    "postinstall": "export NODE_ENV=development; npm install" //&& ./node_modules/bower/bin/bower install && npm install connect;
+    "postinstall": "export NODE_ENV=development; npm install"
   },
   "devDependencies": {
     "bower": "~1.3.1",
