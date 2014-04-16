@@ -503,11 +503,9 @@
 			loopSubset(0);
 		},
 
-		viewChanged: function(){
-			var self = this;
-			setTimeout(function(){
-				self.render({ changeView: self.$views.find('label.active input').val(), pageIncrement: null });
-			},0);
+		viewChanged: function(e){
+			var $selected = $(e.target);
+			this.render({ changeView: $selected.val(), pageIncrement: null });
 		}
 	};
 

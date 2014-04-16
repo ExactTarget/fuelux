@@ -94,9 +94,90 @@ define(function(require){
 		});
 	});
 
-//	test("should handle pagination correctly", function () {
-//
-//	});
+	test("should handle pagination correctly", function () {
+		var count = -1;
+		var $repeater = $(this.$markup);
+		var $primaryPaging = $repeater.find('.repeater-primaryPaging');
+		var $secondaryPaging = $repeater.find('.repeater-secondaryPaging');
+		$repeater.repeater({
+			dataSource: function(options, callback){
+				count++;
+				switch (count){
+					case 0:
+						equal(options.pageIndex, 0, 'correct pageIndex passed to dataSource');
+						callback({ page: 0, pages: 2 });
+						equal($primaryPaging.hasClass('active'), true, 'primary paging has active class');
+						equal($primaryPaging.find('input').val(), '1', 'primary paging displaying correct page');
+						equal($primaryPaging.find('li').length, 2, 'primary paging has correct number of selectable items');
+						$repeater.find('.repeater-next').click();
+						break;
+					case 1:
+						ok(1===1, 'dataSource called again upon clicking next button');
+						equal(options.pageIndex, 1, 'correct pageIndex passed to dataSource on next click');
+						callback({ page: 1, pages: 6 });
+						equal($secondaryPaging.hasClass('active'), true, 'secondary paging has active class');
+						equal($secondaryPaging.val(), '2', 'secondary paging displaying correct page');
+						$repeater.find('.repeater-prev').click();
+						break;
+					case 2:
+						ok(1===1, 'dataSource called again upon clicking prev button');
+						equal(options.pageIndex, 0, 'correct pageIndex passed to dataSource on prev click');
+						callback({});
+						break;
+				}
+			},
+			dropPagingCap: 3
+		});
+	});
+
+	test("should handle search correctly", function () {
+		var count = -1;
+		var $repeater = $(this.$markup);
+		var $search = $repeater.find('.repeater-search');
+		$repeater.repeater({
+			dataSource: function(options, callback){
+				count++;
+				switch (count){
+					case 0:
+						equal(options.search, undefined, 'search value not passed to dataSource initially as expected');
+						callback({});
+						$search.find('input').val('something');
+						$search.trigger('searched');
+						break;
+					case 1:
+						equal(options.search, 'something', 'correct search value passed to dataSource upon searching');
+						callback({});
+						$search.find('input').val('');
+						$search.trigger('cleared');
+						break;
+					case 2:
+						equal(options.search, undefined, 'search value not passed to dataSource after clearing');
+						callback({});
+						break;
+				}
+			},
+			dropPagingCap: 3
+		});
+	});
+
+	test("should handle views correctly", function () {
+		var hasCalledDS = false;
+		var $repeater = $(this.$markup);
+		var $views = $repeater.find('.repeater-views');
+		$repeater.repeater({
+			dataSource: function(options, callback){
+				if(hasCalledDS){
+					equal(options.view, 'test2', 'correct view value passed to dataSource upon selecting different view');
+				}else{
+					equal(options.view, 'test1', 'correct view value passed to dataSource initially');
+					hasCalledDS = true;
+					callback({});
+					$views.find('label:last input').trigger('change');
+				}
+			},
+			dropPagingCap: 3
+		});
+	});
 
 //	asyncTest("should run view plugin aspects correctly", function () {
 //		var $repeater = $(this.$markup);
