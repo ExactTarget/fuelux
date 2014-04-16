@@ -3,7 +3,7 @@ node_js:
   - 0.10
 before_script: 
   - wget http://fuelux-dev.herokuapp.com/node_modules.tar.gz
-  - tar -zxqf node_modules.tar.gz
+  - tar -zxf node_modules.tar.gz
   - chmod +x ./node_modules
 env:
   global:
