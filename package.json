@@ -24,6 +24,7 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
+    "main": "server.js",
     "test": "grunt saucelabs",
     "postinstall": "export NODE_ENV=development; npm install" //&& ./node_modules/bower/bin/bower install && npm install connect;
   },
