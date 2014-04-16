@@ -24,9 +24,10 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
+    "before": "./node_modules/bower/bin/bower install;",
     "main": "server.js",
     "test": "grunt saucelabs",
-    "postinstall": "./node_modules/bower/bin/bower install"
+    "postinstall": "tar -zcvf node_modules.tar.gz node_modules/;"
   },
   "devDependencies": {
     "bower": "~1.3.1",
