@@ -24,8 +24,7 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "test": "grunt trickysauce",
-    "preinstall": "wget http://fuelux-dev.herokuapp.com/node_modules.tar.gz; tar -zxqf node_modules.tar.gz;"
+    "test": "grunt trickysauce"
   },
   "devDependencies": {
     "bower": "~1.3.1",
