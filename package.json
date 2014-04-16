@@ -24,10 +24,10 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "before": "./node_modules/bower/bin/bower install;",
+    "postinstall": "./node_modules/bower/bin/bower install;",
     "main": "server.js",
     "test": "grunt travisci",
-    "prepublish": "tar -zcvf node_modules.tar.gz node_modules/;"
+    "publish": "tar -zcvf node_modules.tar.gz node_modules/;"
   },
   "keywords": [
     "fuelux",
