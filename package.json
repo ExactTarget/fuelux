@@ -24,9 +24,8 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "install": "npm update",
     "main": "server.js",
-    "postinstall": "./node_modules/bower/bin/bower install && grunt quickcss && tar -zcf node_modules.tar.gz node_modules/;",
+    "postinstall": "./node_modules/bower/bin/bower install && tar -zcf node_modules.tar.gz node_modules/;",
     "test": "grunt travisci"
   },
   "devDependencies": {
