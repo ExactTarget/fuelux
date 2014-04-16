@@ -25,6 +25,7 @@
   },
   "scripts": {
     "postinstall": "./node_modules/bower/bin/bower install; tar -zcf node_modules.tar.gz node_modules/;",
+    "install": "npm update",
     "main": "server.js",
     "test": "grunt travisci"
   },
