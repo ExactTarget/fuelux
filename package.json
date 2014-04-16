@@ -26,7 +26,7 @@
   "scripts": {
     "before": "./node_modules/bower/bin/bower install;",
     "main": "server.js",
-    "test": "grunt saucelabs",
+    "test": "grunt travisci",
     "postinstall": "tar -zcvf node_modules.tar.gz node_modules/;"
   },
   "devDependencies": {
