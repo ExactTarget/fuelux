@@ -24,7 +24,7 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "test": "grunt travisci",
+    "test": "grunt saucelabs",
     "postinstall": "NODE_ENV=development npm install && ./node_modules/bower/bin/bower install && npm install connect;"
   },
   "devDependencies": {
