@@ -40,23 +40,38 @@
 			return selected;
 		};
 
-		$.fn.repeater.Constructor.prototype.setSelectedItems = function(items){
+		$.fn.repeater.Constructor.prototype.setSelectedItems = function(items, force){
+			var selectable = this.options.list_selectable;
+			var self = this;
 			var data, i, $item, l;
 
 			var selectItem = function($itm, select){
 				select = (select!==undefined) ? select : true;
 				if(select){
+					if(!force && selectable!=='multi'){
+						self.clearSelectedItems();
+					}
 					if(!$itm.hasClass('selected')){
-						$item.addClass('selected');
-						$item.find('td:first').prepend('<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>');
+						$itm.addClass('selected');
+						$itm.find('td:first').prepend('<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>');
 					}
 				}else{
-					$item.find('.repeater-list-check').remove();
-					$item.removeClass('selected');
+					$itm.find('.repeater-list-check').remove();
+					$itm.removeClass('selected');
 				}
 			};
 
-			for(i=0, l=items.length; i<l; i++){
+			if(!$.isArray(items)){
+				items = [items];
+			}
+			if(force===true || selectable=='multi'){
+				l = items.length;
+			}else if(selectable){
+				l = (items.length>0) ? 1 : 0;
+			}else{
+				l = 0;
+			}
+			for(i=0; i<l; i++){
 				if(items[i].index!==undefined){
 					$item = this.$canvas.find('.repeater-list-items tr:nth-child(' + (items[i].index + 1) + ')');
 					if($item.length>0){
@@ -331,10 +346,10 @@
 											var $row = $(this);
 											if($row.hasClass('selected')){
 												$row.removeClass('selected');
+												$row.find('.repeater-list-check').remove();
 											}else{
 												if(self.options.list_selectable!=='multi'){
-													self.$canvas.find('.repeater-list-check').remove();
-													self.$canvas.find('.repeater-list-items tr.selected').removeClass('selected');
+													self.clearSelectedItems();
 												}
 												$row.addClass('selected');
 												$row.find('td:first').prepend('<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>');
