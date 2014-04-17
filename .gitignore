@@ -2,3 +2,6 @@
 .idea
 node_modules
 bower_components
+
+# because it's classified...
+SAUCE_API_KEY.yml

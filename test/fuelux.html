@@ -19,7 +19,13 @@
 
 		(function () {
 			var jqverParam = location.search.match(/[?&]jquery=(.*?)(?=&|$)/);
-			var jqver = (jqverParam) ? jqverParam[1] : '1.9.1';
+			var jqver = (jqverParam) ? jqverParam[1] : undefined;
+			var jqueryPath = (jqver) ? 'bower_components/jquery-' + jqver + '/dist/jquery' : 'bower_components/jquery/dist/jquery';
+
+			// not using dist folder
+			if(jqver == '1.9.1') {
+				jqueryPath = 'bower_components/jquery-' + jqver + '/jquery';
+			}
 
 			require.config({
 				baseUrl: '../',
@@ -29,7 +35,7 @@
 					}
 				},
 				paths: {
-					jquery: 'bower_components/jquery-' + jqver + '/jquery.min',
+					jquery: jqueryPath,
 					bootstrap: 'bower_components/bootstrap/dist/js/bootstrap',
 					fuelux: 'js',
 					test: 'test',
