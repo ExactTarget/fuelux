@@ -53,6 +53,7 @@ module.exports = function (grunt) {
 						'js/select.js',
 						'js/spinbox.js',
 						'js/tree.js',
+						'js/selectlist.js',
 						'js/wizard.js',
 						'js/intelligent-dropdown.js',
 						'js/scheduler.js'
