@@ -25,16 +25,16 @@
 	# 	platform: "Linux",
 	# 	version: "31"
 	# },
-	# {
-	# 	browserName: "firefox",
-	# 	platform: "Linux"
-	# }
-
 	{
 		browserName: "firefox",
-		version: "28",
-		platform: "Windows 7"
+		platform: "Linux"
 	},
+
+	#{
+	#	browserName: "firefox",
+	#	version: "28",
+	#	platform: "Windows 7"
+	#},
 
 	{
 		browserName: "internet explorer",
