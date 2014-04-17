@@ -210,7 +210,7 @@ module.exports = function (grunt) {
 							options: {
 								username: 'fuelux',
 								key: '<%= sauceKey %>',
-								testTimeout: 5000,
+								testInterval: 3000,
 								browsers: grunt.file.readYAML('sauce_browsers_tricky.yml'),
 								testname: 'grunt-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
 								urls: '<%= trickyTestUrl %>'
