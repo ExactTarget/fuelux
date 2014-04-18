@@ -13,7 +13,6 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 					keys.push(i);
 				}
 			}
-
 			return keys;
 		};
 	}
