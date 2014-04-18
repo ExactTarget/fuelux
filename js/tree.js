@@ -60,7 +60,6 @@
 					if(value.type === "folder") {
 						$entity = self.$element.find('.tree-folder:eq(0)').clone().show();
 						$entity.find('.tree-folder-name').html(value.name);
-						$entity.find('.tree-loader').html(self.options.loadingHTML);
 						$entity.find('.tree-folder-header').data(value);
 					} else if (value.type === "item") {
 						$entity = self.$element.find('.tree-item:eq(0)').clone().show();
@@ -244,7 +243,6 @@
 
 	$.fn.tree.defaults = {
 		multiSelect: false,
-		loadingHTML: '<div>Loading...</div>',
 		cacheItems: true
 	};
 
