@@ -4,6 +4,19 @@
 
 require(['jquery', 'fuelux/datagrid'], function($) {
 
+	// Define Object.keys for IE8 use.
+	if (!Object.keys) {
+		Object.keys = function(obj) {
+			var keys = [];
+			for (var i in obj) {
+				if (obj.hasOwnProperty(i)) {
+					keys.push(i);
+				}
+			}
+			return keys;
+		};
+	}
+
 	module("Fuel UX datagrid", { setup: testSetup });
 
 	test("should be defined on jquery object", function () {
