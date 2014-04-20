@@ -1,6 +1,6 @@
 {
     "name": "fuelux",
-    "version": "2.5.2",
+    "version": "2.6.0",
     "main": [
         "./dist/css/fuelux.css",
         "./dist/css/fuelux.min.css",
