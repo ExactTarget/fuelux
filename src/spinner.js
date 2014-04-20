@@ -30,6 +30,8 @@ define(function(require) {
 			this.$element.on('click', '.spinner-down', $.proxy(function() { this.step(false); }, this));
 		}
 
+		this.$element.find('.spinner-up, .spinner-down').attr('tabIndex', -1);
+
 		this.switches = {
 			count: 1,
 			enabled: true
