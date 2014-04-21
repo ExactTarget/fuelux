@@ -62,7 +62,7 @@
 		this.$element.find('.datepicker').on('changed', $.proxy(this.changed, this));
 		this.$element.find('.selectlist').on('changed', $.proxy(this.changed, this));
 		this.$element.find('.spinbox').on('changed', $.proxy(this.changed, this));
-		this.$element.find('.scheduler-monthly label.radio, .scheduler-yearly label.radio').on('mouseup', $.proxy(this.changed, this));
+		this.$element.find('.scheduler-monthly div.radio, .scheduler-yearly div.radio').on('mouseup', $.proxy(this.changed, this));
 
 		this.$repeatIntervalSelect.on('changed', $.proxy(this.repeatIntervalSelectChanged, this));
 		this.$endSelect.on('changed', $.proxy(this.endSelectChanged, this));
@@ -465,7 +465,7 @@
 			this.$element.find('.datepicker').datepicker(action);
 			this.$element.find('.selectlist').selectlist(action);
 			this.$element.find('.spinbox').spinbox(action);
-			this.$element.find('.radio').radio(action);
+			this.$element.find('[type=radio]').radio(action);
 
 			if(action==='disable'){
 				action = 'addClass';
