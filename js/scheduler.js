@@ -438,7 +438,7 @@
 
 				if(recur.COUNT){
 					this.$endAfter.spinbox('value', parseInt(recur.COUNT, 10));
-					this.$endSelect.select('selectByValue', 'after');
+					this.$endSelect.selectlist('selectByValue', 'after');
 				}else if(recur.UNTIL){
 					temp = recur.UNTIL;
 					if(temp.length===8){
