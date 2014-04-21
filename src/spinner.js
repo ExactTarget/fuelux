@@ -18,7 +18,7 @@ define(function(require) {
 		this.options = $.extend({}, $.fn.spinner.defaults, options);
 		this.$input = this.$element.find('.spinner-input');
 		this.$element.on('keyup', this.$input, $.proxy(this.change, this));
-		this.$element.on('keydown', this.$input, $.proxy(this._keydown, this));
+		this.$element.on('keydown', this.$input, $.proxy(this.keydown, this));
 
 		if (this.options.hold) {
 			this.$element.on('mousedown', '.spinner-up', $.proxy(function() { this.startSpin(true); } , this));
@@ -178,16 +178,13 @@ define(function(require) {
 			this.$element.find('button').removeClass('disabled');
 		},
 
-		_keydown: function(event) {
-			var keyCode = $.ui.keyCode;
+		keydown: function(event) {
+			var keyCode = event.keyCode;
 
-			switch (event.keyCode) {
-			case keyCode.UP:
+			if(keyCode===38){
 				this.step(true);
-				return false;
-			case keyCode.DOWN:
+			}else if(keyCode===40){
 				this.step(false);
-				return false;
 			}
 		}
 	};
