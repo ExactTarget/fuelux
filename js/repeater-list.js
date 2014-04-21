@@ -252,11 +252,11 @@
 											if($item.hasClass('sorted')){
 												if($span.hasClass(chevUp)){
 													$span.removeClass(chevUp).addClass(chevDown);
-													self.list_sortDirection = 'down';
+													self.list_sortDirection = 'desc';
 												}else{
 													if(!self.options.list_sortClearing){
 														$span.removeClass(chevDown).addClass(chevUp);
-														self.list_sortDirection = 'up';
+														self.list_sortDirection = 'asc';
 													}else{
 														$item.removeClass('sorted');
 														$span.removeClass(chevDown);

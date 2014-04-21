@@ -50,7 +50,7 @@ define(function(require){
 		}
 
 		callback(resp);
-		afterSource();
+		afterSource(options);
 	};
 	var repeaterMarkup = require('text!test/repeater-markup.txt');
 
@@ -69,15 +69,14 @@ define(function(require){
 		}
 	});
 
-	test("should be defined on jquery object", function () {
+	test('should be defined on jquery object', function () {
 		ok($.fn.repeater.views.list, 'repeater-list view plugin is defined');
 	});
 
-	test("should render correctly", function () {
+	test('should render correctly', function () {
 		var headerColumns = ['Common Name', 'Latin Name', 'Appearance', 'Sound'];
 		var itemColumns = ['cat', 'Felis catus', 'small, usually furry, domesticated carnivorous mammal', 'Meow meow!'];
 		var $repeater = $(this.$markup);
-		var self = this;
 
 		afterSource = function(){
 			var $items = $repeater.find('.repeater-list-items');
@@ -101,6 +100,77 @@ define(function(require){
 
 		$repeater.repeater({
 			dataSource: dataSource
+		});
+	});
+
+	test('should call column and row callbacks correctly', function(){
+		var hasCalled = { column: false, row: false };
+		var num = { cols: 0, rows: 0 };
+		var $repeater = $(this.$markup);
+
+		afterSource = function(){
+			equal(num.cols, 40, 'columnRendered callback called expected number of times');
+			equal(num.rows, 10, 'rowRendered callback called expected number of times');
+		};
+
+		$repeater.repeater({
+			dataSource: dataSource,
+			list_columnRendered: function(helpers, callback){
+				if(!hasCalled.column){
+					ok(1===1, 'columnRendered callback called upon rendering column');
+					equal((helpers.container.length>0 && helpers.item.length>0), true, 'columnRendered helpers object contains appropriate attributes');
+					hasCalled.column = true;
+				}
+				num.cols++;
+				callback();
+			},
+			list_rowRendered: function(helpers, callback){
+				if(!hasCalled.row){
+					ok(1===1, 'rowRendered callback called upon rendering column');
+					equal((helpers.container.length>0 && helpers.item.length>0), true, 'rowRendered helpers object contains appropriate attributes');
+					hasCalled.row = true;
+				}
+				num.rows++;
+				callback();
+			}
+		});
+	});
+
+	test('should handle sorting correctly', function(){
+		var count = 0;
+		var $repeater = $(this.$markup);
+		var $first;
+
+		afterSource = function(options){
+			count++;
+			switch(count){
+				case 1:
+					$first = $repeater.find('.repeater-list-header td:first');
+					$first.click();
+					break;
+				case 2:
+					equal(($first.hasClass('sorted') && $first.find('span').hasClass('glyphicon-chevron-up')), true, 'asc sorted header has appropriate class and icon');
+					equal(options.sortDirection, 'asc', 'dataSource passed appropriate sortDirection value');
+					equal(options.sortProperty, 'commonName', 'dataSource passed appropriate sortProperty value');
+					$first.click();
+					break;
+				case 3:
+					equal(($first.hasClass('sorted') && $first.find('span').hasClass('glyphicon-chevron-down')), true, 'desc sorted header has appropriate class and icon');
+					equal(options.sortDirection, 'desc', 'dataSource passed appropriate sortDirection value');
+					equal(options.sortProperty, 'commonName', 'dataSource passed appropriate sortProperty value');
+					$first.click();
+					break;
+				case 4:
+					equal($first.hasClass('sorted'), false, 'previously sorted header reverted to non-sorted');
+					equal(options.sortDirection, undefined, 'dataSource passed appropriate sortDirection value');
+					equal(options.sortProperty, undefined, 'dataSource passed appropriate sortProperty value');
+					break;
+			}
+		};
+
+		$repeater.repeater({
+			dataSource: dataSource,
+			list_sortClearing: true
 		});
 	});
 
