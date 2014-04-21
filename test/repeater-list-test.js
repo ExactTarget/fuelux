@@ -4,7 +4,7 @@
 
 define(function(require){
 	var $ = require('jquery');
-	var afterSource = function(){};
+	var afterSource = function(options){};
 	var data = require('data');
 	var dataSource = function(options, callback){
 		var resp = {
@@ -45,13 +45,16 @@ define(function(require){
 			}
 		];
 
-		for(i; i<l; i++){
-			resp.items.push(data.repeater.listData[i]);
+		if(!noItems){
+			for(i; i<l; i++){
+				resp.items.push(data.repeater.listData[i]);
+			}
 		}
 
 		callback(resp);
 		afterSource(options);
 	};
+	var noItems = false;
 	var repeaterMarkup = require('text!test/repeater-markup.txt');
 
 	require('bootstrap');
@@ -64,7 +67,7 @@ define(function(require){
 			this.$markup.find('.repeater-views').append('' +
 				'<label class="btn btn-default active">' +
 					'<input name="repeaterViews" type="radio" value="list">' +
-					'<span class="glyphicon glyphicon-asterisk"></span>' +
+					'<span class="glyphicon glyphicon-list"></span>' +
 				'</label>');
 		}
 	});
@@ -136,7 +139,7 @@ define(function(require){
 		});
 	});
 
-	test('should handle sorting correctly', function(){
+	test('should handle sorting option correctly', function(){
 		var count = 0;
 		var $repeater = $(this.$markup);
 		var $first;
@@ -171,6 +174,143 @@ define(function(require){
 		$repeater.repeater({
 			dataSource: dataSource,
 			list_sortClearing: true
+		});
+	});
+
+	test('should handle noItemsHTML option correctly', function(){
+		var $repeater = $(this.$markup);
+
+		afterSource = function(){
+			var txt = $repeater.find('.repeater-list-items tr.empty').text();
+			equal(txt, 'TEST', 'correct noItemsHTML content appended when appropriate');
+			noItems = false;
+		};
+
+		noItems = true;
+		$repeater.repeater({
+			dataSource: dataSource,
+			list_noItemsHTML: 'TEST'
+		});
+	});
+
+	test('should handle selectable (single) option correctly', function(){
+		var $repeater = $(this.$markup);
+
+		afterSource = function(){
+			var $items = $repeater.find('.repeater-list-items');
+			var $firstRow = $items.find('tr:first');
+			var $lastRow = $items.find('tr:last');
+
+			equal($firstRow.hasClass('selectable'), true, 'rows have selectable class as expected');
+			$firstRow.click();
+			equal($firstRow.hasClass('selected'), true, 'row has selected class after being clicked as expected');
+			$lastRow.click();
+			equal((!$firstRow.hasClass('selected') && $lastRow.hasClass('selected')), true, 'selected class transfered to different row when clicked');
+		};
+
+		$repeater.repeater({
+			dataSource: dataSource,
+			list_selectable: true
+		});
+	});
+
+	test('should handle selectable (multi) option correctly', function(){
+		var $repeater = $(this.$markup);
+
+		afterSource = function(){
+			var $items = $repeater.find('.repeater-list-items');
+			var $firstRow = $items.find('tr:first');
+			var $lastRow = $items.find('tr:last');
+
+			equal($firstRow.hasClass('selectable'), true, 'rows have selectable class as expected');
+			$firstRow.click();
+			equal($firstRow.hasClass('selected'), true, 'row has selected class after being clicked as expected');
+			$lastRow.click();
+			equal(($firstRow.hasClass('selected') && $lastRow.hasClass('selected')), true, 'both rows have selected class after another click');
+		};
+
+		$repeater.repeater({
+			dataSource: dataSource,
+			list_selectable: 'multi'
+		});
+	});
+
+	asyncTest('should clear selected items', function(){
+		var $repeater = $(this.$markup);
+
+		afterSource = function(){
+			var $items = $repeater.find('.repeater-list-items');
+			var $firstRow = $items.find('tr:first');
+			var $lastRow = $items.find('tr:last');
+
+			$firstRow.click();
+			$lastRow.click();
+			//TODO: why is this timeout needed???
+			setTimeout(function(){
+				start();
+				$repeater.repeater('clearSelectedItems');
+				equal((!$firstRow.hasClass('selected') && !$lastRow.hasClass('selected')), true, 'selected items cleared as expected');
+			}, 0);
+		};
+
+		$repeater.repeater({
+			dataSource: dataSource,
+			list_selectable: 'multi'
+		});
+	});
+
+	asyncTest('should get selected items', function(){
+		var $repeater = $(this.$markup);
+
+		afterSource = function(){
+			var $items = $repeater.find('.repeater-list-items');
+			var $firstRow = $items.find('tr:first');
+			var $lastRow = $items.find('tr:last');
+			var selected;
+
+			$firstRow.click();
+			$lastRow.click();
+			setTimeout(function(){
+				start();
+				selected = $repeater.repeater('getSelectedItems');
+				equal(selected.length, 2, 'returned array contains appropriate number of items');
+				equal((typeof selected[0].data==='object' && selected[0].element.length>0), true, 'items in returned array contain appropriate object and attributes');
+			}, 0);
+
+		};
+
+		$repeater.repeater({
+			dataSource: dataSource,
+			list_selectable: 'multi'
+		});
+	});
+
+	asyncTest('should set selected items', function(){
+		var $repeater = $(this.$markup);
+
+		afterSource = function(){
+			var $items = $repeater.find('.repeater-list-items');
+
+			setTimeout(function(){
+				start();
+
+				$repeater.repeater('setSelectedItems', [{ index: 0 }]);
+				equal($repeater.repeater('getSelectedItems').length, 1, 'correct number of items selected');
+				equal($items.find('tr:first').hasClass('selected'), true, 'correct row selected by index');
+
+				$repeater.repeater('setSelectedItems', [{ property: 'commonName', value: 'pig' }]);
+				equal($repeater.repeater('getSelectedItems').length, 1, 'correct number of items selected');
+				equal($items.find('tr:nth-child(5)').hasClass('selected'), true, 'correct row selected by property/value');
+
+				$repeater.repeater('setSelectedItems', [{ index: 0 }, { property: 'commonName', value: 'dog' }], true);
+				equal($repeater.repeater('getSelectedItems').length, 4, 'correct number of items selected when using force');
+			}, 0);
+
+		};
+
+		$repeater.repeater({
+			dataSource: dataSource,
+			list_selectable: true
 		});
 	});
 
