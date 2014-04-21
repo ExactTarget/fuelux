@@ -4,7 +4,7 @@
 
 define(function(require){
 	var $ = require('jquery');
-	var schedulerMarkup = require('text!test/scheduler-markup.txt');
+	var schedulerMarkup = require('text!test/markup/scheduler-markup.html');
 
 	require('bootstrap');
 	require('fuelux/scheduler');

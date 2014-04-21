@@ -173,7 +173,7 @@ module.exports = function (grunt) {
 					urls: '<%= testUrls %>'
 				}
 			},
-			simple: ['test/**/*.html']
+			simple: ['test/*.html']
 		},
 		less: {
 			dist: {
