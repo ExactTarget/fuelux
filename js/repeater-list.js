@@ -45,6 +45,14 @@
 			var self = this;
 			var data, i, $item, l;
 
+			var eachFunc = function(){
+				$item = $(this);
+				data = $item.data('item_data') || {};
+				if(data[items[i].property]===items[i].value){
+					selectItem($item, items[i].selected);
+				}
+			};
+
 			var selectItem = function($itm, select){
 				select = (select!==undefined) ? select : true;
 				if(select){
@@ -64,7 +72,7 @@
 			if(!$.isArray(items)){
 				items = [items];
 			}
-			if(force===true || selectable=='multi'){
+			if(force===true || selectable==='multi'){
 				l = items.length;
 			}else if(selectable){
 				l = (items.length>0) ? 1 : 0;
@@ -78,13 +86,8 @@
 						selectItem($item, items[i].selected);
 					}
 				}else if(items[i].property!==undefined && items[i].value!==undefined){
-					this.$canvas.find('.repeater-list-items tr').each(function(){
-						$item = $(this);
-						data = $item.data('item_data') || {};
-						if(data[items[i].property]===items[i].value){
-							selectItem($item, items[i].selected);
-						}
-					});
+					//lint demanded this function not be within this loop
+					this.$canvas.find('.repeater-list-items tr').each(eachFunc);
 				}
 			}
 		};

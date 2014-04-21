@@ -61,7 +61,7 @@ define(function(require){
 	require('fuelux/repeater');
 	require('fuelux/repeater-list');
 
-	module('Fuel UX Repeater', {
+	module('Fuel UX Repeater List', {
 		setup: function(){
 			this.$markup = $(repeaterMarkup);
 			this.$markup.find('.repeater-views').append('' +

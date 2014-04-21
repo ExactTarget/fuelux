@@ -21,6 +21,9 @@ define(function(require){
 					'<input name="repeaterViews" type="radio" value="test2">' +
 					'<span class="glyphicon glyphicon-asterisk"></span>' +
 				'</label>');
+		},
+		teardown: function(){
+			delete $.fn.repeater.views.test1;
 		}
 	});
 
@@ -271,6 +274,4 @@ define(function(require){
 			}
 		});
 	});
-
-
 });
