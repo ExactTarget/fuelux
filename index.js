@@ -213,7 +213,12 @@ define(function(require){
 	$('#btnRadioEnable').on('click', function() {
 		$('[name=radio1a]').radio('enable');
 	});
-
+	$('#btnRadioDisableAll').on('click', function() {
+		$('.radio-container [type=radio]').radio('disable');
+	});
+	$('#btnRadioEnableAll').on('click', function() {
+		$('.radio-container [type=radio]').radio('enable');
+	});
 
 
 	// SCHEDULER
@@ -285,17 +290,23 @@ define(function(require){
 	$('#selectByText').on('click', function () {
 		$('#MySelectlist').selectlist('selectByText', 'One');
 	});
-	$('#enableSelect').on('click', function () {
+	$('#enableSelectlist').on('click', function () {
 		$('#MySelectlist').selectlist('enable');
 	});
-	$('#disableSelect').on('click', function () {
+	$('#disableSelectlist').on('click', function () {
 		$('#MySelectlist').selectlist('disable');
 	});
 
 
 
 	// SPINBOX
-	$('#ex-spinbox').on('changed', function (e, value) {
+	$('#enableSpinbox').on('click', function () {
+		$('#MySpinbox').spinbox('enable');
+	});
+	$('#disableSpinbox').on('click', function () {
+		$('#MySpinbox').spinbox('disable');
+	});
+	$('#MySpinbox').on('changed', function (e, value) {
 		console.log('Spinbox changed: ', value);
 	});
 

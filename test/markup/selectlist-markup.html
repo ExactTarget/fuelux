@@ -1,0 +1,37 @@
+		<div class="clearfix">
+			<h2>Selectlist</h2>
+
+			<div id="MySelectlist" class="btn-group selectlist" data-resize="auto">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+					<span class="selected-label">&nbsp;</span>
+					<span class="caret"></span>
+					<span class="sr-only">Toggle Dropdown</span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li data-value="1"><a href="#">One</a></li>
+					<li data-value="2" data-selected="true"><a href="#">Two</a></li>
+					<li data-value="3"><a href="#">Three</a></li>
+					<li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>
+					<li data-value="Item Five"><a href="#">Item Five</a></li>
+				</ul>
+				<input class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
+			</div>
+
+			<br/>
+			<br/>
+			<h5>Sample Methods</h5>
+			<div class="btn-group">
+				<input id="getSelectedItem" type="button" class="btn btn-default" value="log selected item/value"/>
+				<input id="selectByValue" type="button" class="btn btn-default" value="set by value (3)"/>
+				<input id="selectByIndex" type="button" class="btn btn-default" value="set by element index (zero-based) ('4')"/>
+			</div>
+
+			<div class="btn-group">
+				<input id="selectByText" type="button" class="btn btn-default" value="set by text ('One')"/>
+				<input id="selectBySelector" type="button" class="btn btn-default" value="set by CSS selector ('li[data-fizz=buzz]')"/>
+				<input id="enableSelect" type="button" class="btn btn-default" value="enable"/>
+				<input id="disableSelect" type="button" class="btn btn-default" value="disable"/>
+			</div>
+			<hr/>
+
+		</div>
