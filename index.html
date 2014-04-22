@@ -497,7 +497,7 @@
 
 		</div>
 
-		<div class="clearfix">
+		<div class="clearfix radio-container">
 
 			<h2>Radio</h2>
 
@@ -546,6 +546,8 @@
 			<div class="btn-group">
 				<button type="button" class="btn btn-default" id="btnRadioDisable">disable name=radio1a</button>
 				<button type="button" class="btn btn-default" id="btnRadioEnable">enable name=radio1a</button>
+				<button type="button" class="btn btn-default" id="btnRadioDisableAll">disable all</button>
+				<button type="button" class="btn btn-default" id="btnRadioEnableAll">enable all</button>
 			</div>
 			<hr/>
 		</div>
@@ -793,7 +795,7 @@
 
 							<div class="recurrence-panel scheduler-monthly">
 								<div class="scheduler-monthly-date">
-									<div class="radio pull-left"><label><input type="radio" checked="checked" name="scheduler-month">on day</label></div>
+									<div class="radio pull-left"><label class="radio-custom"><input type="radio" checked="checked" name="scheduler-month"> on day</label></div>
 
 									<div data-resize="auto" class="btn-group selectlist pull-left">
 										<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
@@ -839,7 +841,7 @@
 								</div>
 
 								<div class="scheduler-monthly-day">
-									<div class="radio pull-left"><label><input type="radio" checked="checked" name="scheduler-month">on the</label></div>
+									<div class="radio pull-left"><label class="radio-custom"><input type="radio" checked="checked" name="scheduler-month"> on the</label></div>
 
 									<div data-resize="auto" class="btn-group selectlist month-day-pos pull-left">
 										<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
@@ -883,7 +885,7 @@
 							<div class="recurrence-panel scheduler-yearly">
 								<div class="scheduler-yearly-date">
 
-									<div class="radio pull-left"><label><input type="radio" checked="checked" name="scheduler-year" value="1">on</label></div>
+									<div class="radio pull-left"><label class="radio-custom"><input type="radio" checked="checked" name="scheduler-year" value="1"> on</label></div>
 
 									<div data-resize="auto" class="btn-group selectlist year-month pull-left">
 										<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
@@ -952,7 +954,7 @@
 								</div>
 								<div class="scheduler-yearly-day">
 
-									<div class="radio pull-left"><label><input type="radio" name="scheduler-year" value="2">on the</label></div>
+									<div class="radio pull-left"><label class="radio-custom"><input type="radio" name="scheduler-year" value="2"> on the</label></div>
 
 									<div data-resize="auto" class="btn-group selectlist year-month-day-pos pull-left">
 										<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
@@ -1070,8 +1072,16 @@
 				<input id="schedulerEnableBtn" type="button" class="btn btn-default" value="enable" />
 				<input id="schedulerDisableBtn" type="button" class="btn btn-default" value="disable" />
 				<input id="schedulerLogValueBtn" type="button" class="btn btn-default" value="log value" />
-				<input id="schedulerSetValueBtn" type="button" class="btn btn-default" value="set value" />
+				<input id="schedulerSetValueBtn" type="button" class="btn btn-default" value="set value to the following schedule" />
 			</div>
+			<br/>
+			<br/>
+			<pre>startDateTime: '2014-03-31T03:23+02:00',
+timeZone: {
+	name: 'Namibia Standard Time',
+		offset: '+02:00'
+	},
+recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'</pre>
 			<hr/>
 
 		</div>

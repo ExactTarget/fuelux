@@ -206,7 +206,12 @@ define(function(require){
 	$('#btnRadioEnable').on('click', function() {
 		$('[name=radio1a]').radio('enable');
 	});
-
+	$('#btnRadioDisableAll').on('click', function() {
+		$('.radio-container [type=radio]').radio('disable');
+	});
+	$('#btnRadioEnableAll').on('click', function() {
+		$('.radio-container [type=radio]').radio('enable');
+	});
 
 
 	// SCHEDULER
