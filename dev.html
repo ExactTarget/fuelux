@@ -39,8 +39,114 @@
 			}
 		});
 
-		require(['jquery', 'data', 'fuelux/all', 'index'], function ($, data){
-			//INSERT TEST JS HERE
+		require(['jquery', 'data', 'fuelux/all'], function ($, data){
+			var delays = ['300', '600', '900', '1200'];
+			var myRepeater = $('#MyRepeater');
+
+			var list = function(options, callback){
+				var resp = {
+					count: data.repeater.listData.length,
+					items: [],
+					page: options.pageIndex
+				};
+				var i, l;
+
+				resp.pages = Math.ceil(resp.count/(options.pageSize || 50));
+
+				i = options.pageIndex * (options.pageSize || 50);
+				l = i + (options.pageSize || 50);
+				l = (l <= resp.count) ? l : resp.count;
+				resp.start = i + 1;
+				resp.end = l;
+
+				resp.columns = [
+					{
+						label: 'Common Name',
+						property: 'commonName',
+						sortable: true
+					},
+					{
+						label: 'Latin Name',
+						property: 'latinName',
+						sortable: true
+					},
+					{
+						label: 'Appearance',
+						property: 'appearance',
+						sortable: true
+					},
+					{
+						label: 'Sound',
+						property: 'sound',
+						sortable: true
+					}
+				];
+
+				for(i; i<l; i++){
+					resp.items.push(data.repeater.listData[i]);
+				}
+
+				//if(options.search){
+					//resp.items = [];
+				//}
+
+				if(window.console && window.console.log){
+					console.log(options);
+				}
+				setTimeout(function(){
+					callback(resp);
+				}, delays[Math.floor(Math.random() * 4)]);
+			};
+
+			var thumbnail = function(options, callback){
+				var categories = ['abstract', 'animals', 'business', 'cats', 'city', 'food', 'nature', 'technics', 'transport'];
+				var colors = ['#D9EDF7', '#F2DEDE', '#FCF8E3', '#DFF0D8'];
+				var numItems = 200;
+				var resp = {
+					count: numItems,
+					items: [],
+					pages: (Math.ceil(numItems/(options.pageSize || 30))),
+					page: options.pageIndex
+				};
+				var i, l;
+
+				i = options.pageIndex * (options.pageSize || 30);
+				l = i + (options.pageSize || 30);
+				resp.start = i + 1;
+				resp.end = l;
+
+				for(i; i<l; i++){
+					resp.items.push({
+						color: colors[Math.floor(Math.random() * 4)],
+						name: ('Thumbnail ' + (i + 1)),
+						src: 'http://lorempixel.com/65/75/' + categories[Math.floor(Math.random() * 9)] + '/?_=' + i
+					});
+				}
+
+				//if(options.search){
+					//resp.items = [];
+				//}
+
+				if(window.console && window.console.log){
+					//console.log(options);
+				}
+				setTimeout(function(){
+					callback(resp);
+				}, delays[Math.floor(Math.random() * 4)]);
+			};
+
+			myRepeater.repeater({
+				dataSource: function(options, callback){
+					if(options.view==='list'){
+						list(options, callback);
+					}else if(options.view==='thumbnail'){
+						thumbnail(options, callback);
+					}
+				},
+				list_selectable: 'multi',
+				list_noItemsHTML: 'no items found',
+				thumbnail_noItemsHTML: 'no items found'
+			});
 		});
 	</script>
 </head>
@@ -48,7 +154,95 @@
 <body>
 	<div class="container" style="margin-top:20px;">
 
-		<!-- INSERT TEST MARKUP HERE -->
+		<div class="repeater" data-staticheight="400px" id="MyRepeater">
+			<div class="repeater-header">
+				<div class="repeater-header-left">
+					<span class="repeater-title">Awesome Repeater</span>
+					<div class="repeater-search">
+						<div class="search input-group">
+							<input type="search" class="form-control" placeholder="Search">
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="button">
+									<span class="glyphicon glyphicon-search"></span>
+									<span class="sr-only">Search</span>
+								</button>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="repeater-header-right">
+					<div class="btn-group selectlist repeater-filters" data-resize="auto">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							<span class="selected-label">&nbsp;</span>
+							<span class="caret"></span>
+							<span class="sr-only">Toggle Filters</span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li data-value="All" data-selected="true"><a href="#">All</a></li>
+							<li data-value="Bleh"><a href="#">Bleh</a></li>
+							<li data-value="Bloo"><a href="#">Bloo</a></li>
+						</ul>
+						<input class="hidden hidden-field" name="filterSelection" readonly="readonly" aria-hidden="true" type="text"/>
+					</div>
+					<div class="btn-group repeater-views" data-toggle="buttons">
+						<label class="btn btn-default active">
+							<input name="repeaterViews" type="radio" value="list"><span class="glyphicon glyphicon-list"></span>
+						</label>
+						<label class="btn btn-default">
+							<input name="repeaterViews" type="radio" value="thumbnail"><span class="glyphicon glyphicon-th"></span>
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="repeater-viewport">
+				<div class="repeater-canvas"></div>
+				<div class="loader repeater-loader">
+					<i></i><i></i><i></i><i></i>
+					<!--[if lt IE 10]><script type="text/javascript">window.fuelux_loader.scan();</script><![endif]-->
+				</div>
+			</div>
+			<div class="repeater-footer">
+				<div class="repeater-footer-left">
+					<div class="repeater-itemization">
+						<span><span class="repeater-start"></span> - <span class="repeater-end"></span> of <span class="repeater-count"></span> items</span>
+						<div class="btn-group selectlist" data-resize="auto">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+								<span class="selected-label">&nbsp;</span>
+								<span class="caret"></span>
+								<span class="sr-only">Toggle Dropdown</span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li data-value="5"><a href="#">5</a></li>
+								<li data-value="10" data-selected="true"><a href="#">10</a></li>
+								<li data-value="20"><a href="#">20</a></li>
+								<li data-value="50" data-foo="bar" data-fizz="buzz"><a href="#">50</a></li>
+								<li data-value="100"><a href="#">100</a></li>
+							</ul>
+							<input class="hidden hidden-field" name="itemsPerPage" readonly="readonly" aria-hidden="true" type="text"/>
+						</div>
+						<span>Per Page</span>
+					</div>
+				</div>
+				<div class="repeater-footer-right">
+					<div class="repeater-pagination">
+						<button type="button" class="btn btn-default btn-sm repeater-prev"><span class="glyphicon glyphicon-chevron-left"></span></button>
+						<span>Page</span>
+						<div class="repeater-primaryPaging active">
+							<div class="input-group input-append dropdown combobox">
+								<input type="text" class="form-control">
+								<div class="input-group-btn">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+									<ul class="dropdown-menu pull-right"></ul>
+								</div>
+							</div>
+						</div>
+						<input type="text" class="form-control repeater-secondaryPaging">
+						<span>of <span class="repeater-pages"></span></span>
+						<button type="button" class="btn btn-default btn-sm repeater-next"><span class="glyphicon glyphicon-chevron-right"></span></button>
+					</div>
+				</div>
+			</div>
+		</div>
 
 	</div>
 </body>
