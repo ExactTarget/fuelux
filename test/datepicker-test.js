@@ -5,19 +5,11 @@
 define(function(require){
 	var $ = require('jquery');
 
+	var html = require('text!test/markup/datepicker-markup.html');
+
 	require('bootstrap');
 	require('fuelux/datepicker');
 
-	var html = '<div>' +
-		'<div class="datepicker dropdown" id="datepicker1">' +
-			'<div class="input-append">' +
-				'<div class="dropdown-menu"></div>' +
-				'<input type="text" class="span2" value="" data-toggle="dropdown">' +
-				'<button type="button" class="btn" data-toggle="dropdown"><i class="icon-calendar"></i></button>' +
-			'</div>' +
-		'</div>' +
-		'<div id="datepicker2"></div>' +
-	'</div>';
 
 	module('Fuel UX Datepicker', {
 		setup: function() {

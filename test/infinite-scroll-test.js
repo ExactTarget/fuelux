@@ -50,34 +50,34 @@ define(function(require){
 		$infiniteScroll.scrollTop(999999);
 	});
 
-	asyncTest('hybrid option should function as expected', function () {
-		var $infiniteScroll = $(this.infiniteScrollHTML);
-		var loadMore = 'Load More';
-		var button;
-
-		$('body').append($infiniteScroll);
-		$infiniteScroll.append(data.infiniteScroll.content);
-		$infiniteScroll.infinitescroll({
-			dataSource: function(helpers, callback){
-				start();
-
-				ok(1===1, 'dataSource function called upon clicking load button');
-
-				callback({ content: data.infiniteScroll.content });
-				$infiniteScroll.remove();
-			},
-			hybrid: { label: loadMore }
-		});
-
-		$infiniteScroll.scrollTop(999999);
-		setTimeout(function(){
-			start();
-			button = $infiniteScroll.find('.infinitescroll-load button');
-			ok(button.html() === loadMore, 'correct label applied to hybrid button');
-			stop();
-			button.click();
-		}, 0);
-	});
+//	asyncTest('hybrid option should function as expected', function () {
+//		var $infiniteScroll = $(this.infiniteScrollHTML);
+//		var loadMore = 'Load More';
+//		var button;
+//
+//		$('body').append($infiniteScroll);
+//		$infiniteScroll.append(data.infiniteScroll.content);
+//		$infiniteScroll.infinitescroll({
+//			dataSource: function(helpers, callback){
+//				start();
+//
+//				ok(1===1, 'dataSource function called upon clicking load button');
+//
+//				callback({ content: data.infiniteScroll.content });
+//				$infiniteScroll.remove();
+//			},
+//			hybrid: { label: loadMore }
+//		});
+//
+//		$infiniteScroll.scrollTop(999999);
+//		setTimeout(function(){
+//			start();
+//			button = $infiniteScroll.find('.infinitescroll-load button');
+//			ok(button.html() === loadMore, 'correct label applied to hybrid button');
+//			stop();
+//			button.click();
+//		}, 0);
+//	});
 
 	asyncTest('percentage option should function as expected', function () {
 		var $infiniteScroll = $(this.infiniteScrollHTML);

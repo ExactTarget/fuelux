@@ -44,11 +44,14 @@ define(function(require){
 	require('test/infinite-scroll-test');
 	require('test/pillbox-test');
 	require('test/radio-test');
-	//require('test/scheduler-test');
+	require('test/repeater-test');
+	require('test/repeater-list-test');
+	require('test/repeater-thumbnail-test');
+	require('test/scheduler-test');
 	require('test/search-test');
 	require('test/selectlist-test');
 	require('test/spinbox-test');
 	require('test/tree-test');
-//	require('test/wizard-test');
+	require('test/wizard-test');
 
 });

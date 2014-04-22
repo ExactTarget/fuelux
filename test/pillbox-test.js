@@ -10,61 +10,52 @@ define(function(require){
 
 	module("Fuel UX Pillbox", {
 		setup: function(){
-			this.pillboxHTML = '<div class="pillbox"><ul class="pillbox-list">' +
-				'<li data-value="foo"><span>one</span><span>x</span></li>' +
-				'<li><span>two</span><span>x</span></li>' +
-				'<div class="pillbox-input-wrap">'+
-					'<input type="text" class="pillbox-input" size="10" placeholder="add item">'+
-						'<ul class="pillbox-suggest" style="display:none;">'+
-						'</ul>' +
-					'</div>' +
-			'</ul></div>';
-			this.emptyPillboxHTML = '<div class="pillbox"><ul class="pillbox-list"></ul></div>';
+			this.pillboxHTML = require('text!test/markup/pillbox-markup.html');
 		}
 	});
 
 	test("should be defined on jquery object", function () {
-		ok($(this.pillboxHTML).pillbox, 'pillbox method is defined');
+		ok($(this.pillboxHTML).find('#MyPillbox').pillbox, 'pillbox method is defined');
 	});
 
 	test("should return element", function () {
-		var $pillbox = $(this.pillboxHTML);
+		var $pillbox = $(this.pillboxHTML).find('#MyPillbox');
 		ok($pillbox.pillbox() === $pillbox, 'pillbox should be initialized');
 	});
 
 	test("should behave as designed", function () {
-		var $pillbox = $(this.pillboxHTML).pillbox();
+		var $pillbox = $(this.pillboxHTML).find('#MyPillbox').pillbox();
 
-		equal($pillbox.pillbox('items').length, 2, 'pillbox returns both items');
+		equal($pillbox.pillbox('items').length, 7, 'pillbox returns both items');
 
 		$pillbox.find('li > span:last').click();
 
-		equal($pillbox.pillbox('items').length, 1, 'pillbox removed an item');
-		deepEqual($pillbox.pillbox('items')[0], {text: 'one', value: 'foo'}, 'pillbox returns item data');
+		equal($pillbox.pillbox('items').length, 6, 'pillbox removed an item');
+		deepEqual($pillbox.pillbox('items')[0], {text: 'Item 1', value: 'foo'}, 'pillbox returns item data');
 	});
 
 	test("Input functionality should behave as designed", function () {
-		var $pillbox = $(this.pillboxHTML).pillbox();
+		var $pillbox = $(this.pillboxHTML).find('#MyPillbox').pillbox();
 		var $input = $pillbox.find('.pillbox-input');
 
-		$input.val('three');
+		$input.val('three-value');
 		$input.trigger($.Event( "keydown", { keyCode: 13 } ));
 
-		deepEqual($pillbox.pillbox('items')[2], {text: 'three', value: 'three'}, 'pillbox returns added item');
+		deepEqual($pillbox.pillbox('items')[7], {text: 'three-value', value: 'three-value'}, 'pillbox returns added item');
 	});
 
 	test("itemCount function", function(){
-		var $pillbox = $(this.emptyPillboxHTML).pillbox();
+		var $pillbox = $(this.pillboxHTML).find('#MyPillboxEmpty').pillbox();
 
 		equal($pillbox.pillbox('itemCount'), 0, 'itemCount on empty pillbox');
 
-		$pillbox = $(this.pillboxHTML).pillbox();
+		$pillbox = $(this.pillboxHTML).find('#MyPillbox').pillbox();
 
-		equal($pillbox.pillbox('itemCount'), 2, 'itemCount on pillbox with 2 items');
+		equal($pillbox.pillbox('itemCount'), 7, 'itemCount on pillbox with 7 items');
 	});
 
 	test("addItems/removeItems functions", function(){
-		var $pillbox = $(this.emptyPillboxHTML).pillbox();
+		var $pillbox = $(this.pillboxHTML).find('#MyPillboxEmpty').pillbox();
 
 		equal($pillbox.pillbox('itemCount'), 0, 'pillbox is initially empty');
 
@@ -90,29 +81,29 @@ define(function(require){
 	});
 
 	test("removeByValue function", function(){
-		var $pillbox = $(this.pillboxHTML).pillbox();
+		var $pillbox = $(this.pillboxHTML).find('#MyPillbox').pillbox();
 
-		equal($pillbox.pillbox('itemCount'), 2, 'pillbox has 2 items initially');
+		equal($pillbox.pillbox('itemCount'), 7, 'pillbox has 7 items initially');
 
 		$pillbox.pillbox('removeByValue', 'foo');
 
-		equal($pillbox.pillbox('itemCount'), 1, 'pillbox has 1 item after removeByValue');
-		deepEqual($pillbox.pillbox('items')[0], {text: 'two'}, 'item not removed has correct text and value');
+		equal($pillbox.pillbox('itemCount'), 6, 'pillbox has 1 item after removeByValue');
+		deepEqual($pillbox.pillbox('items')[0], {text: 'Item 2'}, 'item not removed has correct text and value');
 	});
 
 	test("removeByText function", function(){
-		var $pillbox = $(this.pillboxHTML).pillbox();
+		var $pillbox = $(this.pillboxHTML).find('#MyPillbox').pillbox();
 
-		equal($pillbox.pillbox('itemCount'), 2, 'pillbox has 2 items initially');
+		equal($pillbox.pillbox('itemCount'), 7, 'pillbox has 7 items initially');
 
-		$pillbox.pillbox('removeByText', 'two');
+		$pillbox.pillbox('removeByText', 'Item 2');
 
-		equal($pillbox.pillbox('itemCount'), 1, 'pillbox has 1 item after removeByText');
-		deepEqual($pillbox.pillbox('items')[0], {text: 'one', value: 'foo'}, 'item not removed has correct text and value');
+		equal($pillbox.pillbox('itemCount'), 6, 'pillbox has 1 item after removeByText');
+		deepEqual($pillbox.pillbox('items')[0], {text: 'Item 1', value: 'foo'}, 'item not removed has correct text and value');
 	});
 
 	test("all user defined methods work as expected", function(){
-		var $pillbox = $(this.pillboxHTML).pillbox({
+		var $pillbox = $(this.pillboxHTML).find('#MyPillbox').pillbox({
 			onAdd: function(data,callback){
 				callbackTriggers++;
 				callback(data);
@@ -120,7 +111,7 @@ define(function(require){
 			onKeyDown: function( e, data, callback ){
 				callbackTriggers++;
 				callback(e, {data:[
-					{text: 'three',value:'three-value'}
+					{text: 'Item 3',value:'three-value'}
 				]});
 			},
 			onRemove: function(data,callback){
@@ -134,22 +125,22 @@ define(function(require){
 		$input.val('three');
 		$input.trigger($.Event( "keydown", { keyCode: 13 } ));
 		equal(callbackTriggers, 1, 'onAdd triggered correctly');
-		deepEqual($pillbox.pillbox('items')[2], {text: 'three', value: 'three'}, 'item correctly added after onAdd user callback');
+		deepEqual($pillbox.pillbox('items')[2], {text: 'Item 3', value: 'three-value'}, 'item correctly added after onAdd user callback');
 
 		$input.trigger($.Event( "keydown", { keyCode: 97 } ));
 		equal(callbackTriggers, 2, 'onKeyDown triggered correctly');
 
 		$pillbox.find('> li > span:last').click();
 		equal(callbackTriggers, 2, 'onRemove triggered correctly');
-		deepEqual($pillbox.pillbox('items')[2], {text: 'three', value: 'three'}, 'item correctly added after onAdd user callback');
+		deepEqual($pillbox.pillbox('items')[2], {text: 'Item 3', value: 'three-value'}, 'item correctly added after onAdd user callback');
 
 	});
 
 	test("Suggestions functionality should behave as designed", function () {
-		var $pillbox = $(this.pillboxHTML).pillbox({
+		var $pillbox = $(this.pillboxHTML).find('#MyPillbox').pillbox({
 			onKeyDown: function( e, data, callback ){
 				callback(e, {data:[
-					{text: 'three',value:'three-value'}
+					{text: 'three', value: 'three-value'}
 				]});
 			}
 		});
@@ -159,31 +150,31 @@ define(function(require){
 
 		$pillbox.find('.pillbox-suggest > li').trigger('mousedown');
 
-		deepEqual($pillbox.pillbox('items')[2], {text: 'three', value: 'three-value'}, 'pillbox returns item added after user clicks suggestion');
+		deepEqual($pillbox.pillbox('items')[7], {text: 'three', value: 'three-value'}, 'pillbox returns item added after user clicks suggestion');
 
-		$input.val('three');
+		$input.val('three-value');
 		$input.trigger( $.Event( "keydown", { keyCode: 97 } ) );
 		$input.trigger( $.Event( "keydown", { keyCode: 40 } ) );
 		$input.trigger( $.Event( "keydown", { keyCode: 13 } ) );
-		deepEqual($pillbox.pillbox('items')[3], {text: 'three', value: 'three-value'}, 'pillbox returns item added after user keys down to suggestions');
+		deepEqual($pillbox.pillbox('items')[8], {text: 'three', value: 'three-value'}, 'pillbox returns item added after user keys down to suggestions');
 
-		$input.val('three');
+		$input.val('three-value');
 		$input.trigger( $.Event( "keydown", { keyCode: 97 } ) );
 		$input.trigger( $.Event( "keydown", { keyCode: 38 } ) );
 		$input.trigger( $.Event( "keydown", { keyCode: 13 } ) );
-		deepEqual($pillbox.pillbox('items')[4], {text: 'three', value: 'three-value'}, 'pillbox returns item added after user keys up to suggestion');
+		deepEqual($pillbox.pillbox('items')[9], {text: 'three', value: 'three-value'}, 'pillbox returns item added after user keys up to suggestion');
 
-		$input.val('three');
+		$input.val('three-value');
 		$input.trigger( $.Event( "keydown", { keyCode: 97 } ) );
 		$input.trigger( $.Event( "keydown", { keyCode: 9 } ) );
 		$input.trigger( $.Event( "keydown", { keyCode: 13 } ) );
-		deepEqual($pillbox.pillbox('items')[5], {text: 'three', value: 'three-value'}, 'pillbox returns item added after user tabs down to suggestion');
+		deepEqual($pillbox.pillbox('items')[10], {text: 'three', value: 'three-value'}, 'pillbox returns item added after user tabs down to suggestion');
 
-		equal($pillbox.pillbox('items').length, 6, 'pillbox removed an item');
+		equal($pillbox.pillbox('items').length, 11, 'pillbox removed an item');
 	});
 
 	test("Edit functionality should behave as designed", function () {
-		var $pillbox = $(this.pillboxHTML).pillbox({
+		var $pillbox = $(this.pillboxHTML).find('#MyPillbox').pillbox({
 			edit: true
 		});
 		var $ul = $pillbox.find('ul');
@@ -202,11 +193,11 @@ define(function(require){
 	});
 
 	test("Triggers behave as designed", function () {
-		var $pillbox = $(this.pillboxHTML).pillbox();
+		var $pillbox = $(this.pillboxHTML).find('#MyPillbox').pillbox();
 		var $input = $pillbox.find('.pillbox-input');
 
 		$pillbox.on('clicked', function( ev, item ){
-			deepEqual(item, {text: 'one', value: 'foo'}, 'clicked event is triggered');
+			deepEqual(item, {text: 'Item 1', value: 'foo'}, 'clicked event is triggered');
 		});
 		$pillbox.find('> ul > li:first').click();
 		$pillbox.off('clicked');
