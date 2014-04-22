@@ -337,7 +337,7 @@
 									self.infiniteScrollPaging(data, options);
 								}
 								self.$loader.hide();
-								//throw event
+								self.$element.trigger('loaded');
 							});
 						}
 					});
