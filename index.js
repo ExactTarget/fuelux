@@ -50,54 +50,6 @@ define(function(require){
 
 
 
-	// DATAGRID
-	var dataSource = new StaticDataSource({
-		columns: [
-			{
-				property: 'toponymName',
-				label: 'Name',
-				sortable: true
-			},
-			{
-				property: 'countrycode',
-				label: 'Country',
-				sortable: true
-			},
-			{
-				property: 'population',
-				label: 'Population',
-				sortable: true
-			},
-			{
-				property: 'fcodeName',
-				label: 'Type',
-				sortable: true
-			}
-		],
-		data: sampleData.geonames,
-		delay: 250
-	});
-
-	$('#MyGrid').datagrid({
-		dataSource: dataSource
-	});
-
-	$('#MyStretchGrid').datagrid({
-		dataSource: dataSource,
-		stretchHeight: true
-	});
-
-	$('#MySelectStretchGrid').datagrid({
-		dataSource: dataSource,
-		stretchHeight: true,
-		noDataFoundHTML: '<b>Sorry, nothing to display.</b>',
-		enableSelect: true,
-		primaryKey: 'geonameId',
-		multiSelect: false
-	});
-
-
-
 	// DATEPICKER
 	$('#datepicker1').datepicker();
 

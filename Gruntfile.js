@@ -53,7 +53,6 @@ module.exports = function (grunt) {
 					'dist/js/fuelux.js': [
 						'js/checkbox.js',
 						'js/combobox.js',
-						'js/datagrid.js', /* Remove */
 						'js/datepicker.js',
 						'js/infinite-scroll.js',
 						'js/loader.js',
@@ -65,6 +64,9 @@ module.exports = function (grunt) {
 						'js/tree.js',
 						'js/wizard.js',
 						'js/intelligent-dropdown.js',
+						'js/repeater.js',
+						'js/repeater-list.js',
+						'js/repeater-thumbnail.js',
 						'js/scheduler.js'
 					]
 				},

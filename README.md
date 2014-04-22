@@ -15,7 +15,6 @@ Fuel UX provides all of the styles and plugins from the revolutionary [Twitter B
 * Fuel UX JavaScript controls (with unit tests) [see them live](http://exacttarget.github.com/fuelux)
   * Checkbox - _consistent cross-browser cross-platform look and feel for checkbox elements_
   * Combobox - _combines input and dropdown for easy and flexible data selection_
-  * Datagrid - _renders data in a table with paging, sorting, and searching_
   * Datepicker - _combines input and dropdown for easy selection of dates_
   * Pillbox - _manages selected items with color-coded text labels_
   * Preloader - _fully css-driven loading animation for visual indication of wait times_
