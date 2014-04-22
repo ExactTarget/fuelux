@@ -2,24 +2,13 @@
 /*global start:false, stop:false ok:false, equal:false, notEqual:false, deepEqual:false*/
 /*global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false*/
 
-require(['jquery', 'fuelux/selectlist'], function ($) {
+define(function(require){
+	var $ = require('jquery');
 
-	var html = '' +
-		'<div id="MySelectlist" class="btn-group selectlist" data-resize="auto">' +
-			'<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">' +
-				'<span class="selected-label">&nbsp;</span>' +
-				'<span class="caret"></span>' +
-				'<span class="sr-only">Toggle Dropdown</span>' +
-			'</button>' +
-			'<ul class="dropdown-menu" role="menu">' +
-				'<li data-value="1"><a href="#">One</a></li>' +
-				'<li data-value="2" data-selected="true"><a href="#">Two</a></li>' +
-				'<li data-value="3"><a href="#">Three</a></li>' +
-				'<li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>' +
-				'<li data-value="Item Five"><a href="#">Item Five</a></li>' +
-			'</ul>' +
-			'<input class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>' +
-		'</div>';
+	var html = require('text!test/markup/selectlist-markup.html');
+
+	require('bootstrap');
+	require('fuelux/selectlist');
 
 	module("Fuel UX Selectlist");
 

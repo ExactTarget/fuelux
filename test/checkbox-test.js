@@ -5,16 +5,10 @@
 define(function(require){
 	var $ = require('jquery');
 
+	var html = require('text!test/markup/checkbox-markup.html');
+
 	require('bootstrap');
 	require('fuelux/checkbox');
-
-	var html = '<div>' +
-			'<div class="checkbox"><label class="checkbox-custom" id="lbl1"><input id="chk1" checked="checked" class="checkbox" type="checkbox" value="">Custom: Checked Enabled<br/>Second Line</label></div>' +
-			'<div class="checkbox"><label class="checkbox-custom" id="lbl2"><input id="chk2" class="checkbox" type="checkbox" value="">Custom: Unchecked Enabled</label></div>' +
-			'<div class="checkbox"><label class="checkbox-custom" id="lbl3"><input id="chk3" checked="checked" disabled="disabled" class="checkbox" type="checkbox" value="">Custom: Checked Disabled<br/>Second Line</label></div>' +
-			'<div class="checkbox"><label class="checkbox-custom" id="lbl4"><input id="chk4" class="checkbox" disabled="disabled" type="checkbox" value="">Custom: Unchecked Disabled</label></div>' +
-			'<div class="checkbox"><label class="checkbox-custom" id="lbl5"><input id="chk5" class="checkbox" type="checkbox" value="">Convenience Methods</label></div>' +
-		'</div>';
 
 	module("Fuel UX Checkbox");
 
@@ -32,24 +26,24 @@ define(function(require){
 		$list.find('input').checkbox();
 
 		// checked/enabled
-		var l1 = $list.find('#lbl1');
-		equal(l1.hasClass('checked'), true, 'lbl1 has checked class');
-		equal(l1.hasClass('disabled'), false, 'lbl1 does not have disabled class');
+		var lbl1 = $list.find('#lbl1');
+		equal(lbl1.hasClass('checked'), true, 'lbl1 has checked class');
+		equal(lbl1.hasClass('disabled'), false, 'lbl1 does not have disabled class');
 
 		// unchecked/enabled
-		var l2 = $list.find('#lbl2');
-		equal(l2.hasClass('checked'), false, 'lbl2 does not have checked class');
-		equal(l2.hasClass('disabled'), false, 'lbl2 does not have disabled class');
+		var lbl3 = $list.find('#lbl3');
+		equal(lbl3.hasClass('checked'), false, 'lbl3 does not have checked class');
+		equal(lbl3.hasClass('disabled'), false, 'lbl3 does not have disabled class');
 
 		// checked/disabled
-		var l3 = $list.find('#lbl3');
-		equal(l3.hasClass('checked'), true, 'lbl3 has checked class');
-		equal(l3.hasClass('disabled'), true, 'lbl3 has disabled class');
+		var lbl4 = $list.find('#lbl4');
+		equal(lbl4.hasClass('checked'), true, 'lbl4 has checked class');
+		equal(lbl4.hasClass('disabled'), true, 'lbl4 has disabled class');
 
 		// checked/disabled
-		var l4 = $list.find('#lbl4');
-		equal(l4.hasClass('checked'), false, 'lbl4 does not have checked class');
-		equal(l4.hasClass('disabled'), true, 'lbl4 has disabled class');
+		var lbl5 = $list.find('#lbl5');
+		equal(lbl5.hasClass('checked'), false, 'lbl5 does not have checked class');
+		equal(lbl5.hasClass('disabled'), true, 'lbl5 has disabled class');
 	});
 
 	test("should disable/enable checkbox", function () {

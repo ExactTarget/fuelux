@@ -108,9 +108,9 @@
 
 			<h2>Combobox</h2>
 
-			<!-- COMBOBOX -->
-			<div class="" style="width: 300px;">
-				<div id="MyCombobox" class="input-group input-append dropdown combobox">
+			<h5>Has selected item</h5>
+			<div style="width: 300px;">
+				<div id="MyComboboxWithSelected" class="input-group input-append dropdown combobox">
 					<input type="text" class="form-control">
 					<div class="input-group-btn">
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
@@ -118,6 +118,24 @@
 						<li data-value="1"><a href="#">One</a></li>
 						<li data-value="2"><a href="#">Two</a></li>
 						<li data-value="3" data-selected="true"><a href="#">Three</a></li>
+						<li data-value="4" ><a href="#">Four</a></li>
+						<li data-value="Item Five"><a href="#">Item Five</a></li>
+						<li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>
+					</ul>
+					</div>
+				</div>
+			</div>
+
+			<h5>No selected item</h5>
+			<div style="width: 300px;">
+				<div id="MyCombobox" class="input-group input-append dropdown combobox">
+					<input type="text" class="form-control">
+					<div class="input-group-btn">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+					<ul class="dropdown-menu pull-right">
+						<li data-value="1"><a href="#">One</a></li>
+						<li data-value="2"><a href="#">Two</a></li>
+						<li data-value="3"><a href="#">Three</a></li>
 						<li data-value="4" ><a href="#">Four</a></li>
 						<li data-value="Item Five"><a href="#">Item Five</a></li>
 						<li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>
@@ -464,6 +482,8 @@
 				</ul>
 			</div>
 
+			<div class="pillbox"><ul class="pillbox-list"></ul></div>
+
 			<br/>
 			<h5 style="clear:both;">Sample Methods</h5>
 			<div class="btn-group">
@@ -482,29 +502,29 @@
 			<h2>Radio</h2>
 
 			<div class="radio">
-				<label class="radio-custom">
-					<input checked="checked" data-toggle="#radioToggle1" name="radio1a" type="radio">
+				<label class="radio-custom" id="lbl1">
+					<input id="radio1" checked="checked" data-toggle="#radioToggle1" name="radio1a" type="radio">
 					Custom appearance radio selected on page load <br/><i>with linked element visibility toggle by id</i>
 				</label>
 			</div>
 
 			<div class="radio">
-				<label class="radio-custom">
-					<input data-toggle=".radioToggle2" name="radio1a" type="radio">
+				<label class="radio-custom" id="lbl2">
+					<input id="radio2" data-toggle=".radioToggle2" name="radio1a" type="radio">
 					Custom appearance radio not selected on page load <br/><i>with linked element visibility toggle by class</i>
 				</label>
 			</div>
 
 			<div class="radio">
-				<label class="radio-custom">
-					<input checked="checked" disabled="disabled" name="radio1b" type="radio">
+				<label class="radio-custom" id="lbl3">
+					<input id="radio3" checked="checked" disabled="disabled" name="radio1b" type="radio">
 					Disabled custom appearance radio selected on page load
 				</label>
 			</div>
 
 			<div class="radio">
-				<label class="radio-custom">
-					<input disabled="disabled" name="radio1b" type="radio">
+				<label class="radio-custom" id="lbl4">
+					<input id="radio4" disabled="disabled" name="radio1b" type="radio">
 					Disabled custom appearance radio not selected on page load
 				</label>
 			</div>
@@ -1098,9 +1118,10 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
 			<h2>Spinbox</h2>
 
+			<h5>Without Default</h5>
 			<div class="clearfix">
 
-				<div id="ex-spinbox" class="spinbox">
+				<div id="MySpinbox" class="spinbox">
 					<input type="text" class="form-control input-mini spinbox-input">
 
 					<div class="spinbox-buttons btn-group btn-group-vertical">
@@ -1115,10 +1136,30 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
 			</div>
 
+			<h5>With Default</h5>
+			<div class="clearfix">
+
+				<div id="MySpinboxWithDefault" class="spinbox">
+					<input type="text" value="3" class="form-control input-mini spinbox-input">
+
+					<div class="spinbox-buttons btn-group btn-group-vertical">
+						<button class="btn btn-default spinbox-up btn-xs">
+							<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
+						</button>
+						<button class="btn btn-default spinbox-down btn-xs">
+							<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
+						</button>
+					</div>
+				</div>
+
+			</div>
+
 			<br/>
-			<!-- <h5>Sample Methods</h5>-->
+			
+			<h5>Sample Methods</h5>
 			<div class="btn-group">
-				<!-- which methods? -->
+				<input id="enableSpinbox" type="button" class="btn btn-default" value="enable"/>
+				<input id="disableSpinbox" type="button" class="btn btn-default" value="disable first spinbox"/>
 			</div>
 			<hr/>
 
@@ -1155,8 +1196,8 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 			<div class="btn-group">
 				<input id="selectByText" type="button" class="btn btn-default" value="set by text ('One')"/>
 				<input id="selectBySelector" type="button" class="btn btn-default" value="set by CSS selector ('li[data-fizz=buzz]')"/>
-				<input id="enableSelect" type="button" class="btn btn-default" value="enable"/>
-				<input id="disableSelect" type="button" class="btn btn-default" value="disable"/>
+				<input id="enableSelectlist" type="button" class="btn btn-default" value="enable"/>
+				<input id="disableSelectlist" type="button" class="btn btn-default" value="disable"/>
 			</div>
 			<hr/>
 
@@ -1188,7 +1229,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
 		</div>
 
-		<div class="clearfix">
+				<div class="clearfix">
 
 			<h2>Wizard</h2>
 
@@ -1249,6 +1290,104 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 				<input type="button" class="btn btn-default" id="btnWizardRemoveStep" value="remove step (preview)">
 			</div>
 			<hr/>
+
+			<br/>
+			<br/>
+
+			<div id="MyWizardPreviousStepDisabled" class="wizard" data-restrict="previous">
+				<ul class="steps">
+					<li class="active" data-step="1"><span class="badge badge-info">1</span>Campaign<span class="chevron"></span></li>
+					<li data-step="2"><span class="badge">2</span>Recipients<span class="chevron"></span></li>
+					<li data-step="3"><span class="badge">3</span>Template<span class="chevron"></span></li>
+					<li data-step="4"><span class="badge">4</span>Preview<span class="chevron"></span></li>
+					<li data-step="5"><span class="badge">5</span>Send<span class="chevron"></span></li>
+				</ul>
+				<div class="actions">
+					<button class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
+					<button class="btn btn-default btn-next" data-last="Complete">Next<span class="glyphicon glyphicon-arrow-right"></span></button>
+				</div>
+				<div class="step-content">
+					<div class="step-pane active sample-pane alert" data-step="1">
+						<h4>Setup Campaign</h4>
+						<p>Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic. Beetroot water spinach okra water chestnut ricebean pea catsear courgette.</p>
+						<p>Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi amaranth water spinach avocado daikon napa cabbage asparagus winter purslane kale. Celery potato scallion desert raisin horseradish spinach carrot soko. Lotus root water spinach fennel kombu maize bamboo shoot green bean swiss chard seakale pumpkin onion chickpea gram corn pea. Brussels sprout coriander water chestnut gourd swiss chard wakame kohlrabi beetroot carrot watercress. Corn amaranth salsify bunya nuts nori azuki bean chickweed potato bell pepper artichoke. Beetroot water spinach okra water chestnut ricebean pea catsear courgette.</p>
+						<p>Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini. </p>
+					</div>
+					<div class="step-pane sample-pane bg-info alert" data-step="2">
+						<h4>Choose Recipients</h4>
+						<p>Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard. </p>
+						<p>Pea horseradish azuki bean lettuce avocado asparagus okra. Kohlrabi radish okra azuki bean corn fava bean mustard tigernut jÃ­cama green bean celtuce collard greens avocado quandong fennel gumbo black-eyed pea. Grape silver beet watercress potato tigernut corn groundnut. Chickweed okra pea winter purslane coriander yarrow sweet pepper radish garlic brussels sprout groundnut summer purslane earthnut pea tomato spring onion azuki bean gourd. Gumbo kakadu plum komatsuna black-eyed pea green bean zucchini gourd winter purslane silver beet rock melon radish asparagus spinach. </p>
+						<p>Beetroot water spinach okra water chestnut ricebean pea catsear courgette summer purslane. Water spinach arugula pea tatsoi aubergine spring onion bush tomato kale radicchio turnip chicory salsify pea sprouts fava bean. Dandelion zucchini burdock yarrow chickpea dandelion sorrel courgette turnip greens. </p>
+					</div>
+					<div class="step-pane sample-pane bg-danger alert" data-step="3">
+						<h4>Design Template</h4>
+						<p>Nori grape silver beet broccoli kombu beet greens fava bean potato quandong celery. Bunya nuts black-eyed pea prairie turnip leek lentil turnip greens parsnip. Sea lettuce lettuce water chestnut eggplant winter purslane fennel azuki bean earthnut pea sierra leone bologi leek soko chicory celtuce parsley jÃ­cama salsify. </p>
+						<p>Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard. </p>
+						<p>Pea horseradish azuki bean lettuce avocado asparagus okra. Kohlrabi radish okra azuki bean corn fava bean mustard tigernut jÃ­cama green bean celtuce collard greens avocado quandong fennel gumbo black-eyed pea. Grape silver beet watercress potato tigernut corn groundnut. Chickweed okra pea winter purslane coriander yarrow sweet pepper radish garlic brussels sprout groundnut summer purslane earthnut pea tomato spring onion azuki bean gourd. Gumbo kakadu plum komatsuna black-eyed pea green bean zucchini gourd winter purslane silver beet rock melon radish asparagus spinach. </p>
+					</div>
+					<div class="step-pane sample-pane bg-warning alert" data-step="4">
+						<h4>Preview Message</h4>
+						<p>Beetroot water spinach okra water chestnut ricebean pea catsear courgette summer purslane. Water spinach arugula pea tatsoi aubergine spring onion bush tomato kale radicchio turnip chicory salsify pea sprouts fava bean. Dandelion zucchini burdock yarrow chickpea dandelion sorrel courgette turnip greens tigernut soybean radish artichoke wattle seed endive groundnut broccoli arugula. Beetroot water spinach okra water chestnut ricebean pea catsear courgette.</p>
+						<p>Soko radicchio bunya nuts gram dulse silver beet parsnip napa cabbage lotus root sea lettuce brussels sprout cabbage. Catsear cauliflower garbanzo yarrow salsify chicory garlic bell pepper napa cabbage lettuce tomato kale arugula melon sierra leone bologi rutabaga tigernut. Sea lettuce gumbo grape kale kombu cauliflower salsify kohlrabi okra sea lettuce broccoli celery lotus root carrot winter purslane turnip greens garlic.</p> 
+						<p>Ja­cama garlic courgette coriander radicchio plantain scallion cauliflower fava bean desert raisin spring onion chicory bunya nuts. Sea lettuce water spinach gram fava bean leek dandelion silver beet eggplant bush tomato. </p>
+					</div>
+					<div class="step-pane sample-pane bg-success alert" data-step="5">
+						<h4>Send Message</h4>
+						<p>Soko radicchio bunya nuts gram dulse silver beet parsnip napa cabbage lotus root sea lettuce brussels sprout cabbage. Catsear cauliflower garbanzo yarrow salsify chicory garlic bell pepper napa cabbage lettuce tomato kale arugula melon sierra leone bologi rutabaga tigernut.</p> 
+						<p>Sea lettuce gumbo grape kale kombu cauliflower salsify kohlrabi okra sea lettuce broccoli celery lotus root carrot winter purslane turnip greens garlic. JÃ­cama garlic courgette coriander radicchio plantain scallion cauliflower fava bean desert raisin spring onion chicory bunya nuts. Sea lettuce water spinach gram fava bean leek dandelion silver beet eggplant bush tomato. </p>
+						<p>Pea horseradish azuki bean lettuce avocado asparagus okra. Kohlrabi radish okra azuki bean corn fava bean mustard tigernut jÃ­cama green bean celtuce collard greens avocado quandong fennel gumbo black-eyed pea. Grape silver beet watercress potato tigernut corn groundnut. Chickweed okra pea winter purslane coriander yarrow sweet pepper radish garlic brussels sprout groundnut summer purslane earthnut pea tomato spring onion azuki bean gourd.  </p>
+					</div>
+				</div>
+			</div>
+
+			<br/>
+			<br/>
+
+			<div id="MyWizardWithSpaces" class="wizard">
+			<ul class="steps">
+				<li class="active" data-step="1"><span class="badge badge-info">1</span>This is step 1<span class="chevron"></span></li>
+				<li data-step="2"><span class="badge">2</span>This is step 2<span class="chevron"></span></li>
+				<li data-step="3"><span class="badge">3</span>This is step 3<span class="chevron"></span></li>
+				<li data-step="4"><span class="badge">4</span>This is step 4<span class="chevron"></span></li>
+				<li data-step="5"><span class="badge">5</span>This is step 5<span class="chevron"></span></li>
+			</ul>
+			<div class="actions">
+				<button class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
+				<button class="btn btn-default btn-next" data-last="Finish">Next<span class="glyphicon glyphicon-arrow-right"></span></button>
+			</div>
+			<div class="step-content">
+				<div class="step-pane active sample-pane alert" data-step="1">
+					<h4>Setup Campaign</h4>
+					<p>Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic. Beetroot water spinach okra water chestnut ricebean pea catsear courgette.</p>
+					<p>Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi amaranth water spinach avocado daikon napa cabbage asparagus winter purslane kale. Celery potato scallion desert raisin horseradish spinach carrot soko. Lotus root water spinach fennel kombu maize bamboo shoot green bean swiss chard seakale pumpkin onion chickpea gram corn pea. Brussels sprout coriander water chestnut gourd swiss chard wakame kohlrabi beetroot carrot watercress. Corn amaranth salsify bunya nuts nori azuki bean chickweed potato bell pepper artichoke. Beetroot water spinach okra water chestnut ricebean pea catsear courgette.</p>
+					<p>Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini. </p>
+				</div>
+				<div class="step-pane sample-pane bg-info alert" data-step="2">
+					<h4>Choose Recipients</h4>
+					<p>Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard. </p>
+					<p>Pea horseradish azuki bean lettuce avocado asparagus okra. Kohlrabi radish okra azuki bean corn fava bean mustard tigernut jÃ­cama green bean celtuce collard greens avocado quandong fennel gumbo black-eyed pea. Grape silver beet watercress potato tigernut corn groundnut. Chickweed okra pea winter purslane coriander yarrow sweet pepper radish garlic brussels sprout groundnut summer purslane earthnut pea tomato spring onion azuki bean gourd. Gumbo kakadu plum komatsuna black-eyed pea green bean zucchini gourd winter purslane silver beet rock melon radish asparagus spinach. </p>
+					<p>Beetroot water spinach okra water chestnut ricebean pea catsear courgette summer purslane. Water spinach arugula pea tatsoi aubergine spring onion bush tomato kale radicchio turnip chicory salsify pea sprouts fava bean. Dandelion zucchini burdock yarrow chickpea dandelion sorrel courgette turnip greens. </p>
+				</div>
+				<div class="step-pane sample-pane bg-danger alert" data-step="3">
+					<h4>Design Template</h4>
+					<p>Nori grape silver beet broccoli kombu beet greens fava bean potato quandong celery. Bunya nuts black-eyed pea prairie turnip leek lentil turnip greens parsnip. Sea lettuce lettuce water chestnut eggplant winter purslane fennel azuki bean earthnut pea sierra leone bologi leek soko chicory celtuce parsley jÃ­cama salsify. </p>
+					<p>Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard. </p>
+					<p>Pea horseradish azuki bean lettuce avocado asparagus okra. Kohlrabi radish okra azuki bean corn fava bean mustard tigernut jÃ­cama green bean celtuce collard greens avocado quandong fennel gumbo black-eyed pea. Grape silver beet watercress potato tigernut corn groundnut. Chickweed okra pea winter purslane coriander yarrow sweet pepper radish garlic brussels sprout groundnut summer purslane earthnut pea tomato spring onion azuki bean gourd. Gumbo kakadu plum komatsuna black-eyed pea green bean zucchini gourd winter purslane silver beet rock melon radish asparagus spinach. </p>
+				</div>
+				<div class="step-pane sample-pane bg-warning alert" data-step="4">
+					<h4>Preview Message</h4>
+					<p>Beetroot water spinach okra water chestnut ricebean pea catsear courgette summer purslane. Water spinach arugula pea tatsoi aubergine spring onion bush tomato kale radicchio turnip chicory salsify pea sprouts fava bean. Dandelion zucchini burdock yarrow chickpea dandelion sorrel courgette turnip greens tigernut soybean radish artichoke wattle seed endive groundnut broccoli arugula. Beetroot water spinach okra water chestnut ricebean pea catsear courgette.</p>
+					<p>Soko radicchio bunya nuts gram dulse silver beet parsnip napa cabbage lotus root sea lettuce brussels sprout cabbage. Catsear cauliflower garbanzo yarrow salsify chicory garlic bell pepper napa cabbage lettuce tomato kale arugula melon sierra leone bologi rutabaga tigernut. Sea lettuce gumbo grape kale kombu cauliflower salsify kohlrabi okra sea lettuce broccoli celery lotus root carrot winter purslane turnip greens garlic.</p> 
+					<p>Ja­cama garlic courgette coriander radicchio plantain scallion cauliflower fava bean desert raisin spring onion chicory bunya nuts. Sea lettuce water spinach gram fava bean leek dandelion silver beet eggplant bush tomato. </p>
+				</div>
+				<div class="step-pane sample-pane bg-success alert" data-step="5">
+					<h4>Send Message</h4>
+					<p>Soko radicchio bunya nuts gram dulse silver beet parsnip napa cabbage lotus root sea lettuce brussels sprout cabbage. Catsear cauliflower garbanzo yarrow salsify chicory garlic bell pepper napa cabbage lettuce tomato kale arugula melon sierra leone bologi rutabaga tigernut.</p> 
+					<p>Sea lettuce gumbo grape kale kombu cauliflower salsify kohlrabi okra sea lettuce broccoli celery lotus root carrot winter purslane turnip greens garlic. JÃ­cama garlic courgette coriander radicchio plantain scallion cauliflower fava bean desert raisin spring onion chicory bunya nuts. Sea lettuce water spinach gram fava bean leek dandelion silver beet eggplant bush tomato. </p>
+					<p>Pea horseradish azuki bean lettuce avocado asparagus okra. Kohlrabi radish okra azuki bean corn fava bean mustard tigernut jÃ­cama green bean celtuce collard greens avocado quandong fennel gumbo black-eyed pea. Grape silver beet watercress potato tigernut corn groundnut. Chickweed okra pea winter purslane coriander yarrow sweet pepper radish garlic brussels sprout groundnut summer purslane earthnut pea tomato spring onion azuki bean gourd.  </p>
+				</div>
+			</div>
+		</div>
 
 		</div>
 

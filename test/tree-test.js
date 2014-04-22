@@ -140,19 +140,6 @@ define(function(require){
 			}
 		};
 
-		this.treeHTML =	'<div id="ex-tree" class="tree">' +
-							'<div class = "tree-folder" style="display:none;">' +
-								'<div class="tree-folder-header">' +
-									'<i class="glyphicon glyphicon-folder-close"></i>' +
-									'<div class="tree-folder-name"></div>' +
-								'</div>' +
-								'<div class="tree-folder-content"></div>' +
-								'<div class="tree-loader" style="display:none"></div>' +
-							'</div>' +
-							'<div class="tree-item" style="display:none;">' +
-								'<i class="glyphicon tree-dot"></i>' +
-								'<div class="tree-item-name"></div>' +
-							'</div>' +
-						'</div>';
+		this.treeHTML =	require('text!test/markup/tree-markup.html');
 	}
 });

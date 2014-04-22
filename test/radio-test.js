@@ -5,15 +5,10 @@
 define(function(require){
 	var $ = require('jquery');
 
+	var html = require('text!test/markup/radio-markup.html');
+
 	require('bootstrap');
 	require('fuelux/radio');
-
-	var html = '<div>' +
-			'<div class="radio"><label class="radio-custom" id="lbl1"><input id="radio1" checked="checked" name="radio1" type="radio">Custom: Checked Enabled</label></div>' +
-			'<div class="radio"><label class="radio-custom" id="lbl2"><input id="radio2" name="radio1" type="radio">Custom: Unchecked Enabled</label></div>' +
-			'<div class="radio"><label class="radio-custom" id="lbl3"><input id="radio3" checked="checked" disabled="disabled" name="radio2" type="radio">Custom: Checked Disabled</label></div>' +
-			'<div class="radio"><label class="radio-custom" id="lbl4"><input id="radio4" disabled="disabled" name="radio2" type="radio">Custom: Unchecked Disabled</label></div>' +
-		'</div>';
 
 	module("Fuel UX Radio");
 
