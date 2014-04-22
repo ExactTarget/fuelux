@@ -24,7 +24,7 @@ define(function(require){
 
 	// COMBOBOX
 	$('#btnComboboxGetSelectedItem').on('click', function () {
-		$('#MyCombobox').combobox('selectedItem');
+		console.log($('#MyCombobox').combobox('selectedItem'));
 	});
 	$('#btnComboboxSelectByValue').on('click', function () {
 		$('#MyCombobox').combobox('selectByValue', '1');
