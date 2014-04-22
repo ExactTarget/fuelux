@@ -60,7 +60,7 @@ module.exports = function (grunt) {
 						'js/pillbox.js',
 						'js/radio.js',
 						'js/search.js',
-						'js/select.js',
+						'js/selectlist.js',
 						'js/spinbox.js',
 						'js/tree.js',
 						'js/wizard.js',
@@ -180,7 +180,7 @@ module.exports = function (grunt) {
 					urls: '<%= allTestUrls %>'
 				}
 			},
-			simple: ['test/**/*.html']
+			simple: ['test/*.html']
 		},
 		less: {
 			dist: {
