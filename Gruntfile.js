@@ -18,12 +18,13 @@ module.exports = function (grunt) {
 		// Try ENV variables (export SAUCE_ACCESS_KEY=XXXX), if key doesn't exist, try key file 
 		sauceLoginFile: grunt.file.exists('SAUCE_API_KEY.yml') ? grunt.file.readYAML('SAUCE_API_KEY.yml') : undefined,
 		sauceKey: process.env['SAUCE_ACCESS_KEY'] ? process.env['SAUCE_ACCESS_KEY'] : '<%= sauceLoginFile.key %>',
-		testUrls: ['2.1.0', '1.11.0', '1.9.1', 'browserGlobals'].map(function (ver) {
+		allTestUrls: ['2.1.0', '1.11.0', '1.9.1', 'browserGlobals'].map(function (ver) {
 			if(ver==='browserGlobals'){
-				return 'http://localhost:<%= connect.server.options.port %>/test/fuelux-browser-globals.html';
+				return 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux-browser-globals.html';
 			}
-			return 'http://localhost:<%= connect.server.options.port %>/test/fuelux.html?jquery=' + ver;
+			return 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + ver;
 		}),
+		trickyTestUrl: 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + '1.9.1',
 
 		//Tasks configuration
 		clean: {
@@ -94,6 +95,12 @@ module.exports = function (grunt) {
 				options: {
 					hostname: '*',
 					port: 8000
+				}
+			},
+			testServer: {
+				options: {
+					hostname: '*',
+					port: 9000		// allows main server to be run simultaneously 
 				}
 			}
 		},
@@ -170,7 +177,7 @@ module.exports = function (grunt) {
 		qunit: {
 			full: {
 				options: {
-					urls: '<%= testUrls %>'
+					urls: '<%= allTestUrls %>'
 				}
 			},
 			simple: ['test/*.html']
@@ -199,13 +206,24 @@ module.exports = function (grunt) {
 			}
 		},
 		'saucelabs-qunit': {
+			trickyBrowsers: {
+							options: {
+								username: 'fuelux',
+								key: '<%= sauceKey %>',
+								tunnelTimeout: 45,
+								testInterval: 3000,
+								browsers: grunt.file.readYAML('sauce_browsers_tricky.yml'),
+								testname: 'grunt-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
+								urls: '<%= trickyTestUrl %>'
+							}
+			},
 			all: {
 				options: {
 					username: 'fuelux',
 					key: '<%= sauceKey %>',
 					browsers: grunt.file.readYAML('sauce_browsers.yml'),
 					testname: 'grunt-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
-					urls: '<%= testUrls %>'
+					urls: '<%= allTestUrls %>'
 				}
 			}
 		},
@@ -238,7 +256,7 @@ module.exports = function (grunt) {
 		watch: {
 			files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
 			options: { livereload: true },
-			tasks: ['devtest', 'quickcss', 'copy:fonts', 'concat', 'jshint', 'jsbeautifier']
+			tasks: ['devtest', 'distcss', 'copy:fonts', 'concat', 'jshint', 'jsbeautifier']
 		}
 	});
 
@@ -246,19 +264,25 @@ module.exports = function (grunt) {
 	require('load-grunt-tasks')(grunt, {scope: 'devDependencies'});
 
 	//The default task
-	grunt.registerTask('default', ['releasetest', 'fullcss', 'copy:fonts', 'clean:dist', 'concat', 'uglify', 'jsbeautifier', 'copy:zipsrc', 'compress', 'clean:zipsrc']);
+	grunt.registerTask('default', ['releasetest', 'distcss', 'copy:fonts', 'clean:dist', 'concat', 'uglify', 'jsbeautifier', 'copy:zipsrc', 'compress', 'clean:zipsrc']);
 
-	//Testing tasks
+	/* -------------
+		TESTING
+	------------- */
 	grunt.registerTask('devtest', ['jshint', 'qunit:simple']);
-	grunt.registerTask('releasetest', ['connect', 'jshint', 'qunit:full']);
-	grunt.registerTask('saucelabs', ['connect', 'jshint', 'saucelabs-qunit']);
+	// multiple jquery versions, but still no VMs
+	grunt.registerTask('releasetest', ['connect:testServer', 'jshint', 'qunit:full']);
+	// multiple jquery versions, sent to VMs
+	grunt.registerTask('saucelabs', ['connect:testServer', 'jshint', 'saucelabs-qunit:all']);
+	// multiple jquery versions, sent to VMs including IE8-11, etc.
+	grunt.registerTask('trickysauce', ['connect:testServer', 'jshint', 'saucelabs-qunit:trickyBrowsers']);
 
-	//Style tasks
-	grunt.registerTask('quickcss', ['less', 'usebanner']);
-	grunt.registerTask('fullcss', ['quickcss']); /* Remove */
-
+	/* ---------------
+		Stylesheets
+	--------------- */
+	grunt.registerTask('distcss', ['less', 'usebanner']);
 	//Serve task
-	grunt.registerTask('serve', ['devtest', 'quickcss', 'copy:fonts', 'concat', 'uglify', 'jsbeautifier', 'connect', 'watch']);
+	grunt.registerTask('serve', ['devtest', 'distcss', 'copy:fonts', 'concat', 'uglify', 'jsbeautifier', 'connect:server', 'watch']);
 
 	//Travis CI task
 	grunt.registerTask('travisci', 'Run appropriate test strategy for Travis CI', function () {
