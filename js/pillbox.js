@@ -100,9 +100,11 @@
 
 			e.preventDefault();
 			this.$input.val('');
-			this._closeSuggestions();
-
+			
 			this.addItems({text:$li.html(), value:$li.data('value')}, true);
+
+			// needs to be after add items for IE
+			this._closeSuggestions();
 		},
 
 		itemCount: function() {
