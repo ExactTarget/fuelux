@@ -92,8 +92,8 @@
 		},
 
 		change: function () {
-			var newVal = this.$input.val();
-
+			var newVal = this.$input.val() || '';
+			
 			if(this.options.units.length){
 				this.setMixedValue(newVal);
 			} else if (newVal/1){
