@@ -255,6 +255,21 @@ module.exports = function (grunt) {
 				}
 			}
 		},
+		validation: {
+			// if many errors are found, this may log to console while other tasks are running
+			options: {
+				reset: function() { grunt.option('reset') || false ;},
+				stoponerror: true,
+				relaxerror: ['Bad value X-UA-Compatible for attribute http-equiv on element meta.',
+								'Element head is missing a required instance of child element title.'], //ignores these errors
+				doctype: 'HTML5',
+				reportpath: false
+			},
+			files: {
+				src: ['index.html',
+					'test/markup/*.html']
+			}
+		},
 		watch: {
 			files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
 			options: { livereload: true },
@@ -271,7 +286,7 @@ module.exports = function (grunt) {
 	/* -------------
 		TESTING
 	------------- */
-	grunt.registerTask('devtest', ['jshint', 'qunit:simple']);
+	grunt.registerTask('devtest', ['jshint', 'qunit:simple', 'validation']);
 	// multiple jquery versions, but still no VMs
 	grunt.registerTask('releasetest', ['connect:testServer', 'jshint', 'qunit:full']);
 	// multiple jquery versions, sent to VMs
