@@ -346,7 +346,26 @@ define(function(require){
 		console.log('Close Event: ', info);
 	});
 
+	//FOLDER SELECT TREE
+	var dataSourceTreeFolders = new DataSourceTree({
+		data: [
+			{ name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } },
+			{ name: 'Test Folder 2', type: 'folder', additionalParameters: { id: 'F2' } },
+			{ name: 'Test Folder 3', type: 'folder', additionalParameters: { id: 'F3' } }
+		],
+		delay: 400
+	});
 
+	$('#ex-tree-folder').tree({
+		dataSource: dataSourceTreeFolders,
+		loadingHTML: '<div class="static-loader">Loading...</div>',
+		multiSelect: false,
+		cacheItems: true
+	});
+
+	$('#ex-tree-folder').on('selected', function (e, info) {
+		console.log('Select Event: ', info);
+	});
 
 	// WIZARD
 	$('#MyWizard').on('change', function(e, data) {
