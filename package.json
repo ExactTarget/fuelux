@@ -43,7 +43,8 @@
     "grunt-jsbeautifier": "~0.2.6",
     "grunt-saucelabs": "~5.1.1",
     "load-grunt-tasks": "~0.4.0",
-    "grunt-cli": "~0.1.13"
+    "grunt-cli": "~0.1.13",
+    "grunt-html-validation": "~0.1.16"
   },
   "keywords": [
     "fuelux",
