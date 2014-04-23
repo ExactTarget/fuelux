@@ -4,27 +4,24 @@
 
 define(function(require){
 	var $ = require('jquery');
+	var html = require('text!test/markup/pillbox-markup.html');
 
 	require('bootstrap');
 	require('fuelux/pillbox');
 
-	module("Fuel UX Pillbox", {
-		setup: function(){
-			this.pillboxHTML = require('text!test/markup/pillbox-markup.html');
-		}
-	});
+	module("Fuel UX Pillbox");
 
 	test("should be defined on jquery object", function () {
-		ok($(this.pillboxHTML).find('#MyPillbox').pillbox, 'pillbox method is defined');
+		ok($(html).find('#MyPillbox').pillbox, 'pillbox method is defined');
 	});
 
 	test("should return element", function () {
-		var $pillbox = $(this.pillboxHTML).find('#MyPillbox');
+		var $pillbox = $(html).find('#MyPillbox');
 		ok($pillbox.pillbox() === $pillbox, 'pillbox should be initialized');
 	});
 
 	test("should behave as designed", function () {
-		var $pillbox = $(this.pillboxHTML).find('#MyPillbox').pillbox();
+		var $pillbox = $(html).find('#MyPillbox').pillbox();
 
 		equal($pillbox.pillbox('items').length, 7, 'pillbox returns both items');
 
@@ -35,7 +32,7 @@ define(function(require){
 	});
 
 	test("Input functionality should behave as designed", function () {
-		var $pillbox = $(this.pillboxHTML).find('#MyPillbox').pillbox();
+		var $pillbox = $(html).find('#MyPillbox').pillbox();
 		var $input = $pillbox.find('.pillbox-input');
 
 		$input.val('three-value');
@@ -45,17 +42,17 @@ define(function(require){
 	});
 
 	test("itemCount function", function(){
-		var $pillbox = $(this.pillboxHTML).find('#MyPillboxEmpty').pillbox();
+		var $pillbox = $(html).find('#MyPillboxEmpty').pillbox();
 
 		equal($pillbox.pillbox('itemCount'), 0, 'itemCount on empty pillbox');
 
-		$pillbox = $(this.pillboxHTML).find('#MyPillbox').pillbox();
+		$pillbox = $(html).find('#MyPillbox').pillbox();
 
 		equal($pillbox.pillbox('itemCount'), 7, 'itemCount on pillbox with 7 items');
 	});
 
 	test("addItems/removeItems functions", function(){
-		var $pillbox = $(this.pillboxHTML).find('#MyPillboxEmpty').pillbox();
+		var $pillbox = $(html).find('#MyPillboxEmpty').pillbox();
 
 		equal($pillbox.pillbox('itemCount'), 0, 'pillbox is initially empty');
 
@@ -81,7 +78,7 @@ define(function(require){
 	});
 
 	test("removeByValue function", function(){
-		var $pillbox = $(this.pillboxHTML).find('#MyPillbox').pillbox();
+		var $pillbox = $(html).find('#MyPillbox').pillbox();
 
 		equal($pillbox.pillbox('itemCount'), 7, 'pillbox has 7 items initially');
 
@@ -92,7 +89,7 @@ define(function(require){
 	});
 
 	test("removeByText function", function(){
-		var $pillbox = $(this.pillboxHTML).find('#MyPillbox').pillbox();
+		var $pillbox = $(html).find('#MyPillbox').pillbox();
 
 		equal($pillbox.pillbox('itemCount'), 7, 'pillbox has 7 items initially');
 
@@ -103,7 +100,7 @@ define(function(require){
 	});
 
 	test("all user defined methods work as expected", function(){
-		var $pillbox = $(this.pillboxHTML).find('#MyPillbox').pillbox({
+		var $pillbox = $(html).find('#MyPillbox').pillbox({
 			onAdd: function(data,callback){
 				callbackTriggers++;
 				callback(data);
@@ -137,7 +134,7 @@ define(function(require){
 	});
 
 	test("Suggestions functionality should behave as designed", function () {
-		var $pillbox = $(this.pillboxHTML).find('#MyPillbox').pillbox({
+		var $pillbox = $(html).find('#MyPillbox').pillbox({
 			onKeyDown: function( e, data, callback ){
 				callback(e, {data:[
 					{ text: 'Acai', value:  'acai' },
@@ -209,7 +206,7 @@ define(function(require){
 	});
 
 	test("Edit functionality should behave as designed", function () {
-		var $pillbox = $(this.pillboxHTML).find('#MyPillbox').pillbox({
+		var $pillbox = $(html).find('#MyPillbox').pillbox({
 			edit: true
 		});
 		var $ul = $pillbox.find('ul');
@@ -228,7 +225,7 @@ define(function(require){
 	});
 
 	test("Triggers behave as designed", function () {
-		var $pillbox = $(this.pillboxHTML).find('#MyPillbox').pillbox();
+		var $pillbox = $(html).find('#MyPillbox').pillbox();
 		var $input = $pillbox.find('.pillbox-input');
 
 		$pillbox.on('clicked', function( ev, item ){
@@ -250,7 +247,7 @@ define(function(require){
 		$pillbox.find('> ul > li:first > span:last').click();
 		$pillbox.off('removed');
 
-		$pillbox = $(this.pillboxHTML).pillbox({edit: true});
+		$pillbox = $(html).pillbox({edit: true});
 		$pillbox.on('edited', function( ev, item ){
 			deepEqual(item, {text: 'edit test', value: 'edit test'}, 'edit event is triggered');
 		});

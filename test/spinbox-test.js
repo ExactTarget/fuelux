@@ -4,7 +4,6 @@
 
 define(function(require){
 	var $ = require('jquery');
-
 	var html = require('text!test/markup/spinbox-markup.html');
 
 	require('bootstrap');

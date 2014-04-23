@@ -3,11 +3,39 @@
 /*global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false*/
 define(function(require){
 	var $ = require('jquery');
+	var html = require('text!test/markup/tree-markup.html');
 
 	require('bootstrap');
 	require('fuelux/tree');
 
-	module("Fuel UX Tree", { setup: testSetup });
+	module("Fuel UX Tree", {
+		setup: function(){
+			this.emptyDataSource = {
+				data: function (options, callback) {
+					setTimeout(function () {
+						callback({ data: []});
+					}, 0);
+				}
+			};
+
+			this.stubDataSource = {
+				data: function (options, callback) {
+
+					setTimeout(function () {
+						callback({
+							data: [
+								{ name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } },
+								{ name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F2' } },
+								{ name: 'Test Item 1', type: 'item', additionalParameters: { id: 'I1' } },
+								{ name: 'Test Item 2', type: 'item', additionalParameters: { id: 'I2' } }
+							]
+						});
+					}, 0);
+
+				}
+			};
+		}
+	});
 
 	test("should be defined on jquery object", function () {
 		ok($(document.body).tree, 'tree method is defined');
@@ -19,7 +47,7 @@ define(function(require){
 
 	asyncTest("Tree should be populated by items on initialization", function () {
 
-		var $tree = $(this.treeHTML).tree({ dataSource: this.stubDataSource }).on('loaded', function () {
+		var $tree = $(html).tree({ dataSource: this.stubDataSource }).on('loaded', function () {
 
 			equal($tree.find('.tree-folder').length, 3, 'Initial set of folders have been added');
 			equal($tree.find('.tree-item').length, 3, 'Initial set of items have been added');
@@ -31,7 +59,7 @@ define(function(require){
 
 	asyncTest("Folders should be populated when folder is clicked", function () {
 
-		var $tree = $(this.treeHTML).tree({ dataSource: this.stubDataSource }).on('loaded', function () {
+		var $tree = $(html).tree({ dataSource: this.stubDataSource }).on('loaded', function () {
 
 			var $folder = $tree.find('.tree-folder:eq(1)');
 			var event = 0;
@@ -69,7 +97,7 @@ define(function(require){
 
 	asyncTest("Single item selection works as designed", function () {
 
-		var $tree = $(this.treeHTML).tree({ dataSource: this.stubDataSource }).on('loaded',function() {
+		var $tree = $(html).tree({ dataSource: this.stubDataSource }).on('loaded',function() {
 
 			var data;
 
@@ -91,7 +119,7 @@ define(function(require){
 
 	asyncTest("Multiple item selection works as designed", function () {
 
-		var $tree = $(this.treeHTML).tree({ dataSource: this.stubDataSource, multiSelect: true }).on('loaded',function() {
+		var $tree = $(html).tree({ dataSource: this.stubDataSource, multiSelect: true }).on('loaded',function() {
 
 			var data;
 
@@ -113,33 +141,4 @@ define(function(require){
 
 	});
 
-	function testSetup() {
-
-		this.emptyDataSource = {
-			data: function (options, callback) {
-				setTimeout(function () {
-					callback({ data: []});
-				}, 0);
-			}
-		};
-
-		this.stubDataSource = {
-			data: function (options, callback) {
-
-				setTimeout(function () {
-					callback({
-						data: [
-							{ name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } },
-							{ name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F2' } },
-							{ name: 'Test Item 1', type: 'item', additionalParameters: { id: 'I1' } },
-							{ name: 'Test Item 2', type: 'item', additionalParameters: { id: 'I2' } }
-						]
-					});
-				}, 0);
-
-			}
-		};
-
-		this.treeHTML =	require('text!test/markup/tree-markup.html');
-	}
 });
