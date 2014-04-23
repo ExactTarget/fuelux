@@ -54,8 +54,8 @@ define(function(require){
 		callback(resp);
 		afterSource(options);
 	};
+	var html = require('text!test/markup/repeater-markup.html');
 	var noItems = false;
-	var repeaterMarkup = require('text!test/repeater-markup.txt');
 
 	require('bootstrap');
 	require('fuelux/repeater');
@@ -63,7 +63,7 @@ define(function(require){
 
 	module('Fuel UX Repeater List', {
 		setup: function(){
-			this.$markup = $(repeaterMarkup);
+			this.$markup = $(html);
 			this.$markup.find('.repeater-views').append('' +
 				'<label class="btn btn-default active">' +
 					'<input name="repeaterViews" type="radio" value="list">' +

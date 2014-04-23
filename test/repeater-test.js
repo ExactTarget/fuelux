@@ -4,14 +4,14 @@
 
 define(function(require){
 	var $ = require('jquery');
-	var repeaterMarkup = require('text!test/repeater-markup.txt');
+	var html = require('text!test/markup/repeater-markup.html');
 
 	require('bootstrap');
 	require('fuelux/repeater');
 
 	module('Fuel UX Repeater', {
 		setup: function(){
-			this.$markup = $(repeaterMarkup);
+			this.$markup = $(html);
 			this.$markup.find('.repeater-views').append('' +
 				'<label class="btn btn-default active">' +
 					'<input name="repeaterViews" type="radio" value="test1">' +
@@ -66,7 +66,7 @@ define(function(require){
 
 					hasCalledDS = true;
 					$filters.find('button').click();
-					$filters.find('li:first a').click();
+					$filters.find('li:nth-child(2) a').click();
 				}
 			}
 		});
