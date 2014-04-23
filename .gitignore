@@ -2,6 +2,10 @@
 .idea
 node_modules
 bower_components
+*.log
+
+# HTML validation
+validation-status.json
 
 # because it's classified...
 SAUCE_API_KEY.yml
