@@ -13,15 +13,29 @@
 	<script src="bower_components/requirejs/require.js"></script>
 	<script type="text/javascript">
 
-		// Feature detect for jQuery version
-		var pathToJQuery;
-		if('querySelector' in document
-			&& 'localStorage' in window
-			&& 'addEventListener' in window ) {
-			pathToJQuery = 'bower_components/jquery/dist/jquery';
-		} else {
-			pathToJQuery = 'bower_components/jquery-1.9.1/jquery';
-		}
+		(function () {
+
+			var jQueryPath;
+
+			// Feature detect for jQuery version
+			if('querySelector' in document
+				&& 'localStorage' in window
+				&& 'addEventListener' in window ) {
+				jQueryPath = 'bower_components/jquery/dist/jquery';
+			} else {
+				jQueryPath = 'bower_components/jquery-1.9.1/jquery';
+			}
+
+			// or force/overwrite the variable with a version via ?jquery= URL parameter
+			var jqverParam = location.search.match(/[?&]jquery=(.*?)(?=&|$)/);
+			var jqver = (jqverParam) ? jqverParam[1] : undefined;
+
+			// if jquery version does not using dist folder
+			if(jqver == '1.9.1') {
+				jQueryPath = 'bower_components/jquery-' + jqver + '/jquery';
+			}
+
+			
 
 		requirejs.config({
 			config: {
@@ -30,7 +44,7 @@
 				}
 			},
 			paths: {
-				jquery: pathToJQuery,
+				jquery: jQueryPath,
 				underscore: 'bower_components/underscore/underscore',
 				bootstrap: 'bower_components/bootstrap/dist/js/bootstrap.min',
 				moment: 'bower_components/moment-with-langs/index', // comment out if you dont want momentjs to be default
@@ -38,7 +52,8 @@
 				sample: 'sample'
 			}
 		});
-		require(['jquery', 'index'], function($){});
+	});
+	require(['jquery', 'index'], function($){});
 	</script>
 </head>
 
@@ -737,6 +752,7 @@
 								<input type="text" aria-hidden="true" readonly="readonly" name="TimeZoneSelectlist" class="hidden hidden-field">
 							</div>
 						</td>
+						<td></td>
 					</tr>
 
 					<tr class="scheduler-repeat">
@@ -1019,6 +1035,7 @@
 								</div>
 							</div>
 						</td>
+						<td></td>
 					</tr>
 					<tr class="scheduler-end">
 						<td class="scheduler-label">End</td>
@@ -1062,6 +1079,7 @@
 							</div>
 
 						</td>
+						<td></td>
 					</tr>
 				</table>
 			</div>
@@ -1113,6 +1131,8 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 			<hr/>
 
 		</div>
+
+
 
 		<div class="clearfix">
 
