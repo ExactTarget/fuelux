@@ -9,7 +9,7 @@
     "bootstrap": "~3.1.1",
     "moment-with-langs": "http://momentjs.com/downloads/moment-with-langs.js",
     "qunit": "~1.14.0",
-	"requirejs-text": "~2.0.10"
+    "requirejs-text": "~2.0.10"
   },
   "ignore": [
     "**/.*",

@@ -26,6 +26,9 @@ define(function(require){
 		test_results.tests = tests;
 
 		window.global_test_results = test_results;
+
+		// hide passed tests, helps with VM testing screencasts
+		$('#qunit-filter-pass').click();
 	});
 	QUnit.testStart(function(testDetails){
 		QUnit.log = function(details){
