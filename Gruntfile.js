@@ -229,7 +229,7 @@ module.exports = function (grunt) {
 							key: '<%= sauceKey %>',
 							tunnelTimeout: 45,
 							testInterval: 3000,
-							tags: [ '<%= sauceUser %>' + "@" + process.env.TRAVIS_BRANCH || '<%= sauceUser %>' +"@local"],
+							tags: [ '<%= sauceUser %>' + "@" + process.env.TRAVIS_BRANCH || '<%= sauceUser %>@local'],
 							browsers: grunt.file.readYAML('sauce_browsers.yml'),
 							build: process.env.TRAVIS_BUILD_NUMBER || '',
 							testname: process.env.TRAVIS_JOB_ID || 'grunt-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
