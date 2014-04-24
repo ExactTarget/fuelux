@@ -214,8 +214,9 @@ module.exports = function (grunt) {
 								key: '<%= sauceKey %>',
 								tunnelTimeout: 45,
 								testInterval: 3000,
+								tags: [ process.env.SAUCE_USERNAME+"@"+process.env.TRAVIS_BRANCH || process.env.SAUCE_USERNAME+"@local"],
 								browsers: grunt.file.readYAML('sauce_browsers_tricky.yml'),
-								testname: 'grunt-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
+								testname: process.env.TRAVIS_JOB_ID || Math.floor((new Date()).getTime() / 1000 - 1230768000).toString(),
 								urls: '<%= trickyTestUrl %>'
 							}
 			},
