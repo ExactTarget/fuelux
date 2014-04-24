@@ -53,7 +53,6 @@ module.exports = function (grunt) {
 					'dist/js/fuelux.js': [
 						'js/checkbox.js',
 						'js/combobox.js',
-						'js/datagrid.js', /* Remove */
 						'js/datepicker.js',
 						'js/infinite-scroll.js',
 						'js/loader.js',
@@ -65,6 +64,9 @@ module.exports = function (grunt) {
 						'js/tree.js',
 						'js/wizard.js',
 						'js/intelligent-dropdown.js',
+						'js/repeater.js',
+						'js/repeater-list.js',
+						'js/repeater-thumbnail.js',
 						'js/scheduler.js'
 					]
 				},
@@ -258,14 +260,15 @@ module.exports = function (grunt) {
 			options: {
 				reset: function() { grunt.option('reset') || false ;},
 				stoponerror: true,
-				relaxerror: ['Bad value X-UA-Compatible for attribute http-equiv on element meta.',
-								'Element head is missing a required instance of child element title.'], //ignores these errors
+				relaxerror: [	//ignores these errors
+					'Bad value X-UA-Compatible for attribute http-equiv on element meta.',
+					'Element head is missing a required instance of child element title.'
+				],
 				doctype: 'HTML5',
 				reportpath: false
 			},
 			files: {
-				src: ['index.html',
-					'test/markup/*.html']
+				src: ['index.html', 'test/markup/*.html']
 			}
 		},
 		watch: {

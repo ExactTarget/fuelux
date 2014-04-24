@@ -41,7 +41,6 @@ define(function(require){
 
 	require('test/checkbox-test');
 	require('test/combobox-test');
-//	require('test/datagrid-test');
 	require('test/datepicker-test');
 	require('test/datepicker-moment-test');
 	require('test/infinite-scroll-test');

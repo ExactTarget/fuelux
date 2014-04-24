@@ -4,16 +4,12 @@
 
 define(function(require){
 	var $ = require('jquery');
-	var schedulerMarkup = require('text!test/markup/scheduler-markup.html');
+	var html = require('text!test/markup/scheduler-markup.html');
 
 	require('bootstrap');
 	require('fuelux/scheduler');
 
-	module('Fuel UX Scheduler', {
-		setup: function(){
-			this.$markup = $(schedulerMarkup);
-		}
-	});
+	module('Fuel UX Scheduler');
 
 	test('should be defined on the jQuery object', function(){
 		ok( $(document.body).scheduler, 'scheduler method is defined' );
@@ -25,7 +21,7 @@ define(function(require){
 
 	test('should disable control (all inputs)', function (){
 		var disabled = true;
-		var $scheduler = this.$markup.scheduler();
+		var $scheduler = $(html).scheduler();
 
 		$scheduler.scheduler('disable');
 
@@ -70,7 +66,7 @@ define(function(require){
 
 	test('should enable control (all inputs)', function () {
 		var enabled = true;
-		var $scheduler = this.$markup.scheduler();
+		var $scheduler = $(html).scheduler();
 
 		$scheduler.scheduler('disable');
 		$scheduler.scheduler('enable');
@@ -115,7 +111,7 @@ define(function(require){
 	});
 
 	test('should return proper value object', function (){
-		var $scheduler = this.$markup.scheduler();
+		var $scheduler = $(html).scheduler();
 		var obj = 'object';
 		var str = 'string';
 		var val = $scheduler.scheduler('value');
@@ -131,7 +127,7 @@ define(function(require){
 	test('should set value properly', function (){
 		//needed due to PhantomJS bug: https://github.com/ariya/phantomjs/issues/11151
 		var isPhantomJS = (window.navigator.userAgent.search('PhantomJS')>=0);
-		var $scheduler = this.$markup.scheduler();
+		var $scheduler = $(html).scheduler();
 		var $repIntSelDrop = $scheduler.find('.repeat-interval .selectlist .selected-label');
 		var $repPanSpinbox = $scheduler.find('.repeat-interval-panel .spinbox');
 		var test;

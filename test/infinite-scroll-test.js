@@ -5,27 +5,24 @@
 define(function(require){
 	var $ = require('jquery');
 	var data = require('data');
+	var html = require('text!test/markup/infinite-scroll-markup.html');
 
 	require('bootstrap');
 	require('fuelux/infinite-scroll');
 
-	module('Fuel UX Infinite Scroll', {
-		setup: function(){
-			this.infiniteScrollHTML = '<div style="height: 400px; overflow-y: auto; width: 200px;"></div>';
-		}
-	});
+	module('Fuel UX Infinite Scroll');
 
 	test('should be defined on jquery object', function () {
-		ok($(this.infiniteScrollHTML).infinitescroll, 'infinitescroll method is defined');
+		ok($(html).infinitescroll, 'infinitescroll method is defined');
 	});
 
 	test('should return element', function () {
-		var $infiniteScroll = $(this.infiniteScrollHTML);
+		var $infiniteScroll = $(html);
 		ok($infiniteScroll.infinitescroll() === $infiniteScroll, 'infinitescroll should be initialized');
 	});
 
 	asyncTest('default behavior should function as expected', function () {
-		var $infiniteScroll = $(this.infiniteScrollHTML);
+		var $infiniteScroll = $(html);
 		var scrollHeight;
 
 		$('body').append($infiniteScroll);
@@ -51,7 +48,7 @@ define(function(require){
 	});
 
 //	asyncTest('hybrid option should function as expected', function () {
-//		var $infiniteScroll = $(this.infiniteScrollHTML);
+//		var $infiniteScroll = $(html);
 //		var loadMore = 'Load More';
 //		var button;
 //
@@ -80,7 +77,7 @@ define(function(require){
 //	});
 
 	asyncTest('percentage option should function as expected', function () {
-		var $infiniteScroll = $(this.infiniteScrollHTML);
+		var $infiniteScroll = $(html);
 		var percent = 85;
 
 		$('body').append($infiniteScroll);

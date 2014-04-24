@@ -4,7 +4,6 @@
 
 define(function(require){
 	var $ = require('jquery');
-
 	var html = require('text!test/markup/combobox-markup.html');
 
 	require('bootstrap');

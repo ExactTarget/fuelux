@@ -50,54 +50,6 @@ define(function(require){
 
 
 
-	// DATAGRID
-	var dataSource = new StaticDataSource({
-		columns: [
-			{
-				property: 'toponymName',
-				label: 'Name',
-				sortable: true
-			},
-			{
-				property: 'countrycode',
-				label: 'Country',
-				sortable: true
-			},
-			{
-				property: 'population',
-				label: 'Population',
-				sortable: true
-			},
-			{
-				property: 'fcodeName',
-				label: 'Type',
-				sortable: true
-			}
-		],
-		data: sampleData.geonames,
-		delay: 250
-	});
-
-	$('#MyGrid').datagrid({
-		dataSource: dataSource
-	});
-
-	$('#MyStretchGrid').datagrid({
-		dataSource: dataSource,
-		stretchHeight: true
-	});
-
-	$('#MySelectStretchGrid').datagrid({
-		dataSource: dataSource,
-		stretchHeight: true,
-		noDataFoundHTML: '<b>Sorry, nothing to display.</b>',
-		enableSelect: true,
-		primaryKey: 'geonameId',
-		multiSelect: false
-	});
-
-
-
 	// DATEPICKER
 	$('#datepicker1').datepicker();
 
@@ -253,6 +205,119 @@ define(function(require){
 	$('#btnRadioEnableAll').on('click', function() {
 		$('.radio-container [type=radio]').radio('enable');
 	});
+
+
+
+	// REPEATER
+	var delays = ['300', '600', '900', '1200'];
+	var myRepeater = $('#MyRepeater');
+
+	var list = function(options, callback){
+		var resp = {
+			count: data.repeater.listData.length,
+			items: [],
+			page: options.pageIndex
+		};
+		var i, l;
+
+		resp.pages = Math.ceil(resp.count/(options.pageSize || 50));
+
+		i = options.pageIndex * (options.pageSize || 50);
+		l = i + (options.pageSize || 50);
+		l = (l <= resp.count) ? l : resp.count;
+		resp.start = i + 1;
+		resp.end = l;
+
+		resp.columns = [
+			{
+				label: 'Common Name',
+				property: 'commonName',
+				sortable: true
+			},
+			{
+				label: 'Latin Name',
+				property: 'latinName',
+				sortable: true
+			},
+			{
+				label: 'Appearance',
+				property: 'appearance',
+				sortable: true
+			},
+			{
+				label: 'Sound',
+				property: 'sound',
+				sortable: true
+			}
+		];
+
+		for(i; i<l; i++){
+			resp.items.push(data.repeater.listData[i]);
+		}
+
+		//if(options.search){
+		//resp.items = [];
+		//}
+
+		if(window.console && window.console.log){
+			console.log(options);
+		}
+		setTimeout(function(){
+			callback(resp);
+		}, delays[Math.floor(Math.random() * 4)]);
+	};
+
+	var thumbnail = function(options, callback){
+		var categories = ['abstract', 'animals', 'business', 'cats', 'city', 'food', 'nature', 'technics', 'transport'];
+		var colors = ['#D9EDF7', '#F2DEDE', '#FCF8E3', '#DFF0D8'];
+		var numItems = 200;
+		var resp = {
+			count: numItems,
+			items: [],
+			pages: (Math.ceil(numItems/(options.pageSize || 30))),
+			page: options.pageIndex
+		};
+		var i, l;
+
+		i = options.pageIndex * (options.pageSize || 30);
+		l = i + (options.pageSize || 30);
+		resp.start = i + 1;
+		resp.end = l;
+
+		for(i; i<l; i++){
+			resp.items.push({
+				color: colors[Math.floor(Math.random() * 4)],
+				name: ('Thumbnail ' + (i + 1)),
+				src: 'http://lorempixel.com/65/75/' + categories[Math.floor(Math.random() * 9)] + '/?_=' + i
+			});
+		}
+
+		//if(options.search){
+		//resp.items = [];
+		//}
+
+		if(window.console && window.console.log){
+			//console.log(options);
+		}
+		setTimeout(function(){
+			callback(resp);
+		}, delays[Math.floor(Math.random() * 4)]);
+	};
+
+	myRepeater.repeater({
+		dataSource: function(options, callback){
+			if(options.view==='list'){
+				list(options, callback);
+			}else if(options.view==='thumbnail'){
+				thumbnail(options, callback);
+			}
+		},
+		list_selectable: 'multi',
+		list_noItemsHTML: 'no items found',
+		thumbnail_noItemsHTML: 'no items found',
+		thumbnail_infiniteScroll: { hybrid: true }
+	});
+
 
 
 	// SCHEDULER

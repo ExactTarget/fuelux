@@ -52,10 +52,6 @@
 		ok($(document.body).combobox, 'combobox method is defined');
 	});
 
-	test('datagrid should be defined on jQuery object', function () {
-		ok($(document.body).datagrid, 'datagrid method is defined');
-	});
-
 	test( 'datepicker should be defined on the jQuery object', function() {
 		ok( $(document.body).datepicker, 'datepicker method is defined' );
 	});

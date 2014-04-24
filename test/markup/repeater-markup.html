@@ -1,10 +1,10 @@
-<div class="repeater" id="MyRepeater">
+<div class="repeater" data-staticheight="500px" id="MyRepeater">
 	<div class="repeater-header">
 		<div class="repeater-header-left">
 			<span class="repeater-title">Awesome Repeater</span>
 			<div class="repeater-search">
 				<div class="search input-group">
-					<input type="search" class="form-control" placeholder="Search">
+					<input type="search" class="form-control" placeholder="Search"/>
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="button">
 							<span class="glyphicon glyphicon-search"></span>
@@ -22,8 +22,9 @@
 					<span class="sr-only">Toggle Filters</span>
 				</button>
 				<ul class="dropdown-menu" role="menu">
-				    <li data-value="some"><a href="#">Some</a></li>
 					<li data-value="all" data-selected="true"><a href="#">All</a></li>
+					<li data-value="some"><a href="#">Some</a></li>
+					<li data-value="others"><a href="#">Others</a></li>
 				</ul>
 				<input class="hidden hidden-field" name="filterSelection" readonly="readonly" aria-hidden="true" type="text"/>
 			</div>
@@ -65,14 +66,14 @@
 				<span>Page</span>
 				<div class="repeater-primaryPaging active">
 					<div class="input-group input-append dropdown combobox">
-						<input type="text" class="form-control">
+						<input type="text" class="form-control"/>
 						<div class="input-group-btn">
 							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 							<ul class="dropdown-menu pull-right"></ul>
 						</div>
 					</div>
 				</div>
-				<input type="text" class="form-control repeater-secondaryPaging">
+				<input type="text" class="form-control repeater-secondaryPaging"/>
 				<span>of <span class="repeater-pages"></span></span>
 				<button type="button" class="btn btn-default btn-sm repeater-next"><span class="glyphicon glyphicon-chevron-right"></span></button>
 			</div>

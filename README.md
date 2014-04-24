@@ -15,19 +15,21 @@ Fuel UX provides all of the styles and plugins from the revolutionary [Twitter B
 * Fuel UX JavaScript controls (with unit tests) [see them live](http://exacttarget.github.com/fuelux)
   * Checkbox - _consistent cross-browser cross-platform look and feel for checkbox elements_
   * Combobox - _combines input and dropdown for easy and flexible data selection_
-  * Datagrid - _renders data in a table with paging, sorting, and searching_
   * Datepicker - _combines input and dropdown for easy selection of dates_
+  * Infinite Scroll -
+  * Loader - _fully css-driven loading animation for visual indication of wait times_
   * Pillbox - _manages selected items with color-coded text labels_
-  * Preloader - _fully css-driven loading animation for visual indication of wait times_
   * Radio - _consistent cross-browser cross-platform look and feel for radio elements_
+  * Repeater - 
+  * Repeater Plugins - 
   * Scheduler - _composite form control to quickly schedule events_
   * Search - _combines input and button for integrated search interaction_
-  * Select - _extends button dropdown with the ability to set and retrieve the selected item_
+  * Selectlist - _extends button dropdown with the ability to set and retrieve the selected item_
   * Spinbox - _provides convenient numeric input with increment and decrement buttons_
   * Tree - _renders data in a tree, supporting caching and optional multi-selection_
   * Wizard - _displays a multi-step process to be completed in a specific order_
-<p>
-* Smart Dropdowns - _dropdown automatically decides whether it should be placed above or below the clicked element (can also force position). Add `data-direction="auto|up|down"` to element that has `data-toggle="dropdown"`_
+
+  * Smart Dropdowns - _dropdown automatically decides whether it should be placed above or below the clicked element (can also force position). Add `data-direction="auto|up|down"` to element that has `data-toggle="dropdown"`_
 
 * One-step installation and updates through [volo](https://github.com/volojs/volo)
 * [AMD](http://requirejs.org/docs/whyamd.html) compatibility for modular structure and deployment optimization

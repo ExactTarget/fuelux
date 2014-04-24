@@ -350,12 +350,18 @@
 											if($row.hasClass('selected')){
 												$row.removeClass('selected');
 												$row.find('.repeater-list-check').remove();
+												self.$element.trigger('itemDeselected', $row);
 											}else{
 												if(self.options.list_selectable!=='multi'){
-													self.clearSelectedItems();
+													self.$canvas.find('.repeater-list-check').remove();
+													self.$canvas.find('.repeater-list-items tr.selected').each(function(){
+														$(this).removeClass('selected');
+														self.$element.trigger('itemDeselected', $(this));
+													});
 												}
 												$row.addClass('selected');
 												$row.find('td:first').prepend('<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>');
+												self.$element.trigger('itemSelected', $row);
 											}
 										});
 									}
