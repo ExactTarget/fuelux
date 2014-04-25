@@ -1,8 +1,8 @@
 #FuelUX
 
-FuelUX extends [Bootstrap 3](https://github.com/twbs/bootstrap) with additional lightweight JavaScript controls. It is maintained by [members of ExactTarget, a salesforce.com company,](https://github.com/orgs/ExactTarget/members) with the support and involvement of the community.
+FuelUX extends [Bootstrap 3](https://github.com/twbs/bootstrap) with additional lightweight [JavaScript controls](#javascript-controls). It is maintained by [members of ExactTarget, a salesforce.com company,](https://github.com/orgs/ExactTarget/members) with the support and involvement of the community.
 
-All functionality is covered by the [live documentation](http://exacttarget.github.com/fuelux) and unit tests.
+All functionality is covered by the [live documentation](http://exacttarget.github.com/fuelux) and [unit tests](#automated-testing-status).
 
 
 ## Table of contents
@@ -27,7 +27,7 @@ FuelUX can be obtained one of three ways:
     bower install fuelux
     ```
    
-   This ensures you get all the dependencies. You can then use `bower update fuelux` to keep it up to date in the future. You're welcome.
+   This ensures you get all the [dependencies](#dependencies). You can then use `bower update fuelux` to keep it up to date in the future. You're welcome.
    
 2. **Second best way:** Clone the Git repository:
    ```
@@ -44,7 +44,7 @@ FuelUX can be obtained one of three ways:
  
 
 ## Dependencies
-FuelUX is dependent upon Bootstrap 3 and jQuery.
+FuelUX is dependent upon [Bootstrap 3](https://github.com/twbs/bootstrap) and [jQuery](https://github.com/jquery/jquery).
 
 If you install it by cloning the repo or by downloading a .zip archive, you'll also want to grab these things, as, it just won't work without them.
 - [jQuery](https://github.com/jquery/jquery)
@@ -89,22 +89,22 @@ View [live documentation and demos](http://exacttarget.github.com/fuelux) on Git
 
 ### JavaScript Controls
 
-* **Checkbox** - consistent cross-browser cross-platform look and feel for checkbox elements
-* **Combobox** - combines input and dropdown for flexible data selection
-* **Datepicker** - combines input and dropdown to select a date
-* **Infinite Scroll** - Load content when reaching a set amount of content read or with a call to action
-* **Intelligent Dropdown** - Dropdown that decide whether it should be placed above or below the clicked element as well as force position.
-* **Loader** - fully css-driven loading animation for visual indication of wait times
-* **Pillbox** - manage tags with color-coded text labels
-* **Radio** - consistent cross-browser cross-platform look and feel for radio elements
-* **Repeater** - A scrollable, sortable, searchable interface for data (replaces datagrid)
-* **Repeater Views** - Use the provided views to customize a list of data or write your own
-* **Scheduler** - composite form control to quickly schedule events with support for [moment.js](https://github.com/moment/moment)
-* **Search** - input for integrated search
-* **Selectlist** - extends button dropdown with the ability to set and retrieve the selected item
-* **Spinbox** - provides convenient numeric input with increment and decrement buttons
-* **Tree** - renders data in a tree, supporting caching and optional multi-selection
-* **Wizard** - displays a multi-step process to be completed in a specific order
+* **[Checkbox](http://exacttarget.github.io/fuelux/#checkbox)** - consistent cross-browser cross-platform look and feel for checkbox elements
+* **[Combobox](http://exacttarget.github.io/fuelux/#combobox)** - combines input and dropdown for flexible data selection
+* **[Datepicker](http://exacttarget.github.io/fuelux/#datepicker)** - combines input and dropdown to select a date
+* **[Infinite Scroll](http://exacttarget.github.io/fuelux/#infinite-scroll)** - Load content when reaching a set amount of content read or with a call to action
+* **[Intelligent Dropdown](http://exacttarget.github.io/fuelux/#intelligent-dropdown)** - Dropdown that decide whether it should be placed above or below the clicked element as well as force position.
+* **[Loader](http://exacttarget.github.io/fuelux/#loader)** - fully css-driven loading animation for visual indication of wait times
+* **[Pillbox](http://exacttarget.github.io/fuelux/#pillbox)** - manage tags with color-coded text labels
+* **[Radio](http://exacttarget.github.io/fuelux/#radio)** - consistent cross-browser cross-platform look and feel for radio elements
+* **[Repeater](http://exacttarget.github.io/fuelux/#repeater)** - A scrollable, sortable, searchable interface for data (replaces datagrid)
+* **[Repeater Views](http://exacttarget.github.io/fuelux/#repeater-views)** - Use the provided views to customize a list of data or write your own
+* **[Scheduler](http://exacttarget.github.io/fuelux/#scheduler)** - composite form control to quickly schedule events with support for [moment.js](https://github.com/moment/moment)
+* **[Search](http://exacttarget.github.io/fuelux/#search)** - input for integrated search
+* **[Selectlist](http://exacttarget.github.io/fuelux/#selectlist)** - extends button dropdown with the ability to set and retrieve the selected item
+* **[Spinbox](http://exacttarget.github.io/fuelux/#spinbox)** - provides convenient numeric input with increment and decrement buttons
+* **[Tree](http://exacttarget.github.io/fuelux/#tree)** - renders data in a tree, supporting caching and optional multi-selection
+* **[Wizard](http://exacttarget.github.io/fuelux/#wizard)** - displays a multi-step process to be completed in a specific order
 
 ### UMD/AMD Support
 
