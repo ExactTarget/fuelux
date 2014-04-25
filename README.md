@@ -163,7 +163,7 @@ define(function(require) {
 });
 ```
 
-On a side note, FuelUX now supports placing components in their own `<script>` tags. Be sure to put modules in the correct order if loading them in this method.
+On a side note, FuelUX supports placing components in their own `<script>` tags. Be sure to put modules in the correct order if loading them in this method.
 
 ## Bugs and feature requests
 
