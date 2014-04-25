@@ -1,22 +1,18 @@
 #FuelUX [![Build Status](https://api.travis-ci.org/ExactTarget/fuelux.png?branch=master)](http://travis-ci.org/ExactTarget/fuelux) [![Selenium Test Status](https://saucelabs.com/buildstatus/fuelux)](https://saucelabs.com/u/fuelux) [![devDependency Status](https://david-dm.org/ExactTarget/fuelux/dev-status.svg)](https://david-dm.org/ExactTarget/fuelux#info=devDependencies)
 
-<hr/>
-
 [![Selenium Test Status](https://saucelabs.com/browser-matrix/fuelux.svg)](https://saucelabs.com/u/fuelux)
 
 FuelUX extends [Bootstrap 3](https://github.com/twbs/bootstrap) with additional lightweight JavaScript controls. It is maintained by [members of ExactTarget, a salesforce.com company,](https://github.com/orgs/ExactTarget/members) with the support and involvement of the community.
 
 All functionality is covered by the [live documentation](http://exacttarget.github.com/fuelux) and unit tests.
 
-[![Fuel UX](https://s3.amazonaws.com/fuelux/logo-gray.png)](http://exacttarget.github.com/fuelux) 
-
-(make the logo bigger, make it as big as you can!)
-
 ## Quick start
 
 * Download the latest release **(need link)**
 * Clone the repo `git clone https://github.com/ExactTarget/fuelux/`
 * Install with [Bower](https://github.com/bower/bower): `bower install fuelux`
+
+Please note: Bootstrap 3 is now a required dependency and is no longer bundled.
 
 ## What's included
 
@@ -49,16 +45,16 @@ We provide compiled CSS and JS (`bootstrap.*`), as well as compiled and minified
 * **Radio** - consistent cross-browser cross-platform look and feel for radio elements
 * **Repeater** - A scrollable, sortable, searchable interface for data (replaces datagrid)
 * **Repeater Views** - Use the provided views to customize a list of data or write your own
-* **Scheduler** - composite form control to quickly schedule events
+* **Scheduler** - composite form control to quickly schedule events with support for [moment.js](https://github.com/moment/moment)
 * **Search** - input for integrated search
 * **Selectlist** - extends button dropdown with the ability to set and retrieve the selected item
 * **Spinbox** - provides convenient numeric input with increment and decrement buttons
 * **Tree** - renders data in a tree, supporting caching and optional multi-selection
 * **Wizard** - displays a multi-step process to be completed in a specific order
 
-### AMD Support
+### UMD/AMD Support
 
-In a hurry? Counting characters over bytes? `fuelux/all` can be loaded to bring in all FuelUX controls. Though we recommend only loading the controls, you need. If using AMD (such as [RequireJS](http://require.js.org)) reference the FuelUX directory in your paths configuration, wherever it is located:
+In a hurry? Counting characters over bytes? `fuelux/all` can be loaded to bring in all FuelUX controls via AMD. Though we recommend only loading the controls, you need. If using AMD (such as [RequireJS](http://require.js.org)), reference the FuelUX directory in your paths configuration, wherever it is located:
 ```javascript
 require.config({
     paths: {
@@ -75,9 +71,7 @@ define(function(require) {
 });
 ```
 
-### Non-AMD (Browser globals)
-
-FuelUX now supports placing components in their own `<script>` tags. Be sure to put modules in the correct order if loading them in this method.
+On a side note, FuelUX now supports placing components in their own `<script>` tags. Be sure to put modules in the correct order if loading them in this method.
 
 ## Bugs and feature requests
 
@@ -222,11 +216,11 @@ We are grateful to the maintainers, contributors, and sponsors of the following 
 
 * [jQuery](http://jquery.com) (Library for DOM, events, animation, and AJAX)
 
-* [Twitter Bootstrap](https://github.com/twbs/bootstrap) (Modern UI components and interactions)
+* [Twitter Bootstrap](https://github.com/twbs/bootstrap) (UI components and interactions)
 
-* [LESS](http://lesscss.org) and [recess](http://twitter.github.com/recess) (Stylesheet definition and management)
+* [LESS](http://lesscss.org) (Stylesheet definition and management)
 
-* [RequireJS](http://requirejs.org) and [volo](https://github.com/volojs/volo) (Tools for managing modular JavaScript)
+* [RequireJS](http://requirejs.org) and [bower](http://bower.io/) (Tools for managing client JavaScript)
 
 * [grunt](https://github.com/cowboy/grunt) (Build tool for JavaScript projects)
 
