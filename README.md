@@ -1,69 +1,61 @@
 [![Fuel UX](https://s3.amazonaws.com/fuelux/logo-gray.png)](http://exacttarget.github.com/fuelux)
 
 Fuel UX extends Twitter Bootstrap with additional lightweight JavaScript controls.
-Other benefits include easy installation into web projects, integrated scripts for customizing Bootstrap and Fuel UX,
+Other benefits include easy installation into web projects, integrated scripts for customizing Bootstrap and FuelUX,
 simple updates, and solid optimization for deployment. All functionality is covered by live documentation and unit tests.
 
-[![Selenium Test Status](https://saucelabs.com/buildstatus/fuelux)](https://saucelabs.com/u/fuelux)
+[![Selenium Test Status](https://saucelabs.com/browser-matrix/fuelux.svg)](https://saucelabs.com/u/fuelux)
 
-[![Build Status](https://secure.travis-ci.org/ExactTarget/fuelux.png?branch=master)](http://travis-ci.org/ExactTarget/fuelux)
+[![Build Status](https://api.travis-ci.org/ExactTarget/fuelux.png?branch=master)](http://travis-ci.org/ExactTarget/fuelux) [![Selenium Test Status](https://saucelabs.com/buildstatus/fuelux)](https://saucelabs.com/u/fuelux) [![devDependency Status](https://david-dm.org/ExactTarget/fuelux/dev-status.svg)](https://david-dm.org/ExactTarget/fuelux#info=devDependencies)
 
 ## Features
 
-Fuel UX provides all of the styles and plugins from the revolutionary [Twitter Bootstrap](https://github.com/twbs/bootstrap) project, with the following additions:
+FuelUX provides all of the styles and plugins from [Twitter Bootstrap](https://github.com/twbs/bootstrap), the most popular front-end framework for developing responsive, mobile first projects on the web, with the following additional JavaScript controls [view the demo](http://exacttarget.github.com/fuelux):
 
-* Fuel UX JavaScript controls (with unit tests) [see them live](http://exacttarget.github.com/fuelux)
-  * Checkbox - _consistent cross-browser cross-platform look and feel for checkbox elements_
-  * Combobox - _combines input and dropdown for easy and flexible data selection_
-  * Datepicker - _combines input and dropdown for easy selection of dates_
-  * Infinite Scroll -
-  * Loader - _fully css-driven loading animation for visual indication of wait times_
-  * Pillbox - _manages selected items with color-coded text labels_
-  * Radio - _consistent cross-browser cross-platform look and feel for radio elements_
-  * Repeater - 
-  * Repeater Plugins - 
-  * Scheduler - _composite form control to quickly schedule events_
-  * Search - _combines input and button for integrated search interaction_
-  * Selectlist - _extends button dropdown with the ability to set and retrieve the selected item_
-  * Spinbox - _provides convenient numeric input with increment and decrement buttons_
-  * Tree - _renders data in a tree, supporting caching and optional multi-selection_
-  * Wizard - _displays a multi-step process to be completed in a specific order_
+* **Checkbox** - consistent cross-browser cross-platform look and feel for checkbox elements
+* **Combobox** - combines input and dropdown for flexible data selection
+* **Datepicker** - combines input and dropdown to select a date
+* **Infinite Scroll** - Load content when reaching a set amount of content read or with a call to action
+* **Intelligent Dropdown** - Dropdown that decide whether it should be placed above or below the clicked element as well as force position. 
+* **Loader** - fully css-driven loading animation for visual indication of wait times
+* **Pillbox** - manage tags with color-coded text labels
+* **Radio** - consistent cross-browser cross-platform look and feel for radio elements
+* **Repeater** - A scrollable, sortable, searchable interface for data (replaces datagrid)
+* **Repeater Views** - Use the provided views to customize a list of data or write your own
+* **Scheduler** - composite form control to quickly schedule events
+* **Search** - input for integrated search
+* **Selectlist** - extends button dropdown with the ability to set and retrieve the selected item
+* **Spinbox** - provides convenient numeric input with increment and decrement buttons
+* **Tree** - renders data in a tree, supporting caching and optional multi-selection
+* **Wizard** - displays a multi-step process to be completed in a specific order
 
-  * Smart Dropdowns - _dropdown automatically decides whether it should be placed above or below the clicked element (can also force position). Add `data-direction="auto|up|down"` to element that has `data-toggle="dropdown"`_
+####With the following benefits
 
-* One-step installation and updates through [volo](https://github.com/volojs/volo)
-* [AMD](http://requirejs.org/docs/whyamd.html) compatibility for modular structure and deployment optimization
-* [Grunt](https://github.com/cowboy/grunt)-based build script to easily create custom distribution files
-* Namespaced CSS (just add a `fuelux` class) for safe use on existing sites
+* **One-step installation** and dependency installation via [Bower](https://github.com/bower/bower), the front-end package manager.
+* **Use only what you need.** FuelUX javascript components are wrapped in UMD (Universal Module Definition) which are modules patterns that work everywhere whether you are using [AMD](http://requirejs.org/docs/whyamd.html) or just `<script>` tags. However, AMD provides support for a modular structure and deployment optimization.
+* **Create your own custom distribution files** Generate your own `dist` fodler with [Grunt](https://github.com/cowboy/grunt)-based build tasks.
+* **Namespaced CSS** (just add a `fuelux` parent class) for safe use on existing sites.
+* Include [moment.js](https://github.com/moment/moment) for additional date functionality.
 
 ## Getting Started
 
-### volo
+### Bower
 
-You can install FuelUX using volo. You will want to pass the `-amdoff` flag to volo to tell it not to try and amdify the project:
-
-`volo add -amdoff fuelux`
+You can install FuelUX and it's dependencies with [Bower](https://github.com/bower/bower). `bower install fuelux`
 
 ### Git
 
 * `git clone git://github.com/ExactTarget/fuelux.git`
-* Default Fuel UX files for production use are located in the [dist](https://github.com/ExactTarget/fuelux/tree/master/dist) directory
-* To customize, modify the JS and LESS files under [src](https://github.com/ExactTarget/fuelux/tree/master/src) then run `grunt` to regenerate your [dist](https://github.com/ExactTarget/fuelux/tree/master/dist) directory (more below)
-
-### Styles
-Be sure to add the fuelux stylesheet to your page's head tag, along with the responsive stylesheet if desired:
-```html
-<link href="//www.fuelcdn.com/fuelux/2.4.1/css/fuelux.min.css" rel="stylesheet" type="text/css">
-<link href="//www.fuelcdn.com/fuelux/2.4.1/css/fuelux-responsive.css" rel="stylesheet" type="text/css">
-```
+* Default FuelUX files for production use are located in the [dist](https://github.com/ExactTarget/fuelux/tree/master/dist) directory
+* To customize, modify the [Javascript folder](https://github.com/ExactTarget/fuelux/tree/master/js) and the [LESS folder](https://github.com/ExactTarget/fuelux/tree/master/less), then run `grunt` for the default task to regenerate your [dist](https://github.com/ExactTarget/fuelux/tree/master/dist) directory.
 
 ### AMD
 
-If using AMD (such as [RequireJS](http://require.js.org)) reference the fuelux directory in your paths configuration, wherever it is located:
+If using AMD (such as [RequireJS](http://require.js.org)) reference the FuelUX directory in your paths configuration, wherever it is located:
 ```javascript
 require.config({
     paths: {
-        'fuelux': 'http://www.fuelcdn.com/fuelux/2.4.1/'
+        'fuelux': 'http://www.fuelcdn.com/fuelux/3.0.0/'
         //...
     }
 });
@@ -75,44 +67,39 @@ define(function(require) {
 	//...
 });
 ```
-Alternatively, 'fuelux/all' can be used as a dependency to bring in all available controls at once.
+Alternatively, 'fuelux/all' can be used as a dependency of dependencies to bring in all available controls at once.
 
-### Non-AMD
+### Non-AMD (Browser globals)
 
-If you'd prefer not to use AMD, simply add the loader script to the head tag of your page:
-```html
-<script src="http://www.fuelcdn.com/fuelux/2.4.1/loader.min.js" type="text/javascript"></script>
-```
+FuelUX no longer requires a loader AMD shim. It uses [UMD](https://github.com/umdjs/umd/blob/master/jqueryPlugin.js) wrapping. Be sure to put modules in the correct order.
 
 ## Documentation and Examples
 
 ### Live docs and demos
 
-Hosted on GitHub pages: http://exacttarget.github.com/fuelux
+View [live documentation and demos](http://exacttarget.github.com/fuelux) on GitHub pages.
 
 ### Rich documentation
 
-Hosted on our [Developer Community](http://code.exacttarget.com/devcenter/home): http://code.exacttarget.com/devcenter/fuel-ux
+View [FuelUX documentation](http://code.exacttarget.com/devcenter/fuel-ux) on our [Developer Community](http://code.exacttarget.com/devcenter/home)
 
 ## Issues and Feature Requests
 
-### Search for questions tagged "Fuel UX" on our developer community
+### Search for questions tagged "FuelUX" on our developer community
 
-https://code.exacttarget.com/tags/fuelux
+Visit [questions tagged FuelUX](https://code.exacttarget.com/tags/fuelux) in our [ExactTarget Developer Community](https://code.exacttarget.com/).
 
 ### Search for or report a bug
 
-Use GitHub issues: https://github.com/ExactTarget/fuelux/issues
+Use [GitHub issues](https://github.com/ExactTarget/fuelux/issues) to report bugs.
 
 ### View the roadmap and suggest new ideas
 
-Visit our UserVoice community: https://fuelux.uservoice.com
+Visit our [UserVoice community](https://fuelux.uservoice.com) and post a comment.
 
 ## Release History
 
-_Fuel UX is semantically versioned: <http://semver.org>_
-
-Release history can be found [here](https://github.com/ExactTarget/fuelux/wiki/Release-History).
+FuelUX is [semantically versioned](http://semver.org). View the [release history ](https://github.com/ExactTarget/fuelux/wiki/Release-History) to learn more.
 
 
 ## Contributing
@@ -120,34 +107,21 @@ Before writing code, we suggest you [search for issues](https://github.com/Exact
 or [create a new one](https://github.com/ExactTarget/fuelux/issues/new) to confirm where your contribution fits into
 our roadmap.
 
-In lieu of a formal style guide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
+In lieu of a formal style guide, take care to maintain the existing coding style: tabs, clarity over conciseness, etc. Be sure to add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
 
-More about [Contributing to Fuel UX](https://github.com/ExactTarget/fuelux/wiki/Contributing-to-Fuel-UX)
+More about [Contributing to FuelUX](https://github.com/ExactTarget/fuelux/wiki/Contributing-to-Fuel-UX)
 
 ### Important notes
-Please don't edit files in the `dist` directory as they are generated via grunt. You'll find source code in the `src` directory!
+Please do not edit files in the `dist` directory as they are generated via grunt. You'll find source code in the respective `js`, `less`, and `fonts` directory.
 
-While grunt can run the included unit tests via PhantomJS, this isn't a substitute for the real thing. Please be sure to test the `test/*.html` unit test file(s) in real browsers as well.
+While grunt can run the included unit tests via PhantomJS, this isn't a substitute for running tests across a variety of browsers and environments. Please be sure to view the test page at [http://localhost:8000/test/](http://localhost:8000/test/) in as many of the browsers listed in `\sauce_browsers.yml` as you can before contributing.
 
 More about [Installing grunt and PhantomJS](https://github.com/ExactTarget/fuelux/wiki/Installing-grunt-and-PhantomJS)
 
-## The Fuel UX Philosophy
+## The FuelUX Philosophy
 
 Our aim is to provide a suite of related but independent projects that help web developers integrate, manage, and customize quality libraries and utilities to more efficiently develop, maintain, test, and distribute their projects.  Any improvements or fixes we make to the open source projects we use will be contributed upstream if they are useful to the rest of the community.
 
-## Acknowledgements
-
-We are grateful to the maintainers, contributors, and sponsors of the following technologies which make FuelUX possible:
-
-* [jQuery](http://jquery.com) (Library for DOM, events, animation, and AJAX)
-
-* [Twitter Bootstrap](https://github.com/twbs/bootstrap) (Modern UI components and interactions)
-
-* [LESS](http://lesscss.org) and [recess](http://twitter.github.com/recess) (Stylesheet definition and management)
-
-* [RequireJS](http://requirejs.org) and [volo](https://github.com/volojs/volo) (Tools for managing modular JavaScript)
-
-* [grunt](https://github.com/cowboy/grunt) (Build tool for JavaScript projects)
 
 ##Authors
 
@@ -167,6 +141,11 @@ We are grateful to the maintainers, contributors, and sponsors of the following 
 **Kevin Parkerson**
 
 + http://github.com/kevinparkerson
+
+**Stephen James**
+
++ http://twitter.com/tweetllama
++ http://github.com/interactivellama
 
 **Christopher McCulloh**
 
@@ -203,9 +182,25 @@ We are grateful to the maintainers, contributors, and sponsors of the following 
 
 + http://github.com/soldoutactivist
 
+And thank you to all those that have submitted issues and contributed to this library.
+
+## Acknowledgements
+
+We are grateful to the maintainers, contributors, and sponsors of the following technologies which make FuelUX possible:
+
+* [jQuery](http://jquery.com) (Library for DOM, events, animation, and AJAX)
+
+* [Twitter Bootstrap](https://github.com/twbs/bootstrap) (Modern UI components and interactions)
+
+* [LESS](http://lesscss.org) and [recess](http://twitter.github.com/recess) (Stylesheet definition and management)
+
+* [RequireJS](http://requirejs.org) and [volo](https://github.com/volojs/volo) (Tools for managing modular JavaScript)
+
+* [grunt](https://github.com/cowboy/grunt) (Build tool for JavaScript projects)
+
 ## Copyright and license
 
-Copyright (c) 2012 ExactTarget
+Copyright &copy; 2014 ExactTarget.
 
 Licensed under the MIT License (the "License");
 you may not use this work except in compliance with the License.
