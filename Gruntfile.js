@@ -275,7 +275,7 @@ module.exports = function (grunt) {
 		watch: {
 			files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
 			options: { livereload: true },
-			tasks: ['devtest', 'distcss', 'copy:fonts', 'concat', 'jshint', 'jsbeautifier']
+			tasks: ['test', 'distcss', 'copy:fonts', 'concat', 'jshint', 'jsbeautifier']
 		}
 	});
 
@@ -288,7 +288,8 @@ module.exports = function (grunt) {
 	/* -------------
 		TESTING
 	------------- */
-	grunt.registerTask('devtest', ['jshint', 'qunit:simple', 'validation']);
+	// minimal tests for developmeent
+	grunt.registerTask('test', ['jshint', 'qunit:simple', 'validation']);
 	// multiple jquery versions, but still no VMs
 	grunt.registerTask('releasetest', ['connect:testServer', 'jshint', 'qunit:full']);
 	// multiple jquery versions, sent to VMs
@@ -301,7 +302,7 @@ module.exports = function (grunt) {
 	--------------- */
 	grunt.registerTask('distcss', ['less', 'usebanner']);
 	//Serve task
-	grunt.registerTask('serve', ['devtest', 'distcss', 'copy:fonts', 'concat', 'uglify', 'jsbeautifier', 'connect:server', 'watch']);
+	grunt.registerTask('serve', ['test', 'distcss', 'copy:fonts', 'concat', 'uglify', 'jsbeautifier', 'connect:server', 'watch']);
 
 	//Travis CI task
 	grunt.registerTask('travisci', 'Run appropriate test strategy for Travis CI', function () {
