@@ -1,6 +1,4 @@
-#FuelUX [![Build Status](https://api.travis-ci.org/ExactTarget/fuelux.png?branch=master)](http://travis-ci.org/ExactTarget/fuelux) [![Selenium Test Status](https://saucelabs.com/buildstatus/fuelux)](https://saucelabs.com/u/fuelux) [![devDependency Status](https://david-dm.org/ExactTarget/fuelux/dev-status.svg)](https://david-dm.org/ExactTarget/fuelux#info=devDependencies)
-
-[![Selenium Test Status](https://saucelabs.com/browser-matrix/fuelux.svg)](https://saucelabs.com/u/fuelux)
+#FuelUX
 
 FuelUX extends [Bootstrap 3](https://github.com/twbs/bootstrap) with additional lightweight JavaScript controls. It is maintained by [members of ExactTarget, a salesforce.com company,](https://github.com/orgs/ExactTarget/members) with the support and involvement of the community.
 
@@ -15,6 +13,11 @@ Do one of the following to start using FuelUX:
 * Install with dependencies via [Bower](https://github.com/bower/bower): `bower install fuelux`
 
 [jQuery](http://jquery.com/) and [Bootstrap 3](http://getbootstrap.com/) are required dependencies and are not bundled into this repository.
+
+### Automated Testing Status
+|Build|Selenium|Dev Dependancies|Browser Support|
+|:---|:---:|:---:|----:|
+|[![Build Status](https://api.travis-ci.org/ExactTarget/fuelux.png?branch=master)](http://travis-ci.org/ExactTarget/fuelux) |[![Selenium Test Status](https://saucelabs.com/buildstatus/fuelux)](https://saucelabs.com/u/fuelux) |[![devDependency Status](https://david-dm.org/ExactTarget/fuelux/dev-status.svg)](https://david-dm.org/ExactTarget/fuelux#info=devDependencies)|[![Selenium Test Status](https://saucelabs.com/browser-matrix/fuelux.svg)](https://saucelabs.com/u/fuelux)|
 
 
 ## What's included
