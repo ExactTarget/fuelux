@@ -157,62 +157,20 @@ Our aim is to provide a suite of related but independent projects that help web 
 
 ##Authors
 
-**Adam Alexander**
+Adam Alexander [![adamalex on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/adamalex)[![adamalex on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/adamalex)    
+Matt Beard [![mbeard on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/mbeard)    
+Bryan Kohlmeier [![bkohlmeier on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/bkohlmeier)    
+Kevin Parkerson [![kevinparkerson on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/kevinparkerson)    
+Stephen James [![tweetllama on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/tweetllama)[![interactivellama on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/interactivellama)    
+Christopher McCulloh [![@cmcculloh on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/cmcculloh)[![cmcculloh on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/cmcculloh)    
+David Waltz [![dwaltz on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/dwaltz)    
+Dustin McCormick [![djmccormick on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/djmccormick)[![djmccormick on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/djmccormick)    
+Alex Vernacchia [![vernacchia on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/vernacchia)[![vernak2539 on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/vernak2539)    
+Scott Plumlee [![scottplumlee on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/scottplumlee)[![plumlee on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/plumlee)    
+Marvin Pribble [![marvinpribble on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/marvinpribble)    
+Ryan Moore [![rbmoore on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/rbmoore)    
+Steven Rogers [![soldoutactivist on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/soldoutactivist)    
 
-+ http://twitter.com/adamalex
-+ http://github.com/adamalex
-
-**Matt Beard**
-
-+ http://github.com/mbeard
-
-**Bryan Kohlmeier**
-
-+ http://github.com/bkohlmeier
-
-**Kevin Parkerson**
-
-+ http://github.com/kevinparkerson
-
-**Stephen James**
-
-+ http://twitter.com/tweetllama
-+ http://github.com/interactivellama
-
-**Christopher McCulloh**
-
-+ http://github.com/cmcculloh
-
-**David Waltz**
-
-+ https://github.com/dwaltz
-
-**Dustin McCormick**
-
-+ http://twitter.com/djmccormick
-+ http://github.com/djmccormick
-
-**Alex Vernacchia**
-
-+ http://twitter.com/vernacchia
-+ http://github.com/vernak2539
-
-**Scott Plumlee**
-
-+ http://twitter.com/scottplumlee
-+ http://github.com/plumlee
-
-**Marvin Pribble**
-
-+ http://github.com/marvinpribble
-
-**Ryan Moore**
-
-+ http://github.com/rbmoore
-
-**Steven Rogers**
-
-+ http://github.com/soldoutactivist
 
 And thank you to all those that have submitted issues and contributed to this library.
 
