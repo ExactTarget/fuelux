@@ -12,7 +12,7 @@ All functionality is covered by the [live documentation](http://exacttarget.gith
 ## Table of contents
 
  - [Quick start](#quick-start)
- - [Get FuelUX](#getting-fuelux) 
+ - [Get FuelUX](#getting-fuelux)
  - [JavaScript Controls](#javascript-controls)
  - [UMD/AMD Support](#umdamd-support)
  - [Bugs and feature requests](#bugs-and-feature-requests)
@@ -25,13 +25,13 @@ All functionality is covered by the [live documentation](http://exacttarget.gith
 
 ## Quick start
 
-1. Install with [Bower](https://github.com/bower/bower): 
-    
+1. Install with [Bower](https://github.com/bower/bower):
+
     ```
     bower install fuelux
     ```
 1. Use AMD (such as [RequireJS](http://require.js.org)) to reference the FuelUX directory in your paths configuration, wherever it is located:
-    
+
     ```javascript
     require.config({
         paths: {
@@ -41,7 +41,7 @@ All functionality is covered by the [live documentation](http://exacttarget.gith
     });
     ```
 1. List any individual fuelux controls needed as dependencies within your application modules (eg. [checkbox](http://exacttarget.github.io/fuelux/#checkbox)):
-    
+
     ```javascript
     define(function(require) {
         var checkbox = require('fuelux/checkbox');
@@ -49,7 +49,7 @@ All functionality is covered by the [live documentation](http://exacttarget.gith
     });
     ```
 1. Use FuelUX in your HTML (eg. [checkbox](http://exacttarget.github.io/fuelux/#checkbox)):
-    
+
     ```html
     <label class="checkbox checkbox-custom"><input type="checkbox"><i class="checkbox"></i>Fuel Styled Checkbox</label>
     ```
@@ -59,27 +59,27 @@ All functionality is covered by the [live documentation](http://exacttarget.gith
 ### Getting FuelUX
 FuelUX can be obtained one of three ways:
 
-1. **Best way:** Install with [Bower](https://github.com/bower/bower): 
-    
+1. **Best way:** Install with [Bower](https://github.com/bower/bower):
+
     ```
     bower install fuelux
     ```
-   
+
    This ensures you get all the [dependencies](#dependencies). You can then use `bower update fuelux` to keep it up to date in the future. You're welcome.
-   
+
 2. **Second best way:** Clone the Git repository:
    ```
    git clone https://github.com/ExactTarget/fuelux/
    ```
-   
+
    Obtaining this way ensure you can apply future updates to FuelUX easily, but require to you manage the [dependencies](#dependencies) on your own.
 
 3. **Least desirable way in the universe:** Download a [.zip archive of the latest release](http:needthis.com).
-   
-   Grabbing FuelUX in this way may seem easist now, but it will make integrating future updates (bug fixes!) nearly impossible. 
-   
+
+   Grabbing FuelUX in this way may seem easist now, but it will make integrating future updates (bug fixes!) nearly impossible.
+
    Trust us, you do ***not*** want to do it this way.
- 
+
 
 ### Dependencies
 FuelUX is dependent upon [Bootstrap 3](https://github.com/twbs/bootstrap) and [jQuery](https://github.com/jquery/jquery).
@@ -163,7 +163,7 @@ define(function(require) {
 });
 ```
 
-On a side note, FuelUX supports placing components in their own `<script>` tags. Be sure to put modules in the correct order if loading them in this method.
+FuelUX also supports placing components in their own `<script>` tags. Be sure to put modules in the correct order if loading them in this method (what that order is, is a secret known only to wizards and wizardesses. To discover it is to discover your secret wizardly powers!).
 
 ## Bugs and feature requests
 
@@ -240,19 +240,19 @@ Our aim is to provide a suite of related but independent projects that help web 
 
 ##Authors
 
-Adam Alexander [![adamalex on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/adamalex)[![adamalex on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/adamalex)    
-Matt Beard [![mbeard on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/mbeard)    
-Bryan Kohlmeier [![bkohlmeier on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/bkohlmeier)    
-Kevin Parkerson [![kevinparkerson on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/kevinparkerson)    
-Stephen James [![tweetllama on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/tweetllama)[![interactivellama on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/interactivellama)    
-Christopher McCulloh [![@cmcculloh on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/cmcculloh)[![cmcculloh on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/cmcculloh)    
-David Waltz [![dwaltz on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/dwaltz)    
-Dustin McCormick [![djmccormick on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/djmccormick)[![djmccormick on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/djmccormick)    
-Alex Vernacchia [![vernacchia on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/vernacchia)[![vernak2539 on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/vernak2539)    
-Scott Plumlee [![scottplumlee on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/scottplumlee)[![plumlee on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/plumlee)    
-Marvin Pribble [![marvinpribble on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/marvinpribble)    
-Ryan Moore [![rbmoore on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/rbmoore)    
-Steven Rogers [![soldoutactivist on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/soldoutactivist)    
+Adam Alexander [![adamalex on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/adamalex)[![adamalex on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/adamalex)
+Matt Beard [![mbeard on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/mbeard)
+Bryan Kohlmeier [![bkohlmeier on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/bkohlmeier)
+Kevin Parkerson [![kevinparkerson on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/kevinparkerson)
+Stephen James [![tweetllama on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/tweetllama)[![interactivellama on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/interactivellama)
+Christopher McCulloh [![@cmcculloh on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/cmcculloh)[![cmcculloh on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/cmcculloh)
+David Waltz [![dwaltz on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/dwaltz)
+Dustin McCormick [![djmccormick on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/djmccormick)[![djmccormick on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/djmccormick)
+Alex Vernacchia [![vernacchia on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/vernacchia)[![vernak2539 on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/vernak2539)
+Scott Plumlee [![scottplumlee on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/scottplumlee)[![plumlee on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/plumlee)
+Marvin Pribble [![marvinpribble on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/marvinpribble)
+Ryan Moore [![rbmoore on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/rbmoore)
+Steven Rogers [![soldoutactivist on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/soldoutactivist)
 
 And thank you to all those that have submitted issues and contributed to this library.
 
