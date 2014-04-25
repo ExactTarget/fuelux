@@ -6,7 +6,7 @@ All functionality is covered by the [live documentation](http://exacttarget.gith
 
 ## Quick start
 
-Do one of the following to start using FuelUX:
+Obtain FuelUX using one of the following methods:
 
 * Download the latest release **(need link)**
 * Clone the repo `git clone https://github.com/ExactTarget/fuelux/`
