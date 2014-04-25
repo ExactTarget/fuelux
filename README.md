@@ -4,6 +4,10 @@ FuelUX extends [Bootstrap 3](https://github.com/twbs/bootstrap) with additional 
 
 All functionality is covered by the [live documentation](http://exacttarget.github.com/fuelux) and [unit tests](#automated-testing-status).
 
+#### Automated Testing Status
+|Build|Selenium|Dev Dependancies|Browser Support|
+|:---|:---:|:---:|----:|
+|[![Build Status](https://api.travis-ci.org/ExactTarget/fuelux.png?branch=master)](http://travis-ci.org/ExactTarget/fuelux) |[![Selenium Test Status](https://saucelabs.com/buildstatus/fuelux)](https://saucelabs.com/u/fuelux) |[![devDependency Status](https://david-dm.org/ExactTarget/fuelux/dev-status.svg)](https://david-dm.org/ExactTarget/fuelux#info=devDependencies)|[![Selenium Test Status](https://saucelabs.com/browser-matrix/fuelux.svg)](https://saucelabs.com/u/fuelux)|
 
 ## Table of contents
 
@@ -247,10 +251,3 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/8b519d39e18063752f24876583a6526b "githalytics.com")](http://githalytics.com/ExactTarget/fuelux)
-
-
-
-#### Automated Testing Status
-|Build|Selenium|Dev Dependancies|Browser Support|
-|:---|:---:|:---:|----:|
-|[![Build Status](https://api.travis-ci.org/ExactTarget/fuelux.png?branch=master)](http://travis-ci.org/ExactTarget/fuelux) |[![Selenium Test Status](https://saucelabs.com/buildstatus/fuelux)](https://saucelabs.com/u/fuelux) |[![devDependency Status](https://david-dm.org/ExactTarget/fuelux/dev-status.svg)](https://david-dm.org/ExactTarget/fuelux#info=devDependencies)|[![Selenium Test Status](https://saucelabs.com/browser-matrix/fuelux.svg)](https://saucelabs.com/u/fuelux)|
