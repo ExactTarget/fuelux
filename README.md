@@ -12,7 +12,9 @@ All functionality is covered by the [live documentation](http://exacttarget.gith
 ## Table of contents
 
  - [Quick start](#quick-start)
- - [Documentation](#documentation)
+ - [Get FuelUX](#getting-fuelux) 
+ - [JavaScript Controls](#javascript-controls)
+ - [UMD/AMD Support](#umdamd-support)
  - [Bugs and feature requests](#bugs-and-feature-requests)
  - [Compiling CSS and JavaScript](#compiling-css-and-javascript)
  - [Contributing](#contributing)
@@ -23,6 +25,38 @@ All functionality is covered by the [live documentation](http://exacttarget.gith
 
 ## Quick start
 
+1. Install with [Bower](https://github.com/bower/bower): 
+    
+    ```
+    bower install fuelux
+    ```
+1. Use AMD (such as [RequireJS](http://require.js.org)) to reference the FuelUX directory in your paths configuration, wherever it is located:
+    
+    ```javascript
+    require.config({
+        paths: {
+            'fuelux': 'http://www.fuelcdn.com/fuelux/3.0.0/'
+            //...
+        }
+    });
+    ```
+1. List any individual fuelux controls needed as dependencies within your application modules (eg. [checkbox](http://exacttarget.github.io/fuelux/#checkbox)):
+    
+    ```javascript
+    define(function(require) {
+        var checkbox = require('fuelux/checkbox');
+        //...
+    });
+    ```
+1. Use FuelUX in your HTML (eg. [checkbox](http://exacttarget.github.io/fuelux/#checkbox)):
+    
+    ```html
+    <label class="checkbox checkbox-custom"><input type="checkbox"><i class="checkbox"></i>Fuel Styled Checkbox</label>
+    ```
+
+## Documentation
+
+### Getting FuelUX
 FuelUX can be obtained one of three ways:
 
 1. **Best way:** Install with [Bower](https://github.com/bower/bower): 
@@ -47,7 +81,7 @@ FuelUX can be obtained one of three ways:
    Trust us, you do ***not*** want to do it this way.
  
 
-## Dependencies
+### Dependencies
 FuelUX is dependent upon [Bootstrap 3](https://github.com/twbs/bootstrap) and [jQuery](https://github.com/jquery/jquery).
 
 If you install it by cloning the repo or by downloading a .zip archive, you'll also want to grab these things, as, it just won't work without them.
@@ -55,7 +89,7 @@ If you install it by cloning the repo or by downloading a .zip archive, you'll a
 - [Bootstrap 3](https://github.com/twbs/bootstrap)
 
 
-## What's included
+### What's included
 
 A download of FuelUX provides the following directories and files, which are grouped according to file type:
 ```
@@ -74,7 +108,7 @@ fuelux/
 ```
 For the most common assets, we provide compiled CSS and JS (like `fuelux.css`), as well as compiled and minified CSS and JS (like `fuelux.min.css`).
 
-## Customizing and building
+### Customizing and building
 If you end up modifying the .less or .js files, you'll need to re-compile it all. We've made documentation on how to get starting customizing and building FuelUX.
  Instructions on building are available here.
 
@@ -83,8 +117,6 @@ We also provide an icon font (documentation on using the icons is [available her
 
 If cloning the repo, compiled FuelUX files for production use are located in `/dist/`.
 
-
-## Documentation
 
 ### Live docs and demos
 
@@ -112,7 +144,9 @@ View [live documentation and demos](http://exacttarget.github.com/fuelux) on Git
 
 ### UMD/AMD Support
 
-In a hurry? Counting characters over bytes? `fuelux/all` can be loaded to bring in all FuelUX controls via AMD. Though we recommend only loading the controls, you need. If using AMD (such as [RequireJS](http://require.js.org)), reference the FuelUX directory in your paths configuration, wherever it is located:
+We recommend only loading the controls you need (eg `fuelux/checkbox`). For your convenience, if you need everything, you can just use `fuelux/all` instead of listing each requirement individually.
+
+If using AMD (such as [RequireJS](http://require.js.org)), reference the FuelUX directory in your paths configuration, wherever it is located:
 ```javascript
 require.config({
     paths: {
