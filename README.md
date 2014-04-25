@@ -6,7 +6,7 @@ All functionality is covered by the [live documentation](http://exacttarget.gith
 
 ## Quick start
 
-Obtain FuelUX using one of the following methods:
+Do one of the following to start using FuelUX:
 
 * Download the latest release **(need link)**
 * Clone the repo `git clone https://github.com/ExactTarget/fuelux/`
@@ -37,7 +37,7 @@ fuelux/
     └── fuelux.woff
 ```
 
-We provide compiled CSS and JS (`bootstrap.*`), as well as compiled and minified CSS and JS (`fuelux.min.*`) and an icon font. If cloning the repo, compiled FuelUX files for production use are located in `/dist/`.
+We provide compiled CSS and JS (`fuelux.*`), as well as compiled and minified CSS and JS (`fuelux.min.*`) and an icon font. If cloning the repo, compiled FuelUX files for production use are located in `/dist/`.
 
 ### JavaScript Controls
 
