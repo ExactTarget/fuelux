@@ -8,11 +8,14 @@ All functionality is covered by the [live documentation](http://exacttarget.gith
 
 ## Quick start
 
+Do one of the following to start using FuelUX:
+
 * Download the latest release **(need link)**
 * Clone the repo `git clone https://github.com/ExactTarget/fuelux/`
-* Install with [Bower](https://github.com/bower/bower): `bower install fuelux`
+* Install with dependencies via [Bower](https://github.com/bower/bower): `bower install fuelux`
 
-Please note: Bootstrap 3 is now a required dependency and is no longer bundled.
+[jQuery](http://jquery.com/) and [Bootstrap 3](http://getbootstrap.com/) are required dependencies and are not bundled into this repository.
+
 
 ## What's included
 
@@ -54,7 +57,7 @@ We provide compiled CSS and JS (`bootstrap.*`), as well as compiled and minified
 
 ### UMD/AMD Support
 
-In a hurry? Counting characters over bytes? `fuelux/all` can be loaded to bring in all FuelUX controls via AMD. Though we recommend only loading the controls, you need. If using AMD (such as [RequireJS](http://require.js.org)), reference the FuelUX directory in your paths configuration, wherever it is located:
+In a hurry? Counting characters over bytes? `fuelux/all` can be loaded to bring in all FuelUX controls via AMD. Though we recommend only loading the controls you need. If using AMD (such as [RequireJS](http://require.js.org)), reference the FuelUX directory in your paths configuration, wherever it is located:
 ```javascript
 require.config({
     paths: {
@@ -79,9 +82,9 @@ Have a bug or a feature request? Please first review the [open issues](https://g
 
 ## Documentation
 
-### Live docs and demos
+### Live documentation and demos
 
-View [live documentation and demos](http://exacttarget.github.com/fuelux) on GitHub pages.
+View the [live documentation and demos](http://exacttarget.github.com/fuelux).
 
 ### ExactTarget Developer Community
 
@@ -95,7 +98,7 @@ Previous releases and their documentation are also available for download. **(ne
 
 ## Compiling CSS and JavaScript
 
-FuelUX is lightweight to give you a fast dependable foundation to build upon. It uses [Grunt](http://gruntjs.com/) with convenient methods for working with the library. It's how we compile our code, run tests, and more. To use it, install the required dependencies as directed, and then run some Grunt commands.
+FuelUX is lightweight to give you a fast, dependable foundation to build upon. It uses [Grunt](http://gruntjs.com/) with convenient methods for working with the library. It's how we compile our code, run tests, and more. To use it, install the required dependencies as directed, and then run some Grunt commands.
 
 ### Install Grunt
 
@@ -106,7 +109,7 @@ From the command line:
 
 When completed, you'll be able to run the various Grunt commands provided from the command line.
 
-**Unfamiliar with npm? Don't have node installed?** That's a-okay. npm stands for [node packaged modules](http://npmjs.org/) and is a way to manage development dependencies through node.js. [Download and install node.js](http://nodejs.org/download/) before proceeding.
+**Unfamiliar with NPM? Don't have node installed?** NPM stands for [node packaged modules](http://npmjs.org/) and is a way to manage development dependencies through node.js. [Download and install node.js](http://nodejs.org/download/) before proceeding.
 
 ### Grunt commands to start with
 
@@ -123,7 +126,7 @@ This is a convenience method for watching just Less files and automatically buil
 
 Should you encounter problems with installing dependencies or running Grunt commands, uninstall all previous dependency versions (global and local). Then, rerun `npm install`.
 
-## Issues and Feature Requests
+## Issues and feature requests
 
 The [issue tracker](https://github.com/ExactTarget/fuelux/issues) is
 the preferred channel for bug reports, features requests and submitting pull requests.
@@ -144,7 +147,7 @@ Please do not edit files in the `dist` directory as they are generated via grunt
 
 While grunt can run the included unit tests via PhantomJS, this isn't a substitute for running tests across a variety of browsers and environments. Please be sure to view the test page at [http://localhost:8000/test/](http://localhost:8000/test/) in as many of the browsers listed in `\sauce_browsers.yml` as you can before contributing.
 
-## The FuelUX Philosophy
+## The FuelUX philosophy
 
 Our aim is to provide a suite of related but independent projects that help web developers integrate, manage, and customize quality libraries and utilities to more efficiently develop, maintain, test, and distribute their projects.  Any improvements or fixes we make to the open source projects we use will be contributed upstream if they are useful to the rest of the community.
 
@@ -209,20 +212,6 @@ Our aim is to provide a suite of related but independent projects that help web 
 + http://github.com/soldoutactivist
 
 And thank you to all those that have submitted issues and contributed to this library.
-
-## Acknowledgements
-
-We are grateful to the maintainers, contributors, and sponsors of the following technologies which make FuelUX possible:
-
-* [jQuery](http://jquery.com) (Library for DOM, events, animation, and AJAX)
-
-* [Twitter Bootstrap](https://github.com/twbs/bootstrap) (UI components and interactions)
-
-* [LESS](http://lesscss.org) (Stylesheet definition and management)
-
-* [RequireJS](http://requirejs.org) and [bower](http://bower.io/) (Tools for managing client JavaScript)
-
-* [grunt](https://github.com/cowboy/grunt) (Build tool for JavaScript projects)
 
 ## Copyright and license
 
