@@ -26,15 +26,13 @@
 				background-color: @treeBackgroundHover;
 			}
 
-			i {
-				position: absolute;
+			i:first-child {
 				float: left;
-				top: 1px;
 				left: 5px;
 			}
 
 			.tree-folder-name {
-				padding-left: 29px;
+				padding-left: 15px;
 				white-space: nowrap;
 				overflow: hidden;
 				text-overflow: ellipsis;
@@ -97,5 +95,74 @@
 		&:hover {
 			background-color: @treeBackgroundSelect;
 		}
+	}
+
+	&.tree-folder-select {
+
+		.tree-folder {
+			clear: both;
+			margin-bottom: 1px;
+
+			.tree-folder-header {
+				float: left;
+				width: 45px;
+				padding-top: 1px;
+				margin-right: 5px;
+				height: 21px;
+
+				.tree-triangle-right {
+					margin-left: 8px;
+					margin-top: 5px;
+					width: 0px;
+					height: 0px;
+					border-style: solid;
+					border-width: 4px 0 4px 6px;
+					border-color: transparent transparent transparent #333333;
+				}
+
+				.tree-triangle-down {
+					margin-left: 6px;
+					margin-top: 6px;
+					width: 0px;
+					height: 0px;
+					border-style: solid;
+					border-width: 6px 4px 0 4px;
+					border-color: #333333 transparent transparent transparent;
+				}
+
+				i:last-child {
+					float: left;
+					left: 10px;
+
+				}
+			}
+
+
+			> .tree-folder-name {
+				float: left;
+				padding: 1px 5px 0 5px;
+
+				-webkit-border-radius: 6px;
+				   -moz-border-radius: 6px;
+						border-radius: 6px;
+
+				&:hover {
+					background-color: @treeBackgroundHover;
+				}
+
+				&.tree-selected {
+					background-color: @treeBackgroundSelect;
+
+					&:hover {
+						background-color: @treeBackgroundSelect;
+					}
+				}
+			}
+		}
+
+		.tree-loader {
+			clear: both;
+		}
+
 	}
 }

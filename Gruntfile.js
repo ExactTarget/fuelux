@@ -17,6 +17,7 @@ module.exports = function (grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		// Try ENV variables (export SAUCE_ACCESS_KEY=XXXX), if key doesn't exist, try key file 
 		sauceLoginFile: grunt.file.exists('SAUCE_API_KEY.yml') ? grunt.file.readYAML('SAUCE_API_KEY.yml') : undefined,
+		sauceUser: 'fuelux',
 		sauceKey: process.env['SAUCE_ACCESS_KEY'] ? process.env['SAUCE_ACCESS_KEY'] : '<%= sauceLoginFile.key %>',
 		allTestUrls: ['2.1.0', '1.11.0', '1.9.1', 'browserGlobals'].map(function (ver) {
 			if(ver==='browserGlobals'){
@@ -25,6 +26,7 @@ module.exports = function (grunt) {
 			return 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + ver;
 		}),
 		trickyTestUrl: 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + '1.9.1',
+		travisCITestUrl: 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + '1.9.1',
 
 		//Tasks configuration
 		clean: {
@@ -210,19 +212,33 @@ module.exports = function (grunt) {
 		'saucelabs-qunit': {
 			trickyBrowsers: {
 							options: {
-								username: 'fuelux',
+								username: '<%= sauceUser %>',
 								key: '<%= sauceKey %>',
 								tunnelTimeout: 45,
 								testInterval: 3000,
-								tags: [ process.env.SAUCE_USERNAME+"@"+process.env.TRAVIS_BRANCH || process.env.SAUCE_USERNAME+"@local"],
+								tags: [ '<%= sauceUser %>' + "@" + process.env.TRAVIS_BRANCH || '<%= sauceUser %>' +"@local"],
 								browsers: grunt.file.readYAML('sauce_browsers_tricky.yml'),
+								build: process.env.TRAVIS_BUILD_NUMBER || '',
 								testname: process.env.TRAVIS_JOB_ID || Math.floor((new Date()).getTime() / 1000 - 1230768000).toString(),
 								urls: '<%= trickyTestUrl %>'
 							}
 			},
+			travisCIBrowsers: {
+						options: {
+							username: '<%= sauceUser %>',
+							key: '<%= sauceKey %>',
+							tunnelTimeout: 45,
+							testInterval: 3000,
+							tags: [ '<%= sauceUser %>' + "@" + process.env.TRAVIS_BRANCH || '<%= sauceUser %>@local'],
+							browsers: grunt.file.readYAML('sauce_browsers.yml'),
+							build: process.env.TRAVIS_BUILD_NUMBER || '',
+							testname: process.env.TRAVIS_JOB_ID || 'grunt-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
+							urls: '<%= travisCITestUrl %>'
+						}
+			},
 			all: {
 				options: {
-					username: 'fuelux',
+					username: '<%= sauceUser %>',
 					key: '<%= sauceKey %>',
 					browsers: grunt.file.readYAML('sauce_browsers.yml'),
 					testname: 'grunt-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
@@ -297,6 +313,8 @@ module.exports = function (grunt) {
 	// multiple jquery versions, sent to VMs including IE8-11, etc.
 	grunt.registerTask('trickysauce', ['connect:testServer', 'jshint', 'saucelabs-qunit:trickyBrowsers']);
 
+	grunt.registerTask('traviscisauce', ['connect:testServer', 'jshint', 'saucelabs-qunit:travisCIBrowsers']);
+
 	/* ---------------
 		Stylesheets
 	--------------- */
@@ -306,7 +324,7 @@ module.exports = function (grunt) {
 
 	//Travis CI task
 	grunt.registerTask('travisci', 'Run appropriate test strategy for Travis CI', function () {
-		(process.env['TRAVIS_SECURE_ENV_VARS'] === 'true') ? grunt.task.run('saucelabs') : grunt.task.run('releasetest');
+		(process.env['TRAVIS_SECURE_ENV_VARS'] === 'true') ? grunt.task.run('traviscisauce') : grunt.task.run('releasetest');
 	});
 
 };

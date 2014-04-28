@@ -33,7 +33,11 @@
 		this.options = $.extend({}, $.fn.tree.defaults, options);
 
 		this.$element.on('click', '.tree-item', $.proxy( function(ev) { this.selectItem(ev.currentTarget); } ,this));
-		this.$element.on('click', '.tree-folder-header', $.proxy( function(ev) { this.selectFolder(ev.currentTarget); }, this));
+		this.$element.on('click', '.tree-folder-header', $.proxy( function(ev) { this.openFolder(ev.currentTarget); }, this));
+
+		if( this.options.folderSelect ){
+			this.$element.on('click', '.tree-folder-name', $.proxy( function(ev) { this.selectFolder(ev.currentTarget); }, this));
+		}
 
 		this.render();
 	};
@@ -60,7 +64,6 @@
 					if(value.type === "folder") {
 						$entity = self.$element.find('.tree-folder:eq(0)').clone().show();
 						$entity.find('.tree-folder-name').html(value.name);
-						$entity.find('.tree-loader').html(self.options.loadingHTML);
 						$entity.find('.tree-folder-header').data(value);
 					} else if (value.type === "item") {
 						$entity = self.$element.find('.tree-item:eq(0)').clone().show();
@@ -156,7 +159,7 @@
 			});
 		},
 
-		selectFolder: function (el) {
+		openFolder: function (el) {
 			var $el = $(el);
 			var $parent = $el.parent();
 			var $treeFolderContent = $parent.find('.tree-folder-content');
@@ -172,6 +175,12 @@
 				if (!$treeFolderContent.children().length) {
 					this.populate($el);
 				}
+
+				if( this.options.folderSelect ){
+					$el.find('.tree-triangle-right')
+						.removeClass('tree-triangle-right')
+						.addClass('tree-triangle-down');
+				}
 			} else {
 				eventType = 'closed';
 				classToTarget = '.glyphicon-folder-open';
@@ -181,6 +190,12 @@
 				if (!this.options.cacheItems) {
 					$treeFolderContentFirstChild.empty();
 				}
+
+				if( this.options.folderSelect ){
+					$el.find('.tree-triangle-down')
+						.removeClass('tree-triangle-down')
+						.addClass('tree-triangle-right');
+				}
 			}
 
 			$parent.find(classToTarget).eq(0)
@@ -188,6 +203,44 @@
 				.addClass(classToAdd);
 
 			this.$element.trigger(eventType, $el.data());
+		},
+
+		selectFolder: function (el) {
+			var $el = $(el);
+			var $all = this.$element.find('.tree-folder-name.tree-selected');
+			var data = [];
+			var eventType = 'selected';
+
+			if (this.options.multiSelect) {
+				$.each($all, function(index, value) {
+					var $val = $(value);
+					if($val[0] !== $el[0]) {
+						data.push( $(value).parent().find('.tree-folder-header').data() );
+					}
+				});
+			} else if ($all[0] !== $el[0]) {
+				$all.removeClass('tree-selected');
+				data.push($el.parent().find('.tree-folder-header').data());
+			}
+
+			if($el.hasClass('tree-selected')) {
+				eventType = 'unselected';
+				$el.removeClass('tree-selected');
+			} else {
+				$el.addClass('tree-selected');
+			}
+
+			if(data.length) {
+				this.$element.trigger('selected', {info: data});
+			}
+
+			// Return new list of selected items, the item
+			// clicked, and the type of event:
+			$el.trigger('updated', {
+				info: data,
+				item: $el,
+				eventType: eventType
+			});
 		},
 
 		selectedItems: function () {
@@ -244,8 +297,8 @@
 
 	$.fn.tree.defaults = {
 		multiSelect: false,
-		loadingHTML: '<div>Loading...</div>',
-		cacheItems: true
+		cacheItems: true,
+		folderSelect: true
 	};
 
 	$.fn.tree.Constructor = Tree;
