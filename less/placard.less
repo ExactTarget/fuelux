@@ -1,0 +1,47 @@
+.placard {
+	position: relative;
+
+	&.open {
+		.placard-chrome {
+			display: block;
+		}
+
+		input,
+		textarea
+		{
+			position: relative;
+		}
+	}
+
+	&-chrome {
+		background: #ebf6fb;
+		background-clip: padding-box;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		bottom: -8px;
+		box-shadow: 0 0 0 1px #fff inset;
+		display: none;
+		left: -8px;
+		position: absolute;
+		right: -8px;
+		top: -8px;
+	}
+
+	&-header,
+	&-footer {
+		left: 8px;
+		line-height: 1;
+		position: absolute;
+		right: 8px;
+	}
+
+	&-header {
+		bottom: 100%;
+		padding-top: 8px;
+	}
+
+	&-footer {
+		padding-bottom: 8px;
+		top: 100%;
+	}
+}
