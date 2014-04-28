@@ -1,3 +1,5 @@
+**Please note this currently a WIP. Bower does not point to v3. The `dist` folder is not versioned.** 
+
 #FuelUX
 
 FuelUX extends [Bootstrap 3](https://github.com/twbs/bootstrap) with additional lightweight [JavaScript controls](#javascript-controls). It is actively maintained by [members of ExactTarget, a salesforce.com company,](https://github.com/orgs/ExactTarget/members) with the support and involvement of the community.
