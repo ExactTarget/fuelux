@@ -7,6 +7,7 @@ before_install:
   - chmod +x ./node_modules
 install: 
   - time ./node_modules/bower/bin/bower update
+  - time npm update
 env:
   global:
     - secure: "ZK8M500JH/siU5p6jt2XRhBLV9e3N+qjicz59i6Bvkl4X4klUoGV1dMT3kb/\nLi3c7lrU8Liw/dHr+a5kY5XdgCOPjOeMqZ0VRZzH0PqSyRz0Hf2AYDO5mrhX\nMj/zz/CiaE82MIPlJk9Q27LheVpbCOL7q/aBakriCTJIcIxqbig="
