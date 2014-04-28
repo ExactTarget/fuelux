@@ -5,7 +5,7 @@ FuelUX extends [Bootstrap 3](https://github.com/twbs/bootstrap) with additional 
 All functionality is covered by the [live documentation](http://exacttarget.github.io/fuelux/) and [unit tests](#automated-testing-status).
 
 #### Automated Testing Status
-|TravisCI|Sauce Labs|Node modules|Browser Support|
+|TravisCI|SauceLabs|Node modules|Browser Support|
 |:---|:---:|:---:|----:|
 |[![Build Status](https://api.travis-ci.org/ExactTarget/fuelux.png?branch=master)](http://travis-ci.org/ExactTarget/fuelux) |[![Selenium Test Status](https://saucelabs.com/buildstatus/fuelux)](https://saucelabs.com/u/fuelux) |[![devDependency Status](https://david-dm.org/ExactTarget/fuelux/dev-status.svg)](https://david-dm.org/ExactTarget/fuelux#info=devDependencies)|[![Selenium Test Status](https://saucelabs.com/browser-matrix/fuelux.svg)](https://saucelabs.com/u/fuelux)|
 
