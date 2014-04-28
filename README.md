@@ -80,7 +80,7 @@ FuelUX can be obtained one of three ways:
 
    Cloning the repository ensures you can apply future updates to FuelUX easily, but requires to you manage its [dependencies](#dependencies) on your own.
 
-3. **Least desirable way in the universe:** Download a [.zip archive of the latest release](http:needthis.com) or request files from [the FuelUX CDN](http://www.fuelcdn.com/fuelux/).
+3. **Least desirable way in the universe:** Download a .zip archive of the latest release **(needthis)** or request files from [the FuelUX CDN](http://www.fuelcdn.com/fuelux/).
 
    Grabbing FuelUX in this way may seem easist now, but it will make integrating future updates (bug fixes!) nearly impossible.
 
@@ -88,9 +88,7 @@ FuelUX can be obtained one of three ways:
 
 
 ### Dependencies
-FuelUX is dependent upon [Bootstrap 3](https://github.com/twbs/bootstrap) and [jQuery](https://github.com/jquery/jquery).
-
-If you install it by cloning the repo or by downloading a .zip archive, you'll also want to grab these things, as, it just won't work without them.
+FuelUX is dependent upon [Bootstrap 3](https://github.com/twbs/bootstrap) and [jQuery](https://github.com/jquery/jquery). If you installed by cloning the repo or by downloading a .zip archive, you'll also want to grab these things, as, it just won't work without them.
 - [jQuery](https://github.com/jquery/jquery)
 - [Bootstrap 3](https://github.com/twbs/bootstrap)
 
@@ -112,7 +110,7 @@ fuelux/
     ├── fuelux.ttf
     └── fuelux.woff
 ```
-We provide compiled CSS and JS (like `fuelux.*`), as well as compiled and minified CSS and JS (like `fuelux.min.*`).
+We provide compiled CSS and JS (like `fuelux.*`), as well as compiled and minified CSS and JS (like `fuelux.min.*`) in the `dist` folder.
 
 ### JavaScript Controls
 
@@ -155,7 +153,7 @@ define(function(require) {
 ```
 For your convenience when you using AMD, you can just use `fuelux/all` instead of listing each module individually.
 
-FuelUX also supports placing components in their own `<script>` tags. Be sure to put modules in the correct order if loading them in this method (what that order is, is a secret known only to 29th level wizards/enchantresses and 11th degree JS ninjas).
+FuelUX also supports placing components in their own `<script>` tags. Be sure to put modules in the correct order if loading them in this method (although that order is a secret known only to 29th level wizards/enchantresses and 11th degree JS ninjas).
 
 ## Bugs and feature requests
 
@@ -217,20 +215,20 @@ While grunt can run the included unit tests via PhantomJS, this isn't a substitu
 ### The FuelUX Philosophy
 Our aim is to provide a suite of related but independent projects that help web developers integrate, manage, and customize quality libraries and utilities to more efficiently develop, maintain, test, and distribute their projects.  Any improvements or fixes we make to the open source projects, we use will be contributed upstream if they are useful to the rest of the community.
 
-|Current Project Maintainers | |
+|Current Project Maintainers (a-z) | |
 |:----|----:|
 |Matt Beard |[![mbeard on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/mbeard) |
-|Kevin Parkerson  | [![kevinparkerson on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/kevinparkerson) [![kevinparkerson on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/kevinparkerson)|
 |Stephen James | [![tweetllama on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/tweetllama) [![interactivellama on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/interactivellama)|
 |Christopher McCulloh | [![@cmcculloh on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/cmcculloh) [![cmcculloh on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/cmcculloh)|
-|David Waltz | [![dwaltz on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/dwaltz)|
+|Kevin Parkerson  | [![kevinparkerson on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/kevinparkerson) [![kevinparkerson on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/kevinparkerson)|
 |Alex Vernacchia | [![vernacchia on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/vernacchia) [![vernak2539 on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/vernak2539)|
+|David Waltz | [![dwaltz on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/dwaltz)|
 
-|Original Author&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | |
+|Original Author&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | |
 |:----|----:|
 |Adam Alexander |[![adamalex on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/adamalex) [![adamalex on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/adamalex) |
 
-|Past Project Maintainers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | |
+|Past Project Maintainers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | |
 |:----|----:|
 |Bryan Kohlmeier |[![bkohlmeier on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/bkohlmeier) |
 |Dustin McCormick | [![djmccormick on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/djmccormick) [![djmccormick on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/djmccormick)|
