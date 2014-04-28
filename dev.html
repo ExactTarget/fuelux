@@ -40,16 +40,7 @@
 		});
 
 		require(['jquery', 'data', 'fuelux/all'], function ($, data){
-			$('.placard:last').placard({
-				onAccept: function(data){
-					console.log('accept: ', data);
-					this.hide();
-				},
-				onCancel: function(data){
-					console.log('cancel: ', data);
-					this.hide();
-				}
-			});
+			$('.placard:last').placard({});
 		});
 	</script>
 </head>
@@ -59,7 +50,7 @@
 
 		<div class="placard">
 			<div class="placard-overlay"></div>
-			<input class="form-control" type="text" />
+			<input class="form-control" readonly="true" type="text"/>
 		</div>
 
 		<div style="height: 100px;"></div>
@@ -67,7 +58,7 @@
 		<div class="placard">
 			<div class="placard-overlay"></div>
 			<div class="placard-header"><h5>Header</h5></div>
-			<input class="form-control" type="text" />
+			<input class="form-control" readonly="true" type="text"/>
 			<div class="placard-footer">
 				<a class="placard-cancel" href="#">Cancel</a>
 				<button class="btn btn-primary btn-xs placard-accept" type="button">Save</button>

@@ -29,20 +29,24 @@
 	// PLACARD CONSTRUCTOR AND PROTOTYPE
 
 	var Placard = function (element, options) {
-		var self = this;
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.placard.defaults, options);
 
+		this.$accept = this.$element.find('.placard-accept');
+		this.$cancel = this.$element.find('.placard-cancel');
 		this.$footer = this.$element.find('.placard-footer');
 		this.$formEl = this.$element.find('input, textarea').first();
 		this.$header = this.$element.find('.placard-header');
 		this.$overlay = this.$element.find('.placard-overlay');
 
 		this.previousValue = '';
+		if(this.options.revertOnCancel===-1){
+			this.options.revertOnCancel = (this.$accept.length>0) ? true : false;
+		}
 
 		this.$formEl.on('click', $.proxy(this.show, this));
-		this.$element.find('.placard-accept').on('click', $.proxy(this.complete, this, 'accept'));
-		this.$element.find('.placard-cancel').on('click', $.proxy(this.complete, this, 'cancel'));
+		this.$accept.on('click', $.proxy(this.complete, this, 'accept'));
+		this.$cancel.on('click', $.proxy(this.complete, this, 'cancel'));
 	};
 
 	Placard.prototype = {
@@ -66,6 +70,7 @@
 		hide: function(){
 			if(!this.$element.hasClass('showing')){ return; }
 			this.$element.removeClass('showing');
+			this.$formEl.attr('readonly', true);
 			$(document).off('click.placard.externalClick', this.externalClickListener);
 			this.$element.trigger('hide');
 		},
@@ -77,25 +82,30 @@
 		},
 
 		isExternalClick: function(e){
+			var el = this.$element.get(0);
 			var exceptions = this.options.externalClickExceptions || [];
-			var originEl = $(e.target);
+			var $originEl = $(e.target);
 			var i, l;
 
-			for(i=0, l=exceptions.length; i<l; i++){
-				if(originEl.is(exceptions[i]) || originEl.parents(exceptions[i]).length>0){
-					return false;
+			if(e.target===el || $originEl.parents('.placard:first').get(0)===el){
+				return false;
+			}else{
+				for(i=0, l=exceptions.length; i<l; i++){
+					if($originEl.is(exceptions[i]) || $originEl.parents(exceptions[i]).length>0){
+						return false;
+					}
 				}
 			}
-
 			return true;
 		},
 
 		show: function(e){
-			if(this.$element.hasClass('showing')){ return; }
+			if(this.$element.hasClass('showing') || (this.options.exclusive && $(document).find('.placard.showing').length>0)){ return; }
 
 			this.previousValue = this.$element.find('input, textarea').first().val();
 
 			this.$element.addClass('showing');
+			this.$formEl.removeAttr('readonly');
 			if(this.$header.length>0){
 				this.$overlay.css('top', '-' + this.$header.outerHeight(true) + 'px');
 			}
@@ -105,7 +115,7 @@
 
 			this.$element.trigger('show');
 
-			if(!this.options.requireExplicitAction){
+			if(!this.options.explicit){
 				$(document).on('click.placard.externalClick', $.proxy(this.externalClickListener, this));
 			}
 		}
@@ -132,10 +142,11 @@
 	$.fn.placard.defaults = {
 		onAccept: undefined,
 		onCancel: undefined,
+		exclusive: true,
 		externalClickAction: 'cancel',
-		externalClickExceptions: ['.placard'],
-		requireExplicitAction: false,
-		revertOnCancel: true
+		externalClickExceptions: [],
+		explicit: false,
+		revertOnCancel: -1	//negative 1 will check for an '.placard-accept' button. Also can be set to true or false
 	};
 
 	$.fn.placard.Constructor = Placard;
@@ -144,7 +155,6 @@
 		$.fn.placard = old;
 		return this;
 	};
-
 
 	// PLACARD DATA-API
 

@@ -2,7 +2,12 @@
 	position: relative;
 
 	input, textarea {
-		&:focus{
+		&[readonly] {
+			background: #fff;
+			cursor: auto;
+		}
+
+		&:focus {
 			border: 1px solid #CCCCCC;
 			box-shadow: none;
 		}
