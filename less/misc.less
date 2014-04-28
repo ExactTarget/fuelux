@@ -1,18 +1,20 @@
-input.input-glass {
-	background: transparent;
-	border: 1px solid #fff;
-	box-shadow: none;
+input, textarea {
+	&.glass {
+		background: transparent;
+		border: 1px solid #fff;
+		box-shadow: none;
 
-	&:hover {
-		background: #ebf6fb;
-		border: 1px solid #66afe9;
-		cursor: pointer;
-	}
+		&:hover {
+			background: #ebf6fb;
+			border: 1px solid #66afe9;
+			cursor: pointer;
+		}
 
-	&:focus {
-		background: #fff;
-		border: 1px solid #66afe9;
-		box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
-		cursor: auto;
+		&:focus {
+			background: #fff;
+			border: 1px solid #66afe9;
+			box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+			cursor: auto;
+		}
 	}
 }
