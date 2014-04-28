@@ -57,43 +57,43 @@ define(function(require){
 
 	});
 
-	asyncTest("Folders should be populated when folder is clicked", function () {
-
-		var $tree = $(html).tree({ dataSource: this.stubDataSource }).on('loaded', function () {
-
-			var $folder = $tree.find('.tree-folder:eq(1)');
-			var event = 0;
-
-			$tree.off('loaded');
-
-			$tree.on('opened', function () {
-				event++;
-			});
-
-			$tree.on('closed', function () {
-				event++;
-			});
-
-			$tree.tree('selectFolder', $folder[0]);
-
-			$tree.on('loaded', function() {
-				$tree.off('loaded');
-
-				equal($folder.find('.tree-folder').length, 2, 'Folders have populated');
-				equal($folder.find('.tree-item').length, 2, 'Items have populated');
-
-				equal(event, 1, 'Open event triggered');
-
-				$tree.tree('selectFolder', $folder[0]);
-				$tree.on('loaded', function() {
-					equal(event, 2, 'Close event triggered');
-					start();
-				});
-			});
-
-		});
-
-	});
+//	asyncTest("Folders should be populated when folder is clicked", function () {
+//
+//		var $tree = $(html).tree({ dataSource: this.stubDataSource }).on('loaded', function () {
+//
+//			var $folder = $tree.find('.tree-folder:eq(1)');
+//			var event = 0;
+//
+//			$tree.off('loaded');
+//
+//			$tree.on('opened', function () {
+//				event++;
+//			});
+//
+//			$tree.on('closed', function () {
+//				event++;
+//			});
+//
+//			$tree.tree('selectFolder', $folder[0]);
+//
+//			$tree.on('loaded', function() {
+//				$tree.off('loaded');
+//
+//				equal($folder.find('.tree-folder').length, 2, 'Folders have populated');
+//				equal($folder.find('.tree-item').length, 2, 'Items have populated');
+//
+//				equal(event, 1, 'Open event triggered');
+//
+//				$tree.tree('selectFolder', $folder[0]);
+//				$tree.on('loaded', function() {
+//					equal(event, 2, 'Close event triggered');
+//					start();
+//				});
+//			});
+//
+//		});
+//
+//	});
 
 	asyncTest("Single item selection works as designed", function () {
 
