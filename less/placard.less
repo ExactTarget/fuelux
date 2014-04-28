@@ -1,19 +1,56 @@
 .placard {
 	position: relative;
 
-	&.open {
-		.placard-chrome {
+	input, textarea {
+		&:focus{
+			border: 1px solid #CCCCCC;
+			box-shadow: none;
+		}
+	}
+
+	&.showing {
+		.placard-footer,
+		.placard-header,
+		.placard-overlay {
 			display: block;
 		}
 
-		input,
-		textarea
-		{
+		input, textarea {
 			position: relative;
 		}
 	}
 
-	&-chrome {
+	&-cancel {
+		font-size: 12px;
+		margin-right: 4px;
+		vertical-align: middle;
+	}
+
+	&-header,
+	&-footer {
+		display: none;
+		left: 0;
+		line-height: 1;
+		position: absolute;
+		right: 0;
+	}
+
+	&-header {
+		bottom: 100%;
+		padding: 8px 0 4px 0;
+
+		h1, h2, h3, h4, h5, h6 {
+			margin: 0;
+		}
+	}
+
+	&-footer {
+		padding: 4px 0 8px 0;
+		text-align: right;
+		top: 100%;
+	}
+
+	&-overlay {
 		background: #ebf6fb;
 		background-clip: padding-box;
 		border: 1px solid #ccc;
@@ -25,23 +62,5 @@
 		position: absolute;
 		right: -8px;
 		top: -8px;
-	}
-
-	&-header,
-	&-footer {
-		left: 8px;
-		line-height: 1;
-		position: absolute;
-		right: 8px;
-	}
-
-	&-header {
-		bottom: 100%;
-		padding-top: 8px;
-	}
-
-	&-footer {
-		padding-bottom: 8px;
-		top: 100%;
 	}
 }
