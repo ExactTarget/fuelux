@@ -12,42 +12,42 @@
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        // if AMD loader is available, register as an anonymous module.
-         define(['jquery'], factory);
-    } else {
-        // OR use browser globals if AMD is not present
-        factory(jQuery);
-    }
+	if (typeof define === 'function' && define.amd) {
+		// if AMD loader is available, register as an anonymous module.
+		define(['jquery'], factory);
+	} else {
+		// OR use browser globals if AMD is not present
+		factory(jQuery);
+	}
 }(function ($) {
-    // -- END UMD WRAPPER PREFACE --
-        
-    // -- BEGIN MODULE CODE HERE --
+	// -- END UMD WRAPPER PREFACE --
+		
+	// -- BEGIN MODULE CODE HERE --
 	
 	$(function() {
 		$(document.body).on("click", "[data-toggle=dropdown][data-direction]", function( event ) {
 
-			var dataDirection = $(this).data().direction;
+			var direction = $(this).data().direction;
 
 			// if data-direction is not auto or up, default to bootstraps dropdown
-			if( dataDirection === "auto" || dataDirection === "up" ) {
+			if( direction === "auto" || direction === "up" ) {
 				// only changing css positioning if position is set to static
 				// if this doesn"t happen, dropUp will not be correct
 				// works correctly for absolute, relative, and fixed positioning
-				if( $(this).parent().css("position") === "static" ) {
-					$(this).parent().css({ position: "relative"});
-				}
+				// if( $(this).parent().css("position") === "static" ) {
+				//	$(this).parent().css({ position: "relative"});
+				// }
 
 				// only continue into this function if the click came from a user
 				if( event.hasOwnProperty("originalEvent") ) {
 					// stopping bootstrap event propagation
-					event.stopPropagation();
+					//event.stopPropagation();
 
 					// deciding what to do based on data-direction attribute
-					if( dataDirection === "auto" ) {
+					if( direction === "auto" ) {
 						// have the drop down intelligently decide where to place itself
-						forceAutoDropDown( $(this) );
-					} else if ( dataDirection === "up" ) {
+						autoDropDown( $(this) );
+					} else if ( direction === "up" ) {
 						forceDropUp( $(this) );
 					}
 				}
@@ -57,48 +57,36 @@
 
 		//Intelligent suggestions dropdown
 		$(document.body).on("suggestions", function(event, element) {
-			var $drp = $(element);
-
-			$drp.css({top: dropUpCheck($drp) ? ( ( $drp.outerHeight() + 5 ) * -1 ) + "px" : "20px"});
+			autoDropDown( $(element) );
 		});
 
-		function forceDropUp( element ) {
-			var dropDown      = element.next();
+		function forceDropUp( toggleElement ) {
+			var dropDown = toggleElement;
 			var dropUpPadding = 5;
 			var topPosition;
 
-			$(dropDown).addClass("dropUp");
-			topPosition = ( ( dropDown.outerHeight() + dropUpPadding ) * -1 ) + "px";
+			$(dropDown.parent()).addClass("dropup");
 
-			dropDown.css({
-				visibility: "visible",
-				top: topPosition
-			});
-			element.click();
 		}
 
-		function forceAutoDropDown( element ) {
-			var dropDown      = element.next();
+		function autoDropDown( toggleElement ) {
+			//console.log(element.parent());
+			var dropDown = toggleElement;
+
+			console.log(dropDown);
 			var dropUpPadding = 5;
 			var topPosition;
 
 			// setting this so I can get height of dropDown without it being shown
-			dropDown.css({ visibility: "hidden" });
+			// dropDown.css({ visibility: "hidden" });
 
 			// deciding where to put menu
 			if( dropUpCheck( dropDown ) ) {
-				$(dropDown).addClass("dropUp");
-				topPosition = ( ( dropDown.outerHeight() + dropUpPadding ) * -1 ) + "px";
+				dropDown.parent().addClass("dropup");
+				// topPosition = ( ( dropDown.outerHeight() + dropUpPadding ) * -1 ) + "px";
 			} else {
-				$(dropDown).removeClass("dropUp");
-				topPosition = "auto";
+				dropDown.parent().removeClass("dropup");
 			}
-
-			dropDown.css({
-				visibility: "visible",
-				top: topPosition
-			});
-			element.click();
 		}
 
 		function dropUpCheck( element ) {
@@ -138,11 +126,12 @@
 
 		function getContainer( element ) {
 			var containerElement = window;
-			var isWindow         = true;
+			var isWindow = true;
+
 			$.each( element.parents(), function(index, value) {
 				if( $(value).css('overflow') !== 'visible' ) {
 					containerElement = value;
-					isWindow         = false;
+					isWindow = false;
 					return false;
 				}
 			});
@@ -155,4 +144,4 @@
 
 // -- BEGIN UMD WRAPPER AFTERWORD --
 }));
-    // -- END UMD WRAPPER AFTERWORD --
+	// -- END UMD WRAPPER AFTERWORD --

@@ -289,9 +289,16 @@ module.exports = function (grunt) {
 			}
 		},
 		watch: {
+			full: {
 			files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
 			options: { livereload: true },
 			tasks: ['test', 'distcss', 'copy:fonts', 'concat', 'jshint', 'jsbeautifier']
+			},
+			css: {
+				files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
+				options: { livereload: true },
+				tasks: ['distcss']
+			}
 		}
 	});
 
@@ -319,8 +326,10 @@ module.exports = function (grunt) {
 		Stylesheets
 	--------------- */
 	grunt.registerTask('distcss', ['less', 'usebanner']);
-	//Serve task
-	grunt.registerTask('serve', ['test', 'distcss', 'copy:fonts', 'concat', 'uglify', 'jsbeautifier', 'connect:server', 'watch']);
+	
+	//Default serve task
+	grunt.registerTask('serve', ['test', 'distcss', 'copy:fonts', 'concat', 'uglify', 'jsbeautifier', 'connect:server', 'watch:full']);
+	grunt.registerTask('servecss', ['connect:server', 'watch:css']);
 
 	//Travis CI task
 	grunt.registerTask('travisci', 'Run appropriate test strategy for Travis CI', function () {

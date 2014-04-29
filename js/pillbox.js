@@ -31,21 +31,28 @@
 	var Pillbox = function (element, options) {
 		this.$element = $(element);
 		this.$input = this.$element.find('.pillbox-input');
-		this.$ul = this.$element.find('.pillbox-list');
-		this.$sugs = this.$element.find('.pillbox-suggest');
+		this.$ul = this.$element.find('.pill-group');
+		this.$sugs = this.$element.find('.suggest');
 		this.$inputWrap = this.$input.parent();
+
+		this.$pillHTML = '<li class="btn btn-default">' +
+							'	<span></span>' +
+							'	<span class="glyphicon glyphicon-close">' +
+							'		<span class="sr-only">Remove</span>' +
+							'	</span>' +
+							'</li>';
 
 		this.options = $.extend({}, $.fn.pillbox.defaults, options);
 		//CREATING AN OBJECT OUT OF THE KEY CODE ARRAY SO WE DONT HAVE TO LOOP THROUGH IT ON EVERY KEY STROKE
 		this.acceptKeyCodes = this._generateObject(this.options.acceptKeyCodes);
 
-		this.$element.on('click', '.pillbox-list > li', $.proxy(this.itemClicked, this));
+		this.$element.on('click', '.pill-group > li', $.proxy(this.itemClicked, this));
 		this.$element.on('click', $.proxy(this.inputFocus, this));
 
 		this.$element.on('keydown', '.pillbox-input', $.proxy(this.inputEvent, this));
 
 		if( this.options.onKeyDown ){
-			this.$element.on('mousedown', '.pillbox-suggest > li', $.proxy(this.suggestionClick, this));
+			this.$element.on('mousedown', '.suggest > li', $.proxy(this.suggestionClick, this));
 		}
 
 		if( this.options.edit ){
@@ -75,7 +82,7 @@
 			this._closeSuggestions();
 
 
-			if( $text.length && !$target.parent().hasClass('pillbox-list') ){
+			if( $text.length && !$target.parent().hasClass('pill-group') ){
 
 				if(this.options.onRemove){
 					this.options.onRemove(this.getItemData($li,{el:$li}) ,$.proxy(this._removeElement, this));
@@ -136,7 +143,7 @@
 					var data = {
 						text: value.text,
 						value: value.value ? value.value : value.text,
-						el: '<li><span></span><span>x</span></li>'
+						el: self.$pillHTML
 					};
 
 					items[i] = data;
@@ -442,16 +449,17 @@
 					markup += '<li data-value="' + val + '">' + value.text + '</li>';
 				});
 
-				this.$sugs.html('').append(markup).show();
+				$(document.body).trigger('suggestions', this.$sugs);
+				this.$sugs.html('').append(markup).parent().addClass('open');
 			}
 		},
 
 		_closeSuggestions: function(){
-			this.$sugs.html('').hide();
+			this.$sugs.html('').parent().removeClass('open');
 		},
 
 		_isSuggestionsOpen: function(){
-			return this.$sugs.css('display') === "block";
+			return this.$sugs.parent().hasClass('open');
 		},
 
 		_keySuggestions: function(e) {
@@ -542,9 +550,13 @@
 
 	$('body').on('mousedown.pillbox.data-api', '.pillbox', function () {
 		var $this = $(this);
-		if ($this.data('pillbox')) return;
+		if ($this.data('pillbox')) {
+			return;
+		}
 		$this.pillbox($this.data());
 	});
+
+	//FIX
 
 	$('body').on('click.pillbox.data-api',function(){
 		$('.pillbox-suggest').hide();

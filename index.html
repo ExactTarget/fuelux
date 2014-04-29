@@ -241,40 +241,7 @@
 			<hr/>
 		</div>
 
-		<div class="clearfix">
-			<h2>Pillbox</h2>
 
-			<div id="MyPillbox" class="pillbox">
-				<ul class="pillbox-list">
-					<li data-value="foo"><span>Item 1</span><span>x</span></li>
-					<li class="status-success"><span>Item 2</span><span>x</span></li>
-					<li class="status-warning"><span>Item 3</span><span>x</span></li>
-					<li class="status-important"><span>Item 4</span><span>x</span></li>
-					<li class="status-info"><span>Item 5</span><span>x</span></li>
-					<li class="status-success"><span>Item 6</span><span>x</span></li>
-					<li><span>Item 7</span><span>x</span></li>
-					<div class="pillbox-input-wrap">
-						<input type="text" class="pillbox-input" size="10" placeholder="add item">
-						<ul class="pillbox-suggest" style="display:none;">
-						</ul>
-					</div>
-				</ul>
-			</div>
-
-			<div class="pillbox"><ul class="pillbox-list"></ul></div>
-
-			<br/>
-			<h5 style="clear:both;">Sample Methods</h5>
-			<div class="btn-group">
-				<input type="button" class="btn btn-default" id="btnAdd" value="add">
-				<input type="button" class="btn btn-default" id="btnRemoveByValue" value="remove by value">
-				<input type="button" class="btn btn-default" id="btnRemoveBySelector" value="remove by selector">
-				<input type="button" class="btn btn-default" id="btnRemoveByText" value="remove by text">
-				<input type="button" class="btn btn-default" id="btnItems" value="log items to console">
-			</div>
-			<hr/>
-
-		</div>
 
 		<div class="clearfix radio-container">
 
@@ -1285,6 +1252,157 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 				</div>
 			</div>
 		</div>
+
+		</div>
+
+		<div class="clearfix">
+			<h2>Pillbox</h2>
+
+			<div id="MyPillbox" class="pillbox">
+				<ul class="clearfix pill-group">
+					<li class="btn btn-default" data-value="foo">
+						<span>Item 1</span>
+						<span class="glyphicon glyphicon-close">
+							<span class="sr-only">Remove</span>
+						</span>
+					</li>
+					<li class="btn btn-success">
+						<span>Item 2</span>
+						<span class="glyphicon glyphicon-close">
+							<span class="sr-only">Remove</span>
+						</span>
+					</li>
+					<li class="btn btn-warning">
+						<span>Item 3</span>
+						<span class="glyphicon glyphicon-close">
+							<span class="sr-only">Remove</span>
+						</span>
+					</li>
+					<li class="btn btn-danger">
+						<span>Item 4</span>
+						<span class="glyphicon glyphicon-close">
+							<span class="sr-only">Remove</span>
+						</span>
+					</li>
+					<li class="btn btn-info">
+						<span>Item 5</span>
+						<span class="glyphicon glyphicon-close">
+							<span class="sr-only">Remove</span>
+						</span>
+					</li>
+					<div class="pillbox-input-wrap btn-group">
+						<input type="text" class="form-control dropdown-toggle pillbox-input" placeholder="add item">
+						
+						<button type="button" class="dropdown-toggle sr-only">
+							<span class="caret"></span>
+							<span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<ul class="suggest dropdown-menu" role="menu" data-toggle="dropdown" data-direction="auto"></ul>
+					</div>
+				</ul>
+			</div>
+
+			<h5>Empty Pillbox</h5>
+
+			<div id="MyPillbox2" class="pillbox">
+				<ul class="clearfix pill-group">
+					<div class="pillbox-input-wrap btn-group">
+						<input type="text" class="form-control dropdown-toggle pillbox-input" placeholder="add item">
+						
+						<button type="button" class="dropdown-toggle sr-only">
+							<span class="caret"></span>
+							<span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<ul class="suggest dropdown-menu" role="menu" data-toggle="dropdown" data-direction="auto"></ul>
+					</div>
+				</ul>
+			</div>
+
+			<br/>
+			<h5 style="clear:both;">Sample Methods</h5>
+			<div class="btn-group">
+				<input type="button" class="btn btn-default" id="btnAdd" value="add">
+				<input type="button" class="btn btn-default" id="btnRemoveByValue" value="remove by value">
+				<input type="button" class="btn btn-default" id="btnRemoveBySelector" value="remove by selector">
+				<input type="button" class="btn btn-default" id="btnRemoveByText" value="remove by text">
+				<input type="button" class="btn btn-default" id="btnItems" value="log items to console">
+			</div>
+			<hr/>
+
+		</div>
+
+		<div class="row">
+		  <div class="col-lg-6">
+			<div class="input-group">
+			  <div class="input-group-btn">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Action <span class="caret"></span></button>
+				<ul class="dropdown-menu">
+				  <li><a href="#">Action</a></li>
+				  <li><a href="#">Another action</a></li>
+				  <li><a href="#">Something else here</a></li>
+				  <li class="divider"></li>
+				  <li><a href="#">Separated link</a></li>
+				</ul>
+			  </div><!-- /btn-group -->
+			  <input type="text" class="form-control">
+			</div><!-- /input-group -->
+		  </div><!-- /.col-lg-6 -->
+		</div><!-- /.row -->
+
+		<div class="clearfix">
+
+			<h2>Intelligent Dropdown</h2>
+
+			<h5>Auto</h5>
+
+			<div class="btn-group">
+				<button type="button" class="btn btn-danger">Action</button>
+				<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" data-direction="auto">
+					<span class="caret"></span>
+					<span class="sr-only">Toggle Dropdown</span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="#">Action</a></li>
+					<li><a href="#">Another action</a></li>
+					<li><a href="#">Something else here</a></li>
+					<li class="divider"></li>
+					<li><a href="#">Separated link</a></li>
+				</ul>
+			</div>
+
+			<h5>Force Up</h5>
+
+			<div class="btn-group">
+				<button type="button" class="btn btn-danger">Action</button>
+				<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" data-direction="up">
+					<span class="caret"></span>
+					<span class="sr-only">Toggle Dropdown</span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="#">Action</a></li>
+					<li><a href="#">Another action</a></li>
+					<li><a href="#">Something else here</a></li>
+					<li class="divider"></li>
+					<li><a href="#">Separated link</a></li>
+				</ul>
+			</div>
+
+			<h5>Auto</h5>
+
+			<div class="btn-group">
+				<button type="button" class="btn btn-danger">Action</button>
+				<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+					<span class="caret"></span>
+					<span class="sr-only">Toggle Dropdown</span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="#">Action</a></li>
+					<li><a href="#">Another action</a></li>
+					<li><a href="#">Something else here</a></li>
+					<li class="divider"></li>
+					<li><a href="#">Separated link</a></li>
+				</ul>
+			</div>
 
 		</div>
 
