@@ -75,7 +75,15 @@ FuelUX can be obtained one of three ways:
 
    This ensures you get all the [dependencies](#dependencies). You can then use `bower update fuelux` to keep it up to date in the future. You're welcome.
 
-2. **Second best way:** Clone the Git repository:
+1. **Another best way:** Install with [Volo](https://github.com/volojs/volo):
+
+    ```
+    volo add fuelux
+    ```
+
+   This ensures you get all the [dependencies](#dependencies). You can then use `volo add -f fuelux` to keep it up to date in the future.
+
+2. **Another good way:** Clone the Git repository:
    ```
    git clone https://github.com/ExactTarget/fuelux/
    ```
