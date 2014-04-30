@@ -34,8 +34,8 @@
 
 		this.$accept = this.$element.find('.placard-accept');
 		this.$cancel = this.$element.find('.placard-cancel');
+		this.$field = this.$element.find('.placard-field').first();
 		this.$footer = this.$element.find('.placard-footer');
-		this.$formEl = this.$element.find('input, textarea').first();
 		this.$header = this.$element.find('.placard-header');
 		this.$popup = this.$element.find('.placard-popup');
 
@@ -44,7 +44,7 @@
 			this.options.revertOnCancel = (this.$accept.length>0) ? true : false;
 		}
 
-		this.$formEl.on('click', $.proxy(this.show, this));
+		this.$field.on('click', $.proxy(this.show, this));
 		this.$accept.on('click', $.proxy(this.complete, this, 'accept'));
 		this.$cancel.on('click', $.proxy(this.complete, this, 'cancel'));
 	};
@@ -54,13 +54,13 @@
 
 		complete: function(action){
 			var func = this.options['on' + action[0].toUpperCase() + action.substring(1)];
-			var obj = { previousValue: this.previousValue, value: this.$formEl.val() };
+			var obj = { previousValue: this.previousValue, value: this.$field.val() };
 			if(func){
-				func.call(this, obj);
+				func(obj);
 				this.$element.trigger(action, obj);
 			}else{
 				if(action==='cancel' && this.options.revertOnCancel){
-					this.$formEl.val(this.previousValue);
+					this.$field.val(this.previousValue);
 				}
 				this.$element.trigger(action, obj);
 				this.hide();
@@ -70,7 +70,7 @@
 		hide: function(){
 			if(!this.$element.hasClass('showing')){ return; }
 			this.$element.removeClass('showing');
-			this.$formEl.attr('readonly', true);
+			this.$field.attr('readonly', true);
 			$(document).off('click.placard.externalClick', this.externalClickListener);
 			this.$element.trigger('hide');
 		},
@@ -105,7 +105,7 @@
 			this.previousValue = this.$element.find('input, textarea').first().val();
 
 			this.$element.addClass('showing');
-			this.$formEl.removeAttr('readonly');
+			this.$field.removeAttr('readonly');
 			if(this.$header.length>0){
 				this.$popup.css('top', '-' + this.$header.outerHeight(true) + 'px');
 			}

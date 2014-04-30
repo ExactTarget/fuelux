@@ -1,26 +1,6 @@
 .placard {
+	display: inline-block;
 	position: relative;
-
-	input, textarea {
-		&[readonly] {
-			background: #fff;
-			cursor: auto;
-
-			&.glass {
-				background: none;
-
-				&:hover {
-					background: #ebf6fb;
-					cursor: pointer;
-				}
-			}
-		}
-
-		&:focus {
-			border: 1px solid #CCCCCC;
-			box-shadow: none;
-		}
-	}
 
 	&.showing {
 		.placard-footer,
@@ -30,7 +10,37 @@
 		}
 
 		input, textarea {
-			position: relative;
+			&.placard-field {
+				background: #fff;
+				border: 1px solid #CCCCCC;
+				box-shadow: none;
+				position: relative;
+			}
+		}
+	}
+
+	input, textarea {
+		&.placard-field {
+			resize: none;
+
+			&[readonly] {
+				background: #fff;
+				cursor: auto;
+
+				&.glass {
+					background: none;
+
+					&:hover {
+						background: #ebf6fb;
+						cursor: pointer;
+					}
+				}
+			}
+
+			&:focus {
+				border: 1px solid #CCCCCC;
+				box-shadow: none;
+			}
 		}
 	}
 
