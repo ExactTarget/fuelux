@@ -2,6 +2,28 @@
 	display: inline-block;
 	position: relative;
 
+	&[data-ellipsis="true"] {
+		&.showing {
+			input.placard-field {
+				overflow: visible;
+				text-overflow: clip;
+				white-space: normal;
+			}
+		}
+
+		input.placard-field {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		textarea.placard-field {
+			&[readonly] {
+				overflow: hidden;
+			}
+		}
+	}
+
 	&.showing {
 		.placard-footer,
 		.placard-header,
@@ -9,38 +31,34 @@
 			display: block;
 		}
 
-		input, textarea {
-			&.placard-field {
-				background: #fff;
-				border: 1px solid #CCCCCC;
-				box-shadow: none;
-				position: relative;
-			}
+		input.placard-field, textarea.placard-field {
+			background: #fff;
+			border: 1px solid #CCCCCC;
+			box-shadow: none;
+			position: relative;
 		}
 	}
 
-	input, textarea {
-		&.placard-field {
-			resize: none;
+	input.placard-field, textarea.placard-field {
+		resize: none;
 
-			&[readonly] {
-				background: #fff;
-				cursor: auto;
+		&[readonly] {
+			background: #fff;
+			cursor: auto;
 
-				&.glass {
-					background: none;
+			&.glass {
+				background: none;
 
-					&:hover {
-						background: #ebf6fb;
-						cursor: pointer;
-					}
+				&:hover {
+					background: #ebf6fb;
+					cursor: pointer;
 				}
 			}
+		}
 
-			&:focus {
-				border: 1px solid #CCCCCC;
-				box-shadow: none;
-			}
+		&:focus {
+			border: 1px solid #CCCCCC;
+			box-shadow: none;
 		}
 	}
 
@@ -50,13 +68,32 @@
 		vertical-align: middle;
 	}
 
-	&-header,
-	&-footer {
+	&-ellipsis {
+		background: white;
+		border-radius: 4px;
+		bottom: 1px;
+		color: #555;
+		display: inline-block;
+		line-height: 1.42857;
+		font-size: 14px;
+		padding: 0 12px 6px 6px;
+		position: absolute;
+		right: 1px;
+	}
+
+	&-footer,
+	&-header {
 		display: none;
 		left: 0;
 		line-height: 1;
 		position: absolute;
 		right: 0;
+	}
+
+	&-footer {
+		padding: 4px 0 8px 0;
+		text-align: right;
+		top: 100%;
 	}
 
 	&-header {
@@ -66,12 +103,6 @@
 		h1, h2, h3, h4, h5, h6 {
 			margin: 0;
 		}
-	}
-
-	&-footer {
-		padding: 4px 0 8px 0;
-		text-align: right;
-		top: 100%;
 	}
 
 	&-popup {

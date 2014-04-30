@@ -34,12 +34,13 @@
 
 		this.$accept = this.$element.find('.placard-accept');
 		this.$cancel = this.$element.find('.placard-cancel');
-		this.$field = this.$element.find('.placard-field').first();
+		this.$field = this.$element.find('.placard-field');
 		this.$footer = this.$element.find('.placard-footer');
 		this.$header = this.$element.find('.placard-header');
 		this.$popup = this.$element.find('.placard-popup');
 
 		this.clickStamp = '_';
+		this.firstExternal = false;
 		this.previousValue = '';
 		if(this.options.revertOnCancel===-1){
 			this.options.revertOnCancel = (this.$accept.length>0) ? true : false;
@@ -48,6 +49,8 @@
 		this.$field.on('click', $.proxy(this.show, this));
 		this.$accept.on('click', $.proxy(this.complete, this, 'accept'));
 		this.$cancel.on('click', $.proxy(this.complete, this, 'cancel'));
+
+		this.ellipsis();
 	};
 
 	Placard.prototype = {
@@ -68,10 +71,28 @@
 			}
 		},
 
+		ellipsis: function(){
+			var ellipsis, field;
+			if(this.$element.attr('data-ellipsis')==='true'){
+				field = this.$field.get(0);
+				if(this.$field.is('input')){
+					field.scrollLeft = 0;
+				}else{
+					field.scrollTop = 0;
+					if(field.clientHeight < field.scrollHeight){
+						ellipsis = $('<div class="placard-ellipsis">...</div>');
+						ellipsis.on('click', $.proxy(this.show, this));
+						this.$element.append(ellipsis);
+					}
+				}
+			}
+		},
+
 		hide: function(){
 			if(!this.$element.hasClass('showing')){ return; }
 			this.$element.removeClass('showing');
 			this.$field.attr('readonly', true);
+			this.ellipsis();
 			$(document).off('click.placard.externalClick.' + this.clickStamp);
 			this.$element.trigger('hide');
 		},
@@ -88,7 +109,10 @@
 			var $originEl = $(e.target);
 			var i, l;
 
-			if(e.target===el || $originEl.parents('.placard:first').get(0)===el){
+			if(this.firstExternal){
+				this.firstExternal = false;
+				return false;
+			}else if(e.target===el || $originEl.parents('.placard:first').get(0)===el){
 				return false;
 			}else{
 				for(i=0, l=exceptions.length; i<l; i++){
@@ -100,7 +124,7 @@
 			return true;
 		},
 
-		show: function(e){
+		show: function(){
 			var other;
 
 			if(this.$element.hasClass('showing')){ return; }
@@ -111,9 +135,10 @@
 				}
 				other.placard('externalClickListener', {}, true);
 			}
-			this.previousValue = this.$element.find('input, textarea').first().val();
+			this.previousValue = this.$field.val();
 
 			this.$element.addClass('showing');
+			this.$element.find('.placard-ellipsis').remove();
 			this.$field.removeAttr('readonly');
 			if(this.$header.length>0){
 				this.$popup.css('top', '-' + this.$header.outerHeight(true) + 'px');
@@ -124,6 +149,7 @@
 
 			this.$element.trigger('show');
 			this.clickStamp = new Date().getTime() + (Math.floor(Math.random() * 100) + 1);
+			this.firstExternal = true;
 			if(!this.options.explicit){
 				$(document).on('click.placard.externalClick.' + this.clickStamp, $.proxy(this.externalClickListener, this));
 			}
