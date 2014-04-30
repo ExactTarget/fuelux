@@ -72,7 +72,7 @@
 			if(!this.$element.hasClass('showing')){ return; }
 			this.$element.removeClass('showing');
 			this.$field.attr('readonly', true);
-			$(document).off('click.placard.externalClick.' + this.clickStamp, this.externalClickListener);
+			$(document).off('click.placard.externalClick.' + this.clickStamp);
 			this.$element.trigger('hide');
 		},
 
@@ -123,7 +123,7 @@
 			}
 
 			this.$element.trigger('show');
-			this.clickStamp = new Date().getTime();
+			this.clickStamp = new Date().getTime() + (Math.floor(Math.random() * 100) + 1);
 			if(!this.options.explicit){
 				$(document).on('click.placard.externalClick.' + this.clickStamp, $.proxy(this.externalClickListener, this));
 			}
