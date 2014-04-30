@@ -39,6 +39,7 @@
 		this.$header = this.$element.find('.placard-header');
 		this.$popup = this.$element.find('.placard-popup');
 
+		this.clickStamp = '_';
 		this.previousValue = '';
 		if(this.options.revertOnCancel===-1){
 			this.options.revertOnCancel = (this.$accept.length>0) ? true : false;
@@ -71,12 +72,12 @@
 			if(!this.$element.hasClass('showing')){ return; }
 			this.$element.removeClass('showing');
 			this.$field.attr('readonly', true);
-			$(document).off('click.placard.externalClick', this.externalClickListener);
+			$(document).off('click.placard.externalClick.' + this.clickStamp, this.externalClickListener);
 			this.$element.trigger('hide');
 		},
 
-		externalClickListener: function(e){
-			if(this.isExternalClick(e)){
+		externalClickListener: function(e, force){
+			if(force===true || this.isExternalClick(e)){
 				this.complete(this.options.externalClickAction);
 			}
 		},
@@ -100,8 +101,16 @@
 		},
 
 		show: function(e){
-			if(this.$element.hasClass('showing') || (this.options.exclusive && $(document).find('.placard.showing').length>0)){ return; }
+			var other;
 
+			if(this.$element.hasClass('showing')){ return; }
+			other = $(document).find('.placard.showing');
+			if(other.length>0){
+				if(other.data('placard') && other.data('placard').options.explicit){
+					return;
+				}
+				other.placard('externalClickListener', {}, true);
+			}
 			this.previousValue = this.$element.find('input, textarea').first().val();
 
 			this.$element.addClass('showing');
@@ -114,9 +123,9 @@
 			}
 
 			this.$element.trigger('show');
-
+			this.clickStamp = new Date().getTime();
 			if(!this.options.explicit){
-				$(document).on('click.placard.externalClick', $.proxy(this.externalClickListener, this));
+				$(document).on('click.placard.externalClick.' + this.clickStamp, $.proxy(this.externalClickListener, this));
 			}
 		}
 	};
@@ -142,7 +151,6 @@
 	$.fn.placard.defaults = {
 		onAccept: undefined,
 		onCancel: undefined,
-		exclusive: true,
 		externalClickAction: 'cancel',
 		externalClickExceptions: [],
 		explicit: false,
