@@ -37,7 +37,7 @@
 		this.$footer = this.$element.find('.placard-footer');
 		this.$formEl = this.$element.find('input, textarea').first();
 		this.$header = this.$element.find('.placard-header');
-		this.$overlay = this.$element.find('.placard-overlay');
+		this.$popup = this.$element.find('.placard-popup');
 
 		this.previousValue = '';
 		if(this.options.revertOnCancel===-1){
@@ -54,15 +54,15 @@
 
 		complete: function(action){
 			var func = this.options['on' + action[0].toUpperCase() + action.substring(1)];
+			var obj = { previousValue: this.previousValue, value: this.$formEl.val() };
 			if(func){
-				func.call(this, {
-					previousValue: this.previousValue,
-					value: this.$formEl.val()
-				});
+				func.call(this, obj);
+				this.$element.trigger(action, obj);
 			}else{
 				if(action==='cancel' && this.options.revertOnCancel){
 					this.$formEl.val(this.previousValue);
 				}
+				this.$element.trigger(action, obj);
 				this.hide();
 			}
 		},
@@ -107,10 +107,10 @@
 			this.$element.addClass('showing');
 			this.$formEl.removeAttr('readonly');
 			if(this.$header.length>0){
-				this.$overlay.css('top', '-' + this.$header.outerHeight(true) + 'px');
+				this.$popup.css('top', '-' + this.$header.outerHeight(true) + 'px');
 			}
 			if(this.$footer.length>0){
-				this.$overlay.css('bottom', '-' + this.$footer.outerHeight(true) + 'px');
+				this.$popup.css('bottom', '-' + this.$footer.outerHeight(true) + 'px');
 			}
 
 			this.$element.trigger('show');
