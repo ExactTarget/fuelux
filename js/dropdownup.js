@@ -28,7 +28,6 @@
 
 		if( $(this).data().dropauto === "auto" ) {
 			// have the drop down decide where to place itself
-			console.log($(this).next('.dropdown-menu'));
 			_autoDropDown( $(this).next('.dropdown-menu') );
 		}
 	});
@@ -100,6 +99,9 @@
 			isWindow: isWindow
 		};
 	}
+
+	// register empty plugin
+	$.fn.dropdownup = function () { /* empty */ };
 
 // -- BEGIN UMD WRAPPER AFTERWORD --
 }));

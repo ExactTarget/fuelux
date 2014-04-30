@@ -182,7 +182,7 @@ define(function(require){
 		}
 	});
 
-$('#MyPillbox2').pillbox({
+$('#MyPillboxEmpty').pillbox({
 	onKeyDown: function( e, data, callback ){
 		callback(e, {data:[
 			{ text: 'Acai', value:  'acai' },
@@ -303,6 +303,7 @@ $('#MyPillbox2').pillbox({
 		//}
 
 		if(window.console && window.console.log){
+			console.log('Repeater Options:');
 			console.log(options);
 		}
 		setTimeout(function(){
