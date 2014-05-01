@@ -1,3 +1,5 @@
+_Please note: FuelUX 3.0 is a major overhaul and is built atop of Bootstrap 3. The project maintainers are actively developing FuelUX 3.0 if you would like to [follow along at this branch](https://github.com/ExactTarget/fuelux/tree/3.0.0-wip)._
+
 [![Fuel UX](https://s3.amazonaws.com/fuelux/logo-gray.png)](http://exacttarget.github.com/fuelux)
 
 Fuel UX extends Bootstrap with additional lightweight JavaScript controls.
