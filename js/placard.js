@@ -39,6 +39,7 @@
 		this.$header = this.$element.find('.placard-header');
 		this.$popup = this.$element.find('.placard-popup');
 
+		this.actualValue = null;
 		this.clickStamp = '_';
 		this.firstExternal = false;
 		this.previousValue = '';
@@ -72,7 +73,7 @@
 		},
 
 		ellipsis: function(){
-			var ellipsis, field;
+			var field, i, str;
 			if(this.$element.attr('data-ellipsis')==='true'){
 				field = this.$field.get(0);
 				if(this.$field.is('input')){
@@ -80,11 +81,27 @@
 				}else{
 					field.scrollTop = 0;
 					if(field.clientHeight < field.scrollHeight){
-						ellipsis = $('<div class="placard-ellipsis">...</div>');
-						ellipsis.on('click', $.proxy(this.show, this));
-						this.$element.append(ellipsis);
+						this.actualValue = this.$field.val();
+						this.$field.val('');
+						str = '';
+						i = 0;
+						while(field.clientHeight>=field.scrollHeight){
+							str += this.actualValue[i];
+							this.$field.val(str + '...');
+							i++;
+						}
+						str = (str.length>0) ? str.substring(0, str.length-1) : '';
+						this.$field.val(str + '...');
 					}
 				}
+			}
+		},
+
+		getValue: function(){
+			if(this.actualValue!==null){
+				return this.actualValue;
+			}else{
+				return this.$field.val();
 			}
 		},
 
@@ -124,6 +141,13 @@
 			return true;
 		},
 
+		setValue: function(val){
+			this.$field.val(val);
+			if(!this.$element.hasClass('showing')){
+				this.ellipsis();
+			}
+		},
+
 		show: function(){
 			var other;
 
@@ -138,8 +162,11 @@
 			this.previousValue = this.$field.val();
 
 			this.$element.addClass('showing');
-			this.$element.find('.placard-ellipsis').remove();
 			this.$field.removeAttr('readonly');
+			if(this.actualValue!==null){
+				this.$field.val(this.actualValue);
+				this.actualValue = null;
+			}
 			if(this.$header.length>0){
 				this.$popup.css('top', '-' + this.$header.outerHeight(true) + 'px');
 			}
