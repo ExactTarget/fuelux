@@ -41,9 +41,16 @@
 	function _autoDropDown( menu ) {
 		// hide while the browser thinks
 		$(menu).css({ visibility: "hidden" });
-		// decide where to put menu
-		var isDropUp = dropUpCheck( menu ) ? menu.parent().addClass("dropup") : menu.parent().removeClass("dropup");
 
+		// decide where to put menu
+		if ( dropUpCheck( menu ) ) {
+			menu.parent().addClass("dropup");
+		}
+		else {
+			menu.parent().removeClass("dropup");
+		}
+
+		// show again
 		$(menu).css({ visibility: "visible" });
 	}
 
