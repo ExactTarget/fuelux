@@ -47,17 +47,18 @@ All functionality is covered by the [live documentation](http://exacttarget.gith
         //...
     });
     ```
-1. Use FuelUX in your HTML (eg. [checkbox](http://exacttarget.github.io/fuelux/#checkbox)):
+1. Use FuelUX in your HTML within the fuelux wrapper class (eg. [checkbox](http://exacttarget.github.io/fuelux/#checkbox)):
 
     ```html
     <body class="fuelux">
-    
-    <div class="checkbox">
-				<label class="checkbox-custom">
-					<input id="chk1" checked="checked" class="checked" type="checkbox" value="">
-					Custom appearance checkbox checked at page load (#chk1)
-				</label>
-			</div>
+    	<!-- .... -->
+        <div class="checkbox">
+	    <label class="checkbox-custom">
+	        <input id="chk1" checked="checked" class="checked" type="checkbox" value="">
+		    Custom appearance checkbox checked at page load (#chk1)
+	    </label>
+        </div>
+        <!-- .... -->
     </body>
     ```
 
