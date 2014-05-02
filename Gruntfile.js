@@ -59,6 +59,7 @@ module.exports = function (grunt) {
 						'js/infinite-scroll.js',
 						'js/loader.js',
 						'js/pillbox.js',
+						'js/placard.js',
 						'js/radio.js',
 						'js/search.js',
 						'js/selectlist.js',

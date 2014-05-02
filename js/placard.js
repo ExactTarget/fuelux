@@ -29,6 +29,7 @@
 	// PLACARD CONSTRUCTOR AND PROTOTYPE
 
 	var Placard = function (element, options) {
+		var self = this;
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.placard.defaults, options);
 
@@ -49,7 +50,7 @@
 
 		this.$field.on('click', $.proxy(this.show, this));
 		this.$accept.on('click', $.proxy(this.complete, this, 'accept'));
-		this.$cancel.on('click', $.proxy(this.complete, this, 'cancel'));
+		this.$cancel.on('click', function(e){ e.preventDefault(); self.complete('cancel'); });
 
 		this.ellipsis();
 	};
