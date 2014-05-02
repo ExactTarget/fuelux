@@ -45,6 +45,7 @@ define(function(require){
 	require('test/datepicker-moment-test');
 	require('test/infinite-scroll-test');
 	require('test/pillbox-test');
+	require('test/placard-test');
 	require('test/radio-test');
 	require('test/repeater-test');
 	require('test/repeater-list-test');
