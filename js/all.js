@@ -30,6 +30,7 @@
 	require('fuelux/infinite-scroll');
 	require('fuelux/loader');
 	require('fuelux/pillbox');
+	require('fuelux/placard');
 	require('fuelux/radio');
 	require('fuelux/repeater');
 	require('fuelux/repeater-list');
