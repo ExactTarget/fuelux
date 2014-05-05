@@ -365,6 +365,13 @@ $('#MyPillboxEmpty').pillbox({
 
 
 	// SCHEDULER
+
+	// set custom format with moment.js
+	$('#MyScheduler').find('.scheduler-start .datepicker').datepicker({ momentConfig: {
+		culture: 'en',
+		formatCode: 'dddd, MMMM D, YYYY'
+	}});
+
 	$('#schedulerEnableBtn').on('click', function(){
 		$('#MyScheduler').scheduler('enable');
 	});
