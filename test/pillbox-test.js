@@ -7,7 +7,6 @@ define(function(require){
 	var html = require('text!test/markup/pillbox-markup.html');
 
 	require('bootstrap');
-	require('fuelux/dropdownup');
 	require('fuelux/pillbox');
 
 	module("Fuel UX Pillbox");

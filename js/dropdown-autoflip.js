@@ -1,5 +1,5 @@
 /*
- * Fuel UX Intelligent Bootstrap Dropdowns
+ * Fuel UX Dropdown Auto Flip
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2014 ExactTarget
@@ -24,21 +24,21 @@
 		
 	// -- BEGIN MODULE CODE HERE --
 	
-	$(document.body).on("click", "[data-toggle=dropdown][data-dropauto]", function( event ) {
+	$(document.body).on("click", "[data-toggle=dropdown][data-flip]", function( event ) {
 
-		if( $(this).data().dropauto === "auto" ) {
+		if( $(this).data().flip === "auto" ) {
 			// have the drop down decide where to place itself
-			_autoDropDown( $(this).next('.dropdown-menu') );
+			_autoFlip( $(this).next('.dropdown-menu') );
 		}
 	});
 
 	//Intelligent suggestions dropdown
 	$(document.body).on("suggest", function(event, element) {
-		_autoDropDown( $(element) );
+		_autoFlip( $(element) );
 		$(element).parent().addClass('open');
 	});
 
-	function _autoDropDown( menu ) {
+	function _autoFlip( menu ) {
 		// hide while the browser thinks
 		$(menu).css({ visibility: "hidden" });
 
@@ -108,7 +108,7 @@
 	}
 
 	// register empty plugin
-	$.fn.dropdownup = function () { /* empty */ };
+	$.fn.dropdownautoflip = function () { /* empty */ };
 
 // -- BEGIN UMD WRAPPER AFTERWORD --
 }));

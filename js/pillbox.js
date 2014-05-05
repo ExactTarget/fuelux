@@ -14,15 +14,15 @@
 (function (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
-		define(['jquery'], factory);
+		define(['jquery', 'fuelux/dropdown-autoflip'], factory);
 	} else {
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
 	}
 }(function ($) {
 
-	if( !$.fn.dropdownup ){
-		throw new Error('Fuel UX pillbox control requires dropdownup.');
+	if( !$.fn.dropdownautoflip ){
+		throw new Error('Fuel UX pillbox control requires dropdown-autoflip.');
 	}
 	// -- END UMD WRAPPER PREFACE --
 		

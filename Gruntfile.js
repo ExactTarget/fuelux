@@ -56,6 +56,7 @@ module.exports = function (grunt) {
 						'js/checkbox.js',
 						'js/combobox.js',
 						'js/datepicker.js',
+						'js/dropdown-autoflip.js',
 						'js/infinite-scroll.js',
 						'js/loader.js',
 						'js/pillbox.js',
@@ -65,7 +66,6 @@ module.exports = function (grunt) {
 						'js/spinbox.js',
 						'js/tree.js',
 						'js/wizard.js',
-						'js/intelligent-dropdown.js',
 						'js/repeater.js',
 						'js/repeater-list.js',
 						'js/repeater-thumbnail.js',
@@ -290,9 +290,9 @@ module.exports = function (grunt) {
 		},
 		watch: {
 			full: {
-			files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
-			options: { livereload: true },
-			tasks: ['test', 'distcss', 'copy:fonts', 'concat', 'jshint', 'jsbeautifier']
+				files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
+				options: { livereload: true },
+				tasks: ['test', 'distcss', 'copy:fonts', 'concat', 'jshint', 'jsbeautifier']
 			},
 			css: {
 				files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],

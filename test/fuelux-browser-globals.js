@@ -56,8 +56,8 @@
 		ok( $(document.body).datepicker, 'datepicker method is defined' );
 	});
 
-	test( 'dropdownup should be defined on the jQuery object', function() {
-		ok( $(document.body).dropdownup, 'dropdownup method is defined' );
+	test( 'dropdownautoflip should be defined on the jQuery object', function() {
+		ok( $(document.body).dropdownautoflip, 'dropdownautoflip method is defined' );
 	});
 
 	test( 'infinitescroll should be defined on the jQuery object', function() {
