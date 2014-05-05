@@ -11,3 +11,6 @@ download:
   source:         https://github.com/ExactTarget/fuelux/archive/3.0.0.zip
   dist:           https://github.com/ExactTarget/fuelux/releases/download/3.0.0/3.0.0.zip
   sass:           https://www.google.com
+  
+# To view gh-pages locally
+# bundle exec jekyll serve
