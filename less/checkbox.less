@@ -17,13 +17,14 @@
 	{
 		.iconBaseStyles("Glyphicons Halflings");
 
-		border: 2px solid #333;
+		border: 1px solid #adadad;
 		border-radius: @baseBorderRadius;
 		color: #fff;
 		content: " ";
-		font-size: 12px;
+		font-size: 9px;
 		height: 14px;
 		left: -20px;
+		padding: 1px 0 0 1px;
 		position: absolute;
 		top: 1px;
 		width: 14px;
@@ -31,7 +32,8 @@
 
 	&.checked {
 		&:before {
-			background: #333;
+			background: #39b3d7;
+			border-color: #39b3d7;
 			content: "\e013";
 		}
 	}
@@ -39,32 +41,7 @@
 	&.disabled {
 		&:before
 		{
-			opacity: .6;
-		}
-	}
-
-	&:hover {
-		&:before {
-			border-color: #666;
-		}
-
-		&.checked {
-			&:before {
-				background: #666;
-			}
-		}
-
-		&.disabled {
-			&:before {
-				border-color: #333;
-			}
-
-			&.checked {
-				&:before {
-					background: #333;
-					border-color: #333;
-				}
-			}
+			opacity: .5;
 		}
 	}
 
