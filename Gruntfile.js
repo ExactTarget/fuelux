@@ -56,6 +56,7 @@ module.exports = function (grunt) {
 						'js/checkbox.js',
 						'js/combobox.js',
 						'js/datepicker.js',
+						'js/dropdown-autoflip.js',
 						'js/infinite-scroll.js',
 						'js/loader.js',
 						'js/pillbox.js',
@@ -66,7 +67,6 @@ module.exports = function (grunt) {
 						'js/spinbox.js',
 						'js/tree.js',
 						'js/wizard.js',
-						'js/intelligent-dropdown.js',
 						'js/repeater.js',
 						'js/repeater-list.js',
 						'js/repeater-thumbnail.js',
@@ -220,7 +220,7 @@ module.exports = function (grunt) {
 								tags: [ '<%= sauceUser %>' + "@" + process.env.TRAVIS_BRANCH || '<%= sauceUser %>' +"@local"],
 								browsers: grunt.file.readYAML('sauce_browsers_tricky.yml'),
 								build: process.env.TRAVIS_BUILD_NUMBER || '',
-								testname: process.env.TRAVIS_JOB_ID || 'grunt-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
+								testname: process.env.TRAVIS_JOB_ID || Math.floor((new Date()).getTime() / 1000 - 1230768000).toString(),
 								urls: '<%= trickyTestUrl %>'
 							}
 			},
@@ -290,9 +290,16 @@ module.exports = function (grunt) {
 			}
 		},
 		watch: {
-			files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
-			options: { livereload: true },
-			tasks: ['devtest', 'distcss', 'copy:fonts', 'concat', 'jshint', 'jsbeautifier']
+			full: {
+				files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
+				options: { livereload: true },
+				tasks: ['test', 'distcss', 'copy:fonts', 'concat', 'jshint', 'jsbeautifier']
+			},
+			css: {
+				files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
+				options: { livereload: true },
+				tasks: ['distcss']
+			}
 		}
 	});
 
@@ -305,7 +312,8 @@ module.exports = function (grunt) {
 	/* -------------
 		TESTING
 	------------- */
-	grunt.registerTask('devtest', ['jshint', 'qunit:simple', 'validation']);
+	// minimal tests for developmeent
+	grunt.registerTask('test', ['jshint', 'qunit:simple', 'validation']);
 	// multiple jquery versions, but still no VMs
 	grunt.registerTask('releasetest', ['connect:testServer', 'jshint', 'qunit:full']);
 	// multiple jquery versions, sent to VMs
@@ -319,8 +327,10 @@ module.exports = function (grunt) {
 		Stylesheets
 	--------------- */
 	grunt.registerTask('distcss', ['less', 'usebanner']);
-	//Serve task
-	grunt.registerTask('serve', ['devtest', 'distcss', 'copy:fonts', 'concat', 'uglify', 'jsbeautifier', 'connect:server', 'watch']);
+	
+	//Default serve task
+	grunt.registerTask('serve', ['test', 'distcss', 'copy:fonts', 'concat', 'uglify', 'jsbeautifier', 'connect:server', 'watch:full']);
+	grunt.registerTask('servecss', ['connect:server', 'watch:css']);
 
 	//Travis CI task
 	grunt.registerTask('travisci', 'Run appropriate test strategy for Travis CI', function () {
