@@ -15,8 +15,18 @@
   "ignore": [
     "**/.*",
     "_*",
+    "*.yml",
     "lib",
-    "node_modules"
+    "node_modules",
+    "GruntFile.js",
+    "data.js",
+    "dev.html",
+    "index.css"
+    "index.html",
+    "index.js",
+    "old-index.html",
+    "sample",
+    "test"
   ],
   "keywords": [
     "css",
