@@ -4,6 +4,19 @@
 
 require(['jquery', 'fuelux/datagrid'], function($) {
 
+	// Define Object.keys for IE8 use.
+	if (!Object.keys) {
+		Object.keys = function(obj) {
+			var keys = [];
+			for (var i in obj) {
+				if (obj.hasOwnProperty(i)) {
+					keys.push(i);
+				}
+			}
+			return keys;
+		};
+	}
+
 	module("Fuel UX datagrid", { setup: testSetup });
 
 	test("should be defined on jquery object", function () {
@@ -483,6 +496,30 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 		});
 	});
 
+	asyncTest('should handle custom cell rendering', function () {
+		var customCellDataSource = new this.CustomCellDataSource();
+		var $datagrid = $(this.datagridHTML).datagrid({
+			dataSource: customCellDataSource
+		}).one('loaded', function () {
+			var $datarows = $datagrid.find('tbody tr');
+			equal($datarows.length, 2, 'all rows were rendered');
+
+			var row1 = $datarows.eq(0);
+			var row2 = $datarows.eq(1);
+
+			var cells1 = row1.find('td');
+			equal(cells1.eq(0).html(), 'A', 'The first cell is rendered as is');
+			equal(cells1.eq(1).html(), 'value:B', 'The second cell is rendered by the custom rendering function');
+			equal(cells1.eq(2).html(), 'Z', 'The third cell is rendered by the custom rendering function');
+
+			var cells2 = row2.find('td');
+			equal(cells2.eq(0).html(), 'D', 'The first cell is rendered as is');
+			equal(cells2.eq(1).html(), 'value:E', 'The second cell is rendered by the custom rendering function');
+			equal(cells2.eq(2).html(), 'F', 'The third cell is rendered by the custom rendering function');
+
+			start();
+		});
+	});
 
 	function testSetup() {
 
@@ -575,6 +612,45 @@ require(['jquery', 'fuelux/datagrid'], function($) {
 						{ property1: 'P', property2: 'Q', property3: 'R' },
 						{ property1: 'S', property2: 'T', property3: 'U' },
 						{ property1: 'V', property2: 'W', property3: 'X' }
+					],
+					start: 1, end: 2, count: 3, pages: 5, page: options.pageIndex + 1
+				});
+			}, 0);
+		};
+
+		this.CustomCellDataSource = function () {};
+
+		this.CustomCellDataSource.prototype.columns = function () {
+			return [{
+				property: 'property1',
+				label: 'Raw Value'
+			}, {
+				property: 'property2',
+				label: 'Custom Value',
+				render: function (value, row) {
+					return 'value:' + value;
+				}
+			}, {
+				property: 'property3',
+				label: 'Custom value with row context',
+				render: function (value, row) {
+					if (row.property1 === 'A') {
+						return 'Z';
+					} else {
+						return value;
+					}
+				}
+			}];
+		};
+
+		this.CustomCellDataSource.prototype.data = function (options, callback) {
+			this.options = options;
+
+			setTimeout(function () {
+				callback({
+					data: [
+						{ property1: 'A', property2: 'B', property3: 'C' },
+						{ property1: 'D', property2: 'E', property3: 'F' }
 					],
 					start: 1, end: 2, count: 3, pages: 5, page: options.pageIndex + 1
 				});

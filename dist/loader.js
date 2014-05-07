@@ -3293,6 +3293,19 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 		renderData: function () {
 			var self = this;
 
+			function renderCell (row, column) {
+				var property = column.property;
+				var cellValue = row[property];
+				var renderedCell;
+
+				if (typeof column.render === 'function') {
+					renderedCell = column.render.call(self, cellValue, row);
+				} else {
+					renderedCell = cellValue;
+				}
+				return renderedCell;
+			}
+
 			this.$tbody.html(this.placeholderRowHTML(this.options.loadingHTML));
 
 			this.options.dataSource.data(this.options.dataOptions, function (data) {
@@ -3350,10 +3363,10 @@ define('fuelux/datagrid',['require','jquery'],function (require) {
 							if (enableSelect && (index === 0)) {
 								var $md = $('<div/>');
 								$md.addClass('selectWrap');
-								$md.append(row[column.property]);
+								$md.append(renderCell(row, column));
 								$td.html($md);
 							} else {
-								$td.html(row[column.property]);
+								$td.html(renderCell(row, column));
 							}
 
 							$tr.append($td);

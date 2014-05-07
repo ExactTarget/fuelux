@@ -151,8 +151,10 @@ require(['jquery', 'fuelux/wizard'], function ($) {
 		var wizard     = $(html)[0];
 		var $wizard    = $(wizard).wizard();
 		var eventFired = false;
+		var stepData;
 
 		$wizard.on('changed', function (evt, data) {
+			stepData = data;
 			eventFired = true;
 		});
 
@@ -162,6 +164,7 @@ require(['jquery', 'fuelux/wizard'], function ($) {
 
 		equal(eventFired, true, 'changed event fired');
 		equal(index, 2, 'step changed');
+		equal(stepData.currentStep, 2, 'correct current step returned from trigger' );
 	});
 
 	test("should suppress changed event", function () {
@@ -191,7 +194,7 @@ require(['jquery', 'fuelux/wizard'], function ($) {
 			eventFired = true;
 			return evt.preventDefault(); // prevent action
 		});
-		
+
 		// move to second step
 		$wizard.wizard('next');
 
@@ -248,7 +251,7 @@ require(['jquery', 'fuelux/wizard'], function ($) {
 		$nextClone.children().remove();
 		equal($.trim($nextClone.text()), 'Next', 'nextBtn text equal to "Next"');
 	});
-	
+
 	test("pass no init parameter to set current step", function () {
 		var step    = 1;
 		var wizard  = $(html)[0];
@@ -271,9 +274,9 @@ require(['jquery', 'fuelux/wizard'], function ($) {
 		var $wizard = $(wizard).wizard();
 
 		testWizardStepStates($wizard, 1);
- 
+
 		$wizard.wizard('selectedItem', {step:step});
- 
+
 		testWizardStepStates($wizard, step);
 	});
 

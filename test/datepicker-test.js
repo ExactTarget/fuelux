@@ -117,7 +117,7 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 		var dateFormatted = new Date( $sample.datepicker( 'getFormattedDate' ) );
 		var dateObject    = new Date( $sample.datepicker( 'getDate' ) );
 		var dateUnix      = $sample.datepicker( 'getDate', { unix: true } );
-		
+
 		if( dateFormatted !== 'Invalid Date' ) {
 			dateFormatted = true;
 		}
@@ -386,5 +386,25 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 		equal( setCultureError, defaultErrorReturned, "setCulture is not available for use" );
 		equal( getFormatCodeError, defaultErrorReturned, "getFormatCode is not available for use" );
 		equal( setFormatCodeError, defaultErrorReturned, "setFormatCode is not available for use" );
+	});
+
+
+	test( 'should render days inactive using custom blackoutDates function when they are displayed on the next month view', function() {
+		var $sample      = $( html ).find( '#datepicker1' );
+		var minDate = new Date(2014, 1, 1);
+		var maxDate = new Date(2014, 2, 31);
+		var janDate = new Date(2014, 1, 3);
+
+		$sample.datepicker({
+			date: janDate,
+			blackoutDates: function( date ) {
+				var passedDate = this.parseDate( date ).getTime();
+				return passedDate < minDate || passedDate > maxDate;
+			}
+		});
+
+		// finding blackout dates. should be 2 based on interval set above
+		var renderedBlackoutDates = $sample.find( '.restrict.blackout' ).length;
+		equal( renderedBlackoutDates, 6, 'blackouts dates correctly' ); // 6 days from January are visible
 	});
 });
