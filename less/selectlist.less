@@ -1,15 +1,20 @@
 .selectlist {
 
-    &-sizer {
-        display: inline-block;
-        position: absolute;
-        visibility: hidden;
-        top: 0;
-    }
+	&-sizer {
+		display: inline-block;
+		position: absolute;
+		visibility: hidden;
+		top: 0;
+	}
+
+	.selected-label {
+		overflow: hidden;
+	}
 
 	.btn.dropdown-toggle {
+		white-space: normal;
+
 		.selected-label {
-			display: inline-block;
 			padding-right: 10px;
 			text-align: left;
 		}

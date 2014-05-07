@@ -64,9 +64,9 @@
 		this.$element.find('.spinbox').on('changed', $.proxy(this.changed, this));
 		this.$element.find('.scheduler-monthly div.radio, .scheduler-yearly div.radio').on('mouseup', $.proxy(this.changed, this));
 
+		//initialize sub-controls
 		this.$repeatIntervalSelect.on('changed', $.proxy(this.repeatIntervalSelectChanged, this));
 		this.$endSelect.on('changed', $.proxy(this.endSelectChanged, this));
-
 		//initialize sub-controls
 		this.$startDate.datepicker();
 		this.$startTime.combobox();
@@ -113,13 +113,13 @@
 			}
 
 			// hide all panels
-			this.$endAfter.hide();
-			this.$endDate.hide();
+			this.$endAfter.parent().hide();
+			this.$endDate.parent().hide();
 
 			if(val==='after'){
-				this.$endAfter.show();
+				this.$endAfter.parent().show();
 			}else if(val==='date'){
-				this.$endDate.show();
+				this.$endDate.parent().show();
 			}
 		},
 
