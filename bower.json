@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "underscore": "~1.6.0",
+    "fuelux": "3.0.0-wip"
+  },
+  "ignore": [
+    "**/.*",
+    "_*"
+  ],
+  "name": "fueluxdocs",
+  "version": "3.0.0"
+}
