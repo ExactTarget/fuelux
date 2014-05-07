@@ -125,7 +125,7 @@
 					<input type="text" class="form-control">
 					<div class="input-group-btn">
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-					<ul class="dropdown-menu pull-right">
+					<ul class="dropdown-menu dropdown-menu-right">
 						<li data-value="1"><a href="#">One</a></li>
 						<li data-value="2"><a href="#">Two</a></li>
 						<li data-value="3" data-selected="true"><a href="#">Three</a></li>
@@ -143,7 +143,7 @@
 					<input type="text" class="form-control">
 					<div class="input-group-btn">
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-					<ul class="dropdown-menu pull-right">
+					<ul class="dropdown-menu dropdown-menu-right">
 						<li data-value="1"><a href="#">One</a></li>
 						<li data-value="2"><a href="#">Two</a></li>
 						<li data-value="3"><a href="#">Three</a></li>
@@ -181,10 +181,10 @@
 					<div class="datepicker input-group dropdown" id="datepicker1">
 						<input type="text" class="form-control" data-toggle="dropdown" />
 						<!-- this must go aver the input. if button is present, it must go in between or the input group will not look right -->
-						<div class="dropdown-menu"></div>
+						<div class="dropdown-menu dropdown-menu-right"></div>
 						<span class="input-group-btn" data-toggle="dropdown">
 							<button type="button" class="btn btn-default">
-								<i class="glyphicon glyphicon-calendar"></i>
+								<span class="glyphicon glyphicon-calendar"></span>
 							</button>
 						</span>
 					</div>
@@ -323,7 +323,7 @@
 
 			<div class="placard">
 				<div class="placard-popup"></div>
-				<input class="form-control placard-field" readonly="true" type="text"/>
+				<input class="form-control placard-field" readonly="readonly" type="text"/>
 			</div>
 
 			<br/>
@@ -331,7 +331,7 @@
 			<div class="placard" data-ellipsis="true">
 				<div class="placard-popup"></div>
 				<div class="placard-header"><h5>Header</h5></div>
-				<input class="form-control placard-field" readonly="true" type="text"/>
+				<input class="form-control placard-field" readonly="readonly" type="text"/>
 				<div class="placard-footer">
 					<a class="placard-cancel" href="#">Cancel</a>
 					<button class="btn btn-primary btn-xs placard-accept" type="button">Save</button>
@@ -343,7 +343,7 @@
 			<div class="placard" data-ellipsis="true">
 				<div class="placard-popup"></div>
 				<div class="placard-header"><h5>Header</h5></div>
-				<textarea class="form-control placard-field glass" readonly="true"></textarea>
+				<textarea class="form-control placard-field glass" readonly="readonly"></textarea>
 				<div class="placard-footer">
 					<a class="placard-cancel" href="#">Cancel</a>
 					<button class="btn btn-primary btn-xs placard-accept" type="button">Save</button>
