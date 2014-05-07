@@ -4023,7 +4023,7 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 				var tmpLastMonthDaysObj        = {};
 				tmpLastMonthDaysObj.number     = this.daysOfLastMonth[ x ];
 				tmpLastMonthDaysObj[ 'class' ] = '';
-				tmpLastMonthDaysObj[ 'class' ] = this._processDateRestriction( new Date( viewedYear, viewedMonth + 1, this.daysOfLastMonth[ x ], 0, 0, 0, 0 ), true );
+				tmpLastMonthDaysObj[ 'class' ] = this._processDateRestriction( new Date( viewedYear, viewedMonth - 1, this.daysOfLastMonth[ x ], 0, 0, 0, 0 ), true );
 				tmpLastMonthDaysObj[ 'class' ] += ' past';
 				this.daysOfLastMonth[ x ]      = tmpLastMonthDaysObj;
 			}
@@ -4220,7 +4220,7 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 			if( e.target.className.indexOf( 'restrict' ) > -1 ) {
 				return this._killEvent(e);
 			}
-			
+
 			if( this.options.showDays) {
 				this.viewDate = new Date( this.viewDate.getFullYear(), this.viewDate.getMonth() - 1, 1 );
 			} else if( this.options.showMonths ) {
@@ -4246,7 +4246,7 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 			if( e.target.className.indexOf('restrict') > -1 ) {
 				return this._killEvent(e);
 			}
-			
+
 			if( this.options.showDays ) {
 				this.viewDate = new Date( this.viewDate.getFullYear(), this.viewDate.getMonth() + 1, 1 );
 			} else if( this.options.showMonths ) {
@@ -4402,7 +4402,7 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 			var dropdownHtml = '<div class="' + inputClass + '">' +
 						'<div class="dropdown-menu"></div>' +
 						'<input type="text" '+ this._calculateInputSize() +' value="'+this.formatDate( this.date ) +'" data-toggle="dropdown">';
-			
+
 			if( Boolean( this.options.createInput.dropDownBtn ) ) {
 				dropdownHtml = dropdownHtml + '<button type="button" class="btn" data-toggle="dropdown"><i class="icon-calendar"></i></button>';
 			}
@@ -4454,7 +4454,7 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
 			}
 
 			if( !!triggerError ) {
-				// we will insert the staged date into the input 
+				// we will insert the staged date into the input
 				this._setNullDate( true );
 				this.$element.trigger( 'inputParsingFailed' );
 			}
@@ -5198,6 +5198,7 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 		this.options = $.extend({}, $.fn.spinner.defaults, options);
 		this.$input = this.$element.find('.spinner-input');
 		this.$element.on('keyup', this.$input, $.proxy(this.change, this));
+		this.$element.on('keydown', this.$input, $.proxy(this.keydown, this));
 
 		if (this.options.hold) {
 			this.$element.on('mousedown', '.spinner-up', $.proxy(function() { this.startSpin(true); } , this));
@@ -5208,6 +5209,8 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 			this.$element.on('click', '.spinner-up', $.proxy(function() { this.step(true); } , this));
 			this.$element.on('click', '.spinner-down', $.proxy(function() { this.step(false); }, this));
 		}
+
+		this.$element.find('.spinner-up, .spinner-down').attr('tabIndex', -1);
 
 		this.switches = {
 			count: 1,
@@ -5353,6 +5356,16 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 			this.options.disabled = false;
 			this.$input.removeAttr("disabled");
 			this.$element.find('button').removeClass('disabled');
+		},
+
+		keydown: function(event) {
+			var keyCode = event.keyCode;
+
+			if(keyCode===38){
+				this.step(true);
+			}else if(keyCode===40){
+				this.step(false);
+			}
 		}
 	};
 
@@ -6326,7 +6339,7 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 		this.$prevBtn.on('click', $.proxy(this.previous, this));
 		this.$nextBtn.on('click', $.proxy(this.next, this));
 		this.$element.on('click', 'li.complete', $.proxy(this.stepclicked, this));
-		
+
 		if(this.currentStep > 1) {
 			this.selectedItem(this.options.selectedItem);
 		}
@@ -6400,11 +6413,11 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 				containerWidth = this.$element.width();
 			}
 			if (totalWidth > containerWidth) {
-			
+
 				// set the position so that the last step is on the right
 				var newMargin = totalWidth - containerWidth;
 				this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
-				
+
 				// set the position so that the active step is in a good
 				// position if it has been moved out of view
 				if (this.$element.find('li.active').first().position().left < 200) {
@@ -6417,7 +6430,7 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 				}
 			}
 
-			this.$element.trigger('changed');
+			this.$element.trigger('changed', { currentStep: this.currentStep });
 		},
 
 		stepclicked: function (e) {
@@ -6537,6 +6550,7 @@ define('fuelux/wizard',['require','jquery'],function (require) {
 		});
 	});
 });
+
 /*
  * Fuel UX
  * https://github.com/ExactTarget/fuelux
