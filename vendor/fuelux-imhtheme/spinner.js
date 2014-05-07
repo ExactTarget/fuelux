@@ -18,6 +18,7 @@ define(['require','jquery'],function(require) {
 		this.options = $.extend({}, $.fn.spinner.defaults, options);
 		this.$input = this.$element.find('.spinner-input');
 		this.$element.on('keyup', this.$input, $.proxy(this.change, this));
+		this.$element.on('keydown', this.$input, $.proxy(this.keydown, this));
 
 		if (this.options.hold) {
 			this.$element.on('mousedown', '.spinner-up', $.proxy(function() { this.startSpin(true); } , this));
@@ -28,6 +29,8 @@ define(['require','jquery'],function(require) {
 			this.$element.on('click', '.spinner-up', $.proxy(function() { this.step(true); } , this));
 			this.$element.on('click', '.spinner-down', $.proxy(function() { this.step(false); }, this));
 		}
+
+		this.$element.find('.spinner-up, .spinner-down').attr('tabIndex', -1);
 
 		this.switches = {
 			count: 1,
@@ -173,6 +176,16 @@ define(['require','jquery'],function(require) {
 			this.options.disabled = false;
 			this.$input.removeAttr("disabled");
 			this.$element.find('button').removeClass('disabled');
+		},
+
+		keydown: function(event) {
+			var keyCode = event.keyCode;
+
+			if(keyCode===38){
+				this.step(true);
+			}else if(keyCode===40){
+				this.step(false);
+			}
 		}
 	};
 

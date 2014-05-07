@@ -416,7 +416,7 @@ define(['require','jquery'],function (require) {
 				var tmpLastMonthDaysObj        = {};
 				tmpLastMonthDaysObj.number     = this.daysOfLastMonth[ x ];
 				tmpLastMonthDaysObj[ 'class' ] = '';
-				tmpLastMonthDaysObj[ 'class' ] = this._processDateRestriction( new Date( viewedYear, viewedMonth + 1, this.daysOfLastMonth[ x ], 0, 0, 0, 0 ), true );
+				tmpLastMonthDaysObj[ 'class' ] = this._processDateRestriction( new Date( viewedYear, viewedMonth - 1, this.daysOfLastMonth[ x ], 0, 0, 0, 0 ), true );
 				tmpLastMonthDaysObj[ 'class' ] += ' past';
 				this.daysOfLastMonth[ x ]      = tmpLastMonthDaysObj;
 			}
@@ -613,7 +613,7 @@ define(['require','jquery'],function (require) {
 			if( e.target.className.indexOf( 'restrict' ) > -1 ) {
 				return this._killEvent(e);
 			}
-			
+
 			if( this.options.showDays) {
 				this.viewDate = new Date( this.viewDate.getFullYear(), this.viewDate.getMonth() - 1, 1 );
 			} else if( this.options.showMonths ) {
@@ -639,7 +639,7 @@ define(['require','jquery'],function (require) {
 			if( e.target.className.indexOf('restrict') > -1 ) {
 				return this._killEvent(e);
 			}
-			
+
 			if( this.options.showDays ) {
 				this.viewDate = new Date( this.viewDate.getFullYear(), this.viewDate.getMonth() + 1, 1 );
 			} else if( this.options.showMonths ) {
@@ -795,7 +795,7 @@ define(['require','jquery'],function (require) {
 			var dropdownHtml = '<div class="' + inputClass + '">' +
 						'<div class="dropdown-menu"></div>' +
 						'<input type="text" '+ this._calculateInputSize() +' value="'+this.formatDate( this.date ) +'" data-toggle="dropdown">';
-			
+
 			if( Boolean( this.options.createInput.dropDownBtn ) ) {
 				dropdownHtml = dropdownHtml + '<button type="button" class="btn" data-toggle="dropdown"><i class="icon-calendar"></i></button>';
 			}
@@ -847,7 +847,7 @@ define(['require','jquery'],function (require) {
 			}
 
 			if( !!triggerError ) {
-				// we will insert the staged date into the input 
+				// we will insert the staged date into the input
 				this._setNullDate( true );
 				this.$element.trigger( 'inputParsingFailed' );
 			}
