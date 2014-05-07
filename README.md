@@ -53,8 +53,8 @@ You can install FuelUX using volo. You will want to pass the `-amdoff` flag to v
 ### Styles
 Be sure to add the fuelux stylesheet to your page's head tag, along with the responsive stylesheet if desired:
 ```html
-<link href="//www.fuelcdn.com/fuelux/2.6.0/css/fuelux.min.css" rel="stylesheet" type="text/css">
-<link href="//www.fuelcdn.com/fuelux/2.6.0/css/fuelux-responsive.css" rel="stylesheet" type="text/css">
+<link href="//www.fuelcdn.com/fuelux/2.6.1/css/fuelux.min.css" rel="stylesheet" type="text/css">
+<link href="//www.fuelcdn.com/fuelux/2.6.1/css/fuelux-responsive.css" rel="stylesheet" type="text/css">
 ```
 
 ### AMD
@@ -63,7 +63,7 @@ If using AMD (such as [RequireJS](http://require.js.org)) reference the fuelux d
 ```javascript
 require.config({
     paths: {
-        'fuelux': 'http://www.fuelcdn.com/fuelux/2.6.0/'
+        'fuelux': 'http://www.fuelcdn.com/fuelux/2.6.1/'
         //...
     }
 });
@@ -81,7 +81,7 @@ Alternatively, 'fuelux/all' can be used as a dependency to bring in all availabl
 
 If you'd prefer not to use AMD, simply add the loader script to the head tag of your page:
 ```html
-<script src="http://www.fuelcdn.com/fuelux/2.6.0/loader.min.js" type="text/javascript"></script>
+<script src="http://www.fuelcdn.com/fuelux/2.6.1/loader.min.js" type="text/javascript"></script>
 ```
 
 ## Documentation and Examples
