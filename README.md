@@ -1,67 +1,159 @@
-[![Fuel UX](https://s3.amazonaws.com/fuelux/logo-gray.png)](http://exacttarget.github.com/fuelux)
+**Please note this currently is a WIP. Bower does not point to v3. The `dist` folder is not versioned.** 
 
-Fuel UX extends Twitter Bootstrap with additional lightweight JavaScript controls.
-Other benefits include easy installation into web projects, integrated scripts for customizing Bootstrap and Fuel UX,
-simple updates, and solid optimization for deployment. All functionality is covered by live documentation and unit tests.
+#FuelUX
 
-[![Selenium Test Status](https://saucelabs.com/buildstatus/fuelux)](https://saucelabs.com/u/fuelux)
+FuelUX extends [Bootstrap 3](https://github.com/twbs/bootstrap) with additional lightweight [JavaScript controls](#javascript-controls). It is actively maintained by [members of ExactTarget, a salesforce.com company,](https://github.com/orgs/ExactTarget/members) with the support and involvement of the community.
 
-[![Build Status](https://secure.travis-ci.org/ExactTarget/fuelux.png?branch=master)](http://travis-ci.org/ExactTarget/fuelux)
+All functionality is covered by the [live documentation](http://exacttarget.github.io/fuelux/) and [unit tests](#automated-testing-status).
 
-## Features
+#### Automated Testing Status
+|TravisCI|SauceLabs|Node modules|Browser Support|
+|:---|:---:|:---:|----:|
+|[![Build Status](https://api.travis-ci.org/ExactTarget/fuelux.png?branch=master)](http://travis-ci.org/ExactTarget/fuelux) |[![Selenium Test Status](https://saucelabs.com/buildstatus/fuelux)](https://saucelabs.com/u/fuelux) |[![devDependency Status](https://david-dm.org/ExactTarget/fuelux/dev-status.svg)](https://david-dm.org/ExactTarget/fuelux#info=devDependencies)|[![Selenium Test Status](https://saucelabs.com/browser-matrix/fuelux.svg)](https://saucelabs.com/u/fuelux)|
 
-Fuel UX provides all of the styles and plugins from the revolutionary [Twitter Bootstrap](https://github.com/twbs/bootstrap) project, with the following additions:
+## Table of contents
 
-* Fuel UX JavaScript controls (with unit tests) [see them live](http://exacttarget.github.com/fuelux)
-  * Checkbox - _consistent cross-browser cross-platform look and feel for checkbox elements_
-  * Combobox - _combines input and dropdown for easy and flexible data selection_
-  * Datagrid - _renders data in a table with paging, sorting, and searching_
-  * Datepicker - _combines input and dropdown for easy selection of dates_
-  * Pillbox - _manages selected items with color-coded text labels_
-  * Preloader - _fully css-driven loading animation for visual indication of wait times_
-  * Radio - _consistent cross-browser cross-platform look and feel for radio elements_
-  * Scheduler - _composite form control to quickly schedule events_
-  * Search - _combines input and button for integrated search interaction_
-  * Select - _extends button dropdown with the ability to set and retrieve the selected item_
-  * Spinbox - _provides convenient numeric input with increment and decrement buttons_
-  * Tree - _renders data in a tree, supporting caching and optional multi-selection_
-  * Wizard - _displays a multi-step process to be completed in a specific order_
-<p>
-* Smart Dropdowns - _dropdown automatically decides whether it should be placed above or below the clicked element (can also force position). Add `data-direction="auto|up|down"` to element that has `data-toggle="dropdown"`_
+ * [Quick start](#quick-start)
+ * [Documentation](#documentation)
+ * [Bugs and feature requests](#bugs-and-feature-requests)
+ * [Compiling CSS and JavaScript](#Customizing-and-building)
+ * [Issues and feature requests](#issues-and-feature-requests)
+ * [Contributing](#contributing)
+ * [Philosophy and authors](#philosophy-and-authors)
+ * [Copyright and license](#copyright-and-license)
 
-* One-step installation and updates through [volo](https://github.com/volojs/volo)
-* [AMD](http://requirejs.org/docs/whyamd.html) compatibility for modular structure and deployment optimization
-* [Grunt](https://github.com/cowboy/grunt)-based build script to easily create custom distribution files
-* Namespaced CSS (just add a `fuelux` class) for safe use on existing sites
+## Quick start
 
-## Getting Started
+1. Install with [Bower](https://github.com/bower/bower):
 
-### volo
+    ```
+    bower install fuelux
+    ```
+1. Use AMD (such as [RequireJS](http://require.js.org)) to reference the FuelUX folder in your paths configuration, wherever it is located:
 
-You can install FuelUX using volo. You will want to pass the `-amdoff` flag to volo to tell it not to try and amdify the project:
+    ```javascript
+    require.config({
+        paths: {
+            'fuelux': 'http://www.fuelcdn.com/fuelux/3.0.0/'
+            //...
+        }
+    });
+    ```
+1. List any individual fuelux controls needed as dependencies within your application modules (eg. [checkbox](http://exacttarget.github.io/fuelux/#checkbox)):
 
-`volo add -amdoff fuelux`
+    ```javascript
+    define(function(require) {
+        var checkbox = require('fuelux/checkbox');
+        //...
+    });
+    ```
+1. Use FuelUX in your HTML within the fuelux wrapper class (eg. [checkbox](http://exacttarget.github.io/fuelux/#checkbox)):
 
-### Git
+    ```html
+    <body class="fuelux">
+    	<!-- .... -->
+        <div class="checkbox">
+	    <label class="checkbox-custom">
+	        <input id="chk1" checked="checked" class="checked" type="checkbox" value="">
+		    Custom appearance checkbox checked at page load (#chk1)
+	    </label>
+        </div>
+        <!-- .... -->
+    </body>
+    ```
 
-* `git clone git://github.com/ExactTarget/fuelux.git`
-* Default Fuel UX files for production use are located in the [dist](https://github.com/ExactTarget/fuelux/tree/master/dist) directory
-* To customize, modify the JS and LESS files under [src](https://github.com/ExactTarget/fuelux/tree/master/src) then run `grunt` to regenerate your [dist](https://github.com/ExactTarget/fuelux/tree/master/dist) directory (more below)
+## Documentation
 
-### Styles
-Be sure to add the fuelux stylesheet to your page's head tag, along with the responsive stylesheet if desired:
-```html
-<link href="//www.fuelcdn.com/fuelux/2.4.1/css/fuelux.min.css" rel="stylesheet" type="text/css">
-<link href="//www.fuelcdn.com/fuelux/2.4.1/css/fuelux-responsive.css" rel="stylesheet" type="text/css">
+### Live docs and demos
+
+View [live documentation and demos](http://exacttarget.github.com/fuelux) on GitHub pages.
+
+### Getting FuelUX
+FuelUX can be obtained one of three ways:
+
+1. **Best way:** Install with [Bower](https://github.com/bower/bower):
+
+    ```
+    bower install fuelux
+    ```
+
+   This ensures you get all the [dependencies](#dependencies). You can then use `bower update fuelux` to keep it up to date in the future. You're welcome.
+
+1. **Another best way:** Install with [Volo](https://github.com/volojs/volo):
+
+    ```
+    volo add fuelux
+    ```
+
+   This ensures you get all the [dependencies](#dependencies). You can then use `volo add -f fuelux` to keep it up to date in the future.
+
+2. **Another good way:** Clone the Git repository:
+   ```
+   git clone https://github.com/ExactTarget/fuelux/
+   ```
+
+   Cloning the repository ensures you can apply future updates to FuelUX easily, but requires to you manage its [dependencies](#dependencies) on your own.
+
+3. **Least desirable way in the universe:** Download a .zip archive of the latest release **(needthis)** or request files from [the FuelUX CDN](http://www.fuelcdn.com/fuelux/).
+
+   Grabbing FuelUX in this way may seem easist now, but it will make integrating future updates (bug fixes!) nearly impossible.
+
+   Trust us, you do ***not*** want to do it this way.
+
+
+### Dependencies
+FuelUX is dependent upon [Bootstrap 3](https://github.com/twbs/bootstrap) and [jQuery](https://github.com/jquery/jquery). If you installed by cloning the repo or by downloading a .zip archive, you'll also want to grab these things, as, it just won't work without them.
+- [jQuery](https://github.com/jquery/jquery)
+- [Bootstrap 3](https://github.com/twbs/bootstrap)
+
+
+### What's included
+
+A download of FuelUX provides the following directories and files, which are grouped according to file type:
 ```
+fuelux/
+├── css/
+│   ├── fuelux.css
+│   ├── fuelux.min.css
+├── js/
+│   ├── fuelux.js
+│   └── fuelux.min.js
+└── fonts/
+    ├── fuelux.eot
+    ├── fuelux.svg
+    ├── fuelux.ttf
+    └── fuelux.woff
+```
+We provide compiled CSS and JS (like `fuelux.*`), as well as compiled and minified CSS and JS (like `fuelux.min.*`) in the `dist` folder.
 
-### AMD
+### JavaScript Controls
 
-If using AMD (such as [RequireJS](http://require.js.org)) reference the fuelux directory in your paths configuration, wherever it is located:
+* **[Checkbox](http://exacttarget.github.io/fuelux/#checkbox)** - consistent cross-browser cross-platform look and feel for checkbox elements
+* **[Combobox](http://exacttarget.github.io/fuelux/#combobox)** - combines input and dropdown for flexible data selection
+* **[Datepicker](http://exacttarget.github.io/fuelux/#datepicker)** - combines input and dropdown to select a date
+* **[Infinite Scroll](http://exacttarget.github.io/fuelux/#infinite-scroll)** - Load content when reaching a set amount of content read or with a call to action
+* **[Intelligent Dropdown](http://exacttarget.github.io/fuelux/#intelligent-dropdown)** - Dropdown that decide whether it should be placed above or below the clicked element as well as force position.
+* **[Loader](http://exacttarget.github.io/fuelux/#loader)** - fully css-driven loading animation for visual indication of wait times
+* **[Pillbox](http://exacttarget.github.io/fuelux/#pillbox)** - manage tags with color-coded text labels
+* **[Radio](http://exacttarget.github.io/fuelux/#radio)** - consistent cross-browser cross-platform look and feel for radio elements
+* **[Repeater](http://exacttarget.github.io/fuelux/#repeater)** - A scrollable, sortable, searchable interface for data (replaces datagrid)
+* **[Repeater Views](http://exacttarget.github.io/fuelux/#repeater-views)** - Use the provided views to customize a list of data or write your own
+* **[Scheduler](http://exacttarget.github.io/fuelux/#scheduler)** - composite form control to quickly schedule events with support for [moment.js](https://github.com/moment/moment)
+* **[Search](http://exacttarget.github.io/fuelux/#search)** - input for integrated search
+* **[Selectlist](http://exacttarget.github.io/fuelux/#selectlist)** - extends button dropdown with the ability to set and retrieve the selected item
+* **[Spinbox](http://exacttarget.github.io/fuelux/#spinbox)** - provides convenient numeric input with increment and decrement buttons
+* **[Tree](http://exacttarget.github.io/fuelux/#tree)** - renders data in a tree, supporting caching and optional multi-selection
+* **[Wizard](http://exacttarget.github.io/fuelux/#wizard)** - displays a multi-step process to be completed in a specific order
+
+### UMD/AMD Support
+
+We recommend only loading the controls you need (eg `fuelux/checkbox`).
+
+If using AMD (such as [RequireJS](http://require.js.org)), reference the FuelUX directory in your paths configuration, wherever it is located:
 ```javascript
 require.config({
     paths: {
-        'fuelux': 'http://www.fuelcdn.com/fuelux/2.4.1/'
+        'fuelux': 'http://www.fuelcdn.com/fuelux/3.0.0/'
         //...
     }
 });
@@ -69,141 +161,101 @@ require.config({
 Then list any individual fuelux controls needed as dependencies within your application modules:
 ```javascript
 define(function(require) {
-	var spinbox = require('fuelux/spinbox');
-	//...
+    var spinbox = require('fuelux/spinbox');
+    //...
 });
 ```
-Alternatively, 'fuelux/all' can be used as a dependency to bring in all available controls at once.
+For your convenience when you using AMD, you can just use `fuelux/all` instead of listing each module individually.
 
-### Non-AMD
+FuelUX also supports placing components in their own `<script>` tags. Be sure to put modules in the correct order if loading them in this method (although that order is a secret known only to 29th level wizards/enchantresses and 11th degree JS ninjas).
 
-If you'd prefer not to use AMD, simply add the loader script to the head tag of your page:
-```html
-<script src="http://www.fuelcdn.com/fuelux/2.4.1/loader.min.js" type="text/javascript"></script>
-```
+## Bugs and feature requests
 
-## Documentation and Examples
+Have a bug or a feature request? Please first review the [open issues](https://github.com/ExactTarget/fuelux/issues), then search for existing and closed issues. If your problem or idea is not addressed yet, [please open a new issue](https://github.com/ExactTarget/fuelux/issues/new).
 
-### Live docs and demos
+You can visit [questions tagged FuelUX](https://code.exacttarget.com/tag/fuel-ux) in the ExactTarget Developer Community and search [FuelUX tagged questions on StackOverflow](http://stackoverflow.com/questions/tagged/fuelux).
 
-Hosted on GitHub pages: http://exacttarget.github.com/fuelux
+You can also visit [UserVoice community](https://fuelux.uservoice.com) and post a comment or suggest features. We will maintain of backlog of feature we are considering developing in a [backlog](https://github.com/ExactTarget/fuelux/blob/3.0.0-wip/BACKLOG.md).
 
-### Rich documentation
+### Previous releases
 
-Hosted on our [Developer Community](http://code.exacttarget.com/devcenter/home): http://code.exacttarget.com/devcenter/fuel-ux
 
-## Issues and Feature Requests
+Documentation for v2.6.x has been made available for the time being at **(need link)** while folks transition to Bootstrap 3. Previous releases and their documentation are also available for download. **(need link)**
 
-### Search for questions tagged "Fuel UX" on our developer community
+## Compiling CSS and JavaScript
 
-https://code.exacttarget.com/tags/fuelux
+FuelUX is lightweight to give you a fast dependable foundation to build upon. It uses [Grunt](http://gruntjs.com/) with convenient methods for working with the library. It's how we compile our code, run tests, and more. To use it, install the required dependencies as directed, and then run some Grunt commands.
 
-### Search for or report a bug
+### Install Grunt
 
-Use GitHub issues: https://github.com/ExactTarget/fuelux/issues
+From the command line:
 
-### View the roadmap and suggest new ideas
+1. Install `grunt-cli` globally with `npm install -g grunt-cli`.
+2. Navigate to the root `/bootstrap` directory, then run `npm install`. npm will look at [package.json](https://github.com/twbs/bootstrap/blob/master/package.json) and automatically install the necessary local dependencies listed there.
 
-Visit our UserVoice community: https://fuelux.uservoice.com
+When completed, you'll be able to run the various Grunt commands provided from the command line.
 
-## Release History
+**Unfamiliar with NPM? Don't have node installed?** NPM stands for [node packaged modules](http://npmjs.org/) and is a way to manage development dependencies through node.js. [Download and install node.js](http://nodejs.org/download/) before proceeding.
 
-_Fuel UX is semantically versioned: <http://semver.org>_
+### Grunt commands to start with
 
-Release history can be found [here](https://github.com/ExactTarget/fuelux/wiki/Release-History).
+#### Build - `grunt`
+Run `grunt` to run tests locally and compile the CSS and JavaScript into `dist`. **Uses [Less](http://lesscss.org/) and [UglifyJS](http://lisperator.net/uglifyjs/).**
 
+#### Tests - `grunt test`
+Runs [JSHint](http://jshint.com) and [QUnit](http://qunitjs.com/) tests headlessly in [PhantomJS](http://phantomjs.org/).
+
+#### Watch - `grunt watch`
+This is a convenience method for watching source files and automatically building them when you save.
+
+### Troubleshooting dependencies
+
+Should you encounter problems with installing dependencies or running Grunt commands, uninstall all previous dependency versions (global and local). Then, rerun `npm install`.
 
 ## Contributing
-Before writing code, we suggest you [search for issues](https://github.com/ExactTarget/fuelux/issues?state=open)
-or [create a new one](https://github.com/ExactTarget/fuelux/issues/new) to confirm where your contribution fits into
+Before writing code, we suggest you [search for issues](https://github.com/ExactTarget/fuelux/issues?state=open) or [create a new one](https://github.com/ExactTarget/fuelux/issues/new) to confirm where your contribution fits into
 our roadmap.
 
-In lieu of a formal style guide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
+In lieu of a formal style guide, take care to maintain the existing coding style: tabs, clarity over brevity, declarative markup, semicolons, etc. Be sure to add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
 
-More about [Contributing to Fuel UX](https://github.com/ExactTarget/fuelux/wiki/Contributing-to-Fuel-UX)
+Read more about [contributing to FuelUX](https://github.com/ExactTarget/fuelux/wiki/Contributing-to-Fuel-UX)
 
-### Important notes
-Please don't edit files in the `dist` directory as they are generated via grunt. You'll find source code in the `src` directory!
+Please do not edit files in the `dist` directory as they are generated via grunt. You'll find source code in the respective `js`, `less`, and `fonts` directory.
 
-While grunt can run the included unit tests via PhantomJS, this isn't a substitute for the real thing. Please be sure to test the `test/*.html` unit test file(s) in real browsers as well.
+While grunt can run the included unit tests via PhantomJS, this isn't a substitute for running tests across a variety of browsers and environments. Please be sure to view the test page at [http://localhost:8000/test/](http://localhost:8000/test/) in as many of the browsers listed in `sauce_browsers.yml` as you can before contributing.
 
-More about [Installing grunt and PhantomJS](https://github.com/ExactTarget/fuelux/wiki/Installing-grunt-and-PhantomJS)
+##Philosophy and authors
 
-## The Fuel UX Philosophy
+### The FuelUX Philosophy
+Our aim is to provide a suite of related but independent projects that help web developers integrate, manage, and customize quality libraries and utilities to more efficiently develop, maintain, test, and distribute their projects.  Any improvements or fixes we make to the open source projects, we use will be contributed upstream if they are useful to the rest of the community.
 
-Our aim is to provide a suite of related but independent projects that help web developers integrate, manage, and customize quality libraries and utilities to more efficiently develop, maintain, test, and distribute their projects.  Any improvements or fixes we make to the open source projects we use will be contributed upstream if they are useful to the rest of the community.
+|Current Project Maintainers (a-z) | |
+|:----|----:|
+|Matt Beard |[![mbeard on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/mbeard) |
+|Stephen James | [![tweetllama on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/tweetllama) [![interactivellama on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/interactivellama)|
+|Christopher McCulloh | [![@cmcculloh on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/cmcculloh) [![cmcculloh on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/cmcculloh)|
+|Kevin Parkerson  | [![kevinparkerson on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/kevinparkerson) [![kevinparkerson on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/kevinparkerson)|
+|Alex Vernacchia | [![vernacchia on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/vernacchia) [![vernak2539 on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/vernak2539)|
+|David Waltz | [![dwaltz on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/dwaltz)|
 
-## Acknowledgements
+|Original Author&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | |
+|:----|----:|
+|Adam Alexander |[![adamalex on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/adamalex) [![adamalex on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/adamalex) |
 
-We are grateful to the maintainers, contributors, and sponsors of the following technologies which make FuelUX possible:
+|Past Project Maintainers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | |
+|:----|----:|
+|Bryan Kohlmeier |[![bkohlmeier on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/bkohlmeier) |
+|Dustin McCormick | [![djmccormick on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/djmccormick) [![djmccormick on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/djmccormick)|
+|Scott Plumlee | [![scottplumlee on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/scottplumlee) [![plumlee on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/plumlee)|
+|Marvin Pribble | [![marvinpribble on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/marvinpribble)|
+|Ryan Moore | [![rbmoore on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/rbmoore)|
+|Steven Rogers | [![soldoutactivist on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/soldoutactivist)| 
 
-* [jQuery](http://jquery.com) (Library for DOM, events, animation, and AJAX)
-
-* [Twitter Bootstrap](https://github.com/twbs/bootstrap) (Modern UI components and interactions)
-
-* [LESS](http://lesscss.org) and [recess](http://twitter.github.com/recess) (Stylesheet definition and management)
-
-* [RequireJS](http://requirejs.org) and [volo](https://github.com/volojs/volo) (Tools for managing modular JavaScript)
-
-* [grunt](https://github.com/cowboy/grunt) (Build tool for JavaScript projects)
-
-##Authors
-
-**Adam Alexander**
-
-+ http://twitter.com/adamalex
-+ http://github.com/adamalex
-
-**Matt Beard**
-
-+ http://github.com/mbeard
-
-**Bryan Kohlmeier**
-
-+ http://github.com/bkohlmeier
-
-**Kevin Parkerson**
-
-+ http://github.com/kevinparkerson
-
-**Christopher McCulloh**
-
-+ http://github.com/cmcculloh
-
-**David Waltz**
-
-+ https://github.com/dwaltz
-
-**Dustin McCormick**
-
-+ http://twitter.com/djmccormick
-+ http://github.com/djmccormick
-
-**Alex Vernacchia**
-
-+ http://twitter.com/vernacchia
-+ http://github.com/vernak2539
-
-**Scott Plumlee**
-
-+ http://twitter.com/scottplumlee
-+ http://github.com/plumlee
-
-**Marvin Pribble**
-
-+ http://github.com/marvinpribble
-
-**Ryan Moore**
-
-+ http://github.com/rbmoore
-
-**Steven Rogers**
-
-+ http://github.com/soldoutactivist
+And thank you to all those that have submitted issues and contributed to this library.
 
 ## Copyright and license
 
-Copyright (c) 2012 ExactTarget
+Copyright &copy; 2014 ExactTarget.
 
 Licensed under the MIT License (the "License");
 you may not use this work except in compliance with the License.

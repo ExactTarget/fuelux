@@ -43,10 +43,10 @@
     "grunt-contrib-uglify": "~0.2.0",
     "grunt-contrib-watch": "~0.4.3",
     "grunt-jsbeautifier": "~0.2.6",
-    "grunt-saucelabs": "~5.1.2",
+    "grunt-saucelabs": "~5.1.1",
     "load-grunt-tasks": "~0.4.0",
     "grunt-cli": "~0.1.13",
-    "shrinkwrap": "~0.4.0"
+    "grunt-html-validation": "~0.1.16"
   },
   "keywords": [
     "fuelux",

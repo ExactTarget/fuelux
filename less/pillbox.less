@@ -1,29 +1,14 @@
 .pillbox {
-
 	padding: 3px;
 
-	> ul {
+	> .pill-group {
 		margin: 0;
 		padding: 0;
 		width: 100%;
 
-		> li {
-
-			// Begin Bootstrap .label
-			font-size: @baseFontSize * .846;
-			font-weight: bold;
-			line-height: 21px; // modified
-			color: @white;
-			vertical-align: baseline;
-			//white-space: nowrap; //removed
-			background-color: @grayLight;
-			padding: 1px 4px 2px;
-			border-radius: 3px;
-			// End Bootstrap .label
-
-			display: inline-block;
+		> .pill {
 			margin: 2px;
-			cursor: pointer;
+			cursor: text;
 			float:left;
 			word-break: break-all;
 
@@ -43,39 +28,17 @@
 				}
 			}
 
-			span:last-child {
-				float: right;
-				font-size: 14px;
-				font-weight: bold;
-				line-height: @baseLineHeight + 1;
-				color: @black;
-				.opacity(20);
+			.glyphicon-close {
+				cursor: pointer;
+				top: -1px;
+				left: 2px;
 
-				padding-left: 4px;
-				padding-right: 4px;
-				position: relative;
-				top: -2px;
+				&:before {
+					content: " \00d7";
+				}
 
 				&:hover {
-					.opacity(40);
-				}
-			}
-
-			&.status {
-				&-important {
-					background-color: @errorText;
-				}
-
-				&-warning {
-					background-color: @orange;
-				}
-
-				&-success {
-					background-color: @successText;
-				}
-
-				&-info {
-					background-color: @infoText;
+					opacity: .4;
 				}
 			}
 
@@ -84,12 +47,13 @@
 
 	.pillbox-input-wrap {
 		position: relative;
-		margin: 2px 0 3px 3px;
+		margin: 4px 0 3px 3px;
 		float: left;
 	}
 
-	.pillbox-input {
+	.pillbox-add-item {
 		border: none;
+		box-shadow: none;
 
 		&:focus {
 			outline: none;
@@ -97,20 +61,11 @@
 		}
 	}
 
-	.pillbox-suggest {
-		position: absolute;
-		z-index: @zindexDropdown;
-		margin: 0;
-		padding: 4px 0;
-		left: -4px;
-		background-color: @white;
-		border: 1px solid @grayLight;
-		border-radius: 4px;
-		max-height: 166px;
+	.suggest {
+		max-height: 166px; // arbitrary number
 		overflow-y: auto;
 
 		> li {
-			list-style: none;
 			white-space: nowrap;
 			cursor: pointer;
 			padding: 3px 20px;

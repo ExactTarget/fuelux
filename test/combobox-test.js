@@ -4,41 +4,12 @@
 
 define(function(require){
 	var $ = require('jquery');
+	var html = require('text!test/markup/combobox-markup.html');
 
 	require('bootstrap');
 	require('fuelux/combobox');
 
-	var html =	'<div id="MyCombobox" class="input-group input-append dropdown combobox">' +
-				'	<input type="text" class="form-control">' +
-				'	<div class="input-group-btn">' +
-				'	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>' +
-				'	<ul class="dropdown-menu pull-right">' +
-				'		<li data-value="1"><a href="#">One</a></li>' +
-				'		<li data-value="2"><a href="#">Two</a></li>' +
-				'		<li data-value="3" data-selected="true"><a href="#">Three</a></li>' +
-				'		<li data-value="4" ><a href="#">Four</a></li>' +
-				'		<li data-value="Item Five"><a href="#">Item Five</a></li>' +
-				'		<li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>' +
-				'	</ul>' +
-				'	</div>' +
-				'</div>';
-
-	var htmlNoDefault =	'<div id="MyCombobox" class="input-group input-append dropdown combobox">' +
-				'	<input type="text" class="form-control">' +
-				'	<div class="input-group-btn">' +
-				'	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>' +
-				'	<ul class="dropdown-menu pull-right">' +
-				'		<li data-value="1"><a href="#">One</a></li>' +
-				'		<li data-value="2"><a href="#">Two</a></li>' +
-				'		<li data-value="3"><a href="#">Three</a></li>' +
-				'		<li data-value="4"><a href="#">Four</a></li>' +
-				'		<li data-value="Item Five"><a href="#">Item Five</a></li>' +
-				'		<li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>' +
-				'	</ul>' +
-				'	</div>' +
-				'</div>';
-
-	module("Fuel UX combobox");
+	module("Fuel UX Combobox");
 
 	test("should be defined on jquery object", function () {
 		ok($(document.body).combobox, 'combobox method is defined');
@@ -49,13 +20,13 @@ define(function(require){
 	});
 
 	test("should set disabled state", function () {
-		var $combobox = $(html).combobox();
+		var $combobox = $(html).find("#MyCombobox").combobox();
 		$combobox.combobox('disable');
 		equal($combobox.find('.btn').hasClass('disabled'), true, 'element disabled');
 	});
 
 	test("should set enabled state", function () {
-		var $combobox = $(html).combobox();
+		var $combobox = $(html).find("#MyCombobox").combobox();
 		$combobox.combobox('disable');
 		$combobox.combobox('enable');
 		equal($combobox.find('.btn').hasClass('disabled'), false, 'element enabled');
@@ -63,21 +34,21 @@ define(function(require){
 
 	test("should set default selection", function () {
 		// should be "Three" based on the data-selected attribute
-		var $combobox = $(html).combobox();
+		var $combobox = $(html).find("#MyCombobox").combobox();
 		var item = $combobox.combobox('selectedItem');
 		var expectedItem = { text: 'Three', value: 3 };
 		deepEqual(item, expectedItem, 'default item selected');
 	});
 
 	test("should not autoselect when no default selection", function () {
-		var $combobox = $(htmlNoDefault).combobox();
+		var $combobox = $(html).find("#MyComboboxNoDefault").combobox();
 		var item = $combobox.combobox('selectedItem');
 		var expectedItem = { text: '' };
 		deepEqual(item, expectedItem, 'no item selected');
 	});
 
 	test("should select by index", function () {
-		var $combobox = $(html).combobox();
+		var $combobox = $(html).find("#MyCombobox").combobox();
 		$combobox.combobox('selectByIndex', 0);
 
 		var item = $combobox.combobox('selectedItem');
@@ -86,7 +57,7 @@ define(function(require){
 	});
 
 	test("should select by value", function () {
-		var $combobox = $(html).combobox();
+		var $combobox = $(html).find("#MyCombobox").combobox();
 		$combobox.combobox('selectByValue', 2);
 
 		var item = $combobox.combobox('selectedItem');
@@ -95,7 +66,7 @@ define(function(require){
 	});
 
 	test("should select by value with whitespace", function () {
-		var $combobox = $(html).combobox();
+		var $combobox = $(html).find("#MyCombobox").combobox();
 		$combobox.combobox('selectByValue', 'Item Five');
 
 		var item = $combobox.combobox('selectedItem');
@@ -104,7 +75,7 @@ define(function(require){
 	});
 
 	test("should select by text", function() {
-		var $combobox = $(html).combobox();
+		var $combobox = $(html).find("#MyCombobox").combobox();
 		$combobox.combobox('selectByText', 'THREE');
 
 		var item = $combobox.combobox('selectedItem');
@@ -113,7 +84,7 @@ define(function(require){
 	});
 
 	test("should select by text with whitespace", function() {
-		var $combobox = $(html).combobox();
+		var $combobox = $(html).find("#MyCombobox").combobox();
 		$combobox.combobox('selectByText', 'Item Five');
 
 		var item = $combobox.combobox('selectedItem');
@@ -122,7 +93,7 @@ define(function(require){
 	});
 
 	test("should select by selector", function () {
-		var $combobox = $(html).combobox();
+		var $combobox = $(html).find("#MyCombobox").combobox();
 		$combobox.combobox('selectBySelector', 'li[data-fizz=buzz]');
 
 		var item = $combobox.combobox('selectedItem');
@@ -135,7 +106,7 @@ define(function(require){
 		var selectedText = '';
 		var selectedValue = '';
 
-		var $combobox = $(html).combobox().on('changed', function (evt, data) {
+		var $combobox = $(html).find("#MyCombobox").combobox().on('changed', function (evt, data) {
 			eventFireCount++;
 			selectedText = data.text;
 			selectedValue = data.value;
@@ -152,7 +123,7 @@ define(function(require){
 	test("should fire input change event - item selected", function () {
 		var eventFireCount = 0;
 
-		var $combobox = $(html).combobox();
+		var $combobox = $(html).find("#MyCombobox").combobox();
 
 		$combobox.find('input').on('change', function () {
 			eventFireCount++;
@@ -167,7 +138,7 @@ define(function(require){
 	test("should fire bubblable input change event - item selected", function () {
 		var eventFireCount = 0;
 
-		var $combobox = $(html).combobox();
+		var $combobox = $(html).find("#MyCombobox").combobox();
 
 		$combobox.on('change', 'input', function () {
 			eventFireCount++;
@@ -183,7 +154,7 @@ define(function(require){
 		var eventFireCount = 0;
 		var selectedText = '';
 
-		var $combobox = $(html).combobox().on('changed', function (evt, data) {
+		var $combobox = $(html).find("#MyCombobox").combobox().on('changed', function (evt, data) {
 			eventFireCount++;
 			selectedText = data.text;
 		});

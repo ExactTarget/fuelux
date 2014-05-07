@@ -4,11 +4,12 @@
 
 define(function(require){
 	var $ = require('jquery');
+	var html = require('text!test/markup/search-markup.html');
 
 	require('bootstrap');
 	require('fuelux/search');
 
-	module("Fuel UX search");
+	module("Fuel UX Search");
 
 	test("should be defined on jquery object", function () {
 		ok($(document.body).search, 'search method is defined');
@@ -20,19 +21,19 @@ define(function(require){
 
 
 	test("should ignore empty search", function () {
-		var searchHTML = '<div><input><span><button><span class="glyphicon glyphicon-search"></span></button></span></div>';
+		var $search = $(html);
 
-		var $search = $(searchHTML).search();
-
+		$search.search();
 		$search.find('button').click();
 
 		equal($search.find('.glyphicon').attr('class'), 'glyphicon glyphicon-search', 'search icon has not changed');
 	});
 
 	test("should ignore disabled button click", function () {
-		var searchHTML = '<div><input><span><button class="disabled"><span class="glyphicon glyphicon-search"></span></button></span></div>';
+		var $search = $(html);
 
-		var $search = $(searchHTML).search();
+		$search.find('button').addClass('disabled');
+		$search.search();
 
 		$search.find('input').val('search text');
 		$search.find('button').click();
@@ -41,10 +42,10 @@ define(function(require){
 	});
 
 	test("should process valid search", function () {
-		var searchHTML = '<div><input><span><button><span class="glyphicon glyphicon-search"></span></button></span></div>';
+		var $search = $(html);
 		var searchText = '';
 
-		var $search = $(searchHTML).search().on('searched', function (e, text) { searchText = text; });
+		$search.search().on('searched', function (e, text) { searchText = text; });
 
 		$search.find('input').val('search text');
 		$search.find('button').click();
@@ -54,10 +55,10 @@ define(function(require){
 	});
 
 	test("should allow search to be cleared", function () {
-		var searchHTML = '<div><input><span><button><span class="glyphicon glyphicon-search"></span></button></span></div>';
+		var $search = $(html);
 		var clearedEventFired = false;
 
-		var $search = $(searchHTML).search().on('cleared', function (e, text) { clearedEventFired = true; });
+		$search.search().on('cleared', function (e, text) { clearedEventFired = true; });
 
 		$search.find('input').val('search text');
 		$search.find('button').click();
@@ -69,10 +70,10 @@ define(function(require){
 	});
 
 	test("should process sequential searches", function () {
-		var searchHTML = '<div><input><span><button><span class="glyphicon glyphicon-search"></span></button></span></div>';
+		var $search = $(html);
 		var searchText = '';
 
-		var $search = $(searchHTML).search().on('searched', function (e, text) { searchText = text; });
+		$search.search().on('searched', function (e, text) { searchText = text; });
 
 		$search.find('input').val('search text');
 		$search.find('button').click();
@@ -90,9 +91,9 @@ define(function(require){
 	});
 
 	test("should correctly respond to disable and enable methods", function () {
-		var searchHTML = '<div><input><button><i></i></button></div>';
+		var $search = $(html);
 
-		var $search = $(searchHTML).search();
+		$search.search();
 		$search.search('disable');
 
 		equal($search.find('input').attr('disabled'), 'disabled', 'input was disabled');

@@ -50,54 +50,6 @@ define(function(require){
 
 
 
-	// DATAGRID
-	var dataSource = new StaticDataSource({
-		columns: [
-			{
-				property: 'toponymName',
-				label: 'Name',
-				sortable: true
-			},
-			{
-				property: 'countrycode',
-				label: 'Country',
-				sortable: true
-			},
-			{
-				property: 'population',
-				label: 'Population',
-				sortable: true
-			},
-			{
-				property: 'fcodeName',
-				label: 'Type',
-				sortable: true
-			}
-		],
-		data: sampleData.geonames,
-		delay: 250
-	});
-
-	$('#MyGrid').datagrid({
-		dataSource: dataSource
-	});
-
-	$('#MyStretchGrid').datagrid({
-		dataSource: dataSource,
-		stretchHeight: true
-	});
-
-	$('#MySelectStretchGrid').datagrid({
-		dataSource: dataSource,
-		stretchHeight: true,
-		noDataFoundHTML: '<b>Sorry, nothing to display.</b>',
-		enableSelect: true,
-		primaryKey: 'geonameId',
-		multiSelect: false
-	});
-
-
-
 	// DATEPICKER
 	$('#datepicker1').datepicker();
 
@@ -146,10 +98,17 @@ define(function(require){
 		}
 	});
 
+	var infiniteScrollCount = 0;
 	$('#MyInfiniteScroll2').infinitescroll({
 		dataSource: function(helpers, callback){
 			setTimeout(function(){
-				callback({ content: data.infiniteScroll.content });
+				var resp = {};
+				infiniteScrollCount++;
+				resp.content = data.infiniteScroll.content;
+				if(infiniteScrollCount>=5){
+					resp.end = true;
+				}
+				callback(resp);
 			}, data.infiniteScroll.delays[Math.floor(Math.random() * 4)]);
 		},
 		hybrid: true
@@ -160,7 +119,7 @@ define(function(require){
 	// PILLBOX
 	$('#btnAdd').click(function () {
 		var newItemCount = $('#MyPillbox ul li').length + 1;
-		$('#MyPillbox ul').pillbox('addItem', 'Item ' + newItemCount, 'Item ' + newItemCount );
+		$('#MyPillbox').pillbox('addItems', {text: 'item ' + newItemCount, value: 'item ' + newItemCount} );
 	});
 
 	$('#btnRemoveByValue').click(function () {
@@ -168,7 +127,7 @@ define(function(require){
 	});
 
 	$('#btnRemoveBySelector').click(function () {
-		$('#MyPillbox').pillbox('removeBySelector', '.status-warning');
+		$('#MyPillbox').pillbox('removeBySelector', '.status-success');
 	});
 
 	$('#btnRemoveByText').click(function () {
@@ -181,13 +140,90 @@ define(function(require){
 	});
 
 	$('#MyPillbox').pillbox({
-		onKeyDown: function( data, callback ){
-			callback({data:[
-				{text: Math.random(),value:'sdfsdfsdf'},
-				{text: Math.random(),value:'sdfsdfsdf'}
+		onKeyDown: function( e, data, callback ){
+			callback(e, {data:[
+				{ text: 'Acai', value:  'acai' },
+				{ text: 'African cherry orange', value:  'african cherry orange' },
+				{ text: 'Banana', value:  'banana' },
+				{ text: 'Bilberry', value:  'bilberry' },
+				{ text: 'Cantaloupe', value:  'cantaloupe' },
+				{ text: 'Ceylon gooseberry', value:  'ceylon gooseberry' },
+				{ text: 'Dragonfruit', value:  'dragonfruit' },
+				{ text: 'Dead Man\'s Fingers', value:  'dead man\'s fingers' },
+				{ text: 'Fig', value:  'fig' },
+				{ text: 'Forest strawberries', value:  'forest strawberries' },
+				{ text: 'Governor’s Plum', value:  'governor’s plum' },
+				{ text: 'Grapefruit', value:  'grapefruit' },
+				{ text: 'Guava', value:  'guava' },
+				{ text: 'Honeysuckle', value:  'honeysuckle' },
+				{ text: 'Huckleberry', value:  'huckleberry' },
+				{ text: 'Jackfruit', value:  'jackfruit' },
+				{ text: 'Japanese Persimmon', value:  'japanese persimmon' },
+				{ text: 'Key Lime', value:  'key lime' },
+				{ text: 'Kiwi', value:  'kiwi' },
+				{ text: 'Lemon', value:  'lemon' },
+				{ text: 'Lillypilly', value:  'lillypilly' },
+				{ text: 'Mandarin', value:  'mandarin' },
+				{ text: 'Miracle Fruit', value:  'miracle fruit' },
+				{ text: 'Orange', value:  'orange' },
+				{ text: 'Oregon grape', value:  'oregon grape' },
+				{ text: 'Persimmon', value:  'persimmon' },
+				{ text: 'Pomegranate', value:  'pomegranate' },
+				{ text: 'Rhubarb', value:  'rhubarb' },
+				{ text: 'Rose hip', value:  'rose hip' },
+				{ text: 'Soursop', value:  'soursop' },
+				{ text: 'Starfruit', value:  'starfruit' },
+				{ text: 'Tamarind', value:  'tamarind' },
+				{ text: 'Thimbleberry', value:  'thimbleberry' },
+				{ text: 'Wineberry', value:  'wineberry' },
+				{ text: 'Wongi', value:  'wongi' },
+				{ text: 'Youngberry', value: 'youngberry' }
 			]});
 		}
 	});
+
+$('#MyPillboxEmpty').pillbox({
+	onKeyDown: function( e, data, callback ){
+		callback(e, {data:[
+			{ text: 'Acai', value:  'acai' },
+			{ text: 'African cherry orange', value:  'african cherry orange' },
+			{ text: 'Banana', value:  'banana' },
+			{ text: 'Bilberry', value:  'bilberry' },
+			{ text: 'Cantaloupe', value:  'cantaloupe' },
+			{ text: 'Ceylon gooseberry', value:  'ceylon gooseberry' },
+			{ text: 'Dragonfruit', value:  'dragonfruit' },
+			{ text: 'Dead Man\'s Fingers', value:  'dead man\'s fingers' },
+			{ text: 'Fig', value:  'fig' },
+			{ text: 'Forest strawberries', value:  'forest strawberries' },
+			{ text: 'Governor’s Plum', value:  'governor’s plum' },
+			{ text: 'Grapefruit', value:  'grapefruit' },
+			{ text: 'Guava', value:  'guava' },
+			{ text: 'Honeysuckle', value:  'honeysuckle' },
+			{ text: 'Huckleberry', value:  'huckleberry' },
+			{ text: 'Jackfruit', value:  'jackfruit' },
+			{ text: 'Japanese Persimmon', value:  'japanese persimmon' },
+			{ text: 'Key Lime', value:  'key lime' },
+			{ text: 'Kiwi', value:  'kiwi' },
+			{ text: 'Lemon', value:  'lemon' },
+			{ text: 'Lillypilly', value:  'lillypilly' },
+			{ text: 'Mandarin', value:  'mandarin' },
+			{ text: 'Miracle Fruit', value:  'miracle fruit' },
+			{ text: 'Orange', value:  'orange' },
+			{ text: 'Oregon grape', value:  'oregon grape' },
+			{ text: 'Persimmon', value:  'persimmon' },
+			{ text: 'Pomegranate', value:  'pomegranate' },
+			{ text: 'Rhubarb', value:  'rhubarb' },
+			{ text: 'Rose hip', value:  'rose hip' },
+			{ text: 'Soursop', value:  'soursop' },
+			{ text: 'Starfruit', value:  'starfruit' },
+			{ text: 'Tamarind', value:  'tamarind' },
+			{ text: 'Thimbleberry', value:  'thimbleberry' },
+			{ text: 'Wineberry', value:  'wineberry' },
+			{ text: 'Wongi', value:  'wongi' },
+			{ text: 'Youngberry', value: 'youngberry' }
+		]});
+	}
+});
 
 	$('#MyPillbox').on( 'added', function( event, data ) {
 		console.log( 'pillbox added', data );
@@ -205,6 +241,125 @@ define(function(require){
 	});
 	$('#btnRadioEnable').on('click', function() {
 		$('[name=radio1a]').radio('enable');
+	});
+	$('#btnRadioDisableAll').on('click', function() {
+		$('.radio-container [type=radio]').radio('disable');
+	});
+	$('#btnRadioEnableAll').on('click', function() {
+		$('.radio-container [type=radio]').radio('enable');
+	});
+
+
+
+	// REPEATER
+	var delays = ['300', '600', '900', '1200'];
+	var myRepeater = $('#MyRepeater');
+
+	var list = function(options, callback){
+		var resp = {
+			count: data.repeater.listData.length,
+			items: [],
+			page: options.pageIndex
+		};
+		var i, l;
+
+		resp.pages = Math.ceil(resp.count/(options.pageSize || 50));
+
+		i = options.pageIndex * (options.pageSize || 50);
+		l = i + (options.pageSize || 50);
+		l = (l <= resp.count) ? l : resp.count;
+		resp.start = i + 1;
+		resp.end = l;
+
+		resp.columns = [
+			{
+				label: 'Common Name',
+				property: 'commonName',
+				sortable: true
+			},
+			{
+				label: 'Latin Name',
+				property: 'latinName',
+				sortable: true
+			},
+			{
+				label: 'Appearance',
+				property: 'appearance',
+				sortable: true
+			},
+			{
+				label: 'Sound',
+				property: 'sound',
+				sortable: true
+			}
+		];
+
+		for(i; i<l; i++){
+			resp.items.push(data.repeater.listData[i]);
+		}
+
+		//if(options.search){
+		//resp.items = [];
+		//}
+
+		if(window.console && window.console.log){
+			console.log('Repeater Options:');
+			console.log(options);
+		}
+		setTimeout(function(){
+			callback(resp);
+		}, delays[Math.floor(Math.random() * 4)]);
+	};
+
+	var thumbnail = function(options, callback){
+		var categories = ['abstract', 'animals', 'business', 'cats', 'city', 'food', 'nature', 'technics', 'transport'];
+		var colors = ['#D9EDF7', '#F2DEDE', '#FCF8E3', '#DFF0D8'];
+		var numItems = 200;
+		var resp = {
+			count: numItems,
+			items: [],
+			pages: (Math.ceil(numItems/(options.pageSize || 30))),
+			page: options.pageIndex
+		};
+		var i, l;
+
+		i = options.pageIndex * (options.pageSize || 30);
+		l = i + (options.pageSize || 30);
+		resp.start = i + 1;
+		resp.end = l;
+
+		for(i; i<l; i++){
+			resp.items.push({
+				color: colors[Math.floor(Math.random() * 4)],
+				name: ('Thumbnail ' + (i + 1)),
+				src: 'http://lorempixel.com/65/75/' + categories[Math.floor(Math.random() * 9)] + '/?_=' + i
+			});
+		}
+
+		//if(options.search){
+		//resp.items = [];
+		//}
+
+		if(window.console && window.console.log){
+			//console.log(options);
+		}
+		setTimeout(function(){
+			callback(resp);
+		}, delays[Math.floor(Math.random() * 4)]);
+	};
+
+	myRepeater.repeater({
+		dataSource: function(options, callback){
+			if(options.view==='list'){
+				list(options, callback);
+			}else if(options.view==='thumbnail'){
+				thumbnail(options, callback);
+			}
+		},
+		list_selectable: 'multi',
+		list_noItemsHTML: 'no items found',
+		thumbnail_noItemsHTML: 'no items found',
+		thumbnail_infiniteScroll: { hybrid: true }
 	});
 
 
@@ -278,17 +433,23 @@ define(function(require){
 	$('#selectByText').on('click', function () {
 		$('#MySelectlist').selectlist('selectByText', 'One');
 	});
-	$('#enableSelect').on('click', function () {
+	$('#enableSelectlist').on('click', function () {
 		$('#MySelectlist').selectlist('enable');
 	});
-	$('#disableSelect').on('click', function () {
+	$('#disableSelectlist').on('click', function () {
 		$('#MySelectlist').selectlist('disable');
 	});
 
 
 
 	// SPINBOX
-	$('#ex-spinbox').on('changed', function (e, value) {
+	$('#enableSpinbox').on('click', function () {
+		$('#MySpinbox').spinbox('enable');
+	});
+	$('#disableSpinbox').on('click', function () {
+		$('#MySpinbox').spinbox('disable');
+	});
+	$('#MySpinbox').on('changed', function (e, value) {
 		console.log('Spinbox changed: ', value);
 	});
 
@@ -328,7 +489,26 @@ define(function(require){
 		console.log('Close Event: ', info);
 	});
 
+	//FOLDER SELECT TREE
+	var dataSourceTreeFolders = new DataSourceTree({
+		data: [
+			{ name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } },
+			{ name: 'Test Folder 2', type: 'folder', additionalParameters: { id: 'F2' } },
+			{ name: 'Test Folder 3', type: 'folder', additionalParameters: { id: 'F3' } }
+		],
+		delay: 400
+	});
 
+	$('#ex-tree-folder').tree({
+		dataSource: dataSourceTreeFolders,
+		loadingHTML: '<div class="static-loader">Loading...</div>',
+		multiSelect: false,
+		cacheItems: true
+	});
+
+	$('#ex-tree-folder').on('selected', function (e, info) {
+		console.log('Select Event: ', info);
+	});
 
 	// WIZARD
 	$('#MyWizard').on('change', function(e, data) {

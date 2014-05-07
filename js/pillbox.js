@@ -12,41 +12,53 @@
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        // if AMD loader is available, register as an anonymous module.
-         define(['jquery'], factory);
-    } else {
-        // OR use browser globals if AMD is not present
-        factory(jQuery);
-    }
+	if (typeof define === 'function' && define.amd) {
+		// if AMD loader is available, register as an anonymous module.
+		define(['jquery', 'fuelux/dropdown-autoflip'], factory);
+	} else {
+		// OR use browser globals if AMD is not present
+		factory(jQuery);
+	}
 }(function ($) {
-    // -- END UMD WRAPPER PREFACE --
-        
-    // -- BEGIN MODULE CODE HERE --
-    
+
+	if( !$.fn.dropdownautoflip ){
+		throw new Error('Fuel UX pillbox control requires dropdown-autoflip.');
+	}
+	// -- END UMD WRAPPER PREFACE --
+		
+	// -- BEGIN MODULE CODE HERE --
+	
 	var old = $.fn.pillbox;
 
 	// PILLBOX CONSTRUCTOR AND PROTOTYPE
 
 	var Pillbox = function (element, options) {
 		this.$element = $(element);
-		this.$input = this.$element.find('.pillbox-input');
-		this.$ul    = this.$element.find('.pillbox-list');
-		this.$sugs  = this.$element.find('.pillbox-suggest');
+		this.$pillGroup = this.$element.find('.pill-group');
+		this.$addItem = this.$element.find('.pillbox-add-item');
+		this.$addItemWrap = this.$addItem.parent();
+		this.$suggest = this.$element.find('.suggest');
+		this.$pillHTML = '<li class="btn btn-default pill">' +
+							'	<span></span>' +
+							'	<span class="glyphicon glyphicon-close">' +
+							'		<span class="sr-only">Remove</span>' +
+							'	</span>' +
+							'</li>';
 
 		this.options = $.extend({}, $.fn.pillbox.defaults, options);
-		//CREATING AN OBJECT OUT OF THE KEY CODE ARRAY SO WE DONT HAVE TO LOOP THROUGH IT ON EVERY KEY STROKE
+
+		// EVENTS
 		this.acceptKeyCodes = this._generateObject(this.options.acceptKeyCodes);
+		// Creatie an object out of the key code array, so we dont have to loop through it on every key stroke
 
-		this.$element.on('click', '.pillbox-list > li', $.proxy(this.itemClicked, this));
-		this.$element.on('click', '.pillbox-suggest > li', $.proxy(this.suggestionClick, this));
+		this.$element.on('click', '.pill-group > li', $.proxy(this.itemClicked, this));
 		this.$element.on('click', $.proxy(this.inputFocus, this));
-
-		this.$element.on('keydown', '.pillbox-input', $.proxy(this.inputEvent, this));
-
-		if( this.options.editPill ){
-			this.$element.on('blur', '.pillbox-list-edit', $.proxy(this.cancelEdit, this));
-			this.$element.on('keydown', '.pillbox-list-edit', $.proxy(this.editInputEvent, this));
+		this.$element.on('keydown', '.pillbox-add-item', $.proxy(this.inputEvent, this));
+		if( this.options.onKeyDown ){
+			this.$element.on('mousedown', '.suggest > li', $.proxy(this.suggestionClick, this));
+		}
+		if( this.options.edit ){
+			this.$element.on('blur', '.pillbox-add-item', $.proxy(this.cancelEdit, this));
 		}
 	};
 
@@ -56,7 +68,7 @@
 		items: function() {
 			var self = this;
 
-			return this.$ul.children('li').map(function() {
+			return this.$pillGroup.children('.pill').map(function() {
 				return self.getItemData($(this));
 			}).get();
 		},
@@ -64,218 +76,371 @@
 		itemClicked: function(e){
 			var self = this;
 			var $target = $(e.target);
-			var $li = $(e.currentTarget);
+			var $item = $(e.currentTarget);
 			var $text = $target.prev();
 
 			e.preventDefault();
 			e.stopPropagation();
 			this._closeSuggestions();
 
-
-			if( $text.length && !$target.parent().hasClass('pillbox-list') ){
-
+			if( $text.length && !$target.parent().hasClass('pill-group') ){
 				if(this.options.onRemove){
-					this.options.onRemove(this.getItemData($li,{el:$li}) ,$.proxy(this.removeItem, this));
+					this.options.onRemove(this.getItemData($item, { el: $item }), $.proxy(this._removeElement, this));
 				} else {
-					this.removeItem(this.getItemData($li,{el:$li}));
+					this._removeElement(this.getItemData($item, { el: $item }));
 				}
-			} else if ( this.options.editPill ) {
-				if( $li.find('.pillbox-list-edit').length )
+				return false;
+
+			} else if ( this.options.edit ) {
+				if( $item.find('.pillbox-list-edit').length )
 				{
 					return false;
 				}
 
-				this.openEdit($li);
-			} else {
-				this.$element.trigger( 'clicked', this.getItemData($li));
+				this.openEdit($item);
 			}
+
+			this.$element.trigger('clicked', this.getItemData($item));
 		},
 
 		suggestionClick: function(e){
-			var $li = $(e.currentTarget);
+			var $item = $(e.currentTarget);
 
 			e.preventDefault();
-			this.$input.val('');
-			this.addItem($li.html(), $li.data('value'));
+			this.$addItem.val('');
+			
+			this.addItems({
+				text: $item.html(),
+				value: $item.data('value')
+			}, true);
+
+			// needs to be after addItems for IE
+			this._closeSuggestions();
 		},
 
 		itemCount: function() {
-			return this.$ul.children('li').length;
+			return this.$pillGroup.children('.pill').length;
 		},
 
-		addItem: function(text, value) {
-			var data = {
-				text: text,
-				value: value ? value : text,
-				el: '<li><span></span><span>x</span></li>'
-			};
+		// First parameter is 1 based index (optional, if index is not passed all new items will be appended)
+		// Second parameter can be array of objects [{ ... }, { ... }] or you can pass n additional objects as args
+		// object structure is as follows (index and value are optional): { text: '', value: '' }
+		addItems: function(){
+			var self = this;
+			var items, index, isInternal;
 
-			if(this.options.onAdd){
-				this.options.onAdd( data, $.proxy(this.placeItem,this));
+			if( isFinite(String(arguments[0])) && !(arguments[0] instanceof Array) ) {
+				items = [].slice.call(arguments).slice(1);
+				index = arguments[0];
 			} else {
-				this.placeItem(data);
+				items = [].slice.call(arguments).slice(0);
+				isInternal = items[1] && !items[1].text;
+			}
+
+			//Accounting for array parameter
+			if(items[0] instanceof Array){
+				items = items[0];
+			}
+
+			if( items.length ){
+				$.each(items, function(i, value){
+					var data = {
+						text: value.text,
+						value: (value.value ? value.value : value.text),
+						el: self.$pillHTML
+					};
+
+					items[i] = data;
+				});
+
+				if( this.options.edit && this.currentEdit ){
+					items[0].el = this.currentEdit.wrap('<div></div>').parent().html();
+				}
+
+				if( isInternal ){
+					items.pop(1);
+				}
+
+				if(self.options.onAdd && isInternal){
+
+					if( this.options.edit && this.currentEdit ){
+						self.options.onAdd( items[0], $.proxy(self.saveEdit,this));
+					} else {
+						self.options.onAdd( items[0], $.proxy(self.placeItems,this, true));
+					}
+				} else {
+					if( this.options.edit && this.currentEdit ){
+						self.saveEdit(items);
+					} else {
+						if( index ){
+							self.placeItems(index, items);
+						} else {
+							self.placeItems(items, isInternal);
+						}
+					}
+				}
+			}
+
+		},
+
+		//First parameter is the index (1 based) to start removing items
+		//Second parameter is the number of items to be removed
+		removeItems: function(index, howMany){
+			var self = this;
+			var count;
+			var $currentItem;
+
+			if( !index ){
+				this.$pillGroup.find('.pill').remove();
+				this._removePillTrigger( { method: 'removeAll' } );
+			} else {
+				howMany = howMany ? howMany : 1;
+
+				for (count = 0; count < howMany; count++){
+					$currentItem =  self.$pillGroup.find('> .pill:nth-child('+ index +')');
+
+					if( $currentItem ){
+						$currentItem.remove();
+					} else {
+						break;
+					}
+				}
 			}
 		},
 
-		placeItem: function(data){
-			var $li = $(data.el);
+		//First parameter is index (optional)
+		//Second parameter is new arguments
+		placeItems: function(){
+			var newHtml = '';
+			var items;
+			var index;
+			var $neighbor;
+			var isInternal;
 
-			$li.attr('data-value',data.value);
-			$li.find('span:first').html(data.text);
-
-			if( this.$ul.children('li').length > 0 ) {
-				this.$ul.children('li:last').after($li);
+			if( isFinite(String(arguments[0])) && !(arguments[0] instanceof Array) ) {
+				items = [].slice.call(arguments).slice(1);
+				index = arguments[0];
 			} else {
-				this.$ul.prepend($li);
+				items = [].slice.call(arguments).slice(0);
+				isInternal = items[1] && !items[1].text;
 			}
 
-			this.$element.trigger( 'added', { text: data.text, value: data.value } );
+			if(items[0] instanceof Array){
+				items = items[0];
+			}
 
-			if( !this.options.onAdd ) {
-				return $li;
+			if( items.length ){
+				$.each(items, function(i, item){
+					var $item = $(item.el);
+					var $neighbor;
+
+					$item.attr('data-value', item.value);
+					$item.find('span:first').html( item.text );
+
+					newHtml += $item.wrap('<div></div>').parent().html();
+				});
+
+				if( this.$pillGroup.children('.pill').length > 0 ) {
+					if( index ){
+						$neighbor = this.$pillGroup.find('.pill:nth-child(' + index + ')');
+
+						if( $neighbor.length ){
+							$neighbor.before(newHtml);
+						} else {
+							this.$pillGroup.children('.pill:last').after(newHtml);
+						}
+					} else {
+						this.$pillGroup.children('.pill:last').after(newHtml);
+					}
+				} else {
+					this.$pillGroup.prepend(newHtml);
+				}
+
+				if( isInternal ){
+					this.$element.trigger('added', {
+						text: items[0].text, 
+						value: items[0].value
+					});
+				}
 			}
 		},
 
 		inputEvent: function(e){
 			var self = this;
-			var txt = this.$input.val();
-			var val, $lastLi, $selItem;
+			var text = this.$addItem.val();
+			var value;
+			var $lastItem;
+			var $selection;
 
 			if( this.acceptKeyCodes[e.keyCode] ){
 
-				if( txt.length ) {
-					if( this.options.onKeyDown && this._isSuggestionsOpen() ){
-						$selItem = this.$sugs.find('.pillbox-suggest-sel');
+				if( this.options.onKeyDown && this._isSuggestionsOpen() ){
+					$selection = this.$suggest.find('.pillbox-suggest-sel');
 
-						if($selItem.length){
-							txt = $selItem.html();
-							val = $selItem.data('value');
-						}
+					if($selection.length){
+						text = $selection.html();
+						value = $selection.data('value');
 					}
-					this._closeSuggestions();
-					this.$input.hide();
+				}
 
-					this.addItem(txt, val);
+				if( text.length ) {
+					this._closeSuggestions();
+					this.$addItem.hide();
+
+					this.addItems({
+						text: text,
+						value: value
+					}, true);
 
 					setTimeout(function(){
-						self.$input.show().val('').attr({size:10});
+						self.$addItem.show().val('').attr({ size: 10 });
 					},0);
 				}
 
 				return true;
 			} else if( e.keyCode === 8 || e.keyCode === 46 ) {
-				if( !txt.length ) {
-					this._closeSuggestions();
-					$lastLi = this.$ul.children('li:last');
+				// backspace: 8
+				// delete: 46
 
-					if( $lastLi.hasClass('pillbox-highlight') ){
-						this.removeItem(this.getItemData($lastLi,{el:$lastLi}));
+				if( !text.length ) {
+					e.preventDefault();
+
+					if( this.options.edit && this.currentEdit ) {
+						this.cancelEdit();
+						return true;
+					}
+
+					this._closeSuggestions();
+					$lastItem = this.$pillGroup.children('.pill:last');
+
+					if( $lastItem.hasClass('pillbox-highlight') ){
+						this._removeElement(this.getItemData($lastItem, { el: $lastItem }));
 					} else {
-						$lastLi.addClass('pillbox-highlight');
+						$lastItem.addClass('pillbox-highlight');
 					}
 
 					return true;
 				}
-			} else if ( txt.length > 10 ) {
-				if( this.$input.width() < (this.$ul.width() - 6) ){
-					this.$input.attr({size:txt.length + 3});
+			} else if ( text.length > 10 ) {
+				if( this.$addItem.width() < (this.$pillGroup.width() - 6) ){
+					this.$addItem.attr({ size:text.length + 3 });
 				}
 			}
 
-			this.$ul.find('li').removeClass('pillbox-highlight');
+			this.$pillGroup.find('.pill').removeClass('pillbox-highlight');
 
 			if( this.options.onKeyDown ){
 				if( e.keyCode === 9 || e.keyCode === 38 || e.keyCode === 40){
+					// tab: 9
+					// up arrow: 38
+					// down arrow: 40
+
 					if( this._isSuggestionsOpen() ){
 						this._keySuggestions(e);
 					}
 					return true;
 				}
-				this.options.onKeyDown({value: txt}, $.proxy(this._openSuggestions,this));
+
+				//only allowing most recent event callback to register
+				this.callbackId = e.timeStamp;
+				this.options.onKeyDown(e, { value: text }, $.proxy(this._openSuggestions,this));
 			}
 		},
 
-		openEdit: function( el ){
-			var $text = el.find('span:first');
+		openEdit: function(el){
+			var index = el.index() + 1;
+			var $addItemWrap = this.$addItemWrap.detach().hide();
 
-			el.prepend('<input class="pillbox-list-edit" type="text" style="width:' + $text.width() + 'px;" value="' + $text.html() + '">');
-			$text.hide();
-			el.find('input').focus().select();
-			this.$element.trigger( 'edit', this.getItemData(el));
+			this.$pillGroup.find('.pill:nth-child(' + index + ')').before($addItemWrap);
+			this.currentEdit = el.detach();
+
+			this.$addItem.val(el.find('span:first').html());
+			$addItemWrap.show();
+			this.$addItem.focus().select();
 		},
 
 		cancelEdit: function(e) {
-			var $input = $(e.currentTarget);
-			var $parent = $input.parent();
-
-			$input.remove();
-			$parent.find('span:first').show();
-		},
-
-		editInputEvent: function(e){
-			var txt, $input, $li;
-
-			if( this.acceptKeyCodes[e.keyCode] ){
-				$input = $(e.currentTarget);
-				$li = $input.parent();
-				txt = $input.val();
-
-
-				if( txt.length ){
-					$li.data('value',txt);
-					$li.find('span:first').html(txt).show();
-				} else {
-					$li.find('span:first').show();
-				}
-
-				$input.remove();
-			}
-		},
-
-		removeBySelector: function(selector, trigger) {
-			if( typeof trigger === "undefined" ) {
-				trigger = true;
+			var $addItemWrap;
+			if( !this.currentEdit ){
+				return false;
 			}
 
-			this.$element.children('ul').find(selector).remove();
-
-			if( !!trigger ) {
-				this._removePillTrigger( { method: 'removeBySelector', removedSelector: selector } );
+			this._closeSuggestions();
+			if(e){
+				this.$addItemWrap.before(this.currentEdit);
 			}
+			this.currentEdit = false;
+
+			$addItemWrap = this.$addItemWrap.detach();
+			this.$addItem.val('');
+			this.$pillGroup.append($addItemWrap);
 		},
 
-		removeByValue: function(value) {
-			var selector = '> li[data-value="' + value + '"]';
+		//Must match syntax of placeItem so addItem callback is called when an item is edited
+		//expecting to receive an array back from the callback containing edited items
+		saveEdit: function() {
+			var item = arguments[0][0];
 
-			this.removeBySelector( selector, false );
-			this._removePillTrigger( { method: 'removeByValue', removedValue: value } );
+			this.currentEdit = $(item.el);
+			this.currentEdit.data('value', item.value);
+			this.currentEdit.find('span:first').html(item.text);
+
+			this.$addItemWrap.hide();
+			this.$addItemWrap.before(this.currentEdit);
+			this.currentEdit = false;
+
+			this.$addItem.val('');
+			this.$pillGroup.append(this.$addItemWrap.detach().show());
+			this.$element.trigger( 'edited', { value: item.value, text: item.text });
 		},
 
-		removeByText: function(text) {
-			var selector = '> li:contains("' + text + '")';
+		removeBySelector: function() {
+			var selectors = [].slice.call(arguments).slice(0);
+			var self = this;
 
-			this.removeBySelector( selector, false );
+			$.each(selectors, function(i, sel){
+				self.$pillGroup.find(sel).remove();
+			});
+
+			this._removePillTrigger( { method: 'removeBySelector', removedSelectors: selectors } );
+		},
+
+		removeByValue: function() {
+			var values = [].slice.call(arguments).slice(0);
+			var self = this;
+
+			$.each(values, function(i, val){
+				self.$pillGroup.find('> .pill[data-value="' + val + '"]').remove();
+			});
+
+			this._removePillTrigger( { method: 'removeByValue', removedValues: values } );
+		},
+
+		removeByText: function() {
+			var text = [].slice.call(arguments).slice(0);
+			var self = this;
+
+			$.each(text, function(i, text){
+				self.$pillGroup.find('> .pill:contains("' + text + '")').remove();
+			});
+
 			this._removePillTrigger( { method: 'removeByText', removedText: text } );
 		},
 
-		removeItem: function(data){
-			data.el.remove();
-			delete data.el;
-			this.$element.trigger('removed', data);
-		},
-
 		inputFocus: function(e) {
-			this.$element.find('.pillbox-input').focus();
-		},
-
-		clear: function() {
-			this.$element.children('ul').empty();
+			this.$element.find('.pillbox-add-item').focus();
 		},
 
 		getItemData: function(el, data) {
 			return $.extend({
 				text: el.find('span:first').html()
 			}, el.data(), data);
+		},
+
+		_removeElement: function(data){
+			data.el.remove();
+			delete data.el;
+			this.$element.trigger('removed', data);
 		},
 
 		_removePillTrigger: function( removedBy ) {
@@ -292,8 +457,12 @@
 			return obj;
 		},
 
-		_openSuggestions: function(data){
+		_openSuggestions: function(e, data){
 			var markup = '';
+
+			if( this.callbackId !== e.timeStamp) {
+				return false;
+			}
 
 			if(data.data && data.data.length){
 				$.each(data.data, function(index, value){
@@ -301,34 +470,36 @@
 					markup += '<li data-value="' + val + '">' + value.text + '</li>';
 				});
 
-				this.$sugs.html('').append(markup).show();
-				$(document.body).trigger('suggestions',this.$sugs);
+				// suggestion dropdown
+				
+				this.$suggest.html('').append(markup);
+				$(document.body).trigger('suggest', this.$suggest);
 			}
 		},
 
 		_closeSuggestions: function(){
-			this.$sugs.html('').hide();
+			this.$suggest.html('').parent().removeClass('open');
 		},
 
 		_isSuggestionsOpen: function(){
-			return this.$sugs.css('display') === "block";
+			return this.$suggest.parent().hasClass('open');
 		},
 
 		_keySuggestions: function(e) {
-			var $first = this.$sugs.find('li.pillbox-suggest-sel');
-			var dir = e.keyCode === 38;
+			var $first = this.$suggest.find('li.pillbox-suggest-sel');
+			var dir = e.keyCode === 38; // up arrow
 			var $next, val;
 
 			e.preventDefault();
 
 			if( !$first.length ){
-				$first = this.$sugs.find('li:first');
+				$first = this.$suggest.find('li:first');
 				$first.addClass('pillbox-suggest-sel');
 			} else {
 				$next = dir ? $first.prev() : $first.next();
 
 				if( !$next.length ){
-					$next = dir ? this.$sugs.find('li:last') : this.$sugs.find('li:first');
+					$next = dir ? this.$suggest.find('li:last') : this.$suggest.find('li:first');
 				}
 
 				if( $next ){
@@ -361,12 +532,10 @@
 		onAdd: undefined,
 		onRemove: undefined,
 		onKeyDown: undefined,
-		editPill: false,
+		edit: true,
 		acceptKeyCodes: [
-			//Enter
-			13,
-			//Comma
-			188
+			13, //Enter
+			188 //Comma
 		]
 
 		//example on remove
@@ -376,8 +545,7 @@
 		}*/
 
 		//example on key down
-		/*
-		onKeyDown: function(ta, callback ){
+		/*onKeyDown: function(event, data, callback ){
 			callback({data:[
 				{text: Math.random(),value:'sdfsdfsdf'},
 				{text: Math.random(),value:'sdfsdfsdf'}
@@ -403,14 +571,16 @@
 
 	$('body').on('mousedown.pillbox.data-api', '.pillbox', function () {
 		var $this = $(this);
-		if ($this.data('pillbox')) return;
+		if ($this.data('pillbox')) {
+			return;
+		}
 		$this.pillbox($this.data());
 	});
 
 	$('body').on('click.pillbox.data-api',function(){
-		$('.pillbox-suggest').hide();
+		$('.pillbox .suggest').css('visibility: hidden;');
 	});
 	
 // -- BEGIN UMD WRAPPER AFTERWORD --
 }));
-    // -- END UMD WRAPPER AFTERWORD --
+	// -- END UMD WRAPPER AFTERWORD --

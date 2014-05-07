@@ -4,22 +4,13 @@
 
 define(function(require){
 	var $ = require('jquery');
+	var html = require('text!test/markup/datepicker-markup.html');
 
 	require('bootstrap');
 	require('fuelux/datepicker');
 
-	var html = '<div>' +
-		'<div class="datepicker dropdown" id="datepicker1">' +
-			'<div class="input-append">' +
-				'<div class="dropdown-menu"></div>' +
-				'<input type="text" class="span2" value="" data-toggle="dropdown">' +
-				'<button type="button" class="btn" data-toggle="dropdown"><i class="icon-calendar"></i></button>' +
-			'</div>' +
-		'</div>' +
-		'<div id="datepicker2"></div>' +
-	'</div>';
 
-	module('Fuel UX datepicker', {
+	module('Fuel UX Datepicker', {
 		setup: function() {
 			// need to do this because window.moment is inconsistent when it's loaded in IE9 or less. stupid IE
 			$.fn.extend($.fn.datepicker.Constructor.prototype, {
@@ -66,7 +57,7 @@ define(function(require){
 		today           =  todaysMonth + '-' + todaysDate + '-' + today.getFullYear();
 
 		// markup already there
-		var $sample    = $( html ).find( '#datepicker1' ).datepicker();
+		var $sample    = $( html ).datepicker();
 		var pickerDate = $sample.datepicker( 'getFormattedDate' );
 		equal( pickerDate, today, 'w/ markup - initialized with todays date' );
 
@@ -76,7 +67,7 @@ define(function(require){
 	});
 
 	test( 'should initialize with date other than now', function() {
-		var $sample = $( html ).find( '#datepicker1' );
+		var $sample = $( html );
 		var futureDate = new Date(+new Date() + ( 7 * 24 * 60 * 60 * 1000 ) ).getTime(); // 7 days in the future
 
 		$sample.datepicker({
@@ -88,7 +79,7 @@ define(function(require){
 	});
 
 	test( 'should initialize with null date', function() {
-		var $sample         = $( html ).find( '#datepicker1' ).datepicker({ date: null });
+		var $sample         = $( html ).datepicker({ date: null });
 		var initializedDate = $sample.datepicker( 'getDate' );
 		var inputValue      = $sample.find( 'input[type="text"]' ).val();
 
@@ -97,7 +88,7 @@ define(function(require){
 	});
 
 	test( 'should return date using getDate method', function() {
-		var $sample       = $( html ).find( '#datepicker1' ).datepicker();
+		var $sample       = $( html ).datepicker();
 		var dateFormatted = new Date( $sample.datepicker( 'getFormattedDate' ) );
 		var dateObject    = new Date( $sample.datepicker( 'getDate' ) );
 		var dateUnix      = $sample.datepicker( 'getDate', { unix: true } );
@@ -117,7 +108,7 @@ define(function(require){
 	});
 
 	test( 'should set new date using setDate method', function() {
-		var $sample = $( html ).find( '#datepicker1' ).datepicker();
+		var $sample = $( html ).datepicker();
 		var newDate = new Date().getTime();
 
 		$sample.datepicker( 'setDate', newDate );
@@ -128,7 +119,7 @@ define(function(require){
 	});
 
 	test( 'should enable/disable datepicker', function() {
-		var $sample      = $( html ).find( '#datepicker1' ).datepicker();
+		var $sample      = $( html ).datepicker();
 		var $sampleInput = $sample.find( 'input' );
 
 		// enabled
@@ -147,7 +138,7 @@ define(function(require){
 	});
 
 	test( 'should restrict dates when using custom blackoutDates() default', function() {
-		var $sample      = $( html ).find( '#datepicker1' );
+		var $sample      = $( html );
 		var blackoutDate = new Date(+new Date() + ( 1 * 24 * 60 * 60 * 1000 ) ).getTime(); // 1 day in the future;
 
 		$sample.datepicker({
@@ -172,7 +163,7 @@ define(function(require){
 	});
 
 	test( "should not restrict past dates when overriding restrictDateSelection to false", function() {
-		var $sample = $( html ).find( '#datepicker1' );
+		var $sample = $( html );
 		$sample.datepicker({
 			restrictDateSelection: false
 		});
@@ -186,7 +177,7 @@ define(function(require){
 		var eventsLogged            = 0;
 		var validDateOnEventTrigger = false;
 
-		var $sample = $( html ).find( '#datepicker1' ).datepicker().on( 'changed', function( event, date ) {
+		var $sample = $( html ).datepicker().on( 'changed', function( event, date ) {
 			eventsLogged++;
 			if( new Date( date ) !== 'Invalid Date' ) {
 				validDateOnEventTrigger = true;
@@ -200,7 +191,7 @@ define(function(require){
 	});
 
 	test( 'should create dropdown with custom dropdown', function() {
-		var $markup = $( html ).find( '#datepicker1' );
+		var $markup = $( html );
 		var customWidth2 = 240;
 
 		$markup.datepicker({

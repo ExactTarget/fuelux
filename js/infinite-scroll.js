@@ -34,7 +34,7 @@
 		this.options = $.extend({}, $.fn.infinitescroll.defaults, options);
 
 		this.curScrollTop = this.$element.scrollTop();
-		this.curPercentage = (this.$element.height() / (this.$element.get(0).scrollHeight - this.curScrollTop)) * 100;
+		this.curPercentage = this.getPercentage();
 		this.fetchingData = false;
 
 		this.$element.on('scroll', $.proxy(this.onScroll, this));
@@ -43,6 +43,30 @@
 	InfiniteScroll.prototype = {
 
 		constructor: InfiniteScroll,
+
+		disable: function(){
+			this.$element.off('scroll');
+		},
+
+		enable: function(){
+			this.$element.on('scroll', $.proxy(this.onScroll, this));
+		},
+
+		end: function(content){
+			var end = $('<div class="infinitescroll-end"></div>');
+			if(content){
+				end.append(content);
+			}else{
+				end.append('---------');
+			}
+			this.$element.append(end);
+			this.disable();
+		},
+
+		getPercentage: function(){
+			var height = (this.$element.css('box-sizing')==='border-box') ? this.$element.outerHeight() : this.$element.height();
+			return (height / (this.$element.get(0).scrollHeight - this.curScrollTop)) * 100;
+		},
 
 		fetchData: function(){
 			var load = $('<div class="infinitescroll-load"></div>');
@@ -55,9 +79,14 @@
 					'ipt type="text/javascript">window.fuelux_loader.scan();</scr' + 'ipt><![endif]--></div>');
 				if(self.options.dataSource){
 					self.options.dataSource(helpers, function(resp){
+						var end;
 						load.remove();
 						if(resp.content){
 							self.$element.append(resp.content);
+						}
+						if(resp.end){
+							end = (resp.end!==true) ? resp.end : undefined;
+							self.end(end);
 						}
 						self.fetchingData = false;
 					});
@@ -85,7 +114,7 @@
 
 		onScroll: function(e){
 			this.curScrollTop = this.$element.scrollTop();
-			this.curPercentage = (this.$element.height() / (this.$element.get(0).scrollHeight - this.curScrollTop)) * 100;
+			this.curPercentage = this.getPercentage();
 			if(!this.fetchingData && this.curPercentage>=this.options.percentage){
 				this.fetchData();
 			}

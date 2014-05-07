@@ -20,6 +20,9 @@
 		factory(jQuery);
 	}
 }(function ($) {
+	if(!$.fn.combobox || !$.fn.datepicker || !$.fn.radio || !$.fn.selectlist || !$.fn.spinbox){
+		throw new Error('Fuel UX scheduler control requires combobox, datepicker, radio, selectlist, and spinbox.');
+	}
 	// -- END UMD WRAPPER PREFACE --
 		
 	// -- BEGIN MODULE CODE HERE --
@@ -59,7 +62,7 @@
 		this.$element.find('.datepicker').on('changed', $.proxy(this.changed, this));
 		this.$element.find('.selectlist').on('changed', $.proxy(this.changed, this));
 		this.$element.find('.spinbox').on('changed', $.proxy(this.changed, this));
-		this.$element.find('.scheduler-monthly label.radio, .scheduler-yearly label.radio').on('mouseup', $.proxy(this.changed, this));
+		this.$element.find('.scheduler-monthly div.radio, .scheduler-yearly div.radio').on('mouseup', $.proxy(this.changed, this));
 
 		this.$repeatIntervalSelect.on('changed', $.proxy(this.repeatIntervalSelectChanged, this));
 		this.$endSelect.on('changed', $.proxy(this.endSelectChanged, this));
@@ -435,7 +438,7 @@
 
 				if(recur.COUNT){
 					this.$endAfter.spinbox('value', parseInt(recur.COUNT, 10));
-					this.$endSelect.select('selectByValue', 'after');
+					this.$endSelect.selectlist('selectByValue', 'after');
 				}else if(recur.UNTIL){
 					temp = recur.UNTIL;
 					if(temp.length===8){
@@ -462,7 +465,7 @@
 			this.$element.find('.datepicker').datepicker(action);
 			this.$element.find('.selectlist').selectlist(action);
 			this.$element.find('.spinbox').spinbox(action);
-			this.$element.find('.radio').radio(action);
+			this.$element.find('[type=radio]').radio(action);
 
 			if(action==='disable'){
 				action = 'addClass';

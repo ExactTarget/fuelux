@@ -4,16 +4,12 @@
 
 define(function(require){
 	var $ = require('jquery');
-	var schedulerMarkup = require('text!test/scheduler-markup.txt');
+	var html = require('text!test/markup/scheduler-markup.html');
 
 	require('bootstrap');
 	require('fuelux/scheduler');
 
-	module('Fuel UX scheduler', {
-		setup: function(){
-			this.$markup = $(schedulerMarkup);
-		}
-	});
+	module('Fuel UX Scheduler');
 
 	test('should be defined on the jQuery object', function(){
 		ok( $(document.body).scheduler, 'scheduler method is defined' );
@@ -25,7 +21,7 @@ define(function(require){
 
 	test('should disable control (all inputs)', function (){
 		var disabled = true;
-		var $scheduler = this.$markup.scheduler();
+		var $scheduler = $(html).scheduler();
 
 		$scheduler.scheduler('disable');
 
@@ -70,7 +66,7 @@ define(function(require){
 
 	test('should enable control (all inputs)', function () {
 		var enabled = true;
-		var $scheduler = this.$markup.scheduler();
+		var $scheduler = $(html).scheduler();
 
 		$scheduler.scheduler('disable');
 		$scheduler.scheduler('enable');
@@ -115,7 +111,7 @@ define(function(require){
 	});
 
 	test('should return proper value object', function (){
-		var $scheduler = this.$markup.scheduler();
+		var $scheduler = $(html).scheduler();
 		var obj = 'object';
 		var str = 'string';
 		var val = $scheduler.scheduler('value');
@@ -131,9 +127,9 @@ define(function(require){
 	test('should set value properly', function (){
 		//needed due to PhantomJS bug: https://github.com/ariya/phantomjs/issues/11151
 		var isPhantomJS = (window.navigator.userAgent.search('PhantomJS')>=0);
-		var $scheduler = this.$markup.scheduler();
-		var $repIntSelDrop = $scheduler.find('.repeat-interval .selectlist .dropdown-label');
-		var $repPanSpinner = $scheduler.find('.repeat-interval-panel .spinner');
+		var $scheduler = $(html).scheduler();
+		var $repIntSelDrop = $scheduler.find('.repeat-interval .selectlist .selected-label');
+		var $repPanSpinbox = $scheduler.find('.repeat-interval-panel .spinbox');
 		var test;
 		var tmpDatepickerVal;
 		var tmpValBool = false;
@@ -150,7 +146,7 @@ define(function(require){
 		equal($scheduler.find('.scheduler-start .combobox input').val(), '5:00 AM', 'startTime set correctly');
 
 		$scheduler.scheduler('value', { timeZone: { name: 'Namibia Standard Time', offset: '+02:00' }});
-		equal($scheduler.find('.scheduler-timezone .dropdown-label').html(), '(GMT+02:00) Windhoek *', 'timeZone set correctly');
+		equal($scheduler.find('.scheduler-timezone .selected-label').html(), '(GMT+02:00) Windhoek *', 'timeZone set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;INTERVAL=1;COUNT=1;' });
 		equal($repIntSelDrop.html(), 'None (run once)', 'no recurrence set correctly');
@@ -171,23 +167,23 @@ define(function(require){
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=MONTHLY;INTERVAL=9;BYDAY=SA;BYSETPOS=4;' });
 		test = $scheduler.find('.scheduler-monthly-day');
-		ok(($repIntSelDrop.html()==='Monthly' && $repPanSpinbox.spinbox('value')===9 && test.find('label.radio input').hasClass('checked') &&
-			test.find('.month-day-pos .dropdown-label').html()==='Fourth' && test.find('.month-days .dropdown-label').html()==='Saturday'),
+		ok(($repIntSelDrop.html()==='Monthly' && $repPanSpinbox.spinbox('value')===9 && test.find('div.radio input').hasClass('checked') &&
+			test.find('.month-day-pos .selected-label').html()==='Fourth' && test.find('.month-days .selected-label').html()==='Saturday'),
 			'monthly recurrence set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=YEARLY;BYDAY=WE;BYSETPOS=3;BYMONTH=10;' });
 		test = $scheduler.find('.scheduler-yearly-day');
-		ok(($repIntSelDrop.html()==='Yearly' && test.find('label.radio input').hasClass('checked') &&
-			test.find('.year-month-day-pos .dropdown-label').html()==='Third' && test.find('.year-month-days .dropdown-label').html()==='Wednesday' &&
-			test.find('.year-month .dropdown-label').html()==='October'), 'yearly recurrence set correctly');
+		ok(($repIntSelDrop.html()==='Yearly' && test.find('div.radio input').hasClass('checked') &&
+			test.find('.year-month-day-pos .selected-label').html()==='Third' && test.find('.year-month-days .selected-label').html()==='Wednesday' &&
+			test.find('.year-month .selected-label').html()==='October'), 'yearly recurrence set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;INTERVAL=9;COUNT=4;' });
-		ok(($scheduler.find('.scheduler-end .selectlist .dropdown-label').html()==='After' && $scheduler.find('.scheduler-end .spinner').spinner('value')===4),
+		ok(($scheduler.find('.scheduler-end .selectlist .selected-label').html()==='After' && $scheduler.find('.scheduler-end .spinbox').spinbox('value')===4),
 			'end after occurence(s) set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;INTERVAL=9;UNTIL=20510331;' });
 		//make this test always present once PhantomJS fixes their bug
 		test = (!isPhantomJS) ? ($scheduler.find('.scheduler-end .datepicker input').val() ==='03-31-2051' || $scheduler.find('.scheduler-end .datepicker input').val() ==='03/31/2051' ) : true;
-		ok(($scheduler.find('.scheduler-end .selectlist .dropdown-label').html()==='On date' && test), 'end on date set correctly');
+		ok(($scheduler.find('.scheduler-end .selectlist .selected-label').html()==='On date' && test), 'end on date set correctly');
 	});
 });

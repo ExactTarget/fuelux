@@ -25,13 +25,16 @@
 
 	require('fuelux/checkbox');
 	require('fuelux/combobox');
-	require('fuelux/datagrid');
 	require('fuelux/datepicker');
+	require('fuelux/dropdown-autoflip');
 	require('fuelux/infinite-scroll');
-	require('fuelux/intelligent-dropdown');
 	require('fuelux/loader');
 	require('fuelux/pillbox');
+	require('fuelux/placard');
 	require('fuelux/radio');
+	require('fuelux/repeater');
+	require('fuelux/repeater-list');
+	require('fuelux/repeater-thumbnail');
 	require('fuelux/scheduler');
 	require('fuelux/search');
 	require('fuelux/spinbox');

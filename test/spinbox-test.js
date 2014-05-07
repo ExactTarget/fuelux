@@ -4,6 +4,7 @@
 
 define(function(require){
 	var $ = require('jquery');
+	var html = require('text!test/markup/spinbox-markup.html');
 
 	require('bootstrap');
 	require('fuelux/spinbox');
@@ -18,34 +19,8 @@ define(function(require){
 		ok($(document.body).spinbox()[0] === document.body, 'document.body returned');
 	});
 
-	var spinboxHTML =	'<div id="ex-spinbox" class="spinbox">' +
-						'	<input type="text" class="form-control input-mini spinbox-input">' +
-
-						'	<div class="spinbox-buttons btn-group btn-group-vertical">' +
-						'		<button class="btn btn-default spinbox-up btn-xs">' +
-						'			<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>' +
-						'		</button>' +
-						'		<button class="btn btn-default spinbox-down btn-xs">' +
-						'			<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>' +
-						'		</button>' +
-						'	</div>' +
-						'</div>';
-
-	var spinboxHTMLWithDefault ='<div id="ex-spinbox" class="spinbox">' +
-								'	<input type="text" value="3" class="form-control input-mini spinbox-input">' +
-								'	<div class="spinbox-buttons btn-group btn-group-vertical">' +
-								'		<button class="btn btn-default spinbox-up btn-xs">' +
-								'			<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>' +
-								'		</button>' +
-								'		<button class="btn btn-default spinbox-down btn-xs">' +
-								'			<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>' +
-								'		</button>' +
-								'	</div>' +
-								'</div>';
-
-
 	test("should behave as designed", function () {
-		var $spinbox = $(spinboxHTML).spinbox();
+		var $spinbox = $(html).find('#MySpinbox').spinbox();
 
 		//returning default value
 		equal($spinbox.spinbox('value'), 1, 'spinbox returns selected item');
@@ -95,18 +70,18 @@ define(function(require){
 	});
 
 	test("should allow setting value to zero", function () {
-		var $spinbox = $(spinboxHTML).spinbox();
+		var $spinbox = $(html).find('#MySpinbox').spinbox();
 		$spinbox.spinbox('value', 0);
 		equal($spinbox.spinbox('value'), 0, 'spinbox value was set to zero');
 	});
 
 	test("should keep existing value", function () {
-		var $spinbox = $(spinboxHTMLWithDefault).spinbox();
+		var $spinbox = $(html).find('#MySpinboxWithDefault').spinbox();
 		equal($spinbox.spinbox('value'), 3, 'spinbox kept existing value');
 	});
 
 	test("spinbox should not allow maximum/minimum values to be surpassed by manual input", function () {
-		var $spinbox = $(spinboxHTMLWithDefault).spinbox({
+		var $spinbox = $(html).find('#MySpinbox').spinbox({
 			min: -10,
 			max: 10
 		});
@@ -123,7 +98,7 @@ define(function(require){
 	});
 
 	test("should cycle when min or max values are reached", function () {
-		var $spinbox = $(spinboxHTML).spinbox({
+		var $spinbox = $(html).find('#MySpinbox').spinbox({
 			min: 1,
 			max: 3,
 			cycle: true
@@ -140,7 +115,7 @@ define(function(require){
 	});
 
 	test("spinbox should behave correctly when units are included", function () {
-		var $spinbox = $(spinboxHTML).spinbox({
+		var $spinbox = $(html).find('#MySpinbox').spinbox({
 			min: -10,
 			units: ['px']
 		});
