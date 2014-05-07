@@ -15,7 +15,7 @@ body {
 }
 
 .tree {
-	width: 430px;
+	max-width: 430px;
 	height: 350px;
 }
 
