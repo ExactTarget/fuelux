@@ -1,0 +1,100 @@
+.repeater {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+
+	&-canvas {
+		&.scrolling{
+			bottom: 0;
+			left: 0;
+			overflow-y: auto;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+	}
+
+	&-header,
+	&-footer
+	{
+		background: #f9f9f9;
+		min-height: 50px;
+		padding: 8px;
+		.clearfix;
+	}
+
+	&-header {
+		border-bottom: 1px solid #ddd;
+		.border-top-radius(4px);
+
+		&-left {
+			float: left;
+		}
+
+		&-right {
+			float: right;
+		}
+	}
+
+	&-footer {
+		border-top: 1px solid #ddd;
+		.border-bottom-radius(4px);
+
+		&-left {
+			float: left;
+		}
+
+		&-right {
+			float: right;
+		}
+	}
+
+	&-loader {
+		display: none;
+		left: 50%;
+		position: absolute;
+		margin: -32px 0 0 -32px;
+		top: 50%;
+	}
+
+	&-viewport {
+		min-height: 80px;
+		position: relative;
+	}
+
+	&-pagination {
+		.repeater-primaryPaging {
+			display: none;
+			vertical-align: middle;
+			width: 116px;
+
+			&.active {
+				display: inline-block;
+			}
+
+			ul.dropdown-menu {
+				min-width: 116px;
+			}
+		}
+
+		.repeater-secondaryPaging {
+			display: none;
+			width: 82px;
+
+			&.active {
+				display: inline-block;
+			}
+		}
+	}
+
+	&-search {
+		float: left;
+		width: 200px;
+	}
+
+	&-title {
+		display: block;
+		float: left;
+		line-height: 34px;
+		margin-right: 10px;
+	}
+}

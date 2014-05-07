@@ -1,0 +1,82 @@
+.pillbox {
+	padding: 3px;
+
+	> .pill-group {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+
+		> .pill {
+			margin: 2px;
+			cursor: text;
+			float:left;
+			word-break: break-all;
+
+			&.pillbox-highlight {
+				outline: 1px dotted @grayLight;
+			}
+
+			.pillbox-list-edit {
+				border: none;
+				color: @grayDark;
+				font-weight: normal;
+				border-radius: 2px;
+
+				&:focus {
+					outline: none;
+					border: none;
+				}
+			}
+
+			.glyphicon-close {
+				cursor: pointer;
+				top: -1px;
+				left: 2px;
+
+				&:before {
+					content: " \00d7";
+				}
+
+				&:hover {
+					opacity: .4;
+				}
+			}
+
+		}
+	}
+
+	.pillbox-input-wrap {
+		position: relative;
+		margin: 4px 0 3px 3px;
+		float: left;
+	}
+
+	.pillbox-add-item {
+		border: none;
+		box-shadow: none;
+
+		&:focus {
+			outline: none;
+			border: none;
+		}
+	}
+
+	.suggest {
+		max-height: 166px; // arbitrary number
+		overflow-y: auto;
+
+		> li {
+			white-space: nowrap;
+			cursor: pointer;
+			padding: 3px 20px;
+
+			&.pillbox-suggest-sel {
+				background-color: @grayLighter;
+			}
+
+			&:hover {
+				background-color: @grayLighter;
+			}
+		}
+	}
+}

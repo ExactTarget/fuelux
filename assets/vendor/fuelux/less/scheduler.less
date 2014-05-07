@@ -1,0 +1,226 @@
+.scheduler {
+	&-end {
+		display: none;
+
+		.datepicker {
+			display: none;
+			float: left;
+			margin-left: 10px;
+
+			> input {
+				width: 100px
+			}
+		}
+
+		.selectlist {
+			float: left;
+		}
+
+		.spinbox {
+			display: none;
+			float: left;
+			margin-left: 10px;
+
+			input {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	&-repeat {
+		.dropdown-menu {
+			max-height: 200px;
+			overflow: auto;
+		}
+
+		.repeat-interval {
+			.clearfix;
+
+			&-panel {
+				display: none;
+				float: left;
+
+				.repeat-interval-pretext,
+				.repeat-interval-text
+				{
+					float: left;
+					line-height: 27px;
+					margin-top:2px;
+				}
+
+				.repeat-interval-pretext {
+					padding: 0 10px;
+				}
+
+				.spinbox {
+					float: left;
+					margin-right: 0;
+
+					input {
+						margin-bottom: 0;
+					}
+				}
+			}
+		}
+
+		.scheduler-monthly {
+
+			&-date {
+				margin-top: 10px;
+				.clearfix;
+
+				.radio {
+					margin: 6px 10px 0 0;
+				}
+
+				.selectlist {
+					margin-left: 5px;
+				}
+			}
+
+			&-day {
+				margin-top: 10px;
+				.clearfix;
+
+				.radio {
+					margin: 6px 10px 0 0;
+				}
+
+				.month-day-pos {
+					margin: 0 5px 0 0;
+				}
+			}
+		}
+
+		.scheduler-yearly {
+
+			&-date {
+				margin-top: 10px;
+				.clearfix;
+
+				.radio {
+					margin: 6px 10px 0 0;
+				}
+
+				.selectlist {
+					&.year-month {
+						margin-left: 5px;
+
+						&-day {
+							margin-left: 10px;
+						}
+					}
+				}
+			}
+
+			&-day {
+				margin-top: 10px;
+				.clearfix;
+
+				.radio {
+					margin: 6px 10px 0 0;
+				}
+
+				.scheduler-yearly-day-text {
+					float: left;
+					line-height: 27px;
+					margin: 3px 10px 0;
+				}
+
+				.year-month-day-pos {
+					margin: 0 5px;
+				}
+			}
+		}
+
+		.scheduler-weekly {
+			padding: 10px 0 0 0;
+
+			button:not(.active) {
+				background-color: #fff;
+			}
+
+			.btn-group {
+				&.disabled {
+					position: relative;
+					opacity: 0.65;
+
+					&:before {
+						background: transparent;
+						bottom: 0;
+						content: "";
+						left: 0;
+						position: absolute;
+						right: 0;
+						top: 0;
+						z-index: 5;
+					}
+				}
+			}
+		}
+
+		.selectlist {
+			float: left;
+		}
+
+		label.radio {
+			float: left;
+			line-height: 27px;
+
+			input {
+				margin-top: 8px;
+			}
+		}
+	}
+
+	&-start {
+
+		.combobox {
+			.dropdown-menu {
+				max-height: 200px;
+				overflow: auto;
+			}
+
+			input {
+				width: 90px;
+			}
+		}
+
+		.dropdown {
+			float: left;
+			margin: 0 10px 0 0;
+		}
+	}
+
+	&-table {
+		td {
+			margin: 0;
+			padding: 5px;
+			vertical-align: top;
+
+			&.scheduler-label {
+				padding-top: 8px;
+			}
+		}
+	}
+
+	&-timezone {
+		.dropdown-label {
+			height: 18px;
+			white-space: nowrap;
+			width: 334px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.dropdown-menu {
+			max-height: 200px;
+			overflow: auto;
+			width: 376px;
+		}
+	}
+
+	.recurrence-panel {
+		display: none;
+	}
+}

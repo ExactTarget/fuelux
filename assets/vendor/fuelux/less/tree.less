@@ -1,0 +1,168 @@
+.tree {
+
+	border: 1px solid #BBBBBB;
+	border-radius: 4px 4px 4px 4px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding: 10px 15px 0 15px;
+	position: relative;
+
+	.tree-folder {
+
+		width: 100%;
+		min-height: 20px;
+		cursor: pointer;
+		margin-top: 1px;
+
+		.tree-folder-header {
+
+			position: relative;
+			height: 20px;
+			-webkit-border-radius: 6px;
+			   -moz-border-radius: 6px;
+					border-radius: 6px;
+
+			&:hover {
+				background-color: @treeBackgroundHover;
+			}
+
+			i:first-child {
+				float: left;
+				left: 5px;
+			}
+
+			.tree-folder-name {
+				padding-left: 15px;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+
+		}
+
+		.tree-folder-content {
+			margin-left: 23px;
+		}
+
+	}
+
+	.tree-item {
+
+		position: relative;
+		width: 100%;
+		height: 20px;
+		cursor: pointer;
+		margin-top: 1px;
+		-webkit-border-radius: 6px;
+		   -moz-border-radius: 6px;
+				border-radius: 6px;
+
+		&:hover {
+			background-color: @treeBackgroundHover;
+		}
+
+		.tree-item-name {
+            overflow: hidden;
+            padding-left: 29px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+		}
+
+		.tree-dot {
+			position: absolute;
+			top: 8px;
+			left: 10px;
+			display: block;
+			width: 4px;
+			height: 4px;
+			background-color: @grayDark;
+			-webkit-border-radius: 6px;
+			   -moz-border-radius: 6px;
+					border-radius: 6px;
+		}
+
+		.glyphicon-ok {
+			left: 5px;
+			position: absolute;
+			top: 2px;
+		}
+
+	}
+
+	.tree-selected {
+		background-color: @treeBackgroundSelect;
+
+		&:hover {
+			background-color: @treeBackgroundSelect;
+		}
+	}
+
+	&.tree-folder-select {
+
+		.tree-folder {
+			clear: both;
+			margin-bottom: 1px;
+
+			.tree-folder-header {
+				float: left;
+				width: 45px;
+				padding-top: 1px;
+				margin-right: 5px;
+				height: 21px;
+
+				.tree-triangle-right {
+					margin-left: 8px;
+					margin-top: 5px;
+					width: 0px;
+					height: 0px;
+					border-style: solid;
+					border-width: 4px 0 4px 6px;
+					border-color: transparent transparent transparent #333333;
+				}
+
+				.tree-triangle-down {
+					margin-left: 6px;
+					margin-top: 6px;
+					width: 0px;
+					height: 0px;
+					border-style: solid;
+					border-width: 6px 4px 0 4px;
+					border-color: #333333 transparent transparent transparent;
+				}
+
+				i:last-child {
+					float: left;
+					left: 10px;
+
+				}
+			}
+
+
+			> .tree-folder-name {
+				float: left;
+				padding: 1px 5px 0 5px;
+
+				-webkit-border-radius: 6px;
+				   -moz-border-radius: 6px;
+						border-radius: 6px;
+
+				&:hover {
+					background-color: @treeBackgroundHover;
+				}
+
+				&.tree-selected {
+					background-color: @treeBackgroundSelect;
+
+					&:hover {
+						background-color: @treeBackgroundSelect;
+					}
+				}
+			}
+		}
+
+		.tree-loader {
+			clear: both;
+		}
+
+	}
+}
