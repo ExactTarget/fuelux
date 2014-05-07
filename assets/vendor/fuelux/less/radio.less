@@ -1,0 +1,120 @@
+.radio {
+	&.highlight {
+		padding: 4px 4px 4px 24px;
+
+		&.checked {
+			background: #e9e9e9;
+			-webkit-border-radius: @borderRadiusSmall;
+			border-radius: @borderRadiusSmall;
+		}
+	}
+}
+
+.radio-custom {
+	position: relative;
+
+	&:after,
+	&:before
+	{
+		.iconBaseStyles();
+
+		color: #aaa;
+		font-size: 16px;
+		left: 0;
+		margin-left: -20px;
+		position: relative;
+		top: 0;
+	}
+
+	&:after {
+		content: "\e00c";	/*.fueluxicon-radio-1:before*/
+		position: absolute;
+	}
+
+	&:before {
+		color: #ebebeb;
+		content: "\e00d";	/*.fueluxicon-radio-2:before*/
+		top: 2px;
+	}
+
+	&.checked {
+		&:after {
+			content: "\e00e";	/*.fueluxicon-radio-3:before*/
+		}
+	}
+
+	&.disabled {
+		&:after,
+		&:before
+		{
+			opacity: .6;
+		}
+	}
+
+	//TODO: Make sure this works well for various sizes of fonts
+	&.radio-inline {
+		padding-left: 4px;
+
+		&:after,
+		&:before
+		{
+			display: block;
+			float: left;
+			margin: 0;
+		}
+
+		&:after {
+			top: 2px;
+		}
+
+		&:before {
+			left: -4px;
+		}
+
+		&.highlight {
+			padding: 4px 4px 4px 6px;
+
+			&:after {
+				left: 3px;
+				top: 6px;
+			}
+
+			&:before {
+				left: -3px;
+				top: 2px;
+			}
+
+			&.checked {
+				background: #e9e9e9;
+				-webkit-border-radius: @borderRadiusSmall;
+				border-radius: @borderRadiusSmall;
+			}
+		}
+	}
+
+	input[type=radio] {
+		/* IE cannot fire events if display none or visibility hidden */
+		position: relative;
+		left: -99999px;
+	}
+}
+
+.radio-custom:hover {
+	&:after {
+		color: #888;
+	}
+
+	&:before {
+		color: #d4d4d4;
+	}
+
+	&.disabled {
+		&:after {
+			color: #aaa;
+		}
+
+		&:before {
+			color: #ebebeb;
+		}
+	}
+}

@@ -2,5 +2,150 @@
 layout: default
 title: Components
 slug: components
-lead: "A bunch of reusable components built to ooo eee, ooo ah ah, ting tang, walla walla bing bang."
+lead: "Over a dozen reusable components built to provide date pickers, custom UI elements, trees, wizards, tag pillboxes, a data grid, and much more."
 ---
+
+
+<!-- combobox
+================================================== -->
+<div class="bs-docs-section">
+  <h1 id="comboboxes" class="page-header">Comboboxes <small>combobox.js</small></h1>
+
+  <p class="lead">Combines an input and a dropdown for easy and flexible data selection.</p>
+
+  <h3 id="comboboxes-example">Examples</h3>
+  <p>Wrap the input, dropdown trigger, and dropdown menu within <code>.combobox</code></p>
+  <div class="bs-example">
+
+      <div style="width: 300px;">
+        <div id="MyCombobox" class="input-group input-append dropdown combobox">
+          <input type="text" class="form-control">
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li data-value="1"><a href="#">One</a></li>
+            <li data-value="2"><a href="#">Two</a></li>
+            <li data-value="3"><a href="#">Three</a></li>
+            <li data-value="4" ><a href="#">Four</a></li>
+            <li data-value="Item Five"><a href="#">Item Five</a></li>
+            <li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>
+          </ul>
+          </div>
+        </div>
+      </div>
+
+      <h5>Sample Methods</h5>
+      <div class="btn-group">
+        <input id="btnComboboxGetSelectedItem" type="button" class="btn btn-default" value="log item"/>
+        <input id="btnComboboxSelectByValue" type="button" class="btn btn-default" value="set by value (1)"/>
+        <input id="btnComboboxSelectByIndex" type="button" class="btn btn-default" value="set by element index (1)"/>
+        <input id="btnComboboxSelectByText" type="button" class="btn btn-default" value="set by text (Four)"/>
+      </div>
+      <div class="btn-group">
+        <input id="btnComboboxSelectBySelector" type="button" class="btn btn-default" 
+          value="set by CSS selector li[data-fizz=buzz] (6)"/>
+        <input id="btnComboboxDisable" type="button" class="btn btn-default" value="disable"/>
+        <input id="btnComboboxEnable" type="button" class="btn btn-default" value="enable"/>
+      </div>
+
+  </div><!-- /example -->
+
+{% highlight html %}
+<div id="MyCombobox" class="input-group input-append dropdown combobox">
+  <input type="text" class="form-control">
+  <div class="input-group-btn">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+  <ul class="dropdown-menu dropdown-menu-right">
+    <li data-value="1"><a href="#">One</a></li>
+    <li data-value="2"><a href="#">Two</a></li>
+    <li data-value="3"><a href="#">Three</a></li>
+    <li data-value="4" ><a href="#">Four</a></li>
+    <li data-value="Item Five"><a href="#">Item Five</a></li>
+    <li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>
+  </ul>
+  </div>
+</div>
+{% endhighlight %}
+
+  <h3 id="comboboxes-alignment">Alignment</h3>
+  <p>By default, a dropdown menu is automatically positioned 100% from the top and along the left side of its parent. Add <code>.dropdown-menu-right</code> to a <code>.dropdown-menu</code> to right align the dropdown menu.</p>
+
+  <h2 id="comboboxes-usage">Usage</h2>
+  <p>Via JavaScript, the checkbox plugin toggles hidden content (dropdown menus) by toggling the <code>.open</code> class on the parent list item. When opened, the plugin also adds <code>.dropdown-backdrop</code> as a click area for closing dropdown menus when clicking outside the menu. Note: The <code>data-toggle=dropdown</code> attribute is relied on for closing dropdown menus at an application level, so it's a good idea to always use it.</p>
+
+  <h3>Via class</h3>
+  <p>Add <code>class="combobox"</code> to an input and a dropdown within a <code>class="fuelux"</code> container.</p>
+  {% highlight html %}
+  <div class="input-group input-append dropdown combobox">
+    <input type="text" class="form-control">
+    <div class="input-group-btn">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+    <ul class="dropdown-menu dropdown-menu-right">
+      ...
+    </ul>
+    </div>
+  </div>
+  {% endhighlight %}
+
+    <h3>Via JavaScript</h3>
+    <p>Call the combobox via JavaScript:</p>
+  {% highlight js %}
+  $('.combobox').combobox()
+  {% endhighlight %}
+
+  <h3>Options</h3>
+  <p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-selected-item=""</code>.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+       <tr>
+         <th style="width: 100px;">Name</th>
+         <th style="width: 100px;">type</th>
+         <th style="width: 50px;">default</th>
+         <th>description</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td>selected-item</td>
+         <td>boolean</td>
+         <td>false</td>
+         <td>Declare value to initialize with</td>
+       </tr>
+      </tbody>
+    </table>
+  </div><!-- ./bs-table-responsive -->
+  
+  <h3>Methods</h3>
+
+  <h4>$().combobox('disable')</h4>
+  <p>Disables the component</p>
+
+  <h4>$().combobox('enable')</h4>
+  <p>Disables the component</p>
+
+  <h4>$().combobox('selectedItem')</h4>
+  <p>Returns a key value object</p>
+
+  <h3>Events</h3>
+  <p>All dropdown events are fired at the <code>.combobox</code>'s parent element.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="width: 150px;">Event Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>TBD</td>
+          <td>TBD</td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- ./bs-table-responsive -->
+{% highlight js %}
+TBD
+{% endhighlight %}
+</div>
