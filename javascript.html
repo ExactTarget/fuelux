@@ -2,5 +2,173 @@
 layout: default
 title: Javascript
 slug: javascript
-lead: "Bring Fuel UX components to life with jQuery plugins. Inlude them all, or one by one."
+lead: "Over a dozen reusable controls built to provide datepickers, pillboxes, trees, wizards, and much more."
 ---
+
+
+
+<!-- combobox
+================================================== -->
+<div class="bs-docs-section">
+	<h1 id="comboboxes" class="page-header">Comboboxes <small>combobox.js</small></h1>
+
+	<p class="lead">Combines an input and a dropdown for easy and flexible data selection.</p>
+
+	<h2 id="comboboxes-examples">Examples</h2>
+	<p>Wrap the input, dropdown trigger, and dropdown menu within <code>.combobox</code></p>
+	<div class="bs-example">
+
+		<div style="width: 300px;">
+			<div id="MyCombobox" class="input-group input-append dropdown combobox">
+				<input type="text" class="form-control">
+				<div class="input-group-btn">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+					<ul class="dropdown-menu dropdown-menu-right">
+						<li data-value="1"><a href="#">One</a></li>
+						<li data-value="2"><a href="#">Two</a></li>
+						<li data-value="3"><a href="#">Three</a></li>
+						<li data-value="4" ><a href="#">Four</a></li>
+						<li data-value="Item Five"><a href="#">Item Five</a></li>
+						<li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<h5>Sample Methods</h5>
+		<div class="btn-group">
+			<input id="btnComboboxGetSelectedItem" type="button" class="btn btn-default" value="log item"/>
+			<input id="btnComboboxSelectByValue" type="button" class="btn btn-default" value="set by value (1)"/>
+			<input id="btnComboboxSelectByIndex" type="button" class="btn btn-default" value="set by element index (1)"/>
+			<input id="btnComboboxSelectByText" type="button" class="btn btn-default" value="set by text (Four)"/>
+		</div>
+		<div class="btn-group">
+			<input id="btnComboboxSelectBySelector" type="button" class="btn btn-default"
+				   value="set by CSS selector li[data-fizz=buzz] (6)"/>
+			<input id="btnComboboxDisable" type="button" class="btn btn-default" value="disable"/>
+			<input id="btnComboboxEnable" type="button" class="btn btn-default" value="enable"/>
+		</div>
+
+	</div><!-- /example -->
+
+	{% highlight html %}
+	<div id="MyCombobox" class="input-group input-append dropdown combobox">
+		<input type="text" class="form-control">
+		<div class="input-group-btn">
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+			<ul class="dropdown-menu dropdown-menu-right">
+				<li data-value="1"><a href="#">One</a></li>
+				<li data-value="2"><a href="#">Two</a></li>
+				<li data-value="3"><a href="#">Three</a></li>
+				<li data-value="4" ><a href="#">Four</a></li>
+				<li data-value="Item Five"><a href="#">Item Five</a></li>
+				<li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>
+			</ul>
+		</div>
+	</div>
+	{% endhighlight %}
+
+	<h3 id="comboboxes-alignment">Alignment</h3>
+	<p>By default, a dropdown menu is automatically positioned 100% from the top and along the right side of its parent. Remove <code>.dropdown-menu-right</code> to a <code>.dropdown-menu</code> to left align the dropdown menu.</p>
+
+	<h2 id="comboboxes-usage">Usage</h2>
+	<p>Via JavaScript, the combobox control toggles hidden content (dropdown menus) by toggling the <code>.open</code> class on the parent list item. When opened, the plugin also adds <code>.dropdown-backdrop</code> as a click area for closing dropdown menus when clicking outside the menu. Note: The <code>data-toggle=dropdown</code> attribute is relied on for closing dropdown menus at an application level, so it's a good idea to always use it.</p>
+
+	<p>Trigger the combobox via JavaScript:</p>
+	{% highlight js %}
+	$('#MyCombobox').combobox(options)
+	{% endhighlight %}
+
+	<h3>Markup</h3>
+	<p>Add <code>class="combobox"</code> to an input and a dropdown within a <code>class="fuelux"</code> container.</p>
+	{% highlight html %}
+	<div class="input-group input-append dropdown combobox">
+		<input type="text" class="form-control">
+		<div class="input-group-btn">
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+			<ul class="dropdown-menu dropdown-menu-right">
+				...
+			</ul>
+		</div>
+	</div>
+	{% endhighlight %}
+
+	<h3>Options</h3>
+	<p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-selected=""</code>.</p>
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead>
+			<tr>
+				<th style="width: 100px;">Name</th>
+				<th style="width: 100px;">type</th>
+				<th style="width: 50px;">default</th>
+				<th>description</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>selected</td>
+				<td>boolean</td>
+				<td>false</td>
+				<td>Declare value to initialize with</td>
+			</tr>
+			</tbody>
+		</table>
+	</div><!-- ./bs-table-responsive -->
+
+	<h3>Methods</h3>
+	<h4>$().combobox(options)</h4>
+	Attaches a combobox to an an input and a dropdown menu.
+
+	<h4>.combobox('disable')</h4>
+	<p>Disables the control</p>
+	{% highlight js %}$('#element').combobox('disable'){% endhighlight %}
+
+	<h4>.combobox('enable')</h4>
+	<p>Enables the control</p>
+	{% highlight js %}$('#element').combobox('enable'){% endhighlight %}
+
+	<h4>.combobox('selectedItem')</h4>
+	<p>Returns an object containing the jQuery data() contents of the selected item which includes <code>.data-*</code> attributes plus a text property with the items's visible text.</p>
+	{% highlight js %}$('#element').combobox('selectedItem'){% endhighlight %}
+
+	<h4>.combobox('selectByIndex')</h4>
+	<p>Set the selected item based on its index in the list (zero-based index). Convenience method for <code>.selectBySelector('li:eq({index})')</code></p>
+	{% highlight js %}$('#element').combobox('selectByIndex', '1'){% endhighlight %}
+
+	<h4>.combobox('selectByText')</h4>
+	<p>Set the selected item based on its text value</p>
+	{% highlight js %}$('#element').('selectByText', 'Four'){% endhighlight %}
+
+	<h4>.combobox('selectBySelector')</h4>
+	<p>Set the selected item based on a selector.</p>
+	{% highlight js %}$('#element').('selectBySelector', 'li[data-fizz=buzz]'){% endhighlight %}
+
+	<h4>.combobox('selectByValue')</h4>
+	<p>Set the selected item based on its value. Convenience method for <code>.selectBySelector('data-value={value}')</code> that requires the item to have a <code>.data-value="{value}"</code> attribute</p>
+	{% highlight js %}$('#element').('selectByValue', '1'){% endhighlight %}
+
+	<h3>Events</h3>
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead>
+			<tr>
+				<th style="width: 150px;">Event Type</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>changed</td>
+				<td>This event is fired when the value has changed (either by selecting an item from the list or updating the input value directly). Arguments are <code>event, data</code> where data represents the same object structure returned by the <code>selectedItem</code> method.</td>
+			</tr>
+			</tbody>
+		</table>
+	</div><!-- ./bs-table-responsive -->
+	<p>All dropdown events are fired at the <code>.dropdown</code>'s parent element.</p>
+	{% highlight js %}
+	$('#MyCombobox').on('changed', function () {
+	// do something…
+	})
+	{% endhighlight %}
+</div>
