@@ -13,7 +13,7 @@ lead: "Over a dozen reusable components built to provide date pickers, custom UI
 
   <p class="lead">Combines an input and a dropdown for easy and flexible data selection.</p>
 
-  <h3 id="comboboxes-example">Examples</h3>
+  <h2 id="comboboxes-example">Examples</h2>
   <p>Wrap the input, dropdown trigger, and dropdown menu within <code>.combobox</code></p>
   <div class="bs-example">
 
@@ -68,12 +68,17 @@ lead: "Over a dozen reusable components built to provide date pickers, custom UI
 {% endhighlight %}
 
   <h3 id="comboboxes-alignment">Alignment</h3>
-  <p>By default, a dropdown menu is automatically positioned 100% from the top and along the left side of its parent. Add <code>.dropdown-menu-right</code> to a <code>.dropdown-menu</code> to right align the dropdown menu.</p>
+  <p>By default, a dropdown menu is automatically positioned 100% from the top and along the right side of its parent. Remove <code>.dropdown-menu-right</code> to a <code>.dropdown-menu</code> to left align the dropdown menu.</p>
 
   <h2 id="comboboxes-usage">Usage</h2>
-  <p>Via JavaScript, the checkbox plugin toggles hidden content (dropdown menus) by toggling the <code>.open</code> class on the parent list item. When opened, the plugin also adds <code>.dropdown-backdrop</code> as a click area for closing dropdown menus when clicking outside the menu. Note: The <code>data-toggle=dropdown</code> attribute is relied on for closing dropdown menus at an application level, so it's a good idea to always use it.</p>
+  <p>Via JavaScript, the combobox component toggles hidden content (dropdown menus) by toggling the <code>.open</code> class on the parent list item. When opened, the plugin also adds <code>.dropdown-backdrop</code> as a click area for closing dropdown menus when clicking outside the menu. Note: The <code>data-toggle=dropdown</code> attribute is relied on for closing dropdown menus at an application level, so it's a good idea to always use it.</p>
 
-  <h3>Via class</h3>
+  <p>Trigger the combobox via JavaScript:</p>
+  {% highlight js %}
+  $('#MyCombobox').combobox(options)
+  {% endhighlight %}
+
+  <h3>Markup</h3>
   <p>Add <code>class="combobox"</code> to an input and a dropdown within a <code>class="fuelux"</code> container.</p>
   {% highlight html %}
   <div class="input-group input-append dropdown combobox">
@@ -87,14 +92,8 @@ lead: "Over a dozen reusable components built to provide date pickers, custom UI
   </div>
   {% endhighlight %}
 
-    <h3>Via JavaScript</h3>
-    <p>Call the combobox via JavaScript:</p>
-  {% highlight js %}
-  $('.combobox').combobox()
-  {% endhighlight %}
-
   <h3>Options</h3>
-  <p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-selected-item=""</code>.</p>
+  <p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-selected=""</code>.</p>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>
@@ -107,7 +106,7 @@ lead: "Over a dozen reusable components built to provide date pickers, custom UI
       </thead>
       <tbody>
        <tr>
-         <td>selected-item</td>
+         <td>selected</td>
          <td>boolean</td>
          <td>false</td>
          <td>Declare value to initialize with</td>
@@ -117,18 +116,38 @@ lead: "Over a dozen reusable components built to provide date pickers, custom UI
   </div><!-- ./bs-table-responsive -->
   
   <h3>Methods</h3>
-
-  <h4>$().combobox('disable')</h4>
+  <h4>$().combobox(options)</h4>
+  Attaches a combobox to an an input and a dropdown menu.
+  
+  <h4>.combobox('disable')</h4>
   <p>Disables the component</p>
+  {% highlight js %}$('#element').combobox('disable'){% endhighlight %}
 
-  <h4>$().combobox('enable')</h4>
-  <p>Disables the component</p>
+  <h4>.combobox('enable')</h4>
+  <p>Enables the component</p>
+  {% highlight js %}$('#element').combobox('enable'){% endhighlight %}
 
-  <h4>$().combobox('selectedItem')</h4>
-  <p>Returns a key value object</p>
+  <h4>.combobox('selectedItem')</h4>
+  <p>Returns an object containing the jQuery data() contents of the selected item which includes <code>.data-*</code> attributes plus a text property with the items's visible text.</p>
+  {% highlight js %}$('#element').combobox('selectedItem'){% endhighlight %}
+
+  <h4>.combobox('selectByIndex')</h4>
+  <p>Set the selected item based on its index in the list (zero-based index). Convenience method for <code>.selectBySelector('li:eq({index})')</code></p>
+  {% highlight js %}$('#element').combobox('selectByIndex', '1'){% endhighlight %}
+
+  <h4>.combobox('selectByText')</h4>
+  <p>Set the selected item based on its text value</p>
+  {% highlight js %}$('#element').('selectByText', 'Four'){% endhighlight %}
+
+  <h4>.combobox('selectBySelector')</h4>
+  <p>Set the selected item based on a selector.</p>
+  {% highlight js %}$('#element').('selectBySelector', 'li[data-fizz=buzz]'){% endhighlight %}
+
+  <h4>.combobox('selectByValue')</h4>
+  <p>Set the selected item based on its value. Convenience method for <code>.selectBySelector('data-value={value}')</code> that requires the item to have a <code>.data-value="{value}"</code> attribute</p>
+  {% highlight js %}$('#element').('selectByValue', '1'){% endhighlight %}
 
   <h3>Events</h3>
-  <p>All dropdown events are fired at the <code>.combobox</code>'s parent element.</p>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>
@@ -139,13 +158,16 @@ lead: "Over a dozen reusable components built to provide date pickers, custom UI
       </thead>
       <tbody>
         <tr>
-          <td>TBD</td>
-          <td>TBD</td>
+          <td>changed</td>
+          <td>This event is fired when the value has changed (either by selecting an item from the list or updating the input value directly). Arguments are <code>event, data</code> where data represents the same object structure returned by the <code>selectedItem</code> method.</td>
         </tr>
       </tbody>
     </table>
   </div><!-- ./bs-table-responsive -->
+  <p>All dropdown events are fired at the <code>.dropdown</code>'s parent element.</p>
 {% highlight js %}
-TBD
+$('#MyCombobox').on('changed', function () {
+  // do something…
+})
 {% endhighlight %}
 </div>
