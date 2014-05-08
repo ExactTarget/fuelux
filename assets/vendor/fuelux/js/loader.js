@@ -26,27 +26,41 @@
 	if(window && !window.fuelux_loader){
 		var Loader = function(){
 			var count = 0;
-			var start = function(id, loader){
-				var bTag, cycle;
+			var init = function(id, loader){
+				var delay = (loader.hasAttribute('data-delay')) ? parseFloat(loader.getAttribute('data-delay')) : 150;
+				var frame = (loader.hasAttribute('data-frame')) ? parseInt(loader.getAttribute('data-frame'), 10) : 0;
+				var length = (loader.hasAttribute('data-length')) ? parseInt(loader.getAttribute('data-length'), 10) : 8;
+				var start = (loader.hasAttribute('data-start')) ? parseFloat(loader.getAttribute('data-start')) : 0;
+				var ieVer;
 
-				cycle = function(i, item){
-					item.innerHTML = '&#992' + i + ';';
+				var cycle = function(i){
 					i++;
-					if(i===9){
-						i = 1;
+					if(i>=length){
+						i = start;
 					}
+					loader.setAttribute('data-frame', i + '');
 					setTimeout(function(){
-						cycle(i, item);
-					},125);
+						cycle(i);
+					}, delay);
 				};
 
-				loader.className += " iefix";
+				var msieVersion = function(){
+					var ua = window.navigator.userAgent;
+					var msie = ua.indexOf('MSIE ');
+					if(msie>0){
+						return parseInt(ua.substring(msie+5, ua.indexOf(".", msie )), 10);
+					}else{
+						return false;
+					}
+				};
 
-				bTag = "loader_" + id;
-				loader.innerHTML = '<span>&#9920;</span><b id="' + bTag + '"></b>' + loader.innerHTML;
-
-				bTag = document.getElementById(bTag);
-				cycle(1, bTag);
+				ieVer = msieVersion();
+				if(ieVer!==false && ieVer<9){
+					loader.className += ' iefix';
+				}
+				setTimeout(function(){
+					cycle(frame);
+				}, delay);
 				loader.setAttribute('data-initialized', 'true');
 			};
 
@@ -57,7 +71,7 @@
 				for(i=0, l=loaders.length; i<l; i++){
 					if(loaders[i].getAttribute('data-initialized')!=='true'){
 						count++;
-						start(count, loaders[i]);
+						init(count, loaders[i]);
 					}
 				}
 			};

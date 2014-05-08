@@ -480,6 +480,14 @@ h1[id] {
 	text-align: right;
 	color: #bebec5;
 }
+.fuelux .checkbox.highlight,
+.fuelux .checkbox-custom.highlight
+{
+	margin-bottom: 10px;
+	background-color: transparent;
+	border: none;
+	border-radius: 0;
+}
 
 
 

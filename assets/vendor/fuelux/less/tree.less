@@ -1,10 +1,10 @@
 .tree {
 
-	border: 1px solid #BBBBBB;
+	border: 1px solid @grayLight;
 	border-radius: 4px 4px 4px 4px;
-	overflow-y: auto;
-	overflow-x: hidden;
 	padding: 10px 15px 0 15px;
+	overflow-x: auto;
+	overflow-y: auto;
 	position: relative;
 
 	.tree-folder {
@@ -18,9 +18,7 @@
 
 			position: relative;
 			height: 20px;
-			-webkit-border-radius: 6px;
-			   -moz-border-radius: 6px;
-					border-radius: 6px;
+			border-radius: 6px;
 
 			&:hover {
 				background-color: @treeBackgroundHover;
@@ -32,10 +30,8 @@
 			}
 
 			.tree-folder-name {
-				padding-left: 15px;
+				padding-left: 29px;
 				white-space: nowrap;
-				overflow: hidden;
-				text-overflow: ellipsis;
 			}
 
 		}
@@ -53,19 +49,15 @@
 		height: 20px;
 		cursor: pointer;
 		margin-top: 1px;
-		-webkit-border-radius: 6px;
-		   -moz-border-radius: 6px;
-				border-radius: 6px;
+		border-radius: 6px;
 
 		&:hover {
 			background-color: @treeBackgroundHover;
 		}
 
 		.tree-item-name {
-            overflow: hidden;
-            padding-left: 29px;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+			padding-left: 29px;
+			white-space: nowrap;
 		}
 
 		.tree-dot {
@@ -76,9 +68,7 @@
 			width: 4px;
 			height: 4px;
 			background-color: @grayDark;
-			-webkit-border-radius: 6px;
-			   -moz-border-radius: 6px;
-					border-radius: 6px;
+			border-radius: 6px;
 		}
 
 		.glyphicon-ok {

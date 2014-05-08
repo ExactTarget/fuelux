@@ -1,33 +1,29 @@
 .scheduler {
-	&-end {
+	label {
+		width: 7em;
+	}
+
+	.recurrence-panel {
 		display: none;
+	}
 
-		.datepicker {
-			display: none;
-			float: left;
-			margin-left: 10px;
-
-			> input {
-				width: 100px
-			}
+	.scheduler-end {
+		display: none;
+		
+		.form-group {
+			margin-left: 0;
 		}
 
-		.selectlist {
-			float: left;
-		}
-
-		.spinbox {
+		.end-option-panel {
 			display: none;
-			float: left;
-			margin-left: 10px;
-
-			input {
-				margin-bottom: 0;
-			}
 		}
 	}
 
-	&-repeat {
+	.scheduler-repeat {
+		.form-group {
+			margin-left: 0;
+		}
+
 		.dropdown-menu {
 			max-height: 200px;
 			overflow: auto;
@@ -36,7 +32,7 @@
 		.repeat-interval {
 			.clearfix;
 
-			&-panel {
+			.repeat-interval-panel {
 				display: none;
 				float: left;
 
@@ -173,17 +169,20 @@
 		}
 	}
 
-	&-start {
+	.scheduler-start {
+
+		.form-group {
+			margin-left: 0;
+		}
 
 		.combobox {
+			max-width: 9em;
+
 			.dropdown-menu {
 				max-height: 200px;
 				overflow: auto;
 			}
 
-			input {
-				width: 90px;
-			}
 		}
 
 		.dropdown {
@@ -192,23 +191,15 @@
 		}
 	}
 
-	&-table {
-		td {
-			margin: 0;
-			padding: 5px;
-			vertical-align: top;
-
-			&.scheduler-label {
-				padding-top: 8px;
-			}
+	.scheduler-timezone {
+		.input-group {
+			max-width: 20em;
 		}
-	}
 
-	&-timezone {
 		.dropdown-label {
 			height: 18px;
 			white-space: nowrap;
-			width: 334px;
+			max-width: 20em;
 			overflow: hidden;
 			text-overflow: ellipsis;
 		}
@@ -216,7 +207,6 @@
 		.dropdown-menu {
 			max-height: 200px;
 			overflow: auto;
-			width: 376px;
 		}
 	}
 
