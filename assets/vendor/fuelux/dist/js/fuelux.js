@@ -73,7 +73,7 @@
 				$chk = $chk || this.$chk;
 
 				var checked = $chk.is( ':checked' );
-				var disabled = !! $chk.prop( 'disabled' );
+				var disabled = !!$chk.prop( 'disabled' );
 
 				// reset classes
 				this.$label.removeClass( 'checked disabled' );
@@ -1166,46 +1166,46 @@
 					'</div>' +
 					'<div class="daysView" style="' + self._show( self.options.showDays ) + '">' +
 
-				self._repeat( '<div class="weekdays">', self.options.weekdays,
-					function( weekday ) {
-						return '<div >' + weekday + '</div>';
-					}, '</div>' ) +
+					self._repeat( '<div class="weekdays">', self.options.weekdays,
+						function( weekday ) {
+							return '<div >' + weekday + '</div>';
+						}, '</div>' ) +
 
-				self._repeat( '<div class="lastmonth">', self.daysOfLastMonth,
-					function( day ) {
-						if ( self.options.restrictLastMonth ) {
-							day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
-						}
-						return '<div class="' + day[ 'class' ] + '">' + day.number + '</div>';
-					}, '</div>' ) +
+					self._repeat( '<div class="lastmonth">', self.daysOfLastMonth,
+						function( day ) {
+							if ( self.options.restrictLastMonth ) {
+								day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
+							}
+							return '<div class="' + day[ 'class' ] + '">' + day.number + '</div>';
+						}, '</div>' ) +
 
-				self._repeat( '<div class="thismonth">', self.daysOfThisMonth,
-					function( day ) {
-						return '<div class="' + day[ 'class' ] + '">' + day.number + '</div>';
-					}, '</div>' ) +
+					self._repeat( '<div class="thismonth">', self.daysOfThisMonth,
+						function( day ) {
+							return '<div class="' + day[ 'class' ] + '">' + day.number + '</div>';
+						}, '</div>' ) +
 
-				self._repeat( '<div class="nextmonth">', self.daysOfNextMonth,
-					function( day ) {
-						if ( self.options.restrictNextMonth ) {
-							day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
-						}
-						return '<div class="' + day[ 'class' ] + '">' + day.number + '</div>';
-					}, '</div>' ) +
+					self._repeat( '<div class="nextmonth">', self.daysOfNextMonth,
+						function( day ) {
+							if ( self.options.restrictNextMonth ) {
+								day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
+							}
+							return '<div class="' + day[ 'class' ] + '">' + day.number + '</div>';
+						}, '</div>' ) +
 					'</div>' +
 
-				self._repeat( '<div class="monthsView" style="' + self._show( self.options.showMonths ) + '">', self.months,
-					function( month ) {
-						return '<div data-month-number="' + month.number +
-							'" class="' + month[ 'class' ] + '">' + month.abbreviation + '</div>';
-					}, '</div>' ) +
+					self._repeat( '<div class="monthsView" style="' + self._show( self.options.showMonths ) + '">', self.months,
+						function( month ) {
+							return '<div data-month-number="' + month.number +
+								'" class="' + month[ 'class' ] + '">' + month.abbreviation + '</div>';
+						}, '</div>' ) +
 
-				self._repeat( '<div class="yearsView" style="' + self._show( self.options.showYears ) + '">', self.years,
-					function( year ) {
-						return '<div data-year-number="' + year.number +
-							'" class="' + year[ 'class' ] + '">' + year.number + '</div>';
-					}, '</div>' ) +
+					self._repeat( '<div class="yearsView" style="' + self._show( self.options.showYears ) + '">', self.years,
+						function( year ) {
+							return '<div data-year-number="' + year.number +
+								'" class="' + year[ 'class' ] + '">' + year.number + '</div>';
+						}, '</div>' ) +
 
-				'<div class="footer">' +
+					'<div class="footer">' +
 					'<div class="center hover">Today</div>' +
 					'</div>' +
 					'</div>';
@@ -1271,7 +1271,7 @@
 					triggerError = false; // don't want to trigger an error because they don't have the correct length
 				}
 
-				if ( !! triggerError ) {
+				if ( !!triggerError ) {
 					// we will insert the staged date into the input
 					this._setNullDate( true );
 					this.$element.trigger( 'inputParsingFailed' );
@@ -1481,7 +1481,7 @@
 			measurements.containerHeight = $container.overflowElement.outerHeight();
 
 			// this needs to be different if the window is the container or another element is
-			measurements.containerOffsetTop = ( !! $container.isWindow ) ? $container.overflowElement.scrollTop() : $container.overflowElement.offset().top;
+			measurements.containerOffsetTop = ( !!$container.isWindow ) ? $container.overflowElement.scrollTop() : $container.overflowElement.offset().top;
 
 			// doing the calculations
 			measurements.fromTop = measurements.parentOffsetTop - measurements.containerOffsetTop;
@@ -1696,27 +1696,41 @@
 		if ( window && !window.fuelux_loader ) {
 			var Loader = function() {
 				var count = 0;
-				var start = function( id, loader ) {
-					var bTag, cycle;
+				var init = function( id, loader ) {
+					var delay = ( loader.hasAttribute( 'data-delay' ) ) ? parseFloat( loader.getAttribute( 'data-delay' ) ) : 150;
+					var frame = ( loader.hasAttribute( 'data-frame' ) ) ? parseInt( loader.getAttribute( 'data-frame' ), 10 ) : 0;
+					var length = ( loader.hasAttribute( 'data-length' ) ) ? parseInt( loader.getAttribute( 'data-length' ), 10 ) : 8;
+					var start = ( loader.hasAttribute( 'data-start' ) ) ? parseFloat( loader.getAttribute( 'data-start' ) ) : 0;
+					var ieVer;
 
-					cycle = function( i, item ) {
-						item.innerHTML = '&#992' + i + ';';
+					var cycle = function( i ) {
 						i++;
-						if ( i === 9 ) {
-							i = 1;
+						if ( i >= length ) {
+							i = start;
 						}
+						loader.setAttribute( 'data-frame', i + '' );
 						setTimeout( function() {
-							cycle( i, item );
-						}, 125 );
+							cycle( i );
+						}, delay );
 					};
 
-					loader.className += " iefix";
+					var msieVersion = function() {
+						var ua = window.navigator.userAgent;
+						var msie = ua.indexOf( 'MSIE ' );
+						if ( msie > 0 ) {
+							return parseInt( ua.substring( msie + 5, ua.indexOf( ".", msie ) ), 10 );
+						} else {
+							return false;
+						}
+					};
 
-					bTag = "loader_" + id;
-					loader.innerHTML = '<span>&#9920;</span><b id="' + bTag + '"></b>' + loader.innerHTML;
-
-					bTag = document.getElementById( bTag );
-					cycle( 1, bTag );
+					ieVer = msieVersion();
+					if ( ieVer !== false && ieVer < 9 ) {
+						loader.className += ' iefix';
+					}
+					setTimeout( function() {
+						cycle( frame );
+					}, delay );
 					loader.setAttribute( 'data-initialized', 'true' );
 				};
 
@@ -1727,7 +1741,7 @@
 					for ( i = 0, l = loaders.length; i < l; i++ ) {
 						if ( loaders[ i ].getAttribute( 'data-initialized' ) !== 'true' ) {
 							count++;
-							start( count, loaders[ i ] );
+							init( count, loaders[ i ] );
 						}
 					}
 				};
@@ -2443,7 +2457,7 @@
 					return;
 				}
 				this.$element.removeClass( 'showing' );
-				this.$field.attr( 'readonly', true );
+				this.$field.attr( 'readonly', 'readonly' );
 				this.ellipsis();
 				$( document ).off( 'click.placard.externalClick.' + this.clickStamp );
 				this.$element.trigger( 'hide' );
@@ -2619,7 +2633,7 @@
 				$radio = $radio || this.$radio;
 
 				var checked = $radio.is( ':checked' );
-				var disabled = !! $radio.prop( 'disabled' );
+				var disabled = !!$radio.prop( 'disabled' );
 
 				this.$label.removeClass( 'checked' );
 				if ( this.$parent ) {

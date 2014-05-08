@@ -7,6 +7,188 @@ lead: "Over a dozen reusable controls built to provide datepickers, pillboxes, t
 
 
 
+<!-- checkbox
+================================================== -->
+<div class="bs-docs-section">
+	<h1 id="checkboxes" class="page-header">Checkboxes <small>checkboxes.js</small></h1>
+
+	<h2 id="checkboxes-examples">Examples</h2>
+	<p>Browser-independent look and feel for checkbox element.</p>
+
+	<h4>Default (stacked)</h4>
+	<div class="bs-example">
+		<div class="checkbox">
+			<label class="checkbox-custom">
+				<input type="checkbox" value="option1">
+				Browser-independent checkbox unchecked on page load
+			</label>
+		</div>
+		<div class="checkbox">
+			<label class="checkbox-custom">
+				<input checked="checked" type="checkbox" value="option2">
+				Browser-independent checkbox checked on page load
+			</label>
+		</div>
+		<div class="checkbox">
+			<label class="checkbox-custom">
+				<input disabled="disabled" type="checkbox" value="option3">
+				Disabled browser-independent checkbox unchecked on page load
+			</label>
+		</div>
+		<div class="checkbox">
+			<label class="checkbox-custom">
+				<input checked="checked" disabled="disabled" type="checkbox" value="option4">
+				Disabled browser-independent checkbox checked on page load
+			</label>
+		</div>
+	</div>
+{% highlight html %}<div class="checkbox">
+	<label class="checkbox-custom">
+		<input type="checkbox" value="">
+		Browser-independent checkbox unchecked on page load
+	</label>
+</div>
+<div class="checkbox">
+	<label class="checkbox-custom">
+		<input checked="checked" type="checkbox" value="">
+		Browser-independent checkbox checked on page load
+	</label>
+</div>
+<div class="checkbox">
+	<label class="checkbox-custom">
+		<input disabled="disabled" type="checkbox" value="">
+		Disabled browser-independent checkbox unchecked on page load
+	</label>
+</div>
+<div class="checkbox">
+	<label class="checkbox-custom">
+		<input checked="checked" disabled="disabled" type="checkbox" value="">
+		Disabled browser-independent checkbox checked on page load
+	</label>
+</div>{% endhighlight %}
+
+	<h4>Inline checkboxes</h4>
+	<p>Use the <code>.checkbox-inline</code> or <code>.radio-inline</code> classes on a series of checkboxes or radios for controls that appear on the same line.</p>
+	<div class="bs-example">
+		<label class="checkbox-custom checkbox-inline">
+			<input type="checkbox" value="option1"> 1
+		</label>
+		<label class="checkbox-custom checkbox-inline">
+			<input checked="checked" type="checkbox" value="option2"> 2
+		</label>
+		<label class="checkbox-custom checkbox-inline">
+			<input disabled="disabled" type="checkbox" value="option3"> 3
+		</label>
+	</div>
+{% highlight html %}<label class="checkbox-custom checkbox-inline">
+	<input type="checkbox" value="option1"> 1
+</label>
+<label class="checkbox-custom checkbox-inline">
+	<input checked="checked" type="checkbox" value="option2"> 2
+</label>
+<label class="checkbox-custom checkbox-inline">
+	<input disabled="disabled" type="checkbox" value="option3"> 3
+</label>{% endhighlight %}
+
+	<h4>Element toggling checkboxes</h4>
+	<p>Use the <code>data-toggle="{{selector}}"</code> to automatically show/hide elements matching the selector within the body upon check/uncheck.
+		<br/>(works with any <a href="http://api.jquery.com/category/selectors/">jQuery selector</a>)
+	</p>
+	<div class="bs-example">
+		<div class="checkbox">
+			<label class="checkbox-custom">
+				<input data-toggle="#checkboxToggleID" type="checkbox" value="option1">
+				Toggles element with matching id.
+			</label>
+		</div>
+		<label class="checkbox-custom checkbox-inline">
+			<input data-toggle=".checkboxToggleCLASS" type="checkbox" value="option1">
+			Toggles elements with matching class.
+		</label>
+
+		<div class="alert bg-info" id="checkboxToggleID" style="display: none;">Id toggling container.</div>
+		<div class="alert bg-success checkboxToggleCLASS" style="display: none;">Class toggling container.</div>
+		<div class="alert bg-success checkboxToggleCLASS" style="display: none;">Class toggling container.</div>
+	</div>
+{% highlight html %}<div class="checkbox">
+<label class="checkbox-custom">
+	<input data-toggle="#checkboxToggleID" type="checkbox" value="option1">
+	Toggles element with matching id.
+</label>
+</div>
+<label class="checkbox-custom checkbox-inline">
+	<input data-toggle=".checkboxToggleCLASS" type="checkbox" value="option1">
+	Toggles elements with matching class.
+</label>
+
+<div class="alert bg-info" id="checkboxToggleID" style="display: none;">Id toggling container.</div>
+<div class="alert bg-success checkboxToggleCLASS" style="display: none;">Class toggling container.</div>
+<div class="alert bg-success checkboxToggleCLASS" style="display: none;">Class toggling container.</div>{% endhighlight %}
+
+	<h4>Highlighting checkboxes</h4>
+	<p>Use the <code>.highlight</code> class to add a background highlight upon check.
+	</p>
+	<div class="bs-example">
+		<div class="checkbox highlight">
+			<label class="checkbox-custom">
+				<input type="checkbox" value="option1">
+				This block-level checkbox will be highlighted on check.
+			</label>
+		</div>
+		<label class="checkbox-custom checkbox-inline highlight">
+			<input type="checkbox" value="option2">
+			This inline checkbox will be highlighted on check.
+		</label>
+	</div>
+{% highlight html %}<div class="checkbox highlight">
+<label class="checkbox-custom">
+	<input type="checkbox" value="option1">
+	This block-level checkbox will be highlighted on check.
+</label>
+</div>
+<label class="checkbox-custom checkbox-inline highlight">
+	<input type="checkbox" value="option2">
+	This inline checkbox will be highlighted on check.
+</label>{% endhighlight %}
+
+	<h2 id="checkboxes-usage">Usage</h2>
+	<p>Upon page load, the checkbox code will automatically instantiate any checkboxes with class <code>.custom-checkbox</code> on the page, allowing them to function without any additional code. However, if added after page load they will need to be manually instantiated via javascript.</p>
+
+	<p>Initialize the checkbox manually via JavaScript:</p>
+{% highlight js %}$('#MyCheckbox').checkbox();{% endhighlight %}
+
+	<h3>Methods</h3>
+	<h4>$().checkbox()</h4>
+	Activates your content as a custom checkbox.
+
+	<h4>.check()</h4>
+	<p>Checks the checkbox.</p>
+{% highlight js %}$('#element').checkbox('check'){% endhighlight %}
+
+	<h4>.disable()</h4>
+	<p>Disables the checkbox.</p>
+{% highlight js %}$('#element').checkbox('disable'){% endhighlight %}
+
+	<h4>.enable()</h4>
+	<p>Enables the checkbox.</p>
+{% highlight js %}$('#element').checkbox('enable'){% endhighlight %}
+
+	<h4>.isChecked()</h4>
+	<p>Returns <code>true</code> or <code>false</code> depending on whether the checkbox is checked.</p>
+{% highlight js %}$('#element').checkbox('isChecked'){% endhighlight %}
+
+	<h4>.toggle()</h4>
+	<p>Toggles the checkbox between checked/unchecked states.</p>
+{% highlight js %}$('#element').checkbox('toggle'){% endhighlight %}
+
+	<h4>.uncheck()</h4>
+	<p>Unchecks the checkbox.</p>
+{% highlight js %}$('#element').checkbox('uncheck'){% endhighlight %}
+
+</div>
+
+
+
 <!-- combobox
 ================================================== -->
 <div class="bs-docs-section">
@@ -49,22 +231,20 @@ lead: "Over a dozen reusable controls built to provide datepickers, pillboxes, t
 
 	</div><!-- /example -->
 
-	{% highlight html %}
-	<div id="MyCombobox" class="input-group input-append dropdown combobox">
-		<input type="text" class="form-control">
-		<div class="input-group-btn">
-			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-			<ul class="dropdown-menu dropdown-menu-right">
-				<li data-value="1"><a href="#">One</a></li>
-				<li data-value="2"><a href="#">Two</a></li>
-				<li data-value="3"><a href="#">Three</a></li>
-				<li data-value="4" ><a href="#">Four</a></li>
-				<li data-value="Item Five"><a href="#">Item Five</a></li>
-				<li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>
-			</ul>
-		</div>
+{% highlight html %}<div id="MyCombobox" class="input-group input-append dropdown combobox">
+	<input type="text" class="form-control">
+	<div class="input-group-btn">
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+		<ul class="dropdown-menu dropdown-menu-right">
+			<li data-value="1"><a href="#">One</a></li>
+			<li data-value="2"><a href="#">Two</a></li>
+			<li data-value="3"><a href="#">Three</a></li>
+			<li data-value="4" ><a href="#">Four</a></li>
+			<li data-value="Item Five"><a href="#">Item Five</a></li>
+			<li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>
+		</ul>
 	</div>
-	{% endhighlight %}
+</div>{% endhighlight %}
 
 	<h3 id="comboboxes-alignment">Alignment</h3>
 	<p>By default, a dropdown menu is automatically positioned 100% from the top and along the right side of its parent. Remove <code>.dropdown-menu-right</code> to a <code>.dropdown-menu</code> to left align the dropdown menu.</p>
@@ -79,17 +259,15 @@ lead: "Over a dozen reusable controls built to provide datepickers, pillboxes, t
 
 	<h3>Markup</h3>
 	<p>Add <code>class="combobox"</code> to an input and a dropdown within a <code>class="fuelux"</code> container.</p>
-	{% highlight html %}
-	<div class="input-group input-append dropdown combobox">
-		<input type="text" class="form-control">
-		<div class="input-group-btn">
-			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-			<ul class="dropdown-menu dropdown-menu-right">
-				...
-			</ul>
-		</div>
+{% highlight html %}<div class="input-group input-append dropdown combobox">
+	<input type="text" class="form-control">
+	<div class="input-group-btn">
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+		<ul class="dropdown-menu dropdown-menu-right">
+			...
+		</ul>
 	</div>
-	{% endhighlight %}
+</div>{% endhighlight %}
 
 	<h3>Options</h3>
 	<p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-selected=""</code>.</p>
