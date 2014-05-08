@@ -45,17 +45,17 @@
 					}
 				},
 				paths: {
-					jquery: '../assets/vendor/jquery-1.11.0/dist/jquery',
-					underscore: '../assets/vendor/underscore/underscore',
+					assets: '../assets/',
 					bootstrap: '../assets/vendor/bootstrap/dist/js/bootstrap',
-					moment: '../assets/vendor/moment-with-langs/index', // comment out if you dont want momentjs to be default
 					fuelux: '../assets/vendor/fuelux/dist/js/fuelux',
-					application: '../assets/js/application'
+					jquery: '../assets/vendor/jquery-1.11.0/dist/jquery',
+					moment: '../assets/vendor/moment-with-langs/index', // comment out if you dont want momentjs to be default
+					underscore: '../assets/vendor/underscore/underscore'
 				},
-				priority: []
+				priority: ['jquery', 'bootstrap', 'fuelux']
 			});
 		})();
-		require(['jquery', 'application' ], function($){});
+		require(['jquery', 'assets/js/application'], function($){});
 	</script>
 
 	<script src="https://platform.twitter.com/widgets.js" type="text/javascript"></script>
