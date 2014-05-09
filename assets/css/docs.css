@@ -481,12 +481,21 @@ h1[id] {
 	color: #bebec5;
 }
 .fuelux .checkbox.highlight,
-.fuelux .checkbox-custom.highlight
+.fuelux .checkbox-custom.highlight,
+.fuelux .radio.highlight,
+.fuelux .radio-custom.highlight
 {
 	margin-bottom: 10px;
 	background-color: transparent;
 	border: none;
 	border-radius: 0;
+}
+
+.checkboxToggleCLASS,
+.radioToggleCLASS,
+#checkboxToggleID,
+#radioToggleID {
+	margin: 15px 0 0 0;
 }
 
 
