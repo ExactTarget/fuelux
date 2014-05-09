@@ -10,179 +10,179 @@ lead: "Over a dozen reusable controls built to provide datepickers, pillboxes, t
 <!-- checkbox
 ================================================== -->
 <div class="bs-docs-section">
-	<h1 id="checkboxes" class="page-header">Checkboxes <small>checkboxes.js</small></h1>
+    <h1 id="checkboxes" class="page-header">Checkboxes <small>checkboxes.js</small></h1>
 
-	<h2 id="checkboxes-examples">Examples</h2>
-	<p>Browser-independent look and feel for checkbox element.</p>
+    <h2 id="checkboxes-examples">Examples</h2>
+    <p>Browser-independent look and feel for checkbox element.</p>
 
-	<h4>Default (stacked)</h4>
-	<div class="bs-example">
-		<div class="checkbox">
-			<label class="checkbox-custom">
-				<input type="checkbox" value="option1">
-				Browser-independent checkbox unchecked on page load
-			</label>
-		</div>
-		<div class="checkbox">
-			<label class="checkbox-custom">
-				<input checked="checked" type="checkbox" value="option2">
-				Browser-independent checkbox checked on page load
-			</label>
-		</div>
-		<div class="checkbox">
-			<label class="checkbox-custom">
-				<input disabled="disabled" type="checkbox" value="option3">
-				Disabled browser-independent checkbox unchecked on page load
-			</label>
-		</div>
-		<div class="checkbox">
-			<label class="checkbox-custom">
-				<input checked="checked" disabled="disabled" type="checkbox" value="option4">
-				Disabled browser-independent checkbox checked on page load
-			</label>
-		</div>
-	</div>
+    <h4>Default (stacked)</h4>
+    <div class="bs-example">
+        <div class="checkbox">
+            <label class="checkbox-custom">
+                <input type="checkbox" value="option1">
+                Browser-independent checkbox unchecked on page load
+            </label>
+        </div>
+        <div class="checkbox">
+            <label class="checkbox-custom">
+                <input checked="checked" type="checkbox" value="option2">
+                Browser-independent checkbox checked on page load
+            </label>
+        </div>
+        <div class="checkbox">
+            <label class="checkbox-custom">
+                <input disabled="disabled" type="checkbox" value="option3">
+                Disabled browser-independent checkbox unchecked on page load
+            </label>
+        </div>
+        <div class="checkbox">
+            <label class="checkbox-custom">
+                <input checked="checked" disabled="disabled" type="checkbox" value="option4">
+                Disabled browser-independent checkbox checked on page load
+            </label>
+        </div>
+    </div>
 {% highlight html %}<div class="checkbox">
-	<label class="checkbox-custom">
-		<input type="checkbox" value="">
-		Browser-independent checkbox unchecked on page load
-	</label>
+    <label class="checkbox-custom">
+        <input type="checkbox" value="">
+        Browser-independent checkbox unchecked on page load
+    </label>
 </div>
 <div class="checkbox">
-	<label class="checkbox-custom">
-		<input checked="checked" type="checkbox" value="">
-		Browser-independent checkbox checked on page load
-	</label>
+    <label class="checkbox-custom">
+        <input checked="checked" type="checkbox" value="">
+        Browser-independent checkbox checked on page load
+    </label>
 </div>
 <div class="checkbox">
-	<label class="checkbox-custom">
-		<input disabled="disabled" type="checkbox" value="">
-		Disabled browser-independent checkbox unchecked on page load
-	</label>
+    <label class="checkbox-custom">
+        <input disabled="disabled" type="checkbox" value="">
+        Disabled browser-independent checkbox unchecked on page load
+    </label>
 </div>
 <div class="checkbox">
-	<label class="checkbox-custom">
-		<input checked="checked" disabled="disabled" type="checkbox" value="">
-		Disabled browser-independent checkbox checked on page load
-	</label>
+    <label class="checkbox-custom">
+        <input checked="checked" disabled="disabled" type="checkbox" value="">
+        Disabled browser-independent checkbox checked on page load
+    </label>
 </div>{% endhighlight %}
 
-	<h4>Inline checkboxes</h4>
-	<p>Use the <code>.checkbox-inline</code> or <code>.radio-inline</code> classes on a series of checkboxes or radios for controls that appear on the same line.</p>
-	<div class="bs-example">
-		<label class="checkbox-custom checkbox-inline">
-			<input type="checkbox" value="option1"> 1
-		</label>
-		<label class="checkbox-custom checkbox-inline">
-			<input checked="checked" type="checkbox" value="option2"> 2
-		</label>
-		<label class="checkbox-custom checkbox-inline">
-			<input disabled="disabled" type="checkbox" value="option3"> 3
-		</label>
-	</div>
+    <h4>Inline checkboxes</h4>
+    <p>Use the <code>.checkbox-inline</code> or <code>.radio-inline</code> classes on a series of checkboxes or radios for controls that appear on the same line.</p>
+    <div class="bs-example">
+        <label class="checkbox-custom checkbox-inline">
+            <input type="checkbox" value="option1"> 1
+        </label>
+        <label class="checkbox-custom checkbox-inline">
+            <input checked="checked" type="checkbox" value="option2"> 2
+        </label>
+        <label class="checkbox-custom checkbox-inline">
+            <input disabled="disabled" type="checkbox" value="option3"> 3
+        </label>
+    </div>
 {% highlight html %}<label class="checkbox-custom checkbox-inline">
-	<input type="checkbox" value="option1"> 1
+    <input type="checkbox" value="option1"> 1
 </label>
 <label class="checkbox-custom checkbox-inline">
-	<input checked="checked" type="checkbox" value="option2"> 2
+    <input checked="checked" type="checkbox" value="option2"> 2
 </label>
 <label class="checkbox-custom checkbox-inline">
-	<input disabled="disabled" type="checkbox" value="option3"> 3
+    <input disabled="disabled" type="checkbox" value="option3"> 3
 </label>{% endhighlight %}
 
-	<h4>Element toggling checkboxes</h4>
-	<p>Use the <code>data-toggle="{{selector}}"</code> to automatically show/hide elements matching the selector within the body upon check/uncheck.
-		<br/>(works with any <a href="http://api.jquery.com/category/selectors/">jQuery selector</a>)
-	</p>
-	<div class="bs-example">
-		<div class="checkbox">
-			<label class="checkbox-custom">
-				<input data-toggle="#checkboxToggleID" type="checkbox" value="option1">
-				Toggles element with matching id.
-			</label>
-		</div>
-		<label class="checkbox-custom checkbox-inline">
-			<input data-toggle=".checkboxToggleCLASS" type="checkbox" value="option1">
-			Toggles elements with matching class.
-		</label>
+    <h4>Element toggling checkboxes</h4>
+    <p>Use the <code>data-toggle="{{selector}}"</code> to automatically show/hide elements matching the selector within the body upon check/uncheck.
+        <br/>(works with any <a href="http://api.jquery.com/category/selectors/">jQuery selector</a>)
+    </p>
+    <div class="bs-example">
+        <div class="checkbox">
+            <label class="checkbox-custom">
+                <input data-toggle="#checkboxToggleID" type="checkbox" value="option1">
+                Toggles element with matching id.
+            </label>
+        </div>
+        <label class="checkbox-custom checkbox-inline">
+            <input data-toggle=".checkboxToggleCLASS" type="checkbox" value="option1">
+            Toggles elements with matching class.
+        </label>
 
-		<div class="alert bg-info" id="checkboxToggleID" style="display: none;">Id toggling container.</div>
-		<div class="alert bg-success checkboxToggleCLASS" style="display: none;">Class toggling container.</div>
-		<div class="alert bg-success checkboxToggleCLASS" style="display: none;">Class toggling container.</div>
-	</div>
+        <div class="alert bg-info" id="checkboxToggleID" style="display: none;">Id toggling container.</div>
+        <div class="alert bg-success checkboxToggleCLASS" style="display: none;">Class toggling container.</div>
+        <div class="alert bg-success checkboxToggleCLASS" style="display: none;">Class toggling container.</div>
+    </div>
 {% highlight html %}<div class="checkbox">
 <label class="checkbox-custom">
-	<input data-toggle="#checkboxToggleID" type="checkbox" value="option1">
-	Toggles element with matching id.
+    <input data-toggle="#checkboxToggleID" type="checkbox" value="option1">
+    Toggles element with matching id.
 </label>
 </div>
 <label class="checkbox-custom checkbox-inline">
-	<input data-toggle=".checkboxToggleCLASS" type="checkbox" value="option1">
-	Toggles elements with matching class.
+    <input data-toggle=".checkboxToggleCLASS" type="checkbox" value="option1">
+    Toggles elements with matching class.
 </label>
 
 <div class="alert bg-info" id="checkboxToggleID" style="display: none;">Id toggling container.</div>
 <div class="alert bg-success checkboxToggleCLASS" style="display: none;">Class toggling container.</div>
 <div class="alert bg-success checkboxToggleCLASS" style="display: none;">Class toggling container.</div>{% endhighlight %}
 
-	<h4>Highlighting checkboxes</h4>
-	<p>Use the <code>.highlight</code> class to add a background highlight upon check.
-	</p>
-	<div class="bs-example">
-		<div class="checkbox highlight">
-			<label class="checkbox-custom">
-				<input type="checkbox" value="option1">
-				This block-level checkbox will be highlighted on check.
-			</label>
-		</div>
-		<label class="checkbox-custom checkbox-inline highlight">
-			<input type="checkbox" value="option2">
-			This inline checkbox will be highlighted on check.
-		</label>
-	</div>
+    <h4>Highlighting checkboxes</h4>
+    <p>Use the <code>.highlight</code> class to add a background highlight upon check.
+    </p>
+    <div class="bs-example">
+        <div class="checkbox highlight">
+            <label class="checkbox-custom">
+                <input type="checkbox" value="option1">
+                This block-level checkbox will be highlighted on check.
+            </label>
+        </div>
+        <label class="checkbox-custom checkbox-inline highlight">
+            <input type="checkbox" value="option2">
+            This inline checkbox will be highlighted on check.
+        </label>
+    </div>
 {% highlight html %}<div class="checkbox highlight">
 <label class="checkbox-custom">
-	<input type="checkbox" value="option1">
-	This block-level checkbox will be highlighted on check.
+    <input type="checkbox" value="option1">
+    This block-level checkbox will be highlighted on check.
 </label>
 </div>
 <label class="checkbox-custom checkbox-inline highlight">
-	<input type="checkbox" value="option2">
-	This inline checkbox will be highlighted on check.
+    <input type="checkbox" value="option2">
+    This inline checkbox will be highlighted on check.
 </label>{% endhighlight %}
 
-	<h2 id="checkboxes-usage">Usage</h2>
-	<p>Upon page load, the checkbox code will automatically instantiate any checkboxes with class <code>.custom-checkbox</code> on the page, allowing them to function without any additional code. However, if added after page load they will need to be manually instantiated via javascript.</p>
+    <h2 id="checkboxes-usage">Usage</h2>
+    <p>Upon page load, the checkbox code will automatically instantiate any checkboxes with class <code>.custom-checkbox</code> on the page, allowing them to function without any additional code. However, if added after page load they will need to be manually instantiated via javascript.</p>
 
-	<p>Initialize the checkbox manually via JavaScript:</p>
+    <p>Initialize the checkbox manually via JavaScript:</p>
 {% highlight js %}$('#MyCheckbox').checkbox();{% endhighlight %}
 
-	<h3>Methods</h3>
-	<h4>$().checkbox()</h4>
-	Activates your content as a custom checkbox.
+    <h3>Methods</h3>
+    <h4>$().checkbox()</h4>
+    Activates your content as a custom checkbox.
 
-	<h4>.check()</h4>
-	<p>Checks the checkbox.</p>
+    <h4>.check()</h4>
+    <p>Checks the checkbox.</p>
 {% highlight js %}$('#element').checkbox('check'){% endhighlight %}
 
-	<h4>.disable()</h4>
-	<p>Disables the checkbox.</p>
+    <h4>.disable()</h4>
+    <p>Disables the checkbox.</p>
 {% highlight js %}$('#element').checkbox('disable'){% endhighlight %}
 
-	<h4>.enable()</h4>
-	<p>Enables the checkbox.</p>
+    <h4>.enable()</h4>
+    <p>Enables the checkbox.</p>
 {% highlight js %}$('#element').checkbox('enable'){% endhighlight %}
 
-	<h4>.isChecked()</h4>
-	<p>Returns <code>true</code> or <code>false</code> depending on whether the checkbox is checked.</p>
+    <h4>.isChecked()</h4>
+    <p>Returns <code>true</code> or <code>false</code> depending on whether the checkbox is checked.</p>
 {% highlight js %}$('#element').checkbox('isChecked'){% endhighlight %}
 
-	<h4>.toggle()</h4>
-	<p>Toggles the checkbox between checked/unchecked states.</p>
+    <h4>.toggle()</h4>
+    <p>Toggles the checkbox between checked/unchecked states.</p>
 {% highlight js %}$('#element').checkbox('toggle'){% endhighlight %}
 
-	<h4>.uncheck()</h4>
-	<p>Unchecks the checkbox.</p>
+    <h4>.uncheck()</h4>
+    <p>Unchecks the checkbox.</p>
 {% highlight js %}$('#element').checkbox('uncheck'){% endhighlight %}
 
 </div>
@@ -192,159 +192,743 @@ lead: "Over a dozen reusable controls built to provide datepickers, pillboxes, t
 <!-- combobox
 ================================================== -->
 <div class="bs-docs-section">
-	<h1 id="comboboxes" class="page-header">Comboboxes <small>combobox.js</small></h1>
+  <h1 id="comboboxes" class="page-header">Comboboxes <small>combobox.js</small></h1>
+  <p class="lead">Combines an input and a dropdown for easy and flexible data selection.</p>
 
-	<h2 id="comboboxes-examples">Examples</h2>
-	<p>Combines an input and a dropdown for easy and flexible data selection.</p>
-	<div class="bs-example">
+  <h2 id="comboboxes-example">Examples</h2>
+  <p>Wrap the input, dropdown trigger, and dropdown menu within <code>.fuelux .combobox</code></p>
+  <div class="bs-example">
 
-		<div style="width: 300px;">
-			<div id="MyCombobox" class="input-group input-append dropdown combobox">
-				<input type="text" class="form-control">
-				<div class="input-group-btn">
-					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-					<ul class="dropdown-menu dropdown-menu-right">
-						<li data-value="1"><a href="#">One</a></li>
-						<li data-value="2"><a href="#">Two</a></li>
-						<li data-value="3"><a href="#">Three</a></li>
-						<li data-value="4" ><a href="#">Four</a></li>
-						<li data-value="Item Five"><a href="#">Item Five</a></li>
-						<li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
+    <div id="MyCombobox" class="input-group input-append dropdown combobox">
+      <input type="text" class="form-control">
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+      <ul class="dropdown-menu dropdown-menu-right">
+        <li data-value="1" data-selected="true"><a href="#">One</a></li>
+        <li data-value="2"><a href="#">Two</a></li>
+        <li data-value="3"><a href="#">Three</a></li>
+        <li data-value="4" ><a href="#">Four</a></li>
+        <li data-value="Item Five"><a href="#">Item Five</a></li>
+        <li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>
+      </ul>
+      </div>
+    </div>
 
-		<h5>Sample Methods</h5>
-		<div class="btn-group">
-			<input id="btnComboboxGetSelectedItem" type="button" class="btn btn-default" value="log item"/>
-			<input id="btnComboboxSelectByValue" type="button" class="btn btn-default" value="set by value (1)"/>
-			<input id="btnComboboxSelectByIndex" type="button" class="btn btn-default" value="set by element index (1)"/>
-			<input id="btnComboboxSelectByText" type="button" class="btn btn-default" value="set by text (Four)"/>
-		</div>
-		<div class="btn-group">
-			<input id="btnComboboxSelectBySelector" type="button" class="btn btn-default"
-				   value="set by CSS selector li[data-fizz=buzz] (6)"/>
-			<input id="btnComboboxDisable" type="button" class="btn btn-default" value="disable"/>
-			<input id="btnComboboxEnable" type="button" class="btn btn-default" value="enable"/>
-		</div>
+    <h5>Sample Methods <small>(output sent to browser console)</small></h5>
+    <div class="btn-group">
+      <input id="btnComboboxGetSelectedItem" type="button" class="btn btn-default" value="log item"/>
+      <input id="btnComboboxSelectByValue" type="button" class="btn btn-default" value="set by value (1)"/>
+      <input id="btnComboboxSelectByIndex" type="button" class="btn btn-default" value="set by element index (1)"/>
+      <input id="btnComboboxSelectByText" type="button" class="btn btn-default" value="set by text (Four)"/>
+    </div>
+    <div class="btn-group">
+      <input id="btnComboboxSelectBySelector" type="button" class="btn btn-default" 
+        value="set by CSS selector li[data-fizz=buzz] (6)"/>
+      <input id="btnComboboxDisable" type="button" class="btn btn-default" value="disable"/>
+      <input id="btnComboboxEnable" type="button" class="btn btn-default" value="enable"/>
+    </div>
 
-	</div><!-- /example -->
+  </div><!-- /example -->
 
-{% highlight html %}<div id="MyCombobox" class="input-group input-append dropdown combobox">
-	<input type="text" class="form-control">
-	<div class="input-group-btn">
-		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-		<ul class="dropdown-menu dropdown-menu-right">
-			<li data-value="1"><a href="#">One</a></li>
-			<li data-value="2"><a href="#">Two</a></li>
-			<li data-value="3"><a href="#">Three</a></li>
-			<li data-value="4" ><a href="#">Four</a></li>
-			<li data-value="Item Five"><a href="#">Item Five</a></li>
-			<li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>
-		</ul>
-	</div>
-</div>{% endhighlight %}
+{% highlight html %}
+<div id="MyCombobox" class="input-group input-append dropdown combobox">
+  <input type="text" class="form-control">
+  <div class="input-group-btn">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+  <ul class="dropdown-menu dropdown-menu-right">
+    <li data-value="1"><a href="#">One</a></li>
+    <li data-value="2"><a href="#">Two</a></li>
+    <li data-value="3"><a href="#">Three</a></li>
+    <li data-value="4" ><a href="#">Four</a></li>
+    <li data-value="Item Five"><a href="#">Item Five</a></li>
+    <li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>
+  </ul>
+  </div>
+</div>
+{% endhighlight %}
 
-	<h3 id="comboboxes-alignment">Alignment</h3>
-	<p>By default, a dropdown menu is automatically positioned 100% from the top and along the right side of its parent. Remove <code>.dropdown-menu-right</code> to a <code>.dropdown-menu</code> to left align the dropdown menu.</p>
+  <h3 id="comboboxes-alignment">Alignment</h3>
+  <p>By default, a dropdown menu is automatically positioned 100% from the top and along the right side of its parent. Remove <code>.dropdown-menu-right</code> to a <code>.dropdown-menu</code> to left align the dropdown menu.</p>
 
-	<h2 id="comboboxes-usage">Usage</h2>
-	<p>Via JavaScript, the combobox control toggles hidden content (dropdown menus) by toggling the <code>.open</code> class on the parent list item. When opened, the plugin also adds <code>.dropdown-backdrop</code> as a click area for closing dropdown menus when clicking outside the menu. Note: The <code>data-toggle=dropdown</code> attribute is relied on for closing dropdown menus at an application level, so it's a good idea to always use it.</p>
+  <h2 id="comboboxes-usage">Usage</h2>
+  <p>Via JavaScript, the combobox component toggles hidden content (dropdown menus) by toggling the <code>.open</code> class on the parent list item. When opened, the plugin also adds <code>.dropdown-backdrop</code> as a click area for closing dropdown menus when clicking outside the menu. Note: The <code>data-toggle=dropdown</code> attribute is relied on for closing dropdown menus at an application level, so it's a good idea to always use it.</p>
 
-	<p>Trigger the combobox via JavaScript:</p>
-	{% highlight js %}
-	$('#MyCombobox').combobox(options)
-	{% endhighlight %}
+  <p>Trigger the combobox via JavaScript:</p>
+  {% highlight js %}$('#MyCombobox').combobox();{% endhighlight %}
 
-	<h3>Markup</h3>
-	<p>Add <code>class="combobox"</code> to an input and a dropdown within a <code>class="fuelux"</code> container.</p>
-{% highlight html %}<div class="input-group input-append dropdown combobox">
-	<input type="text" class="form-control">
-	<div class="input-group-btn">
-		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-		<ul class="dropdown-menu dropdown-menu-right">
-			...
-		</ul>
-	</div>
-</div>{% endhighlight %}
+  <h3>Markup</h3>
+  <p>Add <code>class="combobox"</code> to an input and a dropdown within a <code>class="fuelux"</code> container.</p>
+  {% highlight html %}
+  <div class="input-group input-append dropdown combobox">
+    <input type="text" class="form-control">
+    <div class="input-group-btn">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+    <ul class="dropdown-menu dropdown-menu-right">
+      ...
+    </ul>
+    </div>
+  </div>
+  {% endhighlight %}
 
-	<h3>Options</h3>
-	<p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-selected=""</code>.</p>
-	<div class="table-responsive">
-		<table class="table table-bordered table-striped">
-			<thead>
-			<tr>
-				<th style="width: 100px;">Name</th>
-				<th style="width: 100px;">type</th>
-				<th style="width: 50px;">default</th>
-				<th>description</th>
-			</tr>
-			</thead>
-			<tbody>
-			<tr>
-				<td>selected</td>
-				<td>boolean</td>
-				<td>false</td>
-				<td>Declare value to initialize with</td>
-			</tr>
-			</tbody>
-		</table>
-	</div><!-- ./bs-table-responsive -->
+  <h3>Options</h3>
+  <p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-selected=""</code>.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+       <tr>
+         <th style="width: 100px;">Name</th>
+         <th style="width: 100px;">type</th>
+         <th style="width: 50px;">default</th>
+         <th>description</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td>selected</td>
+         <td>boolean</td>
+         <td>false</td>
+         <td>Declare value to initialize with</td>
+       </tr>
+      </tbody>
+    </table>
+  </div><!-- ./bs-table-responsive -->
+  
+  <h3>Methods</h3>
+  <h4>$().combobox(options)</h4>
+  Attaches a combobox to an input and a dropdown menu.
+  
+  <h4>.combobox('disable')</h4>
+  <p>Disables the component</p>
+  {% highlight js %}$('#element').combobox('disable'){% endhighlight %}
 
-	<h3>Methods</h3>
-	<h4>$().combobox(options)</h4>
-	Attaches a combobox to an an input and a dropdown menu.
+  <h4>.combobox('enable')</h4>
+  <p>Enables the component</p>
+  {% highlight js %}$('#element').combobox('enable'){% endhighlight %}
 
-	<h4>.combobox('disable')</h4>
-	<p>Disables the control</p>
-	{% highlight js %}$('#element').combobox('disable'){% endhighlight %}
+  <h4>.combobox('selectedItem')</h4>
+  <p>Returns an object containing the jQuery data() contents of the selected item which includes <code>.data-*</code> attributes plus a text property with the items's visible text.</p>
+  {% highlight js %}$('#element').combobox('selectedItem'){% endhighlight %}
 
-	<h4>.combobox('enable')</h4>
-	<p>Enables the control</p>
-	{% highlight js %}$('#element').combobox('enable'){% endhighlight %}
+  <h4>.combobox('selectByIndex')</h4>
+  <p>Set the selected item based on its index in the list (zero-based index). Convenience method for <code>.selectBySelector('li:eq({index})')</code></p>
+  {% highlight js %}$('#element').combobox('selectByIndex', '1'){% endhighlight %}
 
-	<h4>.combobox('selectedItem')</h4>
-	<p>Returns an object containing the jQuery data() contents of the selected item which includes <code>.data-*</code> attributes plus a text property with the items's visible text.</p>
-	{% highlight js %}$('#element').combobox('selectedItem'){% endhighlight %}
+  <h4>.combobox('selectByText')</h4>
+  <p>Set the selected item based on its text value</p>
+  {% highlight js %}$('#element').('selectByText', 'Four'){% endhighlight %}
 
-	<h4>.combobox('selectByIndex')</h4>
-	<p>Set the selected item based on its index in the list (zero-based index). Convenience method for <code>.selectBySelector('li:eq({index})')</code></p>
-	{% highlight js %}$('#element').combobox('selectByIndex', '1'){% endhighlight %}
+  <h4>.combobox('selectBySelector')</h4>
+  <p>Set the selected item based on a selector.</p>
+  {% highlight js %}$('#element').('selectBySelector', 'li[data-fizz=buzz]'){% endhighlight %}
 
-	<h4>.combobox('selectByText')</h4>
-	<p>Set the selected item based on its text value</p>
-	{% highlight js %}$('#element').('selectByText', 'Four'){% endhighlight %}
+  <h4>.combobox('selectByValue')</h4>
+  <p>Set the selected item based on its value. Convenience method for <code>.selectBySelector('data-value={value}')</code> that requires the item to have a <code>.data-value="{value}"</code> attribute</p>
+  {% highlight js %}$('#element').('selectByValue', '1'){% endhighlight %}
 
-	<h4>.combobox('selectBySelector')</h4>
-	<p>Set the selected item based on a selector.</p>
-	{% highlight js %}$('#element').('selectBySelector', 'li[data-fizz=buzz]'){% endhighlight %}
+  <h3>Events</h3>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="width: 150px;">Event Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>changed</td>
+          <td>This event is fired when the value has changed (either by selecting an item from the list or updating the input value directly). Arguments are <code>event, data</code> where data represents the same object structure returned by the <code>selectedItem</code> method.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- ./bs-table-responsive -->
+  <p>All dropdown events are fired at the <code>.dropdown</code>'s parent element.</p>
+{% highlight js %}
+$('#MyCombobox').on('changed', function () {
+  // do something…
+})
+{% endhighlight %}
+</div>
 
-	<h4>.combobox('selectByValue')</h4>
-	<p>Set the selected item based on its value. Convenience method for <code>.selectBySelector('data-value={value}')</code> that requires the item to have a <code>.data-value="{value}"</code> attribute</p>
-	{% highlight js %}$('#element').('selectByValue', '1'){% endhighlight %}
+<!-- dropdown-autoflip
+================================================== -->
+<div class="bs-docs-section">
+  <h1 id="dropdown-autoflips" class="page-header">Auto-Flip Dropdowns <small>dropdown-autoflip.js</small></h1>
 
-	<h3>Events</h3>
-	<div class="table-responsive">
-		<table class="table table-bordered table-striped">
-			<thead>
-			<tr>
-				<th style="width: 150px;">Event Type</th>
-				<th>Description</th>
-			</tr>
-			</thead>
-			<tbody>
-			<tr>
-				<td>changed</td>
-				<td>This event is fired when the value has changed (either by selecting an item from the list or updating the input value directly). Arguments are <code>event, data</code> where data represents the same object structure returned by the <code>selectedItem</code> method.</td>
-			</tr>
-			</tbody>
-		</table>
-	</div><!-- ./bs-table-responsive -->
-	<p>All dropdown events are fired at the <code>.dropdown</code>'s parent element.</p>
-	{% highlight js %}
-	$('#MyCombobox').on('changed', function () {
-	// do something…
-	})
-	{% endhighlight %}
+  <p class="lead">Additional functionality added to dropdown menus that enables dropup menus instead of dropdown menu based on screen position.</p>
+
+  <h2 id="dropdown-autoflips-example">Example</h2>
+  <p>Add <code>data-flip="auto"</code> to a dropdown trigger <code>data-toggle="dropdown"</code>. (You may need to scroll up to trigget this functionality.) The menu will need be "below the fold" at the bottom of the screen in order to become a dropup menu. </p>
+  <div class="bs-example">
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-danger">Auto Flip Dropdown</button>
+      <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" data-flip="auto">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <ul class="dropdown-menu" role="menu" >
+        <li><a href="#">Action</a></li>
+        <li><a href="#">Another action</a></li>
+        <li><a href="#">Something else here</a></li>
+        <li class="divider"></li>
+        <li><a href="#">Separated link</a></li>
+      </ul>
+    </div>
+
+  </div><!-- /example -->
+
+{% highlight html %}
+<div class="btn-group">
+  <button type="button" class="btn btn-danger">Auto Flip Dropdown</button>
+  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" data-flip="auto">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu" role="menu" >
+    <li><a href="#">Action</a></li>
+    <li><a href="#">Another action</a></li>
+    <li><a href="#">Something else here</a></li>
+    <li class="divider"></li>
+    <li><a href="#">Separated link</a></li>
+  </ul>
+</div>
+{% endhighlight %}
+
+  <h3 id="dropdown-autoflips-alignment">Alignment</h3>
+  <p>By default, a dropdown menu is automatically positioned 100% from the top and along the right side of its parent. Remove <code>.dropdown-menu-right</code> to a <code>.dropdown-menu</code> to left align the dropdown menu.</p>
+
+  <h2 id="dropdown-autoflips-usage">Usage</h2>
+  <p>The dropdown-autoflip add-on determines whether to show a dropdown menu or a dropup menu by calculating the position on the screen and the edge of the viewport. If a dropup menu is needed, <code>.dropup</code> is added to the <code>.dropdown-menu</code> element.</p>
+
+  <h3>Markup</h3>
+  <p>Add <code>data-flip="auto"</code> to a dropdown menu within a <code>class="fuelux"</code> container.</p>
+  {% highlight html %}
+  <div class="btn-group">
+    <button type="button" class="btn btn-danger">Auto Flip Dropdown</button>
+    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" data-flip="auto">
+      <span class="caret"></span>
+      <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu" role="menu" >
+      ...
+    </ul>
+  </div>
+  {% endhighlight %}
+
+  <h3>Event Listeners</h3>
+  <p>The auto-flip dropdown only recieves events.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="width: 150px;">Event Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>click</td>
+          <td>Receives clicks from <code>[data-toggle=dropdown][data-flip]</code></td>
+        </tr>
+        <tr>
+          <td>suggest</td>
+          <td>Fire the <code>suggget</code> event and pass in a dropdown menu <code>$('#dropdownMenu').</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- ./bs-table-responsive -->
+</div>
+
+<!-- search
+================================================== -->
+<div class="bs-docs-section">
+  <h1 id="search" class="page-header">Search Box <small>search.js</small></h1>
+  <p class="lead">Combines an input and a button to fire the <code>searched</code> event.</p>
+
+  <h2 id="search-example">Examples</h2>
+  <p>Wrap the input and search button within <code>.fuelux .search</code></p>
+  <div class="bs-example">
+
+      <form class="search-form" role="search">
+        <div id="MySearch" class="search input-group">
+          <input type="search" class="form-control" placeholder="Search"/>
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">
+              <span class="glyphicon glyphicon-search"></span>
+              <span class="sr-only">Search</span>
+            </button>
+          </span>
+        </div>
+      </form>
+
+      <h5>Sample Methods</h5>
+      <div class="btn-group">
+        <button type="button" class="btn btn-default" id="btnSearchDisable" value="disable">disable</button>
+        <button type="button" class="btn btn-default" id="btnSearchEnable" value="enable">enable</button>
+      </div>
+
+    </div>
+
+
+{% highlight html %}
+<form class="search-form" role="search">
+  <div id="MySearch" class="search input-group">
+    <input type="search" class="form-control" placeholder="Search"/>
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-search"></span>
+        <span class="sr-only">Search</span>
+      </button>
+    </span>
+  </div>
+</form>
+{% endhighlight %}
+
+  <h2 id="search-usage">Usage</h2>
+  <p>This is a simple input and button group that styles with a search icon and fires the <code>searched</code> event.</p>
+
+  <p>Trigger the search via JavaScript:</p>
+  {% highlight js %}$('#MySearch').search();{% endhighlight %}
+
+  <h3>Markup</h3>
+  <p>Wrap <code>class="search"</code> around an input and a button within a <code>class="fuelux"</code> container.</p>
+{% highlight html %}
+<div id="MySearch" class="search input-group">
+  <input type="search" class="form-control" placeholder="Search"/>
+  <span class="input-group-btn">
+    <button class="btn btn-default" type="button">
+      <span class="glyphicon glyphicon-search"></span>
+      <span class="sr-only">Search</span>
+    </button>
+  </span>
+</div>
+{% endhighlight %}
+
+  <h3>Methods</h3>
+  <h4>$().search()</h4>
+  Attaches search to an input and a button group.
+  
+  <h4>.search('disable')</h4>
+  <p>Disables the component</p>
+  {% highlight js %}$('#element').search('disable'){% endhighlight %}
+
+  <h4>.search('enable')</h4>
+  <p>Enables the component</p>
+  {% highlight js %}$('#element').search('enable'){% endhighlight %}
+
+  <h3>Events</h3>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="width: 150px;">Event Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>searched</td>
+          <td>This event is fired when enter has been pressed within the input or the button has been clicked.</td>
+        </tr>
+        <tr>
+          <td>cleared</td>
+          <td>This event is fired when the input has been cleared.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- ./bs-table-responsive -->
+{% highlight js %}
+$('#MySearchResults').on('searched', function () {
+  // load search results
+})
+{% endhighlight %}
+
+</div>
+
+<!-- selectlist
+================================================== -->
+<div class="bs-docs-section">
+  <h1 id="selectlist" class="page-header">Selectlist <small>selectlist.js</small></h1>
+  <p class="lead">A single select dropdown similar to the native <code>select</code> control.</p>
+
+  <h2 id="selectlist-example">Examples</h2>
+  <p>Wrap the input and selectlist button within <code>.fuelux .selectlist</code></p>
+  <div class="bs-example">
+
+      <div id="MySelectlist" class="btn-group selectlist" data-resize="auto">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          <span class="selected-label">&nbsp;</span>
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li data-value="1"><a href="#">One</a></li>
+          <li data-value="2" data-selected="true"><a href="#">Two</a></li>
+          <li data-value="3"><a href="#">Three</a></li>
+          <li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>
+          <li data-value="Item Five"><a href="#">Item Five</a></li>
+        </ul>
+        <input class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
+      </div>
+
+      <br/>
+      <br/>
+      <h5>Sample Methods <small>(output sent to browser console)</small></h5>
+      <div class="btn-group">
+        <input id="getSelectedItem" type="button" class="btn btn-default" value="log selected item/value"/>
+        <input id="selectByValue" type="button" class="btn btn-default" value="set by value (3)"/>
+        <input id="selectByIndex" type="button" class="btn btn-default" value="set by element index (zero-based) ('4')"/>
+      </div>
+
+      <div class="btn-group">
+        <input id="selectByText" type="button" class="btn btn-default" value="set by text ('One')"/>
+        <input id="selectBySelector" type="button" class="btn btn-default" value="set by CSS selector ('li[data-fizz=buzz]')"/>
+        <input id="enableSelectlist" type="button" class="btn btn-default" value="enable"/>
+        <input id="disableSelectlist" type="button" class="btn btn-default" value="disable"/>
+      </div>
+
+    </div>
+
+  </div><!-- /example -->
+
+{% highlight html %}
+<div id="MySelectlist" class="btn-group selectlist" data-resize="auto">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    <span class="selected-label">&nbsp;</span>
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li data-value="1"><a href="#">One</a></li>
+    <li data-value="2" data-selected="true"><a href="#">Two</a></li>
+    <li data-value="3"><a href="#">Three</a></li>
+    <li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>
+    <li data-value="Item Five"><a href="#">Item Five</a></li>
+  </ul>
+  <input class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
+</div>
+{% endhighlight %}
+
+  <h2 id="selectlist-usage">Usage</h2>
+  <p>This is a single select dropdown similar to the native <code>select</code> control.</p>
+
+  <p>Trigger the selectlist via JavaScript:</p>
+  {% highlight js %}$('#MySelectlist').selectlist();{% endhighlight %}
+
+  <h3>Markup</h3>
+  <p>Wrap <code>class="selectlist"</code> around an input and a button within a <code>class="fuelux"</code> container.</p>
+{% highlight html %}
+<div class="btn-group selectlist" data-resize="auto">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    <span class="selected-label">&nbsp;</span>
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    ...
+  </ul>
+  <input class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
+</div>
+{% endhighlight %}
+
+  <h3>Methods</h3>
+  <h4>$().selectlist()</h4>
+  Attaches selectlist to an input and a button group.
+  
+  <h4>.selectlist('disable')</h4>
+  <p>Disables the component</p>
+  {% highlight js %}$('#element').selectlist('disable'){% endhighlight %}
+
+  <h4>.selectlist('enable')</h4>
+  <p>Enables the component</p>
+  {% highlight js %}$('#element').selectlist('enable'){% endhighlight %}
+
+  <h4>.selectlist('selectedItem')</h4>
+  <p>Returns an object containing the jQuery data() contents of the selected item which includes <code>.data-*</code> attributes plus a text property with the items's visible text.</p>
+  {% highlight js %}$('#element').selectlist('selectedItem'){% endhighlight %}
+
+  <h4>.selectlist('selectByIndex')</h4>
+  <p>Set the selected item based on its index in the list (zero-based index). Convenience method for <code>.selectBySelector('li:eq({index})')</code></p>
+  {% highlight js %}$('#element').selectlist('selectByIndex', '1'){% endhighlight %}
+
+  <h4>.selectlist('selectByText')</h4>
+  <p>Set the selected item based on its text value</p>
+  {% highlight js %}$('#element').('selectByText', 'Four'){% endhighlight %}
+
+  <h4>.selectlist('selectBySelector')</h4>
+  <p>Set the selected item based on a selector.</p>
+  {% highlight js %}$('#element').('selectBySelector', 'li[data-fizz=buzz]'){% endhighlight %}
+
+  <h4>.selectlist('selectByValue')</h4>
+  <p>Set the selected item based on its value. Convenience method for <code>.selectBySelector('data-value={value}')</code> that requires the item to have a <code>.data-value="{value}"</code> attribute</p>
+  {% highlight js %}$('#element').('selectByValue', '1'){% endhighlight %}
+
+
+  <h3>Events</h3>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="width: 150px;">Event Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>changed</td>
+          <td>This event is fired when the value has changed by selecting an item from the list. Arguments are <code>event, data</code> where data represents the same object structure returned by the <code>selectedItem</code> method.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- ./bs-table-responsive -->
+{% highlight js %}
+$('#MyselectlistResults').on('selectlisted', function () {
+  // load selectlist results
+})
+{% endhighlight %}
+
+<!-- wizard
+================================================== -->
+<div class="bs-docs-section">
+  <h1 id="wizard" class="page-header">Wizard <small>wizard.js</small></h1>
+
+  <h2 id="wizard-example">Examples</h2>
+  <p>Wrap the input and wizard button within <code>.fuelux .wizard</code></p>
+  <div class="bs-example">
+
+    <div id="MyWizard" class="wizard">
+        <ul class="steps">
+            <li class="active" data-step="1"><span class="badge badge-info">1</span>Campaign<span class="chevron"></span></li>
+            <li data-step="2"><span class="badge">2</span>Recipients<span class="chevron"></span></li>
+            <li data-step="3"><span class="badge">3</span>Template<span class="chevron"></span></li>
+            <li data-step="4"><span class="badge">4</span>Preview<span class="chevron"></span></li>
+            <li data-step="5"><span class="badge">5</span>Send<span class="chevron"></span></li>
+        </ul>
+        <div class="actions">
+            <button class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
+            <button class="btn btn-default btn-next" data-last="Complete">Next<span class="glyphicon glyphicon-arrow-right"></span></button>
+        </div>
+       <div class="step-content">
+           <div class="step-pane active sample-pane alert" data-step="1">
+               <h4>Setup Campaign</h4>
+               <p>Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi amaranth water spinach avocado daikon napa cabbage asparagus winter purslane kale. Celery potato scallion desert raisin horseradish spinach carrot soko. Lotus root water spinach fennel kombu maize bamboo shoot green bean swiss chard seakale pumpkin onion chickpea gram corn pea. Brussels sprout coriander water chestnut gourd swiss chard wakame kohlrabi beetroot carrot watercress.</p>
+           </div>
+           <div class="step-pane sample-pane alert" data-step="2">
+               <h4>Choose Recipients</h4>
+               <p>Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard. </p>
+           </div>
+           <div class="step-pane sample-pane alert" data-step="3">
+               <h4>Design Template</h4>
+               <p>Nori grape silver beet broccoli kombu beet greens fava bean potato quandong celery. Bunya nuts black-eyed pea prairie turnip leek lentil turnip greens parsnip. Sea lettuce lettuce water chestnut eggplant winter purslane fennel azuki bean earthnut pea sierra leone bologi leek soko chicory celtuce parsley jÃ­cama salsify. </p>
+           </div>
+           <div class="step-pane sample-pane alert" data-step="4">
+               <h4>Preview Message</h4>
+               <p>Beetroot water spinach okra water chestnut ricebean pea catsear courgette summer purslane. Water spinach arugula pea tatsoi aubergine spring onion bush tomato kale radicchio turnip chicory salsify pea sprouts fava bean. Dandelion zucchini burdock yarrow chickpea dandelion sorrel courgette turnip greens tigernut soybean radish artichoke wattle seed endive groundnut broccoli arugula. Beetroot water spinach okra water chestnut ricebean pea catsear courgette.</p>
+           </div>
+           <div class="step-pane sample-pane alert" data-step="5">
+               <h4>Send Message</h4>
+               <p>Soko radicchio bunya nuts gram dulse silver beet parsnip napa cabbage lotus root sea lettuce brussels sprout cabbage. Catsear cauliflower garbanzo yarrow salsify chicory garlic bell pepper napa cabbage lettuce tomato kale arugula melon sierra leone bologi rutabaga tigernut.</p> 
+           </div>
+       </div>
+    </div>
+
+    <br/>
+    <h5>Sample Methods <small>(output sent to browser console)</small></h5>
+    <div class="btn-group">
+        <input type="button" class="btn btn-default" id="btnWizardPrev" value="prev">
+        <input type="button" class="btn btn-default" id="btnWizardNext" value="next">
+        <input type="button" class="btn btn-default" id="btnWizardStep" value="log current step index">
+        <input type="button" class="btn btn-default" id="btnWizardSetStep" value="jump to step 3 (recipients)">
+        <input type="button" class="btn btn-default" id="btnWizardAddSteps" value="add step (setup)">
+        <input type="button" class="btn btn-default" id="btnWizardRemoveStep" value="remove step (preview)">
+    </div>
+
+  </div><!-- /example -->
+
+{% highlight html %}
+<div id="MyWizard" class="wizard">
+  <ul class="steps">
+      <li class="active" data-step="1"><span class="badge badge-info">1</span>Campaign<span class="chevron"></span></li>
+      <li data-step="2"><span class="badge">2</span>Recipients<span class="chevron"></span></li>
+      <li data-step="3"><span class="badge">3</span>Template<span class="chevron"></span></li>
+      <li data-step="4"><span class="badge">4</span>Preview<span class="chevron"></span></li>
+      <li data-step="5"><span class="badge">5</span>Send<span class="chevron"></span></li>
+  </ul>
+  <div class="actions">
+      <button class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
+      <button class="btn btn-default btn-next" data-last="Complete">Next<span class="glyphicon glyphicon-arrow-right"></span></button>
+  </div>
+  <div class="step-content">
+    <div class="step-pane active sample-pane" data-step="1">
+      <h4>Setup Campaign</h4>
+      <p>Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi amaranth water spinach avocado daikon napcabbage asparagus winter purslane kale. Celery potato scallion desert raisin horseradish spinach carrot soko. Lotus root watespinach fennel kombu maize bamboo shoot green bean swiss chard seakale pumpkin onion chickpea gram corn pea. Brussels sproucoriander water chestnut gourd swiss chard wakame kohlrabi beetroot carrot watercress.</p>
+    </div>
+    <div class="step-pane sample-pane" data-step="2">
+      <h4>Choose Recipients</h4>
+      <p>Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seecollard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard. </p>
+    </div>
+    <div class="step-pane sample-pane" data-step="3">
+      <h4>Design Template</h4>
+      <p>Nori grape silver beet broccoli kombu beet greens fava bean potato quandong celery. Bunya nuts black-eyed pea prairiturnip leek lentil turnip greens parsnip. Sea lettuce lettuce water chestnut eggplant winter purslane fennel azuki beaearthnut pea sierra leone bologi leek soko chicory celtuce parsley jÃ­cama salsify. </p>
+    </div>
+    <div class="step-pane sample-pane" data-step="4">
+      <h4>Preview Message</h4>
+      <p>Beetroot water spinach okra water chestnut ricebean pea catsear courgette summer purslane. Water spinach arugula pea tatsoaubergine spring onion bush tomato kale radicchio turnip chicory salsify pea sprouts fava bean. Dandelion zucchini burdocyarrow chickpea dandelion sorrel courgette turnip greens tigernut soybean radish artichoke wattle seed endive groundnubroccoli arugula. Beetroot water spinach okra water chestnut ricebean pea catsear courgette.</p>
+    </div>
+    <div class="step-pane sample-pane" data-step="5">
+      <h4>Send Message</h4>
+      <p>Soko radicchio bunya nuts gram dulse silver beet parsnip napa cabbage lotus root sea lettuce brussels sprout cabbageCatsear cauliflower garbanzo yarrow salsify chicory garlic bell pepper napa cabbage lettuce tomato kale arugula melon sierrleone bologi rutabaga tigernut.</p> 
+    </div>
+  </div>
+</div>
+{% endhighlight %}
+
+  <h2 id="wizard-usage">Usage</h2>
+  <p>A wizard divides a complex goal into multiple steps by separating sub-tasks or content into panes. Panes can be added or removed. Completed steps can be clicked.</p>
+
+  <p>Trigger the wizard via JavaScript:</p>
+  {% highlight js %}$('#MyWizard').wizard();{% endhighlight %}
+
+  <h3>Markup</h3>
+  <p>Wrap <code>class="wizard"</code> around a list of steps, navigation, and content within a <code>class="fuelux"</code> container.</p>
+{% highlight html %}
+<div class="wizard">
+  <ul class="steps">
+    <li class="active" data-step="1"><span class="badge">1</span>Step 1<span class="chevron"></span></li>
+  </ul>
+  <div class="actions">
+    <button class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
+    <button class="btn btn-default btn-next" data-last="Complete">Next<span class="glyphicon glyphicon-arrow-right"></span></button>
+  </div>
+  <div class="step-content">
+    <div class="step-pane active sample-pane" data-step="1">
+        ....
+    </div>
+    ....
+  </div>
+</div>
+{% endhighlight %}
+
+  <h3>Methods</h3>
+  <h4>$().wizard()</h4>
+  Attaches wizard to a list of steps, navigation, and content.
+  
+  <h4>.wizard('previous')</h4>
+  <p>Moves to the previous step</p>
+  {% highlight js %}$('#element').wizard('previous'){% endhighlight %}
+
+  <h4>.wizard('next')</h4>
+  <p>Moves to the next step</p>
+  {% highlight js %}$('#element').wizard('next'){% endhighlight %}
+
+  <h4>.wizard('selectedItem')</h4>
+  <p>Returns the current step index</p>
+{% highlight js %}
+$('#element').wizard('selectedItem', {
+  step: 3
+});
+{% endhighlight %}
+
+  <h4>.wizard('addSteps')</h4>
+  <p>Add a pane or an array of panes to a wizard</p>
+{% highlight js %}
+$('#element').wizard('addSteps', index, remove, 
+  [
+  {
+    badge: 'badge-customicon',
+    label: 'A Step Label',
+    pane: '<div>Content</div>'
+  }
+]);
+{% endhighlight %}
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="width: 150px;">Parameter</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>index</td>
+          <td><i>Required.</i> The position where to start inserting pane(s). First pane is at position 1.</td>
+        </tr>
+        <tr>
+          <td>remove</td>
+          <td><i>Optional.</i> The number of panes to be removed after adding panes. Default is 0.</td>
+        </tr>
+        <tr>
+          <td><i>array</i></td>
+          <td>An array of content pane objects to be added at the <code>index</code>. Each pane can contain three strings: a <code>badge</code> class to be appended to the step's <code>class</code> attribute in order to override the default number, a <code>label</code> for the name of the step, and the <code>pane</code> of HTML content.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- ./bs-table-responsive -->
+
+  <h4>.wizard('RemoveSteps')</h4>
+  <p>Remove a pane or multiple panes from a wizard. </p>
+{% highlight js %}
+  $('#element').wizard('removeSteps', index, howMany);
+{% endhighlight %}
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="width: 150px;">Parameter</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>index</td>
+          <td><i>Required.</i> The position where to begin removing pane(s). First pane is at position 1.</td>
+        </tr>
+        <tr>
+          <td>howMany</td>
+          <td><i>Optional.</i> The number of panes to be removed. Default is 1.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- ./bs-table-responsive -->
+
+
+  <h3>Events</h3>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="width: 150px;">Event Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>change</td>
+          <td>This event fires immediately when the step changes, but before the new step has been shown. Use <code>event.preventDefault</code> to cancel the event.</td>
+        </tr>
+        <tr>
+          <td>changed</td>
+          <td>This event is fired when the step has changed and is shown to the user.</td>
+        </tr>
+        <tr>
+          <td>finished</td>
+          <td>This event is fired when the next button is clicked on the last step of the wizard.</td>
+        </tr>
+        <tr>
+          <td>stepclick</td>
+          <td>This event is fired when a completed step is clicked. Use <code>event.preventDefault</code> to cancel the event.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- ./bs-table-responsive -->
+{% highlight js %}
+$('#Mywizard').on('change', function () {
+  // do something
+})
+{% endhighlight %}
+
 </div>
