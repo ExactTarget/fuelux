@@ -1704,7 +1704,8 @@
 			this.begin = ( this.$element.is( '[data-begin]' ) ) ? parseFloat( this.$element.attr( 'data-begin' ) ) : 1;
 			this.delay = ( this.$element.is( '[data-delay]' ) ) ? parseFloat( this.$element.attr( 'data-delay' ) ) : 150;
 			this.end = ( this.$element.is( '[data-end]' ) ) ? parseInt( this.$element.attr( 'data-end' ), 10 ) : 8;
-			this.frame = ( this.$element.is( '[data-frame]' ) ) ? parseInt( this.$element.attr( 'data-frame' ), 10 ) : 0;
+			this.frame = ( this.$element.is( '[data-frame]' ) ) ? parseInt( this.$element.attr( 'data-frame' ), 10 ) : 1;
+			this.playing = false;
 			this.timeout = {};
 
 			var ieVer = this.msieVersion();
@@ -1712,20 +1713,13 @@
 				this.$element.className += ' iefix';
 			}
 
+			this.$element.attr( 'data-frame', this.frame + '' );
 			this.play();
 		};
 
 		Loader.prototype = {
 
 			constructor: Loader,
-
-			next: function() {
-				this.frame++;
-				if ( this.frame > this.end ) {
-					this.frame = this.begin;
-				}
-				this.$element.attr( 'data-frame', this.frame + '' );
-			},
 
 			msieVersion: function() {
 				var ua = window.navigator.userAgent;
@@ -1737,16 +1731,28 @@
 				}
 			},
 
+			next: function() {
+				this.frame++;
+				if ( this.frame > this.end ) {
+					this.frame = this.begin;
+				}
+				this.$element.attr( 'data-frame', this.frame + '' );
+			},
+
 			pause: function() {
 				clearTimeout( this.timeout );
+				this.playing = false;
 			},
 
 			play: function() {
 				var self = this;
-				this.timeout = setTimeout( function() {
-					self.next();
-					self.play();
-				}, this.delay );
+				if ( !this.playing ) {
+					this.timeout = setTimeout( function() {
+						self.next();
+						self.play();
+					}, this.delay );
+					this.playing = true;
+				}
 			},
 
 			prev: function() {
