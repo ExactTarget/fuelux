@@ -95,17 +95,18 @@ lead: "Over a dozen reusable controls built to provide datepickers, pillboxes, t
         <br/>(works with any <a href="http://api.jquery.com/category/selectors/">jQuery selector</a>)
     </p>
     <div class="bs-example">
-        <div class="checkbox">
-            <label class="checkbox-custom">
-                <input data-toggle="#checkboxToggleID" type="checkbox" value="option1">
-                Toggles element with matching id.
+        <div class="form-group">
+            <div class="checkbox">
+                <label class="checkbox-custom">
+                    <input data-toggle="#checkboxToggleID" type="checkbox" value="option1">
+                    Toggles element with matching id.
+                </label>
+            </div>
+            <label class="checkbox-custom checkbox-inline">
+                <input data-toggle=".checkboxToggleCLASS" type="checkbox" value="option1">
+                Toggles elements with matching class.
             </label>
         </div>
-        <label class="checkbox-custom checkbox-inline">
-            <input data-toggle=".checkboxToggleCLASS" type="checkbox" value="option1">
-            Toggles elements with matching class.
-        </label>
-
         <div class="alert bg-info" id="checkboxToggleID" style="display: none;">Id toggling container.</div>
         <div class="alert bg-success checkboxToggleCLASS" style="display: none;">Class toggling container.</div>
         <div class="alert bg-success checkboxToggleCLASS" style="display: none;">Class toggling container.</div>
