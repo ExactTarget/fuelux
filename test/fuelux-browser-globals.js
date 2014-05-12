@@ -52,24 +52,24 @@
 		ok($(document.body).combobox, 'combobox method is defined');
 	});
 
-	test( 'datepicker should be defined on the jQuery object', function() {
-		ok( $(document.body).datepicker, 'datepicker method is defined' );
+	test('datepicker should be defined on the jQuery object', function() {
+		ok($(document.body).datepicker, 'datepicker method is defined');
 	});
 
-	test( 'dropdownautoflip should be defined on the jQuery object', function() {
-		ok( $(document.body).dropdownautoflip, 'dropdownautoflip method is defined' );
+	test('dropdownautoflip should be defined on the jQuery object', function() {
+		ok($(document.body).dropdownautoflip, 'dropdownautoflip method is defined');
 	});
 
-	test( 'infinitescroll should be defined on the jQuery object', function() {
-		ok( $(document.body).infinitescroll, 'infinitescroll method is defined' );
+	test('infinitescroll should be defined on the jQuery object', function() {
+		ok($(document.body).infinitescroll, 'infinitescroll method is defined');
 	});
 
-	test( 'loader should be defined on the jQuery object', function() {
-		ok( window.fuelux_loader, 'loader method is defined' );
+	test('loader should be defined on the jQuery object', function() {
+		ok($(document.body).loader, 'loader method is defined');
 	});
 
 	test('pillbox should be defined on jQuery object', function () {
-		ok($(this.pillboxHTML).pillbox, 'pillbox method is defined');
+		ok($(document.body).pillbox, 'pillbox method is defined');
 	});
 
 	test('radio should be defined on jQuery object', function () {
@@ -89,7 +89,7 @@
 	});
 
 	test('scheduler should be defined on the jQuery object', function(){
-		ok( $(document.body).scheduler, 'scheduler method is defined' );
+		ok($(document.body).scheduler, 'scheduler method is defined');
 	});
 
 	test('search should be defined on jQuery object', function () {
