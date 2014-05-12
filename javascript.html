@@ -42,30 +42,33 @@ lead: "Over a dozen reusable controls built to provide datepickers, pillboxes, t
             </label>
         </div>
     </div>
-{% highlight html %}<div class="checkbox">
-    <label class="checkbox-custom">
-        <input type="checkbox" value="">
-        Browser-independent checkbox unchecked on page load
-    </label>
+
+{% highlight html %}
+<div class="checkbox">
+  <label class="checkbox-custom">
+    <input type="checkbox" value="">
+    Browser-independent checkbox unchecked on page load
+  </label>
 </div>
 <div class="checkbox">
-    <label class="checkbox-custom">
-        <input checked="checked" type="checkbox" value="">
-        Browser-independent checkbox checked on page load
-    </label>
+  <label class="checkbox-custom">
+    <input checked="checked" type="checkbox" value="">
+    Browser-independent checkbox checked on page load
+  </label>
 </div>
 <div class="checkbox">
-    <label class="checkbox-custom">
-        <input disabled="disabled" type="checkbox" value="">
-        Disabled browser-independent checkbox unchecked on page load
-    </label>
+  <label class="checkbox-custom">
+    <input disabled="disabled" type="checkbox" value="">
+    Disabled browser-independent checkbox unchecked on page load
+  </label>
 </div>
 <div class="checkbox">
-    <label class="checkbox-custom">
-        <input checked="checked" disabled="disabled" type="checkbox" value="">
-        Disabled browser-independent checkbox checked on page load
-    </label>
-</div>{% endhighlight %}
+  <label class="checkbox-custom">
+    <input checked="checked" disabled="disabled" type="checkbox" value="">
+    Disabled browser-independent checkbox checked on page load
+  </label>
+</div>
+{% endhighlight %}
 
     <h4>Inline checkboxes</h4>
     <p>Use the <code>.checkbox-inline</code> or <code>.radio-inline</code> classes on a series of checkboxes or radios for controls that appear on the same line.</p>
@@ -80,20 +83,21 @@ lead: "Over a dozen reusable controls built to provide datepickers, pillboxes, t
             <input disabled="disabled" type="checkbox" value="option3"> 3
         </label>
     </div>
-{% highlight html %}<label class="checkbox-custom checkbox-inline">
-    <input type="checkbox" value="option1"> 1
+
+{% highlight html %}
+<label class="checkbox-custom checkbox-inline">
+  <input type="checkbox" value="option1"> 1
 </label>
 <label class="checkbox-custom checkbox-inline">
-    <input checked="checked" type="checkbox" value="option2"> 2
+  <input checked="checked" type="checkbox" value="option2"> 2
 </label>
 <label class="checkbox-custom checkbox-inline">
-    <input disabled="disabled" type="checkbox" value="option3"> 3
-</label>{% endhighlight %}
+  <input disabled="disabled" type="checkbox" value="option3"> 3
+</label>
+{% endhighlight %}
 
     <h4>Element toggling checkboxes</h4>
-    <p>Use the <code>data-toggle="{{selector}}"</code> to automatically show/hide elements matching the selector within the body upon check/uncheck.
-        <br/>(works with any <a href="http://api.jquery.com/category/selectors/">jQuery selector</a>)
-    </p>
+    <p>Use the <code>data-toggle="{{selector}}"</code> to automatically show/hide elements matching the selector within the body upon check/uncheck. <strong>(works with any <a href="http://api.jquery.com/category/selectors/">jQuery selector</a>)</strong></p>
     <div class="bs-example">
         <div class="form-group">
             <div class="checkbox">
@@ -111,20 +115,22 @@ lead: "Over a dozen reusable controls built to provide datepickers, pillboxes, t
         <div class="alert bg-success checkboxToggleCLASS" style="display: none;">Class toggling container.</div>
         <div class="alert bg-success checkboxToggleCLASS" style="display: none;">Class toggling container.</div>
     </div>
-{% highlight html %}<div class="checkbox">
-<label class="checkbox-custom">
+{% highlight html %}
+<div class="checkbox">
+  <label class="checkbox-custom">
     <input data-toggle="#checkboxToggleID" type="checkbox" value="option1">
     Toggles element with matching id.
-</label>
+  </label>
 </div>
 <label class="checkbox-custom checkbox-inline">
-    <input data-toggle=".checkboxToggleCLASS" type="checkbox" value="option1">
-    Toggles elements with matching class.
+  <input data-toggle=".checkboxToggleCLASS" type="checkbox" value="option1">
+  Toggles elements with matching class.
 </label>
 
 <div class="alert bg-info" id="checkboxToggleID" style="display: none;">Id toggling container.</div>
 <div class="alert bg-success checkboxToggleCLASS" style="display: none;">Class toggling container.</div>
-<div class="alert bg-success checkboxToggleCLASS" style="display: none;">Class toggling container.</div>{% endhighlight %}
+<div class="alert bg-success checkboxToggleCLASS" style="display: none;">Class toggling container.</div>
+{% endhighlight %}
 
     <h4>Highlighting checkboxes</h4>
     <p>Use the <code>.highlight</code> class to add a background highlight upon check.
@@ -141,15 +147,16 @@ lead: "Over a dozen reusable controls built to provide datepickers, pillboxes, t
             This inline checkbox will be highlighted on check.
         </label>
     </div>
-{% highlight html %}<div class="checkbox highlight">
-<label class="checkbox-custom">
+{% highlight html %}
+<div class="checkbox highlight">
+  <label class="checkbox-custom">
     <input type="checkbox" value="option1">
     This block-level checkbox will be highlighted on check.
-</label>
+  </label>
 </div>
 <label class="checkbox-custom checkbox-inline highlight">
-    <input type="checkbox" value="option2">
-    This inline checkbox will be highlighted on check.
+  <input type="checkbox" value="option2">
+  This inline checkbox will be highlighted on check.
 </label>{% endhighlight %}
 
     <h2 id="checkboxes-usage">Usage</h2>
