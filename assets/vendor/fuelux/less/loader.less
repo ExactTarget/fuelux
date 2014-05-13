@@ -16,17 +16,13 @@
 	}
 
 	&:before {
-		content: '\e008';
+		content: '\e000';
 		opacity: 0.33;
 	}
 
 	&.iefix:before{
 		color: #bcbcbc;
 		opacity: 1;
-	}
-
-	&[data-frame="0"]:after {
-		content: '\e000';
 	}
 
 	&[data-frame="1"]:after {
@@ -55,5 +51,9 @@
 
 	&[data-frame="7"]:after {
 		content: '\e007';
+	}
+
+	&[data-frame="8"]:after {
+		content: '\e008';
 	}
 }
