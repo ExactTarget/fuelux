@@ -57,9 +57,7 @@ module.exports = function (grunt) {
 						'js/combobox.js',
 						'js/datepicker.js',
 						'js/dropdown-autoflip.js',
-						'js/infinite-scroll.js',
 						'js/loader.js',
-						'js/pillbox.js',
 						'js/placard.js',
 						'js/radio.js',
 						'js/search.js',
@@ -67,6 +65,10 @@ module.exports = function (grunt) {
 						'js/spinbox.js',
 						'js/tree.js',
 						'js/wizard.js',
+
+						//items with dependencies on other controls
+						'js/infinite-scroll.js',
+						'js/pillbox.js',
 						'js/repeater.js',
 						'js/repeater-list.js',
 						'js/repeater-thumbnail.js',
