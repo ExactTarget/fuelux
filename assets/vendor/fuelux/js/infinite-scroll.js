@@ -14,7 +14,7 @@
 (function (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
-		define(['jquery'], factory);
+		define(['jquery', 'fuelux/loader'], factory);
 	} else {
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
@@ -75,8 +75,9 @@
 
 			var fetch = function(){
 				var helpers = { percentage: self.curPercentage, scrollTop: self.curScrollTop };
-				load.append('<div class="loader"><i></i><i></i><i></i><i></i><!--[if lt IE 10]><scr' +
-					'ipt type="text/javascript">window.fuelux_loader.scan();</scr' + 'ipt><![endif]--></div>');
+				var $loader = $('<div class="loader"></div>');
+				load.append($loader);
+				$loader.loader();
 				if(self.options.dataSource){
 					self.options.dataSource(helpers, function(resp){
 						var end;

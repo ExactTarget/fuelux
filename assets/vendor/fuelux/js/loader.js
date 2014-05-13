@@ -36,7 +36,6 @@
 		this.delay = (this.$element.is('[data-delay]')) ? parseFloat(this.$element.attr('data-delay')) : 150;
 		this.end = (this.$element.is('[data-end]')) ? parseInt(this.$element.attr('data-end'), 10) : 8;
 		this.frame = (this.$element.is('[data-frame]')) ? parseInt(this.$element.attr('data-frame'), 10) : 1;
-		this.playing = false;
 		this.timeout = {};
 
 		var ieVer = this.msieVersion();
@@ -72,18 +71,15 @@
 
 		pause: function(){
 			clearTimeout(this.timeout);
-			this.playing = false;
 		},
 
 		play: function(){
 			var self = this;
-			if(!this.playing){
-				this.timeout = setTimeout(function(){
-					self.next();
-					self.play();
-				}, this.delay);
-				this.playing = true;
-			}
+			clearTimeout(this.timeout);
+			this.timeout = setTimeout(function(){
+				self.next();
+				self.play();
+			}, this.delay);
 		},
 
 		prev: function(){
