@@ -358,6 +358,8 @@ $('#MyCombobox').on('changed', function () {
 {% endhighlight %}
 </div>
 
+
+
 <!-- dropdown-autoflip
 ================================================== -->
 <div class="bs-docs-section">
@@ -458,9 +460,135 @@ $('#MyCombobox').on('changed', function () {
 	<h2 id="infinite-scrolling-example">Examples</h2>
 	<p>Turn any element into an infinite scrolling region with content that loads on demand.</p>
 
-	<div class="infinitescroll" id="MyInfiniteScroll1" style="border: 1px solid black; height: 200px; padding: 2px; width: 200px;">
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc in massa neque. Suspendisse malesuada, nunc in consectetur interdum, nisi turpis sagittis velit, sit amet fermentum elit neque in nulla. Pellentesque interdum ipsum vel massa ornare viverra. In hac habitasse platea dictumst. Aenean vel mattis massa. Phasellus id nisl id felis sodales tincidunt vitae non urna. Quisque ac lobortis tellus. Aenean interdum est tempor, volutpat velit id, mattis mi. Maecenas fringilla fringilla nisi nec tristique. Ut euismod faucibus ipsum. Fusce iaculis urna eu mauris tempor scelerisque. Praesent interdum id neque et aliquet. Aliquam erat volutpat. Etiam dignissim erat vitae nisi pellentesque blandit.
+	<div class="bs-example">
+		<div class="infinitescroll" id="MyInfiniteScroll1" style="border: 1px solid #ccc; border-radius: 4px; float: left; height: 200px; padding: 6px 10px; width: 48%;"></div>
+		<div class="infinitescroll" id="MyInfiniteScroll2" style="border: 1px solid #ccc; border-radius: 4px; float: right; height: 200px; padding: 6px 10px; width: 48%;"></div>
+		<div style="clear:both;"></div>
 	</div>
+
+	<h2 id="infinite-scrolling-usage">Usage</h2>
+	<p>The infinite scroll control does not have a data API due to dependency on a dataSource.</p>
+
+	<p>Initialize the infinite scroll via JavaScript:</p>
+{% highlight js %}
+$('#MyInfiniteScroll').infinitescroll({
+	//dataSource is required to append additional content
+	dataSource: function(helpers, callback){
+		//passing back more content
+		callback({ content: '...' });
+	}
+);{% endhighlight %}
+
+	<h3>Markup</h3>
+	<p>Simply place <code>class="infinitescroll"</code> on an element of your choosing (preferably a div or span).</p>
+{% highlight html %}
+<div class="infinitescroll"></div>
+{% endhighlight %}
+
+	<h3>Options</h3>
+	<p>Options can be passed via Javascript upon initialization.</p>
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th style="width: 100px;">Name</th>
+					<th style="width: 100px;">type</th>
+					<th style="width: 50px;">default</th>
+					<th>description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>dataSource</td>
+					<td>function</td>
+					<td>null</td>
+					<td>Called whenever the user scrolls the specified percentage to the bottom. Arguments passed
+						are a <code>helpers</code> object and <code>callback</code> function. The <code>helpers</code>
+						object contains current <code>percentage</code> and <code>scrollTop</code> values. The
+						<code>callback</code> function is used to append more content to the element. Pass an object
+						back within the <code>callback</code> function structured as follows: <code>{ content: '...' }</code>
+						If you have no more additonal content to append, add the attribute <code>end: true</code> to that
+						object, which will append <code>'---------'</code> by default and prevent further dataSource calls. Passing a
+						string value for the <code>end</code> attribute will append that string instead of the default.
+					</td>
+				</tr>
+				<tr>
+					<td>hybrid</td>
+					<td>boolean OR object</td>
+					<td>false</td>
+					<td>Sets whether to use "hybrid mode," which requires the user to click a button before loading
+						additional content. If set to <code>true</code>, a default "load more" icon will be used within
+						the button. Additionally, it can be set to an object with the following structure:
+						<code>{ label: (string or jQuery obj) }</code> The <code>label</code> attribute's value will
+						then be appended within the button instead of the default icon.
+					</td>
+				</tr>
+				<tr>
+					<td>percentage</td>
+					<td>number</td>
+					<td>95</td>
+					<td>Percentage scrolled to the bottom before the dataSource function is called for more content.</td>
+				</tr>
+			</tbody>
+		</table>
+	</div><!-- ./bs-table-responsive -->
+
+	<h3>Methods</h3>
+	<h4>$().infinitescroll();</h4>
+	Attaches infinitescroll to an 'infinitescroll' classed div
+
+	<h4>.infinitescroll('disable');</h4>
+	<p>Disables the infinite scrolling region.</p>
+	{% highlight js %}$('#element').infinitescroll('disable');{% endhighlight %}
+
+	<h4>.infinitescroll('enable');</h4>
+	<p>Enables the infinite scrolling region.</p>
+	{% highlight js %}$('#element').infinitescroll('enable');{% endhighlight %}
+
+	<h4>.infinitescroll('end');</h4>
+	<p>Disables the infinite scrolling region and appends an "end" indicator.</p>
+	{% highlight js %}$('#element').infinitescroll('end');{% endhighlight %}
+
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th style="width: 150px;">Parameter</th>
+					<th>description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>content</td>
+					<td><i>Optional.</i> String or jQuery object that is appended as an "end" indicator. Default is <code>'---------'</code></td>
+				</tr>
+			</tbody>
+		</table>
+	</div><!-- ./bs-table-responsive -->
+
+	<h4>.infinitescroll('fetchData');</h4>
+	<p>Tells the infinite scrolling region to make a call to dataSource for additional content.</p>
+	{% highlight js %}$('#element').infinitescroll('fetchData');{% endhighlight %}
+
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead>
+			<tr>
+				<th style="width: 150px;">Parameter</th>
+				<th>description</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>force</td>
+				<td><i>Optional.</i> Boolean dictating whether to bypass the button click in hybrid mode and immediately
+					call dataSoruce for more content. Default is <code>false</code>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</div><!-- ./bs-table-responsive -->
+
 </div>
 
 
@@ -520,26 +648,26 @@ $('#MyCombobox').on('changed', function () {
 {% endhighlight %}
 
 	<h3>Methods</h3>
-	<h4>$().loader()</h4>
+	<h4>$().loader();</h4>
 	Attaches loader to a 'loader' classed div
 
-	<h4>.loader('next')</h4>
+	<h4>.loader('next');</h4>
 	<p>Increments the loader animation to the next frame</p>
 {% highlight js %}$('#element').loader('next');{% endhighlight %}
 
-	<h4>.loader('pause')</h4>
+	<h4>.loader('pause');</h4>
 	<p>Pauses the loader animation at the current frame.</p>
 {% highlight js %}$('#element').loader('pause');{% endhighlight %}
 
-	<h4>.loader('play')</h4>
+	<h4>.loader('play');</h4>
 	<p>Plays the loader animation, resuming it if paused.</p>
 {% highlight js %}$('#element').loader('play');{% endhighlight %}
 
-	<h4>.loader('prev')</h4>
+	<h4>.loader('prev');</h4>
 	<p>Decrements the loader animation to the previous frame.</p>
 {% highlight js %}$('#element').loader('prev');{% endhighlight %}
 
-	<h4>.loader('reset')</h4>
+	<h4>.loader('reset');</h4>
 	<p>Resets the loader animation to the beginning frame.</p>
 {% highlight js %}$('#element').loader('reset');{% endhighlight %}
 

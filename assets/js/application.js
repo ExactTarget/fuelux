@@ -12,7 +12,7 @@ define(function(require){
 
 	require('bootstrap');
 	require('assets/js/combobox-examples');
-	require('assets/js/loader-examples');
+	require('assets/js/infinite-scroll-examples');
 	require('assets/js/search-examples');
 	require('assets/js/selectlist-examples');
 	require('assets/js/wizard-examples');
