@@ -3450,7 +3450,7 @@
 			this.curPercentage = this.getPercentage();
 			this.fetchingData = false;
 
-			this.$element.on( 'scroll', $.proxy( this.onScroll, this ) );
+			this.$element.on( 'scroll.fuelux.infinitescroll', $.proxy( this.onScroll, this ) );
 		};
 
 		InfiniteScroll.prototype = {
@@ -3458,11 +3458,11 @@
 			constructor: InfiniteScroll,
 
 			disable: function() {
-				this.$element.off( 'scroll' );
+				this.$element.off( 'scroll.fuelux.infinitescroll' );
 			},
 
 			enable: function() {
-				this.$element.on( 'scroll', $.proxy( this.onScroll, this ) );
+				this.$element.on( 'scroll.fuelux.infinitescroll', $.proxy( this.onScroll, this ) );
 			},
 
 			end: function( content ) {
@@ -3481,7 +3481,7 @@
 				return ( height / ( this.$element.get( 0 ).scrollHeight - this.curScrollTop ) ) * 100;
 			},
 
-			fetchData: function() {
+			fetchData: function( force ) {
 				var load = $( '<div class="infinitescroll-load"></div>' );
 				var self = this;
 				var moreBtn;
@@ -3512,14 +3512,14 @@
 
 				this.fetchingData = true;
 				this.$element.append( load );
-				if ( this.options.hybrid ) {
+				if ( this.options.hybrid && force !== true ) {
 					moreBtn = $( '<button type="button" class="btn btn-primary"></button>' );
 					if ( typeof this.options.hybrid === 'object' ) {
 						moreBtn.append( this.options.hybrid.label );
 					} else {
 						moreBtn.append( '<span class="glyphicon glyphicon-repeat"></span>' );
 					}
-					moreBtn.on( 'click', function() {
+					moreBtn.on( 'click.fuelux.infinitescroll', function() {
 						moreBtn.remove();
 						fetch();
 					} );
