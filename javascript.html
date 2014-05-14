@@ -675,6 +675,63 @@ $('#MyInfiniteScroll').infinitescroll({
 
 
 
+<!-- placard
+================================================== -->
+<div class="bs-docs-section">
+	<h1 id="placards" class="page-header">Placards <small>placard.js</small></h1>
+
+	<h2 id="placards-example">Examples</h2>
+	<p>Adds a popup element to inputs on focus, with additional options for explicit accept/cancel actions.</p>
+
+	<div class="bs-example">
+		<div class="placard" style="display: block;">
+			<div class="placard-popup"></div>
+			<input class="form-control placard-field" readonly="readonly" type="text"/>
+		</div>
+
+		<br/>
+
+		<div class="placard" data-ellipsis="true" style="display: block;">
+			<div class="placard-popup"></div>
+			<div class="placard-header"><h5>Header</h5></div>
+			<textarea class="form-control placard-field" readonly="readonly" rows="3"></textarea>
+			<div class="placard-footer">
+				<a class="placard-cancel" href="#">Cancel</a>
+				<button class="btn btn-primary btn-xs placard-accept" type="button">Save</button>
+			</div>
+		</div>
+	</div>
+
+	<h2 id="placards-usage">Usage</h2>
+	<p>The placard control will work automatically on click or can be initialized via Javascript.</p>
+
+	<p>Initialize the wizard via JavaScript:</p>
+	{% highlight js %}$('#MyPlacard').placard();{% endhighlight %}
+
+	<h3>Markup</h3>
+	<p>Use the following markup for a simple placard:</p>
+{% highlight html %}
+<div class="placard">
+  <div class="placard-popup"></div>
+  <input class="form-control placard-field" readonly="readonly" type="text"/>
+</div>
+{% endhighlight %}
+	<p>For header and footer content, use the following:</p>
+{% highlight html %}
+<div class="placard" data-ellipsis="true" style="display: block;">
+ <div class="placard-popup"></div>
+ <div class="placard-header"><h5>Header</h5></div>
+ <textarea class="form-control placard-field" readonly="readonly" rows="3"></textarea>
+ <div class="placard-footer">
+    <a class="placard-cancel" href="#">Cancel</a>
+    <button class="btn btn-primary btn-xs placard-accept" type="button">Save</button>
+ </div>
+</div>
+{% endhighlight %}
+</div>
+
+
+
 <!-- radio
 ================================================== -->
 <div class="bs-docs-section">
