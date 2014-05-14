@@ -8,77 +8,132 @@
 
 // -- BEGIN UMD WRAPPER PREFACE --
 
-// NOTE: UMD wrapper is modified here because jQuery cannot be a dependency.
+// For more information on UMD visit:
+// https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
-		define([], factory);
+		define(['jquery'], factory);
 	} else {
 		// OR use browser globals if AMD is not present
-		factory();
+		factory(jQuery);
 	}
-}(function () {
+}(function ($) {
 // -- END UMD WRAPPER PREFACE --
 
 // -- BEGIN MODULE CODE HERE --
 
-	if(window && !window.fuelux_loader){
-		var Loader = function(){
-			var count = 0;
-			var init = function(id, loader){
-				var delay = (loader.hasAttribute('data-delay')) ? parseFloat(loader.getAttribute('data-delay')) : 150;
-				var frame = (loader.hasAttribute('data-frame')) ? parseInt(loader.getAttribute('data-frame'), 10) : 0;
-				var length = (loader.hasAttribute('data-length')) ? parseInt(loader.getAttribute('data-length'), 10) : 8;
-				var start = (loader.hasAttribute('data-start')) ? parseFloat(loader.getAttribute('data-start')) : 0;
-				var ieVer;
+	var old = $.fn.loader;
 
-				var cycle = function(i){
-					i++;
-					if(i>=length){
-						i = start;
-					}
-					loader.setAttribute('data-frame', i + '');
-					setTimeout(function(){
-						cycle(i);
-					}, delay);
-				};
+	// LOADER CONSTRUCTOR AND PROTOTYPE
 
-				var msieVersion = function(){
-					var ua = window.navigator.userAgent;
-					var msie = ua.indexOf('MSIE ');
-					if(msie>0){
-						return parseInt(ua.substring(msie+5, ua.indexOf(".", msie )), 10);
-					}else{
-						return false;
-					}
-				};
+	var Loader = function (element, options) {
+		this.$element = $(element);
+		this.options = $.extend({}, $.fn.loader.defaults, options);
 
-				ieVer = msieVersion();
-				if(ieVer!==false && ieVer<9){
-					loader.className += ' iefix';
-				}
-				setTimeout(function(){
-					cycle(frame);
-				}, delay);
-				loader.setAttribute('data-initialized', 'true');
-			};
+		this.begin = (this.$element.is('[data-begin]')) ? parseFloat(this.$element.attr('data-begin')) : 1;
+		this.delay = (this.$element.is('[data-delay]')) ? parseFloat(this.$element.attr('data-delay')) : 150;
+		this.end = (this.$element.is('[data-end]')) ? parseInt(this.$element.attr('data-end'), 10) : 8;
+		this.frame = (this.$element.is('[data-frame]')) ? parseInt(this.$element.attr('data-frame'), 10) : 1;
+		this.timeout = {};
 
-			this.scan = function(){
-				var loaders = document.querySelectorAll('.loader');
-				var i, l;
+		var ieVer = this.msieVersion();
+		if(ieVer!==false && ieVer<9){
+			this.$element.className += ' iefix';
+		}
 
-				for(i=0, l=loaders.length; i<l; i++){
-					if(loaders[i].getAttribute('data-initialized')!=='true'){
-						count++;
-						init(count, loaders[i]);
-					}
-				}
-			};
-		};
+		this.$element.attr('data-frame', this.frame + '');
+		this.play();
+	};
 
-		window.fuelux_loader = new Loader();
-	}
+	Loader.prototype = {
+
+		constructor: Loader,
+
+		msieVersion: function(){
+			var ua = window.navigator.userAgent;
+			var msie = ua.indexOf('MSIE ');
+			if(msie>0){
+				return parseInt(ua.substring(msie+5, ua.indexOf(".", msie )), 10);
+			}else{
+				return false;
+			}
+		},
+
+		next: function(){
+			this.frame++;
+			if(this.frame>this.end){
+				this.frame = this.begin;
+			}
+			this.$element.attr('data-frame', this.frame + '');
+		},
+
+		pause: function(){
+			clearTimeout(this.timeout);
+		},
+
+		play: function(){
+			var self = this;
+			clearTimeout(this.timeout);
+			this.timeout = setTimeout(function(){
+				self.next();
+				self.play();
+			}, this.delay);
+		},
+
+		prev: function(){
+			this.frame--;
+			if(this.frame<this.begin){
+				this.frame = this.end;
+			}
+			this.$element.attr('data-frame', this.frame + '');
+		},
+
+		reset: function(){
+			this.frame = this.begin;
+			this.$element.attr('data-frame', this.frame + '');
+		}
+
+	};
+
+	// LOADER PLUGIN DEFINITION
+
+	$.fn.loader = function (option) {
+		var args = Array.prototype.slice.call( arguments, 1 );
+		var methodReturn;
+
+		var $set = this.each(function () {
+			var $this = $( this );
+			var data = $this.data( 'loader' );
+			var options = typeof option === 'object' && option;
+
+			if (!data) $this.data('loader', (data = new Loader(this, options)));
+			if (typeof option === 'string') methodReturn = data[ option ].apply( data, args );
+		});
+
+		return ( methodReturn === undefined ) ? $set : methodReturn;
+	};
+
+	$.fn.loader.defaults = {};
+
+	$.fn.loader.Constructor = Loader;
+
+	$.fn.loader.noConflict = function () {
+		$.fn.loader = old;
+		return this;
+	};
+
+	// INIT LOADER ON DOMCONTENTLOADED
+
+	$(function () {
+		$('.loader').each(function () {
+			var $this = $(this);
+			if (!$this.data('loader')) {
+				$this.loader($this.data());
+			}
+		});
+	});
 
 // -- BEGIN UMD WRAPPER AFTERWORD --
 }));
