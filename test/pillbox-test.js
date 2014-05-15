@@ -17,7 +17,7 @@ define(function(require){
 
 	test("should return element", function () {
 		var $pillbox = $(html).find('#MyPillbox');
-		ok($pillbox.pillbox() === $pillbox, 'pillbox should be initialized');
+		ok($pillbox.pillbox() === $pillbox, 'pillbox is initialized');
 	});
 
 	test("should behave as designed", function () {
