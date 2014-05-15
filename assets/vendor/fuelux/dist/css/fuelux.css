@@ -38,31 +38,31 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.fuelux .fueluxicon-loader-1:before {
+.fuelux .fueluxicon-loader-full:before {
   content: "\e000";
 }
-.fuelux .fueluxicon-loader-2:before {
+.fuelux .fueluxicon-loader-1:before {
   content: "\e001";
 }
-.fuelux .fueluxicon-loader-3:before {
+.fuelux .fueluxicon-loader-2:before {
   content: "\e002";
 }
-.fuelux .fueluxicon-loader-4:before {
+.fuelux .fueluxicon-loader-3:before {
   content: "\e003";
 }
-.fuelux .fueluxicon-loader-5:before {
+.fuelux .fueluxicon-loader-4:before {
   content: "\e004";
 }
-.fuelux .fueluxicon-loader-6:before {
+.fuelux .fueluxicon-loader-5:before {
   content: "\e005";
 }
-.fuelux .fueluxicon-loader-7:before {
+.fuelux .fueluxicon-loader-6:before {
   content: "\e006";
 }
-.fuelux .fueluxicon-loader-8:before {
+.fuelux .fueluxicon-loader-7:before {
   content: "\e007";
 }
-.fuelux .fueluxicon-loader-full:before {
+.fuelux .fueluxicon-loader-8:before {
   content: "\e008";
 }
 .fuelux .checkbox.highlight {
@@ -387,15 +387,12 @@
   top: 0;
 }
 .fuelux .loader:before {
-  content: '\e008';
+  content: '\e000';
   opacity: 0.33;
 }
 .fuelux .loader.iefix:before {
   color: #bcbcbc;
   opacity: 1;
-}
-.fuelux .loader[data-frame="0"]:after {
-  content: '\e000';
 }
 .fuelux .loader[data-frame="1"]:after {
   content: '\e001';
@@ -417,6 +414,9 @@
 }
 .fuelux .loader[data-frame="7"]:after {
   content: '\e007';
+}
+.fuelux .loader[data-frame="8"]:after {
+  content: '\e008';
 }
 .fuelux input.glass,
 .fuelux textarea.glass {
