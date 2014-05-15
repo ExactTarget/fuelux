@@ -12,8 +12,10 @@ define(function(require){
 
 	require('bootstrap');
 	require('assets/js/combobox-examples');
+	require('assets/js/pillbox-example');
 	require('assets/js/search-examples');
 	require('assets/js/selectlist-examples');
+	require('assets/js/tree-examples');
 	require('assets/js/wizard-examples');
 
 	$body.scrollspy({
