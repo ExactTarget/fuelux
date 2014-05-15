@@ -165,9 +165,9 @@ define(function(require) {
     //...
 });
 ```
-For your convenience when you using AMD, you can just use `fuelux/all` instead of listing each module individually.
+For your convenience when you are using AMD, you can just use `fuelux/all` instead of listing each module individually, but this is not recommended.
 
-FuelUX also supports placing components in their own `<script>` tags. Be sure to put modules in the correct order if loading them in this method (although that order is a secret known only to 29th level wizards/enchantresses and 11th degree JS ninjas).
+FuelUX also supports placing components in their own `<script>` tags. Be sure to put modules in the correct order if loading them in this method (although this order is a secret known only to 29th level wizards/enchantresses and 11th degree JS ninjas).
 
 ## Bugs and feature requests
 
