@@ -1,4 +1,4 @@
-**Please note this currently is a WIP. Bower does not point to v3. The `dist` folder is not versioned.** 
+**Please note this currently is a WIP. Bower does not point to version 3.0.0. The `dist` folder may not be versioned, nor up to date. Please build via grunt before using.** 
 
 #FuelUX
 
