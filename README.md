@@ -184,7 +184,7 @@ Documentation for v2.6.x has been made available for the time being at **(need l
 
 ## Compiling CSS and JavaScript
 
-FuelUX is lightweight to give you a fast dependable foundation to build upon. It uses [Grunt](http://gruntjs.com/) with convenient methods for working with the library. It's how we compile our code, run tests, and more. To use it, install the required dependencies as directed, and then run some Grunt commands.
+FuelUX is lightweight to give you a fast dependable foundation to build upon. It uses [Grunt](http://gruntjs.com/) with convenient methods for working with the library. It's how we compile our code, run tests, and more. To use it, install the required dependencies as directed, and then run some Grunt tasks.
 
 ### Install Grunt
 
@@ -197,16 +197,18 @@ When completed, you'll be able to run the various Grunt commands provided from t
 
 **Unfamiliar with NPM? Don't have node installed?** NPM stands for [node packaged modules](http://npmjs.org/) and is a way to manage development dependencies through node.js. [Download and install node.js](http://nodejs.org/download/) before proceeding.
 
-### Grunt commands to start with
+### Grunt Tasks
 
 #### Build - `grunt`
-Run `grunt` to run tests locally and compile the CSS and JavaScript into `dist`. **Uses [Less](http://lesscss.org/) and [UglifyJS](http://lisperator.net/uglifyjs/).**
+Run `grunt` to run tests locally and compile the CSS and JavaScript into `dist`. Uses [Less](http://lesscss.org/) and [UglifyJS](http://lisperator.net/uglifyjs/).
 
-#### Tests - `grunt test`
-Runs [JSHint](http://jshint.com) and [QUnit](http://qunitjs.com/) tests headlessly in [PhantomJS](http://phantomjs.org/).
+#### Testing - `grunt test`
+Runs [JSHint](http://jshint.com), [HTML validation](https://www.npmjs.org/package/grunt-html-validation), and [QUnit](http://qunitjs.com/) tests headlessly in [PhantomJS](http://phantomjs.org/). `grunt releasetest` uses multiple versions of jQuery. 
 
-#### Watch - `grunt watch`
-This is a convenience method for watching source files and automatically building them when you save.
+#### Watch - `grunt serve`
+This is a convenience method for watching source files and automatically building them when you save. To compile only CSS without running unit tests, use `grunt servecss`.
+
+_`grünt saucelabs` and `grunt trickysauce` can be run locally instead of through TravisCI, but require the FuelUX Saucelabs API key file which is not public at this time._
 
 ### Troubleshooting dependencies
 
