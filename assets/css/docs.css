@@ -728,3 +728,9 @@ h1[id] {
 .bs-example > .list-group {
   max-width: 400px;
 }
+
+
+
+.thumbnail.repeater-thumbnail {
+	color: #fff;
+}
