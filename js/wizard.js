@@ -12,17 +12,17 @@
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        // if AMD loader is available, register as an anonymous module.
-         define(['jquery'], factory);
-    } else {
-        // OR use browser globals if AMD is not present
-        factory(jQuery);
-    }
+	if (typeof define === 'function' && define.amd) {
+		// if AMD loader is available, register as an anonymous module.
+		define(['jquery'], factory);
+	} else {
+		// OR use browser globals if AMD is not present
+		factory(jQuery);
+	}
 }(function ($) {
-    // -- END UMD WRAPPER PREFACE --
-        
-    // -- BEGIN MODULE CODE HERE --
+	// -- END UMD WRAPPER PREFACE --
+		
+	// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.wizard;
 
@@ -345,7 +345,7 @@
 
 	$.fn.wizard.defaults = {
 		disablePreviousStep: false,
-        selectedItem: { step: -1 }	//-1 means it will attempt to look for "active" class in order to set the step
+		selectedItem: { step: -1 }	//-1 means it will attempt to look for "active" class in order to set the step
 	};
 
 	$.fn.wizard.Constructor = Wizard;
@@ -366,4 +366,4 @@
 
 // -- BEGIN UMD WRAPPER AFTERWORD --
 }));
-    // -- END UMD WRAPPER AFTERWORD --
+	// -- END UMD WRAPPER AFTERWORD --
