@@ -60,7 +60,7 @@ define(function(require){
 		});
 		equal(disabled, true, 'all spinbox controls disabled');
 
-		disabled = $scheduler.find('.scheduler-weekly .btn-group').hasClass('disabled');
+		disabled = $scheduler.find('.repeat-weekly .btn-group').hasClass('disabled');
 		equal(disabled, true, 'scheduler weekly btn-group disabled');
 	});
 
@@ -106,7 +106,7 @@ define(function(require){
 		});
 		equal(enabled, true, 'all spinbox controls enabled');
 
-		enabled = ($scheduler.find('.scheduler-weekly .btn-group').hasClass('disabled')) ? false : true;
+		enabled = ($scheduler.find('.repeat-weekly .btn-group').hasClass('disabled')) ? false : true;
 		equal(enabled, true, 'scheduler weekly btn-group enabled');
 	});
 
@@ -128,8 +128,8 @@ define(function(require){
 		//needed due to PhantomJS bug: https://github.com/ariya/phantomjs/issues/11151
 		var isPhantomJS = (window.navigator.userAgent.search('PhantomJS')>=0);
 		var $scheduler = $(html).scheduler();
-		var $repIntSelDrop = $scheduler.find('.repeat-interval .selectlist .selected-label');
-		var $repPanSpinbox = $scheduler.find('.repeat-interval-panel .spinbox');
+		var $repIntSelDrop = $scheduler.find('.repeat-toggle .selected-label');
+		var $repPanSpinbox = $scheduler.find('.repeat-every');
 		var test;
 		var tmpDatepickerVal;
 		var tmpValBool = false;
@@ -137,16 +137,16 @@ define(function(require){
 		$scheduler.scheduler('value', { startDateTime: '2050-03-31T05:00' });
 		//make this test always present once PhantomJS fixes their bug
 		if(!isPhantomJS){
-			tmpDatepickerVal = $scheduler.find('.scheduler-start .datepicker input').val();
+			tmpDatepickerVal = $scheduler.find('.start-datetime .datepicker input').val();
 			if( tmpDatepickerVal === '03-31-2050' || tmpDatepickerVal === '03/31/2050' ) {
 				tmpValBool = true;
 			}
 			equal( tmpValBool, true, 'startDate set correctly');
 		}
-		equal($scheduler.find('.scheduler-start .combobox input').val(), '5:00 AM', 'startTime set correctly');
+		equal($scheduler.find('.start-datetime .combobox input').val(), '5:00 AM', 'startTime set correctly');
 
 		$scheduler.scheduler('value', { timeZone: { name: 'Namibia Standard Time', offset: '+02:00' }});
-		equal($scheduler.find('.scheduler-timezone .selected-label').html(), '(GMT+02:00) Windhoek *', 'timeZone set correctly');
+		equal($scheduler.find('.timezone-container .selected-label').html(), '(GMT+02:00) Windhoek *', 'timeZone set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;INTERVAL=1;COUNT=1;' });
 		equal($repIntSelDrop.html(), 'None (run once)', 'no recurrence set correctly');
@@ -161,18 +161,18 @@ define(function(require){
 		equal($repIntSelDrop.html(), 'Weekdays', 'weekday recurrence set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=WEEKLY;BYDAY=MO,TH;INTERVAL=7;' });
-		test = $scheduler.find('.scheduler-weekly .btn-group');
+		test = $scheduler.find('.repeat-weekly .btn-group');
 		test = (test.find('[data-value="MO"]').hasClass('active') && test.find('[data-value="TH"]').hasClass('active')) ? true : false;
 		ok(($repIntSelDrop.html()==='Weekly' && $repPanSpinbox.spinbox('value')===7 && test), 'weekly recurrence set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=MONTHLY;INTERVAL=9;BYDAY=SA;BYSETPOS=4;' });
-		test = $scheduler.find('.scheduler-monthly-day');
+		test = $scheduler.find('.repeat-monthly-day');
 		ok(($repIntSelDrop.html()==='Monthly' && $repPanSpinbox.spinbox('value')===9 && test.find('div.radio input').hasClass('checked') &&
 			test.find('.month-day-pos .selected-label').html()==='Fourth' && test.find('.month-days .selected-label').html()==='Saturday'),
 			'monthly recurrence set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=YEARLY;BYDAY=WE;BYSETPOS=3;BYMONTH=10;' });
-		test = $scheduler.find('.scheduler-yearly-day');
+		test = $scheduler.find('.repeat-yearly-day');
 		ok(($repIntSelDrop.html()==='Yearly' && test.find('div.radio input').hasClass('checked') &&
 			test.find('.year-month-day-pos .selected-label').html()==='Third' && test.find('.year-month-days .selected-label').html()==='Wednesday' &&
 			test.find('.year-month .selected-label').html()==='October'), 'yearly recurrence set correctly');

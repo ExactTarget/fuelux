@@ -1,25 +1,91 @@
 .scheduler {
+
 	label {
-		width: 7em;
+		min-width: 7em;
 	}
 
-	.recurrence-panel {
-		display: none;
+	.inline-form-text {
+		float: left;
+		line-height: 27px;
+		margin-top:4px;
 	}
 
-	.scheduler-end {
-		display: none;
-		
+	/* -------------------------------
+	START DATE/TIME
+------------------------------- */
+
+	.start-datetime {
+
 		.form-group {
 			margin-left: 0;
 		}
 
-		.end-option-panel {
-			display: none;
+		.combobox {
+			max-width: 9em;
+
+			.dropdown-menu {
+				max-height: 200px;
+				overflow: auto;
+			}
+
 		}
+
+		.dropdown {
+			float: left;
+			margin: 0 10px 0 0;
+		}
+
 	}
 
-	.scheduler-repeat {
+	/* -------------------------------
+	TIMEZONE
+------------------------------- */
+
+	.timezone-container {
+		.input-group {
+			max-width: 20em;
+		}
+
+		.dropdown-label {
+			height: 18px;
+			white-space: nowrap;
+			max-width: 20em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.dropdown-menu {
+			max-height: 200px;
+			overflow: auto;
+		}
+
+	}
+
+/* -------------------------------
+	REPEAT PANELS
+------------------------------- */
+
+	.repeat-panel {
+		display: none;
+		margin-left: 0;
+
+		.radio {
+			margin-right: 10px;
+		}
+
+		.form-group {
+			margin-left: 0;
+		}
+
+	}
+
+// EVERY
+
+	.repeat-interval {
+		margin-left: 0;
+
+		.clearfix;
+
 		.form-group {
 			margin-left: 0;
 		}
@@ -29,108 +95,89 @@
 			overflow: auto;
 		}
 
-		.repeat-interval {
-			.clearfix;
+		.repeat-every-panel {
+			
+			display: none;
+			float: left;
 
-			.repeat-interval-panel {
-				display: none;
+			.repeat-every-pretext {
+				padding: 0 10px;
+			}
+
+			.spinbox {
 				float: left;
+				margin-right: 0;
 
-				.repeat-interval-pretext,
-				.repeat-interval-text
-				{
-					float: left;
-					line-height: 27px;
-					margin-top:2px;
-				}
-
-				.repeat-interval-pretext {
-					padding: 0 10px;
-				}
-
-				.spinbox {
-					float: left;
-					margin-right: 0;
-
-					input {
-						margin-bottom: 0;
-					}
+				input {
+					margin-bottom: 0;
 				}
 			}
+
 		}
 
-		.scheduler-monthly {
+	}
 
-			&-date {
+	// MONTHLY
+
+		.repeat-monthly {
+
+			.repeat-monthly-date {
 				margin-top: 10px;
 				.clearfix;
-
-				.radio {
-					margin: 6px 10px 0 0;
-				}
 
 				.selectlist {
 					margin-left: 5px;
 				}
 			}
 
-			&-day {
+			.repeat-monthly-day {
 				margin-top: 10px;
 				.clearfix;
-
-				.radio {
-					margin: 6px 10px 0 0;
-				}
-
-				.month-day-pos {
-					margin: 0 5px 0 0;
-				}
 			}
+
+			.month-days {
+				margin-left: 10px;
+			}
+
 		}
+
+// YEARLY
 
 		.scheduler-yearly {
 
-			&-date {
+			.scheduler-yearly-date {
 				margin-top: 10px;
 				.clearfix;
 
-				.radio {
-					margin: 6px 10px 0 0;
-				}
-
-				.selectlist {
-					&.year-month {
-						margin-left: 5px;
-
-						&-day {
-							margin-left: 10px;
-						}
-					}
+				.year-month-day {
+					margin-left: 10px;
 				}
 			}
 
-			&-day {
+			.year-month-days {
+				margin-left: 10px;
+			}
+
+			.year-month {
+				margin-left: 10px;
+
+			}
+
+			.scheduler-yearly-day {
 				margin-top: 10px;
 				.clearfix;
-
-				.radio {
-					margin: 6px 10px 0 0;
-				}
 
 				.scheduler-yearly-day-text {
-					float: left;
-					line-height: 27px;
-					margin: 3px 10px 0;
+					margin-left: 10px;
 				}
 
-				.year-month-day-pos {
-					margin: 0 5px;
-				}
 			}
+
 		}
 
-		.scheduler-weekly {
-			padding: 10px 0 0 0;
+// WEEKLY
+
+		.weekly {
 
 			button:not(.active) {
 				background-color: #fff;
@@ -167,50 +214,35 @@
 				margin-top: 8px;
 			}
 		}
-	}
 
-	.scheduler-start {
+/* -------------------------------
+END
+------------------------------- */
 
+	.scheduler-end {
+		display: none;
+
+		.end-after {
+
+			.spinbox {
+				float: left;
+			}
+
+			.end-after-text {
+				
+			}
+
+		}
+		
 		.form-group {
 			margin-left: 0;
 		}
 
-		.combobox {
-			max-width: 9em;
-
-			.dropdown-menu {
-				max-height: 200px;
-				overflow: auto;
-			}
-
+		.end-option-panel {
+			display: none;
 		}
 
-		.dropdown {
-			float: left;
-			margin: 0 10px 0 0;
-		}
 	}
 
-	.scheduler-timezone {
-		.input-group {
-			max-width: 20em;
-		}
 
-		.dropdown-label {
-			height: 18px;
-			white-space: nowrap;
-			max-width: 20em;
-			overflow: hidden;
-			text-overflow: ellipsis;
-		}
-
-		.dropdown-menu {
-			max-height: 200px;
-			overflow: auto;
-		}
-	}
-
-	.recurrence-panel {
-		display: none;
-	}
 }
