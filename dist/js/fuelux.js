@@ -4241,6 +4241,8 @@
 			} );
 			this.$views.find( 'input' ).on( 'change', $.proxy( this.viewChanged, this ) );
 
+			this.$loader.loader();
+			this.$loader.loader( 'pause' );
 			currentView = ( this.options.defaultView !== -1 ) ? this.options.defaultView : this.$views.find( 'label.active input' ).val();
 
 			this.initViews( function() {
@@ -4499,7 +4501,7 @@
 					options.preserve = ( options.preserve !== undefined ) ? options.preserve : !viewChanged;
 					self.clear( options );
 					if ( !self.infiniteScrollingEnabled || ( self.infiniteScrollingEnabled && viewChanged ) ) {
-						self.$loader.show();
+						self.$loader.show().loader( 'play' );
 					}
 					self.getDataOptions( options, function( opts ) {
 						self.options.dataSource( opts, function( data ) {
@@ -4518,7 +4520,7 @@
 										}
 										self.infiniteScrollPaging( data, options );
 									}
-									self.$loader.hide();
+									self.$loader.hide().loader( 'pause' );
 									self.$element.trigger( 'loaded' );
 								} );
 							}
