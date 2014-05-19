@@ -44,15 +44,15 @@
 		this.$timeZone = this.$element.find('.timezone-container');
 
 		this.$repeatIntervalPanel = this.$element.find('.repeat-every-panel');
-		this.$repeatIntervalSelect = this.$element.find('.repeat-toggle');
+		this.$repeatIntervalSelect = this.$element.find('.repeat-options');
 
 		this.$repeatIntervalSpinbox = this.$element.find('.repeat-every');
 		this.$repeatIntervalTxt = this.$element.find('.repeat-every-text');
 
-		this.$end = this.$element.find('.scheduler-end');
-		this.$endAfter = this.$end.find('.spinbox');
-		this.$endSelect= this.$end.find('.selectlist');
-		this.$endDate = this.$end.find('.datepicker');
+		this.$end = this.$element.find('.repeat-end');
+		this.$endSelect= this.$end.find('.end-options');
+		this.$endAfter = this.$end.find('.end-after');
+		this.$endDate = this.$end.find('.end-on-date');
 
 		// panels
 		this.$recurrencePanels = this.$element.find('.repeat-panel');

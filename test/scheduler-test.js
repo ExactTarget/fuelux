@@ -128,7 +128,7 @@ define(function(require){
 		//needed due to PhantomJS bug: https://github.com/ariya/phantomjs/issues/11151
 		var isPhantomJS = (window.navigator.userAgent.search('PhantomJS')>=0);
 		var $scheduler = $(html).scheduler();
-		var $repIntSelDrop = $scheduler.find('.repeat-toggle .selected-label');
+		var $repIntSelDrop = $scheduler.find('.repeat-options .selected-label');
 		var $repPanSpinbox = $scheduler.find('.repeat-every');
 		var test;
 		var tmpDatepickerVal;
@@ -178,12 +178,12 @@ define(function(require){
 			test.find('.year-month .selected-label').html()==='October'), 'yearly recurrence set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;INTERVAL=9;COUNT=4;' });
-		ok(($scheduler.find('.scheduler-end .selectlist .selected-label').html()==='After' && $scheduler.find('.scheduler-end .spinbox').spinbox('value')===4),
+		ok(($scheduler.find('.repeat-end .selectlist .selected-label').html()==='After' && $scheduler.find('.repeat-end .spinbox').spinbox('value')===4),
 			'end after occurence(s) set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;INTERVAL=9;UNTIL=20510331;' });
 		//make this test always present once PhantomJS fixes their bug
-		test = (!isPhantomJS) ? ($scheduler.find('.scheduler-end .datepicker input').val() ==='03-31-2051' || $scheduler.find('.scheduler-end .datepicker input').val() ==='03/31/2051' ) : true;
-		ok(($scheduler.find('.scheduler-end .selectlist .selected-label').html()==='On date' && test), 'end on date set correctly');
+		test = (!isPhantomJS) ? ($scheduler.find('.repeat-end .datepicker input').val() ==='03-31-2051' || $scheduler.find('.repeat-end .datepicker input').val() ==='03/31/2051' ) : true;
+		ok(($scheduler.find('.repeat-end .selectlist .selected-label').html()==='On date' && test), 'end on date set correctly');
 	});
 });
