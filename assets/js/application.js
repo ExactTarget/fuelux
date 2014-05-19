@@ -12,6 +12,7 @@ define(function(require){
 
 	require('bootstrap');
 	require('assets/js/combobox-examples');
+	require('assets/js/scheduler-examples');
 	require('assets/js/search-examples');
 	require('assets/js/selectlist-examples');
 	require('assets/js/wizard-examples');
@@ -19,6 +20,23 @@ define(function(require){
 	$body.scrollspy({
 		target: '.fu-sidebar'
 	});
+
+	// show next example markup for REALLY long markup examples
+	$('.show-next-markup').each(function(){
+		$(this).next('.highlight').hide();
+
+		$(this).on('click', function(e) {
+			$(e.currentTarget).next('.highlight').show();
+			$(e.currentTarget).hide();
+		});
+	});
+
+	function updateScrollSpy() {
+		// update scroll spy
+		$('[data-spy="scroll"]').each(function () {
+		  var $spy = $(this).scrollspy('refresh')
+		})
+	}
 
 	// back to top
 	setTimeout(function () {
@@ -39,7 +57,7 @@ define(function(require){
 					return this.bottom;
 				}
 			}
-		})
+		});
 	}, 100);
 
 	setTimeout(function () {
