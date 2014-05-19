@@ -739,4 +739,645 @@ $('#MyselectlistResults').on('selectlisted', function () {
 });
 {% endhighlight %}
 
-{% include js-wizard.html %}
+  <h4>.wizard('addSteps')</h4>
+  <p>Add a pane or an array of panes to a wizard</p>
+{% highlight js %}
+$('#element').wizard('addSteps', index, remove, 
+  [
+  {
+    badge: 'badge-customicon',
+    label: 'A Step Label',
+    pane: '<div>Content</div>'
+  }
+]);
+{% endhighlight %}
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="width: 150px;">Parameter</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>index</td>
+          <td><i>Required.</i> The position where to start inserting pane(s). First pane is at position 1.</td>
+        </tr>
+        <tr>
+          <td>remove</td>
+          <td><i>Optional.</i> The number of panes to be removed after adding panes. Default is 0.</td>
+        </tr>
+        <tr>
+          <td><i>array</i></td>
+          <td>An array of content pane objects to be added at the <code>index</code>. Each pane can contain three strings: a <code>badge</code> class to be appended to the step's <code>class</code> attribute in order to override the default number, a <code>label</code> for the name of the step, and the <code>pane</code> of HTML content.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- ./bs-table-responsive -->
+
+  <h4>.wizard('RemoveSteps')</h4>
+  <p>Remove a pane or multiple panes from a wizard. </p>
+{% highlight js %}
+  $('#element').wizard('removeSteps', index, howMany);
+{% endhighlight %}
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="width: 150px;">Parameter</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>index</td>
+          <td><i>Required.</i> The position where to begin removing pane(s). First pane is at position 1.</td>
+        </tr>
+        <tr>
+          <td>howMany</td>
+          <td><i>Optional.</i> The number of panes to be removed. Default is 1.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- ./bs-table-responsive -->
+
+
+  <h3>Events</h3>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="width: 150px;">Event Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>change</td>
+          <td>This event fires immediately when the step changes, but before the new step has been shown. Use <code>event.preventDefault</code> to cancel the event.</td>
+        </tr>
+        <tr>
+          <td>changed</td>
+          <td>This event is fired when the step has changed and is shown to the user.</td>
+        </tr>
+        <tr>
+          <td>finished</td>
+          <td>This event is fired when the next button is clicked on the last step of the wizard.</td>
+        </tr>
+        <tr>
+          <td>stepclick</td>
+          <td>This event is fired when a completed step is clicked. Use <code>event.preventDefault</code> to cancel the event.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- ./bs-table-responsive -->
+{% highlight js %}
+$('#Mywizard').on('change', function () {
+  // do something
+})
+{% endhighlight %}
+
+</div>
+
+
+<div class="bs-docs-section">
+	<h1 id="tree" class="page-header">Tree <small>tree.js</small></h1>
+	<p class="lead">Categorical element selection.</p>
+
+	<h2 id="tree-example">Examples</h2>
+
+	<h4>Item Selection Tree</h4>
+	<div id="ex-tree" class="tree" style="width: 400px;height: 300px;">
+		<div class="tree-folder" style="display:none;">
+			<div class="tree-folder-header">
+				<i class="glyphicon glyphicon-folder-close"></i>
+
+				<div class="tree-folder-name"></div>
+			</div>
+			<div class="tree-folder-content"></div>
+			<div class="tree-loader" style="display:none">
+				<!--Place your loading HTML here-->
+				Loading...
+			</div>
+		</div>
+		<div class="tree-item" style="display:none;">
+			<i class="glyphicon tree-dot"></i>
+
+			<div class="tree-item-name"></div>
+		</div>
+	</div>
+
+	<h4>Folder Selection Tree</h4>
+	<div id="ex-tree-folder" class="tree tree-folder-select"  style="width: 400px;height: 300px;">
+		<div class="tree-folder" style="display:none;">
+			<div class="tree-folder-header">
+				<i class="tree-triangle-right"></i>
+				<i class="glyphicon glyphicon-folder-close"></i>
+			</div>
+			<div class="tree-folder-name"></div>
+			<div class="tree-folder-content"></div>
+			<div class="tree-loader" style="display:none">
+				<!--Place your loading HTML here-->
+				Loading...
+			</div>
+		</div>
+	</div>
+
+	<h2 id="tree-usage">Usage</h2>
+	<p>The tree is a categorical selection interface that allows for interaction and selection of nested elements.</p>
+
+	<p>Trigger the tree via JavaScript:</p>
+	{% highlight js %}$('#MyTree').tree({ dataSource: dataSource });{% endhighlight %}
+
+	<h3>Markup</h3>
+
+	<p>Add <code>class="tree"</code> to an a div within a <code>class="fuelux"</code> container. Markup varies slightly depending on the type of tree you are using.</p>
+
+
+	<h4>Item Selection Tree</h4>
+	{% highlight html %}
+	<div id="MyTree" class="tree" style="width: 400px;height: 300px;">
+		<div class="tree-folder" style="display:none;">
+			<div class="tree-folder-header">
+				<i class="glyphicon glyphicon-folder-close"></i>
+				<div class="tree-folder-name"></div>
+			</div>
+			<div class="tree-folder-content"></div>
+			<div class="tree-loader" style="display:none">
+				<!--Place your loader HTML here-->
+			</div>
+		</div>
+		<div class="tree-item" style="display:none;">
+			<i class="glyphicon tree-dot"></i>
+			<div class="tree-item-name"></div>
+		</div>
+	</div>
+	{% endhighlight %}
+
+	<h4>Folder Selection Tree</h4>
+	{% highlight html %}
+	<div id="MyTree" class="tree tree-folder-select"  style="width: 400px;height: 300px;">
+		<div class="tree-folder" style="display:none;">
+			<div class="tree-folder-header">
+				<i class="tree-triangle-right"></i>
+				<i class="glyphicon glyphicon-folder-close"></i>
+			</div>
+			<div class="tree-folder-name"></div>
+			<div class="tree-folder-content"></div>
+			<div class="tree-loader" style="display:none">
+				<!--Place your loader HTML here-->
+			</div>
+		</div>
+	</div>
+	{% endhighlight %}
+
+	<h3>Methods</h3>
+	<h4>.tree('selectedItems')</h4>
+	<p>Returns an array containing selected items and associated data.</p>
+	{% highlight js %}$('#element').combobox('selectedItems'){% endhighlight %}
+
+	<h3>Options</h3>
+	<p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-selected=""</code>.</p>
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead>
+			<tr>
+				<th style="width: 100px;">Name</th>
+				<th style="width: 100px;">type</th>
+				<th style="width: 50px;">default</th>
+				<th>description</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>multiSelect</td>
+				<td>boolean</td>
+				<td>false</td>
+				<td>Allows multiple tree items to be selected at once.</td>
+			</tr>
+			<tr>
+				<td>cacheItems</td>
+				<td>boolean</td>
+				<td>true</td>
+				<td>When a folder is closed and re-opened sub-items will not be refreshed.</td>
+			</tr>
+			<tr>
+				<td>folderSelect</td>
+				<td>boolean</td>
+				<td>false</td>
+				<td>Enables folder selection.</td>
+			</tr>
+			</tbody>
+		</table>
+	</div><!-- ./bs-table-responsive -->
+
+	<h3>Events</h3>
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead>
+			<tr>
+				<th style="width: 150px;">Event Type</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>loaded</td>
+				<td>This event is fired when sub-content has been is loaded.</td>
+			</tr>
+			<tr>
+				<td>selected</td>
+				<td>This event is fired when item/items has been selected. An object containing <code>{info: data}</code> is returned. <code>data</code> represents an array of selected items</td>
+			</tr>
+			<tr>
+				<td>opened</td>
+				<td>This event is fired when a sub-folder is opened. An object containing folder information is returned.</td>
+			</tr>
+			<tr>
+				<td>closed</td>
+				<td>This event is fired when a sub-folder is closed. An object containing folder information is returned.</td>
+			</tr>
+			</tbody>
+		</table>
+	</div><!-- ./bs-table-responsive -->
+	{% highlight js %}
+	$('#MyTree').on('loaded', function () {
+	// load selectlist results
+	})
+	{% endhighlight %}
+
+</div>
+
+<div class="bs-docs-section">
+	<h1 id="spinbox" class="page-header">Spin Box<small> spinbox.js</small></h1>
+	<p class="lead">Enhanced numeric input.</p>
+
+	<h2 id="spinbox-example">Example</h2>
+
+	</br>
+	<div id="MySpinbox" class="spinbox">
+		<input type="text" class="form-control input-mini spinbox-input">
+
+		<div class="spinbox-buttons btn-group btn-group-vertical">
+			<button class="btn btn-default spinbox-up btn-xs">
+				<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
+			</button>
+			<button class="btn btn-default spinbox-down btn-xs">
+				<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
+			</button>
+		</div>
+	</div>
+	</br>
+	</br>
+
+	<h2 id="spinbox-usage">Usage</h2>
+	<p>A spinbox allows for click interaction with a numeric input.</p>
+
+	<p>Trigger the Spinbox via JavaScript:</p>
+	{% highlight js %}$('#MySpinbox').spinbox();{% endhighlight %}
+
+	<h3>Markup</h3>
+
+	<p>Add <code>class="spinbox"</code> to an a div within a <code>class="fuelux"</code> container.</p>
+
+
+	{% highlight html %}
+	<div id="MySpinbox" class="spinbox">
+		<input type="text" class="form-control input-mini spinbox-input">
+
+		<div class="spinbox-buttons btn-group btn-group-vertical">
+			<button class="btn btn-default spinbox-up btn-xs">
+				<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
+			</button>
+			<button class="btn btn-default spinbox-down btn-xs">
+				<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
+			</button>
+		</div>
+	</div>
+	{% endhighlight %}
+
+	<h3>Methods</h3>
+	<h4>.spinbox('value')</h4>
+	<p>Sets or returns the spinner value. As an example:</p>
+	{% highlight js %}$('#element').combobox('value') {% endhighlight %}
+	<p>would return the current value of the spinbox and</p>
+	{% highlight js %}$('#element').combobox('value', 37) {% endhighlight %}
+	<p>would set the current value to 37. If value contains units it will be returned as a string, otherwise it will be returned as a number</p>
+
+	<h3>Options</h3>
+	<p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-selected=""</code>.</p>
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th style="width: 100px;">Name</th>
+					<th style="width: 100px;">type</th>
+					<th style="width: 50px;">default</th>
+					<th>description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>value</td>
+					<td>number</td>
+					<td>1</td>
+					<td>Sets the initial spinner value.</td>
+				</tr>
+				<tr>
+					<td>min</td>
+					<td>number</td>
+					<td>1</td>
+					<td>Sets the minimum spinner value.</td>
+				</tr>
+				<tr>
+					<td>max</td>
+					<td>number</td>
+					<td>999</td>
+					<td>Sets the maximum spinner value.</td>
+				</tr>
+				<tr>
+					<td>step</td>
+					<td>number</td>
+					<td>1</td>
+					<td>Sets the increment by which the value in the spinner will change each time the spinner buttons are pressed.</td>
+				</tr>
+				<tr>
+					<td>hold</td>
+					<td>boolean</td>
+					<td>true</td>
+					<td>If <code>true</code> the spinner will react to its buttons being pressed and held down.</td>
+				</tr>
+				<tr>
+					<td>hold</td>
+					<td>boolean</td>
+					<td>true</td>
+					<td>If <code>true</code> the spinner will react to its buttons being pressed and held down.</td>
+				</tr>
+				<tr>
+					<td>Speed</td>
+					<td>string</td>
+					<td>"medium"</td>
+					<td>Spinner speed when buttons are held down. The options include: <code>"fast","medium","slow".</code></td>
+				</tr>
+				<tr>
+					<td>Disabled</td>
+					<td>boolean</td>
+					<td>false</td>
+					<td>Spinner will be disabled when it is created.</td>
+				</tr>
+				<tr>
+					<td>Units</td>
+					<td>Array</td>
+					<td>[]</td>
+					<td>Units that will be allowed to appear and be typed into the spinbox input along with the numeric value. For example, setting units to a value of <code>['px', 'en', 'xx']</code> would allow <code>px, en, and xx</code> units to appear within the spinbox input</td>
+				</tr>
+			</tbody>
+		</table>
+	</div><!-- ./bs-table-responsive -->
+
+	<h3>Events</h3>
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead>
+			<tr>
+				<th style="width: 150px;">Event Type</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>changed</td>
+				<td>This event is fired when the value has changed (either by selecting an item from the list or updating the input value directly). Arguments are event, value where value is the current value of the spinner. Current value of the spinner is returned.</td>
+			</tr>
+			</tbody>
+		</table>
+	</div><!-- ./bs-table-responsive -->
+	{% highlight js %}
+	$('#MySpinbox').on('changed', function () {
+	// load selectlist results
+	})
+	{% endhighlight %}
+</div>
+
+<div class="bs-docs-section">
+	<h1 id="pillbox" class="page-header">Pillbox<small> pillbox.js</small></h1>
+	<p class="lead">Tag management interface.</p>
+
+	<h2 id="pillbox-example">Example</h2>
+
+	<div id="MyPillbox" class="pillbox" style="border: 1px solid #CCCCCC;border-radius:4px;">
+		<ul class="clearfix pill-group">
+			<li class="btn btn-default pill" data-value="foo">
+				<span>Item 1</span>
+						<span class="glyphicon glyphicon-close">
+							<span class="sr-only">Remove</span>
+						</span>
+			</li>
+			<li class="btn pill btn-success">
+				<span>Item 2</span>
+						<span class="glyphicon glyphicon-close">
+							<span class="sr-only">Remove</span>
+						</span>
+			</li>
+			<li class="btn pill btn-warning" data-value="three-value">
+				<span>Item 3</span>
+						<span class="glyphicon glyphicon-close">
+							<span class="sr-only">Remove</span>
+						</span>
+			</li>
+			<li class="btn pill btn-danger">
+				<span>Item 4</span>
+						<span class="glyphicon glyphicon-close">
+							<span class="sr-only">Remove</span>
+						</span>
+			</li>
+			<li class="btn pill btn-info">
+				<span>Item 5</span>
+						<span class="glyphicon glyphicon-close">
+							<span class="sr-only">Remove</span>
+						</span>
+			</li>
+			<div class="pillbox-input-wrap btn-group">
+				<input type="text" class="form-control dropdown-toggle pillbox-add-item" placeholder="add item">
+
+				<button type="button" class="dropdown-toggle sr-only">
+					<span class="caret"></span>
+					<span class="sr-only">Toggle Dropdown</span>
+				</button>
+				<ul class="suggest dropdown-menu" role="menu" data-toggle="dropdown" data-flip="auto"></ul>
+			</div>
+		</ul>
+	</div>
+
+	<h2 id="pillbox-usage">Usage</h2>
+	<p>A pillbox allows user tag management enabling features such as typahead and tag editing.</p>
+
+	<p>Trigger the Pillbox via JavaScript:</p>
+	{% highlight js %}$('#MyPillbox').pillbox();{% endhighlight %}
+
+	<h3>Markup</h3>
+
+	<p>Add <code>class="pillbox"</code> to an a div within a <code>class="fuelux"</code> container.</p>
+
+
+	{% highlight html %}
+	<div class="bs-docs-section">
+		<h1 id="pillbox" class="page-header">Pillbox<small>pillbox.js</small></h1>
+		<p class="lead">Tag management interface.</p>
+
+		<h2 id="pillbox-example">Examples</h2>
+
+		<div id="MyPillbox" class="pillbox">
+			<ul class="clearfix pill-group">
+				<div class="pillbox-input-wrap btn-group">
+					<input type="text" class="form-control dropdown-toggle pillbox-add-item" placeholder="add item">
+
+					<button type="button" class="dropdown-toggle sr-only">
+						<span class="caret"></span>
+						<span class="sr-only">Toggle Dropdown</span>
+					</button>
+					<ul class="suggest dropdown-menu" role="menu" data-toggle="dropdown" data-flip="auto"></ul>
+				</div>
+			</ul>
+		</div>
+	{% endhighlight %}
+
+	<h3>Methods</h3>
+
+	<h4>.spinbox('addItems')</h4>
+	<p>Adds Items to the pillbox programatically. The first parameter is a <code>1</code> based index that represents the position the items will be placed in the pill order. If index is not specified items will be added after last existing item.</p>
+	{% highlight js %}$('#element').spinbox('addItems', index, [{ text: '', value: '' }, { ... }]) {% endhighlight %}
+	<p>Alternatively items can be added as individual parameters.</p>
+	{% highlight js %}$('#element').spinbox('addItems', { text: '', value: '' },{ ... },{ ... }...) {% endhighlight %}
+
+	<h4>.spinbox('removeItems')</h4>
+	<p>Adds Items to the pillbox programatically. The first parameter is a <code>1</code> based index that represents the location of the first element to be removed. The second parameter is the number of items that will be removed.</p>
+	{% highlight js %}$('#element').spinbox('removeItems', index, count) {% endhighlight %}
+
+	<h4>.spinbox('items')</h4>
+	<p>Returns an array of objects, one per item, each containing the jQuery data() contents of the item which includes <code>data-*</code> attributes plus a text property with the label's visible text.</p>
+	{% highlight js %}$('#element').spinbox('items') {% endhighlight %}
+
+	<h4>.spinbox('itemCount')</h4>
+	<p>Returns an int representing the current number of items.</p>
+	{% highlight js %}$('#element').spinbox('itemCount') {% endhighlight %}
+
+	<h4>.spinbox('removeBySelector')</h4>
+	<p>Removes an item based on selector matching that of the provided <code>selector</code> string parameter.</p>
+	{% highlight js %}$('#element').spinbox('removeBySelector') {% endhighlight %}
+
+	<h4>.spinbox('removeByText')</h4>
+	<p>Removes an item with contained text matching that of the provided <code>text</code> string parameter.</p>
+	{% highlight js %}$('#element').spinbox('removeByText') {% endhighlight %}
+
+	<h4>.spinbox('removeByValue')</h4>
+	<p>Removes an item with value matching that of the provided <code>value</code> string parameter.</p>
+	{% highlight js %}$('#element').spinbox('removeByValue') {% endhighlight %}
+
+	<h3>Options</h3>
+	<p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-selected=""</code>.</p>
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead>
+			<tr>
+				<th style="width: 100px;">Name</th>
+				<th style="width: 100px;">type</th>
+				<th style="width: 50px;">default</th>
+				<th>description</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>acceptKeyCodes</td>
+					<td>array</td>
+					<td>[13, 188]</td>
+					<td>Key codes for keys that trigger an add pill event. Default keys <code>13</code> (for enter) and <code>188</code> (for camma).</td>
+				</tr>
+				<tr>
+					<td>edit</td>
+					<td>boolian</td>
+					<td>false</td>
+					<td>Enables user edited pills.</td>
+				</tr>
+				<tr>
+					<td>onAdd</td>
+					<td>function</td>
+					<td>undefined</td>
+					<td>
+						Function that runs whenever a pill is added.
+						{% highlight js %}function(data,callback){}{% endhighlight %}
+						The <code>data</code> parameter contains an array of the elements being added.
+						The <code>callback</code> parameter is a function that provides asynchronous support for the add functionality.
+						In order for items to be added, the <code>callback</code> must be run and provided an array of items to be added.
+						If you would not like to modify the list of items to be added, simply proved data as the parameter for the callback function. For example:
+						<code>callback(data)</code>
+					</td>
+				</tr>
+				<tr>
+					<td>onRemove</td>
+					<td>function</td>
+					<td>undefined</td>
+					<td>
+						Function that runs whenever a pill is removed.
+						{% highlight js %}function(data,callback){}{% endhighlight %}
+						The <code>data</code> parameter contains an array of the elements being removed.
+						The <code>callback</code> parameter is a function that provides asynchronous support for the remove functionality.
+						In order for items to be removed, the <code>callback</code> must be run and provided an array of items to be removed.
+						If you would not like to modify the list of items to be removed, simply proved data as the parameter for the callback function. For example:
+						<code>callback(data)</code>
+					</td>
+				</tr>
+				<tr>
+					<td>onKeyDown</td>
+					<td>function</td>
+					<td>undefined</td>
+					<td>
+						Function that runs whenever a <code>keydown</code> event is triggered.
+						{% highlight js %}function(event,data,callback){}{% endhighlight %}
+						The <code>event</code> parameter contains the event object.
+						The <code>data</code> parameter contains an array of the elements being removed.
+						The <code>callback</code> parameter is a function that provides asynchronous support for the typahead functionality.
+						The <code>callback</code> function must be run in order for the typahead dropdown with values. Provided the <code>callback</code> with an array of items to display in the typahead dropdown.
+						For example: <code>callback({data:[{text: '',value:''},{text: '',value:''}]})</code>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div><!-- ./bs-table-responsive -->
+
+	<h3>Events</h3>
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead>
+			<tr>
+				<th style="width: 150px;">Event Type</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>clicked</td>
+				<td>This event is triggered when a pill is clicked. An object containing information on the clicked pill is returned.</td>
+			</tr>
+			<tr>
+				<td>added</td>
+				<td>this event is triggered whenever a pill is added. An object containing information on the added pill is returned.</td>
+			</tr>
+			<tr>
+				<td>removed</td>
+				<td>this event is triggered whenever a pill is removed. An object containing information on the removed pill is returned.</td>
+			</tr>
+			<tr>
+				<td>edited</td>
+				<td>this event is triggered whenever a pill is edited. An object containing information on the edited pill is returned.</td>
+			</tr>
+			</tbody>
+		</table>
+	</div><!-- ./bs-table-responsive -->
+	{% highlight js %}
+	$('#MySpinbox').on('clicked', function (item) {})
+	{% endhighlight %}
+</div>

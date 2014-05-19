@@ -15,6 +15,7 @@ define(function(require){
 	require('assets/js/scheduler-examples');
 	require('assets/js/search-examples');
 	require('assets/js/selectlist-examples');
+	require('assets/js/tree-examples');
 	require('assets/js/wizard-examples');
 
 	$body.scrollspy({
