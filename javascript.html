@@ -5,6 +5,50 @@ slug: javascript
 lead: "Over a dozen reusable controls built to provide datepickers, pillboxes, trees, wizards, and much more."
 ---
 
+<!-- Overview
+================================================== -->
+<div class="bs-docs-section">
+  <h1 id="js-overview" class="page-header">Overview</h1>
+
+  <h3 id="js-individual-compiled">Individual or compiled</h3>
+  <p>Components can be included individually (using FuelUX's individual <code>*.js</code> files), or all at once (using <code>fuelux.js</code> or the minified <code>fuelux.min.js</code>).</p>
+
+  <div class="bs-callout bs-callout-danger">
+    <h4>Using the compiled JavaScript</h4>
+    <p>Both <code>fuelux.js</code> and <code>fuelux.min.js</code> contain all plugins in a single file. Include only one.</p>
+  </div>
+
+  <div class="bs-callout bs-callout-danger">
+    <h4>Plugin dependencies</h4>
+    <p>Some components depend on other components. If you include components individually, make sure to check for these dependencies in the docs below. An error should be thrown if dependencies are not met. Also note that all plugins depend on jQuery and Bootstrap (this means jQuery and Boostrap must be included <strong>before</strong> the components files). <a href="{{ site.repo }}/blob/v{{ site.current_version }}/bower.json">Consult our <code>bower.json</code></a> to see which versions of jQuery and Bootstrap are supported.</p>
+  </div>
+
+  <h3 id="js-class-triggers">Selector-based initialization</h3>
+  <p>You can initialize all FuelUX components on page load purely through markup without writing a single line of JavaScript by adding its respective class as a descendant of <code>.fuelux</code>.</p>
+
+  <p>Alternatively, you can initialize a specific component like this at any time:</p>
+{% highlight js %}
+$('#myElement').selectlist();
+{% endhighlight %}
+
+  <p>All methods should accept an optional options object, a string which targets a particular method, or nothing (which initiates a plugin with default behavior):</p>
+{% highlight js %}
+$('#myElement').wizard()                      // initialized with defaults
+$('#myElement').wizard('selectedItem', { step: 3 });)   // initialized with selectedItem
+$('#myElement').wizard('show')                // initializes and invokes show immediately
+{% endhighlight %}
+
+  <p>Each plugin also exposes its raw constructor on a <code>Constructor</code> property: <code>$.fn.popover.Constructor</code>.</p>
+
+  <h3 id="js-events">Events</h3>
+  <p>FuelUX provides custom events for most components unique actions. Generally, these come in an infinitive and past form - where the infinitive (ex. <code>show</code>) is triggered at the start of an event, and its past form (ex. <code>changed</code>) is trigger on the completion of an action.</p>
+  <p>As of 3.0.0, all FuelUX events are namespaced.</p>
+
+  <div class="bs-callout bs-callout-warning" id="callout-third-party-libs">
+    <h4>Third-party libraries</h4>
+    <p><strong>Bootstrap does not officially support third-party JavaScript libraries</strong> like Prototype or jQuery UI. Despite <code>.noConflict</code> and namespaced events, there may be compatibility problems that you need to fix on your own.</p>
+  </div>
+</div>
 
 
 <!-- checkbox
@@ -160,7 +204,7 @@ lead: "Over a dozen reusable controls built to provide datepickers, pillboxes, t
 </label>{% endhighlight %}
 
     <h2 id="checkboxes-usage">Usage</h2>
-    <p>Upon page load, the checkbox code will automatically instantiate any checkboxes with class <code>.custom-checkbox</code> on the page, allowing them to function without any additional code. However, if added after page load they will need to be manually instantiated via javascript.</p>
+  <p>The checkbox code will automatically instantiate any checkboxes with the class <code>.scheduler</code> on page load, allowing them to function without any additional code. However, if the markup is added after page load they will need to be manually instantiated via Javascript.</p>
 
     <p>Initialize the checkbox manually via JavaScript:</p>
 {% highlight js %}$('#MyCheckbox').checkbox();{% endhighlight %}
@@ -201,10 +245,8 @@ lead: "Over a dozen reusable controls built to provide datepickers, pillboxes, t
 ================================================== -->
 <div class="bs-docs-section">
   <h1 id="comboboxes" class="page-header">Comboboxes <small>combobox.js</small></h1>
-  <p class="lead">Combines an input and a dropdown for easy and flexible data selection.</p>
-
   <h2 id="comboboxes-example">Examples</h2>
-  <p>Wrap the input, dropdown trigger, and dropdown menu within <code>.fuelux .combobox</code></p>
+  <p>Combines an input and a dropdown for easy and flexible data selection. Wrap the input, dropdown trigger, and dropdown menu within <code>.fuelux .combobox</code></p>
   <div class="bs-example">
 
     <div id="MyCombobox" class="input-group input-append dropdown combobox">
@@ -261,7 +303,7 @@ lead: "Over a dozen reusable controls built to provide datepickers, pillboxes, t
   <h2 id="comboboxes-usage">Usage</h2>
   <p>Via JavaScript, the combobox component toggles hidden content (dropdown menus) by toggling the <code>.open</code> class on the parent list item. When opened, the plugin also adds <code>.dropdown-backdrop</code> as a click area for closing dropdown menus when clicking outside the menu. Note: The <code>data-toggle=dropdown</code> attribute is relied on for closing dropdown menus at an application level, so it's a good idea to always use it.</p>
 
-  <p>Trigger the combobox via JavaScript:</p>
+  <p>Via JavaScript:</p>
   {% highlight js %}$('#MyCombobox').combobox();{% endhighlight %}
 
   <h3>Markup</h3>
@@ -354,7 +396,7 @@ lead: "Over a dozen reusable controls built to provide datepickers, pillboxes, t
 {% highlight js %}
 $('#MyCombobox').on('changed', function () {
   // do something…
-})
+});
 {% endhighlight %}
 </div>
 
@@ -448,6 +490,8 @@ $('#MyCombobox').on('changed', function () {
   </div><!-- ./bs-table-responsive -->
 </div>
 
+{% include js-scheduler.html %}
+
 <!-- search
 ================================================== -->
 <div class="bs-docs-section">
@@ -496,7 +540,7 @@ $('#MyCombobox').on('changed', function () {
   <h2 id="search-usage">Usage</h2>
   <p>This is a simple input and button group that styles with a search icon and fires the <code>searched</code> event.</p>
 
-  <p>Trigger the search via JavaScript:</p>
+  <p>Via JavaScript:</p>
   {% highlight js %}$('#MySearch').search();{% endhighlight %}
 
   <h3>Markup</h3>
@@ -514,16 +558,16 @@ $('#MyCombobox').on('changed', function () {
 {% endhighlight %}
 
   <h3>Methods</h3>
-  <h4>$().search()</h4>
+  <h4>$().search();</h4>
   Attaches search to an input and a button group.
   
   <h4>.search('disable')</h4>
   <p>Disables the component</p>
-  {% highlight js %}$('#element').search('disable'){% endhighlight %}
+  {% highlight js %}$('#element').search('disable');{% endhighlight %}
 
   <h4>.search('enable')</h4>
   <p>Enables the component</p>
-  {% highlight js %}$('#element').search('enable'){% endhighlight %}
+  {% highlight js %}$('#element').search('enable');{% endhighlight %}
 
   <h3>Events</h3>
   <div class="table-responsive">
@@ -549,7 +593,7 @@ $('#MyCombobox').on('changed', function () {
 {% highlight js %}
 $('#MySearchResults').on('searched', function () {
   // load search results
-})
+});
 {% endhighlight %}
 
 </div>
@@ -558,10 +602,9 @@ $('#MySearchResults').on('searched', function () {
 ================================================== -->
 <div class="bs-docs-section">
   <h1 id="selectlist" class="page-header">Selectlist <small>selectlist.js</small></h1>
-  <p class="lead">A single select dropdown similar to the native <code>select</code> control.</p>
 
   <h2 id="selectlist-example">Examples</h2>
-  <p>Wrap the input and selectlist button within <code>.fuelux .selectlist</code></p>
+  <p>A single select dropdown similar to the native <code>select</code> control. Wrap the input and selectlist button within <code>.fuelux .selectlist</code></p>
   <div class="bs-example">
 
       <div id="MySelectlist" class="btn-group selectlist" data-resize="auto">
@@ -646,31 +689,31 @@ $('#MySearchResults').on('searched', function () {
   
   <h4>.selectlist('disable')</h4>
   <p>Disables the component</p>
-  {% highlight js %}$('#element').selectlist('disable'){% endhighlight %}
+  {% highlight js %}$('#element').selectlist('disable');{% endhighlight %}
 
   <h4>.selectlist('enable')</h4>
   <p>Enables the component</p>
-  {% highlight js %}$('#element').selectlist('enable'){% endhighlight %}
+  {% highlight js %}$('#element').selectlist('enable');{% endhighlight %}
 
   <h4>.selectlist('selectedItem')</h4>
   <p>Returns an object containing the jQuery data() contents of the selected item which includes <code>.data-*</code> attributes plus a text property with the items's visible text.</p>
-  {% highlight js %}$('#element').selectlist('selectedItem'){% endhighlight %}
+  {% highlight js %}$('#element').selectlist('selectedItem');{% endhighlight %}
 
   <h4>.selectlist('selectByIndex')</h4>
   <p>Set the selected item based on its index in the list (zero-based index). Convenience method for <code>.selectBySelector('li:eq({index})')</code></p>
-  {% highlight js %}$('#element').selectlist('selectByIndex', '1'){% endhighlight %}
+  {% highlight js %}$('#element').selectlist('selectByIndex', '1');{% endhighlight %}
 
   <h4>.selectlist('selectByText')</h4>
   <p>Set the selected item based on its text value</p>
-  {% highlight js %}$('#element').('selectByText', 'Four'){% endhighlight %}
+  {% highlight js %}$('#element').('selectByText', 'Four');{% endhighlight %}
 
   <h4>.selectlist('selectBySelector')</h4>
   <p>Set the selected item based on a selector.</p>
-  {% highlight js %}$('#element').('selectBySelector', 'li[data-fizz=buzz]'){% endhighlight %}
+  {% highlight js %}$('#element').('selectBySelector', 'li[data-fizz=buzz]');{% endhighlight %}
 
   <h4>.selectlist('selectByValue')</h4>
   <p>Set the selected item based on its value. Convenience method for <code>.selectBySelector('data-value={value}')</code> that requires the item to have a <code>.data-value="{value}"</code> attribute</p>
-  {% highlight js %}$('#element').('selectByValue', '1'){% endhighlight %}
+  {% highlight js %}$('#element').('selectByValue', '1');{% endhighlight %}
 
 
   <h3>Events</h3>
@@ -693,250 +736,7 @@ $('#MySearchResults').on('searched', function () {
 {% highlight js %}
 $('#MyselectlistResults').on('selectlisted', function () {
   // load selectlist results
-})
-{% endhighlight %}
-
-<!-- wizard
-================================================== -->
-<div class="bs-docs-section">
-  <h1 id="wizard" class="page-header">Wizard <small>wizard.js</small></h1>
-
-  <h2 id="wizard-example">Examples</h2>
-  <p>Wrap the input and wizard button within <code>.fuelux .wizard</code></p>
-  <div class="bs-example">
-
-    <div id="MyWizard" class="wizard">
-        <ul class="steps">
-            <li class="active" data-step="1"><span class="badge badge-info">1</span>Campaign<span class="chevron"></span></li>
-            <li data-step="2"><span class="badge">2</span>Recipients<span class="chevron"></span></li>
-            <li data-step="3"><span class="badge">3</span>Template<span class="chevron"></span></li>
-            <li data-step="4"><span class="badge">4</span>Preview<span class="chevron"></span></li>
-            <li data-step="5"><span class="badge">5</span>Send<span class="chevron"></span></li>
-        </ul>
-        <div class="actions">
-            <button class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
-            <button class="btn btn-default btn-next" data-last="Complete">Next<span class="glyphicon glyphicon-arrow-right"></span></button>
-        </div>
-       <div class="step-content">
-           <div class="step-pane active sample-pane alert" data-step="1">
-               <h4>Setup Campaign</h4>
-               <p>Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi amaranth water spinach avocado daikon napa cabbage asparagus winter purslane kale. Celery potato scallion desert raisin horseradish spinach carrot soko. Lotus root water spinach fennel kombu maize bamboo shoot green bean swiss chard seakale pumpkin onion chickpea gram corn pea. Brussels sprout coriander water chestnut gourd swiss chard wakame kohlrabi beetroot carrot watercress.</p>
-           </div>
-           <div class="step-pane sample-pane alert" data-step="2">
-               <h4>Choose Recipients</h4>
-               <p>Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard. </p>
-           </div>
-           <div class="step-pane sample-pane alert" data-step="3">
-               <h4>Design Template</h4>
-               <p>Nori grape silver beet broccoli kombu beet greens fava bean potato quandong celery. Bunya nuts black-eyed pea prairie turnip leek lentil turnip greens parsnip. Sea lettuce lettuce water chestnut eggplant winter purslane fennel azuki bean earthnut pea sierra leone bologi leek soko chicory celtuce parsley jÃ­cama salsify. </p>
-           </div>
-           <div class="step-pane sample-pane alert" data-step="4">
-               <h4>Preview Message</h4>
-               <p>Beetroot water spinach okra water chestnut ricebean pea catsear courgette summer purslane. Water spinach arugula pea tatsoi aubergine spring onion bush tomato kale radicchio turnip chicory salsify pea sprouts fava bean. Dandelion zucchini burdock yarrow chickpea dandelion sorrel courgette turnip greens tigernut soybean radish artichoke wattle seed endive groundnut broccoli arugula. Beetroot water spinach okra water chestnut ricebean pea catsear courgette.</p>
-           </div>
-           <div class="step-pane sample-pane alert" data-step="5">
-               <h4>Send Message</h4>
-               <p>Soko radicchio bunya nuts gram dulse silver beet parsnip napa cabbage lotus root sea lettuce brussels sprout cabbage. Catsear cauliflower garbanzo yarrow salsify chicory garlic bell pepper napa cabbage lettuce tomato kale arugula melon sierra leone bologi rutabaga tigernut.</p> 
-           </div>
-       </div>
-    </div>
-
-    <br/>
-    <h5>Sample Methods <small>(output sent to browser console)</small></h5>
-    <div class="btn-group">
-        <input type="button" class="btn btn-default" id="btnWizardPrev" value="prev">
-        <input type="button" class="btn btn-default" id="btnWizardNext" value="next">
-        <input type="button" class="btn btn-default" id="btnWizardStep" value="log current step index">
-        <input type="button" class="btn btn-default" id="btnWizardSetStep" value="jump to step 3 (recipients)">
-        <input type="button" class="btn btn-default" id="btnWizardAddSteps" value="add step (setup)">
-        <input type="button" class="btn btn-default" id="btnWizardRemoveStep" value="remove step (preview)">
-    </div>
-
-  </div><!-- /example -->
-
-{% highlight html %}
-<div id="MyWizard" class="wizard">
-  <ul class="steps">
-      <li class="active" data-step="1"><span class="badge badge-info">1</span>Campaign<span class="chevron"></span></li>
-      <li data-step="2"><span class="badge">2</span>Recipients<span class="chevron"></span></li>
-      <li data-step="3"><span class="badge">3</span>Template<span class="chevron"></span></li>
-      <li data-step="4"><span class="badge">4</span>Preview<span class="chevron"></span></li>
-      <li data-step="5"><span class="badge">5</span>Send<span class="chevron"></span></li>
-  </ul>
-  <div class="actions">
-      <button class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
-      <button class="btn btn-default btn-next" data-last="Complete">Next<span class="glyphicon glyphicon-arrow-right"></span></button>
-  </div>
-  <div class="step-content">
-    <div class="step-pane active sample-pane" data-step="1">
-      <h4>Setup Campaign</h4>
-      <p>Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi amaranth water spinach avocado daikon napcabbage asparagus winter purslane kale. Celery potato scallion desert raisin horseradish spinach carrot soko. Lotus root watespinach fennel kombu maize bamboo shoot green bean swiss chard seakale pumpkin onion chickpea gram corn pea. Brussels sproucoriander water chestnut gourd swiss chard wakame kohlrabi beetroot carrot watercress.</p>
-    </div>
-    <div class="step-pane sample-pane" data-step="2">
-      <h4>Choose Recipients</h4>
-      <p>Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seecollard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard. </p>
-    </div>
-    <div class="step-pane sample-pane" data-step="3">
-      <h4>Design Template</h4>
-      <p>Nori grape silver beet broccoli kombu beet greens fava bean potato quandong celery. Bunya nuts black-eyed pea prairiturnip leek lentil turnip greens parsnip. Sea lettuce lettuce water chestnut eggplant winter purslane fennel azuki beaearthnut pea sierra leone bologi leek soko chicory celtuce parsley jÃ­cama salsify. </p>
-    </div>
-    <div class="step-pane sample-pane" data-step="4">
-      <h4>Preview Message</h4>
-      <p>Beetroot water spinach okra water chestnut ricebean pea catsear courgette summer purslane. Water spinach arugula pea tatsoaubergine spring onion bush tomato kale radicchio turnip chicory salsify pea sprouts fava bean. Dandelion zucchini burdocyarrow chickpea dandelion sorrel courgette turnip greens tigernut soybean radish artichoke wattle seed endive groundnubroccoli arugula. Beetroot water spinach okra water chestnut ricebean pea catsear courgette.</p>
-    </div>
-    <div class="step-pane sample-pane" data-step="5">
-      <h4>Send Message</h4>
-      <p>Soko radicchio bunya nuts gram dulse silver beet parsnip napa cabbage lotus root sea lettuce brussels sprout cabbageCatsear cauliflower garbanzo yarrow salsify chicory garlic bell pepper napa cabbage lettuce tomato kale arugula melon sierrleone bologi rutabaga tigernut.</p> 
-    </div>
-  </div>
-</div>
-{% endhighlight %}
-
-  <h2 id="wizard-usage">Usage</h2>
-  <p>A wizard divides a complex goal into multiple steps by separating sub-tasks or content into panes. Panes can be added or removed. Completed steps can be clicked.</p>
-
-  <p>Trigger the wizard via JavaScript:</p>
-  {% highlight js %}$('#MyWizard').wizard();{% endhighlight %}
-
-  <h3>Markup</h3>
-  <p>Wrap <code>class="wizard"</code> around a list of steps, navigation, and content within a <code>class="fuelux"</code> container.</p>
-{% highlight html %}
-<div class="wizard">
-  <ul class="steps">
-    <li class="active" data-step="1"><span class="badge">1</span>Step 1<span class="chevron"></span></li>
-  </ul>
-  <div class="actions">
-    <button class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
-    <button class="btn btn-default btn-next" data-last="Complete">Next<span class="glyphicon glyphicon-arrow-right"></span></button>
-  </div>
-  <div class="step-content">
-    <div class="step-pane active sample-pane" data-step="1">
-        ....
-    </div>
-    ....
-  </div>
-</div>
-{% endhighlight %}
-
-  <h3>Methods</h3>
-  <h4>$().wizard()</h4>
-  Attaches wizard to a list of steps, navigation, and content.
-  
-  <h4>.wizard('previous')</h4>
-  <p>Moves to the previous step</p>
-  {% highlight js %}$('#element').wizard('previous'){% endhighlight %}
-
-  <h4>.wizard('next')</h4>
-  <p>Moves to the next step</p>
-  {% highlight js %}$('#element').wizard('next'){% endhighlight %}
-
-  <h4>.wizard('selectedItem')</h4>
-  <p>Returns the current step index</p>
-{% highlight js %}
-$('#element').wizard('selectedItem', {
-  step: 3
 });
 {% endhighlight %}
 
-  <h4>.wizard('addSteps')</h4>
-  <p>Add a pane or an array of panes to a wizard</p>
-{% highlight js %}
-$('#element').wizard('addSteps', index, remove, 
-  [
-  {
-    badge: 'badge-customicon',
-    label: 'A Step Label',
-    pane: '<div>Content</div>'
-  }
-]);
-{% endhighlight %}
-
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th style="width: 150px;">Parameter</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>index</td>
-          <td><i>Required.</i> The position where to start inserting pane(s). First pane is at position 1.</td>
-        </tr>
-        <tr>
-          <td>remove</td>
-          <td><i>Optional.</i> The number of panes to be removed after adding panes. Default is 0.</td>
-        </tr>
-        <tr>
-          <td><i>array</i></td>
-          <td>An array of content pane objects to be added at the <code>index</code>. Each pane can contain three strings: a <code>badge</code> class to be appended to the step's <code>class</code> attribute in order to override the default number, a <code>label</code> for the name of the step, and the <code>pane</code> of HTML content.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div><!-- ./bs-table-responsive -->
-
-  <h4>.wizard('RemoveSteps')</h4>
-  <p>Remove a pane or multiple panes from a wizard. </p>
-{% highlight js %}
-  $('#element').wizard('removeSteps', index, howMany);
-{% endhighlight %}
-
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th style="width: 150px;">Parameter</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>index</td>
-          <td><i>Required.</i> The position where to begin removing pane(s). First pane is at position 1.</td>
-        </tr>
-        <tr>
-          <td>howMany</td>
-          <td><i>Optional.</i> The number of panes to be removed. Default is 1.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div><!-- ./bs-table-responsive -->
-
-
-  <h3>Events</h3>
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th style="width: 150px;">Event Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>change</td>
-          <td>This event fires immediately when the step changes, but before the new step has been shown. Use <code>event.preventDefault</code> to cancel the event.</td>
-        </tr>
-        <tr>
-          <td>changed</td>
-          <td>This event is fired when the step has changed and is shown to the user.</td>
-        </tr>
-        <tr>
-          <td>finished</td>
-          <td>This event is fired when the next button is clicked on the last step of the wizard.</td>
-        </tr>
-        <tr>
-          <td>stepclick</td>
-          <td>This event is fired when a completed step is clicked. Use <code>event.preventDefault</code> to cancel the event.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div><!-- ./bs-table-responsive -->
-{% highlight js %}
-$('#Mywizard').on('change', function () {
-  // do something
-})
-{% endhighlight %}
-
-</div>
+{% include js-wizard.html %}
