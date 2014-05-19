@@ -51,7 +51,9 @@ define(function(require){
 
 
 	// DATEPICKER
-	$('#datepicker1').datepicker();
+	$('#datepicker1').datepicker({
+			restrictDateSelection: false
+	});
 
 	$('#datepicker1').on('changed', function( event, data ) {
 		console.log( 'datepicker change event fired' );
