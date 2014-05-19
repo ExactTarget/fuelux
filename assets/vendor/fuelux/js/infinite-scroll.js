@@ -14,7 +14,7 @@
 (function (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
-		define(['jquery'], factory);
+		define(['jquery', 'fuelux/loader'], factory);
 	} else {
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
@@ -37,7 +37,7 @@
 		this.curPercentage = this.getPercentage();
 		this.fetchingData = false;
 
-		this.$element.on('scroll', $.proxy(this.onScroll, this));
+		this.$element.on('scroll.fuelux.infinitescroll', $.proxy(this.onScroll, this));
 	};
 
 	InfiniteScroll.prototype = {
@@ -45,11 +45,11 @@
 		constructor: InfiniteScroll,
 
 		disable: function(){
-			this.$element.off('scroll');
+			this.$element.off('scroll.fuelux.infinitescroll');
 		},
 
 		enable: function(){
-			this.$element.on('scroll', $.proxy(this.onScroll, this));
+			this.$element.on('scroll.fuelux.infinitescroll', $.proxy(this.onScroll, this));
 		},
 
 		end: function(content){
@@ -68,15 +68,16 @@
 			return (height / (this.$element.get(0).scrollHeight - this.curScrollTop)) * 100;
 		},
 
-		fetchData: function(){
+		fetchData: function(force){
 			var load = $('<div class="infinitescroll-load"></div>');
 			var self = this;
 			var moreBtn;
 
 			var fetch = function(){
 				var helpers = { percentage: self.curPercentage, scrollTop: self.curScrollTop };
-				load.append('<div class="loader"><i></i><i></i><i></i><i></i><!--[if lt IE 10]><scr' +
-					'ipt type="text/javascript">window.fuelux_loader.scan();</scr' + 'ipt><![endif]--></div>');
+				var $loader = $('<div class="loader"></div>');
+				load.append($loader);
+				$loader.loader();
 				if(self.options.dataSource){
 					self.options.dataSource(helpers, function(resp){
 						var end;
@@ -95,14 +96,14 @@
 
 			this.fetchingData = true;
 			this.$element.append(load);
-			if(this.options.hybrid){
+			if(this.options.hybrid && force!==true){
 				moreBtn = $('<button type="button" class="btn btn-primary"></button>');
 				if(typeof this.options.hybrid === 'object'){
 					moreBtn.append(this.options.hybrid.label);
 				}else{
 					moreBtn.append('<span class="glyphicon glyphicon-repeat"></span>');
 				}
-				moreBtn.on('click', function(){
+				moreBtn.on('click.fuelux.infinitescroll', function(){
 					moreBtn.remove();
 					fetch();
 				});
