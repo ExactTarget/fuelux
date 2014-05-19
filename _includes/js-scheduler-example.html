@@ -1,8 +1,10 @@
-  <div class="form-group scheduler-start">
-    <label class="col-sm-4 control-label scheduler-label">Start Date</label>
-    <div class="col-sm-10 row">
+<!-- remove wrapping div -->
+
+  <div class="form-group start-datetime">
+    <label class="col-sm-2 control-label scheduler-label">Start Date</label>
+    <div class="row col-sm-10">
       <div class="col-sm-8 form-group">
-        <div class="input-group datepicker scheduler-start-date">
+        <div class="input-group datepicker start-date">
           <input type="text" class="form-control" />
           <div class="input-group-btn">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> 
@@ -14,7 +16,7 @@
       </div>
       
       <div class="col-sm-4 form-group">
-        <div class="input-group combobox scheduler-start-time">
+        <div class="input-group combobox start-time">
           <input type="text" class="form-control" />
           <div class="input-group-btn">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -77,7 +79,7 @@
     </div>
   </div>
 
-  <div class="row form-group scheduler-timezone">
+  <div class="row form-group timezone-container">
     <label class="col-sm-2 control-label scheduler-label">Timezone</label>
     <div class="col-xs-12 col-sm-10 col-md-10">
       <div data-resize="auto" class="btn-group selectlist">
@@ -185,15 +187,15 @@
     </div>
   </div>
 
-  <div class="form-group scheduler-repeat">
+  <div class="form-group repeat-container">
     <label class="col-sm-2 control-label scheduler-label">Repeat</label>
     <div class="col-sm-10">
-      <div class="repeat-interval">
-        <div data-resize="auto" class="btn-group selectlist pull-left">
+
+      <div class="form-group repeat-interval">
+        <div data-resize="auto" class="btn-group selectlist pull-left repeat-options">
           <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
             <span class="selected-label">None (run once)</span>
             <span class="caret"></span>
-            <span class="sr-only">None (run once)</span>
           </button>
           <ul class="dropdown-menu" role="menu">
             <li data-value="none"><a href="#">None (run once)</a></li>
@@ -207,10 +209,10 @@
           <input type="text" aria-hidden="true" readonly="readonly" name="intervalSelectlist" class="hidden hidden-field">
         </div>
 
-        <div class="repeat-interval-panel">
-          <div class="repeat-interval-pretext">every</div>
+        <div class="repeat-panel repeat-every-panel repeat-hourly repeat-daily">
+          <div class="inline-form-text repeat-every-pretext">every</div>
 
-          <div class="spinbox">
+          <div class="spinbox repeat-every">
             <input type="number" class="form-control input-mini spinbox-input">
 
             <div class="spinbox-buttons btn-group btn-group-vertical">
@@ -223,12 +225,12 @@
             </div>
           </div>
 
-          <div class="repeat-interval-text">day(s)</div>
+          <div class="inline-form-text repeat-every-text">day(s)</div>
         </div>
       </div>
 
-      <div class="recurrence-panel scheduler-weekly">
-        <div class="btn-group" data-toggle="buttons-checkbox">
+      <div class="form-group repeat-panel repeat-weekly">
+        <fieldset class="btn-group" data-toggle="buttons-checkbox">
           <button type="button" class="btn btn-default" data-value="SU">Sun</button>
           <button type="button" class="btn btn-default" data-value="MO">Mon</button>
           <button type="button" class="btn btn-default" data-value="TU">Tue</button>
@@ -236,12 +238,12 @@
           <button type="button" class="btn btn-default" data-value="TH">Thu</button>
           <button type="button" class="btn btn-default" data-value="FR">Fri</button>
           <button type="button" class="btn btn-default" data-value="SA">Sat</button>
-        </div>
+        </fieldset>
       </div>
 
 
-      <div class="recurrence-panel scheduler-monthly">
-        <div class="scheduler-monthly-date form-group">
+      <div class="repeat-panel repeat-monthly">
+        <div class="form-group repeat-monthly-date">
           <div class="radio pull-left"><label class="radio-custom"><input type="radio" checked="checked" name="scheduler-month"> on day</label></div>
 
           <div data-resize="auto" class="btn-group selectlist pull-left">
@@ -286,7 +288,7 @@
           </div>
         </div>
 
-        <div class="scheduler-monthly-day form-group">
+        <div class="repeat-monthly-day form-group">
           <div class="radio pull-left"><label class="radio-custom"><input type="radio" checked="checked" name="scheduler-month"> on the</label></div>
 
           <div data-resize="auto" class="btn-group selectlist month-day-pos pull-left">
@@ -327,8 +329,8 @@
         </div>
       </div>
       
-      <div class="recurrence-panel scheduler-yearly form-group">
-        <div class="scheduler-yearly-date">
+      <div class="repeat-panel repeat-yearly">
+        <div class="form-group repeat-yearly-date">
 
           <div class="radio pull-left"><label class="radio-custom"><input type="radio" checked="checked" name="scheduler-year" value="1"> on</label></div>
 
@@ -395,7 +397,8 @@
             <input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field">
           </div>
         </div>
-        <div class="scheduler-yearly-day">
+
+        <div class="form-group repeat-yearly-day">
 
           <div class="radio pull-left"><label class="radio-custom"><input type="radio" name="scheduler-year" value="2"> on the</label></div>
 
@@ -435,7 +438,7 @@
             </ul>
             <input type="text" aria-hidden="true" readonly="readonly" name="yearlyDaySelectlist" class="hidden hidden-field">
           </div>
-          <div class="scheduler-yearly-day-text">of</div>
+          <div class="inline-form-text repeat-yearly-day-text"> of </div>
 
           <div data-resize="auto" class="btn-group selectlist year-month pull-left">
             <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
@@ -461,10 +464,11 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
 
-  <div class="form-group scheduler-end">
+  <div class="form-group repeat-end">
     <label class="col-sm-2 control-label scheduler-label">End</label>
     <div class="col-sm-10 row">
       <div class="col-sm-3 form-group">
@@ -483,9 +487,9 @@
         </div>
       </div>
       
-      <div class="col-sm-3 form-group end-option-panel end-after pull-left">
-        <span class="sr-only">End After</span>
-        <div class="spinbox">
+      <div class="col-sm-6 form-group end-option-panel end-after-panel pull-left">
+        <div class="spinbox end-after">
+          <span class="sr-only">End After</span>
           <input type="number" class="form-control input-mini spinbox-input">
 
           <div class="spinbox-buttons btn-group btn-group-vertical">
@@ -497,12 +501,11 @@
             </button>
           </div>
         </div>
-        <span class="sr-only">occurance(s)</span>
+        <div class="inline-form-text end-after-text">occurance(s)</div>
       </div>
 
-      <div class="col-sm-8 form-group end-option-panel end-on-date pull-left">
-        <span class="sr-only">End on date</span>
-        <div class="input-group datepicker">
+      <div class="col-sm-8 form-group end-option-panel end-on-date-panel pull-left">
+        <div class="input-group datepicker end-on-date">
           <input type="text" class="form-control" />
           <div class="input-group-btn">
               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> 
