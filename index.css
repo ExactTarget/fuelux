@@ -34,3 +34,24 @@ body {
 .wizard .alert {
 	margin-bottom: 0;
 }
+
+
+/* Example schedulers */
+.bs-example.fu-example-scheduler {
+	background-color: #f5f5f5;
+}
+.bs-example.fu-example-scheduler .end-after .spinbox {
+	display: inline-block;
+}
+.bs-example.fu-example-scheduler .end-after > span {
+	vertical-align: middle;
+}
+.fu-example-scheduler .scheduler .repeat-panel {
+	display: block !important;
+}
+.fu-example-scheduler .scheduler .scheduler-end {
+	display: block;
+}
+.fu-example-scheduler .scheduler .scheduler-end .end-option-panel {
+	display: block;
+}
