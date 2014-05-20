@@ -6,45 +6,14 @@
   <h2 id="wizard-example">Examples</h2>
   <p>Wrap the input and wizard button within <code>.fuelux .wizard</code></p>
   <div class="bs-example">
-
-
+    <div id="MyWizard" class="wizard">
+      {% include js-wizard-example.html %}
+    </div>
   </div><!-- /example -->
 
 {% highlight html %}
-<div id="MyWizard" class="wizard">
-  <ul class="steps">
-    <li class="active" data-step="1"><span class="badge badge-info">1</span>Campaign<span class="chevron"></span></li>
-    <li data-step="2"><span class="badge">2</span>Recipients<span class="chevron"></span></li>
-    <li data-step="3"><span class="badge">3</span>Template<span class="chevron"></span></li>
-    <li data-step="4"><span class="badge">4</span>Preview<span class="chevron"></span></li>
-    <li data-step="5"><span class="badge">5</span>Send<span class="chevron"></span></li>
-  </ul>
-  <div class="actions">
-    <button class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
-    <button class="btn btn-default btn-next" data-last="Complete">Next<span class="glyphicon glyphicon-arrow-right"></span></button>
-  </div>
-  <div class="step-content">
-    <div class="step-pane active sample-pane" data-step="1">
-      <h4>Setup Campaign</h4>
-      <p>Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi amaranth water spinach avocado daikon napcabbage asparagus winter purslane kale. Celery potato scallion desert raisin horseradish spinach carrot soko. Lotus root watespinach fennel kombu maize bamboo shoot green bean swiss chard seakale pumpkin onion chickpea gram corn pea. Brussels sproucoriander water chestnut gourd swiss chard wakame kohlrabi beetroot carrot watercress.</p>
-    </div>
-    <div class="step-pane sample-pane" data-step="2">
-      <h4>Choose Recipients</h4>
-      <p>Celery quandong swiss chard chicory earthnut pea potato. Salsify taro catsear garlic gram celery bitterleaf wattle seecollard greens nori. Grape wattle seed kombu beetroot horseradish carrot squash brussels sprout chard. </p>
-    </div>
-    <div class="step-pane sample-pane" data-step="3">
-      <h4>Design Template</h4>
-      <p>Nori grape silver beet broccoli kombu beet greens fava bean potato quandong celery. Bunya nuts black-eyed pea prairiturnip leek lentil turnip greens parsnip. Sea lettuce lettuce water chestnut eggplant winter purslane fennel azuki beaearthnut pea sierra leone bologi leek soko chicory celtuce parsley jÃ­cama salsify. </p>
-    </div>
-    <div class="step-pane sample-pane" data-step="4">
-      <h4>Preview Message</h4>
-      <p>Beetroot water spinach okra water chestnut ricebean pea catsear courgette summer purslane. Water spinach arugula pea tatsoaubergine spring onion bush tomato kale radicchio turnip chicory salsify pea sprouts fava bean. Dandelion zucchini burdocyarrow chickpea dandelion sorrel courgette turnip greens tigernut soybean radish artichoke wattle seed endive groundnubroccoli arugula. Beetroot water spinach okra water chestnut ricebean pea catsear courgette.</p>
-    </div>
-    <div class="step-pane sample-pane" data-step="5">
-      <h4>Send Message</h4>
-      <p>Soko radicchio bunya nuts gram dulse silver beet parsnip napa cabbage lotus root sea lettuce brussels sprout cabbageCatsear cauliflower garbanzo yarrow salsify chicory garlic bell pepper napa cabbage lettuce tomato kale arugula melon sierrleone bologi rutabaga tigernut.</p> 
-    </div>
-  </div>
+<div class="wizard">
+{% include js-wizard-example.html %}
 </div>
 {% endhighlight %}
 
@@ -216,4 +185,4 @@ $('#Mywizard').on('change', function () {
 });
 {% endhighlight %}
 
-</div>
+</div><!-- end docs-section -->
