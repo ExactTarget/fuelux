@@ -28,6 +28,43 @@ define(function(require){
 		steel: '#B8B8D0',
 		water: '#6890F0'
 	};
+	var columns = [
+		{
+			label: 'Name',
+			property: 'name',
+			sortable: true
+		},
+		{
+			label: 'Id',
+			property: 'id',
+			sortable: true
+		},
+		{
+			label: 'Type',
+			property: 'type',
+			sortable: true
+		},
+		{
+			label: 'Height (in)',
+			property: 'height',
+			sortable: true
+		},
+		{
+			label: 'Weight (lbs)',
+			property: 'weight',
+			sortable: true
+		},
+		{
+			label: 'Abilities',
+			property: 'abilities',
+			sortable: true
+		},
+		{
+			label: 'Weakness',
+			property: 'weakness',
+			sortable: true
+		}
+	];
 	var delays = ['300', '600', '900', '1200'];
 	var pokemon = require('assets/js/repeater-data');
 	var dataSource, filtering;
@@ -45,6 +82,8 @@ define(function(require){
 		};
 		var i, items, l;
 
+		console.log(options);
+
 		i = options.pageIndex * (options.pageSize || 50);
 		l = i + (options.pageSize || 50);
 		l = (l <= resp.count) ? l : resp.count;
@@ -53,44 +92,7 @@ define(function(require){
 
 		if(options.view==='list' || options.view==='thumbnail'){
 			if(options.view==='list'){
-				resp.columns = [
-					{
-						label: 'Name',
-						property: 'name',
-						sortable: true
-					},
-					{
-						label: 'Id',
-						property: 'id',
-						sortable: true
-					},
-					{
-						label: 'Type',
-						property: 'type',
-						sortable: true
-					},
-					{
-						label: 'Height (in)',
-						property: 'height',
-						sortable: true
-					},
-					{
-						label: 'Weight (lbs)',
-						property: 'weight',
-						sortable: true
-					},
-					{
-						label: 'Abilities',
-						property: 'abilities',
-						sortable: true
-					},
-					{
-						label: 'Weakness',
-						property: 'weakness',
-						sortable: true
-					}
-				];
-
+				resp.columns = columns;
 				for(i; i<l; i++){
 					resp.items.push(items[i]);
 				}
