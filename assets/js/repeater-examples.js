@@ -82,8 +82,6 @@ define(function(require){
 		};
 		var i, items, l;
 
-		console.log(options);
-
 		i = options.pageIndex * (options.pageSize || 50);
 		l = i + (options.pageSize || 50);
 		l = (l <= resp.count) ? l : resp.count;
@@ -153,6 +151,14 @@ define(function(require){
 
 	// REPEATER
 	$('#MyRepeater').repeater({
+		dataSource: dataSource
+	});
+
+	$('#MyRepeaterList').repeater({
+		dataSource: dataSource
+	});
+
+	$('#MyRepeaterThumbnail').repeater({
 		dataSource: dataSource
 	});
 

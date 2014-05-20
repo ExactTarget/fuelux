@@ -41,7 +41,7 @@ define(function(require){
 					return this.bottom;
 				}
 			}
-		})
+		});
 	}, 100);
 
 	setTimeout(function () {
