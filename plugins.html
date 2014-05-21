@@ -134,6 +134,103 @@ lead: "Information on writing plugins for Fuel UX, documentation on stock plugin
 		</div>
 	</div>
 
+	<h3>Usage</h3>
+	<p>The repeater view plugin extends repeater functionality, so it's usage follows the steps specified in the repeater
+		docs. It also provides the following additional features:</p>
+
+	<h3>Data Source</h3>
+	<p>Blah blah blah I need to put some crud here.</p>
+
+	<h3>Options</h3>
+	<p>Options can be passed via Javascript upon initialization.</p>
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th style="width: 100px;">Name</th>
+					<th style="width: 100px;">type</th>
+					<th style="width: 50px;">default</th>
+					<th>description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>list_columnRendered</td>
+					<td>function</td>
+					<td>null</td>
+					<td>If set, this function will be called after the repeater renders each column. Passes a <code>helpers</code>
+						object and <code>callback</code> function as arguments. The <code>helpers</code> object has
+						the parent <code>container</code> and current column <code>item</code> as attributes, if available.
+						Once ready, the <code>callback</code> function must be called in order to continue with rendering.
+					</td>
+				</tr>
+				<tr>
+					<td>list_columnSizing</td>
+					<td>boolean</td>
+					<td>true</td>
+					<td>Dictates whether the repeater should run the intelligent column resizing algorithm. Accounts for
+						columns with set widths, only sizing those without. Setting this to <code>false</code> will disable
+						this feature entirely.
+					</td>
+				</tr>
+				<tr>
+					<td>list_columnSyncing</td>
+					<td>boolean</td>
+					<td>true</td>
+					<td>Dictates whether the repeater should run the post-render column syncing algorithm. This modifies
+						column header widths to match column widths that have expanded due to content. Setting this to
+						<code>false</code> will disable this feature entirely.
+					</td>
+				</tr>
+				<tr>
+					<td>list_infiniteScroll</td>
+					<td>boolean or object</td>
+					<td>false</td>
+					<td>Dictates whether the repeater list view should utilize infinite scrolling instead of pagination.
+						If set to <code>true</code>, infinite scrolling will be enabled with default settings. Additionally,
+						it can be set to an object with attributes matching the options available in the infinite scroll
+						control for further customization. (dataSource option will be ignored)
+					</td>
+				</tr>
+				<tr>
+					<td>list_noItemsHTML</td>
+					<td>string or jQuery object</td>
+					<td>''</td>
+					<td>Specifies what gets displayed if there are no items returned from the dataSource. Can be a
+						<code>string</code> or <a href="http://learn.jquery.com/using-jquery-core/jquery-object/">jQuery object</a>.
+					</td>
+				</tr>
+				<tr>
+					<td>list_selectable</td>
+					<td>boolean or string</td>
+					<td>false</td>
+					<td>Specifies whether the rendered items rows can be selectable. If set to <code>true</code>, only
+						one row can be selected at a time. If set to <code>'multi'</code>, multiple rows can be selected
+						at once.
+					</td>
+				</tr>
+				<tr>
+					<td>list_sortClearing</td>
+					<td>boolean</td>
+					<td>false</td>
+					<td>Specifies whether sortable columns can be "cleared" by a third click (ex: one click, sort ASC.
+						second click, sort DESC. third click, no sorting)
+					</td>
+				</tr>
+				<tr>
+					<td>list_rowRendered</td>
+					<td>function</td>
+					<td>null</td>
+					<td>If set, this function will be called after the repeater renders each row. Passes a <code>helpers</code>
+						object and <code>callback</code> function as arguments. The <code>helpers</code> object has
+						the parent <code>container</code> and current row <code>item</code> as attributes, if available.
+						Once ready, the <code>callback</code> function must be called in order to continue with rendering.
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div><!-- ./bs-table-responsive -->
+
 	<h2 id="stock-plugins-thumbnail">Repeater Thumbnail View</h2>
 	<p>Thumbnail View docs.</p>
 
