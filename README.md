@@ -1,8 +1,8 @@
 **Please note this currently is a WIP. Bower does not point to version 3.0.0. The `dist` folder may not be versioned, nor up to date. Please build via grunt before using.** 
 
-#FuelUX
+#Fuel UX
 
-FuelUX extends [Bootstrap 3](https://github.com/twbs/bootstrap) with additional lightweight [JavaScript controls](#javascript-controls). It is actively maintained by [members of ExactTarget, a salesforce.com company,](https://github.com/orgs/ExactTarget/members) with the support and involvement of the community.
+Fuel UX extends [Bootstrap 3](https://github.com/twbs/bootstrap) with additional lightweight [JavaScript controls](#javascript-controls). It is actively maintained by [members of ExactTarget, a salesforce.com company,](https://github.com/orgs/ExactTarget/members) with the support and involvement of the community.
 
 All functionality is covered by the [live documentation](http://exacttarget.github.io/fuelux/) and [unit tests](#automated-testing-status).
 
@@ -68,24 +68,27 @@ All functionality is covered by the [live documentation](http://exacttarget.gith
 
 View [live documentation and demos](http://exacttarget.github.com/fuelux) on GitHub pages.
 
-### Getting FuelUX
-FuelUX can be obtained one of three ways:
+### Getting Fuel UX
+Fuel UX can be obtained one of three ways:
 
-1. **Best way:** Install with [Bower](https://github.com/bower/bower):
+1. **Best way:** Install with a dependency manager:
+    
+    * Using [Bower](https://github.com/bower/bower):
 
-    ```
-    bower install fuelux
-    ```
+      ```
+      bower install fuelux
+      ```
+      Update with 'bower update fuelux'
+    
+    * Using [Volo](https://github.com/volojs/volo):
 
-   This ensures you get all the [dependencies](#dependencies). You can then use `bower update fuelux` to keep it up to date in the future. You're welcome.
+      ```
+      volo add fuelux
+      
+      ```
+      Update with 'volo add -f fuelux'
 
-1. **Another best way:** Install with [Volo](https://github.com/volojs/volo):
-
-    ```
-    volo add fuelux
-    ```
-
-   This ensures you get all the [dependencies](#dependencies). You can then use `volo add -f fuelux` to keep it up to date in the future.
+   This ensures you get all the [dependencies](#dependencies).
 
 2. **Another good way:** Clone the Git repository:
    ```
@@ -94,15 +97,13 @@ FuelUX can be obtained one of three ways:
 
    Cloning the repository ensures you can apply future updates to FuelUX easily, but requires to you manage its [dependencies](#dependencies) on your own.
 
-3. **Least desirable way in the universe:** Download a .zip archive of the latest release **(needthis)** or request files from [the FuelUX CDN](http://www.fuelcdn.com/fuelux/).
+3. **Also an option:** Download a .zip archive of the latest release **(needthis)** or request files from [the FuelUX CDN](http://www.fuelcdn.com/fuelux/).
 
-   Grabbing FuelUX in this way may seem easist now, but it will make integrating future updates (bug fixes!) nearly impossible.
-
-   Trust us, you do ***not*** want to do it this way.
+   *Note: Using FuelUX in this way can make updating to future releases difficult. This approach is not recommended.*
 
 
 ### Dependencies
-FuelUX is dependent upon [Bootstrap 3](https://github.com/twbs/bootstrap) and [jQuery](https://github.com/jquery/jquery). If you installed by cloning the repo or by downloading a .zip archive, you'll also want to grab these things, as, it just won't work without them.
+Fuel UX is dependent upon [Bootstrap 3](https://github.com/twbs/bootstrap) and [jQuery](https://github.com/jquery/jquery). If you installed by cloning the repo or by downloading a .zip archive, you'll also want to grab these things, as it just won't work without them.
 - [jQuery](https://github.com/jquery/jquery)
 - [Bootstrap 3](https://github.com/twbs/bootstrap)
 
@@ -126,25 +127,6 @@ fuelux/
 ```
 We provide compiled CSS and JS (like `fuelux.*`), as well as compiled and minified CSS and JS (like `fuelux.min.*`) in the `dist` folder.
 
-### JavaScript Controls
-
-* **[Checkbox](http://exacttarget.github.io/fuelux/#checkbox)** - consistent cross-browser cross-platform look and feel for checkbox elements
-* **[Combobox](http://exacttarget.github.io/fuelux/#combobox)** - combines input and dropdown for flexible data selection
-* **[Datepicker](http://exacttarget.github.io/fuelux/#datepicker)** - combines input and dropdown to select a date
-* **[Infinite Scroll](http://exacttarget.github.io/fuelux/#infinite-scroll)** - Load content when reaching a set amount of content read or with a call to action
-* **[Intelligent Dropdown](http://exacttarget.github.io/fuelux/#intelligent-dropdown)** - Dropdown that decide whether it should be placed above or below the clicked element as well as force position.
-* **[Loader](http://exacttarget.github.io/fuelux/#loader)** - fully css-driven loading animation for visual indication of wait times
-* **[Pillbox](http://exacttarget.github.io/fuelux/#pillbox)** - manage tags with color-coded text labels
-* **[Radio](http://exacttarget.github.io/fuelux/#radio)** - consistent cross-browser cross-platform look and feel for radio elements
-* **[Repeater](http://exacttarget.github.io/fuelux/#repeater)** - A scrollable, sortable, searchable interface for data (replaces datagrid)
-* **[Repeater Views](http://exacttarget.github.io/fuelux/#repeater-views)** - Use the provided views to customize a list of data or write your own
-* **[Scheduler](http://exacttarget.github.io/fuelux/#scheduler)** - composite form control to quickly schedule events with support for [moment.js](https://github.com/moment/moment)
-* **[Search](http://exacttarget.github.io/fuelux/#search)** - input for integrated search
-* **[Selectlist](http://exacttarget.github.io/fuelux/#selectlist)** - extends button dropdown with the ability to set and retrieve the selected item
-* **[Spinbox](http://exacttarget.github.io/fuelux/#spinbox)** - provides convenient numeric input with increment and decrement buttons
-* **[Tree](http://exacttarget.github.io/fuelux/#tree)** - renders data in a tree, supporting caching and optional multi-selection
-* **[Wizard](http://exacttarget.github.io/fuelux/#wizard)** - displays a multi-step process to be completed in a specific order
-
 ### UMD/AMD Support
 
 We recommend only loading the controls you need (eg `fuelux/checkbox`).
@@ -167,7 +149,7 @@ define(function(require) {
 ```
 For your convenience when you are using AMD, you can just use `fuelux/all` instead of listing each module individually, but this is not recommended.
 
-FuelUX also supports placing components in their own `<script>` tags. Be sure to put modules in the correct order if loading them in this method (although this order is a secret known only to 29th level wizards/enchantresses and 11th degree JS ninjas).
+Fuel UX also supports placing components in their own `<script>` tags. Be sure to put modules in the correct order if loading them in this method (although this order is a secret known only to 29th level wizards/enchantresses and 11th degree JS ninjas).
 
 ## Bugs and feature requests
 
@@ -195,7 +177,7 @@ From the command line:
 
 When completed, you'll be able to run the various Grunt commands provided from the command line.
 
-**Unfamiliar with NPM? Don't have node installed?** NPM stands for [node packaged modules](http://npmjs.org/) and is a way to manage development dependencies through node.js. [Download and install node.js](http://nodejs.org/download/) before proceeding.
+**Unfamiliar with npm? Don't have node installed?** npm stands for [node packaged modules](http://npmjs.org/) and is a way to manage development dependencies through node.js. [Download and install node.js](http://nodejs.org/download/) before proceeding.
 
 ### Grunt Tasks
 
