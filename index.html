@@ -245,25 +245,25 @@
 							<span class="sr-only">Remove</span>
 						</span>
 					</li>
-					<li class="btn pill btn-success">
+					<li class="btn btn-default pill">
 						<span>Item 2</span>
 						<span class="glyphicon glyphicon-close">
 							<span class="sr-only">Remove</span>
 						</span>
 					</li>
-					<li class="btn pill btn-warning" data-value="three-value">
+					<li class="btn btn-default pill" data-value="three-value">
 						<span>Item 3</span>
 						<span class="glyphicon glyphicon-close">
 							<span class="sr-only">Remove</span>
 						</span>
 					</li>
-					<li class="btn pill btn-danger">
+					<li class="btn btn-default pill">
 						<span>Item 4</span>
 						<span class="glyphicon glyphicon-close">
 							<span class="sr-only">Remove</span>
 						</span>
 					</li>
-					<li class="btn pill btn-info">
+					<li class="btn btn-default pill">
 						<span>Item 5</span>
 						<span class="glyphicon glyphicon-close">
 							<span class="sr-only">Remove</span>
@@ -298,7 +298,7 @@
 			</div>
 
 			<br/>
-			<h5 style="clear:both;">Sample Methods</h5>
+			<h5>Sample Methods</h5>
 			<div class="btn-group">
 				<input type="button" class="btn btn-default" id="btnAdd" value="add">
 				<input type="button" class="btn btn-default" id="btnRemoveByValue" value="remove by value">
@@ -1076,51 +1076,43 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
 			<h2>Spinbox</h2>
 
-			<h5>Without Default</h5>
-			<div class="clearfix">
-
-				<div id="MySpinbox" class="spinbox">
-					<input type="text" class="form-control input-mini spinbox-input">
-
-					<div class="spinbox-buttons btn-group btn-group-vertical">
-						<button class="btn btn-default spinbox-up btn-xs">
-							<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
-						</button>
-						<button class="btn btn-default spinbox-down btn-xs">
-							<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
-						</button>
-					</div>
-				</div>
-
-			</div>
-
 			<h5>With Default</h5>
-			<div class="clearfix">
 
-				<div id="MySpinboxWithDefault" class="spinbox">
-					<input type="text" value="3" class="form-control input-mini spinbox-input">
+			<div id="MySpinboxWithDefault" class="spinbox">
+				<input type="text" value="3" class="form-control input-mini spinbox-input">
 
-					<div class="spinbox-buttons btn-group btn-group-vertical">
-						<button class="btn btn-default spinbox-up btn-xs">
-							<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
-						</button>
-						<button class="btn btn-default spinbox-down btn-xs">
-							<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
-						</button>
-					</div>
+				<div class="spinbox-buttons btn-group btn-group-vertical">
+					<button class="btn btn-default spinbox-up btn-xs">
+						<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
+					</button>
+					<button class="btn btn-default spinbox-down btn-xs">
+						<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
+					</button>
 				</div>
-
 			</div>
 
-			<br/>
-			
 			<h5>Sample Methods</h5>
 			<div class="btn-group">
 				<input id="enableSpinbox" type="button" class="btn btn-default" value="enable"/>
-				<input id="disableSpinbox" type="button" class="btn btn-default" value="disable first spinbox"/>
+				<input id="disableSpinbox" type="button" class="btn btn-default" value="disable"/>
 			</div>
-			<hr/>
 
+			<h5>Without Default</h5>
+
+			<div id="MySpinbox" class="spinbox">
+				<input type="text" class="form-control input-mini spinbox-input">
+
+				<div class="spinbox-buttons btn-group btn-group-vertical">
+					<button class="btn btn-default spinbox-up btn-xs">
+						<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
+					</button>
+					<button class="btn btn-default spinbox-down btn-xs">
+						<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
+					</button>
+				</div>
+			</div>
+
+			<hr/>
 		</div>
 
 		<div class="clearfix">

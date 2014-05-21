@@ -453,12 +453,12 @@ $('#MyPillboxEmpty').pillbox({
 
 	// SPINBOX
 	$('#enableSpinbox').on('click', function () {
-		$('#MySpinbox').spinbox('enable');
+		$('#MySpinboxWithDefault').spinbox('enable');
 	});
 	$('#disableSpinbox').on('click', function () {
-		$('#MySpinbox').spinbox('disable');
+		$('#MySpinboxWithDefault').spinbox('disable');
 	});
-	$('#MySpinbox').on('changed', function (e, value) {
+	$('#MySpinboxWithDefault').on('changed', function (e, value) {
 		console.log('Spinbox changed: ', value);
 	});
 
