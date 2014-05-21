@@ -73,20 +73,20 @@ Fuel UX can be obtained one of three ways:
 
 1. **Best way:** Install with a dependency manager:
     
-    * Using [Bower](https://github.com/bower/bower):
+   Using [Bower](https://github.com/bower/bower):
 
-      ```
-      bower install fuelux
-      ```
-      Update with 'bower update fuelux'
+   ```
+   bower install fuelux
+   ```
+   Update with 'bower update fuelux'
     
-    * Using [Volo](https://github.com/volojs/volo):
-
-      ```
-      volo add fuelux
-      
-      ```
-      Update with 'volo add -f fuelux'
+   Using [Volo](https://github.com/volojs/volo):
+   
+   ```
+   volo add fuelux
+   
+   ```
+   Update with 'volo add -f fuelux'
 
    This ensures you get all the [dependencies](#dependencies).
 
