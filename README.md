@@ -29,7 +29,7 @@ All functionality is covered by the [live documentation](http://exacttarget.gith
     ```
     bower install fuelux
     ```
-1. Use AMD (such as [RequireJS](http://require.js.org)) to reference the FuelUX folder in your paths configuration, wherever it is located:
+2. Use AMD (such as [RequireJS](http://require.js.org)) to reference the FuelUX folder in your paths configuration, wherever it is located:
 
     ```javascript
     require.config({
@@ -39,7 +39,7 @@ All functionality is covered by the [live documentation](http://exacttarget.gith
         }
     });
     ```
-1. List any individual fuelux controls needed as dependencies within your application modules (eg. [checkbox](http://exacttarget.github.io/fuelux/#checkbox)):
+3. List any individual fuelux controls needed as dependencies within your application modules (eg. [checkbox](http://exacttarget.github.io/fuelux/#checkbox)):
 
     ```javascript
     define(function(require) {
@@ -47,7 +47,7 @@ All functionality is covered by the [live documentation](http://exacttarget.gith
         //...
     });
     ```
-1. Use FuelUX in your HTML within the fuelux wrapper class (eg. [checkbox](http://exacttarget.github.io/fuelux/#checkbox)):
+4. Use FuelUX in your HTML within the fuelux wrapper class (eg. [checkbox](http://exacttarget.github.io/fuelux/#checkbox)):
 
     ```html
     <body class="fuelux">
