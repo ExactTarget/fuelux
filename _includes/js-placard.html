@@ -1,0 +1,217 @@
+<!-- placard
+================================================== -->
+<div class="bs-docs-section">
+	<h1 id="placards" class="page-header">Placards <small>placard.js</small></h1>
+
+	<h2 id="placards-examples">Examples</h2>
+	<p>Adds a popup element to inputs/textareas on focus, with additional options for explicit accept/cancel actions.</p>
+
+	<div class="bs-example">
+		<div class="placard" style="display: block;">
+			<div class="placard-popup"></div>
+			<input class="form-control placard-field" readonly="readonly" type="text"/>
+		</div>
+
+		<br/>
+
+		<div class="placard" data-ellipsis="true" style="display: block;">
+			<div class="placard-popup"></div>
+			<div class="placard-header"><h5>Header</h5></div>
+			<textarea class="form-control placard-field" readonly="readonly" rows="3"></textarea>
+			<div class="placard-footer">
+				<a class="placard-cancel" href="#">Cancel</a>
+				<button class="btn btn-primary btn-xs placard-accept" type="button">Save</button>
+			</div>
+		</div>
+	</div>
+
+	<h2 id="placards-usage">Usage</h2>
+	<p>The placard control will work automatically on click or can be initialized via Javascript.</p>
+
+	<p>Initialize the wizard via JavaScript:</p>
+	{% highlight js %}$('#MyPlacard').placard();{% endhighlight %}
+
+	<h3>Markup</h3>
+	<p>Use the following markup for a simple input OR textarea placard:</p>
+{% highlight html %}
+<div class="placard">
+	<div class="placard-popup"></div>
+	<input class="form-control placard-field" readonly="readonly" type="text"/>
+</div>
+{% endhighlight %}
+{% highlight html %}
+<div class="placard">
+	<div class="placard-popup"></div>
+	<textarea class="form-control placard-field" readonly="readonly"></textarea>
+</div>
+{% endhighlight %}
+
+	<p>For header and footer content, use the following input OR textarea placards:</p>
+{% highlight html %}
+<div class="placard" data-ellipsis="true" style="display: block;">
+	<div class="placard-popup"></div>
+	<div class="placard-header"><h5>Header</h5></div>
+	<input class="form-control placard-field" readonly="readonly" type="text"/>
+	<div class="placard-footer">
+		<a class="placard-cancel" href="#">Cancel</a>
+		<button class="btn btn-primary btn-xs placard-accept" type="button">Save</button>
+	</div>
+</div>
+{% endhighlight %}
+{% highlight html %}
+<div class="placard" data-ellipsis="true" style="display: block;">
+	<div class="placard-popup"></div>
+	<div class="placard-header"><h5>Header</h5></div>
+	<textarea class="form-control placard-field" readonly="readonly" rows="3"></textarea>
+	<div class="placard-footer">
+		<a class="placard-cancel" href="#">Cancel</a>
+		<button class="btn btn-primary btn-xs placard-accept" type="button">Save</button>
+	</div>
+</div>
+{% endhighlight %}
+
+	<h3>Via data attributes</h3>
+	<p>Add <code>data-ellipsis="true"</code> to the placard element in order to enable ellipsis for overflow on the
+		input or textarea. NOTE: for textareas, Javascript is used to enable ellipsis. Make sure to use the
+		<code>.('getValue');</code> and <code>.('setValue');</code> methods for retrieving/setting value, as it is
+		manipulated upon focus gain/loss. Also, performance drops with larger textareas when ellipsis is enabled.
+	</p>
+
+	<h3>Options</h3>
+	<p>Options can be passed via Javascript upon initialization.</p>
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th style="width: 100px;">Name</th>
+					<th style="width: 100px;">type</th>
+					<th style="width: 50px;">default</th>
+					<th>description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>onAccept</td>
+					<td>function</td>
+					<td>undefined</td>
+					<td>Function to be called when the user indicates they want to <code>'accept'</code> changes. A
+						<code>helpers</code> object containing <code>previousValue</code> and current
+						<code>value</code> is passed as an argument. The default accept behaviors will not occur, leaving
+						it up to the developer to determine what happens next. Useful for validation purposes.
+					</td>
+				</tr>
+				<tr>
+					<td>onCancel</td>
+					<td>function</td>
+					<td>undefined</td>
+					<td>Function to be called when the user indicates they want to <code>'cancel'</code> changes. A
+						<code>helpers</code> object containing <code>previousValue</code> and current
+						<code>value</code> is passed as an argument. The default cancel behaviors will not occur, leaving
+						it up to the developer to determine what happens next. Useful for validation purposes.
+					</td>
+				</tr>
+				<tr>
+					<td>externalClickAction</td>
+					<td>string</td>
+					<td>cancel</td>
+					<td>Specifies what action occurs on an external click (click outside the placard element).</td>
+				</tr>
+				<tr>
+					<td>externalClickExceptions</td>
+					<td>array</td>
+					<td>[ ]</td>
+					<td>Array of <a href="http://api.jquery.com/category/selectors/">jQuery selector</a> strings. Anything that matches the selector (searched
+						globally) will not be counted as an external click. Useful for allowing other items to be clicked
+						without dismissing the placard.
+					</td>
+				</tr>
+				<tr>
+					<td>explicit</td>
+					<td>boolean</td>
+					<td>false</td>
+					<td>Requires the user explicitly select 'accept' or 'cancel' before the placard is dismissed.</td>
+				</tr>
+				<tr>
+					<td>revertOnCancel</td>
+					<td>boolean OR number</td>
+					<td>-1</td>
+					<td>Dictates whether the placard reverts the entered value when a 'cancel' action occurs. -1 checks
+						for a <code>'.placard-accept'</code> element on initialization, setting this value to <code>true</code>
+						if present. Also accepts <code>true</code> or <code>false</code> values.
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div><!-- ./bs-table-responsive -->
+
+	<h3>Methods</h3>
+	<h4>$().placard();</h4>
+	Attaches placard to the placard markup.
+
+	<h4>.placard('getValue');</h4>
+	<p>Gets the current actual placard value.</p>
+	{% highlight js %}$('#element').placard('getValue');{% endhighlight %}
+
+	<h4>.placard('hide');</h4>
+	<p>Hides the placard popup.</p>
+	{% highlight js %}$('#element').placard('hide');{% endhighlight %}
+
+	<h4>.placard('setValue');</h4>
+	<p>Sets the current actual placard value.</p>
+	{% highlight js %}$('#element').placard('setValue');{% endhighlight %}
+
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th style="width: 150px;">Parameter</th>
+					<th>description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>value</td>
+					<td><i>Required.</i> String or number that the placard value will be set to.</td>
+				</tr>
+			</tbody>
+		</table>
+	</div><!-- ./bs-table-responsive -->
+
+	<h4>.placard('show');</h4>
+	<p>Shows the placard popup.</p>
+	{% highlight js %}$('#element').placard('show');{% endhighlight %}
+
+	<h3>Events</h3>
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th style="width: 150px;">Event Type</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>accept</td>
+					<td>Fired when the user indicates the desire to 'accept' changes. If using the <code>onAccept</code>
+						option, this event fires after that function is called.
+					</td>
+				</tr>
+				<tr>
+					<td>cancel</td>
+					<td>Fired when the user indicates the desire to 'cancel' changes. If using the <code>onCancel</code>
+						option, this event fires after that function is called.
+					</td>
+				</tr>
+				<tr>
+					<td>hide</td>
+					<td>Fired when the placard is dismissed and the popup dissapears.</td>
+				</tr>
+				<tr>
+					<td>show</td>
+					<td>Fired when the placard obtains focus and the popup appears.</td>
+				</tr>
+			</tbody>
+		</table>
+	</div><!-- ./bs-table-responsive -->
+</div>
