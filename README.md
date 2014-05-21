@@ -68,7 +68,7 @@ All functionality is covered by the [live documentation](http://exacttarget.gith
 
 View [live documentation and demos](http://exacttarget.github.com/fuelux) on GitHub pages.
 
-### Getting Fuel UX
+### Download
 Fuel UX can be obtained one of three ways:
 
 1. **Best way:** Install with a dependency manager:
