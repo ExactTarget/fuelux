@@ -78,7 +78,7 @@ Fuel UX can be obtained one of three ways:
    ```
    bower install fuelux
    ```
-   Update with `bower update fuelux`
+   Update with `bower update fuelux`.
     
    Using [Volo](https://github.com/volojs/volo):
    
@@ -86,7 +86,7 @@ Fuel UX can be obtained one of three ways:
    volo add fuelux
    
    ```
-   Update with 'volo add -f fuelux'
+   Update with `volo add -f fuelux`.
 
    This ensures you get all the [dependencies](#dependencies).
 
