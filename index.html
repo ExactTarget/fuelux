@@ -63,38 +63,58 @@
 			<div class="checkbox">
 				<label class="checkbox-custom">
 					<input id="chk1" checked="checked" class="checked" type="checkbox" value="">
-					Custom appearance checkbox checked at page load (#chk1)
+					<span class="checkbox-label">Custom appearance checkbox checked at page load (#chk1)</span>
 				</label>
 			</div>
 			<div class="checkbox">
 				<label class="checkbox-custom">
 					<input checked="checked" data-toggle="#checkboxToggle1" class="checked" type="checkbox" value="">
-					Custom appearance checkbox checked at page load <br/><i>with linked element visibility toggle by id</i>
+					<span class="checkbox-label">Custom appearance checkbox checked at page load with linked element visibility toggle by id </span>
 				</label>
 			</div>
 			<div class="checkbox">
 				<label class="checkbox-custom">
 					<input class="checkbox" data-toggle=".checkboxToggle2" type="checkbox" value="">
-					Custom appearance checkbox unchecked on page load<br/><i>with linked element visibility toggle by class</i>
+					<span class="checkbox-label">Custom appearance checkbox unchecked on page load <i>with linked element visibility toggle by class</i></span>
 				</label>
 			</div>
 			<div class="checkbox">
 				<label class="checkbox-custom">
 					<input checked="checked" disabled="disabled" class="checkbox" type="checkbox" value="">
-					Disabled custom appearance checkbox <br/><i>checked on page load</i>
+					<span class="checkbox-label">Disabled custom appearance checkbox <i>checked on page load</i></span>
 				</label>
 			</div>
 			<div class="checkbox">
 				<label class="checkbox-custom">
 					<input class="checkbox" disabled="disabled" type="checkbox" value="">
-					Disabled custom appearance checkbox <br/><i>unchecked on page load</i>
+					<span class="checkbox-label">Disabled custom appearance checkbox <i>unchecked on page load</i></span>
 				</label>
 			</div>
 
-			<div class="checkbox"><label><input checked="checked" type="checkbox" value="">Native checkbox: Checked Enabled</label></div>
-			<div class="checkbox"><label><input type="checkbox" value="">Native Checkbox: Unchecked Enabled</label></div>
-			<div class="checkbox"><label><input checked="checked" disabled="disabled" type="checkbox" value="">Native Checkbox: Checked Disabled</label></div>
-			<div class="checkbox"><label><input disabled="disabled" type="checkbox" value="">Native Checkbox: Unchecked Disabled</label></div>
+			<div class="checkbox">
+				<label>
+					<input checked="checked" type="checkbox" value="">
+					<span class="checkbox-label">Native checkbox: Checked Enabled</span>
+				</label>
+			</div>
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" value="">
+					<span class="checkbox-label">Native Checkbox: Unchecked Enabled</span>
+				</label>
+			</div>
+			<div class="checkbox">
+				<label>
+					<input checked="checked" disabled="disabled" type="checkbox" value="">
+					<span class="checkbox-label">Native Checkbox: Checked Disabled</span>
+				</label>
+			</div>
+			<div class="checkbox">
+				<label>
+					<input disabled="disabled" type="checkbox" value="">
+					<span class="checkbox-label">Native Checkbox: Unchecked Disabled</span>
+				</label>
+			</div>
 
 			<br/>
 			<h5>Sample element visibility toggle bound to checkboxes</h5>
@@ -326,8 +346,8 @@
 				<div class="placard-header"><h5>Header</h5></div>
 				<input class="form-control placard-field" readonly="readonly" type="text"/>
 				<div class="placard-footer">
-					<a class="placard-cancel" href="#">Cancel</a>
 					<button class="btn btn-primary btn-xs placard-accept" type="button">Save</button>
+					<a class="placard-cancel" href="#">Cancel</a>
 				</div>
 			</div>
 
@@ -336,10 +356,10 @@
 			<div class="placard" data-ellipsis="true">
 				<div class="placard-popup"></div>
 				<div class="placard-header"><h5>Header</h5></div>
-				<textarea class="form-control placard-field glass" readonly="readonly"></textarea>
+				<textarea class="form-control placard-field glass"></textarea>
 				<div class="placard-footer">
-					<a class="placard-cancel" href="#">Cancel</a>
 					<button class="btn btn-primary btn-xs placard-accept" type="button">Save</button>
+					<a class="placard-cancel" href="#">Cancel</a>
 				</div>
 			</div>
 
@@ -352,35 +372,55 @@
 			<div class="radio">
 				<label class="radio-custom" id="lbl1">
 					<input id="radio1" checked="checked" data-toggle="#radioToggle1" name="radio1a" type="radio">
-					Custom appearance radio selected on page load <br/><i>with linked element visibility toggle by id</i>
+					<span class="radio-label">Custom appearance radio selected on page load <i>with linked element visibility toggle by id</i></span>
 				</label>
 			</div>
 
 			<div class="radio">
 				<label class="radio-custom" id="lbl2">
 					<input id="radio2" data-toggle=".radioToggle2" name="radio1a" type="radio">
-					Custom appearance radio not selected on page load <br/><i>with linked element visibility toggle by class</i>
+					<span class="radio-label">Custom appearance radio not selected on page load <i>with linked element visibility toggle by class</i></span>
 				</label>
 			</div>
 
 			<div class="radio">
 				<label class="radio-custom" id="lbl3">
 					<input id="radio3" checked="checked" disabled="disabled" name="radio1b" type="radio">
-					Disabled custom appearance radio selected on page load
+					<span class="radio-label">Disabled custom appearance radio selected on page load</span>
 				</label>
 			</div>
 
 			<div class="radio">
 				<label class="radio-custom" id="lbl4">
 					<input id="radio4" disabled="disabled" name="radio1b" type="radio">
-					Disabled custom appearance radio not selected on page load
+					<span class="radio-label">Disabled custom appearance radio not selected on page load</span>
 				</label>
 			</div>
 
-			<div class="radio"><label><input type="radio" name="radio2a" checked="checked">Native: Checked Enabled</label></div>
-			<div class="radio"><label><input type="radio" name="radio2a">Native: Unchecked Enabled</label></div>
-			<div class="radio"><label><input type="radio" name="radio2b" checked="checked" disabled="disabled">Native: Checked Disabled</label></div>
-			<div class="radio"><label><input type="radio" name="radio2b" disabled="disabled">Native: Unchecked Disabled</label></div>
+			<div class="radio">
+				<label>
+					<input type="radio" name="radio2a" checked="checked">
+					<span class="radio-label">Native: Checked Enabled</span>
+				</label>
+			</div>
+			<div class="radio">
+				<label>
+					<input type="radio" name="radio2a">
+					<span class="radio-label">Native: Unchecked Enabled</span>
+				</label>
+			</div>
+			<div class="radio">
+				<label>
+					<input type="radio" name="radio2b" checked="checked" disabled="disabled">
+					<span class="radio-label">Native: Checked Disabled</span>
+				</label>
+			</div>
+			<div class="radio">
+				<label>
+					<input type="radio" name="radio2b" disabled="disabled">
+					<span class="radio-label">Native: Unchecked Disabled</span>
+				</label>
+			</div>
 
 			<br/>
 			<h5>Sample element visibility toggle bound to radios</h5>
