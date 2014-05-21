@@ -7,6 +7,11 @@
 			border-radius: @baseBorderRadius;
 		}
 	}
+
+	/* for keyboard tabbing */
+	input[type="radio"]:focus + .radio-label {
+		color: @grayLight;
+	}
 }
 
 .radio-custom {
@@ -89,4 +94,10 @@
 		position: relative;
 		left: -99999px;
 	}
+
+	/* for keyboard tabbing */
+	input[type="radio"]:focus + .radio-label {
+		color: @grayLight;
+	}
+
 }

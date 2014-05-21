@@ -1,33 +1,32 @@
 <div>
-	<div class="checkbox">
-		<label id="lbl1" class="checkbox-custom">
-			<input id="chk1" checked="checked" class="checked" type="checkbox" value="">
-			Custom appearance checkbox checked at page load (#chk1)
-		</label>
-	</div>
-	<div class="checkbox">
-		<label id="lbl2" class="checkbox-custom">
-			<input id="chk2" checked="checked" data-toggle="#checkboxToggle1" class="checked" type="checkbox" value="">
-			Custom appearance checkbox checked at page load <br/><i>with linked element visibility toggle by id</i>
-		</label>
-	</div>
-	<div class="checkbox">
-		<label id="lbl3" class="checkbox-custom">
-			<input id="chk3" class="checkbox" data-toggle=".checkboxToggle2" type="checkbox" value="">
-			Custom appearance checkbox unchecked on page load<br/><i>with linked element visibility toggle by class</i>
-		</label>
-	</div>
-	<div class="checkbox">
-		<label id="lbl4" class="checkbox-custom">
-			<input id="chk4" checked="checked" disabled="disabled" class="checkbox" type="checkbox" value="">
-			Disabled custom appearance checkbox <br/><i>checked on page load</i>
-		</label>
-	</div>
-	<div class="checkbox">
-		<label id="lbl5" class="checkbox-custom">
-			<input id="chk5" class="checkbox" disabled="disabled" type="checkbox" value="">
-			Disabled custom appearance checkbox <br/><i>unchecked on page load</i>
-		</label>
-	</div>
-
+			<div class="checkbox">
+				<label id="lbl1" class="checkbox-custom">
+					<input id="chk1" checked="checked" class="checked" type="checkbox" value="">
+					<span class="checkbox-label">Custom appearance checkbox checked at page load (#chk1)</span>
+				</label>
+			</div>
+			<div class="checkbox">
+				<label id="lbl2" class="checkbox-custom">
+					<input id="chk2" checked="checked" data-toggle="#checkboxToggle1" class="checked" type="checkbox" value="">
+					<span class="checkbox-label">Custom appearance checkbox checked at page load with linked element visibility toggle by id </span>
+				</label>
+			</div>
+			<div id="lbl3" class="checkbox">
+				<label  id="chk3" class="checkbox-custom">
+					<input class="checkbox" data-toggle=".checkboxToggle2" type="checkbox" value="">
+					<span class="checkbox-label">Custom appearance checkbox unchecked on page load <i>with linked element visibility toggle by class</i></span>
+				</label>
+			</div>
+			<div id="lbl4" class="checkbox">
+				<label class="checkbox-custom">
+					<input id="chk4" checked="checked" disabled="disabled" class="checkbox" type="checkbox" value="">
+					<span class="checkbox-label">Disabled custom appearance checkbox <i>checked on page load</i></span>
+				</label>
+			</div>
+			<div id="lbl5" class="checkbox">
+				<label class="checkbox-custom">
+					<input  id="chk5" class="checkbox" disabled="disabled" type="checkbox" value="">
+					<span class="checkbox-label">Disabled custom appearance checkbox <i>unchecked on page load</i></span>
+				</label>
+			</div>
 </div>

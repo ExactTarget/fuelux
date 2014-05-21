@@ -51,7 +51,9 @@ define(function(require){
 
 
 	// DATEPICKER
-	$('#datepicker1').datepicker();
+	$('#datepicker1').datepicker({
+			restrictDateSelection: false
+	});
 
 	$('#datepicker1').on('changed', function( event, data ) {
 		console.log( 'datepicker change event fired' );
@@ -451,12 +453,12 @@ $('#MyPillboxEmpty').pillbox({
 
 	// SPINBOX
 	$('#enableSpinbox').on('click', function () {
-		$('#MySpinbox').spinbox('enable');
+		$('#MySpinboxWithDefault').spinbox('enable');
 	});
 	$('#disableSpinbox').on('click', function () {
-		$('#MySpinbox').spinbox('disable');
+		$('#MySpinboxWithDefault').spinbox('disable');
 	});
-	$('#MySpinbox').on('changed', function (e, value) {
+	$('#MySpinboxWithDefault').on('changed', function (e, value) {
 		console.log('Spinbox changed: ', value);
 	});
 
