@@ -12,6 +12,7 @@ define(function(require){
 
 	require('bootstrap');
 	require('assets/js/combobox-examples');
+	require('assets/js/pillbox-examples');
 	require('assets/js/scheduler-examples');
 	require('assets/js/search-examples');
 	require('assets/js/selectlist-examples');

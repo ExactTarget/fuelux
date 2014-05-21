@@ -1,169 +1,170 @@
 <!-- tree
 ================================================== -->
 <div class="bs-docs-section">
-	<h1 id="tree" class="page-header">Tree <small>tree.js</small></h1>
-	<p class="lead">Categorical element selection.</p>
+  <h1 id="tree" class="page-header">Tree<small> tree.js</small></h1>
 
-	<h2 id="tree-example">Examples</h2>
+  <h2 id="tree-example">Examples</h2>
 
-	<h4>Item Selection Tree</h4>
-	<div id="ex-tree" class="tree" style="width: 400px;height: 300px;">
-		<div class="tree-folder" style="display:none;">
-			<div class="tree-folder-header">
-				<i class="glyphicon glyphicon-folder-close"></i>
+  <p>Tree is a categorical element selection. It can be used to create a file system interface. Wrap the wrapper tree containers with <code>.fuelux .tree</code></p>
 
-				<div class="tree-folder-name"></div>
-			</div>
-			<div class="tree-folder-content"></div>
-			<div class="tree-loader" style="display:none">
-				<!--Place your loading HTML here-->
-				Loading...
-			</div>
-		</div>
-		<div class="tree-item" style="display:none;">
-			<i class="glyphicon tree-dot"></i>
+  <h4>Item Selection Tree</h4>
+  <div id="ex-tree" class="tree" style="width: 400px;height: 300px;">
+    <div class="tree-folder" style="display:none;">
+      <div class="tree-folder-header">
+        <i class="glyphicon glyphicon-folder-close"></i>
 
-			<div class="tree-item-name"></div>
-		</div>
-	</div>
+        <div class="tree-folder-name"></div>
+      </div>
+      <div class="tree-folder-content"></div>
+      <div class="tree-loader" style="display:none">
+        <!--Place your loading HTML here-->
+        Loading...
+      </div>
+    </div>
+    <div class="tree-item" style="display:none;">
+      <i class="glyphicon tree-dot"></i>
 
-	<h4>Folder Selection Tree</h4>
-	<div id="ex-tree-folder" class="tree tree-folder-select"  style="width: 400px;height: 300px;">
-		<div class="tree-folder" style="display:none;">
-			<div class="tree-folder-header">
-				<i class="tree-triangle-right"></i>
-				<i class="glyphicon glyphicon-folder-close"></i>
-			</div>
-			<div class="tree-folder-name"></div>
-			<div class="tree-folder-content"></div>
-			<div class="tree-loader" style="display:none">
-				<!--Place your loading HTML here-->
-				Loading...
-			</div>
-		</div>
-	</div>
+      <div class="tree-item-name"></div>
+    </div>
+  </div>
 
-	<h2 id="tree-usage">Usage</h2>
-	<p>The tree is a categorical selection interface that allows for interaction and selection of nested elements.</p>
+  <h4>Folder Selection Tree</h4>
+  <div id="ex-tree-folder" class="tree tree-folder-select"  style="width: 400px;height: 300px;">
+    <div class="tree-folder" style="display:none;">
+      <div class="tree-folder-header">
+        <i class="tree-triangle-right"></i>
+        <i class="glyphicon glyphicon-folder-close"></i>
+      </div>
+      <div class="tree-folder-name"></div>
+      <div class="tree-folder-content"></div>
+      <div class="tree-loader" style="display:none">
+        <!--Place your loading HTML here-->
+        Loading...
+      </div>
+    </div>
+  </div>
 
-	<p>Trigger the tree via JavaScript:</p>
-	{% highlight js %}$('#MyTree').tree({ dataSource: dataSource });{% endhighlight %}
+  <h2 id="tree-usage">Usage</h2>
+  <p>The tree is a categorical selection interface that allows for interaction and selection of nested elements.</p>
 
-	<h3>Markup</h3>
+  <p>Trigger the tree via JavaScript:</p>
+  {% highlight js %}$('#MyTree').tree({ dataSource: dataSource });{% endhighlight %}
 
-	<p>Add <code>class="tree"</code> to an a div within a <code>class="fuelux"</code> container. Markup varies slightly depending on the type of tree you are using.</p>
+  <h3>Markup</h3>
+
+  <p>Add <code>class="tree"</code> to an a div within a <code>class="fuelux"</code> container. Markup varies slightly depending on the type of tree you are using.</p>
 
 
-	<h4>Item Selection Tree</h4>
-	{% highlight html %}
-	<div id="MyTree" class="tree" style="width: 400px;height: 300px;">
-		<div class="tree-folder" style="display:none;">
-			<div class="tree-folder-header">
-				<i class="glyphicon glyphicon-folder-close"></i>
-				<div class="tree-folder-name"></div>
-			</div>
-			<div class="tree-folder-content"></div>
-			<div class="tree-loader" style="display:none">
-				<!--Place your loader HTML here-->
-			</div>
-		</div>
-		<div class="tree-item" style="display:none;">
-			<i class="glyphicon tree-dot"></i>
-			<div class="tree-item-name"></div>
-		</div>
-	</div>
-	{% endhighlight %}
+  <h4>Item Selection Tree</h4>
+{% highlight html %}
+<div id="MyTree" class="tree">
+  <div class="tree-folder" style="display:none;">
+    <div class="tree-folder-header">
+      <i class="glyphicon glyphicon-folder-close"></i>
+      <div class="tree-folder-name"></div>
+    </div>
+    <div class="tree-folder-content"></div>
+    <div class="tree-loader" style="display:none">
+      <!--Place your loader HTML here-->
+    </div>
+  </div>
+  <div class="tree-item" style="display:none;">
+    <i class="glyphicon tree-dot"></i>
+    <div class="tree-item-name"></div>
+  </div>
+</div>
+{% endhighlight %}
 
-	<h4>Folder Selection Tree</h4>
-	{% highlight html %}
-	<div id="MyTree" class="tree tree-folder-select"  style="width: 400px;height: 300px;">
-		<div class="tree-folder" style="display:none;">
-			<div class="tree-folder-header">
-				<i class="tree-triangle-right"></i>
-				<i class="glyphicon glyphicon-folder-close"></i>
-			</div>
-			<div class="tree-folder-name"></div>
-			<div class="tree-folder-content"></div>
-			<div class="tree-loader" style="display:none">
-				<!--Place your loader HTML here-->
-			</div>
-		</div>
-	</div>
-	{% endhighlight %}
+  <h4>Folder Selection Tree</h4>
+{% highlight html %}
+<div id="MyTree" class="tree tree-folder-select">
+  <div class="tree-folder" style="display:none;">
+    <div class="tree-folder-header">
+      <i class="tree-triangle-right"></i>
+      <i class="glyphicon glyphicon-folder-close"></i>
+    </div>
+    <div class="tree-folder-name"></div>
+    <div class="tree-folder-content"></div>
+    <div class="tree-loader" style="display:none">
+      <!--Place your loader HTML here-->
+    </div>
+  </div>
+</div>
+{% endhighlight %}
 
-	<h3>Methods</h3>
-	<h4>.tree('selectedItems')</h4>
-	<p>Returns an array containing selected items and associated data.</p>
-	{% highlight js %}$('#element').combobox('selectedItems'){% endhighlight %}
+  <h3>Methods</h3>
+  <h4>.tree('selectedItems')</h4>
+  <p>Returns an array containing selected items and associated data.</p>
+  {% highlight js %}$('#element').tree('selectedItems'){% endhighlight %}
 
-	<h3>Options</h3>
-	<p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-selected=""</code>.</p>
-	<div class="table-responsive">
-		<table class="table table-bordered table-striped">
-			<thead>
-			<tr>
-				<th style="width: 100px;">Name</th>
-				<th style="width: 100px;">type</th>
-				<th style="width: 50px;">default</th>
-				<th>description</th>
-			</tr>
-			</thead>
-			<tbody>
-			<tr>
-				<td>multiSelect</td>
-				<td>boolean</td>
-				<td>false</td>
-				<td>Allows multiple tree items to be selected at once.</td>
-			</tr>
-			<tr>
-				<td>cacheItems</td>
-				<td>boolean</td>
-				<td>true</td>
-				<td>When a folder is closed and re-opened sub-items will not be refreshed.</td>
-			</tr>
-			<tr>
-				<td>folderSelect</td>
-				<td>boolean</td>
-				<td>false</td>
-				<td>Enables folder selection.</td>
-			</tr>
-			</tbody>
-		</table>
-	</div><!-- ./bs-table-responsive -->
+  <h3>Options</h3>
+  <p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-selected=""</code>.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th style="width: 100px;">Name</th>
+        <th style="width: 100px;">type</th>
+        <th style="width: 50px;">default</th>
+        <th>description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>multiSelect</td>
+        <td>boolean</td>
+        <td>false</td>
+        <td>Allows multiple tree items to be selected at once.</td>
+      </tr>
+      <tr>
+        <td>cacheItems</td>
+        <td>boolean</td>
+        <td>true</td>
+        <td>When a folder is closed and re-opened sub-items will not be refreshed.</td>
+      </tr>
+      <tr>
+        <td>folderSelect</td>
+        <td>boolean</td>
+        <td>false</td>
+        <td>Enables folder selection.</td>
+      </tr>
+      </tbody>
+    </table>
+  </div><!-- ./bs-table-responsive -->
 
-	<h3>Events</h3>
-	<div class="table-responsive">
-		<table class="table table-bordered table-striped">
-			<thead>
-			<tr>
-				<th style="width: 150px;">Event Type</th>
-				<th>Description</th>
-			</tr>
-			</thead>
-			<tbody>
-			<tr>
-				<td>loaded</td>
-				<td>This event is fired when sub-content has been is loaded.</td>
-			</tr>
-			<tr>
-				<td>selected</td>
-				<td>This event is fired when item/items has been selected. An object containing <code>{info: data}</code> is returned. <code>data</code> represents an array of selected items</td>
-			</tr>
-			<tr>
-				<td>opened</td>
-				<td>This event is fired when a sub-folder is opened. An object containing folder information is returned.</td>
-			</tr>
-			<tr>
-				<td>closed</td>
-				<td>This event is fired when a sub-folder is closed. An object containing folder information is returned.</td>
-			</tr>
-			</tbody>
-		</table>
-	</div><!-- ./bs-table-responsive -->
-	{% highlight js %}
-	$('#MyTree').on('loaded', function () {
-	// load selectlist results
-	})
-	{% endhighlight %}
+  <h3>Events</h3>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th style="width: 150px;">Event Type</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>loaded</td>
+        <td>This event is fired when sub-content has been is loaded.</td>
+      </tr>
+      <tr>
+        <td>selected</td>
+        <td>This event is fired when item/items has been selected. An object containing <code>{info: data}</code> is returned. <code>data</code> represents an array of selected items</td>
+      </tr>
+      <tr>
+        <td>opened</td>
+        <td>This event is fired when a sub-folder is opened. An object containing folder information is returned.</td>
+      </tr>
+      <tr>
+        <td>closed</td>
+        <td>This event is fired when a sub-folder is closed. An object containing folder information is returned.</td>
+      </tr>
+      </tbody>
+    </table>
+  </div><!-- ./bs-table-responsive -->
+  {% highlight js %}
+  $('#MyTree').on('loaded', function () {
+    // do something
+  })
+  {% endhighlight %}
 
 </div>

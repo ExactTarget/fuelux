@@ -108,15 +108,15 @@ $('#element').wizard('addSteps', index, remove,
       <tbody>
         <tr>
           <td>index</td>
-          <td><i>Required.</i> The position where to start inserting pane(s). First pane is at position 1.</td>
+          <td><i>Required.</i> The position where to start inserting pane(s). First pane is at position 1. If -1 is used, the item will be appended to end of the list of panes.</td>
         </tr>
         <tr>
           <td>remove</td>
           <td><i>Optional.</i> The number of panes to be removed after adding panes. Default is 0.</td>
         </tr>
         <tr>
-          <td><i>array</i></td>
-          <td>An array of content pane objects to be added at the <code>index</code>. Each pane can contain three strings: a <code>badge</code> class to be appended to the step's <code>class</code> attribute in order to override the default number, a <code>label</code> for the name of the step, and the <code>pane</code> of HTML content.</td>
+          <td><i>[item1, ..., itemX] <br/> item1, ..., itemX</i></td>
+          <td>An array or list of content pane objects to be added at the <code>index</code>. Each pane can contain three strings: a <code>badge</code> class to be appended to the step's <code>class</code> attribute in order to override the default number, a <code>label</code> for the name of the step, and the <code>pane</code> of HTML content.</td>
         </tr>
       </tbody>
     </table>

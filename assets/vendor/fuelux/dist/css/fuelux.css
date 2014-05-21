@@ -916,155 +916,181 @@
   left: -1px;
   top: 0px;
 }
+.fuelux .scheduler {
+  /* -------------------------------
+	START DATE/TIME
+------------------------------- */
+  /* -------------------------------
+	TIMEZONE
+------------------------------- */
+  /* -------------------------------
+	REPEAT PANELS
+------------------------------- */
+  /* -------------------------------
+END
+------------------------------- */
+}
 .fuelux .scheduler label {
-  width: 7em;
+  min-width: 7em;
 }
-.fuelux .scheduler .recurrence-panel {
-  display: none;
+.fuelux .scheduler .inline-form-text {
+  float: left;
+  line-height: 27px;
+  margin-top: 4px;
 }
-.fuelux .scheduler .scheduler-end {
-  display: none;
+.fuelux .scheduler .start-datetime.form-group {
+  margin-bottom: 0;
 }
-.fuelux .scheduler .scheduler-end .form-group {
+.fuelux .scheduler .start-datetime .form-group {
   margin-left: 0;
 }
-.fuelux .scheduler .scheduler-end .end-option-panel {
-  display: none;
+.fuelux .scheduler .start-datetime .combobox {
+  max-width: 9em;
 }
-.fuelux .scheduler .scheduler-repeat .form-group {
-  margin-left: 0;
-}
-.fuelux .scheduler .scheduler-repeat .dropdown-menu {
+.fuelux .scheduler .start-datetime .combobox .dropdown-menu {
   max-height: 200px;
   overflow: auto;
 }
-.fuelux .scheduler .scheduler-repeat .repeat-interval {
+.fuelux .scheduler .start-datetime .dropdown {
+  float: left;
+  margin: 0 10px 0 0;
+}
+.fuelux .scheduler .timezone-container .input-group {
+  max-width: 20em;
+}
+.fuelux .scheduler .timezone-container .dropdown-label {
+  height: 18px;
+  white-space: nowrap;
+  max-width: 20em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fuelux .scheduler .timezone-container .dropdown-menu {
+  max-height: 200px;
+  overflow: auto;
+}
+.fuelux .scheduler .repeat-panel {
+  display: none;
+  margin-left: 0;
+}
+.fuelux .scheduler .repeat-panel .radio {
+  margin-right: 10px;
+}
+.fuelux .scheduler .repeat-panel .form-group {
+  margin-left: 0;
+}
+.fuelux .scheduler .repeat-interval {
+  margin-left: 0;
   *zoom: 1;
 }
-.fuelux .scheduler .scheduler-repeat .repeat-interval:before,
-.fuelux .scheduler .scheduler-repeat .repeat-interval:after {
+.fuelux .scheduler .repeat-interval:before,
+.fuelux .scheduler .repeat-interval:after {
   display: table;
   content: "";
   line-height: 0;
 }
-.fuelux .scheduler .scheduler-repeat .repeat-interval:after {
+.fuelux .scheduler .repeat-interval:after {
   clear: both;
 }
-.fuelux .scheduler .scheduler-repeat .repeat-interval .repeat-interval-panel {
+.fuelux .scheduler .repeat-interval .form-group {
+  margin-left: 0;
+}
+.fuelux .scheduler .repeat-interval .dropdown-menu {
+  max-height: 200px;
+  overflow: auto;
+}
+.fuelux .scheduler .repeat-interval .repeat-every-panel {
   display: none;
   float: left;
 }
-.fuelux .scheduler .scheduler-repeat .repeat-interval .repeat-interval-panel .repeat-interval-pretext,
-.fuelux .scheduler .scheduler-repeat .repeat-interval .repeat-interval-panel .repeat-interval-text {
-  float: left;
-  line-height: 27px;
-  margin-top: 2px;
-}
-.fuelux .scheduler .scheduler-repeat .repeat-interval .repeat-interval-panel .repeat-interval-pretext {
+.fuelux .scheduler .repeat-interval .repeat-every-panel .repeat-every-pretext {
   padding: 0 10px;
 }
-.fuelux .scheduler .scheduler-repeat .repeat-interval .repeat-interval-panel .spinbox {
+.fuelux .scheduler .repeat-interval .repeat-every-panel .spinbox {
   float: left;
   margin-right: 0;
 }
-.fuelux .scheduler .scheduler-repeat .repeat-interval .repeat-interval-panel .spinbox input {
+.fuelux .scheduler .repeat-interval .repeat-every-panel .spinbox input {
   margin-bottom: 0;
 }
-.fuelux .scheduler .scheduler-repeat .scheduler-monthly-date {
+.fuelux .scheduler .repeat-monthly .repeat-monthly-date {
   margin-top: 10px;
   *zoom: 1;
 }
-.fuelux .scheduler .scheduler-repeat .scheduler-monthly-date:before,
-.fuelux .scheduler .scheduler-repeat .scheduler-monthly-date:after {
+.fuelux .scheduler .repeat-monthly .repeat-monthly-date:before,
+.fuelux .scheduler .repeat-monthly .repeat-monthly-date:after {
   display: table;
   content: "";
   line-height: 0;
 }
-.fuelux .scheduler .scheduler-repeat .scheduler-monthly-date:after {
+.fuelux .scheduler .repeat-monthly .repeat-monthly-date:after {
   clear: both;
 }
-.fuelux .scheduler .scheduler-repeat .scheduler-monthly-date .radio {
-  margin: 6px 10px 0 0;
-}
-.fuelux .scheduler .scheduler-repeat .scheduler-monthly-date .selectlist {
+.fuelux .scheduler .repeat-monthly .repeat-monthly-date .selectlist {
   margin-left: 5px;
 }
-.fuelux .scheduler .scheduler-repeat .scheduler-monthly-day {
+.fuelux .scheduler .repeat-monthly .repeat-monthly-day {
   margin-top: 10px;
   *zoom: 1;
 }
-.fuelux .scheduler .scheduler-repeat .scheduler-monthly-day:before,
-.fuelux .scheduler .scheduler-repeat .scheduler-monthly-day:after {
+.fuelux .scheduler .repeat-monthly .repeat-monthly-day:before,
+.fuelux .scheduler .repeat-monthly .repeat-monthly-day:after {
   display: table;
   content: "";
   line-height: 0;
 }
-.fuelux .scheduler .scheduler-repeat .scheduler-monthly-day:after {
+.fuelux .scheduler .repeat-monthly .repeat-monthly-day:after {
   clear: both;
 }
-.fuelux .scheduler .scheduler-repeat .scheduler-monthly-day .radio {
-  margin: 6px 10px 0 0;
-}
-.fuelux .scheduler .scheduler-repeat .scheduler-monthly-day .month-day-pos {
-  margin: 0 5px 0 0;
-}
-.fuelux .scheduler .scheduler-repeat .scheduler-yearly-date {
-  margin-top: 10px;
-  *zoom: 1;
-}
-.fuelux .scheduler .scheduler-repeat .scheduler-yearly-date:before,
-.fuelux .scheduler .scheduler-repeat .scheduler-yearly-date:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.fuelux .scheduler .scheduler-repeat .scheduler-yearly-date:after {
-  clear: both;
-}
-.fuelux .scheduler .scheduler-repeat .scheduler-yearly-date .radio {
-  margin: 6px 10px 0 0;
-}
-.fuelux .scheduler .scheduler-repeat .scheduler-yearly-date .selectlist.year-month {
-  margin-left: 5px;
-}
-.fuelux .scheduler .scheduler-repeat .scheduler-yearly-date .selectlist.year-month-day {
+.fuelux .scheduler .repeat-monthly .month-days {
   margin-left: 10px;
 }
-.fuelux .scheduler .scheduler-repeat .scheduler-yearly-day {
+.fuelux .scheduler .repeat-yearly .repeat-yearly-date {
   margin-top: 10px;
   *zoom: 1;
 }
-.fuelux .scheduler .scheduler-repeat .scheduler-yearly-day:before,
-.fuelux .scheduler .scheduler-repeat .scheduler-yearly-day:after {
+.fuelux .scheduler .repeat-yearly .repeat-yearly-date:before,
+.fuelux .scheduler .repeat-yearly .repeat-yearly-date:after {
   display: table;
   content: "";
   line-height: 0;
 }
-.fuelux .scheduler .scheduler-repeat .scheduler-yearly-day:after {
+.fuelux .scheduler .repeat-yearly .repeat-yearly-date:after {
   clear: both;
 }
-.fuelux .scheduler .scheduler-repeat .scheduler-yearly-day .radio {
-  margin: 6px 10px 0 0;
+.fuelux .scheduler .repeat-yearly .repeat-yearly-date .year-month-day {
+  margin-left: 10px;
 }
-.fuelux .scheduler .scheduler-repeat .scheduler-yearly-day .scheduler-yearly-day-text {
-  float: left;
-  line-height: 27px;
-  margin: 3px 10px 0;
+.fuelux .scheduler .repeat-yearly .year-month-days {
+  margin-left: 10px;
 }
-.fuelux .scheduler .scheduler-repeat .scheduler-yearly-day .year-month-day-pos {
-  margin: 0 5px;
+.fuelux .scheduler .repeat-yearly .year-month {
+  margin-left: 10px;
 }
-.fuelux .scheduler .scheduler-repeat .scheduler-weekly {
-  padding: 10px 0 0 0;
+.fuelux .scheduler .repeat-yearly .repeat-yearly-day {
+  margin-top: 10px;
+  *zoom: 1;
 }
-.fuelux .scheduler .scheduler-repeat .scheduler-weekly button:not(.active) {
+.fuelux .scheduler .repeat-yearly .repeat-yearly-day:before,
+.fuelux .scheduler .repeat-yearly .repeat-yearly-day:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.fuelux .scheduler .repeat-yearly .repeat-yearly-day:after {
+  clear: both;
+}
+.fuelux .scheduler .repeat-yearly .repeat-yearly-day .repeat-yearly-day-text {
+  margin-left: 10px;
+}
+.fuelux .scheduler .repeat-weekly button:not(.active) {
   background-color: #fff;
 }
-.fuelux .scheduler .scheduler-repeat .scheduler-weekly .btn-group.disabled {
+.fuelux .scheduler .repeat-weekly .btn-group.disabled {
   position: relative;
   opacity: 0.65;
 }
-.fuelux .scheduler .scheduler-repeat .scheduler-weekly .btn-group.disabled:before {
+.fuelux .scheduler .repeat-weekly .btn-group.disabled:before {
   background: transparent;
   bottom: 0;
   content: "";
@@ -1074,45 +1100,26 @@
   top: 0;
   z-index: 5;
 }
-.fuelux .scheduler .scheduler-repeat .selectlist {
+.fuelux .scheduler .selectlist {
   float: left;
 }
-.fuelux .scheduler .scheduler-repeat label.radio {
+.fuelux .scheduler label.radio {
   float: left;
   line-height: 27px;
 }
-.fuelux .scheduler .scheduler-repeat label.radio input {
+.fuelux .scheduler label.radio input {
   margin-top: 8px;
 }
-.fuelux .scheduler .scheduler-start .form-group {
+.fuelux .scheduler .repeat-end {
+  display: none;
+}
+.fuelux .scheduler .repeat-end .end-after .spinbox {
+  float: left;
+}
+.fuelux .scheduler .repeat-end .form-group {
   margin-left: 0;
 }
-.fuelux .scheduler .scheduler-start .combobox {
-  max-width: 9em;
-}
-.fuelux .scheduler .scheduler-start .combobox .dropdown-menu {
-  max-height: 200px;
-  overflow: auto;
-}
-.fuelux .scheduler .scheduler-start .dropdown {
-  float: left;
-  margin: 0 10px 0 0;
-}
-.fuelux .scheduler .scheduler-timezone .input-group {
-  max-width: 20em;
-}
-.fuelux .scheduler .scheduler-timezone .dropdown-label {
-  height: 18px;
-  white-space: nowrap;
-  max-width: 20em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.fuelux .scheduler .scheduler-timezone .dropdown-menu {
-  max-height: 200px;
-  overflow: auto;
-}
-.fuelux .scheduler .recurrence-panel {
+.fuelux .scheduler .repeat-end .end-option-panel {
   display: none;
 }
 .fuelux .selectlist-sizer {
