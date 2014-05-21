@@ -1,0 +1,162 @@
+<!-- scheduler
+================================================== -->
+<div class="bs-docs-section">
+  <h1 id="scheduler" class="page-header">Scheduler <small>scheduler.js</small></h1>
+
+  <h2 id="scheduler-example">Examples</h2>
+  <p>Create a time object with support for start date/time, timezone and iCal-compatible reccurance patterns.</p>
+
+  <h3>Static example</h3>
+  <p>A scheduler with start date/time, timezone, and all recurrance and recurrance end options. All options do not show simutaneously in the live demo further along in this document.</p>
+  <div class="bs-example fu-example-scheduler">
+    <fieldset id="MySchedulerStatic" class="form-horizontal container-fluid scheduler" role="form">
+    {% include js-scheduler-example.html %}
+    </fieldset>
+  </div><!-- /example -->
+
+  <h3>Live demo</h3>
+  <div class="bs-example">
+    <div id="MyScheduler" class="form-horizontal container-fluid scheduler" role="form">
+    {% include js-scheduler-example.html %}
+    </div>
+
+    <br/>
+    <h5>Sample Methods</h5>
+    <div class="btn-group">
+      <input id="schedulerEnableBtn" type="button" class="btn btn-default" value="enable" />
+      <input id="schedulerDisableBtn" type="button" class="btn btn-default" value="disable" />
+      <input id="schedulerLogValueBtn" type="button" class="btn btn-default" value="log value" />
+      <input id="schedulerSetValueBtn" type="button" class="btn btn-default" value="set value to the following schedule" />
+    </div>
+    <br/>
+    <br/>
+    <pre>startDateTime: '2014-03-31T03:23+02:00',
+timeZone: {
+name: 'Namibia Standard Time',
+  offset: '+02:00'
+},
+recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'</pre>
+
+  </div><!-- /example -->
+
+<button class="btn btn-primary" data-toggle="modal" data-target=".schedulerExampleModal">
+  Open example code in modal
+</button>
+
+<div class="modal fade schedulerExampleModal" tabindex="-1" role="dialog" aria-labelledby="schedulerExampleMarkupLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="schedulerExampleMarkupLabel">Example Scheduler Markup</h4>
+        </div>
+        <div class="modal-body">
+{% highlight html %}
+{% include js-scheduler-example.html %}
+{% endhighlight %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <h2 id="scheduler-usage">Usage</h2>
+  <p>The scheduler code will automatically instantiate any scheduler markup with the class <code>.scheduler</code> on page load, allowing them to function without any additional code. However, if the markup is added after page load they will need to be manually instantiated via javascript.</p>
+  <p>A scheduler can return a time object with a <code>startDateTime</code>, a <code>timeZone</code>, and a<code>recurrencePattern</code></p>
+
+  <p>Via JavaScript:</p>
+  {% highlight js %}$('#Myscheduler').scheduler();{% endhighlight %}
+
+  <h3>Markup</h3>
+  <p>Wrap <code>class="scheduler"</code> around a start date/time, a timezone, and a recurrance pattern within a <code>class="fuelux"</code> container.</p>
+
+  <button class="btn btn-primary" data-toggle="modal" data-target=".schedulerExampleModal">
+  Open example markup in modal
+</button>
+
+  <h3>Data Attribute Options</h3>
+  <p>Please refer to the component dependencies:   <a href="#combobox">combobox</a>, <a href="#datepicker">datepicker</a>, <a href="#radio">radio</a>, <a href="#selectlist">selectlist</a>, <a href="#spinbox">spinbox</a>.</p>
+
+  <h3>Methods</h3>
+  <h4>$().scheduler()</h4>
+  Attaches scheduler to a list of steps, navigation, and content.
+  
+  <h4>.scheduler('disable')</h4>
+  <p>Disable all scheduler form fields</p>
+  {% highlight js %}$('#element').scheduler('disable');{% endhighlight %}
+
+  <h4>.scheduler('enable')</h4>
+  <p>Enables all scheduler form fields</p>
+  {% highlight js %}$('#element').scheduler('enable');{% endhighlight %}
+
+  <h4>.scheduler('value')</h4>
+  <p>Gets the current scheduler form field information or sets it, depending on arguments present.</p>
+{% highlight js %}
+$('myScheduler').scheduler('value');
+{% endhighlight %}
+
+  <h5>Setter Method</h5>
+  <p>Use <code>'value'</code> while passing an object following the structure listed below as the second parameter.</p>
+{% highlight js %}
+$('myScheduler').scheduler('value', {
+  startDateTime: '2014-03-31T03:23+02:00',
+  timeZone: {
+  name: 'Namibia Standard Time',
+    offset: '+02:00'
+  },
+  recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
+});
+{% endhighlight %}
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="width: 150px;">Parameter</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>startDateTime</td>
+          <td><i>Required.</i> string representing the start date &amp; time in ISO 0861 format.</td>
+        </tr>
+        <tr>
+          <td>timeZone</td>
+          <td>Object containing the time zone name and offset.</td>
+        </tr>
+        <tr>
+          <td><i>recurrencePattern</i></td>
+          <td><i>Optional</i> string representing the iCal recurrence value</td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- ./bs-table-responsive -->
+
+  <h3>Events</h3>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="width: 150px;">Event Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>changed</td>
+          <td>This event is fired when the step has changed and is shown to the user.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- ./bs-table-responsive -->
+{% highlight js %}
+$('#MyScheduler').on('changed', function () {
+  // do something
+});
+{% endhighlight %}
+
+</div>

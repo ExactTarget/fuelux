@@ -38,31 +38,32 @@
 		this.options = $.extend({}, $.fn.scheduler.defaults, options);
 
 		// cache elements
-		this.$startDate = this.$element.find('.scheduler-start .datepicker');
-		this.$startTime = this.$element.find('.scheduler-start .combobox');
+		this.$startDate = this.$element.find('.start-datetime .start-date');
+		this.$startTime = this.$element.find('.start-datetime .start-time');
 
-		this.$timeZone = this.$element.find('.scheduler-timezone .selectlist');
+		this.$timeZone = this.$element.find('.timezone-container');
 
-		this.$repeatIntervalPanel = this.$element.find('.repeat-interval-panel');
-		this.$repeatIntervalSelect = this.$element.find('.repeat-interval .selectlist');
-		this.$repeatIntervalSpinbox = this.$element.find('.repeat-interval-panel .spinbox');
-		this.$repeatIntervalTxt = this.$element.find('.repeat-interval-text');
+		this.$repeatIntervalPanel = this.$element.find('.repeat-every-panel');
+		this.$repeatIntervalSelect = this.$element.find('.repeat-options');
 
-		this.$end = this.$element.find('.scheduler-end');
-		this.$endAfter = this.$end.find('.spinbox');
-		this.$endSelect= this.$end.find('.selectlist');
-		this.$endDate = this.$end.find('.datepicker');
+		this.$repeatIntervalSpinbox = this.$element.find('.repeat-every');
+		this.$repeatIntervalTxt = this.$element.find('.repeat-every-text');
+
+		this.$end = this.$element.find('.repeat-end');
+		this.$endSelect= this.$end.find('.end-options');
+		this.$endAfter = this.$end.find('.end-after');
+		this.$endDate = this.$end.find('.end-on-date');
 
 		// panels
-		this.$recurrencePanels = this.$element.find('.recurrence-panel');
+		this.$recurrencePanels = this.$element.find('.repeat-panel');
 
 		// bind events
-		this.$element.find('.scheduler-weekly .btn-group .btn').on('click', function(e, data){ self.changed(e, data, true); });
+		this.$element.find('.repeat-weekly .btn-group .btn').on('click', function(e, data){ self.changed(e, data, true); });
 		this.$element.find('.combobox').on('changed', $.proxy(this.changed, this));
 		this.$element.find('.datepicker').on('changed', $.proxy(this.changed, this));
 		this.$element.find('.selectlist').on('changed', $.proxy(this.changed, this));
 		this.$element.find('.spinbox').on('changed', $.proxy(this.changed, this));
-		this.$element.find('.scheduler-monthly div.radio, .scheduler-yearly div.radio').on('mouseup', $.proxy(this.changed, this));
+		this.$element.find('.repeat-monthly .radio, .repeat-yearly .radio').on('mouseup', $.proxy(this.changed, this));
 
 		//initialize sub-controls
 		this.$repeatIntervalSelect.on('changed', $.proxy(this.repeatIntervalSelectChanged, this));
@@ -188,7 +189,7 @@
 			}
 			else if(repeat === 'weekly') {
 				days = [];
-				this.$element.find('.scheduler-weekly .btn-group button.active').each(function() {
+				this.$element.find('.repeat-weekly .btn-group button.active').each(function() {
 					days.push($(this).data().value);
 				});
 
@@ -202,7 +203,7 @@
 
 				type = parseInt(this.$element.find('input[name=scheduler-month]:checked').val(), 10);
 				if(type === 1) {
-					day = parseInt(this.$element.find('.scheduler-monthly-date .selectlist').selectlist('selectedItem').text, 10);
+					day = parseInt(this.$element.find('.repeat-monthly-date .selectlist').selectlist('selectedItem').text, 10);
 					pattern += 'BYMONTHDAY=' + day + ';';
 				}
 				else if(type === 2) {
@@ -218,7 +219,7 @@
 
 				type = parseInt(this.$element.find('input[name=scheduler-year]:checked').val(), 10);
 				if(type === 1) {
-					month = this.$element.find('.scheduler-yearly-date .year-month').selectlist('selectedItem').value;
+					month = this.$element.find('.repeat-yearly-date .year-month').selectlist('selectedItem').value;
 					day = this.$element.find('.year-month-day').selectlist('selectedItem').text;
 
 					pattern += 'BYMONTH=' + month + ';';
@@ -227,7 +228,7 @@
 				else if(type === 2) {
 					days = this.$element.find('.year-month-days').selectlist('selectedItem').value;
 					pos = this.$element.find('.year-month-day-pos').selectlist('selectedItem').value;
-					month = this.$element.find('.scheduler-yearly-day .year-month').selectlist('selectedItem').value;
+					month = this.$element.find('.repeat-yearly-day .year-month').selectlist('selectedItem').value;
 
 					pattern += 'BYDAY=' + days + ';';
 					pattern += 'BYSETPOS=' + pos + ';';
@@ -296,7 +297,7 @@
 			this.$recurrencePanels.hide();
 
 			// show panel for current selection
-			this.$element.find('.scheduler-' + val).show();
+			this.$element.find('.repeat-' + val).show();
 
 			// the end selection should only be shown when
 			// the repeat interval is not "None (run once)"
@@ -388,7 +389,7 @@
 					item = 'hourly';
 				}else if(recur.FREQ==='WEEKLY'){
 					if(recur.BYDAY){
-						item = this.$element.find('.scheduler-weekly .btn-group');
+						item = this.$element.find('.repeat-weekly .btn-group');
 						item.find('button').removeClass('active');
 						temp = recur.BYDAY.split(',');
 						for(i=0,l=temp.length; i<l; i++){
@@ -397,13 +398,13 @@
 					}
 					item = 'weekly';
 				}else if(recur.FREQ==='MONTHLY'){
-					this.$element.find('.scheduler-monthly input').removeClass('checked');
+					this.$element.find('.repeat-monthly input').removeClass('checked');
 					if(recur.BYMONTHDAY){
-						temp = this.$element.find('.scheduler-monthly-date');
+						temp = this.$element.find('.repeat-monthly-date');
 						temp.find('input').addClass('checked');
 						temp.find('.select').selectlist('selectByValue', recur.BYMONTHDAY);
 					}else if(recur.BYDAY){
-						temp = this.$element.find('.scheduler-monthly-day');
+						temp = this.$element.find('.repeat-monthly-day');
 						temp.find('input').addClass('checked');
 						if(recur.BYSETPOS){
 							temp.find('.month-day-pos').selectlist('selectByValue', recur.BYSETPOS);
@@ -412,16 +413,16 @@
 					}
 					item = 'monthly';
 				}else if(recur.FREQ==='YEARLY'){
-					this.$element.find('.scheduler-yearly input').removeClass('checked');
+					this.$element.find('.repeat-yearly input').removeClass('checked');
 					if(recur.BYMONTHDAY){
-						temp = this.$element.find('.scheduler-yearly-date');
+						temp = this.$element.find('.repeat-yearly-date');
 						temp.find('input').addClass('checked');
 						if(recur.BYMONTH){
 							temp.find('.year-month').selectlist('selectByValue', recur.BYMONTH);
 						}
 						temp.find('.year-month-day').selectlist('selectByValue', recur.BYMONTHDAY);
 					}else if(recur.BYSETPOS){
-						temp = this.$element.find('.scheduler-yearly-day');
+						temp = this.$element.find('.repeat-yearly-day');
 						temp.find('input').addClass('checked');
 						temp.find('.year-month-day-pos').selectlist('selectByValue', recur.BYSETPOS);
 						if(recur.BYDAY){
@@ -472,7 +473,7 @@
 			}else{
 				action = 'removeClass';
 			}
-			this.$element.find('.scheduler-weekly .btn-group')[action]('disabled');
+			this.$element.find('.repeat-weekly .btn-group')[action]('disabled');
 		},
 
 		value: function(options) {

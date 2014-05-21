@@ -7,6 +7,11 @@
 			border-radius: @baseBorderRadius;
 		}
 	}
+
+	/* for keyboard tabbing */
+	input[type="checkbox"]:focus + .checkbox-label {
+		color: @grayLight;
+	}
 }
 
 .checkbox-custom {
@@ -70,4 +75,10 @@
 		position: relative;
 		left: -99999px;
 	}
+
+	/* for keyboard tabbing */
+	input[type="checkbox"]:focus + .checkbox-label {
+		color: @grayLight;
+	}
+
 }

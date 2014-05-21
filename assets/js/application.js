@@ -14,8 +14,11 @@ define(function(require){
 	require('assets/js/combobox-examples');
 	require('assets/js/infinite-scroll-examples');
 	require('assets/js/repeater-examples');
+	require('assets/js/pillbox-examples');
+	require('assets/js/scheduler-examples');
 	require('assets/js/search-examples');
 	require('assets/js/selectlist-examples');
+	require('assets/js/tree-examples');
 	require('assets/js/wizard-examples');
 
 	$body.scrollspy({

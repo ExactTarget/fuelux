@@ -448,66 +448,6 @@ h1[id] {
 }
 
 /*
- * Code snippets
- *
- * Generated via Pygments and Jekyll, these are snippets of HTML, CSS, and JS.
- */
-
-.highlight {
-	padding: 9px 14px;
-	margin-bottom: 14px;
-	background-color: #f7f7f9;
-	border: 1px solid #e1e1e8;
-	border-radius: 4px;
-}
-.highlight pre {
-	padding: 0;
-	margin-top: 0;
-	margin-bottom: 0;
-	background-color: transparent;
-	border: 0;
-	white-space: nowrap;
-}
-.highlight pre code {
-	font-size: inherit;
-	color: #333; /* Effectively the base text color */
-}
-.highlight pre .lineno {
-	display: inline-block;
-	width: 22px;
-	padding-right: 5px;
-	margin-right: 10px;
-	text-align: right;
-	color: #bebec5;
-}
-.fuelux .checkbox.highlight,
-.fuelux .checkbox-custom.highlight,
-.fuelux .radio.highlight,
-.fuelux .radio-custom.highlight
-{
-	margin-bottom: 10px;
-	background-color: transparent;
-	border: none;
-	border-radius: 0;
-}
-
-.checkboxToggleCLASS,
-.radioToggleCLASS,
-#checkboxToggleID,
-#radioToggleID {
-	margin: 15px 0 0 0;
-}
-
-
-
-
-
-
-
-
-
-
-/*
  * Pygments - Manni CSS
  *
  * This stuff will probably be in a separate css file that we merge later on
@@ -730,6 +670,83 @@ h1[id] {
 }
 
 
+/* =======================================================
+ * FuelUX Components
+ * 
+ * ======================================================= */
+
+.highlight {
+	padding: 9px 14px;
+	margin-bottom: 14px;
+	background-color: #f7f7f9;
+	border: 1px solid #e1e1e8;
+	border-radius: 4px;
+}
+.highlight pre {
+	padding: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+	background-color: transparent;
+	border: 0;
+	white-space: nowrap;
+}
+.highlight pre code {
+	font-size: inherit;
+	color: #333; /* Effectively the base text color */
+}
+.highlight pre .lineno {
+	display: inline-block;
+	width: 22px;
+	padding-right: 5px;
+	margin-right: 10px;
+	text-align: right;
+	color: #bebec5;
+}
+.fuelux .checkbox.highlight,
+.fuelux .checkbox-custom.highlight,
+.fuelux .radio.highlight,
+.fuelux .radio-custom.highlight
+{
+	margin-bottom: 10px;
+	background-color: transparent;
+	border: none;
+	border-radius: 0;
+}
+
+.checkboxToggleCLASS,
+.radioToggleCLASS,
+#checkboxToggleID,
+#radioToggleID {
+	margin: 15px 0 0 0;
+}
+
+.pillbox {
+	border: 1px solid #bbb;
+	margin-bottom: 10px;
+	border-radius: 4px;
+}
+
+/* Example schedulers */
+.bs-example.fu-example-scheduler {
+	background-color: #f5f5f5;
+}
+.bs-example.fu-example-scheduler .end-after > .sr-only,
+.bs-example.fu-example-scheduler .end-on-date > .sr-only {
+	display: inline;
+	position: static;
+}
+.bs-example.fu-example-scheduler .end-after .spinbox {
+	display: inline-block;
+}
+.fu-example-scheduler .scheduler .recurrence-panel {
+	display: block;
+}
+.fu-example-scheduler .scheduler .scheduler-end {
+	display: block;
+}
+.fu-example-scheduler .scheduler .scheduler-end .end-option-panel {
+	display: block;
+}
 
 .thumbnail.repeater-thumbnail {
 	color: #fff;

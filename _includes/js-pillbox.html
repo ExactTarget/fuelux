@@ -1,0 +1,231 @@
+<!-- pillbox
+================================================== -->
+<div class="bs-docs-section">
+  <h1 id="pillbox" class="page-header">Pillbox<small> pillbox.js</small></h1>
+
+  <h2 id="pillbox-example">Example</h2>
+  <p>Pillbox is an interface to manage a list of tags. Wrap the list of tags (pills) within <code>.fuelux .pillbox</code></p>
+
+  <div class="bs-example">
+    <div id="MyPillbox" class="pillbox">
+    {% include js-pillbox-example.html %}
+    </div>
+
+    <h5>Sample Methods</h5>
+    <div class="btn-group">
+      <input type="button" class="btn btn-default" id="btnAdd" value="add">
+      <input type="button" class="btn btn-default" id="btnRemoveByValue" value="remove by value">
+      <input type="button" class="btn btn-default" id="btnRemoveBySelector" value="remove by selector">
+      <input type="button" class="btn btn-default" id="btnRemoveByText" value="remove by text">
+      <input type="button" class="btn btn-default" id="btnItems" value="log items to console">
+    </div>
+  </div>
+
+  <h2 id="pillbox-usage">Usage</h2>
+  <p>A pillbox allows user tag management enabling features such as typahead and tag editing.</p>
+
+  <p>Trigger the Pillbox via JavaScript:</p>
+  {% highlight js %}$('#MyPillbox').pillbox();{% endhighlight %}
+
+  <h3>Markup</h3>
+
+  <p>Add <code>class="pillbox"</code> to a div within a <code>class="fuelux"</code> container.</p>
+
+
+{% highlight html %}
+<div class="pillbox">
+  <ul class="clearfix pill-group">
+    <li class="btn btn-default pill" data-value="foo">
+      <span>Item Title</span>
+      <span class="glyphicon glyphicon-close">
+        <span class="sr-only">Remove</span>
+      </span>
+    </li>
+    ....
+    <div class="pillbox-input-wrap btn-group">
+      <input type="text" class="form-control dropdown-toggle pillbox-add-item" placeholder="add item">
+      <button type="button" class="dropdown-toggle sr-only">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <ul class="suggest dropdown-menu" role="menu" data-toggle="dropdown" data-flip="auto"></ul>
+    </div>
+  </ul>
+</div>
+{% endhighlight %}
+
+  <h3>Methods</h3>
+
+  <h4>.pillbox('addItems')</h4>
+  <p>Adds Items to the pillbox programatically.</p>
+
+{% highlight js %}
+$('#element').pillbox('addItems', 
+  index,
+  [{ 
+    text: '', 
+    value: '' 
+  }]
+  );
+{% endhighlight %}
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="width: 150px;">Parameter</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>index</td>
+          <td><i>Required.</i> The position where to start inserting pill(s). First pane is at position 1. If -1 is used, the item will be appended to end of the list of pills.</td>
+        </tr>
+        <tr>
+          <td><i>[item1, ..., itemX] <br/> item1, ..., itemX</i></td>
+          <td>An array or list of pill objects to be added at the <code>index</code>. Each pill can contain a label <code>text</code> and <code>value</code>.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- ./bs-table-responsive -->
+
+  <h4>.pillbox('removeItems')</h4>
+  <p>Remove items from the pillbox programatically. The first parameter is a <code>1</code> based index that represents the location of the first element to be removed. The second parameter is the number of items that will be removed.</p>
+  {% highlight js %}$('#element').pillbox('removeItems', index, count);{% endhighlight %}
+
+  <h4>.pillbox('items')</h4>
+  <p>Returns an array of objects, one per item, each containing the jQuery data() contents of the item which includes <code>data-*</code> attributes plus a text property with the label's visible text.</p>
+  {% highlight js %}$('#element').pillbox('items');{% endhighlight %}
+
+  <h4>.pillbox('itemCount')</h4>
+  <p>Returns an integer representing the current number of items.</p>
+  {% highlight js %}$('#element').pillbox('itemCount');{% endhighlight %}
+
+  <h4>.pillbox('removeBySelector')</h4>
+  <p>Removes an item based on a jQuery selector.</p>
+  {% highlight js %}$('#element').pillbox('removeBySelector', 'li[data-value=buzz]');{% endhighlight %}
+
+  <h4>.pillbox('removeByText')</h4>
+  <p>Removes an item with contained text matching that of the provided <code>text</code> string parameter.</p>
+  {% highlight js %}$('#element').pillbox('removeByText', "Item 4");{% endhighlight %}
+
+  <h4>.pillbox('removeByValue')</h4>
+  <p>Removes an item with value matching that of the provided <code>value</code> string parameter. The item has to have a <code>.data-value="{value}"</code> attribute</p>
+
+  {% highlight js %}$('#element').pillbox('removeByValue', '1');{% endhighlight %}
+
+  <h3>Options</h3>
+  <p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-value=""</code>.</p>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th style="">Name</th>
+        <th style="">type</th>
+        <th style="width: 50px;">default</th>
+        <th>description</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>acceptKeyCodes</td>
+          <td>array</td>
+          <td>[13, 188]</td>
+          <td>Key codes for keys that trigger an add pill event. Default keys <code>13</code> (for enter) and <code>188</code> (for camma).</td>
+        </tr>
+        <tr>
+          <td>edit</td>
+          <td>boolian</td>
+          <td>false</td>
+          <td>Enables user edited pills.</td>
+        </tr>
+        <tr>
+          <td>onAdd</td>
+          <td>function</td>
+          <td>undefined</td>
+          <td>
+            A callback function that executes when a pill is added. <code>function(data,callback){}</code>
+            The <code>data</code> parameter contains an array of the elements being added.
+            The <code>callback</code> parameter is a function that provides asynchronous support for the add functionality.
+            In order for items to be added, the <code>callback</code> must be run and provided an array of items to be added.
+            If you would like to not modify the list of items to be added, provide data as the parameter for the callback function, <code>callback(data)</code>.
+          </td>
+        </tr>
+        <tr>
+          <td>onRemove</td>
+          <td>function</td>
+          <td>undefined</td>
+          <td>
+            Function that runs when a pill is removed.
+            <code>function(data,callback){}</code>
+            The <code>data</code> parameter contains an array of the elements being removed.
+            The <code>callback</code> parameter is a function that provides asynchronous support for the remove functionality.
+            In order for items to be removed, the <code>callback</code> must be run and provided an array of items to be removed.
+            If you would not like to modify the list of items to be removed, provide data as the parameter for the callback function, <code>callback(data)</code>.
+          </td>
+        </tr>
+        <tr>
+          <td>onKeyDown</td>
+          <td>function</td>
+          <td>undefined</td>
+          <td>
+            Function that executes when a <code>keydown</code> event is triggered.
+            <code>function(event,data,callback){}</code>
+            The <code>event</code> parameter contains the event object.
+            The <code>data</code> parameter contains an array of the elements being removed.
+            The <code>callback</code> parameter is a function that provides asynchronous support for the typahead functionality.
+            The <code>callback</code> function must be run in order for the typahead dropdown with values. Provided the <code>callback</code> with an array of items to display in the typahead dropdown.
+{% highlight js %}
+callback({data:[
+  {
+    text: '', 
+   value:''
+  }]
+});
+{% endhighlight %}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- ./bs-table-responsive -->
+
+
+
+  <h3>Events</h3>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th style="width: 150px;">Event Type</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>clicked</td>
+        <td>This event is triggered when a pill is clicked. A jQuery data() object with information about the clicked pill is returned.</td>
+      </tr>
+      <tr>
+        <td>added</td>
+        <td>This event is triggered when a pill is added. A jQuery data() object with information about the added pill is returned.</td>
+      </tr>
+      <tr>
+        <td>removed</td>
+        <td>This event is triggered when a pill is removed. A jQuery data() object with information about the removed pill is returned.</td>
+      </tr>
+      <tr>
+        <td>edited</td>
+        <td>This event is triggered when a pill is edited. A jQuery data() object with information about the edited pill is returned.</td>
+      </tr>
+      </tbody>
+    </table>
+  </div><!-- ./bs-table-responsive -->
+
+{% highlight js %}
+$('#Mypillbox').on('clicked', function (item) {
+  // do something
+});
+{% endhighlight %}
+
+</div> <!-- end docs-section -->

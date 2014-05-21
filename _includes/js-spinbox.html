@@ -1,0 +1,154 @@
+<!-- spinbox
+================================================== -->
+<div class="bs-docs-section">
+  <h1 id="spinbox" class="page-header">Spinbox<small> spinbox.js</small></h1>
+
+  <h2 id="spinbox-example">Example</h2>
+  <p>Spinbox is an enhanced numeric input based upon the native <code>&lt;input type=&quot;number&quot;&gt;</code>. Wrap the input and the increment/decrement buttons within <code>.fuelux .spinbox</code></p>
+  
+  <div class="bs-example">
+
+    <div id="MySpinboxWithDefault" class="spinbox">
+      <input type="text" value="3" class="form-control input-mini spinbox-input">
+
+      <div class="spinbox-buttons btn-group btn-group-vertical">
+        <button class="btn btn-default spinbox-up btn-xs">
+          <span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
+        </button>
+        <button class="btn btn-default spinbox-down btn-xs">
+          <span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
+        </button>
+      </div>
+    </div>
+  
+  </div><!-- /example -->
+
+  <h2 id="spinbox-usage">Usage</h2>
+  <p>A spinbox allows for click interaction with a numeric input.</p>
+
+  <p>Trigger the Spinbox via JavaScript:</p>
+  {% highlight js %}$('#MySpinbox').spinbox();{% endhighlight %}
+
+  <h3>Markup</h3>
+
+  <p>Add <code>class="spinbox"</code> to an a div within a <code>class="fuelux"</code> container.</p>
+
+
+  {% highlight html %}
+  <div id="MySpinbox" class="spinbox">
+    <input type="text" class="form-control input-mini spinbox-input">
+
+    <div class="spinbox-buttons btn-group btn-group-vertical">
+      <button class="btn btn-default spinbox-up btn-xs">
+        <span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
+      </button>
+      <button class="btn btn-default spinbox-down btn-xs">
+        <span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
+      </button>
+    </div>
+  </div>
+  {% endhighlight %}
+
+  <h3>Methods</h3>
+  <h4>.spinbox('value')</h4>
+  <p>Sets or returns the spinner value. As an example:</p>
+  {% highlight js %}$('#element').combobox('value') {% endhighlight %}
+  <p>would return the current value of the spinbox and</p>
+  {% highlight js %}$('#element').combobox('value', 37) {% endhighlight %}
+  <p>would set the current value to 37. If value contains units it will be returned as a string, otherwise it will be returned as a number</p>
+
+  <h3>Options</h3>
+  <p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-selected=""</code>.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="width: 100px;">Name</th>
+          <th style="width: 100px;">type</th>
+          <th style="width: 50px;">default</th>
+          <th>description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>value</td>
+          <td>number</td>
+          <td>1</td>
+          <td>Sets the initial spinner value.</td>
+        </tr>
+        <tr>
+          <td>min</td>
+          <td>number</td>
+          <td>1</td>
+          <td>Sets the minimum spinner value.</td>
+        </tr>
+        <tr>
+          <td>max</td>
+          <td>number</td>
+          <td>999</td>
+          <td>Sets the maximum spinner value.</td>
+        </tr>
+        <tr>
+          <td>step</td>
+          <td>number</td>
+          <td>1</td>
+          <td>Sets the increment by which the value in the spinner will change each time the spinner buttons are pressed.</td>
+        </tr>
+        <tr>
+          <td>hold</td>
+          <td>boolean</td>
+          <td>true</td>
+          <td>If <code>true</code> the spinner will react to its buttons being pressed and held down.</td>
+        </tr>
+        <tr>
+          <td>hold</td>
+          <td>boolean</td>
+          <td>true</td>
+          <td>If <code>true</code> the spinner will react to its buttons being pressed and held down.</td>
+        </tr>
+        <tr>
+          <td>speed</td>
+          <td>string</td>
+          <td>"medium"</td>
+          <td>Spinner speed when buttons are held down. The options include: <code>"fast","medium","slow".</code></td>
+        </tr>
+        <tr>
+          <td>disabled</td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Spinner will be disabled when it is created.</td>
+        </tr>
+        <tr>
+          <td>units</td>
+          <td>array</td>
+          <td>[]</td>
+          <td>Units that will be allowed to appear and be typed into the spinbox input along with the numeric value. For example, setting units to a value of <code>['px', 'en', 'xx']</code> would allow <code>px, en, and xx</code> units to appear within the spinbox input</td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- ./bs-table-responsive -->
+
+  <h3>Events</h3>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th style="width: 150px;">Event Type</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>changed</td>
+        <td>This event is fired when the value has changed (either by selecting an item from the list or updating the input value directly). Arguments are event, value where value is the current value of the spinner. Current value of the spinner is returned.</td>
+      </tr>
+      </tbody>
+    </table>
+  </div><!-- ./bs-table-responsive -->
+  {% highlight js %}
+  $('#MySpinbox').on('changed', function () {
+    // do something
+  })
+  {% endhighlight %}
+
+</div><!-- end docs-section -->
