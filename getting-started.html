@@ -5,103 +5,208 @@ slug: getting-started
 lead: "An overview of Fuel UX, how to download and use and more."
 ---
 
+<!-- BEGIN FROM README -->
 
-<!-- Getting started
-================================================== -->
-<div class="fu-docs-section">
-	<h1 id="download" class="page-header">Download</h1>
+<h2>
+<a name="user-content-download" class="anchor" href="#getting-fuelux"><span class="octicon octicon-link"></span></a>Download</h2>
 
-	<p class="lead">Fuel UX has a few easy ways to quickly get started, each one appealing to a different skill level and use case. Read through to see what suits your particular needs.</p>
+<p>Fuel UX can be obtained one of three ways:</p>
 
-	<div class="row fu-downloads">
-		<div class="col-sm-4">
-			<h3 id="download-fuelux">Fuel UX</h3>
-			<p>Compiled and minified CSS, JavaScript, and fonts. No docs or original source files are included.</p>
-			<a href="#" class="btn btn-lg btn-outline" role="button">Download Fuel UX</a>
-			<!--<a href="{{ site.download.dist }}" class="btn btn-lg btn-outline" role="button">Download Fuel UX</a>-->
-		</div>
-		<div class="col-sm-4">
-			<h3 id="download-source">Source code</h3>
-			<p>Source Less, JavaScript, and font files, along with our docs. <strong>Requires a Less compiler and <!--<a href="{{ site.repo }}#compiling-css-and-javascript">some setup.</a>--><a href="#">some setup.</a></strong></p>
-			<a href="#" class="btn btn-lg btn-outline" role="button">Download source</a>
-			<!--<a href="{{ site.download.source }}" class="btn btn-lg btn-outline" role="button">Download source</a>-->
-		</div>
-		<div class="col-sm-4">
-			<h3 id="download-sass">Sass</h3>
-			<p><a href="#">Fuel UX ported from Less to Sass</a><!--<a href="{{ site.sass_repo }}">Fuel UX ported from Less to Sass</a>--> for easy inclusion in Rails, Compass, or Sass-only projects.</p>
-			<a href="#" class="btn btn-lg btn-outline" role="button">Download Sass</a>
-			<!--<a href="{{ site.download.sass }}" class="btn btn-lg btn-outline" role="button">Download Sass</a>-->
-		</div>
-	</div>
+<ol class="task-list">
+<li>
+<p><strong>Best way:</strong> Install with a dependency manager:</p>
 
-	<h3 id="download-cdn">Fuel UX CDN</h3>
-	<p>ExactTarget hosts Fuel UX on it's <a href="http://www.fuelcdn.com/">FuelCDN.</a> Just use these <a href="http://www.fuelcdn.com/fuelux-resources">Fuel CDN</a> links.</p>
-	{% highlight html %}
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="{{ site.cdn.css }}">
+<p>Using <a href="https://github.com/bower/bower">Bower</a>:</p>
 
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="{{ site.cdn.css_theme }}">
+<pre><code>bower install fuelux
+</code></pre>
 
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="{{ site.cdn.js }}"></script>
-	{% endhighlight %}
+<p>Update with <code>bower update fuelux</code>.</p>
 
-	<h3 id="download-bower">Install with Bower</h3>
-	<p>Install and manage Fuel UX's Less, CSS, JavaScript, and fonts using <a href="http://bower.io">Bower</a>.</p>
-	{% highlight bash %}$ bower install fuelux{% endhighlight %}
-</div>
+<p>Using <a href="https://github.com/volojs/volo">Volo</a>:</p>
+
+<pre><code>volo add fuelux
+</code></pre>
+
+<p>Update with <code>volo add -f fuelux</code>.</p>
+
+<p>This ensures you get all the <a href="#dependencies">dependencies</a>.</p>
+</li>
+<li>
+<p><strong>Another good way:</strong> Clone the Git repository:</p>
+
+<pre><code>git clone https://github.com/ExactTarget/fuelux/
+</code></pre>
+
+<p>Cloning the repository ensures you can apply future updates to FuelUX easily, but requires to you manage its <a href="#dependencies">dependencies</a> on your own.</p>
+</li>
+<li>
+<p><strong>Also an option:</strong> Download a .zip archive of the latest release <strong>(needthis)</strong> or request files from <a href="http://www.fuelcdn.com/fuelux/">the FuelUX CDN</a>.</p>
+
+<p><em>Note: Using FuelUX in this way can make updating to future releases difficult. This approach is not recommended.</em></p>
+</li>
+</ol>
+
+<!-- END FROM README -->
+
+<div class="row fu-downloads">
+    <div class="col-sm-6">
+      <h3 id="download-fuelux">Fuel UX</h3>
+      <p>Compiled and minified CSS, JavaScript, and fonts. No documentation is included.</p>
+      <a href="#" class="btn btn-lg btn-outline" role="button">Download Fuel UX</a>
+      <!--<a href="{{ site.download.dist }}" class="btn btn-lg btn-outline" role="button">Download Fuel UX</a>-->
+    </div>
+    <div class="col-sm-6">
+      <h3 id="download-source">Source code</h3>
+      <p>Source Less, JavaScript, and font files. <strong>Requires additional setup.</strong></p>
+      <a href="#" class="btn btn-lg btn-outline" role="button">Download source</a>
+      <!--<a href="{{ site.download.source }}" class="btn btn-lg btn-outline" role="button">Download source</a>-->
+    </div>
+  </div>
+
+  <h3 id="download-cdn">Fuel UX CDN</h3>
+  <p>ExactTarget hosts Fuel UX on it's <a href="http://www.fuelcdn.com/">FuelCDN.</a> Just use these <a href="http://www.fuelcdn.com/fuelux-resources">Fuel CDN</a> links.</p>
+{% highlight html %}
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="{{ site.cdn.css }}">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="{{ site.cdn.css_theme }}">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="{{ site.cdn.js }}"></script>
+{% endhighlight %}
+
+  <h3 id="download-bower">Install with Bower</h3>
+  <p>Install and manage Fuel UX's Less, CSS, JavaScript, and fonts using <a href="http://bower.io">Bower</a>.</p>
+  {% highlight bash %}$ bower install fuelux{% endhighlight %}
+
+<h3>
+<a name="user-content-whats-included" class="anchor" href="#whats-included"><span class="octicon octicon-link"></span></a>What's included</h3>
+
+<p class="lead">FuelUX is downloadable in four forms, within which you'll find the following directories and files, logically grouping common resources and providing both compiled and minified variations.</p>
+
+  <div class="bs-callout bs-callout-warning" id="jquery-required">
+    <h4>jQuery and Bootstrap 3 required</h4>
+    <p>FuelUX is dependent upon <a href="https://github.com/twbs/bootstrap">Bootstrap 3</a> and <a href="https://github.com/jquery/jquery">jQuery</a>. If you installed by cloning the repo or by downloading a .zip archive, you'll also want to grab these things, as, it just won't work without them.</p>
+  </div>
 
 
 
-<!-- File structure
-================================================== -->
-<div class="fu-docs-section">
-	<h1 id="whats-included" class="page-header">What's included</h1>
+<p>A download of FuelUX provides the following directories and files, which are grouped according to file type:</p>
 
-	<p class="lead">Fuel UX is downloadable in two forms, within which you'll find the following directories and files, logically grouping common resources and providing both compiled and minified variations.</p>
+<pre><code>fuelux/
+├── css/
+│   ├── fuelux.css
+│   ├── fuelux.min.css
+├── js/
+│   ├── fuelux.js
+│   └── fuelux.min.js
+└── fonts/
+    ├── fuelux.eot
+    ├── fuelux.svg
+    ├── fuelux.ttf
+    └── fuelux.woff
+</code></pre>
 
-	<div class="fu-callout fu-callout-warning" id="jquery-required">
-		<h4>jQuery required</h4>
-		<p>Please note that <strong>all JavaScript plugins require jQuery</strong> to be included, as shown in the <a href="#template">starter template</a>. <a href="{{ site.repo }}/blob/v{{ site.current_version }}/bower.json">Consult our <code>bower.json</code></a> to see which versions of jQuery are supported.</p>
-	</div>
+<p>We provide compiled CSS and JS (like <code>fuelux.*</code>), as well as compiled and minified CSS and JS (like <code>fuelux.min.*</code>) in the <code>dist</code> folder.</p>
 
-	<h2 id="whats-included-precompiled">Precompiled Fuel UX</h2>
-	<p>Once downloaded, unzip the compressed folder to see the structure of (the compiled) Fuel UX. You'll see something like this:</p>
-	<!-- NOTE: This info is intentionally duplicated in the README.
-	Copy any changes made here over to the README too. -->
-	{% highlight bash %}
-	fuelux/
-	├── css/
-	│   ├── fuelux.css
-	│   ├── fuelux.min.css
-	│   ├── fuelux-theme.css
-	│   └── fuelux-theme.min.css
-	├── js/
-	│   ├── fuelux.js
-	│   └── fuelux.min.js
-	└── fonts/
-	├── glyphicons-halflings-regular.eot
-	├── glyphicons-halflings-regular.svg
-	├── glyphicons-halflings-regular.ttf
-	└── glyphicons-halflings-regular.woff
-	{% endhighlight %}
+<h3>
+<a name="user-content-umdamd-support" class="anchor" href="#umdamd-support"><span class="octicon octicon-link"></span></a>UMD/AMD Support</h3>
 
-	<p>This is the most basic form of Fuel UX: precompiled files for quick drop-in usage in nearly any web project. We provide compiled CSS and JS (<code>fuelux.*</code>), as well as compiled and minified CSS and JS (<code>fuelux.min.*</code>). Fonts from Glyphicons are included, as is the optional Fuel UX theme.</p>
+<p>We recommend only loading the controls you need (eg <code>fuelux/checkbox</code>).</p>
 
-	<h2 id="whats-included-source">Fuel UX source code</h2>
-	<p>The Fuel UX source code download includes the precompiled CSS, JavaScript, and font assets, along with source Less, JavaScript, and documentation. More specifically, it includes the following and more:</p>
-	{% highlight bash %}
-	fuelux/
-	├── less/
-	├── js/
-	├── fonts/
-	├── dist/
-	│   ├── css/
-	│   ├── js/
-	│   └── fonts/
-	└── docs/
-	└── examples/
-	{% endhighlight %}
-	<p>The <code>less/</code>, <code>js/</code>, and <code>fonts/</code> are the source code for our CSS, JS, and icon fonts (respectively). The <code>dist/</code> folder includes everything listed in the precompiled download section above. The <code>docs/</code> folder includes the source code for our documentation, and <code>examples/</code> of Fuel UX usage. Beyond that, any other included file provides support for packages, license information, and development.</p>
-</div>
+<p>If using AMD (such as <a href="http://require.js.org">RequireJS</a>), reference the FuelUX directory in your paths configuration, wherever it is located:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">require</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
+    <span class="nx">paths</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s1">'fuelux'</span><span class="o">:</span> <span class="s1">'http://www.fuelcdn.com/fuelux/3.0.0/'</span>
+        <span class="c1">//...</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>Then list any individual fuelux controls needed as dependencies within your application modules:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">define</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">require</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">spinbox</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fuelux/spinbox'</span><span class="p">);</span>
+    <span class="c1">//...</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>For your convenience when you are using AMD, you can just use <code>fuelux/all</code> instead of listing each module individually, but this is not recommended.</p>
+
+<p>FuelUX also supports placing components in their own <code>&lt;script&gt;</code> tags. Be sure to put modules in the correct order if loading them in this method (although this order is a secret known only to 29th level wizards/enchantresses and 11th degree JS ninjas).</p>
+
+<h2>
+<a name="user-content-bugs-and-feature-requests" class="anchor" href="#bugs-and-feature-requests"><span class="octicon octicon-link"></span></a>Bugs and feature requests</h2>
+
+<p>Have a bug or a feature request? Please first review the <a href="https://github.com/ExactTarget/fuelux/issues">open issues</a>, then search for existing and closed issues. If your problem or idea is not addressed yet, <a href="https://github.com/ExactTarget/fuelux/issues/new">please open a new issue</a>.</p>
+
+<p>You can visit <a href="https://code.exacttarget.com/tag/fuel-ux">questions tagged FuelUX</a> in the ExactTarget Developer Community and search <a href="http://stackoverflow.com/questions/tagged/fuelux">FuelUX tagged questions on StackOverflow</a>.</p>
+
+<p>You can also visit <a href="https://fuelux.uservoice.com">UserVoice community</a> and post a comment or suggest features. We will maintain of backlog of feature we are considering developing in a <a href="https://github.com/ExactTarget/fuelux/blob/3.0.0-wip/BACKLOG.md">backlog</a>.</p>
+
+<h3>
+<a name="user-content-previous-releases" class="anchor" href="#previous-releases"><span class="octicon octicon-link"></span></a>Previous releases</h3>
+
+<p>Documentation for v2.6.x has been made available for the time being at <strong>(need link)</strong> while folks transition to Bootstrap 3. Previous releases and their documentation are also available for download. <strong>(need link)</strong></p>
+
+<h2>
+<a name="user-content-compiling-css-and-javascript" class="anchor" href="#compiling-css-and-javascript"><span class="octicon octicon-link"></span></a>Compiling CSS and JavaScript</h2>
+
+<p>FuelUX is lightweight to give you a fast dependable foundation to build upon. It uses <a href="http://gruntjs.com/">Grunt</a> with convenient methods for working with the library. It's how we compile our code, run tests, and more. To use it, install the required dependencies as directed, and then run some Grunt tasks.</p>
+
+<h3>
+<a name="user-content-install-grunt" class="anchor" href="#install-grunt"><span class="octicon octicon-link"></span></a>Install Grunt</h3>
+
+<p>From the command line:</p>
+
+<ol class="task-list">
+<li>Install <code>grunt-cli</code> globally with <code>npm install -g grunt-cli</code>.</li>
+<li>Navigate to the root <code>/bootstrap</code> directory, then run <code>npm install</code>. npm will look at <a href="https://github.com/twbs/bootstrap/blob/master/package.json">package.json</a> and automatically install the necessary local dependencies listed there.</li>
+</ol><p>When completed, you'll be able to run the various Grunt commands provided from the command line.</p>
+
+<p><strong>Unfamiliar with NPM? Don't have node installed?</strong> NPM stands for <a href="http://npmjs.org/">node packaged modules</a> and is a way to manage development dependencies through node.js. <a href="http://nodejs.org/download/">Download and install node.js</a> before proceeding.</p>
+
+<h3>
+<a name="user-content-grunt-tasks" class="anchor" href="#grunt-tasks"><span class="octicon octicon-link"></span></a>Grunt Tasks</h3>
+
+<h4>
+<a name="user-content-build---grunt" class="anchor" href="#build---grunt"><span class="octicon octicon-link"></span></a>Build - <code>grunt</code>
+</h4>
+
+<p>Run <code>grunt</code> to run tests locally and compile the CSS and JavaScript into <code>dist</code>. Uses <a href="http://lesscss.org/">Less</a> and <a href="http://lisperator.net/uglifyjs/">UglifyJS</a>.</p>
+
+<h4>
+<a name="user-content-testing---grunt-test" class="anchor" href="#testing---grunt-test"><span class="octicon octicon-link"></span></a>Testing - <code>grunt test</code>
+</h4>
+
+<p>Runs <a href="http://jshint.com">JSHint</a>, <a href="https://www.npmjs.org/package/grunt-html-validation">HTML validation</a>, and <a href="http://qunitjs.com/">QUnit</a> tests headlessly in <a href="http://phantomjs.org/">PhantomJS</a>. <code>grunt releasetest</code> uses multiple versions of jQuery. </p>
+
+<h4>
+<a name="user-content-watch---grunt-serve" class="anchor" href="#watch---grunt-serve"><span class="octicon octicon-link"></span></a>Watch - <code>grunt serve</code>
+</h4>
+
+<p>This is a convenience method for watching source files and automatically building them when you save. To compile only CSS without running unit tests, use <code>grunt servecss</code>.</p>
+
+<p><em><code>grünt saucelabs</code> and <code>grunt trickysauce</code> can be run locally instead of through TravisCI, but require the FuelUX Saucelabs API key file which is not public at this time.</em></p>
+
+<h3>
+<a name="user-content-troubleshooting-dependencies" class="anchor" href="#troubleshooting-dependencies"><span class="octicon octicon-link"></span></a>Troubleshooting dependencies</h3>
+
+<p>Should you encounter problems with installing dependencies or running Grunt commands, uninstall all previous dependency versions (global and local). Then, rerun <code>npm install</code>.</p>
+
+<h2>
+<a name="user-content-contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>Before writing code, we suggest you <a href="https://github.com/ExactTarget/fuelux/issues?state=open">search for issues</a> or <a href="https://github.com/ExactTarget/fuelux/issues/new">create a new one</a> to confirm where your contribution fits into
+our roadmap.</p>
+
+<p>In lieu of a formal style guide, take care to maintain the existing coding style: tabs, clarity over brevity, declarative markup, semicolons, etc. Be sure to add unit tests for any new or changed functionality. Lint and test your code using <a href="https://github.com/cowboy/grunt">grunt</a>.</p>
+
+<p>Read more about <a href="https://github.com/ExactTarget/fuelux/wiki/Contributing-to-Fuel-UX">contributing to FuelUX</a></p>
+
+<p>Please do not edit files in the <code>dist</code> directory as they are generated via grunt. You'll find source code in the respective <code>js</code>, <code>less</code>, and <code>fonts</code> directory.</p>
+
+<p>While grunt can run the included unit tests via PhantomJS, this isn't a substitute for running tests across a variety of browsers and environments. Please be sure to view the test page at <a href="http://localhost:8000/test/">http://localhost:8000/test/</a> in as many of the browsers listed in <code>sauce_browsers.yml</code> as you can before contributing.</p>
