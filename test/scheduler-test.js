@@ -5,6 +5,9 @@
 define(function(require){
 	var $ = require('jquery');
 	var html = require('text!test/markup/scheduler-markup.html');
+	/* FOR DEV TESTING */
+	//var html = require('text!dev.html!strip');
+	html = $('<div>'+html+'<div>').find('#MyScheduler');
 
 	require('bootstrap');
 	require('fuelux/scheduler');
@@ -60,7 +63,7 @@ define(function(require){
 		});
 		equal(disabled, true, 'all spinbox controls disabled');
 
-		disabled = $scheduler.find('.repeat-weekly .btn-group').hasClass('disabled');
+		disabled = $scheduler.find('.repeat-days-of-the-week .btn-group').hasClass('disabled');
 		equal(disabled, true, 'scheduler weekly btn-group disabled');
 	});
 
@@ -106,7 +109,7 @@ define(function(require){
 		});
 		equal(enabled, true, 'all spinbox controls enabled');
 
-		enabled = ($scheduler.find('.repeat-weekly .btn-group').hasClass('disabled')) ? false : true;
+		enabled = ($scheduler.find('.repeat-days-of-the-week .btn-group').hasClass('disabled')) ? false : true;
 		equal(enabled, true, 'scheduler weekly btn-group enabled');
 	});
 
@@ -161,8 +164,8 @@ define(function(require){
 		equal($repIntSelDrop.html(), 'Weekdays', 'weekday recurrence set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=WEEKLY;BYDAY=MO,TH;INTERVAL=7;' });
-		test = $scheduler.find('.repeat-weekly .btn-group');
-		test = (test.find('[data-value="MO"]').hasClass('active') && test.find('[data-value="TH"]').hasClass('active')) ? true : false;
+		test = $scheduler.find('.repeat-days-of-the-week .btn-group');
+		test = (test.find('[data-value="MO"]').parent().hasClass('active') && test.find('[data-value="TH"]').parent().hasClass('active')) ? true : false;
 		ok(($repIntSelDrop.html()==='Weekly' && $repPanSpinbox.spinbox('value')===7 && test), 'weekly recurrence set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=MONTHLY;INTERVAL=9;BYDAY=SA;BYSETPOS=4;' });
