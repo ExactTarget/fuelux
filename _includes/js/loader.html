@@ -1,0 +1,79 @@
+<!-- loader
+================================================== -->
+<div class="bs-docs-section">
+	<h1 id="loaders" class="page-header">Loaders <small>loader.js</small></h1>
+
+	<h2 id="loaders-examples">Examples</h2>
+	<p>Animation for visual indication of waiting time that can be customized to have many appearances.</p>
+
+	<div class="bs-example">
+		<div class="loader"></div>
+	</div>
+	{% highlight html %}
+	<div class="loader"></div>
+	{% endhighlight %}
+
+	<h4>Starting frame</h4>
+	<p>Use the <code>data-frame</code> attribute to set the initial animation frame (defaults to 1). Additionally, this attribute can be modified at any time to set the current frame.
+	<div class="bs-example">
+		<div class="loader" data-frame="5"></div>
+	</div>
+	{% highlight html %}
+	<div class="loader" data-frame="5"></div>
+	{% endhighlight %}
+
+	<h4>Controlling speed</h4>
+	<p>Use the <code>data-delay</code> attribute to alter animation speed (defaults to 150).
+	<div class="bs-example">
+		<div class="loader" data-delay="500"></div>
+	</div>
+	{% highlight html %}
+	<div class="loader" data-delay="500"></div>
+	{% endhighlight %}
+
+	<h4>Animation range</h4>
+	<p>Use the <code>data-begin</code> and <code>data-end</code> attributes to control at which frames the animation begins and ends, respectively. (Defaults are 1 and 8)
+	<div class="bs-example">
+		<div class="loader" data-begin="3" data-end="6"></div>
+	</div>
+	{% highlight html %}
+	<div class="loader" data-begin="3" data-end="6"></div>
+	{% endhighlight %}
+
+	<h2 id="loaders-usage">Usage</h2>
+	<p>If on the page initially, the loader will automatically begin to play upon the <code>$(document).ready();</code> event.</p>
+
+	<p>Initialize the loader via JavaScript:</p>
+	{% highlight js %}$('#MyLoader').loader();{% endhighlight %}
+
+	<h3>Markup</h3>
+	<p>Simply place <code>class="loader"</code> on a div. Easy, huh?</p>
+	{% highlight html %}
+	<div class="loader"></div>
+	{% endhighlight %}
+
+	<h3>Methods</h3>
+	<h4>$().loader();</h4>
+	Attaches loader to a 'loader' classed div
+
+	<h4>.loader('next');</h4>
+	<p>Increments the loader animation to the next frame</p>
+	{% highlight js %}$('#element').loader('next');{% endhighlight %}
+
+	<h4>.loader('pause');</h4>
+	<p>Pauses the loader animation at the current frame.</p>
+	{% highlight js %}$('#element').loader('pause');{% endhighlight %}
+
+	<h4>.loader('play');</h4>
+	<p>Plays the loader animation, resuming it if paused.</p>
+	{% highlight js %}$('#element').loader('play');{% endhighlight %}
+
+	<h4>.loader('prev');</h4>
+	<p>Decrements the loader animation to the previous frame.</p>
+	{% highlight js %}$('#element').loader('prev');{% endhighlight %}
+
+	<h4>.loader('reset');</h4>
+	<p>Resets the loader animation to the beginning frame.</p>
+	{% highlight js %}$('#element').loader('reset');{% endhighlight %}
+
+</div>

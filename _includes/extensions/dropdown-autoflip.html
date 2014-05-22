@@ -1,0 +1,88 @@
+<!-- dropdown-autoflip
+================================================== -->
+<h2 id="stock-extensions-dropdown-autoflip" class="page-header">Auto-Flip Dropdowns <small>dropdown-autoflip.js</small></h2>
+
+<p class="lead">Additional functionality added to dropdown menus that enables dropup menus instead of dropdown menu based on screen position.</p>
+
+<h3 id="dropdown-autoflips-examples">Examples</h3>
+<p>Add <code>data-flip="auto"</code> to a dropdown trigger <code>data-toggle="dropdown"</code>. (You may need to scroll up to trigget this functionality.) The menu will need be "below the fold" at the bottom of the screen in order to become a dropup menu. </p>
+<div class="bs-example">
+
+	<div class="btn-group">
+		<button type="button" class="btn btn-danger">Auto Flip Dropdown</button>
+		<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" data-flip="auto">
+			<span class="caret"></span>
+			<span class="sr-only">Toggle Dropdown</span>
+		</button>
+		<ul class="dropdown-menu" role="menu" >
+			<li><a href="#">Action</a></li>
+			<li><a href="#">Another action</a></li>
+			<li><a href="#">Something else here</a></li>
+			<li class="divider"></li>
+			<li><a href="#">Separated link</a></li>
+		</ul>
+	</div>
+
+</div><!-- /example -->
+
+{% highlight html %}
+<div class="btn-group">
+	<button type="button" class="btn btn-danger">Auto Flip Dropdown</button>
+	<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" data-flip="auto">
+		<span class="caret"></span>
+		<span class="sr-only">Toggle Dropdown</span>
+	</button>
+	<ul class="dropdown-menu" role="menu" >
+		<li><a href="#">Action</a></li>
+		<li><a href="#">Another action</a></li>
+		<li><a href="#">Something else here</a></li>
+		<li class="divider"></li>
+		<li><a href="#">Separated link</a></li>
+	</ul>
+</div>
+{% endhighlight %}
+
+<h3 id="dropdown-autoflips-alignment">Alignment</h3>
+<p>By default, a dropdown menu is automatically positioned 100% from the top and along the right side of its parent. Remove <code>.dropdown-menu-right</code> to a <code>.dropdown-menu</code> to left align the dropdown menu.</p>
+
+<h3 id="dropdown-autoflips-usage">Usage</h3>
+<p>The dropdown-autoflip add-on determines whether to show a dropdown menu or a dropup menu by calculating the position on the screen and the edge of the viewport. If a dropup menu is needed, <code>.dropup</code> is added to the <code>.dropdown-menu</code> element.</p>
+
+<h3>Markup</h3>
+<p>Add <code>data-flip="auto"</code> to a dropdown menu within a <code>class="fuelux"</code> container.</p>
+{% highlight html %}
+<div class="btn-group">
+	<button type="button" class="btn btn-danger">Auto Flip Dropdown</button>
+	<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" data-flip="auto">
+		<span class="caret"></span>
+		<span class="sr-only">Toggle Dropdown</span>
+	</button>
+	<ul class="dropdown-menu" role="menu" >
+		...
+	</ul>
+</div>
+{% endhighlight %}
+
+<h3>Event Listeners</h3>
+<p>The auto-flip dropdown only recieves events.</p>
+<div class="table-responsive">
+	<table class="table table-bordered table-striped">
+		<thead>
+		<tr>
+			<th style="width: 150px;">Event Type</th>
+			<th>Description</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td>click</td>
+			<td>Receives clicks from <code>[data-toggle=dropdown][data-flip]</code></td>
+		</tr>
+		<tr>
+			<td>suggest</td>
+			<td>Fire the <code>suggget</code> event and pass in a dropdown menu <code>$('#dropdownMenu').</code></td>
+		</tr>
+		</tbody>
+	</table>
+</div><!-- ./bs-table-responsive -->
+
