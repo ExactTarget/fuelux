@@ -57,54 +57,14 @@ $('#myElement').wizard('show')                // initializes and invokes show im
 {% include js/infinite-scroll.html %}
 
 {% include js/loader.html %}
-		
-{% include js/pillbox.html %}
 
 {% include js/placard.html %}
 
-{% highlight html %}
-<div class="checkbox">
-  <label class="checkbox-custom">
-    <input type="checkbox" value="">
-    <span class="checkbox-label">Browser-independent checkbox unchecked on page load</span>
-  </label>
-</div>
-<div class="checkbox">
-  <label class="checkbox-custom">
-    <input checked="checked" type="checkbox" value="">
-    <span class="checkbox-label">Browser-independent checkbox checked on page load</span>
-  </label>
-</div>
-<div class="checkbox">
-  <label class="checkbox-custom">
-    <input disabled="disabled" type="checkbox" value="">
-    <span class="checkbox-label">Disabled browser-independent checkbox unchecked on page load</span>
-  </label>
-</div>
-<div class="checkbox">
-  <label class="checkbox-custom">
-    <input checked="checked" disabled="disabled" type="checkbox" value="">
-    <span class="checkbox-label">Disabled browser-independent checkbox checked on page load</span>
-  </label>
-</div>
+{% include js/pillbox.html %}
+
 {% include js/radio.html %}
 
 {% include js/repeater.html %}
-    <p>Use the <code>.checkbox-inline</code> or <code>.radio-inline</code> classes on a series of checkboxes or radios for controls that appear on the same line.</p>
-    <div class="bs-example">
-        <label class="checkbox-custom checkbox-inline">
-            <input type="checkbox" value="option1">
-            <span class="checkbox-label">1</span>
-        </label>
-        <label class="checkbox-custom checkbox-inline">
-            <input checked="checked" type="checkbox" value="option2">
-            <span class="checkbox-label">2</span>
-        </label>
-        <label class="checkbox-custom checkbox-inline">
-            <input disabled="disabled" type="checkbox" value="option3">
-            <span class="checkbox-label">3</span>
-        </label>
-    </div>
 
 {% include js/scheduler.html %}
 
