@@ -6,10 +6,6 @@ Fuel UX extends Bootstrap with additional lightweight JavaScript controls.
 Other benefits include easy installation into web projects, integrated scripts for customizing Bootstrap and Fuel UX,
 simple updates, and solid optimization for deployment. All functionality is covered by live documentation and unit tests.
 
-[![Selenium Test Status](https://saucelabs.com/buildstatus/fuelux)](https://saucelabs.com/u/fuelux)
-
-[![Build Status](https://secure.travis-ci.org/ExactTarget/fuelux.png?branch=master)](http://travis-ci.org/ExactTarget/fuelux)
-
 ## Features
 
 Fuel UX provides all of the styles and plugins from the revolutionary [Bootstrap](https://github.com/twbs/bootstrap) project, with the following additions:
