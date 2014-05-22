@@ -11,25 +11,25 @@
 		<div class="checkbox">
 			<label class="checkbox-custom">
 				<input type="checkbox" value="option1">
-				Custom checkbox unchecked on page load
+				<span class="checkbox-label">Custom checkbox unchecked on page load</span>
 			</label>
 		</div>
 		<div class="checkbox">
 			<label class="checkbox-custom">
 				<input checked="checked" type="checkbox" value="option2">
-				Custom checkbox checked on page load
+				<span class="checkbox-label">Custom checkbox checked on page load</span>
 			</label>
 		</div>
 		<div class="checkbox">
 			<label class="checkbox-custom">
 				<input disabled="disabled" type="checkbox" value="option3">
-				Disabled custom checkbox unchecked on page load
+				<span class="checkbox-label">Disabled custom checkbox unchecked on page load</span>
 			</label>
 		</div>
 		<div class="checkbox">
 			<label class="checkbox-custom">
 				<input checked="checked" disabled="disabled" type="checkbox" value="option4">
-				Disabled custom checkbox checked on page load
+				<span class="checkbox-label">Disabled custom checkbox checked on page load</span>
 			</label>
 		</div>
 	</div>
@@ -37,25 +37,25 @@
 	<div class="checkbox">
 		<label class="checkbox-custom">
 			<input type="checkbox" value="">
-			Custom checkbox unchecked on page load
+			<span class="checkbox-label">Custom checkbox unchecked on page load</span>
 		</label>
 	</div>
 	<div class="checkbox">
 		<label class="checkbox-custom">
 			<input checked="checked" type="checkbox" value="">
-			Custom checkbox checked on page load
+			<span class="checkbox-label">Custom checkbox checked on page load</span>
 		</label>
 	</div>
 	<div class="checkbox">
 		<label class="checkbox-custom">
 			<input disabled="disabled" type="checkbox" value="">
-			Disabled custom checkbox unchecked on page load
+			<span class="checkbox-label">Disabled custom checkbox unchecked on page load</span>
 		</label>
 	</div>
 	<div class="checkbox">
 		<label class="checkbox-custom">
 			<input checked="checked" disabled="disabled" type="checkbox" value="">
-			Disabled custom checkbox checked on page load
+			<span class="checkbox-label">Disabled custom checkbox checked on page load</span>
 		</label>
 	</div>
 	{% endhighlight %}
@@ -64,24 +64,24 @@
 	<p>Use the <code>.checkbox-inline</code> class on checkboxes for controls that appear on the same line.</p>
 	<div class="bs-example">
 		<label class="checkbox-custom checkbox-inline">
-			<input type="checkbox" value="option1"> 1
+			<input type="checkbox" value="option1"> <span class="checkbox-label">1</span>
 		</label>
 		<label class="checkbox-custom checkbox-inline">
-			<input checked="checked" type="checkbox" value="option2"> 2
+			<input checked="checked" type="checkbox" value="option2"> <span class="checkbox-label">2</span>
 		</label>
 		<label class="checkbox-custom checkbox-inline">
-			<input disabled="disabled" type="checkbox" value="option3"> 3
+			<input disabled="disabled" type="checkbox" value="option3"> <span class="checkbox-label">3</span>
 		</label>
 	</div>
 	{% highlight html %}
 	<label class="checkbox-custom checkbox-inline">
-		<input type="checkbox" value="option1"> 1
+		<input type="checkbox" value="option1"> <span class="checkbox-label">1</span>
 	</label>
 	<label class="checkbox-custom checkbox-inline">
-		<input checked="checked" type="checkbox" value="option2"> 2
+		<input checked="checked" type="checkbox" value="option2"> <span class="checkbox-label">2</span>
 	</label>
 	<label class="checkbox-custom checkbox-inline">
-		<input disabled="disabled" type="checkbox" value="option3"> 3
+		<input disabled="disabled" type="checkbox" value="option3"> <span class="checkbox-label">3</span>
 	</label>
 	{% endhighlight %}
 
@@ -93,12 +93,12 @@
 		<div class="checkbox">
 			<label class="checkbox-custom">
 				<input data-toggle="#checkboxToggleID" type="checkbox" value="option1">
-				Toggles element with matching id.
+				<span class="checkbox-label">Toggles element with matching id.</span>
 			</label>
 		</div>
 		<label class="checkbox-custom checkbox-inline">
 			<input data-toggle=".checkboxToggleCLASS" type="checkbox" value="option1">
-			Toggles elements with matching class.
+			<span class="checkbox-label">Toggles elements with matching class.</span>
 		</label>
 
 		<div class="alert bg-info" id="checkboxToggleID" style="display: none;">Id toggling container.</div>
@@ -109,12 +109,12 @@
 	<div class="checkbox">
 		<label class="checkbox-custom">
 			<input data-toggle="#checkboxToggleID" type="checkbox" value="option1">
-			Toggles element with matching id.
+			<span class="checkbox-label">Toggles element with matching id.</span>
 		</label>
 	</div>
 	<label class="checkbox-custom checkbox-inline">
 		<input data-toggle=".checkboxToggleCLASS" type="checkbox" value="option1">
-		Toggles elements with matching class.
+		<span class="checkbox-label">Toggles elements with matching class.</span>
 	</label>
 
 	<div class="alert bg-info" id="checkboxToggleID" style="display: none;">Id toggling container.</div>
