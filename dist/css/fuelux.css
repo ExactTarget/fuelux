@@ -962,7 +962,7 @@
 END
 ------------------------------- */
 }
-.fuelux .scheduler label {
+.fuelux .scheduler .control-label {
   min-width: 7em;
 }
 .fuelux .scheduler .inline-form-text {
@@ -1005,6 +1005,9 @@ END
   display: none;
   margin-left: 0;
 }
+.fuelux .scheduler .repeat-panel.panel-open {
+  display: block;
+}
 .fuelux .scheduler .repeat-panel .radio {
   margin-right: 10px;
 }
@@ -1032,7 +1035,6 @@ END
   overflow: auto;
 }
 .fuelux .scheduler .repeat-interval .repeat-every-panel {
-  display: none;
   float: left;
 }
 .fuelux .scheduler .repeat-interval .repeat-every-panel .repeat-every-pretext {
@@ -1145,8 +1147,9 @@ END
 .fuelux .scheduler .repeat-end {
   display: none;
 }
-.fuelux .scheduler .repeat-end .end-after .spinbox {
+.fuelux .scheduler .repeat-end .end-after {
   float: left;
+  display: inline-block;
 }
 .fuelux .scheduler .repeat-end .form-group {
   margin-left: 0;

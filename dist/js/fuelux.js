@@ -5297,7 +5297,7 @@
 			this.$startDate = this.$element.find( '.start-datetime .start-date' );
 			this.$startTime = this.$element.find( '.start-datetime .start-time' );
 
-			this.$timeZone = this.$element.find( '.timezone-container' );
+			this.$timeZone = this.$element.find( '.timezone-container .timezone' );
 
 			this.$repeatIntervalPanel = this.$element.find( '.repeat-every-panel' );
 			this.$repeatIntervalSelect = this.$element.find( '.repeat-options' );
@@ -5314,7 +5314,8 @@
 			this.$recurrencePanels = this.$element.find( '.repeat-panel' );
 
 			// bind events
-			this.$element.find( '.repeat-weekly .btn-group .btn' ).on( 'click', function( e, data ) {
+			this.$element.find( '.repeat-days-of-the-week .btn-group .btn' ).on( 'mouseup', function( e, data ) {
+				console.log( $( self ).find( '.repeat-days-of-the-week .btn-group button' ) );
 				self.changed( e, data, true );
 			} );
 			this.$element.find( '.combobox' ).on( 'changed', $.proxy( this.changed, this ) );
@@ -5394,6 +5395,7 @@
 				var repeat = this.$repeatIntervalSelect.selectlist( 'selectedItem' ).value;
 				var startTime = this.$startTime.combobox( 'selectedItem' ).text.toLowerCase();
 				var timeZone = this.$timeZone.selectlist( 'selectedItem' );
+
 				var getFormattedDate = function( dateObj, dash ) {
 					var fdate = '';
 					var item;
@@ -5443,9 +5445,11 @@
 					pattern += 'INTERVAL=1;';
 				} else if ( repeat === 'weekly' ) {
 					days = [];
-					this.$element.find( '.repeat-weekly .btn-group button.active' ).each( function() {
+					console.log( this.$element.find( '.repeat-days-of-the-week .btn-group button.active' ) );
+					this.$element.find( '.repeat-days-of-the-week .btn-group button.active' ).each( function() {
 						days.push( $( this ).data().value );
 					} );
+					console.log( days );
 
 					pattern += 'FREQ=WEEKLY;';
 					pattern += 'BYDAY=' + days.join( ',' ) + ';';
@@ -5637,7 +5641,7 @@
 						item = 'hourly';
 					} else if ( recur.FREQ === 'WEEKLY' ) {
 						if ( recur.BYDAY ) {
-							item = this.$element.find( '.repeat-weekly .btn-group' );
+							item = this.$element.find( '.repeat-days-of-the-week .btn-group' );
 							item.find( 'button' ).removeClass( 'active' );
 							temp = recur.BYDAY.split( ',' );
 							for ( i = 0, l = temp.length; i < l; i++ ) {
@@ -5721,7 +5725,7 @@
 				} else {
 					action = 'removeClass';
 				}
-				this.$element.find( '.repeat-weekly .btn-group' )[ action ]( 'disabled' );
+				this.$element.find( '.repeat-days-of-the-week .btn-group' )[ action ]( 'disabled' );
 			},
 
 			value: function( options ) {
