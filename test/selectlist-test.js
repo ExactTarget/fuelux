@@ -5,6 +5,9 @@
 define(function(require){
 	var $ = require('jquery');
 	var html = require('text!test/markup/selectlist-markup.html');
+	/* FOR DEV TESTING */
+	//var html = require('text!dev.html!strip');
+	html = $('<div>'+html+'<div>').find('#MySelectlist');
 
 	require('bootstrap');
 	require('fuelux/selectlist');
@@ -99,7 +102,7 @@ define(function(require){
 		var selectedText = '';
 		var selectedValue = '';
 
-		var $selectlist = $(html).selectlist().on('changed', function (evt, data) {
+		var $selectlist = $(html).selectlist().on('changed.fu.selectlist', function (evt, data) {
 			eventFired = true;
 			selectedText = data.text;
 			selectedValue = data.value;
