@@ -8,7 +8,7 @@
 <a class="sr-only" href="#content">Skip to main content</a>
 
 <!-- Docs master nav -->
-{% include nav-main.html %}
+{% include nav/main.html %}
 
 <!-- Docs page layout -->
 <div class="fu-header" id="content">
@@ -28,25 +28,22 @@
 			<div class="fu-sidebar hidden-print" role="complementary">
 				<ul class="nav fu-sidenav">
 					{% if page.slug == "getting-started" %}
-						{% include nav-getting-started.html %}
-					{% endif %}
-					{% if page.slug == "extensions" %}
-						{% include nav-extensions.html %}
+						{% include nav/getting-started.html %}
 					{% endif %}
 					{% if page.slug == "css" %}
-						{% include nav-css.html %}
+						{% include nav/css.html %}
 					{% endif %}
 					{% if page.slug == "components" %}
-						{% include nav-components.html %}
+						{% include nav/components.html %}
 					{% endif %}
 					{% if page.slug == "javascript" %}
-						{% include nav-javascript.html %}
+						{% include nav/javascript.html %}
 					{% endif %}
-					{% if page.slug == "plugins" %}
-						{% include nav-plugins.html %}
+					{% if page.slug == "extensions" %}
+					{% include nav/extensions.html %}
 					{% endif %}
 					{% if page.slug == "customize" %}-->
-						{% include nav-customize.html %}
+						{% include nav/customize.html %}
 					{% endif %}
 				</ul>
 			</div>
