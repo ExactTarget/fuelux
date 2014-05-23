@@ -122,9 +122,11 @@
 			toggleContainer: function() {
 				if ( this.$toggleContainer ) {
 					if ( this.isChecked() ) {
-						this.$toggleContainer.show();
+						this.$toggleContainer.removeClass( 'hide' );
+						this.$toggleContainer.attr( 'aria-hidden', 'false' );
 					} else {
-						this.$toggleContainer.hide();
+						this.$toggleContainer.addClass( 'hide' );
+						this.$toggleContainer.attr( 'aria-hidden', 'true' );
 					}
 				}
 			},
@@ -2014,11 +2016,14 @@
 						group = $( 'input[name="' + this.groupName + '"]' );
 						group.each( function() {
 							var selector = $( this ).attr( 'data-toggle' );
-							$( selector ).hide();
+							$( selector ).addClass( 'hide' );
+							$( selector ).attr( 'aria-hidden', 'true' );
 						} );
-						this.$toggleContainer.show();
+						this.$toggleContainer.removeClass( 'hide' );
+						this.$toggleContainer.attr( 'aria-hidden', 'false' );
 					} else {
-						this.$toggleContainer.hide();
+						this.$toggleContainer.addClass( 'hide' );
+						this.$toggleContainer.attr( 'aria-hidden', 'true' );
 					}
 
 				}
@@ -2269,7 +2274,7 @@
 				var data = this.selectedItem();
 
 				// trigger changed event
-				this.$element.trigger( 'changed', data );
+				this.$element.trigger( 'changed.fu.selectlist', data );
 
 				e.preventDefault();
 			},
@@ -2391,7 +2396,7 @@
 
 		// SELECTLIST DATA-API
 
-		$( 'body' ).on( 'mousedown.select.data-api', '.selectlist', function() {
+		$( 'body' ).on( 'mousedown.fu.selectlist.data-api', '.selectlist', function() {
 			var $this = $( this );
 			if ( $this.data( 'selectlist' ) ) {
 				return;
@@ -5298,6 +5303,7 @@
 			this.$startTime = this.$element.find( '.start-datetime .start-time' );
 
 			this.$timeZone = this.$element.find( '.timezone-container .timezone' );
+			this.$timeZone.selectlist();
 
 			this.$repeatIntervalPanel = this.$element.find( '.repeat-every-panel' );
 			this.$repeatIntervalSelect = this.$element.find( '.repeat-options' );
@@ -5313,29 +5319,29 @@
 			// panels
 			this.$recurrencePanels = this.$element.find( '.repeat-panel' );
 
-			// bind events
-			this.$element.find( '.repeat-days-of-the-week .btn-group .btn' ).on( 'mouseup', function( e, data ) {
-				console.log( $( self ).find( '.repeat-days-of-the-week .btn-group button' ) );
-				self.changed( e, data, true );
-			} );
-			this.$element.find( '.combobox' ).on( 'changed', $.proxy( this.changed, this ) );
-			this.$element.find( '.datepicker' ).on( 'changed', $.proxy( this.changed, this ) );
-			this.$element.find( '.selectlist' ).on( 'changed', $.proxy( this.changed, this ) );
-			this.$element.find( '.spinbox' ).on( 'changed', $.proxy( this.changed, this ) );
-			this.$element.find( '.repeat-monthly .radio, .repeat-yearly .radio' ).on( 'mouseup', $.proxy( this.changed, this ) );
-
 			//initialize sub-controls
-			this.$repeatIntervalSelect.on( 'changed', $.proxy( this.repeatIntervalSelectChanged, this ) );
-			this.$endSelect.on( 'changed', $.proxy( this.endSelectChanged, this ) );
-			//initialize sub-controls
+			this.$repeatIntervalSelect.on( 'changed.fu.selectlist', $.proxy( this.repeatIntervalSelectChanged, this ) );
+			this.$endSelect.on( 'changed.fu.selectlist', $.proxy( this.endSelectChanged, this ) );
 			this.$startDate.datepicker();
 			this.$startTime.combobox();
+			// init start time
 			if ( this.$startTime.find( 'input' ).val() === '' ) {
 				this.$startTime.combobox( 'selectByIndex', 0 );
 			}
 			this.$repeatIntervalSpinbox.spinbox();
 			this.$endAfter.spinbox();
 			this.$endDate.datepicker();
+
+			// bind events: 'change' is a Bootstrap JS fired event
+			this.$element.find( '.repeat-days-of-the-week .btn-group .btn' ).on( 'change', function( e, data ) {
+				self.changed( e, data, true );
+			} );
+			this.$element.find( '.combobox' ).on( 'changed', $.proxy( this.changed, this ) );
+			this.$element.find( '.datepicker' ).on( 'changed', $.proxy( this.changed, this ) );
+			this.$element.find( '.selectlist' ).on( 'changed.fu.selectlist', $.proxy( this.changed, this ) );
+			this.$element.find( '.spinbox' ).on( 'changed', $.proxy( this.changed, this ) );
+			this.$element.find( '.repeat-monthly .radio, .repeat-yearly .radio' ).on( 'change', $.proxy( this.changed, this ) );
+
 		};
 
 		Scheduler.prototype = {
@@ -5345,7 +5351,7 @@
 				if ( !propagate ) {
 					e.stopPropagation();
 				}
-				this.$element.trigger( 'changed', {
+				this.$element.trigger( 'changed.fu.scheduler', {
 					data: ( data !== undefined ) ? data : $( e.currentTarget ).data(),
 					originalEvent: e,
 					value: this.getValue()
@@ -5373,13 +5379,13 @@
 				}
 
 				// hide all panels
-				this.$endAfter.parent().hide();
-				this.$endDate.parent().hide();
+				this.$endAfter.parent().addClass( 'hide' );
+				this.$endDate.parent().addClass( 'hide' );
 
 				if ( val === 'after' ) {
-					this.$endAfter.parent().show();
+					this.$endAfter.parent().removeClass( 'hide' );
 				} else if ( val === 'date' ) {
-					this.$endDate.parent().show();
+					this.$endDate.parent().removeClass( 'hide' );
 				}
 			},
 
@@ -5395,8 +5401,9 @@
 				var repeat = this.$repeatIntervalSelect.selectlist( 'selectedItem' ).value;
 				var startTime = this.$startTime.combobox( 'selectedItem' ).text.toLowerCase();
 				var timeZone = this.$timeZone.selectlist( 'selectedItem' );
+				var getFormattedDate;
 
-				var getFormattedDate = function( dateObj, dash ) {
+				getFormattedDate = function( dateObj, dash ) {
 					var fdate = '';
 					var item;
 
@@ -5410,6 +5417,7 @@
 
 					return fdate;
 				};
+
 				var day, days, hasAm, hasPm, month, pos, startDateTime, type;
 
 				startDateTime = '' + getFormattedDate( this.$startDate.datepicker( 'getDate' ), '-' );
@@ -5445,11 +5453,9 @@
 					pattern += 'INTERVAL=1;';
 				} else if ( repeat === 'weekly' ) {
 					days = [];
-					console.log( this.$element.find( '.repeat-days-of-the-week .btn-group button.active' ) );
-					this.$element.find( '.repeat-days-of-the-week .btn-group button.active' ).each( function() {
+					this.$element.find( '.repeat-days-of-the-week .btn-group input:checked' ).each( function() {
 						days.push( $( this ).data().value );
 					} );
-					console.log( days );
 
 					pattern += 'FREQ=WEEKLY;';
 					pattern += 'BYDAY=' + days.join( ',' ) + ';';
@@ -5457,29 +5463,28 @@
 				} else if ( repeat === 'monthly' ) {
 					pattern += 'FREQ=MONTHLY;';
 					pattern += 'INTERVAL=' + interval + ';';
+					type = this.$element.find( 'input[name=repeat-monthly]:checked' ).val();
 
-					type = parseInt( this.$element.find( 'input[name=scheduler-month]:checked' ).val(), 10 );
-					if ( type === 1 ) {
+					if ( type === 'bymonthday' ) {
 						day = parseInt( this.$element.find( '.repeat-monthly-date .selectlist' ).selectlist( 'selectedItem' ).text, 10 );
 						pattern += 'BYMONTHDAY=' + day + ';';
-					} else if ( type === 2 ) {
+					} else if ( type === 'bysetpos' ) {
 						days = this.$element.find( '.month-days' ).selectlist( 'selectedItem' ).value;
 						pos = this.$element.find( '.month-day-pos' ).selectlist( 'selectedItem' ).value;
-
 						pattern += 'BYDAY=' + days + ';';
 						pattern += 'BYSETPOS=' + pos + ';';
 					}
+
 				} else if ( repeat === 'yearly' ) {
 					pattern += 'FREQ=YEARLY;';
+					type = this.$element.find( 'input[name=repeat-yearly]:checked' ).val();
 
-					type = parseInt( this.$element.find( 'input[name=scheduler-year]:checked' ).val(), 10 );
-					if ( type === 1 ) {
+					if ( type === 'bymonthday' ) {
 						month = this.$element.find( '.repeat-yearly-date .year-month' ).selectlist( 'selectedItem' ).value;
 						day = this.$element.find( '.year-month-day' ).selectlist( 'selectedItem' ).text;
-
 						pattern += 'BYMONTH=' + month + ';';
 						pattern += 'BYMONTHDAY=' + day + ';';
-					} else if ( type === 2 ) {
+					} else if ( type === 'bysetpos' ) {
 						days = this.$element.find( '.year-month-days' ).selectlist( 'selectedItem' ).value;
 						pos = this.$element.find( '.year-month-day-pos' ).selectlist( 'selectedItem' ).value;
 						month = this.$element.find( '.repeat-yearly-day .year-month' ).selectlist( 'selectedItem' ).value;
@@ -5488,6 +5493,7 @@
 						pattern += 'BYSETPOS=' + pos + ';';
 						pattern += 'BYMONTH=' + month + ';';
 					}
+
 				}
 
 				var end = this.$endSelect.selectlist( 'selectedItem' ).value;
@@ -5539,25 +5545,25 @@
 					case 'daily':
 					case 'weekly':
 					case 'monthly':
-						this.$repeatIntervalPanel.show();
+						this.$repeatIntervalPanel.removeClass( 'hide' );
 						break;
 					default:
-						this.$repeatIntervalPanel.hide();
+						this.$repeatIntervalPanel.addClass( 'hide' );
 						break;
 				}
 
 				// hide all panels
-				this.$recurrencePanels.hide();
+				this.$recurrencePanels.addClass( 'hide' );
 
 				// show panel for current selection
-				this.$element.find( '.repeat-' + val ).show();
+				this.$element.find( '.repeat-' + val ).removeClass( 'hide' );
 
 				// the end selection should only be shown when
 				// the repeat interval is not "None (run once)"
 				if ( val === 'none' ) {
-					this.$end.hide();
+					this.$end.addClass( 'hide' );
 				} else {
-					this.$end.show();
+					this.$end.removeClass( 'hide' );
 				}
 			},
 
@@ -5642,10 +5648,10 @@
 					} else if ( recur.FREQ === 'WEEKLY' ) {
 						if ( recur.BYDAY ) {
 							item = this.$element.find( '.repeat-days-of-the-week .btn-group' );
-							item.find( 'button' ).removeClass( 'active' );
+							item.find( 'label' ).removeClass( 'active' );
 							temp = recur.BYDAY.split( ',' );
 							for ( i = 0, l = temp.length; i < l; i++ ) {
-								item.find( 'button[data-value="' + temp[ i ] + '"]' ).addClass( 'active' );
+								item.find( 'input[data-value="' + temp[ i ] + '"]' ).parent().addClass( 'active' );
 							}
 						}
 						item = 'weekly';

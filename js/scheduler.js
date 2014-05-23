@@ -116,13 +116,13 @@
 			}
 
 			// hide all panels
-			this.$endAfter.parent().removeClass('panel-open');
-			this.$endDate.parent().removeClass('panel-open');
+			this.$endAfter.parent().addClass('hide');
+			this.$endDate.parent().addClass('hide');
 
 			if(val==='after'){
-				this.$endAfter.parent().addClass('panel-open');
+				this.$endAfter.parent().removeClass('hide');
 			}else if(val==='date'){
-				this.$endDate.parent().addClass('panel-open');
+				this.$endDate.parent().removeClass('hide');
 			}
 		},
 
@@ -291,26 +291,26 @@
 				case 'daily':
 				case 'weekly':
 				case 'monthly':
-					this.$repeatIntervalPanel.removeClass('panel-open');
+					this.$repeatIntervalPanel.removeClass('hide');
 					break;
 				default:
-					this.$repeatIntervalPanel.removeClass('panel-open');
+					this.$repeatIntervalPanel.addClass('hide');
 					break;
 			}
 
 			// hide all panels
-			this.$recurrencePanels.removeClass('panel-open');
+			this.$recurrencePanels.addClass('hide');
 
 			// show panel for current selection
-			this.$element.find('.repeat-' + val).addClass('panel-open');
+			this.$element.find('.repeat-' + val).removeClass('hide');
 
 			// the end selection should only be shown when
 			// the repeat interval is not "None (run once)"
 			if(val === 'none') {
-				this.$end.removeClass('panel-open');
+				this.$end.addClass('hide');
 			}
 			else {
-				this.$end.addClass('panel-open');
+				this.$end.removeClass('hide');
 			}
 		},
 

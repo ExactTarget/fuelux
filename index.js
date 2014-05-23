@@ -52,7 +52,7 @@ define(function(require){
 
 	// DATEPICKER
 	$('#datepicker1').datepicker({
-			restrictDateSelection: false
+			//restrictDateSelection: false
 	});
 
 	$('#datepicker1').on('changed', function( event, data ) {

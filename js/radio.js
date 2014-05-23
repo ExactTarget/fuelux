@@ -135,11 +135,14 @@
 					group = $('input[name="' + this.groupName + '"]');
 					group.each(function(){
 						var selector = $(this).attr('data-toggle');
-						$(selector).hide();
+						$(selector).addClass('hide');
+						$(selector).attr('aria-hidden', 'true');
 					});
-					this.$toggleContainer.show();
+					this.$toggleContainer.removeClass('hide');
+					this.$toggleContainer.attr('aria-hidden', 'false');
 				}else {
-					this.$toggleContainer.hide();
+					this.$toggleContainer.addClass('hide');
+					this.$toggleContainer.attr('aria-hidden', 'true');
 				}
 
 			}
