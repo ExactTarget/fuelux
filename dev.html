@@ -2,10 +2,10 @@
 <html lang="en" class="fuelux">
 <head>
 	<meta charset="utf-8">
-	<title>Testing</title>
+	<title>dev.html</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
 	<!--<link href="dist/css/fuelux.css" rel="stylesheet" type="text/css">-->
 	<link href="less/fuelux.less" rel="stylesheet/less" type="text/css" />
 
@@ -31,14 +31,14 @@
 			paths: {
 				jquery: pathToJQuery,
 				underscore: 'bower_components/underscore/underscore',
-				bootstrap: 'bower_components/bootstrap/dist/js/bootstrap.min',
+				bootstrap: 'bower_components/bootstrap/dist/js/bootstrap',
 				moment: 'bower_components/moment-with-langs/index', // comment out if you dont want momentjs to be default
 				fuelux: 'js',
 				sample: 'sample'
 			}
 		});
 
-		require(['jquery', 'data', 'fuelux/all'], function ($, data){
+		require(['jquery', 'index', 'data', 'fuelux/all'], function ($, data){
 
 		});
 	</script>
@@ -46,6 +46,8 @@
 
 <body>
 	<div class="container" style="padding: 20px; margin-top:20px;">
+
+
 
 	</div>
 </body>

@@ -63,7 +63,7 @@
 			var data = this.selectedItem();
 
 			// trigger changed event
-			this.$element.trigger('changed', data);
+			this.$element.trigger('changed.fu.selectlist', data);
 
 			e.preventDefault();
 		},
@@ -184,7 +184,7 @@
 
 	// SELECTLIST DATA-API
 
-	$('body').on('mousedown.select.data-api', '.selectlist', function () {
+	$('body').on('mousedown.fu.selectlist.data-api', '.selectlist', function () {
 		var $this = $(this);
 		if ($this.data('selectlist')) {
 			return;
