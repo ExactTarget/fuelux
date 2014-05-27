@@ -34,6 +34,8 @@
 		this.$input = this.$element.find('.spinbox-input');
 		this.$element.on('focusin', this.$input, $.proxy(this.changeFlag, this));
 		this.$element.on('focusout', this.$input, $.proxy(this.change, this));
+		this.$element.on('keydown', this.$input, $.proxy(this.keydown, this));
+		this.$element.on('keyup', this.$input, $.proxy(this.keyup, this));
 
 		if (this.options.hold) {
 			this.$element.on('mousedown', '.spinbox-up', $.proxy(function() { this.startSpin(true); } , this));
@@ -261,6 +263,24 @@
 			this.options.disabled = false;
 			this.$input.removeAttr("disabled");
 			this.$element.find('button').removeClass('disabled');
+		},
+
+		keydown: function(event){
+			var keyCode = event.keyCode;
+
+			if(keyCode===38){
+				this.step(true);
+			}else if(keyCode===40){
+				this.step(false);
+			}
+		},
+
+		keyup: function(event){
+			var keyCode = event.keyCode;
+
+			if(keyCode===38 || keyCode===40){
+				this.triggerChangedEvent();
+			}
 		}
 	};
 
