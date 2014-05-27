@@ -308,6 +308,39 @@ Attaches repeater to the repeater markup.
 	</table>
 </div><!-- ./bs-table-responsive -->
 
+<h4>.repeater('infiniteScrolling');</h4>
+<p>Enables or disabled infinite scrolling within the repeater. Used primarily by view extensions. Possible arguments are
+	as follows:
+</p>
+{% highlight js %}$('#element').repeater('infiniteScrolling');{% endhighlight %}
+
+<div class="table-responsive">
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th style="width: 150px;">Argument</th>
+				<th>type</th>
+				<th>description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>enable</td>
+				<td>boolean</td>
+				<td>If set to <code>true</code> it will enable infinite scrolling. Default is <code>false</code>.</td>
+			</tr>
+			<tr>
+				<td>options</td>
+				<td>object</td>
+				<td><i>Optional.</i> Specifies the desired infinite scrolling settings. View the infinite scrolling
+					control documentation for more details on available features. Note: the dataSource option on this
+					object will be ignored in favor of the repeater's own <code>dataSource</code>.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div><!-- ./bs-table-responsive -->
+
 <h4>.repeater('render');</h4>
 <p>Renders the repeater data, making a call to the <a href="#repeaters-dataSource">dataSource</a> prior to doing so.
 	Accepts an <i>optional</i> <code>options</code> object as an argument, with the attributes listed in the table below.
