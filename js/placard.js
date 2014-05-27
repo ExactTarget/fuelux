@@ -42,13 +42,12 @@
 
 		this.actualValue = null;
 		this.clickStamp = '_';
-		this.firstExternal = false;
 		this.previousValue = '';
 		if(this.options.revertOnCancel===-1){
 			this.options.revertOnCancel = (this.$accept.length>0) ? true : false;
 		}
 
-		this.$field.on('click', $.proxy(this.show, this));
+		this.$field.on('focus', $.proxy(this.show, this));
 		this.$accept.on('click', $.proxy(this.complete, this, 'accept'));
 		this.$cancel.on('click', function(e){ e.preventDefault(); self.complete('cancel'); });
 
@@ -127,10 +126,7 @@
 			var $originEl = $(e.target);
 			var i, l;
 
-			if(this.firstExternal){
-				this.firstExternal = false;
-				return false;
-			}else if(e.target===el || $originEl.parents('.placard:first').get(0)===el){
+			if(e.target===el || $originEl.parents('.placard:first').get(0)===el){
 				return false;
 			}else{
 				for(i=0, l=exceptions.length; i<l; i++){
@@ -177,7 +173,6 @@
 
 			this.$element.trigger('show');
 			this.clickStamp = new Date().getTime() + (Math.floor(Math.random() * 100) + 1);
-			this.firstExternal = true;
 			if(!this.options.explicit){
 				$(document).on('click.placard.externalClick.' + this.clickStamp, $.proxy(this.externalClickListener, this));
 			}
