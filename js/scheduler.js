@@ -307,11 +307,11 @@
 
 			// hide all panels
 			this.$recurrencePanels.addClass('hide');
-			this.$recurrencePanels.attr('aria-hidden', 'true');;
+			this.$recurrencePanels.attr('aria-hidden', 'true');
 
 			// show panel for current selection
 			this.$element.find('.repeat-' + val).removeClass('hide');
-			this.$element.find('.repeat-' + val).attr('aria-hidden', 'false');;
+			this.$element.find('.repeat-' + val).attr('aria-hidden', 'false');
 
 			// the end selection should only be shown when
 			// the repeat interval is not "None (run once)"
