@@ -57,6 +57,7 @@
 		this.infiniteScrollingEnabled = false;
 		this.infiniteScrollingEnd = null;
 		this.infiniteScrollingOptions = {};
+		this.lastPageInput = 0;
 		this.options = $.extend({}, $.fn.repeater.defaults, options);
 		this.staticHeight = (this.options.staticHeight===-1) ? this.$element.attr('data-staticheight') : this.options.staticHeight;
 
@@ -257,9 +258,13 @@
 		},
 
 		pageInputChange: function(val){
-			val = parseInt(val, 10) - 1;
-			var pageInc = val - this.currentPage;
-			this.render({ pageIncrement: pageInc });
+			var pageInc;
+			if(val!==this.lastPageInput){
+				this.lastPageInput = val;
+				val = parseInt(val, 10) - 1;
+				pageInc = val - this.currentPage;
+				this.render({ pageIncrement: pageInc });
+			}
 		},
 
 		pagination: function(data){
@@ -287,6 +292,7 @@
 				this.$secondaryPaging.addClass(act);
 				this.$secondaryPaging.val(this.currentPage+1);
 			}
+			this.lastPageInput = this.currentPage + 1 + '';
 
 			this.$pages.html(pages);
 
