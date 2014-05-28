@@ -134,27 +134,7 @@
 			},
 			renderer: {
 				complete: function(helpers, callback){
-					var i = 0;
-					var widths = [];
-					var $header, $items;
-
-					if(!this.options.list_columnSyncing || (helpers.data.items.length<1)){
-						callback();
-					}else{
-						$header = this.$element.find('.repeater-list-header:first');
-						$items = this.$element.find('.repeater-list-items:first');
-						$items.find('tr:first td').each(function(){
-							widths.push($(this).outerWidth());
-						});
-						widths.pop();
-						$header.find('td').each(function(){
-							if(widths[i]!==undefined){
-								$(this).outerWidth(widths[i]);
-							}
-							i++;
-						});
-						callback();
-					}
+					columnSyncing.call(this, helpers, callback);
 				},
 				nested: [
 					{
@@ -403,9 +383,35 @@
 						]
 					}
 				]
+			},
+			resize: function(helpers, callback){
+				columnSyncing.call(this, { data: { items: [''] } }, callback);
 			}
 		};
 
+		var columnSyncing = function(helpers, callback){
+			var i = 0;
+			var widths = [];
+			var $header, $items;
+
+			if(!this.options.list_columnSyncing || (helpers.data.items.length<1)){
+				callback();
+			}else{
+				$header = this.$element.find('.repeater-list-header:first');
+				$items = this.$element.find('.repeater-list-items:first');
+				$items.find('tr:first td').each(function(){
+					widths.push($(this).outerWidth());
+				});
+				widths.pop();
+				$header.find('td').each(function(){
+					if(widths[i]!==undefined){
+						$(this).outerWidth(widths[i]);
+					}
+					i++;
+				});
+				callback();
+			}
+		}
 	}
 
 // -- BEGIN UMD WRAPPER AFTERWORD --

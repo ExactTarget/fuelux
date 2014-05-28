@@ -59,6 +59,7 @@
 		this.infiniteScrollingOptions = {};
 		this.lastPageInput = 0;
 		this.options = $.extend({}, $.fn.repeater.defaults, options);
+		this.resizeTimeout = {};
 		this.staticHeight = (this.options.staticHeight===-1) ? this.$element.attr('data-staticheight') : this.options.staticHeight;
 
 		this.$filters.on('change.fu.selectlist', $.proxy(this.render, this, { clearInfinite: true, pageIncrement: null }));
@@ -70,12 +71,21 @@
 		this.$secondaryPaging.on('blur', function(){ self.pageInputChange(self.$secondaryPaging.val()); });
 		this.$views.find('input').on('change', $.proxy(this.viewChanged, this));
 
+		$(window).on('resize.fuelux_repeater_window', function(){
+			clearTimeout(self.resizeTimeout);
+			self.resizeTimeout = setTimeout(function(){
+				self.resize();
+				self.$element.trigger('resize.fuelux.repeater');
+			}, 75);
+		});
+
 		this.$loader.loader();
 		this.$loader.loader('pause');
 		currentView = (this.options.defaultView!==-1) ? this.options.defaultView : this.$views.find('label.active input').val();
 
 		this.initViews(function(){
 			self.resize();
+			self.$element.trigger('resize.fuelux.repeater');
 			self.render({ changeView: currentView });
 		});
 	};
@@ -377,6 +387,7 @@
 
 		resize: function(){
 			var staticHeight = this.staticHeight;
+			var viewObj = $.fn.repeater.views[this.currentView] || {};
 			var height;
 
 			if(staticHeight!==undefined){
@@ -389,6 +400,13 @@
 				this.$viewport.outerHeight(height);
 			}else{
 				this.$canvas.removeClass('scrolling');
+			}
+
+			if(viewObj.resize){
+				viewObj.resize.call(this, {
+					height: this.$element.outerHeight(),
+					width: this.$element.outerWidth()
+				}, function(){});
 			}
 		},
 
