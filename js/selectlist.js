@@ -63,7 +63,7 @@
 			var data = this.selectedItem();
 
 			// trigger changed event
-			this.$element.trigger('changed.fu.selectlist', data);
+			this.$element.trigger('change.fu.selectlist', data);
 
 			e.preventDefault();
 		},
