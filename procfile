@@ -1,0 +1,3 @@
+web:  jekyll serve -P $PORT" > Procfile
+exclude:  [ Gemfile, Gemfile.lock, Procfile, vendor]" >> _config.yml
+_site >> .gitignore
