@@ -51,7 +51,7 @@
 		this.acceptKeyCodes = this._generateObject(this.options.acceptKeyCodes);
 		// Creatie an object out of the key code array, so we dont have to loop through it on every key stroke
 
-		this.$element.on('click', '.pill-group > li', $.proxy(this.itemClicked, this));
+		this.$element.on('click', '.pill-group > .pill', $.proxy(this.itemClicked, this));
 		this.$element.on('click', $.proxy(this.inputFocus, this));
 		this.$element.on('keydown', '.pillbox-add-item', $.proxy(this.inputEvent, this));
 		if( this.options.onKeyDown ){
