@@ -110,9 +110,11 @@
 		toggleContainer: function(){
 			if(this.$toggleContainer) {
 				if(this.isChecked()) {
-					this.$toggleContainer.show();
+					this.$toggleContainer.removeClass('hide');
+					this.$toggleContainer.attr('aria-hidden', 'false');
 				}else {
-					this.$toggleContainer.hide();
+					this.$toggleContainer.addClass('hide');
+					this.$toggleContainer.attr('aria-hidden', 'true');
 				}
 			}
 		},

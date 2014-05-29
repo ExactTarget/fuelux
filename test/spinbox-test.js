@@ -5,6 +5,9 @@
 define(function(require){
 	var $ = require('jquery');
 	var html = require('text!test/markup/spinbox-markup.html');
+	/* FOR DEV TESTING - uncomment to test against index.html */
+	//html = require('text!index.html!strip');
+
 
 	require('bootstrap');
 	require('fuelux/spinbox');

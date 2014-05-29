@@ -5,6 +5,8 @@
 define(function(require){
 	var $ = require('jquery');
 	var html = require('text!test/markup/datepicker-markup.html');
+	/* FOR DEV TESTING - uncomment to test against index.html */
+	//html = require('text!index.html!strip');
 
 	require('bootstrap');
 	require('fuelux/datepicker');
@@ -57,7 +59,7 @@ define(function(require){
 		today           =  todaysMonth + '-' + todaysDate + '-' + today.getFullYear();
 
 		// markup already there
-		var $sample    = $( html ).datepicker();
+		var $sample    = $(html).find('#datepicker1').datepicker();
 		var pickerDate = $sample.datepicker( 'getFormattedDate' );
 		equal( pickerDate, today, 'w/ markup - initialized with todays date' );
 
@@ -67,7 +69,7 @@ define(function(require){
 	});
 
 	test( 'should initialize with date other than now', function() {
-		var $sample = $( html );
+		var $sample = $(html).find('#datepicker1');
 		var futureDate = new Date(+new Date() + ( 7 * 24 * 60 * 60 * 1000 ) ).getTime(); // 7 days in the future
 
 		$sample.datepicker({
@@ -79,7 +81,7 @@ define(function(require){
 	});
 
 	test( 'should initialize with null date', function() {
-		var $sample         = $( html ).datepicker({ date: null });
+		var $sample         = $(html).find('#datepicker1').datepicker({ date: null });
 		var initializedDate = $sample.datepicker( 'getDate' );
 		var inputValue      = $sample.find( 'input[type="text"]' ).val();
 
@@ -88,7 +90,7 @@ define(function(require){
 	});
 
 	test( 'should return date using getDate method', function() {
-		var $sample       = $( html ).datepicker();
+		var $sample       = $(html).find('#datepicker1').datepicker();
 		var dateFormatted = new Date( $sample.datepicker( 'getFormattedDate' ) );
 		var dateObject    = new Date( $sample.datepicker( 'getDate' ) );
 		var dateUnix      = $sample.datepicker( 'getDate', { unix: true } );
@@ -108,7 +110,7 @@ define(function(require){
 	});
 
 	test( 'should set new date using setDate method', function() {
-		var $sample = $( html ).datepicker();
+		var $sample = $(html).find('#datepicker1').datepicker();
 		var newDate = new Date().getTime();
 
 		$sample.datepicker( 'setDate', newDate );
@@ -119,7 +121,7 @@ define(function(require){
 	});
 
 	test( 'should enable/disable datepicker', function() {
-		var $sample      = $( html ).datepicker();
+		var $sample      = $(html).find('#datepicker1').datepicker();
 		var $sampleInput = $sample.find( 'input' );
 
 		// enabled
@@ -138,7 +140,7 @@ define(function(require){
 	});
 
 	test( 'should restrict dates when using custom blackoutDates() default', function() {
-		var $sample      = $( html );
+		var $sample      = $(html).find('#datepicker1');
 		var blackoutDate = new Date(+new Date() + ( 1 * 24 * 60 * 60 * 1000 ) ).getTime(); // 1 day in the future;
 
 		$sample.datepicker({
@@ -163,7 +165,7 @@ define(function(require){
 	});
 
 	test( "should not restrict past dates when overriding restrictDateSelection to false", function() {
-		var $sample = $( html );
+		var $sample = $(html).find('#datepicker1');
 		$sample.datepicker({
 			restrictDateSelection: false
 		});
@@ -177,7 +179,7 @@ define(function(require){
 		var eventsLogged            = 0;
 		var validDateOnEventTrigger = false;
 
-		var $sample = $( html ).datepicker().on( 'changed', function( event, date ) {
+		var $sample = $(html).find('#datepicker1').datepicker().on( 'changed', function( event, date ) {
 			eventsLogged++;
 			if( new Date( date ) !== 'Invalid Date' ) {
 				validDateOnEventTrigger = true;
@@ -191,7 +193,7 @@ define(function(require){
 	});
 
 	test( 'should create dropdown with custom dropdown', function() {
-		var $markup = $( html );
+		var $markup = $(html).find('#datepicker1');
 		var customWidth2 = 240;
 
 		$markup.datepicker({
@@ -217,14 +219,14 @@ define(function(require){
 	});
 
 	test( 'should not use momentjs if not available', function() {
-		var $sample       = $( html ).datepicker();
+		var $sample       = $(html).find('#datepicker1').datepicker();
 		var momentBoolean = $sample.datepicker( '_checkForMomentJS' );
 
 		equal( momentBoolean, false, "not using moment if it's not there" );
 	});
 
 	test( 'should not be able to use any extra features if momentjs is not loaded', function() {
-		var $sample              = $( html ).datepicker();
+		var $sample              = $(html).find('#datepicker1').datepicker();
 		var momentBoolean        = $sample.datepicker( '_checkForMomentJS' );
 		var defaultErrorReturned = "moment.js is not available so you cannot use this function";
 		var getCultureError, setCultureError, getFormatCodeError, setFormatCodeError;
@@ -270,7 +272,7 @@ define(function(require){
 			date: new Date( currentYear, 0, 10 ), // January 10th
 			restrictToYear: currentYear
 		};
-		var $sample = $( html ).datepicker( options );
+		var $sample = $(html).find('#datepicker1').datepicker( options );
 		var disabledLeftArrow = $sample.find('.left.disabled').length;
 		var previousMonthDaysVisible = $sample.find('.lastmonth div').length;
 		var disabledDaysVisible = $sample.find('.lastmonth .restrict').length;
@@ -284,7 +286,7 @@ define(function(require){
 			date: new Date( currentYear, 11, 10 ), // December 10th
 			restrictToYear: currentYear
 		};
-		var $sample = $( html ).datepicker( options );
+		var $sample = $(html).find('#datepicker1').datepicker( options );
 		var disabledLeftArrow = $sample.find('.right.disabled').length;
 		var nextMonthDaysVisible = $sample.find('.nextmonth div').length;
 		var disabledDaysVisible = $sample.find('.nextmonth .restrict').length;
@@ -297,7 +299,7 @@ define(function(require){
 			date: new Date( 2010, 11, 10 ),
 			restrictToYear: 2014
 		};
-		var $sample = $( html ).datepicker( options );
+		var $sample = $(html).find('#datepicker1').datepicker( options );
 		var daysDisplayed = $sample.find( '.thismonth .weekday' ).length;
 		var daysDisplayedDisabled = $sample.find( '.thismonth .weekday.restrict' ).length;
 		ok( daysDisplayedDisabled > 0, 'some days are disabled' );

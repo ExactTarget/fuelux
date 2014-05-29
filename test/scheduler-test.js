@@ -6,7 +6,7 @@ define(function(require){
 	var $ = require('jquery');
 	var html = require('text!test/markup/scheduler-markup.html');
 	/* FOR DEV TESTING */
-	//var html = require('text!dev.html!strip');
+	// html = require('text!index.html!strip');
 	html = $('<div>'+html+'<div>').find('#MyScheduler');
 
 	require('bootstrap');

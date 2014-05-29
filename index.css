@@ -37,6 +37,9 @@ body {
 	margin-bottom: 0;
 }
 
+#MyComboboxContainer, #MyDatepickerContainer {
+	max-width: 300px;
+}
 
 /* Example schedulers */
 .bs-example.fu-example-scheduler {
@@ -51,9 +54,9 @@ body {
 .fu-example-scheduler .scheduler .repeat-panel {
 	display: block !important;
 }
-.fu-example-scheduler .scheduler .scheduler-end {
-	display: block;
+.fu-example-scheduler .scheduler .repeat-end {
+	display: block !important;
 }
-.fu-example-scheduler .scheduler .scheduler-end .end-option-panel {
-	display: block;
+.fu-example-scheduler .scheduler .repeat-end .end-option-panel {
+	display: block !important;
 }
