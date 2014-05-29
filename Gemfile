@@ -1,2 +1,4 @@
-source "https://rubygems.org"
-gem 'github-pages'
+source :rubygems
+
+gem 'jekyll'
+gem 'RedCloth'

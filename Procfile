@@ -1,1 +1,1 @@
-web: jekyll serve -P $PORT
+web: bundle exec jekyll --server -p $PORT
