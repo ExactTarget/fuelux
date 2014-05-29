@@ -1,3 +1,7 @@
-require 'rack/jekyll'
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
 
-run Rack::Jekyll.new
+require "bundler/setup"
+Bundler.require(:default)
+
+run Rack::Jekyll.new(:destination => '_site')
