@@ -388,15 +388,19 @@
 		resize: function(){
 			var staticHeight = this.staticHeight;
 			var viewObj = $.fn.repeater.views[this.currentView] || {};
-			var height;
+			var height, viewportMargins;
 
 			if(staticHeight!==undefined){
 				this.$canvas.addClass('scrolling');
+				viewportMargins = {
+					bottom: this.$viewport.css('margin-bottom'),
+					top: this.$viewport.css('margin-top')
+				};
 				height = ((staticHeight==='true' || staticHeight===true) ? this.$element.height() : parseInt(staticHeight, 10)) -
 					this.$element.find('.repeater-header').outerHeight() -
 					this.$element.find('.repeater-footer').outerHeight() -
-					parseInt(this.$viewport.css('margin-bottom'), 10) -
-					parseInt(this.$viewport.css('margin-top'), 10);
+					((viewportMargins.bottom==='auto') ? 0 : parseInt(viewportMargins.bottom, 10)) -
+					((viewportMargins.top==='auto') ? 0 : parseInt(viewportMargins.top, 10));
 				this.$viewport.outerHeight(height);
 			}else{
 				this.$canvas.removeClass('scrolling');
