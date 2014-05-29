@@ -1,0 +1,227 @@
+<h2 id="writing-extensions-repeater">Repeater Views</h2>
+<p>A repeater view is an object with various attributes used to render data within the repeater control. Each
+	view has a unique name, and is selectable via the <code>.repeater-views</code> classed button group. The view
+	object is added to the<code>$.fn.repeater.views</code> object upon load using it's unique view name as a key.
+	Find more information on creating a repeater view extension below, or check out this simple example.
+</p>
+
+<h3>Default Values and Methods</h3>
+<p>Default values and methods can be added in the same way as <a href="#writing-extensions-general">general extensions</a>,
+	described above.
+</p>
+
+<h3>Functions</h3>
+<p>All functions within the repeater view object are called with the repeater instance's context of <code>this</code>.
+	They are passed a <code>helpers</code> object and <code>callback</code> function. The callback function must be
+	ran to proceed to the next step. It can be provided an object as an argument to perform various functions specific
+	to each function, detailed later on.
+</p>
+
+<h3>View Object</h3>
+<p>The main view object serves as the base for the repeater view extension and supports the following attributes:</p>
+<div class="table-responsive">
+	<table class="table table-bordered table-striped">
+		<thead>
+		<tr>
+			<th style="width: 100px;">Name</th>
+			<th style="width: 100px;">type</th>
+			<th>description</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td>initialize</td>
+			<td>function</td>
+			<td>Runs only once with each instantiation of the repeater, right at the beginning. Provided a <a href="#writing-extensions-repeater-helpers">helpers</a>
+				object and <code>callback</code> function.</td>
+		</tr>
+		<tr>
+			<td>selected</td>
+			<td>function</td>
+			<td>Runs every time this repeater view is selected prior to rendering. Provided a <a href="#writing-extensions-repeater-helpers">helpers</a>
+				object and <code>callback</code> function.</td>
+		</tr>
+		<tr>
+			<td>renderer</td>
+			<td>object</td>
+			<td>A <a href="#writing-extensions-repeater-renderer">renderer</a> object, with various attributes
+				specifying how to render content or data. Provided a <a href="#writing-extensions-repeater-helpers">helpers</a>
+				object and <code>callback</code> function. More details below.
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div><!-- ./bs-table-responsive -->
+
+<h3 id="writing-extensions-repeater-renderer">Renderer Object</h3>
+<p>The renderer object serves to render content or data at a specific level. It has the following structure:</p>
+<div class="table-responsive">
+	<table class="table table-bordered table-striped">
+		<thead>
+		<tr>
+			<th style="width: 100px;">Name</th>
+			<th style="width: 100px;">type</th>
+			<th>description</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td>after</td>
+			<td>function</td>
+			<td>Runs third in line, after the <code>render</code> function has been called and the content has been
+				appended to the DOM. Provided a <a href="#writing-extensions-repeater-helpers">helpers</a>
+				object and <code>callback</code> function. The callback accepts an object with the <code>skipNested</code>
+				attribute. If <code>skipNested</code> is set to <code>true</code>, the repeater will ignore
+				rendering this renderer's <code>nested</code> array.
+			</td>
+		</tr>
+		<tr>
+			<td>before</td>
+			<td>function</td>
+			<td>Runs first in line, before the <code>render</code> function. Provided a <a href="#writing-extensions-repeater-helpers">helpers</a>
+				object and <code>callback</code> function. The callback accepts an object with the <code>skipNested</code>
+				attribute. If <code>skipNested</code> is set to <code>true</code>, the repeater will ignore
+				rendering this renderer's <code>nested</code> array.
+			</td>
+		</tr>
+		<tr>
+			<td>complete</td>
+			<td>function</td>
+			<td>Runs last, after all the renderers in the <code>nested</code> array have ran. Provided a
+				<a href="#writing-extensions-repeater-helpers">helpers</a> object and <code>callback</code>
+				function.
+			</td>
+		</tr>
+		<tr>
+			<td>nested</td>
+			<td>array</td>
+			<td>Array of renderer objects. These objects have the same structure as the one currently being described.
+				Each one will be ran in order following the current object's <code>render</code> function unless
+				told otherwise.
+			</td>
+		</tr>
+		<tr>
+			<td>render</td>
+			<td>function</td>
+			<td>Runs second, after the <code>before</code> function. Primary function for actually rendering data
+				and adding content to the parent container. Provided a <a href="#writing-extensions-repeater-helpers">helpers</a>
+				object and <code>callback</code> function. The <code>callback</code> function accepts an object
+				with several attributes: <code>item</code>, <code>action</code>, and <code>skipNested</code>.
+				The <code>item</code> attribute represents the desired content to be injected into the DOM, and
+				can be either a <code>string</code> or <a href="http://learn.jquery.com/using-jquery-core/jquery-object/">jQuery object</a>.
+				Item content can have special <a href="#writing-extensions-repeater-dataAttr">data-attributes</a>
+				for additional rendering behaviors, listed further below. The <code>action</code> attribute, a string,
+				specifies how the <code>item</code> will be injected in relation to the parent container. By default,
+				it's value is <code>append</code>, but it can be any valid jQuery DOM injection method (ex: 'prepend', 'after', etc).
+				The <code>skipNested</code> attribute, if set to <code>true</code>, will tell the repeater to
+				ignore the current renderer's <code>nested</code> array.
+			</td>
+		</tr>
+		<tr>
+			<td>repeat</td>
+			<td>string</td>
+			<td>If set, this renderer will be rendered multiple times over a subset of data. The string value
+				specifies which subset this renderer is to be iterated over. Represents an attribute of an object
+				using dot notation. The root level must be <code>'data'</code> or <code>'this'</code>. If the root
+				is <code>'data'</code>, the root object will be the <code>data</code> object returned from the
+				<code>dataSource</code>. If the root is <code>'this'</code>, the root object will be the current
+				repeater context of <code>this</code>. Further levels can be specified, separated by dots. The final
+				level must be an array or iteration will not function correctly. This array will then be passed
+				as the <code>subset</code> attribute in the <a href="#writing-extensions-repeater-helpers">helpers</a>
+				object for other renderer functions. (ex: <code>'data.animals.pigeons'</code>)
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div><!-- ./bs-table-responsive -->
+
+<h3 id="writing-extensions-repeater-helpers">Helpers Object</h3>
+<p>The helpers object contains various attributes useful for rendering data:</p>
+<div class="table-responsive">
+	<table class="table table-bordered table-striped">
+		<thead>
+		<tr>
+			<th style="width: 100px;">Name</th>
+			<th style="width: 100px;">type</th>
+			<th>description</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td>container</td>
+			<td><a href="http://learn.jquery.com/using-jquery-core/jquery-object/">jQuery object</a></td>
+			<td>The parent container for the current renderer. Default is the <code>.repeater-canvas</code>
+				div. This will remain true unless another container is specified via data-attributes.
+			</td>
+		</tr>
+		<tr>
+			<td>data</td>
+			<td>object</td>
+			<td>The data object as returned from the <code>dataSource</code>, in it's entirety.</td>
+		</tr>
+		<tr>
+			<td>index</td>
+			<td>number</td>
+			<td>Only present if the <code>repeat</code> attribute was set for the current renderer. Specifies
+				the current index of the subset being iterated over.
+			</td>
+		</tr>
+		<tr>
+			<td>item</td>
+			<td>str or <a href="http://learn.jquery.com/using-jquery-core/jquery-object/">jQuery object</a></td>
+			<td>Represents the item returned from the current renderer's <code>render</code> function. Only present
+				in functions following the <code>render</code> function, and only if an <code>item</code> was returned.
+			</td>
+		</tr>
+		<tr>
+			<td>subset</td>
+			<td>array</td>
+			<td>Only present if the <code>repeat</code> attribute was set for the current renderer. Specifies the
+				subset being iterated over.
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div><!-- ./bs-table-responsive -->
+
+<h3 id="writing-extensions-repeater-dataAttr">Data Attributes</h3>
+<p>There are a few data-attributes that can be added to any markup when rendering content to specify different
+	rendering behaviors. Here are the available attributes:
+</p>
+<div class="table-responsive">
+	<table class="table table-bordered table-striped">
+		<thead>
+		<tr>
+			<th style="width: 100px;">Name</th>
+			<th style="width: 100px;">Value(s)</th>
+			<th>description</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td>data-container</td>
+			<td>"true"</td>
+			<td>If this is added to an element within a returned <code>item</code>, the element will become the parent
+				container for any nested renderer within that renderer object.
+			</td>
+		</tr>
+		<tr>
+			<td>data-infinite</td>
+			<td>"true"</td>
+			<td>If infinite scrolling is enabled, the element with this attribute will be used as the infinite
+				scrolling container.
+			</td>
+		</tr>
+		<tr>
+			<td>data-preserve</td>
+			<td>"deep" or "shallow"</td>
+			<td>If an element contains this attribute it will be preserved upon clearing the repeater of data, which
+				happens each time the <code>dataSource</code> is called. Setting the value to <code>"deep"</code>
+				will tell the repeater to preserve the element and all it's children. Setting the value to
+				<code>"shallow"</code> will tell the repeater to preserve just the element, but will remove any
+				child nodes not marked with <code>data-preserve</code>.
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div><!-- ./bs-table-responsive -->
