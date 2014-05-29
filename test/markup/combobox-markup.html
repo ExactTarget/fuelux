@@ -1,30 +1,53 @@
-<div>
-	<div id="MyCombobox" class="input-group input-append dropdown combobox">
-		<input type="text" class="form-control">
-		<div class="input-group-btn">
-			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-		<ul class="dropdown-menu pull-right">
-			<li data-value="1"><a href="#">One</a></li>
-			<li data-value="2"><a href="#">Two</a></li>
-			<li data-value="3" data-selected="true"><a href="#">Three</a></li>
-			<li data-value="4" ><a href="#">Four</a></li>
-			<li data-value="Item Five"><a href="#">Item Five</a></li>
-			<li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>
-		</ul>
+<div id="MyComboboxContainer">
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="MyComboBoxWithSelectedInput">Has selected item</label>
+		<div class="col-sm-10">
+
+			<div id="MyComboboxWithSelected" class="input-group input-append dropdown combobox">
+				<input id="MyComboBoxWithSelectedInput" type="text" class="form-control">
+				<div class="input-group-btn">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+						<span class="caret"></span>
+						<span class="sr-only">Toggle Dropdown</span>
+					</button>
+					<ul class="dropdown-menu dropdown-menu-right" aria-hidden="true" role="menu">
+						<li data-value="1"><a href="#">One</a></li>
+						<li data-value="2"><a href="#">Two</a></li>
+						<li data-value="3" data-selected="true"><a href="#">Three</a></li>
+						<li data-value="4" ><a href="#">Four</a></li>
+						<li data-value="Item Five"><a href="#">Item Five</a></li>
+						<li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>
+					</ul>
+				</div>
+			</div>
+
 		</div>
 	</div>
-	<div id="MyComboboxNoDefault" class="input-group input-append dropdown combobox">
-		<input type="text" class="form-control">
-		<div class="input-group-btn">
-			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-		<ul class="dropdown-menu pull-right">
-			<li data-value="1"><a href="#">One</a></li>
-			<li data-value="2"><a href="#">Two</a></li>
-			<li data-value="3"><a href="#">Three</a></li>
-			<li data-value="4" ><a href="#">Four</a></li>
-			<li data-value="Item Five"><a href="#">Item Five</a></li>
-			<li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>
-		</ul>
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="MyComboBoxInput">No selected item</label>
+		<div class="col-sm-10">
+
+			<div id="MyCombobox" class="input-group input-append dropdown combobox">
+				<input id="MyComboBoxInput" type="text" class="form-control">
+				<div class="input-group-btn">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+						<span class="caret"></span>
+						<span class="sr-only">Toggle Dropdown</span>
+					</button>
+					<ul class="dropdown-menu dropdown-menu-right" aria-hidden="true" role="menu">
+						<li data-value="1"><a href="#">One</a></li>
+						<li data-value="2"><a href="#">Two</a></li>
+						<li data-value="3"><a href="#">Three</a></li>
+						<li data-value="4" ><a href="#">Four</a></li>
+						<li data-value="Item Five"><a href="#">Item Five</a></li>
+						<li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>
+					</ul>
+				</div>
+			</div>
+
 		</div>
 	</div>
+
 </div>

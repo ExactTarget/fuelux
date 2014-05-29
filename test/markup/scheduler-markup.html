@@ -1,10 +1,10 @@
 <div id="MyScheduler" class="form-horizontal container-fluid scheduler" role="form">
 	<div class="form-group start-datetime">
-		<label class="col-sm-2 control-label scheduler-label">Start Date</label>
+		<label class="col-sm-2 control-label scheduler-label" for="MyStartDate">Start Date</label>
 		<div class="row col-sm-10">
 			<div class="col-sm-8 form-group">
 				<div class="input-group datepicker start-date">
-					<input type="text" class="form-control" />
+					<input id="MyStartDate" type="text" class="form-control" />
 					<div class="input-group-btn">
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> 
 							<span class="glyphicon glyphicon-calendar"><span class="sr-only">View Calendar</span></span>
@@ -15,11 +15,13 @@
 			</div>
 			
 			<div class="col-sm-4 form-group">
+				<label class="sr-only" for="MyStartTime">Start Time</label>
 				<div class="input-group combobox start-time">
-					<input type="text" class="form-control" />
+					<input id="MyStartTime" type="text" class="form-control" />
 					<div class="input-group-btn">
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 							<span class="caret"></span>
+							<span class="sr-only">Toggle Dropdown</span>
 						</button>
 						<ul class="dropdown-menu pull-right" role="menu">
 							<li><a href="#">12:00 AM</a></li>
@@ -208,11 +210,11 @@
 					<input type="text" aria-hidden="true" readonly="readonly" name="intervalSelectlist" class="hidden hidden-field">
 				</div>
 
-				<div class="repeat-panel repeat-every-panel repeat-hourly repeat-daily repeat-weekly">
-					<div class="inline-form-text repeat-every-pretext">every</div>
+				<div class="repeat-panel repeat-every-panel repeat-hourly repeat-daily repeat-weekly hide">
+					<label id="MySchedulerEveryLabel" class="inline-form-text repeat-every-pretext">every</label>
 
 					<div class="spinbox repeat-every">
-						<input type="number" class="form-control input-mini spinbox-input">
+						<input type="number" class="form-control input-mini spinbox-input" aria-labelledby="MySchedulerEveryLabel">
 
 						<div class="spinbox-buttons btn-group btn-group-vertical">
 							<button class="btn btn-default spinbox-up btn-xs">
@@ -224,11 +226,11 @@
 						</div>
 					</div>
 
-					<div class="inline-form-text repeat-every-text">day(s)</div>
+					<div class="inline-form-text repeat-every-text"></div>
 				</div>
 			</div>
 
-			<div class="form-group repeat-panel repeat-weekly repeat-days-of-the-week">
+			<div class="form-group repeat-panel repeat-weekly repeat-days-of-the-week hide">
 					<fieldset class="btn-group" data-toggle="buttons">
 						<label class="btn btn-default">
 							<input type="checkbox" data-value="SU">Sun
@@ -255,7 +257,7 @@
 				</div>
 
 
-			<div class="repeat-panel repeat-monthly">
+			<div class="repeat-panel repeat-monthly hide">
 				<div class="form-group repeat-monthly-date">
 					<div class="radio pull-left">
 						<label class="radio-custom">
@@ -352,7 +354,8 @@
 				</div>
 			</div>
 			
-			<div class="repeat-panel repeat-yearly">
+			<div class="repeat-panel repeat-yearly hide">
+
 				<div class="form-group repeat-yearly-date">
 
 					<div class="radio pull-left">
@@ -496,7 +499,7 @@
 		</div>
 	</div>
 
-	<div class="form-group repeat-end">
+	<div class="form-group repeat-end hide">
 		<label class="col-sm-2 control-label scheduler-label">End</label>
 		<div class="col-sm-10 row">
 			<div class="col-sm-3 form-group">
@@ -515,10 +518,10 @@
 				</div>
 			</div>
 			
-			<div class="col-sm-6 form-group end-option-panel end-after-panel pull-left">
+			<div class="col-sm-6 form-group end-option-panel end-after-panel pull-left hide">
 				<div class="spinbox end-after">
-					<span class="sr-only">End After</span>
-					<input type="number" class="form-control input-mini spinbox-input">
+					<label id="MyEndAfter" class="sr-only">End After</label>
+					<input type="number" class="form-control input-mini spinbox-input" aria-labelledby="MyEndAfter">
 
 					<div class="spinbox-buttons btn-group btn-group-vertical">
 						<button class="btn btn-default spinbox-up btn-xs">
@@ -532,9 +535,10 @@
 				<div class="inline-form-text end-after-text">occurance(s)</div>
 			</div>
 
-			<div class="col-sm-8 form-group end-option-panel end-on-date-panel pull-left">
+			<div class="col-sm-8 form-group end-option-panel end-on-date-panel pull-left hide">
 				<div class="input-group datepicker end-on-date">
-					<input type="text" class="form-control" />
+					<label class="sr-only" for="MySchedulerEndDate">Choose a date</label>
+					<input id="MySchedulerEndDate" type="text" class="form-control" />
 					<div class="input-group-btn">
 							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> 
 								<span class="glyphicon glyphicon-calendar"><span class="sr-only">View Calendar</span></span>

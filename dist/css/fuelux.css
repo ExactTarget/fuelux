@@ -127,11 +127,6 @@
   background: #e9e9e9;
   border-radius: 4px;
 }
-.fuelux .checkbox-custom input[type=checkbox] {
-  /* IE cannot fire events if display none or visibility hidden */
-  position: relative;
-  left: -99999px;
-}
 .fuelux .checkbox-custom input[type="checkbox"]:focus + .checkbox-label {
   color: #999999;
 }
@@ -680,11 +675,6 @@
   background: #e9e9e9;
   border-radius: 4px;
 }
-.fuelux .radio-custom input[type=radio] {
-  /* IE cannot fire events if display none or visibility hidden */
-  position: relative;
-  left: -99999px;
-}
 .fuelux .radio-custom input[type="radio"]:focus + .radio-label {
   color: #999999;
 }
@@ -751,6 +741,9 @@
 .fuelux .repeater-viewport {
   min-height: 80px;
   position: relative;
+}
+.fuelux .repeater-pagination label {
+  font-weight: normal;
 }
 .fuelux .repeater-pagination .repeater-primaryPaging {
   display: none;
@@ -1002,11 +995,10 @@ END
   overflow: auto;
 }
 .fuelux .scheduler .repeat-panel {
-  display: none;
   margin-left: 0;
 }
-.fuelux .scheduler .repeat-panel.panel-open {
-  display: block;
+.fuelux .scheduler .repeat-panel label {
+  font-weight: normal;
 }
 .fuelux .scheduler .repeat-panel .radio {
   margin-right: 10px;
@@ -1144,18 +1136,12 @@ END
 .fuelux .scheduler label.radio input {
   margin-top: 8px;
 }
-.fuelux .scheduler .repeat-end {
-  display: none;
-}
 .fuelux .scheduler .repeat-end .end-after {
   float: left;
   display: inline-block;
 }
 .fuelux .scheduler .repeat-end .form-group {
   margin-left: 0;
-}
-.fuelux .scheduler .repeat-end .end-option-panel {
-  display: none;
 }
 .fuelux .selectlist-sizer {
   display: inline-block;
