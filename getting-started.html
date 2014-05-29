@@ -5,10 +5,37 @@ slug: getting-started
 lead: "An overview of Fuel UX, how to download and use and more."
 ---
 
-<!-- BEGIN FROM README -->
+<div class="fu-docs-section">
 
-<h2>
-<a name="user-content-download" class="anchor" href="#getting-fuelux"><span class="octicon octicon-link"></span></a>Download</h2>
+<h1 id="download">Download</h1>
+
+<p class="lead">FuelUX has a few easy ways to quickly get started, each one appealing to a different skill level and use case. Read through to see what suits your particular needs.</p>
+
+<div class="row fu-downloads" style="margin-bottom: 20px;">
+  <div class="col-sm-4">
+    <h3 id="bower-fuelux">Install with Bower</h3>
+    <p>Use a dependency manager to manage your front-end code</p>
+    <a href="#download-list" class="btn btn-lg btn-outline" role="button">Find out more</a>
+  </div>
+  <div class="col-sm-4">
+    <h3 id="download-fuelux">Compiled Files</h3>
+    <p>Compiled and minified CSS, JavaScript, and fonts. No documentation is included.</p>
+    <a href="#" class="btn btn-lg btn-outline" role="button">Download Fuel UX</a>
+    <!--<a href="{{ site.download.dist }}" class="btn btn-lg btn-outline" role="button">Download Fuel UX</a>-->
+  </div>
+  <div class="col-sm-4">
+    <h3 id="download-source">Source code</h3>
+    <p>All files--although cloning git repositories is recommended.</p>
+    <a href="#" class="btn btn-lg btn-outline" role="button">Download source</a>
+    <!--<a href="{{ site.download.source }}" class="btn btn-lg btn-outline" role="button">Download source</a>-->
+  </div>
+</div>
+
+  <p class="muted">Currently v{{ site.current_version }}.</p>
+
+<a id="download-list"></a>
+
+<!-- BEGIN FROM GITHUB README.md -->
 
 <p>Fuel UX can be obtained one of three ways:</p>
 
@@ -47,22 +74,8 @@ lead: "An overview of Fuel UX, how to download and use and more."
 </li>
 </ol>
 
-<!-- END FROM README -->
+<!-- END FROM GITHUB README.md -->
 
-<div class="row fu-downloads">
-    <div class="col-sm-6">
-      <h3 id="download-fuelux">Fuel UX</h3>
-      <p>Compiled and minified CSS, JavaScript, and fonts. No documentation is included.</p>
-      <a href="#" class="btn btn-lg btn-outline" role="button">Download Fuel UX</a>
-      <!--<a href="{{ site.download.dist }}" class="btn btn-lg btn-outline" role="button">Download Fuel UX</a>-->
-    </div>
-    <div class="col-sm-6">
-      <h3 id="download-source">Source code</h3>
-      <p>Source Less, JavaScript, and font files. <strong>Requires additional setup.</strong></p>
-      <a href="#" class="btn btn-lg btn-outline" role="button">Download source</a>
-      <!--<a href="{{ site.download.source }}" class="btn btn-lg btn-outline" role="button">Download source</a>-->
-    </div>
-  </div>
 
   <h3 id="download-cdn">Fuel UX CDN</h3>
   <p>ExactTarget hosts Fuel UX on it's <a href="http://www.fuelcdn.com/">FuelCDN.</a> Just use these <a href="http://www.fuelcdn.com/fuelux-resources">Fuel CDN</a> links.</p>
@@ -91,8 +104,6 @@ lead: "An overview of Fuel UX, how to download and use and more."
     <p>FuelUX is dependent upon <a href="https://github.com/twbs/bootstrap">Bootstrap 3</a> and <a href="https://github.com/jquery/jquery">jQuery</a>. If you installed by cloning the repo or by downloading a .zip archive, you'll also want to grab these things, as, it just won't work without them.</p>
   </div>
 
-
-
 <p>A download of FuelUX provides the following directories and files, which are grouped according to file type:</p>
 
 <pre><code>fuelux/
@@ -110,6 +121,30 @@ lead: "An overview of Fuel UX, how to download and use and more."
 </code></pre>
 
 <p>We provide compiled CSS and JS (like <code>fuelux.*</code>), as well as compiled and minified CSS and JS (like <code>fuelux.min.*</code>) in the <code>dist</code> folder.</p>
+
+</div>
+
+<!-- Template
+================================================== -->
+<div class="fu-docs-section">
+  <h1 id="template" class="page-header">Basic template</h1>
+
+  <p class="lead">Start with this basic HTML template. It uses browser global variables (just like Bootstrap).</p>
+
+  <p>Copy the HTML below to begin working with a minimal FuelUX document using browser globals.</p>
+{% highlight html %}
+{% include getting-started-globals-template.html %}
+{% endhighlight %}
+
+  <p>The FuelUX team uses and recommends AMD modules (with a manager such as <a href="requirejs.org">require.js</a>) and bundling for production.</p>
+
+  <p>Copy the HTML below to begin working with the Asynchronous Module Definition (AMD) files.</p>
+{% highlight html %}
+{% include getting-started-amd-template.html %}
+{% endhighlight %}
+
+
+<!-- BEGIN FROM GITHUB README.md -->
 
 <h3>
 <a name="user-content-umdamd-support" class="anchor" href="#umdamd-support"><span class="octicon octicon-link"></span></a>UMD/AMD Support</h3>
@@ -138,75 +173,107 @@ lead: "An overview of Fuel UX, how to download and use and more."
 
 <p>FuelUX also supports placing components in their own <code>&lt;script&gt;</code> tags. Be sure to put modules in the correct order if loading them in this method (although this order is a secret known only to 29th level wizards/enchantresses and 11th degree JS ninjas).</p>
 
-<h2>
-<a name="user-content-bugs-and-feature-requests" class="anchor" href="#bugs-and-feature-requests"><span class="octicon octicon-link"></span></a>Bugs and feature requests</h2>
+</div>
 
-<p>Have a bug or a feature request? Please first review the <a href="https://github.com/ExactTarget/fuelux/issues">open issues</a>, then search for existing and closed issues. If your problem or idea is not addressed yet, <a href="https://github.com/ExactTarget/fuelux/issues/new">please open a new issue</a>.</p>
+<div class="fu-docs-section">
 
-<p>You can visit <a href="https://code.exacttarget.com/tag/fuel-ux">questions tagged FuelUX</a> in the ExactTarget Developer Community and search <a href="http://stackoverflow.com/questions/tagged/fuelux">FuelUX tagged questions on StackOverflow</a>.</p>
+  <h1 id="bugs">Bugs and feature requests</h1>
 
-<p>You can also visit <a href="https://fuelux.uservoice.com">UserVoice community</a> and post a comment or suggest features. We will maintain of backlog of feature we are considering developing in a <a href="https://github.com/ExactTarget/fuelux/blob/3.0.0-wip/BACKLOG.md">backlog</a>.</p>
+  <p>Have a bug or a feature request? Please first review the <a href="https://github.com/ExactTarget/fuelux/issues">open issues</a>, then search for existing and closed issues. If your problem or idea is not addressed yet, <a href="https://github.com/ExactTarget/fuelux/issues/new">please open a new issue</a>.</p>
 
-<h3>
-<a name="user-content-previous-releases" class="anchor" href="#previous-releases"><span class="octicon octicon-link"></span></a>Previous releases</h3>
+  <p>You can visit <a href="https://code.exacttarget.com/tag/fuel-ux">questions tagged FuelUX</a> in the ExactTarget Developer Community and search <a href="http://stackoverflow.com/questions/tagged/fuelux">FuelUX tagged questions on StackOverflow</a>.</p>
 
-<p>Documentation for v2.6.x has been made available for the time being at <strong>(need link)</strong> while folks transition to Bootstrap 3. Previous releases and their documentation are also available for download. <strong>(need link)</strong></p>
+  <p>You can also visit <a href="https://fuelux.uservoice.com">UserVoice community</a> and post a comment or suggest features. We will maintain of backlog of feature we are considering developing in a <a href="https://github.com/ExactTarget/fuelux/blob/3.0.0-wip/BACKLOG.md">backlog</a>.</p>
 
-<h2>
-<a name="user-content-compiling-css-and-javascript" class="anchor" href="#compiling-css-and-javascript"><span class="octicon octicon-link"></span></a>Compiling CSS and JavaScript</h2>
+  <h3>
+  <a name="user-content-previous-releases" class="anchor" href="#previous-releases"><span class="octicon octicon-link"></span></a>Previous releases</h3>
 
-<p>FuelUX is lightweight to give you a fast dependable foundation to build upon. It uses <a href="http://gruntjs.com/">Grunt</a> with convenient methods for working with the library. It's how we compile our code, run tests, and more. To use it, install the required dependencies as directed, and then run some Grunt tasks.</p>
+  <p>Documentation for v2.6.x has been made available for the time being at <strong>(need link)</strong> while folks transition to Bootstrap 3. Previous releases and their documentation are also available for download. <strong>(need link)</strong></p>
 
-<h3>
-<a name="user-content-install-grunt" class="anchor" href="#install-grunt"><span class="octicon octicon-link"></span></a>Install Grunt</h3>
+</div>
 
-<p>From the command line:</p>
 
-<ol class="task-list">
-<li>Install <code>grunt-cli</code> globally with <code>npm install -g grunt-cli</code>.</li>
-<li>Navigate to the root <code>/bootstrap</code> directory, then run <code>npm install</code>. npm will look at <a href="https://github.com/twbs/bootstrap/blob/master/package.json">package.json</a> and automatically install the necessary local dependencies listed there.</li>
-</ol><p>When completed, you'll be able to run the various Grunt commands provided from the command line.</p>
+<div class="fu-docs-section">
 
-<p><strong>Unfamiliar with NPM? Don't have node installed?</strong> NPM stands for <a href="http://npmjs.org/">node packaged modules</a> and is a way to manage development dependencies through node.js. <a href="http://nodejs.org/download/">Download and install node.js</a> before proceeding.</p>
+  <h1 id="contributing">Contributing</h1>
 
-<h3>
-<a name="user-content-grunt-tasks" class="anchor" href="#grunt-tasks"><span class="octicon octicon-link"></span></a>Grunt Tasks</h3>
+  <p class="lead">Stay up to date on the development of FuelUX and reach out to others in the community with these helpful resources.</p>
 
-<h4>
-<a name="user-content-build---grunt" class="anchor" href="#build---grunt"><span class="octicon octicon-link"></span></a>Build - <code>grunt</code>
-</h4>
+  <p>Before writing code, we suggest you <a href="https://github.com/ExactTarget/fuelux/issues?state=open">search for issues</a> or <a href="https://github.com/ExactTarget/fuelux/issues/new">create a new one</a> to confirm where your contribution fits into
+  our roadmap.</p>
 
-<p>Run <code>grunt</code> to run tests locally and compile the CSS and JavaScript into <code>dist</code>. Uses <a href="http://lesscss.org/">Less</a> and <a href="http://lisperator.net/uglifyjs/">UglifyJS</a>.</p>
+  <p>In lieu of a formal style guide, take care to maintain the existing coding style: tabs, clarity over brevity, declarative markup, semicolons, etc. Be sure to add unit tests for any new or changed functionality. Lint and test your code using <a href="https://github.com/cowboy/grunt">grunt</a>.</p>
 
-<h4>
-<a name="user-content-testing---grunt-test" class="anchor" href="#testing---grunt-test"><span class="octicon octicon-link"></span></a>Testing - <code>grunt test</code>
-</h4>
+  <p>Read more about <a href="https://github.com/ExactTarget/fuelux/wiki/Contributing-to-Fuel-UX">contributing to FuelUX</a></p>
 
-<p>Runs <a href="http://jshint.com">JSHint</a>, <a href="https://www.npmjs.org/package/grunt-html-validation">HTML validation</a>, and <a href="http://qunitjs.com/">QUnit</a> tests headlessly in <a href="http://phantomjs.org/">PhantomJS</a>. <code>grunt releasetest</code> uses multiple versions of jQuery. </p>
+  <p>Please do not edit files in the <code>dist</code> directory as they are generated via grunt. You'll find source code in the respective <code>js</code>, <code>less</code>, and <code>fonts</code> directory.</p>
 
-<h4>
-<a name="user-content-watch---grunt-serve" class="anchor" href="#watch---grunt-serve"><span class="octicon octicon-link"></span></a>Watch - <code>grunt serve</code>
-</h4>
+  <p>While grunt can run the included unit tests via PhantomJS, this isn't a substitute for running tests across a variety of browsers and environments. Please be sure to view the test page at <a href="http://localhost:8000/test/">http://localhost:8000/test/</a> in as many of the browsers listed in <code>sauce_browsers.yml</code> as you can before contributing.</p>
 
-<p>This is a convenience method for watching source files and automatically building them when you save. To compile only CSS without running unit tests, use <code>grunt servecss</code>.</p>
+</div>
 
-<p><em><code>grünt saucelabs</code> and <code>grunt trickysauce</code> can be run locally instead of through TravisCI, but require the FuelUX Saucelabs API key file which is not public at this time.</em></p>
+<!-- END FROM GITHUB README.md -->
 
-<h3>
-<a name="user-content-troubleshooting-dependencies" class="anchor" href="#troubleshooting-dependencies"><span class="octicon octicon-link"></span></a>Troubleshooting dependencies</h3>
 
-<p>Should you encounter problems with installing dependencies or running Grunt commands, uninstall all previous dependency versions (global and local). Then, rerun <code>npm install</code>.</p>
+<!-- Browser support
+================================================== -->
+<div class="bs-docs-section">
+  <h1 id="support" class="page-header">Browser and device support (needs updating)</h1>
+  <p class="lead">FuelUX is built to work best in the latest desktop and mobile browsers, meaning older browsers might display differently styled, though fully functional, renderings of most components.</p>
 
-<h2>
-<a name="user-content-contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
+  <h3 id="support-browsers">Supported browsers</h3>
+  <p>Specifically, we support the <strong>latest versions</strong> of the following browsers and platforms. On Windows, <strong>we support Internet Explorer 8-11</strong>. More specific support information is provided below.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <td></td>
+          <th>Chrome</th>
+          <th>Firefox</th>
+          <th>Internet Explorer</th>
+          <th>Opera</th>
+          <th>Safari</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Android</th>
+          <td class="text-success"><span class="glyphicon glyphicon-ok"></span> <span class="sr-only">Supported</span></td>
+          <td class="text-danger"><span class="glyphicon glyphicon-remove"></span> <span class="sr-only">Not Supported</span></td>
+          <td class="text-muted" rowspan="3" style="vertical-align: middle;">N/A</td>
+          <td class="text-danger"><span class="glyphicon glyphicon-remove"></span> <span class="sr-only">Not Supported</span></td>
+          <td class="text-muted">N/A</td>
+        </tr>
+        <tr>
+          <th>iOS</th>
+          <td class="text-success"><span class="glyphicon glyphicon-ok"></span> <span class="sr-only">Supported</span></td>
+          <td class="text-muted">N/A</td>
+          <td class="text-danger"><span class="glyphicon glyphicon-remove"></span> <span class="sr-only">Not Supported</span></td>
+          <td class="text-success"><span class="glyphicon glyphicon-ok"></span> <span class="sr-only">Supported</span></td>
+        </tr>
+        <tr>
+          <th>Mac OS X</th>
+          <td class="text-success"><span class="glyphicon glyphicon-ok"></span> <span class="sr-only">Supported</span></td>
+          <td class="text-success"><span class="glyphicon glyphicon-ok"></span> <span class="sr-only">Supported</span></td>
+          <td class="text-success"><span class="glyphicon glyphicon-ok"></span> <span class="sr-only">Supported</span></td>
+          <td class="text-success"><span class="glyphicon glyphicon-ok"></span> <span class="sr-only">Supported</span></td>
+        </tr>
+        <tr>
+          <th>Windows</th>
+          <td class="text-success"><span class="glyphicon glyphicon-ok"></span> <span class="sr-only">Supported</span></td>
+          <td class="text-success"><span class="glyphicon glyphicon-ok"></span> <span class="sr-only">Supported</span></td>
+          <td class="text-success"><span class="glyphicon glyphicon-ok"></span> <span class="sr-only">Supported</span></td>
+          <td class="text-success"><span class="glyphicon glyphicon-ok"></span> <span class="sr-only">Supported</span></td>
+          <td class="text-danger"><span class="glyphicon glyphicon-remove"></span> <span class="sr-only">Not Supported</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Unofficially, FuelUX should look and behave well in Chromium and Chrome for Linux, Firefox for Linux, though they are not officially supported.</p>
 
-<p>Before writing code, we suggest you <a href="https://github.com/ExactTarget/fuelux/issues?state=open">search for issues</a> or <a href="https://github.com/ExactTarget/fuelux/issues/new">create a new one</a> to confirm where your contribution fits into
-our roadmap.</p>
+  <h3 id="support-ie8-ie9">Internet Explorer 8 and 9</h3>
+  <p>Internet Explorer 8 and 9 are also supported, however, please be aware that some CSS3 properties and HTML5 elements are not fully supported by these browsers. In addition, Internet Explorer 8 requires the use of fixed-width columns and containers due to its lack of media-query support. You may try using <a href="http://modernizr.com/">Modernizr</a> or conditional comments like <code>&lt;!--[if IE 8]&gt;</code> to cascade fixed-width containers.</p>
 
-<p>In lieu of a formal style guide, take care to maintain the existing coding style: tabs, clarity over brevity, declarative markup, semicolons, etc. Be sure to add unit tests for any new or changed functionality. Lint and test your code using <a href="https://github.com/cowboy/grunt">grunt</a>.</p>
+  <p>Visit <a href="http://caniuse.com/">Can I use...</a> for details on browser support of CSS3 and HTML5 features.</p>
 
-<p>Read more about <a href="https://github.com/ExactTarget/fuelux/wiki/Contributing-to-Fuel-UX">contributing to FuelUX</a></p>
-
-<p>Please do not edit files in the <code>dist</code> directory as they are generated via grunt. You'll find source code in the respective <code>js</code>, <code>less</code>, and <code>fonts</code> directory.</p>
-
-<p>While grunt can run the included unit tests via PhantomJS, this isn't a substitute for running tests across a variety of browsers and environments. Please be sure to view the test page at <a href="http://localhost:8000/test/">http://localhost:8000/test/</a> in as many of the browsers listed in <code>sauce_browsers.yml</code> as you can before contributing.</p>
+</div>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FuelUX Basic Template (AMD)</title>
+    <!-- CSS -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//fuelux-dev.herokuapp.com/dist/css/fuelux.min.css" rel="stylesheet">
+    <!-- Require.js - AMD loader -->
+    <script src="//cdn.jsdelivr.net/requirejs/2.1.11/require.js"></script>
+    <script>
+      requirejs.config({
+        paths: {
+          'bootstrap': '//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap',
+          'fuelux': '//fuelux-dev.herokuapp.com/js',
+          'jquery': '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery',
+          // Moment.js is optional
+          'moment': '//cdn.jsdelivr.net/momentjs/2.6.0/lang-all.min.js' 
+        },
+        // Bootstrap is a "browser globals" script :-(
+        shim: { 'bootstrap': { deps: ['jquery'] } }
+      });
+      // Require all.js or include individual files as needed
+      require(['jquery', 'bootstrap', 'fuelux/all'], function($){});
+    </script>
+  </head>
+  <body class="fuelux">
+    <!-- Checkbox example -->
+    <div class="checkbox">
+      <label class="checkbox-custom">
+        <input class="sr-only checked" type="checkbox" data-toggle="#checkboxToggle1">
+        <span class="checkbox-label">I love kittens.</span>
+      </label>
+    </div>
+    <div id="checkboxToggle1" class="alert bg-info">Great. Meow, too!</div>
+  </body>
+</html>
