@@ -5,6 +5,9 @@
 define(function(require){
 	var $ = require('jquery');
 	var html = require('text!test/markup/combobox-markup.html');
+	/* FOR DEV TESTING - uncomment to test against index.html */
+	//html = require('text!index.html!strip');
+	html = $('<div>'+html+'<div>').find('#MyComboboxContainer');
 
 	require('bootstrap');
 	require('fuelux/combobox');
@@ -34,14 +37,14 @@ define(function(require){
 
 	test("should set default selection", function () {
 		// should be "Three" based on the data-selected attribute
-		var $combobox = $(html).find("#MyCombobox").combobox();
+		var $combobox = $(html).find("#MyComboboxWithSelected").combobox();
 		var item = $combobox.combobox('selectedItem');
 		var expectedItem = { text: 'Three', value: 3 };
 		deepEqual(item, expectedItem, 'default item selected');
 	});
 
 	test("should not autoselect when no default selection", function () {
-		var $combobox = $(html).find("#MyComboboxNoDefault").combobox();
+		var $combobox = $(html).find("#MyCombobox").combobox();
 		var item = $combobox.combobox('selectedItem');
 		var expectedItem = { text: '' };
 		deepEqual(item, expectedItem, 'no item selected');

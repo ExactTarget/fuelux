@@ -5,6 +5,9 @@
 define(function(require){
 	var $ = require('jquery');
 	var html = require('text!test/markup/repeater-markup.html');
+	/* FOR DEV TESTING - uncomment to test against index.html */
+	//html = require('text!index.html!strip');
+	//html = $('<div>'+html+'<div>').find('#MyRepeaterContainer');
 
 	require('bootstrap');
 	require('fuelux/repeater');

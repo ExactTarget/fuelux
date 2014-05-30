@@ -52,7 +52,7 @@ define(function(require){
 
 	// DATEPICKER
 	$('#datepicker1').datepicker({
-			restrictDateSelection: false
+			//restrictDateSelection: false
 	});
 
 	$('#datepicker1').on('changed', function( event, data ) {
@@ -400,9 +400,9 @@ $('#MyPillboxEmpty').pillbox({
 		});
 	});
 
-	$('#MyScheduler').on('changed', function(){
+	$('#MyScheduler').on('changed.fu.scheduler', function(){
 		if(window.console && window.console.log){
-			window.console.log('scheduler changed: ', arguments);
+			window.console.log('scheduler changed.fu.scheduler: ', arguments);
 		}
 	});
 

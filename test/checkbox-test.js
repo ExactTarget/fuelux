@@ -5,6 +5,9 @@
 define(function(require){
 	var $ = require('jquery');
 	var html = require('text!test/markup/checkbox-markup.html');
+	/* FOR DEV TESTING - uncomment to test against index.html */
+	//html = require('text!index.html!strip');
+	html = $('<div>'+html+'<div>').find('#MyCheckboxContainer');
 
 	require('bootstrap');
 	require('fuelux/checkbox');
@@ -25,28 +28,28 @@ define(function(require){
 		$list.find('input').checkbox();
 
 		// checked/enabled
-		var lbl1 = $list.find('#lbl1');
-		equal(lbl1.hasClass('checked'), true, 'lbl1 has checked class');
-		equal(lbl1.hasClass('disabled'), false, 'lbl1 does not have disabled class');
+		var wrapper1 = $list.find('#CheckboxWrapper1');
+		equal(wrapper1.hasClass('checked'), true, 'wrapper1 has checked class');
+		equal(wrapper1.hasClass('disabled'), false, 'wrapper1 does not have disabled class');
 
 		// unchecked/enabled
-		var lbl3 = $list.find('#lbl3');
-		equal(lbl3.hasClass('checked'), false, 'lbl3 does not have checked class');
-		equal(lbl3.hasClass('disabled'), false, 'lbl3 does not have disabled class');
+		var wrapper3 = $list.find('#CheckboxWrapper3');
+		equal(wrapper3.hasClass('checked'), false, 'wrapper3 does not have checked class');
+		equal(wrapper3.hasClass('disabled'), false, 'wrapper3 does not have disabled class');
 
 		// checked/disabled
-		var lbl4 = $list.find('#lbl4');
-		equal(lbl4.hasClass('checked'), true, 'lbl4 has checked class');
-		equal(lbl4.hasClass('disabled'), true, 'lbl4 has disabled class');
+		var wrapper4 = $list.find('#CheckboxWrapper4');
+		equal(wrapper4.hasClass('checked'), true, 'wrapper4 has checked class');
+		equal(wrapper4.hasClass('disabled'), true, 'wrapper4 has disabled class');
 
 		// checked/disabled
-		var lbl5 = $list.find('#lbl5');
-		equal(lbl5.hasClass('checked'), false, 'lbl5 does not have checked class');
-		equal(lbl5.hasClass('disabled'), true, 'lbl5 has disabled class');
+		var wrapper5 = $list.find('#CheckboxWrapper5');
+		equal(wrapper5.hasClass('checked'), false, 'wrapper5 does not have checked class');
+		equal(wrapper5.hasClass('disabled'), true, 'wrapper5 has disabled class');
 	});
 
 	test("should disable/enable checkbox", function () {
-		var $chk1 = $(html).find('#chk1');
+		var $chk1 = $(html).find('#Checkbox1');
 
 		equal($chk1.is(':disabled'), false, 'enabled - default state');
 		$chk1.checkbox('disable');
@@ -57,7 +60,7 @@ define(function(require){
 
 	test("should check/uncheck checkbox", function () {
 		var $fixture = $(html).appendTo('#qunit-fixture');
-		var $chk1 = $fixture.find('#chk1');
+		var $chk1 = $fixture.find('#Checkbox1');
 
 		equal($chk1.is(':checked'), true, 'checked');
 		$chk1.checkbox('toggle');
@@ -70,8 +73,8 @@ define(function(require){
 	
 	test("test check/uncheck/isChecked convenience methods", function () {
         var $fixture = $(html).appendTo('#qunit-fixture');
-        var $chk5 = $fixture.find('#chk5');
-        var $l5 = $fixture.find('#lbl5');
+        var $chk5 = $fixture.find('#Checkbox5');
+        var $wrapper5 = $fixture.find('#CheckboxWrapper5');
 
         $chk5.checkbox();
 
@@ -79,12 +82,12 @@ define(function(require){
 
         $chk5.checkbox('check');
         equal($chk5.is(':checked'), true, 'checked - confirmation by is(:checked)');
-        equal($l5.hasClass('checked'), true, 'checked - confirmation by css class');
+        equal($wrapper5.hasClass('checked'), true, 'checked - confirmation by css class');
         equal($chk5.checkbox('isChecked'), true, 'checked - confirmation by isChecked method');
 
         $chk5.checkbox('uncheck');
         equal($chk5.is(':checked'), false, 'unchecked - confirmation by is(:checked)');
-        equal($l5.hasClass('checked'), false, 'unchecked - confirmation by css class');
+        equal($wrapper5.hasClass('checked'), false, 'unchecked - confirmation by css class');
         equal($chk5.checkbox('isChecked'), false, 'unchecked - confirmation by isChecked method');
 
         $fixture.remove();
