@@ -36,9 +36,10 @@ define(function(require){
 	});
 
 	test("should set default selection", function () {
-		// should be "Three" based on the data-selected attribute
-		var $selectlist = $(html).selectlist();
+		var $html = $(html);
+		var $selectlist = $html.selectlist();
 		var item = $selectlist.selectlist('selectedItem');
+		console.log(item);
 		var expectedItem = { text: 'Two', value: 2 };
 		deepEqual(item, expectedItem, 'default item selected');
 	});
@@ -97,12 +98,12 @@ define(function(require){
 		deepEqual(item, expectedItem, 'item selected');
 	});
 
-	test("should fire changed event", function () {
+	test("should fire change event", function () {
 		var eventFired = false;
 		var selectedText = '';
 		var selectedValue = '';
 
-		var $selectlist = $(html).selectlist().on('changed.fu.selectlist', function (evt, data) {
+		var $selectlist = $(html).selectlist().on('change.fu.selectlist', function (evt, data) {
 			eventFired = true;
 			selectedText = data.text;
 			selectedValue = data.value;
@@ -111,9 +112,9 @@ define(function(require){
 		// simulate changed event
 		$selectlist.find('a:first').click();
 
-		equal(eventFired, true, 'changed event fired');
-		equal(selectedText, 'One', 'text passed in from changed event');
-		equal(selectedValue, 1, 'value passed in from changed event');
+		equal(eventFired, true, 'change event fired');
+		equal(selectedText, 'One', 'text passed in from change event');
+		equal(selectedValue, 1, 'value passed in from change event');
 	});
 
 });

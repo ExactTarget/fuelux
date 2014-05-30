@@ -50,6 +50,12 @@
 						test: 'test',
 						moment: 'path/to/moment', // wrong url because we need to test it without moment first
 						text: 'bower_components/requirejs-text/text'
+					},
+					shim: {
+						'bootstrap': {
+							deps: ['jquery'],
+							exports: 'bootstrap'
+						}
 					}
 				});
 
