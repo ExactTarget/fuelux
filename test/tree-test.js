@@ -47,7 +47,7 @@ define(function(require){
 
 	asyncTest("Tree should be populated by items on initialization", function () {
 
-		var $tree = $(html).tree({ dataSource: this.stubDataSource }).on('loaded', function () {
+		var $tree = $(html).tree({ dataSource: this.stubDataSource }).on('loaded.fu.tree', function () {
 
 			equal($tree.find('.tree-folder').length, 3, 'Initial set of folders have been added');
 			equal($tree.find('.tree-item').length, 3, 'Initial set of items have been added');
@@ -59,24 +59,24 @@ define(function(require){
 
 //	asyncTest("Folders should be populated when folder is clicked", function () {
 //
-//		var $tree = $(html).tree({ dataSource: this.stubDataSource }).on('loaded', function () {
+//		var $tree = $(html).tree({ dataSource: this.stubDataSource }).on('loaded.fu.tree, function () {
 //
 //			var $folder = $tree.find('.tree-folder:eq(1)');
 //			var event = 0;
 //
 //			$tree.off('loaded');
 //
-//			$tree.on('opened', function () {
+//			$tree.on('opened.fu.tree', function () {
 //				event++;
 //			});
 //
-//			$tree.on('closed', function () {
+//			$tree.on('closed.fu.tree', function () {
 //				event++;
 //			});
 //
 //			$tree.tree('selectFolder', $folder[0]);
 //
-//			$tree.on('loaded', function() {
+//			$tree.on('loaded.fu.tree', function() {
 //				$tree.off('loaded');
 //
 //				equal($folder.find('.tree-folder').length, 2, 'Folders have populated');
@@ -85,7 +85,7 @@ define(function(require){
 //				equal(event, 1, 'Open event triggered');
 //
 //				$tree.tree('selectFolder', $folder[0]);
-//				$tree.on('loaded', function() {
+//				$tree.on('loaded.fu.tree', function() {
 //					equal(event, 2, 'Close event triggered');
 //					start();
 //				});
@@ -97,11 +97,11 @@ define(function(require){
 
 	asyncTest("Single item selection works as designed", function () {
 
-		var $tree = $(html).tree({ dataSource: this.stubDataSource }).on('loaded',function() {
+		var $tree = $(html).tree({ dataSource: this.stubDataSource }).on('loaded.fu.tree',function() {
 
 			var data;
 
-			$tree.on('selected', function (e, items) {
+			$tree.on('selected.fu.tree', function (e, items) {
 				data = items.info;
 			});
 
@@ -119,11 +119,11 @@ define(function(require){
 
 	asyncTest("Multiple item selection works as designed", function () {
 
-		var $tree = $(html).tree({ dataSource: this.stubDataSource, multiSelect: true }).on('loaded',function() {
+		var $tree = $(html).tree({ dataSource: this.stubDataSource, multiSelect: true }).on('loaded.fu.tree',function() {
 
 			var data;
 
-			$tree.on('selected', function (e, items) {
+			$tree.on('selected.fu.tree', function (e, items) {
 				data = items.info;
 			});
 

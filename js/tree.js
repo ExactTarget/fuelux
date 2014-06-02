@@ -111,7 +111,7 @@
 				});
 
 				// return newly populated folder
-				self.$element.trigger('loaded', $parent);
+				self.$element.trigger('loaded.fu.tree', $parent);
 			});
 		},
 
@@ -152,7 +152,7 @@
 
 			// Return new list of selected items, the item
 			// clicked, and the type of event:
-			$el.trigger('updated', {
+			$el.trigger('updated.fu.tree', {
 				info: data,
 				item: $el,
 				eventType: eventType
@@ -231,12 +231,12 @@
 			}
 
 			if(data.length) {
-				this.$element.trigger('selected', {info: data});
+				this.$element.trigger('selected.fu.tree', {info: data});
 			}
 
 			// Return new list of selected items, the item
 			// clicked, and the type of event:
-			$el.trigger('updated', {
+			$el.trigger('updated.fu.tree', {
 				info: data,
 				item: $el,
 				eventType: eventType
