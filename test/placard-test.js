@@ -29,7 +29,7 @@ define(function(require){
 			ok(1===1, 'default action event (cancel) triggered upon external click');
 		});
 
-		$placard.find('input').focus();
+		$placard.find('input').focus().focus();
 		equal($placard.hasClass('showing'), true, 'placard shows when appropriate');
 
 		$('body').click();
@@ -46,7 +46,7 @@ define(function(require){
 		});
 		$('body').append($placard);
 
-		$placard.find('textarea').focus();
+		$placard.find('textarea').focus().focus();
 		equal($placard.hasClass('showing'), true, 'placard shows when appropriate');
 
 		$('body').click();
@@ -82,9 +82,9 @@ define(function(require){
 			equal((helpers.previousValue!==undefined && helpers.value!==undefined), true, 'helpers object contains correct attributes');
 		});
 
-		$placard.find('input').focus();
+		$placard.find('input').focus().focus();
 		$placard.find('.placard-cancel').click();
-		$placard.find('input').focus();
+		$placard.find('input').focus().focus();
 		$placard.find('.placard-accept').click();
 	});
 
@@ -100,7 +100,7 @@ define(function(require){
 			}
 		});
 
-		$placard.find('input').focus();
+		$placard.find('input').focus().focus();
 		$placard.find('.placard-accept').click();
 	});
 
@@ -116,7 +116,7 @@ define(function(require){
 			}
 		});
 
-		$placard.find('input').focus();
+		$placard.find('input').focus().focus();
 		$placard.find('.placard-cancel').click();
 	});
 
@@ -127,7 +127,7 @@ define(function(require){
 			externalClickAction: 'accept'
 		});
 
-		$placard.find('input').focus().val('test');
+		$placard.find('input').focus().focus().val('test');
 		$('body').click();
 		equal($placard.find('input').val(), 'test', 'desired externalClickAction triggered on external click');
 	});
@@ -141,7 +141,7 @@ define(function(require){
 			externalClickExceptions: ['.test', '#test']
 		});
 
-		$placard.find('input').focus();
+		$placard.find('input').focus().focus();
 		$('#test').click();
 		equal($placard.hasClass('showing'), true, 'externalClick ignored for specified id');
 		$('.test').click();
@@ -161,7 +161,7 @@ define(function(require){
 			explicit: true
 		});
 
-		$placard.find('input').focus();
+		$placard.find('input').focus().focus();
 		$('body').click();
 		equal($placard.hasClass('showing'), true, 'externalClick ignored due to not being an explicit accept/cancel action');
 		$placard.find('.placard-accept').click();
@@ -180,7 +180,7 @@ define(function(require){
 			$placard.placard({
 				revertOnCancel: revert
 			});
-			$placard.find('input').focus().val('blah blah blah');
+			$placard.find('input').focus().focus().val('blah blah blah');
 			$placard.find('.placard-cancel').click();
 		};
 

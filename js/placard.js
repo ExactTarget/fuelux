@@ -213,7 +213,7 @@
 
 	// PLACARD DATA-API
 
-	$('body').on('mousedown.placard.data-api', '.placard', function () {
+	$('body').on('focus.placard.data-api', '.placard', function () {
 		var $this = $(this);
 		if ($this.data('placard')) return;
 		$this.placard($this.data());

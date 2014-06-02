@@ -39,7 +39,6 @@ define(function(require){
 		var $html = $(html);
 		var $selectlist = $html.selectlist();
 		var item = $selectlist.selectlist('selectedItem');
-		console.log(item);
 		var expectedItem = { text: 'Two', value: 2 };
 		deepEqual(item, expectedItem, 'default item selected');
 	});
