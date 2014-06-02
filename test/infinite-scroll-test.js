@@ -12,6 +12,8 @@ define(function(require){
 
 	module('Fuel UX Infinite Scroll');
 
+	// TODO: add click.fu.infinitescroll event testing
+
 	test('should be defined on jquery object', function () {
 		ok($(html).infinitescroll, 'infinitescroll method is defined');
 	});
