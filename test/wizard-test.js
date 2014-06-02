@@ -71,7 +71,7 @@ define(function(require){
 		var $wizard = $(html).find('#MyWizard').wizard();
 		var eventFired = false;
 
-		$wizard.on('changed', function (evt, data) {
+		$wizard.on('changed.fu.wizard', function (evt, data) {
 			eventFired = true;
 		});
 
@@ -104,7 +104,7 @@ define(function(require){
 		var $wizard = $(html).find('#MyWizard').wizard();
 		var eventFired = false;
 
-		$wizard.on('stepclick', function (evt, data) {
+		$wizard.on('stepclick.fu.wizard', function (evt, data) {
 			eventFired = true;
 			return evt.preventDefault(); // prevent action
 		});
@@ -126,7 +126,7 @@ define(function(require){
 		var $wizard = $(html).find('#MyWizard').wizard();
 		var eventFired = false;
 
-		$wizard.on('finished', function (evt, data) {
+		$wizard.on('finished.fu.wizard', function (evt, data) {
 			eventFired = true;
 		});
 
