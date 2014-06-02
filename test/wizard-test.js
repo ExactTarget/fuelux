@@ -57,7 +57,7 @@ define(function(require){
 		var $wizard    = $(html).find('#MyWizard').wizard();
 		var eventFired = false;
 
-		$wizard.on('change', function (evt, data) {
+		$wizard.on('changed.fu.wizard', function (evt, data) {
 			eventFired = true;
 		});
 
@@ -87,7 +87,7 @@ define(function(require){
 		var $wizard = $(html).find('#MyWizard').wizard();
 		var eventFired = false;
 
-		$wizard.on('change', function (evt, data) {
+		$wizard.on('change.fu.wizard', function (evt, data) {
 			eventFired = true;
 			return evt.preventDefault(); // prevent action
 		});

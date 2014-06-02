@@ -269,7 +269,7 @@
 				canMovePrev = false;
 			}
 			if (canMovePrev) {
-				var e = $.Event('change');
+				var e = $.Event('changed.fu.wizard');
 				this.$element.trigger(e, {step: this.currentStep, direction: 'previous'});
 				if (e.isDefaultPrevented()) { return; }
 
@@ -283,7 +283,7 @@
 			var lastStep = (this.currentStep === this.numSteps);
 
 			if (canMoveNext) {
-				var e = $.Event('change');
+				var e = $.Event('change.fu.wizard');
 				this.$element.trigger(e, {step: this.currentStep, direction: 'next'});
 
 				if (e.isDefaultPrevented()) { return; }
