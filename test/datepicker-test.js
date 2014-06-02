@@ -179,7 +179,7 @@ define(function(require){
 		var eventsLogged            = 0;
 		var validDateOnEventTrigger = false;
 
-		var $sample = $(html).find('#datepicker1').datepicker().on( 'changed', function( event, date ) {
+		var $sample = $(html).find('#datepicker1').datepicker().on( 'changed.fu.datepicker', function( event, date ) {
 			eventsLogged++;
 			if( new Date( date ) !== 'Invalid Date' ) {
 				validDateOnEventTrigger = true;

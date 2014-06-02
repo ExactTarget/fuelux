@@ -140,15 +140,15 @@
 		// functions that can be called on object
 		disable: function() {
 			this.$element.find('input, button').attr( 'disabled', true );
-			this._showDropdow( false );
+			this._showDropdown( false );
 		},
 
 		enable: function() {
 			this.$element.find('input, button').attr( 'disabled', false );
-			this._showDropdow( true );
+			this._showDropdown( true );
 		},
 
-		_showDropdow: function( disable ) {
+		_showDropdown: function( disable ) {
 			if( !Boolean( disable ) ) {
 				this.$element.on( 'show.bs.dropdown', function( event ) {
 					event.preventDefault();
@@ -175,7 +175,7 @@
 			this.stagedDate = this.date;
 			this.viewDate   = this.date;
 			this._render();
-			this.$element.trigger( 'changed', this.date );
+			this.$element.trigger( 'changed.fu.datepicker', this.date );
 			return this.date;
 		},
 
@@ -845,7 +845,7 @@
 			if( !!triggerError ) {
 				// we will insert the staged date into the input
 				this._setNullDate( true );
-				this.$element.trigger( 'inputParsingFailed' );
+				this.$element.trigger( 'inputParsingFailed.fu.datepicker' );
 			}
 		},
 
