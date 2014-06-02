@@ -424,7 +424,7 @@ $('#MyPillboxEmpty').pillbox({
 
 
 	// SELECTLIST
-	$('#MySelectlist').on('changed', function (evt, data) {
+	$('#MySelectlist').on('changed.fu.selectlist', function (evt, data) {
 		console.log(data);
 	});
 	$('#getSelectedItem').on('click', function () {

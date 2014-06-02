@@ -130,7 +130,7 @@
 			var data = this.selectedItem();
 
 			// trigger changed event
-			this.$element.trigger('change.fu.combobox', data);
+			this.$element.trigger('changed.fu.combobox', data);
 
 			e.preventDefault();
 		},
@@ -152,7 +152,7 @@
 			}
 
 			// trigger changed event
-			this.$element.trigger('change.fu.combobox', data);
+			this.$element.trigger('changed.fu.combobox', data);
 
 		}
 

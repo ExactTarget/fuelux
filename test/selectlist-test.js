@@ -103,7 +103,7 @@ define(function(require){
 		var selectedText = '';
 		var selectedValue = '';
 
-		var $selectlist = $(html).selectlist().on('change.fu.selectlist', function (evt, data) {
+		var $selectlist = $(html).selectlist().on('changed.fu.selectlist', function (evt, data) {
 			eventFired = true;
 			selectedText = data.text;
 			selectedValue = data.value;

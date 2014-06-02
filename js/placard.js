@@ -108,7 +108,6 @@
 		hide: function(){
 			if(!this.$element.hasClass('showing')){ return; }
 			this.$element.removeClass('showing');
-			this.$field.attr('readonly', 'readonly');
 			this.ellipsis();
 			$(document).off('click.placard.externalClick.' + this.clickStamp);
 			this.$element.trigger('hide');
@@ -159,7 +158,6 @@
 			this.previousValue = this.$field.val();
 
 			this.$element.addClass('showing');
-			this.$field.removeAttr('readonly');
 			if(this.actualValue!==null){
 				this.$field.val(this.actualValue);
 				this.actualValue = null;

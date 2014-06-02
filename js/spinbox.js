@@ -132,9 +132,6 @@
 
 			// Primary changed event
 			this.$element.trigger('changed', currentValue);
-
-			// Undocumented, kept for backward compatibility
-			this.$element.trigger('change');
 		},
 
 		startSpin: function (type) {

@@ -75,7 +75,7 @@
 			clearTimeout(self.resizeTimeout);
 			self.resizeTimeout = setTimeout(function(){
 				self.resize();
-				self.$element.trigger('resize.fuelux.repeater');
+				self.$element.trigger('resized.fu.repeater');
 			}, 75);
 		});
 
@@ -85,7 +85,7 @@
 
 		this.initViews(function(){
 			self.resize();
-			self.$element.trigger('resize.fuelux.repeater');
+			self.$element.trigger('resized.fu.repeater');
 			self.render({ changeView: currentView });
 		});
 	};
@@ -355,7 +355,7 @@
 									self.infiniteScrollPaging(data, options);
 								}
 								self.$loader.hide().loader('pause');
-								self.$element.trigger('loaded');
+								self.$element.trigger('loaded.fu.repeater');
 							});
 						}
 					});
