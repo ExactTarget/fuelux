@@ -25,7 +25,7 @@ define(function(require){
 		var $spinbox = $(html).find('#MySpinbox').spinbox();
 
 		//returning default value
-		equal($spinbox.spinbox('value'), 1, 'spinbox returns selected item');
+		equal($spinbox.spinbox('value'), 0, 'spinbox returns selected item');
 
 		//set number value
 		$spinbox.spinbox('value',2);
