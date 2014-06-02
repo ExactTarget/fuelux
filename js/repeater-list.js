@@ -411,7 +411,7 @@
 				});
 				callback();
 			}
-		}
+		};
 	}
 
 // -- BEGIN UMD WRAPPER AFTERWORD --
