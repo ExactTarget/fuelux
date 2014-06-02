@@ -130,7 +130,7 @@
 			var data = this.selectedItem();
 
 			// trigger changed event
-			this.$element.trigger('changed', data);
+			this.$element.trigger('changed.fu.checkbox', data);
 
 			e.preventDefault();
 		},
@@ -152,7 +152,7 @@
 			}
 
 			// trigger changed event
-			this.$element.trigger('changed', data);
+			this.$element.trigger('changed.fu.checkbox', data);
 
 		}
 
@@ -189,7 +189,7 @@
 
 	// COMBOBOX DATA-API
 
-	$('body').on('mousedown.combobox.data-api', '.combobox', function () {
+	$('body').on('mousedown.fu.combobox.data-api', '.combobox', function () {
 		var $this = $(this);
 		if ($this.data('combobox')) return;
 		$this.combobox($this.data());
