@@ -60,12 +60,12 @@
 		this.options = $.extend({}, $.fn.repeater.defaults, options);
 		this.staticHeight = (this.options.staticHeight===-1) ? this.$element.attr('data-staticheight') : this.options.staticHeight;
 
-		this.$filters.on('changed', $.proxy(this.render, this, { clearInfinite: true, pageIncrement: null }));
+		this.$filters.on('changed.fu.repeater', $.proxy(this.render, this, { clearInfinite: true, pageIncrement: null }));
 		this.$nextBtn.on('click', $.proxy(this.next, this));
-		this.$pageSize.on('changed', $.proxy(this.render, this, { pageIncrement: null }));
+		this.$pageSize.on('changed.fu.repeater', $.proxy(this.render, this, { pageIncrement: null }));
 		this.$prevBtn.on('click', $.proxy(this.previous, this));
-		this.$primaryPaging.find('.combobox').on('changed', function(evt, data){ self.pageInputChange(data.text); });
-		this.$search.on('searched cleared', $.proxy(this.render, this, { clearInfinite: true, pageIncrement: null }));
+		this.$primaryPaging.find('.combobox').on('changed.fu.repeater', function(evt, data){ self.pageInputChange(data.text); });
+		this.$search.on('searched.fu.repeater cleared.fu.repeater', $.proxy(this.render, this, { clearInfinite: true, pageIncrement: null }));
 		this.$secondaryPaging.on('blur', function(){ self.pageInputChange(self.$secondaryPaging.val()); });
 		this.$views.find('input').on('change', $.proxy(this.viewChanged, this));
 
@@ -339,7 +339,7 @@
 									self.infiniteScrollPaging(data, options);
 								}
 								self.$loader.hide().loader('pause');
-								self.$element.trigger('loaded');
+								self.$element.trigger('loaded.fu.repeater');
 							});
 						}
 					});
