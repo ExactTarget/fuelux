@@ -121,12 +121,12 @@
 
 		triggerChangedEvent: function () {
 			var currentValue = this.value();
-			if (currentValue === this.lastValue) return;
+			if (currentValue === this.lastValue) { return; }
 
 			this.lastValue = currentValue;
 
 			// Primary changed event
-			this.$element.trigger('changed', currentValue);
+			this.$element.trigger('changed.fu.spinbox', currentValue);
 
 			// Undocumented, kept for backward compatibility
 			this.$element.trigger('change');
@@ -284,7 +284,7 @@
 	};
 
 	$.fn.spinbox.defaults = {
-		value: 1,
+		value: 0,
 		min: 0,
 		max: 999,
 		step: 1,
@@ -305,7 +305,7 @@
 
 	// SPINBOX DATA-API
 
-	$('body').on('mousedown.spinbox.data-api', '.spinbox', function () {
+	$('body').on('mousedown.fu.spinbox.data-api', '.spinbox', function () {
 		var $this = $(this);
 		if ($this.data('spinbox')) return;
 		$this.spinbox($this.data());
