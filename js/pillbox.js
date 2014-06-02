@@ -100,7 +100,7 @@
 				this.openEdit($item);
 			}
 
-			this.$element.trigger('clicked', this.getItemData($item));
+			this.$element.trigger('clicked.fu.pillbox', this.getItemData($item));
 		},
 
 		suggestionClick: function(e){
@@ -257,7 +257,7 @@
 				}
 
 				if( isInternal ){
-					this.$element.trigger('added', {
+					this.$element.trigger('added.fu.pillbox', {
 						text: items[0].text, 
 						value: items[0].value
 					});
@@ -391,7 +391,7 @@
 
 			this.$addItem.val('');
 			this.$pillGroup.append(this.$addItemWrap.detach().show());
-			this.$element.trigger( 'edited', { value: item.value, text: item.text });
+			this.$element.trigger( 'edited.fu.pillbox', { value: item.value, text: item.text });
 		},
 
 		removeBySelector: function() {
@@ -440,11 +440,11 @@
 		_removeElement: function(data){
 			data.el.remove();
 			delete data.el;
-			this.$element.trigger('removed', data);
+			this.$element.trigger('removed.fu.pillbox', data);
 		},
 
 		_removePillTrigger: function( removedBy ) {
-			this.$element.trigger( 'removed', removedBy );
+			this.$element.trigger( 'removed.fu.pillbox', removedBy );
 		},
 
 		_generateObject: function(data){
@@ -473,7 +473,7 @@
 				// suggestion dropdown
 				
 				this.$suggest.html('').append(markup);
-				$(document.body).trigger('suggest', this.$suggest);
+				$(document.body).trigger('suggested.fu.dropdown-autoflip', this.$suggest);
 			}
 		},
 

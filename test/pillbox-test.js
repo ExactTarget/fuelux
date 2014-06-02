@@ -227,27 +227,27 @@ define(function(require){
 		var $pillbox = $(html).find('#MyPillbox').pillbox();
 		var $input = $pillbox.find('.pillbox-add-item');
 
-		$pillbox.on('clicked', function( ev, item ){
+		$pillbox.on('clicked.fu.pillbox', function( ev, item ){
 			deepEqual(item, {text: 'Item 1', value: 'foo'}, 'clicked event is triggered');
 		});
 		$pillbox.find('> ul > li:first').click();
-		$pillbox.off('clicked');
+		$pillbox.off('clicked.fu.pillbox');
 
-		$pillbox.on('added', function( ev, item ){
+		$pillbox.on('added.fu.pillbox', function( ev, item ){
 			deepEqual(item, {text: 'added test', value: 'added test'}, 'added event is triggered');
 		});
 		$input.val('added test');
 		$input.trigger( $.Event( "keydown", { keyCode: 13 } ) );
-		$pillbox.off('added');
+		$pillbox.off('added.fu.pillbox');
 
-		$pillbox.on('removed', function( ev, item ){
+		$pillbox.on('removed.fu.pillbox', function( ev, item ){
 			deepEqual(item, {text: 'added test', value: 'added test'}, 'removed event is triggered');
 		});
 		$pillbox.find('> ul > li:first > span:last').click();
-		$pillbox.off('removed');
+		$pillbox.off('removed.fu.pillbox');
 
 		$pillbox = $(html).pillbox({edit: true});
-		$pillbox.on('edited', function( ev, item ){
+		$pillbox.on('edited.fu.pillbox', function( ev, item ){
 			deepEqual(item, {text: 'edit test', value: 'edit test'}, 'edit event is triggered');
 		});
 		$pillbox.find('> ul > li:first').click();
