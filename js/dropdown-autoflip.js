@@ -33,7 +33,7 @@
 	});
 
 	//Intelligent suggestions dropdown
-	$(document.body).on("suggest", function(event, element) {
+	$(document.body).on("suggested.fu.dropdown-autoflip", function(event, element) {
 		_autoFlip( $(element) );
 		$(element).parent().addClass('open');
 	});

@@ -350,18 +350,18 @@
 											if($row.hasClass('selected')){
 												$row.removeClass('selected');
 												$row.find('.repeater-list-check').remove();
-												self.$element.trigger('itemDeselected', $row);
+												self.$element.trigger('itemDeselected.fu.repeater', $row);
 											}else{
 												if(self.options.list_selectable!=='multi'){
 													self.$canvas.find('.repeater-list-check').remove();
 													self.$canvas.find('.repeater-list-items tr.selected').each(function(){
 														$(this).removeClass('selected');
-														self.$element.trigger('itemDeselected', $(this));
+														self.$element.trigger('itemDeselected.fu.repeater', $(this));
 													});
 												}
 												$row.addClass('selected');
 												$row.find('td:first').prepend('<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>');
-												self.$element.trigger('itemSelected', $row);
+												self.$element.trigger('itemSelected.fu.repeater', $row);
 											}
 										});
 									}

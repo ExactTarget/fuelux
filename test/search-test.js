@@ -45,7 +45,7 @@ define(function(require){
 		var $search = $(html);
 		var searchText = '';
 
-		$search.search().on('searched', function (e, text) { searchText = text; });
+		$search.search().on('searched.fu.search', function (e, text) { searchText = text; });
 
 		$search.find('input').val('search text');
 		$search.find('button').click();
@@ -58,7 +58,7 @@ define(function(require){
 		var $search = $(html);
 		var clearedEventFired = false;
 
-		$search.search().on('cleared', function (e, text) { clearedEventFired = true; });
+		$search.search().on('cleared.fu.search', function (e, text) { clearedEventFired = true; });
 
 		$search.find('input').val('search text');
 		$search.find('button').click();
@@ -73,7 +73,7 @@ define(function(require){
 		var $search = $(html);
 		var searchText = '';
 
-		$search.search().on('searched', function (e, text) { searchText = text; });
+		$search.search().on('searched.fu.search', function (e, text) { searchText = text; });
 
 		$search.find('input').val('search text');
 		$search.find('button').click();

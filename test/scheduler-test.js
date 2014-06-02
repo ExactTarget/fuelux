@@ -12,6 +12,8 @@ define(function(require){
 	require('bootstrap');
 	require('fuelux/scheduler');
 
+	// TODO: Test 'changed.fu.scheduler' event
+
 	module('Fuel UX Scheduler');
 
 	test('should be defined on the jQuery object', function(){

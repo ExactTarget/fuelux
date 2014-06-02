@@ -111,8 +111,8 @@
 			this.$element.removeClass('showing');
 			this.$field.attr('readonly', 'readonly');
 			this.ellipsis();
-			$(document).off('click.placard.externalClick.' + this.clickStamp);
-			this.$element.trigger('hide');
+			$(document).off('click.fu.placard.externalClick.' + this.clickStamp);
+			this.$element.trigger('hidden.fu.placard');
 		},
 
 		externalClickListener: function(e, force){
@@ -175,11 +175,11 @@
 				this.$popup.css('bottom', '-' + this.$footer.outerHeight(true) + 'px');
 			}
 
-			this.$element.trigger('show');
+			this.$element.trigger('shown.fu.placard');
 			this.clickStamp = new Date().getTime() + (Math.floor(Math.random() * 100) + 1);
 			this.firstExternal = true;
 			if(!this.options.explicit){
-				$(document).on('click.placard.externalClick.' + this.clickStamp, $.proxy(this.externalClickListener, this));
+				$(document).on('click.fu.placard.externalClick.' + this.clickStamp, $.proxy(this.externalClickListener, this));
 			}
 		}
 	};
