@@ -50,14 +50,14 @@
 		search: function (searchText) {
 			this.$icon.attr('class', 'glyphicon glyphicon-remove');
 			this.activeSearch = searchText;
-			this.$element.trigger('searched', searchText);
+			this.$element.trigger('searched.fu.search', searchText);
 		},
 
 		clear: function () {
 			this.$icon.attr('class', 'glyphicon glyphicon-search');
 			this.activeSearch = '';
 			this.$input.val('');
-			this.$element.trigger('cleared');
+			this.$element.trigger('cleared.fu.search');
 		},
 
 		action: function () {
