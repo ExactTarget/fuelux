@@ -457,6 +457,12 @@ $('#MyPillboxEmpty').pillbox({
 	$('#disableSpinbox').on('click', function () {
 		$('#MySpinboxWithDefault').spinbox('disable');
 	});
+
+	$('#spinboxSetValueBtn').on('click', function(){
+		$('#MySpinboxWithDefault').spinbox('value', '4');
+		// $('#MySpinboxWithDefault').spinbox({'value': '4px', units: ['px']});
+	});
+
 	$('#MySpinboxWithDefault').on('changed.fu.spinbox', function (e, value) {
 		console.log('Spinbox changed: ', value);
 	});

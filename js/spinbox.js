@@ -59,7 +59,7 @@
 			this.switches.speed = 500;
 		}
 
-		this.lastValue = null;
+		this.lastValue = this.options.value;
 
 		this.render();
 
@@ -75,7 +75,8 @@
 			var inputValue = this.$input.val();
 			var maxUnitLength = '';
 
-			if (inputValue) {
+			// if input is empty and option value is default, 0
+			if (inputValue !== '' && this.options.value === 0) {
 				this.value(inputValue);
 			} else {
 				this.$input.val(this.options.value);
@@ -277,8 +278,12 @@
 			var data    = $this.data( 'spinbox' );
 			var options = typeof option === 'object' && option;
 
-			if( !data ) $this.data('spinbox', (data = new Spinbox( this, options ) ) );
-			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+			if( !data ) {
+				$this.data('spinbox', (data = new Spinbox( this, options ) ) );
+			}
+			if( typeof option === 'string' ) {
+				methodReturn = data[ option ].apply( data, args );
+			}
 		});
 
 		return ( methodReturn === undefined ) ? $set : methodReturn;
