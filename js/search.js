@@ -37,7 +37,7 @@
 		this.$icon = this.$element.find('.glyphicon');
 
 		this.$button.on('click.fu.search', $.proxy(this.buttonclicked, this));
-		this.$input.on('keydown.fu.search', $.proxy(this.keypress, this))
+		this.$input.on('keydown.fu.search', $.proxy(this.keypress, this));
 		this.$input.on('keyup.fu.search', $.proxy(this.keypressed, this));
 
 		this.activeSearch = '';
