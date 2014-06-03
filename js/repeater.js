@@ -62,14 +62,14 @@
 		this.resizeTimeout = {};
 		this.staticHeight = (this.options.staticHeight===-1) ? this.$element.attr('data-staticheight') : this.options.staticHeight;
 
-		this.$filters.on('change.fu.selectlist', $.proxy(this.render, this, { clearInfinite: true, pageIncrement: null }));
-		this.$nextBtn.on('click', $.proxy(this.next, this));
-		this.$pageSize.on('change.fu.selectlist', $.proxy(this.render, this, { pageIncrement: null }));
-		this.$prevBtn.on('click', $.proxy(this.previous, this));
-		this.$primaryPaging.find('.combobox').on('change.fu.combobox', function(evt, data){ self.pageInputChange(data.text); });
-		this.$search.on('searched cleared', $.proxy(this.render, this, { clearInfinite: true, pageIncrement: null }));
-		this.$secondaryPaging.on('blur', function(){ self.pageInputChange(self.$secondaryPaging.val()); });
-		this.$views.find('input').on('change', $.proxy(this.viewChanged, this));
+		this.$filters.on('changed.fu.selectlist', $.proxy(this.render, this, { clearInfinite: true, pageIncrement: null }));
+		this.$nextBtn.on('click.fu.repeater', $.proxy(this.next, this));
+		this.$pageSize.on('changed.fu.selectlist', $.proxy(this.render, this, { pageIncrement: null }));
+		this.$prevBtn.on('click.fu.repeater', $.proxy(this.previous, this));
+		this.$primaryPaging.find('.combobox').on('changed.fu.combobox', function(evt, data){ self.pageInputChange(data.text); });
+		this.$search.on('searched.fu.search cleared.fu.search', $.proxy(this.render, this, { clearInfinite: true, pageIncrement: null }));
+		this.$secondaryPaging.on('blur.fu.repeater', function(){ self.pageInputChange(self.$secondaryPaging.val()); });
+		this.$views.find('input').on('change.fu.repeater', $.proxy(this.viewChanged, this));
 
 		$(window).on('resize.fuelux_repeater_window', function(){
 			clearTimeout(self.resizeTimeout);

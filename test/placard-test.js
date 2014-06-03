@@ -11,6 +11,8 @@ define(function(require){
 
 	module('Fuel UX Placard');
 
+	// TODO: add shown/hidden event test
+
 	test('should be defined on jquery object', function () {
 		ok($(html).find('#placard1').placard(), 'placard method is defined');
 	});

@@ -45,6 +45,12 @@
 					moment: 'bower_components/moment-with-langs/index', // comment out if you dont want momentjs to be default
 					fuelux: 'js',
 					sample: 'sample'
+				},
+				shim: {
+					'bootstrap': {
+						deps: ['jquery'],
+						exports: 'bootstrap'
+					}
 				}
 			});
 		})();
@@ -213,12 +219,11 @@
 		<div class="clearfix">
 			<h2>Datepicker</h2>
 
-			<div id="MyDatepickerContainer">
+			<div id="MyDatepickerContainer" class="form-horizontal">
 
 				<div class="form-group">
-					<label class="control-label" for="MyDatepickerInput">Choose a date</label>
-					<div class="row">
-						<div class="col-lg-4">
+					<label class="control-label col-sm-3" for="MyDatepickerInput">Choose a date</label>
+						<div class="col-sm-9">
 
 							<div class="datepicker input-group dropdown" id="datepicker1">
 								<input id="MyDatepickerInput" type="text" class="form-control" data-toggle="dropdown" />
@@ -232,7 +237,6 @@
 								</span>
 							</div>
 						
-						</div>
 					</div>
 				</div>
 

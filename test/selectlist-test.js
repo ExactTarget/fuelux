@@ -109,7 +109,7 @@ define(function(require){
 		});
 
 		// simulate changed event
-		$selectlist.find('a:first').click();
+		$selectlist.find('.dropdown-menu a:first').click();
 
 		equal(eventFired, true, 'change event fired');
 		equal(selectedText, 'One', 'text passed in from change event');

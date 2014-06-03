@@ -32,8 +32,8 @@
 	var Combobox = function (element, options) {
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.combobox.defaults, options);
-		this.$element.on('click', 'a', $.proxy(this.itemclicked, this));
-		this.$element.on('change', 'input', $.proxy(this.inputchanged, this));
+		this.$element.on('click.fu.combobox', 'a', $.proxy(this.itemclicked, this));
+		this.$element.on('change.fu.combobox', 'input', $.proxy(this.inputchanged, this));
 		this.$input = this.$element.find('input');
 		this.$button = this.$element.find('.btn');
 
@@ -189,7 +189,7 @@
 
 	// COMBOBOX DATA-API
 
-	$('body').on('mousedown.combobox.data-api', '.combobox', function () {
+	$('body').on('mousedown.fu.combobox.data-api', '.combobox', function () {
 		var $this = $(this);
 		if ($this.data('combobox')) return;
 		$this.combobox($this.data());

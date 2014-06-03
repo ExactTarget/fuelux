@@ -148,13 +148,13 @@ define(function(require){
 						equal(options.search, undefined, 'search value not passed to dataSource initially as expected');
 						callback({});
 						$search.find('input').val('something');
-						$search.trigger('searched');
+						$search.trigger('searched.fu.repeater');
 						break;
 					case 1:
 						equal(options.search, 'something', 'correct search value passed to dataSource upon searching');
 						callback({});
 						$search.find('input').val('');
-						$search.trigger('cleared');
+						$search.trigger('cleared.fu.repeater');
 						break;
 					case 2:
 						equal(options.search, undefined, 'search value not passed to dataSource after clearing');

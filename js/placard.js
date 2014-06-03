@@ -47,9 +47,9 @@
 			this.options.revertOnCancel = (this.$accept.length>0) ? true : false;
 		}
 
-		this.$field.on('focus', $.proxy(this.show, this));
-		this.$accept.on('click', $.proxy(this.complete, this, 'accept'));
-		this.$cancel.on('click', function(e){ e.preventDefault(); self.complete('cancel'); });
+		this.$field.on('focus.fu.placard', $.proxy(this.show, this));
+		this.$accept.on('click.fu.placard', $.proxy(this.complete, this, 'accept'));
+		this.$cancel.on('click.fu.placard', function(e){ e.preventDefault(); self.complete('cancel'); });
 
 		this.ellipsis();
 	};
@@ -109,8 +109,8 @@
 			if(!this.$element.hasClass('showing')){ return; }
 			this.$element.removeClass('showing');
 			this.ellipsis();
-			$(document).off('click.placard.externalClick.' + this.clickStamp);
-			this.$element.trigger('hide');
+			$(document).off('click.fu.placard.externalClick.' + this.clickStamp);
+			this.$element.trigger('hidden.fu.placard');
 		},
 
 		externalClickListener: function(e, force){
@@ -169,10 +169,10 @@
 				this.$popup.css('bottom', '-' + this.$footer.outerHeight(true) + 'px');
 			}
 
-			this.$element.trigger('show');
+			this.$element.trigger('shown.fu.placard');
 			this.clickStamp = new Date().getTime() + (Math.floor(Math.random() * 100) + 1);
 			if(!this.options.explicit){
-				$(document).on('click.placard.externalClick.' + this.clickStamp, $.proxy(this.externalClickListener, this));
+				$(document).on('click.fu.placard.externalClick.' + this.clickStamp, $.proxy(this.externalClickListener, this));
 			}
 		}
 	};
@@ -213,7 +213,7 @@
 
 	// PLACARD DATA-API
 
-	$('body').on('focus.placard.data-api', '.placard', function () {
+	$('body').on('focus.fu.placard.data-api', '.placard', function () {
 		var $this = $(this);
 		if ($this.data('placard')) return;
 		$this.placard($this.data());

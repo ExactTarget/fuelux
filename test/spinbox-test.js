@@ -8,7 +8,6 @@ define(function(require){
 	/* FOR DEV TESTING - uncomment to test against index.html */
 	//html = require('text!index.html!strip');
 
-
 	require('bootstrap');
 	require('fuelux/spinbox');
 
@@ -28,7 +27,7 @@ define(function(require){
 		var $spinbox = $(html).find('#MySpinbox').spinbox();
 
 		//returning default value
-		equal($spinbox.spinbox('value'), 1, 'spinbox returns selected item');
+		equal($spinbox.spinbox('value'), 0, 'spinbox returns selected item');
 
 		//set number value
 		$spinbox.spinbox('value',2);
