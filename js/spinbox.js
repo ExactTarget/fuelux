@@ -361,7 +361,7 @@
 
 	// SPINBOX DATA-API
 
-	$('body').on('mousedown.spinbox.data-api', '.spinbox', function () {
+	$('body').on('mousedown.fu.spinbox.data-api', '.spinbox', function () {
 		var $this = $(this);
 		if ($this.data('spinbox')) return;
 		$this.spinbox($this.data());

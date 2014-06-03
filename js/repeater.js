@@ -71,7 +71,7 @@
 		this.$secondaryPaging.on('blur.fu.repeater', function(){ self.pageInputChange(self.$secondaryPaging.val()); });
 		this.$views.find('input').on('change.fu.repeater', $.proxy(this.viewChanged, this));
 
-		$(window).on('resize.fuelux_repeater_window', function(){
+		$(window).on('resize.fu.repeater.window', function(){
 			clearTimeout(self.resizeTimeout);
 			self.resizeTimeout = setTimeout(function(){
 				self.resize();
