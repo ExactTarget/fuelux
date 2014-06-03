@@ -250,7 +250,7 @@
 									sortable = subset[index].sortable;
 									if(sortable){
 										$item.addClass('sortable');
-										$item.on('click', function(){
+										$item.on('click.fu.repeater-list', function(){
 											self.list_sortProperty = (typeof sortable === 'string') ? sortable : subset[index].property;
 											if($item.hasClass('sorted')){
 												if($span.hasClass(chevUp)){
@@ -345,7 +345,7 @@
 									if(this.options.list_selectable){
 										$item.addClass('selectable');
 										$item.data('item_data', helpers.subset[helpers.index]);
-										$item.on('click', function(){
+										$item.on('click.fu.repeater-list', function(){
 											var $row = $(this);
 											if($row.hasClass('selected')){
 												$row.removeClass('selected');

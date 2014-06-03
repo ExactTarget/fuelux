@@ -51,7 +51,7 @@
 		this.setState(this.$radio);
 
 		// handle events
-		this.$radio.on('change', $.proxy(this.itemchecked, this));
+		this.$radio.on('change.fu.radio', $.proxy(this.itemchecked, this));
 	};
 
 	Radio.prototype = {

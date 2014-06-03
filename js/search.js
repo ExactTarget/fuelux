@@ -32,14 +32,14 @@
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.search.defaults, options);
 
-		this.$button = this.$element.find('button')
-			.on('click', $.proxy(this.buttonclicked, this));
-
-		this.$input = this.$element.find('input')
-			.on('keydown', $.proxy(this.keypress, this))
-			.on('keyup', $.proxy(this.keypressed, this));
-
+		this.$button = this.$element.find('button');
+		this.$input = this.$element.find('input');
 		this.$icon = this.$element.find('.glyphicon');
+
+		this.$button.on('click.fu.search', $.proxy(this.buttonclicked, this));
+		this.$input.on('keydown.fu.search', $.proxy(this.keypress, this))
+		this.$input.on('keyup.fu.search', $.proxy(this.keypressed, this));
+
 		this.activeSearch = '';
 	};
 

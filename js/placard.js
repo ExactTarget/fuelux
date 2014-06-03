@@ -48,9 +48,9 @@
 			this.options.revertOnCancel = (this.$accept.length>0) ? true : false;
 		}
 
-		this.$field.on('click', $.proxy(this.show, this));
-		this.$accept.on('click', $.proxy(this.complete, this, 'accept'));
-		this.$cancel.on('click', function(e){ e.preventDefault(); self.complete('cancel'); });
+		this.$field.on('click.fu.placard', $.proxy(this.show, this));
+		this.$accept.on('click.fu.placard', $.proxy(this.complete, this, 'accept'));
+		this.$cancel.on('click.fu.placard', function(e){ e.preventDefault(); self.complete('cancel'); });
 
 		this.ellipsis();
 	};

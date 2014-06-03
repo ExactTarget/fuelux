@@ -32,11 +32,11 @@
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.tree.defaults, options);
 
-		this.$element.on('click', '.tree-item', $.proxy( function(ev) { this.selectItem(ev.currentTarget); } ,this));
-		this.$element.on('click', '.tree-folder-header', $.proxy( function(ev) { this.openFolder(ev.currentTarget); }, this));
+		this.$element.on('click.fu.tree', '.tree-item', $.proxy( function(ev) { this.selectItem(ev.currentTarget); } ,this));
+		this.$element.on('click.fu.tree', '.tree-folder-header', $.proxy( function(ev) { this.openFolder(ev.currentTarget); }, this));
 
 		if( this.options.folderSelect ){
-			this.$element.on('click', '.tree-folder-name', $.proxy( function(ev) { this.selectFolder(ev.currentTarget); }, this));
+			this.$element.on('click.fu.tree', '.tree-folder-name', $.proxy( function(ev) { this.selectFolder(ev.currentTarget); }, this));
 		}
 
 		this.render();

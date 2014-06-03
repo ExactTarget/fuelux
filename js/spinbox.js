@@ -32,17 +32,18 @@
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.spinbox.defaults, options);
 		this.$input = this.$element.find('.spinbox-input');
-		this.$element.on('focusin', this.$input, $.proxy(this.changeFlag, this));
-		this.$element.on('focusout', this.$input, $.proxy(this.change, this));
+
+		this.$element.on('focusin.fu.spinbox', this.$input, $.proxy(this.changeFlag, this));
+		this.$element.on('focusout.fu.spinbox', this.$input, $.proxy(this.change, this));
 
 		if (this.options.hold) {
-			this.$element.on('mousedown', '.spinbox-up', $.proxy(function() { this.startSpin(true); } , this));
-			this.$element.on('mouseup', '.spinbox-up, .spinbox-down', $.proxy(this.stopSpin, this));
-			this.$element.on('mouseout', '.spinbox-up, .spinbox-down', $.proxy(this.stopSpin, this));
-			this.$element.on('mousedown', '.spinbox-down', $.proxy(function() {this.startSpin(false);} , this));
+			this.$element.on('mousedown.fu.spinbox', '.spinbox-up', $.proxy(function() { this.startSpin(true); } , this));
+			this.$element.on('mouseup.fu.spinbox', '.spinbox-up, .spinbox-down', $.proxy(this.stopSpin, this));
+			this.$element.on('mouseout.fu.spinbox', '.spinbox-up, .spinbox-down', $.proxy(this.stopSpin, this));
+			this.$element.on('mousedown.fu.spinbox', '.spinbox-down', $.proxy(function() {this.startSpin(false);} , this));
 		} else {
-			this.$element.on('click', '.spinbox-up', $.proxy(function() { this.step(true); } , this));
-			this.$element.on('click', '.spinbox-down', $.proxy(function() { this.step(false); }, this));
+			this.$element.on('click.fu.spinbox', '.spinbox-up', $.proxy(function() { this.step(true); } , this));
+			this.$element.on('click.fu.spinbox', '.spinbox-down', $.proxy(function() { this.step(false); }, this));
 		}
 
 		this.switches = {

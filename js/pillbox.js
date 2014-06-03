@@ -51,14 +51,14 @@
 		this.acceptKeyCodes = this._generateObject(this.options.acceptKeyCodes);
 		// Creatie an object out of the key code array, so we dont have to loop through it on every key stroke
 
-		this.$element.on('click', '.pill-group > .pill', $.proxy(this.itemClicked, this));
-		this.$element.on('click', $.proxy(this.inputFocus, this));
-		this.$element.on('keydown', '.pillbox-add-item', $.proxy(this.inputEvent, this));
+		this.$element.on('click.fu.pillbox', '.pill-group > .pill', $.proxy(this.itemClicked, this));
+		this.$element.on('click.fu.pillbox', $.proxy(this.inputFocus, this));
+		this.$element.on('keydown.fu.pillbox', '.pillbox-add-item', $.proxy(this.inputEvent, this));
 		if( this.options.onKeyDown ){
-			this.$element.on('mousedown', '.suggest > li', $.proxy(this.suggestionClick, this));
+			this.$element.on('mousedown.fu.pillbox', '.suggest > li', $.proxy(this.suggestionClick, this));
 		}
 		if( this.options.edit ){
-			this.$element.on('blur', '.pillbox-add-item', $.proxy(this.cancelEdit, this));
+			this.$element.on('blur.fu.pillbox', '.pillbox-add-item', $.proxy(this.cancelEdit, this));
 		}
 	};
 
@@ -473,7 +473,7 @@
 				// suggestion dropdown
 				
 				this.$suggest.html('').append(markup);
-				$(document.body).trigger('suggested.fu.dropdown-autoflip', this.$suggest);
+				$(document.body).trigger('suggested.fu.pillbox', this.$suggest);
 			}
 		},
 

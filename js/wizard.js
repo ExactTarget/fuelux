@@ -44,9 +44,9 @@
 		this.$nextBtn.append(kids);
 
 		// handle events
-		this.$prevBtn.on('click', $.proxy(this.previous, this));
-		this.$nextBtn.on('click', $.proxy(this.next, this));
-		this.$element.on('click', 'li.complete', $.proxy(this.stepclicked, this));
+		this.$prevBtn.on('click.fu.wizard', $.proxy(this.previous, this));
+		this.$nextBtn.on('click.fu.wizard', $.proxy(this.next, this));
+		this.$element.on('click.fu.wizard', 'li.complete', $.proxy(this.stepclicked, this));
 		
 		this.selectedItem(this.options.selectedItem);
 

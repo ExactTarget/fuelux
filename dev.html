@@ -35,6 +35,12 @@
 				moment: 'bower_components/moment-with-langs/index', // comment out if you dont want momentjs to be default
 				fuelux: 'js',
 				sample: 'sample'
+			},
+			shim: {
+				'bootstrap': {
+					deps: ['jquery'],
+					exports: 'bootstrap'
+				}
 			}
 		});
 

@@ -109,7 +109,7 @@ define(function(require){
 		var selectedText = '';
 		var selectedValue = '';
 
-		var $combobox = $(html).find("#MyCombobox").combobox().on('changed.fu.checkbox', function (evt, data) {
+		var $combobox = $(html).find("#MyCombobox").combobox().on('changed.fu.combobox', function (evt, data) {
 			eventFireCount++;
 			selectedText = data.text;
 			selectedValue = data.value;
@@ -157,7 +157,7 @@ define(function(require){
 		var eventFireCount = 0;
 		var selectedText = '';
 
-		var $combobox = $(html).find("#MyCombobox").combobox().on('changed.fu.checkbox', function (evt, data) {
+		var $combobox = $(html).find("#MyCombobox").combobox().on('changed.fu.combobox', function (evt, data) {
 			eventFireCount++;
 			selectedText = data.text;
 		});
