@@ -14,12 +14,11 @@ define(function(require){
 	module("Fuel UX Spinbox");
 
 	test("should be defined on jquery object", function () {
-		var $spinbox = $(html).find('#MySpinbox').spinbox();
-		ok($spinbox.spinbox, 'spinbox method is defined');
+		ok($().spinbox, 'spinbox method is defined');
 	});
 
 	test("should return element", function () {
-		var $spinbox = $(html).find('#MySpinbox').spinbox();
+		var $spinbox = $(html).find('#MySpinbox');
 		ok($spinbox.spinbox() === $spinbox, 'spinbox should be initialized');
 	});
 
@@ -27,7 +26,7 @@ define(function(require){
 		var $spinbox = $(html).find('#MySpinbox').spinbox();
 
 		//returning default value
-		equal($spinbox.spinbox('value'), 0, 'spinbox returns selected item');
+		equal($spinbox.spinbox('value'), 1, 'spinbox returns selected item');
 
 		//set number value
 		$spinbox.spinbox('value',2);

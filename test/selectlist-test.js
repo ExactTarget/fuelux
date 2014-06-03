@@ -15,11 +15,12 @@ define(function(require){
 	module("Fuel UX Selectlist");
 
 	test("should be defined on jquery object", function () {
-		ok($(document.body).selectlist, 'selectlist method is defined');
+		ok($().selectlist, 'selectlist method is defined');
 	});
 
 	test("should return element", function () {
-		ok($(document.body).selectlist()[0] === document.body, 'document.body returned');
+		var $selectlist = $(html);
+		ok($selectlist.selectlist() === $selectlist, 'selectlist should be initialized');
 	});
 
 	test("should set disabled state", function () {

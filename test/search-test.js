@@ -12,11 +12,12 @@ define(function(require){
 	module("Fuel UX Search");
 
 	test("should be defined on jquery object", function () {
-		ok($(document.body).search, 'search method is defined');
+		ok($().search, 'search method is defined');
 	});
 
 	test("should return element", function () {
-		ok($(document.body).search()[0] === document.body, 'document.body returned');
+		var $search = $(html);
+		ok($search.search() === $search, 'search has been initialized');
 	});
 
 
