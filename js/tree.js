@@ -55,7 +55,7 @@
 			var loader = $parent.find('.tree-loader:eq(0)');
 
 			loader.show();
-			this.options.dataSource.data($el.data(), function (items) {
+			this.options.dataSource($el.data(), function (items) {
 				loader.hide();
 
 				$.each( items.data, function(index, value) {
@@ -296,6 +296,7 @@
 	};
 
 	$.fn.tree.defaults = {
+		dataSource: function(options, callback){},
 		multiSelect: false,
 		cacheItems: true,
 		folderSelect: true
