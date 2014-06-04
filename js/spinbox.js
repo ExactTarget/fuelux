@@ -344,8 +344,9 @@
 		return ( methodReturn === undefined ) ? $set : methodReturn;
 	};
 
+	// value needs to be 0 for this.render();
 	$.fn.spinbox.defaults = {
-		value: 1,
+		value: 0,
 		min: 0,
 		max: 999,
 		step: 1,
