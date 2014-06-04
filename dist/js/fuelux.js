@@ -1557,11 +1557,13 @@
 			this.delay = ( this.$element.is( '[data-delay]' ) ) ? parseFloat( this.$element.attr( 'data-delay' ) ) : 150;
 			this.end = ( this.$element.is( '[data-end]' ) ) ? parseInt( this.$element.attr( 'data-end' ), 10 ) : 8;
 			this.frame = ( this.$element.is( '[data-frame]' ) ) ? parseInt( this.$element.attr( 'data-frame' ), 10 ) : 1;
+			this.isIElt9 = false;
 			this.timeout = {};
 
 			var ieVer = this.msieVersion();
 			if ( ieVer !== false && ieVer < 9 ) {
-				this.$element.className += ' iefix';
+				this.$element.addClass( 'iefix' );
+				this.isIElt9 = true;
 			}
 
 			this.$element.attr( 'data-frame', this.frame + '' );
@@ -1571,6 +1573,12 @@
 		Loader.prototype = {
 
 			constructor: Loader,
+
+			ieRepaint: function() {
+				if ( this.isIElt9 ) {
+					this.$element.addClass( 'iefix_repaint' ).removeClass( 'iefix_repaint' );
+				}
+			},
 
 			msieVersion: function() {
 				var ua = window.navigator.userAgent;
@@ -1588,6 +1596,7 @@
 					this.frame = this.begin;
 				}
 				this.$element.attr( 'data-frame', this.frame + '' );
+				this.ieRepaint();
 			},
 
 			pause: function() {
@@ -1609,11 +1618,13 @@
 					this.frame = this.end;
 				}
 				this.$element.attr( 'data-frame', this.frame + '' );
+				this.ieRepaint();
 			},
 
 			reset: function() {
 				this.frame = this.begin;
 				this.$element.attr( 'data-frame', this.frame + '' );
+				this.ieRepaint();
 			}
 
 		};
@@ -1692,13 +1703,12 @@
 
 			this.actualValue = null;
 			this.clickStamp = '_';
-			this.firstExternal = false;
 			this.previousValue = '';
 			if ( this.options.revertOnCancel === -1 ) {
 				this.options.revertOnCancel = ( this.$accept.length > 0 ) ? true : false;
 			}
 
-			this.$field.on( 'click.fu.placard', $.proxy( this.show, this ) );
+			this.$field.on( 'focus.fu.placard', $.proxy( this.show, this ) );
 			this.$accept.on( 'click.fu.placard', $.proxy( this.complete, this, 'accept' ) );
 			this.$cancel.on( 'click.fu.placard', function( e ) {
 				e.preventDefault();
@@ -1767,7 +1777,6 @@
 					return;
 				}
 				this.$element.removeClass( 'showing' );
-				this.$field.attr( 'readonly', 'readonly' );
 				this.ellipsis();
 				$( document ).off( 'click.fu.placard.externalClick.' + this.clickStamp );
 				this.$element.trigger( 'hidden.fu.placard' );
@@ -1785,10 +1794,7 @@
 				var $originEl = $( e.target );
 				var i, l;
 
-				if ( this.firstExternal ) {
-					this.firstExternal = false;
-					return false;
-				} else if ( e.target === el || $originEl.parents( '.placard:first' ).get( 0 ) === el ) {
+				if ( e.target === el || $originEl.parents( '.placard:first' ).get( 0 ) === el ) {
 					return false;
 				} else {
 					for ( i = 0, l = exceptions.length; i < l; i++ ) {
@@ -1823,7 +1829,6 @@
 				this.previousValue = this.$field.val();
 
 				this.$element.addClass( 'showing' );
-				this.$field.removeAttr( 'readonly' );
 				if ( this.actualValue !== null ) {
 					this.$field.val( this.actualValue );
 					this.actualValue = null;
@@ -1837,7 +1842,6 @@
 
 				this.$element.trigger( 'shown.fu.placard' );
 				this.clickStamp = new Date().getTime() + ( Math.floor( Math.random() * 100 ) + 1 );
-				this.firstExternal = true;
 				if ( !this.options.explicit ) {
 					$( document ).on( 'click.fu.placard.externalClick.' + this.clickStamp, $.proxy( this.externalClickListener, this ) );
 				}
@@ -1880,7 +1884,7 @@
 
 		// PLACARD DATA-API
 
-		$( 'body' ).on( 'mousedown.placard.data-api', '.placard', function() {
+		$( 'body' ).on( 'focus.fu.placard.data-api', '.placard', function() {
 			var $this = $( this );
 			if ( $this.data( 'placard' ) ) return;
 			$this.placard( $this.data() );
@@ -2211,7 +2215,7 @@
 
 		// SEARCH DATA-API
 
-		$( 'body' ).on( 'mousedown.search.data-api', '.search', function() {
+		$( 'body' ).on( 'mousedown.fu.search.data-api', '.search', function() {
 			var $this = $( this );
 			if ( $this.data( 'search' ) ) return;
 			$this.search( $this.data() );
@@ -2443,9 +2447,13 @@
 			this.$element = $( element );
 			this.options = $.extend( {}, $.fn.spinbox.defaults, options );
 			this.$input = this.$element.find( '.spinbox-input' );
-
 			this.$element.on( 'focusin.fu.spinbox', this.$input, $.proxy( this.changeFlag, this ) );
 			this.$element.on( 'focusout.fu.spinbox', this.$input, $.proxy( this.change, this ) );
+			this.$element.on( 'keydown.fu.spinbox', this.$input, $.proxy( this.keydown, this ) );
+			this.$element.on( 'keyup.fu.spinbox', this.$input, $.proxy( this.keyup, this ) );
+
+			this.bindMousewheelListeners();
+			this.mousewheelTimeout = {};
 
 			if ( this.options.hold ) {
 				this.$element.on( 'mousedown.fu.spinbox', '.spinbox-up', $.proxy( function() {
@@ -2478,7 +2486,7 @@
 				this.switches.speed = 500;
 			}
 
-			this.lastValue = null;
+			this.lastValue = this.options.value;
 
 			this.render();
 
@@ -2494,7 +2502,8 @@
 				var inputValue = this.$input.val();
 				var maxUnitLength = '';
 
-				if ( inputValue ) {
+				// if input is empty and option value is default, 0
+				if ( inputValue !== '' && this.options.value === 0 ) {
 					this.value( inputValue );
 				} else {
 					this.$input.val( this.options.value );
@@ -2541,17 +2550,12 @@
 
 			triggerChangedEvent: function() {
 				var currentValue = this.value();
-				if ( currentValue === this.lastValue ) {
-					return;
-				}
+				if ( currentValue === this.lastValue ) return;
 
 				this.lastValue = currentValue;
 
 				// Primary changed event
 				this.$element.trigger( 'changed.fu.spinbox', currentValue );
-
-				// Undocumented, kept for backward compatibility
-				this.$element.trigger( 'change' );
 			},
 
 			startSpin: function( type ) {
@@ -2685,6 +2689,60 @@
 				this.options.disabled = false;
 				this.$input.removeAttr( "disabled" );
 				this.$element.find( 'button' ).removeClass( 'disabled' );
+			},
+
+			keydown: function( event ) {
+				var keyCode = event.keyCode;
+				if ( keyCode === 38 ) {
+					this.step( true );
+				} else if ( keyCode === 40 ) {
+					this.step( false );
+				}
+			},
+
+			keyup: function( event ) {
+				var keyCode = event.keyCode;
+
+				if ( keyCode === 38 || keyCode === 40 ) {
+					this.triggerChangedEvent();
+				}
+			},
+
+			bindMousewheelListeners: function() {
+				var inputEl = this.$input.get( 0 );
+				if ( inputEl.addEventListener ) {
+					//IE 9, Chrome, Safari, Opera
+					inputEl.addEventListener( 'mousewheel', $.proxy( this.mousewheelHandler, this ), false );
+					// Firefox
+					inputEl.addEventListener( 'DOMMouseScroll', $.proxy( this.mousewheelHandler, this ), false );
+				} else {
+					// IE <9
+					inputEl.attachEvent( 'onmousewheel', $.proxy( this.mousewheelHandler, this ) );
+				}
+			},
+
+			mousewheelHandler: function( event ) {
+				var e = window.event || event; // old IE support
+				var delta = Math.max( -1, Math.min( 1, ( e.wheelDelta || -e.detail ) ) );
+				var self = this;
+
+				clearTimeout( this.mousewheelTimeout );
+				this.mousewheelTimeout = setTimeout( function() {
+					self.triggerChangedEvent();
+				}, 300 );
+
+				if ( delta < 0 ) {
+					this.step( true );
+				} else {
+					this.step( false );
+				}
+
+				if ( e.preventDefault ) {
+					e.preventDefault();
+				} else {
+					e.returnValue = false;
+				}
+				return false;
 			}
 		};
 
@@ -2700,15 +2758,19 @@
 				var data = $this.data( 'spinbox' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'spinbox', ( data = new Spinbox( this, options ) ) );
-				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+				if ( !data ) {
+					$this.data( 'spinbox', ( data = new Spinbox( this, options ) ) );
+				}
+				if ( typeof option === 'string' ) {
+					methodReturn = data[ option ].apply( data, args );
+				}
 			} );
 
 			return ( methodReturn === undefined ) ? $set : methodReturn;
 		};
 
 		$.fn.spinbox.defaults = {
-			value: 0,
+			value: 1,
 			min: 0,
 			max: 999,
 			step: 1,
@@ -2746,6 +2808,7 @@
 				}
 			} );
 		} );
+
 
 
 	} )( jQuery );
@@ -3047,6 +3110,9 @@
 		};
 
 		$.fn.tree.defaults = {
+			dataSource: {
+				data: function() {}
+			},
 			multiSelect: false,
 			cacheItems: true,
 			folderSelect: true
@@ -4170,7 +4236,7 @@
 
 		// PILLBOX DATA-API
 
-		$( 'body' ).on( 'mousedown.pillbox.data-api', '.pillbox', function() {
+		$( 'body' ).on( 'mousedown.fu.pillbox.data-api', '.pillbox', function() {
 			var $this = $( this );
 			if ( $this.data( 'pillbox' ) ) {
 				return;
@@ -4178,7 +4244,7 @@
 			$this.pillbox( $this.data() );
 		} );
 
-		$( 'body' ).on( 'click.pillbox.data-api', function() {
+		$( 'body' ).on( 'click.fu.pillbox.data-api', function() {
 			$( '.pillbox .suggest' ).css( 'visibility: hidden;' );
 		} );
 
@@ -4233,7 +4299,9 @@
 			this.infiniteScrollingEnabled = false;
 			this.infiniteScrollingEnd = null;
 			this.infiniteScrollingOptions = {};
+			this.lastPageInput = 0;
 			this.options = $.extend( {}, $.fn.repeater.defaults, options );
+			this.resizeTimeout = {};
 			this.staticHeight = ( this.options.staticHeight === -1 ) ? this.$element.attr( 'data-staticheight' ) : this.options.staticHeight;
 
 			this.$filters.on( 'changed.fu.selectlist', $.proxy( this.render, this, {
@@ -4257,12 +4325,21 @@
 			} );
 			this.$views.find( 'input' ).on( 'change.fu.repeater', $.proxy( this.viewChanged, this ) );
 
+			$( window ).on( 'resize.fu.repeater.window', function() {
+				clearTimeout( self.resizeTimeout );
+				self.resizeTimeout = setTimeout( function() {
+					self.resize();
+					self.$element.trigger( 'resized.fu.repeater' );
+				}, 75 );
+			} );
+
 			this.$loader.loader();
 			this.$loader.loader( 'pause' );
 			currentView = ( this.options.defaultView !== -1 ) ? this.options.defaultView : this.$views.find( 'label.active input' ).val();
 
 			this.initViews( function() {
 				self.resize();
+				self.$element.trigger( 'resized.fu.repeater' );
 				self.render( {
 					changeView: currentView
 				} );
@@ -4451,11 +4528,15 @@
 			},
 
 			pageInputChange: function( val ) {
-				val = parseInt( val, 10 ) - 1;
-				var pageInc = val - this.currentPage;
-				this.render( {
-					pageIncrement: pageInc
-				} );
+				var pageInc;
+				if ( val !== this.lastPageInput ) {
+					this.lastPageInput = val;
+					val = parseInt( val, 10 ) - 1;
+					pageInc = val - this.currentPage;
+					this.render( {
+						pageIncrement: pageInc
+					} );
+				}
 			},
 
 			pagination: function( data ) {
@@ -4483,6 +4564,7 @@
 					this.$secondaryPaging.addClass( act );
 					this.$secondaryPaging.val( this.currentPage + 1 );
 				}
+				this.lastPageInput = this.currentPage + 1 + '';
 
 				this.$pages.html( pages );
 
@@ -4571,18 +4653,30 @@
 
 			resize: function() {
 				var staticHeight = this.staticHeight;
-				var height;
+				var viewObj = $.fn.repeater.views[ this.currentView ] || {};
+				var height, viewportMargins;
 
 				if ( staticHeight !== undefined ) {
 					this.$canvas.addClass( 'scrolling' );
+					viewportMargins = {
+						bottom: this.$viewport.css( 'margin-bottom' ),
+						top: this.$viewport.css( 'margin-top' )
+					};
 					height = ( ( staticHeight === 'true' || staticHeight === true ) ? this.$element.height() : parseInt( staticHeight, 10 ) ) -
 						this.$element.find( '.repeater-header' ).outerHeight() -
 						this.$element.find( '.repeater-footer' ).outerHeight() -
-						parseInt( this.$viewport.css( 'margin-bottom' ), 10 ) -
-						parseInt( this.$viewport.css( 'margin-top' ), 10 );
+						( ( viewportMargins.bottom === 'auto' ) ? 0 : parseInt( viewportMargins.bottom, 10 ) ) -
+						( ( viewportMargins.top === 'auto' ) ? 0 : parseInt( viewportMargins.top, 10 ) );
 					this.$viewport.outerHeight( height );
 				} else {
 					this.$canvas.removeClass( 'scrolling' );
+				}
+
+				if ( viewObj.resize ) {
+					viewObj.resize.call( this, {
+						height: this.$element.outerHeight(),
+						width: this.$element.outerWidth()
+					}, function() {} );
 				}
 			},
 
@@ -4906,27 +5000,7 @@
 				},
 				renderer: {
 					complete: function( helpers, callback ) {
-						var i = 0;
-						var widths = [];
-						var $header, $items;
-
-						if ( !this.options.list_columnSyncing || ( helpers.data.items.length < 1 ) ) {
-							callback();
-						} else {
-							$header = this.$element.find( '.repeater-list-header:first' );
-							$items = this.$element.find( '.repeater-list-items:first' );
-							$items.find( 'tr:first td' ).each( function() {
-								widths.push( $( this ).outerWidth() );
-							} );
-							widths.pop();
-							$header.find( 'td' ).each( function() {
-								if ( widths[ i ] !== undefined ) {
-									$( this ).outerWidth( widths[ i ] );
-								}
-								i++;
-							} );
-							callback();
-						}
+						columnSyncing.call( this, helpers, callback );
 					},
 					nested: [ {
 						complete: function( helpers, callback ) {
@@ -5192,9 +5266,39 @@
 							} ]
 						} ]
 					} ]
+				},
+				resize: function( helpers, callback ) {
+					columnSyncing.call( this, {
+						data: {
+							items: [ '' ]
+						}
+					}, callback );
 				}
 			};
 
+			var columnSyncing = function( helpers, callback ) {
+				var i = 0;
+				var widths = [];
+				var $header, $items;
+
+				if ( !this.options.list_columnSyncing || ( helpers.data.items.length < 1 ) ) {
+					callback();
+				} else {
+					$header = this.$element.find( '.repeater-list-header:first' );
+					$items = this.$element.find( '.repeater-list-items:first' );
+					$items.find( 'tr:first td' ).each( function() {
+						widths.push( $( this ).outerWidth() );
+					} );
+					widths.pop();
+					$header.find( 'td' ).each( function() {
+						if ( widths[ i ] !== undefined ) {
+							$( this ).outerWidth( widths[ i ] );
+						}
+						i++;
+					} );
+					callback();
+				}
+			};
 		}
 
 
@@ -5796,7 +5900,7 @@
 
 		// SCHEDULER DATA-API
 
-		$( 'body' ).on( 'mousedown.scheduler.data-api', '.scheduler', function() {
+		$( 'body' ).on( 'mousedown.fu.scheduler.data-api', '.scheduler', function() {
 			var $this = $( this );
 			if ( $this.data( 'scheduler' ) ) return;
 			$this.scheduler( $this.data() );

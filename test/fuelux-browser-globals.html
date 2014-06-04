@@ -1,48 +1,51 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<title>FuelUX Component Initialization (via Browser Globals)</title>
-	<link rel="stylesheet" href="../bower_components/qunit/qunit/qunit.css" media="screen">
+	<head>
+		<meta charset="utf-8">
+		<title>FuelUX Component Initialization (via Browser Globals)</title>
+		<link rel="stylesheet" href="../bower_components/qunit/qunit/qunit.css" media="screen">
+	</head>
+	<body>
+		<h1 id="qunit-header">Fuel UX Test Suite</h1>
 
-	<script src="../bower_components/jquery-1.9.1/jquery.js"></script>
-	<script src="../bower_components/qunit/qunit/qunit.js"></script>
+		<h2 id="qunit-banner"></h2>
 
-	<!-- Bootstrap -->
-	<script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+		<div id="qunit-testrunner-toolbar"></div>
+		<h2 id="qunit-userAgent"></h2>
+		<ol id="qunit-tests"></ol>
+		<div id="qunit-fixture"></div>
 
-	<!-- Fuel UX Source - NOTE: These must be in particular order due to dependencies on other controls -->
-	<script src="../js/checkbox.js"></script>
-	<script src="../js/combobox.js"></script>
-	<script src="../js/datepicker.js"></script>
-	<script src="../js/dropdown-autoflip.js"></script>
-	<script src="../js/loader.js"></script>
-	<script src="../js/radio.js"></script>
-	<script src="../js/search.js"></script>
-	<script src="../js/selectlist.js"></script>
-	<script src="../js/spinbox.js"></script>
-	<script src="../js/tree.js"></script>
-	<script src="../js/wizard.js"></script>
 
-	<!-- Items with dependencies on other controls -->
-	<script src="../js/infinite-scroll.js"></script>
-	<script src="../js/pillbox.js"></script>
-	<script src="../js/repeater.js"></script>
-	<script src="../js/repeater-list.js"></script>
-	<script src="../js/repeater-thumbnail.js"></script>
-	<script src="../js/scheduler.js"></script>
+		<!-- If using browser globals, place scripts after markup. -->
+		<script src="../bower_components/jquery-1.9.1/jquery.js"></script>
+		<script src="../bower_components/qunit/qunit/qunit.js"></script>
 
-	<!-- Test -->
-	<script src="fuelux-browser-globals.js"></script>
-</head>
-<body>
-	<h1 id="qunit-header">Fuel UX Test Suite</h1>
+		<!-- Bootstrap -->
+		<script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
 
-	<h2 id="qunit-banner"></h2>
+		<!-- Fuel UX Source - NOTE: These must be in particular order due to dependencies on other controls -->
+		<script src="../js/checkbox.js"></script>
+		<script src="../js/combobox.js"></script>
+		<script src="../js/datepicker.js"></script>
+		<script src="../js/dropdown-autoflip.js"></script>
+		<script src="../js/loader.js"></script>
+		<script src="../js/radio.js"></script>
+		<script src="../js/search.js"></script>
+		<script src="../js/selectlist.js"></script>
+		<script src="../js/spinbox.js"></script>
+		<script src="../js/tree.js"></script>
+		<script src="../js/wizard.js"></script>
 
-	<div id="qunit-testrunner-toolbar"></div>
-	<h2 id="qunit-userAgent"></h2>
-	<ol id="qunit-tests"></ol>
-	<div id="qunit-fixture"></div>
-</body>
+		<!-- Items with dependencies on other controls -->
+		<script src="../js/infinite-scroll.js"></script>
+		<script src="../js/pillbox.js"></script>
+		<script src="../js/repeater.js"></script>
+		<script src="../js/repeater-list.js"></script>
+		<script src="../js/repeater-thumbnail.js"></script>
+		<script src="../js/scheduler.js"></script>
+
+		<!-- Test -->
+		<script src="fuelux-browser-globals.js"></script>
+
+	</body>
 </html>
