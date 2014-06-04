@@ -38,11 +38,12 @@ define(function(require){
 	});
 
 	test("should be defined on jquery object", function () {
-		ok($(document.body).tree, 'tree method is defined');
+		ok($().tree, 'tree method is defined');
 	});
 
 	test("should return element", function () {
-		ok($(document.body).tree({ dataSource: this.emptyDataSource })[0] === document.body, 'document.body returned');
+		var $tree = $(html);
+		ok($tree.tree() === $tree, 'tree should be initialized');
 	});
 
 	asyncTest("Tree should be populated by items on initialization", function () {

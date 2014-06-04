@@ -31,7 +31,7 @@ define(function(require){
 	});
 
 	test("should be defined on jquery object", function () {
-		ok($(this.$markup).repeater, 'repeater method is defined');
+		ok($().repeater, 'repeater method is defined');
 	});
 
 	test("should return element", function () {

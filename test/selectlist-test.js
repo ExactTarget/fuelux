@@ -15,11 +15,12 @@ define(function(require){
 	module("Fuel UX Selectlist");
 
 	test("should be defined on jquery object", function () {
-		ok($(document.body).selectlist, 'selectlist method is defined');
+		ok($().selectlist, 'selectlist method is defined');
 	});
 
 	test("should return element", function () {
-		ok($(document.body).selectlist()[0] === document.body, 'document.body returned');
+		var $selectlist = $(html);
+		ok($selectlist.selectlist() === $selectlist, 'selectlist should be initialized');
 	});
 
 	test("should set disabled state", function () {
@@ -36,8 +37,8 @@ define(function(require){
 	});
 
 	test("should set default selection", function () {
-		// should be "Three" based on the data-selected attribute
-		var $selectlist = $(html).selectlist();
+		var $html = $(html);
+		var $selectlist = $html.selectlist();
 		var item = $selectlist.selectlist('selectedItem');
 		var expectedItem = { text: 'Two', value: 2 };
 		deepEqual(item, expectedItem, 'default item selected');
@@ -97,7 +98,7 @@ define(function(require){
 		deepEqual(item, expectedItem, 'item selected');
 	});
 
-	test("should fire changed event", function () {
+	test("should fire change event", function () {
 		var eventFired = false;
 		var selectedText = '';
 		var selectedValue = '';
@@ -111,9 +112,9 @@ define(function(require){
 		// simulate changed event
 		$selectlist.find('.dropdown-menu a:first').click();
 
-		equal(eventFired, true, 'changed event fired');
-		equal(selectedText, 'One', 'text passed in from changed event');
-		equal(selectedValue, 1, 'value passed in from changed event');
+		equal(eventFired, true, 'change event fired');
+		equal(selectedText, 'One', 'text passed in from change event');
+		equal(selectedValue, 1, 'value passed in from change event');
 	});
 
 });

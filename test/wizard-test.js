@@ -28,11 +28,12 @@ define(function(require){
 	module("Fuel UX Wizard");
 
 	test("should be defined on jquery object", function () {
-		ok($(document.body).wizard, 'wizard method is defined');
+		ok($().wizard, 'wizard method is defined');
 	});
 
 	test("should return element", function () {
-		ok($(document.body).wizard()[0] === document.body, 'document.body returned');
+		var $wizard = $(html).find('#MyWizard');
+		ok($wizard.wizard() === $wizard, 'wizard should be initialized');
 	});
 
 	test("should set step index", function () {

@@ -569,7 +569,7 @@
 
 	// PILLBOX DATA-API
 
-	$('body').on('mousedown.pillbox.data-api', '.pillbox', function () {
+	$('body').on('mousedown.fu.pillbox.data-api', '.pillbox', function () {
 		var $this = $(this);
 		if ($this.data('pillbox')) {
 			return;
@@ -577,7 +577,7 @@
 		$this.pillbox($this.data());
 	});
 
-	$('body').on('click.pillbox.data-api',function(){
+	$('body').on('click.fu.pillbox.data-api',function(){
 		$('.pillbox .suggest').css('visibility: hidden;');
 	});
 	

@@ -14,7 +14,7 @@ define(function(require){
 	// TODO: add shown/hidden event test
 
 	test('should be defined on jquery object', function () {
-		ok($(html).find('#placard1').placard(), 'placard method is defined');
+		ok($().find('#placard1').placard(), 'placard method is defined');
 	});
 
 	test('should return element', function () {
@@ -25,13 +25,13 @@ define(function(require){
 	test('should behave as expected - input', function(){
 		var $placard = $(html).find('#placard1');
 
+		$('body').append($placard);
 		$placard.placard();
 		$placard.on('cancel', function(e, helpers){
 			ok(1===1, 'default action event (cancel) triggered upon external click');
 		});
-		$('body').append($placard);
 
-		$placard.find('input').click();
+		$placard.find('input').focus().focus();
 		equal($placard.hasClass('showing'), true, 'placard shows when appropriate');
 
 		$('body').click();
@@ -48,7 +48,7 @@ define(function(require){
 		});
 		$('body').append($placard);
 
-		$placard.find('textarea').click();
+		$placard.find('textarea').focus().focus();
 		equal($placard.hasClass('showing'), true, 'placard shows when appropriate');
 
 		$('body').click();
@@ -84,9 +84,9 @@ define(function(require){
 			equal((helpers.previousValue!==undefined && helpers.value!==undefined), true, 'helpers object contains correct attributes');
 		});
 
-		$placard.find('input').click();
+		$placard.find('input').focus().focus();
 		$placard.find('.placard-cancel').click();
-		$placard.find('input').click();
+		$placard.find('input').focus().focus();
 		$placard.find('.placard-accept').click();
 	});
 
@@ -102,7 +102,7 @@ define(function(require){
 			}
 		});
 
-		$placard.find('input').click();
+		$placard.find('input').focus().focus();
 		$placard.find('.placard-accept').click();
 	});
 
@@ -118,7 +118,7 @@ define(function(require){
 			}
 		});
 
-		$placard.find('input').click();
+		$placard.find('input').focus().focus();
 		$placard.find('.placard-cancel').click();
 	});
 
@@ -129,7 +129,7 @@ define(function(require){
 			externalClickAction: 'accept'
 		});
 
-		$placard.find('input').click().val('test');
+		$placard.find('input').focus().focus().val('test');
 		$('body').click();
 		equal($placard.find('input').val(), 'test', 'desired externalClickAction triggered on external click');
 	});
@@ -143,7 +143,7 @@ define(function(require){
 			externalClickExceptions: ['.test', '#test']
 		});
 
-		$placard.find('input').click();
+		$placard.find('input').focus().focus();
 		$('#test').click();
 		equal($placard.hasClass('showing'), true, 'externalClick ignored for specified id');
 		$('.test').click();
@@ -163,7 +163,7 @@ define(function(require){
 			explicit: true
 		});
 
-		$placard.find('input').click();
+		$placard.find('input').focus().focus();
 		$('body').click();
 		equal($placard.hasClass('showing'), true, 'externalClick ignored due to not being an explicit accept/cancel action');
 		$placard.find('.placard-accept').click();
@@ -177,20 +177,22 @@ define(function(require){
 
 		var setup = function(revert){
 			$placard = $(html).find('#placard1');
+			$('body').append($placard);
 			$placard.find('input').val('test');
 			$placard.placard({
 				revertOnCancel: revert
 			});
-			$placard.find('input').click().val('blah blah blah');
+			$placard.find('input').focus().focus().val('blah blah blah');
 			$placard.find('.placard-cancel').click();
 		};
 
 		setup(true);
 		equal($placard.find('input').val(), 'test', 'value reverted when set to true');
-
 		$placard.remove();
+
 		setup(false);
 		equal($placard.find('input').val(), 'blah blah blah', 'value not reverted when set to false');
+		$placard.remove();
 	});
 
 	test('getValue method should function as expected', function(){

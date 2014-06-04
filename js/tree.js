@@ -296,6 +296,7 @@
 	};
 
 	$.fn.tree.defaults = {
+		dataSource: { data: function(){} },
 		multiSelect: false,
 		cacheItems: true,
 		folderSelect: true
