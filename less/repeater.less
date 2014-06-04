@@ -20,32 +20,36 @@
 		min-height: 50px;
 		padding: 8px;
 		.clearfix;
+
+		&-left {
+			float: left;
+		}
+
+		&-right {
+			float: right;
+		}
+
+		@media (max-width: 625px) {
+			&-left,
+			&-right {
+				float: none;
+				.clearfix;
+			}
+
+			&-left {
+				margin-bottom: 8px;
+			}
+		}
 	}
 
 	&-header {
 		border-bottom: 1px solid #ddd;
 		.border-top-radius(4px);
-
-		&-left {
-			float: left;
-		}
-
-		&-right {
-			float: right;
-		}
 	}
 
 	&-footer {
 		border-top: 1px solid #ddd;
 		.border-bottom-radius(4px);
-
-		&-left {
-			float: left;
-		}
-
-		&-right {
-			float: right;
-		}
 	}
 
 	&-loader {

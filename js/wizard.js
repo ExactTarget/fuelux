@@ -44,9 +44,9 @@
 		this.$nextBtn.append(kids);
 
 		// handle events
-		this.$prevBtn.on('click', $.proxy(this.previous, this));
-		this.$nextBtn.on('click', $.proxy(this.next, this));
-		this.$element.on('click', 'li.complete', $.proxy(this.stepclicked, this));
+		this.$prevBtn.on('click.fu.wizard', $.proxy(this.previous, this));
+		this.$nextBtn.on('click.fu.wizard', $.proxy(this.next, this));
+		this.$element.on('click.fu.wizard', 'li.complete', $.proxy(this.stepclicked, this));
 		
 		this.selectedItem(this.options.selectedItem);
 
@@ -220,7 +220,7 @@
 				}
 			}
 
-			this.$element.trigger('changed');
+			this.$element.trigger('changed.fu.wizard');
 		},
 
 		stepclicked: function (e) {
@@ -235,9 +235,9 @@
 			}
 
 			if( canMovePrev ) {
-				var evt = $.Event('stepclick');
+				var evt = $.Event('stepclick.fu.wizard');
 				this.$element.trigger(evt, {step: index + 1});
-				if (evt.isDefaultPrevented()) return;
+				if (evt.isDefaultPrevented()) { return; }
 
 				this.currentStep = (index + 1);
 				this.setState();
@@ -269,9 +269,9 @@
 				canMovePrev = false;
 			}
 			if (canMovePrev) {
-				var e = $.Event('change');
+				var e = $.Event('changed.fu.wizard');
 				this.$element.trigger(e, {step: this.currentStep, direction: 'previous'});
-				if (e.isDefaultPrevented()) return;
+				if (e.isDefaultPrevented()) { return; }
 
 				this.currentStep -= 1;
 				this.setState();
@@ -283,16 +283,16 @@
 			var lastStep = (this.currentStep === this.numSteps);
 
 			if (canMoveNext) {
-				var e = $.Event('change');
+				var e = $.Event('change.fu.wizard');
 				this.$element.trigger(e, {step: this.currentStep, direction: 'next'});
 
-				if (e.isDefaultPrevented()) return;
+				if (e.isDefaultPrevented()) { return; }
 
 				this.currentStep += 1;
 				this.setState();
 			}
 			else if (lastStep) {
-				this.$element.trigger('finished');
+				this.$element.trigger('finished.fu.wizard');
 			}
 		},
 
@@ -358,9 +358,9 @@
 
 	// WIZARD DATA-API
 
-	$('body').on('mouseover.wizard.data-api', '.wizard', function () {
+	$('body').on('mouseover.fu.wizard.data-api', '.wizard', function () {
 		var $this = $(this);
-		if ($this.data('wizard')) return;
+		if ($this.data('wizard')) { return; }
 		$this.wizard($this.data());
 	});
 

@@ -28,11 +28,12 @@ define(function(require){
 	module("Fuel UX Wizard");
 
 	test("should be defined on jquery object", function () {
-		ok($(document.body).wizard, 'wizard method is defined');
+		ok($().wizard, 'wizard method is defined');
 	});
 
 	test("should return element", function () {
-		ok($(document.body).wizard()[0] === document.body, 'document.body returned');
+		var $wizard = $(html).find('#MyWizard');
+		ok($wizard.wizard() === $wizard, 'wizard should be initialized');
 	});
 
 	test("should set step index", function () {
@@ -57,7 +58,7 @@ define(function(require){
 		var $wizard    = $(html).find('#MyWizard').wizard();
 		var eventFired = false;
 
-		$wizard.on('change', function (evt, data) {
+		$wizard.on('changed.fu.wizard', function (evt, data) {
 			eventFired = true;
 		});
 
@@ -71,7 +72,7 @@ define(function(require){
 		var $wizard = $(html).find('#MyWizard').wizard();
 		var eventFired = false;
 
-		$wizard.on('changed', function (evt, data) {
+		$wizard.on('changed.fu.wizard', function (evt, data) {
 			eventFired = true;
 		});
 
@@ -87,7 +88,7 @@ define(function(require){
 		var $wizard = $(html).find('#MyWizard').wizard();
 		var eventFired = false;
 
-		$wizard.on('change', function (evt, data) {
+		$wizard.on('change.fu.wizard', function (evt, data) {
 			eventFired = true;
 			return evt.preventDefault(); // prevent action
 		});
@@ -104,7 +105,7 @@ define(function(require){
 		var $wizard = $(html).find('#MyWizard').wizard();
 		var eventFired = false;
 
-		$wizard.on('stepclick', function (evt, data) {
+		$wizard.on('stepclick.fu.wizard', function (evt, data) {
 			eventFired = true;
 			return evt.preventDefault(); // prevent action
 		});
@@ -126,7 +127,7 @@ define(function(require){
 		var $wizard = $(html).find('#MyWizard').wizard();
 		var eventFired = false;
 
-		$wizard.on('finished', function (evt, data) {
+		$wizard.on('finished.fu.wizard', function (evt, data) {
 			eventFired = true;
 		});
 

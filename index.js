@@ -38,7 +38,7 @@ define(function(require){
 	$('#btnComboboxSelectBySelector').on('click', function () {
 		$('#MyCombobox').combobox('selectBySelector', 'li[data-fizz=buzz]');
 	});
-	$('#MyCombobox').on('changed', function (evt, data) {
+	$('#MyCombobox').on('changed.fu.combobox', function (evt, data) {
 		console.log(data);
 	});
 	$('#btnComboboxDisable').on('click', function () {
@@ -55,7 +55,7 @@ define(function(require){
 			//restrictDateSelection: false
 	});
 
-	$('#datepicker1').on('changed', function( event, data ) {
+	$('#datepicker1').on('changed.fu.datepicker', function( event, data ) {
 		console.log( 'datepicker change event fired' );
 	});
 
@@ -424,7 +424,7 @@ $('#MyPillboxEmpty').pillbox({
 
 
 	// SELECTLIST
-	$('#MySelectlist').on('changed', function (evt, data) {
+	$('#MySelectlist').on('changed.fu.selectlist', function (evt, data) {
 		console.log(data);
 	});
 	$('#getSelectedItem').on('click', function () {
@@ -458,7 +458,16 @@ $('#MyPillboxEmpty').pillbox({
 	$('#disableSpinbox').on('click', function () {
 		$('#MySpinboxWithDefault').spinbox('disable');
 	});
-	$('#MySpinboxWithDefault').on('changed', function (e, value) {
+
+	$('#spinboxSetValueBtn').on('click', function(){
+		$('#MySpinboxWithDefault').spinbox('value', '4');
+		// $('#MySpinboxWithDefault').spinbox({'value': '4px', units: ['px']});
+	});
+
+	$('#MySpinboxWithDefault').on('changed.fu.spinbox', function (e, value) {
+		console.log('Spinbox changed: ', value);
+	});
+	$('#MySpinbox').on('changed.fu.spinbox', function (e, value) {
 		console.log('Spinbox changed: ', value);
 	});
 
@@ -526,7 +535,7 @@ $('#MyPillboxEmpty').pillbox({
 			// return e.preventDefault();
 		}
 	});
-	$('#MyWizard').on('changed', function(e, data) {
+	$('#MyWizard').on('changed.fu.wizard', function(e, data) {
 		console.log('changed');
 	});
 	$('#MyWizard').on('finished', function(e, data) {

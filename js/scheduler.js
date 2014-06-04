@@ -72,12 +72,12 @@
 		this.$endDate.datepicker();
 
 		// bind events: 'change' is a Bootstrap JS fired event
-		this.$element.find('.repeat-days-of-the-week .btn-group .btn').on('change', function(e, data){self.changed(e, data, true); });
-		this.$element.find('.combobox').on('changed', $.proxy(this.changed, this));
-		this.$element.find('.datepicker').on('changed', $.proxy(this.changed, this));
+		this.$element.find('.repeat-days-of-the-week .btn-group .btn').on('change.fu.scheduler', function(e, data){self.changed(e, data, true); });
+		this.$element.find('.combobox').on('changed.fu.combobox', $.proxy(this.changed, this));
+		this.$element.find('.datepicker').on('changed.fu.datepicker', $.proxy(this.changed, this));
 		this.$element.find('.selectlist').on('changed.fu.selectlist', $.proxy(this.changed, this));
-		this.$element.find('.spinbox').on('changed', $.proxy(this.changed, this));
-		this.$element.find('.repeat-monthly .radio, .repeat-yearly .radio').on('change', $.proxy(this.changed, this));
+		this.$element.find('.spinbox').on('changed.fu.spinbox', $.proxy(this.changed, this));
+		this.$element.find('.repeat-monthly .radio, .repeat-yearly .radio').on('change.fu.scheduler', $.proxy(this.changed, this));
 		
 	};
 
@@ -532,7 +532,7 @@
 
 	// SCHEDULER DATA-API
 
-	$('body').on('mousedown.scheduler.data-api', '.scheduler', function () {
+	$('body').on('mousedown.fu.scheduler.data-api', '.scheduler', function () {
 		var $this = $(this);
 		if ($this.data('scheduler')) return;
 		$this.scheduler($this.data());

@@ -15,11 +15,12 @@ define(function(require){
 	module("Fuel UX Combobox");
 
 	test("should be defined on jquery object", function () {
-		ok($(document.body).combobox, 'combobox method is defined');
+		ok($().combobox, 'combobox method is defined');
 	});
 
 	test("should return element", function () {
-		ok($(document.body).combobox()[0] === document.body, 'document.body returned');
+		var $combobox = $(html).find("#MyCombobox");
+		ok($combobox.combobox() === $combobox , 'combobox should be initialized');
 	});
 
 	test("should set disabled state", function () {
@@ -109,7 +110,7 @@ define(function(require){
 		var selectedText = '';
 		var selectedValue = '';
 
-		var $combobox = $(html).find("#MyCombobox").combobox().on('changed', function (evt, data) {
+		var $combobox = $(html).find("#MyCombobox").combobox().on('changed.fu.combobox', function (evt, data) {
 			eventFireCount++;
 			selectedText = data.text;
 			selectedValue = data.value;
@@ -157,7 +158,7 @@ define(function(require){
 		var eventFireCount = 0;
 		var selectedText = '';
 
-		var $combobox = $(html).find("#MyCombobox").combobox().on('changed', function (evt, data) {
+		var $combobox = $(html).find("#MyCombobox").combobox().on('changed.fu.combobox', function (evt, data) {
 			eventFireCount++;
 			selectedText = data.text;
 		});

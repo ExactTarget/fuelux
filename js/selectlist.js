@@ -35,7 +35,7 @@
 		this.$hiddenField = this.$element.find('.hidden-field');
 		this.$label = this.$element.find('.selected-label');
 
-		this.$element.on('click', 'a', $.proxy(this.itemclicked, this));
+		this.$element.on('click.fu.selectlist', '.dropdown-menu a', $.proxy(this.itemclicked, this));
 		this.setDefaultSelection();
 
 		if (options.resize === 'auto') {

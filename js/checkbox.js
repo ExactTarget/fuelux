@@ -50,7 +50,7 @@
 		this.setState(this.$chk);
 
 		// handle events
-		this.$chk.on('change', $.proxy(this.itemchecked, this));
+		this.$chk.on('change.fu.checkbox', $.proxy(this.itemchecked, this));
 	};
 
 	Checkbox.prototype = {

@@ -45,6 +45,12 @@
 					moment: 'bower_components/moment-with-langs/index', // comment out if you dont want momentjs to be default
 					fuelux: 'js',
 					sample: 'sample'
+				},
+				shim: {
+					'bootstrap': {
+						deps: ['jquery'],
+						exports: 'bootstrap'
+					}
 				}
 			});
 		})();
@@ -217,8 +223,7 @@
 
 				<div class="form-group">
 					<label class="control-label" for="MyDatepickerInput">Choose a date</label>
-					<div class="row">
-						<div class="col-lg-4">
+						<div>
 
 							<div class="datepicker input-group dropdown" id="datepicker1">
 								<input id="MyDatepickerInput" type="text" class="form-control" data-toggle="dropdown" />
@@ -232,7 +237,6 @@
 								</span>
 							</div>
 						
-						</div>
 					</div>
 				</div>
 
@@ -364,15 +368,15 @@
 
 			<div class="placard">
 				<div class="placard-popup"></div>
-				<input class="form-control placard-field" readonly="readonly" type="text" placeholder="[Placeholder]"/>
+				<input class="form-control placard-field" type="text" placeholder="[Field label]"/>
 			</div>
 
 			<br/>
 
 			<div class="placard" data-ellipsis="true">
 				<div class="placard-popup"></div>
-				<div class="placard-header"><h5>Header</h5></div>
-				<input class="form-control placard-field" readonly="readonly" type="text" placeholder="[Placeholder]"/>
+				<div class="placard-header"><h5>Field label</h5></div>
+				<input class="form-control placard-field" type="text" placeholder="[Field label]"/>
 				<div class="placard-footer">
 					<button class="btn btn-primary btn-xs placard-accept" type="button">Save</button>
 					<a class="placard-cancel" href="#">Cancel</a>
@@ -383,8 +387,8 @@
 
 			<div class="placard" data-ellipsis="true">
 				<div class="placard-popup"></div>
-				<div class="placard-header"><h5>Header</h5></div>
-				<textarea class="form-control placard-field glass" placeholder="[Placeholder]"></textarea>
+				<div class="placard-header"><h5>Field label</h5></div>
+				<textarea class="form-control placard-field glass" placeholder="[Field label]"></textarea>
 				<div class="placard-footer">
 					<button class="btn btn-primary btn-xs placard-accept" type="button">Save</button>
 					<a class="placard-cancel" href="#">Cancel</a>
@@ -1215,7 +1219,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 				</div>
 
 				<div class="form-group">
-					<label class="control-label" for="MySpinboxWithDefaultInput">With Default</label>
+					<label class="control-label" for="MySpinboxWithDefaultInput">With Markup Default</label>
 					
 					<div id="MySpinboxWithDefault" class="spinbox">
 						<input id="MySpinboxWithDefaultInput" type="text" value="3" class="form-control input-mini spinbox-input">
@@ -1236,6 +1240,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
 			<h5>Sample Methods</h5>
 			<div class="btn-group">
+				<input id="spinboxSetValueBtn" type="button" class="btn btn-default" value="set value (4)"/>
 				<input id="enableSpinbox" type="button" class="btn btn-default" value="enable"/>
 				<input id="disableSpinbox" type="button" class="btn btn-default" value="disable"/>
 			</div>

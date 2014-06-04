@@ -44,11 +44,12 @@ define(function(require){
 	});
 
 	test( 'should be defined on the jQuery object', function() {
-		ok( $(document.body).datepicker, 'datepicker method is defined' );
+		ok( $().datepicker, 'datepicker method is defined' );
 	});
 
 	test( 'should return element', function() {
-		ok( $(document.body).datepicker()[0] === document.body, 'document.body returned' );
+		var $sample = $(html).find('#datepicker1');
+		ok( $sample.datepicker() === $sample, 'datepicker should be initialized' );
 	});
 
 	test( 'should initialize with current date and restrict past dates by default', function() {
@@ -179,7 +180,7 @@ define(function(require){
 		var eventsLogged            = 0;
 		var validDateOnEventTrigger = false;
 
-		var $sample = $(html).find('#datepicker1').datepicker().on( 'changed', function( event, date ) {
+		var $sample = $(html).find('#datepicker1').datepicker().on( 'changed.fu.datepicker', function( event, date ) {
 			eventsLogged++;
 			if( new Date( date ) !== 'Invalid Date' ) {
 				validDateOnEventTrigger = true;

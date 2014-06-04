@@ -134,27 +134,7 @@
 			},
 			renderer: {
 				complete: function(helpers, callback){
-					var i = 0;
-					var widths = [];
-					var $header, $items;
-
-					if(!this.options.list_columnSyncing || (helpers.data.items.length<1)){
-						callback();
-					}else{
-						$header = this.$element.find('.repeater-list-header:first');
-						$items = this.$element.find('.repeater-list-items:first');
-						$items.find('tr:first td').each(function(){
-							widths.push($(this).outerWidth());
-						});
-						widths.pop();
-						$header.find('td').each(function(){
-							if(widths[i]!==undefined){
-								$(this).outerWidth(widths[i]);
-							}
-							i++;
-						});
-						callback();
-					}
+					columnSyncing.call(this, helpers, callback);
 				},
 				nested: [
 					{
@@ -250,7 +230,7 @@
 									sortable = subset[index].sortable;
 									if(sortable){
 										$item.addClass('sortable');
-										$item.on('click', function(){
+										$item.on('click.fu.repeater-list', function(){
 											self.list_sortProperty = (typeof sortable === 'string') ? sortable : subset[index].property;
 											if($item.hasClass('sorted')){
 												if($span.hasClass(chevUp)){
@@ -345,23 +325,23 @@
 									if(this.options.list_selectable){
 										$item.addClass('selectable');
 										$item.data('item_data', helpers.subset[helpers.index]);
-										$item.on('click', function(){
+										$item.on('click.fu.repeater-list', function(){
 											var $row = $(this);
 											if($row.hasClass('selected')){
 												$row.removeClass('selected');
 												$row.find('.repeater-list-check').remove();
-												self.$element.trigger('itemDeselected', $row);
+												self.$element.trigger('itemDeselected.fu.repeater', $row);
 											}else{
 												if(self.options.list_selectable!=='multi'){
 													self.$canvas.find('.repeater-list-check').remove();
 													self.$canvas.find('.repeater-list-items tr.selected').each(function(){
 														$(this).removeClass('selected');
-														self.$element.trigger('itemDeselected', $(this));
+														self.$element.trigger('itemDeselected.fu.repeater', $(this));
 													});
 												}
 												$row.addClass('selected');
 												$row.find('td:first').prepend('<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>');
-												self.$element.trigger('itemSelected', $row);
+												self.$element.trigger('itemSelected.fu.repeater', $row);
 											}
 										});
 									}
@@ -403,9 +383,35 @@
 						]
 					}
 				]
+			},
+			resize: function(helpers, callback){
+				columnSyncing.call(this, { data: { items: [''] } }, callback);
 			}
 		};
 
+		var columnSyncing = function(helpers, callback){
+			var i = 0;
+			var widths = [];
+			var $header, $items;
+
+			if(!this.options.list_columnSyncing || (helpers.data.items.length<1)){
+				callback();
+			}else{
+				$header = this.$element.find('.repeater-list-header:first');
+				$items = this.$element.find('.repeater-list-items:first');
+				$items.find('tr:first td').each(function(){
+					widths.push($(this).outerWidth());
+				});
+				widths.pop();
+				$header.find('td').each(function(){
+					if(widths[i]!==undefined){
+						$(this).outerWidth(widths[i]);
+					}
+					i++;
+				});
+				callback();
+			}
+		};
 	}
 
 // -- BEGIN UMD WRAPPER AFTERWORD --

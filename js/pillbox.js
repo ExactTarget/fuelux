@@ -51,14 +51,14 @@
 		this.acceptKeyCodes = this._generateObject(this.options.acceptKeyCodes);
 		// Creatie an object out of the key code array, so we dont have to loop through it on every key stroke
 
-		this.$element.on('click', '.pill-group > .pill', $.proxy(this.itemClicked, this));
-		this.$element.on('click', $.proxy(this.inputFocus, this));
-		this.$element.on('keydown', '.pillbox-add-item', $.proxy(this.inputEvent, this));
+		this.$element.on('click.fu.pillbox', '.pill-group > .pill', $.proxy(this.itemClicked, this));
+		this.$element.on('click.fu.pillbox', $.proxy(this.inputFocus, this));
+		this.$element.on('keydown.fu.pillbox', '.pillbox-add-item', $.proxy(this.inputEvent, this));
 		if( this.options.onKeyDown ){
-			this.$element.on('mousedown', '.suggest > li', $.proxy(this.suggestionClick, this));
+			this.$element.on('mousedown.fu.pillbox', '.suggest > li', $.proxy(this.suggestionClick, this));
 		}
 		if( this.options.edit ){
-			this.$element.on('blur', '.pillbox-add-item', $.proxy(this.cancelEdit, this));
+			this.$element.on('blur.fu.pillbox', '.pillbox-add-item', $.proxy(this.cancelEdit, this));
 		}
 	};
 
@@ -100,7 +100,7 @@
 				this.openEdit($item);
 			}
 
-			this.$element.trigger('clicked', this.getItemData($item));
+			this.$element.trigger('clicked.fu.pillbox', this.getItemData($item));
 		},
 
 		suggestionClick: function(e){
@@ -257,7 +257,7 @@
 				}
 
 				if( isInternal ){
-					this.$element.trigger('added', {
+					this.$element.trigger('added.fu.pillbox', {
 						text: items[0].text, 
 						value: items[0].value
 					});
@@ -391,7 +391,7 @@
 
 			this.$addItem.val('');
 			this.$pillGroup.append(this.$addItemWrap.detach().show());
-			this.$element.trigger( 'edited', { value: item.value, text: item.text });
+			this.$element.trigger( 'edited.fu.pillbox', { value: item.value, text: item.text });
 		},
 
 		removeBySelector: function() {
@@ -440,11 +440,11 @@
 		_removeElement: function(data){
 			data.el.remove();
 			delete data.el;
-			this.$element.trigger('removed', data);
+			this.$element.trigger('removed.fu.pillbox', data);
 		},
 
 		_removePillTrigger: function( removedBy ) {
-			this.$element.trigger( 'removed', removedBy );
+			this.$element.trigger( 'removed.fu.pillbox', removedBy );
 		},
 
 		_generateObject: function(data){
@@ -473,7 +473,7 @@
 				// suggestion dropdown
 				
 				this.$suggest.html('').append(markup);
-				$(document.body).trigger('suggest', this.$suggest);
+				$(document.body).trigger('suggested.fu.pillbox', this.$suggest);
 			}
 		},
 
@@ -569,7 +569,7 @@
 
 	// PILLBOX DATA-API
 
-	$('body').on('mousedown.pillbox.data-api', '.pillbox', function () {
+	$('body').on('mousedown.fu.pillbox.data-api', '.pillbox', function () {
 		var $this = $(this);
 		if ($this.data('pillbox')) {
 			return;
@@ -577,7 +577,7 @@
 		$this.pillbox($this.data());
 	});
 
-	$('body').on('click.pillbox.data-api',function(){
+	$('body').on('click.fu.pillbox.data-api',function(){
 		$('.pillbox .suggest').css('visibility: hidden;');
 	});
 	

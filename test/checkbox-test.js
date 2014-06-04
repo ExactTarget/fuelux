@@ -15,11 +15,12 @@ define(function(require){
 	module("Fuel UX Checkbox");
 
 	test("should be defined on jquery object", function () {
-		ok($(document.body).checkbox, 'checkbox method is defined');
+		ok($().checkbox, 'checkbox method is defined');
 	});
 
 	test("should return element", function () {
-		ok($(document.body).checkbox()[0] === document.body, 'document.body returned');
+		var $chk1 = $(html).find('#Checkbox1');
+		ok($chk1.checkbox() === $chk1, 'checkbox should be initialized');
 	});
 
 	test("should set initial state", function () {

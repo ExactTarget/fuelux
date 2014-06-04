@@ -7,6 +7,9 @@ define(function(require){
 	var afterSource = function(options){};
 	var data = require('data');
 	var dataSource = function(options, callback){
+
+		// TODO: add 'itemDeselected.fu.repeater' event test
+
 		var resp = {
 			count: data.repeater.listData.length,
 			items: [],
