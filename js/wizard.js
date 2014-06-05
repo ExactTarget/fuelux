@@ -358,11 +358,11 @@
 
 	// DATA-API
 
-	// $('document').on('mouseover.fu.wizard.data-api', '[data-fuelux=wizard]', function () {
-	// 	var $this = $(this);
-	// 	if ($this.data('wizard')) { return; }
-	// 	$this.wizard($this.data());
-	// });
+	$('document').on('mouseover.fu.wizard.data-api', '[data-fuelux=wizard]', function () {
+		var $this = $(this);
+		if ($this.data('wizard')) { return; }
+		$this.wizard($this.data());
+	});
 
 	// Must be domReady for AMD compatibility
 	$(function () {
