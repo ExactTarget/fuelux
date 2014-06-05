@@ -35,7 +35,7 @@
 		this.$hiddenField = this.$element.find('.hidden-field');
 		this.$label = this.$element.find('.selected-label');
 
-		this.$element.on('click.fu.selectlist', '.dropdown-menu a', $.proxy(this.itemclicked, this));
+		this.$element.on('click.fu.selectlist', '.dropdown-menu a', $.proxy(this.itemClicked, this));
 		this.setDefaultSelection();
 
 		if (options.resize === 'auto') {
@@ -53,19 +53,24 @@
 			this.$label.text(this.$selectedItem.text());
 		},
 
-		itemclicked: function (e) {
+		itemClicked: function (e) {
 			this.$selectedItem = $(e.target).parent();
+			this.$element.trigger('clicked.fu.selectlist', this.$selectedItem);
+			this.itemChanged();
+
+			e.preventDefault();
+		},
+
+		itemChanged: function () {
+			// store value in hidden field for form submission
 			this.$hiddenField.val(this.$selectedItem.attr('data-value'));
 			this.$label.text(this.$selectedItem.text());
 
 			// pass object including text and any data-attributes
 			// to onchange event
 			var data = this.selectedItem();
-
 			// trigger changed event
 			this.$element.trigger('changed.fu.selectlist', data);
-
-			e.preventDefault();
 		},
 
 		resize: function() {
