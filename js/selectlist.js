@@ -54,14 +54,20 @@
 		},
 
 		itemClicked: function (e) {
-			this.$selectedItem = $(e.target).parent();
 			this.$element.trigger('clicked.fu.selectlist', this.$selectedItem);
-			this.itemChanged();
 
 			e.preventDefault();
+
+			// is clicked element different from currently selected element?
+			if( !($(e.target).parent().is( this.$selectedItem) ) ) {
+				this.itemChanged(e);
+			}
+
 		},
 
-		itemChanged: function () {
+		itemChanged: function (e) {
+			this.$selectedItem = $(e.target).parent();
+
 			// store value in hidden field for form submission
 			this.$hiddenField.val(this.$selectedItem.attr('data-value'));
 			this.$label.text(this.$selectedItem.text());
