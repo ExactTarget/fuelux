@@ -139,7 +139,7 @@
 
 	// DATA-API
 
-	$(document).on('mousedown.fu.search.data-api', '[data-fuelux=search]', function () {
+	$(document).on('mousedown.fu.search.data-api', '[data-fu-initialize=search]', function () {
 		var $this = $(this);
 		if ($this.data('search')) return;
 		$this.search($this.data());
@@ -147,7 +147,7 @@
 
 	// Must be domReady for AMD compatibility
 	$(function () {
-		$('[data-fuelux=search]').each(function () {
+		$('[data-fu-initialize=search]').each(function () {
 			var $this = $(this);
 			if ($this.data('search')) return;
 			$this.search($this.data());

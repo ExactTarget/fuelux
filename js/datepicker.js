@@ -991,14 +991,14 @@
 
 	// DATA-API
 
-	$(document).on('mousedown.fu.datepicker.data-api', '[data-fuelux=datepicker]', function () {
+	$(document).on('mousedown.fu.datepicker.data-api', '[data-fu-initialize=datepicker]', function () {
 		var $this = $(this);
 		if ($this.data('datepicker')) return;
 		$this.datepicker($this.data());
 	});
 
 	$(function () {
-		$('[data-fuelux=datepicker]').each(function () {
+		$('[data-fu-initialize=datepicker]').each(function () {
 			var $this = $(this);
 			if ($this.data('datepicker')) return;
 			$this.datepicker($this.data());

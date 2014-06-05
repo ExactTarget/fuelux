@@ -186,9 +186,15 @@
 
 		// DATA-API
 
+		$( document ).on( 'mouseover.fu.checkbox.data-api', '[data-fu-initialize=checkbox]', function() {
+			var $this = $( this );
+			if ( $this.data( 'scheduler' ) ) return;
+			$this.scheduler( $this.data() );
+		} );
+
 		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '[data-fuelux=checkbox] [type=checkbox]' ).each( function() {
+			$( '[data-fu-initialize=checkbox] [type=checkbox]' ).each( function() {
 				var $this = $( this );
 				if ( !$this.data( 'checkbox' ) ) {
 					$this.checkbox( $this.data() );
@@ -347,6 +353,7 @@
 					};
 				}
 
+				console.log( 'test' );
 				// trigger changed event
 				this.$element.trigger( 'changed.fu.combobox', data );
 
@@ -385,7 +392,7 @@
 
 		// DATA-API
 
-		$( document ).on( 'mousedown.fu.combobox.data-api', '[data-fuelux=combobox]', function() {
+		$( document ).on( 'mousedown.fu.combobox.data-api', '[data-fu-initialize=combobox]', function() {
 			var $this = $( this );
 			if ( $this.data( 'combobox' ) ) return;
 			$this.combobox( $this.data() );
@@ -393,7 +400,7 @@
 
 		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '[data-fuelux=combobox]' ).each( function() {
+			$( '[data-fu-initialize=combobox]' ).each( function() {
 				var $this = $( this );
 				if ( $this.data( 'combobox' ) ) return;
 				$this.combobox( $this.data() );
@@ -1420,14 +1427,14 @@
 
 		// DATA-API
 
-		$( document ).on( 'mousedown.fu.datepicker.data-api', '[data-fuelux=datepicker]', function() {
+		$( document ).on( 'mousedown.fu.datepicker.data-api', '[data-fu-initialize=datepicker]', function() {
 			var $this = $( this );
 			if ( $this.data( 'datepicker' ) ) return;
 			$this.datepicker( $this.data() );
 		} );
 
 		$( function() {
-			$( '[data-fuelux=datepicker]' ).each( function() {
+			$( '[data-fu-initialize=datepicker]' ).each( function() {
 				var $this = $( this );
 				if ( $this.data( 'datepicker' ) ) return;
 				$this.datepicker( $this.data() );
@@ -1900,7 +1907,7 @@
 
 		// DATA-API
 
-		$( document ).on( 'focus.fu.placard.data-api', '[data-fuelux=placard]', function() {
+		$( document ).on( 'focus.fu.placard.data-api', '[data-fu-initialize=placard]', function() {
 			var $this = $( this );
 			if ( $this.data( 'placard' ) ) return;
 			$this.placard( $this.data() );
@@ -1908,7 +1915,7 @@
 
 		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '[data-fuelux=placard]' ).each( function() {
+			$( '[data-fu-initialize=placard]' ).each( function() {
 				var $this = $( this );
 				if ( $this.data( 'placard' ) ) return;
 				$this.placard( $this.data() );
@@ -2101,7 +2108,7 @@
 
 		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '[data-fuelux=radio] [type=radio]' ).each( function() {
+			$( '[data-fu-initialize=radio] [type=radio]' ).each( function() {
 				var $this = $( this );
 				if ( $this.data( 'radio' ) ) return;
 				$this.radio( $this.data() );
@@ -2241,7 +2248,7 @@
 
 		// DATA-API
 
-		$( document ).on( 'mousedown.fu.search.data-api', '[data-fuelux=search]', function() {
+		$( document ).on( 'mousedown.fu.search.data-api', '[data-fu-initialize=search]', function() {
 			var $this = $( this );
 			if ( $this.data( 'search' ) ) return;
 			$this.search( $this.data() );
@@ -2249,7 +2256,7 @@
 
 		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '[data-fuelux=search]' ).each( function() {
+			$( '[data-fu-initialize=search]' ).each( function() {
 				var $this = $( this );
 				if ( $this.data( 'search' ) ) return;
 				$this.search( $this.data() );
@@ -2435,7 +2442,7 @@
 
 		// DATA-API
 
-		$( document ).on( 'mousedown.fu.selectlist.data-api', '[data-fuelux=selectlist]', function() {
+		$( document ).on( 'mousedown.fu.selectlist.data-api', '[data-fu-initialize=selectlist]', function() {
 			var $this = $( this );
 			if ( $this.data( 'selectlist' ) ) {
 				return;
@@ -2445,7 +2452,7 @@
 
 		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '[data-fuelux=selectlist]' ).each( function() {
+			$( '[data-fu-initialize=selectlist]' ).each( function() {
 				var $this = $( this );
 				if ( !$this.data( 'selectlist' ) ) {
 					$this.selectlist( $this.data() );
@@ -2825,7 +2832,7 @@
 
 		// DATA-API
 
-		$( document ).on( 'mousedown.fu.spinbox.data-api', '[data-fuelux=spinbox]', function() {
+		$( document ).on( 'mousedown.fu.spinbox.data-api', '[data-fu-initialize=spinbox]', function() {
 			var $this = $( this );
 			if ( $this.data( 'spinbox' ) ) return;
 			$this.spinbox( $this.data() );
@@ -2833,7 +2840,7 @@
 
 		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '[data-fuelux=spinbox]' ).each( function() {
+			$( '[data-fu-initialize=spinbox]' ).each( function() {
 				var $this = $( this );
 				if ( !$this.data( 'spinbox' ) ) {
 					$this.spinbox( $this.data() );
@@ -3528,7 +3535,7 @@
 
 		// DATA-API
 
-		$( document ).on( 'mouseover.fu.wizard.data-api', '[data-fuelux=wizard]', function() {
+		$( document ).on( 'mouseover.fu.wizard.data-api', '[data-fu-initialize=wizard]', function() {
 			var $this = $( this );
 			if ( $this.data( 'wizard' ) ) {
 				return;
@@ -3538,7 +3545,7 @@
 
 		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '[data-fuelux=wizard]' ).each( function() {
+			$( '[data-fu-initialize=wizard]' ).each( function() {
 				var $this = $( this );
 				if ( $this.data( 'wizard' ) ) return;
 				$this.wizard( $this.data() );
@@ -4282,7 +4289,7 @@
 
 		// DATA-API
 
-		$( document ).on( 'mousedown.fu.pillbox.data-api', '[data-fuelux=pillbox]', function() {
+		$( document ).on( 'mousedown.fu.pillbox.data-api', '[data-fu-initialize=pillbox]', function() {
 			var $this = $( this );
 			if ( $this.data( 'pillbox' ) ) {
 				return;
@@ -4292,7 +4299,7 @@
 
 		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '[data-fuelux=pillbox]' ).each( function() {
+			$( '[data-fu-initialize=pillbox]' ).each( function() {
 				var $this = $( this );
 				if ( $this.data( 'pillbox' ) ) return;
 				$this.pillbox( $this.data() );
@@ -5954,7 +5961,7 @@
 
 		// DATA-API
 
-		$( document ).on( 'mousedown.fu.scheduler.data-api', '[data-fuelux=scheduler]', function() {
+		$( document ).on( 'mousedown.fu.scheduler.data-api', '[data-fu-initialize=scheduler]', function() {
 			var $this = $( this );
 			if ( $this.data( 'scheduler' ) ) return;
 			$this.scheduler( $this.data() );
@@ -5962,7 +5969,7 @@
 
 		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '[data-fuelux=scheduler]' ).each( function() {
+			$( '[data-fu-initialize=scheduler]' ).each( function() {
 				var $this = $( this );
 				if ( $this.data( 'scheduler' ) ) return;
 				$this.scheduler( $this.data() );

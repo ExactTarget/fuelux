@@ -365,9 +365,6 @@ define(function(require){
 		}
 	});
 
-	$('#MyScheduler').scheduler();
-
-
 
 	// SEARCH
 	$('#MySearch').on('searched.fu.search', function (e, text) {

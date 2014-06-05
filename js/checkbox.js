@@ -174,9 +174,15 @@
 
 	// DATA-API
 
+	$(document).on('mouseover.fu.checkbox.data-api', '[data-fu-initialize=checkbox]', function () {
+		var $this = $(this);
+		if ($this.data('scheduler')) return;
+		$this.scheduler($this.data());
+	});
+
 	// Must be domReady for AMD compatibility
 	$(function () {
-		$('[data-fuelux=checkbox] [type=checkbox]').each(function () {
+		$('[data-fu-initialize=checkbox] [type=checkbox]').each(function () {
 			var $this = $(this);
 			if (!$this.data('checkbox')) {
 				$this.checkbox($this.data());
