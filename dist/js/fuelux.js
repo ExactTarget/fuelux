@@ -184,11 +184,11 @@
 			return this;
 		};
 
+		// DATA-API
 
-		// SET CHECKBOX DEFAULT VALUE ON DOMCONTENTLOADED
-
+		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '.checkbox-custom > input[type=checkbox]' ).each( function() {
+			$( '[data-fuelux=checkbox] [type=checkbox]' ).each( function() {
 				var $this = $( this );
 				if ( !$this.data( 'checkbox' ) ) {
 					$this.checkbox( $this.data() );
@@ -383,19 +383,17 @@
 		};
 
 
-		// COMBOBOX DATA-API
+		// DATA-API
 
-		$( 'body' ).on( 'mousedown.fu.combobox.data-api', '.combobox', function() {
+		$( 'document' ).on( 'mousedown.fu.combobox.data-api', '[data-fuelux=combobox]', function() {
 			var $this = $( this );
 			if ( $this.data( 'combobox' ) ) return;
 			$this.combobox( $this.data() );
 		} );
 
-
-		// SET COMBOBOX DEFAULT VALUE ON DOMCONTENTLOADED
-
+		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '.combobox' ).each( function() {
+			$( '[data-fuelux=combobox]' ).each( function() {
 				var $this = $( this );
 				if ( $this.data( 'combobox' ) ) return;
 				$this.combobox( $this.data() );
@@ -1420,6 +1418,24 @@
 			return this;
 		};
 
+		// DATA-API
+
+		$( 'document' ).on( 'mousedown.fu.datepicker.data-api', '[data-fuelux=datepicker]', function() {
+			var $this = $( this );
+			if ( $this.data( 'datepicker' ) ) return;
+			$this.datepicker( $this.data() );
+		} );
+
+		$( function() {
+			$( '[data-fuelux=datepicker]' ).each( function() {
+				var $this = $( this );
+				if ( $this.data( 'datepicker' ) ) return;
+				$this.datepicker( $this.data() );
+			} );
+		} );
+
+
+
 
 	} )( jQuery );
 
@@ -1882,12 +1898,21 @@
 			return this;
 		};
 
-		// PLACARD DATA-API
+		// DATA-API
 
-		$( 'body' ).on( 'focus.fu.placard.data-api', '.placard', function() {
+		$( 'document' ).on( 'focus.fu.placard.data-api', '[data-fuelux=placard]', function() {
 			var $this = $( this );
 			if ( $this.data( 'placard' ) ) return;
 			$this.placard( $this.data() );
+		} );
+
+		// Must be domReady for AMD compatibility
+		$( function() {
+			$( '[data-fuelux=placard]' ).each( function() {
+				var $this = $( this );
+				if ( $this.data( 'placard' ) ) return;
+				$this.placard( $this.data() );
+			} );
 		} );
 
 
@@ -2072,10 +2097,11 @@
 		};
 
 
-		// SET RADIO DEFAULT VALUE ON DOMCONTENTLOADED
+		// DATA-API
 
+		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '.radio-custom > input[type=radio]' ).each( function() {
+			$( '[data-fuelux=radio] [type=radio]' ).each( function() {
 				var $this = $( this );
 				if ( $this.data( 'radio' ) ) return;
 				$this.radio( $this.data() );
@@ -2213,12 +2239,21 @@
 		};
 
 
-		// SEARCH DATA-API
+		// DATA-API
 
-		$( 'body' ).on( 'mousedown.fu.search.data-api', '.search', function() {
+		$( 'document' ).on( 'mousedown.fu.search.data-api', 'data-fuelux=search', function() {
 			var $this = $( this );
 			if ( $this.data( 'search' ) ) return;
 			$this.search( $this.data() );
+		} );
+
+		// Must be domReady for AMD compatibility
+		$( function() {
+			$( '[data-fuelux=search]' ).each( function() {
+				var $this = $( this );
+				if ( $this.data( 'search' ) ) return;
+				$this.search( $this.data() );
+			} );
 		} );
 
 
@@ -2398,9 +2433,9 @@
 		};
 
 
-		// SELECTLIST DATA-API
+		// DATA-API
 
-		$( 'body' ).on( 'mousedown.fu.selectlist.data-api', '.selectlist', function() {
+		$( document ).on( 'mousedown.fu.selectlist.data-api', '[data-fuelux=selectlist]', function() {
 			var $this = $( this );
 			if ( $this.data( 'selectlist' ) ) {
 				return;
@@ -2408,11 +2443,9 @@
 			$this.selectlist( $this.data() );
 		} );
 
-
-		// SET SELECTLIST DEFAULT VALUE ON DOMCONTENTLOADED
-
+		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '.selectlist' ).each( function() {
+			$( '[data-fuelux=selectlist]' ).each( function() {
 				var $this = $( this );
 				if ( !$this.data( 'selectlist' ) ) {
 					$this.selectlist( $this.data() );
@@ -2790,19 +2823,17 @@
 		};
 
 
-		// SPINBOX DATA-API
+		// DATA-API
 
-		$( 'body' ).on( 'mousedown.fu.spinbox.data-api', '.spinbox', function() {
+		$( 'document' ).on( 'mousedown.fu.spinbox.data-api', '[data-fuelux=spinbox]', function() {
 			var $this = $( this );
 			if ( $this.data( 'spinbox' ) ) return;
 			$this.spinbox( $this.data() );
 		} );
 
-
-		// SET SPINBOX DEFAULT VALUE ON DOMCONTENTLOADED
-
+		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '.spinbox' ).each( function() {
+			$( '[data-fuelux=spinbox]' ).each( function() {
 				var $this = $( this );
 				if ( !$this.data( 'spinbox' ) ) {
 					$this.spinbox( $this.data() );
@@ -3125,6 +3156,9 @@
 			$.fn.tree = old;
 			return this;
 		};
+
+
+		// NO DATA-API DUE TO NEED OF DATA-SOURCE
 
 
 	} )( jQuery );
@@ -3492,14 +3526,21 @@
 		};
 
 
-		// WIZARD DATA-API
+		// DATA-API
 
-		$( 'body' ).on( 'mouseover.fu.wizard.data-api', '.wizard', function() {
-			var $this = $( this );
-			if ( $this.data( 'wizard' ) ) {
-				return;
-			}
-			$this.wizard( $this.data() );
+		// $('document').on('mouseover.fu.wizard.data-api', '[data-fuelux=wizard]', function () {
+		// 	var $this = $(this);
+		// 	if ($this.data('wizard')) { return; }
+		// 	$this.wizard($this.data());
+		// });
+
+		// Must be domReady for AMD compatibility
+		$( function() {
+			$( '[data-fuelux=wizard]' ).each( function() {
+				var $this = $( this );
+				if ( $this.data( 'wizard' ) ) return;
+				$this.wizard( $this.data() );
+			} );
 		} );
 
 
@@ -3652,6 +3693,8 @@
 			$.fn.infinitescroll = old;
 			return this;
 		};
+
+		// NO DATA-API DUE TO NEED OF DATA-SOURCE
 
 
 	} )( jQuery );
@@ -4235,9 +4278,9 @@
 		};
 
 
-		// PILLBOX DATA-API
+		// DATA-API
 
-		$( 'body' ).on( 'mousedown.fu.pillbox.data-api', '.pillbox', function() {
+		$( 'document' ).on( 'mousedown.fu.pillbox.data-api', '[data-fuelux=pillbox]', function() {
 			var $this = $( this );
 			if ( $this.data( 'pillbox' ) ) {
 				return;
@@ -4245,8 +4288,13 @@
 			$this.pillbox( $this.data() );
 		} );
 
-		$( 'body' ).on( 'click.fu.pillbox.data-api', function() {
-			$( '.pillbox .suggest' ).css( 'visibility: hidden;' );
+		// Must be domReady for AMD compatibility
+		$( function() {
+			$( '[data-fuelux=pillbox]' ).each( function() {
+				var $this = $( this );
+				if ( $this.data( 'pillbox' ) ) return;
+				$this.pillbox( $this.data() );
+			} );
 		} );
 
 
@@ -5444,7 +5492,10 @@
 			if ( this.$startTime.find( 'input' ).val() === '' ) {
 				this.$startTime.combobox( 'selectByIndex', 0 );
 			}
-			this.$repeatIntervalSpinbox.spinbox();
+			this.$repeatIntervalSpinbox.spinbox( {
+				'value': 1,
+				'min': 1
+			} );
 			this.$endAfter.spinbox();
 			this.$endDate.datepicker();
 
@@ -5899,12 +5950,21 @@
 		};
 
 
-		// SCHEDULER DATA-API
+		// DATA-API
 
-		$( 'body' ).on( 'mousedown.fu.scheduler.data-api', '.scheduler', function() {
+		$( 'document' ).on( 'mousedown.fu.scheduler.data-api', 'data-fuelux=scheduler', function() {
 			var $this = $( this );
 			if ( $this.data( 'scheduler' ) ) return;
 			$this.scheduler( $this.data() );
+		} );
+
+		// Must be domReady for AMD compatibility
+		$( function() {
+			$( '[data-fuelux=scheduler]' ).each( function() {
+				var $this = $( this );
+				if ( $this.data( 'scheduler' ) ) return;
+				$this.scheduler( $this.data() );
+			} );
 		} );
 
 
