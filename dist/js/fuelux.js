@@ -2241,7 +2241,7 @@
 
 		// DATA-API
 
-		$( document ).on( 'mousedown.fu.search.data-api', 'data-fuelux=search', function() {
+		$( document ).on( 'mousedown.fu.search.data-api', '[data-fuelux=search]', function() {
 			var $this = $( this );
 			if ( $this.data( 'search' ) ) return;
 			$this.search( $this.data() );
@@ -5954,7 +5954,7 @@
 
 		// DATA-API
 
-		$( document ).on( 'mousedown.fu.scheduler.data-api', 'data-fuelux=scheduler', function() {
+		$( document ).on( 'mousedown.fu.scheduler.data-api', '[data-fuelux=scheduler]', function() {
 			var $this = $( this );
 			if ( $this.data( 'scheduler' ) ) return;
 			$this.scheduler( $this.data() );
