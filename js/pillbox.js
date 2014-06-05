@@ -569,7 +569,7 @@
 
 	// DATA-API
 
-	$('document').on('mousedown.fu.pillbox.data-api', '[data-fuelux=pillbox]', function () {
+	$(document).on('mousedown.fu.pillbox.data-api', '[data-fuelux=pillbox]', function () {
 		var $this = $(this);
 		if ($this.data('pillbox')) {
 			return;

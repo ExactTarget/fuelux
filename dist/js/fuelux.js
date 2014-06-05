@@ -385,7 +385,7 @@
 
 		// DATA-API
 
-		$( 'document' ).on( 'mousedown.fu.combobox.data-api', '[data-fuelux=combobox]', function() {
+		$( document ).on( 'mousedown.fu.combobox.data-api', '[data-fuelux=combobox]', function() {
 			var $this = $( this );
 			if ( $this.data( 'combobox' ) ) return;
 			$this.combobox( $this.data() );
@@ -1420,7 +1420,7 @@
 
 		// DATA-API
 
-		$( 'document' ).on( 'mousedown.fu.datepicker.data-api', '[data-fuelux=datepicker]', function() {
+		$( document ).on( 'mousedown.fu.datepicker.data-api', '[data-fuelux=datepicker]', function() {
 			var $this = $( this );
 			if ( $this.data( 'datepicker' ) ) return;
 			$this.datepicker( $this.data() );
@@ -1900,7 +1900,7 @@
 
 		// DATA-API
 
-		$( 'document' ).on( 'focus.fu.placard.data-api', '[data-fuelux=placard]', function() {
+		$( document ).on( 'focus.fu.placard.data-api', '[data-fuelux=placard]', function() {
 			var $this = $( this );
 			if ( $this.data( 'placard' ) ) return;
 			$this.placard( $this.data() );
@@ -2241,7 +2241,7 @@
 
 		// DATA-API
 
-		$( 'document' ).on( 'mousedown.fu.search.data-api', 'data-fuelux=search', function() {
+		$( document ).on( 'mousedown.fu.search.data-api', 'data-fuelux=search', function() {
 			var $this = $( this );
 			if ( $this.data( 'search' ) ) return;
 			$this.search( $this.data() );
@@ -2825,7 +2825,7 @@
 
 		// DATA-API
 
-		$( 'document' ).on( 'mousedown.fu.spinbox.data-api', '[data-fuelux=spinbox]', function() {
+		$( document ).on( 'mousedown.fu.spinbox.data-api', '[data-fuelux=spinbox]', function() {
 			var $this = $( this );
 			if ( $this.data( 'spinbox' ) ) return;
 			$this.spinbox( $this.data() );
@@ -3528,7 +3528,7 @@
 
 		// DATA-API
 
-		$( 'document' ).on( 'mouseover.fu.wizard.data-api', '[data-fuelux=wizard]', function() {
+		$( document ).on( 'mouseover.fu.wizard.data-api', '[data-fuelux=wizard]', function() {
 			var $this = $( this );
 			if ( $this.data( 'wizard' ) ) {
 				return;
@@ -4282,7 +4282,7 @@
 
 		// DATA-API
 
-		$( 'document' ).on( 'mousedown.fu.pillbox.data-api', '[data-fuelux=pillbox]', function() {
+		$( document ).on( 'mousedown.fu.pillbox.data-api', '[data-fuelux=pillbox]', function() {
 			var $this = $( this );
 			if ( $this.data( 'pillbox' ) ) {
 				return;
@@ -5954,7 +5954,7 @@
 
 		// DATA-API
 
-		$( 'document' ).on( 'mousedown.fu.scheduler.data-api', 'data-fuelux=scheduler', function() {
+		$( document ).on( 'mousedown.fu.scheduler.data-api', 'data-fuelux=scheduler', function() {
 			var $this = $( this );
 			if ( $this.data( 'scheduler' ) ) return;
 			$this.scheduler( $this.data() );

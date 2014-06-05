@@ -367,7 +367,7 @@
 
 	// DATA-API
 
-	$('document').on('mousedown.fu.spinbox.data-api', '[data-fuelux=spinbox]', function () {
+	$(document).on('mousedown.fu.spinbox.data-api', '[data-fuelux=spinbox]', function () {
 		var $this = $(this);
 		if ($this.data('spinbox')) return;
 		$this.spinbox($this.data());

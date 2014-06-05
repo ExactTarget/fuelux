@@ -213,7 +213,7 @@
 
 	// DATA-API
 
-	$('document').on('focus.fu.placard.data-api', '[data-fuelux=placard]', function () {
+	$(document).on('focus.fu.placard.data-api', '[data-fuelux=placard]', function () {
 		var $this = $(this);
 		if ($this.data('placard')) return;
 		$this.placard($this.data());

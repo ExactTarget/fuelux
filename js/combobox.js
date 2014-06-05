@@ -189,7 +189,7 @@
 
 	// DATA-API
 
-	$('document').on('mousedown.fu.combobox.data-api', '[data-fuelux=combobox]', function () {
+	$(document).on('mousedown.fu.combobox.data-api', '[data-fuelux=combobox]', function () {
 		var $this = $(this);
 		if ($this.data('combobox')) return;
 		$this.combobox($this.data());
