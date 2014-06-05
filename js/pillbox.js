@@ -567,9 +567,9 @@
 	};
 
 
-	// PILLBOX DATA-API
+	// DATA-API
 
-	$('body').on('mousedown.fu.pillbox.data-api', '.pillbox', function () {
+	$('document').on('mousedown.fu.pillbox.data-api', '[data-fuelux=pillbox]', function () {
 		var $this = $(this);
 		if ($this.data('pillbox')) {
 			return;
@@ -577,8 +577,13 @@
 		$this.pillbox($this.data());
 	});
 
-	$('body').on('click.fu.pillbox.data-api',function(){
-		$('.pillbox .suggest').css('visibility: hidden;');
+	// Must be domReady for AMD compatibility
+	$(function () {
+		$('[data-fuelux=pillbox]').each(function () {
+			var $this = $(this);
+			if ($this.data('pillbox')) return;
+			$this.pillbox($this.data());
+		});
 	});
 	
 // -- BEGIN UMD WRAPPER AFTERWORD --

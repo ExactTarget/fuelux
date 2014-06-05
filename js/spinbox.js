@@ -365,19 +365,17 @@
 	};
 
 
-	// SPINBOX DATA-API
+	// DATA-API
 
-	$('body').on('mousedown.fu.spinbox.data-api', '.spinbox', function () {
+	$('document').on('mousedown.fu.spinbox.data-api', '[data-fuelux=spinbox]', function () {
 		var $this = $(this);
 		if ($this.data('spinbox')) return;
 		$this.spinbox($this.data());
 	});
 
-
-	// SET SPINBOX DEFAULT VALUE ON DOMCONTENTLOADED
-
+	// Must be domReady for AMD compatibility
 	$(function () {
-		$('.spinbox').each(function () {
+		$('[data-fuelux=spinbox]').each(function () {
 			var $this = $(this);
 			if (!$this.data('spinbox')) {
 				$this.spinbox($this.data());

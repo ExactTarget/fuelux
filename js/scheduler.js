@@ -67,7 +67,10 @@
 		if(this.$startTime.find('input').val()===''){
 			this.$startTime.combobox('selectByIndex', 0);
 		}
-		this.$repeatIntervalSpinbox.spinbox();
+		this.$repeatIntervalSpinbox.spinbox({
+			'value': 1,
+			'min': 1
+		});
 		this.$endAfter.spinbox();
 		this.$endDate.datepicker();
 
@@ -530,12 +533,21 @@
 	};
 
 
-	// SCHEDULER DATA-API
+	// DATA-API
 
-	$('body').on('mousedown.fu.scheduler.data-api', '.scheduler', function () {
+	$('document').on('mousedown.fu.scheduler.data-api', 'data-fuelux=scheduler', function () {
 		var $this = $(this);
 		if ($this.data('scheduler')) return;
 		$this.scheduler($this.data());
+	});
+
+	// Must be domReady for AMD compatibility
+	$(function () {
+		$('[data-fuelux=scheduler]').each(function () {
+			var $this = $(this);
+			if ($this.data('scheduler')) return;
+			$this.scheduler($this.data());
+		});
 	});
 
 // -- BEGIN UMD WRAPPER AFTERWORD --

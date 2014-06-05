@@ -187,10 +187,11 @@
 	};
 
 
-	// SET RADIO DEFAULT VALUE ON DOMCONTENTLOADED
+	// DATA-API
 
+	// Must be domReady for AMD compatibility
 	$(function () {
-		$('.radio-custom > input[type=radio]').each(function () {
+		$('[data-fuelux=radio] [type=radio]').each(function () {
 			var $this = $(this);
 			if ($this.data('radio')) return;
 			$this.radio($this.data());

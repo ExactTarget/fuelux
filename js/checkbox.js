@@ -172,11 +172,11 @@
 		return this;
 	};
 
+	// DATA-API
 
-	// SET CHECKBOX DEFAULT VALUE ON DOMCONTENTLOADED
-
+	// Must be domReady for AMD compatibility
 	$(function () {
-		$('.checkbox-custom > input[type=checkbox]').each(function () {
+		$('[data-fuelux=checkbox] [type=checkbox]').each(function () {
 			var $this = $(this);
 			if (!$this.data('checkbox')) {
 				$this.checkbox($this.data());

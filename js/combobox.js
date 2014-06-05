@@ -187,19 +187,17 @@
 	};
 
 
-	// COMBOBOX DATA-API
+	// DATA-API
 
-	$('body').on('mousedown.fu.combobox.data-api', '.combobox', function () {
+	$('document').on('mousedown.fu.combobox.data-api', '[data-fuelux=combobox]', function () {
 		var $this = $(this);
 		if ($this.data('combobox')) return;
 		$this.combobox($this.data());
 	});
 
-
-	// SET COMBOBOX DEFAULT VALUE ON DOMCONTENTLOADED
-
+	// Must be domReady for AMD compatibility
 	$(function () {
-		$('.combobox').each(function () {
+		$('[data-fuelux=combobox]').each(function () {
 			var $this = $(this);
 			if ($this.data('combobox')) return;
 			$this.combobox($this.data());

@@ -137,12 +137,21 @@
 	};
 
 
-	// SEARCH DATA-API
+	// DATA-API
 
-	$('body').on('mousedown.fu.search.data-api', '.search', function () {
+	$('document').on('mousedown.fu.search.data-api', 'data-fuelux=search', function () {
 		var $this = $(this);
 		if ($this.data('search')) return;
 		$this.search($this.data());
+	});
+
+	// Must be domReady for AMD compatibility
+	$(function () {
+		$('[data-fuelux=search]').each(function () {
+			var $this = $(this);
+			if ($this.data('search')) return;
+			$this.search($this.data());
+		});
 	});
 
 // -- BEGIN UMD WRAPPER AFTERWORD --
