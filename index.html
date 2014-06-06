@@ -68,31 +68,31 @@
 
 			<div id="MyCheckboxContainer">
 
-				<div id="CheckboxWrapper1" class="checkbox" data-fu-initialize="checkbox">
+				<div id="CheckboxWrapper1" class="checkbox" data-initialize="checkbox">
 					<label class="checkbox-custom">
 						<input id="Checkbox1" class="sr-only checked" type="checkbox" value="" checked="checked">
 						<span class="checkbox-label">Custom appearance checkbox checked at page load (#chk1)</span>
 					</label>
 				</div>
-				<div id="CheckboxWrapper2" class="checkbox" data-fu-initialize="checkbox">
+				<div id="CheckboxWrapper2" class="checkbox" data-initialize="checkbox">
 					<label class="checkbox-custom">
 						<input id="Checkbox2" class="sr-only checked" type="checkbox" value="" checked="checked" data-toggle="#checkboxToggle1">
 						<span class="checkbox-label">Custom appearance checkbox checked at page load with linked element visibility toggle by id </span>
 					</label>
 				</div>
-				<div id="CheckboxWrapper3" class="checkbox" data-fu-initialize="checkbox">
+				<div id="CheckboxWrapper3" class="checkbox" data-initialize="checkbox">
 					<label class="checkbox-custom">
 						<input id="Checkbox3" class="sr-only checkbox" type="checkbox" value="" data-toggle=".checkboxToggle2">
 						<span class="checkbox-label">Custom appearance checkbox unchecked on page load <i>with linked element visibility toggle by class</i></span>
 					</label>
 				</div>
-				<div id="CheckboxWrapper4" class="checkbox" data-fu-initialize="checkbox">
+				<div id="CheckboxWrapper4" class="checkbox" data-initialize="checkbox">
 					<label class="checkbox-custom">
 						<input id="Checkbox4" class="sr-only checkbox" type="checkbox" value="" checked="checked" disabled="disabled">
 						<span class="checkbox-label">Disabled custom appearance checkbox <i>checked on page load</i></span>
 					</label>
 				</div>
-				<div id="CheckboxWrapper5" class="checkbox" data-fu-initialize="checkbox">
+				<div id="CheckboxWrapper5" class="checkbox" data-initialize="checkbox">
 					<label class="checkbox-custom">
 						<input id="Checkbox5" class="sr-only checkbox" type="checkbox" value="" disabled="disabled">
 						<span class="checkbox-label">Disabled custom appearance checkbox <i>unchecked on page load</i></span>
@@ -153,7 +153,7 @@
 				<div class="form-group">
 					<label class="control-label" for="MyComboBoxWithSelectedInput">Has selected item</label>
 
-					<div id="MyComboboxWithSelected" class="input-group input-append dropdown combobox" data-fu-initialize="combobox">
+					<div id="MyComboboxWithSelected" class="input-group input-append dropdown combobox" data-initialize="combobox">
 						<input id="MyComboBoxWithSelectedInput" type="text" class="form-control" placeholder="Select an option">
 						<div class="input-group-btn">
 							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -176,7 +176,7 @@
 				<div class="form-group">
 					<label class="control-label" for="MyComboBoxInput">No selected item</label>
 
-					<div id="MyCombobox" class="input-group input-append dropdown combobox" data-fu-initialize="combobox">
+					<div id="MyCombobox" class="input-group input-append dropdown combobox" data-initialize="combobox">
 						<input id="MyComboBoxInput" type="text" class="form-control">
 						<div class="input-group-btn">
 							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -225,7 +225,7 @@
 					<label class="control-label" for="MyDatepickerInput">Choose a date</label>
 						<div>
 
-							<div class="datepicker input-group dropdown" id="datepicker1" data-fu-initialize="datepicker">
+							<div class="datepicker input-group dropdown" id="datepicker1" data-initialize="datepicker">
 								<input id="MyDatepickerInput" type="text" class="form-control" data-toggle="dropdown" />
 								<!-- this must go aver the input. if button is present, it must go in between or the input group will not look right -->
 								<div class="dropdown-menu dropdown-menu-right"></div>
@@ -335,7 +335,7 @@
 
 			<h5>Empty Pillbox (No Suggest)</h5>
 
-			<div id="MyPillboxEmpty" class="pillbox" data-fu-initialize="pillbox">
+			<div id="MyPillboxEmpty" class="pillbox" data-initialize="pillbox">
 				<ul class="clearfix pill-group">
 					<li class="pillbox-input-wrap btn-group">
 						<input type="text" class="form-control dropdown-toggle pillbox-add-item" placeholder="add item">
@@ -366,14 +366,14 @@
 
 			<h2>Placard</h2>
 
-			<div class="placard" data-fu-initialize="placard">
+			<div class="placard" data-initialize="placard">
 				<div class="placard-popup"></div>
 				<input class="form-control placard-field" type="text" placeholder="[Field label]"/>
 			</div>
 
 			<br/>
 
-			<div class="placard" data-fu-initialize="placard" data-ellipsis="true">
+			<div class="placard" data-initialize="placard" data-ellipsis="true">
 				<div class="placard-popup"></div>
 				<div class="placard-header"><h5>Field label</h5></div>
 				<input class="form-control placard-field" type="text" placeholder="[Field label]"/>
@@ -385,7 +385,7 @@
 
 			<br/>
 
-			<div class="placard" data-fu-initialize="placard" data-ellipsis="true">
+			<div class="placard" data-initialize="placard" data-ellipsis="true">
 				<div class="placard-popup"></div>
 				<div class="placard-header"><h5>Field label</h5></div>
 				<textarea class="form-control placard-field glass" placeholder="[Field label]"></textarea>
@@ -403,28 +403,28 @@
 
 			<div id="MyRadioContainer">
 
-				<div class="radio" data-fu-initialize="radio">
+				<div class="radio" data-initialize="radio">
 					<label id="lbl1" class="radio-custom">
 						<input id="radio1" class="sr-only" checked="checked" data-toggle="#radioToggle1" name="radio1a" type="radio">
 						<span class="radio-label">Custom appearance radio selected on page load <i>with linked element visibility toggle by id</i></span>
 					</label>
 				</div>
 
-				<div class="radio" data-fu-initialize="radio">
+				<div class="radio" data-initialize="radio">
 					<label id="lbl2" class="radio-custom">
 						<input id="radio2" class="sr-only" data-toggle=".radioToggle2" name="radio1a" type="radio">
 						<span class="radio-label">Custom appearance radio not selected on page load <i>with linked element visibility toggle by class</i></span>
 					</label>
 				</div>
 
-				<div class="radio" data-fu-initialize="radio">
+				<div class="radio" data-initialize="radio">
 					<label id="lbl3" class="radio-custom">
 						<input id="radio3" class="sr-only" checked="checked" disabled="disabled" name="radio1b" type="radio">
 						<span class="radio-label">Disabled custom appearance radio selected on page load</span>
 					</label>
 				</div>
 
-				<div class="radio" data-fu-initialize="radio">
+				<div class="radio" data-initialize="radio">
 					<label id="lbl4" class="radio-custom">
 						<input id="radio4" class="sr-only" disabled="disabled" name="radio1b" type="radio">
 						<span class="radio-label">Disabled custom appearance radio not selected on page load</span>
@@ -499,7 +499,7 @@
 							</div>
 						</div>
 						<div class="repeater-header-right">
-							<div class="btn-group selectlist repeater-filters" data-fu-initialize="selectlist" data-resize="auto">
+							<div class="btn-group selectlist repeater-filters" data-initialize="selectlist" data-resize="auto">
 								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 									<span class="selected-label">&nbsp;</span>
 									<span class="caret"></span>
@@ -530,7 +530,7 @@
 						<div class="repeater-footer-left">
 							<div class="repeater-itemization">
 								<span><span class="repeater-start"></span> - <span class="repeater-end"></span> of <span class="repeater-count"></span> items</span>
-								<div class="btn-group selectlist" data-fu-initialize="selectlist" data-resize="auto">
+								<div class="btn-group selectlist" data-initialize="selectlist" data-resize="auto">
 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 										<span class="selected-label">&nbsp;</span>
 										<span class="caret"></span>
@@ -556,7 +556,7 @@
 								</button>
 								<label id="MyPageLabel" class="page-label">Page</label>
 								<div class="repeater-primaryPaging active">
-									<div class="input-group input-append dropdown combobox" data-fu-initialize="combobox">
+									<div class="input-group input-append dropdown combobox" data-initialize="combobox">
 										<input type="text" class="form-control" aria-labelledby="MyPageLabel">
 										<div class="input-group-btn">
 											<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -588,7 +588,7 @@
 
 			<div><!-- <div class="bs-example fu-example-scheduler"> -->
 
-			<div id="MyScheduler" class="form-horizontal container-fluid scheduler" role="form" data-fu-initialize="scheduler">
+			<div id="MyScheduler" class="form-horizontal container-fluid scheduler" role="form" data-initialize="scheduler">
 				<div class="form-group start-datetime">
 					<label class="col-sm-2 control-label scheduler-label" for="MyStartDate">Start Date</label>
 					<div class="row col-sm-10">
@@ -606,7 +606,7 @@
 						
 						<div class="col-sm-4 form-group">
 							<label class="sr-only" for="MyStartTime">Start Time</label>
-							<div class="input-group combobox start-time" data-fu-initialize="combobox">
+							<div class="input-group combobox start-time" data-initialize="combobox">
 								<input id="MyStartTime" type="text" class="form-control" />
 								<div class="input-group-btn">
 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -673,7 +673,7 @@
 				<div class="row form-group timezone-container">
 					<label class="col-sm-2 control-label scheduler-label">Timezone</label>
 					<div class="col-xs-12 col-sm-10 col-md-10">
-						<div data-resize="auto" class="btn-group selectlist timezone" data-fu-initialize="selectlist">
+						<div data-resize="auto" class="btn-group selectlist timezone" data-initialize="selectlist">
 							<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
 								<span class="selected-label" style="width: 67px;">(GMT-06:00) Central Standard Time</span>
 								<span class="caret"></span>
@@ -783,7 +783,7 @@
 					<div class="col-sm-10">
 
 						<div class="form-group repeat-interval">
-							<div data-resize="auto" class="btn-group selectlist pull-left repeat-options" data-fu-initialize="selectlist">
+							<div data-resize="auto" class="btn-group selectlist pull-left repeat-options" data-initialize="selectlist">
 								<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
 									<span class="selected-label">None (run once)</span>
 									<span class="caret"></span>
@@ -803,7 +803,7 @@
 							<div class="repeat-panel repeat-every-panel repeat-hourly repeat-daily repeat-weekly hide" aria-hidden="true">
 								<label id="MySchedulerEveryLabel" class="inline-form-text repeat-every-pretext">every</label>
 
-								<div class="spinbox repeat-every" data-fu-initialize="spinbox">
+								<div class="spinbox repeat-every" data-initialize="spinbox">
 									<input type="number" class="form-control input-mini spinbox-input" aria-labelledby="MySchedulerEveryLabel">
 
 									<div class="spinbox-buttons btn-group btn-group-vertical">
@@ -856,7 +856,7 @@
 									</label>
 								</div>
 
-								<div data-resize="auto" class="btn-group selectlist pull-left" data-fu-initialize="selectlist">
+								<div data-resize="auto" class="btn-group selectlist pull-left" data-initialize="selectlist">
 									<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
 										<span class="selected-label">1</span>
 										<span class="caret"></span>
@@ -906,7 +906,7 @@
 									</label>
 								</div>
 
-								<div data-resize="auto" class="btn-group selectlist month-day-pos pull-left" data-fu-initialize="selectlist">
+								<div data-resize="auto" class="btn-group selectlist month-day-pos pull-left" data-initialize="selectlist">
 									<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
 										<span class="selected-label">First</span>
 										<span class="caret"></span>
@@ -921,7 +921,7 @@
 									<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field">
 								</div>
 
-								<div data-resize="auto" class="btn-group selectlist month-days pull-left" data-fu-initialize="selectlist">
+								<div data-resize="auto" class="btn-group selectlist month-days pull-left" data-initialize="selectlist">
 									<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
 										<span class="selected-label">Sunday</span>
 										<span class="caret"></span>
@@ -955,7 +955,7 @@
 									</label>
 									</div>
 
-								<div data-resize="auto" class="btn-group selectlist year-month pull-left" data-fu-initialize="selectlist">
+								<div data-resize="auto" class="btn-group selectlist year-month pull-left" data-initialize="selectlist">
 									<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
 										<span class="selected-label">January</span>
 										<span class="caret"></span>
@@ -977,7 +977,7 @@
 									<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field">
 								</div>
 
-								<div data-resize="auto" class="btn-group selectlist year-month-day pull-left" data-fu-initialize="selectlist">
+								<div data-resize="auto" class="btn-group selectlist year-month-day pull-left" data-initialize="selectlist">
 									<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
 										<span class="selected-label">1</span>
 										<span class="caret"></span>
@@ -1023,7 +1023,7 @@
 
 								<div class="radio pull-left"><label class="radio-custom"><input type="radio" name="repeat-yearly" value="bysetpos"> on the</label></div>
 
-								<div data-resize="auto" class="btn-group selectlist year-month-day-pos pull-left" data-fu-initialize="selectlist">
+								<div data-resize="auto" class="btn-group selectlist year-month-day-pos pull-left" data-initialize="selectlist">
 									<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
 										<span class="selected-label">First</span>
 										<span class="caret"></span>
@@ -1039,7 +1039,7 @@
 									<input type="text" aria-hidden="true" readonly="readonly" name="yearlyDateSelectlist" class="hidden hidden-field">
 								</div>
 
-								<div data-resize="auto" class="btn-group selectlist year-month-days pull-left" data-fu-initialize="selectlist">
+								<div data-resize="auto" class="btn-group selectlist year-month-days pull-left" data-initialize="selectlist">
 									<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
 										<span class="selected-label">Sunday</span>
 										<span class="caret"></span>
@@ -1061,7 +1061,7 @@
 								</div>
 								<div class="inline-form-text repeat-yearly-day-text"> of </div>
 
-								<div data-resize="auto" class="btn-group selectlist year-month pull-left" data-fu-initialize="selectlist">
+								<div data-resize="auto" class="btn-group selectlist year-month pull-left" data-initialize="selectlist">
 									<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
 										<span class="selected-label">January</span>
 										<span class="caret"></span>
@@ -1093,7 +1093,7 @@
 					<label class="col-sm-2 control-label scheduler-label">End</label>
 					<div class="col-sm-10 row">
 						<div class="col-sm-3 form-group">
-							<div data-resize="auto" class="btn-group selectlist end-options pull-left" data-fu-initialize="selectlist">
+							<div data-resize="auto" class="btn-group selectlist end-options pull-left" data-initialize="selectlist">
 								<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
 									<span class="selected-label">Never</span>
 									<span class="caret"></span>
@@ -1109,7 +1109,7 @@
 						</div>
 						
 						<div class="col-sm-6 form-group end-option-panel end-after-panel pull-left hide" aria-hidden="true">
-							<div class="spinbox end-after" data-fu-initialize="spinbox">
+							<div class="spinbox end-after" data-initialize="spinbox">
 								<label id="MyEndAfter" class="sr-only">End After</label>
 								<input type="number" class="form-control input-mini spinbox-input" aria-labelledby="MyEndAfter">
 
@@ -1169,7 +1169,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
 			<form class="search-form" role="search">
 
-				<div id="MySearch" class="search input-group" data-fu-initialize="search">
+				<div id="MySearch" class="search input-group" data-initialize="search">
 					<input type="search" class="form-control" placeholder="Search"/>
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="button">
@@ -1202,7 +1202,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 				<div class="form-group">
 					<label class="control-label" for="MySpinboxInput">Without Default</label>
 					
-					<div id="MySpinbox" class="spinbox" data-fu-initialize="spinbox">
+					<div id="MySpinbox" class="spinbox" data-initialize="spinbox">
 						<input id="MySpinboxInput" type="text" class="form-control input-mini spinbox-input">
 
 				<div class="spinbox-buttons btn-group btn-group-vertical">
@@ -1220,7 +1220,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 				<div class="form-group">
 					<label class="control-label" for="MySpinboxWithDefaultInput">With Markup Default</label>
 					
-					<div id="MySpinboxWithDefault" class="spinbox" data-fu-initialize="spinbox">
+					<div id="MySpinboxWithDefault" class="spinbox" data-initialize="spinbox">
 						<input id="MySpinboxWithDefaultInput" type="text" value="3" class="form-control input-mini spinbox-input">
 
 						<div class="spinbox-buttons btn-group btn-group-vertical">
@@ -1249,7 +1249,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 		<div class="clearfix">
 			<h2>Selectlist</h2>
 
-			<div id="MySelectlist" class="btn-group selectlist" data-fu-initialize="selectlist" data-resize="auto">
+			<div id="MySelectlist" class="btn-group selectlist" data-initialize="selectlist" data-resize="auto">
 				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 					<span class="selected-label">&nbsp;</span>
 					<span class="caret"></span>
@@ -1288,7 +1288,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
 			<h2>Tree</h2>
 
-			<div id="ex-tree" class="tree" data-fu-initialize="tree">
+			<div id="ex-tree" class="tree" data-initialize="tree">
 				<div class="tree-folder" style="display:none;">
 					<div class="tree-folder-header">
 						<i class="glyphicon glyphicon-folder-close"></i>
@@ -1308,7 +1308,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 				</div>
 			</div>
 
-			<div id="ex-tree-folder" class="tree tree-folder-select" data-fu-initialize="tree" style="margin-top:10px;">
+			<div id="ex-tree-folder" class="tree tree-folder-select" data-initialize="tree" style="margin-top:10px;">
 				<div class="tree-folder" style="display:none;">
 					<div class="tree-folder-header">
 						<i class="tree-triangle-right"></i>
@@ -1331,7 +1331,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
 			<h2>Wizard</h2>
 
-			<div id="MyWizard" class="wizard" data-fu-initialize="wizard">
+			<div id="MyWizard" class="wizard" data-initialize="wizard">
 				<ul class="steps">
 					<li class="active" data-step="1"><span class="badge badge-info">1</span>Campaign<span class="chevron"></span></li>
 					<li data-step="2"><span class="badge">2</span>Recipients<span class="chevron"></span></li>
@@ -1392,7 +1392,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 			<br/>
 			<br/>
 
-			<div id="MyWizardPreviousStepDisabled" class="wizard" data-fu-initialize="wizard" data-restrict="previous">
+			<div id="MyWizardPreviousStepDisabled" class="wizard" data-initialize="wizard" data-restrict="previous">
 				<ul class="steps">
 					<li class="active" data-step="1"><span class="badge badge-info">1</span>Campaign<span class="chevron"></span></li>
 					<li data-step="2"><span class="badge">2</span>Recipients<span class="chevron"></span></li>
@@ -1441,7 +1441,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 			<br/>
 			<br/>
 
-			<div id="MyWizardWithSpaces" class="wizard" data-fu-initialize="wizard">
+			<div id="MyWizardWithSpaces" class="wizard" data-initialize="wizard">
 			<ul class="steps">
 				<li class="active" data-step="1"><span class="badge badge-info">1</span>This is step 1<span class="chevron"></span></li>
 				<li data-step="2"><span class="badge">2</span>This is step 2<span class="chevron"></span></li>

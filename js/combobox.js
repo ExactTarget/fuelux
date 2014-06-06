@@ -151,7 +151,6 @@
 				data = { text: val };
 			}
 
-			console.log('test');
 			// trigger changed event
 			this.$element.trigger('changed.fu.combobox', data);
 
@@ -190,7 +189,7 @@
 
 	// DATA-API
 
-	$(document).on('mousedown.fu.combobox.data-api', '[data-fu-initialize=combobox]', function () {
+	$(document).on('mousedown.fu.combobox.data-api', '[data-initialize=combobox]', function () {
 		var $this = $(this);
 		if ($this.data('combobox')) return;
 		$this.combobox($this.data());
@@ -198,7 +197,7 @@
 
 	// Must be domReady for AMD compatibility
 	$(function () {
-		$('[data-fu-initialize=combobox]').each(function () {
+		$('[data-initialize=combobox]').each(function () {
 			var $this = $(this);
 			if ($this.data('combobox')) return;
 			$this.combobox($this.data());

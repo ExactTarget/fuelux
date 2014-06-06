@@ -191,7 +191,7 @@
 
 	// Must be domReady for AMD compatibility
 	$(function () {
-		$('[data-fu-initialize=radio] [type=radio]').each(function () {
+		$('[data-initialize=radio] [type=radio]').each(function () {
 			var $this = $(this);
 			if ($this.data('radio')) return;
 			$this.radio($this.data());

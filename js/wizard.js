@@ -358,7 +358,7 @@
 
 	// DATA-API
 
-	$(document).on('mouseover.fu.wizard.data-api', '[data-fu-initialize=wizard]', function () {
+	$(document).on('mouseover.fu.wizard.data-api', '[data-initialize=wizard]', function () {
 		var $this = $(this);
 		if ($this.data('wizard')) { return; }
 		$this.wizard($this.data());
@@ -366,7 +366,7 @@
 
 	// Must be domReady for AMD compatibility
 	$(function () {
-		$('[data-fu-initialize=wizard]').each(function () {
+		$('[data-initialize=wizard]').each(function () {
 			var $this = $(this);
 			if ($this.data('wizard')) return;
 			$this.wizard($this.data());

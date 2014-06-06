@@ -184,7 +184,7 @@
 
 	// DATA-API
 
-	$(document).on('mousedown.fu.selectlist.data-api', '[data-fu-initialize=selectlist]', function () {
+	$(document).on('mousedown.fu.selectlist.data-api', '[data-initialize=selectlist]', function () {
 		var $this = $(this);
 		if ($this.data('selectlist')) {
 			return;
@@ -194,7 +194,7 @@
 
 	// Must be domReady for AMD compatibility
 	$(function () {
-		$('[data-fu-initialize=selectlist]').each(function () {
+		$('[data-initialize=selectlist]').each(function () {
 			var $this = $(this);
 			if (!$this.data('selectlist')) {
 				$this.selectlist($this.data());

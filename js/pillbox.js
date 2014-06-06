@@ -569,7 +569,7 @@
 
 	// DATA-API
 
-	$(document).on('mousedown.fu.pillbox.data-api', '[data-fu-initialize=pillbox]', function () {
+	$(document).on('mousedown.fu.pillbox.data-api', '[data-initialize=pillbox]', function () {
 		var $this = $(this);
 		if ($this.data('pillbox')) {
 			return;
@@ -579,7 +579,7 @@
 
 	// Must be domReady for AMD compatibility
 	$(function () {
-		$('[data-fu-initialize=pillbox]').each(function () {
+		$('[data-initialize=pillbox]').each(function () {
 			var $this = $(this);
 			if ($this.data('pillbox')) return;
 			$this.pillbox($this.data());
