@@ -1,7 +1,6 @@
 define(function(require){
 	var data = require('data');
 	var jquery = require('jquery');
-	var DataSourceTree = require('sample/datasourceTree');
 	var sampleData = require('sample/data');
 	var StaticDataSource = require('sample/datasource');
 
@@ -380,7 +379,12 @@ define(function(require){
 
 
 	// SELECTLIST
+	$('#MySelectlist').on('clicked.fu.selectlist', function (evt, target) {
+		console.log('clicked');
+		console.log(target);
+	});
 	$('#MySelectlist').on('changed.fu.selectlist', function (evt, data) {
+		console.log('changed');
 		console.log(data);
 	});
 	$('#getSelectedItem').on('click', function () {
@@ -430,22 +434,23 @@ define(function(require){
 
 
 	// TREE
-	var dataSourceTree = new DataSourceTree({
-		data: [
-			{ name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } },
-			{ name: 'Test Folder 2', type: 'folder', additionalParameters: { id: 'F2' } },
-			{ name: 'Test Item 1', type: 'item', additionalParameters: { id: 'I1' } },
-			{ name: 'Test Item 2', type: 'item', additionalParameters: { id: 'I2' } }
-		],
-		delay: 400
-	});
 
 	$('#ex-tree').on('loaded', function (e) {
 		console.log('Loaded');
 	});
 
 	$('#ex-tree').tree({
-		dataSource: dataSourceTree,
+		dataSource: function(options, callback){
+			setTimeout(function () {
+				callback({ data: [
+					{ name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } },
+					{ name: 'Test Folder 2', type: 'folder', additionalParameters: { id: 'F2' } },
+					{ name: 'Test Item 1', type: 'item', additionalParameters: { id: 'I1' } },
+					{ name: 'Test Item 2', type: 'item', additionalParameters: { id: 'I2' } }
+				]});
+
+			}, 400)
+		},
 		loadingHTML: '<div class="static-loader">Loading...</div>',
 		multiSelect: true,
 		cacheItems: true
@@ -463,18 +468,16 @@ define(function(require){
 		console.log('Close Event: ', info);
 	});
 
-	//FOLDER SELECT TREE
-	var dataSourceTreeFolders = new DataSourceTree({
-		data: [
-			{ name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } },
-			{ name: 'Test Folder 2', type: 'folder', additionalParameters: { id: 'F2' } },
-			{ name: 'Test Folder 3', type: 'folder', additionalParameters: { id: 'F3' } }
-		],
-		delay: 400
-	});
-
 	$('#ex-tree-folder').tree({
-		dataSource: dataSourceTreeFolders,
+		dataSource: function(options, callback){
+			setTimeout(function () {
+				callback({ data: [
+					{ name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } },
+					{ name: 'Test Folder 2', type: 'folder', additionalParameters: { id: 'F2' } },
+					{ name: 'Test Folder 3', type: 'folder', additionalParameters: { id: 'F3' } }
+				]});
+			}, 400)
+		},
 		loadingHTML: '<div class="static-loader">Loading...</div>',
 		multiSelect: false,
 		cacheItems: true
