@@ -356,12 +356,21 @@
 	};
 
 
-	// WIZARD DATA-API
+	// DATA-API
 
-	$('body').on('mouseover.fu.wizard.data-api', '.wizard', function () {
+	$(document).on('mouseover.fu.wizard.data-api', '[data-initialize=wizard]', function () {
 		var $this = $(this);
 		if ($this.data('wizard')) { return; }
 		$this.wizard($this.data());
+	});
+
+	// Must be domReady for AMD compatibility
+	$(function () {
+		$('[data-initialize=wizard]').each(function () {
+			var $this = $(this);
+			if ($this.data('wizard')) return;
+			$this.wizard($this.data());
+		});
 	});
 
 // -- BEGIN UMD WRAPPER AFTERWORD --
