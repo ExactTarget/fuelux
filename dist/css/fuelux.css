@@ -914,6 +914,7 @@
   text-align: center;
 }
 .fuelux .spinbox {
+  display: inline-block;
   *zoom: 1;
 }
 .fuelux .spinbox:before,
@@ -931,6 +932,7 @@
   padding-bottom: 3px;
   /* Magic number */
   padding: 0px 7px;
+  margin-right: -20px;
 }
 .fuelux .spinbox .btn {
   position: relative;
@@ -944,11 +946,10 @@
   cursor: not-allowed;
 }
 .fuelux .spinbox .spinbox-buttons {
-  position: relative;
   float: left;
   height: 28px;
   width: 20px;
-  left: -22px;
+  right: 2px;
 }
 .fuelux .spinbox .spinbox-up {
   padding: 0 0 14px 1px;
@@ -958,10 +959,14 @@
   position: relative;
   top: 0px;
 }
+.fuelux .spinbox .btn-group > .btn.spinbox-up {
+  border-top-right-radius: 4px;
+}
 .fuelux .spinbox .spinbox-down {
   padding: 0 0 8px 1px;
   top: 2px;
   height: 15px;
+  border-bottom-left-radius: 4px;
 }
 .fuelux .spinbox .spinbox-down .glyphicon-chevron-down {
   position: relative;
