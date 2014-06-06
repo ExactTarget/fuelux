@@ -1058,7 +1058,7 @@ END
 }
 .fuelux .scheduler .repeat-interval .repeat-every-panel .spinbox {
   float: left;
-  margin-right: 0;
+  margin-right: 10px;
 }
 .fuelux .scheduler .repeat-interval .repeat-every-panel .spinbox input {
   margin-bottom: 0;

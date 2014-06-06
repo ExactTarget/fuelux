@@ -67,7 +67,11 @@
 		if(this.$startTime.find('input').val()===''){
 			this.$startTime.combobox('selectByIndex', 0);
 		}
-		this.$repeatIntervalSpinbox.spinbox();
+		// every 0 days/hours doesn't make sense
+		this.$repeatIntervalSpinbox.spinbox({
+			'value': 1,
+			'min': 1
+		});
 		this.$endAfter.spinbox();
 		this.$endDate.datepicker();
 
