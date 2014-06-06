@@ -988,6 +988,24 @@
 		$.fn.datepicker = old;
 		return this;
 	};
+
+	// DATA-API
+
+	$(document).on('mousedown.fu.datepicker.data-api', '[data-initialize=datepicker]', function () {
+		var $this = $(this);
+		if ($this.data('datepicker')) return;
+		$this.datepicker($this.data());
+	});
+
+	$(function () {
+		$('[data-initialize=datepicker]').each(function () {
+			var $this = $(this);
+			if ($this.data('datepicker')) return;
+			$this.datepicker($this.data());
+		});
+	});
+
+
 // -- BEGIN UMD WRAPPER AFTERWORD --
 }));
 // -- END UMD WRAPPER AFTERWORD --

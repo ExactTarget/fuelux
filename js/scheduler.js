@@ -534,12 +534,21 @@
 	};
 
 
-	// SCHEDULER DATA-API
+	// DATA-API
 
-	$('body').on('mousedown.fu.scheduler.data-api', '.scheduler', function () {
+	$(document).on('mousedown.fu.scheduler.data-api', '[data-initialize=scheduler]', function () {
 		var $this = $(this);
 		if ($this.data('scheduler')) return;
 		$this.scheduler($this.data());
+	});
+
+	// Must be domReady for AMD compatibility
+	$(function () {
+		$('[data-initialize=scheduler]').each(function () {
+			var $this = $(this);
+			if ($this.data('scheduler')) return;
+			$this.scheduler($this.data());
+		});
 	});
 
 // -- BEGIN UMD WRAPPER AFTERWORD --
