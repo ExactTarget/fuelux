@@ -32,53 +32,58 @@
 		this.options = $.extend({}, $.fn.checkbox.defaults, options);
 
 		// cache elements
-		this.$chk = $(element);
-		this.$label = this.$chk.parent();
-		this.$parent = this.$label.parent('.checkbox');
-		this.$toggleContainer = null;
+		this.$element         = $(element);
+		this.$label           = this.$element.parent();
+		this.$parent          = this.$label.parent('.checkbox');
+		this.$toggleContainer = this.$element.attr('data-toggle');
 
-		if(this.$parent.length===0){
+		if( this.$parent.length === 0 ) {
 			this.$parent = null;
 		}
 
-		var toggleSelector = this.$chk.attr('data-toggle');
-		if(toggleSelector) {
-			this.$toggleContainer = $(toggleSelector);
+		if( Boolean( this.$toggleContainer ) ) {
+			this.$toggleContainer = $( this.$toggleContainer );
+		} else {
+			this.$toggleContainer = null;
 		}
 
 		// set default state
-		this.setState(this.$chk);
+		this.setState( this.$element );
 
 		// handle events
-		this.$chk.on('change.fu.checkbox', $.proxy(this.itemchecked, this));
+		this.$element.on('change.fu.checkbox', $.proxy( this.itemchecked, this ));
 	};
 
 	Checkbox.prototype = {
 
 		constructor: Checkbox,
 
-		setState: function ($chk) {
-			$chk = $chk || this.$chk;
+		setState: function( $chk ) {
+			$chk = $chk || this.$element;
 
-			var checked = $chk.is(':checked');
+			var checked  = $chk.is(':checked');
 			var disabled = !!$chk.prop('disabled');
 
 			// reset classes
 			this.$label.removeClass('checked disabled');
-			if(this.$parent){
+
+			if( this.$parent ) {
 				this.$parent.removeClass('checked disabled');
 			}
 
 			// set state of checkbox
-			if (checked === true) {
+			if( checked === true ) {
 				this.$label.addClass('checked');
-				if(this.$parent){
+
+				if( this.$parent ) {
 					this.$parent.addClass('checked');
 				}
 			}
-			if (disabled === true) {
+
+			if( disabled === true ) {
 				this.$label.addClass('disabled');
-				if(this.$parent){
+
+				if( this.$parent ){
 					this.$parent.addClass('disabled');
 				}
 			}
@@ -87,29 +92,31 @@
 			this.toggleContainer();
 		},
 
-		enable: function () {
-			this.$chk.attr('disabled', false);
+		enable: function() {
+			this.$element.attr('disabled', false);
 			this.$label.removeClass('disabled');
-			if(this.$parent){
+
+			if( this.$parent ) {
 				this.$parent.removeClass('disabled');
 			}
 		},
 
-		disable: function () {
-			this.$chk.attr('disabled', true);
+		disable: function() {
+			this.$element.attr('disabled', true);
 			this.$label.addClass('disabled');
-			if(this.$parent){
-				this.$parent.addClass('disabled');
+
+			if( this.$parent ) {
+				this.$parent.addClass( 'disabled' );
 			}
 		},
 
-		toggle: function () {
-			this.$chk.click();
+		toggle: function() {
+			this.$element.click();
 		},
 
 		toggleContainer: function(){
-			if(this.$toggleContainer) {
-				if(this.isChecked()) {
+			if( this.$toggleContainer ) {
+				if( this.isChecked() ) {
 					this.$toggleContainer.removeClass('hide');
 					this.$toggleContainer.attr('aria-hidden', 'false');
 				}else {
@@ -120,22 +127,21 @@
 		},
 
 		itemchecked: function (e) {
-			var chk = $(e.target);
-			this.setState(chk);
+			this.setState( $( e.target ) );
 		},
 
 		check: function () {
-			this.$chk.prop('checked', true);
-			this.setState(this.$chk);
+			this.$element.prop('checked', true);
+			this.setState( this.$element );
 		},
 
 		uncheck: function () {
-			this.$chk.prop('checked', false);
-			this.setState(this.$chk);
+			this.$element.prop('checked', false);
+			this.setState( this.$element );
 		},
 
 		isChecked: function () {
-			return this.$chk.is(':checked');
+			return this.$element.is(':checked');
 		}
 	};
 
