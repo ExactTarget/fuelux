@@ -916,19 +916,11 @@
 .fuelux .spinbox {
   display: inline-block;
   position: relative;
-  *zoom: 1;
 }
-.fuelux .spinbox:before,
-.fuelux .spinbox:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.fuelux .spinbox:after {
-  clear: both;
+.fuelux .spinbox.digits-3 {
+  width: 60px;
 }
 .fuelux .spinbox .spinbox-input {
-  width: 60px;
   float: left;
   padding-bottom: 3px;
   /* Magic number */
