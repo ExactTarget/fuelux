@@ -14,3 +14,9 @@ validation-status.json
 
 # Sauce Labs. because it's classified...
 SAUCE_API_KEY.yml
+
+# Editors / IDEs
+.idea
+
+# node_module cache for TravisCI, etc.
+node_modules.tar.gz

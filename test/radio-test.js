@@ -15,11 +15,12 @@ define(function(require){
 	module("Fuel UX Radio");
 
 	test("should be defined on jquery object", function () {
-		ok($(document.body).radio, 'radio method is defined');
+		ok($().radio, 'radio method is defined');
 	});
 
 	test("should return element", function () {
-		ok($(document.body).radio()[0] === document.body, 'document.body returned');
+		var $radio1 = $(html).find('#radio1');
+		ok($radio1.radio() === $radio1, 'radio should be initialized');
 	});
 
 	test("should set initial state", function () {

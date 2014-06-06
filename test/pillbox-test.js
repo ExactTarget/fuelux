@@ -12,7 +12,7 @@ define(function(require){
 	module("Fuel UX Pillbox");
 
 	test("should be defined on jquery object", function () {
-		ok($(html).find('#MyPillbox').pillbox, 'pillbox method is defined');
+		ok($().find('#MyPillbox').pillbox, 'pillbox method is defined');
 	});
 
 	test("should return element", function () {

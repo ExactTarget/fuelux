@@ -12,7 +12,7 @@ define(function(require){
 	module('Fuel UX Loader');
 
 	test('should be defined on jquery object', function () {
-		ok($(html).loader(), 'loader method is defined');
+		ok($().loader(), 'loader method is defined');
 	});
 
 	test('should return element', function () {

@@ -15,7 +15,7 @@ define(function(require){
 	// TODO: add click.fu.infinitescroll event testing
 
 	test('should be defined on jquery object', function () {
-		ok($(html).infinitescroll, 'infinitescroll method is defined');
+		ok($().infinitescroll, 'infinitescroll method is defined');
 	});
 
 	test('should return element', function () {

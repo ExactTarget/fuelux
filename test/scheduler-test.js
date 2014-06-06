@@ -17,11 +17,12 @@ define(function(require){
 	module('Fuel UX Scheduler');
 
 	test('should be defined on the jQuery object', function(){
-		ok( $(document.body).scheduler, 'scheduler method is defined' );
+		ok( $().scheduler, 'scheduler method is defined' );
 	});
 
 	test('should return element', function (){
-		ok($(document.body).scheduler()[0] === document.body, 'document.body returned');
+		var $scheduler = $(html);
+		ok($scheduler.scheduler() === $scheduler, 'scheduler has been initialized');
 	});
 
 	test('should disable control (all inputs)', function (){
