@@ -193,9 +193,9 @@
 	};
 
 
-	// SELECTLIST DATA-API
+	// DATA-API
 
-	$('body').on('mousedown.fu.selectlist.data-api', '.selectlist', function () {
+	$(document).on('mousedown.fu.selectlist.data-api', '[data-initialize=selectlist]', function () {
 		var $this = $(this);
 		if ($this.data('selectlist')) {
 			return;
@@ -203,11 +203,9 @@
 		$this.selectlist($this.data());
 	});
 
-
-	// SET SELECTLIST DEFAULT VALUE ON DOMCONTENTLOADED
-
+	// Must be domReady for AMD compatibility
 	$(function () {
-		$('.selectlist').each(function () {
+		$('[data-initialize=selectlist]').each(function () {
 			var $this = $(this);
 			if (!$this.data('selectlist')) {
 				$this.selectlist($this.data());

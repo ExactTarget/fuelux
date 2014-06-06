@@ -184,11 +184,17 @@
 			return this;
 		};
 
+		// DATA-API
 
-		// SET CHECKBOX DEFAULT VALUE ON DOMCONTENTLOADED
+		$( document ).on( 'mouseover.fu.checkbox.data-api', '[data-initialize=checkbox]', function() {
+			var $this = $( this );
+			if ( $this.data( 'scheduler' ) ) return;
+			$this.scheduler( $this.data() );
+		} );
 
+		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '.checkbox-custom > input[type=checkbox]' ).each( function() {
+			$( '[data-initialize=checkbox] [type=checkbox]' ).each( function() {
 				var $this = $( this );
 				if ( !$this.data( 'checkbox' ) ) {
 					$this.checkbox( $this.data() );
@@ -383,19 +389,17 @@
 		};
 
 
-		// COMBOBOX DATA-API
+		// DATA-API
 
-		$( 'body' ).on( 'mousedown.fu.combobox.data-api', '.combobox', function() {
+		$( document ).on( 'mousedown.fu.combobox.data-api', '[data-initialize=combobox]', function() {
 			var $this = $( this );
 			if ( $this.data( 'combobox' ) ) return;
 			$this.combobox( $this.data() );
 		} );
 
-
-		// SET COMBOBOX DEFAULT VALUE ON DOMCONTENTLOADED
-
+		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '.combobox' ).each( function() {
+			$( '[data-initialize=combobox]' ).each( function() {
 				var $this = $( this );
 				if ( $this.data( 'combobox' ) ) return;
 				$this.combobox( $this.data() );
@@ -1420,6 +1424,24 @@
 			return this;
 		};
 
+		// DATA-API
+
+		$( document ).on( 'mousedown.fu.datepicker.data-api', '[data-initialize=datepicker]', function() {
+			var $this = $( this );
+			if ( $this.data( 'datepicker' ) ) return;
+			$this.datepicker( $this.data() );
+		} );
+
+		$( function() {
+			$( '[data-initialize=datepicker]' ).each( function() {
+				var $this = $( this );
+				if ( $this.data( 'datepicker' ) ) return;
+				$this.datepicker( $this.data() );
+			} );
+		} );
+
+
+
 
 	} )( jQuery );
 
@@ -1882,12 +1904,21 @@
 			return this;
 		};
 
-		// PLACARD DATA-API
+		// DATA-API
 
-		$( 'body' ).on( 'focus.fu.placard.data-api', '.placard', function() {
+		$( document ).on( 'focus.fu.placard.data-api', '[data-initialize=placard]', function() {
 			var $this = $( this );
 			if ( $this.data( 'placard' ) ) return;
 			$this.placard( $this.data() );
+		} );
+
+		// Must be domReady for AMD compatibility
+		$( function() {
+			$( '[data-initialize=placard]' ).each( function() {
+				var $this = $( this );
+				if ( $this.data( 'placard' ) ) return;
+				$this.placard( $this.data() );
+			} );
 		} );
 
 
@@ -2072,10 +2103,11 @@
 		};
 
 
-		// SET RADIO DEFAULT VALUE ON DOMCONTENTLOADED
+		// DATA-API
 
+		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '.radio-custom > input[type=radio]' ).each( function() {
+			$( '[data-initialize=radio] [type=radio]' ).each( function() {
 				var $this = $( this );
 				if ( $this.data( 'radio' ) ) return;
 				$this.radio( $this.data() );
@@ -2213,12 +2245,21 @@
 		};
 
 
-		// SEARCH DATA-API
+		// DATA-API
 
-		$( 'body' ).on( 'mousedown.fu.search.data-api', '.search', function() {
+		$( document ).on( 'mousedown.fu.search.data-api', '[data-initialize=search]', function() {
 			var $this = $( this );
 			if ( $this.data( 'search' ) ) return;
 			$this.search( $this.data() );
+		} );
+
+		// Must be domReady for AMD compatibility
+		$( function() {
+			$( '[data-initialize=search]' ).each( function() {
+				var $this = $( this );
+				if ( $this.data( 'search' ) ) return;
+				$this.search( $this.data() );
+			} );
 		} );
 
 
@@ -2269,14 +2310,20 @@
 			},
 
 			itemClicked: function( e ) {
-				this.$selectedItem = $( e.target ).parent();
 				this.$element.trigger( 'clicked.fu.selectlist', this.$selectedItem );
-				this.itemChanged();
 
 				e.preventDefault();
+
+				// is clicked element different from currently selected element?
+				if ( !( $( e.target ).parent().is( this.$selectedItem ) ) ) {
+					this.itemChanged( e );
+				}
+
 			},
 
-			itemChanged: function() {
+			itemChanged: function( e ) {
+				this.$selectedItem = $( e.target ).parent();
+
 				// store value in hidden field for form submission
 				this.$hiddenField.val( this.$selectedItem.attr( 'data-value' ) );
 				this.$label.text( this.$selectedItem.text() );
@@ -2403,9 +2450,9 @@
 		};
 
 
-		// SELECTLIST DATA-API
+		// DATA-API
 
-		$( 'body' ).on( 'mousedown.fu.selectlist.data-api', '.selectlist', function() {
+		$( document ).on( 'mousedown.fu.selectlist.data-api', '[data-initialize=selectlist]', function() {
 			var $this = $( this );
 			if ( $this.data( 'selectlist' ) ) {
 				return;
@@ -2413,11 +2460,9 @@
 			$this.selectlist( $this.data() );
 		} );
 
-
-		// SET SELECTLIST DEFAULT VALUE ON DOMCONTENTLOADED
-
+		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '.selectlist' ).each( function() {
+			$( '[data-initialize=selectlist]' ).each( function() {
 				var $this = $( this );
 				if ( !$this.data( 'selectlist' ) ) {
 					$this.selectlist( $this.data() );
@@ -2795,19 +2840,17 @@
 		};
 
 
-		// SPINBOX DATA-API
+		// DATA-API
 
-		$( 'body' ).on( 'mousedown.fu.spinbox.data-api', '.spinbox', function() {
+		$( document ).on( 'mousedown.fu.spinbox.data-api', '[data-initialize=spinbox]', function() {
 			var $this = $( this );
 			if ( $this.data( 'spinbox' ) ) return;
 			$this.spinbox( $this.data() );
 		} );
 
-
-		// SET SPINBOX DEFAULT VALUE ON DOMCONTENTLOADED
-
+		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '.spinbox' ).each( function() {
+			$( '[data-initialize=spinbox]' ).each( function() {
 				var $this = $( this );
 				if ( !$this.data( 'spinbox' ) ) {
 					$this.spinbox( $this.data() );
@@ -2871,7 +2914,7 @@
 				var loader = $parent.find( '.tree-loader:eq(0)' );
 
 				loader.show();
-				this.options.dataSource.data( $el.data(), function( items ) {
+				this.options.dataSource( $el.data(), function( items ) {
 					loader.hide();
 
 					$.each( items.data, function( index, value ) {
@@ -3116,9 +3159,7 @@
 		};
 
 		$.fn.tree.defaults = {
-			dataSource: {
-				data: function() {}
-			},
+			dataSource: function( options, callback ) {},
 			multiSelect: false,
 			cacheItems: true,
 			folderSelect: true
@@ -3130,6 +3171,10 @@
 			$.fn.tree = old;
 			return this;
 		};
+
+
+		// NO DATA-API DUE TO NEED OF DATA-SOURCE
+
 
 
 	} )( jQuery );
@@ -3497,14 +3542,23 @@
 		};
 
 
-		// WIZARD DATA-API
+		// DATA-API
 
-		$( 'body' ).on( 'mouseover.fu.wizard.data-api', '.wizard', function() {
+		$( document ).on( 'mouseover.fu.wizard.data-api', '[data-initialize=wizard]', function() {
 			var $this = $( this );
 			if ( $this.data( 'wizard' ) ) {
 				return;
 			}
 			$this.wizard( $this.data() );
+		} );
+
+		// Must be domReady for AMD compatibility
+		$( function() {
+			$( '[data-initialize=wizard]' ).each( function() {
+				var $this = $( this );
+				if ( $this.data( 'wizard' ) ) return;
+				$this.wizard( $this.data() );
+			} );
 		} );
 
 
@@ -3657,6 +3711,8 @@
 			$.fn.infinitescroll = old;
 			return this;
 		};
+
+		// NO DATA-API DUE TO NEED OF DATA-SOURCE
 
 
 	} )( jQuery );
@@ -4240,9 +4296,9 @@
 		};
 
 
-		// PILLBOX DATA-API
+		// DATA-API
 
-		$( 'body' ).on( 'mousedown.fu.pillbox.data-api', '.pillbox', function() {
+		$( document ).on( 'mousedown.fu.pillbox.data-api', '[data-initialize=pillbox]', function() {
 			var $this = $( this );
 			if ( $this.data( 'pillbox' ) ) {
 				return;
@@ -4250,8 +4306,13 @@
 			$this.pillbox( $this.data() );
 		} );
 
-		$( 'body' ).on( 'click.fu.pillbox.data-api', function() {
-			$( '.pillbox .suggest' ).css( 'visibility: hidden;' );
+		// Must be domReady for AMD compatibility
+		$( function() {
+			$( '[data-initialize=pillbox]' ).each( function() {
+				var $this = $( this );
+				if ( $this.data( 'pillbox' ) ) return;
+				$this.pillbox( $this.data() );
+			} );
 		} );
 
 
@@ -5908,13 +5969,23 @@
 		};
 
 
-		// SCHEDULER DATA-API
+		// DATA-API
 
-		$( 'body' ).on( 'mousedown.fu.scheduler.data-api', '.scheduler', function() {
+		$( document ).on( 'mousedown.fu.scheduler.data-api', '[data-initialize=scheduler]', function() {
 			var $this = $( this );
 			if ( $this.data( 'scheduler' ) ) return;
 			$this.scheduler( $this.data() );
 		} );
+
+		// Must be domReady for AMD compatibility
+		$( function() {
+			$( '[data-initialize=scheduler]' ).each( function() {
+				var $this = $( this );
+				if ( $this.data( 'scheduler' ) ) return;
+				$this.scheduler( $this.data() );
+			} );
+		} );
+
 
 
 	} )( jQuery );

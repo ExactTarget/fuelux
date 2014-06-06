@@ -154,6 +154,8 @@
 		return this;
 	};
 
+	// NO DATA-API DUE TO NEED OF DATA-SOURCE
+
 // -- BEGIN UMD WRAPPER AFTERWORD --
 }));
 // -- END UMD WRAPPER AFTERWORD --

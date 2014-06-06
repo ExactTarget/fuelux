@@ -172,11 +172,17 @@
 		return this;
 	};
 
+	// DATA-API
 
-	// SET CHECKBOX DEFAULT VALUE ON DOMCONTENTLOADED
+	$(document).on('mouseover.fu.checkbox.data-api', '[data-initialize=checkbox]', function () {
+		var $this = $(this);
+		if ($this.data('scheduler')) return;
+		$this.scheduler($this.data());
+	});
 
+	// Must be domReady for AMD compatibility
 	$(function () {
-		$('.checkbox-custom > input[type=checkbox]').each(function () {
+		$('[data-initialize=checkbox] [type=checkbox]').each(function () {
 			var $this = $(this);
 			if (!$this.data('checkbox')) {
 				$this.checkbox($this.data());
