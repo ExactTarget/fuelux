@@ -186,7 +186,7 @@
 			startDateTime += (timeZone.offset==='+00:00') ? 'Z' : timeZone.offset;
 
 			if(repeat === 'none') {
-				pattern = 'FREQ=DAILY;INTERVAL=1;COUNT=1;';
+				pattern = '';
 			}
 			else if(repeat === 'hourly') {
 				pattern = 'FREQ=HOURLY;';
