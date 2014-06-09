@@ -493,7 +493,7 @@ $('#MyPillboxEmpty').pillbox({
 					{ name: 'Test Item 2', type: 'item', additionalParameters: { id: 'I2' } }
 				]});
 
-			}, 400)
+			}, 400);
 		},
 		loadingHTML: '<div class="static-loader">Loading...</div>',
 		multiSelect: true,
@@ -520,7 +520,7 @@ $('#MyPillboxEmpty').pillbox({
 					{ name: 'Test Folder 2', type: 'folder', additionalParameters: { id: 'F2' } },
 					{ name: 'Test Folder 3', type: 'folder', additionalParameters: { id: 'F3' } }
 				]});
-			}, 400)
+			}, 400);
 		},
 		loadingHTML: '<div class="static-loader">Loading...</div>',
 		multiSelect: false,
