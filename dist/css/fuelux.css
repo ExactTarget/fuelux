@@ -1163,6 +1163,7 @@ END
 .fuelux .scheduler .repeat-end .end-after {
   float: left;
   display: inline-block;
+  margin-right: 10px;
 }
 .fuelux .scheduler .repeat-end .form-group {
   margin-left: 0;
