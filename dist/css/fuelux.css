@@ -1176,6 +1176,7 @@ END
 }
 .fuelux .selectlist .selected-label {
   overflow: hidden;
+  min-width: 2em;
 }
 .fuelux .selectlist .btn.dropdown-toggle {
   white-space: normal;

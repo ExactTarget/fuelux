@@ -1,9 +1,6 @@
 body {
 	padding-bottom: 200px;
-}
-
-.container {
-
+	font-family: 'HelveticaNeueW01-55Roma', 'Helvetica Neue', Arial, sans-serif;
 }
 
 .pillbox {
@@ -40,6 +37,16 @@ body {
 #MyComboboxContainer {
 	max-width: 300px;
 }
+
+#MyInfiniteScroll1, #MyInfiniteScroll2 {
+	border: 1px solid black; 
+	float: left; 
+	height: 500px; 
+	margin-right: 50px; 
+	max-width: 300px;	
+}
+
+
 
 /* Example schedulers */
 .bs-example.fu-example-scheduler {

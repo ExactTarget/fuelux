@@ -367,10 +367,11 @@
 
 	// DATA-API
 
-	$(document).on('mousedown.fu.spinbox.data-api', '[data-initialize=spinbox]', function () {
-		var $this = $(this);
-		if ($this.data('spinbox')) return;
-		$this.spinbox($this.data());
+	$(document).on('mousedown.fu.spinbox.data-api', '[data-initialize=spinbox]', function (e) {
+		var $control = $(e.target).closest('.spinbox');
+		if ( !$control.data('spinbox') ) {
+			$control.spinbox($control.data());
+		}
 	});
 
 	// Must be domReady for AMD compatibility

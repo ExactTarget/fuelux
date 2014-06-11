@@ -195,12 +195,11 @@
 
 	// DATA-API
 
-	$(document).on('mousedown.fu.selectlist.data-api', '[data-initialize=selectlist]', function () {
-		var $this = $(this);
-		if ($this.data('selectlist')) {
-			return;
+	$(document).on('mousedown.fu.selectlist.data-api', '[data-initialize=selectlist]', function (e) {
+		var $control = $(e.target).closest('.selectlist');
+		if ( !$control.data('selectlist') ) {
+			$control.selectlist($control.data());
 		}
-		$this.selectlist($this.data());
 	});
 
 	// Must be domReady for AMD compatibility

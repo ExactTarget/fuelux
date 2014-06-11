@@ -189,6 +189,13 @@
 
 	// DATA-API
 
+	$(document).on('mouseover.fu.checkbox.data-api', '[data-initialize=radio]', function (e) {
+		var $control = $(e.target).closest('.radio').find('[type=radio]');
+		if ( !$control.data('radio') ) {
+			$control.radio($control.data());
+		}
+	});
+
 	// Must be domReady for AMD compatibility
 	$(function () {
 		$('[data-initialize=radio] [type=radio]').each(function () {
