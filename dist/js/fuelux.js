@@ -567,6 +567,12 @@
 				number: 11
 			} ];
 
+			// put focus on selected day when showing calendar
+			$( document ).on( 'shown.bs.dropdown', function( e ) {
+				console.log( $( e.target ).closest( '.datepicker' ).find( '.selected' ) );
+				$( e.target ).closest( '.datepicker' ).find( '#MyDatepickerInput' ).focus().focus();
+			} );
+
 			// rendering the calendar
 			this._render();
 		};
@@ -578,22 +584,10 @@
 			// functions that can be called on object
 			disable: function() {
 				this.$element.find( 'input, button' ).attr( 'disabled', true );
-				this._showDropdown( false );
 			},
 
 			enable: function() {
 				this.$element.find( 'input, button' ).attr( 'disabled', false );
-				this._showDropdown( true );
-			},
-
-			_showDropdown: function( disable ) {
-				if ( !Boolean( disable ) ) {
-					this.$element.on( 'show.bs.dropdown', function( event ) {
-						event.preventDefault();
-					} );
-				} else {
-					this.$element.off( 'show.bs.dropdown' );
-				}
 			},
 
 			getFormattedDate: function() {
@@ -993,9 +987,9 @@
 				paddingTop = parseInt( paddingTop / 2, 10 );
 				paddingBottom = parseInt( paddingBottom / 2, 10 );
 
-				this.$calendar.css( {
-					'float': 'left'
-				} );
+				// this.$calendar.css({
+				// 	'float': 'left'
+				// });
 
 				this.$monthsView.css( {
 					'width': this.options.dropdownWidth + 'px',
@@ -1087,6 +1081,9 @@
 				} else {
 					this._render();
 				}
+
+				// return focus to previous button to support keybaord navigation
+				this.$element.find( '.left' ).focus();
 				// move this below 'this._render()' if you want it to go to the previous month when you select a day from the current month
 				return this._killEvent( e );
 			},
@@ -1113,6 +1110,9 @@
 				} else {
 					this._render();
 				}
+
+				// return focus to next button to support keybaord navigation
+				this.$element.find( '.right' ).focus();
 				// move this below 'this._render()' if you want it to go to the next month when you select a day from the current month
 				return this._killEvent( e );
 			},
@@ -1169,15 +1169,15 @@
 
 				return '<div class="calendar">' +
 					'<div class="header clearfix">' +
-					'<div class="left hover"><div class="leftArrow"></div></div>' +
-					'<div class="right hover"><div class="rightArrow"></div></div>' +
+					'<button class="left hover"><span class="leftArrow"></span></button>' +
+					'<button class="right hover"><span class="rightArrow"></span></button>' +
 					'<div class="center hover">' + self._monthYearLabel() + '</div>' +
 					'</div>' +
 					'<div class="daysView" style="' + self._show( self.options.showDays ) + '">' +
 
 				self._repeat( '<div class="weekdays">', self.options.weekdays,
 					function( weekday ) {
-						return '<div >' + weekday + '</div>';
+						return '<div>' + weekday + '</div>';
 					}, '</div>' ) +
 
 				self._repeat( '<div class="lastmonth">', self.daysOfLastMonth,
@@ -1185,12 +1185,12 @@
 						if ( self.options.restrictLastMonth ) {
 							day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
 						}
-						return '<div class="' + day[ 'class' ] + '">' + day.number + '</div>';
+						return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
 					}, '</div>' ) +
 
 				self._repeat( '<div class="thismonth">', self.daysOfThisMonth,
 					function( day ) {
-						return '<div class="' + day[ 'class' ] + '">' + day.number + '</div>';
+						return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
 					}, '</div>' ) +
 
 				self._repeat( '<div class="nextmonth">', self.daysOfNextMonth,
@@ -1198,20 +1198,20 @@
 						if ( self.options.restrictNextMonth ) {
 							day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
 						}
-						return '<div class="' + day[ 'class' ] + '">' + day.number + '</div>';
+						return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
 					}, '</div>' ) +
 					'</div>' +
 
 				self._repeat( '<div class="monthsView" style="' + self._show( self.options.showMonths ) + '">', self.months,
 					function( month ) {
-						return '<div data-month-number="' + month.number +
-							'" class="' + month[ 'class' ] + '">' + month.abbreviation + '</div>';
+						return '<button data-month-number="' + month.number +
+							'" class="' + month[ 'class' ] + '">' + month.abbreviation + '</button>';
 					}, '</div>' ) +
 
 				self._repeat( '<div class="yearsView" style="' + self._show( self.options.showYears ) + '">', self.years,
 					function( year ) {
-						return '<div data-year-number="' + year.number +
-							'" class="' + year[ 'class' ] + '">' + year.number + '</div>';
+						return '<button data-year-number="' + year.number +
+							'" class="' + year[ 'class' ] + '">' + year.number + '</button>';
 					}, '</div>' ) +
 
 				'<div class="footer">' +
@@ -1224,7 +1224,7 @@
 				this._insertDateIntoInput();
 				this._updateCalendarData();
 				if ( Boolean( this.bindingsAdded ) ) this._removeBindings();
-				this.$element.find( '.dropdown-menu' ).html( this._renderCalendar() );
+				this.$element.find( '.calendar-menu' ).html( this._renderCalendar() );
 				this._initializeCalendarElements();
 				this._addBindings();
 				this._updateCss();
@@ -1233,7 +1233,7 @@
 			_renderWithoutInputManipulation: function() {
 				this._updateCalendarData();
 				if ( Boolean( this.bindingsAdded ) ) this._removeBindings();
-				this.$element.find( '.dropdown-menu' ).html( this._renderCalendar() );
+				this.$element.find( '.calendar-menu' ).html( this._renderCalendar() );
 				this._initializeCalendarElements();
 				this._addBindings();
 				this._updateCss();
@@ -1354,12 +1354,12 @@
 
 				this.$header.find( '.center' ).on( 'click.fu.datepicker', $.proxy( this._toggleMonthYearPicker, this ) );
 
-				this.$lastMonthDiv.find( 'div' ).on( 'click.fu.datepicker', $.proxy( this._previousSet, this ) );
-				this.$thisMonthDiv.find( 'div' ).on( 'click.fu.datepicker', $.proxy( this._select, this ) );
-				this.$nextMonthDiv.find( 'div' ).on( 'click.fu.datepicker', $.proxy( this._nextSet, this ) );
+				this.$lastMonthDiv.find( 'button' ).on( 'click.fu.datepicker', $.proxy( this._previousSet, this ) );
+				this.$thisMonthDiv.find( 'button' ).on( 'click.fu.datepicker', $.proxy( this._select, this ) );
+				this.$nextMonthDiv.find( 'button' ).on( 'click.fu.datepicker', $.proxy( this._nextSet, this ) );
 
-				this.$monthsView.find( 'div' ).on( 'click.fu.datepicker', $.proxy( this._pickMonth, this ) );
-				this.$yearsView.find( 'div' ).on( 'click.fu.datepicker', $.proxy( this._pickYear, this ) );
+				this.$monthsView.find( 'button' ).on( 'click.fu.datepicker', $.proxy( this._pickMonth, this ) );
+				this.$yearsView.find( 'button' ).on( 'click.fu.datepicker', $.proxy( this._pickYear, this ) );
 				this.$footer.find( '.center' ).on( 'click.fu.datepicker', $.proxy( this._today, this ) );
 
 				this.bindingsAdded = true;
@@ -1379,12 +1379,12 @@
 				this.$header.find( '.right' ).off( 'click' );
 				this.$header.find( '.center' ).off( 'click' );
 
-				this.$lastMonthDiv.find( 'div' ).off( 'click' );
-				this.$thisMonthDiv.find( 'div' ).off( 'click' );
-				this.$nextMonthDiv.find( 'div' ).off( 'click' );
+				this.$lastMonthDiv.find( 'button' ).off( 'click' );
+				this.$thisMonthDiv.find( 'button' ).off( 'click' );
+				this.$nextMonthDiv.find( 'button' ).off( 'click' );
 
-				this.$monthsView.find( 'div' ).off( 'click' );
-				this.$yearsView.find( 'div' ).off( 'click' );
+				this.$monthsView.find( 'button' ).off( 'click' );
+				this.$yearsView.find( 'button' ).off( 'click' );
 				this.$footer.find( '.center' ).off( 'click' );
 
 				this.bindingsAdded = false;
@@ -1428,6 +1428,8 @@
 		};
 
 		// DATA-API
+		// 
+		// 
 
 		$( document ).on( 'mousedown.fu.datepicker.data-api', '[data-initialize=datepicker]', function( e ) {
 			var $control = $( e.target ).closest( '.datepicker' );

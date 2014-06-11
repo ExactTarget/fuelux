@@ -129,11 +129,6 @@
 			{ abbreviation: this.options.monthNames[11], 'class': '', number: 11 }
 		];
 
-		$(document).on('show.bs.dropdown', '.datepicker', function( e ) {
-			console.log($(e.target).closest('.datepicker').find('.selected'));
-			$(e.target).closest('.datepicker').find('.selected').focus();
-		});
-
 		// rendering the calendar
 		this._render();
 	};
@@ -145,24 +140,10 @@
 		// functions that can be called on object
 		disable: function() {
 			this.$element.find('input, button').attr( 'disabled', true );
-			// this._showDropdown( false );
 		},
 
 		enable: function() {
 			this.$element.find('input, button').attr( 'disabled', false );
-			// this._showDropdown( true );
-		},
-
-		_showDropdown: function( disable ) {
-			// if( !Boolean( disable ) ) {
-			// 	this.$element.on('show.bs.dropdown', function( event ) {
-			// 		console.log($(self).find('.selected'));
-			// 		$(self).find('.selected').focus().focus();
-			// 		event.preventDefault();
-			// 	});
-			// } else {
-			// 	this.$element.off('show.bs.dropdown');
-			// }
 		},
 
 		getFormattedDate: function() {
@@ -562,10 +543,6 @@
 			paddingTop    = parseInt( paddingTop / 2, 10 );
 			paddingBottom = parseInt( paddingBottom / 2, 10 );
 
-			this.$calendar.css({
-				'float': 'left'
-			});
-
 			this.$monthsView.css({
 				'width': this.options.dropdownWidth + 'px',
 				'padding-top': paddingTop + 'px',
@@ -657,7 +634,7 @@
 				this._render();
 			}
 
-			// return focus to next button to support keybaord navigation
+			// return focus to previous button to support keybaord navigation
 			this.$element.find('.left').focus();
 			// move this below 'this._render()' if you want it to go to the previous month when you select a day from the current month
 			return this._killEvent( e );
@@ -799,7 +776,7 @@
 			this._insertDateIntoInput();
 			this._updateCalendarData();
 			if ( Boolean( this.bindingsAdded ) ) this._removeBindings();
-			this.$element.find( '.dropdown-menu' ).html( this._renderCalendar() );
+			this.$element.find( '.calendar-menu' ).html( this._renderCalendar() );
 			this._initializeCalendarElements();
 			this._addBindings();
 			this._updateCss();
@@ -808,7 +785,7 @@
 		_renderWithoutInputManipulation: function() {
 			this._updateCalendarData();
 			if ( Boolean( this.bindingsAdded ) ) this._removeBindings();
-			this.$element.find( '.dropdown-menu' ).html( this._renderCalendar() );
+			this.$element.find( '.calendar-menu' ).html( this._renderCalendar() );
 			this._initializeCalendarElements();
 			this._addBindings();
 			this._updateCss();
@@ -1014,11 +991,11 @@
 	});
 
 	$(function () {
-		// $('[data-initialize=datepicker]').each(function () {
-		// 	var $this = $(this);
-		// 	if ($this.data('datepicker')) return;
-		// 	$this.datepicker($this.data());
-		// });
+		$('[data-initialize=datepicker]').each(function () {
+			var $this = $(this);
+			if ($this.data('datepicker')) return;
+			$this.datepicker($this.data());
+		});
 	});
 
 
