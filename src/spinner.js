@@ -14,6 +14,7 @@ define(function(require) {
 	// SPINNER CONSTRUCTOR AND PROTOTYPE
 
 	var Spinner = function (element, options) {
+
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.spinner.defaults, options);
 		this.$input = this.$element.find('.spinner-input');
@@ -45,6 +46,7 @@ define(function(require) {
 			this.switches.speed = 500;
 		}
 
+		this.numberFormatCallback = (this.options.numberFormatCallback) ? this.options.numberFormatCallback : null;
 		this.lastValue = null;
 
 		this.render();
@@ -63,7 +65,7 @@ define(function(require) {
 			if (inputValue) {
 				this.value(inputValue);
 			} else {
-				this.$input.val(this.options.value);
+				this.updateInput();
 			}
 
 			this.$input.attr('maxlength', (this.options.max + '').split('').length);
@@ -76,7 +78,7 @@ define(function(require) {
 				this.options.value = newVal/1;
 			}else{
 				newVal = newVal.replace(/[^0-9]/g,'') || '';
-				this.$input.val(newVal);
+				this.updateInput();
 				this.options.value = newVal/1;
 			}
 
@@ -84,11 +86,11 @@ define(function(require) {
 		},
 
 		stopSpin: function () {
-            if(this.switches.timeout!==undefined){
-                clearTimeout(this.switches.timeout);
-                this.switches.count = 1;
-                this.triggerChangedEvent();
-            }
+			if(this.switches.timeout!==undefined){
+				clearTimeout(this.switches.timeout);
+				this.switches.count = 1;
+				this.triggerChangedEvent();
+			}
 		},
 
 		triggerChangedEvent: function () {
@@ -159,7 +161,8 @@ define(function(require) {
 			if (!isNaN(parseFloat(value)) && isFinite(value)) {
 				value = parseFloat(value);
 				this.options.value = value;
-				this.$input.val(value);
+				this.updateInput();
+
 				return this;
 			} else {
 				return this.options.value;
@@ -186,6 +189,13 @@ define(function(require) {
 			}else if(keyCode===40){
 				this.step(false);
 			}
+		},
+		updateInput: function () {
+			var v = this.options.value;
+			if ('function' === typeof(this.numberFormatCallback) ) {
+				v = this.numberFormatCallback(v);
+			}
+			this.$input.val(v);
 		}
 	};
 
