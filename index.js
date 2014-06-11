@@ -6,8 +6,6 @@ define(function(require){
 
 	require('fuelux/all');
 
-
-
 	// CHECKBOX
 	$('#btnChkToggle').on('click', function() {
 		$('#chk1').checkbox('toggle');
@@ -50,9 +48,9 @@ define(function(require){
 
 
 	// DATEPICKER
-	$('#datepicker1').datepicker({
-			//restrictDateSelection: false
-	});
+	// $('#datepicker1').datepicker({
+	// 		//restrictDateSelection: false
+	// });
 
 	$('#datepicker1').on('changed.fu.datepicker', function( event, data ) {
 		console.log( 'datepicker change event fired' );
@@ -368,10 +366,10 @@ $('#MyPillboxEmpty').pillbox({
 	// SCHEDULER
 
 	// set custom format with moment.js
-	$('#MyScheduler').find('.scheduler-start .datepicker').datepicker({ momentConfig: {
-		culture: 'en',
-		formatCode: 'dddd, MMMM D, YYYY'
-	}});
+	// $('#MyScheduler').find('.scheduler-start .datepicker').datepicker({ momentConfig: {
+	// 	culture: 'en',
+	// 	formatCode: 'dddd, MMMM D, YYYY'
+	// }});
 
 	$('#schedulerEnableBtn').on('click', function(){
 		$('#MyScheduler').scheduler('enable');
@@ -404,9 +402,6 @@ $('#MyPillboxEmpty').pillbox({
 			window.console.log('scheduler changed.fu.scheduler: ', arguments);
 		}
 	});
-
-	$('#MyScheduler').scheduler();
-
 
 
 	// SEARCH
@@ -475,8 +470,6 @@ $('#MyPillboxEmpty').pillbox({
 		console.log('Spinbox changed: ', value);
 	});
 
-
-
 	// TREE
 
 	$('#ex-tree').on('loaded', function (e) {
@@ -488,8 +481,8 @@ $('#MyPillboxEmpty').pillbox({
 			setTimeout(function () {
 				callback({ data: [
 					{ name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } },
-					{ name: 'Test Folder 2', type: 'folder', additionalParameters: { id: 'F2' } },
 					{ name: 'Test Item 1', type: 'item', additionalParameters: { id: 'I1' } },
+					{ name: 'Test Folder 2', type: 'folder', additionalParameters: { id: 'F2' } },
 					{ name: 'Test Item 2', type: 'item', additionalParameters: { id: 'I2' } }
 				]});
 

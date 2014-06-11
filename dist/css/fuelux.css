@@ -1175,7 +1175,8 @@ END
   top: 0;
 }
 .fuelux .selectlist .selected-label {
-  overflow: hidden;
+  display: inline-block;
+  min-width: 2em;
 }
 .fuelux .selectlist .btn.dropdown-toggle {
   white-space: normal;

@@ -5,6 +5,7 @@
 	<title>Fuel UX 3</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+	<link href="http://www.fuelcdn.com/fonts/neue-helvetica.css" rel="stylesheet" type="text/css"/>
 	<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="dist/css/fuelux.css" rel="stylesheet" type="text/css">
 	<link href="index.css" rel="stylesheet" type="text/css">
@@ -225,16 +226,17 @@
 					<label class="control-label" for="MyDatepickerInput">Choose a date</label>
 						<div>
 
-							<div class="datepicker input-group dropdown" id="datepicker1" data-initialize="datepicker">
-								<input id="MyDatepickerInput" type="text" class="form-control" data-toggle="dropdown" />
-								<!-- this must go aver the input. if button is present, it must go in between or the input group will not look right -->
-								<div class="dropdown-menu dropdown-menu-right"></div>
-								<span class="input-group-btn" data-toggle="dropdown">
-									<button type="button" class="btn btn-default">
-										<span class="glyphicon glyphicon-calendar"></span>
-										<span class="sr-only">Toggle Calendar</span>
-									</button>
-								</span>
+							<div class="datepicker dropdown" id="datepicker1" data-initialize="datepicker">
+								<div class="input-group">
+									<input id="MyDatepickerInput" type="text" class="form-control" />
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+											<span class="glyphicon glyphicon-calendar"></span>
+											<span class="sr-only">Toggle Calendar</span>
+										</button>
+										<div class="dropdown-menu dropdown-menu-right"></div>
+									</div>
+								</div>
 							</div>
 						
 					</div>
@@ -245,12 +247,12 @@
 			<br/>
 			<h5>Sample Methods</h5>
 			<div class="btn-group">
-				<span class="btn btn-default" id="datepicker-enable">enable</span>
-				<span class="btn btn-default" id="datepicker-disabled">disable</span>
-				<span class="btn btn-default" id="datepicker-logFormattedDate">log formatted date</span>
-				<span class="btn btn-default" id="datepicker-logDateObj">log date object</span>
-				<span class="btn btn-default" id="datepicker-logDateUnix">log unix date</span>
-				<span class="btn btn-default" id="datepicker-setDate">set date 7 days ahead (will log new value)</span>
+				<button class="btn btn-default" id="datepicker-enable">enable</button>
+				<button class="btn btn-default" id="datepicker-disabled">disable</button>
+				<button class="btn btn-default" id="datepicker-logFormattedDate">log formatted date</button>
+				<button class="btn btn-default" id="datepicker-logDateObj">log date object</button>
+				<button class="btn btn-default" id="datepicker-logDateUnix">log unix date</button>
+				<button class="btn btn-default" id="datepicker-setDate">set date 7 days ahead (will log new value)</button>
 			</div>
 			<hr/>
 
@@ -289,7 +291,7 @@
 		<div class="clearfix">
 			<h2>Pillbox</h2>
 
-			<div id="MyPillbox" class="pillbox">
+			<div id="MyPillbox" class="pillbox" data-initialize="pillbox">
 				<ul class="clearfix pill-group">
 					<li class="btn btn-default pill" data-value="foo">
 						<span>Item 1</span>
@@ -403,7 +405,7 @@
 
 			<div id="MyRadioContainer">
 
-				<div class="radio" data-initialize="radio">
+				<div class="radio checked" data-initialize="radio">
 					<label id="lbl1" class="radio-custom">
 						<input id="radio1" class="sr-only" checked="checked" data-toggle="#radioToggle1" name="radio1a" type="radio">
 						<span class="radio-label">Custom appearance radio selected on page load <i>with linked element visibility toggle by id</i></span>
@@ -417,7 +419,7 @@
 					</label>
 				</div>
 
-				<div class="radio" data-initialize="radio">
+				<div class="radio checked" data-initialize="radio">
 					<label id="lbl3" class="radio-custom">
 						<input id="radio3" class="sr-only" checked="checked" disabled="disabled" name="radio1b" type="radio">
 						<span class="radio-label">Disabled custom appearance radio selected on page load</span>
@@ -1191,6 +1193,74 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
 		</div>
 
+		<div class="clearfix">
+			<h2>Selectlist</h2>
+
+			<div class="form-group">
+				<label class="control-label" for="MyComboBoxWithSelectedInput">With auto-resize</label>
+				<div class="input-group">
+
+					<div id="MySelectlist" class="btn-group selectlist" data-initialize="selectlist" data-resize="auto">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							<span class="selected-label"></span>
+							<span class="caret"></span>
+							<span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li data-value="1"><a href="#">One</a></li>
+							<li data-value="2" data-selected="true"><a href="#">Two</a></li>
+							<li data-value="3"><a href="#">Three</a></li>
+							<li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>
+							<li data-value="Item Five"><a href="#">Item Five</a></li>
+						</ul>
+						<input class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
+					</div>
+
+			</div>
+
+			</div>
+
+			<div class="form-group">
+				<label class="control-label" for="MyComboBoxWithSelectedInput">Default</label>
+				<div class="input-group">
+
+					<div id="MySelectlist2" class="btn-group selectlist" data-initialize="selectlist">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							<span class="selected-label"></span>
+							<span class="caret"></span>
+							<span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li data-value="1"><a href="#">One</a></li>
+							<li data-value="2" data-selected="true"><a href="#">Two</a></li>
+							<li data-value="3"><a href="#">Three</a></li>
+							<li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>
+							<li data-value="Item Five"><a href="#">Item Five</a></li>
+						</ul>
+						<input class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
+					</div>
+
+				</div>
+			</div>
+
+			<br/>
+			<br/>
+			<h5>Sample Methods</h5>
+			<div class="btn-group">
+				<input id="getSelectedItem" type="button" class="btn btn-default" value="log selected item/value"/>
+				<input id="selectByValue" type="button" class="btn btn-default" value="set by value (3)"/>
+				<input id="selectByIndex" type="button" class="btn btn-default" value="set by element index (zero-based) ('4')"/>
+			</div>
+
+			<div class="btn-group">
+				<input id="selectByText" type="button" class="btn btn-default" value="set by text ('One')"/>
+				<input id="selectBySelector" type="button" class="btn btn-default" value="set by CSS selector ('li[data-fizz=buzz]')"/>
+				<input id="enableSelectlist" type="button" class="btn btn-default" value="enable"/>
+				<input id="disableSelectlist" type="button" class="btn btn-default" value="disable"/>
+			</div>
+			<hr/>
+
+		</div>
 
 
 		<div class="clearfix">
@@ -1200,7 +1270,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 			<div id="MySpinboxContainer">
 
 				<div class="form-group">
-					<label class="control-label" for="MySpinboxInput">Without Default</label>
+					<label class="control-label" for="MySpinboxInput">Without default</label>
 					<div class="form-group">
 					
 						<div id="MySpinbox" class="spinbox" data-initialize="spinbox">
@@ -1249,43 +1319,6 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
 		</div>
 
-		<div class="clearfix">
-			<h2>Selectlist</h2>
-
-			<div id="MySelectlist" class="btn-group selectlist" data-initialize="selectlist" data-resize="auto">
-				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-					<span class="selected-label">&nbsp;</span>
-					<span class="caret"></span>
-					<span class="sr-only">Toggle Dropdown</span>
-				</button>
-				<ul class="dropdown-menu" role="menu">
-					<li data-value="1"><a href="#">One</a></li>
-					<li data-value="2" data-selected="true"><a href="#">Two</a></li>
-					<li data-value="3"><a href="#">Three</a></li>
-					<li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>
-					<li data-value="Item Five"><a href="#">Item Five</a></li>
-				</ul>
-				<input class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
-			</div>
-
-			<br/>
-			<br/>
-			<h5>Sample Methods</h5>
-			<div class="btn-group">
-				<input id="getSelectedItem" type="button" class="btn btn-default" value="log selected item/value"/>
-				<input id="selectByValue" type="button" class="btn btn-default" value="set by value (3)"/>
-				<input id="selectByIndex" type="button" class="btn btn-default" value="set by element index (zero-based) ('4')"/>
-			</div>
-
-			<div class="btn-group">
-				<input id="selectByText" type="button" class="btn btn-default" value="set by text ('One')"/>
-				<input id="selectBySelector" type="button" class="btn btn-default" value="set by CSS selector ('li[data-fizz=buzz]')"/>
-				<input id="enableSelectlist" type="button" class="btn btn-default" value="enable"/>
-				<input id="disableSelectlist" type="button" class="btn btn-default" value="disable"/>
-			</div>
-			<hr/>
-
-		</div>
 
 		<div class="clearfix">
 

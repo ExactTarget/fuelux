@@ -186,10 +186,11 @@
 
 		// DATA-API
 
-		$( document ).on( 'mouseover.fu.checkbox.data-api', '[data-initialize=checkbox]', function() {
-			var $this = $( this );
-			if ( $this.data( 'scheduler' ) ) return;
-			$this.scheduler( $this.data() );
+		$( document ).on( 'mouseover.fu.checkbox.data-api', '[data-initialize=checkbox]', function( e ) {
+			var $control = $( e.target ).closest( '.checkbox' ).find( '[type=checkbox]' );
+			if ( !$control.data( 'checkbox' ) ) {
+				$control.checkbox( $control.data() );
+			}
 		} );
 
 		// Must be domReady for AMD compatibility
@@ -391,18 +392,20 @@
 
 		// DATA-API
 
-		$( document ).on( 'mousedown.fu.combobox.data-api', '[data-initialize=combobox]', function() {
-			var $this = $( this );
-			if ( $this.data( 'combobox' ) ) return;
-			$this.combobox( $this.data() );
+		$( document ).on( 'mousedown.fu.combobox.data-api', '[data-initialize=combobox]', function( e ) {
+			var $control = $( e.target ).closest( '.combobox' );
+			if ( !$control.data( 'combobox' ) ) {
+				$control.combobox( $control.data() );
+			}
 		} );
 
 		// Must be domReady for AMD compatibility
 		$( function() {
 			$( '[data-initialize=combobox]' ).each( function() {
 				var $this = $( this );
-				if ( $this.data( 'combobox' ) ) return;
-				$this.combobox( $this.data() );
+				if ( !$this.data( 'combobox' ) ) {
+					$this.combobox( $this.data() );
+				}
 			} );
 		} );
 
@@ -1426,10 +1429,11 @@
 
 		// DATA-API
 
-		$( document ).on( 'mousedown.fu.datepicker.data-api', '[data-initialize=datepicker]', function() {
-			var $this = $( this );
-			if ( $this.data( 'datepicker' ) ) return;
-			$this.datepicker( $this.data() );
+		$( document ).on( 'mousedown.fu.datepicker.data-api', '[data-initialize=datepicker]', function( e ) {
+			var $control = $( e.target ).closest( '.datepicker' );
+			if ( !$control.data( 'datepicker' ) ) {
+				$control.datepicker( $control.data() );
+			}
 		} );
 
 		$( function() {
@@ -1906,10 +1910,11 @@
 
 		// DATA-API
 
-		$( document ).on( 'focus.fu.placard.data-api', '[data-initialize=placard]', function() {
-			var $this = $( this );
-			if ( $this.data( 'placard' ) ) return;
-			$this.placard( $this.data() );
+		$( document ).on( 'focus.fu.placard.data-api', '[data-initialize=placard]', function( e ) {
+			var $control = $( e.target ).closest( '.placard' );
+			if ( !$control.data( 'placard' ) ) {
+				$control.placard( $control.data() );
+			}
 		} );
 
 		// Must be domReady for AMD compatibility
@@ -2105,6 +2110,13 @@
 
 		// DATA-API
 
+		$( document ).on( 'mouseover.fu.checkbox.data-api', '[data-initialize=radio]', function( e ) {
+			var $control = $( e.target ).closest( '.radio' ).find( '[type=radio]' );
+			if ( !$control.data( 'radio' ) ) {
+				$control.radio( $control.data() );
+			}
+		} );
+
 		// Must be domReady for AMD compatibility
 		$( function() {
 			$( '[data-initialize=radio] [type=radio]' ).each( function() {
@@ -2247,10 +2259,11 @@
 
 		// DATA-API
 
-		$( document ).on( 'mousedown.fu.search.data-api', '[data-initialize=search]', function() {
-			var $this = $( this );
-			if ( $this.data( 'search' ) ) return;
-			$this.search( $this.data() );
+		$( document ).on( 'mousedown.fu.search.data-api', '[data-initialize=search]', function( e ) {
+			var $control = $( e.target ).closest( '.search' );
+			if ( !$control.data( 'search' ) ) {
+				$control.search( $control.data() );
+			}
 		} );
 
 		// Must be domReady for AMD compatibility
@@ -2452,12 +2465,11 @@
 
 		// DATA-API
 
-		$( document ).on( 'mousedown.fu.selectlist.data-api', '[data-initialize=selectlist]', function() {
-			var $this = $( this );
-			if ( $this.data( 'selectlist' ) ) {
-				return;
+		$( document ).on( 'mousedown.fu.selectlist.data-api', '[data-initialize=selectlist]', function( e ) {
+			var $control = $( e.target ).closest( '.selectlist' );
+			if ( !$control.data( 'selectlist' ) ) {
+				$control.selectlist( $control.data() );
 			}
-			$this.selectlist( $this.data() );
 		} );
 
 		// Must be domReady for AMD compatibility
@@ -2842,10 +2854,11 @@
 
 		// DATA-API
 
-		$( document ).on( 'mousedown.fu.spinbox.data-api', '[data-initialize=spinbox]', function() {
-			var $this = $( this );
-			if ( $this.data( 'spinbox' ) ) return;
-			$this.spinbox( $this.data() );
+		$( document ).on( 'mousedown.fu.spinbox.data-api', '[data-initialize=spinbox]', function( e ) {
+			var $control = $( e.target ).closest( '.spinbox' );
+			if ( !$control.data( 'spinbox' ) ) {
+				$control.spinbox( $control.data() );
+			}
 		} );
 
 		// Must be domReady for AMD compatibility
@@ -3544,12 +3557,11 @@
 
 		// DATA-API
 
-		$( document ).on( 'mouseover.fu.wizard.data-api', '[data-initialize=wizard]', function() {
-			var $this = $( this );
-			if ( $this.data( 'wizard' ) ) {
-				return;
+		$( document ).on( 'mouseover.fu.wizard.data-api', '[data-initialize=wizard]', function( e ) {
+			var $control = $( e.target ).closest( '.wizard' );
+			if ( !$control.data( 'wizard' ) ) {
+				$control.wizard( $control.data() );
 			}
-			$this.wizard( $this.data() );
 		} );
 
 		// Must be domReady for AMD compatibility
@@ -4298,12 +4310,11 @@
 
 		// DATA-API
 
-		$( document ).on( 'mousedown.fu.pillbox.data-api', '[data-initialize=pillbox]', function() {
-			var $this = $( this );
-			if ( $this.data( 'pillbox' ) ) {
-				return;
+		$( document ).on( 'mousedown.fu.pillbox.data-api', '[data-initialize=pillbox]', function( e ) {
+			var $control = $( e.target ).closest( '.pillbox' );
+			if ( !$control.data( 'pillbox' ) ) {
+				$control.pillbox( $control.data() );
 			}
-			$this.pillbox( $this.data() );
 		} );
 
 		// Must be domReady for AMD compatibility
@@ -5971,10 +5982,11 @@
 
 		// DATA-API
 
-		$( document ).on( 'mousedown.fu.scheduler.data-api', '[data-initialize=scheduler]', function() {
-			var $this = $( this );
-			if ( $this.data( 'scheduler' ) ) return;
-			$this.scheduler( $this.data() );
+		$( document ).on( 'mousedown.fu.scheduler.data-api', '[data-initialize=scheduler]', function( e ) {
+			var $control = $( e.target ).closest( '.scheduler' );
+			if ( !$control.data( 'scheduler' ) ) {
+				$control.scheduler( $control.data() );
+			}
 		} );
 
 		// Must be domReady for AMD compatibility

@@ -358,10 +358,11 @@
 
 	// DATA-API
 
-	$(document).on('mouseover.fu.wizard.data-api', '[data-initialize=wizard]', function () {
-		var $this = $(this);
-		if ($this.data('wizard')) { return; }
-		$this.wizard($this.data());
+	$(document).on('mouseover.fu.wizard.data-api', '[data-initialize=wizard]', function (e) {
+		var $control = $(e.target).closest('.wizard');
+		if ( !$control.data('wizard') ) {
+			$control.wizard($control.data());
+		}
 	});
 
 	// Must be domReady for AMD compatibility

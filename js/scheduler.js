@@ -536,10 +536,11 @@
 
 	// DATA-API
 
-	$(document).on('mousedown.fu.scheduler.data-api', '[data-initialize=scheduler]', function () {
-		var $this = $(this);
-		if ($this.data('scheduler')) return;
-		$this.scheduler($this.data());
+	$(document).on('mousedown.fu.scheduler.data-api', '[data-initialize=scheduler]', function (e) {
+		var $control = $(e.target).closest('.scheduler');
+		if ( !$control.data('scheduler') ) {
+			$control.scheduler($control.data());
+		}
 	});
 
 	// Must be domReady for AMD compatibility

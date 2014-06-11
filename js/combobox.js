@@ -189,18 +189,20 @@
 
 	// DATA-API
 
-	$(document).on('mousedown.fu.combobox.data-api', '[data-initialize=combobox]', function () {
-		var $this = $(this);
-		if ($this.data('combobox')) return;
-		$this.combobox($this.data());
+	$(document).on('mousedown.fu.combobox.data-api', '[data-initialize=combobox]', function (e) {
+		var $control = $(e.target).closest('.combobox');
+		if ( !$control.data('combobox') ) {
+			$control.combobox($control.data());
+		}
 	});
 
 	// Must be domReady for AMD compatibility
 	$(function () {
 		$('[data-initialize=combobox]').each(function () {
 			var $this = $(this);
-			if ($this.data('combobox')) return;
-			$this.combobox($this.data());
+			if ( !$this.data('combobox') ) {
+				$this.combobox($this.data());
+			}
 		});
 	});
 

@@ -139,10 +139,11 @@
 
 	// DATA-API
 
-	$(document).on('mousedown.fu.search.data-api', '[data-initialize=search]', function () {
-		var $this = $(this);
-		if ($this.data('search')) return;
-		$this.search($this.data());
+	$(document).on('mousedown.fu.search.data-api', '[data-initialize=search]', function (e) {
+		var $control = $(e.target).closest('.search');
+		if ( !$control.data('search') ) {
+			$control.search($control.data());
+		}
 	});
 
 	// Must be domReady for AMD compatibility

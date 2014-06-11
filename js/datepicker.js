@@ -991,10 +991,11 @@
 
 	// DATA-API
 
-	$(document).on('mousedown.fu.datepicker.data-api', '[data-initialize=datepicker]', function () {
-		var $this = $(this);
-		if ($this.data('datepicker')) return;
-		$this.datepicker($this.data());
+	$(document).on('mousedown.fu.datepicker.data-api', '[data-initialize=datepicker]', function (e) {
+		var $control = $(e.target).closest('.datepicker');
+		if ( !$control.data('datepicker') ) {
+			$control.datepicker($control.data());
+		}
 	});
 
 	$(function () {
