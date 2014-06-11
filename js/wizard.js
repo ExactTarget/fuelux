@@ -50,8 +50,6 @@
 		
 		this.selectedItem(this.options.selectedItem);
 
-		this.initialized = 'undefined'; // flag set on first state change of step
-
 		if( this.options.disablePreviousStep ) {
 			this.$prevBtn.attr( 'disabled', true );
 			this.$element.find( '.steps' ).addClass( 'previous-disabled' );
@@ -232,7 +230,8 @@
 
 			// only fire changed event after initializing
 			if(typeof(this.initialized) !== 'undefined' ) {
-				this.$element.trigger('changed.fu.wizard');
+				var e = $.Event('changed.fu.wizard');
+				this.$element.trigger(e, {step: this.currentStep});
 			}
 
 			this.initialized = true;
@@ -284,9 +283,9 @@
 				canMovePrev = false;
 			}
 			if (canMovePrev) {
-				// var e = $.Event('changed.fu.wizard');
-				// this.$element.trigger(e, {step: this.currentStep, direction: 'previous'});
-				// if (e.isDefaultPrevented()) { return; }
+				var e = $.Event('clicked.fu.wizard.action');
+				this.$element.trigger(e, {step: this.currentStep, direction: 'previous'});
+				if (e.isDefaultPrevented()) { return; } // don't increment
 
 				this.currentStep -= 1;
 				this.setState();
@@ -298,10 +297,9 @@
 			var lastStep = (this.currentStep === this.numSteps);
 
 			if (canMoveNext) {
-				var e = $.Event('change.fu.wizard');
+				var e = $.Event('clicked.fu.wizard.action');
 				this.$element.trigger(e, {step: this.currentStep, direction: 'next'});
-
-				if (e.isDefaultPrevented()) { return; }
+				if (e.isDefaultPrevented()) { return; }	// don't increment
 
 				this.currentStep += 1;
 				this.setState();

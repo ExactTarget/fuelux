@@ -525,15 +525,16 @@ $('#MyPillboxEmpty').pillbox({
 	});
 
 	// WIZARD
-	$('#MyWizard').on('change', function(e, data) {
-		console.log('change');
-		if(data.step===3 && data.direction==='next') {
-			// return e.preventDefault();
-		}
-	});
 	$('#MyWizard').on('changed.fu.wizard', function(e, data) {
 		console.log('changed');
+		console.log(data);
 	});
+
+	$('#MyWizard').on('clicked.fu.wizard.action', function(e, data) {
+		console.log('action clicked');
+		console.log(data);
+	});
+
 	$('#MyWizard').on('finished', function(e, data) {
 		console.log('finished');
 	});
