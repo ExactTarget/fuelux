@@ -50,6 +50,8 @@
 		
 		this.selectedItem(this.options.selectedItem);
 
+		this.initialized = 'undefined'; // flag set on first state change of step
+
 		if( this.options.disablePreviousStep ) {
 			this.$prevBtn.attr( 'disabled', true );
 			this.$element.find( '.steps' ).addClass( 'previous-disabled' );
@@ -160,7 +162,15 @@
 			if (last) {
 				this.lastText = last;
 				// replace text
-				var text = (lastStep !== true) ? this.nextText : this.lastText;
+				var text = this.nextText;
+				if ( lastStep === true ) {
+					text = this.lastText;
+					// add status class to wizard
+					this.$element.addClass('complete');
+				}
+				else {
+					this.$element.removeClass('complete');
+				}
 				var kids = this.$nextBtn.children().detach();
 				this.$nextBtn.text(text).append(kids);
 			}
@@ -220,7 +230,14 @@
 				}
 			}
 
-			this.$element.trigger('changed.fu.wizard');
+			console.log('state change');
+
+			// only fire changed event after initializing
+			if(typeof(this.initialized) !== 'undefined' ) {
+				this.$element.trigger('changed.fu.wizard');
+			}
+
+			this.initialized = true;
 		},
 
 		stepclicked: function (e) {
@@ -269,9 +286,9 @@
 				canMovePrev = false;
 			}
 			if (canMovePrev) {
-				var e = $.Event('changed.fu.wizard');
-				this.$element.trigger(e, {step: this.currentStep, direction: 'previous'});
-				if (e.isDefaultPrevented()) { return; }
+				// var e = $.Event('changed.fu.wizard');
+				// this.$element.trigger(e, {step: this.currentStep, direction: 'previous'});
+				// if (e.isDefaultPrevented()) { return; }
 
 				this.currentStep -= 1;
 				this.setState();
