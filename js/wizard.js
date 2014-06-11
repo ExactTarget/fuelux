@@ -230,8 +230,6 @@
 				}
 			}
 
-			console.log('state change');
-
 			// only fire changed event after initializing
 			if(typeof(this.initialized) !== 'undefined' ) {
 				this.$element.trigger('changed.fu.wizard');
