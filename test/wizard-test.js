@@ -54,18 +54,18 @@ define(function(require){
 		equal(index, 1, 'previous step is set');
 	});
 
-	test("should fire change event", function () {
+	test("should fire clicked event", function () {
 		var $wizard    = $(html).find('#MyWizard').wizard();
 		var eventFired = false;
 
-		$wizard.on('changed.fu.wizard', function (evt, data) {
+		$wizard.on('clicked.fu.wizard.action', function (evt, data) {
 			eventFired = true;
 		});
 
 		// move to next step
 		$wizard.wizard('next');
 
-		equal(eventFired, true, 'change event fired');
+		equal(eventFired, true, 'clicked event fired');
 	});
 
 	test("should fire changed event", function () {
@@ -88,7 +88,7 @@ define(function(require){
 		var $wizard = $(html).find('#MyWizard').wizard();
 		var eventFired = false;
 
-		$wizard.on('change.fu.wizard', function (evt, data) {
+		$wizard.on('clicked.fu.wizard.action', function (evt, data) {
 			eventFired = true;
 			return evt.preventDefault(); // prevent action
 		});
@@ -97,7 +97,7 @@ define(function(require){
 		$wizard.wizard('next');
 		var index = $wizard.wizard('selectedItem').step;
 
-		equal(eventFired, true, 'change event fired');
+		equal(eventFired, true, 'clicked event fired');
 		equal(index, 1, 'step not changed');
 	});
 
