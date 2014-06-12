@@ -79,12 +79,32 @@
 			this.state.disabled = false;
 			this.$element.attr('disabled', false);
 			this._resetClasses();
+			this.$element.trigger( 'enabled.fu.checkbox' );
 		},
 
 		disable: function() {
 			this.state.disabled = true;
 			this.$element.attr('disabled', true);
 			this._setDisabledClass();
+			this.$element.trigger( 'disabled.fu.checkbox' );
+		},
+
+		check: function () {
+			this.state.checked = true;
+			this.$element.prop('checked', true);
+			this._setCheckedClass();
+			this.$element.trigger( 'checked.fu.checkbox' );
+		},
+
+		uncheck: function () {
+			this.state.checked = false;
+			this.$element.prop('checked', false);
+			this._resetClasses();
+			this.$element.trigger( 'unchecked.fu.checkbox' );
+		},
+
+		isChecked: function () {
+			return this.state.checked;
 		},
 
 		toggle: function() {
@@ -107,22 +127,6 @@
 
 		itemchecked: function( element ) {
 			this.setState( $( element.target ) );
-		},
-
-		check: function () {
-			this.state.checked = true;
-			this.$element.prop('checked', true);
-			this._setCheckedClass();
-		},
-
-		uncheck: function () {
-			this.state.checked = false;
-			this.$element.prop('checked', false);
-			this._resetClasses();
-		},
-
-		isChecked: function () {
-			return this.state.checked;
 		},
 
 		_resetClasses: function() {
