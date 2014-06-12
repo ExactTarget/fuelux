@@ -451,24 +451,31 @@ $('#MyPillboxEmpty').pillbox({
 
 
 	// SPINBOX
+	$('#spinboxGetValueBtn').on('click', function(){
+		console.log( $('#MySpinboxDecimal').spinbox('value') );
+	});
+	$('#enableSpinbox').on('click', function () {
+		$('#MySpinboxWithDefault').spinbox('enable');
+	});
 	$('#enableSpinbox').on('click', function () {
 		$('#MySpinboxWithDefault').spinbox('enable');
 	});
 	$('#disableSpinbox').on('click', function () {
 		$('#MySpinboxWithDefault').spinbox('disable');
 	});
-
-	$('#spinboxSetValueBtn').on('click', function(){
-		$('#MySpinboxWithDefault').spinbox('value', '4');
-		// $('#MySpinboxWithDefault').spinbox({'value': '4px', units: ['px']});
-	});
-
 	$('#MySpinboxWithDefault').on('changed.fu.spinbox', function (e, value) {
 		console.log('Spinbox changed: ', value);
 	});
-	$('#MySpinbox').on('changed.fu.spinbox', function (e, value) {
+	$('#MySpinboxDecimal').spinbox({
+		value: 0,
+		min: 0,
+		max: 10,
+		step: 0.1
+		});
+	$('#MySpinboxDecimal').on('changed.fu.spinbox', function (e, value) {
 		console.log('Spinbox changed: ', value);
 	});
+
 
 	// TREE
 
