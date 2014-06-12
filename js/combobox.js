@@ -110,11 +110,13 @@
 		},
 
 		enable: function () {
+			this.$element.removeClass('disabled');
 			this.$input.removeAttr('disabled');
 			this.$button.removeClass('disabled');
 		},
 
 		disable: function () {
+			this.$element.addClass('disabled');
 			this.$input.attr('disabled', true);
 			this.$button.addClass('disabled');
 		},

@@ -110,6 +110,7 @@
   content: "\e013";
 }
 .fuelux .checkbox-custom.disabled:before {
+  cursor: not-allowed;
   opacity: .5;
 }
 .fuelux .checkbox-custom.checkbox-inline:before {
@@ -130,6 +131,9 @@
 .fuelux .checkbox-custom input[type="checkbox"]:focus + .checkbox-label {
   color: #999999;
 }
+.fuelux .combobox.disabled .input-group-btn {
+  cursor: not-allowed;
+}
 .fuelux .datepicker .input-append,
 .fuelux .datepicker .input-group {
   margin-bottom: 1px;
@@ -137,6 +141,9 @@
 .fuelux .datepicker .input-append button,
 .fuelux .datepicker .input-group button {
   outline: none;
+}
+.fuelux .datepicker.disabled .input-group-btn {
+  cursor: not-allowed;
 }
 .fuelux .datepicker .calendar {
   float: left;
@@ -649,7 +656,11 @@
   background: #39b3d7;
   border-color: #39b3d7;
 }
+.fuelux .radio-custom.disabled:after {
+  cursor: not-allowed;
+}
 .fuelux .radio-custom.disabled:before {
+  cursor: not-allowed;
   opacity: .5;
 }
 .fuelux .radio-custom.radio-inline:after {
@@ -920,6 +931,9 @@
 .fuelux .spinbox.digits-3 {
   width: 60px;
 }
+.fuelux .spinbox.disabled .spinbox-buttons {
+  cursor: not-allowed;
+}
 .fuelux .spinbox .spinbox-input {
   float: left;
   padding-bottom: 3px;
@@ -1167,6 +1181,9 @@ END
 }
 .fuelux .scheduler .repeat-end .form-group {
   margin-left: 0;
+}
+.fuelux .search.disabled .input-group-btn {
+  cursor: not-allowed;
 }
 .fuelux .selectlist-sizer {
   display: inline-block;

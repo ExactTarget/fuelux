@@ -266,12 +266,14 @@
 
 		disable: function () {
 			this.options.disabled = true;
+			this.$element.addClass('disabled');
 			this.$input.attr('disabled','');
 			this.$element.find('button').addClass('disabled');
 		},
 
 		enable: function () {
 			this.options.disabled = false;
+			this.$element.removeClass('disabled');
 			this.$input.removeAttr("disabled");
 			this.$element.find('button').removeClass('disabled');
 		},
