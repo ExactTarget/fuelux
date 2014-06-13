@@ -205,7 +205,7 @@
 								this.list_columnsSame = false;
 								this.list_firstRender = false;
 								this.$loader.removeClass('noHeader');
-								callback({ action: 'prepend', item: '<table class="table repeater-list-header" data-preserve="deep"><tr data-container="true"></tr></table>' });
+								callback({ action: 'prepend', item: '<table class="table repeater-list-header" data-preserve="deep" role="grid" aria-readonly="true"><tr data-container="true"></tr></table>' });
 							}else{
 								this.list_columnsSame = true;
 								callback({ skipNested: true });
@@ -291,7 +291,7 @@
 							if($item.length>0){
 								obj.action = 'none';
 							}else{
-								$item = $('<div class="repeater-list-wrapper" data-infinite="true"><table class="table repeater-list-items" data-container="true"></table></div>');
+								$item = $('<div class="repeater-list-wrapper" data-infinite="true"><table class="table repeater-list-items" data-container="true" role="grid" aria-readonly="true"></table></div>');
 							}
 							obj.item = $item;
 							if(helpers.data.items.length<1){
