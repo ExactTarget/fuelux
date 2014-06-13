@@ -322,10 +322,12 @@
 								render: function(helpers, callback){
 									var $item = $('<tr data-container="true"></tr>');
 									var self = this;
+
 									if(this.options.list_selectable){
 										$item.addClass('selectable');
+										$item.attr('tabindex', 0);	// allow items to be tabbed to / focused on
 										$item.data('item_data', helpers.subset[helpers.index]);
-										$item.on('click.fu.repeater-list', function(){
+										$item.on('click.fu.repeater-list', function() {
 											var $row = $(this);
 											if($row.hasClass('selected')){
 												$row.removeClass('selected');
@@ -344,7 +346,16 @@
 												self.$element.trigger('itemSelected.fu.repeater', $row);
 											}
 										});
+										// allow selection via enter key
+										$item.keyup(function (e) {
+											if (e.keyCode === 13) {
+												$item.trigger('click.fu.repeater-list');
+											}
+										});
 									}
+
+									
+
 									this.list_curRowIndex = helpers.index;
 									callback({ item: $item });
 								},

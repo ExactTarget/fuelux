@@ -334,6 +334,9 @@
 				this.$element.trigger( 'changed.fu.combobox', data );
 
 				e.preventDefault();
+
+				// return focus to control after selecting an option
+				this.$element.find( '.dropdown-toggle' ).focus().focus();
 			},
 
 			inputchanged: function( e, extra ) {
@@ -2324,7 +2327,7 @@
 					this.itemChanged( e );
 				}
 
-				// return focus to selectlist after selecting an option
+				// return focus to control after selecting an option
 				this.$element.find( '.dropdown-toggle' ).focus().focus();
 
 			},
@@ -4374,6 +4377,7 @@
 			this.infiniteScrollingOptions = {};
 			this.lastPageInput = 0;
 			this.options = $.extend( {}, $.fn.repeater.defaults, options );
+			this.pageIncrement = 0; // store direction navigated
 			this.resizeTimeout = {};
 			this.staticHeight = ( this.options.staticHeight === -1 ) ? this.$element.attr( 'data-staticheight' ) : this.options.staticHeight;
 
@@ -4394,6 +4398,9 @@
 				pageIncrement: null
 			} ) );
 			this.$secondaryPaging.on( 'blur.fu.repeater', function() {
+				self.pageInputChange( self.$secondaryPaging.val() );
+			} );
+			this.$secondaryPaging.on( 'change.fu.repeater', function() {
 				self.pageInputChange( self.$secondaryPaging.val() );
 			} );
 			this.$views.find( 'input' ).on( 'change.fu.repeater', $.proxy( this.viewChanged, this ) );
@@ -4595,8 +4602,9 @@
 				var d = 'disabled';
 				this.$nextBtn.attr( d, d );
 				this.$prevBtn.attr( d, d );
+				this.pageIncrement = 1;
 				this.render( {
-					pageIncrement: 1
+					pageIncrement: this.pageIncrement
 				} );
 			},
 
@@ -4641,15 +4649,36 @@
 
 				this.$pages.html( pages );
 
+				// this is not the last page
 				if ( ( this.currentPage + 1 ) < pages ) {
 					this.$nextBtn.removeAttr( dsbl );
 				} else {
 					this.$nextBtn.attr( dsbl, dsbl );
 				}
+				// this is not the first page
 				if ( ( this.currentPage - 1 ) >= 0 ) {
 					this.$prevBtn.removeAttr( dsbl );
 				} else {
 					this.$prevBtn.attr( dsbl, dsbl );
+				}
+
+				// return focus to next/previous buttons after navigating
+				if ( this.pageIncrement !== 0 ) {
+					if ( this.pageIncrement > 0 ) {
+						if ( this.$nextBtn.is( ':disabled' ) ) {
+							// if you can't focus, go the other way
+							this.$prevBtn.focus().focus();
+						} else {
+							this.$nextBtn.focus().focus();
+						}
+					} else {
+						if ( this.$prevBtn.is( ':disabled' ) ) {
+							// if you can't focus, go the other way
+							this.$nextBtn.focus().focus();
+						} else {
+							this.$prevBtn.focus().focus();
+						}
+					}
 				}
 			},
 
@@ -4657,8 +4686,9 @@
 				var d = 'disabled';
 				this.$nextBtn.attr( d, d );
 				this.$prevBtn.attr( d, d );
+				this.pageIncrement = -1;
 				this.render( {
-					pageIncrement: -1
+					pageIncrement: this.pageIncrement
 				} );
 			},
 
@@ -5276,8 +5306,10 @@
 							render: function( helpers, callback ) {
 								var $item = $( '<tr data-container="true"></tr>' );
 								var self = this;
+
 								if ( this.options.list_selectable ) {
 									$item.addClass( 'selectable' );
+									$item.attr( 'tabindex', 0 ); // allow items to be tabbed to / focused on
 									$item.data( 'item_data', helpers.subset[ helpers.index ] );
 									$item.on( 'click.fu.repeater-list', function() {
 										var $row = $( this );
@@ -5298,7 +5330,16 @@
 											self.$element.trigger( 'itemSelected.fu.repeater', $row );
 										}
 									} );
+									// allow selection via enter key
+									$item.keyup( function( e ) {
+										if ( e.keyCode === 13 ) {
+											$item.trigger( 'click.fu.repeater-list' );
+										}
+									} );
 								}
+
+
+
 								this.list_curRowIndex = helpers.index;
 								callback( {
 									item: $item

@@ -59,6 +59,7 @@
 		this.infiniteScrollingOptions = {};
 		this.lastPageInput = 0;
 		this.options = $.extend({}, $.fn.repeater.defaults, options);
+		this.pageIncrement = 0;	// store direction navigated
 		this.resizeTimeout = {};
 		this.staticHeight = (this.options.staticHeight===-1) ? this.$element.attr('data-staticheight') : this.options.staticHeight;
 
@@ -69,6 +70,7 @@
 		this.$primaryPaging.find('.combobox').on('changed.fu.combobox', function(evt, data){ self.pageInputChange(data.text); });
 		this.$search.on('searched.fu.search cleared.fu.search', $.proxy(this.render, this, { clearInfinite: true, pageIncrement: null }));
 		this.$secondaryPaging.on('blur.fu.repeater', function(){ self.pageInputChange(self.$secondaryPaging.val()); });
+		this.$secondaryPaging.on('change.fu.repeater', function(){ self.pageInputChange(self.$secondaryPaging.val()); });
 		this.$views.find('input').on('change.fu.repeater', $.proxy(this.viewChanged, this));
 
 		$(window).on('resize.fu.repeater.window', function(){
@@ -264,7 +266,8 @@
 			var d = 'disabled';
 			this.$nextBtn.attr(d, d);
 			this.$prevBtn.attr(d, d);
-			this.render({ pageIncrement: 1 });
+			this.pageIncrement = 1;
+			this.render({ pageIncrement: this.pageIncrement });
 		},
 
 		pageInputChange: function(val){
@@ -306,15 +309,39 @@
 
 			this.$pages.html(pages);
 
-			if((this.currentPage+1)<pages){
+			// this is not the last page
+			if((this.currentPage+1) < pages){
 				this.$nextBtn.removeAttr(dsbl);
 			}else{
 				this.$nextBtn.attr(dsbl, dsbl);
 			}
-			if((this.currentPage-1)>=0){
+			// this is not the first page
+			if((this.currentPage-1) >= 0){
 				this.$prevBtn.removeAttr(dsbl);
 			}else{
 				this.$prevBtn.attr(dsbl, dsbl);
+			}
+
+			// return focus to next/previous buttons after navigating
+			if(this.pageIncrement !== 0) {
+				if(this.pageIncrement > 0 ) {
+					if( this.$nextBtn.is(':disabled') ) {
+						// if you can't focus, go the other way
+						this.$prevBtn.focus().focus();
+					}
+					else {
+						this.$nextBtn.focus().focus();
+					}
+				}
+				else {
+					if( this.$prevBtn.is(':disabled') ) {
+						// if you can't focus, go the other way
+						this.$nextBtn.focus().focus();
+					}
+					else {
+						this.$prevBtn.focus().focus();
+					}
+				}
 			}
 		},
 
@@ -322,7 +349,8 @@
 			var d = 'disabled';
 			this.$nextBtn.attr(d, d);
 			this.$prevBtn.attr(d, d);
-			this.render({ pageIncrement: -1 });
+			this.pageIncrement = -1;
+			this.render({ pageIncrement: this.pageIncrement });
 		},
 
 		render: function(options){
