@@ -277,7 +277,6 @@
 				this.setState();
 			}
 
-			console.log(this.$prevBtn.is(':disabled'));
 			// return focus to control after selecting an option
 			if( this.$prevBtn.is(':disabled') ) {
 				this.$nextBtn.focus().focus();
