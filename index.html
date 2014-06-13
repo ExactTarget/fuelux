@@ -601,15 +601,20 @@
 					<label class="col-sm-2 control-label scheduler-label" for="MyStartDate">Start Date</label>
 					<div class="row col-sm-10">
 						<div class="col-sm-8 form-group">
-							<div class="input-group datepicker start-date">
-								<input id="MyStartDate" type="text" class="form-control" />
-								<div class="input-group-btn">
-									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> 
-										<span class="glyphicon glyphicon-calendar"><span class="sr-only">View Calendar</span></span>
-									</button>
-									<div class="dropdown-menu dropdown-menu-right" role="menu"></div>
+
+							<div class="datepicker start-date" id="datepicker1">
+								<div class="input-group">
+									<input id="MyStartDate" type="text" class="form-control" />
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+											<span class="glyphicon glyphicon-calendar"></span>
+											<span class="sr-only">Toggle Calendar</span>
+										</button>
+										<div class="dropdown-menu dropdown-menu-right calendar-menu"></div>
+									</div>
 								</div>
 							</div>
+
 						</div>
 						
 						<div class="col-sm-4 form-group">
