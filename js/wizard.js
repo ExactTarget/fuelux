@@ -276,6 +276,16 @@
 				this.currentStep -= 1;
 				this.setState();
 			}
+
+			console.log(this.$prevBtn.is(':disabled'));
+			// return focus to control after selecting an option
+			if( this.$prevBtn.is(':disabled') ) {
+				this.$nextBtn.focus().focus();
+			}
+			else {
+				this.$prevBtn.focus().focus();
+			}
+
 		},
 
 		next: function () {
@@ -293,6 +303,14 @@
 			}
 			else if (lastStep) {
 				this.$element.trigger('finished.fu.wizard');
+			}
+
+			// return focus to control after selecting an option
+			if( this.$nextBtn.is(':disabled') ) {
+				this.$prevBtn.focus().focus();
+			}
+			else {
+				this.$nextBtn.focus().focus();
 			}
 		},
 
