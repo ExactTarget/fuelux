@@ -155,7 +155,7 @@
 					<label class="control-label" for="MyComboBoxWithSelectedInput">Has selected item</label>
 
 					<div id="MyComboboxWithSelected" class="input-group input-append dropdown combobox" data-initialize="combobox">
-						<input id="MyComboBoxWithSelectedInput" type="text" class="form-control" placeholder="Select an option">
+						<input id="MyComboBoxWithSelectedInput" type="text" class="form-control" role="combobox" placeholder="Select an option">
 						<div class="input-group-btn">
 							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 								<span class="caret"></span>
@@ -282,7 +282,7 @@
 			<h2>Loader</h2>
 
 			<div>
-				<div class="loader"></div>
+				<div class="loader" role="alert"><span class="sr-only">Loading</span></div>
 			</div>
 
 			<hr/>
@@ -462,9 +462,9 @@
 
 			<br/>
 			<h5>Sample element visibility toggle bound to radios</h5>
-			<div id="radioToggle1" class="alert bg-info hide">This message's visibility toggles by id with a radio above.</div>
-			<div class="radioToggle2 alert bg-warning hide">This message's visibility toggles by class with a radio above.</div>
-			<div class="radioToggle2 alert bg-success hide">This message's visibility toggles by class with a radio above.</div>
+			<div id="radioToggle1" class="alert bg-info hide" aria-hidden="true">This message's visibility toggles by id with a radio above.</div>
+			<div class="radioToggle2 alert bg-warning hide" aria-hidden="true">This message's visibility toggles by class with a radio above.</div>
+			<div class="radioToggle2 alert bg-success hide" aria-hidden="true">This message's visibility toggles by class with a radio above.</div>
 
 			<br/>
 			<h5>Sample Methods</h5>
@@ -1335,38 +1335,52 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
 			<h2>Tree</h2>
 
-			<div id="ex-tree" class="tree" data-initialize="tree">
-				<div class="tree-folder" style="display:none;">
-					<div class="tree-folder-header">
-						<i class="glyphicon glyphicon-folder-close"></i>
+			<div class="form-group">
+				<label class="control-label" for="MyTree">Items selectable</label>
+				<div class="form-group">
 
-						<div class="tree-folder-name"></div>
-					</div>
-					<div class="tree-folder-content"></div>
-					<div class="tree-loader" style="display:none">
-						<!--Place your loading HTML here-->
-						Loading...
-					</div>
-				</div>
-				<div class="tree-item" style="display:none;">
-					<i class="glyphicon tree-dot"></i>
+					<div id="MyTree" class="tree" role="treegrid" data-initialize="tree">
+						<div class="tree-folder" style="display:none;">
+							<div class="tree-folder-header">
+								<i class="glyphicon glyphicon-folder-close"></i>
 
-					<div class="tree-item-name"></div>
+								<div class="tree-folder-name"></div>
+							</div>
+							<div class="tree-folder-content"></div>
+							<div class="tree-loader" style="display:none">
+								<!--Place your loading HTML here-->
+								Loading...
+							</div>
+						</div>
+						<div class="tree-item" style="display:none;">
+							<i class="glyphicon tree-dot"></i>
+
+							<div class="tree-item-name"></div>
+						</div>
+					</div>
+				
 				</div>
 			</div>
 
-			<div id="ex-tree-folder" class="tree tree-folder-select" data-initialize="tree" style="margin-top:10px;">
-				<div class="tree-folder" style="display:none;">
-					<div class="tree-folder-header">
-						<i class="tree-triangle-right"></i>
-						<i class="glyphicon glyphicon-folder-close"></i>
+			<div class="form-group">
+				<label class="control-label" for="MyTreeSelectableFolder">Folders selectable</label>
+				<div class="form-group">
+
+					<div id="MyTreeSelectableFolder" class="tree tree-folder-select" role="treegrid" data-initialize="tree" style="margin-top:10px;">
+						<div class="tree-folder" style="display:none;">
+							<div class="tree-folder-header">
+								<i class="tree-triangle-right"></i>
+								<i class="glyphicon glyphicon-folder-close"></i>
+							</div>
+							<div class="tree-folder-name"></div>
+							<div class="tree-folder-content"></div>
+							<div class="tree-loader" style="display:none">
+								<!--Place your loading HTML here-->
+								Loading...
+							</div>
+						</div>
 					</div>
-					<div class="tree-folder-name"></div>
-					<div class="tree-folder-content"></div>
-					<div class="tree-loader" style="display:none">
-						<!--Place your loading HTML here-->
-						Loading...
-					</div>
+
 				</div>
 			</div>
 
