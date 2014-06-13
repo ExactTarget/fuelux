@@ -567,12 +567,6 @@
 				number: 11
 			} ];
 
-			// put focus on selected day when showing calendar
-			$( document ).on( 'shown.bs.dropdown', function( e ) {
-				console.log( $( e.target ).closest( '.datepicker' ).find( '.selected' ) );
-				$( e.target ).closest( '.datepicker' ).find( '#MyDatepickerInput' ).focus().focus();
-			} );
-
 			// rendering the calendar
 			this._render();
 		};
@@ -986,10 +980,6 @@
 
 				paddingTop = parseInt( paddingTop / 2, 10 );
 				paddingBottom = parseInt( paddingBottom / 2, 10 );
-
-				// this.$calendar.css({
-				// 	'float': 'left'
-				// });
 
 				this.$monthsView.css( {
 					'width': this.options.dropdownWidth + 'px',
@@ -2333,6 +2323,9 @@
 				if ( !( $( e.target ).parent().is( this.$selectedItem ) ) ) {
 					this.itemChanged( e );
 				}
+
+				// return focus to selectlist after selecting an option
+				this.$element.find( '.dropdown-toggle' ).focus().focus();
 
 			},
 

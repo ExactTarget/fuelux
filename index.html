@@ -154,7 +154,7 @@
 				<div class="form-group">
 					<label class="control-label" for="MyComboBoxWithSelectedInput">Has selected item</label>
 
-					<div id="MyComboboxWithSelected" class="input-group input-append dropdown combobox">
+					<div id="MyComboboxWithSelected" class="input-group input-append dropdown combobox" data-initialize="combobox">
 						<input id="MyComboBoxWithSelectedInput" type="text" class="form-control" placeholder="Select an option">
 						<div class="input-group-btn">
 							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -516,10 +516,16 @@
 							</div>
 							<div class="btn-group repeater-views" data-toggle="buttons">
 								<label class="btn btn-default active">
-									<input name="repeaterViews" type="radio" value="list"><span class="glyphicon glyphicon-list"></span>
+									<input name="repeaterViews" type="radio" value="list">
+									<span class="glyphicon glyphicon-list">
+										<span class="sr-only">List View</span>
+									</span>
 								</label>
 								<label class="btn btn-default">
-									<input name="repeaterViews" type="radio" value="thumbnail"><span class="glyphicon glyphicon-th"></span>
+									<input name="repeaterViews" type="radio" value="thumbnail">
+										<span class="glyphicon glyphicon-th">
+											<span class="sr-only">Thumbnail View</span>
+										</span>
 								</label>
 							</div>
 						</div>
