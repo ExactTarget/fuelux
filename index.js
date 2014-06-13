@@ -470,13 +470,14 @@ $('#MyPillboxEmpty').pillbox({
 		console.log('Spinbox changed: ', value);
 	});
 
-	// TREE
 
-	$('#ex-tree').on('loaded', function (e) {
+
+	// TREE
+	$('#MyTree').on('loaded', function (e) {
 		console.log('Loaded');
 	});
 
-	$('#ex-tree').tree({
+	$('#MyTree').tree({
 		dataSource: function(options, callback){
 			setTimeout(function () {
 				callback({ data: [
@@ -493,19 +494,19 @@ $('#MyPillboxEmpty').pillbox({
 		cacheItems: true
 	});
 
-	$('#ex-tree').on('selected', function (e, info) {
+	$('#MyTree').on('selected', function (e, info) {
 		console.log('Select Event: ', info);
 	});
 
-	$('#ex-tree').on('opened', function (e, info) {
+	$('#MyTree').on('opened', function (e, info) {
 		console.log('Open Event: ', info);
 	});
 
-	$('#ex-tree').on('closed', function (e, info) {
+	$('#MyTree').on('closed', function (e, info) {
 		console.log('Close Event: ', info);
 	});
 
-	$('#ex-tree-folder').tree({
+	$('#MyTreeSelectableFolder').tree({
 		dataSource: function(options, callback){
 			setTimeout(function () {
 				callback({ data: [
@@ -520,9 +521,11 @@ $('#MyPillboxEmpty').pillbox({
 		cacheItems: true
 	});
 
-	$('#ex-tree-folder').on('selected', function (e, info) {
+	$('#MyTreeSelectableFolder').on('selected', function (e, info) {
 		console.log('Select Event: ', info);
 	});
+
+
 
 	// WIZARD
 	$('#MyWizard').on('change', function(e, data) {
