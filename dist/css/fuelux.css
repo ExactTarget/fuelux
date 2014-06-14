@@ -1470,4 +1470,10 @@ END
 .fuelux .wizard .step-content .active .btn-group .active {
   display: inline-block;
 }
+.fuelux .wizard.complete .actions .glyphicon-arrow-right:before {
+  display: none;
+}
+.fuelux .wizard.complete .actions .glyphicon-arrow-right {
+  margin-left: 0;
+}
 /*# sourceMappingURL=fuelux.css.map */

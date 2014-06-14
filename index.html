@@ -65,7 +65,7 @@
 
 		<div class="clearfix">
 
-			<h2>Checkbox</h2>
+			<h2 id="checkbox"><a href="#checkbox">#</a>Checkbox</h2>
 
 			<div id="MyCheckboxContainer">
 
@@ -147,7 +147,7 @@
 
 		<div class="clearfix">
 
-			<h2>Combobox</h2>
+			<h2 id="combobox"><a href="#combobox">#</a>Combobox</h2>
 
 			<div id="MyComboboxContainer">
 
@@ -218,7 +218,7 @@
 		</div>
 
 		<div class="clearfix">
-			<h2>Datepicker</h2>
+			<h2 id="datepicker"><a href="#datepicker">#</a>Datepicker</h2>
 
 			<div id="MyDatepickerContainer">
 
@@ -259,7 +259,7 @@
 		</div>
 
 		<div class="clearfix">
-			<h2>Infinite Scroll</h2>
+			<h2 id="infinite-scroll"><a href="#infinite-scroll">#</a>Infinite Scroll</h2>
 
 			<div class="infinitescroll" id="MyInfiniteScroll1">
 				<p>Hodor, hodor. Hodor. Hodor, hodor hodor hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor - hodor hodor hodor? Hodor hodor HODOR! Hodor hodor, hodor. Hodor hodor... Hodor hodor hodor hodor?! Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor hodor! Hodor hodor - hodor... Hodor hodor hodor, hodor, hodor hodor. Hodor hodor - hodor; hodor hodor hodor hodor?! Hodor, HODOR hodor, hodor hodor? Hodor! Hodor hodor, hodor, hodor. Hodor hodor? </p>
@@ -289,7 +289,7 @@
 		</div>
 
 		<div class="clearfix">
-			<h2>Pillbox: not auto-initialized</h2>
+			<h2 id="pillbox"><a href="#pillbox">#</a>not auto-initialized</h2>
 
 			<div id="MyPillbox" class="pillbox">
 				<ul class="clearfix pill-group">
@@ -366,7 +366,7 @@
 
 		<div class="clearfix" style="background: #f3f3f3; padding: 5px;">
 
-			<h2>Placard</h2>
+			<h2 id="placard"><a href="#placard">#</a>Placard</h2>
 
 			<div class="placard" data-initialize="placard">
 				<div class="placard-popup"></div>
@@ -401,7 +401,7 @@
 
 		<div class="clearfix radio-container">
 
-			<h2>Radio</h2>
+			<h2 id="radio"><a href="#radio">#</a>Radio</h2>
 
 			<div id="MyRadioContainer">
 
@@ -480,7 +480,7 @@
 
 		<div class="clearfix">
 
-			<h2>Repeater</h2>
+			<h2 id="repeater"><a href="#repeater">#</a>Repeater</h2>
 
 			<div id="MyRepeaterContainer">
 
@@ -592,7 +592,7 @@
 
 		<div class="clearfix">
 
-			<h2>Scheduler</h2>
+			<h2 id="scheduler"><a href="#scheduler">#</a>Scheduler</h2>
 
 			<div><!-- <div class="bs-example fu-example-scheduler"> -->
 
@@ -1178,7 +1178,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
 
 		<div class="clearfix">
-			<h2>Search</h2>
+			<h2 id="search"><a href="#search">#</a>Search</h2>
 
 			<form class="search-form" role="search">
 
@@ -1205,7 +1205,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 		</div>
 
 		<div class="clearfix">
-			<h2>Selectlist</h2>
+			<h2 id="selectlist"><a href="#selectlist">#</a>Selectlist</h2>
 
 			<div class="form-group">
 				<label class="control-label" for="MyComboBoxWithSelectedInput">With auto-resize</label>
@@ -1276,7 +1276,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
 		<div class="clearfix">
 
-			<h2>Spinbox</h2>
+			<h2 id="spinbox"><a href="#spinbox">#</a>Spinbox</h2>
 
 			<div id="MySpinboxContainer">
 
@@ -1319,11 +1319,34 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 					</div>
 				</div>
 
+				<div class="form-group">
+					<label class="control-label" for="MySpinboxWithDecimalInput">With decimal</label>
+					<div class="form-group">
+						
+						<div id="MySpinboxDecimal" class="spinbox digits-3">
+							<input id="MySpinboxWithDecimalInput" type="text" class="form-control input-mini spinbox-input">
+
+							<div class="spinbox-buttons btn-group btn-group-vertical">
+								<button type="button" class="btn btn-default spinbox-up btn-xs">
+									<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
+								</button>
+								<button type="button" class="btn btn-default spinbox-down btn-xs">
+									<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
+								</button>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+
+
 			</div>
 
 			<h5>Sample Methods</h5>
 			<div class="btn-group">
 				<input id="spinboxSetValueBtn" type="button" class="btn btn-default" value="set value (4)"/>
+				<input id="spinboxGetValueBtn" type="button" class="btn btn-default" value="get value"/>
 				<input id="enableSpinbox" type="button" class="btn btn-default" value="enable"/>
 				<input id="disableSpinbox" type="button" class="btn btn-default" value="disable"/>
 			</div>
@@ -1333,7 +1356,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
 		<div class="clearfix">
 
-			<h2>Tree</h2>
+			<h2 id="tree"><a href="#tree">#</a>Tree</h2>
 
 			<div class="form-group">
 				<label class="control-label" for="MyTree">Items selectable</label>
@@ -1388,9 +1411,9 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
 		</div>
 
-				<div class="clearfix">
+			<div class="clearfix">
 
-			<h2>Wizard</h2>
+			<h2 id="wizard"><a href="#wizard">#</a>Wizard</h2>
 
 			<div id="MyWizard" class="wizard" data-initialize="wizard">
 				<ul class="steps">
@@ -1552,7 +1575,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
 		<div class="clearfix">
 
-			<h2>Dropdown Auto Flip Menu</h2>
+			<h2 id="auto-flip"><a href="#auto-flip">#</a>Dropdown Auto Flip Menu</h2>
 
 			<div class="btn-group">
 				<button type="button" class="btn btn-danger">Action</button>

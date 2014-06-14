@@ -2646,30 +2646,38 @@
 				this.startSpin( type );
 			},
 
-			step: function( dir ) {
-				var digits, multiple, curValue, limValue;
+			step: function( isIncrease ) {
+				// isIncrease: true is up, false is down
 
-				if ( this.changeFlag ) this.change();
+				var digits, multiple, currentValue, limitValue;
 
-				curValue = this.options.value;
-				limValue = dir ? this.options.max : this.options.min;
+				// trigger change event
+				if ( this.changeFlag ) {
+					this.change();
+				}
+				// get current value and min/max options
+				currentValue = this.options.value;
+				limitValue = isIncrease ? this.options.max : this.options.min;
 
-				if ( ( dir ? curValue < limValue : curValue > limValue ) ) {
-					var newVal = curValue + ( dir ? 1 : -1 ) * this.options.step;
+				if ( ( isIncrease ? currentValue < limitValue : currentValue > limitValue ) ) {
+					var newVal = currentValue + ( isIncrease ? 1 : -1 ) * this.options.step;
 
+					// raise to power of 10 x number of decimal places, then round
 					if ( this.options.step % 1 !== 0 ) {
 						digits = ( this.options.step + '' ).split( '.' )[ 1 ].length;
 						multiple = Math.pow( 10, digits );
 						newVal = Math.round( newVal * multiple ) / multiple;
 					}
 
-					if ( dir ? newVal > limValue : newVal < limValue ) {
-						this.value( limValue );
+					// if outside limits, set to limit value
+					if ( isIncrease ? newVal > limitValue : newVal < limitValue ) {
+						this.value( limitValue );
 					} else {
 						this.value( newVal );
 					}
+
 				} else if ( this.options.cycle ) {
-					var cycleVal = dir ? this.options.min : this.options.max;
+					var cycleVal = isIncrease ? this.options.min : this.options.max;
 					this.value( cycleVal );
 				}
 			},
@@ -3341,7 +3349,14 @@
 				if ( last ) {
 					this.lastText = last;
 					// replace text
-					var text = ( lastStep !== true ) ? this.nextText : this.lastText;
+					var text = this.nextText;
+					if ( lastStep === true ) {
+						text = this.lastText;
+						// add status class to wizard
+						this.$element.addClass( 'complete' );
+					} else {
+						this.$element.removeClass( 'complete' );
+					}
 					var kids = this.$nextBtn.children().detach();
 					this.$nextBtn.text( text ).append( kids );
 				}
@@ -3401,7 +3416,15 @@
 					}
 				}
 
-				this.$element.trigger( 'changed.fu.wizard' );
+				// only fire changed event after initializing
+				if ( typeof( this.initialized ) !== 'undefined' ) {
+					var e = $.Event( 'changed.fu.wizard' );
+					this.$element.trigger( e, {
+						step: this.currentStep
+					} );
+				}
+
+				this.initialized = true;
 			},
 
 			stepclicked: function( e ) {
@@ -3454,14 +3477,14 @@
 					canMovePrev = false;
 				}
 				if ( canMovePrev ) {
-					var e = $.Event( 'changed.fu.wizard' );
+					var e = $.Event( 'clicked.fu.wizard.action' );
 					this.$element.trigger( e, {
 						step: this.currentStep,
 						direction: 'previous'
 					} );
 					if ( e.isDefaultPrevented() ) {
 						return;
-					}
+					} // don't increment
 
 					this.currentStep -= 1;
 					this.setState();
@@ -3481,15 +3504,14 @@
 				var lastStep = ( this.currentStep === this.numSteps );
 
 				if ( canMoveNext ) {
-					var e = $.Event( 'change.fu.wizard' );
+					var e = $.Event( 'clicked.fu.wizard.action' );
 					this.$element.trigger( e, {
 						step: this.currentStep,
 						direction: 'next'
 					} );
-
 					if ( e.isDefaultPrevented() ) {
 						return;
-					}
+					} // don't increment
 
 					this.currentStep += 1;
 					this.setState();
