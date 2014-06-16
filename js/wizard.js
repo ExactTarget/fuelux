@@ -293,10 +293,10 @@
 
 			// return focus to control after selecting an option
 			if( this.$prevBtn.is(':disabled') ) {
-				this.$nextBtn.focus().focus();
+				this.$nextBtn.focus();
 			}
 			else {
-				this.$prevBtn.focus().focus();
+				this.$prevBtn.focus();
 			}
 
 		},
@@ -319,10 +319,10 @@
 
 			// return focus to control after selecting an option
 			if( this.$nextBtn.is(':disabled') ) {
-				this.$prevBtn.focus().focus();
+				this.$prevBtn.focus();
 			}
 			else {
-				this.$nextBtn.focus().focus();
+				this.$nextBtn.focus();
 			}
 		},
 

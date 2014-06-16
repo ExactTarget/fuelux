@@ -327,19 +327,19 @@
 				if(this.pageIncrement > 0 ) {
 					if( this.$nextBtn.is(':disabled') ) {
 						// if you can't focus, go the other way
-						this.$prevBtn.focus().focus();
+						this.$prevBtn.focus();
 					}
 					else {
-						this.$nextBtn.focus().focus();
+						this.$nextBtn.focus();
 					}
 				}
 				else {
 					if( this.$prevBtn.is(':disabled') ) {
 						// if you can't focus, go the other way
-						this.$nextBtn.focus().focus();
+						this.$nextBtn.focus();
 					}
 					else {
-						this.$prevBtn.focus().focus();
+						this.$prevBtn.focus();
 					}
 				}
 			}

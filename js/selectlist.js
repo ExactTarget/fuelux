@@ -64,7 +64,7 @@
 			}
 
 			// return focus to control after selecting an option
-			this.$element.find('.dropdown-toggle').focus().focus();
+			this.$element.find('.dropdown-toggle').focus();
 
 		},
 

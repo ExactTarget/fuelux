@@ -336,7 +336,7 @@
 				e.preventDefault();
 
 				// return focus to control after selecting an option
-				this.$element.find( '.dropdown-toggle' ).focus().focus();
+				this.$element.find( '.dropdown-toggle' ).focus();
 			},
 
 			inputchanged: function( e, extra ) {
@@ -2328,7 +2328,7 @@
 				}
 
 				// return focus to control after selecting an option
-				this.$element.find( '.dropdown-toggle' ).focus().focus();
+				this.$element.find( '.dropdown-toggle' ).focus();
 
 			},
 
@@ -3492,9 +3492,9 @@
 
 				// return focus to control after selecting an option
 				if ( this.$prevBtn.is( ':disabled' ) ) {
-					this.$nextBtn.focus().focus();
+					this.$nextBtn.focus();
 				} else {
-					this.$prevBtn.focus().focus();
+					this.$prevBtn.focus();
 				}
 
 			},
@@ -3521,9 +3521,9 @@
 
 				// return focus to control after selecting an option
 				if ( this.$nextBtn.is( ':disabled' ) ) {
-					this.$prevBtn.focus().focus();
+					this.$prevBtn.focus();
 				} else {
-					this.$nextBtn.focus().focus();
+					this.$nextBtn.focus();
 				}
 			},
 
@@ -4704,16 +4704,16 @@
 					if ( this.pageIncrement > 0 ) {
 						if ( this.$nextBtn.is( ':disabled' ) ) {
 							// if you can't focus, go the other way
-							this.$prevBtn.focus().focus();
+							this.$prevBtn.focus();
 						} else {
-							this.$nextBtn.focus().focus();
+							this.$nextBtn.focus();
 						}
 					} else {
 						if ( this.$prevBtn.is( ':disabled' ) ) {
 							// if you can't focus, go the other way
-							this.$nextBtn.focus().focus();
+							this.$nextBtn.focus();
 						} else {
-							this.$prevBtn.focus().focus();
+							this.$prevBtn.focus();
 						}
 					}
 				}
