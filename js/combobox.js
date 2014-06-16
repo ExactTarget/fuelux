@@ -133,6 +133,9 @@
 			this.$element.trigger('changed.fu.combobox', data);
 
 			e.preventDefault();
+
+			// return focus to control after selecting an option
+			this.$element.find('.dropdown-toggle').focus();
 		},
 
 		inputchanged: function (e, extra) {

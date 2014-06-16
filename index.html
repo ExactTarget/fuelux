@@ -154,8 +154,8 @@
 				<div class="form-group">
 					<label class="control-label" for="MyComboBoxWithSelectedInput">Has selected item</label>
 
-					<div id="MyComboboxWithSelected" class="input-group input-append dropdown combobox">
-						<input id="MyComboBoxWithSelectedInput" type="text" class="form-control" placeholder="Select an option">
+					<div id="MyComboboxWithSelected" class="input-group input-append dropdown combobox" data-initialize="combobox">
+						<input id="MyComboBoxWithSelectedInput" type="text" class="form-control" role="combobox" placeholder="Select an option">
 						<div class="input-group-btn">
 							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 								<span class="caret"></span>
@@ -223,7 +223,7 @@
 			<div id="MyDatepickerContainer">
 
 				<div class="form-group">
-					<label class="control-label" for="MyDatepickerInput">Choose a date</label>
+					<label class="control-label" for="MyDatepickerInput">Choose a date (default, </label>
 						<div>
 
 							<div class="datepicker dropdown" id="datepicker1" data-initialize="datepicker">
@@ -234,7 +234,7 @@
 											<span class="glyphicon glyphicon-calendar"></span>
 											<span class="sr-only">Toggle Calendar</span>
 										</button>
-										<div class="dropdown-menu dropdown-menu-right"></div>
+										<div class="dropdown-menu dropdown-menu-right calendar-menu"></div>
 									</div>
 								</div>
 							</div>
@@ -282,16 +282,16 @@
 			<h2>Loader</h2>
 
 			<div>
-				<div class="loader"></div>
+				<div class="loader" role="alert"><span class="sr-only">Loading</span></div>
 			</div>
 
 			<hr/>
 		</div>
 
 		<div class="clearfix">
-			<h2 id="pillbox"><a href="#pillbox">#</a>Pillbox</h2>
+			<h2 id="pillbox"><a href="#pillbox">#</a>not auto-initialized</h2>
 
-			<div id="MyPillbox" class="pillbox" data-initialize="pillbox">
+			<div id="MyPillbox" class="pillbox">
 				<ul class="clearfix pill-group">
 					<li class="btn btn-default pill" data-value="foo">
 						<span>Item 1</span>
@@ -462,9 +462,9 @@
 
 			<br/>
 			<h5>Sample element visibility toggle bound to radios</h5>
-			<div id="radioToggle1" class="alert bg-info hide">This message's visibility toggles by id with a radio above.</div>
-			<div class="radioToggle2 alert bg-warning hide">This message's visibility toggles by class with a radio above.</div>
-			<div class="radioToggle2 alert bg-success hide">This message's visibility toggles by class with a radio above.</div>
+			<div id="radioToggle1" class="alert bg-info hide" aria-hidden="true">This message's visibility toggles by id with a radio above.</div>
+			<div class="radioToggle2 alert bg-warning hide" aria-hidden="true">This message's visibility toggles by class with a radio above.</div>
+			<div class="radioToggle2 alert bg-success hide" aria-hidden="true">This message's visibility toggles by class with a radio above.</div>
 
 			<br/>
 			<h5>Sample Methods</h5>
@@ -516,10 +516,16 @@
 							</div>
 							<div class="btn-group repeater-views" data-toggle="buttons">
 								<label class="btn btn-default active">
-									<input name="repeaterViews" type="radio" value="list"><span class="glyphicon glyphicon-list"></span>
+									<input name="repeaterViews" type="radio" value="list">
+									<span class="glyphicon glyphicon-list">
+										<span class="sr-only">List View</span>
+									</span>
 								</label>
 								<label class="btn btn-default">
-									<input name="repeaterViews" type="radio" value="thumbnail"><span class="glyphicon glyphicon-th"></span>
+									<input name="repeaterViews" type="radio" value="thumbnail">
+										<span class="glyphicon glyphicon-th">
+											<span class="sr-only">Thumbnail View</span>
+										</span>
 								</label>
 							</div>
 						</div>
@@ -595,15 +601,20 @@
 					<label class="col-sm-2 control-label scheduler-label" for="MyStartDate">Start Date</label>
 					<div class="row col-sm-10">
 						<div class="col-sm-8 form-group">
-							<div class="input-group datepicker start-date">
-								<input id="MyStartDate" type="text" class="form-control" />
-								<div class="input-group-btn">
-									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> 
-										<span class="glyphicon glyphicon-calendar"><span class="sr-only">View Calendar</span></span>
-									</button>
-									<div class="dropdown-menu dropdown-menu-right" role="menu"></div>
+
+							<div class="datepicker start-date">
+								<div class="input-group">
+									<input id="MyStartDate" type="text" class="form-control" />
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+											<span class="glyphicon glyphicon-calendar"></span>
+											<span class="sr-only">Toggle Calendar</span>
+										</button>
+										<div class="dropdown-menu dropdown-menu-right calendar-menu"></div>
+									</div>
 								</div>
 							</div>
+
 						</div>
 						
 						<div class="col-sm-4 form-group">
@@ -1347,38 +1358,52 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
 			<h2 id="tree"><a href="#tree">#</a>Tree</h2>
 
-			<div id="ex-tree" class="tree" data-initialize="tree">
-				<div class="tree-folder" style="display:none;">
-					<div class="tree-folder-header">
-						<i class="glyphicon glyphicon-folder-close"></i>
+			<div class="form-group">
+				<label class="control-label" for="MyTree">Items selectable</label>
+				<div class="form-group">
 
-						<div class="tree-folder-name"></div>
-					</div>
-					<div class="tree-folder-content"></div>
-					<div class="tree-loader" style="display:none">
-						<!--Place your loading HTML here-->
-						Loading...
-					</div>
-				</div>
-				<div class="tree-item" style="display:none;">
-					<i class="glyphicon tree-dot"></i>
+					<div id="MyTree" class="tree" role="treegrid" data-initialize="tree">
+						<div class="tree-folder" style="display:none;">
+							<div class="tree-folder-header">
+								<i class="glyphicon glyphicon-folder-close"></i>
 
-					<div class="tree-item-name"></div>
+								<div class="tree-folder-name"></div>
+							</div>
+							<div class="tree-folder-content"></div>
+							<div class="tree-loader" style="display:none">
+								<!--Place your loading HTML here-->
+								Loading...
+							</div>
+						</div>
+						<div class="tree-item" style="display:none;">
+							<i class="glyphicon tree-dot"></i>
+
+							<div class="tree-item-name"></div>
+						</div>
+					</div>
+				
 				</div>
 			</div>
 
-			<div id="ex-tree-folder" class="tree tree-folder-select" data-initialize="tree" style="margin-top:10px;">
-				<div class="tree-folder" style="display:none;">
-					<div class="tree-folder-header">
-						<i class="tree-triangle-right"></i>
-						<i class="glyphicon glyphicon-folder-close"></i>
+			<div class="form-group">
+				<label class="control-label" for="MyTreeSelectableFolder">Folders selectable</label>
+				<div class="form-group">
+
+					<div id="MyTreeSelectableFolder" class="tree tree-folder-select" role="treegrid" data-initialize="tree" style="margin-top:10px;">
+						<div class="tree-folder" style="display:none;">
+							<div class="tree-folder-header">
+								<i class="tree-triangle-right"></i>
+								<i class="glyphicon glyphicon-folder-close"></i>
+							</div>
+							<div class="tree-folder-name"></div>
+							<div class="tree-folder-content"></div>
+							<div class="tree-loader" style="display:none">
+								<!--Place your loading HTML here-->
+								Loading...
+							</div>
+						</div>
 					</div>
-					<div class="tree-folder-name"></div>
-					<div class="tree-folder-content"></div>
-					<div class="tree-loader" style="display:none">
-						<!--Place your loading HTML here-->
-						Loading...
-					</div>
+
 				</div>
 			</div>
 
@@ -1399,7 +1424,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 					<li data-step="5"><span class="badge">5</span>Send<span class="chevron"></span></li>
 				</ul>
 				<div class="actions">
-					<button type="button" class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
+					<button type="button" class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Previous</button>
 					<button type="button" class="btn btn-default btn-next" data-last="Complete">Next<span class="glyphicon glyphicon-arrow-right"></span></button>
 				</div>
 				<div class="step-content">
@@ -1460,6 +1485,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 					<li data-step="5"><span class="badge">5</span>Send<span class="chevron"></span></li>
 				</ul>
 				<div class="actions">
+					<button type="button" class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Previous</button>
 					<button type="button" class="btn btn-default btn-next" data-last="Complete">Next<span class="glyphicon glyphicon-arrow-right"></span></button>
 				</div>
 				<div class="step-content">
@@ -1508,7 +1534,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 				<li data-step="5"><span class="badge">5</span>This is step 5<span class="chevron"></span></li>
 			</ul>
 			<div class="actions">
-				<button type="button" class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
+				<button type="button" class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Previous</button>
 				<button type="button" class="btn btn-default btn-next" data-last="Finish">Next<span class="glyphicon glyphicon-arrow-right"></span></button>
 			</div>
 			<div class="step-content">

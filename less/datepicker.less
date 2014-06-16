@@ -16,7 +16,7 @@
 	}
 
 	.calendar {
-		float: left;
+		display: inline-block;
 		background: @white;
 		background-color: @dropdownBackground;
 		border: 1px solid #ccc; // Fallback for IE7-8
@@ -24,15 +24,25 @@
 		*border-right-width: 2px;
 		*border-bottom-width: 2px;
 		border-radius: @dropdownBorderRadius;
-		box-shadow: 0 5px 10px rgba(0,0,0,.2);
 		-webkit-background-clip: padding-box;
-		   -moz-background-clip: padding;
-		        background-clip: padding-box;
+			 -moz-background-clip: padding;
+						background-clip: padding-box;
+
+		button {
+			background: none;
+			cursor: pointer;
+			padding: 0;
+
+			&:focus {
+				background: @hoverDayBg !important;
+			}
+		}
 
 		.header {
 			height: @headerHeight;
 
 			.left {
+				border: none;
 				float: left;
 				height: @headerHeight;
 				padding-top: 2px;
@@ -44,6 +54,7 @@
 				border-bottom-right-radius: @dropdownBorderRadius;
 
 				.leftArrow {
+					display: block;
 					margin-top: 5px;
 					margin-bottom: 5px;
 					width: 7px;
@@ -66,6 +77,7 @@
 			}
 
 			.right {
+				border: none;
 				float: right;
 				height: @headerHeight;
 				padding-top: 2px;
@@ -77,6 +89,7 @@
 				border-bottom-left-radius: @dropdownBorderRadius;
 
 				.rightArrow {
+					display: block;
 					margin-top: 5px;
 					margin-bottom: 5px;
 					width: 7px;
@@ -141,7 +154,7 @@
 		}
 
 		.monthsView, .yearsView {
-			div {
+			button {
 				font-size: 17px;
 				float: left;
 			}
@@ -155,14 +168,19 @@
 		.daysView {
 			overflow: hidden;
 			div {
-				div {
+				button {
+					display: block;
 					float: left;
+					&:focus {
+						background: @hoverDayBg !important;
+					}
 				}
 			}
 		}
 
 		.weekdays {
 			div {
+				float: left;
 				color: #666;
 				font-weight: bold;
 				box-sizing: border-box;
@@ -174,7 +192,8 @@
 		}
 
 		.lastmonth, .thismonth, .nextmonth, .monthsView, .yearsView {
-			div {
+			button {
+				display: block;
 				border: 1px solid @white;
 
 				&:not(.restrict) {
@@ -189,7 +208,8 @@
 		}
 
 		.lastmonth, .nextmonth {
-			div {
+			button {
+				display: block;
 				color: #a3a4a4;
 				background-color: @grayLighter;
 				border: 1px solid @grayLighter;

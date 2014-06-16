@@ -1,24 +1,25 @@
 <div id="MyDatepickerContainer">
 
 	<div class="form-group">
-		<label class="col-sm-2 control-label" for="MyDatepickerInput">Choose a date</label>
-		<div class="row col-sm-10">
+		<label class="control-label" for="MyDatepickerInput">Choose a date (default, </label>
+			<div>
 
-			<div class="col-lg-4">
-				<div class="datepicker input-group dropdown" id="datepicker1">
-					<input id="MyDatepickerInput" type="text" class="form-control" data-toggle="dropdown" />
-					<!-- this must go aver the input. if button is present, it must go in between or the input group will not look right -->
-					<div class="dropdown-menu dropdown-menu-right"></div>
-					<span class="input-group-btn" data-toggle="dropdown">
-						<button type="button" class="btn btn-default">
-							<span class="glyphicon glyphicon-calendar"></span>
-						</button>
-					</span>
+				<div class="datepicker dropdown" id="datepicker1" data-initialize="datepicker">
+					<div class="input-group">
+						<input id="MyDatepickerInput" type="text" class="form-control" />
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+								<span class="glyphicon glyphicon-calendar"></span>
+								<span class="sr-only">Toggle Calendar</span>
+							</button>
+							<div class="dropdown-menu dropdown-menu-right calendar-menu"></div>
+						</div>
+					</div>
 				</div>
-			</div>
-
+			
 		</div>
-
 	</div>
+
+	<div class="datepicker dropdown" id="datepicker2"></div>
 
 </div>

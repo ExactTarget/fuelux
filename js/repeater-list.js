@@ -205,7 +205,7 @@
 								this.list_columnsSame = false;
 								this.list_firstRender = false;
 								this.$loader.removeClass('noHeader');
-								callback({ action: 'prepend', item: '<table class="table repeater-list-header" data-preserve="deep"><tr data-container="true"></tr></table>' });
+								callback({ action: 'prepend', item: '<table class="table repeater-list-header" data-preserve="deep" role="grid" aria-readonly="true"><tr data-container="true"></tr></table>' });
 							}else{
 								this.list_columnsSame = true;
 								callback({ skipNested: true });
@@ -291,7 +291,7 @@
 							if($item.length>0){
 								obj.action = 'none';
 							}else{
-								$item = $('<div class="repeater-list-wrapper" data-infinite="true"><table class="table repeater-list-items" data-container="true"></table></div>');
+								$item = $('<div class="repeater-list-wrapper" data-infinite="true"><table class="table repeater-list-items" data-container="true" role="grid" aria-readonly="true"></table></div>');
 							}
 							obj.item = $item;
 							if(helpers.data.items.length<1){
@@ -322,10 +322,12 @@
 								render: function(helpers, callback){
 									var $item = $('<tr data-container="true"></tr>');
 									var self = this;
+
 									if(this.options.list_selectable){
 										$item.addClass('selectable');
+										$item.attr('tabindex', 0);	// allow items to be tabbed to / focused on
 										$item.data('item_data', helpers.subset[helpers.index]);
-										$item.on('click.fu.repeater-list', function(){
+										$item.on('click.fu.repeater-list', function() {
 											var $row = $(this);
 											if($row.hasClass('selected')){
 												$row.removeClass('selected');
@@ -344,7 +346,16 @@
 												self.$element.trigger('itemSelected.fu.repeater', $row);
 											}
 										});
+										// allow selection via enter key
+										$item.keyup(function (e) {
+											if (e.keyCode === 13) {
+												$item.trigger('click.fu.repeater-list');
+											}
+										});
 									}
+
+									
+
 									this.list_curRowIndex = helpers.index;
 									callback({ item: $item });
 								},
