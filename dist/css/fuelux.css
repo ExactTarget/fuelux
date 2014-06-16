@@ -146,7 +146,7 @@
   cursor: not-allowed;
 }
 .fuelux .datepicker .calendar {
-  float: left;
+  display: inline-block;
   background: #ffffff;
   background-color: #ffffff;
   border: 1px solid #ccc;
@@ -154,15 +154,23 @@
   *border-right-width: 2px;
   *border-bottom-width: 2px;
   border-radius: 6px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding;
   background-clip: padding-box;
+}
+.fuelux .datepicker .calendar button {
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}
+.fuelux .datepicker .calendar button:focus {
+  background: #dfeef5 !important;
 }
 .fuelux .datepicker .calendar .header {
   height: 24px;
 }
 .fuelux .datepicker .calendar .header .left {
+  border: none;
   float: left;
   height: 24px;
   padding-top: 2px;
@@ -173,6 +181,7 @@
   border-bottom-right-radius: 6px;
 }
 .fuelux .datepicker .calendar .header .left .leftArrow {
+  display: block;
   margin-top: 5px;
   margin-bottom: 5px;
   width: 7px;
@@ -190,6 +199,7 @@
   border-left: 3px solid #cccccc;
 }
 .fuelux .datepicker .calendar .header .right {
+  border: none;
   float: right;
   height: 24px;
   padding-top: 2px;
@@ -200,6 +210,7 @@
   border-bottom-left-radius: 6px;
 }
 .fuelux .datepicker .calendar .header .right .rightArrow {
+  display: block;
   margin-top: 5px;
   margin-bottom: 5px;
   width: 7px;
@@ -251,8 +262,8 @@
   -ms-user-select: none;
   user-select: none;
 }
-.fuelux .datepicker .calendar .monthsView div,
-.fuelux .datepicker .calendar .yearsView div {
+.fuelux .datepicker .calendar .monthsView button,
+.fuelux .datepicker .calendar .yearsView button {
   font-size: 17px;
   float: left;
 }
@@ -265,10 +276,15 @@
 .fuelux .datepicker .calendar .daysView {
   overflow: hidden;
 }
-.fuelux .datepicker .calendar .daysView div div {
+.fuelux .datepicker .calendar .daysView div button {
+  display: block;
   float: left;
 }
+.fuelux .datepicker .calendar .daysView div button:focus {
+  background: #dfeef5 !important;
+}
 .fuelux .datepicker .calendar .weekdays div {
+  float: left;
   color: #666;
   font-weight: bold;
   box-sizing: border-box;
@@ -277,24 +293,26 @@
   -webkit-box-sizing: border-box;
   border-bottom: 1px solid #777;
 }
-.fuelux .datepicker .calendar .lastmonth div,
-.fuelux .datepicker .calendar .thismonth div,
-.fuelux .datepicker .calendar .nextmonth div,
-.fuelux .datepicker .calendar .monthsView div,
-.fuelux .datepicker .calendar .yearsView div {
+.fuelux .datepicker .calendar .lastmonth button,
+.fuelux .datepicker .calendar .thismonth button,
+.fuelux .datepicker .calendar .nextmonth button,
+.fuelux .datepicker .calendar .monthsView button,
+.fuelux .datepicker .calendar .yearsView button {
+  display: block;
   border: 1px solid #ffffff;
 }
-.fuelux .datepicker .calendar .lastmonth div:not(.restrict):hover,
-.fuelux .datepicker .calendar .thismonth div:not(.restrict):hover,
-.fuelux .datepicker .calendar .nextmonth div:not(.restrict):hover,
-.fuelux .datepicker .calendar .monthsView div:not(.restrict):hover,
-.fuelux .datepicker .calendar .yearsView div:not(.restrict):hover {
+.fuelux .datepicker .calendar .lastmonth button:not(.restrict):hover,
+.fuelux .datepicker .calendar .thismonth button:not(.restrict):hover,
+.fuelux .datepicker .calendar .nextmonth button:not(.restrict):hover,
+.fuelux .datepicker .calendar .monthsView button:not(.restrict):hover,
+.fuelux .datepicker .calendar .yearsView button:not(.restrict):hover {
   background-color: #dfeef5;
   border: 1px solid #98D2EE;
   cursor: pointer;
 }
-.fuelux .datepicker .calendar .lastmonth div,
-.fuelux .datepicker .calendar .nextmonth div {
+.fuelux .datepicker .calendar .lastmonth button,
+.fuelux .datepicker .calendar .nextmonth button {
+  display: block;
   color: #a3a4a4;
   background-color: #eeeeee;
   border: 1px solid #eeeeee;
@@ -448,6 +466,12 @@
   border: 1px solid #66afe9;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
   cursor: auto;
+}
+.fuelux [data-toggle="buttons"] > .btn > input[type="radio"],
+.fuelux [data-toggle="buttons"] > .btn > input[type="checkbox"] {
+  display: inline;
+  position: absolute;
+  left: -9999px;
 }
 .fuelux .pillbox {
   padding: 3px;

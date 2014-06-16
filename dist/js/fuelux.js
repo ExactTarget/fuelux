@@ -334,6 +334,9 @@
 				this.$element.trigger( 'changed.fu.combobox', data );
 
 				e.preventDefault();
+
+				// return focus to control after selecting an option
+				this.$element.find( '.dropdown-toggle' ).focus();
 			},
 
 			inputchanged: function( e, extra ) {
@@ -578,22 +581,10 @@
 			// functions that can be called on object
 			disable: function() {
 				this.$element.find( 'input, button' ).attr( 'disabled', true );
-				this._showDropdown( false );
 			},
 
 			enable: function() {
 				this.$element.find( 'input, button' ).attr( 'disabled', false );
-				this._showDropdown( true );
-			},
-
-			_showDropdown: function( disable ) {
-				if ( !Boolean( disable ) ) {
-					this.$element.on( 'show.bs.dropdown', function( event ) {
-						event.preventDefault();
-					} );
-				} else {
-					this.$element.off( 'show.bs.dropdown' );
-				}
 			},
 
 			getFormattedDate: function() {
@@ -993,10 +984,6 @@
 				paddingTop = parseInt( paddingTop / 2, 10 );
 				paddingBottom = parseInt( paddingBottom / 2, 10 );
 
-				this.$calendar.css( {
-					'float': 'left'
-				} );
-
 				this.$monthsView.css( {
 					'width': this.options.dropdownWidth + 'px',
 					'padding-top': paddingTop + 'px',
@@ -1087,6 +1074,9 @@
 				} else {
 					this._render();
 				}
+
+				// return focus to previous button to support keybaord navigation
+				this.$element.find( '.left' ).focus();
 				// move this below 'this._render()' if you want it to go to the previous month when you select a day from the current month
 				return this._killEvent( e );
 			},
@@ -1113,6 +1103,9 @@
 				} else {
 					this._render();
 				}
+
+				// return focus to next button to support keybaord navigation
+				this.$element.find( '.right' ).focus();
 				// move this below 'this._render()' if you want it to go to the next month when you select a day from the current month
 				return this._killEvent( e );
 			},
@@ -1169,15 +1162,15 @@
 
 				return '<div class="calendar">' +
 					'<div class="header clearfix">' +
-					'<div class="left hover"><div class="leftArrow"></div></div>' +
-					'<div class="right hover"><div class="rightArrow"></div></div>' +
+					'<button class="left hover"><span class="leftArrow"></span></button>' +
+					'<button class="right hover"><span class="rightArrow"></span></button>' +
 					'<div class="center hover">' + self._monthYearLabel() + '</div>' +
 					'</div>' +
 					'<div class="daysView" style="' + self._show( self.options.showDays ) + '">' +
 
 				self._repeat( '<div class="weekdays">', self.options.weekdays,
 					function( weekday ) {
-						return '<div >' + weekday + '</div>';
+						return '<div>' + weekday + '</div>';
 					}, '</div>' ) +
 
 				self._repeat( '<div class="lastmonth">', self.daysOfLastMonth,
@@ -1185,12 +1178,12 @@
 						if ( self.options.restrictLastMonth ) {
 							day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
 						}
-						return '<div class="' + day[ 'class' ] + '">' + day.number + '</div>';
+						return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
 					}, '</div>' ) +
 
 				self._repeat( '<div class="thismonth">', self.daysOfThisMonth,
 					function( day ) {
-						return '<div class="' + day[ 'class' ] + '">' + day.number + '</div>';
+						return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
 					}, '</div>' ) +
 
 				self._repeat( '<div class="nextmonth">', self.daysOfNextMonth,
@@ -1198,20 +1191,20 @@
 						if ( self.options.restrictNextMonth ) {
 							day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
 						}
-						return '<div class="' + day[ 'class' ] + '">' + day.number + '</div>';
+						return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
 					}, '</div>' ) +
 					'</div>' +
 
 				self._repeat( '<div class="monthsView" style="' + self._show( self.options.showMonths ) + '">', self.months,
 					function( month ) {
-						return '<div data-month-number="' + month.number +
-							'" class="' + month[ 'class' ] + '">' + month.abbreviation + '</div>';
+						return '<button data-month-number="' + month.number +
+							'" class="' + month[ 'class' ] + '">' + month.abbreviation + '</button>';
 					}, '</div>' ) +
 
 				self._repeat( '<div class="yearsView" style="' + self._show( self.options.showYears ) + '">', self.years,
 					function( year ) {
-						return '<div data-year-number="' + year.number +
-							'" class="' + year[ 'class' ] + '">' + year.number + '</div>';
+						return '<button data-year-number="' + year.number +
+							'" class="' + year[ 'class' ] + '">' + year.number + '</button>';
 					}, '</div>' ) +
 
 				'<div class="footer">' +
@@ -1224,7 +1217,7 @@
 				this._insertDateIntoInput();
 				this._updateCalendarData();
 				if ( Boolean( this.bindingsAdded ) ) this._removeBindings();
-				this.$element.find( '.dropdown-menu' ).html( this._renderCalendar() );
+				this.$element.find( '.calendar-menu' ).html( this._renderCalendar() );
 				this._initializeCalendarElements();
 				this._addBindings();
 				this._updateCss();
@@ -1233,7 +1226,7 @@
 			_renderWithoutInputManipulation: function() {
 				this._updateCalendarData();
 				if ( Boolean( this.bindingsAdded ) ) this._removeBindings();
-				this.$element.find( '.dropdown-menu' ).html( this._renderCalendar() );
+				this.$element.find( '.calendar-menu' ).html( this._renderCalendar() );
 				this._initializeCalendarElements();
 				this._addBindings();
 				this._updateCss();
@@ -1354,12 +1347,12 @@
 
 				this.$header.find( '.center' ).on( 'click.fu.datepicker', $.proxy( this._toggleMonthYearPicker, this ) );
 
-				this.$lastMonthDiv.find( 'div' ).on( 'click.fu.datepicker', $.proxy( this._previousSet, this ) );
-				this.$thisMonthDiv.find( 'div' ).on( 'click.fu.datepicker', $.proxy( this._select, this ) );
-				this.$nextMonthDiv.find( 'div' ).on( 'click.fu.datepicker', $.proxy( this._nextSet, this ) );
+				this.$lastMonthDiv.find( 'button' ).on( 'click.fu.datepicker', $.proxy( this._previousSet, this ) );
+				this.$thisMonthDiv.find( 'button' ).on( 'click.fu.datepicker', $.proxy( this._select, this ) );
+				this.$nextMonthDiv.find( 'button' ).on( 'click.fu.datepicker', $.proxy( this._nextSet, this ) );
 
-				this.$monthsView.find( 'div' ).on( 'click.fu.datepicker', $.proxy( this._pickMonth, this ) );
-				this.$yearsView.find( 'div' ).on( 'click.fu.datepicker', $.proxy( this._pickYear, this ) );
+				this.$monthsView.find( 'button' ).on( 'click.fu.datepicker', $.proxy( this._pickMonth, this ) );
+				this.$yearsView.find( 'button' ).on( 'click.fu.datepicker', $.proxy( this._pickYear, this ) );
 				this.$footer.find( '.center' ).on( 'click.fu.datepicker', $.proxy( this._today, this ) );
 
 				this.bindingsAdded = true;
@@ -1379,12 +1372,12 @@
 				this.$header.find( '.right' ).off( 'click' );
 				this.$header.find( '.center' ).off( 'click' );
 
-				this.$lastMonthDiv.find( 'div' ).off( 'click' );
-				this.$thisMonthDiv.find( 'div' ).off( 'click' );
-				this.$nextMonthDiv.find( 'div' ).off( 'click' );
+				this.$lastMonthDiv.find( 'button' ).off( 'click' );
+				this.$thisMonthDiv.find( 'button' ).off( 'click' );
+				this.$nextMonthDiv.find( 'button' ).off( 'click' );
 
-				this.$monthsView.find( 'div' ).off( 'click' );
-				this.$yearsView.find( 'div' ).off( 'click' );
+				this.$monthsView.find( 'button' ).off( 'click' );
+				this.$yearsView.find( 'button' ).off( 'click' );
 				this.$footer.find( '.center' ).off( 'click' );
 
 				this.bindingsAdded = false;
@@ -1428,6 +1421,8 @@
 		};
 
 		// DATA-API
+		// 
+		// 
 
 		$( document ).on( 'mousedown.fu.datepicker.data-api', '[data-initialize=datepicker]', function( e ) {
 			var $control = $( e.target ).closest( '.datepicker' );
@@ -2331,6 +2326,9 @@
 				if ( !( $( e.target ).parent().is( this.$selectedItem ) ) ) {
 					this.itemChanged( e );
 				}
+
+				// return focus to control after selecting an option
+				this.$element.find( '.dropdown-toggle' ).focus();
 
 			},
 
@@ -3491,6 +3489,14 @@
 					this.currentStep -= 1;
 					this.setState();
 				}
+
+				// return focus to control after selecting an option
+				if ( this.$prevBtn.is( ':disabled' ) ) {
+					this.$nextBtn.focus();
+				} else {
+					this.$prevBtn.focus();
+				}
+
 			},
 
 			next: function() {
@@ -3511,6 +3517,13 @@
 					this.setState();
 				} else if ( lastStep ) {
 					this.$element.trigger( 'finished.fu.wizard' );
+				}
+
+				// return focus to control after selecting an option
+				if ( this.$nextBtn.is( ':disabled' ) ) {
+					this.$prevBtn.focus();
+				} else {
+					this.$nextBtn.focus();
 				}
 			},
 
@@ -4401,6 +4414,7 @@
 			this.infiniteScrollingOptions = {};
 			this.lastPageInput = 0;
 			this.options = $.extend( {}, $.fn.repeater.defaults, options );
+			this.pageIncrement = 0; // store direction navigated
 			this.resizeTimeout = {};
 			this.staticHeight = ( this.options.staticHeight === -1 ) ? this.$element.attr( 'data-staticheight' ) : this.options.staticHeight;
 
@@ -4421,6 +4435,9 @@
 				pageIncrement: null
 			} ) );
 			this.$secondaryPaging.on( 'blur.fu.repeater', function() {
+				self.pageInputChange( self.$secondaryPaging.val() );
+			} );
+			this.$secondaryPaging.on( 'change.fu.repeater', function() {
 				self.pageInputChange( self.$secondaryPaging.val() );
 			} );
 			this.$views.find( 'input' ).on( 'change.fu.repeater', $.proxy( this.viewChanged, this ) );
@@ -4622,8 +4639,9 @@
 				var d = 'disabled';
 				this.$nextBtn.attr( d, d );
 				this.$prevBtn.attr( d, d );
+				this.pageIncrement = 1;
 				this.render( {
-					pageIncrement: 1
+					pageIncrement: this.pageIncrement
 				} );
 			},
 
@@ -4668,15 +4686,36 @@
 
 				this.$pages.html( pages );
 
+				// this is not the last page
 				if ( ( this.currentPage + 1 ) < pages ) {
 					this.$nextBtn.removeAttr( dsbl );
 				} else {
 					this.$nextBtn.attr( dsbl, dsbl );
 				}
+				// this is not the first page
 				if ( ( this.currentPage - 1 ) >= 0 ) {
 					this.$prevBtn.removeAttr( dsbl );
 				} else {
 					this.$prevBtn.attr( dsbl, dsbl );
+				}
+
+				// return focus to next/previous buttons after navigating
+				if ( this.pageIncrement !== 0 ) {
+					if ( this.pageIncrement > 0 ) {
+						if ( this.$nextBtn.is( ':disabled' ) ) {
+							// if you can't focus, go the other way
+							this.$prevBtn.focus();
+						} else {
+							this.$nextBtn.focus();
+						}
+					} else {
+						if ( this.$prevBtn.is( ':disabled' ) ) {
+							// if you can't focus, go the other way
+							this.$nextBtn.focus();
+						} else {
+							this.$prevBtn.focus();
+						}
+					}
 				}
 			},
 
@@ -4684,8 +4723,9 @@
 				var d = 'disabled';
 				this.$nextBtn.attr( d, d );
 				this.$prevBtn.attr( d, d );
+				this.pageIncrement = -1;
 				this.render( {
-					pageIncrement: -1
+					pageIncrement: this.pageIncrement
 				} );
 			},
 
@@ -5180,7 +5220,7 @@
 								this.$loader.removeClass( 'noHeader' );
 								callback( {
 									action: 'prepend',
-									item: '<table class="table repeater-list-header" data-preserve="deep"><tr data-container="true"></tr></table>'
+									item: '<table class="table repeater-list-header" data-preserve="deep" role="grid" aria-readonly="true"><tr data-container="true"></tr></table>'
 								} );
 							} else {
 								this.list_columnsSame = true;
@@ -5271,7 +5311,7 @@
 							if ( $item.length > 0 ) {
 								obj.action = 'none';
 							} else {
-								$item = $( '<div class="repeater-list-wrapper" data-infinite="true"><table class="table repeater-list-items" data-container="true"></table></div>' );
+								$item = $( '<div class="repeater-list-wrapper" data-infinite="true"><table class="table repeater-list-items" data-container="true" role="grid" aria-readonly="true"></table></div>' );
 							}
 							obj.item = $item;
 							if ( helpers.data.items.length < 1 ) {
@@ -5303,8 +5343,10 @@
 							render: function( helpers, callback ) {
 								var $item = $( '<tr data-container="true"></tr>' );
 								var self = this;
+
 								if ( this.options.list_selectable ) {
 									$item.addClass( 'selectable' );
+									$item.attr( 'tabindex', 0 ); // allow items to be tabbed to / focused on
 									$item.data( 'item_data', helpers.subset[ helpers.index ] );
 									$item.on( 'click.fu.repeater-list', function() {
 										var $row = $( this );
@@ -5325,7 +5367,16 @@
 											self.$element.trigger( 'itemSelected.fu.repeater', $row );
 										}
 									} );
+									// allow selection via enter key
+									$item.keyup( function( e ) {
+										if ( e.keyCode === 13 ) {
+											$item.trigger( 'click.fu.repeater-list' );
+										}
+									} );
 								}
+
+
+
 								this.list_curRowIndex = helpers.index;
 								callback( {
 									item: $item
