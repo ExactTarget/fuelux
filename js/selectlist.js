@@ -158,10 +158,12 @@
 		},
 
 		enable: function() {
+			this.$element.removeClass('disabled');
 			this.$button.removeClass('disabled');
 		},
 
 		disable: function() {
+			this.$element.addClass('disabled');
 			this.$button.addClass('disabled');
 		}
 

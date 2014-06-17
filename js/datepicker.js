@@ -141,13 +141,12 @@
 		disable: function() {
 			this.$element.addClass('disabled');
 			this.$element.find('input, button').attr( 'disabled', 'disabled' );
-			this._showDropdown( false );
+			//TODO: make this close correctly if programatically disabled
 		},
 
 		enable: function() {
 			this.$element.removeClass('disabled');
 			this.$element.find('input, button').removeAttr('disabled');
-			this._showDropdown( true );
 		},
 
 		getFormattedDate: function() {
