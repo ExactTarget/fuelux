@@ -1036,10 +1036,6 @@
 				paddingTop = parseInt( paddingTop / 2, 10 );
 				paddingBottom = parseInt( paddingBottom / 2, 10 );
 
-				this.$calendar.css( {
-					'float': 'left'
-				} );
-
 				this.$monthsView.css( {
 					'width': this.options.dropdownWidth + 'px',
 					'padding-top': paddingTop + 'px',
@@ -1130,6 +1126,9 @@
 				} else {
 					this._render();
 				}
+
+				// return focus to previous button to support keybaord navigation
+				this.$element.find( '.left' ).focus();
 				// move this below 'this._render()' if you want it to go to the previous month when you select a day from the current month
 				return this._killEvent( e );
 			},
@@ -1156,6 +1155,9 @@
 				} else {
 					this._render();
 				}
+
+				// return focus to next button to support keybaord navigation
+				this.$element.find( '.right' ).focus();
 				// move this below 'this._render()' if you want it to go to the next month when you select a day from the current month
 				return this._killEvent( e );
 			},
@@ -1212,15 +1214,15 @@
 
 				return '<div class="calendar">' +
 					'<div class="header clearfix">' +
-					'<div class="left hover"><div class="leftArrow"></div></div>' +
-					'<div class="right hover"><div class="rightArrow"></div></div>' +
+					'<button class="left hover"><span class="leftArrow"></span></button>' +
+					'<button class="right hover"><span class="rightArrow"></span></button>' +
 					'<div class="center hover">' + self._monthYearLabel() + '</div>' +
 					'</div>' +
 					'<div class="daysView" style="' + self._show( self.options.showDays ) + '">' +
 
 				self._repeat( '<div class="weekdays">', self.options.weekdays,
 					function( weekday ) {
-						return '<div >' + weekday + '</div>';
+						return '<div>' + weekday + '</div>';
 					}, '</div>' ) +
 
 				self._repeat( '<div class="lastmonth">', self.daysOfLastMonth,
@@ -1228,7 +1230,7 @@
 						if ( self.options.restrictLastMonth ) {
 							day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
 						}
-						return '<div class="' + day[ 'class' ] + '">' + day.number + '</div>';
+						return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
 					}, '</div>' ) +
 
 				self._repeat( '<div class="thismonth">', self.daysOfThisMonth,
