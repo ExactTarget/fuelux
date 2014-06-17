@@ -97,11 +97,13 @@
 		},
 
 		disable: function () {
+			this.$element.addClass('disabled');
 			this.$input.attr('disabled', 'disabled');
 			this.$button.addClass('disabled');
 		},
 
 		enable: function () {
+			this.$element.removeClass('disabled');
 			this.$input.removeAttr('disabled');
 			this.$button.removeClass('disabled');
 		}
