@@ -109,7 +109,11 @@
   border-color: #39b3d7;
   content: "\e013";
 }
+.fuelux .checkbox-custom.disabled {
+  cursor: not-allowed;
+}
 .fuelux .checkbox-custom.disabled:before {
+  cursor: not-allowed;
   opacity: .5;
 }
 .fuelux .checkbox-custom.checkbox-inline:before {
@@ -130,6 +134,9 @@
 .fuelux .checkbox-custom input[type="checkbox"]:focus + .checkbox-label {
   color: #999999;
 }
+.fuelux .combobox.disabled .input-group-btn {
+  cursor: not-allowed;
+}
 .fuelux .datepicker .input-append,
 .fuelux .datepicker .input-group {
   margin-bottom: 1px;
@@ -137,6 +144,9 @@
 .fuelux .datepicker .input-append button,
 .fuelux .datepicker .input-group button {
   outline: none;
+}
+.fuelux .datepicker.disabled .input-group-btn {
+  cursor: not-allowed;
 }
 .fuelux .datepicker .calendar {
   display: inline-block;
@@ -673,7 +683,14 @@
   background: #39b3d7;
   border-color: #39b3d7;
 }
+.fuelux .radio-custom.disabled {
+  cursor: not-allowed;
+}
+.fuelux .radio-custom.disabled:after {
+  cursor: not-allowed;
+}
 .fuelux .radio-custom.disabled:before {
+  cursor: not-allowed;
   opacity: .5;
 }
 .fuelux .radio-custom.radio-inline:after {
@@ -944,6 +961,9 @@
 .fuelux .spinbox.digits-3 {
   width: 60px;
 }
+.fuelux .spinbox.disabled .spinbox-buttons {
+  cursor: not-allowed;
+}
 .fuelux .spinbox .spinbox-input {
   float: left;
   padding-bottom: 3px;
@@ -1192,6 +1212,12 @@ END
 .fuelux .scheduler .repeat-end .form-group {
   margin-left: 0;
 }
+.fuelux .search.disabled .input-group-btn {
+  cursor: not-allowed;
+}
+.fuelux .selectlist.disabled {
+  cursor: not-allowed;
+}
 .fuelux .selectlist-sizer {
   display: inline-block;
   position: absolute;
@@ -1376,7 +1402,7 @@ END
   background: #ededed;
   color: #999999;
   font-size: 16px;
-  cursor: default;
+  cursor: not-allowed;
 }
 .fuelux .wizard ul li .chevron {
   border: 24px solid transparent;
@@ -1415,6 +1441,7 @@ END
 .fuelux .wizard ul li.active {
   background: #f1f6fc;
   color: #3a87ad;
+  cursor: default;
 }
 .fuelux .wizard ul li.active .chevron:before {
   border-left: 14px solid #f1f6fc;
@@ -1449,8 +1476,14 @@ END
   font-size: 12px;
   margin-right: 8px;
 }
+.fuelux .wizard .actions .btn-prev[disabled] {
+  cursor: not-allowed;
+}
 .fuelux .wizard .actions .btn-prev span {
   margin-right: 5px;
+}
+.fuelux .wizard .actions .btn-next[disabled] {
+  cursor: not-allowed;
 }
 .fuelux .wizard .actions .btn-next span {
   margin-left: 5px;

@@ -139,11 +139,14 @@
 
 		// functions that can be called on object
 		disable: function() {
-			this.$element.find('input, button').attr( 'disabled', true );
+			this.$element.addClass('disabled');
+			this.$element.find('input, button').attr( 'disabled', 'disabled' );
+			//TODO: make this close correctly if programatically disabled
 		},
 
 		enable: function() {
-			this.$element.find('input, button').attr( 'disabled', false );
+			this.$element.removeClass('disabled');
+			this.$element.find('input, button').removeAttr('disabled');
 		},
 
 		getFormattedDate: function() {

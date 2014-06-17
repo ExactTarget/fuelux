@@ -356,11 +356,13 @@
 			},
 
 			enable: function() {
+				this.$element.removeClass( 'disabled' );
 				this.$input.removeAttr( 'disabled' );
 				this.$button.removeClass( 'disabled' );
 			},
 
 			disable: function() {
+				this.$element.addClass( 'disabled' );
 				this.$input.attr( 'disabled', true );
 				this.$button.addClass( 'disabled' );
 			},
@@ -627,11 +629,14 @@
 
 			// functions that can be called on object
 			disable: function() {
-				this.$element.find( 'input, button' ).attr( 'disabled', true );
+				this.$element.addClass( 'disabled' );
+				this.$element.find( 'input, button' ).attr( 'disabled', 'disabled' );
+				//TODO: make this close correctly if programatically disabled
 			},
 
 			enable: function() {
-				this.$element.find( 'input, button' ).attr( 'disabled', false );
+				this.$element.removeClass( 'disabled' );
+				this.$element.find( 'input, button' ).removeAttr( 'disabled' );
 			},
 
 			getFormattedDate: function() {
@@ -2259,11 +2264,13 @@
 			},
 
 			disable: function() {
+				this.$element.addClass( 'disabled' );
 				this.$input.attr( 'disabled', 'disabled' );
 				this.$button.addClass( 'disabled' );
 			},
 
 			enable: function() {
+				this.$element.removeClass( 'disabled' );
 				this.$input.removeAttr( 'disabled' );
 				this.$button.removeClass( 'disabled' );
 			}
@@ -2470,10 +2477,12 @@
 			},
 
 			enable: function() {
+				this.$element.removeClass( 'disabled' );
 				this.$button.removeClass( 'disabled' );
 			},
 
 			disable: function() {
+				this.$element.addClass( 'disabled' );
 				this.$button.addClass( 'disabled' );
 			}
 
@@ -2796,12 +2805,14 @@
 
 			disable: function() {
 				this.options.disabled = true;
+				this.$element.addClass( 'disabled' );
 				this.$input.attr( 'disabled', '' );
 				this.$element.find( 'button' ).addClass( 'disabled' );
 			},
 
 			enable: function() {
 				this.options.disabled = false;
+				this.$element.removeClass( 'disabled' );
 				this.$input.removeAttr( "disabled" );
 				this.$element.find( 'button' ).removeClass( 'disabled' );
 			},
