@@ -125,7 +125,7 @@ define(function(require){
 
 		//spinbox behaves when units are enabled for non-unit values
 		$spinbox.spinbox('value', 1);
-		ok($spinbox.spinbox('value') === 1, 'spinbox returned integer');
+		ok($spinbox.spinbox('value') === '1', 'spinbox returned integer');
 
 		//spinbox handles string with appropriate unit
 		$spinbox.spinbox('value', '1px');
@@ -147,6 +147,29 @@ define(function(require){
 		$spinbox.find('.spinbox-input').val('4px');
 		$spinbox.find('.spinbox-input').focusout();
 		equal($spinbox.spinbox('value'), '4px', 'spinbox updates string value on focus out');
+
+	});
+
+	test("spinbox should behave correctly when custom decimalMark is used", function () {
+		var $spinbox = $(html).find('#MySpinboxDecimal').spinbox({
+			value: '1,1',
+			min: 0,
+			max: 10,
+			step: 0.1,
+			decimalMark: ','
+		});
+
+		//spinbox behaves when there is no custom decimal mark
+		$spinbox.spinbox('value', '1');
+		equal($spinbox.spinbox('value'), '1', 'spinbox returned correct number');
+
+		//increment positive
+		$spinbox.spinbox('step',true);
+		equal($spinbox.spinbox('value'), '1,1', 'spinbox increments positive');
+
+		//increment nagative
+		$spinbox.spinbox('step',false);
+		equal($spinbox.spinbox('value'), '1', 'spinbox increments negative');
 
 	});
 

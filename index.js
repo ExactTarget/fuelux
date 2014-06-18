@@ -467,10 +467,12 @@ $('#MyPillboxEmpty').pillbox({
 		console.log('Spinbox changed: ', value);
 	});
 	$('#MySpinboxDecimal').spinbox({
-		value: 0,
+		value: '1,0px',
 		min: 0,
 		max: 10,
-		step: 0.1
+		step: 0.1,
+		decimalMark: ',',
+		units: ['px']
 		});
 	$('#MySpinboxDecimal').on('changed.fu.spinbox', function (e, value) {
 		console.log('Spinbox changed: ', value);

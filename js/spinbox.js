@@ -76,14 +76,14 @@
 		constructor: Spinbox,
 
 		render: function () {
-			var inputValue = this.$input.val();
+			var inputValue = this.parseInput( this.$input.val() );
 			var maxUnitLength = '';
 
 			// if input is empty and option value is default, 0
 			if (inputValue !== '' && this.options.value === 0) {
 				this.value(inputValue);
 			} else {
-				this.$input.val(this.options.value);
+				this.output ( this.options.value );
 			}
 
 			if ( this.options.units.length ) {
@@ -94,20 +94,34 @@
 				});
 			}
 
-			this.$input.attr('maxlength', (this.options.max + maxUnitLength).split('').length);
+		},
+
+		output: function(value, updateField) {
+			value = (value + '').split('.').join(this.options.decimalMark);
+			updateField = ( updateField || true );
+			if ( updateField ) { this.$input.val(value); }
+
+			return value;
+		},
+
+		parseInput: function(value) {
+			value = (value + '').split(this.options.decimalMark).join('.');
+
+			return value;
 		},
 
 		change: function () {
-			var newVal = this.$input.val() || '';
+			var newVal = this.parseInput( this.$input.val() ) || '';
 
-			if(this.options.units.length){
-				this.setMixedValue(newVal);
+			if(this.options.units.length || this.options.decimalMark !== '.'){
+				newVal = this.parseValueWithUnit(newVal);
 			} else if (newVal/1){
-				this.options.value = this.checkMaxMin(newVal/1);
+				newVal = this.options.value = this.checkMaxMin(newVal/1);
 			} else {
 				newVal = this.checkMaxMin(newVal.replace(/[^0-9.-]/g,'') || '');
 				this.options.value = newVal/1;
 			}
+			this.output ( newVal );
 
 			this.changeFlag = false;
 			this.triggerChangedEvent();
@@ -132,7 +146,7 @@
 			this.lastValue = currentValue;
 
 			// Primary changed event
-			this.$element.trigger('changed.fu.spinbox', currentValue);
+			this.$element.trigger('changed.fu.spinbox', this.output(currentValue, false)); // no DOM update
 		},
 
 		startSpin: function (type) {
@@ -151,12 +165,12 @@
 					divisor = 4;
 				}
 
-				this.switches.timeout = setTimeout($.proxy(function() {this.iterator(type);} ,this),this.switches.speed/divisor);
+				this.switches.timeout = setTimeout($.proxy(function() {this.iterate(type);} ,this),this.switches.speed/divisor);
 				this.switches.count++;
 			}
 		},
 
-		iterator: function (type) {
+		iterate: function (type) {
 			this.step(type);
 			this.startSpin(type);
 		},
@@ -170,6 +184,7 @@
 			if( this.changeFlag ) {
 				this.change();
 			}
+
 			// get current value and min/max options
 			currentValue = this.options.value;
 			limitValue = isIncrease ? this.options.max : this.options.min;
@@ -202,21 +217,25 @@
 		value: function (value) {
 
 			if ( value || value === 0 ) {
-				if( this.options.units.length ) {
-					this.setMixedValue(value + (this.unit || ''));
+				if( this.options.units.length || this.options.decimalMark !== '.' ) {
+					this.output( this.parseValueWithUnit( value + (this.unit || '') ) );
 					return this;
+				
 				} else if ( !isNaN(parseFloat(value)) && isFinite(value) ) {
 					this.options.value = value/1;
-					this.$input.val(value + (this.unit ? this.unit : ''));
+					this.output ( value + (this.unit ? this.unit : '') ) ;
 					return this;
+				
 				}
 			} else {
-				if( this.changeFlag ) this.change();
+				if( this.changeFlag ) {
+					this.change();
+				}
 
 				if( this.unit ){
 					return this.options.value + this.unit;
 				} else {
-					return this.options.value;
+					return this.output(this.options.value, false); // no DOM update
 				}
 			}
 		},
@@ -234,34 +253,30 @@
 			return legalUnit;
 		},
 
-		setMixedValue: function( value ){
+		// strips units and add them back
+		parseValueWithUnit: function( value ){
 			var unit = value.replace(/[^a-zA-Z]/g,'');
-			var newVal = value.replace(/[^0-9.-]/g,'');
+			var number = value.replace(/[^0-9.-]/g,'');
 
 			if(unit){
 				unit = this.isUnitLegal(unit);
 			}
 
-			this.options.value = this.checkMaxMin(newVal/1);
+			this.options.value = this.checkMaxMin(number/1);
 			this.unit = unit || undefined;
-			this.$input.val(this.options.value + (unit || '') );
+			return this.options.value + (unit || '');
 		},
 
 		checkMaxMin: function(value){
-			var limit;
-
-			if ( isNaN(parseFloat(value)) ) {
+			// if unreadable
+			if ( isNaN( parseFloat(value) ) ) {
 				return value;
 			}
-
-			if ( value <= this.options.max && value >= this.options.min ){
-				return value;
-			} else {
-				limit = value >= this.options.max ? this.options.max : this.options.min;
-
-				this.$input.val(limit);
-				return limit;
+			// if not within range return the limit
+			if ( !( value <= this.options.max && value >= this.options.min ) ){
+				value = value >= this.options.max ? this.options.max : this.options.min;
 			}
+			return value;
 		},
 
 		disable: function () {
@@ -366,7 +381,8 @@
 		speed: 'medium',
 		disabled: false,
 		cycle: false,
-		units: []
+		units: [],
+		decimalMark: '.'
 	};
 
 	$.fn.spinbox.Constructor = Spinbox;
