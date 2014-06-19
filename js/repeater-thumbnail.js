@@ -28,7 +28,8 @@
 
 		$.fn.repeater.defaults = $.extend({}, $.fn.repeater.defaults, {
 			thumbnail_infiniteScroll: false,
-			thumbnail_itemRendered: null
+			thumbnail_itemRendered: null,
+			thumbnail_template: '<div class="thumbnail repeater-thumbnail" style="background-color: {{color}};"><img height="75" src="{{src}}" width="65"><span>{{name}}</span></div>'
 		});
 
 		$.fn.repeater.views.thumbnail = {
@@ -78,7 +79,30 @@
 							}
 						},
 						render: function(helpers, callback){
-							callback({ item: '<div class="thumbnail repeater-thumbnail" style="background: ' + helpers.subset[helpers.index].color + ';"><img height="75" src="' + helpers.subset[helpers.index].src + '" width="65">' + helpers.subset[helpers.index].name + '</div>' });
+							var item = helpers.subset[helpers.index];
+							var template = function(str){
+								var invalid = false;
+								var replace = function(){
+									var end, start, val;
+
+									start = str.indexOf('{{');
+									end = str.indexOf('}}', start+2);
+
+									if(start>-1 && end>-1){
+										val = $.trim(str.substring(start+2, end));
+										val = (item[val]!==undefined) ? item[val] : '';
+										str = str.substring(0, start) + val + str.substring(end+2);
+									}else{
+										invalid = true;
+									}
+								};
+
+								while(!invalid && str.search('{{')>=0){
+									replace(str);
+								}
+								return str;
+							};
+							callback({ item: template(this.options.thumbnail_template) });
 						},
 						repeat: 'data.items'
 					}
