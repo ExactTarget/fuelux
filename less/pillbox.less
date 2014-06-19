@@ -1,5 +1,21 @@
 .pillbox {
+	border: 1px solid #BBBBBB;
+	border-radius: 4px;
 	padding: 3px;
+
+	&[data-readonly] {
+		border: 1px solid transparent;
+
+		.pill {
+			span.glyphicon-close {
+				display: none;
+			}
+		}
+
+		.pillbox-add-item {
+			display: none;
+		}
+	}
 
 	> .pill-group {
 		margin: 0;

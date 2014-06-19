@@ -47,6 +47,10 @@
 
 		this.options = $.extend({}, $.fn.pillbox.defaults, options);
 
+		if(this.$element.attr('data-readonly')!==undefined){
+			this.readonly(true);
+		}
+
 		// EVENTS
 		this.acceptKeyCodes = this._generateObject(this.options.acceptKeyCodes);
 		// Creatie an object out of the key code array, so we dont have to loop through it on every key stroke
@@ -91,16 +95,22 @@
 				}
 				return false;
 
-			} else if ( this.options.edit ) {
-				if( $item.find('.pillbox-list-edit').length )
-				{
+			} else if (this.options.edit && this.$element.attr('data-readonly')===undefined) {
+				if($item.find('.pillbox-list-edit').length){
 					return false;
 				}
-
 				this.openEdit($item);
 			}
 
 			this.$element.trigger('clicked.fu.pillbox', this.getItemData($item));
+		},
+
+		readonly: function(enabled){
+			if(enabled){
+				this.$element.attr('data-readonly', 'readonly');
+			}else{
+				this.$element.removeAttr('data-readonly');
+			}
 		},
 
 		suggestionClick: function(e){

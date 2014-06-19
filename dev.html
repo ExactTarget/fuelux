@@ -44,16 +44,100 @@
 			}
 		});
 
-		require(['jquery', 'index', 'data', 'fuelux/all'], function ($, data){
-
+		require(['jquery', 'data', 'fuelux/all'], function ($, data){
+			$('#MyPillbox').pillbox({
+				onKeyDown: function( e, data, callback ){
+					callback(e, {data:[
+						{ text: 'Acai', value:  'acai' },
+						{ text: 'African cherry orange', value:  'african cherry orange' },
+						{ text: 'Banana', value:  'banana' },
+						{ text: 'Bilberry', value:  'bilberry' },
+						{ text: 'Cantaloupe', value:  'cantaloupe' },
+						{ text: 'Ceylon gooseberry', value:  'ceylon gooseberry' },
+						{ text: 'Dragonfruit', value:  'dragonfruit' },
+						{ text: 'Dead Man\'s Fingers', value:  'dead man\'s fingers' },
+						{ text: 'Fig', value:  'fig' },
+						{ text: 'Forest strawberries', value:  'forest strawberries' },
+						{ text: 'Governor’s Plum', value:  'governor’s plum' },
+						{ text: 'Grapefruit', value:  'grapefruit' },
+						{ text: 'Guava', value:  'guava' },
+						{ text: 'Honeysuckle', value:  'honeysuckle' },
+						{ text: 'Huckleberry', value:  'huckleberry' },
+						{ text: 'Jackfruit', value:  'jackfruit' },
+						{ text: 'Japanese Persimmon', value:  'japanese persimmon' },
+						{ text: 'Key Lime', value:  'key lime' },
+						{ text: 'Kiwi', value:  'kiwi' },
+						{ text: 'Lemon', value:  'lemon' },
+						{ text: 'Lillypilly', value:  'lillypilly' },
+						{ text: 'Mandarin', value:  'mandarin' },
+						{ text: 'Miracle Fruit', value:  'miracle fruit' },
+						{ text: 'Orange', value:  'orange' },
+						{ text: 'Oregon grape', value:  'oregon grape' },
+						{ text: 'Persimmon', value:  'persimmon' },
+						{ text: 'Pomegranate', value:  'pomegranate' },
+						{ text: 'Rhubarb', value:  'rhubarb' },
+						{ text: 'Rose hip', value:  'rose hip' },
+						{ text: 'Soursop', value:  'soursop' },
+						{ text: 'Starfruit', value:  'starfruit' },
+						{ text: 'Tamarind', value:  'tamarind' },
+						{ text: 'Thimbleberry', value:  'thimbleberry' },
+						{ text: 'Wineberry', value:  'wineberry' },
+						{ text: 'Wongi', value:  'wongi' },
+						{ text: 'Youngberry', value: 'youngberry' }
+					]});
+				}
+			});
 		});
 	</script>
 </head>
 
 <body style="padding: 20px;">
-	<!--<div class="container" style="padding: 20px; margin-top:20px;">-->
+	<div class="container" style="padding: 20px; margin-top:20px;">
 
+		<div id="MyPillbox" class="pillbox" data-readonly="readonly">
+			<ul class="clearfix pill-group">
+				<li class="btn btn-default pill" data-value="foo">
+					<span>Item 1</span>
+					<span class="glyphicon glyphicon-close">
+						<span class="sr-only">Remove</span>
+					</span>
+				</li>
+				<li class="btn btn-default pill">
+					<span>Item 2</span>
+					<span class="glyphicon glyphicon-close">
+						<span class="sr-only">Remove</span>
+					</span>
+				</li>
+				<li class="btn btn-default pill" data-value="three-value">
+					<span>Item 3</span>
+					<span class="glyphicon glyphicon-close">
+						<span class="sr-only">Remove</span>
+					</span>
+				</li>
+				<li class="btn btn-default pill">
+					<span>Item 4</span>
+					<span class="glyphicon glyphicon-close">
+						<span class="sr-only">Remove</span>
+					</span>
+				</li>
+				<li class="btn btn-default pill">
+					<span>Item 5</span>
+					<span class="glyphicon glyphicon-close">
+						<span class="sr-only">Remove</span>
+					</span>
+				</li>
+				<li class="pillbox-input-wrap btn-group">
+					<input type="text" class="form-control dropdown-toggle pillbox-add-item" placeholder="add item">
+
+					<button type="button" class="dropdown-toggle sr-only">
+						<span class="caret"></span>
+						<span class="sr-only">Toggle Dropdown</span>
+					</button>
+					<ul class="suggest dropdown-menu" role="menu" data-toggle="dropdown" data-flip="auto"></ul>
+				</li>
+			</ul>
+		</div>
 		
-	<!--</div>-->
+	</div>
 </body>
 </html>
