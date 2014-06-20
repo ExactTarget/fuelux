@@ -779,20 +779,20 @@ h1[id] {
 }
 .bs-example.fu-example-scheduler .end-after > .sr-only,
 .bs-example.fu-example-scheduler .end-on-date > .sr-only {
-	display: inline;
-	position: static;
+	display: inline !important;
+	position: static !important;
 }
 .bs-example.fu-example-scheduler .end-after .spinbox {
-	display: inline-block;
+	display: inline-block !important;
 }
-.fu-example-scheduler .scheduler .recurrence-panel {
-	display: block;
+.bs-example.fu-example-scheduler .scheduler .repeat-panel {
+	display: block !important;
 }
 .fu-example-scheduler .scheduler .scheduler-end {
-	display: block;
+	display: block !important;
 }
 .fu-example-scheduler .scheduler .scheduler-end .end-option-panel {
-	display: block;
+	display: block !important;
 }
 
 .thumbnail.repeater-thumbnail {
@@ -816,3 +816,4 @@ h1[id] {
 	margin: 0;
 	padding: 0;
 }
+

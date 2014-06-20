@@ -52,8 +52,14 @@
 	}
 
 	&.disabled {
-		&:before
-		{
+		cursor: not-allowed;
+
+		&:after {
+			cursor: not-allowed;
+		}
+		
+		&:before {
+			cursor: not-allowed;
 			opacity: .5;
 		}
 	}

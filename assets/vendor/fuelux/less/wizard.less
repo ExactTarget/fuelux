@@ -44,7 +44,7 @@
 			background: #ededed;
 			color: @grayLight;
 			font-size: 16px;
-			cursor: default;
+			cursor: not-allowed;
 
 			.chevron {
 				border: 24px solid transparent;
@@ -88,6 +88,7 @@
 			&.active {
 				background: #f1f6fc;
 				color: @infoText;
+				cursor: default;
 
 				.chevron:before {
 					border-left: 14px solid #f1f6fc;
@@ -132,12 +133,20 @@
 		}
 
 		.btn-prev {
+			&[disabled] {
+				cursor: not-allowed;
+			}
+
 			span {
 				margin-right: 5px;
 			}
 		}
 
 		.btn-next {
+			&[disabled] {
+				cursor: not-allowed;
+			}
+
 			span {
 				margin-left: 5px;
 			}
@@ -164,4 +173,14 @@
 			}
 		}
 	}
+
+	// when complete
+	&.complete {
+			.actions .glyphicon-arrow-right:before {
+				display: none;
+			}
+			.actions .glyphicon-arrow-right {
+				margin-left: 0;
+			}
+		}
 }

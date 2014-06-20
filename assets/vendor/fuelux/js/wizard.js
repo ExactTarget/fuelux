@@ -160,7 +160,15 @@
 			if (last) {
 				this.lastText = last;
 				// replace text
-				var text = (lastStep !== true) ? this.nextText : this.lastText;
+				var text = this.nextText;
+				if ( lastStep === true ) {
+					text = this.lastText;
+					// add status class to wizard
+					this.$element.addClass('complete');
+				}
+				else {
+					this.$element.removeClass('complete');
+				}
 				var kids = this.$nextBtn.children().detach();
 				this.$nextBtn.text(text).append(kids);
 			}
@@ -220,7 +228,13 @@
 				}
 			}
 
-			this.$element.trigger('changed.fu.wizard');
+			// only fire changed event after initializing
+			if(typeof(this.initialized) !== 'undefined' ) {
+				var e = $.Event('changed.fu.wizard');
+				this.$element.trigger(e, {step: this.currentStep});
+			}
+
+			this.initialized = true;
 		},
 
 		stepclicked: function (e) {
@@ -269,13 +283,22 @@
 				canMovePrev = false;
 			}
 			if (canMovePrev) {
-				var e = $.Event('changed.fu.wizard');
+				var e = $.Event('clicked.fu.wizard.action');
 				this.$element.trigger(e, {step: this.currentStep, direction: 'previous'});
-				if (e.isDefaultPrevented()) { return; }
+				if (e.isDefaultPrevented()) { return; } // don't increment
 
 				this.currentStep -= 1;
 				this.setState();
 			}
+
+			// return focus to control after selecting an option
+			if( this.$prevBtn.is(':disabled') ) {
+				this.$nextBtn.focus();
+			}
+			else {
+				this.$prevBtn.focus();
+			}
+
 		},
 
 		next: function () {
@@ -283,16 +306,23 @@
 			var lastStep = (this.currentStep === this.numSteps);
 
 			if (canMoveNext) {
-				var e = $.Event('change.fu.wizard');
+				var e = $.Event('clicked.fu.wizard.action');
 				this.$element.trigger(e, {step: this.currentStep, direction: 'next'});
-
-				if (e.isDefaultPrevented()) { return; }
+				if (e.isDefaultPrevented()) { return; }	// don't increment
 
 				this.currentStep += 1;
 				this.setState();
 			}
 			else if (lastStep) {
 				this.$element.trigger('finished.fu.wizard');
+			}
+
+			// return focus to control after selecting an option
+			if( this.$nextBtn.is(':disabled') ) {
+				this.$prevBtn.focus();
+			}
+			else {
+				this.$nextBtn.focus();
 			}
 		},
 
@@ -358,10 +388,11 @@
 
 	// DATA-API
 
-	$(document).on('mouseover.fu.wizard.data-api', '[data-initialize=wizard]', function () {
-		var $this = $(this);
-		if ($this.data('wizard')) { return; }
-		$this.wizard($this.data());
+	$(document).on('mouseover.fu.wizard.data-api', '[data-initialize=wizard]', function (e) {
+		var $control = $(e.target).closest('.wizard');
+		if ( !$control.data('wizard') ) {
+			$control.wizard($control.data());
+		}
 	});
 
 	// Must be domReady for AMD compatibility

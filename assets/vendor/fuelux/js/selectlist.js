@@ -63,6 +63,9 @@
 				this.itemChanged(e);
 			}
 
+			// return focus to control after selecting an option
+			this.$element.find('.dropdown-toggle').focus();
+
 		},
 
 		itemChanged: function (e) {
@@ -155,10 +158,12 @@
 		},
 
 		enable: function() {
+			this.$element.removeClass('disabled');
 			this.$button.removeClass('disabled');
 		},
 
 		disable: function() {
+			this.$element.addClass('disabled');
 			this.$button.addClass('disabled');
 		}
 
@@ -195,12 +200,11 @@
 
 	// DATA-API
 
-	$(document).on('mousedown.fu.selectlist.data-api', '[data-initialize=selectlist]', function () {
-		var $this = $(this);
-		if ($this.data('selectlist')) {
-			return;
+	$(document).on('mousedown.fu.selectlist.data-api', '[data-initialize=selectlist]', function (e) {
+		var $control = $(e.target).closest('.selectlist');
+		if ( !$control.data('selectlist') ) {
+			$control.selectlist($control.data());
 		}
-		$this.selectlist($this.data());
 	});
 
 	// Must be domReady for AMD compatibility

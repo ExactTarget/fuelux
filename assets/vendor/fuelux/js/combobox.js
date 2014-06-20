@@ -110,11 +110,13 @@
 		},
 
 		enable: function () {
+			this.$element.removeClass('disabled');
 			this.$input.removeAttr('disabled');
 			this.$button.removeClass('disabled');
 		},
 
 		disable: function () {
+			this.$element.addClass('disabled');
 			this.$input.attr('disabled', true);
 			this.$button.addClass('disabled');
 		},
@@ -133,6 +135,9 @@
 			this.$element.trigger('changed.fu.combobox', data);
 
 			e.preventDefault();
+
+			// return focus to control after selecting an option
+			this.$element.find('.dropdown-toggle').focus();
 		},
 
 		inputchanged: function (e, extra) {
@@ -189,18 +194,20 @@
 
 	// DATA-API
 
-	$(document).on('mousedown.fu.combobox.data-api', '[data-initialize=combobox]', function () {
-		var $this = $(this);
-		if ($this.data('combobox')) return;
-		$this.combobox($this.data());
+	$(document).on('mousedown.fu.combobox.data-api', '[data-initialize=combobox]', function (e) {
+		var $control = $(e.target).closest('.combobox');
+		if ( !$control.data('combobox') ) {
+			$control.combobox($control.data());
+		}
 	});
 
 	// Must be domReady for AMD compatibility
 	$(function () {
 		$('[data-initialize=combobox]').each(function () {
 			var $this = $(this);
-			if ($this.data('combobox')) return;
-			$this.combobox($this.data());
+			if ( !$this.data('combobox') ) {
+				$this.combobox($this.data());
+			}
 		});
 	});
 

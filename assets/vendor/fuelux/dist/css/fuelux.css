@@ -109,7 +109,11 @@
   border-color: #39b3d7;
   content: "\e013";
 }
+.fuelux .checkbox-custom.disabled {
+  cursor: not-allowed;
+}
 .fuelux .checkbox-custom.disabled:before {
+  cursor: not-allowed;
   opacity: .5;
 }
 .fuelux .checkbox-custom.checkbox-inline:before {
@@ -130,6 +134,9 @@
 .fuelux .checkbox-custom input[type="checkbox"]:focus + .checkbox-label {
   color: #999999;
 }
+.fuelux .combobox.disabled .input-group-btn {
+  cursor: not-allowed;
+}
 .fuelux .datepicker .input-append,
 .fuelux .datepicker .input-group {
   margin-bottom: 1px;
@@ -138,8 +145,11 @@
 .fuelux .datepicker .input-group button {
   outline: none;
 }
+.fuelux .datepicker.disabled .input-group-btn {
+  cursor: not-allowed;
+}
 .fuelux .datepicker .calendar {
-  float: left;
+  display: inline-block;
   background: #ffffff;
   background-color: #ffffff;
   border: 1px solid #ccc;
@@ -147,15 +157,23 @@
   *border-right-width: 2px;
   *border-bottom-width: 2px;
   border-radius: 6px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding;
   background-clip: padding-box;
+}
+.fuelux .datepicker .calendar button {
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}
+.fuelux .datepicker .calendar button:focus {
+  background: #dfeef5 !important;
 }
 .fuelux .datepicker .calendar .header {
   height: 24px;
 }
 .fuelux .datepicker .calendar .header .left {
+  border: none;
   float: left;
   height: 24px;
   padding-top: 2px;
@@ -166,6 +184,7 @@
   border-bottom-right-radius: 6px;
 }
 .fuelux .datepicker .calendar .header .left .leftArrow {
+  display: block;
   margin-top: 5px;
   margin-bottom: 5px;
   width: 7px;
@@ -183,6 +202,7 @@
   border-left: 3px solid #cccccc;
 }
 .fuelux .datepicker .calendar .header .right {
+  border: none;
   float: right;
   height: 24px;
   padding-top: 2px;
@@ -193,6 +213,7 @@
   border-bottom-left-radius: 6px;
 }
 .fuelux .datepicker .calendar .header .right .rightArrow {
+  display: block;
   margin-top: 5px;
   margin-bottom: 5px;
   width: 7px;
@@ -244,8 +265,8 @@
   -ms-user-select: none;
   user-select: none;
 }
-.fuelux .datepicker .calendar .monthsView div,
-.fuelux .datepicker .calendar .yearsView div {
+.fuelux .datepicker .calendar .monthsView button,
+.fuelux .datepicker .calendar .yearsView button {
   font-size: 17px;
   float: left;
 }
@@ -258,10 +279,15 @@
 .fuelux .datepicker .calendar .daysView {
   overflow: hidden;
 }
-.fuelux .datepicker .calendar .daysView div div {
+.fuelux .datepicker .calendar .daysView div button {
+  display: block;
   float: left;
 }
+.fuelux .datepicker .calendar .daysView div button:focus {
+  background: #dfeef5 !important;
+}
 .fuelux .datepicker .calendar .weekdays div {
+  float: left;
   color: #666;
   font-weight: bold;
   box-sizing: border-box;
@@ -270,24 +296,26 @@
   -webkit-box-sizing: border-box;
   border-bottom: 1px solid #777;
 }
-.fuelux .datepicker .calendar .lastmonth div,
-.fuelux .datepicker .calendar .thismonth div,
-.fuelux .datepicker .calendar .nextmonth div,
-.fuelux .datepicker .calendar .monthsView div,
-.fuelux .datepicker .calendar .yearsView div {
+.fuelux .datepicker .calendar .lastmonth button,
+.fuelux .datepicker .calendar .thismonth button,
+.fuelux .datepicker .calendar .nextmonth button,
+.fuelux .datepicker .calendar .monthsView button,
+.fuelux .datepicker .calendar .yearsView button {
+  display: block;
   border: 1px solid #ffffff;
 }
-.fuelux .datepicker .calendar .lastmonth div:not(.restrict):hover,
-.fuelux .datepicker .calendar .thismonth div:not(.restrict):hover,
-.fuelux .datepicker .calendar .nextmonth div:not(.restrict):hover,
-.fuelux .datepicker .calendar .monthsView div:not(.restrict):hover,
-.fuelux .datepicker .calendar .yearsView div:not(.restrict):hover {
+.fuelux .datepicker .calendar .lastmonth button:not(.restrict):hover,
+.fuelux .datepicker .calendar .thismonth button:not(.restrict):hover,
+.fuelux .datepicker .calendar .nextmonth button:not(.restrict):hover,
+.fuelux .datepicker .calendar .monthsView button:not(.restrict):hover,
+.fuelux .datepicker .calendar .yearsView button:not(.restrict):hover {
   background-color: #dfeef5;
   border: 1px solid #98D2EE;
   cursor: pointer;
 }
-.fuelux .datepicker .calendar .lastmonth div,
-.fuelux .datepicker .calendar .nextmonth div {
+.fuelux .datepicker .calendar .lastmonth button,
+.fuelux .datepicker .calendar .nextmonth button {
+  display: block;
   color: #a3a4a4;
   background-color: #eeeeee;
   border: 1px solid #eeeeee;
@@ -441,6 +469,12 @@
   border: 1px solid #66afe9;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
   cursor: auto;
+}
+.fuelux [data-toggle="buttons"] > .btn > input[type="radio"],
+.fuelux [data-toggle="buttons"] > .btn > input[type="checkbox"] {
+  display: inline;
+  position: absolute;
+  left: -9999px;
 }
 .fuelux .pillbox {
   padding: 3px;
@@ -649,7 +683,14 @@
   background: #39b3d7;
   border-color: #39b3d7;
 }
+.fuelux .radio-custom.disabled {
+  cursor: not-allowed;
+}
+.fuelux .radio-custom.disabled:after {
+  cursor: not-allowed;
+}
 .fuelux .radio-custom.disabled:before {
+  cursor: not-allowed;
   opacity: .5;
 }
 .fuelux .radio-custom.radio-inline:after {
@@ -886,7 +927,7 @@
   overflow-y: auto;
 }
 .fuelux .repeater-thumbnail {
-  border: 1px solid #aaa;
+  border: 1px solid #ddd;
   color: #666;
   float: left;
   font-size: 12px;
@@ -895,8 +936,8 @@
   margin: 10px 12px;
   text-align: center;
   width: 100px;
-  -webkit-box-shadow: 0 2px 6px 0 #AAAAAA;
-  box-shadow: 0 2px 6px 0 #AAAAAA;
+  -webkit-box-shadow: 0 1px 4px 0 #ddd;
+  box-shadow: 0 1px 4px 0 #ddd;
 }
 .fuelux .repeater-thumbnail img {
   display: block;
@@ -919,6 +960,9 @@
 }
 .fuelux .spinbox.digits-3 {
   width: 60px;
+}
+.fuelux .spinbox.disabled .spinbox-buttons {
+  cursor: not-allowed;
 }
 .fuelux .spinbox .spinbox-input {
   float: left;
@@ -1163,9 +1207,16 @@ END
 .fuelux .scheduler .repeat-end .end-after {
   float: left;
   display: inline-block;
+  margin-right: 10px;
 }
 .fuelux .scheduler .repeat-end .form-group {
   margin-left: 0;
+}
+.fuelux .search.disabled .input-group-btn {
+  cursor: not-allowed;
+}
+.fuelux .selectlist.disabled {
+  cursor: not-allowed;
 }
 .fuelux .selectlist-sizer {
   display: inline-block;
@@ -1175,6 +1226,7 @@ END
 }
 .fuelux .selectlist .selected-label {
   overflow: hidden;
+  min-width: 2em;
 }
 .fuelux .selectlist .btn.dropdown-toggle {
   white-space: normal;
@@ -1350,7 +1402,7 @@ END
   background: #ededed;
   color: #999999;
   font-size: 16px;
-  cursor: default;
+  cursor: not-allowed;
 }
 .fuelux .wizard ul li .chevron {
   border: 24px solid transparent;
@@ -1389,6 +1441,7 @@ END
 .fuelux .wizard ul li.active {
   background: #f1f6fc;
   color: #3a87ad;
+  cursor: default;
 }
 .fuelux .wizard ul li.active .chevron:before {
   border-left: 14px solid #f1f6fc;
@@ -1423,8 +1476,14 @@ END
   font-size: 12px;
   margin-right: 8px;
 }
+.fuelux .wizard .actions .btn-prev[disabled] {
+  cursor: not-allowed;
+}
 .fuelux .wizard .actions .btn-prev span {
   margin-right: 5px;
+}
+.fuelux .wizard .actions .btn-next[disabled] {
+  cursor: not-allowed;
 }
 .fuelux .wizard .actions .btn-next span {
   margin-left: 5px;
@@ -1443,5 +1502,11 @@ END
 }
 .fuelux .wizard .step-content .active .btn-group .active {
   display: inline-block;
+}
+.fuelux .wizard.complete .actions .glyphicon-arrow-right:before {
+  display: none;
+}
+.fuelux .wizard.complete .actions .glyphicon-arrow-right {
+  margin-left: 0;
 }
 /*# sourceMappingURL=fuelux.css.map */
