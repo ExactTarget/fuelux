@@ -32,8 +32,8 @@
 	var Combobox = function (element, options) {
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.combobox.defaults, options);
-		this.$element.on('click', 'a', $.proxy(this.itemclicked, this));
-		this.$element.on('change', 'input', $.proxy(this.inputchanged, this));
+		this.$element.on('click.fu.combobox', 'a', $.proxy(this.itemclicked, this));
+		this.$element.on('change.fu.combobox', 'input', $.proxy(this.inputchanged, this));
 		this.$input = this.$element.find('input');
 		this.$button = this.$element.find('.btn');
 
@@ -130,7 +130,7 @@
 			var data = this.selectedItem();
 
 			// trigger changed event
-			this.$element.trigger('changed', data);
+			this.$element.trigger('changed.fu.combobox', data);
 
 			e.preventDefault();
 		},
@@ -152,7 +152,7 @@
 			}
 
 			// trigger changed event
-			this.$element.trigger('changed', data);
+			this.$element.trigger('changed.fu.combobox', data);
 
 		}
 
@@ -187,19 +187,17 @@
 	};
 
 
-	// COMBOBOX DATA-API
+	// DATA-API
 
-	$('body').on('mousedown.combobox.data-api', '.combobox', function () {
+	$(document).on('mousedown.fu.combobox.data-api', '[data-initialize=combobox]', function () {
 		var $this = $(this);
 		if ($this.data('combobox')) return;
 		$this.combobox($this.data());
 	});
 
-
-	// SET COMBOBOX DEFAULT VALUE ON DOMCONTENTLOADED
-
+	// Must be domReady for AMD compatibility
 	$(function () {
-		$('.combobox').each(function () {
+		$('[data-initialize=combobox]').each(function () {
 			var $this = $(this);
 			if ($this.data('combobox')) return;
 			$this.combobox($this.data());

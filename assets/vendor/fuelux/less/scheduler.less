@@ -1,6 +1,6 @@
 .scheduler {
 
-	label {
+	.control-label {
 		min-width: 7em;
 	}
 
@@ -70,9 +70,12 @@
 ------------------------------- */
 
 	.repeat-panel {
-		display: none;
 		margin-left: 0;
 
+		label {
+			font-weight: normal;
+		}
+		
 		.radio {
 			margin-right: 10px;
 		}
@@ -100,8 +103,6 @@
 		}
 
 		.repeat-every-panel {
-			
-			display: none;
 			float: left;
 
 			.repeat-every-pretext {
@@ -110,7 +111,7 @@
 
 			.spinbox {
 				float: left;
-				margin-right: 0;
+				margin-right: 10px;
 
 				input {
 					margin-bottom: 0;
@@ -224,14 +225,10 @@ END
 ------------------------------- */
 
 	.repeat-end {
-		display: none;
 
 		.end-after {
-
-			.spinbox {
-				float: left;
-			}
-
+			float: left;
+			display: inline-block;
 		}
 		
 		.form-group {
@@ -239,7 +236,7 @@ END
 		}
 
 		.end-option-panel {
-			display: none;
+
 		}
 
 	}

@@ -32,14 +32,14 @@
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.search.defaults, options);
 
-		this.$button = this.$element.find('button')
-			.on('click', $.proxy(this.buttonclicked, this));
-
-		this.$input = this.$element.find('input')
-			.on('keydown', $.proxy(this.keypress, this))
-			.on('keyup', $.proxy(this.keypressed, this));
-
+		this.$button = this.$element.find('button');
+		this.$input = this.$element.find('input');
 		this.$icon = this.$element.find('.glyphicon');
+
+		this.$button.on('click.fu.search', $.proxy(this.buttonclicked, this));
+		this.$input.on('keydown.fu.search', $.proxy(this.keypress, this));
+		this.$input.on('keyup.fu.search', $.proxy(this.keypressed, this));
+
 		this.activeSearch = '';
 	};
 
@@ -50,14 +50,14 @@
 		search: function (searchText) {
 			this.$icon.attr('class', 'glyphicon glyphicon-remove');
 			this.activeSearch = searchText;
-			this.$element.trigger('searched', searchText);
+			this.$element.trigger('searched.fu.search', searchText);
 		},
 
 		clear: function () {
 			this.$icon.attr('class', 'glyphicon glyphicon-search');
 			this.activeSearch = '';
 			this.$input.val('');
-			this.$element.trigger('cleared');
+			this.$element.trigger('cleared.fu.search');
 		},
 
 		action: function () {
@@ -137,12 +137,21 @@
 	};
 
 
-	// SEARCH DATA-API
+	// DATA-API
 
-	$('body').on('mousedown.search.data-api', '.search', function () {
+	$(document).on('mousedown.fu.search.data-api', '[data-initialize=search]', function () {
 		var $this = $(this);
 		if ($this.data('search')) return;
 		$this.search($this.data());
+	});
+
+	// Must be domReady for AMD compatibility
+	$(function () {
+		$('[data-initialize=search]').each(function () {
+			var $this = $(this);
+			if ($this.data('search')) return;
+			$this.search($this.data());
+		});
 	});
 
 // -- BEGIN UMD WRAPPER AFTERWORD --

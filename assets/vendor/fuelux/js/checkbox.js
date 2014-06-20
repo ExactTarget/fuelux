@@ -50,7 +50,7 @@
 		this.setState(this.$chk);
 
 		// handle events
-		this.$chk.on('change', $.proxy(this.itemchecked, this));
+		this.$chk.on('change.fu.checkbox', $.proxy(this.itemchecked, this));
 	};
 
 	Checkbox.prototype = {
@@ -110,9 +110,11 @@
 		toggleContainer: function(){
 			if(this.$toggleContainer) {
 				if(this.isChecked()) {
-					this.$toggleContainer.show();
+					this.$toggleContainer.removeClass('hide');
+					this.$toggleContainer.attr('aria-hidden', 'false');
 				}else {
-					this.$toggleContainer.hide();
+					this.$toggleContainer.addClass('hide');
+					this.$toggleContainer.attr('aria-hidden', 'true');
 				}
 			}
 		},
@@ -170,11 +172,17 @@
 		return this;
 	};
 
+	// DATA-API
 
-	// SET CHECKBOX DEFAULT VALUE ON DOMCONTENTLOADED
+	$(document).on('mouseover.fu.checkbox.data-api', '[data-initialize=checkbox]', function () {
+		var $this = $(this);
+		if ($this.data('scheduler')) return;
+		$this.scheduler($this.data());
+	});
 
+	// Must be domReady for AMD compatibility
 	$(function () {
-		$('.checkbox-custom > input[type=checkbox]').each(function () {
+		$('[data-initialize=checkbox] [type=checkbox]').each(function () {
 			var $this = $(this);
 			if (!$this.data('checkbox')) {
 				$this.checkbox($this.data());

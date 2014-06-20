@@ -42,15 +42,14 @@
 
 		this.actualValue = null;
 		this.clickStamp = '_';
-		this.firstExternal = false;
 		this.previousValue = '';
 		if(this.options.revertOnCancel===-1){
 			this.options.revertOnCancel = (this.$accept.length>0) ? true : false;
 		}
 
-		this.$field.on('click', $.proxy(this.show, this));
-		this.$accept.on('click', $.proxy(this.complete, this, 'accept'));
-		this.$cancel.on('click', function(e){ e.preventDefault(); self.complete('cancel'); });
+		this.$field.on('focus.fu.placard', $.proxy(this.show, this));
+		this.$accept.on('click.fu.placard', $.proxy(this.complete, this, 'accept'));
+		this.$cancel.on('click.fu.placard', function(e){ e.preventDefault(); self.complete('cancel'); });
 
 		this.ellipsis();
 	};
@@ -109,10 +108,9 @@
 		hide: function(){
 			if(!this.$element.hasClass('showing')){ return; }
 			this.$element.removeClass('showing');
-			this.$field.attr('readonly', 'readonly');
 			this.ellipsis();
-			$(document).off('click.placard.externalClick.' + this.clickStamp);
-			this.$element.trigger('hide');
+			$(document).off('click.fu.placard.externalClick.' + this.clickStamp);
+			this.$element.trigger('hidden.fu.placard');
 		},
 
 		externalClickListener: function(e, force){
@@ -127,10 +125,7 @@
 			var $originEl = $(e.target);
 			var i, l;
 
-			if(this.firstExternal){
-				this.firstExternal = false;
-				return false;
-			}else if(e.target===el || $originEl.parents('.placard:first').get(0)===el){
+			if(e.target===el || $originEl.parents('.placard:first').get(0)===el){
 				return false;
 			}else{
 				for(i=0, l=exceptions.length; i<l; i++){
@@ -163,7 +158,6 @@
 			this.previousValue = this.$field.val();
 
 			this.$element.addClass('showing');
-			this.$field.removeAttr('readonly');
 			if(this.actualValue!==null){
 				this.$field.val(this.actualValue);
 				this.actualValue = null;
@@ -175,11 +169,10 @@
 				this.$popup.css('bottom', '-' + this.$footer.outerHeight(true) + 'px');
 			}
 
-			this.$element.trigger('show');
+			this.$element.trigger('shown.fu.placard');
 			this.clickStamp = new Date().getTime() + (Math.floor(Math.random() * 100) + 1);
-			this.firstExternal = true;
 			if(!this.options.explicit){
-				$(document).on('click.placard.externalClick.' + this.clickStamp, $.proxy(this.externalClickListener, this));
+				$(document).on('click.fu.placard.externalClick.' + this.clickStamp, $.proxy(this.externalClickListener, this));
 			}
 		}
 	};
@@ -218,12 +211,21 @@
 		return this;
 	};
 
-	// PLACARD DATA-API
+	// DATA-API
 
-	$('body').on('mousedown.placard.data-api', '.placard', function () {
+	$(document).on('focus.fu.placard.data-api', '[data-initialize=placard]', function () {
 		var $this = $(this);
 		if ($this.data('placard')) return;
 		$this.placard($this.data());
+	});
+
+	// Must be domReady for AMD compatibility
+	$(function () {
+		$('[data-initialize=placard]').each(function () {
+			var $this = $(this);
+			if ($this.data('placard')) return;
+			$this.placard($this.data());
+		});
 	});
 	
 // -- BEGIN UMD WRAPPER AFTERWORD --

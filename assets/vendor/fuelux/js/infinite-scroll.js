@@ -37,7 +37,7 @@
 		this.curPercentage = this.getPercentage();
 		this.fetchingData = false;
 
-		this.$element.on('scroll.fuelux.infinitescroll', $.proxy(this.onScroll, this));
+		this.$element.on('scroll.fu.infinitescroll', $.proxy(this.onScroll, this));
 	};
 
 	InfiniteScroll.prototype = {
@@ -45,11 +45,11 @@
 		constructor: InfiniteScroll,
 
 		disable: function(){
-			this.$element.off('scroll.fuelux.infinitescroll');
+			this.$element.off('scroll.fu.infinitescroll');
 		},
 
 		enable: function(){
-			this.$element.on('scroll.fuelux.infinitescroll', $.proxy(this.onScroll, this));
+			this.$element.on('scroll.fu.infinitescroll', $.proxy(this.onScroll, this));
 		},
 
 		end: function(content){
@@ -103,7 +103,7 @@
 				}else{
 					moreBtn.append('<span class="glyphicon glyphicon-repeat"></span>');
 				}
-				moreBtn.on('click.fuelux.infinitescroll', function(){
+				moreBtn.on('click.fu.infinitescroll', function(){
 					moreBtn.remove();
 					fetch();
 				});
@@ -153,6 +153,8 @@
 		$.fn.infinitescroll = old;
 		return this;
 	};
+
+	// NO DATA-API DUE TO NEED OF DATA-SOURCE
 
 // -- BEGIN UMD WRAPPER AFTERWORD --
 }));

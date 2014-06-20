@@ -127,11 +127,6 @@
   background: #e9e9e9;
   border-radius: 4px;
 }
-.fuelux .checkbox-custom input[type=checkbox] {
-  /* IE cannot fire events if display none or visibility hidden */
-  position: relative;
-  left: -99999px;
-}
 .fuelux .checkbox-custom input[type="checkbox"]:focus + .checkbox-label {
   color: #999999;
 }
@@ -680,11 +675,6 @@
   background: #e9e9e9;
   border-radius: 4px;
 }
-.fuelux .radio-custom input[type=radio] {
-  /* IE cannot fire events if display none or visibility hidden */
-  position: relative;
-  left: -99999px;
-}
 .fuelux .radio-custom input[type="radio"]:focus + .radio-label {
   color: #999999;
 }
@@ -719,27 +709,54 @@
 .fuelux .repeater-footer:after {
   clear: both;
 }
+.fuelux .repeater-header-left,
+.fuelux .repeater-footer-left {
+  float: left;
+}
+.fuelux .repeater-header-right,
+.fuelux .repeater-footer-right {
+  float: right;
+}
+@media (max-width: 625px) {
+  .fuelux .repeater-header-left,
+  .fuelux .repeater-footer-left,
+  .fuelux .repeater-header-right,
+  .fuelux .repeater-footer-right {
+    float: none;
+    *zoom: 1;
+  }
+  .fuelux .repeater-header-left:before,
+  .fuelux .repeater-footer-left:before,
+  .fuelux .repeater-header-right:before,
+  .fuelux .repeater-footer-right:before,
+  .fuelux .repeater-header-left:after,
+  .fuelux .repeater-footer-left:after,
+  .fuelux .repeater-header-right:after,
+  .fuelux .repeater-footer-right:after {
+    display: table;
+    content: "";
+    line-height: 0;
+  }
+  .fuelux .repeater-header-left:after,
+  .fuelux .repeater-footer-left:after,
+  .fuelux .repeater-header-right:after,
+  .fuelux .repeater-footer-right:after {
+    clear: both;
+  }
+  .fuelux .repeater-header-left,
+  .fuelux .repeater-footer-left {
+    margin-bottom: 8px;
+  }
+}
 .fuelux .repeater-header {
   border-bottom: 1px solid #ddd;
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
 }
-.fuelux .repeater-header-left {
-  float: left;
-}
-.fuelux .repeater-header-right {
-  float: right;
-}
 .fuelux .repeater-footer {
   border-top: 1px solid #ddd;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
-}
-.fuelux .repeater-footer-left {
-  float: left;
-}
-.fuelux .repeater-footer-right {
-  float: right;
 }
 .fuelux .repeater-loader {
   display: none;
@@ -751,6 +768,9 @@
 .fuelux .repeater-viewport {
   min-height: 80px;
   position: relative;
+}
+.fuelux .repeater-pagination label {
+  font-weight: normal;
 }
 .fuelux .repeater-pagination .repeater-primaryPaging {
   display: none;
@@ -894,23 +914,17 @@
   text-align: center;
 }
 .fuelux .spinbox {
-  *zoom: 1;
+  display: inline-block;
+  position: relative;
 }
-.fuelux .spinbox:before,
-.fuelux .spinbox:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-.fuelux .spinbox:after {
-  clear: both;
+.fuelux .spinbox.digits-3 {
+  width: 60px;
 }
 .fuelux .spinbox .spinbox-input {
-  width: 60px;
   float: left;
   padding-bottom: 3px;
   /* Magic number */
-  padding: 0px 7px;
+  padding: 0px 25px 0px 7px;
 }
 .fuelux .spinbox .btn {
   position: relative;
@@ -924,11 +938,10 @@
   cursor: not-allowed;
 }
 .fuelux .spinbox .spinbox-buttons {
-  position: relative;
-  float: left;
+  position: absolute;
   height: 28px;
   width: 20px;
-  left: -22px;
+  right: 2px;
 }
 .fuelux .spinbox .spinbox-up {
   padding: 0 0 14px 1px;
@@ -938,10 +951,14 @@
   position: relative;
   top: 0px;
 }
+.fuelux .spinbox .btn-group > .btn.spinbox-up {
+  border-top-right-radius: 4px;
+}
 .fuelux .spinbox .spinbox-down {
   padding: 0 0 8px 1px;
   top: 2px;
   height: 15px;
+  border-bottom-left-radius: 4px;
 }
 .fuelux .spinbox .spinbox-down .glyphicon-chevron-down {
   position: relative;
@@ -962,7 +979,7 @@
 END
 ------------------------------- */
 }
-.fuelux .scheduler label {
+.fuelux .scheduler .control-label {
   min-width: 7em;
 }
 .fuelux .scheduler .inline-form-text {
@@ -1002,8 +1019,10 @@ END
   overflow: auto;
 }
 .fuelux .scheduler .repeat-panel {
-  display: none;
   margin-left: 0;
+}
+.fuelux .scheduler .repeat-panel label {
+  font-weight: normal;
 }
 .fuelux .scheduler .repeat-panel .radio {
   margin-right: 10px;
@@ -1032,7 +1051,6 @@ END
   overflow: auto;
 }
 .fuelux .scheduler .repeat-interval .repeat-every-panel {
-  display: none;
   float: left;
 }
 .fuelux .scheduler .repeat-interval .repeat-every-panel .repeat-every-pretext {
@@ -1040,7 +1058,7 @@ END
 }
 .fuelux .scheduler .repeat-interval .repeat-every-panel .spinbox {
   float: left;
-  margin-right: 0;
+  margin-right: 10px;
 }
 .fuelux .scheduler .repeat-interval .repeat-every-panel .spinbox input {
   margin-bottom: 0;
@@ -1142,17 +1160,12 @@ END
 .fuelux .scheduler label.radio input {
   margin-top: 8px;
 }
-.fuelux .scheduler .repeat-end {
-  display: none;
-}
-.fuelux .scheduler .repeat-end .end-after .spinbox {
+.fuelux .scheduler .repeat-end .end-after {
   float: left;
+  display: inline-block;
 }
 .fuelux .scheduler .repeat-end .form-group {
   margin-left: 0;
-}
-.fuelux .scheduler .repeat-end .end-option-panel {
-  display: none;
 }
 .fuelux .selectlist-sizer {
   display: inline-block;

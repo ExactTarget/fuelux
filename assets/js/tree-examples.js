@@ -51,7 +51,18 @@ define(function(require){
 	});
 
 	$('#ex-tree').tree({
-		dataSource: dataSourceTree,
+		dataSource: function(options, callback){
+			setTimeout(function () {
+				callback({ data: [
+					{ name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } },
+					{ name: 'Test Folder 2', type: 'folder', additionalParameters: { id: 'F2' } },
+					{ name: 'Test Item 1', type: 'item', additionalParameters: { id: 'I1' } },
+					{ name: 'Test Item 2', type: 'item', additionalParameters: { id: 'I2' } }
+				]});
+
+			}, 400)
+		},
+		loadingHTML: '<div class="static-loader">Loading...</div>',
 		multiSelect: true,
 		cacheItems: true
 	});
@@ -79,10 +90,19 @@ define(function(require){
 	});
 
 	$('#ex-tree-folder').tree({
-		dataSource: dataSourceTreeFolders,
-		multiSelect: false,
-		cacheItems: true
-	});
+			dataSource: function(options, callback){
+				setTimeout(function () {
+					callback({ data: [
+						{ name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } },
+						{ name: 'Test Folder 2', type: 'folder', additionalParameters: { id: 'F2' } },
+						{ name: 'Test Folder 3', type: 'folder', additionalParameters: { id: 'F3' } }
+					]});
+				}, 400);
+			},
+			loadingHTML: '<div class="static-loader">Loading...</div>',
+			multiSelect: false,
+			cacheItems: true
+		});
 
 	$('#ex-tree-folder').on('selected', function (e, info) {
 		console.log('Select Event: ', info);

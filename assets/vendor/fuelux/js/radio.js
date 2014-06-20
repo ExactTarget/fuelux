@@ -51,7 +51,7 @@
 		this.setState(this.$radio);
 
 		// handle events
-		this.$radio.on('change', $.proxy(this.itemchecked, this));
+		this.$radio.on('change.fu.radio', $.proxy(this.itemchecked, this));
 	};
 
 	Radio.prototype = {
@@ -135,11 +135,14 @@
 					group = $('input[name="' + this.groupName + '"]');
 					group.each(function(){
 						var selector = $(this).attr('data-toggle');
-						$(selector).hide();
+						$(selector).addClass('hide');
+						$(selector).attr('aria-hidden', 'true');
 					});
-					this.$toggleContainer.show();
+					this.$toggleContainer.removeClass('hide');
+					this.$toggleContainer.attr('aria-hidden', 'false');
 				}else {
-					this.$toggleContainer.hide();
+					this.$toggleContainer.addClass('hide');
+					this.$toggleContainer.attr('aria-hidden', 'true');
 				}
 
 			}
@@ -184,10 +187,11 @@
 	};
 
 
-	// SET RADIO DEFAULT VALUE ON DOMCONTENTLOADED
+	// DATA-API
 
+	// Must be domReady for AMD compatibility
 	$(function () {
-		$('.radio-custom > input[type=radio]').each(function () {
+		$('[data-initialize=radio] [type=radio]').each(function () {
 			var $this = $(this);
 			if ($this.data('radio')) return;
 			$this.radio($this.data());

@@ -57,17 +57,27 @@
 		this.infiniteScrollingEnabled = false;
 		this.infiniteScrollingEnd = null;
 		this.infiniteScrollingOptions = {};
+		this.lastPageInput = 0;
 		this.options = $.extend({}, $.fn.repeater.defaults, options);
+		this.resizeTimeout = {};
 		this.staticHeight = (this.options.staticHeight===-1) ? this.$element.attr('data-staticheight') : this.options.staticHeight;
 
-		this.$filters.on('changed', $.proxy(this.render, this, { clearInfinite: true, pageIncrement: null }));
-		this.$nextBtn.on('click', $.proxy(this.next, this));
-		this.$pageSize.on('changed', $.proxy(this.render, this, { pageIncrement: null }));
-		this.$prevBtn.on('click', $.proxy(this.previous, this));
-		this.$primaryPaging.find('.combobox').on('changed', function(evt, data){ self.pageInputChange(data.text); });
-		this.$search.on('searched cleared', $.proxy(this.render, this, { clearInfinite: true, pageIncrement: null }));
-		this.$secondaryPaging.on('blur', function(){ self.pageInputChange(self.$secondaryPaging.val()); });
-		this.$views.find('input').on('change', $.proxy(this.viewChanged, this));
+		this.$filters.on('changed.fu.selectlist', $.proxy(this.render, this, { clearInfinite: true, pageIncrement: null }));
+		this.$nextBtn.on('click.fu.repeater', $.proxy(this.next, this));
+		this.$pageSize.on('changed.fu.selectlist', $.proxy(this.render, this, { pageIncrement: null }));
+		this.$prevBtn.on('click.fu.repeater', $.proxy(this.previous, this));
+		this.$primaryPaging.find('.combobox').on('changed.fu.combobox', function(evt, data){ self.pageInputChange(data.text); });
+		this.$search.on('searched.fu.search cleared.fu.search', $.proxy(this.render, this, { clearInfinite: true, pageIncrement: null }));
+		this.$secondaryPaging.on('blur.fu.repeater', function(){ self.pageInputChange(self.$secondaryPaging.val()); });
+		this.$views.find('input').on('change.fu.repeater', $.proxy(this.viewChanged, this));
+
+		$(window).on('resize.fu.repeater.window', function(){
+			clearTimeout(self.resizeTimeout);
+			self.resizeTimeout = setTimeout(function(){
+				self.resize();
+				self.$element.trigger('resized.fu.repeater');
+			}, 75);
+		});
 
 		this.$loader.loader();
 		this.$loader.loader('pause');
@@ -75,6 +85,7 @@
 
 		this.initViews(function(){
 			self.resize();
+			self.$element.trigger('resized.fu.repeater');
 			self.render({ changeView: currentView });
 		});
 	};
@@ -257,9 +268,13 @@
 		},
 
 		pageInputChange: function(val){
-			val = parseInt(val, 10) - 1;
-			var pageInc = val - this.currentPage;
-			this.render({ pageIncrement: pageInc });
+			var pageInc;
+			if(val!==this.lastPageInput){
+				this.lastPageInput = val;
+				val = parseInt(val, 10) - 1;
+				pageInc = val - this.currentPage;
+				this.render({ pageIncrement: pageInc });
+			}
 		},
 
 		pagination: function(data){
@@ -287,6 +302,7 @@
 				this.$secondaryPaging.addClass(act);
 				this.$secondaryPaging.val(this.currentPage+1);
 			}
+			this.lastPageInput = this.currentPage + 1 + '';
 
 			this.$pages.html(pages);
 
@@ -339,7 +355,7 @@
 									self.infiniteScrollPaging(data, options);
 								}
 								self.$loader.hide().loader('pause');
-								self.$element.trigger('loaded');
+								self.$element.trigger('loaded.fu.repeater');
 							});
 						}
 					});
@@ -371,18 +387,30 @@
 
 		resize: function(){
 			var staticHeight = this.staticHeight;
-			var height;
+			var viewObj = $.fn.repeater.views[this.currentView] || {};
+			var height, viewportMargins;
 
 			if(staticHeight!==undefined){
 				this.$canvas.addClass('scrolling');
+				viewportMargins = {
+					bottom: this.$viewport.css('margin-bottom'),
+					top: this.$viewport.css('margin-top')
+				};
 				height = ((staticHeight==='true' || staticHeight===true) ? this.$element.height() : parseInt(staticHeight, 10)) -
 					this.$element.find('.repeater-header').outerHeight() -
 					this.$element.find('.repeater-footer').outerHeight() -
-					parseInt(this.$viewport.css('margin-bottom'), 10) -
-					parseInt(this.$viewport.css('margin-top'), 10);
+					((viewportMargins.bottom==='auto') ? 0 : parseInt(viewportMargins.bottom, 10)) -
+					((viewportMargins.top==='auto') ? 0 : parseInt(viewportMargins.top, 10));
 				this.$viewport.outerHeight(height);
 			}else{
 				this.$canvas.removeClass('scrolling');
+			}
+
+			if(viewObj.resize){
+				viewObj.resize.call(this, {
+					height: this.$element.outerHeight(),
+					width: this.$element.outerWidth()
+				}, function(){});
 			}
 		},
 

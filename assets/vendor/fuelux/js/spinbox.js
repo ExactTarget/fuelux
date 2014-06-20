@@ -21,7 +21,7 @@
 	}
 }(function ($) {
 	// -- END UMD WRAPPER PREFACE --
-		
+
 	// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.spinbox;
@@ -32,17 +32,22 @@
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.spinbox.defaults, options);
 		this.$input = this.$element.find('.spinbox-input');
-		this.$element.on('focusin', this.$input, $.proxy(this.changeFlag, this));
-		this.$element.on('focusout', this.$input, $.proxy(this.change, this));
+		this.$element.on('focusin.fu.spinbox', this.$input, $.proxy(this.changeFlag, this));
+		this.$element.on('focusout.fu.spinbox', this.$input, $.proxy(this.change, this));
+		this.$element.on('keydown.fu.spinbox', this.$input, $.proxy(this.keydown, this));
+		this.$element.on('keyup.fu.spinbox', this.$input, $.proxy(this.keyup, this));
+
+		this.bindMousewheelListeners();
+		this.mousewheelTimeout = {};
 
 		if (this.options.hold) {
-			this.$element.on('mousedown', '.spinbox-up', $.proxy(function() { this.startSpin(true); } , this));
-			this.$element.on('mouseup', '.spinbox-up, .spinbox-down', $.proxy(this.stopSpin, this));
-			this.$element.on('mouseout', '.spinbox-up, .spinbox-down', $.proxy(this.stopSpin, this));
-			this.$element.on('mousedown', '.spinbox-down', $.proxy(function() {this.startSpin(false);} , this));
+			this.$element.on('mousedown.fu.spinbox', '.spinbox-up', $.proxy(function() { this.startSpin(true); } , this));
+			this.$element.on('mouseup.fu.spinbox', '.spinbox-up, .spinbox-down', $.proxy(this.stopSpin, this));
+			this.$element.on('mouseout.fu.spinbox', '.spinbox-up, .spinbox-down', $.proxy(this.stopSpin, this));
+			this.$element.on('mousedown.fu.spinbox', '.spinbox-down', $.proxy(function() {this.startSpin(false);} , this));
 		} else {
-			this.$element.on('click', '.spinbox-up', $.proxy(function() { this.step(true); } , this));
-			this.$element.on('click', '.spinbox-down', $.proxy(function() { this.step(false); }, this));
+			this.$element.on('click.fu.spinbox', '.spinbox-up', $.proxy(function() { this.step(true); } , this));
+			this.$element.on('click.fu.spinbox', '.spinbox-down', $.proxy(function() { this.step(false); }, this));
 		}
 
 		this.switches = {
@@ -58,7 +63,7 @@
 			this.switches.speed = 500;
 		}
 
-		this.lastValue = null;
+		this.lastValue = this.options.value;
 
 		this.render();
 
@@ -74,7 +79,8 @@
 			var inputValue = this.$input.val();
 			var maxUnitLength = '';
 
-			if (inputValue) {
+			// if input is empty and option value is default, 0
+			if (inputValue !== '' && this.options.value === 0) {
 				this.value(inputValue);
 			} else {
 				this.$input.val(this.options.value);
@@ -93,7 +99,7 @@
 
 		change: function () {
 			var newVal = this.$input.val() || '';
-			
+
 			if(this.options.units.length){
 				this.setMixedValue(newVal);
 			} else if (newVal/1){
@@ -126,10 +132,7 @@
 			this.lastValue = currentValue;
 
 			// Primary changed event
-			this.$element.trigger('changed', currentValue);
-
-			// Undocumented, kept for backward compatibility
-			this.$element.trigger('change');
+			this.$element.trigger('changed.fu.spinbox', currentValue);
 		},
 
 		startSpin: function (type) {
@@ -261,6 +264,60 @@
 			this.options.disabled = false;
 			this.$input.removeAttr("disabled");
 			this.$element.find('button').removeClass('disabled');
+		},
+
+		keydown: function(event){
+			var keyCode = event.keyCode;
+			if(keyCode===38){
+				this.step(true);
+			}else if(keyCode===40){
+				this.step(false);
+			}
+		},
+
+		keyup: function(event){
+			var keyCode = event.keyCode;
+
+			if(keyCode===38 || keyCode===40){
+				this.triggerChangedEvent();
+			}
+		},
+
+		bindMousewheelListeners: function(){
+			var inputEl = this.$input.get(0);
+			if(inputEl.addEventListener){
+				//IE 9, Chrome, Safari, Opera
+				inputEl.addEventListener('mousewheel', $.proxy(this.mousewheelHandler, this), false);
+				// Firefox
+				inputEl.addEventListener('DOMMouseScroll', $.proxy(this.mousewheelHandler, this), false);
+			}else{
+				// IE <9
+				inputEl.attachEvent('onmousewheel', $.proxy(this.mousewheelHandler, this));
+			}
+		},
+
+		mousewheelHandler: function(event){
+			var e = window.event || event; // old IE support
+			var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+			var self = this;
+
+			clearTimeout(this.mousewheelTimeout);
+			this.mousewheelTimeout = setTimeout(function(){
+				self.triggerChangedEvent();
+			}, 300);
+
+			if(delta<0){
+				this.step(true);
+			}else{
+				this.step(false);
+			}
+
+			if(e.preventDefault){
+				e.preventDefault();
+			}else{
+				e.returnValue = false;
+			}
+			return false;
 		}
 	};
 
@@ -276,15 +333,20 @@
 			var data    = $this.data( 'spinbox' );
 			var options = typeof option === 'object' && option;
 
-			if( !data ) $this.data('spinbox', (data = new Spinbox( this, options ) ) );
-			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+			if( !data ) {
+				$this.data('spinbox', (data = new Spinbox( this, options ) ) );
+			}
+			if( typeof option === 'string' ) {
+				methodReturn = data[ option ].apply( data, args );
+			}
 		});
 
 		return ( methodReturn === undefined ) ? $set : methodReturn;
 	};
 
+	// value needs to be 0 for this.render();
 	$.fn.spinbox.defaults = {
-		value: 1,
+		value: 0,
 		min: 0,
 		max: 999,
 		step: 1,
@@ -303,19 +365,17 @@
 	};
 
 
-	// SPINBOX DATA-API
+	// DATA-API
 
-	$('body').on('mousedown.spinbox.data-api', '.spinbox', function () {
+	$(document).on('mousedown.fu.spinbox.data-api', '[data-initialize=spinbox]', function () {
 		var $this = $(this);
 		if ($this.data('spinbox')) return;
 		$this.spinbox($this.data());
 	});
 
-
-	// SET SPINBOX DEFAULT VALUE ON DOMCONTENTLOADED
-
+	// Must be domReady for AMD compatibility
 	$(function () {
-		$('.spinbox').each(function () {
+		$('[data-initialize=spinbox]').each(function () {
 			var $this = $(this);
 			if (!$this.data('spinbox')) {
 				$this.spinbox($this.data());
@@ -325,4 +385,4 @@
 
 // -- BEGIN UMD WRAPPER AFTERWORD --
 }));
-	// -- END UMD WRAPPER AFTERWORD --
+// -- END UMD WRAPPER AFTERWORD --

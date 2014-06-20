@@ -140,21 +140,21 @@
 		// functions that can be called on object
 		disable: function() {
 			this.$element.find('input, button').attr( 'disabled', true );
-			this._showDropdow( false );
+			this._showDropdown( false );
 		},
 
 		enable: function() {
 			this.$element.find('input, button').attr( 'disabled', false );
-			this._showDropdow( true );
+			this._showDropdown( true );
 		},
 
-		_showDropdow: function( disable ) {
+		_showDropdown: function( disable ) {
 			if( !Boolean( disable ) ) {
-				this.$element.on( 'show.bs.dropdown', function( event ) {
+				this.$element.on('show.bs.dropdown', function( event ) {
 					event.preventDefault();
 				});
 			} else {
-				this.$element.off( 'show.bs.dropdown' );
+				this.$element.off('show.bs.dropdown');
 			}
 		},
 
@@ -175,7 +175,7 @@
 			this.stagedDate = this.date;
 			this.viewDate   = this.date;
 			this._render();
-			this.$element.trigger( 'changed', this.date );
+			this.$element.trigger( 'changed.fu.datepicker', this.date );
 			return this.date;
 		},
 
@@ -845,7 +845,7 @@
 			if( !!triggerError ) {
 				// we will insert the staged date into the input
 				this._setNullDate( true );
-				this.$element.trigger( 'inputParsingFailed' );
+				this.$element.trigger( 'inputParsingFailed.fu.datepicker' );
 			}
 		},
 
@@ -886,43 +886,43 @@
 
 			// parsing dates on user input is only available when momentjs is used
 			if( Boolean( this.moment ) ) {
-				this.$calendar.on( 'mouseover', function() {
+				this.$calendar.on( 'mouseover.fu.datepicker', function() {
 					self.inputParsingTarget = 'calendar';
 				});
-				this.$calendar.on( 'mouseout', function() {
+				this.$calendar.on( 'mouseout.fu.datepicker', function() {
 					self.inputParsingTarget = null;
 				});
 
-				this.$input.on( 'blur', function() {
+				this.$input.on( 'blur.fu.datepicker', function() {
 					if( self.inputParsingTarget === null ) {
 						self._inputDateParsing();
 					}
 				});
 			}
 
-			this.$calendar.on( 'click', $.proxy( this._emptySpace, this) );
+			this.$calendar.on( 'click.fu.datepicker', $.proxy( this._emptySpace, this) );
 
 			if ( this.options.restrictToYear !== this.viewDate.getFullYear() || this.viewDate.getMonth() > 0 ) {
-				this.$header.find( '.left' ).on( 'click', $.proxy( this._previous, this ) );
+				this.$header.find( '.left' ).on( 'click.fu.datepicker', $.proxy( this._previous, this ) );
 			} else {
 				this.$header.find( '.left' ).addClass('disabled');
 			}
 
 			if ( this.options.restrictToYear !== this.viewDate.getFullYear() || this.viewDate.getMonth() < 11 ) {
-				this.$header.find( '.right' ).on( 'click', $.proxy( this._next, this ) );
+				this.$header.find( '.right' ).on( 'click.fu.datepicker', $.proxy( this._next, this ) );
 			} else {
 				this.$header.find( '.right' ).addClass('disabled');
 			}
 
-			this.$header.find( '.center' ).on( 'click', $.proxy( this._toggleMonthYearPicker, this ) );
+			this.$header.find( '.center' ).on( 'click.fu.datepicker', $.proxy( this._toggleMonthYearPicker, this ) );
 
-			this.$lastMonthDiv.find( 'div' ).on( 'click', $.proxy( this._previousSet, this ) );
-			this.$thisMonthDiv.find( 'div' ).on( 'click', $.proxy( this._select, this ) );
-			this.$nextMonthDiv.find( 'div' ).on( 'click', $.proxy( this._nextSet, this ) );
+			this.$lastMonthDiv.find( 'div' ).on( 'click.fu.datepicker', $.proxy( this._previousSet, this ) );
+			this.$thisMonthDiv.find( 'div' ).on( 'click.fu.datepicker', $.proxy( this._select, this ) );
+			this.$nextMonthDiv.find( 'div' ).on( 'click.fu.datepicker', $.proxy( this._nextSet, this ) );
 
-			this.$monthsView.find( 'div' ).on( 'click', $.proxy( this._pickMonth, this ) );
-			this.$yearsView.find( 'div' ).on( 'click', $.proxy( this._pickYear, this ) );
-			this.$footer.find( '.center' ).on( 'click', $.proxy( this._today, this ) );
+			this.$monthsView.find( 'div' ).on( 'click.fu.datepicker', $.proxy( this._pickMonth, this ) );
+			this.$yearsView.find( 'div' ).on( 'click.fu.datepicker', $.proxy( this._pickYear, this ) );
+			this.$footer.find( '.center' ).on( 'click.fu.datepicker', $.proxy( this._today, this ) );
 
 			this.bindingsAdded = true;
 		},
@@ -988,6 +988,24 @@
 		$.fn.datepicker = old;
 		return this;
 	};
+
+	// DATA-API
+
+	$(document).on('mousedown.fu.datepicker.data-api', '[data-initialize=datepicker]', function () {
+		var $this = $(this);
+		if ($this.data('datepicker')) return;
+		$this.datepicker($this.data());
+	});
+
+	$(function () {
+		$('[data-initialize=datepicker]').each(function () {
+			var $this = $(this);
+			if ($this.data('datepicker')) return;
+			$this.datepicker($this.data());
+		});
+	});
+
+
 // -- BEGIN UMD WRAPPER AFTERWORD --
 }));
 // -- END UMD WRAPPER AFTERWORD --

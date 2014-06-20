@@ -36,11 +36,13 @@
 		this.delay = (this.$element.is('[data-delay]')) ? parseFloat(this.$element.attr('data-delay')) : 150;
 		this.end = (this.$element.is('[data-end]')) ? parseInt(this.$element.attr('data-end'), 10) : 8;
 		this.frame = (this.$element.is('[data-frame]')) ? parseInt(this.$element.attr('data-frame'), 10) : 1;
+		this.isIElt9 = false;
 		this.timeout = {};
 
 		var ieVer = this.msieVersion();
 		if(ieVer!==false && ieVer<9){
-			this.$element.className += ' iefix';
+			this.$element.addClass('iefix');
+			this.isIElt9 = true;
 		}
 
 		this.$element.attr('data-frame', this.frame + '');
@@ -50,6 +52,12 @@
 	Loader.prototype = {
 
 		constructor: Loader,
+
+		ieRepaint: function(){
+			if(this.isIElt9){
+				this.$element.addClass('iefix_repaint').removeClass('iefix_repaint');
+			}
+		},
 
 		msieVersion: function(){
 			var ua = window.navigator.userAgent;
@@ -67,6 +75,7 @@
 				this.frame = this.begin;
 			}
 			this.$element.attr('data-frame', this.frame + '');
+			this.ieRepaint();
 		},
 
 		pause: function(){
@@ -88,11 +97,13 @@
 				this.frame = this.end;
 			}
 			this.$element.attr('data-frame', this.frame + '');
+			this.ieRepaint();
 		},
 
 		reset: function(){
 			this.frame = this.begin;
 			this.$element.attr('data-frame', this.frame + '');
+			this.ieRepaint();
 		}
 
 	};

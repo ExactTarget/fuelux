@@ -35,7 +35,7 @@
 		this.$hiddenField = this.$element.find('.hidden-field');
 		this.$label = this.$element.find('.selected-label');
 
-		this.$element.on('click', 'a', $.proxy(this.itemclicked, this));
+		this.$element.on('click.fu.selectlist', '.dropdown-menu a', $.proxy(this.itemClicked, this));
 		this.setDefaultSelection();
 
 		if (options.resize === 'auto') {
@@ -53,19 +53,30 @@
 			this.$label.text(this.$selectedItem.text());
 		},
 
-		itemclicked: function (e) {
+		itemClicked: function (e) {
+			this.$element.trigger('clicked.fu.selectlist', this.$selectedItem);
+
+			e.preventDefault();
+
+			// is clicked element different from currently selected element?
+			if( !($(e.target).parent().is( this.$selectedItem) ) ) {
+				this.itemChanged(e);
+			}
+
+		},
+
+		itemChanged: function (e) {
 			this.$selectedItem = $(e.target).parent();
+
+			// store value in hidden field for form submission
 			this.$hiddenField.val(this.$selectedItem.attr('data-value'));
 			this.$label.text(this.$selectedItem.text());
 
 			// pass object including text and any data-attributes
 			// to onchange event
 			var data = this.selectedItem();
-
 			// trigger changed event
-			this.$element.trigger('changed', data);
-
-			e.preventDefault();
+			this.$element.trigger('changed.fu.selectlist', data);
 		},
 
 		resize: function() {
@@ -182,9 +193,9 @@
 	};
 
 
-	// SELECTLIST DATA-API
+	// DATA-API
 
-	$('body').on('mousedown.select.data-api', '.selectlist', function () {
+	$(document).on('mousedown.fu.selectlist.data-api', '[data-initialize=selectlist]', function () {
 		var $this = $(this);
 		if ($this.data('selectlist')) {
 			return;
@@ -192,11 +203,9 @@
 		$this.selectlist($this.data());
 	});
 
-
-	// SET SELECTLIST DEFAULT VALUE ON DOMCONTENTLOADED
-
+	// Must be domReady for AMD compatibility
 	$(function () {
-		$('.selectlist').each(function () {
+		$('[data-initialize=selectlist]').each(function () {
 			var $this = $(this);
 			if (!$this.data('selectlist')) {
 				$this.selectlist($this.data());

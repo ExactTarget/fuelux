@@ -32,11 +32,11 @@
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.tree.defaults, options);
 
-		this.$element.on('click', '.tree-item', $.proxy( function(ev) { this.selectItem(ev.currentTarget); } ,this));
-		this.$element.on('click', '.tree-folder-header', $.proxy( function(ev) { this.openFolder(ev.currentTarget); }, this));
+		this.$element.on('click.fu.tree', '.tree-item', $.proxy( function(ev) { this.selectItem(ev.currentTarget); } ,this));
+		this.$element.on('click.fu.tree', '.tree-folder-header', $.proxy( function(ev) { this.openFolder(ev.currentTarget); }, this));
 
 		if( this.options.folderSelect ){
-			this.$element.on('click', '.tree-folder-name', $.proxy( function(ev) { this.selectFolder(ev.currentTarget); }, this));
+			this.$element.on('click.fu.tree', '.tree-folder-name', $.proxy( function(ev) { this.selectFolder(ev.currentTarget); }, this));
 		}
 
 		this.render();
@@ -55,7 +55,7 @@
 			var loader = $parent.find('.tree-loader:eq(0)');
 
 			loader.show();
-			this.options.dataSource.data($el.data(), function (items) {
+			this.options.dataSource($el.data(), function (items) {
 				loader.hide();
 
 				$.each( items.data, function(index, value) {
@@ -111,7 +111,7 @@
 				});
 
 				// return newly populated folder
-				self.$element.trigger('loaded', $parent);
+				self.$element.trigger('loaded.fu.tree', $parent);
 			});
 		},
 
@@ -152,7 +152,7 @@
 
 			// Return new list of selected items, the item
 			// clicked, and the type of event:
-			$el.trigger('updated', {
+			$el.trigger('updated.fu.tree', {
 				info: data,
 				item: $el,
 				eventType: eventType
@@ -231,12 +231,12 @@
 			}
 
 			if(data.length) {
-				this.$element.trigger('selected', {info: data});
+				this.$element.trigger('selected.fu.tree', {info: data});
 			}
 
 			// Return new list of selected items, the item
 			// clicked, and the type of event:
-			$el.trigger('updated', {
+			$el.trigger('updated.fu.tree', {
 				info: data,
 				item: $el,
 				eventType: eventType
@@ -296,6 +296,7 @@
 	};
 
 	$.fn.tree.defaults = {
+		dataSource: function(options, callback){},
 		multiSelect: false,
 		cacheItems: true,
 		folderSelect: true
@@ -307,6 +308,9 @@
 		$.fn.tree = old;
 		return this;
 	};
+
+
+	// NO DATA-API DUE TO NEED OF DATA-SOURCE
 
 // -- BEGIN UMD WRAPPER AFTERWORD --
 }));
