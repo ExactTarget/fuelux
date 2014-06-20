@@ -8,14 +8,13 @@
   
   <div class="bs-example">
 
-    <div id="MySpinboxWithDefault" class="spinbox">
-      <input type="text" value="3" class="form-control input-mini spinbox-input">
-
+    <div id="MySpinbox" class="spinbox" data-initialize="spinbox">
+      <input id="MySpinboxInput" type="text" class="form-control input-mini spinbox-input">
       <div class="spinbox-buttons btn-group btn-group-vertical">
-        <button class="btn btn-default spinbox-up btn-xs">
+        <button type="button" class="btn btn-default spinbox-up btn-xs">
           <span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
         </button>
-        <button class="btn btn-default spinbox-down btn-xs">
+        <button type="button" class="btn btn-default spinbox-down btn-xs">
           <span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
         </button>
       </div>
@@ -39,14 +38,13 @@
 
 
   {% highlight html %}
-  <div id="MySpinbox" class="spinbox">
-    <input type="text" class="form-control input-mini spinbox-input">
-
+  <div id="MySpinbox" class="spinbox" data-initialize="spinbox">
+    <input id="MySpinboxInput" type="text" class="form-control input-mini spinbox-input">
     <div class="spinbox-buttons btn-group btn-group-vertical">
-      <button class="btn btn-default spinbox-up btn-xs">
+      <button type="button" class="btn btn-default spinbox-up btn-xs">
         <span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
       </button>
-      <button class="btn btn-default spinbox-down btn-xs">
+      <button type="button" class="btn btn-default spinbox-down btn-xs">
         <span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
       </button>
     </div>

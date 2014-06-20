@@ -108,7 +108,7 @@
     <div class="alert bg-success hide checkboxToggleCLASS">Class toggling container.</div>
   </div>
 {% highlight html %}
-<div class="checkbox">
+<div class="checkbox" data-initialize="checkbox">
   <label class="checkbox-custom">
     <input class="sr-only" data-toggle="#checkboxToggleID" type="checkbox" value="option1">
     <span class="checkbox-label">Toggles element with matching id.</span>
@@ -128,19 +128,19 @@
   <p>Use the <code>.highlight</code> class to add a background highlight upon check.
   </p>
   <div class="bs-example">
-    <div class="checkbox highlight">
+    <div class="checkbox highlight" data-initialize="checkbox">
       <label class="checkbox-custom">
         <input class="sr-only" type="checkbox" value="option1">
         This block-level checkbox will be highlighted on check.
       </label>
     </div>
-    <label class="checkbox-custom checkbox-inline highlight">
+    <label class="checkbox-custom checkbox-inline highlight" data-initialize="checkbox">
       <input class="sr-only" type="checkbox" value="option2">
       This inline checkbox will be highlighted on check.
     </label>
   </div>
 {% highlight html %}
-<div class="checkbox highlight">
+<div class="checkbox highlight" data-initialize="checkbox">
   <label class="checkbox-custom">
     <input class="sr-only" type="checkbox" value="option1">
     This block-level checkbox will be highlighted on check.

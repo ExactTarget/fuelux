@@ -7,14 +7,14 @@
   <p>Adds a popup element to inputs/textareas on focus, with additional options for explicit accept/cancel actions.</p>
 
   <div class="bs-example">
-    <div class="placard" style="display: block;">
+    <div class="placard" style="display: block;" data-initialize="placard">
       <div class="placard-popup"></div>
       <input class="form-control placard-field" readonly="readonly" type="text"/>
     </div>
 
     <br/>
 
-    <div class="placard" data-ellipsis="true" style="display: block;">
+    <div class="placard" data-ellipsis="true" style="display: block;" data-initialize="placard">
       <div class="placard-popup"></div>
       <div class="placard-header"><h5>Header</h5></div>
       <textarea class="form-control placard-field" readonly="readonly" rows="3"></textarea>
@@ -58,7 +58,7 @@
 
   <p>For header and footer content, use the following input OR textarea placards:</p>
 {% highlight html %}
-<div class="placard" data-ellipsis="true" style="display: block;">
+<div class="placard" data-ellipsis="true" style="display: block;" data-initialize="placard">
   <div class="placard-popup"></div>
   <div class="placard-header"><h5>Header</h5></div>
   <input class="form-control placard-field" readonly="readonly" type="text"/>
@@ -69,7 +69,7 @@
 </div>
 {% endhighlight %}
 {% highlight html %}
-<div class="placard" data-ellipsis="true" style="display: block;">
+<div class="placard" data-ellipsis="true" style="display: block;" data-initialize="placard">
   <div class="placard-popup"></div>
   <div class="placard-header"><h5>Header</h5></div>
   <textarea class="form-control placard-field" readonly="readonly" rows="3"></textarea>

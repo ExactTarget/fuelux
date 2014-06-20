@@ -16,7 +16,7 @@
 
   <h3>Live demo</h3>
   <div class="bs-example">
-    <div id="MyScheduler" class="form-horizontal container-fluid scheduler" role="form">
+    <div id="MyScheduler" class="form-horizontal container-fluid scheduler" data-initialize="scheduler" role="form">
     {% include js/scheduler-example.html %}
     </div>
 
@@ -52,7 +52,9 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
         </div>
         <div class="modal-body">
 {% highlight html %}
-{% include js/scheduler-example.html %}
+<div id="MyScheduler" class="form-horizontal container-fluid scheduler" data-initialize="scheduler" role="form">
+  {% include js/scheduler-example.html %}
+</div>
 {% endhighlight %}
         </div>
         <div class="modal-footer">

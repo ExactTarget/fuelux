@@ -6,13 +6,13 @@
   <h2 id="wizard-example">Examples</h2>
   <p>Wrap the input and wizard button within <code>.fuelux .wizard</code></p>
   <div class="bs-example">
-    <div id="MyWizard" class="wizard">
+    <div id="MyWizard" class="wizard" data-initialize="wizard">
       {% include js/wizard-example.html %}
     </div>
   </div><!-- /example -->
 
 {% highlight html %}
-<div class="wizard">
+<div class="wizard" data-initialize="wizard">
 {% include js/wizard-example.html %}
 </div>
 {% endhighlight %}
