@@ -16,20 +16,20 @@
 	<p>The infinite scroll control does not have a data API due to dependency on a dataSource.</p>
 
 	<p>Initialize the infinite scroll via JavaScript:</p>
-	{% highlight js %}
-	$('#MyInfiniteScroll').infinitescroll({
-	//dataSource is required to append additional content
-	dataSource: function(helpers, callback){
-	//passing back more content
-	callback({ content: '...' });
+{% highlight js %}
+$('#MyInfiniteScroll').infinitescroll({
+	dataSource: function( helpers, callback ) {
+		//dataSource is required to append additional content
+		callback({ content: '...' }); //passing back more content
 	}
-	);{% endhighlight %}
+});
+{% endhighlight %}
 
 	<h3>Markup</h3>
 	<p>Simply place <code>class="infinitescroll"</code> on an element of your choosing (preferably a div or span).</p>
-	{% highlight html %}
-	<div class="infinitescroll"></div>
-	{% endhighlight %}
+{% highlight html %}
+<div class="infinitescroll"></div>
+{% endhighlight %}
 
 	<h3>Options</h3>
 	<p>Options can be passed via Javascript upon initialization.</p>

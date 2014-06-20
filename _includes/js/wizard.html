@@ -12,9 +12,7 @@
   </div><!-- /example -->
 
 {% highlight html %}
-<div class="wizard">
 {% include js/wizard-example.html %}
-</div>
 {% endhighlight %}
 
   <h2 id="wizard-usage">Usage</h2>
@@ -27,19 +25,19 @@
   <p>Wrap <code>class="wizard"</code> around a list of steps, navigation, and content within a <code>class="fuelux"</code> container.</p>
 {% highlight html %}
 <div class="wizard">
-  <ul class="steps">
-    <li class="active" data-step="1"><span class="badge">1</span>Step 1<span class="chevron"></span></li>
-  </ul>
-  <div class="actions">
-    <button class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
-    <button class="btn btn-default btn-next" data-last="Complete">Next<span class="glyphicon glyphicon-arrow-right"></span></button>
-  </div>
-  <div class="step-content">
-    <div class="step-pane active sample-pane" data-step="1">
+    <ul class="steps">
+        <li class="active" data-step="1"><span class="badge">1</span>Step 1<span class="chevron"></span></li>
+    </ul>
+    <div class="actions">
+        <button class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
+        <button class="btn btn-default btn-next" data-last="Complete">Next<span class="glyphicon glyphicon-arrow-right"></span></button>
+    </div>
+    <div class="step-content">
+        <div class="step-pane active sample-pane" data-step="1">
+            ....
+        </div>
         ....
     </div>
-    ....
-  </div>
 </div>
 {% endhighlight %}
 
@@ -67,7 +65,7 @@
   <h3>Methods</h3>
   <h4>$().wizard()</h4>
   Attaches wizard to a list of steps, navigation, and content.
-  
+
   <h4>.wizard('previous')</h4>
   <p>Moves to the previous step</p>
   {% highlight js %}$('#element').wizard('previous');{% endhighlight %}
@@ -87,14 +85,13 @@ $('#element').wizard('selectedItem', {
   <h4>.wizard('addSteps')</h4>
   <p>Add a pane or an array of panes to a wizard. This markup is wrapped with <code>&lt;div class=&quot;step-pane&quot;&gt;&lt;/div&gt;</code></p>
 {% highlight js %}
-$('#element').wizard('addSteps', index, remove, 
-  [
-  {
+$('#element').wizard('addSteps', index, remove,
+  [{
     badge: 'badge-customicon',
     label: 'A Step Label',
     pane: '<div>Content</div>'
-  }
-]);
+  }]
+);
 {% endhighlight %}
 
   <div class="table-responsive">
@@ -125,7 +122,7 @@ $('#element').wizard('addSteps', index, remove,
   <h4>.wizard('RemoveSteps')</h4>
   <p>Remove a pane or multiple panes from a wizard. </p>
 {% highlight js %}
-  $('#element').wizard('removeSteps', index, howMany);
+$('#element').wizard('removeSteps', index, howMany);
 {% endhighlight %}
 
   <div class="table-responsive">
@@ -181,7 +178,7 @@ $('#element').wizard('addSteps', index, remove,
   </div><!-- ./bs-table-responsive -->
 {% highlight js %}
 $('#Mywizard').on('change', function () {
-  // do something
+    // do something
 });
 {% endhighlight %}
 

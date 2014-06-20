@@ -719,7 +719,7 @@ h1[id] {
 
 /* =======================================================
  * FuelUX Components
- * 
+ *
  * ======================================================= */
 
 .highlight {
@@ -736,10 +736,14 @@ h1[id] {
 	background-color: transparent;
 	border: 0;
 	white-space: nowrap;
+	overflow: auto;
+	word-wrap: normal;
 }
 .highlight pre code {
 	font-size: inherit;
 	color: #333; /* Effectively the base text color */
+	white-space: pre;
+	overflow-wrap: normal;
 }
 .highlight pre .lineno {
 	display: inline-block;
