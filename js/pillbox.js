@@ -34,6 +34,7 @@
 
 	var Pillbox = function (element, options) {
 		this.$element = $(element);
+		this.$moreCount = this.$element.find('.pillbox-more-count');
 		this.$pillGroup = this.$element.find('.pill-group');
 		this.$addItem = this.$element.find('.pillbox-add-item');
 		this.$addItemWrap = this.$addItem.parent();
@@ -105,11 +106,14 @@
 			this.$element.trigger('clicked.fu.pillbox', this.getItemData($item));
 		},
 
-		readonly: function(enabled){
-			if(enabled){
+		readonly: function(enable){
+			if(enable){
 				this.$element.attr('data-readonly', 'readonly');
 			}else{
 				this.$element.removeAttr('data-readonly');
+			}
+			if(this.options.truncate){
+				this.truncate(enable);
 			}
 		},
 
@@ -437,6 +441,45 @@
 			this._removePillTrigger( { method: 'removeByText', removedText: text } );
 		},
 
+		truncate: function(enable){
+			var self = this;
+			var available, full, i, pills, used;
+
+			this.$element.removeClass('truncate');
+			this.$addItemWrap.removeClass('truncated');
+			this.$pillGroup.find('.pill').removeClass('truncated');
+
+			if(enable) {
+				this.$element.addClass('truncate');
+
+				available = this.$element.width();
+				full = false;
+				i = 0;
+				pills = this.$pillGroup.find('.pill').length;
+				used = 0;
+
+				this.$pillGroup.find('.pill').each(function () {
+					var pill = $(this);
+					if (!full) {
+						i++;
+						self.$moreCount.text(pills - i);
+						if ((used + pill.outerWidth(true) + self.$addItemWrap.outerWidth(true)) <= available) {
+							used += pill.outerWidth(true);
+						} else {
+							self.$moreCount.text((pills - i) + 1);
+							pill.addClass('truncated');
+							full = true;
+						}
+					} else {
+						pill.addClass('truncated');
+					}
+				});
+				if (i === pills) {
+					this.$addItemWrap.addClass('truncated');
+				}
+			}
+		},
+
 		inputFocus: function(e) {
 			this.$element.find('.pillbox-add-item').focus();
 		},
@@ -543,6 +586,7 @@
 		onRemove: undefined,
 		onKeyDown: undefined,
 		edit: true,
+		truncate: false,
 		acceptKeyCodes: [
 			13, //Enter
 			188 //Comma

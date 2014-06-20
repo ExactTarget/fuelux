@@ -46,6 +46,7 @@
 
 		require(['jquery', 'data', 'fuelux/all'], function ($, data){
 			$('#MyPillbox').pillbox({
+				truncate: true,
 				onKeyDown: function( e, data, callback ){
 					callback(e, {data:[
 						{ text: 'Acai', value:  'acai' },
@@ -94,7 +95,7 @@
 <body style="padding: 20px;">
 	<div class="container" style="padding: 20px; margin-top:20px;">
 
-		<div id="MyPillbox" class="pillbox" data-readonly="readonly">
+		<div id="MyPillbox" class="pillbox" style="width: 300px;">
 			<ul class="clearfix pill-group">
 				<li class="btn btn-default pill" data-value="foo">
 					<span>Item 1</span>
@@ -127,8 +128,8 @@
 					</span>
 				</li>
 				<li class="pillbox-input-wrap btn-group">
+					<a class="pillbox-more">and <span class="pillbox-more-count"></span> more...</a>
 					<input type="text" class="form-control dropdown-toggle pillbox-add-item" placeholder="add item">
-
 					<button type="button" class="dropdown-toggle sr-only">
 						<span class="caret"></span>
 						<span class="sr-only">Toggle Dropdown</span>
