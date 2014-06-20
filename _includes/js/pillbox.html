@@ -34,23 +34,23 @@
 
 {% highlight html %}
 <div class="pillbox">
-  <ul class="clearfix pill-group">
-    <li class="btn btn-default pill" data-value="foo">
-      <span>Item Title</span>
-      <span class="glyphicon glyphicon-close">
-        <span class="sr-only">Remove</span>
-      </span>
-    </li>
-    ....
-    <div class="pillbox-input-wrap btn-group">
-      <input type="text" class="form-control dropdown-toggle pillbox-add-item" placeholder="add item">
-      <button type="button" class="dropdown-toggle sr-only">
-        <span class="caret"></span>
-        <span class="sr-only">Toggle Dropdown</span>
-      </button>
-      <ul class="suggest dropdown-menu" role="menu" data-toggle="dropdown" data-flip="auto"></ul>
-    </div>
-  </ul>
+    <ul class="clearfix pill-group">
+        <li class="btn btn-default pill" data-value="foo">
+            <span>Item Title</span>
+            <span class="glyphicon glyphicon-close">
+                <span class="sr-only">Remove</span>
+            </span>
+        </li>
+        ....
+        <div class="pillbox-input-wrap btn-group">
+            <input type="text" class="form-control dropdown-toggle pillbox-add-item" placeholder="add item">
+            <button type="button" class="dropdown-toggle sr-only">
+            <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="suggest dropdown-menu" role="menu" data-toggle="dropdown" data-flip="auto"></ul>
+        </div>
+    </ul>
 </div>
 {% endhighlight %}
 
@@ -60,13 +60,12 @@
   <p>Adds Items to the pillbox programatically.</p>
 
 {% highlight js %}
-$('#element').pillbox('addItems', 
-  index,
-  [{ 
-    text: '', 
-    value: '' 
-  }]
-  );
+$('#element').pillbox('addItems', index,
+    [{
+        text: '',
+        value: ''
+    }]
+);
 {% endhighlight %}
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
@@ -179,7 +178,7 @@ $('#element').pillbox('addItems',
 {% highlight js %}
 callback({data:[
   {
-    text: '', 
+    text: '',
    value:''
   }]
 });

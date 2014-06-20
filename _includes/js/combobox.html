@@ -29,7 +29,7 @@
       <input id="btnComboboxSelectByText" type="button" class="btn btn-default" value="set by text (Four)"/>
     </div>
     <div class="btn-group">
-      <input id="btnComboboxSelectBySelector" type="button" class="btn btn-default" 
+      <input id="btnComboboxSelectBySelector" type="button" class="btn btn-default"
         value="set by CSS selector li[data-fizz=buzz] (6)"/>
       <input id="btnComboboxDisable" type="button" class="btn btn-default" value="disable"/>
       <input id="btnComboboxEnable" type="button" class="btn btn-default" value="enable"/>
@@ -39,18 +39,18 @@
 
 {% highlight html %}
 <div id="MyCombobox" class="input-group input-append dropdown combobox">
-  <input type="text" class="form-control">
-  <div class="input-group-btn">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-  <ul class="dropdown-menu dropdown-menu-right">
-    <li data-value="1"><a href="#">One</a></li>
-    <li data-value="2"><a href="#">Two</a></li>
-    <li data-value="3"><a href="#">Three</a></li>
-    <li data-value="4" ><a href="#">Four</a></li>
-    <li data-value="Item Five"><a href="#">Item Five</a></li>
-    <li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>
-  </ul>
-  </div>
+    <input type="text" class="form-control">
+    <div class="input-group-btn">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+        <ul class="dropdown-menu dropdown-menu-right">
+            <li data-value="1"><a href="#">One</a></li>
+            <li data-value="2"><a href="#">Two</a></li>
+            <li data-value="3"><a href="#">Three</a></li>
+            <li data-value="4" ><a href="#">Four</a></li>
+            <li data-value="Item Five"><a href="#">Item Five</a></li>
+            <li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>
+        </ul>
+    </div>
 </div>
 {% endhighlight %}
 
@@ -65,17 +65,17 @@
 
   <h3>Markup</h3>
   <p>Add <code>class="combobox"</code> to an input and a dropdown within a <code>class="fuelux"</code> container.</p>
-  {% highlight html %}
-  <div class="input-group input-append dropdown combobox">
+{% highlight html %}
+<div class="input-group input-append dropdown combobox">
     <input type="text" class="form-control">
     <div class="input-group-btn">
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-    <ul class="dropdown-menu dropdown-menu-right">
-      ...
-    </ul>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+        <ul class="dropdown-menu dropdown-menu-right">
+            ...
+        </ul>
     </div>
-  </div>
-  {% endhighlight %}
+</div>
+{% endhighlight %}
 
   <h3>Options</h3>
   <p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-selected=""</code>.</p>
@@ -99,11 +99,11 @@
       </tbody>
     </table>
   </div><!-- ./bs-table-responsive -->
-  
+
   <h3>Methods</h3>
   <h4>$().combobox(options)</h4>
   Attaches a combobox to an input and a dropdown menu.
-  
+
   <h4>.combobox('disable')</h4>
   <p>Disables the component</p>
   {% highlight js %}$('#element').combobox('disable'){% endhighlight %}

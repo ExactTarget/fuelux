@@ -43,19 +43,19 @@
 
 {% highlight html %}
 <div id="MySelectlist" class="btn-group selectlist" data-resize="auto">
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-    <span class="selected-label">&nbsp;</span>
-    <span class="caret"></span>
-    <span class="sr-only">Toggle Dropdown</span>
-  </button>
-  <ul class="dropdown-menu" role="menu">
-    <li data-value="1"><a href="#">One</a></li>
-    <li data-value="2" data-selected="true"><a href="#">Two</a></li>
-    <li data-value="3"><a href="#">Three</a></li>
-    <li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>
-    <li data-value="Item Five"><a href="#">Item Five</a></li>
-  </ul>
-  <input class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span class="selected-label">&nbsp;</span>
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li data-value="1"><a href="#">One</a></li>
+        <li data-value="2" data-selected="true"><a href="#">Two</a></li>
+        <li data-value="3"><a href="#">Three</a></li>
+        <li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>
+        <li data-value="Item Five"><a href="#">Item Five</a></li>
+    </ul>
+    <input class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
 </div>
 {% endhighlight %}
 
@@ -69,22 +69,22 @@
   <p>Wrap <code>class="selectlist"</code> around an input and a button within a <code>class="fuelux"</code> container.</p>
 {% highlight html %}
 <div class="btn-group selectlist" data-resize="auto">
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-    <span class="selected-label">&nbsp;</span>
-    <span class="caret"></span>
-    <span class="sr-only">Toggle Dropdown</span>
-  </button>
-  <ul class="dropdown-menu" role="menu">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span class="selected-label">&nbsp;</span>
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
     ...
-  </ul>
-  <input class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
+    </ul>
+    <input class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
 </div>
 {% endhighlight %}
 
   <h3>Methods</h3>
   <h4>$().selectlist()</h4>
   Attaches selectlist to an input and a button group.
-  
+
   <h4>.selectlist('disable')</h4>
   <p>Disables the component</p>
   {% highlight js %}$('#element').selectlist('disable');{% endhighlight %}
