@@ -52,10 +52,13 @@
 					moment: '../assets/vendor/moment-with-langs/index', // comment out if you dont want momentjs to be default
 					underscore: '../assets/vendor/underscore/underscore'
 				},
-				priority: ['jquery', 'bootstrap', 'moment', 'fuelux']
+				// Bootstrap is a "browser globals" script :-(
+				shim: { 'bootstrap': { deps: ['jquery'] } }
 			});
 		})();
-		require(['jquery', 'moment', 'assets/js/application'], function($){});
+
+
+		require(['jquery', 'bootstrap', 'moment', 'assets/js/application'], function($){});
 	</script>
 
 	<script src="https://platform.twitter.com/widgets.js" type="text/javascript"></script>

@@ -6,11 +6,9 @@
  */
 
 define(function(require){
-	var jquery = require('jquery');
 	var $body = $(document.body);
 	var $window = $(window);
 
-	require('bootstrap');
 	require('assets/js/combobox-examples');
 	require('assets/js/infinite-scroll-examples');
 	require('assets/js/repeater-examples');
