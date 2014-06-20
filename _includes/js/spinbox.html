@@ -26,7 +26,11 @@
   <h2 id="spinbox-usage">Usage</h2>
   <p>A spinbox allows for click interaction with a numeric input.</p>
 
-  <p>Trigger the Spinbox via JavaScript:</p>
+  <h3>Via data-attributes</h3>
+  <p>The spinbox will automatically instantiate any spinbox with <code>data-initialize="spinbox"</code>. If the control markup is added <i>after page load</i> with <code>data-initialize="selectlist"</code>, this control will be initialized on <code>mousedown</code>.
+
+  <h3>Via JavaScript</h3>
+  <p>Call the selectlist control via JavaScript:</p>
   {% highlight js %}$('#MySpinbox').spinbox();{% endhighlight %}
 
   <h3>Markup</h3>
