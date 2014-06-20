@@ -24,7 +24,11 @@
   <h2 id="pillbox-usage">Usage</h2>
   <p>A pillbox allows user tag management enabling features such as typahead and tag editing.</p>
 
-  <p>Trigger the Pillbox via JavaScript:</p>
+  <h3>Via data-attributes</h3>
+  <p>The pillbox will automatically instantiate any pillboxes with <code>data-initialize="pillbox"</code>. If the control markup is added <i>after page load</i> with <code>data-initialize="pillbox"</code>, this control will be initialized on <code>mousedown</code>.
+
+  <h3>Via JavaScript</h3>
+  <p>Call the Pillbox via JavaScript:</p>
   {% highlight js %}$('#MyPillbox').pillbox();{% endhighlight %}
 
   <h3>Markup</h3>

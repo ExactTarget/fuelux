@@ -62,7 +62,11 @@
   <h2 id="selectlist-usage">Usage</h2>
   <p>This is a single select dropdown similar to the native <code>select</code> control.</p>
 
-  <p>Trigger the selectlist via JavaScript:</p>
+  <h3>Via data-attributes</h3>
+  <p>The selectlist will automatically instantiate any selectlists with <code>data-initialize="selectlist"</code>. If the control markup is added <i>after page load</i> with <code>data-initialize="selectlist"</code>, this control will be initialized on <code>mousedown</code>.
+
+  <h3>Via JavaScript</h3>
+  <p>Call the selectlist control via JavaScript:</p>
   {% highlight js %}$('#MySelectlist').selectlist();{% endhighlight %}
 
   <h3>Markup</h3>

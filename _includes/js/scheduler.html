@@ -64,10 +64,14 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
 
   <h2 id="scheduler-usage">Usage</h2>
-  <p>The scheduler code will automatically instantiate any scheduler markup with the class <code>.scheduler</code> on page load, allowing them to function without any additional code. However, if the markup is added after page load they will need to be manually instantiated via javascript.</p>
+
   <p>A scheduler can return a time object with a <code>startDateTime</code>, a <code>timeZone</code>, and a<code>recurrencePattern</code></p>
 
-  <p>Via JavaScript:</p>
+  <h3>Via data-attributes</h3>
+  <p>The scheduler will automatically instantiate any schedulers with <code>data-initialize="scheduler"</code>. If the control markup is added <i>after page load</i> with <code>data-initialize="scheduler"</code>, this control will be initialized on <code>mousedown</code>.
+
+  <h3>Via JavaScript</h3>
+  <p>Call the scheduler control via JavaScript:</p>
   {% highlight js %}$('#Myscheduler').scheduler();{% endhighlight %}
 
   <h3>Markup</h3>

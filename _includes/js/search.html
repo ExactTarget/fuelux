@@ -2,7 +2,7 @@
 ================================================== -->
 <div class="bs-docs-section">
   <h1 id="search" class="page-header">Search Box <small>search.js</small></h1>
-  <p class="lead">Combines an input and a button to fire the <code>searched</code> event.</p>
+  <p>Combines an input and a button to fire the <code>searched</code> event.</p>
 
   <h2 id="search-example">Examples</h2>
   <p>Wrap the input and search button within <code>.fuelux .search</code></p>
@@ -46,7 +46,11 @@
   <h2 id="search-usage">Usage</h2>
   <p>This is a simple input and button group that styles with a search icon and fires the <code>searched</code> event.</p>
 
-  <p>Via JavaScript:</p>
+  <h3>Via data-attributes</h3>
+  <p>The search will automatically instantiate any searches with <code>data-initialize="search"</code>. If the control markup is added <i>after page load</i> with <code>data-initialize="search"</code>, this control will be initialized on <code>mousedown</code>.
+
+  <h3>Via JavaScript:</h3>
+  <p>Call the search control via JavaScript:</p>
   {% highlight js %}$('#MySearch').search();{% endhighlight %}
 
   <h3>Markup</h3>
