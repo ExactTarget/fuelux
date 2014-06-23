@@ -631,7 +631,8 @@
 			disable: function() {
 				this.$element.addClass( 'disabled' );
 				this.$element.find( 'input, button' ).attr( 'disabled', 'disabled' );
-				//TODO: make this close correctly if programatically disabled
+				this._close();
+				this.$element.find( '.input-group-btn' ).removeClass( 'open' );
 			},
 
 			enable: function() {
@@ -3861,6 +3862,7 @@
 
 		var Pillbox = function( element, options ) {
 			this.$element = $( element );
+			this.$moreCount = this.$element.find( '.pillbox-more-count' );
 			this.$pillGroup = this.$element.find( '.pill-group' );
 			this.$addItem = this.$element.find( '.pillbox-add-item' );
 			this.$addItemWrap = this.$addItem.parent();
@@ -3874,6 +3876,10 @@
 
 			this.options = $.extend( {}, $.fn.pillbox.defaults, options );
 
+			if ( this.$element.attr( 'data-readonly' ) !== undefined ) {
+				this.readonly( true );
+			}
+
 			// EVENTS
 			this.acceptKeyCodes = this._generateObject( this.options.acceptKeyCodes );
 			// Creatie an object out of the key code array, so we dont have to loop through it on every key stroke
@@ -3885,6 +3891,7 @@
 				this.$element.on( 'mousedown.fu.pillbox', '.suggest > li', $.proxy( this.suggestionClick, this ) );
 			}
 			if ( this.options.edit ) {
+				this.$element.addClass( 'pills-editable' );
 				this.$element.on( 'blur.fu.pillbox', '.pillbox-add-item', $.proxy( this.cancelEdit, this ) );
 			}
 		};
@@ -3903,34 +3910,47 @@
 			itemClicked: function( e ) {
 				var self = this;
 				var $target = $( e.target );
-				var $item = $( e.currentTarget );
-				var $text = $target.prev();
+				var $item;
 
 				e.preventDefault();
 				e.stopPropagation();
 				this._closeSuggestions();
 
-				if ( $text.length && !$target.parent().hasClass( 'pill-group' ) ) {
-					if ( this.options.onRemove ) {
-						this.options.onRemove( this.getItemData( $item, {
-							el: $item
-						} ), $.proxy( this._removeElement, this ) );
-					} else {
-						this._removeElement( this.getItemData( $item, {
-							el: $item
-						} ) );
-					}
-					return false;
-
-				} else if ( this.options.edit ) {
-					if ( $item.find( '.pillbox-list-edit' ).length ) {
+				if ( !$target.hasClass( 'pill' ) ) {
+					$item = $target.parent();
+					if ( $target.hasClass( 'glyphicon-close' ) ) {
+						if ( this.options.onRemove ) {
+							this.options.onRemove( this.getItemData( $item, {
+								el: $item
+							} ), $.proxy( this._removeElement, this ) );
+						} else {
+							this._removeElement( this.getItemData( $item, {
+								el: $item
+							} ) );
+						}
 						return false;
+					} else if ( this.options.edit && this.$element.attr( 'data-readonly' ) === undefined ) {
+						if ( $item.find( '.pillbox-list-edit' ).length ) {
+							return false;
+						}
+						this.openEdit( $item );
 					}
-
-					this.openEdit( $item );
+				} else {
+					$item = $target;
 				}
 
 				this.$element.trigger( 'clicked.fu.pillbox', this.getItemData( $item ) );
+			},
+
+			readonly: function( enable ) {
+				if ( enable ) {
+					this.$element.attr( 'data-readonly', 'readonly' );
+				} else {
+					this.$element.removeAttr( 'data-readonly' );
+				}
+				if ( this.options.truncate ) {
+					this.truncate( enable );
+				}
 			},
 
 			suggestionClick: function( e ) {
@@ -4181,9 +4201,12 @@
 
 					//only allowing most recent event callback to register
 					this.callbackId = e.timeStamp;
-					this.options.onKeyDown( e, {
+					this.options.onKeyDown( {
+						event: e,
 						value: text
-					}, $.proxy( this._openSuggestions, this ) );
+					}, function( data ) {
+						self._openSuggestions( e, data );
+					} );
 				}
 			},
 
@@ -4194,6 +4217,7 @@
 				this.$pillGroup.find( '.pill:nth-child(' + index + ')' ).before( $addItemWrap );
 				this.currentEdit = el.detach();
 
+				$addItemWrap.addClass( 'editing' );
 				this.$addItem.val( el.find( 'span:first' ).html() );
 				$addItemWrap.show();
 				this.$addItem.focus().select();
@@ -4212,6 +4236,7 @@
 				this.currentEdit = false;
 
 				$addItemWrap = this.$addItemWrap.detach();
+				$addItemWrap.removeClass( 'editing' );
 				this.$addItem.val( '' );
 				this.$pillGroup.append( $addItemWrap );
 			},
@@ -4230,6 +4255,7 @@
 				this.currentEdit = false;
 
 				this.$addItem.val( '' );
+				this.$addItemWrap.removeClass( 'editing' );
 				this.$pillGroup.append( this.$addItemWrap.detach().show() );
 				this.$element.trigger( 'edited.fu.pillbox', {
 					value: item.value,
@@ -4277,6 +4303,45 @@
 					method: 'removeByText',
 					removedText: text
 				} );
+			},
+
+			truncate: function( enable ) {
+				var self = this;
+				var available, full, i, pills, used;
+
+				this.$element.removeClass( 'truncate' );
+				this.$addItemWrap.removeClass( 'truncated' );
+				this.$pillGroup.find( '.pill' ).removeClass( 'truncated' );
+
+				if ( enable ) {
+					this.$element.addClass( 'truncate' );
+
+					available = this.$element.width();
+					full = false;
+					i = 0;
+					pills = this.$pillGroup.find( '.pill' ).length;
+					used = 0;
+
+					this.$pillGroup.find( '.pill' ).each( function() {
+						var pill = $( this );
+						if ( !full ) {
+							i++;
+							self.$moreCount.text( pills - i );
+							if ( ( used + pill.outerWidth( true ) + self.$addItemWrap.outerWidth( true ) ) <= available ) {
+								used += pill.outerWidth( true );
+							} else {
+								self.$moreCount.text( ( pills - i ) + 1 );
+								pill.addClass( 'truncated' );
+								full = true;
+							}
+						} else {
+							pill.addClass( 'truncated' );
+						}
+					} );
+					if ( i === pills ) {
+						this.$addItemWrap.addClass( 'truncated' );
+					}
+				}
 			},
 
 			inputFocus: function( e ) {
@@ -4385,6 +4450,7 @@
 			onRemove: undefined,
 			onKeyDown: undefined,
 			edit: true,
+			truncate: false,
 			acceptKeyCodes: [
 				13, //Enter
 				188 //Comma

@@ -570,7 +570,6 @@
 		},
 
 		_close: function() {
-			console.log('CLOSE');
 			this.$input.dropdown( 'toggle' );
 		},
 

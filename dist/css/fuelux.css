@@ -555,6 +555,16 @@
   margin: 4px 0 3px 3px;
   float: left;
 }
+.fuelux .pillbox .pillbox-input-wrap.editing {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 2px 0 3px 3px;
+}
+.fuelux .pillbox .pillbox-input-wrap.editing input.pillbox-add-item {
+  border-radius: 4px;
+  color: #333;
+  height: 32px;
+}
 .fuelux .pillbox .pillbox-add-item {
   border: none;
   box-shadow: none;

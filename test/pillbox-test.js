@@ -211,13 +211,13 @@ define(function(require){
 		var $ul = $pillbox.find('.pill-group');
 		var $input = $pillbox.find('.pillbox-add-item');
 
-		$pillbox.find('.pill-group > li:first').click();
+		$pillbox.find('.pill-group > li:first span:first').click();
 		equal($ul.children().eq(0).hasClass('pillbox-input-wrap'), true, 'pillbox item enters edit mode');
 
 		$input.trigger('blur');
 		equal($ul.children().eq(0).hasClass('pillbox-input-wrap'), false, 'pillbox item exits edit mode');
 
-		$pillbox.find('.pill-group > li:first').click();
+		$pillbox.find('.pill-group > li:first span:first').click();
 		$input.val('test edit');
 		$input.trigger( $.Event( "keydown", { keyCode: 13 } ) );
 		deepEqual($pillbox.pillbox('items')[0], {text: 'test edit', value: 'test edit'}, 'pillbox item was able to be edited');
@@ -230,7 +230,7 @@ define(function(require){
 		$pillbox.on('clicked.fu.pillbox', function( ev, item ){
 			deepEqual(item, {text: 'Item 1', value: 'foo'}, 'clicked event is triggered');
 		});
-		$pillbox.find('> ul > li:first').click();
+		$pillbox.find('> ul > li:first span:first').click();
 		$pillbox.off('clicked.fu.pillbox');
 
 		$pillbox.on('added.fu.pillbox', function( ev, item ){
