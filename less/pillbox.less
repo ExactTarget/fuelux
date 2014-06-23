@@ -1,6 +1,7 @@
 .pillbox {
 	border: 1px solid #BBBBBB;
 	border-radius: 4px;
+	cursor: text;
 	padding: 3px;
 
 	&[data-readonly] {
@@ -39,6 +40,20 @@
 		}
 	}
 
+	&.pills-editable {
+		.pill-group {
+			.pill {
+				span {
+					cursor: text;
+
+					&.glyphicon-close {
+						cursor: pointer;
+					}
+				}
+			}
+		}
+	}
+
 	> .pill-group {
 		margin: 0;
 		padding: 0;
@@ -46,7 +61,7 @@
 
 		> .pill {
 			margin: 2px;
-			cursor: text;
+			cursor: default;
 			float:left;
 			word-break: break-all;
 

@@ -477,7 +477,40 @@
   left: -9999px;
 }
 .fuelux .pillbox {
+  border: 1px solid #BBBBBB;
+  border-radius: 4px;
+  cursor: text;
   padding: 3px;
+}
+.fuelux .pillbox[data-readonly] {
+  border: 1px solid transparent;
+}
+.fuelux .pillbox[data-readonly].truncate .pillbox-input-wrap {
+  display: inline-block;
+}
+.fuelux .pillbox[data-readonly].truncate .pillbox-input-wrap.truncated {
+  display: none;
+}
+.fuelux .pillbox[data-readonly].truncate .pillbox-more {
+  display: inline;
+}
+.fuelux .pillbox[data-readonly] .pill span.glyphicon-close {
+  display: none;
+}
+.fuelux .pillbox[data-readonly] .pillbox-add-item {
+  display: none;
+}
+.fuelux .pillbox[data-readonly] .pillbox-input-wrap {
+  display: none;
+}
+.fuelux .pillbox[data-readonly] .pillbox-input-wrap button.dropdown-toggle {
+  display: none;
+}
+.fuelux .pillbox.pills-editable .pill-group .pill span {
+  cursor: text;
+}
+.fuelux .pillbox.pills-editable .pill-group .pill span.glyphicon-close {
+  cursor: pointer;
 }
 .fuelux .pillbox > .pill-group {
   margin: 0;
@@ -486,12 +519,15 @@
 }
 .fuelux .pillbox > .pill-group > .pill {
   margin: 2px;
-  cursor: text;
+  cursor: default;
   float: left;
   word-break: break-all;
 }
 .fuelux .pillbox > .pill-group > .pill.pillbox-highlight {
   outline: 1px dotted #999999;
+}
+.fuelux .pillbox > .pill-group > .pill.truncated {
+  display: none;
 }
 .fuelux .pillbox > .pill-group > .pill .pillbox-list-edit {
   border: none;
@@ -526,6 +562,11 @@
 .fuelux .pillbox .pillbox-add-item:focus {
   outline: none;
   border: none;
+}
+.fuelux .pillbox .pillbox-more {
+  cursor: pointer;
+  display: none;
+  line-height: 30px;
 }
 .fuelux .pillbox .suggest {
   max-height: 166px;

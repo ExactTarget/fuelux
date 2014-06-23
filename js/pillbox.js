@@ -63,6 +63,7 @@
 			this.$element.on('mousedown.fu.pillbox', '.suggest > li', $.proxy(this.suggestionClick, this));
 		}
 		if( this.options.edit ){
+			this.$element.addClass('pills-editable');
 			this.$element.on('blur.fu.pillbox', '.pillbox-add-item', $.proxy(this.cancelEdit, this));
 		}
 	};
@@ -81,26 +82,29 @@
 		itemClicked: function(e){
 			var self = this;
 			var $target = $(e.target);
-			var $item = $(e.currentTarget);
-			var $text = $target.prev();
+			var $item;
 
 			e.preventDefault();
 			e.stopPropagation();
 			this._closeSuggestions();
 
-			if( $text.length && !$target.parent().hasClass('pill-group') ){
-				if(this.options.onRemove){
-					this.options.onRemove(this.getItemData($item, { el: $item }), $.proxy(this._removeElement, this));
-				} else {
-					this._removeElement(this.getItemData($item, { el: $item }));
-				}
-				return false;
-
-			} else if (this.options.edit && this.$element.attr('data-readonly')===undefined) {
-				if($item.find('.pillbox-list-edit').length){
+			if(!$target.hasClass('pill')){
+				$item = $target.parent();
+				if($target.hasClass('glyphicon-close')){
+					if(this.options.onRemove){
+						this.options.onRemove(this.getItemData($item, { el: $item }), $.proxy(this._removeElement, this));
+					} else {
+						this._removeElement(this.getItemData($item, { el: $item }));
+					}
 					return false;
+				}else if(this.options.edit && this.$element.attr('data-readonly')===undefined){
+					if($item.find('.pillbox-list-edit').length){
+						return false;
+					}
+					this.openEdit($item);
 				}
-				this.openEdit($item);
+			}else{
+				$item = $target;
 			}
 
 			this.$element.trigger('clicked.fu.pillbox', this.getItemData($item));
