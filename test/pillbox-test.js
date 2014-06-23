@@ -105,9 +105,9 @@ define(function(require){
 				callbackTriggers++;
 				callback(data);
 			},
-			onKeyDown: function( e, data, callback ){
+			onKeyDown: function( data, callback ){
 				callbackTriggers++;
-				callback(e, {data:[
+				callback({data:[
 					{text: 'Item 3',value:'three-value'}
 				]});
 			},
@@ -135,8 +135,8 @@ define(function(require){
 
 	test("Suggestions functionality should behave as designed", function () {
 		var $pillbox = $(html).find('#MyPillboxEmpty').pillbox({
-			onKeyDown: function( e, data, callback ){
-				callback(e, {data:[
+			onKeyDown: function( data, callback ){
+				callback({data:[
 					{ text: 'Acai', value:  'acai' },
 					{ text: 'African cherry orange', value:  'african cherry orange' },
 					{ text: 'Banana', value:  'banana' },

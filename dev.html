@@ -47,8 +47,8 @@
 		require(['jquery', 'data', 'fuelux/all'], function ($, data){
 			$('#MyPillbox').pillbox({
 				truncate: true,
-				onKeyDown: function( e, data, callback ){
-					callback(e, {data:[
+				onKeyDown: function( data, callback ){
+					callback({data:[
 						{ text: 'Acai', value:  'acai' },
 						{ text: 'African cherry orange', value:  'african cherry orange' },
 						{ text: 'Banana', value:  'banana' },

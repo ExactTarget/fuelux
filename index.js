@@ -139,8 +139,8 @@ define(function(require){
 	});
 
 	$('#MyPillbox').pillbox({
-		onKeyDown: function( e, data, callback ){
-			callback(e, {data:[
+		onKeyDown: function( data, callback ){
+			callback({data:[
 				{ text: 'Acai', value:  'acai' },
 				{ text: 'African cherry orange', value:  'african cherry orange' },
 				{ text: 'Banana', value:  'banana' },
@@ -182,8 +182,8 @@ define(function(require){
 	});
 
 $('#MyPillboxEmpty').pillbox({
-	onKeyDown: function( e, data, callback ){
-		callback(e, {data:[
+	onKeyDown: function( data, callback ){
+		callback({data:[
 			{ text: 'Acai', value:  'acai' },
 			{ text: 'African cherry orange', value:  'african cherry orange' },
 			{ text: 'Banana', value:  'banana' },

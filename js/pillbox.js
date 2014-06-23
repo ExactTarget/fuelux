@@ -357,7 +357,9 @@
 
 				//only allowing most recent event callback to register
 				this.callbackId = e.timeStamp;
-				this.options.onKeyDown(e, { value: text }, $.proxy(this._openSuggestions,this));
+				this.options.onKeyDown({ event: e, value: text }, function(data){
+					self._openSuggestions(e, data);
+				});
 			}
 		},
 
