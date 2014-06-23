@@ -527,43 +527,43 @@ h1[id] {
  */
 
 /* Common styles for all types */
-.bs-callout {
+.fu-callout {
   margin: 20px 0;
   padding: 20px;
   border-left: 3px solid #eee;
 }
-.bs-callout h4 {
+.fu-callout h4 {
   margin-top: 0;
   margin-bottom: 5px;
 }
-.bs-callout p:last-child {
+.fu-callout p:last-child {
   margin-bottom: 0;
 }
-.bs-callout code {
+.fu-callout code {
   background-color: #fff;
   border-radius: 3px;
 }
 
 /* Variations */
-.bs-callout-danger {
+.fu-callout-danger {
   background-color: #fdf7f7;
   border-color: #d9534f;
 }
-.bs-callout-danger h4 {
+.fu-callout-danger h4 {
   color: #d9534f;
 }
-.bs-callout-warning {
+.fu-callout-warning {
   background-color: #fcf8f2;
   border-color: #f0ad4e;
 }
-.bs-callout-warning h4 {
+.fu-callout-warning h4 {
   color: #f0ad4e;
 }
-.bs-callout-info {
+.fu-callout-info {
   background-color: #f4f8fa;
   border-color: #5bc0de;
 }
-.bs-callout-info h4 {
+.fu-callout-info h4 {
   color: #5bc0de;
 }
 
@@ -574,7 +574,7 @@ h1[id] {
  * followed by a code snippet.
  */
 
-.bs-example {
+.fu-example {
   position: relative;
   padding: 45px 15px 15px;
   margin: 0 -15px 15px;
@@ -585,7 +585,7 @@ h1[id] {
   border-width: 1px 0;
 }
 /* Echo out a label for the example */
-.bs-example:after {
+.fu-example:after {
   content: "Example";
   position: absolute;
   top:  15px;
@@ -598,7 +598,7 @@ h1[id] {
 }
 
 /* Tweak display of the code snippets when following an example */
-.bs-example + .highlight {
+.fu-example + .highlight {
   margin: -15px -15px 15px;
   border-radius: 0;
   border-width: 0 0 1px;
@@ -606,7 +606,7 @@ h1[id] {
 
 /* Make the examples and snippets not full-width */
 @media (min-width: 768px) {
-  .bs-example {
+  .fu-example {
     margin-left: 0;
     margin-right: 0;
     background-color: #fff;
@@ -615,7 +615,7 @@ h1[id] {
     border-radius: 4px 4px 0 0;
     box-shadow: none;
   }
-  .bs-example + .highlight {
+  .fu-example + .highlight {
     margin-top: -16px;
     margin-left: 0;
     margin-right: 0;
@@ -626,93 +626,93 @@ h1[id] {
 }
 
 /* Undo width of container */
-.bs-example .container {
+.fu-example .container {
   width: auto;
 }
 
 /* Tweak content of examples for optimum awesome */
-.bs-example > p:last-child,
-.bs-example > ul:last-child,
-.bs-example > ol:last-child,
-.bs-example > blockquote:last-child,
-.bs-example > .form-control:last-child,
-.bs-example > .table:last-child,
-.bs-example > .navbar:last-child,
-.bs-example > .jumbotron:last-child,
-.bs-example > .alert:last-child,
-.bs-example > .panel:last-child,
-.bs-example > .list-group:last-child,
-.bs-example > .well:last-child,
-.bs-example > .progress:last-child,
-.bs-example > .table-responsive:last-child > .table {
+.fu-example > p:last-child,
+.fu-example > ul:last-child,
+.fu-example > ol:last-child,
+.fu-example > blockquote:last-child,
+.fu-example > .form-control:last-child,
+.fu-example > .table:last-child,
+.fu-example > .navbar:last-child,
+.fu-example > .jumbotron:last-child,
+.fu-example > .alert:last-child,
+.fu-example > .panel:last-child,
+.fu-example > .list-group:last-child,
+.fu-example > .well:last-child,
+.fu-example > .progress:last-child,
+.fu-example > .table-responsive:last-child > .table {
   margin-bottom: 0;
 }
-.bs-example > p > .close {
+.fu-example > p > .close {
   float: none;
 }
 
 /* Typography */
-.bs-example-type .table .type-info {
+.fu-example-type .table .type-info {
   color: #999;
   vertical-align: middle;
 }
-.bs-example-type .table td {
+.fu-example-type .table td {
   padding: 15px 0;
   border-color: #eee;
 }
-.bs-example-type .table tr:first-child td {
+.fu-example-type .table tr:first-child td {
   border-top: 0;
 }
-.bs-example-type h1,
-.bs-example-type h2,
-.bs-example-type h3,
-.bs-example-type h4,
-.bs-example-type h5,
-.bs-example-type h6 {
+.fu-example-type h1,
+.fu-example-type h2,
+.fu-example-type h3,
+.fu-example-type h4,
+.fu-example-type h5,
+.fu-example-type h6 {
   margin: 0;
 }
 
 /* Contextual background colors */
-.bs-example-bg-classes p {
+.fu-example-bg-classes p {
   padding: 15px;
 }
 
 /* Images */
-.bs-example > .img-circle,
-.bs-example > .img-rounded,
-.bs-example > .img-thumbnail {
+.fu-example > .img-circle,
+.fu-example > .img-rounded,
+.fu-example > .img-thumbnail {
   margin: 5px;
 }
 
 /* Tables */
-.bs-example > .table-responsive > .table {
+.fu-example > .table-responsive > .table {
   background-color: #fff;
 }
 
 /* Buttons */
-.bs-example > .btn,
-.bs-example > .btn-group {
+.fu-example > .btn,
+.fu-example > .btn-group {
   margin-top: 5px;
   margin-bottom: 5px;
 }
-.bs-example > .btn-toolbar + .btn-toolbar {
+.fu-example > .btn-toolbar + .btn-toolbar {
   margin-top: 10px;
 }
 
 /* Forms */
-.bs-example-control-sizing select,
-.bs-example-control-sizing input[type="text"] + input[type="text"] {
+.fu-example-control-sizing select,
+.fu-example-control-sizing input[type="text"] + input[type="text"] {
   margin-top: 10px;
 }
-.bs-example-form .input-group {
+.fu-example-form .input-group {
   margin-bottom: 10px;
 }
-.bs-example > textarea.form-control {
+.fu-example > textarea.form-control {
   resize: vertical;
 }
 
 /* List groups */
-.bs-example > .list-group {
+.fu-example > .list-group {
   max-width: 400px;
 }
 
@@ -774,18 +774,18 @@ h1[id] {
 }
 
 /* Example schedulers */
-.bs-example.fu-example-scheduler {
+.fu-example.fu-example-scheduler {
 	background-color: #f5f5f5;
 }
-.bs-example.fu-example-scheduler .end-after > .sr-only,
-.bs-example.fu-example-scheduler .end-on-date > .sr-only {
+.fu-example.fu-example-scheduler .end-after > .sr-only,
+.fu-example.fu-example-scheduler .end-on-date > .sr-only {
 	display: inline !important;
 	position: static !important;
 }
-.bs-example.fu-example-scheduler .end-after .spinbox {
+.fu-example.fu-example-scheduler .end-after .spinbox {
 	display: inline-block !important;
 }
-.bs-example.fu-example-scheduler .scheduler .repeat-panel {
+.fu-example.fu-example-scheduler .scheduler .repeat-panel {
 	display: block !important;
 }
 .fu-example-scheduler .scheduler .scheduler-end {

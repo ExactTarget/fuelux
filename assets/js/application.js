@@ -32,20 +32,17 @@ define(function(require){
 				top: function () {
 					var offsetTop = $sideBar.offset().top;
 					var sideBarMargin = parseInt($sideBar.children(0).css('margin-top'), 10);
-					var navOuterHeight = $('.bs-docs-nav').height();
+					var navOuterHeight = $('.fu-docs-nav').height();
 
 					this.top = offsetTop - navOuterHeight - sideBarMargin;
 					return this.top;
 				},
 				bottom: function () {
-					this.bottom = $('.bs-footer').outerHeight(true);
+					this.bottom = $('.fu-docs-footer').outerHeight(true);
 					return this.bottom;
 				}
 			}
 		});
 	}, 100);
 
-	setTimeout(function () {
-		$('.fu-top').affix();
-	}, 100);
 });

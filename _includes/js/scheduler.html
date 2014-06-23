@@ -1,6 +1,6 @@
 <!-- scheduler
 ================================================== -->
-<div class="bs-docs-section">
+<div class="fu-docs-section">
   <h1 id="scheduler" class="page-header">Scheduler <small>scheduler.js</small></h1>
 
   <h2 id="scheduler-example">Examples</h2>
@@ -8,14 +8,14 @@
 
   <h3>Static example</h3>
   <p>A scheduler with start date/time, timezone, and all recurrance and recurrance end options. All options do not show simutaneously in the live demo further along in this document.</p>
-  <div class="bs-example fu-example-scheduler">
+  <div class="fu-example fu-example-scheduler">
     <fieldset id="MySchedulerStatic" class="form-horizontal container-fluid scheduler" role="form">
     {% include js/scheduler-example.html %}
     </fieldset>
   </div><!-- /example -->
 
   <h3>Live demo</h3>
-  <div class="bs-example">
+  <div class="fu-example">
     <div id="MyScheduler" class="form-horizontal container-fluid scheduler" data-initialize="scheduler" role="form">
     {% include js/scheduler-example.html %}
     </div>
@@ -140,7 +140,7 @@ $('myScheduler').scheduler('value', {
         </tr>
       </tbody>
     </table>
-  </div><!-- ./bs-table-responsive -->
+  </div><!-- ./fu-table-responsive -->
 
   <h3>Events</h3>
   <div class="table-responsive">
@@ -158,7 +158,7 @@ $('myScheduler').scheduler('value', {
         </tr>
       </tbody>
     </table>
-  </div><!-- ./bs-table-responsive -->
+  </div><!-- ./fu-table-responsive -->
 {% highlight js %}
 $('#MyScheduler').on('changed', function () {
   // do something
