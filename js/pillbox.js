@@ -374,6 +374,7 @@
 			this.$pillGroup.find('.pill:nth-child(' + index + ')').before($addItemWrap);
 			this.currentEdit = el.detach();
 
+			$addItemWrap.addClass('editing');
 			this.$addItem.val(el.find('span:first').html());
 			$addItemWrap.show();
 			this.$addItem.focus().select();
@@ -392,6 +393,7 @@
 			this.currentEdit = false;
 
 			$addItemWrap = this.$addItemWrap.detach();
+			$addItemWrap.removeClass('editing');
 			this.$addItem.val('');
 			this.$pillGroup.append($addItemWrap);
 		},
@@ -410,6 +412,7 @@
 			this.currentEdit = false;
 
 			this.$addItem.val('');
+			this.$addItemWrap.removeClass('editing');
 			this.$pillGroup.append(this.$addItemWrap.detach().show());
 			this.$element.trigger( 'edited.fu.pillbox', { value: item.value, text: item.text });
 		},
