@@ -405,17 +405,17 @@
 
 			<div id="MyRadioContainer">
 
-				<div class="radio checked" data-initialize="radio">
-					<label id="lbl1" class="radio-custom">
-						<input id="radio1" class="sr-only" checked="checked" data-toggle="#radioToggle1" name="radio1a" type="radio">
-						<span class="radio-label">Custom appearance radio selected on page load <i>with linked element visibility toggle by id</i></span>
+				<div class="radio" data-initialize="radio">
+					<label class="radio-custom">
+						<input class="sr-only" name="radioEx1" type="radio" value="option1">
+						Browser-independent radio unchecked on page load
 					</label>
 				</div>
-
-				<div class="radio" data-initialize="radio">
-					<label id="lbl2" class="radio-custom">
-						<input id="radio2" class="sr-only" data-toggle=".radioToggle2" name="radio1a" type="radio">
-						<span class="radio-label">Custom appearance radio not selected on page load <i>with linked element visibility toggle by class</i></span>
+				
+				<div class="radio checked" data-initialize="radio">
+					<label class="radio-custom">
+						<input class="sr-only" checked="checked" name="radioEx1" type="radio" value="option2">
+						Browser-independent radio checked on page load
 					</label>
 				</div>
 
@@ -427,9 +427,9 @@
 				</div>
 
 				<div class="radio" data-initialize="radio">
-					<label id="lbl4" class="radio-custom">
-						<input id="radio4" class="sr-only" disabled="disabled" name="radio1b" type="radio">
-						<span class="radio-label">Disabled custom appearance radio not selected on page load</span>
+					<label class="radio-custom">
+						<input class="sr-only" disabled="disabled" name="radioEx2" type="radio" value="option3">
+						Disabled browser-independent radio unchecked on page load
 					</label>
 				</div>
 
