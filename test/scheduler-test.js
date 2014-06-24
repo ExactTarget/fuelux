@@ -158,10 +158,10 @@ define(function(require){
 		equal($repIntSelDrop.html(), 'None (run once)', 'no recurrence set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=HOURLY;INTERVAL=3;' });
-		ok(($repIntSelDrop.html()==='Hourly' && $repPanSpinbox.spinbox('value')===3), 'hourly recurrence set correctly');
+		ok(($repIntSelDrop.html()==='Hourly' && $repPanSpinbox.spinbox('value')==='3'), 'hourly recurrence set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;INTERVAL=4;' });
-		ok(($repIntSelDrop.html()==='Daily' && $repPanSpinbox.spinbox('value')===4), 'daily recurrence set correctly');
+		ok(($repIntSelDrop.html()==='Daily' && $repPanSpinbox.spinbox('value')==='4'), 'daily recurrence set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;BYDAY=MO,TU,WE,TH,FR;INTERVAL=1;' });
 		equal($repIntSelDrop.html(), 'Weekdays', 'weekday recurrence set correctly');
@@ -169,11 +169,11 @@ define(function(require){
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=WEEKLY;BYDAY=MO,TH;INTERVAL=7;' });
 		test = $scheduler.find('.repeat-days-of-the-week .btn-group');
 		test = (test.find('[data-value="MO"]').parent().hasClass('active') && test.find('[data-value="TH"]').parent().hasClass('active')) ? true : false;
-		ok(($repIntSelDrop.html()==='Weekly' && $repPanSpinbox.spinbox('value')===7 && test), 'weekly recurrence set correctly');
+		ok(($repIntSelDrop.html()==='Weekly' && $repPanSpinbox.spinbox('value')==='7' && test), 'weekly recurrence set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=MONTHLY;INTERVAL=9;BYDAY=SA;BYSETPOS=4;' });
 		test = $scheduler.find('.repeat-monthly-day');
-		ok(($repIntSelDrop.html()==='Monthly' && $repPanSpinbox.spinbox('value')===9 && test.find('div.radio input').hasClass('checked') &&
+		ok(($repIntSelDrop.html()==='Monthly' && $repPanSpinbox.spinbox('value')==='9' && test.find('div.radio input').hasClass('checked') &&
 			test.find('.month-day-pos .selected-label').html()==='Fourth' && test.find('.month-days .selected-label').html()==='Saturday'),
 			'monthly recurrence set correctly');
 
@@ -184,7 +184,7 @@ define(function(require){
 			test.find('.year-month .selected-label').html()==='October'), 'yearly recurrence set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;INTERVAL=9;COUNT=4;' });
-		ok(($scheduler.find('.repeat-end .selectlist .selected-label').html()==='After' && $scheduler.find('.repeat-end .spinbox').spinbox('value')===4),
+		ok(($scheduler.find('.repeat-end .selectlist .selected-label').html()==='After' && $scheduler.find('.repeat-end .spinbox').spinbox('value')==='4'),
 			'end after occurence(s) set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;INTERVAL=9;UNTIL=20510331;' });

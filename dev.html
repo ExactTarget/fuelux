@@ -8,7 +8,6 @@
 	<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
 	<!--<link href="dist/css/fuelux.css" rel="stylesheet" type="text/css">-->
 	<link href="less/fuelux.less" rel="stylesheet/less" type="text/css" />
-	<link href="index.css" rel="stylesheet" type="text/css" />
 
 	<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js"></script>
 
@@ -45,74 +44,17 @@
 			}
 		});
 
-		require(['jquery', 'index', 'data', 'fuelux/all'], function ($, data){
+		require(['jquery', 'data', 'fuelux/all'], function ($, data){
 
 		});
 	</script>
 </head>
 
 <body style="padding: 20px;">
-	<!--<div class="container" style="padding: 20px; margin-top:20px;">-->
-
-		<div class="clearfix">
-
-			<h2 id="tree"><a href="#tree">#</a>Tree</h2>
-
-			<div class="form-group">
-				<label class="control-label">Items selectable</label>
-				<div class="form-group">
-
-					<div id="MyTree" class="tree" role="treegrid" data-initialize="tree">
-						<div class="tree-folder" style="display:none;">
-							<div class="tree-folder-header">
-								<i class="glyphicon glyphicon-folder-close"></i>
-
-								<div class="tree-folder-name"></div>
-							</div>
-							<div class="tree-folder-content"></div>
-							<div class="tree-loader" style="display:none">
-								<!--Place your loading HTML here-->
-								Loading...
-							</div>
-						</div>
-						<div class="tree-item" style="display:none;">
-							<i class="glyphicon tree-dot"></i>
-
-							<div class="tree-item-name"></div>
-						</div>
-					</div>
-				
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label class="control-label">Folders selectable</label>
-				<div class="form-group">
-
-					<div id="MyTreeSelectableFolder" class="tree tree-folder-select" role="treegrid" data-initialize="tree" style="margin-top:10px;">
-						<div class="tree-folder" style="display:none;">
-							<div class="tree-folder-header">
-								<i class="tree-triangle-right"></i>
-								<i class="glyphicon glyphicon-folder-close"></i>
-							</div>
-							<div class="tree-folder-name"></div>
-							<div class="tree-folder-content"></div>
-							<div class="tree-loader" style="display:none">
-								<!--Place your loading HTML here-->
-								Loading...
-							</div>
-						</div>
-					</div>
-
-				</div>
-			</div>
-
-			<hr/>
-
-		</div>
+	<div class="container" style="padding: 20px; margin-top:20px;">
 
 
-		
-	<!--</div>-->
+
+	</div>
 </body>
 </html>

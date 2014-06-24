@@ -631,7 +631,8 @@
 			disable: function() {
 				this.$element.addClass( 'disabled' );
 				this.$element.find( 'input, button' ).attr( 'disabled', 'disabled' );
-				//TODO: make this close correctly if programatically disabled
+				this._close();
+				this.$element.find( '.input-group-btn' ).removeClass( 'open' );
 			},
 
 			enable: function() {
@@ -1220,46 +1221,46 @@
 					'</div>' +
 					'<div class="daysView" style="' + self._show( self.options.showDays ) + '">' +
 
-				self._repeat( '<div class="weekdays">', self.options.weekdays,
-					function( weekday ) {
-						return '<div>' + weekday + '</div>';
-					}, '</div>' ) +
+					self._repeat( '<div class="weekdays">', self.options.weekdays,
+						function( weekday ) {
+							return '<div>' + weekday + '</div>';
+						}, '</div>' ) +
 
-				self._repeat( '<div class="lastmonth">', self.daysOfLastMonth,
-					function( day ) {
-						if ( self.options.restrictLastMonth ) {
-							day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
-						}
-						return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
-					}, '</div>' ) +
+					self._repeat( '<div class="lastmonth">', self.daysOfLastMonth,
+						function( day ) {
+							if ( self.options.restrictLastMonth ) {
+								day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
+							}
+							return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
+						}, '</div>' ) +
 
-				self._repeat( '<div class="thismonth">', self.daysOfThisMonth,
-					function( day ) {
-						return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
-					}, '</div>' ) +
+					self._repeat( '<div class="thismonth">', self.daysOfThisMonth,
+						function( day ) {
+							return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
+						}, '</div>' ) +
 
-				self._repeat( '<div class="nextmonth">', self.daysOfNextMonth,
-					function( day ) {
-						if ( self.options.restrictNextMonth ) {
-							day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
-						}
-						return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
-					}, '</div>' ) +
+					self._repeat( '<div class="nextmonth">', self.daysOfNextMonth,
+						function( day ) {
+							if ( self.options.restrictNextMonth ) {
+								day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
+							}
+							return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
+						}, '</div>' ) +
 					'</div>' +
 
-				self._repeat( '<div class="monthsView" style="' + self._show( self.options.showMonths ) + '">', self.months,
-					function( month ) {
-						return '<button data-month-number="' + month.number +
-							'" class="' + month[ 'class' ] + '">' + month.abbreviation + '</button>';
-					}, '</div>' ) +
+					self._repeat( '<div class="monthsView" style="' + self._show( self.options.showMonths ) + '">', self.months,
+						function( month ) {
+							return '<button data-month-number="' + month.number +
+								'" class="' + month[ 'class' ] + '">' + month.abbreviation + '</button>';
+						}, '</div>' ) +
 
-				self._repeat( '<div class="yearsView" style="' + self._show( self.options.showYears ) + '">', self.years,
-					function( year ) {
-						return '<button data-year-number="' + year.number +
-							'" class="' + year[ 'class' ] + '">' + year.number + '</button>';
-					}, '</div>' ) +
+					self._repeat( '<div class="yearsView" style="' + self._show( self.options.showYears ) + '">', self.years,
+						function( year ) {
+							return '<button data-year-number="' + year.number +
+								'" class="' + year[ 'class' ] + '">' + year.number + '</button>';
+						}, '</div>' ) +
 
-				'<div class="footer">' +
+					'<div class="footer">' +
 					'<div class="center hover">Today</div>' +
 					'</div>' +
 					'</div>';
@@ -1325,7 +1326,7 @@
 					triggerError = false; // don't want to trigger an error because they don't have the correct length
 				}
 
-				if ( !! triggerError ) {
+				if ( !!triggerError ) {
 					// we will insert the staged date into the input
 					this._setNullDate( true );
 					this.$element.trigger( 'inputParsingFailed.fu.datepicker' );
@@ -1556,7 +1557,7 @@
 			measurements.containerHeight = $container.overflowElement.outerHeight();
 
 			// this needs to be different if the window is the container or another element is
-			measurements.containerOffsetTop = ( !! $container.isWindow ) ? $container.overflowElement.scrollTop() : $container.overflowElement.offset().top;
+			measurements.containerOffsetTop = ( !!$container.isWindow ) ? $container.overflowElement.scrollTop() : $container.overflowElement.offset().top;
 
 			// doing the calculations
 			measurements.fromTop = measurements.parentOffsetTop - measurements.containerOffsetTop;
@@ -2030,7 +2031,7 @@
 				$radio = $radio || this.$radio;
 
 				var checked = $radio.is( ':checked' );
-				var disabled = !! $radio.prop( 'disabled' );
+				var disabled = !!$radio.prop( 'disabled' );
 
 				this.$label.removeClass( 'checked' );
 				if ( this.$parent ) {
@@ -2615,14 +2616,14 @@
 			constructor: Spinbox,
 
 			render: function() {
-				var inputValue = this.$input.val();
+				var inputValue = this.parseInput( this.$input.val() );
 				var maxUnitLength = '';
 
 				// if input is empty and option value is default, 0
 				if ( inputValue !== '' && this.options.value === 0 ) {
 					this.value( inputValue );
 				} else {
-					this.$input.val( this.options.value );
+					this.output( this.options.value );
 				}
 
 				if ( this.options.units.length ) {
@@ -2633,20 +2634,36 @@
 					} );
 				}
 
-				this.$input.attr( 'maxlength', ( this.options.max + maxUnitLength ).split( '' ).length );
+			},
+
+			output: function( value, updateField ) {
+				value = ( value + '' ).split( '.' ).join( this.options.decimalMark );
+				updateField = ( updateField || true );
+				if ( updateField ) {
+					this.$input.val( value );
+				}
+
+				return value;
+			},
+
+			parseInput: function( value ) {
+				value = ( value + '' ).split( this.options.decimalMark ).join( '.' );
+
+				return value;
 			},
 
 			change: function() {
-				var newVal = this.$input.val() || '';
+				var newVal = this.parseInput( this.$input.val() ) || '';
 
-				if ( this.options.units.length ) {
-					this.setMixedValue( newVal );
+				if ( this.options.units.length || this.options.decimalMark !== '.' ) {
+					newVal = this.parseValueWithUnit( newVal );
 				} else if ( newVal / 1 ) {
-					this.options.value = this.checkMaxMin( newVal / 1 );
+					newVal = this.options.value = this.checkMaxMin( newVal / 1 );
 				} else {
 					newVal = this.checkMaxMin( newVal.replace( /[^0-9.-]/g, '' ) || '' );
 					this.options.value = newVal / 1;
 				}
+				this.output( newVal );
 
 				this.changeFlag = false;
 				this.triggerChangedEvent();
@@ -2671,7 +2688,7 @@
 				this.lastValue = currentValue;
 
 				// Primary changed event
-				this.$element.trigger( 'changed.fu.spinbox', currentValue );
+				this.$element.trigger( 'changed.fu.spinbox', this.output( currentValue, false ) ); // no DOM update
 			},
 
 			startSpin: function( type ) {
@@ -2691,13 +2708,13 @@
 					}
 
 					this.switches.timeout = setTimeout( $.proxy( function() {
-						this.iterator( type );
+						this.iterate( type );
 					}, this ), this.switches.speed / divisor );
 					this.switches.count++;
 				}
 			},
 
-			iterator: function( type ) {
+			iterate: function( type ) {
 				this.step( type );
 				this.startSpin( type );
 			},
@@ -2711,6 +2728,7 @@
 				if ( this.changeFlag ) {
 					this.change();
 				}
+
 				// get current value and min/max options
 				currentValue = this.options.value;
 				limitValue = isIncrease ? this.options.max : this.options.min;
@@ -2741,21 +2759,25 @@
 			value: function( value ) {
 
 				if ( value || value === 0 ) {
-					if ( this.options.units.length ) {
-						this.setMixedValue( value + ( this.unit || '' ) );
+					if ( this.options.units.length || this.options.decimalMark !== '.' ) {
+						this.output( this.parseValueWithUnit( value + ( this.unit || '' ) ) );
 						return this;
+
 					} else if ( !isNaN( parseFloat( value ) ) && isFinite( value ) ) {
 						this.options.value = value / 1;
-						this.$input.val( value + ( this.unit ? this.unit : '' ) );
+						this.output( value + ( this.unit ? this.unit : '' ) );
 						return this;
+
 					}
 				} else {
-					if ( this.changeFlag ) this.change();
+					if ( this.changeFlag ) {
+						this.change();
+					}
 
 					if ( this.unit ) {
 						return this.options.value + this.unit;
 					} else {
-						return this.options.value;
+						return this.output( this.options.value, false ); // no DOM update
 					}
 				}
 			},
@@ -2773,34 +2795,30 @@
 				return legalUnit;
 			},
 
-			setMixedValue: function( value ) {
+			// strips units and add them back
+			parseValueWithUnit: function( value ) {
 				var unit = value.replace( /[^a-zA-Z]/g, '' );
-				var newVal = value.replace( /[^0-9.-]/g, '' );
+				var number = value.replace( /[^0-9.-]/g, '' );
 
 				if ( unit ) {
 					unit = this.isUnitLegal( unit );
 				}
 
-				this.options.value = this.checkMaxMin( newVal / 1 );
+				this.options.value = this.checkMaxMin( number / 1 );
 				this.unit = unit || undefined;
-				this.$input.val( this.options.value + ( unit || '' ) );
+				return this.options.value + ( unit || '' );
 			},
 
 			checkMaxMin: function( value ) {
-				var limit;
-
+				// if unreadable
 				if ( isNaN( parseFloat( value ) ) ) {
 					return value;
 				}
-
-				if ( value <= this.options.max && value >= this.options.min ) {
-					return value;
-				} else {
-					limit = value >= this.options.max ? this.options.max : this.options.min;
-
-					this.$input.val( limit );
-					return limit;
+				// if not within range return the limit
+				if ( !( value <= this.options.max && value >= this.options.min ) ) {
+					value = value >= this.options.max ? this.options.max : this.options.min;
 				}
+				return value;
 			},
 
 			disable: function() {
@@ -2905,7 +2923,8 @@
 			speed: 'medium',
 			disabled: false,
 			cycle: false,
-			units: []
+			units: [],
+			decimalMark: '.'
 		};
 
 		$.fn.spinbox.Constructor = Spinbox;
@@ -5532,7 +5551,8 @@
 
 			$.fn.repeater.defaults = $.extend( {}, $.fn.repeater.defaults, {
 				thumbnail_infiniteScroll: false,
-				thumbnail_itemRendered: null
+				thumbnail_itemRendered: null,
+				thumbnail_template: '<div class="thumbnail repeater-thumbnail" style="background-color: {{color}};"><img height="75" src="{{src}}" width="65"><span>{{name}}</span></div>'
 			} );
 
 			$.fn.repeater.views.thumbnail = {
@@ -5583,8 +5603,31 @@
 							}
 						},
 						render: function( helpers, callback ) {
+							var item = helpers.subset[ helpers.index ];
+							var template = function( str ) {
+								var invalid = false;
+								var replace = function() {
+									var end, start, val;
+
+									start = str.indexOf( '{{' );
+									end = str.indexOf( '}}', start + 2 );
+
+									if ( start > -1 && end > -1 ) {
+										val = $.trim( str.substring( start + 2, end ) );
+										val = ( item[ val ] !== undefined ) ? item[ val ] : '';
+										str = str.substring( 0, start ) + val + str.substring( end + 2 );
+									} else {
+										invalid = true;
+									}
+								};
+
+								while ( !invalid && str.search( '{{' ) >= 0 ) {
+									replace( str );
+								}
+								return str;
+							};
 							callback( {
-								item: '<div class="thumbnail repeater-thumbnail" style="background: ' + helpers.subset[ helpers.index ].color + ';"><img height="75" src="' + helpers.subset[ helpers.index ].src + '" width="65">' + helpers.subset[ helpers.index ].name + '</div>'
+								item: template( this.options.thumbnail_template )
 							} );
 						},
 						repeat: 'data.items'

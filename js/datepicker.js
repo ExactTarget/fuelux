@@ -141,7 +141,8 @@
 		disable: function() {
 			this.$element.addClass('disabled');
 			this.$element.find('input, button').attr( 'disabled', 'disabled' );
-			//TODO: make this close correctly if programatically disabled
+			this._close();
+			this.$element.find('.input-group-btn').removeClass('open');
 		},
 
 		enable: function() {
