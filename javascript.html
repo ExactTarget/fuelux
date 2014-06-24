@@ -42,11 +42,17 @@ $('#myElement').wizard('selectedItem', { step: 3 });)
   <h3>Plugin dependencies</h3>
   <p>Some controls depend on other controls. If you include a control individually, make sure to check for these dependencies in the docs below. A console error should be thrown if dependencies are not met.  All plugins depend on jQuery <i>and</i> Bootstrap (jQuery and Bootstrap must be loaded <strong>before</strong> any FuelUX files). <a href="{{ site.repo }}/blob/v{{ site.current_version }}/bower.json">Consult our <code>bower.json</code></a> to see which versions of jQuery and Bootstrap are currently tested and supported.</p>
 
+  <h3 id="js-accessibility">Accessibility</h3>
+
+  <p>ARIA support has been added when appropriate, and all inputs have labels even if they are "screen reader only." All controls are keyboard friendly and can be navigated by tabbing to display a keyboard-focus. We hope this not only aids in accessibility, but also increases the user's productivity. Controls have been "fat-finger" tested on touch devices. If you have accessibility issues with FuelUX controls, please <a href="https://github.com/ExactTarget/fuelux/issues/new">create an issue on GitHub</a>.</p>
+
 </div>
 
 {% include js/checkbox.html %}
 
 {% include js/combobox.html %}
+
+{% include js/datepicker.html %}
 
 {% include js/infinite-scroll.html %}
 
