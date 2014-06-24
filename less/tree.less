@@ -6,58 +6,99 @@
 	overflow-x: auto;
 	overflow-y: auto;
 	position: relative;
+	list-style: none;
 
-	.tree-folder {
+	ul {
+		padding-left: 0;
+		margin-top: 0;
+		margin-bottom: 0;
+		list-style: none;
+	}
 
-		width: 100%;
-		min-height: 20px;
+	li {
+		margin: 0;
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+
+	.tree-branch {
 		cursor: pointer;
-		margin-top: 1px;
 
-		.tree-folder-header {
-
+		.tree-branch-header {
 			position: relative;
 			height: 20px;
 			border-radius: 6px;
 
-			&:hover {
+			&:hover .tree-branch-name {
 				background-color: @treeBackgroundHover;
 			}
 
-			i:first-child {
-				float: left;
-				left: 5px;
+			.glyphicon-play {
+				font-size: 10px;
+				padding-right: 5px;
+
+				&:before {
+					position: relative;
+					top: -2px;
+				}
+
 			}
 
-			.tree-folder-name {
-				padding-left: 29px;
+			.tree-selected > .glyphicon-play {
+				transform:rotate(90deg);
+				-ms-transform:rotate(90deg);
+				-webkit-transform:rotate(90deg);
+				position: relative;
+				left: -5px;
+			}
+
+			.tree-branch-name {
 				white-space: nowrap;
+				border-radius: 6px;
+				padding: 5px 7px 5px 7px;
+				margin-bottom: 2px;
+				margin-top: 2px;
+			}
+
+			label {
+				font-weight: normal;
+				padding-left: 8px;
+				cursor: pointer;
 			}
 
 		}
 
-		.tree-folder-content {
-			margin-left: 23px;
+		.tree-branch-children {
+			margin-left: 14px;
 		}
 
 	}
 
 	.tree-item {
-
 		position: relative;
 		width: 100%;
 		height: 20px;
 		cursor: pointer;
 		margin-top: 1px;
 		border-radius: 6px;
+		margin-left: 15px;
 
-		&:hover {
+		&:hover .tree-item-name {
 			background-color: @treeBackgroundHover;
 		}
 
 		.tree-item-name {
-			padding-left: 29px;
 			white-space: nowrap;
+			border-radius: 6px;
+			padding: 5px 7px 5px 7px;
+			margin-bottom: 2px;
+			margin-top: 2px;
+		}
+
+		label {
+			font-weight: normal;
+			padding-left: 8px;
+			cursor: pointer;
 		}
 
 		.tree-dot {
@@ -71,29 +112,23 @@
 			border-radius: 6px;
 		}
 
-		.glyphicon-ok {
-			left: 5px;
-			position: absolute;
-			top: 2px;
-		}
-
-	}
-
-	.tree-selected {
-		background-color: @treeBackgroundSelect;
-
-		&:hover {
-			background-color: @treeBackgroundSelect;
-		}
 	}
 
 	&.tree-folder-select {
 
-		.tree-folder {
+		.tree-selected {
+			background-color: @treeBackgroundSelect;
+
+			&:hover {
+				background-color: @treeBackgroundSelect;
+			}
+		}
+
+		.tree-branch {
 			clear: both;
 			margin-bottom: 1px;
 
-			.tree-folder-header {
+			.tree-branch-header {
 				float: left;
 				width: 45px;
 				padding-top: 1px;
@@ -128,7 +163,7 @@
 			}
 
 
-			> .tree-folder-name {
+			> .tree-branch-name {
 				float: left;
 				padding: 1px 5px 0 5px;
 
