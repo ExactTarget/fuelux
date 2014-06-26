@@ -3876,7 +3876,11 @@
 
 			this.options = $.extend( {}, $.fn.pillbox.defaults, options );
 
-			if ( this.$element.attr( 'data-readonly' ) !== undefined ) {
+			if ( this.options.readonly === -1 ) {
+				if ( this.$element.attr( 'data-readonly' ) !== undefined ) {
+					this.readonly( true );
+				}
+			} else if ( this.options.readonly ) {
 				this.readonly( true );
 			}
 
@@ -3918,22 +3922,24 @@
 
 				if ( !$target.hasClass( 'pill' ) ) {
 					$item = $target.parent();
-					if ( $target.hasClass( 'glyphicon-close' ) ) {
-						if ( this.options.onRemove ) {
-							this.options.onRemove( this.getItemData( $item, {
-								el: $item
-							} ), $.proxy( this._removeElement, this ) );
-						} else {
-							this._removeElement( this.getItemData( $item, {
-								el: $item
-							} ) );
-						}
-						return false;
-					} else if ( this.options.edit && this.$element.attr( 'data-readonly' ) === undefined ) {
-						if ( $item.find( '.pillbox-list-edit' ).length ) {
+					if ( this.$element.attr( 'data-readonly' ) === undefined ) {
+						if ( $target.hasClass( 'glyphicon-close' ) ) {
+							if ( this.options.onRemove ) {
+								this.options.onRemove( this.getItemData( $item, {
+									el: $item
+								} ), $.proxy( this._removeElement, this ) );
+							} else {
+								this._removeElement( this.getItemData( $item, {
+									el: $item
+								} ) );
+							}
 							return false;
+						} else if ( this.options.edit ) {
+							if ( $item.find( '.pillbox-list-edit' ).length ) {
+								return false;
+							}
+							this.openEdit( $item );
 						}
-						this.openEdit( $item );
 					}
 				} else {
 					$item = $target;
@@ -4449,7 +4455,8 @@
 			onAdd: undefined,
 			onRemove: undefined,
 			onKeyDown: undefined,
-			edit: true,
+			edit: false,
+			readonly: -1, //can be true or false. -1 means it will check for data-readonly="readonly"
 			truncate: false,
 			acceptKeyCodes: [
 				13, //Enter
