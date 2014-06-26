@@ -226,6 +226,10 @@ $('#MyPillboxEmpty').pillbox({
 	}
 });
 
+$('#MyPillboxTruncateReadOnly').pillbox({
+	truncate: true
+});
+
 	$('#MyPillbox').on( 'added', function( event, data ) {
 		console.log( 'pillbox added', data );
 	});
