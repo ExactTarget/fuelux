@@ -48,7 +48,7 @@
 
 		this.options = $.extend({}, $.fn.pillbox.defaults, options);
 
-		if(this.$element.attr('data-readonly')!==undefined){
+		if((this.options.readonly===-1 && this.$element.attr('data-readonly')!==undefined) || this.options.readonly){
 			this.readonly(true);
 		}
 
@@ -595,6 +595,7 @@
 		onRemove: undefined,
 		onKeyDown: undefined,
 		edit: false,
+		readonly: -1,	//can be true or false. -1 means it will check for data-readonly="readonly"
 		truncate: false,
 		acceptKeyCodes: [
 			13, //Enter
