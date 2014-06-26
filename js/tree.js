@@ -33,10 +33,12 @@
 		this.options = $.extend({}, $.fn.tree.defaults, options);
 
 		this.$element.on('click.fu.tree', '.tree-item', $.proxy( function(ev) { this.selectItem(ev.currentTarget); } ,this));
-		this.$element.on('click.fu.tree', '.tree-branch-header', $.proxy( function(ev) { this.openFolder(ev.currentTarget); }, this));
+		this.$element.on('click.fu.tree', '.tree-branch-name', $.proxy( function(ev) { this.openFolder(ev.currentTarget); }, this));
 
 		if( this.options.folderSelect ){
-			this.$element.on('click.fu.tree', '.tree-branch-name', $.proxy( function(ev) { this.selectFolder(ev.currentTarget); }, this));
+			this.$element.off('click.fu.tree', '.tree-branch-name');
+			this.$element.on('click.fu.tree', '.icon-caret', $.proxy( function(ev) { this.openFolder($(ev.currentTarget).parent()); }, this));
+			this.$element.on('click.fu.tree', '.tree-branch-name', $.proxy( function(ev) { this.selectFolder($(ev.currentTarget).parent()); }, this));
 		}
 
 		this.render();
@@ -63,7 +65,7 @@
 
 					if(value.type === "folder") {
 						$entity = self.$element.find('.tree-branch:eq(0)').clone().removeClass('hide');
-						$entity.find('.tree-branch-name label').html(value.name);
+						$entity.find('.tree-branch-name label').html(value.name).attr('for', value.dataAttributes.id);
 						$entity.find('.tree-branch-header').data(value);
 					} else if (value.type === "item") {
 						$entity = self.$element.find('.tree-item:eq(0)').clone().removeClass('hide');
@@ -87,6 +89,7 @@
 					//     }
 					// };
 
+					// add attributes to tree-branch or tree-item
 					var dataAttributes = value.dataAttributes || [];
 					$.each(dataAttributes, function(key, value) {
 						switch (key) {
@@ -94,6 +97,17 @@
 						case 'classes':
 						case 'className':
 							$entity.addClass(value);
+							break;
+						
+						// allow custom icons
+						case 'data-icon':
+							$entity.find('.icon-item').removeClass().addClass('icon-item ' + value);
+							$entity.attr(key, value);
+							break;
+
+						case 'data-children':
+							$entity.find('.icon-item').removeClass().addClass('icon-item ' + value);
+							$entity.attr(key, value);
 							break;
 
 						// id, style, data-*
@@ -103,6 +117,7 @@
 						}
 					});
 
+					// add child nodes
 					if($el.hasClass('tree-branch-header')) {
 						$parent.find('.tree-branch-children:eq(0)').append($entity);
 					} else {
@@ -137,11 +152,11 @@
 			if($el.hasClass('tree-selected')) {
 				eventType = 'unselected';
 				$el.removeClass('tree-selected');
-				$el.find('.icon-item').removeClass('glyphicon-ok').addClass('glyphicon-minus');
+				$el.find('.icon-item').removeClass('glyphicon-ok').addClass('fueluxicon-bullet');
 			} else {
 				$el.addClass ('tree-selected');
 				// add tree dot back in
-				$el.find('.icon-item').removeClass('glyphicon-minus').addClass('glyphicon-ok');
+				$el.find('.icon-item').removeClass('fueluxicon-bullet').addClass('glyphicon-ok');
 				if (this.options.multiSelect) {
 					data.push( $el.data() );
 				}
@@ -161,42 +176,46 @@
 		},
 
 		openFolder: function (el) {
-			var $el = $(el);
-			var $parent = $el.parent();
-			var $treeFolderContent = $parent.find('.tree-branch-children');
-			var $treeFolderContentFirstChild = $treeFolderContent.eq(0);
+			var $el = $(el); // tree-branch-name
+			var $parent;
+			var $treeFolderContent;
+			var $treeFolderContentFirstChild;
 
+			if (!this.options.folderSelect) {
+				$el = $(el).parent(); // tree branch if tree-branch-name
+			}
+
+			$parent = $el.parent(); // tree branch
+			$treeFolderContent = $parent.find('.tree-branch-children');
+			$treeFolderContentFirstChild = $treeFolderContent.eq(0);
+
+			// manipulate branch/folder
 			var eventType, classToTarget, classToAdd;
 			if ($el.find('.glyphicon-folder-close').length) {
 				eventType = 'opened';
 				classToTarget = '.glyphicon-folder-close';
 				classToAdd = 'glyphicon-folder-open';
 
+				$parent.addClass('tree-open');
+
 				$treeFolderContentFirstChild.removeClass('hide');
 				if (!$treeFolderContent.children().length) {
-					this.populate($el);
+					this.populate($treeFolderContent);
 				}
 
-				if( this.options.folderSelect ){
-					$el.find('.tree-triangle-right')
-						.removeClass('tree-triangle-right')
-						.addClass('tree-triangle-down');
-				}
 			} else if($el.find('.glyphicon-folder-open')) {
 				eventType = 'closed';
 				classToTarget = '.glyphicon-folder-open';
 				classToAdd = 'glyphicon-folder-close';
 
+				$parent.removeClass('tree-open');
 				$treeFolderContentFirstChild.addClass('hide');
+
+				// remove if no cache
 				if (!this.options.cacheItems) {
 					$treeFolderContentFirstChild.empty();
 				}
 
-				if( this.options.folderSelect ){
-					$el.find('.tree-triangle-down')
-						.removeClass('tree-triangle-down')
-						.addClass('tree-triangle-right');
-				}
 			}
 
 			$parent.find('.icon-folder').eq(0)
@@ -208,6 +227,8 @@
 
 		selectFolder: function (el) {
 			var $el = $(el);
+			var $branchName = $(el).find('.tree-branch-name');
+			// currently selected
 			var $all = this.$element.find('.tree-branch-name.tree-selected');
 			var data = [];
 			var eventType = 'selected';
@@ -224,11 +245,11 @@
 				data.push($el.parent().find('.tree-branch-header').data());
 			}
 
-			if($el.hasClass('tree-selected')) {
+			if($branchName.hasClass('tree-selected')) {
 				eventType = 'unselected';
-				$el.removeClass('tree-selected');
+				$branchName.removeClass('tree-selected');
 			} else {
-				$el.addClass('tree-selected');
+				$branchName.addClass('tree-selected');
 			}
 
 			if(data.length) {
@@ -300,7 +321,7 @@
 		dataSource: function(options, callback){},
 		multiSelect: false,
 		cacheItems: true,
-		folderSelect: true
+		folderSelect: false
 	};
 
 	$.fn.tree.Constructor = Tree;
