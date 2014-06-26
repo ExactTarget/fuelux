@@ -594,7 +594,7 @@
 		onAdd: undefined,
 		onRemove: undefined,
 		onKeyDown: undefined,
-		edit: true,
+		edit: false,
 		truncate: false,
 		acceptKeyCodes: [
 			13, //Enter

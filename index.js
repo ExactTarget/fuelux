@@ -139,6 +139,7 @@ define(function(require){
 	});
 
 	$('#MyPillbox').pillbox({
+		edit: true,
 		onKeyDown: function( data, callback ){
 			callback({data:[
 				{ text: 'Acai', value:  'acai' },
@@ -182,6 +183,7 @@ define(function(require){
 	});
 
 $('#MyPillboxEmpty').pillbox({
+	edit: true,
 	onKeyDown: function( data, callback ){
 		callback({data:[
 			{ text: 'Acai', value:  'acai' },

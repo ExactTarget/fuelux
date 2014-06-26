@@ -224,7 +224,7 @@ define(function(require){
 	});
 
 	test("Triggers behave as designed", function () {
-		var $pillbox = $(html).find('#MyPillbox').pillbox();
+		var $pillbox = $(html).find('#MyPillbox').pillbox({ edit: true });
 		var $input = $pillbox.find('.pillbox-add-item');
 
 		$pillbox.on('clicked.fu.pillbox', function( ev, item ){
