@@ -254,6 +254,43 @@ define(function(require){
 		$input.val('edit test');
 		$input.trigger( $.Event( "keydown", { keyCode: 13 } ) );
 	});
+
+	test("Readonly behaves as designed", function () {
+		var $pillbox;
+
+		$pillbox = $(html).find('#MyPillbox');
+		$pillbox.attr('data-readonly', 'readonly');
+		$pillbox.pillbox();
+		$pillbox.find('.pill:last > span:last').click();
+		equal($pillbox.pillbox('items').length, 5, 'pillbox correctly in readonly mode via data api');
+
+		$pillbox = $(html).find('#MyPillbox');
+		$pillbox.pillbox({ readonly: true });
+		$pillbox.find('.pill:last > span:last').click();
+		equal($pillbox.pillbox('items').length, 5, 'pillbox correctly in readonly mode via init option');
+
+		$pillbox.pillbox('readonly', false);
+		$pillbox.find('.pill:last > span:last').click();
+		equal($pillbox.pillbox('items').length, 4, 'pillbox readonly mode disabled via method as appropriate');
+
+		$pillbox.pillbox('readonly', true);
+		$pillbox.find('.pill:last > span:last').click();
+		equal($pillbox.pillbox('items').length, 4, 'pillbox readonly mode enabled via method as appropriate');
+	});
+
+	//TODO: how can I test this one properly? O.o
+	test("Truncate behaves as designed", function () {
+		var $pillbox;
+
+		$pillbox = $(html).find('#MyPillbox');
+		$pillbox.width(100);
+		$('body').append($pillbox);
+		$pillbox.pillbox({ readonly: true, truncate: true });
+		equal($pillbox.find('.pill.truncated').length, 5, 'pillbox truncate functioning correctly while in readonly');
+
+		$pillbox.pillbox('readonly', false);
+		equal($pillbox.find('.pill.truncated').length, 0, 'pillbox truncate not enabled while not readonly');
+	});
 });
 
 
