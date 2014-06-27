@@ -3152,6 +3152,7 @@
 					classToAdd = 'glyphicon-folder-open';
 
 					$parent.addClass( 'tree-open' );
+					$parent.attr( 'aria-expanded', 'true' );
 
 					$treeFolderContentFirstChild.removeClass( 'hide' );
 					if ( !$treeFolderContent.children().length ) {
@@ -3164,6 +3165,7 @@
 					classToAdd = 'glyphicon-folder-close';
 
 					$parent.removeClass( 'tree-open' );
+					$parent.attr( 'aria-expanded', 'false' );
 					$treeFolderContentFirstChild.addClass( 'hide' );
 
 					// remove if no cache

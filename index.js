@@ -531,7 +531,8 @@ $('#MyPillboxEmpty').pillbox({
 			}, 400);
 		},
 		cacheItems: true,
-		folderSelect: true
+		folderSelect: true,
+		multiSelect: true
 	});
 
 	$('#MyTree').on('selected.fu.tree', function (e, info) {
