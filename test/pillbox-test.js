@@ -290,6 +290,7 @@ define(function(require){
 
 		$pillbox.pillbox('readonly', false);
 		equal($pillbox.find('.pill.truncated').length, 0, 'pillbox truncate not enabled while not readonly');
+		$pillbox.remove();
 	});
 });
 
