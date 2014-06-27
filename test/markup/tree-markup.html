@@ -1,17 +1,46 @@
-<div id="ex-tree" class="tree">
-	<div class="tree-folder" style="display:none;">
-		<div class="tree-folder-header">
-			<i class="glyphicon glyphicon-folder-close"></i>
+<div class="form-group">
+	<label class="control-label">Items selectable only</label>
+	<div class="form-group">
 
-			<div class="tree-folder-name"></div>
-		</div>
-		<div class="tree-folder-content"></div>
-		<div class="tree-loader" style="display:none">
-		</div>
+		<ul id="MyTree" class="tree" role="treegrid" data-initialize="tree">
+			<!-- branch/folder template -->
+			<li class="tree-branch hide" role="treeitem">
+				<div class="tree-branch-header">
+					<button class="tree-branch-name">
+						<span class="glyphicon icon-caret glyphicon-play"></span>
+						<span class="glyphicon icon-folder glyphicon-folder-close"></span>
+						<label>Example Folder</label>
+					</button>
+				</div>
+				<ul class="tree-branch-children" role="group"></ul>
+				<div class="tree-loader" role="alert">Loading...</div>
+			</li>
+			<!-- item template -->
+			<li class="tree-item hide" role="treeitem">
+				<button class="tree-item-name"><span class="glyphicon icon-item fueluxicon-bullet"></span><label>Example Item</label></button>
+			</li>
+		</ul>
+	
 	</div>
-	<div class="tree-item" style="display:none;">
-		<i class="glyphicon tree-dot"></i>
+</div>
 
-		<div class="tree-item-name"></div>
+<div class="form-group">
+	<label class="control-label">Folders selectable</label>
+	<div class="form-group">
+
+		<ul id="MyTreeSelectableFolder" class="tree tree-folder-select" role="treegrid" data-initialize="tree">
+			<li class="tree-branch hide" role="treeitem">
+				<div class="tree-branch-header">
+					<button class="glyphicon icon-caret glyphicon-play"></button>
+					<button class="tree-branch-name">
+						<span class="glyphicon icon-folder glyphicon-folder-close"></span>
+						<label>Example Folder</label>
+					</button>
+				</div>
+				<div class="tree-branch-children"></div>
+				<div class="tree-loader" role="alert">Loading...</div>
+			</li>
+		</ul>
+
 	</div>
 </div>

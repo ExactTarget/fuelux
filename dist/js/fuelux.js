@@ -3062,11 +3062,6 @@
 									$entity.attr( key, value );
 									break;
 
-								case 'data-children':
-									$entity.find( '.icon-item' ).removeClass().addClass( 'icon-item ' + value );
-									$entity.attr( key, value );
-									break;
-
 									// id, style, data-*
 								default:
 									$entity.attr( key, value );
@@ -3140,8 +3135,9 @@
 				var $treeFolderContent;
 				var $treeFolderContentFirstChild;
 
+				// if item select only
 				if ( !this.options.folderSelect ) {
-					$el = $( el ).parent(); // tree branch if tree-branch-name
+					$el = $( el ).parent(); // tree-branch, if tree-branch-name clicked
 				}
 
 				$parent = $el.parent(); // tree branch

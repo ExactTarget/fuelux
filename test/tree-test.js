@@ -20,10 +20,14 @@ define(function(require){
 				setTimeout(function () {
 					callback({
 						data: [
-							{ name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } },
-							{ name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F2' } },
-							{ name: 'Test Item 1', type: 'item', additionalParameters: { id: 'I1' } },
-							{ name: 'Test Item 2', type: 'item', additionalParameters: { id: 'I2' } }
+						{ name: 'Ascending and Descending', type: 'folder', dataAttributes: { id: 'folder1' } },
+						{ name: 'Sky and Water I (with custom icon)', type: 'item', dataAttributes: { id: 'item1', 'data-icon': 'glyphicon glyphicon-file' } },
+						{ name: 'Drawing Hands', type: 'folder', dataAttributes: { id: 'folder2', 'data-children': false } },
+						{ name: 'Waterfall', type: 'item', dataAttributes: { id: 'item2' } },
+						{ name: 'Belvedere', type: 'folder', dataAttributes: { id: 'folder3' } },
+						{ name: 'Relativity (with custom icon)', type: 'item', dataAttributes: { id: 'item3', 'data-icon': 'glyphicon glyphicon-picture' } },
+						{ name: 'House of Stairs', type: 'folder', dataAttributes: { id: 'folder4' } },
+						{ name: 'Convex and Concave', type: 'item', dataAttributes: { id: 'item4' } }
 						]
 					});
 				}, 0);
@@ -43,10 +47,11 @@ define(function(require){
 
 	asyncTest("Tree should be populated by items on initialization", function () {
 
-		var $tree = $(html).tree({ dataSource: this.stubDataSource }).on('loaded.fu.tree', function () {
+		var $tree = $(html).find('#MyTree').tree({ dataSource: this.stubDataSource }).on('loaded.fu.tree', function () {
 
-			equal($tree.find('.tree-folder').length, 3, 'Initial set of folders have been added');
-			equal($tree.find('.tree-item').length, 3, 'Initial set of items have been added');
+console.log($tree.find('.tree-branch'));
+			equal($tree.find('.tree-branch').length, 5, 'Initial set of folders have been added');
+			equal($tree.find('.tree-item').length, 5, 'Initial set of items have been added');
 
 			start();
 		});
@@ -93,7 +98,7 @@ define(function(require){
 
 	asyncTest("Single item selection works as designed", function () {
 
-		var $tree = $(html).tree({ dataSource: this.stubDataSource }).on('loaded.fu.tree',function() {
+		var $tree = $(html).find('#MyTree').tree({ dataSource: this.stubDataSource }).on('loaded.fu.tree',function() {
 
 			var data;
 
@@ -115,7 +120,7 @@ define(function(require){
 
 	asyncTest("Multiple item selection works as designed", function () {
 
-		var $tree = $(html).tree({ dataSource: this.stubDataSource, multiSelect: true }).on('loaded.fu.tree',function() {
+		var $tree = $(html).find('#MyTree').tree({ dataSource: this.stubDataSource, multiSelect: true }).on('loaded.fu.tree',function() {
 
 			var data;
 

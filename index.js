@@ -491,7 +491,7 @@ $('#MyPillboxEmpty').pillbox({
 				callback({ data: [
 					{ name: 'Ascending and Descending', type: 'folder', dataAttributes: { id: 'folder1' } },
 					{ name: 'Sky and Water I (with custom icon)', type: 'item', dataAttributes: { id: 'item1', 'data-icon': 'glyphicon glyphicon-file' } },
-					{ name: 'Drawing Hands', type: 'folder', dataAttributes: { id: 'folder2', 'data-children': false } },
+					{ name: 'Drawing Hands', type: 'folder', dataAttributes: { id: 'folder2' } },
 					{ name: 'Waterfall', type: 'item', dataAttributes: { id: 'item2' } },
 					{ name: 'Belvedere', type: 'folder', dataAttributes: { id: 'folder3' } },
 					{ name: 'Relativity (with custom icon)', type: 'item', dataAttributes: { id: 'item3', 'data-icon': 'glyphicon glyphicon-picture' } },
@@ -507,6 +507,7 @@ $('#MyPillboxEmpty').pillbox({
 
 	$('#MyTree').on('selected.fu.tree', function (e, info) {
 		console.log('Select Event: ', info);
+		console.log($('#MyTree').tree('selectedItems'));
 	});
 
 	$('#MyTree').on('opened.fu.tree', function (e, info) {
