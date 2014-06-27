@@ -105,9 +105,9 @@ define(function(require){
 				callbackTriggers++;
 				callback(data);
 			},
-			onKeyDown: function( e, data, callback ){
+			onKeyDown: function( data, callback ){
 				callbackTriggers++;
-				callback(e, {data:[
+				callback({data:[
 					{text: 'Item 3',value:'three-value'}
 				]});
 			},
@@ -135,8 +135,8 @@ define(function(require){
 
 	test("Suggestions functionality should behave as designed", function () {
 		var $pillbox = $(html).find('#MyPillboxEmpty').pillbox({
-			onKeyDown: function( e, data, callback ){
-				callback(e, {data:[
+			onKeyDown: function( data, callback ){
+				callback({data:[
 					{ text: 'Acai', value:  'acai' },
 					{ text: 'African cherry orange', value:  'african cherry orange' },
 					{ text: 'Banana', value:  'banana' },
@@ -211,26 +211,26 @@ define(function(require){
 		var $ul = $pillbox.find('.pill-group');
 		var $input = $pillbox.find('.pillbox-add-item');
 
-		$pillbox.find('.pill-group > li:first').click();
+		$pillbox.find('.pill-group > li:first span:first').click();
 		equal($ul.children().eq(0).hasClass('pillbox-input-wrap'), true, 'pillbox item enters edit mode');
 
 		$input.trigger('blur');
 		equal($ul.children().eq(0).hasClass('pillbox-input-wrap'), false, 'pillbox item exits edit mode');
 
-		$pillbox.find('.pill-group > li:first').click();
+		$pillbox.find('.pill-group > li:first span:first').click();
 		$input.val('test edit');
 		$input.trigger( $.Event( "keydown", { keyCode: 13 } ) );
 		deepEqual($pillbox.pillbox('items')[0], {text: 'test edit', value: 'test edit'}, 'pillbox item was able to be edited');
 	});
 
 	test("Triggers behave as designed", function () {
-		var $pillbox = $(html).find('#MyPillbox').pillbox();
+		var $pillbox = $(html).find('#MyPillbox').pillbox({ edit: true });
 		var $input = $pillbox.find('.pillbox-add-item');
 
 		$pillbox.on('clicked.fu.pillbox', function( ev, item ){
 			deepEqual(item, {text: 'Item 1', value: 'foo'}, 'clicked event is triggered');
 		});
-		$pillbox.find('> ul > li:first').click();
+		$pillbox.find('> ul > li:first span:first').click();
 		$pillbox.off('clicked.fu.pillbox');
 
 		$pillbox.on('added.fu.pillbox', function( ev, item ){
@@ -253,6 +253,43 @@ define(function(require){
 		$pillbox.find('> ul > li:first').click();
 		$input.val('edit test');
 		$input.trigger( $.Event( "keydown", { keyCode: 13 } ) );
+	});
+
+	test("Readonly behaves as designed", function () {
+		var $pillbox;
+
+		$pillbox = $(html).find('#MyPillbox');
+		$pillbox.attr('data-readonly', 'readonly');
+		$pillbox.pillbox();
+		$pillbox.find('.pill:last > span:last').click();
+		equal($pillbox.pillbox('items').length, 5, 'pillbox correctly in readonly mode via data api');
+
+		$pillbox = $(html).find('#MyPillbox');
+		$pillbox.pillbox({ readonly: true });
+		$pillbox.find('.pill:last > span:last').click();
+		equal($pillbox.pillbox('items').length, 5, 'pillbox correctly in readonly mode via init option');
+
+		$pillbox.pillbox('readonly', false);
+		$pillbox.find('.pill:last > span:last').click();
+		equal($pillbox.pillbox('items').length, 4, 'pillbox readonly mode disabled via method as appropriate');
+
+		$pillbox.pillbox('readonly', true);
+		$pillbox.find('.pill:last > span:last').click();
+		equal($pillbox.pillbox('items').length, 4, 'pillbox readonly mode enabled via method as appropriate');
+	});
+
+	//TODO: how can I test this one properly? O.o
+	test("Truncate behaves as designed", function () {
+		var $pillbox;
+
+		$pillbox = $(html).find('#MyPillbox');
+		$pillbox.width(100);
+		$('body').append($pillbox);
+		$pillbox.pillbox({ readonly: true, truncate: true });
+		equal($pillbox.find('.pill.truncated').length, 5, 'pillbox truncate functioning correctly while in readonly');
+
+		$pillbox.pillbox('readonly', false);
+		equal($pillbox.find('.pill.truncated').length, 0, 'pillbox truncate not enabled while not readonly');
 	});
 });
 
