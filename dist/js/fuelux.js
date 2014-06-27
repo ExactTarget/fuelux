@@ -3061,6 +3061,11 @@
 									$entity.find( '.icon-item' ).removeClass().addClass( 'icon-item ' + value );
 									$entity.attr( key, value );
 									break;
+									// allow custom icons
+								case 'id':
+									$entity.find( '.tree-item-name label' ).attr( 'for', value );
+									$entity.attr( key, value );
+									break;
 
 									// id, style, data-*
 								default:
@@ -3086,6 +3091,7 @@
 				var $el = $( el );
 				var $all = this.$element.find( '.tree-selected' );
 				var data = [];
+				var $icon = $el.find( '.icon-item' );
 
 				if ( this.options.multiSelect ) {
 					$.each( $all, function( index, value ) {
@@ -3104,11 +3110,15 @@
 				if ( $el.hasClass( 'tree-selected' ) ) {
 					eventType = 'unselected';
 					$el.removeClass( 'tree-selected' );
-					$el.find( '.icon-item' ).removeClass( 'glyphicon-ok' ).addClass( 'fueluxicon-bullet' );
+					if ( $icon.hasClass( 'glyphicon-ok' ) || $icon.hasClass( 'fueluxicon-bullet' ) ) {
+						$icon.removeClass( 'glyphicon-ok' ).addClass( 'fueluxicon-bullet' );
+					}
 				} else {
 					$el.addClass( 'tree-selected' );
 					// add tree dot back in
-					$el.find( '.icon-item' ).removeClass( 'fueluxicon-bullet' ).addClass( 'glyphicon-ok' );
+					if ( $icon.hasClass( 'glyphicon-ok' ) || $icon.hasClass( 'fueluxicon-bullet' ) ) {
+						$icon.removeClass( 'fueluxicon-bullet' ).addClass( 'glyphicon-ok' );
+					}
 					if ( this.options.multiSelect ) {
 						data.push( $el.data() );
 					}
