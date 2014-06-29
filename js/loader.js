@@ -32,10 +32,10 @@
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.loader.defaults, options);
 
-		this.begin = (this.$element.is('[data-begin]')) ? parseFloat(this.$element.attr('data-begin')) : 1;
+		this.begin = (this.$element.is('[data-begin]')) ? parseInt(this.$element.attr('data-begin'), 10) : 1;
 		this.delay = (this.$element.is('[data-delay]')) ? parseFloat(this.$element.attr('data-delay')) : 150;
 		this.end = (this.$element.is('[data-end]')) ? parseInt(this.$element.attr('data-end'), 10) : 8;
-		this.frame = (this.$element.is('[data-frame]')) ? parseInt(this.$element.attr('data-frame'), 10) : 1;
+		this.frame = (this.$element.is('[data-frame]')) ? parseInt(this.$element.attr('data-frame'), 10) : this.begin;
 		this.isIElt9 = false;
 		this.timeout = {};
 
@@ -138,7 +138,7 @@
 	// INIT LOADER ON DOMCONTENTLOADED
 
 	$(function () {
-		$('.loader').each(function () {
+		$('[data-initialize=loader]').each(function () {
 			var $this = $(this);
 			if (!$this.data('loader')) {
 				$this.loader($this.data());
