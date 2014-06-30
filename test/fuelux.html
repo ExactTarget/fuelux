@@ -11,6 +11,9 @@
 		<script>QUnit.config.autostart = false;</script>
 		<script src="../bower_components/requirejs/require.js"></script>
 
+		<script type="text/javascript" src="../bower_components/blanket/dist/qunit/blanket.js" data-cover-only="/js" data-cover-never="/bower_components"></script>
+
+
 		<script>
 			window.tmpMoment = window.moment;
 			window.moment    = undefined;
@@ -48,7 +51,7 @@
 						bootstrap: 'bower_components/bootstrap/dist/js/bootstrap',
 						fuelux: 'js',
 						test: 'test',
-						moment: 'path/to/moment', // wrong url because we need to test it without moment first
+						moment: 'bower_components/WRONG_FOLDER/moment', // wrong url because we need to test it without moment first
 						text: 'bower_components/requirejs-text/text'
 					},
 					shim: {
