@@ -1408,14 +1408,14 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 				<label class="control-label">Items selectable only</label>
 				<div class="form-group">
 
-					<ul id="MyTree" class="tree" role="tree" data-initialize="tree">
+					<ul id="MyTree" class="tree" role="tree">
 						<!-- branch/folder template -->
 						<li class="tree-branch hide" role="treeitem" aria-expanded="false">
 							<div class="tree-branch-header">
 								<button class="tree-branch-name">
 									<span class="glyphicon icon-caret glyphicon-play"></span>
 									<span class="glyphicon icon-folder glyphicon-folder-close"></span>
-									<label>Example Folder</label>
+									<span class="tree-label">Example Folder</span>
 								</button>
 							</div>
 							<ul class="tree-branch-children" role="group"></ul>
@@ -1423,7 +1423,10 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 						</li>
 						<!-- item template -->
 						<li class="tree-item hide" role="treeitem">
-							<button class="tree-item-name"><span class="glyphicon icon-item fueluxicon-bullet"></span><label>Example Item</label></button>
+							<button class="tree-item-name">
+								<span class="glyphicon icon-item fueluxicon-bullet"></span>
+								<span class="tree-label">Example Item</span>
+							</button>
 						</li>
 					</ul>
 				
@@ -1434,13 +1437,34 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 				<label class="control-label">Folders selectable</label>
 				<div class="form-group">
 
-					<ul id="MyTreeSelectableFolder" class="tree tree-folder-select" role="tree" data-initialize="tree">
+					<ul id="MyTreeSelectableFolder" class="tree tree-folder-select" role="tree">
 						<li class="tree-branch hide" role="treeitem" aria-expanded="false">
 							<div class="tree-branch-header">
 								<button class="glyphicon icon-caret glyphicon-play"><span class="sr-only">Open</span></button>
 								<button class="tree-branch-name">
 									<span class="glyphicon icon-folder glyphicon-folder-close"></span>
-									<label>Example Folder</label>
+									<span class="tree-label">Example Folder</span>
+								</button>
+							</div>
+							<div class="tree-branch-children"></div>
+							<div class="tree-loader" role="alert">Loading...</div>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label">Folders default </label>
+				<div class="form-group">
+
+					<ul id="MyTreeDefault" class="tree tree-folder-select" role="tree">
+						<li class="tree-branch hide" role="treeitem" aria-expanded="false">
+							<div class="tree-branch-header">
+								<button class="glyphicon icon-caret glyphicon-play"><span class="sr-only">Open</span></button>
+								<button class="tree-branch-name">
+									<span class="glyphicon icon-folder glyphicon-folder-close"></span>
+									<span class="tree-label">Example Folder</span>
 								</button>
 							</div>
 							<div class="tree-branch-children"></div>

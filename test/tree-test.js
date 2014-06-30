@@ -49,7 +49,6 @@ define(function(require){
 
 		var $tree = $(html).find('#MyTree').tree({ dataSource: this.stubDataSource }).on('loaded.fu.tree', function () {
 
-console.log($tree.find('.tree-branch'));
 			equal($tree.find('.tree-branch').length, 5, 'Initial set of folders have been added');
 			equal($tree.find('.tree-item').length, 5, 'Initial set of items have been added');
 
@@ -103,7 +102,7 @@ console.log($tree.find('.tree-branch'));
 			var data;
 
 			$tree.on('selected.fu.tree', function (e, items) {
-				data = items.info;
+				data = items.selected;
 			});
 
 			$tree.tree('selectItem', $tree.find('.tree-item:eq(1)'));
@@ -125,7 +124,7 @@ console.log($tree.find('.tree-branch'));
 			var data;
 
 			$tree.on('selected.fu.tree', function (e, items) {
-				data = items.info;
+				data = items.selected;
 			});
 
 			$tree.tree('selectItem', $tree.find('.tree-item:eq(1)'));

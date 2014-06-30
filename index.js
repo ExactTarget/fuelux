@@ -508,11 +508,17 @@ $('#MyPillboxTruncateReadOnly').pillbox({
 			}, 400);
 		},
 		multiSelect: true,
-		cacheItems: true
+		cacheItems: true,
+		folderSelect: false,
 	});
 
-	$('#MyTree').on('selected.fu.tree', function (e, info) {
-		console.log('Select Event: ', info);
+	$('#MyTree').on('selected.fu.tree', function (e, selected) {
+		console.log('Select Event: ', selected);
+		console.log($('#MyTree').tree('selectedItems'));
+	});
+
+	$('#MyTree').on('updated.fu.tree', function (e, selected) {
+		console.log('Updated Event: ', selected);
 		console.log($('#MyTree').tree('selectedItems'));
 	});
 
@@ -539,6 +545,20 @@ $('#MyPillboxTruncateReadOnly').pillbox({
 		cacheItems: true,
 		folderSelect: true,
 		multiSelect: true
+	});
+
+	$('#MyTreeDefault').tree({
+		dataSource: function(options, callback){
+			setTimeout(function () {
+				callback({ data: [
+					{ name: 'Ascending and Descending', type: 'folder', dataAttributes: { id: 'F1' } },
+					{ name: 'Drawing Hands', type: 'folder', dataAttributes: { id: 'F2' } },
+					{ name: 'Belvedere', type: 'folder', dataAttributes: { id: 'F3' } },
+					{ name: 'House of Stairs', type: 'folder', dataAttributes: { id: 'F4' } },
+					{ name: 'Belvedere', type: 'folder', dataAttributes: { id: 'F5' } }
+				]});
+			}, 400);
+		}
 	});
 
 	$('#MyTree').on('selected.fu.tree', function (e, info) {

@@ -1412,11 +1412,11 @@ END
   background-color: #4f4f4f;
   color: #fff;
 }
-.fuelux .tree.tree-folder-select .tree-branch-header .tree-selected {
+.fuelux .tree.tree-folder-select .tree-branch.tree-selected > .tree-branch-header .tree-branch-name {
   background-color: #4f4f4f;
   color: #fff;
 }
-.fuelux .tree.tree-folder-select .tree-branch-header .tree-selected:hover {
+.fuelux .tree.tree-folder-select .tree-branch.tree-selected > .tree-branch-header .tree-branch-name:hover {
   background-color: #4f4f4f;
   color: #fff;
 }

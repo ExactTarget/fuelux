@@ -2994,7 +2994,7 @@
 					this.openFolder( $( ev.currentTarget ).parent() );
 				}, this ) );
 				this.$element.on( 'click.fu.tree', '.tree-branch-name', $.proxy( function( ev ) {
-					this.selectFolder( $( ev.currentTarget ).parent() );
+					this.selectFolder( $( ev.currentTarget ) );
 				}, this ) );
 			}
 
@@ -3020,13 +3020,13 @@
 					$.each( items.data, function( index, value ) {
 						var $entity;
 
-						if ( value.type === "folder" ) {
+						if ( value.type === 'folder' ) {
 							$entity = self.$element.find( '.tree-branch:eq(0)' ).clone().removeClass( 'hide' );
-							$entity.find( '.tree-branch-name label' ).html( value.name ).attr( 'for', value.dataAttributes.id );
-							$entity.find( '.tree-branch-header' ).data( value );
-						} else if ( value.type === "item" ) {
+							$entity.data( value );
+							$entity.find( '.tree-branch-name > .tree-label' ).html( value.name );
+						} else if ( value.type === 'item' ) {
 							$entity = self.$element.find( '.tree-item:eq(0)' ).clone().removeClass( 'hide' );
-							$entity.find( '.tree-item-name label' ).html( value.name );
+							$entity.find( '.tree-item-name > .tree-label' ).html( value.name );
 							$entity.data( value );
 						}
 
@@ -3042,7 +3042,8 @@
 						//     dataAttributes = {
 						//         'classes': 'required-item red-text',
 						//         'data-parent': parentId,
-						//         'guid': guid
+						//         'guid': guid,
+						//         'id': guid
 						//     }
 						// };
 
@@ -3061,10 +3062,12 @@
 									$entity.find( '.icon-item' ).removeClass().addClass( 'icon-item ' + value );
 									$entity.attr( key, value );
 									break;
-									// allow custom icons
+
+									// ARIA support
 								case 'id':
-									$entity.find( '.tree-item-name label' ).attr( 'for', value );
 									$entity.attr( key, value );
+									$entity.attr( 'aria-labelledby', value + '-label' );
+									$entity.find( '.tree-branch-name > .tree-label' ).attr( 'id', value + '-label' );
 									break;
 
 									// id, style, data-*
@@ -3126,14 +3129,14 @@
 
 				if ( data.length ) {
 					this.$element.trigger( 'selected', {
-						info: data
+						selected: data
 					} );
 				}
 
 				// Return new list of selected items, the item
 				// clicked, and the type of event:
 				$el.trigger( 'updated.fu.tree', {
-					info: data,
+					selected: data,
 					item: $el,
 					eventType: eventType
 				} );
@@ -3192,44 +3195,50 @@
 				this.$element.trigger( eventType, $el.data() );
 			},
 
-			selectFolder: function( el ) {
-				var $el = $( el );
-				var $branchName = $( el ).find( '.tree-branch-name' );
-				// currently selected
-				var $all = this.$element.find( '.tree-branch-name.tree-selected' );
-				var data = [];
+			selectFolder: function( clickedElement ) {
+				var $clickedElement = $( clickedElement );
+				var $clickedBranch = $clickedElement.closest( '.tree-branch' );
+				var $selectedBranch = this.$element.find( '.tree-branch.tree-selected' );
+				var selectedData = [];
 				var eventType = 'selected';
 
+				// select clicked item
+				if ( $clickedBranch.hasClass( 'tree-selected' ) ) {
+					eventType = 'unselected';
+					$clickedBranch.removeClass( 'tree-selected' );
+				} else {
+					$clickedBranch.addClass( 'tree-selected' );
+				}
+
 				if ( this.options.multiSelect ) {
-					$.each( $all, function( index, value ) {
-						var $val = $( value );
-						if ( $val[ 0 ] !== $el[ 0 ] ) {
-							data.push( $( value ).parent().find( '.tree-branch-header' ).data() );
+
+					// get currently selected
+					$selectedBranch = this.$element.find( '.tree-branch.tree-selected' );
+
+					$.each( $selectedBranch, function( index, value ) {
+						var $value = $( value );
+						if ( $value[ 0 ] !== $clickedElement[ 0 ] ) {
+							selectedData.push( $( value ).data() );
 						}
 					} );
-				} else if ( $all[ 0 ] !== $el[ 0 ] ) {
-					$all.removeClass( 'tree-selected' );
-					data.push( $el.parent().find( '.tree-branch-header' ).data() );
+
+				} else if ( $selectedBranch[ 0 ] !== $clickedElement[ 0 ] ) {
+					$selectedBranch.removeClass( 'tree-selected' );
+
+					selectedData.push( $clickedBranch.data() );
 				}
 
-				if ( $branchName.hasClass( 'tree-selected' ) ) {
-					eventType = 'unselected';
-					$branchName.removeClass( 'tree-selected' );
-				} else {
-					$branchName.addClass( 'tree-selected' );
-				}
-
-				if ( data.length ) {
+				if ( selectedData.length ) {
 					this.$element.trigger( 'selected.fu.tree', {
-						info: data
+						selected: selectedData
 					} );
 				}
 
 				// Return new list of selected items, the item
 				// clicked, and the type of event:
-				$el.trigger( 'updated.fu.tree', {
-					info: data,
-					item: $el,
+				$clickedElement.trigger( 'updated.fu.tree', {
+					selected: selectedData,
+					item: $clickedElement,
 					eventType: eventType
 				} );
 			},
@@ -3290,7 +3299,7 @@
 			dataSource: function( options, callback ) {},
 			multiSelect: false,
 			cacheItems: true,
-			folderSelect: false
+			folderSelect: true
 		};
 
 		$.fn.tree.Constructor = Tree;
