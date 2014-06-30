@@ -3144,7 +3144,7 @@
 
 			openFolder: function( el ) {
 				var $el = $( el ); // tree-branch-name
-				var $parent;
+				var $branch;
 				var $treeFolderContent;
 				var $treeFolderContentFirstChild;
 
@@ -3153,8 +3153,8 @@
 					$el = $( el ).parent(); // tree-branch, if tree-branch-name clicked
 				}
 
-				$parent = $el.parent(); // tree branch
-				$treeFolderContent = $parent.find( '.tree-branch-children' );
+				$branch = $el.closest( '.tree-branch' ); // tree branch
+				$treeFolderContent = $branch.find( '.tree-branch-children' );
 				$treeFolderContentFirstChild = $treeFolderContent.eq( 0 );
 
 				// manipulate branch/folder
@@ -3164,8 +3164,8 @@
 					classToTarget = '.glyphicon-folder-close';
 					classToAdd = 'glyphicon-folder-open';
 
-					$parent.addClass( 'tree-open' );
-					$parent.attr( 'aria-expanded', 'true' );
+					$branch.addClass( 'tree-open' );
+					$branch.attr( 'aria-expanded', 'true' );
 
 					$treeFolderContentFirstChild.removeClass( 'hide' );
 					if ( !$treeFolderContent.children().length ) {
@@ -3177,8 +3177,8 @@
 					classToTarget = '.glyphicon-folder-open';
 					classToAdd = 'glyphicon-folder-close';
 
-					$parent.removeClass( 'tree-open' );
-					$parent.attr( 'aria-expanded', 'false' );
+					$branch.removeClass( 'tree-open' );
+					$branch.attr( 'aria-expanded', 'false' );
 					$treeFolderContentFirstChild.addClass( 'hide' );
 
 					// remove if no cache
@@ -3188,11 +3188,11 @@
 
 				}
 
-				$parent.find( '.icon-folder' ).eq( 0 )
+				$branch.find( '> .tree-branch-header .icon-folder' ).eq( 0 )
 					.removeClass( 'glyphicon-folder-close glyphicon-folder-open' )
 					.addClass( classToAdd );
 
-				this.$element.trigger( eventType, $el.data() );
+				this.$element.trigger( eventType, $branch.data() );
 			},
 
 			selectFolder: function( clickedElement ) {

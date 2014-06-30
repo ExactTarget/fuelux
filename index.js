@@ -570,6 +570,24 @@ $('#MyPillboxTruncateReadOnly').pillbox({
 	});
 
 
+	$('#MyTreeDefault').on('selected.fu.tree', function (e, selected) {
+		console.log('Select Event: ', selected);
+		console.log($('#MyTree').tree('selectedItems'));
+	});
+
+	$('#MyTreeDefault').on('updated.fu.tree', function (e, selected) {
+		console.log('Updated Event: ', selected);
+		console.log($('#MyTree').tree('selectedItems'));
+	});
+
+	$('#MyTreeDefault').on('opened.fu.tree', function (e, info) {
+		console.log('Open Event: ', info);
+	});
+
+	$('#MyTreeDefault').on('closed.fu.tree', function (e, info) {
+		console.log('Close Event: ', info);
+	});
+
 
 	// WIZARD
 	$('#MyWizard').on('changed.fu.wizard', function(e, data) {
