@@ -69,7 +69,7 @@
 			var $stepContent = this.$element.find('.step-content');
 			var i, l, $pane, $startPane, $startStep, $step;
 
-			index = (index>(this.numSteps+1)) ? this.numSteps+1 : index;
+			index = (index===-1 || (index>(this.numSteps+1))) ? this.numSteps+1 : index;
 			if(items[0] instanceof Array){
 				items = items[0];
 			}
