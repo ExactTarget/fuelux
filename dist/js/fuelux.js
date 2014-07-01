@@ -3326,17 +3326,16 @@
 
 			constructor: Wizard,
 
-			//index is 1 based, remove is how many to remove after adding items
-			//third parameter can be array of objects [{ ... }, { ... }] or you can pass n additional objects as args
+			//index is 1 based
+			//second parameter can be array of objects [{ ... }, { ... }] or you can pass n additional objects as args
 			//object structure is as follows (all params are optional): { badge: '', label: '', pane: '' }
-			addSteps: function( index, remove ) {
-				var items = [].slice.call( arguments ).slice( 2 );
+			addSteps: function( index ) {
+				var items = [].slice.call( arguments ).slice( 1 );
 				var $steps = this.$element.find( '.steps' );
 				var $stepContent = this.$element.find( '.step-content' );
 				var i, l, $pane, $startPane, $startStep, $step;
 
-				remove = remove || 0;
-				index = ( index > ( this.numSteps + 1 ) ) ? this.numSteps + 1 : index;
+				index = ( index === -1 || ( index > ( this.numSteps + 1 ) ) ) ? this.numSteps + 1 : index;
 				if ( items[ 0 ] instanceof Array ) {
 					items = items[ 0 ];
 				}
@@ -3365,13 +3364,9 @@
 					index++;
 				}
 
-				if ( remove > 0 ) {
-					this.removeSteps( index, remove );
-				} else {
-					this.syncSteps();
-					this.numSteps = $steps.find( 'li' ).length;
-					this.setState();
-				}
+				this.syncSteps();
+				this.numSteps = $steps.find( 'li' ).length;
+				this.setState();
 			},
 
 			//index is 1 based, howMany is number to remove
