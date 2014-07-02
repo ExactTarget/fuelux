@@ -65,6 +65,9 @@
 .fuelux .fueluxicon-loader-8:before {
   content: "\e008";
 }
+.fuelux .fueluxicon-bullet:before {
+  content: "\e009";
+}
 .fuelux .checkbox {
   /* for keyboard tabbing */
 }
@@ -1293,46 +1296,92 @@ END
   overflow-x: auto;
   overflow-y: auto;
   position: relative;
+  list-style: none;
 }
-.fuelux .tree .tree-folder {
-  width: 100%;
-  min-height: 20px;
-  cursor: pointer;
-  margin-top: 1px;
+.fuelux .tree *:focus {
+  outline: none;
 }
-.fuelux .tree .tree-folder .tree-folder-header {
+.fuelux .tree button:focus {
+  color: #999999;
+}
+.fuelux .tree ul {
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+.fuelux .tree li {
+  margin: 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.fuelux .tree .tree-loader {
+  margin-left: 45px;
+}
+.fuelux .tree .tree-open > .tree-branch-header .glyphicon-play {
+  transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
   position: relative;
-  height: 20px;
+  left: -5px;
+}
+.fuelux .tree [data-children=false] > .tree-branch-header .icon-caret:before {
+  content: '\00a0';
+}
+.fuelux .tree .tree-branch .tree-branch-header {
+  position: relative;
   border-radius: 6px;
 }
-.fuelux .tree .tree-folder .tree-folder-header:hover {
-  background-color: #dfeef5;
+.fuelux .tree .tree-branch .tree-branch-header .tree-branch-name:hover {
+  color: #999999;
 }
-.fuelux .tree .tree-folder .tree-folder-header i:first-child {
-  float: left;
-  left: 5px;
+.fuelux .tree .tree-branch .tree-branch-header .glyphicon-play {
+  font-size: 10px;
+  padding-right: 5px;
 }
-.fuelux .tree .tree-folder .tree-folder-header .tree-folder-name {
-  padding-left: 29px;
+.fuelux .tree .tree-branch .tree-branch-header .glyphicon-play:before {
+  position: relative;
+  top: -2px;
+}
+.fuelux .tree .tree-branch .tree-branch-header .tree-branch-name {
   white-space: nowrap;
+  border-radius: 6px;
+  background-color: transparent;
+  border: 0;
 }
-.fuelux .tree .tree-folder .tree-folder-content {
-  margin-left: 23px;
+.fuelux .tree .tree-branch .tree-branch-header label {
+  font-weight: normal;
+  padding-left: 3px;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+.fuelux .tree .tree-branch .tree-branch-children {
+  margin-left: 14px;
 }
 .fuelux .tree .tree-item {
   position: relative;
-  width: 100%;
-  height: 20px;
   cursor: pointer;
-  margin-top: 1px;
   border-radius: 6px;
-}
-.fuelux .tree .tree-item:hover {
-  background-color: #dfeef5;
+  margin-left: 19px;
 }
 .fuelux .tree .tree-item .tree-item-name {
-  padding-left: 29px;
   white-space: nowrap;
+  border-radius: 6px;
+  background-color: transparent;
+  border: 0;
+}
+.fuelux .tree .tree-item .tree-item-name:hover {
+  color: #999999;
+}
+.fuelux .tree .tree-item.tree-selected .tree-item-name {
+  background-color: #4f4f4f;
+  color: #fff;
+}
+.fuelux .tree .tree-item label {
+  font-weight: normal;
+  padding-left: 7px;
+  margin-bottom: 0;
+  cursor: pointer;
 }
 .fuelux .tree .tree-item .tree-dot {
   position: absolute;
@@ -1344,68 +1393,32 @@ END
   background-color: #333333;
   border-radius: 6px;
 }
-.fuelux .tree .tree-item .glyphicon-ok {
-  left: 5px;
-  position: absolute;
-  top: 2px;
+.fuelux .tree .icon-caret:hover + .tree-branch-name {
+  color: #999999;
 }
-.fuelux .tree .tree-selected {
-  background-color: #b9dff1;
+.fuelux .tree.tree-folder-select .tree-branch .icon-caret {
+  background-color: transparent;
+  border: 0;
 }
-.fuelux .tree .tree-selected:hover {
-  background-color: #b9dff1;
+.fuelux .tree.tree-folder-select .tree-branch .icon-caret:hover {
+  cursor: pointer;
+  color: #999999;
 }
-.fuelux .tree.tree-folder-select .tree-folder {
-  clear: both;
-  margin-bottom: 1px;
-}
-.fuelux .tree.tree-folder-select .tree-folder .tree-folder-header {
-  float: left;
-  width: 45px;
-  padding-top: 1px;
-  margin-right: 5px;
-  height: 21px;
-}
-.fuelux .tree.tree-folder-select .tree-folder .tree-folder-header .tree-triangle-right {
-  margin-left: 8px;
-  margin-top: 5px;
-  width: 0px;
-  height: 0px;
-  border-style: solid;
-  border-width: 4px 0 4px 6px;
-  border-color: transparent transparent transparent #333333;
-}
-.fuelux .tree.tree-folder-select .tree-folder .tree-folder-header .tree-triangle-down {
-  margin-left: 6px;
-  margin-top: 6px;
-  width: 0px;
-  height: 0px;
-  border-style: solid;
-  border-width: 6px 4px 0 4px;
-  border-color: #333333 transparent transparent transparent;
-}
-.fuelux .tree.tree-folder-select .tree-folder .tree-folder-header i:last-child {
-  float: left;
-  left: 10px;
-}
-.fuelux .tree.tree-folder-select .tree-folder > .tree-folder-name {
-  float: left;
+.fuelux .tree.tree-folder-select .tree-branch > .tree-branch-name {
   padding: 1px 5px 0 5px;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
   border-radius: 6px;
 }
-.fuelux .tree.tree-folder-select .tree-folder > .tree-folder-name:hover {
-  background-color: #dfeef5;
+.fuelux .tree.tree-folder-select .tree-branch > .tree-branch-name.tree-selected {
+  background-color: #4f4f4f;
+  color: #fff;
 }
-.fuelux .tree.tree-folder-select .tree-folder > .tree-folder-name.tree-selected {
-  background-color: #b9dff1;
+.fuelux .tree.tree-folder-select .tree-branch.tree-selected > .tree-branch-header .tree-branch-name {
+  background-color: #4f4f4f;
+  color: #fff;
 }
-.fuelux .tree.tree-folder-select .tree-folder > .tree-folder-name.tree-selected:hover {
-  background-color: #b9dff1;
-}
-.fuelux .tree.tree-folder-select .tree-loader {
-  clear: both;
+.fuelux .tree.tree-folder-select .tree-branch.tree-selected > .tree-branch-header .tree-branch-name:hover {
+  background-color: #4f4f4f;
+  color: #fff;
 }
 .fuelux .wizard {
   *zoom: 1;
