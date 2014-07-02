@@ -54,18 +54,18 @@ define(function(require){
 		equal(index, 1, 'previous step is set');
 	});
 
-	test("should fire clicked event", function () {
+	test("should fire actionclicked event", function () {
 		var $wizard    = $(html).find('#MyWizard').wizard();
 		var eventFired = false;
 
-		$wizard.on('clicked.fu.wizard.action', function (evt, data) {
+		$wizard.on('actionclicked.fu.wizard', function (evt, data) {
 			eventFired = true;
 		});
 
 		// move to next step
 		$wizard.wizard('next');
 
-		equal(eventFired, true, 'clicked event fired');
+		equal(eventFired, true, 'actionclicked event fired');
 	});
 
 	test("should fire changed event", function () {
@@ -88,7 +88,7 @@ define(function(require){
 		var $wizard = $(html).find('#MyWizard').wizard();
 		var eventFired = false;
 
-		$wizard.on('clicked.fu.wizard.action', function (evt, data) {
+		$wizard.on('actionclicked.fu.wizard', function (evt, data) {
 			eventFired = true;
 			return evt.preventDefault(); // prevent action
 		});
@@ -97,7 +97,7 @@ define(function(require){
 		$wizard.wizard('next');
 		var index = $wizard.wizard('selectedItem').step;
 
-		equal(eventFired, true, 'clicked event fired');
+		equal(eventFired, true, 'actionclicked event fired');
 		equal(index, 1, 'step not changed');
 	});
 
@@ -105,7 +105,7 @@ define(function(require){
 		var $wizard = $(html).find('#MyWizard').wizard();
 		var eventFired = false;
 
-		$wizard.on('stepclick.fu.wizard', function (evt, data) {
+		$wizard.on('stepclicked.fu.wizard', function (evt, data) {
 			eventFired = true;
 			return evt.preventDefault(); // prevent action
 		});
@@ -216,15 +216,45 @@ define(function(require){
 		equal( wizardSetActiveStep, secondStep, 'can still programatically set previous step' );
 	});
 
-	/*
 	test("should manage step panes", function() {
-		var $wizard = $(html).wizard();
-		var $step = $wizard.find('#step1');
+		var $wizard = $(html).find('#MyWizard').wizard();
+		var $step = $wizard.find('.steps li:first');
 
-		equal($wizard.find('#step1').hasClass('active'), true, 'active class set');
+		equal($step.hasClass('active'), true, 'active class set');
 		$wizard.wizard('next');
-		equal($wizard.find('#step1').hasClass('active'), false, 'active class removed');
+		equal($step.hasClass('active'), false, 'active class removed');
 	});
-	*/
+
+	test('addSteps method should behave as expected', function(){
+		var $wizard = $(html).find('#MyWizard').wizard();
+		var $test;
+
+		$wizard.wizard('addSteps', -1, [{ label: 'Test0', pane: 'Test Pane Content 0' }]);
+		$test = $wizard.find('.steps li:last');
+		$test.find('span').remove();
+		equal($test.text(), 'Test0', 'item correctly added via array and negative index, has correct label');
+		equal($wizard.find('.step-content .step-pane:last').text(), 'Test Pane Content 0', 'pane content set correctly');
+
+		$wizard.wizard('addSteps', 2, { badge: 'T1', label: 'Test1', pane: 'Test Pane Content 1' }, { badge: 'T2', label: 'Test2', pane: 'Test Pane Content 2' });
+		$test = $wizard.find('.steps li:nth-child(2)');
+		equal($test.find('.badge').text(), 'T1', 'item correctly added at index via arguments, has correct badge');
+		$test = $test.next();
+		equal($test.find('.badge').text(), 'T2', 'multiple items added correctly via arguments');
+		equal($wizard.find('.step-content .step-pane:nth-child(2)').text(), 'Test Pane Content 1', 'pane content set correctly');
+		equal($wizard.find('.step-content .step-pane:nth-child(3)').text(), 'Test Pane Content 2', 'pane content set correctly');
+	});
+
+	test('removeSteps method should behave as expected', function(){
+		var $wizard = $(html).find('#MyWizard').wizard();
+		var $test;
+
+		$wizard.wizard('removeSteps', 2, 1);
+		$test = $wizard.find('.steps li:nth-child(2)');
+		$test.find('span').remove();
+		equal($test.text(), 'Template', 'one step was removed at correct index');
+
+		$wizard.wizard('removeSteps', 1, 3);
+		equal($wizard.find('.steps li').length, 1, 'multiple items were removed correctly');
+	});
 
 });
