@@ -487,7 +487,7 @@ $('#MyPillboxTruncateReadOnly').pillbox({
 
 	// TREE
 
-	$('#MyTree').on('loaded', function (e) {
+	$('#MyTree').on('loaded.fu.tree', function (e) {
 		console.log('Loaded');
 	});
 
@@ -495,28 +495,38 @@ $('#MyPillboxTruncateReadOnly').pillbox({
 		dataSource: function(options, callback){
 			setTimeout(function () {
 				callback({ data: [
-					{ name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } },
-					{ name: 'Test Item 1', type: 'item', additionalParameters: { id: 'I1' } },
-					{ name: 'Test Folder 2', type: 'folder', additionalParameters: { id: 'F2' } },
-					{ name: 'Test Item 2', type: 'item', additionalParameters: { id: 'I2' } }
+					{ name: 'Ascending and Descending', type: 'folder', dataAttributes: { id: 'folder1' } },
+					{ name: 'Sky and Water I (with custom icon)', type: 'item', dataAttributes: { id: 'item1', 'data-icon': 'glyphicon glyphicon-file' } },
+					{ name: 'Drawing Hands', type: 'folder', dataAttributes: { id: 'folder2' } },
+					{ name: 'Waterfall', type: 'item', dataAttributes: { id: 'item2' } },
+					{ name: 'Belvedere', type: 'folder', dataAttributes: { id: 'folder3' } },
+					{ name: 'Relativity (with custom icon)', type: 'item', dataAttributes: { id: 'item3', 'data-icon': 'glyphicon glyphicon-picture' } },
+					{ name: 'House of Stairs', type: 'folder', dataAttributes: { id: 'folder4' } },
+					{ name: 'Convex and Concave', type: 'item', dataAttributes: { id: 'item4' } }
 				]});
 
 			}, 400);
 		},
-		loadingHTML: '<div class="static-loader">Loading...</div>',
 		multiSelect: true,
-		cacheItems: true
+		cacheItems: true,
+		folderSelect: false,
 	});
 
-	$('#MyTree').on('selected', function (e, info) {
-		console.log('Select Event: ', info);
+	$('#MyTree').on('selected.fu.tree', function (e, selected) {
+		console.log('Select Event: ', selected);
+		console.log($('#MyTree').tree('selectedItems'));
 	});
 
-	$('#MyTree').on('opened', function (e, info) {
+	$('#MyTree').on('updated.fu.tree', function (e, selected) {
+		console.log('Updated Event: ', selected);
+		console.log($('#MyTree').tree('selectedItems'));
+	});
+
+	$('#MyTree').on('opened.fu.tree', function (e, info) {
 		console.log('Open Event: ', info);
 	});
 
-	$('#MyTree').on('closed', function (e, info) {
+	$('#MyTree').on('closed.fu.tree', function (e, info) {
 		console.log('Close Event: ', info);
 	});
 
@@ -524,21 +534,59 @@ $('#MyPillboxTruncateReadOnly').pillbox({
 		dataSource: function(options, callback){
 			setTimeout(function () {
 				callback({ data: [
-					{ name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } },
-					{ name: 'Test Folder 2', type: 'folder', additionalParameters: { id: 'F2' } },
-					{ name: 'Test Folder 3', type: 'folder', additionalParameters: { id: 'F3' } }
+					{ name: 'Ascending and Descending', type: 'folder', dataAttributes: { id: 'F1' } },
+					{ name: 'Drawing Hands', type: 'folder', dataAttributes: { id: 'F2' } },
+					{ name: 'Belvedere', type: 'folder', dataAttributes: { id: 'F3' } },
+					{ name: 'House of Stairs', type: 'folder', dataAttributes: { id: 'F4' } },
+					{ name: 'Belvedere', type: 'folder', dataAttributes: { id: 'F5' } }
 				]});
 			}, 400);
 		},
-		loadingHTML: '<div class="static-loader">Loading...</div>',
-		multiSelect: false,
-		cacheItems: true
+		cacheItems: true,
+		folderSelect: true,
+		multiSelect: true
 	});
 
-	$('#MyTreeSelectableFolder').on('selected', function (e, info) {
+	$('#MyTreeDefault').tree({
+		dataSource: function(options, callback){
+			setTimeout(function () {
+				callback({ data: [
+					{ name: 'Ascending and Descending', type: 'folder', dataAttributes: { id: 'F1' } },
+					{ name: 'Drawing Hands', type: 'folder', dataAttributes: { id: 'F2' } },
+					{ name: 'Belvedere', type: 'folder', dataAttributes: { id: 'F3' } },
+					{ name: 'House of Stairs', type: 'folder', dataAttributes: { id: 'F4' } },
+					{ name: 'Belvedere', type: 'folder', dataAttributes: { id: 'F5' } }
+				]});
+			}, 400);
+		}
+	});
+
+	$('#MyTree').on('selected.fu.tree', function (e, info) {
 		console.log('Select Event: ', info);
 	});
 
+	$('#MyTreeSelectableFolder').on('selected.fu.tree', function (e, info) {
+		console.log('Select Event: ', info);
+	});
+
+
+	$('#MyTreeDefault').on('selected.fu.tree', function (e, selected) {
+		console.log('Select Event: ', selected);
+		console.log($('#MyTree').tree('selectedItems'));
+	});
+
+	$('#MyTreeDefault').on('updated.fu.tree', function (e, selected) {
+		console.log('Updated Event: ', selected);
+		console.log($('#MyTree').tree('selectedItems'));
+	});
+
+	$('#MyTreeDefault').on('opened.fu.tree', function (e, info) {
+		console.log('Open Event: ', info);
+	});
+
+	$('#MyTreeDefault').on('closed.fu.tree', function (e, info) {
+		console.log('Close Event: ', info);
+	});
 
 
 	// WIZARD
