@@ -244,7 +244,7 @@
 			}
 
 			if( canMovePrev ) {
-				var evt = $.Event('stepclick.fu.wizard');
+				var evt = $.Event('stepclicked.fu.wizard');
 				this.$element.trigger(evt, {step: index + 1});
 				if (evt.isDefaultPrevented()) { return; }
 
@@ -278,7 +278,7 @@
 				canMovePrev = false;
 			}
 			if (canMovePrev) {
-				var e = $.Event('clicked.fu.wizard.action');
+				var e = $.Event('actionclicked.fu.wizard');
 				this.$element.trigger(e, {step: this.currentStep, direction: 'previous'});
 				if (e.isDefaultPrevented()) { return; } // don't increment
 
@@ -301,7 +301,7 @@
 			var lastStep = (this.currentStep === this.numSteps);
 
 			if (canMoveNext) {
-				var e = $.Event('clicked.fu.wizard.action');
+				var e = $.Event('actionclicked.fu.wizard');
 				this.$element.trigger(e, {step: this.currentStep, direction: 'next'});
 				if (e.isDefaultPrevented()) { return; }	// don't increment
 

@@ -3511,7 +3511,7 @@
 				}
 
 				if ( canMovePrev ) {
-					var evt = $.Event( 'stepclick.fu.wizard' );
+					var evt = $.Event( 'stepclicked.fu.wizard' );
 					this.$element.trigger( evt, {
 						step: index + 1
 					} );
@@ -3549,7 +3549,7 @@
 					canMovePrev = false;
 				}
 				if ( canMovePrev ) {
-					var e = $.Event( 'clicked.fu.wizard.action' );
+					var e = $.Event( 'actionclicked.fu.wizard' );
 					this.$element.trigger( e, {
 						step: this.currentStep,
 						direction: 'previous'
@@ -3576,7 +3576,7 @@
 				var lastStep = ( this.currentStep === this.numSteps );
 
 				if ( canMoveNext ) {
-					var e = $.Event( 'clicked.fu.wizard.action' );
+					var e = $.Event( 'actionclicked.fu.wizard' );
 					this.$element.trigger( e, {
 						step: this.currentStep,
 						direction: 'next'

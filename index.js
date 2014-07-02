@@ -547,7 +547,7 @@ $('#MyPillboxTruncateReadOnly').pillbox({
 		console.log(data);
 	});
 
-	$('#MyWizard').on('clicked.fu.wizard.action', function(e, data) {
+	$('#MyWizard').on('actionclicked.fu.wizard', function(e, data) {
 		console.log('action clicked');
 		console.log(data);
 	});
@@ -604,7 +604,7 @@ $('#MyPillboxTruncateReadOnly').pillbox({
 	$('#btnWizardRemoveStep').on('click', function() {
 		$('#MyWizard').wizard('removeSteps', 4, 1);
 	});
-	$('#MyWizard').on('stepclick', function(e, data) {
+	$('#MyWizard').on('stepclicked.fu.wizard', function(e, data) {
 		console.log('step ' + data.step + ' clicked');
 		if(data.step===1) {
 			// return e.preventDefault();
