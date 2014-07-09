@@ -1221,46 +1221,46 @@
 					'</div>' +
 					'<div class="daysView" style="' + self._show( self.options.showDays ) + '">' +
 
-					self._repeat( '<div class="weekdays">', self.options.weekdays,
-						function( weekday ) {
-							return '<div>' + weekday + '</div>';
-						}, '</div>' ) +
+				self._repeat( '<div class="weekdays">', self.options.weekdays,
+					function( weekday ) {
+						return '<div>' + weekday + '</div>';
+					}, '</div>' ) +
 
-					self._repeat( '<div class="lastmonth">', self.daysOfLastMonth,
-						function( day ) {
-							if ( self.options.restrictLastMonth ) {
-								day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
-							}
-							return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
-						}, '</div>' ) +
+				self._repeat( '<div class="lastmonth">', self.daysOfLastMonth,
+					function( day ) {
+						if ( self.options.restrictLastMonth ) {
+							day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
+						}
+						return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
+					}, '</div>' ) +
 
-					self._repeat( '<div class="thismonth">', self.daysOfThisMonth,
-						function( day ) {
-							return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
-						}, '</div>' ) +
+				self._repeat( '<div class="thismonth">', self.daysOfThisMonth,
+					function( day ) {
+						return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
+					}, '</div>' ) +
 
-					self._repeat( '<div class="nextmonth">', self.daysOfNextMonth,
-						function( day ) {
-							if ( self.options.restrictNextMonth ) {
-								day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
-							}
-							return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
-						}, '</div>' ) +
+				self._repeat( '<div class="nextmonth">', self.daysOfNextMonth,
+					function( day ) {
+						if ( self.options.restrictNextMonth ) {
+							day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
+						}
+						return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
+					}, '</div>' ) +
 					'</div>' +
 
-					self._repeat( '<div class="monthsView" style="' + self._show( self.options.showMonths ) + '">', self.months,
-						function( month ) {
-							return '<button data-month-number="' + month.number +
-								'" class="' + month[ 'class' ] + '">' + month.abbreviation + '</button>';
-						}, '</div>' ) +
+				self._repeat( '<div class="monthsView" style="' + self._show( self.options.showMonths ) + '">', self.months,
+					function( month ) {
+						return '<button data-month-number="' + month.number +
+							'" class="' + month[ 'class' ] + '">' + month.abbreviation + '</button>';
+					}, '</div>' ) +
 
-					self._repeat( '<div class="yearsView" style="' + self._show( self.options.showYears ) + '">', self.years,
-						function( year ) {
-							return '<button data-year-number="' + year.number +
-								'" class="' + year[ 'class' ] + '">' + year.number + '</button>';
-						}, '</div>' ) +
+				self._repeat( '<div class="yearsView" style="' + self._show( self.options.showYears ) + '">', self.years,
+					function( year ) {
+						return '<button data-year-number="' + year.number +
+							'" class="' + year[ 'class' ] + '">' + year.number + '</button>';
+					}, '</div>' ) +
 
-					'<div class="footer">' +
+				'<div class="footer">' +
 					'<div class="center hover">Today</div>' +
 					'</div>' +
 					'</div>';
@@ -1326,7 +1326,7 @@
 					triggerError = false; // don't want to trigger an error because they don't have the correct length
 				}
 
-				if ( !!triggerError ) {
+				if ( !! triggerError ) {
 					// we will insert the staged date into the input
 					this._setNullDate( true );
 					this.$element.trigger( 'inputParsingFailed.fu.datepicker' );
@@ -1557,7 +1557,7 @@
 			measurements.containerHeight = $container.overflowElement.outerHeight();
 
 			// this needs to be different if the window is the container or another element is
-			measurements.containerOffsetTop = ( !!$container.isWindow ) ? $container.overflowElement.scrollTop() : $container.overflowElement.offset().top;
+			measurements.containerOffsetTop = ( !! $container.isWindow ) ? $container.overflowElement.scrollTop() : $container.overflowElement.offset().top;
 
 			// doing the calculations
 			measurements.fromTop = measurements.parentOffsetTop - measurements.containerOffsetTop;
@@ -2031,7 +2031,7 @@
 				$radio = $radio || this.$radio;
 
 				var checked = $radio.is( ':checked' );
-				var disabled = !!$radio.prop( 'disabled' );
+				var disabled = !! $radio.prop( 'disabled' );
 
 				this.$label.removeClass( 'checked' );
 				if ( this.$parent ) {
@@ -4584,7 +4584,7 @@
 			this.$pages = this.$element.find( '.repeater-pages' );
 			this.$prevBtn = this.$element.find( '.repeater-prev' );
 			this.$primaryPaging = this.$element.find( '.repeater-primaryPaging' );
-			this.$search = this.$element.find( '.repeater-search' );
+			this.$search = this.$element.find( '.repeater-search' ).find( '.search' );
 			this.$secondaryPaging = this.$element.find( '.repeater-secondaryPaging' );
 			this.$start = this.$element.find( '.repeater-start' );
 			this.$viewport = this.$element.find( '.repeater-viewport' );
@@ -4602,6 +4602,11 @@
 			this.pageIncrement = 0; // store direction navigated
 			this.resizeTimeout = {};
 			this.staticHeight = ( this.options.staticHeight === -1 ) ? this.$element.attr( 'data-staticheight' ) : this.options.staticHeight;
+
+			this.$filters.selectlist();
+			this.$pageSize.selectlist();
+			this.$primaryPaging.find( '.combobox' ).combobox();
+			this.$search.search();
 
 			this.$filters.on( 'changed.fu.selectlist', $.proxy( this.render, this, {
 				clearInfinite: true,
@@ -5778,7 +5783,6 @@
 			this.$startTime = this.$element.find( '.start-datetime .start-time' );
 
 			this.$timeZone = this.$element.find( '.timezone-container .timezone' );
-			this.$timeZone.selectlist();
 
 			this.$repeatIntervalPanel = this.$element.find( '.repeat-every-panel' );
 			this.$repeatIntervalSelect = this.$element.find( '.repeat-options' );
@@ -5795,8 +5799,7 @@
 			this.$recurrencePanels = this.$element.find( '.repeat-panel' );
 
 			//initialize sub-controls
-			this.$repeatIntervalSelect.on( 'changed.fu.selectlist', $.proxy( this.repeatIntervalSelectChanged, this ) );
-			this.$endSelect.on( 'changed.fu.selectlist', $.proxy( this.endSelectChanged, this ) );
+			this.$element.find( '.selectlist' ).selectlist();
 			this.$startDate.datepicker();
 			this.$startTime.combobox();
 			// init start time
@@ -5812,6 +5815,8 @@
 			this.$endDate.datepicker();
 
 			// bind events: 'change' is a Bootstrap JS fired event
+			this.$repeatIntervalSelect.on( 'changed.fu.selectlist', $.proxy( this.repeatIntervalSelectChanged, this ) );
+			this.$endSelect.on( 'changed.fu.selectlist', $.proxy( this.endSelectChanged, this ) );
 			this.$element.find( '.repeat-days-of-the-week .btn-group .btn' ).on( 'change.fu.scheduler', function( e, data ) {
 				self.changed( e, data, true );
 			} );
