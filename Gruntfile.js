@@ -80,7 +80,7 @@ module.exports = function (grunt) {
 						'// For more information on UMD visit: https://github.com/umdjs/umd/' + '\n' +
 						'(function (factory) {' + '\n' +
 							'\tif (typeof define === \'function\' && define.amd) {' + '\n' +
-								'\t\tdefine([\'jquery\'], factory);' + '\n' +
+								'\t\tdefine([\'jquery\', \'bootstrap\'], factory);' + '\n' +
 							'\t} else {' + '\n' +
 								'\t\tfactory(jQuery);' + '\n' +
 							'\t}' + '\n' +
