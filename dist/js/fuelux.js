@@ -8,7 +8,7 @@
 // For more information on UMD visit: https://github.com/umdjs/umd/
 ( function( factory ) {
 	if ( typeof define === 'function' && define.amd ) {
-		define( [ 'jquery' ], factory );
+		define( [ 'jquery', 'bootstrap' ], factory );
 	} else {
 		factory( jQuery );
 	}
