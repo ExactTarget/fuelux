@@ -55,7 +55,7 @@ Be sure to add the fuelux stylesheet to your page's head tag, along with the res
 
 ### AMD
 
-If using AMD (such as [RequireJS](http://require.js.org)) reference the fuelux directory in your paths configuration, wherever it is located:
+If using AMD (such as [RequireJS](http://requirejs.org)) reference the fuelux directory in your paths configuration, wherever it is located:
 ```javascript
 require.config({
     paths: {
