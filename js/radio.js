@@ -187,10 +187,18 @@
 	};
 
 
-	// SET RADIO DEFAULT VALUE ON DOMCONTENTLOADED
+	// DATA-API
 
+	$(document).on('mouseover.fu.checkbox.data-api', '[data-initialize=radio]', function (e) {
+		var $control = $(e.target).closest('.radio').find('[type=radio]');
+		if ( !$control.data('radio') ) {
+			$control.radio($control.data());
+		}
+	});
+
+	// Must be domReady for AMD compatibility
 	$(function () {
-		$('.radio-custom > input[type=radio]').each(function () {
+		$('[data-initialize=radio] [type=radio]').each(function () {
 			var $this = $(this);
 			if ($this.data('radio')) return;
 			$this.radio($this.data());

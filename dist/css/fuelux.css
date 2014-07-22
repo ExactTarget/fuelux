@@ -65,6 +65,9 @@
 .fuelux .fueluxicon-loader-8:before {
   content: "\e008";
 }
+.fuelux .fueluxicon-bullet:before {
+  content: "\e009";
+}
 .fuelux .checkbox {
   /* for keyboard tabbing */
 }
@@ -98,10 +101,10 @@
   content: " ";
   font-size: 9px;
   height: 14px;
-  left: -20px;
+  left: 0px;
   padding: 1px 0 0 1px;
   position: absolute;
-  top: 1px;
+  top: 3px;
   width: 14px;
 }
 .fuelux .checkbox-custom.checked:before {
@@ -109,7 +112,11 @@
   border-color: #39b3d7;
   content: "\e013";
 }
+.fuelux .checkbox-custom.disabled {
+  cursor: not-allowed;
+}
 .fuelux .checkbox-custom.disabled:before {
+  cursor: not-allowed;
   opacity: .5;
 }
 .fuelux .checkbox-custom.checkbox-inline:before {
@@ -130,6 +137,9 @@
 .fuelux .checkbox-custom input[type="checkbox"]:focus + .checkbox-label {
   color: #999999;
 }
+.fuelux .combobox.disabled .input-group-btn {
+  cursor: not-allowed;
+}
 .fuelux .datepicker .input-append,
 .fuelux .datepicker .input-group {
   margin-bottom: 1px;
@@ -138,8 +148,11 @@
 .fuelux .datepicker .input-group button {
   outline: none;
 }
+.fuelux .datepicker.disabled .input-group-btn {
+  cursor: not-allowed;
+}
 .fuelux .datepicker .calendar {
-  float: left;
+  display: inline-block;
   background: #ffffff;
   background-color: #ffffff;
   border: 1px solid #ccc;
@@ -147,15 +160,23 @@
   *border-right-width: 2px;
   *border-bottom-width: 2px;
   border-radius: 6px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding;
   background-clip: padding-box;
+}
+.fuelux .datepicker .calendar button {
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}
+.fuelux .datepicker .calendar button:focus {
+  background: #dfeef5 !important;
 }
 .fuelux .datepicker .calendar .header {
   height: 24px;
 }
 .fuelux .datepicker .calendar .header .left {
+  border: none;
   float: left;
   height: 24px;
   padding-top: 2px;
@@ -166,6 +187,7 @@
   border-bottom-right-radius: 6px;
 }
 .fuelux .datepicker .calendar .header .left .leftArrow {
+  display: block;
   margin-top: 5px;
   margin-bottom: 5px;
   width: 7px;
@@ -183,6 +205,7 @@
   border-left: 3px solid #cccccc;
 }
 .fuelux .datepicker .calendar .header .right {
+  border: none;
   float: right;
   height: 24px;
   padding-top: 2px;
@@ -193,6 +216,7 @@
   border-bottom-left-radius: 6px;
 }
 .fuelux .datepicker .calendar .header .right .rightArrow {
+  display: block;
   margin-top: 5px;
   margin-bottom: 5px;
   width: 7px;
@@ -244,8 +268,8 @@
   -ms-user-select: none;
   user-select: none;
 }
-.fuelux .datepicker .calendar .monthsView div,
-.fuelux .datepicker .calendar .yearsView div {
+.fuelux .datepicker .calendar .monthsView button,
+.fuelux .datepicker .calendar .yearsView button {
   font-size: 17px;
   float: left;
 }
@@ -258,10 +282,15 @@
 .fuelux .datepicker .calendar .daysView {
   overflow: hidden;
 }
-.fuelux .datepicker .calendar .daysView div div {
+.fuelux .datepicker .calendar .daysView div button {
+  display: block;
   float: left;
 }
+.fuelux .datepicker .calendar .daysView div button:focus {
+  background: #dfeef5 !important;
+}
 .fuelux .datepicker .calendar .weekdays div {
+  float: left;
   color: #666;
   font-weight: bold;
   box-sizing: border-box;
@@ -270,24 +299,26 @@
   -webkit-box-sizing: border-box;
   border-bottom: 1px solid #777;
 }
-.fuelux .datepicker .calendar .lastmonth div,
-.fuelux .datepicker .calendar .thismonth div,
-.fuelux .datepicker .calendar .nextmonth div,
-.fuelux .datepicker .calendar .monthsView div,
-.fuelux .datepicker .calendar .yearsView div {
+.fuelux .datepicker .calendar .lastmonth button,
+.fuelux .datepicker .calendar .thismonth button,
+.fuelux .datepicker .calendar .nextmonth button,
+.fuelux .datepicker .calendar .monthsView button,
+.fuelux .datepicker .calendar .yearsView button {
+  display: block;
   border: 1px solid #ffffff;
 }
-.fuelux .datepicker .calendar .lastmonth div:not(.restrict):hover,
-.fuelux .datepicker .calendar .thismonth div:not(.restrict):hover,
-.fuelux .datepicker .calendar .nextmonth div:not(.restrict):hover,
-.fuelux .datepicker .calendar .monthsView div:not(.restrict):hover,
-.fuelux .datepicker .calendar .yearsView div:not(.restrict):hover {
+.fuelux .datepicker .calendar .lastmonth button:not(.restrict):hover,
+.fuelux .datepicker .calendar .thismonth button:not(.restrict):hover,
+.fuelux .datepicker .calendar .nextmonth button:not(.restrict):hover,
+.fuelux .datepicker .calendar .monthsView button:not(.restrict):hover,
+.fuelux .datepicker .calendar .yearsView button:not(.restrict):hover {
   background-color: #dfeef5;
   border: 1px solid #98D2EE;
   cursor: pointer;
 }
-.fuelux .datepicker .calendar .lastmonth div,
-.fuelux .datepicker .calendar .nextmonth div {
+.fuelux .datepicker .calendar .lastmonth button,
+.fuelux .datepicker .calendar .nextmonth button {
+  display: block;
   color: #a3a4a4;
   background-color: #eeeeee;
   border: 1px solid #eeeeee;
@@ -442,8 +473,47 @@
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
   cursor: auto;
 }
+.fuelux [data-toggle="buttons"] > .btn > input[type="radio"],
+.fuelux [data-toggle="buttons"] > .btn > input[type="checkbox"] {
+  display: inline;
+  position: absolute;
+  left: -9999px;
+}
 .fuelux .pillbox {
+  border: 1px solid #BBBBBB;
+  border-radius: 4px;
+  cursor: text;
   padding: 3px;
+}
+.fuelux .pillbox[data-readonly] {
+  border: 1px solid transparent;
+}
+.fuelux .pillbox[data-readonly].truncate .pillbox-input-wrap {
+  display: inline-block;
+}
+.fuelux .pillbox[data-readonly].truncate .pillbox-input-wrap.truncated {
+  display: none;
+}
+.fuelux .pillbox[data-readonly].truncate .pillbox-more {
+  display: inline;
+}
+.fuelux .pillbox[data-readonly] .pill span.glyphicon-close {
+  display: none;
+}
+.fuelux .pillbox[data-readonly] .pillbox-add-item {
+  display: none;
+}
+.fuelux .pillbox[data-readonly] .pillbox-input-wrap {
+  display: none;
+}
+.fuelux .pillbox[data-readonly] .pillbox-input-wrap button.dropdown-toggle {
+  display: none;
+}
+.fuelux .pillbox.pills-editable .pill-group .pill span {
+  cursor: text;
+}
+.fuelux .pillbox.pills-editable .pill-group .pill span.glyphicon-close {
+  cursor: pointer;
 }
 .fuelux .pillbox > .pill-group {
   margin: 0;
@@ -452,12 +522,15 @@
 }
 .fuelux .pillbox > .pill-group > .pill {
   margin: 2px;
-  cursor: text;
+  cursor: default;
   float: left;
   word-break: break-all;
 }
 .fuelux .pillbox > .pill-group > .pill.pillbox-highlight {
   outline: 1px dotted #999999;
+}
+.fuelux .pillbox > .pill-group > .pill.truncated {
+  display: none;
 }
 .fuelux .pillbox > .pill-group > .pill .pillbox-list-edit {
   border: none;
@@ -485,6 +558,16 @@
   margin: 4px 0 3px 3px;
   float: left;
 }
+.fuelux .pillbox .pillbox-input-wrap.editing {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 2px 0 3px 3px;
+}
+.fuelux .pillbox .pillbox-input-wrap.editing input.pillbox-add-item {
+  border-radius: 4px;
+  color: #333;
+  height: 32px;
+}
 .fuelux .pillbox .pillbox-add-item {
   border: none;
   box-shadow: none;
@@ -492,6 +575,11 @@
 .fuelux .pillbox .pillbox-add-item:focus {
   outline: none;
   border: none;
+}
+.fuelux .pillbox .pillbox-more {
+  cursor: pointer;
+  display: none;
+  line-height: 30px;
 }
 .fuelux .pillbox .suggest {
   max-height: 166px;
@@ -627,9 +715,9 @@
   border-radius: 8px;
   content: " ";
   height: 8px;
-  left: -17px;
+  left: 3px;
   position: absolute;
-  top: 4px;
+  top: 6px;
   width: 8px;
 }
 .fuelux .radio-custom:before {
@@ -637,9 +725,9 @@
   border-radius: 14px;
   content: " ";
   height: 14px;
-  left: -20px;
+  left: 0px;
   position: absolute;
-  top: 1px;
+  top: 3px;
   width: 14px;
 }
 .fuelux .radio-custom.checked:after {
@@ -649,7 +737,14 @@
   background: #39b3d7;
   border-color: #39b3d7;
 }
+.fuelux .radio-custom.disabled {
+  cursor: not-allowed;
+}
+.fuelux .radio-custom.disabled:after {
+  cursor: not-allowed;
+}
 .fuelux .radio-custom.disabled:before {
+  cursor: not-allowed;
   opacity: .5;
 }
 .fuelux .radio-custom.radio-inline:after {
@@ -886,7 +981,7 @@
   overflow-y: auto;
 }
 .fuelux .repeater-thumbnail {
-  border: 1px solid #aaa;
+  border: 1px solid #ddd;
   color: #666;
   float: left;
   font-size: 12px;
@@ -895,8 +990,8 @@
   margin: 10px 12px;
   text-align: center;
   width: 100px;
-  -webkit-box-shadow: 0 2px 6px 0 #AAAAAA;
-  box-shadow: 0 2px 6px 0 #AAAAAA;
+  -webkit-box-shadow: 0 1px 4px 0 #ddd;
+  box-shadow: 0 1px 4px 0 #ddd;
 }
 .fuelux .repeater-thumbnail img {
   display: block;
@@ -914,23 +1009,20 @@
   text-align: center;
 }
 .fuelux .spinbox {
-  *zoom: 1;
+  display: inline-block;
+  position: relative;
 }
-.fuelux .spinbox:before,
-.fuelux .spinbox:after {
-  display: table;
-  content: "";
-  line-height: 0;
+.fuelux .spinbox.digits-3 {
+  width: 60px;
 }
-.fuelux .spinbox:after {
-  clear: both;
+.fuelux .spinbox.disabled .spinbox-buttons {
+  cursor: not-allowed;
 }
 .fuelux .spinbox .spinbox-input {
-  width: 60px;
   float: left;
   padding-bottom: 3px;
   /* Magic number */
-  padding: 0px 7px;
+  padding: 0px 25px 0px 7px;
 }
 .fuelux .spinbox .btn {
   position: relative;
@@ -944,11 +1036,10 @@
   cursor: not-allowed;
 }
 .fuelux .spinbox .spinbox-buttons {
-  position: relative;
-  float: left;
+  position: absolute;
   height: 28px;
   width: 20px;
-  left: -22px;
+  right: 2px;
 }
 .fuelux .spinbox .spinbox-up {
   padding: 0 0 14px 1px;
@@ -958,10 +1049,14 @@
   position: relative;
   top: 0px;
 }
+.fuelux .spinbox .btn-group > .btn.spinbox-up {
+  border-top-right-radius: 4px;
+}
 .fuelux .spinbox .spinbox-down {
   padding: 0 0 8px 1px;
   top: 2px;
   height: 15px;
+  border-bottom-left-radius: 4px;
 }
 .fuelux .spinbox .spinbox-down .glyphicon-chevron-down {
   position: relative;
@@ -1061,7 +1156,7 @@ END
 }
 .fuelux .scheduler .repeat-interval .repeat-every-panel .spinbox {
   float: left;
-  margin-right: 0;
+  margin-right: 10px;
 }
 .fuelux .scheduler .repeat-interval .repeat-every-panel .spinbox input {
   margin-bottom: 0;
@@ -1166,9 +1261,16 @@ END
 .fuelux .scheduler .repeat-end .end-after {
   float: left;
   display: inline-block;
+  margin-right: 10px;
 }
 .fuelux .scheduler .repeat-end .form-group {
   margin-left: 0;
+}
+.fuelux .search.disabled .input-group-btn {
+  cursor: not-allowed;
+}
+.fuelux .selectlist.disabled {
+  cursor: not-allowed;
 }
 .fuelux .selectlist-sizer {
   display: inline-block;
@@ -1178,6 +1280,7 @@ END
 }
 .fuelux .selectlist .selected-label {
   overflow: hidden;
+  min-width: 2em;
 }
 .fuelux .selectlist .btn.dropdown-toggle {
   white-space: normal;
@@ -1193,46 +1296,92 @@ END
   overflow-x: auto;
   overflow-y: auto;
   position: relative;
+  list-style: none;
 }
-.fuelux .tree .tree-folder {
-  width: 100%;
-  min-height: 20px;
-  cursor: pointer;
-  margin-top: 1px;
+.fuelux .tree *:focus {
+  outline: none;
 }
-.fuelux .tree .tree-folder .tree-folder-header {
+.fuelux .tree button:focus {
+  color: #999999;
+}
+.fuelux .tree ul {
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+.fuelux .tree li {
+  margin: 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.fuelux .tree .tree-loader {
+  margin-left: 45px;
+}
+.fuelux .tree .tree-open > .tree-branch-header .glyphicon-play {
+  transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
   position: relative;
-  height: 20px;
+  left: -5px;
+}
+.fuelux .tree [data-children=false] > .tree-branch-header .icon-caret:before {
+  content: '\00a0';
+}
+.fuelux .tree .tree-branch .tree-branch-header {
+  position: relative;
   border-radius: 6px;
 }
-.fuelux .tree .tree-folder .tree-folder-header:hover {
-  background-color: #dfeef5;
+.fuelux .tree .tree-branch .tree-branch-header .tree-branch-name:hover {
+  color: #999999;
 }
-.fuelux .tree .tree-folder .tree-folder-header i:first-child {
-  float: left;
-  left: 5px;
+.fuelux .tree .tree-branch .tree-branch-header .glyphicon-play {
+  font-size: 10px;
+  padding-right: 5px;
 }
-.fuelux .tree .tree-folder .tree-folder-header .tree-folder-name {
-  padding-left: 29px;
+.fuelux .tree .tree-branch .tree-branch-header .glyphicon-play:before {
+  position: relative;
+  top: -2px;
+}
+.fuelux .tree .tree-branch .tree-branch-header .tree-branch-name {
   white-space: nowrap;
+  border-radius: 6px;
+  background-color: transparent;
+  border: 0;
 }
-.fuelux .tree .tree-folder .tree-folder-content {
-  margin-left: 23px;
+.fuelux .tree .tree-branch .tree-branch-header label {
+  font-weight: normal;
+  padding-left: 3px;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+.fuelux .tree .tree-branch .tree-branch-children {
+  margin-left: 14px;
 }
 .fuelux .tree .tree-item {
   position: relative;
-  width: 100%;
-  height: 20px;
   cursor: pointer;
-  margin-top: 1px;
   border-radius: 6px;
-}
-.fuelux .tree .tree-item:hover {
-  background-color: #dfeef5;
+  margin-left: 19px;
 }
 .fuelux .tree .tree-item .tree-item-name {
-  padding-left: 29px;
   white-space: nowrap;
+  border-radius: 6px;
+  background-color: transparent;
+  border: 0;
+}
+.fuelux .tree .tree-item .tree-item-name:hover {
+  color: #999999;
+}
+.fuelux .tree .tree-item.tree-selected .tree-item-name {
+  background-color: #4f4f4f;
+  color: #fff;
+}
+.fuelux .tree .tree-item label {
+  font-weight: normal;
+  padding-left: 7px;
+  margin-bottom: 0;
+  cursor: pointer;
 }
 .fuelux .tree .tree-item .tree-dot {
   position: absolute;
@@ -1244,68 +1393,32 @@ END
   background-color: #333333;
   border-radius: 6px;
 }
-.fuelux .tree .tree-item .glyphicon-ok {
-  left: 5px;
-  position: absolute;
-  top: 2px;
+.fuelux .tree .icon-caret:hover + .tree-branch-name {
+  color: #999999;
 }
-.fuelux .tree .tree-selected {
-  background-color: #b9dff1;
+.fuelux .tree.tree-folder-select .tree-branch .icon-caret {
+  background-color: transparent;
+  border: 0;
 }
-.fuelux .tree .tree-selected:hover {
-  background-color: #b9dff1;
+.fuelux .tree.tree-folder-select .tree-branch .icon-caret:hover {
+  cursor: pointer;
+  color: #999999;
 }
-.fuelux .tree.tree-folder-select .tree-folder {
-  clear: both;
-  margin-bottom: 1px;
-}
-.fuelux .tree.tree-folder-select .tree-folder .tree-folder-header {
-  float: left;
-  width: 45px;
-  padding-top: 1px;
-  margin-right: 5px;
-  height: 21px;
-}
-.fuelux .tree.tree-folder-select .tree-folder .tree-folder-header .tree-triangle-right {
-  margin-left: 8px;
-  margin-top: 5px;
-  width: 0px;
-  height: 0px;
-  border-style: solid;
-  border-width: 4px 0 4px 6px;
-  border-color: transparent transparent transparent #333333;
-}
-.fuelux .tree.tree-folder-select .tree-folder .tree-folder-header .tree-triangle-down {
-  margin-left: 6px;
-  margin-top: 6px;
-  width: 0px;
-  height: 0px;
-  border-style: solid;
-  border-width: 6px 4px 0 4px;
-  border-color: #333333 transparent transparent transparent;
-}
-.fuelux .tree.tree-folder-select .tree-folder .tree-folder-header i:last-child {
-  float: left;
-  left: 10px;
-}
-.fuelux .tree.tree-folder-select .tree-folder > .tree-folder-name {
-  float: left;
+.fuelux .tree.tree-folder-select .tree-branch > .tree-branch-name {
   padding: 1px 5px 0 5px;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
   border-radius: 6px;
 }
-.fuelux .tree.tree-folder-select .tree-folder > .tree-folder-name:hover {
-  background-color: #dfeef5;
+.fuelux .tree.tree-folder-select .tree-branch > .tree-branch-name.tree-selected {
+  background-color: #4f4f4f;
+  color: #fff;
 }
-.fuelux .tree.tree-folder-select .tree-folder > .tree-folder-name.tree-selected {
-  background-color: #b9dff1;
+.fuelux .tree.tree-folder-select .tree-branch.tree-selected > .tree-branch-header .tree-branch-name {
+  background-color: #4f4f4f;
+  color: #fff;
 }
-.fuelux .tree.tree-folder-select .tree-folder > .tree-folder-name.tree-selected:hover {
-  background-color: #b9dff1;
-}
-.fuelux .tree.tree-folder-select .tree-loader {
-  clear: both;
+.fuelux .tree.tree-folder-select .tree-branch.tree-selected > .tree-branch-header .tree-branch-name:hover {
+  background-color: #4f4f4f;
+  color: #fff;
 }
 .fuelux .wizard {
   *zoom: 1;
@@ -1353,7 +1466,7 @@ END
   background: #ededed;
   color: #999999;
   font-size: 16px;
-  cursor: default;
+  cursor: not-allowed;
 }
 .fuelux .wizard ul li .chevron {
   border: 24px solid transparent;
@@ -1392,6 +1505,7 @@ END
 .fuelux .wizard ul li.active {
   background: #f1f6fc;
   color: #3a87ad;
+  cursor: default;
 }
 .fuelux .wizard ul li.active .chevron:before {
   border-left: 14px solid #f1f6fc;
@@ -1426,8 +1540,14 @@ END
   font-size: 12px;
   margin-right: 8px;
 }
+.fuelux .wizard .actions .btn-prev[disabled] {
+  cursor: not-allowed;
+}
 .fuelux .wizard .actions .btn-prev span {
   margin-right: 5px;
+}
+.fuelux .wizard .actions .btn-next[disabled] {
+  cursor: not-allowed;
 }
 .fuelux .wizard .actions .btn-next span {
   margin-left: 5px;
@@ -1446,5 +1566,11 @@ END
 }
 .fuelux .wizard .step-content .active .btn-group .active {
   display: inline-block;
+}
+.fuelux .wizard.complete .actions .glyphicon-arrow-right:before {
+  display: none;
+}
+.fuelux .wizard.complete .actions .glyphicon-arrow-right {
+  margin-left: 0;
 }
 /*# sourceMappingURL=fuelux.css.map */

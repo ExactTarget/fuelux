@@ -211,12 +211,22 @@
 		return this;
 	};
 
-	// PLACARD DATA-API
+	// DATA-API
 
-	$('body').on('focus.fu.placard.data-api', '.placard', function () {
-		var $this = $(this);
-		if ($this.data('placard')) return;
-		$this.placard($this.data());
+	$(document).on('focus.fu.placard.data-api', '[data-initialize=placard]', function (e) {
+		var $control = $(e.target).closest('.placard');
+		if ( !$control.data('placard') ) {
+			$control.placard($control.data());
+		}
+	});
+
+	// Must be domReady for AMD compatibility
+	$(function () {
+		$('[data-initialize=placard]').each(function () {
+			var $this = $(this);
+			if ($this.data('placard')) return;
+			$this.placard($this.data());
+		});
 	});
 	
 // -- BEGIN UMD WRAPPER AFTERWORD --

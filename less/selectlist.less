@@ -1,5 +1,9 @@
 .selectlist {
 
+	&.disabled {
+		cursor: not-allowed;
+	}
+
 	&-sizer {
 		display: inline-block;
 		position: absolute;
@@ -8,7 +12,8 @@
 	}
 
 	.selected-label {
-		overflow: hidden;
+		overflow: hidden;	// helps with text flow on small screens
+		min-width: 2em;
 	}
 
 	.btn.dropdown-toggle {

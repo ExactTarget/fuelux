@@ -60,17 +60,16 @@
 
 		constructor: Wizard,
 
-		//index is 1 based, remove is how many to remove after adding items
-		//third parameter can be array of objects [{ ... }, { ... }] or you can pass n additional objects as args
+		//index is 1 based
+		//second parameter can be array of objects [{ ... }, { ... }] or you can pass n additional objects as args
 		//object structure is as follows (all params are optional): { badge: '', label: '', pane: '' }
-		addSteps: function(index, remove){
-			var items = [].slice.call(arguments).slice(2);
+		addSteps: function(index){
+			var items = [].slice.call(arguments).slice(1);
 			var $steps = this.$element.find('.steps');
 			var $stepContent = this.$element.find('.step-content');
 			var i, l, $pane, $startPane, $startStep, $step;
 
-			remove = remove || 0;
-			index = (index>(this.numSteps+1)) ? this.numSteps+1 : index;
+			index = (index===-1 || (index>(this.numSteps+1))) ? this.numSteps+1 : index;
 			if(items[0] instanceof Array){
 				items = items[0];
 			}
@@ -99,13 +98,9 @@
 				index++;
 			}
 
-			if(remove>0){
-				this.removeSteps(index, remove);
-			}else{
-				this.syncSteps();
-				this.numSteps = $steps.find('li').length;
-				this.setState();
-			}
+			this.syncSteps();
+			this.numSteps = $steps.find('li').length;
+			this.setState();
 		},
 
 		//index is 1 based, howMany is number to remove
@@ -160,7 +155,15 @@
 			if (last) {
 				this.lastText = last;
 				// replace text
-				var text = (lastStep !== true) ? this.nextText : this.lastText;
+				var text = this.nextText;
+				if ( lastStep === true ) {
+					text = this.lastText;
+					// add status class to wizard
+					this.$element.addClass('complete');
+				}
+				else {
+					this.$element.removeClass('complete');
+				}
 				var kids = this.$nextBtn.children().detach();
 				this.$nextBtn.text(text).append(kids);
 			}
@@ -220,7 +223,13 @@
 				}
 			}
 
-			this.$element.trigger('changed.fu.wizard');
+			// only fire changed event after initializing
+			if(typeof(this.initialized) !== 'undefined' ) {
+				var e = $.Event('changed.fu.wizard');
+				this.$element.trigger(e, {step: this.currentStep});
+			}
+
+			this.initialized = true;
 		},
 
 		stepclicked: function (e) {
@@ -235,7 +244,7 @@
 			}
 
 			if( canMovePrev ) {
-				var evt = $.Event('stepclick.fu.wizard');
+				var evt = $.Event('stepclicked.fu.wizard');
 				this.$element.trigger(evt, {step: index + 1});
 				if (evt.isDefaultPrevented()) { return; }
 
@@ -269,13 +278,22 @@
 				canMovePrev = false;
 			}
 			if (canMovePrev) {
-				var e = $.Event('changed.fu.wizard');
+				var e = $.Event('actionclicked.fu.wizard');
 				this.$element.trigger(e, {step: this.currentStep, direction: 'previous'});
-				if (e.isDefaultPrevented()) { return; }
+				if (e.isDefaultPrevented()) { return; } // don't increment
 
 				this.currentStep -= 1;
 				this.setState();
 			}
+
+			// return focus to control after selecting an option
+			if( this.$prevBtn.is(':disabled') ) {
+				this.$nextBtn.focus();
+			}
+			else {
+				this.$prevBtn.focus();
+			}
+
 		},
 
 		next: function () {
@@ -283,16 +301,23 @@
 			var lastStep = (this.currentStep === this.numSteps);
 
 			if (canMoveNext) {
-				var e = $.Event('change.fu.wizard');
+				var e = $.Event('actionclicked.fu.wizard');
 				this.$element.trigger(e, {step: this.currentStep, direction: 'next'});
-
-				if (e.isDefaultPrevented()) { return; }
+				if (e.isDefaultPrevented()) { return; }	// don't increment
 
 				this.currentStep += 1;
 				this.setState();
 			}
 			else if (lastStep) {
 				this.$element.trigger('finished.fu.wizard');
+			}
+
+			// return focus to control after selecting an option
+			if( this.$nextBtn.is(':disabled') ) {
+				this.$prevBtn.focus();
+			}
+			else {
+				this.$nextBtn.focus();
 			}
 		},
 
@@ -356,12 +381,22 @@
 	};
 
 
-	// WIZARD DATA-API
+	// DATA-API
 
-	$('body').on('mouseover.fu.wizard.data-api', '.wizard', function () {
-		var $this = $(this);
-		if ($this.data('wizard')) { return; }
-		$this.wizard($this.data());
+	$(document).on('mouseover.fu.wizard.data-api', '[data-initialize=wizard]', function (e) {
+		var $control = $(e.target).closest('.wizard');
+		if ( !$control.data('wizard') ) {
+			$control.wizard($control.data());
+		}
+	});
+
+	// Must be domReady for AMD compatibility
+	$(function () {
+		$('[data-initialize=wizard]').each(function () {
+			var $this = $(this);
+			if ($this.data('wizard')) return;
+			$this.wizard($this.data());
+		});
 	});
 
 // -- BEGIN UMD WRAPPER AFTERWORD --

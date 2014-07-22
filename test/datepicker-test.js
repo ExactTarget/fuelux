@@ -275,7 +275,7 @@ define(function(require){
 		};
 		var $sample = $(html).find('#datepicker1').datepicker( options );
 		var disabledLeftArrow = $sample.find('.left.disabled').length;
-		var previousMonthDaysVisible = $sample.find('.lastmonth div').length;
+		var previousMonthDaysVisible = $sample.find('.lastmonth button').length;
 		var disabledDaysVisible = $sample.find('.lastmonth .restrict').length;
 		equal( disabledLeftArrow, 1, 'navigation left is disabled' );
 		equal( disabledDaysVisible, previousMonthDaysVisible, 'visible previous month days are disabled' );
@@ -289,7 +289,7 @@ define(function(require){
 		};
 		var $sample = $(html).find('#datepicker1').datepicker( options );
 		var disabledLeftArrow = $sample.find('.right.disabled').length;
-		var nextMonthDaysVisible = $sample.find('.nextmonth div').length;
+		var nextMonthDaysVisible = $sample.find('.nextmonth button').length;
 		var disabledDaysVisible = $sample.find('.nextmonth .restrict').length;
 		equal( disabledLeftArrow, 1, 'navigation right is disabled' );
 		equal( disabledDaysVisible, nextMonthDaysVisible, 'visible next month days are disabled' );

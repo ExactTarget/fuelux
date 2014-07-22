@@ -8,7 +8,7 @@
 // For more information on UMD visit: https://github.com/umdjs/umd/
 ( function( factory ) {
 	if ( typeof define === 'function' && define.amd ) {
-		define( [ 'jquery' ], factory );
+		define( [ 'jquery', 'bootstrap' ], factory );
 	} else {
 		factory( jQuery );
 	}
@@ -44,25 +44,30 @@
 			this.options = $.extend( {}, $.fn.checkbox.defaults, options );
 
 			// cache elements
-			this.$chk = $( element );
-			this.$label = this.$chk.parent();
+			this.$element = $( element );
+			this.$label = this.$element.parent();
 			this.$parent = this.$label.parent( '.checkbox' );
-			this.$toggleContainer = null;
+			this.$toggleContainer = this.$element.attr( 'data-toggle' );
+			this.state = {
+				disabled: false,
+				checked: false
+			};
 
 			if ( this.$parent.length === 0 ) {
 				this.$parent = null;
 			}
 
-			var toggleSelector = this.$chk.attr( 'data-toggle' );
-			if ( toggleSelector ) {
-				this.$toggleContainer = $( toggleSelector );
+			if ( Boolean( this.$toggleContainer ) ) {
+				this.$toggleContainer = $( this.$toggleContainer );
+			} else {
+				this.$toggleContainer = null;
 			}
 
-			// set default state
-			this.setState( this.$chk );
-
 			// handle events
-			this.$chk.on( 'change.fu.checkbox', $.proxy( this.itemchecked, this ) );
+			this.$element.on( 'change.fu.checkbox', $.proxy( this.itemchecked, this ) );
+
+			// set default state
+			this.setState();
 		};
 
 		Checkbox.prototype = {
@@ -70,58 +75,62 @@
 			constructor: Checkbox,
 
 			setState: function( $chk ) {
-				$chk = $chk || this.$chk;
+				$chk = $chk || this.$element;
 
-				var checked = $chk.is( ':checked' );
-				var disabled = !! $chk.prop( 'disabled' );
+				this.state.disabled = Boolean( $chk.prop( 'disabled' ) );
+				this.state.checked = Boolean( $chk.is( ':checked' ) );
 
-				// reset classes
-				this.$label.removeClass( 'checked disabled' );
-				if ( this.$parent ) {
-					this.$parent.removeClass( 'checked disabled' );
-				}
+				this._resetClasses();
 
 				// set state of checkbox
-				if ( checked === true ) {
-					this.$label.addClass( 'checked' );
-					if ( this.$parent ) {
-						this.$parent.addClass( 'checked' );
-					}
-				}
-				if ( disabled === true ) {
-					this.$label.addClass( 'disabled' );
-					if ( this.$parent ) {
-						this.$parent.addClass( 'disabled' );
-					}
-				}
+				this._toggleCheckedState();
+				this._toggleDisabledState();
 
 				//toggle container
 				this.toggleContainer();
 			},
 
 			enable: function() {
-				this.$chk.attr( 'disabled', false );
-				this.$label.removeClass( 'disabled' );
-				if ( this.$parent ) {
-					this.$parent.removeClass( 'disabled' );
-				}
+				this.state.disabled = false;
+				this.$element.attr( 'disabled', false );
+				this._resetClasses();
+				this.$element.trigger( 'enabled.fu.checkbox' );
 			},
 
 			disable: function() {
-				this.$chk.attr( 'disabled', true );
-				this.$label.addClass( 'disabled' );
-				if ( this.$parent ) {
-					this.$parent.addClass( 'disabled' );
-				}
+				this.state.disabled = true;
+				this.$element.attr( 'disabled', true );
+				this._setDisabledClass();
+				this.$element.trigger( 'disabled.fu.checkbox' );
+			},
+
+			check: function() {
+				this.state.checked = true;
+				this.$element.prop( 'checked', true );
+				this._setCheckedClass();
+				this.$element.trigger( 'checked.fu.checkbox' );
+			},
+
+			uncheck: function() {
+				this.state.checked = false;
+				this.$element.prop( 'checked', false );
+				this._resetClasses();
+				this.$element.trigger( 'unchecked.fu.checkbox' );
+			},
+
+			isChecked: function() {
+				return this.state.checked;
 			},
 
 			toggle: function() {
-				this.$chk.click();
+				this.state.checked = !this.state.checked;
+
+				this._toggleCheckedState();
 			},
 
 			toggleContainer: function() {
-				if ( this.$toggleContainer ) {
-					if ( this.isChecked() ) {
+				if ( Boolean( this.$toggleContainer ) ) {
+					if ( this.state.checked ) {
 						this.$toggleContainer.removeClass( 'hide' );
 						this.$toggleContainer.attr( 'aria-hidden', 'false' );
 					} else {
@@ -131,23 +140,60 @@
 				}
 			},
 
-			itemchecked: function( e ) {
-				var chk = $( e.target );
-				this.setState( chk );
+			itemchecked: function( element ) {
+				this.setState( $( element.target ) );
 			},
 
-			check: function() {
-				this.$chk.prop( 'checked', true );
-				this.setState( this.$chk );
+			_resetClasses: function() {
+				var classesToRemove = [];
+
+				if ( !this.state.checked ) {
+					classesToRemove.push( 'checked' );
+				}
+
+				if ( !this.state.disabled ) {
+					classesToRemove.push( 'disabled' );
+				}
+
+				classesToRemove = classesToRemove.join( ' ' );
+
+				this.$label.removeClass( classesToRemove );
+
+				if ( this.$parent ) {
+					this.$parent.removeClass( classesToRemove );
+				}
 			},
 
-			uncheck: function() {
-				this.$chk.prop( 'checked', false );
-				this.setState( this.$chk );
+			_toggleCheckedState: function() {
+				if ( this.state.checked ) {
+					this.check();
+				} else {
+					this.uncheck();
+				}
 			},
 
-			isChecked: function() {
-				return this.$chk.is( ':checked' );
+			_toggleDisabledState: function() {
+				if ( this.state.disabled ) {
+					this.disable();
+				} else {
+					this.enable();
+				}
+			},
+
+			_setCheckedClass: function() {
+				this.$label.addClass( 'checked' );
+
+				if ( this.$parent ) {
+					this.$parent.addClass( 'checked' );
+				}
+			},
+
+			_setDisabledClass: function() {
+				this.$label.addClass( 'disabled' );
+
+				if ( this.$parent ) {
+					this.$parent.addClass( 'disabled' );
+				}
 			}
 		};
 
@@ -184,17 +230,25 @@
 			return this;
 		};
 
+		// DATA-API
 
-		// SET CHECKBOX DEFAULT VALUE ON DOMCONTENTLOADED
+		$( document ).on( 'mouseover.fu.checkbox.data-api', '[data-initialize=checkbox]', function( e ) {
+			var $control = $( e.target ).closest( '.checkbox' ).find( '[type=checkbox]' );
+			if ( !$control.data( 'checkbox' ) ) {
+				$control.checkbox( $control.data() );
+			}
+		} );
 
+		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '.checkbox-custom > input[type=checkbox]' ).each( function() {
+			$( '[data-initialize=checkbox] [type=checkbox]' ).each( function() {
 				var $this = $( this );
 				if ( !$this.data( 'checkbox' ) ) {
 					$this.checkbox( $this.data() );
 				}
 			} );
 		} );
+
 
 
 	} )( jQuery );
@@ -302,11 +356,13 @@
 			},
 
 			enable: function() {
+				this.$element.removeClass( 'disabled' );
 				this.$input.removeAttr( 'disabled' );
 				this.$button.removeClass( 'disabled' );
 			},
 
 			disable: function() {
+				this.$element.addClass( 'disabled' );
 				this.$input.attr( 'disabled', true );
 				this.$button.addClass( 'disabled' );
 			},
@@ -327,6 +383,9 @@
 				this.$element.trigger( 'changed.fu.combobox', data );
 
 				e.preventDefault();
+
+				// return focus to control after selecting an option
+				this.$element.find( '.dropdown-toggle' ).focus();
 			},
 
 			inputchanged: function( e, extra ) {
@@ -383,22 +442,22 @@
 		};
 
 
-		// COMBOBOX DATA-API
+		// DATA-API
 
-		$( 'body' ).on( 'mousedown.fu.combobox.data-api', '.combobox', function() {
-			var $this = $( this );
-			if ( $this.data( 'combobox' ) ) return;
-			$this.combobox( $this.data() );
+		$( document ).on( 'mousedown.fu.combobox.data-api', '[data-initialize=combobox]', function( e ) {
+			var $control = $( e.target ).closest( '.combobox' );
+			if ( !$control.data( 'combobox' ) ) {
+				$control.combobox( $control.data() );
+			}
 		} );
 
-
-		// SET COMBOBOX DEFAULT VALUE ON DOMCONTENTLOADED
-
+		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '.combobox' ).each( function() {
+			$( '[data-initialize=combobox]' ).each( function() {
 				var $this = $( this );
-				if ( $this.data( 'combobox' ) ) return;
-				$this.combobox( $this.data() );
+				if ( !$this.data( 'combobox' ) ) {
+					$this.combobox( $this.data() );
+				}
 			} );
 		} );
 
@@ -570,23 +629,15 @@
 
 			// functions that can be called on object
 			disable: function() {
-				this.$element.find( 'input, button' ).attr( 'disabled', true );
-				this._showDropdown( false );
+				this.$element.addClass( 'disabled' );
+				this.$element.find( 'input, button' ).attr( 'disabled', 'disabled' );
+				this._close();
+				this.$element.find( '.input-group-btn' ).removeClass( 'open' );
 			},
 
 			enable: function() {
-				this.$element.find( 'input, button' ).attr( 'disabled', false );
-				this._showDropdown( true );
-			},
-
-			_showDropdown: function( disable ) {
-				if ( !Boolean( disable ) ) {
-					this.$element.on( 'show.bs.dropdown', function( event ) {
-						event.preventDefault();
-					} );
-				} else {
-					this.$element.off( 'show.bs.dropdown' );
-				}
+				this.$element.removeClass( 'disabled' );
+				this.$element.find( 'input, button' ).removeAttr( 'disabled' );
 			},
 
 			getFormattedDate: function() {
@@ -986,10 +1037,6 @@
 				paddingTop = parseInt( paddingTop / 2, 10 );
 				paddingBottom = parseInt( paddingBottom / 2, 10 );
 
-				this.$calendar.css( {
-					'float': 'left'
-				} );
-
 				this.$monthsView.css( {
 					'width': this.options.dropdownWidth + 'px',
 					'padding-top': paddingTop + 'px',
@@ -1080,6 +1127,9 @@
 				} else {
 					this._render();
 				}
+
+				// return focus to previous button to support keybaord navigation
+				this.$element.find( '.left' ).focus();
 				// move this below 'this._render()' if you want it to go to the previous month when you select a day from the current month
 				return this._killEvent( e );
 			},
@@ -1106,6 +1156,9 @@
 				} else {
 					this._render();
 				}
+
+				// return focus to next button to support keybaord navigation
+				this.$element.find( '.right' ).focus();
 				// move this below 'this._render()' if you want it to go to the next month when you select a day from the current month
 				return this._killEvent( e );
 			},
@@ -1162,15 +1215,15 @@
 
 				return '<div class="calendar">' +
 					'<div class="header clearfix">' +
-					'<div class="left hover"><div class="leftArrow"></div></div>' +
-					'<div class="right hover"><div class="rightArrow"></div></div>' +
+					'<button class="left hover"><span class="leftArrow"></span></button>' +
+					'<button class="right hover"><span class="rightArrow"></span></button>' +
 					'<div class="center hover">' + self._monthYearLabel() + '</div>' +
 					'</div>' +
 					'<div class="daysView" style="' + self._show( self.options.showDays ) + '">' +
 
 				self._repeat( '<div class="weekdays">', self.options.weekdays,
 					function( weekday ) {
-						return '<div >' + weekday + '</div>';
+						return '<div>' + weekday + '</div>';
 					}, '</div>' ) +
 
 				self._repeat( '<div class="lastmonth">', self.daysOfLastMonth,
@@ -1178,12 +1231,12 @@
 						if ( self.options.restrictLastMonth ) {
 							day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
 						}
-						return '<div class="' + day[ 'class' ] + '">' + day.number + '</div>';
+						return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
 					}, '</div>' ) +
 
 				self._repeat( '<div class="thismonth">', self.daysOfThisMonth,
 					function( day ) {
-						return '<div class="' + day[ 'class' ] + '">' + day.number + '</div>';
+						return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
 					}, '</div>' ) +
 
 				self._repeat( '<div class="nextmonth">', self.daysOfNextMonth,
@@ -1191,20 +1244,20 @@
 						if ( self.options.restrictNextMonth ) {
 							day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
 						}
-						return '<div class="' + day[ 'class' ] + '">' + day.number + '</div>';
+						return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
 					}, '</div>' ) +
 					'</div>' +
 
 				self._repeat( '<div class="monthsView" style="' + self._show( self.options.showMonths ) + '">', self.months,
 					function( month ) {
-						return '<div data-month-number="' + month.number +
-							'" class="' + month[ 'class' ] + '">' + month.abbreviation + '</div>';
+						return '<button data-month-number="' + month.number +
+							'" class="' + month[ 'class' ] + '">' + month.abbreviation + '</button>';
 					}, '</div>' ) +
 
 				self._repeat( '<div class="yearsView" style="' + self._show( self.options.showYears ) + '">', self.years,
 					function( year ) {
-						return '<div data-year-number="' + year.number +
-							'" class="' + year[ 'class' ] + '">' + year.number + '</div>';
+						return '<button data-year-number="' + year.number +
+							'" class="' + year[ 'class' ] + '">' + year.number + '</button>';
 					}, '</div>' ) +
 
 				'<div class="footer">' +
@@ -1217,7 +1270,7 @@
 				this._insertDateIntoInput();
 				this._updateCalendarData();
 				if ( Boolean( this.bindingsAdded ) ) this._removeBindings();
-				this.$element.find( '.dropdown-menu' ).html( this._renderCalendar() );
+				this.$element.find( '.calendar-menu' ).html( this._renderCalendar() );
 				this._initializeCalendarElements();
 				this._addBindings();
 				this._updateCss();
@@ -1226,7 +1279,7 @@
 			_renderWithoutInputManipulation: function() {
 				this._updateCalendarData();
 				if ( Boolean( this.bindingsAdded ) ) this._removeBindings();
-				this.$element.find( '.dropdown-menu' ).html( this._renderCalendar() );
+				this.$element.find( '.calendar-menu' ).html( this._renderCalendar() );
 				this._initializeCalendarElements();
 				this._addBindings();
 				this._updateCss();
@@ -1347,12 +1400,12 @@
 
 				this.$header.find( '.center' ).on( 'click.fu.datepicker', $.proxy( this._toggleMonthYearPicker, this ) );
 
-				this.$lastMonthDiv.find( 'div' ).on( 'click.fu.datepicker', $.proxy( this._previousSet, this ) );
-				this.$thisMonthDiv.find( 'div' ).on( 'click.fu.datepicker', $.proxy( this._select, this ) );
-				this.$nextMonthDiv.find( 'div' ).on( 'click.fu.datepicker', $.proxy( this._nextSet, this ) );
+				this.$lastMonthDiv.find( 'button' ).on( 'click.fu.datepicker', $.proxy( this._previousSet, this ) );
+				this.$thisMonthDiv.find( 'button' ).on( 'click.fu.datepicker', $.proxy( this._select, this ) );
+				this.$nextMonthDiv.find( 'button' ).on( 'click.fu.datepicker', $.proxy( this._nextSet, this ) );
 
-				this.$monthsView.find( 'div' ).on( 'click.fu.datepicker', $.proxy( this._pickMonth, this ) );
-				this.$yearsView.find( 'div' ).on( 'click.fu.datepicker', $.proxy( this._pickYear, this ) );
+				this.$monthsView.find( 'button' ).on( 'click.fu.datepicker', $.proxy( this._pickMonth, this ) );
+				this.$yearsView.find( 'button' ).on( 'click.fu.datepicker', $.proxy( this._pickYear, this ) );
 				this.$footer.find( '.center' ).on( 'click.fu.datepicker', $.proxy( this._today, this ) );
 
 				this.bindingsAdded = true;
@@ -1372,12 +1425,12 @@
 				this.$header.find( '.right' ).off( 'click' );
 				this.$header.find( '.center' ).off( 'click' );
 
-				this.$lastMonthDiv.find( 'div' ).off( 'click' );
-				this.$thisMonthDiv.find( 'div' ).off( 'click' );
-				this.$nextMonthDiv.find( 'div' ).off( 'click' );
+				this.$lastMonthDiv.find( 'button' ).off( 'click' );
+				this.$thisMonthDiv.find( 'button' ).off( 'click' );
+				this.$nextMonthDiv.find( 'button' ).off( 'click' );
 
-				this.$monthsView.find( 'div' ).off( 'click' );
-				this.$yearsView.find( 'div' ).off( 'click' );
+				this.$monthsView.find( 'button' ).off( 'click' );
+				this.$yearsView.find( 'button' ).off( 'click' );
 				this.$footer.find( '.center' ).off( 'click' );
 
 				this.bindingsAdded = false;
@@ -1419,6 +1472,27 @@
 			$.fn.datepicker = old;
 			return this;
 		};
+
+		// DATA-API
+		// 
+		// 
+
+		$( document ).on( 'mousedown.fu.datepicker.data-api', '[data-initialize=datepicker]', function( e ) {
+			var $control = $( e.target ).closest( '.datepicker' );
+			if ( !$control.data( 'datepicker' ) ) {
+				$control.datepicker( $control.data() );
+			}
+		} );
+
+		$( function() {
+			$( '[data-initialize=datepicker]' ).each( function() {
+				var $this = $( this );
+				if ( $this.data( 'datepicker' ) ) return;
+				$this.datepicker( $this.data() );
+			} );
+		} );
+
+
 
 
 	} )( jQuery );
@@ -1553,10 +1627,10 @@
 			this.$element = $( element );
 			this.options = $.extend( {}, $.fn.loader.defaults, options );
 
-			this.begin = ( this.$element.is( '[data-begin]' ) ) ? parseFloat( this.$element.attr( 'data-begin' ) ) : 1;
+			this.begin = ( this.$element.is( '[data-begin]' ) ) ? parseInt( this.$element.attr( 'data-begin' ), 10 ) : 1;
 			this.delay = ( this.$element.is( '[data-delay]' ) ) ? parseFloat( this.$element.attr( 'data-delay' ) ) : 150;
 			this.end = ( this.$element.is( '[data-end]' ) ) ? parseInt( this.$element.attr( 'data-end' ), 10 ) : 8;
-			this.frame = ( this.$element.is( '[data-frame]' ) ) ? parseInt( this.$element.attr( 'data-frame' ), 10 ) : 1;
+			this.frame = ( this.$element.is( '[data-frame]' ) ) ? parseInt( this.$element.attr( 'data-frame' ), 10 ) : this.begin;
 			this.isIElt9 = false;
 			this.timeout = {};
 
@@ -1659,7 +1733,7 @@
 		// INIT LOADER ON DOMCONTENTLOADED
 
 		$( function() {
-			$( '.loader' ).each( function() {
+			$( '[data-initialize=loader]' ).each( function() {
 				var $this = $( this );
 				if ( !$this.data( 'loader' ) ) {
 					$this.loader( $this.data() );
@@ -1882,12 +1956,22 @@
 			return this;
 		};
 
-		// PLACARD DATA-API
+		// DATA-API
 
-		$( 'body' ).on( 'focus.fu.placard.data-api', '.placard', function() {
-			var $this = $( this );
-			if ( $this.data( 'placard' ) ) return;
-			$this.placard( $this.data() );
+		$( document ).on( 'focus.fu.placard.data-api', '[data-initialize=placard]', function( e ) {
+			var $control = $( e.target ).closest( '.placard' );
+			if ( !$control.data( 'placard' ) ) {
+				$control.placard( $control.data() );
+			}
+		} );
+
+		// Must be domReady for AMD compatibility
+		$( function() {
+			$( '[data-initialize=placard]' ).each( function() {
+				var $this = $( this );
+				if ( $this.data( 'placard' ) ) return;
+				$this.placard( $this.data() );
+			} );
 		} );
 
 
@@ -2072,10 +2156,18 @@
 		};
 
 
-		// SET RADIO DEFAULT VALUE ON DOMCONTENTLOADED
+		// DATA-API
 
+		$( document ).on( 'mouseover.fu.checkbox.data-api', '[data-initialize=radio]', function( e ) {
+			var $control = $( e.target ).closest( '.radio' ).find( '[type=radio]' );
+			if ( !$control.data( 'radio' ) ) {
+				$control.radio( $control.data() );
+			}
+		} );
+
+		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '.radio-custom > input[type=radio]' ).each( function() {
+			$( '[data-initialize=radio] [type=radio]' ).each( function() {
 				var $this = $( this );
 				if ( $this.data( 'radio' ) ) return;
 				$this.radio( $this.data() );
@@ -2173,11 +2265,13 @@
 			},
 
 			disable: function() {
+				this.$element.addClass( 'disabled' );
 				this.$input.attr( 'disabled', 'disabled' );
 				this.$button.addClass( 'disabled' );
 			},
 
 			enable: function() {
+				this.$element.removeClass( 'disabled' );
 				this.$input.removeAttr( 'disabled' );
 				this.$button.removeClass( 'disabled' );
 			}
@@ -2213,12 +2307,22 @@
 		};
 
 
-		// SEARCH DATA-API
+		// DATA-API
 
-		$( 'body' ).on( 'mousedown.fu.search.data-api', '.search', function() {
-			var $this = $( this );
-			if ( $this.data( 'search' ) ) return;
-			$this.search( $this.data() );
+		$( document ).on( 'mousedown.fu.search.data-api', '[data-initialize=search]', function( e ) {
+			var $control = $( e.target ).closest( '.search' );
+			if ( !$control.data( 'search' ) ) {
+				$control.search( $control.data() );
+			}
+		} );
+
+		// Must be domReady for AMD compatibility
+		$( function() {
+			$( '[data-initialize=search]' ).each( function() {
+				var $this = $( this );
+				if ( $this.data( 'search' ) ) return;
+				$this.search( $this.data() );
+			} );
 		} );
 
 
@@ -2269,14 +2373,23 @@
 			},
 
 			itemClicked: function( e ) {
-				this.$selectedItem = $( e.target ).parent();
 				this.$element.trigger( 'clicked.fu.selectlist', this.$selectedItem );
-				this.itemChanged();
 
 				e.preventDefault();
+
+				// is clicked element different from currently selected element?
+				if ( !( $( e.target ).parent().is( this.$selectedItem ) ) ) {
+					this.itemChanged( e );
+				}
+
+				// return focus to control after selecting an option
+				this.$element.find( '.dropdown-toggle' ).focus();
+
 			},
 
-			itemChanged: function() {
+			itemChanged: function( e ) {
+				this.$selectedItem = $( e.target ).parent();
+
 				// store value in hidden field for form submission
 				this.$hiddenField.val( this.$selectedItem.attr( 'data-value' ) );
 				this.$label.text( this.$selectedItem.text() );
@@ -2365,10 +2478,12 @@
 			},
 
 			enable: function() {
+				this.$element.removeClass( 'disabled' );
 				this.$button.removeClass( 'disabled' );
 			},
 
 			disable: function() {
+				this.$element.addClass( 'disabled' );
 				this.$button.addClass( 'disabled' );
 			}
 
@@ -2403,21 +2518,18 @@
 		};
 
 
-		// SELECTLIST DATA-API
+		// DATA-API
 
-		$( 'body' ).on( 'mousedown.fu.selectlist.data-api', '.selectlist', function() {
-			var $this = $( this );
-			if ( $this.data( 'selectlist' ) ) {
-				return;
+		$( document ).on( 'mousedown.fu.selectlist.data-api', '[data-initialize=selectlist]', function( e ) {
+			var $control = $( e.target ).closest( '.selectlist' );
+			if ( !$control.data( 'selectlist' ) ) {
+				$control.selectlist( $control.data() );
 			}
-			$this.selectlist( $this.data() );
 		} );
 
-
-		// SET SELECTLIST DEFAULT VALUE ON DOMCONTENTLOADED
-
+		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '.selectlist' ).each( function() {
+			$( '[data-initialize=selectlist]' ).each( function() {
 				var $this = $( this );
 				if ( !$this.data( 'selectlist' ) ) {
 					$this.selectlist( $this.data() );
@@ -2504,14 +2616,14 @@
 			constructor: Spinbox,
 
 			render: function() {
-				var inputValue = this.$input.val();
+				var inputValue = this.parseInput( this.$input.val() );
 				var maxUnitLength = '';
 
 				// if input is empty and option value is default, 0
 				if ( inputValue !== '' && this.options.value === 0 ) {
 					this.value( inputValue );
 				} else {
-					this.$input.val( this.options.value );
+					this.output( this.options.value );
 				}
 
 				if ( this.options.units.length ) {
@@ -2522,20 +2634,36 @@
 					} );
 				}
 
-				this.$input.attr( 'maxlength', ( this.options.max + maxUnitLength ).split( '' ).length );
+			},
+
+			output: function( value, updateField ) {
+				value = ( value + '' ).split( '.' ).join( this.options.decimalMark );
+				updateField = ( updateField || true );
+				if ( updateField ) {
+					this.$input.val( value );
+				}
+
+				return value;
+			},
+
+			parseInput: function( value ) {
+				value = ( value + '' ).split( this.options.decimalMark ).join( '.' );
+
+				return value;
 			},
 
 			change: function() {
-				var newVal = this.$input.val() || '';
+				var newVal = this.parseInput( this.$input.val() ) || '';
 
-				if ( this.options.units.length ) {
-					this.setMixedValue( newVal );
+				if ( this.options.units.length || this.options.decimalMark !== '.' ) {
+					newVal = this.parseValueWithUnit( newVal );
 				} else if ( newVal / 1 ) {
-					this.options.value = this.checkMaxMin( newVal / 1 );
+					newVal = this.options.value = this.checkMaxMin( newVal / 1 );
 				} else {
 					newVal = this.checkMaxMin( newVal.replace( /[^0-9.-]/g, '' ) || '' );
 					this.options.value = newVal / 1;
 				}
+				this.output( newVal );
 
 				this.changeFlag = false;
 				this.triggerChangedEvent();
@@ -2560,7 +2688,7 @@
 				this.lastValue = currentValue;
 
 				// Primary changed event
-				this.$element.trigger( 'changed.fu.spinbox', currentValue );
+				this.$element.trigger( 'changed.fu.spinbox', this.output( currentValue, false ) ); // no DOM update
 			},
 
 			startSpin: function( type ) {
@@ -2580,41 +2708,50 @@
 					}
 
 					this.switches.timeout = setTimeout( $.proxy( function() {
-						this.iterator( type );
+						this.iterate( type );
 					}, this ), this.switches.speed / divisor );
 					this.switches.count++;
 				}
 			},
 
-			iterator: function( type ) {
+			iterate: function( type ) {
 				this.step( type );
 				this.startSpin( type );
 			},
 
-			step: function( dir ) {
-				var digits, multiple, curValue, limValue;
+			step: function( isIncrease ) {
+				// isIncrease: true is up, false is down
 
-				if ( this.changeFlag ) this.change();
+				var digits, multiple, currentValue, limitValue;
 
-				curValue = this.options.value;
-				limValue = dir ? this.options.max : this.options.min;
+				// trigger change event
+				if ( this.changeFlag ) {
+					this.change();
+				}
 
-				if ( ( dir ? curValue < limValue : curValue > limValue ) ) {
-					var newVal = curValue + ( dir ? 1 : -1 ) * this.options.step;
+				// get current value and min/max options
+				currentValue = this.options.value;
+				limitValue = isIncrease ? this.options.max : this.options.min;
 
+				if ( ( isIncrease ? currentValue < limitValue : currentValue > limitValue ) ) {
+					var newVal = currentValue + ( isIncrease ? 1 : -1 ) * this.options.step;
+
+					// raise to power of 10 x number of decimal places, then round
 					if ( this.options.step % 1 !== 0 ) {
 						digits = ( this.options.step + '' ).split( '.' )[ 1 ].length;
 						multiple = Math.pow( 10, digits );
 						newVal = Math.round( newVal * multiple ) / multiple;
 					}
 
-					if ( dir ? newVal > limValue : newVal < limValue ) {
-						this.value( limValue );
+					// if outside limits, set to limit value
+					if ( isIncrease ? newVal > limitValue : newVal < limitValue ) {
+						this.value( limitValue );
 					} else {
 						this.value( newVal );
 					}
+
 				} else if ( this.options.cycle ) {
-					var cycleVal = dir ? this.options.min : this.options.max;
+					var cycleVal = isIncrease ? this.options.min : this.options.max;
 					this.value( cycleVal );
 				}
 			},
@@ -2622,21 +2759,25 @@
 			value: function( value ) {
 
 				if ( value || value === 0 ) {
-					if ( this.options.units.length ) {
-						this.setMixedValue( value + ( this.unit || '' ) );
+					if ( this.options.units.length || this.options.decimalMark !== '.' ) {
+						this.output( this.parseValueWithUnit( value + ( this.unit || '' ) ) );
 						return this;
+
 					} else if ( !isNaN( parseFloat( value ) ) && isFinite( value ) ) {
 						this.options.value = value / 1;
-						this.$input.val( value + ( this.unit ? this.unit : '' ) );
+						this.output( value + ( this.unit ? this.unit : '' ) );
 						return this;
+
 					}
 				} else {
-					if ( this.changeFlag ) this.change();
+					if ( this.changeFlag ) {
+						this.change();
+					}
 
 					if ( this.unit ) {
 						return this.options.value + this.unit;
 					} else {
-						return this.options.value;
+						return this.output( this.options.value, false ); // no DOM update
 					}
 				}
 			},
@@ -2654,44 +2795,42 @@
 				return legalUnit;
 			},
 
-			setMixedValue: function( value ) {
+			// strips units and add them back
+			parseValueWithUnit: function( value ) {
 				var unit = value.replace( /[^a-zA-Z]/g, '' );
-				var newVal = value.replace( /[^0-9.-]/g, '' );
+				var number = value.replace( /[^0-9.-]/g, '' );
 
 				if ( unit ) {
 					unit = this.isUnitLegal( unit );
 				}
 
-				this.options.value = this.checkMaxMin( newVal / 1 );
+				this.options.value = this.checkMaxMin( number / 1 );
 				this.unit = unit || undefined;
-				this.$input.val( this.options.value + ( unit || '' ) );
+				return this.options.value + ( unit || '' );
 			},
 
 			checkMaxMin: function( value ) {
-				var limit;
-
+				// if unreadable
 				if ( isNaN( parseFloat( value ) ) ) {
 					return value;
 				}
-
-				if ( value <= this.options.max && value >= this.options.min ) {
-					return value;
-				} else {
-					limit = value >= this.options.max ? this.options.max : this.options.min;
-
-					this.$input.val( limit );
-					return limit;
+				// if not within range return the limit
+				if ( !( value <= this.options.max && value >= this.options.min ) ) {
+					value = value >= this.options.max ? this.options.max : this.options.min;
 				}
+				return value;
 			},
 
 			disable: function() {
 				this.options.disabled = true;
+				this.$element.addClass( 'disabled' );
 				this.$input.attr( 'disabled', '' );
 				this.$element.find( 'button' ).addClass( 'disabled' );
 			},
 
 			enable: function() {
 				this.options.disabled = false;
+				this.$element.removeClass( 'disabled' );
 				this.$input.removeAttr( "disabled" );
 				this.$element.find( 'button' ).removeClass( 'disabled' );
 			},
@@ -2784,7 +2923,8 @@
 			speed: 'medium',
 			disabled: false,
 			cycle: false,
-			units: []
+			units: [],
+			decimalMark: '.'
 		};
 
 		$.fn.spinbox.Constructor = Spinbox;
@@ -2795,19 +2935,18 @@
 		};
 
 
-		// SPINBOX DATA-API
+		// DATA-API
 
-		$( 'body' ).on( 'mousedown.fu.spinbox.data-api', '.spinbox', function() {
-			var $this = $( this );
-			if ( $this.data( 'spinbox' ) ) return;
-			$this.spinbox( $this.data() );
+		$( document ).on( 'mousedown.fu.spinbox.data-api', '[data-initialize=spinbox]', function( e ) {
+			var $control = $( e.target ).closest( '.spinbox' );
+			if ( !$control.data( 'spinbox' ) ) {
+				$control.spinbox( $control.data() );
+			}
 		} );
 
-
-		// SET SPINBOX DEFAULT VALUE ON DOMCONTENTLOADED
-
+		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '.spinbox' ).each( function() {
+			$( '[data-initialize=spinbox]' ).each( function() {
 				var $this = $( this );
 				if ( !$this.data( 'spinbox' ) ) {
 					$this.spinbox( $this.data() );
@@ -2845,13 +2984,17 @@
 			this.$element.on( 'click.fu.tree', '.tree-item', $.proxy( function( ev ) {
 				this.selectItem( ev.currentTarget );
 			}, this ) );
-			this.$element.on( 'click.fu.tree', '.tree-folder-header', $.proxy( function( ev ) {
+			this.$element.on( 'click.fu.tree', '.tree-branch-name', $.proxy( function( ev ) {
 				this.openFolder( ev.currentTarget );
 			}, this ) );
 
 			if ( this.options.folderSelect ) {
-				this.$element.on( 'click.fu.tree', '.tree-folder-name', $.proxy( function( ev ) {
-					this.selectFolder( ev.currentTarget );
+				this.$element.off( 'click.fu.tree', '.tree-branch-name' );
+				this.$element.on( 'click.fu.tree', '.icon-caret', $.proxy( function( ev ) {
+					this.openFolder( $( ev.currentTarget ).parent() );
+				}, this ) );
+				this.$element.on( 'click.fu.tree', '.tree-branch-name', $.proxy( function( ev ) {
+					this.selectFolder( $( ev.currentTarget ) );
 				}, this ) );
 			}
 
@@ -2870,20 +3013,20 @@
 				var $parent = $el.parent();
 				var loader = $parent.find( '.tree-loader:eq(0)' );
 
-				loader.show();
-				this.options.dataSource.data( $el.data(), function( items ) {
-					loader.hide();
+				loader.removeClass( 'hide' );
+				this.options.dataSource( $el.data(), function( items ) {
+					loader.addClass( 'hide' );
 
 					$.each( items.data, function( index, value ) {
 						var $entity;
 
-						if ( value.type === "folder" ) {
-							$entity = self.$element.find( '.tree-folder:eq(0)' ).clone().show();
-							$entity.find( '.tree-folder-name' ).html( value.name );
-							$entity.find( '.tree-folder-header' ).data( value );
-						} else if ( value.type === "item" ) {
-							$entity = self.$element.find( '.tree-item:eq(0)' ).clone().show();
-							$entity.find( '.tree-item-name' ).html( value.name );
+						if ( value.type === 'folder' ) {
+							$entity = self.$element.find( '.tree-branch:eq(0)' ).clone().removeClass( 'hide' );
+							$entity.data( value );
+							$entity.find( '.tree-branch-name > .tree-label' ).html( value.name );
+						} else if ( value.type === 'item' ) {
+							$entity = self.$element.find( '.tree-item:eq(0)' ).clone().removeClass( 'hide' );
+							$entity.find( '.tree-item-name > .tree-label' ).html( value.name );
 							$entity.data( value );
 						}
 
@@ -2899,10 +3042,12 @@
 						//     dataAttributes = {
 						//         'classes': 'required-item red-text',
 						//         'data-parent': parentId,
-						//         'guid': guid
+						//         'guid': guid,
+						//         'id': guid
 						//     }
 						// };
 
+						// add attributes to tree-branch or tree-item
 						var dataAttributes = value.dataAttributes || [];
 						$.each( dataAttributes, function( key, value ) {
 							switch ( key ) {
@@ -2912,6 +3057,19 @@
 									$entity.addClass( value );
 									break;
 
+									// allow custom icons
+								case 'data-icon':
+									$entity.find( '.icon-item' ).removeClass().addClass( 'icon-item ' + value );
+									$entity.attr( key, value );
+									break;
+
+									// ARIA support
+								case 'id':
+									$entity.attr( key, value );
+									$entity.attr( 'aria-labelledby', value + '-label' );
+									$entity.find( '.tree-branch-name > .tree-label' ).attr( 'id', value + '-label' );
+									break;
+
 									// id, style, data-*
 								default:
 									$entity.attr( key, value );
@@ -2919,8 +3077,9 @@
 							}
 						} );
 
-						if ( $el.hasClass( 'tree-folder-header' ) ) {
-							$parent.find( '.tree-folder-content:eq(0)' ).append( $entity );
+						// add child nodes
+						if ( $el.hasClass( 'tree-branch-header' ) ) {
+							$parent.find( '.tree-branch-children:eq(0)' ).append( $entity );
 						} else {
 							$el.append( $entity );
 						}
@@ -2935,6 +3094,7 @@
 				var $el = $( el );
 				var $all = this.$element.find( '.tree-selected' );
 				var data = [];
+				var $icon = $el.find( '.icon-item' );
 
 				if ( this.options.multiSelect ) {
 					$.each( $all, function( index, value ) {
@@ -2945,7 +3105,7 @@
 					} );
 				} else if ( $all[ 0 ] !== $el[ 0 ] ) {
 					$all.removeClass( 'tree-selected' )
-						.find( 'i' ).removeClass( 'glyphicon-ok' ).addClass( 'tree-dot' );
+						.find( '.glyphicon' ).removeClass( 'glyphicon-ok' ).addClass( 'tree-dot' );
 					data.push( $el.data() );
 				}
 
@@ -2953,10 +3113,15 @@
 				if ( $el.hasClass( 'tree-selected' ) ) {
 					eventType = 'unselected';
 					$el.removeClass( 'tree-selected' );
-					$el.find( 'i' ).removeClass( 'glyphicon-ok' ).addClass( 'tree-dot' );
+					if ( $icon.hasClass( 'glyphicon-ok' ) || $icon.hasClass( 'fueluxicon-bullet' ) ) {
+						$icon.removeClass( 'glyphicon-ok' ).addClass( 'fueluxicon-bullet' );
+					}
 				} else {
 					$el.addClass( 'tree-selected' );
-					$el.find( 'i' ).removeClass( 'tree-dot' ).addClass( 'glyphicon-ok' );
+					// add tree dot back in
+					if ( $icon.hasClass( 'glyphicon-ok' ) || $icon.hasClass( 'fueluxicon-bullet' ) ) {
+						$icon.removeClass( 'fueluxicon-bullet' ).addClass( 'glyphicon-ok' );
+					}
 					if ( this.options.multiSelect ) {
 						data.push( $el.data() );
 					}
@@ -2964,101 +3129,116 @@
 
 				if ( data.length ) {
 					this.$element.trigger( 'selected', {
-						info: data
+						selected: data
 					} );
 				}
 
 				// Return new list of selected items, the item
 				// clicked, and the type of event:
 				$el.trigger( 'updated.fu.tree', {
-					info: data,
+					selected: data,
 					item: $el,
 					eventType: eventType
 				} );
 			},
 
 			openFolder: function( el ) {
-				var $el = $( el );
-				var $parent = $el.parent();
-				var $treeFolderContent = $parent.find( '.tree-folder-content' );
-				var $treeFolderContentFirstChild = $treeFolderContent.eq( 0 );
+				var $el = $( el ); // tree-branch-name
+				var $branch;
+				var $treeFolderContent;
+				var $treeFolderContentFirstChild;
 
+				// if item select only
+				if ( !this.options.folderSelect ) {
+					$el = $( el ).parent(); // tree-branch, if tree-branch-name clicked
+				}
+
+				$branch = $el.closest( '.tree-branch' ); // tree branch
+				$treeFolderContent = $branch.find( '.tree-branch-children' );
+				$treeFolderContentFirstChild = $treeFolderContent.eq( 0 );
+
+				// manipulate branch/folder
 				var eventType, classToTarget, classToAdd;
 				if ( $el.find( '.glyphicon-folder-close' ).length ) {
 					eventType = 'opened';
 					classToTarget = '.glyphicon-folder-close';
 					classToAdd = 'glyphicon-folder-open';
 
-					$treeFolderContentFirstChild.show();
+					$branch.addClass( 'tree-open' );
+					$branch.attr( 'aria-expanded', 'true' );
+
+					$treeFolderContentFirstChild.removeClass( 'hide' );
 					if ( !$treeFolderContent.children().length ) {
-						this.populate( $el );
+						this.populate( $treeFolderContent );
 					}
 
-					if ( this.options.folderSelect ) {
-						$el.find( '.tree-triangle-right' )
-							.removeClass( 'tree-triangle-right' )
-							.addClass( 'tree-triangle-down' );
-					}
-				} else {
+				} else if ( $el.find( '.glyphicon-folder-open' ) ) {
 					eventType = 'closed';
 					classToTarget = '.glyphicon-folder-open';
 					classToAdd = 'glyphicon-folder-close';
 
-					$treeFolderContentFirstChild.hide();
+					$branch.removeClass( 'tree-open' );
+					$branch.attr( 'aria-expanded', 'false' );
+					$treeFolderContentFirstChild.addClass( 'hide' );
+
+					// remove if no cache
 					if ( !this.options.cacheItems ) {
 						$treeFolderContentFirstChild.empty();
 					}
 
-					if ( this.options.folderSelect ) {
-						$el.find( '.tree-triangle-down' )
-							.removeClass( 'tree-triangle-down' )
-							.addClass( 'tree-triangle-right' );
-					}
 				}
 
-				$parent.find( classToTarget ).eq( 0 )
+				$branch.find( '> .tree-branch-header .icon-folder' ).eq( 0 )
 					.removeClass( 'glyphicon-folder-close glyphicon-folder-open' )
 					.addClass( classToAdd );
 
-				this.$element.trigger( eventType, $el.data() );
+				this.$element.trigger( eventType, $branch.data() );
 			},
 
-			selectFolder: function( el ) {
-				var $el = $( el );
-				var $all = this.$element.find( '.tree-folder-name.tree-selected' );
-				var data = [];
+			selectFolder: function( clickedElement ) {
+				var $clickedElement = $( clickedElement );
+				var $clickedBranch = $clickedElement.closest( '.tree-branch' );
+				var $selectedBranch = this.$element.find( '.tree-branch.tree-selected' );
+				var selectedData = [];
 				var eventType = 'selected';
 
+				// select clicked item
+				if ( $clickedBranch.hasClass( 'tree-selected' ) ) {
+					eventType = 'unselected';
+					$clickedBranch.removeClass( 'tree-selected' );
+				} else {
+					$clickedBranch.addClass( 'tree-selected' );
+				}
+
 				if ( this.options.multiSelect ) {
-					$.each( $all, function( index, value ) {
-						var $val = $( value );
-						if ( $val[ 0 ] !== $el[ 0 ] ) {
-							data.push( $( value ).parent().find( '.tree-folder-header' ).data() );
+
+					// get currently selected
+					$selectedBranch = this.$element.find( '.tree-branch.tree-selected' );
+
+					$.each( $selectedBranch, function( index, value ) {
+						var $value = $( value );
+						if ( $value[ 0 ] !== $clickedElement[ 0 ] ) {
+							selectedData.push( $( value ).data() );
 						}
 					} );
-				} else if ( $all[ 0 ] !== $el[ 0 ] ) {
-					$all.removeClass( 'tree-selected' );
-					data.push( $el.parent().find( '.tree-folder-header' ).data() );
+
+				} else if ( $selectedBranch[ 0 ] !== $clickedElement[ 0 ] ) {
+					$selectedBranch.removeClass( 'tree-selected' );
+
+					selectedData.push( $clickedBranch.data() );
 				}
 
-				if ( $el.hasClass( 'tree-selected' ) ) {
-					eventType = 'unselected';
-					$el.removeClass( 'tree-selected' );
-				} else {
-					$el.addClass( 'tree-selected' );
-				}
-
-				if ( data.length ) {
+				if ( selectedData.length ) {
 					this.$element.trigger( 'selected.fu.tree', {
-						info: data
+						selected: selectedData
 					} );
 				}
 
 				// Return new list of selected items, the item
 				// clicked, and the type of event:
-				$el.trigger( 'updated.fu.tree', {
-					info: data,
-					item: $el,
+				$clickedElement.trigger( 'updated.fu.tree', {
+					selected: selectedData,
+					item: $clickedElement,
 					eventType: eventType
 				} );
 			},
@@ -3086,9 +3266,9 @@
 
 					// "close" or empty folder contents
 					var $parent = $this.parent().parent();
-					var $folder = $parent.children( '.tree-folder-content' );
+					var $folder = $parent.children( '.tree-branch-children' );
 
-					$folder.hide();
+					$folder.addClass( 'hide' );
 					if ( !cacheItems ) {
 						$folder.empty();
 					}
@@ -3116,9 +3296,7 @@
 		};
 
 		$.fn.tree.defaults = {
-			dataSource: {
-				data: function() {}
-			},
+			dataSource: function( options, callback ) {},
 			multiSelect: false,
 			cacheItems: true,
 			folderSelect: true
@@ -3130,6 +3308,10 @@
 			$.fn.tree = old;
 			return this;
 		};
+
+
+		// NO DATA-API DUE TO NEED OF DATA-SOURCE
+
 
 
 	} )( jQuery );
@@ -3185,17 +3367,16 @@
 
 			constructor: Wizard,
 
-			//index is 1 based, remove is how many to remove after adding items
-			//third parameter can be array of objects [{ ... }, { ... }] or you can pass n additional objects as args
+			//index is 1 based
+			//second parameter can be array of objects [{ ... }, { ... }] or you can pass n additional objects as args
 			//object structure is as follows (all params are optional): { badge: '', label: '', pane: '' }
-			addSteps: function( index, remove ) {
-				var items = [].slice.call( arguments ).slice( 2 );
+			addSteps: function( index ) {
+				var items = [].slice.call( arguments ).slice( 1 );
 				var $steps = this.$element.find( '.steps' );
 				var $stepContent = this.$element.find( '.step-content' );
 				var i, l, $pane, $startPane, $startStep, $step;
 
-				remove = remove || 0;
-				index = ( index > ( this.numSteps + 1 ) ) ? this.numSteps + 1 : index;
+				index = ( index === -1 || ( index > ( this.numSteps + 1 ) ) ) ? this.numSteps + 1 : index;
 				if ( items[ 0 ] instanceof Array ) {
 					items = items[ 0 ];
 				}
@@ -3224,13 +3405,9 @@
 					index++;
 				}
 
-				if ( remove > 0 ) {
-					this.removeSteps( index, remove );
-				} else {
-					this.syncSteps();
-					this.numSteps = $steps.find( 'li' ).length;
-					this.setState();
-				}
+				this.syncSteps();
+				this.numSteps = $steps.find( 'li' ).length;
+				this.setState();
 			},
 
 			//index is 1 based, howMany is number to remove
@@ -3285,7 +3462,14 @@
 				if ( last ) {
 					this.lastText = last;
 					// replace text
-					var text = ( lastStep !== true ) ? this.nextText : this.lastText;
+					var text = this.nextText;
+					if ( lastStep === true ) {
+						text = this.lastText;
+						// add status class to wizard
+						this.$element.addClass( 'complete' );
+					} else {
+						this.$element.removeClass( 'complete' );
+					}
 					var kids = this.$nextBtn.children().detach();
 					this.$nextBtn.text( text ).append( kids );
 				}
@@ -3345,7 +3529,15 @@
 					}
 				}
 
-				this.$element.trigger( 'changed.fu.wizard' );
+				// only fire changed event after initializing
+				if ( typeof( this.initialized ) !== 'undefined' ) {
+					var e = $.Event( 'changed.fu.wizard' );
+					this.$element.trigger( e, {
+						step: this.currentStep
+					} );
+				}
+
+				this.initialized = true;
 			},
 
 			stepclicked: function( e ) {
@@ -3360,7 +3552,7 @@
 				}
 
 				if ( canMovePrev ) {
-					var evt = $.Event( 'stepclick.fu.wizard' );
+					var evt = $.Event( 'stepclicked.fu.wizard' );
 					this.$element.trigger( evt, {
 						step: index + 1
 					} );
@@ -3398,18 +3590,26 @@
 					canMovePrev = false;
 				}
 				if ( canMovePrev ) {
-					var e = $.Event( 'changed.fu.wizard' );
+					var e = $.Event( 'actionclicked.fu.wizard' );
 					this.$element.trigger( e, {
 						step: this.currentStep,
 						direction: 'previous'
 					} );
 					if ( e.isDefaultPrevented() ) {
 						return;
-					}
+					} // don't increment
 
 					this.currentStep -= 1;
 					this.setState();
 				}
+
+				// return focus to control after selecting an option
+				if ( this.$prevBtn.is( ':disabled' ) ) {
+					this.$nextBtn.focus();
+				} else {
+					this.$prevBtn.focus();
+				}
+
 			},
 
 			next: function() {
@@ -3417,20 +3617,26 @@
 				var lastStep = ( this.currentStep === this.numSteps );
 
 				if ( canMoveNext ) {
-					var e = $.Event( 'change.fu.wizard' );
+					var e = $.Event( 'actionclicked.fu.wizard' );
 					this.$element.trigger( e, {
 						step: this.currentStep,
 						direction: 'next'
 					} );
-
 					if ( e.isDefaultPrevented() ) {
 						return;
-					}
+					} // don't increment
 
 					this.currentStep += 1;
 					this.setState();
 				} else if ( lastStep ) {
 					this.$element.trigger( 'finished.fu.wizard' );
+				}
+
+				// return focus to control after selecting an option
+				if ( this.$nextBtn.is( ':disabled' ) ) {
+					this.$prevBtn.focus();
+				} else {
+					this.$nextBtn.focus();
 				}
 			},
 
@@ -3497,14 +3703,22 @@
 		};
 
 
-		// WIZARD DATA-API
+		// DATA-API
 
-		$( 'body' ).on( 'mouseover.fu.wizard.data-api', '.wizard', function() {
-			var $this = $( this );
-			if ( $this.data( 'wizard' ) ) {
-				return;
+		$( document ).on( 'mouseover.fu.wizard.data-api', '[data-initialize=wizard]', function( e ) {
+			var $control = $( e.target ).closest( '.wizard' );
+			if ( !$control.data( 'wizard' ) ) {
+				$control.wizard( $control.data() );
 			}
-			$this.wizard( $this.data() );
+		} );
+
+		// Must be domReady for AMD compatibility
+		$( function() {
+			$( '[data-initialize=wizard]' ).each( function() {
+				var $this = $( this );
+				if ( $this.data( 'wizard' ) ) return;
+				$this.wizard( $this.data() );
+			} );
 		} );
 
 
@@ -3658,6 +3872,8 @@
 			return this;
 		};
 
+		// NO DATA-API DUE TO NEED OF DATA-SOURCE
+
 
 	} )( jQuery );
 
@@ -3682,6 +3898,7 @@
 
 		var Pillbox = function( element, options ) {
 			this.$element = $( element );
+			this.$moreCount = this.$element.find( '.pillbox-more-count' );
 			this.$pillGroup = this.$element.find( '.pill-group' );
 			this.$addItem = this.$element.find( '.pillbox-add-item' );
 			this.$addItemWrap = this.$addItem.parent();
@@ -3695,6 +3912,14 @@
 
 			this.options = $.extend( {}, $.fn.pillbox.defaults, options );
 
+			if ( this.options.readonly === -1 ) {
+				if ( this.$element.attr( 'data-readonly' ) !== undefined ) {
+					this.readonly( true );
+				}
+			} else if ( this.options.readonly ) {
+				this.readonly( true );
+			}
+
 			// EVENTS
 			this.acceptKeyCodes = this._generateObject( this.options.acceptKeyCodes );
 			// Creatie an object out of the key code array, so we dont have to loop through it on every key stroke
@@ -3706,6 +3931,7 @@
 				this.$element.on( 'mousedown.fu.pillbox', '.suggest > li', $.proxy( this.suggestionClick, this ) );
 			}
 			if ( this.options.edit ) {
+				this.$element.addClass( 'pills-editable' );
 				this.$element.on( 'blur.fu.pillbox', '.pillbox-add-item', $.proxy( this.cancelEdit, this ) );
 			}
 		};
@@ -3724,34 +3950,49 @@
 			itemClicked: function( e ) {
 				var self = this;
 				var $target = $( e.target );
-				var $item = $( e.currentTarget );
-				var $text = $target.prev();
+				var $item;
 
 				e.preventDefault();
 				e.stopPropagation();
 				this._closeSuggestions();
 
-				if ( $text.length && !$target.parent().hasClass( 'pill-group' ) ) {
-					if ( this.options.onRemove ) {
-						this.options.onRemove( this.getItemData( $item, {
-							el: $item
-						} ), $.proxy( this._removeElement, this ) );
-					} else {
-						this._removeElement( this.getItemData( $item, {
-							el: $item
-						} ) );
+				if ( !$target.hasClass( 'pill' ) ) {
+					$item = $target.parent();
+					if ( this.$element.attr( 'data-readonly' ) === undefined ) {
+						if ( $target.hasClass( 'glyphicon-close' ) ) {
+							if ( this.options.onRemove ) {
+								this.options.onRemove( this.getItemData( $item, {
+									el: $item
+								} ), $.proxy( this._removeElement, this ) );
+							} else {
+								this._removeElement( this.getItemData( $item, {
+									el: $item
+								} ) );
+							}
+							return false;
+						} else if ( this.options.edit ) {
+							if ( $item.find( '.pillbox-list-edit' ).length ) {
+								return false;
+							}
+							this.openEdit( $item );
+						}
 					}
-					return false;
-
-				} else if ( this.options.edit ) {
-					if ( $item.find( '.pillbox-list-edit' ).length ) {
-						return false;
-					}
-
-					this.openEdit( $item );
+				} else {
+					$item = $target;
 				}
 
 				this.$element.trigger( 'clicked.fu.pillbox', this.getItemData( $item ) );
+			},
+
+			readonly: function( enable ) {
+				if ( enable ) {
+					this.$element.attr( 'data-readonly', 'readonly' );
+				} else {
+					this.$element.removeAttr( 'data-readonly' );
+				}
+				if ( this.options.truncate ) {
+					this.truncate( enable );
+				}
 			},
 
 			suggestionClick: function( e ) {
@@ -4002,9 +4243,12 @@
 
 					//only allowing most recent event callback to register
 					this.callbackId = e.timeStamp;
-					this.options.onKeyDown( e, {
+					this.options.onKeyDown( {
+						event: e,
 						value: text
-					}, $.proxy( this._openSuggestions, this ) );
+					}, function( data ) {
+						self._openSuggestions( e, data );
+					} );
 				}
 			},
 
@@ -4015,6 +4259,7 @@
 				this.$pillGroup.find( '.pill:nth-child(' + index + ')' ).before( $addItemWrap );
 				this.currentEdit = el.detach();
 
+				$addItemWrap.addClass( 'editing' );
 				this.$addItem.val( el.find( 'span:first' ).html() );
 				$addItemWrap.show();
 				this.$addItem.focus().select();
@@ -4033,6 +4278,7 @@
 				this.currentEdit = false;
 
 				$addItemWrap = this.$addItemWrap.detach();
+				$addItemWrap.removeClass( 'editing' );
 				this.$addItem.val( '' );
 				this.$pillGroup.append( $addItemWrap );
 			},
@@ -4051,6 +4297,7 @@
 				this.currentEdit = false;
 
 				this.$addItem.val( '' );
+				this.$addItemWrap.removeClass( 'editing' );
 				this.$pillGroup.append( this.$addItemWrap.detach().show() );
 				this.$element.trigger( 'edited.fu.pillbox', {
 					value: item.value,
@@ -4098,6 +4345,45 @@
 					method: 'removeByText',
 					removedText: text
 				} );
+			},
+
+			truncate: function( enable ) {
+				var self = this;
+				var available, full, i, pills, used;
+
+				this.$element.removeClass( 'truncate' );
+				this.$addItemWrap.removeClass( 'truncated' );
+				this.$pillGroup.find( '.pill' ).removeClass( 'truncated' );
+
+				if ( enable ) {
+					this.$element.addClass( 'truncate' );
+
+					available = this.$element.width();
+					full = false;
+					i = 0;
+					pills = this.$pillGroup.find( '.pill' ).length;
+					used = 0;
+
+					this.$pillGroup.find( '.pill' ).each( function() {
+						var pill = $( this );
+						if ( !full ) {
+							i++;
+							self.$moreCount.text( pills - i );
+							if ( ( used + pill.outerWidth( true ) + self.$addItemWrap.outerWidth( true ) ) <= available ) {
+								used += pill.outerWidth( true );
+							} else {
+								self.$moreCount.text( ( pills - i ) + 1 );
+								pill.addClass( 'truncated' );
+								full = true;
+							}
+						} else {
+							pill.addClass( 'truncated' );
+						}
+					} );
+					if ( i === pills ) {
+						this.$addItemWrap.addClass( 'truncated' );
+					}
+				}
 			},
 
 			inputFocus: function( e ) {
@@ -4205,7 +4491,9 @@
 			onAdd: undefined,
 			onRemove: undefined,
 			onKeyDown: undefined,
-			edit: true,
+			edit: false,
+			readonly: -1, //can be true or false. -1 means it will check for data-readonly="readonly"
+			truncate: false,
 			acceptKeyCodes: [
 				13, //Enter
 				188 //Comma
@@ -4240,18 +4528,22 @@
 		};
 
 
-		// PILLBOX DATA-API
+		// DATA-API
 
-		$( 'body' ).on( 'mousedown.fu.pillbox.data-api', '.pillbox', function() {
-			var $this = $( this );
-			if ( $this.data( 'pillbox' ) ) {
-				return;
+		$( document ).on( 'mousedown.fu.pillbox.data-api', '[data-initialize=pillbox]', function( e ) {
+			var $control = $( e.target ).closest( '.pillbox' );
+			if ( !$control.data( 'pillbox' ) ) {
+				$control.pillbox( $control.data() );
 			}
-			$this.pillbox( $this.data() );
 		} );
 
-		$( 'body' ).on( 'click.fu.pillbox.data-api', function() {
-			$( '.pillbox .suggest' ).css( 'visibility: hidden;' );
+		// Must be domReady for AMD compatibility
+		$( function() {
+			$( '[data-initialize=pillbox]' ).each( function() {
+				var $this = $( this );
+				if ( $this.data( 'pillbox' ) ) return;
+				$this.pillbox( $this.data() );
+			} );
 		} );
 
 
@@ -4292,7 +4584,7 @@
 			this.$pages = this.$element.find( '.repeater-pages' );
 			this.$prevBtn = this.$element.find( '.repeater-prev' );
 			this.$primaryPaging = this.$element.find( '.repeater-primaryPaging' );
-			this.$search = this.$element.find( '.repeater-search' );
+			this.$search = this.$element.find( '.repeater-search' ).find( '.search' );
 			this.$secondaryPaging = this.$element.find( '.repeater-secondaryPaging' );
 			this.$start = this.$element.find( '.repeater-start' );
 			this.$viewport = this.$element.find( '.repeater-viewport' );
@@ -4307,8 +4599,14 @@
 			this.infiniteScrollingOptions = {};
 			this.lastPageInput = 0;
 			this.options = $.extend( {}, $.fn.repeater.defaults, options );
+			this.pageIncrement = 0; // store direction navigated
 			this.resizeTimeout = {};
 			this.staticHeight = ( this.options.staticHeight === -1 ) ? this.$element.attr( 'data-staticheight' ) : this.options.staticHeight;
+
+			this.$filters.selectlist();
+			this.$pageSize.selectlist();
+			this.$primaryPaging.find( '.combobox' ).combobox();
+			this.$search.search();
 
 			this.$filters.on( 'changed.fu.selectlist', $.proxy( this.render, this, {
 				clearInfinite: true,
@@ -4327,6 +4625,9 @@
 				pageIncrement: null
 			} ) );
 			this.$secondaryPaging.on( 'blur.fu.repeater', function() {
+				self.pageInputChange( self.$secondaryPaging.val() );
+			} );
+			this.$secondaryPaging.on( 'change.fu.repeater', function() {
 				self.pageInputChange( self.$secondaryPaging.val() );
 			} );
 			this.$views.find( 'input' ).on( 'change.fu.repeater', $.proxy( this.viewChanged, this ) );
@@ -4528,8 +4829,9 @@
 				var d = 'disabled';
 				this.$nextBtn.attr( d, d );
 				this.$prevBtn.attr( d, d );
+				this.pageIncrement = 1;
 				this.render( {
-					pageIncrement: 1
+					pageIncrement: this.pageIncrement
 				} );
 			},
 
@@ -4574,15 +4876,36 @@
 
 				this.$pages.html( pages );
 
+				// this is not the last page
 				if ( ( this.currentPage + 1 ) < pages ) {
 					this.$nextBtn.removeAttr( dsbl );
 				} else {
 					this.$nextBtn.attr( dsbl, dsbl );
 				}
+				// this is not the first page
 				if ( ( this.currentPage - 1 ) >= 0 ) {
 					this.$prevBtn.removeAttr( dsbl );
 				} else {
 					this.$prevBtn.attr( dsbl, dsbl );
+				}
+
+				// return focus to next/previous buttons after navigating
+				if ( this.pageIncrement !== 0 ) {
+					if ( this.pageIncrement > 0 ) {
+						if ( this.$nextBtn.is( ':disabled' ) ) {
+							// if you can't focus, go the other way
+							this.$prevBtn.focus();
+						} else {
+							this.$nextBtn.focus();
+						}
+					} else {
+						if ( this.$prevBtn.is( ':disabled' ) ) {
+							// if you can't focus, go the other way
+							this.$nextBtn.focus();
+						} else {
+							this.$prevBtn.focus();
+						}
+					}
 				}
 			},
 
@@ -4590,8 +4913,9 @@
 				var d = 'disabled';
 				this.$nextBtn.attr( d, d );
 				this.$prevBtn.attr( d, d );
+				this.pageIncrement = -1;
 				this.render( {
-					pageIncrement: -1
+					pageIncrement: this.pageIncrement
 				} );
 			},
 
@@ -5086,7 +5410,7 @@
 								this.$loader.removeClass( 'noHeader' );
 								callback( {
 									action: 'prepend',
-									item: '<table class="table repeater-list-header" data-preserve="deep"><tr data-container="true"></tr></table>'
+									item: '<table class="table repeater-list-header" data-preserve="deep" role="grid" aria-readonly="true"><tr data-container="true"></tr></table>'
 								} );
 							} else {
 								this.list_columnsSame = true;
@@ -5177,7 +5501,7 @@
 							if ( $item.length > 0 ) {
 								obj.action = 'none';
 							} else {
-								$item = $( '<div class="repeater-list-wrapper" data-infinite="true"><table class="table repeater-list-items" data-container="true"></table></div>' );
+								$item = $( '<div class="repeater-list-wrapper" data-infinite="true"><table class="table repeater-list-items" data-container="true" role="grid" aria-readonly="true"></table></div>' );
 							}
 							obj.item = $item;
 							if ( helpers.data.items.length < 1 ) {
@@ -5209,8 +5533,10 @@
 							render: function( helpers, callback ) {
 								var $item = $( '<tr data-container="true"></tr>' );
 								var self = this;
+
 								if ( this.options.list_selectable ) {
 									$item.addClass( 'selectable' );
+									$item.attr( 'tabindex', 0 ); // allow items to be tabbed to / focused on
 									$item.data( 'item_data', helpers.subset[ helpers.index ] );
 									$item.on( 'click.fu.repeater-list', function() {
 										var $row = $( this );
@@ -5231,7 +5557,16 @@
 											self.$element.trigger( 'itemSelected.fu.repeater', $row );
 										}
 									} );
+									// allow selection via enter key
+									$item.keyup( function( e ) {
+										if ( e.keyCode === 13 ) {
+											$item.trigger( 'click.fu.repeater-list' );
+										}
+									} );
 								}
+
+
+
 								this.list_curRowIndex = helpers.index;
 								callback( {
 									item: $item
@@ -5329,7 +5664,8 @@
 
 			$.fn.repeater.defaults = $.extend( {}, $.fn.repeater.defaults, {
 				thumbnail_infiniteScroll: false,
-				thumbnail_itemRendered: null
+				thumbnail_itemRendered: null,
+				thumbnail_template: '<div class="thumbnail repeater-thumbnail" style="background-color: {{color}};"><img height="75" src="{{src}}" width="65"><span>{{name}}</span></div>'
 			} );
 
 			$.fn.repeater.views.thumbnail = {
@@ -5380,8 +5716,31 @@
 							}
 						},
 						render: function( helpers, callback ) {
+							var item = helpers.subset[ helpers.index ];
+							var template = function( str ) {
+								var invalid = false;
+								var replace = function() {
+									var end, start, val;
+
+									start = str.indexOf( '{{' );
+									end = str.indexOf( '}}', start + 2 );
+
+									if ( start > -1 && end > -1 ) {
+										val = $.trim( str.substring( start + 2, end ) );
+										val = ( item[ val ] !== undefined ) ? item[ val ] : '';
+										str = str.substring( 0, start ) + val + str.substring( end + 2 );
+									} else {
+										invalid = true;
+									}
+								};
+
+								while ( !invalid && str.search( '{{' ) >= 0 ) {
+									replace( str );
+								}
+								return str;
+							};
 							callback( {
-								item: '<div class="thumbnail repeater-thumbnail" style="background: ' + helpers.subset[ helpers.index ].color + ';"><img height="75" src="' + helpers.subset[ helpers.index ].src + '" width="65">' + helpers.subset[ helpers.index ].name + '</div>'
+								item: template( this.options.thumbnail_template )
 							} );
 						},
 						repeat: 'data.items'
@@ -5424,7 +5783,6 @@
 			this.$startTime = this.$element.find( '.start-datetime .start-time' );
 
 			this.$timeZone = this.$element.find( '.timezone-container .timezone' );
-			this.$timeZone.selectlist();
 
 			this.$repeatIntervalPanel = this.$element.find( '.repeat-every-panel' );
 			this.$repeatIntervalSelect = this.$element.find( '.repeat-options' );
@@ -5441,19 +5799,24 @@
 			this.$recurrencePanels = this.$element.find( '.repeat-panel' );
 
 			//initialize sub-controls
-			this.$repeatIntervalSelect.on( 'changed.fu.selectlist', $.proxy( this.repeatIntervalSelectChanged, this ) );
-			this.$endSelect.on( 'changed.fu.selectlist', $.proxy( this.endSelectChanged, this ) );
+			this.$element.find( '.selectlist' ).selectlist();
 			this.$startDate.datepicker();
 			this.$startTime.combobox();
 			// init start time
 			if ( this.$startTime.find( 'input' ).val() === '' ) {
 				this.$startTime.combobox( 'selectByIndex', 0 );
 			}
-			this.$repeatIntervalSpinbox.spinbox();
+			// every 0 days/hours doesn't make sense
+			this.$repeatIntervalSpinbox.spinbox( {
+				'value': 1,
+				'min': 1
+			} );
 			this.$endAfter.spinbox();
 			this.$endDate.datepicker();
 
 			// bind events: 'change' is a Bootstrap JS fired event
+			this.$repeatIntervalSelect.on( 'changed.fu.selectlist', $.proxy( this.repeatIntervalSelectChanged, this ) );
+			this.$endSelect.on( 'changed.fu.selectlist', $.proxy( this.endSelectChanged, this ) );
 			this.$element.find( '.repeat-days-of-the-week .btn-group .btn' ).on( 'change.fu.scheduler', function( e, data ) {
 				self.changed( e, data, true );
 			} );
@@ -5904,13 +6267,24 @@
 		};
 
 
-		// SCHEDULER DATA-API
+		// DATA-API
 
-		$( 'body' ).on( 'mousedown.fu.scheduler.data-api', '.scheduler', function() {
-			var $this = $( this );
-			if ( $this.data( 'scheduler' ) ) return;
-			$this.scheduler( $this.data() );
+		$( document ).on( 'mousedown.fu.scheduler.data-api', '[data-initialize=scheduler]', function( e ) {
+			var $control = $( e.target ).closest( '.scheduler' );
+			if ( !$control.data( 'scheduler' ) ) {
+				$control.scheduler( $control.data() );
+			}
 		} );
+
+		// Must be domReady for AMD compatibility
+		$( function() {
+			$( '[data-initialize=scheduler]' ).each( function() {
+				var $this = $( this );
+				if ( $this.data( 'scheduler' ) ) return;
+				$this.scheduler( $this.data() );
+			} );
+		} );
+
 
 
 	} )( jQuery );

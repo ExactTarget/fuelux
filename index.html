@@ -5,6 +5,7 @@
 	<title>Fuel UX 3</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+	<!--<link href="http://www.fuelcdn.com/fonts/neue-helvetica.css" rel="stylesheet" type="text/css"/>-->
 	<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="dist/css/fuelux.css" rel="stylesheet" type="text/css">
 	<link href="index.css" rel="stylesheet" type="text/css">
@@ -64,35 +65,35 @@
 
 		<div class="clearfix">
 
-			<h2>Checkbox</h2>
+			<h2 id="checkbox"><a href="#checkbox">#</a>Checkbox</h2>
 
 			<div id="MyCheckboxContainer">
 
-				<div id="CheckboxWrapper1" class="checkbox">
+				<div id="CheckboxWrapper1" class="checkbox" data-initialize="checkbox">
 					<label class="checkbox-custom">
-						<input id="Checkbox1" class="sr-only checked" type="checkbox" value="" checked="checked">
+						<input id="chk1" class="sr-only checked" type="checkbox" value="" checked="checked">
 						<span class="checkbox-label">Custom appearance checkbox checked at page load (#chk1)</span>
 					</label>
 				</div>
-				<div id="CheckboxWrapper2" class="checkbox">
+				<div id="CheckboxWrapper2" class="checkbox" data-initialize="checkbox">
 					<label class="checkbox-custom">
 						<input id="Checkbox2" class="sr-only checked" type="checkbox" value="" checked="checked" data-toggle="#checkboxToggle1">
 						<span class="checkbox-label">Custom appearance checkbox checked at page load with linked element visibility toggle by id </span>
 					</label>
 				</div>
-				<div id="CheckboxWrapper3" class="checkbox">
+				<div id="CheckboxWrapper3" class="checkbox" data-initialize="checkbox">
 					<label class="checkbox-custom">
 						<input id="Checkbox3" class="sr-only checkbox" type="checkbox" value="" data-toggle=".checkboxToggle2">
 						<span class="checkbox-label">Custom appearance checkbox unchecked on page load <i>with linked element visibility toggle by class</i></span>
 					</label>
 				</div>
-				<div id="CheckboxWrapper4" class="checkbox">
+				<div id="CheckboxWrapper4" class="checkbox" data-initialize="checkbox">
 					<label class="checkbox-custom">
 						<input id="Checkbox4" class="sr-only checkbox" type="checkbox" value="" checked="checked" disabled="disabled">
 						<span class="checkbox-label">Disabled custom appearance checkbox <i>checked on page load</i></span>
 					</label>
 				</div>
-				<div id="CheckboxWrapper5" class="checkbox">
+				<div id="CheckboxWrapper5" class="checkbox" data-initialize="checkbox">
 					<label class="checkbox-custom">
 						<input id="Checkbox5" class="sr-only checkbox" type="checkbox" value="" disabled="disabled">
 						<span class="checkbox-label">Disabled custom appearance checkbox <i>unchecked on page load</i></span>
@@ -146,15 +147,15 @@
 
 		<div class="clearfix">
 
-			<h2>Combobox</h2>
+			<h2 id="combobox"><a href="#combobox">#</a>Combobox</h2>
 
 			<div id="MyComboboxContainer">
 
 				<div class="form-group">
 					<label class="control-label" for="MyComboBoxWithSelectedInput">Has selected item</label>
 
-					<div id="MyComboboxWithSelected" class="input-group input-append dropdown combobox">
-						<input id="MyComboBoxWithSelectedInput" type="text" class="form-control">
+					<div id="MyComboboxWithSelected" class="input-group input-append dropdown combobox" data-initialize="combobox">
+						<input id="MyComboBoxWithSelectedInput" type="text" class="form-control" placeholder="Select an option">
 						<div class="input-group-btn">
 							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 								<span class="caret"></span>
@@ -176,7 +177,7 @@
 				<div class="form-group">
 					<label class="control-label" for="MyComboBoxInput">No selected item</label>
 
-					<div id="MyCombobox" class="input-group input-append dropdown combobox">
+					<div id="MyCombobox" class="input-group input-append dropdown combobox" data-initialize="combobox">
 						<input id="MyComboBoxInput" type="text" class="form-control">
 						<div class="input-group-btn">
 							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -217,24 +218,25 @@
 		</div>
 
 		<div class="clearfix">
-			<h2>Datepicker</h2>
+			<h2 id="datepicker"><a href="#datepicker">#</a>Datepicker</h2>
 
 			<div id="MyDatepickerContainer">
 
 				<div class="form-group">
-					<label class="control-label" for="MyDatepickerInput">Choose a date</label>
+					<label class="control-label" for="MyDatepickerInput">Choose a date (default, </label>
 						<div>
 
-							<div class="datepicker input-group dropdown" id="datepicker1">
-								<input id="MyDatepickerInput" type="text" class="form-control" data-toggle="dropdown" />
-								<!-- this must go aver the input. if button is present, it must go in between or the input group will not look right -->
-								<div class="dropdown-menu dropdown-menu-right"></div>
-								<span class="input-group-btn" data-toggle="dropdown">
-									<button type="button" class="btn btn-default">
-										<span class="glyphicon glyphicon-calendar"></span>
-										<span class="sr-only">Toggle Calendar</span>
-									</button>
-								</span>
+							<div class="datepicker dropdown" id="datepicker1" data-initialize="datepicker">
+								<div class="input-group">
+									<input id="MyDatepickerInput" type="text" class="form-control" />
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+											<span class="glyphicon glyphicon-calendar"></span>
+											<span class="sr-only">Toggle Calendar</span>
+										</button>
+										<div class="dropdown-menu dropdown-menu-right calendar-menu"></div>
+									</div>
+								</div>
 							</div>
 						
 					</div>
@@ -245,21 +247,21 @@
 			<br/>
 			<h5>Sample Methods</h5>
 			<div class="btn-group">
-				<span class="btn btn-default" id="datepicker-enable">enable</span>
-				<span class="btn btn-default" id="datepicker-disabled">disable</span>
-				<span class="btn btn-default" id="datepicker-logFormattedDate">log formatted date</span>
-				<span class="btn btn-default" id="datepicker-logDateObj">log date object</span>
-				<span class="btn btn-default" id="datepicker-logDateUnix">log unix date</span>
-				<span class="btn btn-default" id="datepicker-setDate">set date 7 days ahead (will log new value)</span>
+				<button class="btn btn-default" id="datepicker-enable">enable</button>
+				<button class="btn btn-default" id="datepicker-disabled">disable</button>
+				<button class="btn btn-default" id="datepicker-logFormattedDate">log formatted date</button>
+				<button class="btn btn-default" id="datepicker-logDateObj">log date object</button>
+				<button class="btn btn-default" id="datepicker-logDateUnix">log unix date</button>
+				<button class="btn btn-default" id="datepicker-setDate">set date 7 days ahead (will log new value)</button>
 			</div>
 			<hr/>
 
 		</div>
 
 		<div class="clearfix">
-			<h2>Infinite Scroll</h2>
+			<h2 id="infinite-scroll"><a href="#infinite-scroll">#</a>Infinite Scroll</h2>
 
-			<div class="infinitescroll" id="MyInfiniteScroll1" style="border: 1px solid black; float: left; height: 500px; margin-right: 50px; max-width: 300px;">
+			<div class="infinitescroll" id="MyInfiniteScroll1">
 				<p>Hodor, hodor. Hodor. Hodor, hodor hodor hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor - hodor hodor hodor? Hodor hodor HODOR! Hodor hodor, hodor. Hodor hodor... Hodor hodor hodor hodor?! Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor hodor! Hodor hodor - hodor... Hodor hodor hodor, hodor, hodor hodor. Hodor hodor - hodor; hodor hodor hodor hodor?! Hodor, HODOR hodor, hodor hodor? Hodor! Hodor hodor, hodor, hodor. Hodor hodor? </p>
 				<p>Hodor hodor HODOR! Hodor hodor hodor - hodor, hodor, hodor hodor. Hodor. Hodor hodor - hodor?! Hodor HODOR hodor, hodor hodor. Hodor. Hodor hodor - hodor HODOR hodor, hodor hodor hodor! Hodor. Hodor hodor hodor hodor hodor?! Hodor hodor HODOR! Hodor hodor hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor; hodor hodor hodor, hodor, hodor hodor. </p>
 				<p>Hodor hodor hodor - hodor? Hodor hodor hodor hodor hodor hodor! Hodor! Hodor hodor, hodor, hodor. Hodor hodor; hodor hodor - hodor. Hodor. Hodor hodor hodor. Hodor! Hodor hodor, hodor - hodor? </p>
@@ -267,7 +269,7 @@
 				<p>Hodor, hodor. Hodor. Hodor, HODOR hodor, hodor HODOR hodor, hodor hodor hodor, hodor. Hodor hodor. Hodor. Hodor hodor - hodor... Hodor hodor hodor, hodor, hodor hodor. Hodor, hodor. Hodor. Hodor, hodor hodor hodor? Hodor hodor - hodor... Hodor hodor hodor?! Hodor, hodor hodor hodor; hodor hodor; hodor hodor hodor! </p>
 			</div>
 
-			<div class="infinitescroll" id="MyInfiniteScroll2" style="border: 1px solid black; float: left; height: 500px; max-width: 300px;">
+			<div class="infinitescroll" id="MyInfiniteScroll2">
 				<p>Hodor, hodor. Hodor. Hodor, hodor hodor hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor - hodor hodor hodor? Hodor hodor HODOR! Hodor hodor, hodor. Hodor hodor... Hodor hodor hodor hodor?! Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor hodor! Hodor hodor - hodor... Hodor hodor hodor, hodor, hodor hodor. Hodor hodor - hodor; hodor hodor hodor hodor?! Hodor, HODOR hodor, hodor hodor? Hodor! Hodor hodor, hodor, hodor. Hodor hodor? </p>
 				<p>Hodor hodor HODOR! Hodor hodor hodor - hodor, hodor, hodor hodor. Hodor. Hodor hodor - hodor?! Hodor HODOR hodor, hodor hodor. Hodor. Hodor hodor - hodor HODOR hodor, hodor hodor hodor! Hodor. Hodor hodor hodor hodor hodor?! Hodor hodor HODOR! Hodor hodor hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor; hodor hodor hodor, hodor, hodor hodor. </p>
 				<p>Hodor hodor hodor - hodor? Hodor hodor hodor hodor hodor hodor! Hodor! Hodor hodor, hodor, hodor. Hodor hodor; hodor hodor - hodor. Hodor. Hodor hodor hodor. Hodor! Hodor hodor, hodor - hodor? </p>
@@ -277,17 +279,17 @@
 		</div>
 
 		<div class="clearfix">
-			<h2>Loader</h2>
+			<h2><a href="#loader">#</a>Loader</h2>
 
 			<div>
-				<div class="loader"></div>
+				<div class="loader" data-initialize="loader" role="alert"><span class="sr-only">Loading</span></div>
 			</div>
 
 			<hr/>
 		</div>
 
 		<div class="clearfix">
-			<h2>Pillbox</h2>
+			<h2 id="pillbox"><a href="#pillbox">#</a>Pillbox</h2>
 
 			<div id="MyPillbox" class="pillbox">
 				<ul class="clearfix pill-group">
@@ -322,6 +324,7 @@
 						</span>
 					</li>
 					<li class="pillbox-input-wrap btn-group">
+						<a class="pillbox-more">and <span class="pillbox-more-count"></span> more...</a>
 						<input type="text" class="form-control dropdown-toggle pillbox-add-item" placeholder="add item">
 						
 						<button type="button" class="dropdown-toggle sr-only">
@@ -333,11 +336,12 @@
 				</ul>
 			</div>
 
-			<h5>Empty Pillbox</h5>
+			<h5>Empty Pillbox (No Suggest)</h5>
 
-			<div id="MyPillboxEmpty" class="pillbox">
+			<div id="MyPillboxEmpty" class="pillbox" data-initialize="pillbox">
 				<ul class="clearfix pill-group">
 					<li class="pillbox-input-wrap btn-group">
+						<a class="pillbox-more">and <span class="pillbox-more-count"></span> more...</a>
 						<input type="text" class="form-control dropdown-toggle pillbox-add-item" placeholder="add item">
 						
 						<button type="button" class="dropdown-toggle sr-only">
@@ -360,20 +364,65 @@
 			</div>
 			<hr/>
 
+			<div id="MyPillboxTruncateReadOnly" data-readonly="read-only" class="pillbox">
+				<ul class="clearfix pill-group">
+					<li class="btn btn-default pill" data-value="foo">
+						<span>Item 1</span>
+						<span class="glyphicon glyphicon-close">
+							<span class="sr-only">Remove</span>
+						</span>
+					</li>
+					<li class="btn btn-default pill">
+						<span>Item 2</span>
+						<span class="glyphicon glyphicon-close">
+							<span class="sr-only">Remove</span>
+						</span>
+					</li>
+					<li class="btn btn-default pill" data-value="three-value">
+						<span>Item 3</span>
+						<span class="glyphicon glyphicon-close">
+							<span class="sr-only">Remove</span>
+						</span>
+					</li>
+					<li class="btn btn-default pill truncate">
+						<span>Item 4</span>
+						<span class="glyphicon glyphicon-close">
+							<span class="sr-only">Remove</span>
+						</span>
+					</li>
+					<li class="btn btn-default pill truncate">
+						<span>Item 5</span>
+						<span class="glyphicon glyphicon-close">
+							<span class="sr-only">Remove</span>
+						</span>
+					</li>
+					<li class="pillbox-input-wrap btn-group">
+						<a class="pillbox-more">and <span class="pillbox-more-count"></span> more...</a>
+						<input type="text" class="form-control dropdown-toggle pillbox-add-item" placeholder="add item">
+						
+						<button type="button" class="dropdown-toggle sr-only">
+							<span class="caret"></span>
+							<span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<ul class="suggest dropdown-menu" role="menu" data-toggle="dropdown" data-flip="auto"></ul>
+					</li>
+				</ul>
+			</div>
+
 		</div>
 
 		<div class="clearfix" style="background: #f3f3f3; padding: 5px;">
 
-			<h2>Placard</h2>
+			<h2 id="placard"><a href="#placard">#</a>Placard</h2>
 
-			<div class="placard">
+			<div class="placard" data-initialize="placard">
 				<div class="placard-popup"></div>
 				<input class="form-control placard-field" type="text" placeholder="[Field label]"/>
 			</div>
 
 			<br/>
 
-			<div class="placard" data-ellipsis="true">
+			<div class="placard" data-initialize="placard" data-ellipsis="true">
 				<div class="placard-popup"></div>
 				<div class="placard-header"><h5>Field label</h5></div>
 				<input class="form-control placard-field" type="text" placeholder="[Field label]"/>
@@ -385,7 +434,7 @@
 
 			<br/>
 
-			<div class="placard" data-ellipsis="true">
+			<div class="placard" data-initialize="placard" data-ellipsis="true">
 				<div class="placard-popup"></div>
 				<div class="placard-header"><h5>Field label</h5></div>
 				<textarea class="form-control placard-field glass" placeholder="[Field label]"></textarea>
@@ -399,35 +448,35 @@
 
 		<div class="clearfix radio-container">
 
-			<h2>Radio</h2>
+			<h2 id="radio"><a href="#radio">#</a>Radio</h2>
 
 			<div id="MyRadioContainer">
 
-				<div class="radio">
-					<label id="lbl1" class="radio-custom">
-						<input id="radio1" class="sr-only" checked="checked" data-toggle="#radioToggle1" name="radio1a" type="radio">
-						<span class="radio-label">Custom appearance radio selected on page load <i>with linked element visibility toggle by id</i></span>
+				<div class="radio" data-initialize="radio">
+					<label class="radio-custom">
+						<input class="sr-only" name="radioEx1" type="radio" value="option1">
+						Browser-independent radio unchecked on page load
+					</label>
+				</div>
+				
+				<div class="radio checked" data-initialize="radio">
+					<label class="radio-custom">
+						<input class="sr-only" checked="checked" name="radioEx1" type="radio" value="option2">
+						Browser-independent radio checked on page load
 					</label>
 				</div>
 
-				<div class="radio">
-					<label id="lbl2" class="radio-custom">
-						<input id="radio2" class="sr-only" data-toggle=".radioToggle2" name="radio1a" type="radio">
-						<span class="radio-label">Custom appearance radio not selected on page load <i>with linked element visibility toggle by class</i></span>
-					</label>
-				</div>
-
-				<div class="radio">
+				<div class="radio checked" data-initialize="radio">
 					<label id="lbl3" class="radio-custom">
 						<input id="radio3" class="sr-only" checked="checked" disabled="disabled" name="radio1b" type="radio">
 						<span class="radio-label">Disabled custom appearance radio selected on page load</span>
 					</label>
 				</div>
 
-				<div class="radio">
-					<label id="lbl4" class="radio-custom">
-						<input id="radio4" class="sr-only" disabled="disabled" name="radio1b" type="radio">
-						<span class="radio-label">Disabled custom appearance radio not selected on page load</span>
+				<div class="radio" data-initialize="radio">
+					<label class="radio-custom">
+						<input class="sr-only" disabled="disabled" name="radioEx2" type="radio" value="option3">
+						Disabled browser-independent radio unchecked on page load
 					</label>
 				</div>
 
@@ -460,9 +509,9 @@
 
 			<br/>
 			<h5>Sample element visibility toggle bound to radios</h5>
-			<div id="radioToggle1" class="alert bg-info hide">This message's visibility toggles by id with a radio above.</div>
-			<div class="radioToggle2 alert bg-warning hide">This message's visibility toggles by class with a radio above.</div>
-			<div class="radioToggle2 alert bg-success hide">This message's visibility toggles by class with a radio above.</div>
+			<div id="radioToggle1" class="alert bg-info hide" aria-hidden="true">This message's visibility toggles by id with a radio above.</div>
+			<div class="radioToggle2 alert bg-warning hide" aria-hidden="true">This message's visibility toggles by class with a radio above.</div>
+			<div class="radioToggle2 alert bg-success hide" aria-hidden="true">This message's visibility toggles by class with a radio above.</div>
 
 			<br/>
 			<h5>Sample Methods</h5>
@@ -478,7 +527,7 @@
 
 		<div class="clearfix">
 
-			<h2>Repeater</h2>
+			<h2 id="repeater"><a href="#repeater">#</a>Repeater</h2>
 
 			<div id="MyRepeaterContainer">
 
@@ -514,10 +563,16 @@
 							</div>
 							<div class="btn-group repeater-views" data-toggle="buttons">
 								<label class="btn btn-default active">
-									<input name="repeaterViews" type="radio" value="list"><span class="glyphicon glyphicon-list"></span>
+									<input name="repeaterViews" type="radio" value="list">
+									<span class="glyphicon glyphicon-list">
+										<span class="sr-only">List View</span>
+									</span>
 								</label>
 								<label class="btn btn-default">
-									<input name="repeaterViews" type="radio" value="thumbnail"><span class="glyphicon glyphicon-th"></span>
+									<input name="repeaterViews" type="radio" value="thumbnail">
+										<span class="glyphicon glyphicon-th">
+											<span class="sr-only">Thumbnail View</span>
+										</span>
 								</label>
 							</div>
 						</div>
@@ -584,24 +639,29 @@
 
 		<div class="clearfix">
 
-			<h2>Scheduler</h2>
+			<h2 id="scheduler"><a href="#scheduler">#</a>Scheduler</h2>
 
 			<div><!-- <div class="bs-example fu-example-scheduler"> -->
 
-			<div id="MyScheduler" class="form-horizontal container-fluid scheduler" role="form">
+			<div id="MyScheduler" class="form-horizontal container-fluid scheduler" role="form" data-initialize="scheduler">
 				<div class="form-group start-datetime">
 					<label class="col-sm-2 control-label scheduler-label" for="MyStartDate">Start Date</label>
 					<div class="row col-sm-10">
 						<div class="col-sm-8 form-group">
-							<div class="input-group datepicker start-date">
-								<input id="MyStartDate" type="text" class="form-control" />
-								<div class="input-group-btn">
-									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> 
-										<span class="glyphicon glyphicon-calendar"><span class="sr-only">View Calendar</span></span>
-									</button>
-									<div class="dropdown-menu dropdown-menu-right" role="menu"></div>
+
+							<div class="datepicker start-date">
+								<div class="input-group">
+									<input id="MyStartDate" type="text" class="form-control" />
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+											<span class="glyphicon glyphicon-calendar"></span>
+											<span class="sr-only">Toggle Calendar</span>
+										</button>
+										<div class="dropdown-menu dropdown-menu-right calendar-menu"></div>
+									</div>
 								</div>
 							</div>
+
 						</div>
 						
 						<div class="col-sm-4 form-group">
@@ -803,9 +863,8 @@
 							<div class="repeat-panel repeat-every-panel repeat-hourly repeat-daily repeat-weekly hide" aria-hidden="true">
 								<label id="MySchedulerEveryLabel" class="inline-form-text repeat-every-pretext">every</label>
 
-								<div class="spinbox repeat-every">
-									<input type="number" class="form-control input-mini spinbox-input" aria-labelledby="MySchedulerEveryLabel">
-
+								<div class="spinbox digits-3 repeat-every">
+									<input type="text" class="form-control input-mini spinbox-input" aria-labelledby="MySchedulerEveryLabel">
 									<div class="spinbox-buttons btn-group btn-group-vertical">
 										<button type="button" class="btn btn-default spinbox-up btn-xs">
 											<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
@@ -1109,10 +1168,9 @@
 						</div>
 						
 						<div class="col-sm-6 form-group end-option-panel end-after-panel pull-left hide" aria-hidden="true">
-							<div class="spinbox end-after">
+							<div class="spinbox digits-3 end-after">
 								<label id="MyEndAfter" class="sr-only">End After</label>
-								<input type="number" class="form-control input-mini spinbox-input" aria-labelledby="MyEndAfter">
-
+								<input type="text" class="form-control input-mini spinbox-input" aria-labelledby="MyEndAfter">
 								<div class="spinbox-buttons btn-group btn-group-vertical">
 									<button type="button" class="btn btn-default spinbox-up btn-xs">
 										<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
@@ -1165,11 +1223,11 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
 
 		<div class="clearfix">
-			<h2>Search</h2>
+			<h2 id="search"><a href="#search">#</a>Search</h2>
 
 			<form class="search-form" role="search">
 
-				<div id="MySearch" class="search input-group">
+				<div id="MySearch" class="search input-group" data-initialize="search">
 					<input type="search" class="form-control" placeholder="Search"/>
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="button">
@@ -1191,78 +1249,54 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
 		</div>
 
-
-
 		<div class="clearfix">
+			<h2 id="selectlist"><a href="#selectlist">#</a>Selectlist</h2>
 
-			<h2>Spinbox</h2>
+			<div class="form-group">
+				<label class="control-label" for="MyComboBoxWithSelectedInput">With auto-resize</label>
+				<div class="input-group">
 
-			<div id="MySpinboxContainer">
-
-				<div class="form-group">
-					<label class="control-label" for="MySpinboxInput">Without Default</label>
-					
-					<div id="MySpinbox" class="spinbox">
-						<input id="MySpinboxInput" type="text" class="form-control input-mini spinbox-input">
-
-				<div class="spinbox-buttons btn-group btn-group-vertical">
-					<button type="button" class="btn btn-default spinbox-up btn-xs">
-						<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
-					</button>
-					<button type="button" class="btn btn-default spinbox-down btn-xs">
-						<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
-					</button>
-						</div>
+					<div id="MySelectlist" class="btn-group selectlist" data-initialize="selectlist" data-resize="auto">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							<span class="selected-label"></span>
+							<span class="caret"></span>
+							<span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li data-value="1"><a href="#">One</a></li>
+							<li data-value="2" data-selected="true"><a href="#">Two</a></li>
+							<li data-value="3"><a href="#">Three</a></li>
+							<li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>
+							<li data-value="Item Five"><a href="#">Item Five</a></li>
+						</ul>
+						<input class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
 					</div>
-
-				</div>
-
-				<div class="form-group">
-					<label class="control-label" for="MySpinboxWithDefaultInput">With Markup Default</label>
-					
-					<div id="MySpinboxWithDefault" class="spinbox">
-						<input id="MySpinboxWithDefaultInput" type="text" value="3" class="form-control input-mini spinbox-input">
-
-						<div class="spinbox-buttons btn-group btn-group-vertical">
-							<button type="button" class="btn btn-default spinbox-up btn-xs">
-								<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
-							</button>
-							<button type="button" class="btn btn-default spinbox-down btn-xs">
-								<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
-							</button>
-						</div>
-					</div>
-
-				</div>
 
 			</div>
 
-			<h5>Sample Methods</h5>
-			<div class="btn-group">
-				<input id="spinboxSetValueBtn" type="button" class="btn btn-default" value="set value (4)"/>
-				<input id="enableSpinbox" type="button" class="btn btn-default" value="enable"/>
-				<input id="disableSpinbox" type="button" class="btn btn-default" value="disable"/>
 			</div>
 
-		</div>
+			<div class="form-group">
+				<label class="control-label" for="MyComboBoxWithSelectedInput">Default</label>
+				<div class="input-group">
 
-		<div class="clearfix">
-			<h2>Selectlist</h2>
+					<div id="MySelectlist2" class="btn-group selectlist" data-initialize="selectlist">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							<span class="selected-label"></span>
+							<span class="caret"></span>
+							<span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li data-value="1"><a href="#">One</a></li>
+							<li data-value="2" data-selected="true"><a href="#">Two</a></li>
+							<li data-value="3"><a href="#">Three</a></li>
+							<li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>
+							<li data-value="Item Five"><a href="#">Item Five</a></li>
+						</ul>
+						<input class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
+					</div>
 
-			<div id="MySelectlist" class="btn-group selectlist" data-resize="auto">
-				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-					<span class="selected-label">&nbsp;</span>
-					<span class="caret"></span>
-					<span class="sr-only">Toggle Dropdown</span>
-				</button>
-				<ul class="dropdown-menu" role="menu">
-					<li data-value="1"><a href="#">One</a></li>
-					<li data-value="2" data-selected="true"><a href="#">Two</a></li>
-					<li data-value="3"><a href="#">Three</a></li>
-					<li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>
-					<li data-value="Item Five"><a href="#">Item Five</a></li>
-				</ul>
-				<input class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
+				</div>
 			</div>
 
 			<br/>
@@ -1284,54 +1318,173 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
 		</div>
 
+
 		<div class="clearfix">
 
-			<h2>Tree</h2>
+			<h2 id="spinbox"><a href="#spinbox">#</a>Spinbox</h2>
 
-			<div id="ex-tree" class="tree">
-				<div class="tree-folder" style="display:none;">
-					<div class="tree-folder-header">
-						<i class="glyphicon glyphicon-folder-close"></i>
+			<div id="MySpinboxContainer">
 
-						<div class="tree-folder-name"></div>
-					</div>
-					<div class="tree-folder-content"></div>
-					<div class="tree-loader" style="display:none">
-						<!--Place your loading HTML here-->
-						Loading...
+				<div class="form-group">
+					<label class="control-label" for="MySpinboxInput">Without default</label>
+					<div class="form-group">
+					
+						<div id="MySpinbox" class="spinbox" data-initialize="spinbox">
+							<input id="MySpinboxInput" type="text" class="form-control input-mini spinbox-input">
+							<div class="spinbox-buttons btn-group btn-group-vertical">
+								<button type="button" class="btn btn-default spinbox-up btn-xs">
+									<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
+								</button>
+								<button type="button" class="btn btn-default spinbox-down btn-xs">
+									<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
+								</button>
+							</div>
+						</div>
+
 					</div>
 				</div>
-				<div class="tree-item" style="display:none;">
-					<i class="glyphicon tree-dot"></i>
 
-					<div class="tree-item-name"></div>
+				<div class="form-group">
+					<label class="control-label" for="MySpinboxWithDefaultInput">With default and 3-digit class</label>
+					<div class="form-group">
+						
+						<div id="MySpinboxWithDefault" class="spinbox digits-3" data-initialize="spinbox">
+							<input id="MySpinboxWithDefaultInput" type="text" value="3" class="form-control input-mini spinbox-input">
+
+							<div class="spinbox-buttons btn-group btn-group-vertical">
+								<button type="button" class="btn btn-default spinbox-up btn-xs">
+									<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
+								</button>
+								<button type="button" class="btn btn-default spinbox-down btn-xs">
+									<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
+								</button>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label" for="MySpinboxWithDecimalInput">With custom decimal mark and units</label>
+					<div class="form-group">
+						
+						<div id="MySpinboxDecimal" class="spinbox">
+							<input id="MySpinboxWithDecimalInput" type="text" class="form-control input-mini spinbox-input">
+
+							<div class="spinbox-buttons btn-group btn-group-vertical">
+								<button type="button" class="btn btn-default spinbox-up btn-xs">
+									<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
+								</button>
+								<button type="button" class="btn btn-default spinbox-down btn-xs">
+									<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
+								</button>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+
+
+			</div>
+
+			<h5>Sample Methods</h5>
+			<div class="btn-group">
+				<input id="spinboxSetValueBtn" type="button" class="btn btn-default" value="set value (4)"/>
+				<input id="spinboxGetValueBtn" type="button" class="btn btn-default" value="get value"/>
+				<input id="enableSpinbox" type="button" class="btn btn-default" value="enable"/>
+				<input id="disableSpinbox" type="button" class="btn btn-default" value="disable"/>
+			</div>
+
+		</div>
+
+		<div class="clearfix">
+
+			<h2 id="tree"><a href="#tree">#</a>Tree</h2>
+
+			<div class="form-group">
+				<label class="control-label">Items selectable only</label>
+				<div class="form-group">
+
+					<ul id="MyTree" class="tree" role="tree">
+						<!-- branch/folder template -->
+						<li class="tree-branch hide" role="treeitem" aria-expanded="false">
+							<div class="tree-branch-header">
+								<button class="tree-branch-name">
+									<span class="glyphicon icon-caret glyphicon-play"></span>
+									<span class="glyphicon icon-folder glyphicon-folder-close"></span>
+									<span class="tree-label">Example Folder</span>
+								</button>
+							</div>
+							<ul class="tree-branch-children" role="group"></ul>
+							<div class="tree-loader" role="alert">Loading...</div>
+						</li>
+						<!-- item template -->
+						<li class="tree-item hide" role="treeitem">
+							<button class="tree-item-name">
+								<span class="glyphicon icon-item fueluxicon-bullet"></span>
+								<span class="tree-label">Example Item</span>
+							</button>
+						</li>
+					</ul>
+				
 				</div>
 			</div>
 
-			<div id="ex-tree-folder" class="tree tree-folder-select" style="margin-top:10px;">
-				<div class="tree-folder" style="display:none;">
-					<div class="tree-folder-header">
-						<i class="tree-triangle-right"></i>
-						<i class="glyphicon glyphicon-folder-close"></i>
-					</div>
-					<div class="tree-folder-name"></div>
-					<div class="tree-folder-content"></div>
-					<div class="tree-loader" style="display:none">
-						<!--Place your loading HTML here-->
-						Loading...
-					</div>
+			<div class="form-group">
+				<label class="control-label">Folders selectable</label>
+				<div class="form-group">
+
+					<ul id="MyTreeSelectableFolder" class="tree tree-folder-select" role="tree">
+						<li class="tree-branch hide" role="treeitem" aria-expanded="false">
+							<div class="tree-branch-header">
+								<button class="glyphicon icon-caret glyphicon-play"><span class="sr-only">Open</span></button>
+								<button class="tree-branch-name">
+									<span class="glyphicon icon-folder glyphicon-folder-close"></span>
+									<span class="tree-label">Example Folder</span>
+								</button>
+							</div>
+							<div class="tree-branch-children"></div>
+							<div class="tree-loader" role="alert">Loading...</div>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label">Folders default </label>
+				<div class="form-group">
+
+					<ul id="MyTreeDefault" class="tree tree-folder-select" role="tree">
+						<li class="tree-branch hide" role="treeitem" aria-expanded="false">
+							<div class="tree-branch-header">
+								<button class="glyphicon icon-caret glyphicon-play"><span class="sr-only">Open</span></button>
+								<button class="tree-branch-name">
+									<span class="glyphicon icon-folder glyphicon-folder-close"></span>
+									<span class="tree-label">Example Folder</span>
+								</button>
+							</div>
+							<div class="tree-branch-children"></div>
+							<div class="tree-loader" role="alert">Loading...</div>
+						</li>
+					</ul>
+
 				</div>
 			</div>
 
 			<hr/>
 
+
+			<hr/>
+
 		</div>
 
-				<div class="clearfix">
+			<div class="clearfix">
 
-			<h2>Wizard</h2>
+			<h2 id="wizard"><a href="#wizard">#</a>Wizard</h2>
 
-			<div id="MyWizard" class="wizard">
+			<div id="MyWizard" class="wizard" data-initialize="wizard">
 				<ul class="steps">
 					<li class="active" data-step="1"><span class="badge badge-info">1</span>Campaign<span class="chevron"></span></li>
 					<li data-step="2"><span class="badge">2</span>Recipients<span class="chevron"></span></li>
@@ -1340,7 +1493,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 					<li data-step="5"><span class="badge">5</span>Send<span class="chevron"></span></li>
 				</ul>
 				<div class="actions">
-					<button type="button" class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
+					<button type="button" class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Previous</button>
 					<button type="button" class="btn btn-default btn-next" data-last="Complete">Next<span class="glyphicon glyphicon-arrow-right"></span></button>
 				</div>
 				<div class="step-content">
@@ -1392,7 +1545,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 			<br/>
 			<br/>
 
-			<div id="MyWizardPreviousStepDisabled" class="wizard" data-restrict="previous">
+			<div id="MyWizardPreviousStepDisabled" class="wizard" data-initialize="wizard" data-restrict="previous">
 				<ul class="steps">
 					<li class="active" data-step="1"><span class="badge badge-info">1</span>Campaign<span class="chevron"></span></li>
 					<li data-step="2"><span class="badge">2</span>Recipients<span class="chevron"></span></li>
@@ -1401,7 +1554,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 					<li data-step="5"><span class="badge">5</span>Send<span class="chevron"></span></li>
 				</ul>
 				<div class="actions">
-					<button type="button" class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
+					<button type="button" class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Previous</button>
 					<button type="button" class="btn btn-default btn-next" data-last="Complete">Next<span class="glyphicon glyphicon-arrow-right"></span></button>
 				</div>
 				<div class="step-content">
@@ -1441,7 +1594,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 			<br/>
 			<br/>
 
-			<div id="MyWizardWithSpaces" class="wizard">
+			<div id="MyWizardWithSpaces" class="wizard" data-initialize="wizard">
 			<ul class="steps">
 				<li class="active" data-step="1"><span class="badge badge-info">1</span>This is step 1<span class="chevron"></span></li>
 				<li data-step="2"><span class="badge">2</span>This is step 2<span class="chevron"></span></li>
@@ -1450,7 +1603,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 				<li data-step="5"><span class="badge">5</span>This is step 5<span class="chevron"></span></li>
 			</ul>
 			<div class="actions">
-				<button type="button" class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
+				<button type="button" class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Previous</button>
 				<button type="button" class="btn btn-default btn-next" data-last="Finish">Next<span class="glyphicon glyphicon-arrow-right"></span></button>
 			</div>
 			<div class="step-content">
@@ -1491,7 +1644,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
 		<div class="clearfix">
 
-			<h2>Dropdown Auto Flip Menu</h2>
+			<h2 id="auto-flip"><a href="#auto-flip">#</a>Dropdown Auto Flip Menu</h2>
 
 			<div class="btn-group">
 				<button type="button" class="btn btn-danger">Action</button>

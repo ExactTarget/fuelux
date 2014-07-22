@@ -42,7 +42,6 @@
 		this.$startTime = this.$element.find('.start-datetime .start-time');
 
 		this.$timeZone = this.$element.find('.timezone-container .timezone');
-		this.$timeZone.selectlist();
 
 		this.$repeatIntervalPanel = this.$element.find('.repeat-every-panel');
 		this.$repeatIntervalSelect = this.$element.find('.repeat-options');
@@ -59,19 +58,24 @@
 		this.$recurrencePanels = this.$element.find('.repeat-panel');
 
 		//initialize sub-controls
-		this.$repeatIntervalSelect.on('changed.fu.selectlist', $.proxy(this.repeatIntervalSelectChanged, this));
-		this.$endSelect.on('changed.fu.selectlist', $.proxy(this.endSelectChanged, this));
+		this.$element.find('.selectlist').selectlist();
 		this.$startDate.datepicker();
 		this.$startTime.combobox();
 		// init start time
 		if(this.$startTime.find('input').val()===''){
 			this.$startTime.combobox('selectByIndex', 0);
 		}
-		this.$repeatIntervalSpinbox.spinbox();
+		// every 0 days/hours doesn't make sense
+		this.$repeatIntervalSpinbox.spinbox({
+			'value': 1,
+			'min': 1
+		});
 		this.$endAfter.spinbox();
 		this.$endDate.datepicker();
 
 		// bind events: 'change' is a Bootstrap JS fired event
+		this.$repeatIntervalSelect.on('changed.fu.selectlist', $.proxy(this.repeatIntervalSelectChanged, this));
+		this.$endSelect.on('changed.fu.selectlist', $.proxy(this.endSelectChanged, this));
 		this.$element.find('.repeat-days-of-the-week .btn-group .btn').on('change.fu.scheduler', function(e, data){self.changed(e, data, true); });
 		this.$element.find('.combobox').on('changed.fu.combobox', $.proxy(this.changed, this));
 		this.$element.find('.datepicker').on('changed.fu.datepicker', $.proxy(this.changed, this));
@@ -530,12 +534,22 @@
 	};
 
 
-	// SCHEDULER DATA-API
+	// DATA-API
 
-	$('body').on('mousedown.fu.scheduler.data-api', '.scheduler', function () {
-		var $this = $(this);
-		if ($this.data('scheduler')) return;
-		$this.scheduler($this.data());
+	$(document).on('mousedown.fu.scheduler.data-api', '[data-initialize=scheduler]', function (e) {
+		var $control = $(e.target).closest('.scheduler');
+		if ( !$control.data('scheduler') ) {
+			$control.scheduler($control.data());
+		}
+	});
+
+	// Must be domReady for AMD compatibility
+	$(function () {
+		$('[data-initialize=scheduler]').each(function () {
+			var $this = $(this);
+			if ($this.data('scheduler')) return;
+			$this.scheduler($this.data());
+		});
 	});
 
 // -- BEGIN UMD WRAPPER AFTERWORD --

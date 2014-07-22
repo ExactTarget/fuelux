@@ -2,11 +2,11 @@
 
 @font-face {
 	font-family: "fuelux";
-	src:url("../fonts/fuelux.eot");
-	src:url("../fonts/fuelux.eot?#iefix") format("embedded-opentype"),
-	url("../fonts/fuelux.woff") format("woff"),
-	url("../fonts/fuelux.ttf") format("truetype"),
-	url("../fonts/fuelux.svg#fuelux") format("svg");
+	src:url("@{fueluxFontPath}fuelux.eot");
+	src:url("@{fueluxFontPath}fuelux.eot?#iefix") format("embedded-opentype"),
+	url("@{fueluxFontPath}fuelux.woff") format("woff"),
+	url("@{fueluxFontPath}fuelux.ttf") format("truetype"),
+	url("@{fueluxFontPath}fuelux.svg#fuelux") format("svg");
 	font-weight: normal;
 	font-style: normal;
 }
@@ -56,4 +56,10 @@
 
 .fueluxicon-loader-8:before {
 	content: "\e008";
+}
+
+//tree
+
+.fueluxicon-bullet:before {
+  content: "\e009";
 }

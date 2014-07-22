@@ -30,8 +30,8 @@ module.exports = function (grunt) {
 
 		//Tasks configuration
 		clean: {
-			dist: ['dist/build.txt', 'dist/fuelux.zip'],
-			zipsrc: ['dist/fuelux']
+			dist: ['dist'],
+			zipsrc: ['dist/fuelux'] // temp folder
 		},
 		compress: {
 			zip: {
@@ -80,7 +80,7 @@ module.exports = function (grunt) {
 						'// For more information on UMD visit: https://github.com/umdjs/umd/' + '\n' +
 						'(function (factory) {' + '\n' +
 							'\tif (typeof define === \'function\' && define.amd) {' + '\n' +
-								'\t\tdefine([\'jquery\'], factory);' + '\n' +
+								'\t\tdefine([\'jquery\', \'bootstrap\'], factory);' + '\n' +
 							'\t} else {' + '\n' +
 								'\t\tfactory(jQuery);' + '\n' +
 							'\t}' + '\n' +
@@ -295,7 +295,7 @@ module.exports = function (grunt) {
 			full: {
 				files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
 				options: { livereload: true },
-				tasks: ['test', 'distcss', 'copy:fonts', 'concat', 'jshint', 'jsbeautifier']
+				tasks: ['test', 'dist']
 			},
 			css: {
 				files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
@@ -308,35 +308,52 @@ module.exports = function (grunt) {
 	// Look ma! Load all grunt plugins in one line from package.json
 	require('load-grunt-tasks')(grunt, {scope: 'devDependencies'});
 
-	//The default task
-	grunt.registerTask('default', ['releasetest', 'distcss', 'copy:fonts', 'clean:dist', 'concat', 'uglify', 'jsbeautifier', 'copy:zipsrc', 'compress', 'clean:zipsrc']);
+	/* -------------
+		BUILD
+	------------- */
+	// JS distribution task
+	grunt.registerTask('distjs', ['concat', 'uglify', 'jsbeautifier']);
+
+	// CSS distribution task
+	grunt.registerTask('distcss', ['less', 'usebanner']);
+
+	// ZIP distribution task 
+	grunt.registerTask('distzip', ['copy:zipsrc', 'compress', 'clean:zipsrc']);
+
+	// Full distribution task
+	grunt.registerTask('dist', ['clean:dist', 'distcss', 'copy:fonts', 'distjs', 'distzip']);
+
+	//The default build task
+	grunt.registerTask('default', ['releasetest', 'dist']);
 
 	/* -------------
-		TESTING
+		TESTS
 	------------- */
 	// minimal tests for developmeent
 	grunt.registerTask('test', ['jshint', 'qunit:simple', 'validation']);
+
 	// multiple jquery versions, but still no VMs
 	grunt.registerTask('releasetest', ['connect:testServer', 'jshint', 'qunit:full']);
+
 	// multiple jquery versions, sent to VMs
 	grunt.registerTask('saucelabs', ['connect:testServer', 'jshint', 'saucelabs-qunit:all']);
+
 	// multiple jquery versions, sent to VMs including IE8-11, etc.
 	grunt.registerTask('trickysauce', ['connect:testServer', 'jshint', 'saucelabs-qunit:trickyBrowsers']);
 
+	//command line travisci / saucelabs
 	grunt.registerTask('traviscisauce', ['connect:testServer', 'jshint', 'saucelabs-qunit:travisCIBrowsers']);
-
-	/* ---------------
-		Stylesheets
-	--------------- */
-	grunt.registerTask('distcss', ['less', 'usebanner']);
-	
-	//Default serve task
-	grunt.registerTask('serve', ['test', 'distcss', 'copy:fonts', 'concat', 'uglify', 'jsbeautifier', 'connect:server', 'watch:full']);
-	grunt.registerTask('servecss', ['connect:server', 'watch:css']);
 
 	//Travis CI task
 	grunt.registerTask('travisci', 'Run appropriate test strategy for Travis CI', function () {
 		(process.env['TRAVIS_SECURE_ENV_VARS'] === 'true') ? grunt.task.run('traviscisauce') : grunt.task.run('releasetest');
 	});
+
+	/* -------------
+		SERVE
+	------------- */
+	grunt.registerTask('serve', ['test', 'dist', 'connect:server', 'watch:full']);
+	grunt.registerTask('servecss', ['connect:server', 'watch:css']);
+
 
 };
