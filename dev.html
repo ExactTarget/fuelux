@@ -45,13 +45,26 @@
 		});
 
 		require(['jquery', 'data', 'fuelux/all'], function ($, data){
-
+			$('#MyDatepicker').datepicker();
 		});
 	</script>
 </head>
 
 <body style="padding: 20px;">
 	<div class="container" style="padding: 20px; margin-top:20px;">
+
+		<div class="datepicker" id="MyDatepicker">
+			<div class="input-group">
+				<input class="form-control" type="text">
+				<div class="input-group-btn">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+						<span class="glyphicon glyphicon-calendar"></span>
+						<span class="sr-only">Toggle Calendar</span>
+					</button>
+					<ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
+				</div>
+			</div>
+		</div>
 
 	</div>
 </body>
