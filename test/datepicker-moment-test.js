@@ -489,5 +489,23 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 			$input.trigger( 'blur' );
 			equal( $sample.datepicker( 'getFormattedDate'), date, "Moment JS parsed date correctly after input blurred" );
 		});
+
+		test( "when bad data is input, don't fail with bad date", function() {
+			var date = '07/03/2014'; // July 3rd, 2014
+			var $sample = $( html ).datepicker({
+				date: new Date( 2014, 6, 3 ),
+				restrictDateSelection: false
+			});
+			var $input = $sample.find( 'input' );
+
+			// bad data entered by user
+			$input.val( 'aa.bb.cccc' );
+
+			equal( $sample.datepicker( 'getFormattedDate'), date, "Moment JS parsed date correctly for default implementation (de culture)" );
+			$input.trigger( 'focus' );
+			$input.trigger( 'blur' );
+			equal( $sample.datepicker( 'getDate'), null, "datepicker should return null when bad data is entered" );
+		});
+
 	}
 });

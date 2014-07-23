@@ -215,11 +215,7 @@ define(function (require) {
 				silent = silent || false;
 				// if silent is requested (direct user input parsing) return true or false not a date object, otherwise return a date object
 				if( silent ) {
-					if( moment( date, this.momentFormat ).toDate().toString() === "Invalid Date" ) {
-						return false;
-					} else {
-						return true;
-					}
+					return moment( date, this.momentFormat ).isValid();
 				} else {
 					if ( $.type( date ) === 'string' ) {
 						return moment( date, this.momentFormat ).toDate();
