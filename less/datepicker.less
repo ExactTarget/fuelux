@@ -1,3 +1,185 @@
 .datepicker {
 
+	&-calendar {
+		border: 1px solid #6e6f71;
+		padding: 0;
+		width: 300px;
+	}
+
+	&-month {
+		padding: 16px 16px 0;
+
+		&-days {
+			height: 182px;
+			margin: 16px 0 4px;
+			width: 100%;
+
+			tbody {
+			}
+
+			thead {
+				border-bottom: 1px solid #bcb9b9;
+			}
+
+			td, th {
+				font-size: 14px;
+				height: 32px;
+				text-align: center;
+				vertical-align: middle;
+				width: 14.29%;
+			}
+
+			td {
+				a {
+					color: #231f20;
+					display: inline-block;
+					height: 22px;
+					text-decoration: none;
+					width: 28px;
+
+					&:hover {
+						background: #b7e3f8;
+						text-decoration: none;
+					}
+				}
+
+				span {
+					display: block;
+				}
+
+				&.current-day {
+					a {
+						border: 1px solid #1d75bb;
+					}
+				}
+
+				&.last-month, &.next-month {
+					span {
+						background: #e3e2e1;
+					}
+				}
+
+				&.past {
+					a {
+						color: #8d8787;
+						cursor: default;
+						pointer-events: none;
+
+						&:hover {
+							background: none;
+						}
+					}
+				}
+
+				&.selected {
+					a {
+						background: #1d75bb;
+						color: #fff;
+
+						&:hover {
+							background: #0f5f9f;
+						}
+					}
+
+					&.current-day {
+						a {
+							box-shadow: 0 0 0 1px #fff inset;
+						}
+					}
+				}
+			}
+
+			th {
+				font-weight: bold;
+				height: 22px;
+				vertical-align: top;
+			}
+		}
+
+		&-header {
+			.center {
+				margin: 0 auto;
+				text-align: center;
+				width: 174px;
+
+				a {
+					color: #231f20;
+					font-size: 20px;
+					line-height: 30px;
+					text-decoration: underline;
+					vertical-align: middle;
+
+					&:hover {
+						color: #1b75bb;
+						text-decoration: underline;
+					}
+
+					&.disabled {
+						cursor: default;
+						pointer-events: none;
+						text-decoration: none;
+					}
+				}
+			}
+
+			.left, .right {
+				background: #4d4d4f;
+				background-clip: padding-box;
+				border-radius: 30px;
+				cursor: pointer;
+				float: left;
+				height: 30px;
+				text-align: center;
+				width: 30px;
+
+				span.glyphicon {
+					color: #fff;
+					font-size: 16px;
+					line-height: 27px;
+				}
+
+				&:hover {
+					background: #1d75bb;
+				}
+			}
+
+			.right {
+				float: right;
+
+				span.glyphicon {
+					line-height: 26px;
+				}
+			}
+		}
+
+		&-footer {
+			background: #e3e2e1;
+			border-radius: 0 0 4px 4px;
+			border-top: 1px solid #cccaca;
+			height: 30px;
+			margin: 0 -16px;
+			padding: 4px 16px;
+
+			.datepicker-today {
+				color: #231f20;
+				font-size: 14px;
+				text-decoration: underline;
+
+				&:hover {
+					color: #1b75bb;
+					text-decoration: underline;
+				}
+
+				&.disabled {
+					color: #8b8c8e;
+					cursor: default;
+					pointer-events: none;
+
+					&:hover {
+						color: #8b8c8e
+					}
+				}
+			}
+		}
+	}
 }
