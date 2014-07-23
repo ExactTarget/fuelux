@@ -469,5 +469,25 @@ require(['jquery', 'fuelux/datepicker'], function ($) {
 			$sample.datepicker( 'setFormatCode', 'l' );
 			equal( $sample.datepicker( 'getFormattedDate' ), today, 'returned correct culture after being changed' );
 		});
+
+		test( "when input is focused and blurred, culture is german, and no date changes, input value should not change", function() {
+			// testing for german culture
+			// more formats can be found here http://momentjs.com/docs/#/customization/long-date-formats/. You should use "L" or "l"
+			var culture    = "de";
+			var date = '03.07.2014'; // July 3rd, 2014
+			var $sample = $( html ).datepicker({
+				momentConfig: {
+					culture: culture
+				},
+				date: new Date( 2014, 6, 3 ),
+				restrictDateSelection: false
+			});
+			var $input = $sample.find( 'input' );
+
+			equal( $sample.datepicker( 'getFormattedDate'), date, "Moment JS parsed date correctly for default implementation (de culture)" );
+			$input.trigger( 'focus' );
+			$input.trigger( 'blur' );
+			equal( $sample.datepicker( 'getFormattedDate'), date, "Moment JS parsed date correctly after input blurred" );
+		});
 	}
 });

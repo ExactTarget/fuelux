@@ -215,13 +215,17 @@ define(function (require) {
 				silent = silent || false;
 				// if silent is requested (direct user input parsing) return true or false not a date object, otherwise return a date object
 				if( silent ) {
-					if( moment( date ).toDate().toString() === "Invalid Date" ) {
+					if( moment( date, this.momentFormat ).toDate().toString() === "Invalid Date" ) {
 						return false;
 					} else {
 						return true;
 					}
 				} else {
-					return moment( date ).toDate(); //example of using moment for parsing
+					if ( $.type( date ) === 'string' ) {
+						return moment( date, this.momentFormat ).toDate();
+					} else {
+						return moment( date ).toDate(); //example of using moment for parsing
+					}
 				}
 			} else {
 				// if moment isn't present, use previous date parsing strategry
