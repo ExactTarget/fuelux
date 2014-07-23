@@ -47,10 +47,33 @@
 
 		constructor: Selectlist,
 
+		destroy: function() {
+			this.$element.remove();
+			// any external bindings
+			$(document.body).off("click.fu.dropdown-autoflip", '[data-toggle=dropdown][data-flip]');
+			// empty elements to return to original markup
+			// [none]
+			// returns string of markup
+			return this.$element[0].outerHTML;
+		},
+
 		doSelect: function($item){
-			this.$selectedItem = $item;
+			var $selectedItem;
+			this.$selectedItem = $selectedItem = $item;
+
 			this.$hiddenField.val(this.$selectedItem.attr('data-value'));
 			this.$label.text(this.$selectedItem.text());
+
+			// clear and set selected item to allow declarative init state
+			// unlike other controls, selectlist's value is stored internal, not in an input
+			this.$element.find('li').each(function () {
+				if ( $selectedItem.is( $(this) ) ) {
+					$(this).attr('data-selected', true);
+				} else {
+					$(this).removeData('selected').removeAttr('data-selected');
+				}
+			});
+
 		},
 
 		itemClicked: function (e) {
@@ -69,11 +92,8 @@
 		},
 
 		itemChanged: function (e) {
-			this.$selectedItem = $(e.target).parent();
 
-			// store value in hidden field for form submission
-			this.$hiddenField.val(this.$selectedItem.attr('data-value'));
-			this.$label.text(this.$selectedItem.text());
+			this.doSelect( $(e.target).parent() );
 
 			// pass object including text and any data-attributes
 			// to onchange event
@@ -152,8 +172,6 @@
 			else {
 				// select by data-attribute
 				this.selectBySelector(selector);
-				item.removeData('selected');
-				item.removeAttr('data-selected');
 			}
 		},
 

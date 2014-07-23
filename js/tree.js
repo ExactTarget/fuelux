@@ -47,6 +47,14 @@
 	Tree.prototype = {
 		constructor: Tree,
 
+		destroy: function() {
+			this.$element.remove();
+			// any external bindings [none]
+			// empty elements to return to original markup [none]
+			// returns string of markup
+			return this.$element[0].outerHTML;
+		},
+
 		render: function () {
 			this.populate(this.$element);
 		},

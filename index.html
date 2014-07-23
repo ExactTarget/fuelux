@@ -63,39 +63,39 @@
 
 	<div class="container">
 
-		<div class="clearfix">
+		<div class="section clearfix">
 
 			<h2 id="checkbox"><a href="#checkbox">#</a>Checkbox</h2>
 
 			<div id="MyCheckboxContainer">
 
-				<div id="CheckboxWrapper1" class="checkbox" data-initialize="checkbox">
-					<label class="checkbox-custom">
-						<input id="chk1" class="sr-only checked" type="checkbox" value="" checked="checked">
+				<div id="MyCheckboxWrapper1" class="checkbox" data-initialize="checkbox">
+					<label class="checkbox-custom checked">
+						<input id="MyCheckbox1" class="sr-only checked" type="checkbox" value="" checked="checked">
 						<span class="checkbox-label">Custom appearance checkbox checked at page load (#chk1)</span>
 					</label>
 				</div>
-				<div id="CheckboxWrapper2" class="checkbox" data-initialize="checkbox">
+				<div id="MyCheckboxWrapper2" class="checkbox" data-initialize="checkbox">
 					<label class="checkbox-custom">
-						<input id="Checkbox2" class="sr-only checked" type="checkbox" value="" checked="checked" data-toggle="#checkboxToggle1">
+						<input id="MyCheckbox2" class="sr-only checked" type="checkbox" value="" checked="checked" data-toggle="#checkboxToggle1">
 						<span class="checkbox-label">Custom appearance checkbox checked at page load with linked element visibility toggle by id </span>
 					</label>
 				</div>
-				<div id="CheckboxWrapper3" class="checkbox" data-initialize="checkbox">
+				<div id="MyCheckboxWrapper3" class="checkbox" data-initialize="checkbox">
 					<label class="checkbox-custom">
-						<input id="Checkbox3" class="sr-only checkbox" type="checkbox" value="" data-toggle=".checkboxToggle2">
+						<input id="MyCheckbox3" class="sr-only checkbox" type="checkbox" value="" data-toggle=".checkboxToggle2">
 						<span class="checkbox-label">Custom appearance checkbox unchecked on page load <i>with linked element visibility toggle by class</i></span>
 					</label>
 				</div>
-				<div id="CheckboxWrapper4" class="checkbox" data-initialize="checkbox">
+				<div id="MyCheckboxWrapper4" class="checkbox" data-initialize="checkbox">
 					<label class="checkbox-custom">
-						<input id="Checkbox4" class="sr-only checkbox" type="checkbox" value="" checked="checked" disabled="disabled">
+						<input id="MyCheckbox4" class="sr-only checkbox" type="checkbox" value="" checked="checked" disabled="disabled">
 						<span class="checkbox-label">Disabled custom appearance checkbox <i>checked on page load</i></span>
 					</label>
 				</div>
-				<div id="CheckboxWrapper5" class="checkbox" data-initialize="checkbox">
+				<div id="MyCheckboxWrapper5" class="checkbox" data-initialize="checkbox">
 					<label class="checkbox-custom">
-						<input id="Checkbox5" class="sr-only checkbox" type="checkbox" value="" disabled="disabled">
+						<input id="MyCheckbox5" class="sr-only checkbox" type="checkbox" value="" disabled="disabled">
 						<span class="checkbox-label">Disabled custom appearance checkbox <i>unchecked on page load</i></span>
 					</label>
 				</div>
@@ -137,15 +137,16 @@
 			<h5>Sample Methods</h5>
 
 			<div class="btn-group">
-				<button type="button" class="btn btn-default" id="btnChkToggle">toggle #chk1</button>
-				<button type="button" class="btn btn-default" id="btnChkDisable">disable #chk1</button>
-				<button type="button" class="btn btn-default" id="btnChkEnable">enable #chk1</button>
+				<button type="button" class="btn btn-default" id="btnCheckboxToggle">toggle #MyCheckbox1</button>
+				<button type="button" class="btn btn-default" id="btnCheckboxDisable">disable #MyCheckbox1</button>
+				<button type="button" class="btn btn-default" id="btnCheckboxEnable">enable #MyCheckbox1</button>
+				<button type="button" class="btn btn-default" id="btnCheckboxDestroy">destroy and append #MyCheckbox1</button>
 			</div>
 			<hr/>
 
 		</div>
 
-		<div class="clearfix">
+		<div class="section clearfix">
 
 			<h2 id="combobox"><a href="#combobox">#</a>Combobox</h2>
 
@@ -201,32 +202,32 @@
 
 			<br/>
 			<h5>Sample Methods</h5>
-			<div class="btn-group">
-				<input id="btnComboboxGetSelectedItem" type="button" class="btn btn-default" value="log item"/>
-				<input id="btnComboboxSelectByValue" type="button" class="btn btn-default" value="set by value (1)"/>
-				<input id="btnComboboxSelectByIndex" type="button" class="btn btn-default" value="set by element index (1)"/>
-				<input id="btnComboboxSelectByText" type="button" class="btn btn-default" value="set by text (Four)"/>
+			<div class="btn-group clearfix">
+				<button id="btnComboboxGetSelectedItem" type="button" class="btn btn-default">log item</button>
+				<button id="btnComboboxSelectByValue" type="button" class="btn btn-default">set by value (1)</button>
+				<button id="btnComboboxSelectByIndex" type="button" class="btn btn-default">set by element index (1)</button>
+				<button id="btnComboboxSelectByText" type="button" class="btn btn-default">set by text (Four)</button>
 			</div>
-			<div class="btn-group">
-				<input id="btnComboboxSelectBySelector" type="button" class="btn btn-default" 
-					value="set by CSS selector li[data-fizz=buzz] (6)"/>
-				<input id="btnComboboxDisable" type="button" class="btn btn-default" value="disable"/>
-				<input id="btnComboboxEnable" type="button" class="btn btn-default" value="enable"/>
+			<div class="btn-group clearfix">
+				<button id="btnComboboxSelectBySelector" type="button" class="btn btn-default">set by CSS selector li[data-fizz=buzz] (6)</button>
+				<button id="btnComboboxDisable" type="button" class="btn btn-default">disable</button>
+				<button id="btnComboboxEnable" type="button" class="btn btn-default">enable</button>
+				<button id="btnComboboxDestroy" type="button" class="btn btn-default">destroy and append</button>
 			</div>
 
 			<hr/>
 		</div>
 
-		<div class="clearfix">
+		<div class="section clearfix">
 			<h2 id="datepicker"><a href="#datepicker">#</a>Datepicker</h2>
 
 			<div id="MyDatepickerContainer">
 
 				<div class="form-group">
-					<label class="control-label" for="MyDatepickerInput">Choose a date (default, </label>
+					<label class="control-label" for="MyDatepickerInput">Choose a date (default) </label>
 						<div>
 
-							<div class="datepicker dropdown" id="datepicker1" data-initialize="datepicker">
+							<div id="MyDatepicker1" class="datepicker dropdown" data-initialize="datepicker">
 								<div class="input-group">
 									<input id="MyDatepickerInput" type="text" class="form-control" />
 									<div class="input-group-btn">
@@ -247,48 +248,80 @@
 			<br/>
 			<h5>Sample Methods</h5>
 			<div class="btn-group">
-				<button class="btn btn-default" id="datepicker-enable">enable</button>
-				<button class="btn btn-default" id="datepicker-disabled">disable</button>
-				<button class="btn btn-default" id="datepicker-logFormattedDate">log formatted date</button>
-				<button class="btn btn-default" id="datepicker-logDateObj">log date object</button>
-				<button class="btn btn-default" id="datepicker-logDateUnix">log unix date</button>
-				<button class="btn btn-default" id="datepicker-setDate">set date 7 days ahead (will log new value)</button>
+				<button class="btn btn-default" id="btnDatepickerEnable">enable</button>
+				<button class="btn btn-default" id="btnDatepickerDisable">disable</button>
+				<button class="btn btn-default" id="btnDatepickerLogFormattedDate">log formatted date</button>
+				<button class="btn btn-default" id="btnDatepickerLogDateUnix">log date object</button>
+				<button class="btn btn-default" id="btnDatepickerLogDateObj">log unix date</button>
+				<button class="btn btn-default" id="btnDatepickerSetDate">set date 7 days ahead (will log new value)</button>
+				<button class="btn btn-default" id="btnDatepickerDestroy">destroy and append</button>
 			</div>
 			<hr/>
 
 		</div>
 
-		<div class="clearfix">
+		<div class="section clearfix">
 			<h2 id="infinite-scroll"><a href="#infinite-scroll">#</a>Infinite Scroll</h2>
 
-			<div class="infinitescroll" id="MyInfiniteScroll1">
-				<p>Hodor, hodor. Hodor. Hodor, hodor hodor hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor - hodor hodor hodor? Hodor hodor HODOR! Hodor hodor, hodor. Hodor hodor... Hodor hodor hodor hodor?! Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor hodor! Hodor hodor - hodor... Hodor hodor hodor, hodor, hodor hodor. Hodor hodor - hodor; hodor hodor hodor hodor?! Hodor, HODOR hodor, hodor hodor? Hodor! Hodor hodor, hodor, hodor. Hodor hodor? </p>
-				<p>Hodor hodor HODOR! Hodor hodor hodor - hodor, hodor, hodor hodor. Hodor. Hodor hodor - hodor?! Hodor HODOR hodor, hodor hodor. Hodor. Hodor hodor - hodor HODOR hodor, hodor hodor hodor! Hodor. Hodor hodor hodor hodor hodor?! Hodor hodor HODOR! Hodor hodor hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor; hodor hodor hodor, hodor, hodor hodor. </p>
-				<p>Hodor hodor hodor - hodor? Hodor hodor hodor hodor hodor hodor! Hodor! Hodor hodor, hodor, hodor. Hodor hodor; hodor hodor - hodor. Hodor. Hodor hodor hodor. Hodor! Hodor hodor, hodor - hodor? </p>
-				<p>Hodor hodor HODOR! Hodor hodor hodor; hodor hodor hodor! Hodor. Hodor hodor... Hodor hodor hodor hodor. Hodor, hodor, hodor. Hodor hodor - HODOR hodor, hodor hodor? Hodor, hodor. Hodor. Hodor, hodor - HODOR hodor, hodor hodor - hodor. Hodor hodor, hodor. Hodor hodor?! Hodor hodor... Hodor hodor hodor - hodor. Hodor. </p>
-				<p>Hodor, hodor. Hodor. Hodor, HODOR hodor, hodor HODOR hodor, hodor hodor hodor, hodor. Hodor hodor. Hodor. Hodor hodor - hodor... Hodor hodor hodor, hodor, hodor hodor. Hodor, hodor. Hodor. Hodor, hodor hodor hodor? Hodor hodor - hodor... Hodor hodor hodor?! Hodor, hodor hodor hodor; hodor hodor; hodor hodor hodor! </p>
+			<div id="MyInfiniteScrollContainer" class="clearfix">
+
+				<div class="infinitescroll" id="MyInfiniteScroll1">
+					<p>Hodor, hodor. Hodor. Hodor, hodor hodor hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor - hodor hodor hodor? Hodor hodor HODOR! Hodor hodor, hodor. Hodor hodor... Hodor hodor hodor hodor?! Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor hodor! Hodor hodor - hodor... Hodor hodor hodor, hodor, hodor hodor. Hodor hodor - hodor; hodor hodor hodor hodor?! Hodor, HODOR hodor, hodor hodor? Hodor! Hodor hodor, hodor, hodor. Hodor hodor? </p>
+					<p>Hodor hodor HODOR! Hodor hodor hodor - hodor, hodor, hodor hodor. Hodor. Hodor hodor - hodor?! Hodor HODOR hodor, hodor hodor. Hodor. Hodor hodor - hodor HODOR hodor, hodor hodor hodor! Hodor. Hodor hodor hodor hodor hodor?! Hodor hodor HODOR! Hodor hodor hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor; hodor hodor hodor, hodor, hodor hodor. </p>
+					<p>Hodor hodor hodor - hodor? Hodor hodor hodor hodor hodor hodor! Hodor! Hodor hodor, hodor, hodor. Hodor hodor; hodor hodor - hodor. Hodor. Hodor hodor hodor. Hodor! Hodor hodor, hodor - hodor? </p>
+					<p>Hodor hodor HODOR! Hodor hodor hodor; hodor hodor hodor! Hodor. Hodor hodor... Hodor hodor hodor hodor. Hodor, hodor, hodor. Hodor hodor - HODOR hodor, hodor hodor? Hodor, hodor. Hodor. Hodor, hodor - HODOR hodor, hodor hodor - hodor. Hodor hodor, hodor. Hodor hodor?! Hodor hodor... Hodor hodor hodor - hodor. Hodor. </p>
+					<p>Hodor, hodor. Hodor. Hodor, HODOR hodor, hodor HODOR hodor, hodor hodor hodor, hodor. Hodor hodor. Hodor. Hodor hodor - hodor... Hodor hodor hodor, hodor, hodor hodor. Hodor, hodor. Hodor. Hodor, hodor hodor hodor? Hodor hodor - hodor... Hodor hodor hodor?! Hodor, hodor hodor hodor; hodor hodor; hodor hodor hodor! </p>
+				</div>
+
+				<div class="infinitescroll" id="MyInfiniteScroll2">
+					<p>Hodor, hodor. Hodor. Hodor, hodor hodor hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor - hodor hodor hodor? Hodor hodor HODOR! Hodor hodor, hodor. Hodor hodor... Hodor hodor hodor hodor?! Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor hodor! Hodor hodor - hodor... Hodor hodor hodor, hodor, hodor hodor. Hodor hodor - hodor; hodor hodor hodor hodor?! Hodor, HODOR hodor, hodor hodor? Hodor! Hodor hodor, hodor, hodor. Hodor hodor? </p>
+					<p>Hodor hodor HODOR! Hodor hodor hodor - hodor, hodor, hodor hodor. Hodor. Hodor hodor - hodor?! Hodor HODOR hodor, hodor hodor. Hodor. Hodor hodor - hodor HODOR hodor, hodor hodor hodor! Hodor. Hodor hodor hodor hodor hodor?! Hodor hodor HODOR! Hodor hodor hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor; hodor hodor hodor, hodor, hodor hodor. </p>
+					<p>Hodor hodor hodor - hodor? Hodor hodor hodor hodor hodor hodor! Hodor! Hodor hodor, hodor, hodor. Hodor hodor; hodor hodor - hodor. Hodor. Hodor hodor hodor. Hodor! Hodor hodor, hodor - hodor? </p>
+					<p>Hodor hodor HODOR! Hodor hodor hodor; hodor hodor hodor! Hodor. Hodor hodor... Hodor hodor hodor hodor. Hodor, hodor, hodor. Hodor hodor - HODOR hodor, hodor hodor? Hodor, hodor. Hodor. Hodor, hodor - HODOR hodor, hodor hodor - hodor. Hodor hodor, hodor. Hodor hodor?! Hodor hodor... Hodor hodor hodor - hodor. Hodor. </p>
+					<p>Hodor, hodor. Hodor. Hodor, HODOR hodor, hodor HODOR hodor, hodor hodor hodor, hodor. Hodor hodor. Hodor. Hodor hodor - hodor... Hodor hodor hodor, hodor, hodor hodor. Hodor, hodor. Hodor. Hodor, hodor hodor hodor? Hodor hodor - hodor... Hodor hodor hodor?! Hodor, hodor hodor hodor; hodor hodor; hodor hodor hodor! </p>
+				</div>
+
 			</div>
 
-			<div class="infinitescroll" id="MyInfiniteScroll2">
-				<p>Hodor, hodor. Hodor. Hodor, hodor hodor hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor - hodor hodor hodor? Hodor hodor HODOR! Hodor hodor, hodor. Hodor hodor... Hodor hodor hodor hodor?! Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor hodor! Hodor hodor - hodor... Hodor hodor hodor, hodor, hodor hodor. Hodor hodor - hodor; hodor hodor hodor hodor?! Hodor, HODOR hodor, hodor hodor? Hodor! Hodor hodor, hodor, hodor. Hodor hodor? </p>
-				<p>Hodor hodor HODOR! Hodor hodor hodor - hodor, hodor, hodor hodor. Hodor. Hodor hodor - hodor?! Hodor HODOR hodor, hodor hodor. Hodor. Hodor hodor - hodor HODOR hodor, hodor hodor hodor! Hodor. Hodor hodor hodor hodor hodor?! Hodor hodor HODOR! Hodor hodor hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor; hodor hodor hodor, hodor, hodor hodor. </p>
-				<p>Hodor hodor hodor - hodor? Hodor hodor hodor hodor hodor hodor! Hodor! Hodor hodor, hodor, hodor. Hodor hodor; hodor hodor - hodor. Hodor. Hodor hodor hodor. Hodor! Hodor hodor, hodor - hodor? </p>
-				<p>Hodor hodor HODOR! Hodor hodor hodor; hodor hodor hodor! Hodor. Hodor hodor... Hodor hodor hodor hodor. Hodor, hodor, hodor. Hodor hodor - HODOR hodor, hodor hodor? Hodor, hodor. Hodor. Hodor, hodor - HODOR hodor, hodor hodor - hodor. Hodor hodor, hodor. Hodor hodor?! Hodor hodor... Hodor hodor hodor - hodor. Hodor. </p>
-				<p>Hodor, hodor. Hodor. Hodor, HODOR hodor, hodor HODOR hodor, hodor hodor hodor, hodor. Hodor hodor. Hodor. Hodor hodor - hodor... Hodor hodor hodor, hodor, hodor hodor. Hodor, hodor. Hodor. Hodor, hodor hodor hodor? Hodor hodor - hodor... Hodor hodor hodor?! Hodor, hodor hodor hodor; hodor hodor; hodor hodor hodor! </p>
+			<div>
+				<br/>
+				<h5>Sample Methods</h5>
+				<div class="btn-group">
+					<button class="btn btn-default" id="btnInfiniteScrollEnable">enable</button>
+					<button class="btn btn-default" id="btnInfiniteScrollDisable">disable</button>
+					<button class="btn btn-default" id="btnInfiniteScrollDestroy">destroy and append</button>
+				</div>
+				<hr/>
 			</div>
+
 		</div>
 
-		<div class="clearfix">
+		<div class="section clearfix">
 			<h2><a href="#loader">#</a>Loader</h2>
 
 			<div>
-				<div class="loader" data-initialize="loader" role="alert"><span class="sr-only">Loading</span></div>
+				<div id="MyLoader1" class="loader" data-initialize="loader" role="alert"><span class="sr-only">Loading</span></div>
+			</div>
+
+			<hr/>
+
+			<div>
+				<br/>
+				<h5>Sample Methods</h5>
+				<div class="btn-group">
+					<button class="btn btn-default" id="btnLoaderPlay">play</button>
+					<button class="btn btn-default" id="btnLoaderPause">pause</button>
+					<button class="btn btn-default" id="btnLoaderNext">next</button>
+					<button class="btn btn-default" id="btnLoaderPrevious">previous</button>
+					<button class="btn btn-default" id="btnLoaderDestroy">destroy and append</button>
+				</div>
+				<hr/>
 			</div>
 
 			<hr/>
 		</div>
 
-		<div class="clearfix">
+		<div class="section clearfix">
 			<h2 id="pillbox"><a href="#pillbox">#</a>Pillbox</h2>
 
 			<div id="MyPillbox" class="pillbox">
@@ -353,16 +386,7 @@
 				</ul>
 			</div>
 
-			<br/>
-			<h5>Sample Methods</h5>
-			<div class="btn-group">
-				<input type="button" class="btn btn-default" id="btnAdd" value="add">
-				<input type="button" class="btn btn-default" id="btnRemoveByValue" value="remove by value">
-				<input type="button" class="btn btn-default" id="btnRemoveBySelector" value="remove by selector">
-				<input type="button" class="btn btn-default" id="btnRemoveByText" value="remove by text">
-				<input type="button" class="btn btn-default" id="btnItems" value="log items to console">
-			</div>
-			<hr/>
+			<h5>Truncated Pillbox</h5>
 
 			<div id="MyPillboxTruncateReadOnly" data-readonly="read-only" class="pillbox">
 				<ul class="clearfix pill-group">
@@ -409,44 +433,71 @@
 				</ul>
 			</div>
 
-		</div>
-
-		<div class="clearfix" style="background: #f3f3f3; padding: 5px;">
-
-			<h2 id="placard"><a href="#placard">#</a>Placard</h2>
-
-			<div class="placard" data-initialize="placard">
-				<div class="placard-popup"></div>
-				<input class="form-control placard-field" type="text" placeholder="[Field label]"/>
-			</div>
-
 			<br/>
-
-			<div class="placard" data-initialize="placard" data-ellipsis="true">
-				<div class="placard-popup"></div>
-				<div class="placard-header"><h5>Field label</h5></div>
-				<input class="form-control placard-field" type="text" placeholder="[Field label]"/>
-				<div class="placard-footer">
-					<button class="btn btn-primary btn-xs placard-accept" type="button">Save</button>
-					<a class="placard-cancel" href="#">Cancel</a>
-				</div>
+			<h5>Sample Methods</h5>
+			<div class="btn-group">
+				<button class="btn btn-default" id="btnPillboxEnable">enable</button>
+				<button class="btn btn-default" id="btnPillboxDisable">disable</button>
+				<button class="btn btn-default" id="btnPillboxAdd">add</button>
+				<button class="btn btn-default" id="btnPillboxRemoveByValue">remove by value</button>
+				<button class="btn btn-default" id="btnPillboxRemoveBySelector">remove by selector</button>
+				<button class="btn btn-default" id="btnPillboxRemoveByText">remove by text</button>
+				<button class="btn btn-default" id="btnPillboxItems">log items to console</button>
+				<button class="btn btn-default" id="btnPillboxDestroy">destroy and append</button>
 			</div>
-
-			<br/>
-
-			<div class="placard" data-initialize="placard" data-ellipsis="true">
-				<div class="placard-popup"></div>
-				<div class="placard-header"><h5>Field label</h5></div>
-				<textarea class="form-control placard-field glass" placeholder="[Field label]"></textarea>
-				<div class="placard-footer">
-					<button class="btn btn-primary btn-xs placard-accept" type="button">Save</button>
-					<a class="placard-cancel" href="#">Cancel</a>
-				</div>
-			</div>
+			<hr/>
 
 		</div>
 
-		<div class="clearfix radio-container">
+		<div class="section">
+
+			<div class="clearfix" style="background: #f3f3f3; padding: 5px;">
+
+				<h2 id="placard"><a href="#placard">#</a>Placard</h2>
+
+				<div id="MyPlacard1" class="placard" data-initialize="placard">
+					<div class="placard-popup"></div>
+					<input class="form-control placard-field" type="text" placeholder="[Field label]"/>
+				</div>
+
+				<br/>
+
+				<div id="MyPlacard2" class="placard" data-initialize="placard" data-ellipsis="true">
+					<div class="placard-popup"></div>
+					<div class="placard-header"><h5>Field label</h5></div>
+					<input class="form-control placard-field" type="text" placeholder="[Field label]"/>
+					<div class="placard-footer">
+						<button class="btn btn-primary btn-xs placard-accept" type="button">Save</button>
+						<a class="placard-cancel" href="#">Cancel</a>
+					</div>
+				</div>
+
+				<br/>
+
+				<div id="MyPlacard3" class="placard" data-initialize="placard" data-ellipsis="true">
+					<div class="placard-popup"></div>
+					<div class="placard-header"><h5>Field label</h5></div>
+					<textarea class="form-control placard-field glass" placeholder="[Field label]"></textarea>
+					<div class="placard-footer">
+						<button class="btn btn-primary btn-xs placard-accept" type="button">Save</button>
+						<a class="placard-cancel" href="#">Cancel</a>
+					</div>
+				</div>
+
+			</div>
+
+			<br/>
+			<h5>Sample Methods</h5>
+			<div class="btn-group">
+				<button class="btn btn-default" id="btnPlacardEnable">enable ???</button>
+				<button class="btn btn-default" id="btnPlacardDisable">disable ???</button>
+				<button class="btn btn-default" id="btnPlacardDestroy">destroy and append</button>
+			</div>
+			<hr/>
+
+		</div>
+
+		<div class="section clearfix radio-container">
 
 			<h2 id="radio"><a href="#radio">#</a>Radio</h2>
 
@@ -454,7 +505,7 @@
 
 				<div class="radio" data-initialize="radio">
 					<label class="radio-custom">
-						<input class="sr-only" name="radioEx1" type="radio" value="option1">
+						<input id="MyRadio1" class="sr-only" name="radioEx1" type="radio" value="option1">
 						Browser-independent radio unchecked on page load
 					</label>
 				</div>
@@ -517,21 +568,22 @@
 			<h5>Sample Methods</h5>
 
 			<div class="btn-group">
-				<button type="button" class="btn btn-default" id="btnRadioDisable">disable name=radio1a</button>
-				<button type="button" class="btn btn-default" id="btnRadioEnable">enable name=radio1a</button>
+				<button type="button" class="btn btn-default" id="btnRadioDisable">disable radio1a</button>
+				<button type="button" class="btn btn-default" id="btnRadioEnable">enable radio1a</button>
 				<button type="button" class="btn btn-default" id="btnRadioDisableAll">disable all</button>
 				<button type="button" class="btn btn-default" id="btnRadioEnableAll">enable all</button>
+				<button type="button" class="btn btn-default" id="btnRadioDestroy">destroy and append radio1a</button>
 			</div>
 			<hr/>
 		</div>
 
-		<div class="clearfix">
+		<div class="section clearfix">
 
 			<h2 id="repeater"><a href="#repeater">#</a>Repeater</h2>
 
 			<div id="MyRepeaterContainer">
 
-				<div class="repeater" data-staticheight="500px" id="MyRepeater">
+				<div id="MyRepeater" class="repeater" data-staticheight="500px">
 					<div class="repeater-header">
 						<div class="repeater-header-left">
 							<span class="repeater-title">Awesome Repeater</span>
@@ -635,9 +687,18 @@
 
 			</div>
 
+			<br/>
+			<h5>Sample Methods</h5>
+
+			<div class="btn-group">
+				<button type="button" class="btn btn-default" id="btnRepeaterDisable">disable ???</button>
+				<button type="button" class="btn btn-default" id="btnRepeaterEnable">enable ???</button>
+				<button type="button" class="btn btn-default" id="btnRepeaterDestroy">destroy and append</button>
+			</div>
+
 		</div>
 
-		<div class="clearfix">
+		<div class="section clearfix">
 
 			<h2 id="scheduler"><a href="#scheduler">#</a>Scheduler</h2>
 
@@ -1191,7 +1252,7 @@
 										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> 
 											<span class="glyphicon glyphicon-calendar"><span class="sr-only">View Calendar</span></span>
 										</button>
-										<div class="dropdown-menu dropdown-menu-right" role="menu"></div>
+										<div class="dropdown-menu dropdown-menu-right calendar-menu"></div>
 									</div>
 							</div>
 						</div>
@@ -1204,25 +1265,27 @@
 			<br/>
 			<h5>Sample Methods</h5>
 			<div class="btn-group">
-				<input id="schedulerEnableBtn" type="button" class="btn btn-default" value="enable" />
-				<input id="schedulerDisableBtn" type="button" class="btn btn-default" value="disable" />
-				<input id="schedulerLogValueBtn" type="button" class="btn btn-default" value="log value" />
-				<input id="schedulerSetValueBtn" type="button" class="btn btn-default" value="set value to the following schedule" />
+				<button class="btn btn-default" id="btnSchedulerEnable">enable</button>
+				<button class="btn btn-default" id="btnSchedulerDisable">disable</button>
+				<button class="btn btn-default" id="btnSchedulerLogValue">log value</button>
+				<button class="btn btn-default" id="btnSchedulerSetValue">set value to the following schedule</button>
+				<button class="btn btn-default" id="btnSchedulerDestroy">destroy and append</button>
 			</div>
 			<br/>
 			<br/>
-			<pre>startDateTime: '2014-03-31T03:23+02:00',
-timeZone: {
-	name: 'Namibia Standard Time',
-		offset: '+02:00'
+			<textarea id="MySchedule" style="width: 100%; height: 150px;">{ "startDateTime": "2014-03-31T03:23+02:00",
+"timeZone": {
+	"name": "Namibia Standard Time",
+		"offset": "+02:00"
 	},
-recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'</pre>
+"recurrencePattern": "FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;"
+}</textarea>
 			<hr/>
 
 		</div>
 
 
-		<div class="clearfix">
+		<div class="section clearfix">
 			<h2 id="search"><a href="#search">#</a>Search</h2>
 
 			<form class="search-form" role="search">
@@ -1242,18 +1305,19 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 			<br/>
 			<h5>Sample Methods</h5>
 			<div class="btn-group">
-				<button type="button" class="btn btn-default" id="btnSearchDisable" value="disable">disable</button>
-				<button type="button" class="btn btn-default" id="btnSearchEnable" value="enable">enable</button>
+				<button type="button" class="btn btn-default" id="btnSearchDisable">disable</button>
+				<button type="button" class="btn btn-default" id="btnSearchEnable">enable</button>
+				<button type="button" class="btn btn-default" id="btnSearchDestroy">destroy and append</button>
 			</div>
 			<hr/>
 
 		</div>
 
-		<div class="clearfix">
+		<div class="section clearfix">
 			<h2 id="selectlist"><a href="#selectlist">#</a>Selectlist</h2>
 
 			<div class="form-group">
-				<label class="control-label" for="MyComboBoxWithSelectedInput">With auto-resize</label>
+				<label class="control-label" for="MySelectlistHiddenInput">With auto-resize</label>
 				<div class="input-group">
 
 					<div id="MySelectlist" class="btn-group selectlist" data-initialize="selectlist" data-resize="auto">
@@ -1269,7 +1333,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 							<li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>
 							<li data-value="Item Five"><a href="#">Item Five</a></li>
 						</ul>
-						<input class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
+						<input id="MySelectlistHiddenInput" class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
 					</div>
 
 			</div>
@@ -1277,7 +1341,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 			</div>
 
 			<div class="form-group">
-				<label class="control-label" for="MyComboBoxWithSelectedInput">Default</label>
+				<label class="control-label" for="MySelectlistHiddenInput2">Default</label>
 				<div class="input-group">
 
 					<div id="MySelectlist2" class="btn-group selectlist" data-initialize="selectlist">
@@ -1293,7 +1357,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 							<li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>
 							<li data-value="Item Five"><a href="#">Item Five</a></li>
 						</ul>
-						<input class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
+						<input id="MySelectlistHiddenInput2" class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
 					</div>
 
 				</div>
@@ -1303,23 +1367,24 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 			<br/>
 			<h5>Sample Methods</h5>
 			<div class="btn-group">
-				<input id="getSelectedItem" type="button" class="btn btn-default" value="log selected item/value"/>
-				<input id="selectByValue" type="button" class="btn btn-default" value="set by value (3)"/>
-				<input id="selectByIndex" type="button" class="btn btn-default" value="set by element index (zero-based) ('4')"/>
+				<button type="button" class="btn btn-default" id="btnSelectlistGetSelectedItem">log selected item/value</button>
+				<button type="button" class="btn btn-default" id="btnSelectlistSelectByValue">set by value (3)</button>
+				<button type="button" class="btn btn-default" id="btnSelectlistSelectByIndex">set by element index (zero-based) ('4')</button>
 			</div>
 
 			<div class="btn-group">
-				<input id="selectByText" type="button" class="btn btn-default" value="set by text ('One')"/>
-				<input id="selectBySelector" type="button" class="btn btn-default" value="set by CSS selector ('li[data-fizz=buzz]')"/>
-				<input id="enableSelectlist" type="button" class="btn btn-default" value="enable"/>
-				<input id="disableSelectlist" type="button" class="btn btn-default" value="disable"/>
+				<button type="button" class="btn btn-default" id="btnSelectlistSelectByText">set by text ('One')</button>
+				<button type="button" class="btn btn-default" id="btnSelectlistSelectBySelector">set by CSS selector ('li[data-fizz=buzz]')</button>
+				<button type="button" class="btn btn-default" id="btnSelectlistEnableSelectlist">enable</button>
+				<button type="button" class="btn btn-default" id="btnSelectlistDisableSelectlist">disable</button>
+				<button type="button" class="btn btn-default" id="btnSelectlistDestroy">destroy and append</button>
 			</div>
 			<hr/>
 
 		</div>
 
 
-		<div class="clearfix">
+		<div class="section clearfix">
 
 			<h2 id="spinbox"><a href="#spinbox">#</a>Spinbox</h2>
 
@@ -1394,11 +1459,12 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 				<input id="spinboxGetValueBtn" type="button" class="btn btn-default" value="get value"/>
 				<input id="enableSpinbox" type="button" class="btn btn-default" value="enable"/>
 				<input id="disableSpinbox" type="button" class="btn btn-default" value="disable"/>
+				<button id="btnSpinboxDestroy" type="button" class="btn btn-default">destroy and append</button>
 			</div>
 
 		</div>
 
-		<div class="clearfix">
+		<div class="section clearfix">
 
 			<h2 id="tree"><a href="#tree">#</a>Tree</h2>
 
@@ -1480,7 +1546,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
 		</div>
 
-			<div class="clearfix">
+			<div class="section clearfix">
 
 			<h2 id="wizard"><a href="#wizard">#</a>Wizard</h2>
 
@@ -1533,12 +1599,14 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 			<br/>
 			<h5>Sample Methods</h5>
 			<div class="btn-group">
-				<input type="button" class="btn btn-default" id="btnWizardPrev" value="prev">
-				<input type="button" class="btn btn-default" id="btnWizardNext" value="next">
-				<input type="button" class="btn btn-default" id="btnWizardStep" value="log current step index">
-				<input type="button" class="btn btn-default" id="btnWizardSetStep" value="jump to step 3 (recipients)">
-				<input type="button" class="btn btn-default" id="btnWizardAddSteps" value="add step (setup)">
-				<input type="button" class="btn btn-default" id="btnWizardRemoveStep" value="remove step (preview)">
+				<button type="button" class="btn btn-default" id="btnWizardPrev">previous</button>
+				<button type="button" class="btn btn-default" id="btnWizardNext">next</button>
+				<button type="button" class="btn btn-default" id="btnWizardStep">log current step index</button>
+				<button type="button" class="btn btn-default" id="btnWizardSetStep">jump to step 3 (recipients)</button>
+				<button type="button" class="btn btn-default" id="btnWizardAddSteps">add step (setup)</button>
+				<button type="button" class="btn btn-default" id="btnWizardRemoveStep">remove step (preview)</button>
+				<button type="button" class="btn btn-default" id="btnWizardDestroy">destroy and append</button>
+
 			</div>
 			<hr/>
 
@@ -1642,7 +1710,7 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
 		</div>
 
-		<div class="clearfix">
+		<div class="section clearfix">
 
 			<h2 id="auto-flip"><a href="#auto-flip">#</a>Dropdown Auto Flip Menu</h2>
 

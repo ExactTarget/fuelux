@@ -7,95 +7,117 @@ define(function(require){
 	require('fuelux/all');
 
 	// CHECKBOX
-	$('#btnChkToggle').on('click', function() {
-		$('#chk1').checkbox('toggle');
+	$('#btnCheckboxToggle').on('click', function() {
+		$('#MyCheckbox1').checkbox('toggle');
 	});
-	$('#btnChkDisable').on('click', function() {
-		$('#chk1').checkbox('disable');
+	$('#btnCheckboxDisable').on('click', function() {
+		$('#MyCheckbox1').checkbox('disable');
 	});
-	$('#btnChkEnable').on('click', function() {
-		$('#chk1').checkbox('enable');
+	$('#btnCheckboxEnable').on('click', function() {
+		$('#MyCheckbox1').checkbox('enable');
 	});
 
+	$('#btnCheckboxDestroy').on('click', function() {
+		$('#MyCheckbox1').checkbox();
+		var markup = $('#MyCheckbox1').checkbox('destroy');
+		console.log( markup );
+		$(this).closest('.section').append(markup);
+	});
 
 
 	// COMBOBOX
 	$('#btnComboboxGetSelectedItem').on('click', function () {
-		console.log($('#MyCombobox').combobox('selectedItem'));
+		console.log($('#MyComboboxWithSelected').combobox('selectedItem'));
 	});
 	$('#btnComboboxSelectByValue').on('click', function () {
-		$('#MyCombobox').combobox('selectByValue', '1');
+		$('#MyComboboxWithSelected').combobox('selectByValue', '1');
 	});
 	$('#btnComboboxSelectByIndex').on('click', function () {
-		$('#MyCombobox').combobox('selectByIndex', '1');
+		$('#MyComboboxWithSelected').combobox('selectByIndex', '1');
 	});
 	$('#btnComboboxSelectByText').on('click', function () {
-		$('#MyCombobox').combobox('selectByText', 'Four');
+		$('#MyComboboxWithSelected').combobox('selectByText', 'Four');
 	});
 	$('#btnComboboxSelectBySelector').on('click', function () {
-		$('#MyCombobox').combobox('selectBySelector', 'li[data-fizz=buzz]');
+		$('#MyComboboxWithSelected').combobox('selectBySelector', 'li[data-fizz=buzz]');
 	});
-	$('#MyCombobox').on('changed.fu.combobox', function (evt, data) {
+	$('#MyComboBoxWithSelectedInput').on('changed.fu.combobox', function (evt, data) {
 		console.log(data);
 	});
 	$('#btnComboboxDisable').on('click', function () {
-		$('#MyCombobox').combobox('disable');
+		$('#MyComboboxWithSelected').combobox('disable');
 	});
 	$('#btnComboboxEnable').on('click', function () {
-		$('#MyCombobox').combobox('enable');
+		$('#MyComboboxWithSelected').combobox('enable');
+	});
+	$('#btnComboboxDestroy').on('click', function () {
+		var markup = $('#MyComboboxWithSelected').combobox('destroy');
+		console.log( markup );
+		$(this).closest('.section').append(markup);
 	});
 
 
 
 	// DATEPICKER
 	// $('#datepicker1').datepicker({
-	// 		//restrictDateSelection: false
+	//		restrictDateSelection: false
 	// });
 
-	$('#datepicker1').on('changed.fu.datepicker', function( event, data ) {
+	$('#MyDatepicker1').on('changed.fu.datepicker', function( event, data ) {
 		console.log( 'datepicker change event fired' );
 	});
 
-	$('#datepicker1').on('inputParsingFailed', function() {
+	$('#MyDatepicker1').on('inputParsingFailed', function() {
 		console.log( 'datepicker inputParsingFailed event fired' );
 	});
 
-	$('#datepicker-enable').on('click', function() {
-		$('#datepicker1').datepicker('enable');
+	$('#btnDatepickerEnable').on('click', function() {
+		$('#MyDatepicker1').datepicker('enable');
 	});
 
-	$('#datepicker-disabled').on('click', function() {
-		$('#datepicker1').datepicker('disable');
+	$('#btnDatepickerDisable').on('click', function() {
+		$('#MyDatepicker1').datepicker('disable');
 	});
 
-	$('#datepicker-logFormattedDate').on('click', function() {
-		console.log( $('#datepicker1').datepicker('getFormattedDate') );
+	$('#btnDatepickerLogFormattedDate').on('click', function() {
+		console.log( $('#MyDatepicker1').datepicker('getFormattedDate') );
 	});
 
-	$('#datepicker-logDateUnix').on('click', function() {
-		console.log( $('#datepicker1').datepicker('getDate', { unix: true } ) );
+	$('#btnDatepickerLogDateUnix').on('click', function() {
+		console.log( $('#MyDatepicker1').datepicker('getDate', { unix: true } ) );
 	});
 
-	$('#datepicker-logDateObj').on('click', function() {
-		console.log( $('#datepicker1').datepicker('getDate') );
+	$('#btnDatepickerLogDateObj').on('click', function() {
+		console.log( $('#MyDatepicker1').datepicker('getDate') );
 	});
 
-	$('#datepicker-setDate').on('click', function() {
+	$('#btnDatepickerSetDate').on('click', function() {
 		var futureDate = new Date(+new Date() + ( 7 * 24 * 60 * 60 * 1000 ) );
-		$('#datepicker1').datepicker('setDate', futureDate );
+		$('#MyDatepicker1').datepicker('setDate', futureDate );
 		console.log( $('#datepicker1').datepicker('getDate') );
+	});
+
+	$('#btnDatepickerDestroy').on('click', function() {
+		var markup = $('#MyDatepicker1').datepicker('destroy');
+		console.log( markup );
+		$(this).closest('.section').append(markup);
 	});
 
 
 
 	// INFINITE SCROLL
-	$('#MyInfiniteScroll1').infinitescroll({
-		dataSource: function(helpers, callback){
-			setTimeout(function(){
-				callback({ content: data.infiniteScroll.content });
-			}, data.infiniteScroll.delays[Math.floor(Math.random() * 4)]);
-		}
-	});
+	function initMyInfiniteScroll1() {
+		$('#MyInfiniteScroll1').infinitescroll({
+			dataSource: function(helpers, callback){
+				setTimeout(function(){
+					callback({ content: data.infiniteScroll.content });
+				}, data.infiniteScroll.delays[Math.floor(Math.random() * 4)]);
+			}
+		});
+
+	}
+
+	initMyInfiniteScroll1();
 
 	var infiniteScrollCount = 0;
 	$('#MyInfiniteScroll2').infinitescroll({
@@ -113,31 +135,50 @@ define(function(require){
 		hybrid: true
 	});
 
+	$('#btnInfiniteScrollEnable').on('click', function() {
+		$('#MyInfiniteScroll1').infinitescroll('enable');
+	});
+
+	$('#btnInfiniteScrollDisable').on('click', function() {
+		$('#MyInfiniteScroll1').infinitescroll('disable');
+	});
+
+	$('#btnInfiniteScrollDestroy').on('click', function() {
+		var markup = $('#MyInfiniteScroll1').infinitescroll('destroy');
+		console.log( markup );
+		$(this).closest('.section').append(markup);
+		$('#MyInfiniteScroll1').append( $('#MyInfiniteScroll2').html() );
+		initMyInfiniteScroll1();
+	});
+
+
+	// LOADER
+	$('#btnLoaderPlay').on('click', function() {
+		$('#MyLoader1').loader('play');
+	});
+
+	$('#btnLoaderPause').on('click', function() {
+		$('#MyLoader1').loader('pause');
+	});
+
+	$('#btnLoaderNext').on('click', function() {
+		$('#MyLoader1').loader('next');
+	});
+
+	$('#btnLoaderPrevious').on('click', function() {
+		$('#MyLoader1').loader('previous');
+	});
+
+	$('#btnLoaderDestroy').on('click', function() {
+		var markup = $('#MyLoader1').loader('destroy');
+		console.log( markup );
+		$(this).closest('.section').append(markup);
+		$('#MyLoader1').loader();
+	});
+
 
 
 	// PILLBOX
-	$('#btnAdd').click(function () {
-		var newItemCount = $('#MyPillbox ul li').length + 1;
-		$('#MyPillbox').pillbox('addItems', {text: 'item ' + newItemCount, value: 'item ' + newItemCount} );
-	});
-
-	$('#btnRemoveByValue').click(function () {
-		$('#MyPillbox').pillbox('removeByValue', 'foo');
-	});
-
-	$('#btnRemoveBySelector').click(function () {
-		$('#MyPillbox').pillbox('removeBySelector', '.status-success');
-	});
-
-	$('#btnRemoveByText').click(function () {
-		$('#MyPillbox').pillbox('removeByText', 'Item 6');
-	});
-
-	$('#btnItems').click(function () {
-		var items = $('#MyPillbox').pillbox('items');
-		console.log(items);
-	});
-
 	$('#MyPillbox').pillbox({
 		edit: true,
 		onKeyDown: function( data, callback ){
@@ -182,53 +223,23 @@ define(function(require){
 		}
 	});
 
-$('#MyPillboxEmpty').pillbox({
-	edit: true,
-	onKeyDown: function( data, callback ){
-		callback({data:[
-			{ text: 'Acai', value:  'acai' },
-			{ text: 'African cherry orange', value:  'african cherry orange' },
-			{ text: 'Banana', value:  'banana' },
-			{ text: 'Bilberry', value:  'bilberry' },
-			{ text: 'Cantaloupe', value:  'cantaloupe' },
-			{ text: 'Ceylon gooseberry', value:  'ceylon gooseberry' },
-			{ text: 'Dragonfruit', value:  'dragonfruit' },
-			{ text: 'Dead Man\'s Fingers', value:  'dead man\'s fingers' },
-			{ text: 'Fig', value:  'fig' },
-			{ text: 'Forest strawberries', value:  'forest strawberries' },
-			{ text: 'Governor’s Plum', value:  'governor’s plum' },
-			{ text: 'Grapefruit', value:  'grapefruit' },
-			{ text: 'Guava', value:  'guava' },
-			{ text: 'Honeysuckle', value:  'honeysuckle' },
-			{ text: 'Huckleberry', value:  'huckleberry' },
-			{ text: 'Jackfruit', value:  'jackfruit' },
-			{ text: 'Japanese Persimmon', value:  'japanese persimmon' },
-			{ text: 'Key Lime', value:  'key lime' },
-			{ text: 'Kiwi', value:  'kiwi' },
-			{ text: 'Lemon', value:  'lemon' },
-			{ text: 'Lillypilly', value:  'lillypilly' },
-			{ text: 'Mandarin', value:  'mandarin' },
-			{ text: 'Miracle Fruit', value:  'miracle fruit' },
-			{ text: 'Orange', value:  'orange' },
-			{ text: 'Oregon grape', value:  'oregon grape' },
-			{ text: 'Persimmon', value:  'persimmon' },
-			{ text: 'Pomegranate', value:  'pomegranate' },
-			{ text: 'Rhubarb', value:  'rhubarb' },
-			{ text: 'Rose hip', value:  'rose hip' },
-			{ text: 'Soursop', value:  'soursop' },
-			{ text: 'Starfruit', value:  'starfruit' },
-			{ text: 'Tamarind', value:  'tamarind' },
-			{ text: 'Thimbleberry', value:  'thimbleberry' },
-			{ text: 'Wineberry', value:  'wineberry' },
-			{ text: 'Wongi', value:  'wongi' },
-			{ text: 'Youngberry', value: 'youngberry' }
-		]});
-	}
-});
+	$('#MyPillboxEmpty').pillbox({
+		edit: true,
+		onKeyDown: function( data, callback ){
+			callback({data:[
+				{ text: 'Acai', value:  'acai' },
+				{ text: 'African cherry orange', value:  'african cherry orange' },
+				{ text: 'Banana', value:  'banana' },
+				{ text: 'Bilberry', value:  'bilberry' },
+				{ text: 'Cantaloupe', value:  'cantaloupe' },
+				{ text: 'Ceylon gooseberry', value:  'ceylon gooseberry' }
+			]});
+		}
+	});
 
-$('#MyPillboxTruncateReadOnly').pillbox({
-	truncate: true
-});
+	$('#MyPillboxTruncateReadOnly').pillbox({
+		truncate: true
+	});
 
 	$('#MyPillbox').on( 'added', function( event, data ) {
 		console.log( 'pillbox added', data );
@@ -238,135 +249,218 @@ $('#MyPillboxTruncateReadOnly').pillbox({
 		console.log( 'pillbox removed', data );
 	});
 
+	// buttons
+	$('#btnPillboxEnable').click(function () {
+		$('#MyPillbox').pillbox('enable');
+	});
+
+	$('#btnPillboxDisable').click(function () {
+		$('#MyPillbox').pillbox('disable');
+	});
+
+	$('#btnPillboxAdd').click(function () {
+		var newItemCount = $('#MyPillbox ul li').length + 1;
+		$('#MyPillbox').pillbox('addItems', {text: 'item ' + newItemCount, value: 'item ' + newItemCount} );
+	});
+
+	$('#btnPillboxRemoveByValue').click(function () {
+		$('#MyPillbox').pillbox('removeByValue', 'foo');
+	});
+
+	$('#btnPillboxRemoveBySelector').click(function () {
+		$('#MyPillbox').pillbox('removeBySelector', '.status-success');
+	});
+
+	$('#btnPillboxRemoveByText').click(function () {
+		$('#MyPillbox').pillbox('removeByText', 'Item 6');
+	});
+
+	$('#btnPillboxItems').click(function () {
+		var items = $('#MyPillbox').pillbox('items');
+		console.log(items);
+	});
+
+	$('#btnPillboxDestroy').click(function () {
+		var markup = $('#MyPillbox').pillbox('destroy');
+		console.log( markup );
+		$(this).closest('.section').append(markup);
+		$('#MyPillbox').pillbox( { edit: true } );
+	});
+
+
+
+	// PLACARD
+	$('#btnPlacardDestroy').click(function () {
+		var markup = $('#MyPlacard1').placard('destroy');
+		console.log( markup );
+		$(this).closest('.section').append(markup);
+		$('#MyPlacard1').placard( { edit: true } );
+	});
 
 
 	// RADIO
 	$('#btnRadioDisable').on('click', function() {
 		$('[name=radio1a]').radio('disable');
 	});
+
 	$('#btnRadioEnable').on('click', function() {
 		$('[name=radio1a]').radio('enable');
 	});
+
 	$('#btnRadioDisableAll').on('click', function() {
 		$('.radio-container [type=radio]').radio('disable');
 	});
+
 	$('#btnRadioEnableAll').on('click', function() {
 		$('.radio-container [type=radio]').radio('enable');
 	});
 
-
-
-	// REPEATER
-	var delays = ['300', '600', '900', '1200'];
-	var myRepeater = $('#MyRepeater');
-
-	var list = function(options, callback){
-		var resp = {
-			count: data.repeater.listData.length,
-			items: [],
-			page: options.pageIndex
-		};
-		var i, l;
-
-		resp.pages = Math.ceil(resp.count/(options.pageSize || 50));
-
-		i = options.pageIndex * (options.pageSize || 50);
-		l = i + (options.pageSize || 50);
-		l = (l <= resp.count) ? l : resp.count;
-		resp.start = i + 1;
-		resp.end = l;
-
-		resp.columns = [
-			{
-				label: 'Common Name',
-				property: 'commonName',
-				sortable: true
-			},
-			{
-				label: 'Latin Name',
-				property: 'latinName',
-				sortable: true
-			},
-			{
-				label: 'Appearance',
-				property: 'appearance',
-				sortable: true
-			},
-			{
-				label: 'Sound',
-				property: 'sound',
-				sortable: true
-			}
-		];
-
-		for(i; i<l; i++){
-			resp.items.push(data.repeater.listData[i]);
-		}
-
-		//if(options.search){
-		//resp.items = [];
-		//}
-
-		if(window.console && window.console.log){
-			console.log('Repeater Options:');
-			console.log(options);
-		}
-		setTimeout(function(){
-			callback(resp);
-		}, delays[Math.floor(Math.random() * 4)]);
-	};
-
-	var thumbnail = function(options, callback){
-		var categories = ['abstract', 'animals', 'business', 'cats', 'city', 'food', 'nature', 'technics', 'transport'];
-		var colors = ['#D9EDF7', '#F2DEDE', '#FCF8E3', '#DFF0D8'];
-		var numItems = 200;
-		var resp = {
-			count: numItems,
-			items: [],
-			pages: (Math.ceil(numItems/(options.pageSize || 30))),
-			page: options.pageIndex
-		};
-		var i, l;
-
-		i = options.pageIndex * (options.pageSize || 30);
-		l = i + (options.pageSize || 30);
-		resp.start = i + 1;
-		resp.end = l;
-
-		for(i; i<l; i++){
-			resp.items.push({
-				color: colors[Math.floor(Math.random() * 4)],
-				name: ('Thumbnail ' + (i + 1)),
-				src: 'http://lorempixel.com/65/75/' + categories[Math.floor(Math.random() * 9)] + '/?_=' + i
-			});
-		}
-
-		//if(options.search){
-		//resp.items = [];
-		//}
-
-		if(window.console && window.console.log){
-			//console.log(options);
-		}
-		setTimeout(function(){
-			callback(resp);
-		}, delays[Math.floor(Math.random() * 4)]);
-	};
-
-	myRepeater.repeater({
-		dataSource: function(options, callback){
-			if(options.view==='list'){
-				list(options, callback);
-			}else if(options.view==='thumbnail'){
-				thumbnail(options, callback);
-			}
-		},
-		list_selectable: 'multi',
-		list_noItemsHTML: 'no items found',
-		thumbnail_noItemsHTML: 'no items found',
-		thumbnail_infiniteScroll: { hybrid: true }
+	$('#btnRadioDestroy').on('click', function() {
+		var markup = $('#MyRadio1').radio('destroy');
+		console.log( markup );
+		$(this).closest('.section').append(markup);
+		$('#MyRadio1').radio();
 	});
 
+
+	function initRepeater() {
+
+		// REPEATER
+		var delays = ['300', '600', '900', '1200'];
+		var myRepeater = $('#MyRepeater');
+
+		var list = function(options, callback){
+			var resp = {
+				count: data.repeater.listData.length,
+				items: [],
+				page: options.pageIndex
+			};
+			var i, l;
+
+			resp.pages = Math.ceil(resp.count/(options.pageSize || 50));
+
+			i = options.pageIndex * (options.pageSize || 50);
+			l = i + (options.pageSize || 50);
+			l = (l <= resp.count) ? l : resp.count;
+			resp.start = i + 1;
+			resp.end = l;
+
+			resp.columns = [
+				{
+					label: 'Common Name',
+					property: 'commonName',
+					sortable: true
+				},
+				{
+					label: 'Latin Name',
+					property: 'latinName',
+					sortable: true
+				},
+				{
+					label: 'Appearance',
+					property: 'appearance',
+					sortable: true
+				},
+				{
+					label: 'Sound',
+					property: 'sound',
+					sortable: true
+				}
+			];
+
+			for(i; i<l; i++){
+				resp.items.push(data.repeater.listData[i]);
+			}
+
+			//if(options.search){
+			//resp.items = [];
+			//}
+
+			if(window.console && window.console.log){
+				console.log('Repeater Options:');
+				console.log(options);
+			}
+			setTimeout(function(){
+				callback(resp);
+			}, delays[Math.floor(Math.random() * 4)]);
+		};
+
+		var thumbnail = function(options, callback){
+			var categories = ['abstract', 'animals', 'business', 'cats', 'city', 'food', 'nature', 'technics', 'transport'];
+			var colors = ['#D9EDF7', '#F2DEDE', '#FCF8E3', '#DFF0D8'];
+			var numItems = 200;
+			var resp = {
+				count: numItems,
+				items: [],
+				pages: (Math.ceil(numItems/(options.pageSize || 30))),
+				page: options.pageIndex
+			};
+			var i, l;
+
+			i = options.pageIndex * (options.pageSize || 30);
+			l = i + (options.pageSize || 30);
+			resp.start = i + 1;
+			resp.end = l;
+
+			for(i; i<l; i++){
+				resp.items.push({
+					color: colors[Math.floor(Math.random() * 4)],
+					name: ('Thumbnail ' + (i + 1)),
+					src: 'http://lorempixel.com/65/75/' + categories[Math.floor(Math.random() * 9)] + '/?_=' + i
+				});
+			}
+
+			//if(options.search){
+			//resp.items = [];
+			//}
+
+			if(window.console && window.console.log){
+				//console.log(options);
+			}
+			setTimeout(function(){
+				callback(resp);
+			}, delays[Math.floor(Math.random() * 4)]);
+		};
+
+		myRepeater.repeater({
+			dataSource: function(options, callback){
+				if(options.view==='list'){
+					list(options, callback);
+				}else if(options.view==='thumbnail'){
+					thumbnail(options, callback);
+				}
+			},
+			list_selectable: 'multi',
+			list_noItemsHTML: 'no items found',
+			thumbnail_noItemsHTML: 'no items found',
+			thumbnail_infiniteScroll: { hybrid: true }
+		});
+
+		// add event after repeater init
+		$('#MyRepeater').on('resized.fu.repeater', function(){
+			console.log('resized');
+		});
+
+	}
+
+	initRepeater();
+
+	// buttons
+	$('#btnRepeaterEnable').on('click', function(){
+		$('#MyRepeater').repeater('enable');
+	});
+
+	$('#btnRepeaterDisable').on('click', function(){
+		$('#MyRepeater').repeater('disable');
+	});
+
+	$('#btnRepeaterDestroy').on('click', function() {
+		var markup = $('#MyRepeater').repeater('destroy');
+		console.log( markup );
+		$(this).closest('.section').append(markup);
+
+		initRepeater();
+	});
 
 
 	// SCHEDULER
@@ -377,48 +471,63 @@ $('#MyPillboxTruncateReadOnly').pillbox({
 	// 	formatCode: 'dddd, MMMM D, YYYY'
 	// }});
 
-	$('#schedulerEnableBtn').on('click', function(){
+$('#MyScheduler').on('changed.fu.scheduler', function(){
+	if(window.console && window.console.log){
+		window.console.log('scheduler changed.fu.scheduler: ', arguments);
+	}
+});
+
+	// buttons
+	$('#btnSchedulerEnable').on('click', function(){
 		$('#MyScheduler').scheduler('enable');
 	});
 
-	$('#schedulerDisableBtn').on('click', function(){
+	$('#btnSchedulerDisable').on('click', function(){
 		$('#MyScheduler').scheduler('disable');
 	});
 
-	$('#schedulerLogValueBtn').on('click', function(){
+	$('#btnSchedulerLogValue').on('click', function(){
 		var val = $('#MyScheduler').scheduler('value');
 		if(window.console && window.console.log){
 			window.console.log(val);
 		}
 	});
 
-	$('#schedulerSetValueBtn').on('click', function(){
-		$('#MyScheduler').scheduler('value', {
-			startDateTime: '2014-03-31T03:23+02:00',
-			timeZone: {
-				name: 'Namibia Standard Time',
-				offset: '+02:00'
-			},
-			recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
-		});
+	$('#btnSchedulerSetValue').on('click', function(){
+		var json = $.parseJSON( $('#MySchedule').val() );
+
+		console.log(json);
+
+		$('#MyScheduler').scheduler('value', json);
 	});
 
-	$('#MyScheduler').on('changed.fu.scheduler', function(){
-		if(window.console && window.console.log){
-			window.console.log('scheduler changed.fu.scheduler: ', arguments);
-		}
+	$('#btnSchedulerDestroy').on('click', function() {
+		var markup = $('#MyScheduler').scheduler('destroy');
+		console.log( markup );
+		$(this).closest('.section').append(markup);
+		$('#MyScheduler').scheduler();
 	});
+
 
 
 	// SEARCH
 	$('#MySearch').on('searched', function (e, text) {
 		alert('Searched: ' + text);
 	});
+
 	$('#btnSearchDisable').on('click', function () {
 		$('#MySearch').search('disable');
 	});
+
 	$('#btnSearchEnable').on('click', function () {
 		$('#MySearch').search('enable');
+	});
+
+	$('#btnSearchDestroy').on('click', function () {
+		var markup = $('#MySearch').search('destroy');
+		console.log( markup );
+		$(this).closest('.section').append(markup);
+		$('#MySearch').search();
 	});
 
 
@@ -428,50 +537,50 @@ $('#MyPillboxTruncateReadOnly').pillbox({
 		console.log('clicked');
 		console.log(target);
 	});
+
 	$('#MySelectlist').on('changed.fu.selectlist', function (evt, data) {
 		console.log('changed');
 		console.log(data);
 	});
-	$('#getSelectedItem').on('click', function () {
-		console.log($('#MySelectlist').selectlist('selectedItem'));
+
+	$('#btnSelectlistSelectedItem').on('click', function () {
+		console.log($('#MySelectlist2').selectlist('selectedItem'));
 	});
-	$('#selectByValue').on('click', function () {
+
+	$('#btnSelectlistSelectByValue').on('click', function () {
 		$('#MySelectlist').selectlist('selectByValue', '3');
 	});
-	$('#selectBySelector').on('click', function () {
+
+	$('#btnSelectlistSelectBySelector').on('click', function () {
 		$('#MySelectlist').selectlist('selectBySelector', 'li[data-fizz=buzz]');
 	});
-	$('#selectByIndex').on('click', function () {
+
+	$('#btnSelectlistSelectByIndex').on('click', function () {
 		$('#MySelectlist').selectlist('selectByIndex', '4');
 	});
-	$('#selectByText').on('click', function () {
+
+	$('#btnSelectlistSelectByText').on('click', function () {
 		$('#MySelectlist').selectlist('selectByText', 'One');
 	});
-	$('#enableSelectlist').on('click', function () {
+
+	$('#btnSelectlistEnableSelectlist').on('click', function () {
 		$('#MySelectlist').selectlist('enable');
 	});
-	$('#disableSelectlist').on('click', function () {
+
+	$('#btnSelectlistDisableSelectlist').on('click', function () {
 		$('#MySelectlist').selectlist('disable');
+	});
+
+	$('#btnSelectlistDestroy').on('click', function () {
+		var markup = $('#MySelectlist').selectlist('destroy');
+		console.log( markup );
+		$(this).closest('.section').append(markup);
+		$('#MySelectlist').selectlist();
 	});
 
 
 
 	// SPINBOX
-	$('#spinboxGetValueBtn').on('click', function(){
-		console.log( $('#MySpinboxDecimal').spinbox('value') );
-	});
-	$('#enableSpinbox').on('click', function () {
-		$('#MySpinboxWithDefault').spinbox('enable');
-	});
-	$('#enableSpinbox').on('click', function () {
-		$('#MySpinboxWithDefault').spinbox('enable');
-	});
-	$('#disableSpinbox').on('click', function () {
-		$('#MySpinboxWithDefault').spinbox('disable');
-	});
-	$('#MySpinboxWithDefault').on('changed.fu.spinbox', function (e, value) {
-		console.log('Spinbox changed: ', value);
-	});
 	$('#MySpinboxDecimal').spinbox({
 		value: '1,0px',
 		min: 0,
@@ -480,8 +589,37 @@ $('#MyPillboxTruncateReadOnly').pillbox({
 		decimalMark: ',',
 		units: ['px']
 		});
+
+	$('#MySpinboxWithDefault').on('changed.fu.spinbox', function (e, value) {
+		console.log('Spinbox changed: ', value);
+	});
+
 	$('#MySpinboxDecimal').on('changed.fu.spinbox', function (e, value) {
 		console.log('Spinbox changed: ', value);
+	});
+
+	// buttons
+	$('#spinboxGetValueBtn').on('click', function(){
+		console.log( $('#MySpinboxDecimal').spinbox('value') );
+	});
+
+	$('#enableSpinbox').on('click', function () {
+		$('#MySpinboxWithDefault').spinbox('enable');
+	});
+
+	$('#enableSpinbox').on('click', function () {
+		$('#MySpinboxWithDefault').spinbox('enable');
+	});
+
+	$('#disableSpinbox').on('click', function () {
+		$('#MySpinboxWithDefault').spinbox('disable');
+	});
+
+	$('#btnSpinboxDestroy').on('click', function () {
+		var markup = $('#MySpinboxWithDefault').spinbox('destroy');
+		console.log( markup );
+		$(this).closest('.section').append(markup);
+		$('#MySpinboxWithDefault').spinbox();
 	});
 
 
@@ -599,7 +737,14 @@ $('#MyPillboxTruncateReadOnly').pillbox({
 		console.log('action clicked');
 		console.log(data);
 	});
+	$('#MyWizard').on('stepclicked.fu.wizard', function(e, data) {
+		console.log('step ' + data.step + ' clicked');
+		if(data.step===1) {
+			// return e.preventDefault();
+		}
+	});
 
+	//buttons
 	$('#MyWizard').on('finished', function(e, data) {
 		console.log('finished');
 	});
@@ -649,14 +794,16 @@ $('#MyPillboxTruncateReadOnly').pillbox({
 			}
 		]);
 	});
+
 	$('#btnWizardRemoveStep').on('click', function() {
 		$('#MyWizard').wizard('removeSteps', 4, 1);
 	});
-	$('#MyWizard').on('stepclicked.fu.wizard', function(e, data) {
-		console.log('step ' + data.step + ' clicked');
-		if(data.step===1) {
-			// return e.preventDefault();
-		}
+
+	$('#btnWizardDestroy').click(function () {
+		var markup = $('#MyWizard').wizard('destroy');
+		console.log( markup );
+		$(this).closest('.section').append(markup);
+		$('#MyWizard').wizard();
 	});
 
 });

@@ -80,7 +80,7 @@ define(function(require){
 		$loader.loader();
 		$loader.loader('pause');
 		$loader.loader('next');
-		$loader.loader('prev');
+		$loader.loader('previous');
 
 		equal($loader.attr('data-frame'), 1, 'prev decrements frame by 1');
 	});
