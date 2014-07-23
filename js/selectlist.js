@@ -50,7 +50,7 @@
 		destroy: function() {
 			this.$element.remove();
 			// any external bindings
-			$(document.body).off("click.fu.dropdown-autoflip", '[data-toggle=dropdown][data-flip]');
+			// [none]
 			// empty elements to return to original markup
 			// [none]
 			// returns string of markup
