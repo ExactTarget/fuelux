@@ -2452,7 +2452,7 @@
 			destroy: function() {
 				this.$element.remove();
 				// any external bindings
-				$( document.body ).off( "click.fu.dropdown-autoflip", '[data-toggle=dropdown][data-flip]' );
+				// [none]
 				// empty elements to return to original markup
 				// [none]
 				// returns string of markup
@@ -3120,9 +3120,11 @@
 			constructor: Tree,
 
 			destroy: function() {
-				this.$element.remove();
 				// any external bindings [none]
-				// empty elements to return to original markup [none]
+				// empty elements to return to original markup
+				this.$element.find( "li:not([data-template])" ).remove();
+
+				this.$element.remove();
 				// returns string of markup
 				return this.$element[ 0 ].outerHTML;
 			},
@@ -3144,11 +3146,11 @@
 						var $entity;
 
 						if ( value.type === 'folder' ) {
-							$entity = self.$element.find( '.tree-branch:eq(0)' ).clone().removeClass( 'hide' );
+							$entity = self.$element.find( '[data-template=treebranch]:eq(0)' ).clone().removeClass( 'hide' );
 							$entity.data( value );
 							$entity.find( '.tree-branch-name > .tree-label' ).html( value.name );
 						} else if ( value.type === 'item' ) {
-							$entity = self.$element.find( '.tree-item:eq(0)' ).clone().removeClass( 'hide' );
+							$entity = self.$element.find( '[data-template=treeitem]:eq(0)' ).clone().removeClass( 'hide' );
 							$entity.find( '.tree-item-name > .tree-label' ).html( value.name );
 							$entity.data( value );
 						}
