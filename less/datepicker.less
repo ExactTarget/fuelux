@@ -1,12 +1,6 @@
 .datepicker {
 
 	&-calendar {
-		border: 1px solid #6e6f71;
-		padding: 0;
-		width: 300px;
-	}
-
-	&-month {
 		padding: 16px 16px 0;
 
 		&-days {
@@ -14,11 +8,8 @@
 			margin: 16px 0 4px;
 			width: 100%;
 
-			tbody {
-			}
-
 			thead {
-				border-bottom: 1px solid #bcb9b9;
+				border-bottom: 1px solid #cccaca;
 			}
 
 			td, th {
@@ -97,20 +88,22 @@
 		}
 
 		&-header {
+			.clearfix;
+
 			.center {
 				margin: 0 auto;
 				text-align: center;
 				width: 174px;
 
 				a {
-					color: #231f20;
+					color: #4d4d4f;
 					font-size: 20px;
 					line-height: 30px;
 					text-decoration: underline;
 					vertical-align: middle;
 
 					&:hover {
-						color: #1b75bb;
+						color: #1d75bb;
 						text-decoration: underline;
 					}
 
@@ -135,7 +128,7 @@
 				span.glyphicon {
 					color: #fff;
 					font-size: 16px;
-					line-height: 27px;
+					line-height: 30px;
 				}
 
 				&:hover {
@@ -147,13 +140,14 @@
 				float: right;
 
 				span.glyphicon {
-					line-height: 26px;
+					line-height: 28px;
 				}
 			}
 		}
 
 		&-footer {
 			background: #e3e2e1;
+			background-clip: padding-box;
 			border-radius: 0 0 4px 4px;
 			border-top: 1px solid #cccaca;
 			height: 30px;
@@ -179,6 +173,113 @@
 						color: #8b8c8e
 					}
 				}
+			}
+		}
+	}
+
+	&-dropdown {
+		border: 1px solid #6e6f71;
+		min-height: 20px;
+		padding: 0;
+		width: 300px;
+	}
+
+	&-wheels {
+		&-footer {
+			background: #e3e2e1;
+			background-clip: padding-box;
+			border-radius: 0 0 4px 4px;
+			border-top: 1px solid #cccaca;
+			clear: both;
+			height: 30px;
+			padding: 3px 12px;
+
+			.clearfix;
+
+			a.datepicker-wheels-back {
+				color: #4d4d4f;
+				float: left;
+				line-height: 22px;
+
+				&:hover {
+					color: #1d75bb;
+				}
+			}
+
+			button.datepicker-wheels-select {
+				float: right;
+			}
+		}
+
+		&-month, &-year {
+			float: left;
+			width: 50%;
+
+			ul {
+				height: 217px;
+				list-style-type: none;
+				margin: 0;
+				overflow: auto;
+				padding: 0;
+				text-align: center;
+
+				li {
+					margin: 4px 0;
+
+					a {
+
+						color: #414041;
+						display: block;
+						font-size: 16px;
+						text-decoration: none;
+
+						&:hover {
+							background: #aee0f8;
+							text-decoration: none;
+						}
+					}
+
+					&.selected {
+						a {
+							background: #1d75bb;
+							color: #fff;
+
+							&:hover {
+								background: #0f5f9f;
+							}
+						}
+					}
+				}
+			}
+
+			.header {
+				background: #e3e2e1;
+				background-clip: padding-box;
+				border-bottom: 1px solid #cccaca;
+				border-radius: 4px 0 0 0;
+				color: #4d4d4f;
+				font-size: 20px;
+				font-weight: bold;
+				line-height: 30px;
+				text-align: center;
+			}
+
+			&.full {
+				border-left: 0;
+				width: 100%;
+
+				.header {
+					border-radius: 4px 4px 0 0;
+				}
+			}
+		}
+
+		&-year {
+			border-left: 1px solid #cccaca;
+			float: right;
+
+			.header {
+				border-radius: 0 4px 0 0;
 			}
 		}
 	}

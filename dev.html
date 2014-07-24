@@ -46,6 +46,19 @@
 
 		require(['jquery', 'data', 'fuelux/all'], function ($, data){
 			$('#MyDatepicker').datepicker();
+
+			$('#blarg').on('click', function(){
+				var $blarg = $('#blarg');
+				if($blarg.text()==='Flip'){
+					$('.datepicker-calendar').hide();
+					$('.datepicker-wheels').show();
+					$blarg.text('Flop');
+				}else{
+					$('.datepicker-calendar').show();
+					$('.datepicker-wheels').hide();
+					$blarg.text('Flip');
+				}
+			});
 		});
 	</script>
 </head>
@@ -61,14 +74,14 @@
 						<span class="glyphicon glyphicon-calendar"></span>
 						<span class="sr-only">Toggle Calendar</span>
 					</button>
-					<div class="dropdown-menu dropdown-menu-right datepicker-calendar" role="menu" style="display: block;">
-						<div class="datepicker-month">
-							<div class="datepicker-month-header clearfix">
+					<div class="dropdown-menu dropdown-menu-right datepicker-dropdown" role="menu" style="display: block;">
+						<div class="datepicker-calendar" style="display: block;">
+							<div class="datepicker-calendar-header">
 								<div class="left"><span class="glyphicon glyphicon-chevron-left"></span></div>
 								<div class="right"><span class="glyphicon glyphicon-chevron-right"></span></div>
 								<div class="center"><a href="#">July 2014</a></div>
 							</div>
-							<table class="datepicker-month-days">
+							<table class="datepicker-calendar-days">
 								<thead>
 									<tr>
 										<th>Su</th>
@@ -128,16 +141,57 @@
 									</tr>
 								</tbody>
 							</table>
-							<div class="datepicker-month-footer">
+							<div class="datepicker-calendar-footer">
 								<a class="datepicker-today" href="#">Today</a>
 							</div>
 						</div>
-						<div class="datepicker-wheel"></div>
+						<div class="datepicker-wheels" style="display: none;">
+							<div class="datepicker-wheels-month">
+								<div class="header">Month</div>
+								<ul>
+									<li><a href="#">Jan</a></li>
+									<li><a href="#">Feb</a></li>
+									<li class="selected"><a href="#">Mar</a></li>
+									<li><a href="#">Apr</a></li>
+									<li><a href="#">May</a></li>
+									<li><a href="#">Jun</a></li>
+									<li><a href="#">Jul</a></li>
+									<li><a href="#">Aug</a></li>
+									<li><a href="#">Sep</a></li>
+									<li><a href="#">Oct</a></li>
+									<li><a href="#">Nov</a></li>
+									<li><a href="#">Dec</a></li>
+								</ul>
+							</div>
+							<div class="datepicker-wheels-year">
+								<div class="header">Year</div>
+								<ul>
+									<li><a href="#">2009</a></li>
+									<li><a href="#">2010</a></li>
+									<li><a href="#">2011</a></li>
+									<li><a href="#">2012</a></li>
+									<li><a href="#">2013</a></li>
+									<li><a href="#">2014</a></li>
+									<li class="selected"><a href="#">2015</a></li>
+									<li><a href="#">2016</a></li>
+									<li><a href="#">2017</a></li>
+									<li><a href="#">2018</a></li>
+									<li><a href="#">2019</a></li>
+									<li><a href="#">2020</a></li>
+								</ul>
+							</div>
+							<div class="datepicker-wheels-footer">
+								<a class="datepicker-wheels-back" href="#"><span class="glyphicon glyphicon-arrow-left"></span></a>
+								<button type="button" class="btn btn-primary btn-xs datepicker-wheels-select">Select</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
 	</div>
+
+	<button type="button" class="btn btn-primary btn-xs" id="blarg">Flip</button>
 </body>
 </html>
