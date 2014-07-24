@@ -7,7 +7,7 @@
   <p>Pillbox is an interface to manage a list of tags. Wrap the list of tags (pills) within <code>.fuelux .pillbox</code></p>
 
   <div class="fu-example">
-    <div id="MyPillbox" class="pillbox">
+    <div id="MyPillbox" class="pillbox" data-initialize="pillbox">
     {% include js/pillbox-example.html %}
     </div>
 
@@ -37,7 +37,7 @@
 
 
 {% highlight html %}
-<div class="pillbox">
+<div class="pillbox" data-initialize="pillbox">
   <ul class="clearfix pill-group">
     <li class="btn btn-default pill" data-value="foo">
       <span>Item Title</span>
