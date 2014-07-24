@@ -99,4 +99,25 @@ define(function(require){
 		$infiniteScroll.scrollTop(($infiniteScroll.get(0).scrollHeight-($infiniteScroll.height()/(percent/100)))+1);
 	});
 
+	asyncTest('destroy control', function () {
+		var $infiniteScroll = $(html);
+		var scrollHeight;
+
+		$('body').append($infiniteScroll);
+		$infiniteScroll.append(data.infiniteScroll.content);
+		$infiniteScroll.infinitescroll({
+			dataSource: function(helpers, callback){
+				start();
+				callback({ content: data.infiniteScroll.content });
+
+				equal(typeof( $infiniteScroll.infinitescroll('destroy')) , 'string', 'returns string (markup)');
+				equal( $infiniteScroll.parent().length, false, 'control has been removed from DOM');
+
+			}
+		});
+
+		scrollHeight = $infiniteScroll.get(0).scrollHeight;
+		$infiniteScroll.scrollTop(999999);
+	});
+
 });

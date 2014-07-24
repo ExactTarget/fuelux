@@ -116,4 +116,11 @@ define(function(require){
 		equal(selectedValue, 1, 'value passed in from change event');
 	});
 
+	test("should destroy control", function () {
+		var $el = $(html).find('#MySelectlist').selectlist();
+
+		equal(typeof( $el.selectlist('destroy')) , 'string', 'returns string (markup)');
+		equal( $el.parent().length, false, 'control has been removed from DOM');
+	});
+
 });

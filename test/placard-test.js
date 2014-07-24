@@ -213,4 +213,12 @@ define(function(require){
 		$placard.placard('setValue', 'bloop');
 		equal($placard.placard('getValue'), 'bloop', 'setValue working as expected');
 	});
+
+	test("should destroy control", function () {
+		var $el = $(html).find('#placard1');
+
+		equal(typeof( $el.placard('destroy')) , 'string', 'returns string (markup)');
+		equal( $el.parent().length, false, 'control has been removed from DOM');
+	});
+
 });
