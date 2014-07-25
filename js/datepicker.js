@@ -57,7 +57,11 @@
 		this.options = $.extend(true, {}, $.fn.datepicker.defaults, options);
 
 		this.$days = this.$element.find('.datepicker-calendar-days');
-		this.$headerCenter = this.$element.find('.datepicker-calendar-header .center');
+		this.$header = this.$element.find('.datepicker-calendar-header');
+		this.$headerTitle = this.$header.find('.title');
+
+		this.$header.find('.next').on('click', $.proxy(this.next, this));
+		this.$header.find('.prev').on('click', $.proxy(this.prev, this))
 
 		this.renderMonth(this.options.date);
 	};
@@ -66,28 +70,58 @@
 
 		constructor: Datepicker,
 
+		next: function(){
+			var $a = this.$headerTitle.find('a');
+			var month = $a.attr('data-month');
+			var year = $a.attr('data-year');
+			month++;
+			if(month>11){
+				month = 0;
+				year++;
+			}
+			this.renderMonth(new Date(year, month, 1));
+		},
+
+		prev: function(){
+			var $a = this.$headerTitle.find('a');
+			var month = $a.attr('data-month');
+			var year = $a.attr('data-year');
+			month--;
+			if(month<0){
+				month = 11;
+				year--;
+			}
+			this.renderMonth(new Date(year, month, 1));
+		},
+
 		renderMonth: function(date){
 			var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
 			var lastDate = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 			var lastMonthDate = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
-			var $month = this.$headerCenter.find('.month');
+			var $month = this.$headerTitle.find('.month');
 			var month = date.getMonth();
-			var stage = 0;
 			var $tbody = this.$days.find('tbody');
 			var year = date.getFullYear();
-			var curDate, i, j, $td, $tr;
+			var curDate, i, j, rows, stage, $td, $tr;
 
 			$month.find('.current').removeClass('current');
 			$month.find('li[data-month="' + month + '"]').addClass('current');
-			this.$headerCenter.find('.year').text(year);
-			this.$headerCenter.find('a').attr({
+			this.$headerTitle.find('.year').text(year);
+			this.$headerTitle.find('a').attr({
 				'data-month': month,
 				'data-year': year
 			});
 
 			$tbody.empty();
-			curDate = lastMonthDate - firstDay + 1;
-			for(i=0; i<5; i++){
+			if(firstDay!==0){
+				curDate = lastMonthDate - firstDay + 1;
+				stage = 0;
+			}else{
+				curDate = 1;
+				stage = 1;
+			}
+			rows = (lastDate<=(35-firstDay)) ? 5 : 6;	//TODO: this seems jarring. ask about it
+			for(i=0; i<rows; i++){
 				$tr = $('<tr></tr>');
 				for(j=0; j<7; j++){
 					$td = $('<td><span><a href="#">' + curDate + '</a></span></td>');
@@ -111,7 +145,6 @@
 				$tbody.append($tr);
 			}
 		}
-
 	};
 
 
@@ -152,6 +185,9 @@
 			$control.datepicker($control.data());
 		}
 	});
+
+	//this is used to prevent the dropdown from closing when clicking within the calendar
+	$(document).on('click.fu.datepicker.data-api', '.datepicker-calendar', function (e) { e.stopPropagation() });
 
 	$(function () {
 		$('[data-initialize=datepicker]').each(function () {
