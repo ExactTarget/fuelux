@@ -100,9 +100,13 @@
 			var lastMonthDate = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
 			var $month = this.$headerTitle.find('.month');
 			var month = date.getMonth();
+			var now = new Date();
+			var nowDate = now.getDate();
+			var nowMonth = now.getMonth();
+			var nowYear = now.getFullYear();
 			var $tbody = this.$days.find('tbody');
 			var year = date.getFullYear();
-			var curDate, i, j, rows, stage, $td, $tr;
+			var curDate, curMonth, curYear, i, j, rows, stage, $td, $tr;
 
 			$month.find('.current').removeClass('current');
 			$month.find('li[data-month="' + month + '"]').addClass('current');
@@ -115,29 +119,47 @@
 			$tbody.empty();
 			if(firstDay!==0){
 				curDate = lastMonthDate - firstDay + 1;
-				stage = 0;
+				stage = -1;
 			}else{
 				curDate = 1;
-				stage = 1;
+				stage = 0;
 			}
 			rows = (lastDate<=(35-firstDay)) ? 5 : 6;	//TODO: this seems jarring. ask about it
 			for(i=0; i<rows; i++){
 				$tr = $('<tr></tr>');
 				for(j=0; j<7; j++){
 					$td = $('<td><span><a href="#">' + curDate + '</a></span></td>');
-					if(stage===0){
+					if(stage===-1){
 						$td.addClass('last-month');
-					}else if(stage===2){
+					}else if(stage===1){
 						$td.addClass('next-month');
 					}
 
+					curMonth = month + stage;
+					curYear = year;
+					if(curMonth<0){
+						curMonth = 11;
+						curYear--;
+					}else if(curMonth>11){
+						curMonth = 0;
+						curYear++;
+					}
+
+					$td.attr('data-date', curYear + '-' + curMonth + '-' + curDate);
+					if(curYear===nowYear && curMonth===nowMonth && curDate===nowDate){
+						$td.addClass('current-day');
+					}else if(curYear<nowYear || (curYear===nowYear && curMonth<nowMonth) ||
+						(curYear===nowYear && curMonth===nowMonth && curDate<nowDate)){
+						$td.addClass('past');
+					}
+
 					curDate++;
-					if(stage===0 && curDate>lastMonthDate){
+					if(stage===-1 && curDate>lastMonthDate){
+						curDate = 1;
+						stage = 0;
+					}else if(stage===0 && curDate>lastDate){
 						curDate = 1;
 						stage = 1;
-					}else if(stage===1 && curDate>lastDate){
-						curDate = 1;
-						stage = 2;
 					}
 
 					$tr.append($td);
