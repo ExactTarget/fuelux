@@ -46,19 +46,6 @@
 
 		require(['jquery', 'data', 'fuelux/all'], function ($, data){
 			$('#MyDatepicker').datepicker();
-
-			$('#blarg').on('click', function(){
-				var $blarg = $('#blarg');
-				if($blarg.text()==='Flip'){
-					$('.datepicker-calendar').hide();
-					$('.datepicker-wheels').show();
-					$blarg.text('Flop');
-				}else{
-					$('.datepicker-calendar').show();
-					$('.datepicker-wheels').hide();
-					$blarg.text('Flip');
-				}
-			});
 		});
 	</script>
 </head>
@@ -118,18 +105,18 @@
 							<div class="datepicker-wheels-month">
 								<div class="header">Month</div>
 								<ul>
-									<li><a href="#">Jan</a></li>
-									<li><a href="#">Feb</a></li>
-									<li class="selected"><a href="#">Mar</a></li>
-									<li><a href="#">Apr</a></li>
-									<li><a href="#">May</a></li>
-									<li><a href="#">Jun</a></li>
-									<li><a href="#">Jul</a></li>
-									<li><a href="#">Aug</a></li>
-									<li><a href="#">Sep</a></li>
-									<li><a href="#">Oct</a></li>
-									<li><a href="#">Nov</a></li>
-									<li><a href="#">Dec</a></li>
+									<li data-month="0"><a href="#">Jan</a></li>
+									<li data-month="1"><a href="#">Feb</a></li>
+									<li data-month="2"><a href="#">Mar</a></li>
+									<li data-month="3"><a href="#">Apr</a></li>
+									<li data-month="4"><a href="#">May</a></li>
+									<li data-month="5"><a href="#">Jun</a></li>
+									<li data-month="6"><a href="#">Jul</a></li>
+									<li data-month="7"><a href="#">Aug</a></li>
+									<li data-month="8"><a href="#">Sep</a></li>
+									<li data-month="9"><a href="#">Oct</a></li>
+									<li data-month="10"><a href="#">Nov</a></li>
+									<li data-month="11"><a href="#">Dec</a></li>
 								</ul>
 							</div>
 							<div class="datepicker-wheels-year">
@@ -147,7 +134,5 @@
 		</div>
 
 	</div>
-
-	<button type="button" class="btn btn-primary btn-xs" id="blarg">Flip</button>
 </body>
 </html>

@@ -56,12 +56,22 @@
 
 		this.options = $.extend(true, {}, $.fn.datepicker.defaults, options);
 
-		this.$days = this.$element.find('.datepicker-calendar-days');
-		this.$header = this.$element.find('.datepicker-calendar-header');
+		this.$calendar = this.$element.find('.datepicker-calendar');
+		this.$days = this.$calendar.find('.datepicker-calendar-days');
+		this.$header = this.$calendar.find('.datepicker-calendar-header');
 		this.$headerTitle = this.$header.find('.title');
+		this.$wheels = this.$element.find('.datepicker-wheels');
+		this.$wheelsMonth = this.$element.find('.datepicker-wheels-month');
+		this.$wheelsYear = this.$element.find('.datepicker-wheels-year');
 
+		this.$calendar.find('.datepicker-today').on('click', $.proxy(this.todayClicked, this));
 		this.$header.find('.next').on('click', $.proxy(this.next, this));
-		this.$header.find('.prev').on('click', $.proxy(this.prev, this))
+		this.$header.find('.prev').on('click', $.proxy(this.prev, this));
+		this.$headerTitle.find('a').on('click', $.proxy(this.titleClicked, this));
+		this.$wheels.find('.datepicker-wheels-back').on('click', $.proxy(this.backClicked, this));
+		this.$wheels.find('.datepicker-wheels-select').on('click', $.proxy(this.selectClicked, this));
+		this.$wheelsMonth.on('click', 'ul a', $.proxy(this.monthClicked, this));
+		this.$wheelsYear.on('click', 'ul a', $.proxy(this.yearClicked, this));
 
 		this.renderMonth(this.options.date);
 	};
@@ -69,6 +79,32 @@
 	Datepicker.prototype = {
 
 		constructor: Datepicker,
+
+		backClicked: function(){
+			this.changeView('calendar');
+		},
+
+		changeView: function(view, date){
+			if(view==='wheels'){
+				this.$calendar.hide();
+				this.$wheels.show();
+				if(date){
+					this.renderWheel(date);
+				}
+			}else{
+				this.$wheels.hide();
+				this.$calendar.show();
+				if(date){
+					this.renderMonth(date);
+				}
+			}
+
+		},
+
+		monthClicked: function(e){
+			this.$wheelsMonth.find('.selected').removeClass('selected');
+			$(e.currentTarget).parent().addClass('selected');
+		},
 
 		next: function(){
 			var $a = this.$headerTitle.find('a');
@@ -95,6 +131,8 @@
 		},
 
 		renderMonth: function(date){
+			date = date || new Date();
+
 			var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
 			var lastDate = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 			var lastMonthDate = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
@@ -124,7 +162,7 @@
 				curDate = 1;
 				stage = 0;
 			}
-			rows = (lastDate<=(35-firstDay)) ? 5 : 6;	//TODO: this seems jarring. ask about it
+			rows = (lastDate<=(35-firstDay)) ? 5 : 6;
 			for(i=0; i<rows; i++){
 				$tr = $('<tr></tr>');
 				for(j=0; j<7; j++){
@@ -166,6 +204,53 @@
 				}
 				$tbody.append($tr);
 			}
+		},
+
+		renderWheel: function(date){
+			var month = date.getMonth();
+			var $monthUl = this.$wheelsMonth.find('ul');
+			var year = date.getFullYear();
+			var $yearUl = this.$wheelsYear.find('ul');
+			var i, $monthSelected, $yearSelected;
+
+			$monthUl.find('.selected').removeClass('selected');
+			$monthSelected = $monthUl.find('li[data-month="' + month + '"]');
+			$monthSelected.addClass('selected');
+			$monthUl.scrollTop($monthUl.scrollTop() + ($monthSelected.position().top - $monthUl.outerHeight()/2 - $monthSelected.outerHeight(true)/2));
+
+			$yearUl.empty();
+			for(i=(year-10); i<(year+11); i++){
+				$yearUl.append('<li data-year="' + i + '"><a href="#">' + i + '</a></li>');
+			}
+			$yearSelected = $yearUl.find('li[data-year="' + year + '"]');
+			$yearSelected.addClass('selected');
+			$yearUl.scrollTop($yearUl.scrollTop() + ($yearSelected.position().top - $yearUl.outerHeight()/2 - $yearSelected.outerHeight(true)/2));
+		},
+
+		selectClicked: function(){
+			var month = this.$wheelsMonth.find('.selected').attr('data-month');
+			var year = this.$wheelsYear.find('.selected').attr('data-year');
+			this.changeView('calendar', new Date(year, month, 1));
+		},
+
+		titleClicked: function(e){
+			var $a = $(e.currentTarget);
+			e.preventDefault();
+			this.changeView('wheels', new Date($a.attr('data-year'), $a.attr('data-month'), 1));
+		},
+
+		todayClicked: function(){
+			var $a = this.$headerTitle.find('a');
+			var date = new Date();
+
+			if((date.getMonth()+'')!==$a.attr('data-month') || (date.getFullYear()+'')!==$a.attr('data-year')){
+				this.renderMonth(date);
+			}
+		},
+
+		yearClicked: function(e){
+			this.$wheelsYear.find('.selected').removeClass('selected');
+			$(e.currentTarget).parent().addClass('selected');
 		}
 	};
 
@@ -208,8 +293,8 @@
 		}
 	});
 
-	//this is used to prevent the dropdown from closing when clicking within the calendar
-	$(document).on('click.fu.datepicker.data-api', '.datepicker-calendar', function (e) { e.stopPropagation() });
+	//this is used to prevent the dropdown from closing when clicking within it's bounds
+	$(document).on('click.fu.datepicker.data-api', '.datepicker-dropdown', function (e) { e.stopPropagation() });
 
 	$(function () {
 		$('[data-initialize=datepicker]').each(function () {
