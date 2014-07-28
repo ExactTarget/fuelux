@@ -1,10 +1,34 @@
-_Please note: FuelUX 3.0 is a major overhaul and is built atop of Bootstrap 3. The project maintainers are actively developing FuelUX 3.0 if you would like to [follow along at this branch](https://github.com/ExactTarget/fuelux/tree/3.0.0-wip)._
+**Please note:** Fuel UX 2.x is deprecated. While we will still maintain it (bug fixes only), we suggest looking at FuelUX 3.0. Version 3 is a major overhaul and is built atop Bootstrap 3.
 
 [![Fuel UX](https://s3.amazonaws.com/fuelux/logo-gray.png)](http://exacttarget.github.com/fuelux)
 
 Fuel UX extends Bootstrap with additional lightweight JavaScript controls.
 Other benefits include easy installation into web projects, integrated scripts for customizing Bootstrap and Fuel UX,
 simple updates, and solid optimization for deployment. All functionality is covered by live documentation and unit tests.
+
+## Deprecation Information
+
+### Contributing
+
+1. We will only be accepting **bug fix requests**. New features will not be accepted.
+2. Pull requests must be submitted to the [fuelux2 branch](https://github.com/ExactTarget/fuelux/tree/fuelux2)
+2. Pull requests will need to be squashed to the lowest amount of commits that makes sense
+    * this does not mean you have to only have one commit
+3. Future versions will be tagged as pull requests are merged
+    * next version would be 2.6.(current + 1)
+
+### Installing/Using
+
+#### Via Bower
+
+```bash
+bower install --save git@github.com:ExactTarget/fuelux.git#fuelux2
+```
+
+#### Using the CDN
+
+We will not be adding new versions of 2.6.x to the CDN. Versions <= 2.6.1 will remain on the CDN
+
 
 ## Features
 
