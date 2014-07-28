@@ -64,6 +64,8 @@
 		this.$wheelsMonth = this.$element.find('.datepicker-wheels-month');
 		this.$wheelsYear = this.$element.find('.datepicker-wheels-year');
 
+		this.artificialScrolling = false;
+
 		this.$calendar.find('.datepicker-today').on('click', $.proxy(this.todayClicked, this));
 		this.$header.find('.next').on('click', $.proxy(this.next, this));
 		this.$header.find('.prev').on('click', $.proxy(this.prev, this));
@@ -72,6 +74,7 @@
 		this.$wheels.find('.datepicker-wheels-select').on('click', $.proxy(this.selectClicked, this));
 		this.$wheelsMonth.on('click', 'ul a', $.proxy(this.monthClicked, this));
 		this.$wheelsYear.on('click', 'ul a', $.proxy(this.yearClicked, this));
+		this.$wheelsYear.find('ul').on('scroll', $.proxy(this.onYearScroll, this));
 
 		this.renderMonth(this.options.date);
 	};
@@ -116,6 +119,33 @@
 				year++;
 			}
 			this.renderMonth(new Date(year, month, 1));
+		},
+
+		onYearScroll: function(e){
+			if(this.artificialScrolling){ return; }
+
+			var $yearUl = $(e.currentTarget);
+			var height = ($yearUl.css('box-sizing')==='border-box') ? $yearUl.outerHeight() : $yearUl.height();
+			var scrollHeight = $yearUl.get(0).scrollHeight;
+			var scrollTop = $yearUl.scrollTop();
+			var bottomPercentage = (height / (scrollHeight - scrollTop)) * 100;
+			var topPercentage = (scrollTop / scrollHeight) * 100;
+			var i, start;
+
+			if(topPercentage<5) {
+				start = parseInt($yearUl.find('li:first').attr('data-year'), 10);
+				for (i=(start-1); i >(start-11); i--) {
+					$yearUl.prepend('<li data-year="' + i + '"><a href="#">' + i + '</a></li>');
+				}
+				this.artificialScrolling = true;
+				$yearUl.scrollTop(($yearUl.get(0).scrollHeight-scrollHeight) + scrollTop);
+				this.artificialScrolling = false;
+			}else if(bottomPercentage>90){
+				start = parseInt($yearUl.find('li:last').attr('data-year'), 10);
+				for(i=(start+1); i<(start+11); i++){
+					$yearUl.append('<li data-year="' + i + '"><a href="#">' + i + '</a></li>');
+				}
+			}
 		},
 
 		prev: function(){
@@ -224,7 +254,9 @@
 			}
 			$yearSelected = $yearUl.find('li[data-year="' + year + '"]');
 			$yearSelected.addClass('selected');
+			this.artificialScrolling = true;
 			$yearUl.scrollTop($yearUl.scrollTop() + ($yearSelected.position().top - $yearUl.outerHeight()/2 - $yearSelected.outerHeight(true)/2));
+			this.artificialScrolling = false;
 		},
 
 		selectClicked: function(){
