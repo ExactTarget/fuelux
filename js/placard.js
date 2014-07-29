@@ -72,6 +72,20 @@
 			}
 		},
 
+		destroy: function() {
+			this.$element.remove();
+			// remove any external bindings
+			$(document).off('click.fu.placard.externalClick.' + this.clickStamp);
+			// set input value attrbute
+			this.$element.find('input').each(function() {
+				$(this).attr('value', $(this).val());
+			});
+			// empty elements to return to original markup
+			// [none]
+			// return string of markup
+			return this.$element[0].outerHTML;
+		},
+
 		ellipsis: function(){
 			var field, i, str;
 			if(this.$element.attr('data-ellipsis')==='true'){

@@ -292,6 +292,14 @@ define(function(require){
 		equal($pillbox.find('.pill.truncated').length, 0, 'pillbox truncate not enabled while not readonly');
 		$pillbox.remove();
 	});
+
+	test("should destroy control", function () {
+		var $el = $(html).find('#MyPillbox');
+
+		equal(typeof( $el.pillbox('destroy')) , 'string', 'returns string (markup)');
+		equal( $el.parent().length, false, 'control has been removed from DOM');
+	});
+
 });
 
 

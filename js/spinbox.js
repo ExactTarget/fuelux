@@ -75,6 +75,20 @@
 	Spinbox.prototype = {
 		constructor: Spinbox,
 
+		destroy: function() {
+			this.$element.remove();
+			// any external bindings
+			// [none]
+			// set input value attrbute
+			this.$element.find('input').each(function() {
+				$(this).attr('value', $(this).val());
+			});
+			// empty elements to return to original markup
+			// [none]
+			// returns string of markup
+			return this.$element[0].outerHTML;
+		},
+
 		render: function () {
 			var inputValue = this.parseInput( this.$input.val() );
 			var maxUnitLength = '';

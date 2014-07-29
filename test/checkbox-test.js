@@ -93,4 +93,14 @@ define(function(require){
 
         $fixture.remove();
 	});
+
+	test("should destroy control", function () {
+		var id = '#Checkbox1';
+		var $el = $(html).find(id);
+		var $parent = $el.closest('.checkbox');
+
+		equal($el.checkbox('destroy'), '' + $parent[0].outerHTML, 'returns markup');
+		equal( $(html).find(id).length, false, 'element has been removed from DOM');
+	});
+
 });

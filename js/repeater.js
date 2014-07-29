@@ -50,6 +50,7 @@
 		this.$viewport = this.$element.find('.repeater-viewport');
 		this.$views = this.$element.find('.repeater-views');
 
+		this.eventStamp = new Date().getTime() + (Math.floor(Math.random() * 100) + 1);
 		this.currentPage = 0;
 		this.currentView = null;
 		this.infiniteScrollingCallback = function(){};
@@ -78,7 +79,8 @@
 		this.$secondaryPaging.on('change.fu.repeater', function(){ self.pageInputChange(self.$secondaryPaging.val()); });
 		this.$views.find('input').on('change.fu.repeater', $.proxy(this.viewChanged, this));
 
-		$(window).on('resize.fu.repeater.window', function(){
+		// ID needed since event is bound to instance
+		$(window).on('resize.fu.repeater.'+this.eventStamp, function(event){
 			clearTimeout(self.resizeTimeout);
 			self.resizeTimeout = setTimeout(function(){
 				self.resize();
@@ -126,6 +128,32 @@
 			}else if(!this.infiniteScrollingEnabled || options.clearInfinite){
 				scan(this.$canvas);
 			}
+		},
+
+		destroy: function() {
+			var markup;
+			// set input value attrbute in markup
+			this.$element.find('input').each(function() {
+				$(this).attr('value', $(this).val());
+			});
+			
+			// empty elements to return to original markup
+			this.$canvas.empty();
+			markup = this.$element[0].outerHTML;
+
+			// destroy components and remove leftover
+			this.$element.find('.combobox').combobox('destroy');
+			this.$element.find('.selectlist').selectlist('destroy');
+			this.$element.find('.search').search('destroy');
+			if(this.infiniteScrollingEnabled) {
+				$(this.infiniteScrollingCont).infinitescroll('destroy');
+			}
+			this.$element.remove();
+
+			// any external events
+			$(window).off('resize.fu.repeater.'+this.eventStamp);
+
+			return markup;
 		},
 
 		getDataOptions: function(options, callback){

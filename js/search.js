@@ -47,6 +47,20 @@
 
 		constructor: Search,
 
+		destroy: function() {
+			this.$element.remove();
+			// any external bindings
+			// [none]
+			// set input value attrbute
+			this.$element.find('input').each(function() {
+				$(this).attr('value', $(this).val());
+			});
+			// empty elements to return to original markup
+			// [none]
+			// returns string of markup
+			return this.$element[0].outerHTML;
+		},
+
 		search: function (searchText) {
 			this.$icon.attr('class', 'glyphicon glyphicon-remove');
 			this.activeSearch = searchText;
