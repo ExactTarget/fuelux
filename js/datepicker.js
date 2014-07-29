@@ -94,6 +94,7 @@
 			this.$input.val(this.formatDate(parsed));
 		}else{
 			this.renderMonth();
+			this.$input.val('');
 		}
 	};
 
