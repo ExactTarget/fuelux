@@ -24,6 +24,7 @@
 
 	// -- BEGIN MODULE CODE HERE --
 
+	var INVALID_DATE = 'Invalid Date';
 	var old    = $.fn.datepicker;
 	var moment = false;
 
@@ -89,7 +90,7 @@
 		this.$wheelsYear.find('ul').on('scroll', $.proxy(this.onYearScroll, this));
 
 		parsed = this.parseDate(this.options.date);
-		if(this.options.date && parsed){
+		if(this.options.date && parsed.toString()!==INVALID_DATE){
 			this.renderMonth(parsed, parsed);
 			this.$input.val(this.formatDate(parsed));
 		}else{
@@ -196,24 +197,22 @@
 
 		//some code ripped from http://stackoverflow.com/questions/2182246/javascript-dates-in-ie-nan-firefox-chrome-ok
 		parseDate: function(date) {
-			var invalid = 'Invalid Date';
 			var dt, isoExp, month, parts;
 			// if we have moment, use that to parse the dates
 			if(this.moment){
 				dt = moment(date).toDate();
-				if(dt.toString()!==invalid){
+				if(dt.toString()!==INVALID_DATE){
 					return dt;
 				}
 			}else{	// if moment isn't present, use previous date parsing strategy
 				if(date && typeof(date)==='string'){
 					dt = new Date(Date.parse(date));
-					if(dt.toString() !== invalid){
+					if(dt.toString() !== INVALID_DATE){
 						return dt;
 					}else{
 						date = date.split('T')[0];
 						isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/;
 						parts = isoExp.exec(date);
-
 						if(parts){
 							month = ~~parts[2];
 							dt = new Date(parts[1], month - 1, parts[3]);
@@ -224,12 +223,12 @@
 					}
 				}else{
 					dt = new Date(date);
-					if(dt.toString()!==invalid){
+					if(dt.toString()!==INVALID_DATE){
 						return dt;
 					}
 				}
 			}
-			return false;
+			return new Date(NaN);
 		},
 
 		prev: function(){
