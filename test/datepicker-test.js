@@ -306,4 +306,12 @@ define(function(require){
 		ok( daysDisplayedDisabled > 0, 'some days are disabled' );
 		equal( daysDisplayedDisabled, daysDisplayed, 'all days are disabled' );
 	});
+
+	test("should destroy control", function () {
+		var $el = $(html).find('#datepicker1');
+
+		equal(typeof( $el.datepicker('destroy')) , 'string', 'returns string (markup)');
+		equal( $el.parent().length, false, 'control has been removed from DOM');
+	});
+
 });

@@ -129,6 +129,15 @@
 			this.setState( $( element.target ) );
 		},
 
+		destroy: function() {
+			this.$parent.remove();
+			// remove any external bindings
+			// [none]
+			// empty elements to return to original markup
+			// [none]
+			return this.$parent[0].outerHTML;
+		},
+
 		_resetClasses: function() {
 			var classesToRemove = [];
 

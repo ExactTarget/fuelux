@@ -106,4 +106,11 @@ define(function(require){
 		equal($search.find('button').hasClass('disabled'), false, 'button was enabled');
 	});
 
+	test("should destroy control", function () {
+		var $el = $(html).search();
+
+		equal(typeof( $el.search('destroy')) , 'string', 'returns string (markup)');
+		equal( $el.parent().length, false, 'control has been removed from DOM');
+	});
+
 });

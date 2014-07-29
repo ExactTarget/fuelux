@@ -317,4 +317,27 @@ define(function(require){
 		});
 	});
 
+	asyncTest('should destroy control', function(){
+		var $repeater = $(this.$markup);
+
+		afterSource = function(){
+			var $items = $repeater.find('.repeater-list-items');
+
+			setTimeout(function(){
+				start();
+
+				equal(typeof( $repeater.datepicker('destroy')) , 'string', 'returns string (markup)');
+				equal( $repeater.parent().length, false, 'control has been removed from DOM');
+
+			}, 0);
+
+		};
+
+		$repeater.repeater({
+			dataSource: dataSource,
+			list_selectable: true
+		});
+	});
+
+
 });

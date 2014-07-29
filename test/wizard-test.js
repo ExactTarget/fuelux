@@ -257,4 +257,12 @@ define(function(require){
 		equal($wizard.find('.steps li').length, 1, 'multiple items were removed correctly');
 	});
 
+
+	test("should destroy control", function () {
+		var $el = $(html).find('#MyWizard').wizard();
+
+		equal(typeof( $el.wizard('destroy')) , 'string', 'returns string (markup)');
+		equal( $el.parent().length, false, 'control has been removed from DOM');
+	});
+
 });

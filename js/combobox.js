@@ -45,6 +45,22 @@
 
 		constructor: Combobox,
 
+		destroy: function() {
+			this.$element.remove();
+			// remove any external bindings
+			// [none]
+
+			// set input value attrbute in markup
+			this.$element.find('input').each(function() {
+				$(this).attr('value', $(this).val());
+			});
+			
+			// empty elements to return to original markup
+			// [none]
+			
+			return this.$element[0].outerHTML;
+		},
+
 		doSelect: function($item){
 			if (typeof $item[0] !== 'undefined') {
 				this.$selectedItem = $item;

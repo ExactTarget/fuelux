@@ -192,4 +192,12 @@ define(function(require){
 		test = (!isPhantomJS) ? ($scheduler.find('.repeat-end .datepicker input').val() ==='03-31-2051' || $scheduler.find('.repeat-end .datepicker input').val() ==='03/31/2051' ) : true;
 		ok(($scheduler.find('.repeat-end .selectlist .selected-label').html()==='On date' && test), 'end on date set correctly');
 	});
+
+	test("should destroy control", function () {
+		var $el = $(html).scheduler();
+
+		equal(typeof( $el.scheduler('destroy')) , 'string', 'returns string (markup)');
+		equal( $el.parent().length, false, 'control has been removed from DOM');
+	});
+
 });

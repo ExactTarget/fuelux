@@ -173,4 +173,11 @@ define(function(require){
 
 	});
 
+	test("should destroy control", function () {
+		var $el = $(html).find('#MySpinbox');
+
+		equal(typeof( $el.spinbox('destroy')) , 'string', 'returns string (markup)');
+		equal( $el.parent().length, false, 'control has been removed from DOM');
+	});
+
 });
