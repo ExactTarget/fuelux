@@ -52,19 +52,31 @@
 	// DATEPICKER CONSTRUCTOR AND PROTOTYPE
 
 	var Datepicker = function (element, options) {
-		this.$element = $(element);
+		var parsed;
 
+		this.$element = $(element);
 		this.options = $.extend(true, {}, $.fn.datepicker.defaults, options);
 
 		this.$calendar = this.$element.find('.datepicker-calendar');
 		this.$days = this.$calendar.find('.datepicker-calendar-days');
 		this.$header = this.$calendar.find('.datepicker-calendar-header');
 		this.$headerTitle = this.$header.find('.title');
+		this.$input = this.$element.find('input');
 		this.$wheels = this.$element.find('.datepicker-wheels');
 		this.$wheelsMonth = this.$element.find('.datepicker-wheels-month');
 		this.$wheelsYear = this.$element.find('.datepicker-wheels-year');
 
 		this.artificialScrolling = false;
+		this.formatDate    = this.options.formatDate || this.formatDate;
+		this.parseDate     = this.options.parseDate || this.parseDate;
+
+		// moment set up for parsing input dates
+		if(this.checkForMomentJS()){
+			moment = moment || window.moment; // need to pull in the global moment if they didn't do it via require
+			this.moment = true;
+			this.momentFormat = this.options.momentConfig.formatCode;
+			//this.setCulture(this.options.momentConfig.culture);
+		}
 
 		this.$calendar.find('.datepicker-today').on('click', $.proxy(this.todayClicked, this));
 		this.$header.find('.next').on('click', $.proxy(this.next, this));
@@ -76,7 +88,13 @@
 		this.$wheelsYear.on('click', 'ul a', $.proxy(this.yearClicked, this));
 		this.$wheelsYear.find('ul').on('scroll', $.proxy(this.onYearScroll, this));
 
-		this.renderMonth(this.options.date);
+		parsed = this.parseDate(this.options.date);
+		if(this.options.date && parsed){
+			this.renderMonth(parsed, parsed);
+			this.$input.val(this.formatDate(parsed));
+		}else{
+			this.renderMonth();
+		}
 	};
 
 	Datepicker.prototype = {
@@ -102,6 +120,33 @@
 				}
 			}
 
+		},
+
+		checkForMomentJS: function(){
+			// this function is ran on initialization to determine if moment.js is available
+			if(
+				($.isFunction(window.moment) || (typeof moment!=='undefined' && $.isFunction(moment))) &&
+				$.isPlainObject(this.options.momentConfig) &&
+				this.options.momentConfig.culture && this.options.momentConfig.formatCode
+			){
+				return true;
+			}else{
+				return false;
+			}
+		},
+
+		formatDate: function(date){
+			var padTwo = function(value){
+				var s = '0' + value;
+				return s.substr(s.length-2);
+			};
+
+			// if we have moment available use it to format dates. otherwise use default
+			if(this.moment){
+				return moment(date).format(this.momentFormat);
+			}else{
+				return padTwo(date.getMonth()+1) + '-' + padTwo(date.getDate()) + '-' + date.getFullYear();
+			}
 		},
 
 		monthClicked: function(e){
@@ -148,6 +193,44 @@
 			}
 		},
 
+		//some code ripped from http://stackoverflow.com/questions/2182246/javascript-dates-in-ie-nan-firefox-chrome-ok
+		parseDate: function(date) {
+			var invalid = 'Invalid Date';
+			var dt, isoExp, month, parts;
+			// if we have moment, use that to parse the dates
+			if(this.moment){
+				dt = moment(date).toDate();
+				if(dt.toString()!==invalid){
+					return dt;
+				}
+			}else{	// if moment isn't present, use previous date parsing strategy
+				if(date && typeof(date)==='string'){
+					dt = new Date(Date.parse(date));
+					if(dt.toString() !== invalid){
+						return dt;
+					}else{
+						date = date.split('T')[0];
+						isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/;
+						parts = isoExp.exec(date);
+
+						if(parts){
+							month = ~~parts[2];
+							dt = new Date(parts[1], month - 1, parts[3]);
+							if(month===(dt.getMonth() + 1)){
+								return dt;
+							}
+						}
+					}
+				}else{
+					dt = new Date(date);
+					if(dt.toString()!==invalid){
+						return dt;
+					}
+				}
+			}
+			return false;
+		},
+
 		prev: function(){
 			var $a = this.$headerTitle.find('a');
 			var month = $a.attr('data-month');
@@ -160,7 +243,7 @@
 			this.renderMonth(new Date(year, month, 1));
 		},
 
-		renderMonth: function(date){
+		renderMonth: function(date, selected){
 			date = date || new Date();
 
 			var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
@@ -175,6 +258,14 @@
 			var $tbody = this.$days.find('tbody');
 			var year = date.getFullYear();
 			var curDate, curMonth, curYear, i, j, rows, stage, $td, $tr;
+
+			if(selected){
+				selected = {
+					date: selected.getDate(),
+					month: selected.getMonth(),
+					year: selected.getFullYear()
+				};
+			}
 
 			$month.find('.current').removeClass('current');
 			$month.find('li[data-month="' + month + '"]').addClass('current');
@@ -219,6 +310,9 @@
 					}else if(curYear<nowYear || (curYear===nowYear && curMonth<nowMonth) ||
 						(curYear===nowYear && curMonth===nowMonth && curDate<nowDate)){
 						$td.addClass('past');
+					}
+					if(selected && curYear===selected.year && curMonth===selected.month && curDate===selected.date){
+						$td.addClass('selected');
 					}
 
 					curDate++;
@@ -306,7 +400,9 @@
 	};
 
 	$.fn.datepicker.defaults = {
-		date: new Date()
+		date: new Date(),
+		formatDate: null,
+		parseDate: null
 	};
 
 	$.fn.datepicker.Constructor = Datepicker;
