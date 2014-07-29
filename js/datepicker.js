@@ -68,8 +68,9 @@
 		this.$wheelsYear = this.$element.find('.datepicker-wheels-year');
 
 		this.artificialScrolling = false;
-		this.formatDate    = this.options.formatDate || this.formatDate;
-		this.parseDate     = this.options.parseDate || this.parseDate;
+		this.formatDate = this.options.formatDate || this.formatDate;
+		this.parseDate = this.options.parseDate || this.parseDate;
+		this.selectedDate = null;
 
 		// moment set up for parsing input dates
 		if(this.checkForMomentJS()){
@@ -80,6 +81,7 @@
 		}
 
 		this.$calendar.find('.datepicker-today').on('click', $.proxy(this.todayClicked, this));
+		this.$days.on('click', 'tr td a', $.proxy(this.dateClicked, this));
 		this.$header.find('.next').on('click', $.proxy(this.next, this));
 		this.$header.find('.prev').on('click', $.proxy(this.prev, this));
 		this.$headerTitle.find('a').on('click', $.proxy(this.titleClicked, this));
@@ -91,7 +93,8 @@
 
 		parsed = this.parseDate(this.options.date);
 		if(this.options.date && parsed.toString()!==INVALID_DATE){
-			this.renderMonth(parsed, parsed);
+			this.selectedDate = parsed;
+			this.renderMonth(parsed);
 			this.$input.val(this.formatDate(parsed));
 		}else{
 			this.renderMonth();
@@ -135,6 +138,18 @@
 			}else{
 				return false;
 			}
+		},
+
+		dateClicked: function(e){
+			var $td = $(e.currentTarget).parents('td:first');
+			var date;
+
+			this.$days.find('td.selected').removeClass('selected');
+			$td.addClass('selected');
+
+			date = new Date($td.attr('data-year'), $td.attr('data-month'), $td.attr('data-date'));
+			this.selectedDate = date;
+			this.$input.val(this.formatDate(date));
 		},
 
 		formatDate: function(date){
@@ -243,7 +258,7 @@
 			this.renderMonth(new Date(year, month, 1));
 		},
 
-		renderMonth: function(date, selected){
+		renderMonth: function(date){
 			date = date || new Date();
 
 			var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
@@ -255,6 +270,7 @@
 			var nowDate = now.getDate();
 			var nowMonth = now.getMonth();
 			var nowYear = now.getFullYear();
+			var selected = this.selectedDate;
 			var $tbody = this.$days.find('tbody');
 			var year = date.getFullYear();
 			var curDate, curMonth, curYear, i, j, rows, stage, $td, $tr;
@@ -287,7 +303,7 @@
 			for(i=0; i<rows; i++){
 				$tr = $('<tr></tr>');
 				for(j=0; j<7; j++){
-					$td = $('<td><span><a href="#">' + curDate + '</a></span></td>');
+					$td = $('<td><span><a class="datepicker-date" href="#">' + curDate + '</a></span></td>');
 					if(stage===-1){
 						$td.addClass('last-month');
 					}else if(stage===1){
@@ -304,12 +320,15 @@
 						curYear++;
 					}
 
-					$td.attr('data-date', curYear + '-' + curMonth + '-' + curDate);
+					$td.attr({ 'data-date': curDate, 'data-month': curMonth, 'data-year': curYear });
 					if(curYear===nowYear && curMonth===nowMonth && curDate===nowDate){
 						$td.addClass('current-day');
 					}else if(curYear<nowYear || (curYear===nowYear && curMonth<nowMonth) ||
 						(curYear===nowYear && curMonth===nowMonth && curDate<nowDate)){
 						$td.addClass('past');
+						if(!this.options.allowPastDates){
+							$td.addClass('restricted');
+						}
 					}
 					if(selected && curYear===selected.year && curMonth===selected.month && curDate===selected.date){
 						$td.addClass('selected');
@@ -400,9 +419,11 @@
 	};
 
 	$.fn.datepicker.defaults = {
+		allowPastDates: false,
 		date: new Date(),
 		formatDate: null,
-		parseDate: null
+		parseDate: null,
+		restricted: []
 	};
 
 	$.fn.datepicker.Constructor = Datepicker;
@@ -422,7 +443,12 @@
 	});
 
 	//this is used to prevent the dropdown from closing when clicking within it's bounds
-	$(document).on('click.fu.datepicker.data-api', '.datepicker-dropdown', function (e) { e.stopPropagation() });
+	$(document).on('click.fu.datepicker.data-api', '.datepicker-dropdown', function (e) {
+		var $target = $(e.target);
+		if(!$target.is('a.datepicker-date')){
+			e.stopPropagation();
+		}
+	});
 
 	$(function () {
 		$('[data-initialize=datepicker]').each(function () {
