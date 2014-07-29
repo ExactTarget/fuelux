@@ -2,7 +2,7 @@
   "dependencies": {
     "jquery-1.11.0": "jquery#1.11.0",
     "requirejs": "~2.1.11",
-    "bootstrap": "~3.1.1",
+    "bootstrap": "~3.2.0",
     "moment-with-langs": "http://momentjs.com/downloads/moment-with-langs.js"
   },
   "devDependencies": {
@@ -10,7 +10,8 @@
     "jquery-1.9.1": "jquery#1.9.1",
     "qunit": "~1.14.0",
     "requirejs-text": "~2.0.10",
-    "underscore": "~1.6.0"
+    "underscore": "~1.6.0",
+    "blanket": "~1.1.5"
   },
   "ignore": [
     "**/.*",

@@ -44,7 +44,7 @@
 		this.$pages = this.$element.find('.repeater-pages');
 		this.$prevBtn = this.$element.find('.repeater-prev');
 		this.$primaryPaging = this.$element.find('.repeater-primaryPaging');
-		this.$search = this.$element.find('.repeater-search');
+		this.$search = this.$element.find('.repeater-search').find('.search');
 		this.$secondaryPaging = this.$element.find('.repeater-secondaryPaging');
 		this.$start = this.$element.find('.repeater-start');
 		this.$viewport = this.$element.find('.repeater-viewport');
@@ -62,6 +62,11 @@
 		this.pageIncrement = 0;	// store direction navigated
 		this.resizeTimeout = {};
 		this.staticHeight = (this.options.staticHeight===-1) ? this.$element.attr('data-staticheight') : this.options.staticHeight;
+
+		this.$filters.selectlist();
+		this.$pageSize.selectlist();
+		this.$primaryPaging.find('.combobox').combobox();
+		this.$search.search();
 
 		this.$filters.on('changed.fu.selectlist', $.proxy(this.render, this, { clearInfinite: true, pageIncrement: null }));
 		this.$nextBtn.on('click.fu.repeater', $.proxy(this.next, this));
