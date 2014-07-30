@@ -77,7 +77,7 @@
 		if(this.checkForMomentJS()){
 			moment = moment || window.moment; // need to pull in the global moment if they didn't do it via require
 			this.moment = true;
-			this.momentFormat = this.options.momentConfig.formatCode;
+			this.momentFormat = this.options.momentConfig.format;
 			this.setCulture(this.options.momentConfig.culture);
 		}
 
@@ -128,7 +128,7 @@
 			if(
 				($.isFunction(window.moment) || (typeof moment!=='undefined' && $.isFunction(moment))) &&
 				$.isPlainObject(this.options.momentConfig) &&
-				this.options.momentConfig.culture && this.options.momentConfig.formatCode
+				this.options.momentConfig.culture && this.options.momentConfig.format
 			){
 				return true;
 			}else{
@@ -198,7 +198,7 @@
 			return (this.selectedDate===null) ? new Date(NaN) : this.selectedDate;
 		},
 
-		getFormatCode: function(){
+		getFormat: function(){
 			if(this.moment){
 				return this.momentFormat;
 			}else{
@@ -465,10 +465,10 @@
 			return this.selectedDate;
 		},
 
-		setFormatCode: function(formatCode){
-			if(!formatCode){ return false; }
+		setFormat: function(format){
+			if(!format){ return false; }
 			if(this.moment){
-				this.momentFormat = formatCode;
+				this.momentFormat = format;
 			}else{
 				throw MOMENT_NOT_AVAILABLE;
 			}
@@ -520,7 +520,7 @@
 		formatDate: null,
 		momentConfig: {
 			culture: 'en',
-			formatCode: 'L'	// more formats can be found here http://momentjs.com/docs/#/customization/long-date-formats/.
+			format: 'L'	// more formats can be found here http://momentjs.com/docs/#/customization/long-date-formats/.
 		},
 		parseDate: null,
 		restricted: []
