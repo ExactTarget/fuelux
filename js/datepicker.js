@@ -111,7 +111,7 @@
 
 			this.setRestrictedDates(this.restricted);
 
-			if(this.setDate(this.options.date)===null){
+			if(!this.setDate(this.options.date)){
 				this.$input.val('');
 				this.inputValue = this.$input.val();
 			}
@@ -219,7 +219,7 @@
 		},
 
 		getDate: function(){
-			return (this.selectedDate===null) ? new Date(NaN) : this.selectedDate;
+			return (!this.selectedDate) ? new Date(NaN) : this.selectedDate;
 		},
 
 		getFormat: function(){
@@ -231,7 +231,7 @@
 		},
 
 		getFormattedDate: function(){
-			return (this.selectedDate===null) ? INVALID_DATE : this.formatDate(this.selectedDate);
+			return (!this.selectedDate) ? INVALID_DATE : this.formatDate(this.selectedDate);
 		},
 
 		getRestrictedDates: function(){
@@ -241,8 +241,11 @@
 		inputBlurred: function(e){
 			var date = this.$input.val();
 			if(date!==this.inputValue){
-				if(this.setDate(date)===null){
+				date = this.setDate(date);
+				if(date===null){
 					this.$element.trigger('inputParsingFailed.fu.datepicker');
+				}else if(date===false){
+					this.$element.trigger('inputRestrictedDate.fu.datepicker');
 				}
 			}
 			//TODO: figure out how to fix this
@@ -513,9 +516,14 @@
 		setDate: function(date){
 			var parsed = this.parseDate(date);
 			if(parsed.toString()!==INVALID_DATE){
-				this.selectedDate = parsed;
-				this.renderMonth(parsed);
-				this.$input.val(this.formatDate(parsed));
+				if(!this.isRestricted(parsed.getDate(), parsed.getMonth(), parsed.getFullYear())){
+					this.selectedDate = parsed;
+					this.renderMonth(parsed);
+					this.$input.val(this.formatDate(parsed));
+				}else{
+					this.selectedDate = false;
+					this.renderMonth();
+				}
 			}else{
 				this.selectedDate = null;
 				this.renderMonth();
