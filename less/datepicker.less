@@ -61,6 +61,18 @@
 					a {
 						cursor: default;
 						pointer-events: none;
+						position: relative;
+
+						&:before {
+							border-top: 1px solid #a94442;
+							bottom: 0;
+							content: " ";
+							display: block;
+							left: 5px;
+							position: absolute;
+							right: 5px;
+							top: 50%;
+						}
 
 						&:hover {
 							background: none;

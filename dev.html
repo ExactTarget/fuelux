@@ -45,20 +45,18 @@
 				'bootstrap': {
 					deps: ['jquery'],
 					exports: 'bootstrap'
-				},
-				'fuelux/all': {
-					deps: ['moment'],
-					exports: 'fuelux/all'
 				}
 			}
 		});
 
 		require(['jquery', 'data', 'fuelux/all'], function ($, data){
 			$('#MyDatepicker').datepicker({
+				allowPastDates: true,
 				momentConfig: {
 					culture: 'en',
 					format: 'MM-DD-YYYY'
-				}
+				},
+				restricted: [{ from: '08-04-2014', to: '08-15-2014' }, { from: '08-25-2014', to: '08-28-2014' }, { from: '10-01-2014', to: '10-31-2014' }]
 			});
 		});
 	</script>

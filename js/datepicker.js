@@ -83,6 +83,8 @@
 		this.moment = false;
 		this.momentFormat = null;
 		this.parseDate = this.options.parseDate || this.parseDate;
+		this.restricted = this.options.restricted || [];
+		this.restrictedParsed = [];
 		this.selectedDate = null;
 
 		this.$calendar.find('.datepicker-today').on('click', $.proxy(this.todayClicked, this));
@@ -105,6 +107,8 @@
 				this.momentFormat = this.options.momentConfig.format;
 				this.setCulture(this.options.momentConfig.culture);
 			}
+
+			this.setRestrictedDates(this.restricted);
 
 			if(this.setDate(this.options.date)===null){
 				this.$input.val('');
@@ -229,6 +233,10 @@
 			return (this.selectedDate===null) ? INVALID_DATE : this.formatDate(this.selectedDate);
 		},
 
+		getRestrictedDates: function(){
+			return this.restricted;
+		},
+
 		inputBlurred: function(e){
 			var date = this.$input.val();
 			if(date!==this.inputValue){
@@ -242,6 +250,20 @@
 
 		inputFocused: function(e){
 			this.$element.find('.input-group-btn').addClass('open');
+		},
+
+		isRestricted: function(date, month, year){
+			var restricted = this.restrictedParsed;
+			var i, from, l, to;
+
+			for(i=0,l=restricted.length; i<l; i++){
+				from = restricted[i].from;
+				to = restricted[i].to;
+				if((date>=from.date && month>=from.month && year>=from.year) && (date<=to.date && month<=to.month && year<=to.year)){
+					return true;
+				}
+			}
+			return false;
 		},
 
 		monthClicked: function(e){
@@ -413,6 +435,9 @@
 							$td.addClass('restricted');
 						}
 					}
+					if(this.isRestricted(curDate, curMonth, curYear)){
+						$td.addClass('restricted');
+					}
 					if(selected && curYear===selected.year && curMonth===selected.month && curDate===selected.date){
 						$td.addClass('selected');
 					}
@@ -493,6 +518,29 @@
 			}
 		},
 
+		setRestrictedDates: function(restricted){
+			var parsed = [];
+			var self = this;
+			var i, l;
+
+			var parseItem = function(val){
+				if(val===-Infinity){
+					return { date: -Infinity, month: -Infinity, year: -Infinity };
+				}else if(val===Infinity){
+					return { date: Infinity, month: Infinity, year: Infinity };
+				}else{
+					val = self.parseDate(val);
+					return { date: val.getDate(), month: val.getMonth(), year: val.getFullYear() };
+				}
+			};
+
+			this.restricted = restricted;
+			for(i=0,l=restricted.length; i<l; i++){
+				parsed.push({ from: parseItem(restricted[i].from), to: parseItem(restricted[i].to) });
+			}
+			this.restrictedParsed = parsed;
+		},
+
 		titleClicked: function(e){
 			var $a = $(e.currentTarget);
 			e.preventDefault();
@@ -542,7 +590,7 @@
 			format: 'L'	// more formats can be found here http://momentjs.com/docs/#/customization/long-date-formats/.
 		},
 		parseDate: null,
-		restricted: []
+		restricted: []	//accepts an array of objects formatted as so: { from: {{date}}, to: {{date}} }  (ex: [ { from: new Date('12/11/2014'), to: new Date('03/31/2015') } ])
 	};
 
 	$.fn.datepicker.Constructor = Datepicker;
