@@ -83,6 +83,7 @@
 		this.moment = false;
 		this.momentFormat = null;
 		this.parseDate = this.options.parseDate || this.parseDate;
+		this.preventBlurHide = false;
 		this.restricted = this.options.restricted || [];
 		this.restrictedParsed = [];
 		this.sameYearOnly = this.options.sameYearOnly;
@@ -90,6 +91,7 @@
 
 		this.$calendar.find('.datepicker-today').on('click', $.proxy(this.todayClicked, this));
 		this.$days.on('click', 'tr td a', $.proxy(this.dateClicked, this));
+		this.$element.find('.datepicker-dropdown').on('mousedown', $.proxy(this.dropdownMousedown, this));
 		this.$header.find('.next').on('click', $.proxy(this.next, this));
 		this.$header.find('.prev').on('click', $.proxy(this.prev, this));
 		this.$headerTitle.find('a').on('click', $.proxy(this.titleClicked, this));
@@ -192,6 +194,12 @@
 			this.$element.find('.input-group-btn').removeClass('open');
 		},
 
+		dropdownMousedown: function(){
+			var self = this;
+			this.preventBlurHide = true;
+			setTimeout(function(){ self.preventBlurHide = false; },0);
+		},
+
 		enable: function() {
 			this.$element.removeClass('disabled');
 			this.$element.find('input, button').removeAttr('disabled');
@@ -248,8 +256,9 @@
 					this.$element.trigger('inputRestrictedDate.fu.datepicker');
 				}
 			}
-			//TODO: figure out how to fix this
-			//this.$element.find('.input-group-btn').removeClass('open');
+			if(!this.preventBlurHide){
+				this.$element.find('.input-group-btn').removeClass('open');
+			}
 		},
 
 		inputFocused: function(e){
