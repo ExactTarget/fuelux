@@ -55,8 +55,6 @@
 	// DATEPICKER CONSTRUCTOR AND PROTOTYPE
 
 	var Datepicker = function (element, options) {
-		var parsed;
-
 		this.$element = $(element);
 		this.options = $.extend(true, {}, $.fn.datepicker.defaults, options);
 
@@ -96,16 +94,10 @@
 		this.$wheelsYear.on('click', 'ul a', $.proxy(this.yearClicked, this));
 		this.$wheelsYear.find('ul').on('scroll', $.proxy(this.onYearScroll, this));
 
-		parsed = this.parseDate(this.options.date);
-		if(this.options.date && parsed.toString()!==INVALID_DATE){
-			this.selectedDate = parsed;
-			this.renderMonth(parsed);
-			this.$input.val(this.formatDate(parsed));
-		}else{
-			this.renderMonth();
+		if(this.setDate(this.options.date)===null){
 			this.$input.val('');
+			this.inputValue = this.$input.val();
 		}
-		this.inputValue = this.$input.val();
 	};
 
 	Datepicker.prototype = {
@@ -462,9 +454,9 @@
 		setDate: function(date){
 			var parsed = this.parseDate(date);
 			if(parsed.toString()!==INVALID_DATE){
-				this.$input.val(this.formatDate(parsed));
 				this.selectedDate = parsed;
 				this.renderMonth(parsed);
+				this.$input.val(this.formatDate(parsed));
 			}else{
 				this.selectedDate = null;
 				this.renderMonth();
