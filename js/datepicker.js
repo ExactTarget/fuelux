@@ -169,6 +169,17 @@
 			return this.$element[0].outerHTML;
 		},
 
+		disable: function() {
+			this.$element.addClass('disabled');
+			this.$element.find('input, button').attr( 'disabled', 'disabled' );
+			this.$element.find('.input-group-btn').removeClass('open');
+		},
+
+		enable: function() {
+			this.$element.removeClass('disabled');
+			this.$element.find('input, button').removeAttr('disabled');
+		},
+
 		formatDate: function(date){
 			var padTwo = function(value){
 				var s = '0' + value;
