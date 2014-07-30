@@ -85,6 +85,7 @@
 		this.parseDate = this.options.parseDate || this.parseDate;
 		this.restricted = this.options.restricted || [];
 		this.restrictedParsed = [];
+		this.sameYearOnly = this.options.sameYearOnly;
 		this.selectedDate = null;
 
 		this.$calendar.find('.datepicker-today').on('click', $.proxy(this.todayClicked, this));
@@ -277,6 +278,9 @@
 			var year = $a.attr('data-year');
 			month++;
 			if(month>11){
+				if(this.sameYearOnly){
+					return;
+				}
 				month = 0;
 				year++;
 			}
@@ -357,6 +361,9 @@
 			var year = $a.attr('data-year');
 			month--;
 			if(month<0){
+				if(this.sameYearOnly){
+					return;
+				}
 				month = 11;
 				year--;
 			}
@@ -463,6 +470,14 @@
 			var year = date.getFullYear();
 			var $yearUl = this.$wheelsYear.find('ul');
 			var i, $monthSelected, $yearSelected;
+
+			if(this.sameYearOnly){
+				this.$wheelsMonth.addClass('full');
+				this.$wheelsYear.addClass('hide');
+			}else{
+				this.$wheelsMonth.removeClass('full');
+				this.$wheelsYear.removeClass('hide');
+			}
 
 			$monthUl.find('.selected').removeClass('selected');
 			$monthSelected = $monthUl.find('li[data-month="' + month + '"]');
@@ -590,7 +605,8 @@
 			format: 'L'	// more formats can be found here http://momentjs.com/docs/#/customization/long-date-formats/.
 		},
 		parseDate: null,
-		restricted: []	//accepts an array of objects formatted as so: { from: {{date}}, to: {{date}} }  (ex: [ { from: new Date('12/11/2014'), to: new Date('03/31/2015') } ])
+		restricted: [],	//accepts an array of objects formatted as so: { from: {{date}}, to: {{date}} }  (ex: [ { from: new Date('12/11/2014'), to: new Date('03/31/2015') } ])
+		sameYearOnly: false
 	};
 
 	$.fn.datepicker.Constructor = Datepicker;
