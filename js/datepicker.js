@@ -69,6 +69,7 @@
 
 		this.artificialScrolling = false;
 		this.formatDate = this.options.formatDate || this.formatDate;
+		this.inputValue = null;
 		this.parseDate = this.options.parseDate || this.parseDate;
 		this.selectedDate = null;
 
@@ -85,6 +86,8 @@
 		this.$header.find('.next').on('click', $.proxy(this.next, this));
 		this.$header.find('.prev').on('click', $.proxy(this.prev, this));
 		this.$headerTitle.find('a').on('click', $.proxy(this.titleClicked, this));
+		this.$input.on('blur', $.proxy(this.inputBlurred, this));
+		this.$input.on('focus', $.proxy(this.inputFocused, this));
 		this.$wheels.find('.datepicker-wheels-back').on('click', $.proxy(this.backClicked, this));
 		this.$wheels.find('.datepicker-wheels-select').on('click', $.proxy(this.selectClicked, this));
 		this.$wheelsMonth.on('click', 'ul a', $.proxy(this.monthClicked, this));
@@ -100,6 +103,7 @@
 			this.renderMonth();
 			this.$input.val('');
 		}
+		this.inputValue = this.$input.val();
 	};
 
 	Datepicker.prototype = {
@@ -124,7 +128,6 @@
 					this.renderMonth(date);
 				}
 			}
-
 		},
 
 		checkForMomentJS: function(){
@@ -144,12 +147,14 @@
 			var $td = $(e.currentTarget).parents('td:first');
 			var date;
 
+			e.preventDefault();
 			this.$days.find('td.selected').removeClass('selected');
 			$td.addClass('selected');
 
 			date = new Date($td.attr('data-year'), $td.attr('data-month'), $td.attr('data-date'));
 			this.selectedDate = date;
 			this.$input.val(this.formatDate(date));
+			this.inputValue = this.$input.val();
 		},
 
 		formatDate: function(date){
@@ -162,8 +167,30 @@
 			if(this.moment){
 				return moment(date).format(this.momentFormat);
 			}else{
-				return padTwo(date.getMonth()+1) + '-' + padTwo(date.getDate()) + '-' + date.getFullYear();
+				return padTwo(date.getMonth()+1) + '/' + padTwo(date.getDate()) + '/' + date.getFullYear();
 			}
+		},
+
+		inputBlurred: function(e){
+			var parsed;
+			if(this.$input.val()!==this.inputValue){
+				parsed = this.parseDate($.trim(this.$input.val()));
+				if(parsed.toString()!==INVALID_DATE){
+					this.$input.val(this.formatDate(parsed));
+					this.selectedDate = parsed;
+					this.renderMonth(parsed);
+				}else{
+					this.selectedDate = null;
+					this.renderMonth();
+					this.$element.trigger('inputParsingFailed.fu.datepicker');
+				}
+				this.inputValue = this.$input.val();
+			}
+			this.$element.find('.input-group-btn').removeClass('open');
+		},
+
+		inputFocused: function(e){
+			this.$element.find('.input-group-btn').addClass('open');
 		},
 
 		monthClicked: function(e){
@@ -448,6 +475,10 @@
 		if(!$target.is('a.datepicker-date')){
 			e.stopPropagation();
 		}
+	});
+	//used to prevent the dropdown from closing when clicking on the input
+	$(document).on('click.fu.datepicker.data-api', '.datepicker input', function(e){
+		e.stopPropagation();
 	});
 
 	$(function () {
