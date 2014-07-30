@@ -32,7 +32,7 @@
 	var old = $.fn.datepicker;
 	var requestedMoment = false;
 
-	var initStack = function(){
+	var runStack = function(){
 		var i, l;
 		requestedMoment = true;
 		for(i=0,l=datepickerStack.length; i<l; i++){
@@ -44,7 +44,7 @@
 	if(typeof define==='function' && define.amd){	//check if AMD is available
 		require(['moment'], function(amdMoment){
 			moment = amdMoment;
-			initStack();
+			runStack();
 		}, function(err){
 			var failedId = err.requireModules && err.requireModules[0];
 			if(failedId==='moment'){
@@ -54,11 +54,11 @@
 						window.console.log('Checkout the Fuel UX docs (http://exacttarget.github.io/fuelux/#datepicker) to see how to integrate moment.js for more features');
 					}
 				}
-				initStack();
+				runStack();
 			}
 		});
 	}else{
-		initStack();
+		runStack();
 	}
 
 	// DATEPICKER CONSTRUCTOR AND PROTOTYPE
