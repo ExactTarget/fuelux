@@ -29,23 +29,37 @@
 		}
 
 		requirejs.config({
+			config: {
+				moment: {
+					noGlobal: true
+				}
+			},
 			paths: {
 				jquery: pathToJQuery,
 				//underscore: 'bower_components/underscore/underscore',
 				bootstrap: 'bower_components/bootstrap/dist/js/bootstrap',
-				//moment: 'bower_components/moment-with-langs/index', // comment out if you dont want momentjs to be default
+				moment: 'bower_components/moment-with-langs/index', // comment out if you dont want momentjs to be default
 				fuelux: 'js'
 			},
 			shim: {
 				'bootstrap': {
 					deps: ['jquery'],
 					exports: 'bootstrap'
+				},
+				'fuelux/all': {
+					deps: ['moment'],
+					exports: 'fuelux'
 				}
 			}
 		});
 
 		require(['jquery', 'data', 'fuelux/all'], function ($, data){
-			$('#MyDatepicker').datepicker();
+			$('#MyDatepicker').datepicker({
+				momentConfig: {
+					culture: 'en',
+					formatCode: 'MM-DD-YYYY'
+				}
+			});
 		});
 	</script>
 </head>

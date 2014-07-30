@@ -80,7 +80,7 @@
 			moment = moment || window.moment; // need to pull in the global moment if they didn't do it via require
 			this.moment = true;
 			this.momentFormat = this.options.momentConfig.formatCode;
-			//this.setCulture(this.options.momentConfig.culture);
+			this.setCulture(this.options.momentConfig.culture);
 		}
 
 		this.$calendar.find('.datepicker-today').on('click', $.proxy(this.todayClicked, this));
@@ -225,7 +225,8 @@
 					this.$element.trigger('inputParsingFailed.fu.datepicker');
 				}
 			}
-			this.$element.find('.input-group-btn').removeClass('open');
+			//TODO: figure out how to fix this
+			//this.$element.find('.input-group-btn').removeClass('open');
 		},
 
 		inputFocused: function(e){
@@ -284,6 +285,11 @@
 				dt = moment(date).toDate();
 				if(dt.toString()!==INVALID_DATE){
 					return dt;
+				}else{
+					dt = moment(date, this.momentFormat).toDate();
+					if(dt.toString()!==INVALID_DATE){
+						return dt;
+					}
 				}
 			}else{	//if moment isn't present, use previous date parsing strategy
 				if(date && typeof(date)==='string'){
@@ -520,6 +526,10 @@
 		allowPastDates: false,
 		date: new Date(),
 		formatDate: null,
+		momentConfig: {
+			culture: 'en',
+			formatCode: 'L'	// more formats can be found here http://momentjs.com/docs/#/customization/long-date-formats/.
+		},
 		parseDate: null,
 		restricted: []
 	};
