@@ -38,6 +38,7 @@
 		for(i=0,l=datepickerStack.length; i<l; i++){
 			datepickerStack[i].init.call(datepickerStack[i].scope);
 		}
+		datepickerStack = [];
 	};
 
 	//only load moment if it's there. otherwise we'll look for it in window.moment
