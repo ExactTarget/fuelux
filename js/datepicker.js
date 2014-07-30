@@ -131,7 +131,6 @@
 		},
 
 		checkForMomentJS: function(){
-			// this function is ran on initialization to determine if moment.js is available
 			if(
 				($.isFunction(window.moment) || (typeof moment!=='undefined' && $.isFunction(moment))) &&
 				$.isPlainObject(this.options.momentConfig) &&
@@ -157,7 +156,7 @@
 			this.inputValue = this.$input.val();
 		},
 
-		destroy: function() {
+		destroy: function(){
 			this.$element.remove();
 			// any external bindings
 			// [none]
@@ -169,7 +168,7 @@
 			return this.$element[0].outerHTML;
 		},
 
-		disable: function() {
+		disable: function(){
 			this.$element.addClass('disabled');
 			this.$element.find('input, button').attr( 'disabled', 'disabled' );
 			this.$element.find('.input-group-btn').removeClass('open');
@@ -186,7 +185,6 @@
 				return s.substr(s.length-2);
 			};
 
-			// if we have moment available use it to format dates. otherwise use default
 			if(this.moment){
 				return moment(date).format(this.momentFormat);
 			}else{
@@ -194,20 +192,20 @@
 			}
 		},
 
+		getFormattedDate: function(){
+			return (this.selectedDate===null) ? INVALID_DATE : this.formatDate(this.selectedDate);
+		},
+
+		getDate: function(){
+			return (this.selectedDate===null) ? new Date(NaN) : this.selectedDate;
+		},
+
 		inputBlurred: function(e){
-			var parsed;
-			if(this.$input.val()!==this.inputValue){
-				parsed = this.parseDate($.trim(this.$input.val()));
-				if(parsed.toString()!==INVALID_DATE){
-					this.$input.val(this.formatDate(parsed));
-					this.selectedDate = parsed;
-					this.renderMonth(parsed);
-				}else{
-					this.selectedDate = null;
-					this.renderMonth();
+			var date = this.$input.val();
+			if(date!==this.inputValue){
+				if(this.setDate(date)===null){
 					this.$element.trigger('inputParsingFailed.fu.datepicker');
 				}
-				this.inputValue = this.$input.val();
 			}
 			this.$element.find('.input-group-btn').removeClass('open');
 		},
@@ -263,13 +261,13 @@
 		//some code ripped from http://stackoverflow.com/questions/2182246/javascript-dates-in-ie-nan-firefox-chrome-ok
 		parseDate: function(date) {
 			var dt, isoExp, month, parts;
-			// if we have moment, use that to parse the dates
-			if(this.moment){
+
+			if(this.moment){	//if we have moment, use that to parse the dates
 				dt = moment(date).toDate();
 				if(dt.toString()!==INVALID_DATE){
 					return dt;
 				}
-			}else{	// if moment isn't present, use previous date parsing strategy
+			}else{	//if moment isn't present, use previous date parsing strategy
 				if(date && typeof(date)==='string'){
 					dt = new Date(Date.parse(date));
 					if(dt.toString() !== INVALID_DATE){
@@ -428,6 +426,20 @@
 			this.changeView('calendar', new Date(year, month, 1));
 		},
 
+		setDate: function(date){
+			var parsed = this.parseDate(date);
+			if(parsed.toString()!==INVALID_DATE){
+				this.$input.val(this.formatDate(parsed));
+				this.selectedDate = parsed;
+				this.renderMonth(parsed);
+			}else{
+				this.selectedDate = null;
+				this.renderMonth();
+			}
+			this.inputValue = this.$input.val();
+			return this.selectedDate;
+		},
+
 		titleClicked: function(e){
 			var $a = $(e.currentTarget);
 			e.preventDefault();
@@ -492,13 +504,14 @@
 		}
 	});
 
-	//this is used to prevent the dropdown from closing when clicking within it's bounds
+	//used to prevent the dropdown from closing when clicking within it's bounds
 	$(document).on('click.fu.datepicker.data-api', '.datepicker-dropdown', function (e) {
 		var $target = $(e.target);
 		if(!$target.is('a.datepicker-date')){
 			e.stopPropagation();
 		}
 	});
+
 	//used to prevent the dropdown from closing when clicking on the input
 	$(document).on('click.fu.datepicker.data-api', '.datepicker input', function(e){
 		e.stopPropagation();
