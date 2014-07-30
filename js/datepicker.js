@@ -27,29 +27,38 @@
 	var INVALID_DATE = 'Invalid Date';
 	var MOMENT_NOT_AVAILABLE = 'moment.js is not available so you cannot use this function';
 
+	var datepickerStack = [];
 	var moment = false;
-	var old    = $.fn.datepicker;
+	var old = $.fn.datepicker;
+	var requestedMoment = false;
+
+	var initStack = function(){
+		var i, l;
+		requestedMoment = true;
+		for(i=0,l=datepickerStack.length; i<l; i++){
+			datepickerStack[i].init.call(datepickerStack[i].scope);
+		}
+	};
 
 	//only load moment if it's there. otherwise we'll look for it in window.moment
-	//you need to make sure moment is loaded before the rest of this module
-
-	//check if AMD is available
-	if(typeof define==='function' && define.amd){
+	if(typeof define==='function' && define.amd){	//check if AMD is available
 		require(['moment'], function(amdMoment){
 			moment = amdMoment;
+			initStack();
 		}, function(err){
 			var failedId = err.requireModules && err.requireModules[0];
 			if(failedId==='moment'){
-				//do nothing cause that's the point of progressive enhancement
-				if(typeof window.console!=='undefined'){
-					if(window.navigator.userAgent.search('PhantomJS')<0){
-						//don't show this in phantomjs tests
-						//window.console.log( "Don't worry if you're seeing a 404 that's looking for moment.js. The Fuel UX Datepicker is trying to use moment.js to give you extra features." );
-						//window.console.log( "Checkout the Fuel UX docs (http://exacttarget.github.io/fuelux/#datepicker) to see how to integrate moment.js for more features" );
+				if(window.console && window.console.log){
+					if(window.navigator.userAgent.search('PhantomJS')<0){	//don't show this in phantomjs tests
+						window.console.log('Don\'t worry if you\'re seeing a 404 looking for moment.js. The Fuel UX datepicker is trying to use moment.js to give you extra features.');
+						window.console.log('Checkout the Fuel UX docs (http://exacttarget.github.io/fuelux/#datepicker) to see how to integrate moment.js for more features');
 					}
 				}
+				initStack();
 			}
 		});
+	}else{
+		initStack();
 	}
 
 	// DATEPICKER CONSTRUCTOR AND PROTOTYPE
@@ -70,16 +79,10 @@
 		this.artificialScrolling = false;
 		this.formatDate = this.options.formatDate || this.formatDate;
 		this.inputValue = null;
+		this.moment = false;
+		this.momentFormat = null;
 		this.parseDate = this.options.parseDate || this.parseDate;
 		this.selectedDate = null;
-
-		// moment set up for parsing input dates
-		if(this.checkForMomentJS()){
-			moment = moment || window.moment; // need to pull in the global moment if they didn't do it via require
-			this.moment = true;
-			this.momentFormat = this.options.momentConfig.format;
-			this.setCulture(this.options.momentConfig.culture);
-		}
 
 		this.$calendar.find('.datepicker-today').on('click', $.proxy(this.todayClicked, this));
 		this.$days.on('click', 'tr td a', $.proxy(this.dateClicked, this));
@@ -94,9 +97,24 @@
 		this.$wheelsYear.on('click', 'ul a', $.proxy(this.yearClicked, this));
 		this.$wheelsYear.find('ul').on('scroll', $.proxy(this.onYearScroll, this));
 
-		if(this.setDate(this.options.date)===null){
-			this.$input.val('');
-			this.inputValue = this.$input.val();
+		var init = function(){
+			if(this.checkForMomentJS()){
+				moment = moment || window.moment; // need to pull in the global moment if they didn't do it via require
+				this.moment = true;
+				this.momentFormat = this.options.momentConfig.format;
+				this.setCulture(this.options.momentConfig.culture);
+			}
+
+			if(this.setDate(this.options.date)===null){
+				this.$input.val('');
+				this.inputValue = this.$input.val();
+			}
+		};
+
+		if(requestedMoment){
+			init.call(this);
+		}else{
+			datepickerStack.push({ init: init, scope: this });
 		}
 	};
 
