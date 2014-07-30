@@ -157,6 +157,18 @@
 			this.inputValue = this.$input.val();
 		},
 
+		destroy: function() {
+			this.$element.remove();
+			// any external bindings
+			// [none]
+
+			// empty elements to return to original markup
+			this.$days.find('tbody').empty();
+			this.$wheelsYear.find('ul').empty();
+
+			return this.$element[0].outerHTML;
+		},
+
 		formatDate: function(date){
 			var padTwo = function(value){
 				var s = '0' + value;
