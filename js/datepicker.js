@@ -25,23 +25,25 @@
 	// -- BEGIN MODULE CODE HERE --
 
 	var INVALID_DATE = 'Invalid Date';
-	var old    = $.fn.datepicker;
+	var MOMENT_NOT_AVAILABLE = 'moment.js is not available so you cannot use this function';
+
 	var moment = false;
+	var old    = $.fn.datepicker;
 
-	// only load moment if it's there. otherwise we'll look for it in window.moment
-	// you need to make sure moment is loaded before the rest of this module
+	//only load moment if it's there. otherwise we'll look for it in window.moment
+	//you need to make sure moment is loaded before the rest of this module
 
-	// check if AMD is available
-	if(typeof define === 'function' && define.amd) {
-		require(['moment'], function( amdMoment ) {
+	//check if AMD is available
+	if(typeof define==='function' && define.amd){
+		require(['moment'], function(amdMoment){
 			moment = amdMoment;
-		}, function( err ) {
+		}, function(err){
 			var failedId = err.requireModules && err.requireModules[0];
-			if (failedId === 'moment') {
-				// do nothing cause that's the point of progressive enhancement
-				if( typeof window.console !== 'undefined' ) {
-					if( window.navigator.userAgent.search( 'PhantomJS' ) < 0 ) {
-						// don't show this in phantomjs tests
+			if(failedId==='moment'){
+				//do nothing cause that's the point of progressive enhancement
+				if(typeof window.console!=='undefined'){
+					if(window.navigator.userAgent.search('PhantomJS')<0){
+						//don't show this in phantomjs tests
 						//window.console.log( "Don't worry if you're seeing a 404 that's looking for moment.js. The Fuel UX Datepicker is trying to use moment.js to give you extra features." );
 						//window.console.log( "Checkout the Fuel UX docs (http://exacttarget.github.io/fuelux/#datepicker) to see how to integrate moment.js for more features" );
 					}
@@ -192,12 +194,28 @@
 			}
 		},
 
-		getFormattedDate: function(){
-			return (this.selectedDate===null) ? INVALID_DATE : this.formatDate(this.selectedDate);
+		getCulture: function(){
+			if(this.moment){
+				return moment.lang();
+			}else{
+				throw MOMENT_NOT_AVAILABLE;
+			}
 		},
 
 		getDate: function(){
 			return (this.selectedDate===null) ? new Date(NaN) : this.selectedDate;
+		},
+
+		getFormatCode: function(){
+			if(this.moment){
+				return this.momentFormat;
+			}else{
+				throw MOMENT_NOT_AVAILABLE;
+			}
+		},
+
+		getFormattedDate: function(){
+			return (this.selectedDate===null) ? INVALID_DATE : this.formatDate(this.selectedDate);
 		},
 
 		inputBlurred: function(e){
@@ -426,6 +444,15 @@
 			this.changeView('calendar', new Date(year, month, 1));
 		},
 
+		setCulture: function(cultureCode){
+			if(!cultureCode){ return false; }
+			if(this.moment){
+				moment.lang(cultureCode);
+			}else{
+				throw MOMENT_NOT_AVAILABLE;
+			}
+		},
+
 		setDate: function(date){
 			var parsed = this.parseDate(date);
 			if(parsed.toString()!==INVALID_DATE){
@@ -438,6 +465,15 @@
 			}
 			this.inputValue = this.$input.val();
 			return this.selectedDate;
+		},
+
+		setFormatCode: function(formatCode){
+			if(!formatCode){ return false; }
+			if(this.moment){
+				this.momentFormat = formatCode;
+			}else{
+				throw MOMENT_NOT_AVAILABLE;
+			}
 		},
 
 		titleClicked: function(e){
