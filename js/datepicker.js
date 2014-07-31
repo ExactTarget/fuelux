@@ -24,6 +24,7 @@
 
 	// -- BEGIN MODULE CODE HERE --
 
+
 	var INVALID_DATE = 'Invalid Date';
 	var MOMENT_NOT_AVAILABLE = 'moment.js is not available so you cannot use this function';
 
@@ -49,12 +50,6 @@
 		}, function(err){
 			var failedId = err.requireModules && err.requireModules[0];
 			if(failedId==='moment'){
-				if(window.console && window.console.log){
-					if(window.navigator.userAgent.search('PhantomJS')<0){	//don't show this in phantomjs tests
-						window.console.log('Don\'t worry if you\'re seeing a 404 looking for moment.js. The Fuel UX datepicker is trying to use moment.js to give you extra features.');
-						window.console.log('Checkout the Fuel UX docs (http://exacttarget.github.io/fuelux/#datepicker) to see how to integrate moment.js for more features');
-					}
-				}
 				runStack();
 			}
 		});
