@@ -241,7 +241,7 @@
 			var opts, self;
 
 			cont = (cont.length<1) ? this.$canvas : cont;
-			if(cont.data('infinitescroll')){
+			if(cont.data('fu.infinitescroll')){
 				cont.infinitescroll('enable');
 			}else{
 				self = this;
@@ -608,10 +608,10 @@
 
 		var $set = this.each(function () {
 			var $this   = $( this );
-			var data    = $this.data( 'repeater' );
+			var data    = $this.data('fu.repeater');
 			var options = typeof option === 'object' && option;
 
-			if ( !data ) $this.data('repeater', (data = new Repeater( this, options ) ) );
+			if ( !data ) $this.data('fu.repeater', (data = new Repeater( this, options ) ) );
 			if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 

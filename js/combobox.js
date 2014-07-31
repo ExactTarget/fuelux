@@ -188,10 +188,10 @@
 
 		var $set = this.each(function () {
 			var $this   = $( this );
-			var data    = $this.data( 'combobox' );
+			var data    = $this.data('fu.combobox');
 			var options = typeof option === 'object' && option;
 
-			if( !data ) $this.data('combobox', (data = new Combobox( this, options ) ) );
+			if( !data ) $this.data('fu.combobox', (data = new Combobox( this, options ) ) );
 			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
@@ -212,7 +212,7 @@
 
 	$(document).on('mousedown.fu.combobox.data-api', '[data-initialize=combobox]', function (e) {
 		var $control = $(e.target).closest('.combobox');
-		if ( !$control.data('combobox') ) {
+		if ( !$control.data('fu.combobox') ) {
 			$control.combobox($control.data());
 		}
 	});
@@ -221,7 +221,7 @@
 	$(function () {
 		$('[data-initialize=combobox]').each(function () {
 			var $this = $(this);
-			if ( !$this.data('combobox') ) {
+			if ( !$this.data('fu.combobox') ) {
 				$this.combobox($this.data());
 			}
 		});
