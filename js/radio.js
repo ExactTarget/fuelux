@@ -177,10 +177,10 @@
 
 		var $set = this.each(function () {
 			var $this   = $( this );
-			var data    = $this.data( 'radio' );
+			var data    = $this.data('fu.radio');
 			var options = typeof option === 'object' && option;
 
-			if( !data ) $this.data('radio', (data = new Radio( this, options ) ) );
+			if( !data ) $this.data('fu.radio', (data = new Radio( this, options ) ) );
 			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
@@ -201,7 +201,7 @@
 
 	$(document).on('mouseover.fu.checkbox.data-api', '[data-initialize=radio]', function (e) {
 		var $control = $(e.target).closest('.radio').find('[type=radio]');
-		if ( !$control.data('radio') ) {
+		if ( !$control.data('fu.radio') ) {
 			$control.radio($control.data());
 		}
 	});
@@ -210,7 +210,7 @@
 	$(function () {
 		$('[data-initialize=radio] [type=radio]').each(function () {
 			var $this = $(this);
-			if ($this.data('radio')) return;
+			if ($this.data('fu.radio')) return;
 			$this.radio($this.data());
 		});
 	});

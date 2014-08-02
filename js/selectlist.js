@@ -196,10 +196,10 @@
 
 		var $set = this.each(function () {
 			var $this = $(this);
-			var data = $this.data('selectlist');
+			var data = $this.data('fu.selectlist');
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('selectlist', (data = new Selectlist(this, options)));
+			if (!data) $this.data('fu.selectlist', (data = new Selectlist(this, options)));
 			if (typeof option === 'string') methodReturn = data[option].apply(data, args);
 		});
 
@@ -220,7 +220,7 @@
 
 	$(document).on('mousedown.fu.selectlist.data-api', '[data-initialize=selectlist]', function (e) {
 		var $control = $(e.target).closest('.selectlist');
-		if ( !$control.data('selectlist') ) {
+		if ( !$control.data('fu.selectlist') ) {
 			$control.selectlist($control.data());
 		}
 	});
@@ -229,7 +229,7 @@
 	$(function () {
 		$('[data-initialize=selectlist]').each(function () {
 			var $this = $(this);
-			if (!$this.data('selectlist')) {
+			if (!$this.data('fu.selectlist')) {
 				$this.selectlist($this.data());
 			}
 		});

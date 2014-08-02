@@ -334,10 +334,10 @@
 
 		var $set = this.each(function () {
 			var $this   = $( this );
-			var data    = $this.data( 'tree' );
+			var data    = $this.data( 'fu.tree' );
 			var options = typeof option === 'object' && option;
 
-			if( !data ) $this.data('tree', (data = new Tree( this, options ) ) );
+			if( !data ) $this.data('fu.tree', (data = new Tree( this, options ) ) );
 			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
