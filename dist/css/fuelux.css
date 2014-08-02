@@ -78,7 +78,9 @@
   background: #e9e9e9;
   border-radius: 4px;
 }
-.fuelux .checkbox input[type="checkbox"]:focus + .checkbox-label {
+.fuelux .checkbox input[type="checkbox"]:focus + .checkbox-label,
+.fuelux .checkbox input[type="checkbox"]:hover + .checkbox-label,
+.fuelux .checkbox .checkbox-label:hover {
   color: #999999;
 }
 .fuelux .checkbox-custom {
@@ -703,7 +705,9 @@
   background: #e9e9e9;
   border-radius: 4px;
 }
-.fuelux .radio input[type="radio"]:focus + .radio-label {
+.fuelux .radio input[type="radio"]:focus + .radio-label,
+.fuelux .radio input[type="radio"]:hover + .radio-label,
+.fuelux .radio .radio-label:hover {
   color: #999999;
 }
 .fuelux .radio-custom {
