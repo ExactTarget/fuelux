@@ -6,7 +6,7 @@
   <h2 id="loaders-examples">Examples</h2>
   <p>Animation for visual indication of waiting time that can be customized to have many appearances.</p>
 
-  <div class="fu-example">
+  <div class="fu-example section">
     <div class="loader"></div>
   </div>
 {% highlight html %}
@@ -15,7 +15,7 @@
 
   <h4>Starting frame</h4>
   <p>Use the <code>data-frame</code> attribute to set the initial animation frame (defaults to 1). Additionally, this attribute can be modified at any time to set the current frame.
-  <div class="fu-example">
+  <div class="fu-example section">
     <div class="loader" data-initialize="loader" data-frame="5"></div>
   </div>
 {% highlight html %}
@@ -24,7 +24,7 @@
 
   <h4>Controlling speed</h4>
   <p>Use the <code>data-delay</code> attribute to alter animation speed (defaults to 150).
-  <div class="fu-example">
+  <div class="fu-example section">
     <div class="loader" data-initialize="loader" data-delay="500"></div>
   </div>
 {% highlight html %}
@@ -33,7 +33,7 @@
 
   <h4>Animation range</h4>
   <p>Use the <code>data-begin</code> and <code>data-end</code> attributes to control at which frames the animation begins and ends, respectively. (Defaults are 1 and 8)
-  <div class="fu-example">
+  <div class="fu-example section">
     <div class="loader" data-initialize="loader" data-begin="3" data-end="6"></div>
   </div>
 {% highlight html %}
@@ -46,8 +46,8 @@
   <p>The loader will automatically instantiate any loader with <code>data-initialize="loader"</code>.
 
   <h3>Via JavaScript</h3>
-  <p>Call the placard control via JavaScript:</p>
-  {% highlight js %}$('#MyPlacard').placard();{% endhighlight %}  
+  <p>Call the loader control via JavaScript:</p>
+  {% highlight js %}$('#MyLoader').loader();{% endhighlight %}  
 
   <h3>Via JavaScript</h3>
   <p>Call the placard control via JavaScript:</p>
@@ -62,6 +62,10 @@
   <h3>Methods</h3>
   <h4>$().loader();</h4>
   Attaches loader to a 'loader' classed div
+
+  <h4>.loader('destroy')</h4>
+  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
+  {% highlight js %}$('#element').loader('destroy');{% endhighlight %}
 
   <h4>.loader('next');</h4>
   <p>Increments the loader animation to the next frame</p>

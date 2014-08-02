@@ -5,17 +5,19 @@
 
   <h2 id="wizard-examples">Examples</h2>
   <p>Wrap the input and wizard button within <code>.fuelux .wizard</code></p>
-  <div class="fu-example">
+  <div class="fu-example section">
     <div id="MyWizard" class="wizard" data-initialize="wizard">
       {% include js/wizard-example.html %}
     </div>
   </div><!-- /example -->
 
+<div class="truncate-highlight">
 {% highlight html %}
 <div class="wizard" data-initialize="wizard">
 {% include js/wizard-example.html %}
 </div>
 {% endhighlight %}
+</div>
 
   <h2 id="wizard-usage">Usage</h2>
   <p>A wizard divides a complex goal into multiple steps by separating sub-tasks or content into panes. Panes can be added or removed. Completed steps can be clicked.</p>
@@ -70,6 +72,10 @@
   <h3>Methods</h3>
   <h4>$().wizard()</h4>
   Attaches wizard to a list of steps, navigation, and content.
+
+  <h4>.wizard('destroy')</h4>
+  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
+  {% highlight js %}$('#element').wizard('destroy');{% endhighlight %}
   
   <h4>.wizard('previous')</h4>
   <p>Moves to the previous step</p>
@@ -164,19 +170,19 @@ $('#element').wizard('addSteps', index, remove,
       </thead>
       <tbody>
         <tr>
-          <td>change</td>
+          <td>change.fu.wizard</td>
           <td>This event fires immediately when the step changes, but before the new step has been shown. Use <code>event.preventDefault</code> to cancel the event.</td>
         </tr>
         <tr>
-          <td>changed</td>
+          <td>changed.fu.wizard</td>
           <td>This event is fired when the step has changed and is shown to the user.</td>
         </tr>
         <tr>
-          <td>finished</td>
+          <td>finished.fu.wizard</td>
           <td>This event is fired when the next button is clicked on the last step of the wizard.</td>
         </tr>
         <tr>
-          <td>stepclick</td>
+          <td>stepclick.fu.wizard</td>
           <td>This event is fired when a completed step is clicked. Use <code>event.preventDefault</code> to cancel the event.</td>
         </tr>
       </tbody>

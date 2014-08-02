@@ -6,23 +6,8 @@
   <h2 id="placards-examples">Examples</h2>
   <p>Adds a popup element to inputs/textareas on focus, with additional options for explicit accept/cancel actions.</p>
 
-  <div class="fu-example">
-    <div class="placard" style="display: block;" data-initialize="placard">
-      <div class="placard-popup"></div>
-      <input class="form-control placard-field" readonly="readonly" type="text"/>
-    </div>
-
-    <br/>
-
-    <div class="placard" data-ellipsis="true" style="display: block;" data-initialize="placard">
-      <div class="placard-popup"></div>
-      <div class="placard-header"><h5>Header</h5></div>
-      <textarea class="form-control placard-field" readonly="readonly" rows="3"></textarea>
-      <div class="placard-footer">
-        <a class="placard-cancel" href="#">Cancel</a>
-        <button class="btn btn-primary btn-xs placard-accept" type="button">Save</button>
-      </div>
-    </div>
+  <div class="fu-example section">
+{% include js/placard-example.html %}
   </div>
 
   <h2 id="placards-usage">Usage</h2>
@@ -151,6 +136,10 @@
   <h4>$().placard();</h4>
   Attaches placard to the placard markup.
 
+  <h4>.placard('destroy')</h4>
+  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
+  {% highlight js %}$('#element').placard('destroy');{% endhighlight %}
+
   <h4>.placard('getValue');</h4>
   <p>Gets the current actual placard value.</p>
   {% highlight js %}$('#element').placard('getValue');{% endhighlight %}
@@ -195,23 +184,23 @@
       </thead>
       <tbody>
         <tr>
-          <td>accept</td>
+          <td>accept.fu.placard</td>
           <td>Fired when the user indicates the desire to 'accept' changes. If using the <code>onAccept</code>
             option, this event fires after that function is called.
           </td>
         </tr>
         <tr>
-          <td>cancel</td>
+          <td>cancel.fu.placard</td>
           <td>Fired when the user indicates the desire to 'cancel' changes. If using the <code>onCancel</code>
             option, this event fires after that function is called.
           </td>
         </tr>
         <tr>
-          <td>hide</td>
+          <td>hide.fu.placard</td>
           <td>Fired when the placard is dismissed and the popup dissapears.</td>
         </tr>
         <tr>
-          <td>show</td>
+          <td>show.fu.placard</td>
           <td>Fired when the placard obtains focus and the popup appears.</td>
         </tr>
       </tbody>

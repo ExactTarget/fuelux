@@ -6,7 +6,7 @@
   <p>Choose a data from a calendar dropdown or use moment.js to format and parse various date formats.</p>
 
   <p>To support various date formats around the world, datepicker has an optional dependency on <a href="http://momentjs.com/">moment.js</a>. <a href="http://momentjs.com/downloads/moment-with-langs.js">Download moment.js (with languages).</a></p>
-  <div class="fu-example">
+  <div class="fu-example section">
 
   </div><!-- /example -->
 
@@ -120,6 +120,10 @@ Do not overwrite this function if using Moment.js.</td>
   <h4>$().datepicker(options)</h4>
   Attaches a datepicker to an input and a dropdown menu.
   
+  <h4>.datepicker('destroy')</h4>
+  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
+  {% highlight js %}$('#element').datepicker('destroy');{% endhighlight %}
+
   <h4>.datepicker('disable')</h4>
   <p>Disables the component</p>
   {% highlight js %}$('#element').datepicker('disable'){% endhighlight %}
@@ -167,11 +171,11 @@ Do not overwrite this function if using Moment.js.</td>
       </thead>
       <tbody>
         <tr>
-          <td>changed</td>
+          <td>changed.fu.datepicker</td>
           <td>This event is fired when the date value has changed.</td>
         </tr>
         <tr>
-          <td>inputParsingFailed</td>
+          <td>inputParsingFailed.fu.datepicker</td>
           <td>This event is fired when an invalid date is parsed on blur of the datepicker. <i>Only available using Moment JS with Langs</i>
 </td>
         </tr>

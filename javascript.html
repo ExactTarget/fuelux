@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Javascript
+title: Controls
 slug: javascript
-lead: "Over a dozen reusable controls built to provide datepickers, pillboxes, trees, wizards, and much more."
+lead: "Over a dozen reusable controls built to provide data repeaters, datepickers, pillboxes, trees, wizards, and much more."
 ---
 
 
 <!-- Overview
 ================================================== -->
 <div class="bs-docs-section">
-  <h1 id="js-overview" class="page-header">Overview</h1>
+  <h1 id="overview" class="page-header">Overview</h1>
 
-  <h3>Control initialization</h3>
+  <h3 id="control-initialization">Control initialization</h3>
 
   <h4>With markup: data-attributes</h4>
   <p>You can initialize FuelUX controls that <i>do not require a data source</i> on page load purely through markup without writing a single line of JavaScript. Controls that can to be auto-initialized are checkbox, combobox, datepicker, loader, pillbox, placard, radio, scheduler, search, selectlist, and wizard. These controls can contain the <code>data-initalize</code> attribute. Attribute initialization is used in this section's examples when available. 
@@ -29,20 +29,20 @@ $('#myElement').wizard('selectedItem', { step: 3 });)
 {% endhighlight %}
 
   <div class="bs-callout bs-callout-warning">
-    <h4>Re-initialization</h4>
-    <p>Unlike some heavier UI control libraries, <i>FuelUX controls cannot be re-intialized</i>. If a control is already initialized, passing in an options/default object will only change the defaults--which means nothing will happen. Many controls have methods that allow certain internal variables to be changed, but if the variable you would like to change is not available via a method, then you should <code>$.remove()</code> the current markup and initialize new markup with the respective options object via Javascript.</p>
+    <h4>Destruction and re-initialization</h4>
+    <p>Unlike some heavier UI control libraries, <i>FuelUX controls cannot be re-initialized</i>. If a control is already initialized, passing in an options/default object will only change the defaults--which means <i>nothing will happen</i>. Many controls have methods that allow certain internal variables to be changed, but if the variable you would like to change is not available via a method mentioned in the tables below, then you should use the control's <code>destroy</code> method and initialize new markup with the respective options object via Javascript.</p>
   </div>
 
-  <h3 id="js-events">Events</h3>
+  <h3 id="events">Events</h3>
   <p>FuelUX provides custom events for most components' actions. All events are namespaced with 'fu' and their control name (ex. <code>'changed.fu.checkbox'</code> ). All FuelUX events are past tense, so not to trigger standard events (ex. <code>changed</code> vs. <code>change</code>). Although it is not tested, nor recommended, this allows you listen for standard events and Bootstrap supported events on any internal element that you choose.</p>
 
-  <h3 id="js-individual-compiled">Individual or compiled</h3>
+  <h3 id="individual-compiled">Individual or compiled</h3>
   <p>Components can be included individually (using FuelUX's individual <code>*.js</code> files), or all at once (using <code>fuelux.js</code> or the minified <code>fuelux.min.js</code>). Do not include both files on your page.</p>
 
-  <h3>Plugin dependencies</h3>
-  <p>Some controls depend on other controls. If you include a control individually, make sure to check for these dependencies in the docs below. A console error should be thrown if dependencies are not met.  All plugins depend on jQuery <i>and</i> Bootstrap (jQuery and Bootstrap must be loaded <strong>before</strong> any FuelUX files). <a href="{{ site.repo }}/blob/v{{ site.current_version }}/bower.json">Consult our <code>bower.json</code></a> to see which versions of jQuery and Bootstrap are currently tested and supported.</p>
+  <h3 id="plugin-dependencies">Plugin dependencies</h3>
+  <p>Some controls depend on other controls. If you include a control individually, make sure to check for dependencies in the documentation below. A console error should be thrown if dependencies are not met.  All plugins depend on jQuery <i>and</i> Bootstrap (jQuery and Bootstrap must be loaded <strong>before</strong> any FuelUX files). <a href="{{ site.repo }}/blob/v{{ site.current_version }}/bower.json">Consult our <code>bower.json</code></a> to see which versions of jQuery and Bootstrap are currently tested and supported.</p>
 
-  <h3 id="js-accessibility">Accessibility</h3>
+  <h3 id="accessibility">Accessibility</h3>
 
   <p>ARIA support has been added when appropriate, and all inputs have labels even if they are "screen reader only." All controls are keyboard friendly and can be navigated by tabbing to display a keyboard-focus. We hope this not only aids in accessibility, but also increases the user's productivity. Controls have been "fat-finger" tested on touch devices. If you have accessibility issues with FuelUX controls, please <a href="https://github.com/ExactTarget/fuelux/issues/new">create an issue on GitHub</a>.</p>
 

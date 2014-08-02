@@ -7,7 +7,7 @@
   <p>Customized look and feel for radio button element.</p>
 
   <h4>Default (stacked)</h4>
-  <div class="fu-example">
+  <div class="fu-example section">
     <div class="radio" data-initialize="radio">
       <label class="radio-custom">
         <input class="sr-only" name="radioEx1" type="radio" value="option1">
@@ -68,7 +68,7 @@
 
   <h4>Inline radio</h4>
   <p>Use the <code>.radio-inline</code> classes on radios for controls that appear on the same line.</p>
-  <div class="fu-example">
+  <div class="fu-example section">
     <label class="radio-custom radio-inline" data-initialize="radio">
       <input class="sr-only"  name="radioEx2" type="radio" value="option1"> 1
     </label>
@@ -94,7 +94,7 @@
   <h4>Element toggling radios</h4>
   <p>Use the <code>data-toggle="{{selector}}"</code> to automatically show/hide elements matching the selector within the body upon check/uncheck. This works with any <a href="http://api.jquery.com/category/selectors/">jQuery selector</a>.
   </p>
-  <div class="fu-example">
+  <div class="fu-example section">
     <div class="radio">
       <label class="radio-custom" data-initialize="radio">
         <input class="sr-only" data-toggle="#radioToggleID" name="radioEx3" type="radio" value="option1">
@@ -130,7 +130,7 @@
   <h4>Highlighting checkboxes</h4>
   <p>Use the <code>.highlight</code> class to add a background highlight upon check.
   </p>
-  <div class="fu-example">
+  <div class="fu-example section">
     <div class="radio highlight" data-initialize="radio">
       <label class="radio-custom">
         <input class="sr-only" name="radioEx4" type="radio" value="option1">
@@ -168,23 +168,27 @@
   <h4>$().radio();</h4>
   Activates your content as a custom radio.
 
-  <h4>.check()</h4>
+  <h4>.radio('check')</h4>
   <p>Checks the radio.</p>
   {% highlight js %}$('#element').radio('check');{% endhighlight %}
 
-  <h4>.disable()</h4>
+  <h4>.radio('destroy')</h4>
+  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
+  {% highlight js %}$('#element').radio('destroy');{% endhighlight %}
+
+  <h4>.radio('disable')</h4>
   <p>Disables the radio.</p>
   {% highlight js %}$('#element').radio('disable');{% endhighlight %}
 
-  <h4>.enable()</h4>
+  <h4>.radio('enable')</h4>
   <p>Enables the radio.</p>
   {% highlight js %}$('#element').radio('enable');{% endhighlight %}
 
-  <h4>.isChecked()</h4>
+  <h4>.radio('isChecked')</h4>
   <p>Returns <code>true</code> or <code>false</code> depending on whether the radio is checked.</p>
   {% highlight js %}$('#element').radio('isChecked');{% endhighlight %}
 
-  <h4>.uncheck()</h4>
+  <h4>.radio('uncheck')</h4>
   <p>Unchecks the radio.</p>
   {% highlight js %}$('#element').radio('uncheck');{% endhighlight %}
 </div>

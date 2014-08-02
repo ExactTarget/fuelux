@@ -6,7 +6,7 @@
   <h2 id="infinite-scrolling-examples">Examples</h2>
   <p>Turn any element into an infinite scrolling region with content that loads on demand.</p>
 
-  <div class="fu-example">
+  <div class="fu-example section">
     <div class="infinitescroll" id="MyInfiniteScroll1" style="border: 1px solid #ccc; border-radius: 4px; float: left; height: 200px; padding: 6px 10px; width: 48%;"></div>
     <div class="infinitescroll" id="MyInfiniteScroll2" style="border: 1px solid #ccc; border-radius: 4px; float: right; height: 200px; padding: 6px 10px; width: 48%;"></div>
     <div style="clear:both;"></div>
@@ -30,6 +30,17 @@ $('#MyInfiniteScroll').infinitescroll({
 {% highlight html %}
 <div class="infinitescroll"></div>
 {% endhighlight %}
+
+  <h3>Scripting</h3>
+
+  <p>The following is the JavaScript associated with the examples above.</p>
+
+  <div class="truncate-highlight">
+  {% highlight js %}
+{% include js/infinite-scroll-examples.js %}
+  {% endhighlight %}
+  </div>
+
 
   <h3>Options</h3>
   <p>Options can be passed via Javascript upon initialization.</p>
@@ -82,6 +93,10 @@ $('#MyInfiniteScroll').infinitescroll({
   <h3>Methods</h3>
   <h4>$().infinitescroll();</h4>
   Attaches infinitescroll to an 'infinitescroll' classed div
+
+  <h4>.infinitescroll('destroy')</h4>
+  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
+  {% highlight js %}$('#element').infinitescroll('destroy');{% endhighlight %}
 
   <h4>.infinitescroll('disable');</h4>
   <p>Disables the infinite scrolling region.</p>

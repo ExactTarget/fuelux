@@ -6,7 +6,7 @@
   <h2 id="pillbox-examples">Example</h2>
   <p>Pillbox is an interface to manage a list of tags. Wrap the list of tags (pills) within <code>.fuelux .pillbox</code></p>
 
-  <div class="fu-example">
+  <div class="fu-example section">
     <div id="MyPillbox" class="pillbox" data-initialize="pillbox">
     {% include js/pillbox-example.html %}
     </div>
@@ -58,6 +58,16 @@
 </div>
 {% endhighlight %}
 
+  <h3>Scripting</h3>
+
+  <p>The following is the JavaScript associated with the examples above.</p>
+
+  <div class="truncate-highlight">
+  {% highlight js %}
+{% include js/pillbox-examples.js %}
+  {% endhighlight %}
+  </div>
+
   <h3>Methods</h3>
 
   <h4>.pillbox('addItems')</h4>
@@ -92,6 +102,10 @@ $('#element').pillbox('addItems',
       </tbody>
     </table>
   </div><!-- ./fu-table-responsive -->
+
+  <h4>.pillbox('destroy')</h4>
+  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
+  {% highlight js %}$('#element').pillbox('destroy');{% endhighlight %}
 
   <h4>.pillbox('removeItems')</h4>
   <p>Remove items from the pillbox programatically. The first parameter is a <code>1</code> based index that represents the location of the first element to be removed. The second parameter is the number of items that will be removed.</p>
@@ -207,19 +221,19 @@ callback({data:[
       </thead>
       <tbody>
       <tr>
-        <td>clicked</td>
+        <td>clicked.fu.pillbox</td>
         <td>This event is triggered when a pill is clicked. A jQuery data() object with information about the clicked pill is returned.</td>
       </tr>
       <tr>
-        <td>added</td>
+        <td>added.fu.pillbox</td>
         <td>This event is triggered when a pill is added. A jQuery data() object with information about the added pill is returned.</td>
       </tr>
       <tr>
-        <td>removed</td>
+        <td>removed.fu.pillbox</td>
         <td>This event is triggered when a pill is removed. A jQuery data() object with information about the removed pill is returned.</td>
       </tr>
       <tr>
-        <td>edited</td>
+        <td>edited.fu.pillbox</td>
         <td>This event is triggered when a pill is edited. A jQuery data() object with information about the edited pill is returned.</td>
       </tr>
       </tbody>

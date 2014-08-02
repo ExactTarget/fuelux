@@ -15,7 +15,7 @@
   </div><!-- /example -->
 
   <h3>Live demo</h3>
-  <div class="fu-example">
+  <div class="fu-example section">
     <div id="MyScheduler" class="form-horizontal container-fluid scheduler" data-initialize="scheduler" role="form">
     {% include js/scheduler-example.html %}
     </div>
@@ -36,33 +36,7 @@ name: 'Namibia Standard Time',
   offset: '+02:00'
 },
 recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'</pre>
-
   </div><!-- /example -->
-
-<button class="btn btn-primary" data-toggle="modal" data-target=".schedulerExampleModal">
-  Open example code in modal
-</button>
-
-<div class="modal fade schedulerExampleModal" tabindex="-1" role="dialog" aria-labelledby="schedulerExampleMarkupLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title" id="schedulerExampleMarkupLabel">Example Scheduler Markup</h4>
-        </div>
-        <div class="modal-body">
-{% highlight html %}
-<div id="MyScheduler" class="form-horizontal container-fluid scheduler" data-initialize="scheduler" role="form">
-  {% include js/scheduler-example.html %}
-</div>
-{% endhighlight %}
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
   <h2 id="scheduler-usage">Usage</h2>
@@ -79,9 +53,13 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
   <h3>Markup</h3>
   <p>Wrap <code>class="scheduler"</code> around a start date/time, a timezone, and a recurrance pattern within a <code>class="fuelux"</code> container.</p>
 
-  <button class="btn btn-primary" data-toggle="modal" data-target=".schedulerExampleModal">
-  Open example markup in modal
-</button>
+  <div class="truncate-highlight">
+    {% highlight html %}
+  <div id="MyScheduler" class="form-horizontal container-fluid scheduler" data-initialize="scheduler" role="form">
+    {% include js/scheduler-example.html %}
+  </div>
+    {% endhighlight %}
+  </div>
 
   <h3>Data Attribute Options</h3>
   <p>Please refer to the component dependencies:   <a href="#combobox">combobox</a>, <a href="#datepicker">datepicker</a>, <a href="#radio">radio</a>, <a href="#selectlist">selectlist</a>, <a href="#spinbox">spinbox</a>.</p>
@@ -90,6 +68,10 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
   <h4>$().scheduler()</h4>
   Attaches scheduler to a list of steps, navigation, and content.
   
+  <h4>.scheduler('destroy')</h4>
+  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
+  {% highlight js %}$('#element').scheduler('destroy');{% endhighlight %}
+
   <h4>.scheduler('disable')</h4>
   <p>Disable all scheduler form fields</p>
   {% highlight js %}$('#element').scheduler('disable');{% endhighlight %}
@@ -153,7 +135,7 @@ $('myScheduler').scheduler('value', {
       </thead>
       <tbody>
         <tr>
-          <td>changed</td>
+          <td>changed.fu.scheduler</td>
           <td>This event is fired when the step has changed and is shown to the user.</td>
         </tr>
       </tbody>
@@ -164,5 +146,14 @@ $('#MyScheduler').on('changed', function () {
   // do something
 });
 {% endhighlight %}
+
+<h3 id="scheduler-dependencies">Fuel UX Dependencies</h3>
+<ul>
+  <li><a href="#comboboxes">Combobox</a></li>
+  <li><a href="#datepickers">Datepicker</a></li>
+  <li><a href="#radios">Radio</a></li>
+  <li><a href="#selectlists">Selectlist</a></li>
+  <li><a href="#spinboxes">Spinbox</a></li>
+</ul>
 
 </div>

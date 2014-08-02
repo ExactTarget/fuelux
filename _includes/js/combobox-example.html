@@ -1,0 +1,64 @@
+<div id="MyComboboxContainer">
+
+	<div class="form-group">
+		<label class="control-label" for="MyComboBoxWithSelectedInput">Has selected item</label>
+
+		<div id="MyComboboxWithSelected" class="input-group input-append dropdown combobox" data-initialize="combobox">
+			<input id="MyComboBoxWithSelectedInput" type="text" class="form-control" placeholder="Select an option">
+			<div class="input-group-btn">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+					<span class="caret"></span>
+					<span class="sr-only">Toggle Dropdown</span>
+				</button>
+				<ul class="dropdown-menu dropdown-menu-right" role="menu">
+					<li data-value="1"><a href="#">One</a></li>
+					<li data-value="2"><a href="#">Two</a></li>
+					<li data-value="3" data-selected="true"><a href="#">Three</a></li>
+					<li data-value="4" ><a href="#">Four</a></li>
+					<li data-value="Item Five"><a href="#">Item Five</a></li>
+					<li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>
+				</ul>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="form-group">
+		<label class="control-label" for="MyComboBoxInput">No selected item</label>
+
+		<div id="MyCombobox" class="input-group input-append dropdown combobox" data-initialize="combobox">
+			<input id="MyComboBoxInput" type="text" class="form-control">
+			<div class="input-group-btn">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+					<span class="caret"></span>
+					<span class="sr-only">Toggle Dropdown</span>
+				</button>
+				<ul class="dropdown-menu dropdown-menu-right" role="menu">
+					<li data-value="1"><a href="#">One</a></li>
+					<li data-value="2"><a href="#">Two</a></li>
+					<li data-value="3"><a href="#">Three</a></li>
+					<li data-value="4" ><a href="#">Four</a></li>
+					<li data-value="Item Five"><a href="#">Item Five</a></li>
+					<li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>
+				</ul>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+<br/>
+<h5>Sample Methods</h5>
+<div class="btn-group clearfix">
+	<button id="btnComboboxGetSelectedItem" type="button" class="btn btn-default">log item</button>
+	<button id="btnComboboxSelectByValue" type="button" class="btn btn-default">set by value (1)</button>
+	<button id="btnComboboxSelectByIndex" type="button" class="btn btn-default">set by element index (1)</button>
+	<button id="btnComboboxSelectByText" type="button" class="btn btn-default">set by text (Four)</button>
+</div>
+<div class="btn-group clearfix">
+	<button id="btnComboboxSelectBySelector" type="button" class="btn btn-default">set by CSS selector li[data-fizz=buzz] (6)</button>
+	<button id="btnComboboxDisable" type="button" class="btn btn-default">disable</button>
+	<button id="btnComboboxEnable" type="button" class="btn btn-default">enable</button>
+	<button id="btnComboboxDestroy" type="button" class="btn btn-default">destroy and append</button>
+</div>

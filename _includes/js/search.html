@@ -6,7 +6,7 @@
 
   <h2 id="search-examples">Examples</h2>
   <p>Wrap the input and search button within <code>.fuelux .search</code></p>
-  <div class="fu-example">
+  <div class="fu-example section">
 
       <form class="search-form" role="search" data-initalize="search">
         <div id="MySearch" class="search input-group">
@@ -70,6 +70,10 @@
   <h3>Methods</h3>
   <h4>$().search();</h4>
   Attaches search to an input and a button group.
+
+  <h4>.search('destroy')</h4>
+  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
+  {% highlight js %}$('#element').search('destroy');{% endhighlight %}
   
   <h4>.search('disable')</h4>
   <p>Disables the component</p>
@@ -90,11 +94,11 @@
       </thead>
       <tbody>
         <tr>
-          <td>searched</td>
+          <td>searched.fu.search</td>
           <td>This event is fired when enter has been pressed within the input or the button has been clicked.</td>
         </tr>
         <tr>
-          <td>cleared</td>
+          <td>cleared.fu.search</td>
           <td>This event is fired when the input has been cleared.</td>
         </tr>
       </tbody>

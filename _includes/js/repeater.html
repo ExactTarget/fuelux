@@ -6,7 +6,7 @@
 <h2 id="repeaters-examples">Examples</h2>
 <p>Data viewer with paging, sorting, and searching. Can be easily extended for various renderings.</p>
 
-<div class="fu-example">
+<div class="fu-example section">
   <div class="repeater" data-staticheight="400" id="MyRepeater">
     <div class="repeater-header">
       <div class="repeater-header-left">
@@ -115,7 +115,7 @@
 <p>The repeater must be initialized via Javascript and have a dataSource to function properly.</p>
 
 <p>Initialize the repeater via JavaScript:</p>
-{% highlight js %}$('#MyPlacard').repeater();{% endhighlight %}
+{% highlight js %}$('#MyRepeater').repeater();{% endhighlight %}
 
 <h3>Markup</h3>
 <p>Use the following markup to setup the repeater:</p>
@@ -272,6 +272,16 @@
   </table>
 </div><!-- ./fu-table-responsive -->
 
+  <h3>Scripting</h3>
+
+  <p>The following is the JavaScript associated with the examples above.</p>
+
+  <div class="truncate-highlight">
+  {% highlight js %}
+{% include js/repeater-examples.js %}
+  {% endhighlight %}
+  </div>
+
 <h3>Methods</h3>
 <h4>$().repeater();</h4>
 Attaches repeater to the repeater markup.
@@ -307,6 +317,10 @@ Attaches repeater to the repeater markup.
     </tbody>
   </table>
 </div><!-- ./fu-table-responsive -->
+
+<h4>.repeater('destroy')</h4>
+<p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
+{% highlight js %}$('#element').repeater('destroy');{% endhighlight %}
 
 <h4>.repeater('infiniteScrolling');</h4>
 <p>Enables or disabled infinite scrolling within the repeater. Used primarily by view extensions. Possible arguments are
@@ -496,7 +510,15 @@ Attaches repeater to the repeater markup.
   </table>
 </div><!-- ./fu-table-responsive -->
 
-<h3 id="repeaters-extensions">Extensions</h3>
+<h3 id="repeaters-dependencies">Fuel UX Dependencies</h3>
+<ul>
+  <li><a href="#comboboxes">Combobox</a></li>
+  <li><a href="#infinite-scrolling">Infinite Scroll</a> <i>(optional)</i></li>
+  <li><a href="#search">Search</a></li>
+  <li><a href="#selectlist">Selectlist</a></li>
+</ul>
+
+<h3 id="repeaters-extensions">Repeater Extensions</h3>
 <p>The repeater has a view framework that allows for extensions to represent data in different ways. By default,
   Fuel UX comes with two repeater view extensions (list and thumbnail), each providing additional options and requiring
   different return data from the <a href="#repeaters-dataSource">dataSource</a> to render appropriately. For
