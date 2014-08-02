@@ -2,10 +2,16 @@
  * Scaffolding
  *
  * Update the basics of our documents to prep for docs content.
+ *
+ * anchor blue: #293f54
+ * primary: #1378b7
+ * slate gray: #F0F1F2
+ * 
  */
 
 body {
 	position: relative; /* For scrollyspy */
+	color: #525354;
 }
 
 a {
@@ -26,31 +32,31 @@ a:focus
 
 /* Outline button for use within the docs */
 .btn-outline {
-	color: #555;
+	color: #293f54;
 	background-color: transparent;
-	border-color: #555;
+	border-color: #293f54;
 }
 .btn-outline:hover,
 .btn-outline:focus,
 .btn-outline:active {
 	color: #eee;
-	background-color: #555;
-	border-color: #555;
+	background-color: #293f54;
+	border-color: #293f54;
 }
 
 /* Inverted outline button (white on dark) */
 .btn-outline-inverse {
 	color: #333;
 	background-color: transparent;
-	border-color: #666;
+	border-color: #293f54;
 }
 .btn-outline-inverse:hover,
 .btn-outline-inverse:focus,
 .btn-outline-inverse:active {
 	color: #eee;
 	text-shadow: none;
-	background-color: #333;
-	border-color: #333;
+	background-color: #293f54;
+	border-color: #293f54;
 }
 
 /*
@@ -61,22 +67,25 @@ a:focus
 
 .fu-docs-nav {
 	margin-bottom: 0;
-	background-color: #333;
+	background-color: #293f54;
 	border-bottom: 0;
 }
 .fu-home-nav .fu-nav-b {
 	display: none;
 }
-.fu-docs-nav .navbar-brand,
 .fu-docs-nav .navbar-nav > li > a {
-	color: #eee;
+	color: #fff;
+
+}
+.fu-docs-nav .navbar-brand {
+	color: #fff;
 	font-weight: 500;
 }
 .fu-docs-nav .navbar-nav > li > a:hover,
 .fu-docs-nav .navbar-nav > .active > a,
 .fu-docs-nav .navbar-nav > .active > a:hover {
-	color: #ddd;
-	background-color: #444;
+	color: #fff;
+	background-color: #1378b7;
 }
 .fu-docs-nav .navbar-toggle .icon-bar {
 	background-color: #eee;
@@ -86,7 +95,7 @@ a:focus
 }
 .fu-docs-nav .navbar-header .navbar-toggle:hover,
 .fu-docs-nav .navbar-header .navbar-toggle:focus {
-	background-color: #f9f9f9;
+	background-color: #1378b7;
 	border-color: #f9f9f9;
 }
 
@@ -174,12 +183,7 @@ a:focus
 	padding: 30px 15px;
 	text-align: center;
 	text-shadow: 0 1px 0 rgba(0,0,0,.1);
-
-	background-color: #eee;
-	background-image: -webkit-linear-gradient(top, #ddd 0%, #eee 100%);
-	background-image: linear-gradient(to bottom, #ddd 0%, #eee 100%);
-	background-repeat: repeat-x;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ddd', endColorstr='#eee', GradientType=0);
+	background-color: #F0F1F2;
 }
 
 /* Masthead (headings and download button) */
@@ -250,6 +254,7 @@ a:focus
 	margin-bottom: 0;
 	font-weight: 300;
 	line-height: 1.4;
+	color: #293f54;
 }
 .fu-header .container {
 	position: relative;
@@ -299,7 +304,7 @@ a:focus
 .fu-featurette-title {
 	font-size: 30px;
 	font-weight: normal;
-	color: #333;
+	color: #293f54;
 	margin-bottom: 5px;
 }
 .half-rule {
@@ -308,7 +313,7 @@ a:focus
 }
 .fu-featurette h3 {
 	font-weight: normal;
-	color: #333;
+	color: #293f54;
 	margin-bottom: 5px;
 }
 .fu-featurette-img {
@@ -652,6 +657,16 @@ h1[id] {
 }
 
 /* Typography */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: #293f54;
+}
+
 .fu-example-type .table .type-info {
   color: #999;
   vertical-align: middle;
