@@ -4,7 +4,7 @@
  * Update the basics of our documents to prep for docs content.
  *
  * anchor blue: #293f54
- * primary: #1378b7
+ * primary blue: #1378b7
  * slate gray: #F0F1F2
  * 
  */
@@ -85,7 +85,7 @@ a:focus
 .fu-docs-nav .navbar-nav > .active > a,
 .fu-docs-nav .navbar-nav > .active > a:hover {
 	color: #fff;
-	background-color: #1378b7;
+	background-color: #1f2f3f;
 }
 .fu-docs-nav .navbar-toggle .icon-bar {
 	background-color: #eee;
@@ -95,7 +95,7 @@ a:focus
 }
 .fu-docs-nav .navbar-header .navbar-toggle:hover,
 .fu-docs-nav .navbar-header .navbar-toggle:focus {
-	background-color: #1378b7;
+	background-color: #1f2f3f;
 	border-color: #f9f9f9;
 }
 
