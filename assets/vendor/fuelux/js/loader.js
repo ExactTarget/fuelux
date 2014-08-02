@@ -53,6 +53,16 @@
 
 		constructor: Loader,
 
+		destroy: function() {
+			this.$element.remove();
+			// any external bindings
+			// [none]
+			// empty elements to return to original markup
+			// [none]
+			// returns string of markup
+			return this.$element[0].outerHTML;
+		},
+
 		ieRepaint: function(){
 			if(this.isIElt9){
 				this.$element.addClass('iefix_repaint').removeClass('iefix_repaint');
@@ -91,7 +101,7 @@
 			}, this.delay);
 		},
 
-		prev: function(){
+		previous: function(){
 			this.frame--;
 			if(this.frame<this.begin){
 				this.frame = this.end;

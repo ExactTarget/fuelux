@@ -57,6 +57,9 @@
 		// panels
 		this.$recurrencePanels = this.$element.find('.repeat-panel');
 
+
+		this.$repeatIntervalSelect.selectlist();
+
 		//initialize sub-controls
 		this.$element.find('.selectlist').selectlist();
 		this.$startDate.datepicker();
@@ -65,11 +68,13 @@
 		if(this.$startTime.find('input').val()===''){
 			this.$startTime.combobox('selectByIndex', 0);
 		}
-		// every 0 days/hours doesn't make sense
-		this.$repeatIntervalSpinbox.spinbox({
-			'value': 1,
-			'min': 1
-		});
+		// every 0 days/hours doesn't make sense, change if not set
+		if( this.$repeatIntervalSpinbox.find('input').val() === '0' ) {
+			this.$repeatIntervalSpinbox.spinbox({ 'value': 1, 'min': 1 });
+		}
+		else {
+			this.$repeatIntervalSpinbox.spinbox({ 'min': 1 });
+		}
 		this.$endAfter.spinbox();
 		this.$endDate.datepicker();
 
@@ -87,6 +92,33 @@
 
 	Scheduler.prototype = {
 		constructor: Scheduler,
+
+		destroy: function() {
+
+			var markup;
+			// set input value attribute
+			this.$element.find('input').each(function() {
+				$(this).attr('value', $(this).val());
+			});
+			
+			// empty elements to return to original markup and store
+			this.$element.find('.datepicker .calendar').empty();
+			
+			markup = this.$element[0].outerHTML;
+
+			// destroy components
+			this.$element.find('.combobox').combobox('destroy');
+			this.$element.find('.datepicker').datepicker('destroy');
+			this.$element.find('.selectlist').selectlist('destroy');
+			this.$element.find('.spinbox').spinbox('destroy');
+			this.$element.find('[type=radio]').radio('destroy');
+			this.$element.remove();
+
+			// any external bindings
+			// [none]
+
+			return markup;
+		},
 
 		changed: function(e, data, propagate){
 			if(!propagate){

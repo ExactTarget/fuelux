@@ -44,6 +44,17 @@
 
 		constructor: InfiniteScroll,
 
+		destroy: function() {
+			this.$element.remove();
+			// any external bindings
+			// [none]
+
+			// empty elements to return to original markup
+			this.$element.empty();
+
+			return this.$element[0].outerHTML;
+		},
+
 		disable: function(){
 			this.$element.off('scroll.fu.infinitescroll');
 		},

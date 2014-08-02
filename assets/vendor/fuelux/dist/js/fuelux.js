@@ -144,6 +144,15 @@
 				this.setState( $( element.target ) );
 			},
 
+			destroy: function() {
+				this.$parent.remove();
+				// remove any external bindings
+				// [none]
+				// empty elements to return to original markup
+				// [none]
+				return this.$parent[ 0 ].outerHTML;
+			},
+
 			_resetClasses: function() {
 				var classesToRemove = [];
 
@@ -288,6 +297,22 @@
 		Combobox.prototype = {
 
 			constructor: Combobox,
+
+			destroy: function() {
+				this.$element.remove();
+				// remove any external bindings
+				// [none]
+
+				// set input value attrbute in markup
+				this.$element.find( 'input' ).each( function() {
+					$( this ).attr( 'value', $( this ).val() );
+				} );
+
+				// empty elements to return to original markup
+				// [none]
+
+				return this.$element[ 0 ].outerHTML;
+			},
 
 			doSelect: function( $item ) {
 				if ( typeof $item[ 0 ] !== 'undefined' ) {
@@ -626,6 +651,17 @@
 		Datepicker.prototype = {
 
 			constructor: Datepicker,
+
+			destroy: function() {
+				this.$element.remove();
+				// any external bindings 
+				// [none]
+
+				// empty elements to return to original markup
+				this.$element.find( '.calendar-menu' ).empty();
+
+				return this.$element[ 0 ].outerHTML;
+			},
 
 			// functions that can be called on object
 			disable: function() {
@@ -1221,46 +1257,46 @@
 					'</div>' +
 					'<div class="daysView" style="' + self._show( self.options.showDays ) + '">' +
 
-				self._repeat( '<div class="weekdays">', self.options.weekdays,
-					function( weekday ) {
-						return '<div>' + weekday + '</div>';
-					}, '</div>' ) +
+					self._repeat( '<div class="weekdays">', self.options.weekdays,
+						function( weekday ) {
+							return '<div>' + weekday + '</div>';
+						}, '</div>' ) +
 
-				self._repeat( '<div class="lastmonth">', self.daysOfLastMonth,
-					function( day ) {
-						if ( self.options.restrictLastMonth ) {
-							day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
-						}
-						return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
-					}, '</div>' ) +
+					self._repeat( '<div class="lastmonth">', self.daysOfLastMonth,
+						function( day ) {
+							if ( self.options.restrictLastMonth ) {
+								day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
+							}
+							return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
+						}, '</div>' ) +
 
-				self._repeat( '<div class="thismonth">', self.daysOfThisMonth,
-					function( day ) {
-						return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
-					}, '</div>' ) +
+					self._repeat( '<div class="thismonth">', self.daysOfThisMonth,
+						function( day ) {
+							return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
+						}, '</div>' ) +
 
-				self._repeat( '<div class="nextmonth">', self.daysOfNextMonth,
-					function( day ) {
-						if ( self.options.restrictNextMonth ) {
-							day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
-						}
-						return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
-					}, '</div>' ) +
+					self._repeat( '<div class="nextmonth">', self.daysOfNextMonth,
+						function( day ) {
+							if ( self.options.restrictNextMonth ) {
+								day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
+							}
+							return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
+						}, '</div>' ) +
 					'</div>' +
 
-				self._repeat( '<div class="monthsView" style="' + self._show( self.options.showMonths ) + '">', self.months,
-					function( month ) {
-						return '<button data-month-number="' + month.number +
-							'" class="' + month[ 'class' ] + '">' + month.abbreviation + '</button>';
-					}, '</div>' ) +
+					self._repeat( '<div class="monthsView" style="' + self._show( self.options.showMonths ) + '">', self.months,
+						function( month ) {
+							return '<button data-month-number="' + month.number +
+								'" class="' + month[ 'class' ] + '">' + month.abbreviation + '</button>';
+						}, '</div>' ) +
 
-				self._repeat( '<div class="yearsView" style="' + self._show( self.options.showYears ) + '">', self.years,
-					function( year ) {
-						return '<button data-year-number="' + year.number +
-							'" class="' + year[ 'class' ] + '">' + year.number + '</button>';
-					}, '</div>' ) +
+					self._repeat( '<div class="yearsView" style="' + self._show( self.options.showYears ) + '">', self.years,
+						function( year ) {
+							return '<button data-year-number="' + year.number +
+								'" class="' + year[ 'class' ] + '">' + year.number + '</button>';
+						}, '</div>' ) +
 
-				'<div class="footer">' +
+					'<div class="footer">' +
 					'<div class="center hover">Today</div>' +
 					'</div>' +
 					'</div>';
@@ -1326,7 +1362,7 @@
 					triggerError = false; // don't want to trigger an error because they don't have the correct length
 				}
 
-				if ( !! triggerError ) {
+				if ( !!triggerError ) {
 					// we will insert the staged date into the input
 					this._setNullDate( true );
 					this.$element.trigger( 'inputParsingFailed.fu.datepicker' );
@@ -1512,16 +1548,15 @@
 
 		// -- BEGIN MODULE CODE HERE --
 
-		$( document.body ).on( "click.fu.dropdown-autoflip", "[data-toggle=dropdown][data-flip]", function( event ) {
-
+		$( document.body ).on( 'click.fu.dropdown-autoflip', '[data-toggle=dropdown][data-flip]', function( event ) {
 			if ( $( this ).data().flip === "auto" ) {
 				// have the drop down decide where to place itself
 				_autoFlip( $( this ).next( '.dropdown-menu' ) );
 			}
 		} );
 
-		//Intelligent suggestions dropdown from pillbox
-		$( document.body ).on( "suggested.fu.pillbox", function( event, element ) {
+		// For pillbox suggestions dropdown 
+		$( document.body ).on( 'suggested.fu.pillbox', function( event, element ) {
 			_autoFlip( $( element ) );
 			$( element ).parent().addClass( 'open' );
 		} );
@@ -1557,7 +1592,7 @@
 			measurements.containerHeight = $container.overflowElement.outerHeight();
 
 			// this needs to be different if the window is the container or another element is
-			measurements.containerOffsetTop = ( !! $container.isWindow ) ? $container.overflowElement.scrollTop() : $container.overflowElement.offset().top;
+			measurements.containerOffsetTop = ( !!$container.isWindow ) ? $container.overflowElement.scrollTop() : $container.overflowElement.offset().top;
 
 			// doing the calculations
 			measurements.fromTop = measurements.parentOffsetTop - measurements.containerOffsetTop;
@@ -1648,6 +1683,16 @@
 
 			constructor: Loader,
 
+			destroy: function() {
+				this.$element.remove();
+				// any external bindings
+				// [none]
+				// empty elements to return to original markup
+				// [none]
+				// returns string of markup
+				return this.$element[ 0 ].outerHTML;
+			},
+
 			ieRepaint: function() {
 				if ( this.isIElt9 ) {
 					this.$element.addClass( 'iefix_repaint' ).removeClass( 'iefix_repaint' );
@@ -1686,7 +1731,7 @@
 				}, this.delay );
 			},
 
-			prev: function() {
+			previous: function() {
 				this.frame--;
 				if ( this.frame < this.begin ) {
 					this.frame = this.end;
@@ -1811,6 +1856,20 @@
 					this.$element.trigger( action, obj );
 					this.hide();
 				}
+			},
+
+			destroy: function() {
+				this.$element.remove();
+				// remove any external bindings
+				$( document ).off( 'click.fu.placard.externalClick.' + this.clickStamp );
+				// set input value attrbute
+				this.$element.find( 'input' ).each( function() {
+					$( this ).attr( 'value', $( this ).val() );
+				} );
+				// empty elements to return to original markup
+				// [none]
+				// return string of markup
+				return this.$element[ 0 ].outerHTML;
 			},
 
 			ellipsis: function() {
@@ -2027,11 +2086,21 @@
 
 			constructor: Radio,
 
+			destroy: function() {
+				this.$parent.remove();
+				// remove any external bindings
+				// [none]
+				// empty elements to return to original markup
+				// [none]
+				// return string of markup
+				return this.$parent[ 0 ].outerHTML;
+			},
+
 			setState: function( $radio ) {
 				$radio = $radio || this.$radio;
 
 				var checked = $radio.is( ':checked' );
-				var disabled = !! $radio.prop( 'disabled' );
+				var disabled = !!$radio.prop( 'disabled' );
 
 				this.$label.removeClass( 'checked' );
 				if ( this.$parent ) {
@@ -2215,6 +2284,20 @@
 
 			constructor: Search,
 
+			destroy: function() {
+				this.$element.remove();
+				// any external bindings
+				// [none]
+				// set input value attrbute
+				this.$element.find( 'input' ).each( function() {
+					$( this ).attr( 'value', $( this ).val() );
+				} );
+				// empty elements to return to original markup
+				// [none]
+				// returns string of markup
+				return this.$element[ 0 ].outerHTML;
+			},
+
 			search: function( searchText ) {
 				this.$icon.attr( 'class', 'glyphicon glyphicon-remove' );
 				this.activeSearch = searchText;
@@ -2366,10 +2449,33 @@
 
 			constructor: Selectlist,
 
+			destroy: function() {
+				this.$element.remove();
+				// any external bindings
+				// [none]
+				// empty elements to return to original markup
+				// [none]
+				// returns string of markup
+				return this.$element[ 0 ].outerHTML;
+			},
+
 			doSelect: function( $item ) {
-				this.$selectedItem = $item;
+				var $selectedItem;
+				this.$selectedItem = $selectedItem = $item;
+
 				this.$hiddenField.val( this.$selectedItem.attr( 'data-value' ) );
 				this.$label.text( this.$selectedItem.text() );
+
+				// clear and set selected item to allow declarative init state
+				// unlike other controls, selectlist's value is stored internal, not in an input
+				this.$element.find( 'li' ).each( function() {
+					if ( $selectedItem.is( $( this ) ) ) {
+						$( this ).attr( 'data-selected', true );
+					} else {
+						$( this ).removeData( 'selected' ).removeAttr( 'data-selected' );
+					}
+				} );
+
 			},
 
 			itemClicked: function( e ) {
@@ -2388,11 +2494,8 @@
 			},
 
 			itemChanged: function( e ) {
-				this.$selectedItem = $( e.target ).parent();
 
-				// store value in hidden field for form submission
-				this.$hiddenField.val( this.$selectedItem.attr( 'data-value' ) );
-				this.$label.text( this.$selectedItem.text() );
+				this.doSelect( $( e.target ).parent() );
 
 				// pass object including text and any data-attributes
 				// to onchange event
@@ -2472,8 +2575,6 @@
 				} else {
 					// select by data-attribute
 					this.selectBySelector( selector );
-					item.removeData( 'selected' );
-					item.removeAttr( 'data-selected' );
 				}
 			},
 
@@ -2614,6 +2715,20 @@
 
 		Spinbox.prototype = {
 			constructor: Spinbox,
+
+			destroy: function() {
+				this.$element.remove();
+				// any external bindings
+				// [none]
+				// set input value attrbute
+				this.$element.find( 'input' ).each( function() {
+					$( this ).attr( 'value', $( this ).val() );
+				} );
+				// empty elements to return to original markup
+				// [none]
+				// returns string of markup
+				return this.$element[ 0 ].outerHTML;
+			},
 
 			render: function() {
 				var inputValue = this.parseInput( this.$input.val() );
@@ -3004,6 +3119,16 @@
 		Tree.prototype = {
 			constructor: Tree,
 
+			destroy: function() {
+				// any external bindings [none]
+				// empty elements to return to original markup
+				this.$element.find( "li:not([data-template])" ).remove();
+
+				this.$element.remove();
+				// returns string of markup
+				return this.$element[ 0 ].outerHTML;
+			},
+
 			render: function() {
 				this.populate( this.$element );
 			},
@@ -3021,11 +3146,11 @@
 						var $entity;
 
 						if ( value.type === 'folder' ) {
-							$entity = self.$element.find( '.tree-branch:eq(0)' ).clone().removeClass( 'hide' );
+							$entity = self.$element.find( '[data-template=treebranch]:eq(0)' ).clone().removeClass( 'hide' ).removeAttr( 'data-template' );
 							$entity.data( value );
 							$entity.find( '.tree-branch-name > .tree-label' ).html( value.name );
 						} else if ( value.type === 'item' ) {
-							$entity = self.$element.find( '.tree-item:eq(0)' ).clone().removeClass( 'hide' );
+							$entity = self.$element.find( '[data-template=treeitem]:eq(0)' ).clone().removeClass( 'hide' ).removeAttr( 'data-template' );
 							$entity.find( '.tree-item-name > .tree-label' ).html( value.name );
 							$entity.data( value );
 						}
@@ -3366,6 +3491,14 @@
 		Wizard.prototype = {
 
 			constructor: Wizard,
+
+			destroy: function() {
+				this.$element.remove();
+				// any external bindings [none]
+				// empty elements to return to original markup [none]
+				// returns string of markup
+				return this.$element[ 0 ].outerHTML;
+			},
 
 			//index is 1 based
 			//second parameter can be array of objects [{ ... }, { ... }] or you can pass n additional objects as args
@@ -3759,6 +3892,17 @@
 
 			constructor: InfiniteScroll,
 
+			destroy: function() {
+				this.$element.remove();
+				// any external bindings
+				// [none]
+
+				// empty elements to return to original markup
+				this.$element.empty();
+
+				return this.$element[ 0 ].outerHTML;
+			},
+
 			disable: function() {
 				this.$element.off( 'scroll.fu.infinitescroll' );
 			},
@@ -3938,6 +4082,16 @@
 
 		Pillbox.prototype = {
 			constructor: Pillbox,
+
+			destroy: function() {
+				this.$element.remove();
+				// any external bindings
+				// [none]
+				// empty elements to return to original markup
+				// [none]
+				// returns string of markup
+				return this.$element[ 0 ].outerHTML;
+			},
 
 			items: function() {
 				var self = this;
@@ -4590,6 +4744,7 @@
 			this.$viewport = this.$element.find( '.repeater-viewport' );
 			this.$views = this.$element.find( '.repeater-views' );
 
+			this.eventStamp = new Date().getTime() + ( Math.floor( Math.random() * 100 ) + 1 );
 			this.currentPage = 0;
 			this.currentView = null;
 			this.infiniteScrollingCallback = function() {};
@@ -4632,7 +4787,8 @@
 			} );
 			this.$views.find( 'input' ).on( 'change.fu.repeater', $.proxy( this.viewChanged, this ) );
 
-			$( window ).on( 'resize.fu.repeater.window', function() {
+			// ID needed since event is bound to instance
+			$( window ).on( 'resize.fu.repeater.' + this.eventStamp, function( event ) {
 				clearTimeout( self.resizeTimeout );
 				self.resizeTimeout = setTimeout( function() {
 					self.resize();
@@ -4682,6 +4838,32 @@
 				} else if ( !this.infiniteScrollingEnabled || options.clearInfinite ) {
 					scan( this.$canvas );
 				}
+			},
+
+			destroy: function() {
+				var markup;
+				// set input value attrbute in markup
+				this.$element.find( 'input' ).each( function() {
+					$( this ).attr( 'value', $( this ).val() );
+				} );
+
+				// empty elements to return to original markup
+				this.$canvas.empty();
+				markup = this.$element[ 0 ].outerHTML;
+
+				// destroy components and remove leftover
+				this.$element.find( '.combobox' ).combobox( 'destroy' );
+				this.$element.find( '.selectlist' ).selectlist( 'destroy' );
+				this.$element.find( '.search' ).search( 'destroy' );
+				if ( this.infiniteScrollingEnabled ) {
+					$( this.infiniteScrollingCont ).infinitescroll( 'destroy' );
+				}
+				this.$element.remove();
+
+				// any external events
+				$( window ).off( 'resize.fu.repeater.' + this.eventStamp );
+
+				return markup;
 			},
 
 			getDataOptions: function( options, callback ) {
@@ -5798,6 +5980,9 @@
 			// panels
 			this.$recurrencePanels = this.$element.find( '.repeat-panel' );
 
+
+			this.$repeatIntervalSelect.selectlist();
+
 			//initialize sub-controls
 			this.$element.find( '.selectlist' ).selectlist();
 			this.$startDate.datepicker();
@@ -5806,11 +5991,17 @@
 			if ( this.$startTime.find( 'input' ).val() === '' ) {
 				this.$startTime.combobox( 'selectByIndex', 0 );
 			}
-			// every 0 days/hours doesn't make sense
-			this.$repeatIntervalSpinbox.spinbox( {
-				'value': 1,
-				'min': 1
-			} );
+			// every 0 days/hours doesn't make sense, change if not set
+			if ( this.$repeatIntervalSpinbox.find( 'input' ).val() === '0' ) {
+				this.$repeatIntervalSpinbox.spinbox( {
+					'value': 1,
+					'min': 1
+				} );
+			} else {
+				this.$repeatIntervalSpinbox.spinbox( {
+					'min': 1
+				} );
+			}
 			this.$endAfter.spinbox();
 			this.$endDate.datepicker();
 
@@ -5830,6 +6021,33 @@
 
 		Scheduler.prototype = {
 			constructor: Scheduler,
+
+			destroy: function() {
+
+				var markup;
+				// set input value attribute
+				this.$element.find( 'input' ).each( function() {
+					$( this ).attr( 'value', $( this ).val() );
+				} );
+
+				// empty elements to return to original markup and store
+				this.$element.find( '.datepicker .calendar' ).empty();
+
+				markup = this.$element[ 0 ].outerHTML;
+
+				// destroy components
+				this.$element.find( '.combobox' ).combobox( 'destroy' );
+				this.$element.find( '.datepicker' ).datepicker( 'destroy' );
+				this.$element.find( '.selectlist' ).selectlist( 'destroy' );
+				this.$element.find( '.spinbox' ).spinbox( 'destroy' );
+				this.$element.find( '[type=radio]' ).radio( 'destroy' );
+				this.$element.remove();
+
+				// any external bindings
+				// [none]
+
+				return markup;
+			},
 
 			changed: function( e, data, propagate ) {
 				if ( !propagate ) {

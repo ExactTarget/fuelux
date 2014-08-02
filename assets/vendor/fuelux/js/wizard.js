@@ -60,6 +60,14 @@
 
 		constructor: Wizard,
 
+		destroy: function() {
+			this.$element.remove();
+			// any external bindings [none]
+			// empty elements to return to original markup [none]
+			// returns string of markup
+			return this.$element[0].outerHTML;
+		},
+
 		//index is 1 based
 		//second parameter can be array of objects [{ ... }, { ... }] or you can pass n additional objects as args
 		//object structure is as follows (all params are optional): { badge: '', label: '', pane: '' }

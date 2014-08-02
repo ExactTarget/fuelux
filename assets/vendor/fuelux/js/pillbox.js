@@ -75,6 +75,16 @@
 	Pillbox.prototype = {
 		constructor : Pillbox,
 
+		destroy: function() {
+			this.$element.remove();
+			// any external bindings
+			// [none]
+			// empty elements to return to original markup
+			// [none]
+			// returns string of markup
+			return this.$element[0].outerHTML;
+		},
+
 		items: function() {
 			var self = this;
 
