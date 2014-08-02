@@ -104,6 +104,7 @@
 		this.options.dropdownWidth = this.options.dropdownWidth || 170;
 		this.options.monthNames    = this.options.monthNames || [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
 		this.options.weekdays      = this.options.weekdays || [ "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+		this.options.todayLabel    = this.options.todayLabel || "Today";
 
 		this.options.showYears  = false;
 		this.options.showDays   = true;
@@ -782,7 +783,7 @@
 					}, '</div>' ) +
 
 				'<div class="footer">' +
-					'<div class="center hover">Today</div>' +
+					'<div class="center hover">' + self.options.todayLabel + '</div>' +
 				'</div>' +
 			'</div>';
 		},

@@ -314,4 +314,34 @@ define(function(require){
 		equal( $el.parent().length, false, 'control has been removed from DOM');
 	});
 
+	test( 'should create dropdown with default label', function() {
+		var $markup = $( html ).find( '#datepicker1' );
+
+		$markup.datepicker({
+			createInput: true
+		});
+
+		var $dropdown = $markup.find( '.dropdown-menu' );
+		var $footer   = $dropdown.find( '.footer' );
+		var $center   = $footer.find( '.center' );
+
+		equal($.trim($center.text()), 'Today', 'hover text equal to "Today"');
+	});
+
+	test( 'should create dropdown with custom today label', function() {
+		var $markup = $( html ).find( '#datepicker1' );
+		var todayString  = "Custom";
+
+		$markup.datepicker({
+			createInput: true,
+			todayLabel: todayString
+		});
+
+		var $dropdown = $markup.find( '.dropdown-menu' );
+		var $footer   = $dropdown.find( '.footer' );
+		var $center   = $footer.find( '.center' );
+
+		equal($.trim($center.text()), 'Custom', 'hover text equal to "Custom"');
+	});
+
 });
