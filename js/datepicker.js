@@ -242,13 +242,16 @@
 		},
 
 		inputBlurred: function(e){
-			var date = this.$input.val();
-			if(date!==this.inputValue){
-				date = this.setDate(date);
+			var inputVal = this.$input.val();
+			var date;
+			if(inputVal!==this.inputValue){
+				date = this.setDate(inputVal);
 				if(date===null){
-					this.$element.trigger('inputParsingFailed.fu.datepicker');
+					this.$element.trigger('inputParsingFailed.fu.datepicker', inputVal);
 				}else if(date===false){
-					this.$element.trigger('inputRestrictedDate.fu.datepicker');
+					this.$element.trigger('inputRestrictedDate.fu.datepicker', date);
+				}else{
+					this.$element.trigger('changed.fu.datepicker', date);
 				}
 			}
 			if(!this.preventBlurHide){
