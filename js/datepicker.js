@@ -325,37 +325,39 @@
 		parseDate: function(date) {
 			var dt, isoExp, month, parts;
 
-			if(this.moment){	//if we have moment, use that to parse the dates
-				dt = moment(date).toDate();
-				if(dt.toString()!==INVALID_DATE){
-					return dt;
-				}else{
-					dt = moment(date, this.momentFormat).toDate();
+			if(date){
+				if(this.moment){	//if we have moment, use that to parse the dates
+					dt = moment(date).toDate();
 					if(dt.toString()!==INVALID_DATE){
-						return dt;
-					}
-				}
-			}else{	//if moment isn't present, use previous date parsing strategy
-				if(date && typeof(date)==='string'){
-					dt = new Date(Date.parse(date));
-					if(dt.toString() !== INVALID_DATE){
 						return dt;
 					}else{
-						date = date.split('T')[0];
-						isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/;
-						parts = isoExp.exec(date);
-						if(parts){
-							month = ~~parts[2];
-							dt = new Date(parts[1], month - 1, parts[3]);
-							if(month===(dt.getMonth() + 1)){
-								return dt;
-							}
+						dt = moment(date, this.momentFormat).toDate();
+						if(dt.toString()!==INVALID_DATE){
+							return dt;
 						}
 					}
-				}else{
-					dt = new Date(date);
-					if(dt.toString()!==INVALID_DATE){
-						return dt;
+				}else{	//if moment isn't present, use previous date parsing strategy
+					if(typeof(date)==='string'){
+						dt = new Date(Date.parse(date));
+						if(dt.toString()!==INVALID_DATE){
+							return dt;
+						}else{
+							date = date.split('T')[0];
+							isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/;
+							parts = isoExp.exec(date);
+							if(parts){
+								month = parseInt(parts[2],10);
+								dt = new Date(parts[1], month - 1, parts[3]);
+								if(month===(dt.getMonth() + 1)){
+									return dt;
+								}
+							}
+						}
+					}else{
+						dt = new Date(date);
+						if(dt.toString()!==INVALID_DATE){
+							return dt;
+						}
 					}
 				}
 			}
