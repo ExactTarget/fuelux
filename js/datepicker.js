@@ -113,6 +113,7 @@
 				this.$input.val('');
 				this.inputValue = this.$input.val();
 			}
+
 			if(this.sameYearOnly){
 				this.yearRestriction = (this.selectedDate) ? this.selectedDate.getFullYear() : new Date().getFullYear();
 			}
@@ -271,16 +272,17 @@
 			var restricted = this.restrictedParsed;
 			var i, from, l, to;
 
+			if(this.sameYearOnly && this.yearRestriction!==null && year!==this.yearRestriction){
+				return true;
+			}
 			for(i=0,l=restricted.length; i<l; i++){
 				from = restricted[i].from;
 				to = restricted[i].to;
-				if(
-					((date>=from.date && month>=from.month && year>=from.year) && (date<=to.date && month<=to.month && year<=to.year)) ||
-					(this.sameYearOnly && this.yearRestriction!==null && year!==this.yearRestriction)
-				){
+				if((date>=from.date && month>=from.month && year>=from.year) && (date<=to.date && month<=to.month && year<=to.year)){
 					return true;
 				}
 			}
+
 			return false;
 		},
 

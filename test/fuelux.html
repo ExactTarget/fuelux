@@ -16,7 +16,7 @@
 
 		<script>
 			window.tmpMoment = window.moment;
-			window.moment    = undefined;
+			window.moment = undefined;
 
 			(function () {
 				var jQueryPath;
@@ -41,17 +41,11 @@
 
 				require.config({
 					baseUrl: '../',
-					config: {
-						moment: {
-							noGlobal: true
-						}
-					},
 					paths: {
 						jquery: jQueryPath,
 						bootstrap: 'bower_components/bootstrap/dist/js/bootstrap',
 						fuelux: 'js',
 						test: 'test',
-						moment: 'bower_components/WRONG_FOLDER/moment', // wrong url because we need to test it without moment first
 						text: 'bower_components/requirejs-text/text'
 					},
 					shim: {

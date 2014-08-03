@@ -1,25 +1,79 @@
-<div id="MyDatepickerContainer">
-
-	<div class="form-group">
-		<label class="control-label" for="MyDatepickerInput">Choose a date (default, </label>
-			<div>
-
-				<div class="datepicker dropdown" id="datepicker1" data-initialize="datepicker">
-					<div class="input-group">
-						<input id="MyDatepickerInput" type="text" class="form-control" />
-						<div class="input-group-btn">
-							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-								<span class="glyphicon glyphicon-calendar"></span>
-								<span class="sr-only">Toggle Calendar</span>
-							</button>
-							<div class="dropdown-menu dropdown-menu-right calendar-menu"></div>
+<div class="datepicker" id="MyDatepicker">
+	<div class="input-group">
+		<input class="form-control" type="text"/>
+		<div class="input-group-btn">
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				<span class="glyphicon glyphicon-calendar"></span>
+				<span class="sr-only">Toggle Calendar</span>
+			</button>
+			<div class="dropdown-menu dropdown-menu-right datepicker-dropdown" role="menu">
+				<div class="datepicker-calendar">
+					<div class="datepicker-calendar-header">
+						<div class="prev"><span class="glyphicon glyphicon-chevron-left"></span></div>
+						<div class="next"><span class="glyphicon glyphicon-chevron-right"></span></div>
+						<div class="title">
+							<a href="#"><ul class="month">
+								<li data-month="0">January</li>
+								<li data-month="1">February</li>
+								<li data-month="2">March</li>
+								<li data-month="3">April</li>
+								<li data-month="4">May</li>
+								<li data-month="5">June</li>
+								<li data-month="6">July</li>
+								<li data-month="7">August</li>
+								<li data-month="8">September</li>
+								<li data-month="9">October</li>
+								<li data-month="10">November</li>
+								<li data-month="11">December</li>
+							</ul> <span class="year"></span></a>
 						</div>
 					</div>
+					<table class="datepicker-calendar-days">
+						<thead>
+							<tr>
+								<th>Su</th>
+								<th>Mo</th>
+								<th>Tu</th>
+								<th>We</th>
+								<th>Th</th>
+								<th>Fr</th>
+								<th>Sa</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+					<div class="datepicker-calendar-footer">
+						<a class="datepicker-today" href="#">Today</a>
+					</div>
 				</div>
-			
+				<div class="datepicker-wheels">
+					<div class="datepicker-wheels-month">
+						<div class="header">Month</div>
+						<ul>
+							<li data-month="0"><a href="#">Jan</a></li>
+							<li data-month="1"><a href="#">Feb</a></li>
+							<li data-month="2"><a href="#">Mar</a></li>
+							<li data-month="3"><a href="#">Apr</a></li>
+							<li data-month="4"><a href="#">May</a></li>
+							<li data-month="5"><a href="#">Jun</a></li>
+							<li data-month="6"><a href="#">Jul</a></li>
+							<li data-month="7"><a href="#">Aug</a></li>
+							<li data-month="8"><a href="#">Sep</a></li>
+							<li data-month="9"><a href="#">Oct</a></li>
+							<li data-month="10"><a href="#">Nov</a></li>
+							<li data-month="11"><a href="#">Dec</a></li>
+						</ul>
+					</div>
+					<div class="datepicker-wheels-year">
+						<div class="header">Year</div>
+						<ul></ul>
+					</div>
+					<div class="datepicker-wheels-footer">
+						<a class="datepicker-wheels-back" href="#"><span class="glyphicon glyphicon-arrow-left"></span></a>
+						<button type="button" class="btn btn-primary btn-xs datepicker-wheels-select">Select</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-
-	<div class="datepicker dropdown" id="datepicker2"></div>
-
 </div>
