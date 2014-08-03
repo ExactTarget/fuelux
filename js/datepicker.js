@@ -83,6 +83,7 @@
 		this.restrictedParsed = [];
 		this.sameYearOnly = this.options.sameYearOnly;
 		this.selectedDate = null;
+		this.yearRestriction = null;
 
 		this.$calendar.find('.datepicker-today').on('click', $.proxy(this.todayClicked, this));
 		this.$days.on('click', 'tr td a', $.proxy(this.dateClicked, this));
@@ -111,6 +112,9 @@
 			if(!this.setDate(this.options.date)){
 				this.$input.val('');
 				this.inputValue = this.$input.val();
+			}
+			if(this.sameYearOnly){
+				this.yearRestriction = (this.selectedDate) ? this.selectedDate.getFullYear() : new Date().getFullYear();
 			}
 		};
 
@@ -270,7 +274,10 @@
 			for(i=0,l=restricted.length; i<l; i++){
 				from = restricted[i].from;
 				to = restricted[i].to;
-				if((date>=from.date && month>=from.month && year>=from.year) && (date<=to.date && month<=to.month && year<=to.year)){
+				if(
+					((date>=from.date && month>=from.month && year>=from.year) && (date<=to.date && month<=to.month && year<=to.year)) ||
+					(this.sameYearOnly && this.yearRestriction!==null && year!==this.yearRestriction)
+				){
 					return true;
 				}
 			}
