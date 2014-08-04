@@ -44,8 +44,8 @@ define(function(require){
 
 //	require('test/checkbox-test');
 //	require('test/combobox-test');
-	require('test/datepicker-test');
-//	require('test/datepicker-moment-test');
+//	require('test/datepicker-test');
+	require('test/datepicker-moment-test');
 //	require('test/infinite-scroll-test');
 //	require('test/loader-test');
 //	require('test/pillbox-test');
