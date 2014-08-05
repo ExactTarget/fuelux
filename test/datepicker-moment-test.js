@@ -189,6 +189,120 @@ define(function(require){
 
 		//MOMENT TESTS
 
+		test('should have moment.js doing the date parsing', function(){
+			var $datepicker = $(html).datepicker();
+			var momentBoolean = $datepicker.datepicker('checkForMomentJS');
+			var today = new Date();
+			var todaysDate = (today.getDate()<10) ? '0' + today.getDate() : today.getDate();
+			var todaysMonth = ((today.getMonth()+1)<10) ? '0' + (today.getMonth()+1) : (today.getMonth()+1);
 
+			today = todaysMonth + '/' + todaysDate + '/' + today.getFullYear();
+
+			equal(momentBoolean, true, 'moment.js is being used');
+			equal($datepicker.datepicker('getFormattedDate'), today, 'moment.js parsed date correctly for default implementation (en culture)');
+		});
+
+		test('should not use moment if either formatCode or culture is missing', function(){
+			var $datepicker1 = $(html).datepicker({
+				momentConfig: {
+					culture: null
+				}
+			});
+			var result1 = $datepicker1.datepicker('checkForMomentJS');
+
+			var $datepicker2 = $(html).datepicker({
+				momentConfig: {
+					format: null
+				}
+			});
+			var result2 = $datepicker2.datepicker('checkForMomentJS');
+
+			var $datepicker3 = $(html).datepicker({
+				momentConfig: {
+					culture: null,
+					formatCode: null
+				}
+			});
+			var result3 = $datepicker3.datepicker('checkForMomentJS');
+
+			var $datepicker4 = $(html).datepicker({
+				momentConfig: {
+					culture: 'en',
+					formatCode: 'L'
+				}
+			});
+			var result4 = $datepicker4.datepicker('checkForMomentJS');
+
+			equal(result1, false, 'moment is not used because the option momentConfig.culture is null');
+			equal(result2, false, 'moment is not used because the option momentConfig.format is null');
+			equal(result3, false, 'moment is not used because the options momentConfig.culture and momentConfig.format are null');
+			equal(result4, true, 'moment is used because both momentConfig options are set');
+		});
+
+		test('should be initialized with different culture', function(){
+			var culture = "de";
+			var $datepicker = $(html).datepicker({
+				momentConfig: {
+					culture: culture
+				}
+			});
+			var today = new Date();
+			var todaysDate = (today.getDate()<10) ? '0' + today.getDate() : today.getDate();
+			var todaysMonth = ((today.getMonth()+1)<10) ? '0' + (today.getMonth()+1) : (today.getMonth()+1);
+
+			today = todaysDate + '.' + todaysMonth + '.' + today.getFullYear();
+
+			equal($datepicker.datepicker('getFormattedDate'), today, 'moment js parsed date correctly using different culture (de)');
+		});
+
+		test('should be initialized with different culture and different format', function(){
+			var $datepicker = $(html).datepicker({
+				momentConfig: {
+					culture: 'de',
+					format: 'l'
+				}
+			});
+			var today = new Date();
+			today = today.getDate() + '.' + (today.getMonth()+1) + '.' + today.getFullYear();
+
+			equal($datepicker.datepicker('getFormattedDate'), today, 'moment.js parsed date correctly for different culture and format (de, l)');
+		});
+
+		test('should get current culture', function(){
+			var $datepicker = $(html).datepicker();
+			equal($datepicker.datepicker('getCulture'), 'en', 'returned correct culture from initialization');
+
+			$datepicker.datepicker('setCulture', 'de');
+			equal($datepicker.datepicker('getCulture'), 'de', 'returned correct culture after being changed');
+		});
+
+		test('should set new culture', function(){
+			var $datepicker = $(html).datepicker();
+			var today = new Date();
+			var todaysDate = (today.getDate()<10) ? '0' + today.getDate() : today.getDate();
+			var todaysMonth = ((today.getMonth()+1)<10) ?  '0' + (today.getMonth()+1) : (today.getMonth()+1);
+			today = todaysDate + '.' + todaysMonth + '.' + today.getFullYear();
+			$datepicker.datepicker('setCulture', 'de');
+
+			equal($datepicker.datepicker('getCulture'), 'de', 'returned correct culture after being changed');
+			equal($datepicker.datepicker('getFormattedDate'), today, 'did correct formatting after dynamic update');
+		});
+
+		test('should get format', function(){
+			var $datepicker = $(html).datepicker();
+			equal($datepicker.datepicker('getFormat'), 'L', 'returned correct format from initialization');
+
+			$datepicker.datepicker('setFormat', 'l');
+			equal($datepicker.datepicker('getFormat'), 'l', 'returned correct format after being changed');
+		});
+
+		test('should set new format', function(){
+			var $datepicker = $(html).datepicker();
+			var today = new Date();
+			today = (today.getMonth()+1) + '/' +  today.getDate() + '/' + today.getFullYear();
+
+			$datepicker.datepicker('setFormat', 'l');
+			equal($datepicker.datepicker('getFormattedDate'), today, 'returned correct culture after being changed');
+		});
 	}
 });
