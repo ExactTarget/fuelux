@@ -335,15 +335,21 @@
 
 		//some code ripped from http://stackoverflow.com/questions/2182246/javascript-dates-in-ie-nan-firefox-chrome-ok
 		parseDate: function(date) {
-			var dt, isoExp, month, parts;
+			var self = this;
+			var dt, isoExp, momentParse, month, parts, use;
 
 			if(date){
 				if(this.moment){	//if we have moment, use that to parse the dates
-					dt = moment(date).toDate();
+					momentParse = function(type, d){
+						d = (type==='b') ? moment(d, self.momentFormat) : moment(d);
+						return (d.isValid()===true) ? d.toDate() : new Date(NaN);
+					};
+					use = (typeof(date)==='string') ? ['b', 'a'] : ['a', 'b'];
+					dt = momentParse(use[0], date);
 					if(dt.toString()!==INVALID_DATE){
 						return dt;
 					}else{
-						dt = moment(date, this.momentFormat).toDate();
+						dt = momentParse(use[1], date);
 						if(dt.toString()!==INVALID_DATE){
 							return dt;
 						}

@@ -9,6 +9,8 @@ define(function(require){
 	require('bootstrap');
 	require('fuelux/datepicker');
 
+	require('test/datepicker-test');	//this ensures the non-moment tests run before the moment tests
+
 	function uaMatch(ua){
 		ua = ua.toLowerCase();
 		var match = /(chrome)[ \/]([\w.]+)/.exec( ua ) ||
@@ -303,6 +305,56 @@ define(function(require){
 
 			$datepicker.datepicker('setFormat', 'l');
 			equal($datepicker.datepicker('getFormattedDate'), today, 'returned correct culture after being changed');
+		});
+
+		test('input parsing should take culture into account', function(){
+			var $datepicker = $(html).datepicker({
+				momentConfig: {
+					culture: 'fr',
+					format: 'L'
+				}
+			});
+			var $datepickerInput = $datepicker.find('input');
+			var dateString = '30/10/2014';
+			var formatted;
+
+			$datepickerInput.val(dateString);
+			$datepickerInput.trigger('blur');
+			formatted = $datepicker.datepicker('getFormattedDate');
+
+			equal( formatted, dateString, 'moment.js formatted date should be equal to input');
+		});
+
+		test('when input is blurred, culture is german, and no date changes, input value should not change', function() {
+			var date = '03.07.2014'; // July 3rd, 2014
+			var $datepicker = $( html ).datepicker({
+				allowPastDates: true,
+				date: new Date(2014, 6, 3),
+				momentConfig: {
+					culture: 'de'
+				}
+			});
+			var $input = $datepicker.find('input');
+
+			equal($datepicker.datepicker('getFormattedDate'), date, 'moment.js parsed date correctly after initialization with de culture');
+
+			$input.trigger('blur');
+			equal($datepicker.datepicker('getFormattedDate'), date, 'moment.js parsed date correctly after input blurred');
+		});
+
+		test('when bad data is input, don\'t fail with bad date', function(){
+			var date = '07/03/2014'; // July 3rd, 2014
+			var $datepicker = $(html).datepicker({
+				allowPastDates: true,
+				date: new Date( 2014, 6, 3 )
+			});
+			var $input = $datepicker.find('input');
+
+			equal($datepicker.datepicker('getFormattedDate'), date, 'moment.js parsed date correctly after initialization with de culture');
+
+			$input.val('aa.bb.cccc');
+			$input.trigger('blur');
+			equal($datepicker.datepicker('getDate').toString(), 'Invalid Date', 'datepicker should return \'Invalid Date\' when bad data is entered');
 		});
 	}
 });

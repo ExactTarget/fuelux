@@ -11,7 +11,14 @@ define(function(require){
 	require('bootstrap');
 	require('fuelux/datepicker');
 
-	module('Fuel UX Datepicker');
+	module('Fuel UX Datepicker', {
+		setup: function(){
+			if(window.moment){
+				window.tmpMoment = window.moment;
+				window.moment = undefined;
+			}
+		}
+	});
 
 	test("should be defined on jquery object", function () {
 		ok($().datepicker, 'datepicker method is defined');
