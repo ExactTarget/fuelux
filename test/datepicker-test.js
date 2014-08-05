@@ -68,7 +68,7 @@ define(function(require){
 
 	test('should set new date using setDate method', function(){
 		var $datepicker = $(html).datepicker();
-		var newDate = new Date('03/31/1987');
+		var newDate = new Date(1987, 2, 31);
 		var datepickerDate;
 
 		$datepicker.datepicker('setDate', newDate);
@@ -170,7 +170,7 @@ define(function(require){
 
 	test('should restrict navigation and selection of dates within other years if option sameYearOnly is set to true', function() {
 		var $datepicker = $(html).datepicker({
-			date: new Date('03/31/1987'),
+			date: new Date(1987, 2, 31),
 			sameYearOnly: true
 		});
 		var $datepickerInput = $datepicker.find('input');
@@ -192,6 +192,26 @@ define(function(require){
 		$datepickerInput.val('03/31/1988');
 		$datepickerInput.trigger('blur');
 		equal($datepicker.datepicker('getDate').toString(), 'Invalid Date', 'user can\t input date outside current year');
+	});
+
+	test('should restrict days if restricted option is set', function(){
+		var $datepicker = $(html).datepicker({
+			allowPastDates: true,
+			date: new Date(1987, 3, 5),
+			restricted: [{ from: new Date(1987, 3, 1), to: new Date(1987, 3, 4) }, { from: new Date(1987, 3, 13), to: new Date(1987, 3, 17) }]
+		});
+		var dates = ['1', '2', '3', '4', '13', '14', '15', '16', '17'];
+		var i=0;
+		var self = this;
+
+		$datepicker.find('.restricted').each(function(){
+			var $item = $(this);
+			equal(($item.attr('data-date')===dates[i] && $item.attr('data-month')==='3' && $item.attr('data-year')==='1987'), true,
+					'correct date restricted as expected');
+			i++;
+		});
+
+		equal(dates.length===i, true, 'correct number of dates restricted');
 	});
 
 	test('should destroy control', function (){

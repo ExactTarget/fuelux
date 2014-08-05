@@ -98,7 +98,7 @@ define(function(require){
 
 		test('should set new date using setDate method', function(){
 			var $datepicker = $(html).datepicker();
-			var newDate = new Date('03/31/1987');
+			var newDate = new Date(1987, 2, 31);
 			var datepickerDate;
 
 			$datepicker.datepicker('setDate', newDate);
@@ -156,7 +156,7 @@ define(function(require){
 
 		test('should restrict navigation and selection of dates within other years if option sameYearOnly is set to true', function() {
 			var $datepicker = $(html).datepicker({
-				date: new Date('03/31/1987'),
+				date: new Date(1987, 2, 31),
 				sameYearOnly: true
 			});
 			var $datepickerInput = $datepicker.find('input');
