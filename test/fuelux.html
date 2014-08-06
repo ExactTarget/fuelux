@@ -11,12 +11,13 @@
 		<script>QUnit.config.autostart = false;</script>
 		<script src="../bower_components/requirejs/require.js"></script>
 
+		<!--[if gte IE 9]> -->
 		<script type="text/javascript" src="../bower_components/blanket/dist/qunit/blanket.js" data-cover-only="/js" data-cover-never="/bower_components"></script>
-
+		<!-- <![endif]-->
 
 		<script>
 			window.tmpMoment = window.moment;
-			window.moment    = undefined;
+			window.moment = undefined;
 
 			(function () {
 				var jQueryPath;
@@ -41,17 +42,11 @@
 
 				require.config({
 					baseUrl: '../',
-					config: {
-						moment: {
-							noGlobal: true
-						}
-					},
 					paths: {
 						jquery: jQueryPath,
 						bootstrap: 'bower_components/bootstrap/dist/js/bootstrap',
 						fuelux: 'js',
 						test: 'test',
-						moment: 'bower_components/WRONG_FOLDER/moment', // wrong url because we need to test it without moment first
 						text: 'bower_components/requirejs-text/text'
 					},
 					shim: {

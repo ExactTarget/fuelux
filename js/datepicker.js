@@ -6,8 +6,6 @@
  * Licensed under the MIT license.
  */
 
-// Should we be using Moment.JS?
-
 // -- BEGIN UMD WRAPPER PREFACE --
 
 // For more information on UMD visit:
@@ -26,134 +24,177 @@
 
 	// -- BEGIN MODULE CODE HERE --
 
-	var old    = $.fn.datepicker;
+	var INVALID_DATE = 'Invalid Date';
+	var MOMENT_NOT_AVAILABLE = 'moment.js is not available so you cannot use this function';
+
+	var datepickerStack = [];
 	var moment = false;
+	var old = $.fn.datepicker;
+	var requestedMoment = false;
 
-	// only load moment if it's there. otherwise we'll look for it in window.moment
-	// you need to make sure moment is loaded before the rest of this module
+	var runStack = function(){
+		var i, l;
+		requestedMoment = true;
+		for(i=0,l=datepickerStack.length; i<l; i++){
+			datepickerStack[i].init.call(datepickerStack[i].scope);
+		}
+		datepickerStack = [];
+	};
 
-	// check if AMD is available
-	if(typeof define === 'function' && define.amd) {
-		require(['moment'], function( amdMoment ) {
+	//only load moment if it's there. otherwise we'll look for it in window.moment
+	if(typeof define==='function' && define.amd){	//check if AMD is available
+		require(['moment'], function(amdMoment){
 			moment = amdMoment;
-		}, function( err ) {
+			runStack();
+		}, function(err){
 			var failedId = err.requireModules && err.requireModules[0];
-			if (failedId === 'moment') {
-				// do nothing cause that's the point of progressive enhancement
-				if( typeof window.console !== 'undefined' ) {
-					if( window.navigator.userAgent.search( 'PhantomJS' ) < 0 ) {
-						// don't show this in phantomjs tests
-						window.console.log( "Don't worry if you're seeing a 404 that's looking for moment.js. The Fuel UX Datepicker is trying to use moment.js to give you extra features." );
-						window.console.log( "Checkout the Fuel UX docs (http://exacttarget.github.io/fuelux/#datepicker) to see how to integrate moment.js for more features" );
-					}
-				}
+			if(failedId==='moment'){
+				runStack();
 			}
 		});
+	}else{
+		runStack();
 	}
 
 	// DATEPICKER CONSTRUCTOR AND PROTOTYPE
 
 	var Datepicker = function (element, options) {
 		this.$element = $(element);
-
 		this.options = $.extend(true, {}, $.fn.datepicker.defaults, options);
 
-		this.formatDate    = this.options.formatDate || this.formatDate;
-		this.parseDate     = this.options.parseDate || this.parseDate;
-		this.blackoutDates = this.options.blackoutDates || this.blackoutDates;
+		this.$calendar = this.$element.find('.datepicker-calendar');
+		this.$days = this.$calendar.find('.datepicker-calendar-days');
+		this.$header = this.$calendar.find('.datepicker-calendar-header');
+		this.$headerTitle = this.$header.find('.title');
+		this.$input = this.$element.find('input');
+		this.$wheels = this.$element.find('.datepicker-wheels');
+		this.$wheelsMonth = this.$element.find('.datepicker-wheels-month');
+		this.$wheelsYear = this.$element.find('.datepicker-wheels-year');
 
-		// moment set up for parsing input dates
-		if( this._checkForMomentJS() ) {
-			moment            = moment || window.moment; // need to pull in the global moment if they didn't do it via require
-			this.moment       = true;
-			this.momentFormat = this.options.momentConfig.formatCode;
-			this.setCulture( this.options.momentConfig.culture );
+		this.artificialScrolling = false;
+		this.formatDate = this.options.formatDate || this.formatDate;
+		this.inputValue = null;
+		this.moment = false;
+		this.momentFormat = null;
+		this.parseDate = this.options.parseDate || this.parseDate;
+		this.preventBlurHide = false;
+		this.restricted = this.options.restricted || [];
+		this.restrictedParsed = [];
+		this.sameYearOnly = this.options.sameYearOnly;
+		this.selectedDate = null;
+		this.yearRestriction = null;
+
+		this.$calendar.find('.datepicker-today').on('click.fu.datepicker', $.proxy(this.todayClicked, this));
+		this.$days.on('click.fu.datepicker', 'tr td a', $.proxy(this.dateClicked, this));
+		this.$element.find('.datepicker-dropdown').on('mousedown.fu.datepicker', $.proxy(this.dropdownMousedown, this));
+		this.$header.find('.next').on('click.fu.datepicker', $.proxy(this.next, this));
+		this.$header.find('.prev').on('click.fu.datepicker', $.proxy(this.prev, this));
+		this.$headerTitle.find('a').on('click.fu.datepicker', $.proxy(this.titleClicked, this));
+		this.$input.on('blur.fu.datepicker', $.proxy(this.inputBlurred, this));
+		this.$input.on('focus.fu.datepicker', $.proxy(this.inputFocused, this));
+		this.$wheels.find('.datepicker-wheels-back').on('click.fu.datepicker', $.proxy(this.backClicked, this));
+		this.$wheels.find('.datepicker-wheels-select').on('click.fu.datepicker', $.proxy(this.selectClicked, this));
+		this.$wheelsMonth.on('click.fu.datepicker', 'ul a', $.proxy(this.monthClicked, this));
+		this.$wheelsYear.on('click.fu.datepicker', 'ul a', $.proxy(this.yearClicked, this));
+		this.$wheelsYear.find('ul').on('scroll.fu.datepicker', $.proxy(this.onYearScroll, this));
+
+		var init = function(){
+			if(this.checkForMomentJS()){
+				moment = moment || window.moment; // need to pull in the global moment if they didn't do it via require
+				this.moment = true;
+				this.momentFormat = this.options.momentConfig.format;
+				this.setCulture(this.options.momentConfig.culture);
+			}
+
+			this.setRestrictedDates(this.restricted);
+			if(!this.setDate(this.options.date)){
+				this.$input.val('');
+				this.inputValue = this.$input.val();
+			}
+			if(this.sameYearOnly){
+				this.yearRestriction = (this.selectedDate) ? this.selectedDate.getFullYear() : new Date().getFullYear();
+			}
+		};
+
+		if(requestedMoment){
+			init.call(this);
+		}else{
+			datepickerStack.push({ init: init, scope: this });
 		}
-
-		if( this.options.date !== null ) {
-			this.date       = this.options.date || new Date();
-			this.date       = this.parseDate( this.date, false );
-			this.viewDate   = new Date( this.date.valueOf() );
-			this.stagedDate = new Date( this.date.valueOf() );
-		} else {
-			this.date       = null;
-			this.viewDate   = new Date();
-			this.stagedDate = new Date();
-		}
-
-		this.inputParsingTarget = null;
-
-		this.viewDate.setHours( 0,0,0,0 );
-		this.stagedDate.setHours( 0,0,0,0 );
-
-		this.done      = false;
-
-		this.minDate = new Date();
-		this.minDate.setDate( this.minDate.getDate() - 1 );
-		this.minDate.setHours( 0,0,0,0 );
-
-		this.maxDate = new Date();
-		this.maxDate.setFullYear( this.maxDate.getFullYear() + 10 );
-		this.maxDate.setHours( 23,59,59,999 );
-
-		this.years = this._yearRange( this.viewDate );
-
-		this.bindingsAdded = false;
-
-		// OPTIONS
-		this.options.dropdownWidth = this.options.dropdownWidth || 170;
-		this.options.monthNames    = this.options.monthNames || [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
-		this.options.weekdays      = this.options.weekdays || [ "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
-
-		this.options.showYears  = false;
-		this.options.showDays   = true;
-		this.options.showMonths = false;
-
-		this.options.restrictLastMonth = Boolean( this.options.restrictDateSelection );
-		this.options.restrictNextMonth = false;
-
-		this.options.restrictToYear = this.options.restrictToYear || null;
-
-		this.months = [
-			{ abbreviation: this.options.monthNames[0], 'class': '', number: 0 },
-			{ abbreviation: this.options.monthNames[1], 'class': '', number: 1 },
-			{ abbreviation: this.options.monthNames[2], 'class': '', number: 2 },
-			{ abbreviation: this.options.monthNames[3], 'class': '', number: 3 },
-			{ abbreviation: this.options.monthNames[4], 'class': '', number: 4 },
-			{ abbreviation: this.options.monthNames[5], 'class': '', number: 5 },
-			{ abbreviation: this.options.monthNames[6], 'class': '', number: 6 },
-			{ abbreviation: this.options.monthNames[7], 'class': '', number: 7 },
-			{ abbreviation: this.options.monthNames[8], 'class': '', number: 8 },
-			{ abbreviation: this.options.monthNames[9], 'class': '', number: 9 },
-			{ abbreviation: this.options.monthNames[10], 'class': '', number: 10 },
-			{ abbreviation: this.options.monthNames[11], 'class': '', number: 11 }
-		];
-
-		// rendering the calendar
-		this._render();
 	};
 
 	Datepicker.prototype = {
 
 		constructor: Datepicker,
 
-		destroy: function() {
+		backClicked: function(){
+			this.changeView('calendar');
+		},
+
+		changeView: function(view, date){
+			if(view==='wheels'){
+				this.$calendar.hide();
+				this.$wheels.show();
+				if(date){
+					this.renderWheel(date);
+				}
+			}else{
+				this.$wheels.hide();
+				this.$calendar.show();
+				if(date){
+					this.renderMonth(date);
+				}
+			}
+		},
+
+		checkForMomentJS: function(){
+			if(
+				($.isFunction(window.moment) || (typeof moment!=='undefined' && $.isFunction(moment))) &&
+				$.isPlainObject(this.options.momentConfig) &&
+				this.options.momentConfig.culture && this.options.momentConfig.format
+			){
+				return true;
+			}else{
+				return false;
+			}
+		},
+
+		dateClicked: function(e){
+			var $td = $(e.currentTarget).parents('td:first');
+			var date;
+
+			e.preventDefault();
+			this.$days.find('td.selected').removeClass('selected');
+			$td.addClass('selected');
+
+			date = new Date($td.attr('data-year'), $td.attr('data-month'), $td.attr('data-date'));
+			this.selectedDate = date;
+			this.$input.val(this.formatDate(date));
+			this.inputValue = this.$input.val();
+		},
+
+		destroy: function(){
 			this.$element.remove();
-			// any external bindings 
+			// any external bindings
 			// [none]
 
 			// empty elements to return to original markup
-			this.$element.find('.calendar-menu').empty();
+			this.$days.find('tbody').empty();
+			this.$wheelsYear.find('ul').empty();
 
 			return this.$element[0].outerHTML;
 		},
 
-		// functions that can be called on object
-		disable: function() {
+		disable: function(){
 			this.$element.addClass('disabled');
 			this.$element.find('input, button').attr( 'disabled', 'disabled' );
-			this._close();
 			this.$element.find('.input-group-btn').removeClass('open');
+		},
+
+		dropdownMousedown: function(){
+			var self = this;
+			this.preventBlurHide = true;
+			setTimeout(function(){ self.preventBlurHide = false; },0);
 		},
 
 		enable: function() {
@@ -161,800 +202,416 @@
 			this.$element.find('input, button').removeAttr('disabled');
 		},
 
-		getFormattedDate: function() {
-			return this.formatDate( this.date );
-		},
+		formatDate: function(date){
+			var padTwo = function(value){
+				var s = '0' + value;
+				return s.substr(s.length-2);
+			};
 
-		getDate: function( options ) {
-			if( Boolean( options ) && Boolean( options.unix ) ) {
-				return this.date.getTime();
-			} else {
-				return this.date;
+			if(this.moment){
+				return moment(date).format(this.momentFormat);
+			}else{
+				return padTwo(date.getMonth()+1) + '/' + padTwo(date.getDate()) + '/' + date.getFullYear();
 			}
 		},
 
-		setDate: function( date ) {
-			this.date       = this.parseDate( date, false );
-			this.stagedDate = this.date;
-			this.viewDate   = this.date;
-			this._render();
-			this.$element.trigger( 'changed.fu.datepicker', this.date );
-			return this.date;
-		},
-
-		getCulture: function() {
-			if( Boolean( this.moment ) ) {
+		getCulture: function(){
+			if(this.moment){
 				return moment.lang();
-			} else {
-				throw "moment.js is not available so you cannot use this function";
+			}else{
+				throw MOMENT_NOT_AVAILABLE;
 			}
 		},
 
-		setCulture: function( cultureCode ) {
-			if( !Boolean( cultureCode) ) {
-				return false;
-			}
-			if( Boolean( this.moment ) ) {
-				moment.lang( cultureCode );
-			} else {
-				throw "moment.js is not available so you cannot use this function";
-			}
+		getDate: function(){
+			return (!this.selectedDate) ? new Date(NaN) : this.selectedDate;
 		},
 
-		getFormatCode: function() {
-			if( Boolean( this.moment ) ) {
+		getFormat: function(){
+			if(this.moment){
 				return this.momentFormat;
-			} else {
-				throw "moment.js is not available so you cannot use this function";
+			}else{
+				throw MOMENT_NOT_AVAILABLE;
 			}
 		},
 
-		setFormatCode: function( formatCode ) {
-			if( !Boolean( formatCode ) ) {
-				return false;
+		getFormattedDate: function(){
+			return (!this.selectedDate) ? INVALID_DATE : this.formatDate(this.selectedDate);
+		},
+
+		getRestrictedDates: function(){
+			return this.restricted;
+		},
+
+		inputBlurred: function(e){
+			var inputVal = this.$input.val();
+			var date;
+			if(inputVal!==this.inputValue){
+				date = this.setDate(inputVal);
+				if(date===null){
+					this.$element.trigger('inputParsingFailed.fu.datepicker', inputVal);
+				}else if(date===false){
+					this.$element.trigger('inputRestrictedDate.fu.datepicker', date);
+				}else{
+					this.$element.trigger('changed.fu.datepicker', date);
+				}
 			}
-			if( Boolean( this.moment ) ) {
-				this.momentFormat = formatCode;
-			} else {
-				throw "moment.js is not available so you cannot use this function";
+			if(!this.preventBlurHide){
+				this.$element.find('.input-group-btn').removeClass('open');
 			}
 		},
 
-		formatDate: function( date ) {
-			// if we have moment available use it to format dates. otherwise use default
-			if( Boolean( this.moment ) ) {
-				return moment( date ).format( this.momentFormat );
-			} else {
-				// this.pad to is function on extension
-				return this.padTwo( date.getMonth() + 1 ) + '-' + this.padTwo( date.getDate() ) + '-' + date.getFullYear();
+		inputFocused: function(e){
+			this.$element.find('.input-group-btn').addClass('open');
+		},
+
+		isInvalidDate: function(date){
+			var dateString = date.toString();
+			if(dateString===INVALID_DATE || dateString==='NaN'){
+				return true;
+			}
+			return false;
+		},
+
+		isRestricted: function(date, month, year){
+			var restricted = this.restrictedParsed;
+			var i, from, l, to;
+
+			if(this.sameYearOnly && this.yearRestriction!==null && year!==this.yearRestriction){
+				return true;
+			}
+			for(i=0,l=restricted.length; i<l; i++){
+				from = restricted[i].from;
+				to = restricted[i].to;
+				if((date>=from.date && month>=from.month && year>=from.year) && (date<=to.date && month<=to.month && year<=to.year)){
+					return true;
+				}
+			}
+
+			return false;
+		},
+
+		monthClicked: function(e){
+			this.$wheelsMonth.find('.selected').removeClass('selected');
+			$(e.currentTarget).parent().addClass('selected');
+		},
+
+		next: function(){
+			var $a = this.$headerTitle.find('a');
+			var month = $a.attr('data-month');
+			var year = $a.attr('data-year');
+			month++;
+			if(month>11){
+				if(this.sameYearOnly){
+					return;
+				}
+				month = 0;
+				year++;
+			}
+			this.renderMonth(new Date(year, month, 1));
+		},
+
+		onYearScroll: function(e){
+			if(this.artificialScrolling){ return; }
+
+			var $yearUl = $(e.currentTarget);
+			var height = ($yearUl.css('box-sizing')==='border-box') ? $yearUl.outerHeight() : $yearUl.height();
+			var scrollHeight = $yearUl.get(0).scrollHeight;
+			var scrollTop = $yearUl.scrollTop();
+			var bottomPercentage = (height / (scrollHeight - scrollTop)) * 100;
+			var topPercentage = (scrollTop / scrollHeight) * 100;
+			var i, start;
+
+			if(topPercentage<5) {
+				start = parseInt($yearUl.find('li:first').attr('data-year'), 10);
+				for (i=(start-1); i >(start-11); i--) {
+					$yearUl.prepend('<li data-year="' + i + '"><a href="#">' + i + '</a></li>');
+				}
+				this.artificialScrolling = true;
+				$yearUl.scrollTop(($yearUl.get(0).scrollHeight-scrollHeight) + scrollTop);
+				this.artificialScrolling = false;
+			}else if(bottomPercentage>90){
+				start = parseInt($yearUl.find('li:last').attr('data-year'), 10);
+				for(i=(start+1); i<(start+11); i++){
+					$yearUl.append('<li data-year="' + i + '"><a href="#">' + i + '</a></li>');
+				}
 			}
 		},
 
 		//some code ripped from http://stackoverflow.com/questions/2182246/javascript-dates-in-ie-nan-firefox-chrome-ok
-		parseDate: function( date, silent ) {
-			// if we have moment, use that to parse the dates
-			if( this.moment ) {
-				silent = silent || false;
-				// if silent is requested (direct user input parsing) return true or false not a date object, otherwise return a date object
-				if( silent ) {
-					if( moment( date ).toDate().toString() === "Invalid Date" ) {
-						return false;
-					} else {
-						return true;
+		parseDate: function(date) {
+			var self = this;
+			var dt, isoExp, momentParse, month, parts, use;
+
+			if(date){
+				if(this.moment){	//if we have moment, use that to parse the dates
+					momentParse = function(type, d){
+						d = (type==='b') ? moment(d, self.momentFormat) : moment(d);
+						return (d.isValid()===true) ? d.toDate() : new Date(NaN);
+					};
+					use = (typeof(date)==='string') ? ['b', 'a'] : ['a', 'b'];
+					dt = momentParse(use[0], date);
+					if(!this.isInvalidDate(dt)){
+						return dt;
+					}else{
+						dt = momentParse(use[1], date);
+						if(!this.isInvalidDate(dt)){
+							return dt;
+						}
 					}
-				} else {
-					return moment( date ).toDate(); //example of using moment for parsing
-				}
-			} else {
-				// if moment isn't present, use previous date parsing strategry
-				var dt, isoExp, month, parts;
-
-				if( Boolean( date) && new Date( date ).toString() !== 'Invalid Date' ) {
-					if( typeof( date ) === 'string' ) {
-						date   = date.split( 'T' )[ 0 ];
-						isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/;
-						dt     = new Date( NaN );
-						parts  = isoExp.exec( date );
-
-						if( parts ) {
-							month = +parts[ 2 ];
-							dt.setFullYear( parts[ 1 ], month - 1, parts[ 3 ] );
-							if( month !== dt.getMonth() + 1 ) {
-									dt.setTime( NaN );
+				}else{	//if moment isn't present, use previous date parsing strategy
+					if(typeof(date)==='string'){
+						dt = new Date(Date.parse(date));
+						if(!this.isInvalidDate(dt)){
+							return dt;
+						}else{
+							date = date.split('T')[0];
+							isoExp = /^\s*(\d{4})-(\d\d)-(\d\d)\s*$/;
+							parts = isoExp.exec(date);
+							if(parts){
+								month = parseInt(parts[2],10);
+								dt = new Date(parts[1], month - 1, parts[3]);
+								if(month===(dt.getMonth() + 1)){
+									return dt;
+								}
 							}
 						}
-						return dt;
+					}else{
+						dt = new Date(date);
+						if(!this.isInvalidDate(dt)){
+							return dt;
+						}
 					}
-					return new Date( date );
-				} else {
-					throw new Error( 'could not parse date' );
 				}
 			}
+			return new Date(NaN);
 		},
 
-		blackoutDates: function( date ) {
-			date = date;
-			return false;
-		},
-
-		padTwo: function( value ) {
-			var s = '0' + value;
-			return s.substr( s.length - 2 );
-		},
-
-		_setNullDate: function( showStagedDate ) {
-			this.date       = null;
-			this.viewDate   = new Date();
-			this.stagedDate = new Date();
-			this._insertDateIntoInput( showStagedDate || "" );
-			this._renderWithoutInputManipulation();
-		},
-
-		_restrictDateSelectionSetup: function() {
-			var scopedLastMonth, scopedNextMonth;
-			if( Boolean( this.options ) ) {
-				if( !this.options.restrictDateSelection ) {
-					scopedLastMonth = false;
-					scopedNextMonth = false;
-				} else {
-					scopedNextMonth = ( this.viewDate.getMonth() < new Date().getMonth() ) ? true : false;
-					scopedLastMonth = ( this.viewDate.getMonth() > new Date().getMonth() ) ? false : true;
+		prev: function(){
+			var $a = this.$headerTitle.find('a');
+			var month = $a.attr('data-month');
+			var year = $a.attr('data-year');
+			month--;
+			if(month<0){
+				if(this.sameYearOnly){
+					return;
 				}
+				month = 11;
+				year--;
 			}
-			this.options.restrictLastMonth = scopedLastMonth;
-			this.options.restrictNextMonth = scopedNextMonth;
+			this.renderMonth(new Date(year, month, 1));
 		},
 
-		_processDateRestriction: function( date, returnClasses ) {
-			var classes         = '';
-			var restrictBoolean = false;
-			returnClasses       = returnClasses || false;
+		renderMonth: function(date){
+			date = date || new Date();
 
-			if( this.options.restrictToYear && this.options.restrictToYear !== date.getFullYear() ) {
-				classes += ' restrict';
-				restrictBoolean = true;
-			} else if( date <= this.minDate || date >= this.maxDate ) {
-				if ( Boolean( this.blackoutDates( date ) ) ) {
-					classes += ' restrict blackout';
-					restrictBoolean = true;
-				} else if ( Boolean( this.options ) && Boolean( this.options.restrictDateSelection ) ) {
-					classes += ' restrict';
-					restrictBoolean = true;
-				} else {
-					classes += ' past';
-				}
-			} else if(  Boolean( this.blackoutDates( date ) ) ) {
-				classes += ' restrict blackout';
-				restrictBoolean = true;
-			}
-			if( Boolean( returnClasses ) ) {
-				return classes;
-			} else {
-				return restrictBoolean;
-			}
-		},
+			var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+			var lastDate = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+			var lastMonthDate = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
+			var $month = this.$headerTitle.find('.month');
+			var month = date.getMonth();
+			var now = new Date();
+			var nowDate = now.getDate();
+			var nowMonth = now.getMonth();
+			var nowYear = now.getFullYear();
+			var selected = this.selectedDate;
+			var $tbody = this.$days.find('tbody');
+			var year = date.getFullYear();
+			var curDate, curMonth, curYear, i, j, rows, stage, $td, $tr;
 
-		_repeat: function( head, collection, iterator, tail) {
-			var value = head;
-			for (var i = 0, ii = collection.length; i < ii; i++) {
-				value += iterator( collection[i] );
-			}
-			value += tail;
-			return value;
-		},
-
-		_getDaysInMonth: function( month, year ) {
-			return 32 - new Date( year, month, 32 ).getDate();
-		},
-
-		_range: function( start, end ) {
-			var numbers = [];
-			for ( var i = start; i < end; i++ ) {
-				numbers[ numbers.length ] = i;
-			}
-			return numbers;
-		},
-
-		_yearRange: function( date ) {
-			var start    = ( Math.floor(date.getFullYear() / 10 ) * 10) - 1;
-			var end      = start + 12;
-			var years    = this._range(start, end);
-			var interval = [];
-
-			for (var i = 0, ii = years.length; i < ii; i++) {
-				var clazz = '';
-				if( i === 0 ) {
-					clazz = 'previous';
-				}
-				if( i === years.length - 1 ) {
-					clazz = 'next';
-				}
-				interval[i] = {
-					number: years[ i ],
-					'class': clazz
+			if(selected){
+				selected = {
+					date: selected.getDate(),
+					month: selected.getMonth(),
+					year: selected.getFullYear()
 				};
 			}
-			return interval;
+
+			$month.find('.current').removeClass('current');
+			$month.find('li[data-month="' + month + '"]').addClass('current');
+			this.$headerTitle.find('.year').text(year);
+			this.$headerTitle.find('a').attr({
+				'data-month': month,
+				'data-year': year
+			});
+
+			$tbody.empty();
+			if(firstDay!==0){
+				curDate = lastMonthDate - firstDay + 1;
+				stage = -1;
+			}else{
+				curDate = 1;
+				stage = 0;
+			}
+			rows = (lastDate<=(35-firstDay)) ? 5 : 6;
+			for(i=0; i<rows; i++){
+				$tr = $('<tr></tr>');
+				for(j=0; j<7; j++){
+					$td = $('<td><span><a class="datepicker-date" href="#">' + curDate + '</a></span></td>');
+					if(stage===-1){
+						$td.addClass('last-month');
+					}else if(stage===1){
+						$td.addClass('next-month');
+					}
+
+					curMonth = month + stage;
+					curYear = year;
+					if(curMonth<0){
+						curMonth = 11;
+						curYear--;
+					}else if(curMonth>11){
+						curMonth = 0;
+						curYear++;
+					}
+
+					$td.attr({ 'data-date': curDate, 'data-month': curMonth, 'data-year': curYear });
+					if(curYear===nowYear && curMonth===nowMonth && curDate===nowDate){
+						$td.addClass('current-day');
+					}else if(curYear<nowYear || (curYear===nowYear && curMonth<nowMonth) ||
+						(curYear===nowYear && curMonth===nowMonth && curDate<nowDate)){
+						$td.addClass('past');
+						if(!this.options.allowPastDates){
+							$td.addClass('restricted');
+						}
+					}
+					if(this.isRestricted(curDate, curMonth, curYear)){
+						$td.addClass('restricted');
+					}
+					if(selected && curYear===selected.year && curMonth===selected.month && curDate===selected.date){
+						$td.addClass('selected');
+					}
+
+					curDate++;
+					if(stage===-1 && curDate>lastMonthDate){
+						curDate = 1;
+						stage = 0;
+					}else if(stage===0 && curDate>lastDate){
+						curDate = 1;
+						stage = 1;
+					}
+
+					$tr.append($td);
+				}
+				$tbody.append($tr);
+			}
 		},
 
-		_killEvent: function( e ) {
-			e.stopPropagation();
+		renderWheel: function(date){
+			var month = date.getMonth();
+			var $monthUl = this.$wheelsMonth.find('ul');
+			var year = date.getFullYear();
+			var $yearUl = this.$wheelsYear.find('ul');
+			var i, $monthSelected, $yearSelected;
+
+			if(this.sameYearOnly){
+				this.$wheelsMonth.addClass('full');
+				this.$wheelsYear.addClass('hide');
+			}else{
+				this.$wheelsMonth.removeClass('full');
+				this.$wheelsYear.removeClass('hide');
+			}
+
+			$monthUl.find('.selected').removeClass('selected');
+			$monthSelected = $monthUl.find('li[data-month="' + month + '"]');
+			$monthSelected.addClass('selected');
+			$monthUl.scrollTop($monthUl.scrollTop() + ($monthSelected.position().top - $monthUl.outerHeight()/2 - $monthSelected.outerHeight(true)/2));
+
+			$yearUl.empty();
+			for(i=(year-10); i<(year+11); i++){
+				$yearUl.append('<li data-year="' + i + '"><a href="#">' + i + '</a></li>');
+			}
+			$yearSelected = $yearUl.find('li[data-year="' + year + '"]');
+			$yearSelected.addClass('selected');
+			this.artificialScrolling = true;
+			$yearUl.scrollTop($yearUl.scrollTop() + ($yearSelected.position().top - $yearUl.outerHeight()/2 - $yearSelected.outerHeight(true)/2));
+			this.artificialScrolling = false;
+		},
+
+		selectClicked: function(){
+			var month = this.$wheelsMonth.find('.selected').attr('data-month');
+			var year = this.$wheelsYear.find('.selected').attr('data-year');
+			this.changeView('calendar', new Date(year, month, 1));
+		},
+
+		setCulture: function(cultureCode){
+			if(!cultureCode){ return false; }
+			if(this.moment){
+				moment.lang(cultureCode);
+			}else{
+				throw MOMENT_NOT_AVAILABLE;
+			}
+		},
+
+		setDate: function(date){
+			var parsed = this.parseDate(date);
+			if(!this.isInvalidDate(parsed)){
+				if(!this.isRestricted(parsed.getDate(), parsed.getMonth(), parsed.getFullYear())){
+					this.selectedDate = parsed;
+					this.renderMonth(parsed);
+					this.$input.val(this.formatDate(parsed));
+				}else{
+					this.selectedDate = false;
+					this.renderMonth();
+				}
+			}else{
+				this.selectedDate = null;
+				this.renderMonth();
+			}
+			this.inputValue = this.$input.val();
+			return this.selectedDate;
+		},
+
+		setFormat: function(format){
+			if(!format){ return false; }
+			if(this.moment){
+				this.momentFormat = format;
+			}else{
+				throw MOMENT_NOT_AVAILABLE;
+			}
+		},
+
+		setRestrictedDates: function(restricted){
+			var parsed = [];
+			var self = this;
+			var i, l;
+
+			var parseItem = function(val){
+				if(val===-Infinity){
+					return { date: -Infinity, month: -Infinity, year: -Infinity };
+				}else if(val===Infinity){
+					return { date: Infinity, month: Infinity, year: Infinity };
+				}else{
+					val = self.parseDate(val);
+					return { date: val.getDate(), month: val.getMonth(), year: val.getFullYear() };
+				}
+			};
+
+			this.restricted = restricted;
+			for(i=0,l=restricted.length; i<l; i++){
+				parsed.push({ from: parseItem(restricted[i].from), to: parseItem(restricted[i].to) });
+			}
+			this.restrictedParsed = parsed;
+		},
+
+		titleClicked: function(e){
+			var $a = $(e.currentTarget);
 			e.preventDefault();
-			return false;
+			this.changeView('wheels', new Date($a.attr('data-year'), $a.attr('data-month'), 1));
 		},
 
-		_applySize: function( elements, size ) {
-			for (var i = 0; i < elements.length; i++) {
-				$(elements[ i ]).css({
-					'width': size,
-					'height': size,
-					'line-height': size
-				});
-			}
-		},
+		todayClicked: function(e){
+			var $a = this.$headerTitle.find('a');
+			var date = new Date();
 
-		_show: function( show ) {
-			return show ? '' : 'display: none;';
-		},
-
-		_hide: function( hide ) {
-			return this._show( !hide );
-		},
-
-		_showView: function( view ) {
-			if( view === 1 ) {
-				this.options.showDays   = true;
-				this.options.showMonths = false;
-				this.options.showYears  = false;
-			} else if( view === 2 ) {
-				this.options.showDays   = false;
-				this.options.showMonths = true;
-				this.options.showYears  = false;
-			} else if( view === 3 ) {
-				this.options.showDays   = false;
-				this.options.showMonths = false;
-				this.options.showYears  = true;
+			e.preventDefault();
+			if((date.getMonth()+'')!==$a.attr('data-month') || (date.getFullYear()+'')!==$a.attr('data-year')){
+				this.renderMonth(date);
 			}
 		},
 
-		_updateCalendarData: function() {
-			var viewedMonth            = this.viewDate.getMonth();
-			var viewedYear             = this.viewDate.getFullYear();
-			var selectedDay            = this.stagedDate.getDate();
-			var selectedMonth          = this.stagedDate.getMonth();
-			var selectedYear           = this.stagedDate.getFullYear();
-			var firstDayOfMonthWeekday = new Date( viewedYear, viewedMonth, 1 ).getDay();
-			var lastDayOfMonth         = this._getDaysInMonth( viewedMonth, viewedYear );
-			var lastDayOfLastMonth     = this._getDaysInMonth( viewedMonth - 1, viewedYear );
-
-			if( firstDayOfMonthWeekday === 0 ) {
-				firstDayOfMonthWeekday = 7;
-			}
-
-			var addToEnd = ( 42 - lastDayOfMonth ) - firstDayOfMonthWeekday;
-
-			this.daysOfLastMonth = this._range( lastDayOfLastMonth - firstDayOfMonthWeekday + 1, lastDayOfLastMonth + 1 );
-			this.daysOfNextMonth = this._range( 1, addToEnd + 1 );
-
-			// blackout functionality for dates of last month on current calendar view
-			for( var x = 0, xx = this.daysOfLastMonth.length; x < xx; x++ ) {
-				var tmpLastMonthDaysObj        = {};
-				tmpLastMonthDaysObj.number     = this.daysOfLastMonth[ x ];
-				tmpLastMonthDaysObj[ 'class' ] = '';
-				tmpLastMonthDaysObj[ 'class' ] = this._processDateRestriction( new Date( viewedYear, viewedMonth + 1, this.daysOfLastMonth[ x ], 0, 0, 0, 0 ), true );
-				tmpLastMonthDaysObj[ 'class' ] += ' past';
-				this.daysOfLastMonth[ x ]      = tmpLastMonthDaysObj;
-			}
-
-			// blackout functionality for dates of next month on current calendar view
-			for( var b = 0, bb = this.daysOfNextMonth.length; b < bb; b++ ) {
-				var tmpNextMonthDaysObj        = {};
-				tmpNextMonthDaysObj.number     = this.daysOfNextMonth[ b ];
-				tmpNextMonthDaysObj[ 'class' ] = '';
-				tmpNextMonthDaysObj[ 'class' ] = this._processDateRestriction( new Date( viewedYear, viewedMonth + 1, this.daysOfNextMonth[ b ], 0, 0, 0, 0 ), true );
-				this.daysOfNextMonth[ b ]      = tmpNextMonthDaysObj;
-			}
-
-			var now                  = new Date();
-			var currentDay           = now.getDate();
-			var currentMonth         = now.getMonth();
-			var currentYear          = now.getFullYear();
-			var viewingCurrentMonth  = viewedMonth === currentMonth;
-			var viewingCurrentYear   = viewedYear === currentYear;
-			var viewingSelectedMonth = viewedMonth === selectedMonth;
-			var viewingSelectedYear  = viewedYear === selectedYear;
-
-			var daysOfThisMonth  = this._range( 1, lastDayOfMonth + 1 );
-			this.daysOfThisMonth = [];
-
-			for( var i = 0, ii = daysOfThisMonth.length; i < ii; i++) {
-
-				var weekDay      = new Date(viewedYear, viewedMonth, daysOfThisMonth[ i ]).getDay();
-				var weekDayClass = 'weekday';
-
-				if(weekDay === 6 || weekDay === 0) {
-					weekDayClass = 'weekend';
-				}
-				if( weekDay === 1 ) {
-					weekDayClass = '';
-				}
-				weekDayClass += ' weekday' + weekDay;
-
-				if( daysOfThisMonth[ i ] === selectedDay && viewingSelectedMonth && viewingSelectedYear ) {
-					weekDayClass += ' selected';
-				} else if( daysOfThisMonth[ i ] === currentDay && viewingCurrentMonth && viewingCurrentYear ) {
-					weekDayClass += ' today';
-				}
-
-				var dt       = new Date( viewedYear, viewedMonth, daysOfThisMonth[ i ], 0, 0, 0, 0 );
-				weekDayClass += this._processDateRestriction( dt, true );
-
-				this.daysOfThisMonth[ this.daysOfThisMonth.length ] = {
-					'number': daysOfThisMonth[ i ],
-					'class' : weekDayClass
-				};
-			}
-
-			var daysInMonth = this._getDaysInMonth( this.minDate.getFullYear(), this.minDate.getMonth() );
-			for( var j = 0, jj = this.months.length; j < jj; j++ ) {
-
-				this.months[ j ][ 'class' ] = '';
-				if( viewingCurrentYear && j === currentMonth ) {
-					this.months[ j ][ 'class' ] += ' today';
-				}
-				if( j === selectedMonth && viewingSelectedYear ) {
-					this.months[ j ][ 'class' ] += ' selected';
-				}
-
-				var minDt = new Date( viewedYear, j, daysInMonth, 23, 59, 59, 999 );
-				var maxDt = new Date( viewedYear, j, 0, 0, 0, 0, 0 );
-				if( minDt <= this.minDate || maxDt >= this.maxDate ) {
-					if( Boolean( this.options.restrictDateSelection ) ) {
-						this.months[ j ][ 'class' ] += ' restrict';
-					}
-				}
-			}
-
-			this.years  = this._yearRange( this.viewDate);
-			daysInMonth = this._getDaysInMonth( this.minDate.getFullYear(), 11 );
-
-			for( var z = 0, zz = this.years.length; z < zz; z++ ) {
-				if( this.years[ z ].number === currentYear ) {
-					this.years[ z ][ 'class' ] += ' today';
-				}
-				if( this.years[ z ].number === selectedYear ) {
-					this.years[ z ][ 'class' ] += ' selected';
-				}
-
-				var minDt2 = new Date( this.years[ z ].number, 11, daysInMonth, 23, 59, 59, 999);
-				var maxDt2 = new Date( this.years[ z ].number, 0, 0, 0, 0, 0, 0);
-				if( minDt2 <= this.minDate || maxDt2 >= this.maxDate ) {
-					if( Boolean( this.options.restrictDateSelection ) ) {
-						this.years[ z ]['class'] += ' restrict';
-					}
-				}
-			}
-		},
-
-		_updateCss: function() {
-			while( this.options.dropdownWidth % 7 !== 0 ) {
-				this.options.dropdownWidth++;
-			}
-
-			this.$view.css('width', this.options.dropdownWidth + 'px' );
-			this.$header.css('width', this.options.dropdownWidth + 'px' );
-			this.$labelDiv.css('width', ( this.options.dropdownWidth - 60 ) + 'px' );
-			this.$footer.css('width', this.options.dropdownWidth + 'px' );
-			var labelSize     = ( this.options.dropdownWidth * 0.25 );
-			var paddingTop    = Math.round( ( this.options.dropdownWidth - ( labelSize * 3 ) ) / 2 );
-			var paddingBottom = paddingTop;
-			while( paddingBottom + paddingTop + ( labelSize * 3 ) < this.options.dropdownWidth ) {
-				paddingBottom += 0.1;
-			}
-			while( paddingBottom + paddingTop + ( labelSize * 3 ) > this.options.dropdownWidth ) {
-				paddingBottom -= 0.1;
-			}
-
-			paddingTop    = parseInt( paddingTop / 2, 10 );
-			paddingBottom = parseInt( paddingBottom / 2, 10 );
-
-			this.$monthsView.css({
-				'width': this.options.dropdownWidth + 'px',
-				'padding-top': paddingTop + 'px',
-				'padding-bottom': paddingBottom + 'px'
-			});
-
-			this.$yearsView.css({
-				'width': this.options.dropdownWidth + 'px',
-				'padding-top': paddingTop + 'px',
-				'padding-bottom': paddingBottom + 'px'
-			});
-
-			var cellSize       = Math.round( this.options.dropdownWidth / 7.0 ) + 'px';
-			var headerCellSize = Math.round( this.options.dropdownWidth / 7.0 ) + 'px';
-			this._applySize( this.$yearsView.children(), labelSize + 'px' );
-			this._applySize( this.$monthsView.children(), labelSize + 'px' );
-			this._applySize( this.$weekdaysDiv.children(), headerCellSize );
-			this._applySize( this.$lastMonthDiv.children(), cellSize );
-			this._applySize( this.$thisMonthDiv.children(), cellSize );
-			this._applySize( this.$nextMonthDiv.children(), cellSize );
-		},
-
-		_close: function() {
-			this.$input.dropdown( 'toggle' );
-		},
-
-		_select: function( e ) {
-			this.inputParsingTarget = null;
-			if( e.target.className.indexOf( 'restrict' ) > -1 ) {
-				return this._killEvent(e);
-			} else {
-				this._killEvent( e );
-				this._close();
-			}
-
-			this.stagedDate = this.viewDate;
-			this.stagedDate.setDate( parseInt( e.target.innerHTML, 10 ) );
-
-			this.setDate( this.stagedDate );
-			this.done = true;
-		},
-
-		_pickYear: function( e ) {
-			var year = parseInt( $( e.target ).data( 'yearNumber' ), 10 );
-			if( e.target.className.indexOf('restrict') > -1 ) {
-				return this._killEvent(e);
-			}
-
-			this.viewDate = new Date( year, this.viewDate.getMonth(), 1 );
-			this._showView( 2 );
-			this._render();
-
-			return this._killEvent(e);
-		},
-
-		_pickMonth: function( e ) {
-			var month = parseInt( $(e.target).data( 'monthNumber' ), 10 );
-			if( e.target.className.indexOf( 'restrict' ) > -1 ) {
-				return this._killEvent(e);
-			}
-
-			this.viewDate = new Date( this.viewDate.getFullYear(), month, 1 );
-			this._showView( 1 );
-			this._render();
-
-			return this._killEvent(e);
-		},
-
-		_previousSet: function( e ) {
-			this._previous( e, true );
-		},
-
-		_previous: function( e, set ) {
-			if( e.target.className.indexOf( 'restrict' ) > -1 ) {
-				return this._killEvent(e);
-			}
-
-			if( this.options.showDays) {
-				this.viewDate = new Date( this.viewDate.getFullYear(), this.viewDate.getMonth() - 1, 1 );
-			} else if( this.options.showMonths ) {
-				this.viewDate = new Date( this.viewDate.getFullYear() - 1, this.viewDate.getMonth(), 1 );
-			} else if( this.options.showYears ) {
-				this.viewDate = new Date( this.viewDate.getFullYear() - 10, this.viewDate.getMonth(), 1 );
-			}
-
-			if( Boolean( set ) ) {
-				this._select( e );
-			} else {
-				this._render();
-			}
-
-			// return focus to previous button to support keybaord navigation
-			this.$element.find('.left').focus();
-			// move this below 'this._render()' if you want it to go to the previous month when you select a day from the current month
-			return this._killEvent( e );
-		},
-
-		_nextSet: function( e ) {
-			this._next( e, true );
-		},
-
-		_next: function( e, set ) {
-			if( e.target.className.indexOf('restrict') > -1 ) {
-				return this._killEvent(e);
-			}
-
-			if( this.options.showDays ) {
-				this.viewDate = new Date( this.viewDate.getFullYear(), this.viewDate.getMonth() + 1, 1 );
-			} else if( this.options.showMonths ) {
-				this.viewDate = new Date( this.viewDate.getFullYear() + 1, this.viewDate.getMonth(), 1 );
-			} else if( this.options.showYears ) {
-				this.viewDate = new Date( this.viewDate.getFullYear() + 10, this.viewDate.getMonth(), 1 );
-			}
-
-			if( Boolean( set ) ) {
-				this._select( e );
-			} else {
-				this._render();
-			}
-
-			// return focus to next button to support keybaord navigation
-			this.$element.find('.right').focus();
-			// move this below 'this._render()' if you want it to go to the next month when you select a day from the current month
-			return this._killEvent(e);
-		},
-
-		_today: function( e ) {
-			this.viewDate = new Date();
-			this._showView( 1 );
-			this._render();
-			return this._killEvent(e);
-		},
-
-		_emptySpace: function( e ) {
-			if( Boolean( this.done ) ) {
-				this.done = false;
-			}
-			return this._killEvent(e);
-		},
-
-		_monthLabel: function() {
-			return this.options.monthNames[ this.viewDate.getMonth() ];
-		},
-
-		_yearLabel: function() {
-			return this.viewDate.getFullYear();
-		},
-
-		_monthYearLabel: function() {
-			var label;
-			if( this.options.showDays ) {
-				label = this._monthLabel() + ' ' + this._yearLabel();
-			} else if( this.options.showMonths ) {
-				label = this._yearLabel();
-			} else if( this.options.showYears ) {
-				label = this.years[ 0 ].number + ' - ' + this.years[ this.years.length - 1 ].number;
-			}
-			return label;
-		},
-
-		_toggleMonthYearPicker: function( e ) {
-			if( this.options.showDays ) {
-				this._showView( 2 );
-			} else if( this.options.showMonths && !this.options.restrictToYear ) {
-				this._showView( 3 );
-			} else if( this.options.showYears ) {
-				this._showView( 1 );
-			}
-			this._render();
-			return this._killEvent( e );
-		},
-
-		_renderCalendar: function() {
-			var self = this;
-			self._restrictDateSelectionSetup();
-
-			return '<div class="calendar">' +
-				'<div class="header clearfix">' +
-					'<button class="left hover"><span class="leftArrow"></span></button>' +
-					'<button class="right hover"><span class="rightArrow"></span></button>' +
-					'<div class="center hover">' + self._monthYearLabel() + '</div>' +
-				'</div>' +
-				'<div class="daysView" style="' + self._show( self.options.showDays ) + '">' +
-
-					self._repeat( '<div class="weekdays">', self.options.weekdays,
-						function( weekday ) {
-							return '<div>' + weekday + '</div>';
-						}, '</div>' ) +
-
-					self._repeat( '<div class="lastmonth">', self.daysOfLastMonth,
-						function( day ) {
-							if( self.options.restrictLastMonth ) {
-								day['class'] = day['class'].replace('restrict', '') + " restrict";
-							}
-							return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
-						}, '</div>' ) +
-
-					self._repeat( '<div class="thismonth">', self.daysOfThisMonth,
-						function( day ) {
-							return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
-						}, '</div>' ) +
-
-					self._repeat( '<div class="nextmonth">', self.daysOfNextMonth,
-						function( day ) {
-							if( self.options.restrictNextMonth ) {
-								day['class'] = day['class'].replace('restrict', '') + " restrict";
-							}
-							return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
-						}, '</div>' ) +
-				'</div>' +
-
-				self._repeat( '<div class="monthsView" style="' + self._show( self.options.showMonths ) + '">', self.months,
-					function( month ) {
-						return '<button data-month-number="' + month.number +
-							'" class="' + month[ 'class' ] + '">' + month.abbreviation + '</button>';
-					}, '</div>' ) +
-
-				self._repeat( '<div class="yearsView" style="' + self._show( self.options.showYears ) + '">', self.years,
-					function( year ) {
-						return '<button data-year-number="' + year.number +
-							'" class="' + year[ 'class' ] + '">' + year.number + '</button>';
-					}, '</div>' ) +
-
-				'<div class="footer">' +
-					'<div class="center hover">Today</div>' +
-				'</div>' +
-			'</div>';
-		},
-
-		_render: function() {
-			this._insertDateIntoInput();
-			this._updateCalendarData();
-			if ( Boolean( this.bindingsAdded ) ) this._removeBindings();
-			this.$element.find( '.calendar-menu' ).html( this._renderCalendar() );
-			this._initializeCalendarElements();
-			this._addBindings();
-			this._updateCss();
-		},
-
-		_renderWithoutInputManipulation: function() {
-			this._updateCalendarData();
-			if ( Boolean( this.bindingsAdded ) ) this._removeBindings();
-			this.$element.find( '.calendar-menu' ).html( this._renderCalendar() );
-			this._initializeCalendarElements();
-			this._addBindings();
-			this._updateCss();
-		},
-
-		_calculateInputSize: function( options ) {
-			if( Boolean( parseInt( this.options.createInput.inputSize, 10 ) ) ) {
-				return 'style="width:'+ this.options.createInput.inputSize +'px"';
-			} else {
-				options = ( Boolean( options ) ) ? " " + options.join(' ') : '';
-				return 'class="' + this.options.createInput.inputSize + options + '"';
-			}
-
-		},
-
-		_insertDateIntoInput: function( showStagedDate ) {
-			var displayDate;
-			if( Boolean( showStagedDate ) ) {
-				displayDate = this.formatDate( this.stagedDate );
-			} else if( this.date !== null ) {
-				displayDate = this.formatDate( this.date );
-			} else {
-				displayDate = '';
-			}
-			this.$element.find('input[type="text"]').val( displayDate );
-		},
-
-		_inputDateParsing: function() {
-			// the formats we support when using moment.js are either "L" or "l"
-			// these can be found here http://momentjs.com/docs/#/customization/long-date-formats/
-			var inputValue     = this.$input.val();
-			var triggerError   = true;
-			var validLengthMax = 10; // since the length of the longest date format we are going to parse is 10 ("L" format code) we will set this here.
-			var validLengthMin = validLengthMax - 2; // since the shortest date format we are going to parse is 8 ("l" format code) we will subtract the difference from the max
-
-			if( inputValue.length >= validLengthMin && inputValue.length <= validLengthMax ) {
-				if( Boolean( this.parseDate( inputValue, true ) ) ) {
-					if( !this._processDateRestriction( this.parseDate( inputValue ) ) ) {
-						triggerError = false;
-						this.setDate( inputValue );
-					}
-				}
-			} else {
-				triggerError = false; // don't want to trigger an error because they don't have the correct length
-			}
-
-			if( !!triggerError ) {
-				// we will insert the staged date into the input
-				this._setNullDate( true );
-				this.$element.trigger( 'inputParsingFailed.fu.datepicker' );
-			}
-		},
-
-		_checkForMomentJS: function() {
-			// this function get's run on initialization to determin if momentjs is available
-			if( $.isFunction( window.moment ) || ( typeof moment !== "undefined" && $.isFunction( moment ) ) ) {
-				if( $.isPlainObject( this.options.momentConfig ) ) {
-					if( Boolean( this.options.momentConfig.culture ) && Boolean( this.options.momentConfig.formatCode ) ) {
-						return true;
-					} else {
-						return false;
-					}
-				} else {
-					return false;
-				}
-			} else {
-				return false;
-			}
-		},
-
-		_initializeCalendarElements: function() {
-			this.$input        = this.$element.find( 'input[type="text"]' );
-			this.$calendar     = this.$element.find('div.calendar');
-			this.$header       = this.$calendar.children().eq(0);
-			this.$labelDiv     = this.$header.children().eq(2);
-			this.$view         = this.$calendar.children().eq(1);
-			this.$monthsView   = this.$calendar.children().eq(2);
-			this.$yearsView    = this.$calendar.children().eq(3);
-			this.$weekdaysDiv  = this.$view.children().eq(0);
-			this.$lastMonthDiv = this.$view.children().eq(1);
-			this.$thisMonthDiv = this.$view.children().eq(2);
-			this.$nextMonthDiv = this.$view.children().eq(3);
-			this.$footer       = this.$calendar.children().eq(4);
-		},
-
-		_addBindings: function() {
-			var self = this;
-
-			// parsing dates on user input is only available when momentjs is used
-			if( Boolean( this.moment ) ) {
-				this.$calendar.on( 'mouseover.fu.datepicker', function() {
-					self.inputParsingTarget = 'calendar';
-				});
-				this.$calendar.on( 'mouseout.fu.datepicker', function() {
-					self.inputParsingTarget = null;
-				});
-
-				this.$input.on( 'blur.fu.datepicker', function() {
-					if( self.inputParsingTarget === null ) {
-						self._inputDateParsing();
-					}
-				});
-			}
-
-			this.$calendar.on( 'click.fu.datepicker', $.proxy( this._emptySpace, this) );
-
-			if ( this.options.restrictToYear !== this.viewDate.getFullYear() || this.viewDate.getMonth() > 0 ) {
-				this.$header.find( '.left' ).on( 'click.fu.datepicker', $.proxy( this._previous, this ) );
-			} else {
-				this.$header.find( '.left' ).addClass('disabled');
-			}
-
-			if ( this.options.restrictToYear !== this.viewDate.getFullYear() || this.viewDate.getMonth() < 11 ) {
-				this.$header.find( '.right' ).on( 'click.fu.datepicker', $.proxy( this._next, this ) );
-			} else {
-				this.$header.find( '.right' ).addClass('disabled');
-			}
-
-			this.$header.find( '.center' ).on( 'click.fu.datepicker', $.proxy( this._toggleMonthYearPicker, this ) );
-
-			this.$lastMonthDiv.find( 'button' ).on( 'click.fu.datepicker', $.proxy( this._previousSet, this ) );
-			this.$thisMonthDiv.find( 'button' ).on( 'click.fu.datepicker', $.proxy( this._select, this ) );
-			this.$nextMonthDiv.find( 'button' ).on( 'click.fu.datepicker', $.proxy( this._nextSet, this ) );
-
-			this.$monthsView.find( 'button' ).on( 'click.fu.datepicker', $.proxy( this._pickMonth, this ) );
-			this.$yearsView.find( 'button' ).on( 'click.fu.datepicker', $.proxy( this._pickYear, this ) );
-			this.$footer.find( '.center' ).on( 'click.fu.datepicker', $.proxy( this._today, this ) );
-
-			this.bindingsAdded = true;
-		},
-
-		_removeBindings: function() {
-			// remove event only if moment is available (meaning it was initialized in the first place)
-			if( Boolean( this.moment ) ) {
-				this.$calendar.off( 'mouseover' );
-				this.$calendar.off( 'mouseout' );
-				this.$input.off( 'blur' );
-			}
-
-			this.$calendar.off( 'click' );
-
-			this.$header.find( '.left' ).off( 'click' );
-			this.$header.find( '.right' ).off( 'click' );
-			this.$header.find( '.center' ).off( 'click' );
-
-			this.$lastMonthDiv.find( 'button' ).off( 'click' );
-			this.$thisMonthDiv.find( 'button' ).off( 'click' );
-			this.$nextMonthDiv.find( 'button' ).off( 'click' );
-
-			this.$monthsView.find( 'button' ).off( 'click' );
-			this.$yearsView.find( 'button' ).off( 'click' );
-			this.$footer.find( '.center' ).off( 'click' );
-
-			this.bindingsAdded = false;
+		yearClicked: function(e){
+			this.$wheelsYear.find('.selected').removeClass('selected');
+			$(e.currentTarget).parent().addClass('selected');
 		}
 	};
 
@@ -967,10 +624,10 @@
 
 		var $set = this.each(function () {
 			var $this   = $( this );
-			var data    = $this.data( 'fu.datepicker' );
+			var data    = $this.data( 'datepicker' );
 			var options = typeof option === 'object' && option;
 
-			if( !data ) $this.data('fu.datepicker', (data = new Datepicker( this, options ) ) );
+			if( !data ) $this.data('datepicker', (data = new Datepicker( this, options ) ) );
 			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
@@ -978,13 +635,16 @@
 	};
 
 	$.fn.datepicker.defaults = {
+		allowPastDates: false,
 		date: new Date(),
+		formatDate: null,
 		momentConfig: {
 			culture: 'en',
-			formatCode: 'L' // more formats can be found here http://momentjs.com/docs/#/customization/long-date-formats/. We only support "L" or "l"
+			format: 'L'	// more formats can be found here http://momentjs.com/docs/#/customization/long-date-formats/.
 		},
-		dropdownWidth: 170,
-		restrictDateSelection: true
+		parseDate: null,
+		restricted: [],	//accepts an array of objects formatted as so: { from: {{date}}, to: {{date}} }  (ex: [ { from: new Date('12/11/2014'), to: new Date('03/31/2015') } ])
+		sameYearOnly: false
 	};
 
 	$.fn.datepicker.Constructor = Datepicker;
@@ -995,24 +655,34 @@
 	};
 
 	// DATA-API
-	// 
-	// 
 
 	$(document).on('mousedown.fu.datepicker.data-api', '[data-initialize=datepicker]', function (e) {
 		var $control = $(e.target).closest('.datepicker');
-		if ( !$control.data('fu.datepicker') ) {
+		if(!$control.data('datepicker')) {
 			$control.datepicker($control.data());
 		}
+	});
+
+	//used to prevent the dropdown from closing when clicking within it's bounds
+	$(document).on('click.fu.datepicker.data-api', '.datepicker-dropdown', function (e) {
+		var $target = $(e.target);
+		if(!$target.is('a.datepicker-date')){
+			e.stopPropagation();
+		}
+	});
+
+	//used to prevent the dropdown from closing when clicking on the input
+	$(document).on('click.fu.datepicker.data-api', '.datepicker input', function(e){
+		e.stopPropagation();
 	});
 
 	$(function () {
 		$('[data-initialize=datepicker]').each(function () {
 			var $this = $(this);
-			if ($this.data('fu.datepicker')) return;
+			if($this.data('datepicker')){ return; }
 			$this.datepicker($this.data());
 		});
 	});
-
 
 // -- BEGIN UMD WRAPPER AFTERWORD --
 }));

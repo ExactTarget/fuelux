@@ -59,15 +59,12 @@ define(function(require){
 
 
 	// DATEPICKER
-	// $('#datepicker1').datepicker({
-	//		restrictDateSelection: false
-	// });
 
 	$('#MyDatepicker1').on('changed.fu.datepicker', function( event, data ) {
 		console.log( 'datepicker change event fired' );
 	});
 
-	$('#MyDatepicker1').on('inputParsingFailed', function() {
+	$('#MyDatepicker1').on('inputParsingFailed.fu.datepicker', function() {
 		console.log( 'datepicker inputParsingFailed event fired' );
 	});
 
@@ -81,10 +78,6 @@ define(function(require){
 
 	$('#btnDatepickerLogFormattedDate').on('click', function() {
 		console.log( $('#MyDatepicker1').datepicker('getFormattedDate') );
-	});
-
-	$('#btnDatepickerLogDateUnix').on('click', function() {
-		console.log( $('#MyDatepicker1').datepicker('getDate', { unix: true } ) );
 	});
 
 	$('#btnDatepickerLogDateObj').on('click', function() {
