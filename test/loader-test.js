@@ -80,8 +80,16 @@ define(function(require){
 		$loader.loader();
 		$loader.loader('pause');
 		$loader.loader('next');
-		$loader.loader('prev');
+		$loader.loader('previous');
 
 		equal($loader.attr('data-frame'), 1, 'prev decrements frame by 1');
 	});
+
+	test("should destroy control", function () {
+		var $el = $(html);
+
+		equal(typeof( $el.loader('destroy')) , 'string', 'returns string (markup)');
+		equal( $el.parent().length, false, 'control has been removed from DOM');
+	});
+
 });

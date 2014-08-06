@@ -137,6 +137,17 @@
 
 		constructor: Datepicker,
 
+		destroy: function() {
+			this.$element.remove();
+			// any external bindings 
+			// [none]
+
+			// empty elements to return to original markup
+			this.$element.find('.calendar-menu').empty();
+
+			return this.$element[0].outerHTML;
+		},
+
 		// functions that can be called on object
 		disable: function() {
 			this.$element.addClass('disabled');
@@ -956,10 +967,10 @@
 
 		var $set = this.each(function () {
 			var $this   = $( this );
-			var data    = $this.data( 'datepicker' );
+			var data    = $this.data( 'fu.datepicker' );
 			var options = typeof option === 'object' && option;
 
-			if( !data ) $this.data('datepicker', (data = new Datepicker( this, options ) ) );
+			if( !data ) $this.data('fu.datepicker', (data = new Datepicker( this, options ) ) );
 			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
@@ -989,7 +1000,7 @@
 
 	$(document).on('mousedown.fu.datepicker.data-api', '[data-initialize=datepicker]', function (e) {
 		var $control = $(e.target).closest('.datepicker');
-		if ( !$control.data('datepicker') ) {
+		if ( !$control.data('fu.datepicker') ) {
 			$control.datepicker($control.data());
 		}
 	});
@@ -997,7 +1008,7 @@
 	$(function () {
 		$('[data-initialize=datepicker]').each(function () {
 			var $this = $(this);
-			if ($this.data('datepicker')) return;
+			if ($this.data('fu.datepicker')) return;
 			$this.datepicker($this.data());
 		});
 	});

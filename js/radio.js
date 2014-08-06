@@ -12,17 +12,17 @@
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        // if AMD loader is available, register as an anonymous module.
-         define(['jquery'], factory);
-    } else {
-        // OR use browser globals if AMD is not present
-        factory(jQuery);
-    }
+		if (typeof define === 'function' && define.amd) {
+				// if AMD loader is available, register as an anonymous module.
+				define(['jquery'], factory);
+		} else {
+				// OR use browser globals if AMD is not present
+				factory(jQuery);
+		}
 }(function ($) {
-    // -- END UMD WRAPPER PREFACE --
-        
-    // -- BEGIN MODULE CODE HERE --
+		// -- END UMD WRAPPER PREFACE --
+				
+		// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.radio;
 
@@ -57,6 +57,16 @@
 	Radio.prototype = {
 
 		constructor: Radio,
+
+		destroy: function() {
+			this.$parent.remove();
+			// remove any external bindings
+			// [none]
+			// empty elements to return to original markup
+			// [none]
+			// return string of markup
+			return this.$parent[0].outerHTML;
+		},
 
 		setState: function ($radio) {
 			$radio = $radio || this.$radio;
@@ -167,10 +177,10 @@
 
 		var $set = this.each(function () {
 			var $this   = $( this );
-			var data    = $this.data( 'radio' );
+			var data    = $this.data('fu.radio');
 			var options = typeof option === 'object' && option;
 
-			if( !data ) $this.data('radio', (data = new Radio( this, options ) ) );
+			if( !data ) $this.data('fu.radio', (data = new Radio( this, options ) ) );
 			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
@@ -191,7 +201,7 @@
 
 	$(document).on('mouseover.fu.checkbox.data-api', '[data-initialize=radio]', function (e) {
 		var $control = $(e.target).closest('.radio').find('[type=radio]');
-		if ( !$control.data('radio') ) {
+		if ( !$control.data('fu.radio') ) {
 			$control.radio($control.data());
 		}
 	});
@@ -200,11 +210,11 @@
 	$(function () {
 		$('[data-initialize=radio] [type=radio]').each(function () {
 			var $this = $(this);
-			if ($this.data('radio')) return;
+			if ($this.data('fu.radio')) return;
 			$this.radio($this.data());
 		});
 	});
 
 // -- BEGIN UMD WRAPPER AFTERWORD --
 }));
-    // -- END UMD WRAPPER AFTERWORD --
+		// -- END UMD WRAPPER AFTERWORD --

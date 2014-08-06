@@ -144,6 +144,15 @@
 				this.setState( $( element.target ) );
 			},
 
+			destroy: function() {
+				this.$parent.remove();
+				// remove any external bindings
+				// [none]
+				// empty elements to return to original markup
+				// [none]
+				return this.$parent[ 0 ].outerHTML;
+			},
+
 			_resetClasses: function() {
 				var classesToRemove = [];
 
@@ -206,11 +215,11 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'checkbox' );
+				var data = $this.data( 'fu.checkbox' );
 				var options = typeof option === 'object' && option;
 
 				if ( !data ) {
-					$this.data( 'checkbox', ( data = new Checkbox( this, options ) ) );
+					$this.data( 'fu.checkbox', ( data = new Checkbox( this, options ) ) );
 				}
 
 				if ( typeof option === 'string' ) {
@@ -234,7 +243,7 @@
 
 		$( document ).on( 'mouseover.fu.checkbox.data-api', '[data-initialize=checkbox]', function( e ) {
 			var $control = $( e.target ).closest( '.checkbox' ).find( '[type=checkbox]' );
-			if ( !$control.data( 'checkbox' ) ) {
+			if ( !$control.data( 'fu.checkbox' ) ) {
 				$control.checkbox( $control.data() );
 			}
 		} );
@@ -243,7 +252,7 @@
 		$( function() {
 			$( '[data-initialize=checkbox] [type=checkbox]' ).each( function() {
 				var $this = $( this );
-				if ( !$this.data( 'checkbox' ) ) {
+				if ( !$this.data( 'fu.checkbox' ) ) {
 					$this.checkbox( $this.data() );
 				}
 			} );
@@ -288,6 +297,22 @@
 		Combobox.prototype = {
 
 			constructor: Combobox,
+
+			destroy: function() {
+				this.$element.remove();
+				// remove any external bindings
+				// [none]
+
+				// set input value attrbute in markup
+				this.$element.find( 'input' ).each( function() {
+					$( this ).attr( 'value', $( this ).val() );
+				} );
+
+				// empty elements to return to original markup
+				// [none]
+
+				return this.$element[ 0 ].outerHTML;
+			},
 
 			doSelect: function( $item ) {
 				if ( typeof $item[ 0 ] !== 'undefined' ) {
@@ -422,10 +447,10 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'combobox' );
+				var data = $this.data( 'fu.combobox' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'combobox', ( data = new Combobox( this, options ) ) );
+				if ( !data ) $this.data( 'fu.combobox', ( data = new Combobox( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -446,7 +471,7 @@
 
 		$( document ).on( 'mousedown.fu.combobox.data-api', '[data-initialize=combobox]', function( e ) {
 			var $control = $( e.target ).closest( '.combobox' );
-			if ( !$control.data( 'combobox' ) ) {
+			if ( !$control.data( 'fu.combobox' ) ) {
 				$control.combobox( $control.data() );
 			}
 		} );
@@ -455,7 +480,7 @@
 		$( function() {
 			$( '[data-initialize=combobox]' ).each( function() {
 				var $this = $( this );
-				if ( !$this.data( 'combobox' ) ) {
+				if ( !$this.data( 'fu.combobox' ) ) {
 					$this.combobox( $this.data() );
 				}
 			} );
@@ -626,6 +651,17 @@
 		Datepicker.prototype = {
 
 			constructor: Datepicker,
+
+			destroy: function() {
+				this.$element.remove();
+				// any external bindings 
+				// [none]
+
+				// empty elements to return to original markup
+				this.$element.find( '.calendar-menu' ).empty();
+
+				return this.$element[ 0 ].outerHTML;
+			},
 
 			// functions that can be called on object
 			disable: function() {
@@ -1221,46 +1257,46 @@
 					'</div>' +
 					'<div class="daysView" style="' + self._show( self.options.showDays ) + '">' +
 
-				self._repeat( '<div class="weekdays">', self.options.weekdays,
-					function( weekday ) {
-						return '<div>' + weekday + '</div>';
-					}, '</div>' ) +
+					self._repeat( '<div class="weekdays">', self.options.weekdays,
+						function( weekday ) {
+							return '<div>' + weekday + '</div>';
+						}, '</div>' ) +
 
-				self._repeat( '<div class="lastmonth">', self.daysOfLastMonth,
-					function( day ) {
-						if ( self.options.restrictLastMonth ) {
-							day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
-						}
-						return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
-					}, '</div>' ) +
+					self._repeat( '<div class="lastmonth">', self.daysOfLastMonth,
+						function( day ) {
+							if ( self.options.restrictLastMonth ) {
+								day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
+							}
+							return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
+						}, '</div>' ) +
 
-				self._repeat( '<div class="thismonth">', self.daysOfThisMonth,
-					function( day ) {
-						return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
-					}, '</div>' ) +
+					self._repeat( '<div class="thismonth">', self.daysOfThisMonth,
+						function( day ) {
+							return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
+						}, '</div>' ) +
 
-				self._repeat( '<div class="nextmonth">', self.daysOfNextMonth,
-					function( day ) {
-						if ( self.options.restrictNextMonth ) {
-							day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
-						}
-						return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
-					}, '</div>' ) +
+					self._repeat( '<div class="nextmonth">', self.daysOfNextMonth,
+						function( day ) {
+							if ( self.options.restrictNextMonth ) {
+								day[ 'class' ] = day[ 'class' ].replace( 'restrict', '' ) + " restrict";
+							}
+							return '<button class="' + day[ 'class' ] + '">' + day.number + '</button>';
+						}, '</div>' ) +
 					'</div>' +
 
-				self._repeat( '<div class="monthsView" style="' + self._show( self.options.showMonths ) + '">', self.months,
-					function( month ) {
-						return '<button data-month-number="' + month.number +
-							'" class="' + month[ 'class' ] + '">' + month.abbreviation + '</button>';
-					}, '</div>' ) +
+					self._repeat( '<div class="monthsView" style="' + self._show( self.options.showMonths ) + '">', self.months,
+						function( month ) {
+							return '<button data-month-number="' + month.number +
+								'" class="' + month[ 'class' ] + '">' + month.abbreviation + '</button>';
+						}, '</div>' ) +
 
-				self._repeat( '<div class="yearsView" style="' + self._show( self.options.showYears ) + '">', self.years,
-					function( year ) {
-						return '<button data-year-number="' + year.number +
-							'" class="' + year[ 'class' ] + '">' + year.number + '</button>';
-					}, '</div>' ) +
+					self._repeat( '<div class="yearsView" style="' + self._show( self.options.showYears ) + '">', self.years,
+						function( year ) {
+							return '<button data-year-number="' + year.number +
+								'" class="' + year[ 'class' ] + '">' + year.number + '</button>';
+						}, '</div>' ) +
 
-				'<div class="footer">' +
+					'<div class="footer">' +
 					'<div class="center hover">Today</div>' +
 					'</div>' +
 					'</div>';
@@ -1326,7 +1362,7 @@
 					triggerError = false; // don't want to trigger an error because they don't have the correct length
 				}
 
-				if ( !! triggerError ) {
+				if ( !!triggerError ) {
 					// we will insert the staged date into the input
 					this._setNullDate( true );
 					this.$element.trigger( 'inputParsingFailed.fu.datepicker' );
@@ -1446,10 +1482,10 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'datepicker' );
+				var data = $this.data( 'fu.datepicker' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'datepicker', ( data = new Datepicker( this, options ) ) );
+				if ( !data ) $this.data( 'fu.datepicker', ( data = new Datepicker( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -1479,7 +1515,7 @@
 
 		$( document ).on( 'mousedown.fu.datepicker.data-api', '[data-initialize=datepicker]', function( e ) {
 			var $control = $( e.target ).closest( '.datepicker' );
-			if ( !$control.data( 'datepicker' ) ) {
+			if ( !$control.data( 'fu.datepicker' ) ) {
 				$control.datepicker( $control.data() );
 			}
 		} );
@@ -1487,7 +1523,7 @@
 		$( function() {
 			$( '[data-initialize=datepicker]' ).each( function() {
 				var $this = $( this );
-				if ( $this.data( 'datepicker' ) ) return;
+				if ( $this.data( 'fu.datepicker' ) ) return;
 				$this.datepicker( $this.data() );
 			} );
 		} );
@@ -1512,16 +1548,15 @@
 
 		// -- BEGIN MODULE CODE HERE --
 
-		$( document.body ).on( "click.fu.dropdown-autoflip", "[data-toggle=dropdown][data-flip]", function( event ) {
-
+		$( document.body ).on( 'click.fu.dropdown-autoflip', '[data-toggle=dropdown][data-flip]', function( event ) {
 			if ( $( this ).data().flip === "auto" ) {
 				// have the drop down decide where to place itself
 				_autoFlip( $( this ).next( '.dropdown-menu' ) );
 			}
 		} );
 
-		//Intelligent suggestions dropdown from pillbox
-		$( document.body ).on( "suggested.fu.pillbox", function( event, element ) {
+		// For pillbox suggestions dropdown 
+		$( document.body ).on( 'suggested.fu.pillbox', function( event, element ) {
 			_autoFlip( $( element ) );
 			$( element ).parent().addClass( 'open' );
 		} );
@@ -1557,7 +1592,7 @@
 			measurements.containerHeight = $container.overflowElement.outerHeight();
 
 			// this needs to be different if the window is the container or another element is
-			measurements.containerOffsetTop = ( !! $container.isWindow ) ? $container.overflowElement.scrollTop() : $container.overflowElement.offset().top;
+			measurements.containerOffsetTop = ( !!$container.isWindow ) ? $container.overflowElement.scrollTop() : $container.overflowElement.offset().top;
 
 			// doing the calculations
 			measurements.fromTop = measurements.parentOffsetTop - measurements.containerOffsetTop;
@@ -1648,6 +1683,16 @@
 
 			constructor: Loader,
 
+			destroy: function() {
+				this.$element.remove();
+				// any external bindings
+				// [none]
+				// empty elements to return to original markup
+				// [none]
+				// returns string of markup
+				return this.$element[ 0 ].outerHTML;
+			},
+
 			ieRepaint: function() {
 				if ( this.isIElt9 ) {
 					this.$element.addClass( 'iefix_repaint' ).removeClass( 'iefix_repaint' );
@@ -1686,7 +1731,7 @@
 				}, this.delay );
 			},
 
-			prev: function() {
+			previous: function() {
 				this.frame--;
 				if ( this.frame < this.begin ) {
 					this.frame = this.end;
@@ -1711,10 +1756,10 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'loader' );
+				var data = $this.data( 'fu.loader' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'loader', ( data = new Loader( this, options ) ) );
+				if ( !data ) $this.data( 'fu.loader', ( data = new Loader( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -1735,7 +1780,7 @@
 		$( function() {
 			$( '[data-initialize=loader]' ).each( function() {
 				var $this = $( this );
-				if ( !$this.data( 'loader' ) ) {
+				if ( !$this.data( 'fu.loader' ) ) {
 					$this.loader( $this.data() );
 				}
 			} );
@@ -1811,6 +1856,20 @@
 					this.$element.trigger( action, obj );
 					this.hide();
 				}
+			},
+
+			destroy: function() {
+				this.$element.remove();
+				// remove any external bindings
+				$( document ).off( 'click.fu.placard.externalClick.' + this.clickStamp );
+				// set input value attrbute
+				this.$element.find( 'input' ).each( function() {
+					$( this ).attr( 'value', $( this ).val() );
+				} );
+				// empty elements to return to original markup
+				// [none]
+				// return string of markup
+				return this.$element[ 0 ].outerHTML;
 			},
 
 			ellipsis: function() {
@@ -1895,7 +1954,7 @@
 				}
 				other = $( document ).find( '.placard.showing' );
 				if ( other.length > 0 ) {
-					if ( other.data( 'placard' ) && other.data( 'placard' ).options.explicit ) {
+					if ( other.data( 'fu.placard' ) && other.data( 'fu.placard' ).options.explicit ) {
 						return;
 					}
 					other.placard( 'externalClickListener', {}, true );
@@ -1930,10 +1989,10 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'placard' );
+				var data = $this.data( 'fu.placard' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'placard', ( data = new Placard( this, options ) ) );
+				if ( !data ) $this.data( 'fu.placard', ( data = new Placard( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -1960,7 +2019,7 @@
 
 		$( document ).on( 'focus.fu.placard.data-api', '[data-initialize=placard]', function( e ) {
 			var $control = $( e.target ).closest( '.placard' );
-			if ( !$control.data( 'placard' ) ) {
+			if ( !$control.data( 'fu.placard' ) ) {
 				$control.placard( $control.data() );
 			}
 		} );
@@ -1969,7 +2028,7 @@
 		$( function() {
 			$( '[data-initialize=placard]' ).each( function() {
 				var $this = $( this );
-				if ( $this.data( 'placard' ) ) return;
+				if ( $this.data( 'fu.placard' ) ) return;
 				$this.placard( $this.data() );
 			} );
 		} );
@@ -2027,11 +2086,21 @@
 
 			constructor: Radio,
 
+			destroy: function() {
+				this.$parent.remove();
+				// remove any external bindings
+				// [none]
+				// empty elements to return to original markup
+				// [none]
+				// return string of markup
+				return this.$parent[ 0 ].outerHTML;
+			},
+
 			setState: function( $radio ) {
 				$radio = $radio || this.$radio;
 
 				var checked = $radio.is( ':checked' );
-				var disabled = !! $radio.prop( 'disabled' );
+				var disabled = !!$radio.prop( 'disabled' );
 
 				this.$label.removeClass( 'checked' );
 				if ( this.$parent ) {
@@ -2136,10 +2205,10 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'radio' );
+				var data = $this.data( 'fu.radio' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'radio', ( data = new Radio( this, options ) ) );
+				if ( !data ) $this.data( 'fu.radio', ( data = new Radio( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -2160,7 +2229,7 @@
 
 		$( document ).on( 'mouseover.fu.checkbox.data-api', '[data-initialize=radio]', function( e ) {
 			var $control = $( e.target ).closest( '.radio' ).find( '[type=radio]' );
-			if ( !$control.data( 'radio' ) ) {
+			if ( !$control.data( 'fu.radio' ) ) {
 				$control.radio( $control.data() );
 			}
 		} );
@@ -2169,7 +2238,7 @@
 		$( function() {
 			$( '[data-initialize=radio] [type=radio]' ).each( function() {
 				var $this = $( this );
-				if ( $this.data( 'radio' ) ) return;
+				if ( $this.data( 'fu.radio' ) ) return;
 				$this.radio( $this.data() );
 			} );
 		} );
@@ -2214,6 +2283,20 @@
 		Search.prototype = {
 
 			constructor: Search,
+
+			destroy: function() {
+				this.$element.remove();
+				// any external bindings
+				// [none]
+				// set input value attrbute
+				this.$element.find( 'input' ).each( function() {
+					$( this ).attr( 'value', $( this ).val() );
+				} );
+				// empty elements to return to original markup
+				// [none]
+				// returns string of markup
+				return this.$element[ 0 ].outerHTML;
+			},
 
 			search: function( searchText ) {
 				this.$icon.attr( 'class', 'glyphicon glyphicon-remove' );
@@ -2287,10 +2370,10 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'search' );
+				var data = $this.data( 'fu.search' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'search', ( data = new Search( this, options ) ) );
+				if ( !data ) $this.data( 'fu.search', ( data = new Search( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -2311,7 +2394,7 @@
 
 		$( document ).on( 'mousedown.fu.search.data-api', '[data-initialize=search]', function( e ) {
 			var $control = $( e.target ).closest( '.search' );
-			if ( !$control.data( 'search' ) ) {
+			if ( !$control.data( 'fu.search' ) ) {
 				$control.search( $control.data() );
 			}
 		} );
@@ -2320,7 +2403,7 @@
 		$( function() {
 			$( '[data-initialize=search]' ).each( function() {
 				var $this = $( this );
-				if ( $this.data( 'search' ) ) return;
+				if ( $this.data( 'fu.search' ) ) return;
 				$this.search( $this.data() );
 			} );
 		} );
@@ -2366,10 +2449,33 @@
 
 			constructor: Selectlist,
 
+			destroy: function() {
+				this.$element.remove();
+				// any external bindings
+				// [none]
+				// empty elements to return to original markup
+				// [none]
+				// returns string of markup
+				return this.$element[ 0 ].outerHTML;
+			},
+
 			doSelect: function( $item ) {
-				this.$selectedItem = $item;
+				var $selectedItem;
+				this.$selectedItem = $selectedItem = $item;
+
 				this.$hiddenField.val( this.$selectedItem.attr( 'data-value' ) );
 				this.$label.text( this.$selectedItem.text() );
+
+				// clear and set selected item to allow declarative init state
+				// unlike other controls, selectlist's value is stored internal, not in an input
+				this.$element.find( 'li' ).each( function() {
+					if ( $selectedItem.is( $( this ) ) ) {
+						$( this ).attr( 'data-selected', true );
+					} else {
+						$( this ).removeData( 'selected' ).removeAttr( 'data-selected' );
+					}
+				} );
+
 			},
 
 			itemClicked: function( e ) {
@@ -2388,11 +2494,8 @@
 			},
 
 			itemChanged: function( e ) {
-				this.$selectedItem = $( e.target ).parent();
 
-				// store value in hidden field for form submission
-				this.$hiddenField.val( this.$selectedItem.attr( 'data-value' ) );
-				this.$label.text( this.$selectedItem.text() );
+				this.doSelect( $( e.target ).parent() );
 
 				// pass object including text and any data-attributes
 				// to onchange event
@@ -2472,8 +2575,6 @@
 				} else {
 					// select by data-attribute
 					this.selectBySelector( selector );
-					item.removeData( 'selected' );
-					item.removeAttr( 'data-selected' );
 				}
 			},
 
@@ -2498,10 +2599,10 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'selectlist' );
+				var data = $this.data( 'fu.selectlist' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'selectlist', ( data = new Selectlist( this, options ) ) );
+				if ( !data ) $this.data( 'fu.selectlist', ( data = new Selectlist( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -2522,7 +2623,7 @@
 
 		$( document ).on( 'mousedown.fu.selectlist.data-api', '[data-initialize=selectlist]', function( e ) {
 			var $control = $( e.target ).closest( '.selectlist' );
-			if ( !$control.data( 'selectlist' ) ) {
+			if ( !$control.data( 'fu.selectlist' ) ) {
 				$control.selectlist( $control.data() );
 			}
 		} );
@@ -2531,7 +2632,7 @@
 		$( function() {
 			$( '[data-initialize=selectlist]' ).each( function() {
 				var $this = $( this );
-				if ( !$this.data( 'selectlist' ) ) {
+				if ( !$this.data( 'fu.selectlist' ) ) {
 					$this.selectlist( $this.data() );
 				}
 			} );
@@ -2614,6 +2715,20 @@
 
 		Spinbox.prototype = {
 			constructor: Spinbox,
+
+			destroy: function() {
+				this.$element.remove();
+				// any external bindings
+				// [none]
+				// set input value attrbute
+				this.$element.find( 'input' ).each( function() {
+					$( this ).attr( 'value', $( this ).val() );
+				} );
+				// empty elements to return to original markup
+				// [none]
+				// returns string of markup
+				return this.$element[ 0 ].outerHTML;
+			},
 
 			render: function() {
 				var inputValue = this.parseInput( this.$input.val() );
@@ -2899,11 +3014,11 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'spinbox' );
+				var data = $this.data( 'fu.spinbox' );
 				var options = typeof option === 'object' && option;
 
 				if ( !data ) {
-					$this.data( 'spinbox', ( data = new Spinbox( this, options ) ) );
+					$this.data( 'fu.spinbox', ( data = new Spinbox( this, options ) ) );
 				}
 				if ( typeof option === 'string' ) {
 					methodReturn = data[ option ].apply( data, args );
@@ -2939,7 +3054,7 @@
 
 		$( document ).on( 'mousedown.fu.spinbox.data-api', '[data-initialize=spinbox]', function( e ) {
 			var $control = $( e.target ).closest( '.spinbox' );
-			if ( !$control.data( 'spinbox' ) ) {
+			if ( !$control.data( 'fu.spinbox' ) ) {
 				$control.spinbox( $control.data() );
 			}
 		} );
@@ -2948,7 +3063,7 @@
 		$( function() {
 			$( '[data-initialize=spinbox]' ).each( function() {
 				var $this = $( this );
-				if ( !$this.data( 'spinbox' ) ) {
+				if ( !$this.data( 'fu.spinbox' ) ) {
 					$this.spinbox( $this.data() );
 				}
 			} );
@@ -3004,6 +3119,16 @@
 		Tree.prototype = {
 			constructor: Tree,
 
+			destroy: function() {
+				// any external bindings [none]
+				// empty elements to return to original markup
+				this.$element.find( "li:not([data-template])" ).remove();
+
+				this.$element.remove();
+				// returns string of markup
+				return this.$element[ 0 ].outerHTML;
+			},
+
 			render: function() {
 				this.populate( this.$element );
 			},
@@ -3021,11 +3146,11 @@
 						var $entity;
 
 						if ( value.type === 'folder' ) {
-							$entity = self.$element.find( '.tree-branch:eq(0)' ).clone().removeClass( 'hide' );
+							$entity = self.$element.find( '[data-template=treebranch]:eq(0)' ).clone().removeClass( 'hide' ).removeAttr( 'data-template' );
 							$entity.data( value );
 							$entity.find( '.tree-branch-name > .tree-label' ).html( value.name );
 						} else if ( value.type === 'item' ) {
-							$entity = self.$element.find( '.tree-item:eq(0)' ).clone().removeClass( 'hide' );
+							$entity = self.$element.find( '[data-template=treeitem]:eq(0)' ).clone().removeClass( 'hide' ).removeAttr( 'data-template' );
 							$entity.find( '.tree-item-name > .tree-label' ).html( value.name );
 							$entity.data( value );
 						}
@@ -3285,10 +3410,10 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'tree' );
+				var data = $this.data( 'fu.tree' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'tree', ( data = new Tree( this, options ) ) );
+				if ( !data ) $this.data( 'fu.tree', ( data = new Tree( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -3366,6 +3491,14 @@
 		Wizard.prototype = {
 
 			constructor: Wizard,
+
+			destroy: function() {
+				this.$element.remove();
+				// any external bindings [none]
+				// empty elements to return to original markup [none]
+				// returns string of markup
+				return this.$element[ 0 ].outerHTML;
+			},
 
 			//index is 1 based
 			//second parameter can be array of objects [{ ... }, { ... }] or you can pass n additional objects as args
@@ -3678,10 +3811,10 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'wizard' );
+				var data = $this.data( 'fu.wizard' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'wizard', ( data = new Wizard( this, options ) ) );
+				if ( !data ) $this.data( 'fu.wizard', ( data = new Wizard( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -3707,7 +3840,7 @@
 
 		$( document ).on( 'mouseover.fu.wizard.data-api', '[data-initialize=wizard]', function( e ) {
 			var $control = $( e.target ).closest( '.wizard' );
-			if ( !$control.data( 'wizard' ) ) {
+			if ( !$control.data( 'fu.wizard' ) ) {
 				$control.wizard( $control.data() );
 			}
 		} );
@@ -3716,7 +3849,7 @@
 		$( function() {
 			$( '[data-initialize=wizard]' ).each( function() {
 				var $this = $( this );
-				if ( $this.data( 'wizard' ) ) return;
+				if ( $this.data( 'fu.wizard' ) ) return;
 				$this.wizard( $this.data() );
 			} );
 		} );
@@ -3758,6 +3891,17 @@
 		InfiniteScroll.prototype = {
 
 			constructor: InfiniteScroll,
+
+			destroy: function() {
+				this.$element.remove();
+				// any external bindings
+				// [none]
+
+				// empty elements to return to original markup
+				this.$element.empty();
+
+				return this.$element[ 0 ].outerHTML;
+			},
 
 			disable: function() {
 				this.$element.off( 'scroll.fu.infinitescroll' );
@@ -3852,7 +3996,7 @@
 				var data = $this.data( 'infinitescroll' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'infinitescroll', ( data = new InfiniteScroll( this, options ) ) );
+				if ( !data ) $this.data( 'fu.infinitescroll', ( data = new InfiniteScroll( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -3938,6 +4082,16 @@
 
 		Pillbox.prototype = {
 			constructor: Pillbox,
+
+			destroy: function() {
+				this.$element.remove();
+				// any external bindings
+				// [none]
+				// empty elements to return to original markup
+				// [none]
+				// returns string of markup
+				return this.$element[ 0 ].outerHTML;
+			},
 
 			items: function() {
 				var self = this;
@@ -4477,10 +4631,10 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'pillbox' );
+				var data = $this.data( 'fu.pillbox' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'pillbox', ( data = new Pillbox( this, options ) ) );
+				if ( !data ) $this.data( 'fu.pillbox', ( data = new Pillbox( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -4532,7 +4686,7 @@
 
 		$( document ).on( 'mousedown.fu.pillbox.data-api', '[data-initialize=pillbox]', function( e ) {
 			var $control = $( e.target ).closest( '.pillbox' );
-			if ( !$control.data( 'pillbox' ) ) {
+			if ( !$control.data( 'fu.pillbox' ) ) {
 				$control.pillbox( $control.data() );
 			}
 		} );
@@ -4541,7 +4695,7 @@
 		$( function() {
 			$( '[data-initialize=pillbox]' ).each( function() {
 				var $this = $( this );
-				if ( $this.data( 'pillbox' ) ) return;
+				if ( $this.data( 'fu.pillbox' ) ) return;
 				$this.pillbox( $this.data() );
 			} );
 		} );
@@ -4590,6 +4744,7 @@
 			this.$viewport = this.$element.find( '.repeater-viewport' );
 			this.$views = this.$element.find( '.repeater-views' );
 
+			this.eventStamp = new Date().getTime() + ( Math.floor( Math.random() * 100 ) + 1 );
 			this.currentPage = 0;
 			this.currentView = null;
 			this.infiniteScrollingCallback = function() {};
@@ -4632,7 +4787,8 @@
 			} );
 			this.$views.find( 'input' ).on( 'change.fu.repeater', $.proxy( this.viewChanged, this ) );
 
-			$( window ).on( 'resize.fu.repeater.window', function() {
+			// ID needed since event is bound to instance
+			$( window ).on( 'resize.fu.repeater.' + this.eventStamp, function( event ) {
 				clearTimeout( self.resizeTimeout );
 				self.resizeTimeout = setTimeout( function() {
 					self.resize();
@@ -4682,6 +4838,32 @@
 				} else if ( !this.infiniteScrollingEnabled || options.clearInfinite ) {
 					scan( this.$canvas );
 				}
+			},
+
+			destroy: function() {
+				var markup;
+				// set input value attrbute in markup
+				this.$element.find( 'input' ).each( function() {
+					$( this ).attr( 'value', $( this ).val() );
+				} );
+
+				// empty elements to return to original markup
+				this.$canvas.empty();
+				markup = this.$element[ 0 ].outerHTML;
+
+				// destroy components and remove leftover
+				this.$element.find( '.combobox' ).combobox( 'destroy' );
+				this.$element.find( '.selectlist' ).selectlist( 'destroy' );
+				this.$element.find( '.search' ).search( 'destroy' );
+				if ( this.infiniteScrollingEnabled ) {
+					$( this.infiniteScrollingCont ).infinitescroll( 'destroy' );
+				}
+				this.$element.remove();
+
+				// any external events
+				$( window ).off( 'resize.fu.repeater.' + this.eventStamp );
+
+				return markup;
 			},
 
 			getDataOptions: function( options, callback ) {
@@ -4769,7 +4951,7 @@
 				var opts, self;
 
 				cont = ( cont.length < 1 ) ? this.$canvas : cont;
-				if ( cont.data( 'infinitescroll' ) ) {
+				if ( cont.data( 'fu.infinitescroll' ) ) {
 					cont.infinitescroll( 'enable' );
 				} else {
 					self = this;
@@ -5149,10 +5331,10 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'repeater' );
+				var data = $this.data( 'fu.repeater' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'repeater', ( data = new Repeater( this, options ) ) );
+				if ( !data ) $this.data( 'fu.repeater', ( data = new Repeater( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -5798,6 +5980,9 @@
 			// panels
 			this.$recurrencePanels = this.$element.find( '.repeat-panel' );
 
+
+			this.$repeatIntervalSelect.selectlist();
+
 			//initialize sub-controls
 			this.$element.find( '.selectlist' ).selectlist();
 			this.$startDate.datepicker();
@@ -5806,11 +5991,17 @@
 			if ( this.$startTime.find( 'input' ).val() === '' ) {
 				this.$startTime.combobox( 'selectByIndex', 0 );
 			}
-			// every 0 days/hours doesn't make sense
-			this.$repeatIntervalSpinbox.spinbox( {
-				'value': 1,
-				'min': 1
-			} );
+			// every 0 days/hours doesn't make sense, change if not set
+			if ( this.$repeatIntervalSpinbox.find( 'input' ).val() === '0' ) {
+				this.$repeatIntervalSpinbox.spinbox( {
+					'value': 1,
+					'min': 1
+				} );
+			} else {
+				this.$repeatIntervalSpinbox.spinbox( {
+					'min': 1
+				} );
+			}
 			this.$endAfter.spinbox();
 			this.$endDate.datepicker();
 
@@ -5830,6 +6021,33 @@
 
 		Scheduler.prototype = {
 			constructor: Scheduler,
+
+			destroy: function() {
+
+				var markup;
+				// set input value attribute
+				this.$element.find( 'input' ).each( function() {
+					$( this ).attr( 'value', $( this ).val() );
+				} );
+
+				// empty elements to return to original markup and store
+				this.$element.find( '.datepicker .calendar' ).empty();
+
+				markup = this.$element[ 0 ].outerHTML;
+
+				// destroy components
+				this.$element.find( '.combobox' ).combobox( 'destroy' );
+				this.$element.find( '.datepicker' ).datepicker( 'destroy' );
+				this.$element.find( '.selectlist' ).selectlist( 'destroy' );
+				this.$element.find( '.spinbox' ).spinbox( 'destroy' );
+				this.$element.find( '[type=radio]' ).radio( 'destroy' );
+				this.$element.remove();
+
+				// any external bindings
+				// [none]
+
+				return markup;
+			},
 
 			changed: function( e, data, propagate ) {
 				if ( !propagate ) {
@@ -6247,10 +6465,10 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'scheduler' );
+				var data = $this.data( 'fu.scheduler' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'scheduler', ( data = new Scheduler( this, options ) ) );
+				if ( !data ) $this.data( 'fu.scheduler', ( data = new Scheduler( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -6271,7 +6489,7 @@
 
 		$( document ).on( 'mousedown.fu.scheduler.data-api', '[data-initialize=scheduler]', function( e ) {
 			var $control = $( e.target ).closest( '.scheduler' );
-			if ( !$control.data( 'scheduler' ) ) {
+			if ( !$control.data( 'fu.scheduler' ) ) {
 				$control.scheduler( $control.data() );
 			}
 		} );

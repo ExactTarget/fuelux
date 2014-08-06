@@ -75,6 +75,16 @@
 	Pillbox.prototype = {
 		constructor : Pillbox,
 
+		destroy: function() {
+			this.$element.remove();
+			// any external bindings
+			// [none]
+			// empty elements to return to original markup
+			// [none]
+			// returns string of markup
+			return this.$element[0].outerHTML;
+		},
+
 		items: function() {
 			var self = this;
 
@@ -586,10 +596,10 @@
 
 		var $set = this.each(function () {
 			var $this   = $( this );
-			var data    = $this.data( 'pillbox' );
+			var data    = $this.data('fu.pillbox');
 			var options = typeof option === 'object' && option;
 
-			if( !data ) $this.data('pillbox', (data = new Pillbox( this, options ) ) );
+			if( !data ) $this.data('fu.pillbox', (data = new Pillbox( this, options ) ) );
 			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
@@ -641,7 +651,7 @@
 
 	$(document).on('mousedown.fu.pillbox.data-api', '[data-initialize=pillbox]', function (e) {
 		var $control = $(e.target).closest('.pillbox');
-		if ( !$control.data('pillbox') ) {
+		if ( !$control.data('fu.pillbox') ) {
 			$control.pillbox($control.data());
 		}
 	});
@@ -650,7 +660,7 @@
 	$(function () {
 		$('[data-initialize=pillbox]').each(function () {
 			var $this = $(this);
-			if ($this.data('pillbox')) return;
+			if ($this.data('fu.pillbox')) return;
 			$this.pillbox($this.data());
 		});
 	});

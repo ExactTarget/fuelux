@@ -24,16 +24,15 @@
 		
 	// -- BEGIN MODULE CODE HERE --
 	
-	$(document.body).on("click.fu.dropdown-autoflip", "[data-toggle=dropdown][data-flip]", function( event ) {
-
+	$(document.body).on('click.fu.dropdown-autoflip', '[data-toggle=dropdown][data-flip]', function( event ) {
 		if( $(this).data().flip === "auto" ) {
 			// have the drop down decide where to place itself
 			_autoFlip( $(this).next('.dropdown-menu') );
 		}
 	});
 
-	//Intelligent suggestions dropdown from pillbox
-	$(document.body).on("suggested.fu.pillbox", function(event, element) {
+	// For pillbox suggestions dropdown 
+	$(document.body).on('suggested.fu.pillbox', function(event, element) {
 		_autoFlip( $(element) );
 		$(element).parent().addClass('open');
 	});

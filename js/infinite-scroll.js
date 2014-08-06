@@ -44,6 +44,17 @@
 
 		constructor: InfiniteScroll,
 
+		destroy: function() {
+			this.$element.remove();
+			// any external bindings
+			// [none]
+
+			// empty elements to return to original markup
+			this.$element.empty();
+
+			return this.$element[0].outerHTML;
+		},
+
 		disable: function(){
 			this.$element.off('scroll.fu.infinitescroll');
 		},
@@ -131,10 +142,10 @@
 
 		var $set = this.each(function () {
 			var $this   = $( this );
-			var data    = $this.data( 'infinitescroll' );
+			var data    = $this.data('infinitescroll');
 			var options = typeof option === 'object' && option;
 
-			if( !data ) $this.data('infinitescroll', (data = new InfiniteScroll( this, options ) ) );
+			if( !data ) $this.data('fu.infinitescroll', (data = new InfiniteScroll( this, options ) ) );
 			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 

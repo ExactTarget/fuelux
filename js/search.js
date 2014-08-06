@@ -47,6 +47,20 @@
 
 		constructor: Search,
 
+		destroy: function() {
+			this.$element.remove();
+			// any external bindings
+			// [none]
+			// set input value attrbute
+			this.$element.find('input').each(function() {
+				$(this).attr('value', $(this).val());
+			});
+			// empty elements to return to original markup
+			// [none]
+			// returns string of markup
+			return this.$element[0].outerHTML;
+		},
+
 		search: function (searchText) {
 			this.$icon.attr('class', 'glyphicon glyphicon-remove');
 			this.activeSearch = searchText;
@@ -119,10 +133,10 @@
 
 		var $set = this.each(function () {
 			var $this = $( this );
-			var data = $this.data( 'search' );
+			var data = $this.data('fu.search');
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('search', (data = new Search(this, options)));
+			if (!data) $this.data('fu.search', (data = new Search(this, options)));
 			if (typeof option === 'string') methodReturn = data[ option ].apply( data, args );
 		});
 
@@ -143,7 +157,7 @@
 
 	$(document).on('mousedown.fu.search.data-api', '[data-initialize=search]', function (e) {
 		var $control = $(e.target).closest('.search');
-		if ( !$control.data('search') ) {
+		if ( !$control.data('fu.search') ) {
 			$control.search($control.data());
 		}
 	});
@@ -152,7 +166,7 @@
 	$(function () {
 		$('[data-initialize=search]').each(function () {
 			var $this = $(this);
-			if ($this.data('search')) return;
+			if ($this.data('fu.search')) return;
 			$this.search($this.data());
 		});
 	});

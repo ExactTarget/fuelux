@@ -53,6 +53,16 @@
 
 		constructor: Loader,
 
+		destroy: function() {
+			this.$element.remove();
+			// any external bindings
+			// [none]
+			// empty elements to return to original markup
+			// [none]
+			// returns string of markup
+			return this.$element[0].outerHTML;
+		},
+
 		ieRepaint: function(){
 			if(this.isIElt9){
 				this.$element.addClass('iefix_repaint').removeClass('iefix_repaint');
@@ -91,7 +101,7 @@
 			}, this.delay);
 		},
 
-		prev: function(){
+		previous: function(){
 			this.frame--;
 			if(this.frame<this.begin){
 				this.frame = this.end;
@@ -116,10 +126,10 @@
 
 		var $set = this.each(function () {
 			var $this = $( this );
-			var data = $this.data( 'loader' );
+			var data = $this.data('fu.loader');
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('loader', (data = new Loader(this, options)));
+			if (!data) $this.data('fu.loader', (data = new Loader(this, options)));
 			if (typeof option === 'string') methodReturn = data[ option ].apply( data, args );
 		});
 
@@ -140,7 +150,7 @@
 	$(function () {
 		$('[data-initialize=loader]').each(function () {
 			var $this = $(this);
-			if (!$this.data('loader')) {
+			if (!$this.data('fu.loader')) {
 				$this.loader($this.data());
 			}
 		});

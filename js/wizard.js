@@ -60,6 +60,14 @@
 
 		constructor: Wizard,
 
+		destroy: function() {
+			this.$element.remove();
+			// any external bindings [none]
+			// empty elements to return to original markup [none]
+			// returns string of markup
+			return this.$element[0].outerHTML;
+		},
+
 		//index is 1 based
 		//second parameter can be array of objects [{ ... }, { ... }] or you can pass n additional objects as args
 		//object structure is as follows (all params are optional): { badge: '', label: '', pane: '' }
@@ -358,10 +366,10 @@
 
 		var $set = this.each(function () {
 			var $this   = $( this );
-			var data    = $this.data( 'wizard' );
+			var data    = $this.data('fu.wizard');
 			var options = typeof option === 'object' && option;
 
-			if( !data ) $this.data('wizard', (data = new Wizard( this, options ) ) );
+			if( !data ) $this.data('fu.wizard', (data = new Wizard( this, options ) ) );
 			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
@@ -385,7 +393,7 @@
 
 	$(document).on('mouseover.fu.wizard.data-api', '[data-initialize=wizard]', function (e) {
 		var $control = $(e.target).closest('.wizard');
-		if ( !$control.data('wizard') ) {
+		if ( !$control.data('fu.wizard') ) {
 			$control.wizard($control.data());
 		}
 	});
@@ -394,7 +402,7 @@
 	$(function () {
 		$('[data-initialize=wizard]').each(function () {
 			var $this = $(this);
-			if ($this.data('wizard')) return;
+			if ($this.data('fu.wizard')) return;
 			$this.wizard($this.data());
 		});
 	});

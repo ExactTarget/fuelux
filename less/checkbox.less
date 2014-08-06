@@ -10,9 +10,12 @@
 	}
 
 	/* for keyboard tabbing */
-	input[type="checkbox"]:focus + .checkbox-label {
+	input[type="checkbox"]:focus + .checkbox-label,
+	input[type="checkbox"]:hover + .checkbox-label,
+	.checkbox-label:hover {
 		color: @grayLight;
 	}
+
 }
 
 .checkbox-custom {

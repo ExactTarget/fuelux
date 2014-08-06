@@ -169,4 +169,12 @@ define(function(require){
 		equal(selectedText, 'Seven', 'text passed in from changed event');
 	});
 
+	test("should destroy control", function () {
+		var id = '#MyCombobox';
+		var $el = $(html).find(id).combobox();
+
+		equal(typeof( $el.combobox('destroy')) , 'string', 'returns string (markup)');
+		equal( $(html).find(id).length, false, 'control has been removed from DOM');
+	});
+
 });

@@ -75,6 +75,20 @@
 	Spinbox.prototype = {
 		constructor: Spinbox,
 
+		destroy: function() {
+			this.$element.remove();
+			// any external bindings
+			// [none]
+			// set input value attrbute
+			this.$element.find('input').each(function() {
+				$(this).attr('value', $(this).val());
+			});
+			// empty elements to return to original markup
+			// [none]
+			// returns string of markup
+			return this.$element[0].outerHTML;
+		},
+
 		render: function () {
 			var inputValue = this.parseInput( this.$input.val() );
 			var maxUnitLength = '';
@@ -357,11 +371,11 @@
 
 		var $set = this.each(function () {
 			var $this   = $( this );
-			var data    = $this.data( 'spinbox' );
+			var data    = $this.data('fu.spinbox');
 			var options = typeof option === 'object' && option;
 
 			if( !data ) {
-				$this.data('spinbox', (data = new Spinbox( this, options ) ) );
+				$this.data('fu.spinbox', (data = new Spinbox( this, options ) ) );
 			}
 			if( typeof option === 'string' ) {
 				methodReturn = data[ option ].apply( data, args );
@@ -397,7 +411,7 @@
 
 	$(document).on('mousedown.fu.spinbox.data-api', '[data-initialize=spinbox]', function (e) {
 		var $control = $(e.target).closest('.spinbox');
-		if ( !$control.data('spinbox') ) {
+		if ( !$control.data('fu.spinbox') ) {
 			$control.spinbox($control.data());
 		}
 	});
@@ -406,7 +420,7 @@
 	$(function () {
 		$('[data-initialize=spinbox]').each(function () {
 			var $this = $(this);
-			if (!$this.data('spinbox')) {
+			if (!$this.data('fu.spinbox')) {
 				$this.spinbox($this.data());
 			}
 		});

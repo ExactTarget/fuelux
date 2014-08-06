@@ -141,4 +141,20 @@ define(function(require){
 
 	});
 
+
+	asyncTest('should destroy control', function () {
+
+		var $tree = $(html).find('#MyTree').tree({ dataSource: this.stubDataSource, multiSelect: true }).on('loaded.fu.tree',function() {
+
+			var $el = $(this);
+
+			equal(typeof( $el.tree('destroy')) , 'string', 'returns string (markup)');
+			equal( $el.parent().length, false, 'control has been removed from DOM');
+
+			start();
+		});
+
+	});
+
+
 });

@@ -129,6 +129,15 @@
 			this.setState( $( element.target ) );
 		},
 
+		destroy: function() {
+			this.$parent.remove();
+			// remove any external bindings
+			// [none]
+			// empty elements to return to original markup
+			// [none]
+			return this.$parent[0].outerHTML;
+		},
+
 		_resetClasses: function() {
 			var classesToRemove = [];
 
@@ -191,11 +200,11 @@
 
 		var $set = this.each(function () {
 			var $this   = $( this );
-			var data    = $this.data('checkbox');
+			var data    = $this.data('fu.checkbox');
 			var options = typeof option === 'object' && option;
 
 			if( !data ) {
-				$this.data('checkbox', (data = new Checkbox(this, options)));
+				$this.data('fu.checkbox', (data = new Checkbox(this, options)));
 			}
 
 			if( typeof option === 'string' ) {
@@ -219,7 +228,7 @@
 
 	$(document).on('mouseover.fu.checkbox.data-api', '[data-initialize=checkbox]', function (e) {
 		var $control = $(e.target).closest('.checkbox').find('[type=checkbox]');
-		if ( !$control.data('checkbox') ) {
+		if ( !$control.data('fu.checkbox') ) {
 			$control.checkbox($control.data());
 		}
 	});
@@ -228,7 +237,7 @@
 	$(function () {
 		$('[data-initialize=checkbox] [type=checkbox]').each(function () {
 			var $this = $(this);
-			if (!$this.data('checkbox')) {
+			if (!$this.data('fu.checkbox')) {
 				$this.checkbox($this.data());
 			}
 		});

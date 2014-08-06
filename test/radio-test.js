@@ -84,4 +84,14 @@ define(function(require){
 
 		$fixture.remove();
 	});
+
+	test("should destroy control", function () {
+		var id = '#radio1';
+		var $el = $(html).find(id);
+		var $parent = $el.closest('.radio');
+
+		equal($el.radio('destroy'), '' + $parent[0].outerHTML, 'returns markup');
+		equal( $(html).find(id).length, false, 'element has been removed from DOM');
+	});
+
 });
