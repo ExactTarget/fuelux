@@ -59,9 +59,6 @@ define(function(require){
 
 
 	// DATEPICKER
-	// $('#datepicker1').datepicker({
-	//		restrictDateSelection: false
-	// });
 
 	$('#MyDatepicker1').on('changed.fu.datepicker', function( event, data ) {
 		console.log( 'datepicker change event fired' );

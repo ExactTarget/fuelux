@@ -24,7 +24,6 @@
 
 	// -- BEGIN MODULE CODE HERE --
 
-
 	var INVALID_DATE = 'Invalid Date';
 	var MOMENT_NOT_AVAILABLE = 'moment.js is not available so you cannot use this function';
 
@@ -600,10 +599,11 @@
 			this.changeView('wheels', new Date($a.attr('data-year'), $a.attr('data-month'), 1));
 		},
 
-		todayClicked: function(){
+		todayClicked: function(e){
 			var $a = this.$headerTitle.find('a');
 			var date = new Date();
 
+			e.preventDefault();
 			if((date.getMonth()+'')!==$a.attr('data-month') || (date.getFullYear()+'')!==$a.attr('data-year')){
 				this.renderMonth(date);
 			}
