@@ -72,7 +72,7 @@
 				<div id="MyCheckboxWrapper1" class="checkbox" data-initialize="checkbox">
 					<label class="checkbox-custom checked">
 						<input id="MyCheckbox1" class="sr-only checked" type="checkbox" value="" checked="checked">
-						<span class="checkbox-label">Custom appearance checkbox checked at page load (#chk1)</span>
+						<span class="checkbox-label">Custom appearance checkbox checked at page load (#MyCheckbox1)</span>
 					</label>
 				</div>
 				<div id="MyCheckboxWrapper2" class="checkbox" data-initialize="checkbox">
@@ -550,8 +550,6 @@
 					</div>
 				</div>
 
-			</div>
-
 			<br/>
 			<h5>Sample Methods</h5>
 			<div class="btn-group">
@@ -560,6 +558,8 @@
 				<button class="btn btn-default" id="btnPlacardDestroy">destroy and append</button>
 			</div>
 			<hr/>
+
+			</div>
 
 		</div>
 
@@ -572,28 +572,28 @@
 				<div class="radio" data-initialize="radio">
 					<label class="radio-custom">
 						<input id="MyRadio1" class="sr-only" name="radioEx1" type="radio" value="option1">
-						Browser-independent radio unchecked on page load
+						<span class="radio-label">Browser-independent radio unchecked on page load</span>
 					</label>
 				</div>
 				
-				<div class="radio checked" data-initialize="radio">
-					<label class="radio-custom">
+				<div class="radio" data-initialize="radio">
+					<label class="radio-custom checked">
 						<input class="sr-only" checked="checked" name="radioEx1" type="radio" value="option2">
-						Browser-independent radio checked on page load
+						<span class="radio-label">Browser-independent radio checked on page load</span>
 					</label>
 				</div>
 
-				<div class="radio checked" data-initialize="radio">
-					<label id="lbl3" class="radio-custom">
-						<input id="radio3" class="sr-only" checked="checked" disabled="disabled" name="radio1b" type="radio">
+				<div class="radio" data-initialize="radio">
+					<label id="lbl3" class="radio-custom checked">
+						<input id="radio3" class="sr-only" checked="checked" disabled="disabled" name="radio1b" type="radio" value="option3">
 						<span class="radio-label">Disabled custom appearance radio selected on page load</span>
 					</label>
 				</div>
 
 				<div class="radio" data-initialize="radio">
 					<label class="radio-custom">
-						<input class="sr-only" disabled="disabled" name="radioEx2" type="radio" value="option3">
-						Disabled browser-independent radio unchecked on page load
+						<input class="sr-only" disabled="disabled" name="radioEx2" type="radio" value="option4">
+						<span class="radio-label">Disabled browser-independent radio unchecked on page load</span>
 					</label>
 				</div>
 
@@ -1545,7 +1545,7 @@
 								<button class="tree-branch-name">
 									<span class="glyphicon icon-caret glyphicon-play"></span>
 									<span class="glyphicon icon-folder glyphicon-folder-close"></span>
-									<span class="tree-label">Example Folder</span>
+									<span class="tree-label"></span>
 								</button>
 							</div>
 							<ul class="tree-branch-children" role="group"></ul>
@@ -1555,7 +1555,7 @@
 						<li class="tree-item hide" data-template="treeitem" role="treeitem">
 							<button class="tree-item-name">
 								<span class="glyphicon icon-item fueluxicon-bullet"></span>
-								<span class="tree-label">Example Item</span>
+								<span class="tree-label"></span>
 							</button>
 						</li>
 					</ul>
@@ -1582,7 +1582,7 @@
 								<button class="glyphicon icon-caret glyphicon-play"><span class="sr-only">Open</span></button>
 								<button class="tree-branch-name">
 									<span class="glyphicon icon-folder glyphicon-folder-close"></span>
-									<span class="tree-label">Example Folder</span>
+									<span class="tree-label"></span>
 								</button>
 							</div>
 							<div class="tree-branch-children"></div>
@@ -1604,7 +1604,7 @@
 								<button class="glyphicon icon-caret glyphicon-play"><span class="sr-only">Open</span></button>
 								<button class="tree-branch-name">
 									<span class="glyphicon icon-folder glyphicon-folder-close"></span>
-									<span class="tree-label">Example Folder</span>
+									<span class="tree-label"></span>
 								</button>
 							</div>
 							<div class="tree-branch-children"></div>

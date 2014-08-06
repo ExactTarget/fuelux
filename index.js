@@ -691,11 +691,14 @@ $('#MyScheduler').on('changed.fu.scheduler', function(){
 		dataSource: function(options, callback){
 			setTimeout(function () {
 				callback({ data: [
-					{ name: 'Ascending and Descending', type: 'folder', dataAttributes: { id: 'F1' } },
-					{ name: 'Drawing Hands', type: 'folder', dataAttributes: { id: 'F2' } },
-					{ name: 'Belvedere', type: 'folder', dataAttributes: { id: 'F3' } },
-					{ name: 'House of Stairs', type: 'folder', dataAttributes: { id: 'F4' } },
-					{ name: 'Belvedere', type: 'folder', dataAttributes: { id: 'F5' } }
+				{ name: 'Ascending and Descending', type: 'folder', dataAttributes: { id: 'folder1' } },
+				{ name: 'Sky and Water I (with custom icon)', type: 'item', dataAttributes: { id: 'item1', 'data-icon': 'glyphicon glyphicon-file' } },
+				{ name: 'Drawing Hands', type: 'folder', dataAttributes: { id: 'folder2', 'data-children': false } },
+				{ name: 'Waterfall', type: 'item', dataAttributes: { id: 'item2' } },
+				{ name: 'Belvedere', type: 'folder', dataAttributes: { id: 'folder3' } },
+				{ name: 'Relativity (with custom icon)', type: 'item', dataAttributes: { id: 'item3', 'data-icon': 'glyphicon glyphicon-picture' } },
+				{ name: 'House of Stairs', type: 'folder', dataAttributes: { id: 'folder4' } },
+				{ name: 'Convex and Concave', type: 'item', dataAttributes: { id: 'item4' } }
 				]});
 			}, 400);
 		}

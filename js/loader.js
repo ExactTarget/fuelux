@@ -126,10 +126,10 @@
 
 		var $set = this.each(function () {
 			var $this = $( this );
-			var data = $this.data( 'loader' );
+			var data = $this.data('fu.loader');
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('loader', (data = new Loader(this, options)));
+			if (!data) $this.data('fu.loader', (data = new Loader(this, options)));
 			if (typeof option === 'string') methodReturn = data[ option ].apply( data, args );
 		});
 
@@ -150,7 +150,7 @@
 	$(function () {
 		$('[data-initialize=loader]').each(function () {
 			var $this = $(this);
-			if (!$this.data('loader')) {
+			if (!$this.data('fu.loader')) {
 				$this.loader($this.data());
 			}
 		});

@@ -164,7 +164,7 @@
 			if(this.$element.hasClass('showing')){ return; }
 			other = $(document).find('.placard.showing');
 			if(other.length>0){
-				if(other.data('placard') && other.data('placard').options.explicit){
+				if(other.data('fu.placard') && other.data('fu.placard').options.explicit){
 					return;
 				}
 				other.placard('externalClickListener', {}, true);
@@ -199,10 +199,10 @@
 
 		var $set = this.each(function () {
 			var $this   = $( this );
-			var data    = $this.data( 'placard' );
+			var data    = $this.data('fu.placard');
 			var options = typeof option === 'object' && option;
 
-			if( !data ) $this.data('placard', (data = new Placard( this, options ) ) );
+			if( !data ) $this.data('fu.placard', (data = new Placard( this, options ) ) );
 			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
@@ -229,7 +229,7 @@
 
 	$(document).on('focus.fu.placard.data-api', '[data-initialize=placard]', function (e) {
 		var $control = $(e.target).closest('.placard');
-		if ( !$control.data('placard') ) {
+		if ( !$control.data('fu.placard') ) {
 			$control.placard($control.data());
 		}
 	});
@@ -238,7 +238,7 @@
 	$(function () {
 		$('[data-initialize=placard]').each(function () {
 			var $this = $(this);
-			if ($this.data('placard')) return;
+			if ($this.data('fu.placard')) return;
 			$this.placard($this.data());
 		});
 	});

@@ -371,11 +371,11 @@
 
 		var $set = this.each(function () {
 			var $this   = $( this );
-			var data    = $this.data( 'spinbox' );
+			var data    = $this.data('fu.spinbox');
 			var options = typeof option === 'object' && option;
 
 			if( !data ) {
-				$this.data('spinbox', (data = new Spinbox( this, options ) ) );
+				$this.data('fu.spinbox', (data = new Spinbox( this, options ) ) );
 			}
 			if( typeof option === 'string' ) {
 				methodReturn = data[ option ].apply( data, args );
@@ -411,7 +411,7 @@
 
 	$(document).on('mousedown.fu.spinbox.data-api', '[data-initialize=spinbox]', function (e) {
 		var $control = $(e.target).closest('.spinbox');
-		if ( !$control.data('spinbox') ) {
+		if ( !$control.data('fu.spinbox') ) {
 			$control.spinbox($control.data());
 		}
 	});
@@ -420,7 +420,7 @@
 	$(function () {
 		$('[data-initialize=spinbox]').each(function () {
 			var $this = $(this);
-			if (!$this.data('spinbox')) {
+			if (!$this.data('fu.spinbox')) {
 				$this.spinbox($this.data());
 			}
 		});
