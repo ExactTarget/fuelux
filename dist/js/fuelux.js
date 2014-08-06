@@ -215,11 +215,11 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'checkbox' );
+				var data = $this.data( 'fu.checkbox' );
 				var options = typeof option === 'object' && option;
 
 				if ( !data ) {
-					$this.data( 'checkbox', ( data = new Checkbox( this, options ) ) );
+					$this.data( 'fu.checkbox', ( data = new Checkbox( this, options ) ) );
 				}
 
 				if ( typeof option === 'string' ) {
@@ -243,7 +243,7 @@
 
 		$( document ).on( 'mouseover.fu.checkbox.data-api', '[data-initialize=checkbox]', function( e ) {
 			var $control = $( e.target ).closest( '.checkbox' ).find( '[type=checkbox]' );
-			if ( !$control.data( 'checkbox' ) ) {
+			if ( !$control.data( 'fu.checkbox' ) ) {
 				$control.checkbox( $control.data() );
 			}
 		} );
@@ -252,7 +252,7 @@
 		$( function() {
 			$( '[data-initialize=checkbox] [type=checkbox]' ).each( function() {
 				var $this = $( this );
-				if ( !$this.data( 'checkbox' ) ) {
+				if ( !$this.data( 'fu.checkbox' ) ) {
 					$this.checkbox( $this.data() );
 				}
 			} );
@@ -447,10 +447,10 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'combobox' );
+				var data = $this.data( 'fu.combobox' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'combobox', ( data = new Combobox( this, options ) ) );
+				if ( !data ) $this.data( 'fu.combobox', ( data = new Combobox( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -471,7 +471,7 @@
 
 		$( document ).on( 'mousedown.fu.combobox.data-api', '[data-initialize=combobox]', function( e ) {
 			var $control = $( e.target ).closest( '.combobox' );
-			if ( !$control.data( 'combobox' ) ) {
+			if ( !$control.data( 'fu.combobox' ) ) {
 				$control.combobox( $control.data() );
 			}
 		} );
@@ -480,7 +480,7 @@
 		$( function() {
 			$( '[data-initialize=combobox]' ).each( function() {
 				var $this = $( this );
-				if ( !$this.data( 'combobox' ) ) {
+				if ( !$this.data( 'fu.combobox' ) ) {
 					$this.combobox( $this.data() );
 				}
 			} );
@@ -1423,10 +1423,10 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'loader' );
+				var data = $this.data( 'fu.loader' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'loader', ( data = new Loader( this, options ) ) );
+				if ( !data ) $this.data( 'fu.loader', ( data = new Loader( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -1447,7 +1447,7 @@
 		$( function() {
 			$( '[data-initialize=loader]' ).each( function() {
 				var $this = $( this );
-				if ( !$this.data( 'loader' ) ) {
+				if ( !$this.data( 'fu.loader' ) ) {
 					$this.loader( $this.data() );
 				}
 			} );
@@ -1621,7 +1621,7 @@
 				}
 				other = $( document ).find( '.placard.showing' );
 				if ( other.length > 0 ) {
-					if ( other.data( 'placard' ) && other.data( 'placard' ).options.explicit ) {
+					if ( other.data( 'fu.placard' ) && other.data( 'fu.placard' ).options.explicit ) {
 						return;
 					}
 					other.placard( 'externalClickListener', {}, true );
@@ -1656,10 +1656,10 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'placard' );
+				var data = $this.data( 'fu.placard' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'placard', ( data = new Placard( this, options ) ) );
+				if ( !data ) $this.data( 'fu.placard', ( data = new Placard( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -1686,7 +1686,7 @@
 
 		$( document ).on( 'focus.fu.placard.data-api', '[data-initialize=placard]', function( e ) {
 			var $control = $( e.target ).closest( '.placard' );
-			if ( !$control.data( 'placard' ) ) {
+			if ( !$control.data( 'fu.placard' ) ) {
 				$control.placard( $control.data() );
 			}
 		} );
@@ -1695,7 +1695,7 @@
 		$( function() {
 			$( '[data-initialize=placard]' ).each( function() {
 				var $this = $( this );
-				if ( $this.data( 'placard' ) ) return;
+				if ( $this.data( 'fu.placard' ) ) return;
 				$this.placard( $this.data() );
 			} );
 		} );
@@ -1872,10 +1872,10 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'radio' );
+				var data = $this.data( 'fu.radio' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'radio', ( data = new Radio( this, options ) ) );
+				if ( !data ) $this.data( 'fu.radio', ( data = new Radio( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -1896,7 +1896,7 @@
 
 		$( document ).on( 'mouseover.fu.checkbox.data-api', '[data-initialize=radio]', function( e ) {
 			var $control = $( e.target ).closest( '.radio' ).find( '[type=radio]' );
-			if ( !$control.data( 'radio' ) ) {
+			if ( !$control.data( 'fu.radio' ) ) {
 				$control.radio( $control.data() );
 			}
 		} );
@@ -1905,7 +1905,7 @@
 		$( function() {
 			$( '[data-initialize=radio] [type=radio]' ).each( function() {
 				var $this = $( this );
-				if ( $this.data( 'radio' ) ) return;
+				if ( $this.data( 'fu.radio' ) ) return;
 				$this.radio( $this.data() );
 			} );
 		} );
@@ -2037,10 +2037,10 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'search' );
+				var data = $this.data( 'fu.search' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'search', ( data = new Search( this, options ) ) );
+				if ( !data ) $this.data( 'fu.search', ( data = new Search( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -2061,7 +2061,7 @@
 
 		$( document ).on( 'mousedown.fu.search.data-api', '[data-initialize=search]', function( e ) {
 			var $control = $( e.target ).closest( '.search' );
-			if ( !$control.data( 'search' ) ) {
+			if ( !$control.data( 'fu.search' ) ) {
 				$control.search( $control.data() );
 			}
 		} );
@@ -2070,7 +2070,7 @@
 		$( function() {
 			$( '[data-initialize=search]' ).each( function() {
 				var $this = $( this );
-				if ( $this.data( 'search' ) ) return;
+				if ( $this.data( 'fu.search' ) ) return;
 				$this.search( $this.data() );
 			} );
 		} );
@@ -2266,10 +2266,10 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'selectlist' );
+				var data = $this.data( 'fu.selectlist' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'selectlist', ( data = new Selectlist( this, options ) ) );
+				if ( !data ) $this.data( 'fu.selectlist', ( data = new Selectlist( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -2290,7 +2290,7 @@
 
 		$( document ).on( 'mousedown.fu.selectlist.data-api', '[data-initialize=selectlist]', function( e ) {
 			var $control = $( e.target ).closest( '.selectlist' );
-			if ( !$control.data( 'selectlist' ) ) {
+			if ( !$control.data( 'fu.selectlist' ) ) {
 				$control.selectlist( $control.data() );
 			}
 		} );
@@ -2299,7 +2299,7 @@
 		$( function() {
 			$( '[data-initialize=selectlist]' ).each( function() {
 				var $this = $( this );
-				if ( !$this.data( 'selectlist' ) ) {
+				if ( !$this.data( 'fu.selectlist' ) ) {
 					$this.selectlist( $this.data() );
 				}
 			} );
@@ -2681,11 +2681,11 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'spinbox' );
+				var data = $this.data( 'fu.spinbox' );
 				var options = typeof option === 'object' && option;
 
 				if ( !data ) {
-					$this.data( 'spinbox', ( data = new Spinbox( this, options ) ) );
+					$this.data( 'fu.spinbox', ( data = new Spinbox( this, options ) ) );
 				}
 				if ( typeof option === 'string' ) {
 					methodReturn = data[ option ].apply( data, args );
@@ -2721,7 +2721,7 @@
 
 		$( document ).on( 'mousedown.fu.spinbox.data-api', '[data-initialize=spinbox]', function( e ) {
 			var $control = $( e.target ).closest( '.spinbox' );
-			if ( !$control.data( 'spinbox' ) ) {
+			if ( !$control.data( 'fu.spinbox' ) ) {
 				$control.spinbox( $control.data() );
 			}
 		} );
@@ -2730,7 +2730,7 @@
 		$( function() {
 			$( '[data-initialize=spinbox]' ).each( function() {
 				var $this = $( this );
-				if ( !$this.data( 'spinbox' ) ) {
+				if ( !$this.data( 'fu.spinbox' ) ) {
 					$this.spinbox( $this.data() );
 				}
 			} );
@@ -2813,11 +2813,11 @@
 						var $entity;
 
 						if ( value.type === 'folder' ) {
-							$entity = self.$element.find( '[data-template=treebranch]:eq(0)' ).clone().removeClass( 'hide' );
+							$entity = self.$element.find( '[data-template=treebranch]:eq(0)' ).clone().removeClass( 'hide' ).removeAttr( 'data-template' );
 							$entity.data( value );
 							$entity.find( '.tree-branch-name > .tree-label' ).html( value.name );
 						} else if ( value.type === 'item' ) {
-							$entity = self.$element.find( '[data-template=treeitem]:eq(0)' ).clone().removeClass( 'hide' );
+							$entity = self.$element.find( '[data-template=treeitem]:eq(0)' ).clone().removeClass( 'hide' ).removeAttr( 'data-template' );
 							$entity.find( '.tree-item-name > .tree-label' ).html( value.name );
 							$entity.data( value );
 						}
@@ -3077,10 +3077,10 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'tree' );
+				var data = $this.data( 'fu.tree' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'tree', ( data = new Tree( this, options ) ) );
+				if ( !data ) $this.data( 'fu.tree', ( data = new Tree( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -3478,10 +3478,10 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'wizard' );
+				var data = $this.data( 'fu.wizard' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'wizard', ( data = new Wizard( this, options ) ) );
+				if ( !data ) $this.data( 'fu.wizard', ( data = new Wizard( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -3507,7 +3507,7 @@
 
 		$( document ).on( 'mouseover.fu.wizard.data-api', '[data-initialize=wizard]', function( e ) {
 			var $control = $( e.target ).closest( '.wizard' );
-			if ( !$control.data( 'wizard' ) ) {
+			if ( !$control.data( 'fu.wizard' ) ) {
 				$control.wizard( $control.data() );
 			}
 		} );
@@ -3516,7 +3516,7 @@
 		$( function() {
 			$( '[data-initialize=wizard]' ).each( function() {
 				var $this = $( this );
-				if ( $this.data( 'wizard' ) ) return;
+				if ( $this.data( 'fu.wizard' ) ) return;
 				$this.wizard( $this.data() );
 			} );
 		} );
@@ -3663,7 +3663,7 @@
 				var data = $this.data( 'infinitescroll' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'infinitescroll', ( data = new InfiniteScroll( this, options ) ) );
+				if ( !data ) $this.data( 'fu.infinitescroll', ( data = new InfiniteScroll( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -4298,10 +4298,10 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'pillbox' );
+				var data = $this.data( 'fu.pillbox' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'pillbox', ( data = new Pillbox( this, options ) ) );
+				if ( !data ) $this.data( 'fu.pillbox', ( data = new Pillbox( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -4353,7 +4353,7 @@
 
 		$( document ).on( 'mousedown.fu.pillbox.data-api', '[data-initialize=pillbox]', function( e ) {
 			var $control = $( e.target ).closest( '.pillbox' );
-			if ( !$control.data( 'pillbox' ) ) {
+			if ( !$control.data( 'fu.pillbox' ) ) {
 				$control.pillbox( $control.data() );
 			}
 		} );
@@ -4362,7 +4362,7 @@
 		$( function() {
 			$( '[data-initialize=pillbox]' ).each( function() {
 				var $this = $( this );
-				if ( $this.data( 'pillbox' ) ) return;
+				if ( $this.data( 'fu.pillbox' ) ) return;
 				$this.pillbox( $this.data() );
 			} );
 		} );
@@ -4618,7 +4618,7 @@
 				var opts, self;
 
 				cont = ( cont.length < 1 ) ? this.$canvas : cont;
-				if ( cont.data( 'infinitescroll' ) ) {
+				if ( cont.data( 'fu.infinitescroll' ) ) {
 					cont.infinitescroll( 'enable' );
 				} else {
 					self = this;
@@ -4998,10 +4998,10 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'repeater' );
+				var data = $this.data( 'fu.repeater' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'repeater', ( data = new Repeater( this, options ) ) );
+				if ( !data ) $this.data( 'fu.repeater', ( data = new Repeater( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -6132,10 +6132,10 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'scheduler' );
+				var data = $this.data( 'fu.scheduler' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'scheduler', ( data = new Scheduler( this, options ) ) );
+				if ( !data ) $this.data( 'fu.scheduler', ( data = new Scheduler( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -6156,7 +6156,7 @@
 
 		$( document ).on( 'mousedown.fu.scheduler.data-api', '[data-initialize=scheduler]', function( e ) {
 			var $control = $( e.target ).closest( '.scheduler' );
-			if ( !$control.data( 'scheduler' ) ) {
+			if ( !$control.data( 'fu.scheduler' ) ) {
 				$control.scheduler( $control.data() );
 			}
 		} );
