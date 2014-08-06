@@ -67,7 +67,7 @@ define(function(require){
 		console.log( 'datepicker change event fired' );
 	});
 
-	$('#MyDatepicker1').on('inputParsingFailed', function() {
+	$('#MyDatepicker1').on('inputParsingFailed.fu.datepicker', function() {
 		console.log( 'datepicker inputParsingFailed event fired' );
 	});
 
