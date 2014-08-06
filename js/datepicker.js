@@ -108,12 +108,10 @@
 			}
 
 			this.setRestrictedDates(this.restricted);
-
 			if(!this.setDate(this.options.date)){
 				this.$input.val('');
 				this.inputValue = this.$input.val();
 			}
-
 			if(this.sameYearOnly){
 				this.yearRestriction = (this.selectedDate) ? this.selectedDate.getFullYear() : new Date().getFullYear();
 			}
@@ -268,6 +266,14 @@
 			this.$element.find('.input-group-btn').addClass('open');
 		},
 
+		isInvalidDate: function(date){
+			var dateString = date.toString();
+			if(dateString===INVALID_DATE || dateString==='NaN'){
+				return true;
+			}
+			return false;
+		},
+
 		isRestricted: function(date, month, year){
 			var restricted = this.restrictedParsed;
 			var i, from, l, to;
@@ -346,18 +352,18 @@
 					};
 					use = (typeof(date)==='string') ? ['b', 'a'] : ['a', 'b'];
 					dt = momentParse(use[0], date);
-					if(dt.toString()!==INVALID_DATE){
+					if(!this.isInvalidDate(dt)){
 						return dt;
 					}else{
 						dt = momentParse(use[1], date);
-						if(dt.toString()!==INVALID_DATE){
+						if(!this.isInvalidDate(dt)){
 							return dt;
 						}
 					}
 				}else{	//if moment isn't present, use previous date parsing strategy
 					if(typeof(date)==='string'){
 						dt = new Date(Date.parse(date));
-						if(dt.toString()!==INVALID_DATE){
+						if(!this.isInvalidDate(dt)){
 							return dt;
 						}else{
 							date = date.split('T')[0];
@@ -373,7 +379,7 @@
 						}
 					}else{
 						dt = new Date(date);
-						if(dt.toString()!==INVALID_DATE){
+						if(!this.isInvalidDate(dt)){
 							return dt;
 						}
 					}
@@ -539,7 +545,7 @@
 
 		setDate: function(date){
 			var parsed = this.parseDate(date);
-			if(parsed.toString()!==INVALID_DATE){
+			if(!this.isInvalidDate(parsed)){
 				if(!this.isRestricted(parsed.getDate(), parsed.getMonth(), parsed.getFullYear())){
 					this.selectedDate = parsed;
 					this.renderMonth(parsed);

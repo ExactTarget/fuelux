@@ -83,10 +83,6 @@ define(function(require){
 		console.log( $('#MyDatepicker1').datepicker('getFormattedDate') );
 	});
 
-	$('#btnDatepickerLogDateUnix').on('click', function() {
-		console.log( $('#MyDatepicker1').datepicker('getDate', { unix: true } ) );
-	});
-
 	$('#btnDatepickerLogDateObj').on('click', function() {
 		console.log( $('#MyDatepicker1').datepicker('getDate') );
 	});

@@ -56,20 +56,20 @@ define(function(require){
 
 	test('should initialize with null date', function(){
 		var $datepicker = $(html).datepicker({ date: null });
-		var initializedDate = $datepicker.datepicker('getDate');
+		var initializedDate = $datepicker.datepicker('getDate').toString();
 		var inputValue = $datepicker.find('input[type="text"]').val();
 
-		equal(initializedDate.toString(), 'Invalid Date', 'datepicker was initialized with null value');
+		equal((initializedDate==='Invalid Date' || initializedDate==='NaN'), true, 'datepicker was initialized with null value');
 		equal(inputValue, '', 'datepicker does not have value in input field');
 	});
 
 	test('should return date using getDate method', function(){
-		var $datepicker = $(html).datepicker({ date: '03/31/1987' });
+		var $datepicker = $(html).datepicker({ date: new Date(1987, 2, 31) });
 		var date = $datepicker.datepicker('getDate');
 		var dateFormatted = $datepicker.datepicker('getFormattedDate');
 
 		equal(date instanceof Date, true, 'returned a valid date object');
-		equal(date.getTime(), 544165200000, 'returned correct date');
+		equal((date.getDate()===31 && date.getMonth()===2 && date.getFullYear()===1987), true, 'returned correct date');
 		equal(dateFormatted, '03/31/1987', 'returned correct formatted date');
 	});
 
@@ -128,7 +128,7 @@ define(function(require){
 
 		equal(called, 1, 'Event was triggered as expected');
 		equal(typeof event, 'object', 'Appropriate event object passed back as argument');
-		equal(date.getTime(), 544165200000, 'Appropriate date object passed back as argument');
+		equal((date.getDate()===31 && date.getMonth()===2 && date.getFullYear()===1987), true, 'Appropriate date object passed back as argument');
 	});
 
 	test('should not use moment.js if not available', function(){
@@ -184,6 +184,7 @@ define(function(require){
 		var $header = $datepicker.find('.datepicker-calendar-header');
 		var $titleLink = $header.find('.title a');
 		var $titleYear = $titleLink.find('span.year');
+		var dateString;
 
 		$datepicker.datepicker('setDate', '12/01/1987');
 		$header.find('.next').trigger('click');
@@ -198,7 +199,8 @@ define(function(require){
 
 		$datepickerInput.val('03/31/1988');
 		$datepickerInput.trigger('blur');
-		equal($datepicker.datepicker('getDate').toString(), 'Invalid Date', 'user can\t input date outside current year');
+		dateString = $datepicker.datepicker('getDate').toString();
+		equal((dateString==='Invalid Date' || dateString==='NaN'), true, 'user can\t input date outside current year');
 	});
 
 	test('should restrict days if restricted option is set', function(){
