@@ -1,119 +1,181 @@
 <!-- datepicker
 ================================================== -->
 <div class="fu-docs-section">
-  <h1 id="datepickers" class="page-header">Datepickers [STUB] <small>datepicker.js</small></h1>
-  <h2 id="datepickers-examples">Examples</h2>
-  <p>Choose a data from a calendar dropdown or use moment.js to format and parse various date formats.</p>
+	<h1 id="datepickers" class="page-header">Datepickers <small>datepicker.js</small></h1>
+	<h2 id="datepickers-examples">Examples</h2>
+	<p>Choose a date from a calendar dropdown, with input parsing and formatting. Works with moment.js for extended functionality.</p>
 
-  <p>To support various date formats around the world, datepicker has an optional dependency on <a href="http://momentjs.com/">moment.js</a>. <a href="http://momentjs.com/downloads/moment-with-langs.js">Download moment.js (with languages).</a></p>
-  <div class="fu-example section">
+	<p>To support various date formats around the world, datepicker has an optional dependency on <a href="http://momentjs.com/">moment.js</a>. <a href="http://momentjs.com/downloads/moment-with-langs.js">Download moment.js (with languages).</a></p>
+	<div class="fu-example section">
+{% include js/datepicker-example.html %}
+	</div><!-- /example -->
 
-  </div><!-- /example -->
+	<h2 id="datepickers-usage">Usage</h2>
 
+	<h3>Via data-attributes</h3>
+	<p>The datepicker will automatically instantiate any datepickers with <code>data-initialize="datepicker"</code>. If the control markup is added <i>after page load</i> with <code>data-initialize="datepicker"</code>, this control will be initialized on <code>mousedown</code>.
+
+	<h3>Via JavaScript</h3>
+	<p>Call the datepicker control via JavaScript:</p>
+{% highlight js %}$('#MyDatepicker').datepicker();{% endhighlight %}
+
+	<h3>Markup</h3>
+	<p>Add <code>class="datepicker"</code> to an input and a dropdown within a <code>class="fuelux"</code> container.</p>
 {% highlight html %}
-stub
+<div class="datepicker" data-initialize="datepicker" id="MyDatepicker">
+  <div class="input-group">
+    <input class="form-control" id="MyDatepickerInput" type="text"/>
+    <div class="input-group-btn">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span class="glyphicon glyphicon-calendar"></span>
+        <span class="sr-only">Toggle Calendar</span>
+      </button>
+      <div class="dropdown-menu dropdown-menu-right datepicker-dropdown" role="menu">
+        <div class="datepicker-calendar">
+          <div class="datepicker-calendar-header">
+            <div class="prev"><span class="glyphicon glyphicon-chevron-left"></span></div>
+            <div class="next"><span class="glyphicon glyphicon-chevron-right"></span></div>
+            <div class="title">
+              <a href="#"><ul class="month">
+                <li data-month="0">January</li>
+                <li data-month="1">February</li>
+                <li data-month="2">March</li>
+                <li data-month="3">April</li>
+                <li data-month="4">May</li>
+                <li data-month="5">June</li>
+                <li data-month="6">July</li>
+                <li data-month="7">August</li>
+                <li data-month="8">September</li>
+                <li data-month="9">October</li>
+                <li data-month="10">November</li>
+                <li data-month="11">December</li>
+              </ul> <span class="year"></span></a>
+            </div>
+          </div>
+          <table class="datepicker-calendar-days">
+            <thead>
+            <tr>
+              <th>Su</th>
+              <th>Mo</th>
+              <th>Tu</th>
+              <th>We</th>
+              <th>Th</th>
+              <th>Fr</th>
+              <th>Sa</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <div class="datepicker-calendar-footer">
+            <a class="datepicker-today" href="#">Today</a>
+          </div>
+        </div>
+        <div class="datepicker-wheels">
+          <div class="datepicker-wheels-month">
+            <div class="header">Month</div>
+            <ul>
+              <li data-month="0"><a href="#">Jan</a></li>
+              <li data-month="1"><a href="#">Feb</a></li>
+              <li data-month="2"><a href="#">Mar</a></li>
+              <li data-month="3"><a href="#">Apr</a></li>
+              <li data-month="4"><a href="#">May</a></li>
+              <li data-month="5"><a href="#">Jun</a></li>
+              <li data-month="6"><a href="#">Jul</a></li>
+              <li data-month="7"><a href="#">Aug</a></li>
+              <li data-month="8"><a href="#">Sep</a></li>
+              <li data-month="9"><a href="#">Oct</a></li>
+              <li data-month="10"><a href="#">Nov</a></li>
+              <li data-month="11"><a href="#">Dec</a></li>
+            </ul>
+          </div>
+          <div class="datepicker-wheels-year">
+            <div class="header">Year</div>
+            <ul></ul>
+          </div>
+          <div class="datepicker-wheels-footer">
+            <a class="datepicker-wheels-back" href="#"><span class="glyphicon glyphicon-arrow-left"></span></a>
+            <button type="button" class="btn btn-primary btn-xs datepicker-wheels-select">Select</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endhighlight %}
 
-  <h2 id="datepickers-usage">Usage</h2>
-
-  <h3>Via data-attributes</h3>
-  <p>The datepicker will automatically instantiate any datepickers with <code>data-initialize="datepicker"</code>. If the control markup is added <i>after page load</i> with <code>data-initialize="datepicker"</code>, this control will be initialized on <code>mousedown</code>.
-
-  <h3>Via JavaScript</h3>
-  <p>Call the datepicker control via JavaScript:</p>
-  {% highlight js %}$('#MyDatepicker').datepicker();{% endhighlight %}
-
-
-  <h3>Markup</h3>
-  <p>Add <code>class="datepicker"</code> to an input and a dropdown within a <code>class="fuelux"</code> container.</p>
-{% highlight html %}
-
-{% endhighlight %}
-
-  <h3>Options</h3>
-  <p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-selected=""</code>.</p>
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead>
-       <tr>
-         <th style="width: 100px;">Name</th>
-         <th style="width: 100px;">type</th>
-         <th style="width: 50px;">default</th>
-         <th>description</th>
-       </tr>
-      </thead>
-      <tbody>
-       <tr>
-         <td>date</td>
-         <td>date</td>
-         <td>new Date()</td>
-         <td>If date is set to null when the datepicker is initialized the getDate method will return null until a date is selected (programmatically or by the user). Otherwise, the date will be parsed.</td>
-       </tr>
-       <tr>
-         <td>createInput</td>
-         <td>object</td>
-         <td>false</td>
-         <td>Allows control to generate HTML Markup. This can be true, false, or an object like below:
-<code>
-{
-    native: false,
-    dropDownBtn: false,
-    inputSize: 'span3'
-}
-</code>
-
-<code>native</code> can have a value of true or false. If true, dropDownBtn will be ignored
-<code>dropDownBtn</code> can have a value of true or false
-<code>inputSize</code> can either be a CSS class or a integer.
-        </td>
-       </tr>
-       <tr>
-         <td>dropdownWidth</td>
-         <td>integer</td>
-         <td>170</td>
-         <td>Sets pixel width of dropdown.</td>
-       </tr>
-       <tr>
-         <td>restrictDateSelection</td>
-         <td>boolean</td>
-         <td>true</td>
-         <td>Disables ability to select dates in the past. Based on today's date.</td>
-       </tr>
-       <tr>
-         <td>parseDate</td>
-         <td>date</td>
-         <td>return new Date( date );</td>
-         <td>Function allows custom date parsing. A date is passed as a parameter. A Date Object should be returned by this function. 
-Do not overwrite this function if using Moment.js.</td>
-       </tr>
-       <tr>
-         <td>formatDate</td>
-         <td>string</td>
-         <td>MM-DD-YYYY</td>
-         <td>Function allows custom formatting of date. Will never modify the main Date Object. A date is passed as a parameter. A formatted date should be returned by this function. Do not overwrite this function if using Moment.js.</td>
-       </tr>
-       <tr>
-         <td>blackoutDates</td>
-         <td>boolean</td>
-         <td>true</td>
-         <td>Function restricts date selection. A date is passed as a parameter. Boolean value should be returned false</td>
-       </tr>
-       <tr>
-         <td>momentConfig</td>
-         <td>Object</td>
-         <td>true</td>
-         <td>Handles culture and format if Moment.js is available 
-<code>
-{
-  culture: 'en',
-  formatCode: 'L'
-}
-</code>
-        </td>
-       </tr>
-      </tbody>
-    </table>
-  </div><!-- ./fu-table-responsive -->
+	<h3>Options</h3>
+	<p>Options can be passed via Javascript upon initialization.</p>
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th style="width: 100px;">Name</th>
+					<th style="width: 100px;">type</th>
+					<th style="width: 50px;">default</th>
+					<th>description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>allowPastDates</td>
+					<td>boolean</td>
+					<td>false</td>
+					<td>Dictates whether past dates can be input or selected by the user.</td>
+				</tr>
+				<tr>
+					<td>date</td>
+					<td>Date object, string, or falsy value ('', null, or false)</td>
+					<td>new Date()</td>
+					<td>Specifies the date that is set upon initialization. If using a string, the format must be a
+					valid date string as supported by the browser or by moment.js if available. Falsy values will result
+					in no date being set upon initialization.</td>
+				</tr>
+				<tr>
+					<td>formatDate</td>
+					<td>function or null</td>
+					<td>null</td>
+					<td>Function that is called for formatting a valid date object. Should only be overriden if the
+					datepicker's default formatDate method is not sufficient for your needs. The formatDate function takes
+					a date object as an argument, and should return a string.</td>
+				</tr>
+				<tr>
+					<td>momentConfig</td>
+					<td>object</td>
+					<td>{ culture: 'en', format: 'L' }</td>
+					<td>Settings used to configure moment.js, if available. Both <code>culture</code> and <code>format</code>
+					attributes must be present for moment features to be utilized. The <code>culture</code> attribute is a string
+					representing the desired datepicker language. The <code>format</code> attribute is a string representing the
+					desired date format that appears in the input upon date selection. Consult the <a href="http://momentjs.com/docs/">moment.js</a>
+					docs for more information on supported cultures and formats.</td>
+				</tr>
+				<tr>
+					<td>parseDate</td>
+					<td>function or null</td>
+					<td>null</td>
+					<td>Function that is called for parsing date strings input by the user. Should only be overriden if the
+					datepicker's default parseDate method is not sufficient for your needs. The parseDate function takes a
+					date object, string, or falsy value as an argument, and should return either a valid date object representing
+					the successfully parsed value or invalid date object (<code>new Date(NaN)</code>)</td>
+				</tr>
+				<tr>
+					<td>restricted</td>
+					<td>array</td>
+					<td>[]</td>
+					<td>Specifies dates that are restricted from user input and selection. Uses an array of objects to provide
+					the ranges. Each object must have the following format: <code>{ from: '03/31/2015', to: '03/31/2016' }</code>
+					The <code>from</code> attribute represents the start date of the restricted range, and the <code>to</code>
+					attribute represents the end date of the range, inclusively. Both attributes can be set to either a valid date
+					string or a date object.</td>
+				</tr>
+				<tr>
+					<td>sameYearOnly</td>
+					<td>boolean</td>
+					<td>false</td>
+					<td>Prevents the user from selecting dates outside the current year if true.</td>
+				</tr>
+			</tbody>
+		</table>
+	</div><!-- ./fu-table-responsive -->
  
 
   <h3>Methods</h3>
@@ -126,38 +188,38 @@ Do not overwrite this function if using Moment.js.</td>
 
   <h4>.datepicker('disable')</h4>
   <p>Disables the component</p>
-  {% highlight js %}$('#element').datepicker('disable'){% endhighlight %}
+  {% highlight js %}$('#element').datepicker('disable');{% endhighlight %}
 
   <h4>.datepicker('enable')</h4>
   <p>Enables the component</p>
-  {% highlight js %}$('#element').datepicker('enable'){% endhighlight %}
+  {% highlight js %}$('#element').datepicker('enable');{% endhighlight %}
 
   <h4>.datepicker('getDate')</h4>
   <p>Returns the selected date (not formatted)</p>
-  {% highlight js %}$('#element').datepicker('getDate'){% endhighlight %}
+  {% highlight js %}$('#element').datepicker('getDate');{% endhighlight %}
 
   <h4>.datepicker('getFormattedDate')</h4>
-  <p>Returns the selected formated date</p>
-  {% highlight js %}$('#element').datepicker('getFormattedDate'){% endhighlight %}
+  <p>Returns the selected formatted date</p>
+  {% highlight js %}$('#element').datepicker('getFormattedDate');{% endhighlight %}
 
   <h4>.datepicker('setDate')</h4>
-  <p>Set's datepicker to date provided. Date provided must be a valid Date Object</p>
-  {% highlight js %}$('#element').datepicker('setDate', new Date() ){% endhighlight %}
+  <p>Sets datepicker to date provided. Date provided must be a valid Date object or date string.</p>
+  {% highlight js %}$('#element').datepicker('setDate', new Date()){% endhighlight %}
 
   <h4>.datepicker('getCulture')</h4>
-  <p>Returns the culture the datepicker is currently using. <i>Only available using Moment.js with Langs</i></p>
+  <p>Returns the culture the datepicker is currently using. <i>Only available using moment.js with langs</i></p>
   {% highlight js %}$('#element').datepicker('getCulture'){% endhighlight %}
 
   <h4>.datepicker('setCulture')</h4>
-  <p>Updates the culture the datepicker uses. <i>Only available using Moment.js with Langs</i></p>
+  <p>Updates the culture the datepicker uses. <i>Only available using moment.js with langs</i></p>
   {% highlight js %}$('#element').datepicker('setCulture'){% endhighlight %}
 
-  <h4>.datepicker('getFormatCode')</h4>
-  <p>Returns the format code the datepicker is currently using. <i>Only available using Moment.js with Langs</i></p>
+  <h4>.datepicker('getFormat')</h4>
+  <p>Returns the format the datepicker is currently using. <i>Only available using moment.js with langs</i></p>
   {% highlight js %}$('#element').datepicker('getFormatCode'){% endhighlight %}
 
-  <h4>.datepicker('setFormatCode')</h4>
-  <p>Updates the format code the datepicker uses. <i>Only available using Moment.js with Langs</i></p>
+  <h4>.datepicker('setFormat')</h4>
+  <p>Updates the format the datepicker uses. <i>Only available using moment.js with langs</i></p>
   {% highlight js %}$('#element').datepicker('setFormatCode'){% endhighlight %}
 
   <h3>Events</h3>
@@ -172,17 +234,20 @@ Do not overwrite this function if using Moment.js.</td>
       <tbody>
         <tr>
           <td>changed.fu.datepicker</td>
-          <td>This event is fired when the date value has changed.</td>
+          <td>This event is fired when the date value has been changed by the user.</td>
         </tr>
         <tr>
           <td>inputParsingFailed.fu.datepicker</td>
-          <td>This event is fired when an invalid date is parsed on blur of the datepicker. <i>Only available using Moment JS with Langs</i>
-</td>
+          <td>This event is fired when an invalid date is parsed on blur of the datepicker.</td>
         </tr>
+		<tr>
+		  <td>inputRestrictedDate.fu.datepicker</td>
+		  <td>This event is fired when an restricted date is parsed on blur of the datepicker.</td>
+		</tr>
       </tbody>
     </table>
 
-    
+
   </div><!-- ./fu-table-responsive -->
   <p>All dropdown events are fired at the <code>.dropdown</code>'s parent element.</p>
 {% highlight js %}
