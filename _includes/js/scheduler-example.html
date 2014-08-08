@@ -1,3 +1,4 @@
+<fieldset id="MySchedulerStatic" class="form-horizontal container-fluid scheduler" role="form">
 <!-- remove wrapping div -->
 <div class="form-group start-datetime">
     <label class="col-sm-2 control-label scheduler-label" for="MyStartDate">Start Date</label>
@@ -21,7 +22,7 @@
         
         <div class="col-sm-4 form-group">
             <label class="sr-only" for="MyStartTime">Start Time</label>
-            <div class="input-group combobox start-time" data-initialize="combobox">
+            <div class="input-group combobox start-time">
                 <input id="MyStartTime" type="text" class="form-control" />
                 <div class="input-group-btn">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -88,7 +89,7 @@
 <div class="row form-group timezone-container">
     <label class="col-sm-2 control-label scheduler-label">Timezone</label>
     <div class="col-xs-12 col-sm-10 col-md-10">
-        <div data-resize="auto" class="btn-group selectlist timezone" data-initialize="selectlist">
+        <div data-resize="auto" class="btn-group selectlist timezone">
             <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
                 <span class="selected-label" style="width: 67px;">(GMT-06:00) Central Standard Time</span>
                 <span class="caret"></span>
@@ -198,7 +199,7 @@
     <div class="col-sm-10">
 
         <div class="form-group repeat-interval">
-            <div data-resize="auto" class="btn-group selectlist pull-left repeat-options" data-initialize="selectlist">
+            <div data-resize="auto" class="btn-group selectlist pull-left repeat-options">
                 <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
                     <span class="selected-label">None (run once)</span>
                     <span class="caret"></span>
@@ -218,8 +219,8 @@
             <div class="repeat-panel repeat-every-panel repeat-hourly repeat-daily repeat-weekly hide" aria-hidden="true">
                 <label id="MySchedulerEveryLabel" class="inline-form-text repeat-every-pretext">every</label>
 
-                <div class="spinbox digits-3 repeat-every" data-initialize="spinbox">
-                    <input type="number" class="form-control input-mini spinbox-input" aria-labelledby="MySchedulerEveryLabel">
+                <div class="spinbox digits-3 repeat-every">
+                    <input type="text" class="form-control input-mini spinbox-input" aria-labelledby="MySchedulerEveryLabel">
 
                     <div class="spinbox-buttons btn-group btn-group-vertical">
                         <button type="button" class="btn btn-default spinbox-up btn-xs">
@@ -271,7 +272,7 @@
                     </label>
                 </div>
 
-                <div data-resize="auto" class="btn-group selectlist pull-left" data-initialize="selectlist">
+                <div data-resize="auto" class="btn-group selectlist pull-left">
                     <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
                         <span class="selected-label">1</span>
                         <span class="caret"></span>
@@ -321,7 +322,7 @@
                     </label>
                 </div>
 
-                <div data-resize="auto" class="btn-group selectlist month-day-pos pull-left" data-initialize="selectlist">
+                <div data-resize="auto" class="btn-group selectlist month-day-pos pull-left">
                     <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
                         <span class="selected-label">First</span>
                         <span class="caret"></span>
@@ -336,7 +337,7 @@
                     <input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field">
                 </div>
 
-                <div data-resize="auto" class="btn-group selectlist month-days pull-left" data-initialize="selectlist">
+                <div data-resize="auto" class="btn-group selectlist month-days pull-left">
                     <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
                         <span class="selected-label">Sunday</span>
                         <span class="caret"></span>
@@ -370,7 +371,7 @@
                     </label>
                     </div>
 
-                <div data-resize="auto" class="btn-group selectlist year-month pull-left" data-initialize="selectlist">
+                <div data-resize="auto" class="btn-group selectlist year-month pull-left>
                     <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
                         <span class="selected-label">January</span>
                         <span class="caret"></span>
@@ -392,7 +393,7 @@
                     <input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field">
                 </div>
 
-                <div data-resize="auto" class="btn-group selectlist year-month-day pull-left" data-initialize="selectlist">
+                <div data-resize="auto" class="btn-group selectlist year-month-day pull-left">
                     <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
                         <span class="selected-label">1</span>
                         <span class="caret"></span>
@@ -438,7 +439,7 @@
 
                 <div class="radio pull-left"><label class="radio-custom"><input type="radio" name="repeat-yearly" value="bysetpos"> on the</label></div>
 
-                <div data-resize="auto" class="btn-group selectlist year-month-day-pos pull-left" data-initialize="selectlist">
+                <div data-resize="auto" class="btn-group selectlist year-month-day-pos pull-left">
                     <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
                         <span class="selected-label">First</span>
                         <span class="caret"></span>
@@ -454,7 +455,7 @@
                     <input type="text" aria-hidden="true" readonly="readonly" name="yearlyDateSelectlist" class="hidden hidden-field">
                 </div>
 
-                <div data-resize="auto" class="btn-group selectlist year-month-days pull-left" data-initialize="selectlist">
+                <div data-resize="auto" class="btn-group selectlist year-month-days pull-left">
                     <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
                         <span class="selected-label">Sunday</span>
                         <span class="caret"></span>
@@ -476,7 +477,7 @@
                 </div>
                 <div class="inline-form-text repeat-yearly-day-text"> of </div>
 
-                <div data-resize="auto" class="btn-group selectlist year-month pull-left" data-initialize="selectlist">
+                <div data-resize="auto" class="btn-group selectlist year-month pull-left">
                     <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
                         <span class="selected-label">January</span>
                         <span class="caret"></span>
@@ -508,7 +509,7 @@
     <label class="col-sm-2 control-label scheduler-label">End</label>
     <div class="col-sm-10 row">
         <div class="col-sm-3 form-group">
-            <div data-resize="auto" class="btn-group selectlist end-options pull-left" data-initialize="selectlist">
+            <div data-resize="auto" class="btn-group selectlist end-options pull-left">
                 <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
                     <span class="selected-label">Never</span>
                     <span class="caret"></span>
@@ -524,9 +525,9 @@
         </div>
         
         <div class="col-sm-6 form-group end-option-panel end-after-panel pull-left hide" aria-hidden="true">
-            <div class="spinbox digits-3 end-after" data-initialize="spinbox">
+            <div class="spinbox digits-3 end-after">
                 <label id="MyEndAfter" class="sr-only">End After</label>
-                <input type="number" class="form-control input-mini spinbox-input" aria-labelledby="MyEndAfter">
+                <input type="text" class="form-control input-mini spinbox-input" aria-labelledby="MyEndAfter">
 
                 <div class="spinbox-buttons btn-group btn-group-vertical">
                     <button type="button" class="btn btn-default spinbox-up btn-xs">
@@ -554,3 +555,5 @@
         </div>
     </div>
 </div>
+
+</fieldset>
