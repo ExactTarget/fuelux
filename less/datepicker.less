@@ -4,13 +4,26 @@
 		padding: 16px 16px 0;
 		min-height: 262px;
 
+		button {
+			border: 0;
+			padding: 0;
+			background-color: transparent;
+		}
+
 		&-days {
 			height: 182px;
-			margin: 16px 0 4px;
+			margin: 10px 0 12px;
 			width: 100%;
 
 			thead {
 				border-bottom: 1px solid #cccaca;
+			}
+
+			/* for spacing */
+			tbody:before {
+				line-height:3px;
+				content:"\200C";
+				display:block;
 			}
 
 			td, th {
@@ -22,12 +35,7 @@
 			}
 
 			td {
-				a {
-					color: #231f20;
-					display: inline-block;
-					height: 22px;
-					text-decoration: none;
-					width: 28px;
+				span {
 
 					&:hover {
 						background: #b7e3f8;
@@ -35,32 +43,39 @@
 					}
 				}
 
+				button {
+					color: #231f20;
+					display: inline-block;
+					height: 30px;
+					text-decoration: none;
+					width: 30px;
+
+
+				}
+
 				span {
 					display: block;
 				}
 
 				&.current-day {
-					a {
+					button {
 						border: 1px solid #1d75bb;
 					}
 				}
 
 				&.last-month, &.next-month {
-					span {
 						background: #e3e2e1;
-					}
 				}
 
 				&.past {
-					a {
+					button {
 						color: #8d8787;
 					}
 				}
 
 				&.restricted {
-					a {
-						cursor: default;
-						pointer-events: none;
+					button {
+						cursor: no-drop;
 						position: relative;
 
 						&:before {
@@ -81,19 +96,21 @@
 				}
 
 				&.selected {
-					a {
+					span {
 						background: #1d75bb;
-						color: #fff;
 
 						&:hover {
 							background: #0f5f9f;
 						}
+
+					}
+
+					button {
+						color: #fff;
 					}
 
 					&.current-day {
-						a {
-							box-shadow: 0 0 0 1px #fff inset;
-						}
+						box-shadow: 0 0 0 1px #fff offset;
 					}
 				}
 			}
@@ -108,17 +125,22 @@
 		&-header {
 			.clearfix;
 
+			button {
+				border: 0;
+				padding: 0;
+				background-color: transparent;
+			}
+
 			.title {
 				margin: 0 auto;
 				text-align: center;
+				display: block;
 				width: 174px;
-
-				a {
-					color: #4d4d4f;
-					font-size: 20px;
-					line-height: 30px;
-					text-decoration: underline;
-					vertical-align: middle;
+				color: #4d4d4f;
+				font-size: 20px;
+				line-height: 30px;
+				text-decoration: underline;
+				vertical-align: middle;
 
 					&:hover {
 						color: #1d75bb;
@@ -131,13 +153,13 @@
 						text-decoration: none;
 					}
 
-					ul.month {
+					.month {
 						display: inline;
 						list-style: none;
 						margin: 0;
 						padding: 0;
 
-						li {
+						span {
 							display: none;
 
 							&.current {
@@ -146,10 +168,9 @@
 						}
 					}
 				}
-			}
 
 			.next, .prev {
-				background: #4d4d4f;
+				background: #666669;
 				background-clip: padding-box;
 				border-radius: 30px;
 				cursor: pointer;
@@ -185,7 +206,7 @@
 			border-top: 1px solid #cccaca;
 			height: 30px;
 			margin: 0 -16px;
-			padding: 4px 16px;
+			padding: 4px 14px;
 
 			.datepicker-today {
 				color: #231f20;
@@ -210,7 +231,7 @@
 		}
 	}
 
-	&-dropdown {
+	&-calendar-wrapper {
 		border: 1px solid #6e6f71;
 		min-height: 20px;
 		padding: 0;
@@ -220,29 +241,39 @@
 	&-wheels {
 		display: none;
 
+		ul button {
+			border: 0;
+			padding: 0;
+			background-color: transparent;
+		}
+
 		&-footer {
 			background: #e3e2e1;
-			background-clip: padding-box;
 			border-radius: 0 0 4px 4px;
 			border-top: 1px solid #cccaca;
 			clear: both;
-			height: 30px;
-			padding: 3px 12px;
 
-			.clearfix;
-
-			a.datepicker-wheels-back {
+			.datepicker-wheels-back {
+				display: block;
 				color: #4d4d4f;
 				float: left;
 				line-height: 22px;
+				border: 0;
+				background-color: transparent;
 
 				&:hover {
 					color: #1d75bb;
 				}
 			}
 
-			button.datepicker-wheels-select {
+			.datepicker-wheels-select {
 				float: right;
+				background-color: transparent;
+				color: @blue;
+
+				&:hover {
+					color: #1d75bb;
+				}
 			}
 		}
 
@@ -261,8 +292,10 @@
 				li {
 					margin: 4px 0;
 
-					a {
-
+					button {
+						display: block;
+						width: 100%;
+						text-align: center;
 						color: #414041;
 						display: block;
 						font-size: 16px;
@@ -276,7 +309,7 @@
 					}
 
 					&.selected {
-						a {
+						button {
 							background: #1d75bb;
 							color: #fff;
 
@@ -297,6 +330,8 @@
 				font-size: 20px;
 				font-weight: bold;
 				line-height: 30px;
+				margin-top: 0;
+				margin-bottom: 0;
 				text-align: center;
 			}
 

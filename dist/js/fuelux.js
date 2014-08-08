@@ -504,7 +504,6 @@
 
 		// -- BEGIN MODULE CODE HERE --
 
-
 		var INVALID_DATE = 'Invalid Date';
 		var MOMENT_NOT_AVAILABLE = 'moment.js is not available so you cannot use this function';
 
@@ -560,23 +559,24 @@
 			this.parseDate = this.options.parseDate || this.parseDate;
 			this.preventBlurHide = false;
 			this.restricted = this.options.restricted || [];
+			this.restrictedText = this.options.restrictedText;
 			this.restrictedParsed = [];
 			this.sameYearOnly = this.options.sameYearOnly;
 			this.selectedDate = null;
 			this.yearRestriction = null;
 
 			this.$calendar.find( '.datepicker-today' ).on( 'click.fu.datepicker', $.proxy( this.todayClicked, this ) );
-			this.$days.on( 'click.fu.datepicker', 'tr td a', $.proxy( this.dateClicked, this ) );
-			this.$element.find( '.datepicker-dropdown' ).on( 'mousedown.fu.datepicker', $.proxy( this.dropdownMousedown, this ) );
+			this.$days.on( 'click.fu.datepicker', 'tr td button', $.proxy( this.dateClicked, this ) );
+			this.$element.find( '.dropdown-menu' ).on( 'mousedown.fu.datepicker', $.proxy( this.dropdownMousedown, this ) );
 			this.$header.find( '.next' ).on( 'click.fu.datepicker', $.proxy( this.next, this ) );
 			this.$header.find( '.prev' ).on( 'click.fu.datepicker', $.proxy( this.prev, this ) );
-			this.$headerTitle.find( 'a' ).on( 'click.fu.datepicker', $.proxy( this.titleClicked, this ) );
+			this.$headerTitle.on( 'click.fu.datepicker', $.proxy( this.titleClicked, this ) );
 			this.$input.on( 'blur.fu.datepicker', $.proxy( this.inputBlurred, this ) );
 			this.$input.on( 'focus.fu.datepicker', $.proxy( this.inputFocused, this ) );
 			this.$wheels.find( '.datepicker-wheels-back' ).on( 'click.fu.datepicker', $.proxy( this.backClicked, this ) );
 			this.$wheels.find( '.datepicker-wheels-select' ).on( 'click.fu.datepicker', $.proxy( this.selectClicked, this ) );
-			this.$wheelsMonth.on( 'click.fu.datepicker', 'ul a', $.proxy( this.monthClicked, this ) );
-			this.$wheelsYear.on( 'click.fu.datepicker', 'ul a', $.proxy( this.yearClicked, this ) );
+			this.$wheelsMonth.on( 'click.fu.datepicker', 'ul button', $.proxy( this.monthClicked, this ) );
+			this.$wheelsYear.on( 'click.fu.datepicker', 'ul button', $.proxy( this.yearClicked, this ) );
 			this.$wheelsYear.find( 'ul' ).on( 'scroll.fu.datepicker', $.proxy( this.onYearScroll, this ) );
 
 			var init = function() {
@@ -617,14 +617,14 @@
 
 			changeView: function( view, date ) {
 				if ( view === 'wheels' ) {
-					this.$calendar.hide();
-					this.$wheels.show();
+					this.$calendar.hide().attr( 'aria-hidden', 'true' );
+					this.$wheels.show().removeAttr( 'aria-hidden', '' );
 					if ( date ) {
 						this.renderWheel( date );
 					}
 				} else {
-					this.$wheels.hide();
-					this.$calendar.show();
+					this.$wheels.hide().attr( 'aria-hidden', 'true' );
+					this.$calendar.show().removeAttr( 'aria-hidden', '' );
 					if ( date ) {
 						this.renderMonth( date );
 					}
@@ -644,10 +644,14 @@
 			},
 
 			dateClicked: function( e ) {
+
 				var $td = $( e.currentTarget ).parents( 'td:first' );
 				var date;
 
-				e.preventDefault();
+				if ( $td.hasClass( 'restricted' ) ) {
+					return;
+				}
+
 				this.$days.find( 'td.selected' ).removeClass( 'selected' );
 				$td.addClass( 'selected' );
 
@@ -783,7 +787,7 @@
 			},
 
 			next: function() {
-				var $a = this.$headerTitle.find( 'a' );
+				var $a = this.$headerTitle;
 				var month = $a.attr( 'data-month' );
 				var year = $a.attr( 'data-year' );
 				month++;
@@ -813,7 +817,7 @@
 				if ( topPercentage < 5 ) {
 					start = parseInt( $yearUl.find( 'li:first' ).attr( 'data-year' ), 10 );
 					for ( i = ( start - 1 ); i > ( start - 11 ); i-- ) {
-						$yearUl.prepend( '<li data-year="' + i + '"><a href="#">' + i + '</a></li>' );
+						$yearUl.prepend( '<li data-year="' + i + '"><button>' + i + '</button></li>' );
 					}
 					this.artificialScrolling = true;
 					$yearUl.scrollTop( ( $yearUl.get( 0 ).scrollHeight - scrollHeight ) + scrollTop );
@@ -821,7 +825,7 @@
 				} else if ( bottomPercentage > 90 ) {
 					start = parseInt( $yearUl.find( 'li:last' ).attr( 'data-year' ), 10 );
 					for ( i = ( start + 1 ); i < ( start + 11 ); i++ ) {
-						$yearUl.append( '<li data-year="' + i + '"><a href="#">' + i + '</a></li>' );
+						$yearUl.append( '<li data-year="' + i + '"><button>' + i + '</button></li>' );
 					}
 				}
 			},
@@ -876,7 +880,7 @@
 			},
 
 			prev: function() {
-				var $a = this.$headerTitle.find( 'a' );
+				var $a = this.$headerTitle;
 				var month = $a.attr( 'data-month' );
 				var year = $a.attr( 'data-year' );
 				month--;
@@ -916,9 +920,9 @@
 				}
 
 				$month.find( '.current' ).removeClass( 'current' );
-				$month.find( 'li[data-month="' + month + '"]' ).addClass( 'current' );
+				$month.find( 'span[data-month="' + month + '"]' ).addClass( 'current' );
 				this.$headerTitle.find( '.year' ).text( year );
-				this.$headerTitle.find( 'a' ).attr( {
+				this.$headerTitle.attr( {
 					'data-month': month,
 					'data-year': year
 				} );
@@ -935,7 +939,7 @@
 				for ( i = 0; i < rows; i++ ) {
 					$tr = $( '<tr></tr>' );
 					for ( j = 0; j < 7; j++ ) {
-						$td = $( '<td><span><a class="datepicker-date" href="#">' + curDate + '</a></span></td>' );
+						$td = $( '<td><span><button class="datepicker-date">' + curDate + '</button></span></td>' );
 						if ( stage === -1 ) {
 							$td.addClass( 'last-month' );
 						} else if ( stage === 1 ) {
@@ -963,11 +967,11 @@
 							( curYear === nowYear && curMonth === nowMonth && curDate < nowDate ) ) {
 							$td.addClass( 'past' );
 							if ( !this.options.allowPastDates ) {
-								$td.addClass( 'restricted' );
+								$td.addClass( 'restricted' ).attr( 'title', this.restrictedText );
 							}
 						}
 						if ( this.isRestricted( curDate, curMonth, curYear ) ) {
-							$td.addClass( 'restricted' );
+							$td.addClass( 'restricted' ).attr( 'title', this.restrictedText );
 						}
 						if ( selected && curYear === selected.year && curMonth === selected.month && curDate === selected.date ) {
 							$td.addClass( 'selected' );
@@ -1010,13 +1014,14 @@
 
 				$yearUl.empty();
 				for ( i = ( year - 10 ); i < ( year + 11 ); i++ ) {
-					$yearUl.append( '<li data-year="' + i + '"><a href="#">' + i + '</a></li>' );
+					$yearUl.append( '<li data-year="' + i + '"><button>' + i + '</button></li>' );
 				}
 				$yearSelected = $yearUl.find( 'li[data-year="' + year + '"]' );
 				$yearSelected.addClass( 'selected' );
 				this.artificialScrolling = true;
 				$yearUl.scrollTop( $yearUl.scrollTop() + ( $yearSelected.position().top - $yearUl.outerHeight() / 2 - $yearSelected.outerHeight( true ) / 2 ) );
 				this.artificialScrolling = false;
+				$monthSelected.find( 'button' ).focus();
 			},
 
 			selectClicked: function() {
@@ -1106,12 +1111,11 @@
 
 			titleClicked: function( e ) {
 				var $a = $( e.currentTarget );
-				e.preventDefault();
 				this.changeView( 'wheels', new Date( $a.attr( 'data-year' ), $a.attr( 'data-month' ), 1 ) );
 			},
 
-			todayClicked: function() {
-				var $a = this.$headerTitle.find( 'a' );
+			todayClicked: function( e ) {
+				var $a = this.$headerTitle;
 				var date = new Date();
 
 				if ( ( date.getMonth() + '' ) !== $a.attr( 'data-month' ) || ( date.getFullYear() + '' ) !== $a.attr( 'data-year' ) ) {
@@ -1154,6 +1158,7 @@
 			},
 			parseDate: null,
 			restricted: [], //accepts an array of objects formatted as so: { from: {{date}}, to: {{date}} }  (ex: [ { from: new Date('12/11/2014'), to: new Date('03/31/2015') } ])
+			restrictedText: 'Restricted',
 			sameYearOnly: false
 		};
 
@@ -1174,9 +1179,9 @@
 		} );
 
 		//used to prevent the dropdown from closing when clicking within it's bounds
-		$( document ).on( 'click.fu.datepicker.data-api', '.datepicker-dropdown', function( e ) {
+		$( document ).on( 'click.fu.datepicker.data-api', '.datepicker .dropdown-menu', function( e ) {
 			var $target = $( e.target );
-			if ( !$target.is( 'a.datepicker-date' ) ) {
+			if ( !$target.is( '.datepicker-date' ) ) {
 				e.stopPropagation();
 			}
 		} );
