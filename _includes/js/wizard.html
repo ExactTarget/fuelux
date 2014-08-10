@@ -170,8 +170,8 @@ $('#element').wizard('addSteps', index, remove,
       </thead>
       <tbody>
         <tr>
-          <td>change.fu.wizard</td>
-          <td>This event fires immediately when the step changes, but before the new step has been shown. Use <code>event.preventDefault</code> to cancel the event.</td>
+          <td>actionclicked.fu.wizard</td>
+          <td>This event is fired when the previous button is clicked.</td>
         </tr>
         <tr>
           <td>changed.fu.wizard</td>
@@ -182,7 +182,7 @@ $('#element').wizard('addSteps', index, remove,
           <td>This event is fired when the next button is clicked on the last step of the wizard.</td>
         </tr>
         <tr>
-          <td>stepclick.fu.wizard</td>
+          <td>stepclicked.fu.wizard</td>
           <td>This event is fired when a completed step is clicked. Use <code>event.preventDefault</code> to cancel the event.</td>
         </tr>
       </tbody>
