@@ -559,8 +559,8 @@
 			this.parseDate = this.options.parseDate || this.parseDate;
 			this.preventBlurHide = false;
 			this.restricted = this.options.restricted || [];
-			this.restrictedText = this.options.restrictedText;
 			this.restrictedParsed = [];
+			this.restrictedText = this.options.restrictedText;
 			this.sameYearOnly = this.options.sameYearOnly;
 			this.selectedDate = null;
 			this.yearRestriction = null;
@@ -644,7 +644,6 @@
 			},
 
 			dateClicked: function( e ) {
-
 				var $td = $( e.currentTarget ).parents( 'td:first' );
 				var date;
 
