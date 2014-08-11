@@ -11,16 +11,7 @@ define(function(require){
 	require('bootstrap');
 	require('fuelux');
 
-	// WIZARD
-	$('#MyWizard').on('change', function(e, data) {
-		console.log('change');
-		if(data.step===3 && data.direction==='next') {
-			// return e.preventDefault();
-		}
-	});
-	$('#MyWizard').on('changed', function(e, data) {
-		console.log('changed');
-	});
+	//buttons
 	$('#MyWizard').on('finished', function(e, data) {
 		console.log('finished');
 	});
@@ -70,13 +61,16 @@ define(function(require){
 			}
 		]);
 	});
+
 	$('#btnWizardRemoveStep').on('click', function() {
 		$('#MyWizard').wizard('removeSteps', 4, 1);
 	});
-	$('#MyWizard').on('stepclick', function(e, data) {
-		console.log('step ' + data.step + ' clicked');
-		if(data.step===1) {
-			// return e.preventDefault();
-		}
+
+	$('#btnWizardDestroy').click(function () {
+		var markup = $('#MyWizard').wizard('destroy');
+		console.log( markup );
+		$(this).closest('.section').append(markup);
+		$('#MyWizard').wizard();
 	});
+
 });

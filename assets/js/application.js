@@ -13,6 +13,7 @@ define(function(require){
 	require('assets/js/datepicker-examples');
 	require('assets/js/infinite-scroll-examples');
 	require('assets/js/repeater-examples');
+	require('assets/js/placard-examples');
 	require('assets/js/pillbox-examples');
 	require('assets/js/scheduler-examples');
 	require('assets/js/search-examples');

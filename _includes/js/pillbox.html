@@ -7,17 +7,18 @@
   <p>Pillbox is an interface to manage a list of tags. Wrap the list of tags (pills) within <code>.fuelux .pillbox</code></p>
 
   <div class="fu-example section">
-    <div id="MyPillbox" class="pillbox" data-initialize="pillbox">
+    <div id="MyPillbox" class="pillbox">
     {% include js/pillbox-example.html %}
     </div>
 
     <h5>Sample Methods</h5>
     <div class="btn-group">
-      <input type="button" class="btn btn-default" id="btnAdd" value="add">
-      <input type="button" class="btn btn-default" id="btnRemoveByValue" value="remove by value">
-      <input type="button" class="btn btn-default" id="btnRemoveBySelector" value="remove by selector">
-      <input type="button" class="btn btn-default" id="btnRemoveByText" value="remove by text">
-      <input type="button" class="btn btn-default" id="btnItems" value="log items to console">
+      <button class="btn btn-default" id="btnPillboxAdd">add</button>
+      <button class="btn btn-default" id="btnPillboxRemoveByValue">remove by value</button>
+      <button class="btn btn-default" id="btnPillboxRemoveBySelector">remove by selector</button>
+      <button class="btn btn-default" id="btnPillboxRemoveByText">remove by text</button>
+      <button class="btn btn-default" id="btnPillboxItems">log items to console</button>
+      <button class="btn btn-default" id="btnPillboxDestroy">destroy and append</button>
     </div>
   </div>
 

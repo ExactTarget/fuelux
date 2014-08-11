@@ -19,44 +19,42 @@ define(function(require){
 
 
 
-	// set custom format with moment.js
-	$('#MyScheduler').find('.scheduler-start .datepicker').datepicker({ momentConfig: {
-		culture: 'en',
-		formatCode: 'dddd, MMMM D, YYYY'
-	}});
+$('#MyScheduler').on('changed.fu.scheduler', function(){
+	if(window.console && window.console.log){
+		window.console.log('scheduler changed.fu.scheduler: ', arguments);
+	}
+});
 
-	$('#schedulerEnableBtn').on('click', function(){
+	// buttons
+	$('#btnSchedulerEnable').on('click', function(){
 		$('#MyScheduler').scheduler('enable');
 	});
 
-	$('#schedulerDisableBtn').on('click', function(){
+	$('#btnSchedulerDisable').on('click', function(){
 		$('#MyScheduler').scheduler('disable');
 	});
 
-	$('#schedulerLogValueBtn').on('click', function(){
+	$('#btnSchedulerLogValue').on('click', function(){
 		var val = $('#MyScheduler').scheduler('value');
 		if(window.console && window.console.log){
 			window.console.log(val);
 		}
 	});
 
-	$('#schedulerSetValueBtn').on('click', function(){
-		$('#MyScheduler').scheduler('value', {
-			startDateTime: '2014-03-31T03:23+02:00',
-			timeZone: {
-				name: 'Namibia Standard Time',
-				offset: '+02:00'
-			},
-			recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
-		});
+	$('#btnSchedulerSetValue').on('click', function(){
+		var json = $.parseJSON( $('#MySchedule').val() );
+
+		console.log(json);
+
+		$('#MyScheduler').scheduler('value', json);
 	});
 
-	$('#MyScheduler').on('changed', function(){
-		if(window.console && window.console.log){
-			window.console.log('scheduler changed: ', arguments);
-		}
+	$('#btnSchedulerDestroy').on('click', function() {
+		var markup = $('#MyScheduler').scheduler('destroy');
+		console.log( markup );
+		$(this).closest('.section').append(markup);
+		$('#MyScheduler').scheduler();
 	});
 
-	$('#MyScheduler').scheduler();
 	
 });
