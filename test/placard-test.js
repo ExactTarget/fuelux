@@ -214,6 +214,19 @@ define(function(require){
 		equal($placard.placard('getValue'), 'bloop', 'setValue working as expected');
 	});
 
+	test('should disable/enable as expected', function(){
+		var $placard = $(html).find('#placard1');
+		var $field = $placard.find('.placard-field');
+
+		$placard.placard('disable');
+		equal($placard.hasClass('disabled'), true, 'disabled class properly added to element');
+		equal($field.attr('disabled'), 'disabled', 'disabled attribute properly added to field');
+
+		$placard.placard('enable');
+		equal($placard.hasClass('disabled'), false, 'disabled class properly removed from element');
+		equal($field.attr('disabled'), undefined, 'disabled attribute properly removed from field');
+	});
+
 	test("should destroy control", function () {
 		var $el = $(html).find('#placard1');
 

@@ -165,8 +165,8 @@ define(function(require){
 			});
 			var $datepickerInput = $datepicker.find('input');
 			var $header = $datepicker.find('.datepicker-calendar-header');
-			var $titleLink = $header.find('.title a');
-			var $titleYear = $titleLink.find('span.year');
+			var $titleButton = $header.find('.title');
+			var $titleYear = $titleButton.find('span.year');
 			var dateString;
 
 			$datepicker.datepicker('setDate', '12/01/1987');
@@ -177,7 +177,7 @@ define(function(require){
 			$header.find('.prev').trigger('click');
 			equal($titleYear.text(), '1987', 'user can\'t prev click outside current year');
 
-			$titleLink.trigger('click');
+			$titleButton.trigger('click');
 			equal($datepicker.find('.datepicker-wheels-year').hasClass('hide'), true, 'years wheel hidden');
 
 			$datepickerInput.val('03/31/1988');
