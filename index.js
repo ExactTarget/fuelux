@@ -294,6 +294,12 @@ define(function(require){
 
 
 	// PLACARD
+	$('#btnPlacardEnable').click(function(){
+		$('#MyPlacard1').placard('enable');
+	});
+	$('#btnPlacardDisable').click(function(){
+		$('#MyPlacard1').placard('disable');
+	});
 	$('#btnPlacardDestroy').click(function () {
 		var markup = $('#MyPlacard1').placard('destroy');
 		console.log( markup );
