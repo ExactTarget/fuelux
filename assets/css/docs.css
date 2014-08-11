@@ -792,11 +792,11 @@ h6 {
 .fu-example.fu-example-scheduler {
 	background-color: #f5f5f5;
 }
-.fu-example.fu-example-scheduler .end-after > .sr-only,
+/*.fu-example.fu-example-scheduler .end-after > .sr-only,
 .fu-example.fu-example-scheduler .end-on-date > .sr-only {
 	display: inline !important;
 	position: static !important;
-}
+}*/
 .fu-example.fu-example-scheduler .end-after .spinbox {
 	display: inline-block !important;
 }
@@ -807,6 +807,9 @@ h6 {
 	display: block !important;
 }
 .fu-example-scheduler .scheduler .scheduler-end .end-option-panel {
+	display: block !important;
+}
+.fu-example.fu-example-scheduler .repeat-end {
 	display: block !important;
 }
 
