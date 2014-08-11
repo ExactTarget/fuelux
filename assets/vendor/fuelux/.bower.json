@@ -3,7 +3,7 @@
     "jquery-1.11.0": "jquery#1.11.0",
     "requirejs": "~2.1.11",
     "bootstrap": "~3.2.0",
-    "moment-with-langs": "http://momentjs.com/downloads/moment-with-langs.js"
+    "moment": "2.7.0"
   },
   "devDependencies": {
     "jquery": null,
@@ -11,7 +11,7 @@
     "qunit": "~1.14.0",
     "requirejs-text": "~2.0.10",
     "underscore": "~1.6.0",
-    "blanket": "~1.1.5"
+    "blanket": "1.1.5"
   },
   "ignore": [
     "**/.*",
@@ -50,11 +50,11 @@
   ],
   "name": "fuelux",
   "homepage": "https://github.com/ExactTarget/fuelux",
-  "_release": "4e6d2e2a57",
+  "_release": "bdf1acfe53",
   "_resolution": {
     "type": "branch",
     "branch": "3.0.0-wip",
-    "commit": "4e6d2e2a57e193f12e461e8bd1c0953bef61eaa6"
+    "commit": "bdf1acfe53e52eb77c23ed850119671a91be20a0"
   },
   "_source": "git://github.com/ExactTarget/fuelux.git",
   "_target": "3.0.0-wip",

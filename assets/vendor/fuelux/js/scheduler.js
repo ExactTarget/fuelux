@@ -546,10 +546,10 @@
 
 		var $set = this.each(function () {
 			var $this = $(this);
-			var data = $this.data('scheduler');
+			var data = $this.data('fu.scheduler');
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('scheduler', (data = new Scheduler(this, options)));
+			if (!data) $this.data('fu.scheduler', (data = new Scheduler(this, options)));
 			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
@@ -570,7 +570,7 @@
 
 	$(document).on('mousedown.fu.scheduler.data-api', '[data-initialize=scheduler]', function (e) {
 		var $control = $(e.target).closest('.scheduler');
-		if ( !$control.data('scheduler') ) {
+		if ( !$control.data('fu.scheduler') ) {
 			$control.scheduler($control.data());
 		}
 	});

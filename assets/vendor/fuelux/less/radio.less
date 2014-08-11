@@ -9,9 +9,12 @@
 	}
 
 	/* for keyboard tabbing */
-	input[type="radio"]:focus + .radio-label {
+	input[type="radio"]:focus + .radio-label,
+	input[type="radio"]:hover + .radio-label,
+	.radio-label:hover {
 		color: @grayLight;
 	}
+
 }
 
 .radio-custom {
