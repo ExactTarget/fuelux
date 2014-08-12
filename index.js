@@ -59,49 +59,53 @@ define(function(require){
 
 
 	// DATEPICKER
-	// $('#datepicker1').datepicker({
-	//		restrictDateSelection: false
-	// });
 
-	$('#MyDatepicker1').on('changed.fu.datepicker', function( event, data ) {
+	$('#MyDatepicker').on('changed.fu.datepicker', function( event, data ) {
 		console.log( 'datepicker change event fired' );
 	});
 
-	$('#MyDatepicker1').on('inputParsingFailed', function() {
+	$('#MyDatepicker').on('inputParsingFailed.fu.datepicker', function() {
 		console.log( 'datepicker inputParsingFailed event fired' );
 	});
 
 	$('#btnDatepickerEnable').on('click', function() {
-		$('#MyDatepicker1').datepicker('enable');
+		$('#MyDatepicker').datepicker('enable');
 	});
 
 	$('#btnDatepickerDisable').on('click', function() {
-		$('#MyDatepicker1').datepicker('disable');
+		$('#MyDatepicker').datepicker('disable');
 	});
 
 	$('#btnDatepickerLogFormattedDate').on('click', function() {
-		console.log( $('#MyDatepicker1').datepicker('getFormattedDate') );
-	});
-
-	$('#btnDatepickerLogDateUnix').on('click', function() {
-		console.log( $('#MyDatepicker1').datepicker('getDate', { unix: true } ) );
+		console.log( $('#MyDatepicker').datepicker('getFormattedDate') );
 	});
 
 	$('#btnDatepickerLogDateObj').on('click', function() {
-		console.log( $('#MyDatepicker1').datepicker('getDate') );
+		console.log( $('#MyDatepicker').datepicker('getDate') );
 	});
 
 	$('#btnDatepickerSetDate').on('click', function() {
 		var futureDate = new Date(+new Date() + ( 7 * 24 * 60 * 60 * 1000 ) );
-		$('#MyDatepicker1').datepicker('setDate', futureDate );
-		console.log( $('#datepicker1').datepicker('getDate') );
+		$('#MyDatepicker').datepicker('setDate', futureDate );
+		console.log( $('#datepicker').datepicker('getDate') );
 	});
 
 	$('#btnDatepickerDestroy').on('click', function() {
-		var markup = $('#MyDatepicker1').datepicker('destroy');
+		var markup = $('#MyDatepicker').datepicker('destroy');
 		console.log( markup );
 		$(this).closest('.section').append(markup);
 	});
+
+	$('#MyDatepicker').datepicker();
+
+	// $('#MyDatepicker').datepicker({
+	// 	allowPastDates: true,
+	// 	momentConfig: {
+	// 		culture: 'en',
+	// 		format: 'MM-DD-YYYY'
+	// 	},
+	// 	restricted: [{ from: '08-04-2014', to: '08-15-2014' }, { from: '08-25-2014', to: '08-28-2014' }, { from: '10-01-2014', to: '10-31-2014' }]
+	// });
 
 
 
@@ -290,6 +294,12 @@ define(function(require){
 
 
 	// PLACARD
+	$('#btnPlacardEnable').click(function(){
+		$('#MyPlacard1').placard('enable');
+	});
+	$('#btnPlacardDisable').click(function(){
+		$('#MyPlacard1').placard('disable');
+	});
 	$('#btnPlacardDestroy').click(function () {
 		var markup = $('#MyPlacard1').placard('destroy');
 		console.log( markup );

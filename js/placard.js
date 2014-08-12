@@ -86,6 +86,12 @@
 			return this.$element[0].outerHTML;
 		},
 
+		disable: function(){
+			this.$element.addClass('disabled');
+			this.$field.attr('disabled', 'disabled');
+			this.hide();
+		},
+
 		ellipsis: function(){
 			var field, i, str;
 			if(this.$element.attr('data-ellipsis')==='true'){
@@ -111,6 +117,17 @@
 			}
 		},
 
+		enable: function(){
+			this.$element.removeClass('disabled');
+			this.$field.removeAttr('disabled');
+		},
+
+		externalClickListener: function(e, force){
+			if(force===true || this.isExternalClick(e)){
+				this.complete(this.options.externalClickAction);
+			}
+		},
+
 		getValue: function(){
 			if(this.actualValue!==null){
 				return this.actualValue;
@@ -125,12 +142,6 @@
 			this.ellipsis();
 			$(document).off('click.fu.placard.externalClick.' + this.clickStamp);
 			this.$element.trigger('hidden.fu.placard');
-		},
-
-		externalClickListener: function(e, force){
-			if(force===true || this.isExternalClick(e)){
-				this.complete(this.options.externalClickAction);
-			}
 		},
 
 		isExternalClick: function(e){
