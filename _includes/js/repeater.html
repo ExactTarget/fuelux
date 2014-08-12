@@ -112,7 +112,7 @@
 </div>
 
 <h2 id="repeaters-usage">Usage</h2>
-<p>The repeater must be initialized via Javascript and have a dataSource to function properly.</p>
+<p>Initialize the repeater via JavaScript and use a dataSource to function properly.</p>
 
 <p>Initialize the repeater via JavaScript:</p>
 {% highlight js %}$('#MyRepeater').repeater();{% endhighlight %}
@@ -174,7 +174,7 @@
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
             <span class="selected-label">&nbsp;</span>
             <span class="caret"></span>
-            <span class="sr-only">Toggle Dropdown</span>
+            <span class="sr-only">Toggle Drop-down</span>
           </button>
           <ul class="dropdown-menu" role="menu">
             <li data-value="5"><a href="#">5</a></li>
@@ -212,14 +212,14 @@
 </div>
 
 <h3>Via data attributes</h3>
-<p>Add <code>data-staticheight="true"</code> to the repeater element in order to enable the staticHeight option, which
+<p>Add <code>data-staticheight="true"</code> to the repeater element to enable the staticHeight option, which
   will constrain the repeater to a set height dictated by CSS styles with scrollable data. If set to a number instead
-  (ex: <code>data-staticheight="400"</code>) the height will be that value in pixels. This option can also be set via
-  Javascript on initialization.
+  (ex: <code>data-staticheight="400"</code>), the height will use that value in pixels. You can also set this option via
+  JavaScript on initialization.
 </p>
 
 <h3>Options</h3>
-<p>Options can be passed via Javascript upon initialization.</p>
+<p>Pass options via JavaScript upon initialization.</p>
 <div class="table-responsive">
   <table class="table table-bordered table-striped">
     <thead>
@@ -235,35 +235,34 @@
       <td>dataSource</td>
       <td>function</td>
       <td>empty function</td>
-      <td>This function is used to provide paging information and data for the repeater. It is called prior
+      <td>Use this function to provide paging information and data for the repeater. Call this function prior
         to rendering the current view, passing a <code>options</code> object and <code>callback</code>
-        function. The callback function is ran once the appropriate information is gathered to complete
-        the rendering. More details on using <a href="#repeaters-dataSource">dataSource</a> can be found below.</td>
+        function. Run the callback function once you gather the appropriate information to complete
+        the rendering. Review more details on using <a href="#repeaters-dataSource">dataSource</a> below.</td>
     </tr>
     <tr>
       <td>defaultView</td>
       <td>string or number</td>
       <td>-1</td>
-      <td>Specifies the initial view the repeater will render. This is usually a string value equivalent
-        to the desired repeater view extension. If set to <code>-1</code>, the repeater will check the
-        <code>.repeater-views</code> button group for an <code>.active</code> class, using it's input
+      <td>Specifies the initial view the repeater will render (usually a string value equivalent
+        to the desired repeater view extension). If set to <code>-1</code>, the repeater will check the
+        <code>.repeater-views</code> button group for an <code>.active</code> class, using its input
         value as the defaultView setting.</td>
     </tr>
     <tr>
       <td>dropPagingCap</td>
       <td>number</td>
       <td>10</td>
-      <td>Specifies the number of items allowed within the <code>.repeater-primaryPaging</code> dropdown menu.
-        If the number of pages exceeds this amount the <code>.repeater-secondaryPaging</code> input will
-        instead be used.</td>
+      <td>Specifies the number of items allowed within the <code>.repeater-primaryPaging</code> drop-down menu.
+        If the number of pages exceeds this amount, the code will use the <code>.repeater-secondaryPaging</code> input.</td>
     </tr>
     <tr>
       <td>staticHeight</td>
       <td>boolean or number</td>
       <td>-1</td>
-      <td>Dictates whether the repeater is a set height with scrollable data. If set to <code>true</code>
-        the height will be based off of CSS styles applied to the repeater element. If set to a positive
-        <code>number</code>, that value will be applied as the height in pixels. If set to <code>-1</code>
+      <td>Dictates whether the repeater uses a set height with scrollable data. If set to <code>true</code>
+        the height will use the CSS styles applied to the repeater element. If set to a positive
+        <code>number</code>, the code will apply that value as the height in pixels. If set to <code>-1</code>,
         the repeater will check for the <code>data-staticheight</code> attribute and use its value if
         present.
       </td>
@@ -274,7 +273,7 @@
 
   <h3>Scripting</h3>
 
-  <p>The following is the JavaScript associated with the examples above.</p>
+  <p>The following code sample includes the JavaScript associated with the previous examples:</p>
 
   <div class="truncate-highlight">
   {% highlight js %}
@@ -284,7 +283,7 @@
 
 <h3>Methods</h3>
 <h4>$().repeater();</h4>
-Attaches repeater to the repeater markup.
+Attaches repeater to the repeater markup
 
 <h4>.repeater('clear');</h4>
 <p>Clears the repeater of current data. Accepts an <i>optional</i> <code>options</code> object as an argument, with
@@ -305,14 +304,12 @@ Attaches repeater to the repeater markup.
         <td>clearInfinite</td>
         <td>boolean</td>
         <td>If infinite scrolling is enabled, setting this to <code>true</code> will force a <code>preserve</code>
-          clear if <code>preserve</code> is also <code>true</code>. Default is <code>false</code>.</td>
+          clear if <code>preserve</code> also equals <code>true</code>. Defaults to <code>false</code>.</td>
       </tr>
       <tr>
         <td>preserve</td>
         <td>boolean</td>
-        <td>If set to <code>true</code>, rather than simply empty the repeater of data this will scan it for
-          any items with the <code>data-preserve</code> attribute and preserve them while removing all other
-          items. Default is <code>false</code>.</td>
+        <td>If set to <code>true</code>, this function will scan the repeater for any items with the <code>data-preserve</code> attribute instead of emptying the repeater of data. This function will preserve those items while removing all other items. Defaults to <code>false</code>.</td>
       </tr>
     </tbody>
   </table>
@@ -323,8 +320,7 @@ Attaches repeater to the repeater markup.
 {% highlight js %}$('#element').repeater('destroy');{% endhighlight %}
 
 <h4>.repeater('infiniteScrolling');</h4>
-<p>Enables or disabled infinite scrolling within the repeater. Used primarily by view extensions. Possible arguments are
-  as follows:
+<p>Enables or disabled infinite scrolling within the repeater. Used primarily by view extensions. Possible arguments inlcude the following:
 </p>
 {% highlight js %}$('#element').repeater('infiniteScrolling');{% endhighlight %}
 
@@ -341,14 +337,14 @@ Attaches repeater to the repeater markup.
       <tr>
         <td>enable</td>
         <td>boolean</td>
-        <td>If set to <code>true</code> it will enable infinite scrolling. Default is <code>false</code>.</td>
+        <td>If set to <code>true</code>, this function will enable infinite scrolling. Defaults to <code>false</code>.</td>
       </tr>
       <tr>
         <td>options</td>
         <td>object</td>
         <td><i>Optional.</i> Specifies the desired infinite scrolling settings. View the infinite scrolling
-          control documentation for more details on available features. Note: the dataSource option on this
-          object will be ignored in favor of the repeater's own <code>dataSource</code>.
+          control documentation for more details on available features. Your code will ignore the dataSource option on this
+          object in favor of the <code>dataSource</code> on the repeater.
         </td>
       </tr>
     </tbody>
@@ -356,8 +352,7 @@ Attaches repeater to the repeater markup.
 </div><!-- ./fu-table-responsive -->
 
 <h4>.repeater('render');</h4>
-<p>Renders the repeater data, making a call to the <a href="#repeaters-dataSource">dataSource</a> prior to doing so.
-  Accepts an <i>optional</i> <code>options</code> object as an argument, with the attributes listed in the table below.
+<p>Calls the <a href="#repeaters-dataSource">dataSource</a> and renders the repeater data. Accepts an <i>optional</i> <code>options</code> object as an argument (using the attributes listed in the table below):
 </p>
 {% highlight js %}$('#element').repeater('render');{% endhighlight %}
 
@@ -374,7 +369,7 @@ Attaches repeater to the repeater markup.
       <tr>
         <td>changeView</td>
         <td>string</td>
-        <td>If set to a string value this will change the current repeater view to be rendered. Default is
+        <td>If set to a string value, this attribute will change the current repeater view to be rendered. Defaults to
           <code>undefined</code>.</td>
       </tr>
       <tr>
@@ -385,8 +380,8 @@ Attaches repeater to the repeater markup.
       <tr>
         <td>pageIncrement</td>
         <td>number or null</td>
-        <td>If a number, determines the amount by which the current page will be incremented/decremented. If
-          <code>null</code> the current page will be reset to 0.
+        <td>Use a number value to determine the amount by which the current page will increment or decrement. If
+          <code>null</code> the current page will reset to 0.
         </td>
       </tr>
       <tr>
@@ -399,18 +394,18 @@ Attaches repeater to the repeater markup.
 </div><!-- ./fu-table-responsive -->
 
 <h4>.repeater('resize');</h4>
-<p>Resizes the repeater based on staticHeight presence / value.</p>
+<p>Resizes the repeater based on staticHeight presence and value</p>
 {% highlight js %}$('#element').repeater('resize');{% endhighlight %}
 
 <h3 id="repeaters-dataSource">Data Source</h3>
-<p>The <code>dataSource</code> function is called prior to rendering data for the current view. It is passed a
+<p>Call the <code>dataSource</code> function prior to rendering data for the current view. Receives an
   <code>options</code> object and <code>callback</code> function as arguments. The <code>options</code> object
-  provides context for which data should be returned, and the <code>callback</code> is used to continue onward
+  provides context for which data should return. Use the <code>callback</code> to continue onward
   with rendering.
 </p>
 
-<p>The options object can vary in content depending on which view extension is being used, though many should share
-  these common attributes. Here is the standard <code>options</code> object format:</p>
+<p>The options object can vary in content depending on the view extension used. Many objects share
+  these common attributes in <code>options</code> object format:</p>
 <div class="table-responsive">
   <table class="table table-bordered table-striped">
     <thead>
@@ -424,27 +419,27 @@ Attaches repeater to the repeater markup.
       <tr>
         <td>filter</td>
         <td>object</td>
-        <td>Provides context for the selected <code>.repeater-filters</code> dropdown item, representing data
-          filtering. The object contains a <code>text</code> attribute for the displayed text, as well as
-          a <code>value</code> attribute for the selected item's value.
+        <td>Provides context for the selected <code>.repeater-filters</code> drop-down item representing data
+          filtering. The object contains a <code>text</code> attribute for the displayed text and
+          a <code>value</code> attribute for the value of the selected item.
         </td>
       </tr>
       <tr>
         <td>pageIndex</td>
         <td>number</td>
-        <td>Represents the current page of data.</td>
+        <td>Represents the current page of data</td>
       </tr>
       <tr>
         <td>pageSize</td>
         <td>number</td>
         <td>Provides context for the selected <code>.repeater-itemization</code> dropdown item value, representing
-          number of data items to be displayed.</td>
+          number of data items to be displayed</td>
       </tr>
       <tr>
         <td>search</td>
         <td>string</td>
         <td>Provides context for the entered <code>.repeater-search</code> search box, representing the desired
-          user search value. Only present if a search value has been entered.
+          user search value. Only present if the object includes a search value.
         </td>
       </tr>
       <tr>
@@ -458,9 +453,9 @@ Attaches repeater to the repeater markup.
   </table>
 </div><!-- ./fu-table-responsive -->
 
-<p>The <code>dataSource's callback</code> function should be ran after gathering the desired data for rendering. It expects a
-  <code>data</code> object to be passed as an argument. This object's contents will vary depending on the view
-  extension being used, however here are the common expected attributes:</p>
+<p>The <code>dataSource's callback</code> function should run after gathering the desired data for rendering. This function requires the code to pass a
+  <code>data</code> object as an argument. Contents of the object will vary depending on the view
+  extension  used. The attributes below include common expected attributes:</p>
 <div class="table-responsive">
   <table class="table table-bordered table-striped">
     <thead>
@@ -474,15 +469,15 @@ Attaches repeater to the repeater markup.
       <tr>
         <td>count</td>
         <td>number</td>
-        <td>Tells the repeater how many items are being returned in the data, which is used as the
-          <code>.repeater-count</code> element's text value.
+        <td>Provides the number of returned in the data to the repeater. Use this value as the text value for the
+          <code>.repeater-count</code> element.
         </td>
       </tr>
       <tr>
         <td>end</td>
         <td>number</td>
-        <td>Tells the repeater the end index of current displayed data items, which is used as the
-          <code>.repeater-end</code> element's text value.
+        <td>Provides the end index of current displayed data items to the repeater. Use this value as the text value for the
+          <code>.repeater-end</code> element.
         </td>
       </tr>
       <tr>
@@ -495,15 +490,15 @@ Attaches repeater to the repeater markup.
       <tr>
         <td>pages</td>
         <td>number</td>
-        <td>Tells the repeater how many pages of data are available, which is used as the <code>.repeater-pages</code>
-          element's text value.
+        <td>Provides the number of available pages of data to the repeater. Use this value as the text value for the <code>.repeater-pages</code>
+          element.
         </td>
       </tr>
       <tr>
         <td>start</td>
         <td>number</td>
-        <td>Tells the repeater the starting index of current displayed data items, which is used as the
-          <code>.repeater-start</code> element's text value.
+        <td>Provides the starting index of current displayed data items to the repeater. Use this value as the text value for the
+          <code>.repeater-start</code> element.
         </td>
       </tr>
     </tbody>
@@ -519,10 +514,10 @@ Attaches repeater to the repeater markup.
 </ul>
 
 <h3 id="repeaters-extensions">Repeater Extensions</h3>
-<p>The repeater has a view framework that allows for extensions to represent data in different ways. By default,
-  Fuel UX comes with two repeater view extensions (list and thumbnail), each providing additional options and requiring
+<p>The repeater uses a view framework that allows for extensions to represent data in different ways. By default,
+  Fuel UX comes with two repeater view extensions (list and thumbnail). Each extension provides additional options and requires
   different return data from the <a href="#repeaters-dataSource">dataSource</a> to render appropriately. For
-  information on using these extensions, visit the <a href="../../extensions.html">extensions page</a>. Additionally, learn how to write your own repeater
+  information on using these extensions, visit the <a href="../../extensions.html">extensions page</a>. You can learn how to write your own repeater
   extension here.
 </p>
 </div>

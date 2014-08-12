@@ -20,10 +20,10 @@
 </div>
 
   <h2 id="wizard-usage">Usage</h2>
-  <p>A wizard divides a complex goal into multiple steps by separating sub-tasks or content into panes. Panes can be added or removed. Completed steps can be clicked.</p>
+  <p>A wizard divides a complex goal into multiple steps by separating sub-tasks or content into panes. You can add or remove panes. Completed steps remain clickable.</p>
 
   <h3>Via data-attributes</h3>
-  <p>The wizard will automatically instantiate any wizards with <code>data-initialize="wizard"</code>. If the control markup is added <i>after page load</i> with <code>data-initialize="wizard"</code>, this control will be initialized on <code>mouseover</code>.
+  <p>The wizard will automatically instantiate any wizards with <code>data-initialize="wizard"</code>. If you add control markup <i>after page load</i> with <code>data-initialize="wizard"</code>, this control initializes on <code>mouseover</code>.
 
   <h3>Via JavaScript</h3>
   {% highlight js %}$('#MyWizard').wizard();{% endhighlight %}
@@ -71,10 +71,10 @@
 
   <h3>Methods</h3>
   <h4>$().wizard()</h4>
-  Attaches wizard to a list of steps, navigation, and content.
+  Attaches wizard to a list of steps, navigation, and content
 
   <h4>.wizard('destroy')</h4>
-  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
+  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup</p>
   {% highlight js %}$('#element').wizard('destroy');{% endhighlight %}
   
   <h4>.wizard('previous')</h4>
@@ -94,7 +94,7 @@ $('#element').wizard('selectedItem', {
 {% endhighlight %}
 
   <h4>.wizard('addSteps')</h4>
-  <p>Add a pane or an array of panes to a wizard. This markup is wrapped with <code>&lt;div class=&quot;step-pane&quot;&gt;&lt;/div&gt;</code></p>
+  <p>Add a pane or an array of panes to a wizard. Wrap this markup with <code>&lt;div class=&quot;step-pane&quot;&gt;&lt;/div&gt;</code></p>
 {% highlight js %}
 $('#element').wizard('addSteps', index, remove, 
   [
@@ -117,22 +117,28 @@ $('#element').wizard('addSteps', index, remove,
       <tbody>
         <tr>
           <td>index</td>
-          <td><i>Required.</i> The position where to start inserting pane(s). First pane is at position 1. If -1 is used, the item will be appended to end of the list of panes.</td>
+          <td><i>Required.</i> Identifies the position used to start inserting pane(s). First pane exists at position 1. If you use -1, the item will append to end of the list of panes.</td>
         </tr>
         <tr>
           <td>remove</td>
-          <td><i>Optional.</i> The number of panes to be removed after adding panes. Default is 0.</td>
+          <td><i>Optional.</i> Specifies the number of panes to remove after adding panes. Defaults to 0.</td>
         </tr>
         <tr>
           <td><i>[item1, ..., itemX] <br/> item1, ..., itemX</i></td>
-          <td>An array or list of content pane objects to be added at the <code>index</code>. Each pane can contain three strings: a <code>badge</code> class to be appended to the step's <code>class</code> attribute in order to override the default number, a <code>label</code> for the name of the step, and the <code>pane</code> of HTML content.</td>
+          <td>Identifies an array or list of content pane objects to add at the <code>index</code>. Each pane can contain three strings:
+            <ul>
+              <li>a <code>badge</code> class to be appended to the <code>class</code> attribute of the step in order to override the default number</li>
+              <li>a <code>label</code> for the name of the step</li>
+              <li>the <code>pane</code> of HTML content</li>
+            </ul>
+          </td>
         </tr>
       </tbody>
     </table>
   </div><!-- ./fu-table-responsive -->
 
   <h4>.wizard('RemoveSteps')</h4>
-  <p>Remove a pane or multiple panes from a wizard. </p>
+  <p>Remove a pane or multiple panes from a wizard</p>
 {% highlight js %}
   $('#element').wizard('removeSteps', index, howMany);
 {% endhighlight %}
@@ -148,11 +154,11 @@ $('#element').wizard('addSteps', index, remove,
       <tbody>
         <tr>
           <td>index</td>
-          <td><i>Required.</i> The position where to begin removing pane(s). First pane is at position 1.</td>
+          <td><i>Required.</i> Identifies the position where to begin removing pane(s). First pane exists at position 1.</td>
         </tr>
         <tr>
           <td>howMany</td>
-          <td><i>Optional.</i> The number of panes to be removed. Default is 1.</td>
+          <td><i>Optional.</i> Specifies the number of panes to removed. Defaults to 1.</td>
         </tr>
       </tbody>
     </table>
@@ -171,19 +177,19 @@ $('#element').wizard('addSteps', index, remove,
       <tbody>
         <tr>
           <td>change.fu.wizard</td>
-          <td>This event fires immediately when the step changes, but before the new step has been shown. Use <code>event.preventDefault</code> to cancel the event.</td>
+          <td>This event fires immediately when the step changes, but before the wizard shows the new step. Use <code>event.preventDefault</code> to cancel the event.</td>
         </tr>
         <tr>
           <td>changed.fu.wizard</td>
-          <td>This event is fired when the step has changed and is shown to the user.</td>
+          <td>This event fires when the step changes and displays to the user.</td>
         </tr>
         <tr>
           <td>finished.fu.wizard</td>
-          <td>This event is fired when the next button is clicked on the last step of the wizard.</td>
+          <td>This event fires when the user clicks the next button on the last step of the wizard.</td>
         </tr>
         <tr>
           <td>stepclick.fu.wizard</td>
-          <td>This event is fired when a completed step is clicked. Use <code>event.preventDefault</code> to cancel the event.</td>
+          <td>This event fires when the user clicks a completed step. Use <code>event.preventDefault</code> to cancel the event.</td>
         </tr>
       </tbody>
     </table>

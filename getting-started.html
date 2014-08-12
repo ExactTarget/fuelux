@@ -9,7 +9,7 @@ lead: "An overview of Fuel UX, how to download and use, basic templates, and mor
 
 <h1 id="download">Download</h1>
 
-<p class="lead">Fuel UX has a few easy ways to quickly get started, each one appealing to a different skill level and use case. Read through to see what suits your particular needs.</p>
+<p class="lead">Fuel UX provides a few easy ways to quickly get started, each one appealing to a different skill level and use case. Read through to see which method suits your particular needs.</p>
 
 <div class="row fu-downloads" style="margin-bottom: 20px;">
   <div class="col-sm-4">
@@ -19,13 +19,13 @@ lead: "An overview of Fuel UX, how to download and use, basic templates, and mor
   </div>
   <div class="col-sm-4">
     <h3 id="download-fuelux">Compiled Files</h3>
-    <p>Compiled and minified CSS, JavaScript, and fonts. No documentation is included.</p>
+    <p>Compiled and minified CSS, JavaScript, and fonts. Includes no documentation.</p>
     <a href="#" class="btn btn-lg btn-outline" role="button">Download Fuel UX</a>
     <!--<a href="{{ site.download.dist }}" class="btn btn-lg btn-outline" role="button">Download Fuel UX</a>-->
   </div>
   <div class="col-sm-4">
     <h3 id="download-source">Source code</h3>
-    <p>All files--although cloning this git repository is recommended.</p>
+    <p>Includes all files. We recommend cloning this git repository.</p>
     <a href="#" class="btn btn-lg btn-outline" role="button">Download source</a>
     <!--<a href="{{ site.download.source }}" class="btn btn-lg btn-outline" role="button">Download source</a>-->
   </div>
@@ -37,11 +37,11 @@ lead: "An overview of Fuel UX, how to download and use, basic templates, and mor
 
 <!-- BEGIN FROM GITHUB README.md -->
 
-<p>Fuel UX can be obtained one of three ways:</p>
+<p>Obtain Fuel UX in one of three ways:</p>
 
 <ol class="task-list">
 <li>
-<p><strong>Best way:</strong> Install with a dependency manager:</p>
+<p><strong>Best way</strong> - Install with a dependency manager:</p>
 
 <p>Using <a href="https://github.com/bower/bower">Bower</a>:</p>
 
@@ -57,20 +57,20 @@ lead: "An overview of Fuel UX, how to download and use, basic templates, and mor
 
 <p>Update with <code>volo add -f fuelux</code>.</p>
 
-<p>This ensures you get all the dependencies you might need such as jQuery, Bootstap, moment.js (for extended date support), and requireJS (for AMD support).</p>
+<p>This method ensures you receive all the dependencies you might need, such as jQuery, Bootstap, moment.js (for extended date support), and requireJS (for AMD support).</p>
 </li>
 <li>
-<p><strong>Another good way:</strong> Clone the Git repository:</p>
+<p><strong>Another good way</strong> - Clone the Git repository:</p>
 
 <pre><code>git clone https://github.com/ExactTarget/fuelux/
 </code></pre>
 
-<p>Cloning the repository ensures you can apply future updates to FuelUX easily, but requires to you manage its <a href="#dependencies">dependencies</a> on your own.</p>
+<p>Cloning the repository ensures you can apply future updates to FuelUX easily, but this method requires to you manage its <a href="#dependencies">dependencies</a> on your own.</p>
 </li>
 <li>
-<p><strong>Also an option:</strong> Download a .zip archive of the latest release <strong>(needthis)</strong> or request files from <a href="http://www.fuelcdn.com/fuelux/">the FuelUX CDN</a>.</p>
+<p><strong>Also an option</strong> - Download a .zip archive of the latest release <strong>(needthis)</strong> or request files from <a href="http://www.fuelcdn.com/fuelux/">the FuelUX CDN</a>.</p>
 
-<p><em>Note: Using FuelUX in this way can make updating to future releases difficult. This approach is not recommended if you plan to maintain your application in the future.</em></p>
+<p><em>Using FuelUX in this way can make updating to future releases difficult. Do not use this approach if you plan to maintain your application in the future.</em></p>
 </li>
 </ol>
 
@@ -78,7 +78,7 @@ lead: "An overview of Fuel UX, how to download and use, basic templates, and mor
 
 
   <h3 id="download-cdn">FuelUX CDN</h3>
-  <p>If you choose to manage your own dependencies and would like to just copy and paste FuelUX into your project, ExactTarget hosts Fuel UX on it's <a href="http://www.fuelcdn.com/">FuelCDN.</a> Just use these <a href="http://www.fuelcdn.com/fuelux-resources">Fuel CDN</a> links.</p>
+  <p>If you choose to manage your own dependencies and would like to just copy and paste FuelUX into your project, ExactTarget hosts Fuel UX at <a href="http://www.fuelcdn.com/">FuelCDN.</a> Use these <a href="http://www.fuelcdn.com/fuelux-resources">Fuel CDN</a> links.</p>
 {% highlight html %}
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="{{ site.cdn.css }}">
@@ -93,14 +93,14 @@ lead: "An overview of Fuel UX, how to download and use, basic templates, and mor
 <h3>
 <a name="user-content-whats-included" class="anchor" href="#whats-included"><span class="octicon octicon-link"></span></a>What's included</h3>
 
-<p class="lead">FuelUX is downloadable in four forms, within which you'll find the following directories and files, logically grouping common resources and providing both compiled and minified variations.</p>
+<p class="lead">You can download FuelUX in four forms, and each form includes the following directories and files, logically grouping common resources and providing both compiled and minified variations.</p>
 
   <div class="bs-callout bs-callout-warning" id="jquery-required">
     <h4>jQuery and Bootstrap 3 required</h4>
-    <p>FuelUX is dependent upon <a href="https://github.com/twbs/bootstrap">Bootstrap 3</a> and <a href="https://github.com/jquery/jquery">jQuery</a>. If you installed by cloning the repo or by downloading a .zip archive, you'll also want to grab these things, as, it just won't work without them.</p>
+    <p>FuelUX remains dependent upon <a href="https://github.com/twbs/bootstrap">Bootstrap 3</a> and <a href="https://github.com/jquery/jquery">jQuery</a>. If you installed Fuel UX by cloning the repo or by downloading a .zip archive, you must install these reources to work with Fuel UX.</p>
   </div>
 
-<p>A download of FuelUX provides the following directories and files, which are grouped according to file type:</p>
+<p>A download of FuelUX provides the following directories and files, grouped according to file type:</p>
 
 <pre><code>fuelux/
 ├── css/
@@ -125,7 +125,7 @@ lead: "An overview of Fuel UX, how to download and use, basic templates, and mor
 <div class="fu-docs-section">
   <h1 id="template" class="page-header">Basic template</h1>
 
-  <p class="lead">Start with this basic HTML template. It uses browser global variables (just like Bootstrap).</p>
+  <p class="lead">Start with this basic HTML template using browser global variables (just like Bootstrap).</p>
 
   <p>Copy the HTML below to begin working with a minimal FuelUX document using browser globals.</p>
 {% highlight html %}
@@ -147,7 +147,7 @@ lead: "An overview of Fuel UX, how to download and use, basic templates, and mor
 
 <p>We recommend only loading the controls you need (e.g.- <code>fuelux/checkbox</code>).</p>
 
-<p>If using AMD (such as <a href="http://require.js.org">RequireJS</a>), reference the FuelUX directory in your paths configuration, wherever it is located:</p>
+<p>If you use AMD (such as <a href="http://require.js.org">RequireJS</a>), reference the FuelUX directory in your paths configuration, wherever it is located:</p>
 
 <div class="highlight highlight-javascript"><pre><span class="nx">require</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
     <span class="nx">paths</span><span class="o">:</span> <span class="p">{</span>
@@ -165,9 +165,9 @@ lead: "An overview of Fuel UX, how to download and use, basic templates, and mor
 <span class="p">});</span>
 </pre></div>
 
-<p>For your convenience when you are using AMD, you can just use <code>fuelux/all</code> instead of listing each module individually, but this is not recommended.</p>
+<p>For your convenience when using AMD, you can  use <code>fuelux/all</code> instead of listing each module individually. ExactTarget Marketing Cloud does not recommend this practice.</p>
 
-<p>FuelUX also supports placing components in their own <code>&lt;script&gt;</code> tags. Be sure to put modules in the correct order if loading them in this method (although this order is a secret known only to 29th level wizards/enchantresses and 11th degree JS ninjas).</p>
+<p>FuelUX also supports placing components in their own <code>&lt;script&gt;</code> tags. Be sure to put modules in the correct order if you load them in this method.</p>
 
 </div>
 
@@ -184,7 +184,7 @@ lead: "An overview of Fuel UX, how to download and use, basic templates, and mor
   <h3>
   <a name="user-content-previous-releases" class="anchor" href="#previous-releases"><span class="octicon octicon-link"></span></a>Previous releases</h3>
 
-  <p>Documentation for v2.6.x has been made available for the time being at <strong>(need link)</strong> while folks transition to Bootstrap 3. Previous releases and their documentation are also available for download. <strong>(need link)</strong></p>
+  <p>Access documentation for v2.6.x at <strong>(need link)</strong> while users transition to Bootstrap 3. You can also download previous releases and  documentation. <strong>(need link)</strong></p>
 
 </div>
 
@@ -199,13 +199,20 @@ lead: "An overview of Fuel UX, how to download and use, basic templates, and mor
     <li>Before writing code, we suggest you <a href="https://github.com/ExactTarget/fuelux/issues?state=open">search for issues</a> or <a href="https://github.com/ExactTarget/fuelux/issues/new">create a new one</a> to confirm where your contribution fits into
     our roadmap.</li>
 
-    <li>In lieu of a formal style guide, take care to maintain the existing coding style: tabs, clarity over brevity, declarative markup, semicolons, etc. Be sure to add unit tests for any new or changed functionality. Lint and test your code using <a href="https://github.com/cowboy/grunt">grunt</a>.</li>
+    <li>In lieu of a formal style guide, take care to maintain the existing coding style, including the following:
+      <ul>
+        <li>tabs</li>
+        <li>clarity over brevity</li>
+        <li>declarative markup</li>
+        <li>semicolons</li>
+      </ul>
+      Be sure to add unit tests for any new or changed functionality. Lint and test your code using <a href="https://github.com/cowboy/grunt">grunt</a>.</li>
 
     <li>Read more about <a href="https://github.com/ExactTarget/fuelux/wiki/Contributing-to-Fuel-UX">contributing to FuelUX</a></li>
 
-    <li>Please do not edit files in the <code>dist</code> directory as they are generated via grunt. You'll find source code in the respective <code>js</code>, <code>less</code>, and <code>fonts</code> directory.</li>
+    <li>Please do not edit files in the <code>dist</code> directory, as we generate those files via grunt. Find source code in the respective <code>js</code>, <code>less</code>, and <code>fonts</code> directory.</li>
 
-    <li>While grunt can run the included unit tests via PhantomJS, this isn't a substitute for running tests across a variety of browsers and environments. Please be sure to view the test page at <a href="http://localhost:8000/test/">http://localhost:8000/test/</a> in as many of the browsers listed in <code>sauce_browsers.yml</code> as you can before contributing.</li>
+    <li>While grunt can run the included unit tests via PhantomJS, ensure that you run tests across a variety of browsers and environments. View the test page at <a href="http://localhost:8000/test/">http://localhost:8000/test/</a> in as many of the browsers listed in <code>sauce_browsers.yml</code> as you can before contributing.</li>
   </ul>
 
 </div>
@@ -217,10 +224,10 @@ lead: "An overview of Fuel UX, how to download and use, basic templates, and mor
 ================================================== -->
 <div class="bs-docs-section">
   <h1 id="support" class="page-header">Browser and device support</h1>
-  <p class="lead">FuelUX is built to work best in the latest desktop and mobile browsers, meaning older browsers might display differently styled, though fully functional renderings of FuelUX controls.</p>
+  <p class="lead">FuelUX works best in the latest desktop and mobile browsers. Older browsers might display differently styled (though fully functional) renderings of FuelUX controls.</p>
 
   <h3 id="support-browsers">Supported browsers</h3>
-  <p>Specifically, we support the <strong>latest versions</strong> of the following browsers and platforms. On Windows, <strong>we additionally support Internet Explorer, versions 8 through 11</strong>. More specific support information is provided below.</p>
+  <p>The ExactTarget Marketing Cloud supports the <strong>latest versions</strong> of the following browsers and platforms. On Windows, <strong>we additionally support Internet Explorer, versions 8 through 11</strong>. Review more specific support information below:</p>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>
@@ -267,10 +274,10 @@ lead: "An overview of Fuel UX, how to download and use, basic templates, and mor
       </tbody>
     </table>
   </div>
-  <p>Unofficially, FuelUX should look and behave well in Chromium and Chrome for Linux, Firefox for Linux, though they are not officially supported.</p>
+  <p>While FuelUX should look and behave well in Chromium and Chrome for Linux and Firefox for Linux, Fuel UX does not officially support these browsers.</p>
 
   <h3 id="support-ie8-ie9">Internet Explorer 8 and 9</h3>
-  <p>Internet Explorer 8 and 9 are supported, however, please be aware that some CSS3 properties and HTML5 elements are not fully supported by these browsers. In addition, Internet Explorer 8 requires the use of fixed-width columns and containers due to its lack of media-query support. You may try using <a href="http://modernizr.com/">Modernizr</a> or conditional comments like <code>&lt;!--[if IE 8]&gt;</code> to style fixed-width containers.</p>
+  <p>While Fuel UX supports Internet Explorer 8 and 9, please be aware that these browsers do not fully support some CSS3 properties and HTML5 elements. In addition, Internet Explorer 8 requires the use of fixed-width columns and containers due to its lack of media-query support. You may try using <a href="http://modernizr.com/">Modernizr</a> or conditional comments like <code>&lt;!--[if IE 8]&gt;</code> to style fixed-width containers.</p>
 
   <p>Visit <a href="http://caniuse.com/">Can I use...</a> for details on browser support of CSS3 and HTML5 features.</p>
 

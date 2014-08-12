@@ -5,7 +5,7 @@
 
   <h2 id="tree-examples">Examples</h2>
 
-  <p>Tree is a categorical element selection. It can be used to create a file system interface. Wrap the wrapper tree containers with <code>.fuelux .tree</code></p>
+  <p>Tree provides a categorical element selection. Use it to create a file system interface. Wrap the wrapper tree containers with <code>.fuelux .tree</code></p>
 
   <div class="form-group">
     <label class="control-label">Items selectable only</label>
@@ -59,7 +59,7 @@
   </div>
 
   <h2 id="tree-usage">Usage</h2>
-  <p>The tree is a categorical selection interface that allows for interaction and selection of nested elements.</p>
+  <p>The tree provides a categorical selection interface that allows for interaction and selection of nested elements.</p>
 
   <h3>Via JavaScript</h3>
   <p>Call the tree control via JavaScript:</p>
@@ -67,8 +67,7 @@
 
   <h3>Markup</h3>
 
-  <p>Add <code>class="tree"</code> to an a div within a <code>class="fuelux"</code> container. Markup varies slightly depending on the type of tree you are using.</p>
-
+  <p>Add <code>class="tree"</code> to an a div within a <code>class="fuelux"</code> container. Markup varies slightly depending on the type of tree you use.</p>
 
   <h4>Items selectable only</h4>
 {% highlight html %}
@@ -115,7 +114,7 @@
 
   <h3>Scripting</h3>
 
-  <p>The following is the JavaScript associated with the examples above.</p>
+  <p>The following code sample includes the JavaScript associated with the previous examples:</p>
 
   <div class="truncate-highlight">
   {% highlight js %}
@@ -126,15 +125,15 @@
   <h3>Methods</h3>
 
   <h4>.tree('destroy')</h4>
-  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
+  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup</p>
   {% highlight js %}$('#element').tree('destroy');{% endhighlight %}
 
   <h4>.tree('selectedItems')</h4>
-  <p>Returns an array containing selected items and associated data.</p>
+  <p>Returns an array containing selected items and associated data</p>
   {% highlight js %}$('#element').tree('selectedItems'){% endhighlight %}
 
   <h3>Options</h3>
-  <p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-selected=""</code>.</p>
+  <p>You can pass options via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>. For example, you could use <code>data-selected=""</code>.</p>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>
@@ -150,19 +149,19 @@
         <td>multiSelect</td>
         <td>boolean</td>
         <td>false</td>
-        <td>Allows multiple tree items to be selected at once.</td>
+        <td>Allows multiple tree items to be selected at once</td>
       </tr>
       <tr>
         <td>cacheItems</td>
         <td>boolean</td>
         <td>true</td>
-        <td>When a folder is closed and re-opened sub-items will not be refreshed.</td>
+        <td>Prevents refresh of sub-items when a user closes and reopens a folder</td>
       </tr>
       <tr>
         <td>folderSelect</td>
         <td>boolean</td>
         <td>false</td>
-        <td>Enables folder selection.</td>
+        <td>Enables folder selection</td>
       </tr>
       </tbody>
     </table>
@@ -180,19 +179,19 @@
       <tbody>
       <tr>
         <td>loaded.fu.tree</td>
-        <td>This event is fired when sub-content has been is loaded.</td>
+        <td>This event fires when sub-content has been is loaded.</td>
       </tr>
       <tr>
         <td>selected.fu.tree</td>
-        <td>This event is fired when item/items has been selected. An object containing <code>{info: data}</code> is returned. <code>data</code> represents an array of selected items</td>
+        <td>This event fires when a user selects one or more items. Returns an object containing <code>{info: data}</code>. <code>data</code> represents an array of selected items.</td>
       </tr>
       <tr>
         <td>opened.fu.tree</td>
-        <td>This event is fired when a sub-folder is opened. An object containing folder information is returned.</td>
+        <td>This event fires when a user opens a sub-folder. Returns an object containing folder information.</td>
       </tr>
       <tr>
         <td>closed.fu.tree</td>
-        <td>This event is fired when a sub-folder is closed. An object containing folder information is returned.</td>
+        <td>This event fires when a user closes a sub-folder. Returns an object containing folder information.</td>
       </tr>
       </tbody>
     </table>

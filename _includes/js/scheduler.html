@@ -4,10 +4,10 @@
   <h1 id="scheduler" class="page-header">Scheduler <small>scheduler.js</small></h1>
 
   <h2 id="scheduler-examples">Examples</h2>
-  <p>Create a time object with support for start date/time, timezone and iCal-compatible reccurance patterns.</p>
+  <p>Create a time object with support for start date and time, timezone and iCal-compatible reccurance patterns.</p>
 
   <h3>Static example</h3>
-  <p>A scheduler with start date/time, timezone, and all recurrance and recurrance end options. All options do not show simutaneously in the live demo further along in this document.</p>
+  <p>A scheduler with start date and time, timezone, and all recurrance and recurrance end options. All options do not show simutaneously in the live demo further along in this document.</p>
   <div class="fu-example fu-example-scheduler">
     <fieldset id="MySchedulerStatic" class="form-horizontal container-fluid scheduler" role="form">
     {% include js/scheduler-example.html %}
@@ -44,14 +44,14 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
   <p>A scheduler can return a time object with a <code>startDateTime</code>, a <code>timeZone</code>, and a<code>recurrencePattern</code></p>
 
   <h3>Via data-attributes</h3>
-  <p>The scheduler will automatically instantiate any schedulers with <code>data-initialize="scheduler"</code>. If the control markup is added <i>after page load</i> with <code>data-initialize="scheduler"</code>, this control will be initialized on <code>mousedown</code>.
+  <p>The scheduler will automatically instantiate any schedulers with <code>data-initialize="scheduler"</code>. If you add the control markup <i>after page load</i> with <code>data-initialize="scheduler"</code>, this control initializes on <code>mousedown</code>.
 
   <h3>Via JavaScript</h3>
   <p>Call the scheduler control via JavaScript:</p>
   {% highlight js %}$('#Myscheduler').scheduler();{% endhighlight %}
 
   <h3>Markup</h3>
-  <p>Wrap <code>class="scheduler"</code> around a start date/time, a timezone, and a recurrance pattern within a <code>class="fuelux"</code> container.</p>
+  <p>Wrap <code>class="scheduler"</code> around a start date and time, a timezone, and a recurrance pattern within a <code>class="fuelux"</code> container.</p>
 
   <div class="truncate-highlight">
     {% highlight html %}
@@ -62,11 +62,18 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
   </div>
 
   <h3>Data Attribute Options</h3>
-  <p>Please refer to the component dependencies:   <a href="#combobox">combobox</a>, <a href="#datepicker">datepicker</a>, <a href="#radio">radio</a>, <a href="#selectlist">selectlist</a>, <a href="#spinbox">spinbox</a>.</p>
-
+  <p>Please refer to the component dependencies:
+    <ul>
+      <li><a href="#combobox">combobox</a></li>
+      <li><a href="#datepicker">datepicker</a></li>
+      <li><a href="#radio">radio</a></li>
+      <li><a href="#selectlist">selectlist</a></li>
+      <li><a href="#spinbox">spinbox</a></li>
+    </ul>
+  </p>
   <h3>Methods</h3>
   <h4>$().scheduler()</h4>
-  Attaches scheduler to a list of steps, navigation, and content.
+  Attaches scheduler to a list of steps, navigation, and content
   
   <h4>.scheduler('destroy')</h4>
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
@@ -81,13 +88,13 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
   {% highlight js %}$('#element').scheduler('enable');{% endhighlight %}
 
   <h4>.scheduler('value')</h4>
-  <p>Gets the current scheduler form field information or sets it, depending on arguments present.</p>
+  <p>Gets the current scheduler form field information or sets it, depending on arguments present</p>
 {% highlight js %}
 $('myScheduler').scheduler('value');
 {% endhighlight %}
 
   <h5>Setter Method</h5>
-  <p>Use <code>'value'</code> while passing an object following the structure listed below as the second parameter.</p>
+  <p>Use <code>'value'</code> while passing an object following the structure listed below as the second parameter</p>
 {% highlight js %}
 $('myScheduler').scheduler('value', {
   startDateTime: '2014-03-31T03:23+02:00',
@@ -110,7 +117,7 @@ $('myScheduler').scheduler('value', {
       <tbody>
         <tr>
           <td>startDateTime</td>
-          <td><i>Required.</i> string representing the start date &amp; time in ISO 0861 format.</td>
+          <td><i>Required.</i> String representing the start date &amp; time in ISO 0861 format.</td>
         </tr>
         <tr>
           <td>timeZone</td>
@@ -118,7 +125,7 @@ $('myScheduler').scheduler('value', {
         </tr>
         <tr>
           <td><i>recurrencePattern</i></td>
-          <td><i>Optional</i> string representing the iCal recurrence value</td>
+          <td><i>Optional.</i> String representing the iCal recurrence value.</td>
         </tr>
       </tbody>
     </table>
@@ -136,7 +143,7 @@ $('myScheduler').scheduler('value', {
       <tbody>
         <tr>
           <td>changed.fu.scheduler</td>
-          <td>This event is fired when the step has changed and is shown to the user.</td>
+          <td>This event fires when the step changes and shows to the user.</td>
         </tr>
       </tbody>
     </table>

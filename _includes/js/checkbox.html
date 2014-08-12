@@ -4,7 +4,7 @@
   <h1 id="checkboxes" class="page-header">Checkboxes <small>checkboxes.js</small></h1>
 
   <h2 id="checkboxes-examples">Examples</h2>
-  <p>Custom look and feel for checkbox element.</p>
+  <p>Add a custom look and feel for checkbox element.</p>
 
   <h4>Default (stacked)</h4>
   <div class="fu-example section">
@@ -86,32 +86,32 @@
 {% endhighlight %}
 
   <h4>Element toggling checkboxes</h4>
-  <p>Use the <code>data-toggle="{{selector}}"</code> to automatically show/hide elements matching the selector within the body upon check/uncheck. This works with any <a href="http://api.jquery.com/category/selectors/">jQuery selector</a>.
+  <p>Use the <code>data-toggle="{{selector}}"</code> to automatically show or hide elements matching the selector within the body upon check or uncheck. This control works with any <a href="http://api.jquery.com/category/selectors/">jQuery selector</a>.
   </p>
   <div class="fu-example section">
     <div class="checkbox" data-initialize="checkbox">
       <label class="checkbox-custom">
         <input class="sr-only" data-toggle="#checkboxToggleID" type="checkbox" value="option1">
-        <span class="checkbox-label">Toggles element with matching id.</span>
+        <span class="checkbox-label">Toggles element with matching ID</span>
       </label>
     </div>
 
     <div class="checkbox" data-initialize="checkbox">
       <label class="checkbox-custom">
         <input class="sr-only" data-toggle=".checkboxToggleCLASS" type="checkbox" value="option1">
-        <span class="checkbox-label">Toggles elements with matching class.</span>
+        <span class="checkbox-label">Toggles elements with matching class</span>
       </label>
     </div>
 
-    <div class="alert bg-info hide" id="checkboxToggleID">ID toggling container.</div>
-    <div class="alert bg-success hide checkboxToggleCLASS">Class toggling container.</div>
-    <div class="alert bg-success hide checkboxToggleCLASS">Class toggling container.</div>
+    <div class="alert bg-info hide" id="checkboxToggleID">ID toggling container</div>
+    <div class="alert bg-success hide checkboxToggleCLASS">Class toggling container</div>
+    <div class="alert bg-success hide checkboxToggleCLASS">Class toggling container</div>
   </div>
 {% highlight html %}
 <div class="checkbox" data-initialize="checkbox">
   <label class="checkbox-custom">
     <input class="sr-only" data-toggle="#checkboxToggleID" type="checkbox" value="option1">
-    <span class="checkbox-label">Toggles element with matching id.</span>
+    <span class="checkbox-label">Toggles element with matching id</span>
   </label>
 </div>
 <label class="checkbox-custom checkbox-inline">
@@ -119,9 +119,9 @@
   <span class="checkbox-label">Toggles elements with matching class.</span>
 </label>
 
-<div class="alert bg-info" id="checkboxToggleID">Id toggling container.</div>
-<div class="alert bg-success checkboxToggleCLASS">Class toggling container.</div>
-<div class="alert bg-success checkboxToggleCLASS">Class toggling container.</div>
+<div class="alert bg-info" id="checkboxToggleID">ID toggling container</div>
+<div class="alert bg-success checkboxToggleCLASS">Class toggling container</div>
+<div class="alert bg-success checkboxToggleCLASS">Class toggling container</div>
 {% endhighlight %}
 
   <h4>Highlighting checkboxes</h4>
@@ -131,31 +131,31 @@
     <div class="checkbox highlight" data-initialize="checkbox">
       <label class="checkbox-custom">
         <input class="sr-only" type="checkbox" value="option1">
-        This block-level checkbox will be highlighted on check.
+        This control highlights a block-level checkbox on check
       </label>
     </div>
     <label class="checkbox-custom checkbox-inline highlight" data-initialize="checkbox">
       <input class="sr-only" type="checkbox" value="option2">
-      This inline checkbox will be highlighted on check.
+      This control highlights an inline checkbox on check
     </label>
   </div>
 {% highlight html %}
 <div class="checkbox highlight" data-initialize="checkbox">
   <label class="checkbox-custom">
     <input class="sr-only" type="checkbox" value="option1">
-    This block-level checkbox will be highlighted on check.
+    This control highlights a block-level checkbox on check
   </label>
 </div>
 <label class="checkbox-custom checkbox-inline highlight">
   <input class="sr-only" type="checkbox" value="option2">
-  This inline checkbox will be highlighted on check.
+  This control highlights an inline checkbox on check
 </label>
 {% endhighlight %}
 
   <h2 id="checkboxes-usage">Usage</h2>
 
   <h3>Via data-attributes</h3>
-  <p>The checkbox will automatically instantiate any checkboxes with <code>data-initialize="checkbox"</code>. If the control markup is added <i>after page load</i> with <code>data-initialize="checkbox"</code>, this control will be initialized on <code>mouseover</code>.
+  <p>The checkbox will automatically instantiate any checkboxes with <code>data-initialize="checkbox"</code>. If you add the control markup <i>after page load</i> with <code>data-initialize="checkbox"</code>, this control will initialize on <code>mouseover</code>.
 
   <h3>Via JavaScript</h3>
   <p>Call the checkbox control via JavaScript:</p>
@@ -163,10 +163,10 @@
 
   <h3>Methods</h3>
   <h4>$().checkbox();</h4>
-  Activates your content as a custom checkbox.
+  Activates your content as a custom checkbox
 
   <h4>.checkbox('check')</h4>
-  <p>Checks the checkbox.</p>
+  <p>Checks the checkbox</p>
   {% highlight js %}$('#element').checkbox('check');{% endhighlight %}
 
   <h4>.checkbox('destroy')</h4>
@@ -174,23 +174,23 @@
   {% highlight js %}$('#element').checkbox('destroy');{% endhighlight %}
 
   <h4>.checkbox('disable')</h4>
-  <p>Disables the checkbox.</p>
+  <p>Disables the checkbox</p>
   {% highlight js %}$('#element').checkbox('disable');{% endhighlight %}
 
   <h4>.checkbox('enable')</h4>
-  <p>Enables the checkbox.</p>
+  <p>Enables the checkbox</p>
   {% highlight js %}$('#element').checkbox('enable');{% endhighlight %}
 
   <h4>.checkbox('isChecked')</h4>
-  <p>Returns <code>true</code> or <code>false</code> depending on whether the checkbox is checked.</p>
+  <p>Returns <code>true</code> or <code>false</code> depending on whether the checkbox is checked</p>
   {% highlight js %}$('#element').checkbox('isChecked');{% endhighlight %}
 
   <h4>.checkbox('toggle')</h4>
-  <p>Toggles the checkbox between checked/unchecked states.</p>
+  <p>Toggles the checkbox between checked/unchecked states</p>
   {% highlight js %}$('#element').checkbox('toggle');{% endhighlight %}
 
   <h4>.checkbox('uncheck')</h4>
-  <p>Unchecks the checkbox.</p>
+  <p>Unchecks the checkbox</p>
   {% highlight js %}$('#element').checkbox('uncheck');{% endhighlight %}
 
 </div>
