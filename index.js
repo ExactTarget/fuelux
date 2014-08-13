@@ -1,8 +1,6 @@
 define(function(require){
 	var data = require('data');
 	var jquery = require('jquery');
-	var sampleData = require('sample/data');
-	var StaticDataSource = require('sample/datasource');
 
 	require('fuelux/all');
 
