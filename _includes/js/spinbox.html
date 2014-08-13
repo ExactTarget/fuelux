@@ -9,11 +9,11 @@
   <div class="fu-example section">
 
     <div class="form-group">
-      <label class="control-label" for="MySpinboxInput">Without default value</label>
+      <label class="control-label" for="myFuSpinboxInput">Without default value</label>
       <div class="form-group">
       
-        <div id="MySpinbox" class="spinbox" data-initialize="spinbox">
-          <input id="MySpinboxInput" type="text" class="form-control input-mini spinbox-input">
+        <div id="myFuSpinbox" class="spinbox" data-initialize="spinbox">
+          <input id="myFuSpinboxInput" type="text" class="form-control input-mini spinbox-input">
           <div class="spinbox-buttons btn-group btn-group-vertical">
             <button type="button" class="btn btn-default spinbox-up btn-xs">
               <span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
@@ -28,11 +28,11 @@
     </div>
 
     <div class="form-group">
-      <label class="control-label" for="MySpinboxWithDefaultInput">With default value and 3-digit class</label>
+      <label class="control-label" for="myFuSpinboxWithDefaultInput">With default value and 3-digit class</label>
       <div class="form-group">
         
-        <div id="MySpinboxWithDefault" class="spinbox digits-3" data-initialize="spinbox">
-          <input id="MySpinboxWithDefaultInput" type="text" value="3" class="form-control input-mini spinbox-input">
+        <div id="myFuSpinboxWithDefault" class="spinbox digits-3" data-initialize="spinbox">
+          <input id="myFuSpinboxWithDefaultInput" type="text" value="3" class="form-control input-mini spinbox-input">
 
           <div class="spinbox-buttons btn-group btn-group-vertical">
             <button type="button" class="btn btn-default spinbox-up btn-xs">
@@ -48,11 +48,11 @@
     </div>
 
     <div class="form-group">
-      <label class="control-label" for="MySpinboxWithDecimalInput">With custom decimal mark and units</label>
+      <label class="control-label" for="myFuSpinboxWithDecimalInput">With custom decimal mark and units</label>
       <div class="form-group">
         
-        <div id="MySpinboxDecimal" class="spinbox">
-          <input id="MySpinboxWithDecimalInput" type="text" class="form-control input-mini spinbox-input">
+        <div id="myFuSpinboxDecimal" class="spinbox">
+          <input id="myFuSpinboxWithDecimalInput" type="text" class="form-control input-mini spinbox-input">
 
           <div class="spinbox-buttons btn-group btn-group-vertical">
             <button type="button" class="btn btn-default spinbox-up btn-xs">
@@ -86,7 +86,7 @@
 
   <h3>Via JavaScript</h3>
   <p>Call the selectlist control via JavaScript:</p>
-  {% highlight js %}$('#MySpinbox').spinbox();{% endhighlight %}
+  {% highlight js %}$('#myFuSpinbox').spinbox();{% endhighlight %}
 
   <h3>Markup</h3>
 
@@ -94,8 +94,8 @@
 
 
   {% highlight html %}
-  <div id="MySpinbox" class="spinbox" data-initialize="spinbox">
-    <input id="MySpinboxInput" type="text" class="form-control input-mini spinbox-input">
+  <div id="myFuSpinbox" class="spinbox" data-initialize="spinbox">
+    <input id="myFuSpinboxInput" type="text" class="form-control input-mini spinbox-input">
     <div class="spinbox-buttons btn-group btn-group-vertical">
       <button type="button" class="btn btn-default spinbox-up btn-xs">
         <span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
@@ -111,12 +111,12 @@
 
   <h4>.spinbox('destroy')</h4>
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
-  {% highlight js %}$('#element').spinbox('destroy');{% endhighlight %}
+  {% highlight js %}$('#myFuSpinbox').spinbox('destroy');{% endhighlight %}
   <h4>.spinbox('value')</h4>
   <p>Sets or returns the spinner value, as shown in the example below:</p>
-  {% highlight js %}$('#element').combobox('value') {% endhighlight %}
+  {% highlight js %}$('#myFuSpinbox').combobox('value') {% endhighlight %}
   <p>This example would return the current value of the spinbox and</p>
-  {% highlight js %}$('#element').combobox('value', 37) {% endhighlight %}
+  {% highlight js %}$('#myFuSpinbox').combobox('value', 37) {% endhighlight %}
   <p>would set the current value to 37. If value contains units, the value returns as a string. Otherwise, the value returns as a number.</p>
 
   <h3>Options</h3>
@@ -208,7 +208,7 @@
     </table>
   </div><!-- ./fu-table-responsive -->
   {% highlight js %}
-  $('#MySpinbox').on('changed', function () {
+  $('#myFuSpinbox').on('changed.fu.spinbox', function () {
     // do something
   })
   {% endhighlight %}

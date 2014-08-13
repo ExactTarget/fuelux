@@ -7,7 +7,7 @@
   <p>Pillbox is an interface to manage a list of tags. Wrap the list of tags (pills) within <code>.fuelux .pillbox</code></p>
 
   <div class="fu-example section">
-    <div id="MyPillbox" class="pillbox">
+    <div id="myFuPillbox" class="pillbox">
     {% include js/pillbox-example.html %}
     </div>
 
@@ -30,7 +30,7 @@
 
   <h3>Via JavaScript</h3>
   <p>Call the Pillbox via JavaScript:</p>
-  {% highlight js %}$('#MyPillbox').pillbox();{% endhighlight %}
+  {% highlight js %}$('#myFuPillbox').pillbox();{% endhighlight %}
 
   <h3>Markup</h3>
 
@@ -75,7 +75,7 @@
   <p>Adds Items to the pillbox programatically.</p>
 
 {% highlight js %}
-$('#element').pillbox('addItems', 
+$('#myFuPillbox').pillbox('addItems', 
   index,
   [{ 
     text: '', 
@@ -106,32 +106,32 @@ $('#element').pillbox('addItems',
 
   <h4>.pillbox('destroy')</h4>
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
-  {% highlight js %}$('#element').pillbox('destroy');{% endhighlight %}
+  {% highlight js %}$('#myFuPillbox').pillbox('destroy');{% endhighlight %}
 
   <h4>.pillbox('removeItems')</h4>
   <p>Remove items from the pillbox programatically. The first parameter is a <code>1</code> based index that represents the location of the first element to be removed. The second parameter is the number of items that will be removed.</p>
-  {% highlight js %}$('#element').pillbox('removeItems', index, count);{% endhighlight %}
+  {% highlight js %}$('#myFuPillbox').pillbox('removeItems', index, count);{% endhighlight %}
 
   <h4>.pillbox('items')</h4>
   <p>Returns an array of objects, one per item, each containing the jQuery data() contents of the item which includes <code>data-*</code> attributes plus a text property with the label's visible text.</p>
-  {% highlight js %}$('#element').pillbox('items');{% endhighlight %}
+  {% highlight js %}$('#myFuPillbox').pillbox('items');{% endhighlight %}
 
   <h4>.pillbox('itemCount')</h4>
   <p>Returns an integer representing the current number of items.</p>
-  {% highlight js %}$('#element').pillbox('itemCount');{% endhighlight %}
+  {% highlight js %}$('#myFuPillbox').pillbox('itemCount');{% endhighlight %}
 
   <h4>.pillbox('removeBySelector')</h4>
   <p>Removes an item based on a jQuery selector.</p>
-  {% highlight js %}$('#element').pillbox('removeBySelector', 'li[data-value=buzz]');{% endhighlight %}
+  {% highlight js %}$('#myFuPillbox').pillbox('removeBySelector', 'li[data-value=buzz]');{% endhighlight %}
 
   <h4>.pillbox('removeByText')</h4>
   <p>Removes an item with contained text matching that of the provided <code>text</code> string parameter.</p>
-  {% highlight js %}$('#element').pillbox('removeByText', "Item 4");{% endhighlight %}
+  {% highlight js %}$('#myFuPillbox').pillbox('removeByText', "Item 4");{% endhighlight %}
 
   <h4>.pillbox('removeByValue')</h4>
   <p>Removes an item with value matching that of the provided <code>value</code> string parameter. The item has to have a <code>.data-value="{value}"</code> attribute</p>
 
-  {% highlight js %}$('#element').pillbox('removeByValue', '1');{% endhighlight %}
+  {% highlight js %}$('#myFuPillbox').pillbox('removeByValue', '1');{% endhighlight %}
 
   <h3>Options</h3>
   <p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-value=""</code>.</p>
@@ -155,7 +155,7 @@ $('#element').pillbox('addItems',
         </tr>
         <tr>
           <td>edit</td>
-          <td>boolian</td>
+          <td>boolean</td>
           <td>false</td>
           <td>Enables user edited pills.</td>
         </tr>
@@ -242,7 +242,7 @@ callback({data:[
   </div><!-- ./fu-table-responsive -->
 
 {% highlight js %}
-$('#Mypillbox').on('clicked', function (item) {
+$('#myFuPillbox').on('clicked.fu.pillbox', function (item) {
   // do something
 });
 {% endhighlight %}

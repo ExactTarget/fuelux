@@ -9,7 +9,7 @@
   <div class="fu-example section">
 
       <form class="search-form" role="search" data-initalize="search">
-        <div id="MySearch" class="search input-group">
+        <div id="myFuSearch" class="search input-group">
           <input type="search" class="form-control" placeholder="Search"/>
           <span class="input-group-btn">
             <button class="btn btn-default" type="button">
@@ -31,7 +31,7 @@
 
 {% highlight html %}
 <form class="search-form" role="search" data-initalize="search">
-  <div id="MySearch" class="search input-group">
+  <div id="myFuSearch" class="search input-group">
     <input type="search" class="form-control" placeholder="Search"/>
     <span class="input-group-btn">
       <button class="btn btn-default" type="button">
@@ -51,12 +51,12 @@
 
   <h3>Via JavaScript:</h3>
   <p>Call the search control via JavaScript:</p>
-  {% highlight js %}$('#MySearch').search();{% endhighlight %}
+  {% highlight js %}$('#myFuSearch').search();{% endhighlight %}
 
   <h3>Markup</h3>
   <p>Wrap <code>class="search"</code> around an input and a button within a <code>class="fuelux"</code> container.</p>
 {% highlight html %}
-<div id="MySearch" class="search input-group">
+<div id="myFuSearch" class="search input-group">
   <input type="search" class="form-control" placeholder="Search"/>
   <span class="input-group-btn">
     <button class="btn btn-default" type="button">
@@ -73,15 +73,15 @@
 
   <h4>.search('destroy')</h4>
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
-  {% highlight js %}$('#element').search('destroy');{% endhighlight %}
+  {% highlight js %}$('#myFuScheduler').search('destroy');{% endhighlight %}
   
   <h4>.search('disable')</h4>
   <p>Disables the component</p>
-  {% highlight js %}$('#element').search('disable');{% endhighlight %}
+  {% highlight js %}$('#myFuScheduler').search('disable');{% endhighlight %}
 
   <h4>.search('enable')</h4>
   <p>Enables the component</p>
-  {% highlight js %}$('#element').search('enable');{% endhighlight %}
+  {% highlight js %}$('#myFuScheduler').search('enable');{% endhighlight %}
 
   <h3>Events</h3>
   <div class="table-responsive">
@@ -105,7 +105,7 @@
     </table>
   </div><!-- ./fu-table-responsive -->
 {% highlight js %}
-$('#MySearchResults').on('searched', function () {
+$('#myFuSearchResults').on('searched', function () {
   // load search results
 });
 {% endhighlight %}

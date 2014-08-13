@@ -4,7 +4,7 @@ define(function(require){
 	require('bootstrap');
 	require('fuelux');
 
-	$('#MyPillbox').pillbox({
+	$('#myFuPillbox').pillbox({
 		edit: true,
 		onKeyDown: function( data, callback ){
 			callback({data:[
@@ -48,7 +48,7 @@ define(function(require){
 		}
 	});
 
-	$('#MyPillboxEmpty').pillbox({
+	$('#myFuPillboxEmpty').pillbox({
 		edit: true,
 		onKeyDown: function( data, callback ){
 			callback({data:[
@@ -62,54 +62,54 @@ define(function(require){
 		}
 	});
 
-	$('#MyPillboxTruncateReadOnly').pillbox({
+	$('#myFuPillboxTruncateReadOnly').pillbox({
 		truncate: true
 	});
 
-	$('#MyPillbox').on( 'added', function( event, data ) {
+	$('#myFuPillbox').on( 'added', function( event, data ) {
 		console.log( 'pillbox added', data );
 	});
 
-	$('#MyPillbox').on( 'removed', function( event, data ) {
+	$('#myFuPillbox').on( 'removed', function( event, data ) {
 		console.log( 'pillbox removed', data );
 	});
 
 	// buttons
 	$('#btnPillboxEnable').click(function () {
-		$('#MyPillbox').pillbox('enable');
+		$('#myFuPillbox').pillbox('enable');
 	});
 
 	$('#btnPillboxDisable').click(function () {
-		$('#MyPillbox').pillbox('disable');
+		$('#myFuPillbox').pillbox('disable');
 	});
 
 	$('#btnPillboxAdd').click(function () {
-		var newItemCount = $('#MyPillbox ul li').length + 1;
-		$('#MyPillbox').pillbox('addItems', {text: 'item ' + newItemCount, value: 'item ' + newItemCount} );
+		var newItemCount = $('#myFuPillbox ul li').length + 1;
+		$('#myFuPillbox').pillbox('addItems', {text: 'item ' + newItemCount, value: 'item ' + newItemCount} );
 	});
 
 	$('#btnPillboxRemoveByValue').click(function () {
-		$('#MyPillbox').pillbox('removeByValue', 'foo');
+		$('#myFuPillbox').pillbox('removeByValue', 'foo');
 	});
 
 	$('#btnPillboxRemoveBySelector').click(function () {
-		$('#MyPillbox').pillbox('removeBySelector', '.status-success');
+		$('#myFuPillbox').pillbox('removeBySelector', '.status-success');
 	});
 
 	$('#btnPillboxRemoveByText').click(function () {
-		$('#MyPillbox').pillbox('removeByText', 'Item 6');
+		$('#myFuPillbox').pillbox('removeByText', 'Item 6');
 	});
 
 	$('#btnPillboxItems').click(function () {
-		var items = $('#MyPillbox').pillbox('items');
+		var items = $('#myFuPillbox').pillbox('items');
 		console.log(items);
 	});
 
 	$('#btnPillboxDestroy').click(function () {
-		var markup = $('#MyPillbox').pillbox('destroy');
+		var markup = $('#myFuPillbox').pillbox('destroy');
 		console.log( markup );
 		$(this).closest('.section').append(markup);
-		$('#MyPillbox').pillbox( { edit: true } );
+		$('#myFuPillbox').pillbox( { edit: true } );
 	});
 
 });

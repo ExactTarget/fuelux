@@ -1,5 +1,5 @@
 /*!
- * JavaScript for FuelUX's docs - Comobox Examples
+ * JavaScript for FuelUX's docs - Examples
  * Copyright 2011-2014 ExactTarget, Inc.
  * Licensed under the Creative Commons Attribution 3.0 Unported License. For
  * details, see http://creativecommons.org/licenses/by/3.0/.
@@ -13,31 +13,31 @@ define(function(require){
 
 	// COMBOBOX
 	$('#btnComboboxGetSelectedItem').on('click', function () {
-		console.log($('#MyComboboxWithSelected').combobox('selectedItem'));
+		console.log($('#myFuComboboxWithSelected').combobox('selectedItem'));
 	});
 	$('#btnComboboxSelectByValue').on('click', function () {
-		$('#MyComboboxWithSelected').combobox('selectByValue', '1');
+		$('#myFuComboboxWithSelected').combobox('selectByValue', '1');
 	});
 	$('#btnComboboxSelectByIndex').on('click', function () {
-		$('#MyComboboxWithSelected').combobox('selectByIndex', '1');
+		$('#myFuComboboxWithSelected').combobox('selectByIndex', '1');
 	});
 	$('#btnComboboxSelectByText').on('click', function () {
-		$('#MyComboboxWithSelected').combobox('selectByText', 'Four');
+		$('#myFuComboboxWithSelected').combobox('selectByText', 'Four');
 	});
 	$('#btnComboboxSelectBySelector').on('click', function () {
-		$('#MyComboboxWithSelected').combobox('selectBySelector', 'li[data-fizz=buzz]');
+		$('#myFuComboboxWithSelected').combobox('selectBySelector', 'li[data-fizz=buzz]');
 	});
-	$('#MyComboBoxWithSelectedInput').on('changed.fu.combobox', function (evt, data) {
+	$('#myFuComboBoxWithSelectedInput').on('changed.fu.combobox', function (evt, data) {
 		console.log(data);
 	});
 	$('#btnComboboxDisable').on('click', function () {
-		$('#MyComboboxWithSelected').combobox('disable');
+		$('#myFuComboboxWithSelected').combobox('disable');
 	});
 	$('#btnComboboxEnable').on('click', function () {
-		$('#MyComboboxWithSelected').combobox('enable');
+		$('#myFuComboboxWithSelected').combobox('enable');
 	});
 	$('#btnComboboxDestroy').on('click', function () {
-		var markup = $('#MyComboboxWithSelected').combobox('destroy');
+		var markup = $('#myFuComboboxWithSelected').combobox('destroy');
 		console.log( markup );
 		$(this).closest('.section').append(markup);
 	});

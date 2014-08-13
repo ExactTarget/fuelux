@@ -7,8 +7,8 @@
   <p>Turn any element into an infinite scrolling region with content that loads on demand.</p>
 
   <div class="fu-example section">
-    <div class="infinitescroll" id="MyInfiniteScroll1" style="border: 1px solid #ccc; border-radius: 4px; float: left; height: 200px; padding: 6px 10px; width: 48%;"></div>
-    <div class="infinitescroll" id="MyInfiniteScroll2" style="border: 1px solid #ccc; border-radius: 4px; float: right; height: 200px; padding: 6px 10px; width: 48%;"></div>
+    <div class="infinitescroll" id="myFuInfiniteScroll1" style="border: 1px solid #ccc; border-radius: 4px; float: left; height: 200px; padding: 6px 10px; width: 48%;"></div>
+    <div class="infinitescroll" id="myFuInfiniteScroll2" style="border: 1px solid #ccc; border-radius: 4px; float: right; height: 200px; padding: 6px 10px; width: 48%;"></div>
     <div style="clear:both;"></div>
   </div>
 
@@ -17,7 +17,7 @@
 
   <p>Initialize the infinite scroll via JavaScript:</p>
 {% highlight js %}
-$('#MyInfiniteScroll').infinitescroll({
+$('#myFuInfiniteScroll').infinitescroll({
   //dataSource is required to append additional content
   dataSource: function(helpers, callback){
   //passing back more content
@@ -33,7 +33,7 @@ $('#MyInfiniteScroll').infinitescroll({
 
   <h3>Scripting</h3>
 
-  <p>The following sample code displays the JavaScript associated with the previousexamples above:</p>
+  <p>The following sample code displays the JavaScript associated with the previous examples above:</p>
 
   <div class="truncate-highlight">
   {% highlight js %}
@@ -101,19 +101,19 @@ $('#MyInfiniteScroll').infinitescroll({
 
   <h4>.infinitescroll('destroy')</h4>
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
-  {% highlight js %}$('#element').infinitescroll('destroy');{% endhighlight %}
+  {% highlight js %}$('#myFuInfiniteScroll').infinitescroll('destroy');{% endhighlight %}
 
   <h4>.infinitescroll('disable');</h4>
   <p>Disables the infinite scrolling region</p>
-  {% highlight js %}$('#element').infinitescroll('disable');{% endhighlight %}
+  {% highlight js %}$('#myFuInfiniteScroll').infinitescroll('disable');{% endhighlight %}
 
   <h4>.infinitescroll('enable');</h4>
   <p>Enables the infinite scrolling region</p>
-  {% highlight js %}$('#element').infinitescroll('enable');{% endhighlight %}
+  {% highlight js %}$('#myFuInfiniteScroll').infinitescroll('enable');{% endhighlight %}
 
   <h4>.infinitescroll('end');</h4>
   <p>Disables the infinite scrolling region and appends an "end" indicator</p>
-  {% highlight js %}$('#element').infinitescroll('end');{% endhighlight %}
+  {% highlight js %}$('#myFuInfiniteScroll').infinitescroll('end');{% endhighlight %}
 
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
@@ -134,7 +134,7 @@ $('#MyInfiniteScroll').infinitescroll({
 
   <h4>.infinitescroll('fetchData');</h4>
   <p>Tells the infinite scrolling region to make a call to dataSource for additional content.</p>
-  {% highlight js %}$('#element').infinitescroll('fetchData');{% endhighlight %}
+  {% highlight js %}$('#myFuInfiniteScroll').infinitescroll('fetchData');{% endhighlight %}
 
   <div class="table-responsive">
     <table class="table table-bordered table-striped">

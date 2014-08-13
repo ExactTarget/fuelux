@@ -17,12 +17,12 @@
 
 	<h3>Via JavaScript</h3>
 	<p>Call the datepicker control via JavaScript:</p>
-{% highlight js %}$('#MyDatepicker').datepicker();{% endhighlight %}
+{% highlight js %}$('#myFuDatepicker').datepicker();{% endhighlight %}
 
 	<h3>Markup</h3>
 	<p>Add <code>class="datepicker"</code> to an input and a dropdown within a <code>class="fuelux"</code> container.</p>
 {% highlight html %}
-{% include js/combobox-example.html %}
+{% include js/datepicker-example.html %}
 {% endhighlight %}
 
 	<h3>Options</h3>
@@ -106,43 +106,43 @@
   
   <h4>.datepicker('destroy')</h4>
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
-  {% highlight js %}$('#element').datepicker('destroy');{% endhighlight %}
+  {% highlight js %}$('#myFuDatepicker').datepicker('destroy');{% endhighlight %}
 
   <h4>.datepicker('disable')</h4>
   <p>Disables the component</p>
-  {% highlight js %}$('#element').datepicker('disable');{% endhighlight %}
+  {% highlight js %}$('#myFuDatepicker').datepicker('disable');{% endhighlight %}
 
   <h4>.datepicker('enable')</h4>
   <p>Enables the component</p>
-  {% highlight js %}$('#element').datepicker('enable');{% endhighlight %}
+  {% highlight js %}$('#myFuDatepicker').datepicker('enable');{% endhighlight %}
 
   <h4>.datepicker('getDate')</h4>
   <p>Returns the selected date (not formatted)</p>
-  {% highlight js %}$('#element').datepicker('getDate');{% endhighlight %}
+  {% highlight js %}$('#myFuDatepicker').datepicker('getDate');{% endhighlight %}
 
   <h4>.datepicker('getFormattedDate')</h4>
   <p>Returns the selected formatted date</p>
-  {% highlight js %}$('#element').datepicker('getFormattedDate');{% endhighlight %}
+  {% highlight js %}$('#myFuDatepicker').datepicker('getFormattedDate');{% endhighlight %}
 
   <h4>.datepicker('setDate')</h4>
   <p>Sets datepicker to date provided. Date provided must be a valid Date object or date string.</p>
-  {% highlight js %}$('#element').datepicker('setDate', new Date()){% endhighlight %}
+  {% highlight js %}$('#myFuDatepicker').datepicker('setDate', new Date()){% endhighlight %}
 
   <h4>.datepicker('getCulture')</h4>
   <p>Returns the culture the datepicker is currently using. <i>Only available using moment.js with langs</i></p>
-  {% highlight js %}$('#element').datepicker('getCulture'){% endhighlight %}
+  {% highlight js %}$('#myFuDatepicker').datepicker('getCulture'){% endhighlight %}
 
   <h4>.datepicker('setCulture')</h4>
   <p>Updates the culture the datepicker uses. <i>Only available using moment.js with langs</i></p>
-  {% highlight js %}$('#element').datepicker('setCulture'){% endhighlight %}
+  {% highlight js %}$('#myFuDatepicker').datepicker('setCulture'){% endhighlight %}
 
   <h4>.datepicker('getFormat')</h4>
   <p>Returns the format the datepicker is currently using. <i>Only available using moment.js with langs</i></p>
-  {% highlight js %}$('#element').datepicker('getFormatCode'){% endhighlight %}
+  {% highlight js %}$('#myFuDatepicker').datepicker('getFormatCode'){% endhighlight %}
 
   <h4>.datepicker('setFormat')</h4>
   <p>Updates the format the datepicker uses. <i>Only available using moment.js with langs</i></p>
-  {% highlight js %}$('#element').datepicker('setFormatCode'){% endhighlight %}
+  {% highlight js %}$('#myFuDatepicker').datepicker('setFormatCode'){% endhighlight %}
 
   <h3>Events</h3>
   <div class="table-responsive">
@@ -173,7 +173,7 @@
   </div><!-- ./fu-table-responsive -->
   <p>All dropdown events are fired at the <code>.dropdown</code>'s parent element.</p>
 {% highlight js %}
-$('#MyDatepicker').on('changed', function () {
+$('#myFuDatepicker').on('changed.fu.datepicker', function () {
   // do something…
 });
 {% endhighlight %}

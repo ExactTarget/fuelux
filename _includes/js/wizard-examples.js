@@ -1,5 +1,5 @@
 /*!
- * JavaScript for FuelUX's docs - Comobox Examples
+ * JavaScript for FuelUX's docs - Examples
  * Copyright 2011-2014 ExactTarget, Inc.
  * Licensed under the Creative Commons Attribution 3.0 Unported License. For
  * details, see http://creativecommons.org/licenses/by/3.0/.
@@ -12,30 +12,38 @@ define(function(require){
 	require('fuelux');
 
 	// WIZARD
-	$('#MyWizard').on('change', function(e, data) {
-		console.log('change');
-		if(data.step===3 && data.direction==='next') {
+	$('#myFuWizard').on('changed.fu.wizard', function(e, data) {
+		console.log('changed');
+		console.log(data);
+	});
+
+	$('#myFuWizard').on('actionclicked.fu.wizard', function(e, data) {
+		console.log('action clicked');
+		console.log(data);
+	});
+	$('#myFuWizard').on('stepclicked.fu.wizard', function(e, data) {
+		console.log('step ' + data.step + ' clicked');
+		if(data.step===1) {
 			// return e.preventDefault();
 		}
 	});
-	$('#MyWizard').on('changed', function(e, data) {
-		console.log('changed');
-	});
-	$('#MyWizard').on('finished', function(e, data) {
+
+	//buttons
+	$('#myFuWizard').on('finished', function(e, data) {
 		console.log('finished');
 	});
 	$('#btnWizardPrev').on('click', function() {
-		$('#MyWizard').wizard('previous');
+		$('#myFuWizard').wizard('previous');
 	});
 	$('#btnWizardNext').on('click', function() {
-		$('#MyWizard').wizard('next','foo');
+		$('#myFuWizard').wizard('next','foo');
 	});
 	$('#btnWizardStep').on('click', function() {
-		var item = $('#MyWizard').wizard('selectedItem');
+		var item = $('#myFuWizard').wizard('selectedItem');
 		console.log(item.step);
 	});
 	$('#btnWizardSetStep').on('click', function() {
-		$('#MyWizard').wizard('selectedItem', {
+		$('#myFuWizard').wizard('selectedItem', {
 			step: 3
 		});
 	});
@@ -61,7 +69,7 @@ define(function(require){
 								'</div>';
 
 	$('#btnWizardAddSteps').on('click', function() {
-		$('#MyWizard').wizard('addSteps', 2, 0, 
+		$('#myFuWizard').wizard('addSteps', 2, 0, 
 			[
 			{
 				badge: '',
@@ -70,13 +78,16 @@ define(function(require){
 			}
 		]);
 	});
+
 	$('#btnWizardRemoveStep').on('click', function() {
-		$('#MyWizard').wizard('removeSteps', 4, 1);
+		$('#myFuWizard').wizard('removeSteps', 4, 1);
 	});
-	$('#MyWizard').on('stepclick', function(e, data) {
-		console.log('step ' + data.step + ' clicked');
-		if(data.step===1) {
-			// return e.preventDefault();
-		}
+
+	$('#btnWizardDestroy').click(function () {
+		var markup = $('#myFuWizard').wizard('destroy');
+		console.log( markup );
+		$(this).closest('.section').append(markup);
+		$('#myFuWizard').wizard();
 	});
+	
 });

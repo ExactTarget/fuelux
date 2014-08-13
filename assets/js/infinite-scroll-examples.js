@@ -20,14 +20,14 @@ define(function(require){
 	require('fuelux');
 
 	// INFINITE SCROLL
-	$('#MyInfiniteScroll1').infinitescroll({
+	$('#myFuInfiniteScroll1').infinitescroll({
 		dataSource: function(helpers, callback){
 			setTimeout(function(){
 				callback({ content: content });
 			}, delays[Math.floor(Math.random() * 4)]);
 		}
 	});
-	$('#MyInfiniteScroll2').infinitescroll({
+	$('#myFuInfiniteScroll2').infinitescroll({
 		dataSource: function(helpers, callback){
 			setTimeout(function(){
 				callback({ content: content });
@@ -36,6 +36,6 @@ define(function(require){
 		hybrid: true
 	});
 
-	setup('#MyInfiniteScroll1');
-	setup('#MyInfiniteScroll2');
+	setup('#myFuInfiniteScroll1');
+	setup('#myFuInfiniteScroll2');
 });

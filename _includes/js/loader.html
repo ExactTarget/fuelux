@@ -15,7 +15,7 @@
 
   <h4>Starting frame</h4>
   <p>Use the <code>data-frame</code> attribute to set the initial animation frame (defaults to 1). Additionally, this attribute can be modified at any time to set the current frame.
-  <div class="fu-example section">
+  <div id="myFuLoader" class="fu-example section">
     <div class="loader" data-initialize="loader" data-frame="5"></div>
   </div>
 {% highlight html %}
@@ -25,19 +25,19 @@
   <h4>Controlling speed</h4>
   <p>Use the <code>data-delay</code> attribute to alter animation speed (defaults to 150).
   <div class="fu-example section">
-    <div class="loader" data-initialize="loader" data-delay="500"></div>
+    <div  id="myFuLoader2" class="loader" data-initialize="loader" data-delay="500"></div>
   </div>
 {% highlight html %}
-<div class="loader" data-initialize="loader" data-delay="500"></div>
+<div id="myFuLoader3" class="loader" data-initialize="loader" data-delay="500"></div>
 {% endhighlight %}
 
   <h4>Animation range</h4>
   <p>Use the <code>data-begin</code> and <code>data-end</code> attributes to control at which frames the animation begins and ends, respectively. (Defaults are 1 and 8)
   <div class="fu-example section">
-    <div class="loader" data-initialize="loader" data-begin="3" data-end="6"></div>
+    <div id="myFuLoader4" class="loader" data-initialize="loader" data-begin="3" data-end="6"></div>
   </div>
 {% highlight html %}
-<div class="loader" data-initialize="loader" data-begin="3" data-end="6"></div>
+<div  id="myFuLoader5" class="loader" data-initialize="loader" data-begin="3" data-end="6"></div>
 {% endhighlight %}
 
   <h2 id="loaders-usage">Usage</h2>
@@ -47,16 +47,16 @@
 
   <h3>Via JavaScript</h3>
   <p>Call the loader control via JavaScript:</p>
-  {% highlight js %}$('#MyLoader').loader();{% endhighlight %}  
+  {% highlight js %}$('#myFuLoader').loader();{% endhighlight %}  
 
   <h3>Via JavaScript</h3>
   <p>Call the placard control via JavaScript:</p>
-  {% highlight js %}$('#MyLoader').loader();{% endhighlight %}
+  {% highlight js %}$('#myFuLoader').loader();{% endhighlight %}
 
   <h3>Markup</h3>
   <p>Simply place <code>class="loader"</code> and <code>data-initialize="loader"</code> on a div. Easy, huh?</p>
 {% highlight html %}
-<div class="loader" data-initialize="loader"></div>
+<div id="myFuLoader" class="loader" data-initialize="loader"></div>
 {% endhighlight %}
 
   <h3>Methods</h3>
@@ -65,26 +65,26 @@
 
   <h4>.loader('destroy')</h4>
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
-  {% highlight js %}$('#element').loader('destroy');{% endhighlight %}
+  {% highlight js %}$('#myFuLoader').loader('destroy');{% endhighlight %}
 
   <h4>.loader('next');</h4>
   <p>Increments the loader animation to the next frame</p>
-  {% highlight js %}$('#element').loader('next');{% endhighlight %}
+  {% highlight js %}$('#myFuLoader').loader('next');{% endhighlight %}
 
   <h4>.loader('pause');</h4>
   <p>Pauses the loader animation at the current frame.</p>
-  {% highlight js %}$('#element').loader('pause');{% endhighlight %}
+  {% highlight js %}$('#myFuLoader').loader('pause');{% endhighlight %}
 
   <h4>.loader('play');</h4>
   <p>Plays the loader animation, resuming it if paused.</p>
-  {% highlight js %}$('#element').loader('play');{% endhighlight %}
+  {% highlight js %}$('#myFuLoader').loader('play');{% endhighlight %}
 
   <h4>.loader('prev');</h4>
   <p>Decrements the loader animation to the previous frame.</p>
-  {% highlight js %}$('#element').loader('prev');{% endhighlight %}
+  {% highlight js %}$('#myFuLoader').loader('prev');{% endhighlight %}
 
   <h4>.loader('reset');</h4>
   <p>Resets the loader animation to the beginning frame.</p>
-  {% highlight js %}$('#element').loader('reset');{% endhighlight %}
+  {% highlight js %}$('#myFuLoader').loader('reset');{% endhighlight %}
 
 </div>

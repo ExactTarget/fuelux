@@ -9,14 +9,14 @@
   <h3>Static example</h3>
   <p>A scheduler with start date and time, timezone, and all recurrance and recurrance end options. All options do not show simutaneously in the live demo further along in this document.</p>
   <div class="fu-example fu-example-scheduler">
-    <fieldset id="MySchedulerStatic" class="form-horizontal container-fluid scheduler" role="form">
+    <fieldset id="myFuSchedulerStatic" class="form-horizontal container-fluid scheduler" role="form">
     {% include js/scheduler-example.html %}
     </fieldset>
   </div><!-- /example -->
 
   <h3>Live demo</h3>
   <div class="fu-example section">
-    <div id="MyScheduler" class="form-horizontal container-fluid scheduler" data-initialize="scheduler" role="form">
+    <div id="myFuScheduler" class="form-horizontal container-fluid scheduler" data-initialize="scheduler" role="form">
     {% include js/scheduler-example.html %}
     </div>
 
@@ -49,14 +49,14 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
   <h3>Via JavaScript</h3>
   <p>Call the scheduler control via JavaScript:</p>
-  {% highlight js %}$('#Myscheduler').scheduler();{% endhighlight %}
+  {% highlight js %}$('#myFuscheduler').scheduler();{% endhighlight %}
 
   <h3>Markup</h3>
   <p>Wrap <code>class="scheduler"</code> around a start date and time, a timezone, and a recurrance pattern within a <code>class="fuelux"</code> container.</p>
 
   <div class="truncate-highlight">
     {% highlight html %}
-  <div id="MyScheduler" class="form-horizontal container-fluid scheduler" data-initialize="scheduler" role="form">
+  <div id="myFuScheduler" class="form-horizontal container-fluid scheduler" data-initialize="scheduler" role="form">
     {% include js/scheduler-example.html %}
   </div>
     {% endhighlight %}
@@ -78,15 +78,15 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
   
   <h4>.scheduler('destroy')</h4>
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
-  {% highlight js %}$('#element').scheduler('destroy');{% endhighlight %}
+  {% highlight js %}$('#myFuScheduler').scheduler('destroy');{% endhighlight %}
 
   <h4>.scheduler('disable')</h4>
   <p>Disable all scheduler form fields</p>
-  {% highlight js %}$('#element').scheduler('disable');{% endhighlight %}
+  {% highlight js %}$('#myFuScheduler').scheduler('disable');{% endhighlight %}
 
   <h4>.scheduler('enable')</h4>
   <p>Enables all scheduler form fields</p>
-  {% highlight js %}$('#element').scheduler('enable');{% endhighlight %}
+  {% highlight js %}$('#myFuScheduler').scheduler('enable');{% endhighlight %}
 
   <h4>.scheduler('value')</h4>
   <p>Gets the current scheduler form field information or sets it, depending on arguments present</p>
@@ -150,7 +150,7 @@ $('myScheduler').scheduler('value', {
     </table>
   </div><!-- ./fu-table-responsive -->
 {% highlight js %}
-$('#MyScheduler').on('changed', function () {
+$('#myFuScheduler').on('changed.fu.scheduler', function () {
   // do something
 });
 {% endhighlight %}

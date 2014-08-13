@@ -13,13 +13,13 @@ define(function(require){
 
 	// TREE
 
-	$('#MyTree').on('loaded.fu.tree', function (e) {
+	$('#myFuTree').on('loaded.fu.tree', function (e) {
 		console.log('Loaded');
 	});
 
 	function myTreeInit() {
 
-		$('#MyTree').tree({
+		$('#myFuTree').tree({
 			dataSource: function(options, callback){
 				setTimeout(function () {
 					callback({ data: [
@@ -44,25 +44,25 @@ define(function(require){
 
 	myTreeInit();
 
-	$('#MyTree').on('selected.fu.tree', function (e, selected) {
+	$('#myFuTree').on('selected.fu.tree', function (e, selected) {
 		console.log('Select Event: ', selected);
-		console.log($('#MyTree').tree('selectedItems'));
+		console.log($('#myFuTree').tree('selectedItems'));
 	});
 
-	$('#MyTree').on('updated.fu.tree', function (e, selected) {
+	$('#myFuTree').on('updated.fu.tree', function (e, selected) {
 		console.log('Updated Event: ', selected);
-		console.log($('#MyTree').tree('selectedItems'));
+		console.log($('#myFuTree').tree('selectedItems'));
 	});
 
-	$('#MyTree').on('opened.fu.tree', function (e, info) {
+	$('#myFuTree').on('opened.fu.tree', function (e, info) {
 		console.log('Open Event: ', info);
 	});
 
-	$('#MyTree').on('closed.fu.tree', function (e, info) {
+	$('#myFuTree').on('closed.fu.tree', function (e, info) {
 		console.log('Close Event: ', info);
 	});
 
-	$('#MyTreeSelectableFolder').tree({
+	$('#myFuTreeSelectableFolder').tree({
 		dataSource: function(options, callback){
 			setTimeout(function () {
 				callback({ data: [
@@ -79,7 +79,7 @@ define(function(require){
 		multiSelect: true
 	});
 
-	$('#MyTreeDefault').tree({
+	$('#myFuTreeDefault').tree({
 		dataSource: function(options, callback){
 			setTimeout(function () {
 				callback({ data: [
@@ -96,35 +96,35 @@ define(function(require){
 		}
 	});
 
-	$('#MyTree').on('selected.fu.tree', function (e, info) {
+	$('#myFuTree').on('selected.fu.tree', function (e, info) {
 		console.log('Select Event: ', info);
 	});
 
-	$('#MyTreeSelectableFolder').on('selected.fu.tree', function (e, info) {
+	$('#myFuTreeSelectableFolder').on('selected.fu.tree', function (e, info) {
 		console.log('Select Event: ', info);
 	});
 
 
-	$('#MyTreeDefault').on('selected.fu.tree', function (e, selected) {
+	$('#myFuTreeDefault').on('selected.fu.tree', function (e, selected) {
 		console.log('Select Event: ', selected);
-		console.log($('#MyTree').tree('selectedItems'));
+		console.log($('#myFuTree').tree('selectedItems'));
 	});
 
-	$('#MyTreeDefault').on('updated.fu.tree', function (e, selected) {
+	$('#myFuTreeDefault').on('updated.fu.tree', function (e, selected) {
 		console.log('Updated Event: ', selected);
-		console.log($('#MyTree').tree('selectedItems'));
+		console.log($('#myFuTree').tree('selectedItems'));
 	});
 
-	$('#MyTreeDefault').on('opened.fu.tree', function (e, info) {
+	$('#myFuTreeDefault').on('opened.fu.tree', function (e, info) {
 		console.log('Open Event: ', info);
 	});
 
-	$('#MyTreeDefault').on('closed.fu.tree', function (e, info) {
+	$('#myFuTreeDefault').on('closed.fu.tree', function (e, info) {
 		console.log('Close Event: ', info);
 	});
 
 	$('#btnTreeDestroy').click(function () {
-		var markup = $('#MyTree').tree('destroy');
+		var markup = $('#myFuTree').tree('destroy');
 		console.log( markup );
 		$(this).closest('.section').append(markup);
 		myTreeInit();

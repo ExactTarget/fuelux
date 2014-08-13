@@ -150,15 +150,15 @@ define(function(require){
 	};
 
 	// REPEATER
-	$('#MyRepeater').repeater({
+	$('#myFuRepeater').repeater({
 		dataSource: dataSource
 	});
 
-	$('#MyRepeaterList').repeater({
+	$('#myFuRepeaterList').repeater({
 		dataSource: dataSource
 	});
 
-	$('#MyRepeaterThumbnail').repeater({
+	$('#myFuRepeaterThumbnail').repeater({
 		dataSource: dataSource
 	});
 
