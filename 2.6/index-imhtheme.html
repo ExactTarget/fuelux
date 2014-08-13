@@ -1,0 +1,3419 @@
+<!DOCTYPE html>
+<html lang="en" class="fuelux">
+<head>
+<meta charset="utf-8">
+<title>Fuel UX - IMH Theme</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Base Fuel UX styles and controls">
+<meta name="author" content="ExactTarget">
+
+<link href="vendor/fuelux-imhtheme/css/fuelux.css" rel="stylesheet">
+<style type="text/css">
+	body {
+		padding-top: 60px;
+		padding-bottom: 40px;
+	}
+
+	section {
+		padding-top: 40px;
+	}
+
+	.fuelux .hero-unit {
+		padding: 20px 60px;
+		margin-bottom: 10px;
+	}
+
+	.hero-unit p {
+		margin-bottom: 20px;
+	}
+
+	.title {
+		font-size: 14px;
+		padding: 40px 0;
+		color: #999;
+	}
+
+	.title img {
+		vertical-align: text-bottom;
+	}
+
+	.pillbox {
+		border: 1px solid #bbb;
+		margin-bottom: 10px;
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+		width: 251px;
+	}
+
+	#mySelect {
+		margin-bottom: 10px;
+	}
+
+	.social {
+		padding: 15px 0;
+		text-align: center;
+		border-top: 1px solid #fff;
+	}
+
+	.social-buttons {
+		margin-left: 0;
+		margin-bottom: 0;
+		padding-left: 0;
+		list-style: none;
+	}
+
+	.social-buttons li {
+		display: inline-block;
+		padding: 5px 8px;
+		line-height: 1;
+		*display: inline;
+		*zoom: 1;
+	}
+
+	.spinner-example {
+		height: 28px;
+	}
+
+	#MyTree {
+		width: 400px;
+		height: 300px;
+		margin-bottom: 15px;
+	}
+
+	.tree-example {
+		height: 350px;
+	}
+
+	.step-content {
+		border: 1px solid #D4D4D4;
+		border-top: 0;
+		border-radius: 0 0 4px 4px;
+		padding: 10px;
+		margin-bottom: 10px;
+	}
+
+</style>
+<link href="vendor/fuelux-imhtheme/css/fuelux-responsive.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+<![endif]-->
+
+<script src="vendor/require.js"></script>
+
+<script>
+	requirejs.config({ baseUrl: 'vendor', paths: { 'sample': '../sample', 'fuelux': 'fuelux-imhtheme' } });
+</script>
+
+<script>
+require(['jquery', 'sample/data', 'sample/datasource', 'sample/datasourceTree', 'fuelux/all'], function ($, sampleData, StaticDataSource, TreeDataSource) {
+	$(function () {
+		$('#BrandLink, #ReturnLink').click(function () {
+			$('body').data('scrollspy').activate('#controls');
+		});
+
+
+		// INITIALIZING CHECKBOX
+		$('#checkbox-toggle').on('click', function () {
+			$('#myCheckbox').checkbox('toggle');
+		});
+
+		$('#checkbox-disable').on('click', function () {
+			$('#myCheckbox').checkbox('disable');
+		});
+
+		$('#checkbox-enable').on('click', function () {
+			$('#myCheckbox').checkbox('enable');
+		});
+
+
+		// INITIALIZING COMBOBOX
+		$('#myCombobox').on('changed', function (evt, data) {
+			console.log(data);
+		});
+
+		$('#combobox-logItem').on('click', function () {
+			console.log($('#myCombobox').combobox('selectedItem'));
+		});
+
+		$('#combobox-selectByIndex').on('click', function () {
+			$('#myCombobox').combobox('selectByIndex', '1');
+		});
+
+		$('#combobox-selectByText').on('click', function () {
+			$('#myCombobox').combobox('selectByText', 'Item Three');
+		});
+
+		$('#combobox-selectBySelector').on('click', function () {
+			$('#myCombobox').combobox('selectBySelector', 'li[data-fizz=buzz]');
+		});
+
+		$('#combobox-selectByValue').on('click', function () {
+			$('#myCombobox').combobox('selectByValue', '1');
+		});
+
+		$('#combobox-enable').on('click', function () {
+			$('#myCombobox').combobox('enable');
+		});
+
+		$('#combobox-disable').on('click', function () {
+			$('#myCombobox').combobox('disable');
+		});
+
+
+		// INITIALIZING THE DATAGRID
+		var dataSource = new StaticDataSource({
+			columns: [
+				{
+					property: 'toponymName',
+					label: 'Name',
+					sortable: true
+				},
+				{
+					property: 'countrycode',
+					label: 'Country',
+					sortable: true
+				},
+				{
+					property: 'population',
+					label: 'Population',
+					sortable: true
+				},
+				{
+					property: 'fcodeName',
+					label: 'Type',
+					sortable: true
+				}
+			],
+			data: sampleData.geonames,
+			delay: 250
+		});
+
+		$('#MyGrid').datagrid({
+			dataSource: dataSource,
+			stretchHeight: true
+		});
+
+		$('#datagrid-reload').on('click', function () {
+			$('#MyGrid').datagrid('reload');
+		});
+
+
+		// DATEPICKER
+		var test = $('#myDatepicker').datepicker();
+
+		$('#datepicker-enable').on('click', function() {
+			$('#myDatepicker').datepicker('enable');
+		});
+
+		$('#datepicker-disabled').on('click', function() {
+			$('#myDatepicker').datepicker('disable');
+		});
+
+		$('#datepicker-logFormattedDate').on('click', function() {
+			console.log( $('#myDatepicker').datepicker('getFormattedDate') );
+		});
+
+		$('#datepicker-logDateUnix').on('click', function() {
+			console.log( $('#myDatepicker').datepicker('getDate', { unix: true } ) );
+		});
+
+		$('#datepicker-logDateObj').on('click', function() {
+			console.log( $('#myDatepicker').datepicker('getDate') );
+		});
+
+		$('#datepicker-setDate').on('click', function() {
+			var futureDate = new Date(+new Date() + ( 7 * 24 * 60 * 60 * 1000 ) );
+			$('#myDatepicker').datepicker('setDate', futureDate );
+			console.log( $('#myDatepicker').datepicker('getDate') );
+		});
+
+
+		// INITIALIZING PILLBOX
+		$('#btnAdd').click(function () {
+			var newItemCount = $('#MyPillbox ul li').length + 1;
+			$('#MyPillbox ul').pillbox('addItem', 'Item ' + newItemCount, 'Item ' + newItemCount );
+		});
+
+		$('#btnRemoveByValue').click(function () {
+			$('#MyPillbox').pillbox('removeByValue', 'foo');
+		});
+
+		$('#btnRemoveBySelector').click(function () {
+			$('#MyPillbox').pillbox('removeBySelector', '.status-warning');
+		});
+
+		$('#btnRemoveByText').click(function () {
+			$('#MyPillbox').pillbox('removeByText', 'Item 6');
+		});
+
+		$('#btnItems').click(function () {
+			var items = $('#MyPillbox').pillbox('items');
+			console.log(items);
+		});
+
+		$('#MyPillbox').on( 'added', function( event, data ) {
+			console.log( 'pillbox added', data );
+		});
+
+		$('#MyPillbox').on( 'removed', function( event, data ) {
+			console.log( 'pillbox removed', data );
+		});
+
+
+		// INITIALIZING SEARCH
+		$('#MySearch').on('searched', function (e, text) {
+			alert('Searched: ' + text);
+		});
+
+		$('#search-enable').click(function () {
+			$('#MySearch').search('enable');
+		});
+
+		$('#search-disable').click(function () {
+			$('#MySearch').search('disable');
+		});
+
+
+		// INITIALIZING SPINNER
+		$('#MySpinner').spinner();
+
+		$('#spinner-enable').click(function () {
+			$('#MySpinner').spinner('enable');
+		});
+
+		$('#spinner-disable').click(function () {
+			$('#MySpinner').spinner('disable');
+		});
+
+		$('#spinner-log').click(function () {
+			console.log("Spinner value: ", $('#MySpinner').spinner('value'));
+		});
+
+
+		// INITIALIZING RADIO
+		$('#radio-disable').on('click', function () {
+			$('#myRadio').radio('disable');
+		});
+
+		$('#radio-enable').on('click', function () {
+			$('#myRadio').radio('enable');
+		});
+
+
+        //INITIALIZING SCHEDULER
+        $('#scheduler-enable').on('click', function(){
+            $('#myScheduler').scheduler('enable');
+        });
+
+        $('#scheduler-disable').on('click', function(){
+            $('#myScheduler').scheduler('disable');
+        });
+
+        $('#scheduler-logValue').on('click', function(){
+            var val = $('#myScheduler').scheduler('value');
+            if(window.console && window.console.log){
+                window.console.log(val);
+            }
+        });
+
+        $('#scheduler-setValue').on('click', function(){
+            $('#myScheduler').scheduler('value', {
+                startDateTime: '2014-03-31T03:23+02:00',
+                timeZone: {
+                    name: 'Namibia Standard Time',
+                    offset: '+02:00'
+                },
+                recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
+            });
+        });
+
+        $('#myScheduler').on('changed', function(){
+            if(window.console && window.console.log){
+                window.console.log('scheduler changed: ', arguments);
+            }
+        });
+
+        $('#myScheduler').scheduler();
+
+		// INITIALIZING SELECT
+		$('#mySelect').on('changed', function (evt, data) {
+			console.log(data);
+		});
+
+		$('#select-logItem').on('click', function () {
+			console.log($('#mySelect').select('selectedItem'));
+		});
+
+		$('#select-selectByIndex').on('click', function () {
+			$('#mySelect').select('selectByIndex', '1');
+		});
+
+		$('#select-selectByText').on('click', function () {
+			$('#mySelect').select('selectByText', 'Item Three');
+		});
+
+		$('#select-selectBySelector').on('click', function () {
+			$('#mySelect').select('selectBySelector', 'li[data-fizz=buzz]');
+		});
+
+		$('#select-selectByValue').on('click', function () {
+			$('#mySelect').select('selectByValue', '1');
+		});
+
+		$('#select-enable').on('click', function () {
+			$('#mySelect').select('enable');
+		});
+
+		$('#select-disable').on('click', function () {
+			$('#mySelect').select('disable');
+		});
+
+		// INITIALIZING TREE
+		var treeDataSource = new TreeDataSource({
+			data: [
+				{ name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } },
+				{ name: 'Test Folder 2', type: 'folder', additionalParameters: { id: 'F2' } },
+				{ name: 'Test Item 1', type: 'item', additionalParameters: { id: 'I1' } },
+				{ name: 'Test Item 2', type: 'item', additionalParameters: { id: 'I2' } }
+			],
+			delay: 400
+		});
+
+		$('#MyTree').tree({dataSource: treeDataSource});
+
+				var selectTreeFolder = function($treeEl, folder, $parentEl) {
+						var $parentEl = $parentEl || $treeEl;
+						if (folder.type == "folder") {
+								var $folderEl = $parentEl.find("div.tree-folder-name").filter(function (_, treeFolder) {
+										return $(treeFolder).text() == folder.name;
+								}).parent();
+								$treeEl.one("loaded", function () {
+										$.each(folder.children, function (i, item) {
+												selectTreeFolder($treeEl, item, $folderEl.parent());
+										});
+								});
+								$treeEl.tree("selectFolder", $folderEl);
+						}
+						else {
+								selectTreeItem($treeEl, folder, $parentEl);
+						}
+				};
+
+				var selectTreeItem = function ($treeEl, item, $parentEl) {
+						var $parentEl = $parentEl || $treeEl;
+						if (item.type == "item") {
+								var $itemEl = $parentEl.find("div.tree-item-name").filter(function (_, treeItem) {
+										return $(treeItem).text() == item.name && !$(treeItem).parent().is(".tree-selected");
+								}).parent();
+								$treeEl.tree("selectItem", $itemEl);
+						}
+						else if (item.type == "folder") {
+								selectTreeFolder($treeEl, item, $parentEl);
+						}
+				};
+
+		$('#tree-select-item').on('click', function () {
+						var folder1 = { name: 'Test Folder 1', type: 'folder', additionalParameters: { id: 'F1' } };
+						var folder2 = { name: 'Test Folder 2', type: 'folder', additionalParameters: { id: 'F2' } };
+						var item1 = { name: 'Test Item 1', type: 'item', additionalParameters: { id: 'I1' } };
+						folder1.children = [folder2, ];
+						folder2.children = [item1, ];
+						selectTreeItem($("#MyTree"), folder1);
+		});
+
+		$('#tree-selected-items').on('click', function () {
+			console.log("selected items: ", $('#MyTree').tree('selectedItems'));
+		});
+
+		$('#MyTree').on('loaded', function (evt, data) {
+			console.log('tree content loaded');
+		});
+
+		$('#MyTree').on('opened', function (evt, data) {
+			console.log('sub-folder opened: ', data);
+		});
+
+		$('#MyTree').on('closed', function (evt, data) {
+			console.log('sub-folder closed: ', data);
+		});
+
+		$('#MyTree').on('selected', function (evt, data) {
+			console.log('item selected: ', data);
+		});
+
+
+		// INITIALIZE WIZARD
+		$('#MyWizard').on('change', function(e, data) {
+			console.log('change');
+			if(data.step===3 && data.direction==='next') {
+				// return e.preventDefault();
+			}
+		});
+		$('#MyWizard').on('changed', function(e, data) {
+			console.log('changed');
+		});
+		$('#MyWizard').on('finished', function(e, data) {
+			console.log('finished');
+		});
+		$('#btnWizardPrev').on('click', function() {
+			$('#MyWizard').wizard('previous');
+		});
+		$('#btnWizardNext').on('click', function() {
+			$('#MyWizard').wizard('next','foo');
+		});
+		$('#btnWizardStep').on('click', function() {
+			var item = $('#MyWizard').wizard('selectedItem');
+			console.log(item.step);
+		});
+		$('#MyWizard').on('stepclick', function(e, data) {
+			console.log('step' + data.step + ' clicked');
+			if(data.step===1) {
+				// return e.preventDefault();
+			}
+		});
+	});
+});
+</script>
+
+<link href="vendor/prettify/prettify.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="vendor/prettify/prettify.js"></script>
+
+</head>
+
+<body data-spy="scroll" onload="prettyPrint()">
+
+<div class="navbar navbar-fixed-top navbar-inverse">
+	<div class="navbar-inner">
+		<div class="container">
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</a>
+			<a id="BrandLink" class="brand" href="#">Fuel UX</a>
+
+			<div class="nav-collapse">
+				<ul class="nav">
+					<!--<li class="active"><a href="#controls">All Controls</a></li>-->
+					<li><a href="#checkbox">Checkbox</a></li>
+					<li><a href="#combobox">Combobox</a></li>
+					<li><a href="#datagrid">Datagrid</a></li>
+					<li><a href="#datepicker">Datepicker</a></li>
+					<li><a href="#pillbox">Pillbox</a></li>
+					<li><a href="#preloader">Preloader</a></li>
+					<li><a href="#radio">Radio</a></li>
+					<li><a href="#scheduler">Scheduler</a></li>
+					<li><a href="#search">Search</a></li>
+					<li><a href="#select">Select</a></li>
+					<li><a href="#spinner">Spinner</a></li>
+					<li><a href="#tree">Tree</a></li>
+					<li><a href="#wizard">Wizard</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+
+<div class="hero-unit">
+	<p class="title"><img src="https://s3.amazonaws.com/fuelux/logo-gray.png" width="600" height="122" alt="Fuel UX">
+		Version 2.6.0</p>
+
+	<p>Fuel UX extends Bootstrap with additional lightweight JavaScript controls.
+		Other benefits include easy installation into web projects, integrated scripts for customizing Bootstrap and
+		Fuel UX, simple updates, and solid optimization for deployment.
+		All functionality is covered by live documentation and unit tests.</p>
+
+	<p><a class="btn btn-large" href="https://github.com/ExactTarget/fuelux">View On GitHub &raquo;</a></p>
+</div>
+
+<div class="social">
+	<div class="container">
+		<ul class="social-buttons">
+			<li>
+				<iframe class="github-btn"
+						src="http://ghbtns.com/github-btn.html?user=exacttarget&repo=fuelux&type=watch&count=true"
+						allowtransparency="true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>
+			</li>
+			<li>
+				<iframe class="github-btn"
+						src="http://ghbtns.com/github-btn.html?user=exacttarget&repo=fuelux&type=fork&count=true"
+						allowtransparency="true" frameborder="0" scrolling="0" width="98px" height="20px"></iframe>
+			</li>
+			<li class="follow-btn">
+				<a href="https://twitter.com/ETfuel" class="twitter-follow-button" data-link-color="#0069D6"
+					 data-show-count="true">Follow @ETFuel</a>
+			</li>
+			<li class="tweet-btn">
+				<a href="https://twitter.com/share" class="twitter-share-button"
+					 data-url="http://exacttarget.github.com/fuelux/" data-count="horizontal" data-via="etfuel"
+					 data-related="etfuel:Creator of Fuel UX">Tweet</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<section id="controls">
+	<div class="page-header">
+		<h1>Fuel UX Controls
+			<small>Clean and lightweight UI controls for modern web projects</small>
+		</h1>
+	</div>
+</section>
+
+<div class="row">
+	<div class="span4">
+		<h3><a href="#checkbox">Checkbox</a></h3>
+
+		<p>Customized look and feel for checkbox element.</p>
+	</div>
+	<div class="span4">
+		<h3><a href="#combobox">Combobox</a></h3>
+
+		<p>Combines input and dropdown for easy and flexible data selection.</p>
+	</div>
+	<div class="span4">
+		<h3><a href="#datagrid">Datagrid</a></h3>
+
+		<p>Renders data in a table with paging, sorting, and searching.</p>
+	</div>
+</div>
+
+<div class="row">
+	<div class="span4">
+		<h3><a href="#datepicker">Datepicker</a></h3>
+
+		<p>Makes picking dates easy. Custom date parsing and formatting available.</p>
+	</div>
+	<div class="span4">
+		<h3><a href="#pillbox">Pillbox</a></h3>
+
+		<p>Easily manage selected items with color-coded text labels.</p>
+	</div>
+    <div class="span4">
+        <h3><a href="#preloader">Preloader</a></h3>
+
+        <p>Fully CSS-driven loading animation for visual indication of wait times.</p>
+    </div>
+</div>
+<div class="row">
+    <div class="span4">
+        <h3><a href="#radio">Radio</a></h3>
+
+        <p>Customized look and feel for radio button element.</p>
+    </div>
+	<div class="span4">
+		<h3><a href="#scheduler">Scheduler</a></h3>
+
+		<p>Composite form control to quickly schedule events.</p>
+	</div>
+	<div class="span4">
+		<h3><a href="#search">Search</a></h3>
+
+		<p>Combines input and button for integrated search interaction.</p>
+	</div>
+</div>
+<div class="row">
+    <div class="span4">
+        <h3><a href="#select">Select</a></h3>
+
+        <p>Extends button dropdown with additional functionality for setting and retrieving the selected item.</p>
+    </div>
+	<div class="span4">
+		<h3><a href="#spinner">Spinner</a></h3>
+
+		<p>Provides convenient numeric input with increment and decrement buttons.</p>
+	</div>
+	<div class="span4">
+		<h3><a href="#tree">Tree</a></h3>
+
+		<p>Provides a visual display of hierarchical node data.</p>
+	</div>
+</div>
+<div class="row">
+    <div class="span4">
+        <h3><a href="#wizard">Wizard</a></h3>
+
+        <p>Easily define a multi-step process that needs to be completed in a specific order.</p>
+    </div>
+</div>
+
+<section id="checkbox">
+	<div class="page-header">
+		<h1>Checkbox
+			<small>checkbox.js</small>
+		</h1>
+	</div>
+	<div class="row">
+		<div class="span12 columns">
+			<h2>Example</h2>
+
+			<p>Below is a working checkbox example.</p>
+
+			<div class="well checkbox-example">
+				<label class="checkbox checkbox-custom"><input type="checkbox" checked="checked" id="myCheckbox"><i
+						class="checkbox"></i>Checked Enabled</label>
+				<label class="checkbox checkbox-custom"><input type="checkbox"><i class="checkbox"></i>Unchecked Enabled</label>
+				<label class="checkbox checkbox-custom"><input type="checkbox" checked="checked" disabled="disabled"><i
+						class="checkbox"></i>Checked Disabled</label>
+				<label class="checkbox checkbox-custom"><input type="checkbox" disabled="disabled"><i
+						class="checkbox"></i>Unchecked Disabled</label>
+				<input type="button" class="btn" id="checkbox-toggle" value="toggle">
+				<input type="button" class="btn" id="checkbox-enable" value="enable">
+				<input type="button" class="btn" id="checkbox-disable" value="disable">
+			</div>
+			<!-- /well -->
+
+			<hr>
+
+			<h2>Using checkbox</h2>
+
+			<p>Call the checkbox via javascript (optional):</p>
+			<pre class="prettyprint linenums">$('#myCheckbox').checkbox()</pre>
+
+			<h3>Methods</h3>
+
+			<p>Fuel UX's checkbox exposes the following methods:</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Method</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>check</td>
+					<td>Checks the checkbox</td>
+				</tr>
+				<tr>
+					<td>disable</td>
+					<td>Disables the checkbox</td>
+				</tr>
+				<tr>
+					<td>enable</td>
+					<td>Enables the checkbox</td>
+				</tr>
+				<tr>
+					<td>isChecked</td>
+					<td>Returns true or false, based on whether the checkbox is checked</td>
+				</tr>
+				<tr>
+					<td>toggle</td>
+					<td>Toggles the checked state of the checkbox</td>
+				</tr>
+				<tr>
+					<td>uncheck</td>
+					<td>Unchecks the checkbox</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Markup</h3>
+
+			<p>You can activate checkbox on your page easily without having to write a single line of javascript. Just
+				set <code>class="checkbox-custom"</code> on a label and include an i tag with
+				<code>class="checkbox"</code> like the example markup below and the checkbox will activate
+				automatically.</p>
+
+<pre class="prettyprint linenums">
+&lt;label class="checkbox checkbox-custom">&lt;input type="checkbox"&gt;&lt;i class="checkbox"&gt;&lt;/i&gt;Item One&lt;/label&gt;
+</pre>
+		</div>
+	</div>
+</section>
+
+<section id="combobox">
+	<div class="page-header">
+		<h1>Combobox
+			<small>combobox.js</small>
+		</h1>
+	</div>
+	<div class="row">
+		<div class="span12 columns">
+			<h2>Example</h2>
+
+			<p>Below is a working combobox example.</p>
+
+			<div class="well combobox-example">
+				<div id="myCombobox" class="input-append dropdown combobox">
+					<input class="span2" type="text">
+					<button type="button" class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+					<ul class="dropdown-menu">
+						<li data-value="1" data-selected="true"><a href="#">Item One</a></li>
+						<li data-value="2"><a href="#">Item Two</a></li>
+						<li data-value="3" data-fizz="buzz"><a href="#">Item Three</a></li>
+						<li class="divider"></li>
+						<li data-value="4"><a href="#">Item Four</a></li>
+					</ul>
+				</div>
+				<br/>
+				<input type="button" class="btn" id="combobox-enable" value="enable">
+				<input type="button" class="btn" id="combobox-disable" value="disable">
+				<input type="button" class="btn" id="combobox-selectByIndex" value="select by index">
+				<input type="button" class="btn" id="combobox-selectByText" value="select by text">
+				<input type="button" class="btn" id="combobox-selectByValue" value="select by value">
+				<input type="button" class="btn" id="combobox-selectBySelector" value="select by selector">
+				<input type="button" class="btn" id="combobox-logItem" value="log item to console">
+			</div>
+			<!-- /well -->
+
+			<hr>
+
+			<h2>Using combobox</h2>
+
+			<p>Call the combobox via javascript (optional):</p>
+			<pre class="prettyprint linenums">$('#myCombobox').combobox()</pre>
+
+			<h3>Methods</h3>
+
+			<p>Fuel UX's combobox exposes the following methods:</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Method</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>disable</td>
+					<td>Disable the combobox</td>
+				</tr>
+				<tr>
+					<td>enable</td>
+					<td>Enable the combobox</td>
+				</tr>
+				<tr>
+					<td>selectedItem</td>
+					<td>Returns an object containing the jQuery data() contents of the selected item <em><a
+							href="http://api.jquery.com/data/#data-html5">which includes data-* attributes</a></em> plus
+						a <code>text</code> property with the items's visible text.
+					</td>
+				</tr>
+				<tr>
+					<td>selectByIndex</td>
+					<td>Set the selected item based on its index in the list (zero-based index). Convenience method for
+						<code>selectBySelector('li:eq({index})')</code></td>
+				</tr>
+				<tr>
+					<td>selectByText</td>
+					<td>Set the selected item based on its text value</td>
+				</tr>
+				<tr>
+					<td>selectBySelector</td>
+					<td>Set the selected item based on a selector. For example: <code>$('#myCombobox').combobox('selectBySelector','li[data-fizz=buzz]');</code>
+					</td>
+				</tr>
+				<tr>
+					<td>selectByValue</td>
+					<td>Set the selected item based on its value. Convenience method for <code>selectBySelector('data-value={value}')</code>
+						that requires the item to have a <code>data-value="{value}"</code> attribute
+					</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Events</h3>
+
+			<p>Fuel UX's combobox control exposes the following events:</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Event</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>changed</td>
+					<td>This event is fired when the value has changed (either by selecting an item from the list or
+						updating the input value directly). Arguments are <code>event, data</code> where data represents
+						the same object structure returned by the <code>selectedItem</code> method.
+					</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Markup</h3>
+
+			<p>You can activate combobox on your page easily without having to write a single line of javascript. Just
+				set <code>class="combobox"</code> on a div like the example markup below and the combobox will activate
+				automatically.</p>
+
+
+<pre class="prettyprint linenums">
+&lt;div class="input-append dropdown combobox"&gt;
+	&lt;input class="span2" type="text"&gt;&lt;button type=&quot;button&quot; class="btn" data-toggle="dropdown"&gt;&lt;i class="caret"&gt;&lt;/i&gt;&lt;/button&gt;
+	&lt;ul class="dropdown-menu"&gt;
+		&lt;li&gt;&lt;a href="#"&gt;Item One&lt;/a&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;a href="#"&gt;Item Two&lt;/a&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;a href="#"&gt;Item Three&lt;/a&gt;&lt;/li&gt;
+		&lt;li class="divider"&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;a href="#"&gt;Item After Divider&lt;/a&gt;&lt;/li&gt;
+	&lt;/ul&gt;
+&lt;/div&gt;
+</pre>
+
+
+		</div>
+	</div>
+</section>
+
+<section id="datagrid">
+	<div class="page-header">
+		<h1>Datagrid
+			<small>datagrid.js</small>
+		</h1>
+	</div>
+	<div class="row">
+		<div class="span12 columns">
+			<h2>Example</h2>
+
+			<p>Below is a working datagrid example.</p>
+
+			<div class="datagrid-example">
+				<div style="height:400px;width:100%;margin-bottom:20px;">
+					<table id="MyGrid" class="table table-bordered datagrid">
+
+						<thead>
+						<tr>
+							<th>
+								<span class="datagrid-header-title">Geographic Data Sample</span>
+
+								<div class="datagrid-header-left">
+									<div class="input-append search datagrid-search">
+										<input type="text" class="input-medium" placeholder="Search">
+										<button type="button" class="btn"><i class="icon-search"></i></button>
+									</div>
+								</div>
+								<div class="datagrid-header-right">
+									<div class="select filter" data-resize="auto">
+										<button type="button" data-toggle="dropdown" class="btn dropdown-toggle">
+											<span class="dropdown-label"></span>
+											<span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu">
+											<li data-value="all" data-selected="true"><a href="#">All</a></li>
+											<li data-value="lt5m"><a href="#">Population &lt; 5M</a></li>
+											<li data-value="gte5m"><a href="#">Population &gt;= 5M</a></li>
+										</ul>
+									</div>
+								</div>
+							</th>
+						</tr>
+						</thead>
+
+						<tfoot>
+						<tr>
+							<th>
+								<div class="datagrid-footer-left" style="display:none;">
+									<div class="grid-controls">
+										<span>
+											<span class="grid-start"></span> -
+											<span class="grid-end"></span> of
+											<span class="grid-count"></span>
+										</span>
+										<div class="select grid-pagesize" data-resize="auto">
+											<button type="button" data-toggle="dropdown" class="btn dropdown-toggle">
+												<span class="dropdown-label"></span>
+												<span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu">
+												<li data-value="5"><a href="#">5</a></li>
+												<li data-value="10" data-selected="true"><a href="#">10</a></li>
+												<li data-value="20"><a href="#">20</a></li>
+												<li data-value="50"><a href="#">50</a></li>
+												<li data-value="100"><a href="#">100</a></li>
+											</ul>
+										</div>
+										<span>Per Page</span>
+									</div>
+								</div>
+								<div class="datagrid-footer-right" style="display:none;">
+									<div class="grid-pager">
+										<button type="button" class="btn grid-prevpage"><i class="icon-chevron-left"></i></button>
+										<span>Page</span>
+
+										<div class="input-append dropdown combobox">
+											<input class="span1" type="text">
+											<button type="button" class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+											<ul class="dropdown-menu"></ul>
+										</div>
+										<span>of <span class="grid-pages"></span></span>
+										<button type="button" class="btn grid-nextpage"><i class="icon-chevron-right"></i></button>
+									</div>
+								</div>
+							</th>
+						</tr>
+						</tfoot>
+
+					</table>
+				</div>
+			</div>
+
+			<input type="button" class="btn" id="datagrid-reload" value="reload">
+
+			<hr>
+
+			<h2>Using datagrid</h2>
+
+			<p>Call the datagrid via javascript:</p>
+			<pre class="prettyprint linenums">$('#MyGrid').datagrid({ dataSource: dataSource, stretchHeight: true })</pre>
+
+			<h3>Data Source</h3>
+
+			<p>Provide a data source to the datagrid to supply column information and data. Your data source must
+				support the following two methods.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Name</th>
+					<th style="width: 210px;">Parameters</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>columns</td>
+					<td>(none)</td>
+					<td>Returns an array of objects containing column information</td>
+				</tr>
+				<tr>
+					<td>data</td>
+					<td><strong>options</strong> (object), <strong>callback</strong> (function)</td>
+					<td>The <strong>options</strong> parameter contains search, sortProperty, sortDirection, pageIndex,
+						and pageSize.
+						Retrieve data then call <strong>callback</strong> with an object containing data, start, end,
+						count, pages, and page.
+						View the source of this page for an example static data source.
+					</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Methods</h3>
+
+			<p>Fuel UX's datagrid exposes a method for reloading the grid.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Method</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>reload</td>
+					<td>This method causes the datagrid to reload the data from the <code>dataSource</code> and return
+						to the first page.
+					</td>
+				</tr>
+				<tr>
+					<td>clearSelectedItems</td>
+					<td>If row selection is enabled, this method will clear all rows currently selected.
+					</td>
+				</tr>
+				<tr>
+					<td>setSelectedItems</td>
+					<td>If row selection is enabled, this method will programmatically set specified rows within the datagrid by each element's primary key value.
+						The argument passed to this method should be an array of string values. Note, this relies on the <code>_data</code> array being included in the
+						DataSource as provided in the samples directory.
+					</td>
+				</tr>
+				<tr>
+					<td>getSelectedItems</td>
+					<td>If row selection is enabled, this method returns an object containing all the selected items within the datagrid.  Each property in the returned object
+						represents a selected value (by primary key) with the corresponding values being the selected data elements.
+					</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Options</h3>
+
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Options</th>
+					<th>Description</th>
+					<th>Default Value</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>dataSource</td>
+					<td>
+						See Data Source section above
+					</td>
+					<td><code>null</code> (must be provided)</td>
+				</tr>
+				<tr>
+					<td>dataOptions</td>
+					<td>
+						Options for current data to be displayed
+					</td>
+					<td><code>{ pageIndex: 0, pageSize: 10 }</code></td>
+				</tr>
+				<tr>
+					<td>stretchHeight</td>
+					<td>
+						Introduced in version 2.2. Enables stretchHeight rendering. This sets the datagrid's height to a stable height, matching its parent element.
+						The appearance of the datagrid becomes much more consistent while rendering and displaying different numbers of rows.
+						Rows will scroll within the table when they exceed the available height.
+					</td>
+					<td><code>false</code></td>
+				</tr>
+				<tr>
+					<td>loadingHTML</td>
+					<td>
+						HTML for loading indicator
+					</td>
+					<td>(bootstrap progress indicator)</td>
+				</tr>
+				<tr>
+					<td>itemsText</td>
+					<td>
+						Text for plural items
+					</td>
+					<td><code>items</code></td>
+				</tr>
+				<tr>
+					<td>itemText</td>
+					<td>
+						Text for singular item
+					</td>
+					<td><code>item</code></td>
+				</tr>
+				<tr>
+					<td>enableSelect</td>
+					<td>
+						Boolean value to enable/disable datagrid row selection
+					</td>
+					<td><code>false</code></td>
+				</tr>
+				<tr>
+					<td>primaryKey</td>
+					<td>
+						If datagrid row selection is enabled, this specifies the property in each data element which should be used as the primary key.
+					</td>
+					<td><code>null</code> (must be provided)</td>
+				</tr>
+				<tr>
+					<td>multiSelect</td>
+					<td>
+						If datagrid row selection is enabled, multiple rows may selected with a boolean value of <code>true</code>, or disallowed with
+						a value of <code>false</code>.
+					</td>
+					<td><code>true</code></td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Events</h3>
+
+			<p>Fuel UX's datagrid exposes an event for hooking into its functionality.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Event</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>loaded</td>
+					<td>This event is fired after the grid loads or reloads data</td>
+				</tr>
+				<tr>
+					<td>itemSelected</td>
+					<td>If row selection is enabled, this event is fired when a row is selected. The value of the selected row is returned.</td>
+				</tr>
+				<tr>
+					<td>itemDeselected</td>
+					<td>If row selection is enabled, this event is fired when a row is deselected. The value of the deselected row is returned.</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Markup</h3>
+
+			<p>Your initial datagrid markup should look like the example markup below. You can reconfigure the datagrid
+				by omitting or moving some of the features, such as search and paging controls.</p>
+
+
+<pre class="prettyprint linenums">
+&lt;table id=&quot;MyGrid&quot; class=&quot;table table-bordered datagrid&quot;&gt;
+	&lt;thead&gt;
+	&lt;tr&gt;
+		&lt;th&gt;
+			&lt;span class=&quot;datagrid-header-title&quot;&gt;Geographic Data Sample&lt;/span&gt;
+
+			&lt;div class=&quot;datagrid-header-left&quot;&gt;
+				&lt;div class=&quot;input-append search datagrid-search&quot;&gt;
+					&lt;input type=&quot;text&quot; class=&quot;input-medium&quot; placeholder=&quot;Search&quot;&gt;
+					&lt;button type=&quot;button&quot; class=&quot;btn&quot;&gt;&lt;i class=&quot;icon-search&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;div class=&quot;datagrid-header-right&quot;&gt;
+				&lt;div class=&quot;select filter&quot; data-resize=&quot;auto&quot;&gt;
+					&lt;button type=&quot;button&quot; data-toggle=&quot;dropdown&quot; class=&quot;btn dropdown-toggle&quot;&gt;
+						&lt;span class=&quot;dropdown-label&quot;&gt;&lt;/span&gt;
+						&lt;span class=&quot;caret&quot;&gt;&lt;/span&gt;
+					&lt;/button&gt;
+					&lt;ul class=&quot;dropdown-menu&quot;&gt;
+						&lt;li data-value=&quot;all&quot; data-selected=&quot;true&quot;&gt;&lt;a href=&quot;#&quot;&gt;All&lt;/a&gt;&lt;/li&gt;
+						&lt;li data-value=&quot;lt5m&quot;&gt;&lt;a href=&quot;#&quot;&gt;Population &lt; 5M&lt;/a&gt;&lt;/li&gt;
+						&lt;li data-value=&quot;gte5m&quot;&gt;&lt;a href=&quot;#&quot;&gt;Population &gt;= 5M&lt;/a&gt;&lt;/li&gt;
+					&lt;/ul&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/th&gt;
+	&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tfoot&gt;
+	&lt;tr&gt;
+		&lt;th&gt;
+			&lt;div class=&quot;datagrid-footer-left&quot; style=&quot;display:none;&quot;&gt;
+				&lt;div class=&quot;grid-controls&quot;&gt;
+					&lt;span&gt;
+						&lt;span class=&quot;grid-start&quot;&gt;&lt;/span&gt; -
+						&lt;span class=&quot;grid-end&quot;&gt;&lt;/span&gt; of
+						&lt;span class=&quot;grid-count&quot;&gt;&lt;/span&gt;
+					&lt;/span&gt;
+					&lt;div class=&quot;select grid-pagesize&quot; data-resize=&quot;auto&quot;&gt;
+						&lt;button type=&quot;button&quot; data-toggle=&quot;dropdown&quot; class=&quot;btn dropdown-toggle&quot;&gt;
+							&lt;span class=&quot;dropdown-label&quot;&gt;&lt;/span&gt;
+							&lt;span class=&quot;caret&quot;&gt;&lt;/span&gt;
+						&lt;/button&gt;
+						&lt;ul class=&quot;dropdown-menu&quot;&gt;
+							&lt;li data-value=&quot;5&quot; data-selected=&quot;true&quot;&gt;&lt;a href=&quot;#&quot;&gt;5&lt;/a&gt;&lt;/li&gt;
+							&lt;li data-value=&quot;10&quot;&gt;&lt;a href=&quot;#&quot;&gt;10&lt;/a&gt;&lt;/li&gt;
+							&lt;li data-value=&quot;20&quot;&gt;&lt;a href=&quot;#&quot;&gt;20&lt;/a&gt;&lt;/li&gt;
+							&lt;li data-value=&quot;50&quot;&gt;&lt;a href=&quot;#&quot;&gt;50&lt;/a&gt;&lt;/li&gt;
+							&lt;li data-value=&quot;100&quot;&gt;&lt;a href=&quot;#&quot;&gt;100&lt;/a&gt;&lt;/li&gt;
+						&lt;/ul&gt;
+					&lt;/div&gt;
+					&lt;span&gt;Per Page&lt;/span&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;div class=&quot;datagrid-footer-right&quot; style=&quot;display:none;&quot;&gt;
+				&lt;div class=&quot;grid-pager&quot;&gt;
+					&lt;button type=&quot;button&quot; class=&quot;btn grid-prevpage&quot;&gt;&lt;i class=&quot;icon-chevron-left&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+					&lt;span&gt;Page&lt;/span&gt;
+
+					&lt;div class=&quot;input-append dropdown combobox&quot;&gt;
+						&lt;input class=&quot;span1&quot; type=&quot;text&quot;&gt;
+						&lt;button type=&quot;button&quot; class=&quot;btn&quot; data-toggle=&quot;dropdown&quot;&gt;&lt;i class=&quot;caret&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+						&lt;ul class=&quot;dropdown-menu&quot;&gt;&lt;/ul&gt;
+					&lt;/div&gt;
+					&lt;span&gt;of &lt;span class=&quot;grid-pages&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+					&lt;button type=&quot;button&quot; class=&quot;btn grid-nextpage&quot;&gt;&lt;i class=&quot;icon-chevron-right&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/th&gt;
+	&lt;/tr&gt;
+	&lt;/tfoot&gt;
+&lt;/table&gt;
+</pre>
+
+		</div>
+	</div>
+</section>
+
+<section id="datepicker">
+	<div class="page-header">
+		<h1>Datepicker
+			<small>datepicker.js</small>
+		</h1>
+	</div>
+	<div class="row">
+		<div class="span12 columns">
+			<h2>Example</h2>
+
+			<p>Below is a working datepicker example.</p>
+
+			<div class="well datepicker-example">
+				<div class="datepicker dropdown" id="myDatepicker">
+					<div class="input-append">
+						<div class="dropdown-menu"></div>
+						<input type="text" class="span2" value="" data-toggle="dropdown">
+						<button type="button" class="btn" data-toggle="dropdown"><i class="icon-calendar"></i></button>
+					</div>
+				</div>
+				<div style="margin-top: 10px">
+					<span class="btn" id="datepicker-enable">enable</span>
+					<span class="btn" id="datepicker-disabled">disable</span>
+					<span class="btn" id="datepicker-logFormattedDate">log formatted date</span>
+					<span class="btn" id="datepicker-logDateObj">log date object</span>
+					<span class="btn" id="datepicker-logDateUnix">log unix date</span>
+					<span class="btn" id="datepicker-setDate">set date 7 days ahead (will log new value)</span>
+				</div>
+			</div>
+
+			<hr>
+
+			<h2>Using datepicker</h2>
+
+			<p>Call the datepicker via javascript:</p>
+			<pre class="prettyprint linenums">$('#myDatepicker').datepicker()</pre>
+
+			<h3>Methods</h3>
+
+			<p>Fuel UX's datepicker exposes the following methods:</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th style="width: 150px;">Method</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>disable</td>
+						<td>Disable the datepicker</td>
+					</tr>
+					<tr>
+						<td>enable</td>
+						<td>Enable the datepicker</td>
+					</tr>
+					<tr>
+						<td>getFormattedDate</td>
+						<td>Returns selected formatted date</td>
+					</tr>
+					<tr>
+						<td>getDate</td>
+						<td>
+							Returns selected date object (not formatted)<br />
+							Returns Unix timestamp when using arguments { unix: true }. For example: <code>$('myDatepicker').datepicker('getDate', { unix: true });</code>
+						</td>
+					</tr>
+					<tr>
+						<td>setDate</td>
+						<td>Set's datepicker to date provided. Date provided must be a valid Date Object. For example: <code>$('#myDatepicker').datepicker('setDate', new Date());</code></td>
+					</tr>
+					<tr>
+						<td>getCulture</td>
+						<td>Returns the culture the datepicker is currently using. <strong>Only available using <a href="http://momentjs.com/downloads/moment-with-langs.js">Moment JS with Langs</a></strong></td>
+					</tr>
+					<tr>
+						<td>setCulture</td>
+						<td>Updates the culture the datepicker uses. <strong>Only available using <a href="http://momentjs.com/downloads/moment-with-langs.js">Moment JS with Langs</a></strong></td>
+					</tr>
+					<tr>
+						<td>getFormatCode</td>
+						<td>Returns the format code the datepicker is currently using. <strong>Only available using <a href="http://momentjs.com/downloads/moment-with-langs.js">Moment JS with Langs</a></strong></td>
+					</tr>
+					<tr>
+						<td>setFormatCode</td>
+						<td>Updates the format code the datepicker uses. <strong>Only available using <a href="http://momentjs.com/downloads/moment-with-langs.js">Moment JS with Langs</a></strong></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<h3>Options</h3>
+
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th style="width: 150px;">Options</th>
+						<th>Description</th>
+						<th>Default Value</th>
+					</tr>
+					</thead>
+				<tbody>
+					<tr>
+						<td>date</td>
+						<td>
+							Initializes datepicker with this date.<br />
+							If date is set to <code>null</code> when the datepicker is initialized the getDate method will return null until a date is selected (programmatically or by the user). Otherwise, the date will be parsed.
+						</td>
+						<td><code>new Date()</code></td>
+					</tr>
+					<tr>
+						<td>createInput</td>
+						<td>
+							Allows control to generate HTML Markup. This can be <code>true</code>, <code>false</code>, or an object like below:
+							<pre class="prettyprint linenums">{
+    native: false,
+    dropDownBtn: false,
+    inputSize: 'span3'
+}</pre>
+							<ul>
+								<li><code>native</code> can have a value of <code>true</code> or <code>false</code>. If true, dropDownBtn will be ignored</li>
+								<li><code>dropDownBtn</code> can have a value of <code>true</code> or <code>false</code></li>
+								<li><code>inputSize</code> can either be a CSS class or a integer.</li>
+							</ul>
+						</td>
+						<td><code>false</code></td>
+					</tr>
+					<tr>
+						<td>dropdownWidth</td>
+						<td>Sets pixel width of dropdown. Must be an integer</td>
+						<td><code>170</code></td>
+					</tr>
+					<tr>
+						<td>restrictDateSelection</td>
+						<td>Disables ability to select dates in the past. Based current date</td>
+						<td>true</td>
+					</tr>
+					<tr>
+						<td>parseDate</td>
+						<td>Function allows custom date parsing. A date is passed as a parameter. A Date Object should be returned by this function. <br /><strong>Do not overwrite this function if using Moment JS</strong></td>
+						<td><code>return new Date( date );</code></td>
+					</tr>
+					<tr>
+						<td>formatDate</td>
+						<td>Function allows custom formatting of date. Will never modify the main Date Object. A date is passed as a parameter. A formatted date should be returned by this function. <br /><strong>Do not overwrite this function if using Moment JS</strong></td>
+						<td>Default Format: <code>MM-DD-YYYY</code></td>
+					</tr>
+					<tr>
+						<td>blackoutDates</td>
+						<td>Function restricts date selection. A date is passed as a parameter. Boolean value should be returned</td>
+						<td><code>false</code></td>
+					</tr>
+					<tr>
+						<td>momentConfig</td>
+						<td>Object that handles culture and format if <a href="http://momentjs.com/downloads/moment-with-langs.js">Moment JS</a> is available</td>
+						<td><pre class="prettyprint">{
+  culture: 'en',
+  formatCode: 'L'
+}
+</pre>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<h3>Events</h3>
+
+			<p>Fuel UX's datepicker exposes an event for hooking into its functionality.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Event</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>changed</td>
+					<td>This event is fired when the date of the datepicker is changed.</td>
+				</tr>
+				<tr>
+					<td>inputParsingFailed</td>
+					<td>This event is fired when an invalid date is parsed on blur of the datepicker. <strong>Only available using <a href="http://momentjs.com/downloads/moment-with-langs.js">Moment JS with Langs</a></strong></td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Markup</h3>
+
+			<p>If this control is generating markup all that's needed is <code>&lt;div id="myDatepicker"&gt;&lt;/div&gt;</code> with the correct options at initialization.</p>
+
+<pre class="prettyprint linenums">
+&lt;div class=&quot;datepicker dropdown&quot; id=&quot;myDatepicker&quot;&gt;
+    &lt;div class=&quot;input-append&quot;&gt;
+        &lt;div class=&quot;dropdown-menu&quot;&gt;&lt;/div&gt;
+        &lt;input type=&quot;text&quot; class=&quot;span2&quot; value=&quot;&quot; data-toggle=&quot;dropdown&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-toggle=&quot;dropdown&quot;&gt;&lt;i class=&quot;icon-calendar&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+			<h3>Sample Initializations</h3>
+			<p>I have put together some <a href="https://gist.github.com/vernak2539/7589085" target="_blank">sample code for different initializations</a> of the Datepicker. Let us know if anything is missing.</p>
+			<p><strong>Moment JS with Langs is NEEDED.</strong> Regular Moment JS does not come with the culture support the datepicker uses when available</p>
+		</div>
+	</div>
+</section>
+
+<section id="pillbox">
+	<div class="page-header">
+		<h1>Pillbox
+			<small>pillbox.js</small>
+		</h1>
+	</div>
+	<div class="row">
+		<div class="span12 columns">
+			<h2>Example</h2>
+
+			<p>Below is a working pillbox example.</p>
+
+			<div class="well pillbox-example">
+
+				<div id="MyPillbox" class="pillbox">
+					<ul>
+						<li data-value="foo">Item 1</li>
+						<li class="status-success">Item 2</li>
+						<li class="status-warning">Item 3</li>
+						<li class="status-important">Item 4</li>
+						<li class="status-info">Item 5</li>
+						<li class="status-success">Item 6</li>
+						<li>Item 7</li>
+					</ul>
+				</div>
+
+				<input type="button" class="btn" id="btnAdd" value="add">
+				<input type="button" class="btn" id="btnRemoveByValue" value="remove by value">
+				<input type="button" class="btn" id="btnRemoveBySelector" value="remove by selector">
+				<input type="button" class="btn" id="btnRemoveByText" value="remove by text">
+				<input type="button" class="btn" id="btnItems" value="log items to console">
+			</div>
+
+			<hr>
+
+			<h2>Using pillbox</h2>
+
+			<p>Call the pillbox via javascript (optional):</p>
+			<pre class="prettyprint linenums">$('#MyPillbox').pillbox()</pre>
+
+			<h3>Methods</h3>
+
+			<p>Fuel UX's pillbox exposes a method for retrieving selected item data.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Method</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>items</td>
+					<td>Returns an array of objects, one per item, each containing the jQuery data() contents of the
+						item <em><a href="http://api.jquery.com/data/#data-html5">which includes data-*
+							attributes</a></em> plus a <code>text</code> property with the label's visible text
+					</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Events</h3>
+
+			<p>Fuel UX's pillbox exposes an event for hooking into its functionality.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Method</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>addItem</td>
+					<td>Adds an additional item to the pillbox. Parameters are <code>text</code> string for display name and <code>value</code> string for item value.</td>
+				</tr>
+				<tr>
+					<td>itemCount</td>
+					<td>Returns an int representing the current number of items.</td>
+				</tr>
+				<tr>
+					<td>items</td>
+					<td>Returns an array of objects, one per item, each containing the jQuery data() contents of the
+						item <em><a href="http://api.jquery.com/data/#data-html5">which includes data-*
+							attributes</a></em> plus a <code>text</code> property with the label's visible text
+					</td>
+				</tr>
+				<tr>
+					<td>removeBySelector</td>
+					<td>Removes an item based on selector matching that of the provided <code>selector</code> string parameter.</td>
+				</tr>
+				<tr>
+					<td>removeByText</td>
+					<td>Removes an item with contained text matching that of the provided <code>text</code> string parameter.</td>
+				</tr>
+				<tr>
+					<td>removeByValue</td>
+					<td>Removes an item with value matching that of the provided <code>value</code> string parameter.</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Markup</h3>
+
+			<p>You can activate the pillbox on your page easily without having to write a single line of javascript.
+				Just set <code>class="pillbox"</code> on a div like the example markup below and the pillbox will
+				activate automatically.</p>
+
+
+<pre class="prettyprint linenums">
+&lt;div id="MyPillbox" class="pillbox"&gt;
+	&lt;ul&gt;
+		&lt;li data-value="foo"&gt;Item 1&lt;/li&gt;
+		&lt;li class="status-success"&gt;Item 2&lt;/li&gt;
+		&lt;li class="status-warning"&gt;Item 3&lt;/li&gt;
+		&lt;li class="status-important"&gt;Item 4&lt;/li&gt;
+		&lt;li class="status-info"&gt;Item 5&lt;/li&gt;
+		&lt;li class="status-success"&gt;Item 6&lt;/li&gt;
+		&lt;li&gt;Item 7&lt;/li&gt;
+	&lt;/ul&gt;
+&lt;/div&gt;
+</pre>
+
+		</div>
+	</div>
+</section>
+
+<section id="preloader">
+    <div class="page-header">
+        <h1>Preloader
+            <small style="font-style: italic;">(css only)</small>
+        </h1>
+    </div>
+    <div class="row">
+        <div class="span12 columns">
+            <h2>Example</h2>
+
+            <p>Below is a working preloader example.</p>
+
+            <div class="well preloader-example">
+                <div class="preloader"><i></i><i></i><i></i><i></i></div>
+            </div>
+
+            <hr>
+
+            <h2>Using preloader</h2>
+
+            <h3>Markup</h3>
+
+            <p>Include the following markup in all modern browsers to use the preloader control.</p>
+
+<pre class="prettyprint linenums">
+&lt;div class="preloader"&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;
+</pre>
+            <br/>
+            <p>If IE<10 support is needed, use the following markup instead. NOTE: the id <b>must</b> be present and the value passed in the script must match that id <b>exactly</b>.</p>
+
+<pre class="prettyprint linenums">
+&lt;div class="preloader" id="myPreloader"&gt;
+    &lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;
+    &lt;!--[if lt IE 10]&gt;
+    &lt;script type="text/javascript"&gt;
+        (function(e){
+            var t,n;t=function(e){n.innerHTML=e;e++;if(e===9)e=1;setTimeout(function(){t(e)},125)};
+            e=document.getElementById(e);n="preloader_"+(new Date).getTime();e.className+=" iefix";
+            e.innerHTML='&lt;span&gt;0&lt;/span&gt;&lt;b id="'+n+'"&gt;&lt;/b&gt;'+e.innerHTML;n=document.getElementById(n);t(1)
+        })("myPreloader");
+    &lt;/script&gt;
+    &lt;![endif]--&gt;
+&lt;/div&gt;
+</pre>
+        </div>
+    </div>
+</section>
+
+<section id="radio">
+	<div class="page-header">
+		<h1>Radio
+			<small>radio.js</small>
+		</h1>
+	</div>
+	<div class="row">
+		<div class="span12 columns">
+			<h2>Example</h2>
+
+			<p>Below is a working radio example.</p>
+
+			<div class="well radio-example">
+				<label class="radio radio-custom"><input type="radio" name="radioA" checked="checked" id="myRadio"><i
+						class="radio"></i>Checked Enabled</label>
+				<label class="radio radio-custom"><input type="radio" name="radioA"><i class="radio"></i>Unchecked
+					Enabled</label>
+				<label class="radio radio-custom"><input type="radio" name="radioB" checked="checked"
+														 disabled="disabled"><i class="radio"></i>Checked
+					Disabled</label>
+				<label class="radio radio-custom"><input type="radio" name="radioB" disabled="disabled"><i
+						class="radio"></i>Unchecked Disabled</label>
+				<input type="button" class="btn" id="radio-enable" value="enable">
+				<input type="button" class="btn" id="radio-disable" value="disable">
+			</div>
+			<!-- /well -->
+
+			<hr>
+
+			<h2>Using radio</h2>
+
+			<p>Call the radio via javascript (optional):</p>
+			<pre class="prettyprint linenums">$('#myRadio').radio()</pre>
+
+			<p>If you need to deactivate a radio button, the only way to do this currently is through javascript using:<p>
+<pre class="prettyprint linenums">
+//note that this will deselect ALL radio buttons on the page. Change the query to target a specific group or button
+$('.radio-custom i').removeClass('checked');
+$('.radio-custom input').prop('checked', false);
+</pre>
+
+			<h3>Methods</h3>
+
+			<p>Fuel UX's radio exposes the following methods:</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Method</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>checked</td>
+					<td>Checks the radio, unchecking other related radio items</td>
+				</tr>
+				<tr>
+					<td>disable</td>
+					<td>Disable the radio</td>
+				</tr>
+				<tr>
+					<td>enable</td>
+					<td>Enable the radio</td>
+				</tr>
+				<tr>
+					<td>isChecked</td>
+					<td>Returns true or false based on whether the radio is checked</td>
+				</tr>
+				<tr>
+					<td>uncheck</td>
+					<td>Unchecks the radio</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Markup</h3>
+
+			<p>You can activate radio on your page easily without having to write a single line of javascript. Just set
+				<code>class="radio-custom"</code> on a label and include an i tag with <code>class="radio"</code> like
+				the example markup below and the radio will activate automatically.</p>
+
+<pre class="prettyprint linenums">
+&lt;label class="radio radio-custom">&lt;input type="radio"&gt;&lt;i class="radio"&gt;&lt;/i&gt;Item One&lt;/label&gt;
+</pre>
+
+		</div>
+	</div>
+</section>
+
+<section id="scheduler">
+    <div class="page-header">
+        <h1>Scheduler
+            <small>scheduler.js</small>
+        </h1>
+    </div>
+    <div class="row">
+        <div class="span12 columns">
+            <h2>Example</h2>
+
+            <p>Below is a working scheduler example.</p>
+
+            <div class="well scheduler-example">
+                <div id="myScheduler" class="scheduler">
+                    <table class="scheduler-table">
+                        <tr class="scheduler-start">
+                            <td class="scheduler-label">Start</td>
+                            <td>
+                                <div class="datepicker dropdown">
+                                    <div class="input-append">
+                                        <div class="dropdown-menu"></div>
+                                        <input type="text" class="span2" value="" data-toggle="dropdown">
+                                        <button type="button" class="btn" data-toggle="dropdown"><i class="icon-calendar"></i></button>
+                                    </div>
+                                </div>
+                                <div class="input-append dropdown combobox">
+                                    <input class="span2" type="text"><button type="button" class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">12:00 AM</a></li>
+                                        <li><a href="#">12:30 AM</a></li>
+                                        <li><a href="#">1:00 AM</a></li>
+                                        <li><a href="#">1:30 AM</a></li>
+                                        <li><a href="#">2:00 AM</a></li>
+                                        <li><a href="#">2:30 AM</a></li>
+                                        <li><a href="#">3:00 AM</a></li>
+                                        <li><a href="#">3:30 AM</a></li>
+                                        <li><a href="#">4:00 AM</a></li>
+                                        <li><a href="#">4:30 AM</a></li>
+                                        <li><a href="#">5:00 AM</a></li>
+                                        <li><a href="#">5:30 AM</a></li>
+                                        <li><a href="#">6:00 AM</a></li>
+                                        <li><a href="#">6:30 AM</a></li>
+                                        <li><a href="#">7:00 AM</a></li>
+                                        <li><a href="#">7:30 AM</a></li>
+                                        <li><a href="#">8:00 AM</a></li>
+                                        <li><a href="#">8:30 AM</a></li>
+                                        <li><a href="#">9:00 AM</a></li>
+                                        <li><a href="#">9:30 AM</a></li>
+                                        <li><a href="#">10:00 AM</a></li>
+                                        <li><a href="#">10:30 AM</a></li>
+                                        <li><a href="#">11:00 AM</a></li>
+                                        <li><a href="#">11:30 AM</a></li>
+                                        <li><a href="#">12:00 PM</a></li>
+                                        <li><a href="#">12:30 PM</a></li>
+                                        <li><a href="#">1:00 PM</a></li>
+                                        <li><a href="#">1:30 PM</a></li>
+                                        <li><a href="#">2:00 PM</a></li>
+                                        <li><a href="#">2:30 PM</a></li>
+                                        <li><a href="#">3:00 PM</a></li>
+                                        <li><a href="#">3:30 PM</a></li>
+                                        <li><a href="#">4:00 PM</a></li>
+                                        <li><a href="#">4:30 PM</a></li>
+                                        <li><a href="#">5:00 PM</a></li>
+                                        <li><a href="#">5:30 PM</a></li>
+                                        <li><a href="#">6:00 PM</a></li>
+                                        <li><a href="#">6:30 PM</a></li>
+                                        <li><a href="#">7:00 PM</a></li>
+                                        <li><a href="#">7:30 PM</a></li>
+                                        <li><a href="#">8:00 PM</a></li>
+                                        <li><a href="#">8:30 PM</a></li>
+                                        <li><a href="#">9:00 PM</a></li>
+                                        <li><a href="#">9:30 PM</a></li>
+                                        <li><a href="#">10:00 PM</a></li>
+                                        <li><a href="#">10:30 PM</a></li>
+                                        <li><a href="#">11:00 PM</a></li>
+                                        <li><a href="#">11:30 PM</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="scheduler-timezone">
+                            <td class="scheduler-label">Timezone</td>
+                            <td>
+                                <div class="btn-group select">
+                                    <button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label">(GMT-06:00) Central Standard Time</span><span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li data-name="Central Standard Time (no DST)" data-offset="-06:00"><a href="#">(GMT-06:00) Central Standard Time</a></li>
+                                        <li data-name="Morocco Standard Time" data-offset="+00:00"><a href="#">(GMT) Casablanca *</a></li>
+                                        <li data-name="GMT Standard Time" data-offset="+00:00"><a href="#">(GMT) Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London *</a></li>
+                                        <li data-name="Greenwich Standard Time" data-offset="+00:00"><a href="#">(GMT) Monrovia, Reykjavik</a></li>
+                                        <li data-name="W. Europe Standard Time" data-offset="+01:00"><a href="#">(GMT+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna *</a></li>
+                                        <li data-name="Central Europe Standard Time" data-offset="+01:00"><a href="#">(GMT+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague *</a></li>
+                                        <li data-name="Romance Standard Time" data-offset="+01:00"><a href="#">(GMT+01:00) Brussels, Copenhagen, Madrid, Paris *</a></li>
+                                        <li data-name="Central European Standard Time" data-offset="+01:00"><a href="#">(GMT+01:00) Sarajevo, Skopje, Warsaw, Zagreb *</a></li>
+                                        <li data-name="W. Central Africa Standard Time" data-offset="+01:00"><a href="#">(GMT+01:00) West Central Africa</a></li>
+                                        <li data-name="Jordan Standard Time" data-offset="+02:00"><a href="#">(GMT+02:00) Amman *</a></li>
+                                        <li data-name="GTB Standard Time" data-offset="+02:00"><a href="#">(GMT+02:00) Athens, Bucharest, Istanbul *</a></li>
+                                        <li data-name="Middle East Standard Time" data-offset="+02:00"><a href="#">(GMT+02:00) Beirut *</a></li>
+                                        <li data-name="Egypt Standard Time" data-offset="+02:00"><a href="#">(GMT+02:00) Cairo *</a></li>
+                                        <li data-name="South Africa Standard Time" data-offset="+02:00"><a href="#">(GMT+02:00) Harare, Pretoria</a></li>
+                                        <li data-name="FLE Standard Time" data-offset="+02:00"><a href="#">(GMT+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius *</a></li>
+                                        <li data-name="Israel Standard Time" data-offset="+02:00"><a href="#">(GMT+02:00) Jerusalem *</a></li>
+                                        <li data-name="E. Europe Standard Time" data-offset="+02:00"><a href="#">(GMT+02:00) Minsk *</a></li>
+                                        <li data-name="Namibia Standard Time" data-offset="+02:00"><a href="#">(GMT+02:00) Windhoek *</a></li>
+                                        <li data-name="Arabic Standard Time" data-offset="+03:00"><a href="#">(GMT+03:00) Baghdad *</a></li>
+                                        <li data-name="Arab Standard Time" data-offset="+03:00"><a href="#">(GMT+03:00) Kuwait, Riyadh</a></li>
+                                        <li data-name="Russian Standard Time" data-offset="+03:00"><a href="#">(GMT+03:00) Moscow, St. Petersburg, Volgograd *</a></li>
+                                        <li data-name="E. Africa Standard Time" data-offset="+03:00"><a href="#">(GMT+03:00) Nairobi</a></li>
+                                        <li data-name="Georgian Standard Time" data-offset="+03:00"><a href="#">(GMT+03:00) Tbilisi</a></li>
+                                        <li data-name="Iran Standard Time" data-offset="+03:30"><a href="#">(GMT+03:30) Tehran *</a></li>
+                                        <li data-name="Arabian Standard Time" data-offset="+04:00"><a href="#">(GMT+04:00) Abu Dhabi, Muscat</a></li>
+                                        <li data-name="Azerbaijan Standard Time" data-offset="+04:00"><a href="#">(GMT+04:00) Baku *</a></li>
+                                        <li data-name="Caucasus Standard Time" data-offset="+04:00"><a href="#">(GMT+04:00) Caucasus Standard Time</a></li>
+                                        <li data-name="Mauritius Standard Time" data-offset="+04:00"><a href="#">(GMT+04:00) Port Louis *</a></li>
+                                        <li data-name="Caucasus Standard Time" data-offset="+04:00"><a href="#">(GMT+04:00) Yerevan</a></li>
+                                        <li data-name="Afghanistan Standard Time" data-offset="+04:30"><a href="#">(GMT+04:30) Kabul</a></li>
+                                        <li data-name="Ekaterinburg Standard Time" data-offset="+05:00"><a href="#">(GMT+05:00) Ekaterinburg *</a></li>
+                                        <li data-name="Pakistan Standard Time" data-offset="+05:00"><a href="#">(GMT+05:00) Islamabad, Karachi *</a></li>
+                                        <li data-name="West Asia Standard Time" data-offset="+05:00"><a href="#">(GMT+05:00) Tashkent</a></li>
+                                        <li data-name="India Standard Time" data-offset="+05:30"><a href="#">(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi</a></li>
+                                        <li data-name="Sri Lanka Standard Time" data-offset="+05:30"><a href="#">(GMT+05:30) Sri Jayawardenepura</a></li>
+                                        <li data-name="Nepal Standard Time" data-offset="+05:45"><a href="#">(GMT+05:45) Kathmandu</a></li>
+                                        <li data-name="N. Central Asia Standard Time" data-offset="+06:00"><a href="#">(GMT+06:00) Almaty, Novosibirsk *</a></li>
+                                        <li data-name="Central Asia Standard Time" data-offset="+06:00"><a href="#">(GMT+06:00) Astana, Dhaka</a></li>
+                                        <li data-name="Myanmar Standard Time" data-offset="+06:00"><a href="#">(GMT+06:30) Yangon (Rangoon)</a></li>
+                                        <li data-name="SE Asia Standard Time" data-offset="+07:00"><a href="#">(GMT+07:00) Bangkok, Hanoi, Jakarta</a></li>
+                                        <li data-name="North Asia Standard Time" data-offset="+07:00"><a href="#">(GMT+07:00) Krasnoyarsk *</a></li>
+                                        <li data-name="China Standard Time" data-offset="+08:00"><a href="#">(GMT+08:00) Beijing, Chongqing, Hong Kong, Urumqi</a></li>
+                                        <li data-name="North Asia East Standard Time" data-offset="+08:00"><a href="#">(GMT+08:00) Irkutsk, Ulaan Bataar *</a></li>
+                                        <li data-name="Singapore Standard Time" data-offset="+08:00"><a href="#">(GMT+08:00) Kuala Lumpur, Singapore</a></li>
+                                        <li data-name="W. Australia Standard Time" data-offset="+08:00"><a href="#">(GMT+08:00) Perth *</a></li>
+                                        <li data-name="Taipei Standard Time" data-offset="+08:00"><a href="#">(GMT+08:00) Taipei</a></li>
+                                        <li data-name="Tokyo Standard Time" data-offset="+09:00"><a href="#">(GMT+09:00) Osaka, Sapporo, Tokyo</a></li>
+                                        <li data-name="Korea Standard Time" data-offset="+09:00"><a href="#">(GMT+09:00) Seoul</a></li>
+                                        <li data-name="Yakutsk Standard Time" data-offset="+09:00"><a href="#">(GMT+09:00) Yakutsk *</a></li>
+                                        <li data-name="Cen. Australia Standard Time" data-offset="+09:30"><a href="#">(GMT+09:30) Adelaide *</a></li>
+                                        <li data-name="AUS Central Standard Time" data-offset="+09:30"><a href="#">(GMT+09:30) Darwin</a></li>
+                                        <li data-name="E. Australia Standard Time" data-offset="+10:00"><a href="#">(GMT+10:00) Brisbane</a></li>
+                                        <li data-name="AUS Eastern Standard Time" data-offset="+10:00"><a href="#">(GMT+10:00) Canberra, Melbourne, Sydney *</a></li>
+                                        <li data-name="West Pacific Standard Time" data-offset="+10:00"><a href="#">(GMT+10:00) Guam, Port Moresby</a></li>
+                                        <li data-name="Tasmania Standard Time" data-offset="+10:00"><a href="#">(GMT+10:00) Hobart *</a></li>
+                                        <li data-name="Vladivostok Standard Time" data-offset="+10:00"><a href="#">(GMT+10:00) Vladivostok *</a></li>
+                                        <li data-name="Central Pacific Standard Time" data-offset="+11:00"><a href="#">(GMT+11:00) Magadan, Solomon Is., New Caledonia</a></li>
+                                        <li data-name="New Zealand Standard Time" data-offset="+12:00"><a href="#">(GMT+12:00) Auckland, Wellington *</a></li>
+                                        <li data-name="Fiji Standard Time" data-offset="+12:00"><a href="#">(GMT+12:00) Fiji, Kamchatka, Marshall Is.</a></li>
+                                        <li data-name="Tonga Standard Time" data-offset="+12:00"><a href="#">(GMT+13:00) Nukualofa</a></li>
+                                        <li data-name="Azores Standard Time" data-offset="+12:00"><a href="#">(GMT-01:00) Azores *</a></li>
+                                        <li data-name="Cape Verde Standard Time" data-offset="-01:00"><a href="#">(GMT-01:00) Cape Verde Is.</a></li>
+                                        <li data-name="Mid-Atlantic Standard Time" data-offset="-02:00"><a href="#">(GMT-02:00) Mid-Atlantic *</a></li>
+                                        <li data-name="E. South America Standard Time" data-offset="-03:00"><a href="#">(GMT-03:00) Brasilia *</a></li>
+                                        <li data-name="Argentina Standard Time" data-offset="-03:00"><a href="#">(GMT-03:00) Buenos Aires *</a></li>
+                                        <li data-name="SA Western Standard Time" data-offset="-03:00"><a href="#">(GMT-03:00) Georgetown</a></li>
+                                        <li data-name="Greenland Standard Time" data-offset="-03:00"><a href="#">(GMT-03:00) Greenland *</a></li>
+                                        <li data-name="Montevideo Standard Time" data-offset="-03:00"><a href="#">(GMT-03:00) Montevideo *</a></li>
+                                        <li data-name="Newfoundland Standard Time" data-offset="-03:00"><a href="#">(GMT-03:30) Newfoundland *</a></li>
+                                        <li data-name="Atlantic Standard Time" data-offset="-04:00"><a href="#">(GMT-04:00) Atlantic Time (Canada) *</a></li>
+                                        <li data-name="SA Western Standard Time" data-offset="-04:00"><a href="#">(GMT-04:00) La Paz</a></li>
+                                        <li data-name="Central Brazilian Standard Time" data-offset="-04:00"><a href="#">(GMT-04:00) Manaus *</a></li>
+                                        <li data-name="Pacific SA Standard Time" data-offset="-04:00"><a href="#">(GMT-04:00) Santiago *</a></li>
+                                        <li data-name="Venezuela Standard Time" data-offset="-04:30"><a href="#">(GMT-04:30) Caracas</a></li>
+                                        <li data-name="SA Pacific Standard Time" data-offset="-05:00"><a href="#">(GMT-05:00) Bogota, Lima, Quito, Rio Branco</a></li>
+                                        <li data-name="Eastern Standard Time" data-offset="-05:00"><a href="#">(GMT-05:00) Eastern Time (US &amp; Canada) *</a></li>
+                                        <li data-name="US Eastern Standard Time" data-offset="-05:00"><a href="#">(GMT-05:00) Indiana (East)</a></li>
+                                        <li data-name="Central America Standard Time" data-offset="-06:00"><a href="#">(GMT-06:00) Central America</a></li>
+                                        <li data-name="Central Standard Time" data-offset="-06:00"><a href="#">(GMT-06:00) Central Time (US &amp; Canada) *</a></li>
+                                        <li data-name="Central Standard Time (Mexico)" data-offset="-06:00"><a href="#">(GMT-06:00) Guadalajara, Mexico City, Monterrey - New *</a></li>
+                                        <li data-name="Central Standard Time (Mexico)" data-offset="-06:00"><a href="#">(GMT-06:00) Guadalajara, Mexico City, Monterrey - Old</a></li>
+                                        <li data-name="Canada Central Standard Time" data-offset="-06:00"><a href="#">(GMT-06:00) Saskatchewan</a></li>
+                                        <li data-name="US Mountain Standard Time" data-offset="-07:00"><a href="#">(GMT-07:00) Arizona</a></li>
+                                        <li data-name="Mountain Standard Time (Mexico)" data-offset="-07:00"><a href="#">(GMT-07:00) Chihuahua, La Paz, Mazatlan - New *</a></li>
+                                        <li data-name="Mountain Standard Time (Mexico)" data-offset="-07:00"><a href="#">(GMT-07:00) Chihuahua, La Paz, Mazatlan - Old</a></li>
+                                        <li data-name="Mountain Standard Time" data-offset="-07:00"><a href="#">(GMT-07:00) Mountain Time (US &amp; Canada) *</a></li>
+                                        <li data-name="Pacific Standard Time" data-offset="-08:00"><a href="#">(GMT-08:00) Pacific Time (US &amp; Canada) *</a></li>
+                                        <li data-name="Pacific Standard Time (Mexico)" data-offset="-08:00"><a href="#">(GMT-08:00) Tijuana, Baja California *</a></li>
+                                        <li data-name="Alaskan Standard Time" data-offset="-09:00"><a href="#">(GMT-09:00) Alaska *</a></li>
+                                        <li data-name="Hawaiian Standard Time" data-offset="-10:00"><a href="#">(GMT-10:00) Hawaii</a></li>
+                                        <li data-name="Samoa Standard Time" data-offset="-11:00"><a href="#">(GMT-11:00) Midway Island, Samoa</a></li>
+                                        <li data-name="Dateline Standard Time" data-offset="-12:00"><a href="#">(GMT-12:00) International Date Line West</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="scheduler-repeat">
+                        <td class="scheduler-label">Repeat</td>
+                        <td>
+                        <div class="repeat-interval">
+                            <div class="btn-group select">
+                                <button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label">None (run once)</span><span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li data-value="none"><a href="#">None (run once)</a></li>
+                                    <li data-value="hourly" data-text="hour(s)"><a href="#">Hourly</a></li>
+                                    <li data-value="daily" data-text="day(s)"><a href="#">Daily</a></li>
+                                    <li data-value="weekdays"><a href="#">Weekdays</a></li>
+                                    <li data-value="weekly" data-text="week(s)"><a href="#">Weekly</a></li>
+                                    <li data-value="monthly" data-text="month(s)"><a href="#">Monthly</a></li>
+                                    <li data-value="yearly"><a href="#">Yearly</a></li>
+                                </ul>
+                            </div>
+                            <div class="repeat-interval-panel">
+                                <div class="repeat-interval-pretext">every</div>
+                                <div class="spinner">
+                                    <input type="text" value="1" class="input-mini spinner-input">
+                                    <div class="spinner-buttons btn-group btn-group-vertical">
+                                        <button class="btn spinner-up"><i class="icon-chevron-up"></i></button>
+                                        <button class="btn spinner-down"><i class="icon-chevron-down"></i></button>
+                                    </div>
+                                </div>
+                                <div class="repeat-interval-text">day(s)</div>
+                            </div>
+                        </div>
+                        <div class="recurrence-panel scheduler-weekly">
+                            <div class="btn-group" data-toggle="buttons-checkbox">
+                                <button type="button" class="btn" data-value="SU">Sun</button>
+                                <button type="button" class="btn" data-value="MO">Mon</button>
+                                <button type="button" class="btn" data-value="TU">Tue</button>
+                                <button type="button" class="btn" data-value="WE">Wed</button>
+                                <button type="button" class="btn" data-value="TH">Thu</button>
+                                <button type="button" class="btn" data-value="FR">Fri</button>
+                                <button type="button" class="btn" data-value="SA">Sat</button>
+                            </div>
+                        </div>
+                        <div class="recurrence-panel scheduler-monthly">
+                            <div class="scheduler-monthly-date">
+                                <label class="radio radio-custom"><input type="radio" name="scheduler-month" checked="checked" value="1"><i class="radio"></i>on day</label>
+                                <div class="btn-group select">
+                                    <button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label">1</span><span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li data-value="1"><a href="#">1</a></li>
+                                        <li data-value="2"><a href="#">2</a></li>
+                                        <li data-value="3"><a href="#">3</a></li>
+                                        <li data-value="4"><a href="#">4</a></li>
+                                        <li data-value="5"><a href="#">5</a></li>
+                                        <li data-value="6"><a href="#">6</a></li>
+                                        <li data-value="7"><a href="#">7</a></li>
+                                        <li data-value="8"><a href="#">8</a></li>
+                                        <li data-value="9"><a href="#">9</a></li>
+                                        <li data-value="10"><a href="#">10</a></li>
+                                        <li data-value="11"><a href="#">11</a></li>
+                                        <li data-value="12"><a href="#">12</a></li>
+                                        <li data-value="13"><a href="#">13</a></li>
+                                        <li data-value="14"><a href="#">14</a></li>
+                                        <li data-value="15"><a href="#">15</a></li>
+                                        <li data-value="16"><a href="#">16</a></li>
+                                        <li data-value="17"><a href="#">17</a></li>
+                                        <li data-value="18"><a href="#">18</a></li>
+                                        <li data-value="19"><a href="#">19</a></li>
+                                        <li data-value="20"><a href="#">20</a></li>
+                                        <li data-value="21"><a href="#">21</a></li>
+                                        <li data-value="22"><a href="#">22</a></li>
+                                        <li data-value="23"><a href="#">23</a></li>
+                                        <li data-value="24"><a href="#">24</a></li>
+                                        <li data-value="25"><a href="#">25</a></li>
+                                        <li data-value="26"><a href="#">26</a></li>
+                                        <li data-value="27"><a href="#">27</a></li>
+                                        <li data-value="28"><a href="#">28</a></li>
+                                        <li data-value="29"><a href="#">29</a></li>
+                                        <li data-value="30"><a href="#">30</a></li>
+                                        <li data-value="31"><a href="#">31</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="scheduler-monthly-day">
+                                <label class="radio radio-custom"><input type="radio" name="scheduler-month" value="2"><i class="radio"></i>on the</label>
+                                <div class="select btn-group month-day-pos">
+                                    <button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label">First</span><span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li data-value="1"><a href="#">First</a></li>
+                                        <li data-value="2"><a href="#">Second</a></li>
+                                        <li data-value="3"><a href="#">Third</a></li>
+                                        <li data-value="4"><a href="#">Fourth</a></li>
+                                        <li data-value="-1"><a href="#">Last</a></li>
+                                    </ul>
+                                </div>
+                                <div class="select btn-group month-days">
+                                    <button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label">Sunday</span><span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li data-value="SU"><a href="#">Sunday</a></li>
+                                        <li data-value="MO"><a href="#">Monday</a></li>
+                                        <li data-value="TU"><a href="#">Tuesday</a></li>
+                                        <li data-value="WE"><a href="#">Wednesday</a></li>
+                                        <li data-value="TH"><a href="#">Thursday</a></li>
+                                        <li data-value="FR"><a href="#">Friday</a></li>
+                                        <li data-value="SA"><a href="#">Saturday</a></li>
+                                        <li data-value="SU,MO,TU,WE,TH,FR,SA"><a href="#">Day</a></li>
+                                        <li data-value="MO,TU,WE,TH,FR"><a href="#">Weekday</a></li>
+                                        <li data-value="SU,SA"><a href="#">Weekend day</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="recurrence-panel scheduler-yearly">
+                            <div class="scheduler-yearly-date">
+                                <label class="radio radio-custom"><input type="radio" name="scheduler-year" checked="checked" value="1"><i class="radio"></i>on</label>
+                                <div class="btn-group select year-month">
+                                    <button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label">January</span><span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li data-value="1"><a href="#">January</a></li>
+                                        <li data-value="2"><a href="#">February</a></li>
+                                        <li data-value="3"><a href="#">March</a></li>
+                                        <li data-value="4"><a href="#">April</a></li>
+                                        <li data-value="5"><a href="#">May</a></li>
+                                        <li data-value="6"><a href="#">June</a></li>
+                                        <li data-value="7"><a href="#">July</a></li>
+                                        <li data-value="8"><a href="#">August</a></li>
+                                        <li data-value="9"><a href="#">September</a></li>
+                                        <li data-value="10"><a href="#">October</a></li>
+                                        <li data-value="11"><a href="#">November</a></li>
+                                        <li data-value="12"><a href="#">December</a></li>
+                                    </ul>
+                                </div>
+                                <div class="btn-group select year-month-day">
+                                    <button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label">1</span><span class="caret"></span></button>
+                                    <ul class="dropdown-menu" style="height:200px; overflow:auto;">
+                                        <li data-value="1"><a href="#">1</a></li>
+                                        <li data-value="2"><a href="#">2</a></li>
+                                        <li data-value="3"><a href="#">3</a></li>
+                                        <li data-value="4"><a href="#">4</a></li>
+                                        <li data-value="5"><a href="#">5</a></li>
+                                        <li data-value="6"><a href="#">6</a></li>
+                                        <li data-value="7"><a href="#">7</a></li>
+                                        <li data-value="8"><a href="#">8</a></li>
+                                        <li data-value="9"><a href="#">9</a></li>
+                                        <li data-value="10"><a href="#">10</a></li>
+                                        <li data-value="11"><a href="#">11</a></li>
+                                        <li data-value="12"><a href="#">12</a></li>
+                                        <li data-value="13"><a href="#">13</a></li>
+                                        <li data-value="14"><a href="#">14</a></li>
+                                        <li data-value="15"><a href="#">15</a></li>
+                                        <li data-value="16"><a href="#">16</a></li>
+                                        <li data-value="17"><a href="#">17</a></li>
+                                        <li data-value="18"><a href="#">18</a></li>
+                                        <li data-value="19"><a href="#">19</a></li>
+                                        <li data-value="20"><a href="#">20</a></li>
+                                        <li data-value="21"><a href="#">21</a></li>
+                                        <li data-value="22"><a href="#">22</a></li>
+                                        <li data-value="23"><a href="#">23</a></li>
+                                        <li data-value="24"><a href="#">24</a></li>
+                                        <li data-value="25"><a href="#">25</a></li>
+                                        <li data-value="26"><a href="#">26</a></li>
+                                        <li data-value="27"><a href="#">27</a></li>
+                                        <li data-value="28"><a href="#">28</a></li>
+                                        <li data-value="29"><a href="#">29</a></li>
+                                        <li data-value="30"><a href="#">30</a></li>
+                                        <li data-value="31"><a href="#">31</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="scheduler-yearly-day">
+                                <label class="radio radio-custom"><input type="radio" name="scheduler-year" value="2"><i class="radio"></i>on the</label>
+                                <div class="btn-group select year-month-day-pos">
+                                    <button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label">First</span><span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li data-value="1"><a href="#">First</a></li>
+                                        <li data-value="2"><a href="#">Second</a></li>
+                                        <li data-value="3"><a href="#">Third</a></li>
+                                        <li data-value="4"><a href="#">Fourth</a></li>
+                                        <li data-value="5"><a href="#">Last</a></li>
+                                    </ul>
+                                </div>
+                                <div class="btn-group select year-month-days">
+                                    <button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label">Sunday</span><span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li data-value="SU"><a href="#">Sunday</a></li>
+                                        <li data-value="MO"><a href="#">Monday</a></li>
+                                        <li data-value="TU"><a href="#">Tuesday</a></li>
+                                        <li data-value="WE"><a href="#">Wednesday</a></li>
+                                        <li data-value="TH"><a href="#">Thursday</a></li>
+                                        <li data-value="FR"><a href="#">Friday</a></li>
+                                        <li data-value="SA"><a href="#">Saturday</a></li>
+                                        <li data-value="SU,MO,TU,WE,TH,FR,SA"><a href="#">Day</a></li>
+                                        <li data-value="MO,TU,WE,TH,FR"><a href="#">Weekday</a></li>
+                                        <li data-value="SU,SA"><a href="#">Weekend day</a></li>
+                                    </ul>
+                                </div>
+                                <div class="scheduler-yearly-day-text">of</div>
+                                <div class="btn-group select year-month">
+                                    <button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label">January</span><span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li data-value="1"><a href="#">January</a></li>
+                                        <li data-value="2"><a href="#">February</a></li>
+                                        <li data-value="3"><a href="#">March</a></li>
+                                        <li data-value="4"><a href="#">April</a></li>
+                                        <li data-value="5"><a href="#">May</a></li>
+                                        <li data-value="6"><a href="#">June</a></li>
+                                        <li data-value="7"><a href="#">July</a></li>
+                                        <li data-value="8"><a href="#">August</a></li>
+                                        <li data-value="9"><a href="#">September</a></li>
+                                        <li data-value="10"><a href="#">October</a></li>
+                                        <li data-value="11"><a href="#">November</a></li>
+                                        <li data-value="12"><a href="#">December</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        </td>
+                        </tr>
+                        <tr class="scheduler-end">
+                            <td class="scheduler-label">End</td>
+                            <td>
+                                <div class="btn-group select">
+                                    <button data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label">Never</span><span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li data-value="never"><a href="#">Never</a></li>
+                                        <li data-value="after"><a href="#">After</a></li>
+                                        <li data-value="date"><a href="#">On date</a></li>
+                                    </ul>
+                                </div>
+                                <div class="spinner">
+                                    <input type="text" value="1" class="input-mini spinner-input">
+                                    <div class="spinner-buttons btn-group btn-group-vertical">
+                                        <button class="btn spinner-up"><i class="icon-chevron-up"></i></button>
+                                        <button class="btn spinner-down"><i class="icon-chevron-down"></i></button>
+                                    </div>
+                                    <span>occurrence(s)</span>
+                                </div>
+                                <div class="datepicker dropdown">
+                                    <div class="input-append">
+                                        <div class="dropdown-menu"></div>
+                                        <input type="text" class="span2" value="" data-toggle="dropdown">
+                                        <button type="button" class="btn" data-toggle="dropdown"><i class="icon-calendar"></i></button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <input id="scheduler-enable" type="button" class="btn" value="enable" />
+                <input id="scheduler-disable" type="button" class="btn" value="disable" />
+                <input id="scheduler-logValue" type="button" class="btn" value="log value" />
+                <input id="scheduler-setValue" type="button" class="btn" value="set value" />
+            </div>
+
+            <hr>
+
+            <h2>Using scheduler</h2>
+
+            <p>Call the scheduler via javascript (optional):</p>
+            <pre class="prettyprint linenums">$('#myScheduler').scheduler()</pre>
+
+            <h3>Methods</h3>
+
+            <p>Fuel UX's scheduler exposes the following methods:</p>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th style="width: 150px;">Method</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>disable</td>
+                        <td>Disable all scheduler form fields</td>
+                    </tr>
+                    <tr>
+                        <td>enable</td>
+                        <td>Enable all scheduler form fields</td>
+                    </tr>
+                    <tr>
+                        <td>value</td>
+                        <td>
+                            <p>
+                                Gets the current scheduler form field information or sets it, depending on arguments present. The object returned / used for setting has the following structure:
+                                <ul>
+                                    <li>recurrencePattern - string representing the <a href="http://www.kanzaki.com/docs/ical/recur.html">iCal recurrence</a> value</li>
+                                    <li>startDateTime - string representing the start date & time in <a href="http://en.wikipedia.org/wiki/ISO_8601">ISO 0861</a> format</li>
+                                    <li>timeZone - object containing the timeZone name and offset</li>
+                                </ul>
+                            </p>
+                            <p>
+                                <h5>For getting:</h5>
+                                Use <code>$('#myScheduler').scheduler('value')</code>, passing no arguments.
+                            </p>
+                            <p>
+                                <h5>For setting:</h5>
+                                Use 'value', passing an object following the structure listed above as a second parameter. Example:
+<pre class="prettyprint linenums" style="margin-top: 8px;">
+$('myScheduler').scheduler('value', {
+    startDateTime: '2014-03-31T03:23+02:00',
+    timeZone: {
+        name: 'Namibia Standard Time',
+        offset: '+02:00'
+    },
+    recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
+});
+</pre>
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Events</h3>
+
+            <p>Fuel UX's scheduler control exposes the following events:</p>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th style="width: 150px;">Event</th>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>changed</td>
+                    <td>
+                        This event is fired when any form item within the scheduler has changed. Returned arguments are an event object representing the control event, as well as a data object with the following structure:
+                        <ul>
+                            <li>data - useful data object returned from the underlying form item</li>
+                            <li>originalEvent - event object representing underlying form item event</li>
+                            <li>value - current value of the scheduler, equivalent object to one returned via 'value' method</li>
+                        </ul>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h3>Markup</h3>
+
+            <p>You can activate scheduler on your page easily without having to write a single line of javascript. Just set
+                <code>class="scheduler"</code> on a div like the example markup below and the scheduler will activate
+                automatically.</p>
+
+
+<pre class="prettyprint linenums" style="height: 400px; overflow: auto;">
+&lt;div class="scheduler"&gt;
+    &lt;table class="scheduler-table"&gt;
+        &lt;tr class="scheduler-start"&gt;
+            &lt;td class="scheduler-label"&gt;Start&lt;/td&gt;
+            &lt;td&gt;
+                &lt;div class="datepicker dropdown"&gt;
+                    &lt;div class="input-append"&gt;
+                        &lt;div class="dropdown-menu"&gt;&lt;/div&gt;
+                        &lt;input type="text" class="span2" value="" data-toggle="dropdown"&gt;
+                        &lt;button type="button" class="btn" data-toggle="dropdown"&gt;&lt;i class="icon-calendar"&gt;&lt;/i&gt;&lt;/button&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class="input-append dropdown combobox"&gt;
+                    &lt;input class="span2" type="text"&gt;&lt;button type="button" class="btn" data-toggle="dropdown"&gt;&lt;i class="caret"&gt;&lt;/i&gt;&lt;/button&gt;
+                    &lt;ul class="dropdown-menu"&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;12:00 AM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;12:30 AM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;1:00 AM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;1:30 AM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;2:00 AM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;2:30 AM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;3:00 AM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;3:30 AM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;4:00 AM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;4:30 AM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;5:00 AM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;5:30 AM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;6:00 AM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;6:30 AM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;7:00 AM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;7:30 AM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;8:00 AM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;8:30 AM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;9:00 AM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;9:30 AM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;10:00 AM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;10:30 AM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;11:00 AM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;11:30 AM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;12:00 PM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;12:30 PM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;1:00 PM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;1:30 PM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;2:00 PM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;2:30 PM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;3:00 PM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;3:30 PM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;4:00 PM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;4:30 PM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;5:00 PM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;5:30 PM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;6:00 PM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;6:30 PM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;7:00 PM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;7:30 PM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;8:00 PM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;8:30 PM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;9:00 PM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;9:30 PM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;10:00 PM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;10:30 PM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;11:00 PM&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href="#"&gt;11:30 PM&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr class="scheduler-timezone"&gt;
+            &lt;td class="scheduler-label"&gt;Timezone&lt;/td&gt;
+            &lt;td&gt;
+                &lt;div class="btn-group select"&gt;
+                    &lt;button data-toggle="dropdown" class="btn dropdown-toggle"&gt;&lt;span class="dropdown-label"&gt;(GMT-06:00) Central Standard Time&lt;/span&gt;&lt;span class="caret"&gt;&lt;/span&gt;&lt;/button&gt;
+                    &lt;ul class="dropdown-menu"&gt;
+                        &lt;li data-name="Central Standard Time (no DST)" data-offset="-06:00"&gt;&lt;a href="#"&gt;(GMT-06:00) Central Standard Time&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Morocco Standard Time" data-offset="+00:00"&gt;&lt;a href="#"&gt;(GMT) Casablanca *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="GMT Standard Time" data-offset="+00:00"&gt;&lt;a href="#"&gt;(GMT) Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Greenwich Standard Time" data-offset="+00:00"&gt;&lt;a href="#"&gt;(GMT) Monrovia, Reykjavik&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="W. Europe Standard Time" data-offset="+01:00"&gt;&lt;a href="#"&gt;(GMT+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Central Europe Standard Time" data-offset="+01:00"&gt;&lt;a href="#"&gt;(GMT+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Romance Standard Time" data-offset="+01:00"&gt;&lt;a href="#"&gt;(GMT+01:00) Brussels, Copenhagen, Madrid, Paris *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Central European Standard Time" data-offset="+01:00"&gt;&lt;a href="#"&gt;(GMT+01:00) Sarajevo, Skopje, Warsaw, Zagreb *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="W. Central Africa Standard Time" data-offset="+01:00"&gt;&lt;a href="#"&gt;(GMT+01:00) West Central Africa&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Jordan Standard Time" data-offset="+02:00"&gt;&lt;a href="#"&gt;(GMT+02:00) Amman *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="GTB Standard Time" data-offset="+02:00"&gt;&lt;a href="#"&gt;(GMT+02:00) Athens, Bucharest, Istanbul *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Middle East Standard Time" data-offset="+02:00"&gt;&lt;a href="#"&gt;(GMT+02:00) Beirut *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Egypt Standard Time" data-offset="+02:00"&gt;&lt;a href="#"&gt;(GMT+02:00) Cairo *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="South Africa Standard Time" data-offset="+02:00"&gt;&lt;a href="#"&gt;(GMT+02:00) Harare, Pretoria&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="FLE Standard Time" data-offset="+02:00"&gt;&lt;a href="#"&gt;(GMT+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Israel Standard Time" data-offset="+02:00"&gt;&lt;a href="#"&gt;(GMT+02:00) Jerusalem *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="E. Europe Standard Time" data-offset="+02:00"&gt;&lt;a href="#"&gt;(GMT+02:00) Minsk *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Namibia Standard Time" data-offset="+02:00"&gt;&lt;a href="#"&gt;(GMT+02:00) Windhoek *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Arabic Standard Time" data-offset="+03:00"&gt;&lt;a href="#"&gt;(GMT+03:00) Baghdad *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Arab Standard Time" data-offset="+03:00"&gt;&lt;a href="#"&gt;(GMT+03:00) Kuwait, Riyadh&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Russian Standard Time" data-offset="+03:00"&gt;&lt;a href="#"&gt;(GMT+03:00) Moscow, St. Petersburg, Volgograd *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="E. Africa Standard Time" data-offset="+03:00"&gt;&lt;a href="#"&gt;(GMT+03:00) Nairobi&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Georgian Standard Time" data-offset="+03:00"&gt;&lt;a href="#"&gt;(GMT+03:00) Tbilisi&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Iran Standard Time" data-offset="+03:30"&gt;&lt;a href="#"&gt;(GMT+03:30) Tehran *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Arabian Standard Time" data-offset="+04:00"&gt;&lt;a href="#"&gt;(GMT+04:00) Abu Dhabi, Muscat&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Azerbaijan Standard Time" data-offset="+04:00"&gt;&lt;a href="#"&gt;(GMT+04:00) Baku *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Caucasus Standard Time" data-offset="+04:00"&gt;&lt;a href="#"&gt;(GMT+04:00) Caucasus Standard Time&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Mauritius Standard Time" data-offset="+04:00"&gt;&lt;a href="#"&gt;(GMT+04:00) Port Louis *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Caucasus Standard Time" data-offset="+04:00"&gt;&lt;a href="#"&gt;(GMT+04:00) Yerevan&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Afghanistan Standard Time" data-offset="+04:30"&gt;&lt;a href="#"&gt;(GMT+04:30) Kabul&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Ekaterinburg Standard Time" data-offset="+05:00"&gt;&lt;a href="#"&gt;(GMT+05:00) Ekaterinburg *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Pakistan Standard Time" data-offset="+05:00"&gt;&lt;a href="#"&gt;(GMT+05:00) Islamabad, Karachi *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="West Asia Standard Time" data-offset="+05:00"&gt;&lt;a href="#"&gt;(GMT+05:00) Tashkent&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="India Standard Time" data-offset="+05:30"&gt;&lt;a href="#"&gt;(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Sri Lanka Standard Time" data-offset="+05:30"&gt;&lt;a href="#"&gt;(GMT+05:30) Sri Jayawardenepura&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Nepal Standard Time" data-offset="+05:45"&gt;&lt;a href="#"&gt;(GMT+05:45) Kathmandu&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="N. Central Asia Standard Time" data-offset="+06:00"&gt;&lt;a href="#"&gt;(GMT+06:00) Almaty, Novosibirsk *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Central Asia Standard Time" data-offset="+06:00"&gt;&lt;a href="#"&gt;(GMT+06:00) Astana, Dhaka&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Myanmar Standard Time" data-offset="+06:00"&gt;&lt;a href="#"&gt;(GMT+06:30) Yangon (Rangoon)&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="SE Asia Standard Time" data-offset="+07:00"&gt;&lt;a href="#"&gt;(GMT+07:00) Bangkok, Hanoi, Jakarta&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="North Asia Standard Time" data-offset="+07:00"&gt;&lt;a href="#"&gt;(GMT+07:00) Krasnoyarsk *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="China Standard Time" data-offset="+08:00"&gt;&lt;a href="#"&gt;(GMT+08:00) Beijing, Chongqing, Hong Kong, Urumqi&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="North Asia East Standard Time" data-offset="+08:00"&gt;&lt;a href="#"&gt;(GMT+08:00) Irkutsk, Ulaan Bataar *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Singapore Standard Time" data-offset="+08:00"&gt;&lt;a href="#"&gt;(GMT+08:00) Kuala Lumpur, Singapore&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="W. Australia Standard Time" data-offset="+08:00"&gt;&lt;a href="#"&gt;(GMT+08:00) Perth *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Taipei Standard Time" data-offset="+08:00"&gt;&lt;a href="#"&gt;(GMT+08:00) Taipei&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Tokyo Standard Time" data-offset="+09:00"&gt;&lt;a href="#"&gt;(GMT+09:00) Osaka, Sapporo, Tokyo&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Korea Standard Time" data-offset="+09:00"&gt;&lt;a href="#"&gt;(GMT+09:00) Seoul&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Yakutsk Standard Time" data-offset="+09:00"&gt;&lt;a href="#"&gt;(GMT+09:00) Yakutsk *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Cen. Australia Standard Time" data-offset="+09:30"&gt;&lt;a href="#"&gt;(GMT+09:30) Adelaide *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="AUS Central Standard Time" data-offset="+09:30"&gt;&lt;a href="#"&gt;(GMT+09:30) Darwin&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="E. Australia Standard Time" data-offset="+10:00"&gt;&lt;a href="#"&gt;(GMT+10:00) Brisbane&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="AUS Eastern Standard Time" data-offset="+10:00"&gt;&lt;a href="#"&gt;(GMT+10:00) Canberra, Melbourne, Sydney *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="West Pacific Standard Time" data-offset="+10:00"&gt;&lt;a href="#"&gt;(GMT+10:00) Guam, Port Moresby&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Tasmania Standard Time" data-offset="+10:00"&gt;&lt;a href="#"&gt;(GMT+10:00) Hobart *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Vladivostok Standard Time" data-offset="+10:00"&gt;&lt;a href="#"&gt;(GMT+10:00) Vladivostok *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Central Pacific Standard Time" data-offset="+11:00"&gt;&lt;a href="#"&gt;(GMT+11:00) Magadan, Solomon Is., New Caledonia&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="New Zealand Standard Time" data-offset="+12:00"&gt;&lt;a href="#"&gt;(GMT+12:00) Auckland, Wellington *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Fiji Standard Time" data-offset="+12:00"&gt;&lt;a href="#"&gt;(GMT+12:00) Fiji, Kamchatka, Marshall Is.&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Tonga Standard Time" data-offset="+12:00"&gt;&lt;a href="#"&gt;(GMT+13:00) Nukualofa&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Azores Standard Time" data-offset="+12:00"&gt;&lt;a href="#"&gt;(GMT-01:00) Azores *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Cape Verde Standard Time" data-offset="-01:00"&gt;&lt;a href="#"&gt;(GMT-01:00) Cape Verde Is.&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Mid-Atlantic Standard Time" data-offset="-02:00"&gt;&lt;a href="#"&gt;(GMT-02:00) Mid-Atlantic *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="E. South America Standard Time" data-offset="-03:00"&gt;&lt;a href="#"&gt;(GMT-03:00) Brasilia *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Argentina Standard Time" data-offset="-03:00"&gt;&lt;a href="#"&gt;(GMT-03:00) Buenos Aires *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="SA Western Standard Time" data-offset="-03:00"&gt;&lt;a href="#"&gt;(GMT-03:00) Georgetown&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Greenland Standard Time" data-offset="-03:00"&gt;&lt;a href="#"&gt;(GMT-03:00) Greenland *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Montevideo Standard Time" data-offset="-03:00"&gt;&lt;a href="#"&gt;(GMT-03:00) Montevideo *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Newfoundland Standard Time" data-offset="-03:00"&gt;&lt;a href="#"&gt;(GMT-03:30) Newfoundland *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Atlantic Standard Time" data-offset="-04:00"&gt;&lt;a href="#"&gt;(GMT-04:00) Atlantic Time (Canada) *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="SA Western Standard Time" data-offset="-04:00"&gt;&lt;a href="#"&gt;(GMT-04:00) La Paz&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Central Brazilian Standard Time" data-offset="-04:00"&gt;&lt;a href="#"&gt;(GMT-04:00) Manaus *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Pacific SA Standard Time" data-offset="-04:00"&gt;&lt;a href="#"&gt;(GMT-04:00) Santiago *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Venezuela Standard Time" data-offset="-04:30"&gt;&lt;a href="#"&gt;(GMT-04:30) Caracas&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="SA Pacific Standard Time" data-offset="-05:00"&gt;&lt;a href="#"&gt;(GMT-05:00) Bogota, Lima, Quito, Rio Branco&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Eastern Standard Time" data-offset="-05:00"&gt;&lt;a href="#"&gt;(GMT-05:00) Eastern Time (US &amp; Canada) *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="US Eastern Standard Time" data-offset="-05:00"&gt;&lt;a href="#"&gt;(GMT-05:00) Indiana (East)&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Central America Standard Time" data-offset="-06:00"&gt;&lt;a href="#"&gt;(GMT-06:00) Central America&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Central Standard Time" data-offset="-06:00"&gt;&lt;a href="#"&gt;(GMT-06:00) Central Time (US &amp; Canada) *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Central Standard Time (Mexico)" data-offset="-06:00"&gt;&lt;a href="#"&gt;(GMT-06:00) Guadalajara, Mexico City, Monterrey - New *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Central Standard Time (Mexico)" data-offset="-06:00"&gt;&lt;a href="#"&gt;(GMT-06:00) Guadalajara, Mexico City, Monterrey - Old&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Canada Central Standard Time" data-offset="-06:00"&gt;&lt;a href="#"&gt;(GMT-06:00) Saskatchewan&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="US Mountain Standard Time" data-offset="-07:00"&gt;&lt;a href="#"&gt;(GMT-07:00) Arizona&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Mountain Standard Time (Mexico)" data-offset="-07:00"&gt;&lt;a href="#"&gt;(GMT-07:00) Chihuahua, La Paz, Mazatlan - New *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Mountain Standard Time (Mexico)" data-offset="-07:00"&gt;&lt;a href="#"&gt;(GMT-07:00) Chihuahua, La Paz, Mazatlan - Old&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Mountain Standard Time" data-offset="-07:00"&gt;&lt;a href="#"&gt;(GMT-07:00) Mountain Time (US &amp; Canada) *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Pacific Standard Time" data-offset="-08:00"&gt;&lt;a href="#"&gt;(GMT-08:00) Pacific Time (US &amp; Canada) *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Pacific Standard Time (Mexico)" data-offset="-08:00"&gt;&lt;a href="#"&gt;(GMT-08:00) Tijuana, Baja California *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Alaskan Standard Time" data-offset="-09:00"&gt;&lt;a href="#"&gt;(GMT-09:00) Alaska *&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Hawaiian Standard Time" data-offset="-10:00"&gt;&lt;a href="#"&gt;(GMT-10:00) Hawaii&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Samoa Standard Time" data-offset="-11:00"&gt;&lt;a href="#"&gt;(GMT-11:00) Midway Island, Samoa&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-name="Dateline Standard Time" data-offset="-12:00"&gt;&lt;a href="#"&gt;(GMT-12:00) International Date Line West&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr class="scheduler-repeat"&gt;
+            &lt;td class="scheduler-label"&gt;Repeat&lt;/td&gt;
+            &lt;td&gt;
+                &lt;div class="repeat-interval"&gt;
+                    &lt;div class="btn-group select"&gt;
+                        &lt;button data-toggle="dropdown" class="btn dropdown-toggle"&gt;&lt;span class="dropdown-label"&gt;None (run once)&lt;/span&gt;&lt;span class="caret"&gt;&lt;/span&gt;&lt;/button&gt;
+                        &lt;ul class="dropdown-menu"&gt;
+                            &lt;li data-value="none"&gt;&lt;a href="#"&gt;None (run once)&lt;/a&gt;&lt;/li&gt;
+                            &lt;li data-value="hourly" data-text="hour(s)"&gt;&lt;a href="#"&gt;Hourly&lt;/a&gt;&lt;/li&gt;
+                            &lt;li data-value="daily" data-text="day(s)"&gt;&lt;a href="#"&gt;Daily&lt;/a&gt;&lt;/li&gt;
+                            &lt;li data-value="weekdays"&gt;&lt;a href="#"&gt;Weekdays&lt;/a&gt;&lt;/li&gt;
+                            &lt;li data-value="weekly" data-text="week(s)"&gt;&lt;a href="#"&gt;Weekly&lt;/a&gt;&lt;/li&gt;
+                            &lt;li data-value="monthly" data-text="month(s)"&gt;&lt;a href="#"&gt;Monthly&lt;/a&gt;&lt;/li&gt;
+                            &lt;li data-value="yearly"&gt;&lt;a href="#"&gt;Yearly&lt;/a&gt;&lt;/li&gt;
+                        &lt;/ul&gt;
+                    &lt;/div&gt;
+                    &lt;div class="repeat-interval-panel"&gt;
+                        &lt;div class="repeat-interval-pretext"&gt;every&lt;/div&gt;
+                        &lt;div class="spinner"&gt;
+                            &lt;input type="text" value="1" class="input-mini spinner-input"&gt;
+                            &lt;div class="spinner-buttons btn-group btn-group-vertical"&gt;
+                                &lt;button class="btn spinner-up"&gt;&lt;i class="icon-chevron-up"&gt;&lt;/i&gt;&lt;/button&gt;
+                                &lt;button class="btn spinner-down"&gt;&lt;i class="icon-chevron-down"&gt;&lt;/i&gt;&lt;/button&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div class="repeat-interval-text"&gt;day(s)&lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class="recurrence-panel scheduler-weekly"&gt;
+                    &lt;div class="btn-group" data-toggle="buttons-checkbox"&gt;
+                        &lt;button type="button" class="btn" data-value="SU"&gt;Sun&lt;/button&gt;
+                        &lt;button type="button" class="btn" data-value="MO"&gt;Mon&lt;/button&gt;
+                        &lt;button type="button" class="btn" data-value="TU"&gt;Tue&lt;/button&gt;
+                        &lt;button type="button" class="btn" data-value="WE"&gt;Wed&lt;/button&gt;
+                        &lt;button type="button" class="btn" data-value="TH"&gt;Thu&lt;/button&gt;
+                        &lt;button type="button" class="btn" data-value="FR"&gt;Fri&lt;/button&gt;
+                        &lt;button type="button" class="btn" data-value="SA"&gt;Sat&lt;/button&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class="recurrence-panel scheduler-monthly"&gt;
+                    &lt;div class="scheduler-monthly-date"&gt;
+                        &lt;label class="radio radio-custom"&gt;&lt;input type="radio" name="scheduler-month" checked="checked" value="1"&gt;&lt;i class="radio"&gt;&lt;/i&gt;on day&lt;/label&gt;
+                        &lt;div class="btn-group select"&gt;
+                            &lt;button data-toggle="dropdown" class="btn dropdown-toggle"&gt;&lt;span class="dropdown-label"&gt;1&lt;/span&gt;&lt;span class="caret"&gt;&lt;/span&gt;&lt;/button&gt;
+                            &lt;ul class="dropdown-menu"&gt;
+                                &lt;li data-value="1"&gt;&lt;a href="#"&gt;1&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="2"&gt;&lt;a href="#"&gt;2&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="3"&gt;&lt;a href="#"&gt;3&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="4"&gt;&lt;a href="#"&gt;4&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="5"&gt;&lt;a href="#"&gt;5&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="6"&gt;&lt;a href="#"&gt;6&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="7"&gt;&lt;a href="#"&gt;7&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="8"&gt;&lt;a href="#"&gt;8&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="9"&gt;&lt;a href="#"&gt;9&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="10"&gt;&lt;a href="#"&gt;10&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="11"&gt;&lt;a href="#"&gt;11&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="12"&gt;&lt;a href="#"&gt;12&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="13"&gt;&lt;a href="#"&gt;13&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="14"&gt;&lt;a href="#"&gt;14&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="15"&gt;&lt;a href="#"&gt;15&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="16"&gt;&lt;a href="#"&gt;16&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="17"&gt;&lt;a href="#"&gt;17&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="18"&gt;&lt;a href="#"&gt;18&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="19"&gt;&lt;a href="#"&gt;19&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="20"&gt;&lt;a href="#"&gt;20&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="21"&gt;&lt;a href="#"&gt;21&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="22"&gt;&lt;a href="#"&gt;22&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="23"&gt;&lt;a href="#"&gt;23&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="24"&gt;&lt;a href="#"&gt;24&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="25"&gt;&lt;a href="#"&gt;25&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="26"&gt;&lt;a href="#"&gt;26&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="27"&gt;&lt;a href="#"&gt;27&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="28"&gt;&lt;a href="#"&gt;28&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="29"&gt;&lt;a href="#"&gt;29&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="30"&gt;&lt;a href="#"&gt;30&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="31"&gt;&lt;a href="#"&gt;31&lt;/a&gt;&lt;/li&gt;
+                            &lt;/ul&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class="scheduler-monthly-day"&gt;
+                        &lt;label class="radio radio-custom"&gt;&lt;input type="radio" name="scheduler-month" value="2"&gt;&lt;i class="radio"&gt;&lt;/i&gt;on the&lt;/label&gt;
+                        &lt;div class="select btn-group month-day-pos"&gt;
+                            &lt;button data-toggle="dropdown" class="btn dropdown-toggle"&gt;&lt;span class="dropdown-label"&gt;First&lt;/span&gt;&lt;span class="caret"&gt;&lt;/span&gt;&lt;/button&gt;
+                            &lt;ul class="dropdown-menu"&gt;
+                                &lt;li data-value="1"&gt;&lt;a href="#"&gt;First&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="2"&gt;&lt;a href="#"&gt;Second&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="3"&gt;&lt;a href="#"&gt;Third&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="4"&gt;&lt;a href="#"&gt;Fourth&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="-1"&gt;&lt;a href="#"&gt;Last&lt;/a&gt;&lt;/li&gt;
+                            &lt;/ul&gt;
+                        &lt;/div&gt;
+                        &lt;div class="select btn-group month-days"&gt;
+                            &lt;button data-toggle="dropdown" class="btn dropdown-toggle"&gt;&lt;span class="dropdown-label"&gt;Sunday&lt;/span&gt;&lt;span class="caret"&gt;&lt;/span&gt;&lt;/button&gt;
+                            &lt;ul class="dropdown-menu"&gt;
+                                &lt;li data-value="SU"&gt;&lt;a href="#"&gt;Sunday&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="MO"&gt;&lt;a href="#"&gt;Monday&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="TU"&gt;&lt;a href="#"&gt;Tuesday&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="WE"&gt;&lt;a href="#"&gt;Wednesday&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="TH"&gt;&lt;a href="#"&gt;Thursday&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="FR"&gt;&lt;a href="#"&gt;Friday&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="SA"&gt;&lt;a href="#"&gt;Saturday&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="SU,MO,TU,WE,TH,FR,SA"&gt;&lt;a href="#"&gt;Day&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="MO,TU,WE,TH,FR"&gt;&lt;a href="#"&gt;Weekday&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="SU,SA"&gt;&lt;a href="#"&gt;Weekend day&lt;/a&gt;&lt;/li&gt;
+                            &lt;/ul&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class="recurrence-panel scheduler-yearly"&gt;
+                    &lt;div class="scheduler-yearly-date"&gt;
+                        &lt;label class="radio radio-custom"&gt;&lt;input type="radio" name="scheduler-year" checked="checked" value="1"&gt;&lt;i class="radio"&gt;&lt;/i&gt;on&lt;/label&gt;
+                        &lt;div class="btn-group select year-month"&gt;
+                            &lt;button data-toggle="dropdown" class="btn dropdown-toggle"&gt;&lt;span class="dropdown-label"&gt;January&lt;/span&gt;&lt;span class="caret"&gt;&lt;/span&gt;&lt;/button&gt;
+                            &lt;ul class="dropdown-menu"&gt;
+                                &lt;li data-value="1"&gt;&lt;a href="#"&gt;January&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="2"&gt;&lt;a href="#"&gt;February&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="3"&gt;&lt;a href="#"&gt;March&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="4"&gt;&lt;a href="#"&gt;April&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="5"&gt;&lt;a href="#"&gt;May&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="6"&gt;&lt;a href="#"&gt;June&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="7"&gt;&lt;a href="#"&gt;July&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="8"&gt;&lt;a href="#"&gt;August&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="9"&gt;&lt;a href="#"&gt;September&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="10"&gt;&lt;a href="#"&gt;October&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="11"&gt;&lt;a href="#"&gt;November&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="12"&gt;&lt;a href="#"&gt;December&lt;/a&gt;&lt;/li&gt;
+                            &lt;/ul&gt;
+                        &lt;/div&gt;
+                        &lt;div class="btn-group select year-month-day"&gt;
+                            &lt;button data-toggle="dropdown" class="btn dropdown-toggle"&gt;&lt;span class="dropdown-label"&gt;1&lt;/span&gt;&lt;span class="caret"&gt;&lt;/span&gt;&lt;/button&gt;
+                            &lt;ul class="dropdown-menu" style="height:200px; overflow:auto;"&gt;
+                                &lt;li data-value="1"&gt;&lt;a href="#"&gt;1&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="2"&gt;&lt;a href="#"&gt;2&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="3"&gt;&lt;a href="#"&gt;3&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="4"&gt;&lt;a href="#"&gt;4&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="5"&gt;&lt;a href="#"&gt;5&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="6"&gt;&lt;a href="#"&gt;6&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="7"&gt;&lt;a href="#"&gt;7&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="8"&gt;&lt;a href="#"&gt;8&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="9"&gt;&lt;a href="#"&gt;9&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="10"&gt;&lt;a href="#"&gt;10&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="11"&gt;&lt;a href="#"&gt;11&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="12"&gt;&lt;a href="#"&gt;12&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="13"&gt;&lt;a href="#"&gt;13&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="14"&gt;&lt;a href="#"&gt;14&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="15"&gt;&lt;a href="#"&gt;15&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="16"&gt;&lt;a href="#"&gt;16&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="17"&gt;&lt;a href="#"&gt;17&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="18"&gt;&lt;a href="#"&gt;18&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="19"&gt;&lt;a href="#"&gt;19&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="20"&gt;&lt;a href="#"&gt;20&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="21"&gt;&lt;a href="#"&gt;21&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="22"&gt;&lt;a href="#"&gt;22&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="23"&gt;&lt;a href="#"&gt;23&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="24"&gt;&lt;a href="#"&gt;24&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="25"&gt;&lt;a href="#"&gt;25&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="26"&gt;&lt;a href="#"&gt;26&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="27"&gt;&lt;a href="#"&gt;27&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="28"&gt;&lt;a href="#"&gt;28&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="29"&gt;&lt;a href="#"&gt;29&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="30"&gt;&lt;a href="#"&gt;30&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="31"&gt;&lt;a href="#"&gt;31&lt;/a&gt;&lt;/li&gt;
+                            &lt;/ul&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class="scheduler-yearly-day"&gt;
+                        &lt;label class="radio radio-custom"&gt;&lt;input type="radio" name="scheduler-year" value="2"&gt;&lt;i class="radio"&gt;&lt;/i&gt;on the&lt;/label&gt;
+                        &lt;div class="btn-group select year-month-day-pos"&gt;
+                            &lt;button data-toggle="dropdown" class="btn dropdown-toggle"&gt;&lt;span class="dropdown-label"&gt;First&lt;/span&gt;&lt;span class="caret"&gt;&lt;/span&gt;&lt;/button&gt;
+                            &lt;ul class="dropdown-menu"&gt;
+                                &lt;li data-value="1"&gt;&lt;a href="#"&gt;First&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="2"&gt;&lt;a href="#"&gt;Second&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="3"&gt;&lt;a href="#"&gt;Third&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="4"&gt;&lt;a href="#"&gt;Fourth&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="5"&gt;&lt;a href="#"&gt;Last&lt;/a&gt;&lt;/li&gt;
+                            &lt;/ul&gt;
+                        &lt;/div&gt;
+                        &lt;div class="btn-group select year-month-days"&gt;
+                            &lt;button data-toggle="dropdown" class="btn dropdown-toggle"&gt;&lt;span class="dropdown-label"&gt;Sunday&lt;/span&gt;&lt;span class="caret"&gt;&lt;/span&gt;&lt;/button&gt;
+                            &lt;ul class="dropdown-menu"&gt;
+                                &lt;li data-value="SU"&gt;&lt;a href="#"&gt;Sunday&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="MO"&gt;&lt;a href="#"&gt;Monday&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="TU"&gt;&lt;a href="#"&gt;Tuesday&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="WE"&gt;&lt;a href="#"&gt;Wednesday&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="TH"&gt;&lt;a href="#"&gt;Thursday&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="FR"&gt;&lt;a href="#"&gt;Friday&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="SA"&gt;&lt;a href="#"&gt;Saturday&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="SU,MO,TU,WE,TH,FR,SA"&gt;&lt;a href="#"&gt;Day&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="MO,TU,WE,TH,FR"&gt;&lt;a href="#"&gt;Weekday&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="SU,SA"&gt;&lt;a href="#"&gt;Weekend day&lt;/a&gt;&lt;/li&gt;
+                            &lt;/ul&gt;
+                        &lt;/div&gt;
+                        &lt;div class="scheduler-yearly-day-text"&gt;of&lt;/div&gt;
+                        &lt;div class="btn-group select year-month"&gt;
+                            &lt;button data-toggle="dropdown" class="btn dropdown-toggle"&gt;&lt;span class="dropdown-label"&gt;January&lt;/span&gt;&lt;span class="caret"&gt;&lt;/span&gt;&lt;/button&gt;
+                            &lt;ul class="dropdown-menu"&gt;
+                                &lt;li data-value="1"&gt;&lt;a href="#"&gt;January&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="2"&gt;&lt;a href="#"&gt;February&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="3"&gt;&lt;a href="#"&gt;March&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="4"&gt;&lt;a href="#"&gt;April&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="5"&gt;&lt;a href="#"&gt;May&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="6"&gt;&lt;a href="#"&gt;June&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="7"&gt;&lt;a href="#"&gt;July&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="8"&gt;&lt;a href="#"&gt;August&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="9"&gt;&lt;a href="#"&gt;September&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="10"&gt;&lt;a href="#"&gt;October&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="11"&gt;&lt;a href="#"&gt;November&lt;/a&gt;&lt;/li&gt;
+                                &lt;li data-value="12"&gt;&lt;a href="#"&gt;December&lt;/a&gt;&lt;/li&gt;
+                            &lt;/ul&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr class="scheduler-end"&gt;
+            &lt;td class="scheduler-label"&gt;End&lt;/td&gt;
+            &lt;td&gt;
+                &lt;div class="btn-group select"&gt;
+                    &lt;button data-toggle="dropdown" class="btn dropdown-toggle"&gt;&lt;span class="dropdown-label"&gt;Never&lt;/span&gt;&lt;span class="caret"&gt;&lt;/span&gt;&lt;/button&gt;
+                    &lt;ul class="dropdown-menu"&gt;
+                        &lt;li data-value="never"&gt;&lt;a href="#"&gt;Never&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-value="after"&gt;&lt;a href="#"&gt;After&lt;/a&gt;&lt;/li&gt;
+                        &lt;li data-value="date"&gt;&lt;a href="#"&gt;On date&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+                &lt;div class="spinner"&gt;
+                    &lt;input type="text" value="1" class="input-mini spinner-input"&gt;
+                    &lt;div class="spinner-buttons btn-group btn-group-vertical"&gt;
+                        &lt;button class="btn spinner-up"&gt;&lt;i class="icon-chevron-up"&gt;&lt;/i&gt;&lt;/button&gt;
+                        &lt;button class="btn spinner-down"&gt;&lt;i class="icon-chevron-down"&gt;&lt;/i&gt;&lt;/button&gt;
+                    &lt;/div&gt;
+                    &lt;span&gt;occurrence(s)&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class="datepicker dropdown"&gt;
+                    &lt;div class="input-append"&gt;
+                        &lt;div class="dropdown-menu"&gt;&lt;/div&gt;
+                        &lt;input type="text" class="span2" value="" data-toggle="dropdown"&gt;
+                        &lt;button type="button" class="btn" data-toggle="dropdown"&gt;&lt;i class="icon-calendar"&gt;&lt;/i&gt;&lt;/button&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/div&gt;
+</pre>
+        </div>
+    </div>
+</section>
+
+<section id="search">
+	<div class="page-header">
+		<h1>Search
+			<small>search.js</small>
+		</h1>
+	</div>
+	<div class="row">
+		<div class="span12 columns">
+			<h2>Example</h2>
+
+			<p>Below is a working search control example. Click (after entering text) to see your search text.</p>
+
+			<div class="well search-example">
+				<div id="MySearch" class="input-append search">
+					<input type="text" class="input-medium" placeholder="Search">
+					<button type="button" class="btn"><i class="icon-search"></i></button>
+				</div>
+				<br/>
+				<input type="button" class="btn" id="search-enable" value="enable">
+				<input type="button" class="btn" id="search-disable" value="disable">
+			</div>
+			<!-- /well -->
+
+			<hr>
+
+			<h2>Using search</h2>
+
+			<p>Call the search via javascript (optional):</p>
+			<pre class="prettyprint linenums">$('#MySearch').search()</pre>
+
+			<h3>Methods</h3>
+
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Method</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>disable</td>
+					<td>Disables the search control</td>
+				</tr>
+				<tr>
+					<td>enable</td>
+					<td>Enables the search control</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Markup</h3>
+
+			<p>You can activate the search control on your page easily without having to write a single line of
+				javascript. Just set <code>class="search"</code> on a div like the example markup below and the search
+				will activate automatically.</p>
+
+
+<pre class="prettyprint linenums">
+&lt;div id="MySearch" class="input-append search"&gt;
+	&lt;input type="text" class="input-medium" placeholder="Search"&gt;&lt;button type=&quot;button&quot; class="btn"&gt;&lt;i class="icon-search"&gt;&lt;/i&gt;&lt;/button&gt;
+&lt;/div&gt;
+</pre>
+			<h3>Events</h3>
+
+			<p>Fuel UX's search control exposes two events for hooking into its functionality.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Event</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>searched</td>
+					<td>This event is fired when a search has been performed. Arguments are <code>event,
+						searchText</code></td>
+				</tr>
+				<tr>
+					<td>cleared</td>
+					<td>This event is fired when the search has been cleared.</td>
+				</tr>
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+</section>
+
+<section id="select">
+	<div class="page-header">
+		<h1>Select
+			<small>select.js</small>
+		</h1>
+	</div>
+	<div class="row">
+		<div class="span12 columns">
+			<h2>Example</h2>
+
+			<p>Below is a working select example.</p>
+
+			<div class="well select-example">
+				<div id="mySelect" class="select btn-group" data-resize="auto">
+					<button type="button" data-toggle="dropdown" class="btn dropdown-toggle"><span class="dropdown-label"></span><span
+							class="caret"></span></button>
+					<ul class="dropdown-menu">
+						<li data-value="1" data-selected="true"><a href="#">Item One</a></li>
+						<li data-value="2"><a href="#">Item Two</a></li>
+						<li data-value="3" data-fizz="buzz"><a href="#">Item Three</a></li>
+						<li class="divider"></li>
+						<li data-value="4"><a href="#">Item Four</a></li>
+					</ul>
+				</div>
+				<div>
+					<input type="button" class="btn" id="select-enable" value="enable">
+					<input type="button" class="btn" id="select-disable" value="disable">
+					<input type="button" class="btn" id="select-selectByIndex" value="select by index">
+					<input type="button" class="btn" id="select-selectByText" value="select by text">
+					<input type="button" class="btn" id="select-selectByValue" value="select by value">
+					<input type="button" class="btn" id="select-selectBySelector" value="select by selector">
+					<input type="button" class="btn" id="select-logItem" value="log item to console">
+				</div>
+			</div>
+			<!-- /well -->
+
+			<hr>
+
+			<h2>Using select</h2>
+
+			<p>Call the select via javascript (optional):</p>
+			<pre class="prettyprint linenums">$('#mySelect').select()</pre>
+
+			<h3>Methods</h3>
+
+			<p>Fuel UX's select exposes the following methods:</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Method</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>disable</td>
+					<td>Disable the select</td>
+				</tr>
+				<tr>
+					<td>enable</td>
+					<td>Enable the select</td>
+				</tr>
+				<tr>
+					<td>resize</td>
+					<td>Resize the select width based on the longest item in the list. This can be accomplished
+						automatically using <code>data-resize="auto"</code> as well
+					</td>
+				</tr>
+				<tr>
+					<td>selectedItem</td>
+					<td>Returns an object containing the jQuery data() contents of the selected item <em><a
+							href="http://api.jquery.com/data/#data-html5">which includes data-* attributes</a></em> plus
+						a <code>text</code> property with the items's visible text
+					</td>
+				</tr>
+				<tr>
+					<td>selectByIndex</td>
+					<td>Set the select item based on its index in the list (zero-based index). Convenience method for
+						<code>selectBySelector('li:eq({index})')</code></td>
+				</tr>
+				<tr>
+					<td>selectByText</td>
+					<td>Set the selected item based on its text value</td>
+				</tr>
+				<tr>
+					<td>selectBySelector</td>
+					<td>Set the selected item based on a selector. For example: <code>$('#mySelect').select('selectBySelector','li[data-fizz=buzz]');</code>
+					</td>
+				</tr>
+				<tr>
+					<td>selectByValue</td>
+					<td>Set the selected item based on its value. Convenience method for <code>selectBySelector('data-value={value}')</code>
+						that requires the item to have a <code>data-value="{value}"</code> attribute
+					</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Events</h3>
+
+			<p>Fuel UX's select control exposes the following events:</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Event</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>changed</td>
+					<td>This event is fired when the selected item has changed. Arguments are <code>event, data</code>
+						where data represents the same object structure returned by the <code>selectedItem</code>
+						method.
+					</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Markup</h3>
+
+			<p>You can activate select on your page easily without having to write a single line of javascript. Just set
+				<code>class="select"</code> on a div like the example markup below and the select will activate
+				automatically.</p>
+
+
+<pre class="prettyprint linenums">
+&lt;div class="select btn-group" data-resize="auto"&gt;
+	&lt;button type=&quot;button&quot; data-toggle="dropdown" class="btn dropdown-toggle"&gt;&lt;span class="dropdown-label"&gt;&lt;/span&gt;&lt;span class="caret"&gt;&lt;/span&gt;&lt;/button&gt;
+	&lt;ul class="dropdown-menu"&gt;
+		&lt;li data-value="1"&gt;&lt;a href="#"&gt;One&lt;/a&gt;&lt;/li&gt;
+		&lt;li data-value="2"&gt;&lt;a href="#"&gt;Two&lt;/a&gt;&lt;/li&gt;
+		&lt;li data-value="3" data-selected="true"&gt;&lt;a href="#"&gt;Three&lt;/a&gt;&lt;/li&gt;
+		&lt;li data-value="4" data-fizz="buzz"&gt;&lt;a href="#"&gt;Four&lt;/a&gt;&lt;/li&gt;
+	&lt;/ul&gt;
+&lt;/div&gt;
+</pre>
+		</div>
+	</div>
+</section>
+
+<section id="spinner">
+	<div class="page-header">
+		<h1>Spinner
+			<small>spinner.js</small>
+		</h1>
+	</div>
+	<div class="row">
+		<div class="span12 columns">
+			<h2>Example</h2>
+
+			<p>Below is a working spinner example.</p>
+
+			<div class="well spinner-example">
+
+				<div id="MySpinner" class="spinner">
+					<input type="text" class="input-mini spinner-input">
+
+					<div class="spinner-buttons	 btn-group btn-group-vertical">
+						<button type="button" class="btn spinner-up">
+							<i class="icon-chevron-up"></i>
+						</button>
+						<button type="button" class="btn spinner-down">
+							<i class="icon-chevron-down"></i>
+						</button>
+					</div>
+				</div>
+
+				<div class="span8">
+					<input type="button" class="btn" id="spinner-enable" value="enable">
+					<input type="button" class="btn" id="spinner-disable" value="disable">
+					<input type="button" class="btn" id="spinner-log" value="log value to console">
+				</div>
+
+			</div>
+
+			<hr>
+
+			<h2>Using spinner</h2>
+
+			<p>Call the spinner via javascript:</p>
+			<pre class="prettyprint linenums">$('#MySpinner').spinner()</pre>
+
+			<h3>Methods</h3>
+
+			<p>Fuel UX's spinner exposes several methods for disabling, enabling, setting values, and retrieving values
+				from the spinner.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Method</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>value</td>
+					<td>Sets or returns the spinner value. As an example, <code>$('#MySpinner').spinner('value')</code>
+						would return spinner value and <code style="white-space: nowrap;">$('#MySpinner').spinner('value',
+							37)</code> would set spinner value to 37.
+					</td>
+				</tr>
+				<tr>
+					<td>disable</td>
+					<td>Disable the spinner.</td>
+				</tr>
+				<tr>
+					<td>enable</td>
+					<td>Enable the spinner.</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Options</h3>
+
+			<p>Fuel UX's spinner includes several convenient options for spinner behavioral preferences and value
+				limits.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Options</th>
+					<th>Description</th>
+					<th>Default Value</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>value</td>
+					<td>Sets the initial spinner value.</td>
+					<td><code>1</code></td>
+				</tr>
+				<tr>
+					<td>min</td>
+					<td>Sets the minimum spinner value.</td>
+					<td><code>1</code></td>
+				</tr>
+				<tr>
+					<td>max</td>
+					<td>Sets the maximum spinner value.</td>
+					<td><code>999</code></td>
+				</tr>
+				<tr>
+					<td>step</td>
+					<td>Sets the increment by which the value in the spinner will change each time the spinner buttons
+						are pressed.
+					</td>
+					<td><code>1</code></td>
+				</tr>
+				<tr>
+					<td>hold</td>
+					<td>If <code>true</code> the spinner will react to its buttons being pressed and held down.</td>
+					<td><code>true</code></td>
+				</tr>
+				<tr>
+					<td>speed</td>
+					<td>Spinner speed when buttons are held down. The options include:
+						<code>"fast","medium","slow"</code>.
+					</td>
+					<td><code>"medium"</code></td>
+				</tr>
+				<tr>
+					<td>disabled</td>
+					<td>Spinner will be disabled when it is created.</td>
+					<td><code>false</code></td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Events</h3>
+
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Event</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>changed</td>
+					<td>This event is fired when the value has changed (either by selecting an item from the list or
+						updating the input value directly). Arguments are <code>event, value</code> where value is
+						the current value of the spinner.
+					</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Markup</h3>
+
+			<p>Your spinner markup should look like the example markup below.</p>
+
+
+<pre class="prettyprint linenums">
+&lt;div id="MySpinner" class="spinner"&gt;
+	&lt;input type="text" class="input-mini spinner-input"&gt;
+	&lt;div class="spinner-buttons	btn-group btn-group-vertical"&gt;
+		&lt;button type=&quot;button&quot; class="btn spinner-up"&gt;
+			&lt;i class="icon-chevron-up"&gt;&lt;/i&gt;
+		&lt;/button&gt;
+		&lt;button type=&quot;button&quot; class="btn spinner-down"&gt;
+			&lt;i class="icon-chevron-down"&gt;&lt;/i&gt;
+		&lt;/button&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+		</div>
+	</div>
+</section>
+
+<section id="tree">
+	<div class="page-header">
+		<h1>Tree
+			<small>tree.js</small>
+		</h1>
+	</div>
+	<div class="row">
+		<div class="span12 columns">
+			<h2>Example</h2>
+
+			<p>Below is a working tree example.</p>
+
+			<div class="well tree-example">
+
+				<div id="MyTree" class="tree">
+					<div class="tree-folder" style="display:none;">
+						<div class="tree-folder-header">
+							<i class="icon-folder-close"></i>
+
+							<div class="tree-folder-name"></div>
+						</div>
+						<div class="tree-folder-content"></div>
+						<div class="tree-loader" style="display:none">
+						</div>
+					</div>
+					<div class="tree-item" style="display:none;">
+						<i class="tree-dot"></i>
+
+						<div class="tree-item-name"></div>
+					</div>
+				</div>
+
+				<div class="span8">
+										<input type="button" class="btn" id="tree-select-item" value="select nested Test Item 1">
+					<input type="button" class="btn" id="tree-selected-items" value="log selected items">
+				</div>
+
+			</div>
+
+			<hr>
+
+			<h2>Using tree</h2>
+
+			<p>Call the tree via javascript:</p>
+			<pre class="prettyprint linenums">$('#MyTree').tree({ dataSource: dataSource })</pre>
+
+			<h3>Data Source</h3>
+
+			<p>Provide a data source to the tree to supply population information and data. Your data source must
+				support the following methods.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Name</th>
+					<th style="width: 210px;">Parameters</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>data</td>
+					<td><strong>options</strong> (object), <strong>callback</strong> (function)</td>
+					<td>The <strong>options</strong> parameter contains any data required to by the data source.
+						Retrieve data then call <strong>callback</strong> with an object containing data.
+						View the source of this page for an example static data source.
+					</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Methods</h3>
+
+			<p>Fuel UX's tree exposes a method for retrieving selected items.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Method</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>selectedItems</td>
+					<td>This method returns an array containing selected items and associated data</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Options</h3>
+
+			<p>Fuel UX's tree includes several convenient options for tree behavioral preferences.</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Options</th>
+					<th>Description</th>
+					<th>Default Value</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>multiSelect</td>
+					<td>Allows multiple tree items to be selected at once.</td>
+					<td><code>false</code></td>
+				</tr>
+				<tr>
+					<td>loadingHTML</td>
+					<td>Sets the html that appears when a folder is selected and is hidden when the contents are
+						loaded.
+					</td>
+					<td><code>"Loading..."</code></td>
+				</tr>
+				<tr>
+					<td>cacheItems</td>
+					<td>When a folder is closed and re-opened sub-items will not be refreshed.</td>
+					<td><code>true</code></td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Events</h3>
+
+			<p>Fuel UX's tree control exposes the following events:</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Event</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>loaded</td>
+					<td>This event is fired when sub-content has been is loaded.</td>
+				</tr>
+				<tr>
+					<td>selected</td>
+					<td>This event is fired when item/items has been selected. An object containing <code>{info:
+						data}</code> is returned. <code>data</code> represents an array of selected items
+					</td>
+				</tr>
+				<tr>
+					<td>opened</td>
+					<td>This event is fired when a sub-folder is opened. An object containing folder information is
+						returned.
+					</td>
+				</tr>
+				<tr>
+					<td>closed</td>
+					<td>This event is fired when a sub-folder is closed. An object containing folder information is
+						returned.
+					</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Markup</h3>
+
+			<p>Your tree markup should look like the example markup below.</p>
+
+
+<pre class="prettyprint linenums">
+&lt;div id="MyTree" class="tree"&gt;
+	&lt;div class = "tree-folder" style="display:none;"&gt;
+		&lt;div class="tree-folder-header"&gt;
+			&lt;i class="icon-folder-close"&gt;&lt;/i&gt;
+			&lt;div class="tree-folder-name"&gt;&lt;/div&gt;
+		&lt;/div&gt;
+		&lt;div class="tree-folder-content"&gt;&lt;/div&gt;
+		&lt;div class="tree-loader" style="display:none"&gt;&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class="tree-item" style="display:none;"&gt;
+		&lt;i class="tree-dot"&gt;&lt;/i&gt;
+		&lt;div class="tree-item-name"&gt;&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+		</div>
+	</div>
+</section>
+
+<section id="wizard">
+	<div class="page-header">
+		<h1>Wizard
+			<small>wizard.js</small>
+		</h1>
+	</div>
+	<div class="row">
+		<div class="span12 columns">
+			<h2>Example</h2>
+
+			<p>Below is a working wizard example.</p>
+
+			<div class="well wizard-example">
+				<div id="MyWizard" class="wizard">
+					<ul class="steps">
+						<li data-target="#step1" class="active"><span class="badge badge-info">1</span>Step 1<span class="chevron"></span></li>
+						<li data-target="#step2"><span class="badge">2</span>Step 2<span class="chevron"></span></li>
+						<li data-target="#step3"><span class="badge">3</span>Step 3<span class="chevron"></span></li>
+						<li data-target="#step4"><span class="badge">4</span>Step 4<span class="chevron"></span></li>
+						<li data-target="#step5"><span class="badge">5</span>Step 5<span class="chevron"></span></li>
+					</ul>
+					<div class="actions">
+						<button type="button" class="btn btn-mini btn-prev"> <i class="icon-arrow-left"></i>Prev</button>
+						<button type="button" class="btn btn-mini btn-next" data-last="Finish">Next<i class="icon-arrow-right"></i></button>
+					</div>
+				</div>
+				<div class="step-content">
+					<div class="step-pane active" id="step1">This is step 1</div>
+					<div class="step-pane" id="step2">This is step 2</div>
+					<div class="step-pane" id="step3">This is step 3</div>
+					<div class="step-pane" id="step4">This is step 4</div>
+					<div class="step-pane" id="step5">This is step 5</div>
+				</div>
+
+				<input type="button" class="btn btn-mini" id="btnWizardPrev" value="prev">
+				<input type="button" class="btn btn-mini" id="btnWizardNext" value="next">
+				<input type="button" class="btn btn-mini" id="btnWizardStep" value="current step">
+			</div>
+			<!-- /well -->
+
+			<hr>
+
+			<h2>Using wizard</h2>
+
+			<p>Call the wizard via javascript (optional):</p>
+			<pre class="prettyprint linenums">$('#myWizard').wizard()</pre>
+
+			<h3>Methods</h3>
+
+			<p>Fuel UX's wizard exposes the following methods:</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Method</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>previous</td>
+					<td>Moves to the previous step</td>
+				</tr>
+				<tr>
+					<td>next</td>
+					<td>Moves to the next step</td>
+				</tr>
+				<tr>
+					<td>selectedItem</td>
+					<td>Returns the current step index</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Events</h3>
+
+			<p>Fuel UX's wizard control exposes the following events:</p>
+			<table class="table table-bordered table-striped">
+				<thead>
+				<tr>
+					<th style="width: 150px;">Event</th>
+					<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>change</td>
+					<td>This event fires immediately when the step changes, but before the new step has been shown. Use
+						<code>event.preventDefault</code> to cancel the event.
+					</td>
+				</tr>
+				<tr>
+					<td>changed</td>
+					<td>This event is fired when the step has changed and is shown to the user.</td>
+				</tr>
+				<tr>
+					<td>finished</td>
+					<td>This event is fired when the next button is clicked on the last step of the wizard.</td>
+				</tr>
+				<tr>
+					<td>stepclick</td>
+					<td>This event is fired when a completed step is clicked. Use
+						<code>event.preventDefault</code> to cancel the event.</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<h3>Markup</h3>
+
+			<p>You can activate wizard on your page easily without having to write a single line of javascript. Just set
+				<code>class="wizard"</code> on a div like the example markup below and the select will activate
+				automatically.</p>
+
+
+<pre class="prettyprint linenums">
+&lt;div id=&quot;MyWizard&quot; class=&quot;wizard&quot;&gt;
+	&lt;ul class=&quot;steps&quot;&gt;
+		&lt;li data-target=&quot;#step1&quot; class=&quot;active&quot;&gt;&lt;span class=&quot;badge badge-info&quot;&gt;1&lt;/span&gt;Step 1&lt;span class=&quot;chevron&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+		&lt;li data-target=&quot;#step2&quot;&gt;&lt;span class=&quot;badge&quot;&gt;2&lt;/span&gt;Step 2&lt;span class=&quot;chevron&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+		&lt;li data-target=&quot;#step3&quot;&gt;&lt;span class=&quot;badge&quot;&gt;3&lt;/span&gt;Step 3&lt;span class=&quot;chevron&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+		&lt;li data-target=&quot;#step4&quot;&gt;&lt;span class=&quot;badge&quot;&gt;4&lt;/span&gt;Step 4&lt;span class=&quot;chevron&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+		&lt;li data-target=&quot;#step5&quot;&gt;&lt;span class=&quot;badge&quot;&gt;5&lt;/span&gt;Step 5&lt;span class=&quot;chevron&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+	&lt;/ul&gt;
+	&lt;div class=&quot;actions&quot;&gt;
+		&lt;button type=&quot;button&quot; class=&quot;btn btn-mini btn-prev&quot;&gt; &lt;i class=&quot;icon-arrow-left&quot;&gt;&lt;/i&gt;Prev&lt;/button&gt;
+		&lt;button type=&quot;button&quot; class=&quot;btn btn-mini btn-next&quot; data-last=&quot;Finish&quot;&gt;Next&lt;i class=&quot;icon-arrow-right&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;step-content&quot;&gt;
+	&lt;div class=&quot;step-pane active&quot; id=&quot;step1&quot;&gt;This is step 1&lt;/div&gt;
+	&lt;div class=&quot;step-pane&quot; id=&quot;step2&quot;&gt;This is step 2&lt;/div&gt;
+	&lt;div class=&quot;step-pane&quot; id=&quot;step3&quot;&gt;This is step 3&lt;/div&gt;
+	&lt;div class=&quot;step-pane&quot; id=&quot;step4&quot;&gt;This is step 4&lt;/div&gt;
+	&lt;div class=&quot;step-pane&quot; id=&quot;step5&quot;&gt;This is step 5&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+		</div>
+	</div>
+</section>
+
+<hr>
+
+<footer>
+	<p class="pull-right"><a href="#" id="ReturnLink">Back to top</a></p>
+
+	<p>&copy; ExactTarget 2013</p>
+</footer>
+
+</div>
+
+
+<script type="text/javascript">
+
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-4655221-19']);
+	_gaq.push(['_trackPageview']);
+
+	(function () {
+		var ga = document.createElement('script');
+		ga.type = 'text/javascript';
+		ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+
+<!-- UserVoice JavaScript SDK (only needed once on a page) -->
+<script>(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/Y8PKMiXY28I2Ghs19sNsA.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})()</script>
+
+<!-- A tab to launch the Classic Widget -->
+<script>
+UserVoice = window.UserVoice || [];
+UserVoice.push(['showTab', 'classic_widget', {
+	mode: 'feedback',
+	primary_color: '#cc6d00',
+	link_color: '#007dbf',
+	forum_id: 181290,
+	tab_label: 'feedback',
+	tab_color: '#fd8e3a',
+	tab_position: 'middle-right',
+	tab_inverted: false
+}]);
+</script>
+
+<script>!function (d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (!d.getElementById(id)) {
+		js = d.createElement(s);
+		js.id = id;
+		js.src = "//platform.twitter.com/widgets.js";
+		fjs.parentNode.insertBefore(js, fjs);
+	}
+}(document, "script", "twitter-wjs");</script>
+</body>
+</html>
