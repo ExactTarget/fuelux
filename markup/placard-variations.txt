@@ -1,0 +1,3 @@
+//Text area placard
+- replace input element classed '.placard-field' with the following:
+    '<textarea class="form-control placard-field" readonly="readonly"></textarea>'
