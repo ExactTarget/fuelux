@@ -4,14 +4,14 @@
   <h1 id="selectlist" class="page-header">Selectlist <small>selectlist.js</small></h1>
 
   <h2 id="selectlist-examples">Examples</h2>
-  <p>A single select dropdown similar to the native <code>select</code> control. Wrap the input and selectlist button within <code>.fuelux .selectlist</code></p>
+  <p>A single select drop-down similar to the native <code>select</code> control. Wrap the input and selectlist button within <code>.fuelux .selectlist</code></p>
   <div class="fu-example section">
 
     <div id="MySelectlist" class="btn-group selectlist" data-initialize="selectlist" data-resize="auto">
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
         <span class="selected-label"></span>
         <span class="caret"></span>
-        <span class="sr-only">Toggle Dropdown</span>
+        <span class="sr-only">Toggle Drop-down</span>
       </button>
       <ul class="dropdown-menu" role="menu">
         <li data-value="1"><a href="#">One</a></li>
@@ -60,10 +60,10 @@
 {% endhighlight %}
 
   <h2 id="selectlist-usage">Usage</h2>
-  <p>This is a single select dropdown similar to the native <code>select</code> control.</p>
+  <p>This is a single select drop-down similar to the native <code>select</code> control.</p>
 
   <h3>Via data-attributes</h3>
-  <p>The selectlist will automatically instantiate any selectlists with <code>data-initialize="selectlist"</code>. If the control markup is added <i>after page load</i> with <code>data-initialize="selectlist"</code>, this control will be initialized on <code>mousedown</code>.
+  <p>The selectlist will automatically instantiate any selectlists with <code>data-initialize="selectlist"</code>. If you add control markup <i>after page load</i> with <code>data-initialize="selectlist"</code>, this control initializes on <code>mousedown</code>.
 
   <h3>Via JavaScript</h3>
   <p>Call the selectlist control via JavaScript:</p>
@@ -87,7 +87,7 @@
 
   <h3>Methods</h3>
   <h4>$().selectlist()</h4>
-  Attaches selectlist to an input and a button group.
+  Attaches selectlist to an input and a button group
   
   <h4>.seleclist('destroy')</h4>
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
@@ -102,7 +102,7 @@
   {% highlight js %}$('#element').selectlist('enable');{% endhighlight %}
 
   <h4>.selectlist('selectedItem')</h4>
-  <p>Returns an object containing the jQuery data() contents of the selected item which includes <code>.data-*</code> attributes plus a text property with the items's visible text.</p>
+  <p>Returns an object containing the jQuery data() contents of the selected item. This data includes <code>.data-*</code> attributes plus a text property with the visible text from the item.</p>
   {% highlight js %}$('#element').selectlist('selectedItem');{% endhighlight %}
 
   <h4>.selectlist('selectByIndex')</h4>
@@ -114,11 +114,11 @@
   {% highlight js %}$('#element').('selectByText', 'Four');{% endhighlight %}
 
   <h4>.selectlist('selectBySelector')</h4>
-  <p>Set the selected item based on a selector.</p>
+  <p>Set the selected item based on a selector</p>
   {% highlight js %}$('#element').('selectBySelector', 'li[data-fizz=buzz]');{% endhighlight %}
 
   <h4>.selectlist('selectByValue')</h4>
-  <p>Set the selected item based on its value. Convenience method for <code>.selectBySelector('data-value={value}')</code> that requires the item to have a <code>.data-value="{value}"</code> attribute</p>
+  <p>Set the selected item based on its value. Convenience method for <code>.selectBySelector('data-value={value}')</code> that requires the item to include a <code>.data-value="{value}"</code> attribute</p>
   {% highlight js %}$('#element').('selectByValue', '1');{% endhighlight %}
 
 
@@ -134,7 +134,7 @@
       <tbody>
         <tr>
           <td>changed.fu.selectlist</td>
-          <td>This event is fired when the value has changed by selecting an item from the list. Arguments are <code>event, data</code> where data represents the same object structure returned by the <code>selectedItem</code> method.</td>
+          <td>This event fires when the value changes by selecting an item from the list. Arguments include <code>event, data</code> where data represents the same object structure returned by the <code>selectedItem</code> method.</td>
         </tr>
       </tbody>
     </table>

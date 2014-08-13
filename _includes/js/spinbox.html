@@ -4,7 +4,7 @@
   <h1 id="spinbox" class="page-header">Spinbox<small> spinbox.js</small></h1>
 
   <h2 id="spinbox-examples">Example</h2>
-  <p>Spinbox is an enhanced numeric input based upon the native <code>&lt;input type=&quot;number&quot;&gt;</code>. Wrap the input and the increment/decrement buttons within <code>.fuelux .spinbox</code></p>
+  <p>Spinbox includes an enhanced numeric input based upon the native <code>&lt;input type=&quot;number&quot;&gt;</code>. Wrap the input and the increment/decrement buttons within <code>.fuelux .spinbox</code></p>
   
   <div class="fu-example section">
 
@@ -82,7 +82,7 @@
   <p>A spinbox allows for click interaction with a numeric input.</p>
 
   <h3>Via data-attributes</h3>
-  <p>The spinbox will automatically instantiate any spinbox with <code>data-initialize="spinbox"</code>. If the control markup is added <i>after page load</i> with <code>data-initialize="selectlist"</code>, this control will be initialized on <code>mousedown</code>.
+  <p>The spinbox will automatically instantiate any spinbox with <code>data-initialize="spinbox"</code>. If you add control markup <i>after page load</i> with <code>data-initialize="selectlist"</code>, this control initializes on <code>mousedown</code>.
 
   <h3>Via JavaScript</h3>
   <p>Call the selectlist control via JavaScript:</p>
@@ -113,11 +113,11 @@
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
   {% highlight js %}$('#element').spinbox('destroy');{% endhighlight %}
   <h4>.spinbox('value')</h4>
-  <p>Sets or returns the spinner value. As an example:</p>
+  <p>Sets or returns the spinner value, as shown in the example below:</p>
   {% highlight js %}$('#element').combobox('value') {% endhighlight %}
-  <p>would return the current value of the spinbox and</p>
+  <p>This example would return the current value of the spinbox and</p>
   {% highlight js %}$('#element').combobox('value', 37) {% endhighlight %}
-  <p>would set the current value to 37. If value contains units it will be returned as a string, otherwise it will be returned as a number</p>
+  <p>would set the current value to 37. If value contains units, the value returns as a string. Otherwise, the value returns as a number.</p>
 
   <h3>Options</h3>
   <p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-selected=""</code>.</p>
@@ -136,49 +136,49 @@
           <td>value</td>
           <td>number</td>
           <td>1</td>
-          <td>Sets the initial spinner value.</td>
+          <td>Sets the initial spinner value</td>
         </tr>
         <tr>
           <td>min</td>
           <td>number</td>
           <td>1</td>
-          <td>Sets the minimum spinner value.</td>
+          <td>Sets the minimum spinner value</td>
         </tr>
         <tr>
           <td>max</td>
           <td>number</td>
           <td>999</td>
-          <td>Sets the maximum spinner value.</td>
+          <td>Sets the maximum spinner value</td>
         </tr>
         <tr>
           <td>step</td>
           <td>number</td>
           <td>1</td>
-          <td>Sets the increment by which the value in the spinner will change each time the spinner buttons are pressed.</td>
+          <td>Sets the increment by which the value in the spinner will change each time the spinner buttons are pressed</td>
         </tr>
         <tr>
           <td>hold</td>
           <td>boolean</td>
           <td>true</td>
-          <td>If <code>true</code> the spinner will react to its buttons being pressed and held down.</td>
+          <td>If <code>true</code>, the spinner will react to its buttons being pressed and held down</td>
         </tr>
         <tr>
           <td>hold</td>
           <td>boolean</td>
           <td>true</td>
-          <td>If <code>true</code> the spinner will react to its buttons being pressed and held down.</td>
+          <td>If <code>true</code>, the spinner will react to its buttons being pressed and held down</td>
         </tr>
         <tr>
           <td>speed</td>
           <td>string</td>
           <td>"medium"</td>
-          <td>Spinner speed when buttons are held down. The options include: <code>"fast","medium","slow".</code></td>
+          <td>Assigns spinner speed when buttons are held down. Options include <code>"fast","medium","slow".</code></td>
         </tr>
         <tr>
           <td>disabled</td>
           <td>boolean</td>
           <td>false</td>
-          <td>Spinner will be disabled when it is created.</td>
+          <td>Creates a disables spinner.</td>
         </tr>
         <tr>
           <td>units</td>
@@ -202,7 +202,7 @@
       <tbody>
       <tr>
         <td>changed.fu.spinbox</td>
-        <td>This event is fired when the value has changed (either by selecting an item from the list or updating the input value directly). Arguments are event, value where value is the current value of the spinner. Current value of the spinner is returned.</td>
+        <td>This event fires when the value changes (either by selecting an item from the list or updating the input value directly). Arguments include <code>event, value</code> where value is the current value of the spinner. Returns the current value of the spinner.</td>
       </tr>
       </tbody>
     </table>

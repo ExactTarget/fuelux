@@ -1,7 +1,7 @@
 <!-- repeater list
 ================================================== -->
 <h2 id="bundled-extensions-list">Repeater List View</h2>
-<p>The repeater list view plugin will render data in a tabular format, with many options and methods to suit your
+<p>The repeater list view plug-in will render data in a tabular format and provide many options and methods to suit your
 	needs.
 </p>
 
@@ -109,12 +109,11 @@
 </div>
 
 <h3>Usage</h3>
-<p>The repeater view plugin extends repeater functionality, so it's usage follows the steps specified in the repeater
-	docs. It also provides the following additional features:</p>
+<p>The repeater view plug-in extends repeater functionality. This plug-in follows the steps specified in the repeater
+	docs. You can also use the following additional features:</p>
 
 <h3>Data Source</h3>
-<p>The <a href="">dataSource</a> function works the same as described in the repeater docs, but requires a few additional parameters
-	on the returned <code>data</code> object to render the data properly. Here are those additional attributes:
+<p>The <a href="">dataSource</a> function functions as described in the repeater docs. However, the function requires a few additional parameters on the returned <code>data</code> object to render the data properly:
 </p>
 <div class="table-responsive">
 	<table class="table table-bordered table-striped">
@@ -129,15 +128,13 @@
 			<tr>
 				<td>columns</td>
 				<td>array</td>
-				<td>Array of objects representing the desired columns within the rendered list. The column objects have
-					three attributes, <code>label</code>, <code>property</code>, and <code>sortable</code>. The <code>label</code>
-					attribute can be either a string or jQuery object, and is the displayed column "name" content. The
-					<code>property</code> is a string, and represents the column's "value", which is used to link it to
-					item information that will be displayed within that column. The <code>sortable</code> attribute is an
-					optional boolean or string that dictates whether or not that column can be sorted on by the user. If
-					set to <code>true</code>, the column will be sorted based on this object's <code>property</code> value.
-					If instead set to a string, the column will be sorted based on the string value specified. Default is
-					<code>false</code>.<br/>
+				<td>Array of objects representing the desired columns within the rendered list. The column objects contain
+					three attributes:
+					<ul>
+						<li><code>label</code> - String or jQuery attribute containing the name content for the displayed column</li>
+						<li><code>property</code> - String value containing column value with link to item information displayed within that column</li>
+						<li><code>sortable</code> - Optional Boolean or string value dictating whether user can sort column. A true value indicates sorting on the <code>property</code> value. A string value sorts on the specified value. This attribute defaults to <code>false</code>.</li>
+					</ul>
 					(ex: <code>[ { label: 'Name', property: 'name', sortable: true }, ... ]</code> )
 				</td>
 			</tr>
@@ -145,8 +142,7 @@
 				<td>items</td>
 				<td>array</td>
 				<td>Array of objects representing the item data that will be displayed within the repeater. The item
-					objects can contain any number of attributes they desire, however for the information to be displayed
-					within a column the attribute name must match the column <code>property</code> value.
+					objects can contain any number of attributes. The attribute name must match the column <code>property</code> value to display within a column.
 				</td>
 			</tr>
 		</tbody>
@@ -154,7 +150,7 @@
 </div><!-- ./fu-table-responsive -->
 
 <h3>Options</h3>
-<p>Options can be passed via Javascript upon initialization.</p>
+<p>You can pass options via Javascript upon initialization.</p>
 <div class="table-responsive">
 	<table class="table table-bordered table-striped">
 		<thead>
@@ -170,27 +166,22 @@
 				<td>list_columnRendered</td>
 				<td>function</td>
 				<td>null</td>
-				<td>If set, this function will be called after the repeater renders each column. Passes a <code>helpers</code>
-					object and <code>callback</code> function as arguments. The <code>helpers</code> object has
-					the parent <code>container</code> and current column <code>item</code> as attributes, if available.
-					Once ready, the <code>callback</code> function must be called in order to continue with rendering.
+				<td>If set, the repeater calls this function after the repeater renders each column. This function passes a <code>helpers</code> object and <code>callback</code> function as arguments. The <code>helpers</code> object includes the parent <code>container</code> and current column <code>item</code> as attributes, if available. Once ready, call the <code>callback</code> function to continue rendering.
 				</td>
 			</tr>
 			<tr>
 				<td>list_columnSizing</td>
 				<td>boolean</td>
 				<td>true</td>
-				<td>Dictates whether the repeater should run the intelligent column resizing algorithm. Accounts for
-					columns with set widths, only sizing those without. Setting this to <code>false</code> will disable
-					this feature entirely.
+				<td>Dictates whether the repeater should run the intelligent column resizing algorithm. This feature only resizes columns without a set value.. Setting the value to <code>false</code> will disable this feature entirely.
 				</td>
 			</tr>
 			<tr>
 				<td>list_columnSyncing</td>
 				<td>boolean</td>
 				<td>true</td>
-				<td>Dictates whether the repeater should run the post-render column syncing algorithm. This modifies
-					column header widths to match column widths that have expanded due to content. Setting this to
+				<td>Dictates whether the repeater should run the post-render column syncing algorithm. This feature modifies
+					column header widths to match column widths that expanded due to content. Setting the value to
 					<code>false</code> will disable this feature entirely.
 				</td>
 			</tr>
@@ -199,16 +190,16 @@
 				<td>boolean or object</td>
 				<td>false</td>
 				<td>Dictates whether the repeater list view should utilize infinite scrolling instead of pagination.
-					If set to <code>true</code>, infinite scrolling will be enabled with default settings. Additionally,
-					it can be set to an object with attributes matching the options available in the infinite scroll
-					control for further customization. (dataSource option will be ignored)
+					A <code>true</code> value enables infinite scrolling with default settings. Additionally,
+					you can set this value to an object with attributes matching the options available in the infinite scroll
+					control. This option allows for further customization and ignores the dataSource option.
 				</td>
 			</tr>
 			<tr>
 				<td>list_noItemsHTML</td>
 				<td>string or jQuery object</td>
 				<td>''</td>
-				<td>Specifies what gets displayed if there are no items returned from the dataSource. Can be a
+				<td>Specifies what information displays if items return from the dataSource. You can use a
 					<code>string</code> or <a href="http://learn.jquery.com/using-jquery-core/jquery-object/">jQuery object</a>.
 				</td>
 			</tr>
@@ -216,27 +207,29 @@
 				<td>list_selectable</td>
 				<td>boolean or string</td>
 				<td>false</td>
-				<td>Specifies whether the rendered items rows can be selectable. If set to <code>true</code>, only
-					one row can be selected at a time. If set to <code>'multi'</code>, multiple rows can be selected
-					at once.
+				<td>Specifies whether a user can select rendered items rows. If you set the value to <code>true</code>, users can select only one row at a time. If you set the value to <code>'multi'</code>, users can select multiple rows at once.
 				</td>
 			</tr>
 			<tr>
 				<td>list_sortClearing</td>
 				<td>boolean</td>
 				<td>false</td>
-				<td>Specifies whether sortable columns can be "cleared" by a third click (ex: one click, sort ASC.
-					second click, sort DESC. third click, no sorting)
+				<td>Specifies whether users can clear sortable columns with a third click:
+				<ul>
+					<li>one click, sort ASC.</li>
+					<li>second click, sort DESC</li>
+					<li>third click, no sorting</li>
+				</ul>
 				</td>
 			</tr>
 			<tr>
 				<td>list_rowRendered</td>
 				<td>function</td>
 				<td>null</td>
-				<td>If set, this function will be called after the repeater renders each row. Passes a <code>helpers</code>
-					object and <code>callback</code> function as arguments. The <code>helpers</code> object has
+				<td>The code calls this function after the repeater renders each row. This function sasses a <code>helpers</code>
+					object and <code>callback</code> function as arguments. The <code>helpers</code> object includes
 					the parent <code>container</code> and current row <code>item</code> as attributes, if available.
-					Once ready, the <code>callback</code> function must be called in order to continue with rendering.
+					Once ready, call the <code>callback</code> function in order to continue with rendering.
 				</td>
 			</tr>
 		</tbody>
@@ -246,17 +239,16 @@
 <h3>Methods</h3>
 
 <h4>.repeater('clearSelectedItems');</h4>
-<p>Clears any currently selected row items. Note: selectable row items only possible with the <code>list_selectable</code> option enabled.</p>
+<p>Clears any currently selected row items. You can use selectable row items only by enabling the <code>list_selectable</code> option.</p>
 {% highlight js %}$('#element').repeater('clearSelectedItems');{% endhighlight %}
 
 <h4>.repeater('getSelectedItems');</h4>
-<p>Returns the currently selected row items in an array. Note: selectable row items only possible with the <code>list_selectable</code>
-	option enabled.
+<p>Returns the currently selected row items in an array. You can use selectable row items only by enabling the <code>list_selectable</code> option.
 </p>
 {% highlight js %}$('#element').repeater('getSelectedItems');{% endhighlight %}
 
 <h4>.repeater('setSelectedItems');</h4>
-<p>Set the selected row items for the current displayed data. Accepts an array of <code>items</code> objects and
+<p>Set the selected row items for the current displayed data. This function accepts an array of <code>items</code> objects and
 	<code>force</code> boolean as arguments.
 </p>
 {% highlight js %}$('#element').repeater('setSelectedItems', [ {...}, ...]);{% endhighlight %}
@@ -272,21 +264,16 @@
 		<tbody>
 			<tr>
 				<td>items</td>
-				<td><i>Required.</i> Array of items objects. The items objects specify which item to select, with attributes
-					to identify the item. If the items object contains an <code>index</code> property, it will select the matching
-					item index within the currently displayed data. If the items object contains a <code>property</code> attribute
-					and <code>value</code> attribute, it will select items with <code>properties</code> matching the specified
-					<code>value</code>.<br/>
-					(ex: <code>[ { index: 4 }, { property: 'name', value: 'Pikachu' } ]</code> )
+				<td><i>Required</i> Array of items objects. The items objects specify which item to select with attributes
+					to identify the item. If the items object contains an <code>index</code> property, that items object will select the matching item index within the currently displayed data. If the items object contains a <code>property</code> attribute and <code>value</code> attribute, that items object will select items with <code>properties</code> matching the specified <code>value</code>.<br/> (ex: <code>[ { index: 4 }, { property: 'name', value: 'nameValue' } ]</code> )
 				</td>
 			</tr>
 			<tr>
 				<td>force</td>
-				<td><i>Optional.</i> Boolean specifying whether to ignore current <code>list_selectable</code> mode when
-					selecting items. By default, this value is <code>false</code>, meaning only one item can be selected
-					at any time if <code>list_selectable</code> does not equal <code>multi</code>, regardless of how many items
-					are passed into the items array parameter. Setting it to <code>true</code> overrides this behavior
-					to guarantee all provided items are selected.
+				<td><i>Optional</i> Boolean specifying whether to ignore current <code>list_selectable</code> mode when
+					selecting items. This value defaults to <code>false</code> and allows only one selectable item if <code>list_selectable</code> does not equal <code>multi</code>, regardless of how many items
+					are passed into the items array parameter. Set the value to <code>true</code> to override this behavior
+					and select all provided items.
 				</td>
 			</tr>
 		</tbody>

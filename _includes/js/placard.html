@@ -4,7 +4,7 @@
   <h1 id="placards" class="page-header">Placards <small>placard.js</small></h1>
 
   <h2 id="placards-examples">Examples</h2>
-  <p>Adds a popup element to inputs/textareas on focus, with additional options for explicit accept/cancel actions.</p>
+  <p>Adds a pop-up element to inputs/textareas on focus with additional options for explicit accept/cancel actions.</p>
 
   <div class="fu-example section">
 {% include js/placard-example.html %}
@@ -13,12 +13,11 @@
   <h2 id="placards-usage">Usage</h2>
 
   <h3>Via data-attributes</h3>
-  <p>The placard will automatically instantiate any placard with <code>data-initialize="placard"</code>. If the control markup is added <i>after page load</i> with <code>data-initialize="placard"</code>, this control will be initialized on <code>focus</code>.
+  <p>The placard will automatically instantiate any placard with <code>data-initialize="placard"</code>. If you add the control markup <i>after page load</i> with <code>data-initialize="placard"</code>, this control initialize on <code>focus</code>.
 
-  <p>Add <code>data-ellipsis="true"</code> to the placard element in order to enable ellipsis for overflow on the
-    input or textarea. NOTE: for textareas, Javascript is used to enable ellipsis. Make sure to use the
-    <code>.('getValue');</code> and <code>.('setValue');</code> methods for retrieving/setting value, as it is
-    manipulated upon focus gain/loss. Also, performance drops with larger textareas when ellipsis is enabled.
+  <p>Add <code>data-ellipsis="true"</code> to the placard element to enable ellipsis for overflow on the
+    input or textarea. This function uses Javascript to enable ellipsis for textareas. Use the
+    <code>.('getValue');</code> and <code>.('setValue');</code> methods to retrieve or set values upon focus gain/loss. Performance drops with larger textareas when ellipsis is enabled.
   </p>
 
   <h3>Via JavaScript</h3>
@@ -66,7 +65,7 @@
 {% endhighlight %}
 
   <h3>Options</h3>
-  <p>Options can be passed via Javascript upon initialization.</p>
+  <p>You can pass options via Javascript upon initialization.</p>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>
@@ -82,20 +81,18 @@
           <td>onAccept</td>
           <td>function</td>
           <td>undefined</td>
-          <td>Function to be called when the user indicates they want to <code>'accept'</code> changes. A
+          <td>Call this function when the user indicates they want to <code>'accept'</code> changes. Passes a
             <code>helpers</code> object containing <code>previousValue</code> and current
-            <code>value</code> is passed as an argument. The default accept behaviors will not occur, leaving
-            it up to the developer to determine what happens next. Useful for validation purposes.
+            <code>value</code> as an argument. The default accept behaviors will not occur, so you can determine what happens next. Useful for validation purposes.
           </td>
         </tr>
         <tr>
           <td>onCancel</td>
           <td>function</td>
           <td>undefined</td>
-          <td>Function to be called when the user indicates they want to <code>'cancel'</code> changes. A
+          <td>Call this function when the user indicates they want to <code>'cancel'</code> changes. Passes a
             <code>helpers</code> object containing <code>previousValue</code> and current
-            <code>value</code> is passed as an argument. The default cancel behaviors will not occur, leaving
-            it up to the developer to determine what happens next. Useful for validation purposes.
+            <code>value</code> as an argument. The default cancel behaviors will not occur, so you can determine what happens next. Useful for validation purposes.
           </td>
         </tr>
         <tr>
@@ -109,8 +106,7 @@
           <td>array</td>
           <td>[ ]</td>
           <td>Array of <a href="http://api.jquery.com/category/selectors/">jQuery selector</a> strings. Anything that matches the selector (searched
-            globally) will not be counted as an external click. Useful for allowing other items to be clicked
-            without dismissing the placard.
+            globally) will not count as an external click. Allows other items to be clicked without dismissing the placard.
           </td>
         </tr>
         <tr>
@@ -134,22 +130,22 @@
 
   <h3>Methods</h3>
   <h4>$().placard();</h4>
-  Attaches placard to the placard markup.
+  Attaches placard to the placard markup
 
   <h4>.placard('destroy')</h4>
-  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
+  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup</p>
   {% highlight js %}$('#element').placard('destroy');{% endhighlight %}
 
   <h4>.placard('getValue');</h4>
-  <p>Gets the current actual placard value.</p>
+  <p>Gets the current actual placard value</p>
   {% highlight js %}$('#element').placard('getValue');{% endhighlight %}
 
   <h4>.placard('hide');</h4>
-  <p>Hides the placard popup.</p>
+  <p>Hides the placard pop-up</p>
   {% highlight js %}$('#element').placard('hide');{% endhighlight %}
 
   <h4>.placard('setValue');</h4>
-  <p>Sets the current actual placard value.</p>
+  <p>Sets the current actual placard value</p>
   {% highlight js %}$('#element').placard('setValue');{% endhighlight %}
 
   <div class="table-responsive">
@@ -163,14 +159,14 @@
       <tbody>
         <tr>
           <td>value</td>
-          <td><i>Required.</i> String or number that the placard value will be set to.</td>
+          <td><i>Required.</i> String or number used to set the placard value.</td>
         </tr>
       </tbody>
     </table>
   </div><!-- ./fu-table-responsive -->
 
   <h4>.placard('show');</h4>
-  <p>Shows the placard popup.</p>
+  <p>Shows the placard pop-up.</p>
   {% highlight js %}$('#element').placard('show');{% endhighlight %}
 
   <h3>Events</h3>
@@ -185,23 +181,23 @@
       <tbody>
         <tr>
           <td>accept.fu.placard</td>
-          <td>Fired when the user indicates the desire to 'accept' changes. If using the <code>onAccept</code>
-            option, this event fires after that function is called.
+          <td>Fires when the user indicates the desire to 'accept' changes. If you use the <code>onAccept</code>
+            option, this event fires after calling that function.
           </td>
         </tr>
         <tr>
           <td>cancel.fu.placard</td>
-          <td>Fired when the user indicates the desire to 'cancel' changes. If using the <code>onCancel</code>
-            option, this event fires after that function is called.
+          <td>Fires when the user indicates the desire to 'cancel' changes. If you use the <code>onCancel</code>
+            option, this event fires after calling that function \.
           </td>
         </tr>
         <tr>
           <td>hide.fu.placard</td>
-          <td>Fired when the placard is dismissed and the popup dissapears.</td>
+          <td>Fires when you dismiss the placard and the popup disappears.</td>
         </tr>
         <tr>
           <td>show.fu.placard</td>
-          <td>Fired when the placard obtains focus and the popup appears.</td>
+          <td>Fires when the placard obtains focus and the popup appears.</td>
         </tr>
       </tbody>
     </table>

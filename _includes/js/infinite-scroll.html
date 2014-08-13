@@ -13,7 +13,7 @@
   </div>
 
   <h2 id="infinite-scrolling-usage">Usage</h2>
-  <p>The infinite scroll control does not have an initializing data-API due to its dependency on a <code>dataSource.</code></p>
+  <p>The infinite scroll control does not use an initializing data API due to its dependency on a <code>dataSource.</code></p>
 
   <p>Initialize the infinite scroll via JavaScript:</p>
 {% highlight js %}
@@ -33,7 +33,7 @@ $('#MyInfiniteScroll').infinitescroll({
 
   <h3>Scripting</h3>
 
-  <p>The following is the JavaScript associated with the examples above.</p>
+  <p>The following sample code displays the JavaScript associated with the previousexamples above:</p>
 
   <div class="truncate-highlight">
   {% highlight js %}
@@ -43,7 +43,7 @@ $('#MyInfiniteScroll').infinitescroll({
 
 
   <h3>Options</h3>
-  <p>Options can be passed via Javascript upon initialization.</p>
+  <p>You can pass options via Javascript upon initialization.</p>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>
@@ -59,32 +59,37 @@ $('#MyInfiniteScroll').infinitescroll({
         <td>dataSource</td>
         <td>function</td>
         <td>null</td>
-        <td>Called whenever the user scrolls the specified percentage to the bottom. Arguments passed
-          are a <code>helpers</code> object and <code>callback</code> function. The <code>helpers</code>
+        <td>Called whenever the user scrolls the specified percentage towards the bottom. Arguments passed
+          include a <code>helpers</code> object and <code>callback</code> function. The <code>helpers</code>
           object contains current <code>percentage</code> and <code>scrollTop</code> values. The
-          <code>callback</code> function is used to append more content to the element. Pass an object
-          back within the <code>callback</code> function structured as follows: <code>{ content: '...' }</code>
-          If you have no more additonal content to append, add the attribute <code>end: true</code> to that
-          object, which will append <code>'---------'</code> by default and prevent further dataSource calls. Passing a
-          string value for the <code>end</code> attribute will append that string instead of the default.
+          <code>callback</code> function appends more content to the element. Pass an object
+          back within the <code>callback</code> function structured as follows: 
+
+          <code>{ content: '...' }</code>
+          
+          If you append no additonal content, add the attribute <code>end: true</code> to that
+          object. This code will append <code>'---------'</code> by default and prevent further dataSource calls. Pass a
+          string value for the <code>end</code> attribute to append that string instead of the default.
         </td>
       </tr>
       <tr>
         <td>hybrid</td>
         <td>boolean OR object</td>
         <td>false</td>
-        <td>Sets whether to use "hybrid mode," which requires the user to click a button before loading
-          additional content. If set to <code>true</code>, a default "load more" icon will be used within
-          the button. Additionally, it can be set to an object with the following structure:
-          <code>{ label: (string or jQuery obj) }</code> The <code>label</code> attribute's value will
-          then be appended within the button instead of the default icon.
+        <td>Indicates whether the code will use "hybrid mode" and require the user to click a button before loading
+          additional content. If set to <code>true</code>, the code will use a default "load more" icon within
+          the button. Additionally, you can set the control to an object with the following structure:
+          
+          <code>{ label: (string or jQuery obj) }</code>
+
+          The code will then append the <code>label</code> attribute value within the button instead of the default icon.
         </td>
       </tr>
       <tr>
         <td>percentage</td>
         <td>number</td>
         <td>95</td>
-        <td>Percentage scrolled to the bottom before the dataSource function is called for more content.</td>
+        <td>Percentage scrolled to the bottom before calling the dataSource function for more content</td>
       </tr>
       </tbody>
     </table>
@@ -99,15 +104,15 @@ $('#MyInfiniteScroll').infinitescroll({
   {% highlight js %}$('#element').infinitescroll('destroy');{% endhighlight %}
 
   <h4>.infinitescroll('disable');</h4>
-  <p>Disables the infinite scrolling region.</p>
+  <p>Disables the infinite scrolling region</p>
   {% highlight js %}$('#element').infinitescroll('disable');{% endhighlight %}
 
   <h4>.infinitescroll('enable');</h4>
-  <p>Enables the infinite scrolling region.</p>
+  <p>Enables the infinite scrolling region</p>
   {% highlight js %}$('#element').infinitescroll('enable');{% endhighlight %}
 
   <h4>.infinitescroll('end');</h4>
-  <p>Disables the infinite scrolling region and appends an "end" indicator.</p>
+  <p>Disables the infinite scrolling region and appends an "end" indicator</p>
   {% highlight js %}$('#element').infinitescroll('end');{% endhighlight %}
 
   <div class="table-responsive">
@@ -121,7 +126,7 @@ $('#MyInfiniteScroll').infinitescroll({
       <tbody>
       <tr>
         <td>content</td>
-        <td><i>Optional.</i> String or jQuery object that is appended as an "end" indicator. Default is <code>'---------'</code></td>
+        <td><i>Optional.</i> String or jQuery object appended as an "end" indicator. Defaults to <code>'---------'</code></td>
       </tr>
       </tbody>
     </table>
@@ -143,7 +148,7 @@ $('#MyInfiniteScroll').infinitescroll({
       <tr>
         <td>force</td>
         <td><i>Optional.</i> Boolean dictating whether to bypass the button click in hybrid mode and immediately
-          call dataSoruce for more content. Default is <code>false</code>
+          call dataSoruce for more content. Defaults to <code>false</code>
         </td>
       </tr>
       </tbody>
