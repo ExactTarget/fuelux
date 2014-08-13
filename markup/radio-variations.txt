@@ -5,9 +5,9 @@
 //Disabled when initialized:
 - add 'disabled="disabled"' attribute to input
 
-//Toggling checkboxes:
+//Toggling radios:
 - add 'data-toggle="{{selector}}"' attribute to input. This will toggle the matching selector's visibility on check / uncheck
     (ex: 'data-toggle="#myTogglingBox"')
 
-//Highlighting checkboxes:
-- add 'highlight' class to block wrapper or input for inline. This will highlight the checkbox on check / uncheck.
+//Highlighting radios:
+- add 'highlight' class to block wrapper or input for inline. This will highlight the radio on check / uncheck.
