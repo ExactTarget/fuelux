@@ -67,7 +67,7 @@
 			var loader = $parent.find('.tree-loader:eq(0)');
 
 			loader.removeClass('hide');
-			this.options.dataSource($el.data(), function (items) {
+			this.options.dataSource( this.options.folderSelect ? $parent.data() : $el.data(), function (items) {
 				loader.addClass('hide');
 
 				$.each( items.data, function(index, value) {
