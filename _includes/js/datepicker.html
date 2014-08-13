@@ -5,7 +5,7 @@
 	<h2 id="datepickers-examples">Examples</h2>
 	<p>Choose a date from a calendar dropdown, with input parsing and formatting. Works with moment.js for extended functionality.</p>
 
-	<p>To support various date formats around the world, datepicker has an optional dependency on <a href="http://momentjs.com/">moment.js</a>. <a href="http://momentjs.com/downloads/moment-with-langs.js">Download moment.js (with languages).</a></p>
+	<p>To support various date formats around the world, datepicker has an optional dependency on <a href="http://momentjs.com/">moment.js</a>. <a href="https://github.com/moment/moment/tree/master/min">Download moment.js (with locales).</a></p>
 	<div class="fu-example section">
 {% include js/datepicker-example.html %}
 	</div><!-- /example -->
@@ -21,10 +21,12 @@
 
 	<h3>Markup</h3>
 	<p>Add <code>class="datepicker"</code> to an input and a dropdown within a <code>class="fuelux"</code> container.</p>
+	<div class="truncate-highlight">
 {% highlight html %}
 {% include js/datepicker-example.html %}
 {% endhighlight %}
-
+	</div>
+	
 	<h3>Options</h3>
 	<p>Options can be passed via Javascript upon initialization.</p>
 	<div class="table-responsive">
