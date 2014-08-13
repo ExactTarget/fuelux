@@ -62,7 +62,6 @@ a:focus
 /*
  * Main navigation
  *
- * Turn the `.navbar` at the top of the docs purple.
  */
 
 .fu-docs-nav {
@@ -87,6 +86,10 @@ a:focus
 	color: #fff;
 	background-color: #1f2f3f;
 }
+.fu-docs-nav .nav > li > a:focus {
+	background-color: #3e5265;
+}
+
 .fu-docs-nav .navbar-toggle .icon-bar {
 	background-color: #eee;
 }
