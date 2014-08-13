@@ -809,14 +809,11 @@ $('#MyScheduler').on('changed.fu.scheduler', function(){
 								'</div>';
 
 	$('#btnWizardAddSteps').on('click', function() {
-		$('#MyWizard').wizard('addSteps', 2, 0, 
-			[
-			{
-				badge: '',
-				label: 'Setup',
-				pane: emailSetupSamplePane
-			}
-		]);
+		$('#MyWizard').wizard('addSteps', 2, [{
+			badge: '',
+			label: 'Setup',
+			pane: emailSetupSamplePane
+		}]);
 	});
 
 	$('#btnWizardRemoveStep').on('click', function() {
