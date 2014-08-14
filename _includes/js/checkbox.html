@@ -34,25 +34,25 @@
     </div>
   </div>
 {% highlight html %}
-<div id="myCheckbox" class="checkbox">
+<div class="checkbox" id="myCheckbox">
   <label class="checkbox-custom" data-initialize="checkbox">
     <input class="sr-only" type="checkbox" value="">
     <span class="checkbox-label">Custom checkbox unchecked on page load</span>
   </label>
 </div>
-<div class="checkbox">
+<div class="checkbox" id="myCheckbox2">
   <label class="checkbox-custom" data-initialize="checkbox">
     <input class="sr-only" checked="checked" type="checkbox" value="">
     <span class="checkbox-label">Custom checkbox checked on page load</span>
   </label>
 </div>
-<div class="checkbox">
+<div class="checkbox" id="myCheckbox3">
   <label class="checkbox-custom" data-initialize="checkbox">
     <input class="sr-only" disabled="disabled" type="checkbox" value="">
     <span class="checkbox-label">Disabled custom checkbox unchecked on page load</span>
   </label>
 </div>
-<div class="checkbox">
+<div class="checkbox" id="myCheckbox4">
   <label class="checkbox-custom" data-initialoze="checkbox">
     <input class="sr-only" checked="checked" disabled="disabled" type="checkbox" value="">
     <span class="checkbox-label">Disabled custom checkbox checked on page load</span>
@@ -74,13 +74,13 @@
     </label>
   </div>
 {% highlight html %}
-<label id="myCheckbox" class="checkbox-custom checkbox-inline" data-initialize="checkbox">
+<label class="checkbox-custom checkbox-inline" data-initialize="checkbox"  id="myCheckbox5">
   <input class="sr-only" type="checkbox" value="option1"> <span class="checkbox-label">1</span>
 </label>
-<label class="checkbox-custom checkbox-inline" data-initialize="checkbox">
+<label class="checkbox-custom checkbox-inline" data-initialize="checkbox"  id="myCheckbox6">
   <input class="sr-only" checked="checked" type="checkbox" value="option2"> <span class="checkbox-label">2</span>
 </label>
-<label class="checkbox-custom checkbox-inline" data-initialize="checkbox">
+<label class="checkbox-custom checkbox-inline" data-initialize="checkbox"  id="myCheckbox7">
   <input class="sr-only" disabled="disabled" type="checkbox" value="option3"> <span class="checkbox-label">3</span>
 </label>
 {% endhighlight %}
@@ -108,13 +108,13 @@
     <div class="alert bg-success hide checkboxToggleCLASS">Class toggling container</div>
   </div>
 {% highlight html %}
-<div id="myCheckbox" class="checkbox" data-initialize="checkbox">
+<div class="checkbox" data-initialize="checkbox" id="myCheckbox8">
   <label class="checkbox-custom">
     <input class="sr-only" data-toggle="#checkboxToggleID" type="checkbox" value="option1">
     <span class="checkbox-label">Toggles element with matching ID</span>
   </label>
 </div>
-<label class="checkbox-custom checkbox-inline">
+<label class="checkbox-custom checkbox-inline" id="myCheckbox9">
   <input class="sr-only" data-toggle=".checkboxToggleCLASS" type="checkbox" value="option1">
   <span class="checkbox-label">Toggles elements with matching class.</span>
 </label>
@@ -140,13 +140,13 @@
     </label>
   </div>
 {% highlight html %}
-<div id="myCheckbox" class="checkbox highlight" data-initialize="checkbox">
+<div class="checkbox highlight" data-initialize="checkbox" id="myCheckbox10">
   <label class="checkbox-custom">
     <input class="sr-only" type="checkbox" value="option1">
     This control highlights a block-level checkbox on check
   </label>
 </div>
-<label class="checkbox-custom checkbox-inline highlight">
+<label class="checkbox-custom checkbox-inline highlight"  id="myCheckbox11">
   <input class="sr-only" type="checkbox" value="option2">
   This control highlights an inline checkbox on check
 </label>
