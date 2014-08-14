@@ -7,7 +7,26 @@
 
 	<p>To support various date formats around the world, datepicker has an optional dependency on <a href="http://momentjs.com/">moment.js</a>. <a href="https://github.com/moment/moment/tree/master/min">Download moment.js (with locales).</a></p>
 	<div class="fu-example section">
-{% include js/datepicker-example.html %}
+		<div id="myDatepickerContainer">
+			<div class="form-group">
+				<label class="control-label" for="myDatepickerInput">Choose a date (default) </label>
+				<div>
+					{% include js/datepicker-example.html %}
+				</div>
+			</div>
+		</div>
+		<br/>
+		<h5>Sample Methods</h5>
+		<div class="btn-group">
+			<button class="btn btn-default" id="btnDatepickerEnable">enable</button>
+			<button class="btn btn-default" id="btnDatepickerDisable">disable</button>
+			<button class="btn btn-default" id="btnDatepickerLogFormattedDate">log formatted date</button>
+			<button class="btn btn-default" id="btnDatepickerLogDateObj">log date object</button>
+		</div>
+		<div class="btn-group">
+			<button class="btn btn-default" id="btnDatepickerSetDate">set date 7 days ahead (will log new value)</button>
+			<button class="btn btn-default" id="btnDatepickerDestroy">destroy and append</button>
+		</div>
 	</div><!-- /example -->
 
 	<h2 id="datepickers-usage">Usage</h2>
@@ -35,7 +54,7 @@
 				<tr>
 					<th style="width: 100px;">Name</th>
 					<th style="width: 100px;">type</th>
-					<th style="width: 50px;">default</th>
+					<th style="width: 115px;">default</th>
 					<th>description</th>
 				</tr>
 			</thead>
@@ -65,7 +84,7 @@
 				<tr>
 					<td>momentConfig</td>
 					<td>object</td>
-					<td>{ culture: 'en', format: 'L' }</td>
+					<td>{<br/>&nbsp;&nbsp;&nbsp;&nbsp;culture: 'en',<br/>&nbsp;&nbsp;&nbsp;&nbsp;format: 'L'<br/>}</td>
 					<td>Settings used to configure moment.js, if available. Both <code>culture</code> and <code>format</code>
 					attributes must be present for moment features to be utilized. The <code>culture</code> attribute is a string
 					representing the desired datepicker language. The <code>format</code> attribute is a string representing the
@@ -136,15 +155,15 @@
 
   <h4>.datepicker('setCulture')</h4>
   <p>Updates the culture the datepicker uses. <i>Only available using moment.js with langs</i></p>
-  {% highlight js %}$('#myDatepicker').datepicker('setCulture'){% endhighlight %}
+  {% highlight js %}$('#myDatepicker').datepicker('setCulture', 'fr'){% endhighlight %}
 
   <h4>.datepicker('getFormat')</h4>
   <p>Returns the format the datepicker is currently using. <i>Only available using moment.js with langs</i></p>
-  {% highlight js %}$('#myDatepicker').datepicker('getFormatCode'){% endhighlight %}
+  {% highlight js %}$('#myDatepicker').datepicker('getFormat'){% endhighlight %}
 
   <h4>.datepicker('setFormat')</h4>
   <p>Updates the format the datepicker uses. <i>Only available using moment.js with langs</i></p>
-  {% highlight js %}$('#myDatepicker').datepicker('setFormatCode'){% endhighlight %}
+  {% highlight js %}$('#myDatepicker').datepicker('setFormat', 'L'){% endhighlight %}
 
   <h3>Events</h3>
   <div class="table-responsive">
@@ -173,7 +192,7 @@
 
 
   </div><!-- ./fu-table-responsive -->
-  <p>All dropdown events are fired at the <code>.dropdown</code>'s parent element.</p>
+  <p>All datepicker events are fired on the <code>.datepicker</code> classed element.</p>
 {% highlight js %}
 $('#myDatepicker').on('changed.fu.datepicker', function () {
   // do something…
