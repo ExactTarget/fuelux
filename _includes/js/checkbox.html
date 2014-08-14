@@ -8,7 +8,7 @@
 
   <h4>Default (stacked)</h4>
   <div class="fu-example section">
-    <div id="myFuCheckbox" class="checkbox" data-initialize="checkbox">
+    <div id="myCheckbox" class="checkbox" data-initialize="checkbox">
       <label class="checkbox-custom">
         <input class="sr-only" type="checkbox" value="option1">
         <span class="checkbox-label">Custom checkbox unchecked on page load</span>
@@ -34,7 +34,7 @@
     </div>
   </div>
 {% highlight html %}
-<div id="myFuCheckbox" class="checkbox">
+<div id="myCheckbox" class="checkbox">
   <label class="checkbox-custom" data-initialize="checkbox">
     <input class="sr-only" type="checkbox" value="">
     <span class="checkbox-label">Custom checkbox unchecked on page load</span>
@@ -74,7 +74,7 @@
     </label>
   </div>
 {% highlight html %}
-<label id="myFuCheckbox" class="checkbox-custom checkbox-inline" data-initialize="checkbox">
+<label id="myCheckbox" class="checkbox-custom checkbox-inline" data-initialize="checkbox">
   <input class="sr-only" type="checkbox" value="option1"> <span class="checkbox-label">1</span>
 </label>
 <label class="checkbox-custom checkbox-inline" data-initialize="checkbox">
@@ -108,7 +108,7 @@
     <div class="alert bg-success hide checkboxToggleCLASS">Class toggling container</div>
   </div>
 {% highlight html %}
-<div id="myFuCheckbox" class="checkbox" data-initialize="checkbox">
+<div id="myCheckbox" class="checkbox" data-initialize="checkbox">
   <label class="checkbox-custom">
     <input class="sr-only" data-toggle="#checkboxToggleID" type="checkbox" value="option1">
     <span class="checkbox-label">Toggles element with matching ID</span>
@@ -140,7 +140,7 @@
     </label>
   </div>
 {% highlight html %}
-<div id="myFuCheckbox" class="checkbox highlight" data-initialize="checkbox">
+<div id="myCheckbox" class="checkbox highlight" data-initialize="checkbox">
   <label class="checkbox-custom">
     <input class="sr-only" type="checkbox" value="option1">
     This control highlights a block-level checkbox on check
@@ -159,7 +159,7 @@
 
   <h3>Via JavaScript</h3>
   <p>Call the checkbox control via JavaScript:</p>
-  {% highlight js %}$('#myFuCheckbox').checkbox();{% endhighlight %}
+  {% highlight js %}$('#myCheckbox').checkbox();{% endhighlight %}
 
   <h3>Methods</h3>
   <h4>$().checkbox();</h4>
@@ -167,30 +167,30 @@
 
   <h4>.checkbox('check')</h4>
   <p>Checks the checkbox</p>
-  {% highlight js %}$('#myFuCheckbox').checkbox('check');{% endhighlight %}
+  {% highlight js %}$('#myCheckbox').checkbox('check');{% endhighlight %}
 
   <h4>.checkbox('destroy')</h4>
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
-  {% highlight js %}$('#myFuCheckbox').checkbox('destroy');{% endhighlight %}
+  {% highlight js %}$('#myCheckbox').checkbox('destroy');{% endhighlight %}
 
   <h4>.checkbox('disable')</h4>
   <p>Disables the checkbox</p>
-  {% highlight js %}$('#myFuCheckbox').checkbox('disable');{% endhighlight %}
+  {% highlight js %}$('#myCheckbox').checkbox('disable');{% endhighlight %}
 
   <h4>.checkbox('enable')</h4>
   <p>Enables the checkbox</p>
-  {% highlight js %}$('#myFuCheckbox').checkbox('enable');{% endhighlight %}
+  {% highlight js %}$('#myCheckbox').checkbox('enable');{% endhighlight %}
 
   <h4>.checkbox('isChecked')</h4>
   <p>Returns <code>true</code> or <code>false</code> depending on whether the checkbox is checked</p>
-  {% highlight js %}$('#myFuCheckbox').checkbox('isChecked');{% endhighlight %}
+  {% highlight js %}$('#myCheckbox').checkbox('isChecked');{% endhighlight %}
 
   <h4>.checkbox('toggle')</h4>
   <p>Toggles the checkbox between checked/unchecked states</p>
-  {% highlight js %}$('#myFuCheckbox').checkbox('toggle');{% endhighlight %}
+  {% highlight js %}$('#myCheckbox').checkbox('toggle');{% endhighlight %}
 
   <h4>.checkbox('uncheck')</h4>
   <p>Unchecks the checkbox</p>
-  {% highlight js %}$('#myFuCheckbox').checkbox('uncheck');{% endhighlight %}
+  {% highlight js %}$('#myCheckbox').checkbox('uncheck');{% endhighlight %}
 
 </div>

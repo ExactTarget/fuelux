@@ -6,7 +6,7 @@
   <h2 id="wizard-examples">Examples</h2>
   <p>Wrap the input and wizard button within <code>.fuelux .wizard</code></p>
   <div class="fu-example section">
-    <div id="myFuWizard" class="wizard" data-initialize="wizard">
+    <div class="wizard" data-initialize="wizard" id="myWizard">
       {% include js/wizard-example.html %}
     </div>
 
@@ -25,7 +25,7 @@
 
 <div class="truncate-highlight">
 {% highlight html %}
-<div class="wizard" data-initialize="wizard">
+<div class="wizard" id="myWizard">
 {% include js/wizard-example.html %}
 </div>
 {% endhighlight %}
@@ -38,7 +38,7 @@
   <p>The wizard will automatically instantiate any wizards with <code>data-initialize="wizard"</code>. If you add control markup <i>after page load</i> with <code>data-initialize="wizard"</code>, this control initializes on <code>mouseover</code>.
 
   <h3>Via JavaScript</h3>
-  {% highlight js %}$('#myFuWizard').wizard();{% endhighlight %}
+  {% highlight js %}$('#myWizard').wizard();{% endhighlight %}
 
   <h3>Markup</h3>
   <p>Wrap <code>class="wizard"</code> around a list of steps, navigation, and content within a <code>class="fuelux"</code> container.</p>
@@ -87,20 +87,20 @@
 
   <h4>.wizard('destroy')</h4>
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup</p>
-  {% highlight js %}$('#myFuWizard').wizard('destroy');{% endhighlight %}
+  {% highlight js %}$('#myWizard').wizard('destroy');{% endhighlight %}
   
   <h4>.wizard('previous')</h4>
   <p>Moves to the previous step</p>
-  {% highlight js %}$('#myFuWizard').wizard('previous');{% endhighlight %}
+  {% highlight js %}$('#myWizard').wizard('previous');{% endhighlight %}
 
   <h4>.wizard('next')</h4>
   <p>Moves to the next step</p>
-  {% highlight js %}$('#myFuWizard').wizard('next');{% endhighlight %}
+  {% highlight js %}$('#myWizard').wizard('next');{% endhighlight %}
 
   <h4>.wizard('selectedItem')</h4>
   <p>Returns the current step index</p>
 {% highlight js %}
-$('#myFuWizard').wizard('selectedItem', {
+$('#myWizard').wizard('selectedItem', {
   step: 3
 });
 {% endhighlight %}
@@ -108,7 +108,7 @@ $('#myFuWizard').wizard('selectedItem', {
   <h4>.wizard('addSteps')</h4>
   <p>Add a pane or an array of panes to a wizard. Wrap this markup with <code>&lt;div class=&quot;step-pane&quot;&gt;&lt;/div&gt;</code></p>
 {% highlight js %}
-$('#myFuWizard').wizard('addSteps', index, remove, 
+$('#myWizard').wizard('addSteps', index, remove, 
   [
   {
     badge: 'badge-customicon',
@@ -152,7 +152,7 @@ $('#myFuWizard').wizard('addSteps', index, remove,
   <h4>.wizard('RemoveSteps')</h4>
   <p>Remove a pane or multiple panes from a wizard</p>
 {% highlight js %}
-  $('#myFuWizard').wizard('removeSteps', index, howMany);
+  $('#myWizard').wizard('removeSteps', index, howMany);
 {% endhighlight %}
 
   <div class="table-responsive">
@@ -207,7 +207,7 @@ $('#myFuWizard').wizard('addSteps', index, remove,
     </table>
   </div><!-- ./fu-table-responsive -->
 {% highlight js %}
-$('#myFuwizard').on('change', function () {
+$('#mywizard').on('change', function () {
   // do something
 });
 {% endhighlight %}

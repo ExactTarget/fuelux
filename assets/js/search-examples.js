@@ -12,14 +12,14 @@ define(function(require){
 	require('fuelux');
 
 	// SEARCH
-	$('#myFuSearch').on('searched', function (e, text) {
+	$('#mySearch').on('searched', function (e, text) {
 		alert('Searched: ' + text);
 	});
 	$('#btnSearchDisable').on('click', function () {
-		$('#myFuSearch').search('disable');
+		$('#mySearch').search('disable');
 	});
 	$('#btnSearchEnable').on('click', function () {
-		$('#myFuSearch').search('enable');
+		$('#mySearch').search('enable');
 	});
 
 });

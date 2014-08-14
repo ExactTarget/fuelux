@@ -12,7 +12,7 @@ define(function(require){
 	require('fuelux');
 
 	// SPINBOX
-	$('#myFuSpinboxDecimal').spinbox({
+	$('#mySpinboxDecimal').spinbox({
 		value: '1,0px',
 		min: 0,
 		max: 10,
@@ -21,36 +21,36 @@ define(function(require){
 		units: ['px']
 		});
 
-	$('#myFuSpinboxWithDefault').on('changed.fu.spinbox', function (e, value) {
+	$('#mySpinboxWithDefault').on('changed.fu.spinbox', function (e, value) {
 		console.log('Spinbox changed: ', value);
 	});
 
-	$('#myFuSpinboxDecimal').on('changed.fu.spinbox', function (e, value) {
+	$('#mySpinboxDecimal').on('changed.fu.spinbox', function (e, value) {
 		console.log('Spinbox changed: ', value);
 	});
 
 	// buttons
 	$('#btnSpinboxGetValue').on('click', function(){
-		console.log( $('#myFuSpinboxDecimal').spinbox('value') );
+		console.log( $('#mySpinboxDecimal').spinbox('value') );
 	});
 
 	$('#btnEnableSpinbox').on('click', function () {
-		$('#myFuSpinboxWithDefault').spinbox('enable');
+		$('#mySpinboxWithDefault').spinbox('enable');
 	});
 
 	$('#btnEnableSpinbox').on('click', function () {
-		$('#myFuSpinboxWithDefault').spinbox('enable');
+		$('#mySpinboxWithDefault').spinbox('enable');
 	});
 
 	$('#btnDisableSpinbox').on('click', function () {
-		$('#myFuSpinboxWithDefault').spinbox('disable');
+		$('#mySpinboxWithDefault').spinbox('disable');
 	});
 
 	$('#btnSpinboxDestroy').on('click', function () {
-		var markup = $('#myFuSpinboxWithDefault').spinbox('destroy');
+		var markup = $('#mySpinboxWithDefault').spinbox('destroy');
 		console.log( markup );
 		$(this).closest('.section').append(markup);
-		$('#myFuSpinboxWithDefault').spinbox();
+		$('#mySpinboxWithDefault').spinbox();
 	});
 
 });

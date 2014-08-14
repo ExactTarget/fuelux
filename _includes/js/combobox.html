@@ -9,7 +9,7 @@
   </div><!-- /example -->
 
 {% highlight html %}
-<div id="myFuCombobox" class="input-group input-append dropdown combobox" data-initialize="combobox">
+<div id="myCombobox" class="input-group input-append dropdown combobox" data-initialize="combobox">
   <input type="text" class="form-control">
   <div class="input-group-btn">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
@@ -37,13 +37,13 @@
 
   <h3>Via JavaScript</h3>
   <p>Call the combobox control via JavaScript:</p>
-  {% highlight js %}$('#myFuCombobox').combobox();{% endhighlight %}
+  {% highlight js %}$('#myCombobox').combobox();{% endhighlight %}
 
 
   <h3>Markup</h3>
   <p>Add <code>class="combobox"</code> to an input and a drop-down within a <code>class="fuelux"</code> container.</p>
 {% highlight html %}
-<div id="myFuCombobox" class="input-group input-append dropdown combobox">
+<div id="myCombobox" class="input-group input-append dropdown combobox">
   <input type="text" class="form-control">
   <div class="input-group-btn">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
@@ -53,16 +53,6 @@
   </div>
 </div>
 {% endhighlight %}
-
-  <h3>Scripting</h3>
-
-  <p>The following sample includes the JavaScript associated with the examples above.</p>
-
-  <div class="truncate-highlight">
-  {% highlight js %}
-{% include js/combobox-examples.js %}
-  {% endhighlight %}
-  </div>
 
   <h3>Options</h3>
   <p>You can pass options via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-selected=""</code>.</p>
@@ -93,35 +83,35 @@
   
   <h4>.combobox('destroy')</h4>
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
-  {% highlight js %}$('#myFuCombobox').combobox('destroy');{% endhighlight %}
+  {% highlight js %}$('#myCombobox').combobox('destroy');{% endhighlight %}
 
   <h4>.combobox('disable')</h4>
   <p>Disables the component</p>
-  {% highlight js %}$('#myFuCombobox').combobox('disable'){% endhighlight %}
+  {% highlight js %}$('#myCombobox').combobox('disable'){% endhighlight %}
 
   <h4>.combobox('enable')</h4>
   <p>Enables the component</p>
-  {% highlight js %}$('#myFuCombobox').combobox('enable'){% endhighlight %}
+  {% highlight js %}$('#myCombobox').combobox('enable'){% endhighlight %}
 
   <h4>.combobox('selectedItem')</h4>
   <p>Returns an object containing the jQuery data() contents of the selected item which includes <code>.data-*</code> attributes plus a text property with the visible text from the item</p>
-  {% highlight js %}$('#myFuCombobox').combobox('selectedItem'){% endhighlight %}
+  {% highlight js %}$('#myCombobox').combobox('selectedItem'){% endhighlight %}
 
   <h4>.combobox('selectByIndex')</h4>
   <p>Set the selected item based on its index in the list (zero-based index). Convenience method for <code>.selectBySelector('li:eq({index})')</code></p>
-  {% highlight js %}$('#myFuCombobox').combobox('selectByIndex', '1'){% endhighlight %}
+  {% highlight js %}$('#myCombobox').combobox('selectByIndex', '1'){% endhighlight %}
 
   <h4>.combobox('selectByText')</h4>
   <p>Set the selected item based on its text value</p>
-  {% highlight js %}$('#myFuCombobox').('selectByText', 'Four'){% endhighlight %}
+  {% highlight js %}$('#myCombobox').('selectByText', 'Four'){% endhighlight %}
 
   <h4>.combobox('selectBySelector')</h4>
   <p>Set the selected item based on a selector</p>
-  {% highlight js %}$('#myFuCombobox').('selectBySelector', 'li[data-fizz=buzz]'){% endhighlight %}
+  {% highlight js %}$('#myCombobox').('selectBySelector', 'li[data-fizz=buzz]'){% endhighlight %}
 
   <h4>.combobox('selectByValue')</h4>
   <p>Set the selected item based on its value. Convenience method for <code>.selectBySelector('data-value={value}')</code> that requires the item to include a <code>.data-value="{value}"</code> attribute</p>
-  {% highlight js %}$('#myFuCombobox').('selectByValue', '1'){% endhighlight %}
+  {% highlight js %}$('#myCombobox').('selectByValue', '1'){% endhighlight %}
 
   <h3>Events</h3>
   <div class="table-responsive">
@@ -142,7 +132,7 @@
   </div><!-- ./fu-table-responsive -->
   <p>All drop-down events are fired at the parent element for <code>.dropdown</code>.</p>
 {% highlight js %}
-$('#myFuCombobox').on('changed.fu.combobox', function () {
+$('#myCombobox').on('changed.fu.combobox', function () {
   // do something…
 });
 {% endhighlight %}

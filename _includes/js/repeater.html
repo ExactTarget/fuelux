@@ -7,7 +7,7 @@
 <p>Data viewer with paging, sorting, and searching. Can be easily extended for various renderings.</p>
 
 <div class="fu-example section">
-  <div id="myFuRepeater" class="repeater" data-staticheight="400">
+  <div id="myRepeater" class="repeater" data-staticheight="400">
     <div class="repeater-header">
       <div class="repeater-header-left">
         <span class="repeater-title">Awesome Repeater</span>
@@ -115,7 +115,7 @@
 <p>Initialize the repeater via JavaScript and use a dataSource to function properly.</p>
 
 <p>Initialize the repeater via JavaScript:</p>
-{% highlight js %}$('#myFuRepeater').repeater();{% endhighlight %}
+{% highlight js %}$('#myRepeater').repeater();{% endhighlight %}
 
 <h3>Markup</h3>
 <p>Use the following markup to setup the repeater:</p>
@@ -271,16 +271,6 @@
   </table>
 </div><!-- ./fu-table-responsive -->
 
-  <h3>Scripting</h3>
-
-  <p>The following code sample includes the JavaScript associated with the previous examples:</p>
-
-  <div class="truncate-highlight">
-  {% highlight js %}
-{% include js/repeater-examples.js %}
-  {% endhighlight %}
-  </div>
-
 <h3>Methods</h3>
 <h4>$().repeater();</h4>
 Attaches repeater to the repeater markup
@@ -288,7 +278,7 @@ Attaches repeater to the repeater markup
 <h4>.repeater('clear');</h4>
 <p>Clears the repeater of current data. Accepts an <i>optional</i> <code>options</code> object as an argument, with
   the attributes listed in the table below.</p>
-{% highlight js %}$('#myFuRepeater').repeater('clear');{% endhighlight %}
+{% highlight js %}$('#myRepeater').repeater('clear');{% endhighlight %}
 
 <div class="table-responsive">
   <table class="table table-bordered table-striped">
@@ -317,12 +307,12 @@ Attaches repeater to the repeater markup
 
 <h4>.repeater('destroy')</h4>
 <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
-{% highlight js %}$('#myFuRepeater').repeater('destroy');{% endhighlight %}
+{% highlight js %}$('#myRepeater').repeater('destroy');{% endhighlight %}
 
 <h4>.repeater('infiniteScrolling');</h4>
 <p>Enables or disabled infinite scrolling within the repeater. Used primarily by view extensions. Possible arguments inlcude the following:
 </p>
-{% highlight js %}$('#myFuRepeater').repeater('infiniteScrolling');{% endhighlight %}
+{% highlight js %}$('#myRepeater').repeater('infiniteScrolling');{% endhighlight %}
 
 <div class="table-responsive">
   <table class="table table-bordered table-striped">
@@ -354,7 +344,7 @@ Attaches repeater to the repeater markup
 <h4>.repeater('render');</h4>
 <p>Calls the <a href="#repeaters-dataSource">dataSource</a> and renders the repeater data. Accepts an <i>optional</i> <code>options</code> object as an argument (using the attributes listed in the table below):
 </p>
-{% highlight js %}$('#myFuRepeater').repeater('render');{% endhighlight %}
+{% highlight js %}$('#myRepeater').repeater('render');{% endhighlight %}
 
 <div class="table-responsive">
   <table class="table table-bordered table-striped">
@@ -395,7 +385,7 @@ Attaches repeater to the repeater markup
 
 <h4>.repeater('resize');</h4>
 <p>Resizes the repeater based on staticHeight presence and value</p>
-{% highlight js %}$('#myFuRepeater').repeater('resize');{% endhighlight %}
+{% highlight js %}$('#myRepeater').repeater('resize');{% endhighlight %}
 
 <h3 id="repeaters-dataSource">Data Source</h3>
 <p>Call the <code>dataSource</code> function prior to rendering data for the current view. Receives an

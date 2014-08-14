@@ -13,10 +13,10 @@ define(function(require){
 
 	// PLACARD
 	$('#btnPlacardDestroy').click(function () {
-		var markup = $('#myFuPlacard1').placard('destroy');
+		var markup = $('#myPlacard1').placard('destroy');
 		console.log( markup );
 		$(this).closest('.section').append(markup);
-		$('#myFuPlacard1').placard( { edit: true } );
+		$('#myPlacard1').placard( { edit: true } );
 	});
 
 });

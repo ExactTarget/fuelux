@@ -12,16 +12,16 @@ define(function(require){
 	require('fuelux');
 
 	// WIZARD
-	$('#myFuWizard').on('changed.fu.wizard', function(e, data) {
+	$('#myWizard').on('changed.fu.wizard', function(e, data) {
 		console.log('changed');
 		console.log(data);
 	});
 
-	$('#myFuWizard').on('actionclicked.fu.wizard', function(e, data) {
+	$('#myWizard').on('actionclicked.fu.wizard', function(e, data) {
 		console.log('action clicked');
 		console.log(data);
 	});
-	$('#myFuWizard').on('stepclicked.fu.wizard', function(e, data) {
+	$('#myWizard').on('stepclicked.fu.wizard', function(e, data) {
 		console.log('step ' + data.step + ' clicked');
 		if(data.step===1) {
 			// return e.preventDefault();
@@ -29,21 +29,21 @@ define(function(require){
 	});
 
 	//buttons
-	$('#myFuWizard').on('finished', function(e, data) {
+	$('#myWizard').on('finished', function(e, data) {
 		console.log('finished');
 	});
 	$('#btnWizardPrev').on('click', function() {
-		$('#myFuWizard').wizard('previous');
+		$('#myWizard').wizard('previous');
 	});
 	$('#btnWizardNext').on('click', function() {
-		$('#myFuWizard').wizard('next','foo');
+		$('#myWizard').wizard('next','foo');
 	});
 	$('#btnWizardStep').on('click', function() {
-		var item = $('#myFuWizard').wizard('selectedItem');
+		var item = $('#myWizard').wizard('selectedItem');
 		console.log(item.step);
 	});
 	$('#btnWizardSetStep').on('click', function() {
-		$('#myFuWizard').wizard('selectedItem', {
+		$('#myWizard').wizard('selectedItem', {
 			step: 3
 		});
 	});
@@ -69,7 +69,7 @@ define(function(require){
 								'</div>';
 
 	$('#btnWizardAddSteps').on('click', function() {
-		$('#myFuWizard').wizard('addSteps', 2, 0, 
+		$('#myWizard').wizard('addSteps', 2, 0, 
 			[
 			{
 				badge: '',
@@ -80,14 +80,14 @@ define(function(require){
 	});
 
 	$('#btnWizardRemoveStep').on('click', function() {
-		$('#myFuWizard').wizard('removeSteps', 4, 1);
+		$('#myWizard').wizard('removeSteps', 4, 1);
 	});
 
 	$('#btnWizardDestroy').click(function () {
-		var markup = $('#myFuWizard').wizard('destroy');
+		var markup = $('#myWizard').wizard('destroy');
 		console.log( markup );
 		$(this).closest('.section').append(markup);
-		$('#myFuWizard').wizard();
+		$('#myWizard').wizard();
 	});
 
 });

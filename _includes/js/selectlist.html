@@ -7,10 +7,10 @@
   <p>A single select drop-down similar to the native <code>select</code> control. Wrap the input and selectlist button within <code>.fuelux .selectlist</code></p>
   <div class="fu-example section">
     <div class="form-group">
-      <label class="control-label" for="myFuSelectlistHiddenInput">With auto-resize</label>
+      <label class="control-label" for="mySelectlistHiddenInput">With auto-resize</label>
       <div class="input-group">
 
-        <div id="myFuSelectlist" class="btn-group selectlist" data-initialize="selectlist" data-resize="auto">
+        <div id="mySelectlist" class="btn-group selectlist" data-initialize="selectlist" data-resize="auto">
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
             <span class="selected-label"></span>
             <span class="caret"></span>
@@ -23,7 +23,7 @@
             <li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>
             <li data-value="Item Five"><a href="#">Item Five</a></li>
           </ul>
-          <input id="myFuSelectlistHiddenInput" class="hidden hidden-field" name="myFuSelectlist" readonly="readonly" aria-hidden="true" type="text"/>
+          <input id="mySelectlistHiddenInput" class="hidden hidden-field" name="mySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
         </div>
 
     </div>
@@ -31,10 +31,10 @@
     </div>
 
     <div class="form-group">
-      <label class="control-label" for="myFuSelectlistHiddenInput2">Default</label>
+      <label class="control-label" for="mySelectlistHiddenInput2">Default</label>
       <div class="input-group">
 
-        <div id="myFuSelectlist2" class="btn-group selectlist" data-initialize="selectlist">
+        <div id="mySelectlist2" class="btn-group selectlist" data-initialize="selectlist">
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
             <span class="selected-label"></span>
             <span class="caret"></span>
@@ -47,7 +47,7 @@
             <li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>
             <li data-value="Item Five"><a href="#">Item Five</a></li>
           </ul>
-          <input id="myFuSelectlistHiddenInput2" class="hidden hidden-field" name="myFuSelectlist" readonly="readonly" aria-hidden="true" type="text"/>
+          <input id="mySelectlistHiddenInput2" class="hidden hidden-field" name="mySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
         </div>
 
       </div>
@@ -73,7 +73,7 @@
     </div><!-- /example -->
 
 {% highlight html %}
-<div id="myFuSelectlist" class="btn-group selectlist" data-initialize="selectlist" data-resize="auto">
+<div id="mySelectlist" class="btn-group selectlist" data-initialize="selectlist" data-resize="auto">
   <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
     <span class="selected-label"></span>
     <span class="caret"></span>
@@ -86,7 +86,7 @@
     <li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>
     <li data-value="Item Five"><a href="#">Item Five</a></li>
   </ul>
-  <input class="hidden hidden-field" name="myFuSelectlist" readonly="readonly" aria-hidden="true" type="text"/>
+  <input class="hidden hidden-field" name="mySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
 </div>
 {% endhighlight %}
 
@@ -98,7 +98,7 @@
 
   <h3>Via JavaScript</h3>
   <p>Call the selectlist control via JavaScript:</p>
-  {% highlight js %}$('#myFuSelectlist').selectlist();{% endhighlight %}
+  {% highlight js %}$('#mySelectlist').selectlist();{% endhighlight %}
 
   <h3>Markup</h3>
   <p>Wrap <code>class="selectlist"</code> around an input and a button within a <code>class="fuelux"</code> container.</p>
@@ -112,7 +112,7 @@
   <ul class="dropdown-menu" role="menu">
     ...
   </ul>
-  <input class="hidden hidden-field" name="myFuSelectlist" readonly="readonly" aria-hidden="true" type="text"/>
+  <input class="hidden hidden-field" name="mySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
 </div>
 {% endhighlight %}
 
@@ -122,35 +122,35 @@
   
   <h4>.seleclist('destroy')</h4>
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
-  {% highlight js %}$('#myFuSelectlist').selectlist('destroy');{% endhighlight %}
+  {% highlight js %}$('#mySelectlist').selectlist('destroy');{% endhighlight %}
 
   <h4>.selectlist('disable')</h4>
   <p>Disables the component</p>
-  {% highlight js %}$('#myFuSelectlist').selectlist('disable');{% endhighlight %}
+  {% highlight js %}$('#mySelectlist').selectlist('disable');{% endhighlight %}
 
   <h4>.selectlist('enable')</h4>
   <p>Enables the component</p>
-  {% highlight js %}$('#myFuSelectlist').selectlist('enable');{% endhighlight %}
+  {% highlight js %}$('#mySelectlist').selectlist('enable');{% endhighlight %}
 
   <h4>.selectlist('selectedItem')</h4>
   <p>Returns an object containing the jQuery data() contents of the selected item. This data includes <code>.data-*</code> attributes plus a text property with the visible text from the item.</p>
-  {% highlight js %}$('#myFuSelectlist').selectlist('selectedItem');{% endhighlight %}
+  {% highlight js %}$('#mySelectlist').selectlist('selectedItem');{% endhighlight %}
 
   <h4>.selectlist('selectByIndex')</h4>
   <p>Set the selected item based on its index in the list (zero-based index). Convenience method for <code>.selectBySelector('li:eq({index})')</code></p>
-  {% highlight js %}$('#myFuSelectlist').selectlist('selectByIndex', '1');{% endhighlight %}
+  {% highlight js %}$('#mySelectlist').selectlist('selectByIndex', '1');{% endhighlight %}
 
   <h4>.selectlist('selectByText')</h4>
   <p>Set the selected item based on its text value</p>
-  {% highlight js %}$('#myFuSelectlist').('selectByText', 'Four');{% endhighlight %}
+  {% highlight js %}$('#mySelectlist').('selectByText', 'Four');{% endhighlight %}
 
   <h4>.selectlist('selectBySelector')</h4>
   <p>Set the selected item based on a selector</p>
-  {% highlight js %}$('#element').('myFuSelectlist', 'li[data-fizz=buzz]');{% endhighlight %}
+  {% highlight js %}$('#element').('mySelectlist', 'li[data-fizz=buzz]');{% endhighlight %}
 
   <h4>.selectlist('selectByValue')</h4>
   <p>Set the selected item based on its value. Convenience method for <code>.selectBySelector('data-value={value}')</code> that requires the item to include a <code>.data-value="{value}"</code> attribute</p>
-  {% highlight js %}$('#myFuSelectlist').('selectByValue', '1');{% endhighlight %}
+  {% highlight js %}$('#mySelectlist').('selectByValue', '1');{% endhighlight %}
 
 
   <h3>Events</h3>
@@ -171,7 +171,7 @@
     </table>
   </div><!-- ./fu-table-responsive -->
 {% highlight js %}
-$('#myFuSelectlistResults').on('selectlisted', function () {
+$('#mySelectlistResults').on('selectlisted', function () {
   // load selectlist results
 });
 {% endhighlight %}

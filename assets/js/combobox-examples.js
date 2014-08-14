@@ -13,31 +13,31 @@ define(function(require){
 
 	// COMBOBOX
 	$('#btnComboboxGetSelectedItem').on('click', function () {
-		console.log($('#myFuComboboxWithSelected').combobox('selectedItem'));
+		console.log($('#myComboboxWithSelected').combobox('selectedItem'));
 	});
 	$('#btnComboboxSelectByValue').on('click', function () {
-		$('#myFuComboboxWithSelected').combobox('selectByValue', '1');
+		$('#myComboboxWithSelected').combobox('selectByValue', '1');
 	});
 	$('#btnComboboxSelectByIndex').on('click', function () {
-		$('#myFuComboboxWithSelected').combobox('selectByIndex', '1');
+		$('#myComboboxWithSelected').combobox('selectByIndex', '1');
 	});
 	$('#btnComboboxSelectByText').on('click', function () {
-		$('#myFuComboboxWithSelected').combobox('selectByText', 'Four');
+		$('#myComboboxWithSelected').combobox('selectByText', 'Four');
 	});
 	$('#btnComboboxSelectBySelector').on('click', function () {
-		$('#myFuComboboxWithSelected').combobox('selectBySelector', 'li[data-fizz=buzz]');
+		$('#myComboboxWithSelected').combobox('selectBySelector', 'li[data-fizz=buzz]');
 	});
-	$('#myFuComboBoxWithSelectedInput').on('changed.fu.combobox', function (evt, data) {
+	$('#myComboBoxWithSelectedInput').on('changed.fu.combobox', function (evt, data) {
 		console.log(data);
 	});
 	$('#btnComboboxDisable').on('click', function () {
-		$('#myFuComboboxWithSelected').combobox('disable');
+		$('#myComboboxWithSelected').combobox('disable');
 	});
 	$('#btnComboboxEnable').on('click', function () {
-		$('#myFuComboboxWithSelected').combobox('enable');
+		$('#myComboboxWithSelected').combobox('enable');
 	});
 	$('#btnComboboxDestroy').on('click', function () {
-		var markup = $('#myFuComboboxWithSelected').combobox('destroy');
+		var markup = $('#myComboboxWithSelected').combobox('destroy');
 		console.log( markup );
 		$(this).closest('.section').append(markup);
 	});

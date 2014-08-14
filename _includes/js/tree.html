@@ -11,7 +11,7 @@
     <label class="control-label">Items selectable only</label>
     <div class="form-group">
 
-      <ul id="myFuTree" class="tree" role="tree">
+      <ul id="myTree" class="tree" role="tree">
         <!-- branch/folder template -->
         <li class="tree-branch hide" data-template="treebranch" role="treeitem" aria-expanded="false">
           <div class="tree-branch-header">
@@ -40,7 +40,7 @@
     <label class="control-label">Folders selectable</label>
     <div class="form-group">
 
-      <ul id="myFuTreeSelectableFolder" class="tree tree-folder-select" role="tree">
+      <ul id="myTreeSelectableFolder" class="tree tree-folder-select" role="tree">
         <!-- branch/folder template -->
         <li class="tree-branch hide" data-template="treebranch" role="treeitem" aria-expanded="false">
           <div class="tree-branch-header">
@@ -63,7 +63,7 @@
 
   <h3>Via JavaScript</h3>
   <p>Call the tree control via JavaScript:</p>
-  {% highlight js %}$('#myFuTree').tree({ dataSource: dataSource });{% endhighlight %}
+  {% highlight js %}$('#myTree').tree({ dataSource: dataSource });{% endhighlight %}
 
   <h3>Markup</h3>
 
@@ -71,7 +71,7 @@
 
   <h4>Items selectable only</h4>
 {% highlight html %}
-<ul id="myFuTree" class="tree" role="tree">
+<ul id="myTree" class="tree" role="tree">
   <!-- branch/folder template -->
   <li class="tree-branch hide" data-template="treebranch" role="treeitem" aria-expanded="false">
     <div class="tree-branch-header">
@@ -96,7 +96,7 @@
 
   <h4>Folders selectable</h4>
 {% highlight html %}
-<ul id="myFuTreeSelectableFolder" class="tree tree-folder-select" role="tree">
+<ul id="myTreeSelectableFolder" class="tree tree-folder-select" role="tree">
   <!-- branch/folder template -->
   <li class="tree-branch hide" data-template="treebranch" role="treeitem" aria-expanded="false">
     <div class="tree-branch-header">
@@ -112,25 +112,15 @@
 </ul>
 {% endhighlight %}
 
-  <h3>Scripting</h3>
-
-  <p>The following code sample includes the JavaScript associated with the previous examples:</p>
-
-  <div class="truncate-highlight">
-  {% highlight js %}
-{% include js/tree-examples.js %}
-  {% endhighlight %}
-  </div>
-
   <h3>Methods</h3>
 
   <h4>.tree('destroy')</h4>
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup</p>
-  {% highlight js %}$('#myFuTree').tree('destroy');{% endhighlight %}
+  {% highlight js %}$('#myTree').tree('destroy');{% endhighlight %}
 
   <h4>.tree('selectedItems')</h4>
   <p>Returns an array containing selected items and associated data</p>
-  {% highlight js %}$('#myFuTree').tree('selectedItems'){% endhighlight %}
+  {% highlight js %}$('#myTree').tree('selectedItems'){% endhighlight %}
 
   <h3>Options</h3>
   <p>You can pass options via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>. For example, you could use <code>data-selected=""</code>.</p>
@@ -197,7 +187,7 @@
     </table>
   </div><!-- ./fu-table-responsive -->
 {% highlight js %}
-$('#myFuTree').on('loaded', function () {
+$('#myTree').on('loaded', function () {
   // do something
 })
 {% endhighlight %}

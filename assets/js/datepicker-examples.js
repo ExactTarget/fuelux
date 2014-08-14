@@ -13,38 +13,38 @@ define(function(require){
 
 	// DATEPICKER
 
-	$('#myFuDatepicker').on('changed.fu.datepicker', function( event, data ) {
+	$('#myDatepicker').on('changed.fu.datepicker', function( event, data ) {
 		console.log( 'datepicker change event fired' );
 	});
 
-	$('#myFuDatepicker').on('inputParsingFailed.fu.datepicker', function() {
+	$('#myDatepicker').on('inputParsingFailed.fu.datepicker', function() {
 		console.log( 'datepicker inputParsingFailed event fired' );
 	});
 
 	$('#btnDatepickerEnable').on('click', function() {
-		$('#myFuDatepicker').datepicker('enable');
+		$('#myDatepicker').datepicker('enable');
 	});
 
 	$('#btnDatepickerDisable').on('click', function() {
-		$('#myFuDatepicker').datepicker('disable');
+		$('#myDatepicker').datepicker('disable');
 	});
 
 	$('#btnDatepickerLogFormattedDate').on('click', function() {
-		console.log( $('#myFuDatepicker').datepicker('getFormattedDate') );
+		console.log( $('#myDatepicker').datepicker('getFormattedDate') );
 	});
 
 	$('#btnDatepickerLogDateObj').on('click', function() {
-		console.log( $('#myFuDatepicker').datepicker('getDate') );
+		console.log( $('#myDatepicker').datepicker('getDate') );
 	});
 
 	$('#btnDatepickerSetDate').on('click', function() {
 		var futureDate = new Date(+new Date() + ( 7 * 24 * 60 * 60 * 1000 ) );
-		$('#myFuDatepicker').datepicker('setDate', futureDate );
+		$('#myDatepicker').datepicker('setDate', futureDate );
 		console.log( $('#datepicker').datepicker('getDate') );
 	});
 
 	$('#btnDatepickerDestroy').on('click', function() {
-		var markup = $('#myFuDatepicker').datepicker('destroy');
+		var markup = $('#myDatepicker').datepicker('destroy');
 		console.log( markup );
 		$(this).closest('.section').append(markup);
 	});

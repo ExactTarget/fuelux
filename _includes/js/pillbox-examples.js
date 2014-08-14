@@ -7,28 +7,28 @@ define(function(require){
 
 		// PILLBOX
 		$('#btnAdd').click(function () {
-			var newItemCount = $('#myFuPillbox ul li').length + 1;
-			$('#myFuPillbox').pillbox('addItems', {text: 'item ' + newItemCount, value: 'item ' + newItemCount} );
+			var newItemCount = $('#myPillbox ul li').length + 1;
+			$('#myPillbox').pillbox('addItems', {text: 'item ' + newItemCount, value: 'item ' + newItemCount} );
 		});
 
 		$('#btnRemoveByValue').click(function () {
-			$('#myFuPillbox').pillbox('removeByValue', 'foo');
+			$('#myPillbox').pillbox('removeByValue', 'foo');
 		});
 
 		$('#btnRemoveBySelector').click(function () {
-			$('#myFuPillbox').pillbox('removeBySelector', '.status-success');
+			$('#myPillbox').pillbox('removeBySelector', '.status-success');
 		});
 
 		$('#btnRemoveByText').click(function () {
-			$('#myFuPillbox').pillbox('removeByText', 'Item 6');
+			$('#myPillbox').pillbox('removeByText', 'Item 6');
 		});
 
 		$('#btnItems').click(function () {
-			var items = $('#myFuPillbox').pillbox('items');
+			var items = $('#myPillbox').pillbox('items');
 			console.log(items);
 		});
 
-		$('#myFuPillbox').pillbox({
+		$('#myPillbox').pillbox({
 			onKeyDown: function( e, data, callback ){
 				callback(e, {data:[
 					{ text: 'Acai', value:  'acai' },
@@ -71,7 +71,7 @@ define(function(require){
 			}
 		});
 
-	$('#myFuPillboxEmpty').pillbox({
+	$('#myPillboxEmpty').pillbox({
 		onKeyDown: function( e, data, callback ){
 			callback(e, {data:[
 				{ text: 'Acai', value:  'acai' },
@@ -114,11 +114,11 @@ define(function(require){
 		}
 	});
 
-		$('#myFuPillbox').on( 'added', function( event, data ) {
+		$('#myPillbox').on( 'added', function( event, data ) {
 			console.log( 'pillbox added', data );
 		});
 
-		$('#myFuPillbox').on( 'removed', function( event, data ) {
+		$('#myPillbox').on( 'removed', function( event, data ) {
 			console.log( 'pillbox removed', data );
 		});
 
