@@ -37,28 +37,28 @@
     </div>
   </div>
 {% highlight html %}
-<div class="radio" data-initialize="radio">
+<div class="radio" data-initialize="radio" id="myCustomRadio">
   <label class="radio-custom">
     <input class="sr-only" name="radioEx1" type="radio" value="option1">
     Browser-independent radio unchecked on page load
   </label>
 </div>
 
-<div class="radio checked" data-initialize="radio">
+<div class="radio checked" data-initialize="radio" id="myCustomRadio2">
   <label class="radio-custom">
     <input class="sr-only" checked="checked" name="radioEx1" type="radio" value="option2">
     Browser-independent radio checked on page load
   </label>
 </div>
 
-<div class="radio checked" data-initialize="radio">
-  <label id="lbl3" class="radio-custom">
-    <input id="radio3" class="sr-only" checked="checked" disabled="disabled" name="radio1b" type="radio">
+<div class="radio checked" data-initialize="radio" id="myCustomRadio3">
+  <label class="radio-custom">
+    <input class="sr-only" checked="checked" disabled="disabled" name="radio1b" type="radio">
     <span class="radio-label">Disabled custom appearance radio selected on page load</span>
   </label>
 </div>
 
-<div class="radio" data-initialize="radio">
+<div class="radio" data-initialize="radio" id="myCustomRadio4">
   <label class="radio-custom">
     <input class="sr-only" disabled="disabled" name="radioEx2" type="radio" value="option3">
     Disabled browser-independent radio unchecked on page load
@@ -80,13 +80,13 @@
     </label>
   </div>
 {% highlight html %}
-<label class="radio-custom radio-inline" data-initialize="radio">
+<label class="radio-custom radio-inline" data-initialize="radio" id="myCustomRadio5">
   <input class="sr-only" name="radioEx2" type="radio" value="option1"> 1
 </label>
-<label class="radio-custom radio-inline" data-initialize="radio">
+<label class="radio-custom radio-inline" data-initialize="radio" id="myCustomRadio6">
   <input class="sr-only" checked="checked" name="radioEx2" type="radio" value="option2"> 2
 </label>
-<label class="radio-custom radio-inline" data-initialize="radio">
+<label class="radio-custom radio-inline" data-initialize="radio" id="myCustomRadio7">
   <input class="sr-only" disabled="disabled" name="radioEx2" type="radio" value="option3"> 3
 </label>
 {% endhighlight %}
@@ -112,12 +112,12 @@
   </div>
 {% highlight html %}
 <div class="radio">
-  <label class="radio-custom" data-initialize="radio">
+  <label class="radio-custom" data-initialize="radio" id="myCustomRadio8">
     <input class="sr-only" data-toggle="#radioToggleID" name="radioEx3" type="radio" value="option1">
     Toggles element with matching ID
   </label>
 </div>
-<label class="radio-custom radio-inline" data-initialize="radio">
+<label class="radio-custom radio-inline" data-initialize="radio" id="myCustomRadio9">
   <input class="sr-only" data-toggle=".radioToggleCLASS" name="radioEx3" type="radio" value="option1">
   Toggles elements with matching class
 </label>
@@ -143,13 +143,13 @@
     </label>
   </div>
   {% highlight html %}
-<div class="radio highlight" data-initialize="radio">
+<div class="radio highlight" data-initialize="radio" id="myCustomRadio10">
   <label class="radio-custom">
     <input class="sr-only" name="radioEx4" type="radio" value="option1">
     This block-level radio will highlight on check.
   </label>
 </div>
-<label class="radio-custom radio-inline highlight" data-initialize="radio">
+<label class="radio-custom radio-inline highlight" data-initialize="radio" id="myCustomRadio11">
   <input class="sr-only" name="radioEx4" type="radio" value="option2">
   This inline radio will highlight on check.
 </label>
