@@ -28,13 +28,13 @@
   <h3>Markup</h3>
   <p>Use the following markup for a simple input OR textarea placard:</p>
 {% highlight html %}
-<div class="placard" data-initialize="placard">
+<div class="placard" data-initialize="placard" id="myPlacard">
   <div class="placard-popup"></div>
   <input class="form-control placard-field" readonly="readonly" type="text"/>
 </div>
 {% endhighlight %}
 {% highlight html %}
-<div class="placard" data-initialize="placard">
+<div class="placard" data-initialize="placard" id="myPlacard2">
   <div class="placard-popup"></div>
   <textarea class="form-control placard-field" readonly="readonly"></textarea>
 </div>
@@ -42,7 +42,7 @@
 
   <p>For header and footer content, use the following input OR textarea placards:</p>
 {% highlight html %}
-<div class="placard" data-ellipsis="true" style="display: block;" data-initialize="placard">
+<div class="placard" data-ellipsis="true" data-initialize="placard" id="myPlacard3">
   <div class="placard-popup"></div>
   <div class="placard-header"><h5>Header</h5></div>
   <input class="form-control placard-field" readonly="readonly" type="text"/>
@@ -53,16 +53,21 @@
 </div>
 {% endhighlight %}
 {% highlight html %}
-<div class="placard" data-ellipsis="true" style="display: block;" data-initialize="placard">
+<div class="placard" data-ellipsis="true" data-initialize="placard" id="myPlacard4">
   <div class="placard-popup"></div>
   <div class="placard-header"><h5>Header</h5></div>
-  <textarea class="form-control placard-field" readonly="readonly" rows="3"></textarea>
+  <textarea class="form-control placard-field" readonly="readonly"></textarea>
   <div class="placard-footer">
     <a class="placard-cancel" href="#">Cancel</a>
     <button class="btn btn-primary btn-xs placard-accept" type="button">Save</button>
   </div>
 </div>
 {% endhighlight %}
+
+  <h3>Glass styling</h3>
+  <p>Add the <code>glass</code> class to the <code>input</code> or <code>textarea</code> with class <code>placard-field</code>
+  	for an input area with minimalistic chrome unless hovered upon or clicked.
+  </p>
 
   <h3>Options</h3>
   <p>You can pass options via Javascript upon initialization.</p>
@@ -77,24 +82,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>onAccept</td>
-          <td>function</td>
-          <td>undefined</td>
-          <td>Call this function when the user indicates they want to <code>'accept'</code> changes. Passes a
-            <code>helpers</code> object containing <code>previousValue</code> and current
-            <code>value</code> as an argument. The default accept behaviors will not occur, so you can determine what happens next. Useful for validation purposes.
-          </td>
-        </tr>
-        <tr>
-          <td>onCancel</td>
-          <td>function</td>
-          <td>undefined</td>
-          <td>Call this function when the user indicates they want to <code>'cancel'</code> changes. Passes a
-            <code>helpers</code> object containing <code>previousValue</code> and current
-            <code>value</code> as an argument. The default cancel behaviors will not occur, so you can determine what happens next. Useful for validation purposes.
-          </td>
-        </tr>
+	    <tr>
+		  <td>explicit</td>
+		  <td>boolean</td>
+		  <td>false</td>
+		  <td>Requires the user explicitly select 'accept' or 'cancel' before the placard is dismissed.</td>
+	    </tr>
         <tr>
           <td>externalClickAction</td>
           <td>string</td>
@@ -109,12 +102,24 @@
             globally) will not count as an external click. Allows other items to be clicked without dismissing the placard.
           </td>
         </tr>
-        <tr>
-          <td>explicit</td>
-          <td>boolean</td>
-          <td>false</td>
-          <td>Requires the user explicitly select 'accept' or 'cancel' before the placard is dismissed.</td>
-        </tr>
+		<tr>
+	      <td>onAccept</td>
+		  <td>function</td>
+		  <td>undefined</td>
+		  <td>Call this function when the user indicates they want to <code>'accept'</code> changes. Passes a
+		    <code>helpers</code> object containing <code>previousValue</code> and current
+			<code>value</code> as an argument. The default accept behaviors will not occur, so you can determine what happens next. Useful for validation purposes.
+		  </td>
+		</tr>
+		<tr>
+		  <td>onCancel</td>
+		  <td>function</td>
+		  <td>undefined</td>
+		  <td>Call this function when the user indicates they want to <code>'cancel'</code> changes. Passes a
+		    <code>helpers</code> object containing <code>previousValue</code> and current
+		    <code>value</code> as an argument. The default cancel behaviors will not occur, so you can determine what happens next. Useful for validation purposes.
+	      </td>
+		</tr>
         <tr>
           <td>revertOnCancel</td>
           <td>boolean OR number</td>
@@ -135,6 +140,14 @@
   <h4>.placard('destroy')</h4>
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup</p>
   {% highlight js %}$('#myPlacard').placard('destroy');{% endhighlight %}
+
+  <h4>.placard('disable')</h4>
+  <p>Disables the placard, preventing users from manipulating the placard value.</p>
+  {% highlight js %}$('#myPlacard').placard('disable');{% endhighlight %}
+
+  <h4>.placard('enable')</h4>
+  <p>Enables the placard, allowing users to manipulate the placard value.</p>
+  {% highlight js %}$('#myPlacard').placard('enable');{% endhighlight %}
 
   <h4>.placard('getValue');</h4>
   <p>Gets the current actual placard value</p>
@@ -202,4 +215,10 @@
       </tbody>
     </table>
   </div><!-- ./fu-table-responsive -->
+  <p>All placard events are fired on the <code>.placard</code> classed element.</p>
+{% highlight js %}
+$('#myPlacard').on('accept.fu.placard', function () {
+  // do something…
+});
+{% endhighlight %}
 </div>

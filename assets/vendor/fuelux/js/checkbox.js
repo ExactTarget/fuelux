@@ -32,11 +32,11 @@
 		this.options = $.extend({}, $.fn.checkbox.defaults, options);
 
 		// cache elements
-		this.$element         = $( element );
-		this.$label           = this.$element.parent();
-		this.$parent          = this.$label.parent('.checkbox');
+		this.$element = $(element).is('input[type="checkbox"]') ? $(element) : $(element).find('input[type="checkbox"]:first');
+		this.$label = this.$element.parent();
+		this.$parent = this.$label.parent('.checkbox');
 		this.$toggleContainer = this.$element.attr('data-toggle');
-		this.state            = { disabled: false, checked: false };
+		this.state = { disabled: false, checked: false };
 
 		if( this.$parent.length === 0 ) {
 			this.$parent = null;

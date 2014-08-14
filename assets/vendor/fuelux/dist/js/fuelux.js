@@ -44,7 +44,7 @@
 			this.options = $.extend( {}, $.fn.checkbox.defaults, options );
 
 			// cache elements
-			this.$element = $( element );
+			this.$element = $( element ).is( 'input[type="checkbox"]' ) ? $( element ) : $( element ).find( 'input[type="checkbox"]:first' );
 			this.$label = this.$element.parent();
 			this.$parent = this.$label.parent( '.checkbox' );
 			this.$toggleContainer = this.$element.attr( 'data-toggle' );
@@ -285,10 +285,14 @@
 		var Combobox = function( element, options ) {
 			this.$element = $( element );
 			this.options = $.extend( {}, $.fn.combobox.defaults, options );
-			this.$element.on( 'click.fu.combobox', 'a', $.proxy( this.itemclicked, this ) );
-			this.$element.on( 'change.fu.combobox', 'input', $.proxy( this.inputchanged, this ) );
+
+			this.$dropMenu = this.$element.find( '.dropdown-menu' );
 			this.$input = this.$element.find( 'input' );
 			this.$button = this.$element.find( '.btn' );
+
+			this.$element.on( 'click.fu.combobox', 'a', $.proxy( this.itemclicked, this ) );
+			this.$element.on( 'change.fu.combobox', 'input', $.proxy( this.inputchanged, this ) );
+			this.$element.on( 'shown.bs.dropdown', $.proxy( this.menuShown, this ) );
 
 			// set default selection
 			this.setDefaultSelection();
@@ -321,6 +325,17 @@
 				} else {
 					this.$selectedItem = null;
 				}
+			},
+
+			menuShown: function() {
+				if ( this.options.autoResizeMenu ) {
+					this.resizeMenu();
+				}
+			},
+
+			resizeMenu: function() {
+				var width = this.$element.outerWidth();
+				this.$dropMenu.outerWidth( width );
 			},
 
 			selectedItem: function() {
@@ -457,7 +472,9 @@
 			return ( methodReturn === undefined ) ? $set : methodReturn;
 		};
 
-		$.fn.combobox.defaults = {};
+		$.fn.combobox.defaults = {
+			autoResizeMenu: true
+		};
 
 		$.fn.combobox.Constructor = Combobox;
 
@@ -465,7 +482,6 @@
 			$.fn.combobox = old;
 			return this;
 		};
-
 
 		// DATA-API
 
@@ -1540,6 +1556,12 @@
 				return this.$element[ 0 ].outerHTML;
 			},
 
+			disable: function() {
+				this.$element.addClass( 'disabled' );
+				this.$field.attr( 'disabled', 'disabled' );
+				this.hide();
+			},
+
 			ellipsis: function() {
 				var field, i, str;
 				if ( this.$element.attr( 'data-ellipsis' ) === 'true' ) {
@@ -1565,6 +1587,17 @@
 				}
 			},
 
+			enable: function() {
+				this.$element.removeClass( 'disabled' );
+				this.$field.removeAttr( 'disabled' );
+			},
+
+			externalClickListener: function( e, force ) {
+				if ( force === true || this.isExternalClick( e ) ) {
+					this.complete( this.options.externalClickAction );
+				}
+			},
+
 			getValue: function() {
 				if ( this.actualValue !== null ) {
 					return this.actualValue;
@@ -1581,12 +1614,6 @@
 				this.ellipsis();
 				$( document ).off( 'click.fu.placard.externalClick.' + this.clickStamp );
 				this.$element.trigger( 'hidden.fu.placard' );
-			},
-
-			externalClickListener: function( e, force ) {
-				if ( force === true || this.isExternalClick( e ) ) {
-					this.complete( this.options.externalClickAction );
-				}
 			},
 
 			isExternalClick: function( e ) {
@@ -1728,7 +1755,7 @@
 			this.options = $.extend( {}, $.fn.radio.defaults, options );
 
 			// cache elements
-			this.$radio = $( element );
+			this.$radio = $( element ).is( 'input[type="radio"]' ) ? $( element ) : $( element ).find( 'input[type="radio"]:first' );
 			this.$label = this.$radio.parent();
 			this.groupName = this.$radio.attr( 'name' );
 			this.$parent = this.$label.parent( '.radio' );
@@ -5672,6 +5699,7 @@
 			}
 			this.$endAfter.spinbox();
 			this.$endDate.datepicker();
+			this.$element.find( '.radio-custom' ).radio();
 
 			// bind events: 'change' is a Bootstrap JS fired event
 			this.$repeatIntervalSelect.on( 'changed.fu.selectlist', $.proxy( this.repeatIntervalSelectChanged, this ) );

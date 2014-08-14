@@ -77,6 +77,7 @@
 		}
 		this.$endAfter.spinbox();
 		this.$endDate.datepicker();
+		this.$element.find('.radio-custom').radio();
 
 		// bind events: 'change' is a Bootstrap JS fired event
 		this.$repeatIntervalSelect.on('changed.fu.selectlist', $.proxy(this.repeatIntervalSelectChanged, this));

@@ -32,7 +32,7 @@
 		this.options = $.extend({}, $.fn.radio.defaults, options);
 
 		// cache elements
-		this.$radio = $(element);
+		this.$radio = $(element).is('input[type="radio"]') ? $(element) : $(element).find('input[type="radio"]:first');
 		this.$label = this.$radio.parent();
 		this.groupName = this.$radio.attr('name');
 		this.$parent = this.$label.parent('.radio');

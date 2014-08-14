@@ -12,6 +12,14 @@ define(function(require){
 	require('fuelux');
 
 	// PLACARD
+	$('#btnPlacardEnable').click(function () {
+		$('#myPlacard1').placard('enable');
+	});
+
+	$('#btnPlacardDisable').click(function () {
+		$('#myPlacard1').placard('disable');
+	});
+
 	$('#btnPlacardDestroy').click(function () {
 		var markup = $('#myPlacard1').placard('destroy');
 		console.log( markup );

@@ -1,0 +1,13 @@
+//Starting frame
+- add 'data-frame="{{number}}"' to 'loader' classed div.
+    (ex: 'data-frame="5"')
+
+//Controlling speed (default is 150)
+- add 'data-frame="{{milliseconds}}"' to 'loader' classed div
+    (ex: 'data-frame="500"')
+
+//Animation range
+- add 'data-begin="{{number}}"' to 'loader' classed div to specify beginning frame
+    (ex: 'data-begin="3"')
+- add 'data-end="{{number}}"' to 'loader' classed div to specify ending frame
+    (ex: 'data-end="6"')
