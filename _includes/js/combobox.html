@@ -8,23 +8,6 @@
 {% include js/combobox-example.html %}
   </div><!-- /example -->
 
-{% highlight html %}
-<div id="myCombobox" class="input-group input-append dropdown combobox" data-initialize="combobox">
-  <input type="text" class="form-control">
-  <div class="input-group-btn">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-  <ul class="dropdown-menu dropdown-menu-right">
-    <li data-value="1"><a href="#">One</a></li>
-    <li data-value="2"><a href="#">Two</a></li>
-    <li data-value="3"><a href="#">Three</a></li>
-    <li data-value="4" ><a href="#">Four</a></li>
-    <li data-value="Item Five"><a href="#">Item Five</a></li>
-    <li data-value="6" data-foo="bar" data-fizz="buzz"><a href="#">Six</a></li>
-  </ul>
-  </div>
-</div>
-{% endhighlight %}
-
   <h3 id="comboboxes-alignment">Alignment</h3>
   <p>By default, this control automatically positions a drop-down menu 100% from the top and along the right side of its parent. Remove <code>.dropdown-menu-right</code> to left align the drop-down menu.</p>
 
@@ -33,7 +16,8 @@
   <p>The combobox component toggles hidden content (drop-down menus) by toggling the <code>.open</code> class on the parent list item. When opened, the plugin also adds <code>.dropdown-backdrop</code> as a click area for closing drop-down menus when clicking outside the menu. The control relies on the <code>data-toggle=dropdown</code> attribute to close drop-down menus at an application level.</p>
 
   <h3>Via data-attributes</h3>
-  <p>The combobox will automatically instantiate any comboboxes with <code>data-initialize="combobox"</code>. If you add the control markup <i>after page load</i> with <code>data-initialize="combobox"</code>, this control will initialize on <code>mousedown</code>.
+
+  <p>To enable the combobox control without writing Javascript, add <code>data-initialize="combobox"</code> to the <code>.combobox</code> element that you wish to initialize. Such elements that exist when <code>$.ready()</code> executes will be initialized. Any combobox markup that is programatically created with <code>data-initialize="combobox"</code> sometime after the initial page load will not immediately initialize. Rather, it will initialized when the <code>mousedown</code> event is fired on it.</p>
 
   <h3>Via JavaScript</h3>
   <p>Call the combobox control via JavaScript:</p>
@@ -43,19 +27,22 @@
   <h3>Markup</h3>
   <p>Add <code>class="combobox"</code> to an input and a drop-down within a <code>class="fuelux"</code> container.</p>
 {% highlight html %}
-<div id="myCombobox" class="input-group input-append dropdown combobox">
+<div class="input-group input-append dropdown combobox" data-initialize="combobox" id="myCombobox">
   <input type="text" class="form-control">
   <div class="input-group-btn">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-  <ul class="dropdown-menu dropdown-menu-right">
-    ...
-  </ul>
+    <ul class="dropdown-menu dropdown-menu-right">
+      <li data-value="1"><a href="#">One</a></li>
+      ...
+    </ul>
   </div>
 </div>
 {% endhighlight %}
 
-  <h3>Options</h3>
-  <p>You can pass options via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-selected=""</code>.</p>
+
+
+  <h3>Markup options</h3>
+  <p>For data attributes, append the option name to <code>data-</code>, as in <code>data-selected="true"</code> to an <code>li</code> element.</p>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>
@@ -76,21 +63,44 @@
       </tbody>
     </table>
   </div><!-- ./fu-table-responsive -->
+
+  <h3>Programatic options</h3>
+  <p>For programatic options, pass in an object with key/value pairs. This only has effect at intialization.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+       <tr>
+         <th style="width: 100px;">Name</th>
+         <th style="width: 100px;">type</th>
+         <th style="width: 50px;">default</th>
+         <th>description</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td>autoResizeMenu</td>
+         <td>boolean</td>
+         <td>true</td>
+         <td>Resizes the drop-down menu to the width of the combobox</td>
+       </tr>
+      </tbody>
+    </table>
+  </div><!-- ./fu-table-responsive -->
   
   <h3>Methods</h3>
   <h4>$().combobox(options)</h4>
   Attaches a combobox to an input and a drop-down menu
   
   <h4>.combobox('destroy')</h4>
-  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
+  <p>Remove all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
   {% highlight js %}$('#myCombobox').combobox('destroy');{% endhighlight %}
 
   <h4>.combobox('disable')</h4>
-  <p>Disables the component</p>
+  <p>Disable the component</p>
   {% highlight js %}$('#myCombobox').combobox('disable'){% endhighlight %}
 
   <h4>.combobox('enable')</h4>
-  <p>Enables the component</p>
+  <p>Enable the component</p>
   {% highlight js %}$('#myCombobox').combobox('enable'){% endhighlight %}
 
   <h4>.combobox('selectedItem')</h4>
@@ -130,7 +140,7 @@
       </tbody>
     </table>
   </div><!-- ./fu-table-responsive -->
-  <p>All drop-down events are fired at the parent element for <code>.dropdown</code>.</p>
+  <p>All combobox events are fired at the <code>.combobox</code> element. For the sample markup provided, it would be:</p>
 {% highlight js %}
 $('#myCombobox').on('changed.fu.combobox', function () {
   // do something…
