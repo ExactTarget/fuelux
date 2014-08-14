@@ -38,7 +38,7 @@
 
 
 {% highlight html %}
-<div class="pillbox" data-initialize="pillbox">
+<div class="pillbox" data-initialize="pillbox" id="myPillbox">
   <ul class="clearfix pill-group">
     <li class="btn btn-default pill" data-value="foo">
       <span>Item Title</span>
@@ -47,14 +47,15 @@
       </span>
     </li>
     ....
-    <div class="pillbox-input-wrap btn-group">
+    <li class="pillbox-input-wrap btn-group">
+      <a class="pillbox-more">and <span class="pillbox-more-count"></span> more...</a>
       <input type="text" class="form-control dropdown-toggle pillbox-add-item" placeholder="add item">
-      <button type="button" class="dropdown-toggle sr-only">
+  	  <button type="button" class="dropdown-toggle sr-only">
         <span class="caret"></span>
         <span class="sr-only">Toggle Dropdown</span>
-      </button>
-      <ul class="suggest dropdown-menu" role="menu" data-toggle="dropdown" data-flip="auto"></ul>
-    </div>
+  	  </button>
+  	  <ul class="suggest dropdown-menu" role="menu" data-toggle="dropdown" data-flip="auto"></ul>
+    </li>
   </ul>
 </div>
 {% endhighlight %}
@@ -65,13 +66,7 @@
   <p>Adds Items to the pillbox programatically.</p>
 
 {% highlight js %}
-$('#myPillbox').pillbox('addItems', 
-  index,
-  [{ 
-    text: '', 
-    value: '' 
-  }]
-  );
+$('#myPillbox').pillbox('addItems', index, [{ text: '', value: '' }]);
 {% endhighlight %}
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
@@ -253,6 +248,7 @@ callback({data:[
     </table>
   </div><!-- ./fu-table-responsive -->
 
+  <p>All pillbox events are fired on the <code>.pillbox</code> classed element.</p>
 {% highlight js %}
 $('#myPillbox').on('clicked.fu.pillbox', function (item) {
   // do something
