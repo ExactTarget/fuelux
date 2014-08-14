@@ -15,7 +15,7 @@ define(function(require){
 			"id": "001",
 			"name": "Bulbasaur",
 			"ThumbnailAltText": "Bulbasaur",
-			"ThumbnailImage": "http://assets15.pokemon.com/static2/_ui/img/pokedex/detail/001.png",
+			"ThumbnailImage": "http://assets2.pokemon.com/assets/cms2/img/pokedex/detail/001.png",
 			"type": "grass, poison"
 		},
 		{
@@ -26,7 +26,7 @@ define(function(require){
 			"id": "002",
 			"name": "Ivysaur",
 			"ThumbnailAltText": "Ivysaur",
-			"ThumbnailImage": "http://assets16.pokemon.com/static2/_ui/img/pokedex/detail/002.png",
+			"ThumbnailImage": "http://assets3.pokemon.com/assets/cms2/img/pokedex/detail/002.png",
 			"type": "grass, poison"
 		},
 		{
@@ -37,7 +37,7 @@ define(function(require){
 			"id": "003",
 			"name": "Venusaur",
 			"ThumbnailAltText": "Venusaur",
-			"ThumbnailImage": "http://assets17.pokemon.com/static2/_ui/img/pokedex/detail/003.png",
+			"ThumbnailImage": "http://assets4.pokemon.com/assets/cms2/img/pokedex/detail/003.png",
 			"type": "grass, poison"
 		},
 		{
@@ -48,7 +48,7 @@ define(function(require){
 			"id": "004",
 			"name": "Charmander",
 			"ThumbnailAltText": "Charmander",
-			"ThumbnailImage": "http://assets18.pokemon.com/static2/_ui/img/pokedex/detail/004.png",
+			"ThumbnailImage": "http://assets5.pokemon.com/assets/cms2/img/pokedex/detail/004.png",
 			"type": "fire"
 		},
 		{
@@ -59,7 +59,7 @@ define(function(require){
 			"id": "005",
 			"name": "Charmeleon",
 			"ThumbnailAltText": "Charmeleon",
-			"ThumbnailImage": "http://assets19.pokemon.com/static2/_ui/img/pokedex/detail/005.png",
+			"ThumbnailImage": "http://assets6.pokemon.com/assets/cms2/img/pokedex/detail/005.png",
 			"type": "fire"
 		},
 		{
@@ -70,7 +70,7 @@ define(function(require){
 			"id": "006",
 			"name": "Charizard",
 			"ThumbnailAltText": "Charizard",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/006.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/006.png",
 			"type": "fire, flying"
 		},
 		{
@@ -81,7 +81,7 @@ define(function(require){
 			"id": "007",
 			"name": "Squirtle",
 			"ThumbnailAltText": "Squirtle",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/007.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/007.png",
 			"type": "water"
 		},
 		{
@@ -92,7 +92,7 @@ define(function(require){
 			"id": "008",
 			"name": "Wartortle",
 			"ThumbnailAltText": "Wartortle",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/008.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/008.png",
 			"type": "water"
 		},
 		{
@@ -103,7 +103,7 @@ define(function(require){
 			"id": "009",
 			"name": "Blastoise",
 			"ThumbnailAltText": "Blastoise",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/009.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/009.png",
 			"type": "water"
 		},
 		{
@@ -114,7 +114,7 @@ define(function(require){
 			"id": "010",
 			"name": "Caterpie",
 			"ThumbnailAltText": "Caterpie",
-			"ThumbnailImage": "http://assets15.pokemon.com/static2/_ui/img/pokedex/detail/010.png",
+			"ThumbnailImage": "http://assets2.pokemon.com/assets/cms2/img/pokedex/detail/010.png",
 			"type": "bug"
 		},
 		{
@@ -125,7 +125,7 @@ define(function(require){
 			"id": "011",
 			"name": "Metapod",
 			"ThumbnailAltText": "Metapod",
-			"ThumbnailImage": "http://assets16.pokemon.com/static2/_ui/img/pokedex/detail/011.png",
+			"ThumbnailImage": "http://assets3.pokemon.com/assets/cms2/img/pokedex/detail/011.png",
 			"type": "bug"
 		},
 		{
@@ -136,7 +136,7 @@ define(function(require){
 			"id": "012",
 			"name": "Butterfree",
 			"ThumbnailAltText": "Butterfree",
-			"ThumbnailImage": "http://assets17.pokemon.com/static2/_ui/img/pokedex/detail/012.png",
+			"ThumbnailImage": "http://assets4.pokemon.com/assets/cms2/img/pokedex/detail/012.png",
 			"type": "bug, flying"
 		},
 		{
@@ -147,7 +147,7 @@ define(function(require){
 			"id": "013",
 			"name": "Weedle",
 			"ThumbnailAltText": "Weedle",
-			"ThumbnailImage": "http://assets18.pokemon.com/static2/_ui/img/pokedex/detail/013.png",
+			"ThumbnailImage": "http://assets5.pokemon.com/assets/cms2/img/pokedex/detail/013.png",
 			"type": "bug, poison"
 		},
 		{
@@ -158,7 +158,7 @@ define(function(require){
 			"id": "014",
 			"name": "Kakuna",
 			"ThumbnailAltText": "Kakuna",
-			"ThumbnailImage": "http://assets19.pokemon.com/static2/_ui/img/pokedex/detail/014.png",
+			"ThumbnailImage": "http://assets6.pokemon.com/assets/cms2/img/pokedex/detail/014.png",
 			"type": "bug, poison"
 		},
 		{
@@ -169,7 +169,7 @@ define(function(require){
 			"id": "015",
 			"name": "Beedrill",
 			"ThumbnailAltText": "Beedrill",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/015.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/015.png",
 			"type": "bug, poison"
 		},
 		{
@@ -180,7 +180,7 @@ define(function(require){
 			"id": "016",
 			"name": "Pidgey",
 			"ThumbnailAltText": "Pidgey",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/016.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/016.png",
 			"type": "normal, flying"
 		},
 		{
@@ -191,7 +191,7 @@ define(function(require){
 			"id": "017",
 			"name": "Pidgeotto",
 			"ThumbnailAltText": "Pidgeotto",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/017.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/017.png",
 			"type": "normal, flying"
 		},
 		{
@@ -202,7 +202,7 @@ define(function(require){
 			"id": "018",
 			"name": "Pidgeot",
 			"ThumbnailAltText": "Pidgeot",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/018.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/018.png",
 			"type": "normal, flying"
 		},
 		{
@@ -213,7 +213,7 @@ define(function(require){
 			"id": "019",
 			"name": "Rattata",
 			"ThumbnailAltText": "Rattata",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/019.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/019.png",
 			"type": "normal"
 		},
 		{
@@ -224,7 +224,7 @@ define(function(require){
 			"id": "020",
 			"name": "Raticate",
 			"ThumbnailAltText": "Raticate",
-			"ThumbnailImage": "http://assets16.pokemon.com/static2/_ui/img/pokedex/detail/020.png",
+			"ThumbnailImage": "http://assets3.pokemon.com/assets/cms2/img/pokedex/detail/020.png",
 			"type": "normal"
 		},
 		{
@@ -235,7 +235,7 @@ define(function(require){
 			"id": "021",
 			"name": "Spearow",
 			"ThumbnailAltText": "Spearow",
-			"ThumbnailImage": "http://assets17.pokemon.com/static2/_ui/img/pokedex/detail/021.png",
+			"ThumbnailImage": "http://assets4.pokemon.com/assets/cms2/img/pokedex/detail/021.png",
 			"type": "normal, flying"
 		},
 		{
@@ -246,7 +246,7 @@ define(function(require){
 			"id": "022",
 			"name": "Fearow",
 			"ThumbnailAltText": "Fearow",
-			"ThumbnailImage": "http://assets18.pokemon.com/static2/_ui/img/pokedex/detail/022.png",
+			"ThumbnailImage": "http://assets5.pokemon.com/assets/cms2/img/pokedex/detail/022.png",
 			"type": "normal, flying"
 		},
 		{
@@ -257,7 +257,7 @@ define(function(require){
 			"id": "023",
 			"name": "Ekans",
 			"ThumbnailAltText": "Ekans",
-			"ThumbnailImage": "http://assets19.pokemon.com/static2/_ui/img/pokedex/detail/023.png",
+			"ThumbnailImage": "http://assets6.pokemon.com/assets/cms2/img/pokedex/detail/023.png",
 			"type": "poison"
 		},
 		{
@@ -268,7 +268,7 @@ define(function(require){
 			"id": "024",
 			"name": "Arbok",
 			"ThumbnailAltText": "Arbok",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/024.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/024.png",
 			"type": "poison"
 		},
 		{
@@ -279,7 +279,7 @@ define(function(require){
 			"id": "025",
 			"name": "Pikachu",
 			"ThumbnailAltText": "Pikachu",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/025.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/025.png",
 			"type": "electric"
 		},
 		{
@@ -290,7 +290,7 @@ define(function(require){
 			"id": "026",
 			"name": "Raichu",
 			"ThumbnailAltText": "Raichu",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/026.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/026.png",
 			"type": "electric"
 		},
 		{
@@ -301,7 +301,7 @@ define(function(require){
 			"id": "027",
 			"name": "Sandshrew",
 			"ThumbnailAltText": "Sandshrew",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/027.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/027.png",
 			"type": "ground"
 		},
 		{
@@ -312,7 +312,7 @@ define(function(require){
 			"id": "028",
 			"name": "Sandslash",
 			"ThumbnailAltText": "Sandslash",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/028.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/028.png",
 			"type": "ground"
 		},
 		{
@@ -323,7 +323,7 @@ define(function(require){
 			"id": "029",
 			"name": "Nidoran♀",
 			"ThumbnailAltText": "Nidoran♀",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/029.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/029.png",
 			"type": "poison"
 		},
 		{
@@ -334,7 +334,7 @@ define(function(require){
 			"id": "030",
 			"name": "Nidorina",
 			"ThumbnailAltText": "Nidorina",
-			"ThumbnailImage": "http://assets17.pokemon.com/static2/_ui/img/pokedex/detail/030.png",
+			"ThumbnailImage": "http://assets4.pokemon.com/assets/cms2/img/pokedex/detail/030.png",
 			"type": "poison"
 		},
 		{
@@ -345,7 +345,7 @@ define(function(require){
 			"id": "031",
 			"name": "Nidoqueen",
 			"ThumbnailAltText": "Nidoqueen",
-			"ThumbnailImage": "http://assets18.pokemon.com/static2/_ui/img/pokedex/detail/031.png",
+			"ThumbnailImage": "http://assets5.pokemon.com/assets/cms2/img/pokedex/detail/031.png",
 			"type": "poison, ground"
 		},
 		{
@@ -356,7 +356,7 @@ define(function(require){
 			"id": "032",
 			"name": "Nidoran♂",
 			"ThumbnailAltText": "Nidoran♂",
-			"ThumbnailImage": "http://assets19.pokemon.com/static2/_ui/img/pokedex/detail/032.png",
+			"ThumbnailImage": "http://assets6.pokemon.com/assets/cms2/img/pokedex/detail/032.png",
 			"type": "poison"
 		},
 		{
@@ -367,7 +367,7 @@ define(function(require){
 			"id": "033",
 			"name": "Nidorino",
 			"ThumbnailAltText": "Nidorino",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/033.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/033.png",
 			"type": "poison"
 		},
 		{
@@ -378,7 +378,7 @@ define(function(require){
 			"id": "034",
 			"name": "Nidoking",
 			"ThumbnailAltText": "Nidoking",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/034.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/034.png",
 			"type": "poison, ground"
 		},
 		{
@@ -389,7 +389,7 @@ define(function(require){
 			"id": "035",
 			"name": "Clefairy",
 			"ThumbnailAltText": "Clefairy",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/035.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/035.png",
 			"type": "fairy"
 		},
 		{
@@ -400,7 +400,7 @@ define(function(require){
 			"id": "036",
 			"name": "Clefable",
 			"ThumbnailAltText": "Clefable",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/036.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/036.png",
 			"type": "fairy"
 		},
 		{
@@ -411,7 +411,7 @@ define(function(require){
 			"id": "037",
 			"name": "Vulpix",
 			"ThumbnailAltText": "Vulpix",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/037.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/037.png",
 			"type": "fire"
 		},
 		{
@@ -422,7 +422,7 @@ define(function(require){
 			"id": "038",
 			"name": "Ninetales",
 			"ThumbnailAltText": "Ninetales",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/038.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/038.png",
 			"type": "fire"
 		},
 		{
@@ -433,7 +433,7 @@ define(function(require){
 			"id": "039",
 			"name": "Jigglypuff",
 			"ThumbnailAltText": "Jigglypuff",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/039.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/039.png",
 			"type": "normal, fairy"
 		},
 		{
@@ -444,7 +444,7 @@ define(function(require){
 			"id": "040",
 			"name": "Wigglytuff",
 			"ThumbnailAltText": "Wigglytuff",
-			"ThumbnailImage": "http://assets18.pokemon.com/static2/_ui/img/pokedex/detail/040.png",
+			"ThumbnailImage": "http://assets5.pokemon.com/assets/cms2/img/pokedex/detail/040.png",
 			"type": "normal, fairy"
 		},
 		{
@@ -455,7 +455,7 @@ define(function(require){
 			"id": "041",
 			"name": "Zubat",
 			"ThumbnailAltText": "Zubat",
-			"ThumbnailImage": "http://assets19.pokemon.com/static2/_ui/img/pokedex/detail/041.png",
+			"ThumbnailImage": "http://assets6.pokemon.com/assets/cms2/img/pokedex/detail/041.png",
 			"type": "poison, flying"
 		},
 		{
@@ -466,7 +466,7 @@ define(function(require){
 			"id": "042",
 			"name": "Golbat",
 			"ThumbnailAltText": "Golbat",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/042.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/042.png",
 			"type": "poison, flying"
 		},
 		{
@@ -477,7 +477,7 @@ define(function(require){
 			"id": "043",
 			"name": "Oddish",
 			"ThumbnailAltText": "Oddish",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/043.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/043.png",
 			"type": "grass, poison"
 		},
 		{
@@ -488,7 +488,7 @@ define(function(require){
 			"id": "044",
 			"name": "Gloom",
 			"ThumbnailAltText": "Gloom",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/044.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/044.png",
 			"type": "grass, poison"
 		},
 		{
@@ -499,7 +499,7 @@ define(function(require){
 			"id": "045",
 			"name": "Vileplume",
 			"ThumbnailAltText": "Vileplume",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/045.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/045.png",
 			"type": "grass, poison"
 		},
 		{
@@ -510,7 +510,7 @@ define(function(require){
 			"id": "046",
 			"name": "Paras",
 			"ThumbnailAltText": "Paras",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/046.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/046.png",
 			"type": "bug, grass"
 		},
 		{
@@ -521,7 +521,7 @@ define(function(require){
 			"id": "047",
 			"name": "Parasect",
 			"ThumbnailAltText": "Parasect",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/047.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/047.png",
 			"type": "bug, grass"
 		},
 		{
@@ -532,7 +532,7 @@ define(function(require){
 			"id": "048",
 			"name": "Venonat",
 			"ThumbnailAltText": "Venonat",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/048.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/048.png",
 			"type": "bug, poison"
 		},
 		{
@@ -543,7 +543,7 @@ define(function(require){
 			"id": "049",
 			"name": "Venomoth",
 			"ThumbnailAltText": "Venomoth",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/049.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/049.png",
 			"type": "bug, poison"
 		},
 		{
@@ -554,7 +554,7 @@ define(function(require){
 			"id": "050",
 			"name": "Diglett",
 			"ThumbnailAltText": "Diglett",
-			"ThumbnailImage": "http://assets19.pokemon.com/static2/_ui/img/pokedex/detail/050.png",
+			"ThumbnailImage": "http://assets6.pokemon.com/assets/cms2/img/pokedex/detail/050.png",
 			"type": "ground"
 		},
 		{
@@ -565,7 +565,7 @@ define(function(require){
 			"id": "051",
 			"name": "Dugtrio",
 			"ThumbnailAltText": "Dugtrio",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/051.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/051.png",
 			"type": "ground"
 		},
 		{
@@ -576,7 +576,7 @@ define(function(require){
 			"id": "052",
 			"name": "Meowth",
 			"ThumbnailAltText": "Meowth",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/052.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/052.png",
 			"type": "normal"
 		},
 		{
@@ -587,7 +587,7 @@ define(function(require){
 			"id": "053",
 			"name": "Persian",
 			"ThumbnailAltText": "Persian",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/053.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/053.png",
 			"type": "normal"
 		},
 		{
@@ -598,7 +598,7 @@ define(function(require){
 			"id": "054",
 			"name": "Psyduck",
 			"ThumbnailAltText": "Psyduck",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/054.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/054.png",
 			"type": "water"
 		},
 		{
@@ -609,7 +609,7 @@ define(function(require){
 			"id": "055",
 			"name": "Golduck",
 			"ThumbnailAltText": "Golduck",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/055.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/055.png",
 			"type": "water"
 		},
 		{
@@ -620,7 +620,7 @@ define(function(require){
 			"id": "056",
 			"name": "Mankey",
 			"ThumbnailAltText": "Mankey",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/056.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/056.png",
 			"type": "fighting"
 		},
 		{
@@ -631,7 +631,7 @@ define(function(require){
 			"id": "057",
 			"name": "Primeape",
 			"ThumbnailAltText": "Primeape",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/057.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/057.png",
 			"type": "fighting"
 		},
 		{
@@ -642,7 +642,7 @@ define(function(require){
 			"id": "058",
 			"name": "Growlithe",
 			"ThumbnailAltText": "Growlithe",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/058.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/058.png",
 			"type": "fire"
 		},
 		{
@@ -653,7 +653,7 @@ define(function(require){
 			"id": "059",
 			"name": "Arcanine",
 			"ThumbnailAltText": "Arcanine",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/059.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/059.png",
 			"type": "fire"
 		},
 		{
@@ -664,7 +664,7 @@ define(function(require){
 			"id": "060",
 			"name": "Poliwag",
 			"ThumbnailAltText": "Poliwag",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/060.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/060.png",
 			"type": "water"
 		},
 		{
@@ -675,7 +675,7 @@ define(function(require){
 			"id": "061",
 			"name": "Poliwhirl",
 			"ThumbnailAltText": "Poliwhirl",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/061.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/061.png",
 			"type": "water"
 		},
 		{
@@ -686,7 +686,7 @@ define(function(require){
 			"id": "062",
 			"name": "Poliwrath",
 			"ThumbnailAltText": "Poliwrath",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/062.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/062.png",
 			"type": "water, fighting"
 		},
 		{
@@ -697,7 +697,7 @@ define(function(require){
 			"id": "063",
 			"name": "Abra",
 			"ThumbnailAltText": "Abra",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/063.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/063.png",
 			"type": "psychic"
 		},
 		{
@@ -708,7 +708,7 @@ define(function(require){
 			"id": "064",
 			"name": "Kadabra",
 			"ThumbnailAltText": "Kadabra",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/064.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/064.png",
 			"type": "psychic"
 		},
 		{
@@ -719,7 +719,7 @@ define(function(require){
 			"id": "065",
 			"name": "Alakazam",
 			"ThumbnailAltText": "Alakazam",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/065.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/065.png",
 			"type": "psychic"
 		},
 		{
@@ -730,7 +730,7 @@ define(function(require){
 			"id": "066",
 			"name": "Machop",
 			"ThumbnailAltText": "Machop",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/066.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/066.png",
 			"type": "fighting"
 		},
 		{
@@ -741,7 +741,7 @@ define(function(require){
 			"id": "067",
 			"name": "Machoke",
 			"ThumbnailAltText": "Machoke",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/067.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/067.png",
 			"type": "fighting"
 		},
 		{
@@ -752,7 +752,7 @@ define(function(require){
 			"id": "068",
 			"name": "Machamp",
 			"ThumbnailAltText": "Machamp",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/068.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/068.png",
 			"type": "fighting"
 		},
 		{
@@ -763,7 +763,7 @@ define(function(require){
 			"id": "069",
 			"name": "Bellsprout",
 			"ThumbnailAltText": "Bellsprout",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/069.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/069.png",
 			"type": "grass, poison"
 		},
 		{
@@ -774,7 +774,7 @@ define(function(require){
 			"id": "070",
 			"name": "Weepinbell",
 			"ThumbnailAltText": "Weepinbell",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/070.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/070.png",
 			"type": "grass, poison"
 		},
 		{
@@ -785,7 +785,7 @@ define(function(require){
 			"id": "071",
 			"name": "Victreebel",
 			"ThumbnailAltText": "Victreebel",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/071.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/071.png",
 			"type": "grass, poison"
 		},
 		{
@@ -796,7 +796,7 @@ define(function(require){
 			"id": "072",
 			"name": "Tentacool",
 			"ThumbnailAltText": "Tentacool",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/072.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/072.png",
 			"type": "water, poison"
 		},
 		{
@@ -807,7 +807,7 @@ define(function(require){
 			"id": "073",
 			"name": "Tentacruel",
 			"ThumbnailAltText": "Tentacruel",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/073.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/073.png",
 			"type": "water, poison"
 		},
 		{
@@ -818,7 +818,7 @@ define(function(require){
 			"id": "074",
 			"name": "Geodude",
 			"ThumbnailAltText": "Geodude",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/074.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/074.png",
 			"type": "rock, ground"
 		},
 		{
@@ -829,7 +829,7 @@ define(function(require){
 			"id": "075",
 			"name": "Graveler",
 			"ThumbnailAltText": "Graveler",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/075.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/075.png",
 			"type": "rock, ground"
 		},
 		{
@@ -840,7 +840,7 @@ define(function(require){
 			"id": "076",
 			"name": "Golem",
 			"ThumbnailAltText": "Golem",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/076.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/076.png",
 			"type": "rock, ground"
 		},
 		{
@@ -851,7 +851,7 @@ define(function(require){
 			"id": "077",
 			"name": "Ponyta",
 			"ThumbnailAltText": "Ponyta",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/077.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/077.png",
 			"type": "fire"
 		},
 		{
@@ -862,7 +862,7 @@ define(function(require){
 			"id": "078",
 			"name": "Rapidash",
 			"ThumbnailAltText": "Rapidash",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/078.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/078.png",
 			"type": "fire"
 		},
 		{
@@ -873,7 +873,7 @@ define(function(require){
 			"id": "079",
 			"name": "Slowpoke",
 			"ThumbnailAltText": "Slowpoke",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/079.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/079.png",
 			"type": "water, psychic"
 		},
 		{
@@ -884,7 +884,7 @@ define(function(require){
 			"id": "080",
 			"name": "Slowbro",
 			"ThumbnailAltText": "Slowbro",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/080.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/080.png",
 			"type": "water, psychic"
 		},
 		{
@@ -895,7 +895,7 @@ define(function(require){
 			"id": "081",
 			"name": "Magnemite",
 			"ThumbnailAltText": "Magnemite",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/081.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/081.png",
 			"type": "electric, steel"
 		},
 		{
@@ -906,7 +906,7 @@ define(function(require){
 			"id": "082",
 			"name": "Magneton",
 			"ThumbnailAltText": "Magneton",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/082.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/082.png",
 			"type": "electric, steel"
 		},
 		{
@@ -917,7 +917,7 @@ define(function(require){
 			"id": "083",
 			"name": "Farfetch'd",
 			"ThumbnailAltText": "Farfetch'd",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/083.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/083.png",
 			"type": "normal, flying"
 		},
 		{
@@ -928,7 +928,7 @@ define(function(require){
 			"id": "084",
 			"name": "Doduo",
 			"ThumbnailAltText": "Doduo",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/084.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/084.png",
 			"type": "normal, flying"
 		},
 		{
@@ -939,7 +939,7 @@ define(function(require){
 			"id": "085",
 			"name": "Dodrio",
 			"ThumbnailAltText": "Dodrio",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/085.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/085.png",
 			"type": "normal, flying"
 		},
 		{
@@ -950,7 +950,7 @@ define(function(require){
 			"id": "086",
 			"name": "Seel",
 			"ThumbnailAltText": "Seel",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/086.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/086.png",
 			"type": "water"
 		},
 		{
@@ -961,7 +961,7 @@ define(function(require){
 			"id": "087",
 			"name": "Dewgong",
 			"ThumbnailAltText": "Dewgong",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/087.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/087.png",
 			"type": "water, ice"
 		},
 		{
@@ -972,7 +972,7 @@ define(function(require){
 			"id": "088",
 			"name": "Grimer",
 			"ThumbnailAltText": "Grimer",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/088.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/088.png",
 			"type": "poison"
 		},
 		{
@@ -983,7 +983,7 @@ define(function(require){
 			"id": "089",
 			"name": "Muk",
 			"ThumbnailAltText": "Muk",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/089.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/089.png",
 			"type": "poison"
 		},
 		{
@@ -994,7 +994,7 @@ define(function(require){
 			"id": "090",
 			"name": "Shellder",
 			"ThumbnailAltText": "Shellder",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/090.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/090.png",
 			"type": "water"
 		},
 		{
@@ -1005,7 +1005,7 @@ define(function(require){
 			"id": "091",
 			"name": "Cloyster",
 			"ThumbnailAltText": "Cloyster",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/091.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/091.png",
 			"type": "water, ice"
 		},
 		{
@@ -1016,7 +1016,7 @@ define(function(require){
 			"id": "092",
 			"name": "Gastly",
 			"ThumbnailAltText": "Gastly",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/092.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/092.png",
 			"type": "ghost, poison"
 		},
 		{
@@ -1027,7 +1027,7 @@ define(function(require){
 			"id": "093",
 			"name": "Haunter",
 			"ThumbnailAltText": "Haunter",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/093.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/093.png",
 			"type": "ghost, poison"
 		},
 		{
@@ -1038,7 +1038,7 @@ define(function(require){
 			"id": "094",
 			"name": "Gengar",
 			"ThumbnailAltText": "Gengar",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/094.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/094.png",
 			"type": "ghost, poison"
 		},
 		{
@@ -1049,7 +1049,7 @@ define(function(require){
 			"id": "095",
 			"name": "Onix",
 			"ThumbnailAltText": "Onix",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/095.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/095.png",
 			"type": "rock, ground"
 		},
 		{
@@ -1060,7 +1060,7 @@ define(function(require){
 			"id": "096",
 			"name": "Drowzee",
 			"ThumbnailAltText": "Drowzee",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/096.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/096.png",
 			"type": "psychic"
 		},
 		{
@@ -1071,7 +1071,7 @@ define(function(require){
 			"id": "097",
 			"name": "Hypno",
 			"ThumbnailAltText": "Hypno",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/097.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/097.png",
 			"type": "psychic"
 		},
 		{
@@ -1082,7 +1082,7 @@ define(function(require){
 			"id": "098",
 			"name": "Krabby",
 			"ThumbnailAltText": "Krabby",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/098.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/098.png",
 			"type": "water"
 		},
 		{
@@ -1093,7 +1093,7 @@ define(function(require){
 			"id": "099",
 			"name": "Kingler",
 			"ThumbnailAltText": "Kingler",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/099.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/099.png",
 			"type": "water"
 		},
 		{
@@ -1104,7 +1104,7 @@ define(function(require){
 			"id": "100",
 			"name": "Voltorb",
 			"ThumbnailAltText": "Voltorb",
-			"ThumbnailImage": "http://assets15.pokemon.com/static2/_ui/img/pokedex/detail/100.png",
+			"ThumbnailImage": "http://assets2.pokemon.com/assets/cms2/img/pokedex/detail/100.png",
 			"type": "electric"
 		},
 		{
@@ -1115,7 +1115,7 @@ define(function(require){
 			"id": "101",
 			"name": "Electrode",
 			"ThumbnailAltText": "Electrode",
-			"ThumbnailImage": "http://assets16.pokemon.com/static2/_ui/img/pokedex/detail/101.png",
+			"ThumbnailImage": "http://assets3.pokemon.com/assets/cms2/img/pokedex/detail/101.png",
 			"type": "electric"
 		},
 		{
@@ -1126,7 +1126,7 @@ define(function(require){
 			"id": "102",
 			"name": "Exeggcute",
 			"ThumbnailAltText": "Exeggcute",
-			"ThumbnailImage": "http://assets17.pokemon.com/static2/_ui/img/pokedex/detail/102.png",
+			"ThumbnailImage": "http://assets4.pokemon.com/assets/cms2/img/pokedex/detail/102.png",
 			"type": "grass, psychic"
 		},
 		{
@@ -1137,7 +1137,7 @@ define(function(require){
 			"id": "103",
 			"name": "Exeggutor",
 			"ThumbnailAltText": "Exeggutor",
-			"ThumbnailImage": "http://assets18.pokemon.com/static2/_ui/img/pokedex/detail/103.png",
+			"ThumbnailImage": "http://assets5.pokemon.com/assets/cms2/img/pokedex/detail/103.png",
 			"type": "grass, psychic"
 		},
 		{
@@ -1148,7 +1148,7 @@ define(function(require){
 			"id": "104",
 			"name": "Cubone",
 			"ThumbnailAltText": "Cubone",
-			"ThumbnailImage": "http://assets19.pokemon.com/static2/_ui/img/pokedex/detail/104.png",
+			"ThumbnailImage": "http://assets6.pokemon.com/assets/cms2/img/pokedex/detail/104.png",
 			"type": "ground"
 		},
 		{
@@ -1159,7 +1159,7 @@ define(function(require){
 			"id": "105",
 			"name": "Marowak",
 			"ThumbnailAltText": "Marowak",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/105.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/105.png",
 			"type": "ground"
 		},
 		{
@@ -1170,7 +1170,7 @@ define(function(require){
 			"id": "106",
 			"name": "Hitmonlee",
 			"ThumbnailAltText": "Hitmonlee",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/106.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/106.png",
 			"type": "fighting"
 		},
 		{
@@ -1181,7 +1181,7 @@ define(function(require){
 			"id": "107",
 			"name": "Hitmonchan",
 			"ThumbnailAltText": "Hitmonchan",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/107.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/107.png",
 			"type": "fighting"
 		},
 		{
@@ -1192,7 +1192,7 @@ define(function(require){
 			"id": "108",
 			"name": "Lickitung",
 			"ThumbnailAltText": "Lickitung",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/108.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/108.png",
 			"type": "normal"
 		},
 		{
@@ -1203,7 +1203,7 @@ define(function(require){
 			"id": "109",
 			"name": "Koffing",
 			"ThumbnailAltText": "Koffing",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/109.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/109.png",
 			"type": "poison"
 		},
 		{
@@ -1214,7 +1214,7 @@ define(function(require){
 			"id": "110",
 			"name": "Weezing",
 			"ThumbnailAltText": "Weezing",
-			"ThumbnailImage": "http://assets16.pokemon.com/static2/_ui/img/pokedex/detail/110.png",
+			"ThumbnailImage": "http://assets3.pokemon.com/assets/cms2/img/pokedex/detail/110.png",
 			"type": "poison"
 		},
 		{
@@ -1225,7 +1225,7 @@ define(function(require){
 			"id": "111",
 			"name": "Rhyhorn",
 			"ThumbnailAltText": "Rhyhorn",
-			"ThumbnailImage": "http://assets17.pokemon.com/static2/_ui/img/pokedex/detail/111.png",
+			"ThumbnailImage": "http://assets4.pokemon.com/assets/cms2/img/pokedex/detail/111.png",
 			"type": "ground, rock"
 		},
 		{
@@ -1236,7 +1236,7 @@ define(function(require){
 			"id": "112",
 			"name": "Rhydon",
 			"ThumbnailAltText": "Rhydon",
-			"ThumbnailImage": "http://assets18.pokemon.com/static2/_ui/img/pokedex/detail/112.png",
+			"ThumbnailImage": "http://assets5.pokemon.com/assets/cms2/img/pokedex/detail/112.png",
 			"type": "ground, rock"
 		},
 		{
@@ -1247,7 +1247,7 @@ define(function(require){
 			"id": "113",
 			"name": "Chansey",
 			"ThumbnailAltText": "Chansey",
-			"ThumbnailImage": "http://assets19.pokemon.com/static2/_ui/img/pokedex/detail/113.png",
+			"ThumbnailImage": "http://assets6.pokemon.com/assets/cms2/img/pokedex/detail/113.png",
 			"type": "normal"
 		},
 		{
@@ -1258,7 +1258,7 @@ define(function(require){
 			"id": "114",
 			"name": "Tangela",
 			"ThumbnailAltText": "Tangela",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/114.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/114.png",
 			"type": "grass"
 		},
 		{
@@ -1269,7 +1269,7 @@ define(function(require){
 			"id": "115",
 			"name": "Kangaskhan",
 			"ThumbnailAltText": "Kangaskhan",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/115.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/115.png",
 			"type": "normal"
 		},
 		{
@@ -1280,7 +1280,7 @@ define(function(require){
 			"id": "116",
 			"name": "Horsea",
 			"ThumbnailAltText": "Horsea",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/116.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/116.png",
 			"type": "water"
 		},
 		{
@@ -1291,7 +1291,7 @@ define(function(require){
 			"id": "117",
 			"name": "Seadra",
 			"ThumbnailAltText": "Seadra",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/117.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/117.png",
 			"type": "water"
 		},
 		{
@@ -1302,7 +1302,7 @@ define(function(require){
 			"id": "118",
 			"name": "Goldeen",
 			"ThumbnailAltText": "Goldeen",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/118.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/118.png",
 			"type": "water"
 		},
 		{
@@ -1313,7 +1313,7 @@ define(function(require){
 			"id": "119",
 			"name": "Seaking",
 			"ThumbnailAltText": "Seaking",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/119.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/119.png",
 			"type": "water"
 		},
 		{
@@ -1324,7 +1324,7 @@ define(function(require){
 			"id": "120",
 			"name": "Staryu",
 			"ThumbnailAltText": "Staryu",
-			"ThumbnailImage": "http://assets17.pokemon.com/static2/_ui/img/pokedex/detail/120.png",
+			"ThumbnailImage": "http://assets4.pokemon.com/assets/cms2/img/pokedex/detail/120.png",
 			"type": "water"
 		},
 		{
@@ -1335,7 +1335,7 @@ define(function(require){
 			"id": "121",
 			"name": "Starmie",
 			"ThumbnailAltText": "Starmie",
-			"ThumbnailImage": "http://assets18.pokemon.com/static2/_ui/img/pokedex/detail/121.png",
+			"ThumbnailImage": "http://assets5.pokemon.com/assets/cms2/img/pokedex/detail/121.png",
 			"type": "water, psychic"
 		},
 		{
@@ -1346,7 +1346,7 @@ define(function(require){
 			"id": "122",
 			"name": "Mr. Mime",
 			"ThumbnailAltText": "Mr. Mime",
-			"ThumbnailImage": "http://assets19.pokemon.com/static2/_ui/img/pokedex/detail/122.png",
+			"ThumbnailImage": "http://assets6.pokemon.com/assets/cms2/img/pokedex/detail/122.png",
 			"type": "psychic, fairy"
 		},
 		{
@@ -1357,7 +1357,7 @@ define(function(require){
 			"id": "123",
 			"name": "Scyther",
 			"ThumbnailAltText": "Scyther",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/123.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/123.png",
 			"type": "bug, flying"
 		},
 		{
@@ -1368,7 +1368,7 @@ define(function(require){
 			"id": "124",
 			"name": "Jynx",
 			"ThumbnailAltText": "Jynx",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/124.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/124.png",
 			"type": "ice, psychic"
 		},
 		{
@@ -1379,7 +1379,7 @@ define(function(require){
 			"id": "125",
 			"name": "Electabuzz",
 			"ThumbnailAltText": "Electabuzz",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/125.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/125.png",
 			"type": "electric"
 		},
 		{
@@ -1390,7 +1390,7 @@ define(function(require){
 			"id": "126",
 			"name": "Magmar",
 			"ThumbnailAltText": "Magmar",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/126.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/126.png",
 			"type": "fire"
 		},
 		{
@@ -1401,7 +1401,7 @@ define(function(require){
 			"id": "127",
 			"name": "Pinsir",
 			"ThumbnailAltText": "Pinsir",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/127.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/127.png",
 			"type": "bug, flying"
 		},
 		{
@@ -1412,7 +1412,7 @@ define(function(require){
 			"id": "128",
 			"name": "Tauros",
 			"ThumbnailAltText": "Tauros",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/128.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/128.png",
 			"type": "normal"
 		},
 		{
@@ -1423,7 +1423,7 @@ define(function(require){
 			"id": "129",
 			"name": "Magikarp",
 			"ThumbnailAltText": "Magikarp",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/129.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/129.png",
 			"type": "water"
 		},
 		{
@@ -1434,7 +1434,7 @@ define(function(require){
 			"id": "130",
 			"name": "Gyarados",
 			"ThumbnailAltText": "Gyarados",
-			"ThumbnailImage": "http://assets18.pokemon.com/static2/_ui/img/pokedex/detail/130.png",
+			"ThumbnailImage": "http://assets5.pokemon.com/assets/cms2/img/pokedex/detail/130.png",
 			"type": "water, dark"
 		},
 		{
@@ -1445,7 +1445,7 @@ define(function(require){
 			"id": "131",
 			"name": "Lapras",
 			"ThumbnailAltText": "Lapras",
-			"ThumbnailImage": "http://assets19.pokemon.com/static2/_ui/img/pokedex/detail/131.png",
+			"ThumbnailImage": "http://assets6.pokemon.com/assets/cms2/img/pokedex/detail/131.png",
 			"type": "water, ice"
 		},
 		{
@@ -1456,7 +1456,7 @@ define(function(require){
 			"id": "132",
 			"name": "Ditto",
 			"ThumbnailAltText": "Ditto",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/132.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/132.png",
 			"type": "normal"
 		},
 		{
@@ -1467,7 +1467,7 @@ define(function(require){
 			"id": "133",
 			"name": "Eevee",
 			"ThumbnailAltText": "Eevee",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/133.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/133.png",
 			"type": "normal"
 		},
 		{
@@ -1478,7 +1478,7 @@ define(function(require){
 			"id": "134",
 			"name": "Vaporeon",
 			"ThumbnailAltText": "Vaporeon",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/134.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/134.png",
 			"type": "water"
 		},
 		{
@@ -1489,7 +1489,7 @@ define(function(require){
 			"id": "135",
 			"name": "Jolteon",
 			"ThumbnailAltText": "Jolteon",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/135.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/135.png",
 			"type": "electric"
 		},
 		{
@@ -1500,7 +1500,7 @@ define(function(require){
 			"id": "136",
 			"name": "Flareon",
 			"ThumbnailAltText": "Flareon",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/136.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/136.png",
 			"type": "fire"
 		},
 		{
@@ -1511,7 +1511,7 @@ define(function(require){
 			"id": "137",
 			"name": "Porygon",
 			"ThumbnailAltText": "Porygon",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/137.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/137.png",
 			"type": "normal"
 		},
 		{
@@ -1522,7 +1522,7 @@ define(function(require){
 			"id": "138",
 			"name": "Omanyte",
 			"ThumbnailAltText": "Omanyte",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/138.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/138.png",
 			"type": "rock, water"
 		},
 		{
@@ -1533,7 +1533,7 @@ define(function(require){
 			"id": "139",
 			"name": "Omastar",
 			"ThumbnailAltText": "Omastar",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/139.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/139.png",
 			"type": "rock, water"
 		},
 		{
@@ -1544,7 +1544,7 @@ define(function(require){
 			"id": "140",
 			"name": "Kabuto",
 			"ThumbnailAltText": "Kabuto",
-			"ThumbnailImage": "http://assets19.pokemon.com/static2/_ui/img/pokedex/detail/140.png",
+			"ThumbnailImage": "http://assets6.pokemon.com/assets/cms2/img/pokedex/detail/140.png",
 			"type": "rock, water"
 		},
 		{
@@ -1555,7 +1555,7 @@ define(function(require){
 			"id": "141",
 			"name": "Kabutops",
 			"ThumbnailAltText": "Kabutops",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/141.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/141.png",
 			"type": "rock, water"
 		},
 		{
@@ -1566,7 +1566,7 @@ define(function(require){
 			"id": "142",
 			"name": "Aerodactyl",
 			"ThumbnailAltText": "Aerodactyl",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/142.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/142.png",
 			"type": "rock, flying"
 		},
 		{
@@ -1577,7 +1577,7 @@ define(function(require){
 			"id": "143",
 			"name": "Snorlax",
 			"ThumbnailAltText": "Snorlax",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/143.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/143.png",
 			"type": "normal"
 		},
 		{
@@ -1588,7 +1588,7 @@ define(function(require){
 			"id": "144",
 			"name": "Articuno",
 			"ThumbnailAltText": "Articuno",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/144.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/144.png",
 			"type": "ice, flying"
 		},
 		{
@@ -1599,7 +1599,7 @@ define(function(require){
 			"id": "145",
 			"name": "Zapdos",
 			"ThumbnailAltText": "Zapdos",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/145.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/145.png",
 			"type": "electric, flying"
 		},
 		{
@@ -1610,7 +1610,7 @@ define(function(require){
 			"id": "146",
 			"name": "Moltres",
 			"ThumbnailAltText": "Moltres",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/146.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/146.png",
 			"type": "fire, flying"
 		},
 		{
@@ -1621,7 +1621,7 @@ define(function(require){
 			"id": "147",
 			"name": "Dratini",
 			"ThumbnailAltText": "Dratini",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/147.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/147.png",
 			"type": "dragon"
 		},
 		{
@@ -1632,7 +1632,7 @@ define(function(require){
 			"id": "148",
 			"name": "Dragonair",
 			"ThumbnailAltText": "Dragonair",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/148.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/148.png",
 			"type": "dragon"
 		},
 		{
@@ -1643,7 +1643,7 @@ define(function(require){
 			"id": "149",
 			"name": "Dragonite",
 			"ThumbnailAltText": "Dragonite",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/149.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/149.png",
 			"type": "dragon, flying"
 		},
 		{
@@ -1654,7 +1654,7 @@ define(function(require){
 			"id": "150",
 			"name": "Mewtwo",
 			"ThumbnailAltText": "Mewtwo",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/150.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/150.png",
 			"type": "psychic"
 		},
 		{
@@ -1665,7 +1665,7 @@ define(function(require){
 			"id": "151",
 			"name": "Mew",
 			"ThumbnailAltText": "Mew",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/151.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/151.png",
 			"type": "psychic"
 		},
 		{
@@ -1676,7 +1676,7 @@ define(function(require){
 			"id": "152",
 			"name": "Chikorita",
 			"ThumbnailAltText": "Chikorita",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/152.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/152.png",
 			"type": "grass"
 		},
 		{
@@ -1687,7 +1687,7 @@ define(function(require){
 			"id": "153",
 			"name": "Bayleef",
 			"ThumbnailAltText": "Bayleef",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/153.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/153.png",
 			"type": "grass"
 		},
 		{
@@ -1698,7 +1698,7 @@ define(function(require){
 			"id": "154",
 			"name": "Meganium",
 			"ThumbnailAltText": "Meganium",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/154.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/154.png",
 			"type": "grass"
 		},
 		{
@@ -1709,7 +1709,7 @@ define(function(require){
 			"id": "155",
 			"name": "Cyndaquil",
 			"ThumbnailAltText": "Cyndaquil",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/155.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/155.png",
 			"type": "fire"
 		},
 		{
@@ -1720,7 +1720,7 @@ define(function(require){
 			"id": "156",
 			"name": "Quilava",
 			"ThumbnailAltText": "Quilava",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/156.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/156.png",
 			"type": "fire"
 		},
 		{
@@ -1731,7 +1731,7 @@ define(function(require){
 			"id": "157",
 			"name": "Typhlosion",
 			"ThumbnailAltText": "Typhlosion",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/157.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/157.png",
 			"type": "fire"
 		},
 		{
@@ -1742,7 +1742,7 @@ define(function(require){
 			"id": "158",
 			"name": "Totodile",
 			"ThumbnailAltText": "Totodile",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/158.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/158.png",
 			"type": "water"
 		},
 		{
@@ -1753,7 +1753,7 @@ define(function(require){
 			"id": "159",
 			"name": "Croconaw",
 			"ThumbnailAltText": "Croconaw",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/159.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/159.png",
 			"type": "water"
 		},
 		{
@@ -1764,7 +1764,7 @@ define(function(require){
 			"id": "160",
 			"name": "Feraligatr",
 			"ThumbnailAltText": "Feraligatr",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/160.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/160.png",
 			"type": "water"
 		},
 		{
@@ -1775,7 +1775,7 @@ define(function(require){
 			"id": "161",
 			"name": "Sentret",
 			"ThumbnailAltText": "Sentret",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/161.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/161.png",
 			"type": "normal"
 		},
 		{
@@ -1786,7 +1786,7 @@ define(function(require){
 			"id": "162",
 			"name": "Furret",
 			"ThumbnailAltText": "Furret",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/162.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/162.png",
 			"type": "normal"
 		},
 		{
@@ -1797,7 +1797,7 @@ define(function(require){
 			"id": "163",
 			"name": "Hoothoot",
 			"ThumbnailAltText": "Hoothoot",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/163.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/163.png",
 			"type": "normal, flying"
 		},
 		{
@@ -1808,7 +1808,7 @@ define(function(require){
 			"id": "164",
 			"name": "Noctowl",
 			"ThumbnailAltText": "Noctowl",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/164.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/164.png",
 			"type": "normal, flying"
 		},
 		{
@@ -1819,7 +1819,7 @@ define(function(require){
 			"id": "165",
 			"name": "Ledyba",
 			"ThumbnailAltText": "Ledyba",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/165.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/165.png",
 			"type": "bug, flying"
 		},
 		{
@@ -1830,7 +1830,7 @@ define(function(require){
 			"id": "166",
 			"name": "Ledian",
 			"ThumbnailAltText": "Ledian",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/166.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/166.png",
 			"type": "bug, flying"
 		},
 		{
@@ -1841,7 +1841,7 @@ define(function(require){
 			"id": "167",
 			"name": "Spinarak",
 			"ThumbnailAltText": "Spinarak",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/167.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/167.png",
 			"type": "bug, poison"
 		},
 		{
@@ -1852,7 +1852,7 @@ define(function(require){
 			"id": "168",
 			"name": "Ariados",
 			"ThumbnailAltText": "Ariados",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/168.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/168.png",
 			"type": "bug, poison"
 		},
 		{
@@ -1863,7 +1863,7 @@ define(function(require){
 			"id": "169",
 			"name": "Crobat",
 			"ThumbnailAltText": "Crobat",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/169.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/169.png",
 			"type": "poison, flying"
 		},
 		{
@@ -1874,7 +1874,7 @@ define(function(require){
 			"id": "170",
 			"name": "Chinchou",
 			"ThumbnailAltText": "Chinchou",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/170.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/170.png",
 			"type": "water, electric"
 		},
 		{
@@ -1885,7 +1885,7 @@ define(function(require){
 			"id": "171",
 			"name": "Lanturn",
 			"ThumbnailAltText": "Lanturn",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/171.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/171.png",
 			"type": "water, electric"
 		},
 		{
@@ -1896,7 +1896,7 @@ define(function(require){
 			"id": "172",
 			"name": "Pichu",
 			"ThumbnailAltText": "Pichu",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/172.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/172.png",
 			"type": "electric"
 		},
 		{
@@ -1907,7 +1907,7 @@ define(function(require){
 			"id": "173",
 			"name": "Cleffa",
 			"ThumbnailAltText": "Cleffa",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/173.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/173.png",
 			"type": "fairy"
 		},
 		{
@@ -1918,7 +1918,7 @@ define(function(require){
 			"id": "174",
 			"name": "Igglybuff",
 			"ThumbnailAltText": "Igglybuff",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/174.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/174.png",
 			"type": "normal, fairy"
 		},
 		{
@@ -1929,7 +1929,7 @@ define(function(require){
 			"id": "175",
 			"name": "Togepi",
 			"ThumbnailAltText": "Togepi",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/175.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/175.png",
 			"type": "fairy"
 		},
 		{
@@ -1940,7 +1940,7 @@ define(function(require){
 			"id": "176",
 			"name": "Togetic",
 			"ThumbnailAltText": "Togetic",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/176.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/176.png",
 			"type": "fairy, flying"
 		},
 		{
@@ -1951,7 +1951,7 @@ define(function(require){
 			"id": "177",
 			"name": "Natu",
 			"ThumbnailAltText": "Natu",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/177.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/177.png",
 			"type": "psychic, flying"
 		},
 		{
@@ -1962,7 +1962,7 @@ define(function(require){
 			"id": "178",
 			"name": "Xatu",
 			"ThumbnailAltText": "Xatu",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/178.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/178.png",
 			"type": "psychic, flying"
 		},
 		{
@@ -1973,7 +1973,7 @@ define(function(require){
 			"id": "179",
 			"name": "Mareep",
 			"ThumbnailAltText": "Mareep",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/179.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/179.png",
 			"type": "electric"
 		},
 		{
@@ -1984,7 +1984,7 @@ define(function(require){
 			"id": "180",
 			"name": "Flaaffy",
 			"ThumbnailAltText": "Flaaffy",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/180.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/180.png",
 			"type": "electric"
 		},
 		{
@@ -1995,7 +1995,7 @@ define(function(require){
 			"id": "181",
 			"name": "Ampharos",
 			"ThumbnailAltText": "Ampharos",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/181.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/181.png",
 			"type": "electric, dragon"
 		},
 		{
@@ -2006,7 +2006,7 @@ define(function(require){
 			"id": "182",
 			"name": "Bellossom",
 			"ThumbnailAltText": "Bellossom",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/182.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/182.png",
 			"type": "grass"
 		},
 		{
@@ -2017,7 +2017,7 @@ define(function(require){
 			"id": "183",
 			"name": "Marill",
 			"ThumbnailAltText": "Marill",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/183.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/183.png",
 			"type": "water, fairy"
 		},
 		{
@@ -2028,7 +2028,7 @@ define(function(require){
 			"id": "184",
 			"name": "Azumarill",
 			"ThumbnailAltText": "Azumarill",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/184.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/184.png",
 			"type": "water, fairy"
 		},
 		{
@@ -2039,7 +2039,7 @@ define(function(require){
 			"id": "185",
 			"name": "Sudowoodo",
 			"ThumbnailAltText": "Sudowoodo",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/185.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/185.png",
 			"type": "rock"
 		},
 		{
@@ -2050,7 +2050,7 @@ define(function(require){
 			"id": "186",
 			"name": "Politoed",
 			"ThumbnailAltText": "Politoed",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/186.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/186.png",
 			"type": "water"
 		},
 		{
@@ -2061,7 +2061,7 @@ define(function(require){
 			"id": "187",
 			"name": "Hoppip",
 			"ThumbnailAltText": "Hoppip",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/187.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/187.png",
 			"type": "grass, flying"
 		},
 		{
@@ -2072,7 +2072,7 @@ define(function(require){
 			"id": "188",
 			"name": "Skiploom",
 			"ThumbnailAltText": "Skiploom",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/188.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/188.png",
 			"type": "grass, flying"
 		},
 		{
@@ -2083,7 +2083,7 @@ define(function(require){
 			"id": "189",
 			"name": "Jumpluff",
 			"ThumbnailAltText": "Jumpluff",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/189.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/189.png",
 			"type": "grass, flying"
 		},
 		{
@@ -2094,7 +2094,7 @@ define(function(require){
 			"id": "190",
 			"name": "Aipom",
 			"ThumbnailAltText": "Aipom",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/190.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/190.png",
 			"type": "normal"
 		},
 		{
@@ -2105,7 +2105,7 @@ define(function(require){
 			"id": "191",
 			"name": "Sunkern",
 			"ThumbnailAltText": "Sunkern",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/191.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/191.png",
 			"type": "grass"
 		},
 		{
@@ -2116,7 +2116,7 @@ define(function(require){
 			"id": "192",
 			"name": "Sunflora",
 			"ThumbnailAltText": "Sunflora",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/192.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/192.png",
 			"type": "grass"
 		},
 		{
@@ -2127,7 +2127,7 @@ define(function(require){
 			"id": "193",
 			"name": "Yanma",
 			"ThumbnailAltText": "Yanma",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/193.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/193.png",
 			"type": "bug, flying"
 		},
 		{
@@ -2138,7 +2138,7 @@ define(function(require){
 			"id": "194",
 			"name": "Wooper",
 			"ThumbnailAltText": "Wooper",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/194.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/194.png",
 			"type": "water, ground"
 		},
 		{
@@ -2149,7 +2149,7 @@ define(function(require){
 			"id": "195",
 			"name": "Quagsire",
 			"ThumbnailAltText": "Quagsire",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/195.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/195.png",
 			"type": "water, ground"
 		},
 		{
@@ -2160,7 +2160,7 @@ define(function(require){
 			"id": "196",
 			"name": "Espeon",
 			"ThumbnailAltText": "Espeon",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/196.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/196.png",
 			"type": "psychic"
 		},
 		{
@@ -2171,7 +2171,7 @@ define(function(require){
 			"id": "197",
 			"name": "Umbreon",
 			"ThumbnailAltText": "Umbreon",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/197.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/197.png",
 			"type": "dark"
 		},
 		{
@@ -2182,7 +2182,7 @@ define(function(require){
 			"id": "198",
 			"name": "Murkrow",
 			"ThumbnailAltText": "Murkrow",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/198.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/198.png",
 			"type": "dark, flying"
 		},
 		{
@@ -2193,7 +2193,7 @@ define(function(require){
 			"id": "199",
 			"name": "Slowking",
 			"ThumbnailAltText": "Slowking",
-			"ThumbnailImage": "http://assets8.pokemon.com/static2/_ui/img/pokedex/detail/199.png",
+			"ThumbnailImage": "http://assets20.pokemon.com/assets/cms2/img/pokedex/detail/199.png",
 			"type": "water, psychic"
 		},
 		{
@@ -2204,7 +2204,7 @@ define(function(require){
 			"id": "200",
 			"name": "Misdreavus",
 			"ThumbnailAltText": "Misdreavus",
-			"ThumbnailImage": "http://assets16.pokemon.com/static2/_ui/img/pokedex/detail/200.png",
+			"ThumbnailImage": "http://assets3.pokemon.com/assets/cms2/img/pokedex/detail/200.png",
 			"type": "ghost"
 		},
 		{
@@ -2215,7 +2215,7 @@ define(function(require){
 			"id": "201",
 			"name": "Unown",
 			"ThumbnailAltText": "Unown",
-			"ThumbnailImage": "http://assets17.pokemon.com/static2/_ui/img/pokedex/detail/201.png",
+			"ThumbnailImage": "http://assets4.pokemon.com/assets/cms2/img/pokedex/detail/201.png",
 			"type": "psychic"
 		},
 		{
@@ -2226,7 +2226,7 @@ define(function(require){
 			"id": "202",
 			"name": "Wobbuffet",
 			"ThumbnailAltText": "Wobbuffet",
-			"ThumbnailImage": "http://assets18.pokemon.com/static2/_ui/img/pokedex/detail/202.png",
+			"ThumbnailImage": "http://assets5.pokemon.com/assets/cms2/img/pokedex/detail/202.png",
 			"type": "psychic"
 		},
 		{
@@ -2237,7 +2237,7 @@ define(function(require){
 			"id": "203",
 			"name": "Girafarig",
 			"ThumbnailAltText": "Girafarig",
-			"ThumbnailImage": "http://assets19.pokemon.com/static2/_ui/img/pokedex/detail/203.png",
+			"ThumbnailImage": "http://assets6.pokemon.com/assets/cms2/img/pokedex/detail/203.png",
 			"type": "normal, psychic"
 		},
 		{
@@ -2248,7 +2248,7 @@ define(function(require){
 			"id": "204",
 			"name": "Pineco",
 			"ThumbnailAltText": "Pineco",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/204.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/204.png",
 			"type": "bug"
 		},
 		{
@@ -2259,7 +2259,7 @@ define(function(require){
 			"id": "205",
 			"name": "Forretress",
 			"ThumbnailAltText": "Forretress",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/205.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/205.png",
 			"type": "bug, steel"
 		},
 		{
@@ -2270,7 +2270,7 @@ define(function(require){
 			"id": "206",
 			"name": "Dunsparce",
 			"ThumbnailAltText": "Dunsparce",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/206.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/206.png",
 			"type": "normal"
 		},
 		{
@@ -2281,7 +2281,7 @@ define(function(require){
 			"id": "207",
 			"name": "Gligar",
 			"ThumbnailAltText": "Gligar",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/207.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/207.png",
 			"type": "ground, flying"
 		},
 		{
@@ -2292,7 +2292,7 @@ define(function(require){
 			"id": "208",
 			"name": "Steelix",
 			"ThumbnailAltText": "Steelix",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/208.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/208.png",
 			"type": "steel, ground"
 		},
 		{
@@ -2303,7 +2303,7 @@ define(function(require){
 			"id": "209",
 			"name": "Snubbull",
 			"ThumbnailAltText": "Snubbull",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/209.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/209.png",
 			"type": "fairy"
 		},
 		{
@@ -2314,7 +2314,7 @@ define(function(require){
 			"id": "210",
 			"name": "Granbull",
 			"ThumbnailAltText": "Granbull",
-			"ThumbnailImage": "http://assets17.pokemon.com/static2/_ui/img/pokedex/detail/210.png",
+			"ThumbnailImage": "http://assets4.pokemon.com/assets/cms2/img/pokedex/detail/210.png",
 			"type": "fairy"
 		},
 		{
@@ -2325,7 +2325,7 @@ define(function(require){
 			"id": "211",
 			"name": "Qwilfish",
 			"ThumbnailAltText": "Qwilfish",
-			"ThumbnailImage": "http://assets18.pokemon.com/static2/_ui/img/pokedex/detail/211.png",
+			"ThumbnailImage": "http://assets5.pokemon.com/assets/cms2/img/pokedex/detail/211.png",
 			"type": "water, poison"
 		},
 		{
@@ -2336,7 +2336,7 @@ define(function(require){
 			"id": "212",
 			"name": "Scizor",
 			"ThumbnailAltText": "Scizor",
-			"ThumbnailImage": "http://assets19.pokemon.com/static2/_ui/img/pokedex/detail/212.png",
+			"ThumbnailImage": "http://assets6.pokemon.com/assets/cms2/img/pokedex/detail/212.png",
 			"type": "bug, steel"
 		},
 		{
@@ -2347,7 +2347,7 @@ define(function(require){
 			"id": "213",
 			"name": "Shuckle",
 			"ThumbnailAltText": "Shuckle",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/213.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/213.png",
 			"type": "bug, rock"
 		},
 		{
@@ -2358,7 +2358,7 @@ define(function(require){
 			"id": "214",
 			"name": "Heracross",
 			"ThumbnailAltText": "Heracross",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/214.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/214.png",
 			"type": "bug, fighting"
 		},
 		{
@@ -2369,7 +2369,7 @@ define(function(require){
 			"id": "215",
 			"name": "Sneasel",
 			"ThumbnailAltText": "Sneasel",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/215.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/215.png",
 			"type": "dark, ice"
 		},
 		{
@@ -2380,7 +2380,7 @@ define(function(require){
 			"id": "216",
 			"name": "Teddiursa",
 			"ThumbnailAltText": "Teddiursa",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/216.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/216.png",
 			"type": "normal"
 		},
 		{
@@ -2391,7 +2391,7 @@ define(function(require){
 			"id": "217",
 			"name": "Ursaring",
 			"ThumbnailAltText": "Ursaring",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/217.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/217.png",
 			"type": "normal"
 		},
 		{
@@ -2402,7 +2402,7 @@ define(function(require){
 			"id": "218",
 			"name": "Slugma",
 			"ThumbnailAltText": "Slugma",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/218.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/218.png",
 			"type": "fire"
 		},
 		{
@@ -2413,7 +2413,7 @@ define(function(require){
 			"id": "219",
 			"name": "Magcargo",
 			"ThumbnailAltText": "Magcargo",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/219.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/219.png",
 			"type": "fire, rock"
 		},
 		{
@@ -2424,7 +2424,7 @@ define(function(require){
 			"id": "220",
 			"name": "Swinub",
 			"ThumbnailAltText": "Swinub",
-			"ThumbnailImage": "http://assets18.pokemon.com/static2/_ui/img/pokedex/detail/220.png",
+			"ThumbnailImage": "http://assets5.pokemon.com/assets/cms2/img/pokedex/detail/220.png",
 			"type": "ice, ground"
 		},
 		{
@@ -2435,7 +2435,7 @@ define(function(require){
 			"id": "221",
 			"name": "Piloswine",
 			"ThumbnailAltText": "Piloswine",
-			"ThumbnailImage": "http://assets19.pokemon.com/static2/_ui/img/pokedex/detail/221.png",
+			"ThumbnailImage": "http://assets6.pokemon.com/assets/cms2/img/pokedex/detail/221.png",
 			"type": "ice, ground"
 		},
 		{
@@ -2446,7 +2446,7 @@ define(function(require){
 			"id": "222",
 			"name": "Corsola",
 			"ThumbnailAltText": "Corsola",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/222.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/222.png",
 			"type": "water, rock"
 		},
 		{
@@ -2457,7 +2457,7 @@ define(function(require){
 			"id": "223",
 			"name": "Remoraid",
 			"ThumbnailAltText": "Remoraid",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/223.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/223.png",
 			"type": "water"
 		},
 		{
@@ -2468,7 +2468,7 @@ define(function(require){
 			"id": "224",
 			"name": "Octillery",
 			"ThumbnailAltText": "Octillery",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/224.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/224.png",
 			"type": "water"
 		},
 		{
@@ -2479,7 +2479,7 @@ define(function(require){
 			"id": "225",
 			"name": "Delibird",
 			"ThumbnailAltText": "Delibird",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/225.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/225.png",
 			"type": "ice, flying"
 		},
 		{
@@ -2490,7 +2490,7 @@ define(function(require){
 			"id": "226",
 			"name": "Mantine",
 			"ThumbnailAltText": "Mantine",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/226.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/226.png",
 			"type": "water, flying"
 		},
 		{
@@ -2501,7 +2501,7 @@ define(function(require){
 			"id": "227",
 			"name": "Skarmory",
 			"ThumbnailAltText": "Skarmory",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/227.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/227.png",
 			"type": "steel, flying"
 		},
 		{
@@ -2512,7 +2512,7 @@ define(function(require){
 			"id": "228",
 			"name": "Houndour",
 			"ThumbnailAltText": "Houndour",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/228.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/228.png",
 			"type": "dark, fire"
 		},
 		{
@@ -2523,7 +2523,7 @@ define(function(require){
 			"id": "229",
 			"name": "Houndoom",
 			"ThumbnailAltText": "Houndoom",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/229.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/229.png",
 			"type": "dark, fire"
 		},
 		{
@@ -2534,7 +2534,7 @@ define(function(require){
 			"id": "230",
 			"name": "Kingdra",
 			"ThumbnailAltText": "Kingdra",
-			"ThumbnailImage": "http://assets19.pokemon.com/static2/_ui/img/pokedex/detail/230.png",
+			"ThumbnailImage": "http://assets6.pokemon.com/assets/cms2/img/pokedex/detail/230.png",
 			"type": "water, dragon"
 		},
 		{
@@ -2545,7 +2545,7 @@ define(function(require){
 			"id": "231",
 			"name": "Phanpy",
 			"ThumbnailAltText": "Phanpy",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/231.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/231.png",
 			"type": "ground"
 		},
 		{
@@ -2556,7 +2556,7 @@ define(function(require){
 			"id": "232",
 			"name": "Donphan",
 			"ThumbnailAltText": "Donphan",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/232.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/232.png",
 			"type": "ground"
 		},
 		{
@@ -2567,7 +2567,7 @@ define(function(require){
 			"id": "233",
 			"name": "Porygon2",
 			"ThumbnailAltText": "Porygon2",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/233.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/233.png",
 			"type": "normal"
 		},
 		{
@@ -2578,7 +2578,7 @@ define(function(require){
 			"id": "234",
 			"name": "Stantler",
 			"ThumbnailAltText": "Stantler",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/234.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/234.png",
 			"type": "normal"
 		},
 		{
@@ -2589,7 +2589,7 @@ define(function(require){
 			"id": "235",
 			"name": "Smeargle",
 			"ThumbnailAltText": "Smeargle",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/235.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/235.png",
 			"type": "normal"
 		},
 		{
@@ -2600,7 +2600,7 @@ define(function(require){
 			"id": "236",
 			"name": "Tyrogue",
 			"ThumbnailAltText": "Tyrogue",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/236.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/236.png",
 			"type": "fighting"
 		},
 		{
@@ -2611,7 +2611,7 @@ define(function(require){
 			"id": "237",
 			"name": "Hitmontop",
 			"ThumbnailAltText": "Hitmontop",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/237.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/237.png",
 			"type": "fighting"
 		},
 		{
@@ -2622,7 +2622,7 @@ define(function(require){
 			"id": "238",
 			"name": "Smoochum",
 			"ThumbnailAltText": "Smoochum",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/238.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/238.png",
 			"type": "ice, psychic"
 		},
 		{
@@ -2633,7 +2633,7 @@ define(function(require){
 			"id": "239",
 			"name": "Elekid",
 			"ThumbnailAltText": "Elekid",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/239.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/239.png",
 			"type": "electric"
 		},
 		{
@@ -2644,7 +2644,7 @@ define(function(require){
 			"id": "240",
 			"name": "Magby",
 			"ThumbnailAltText": "Magby",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/240.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/240.png",
 			"type": "fire"
 		},
 		{
@@ -2655,7 +2655,7 @@ define(function(require){
 			"id": "241",
 			"name": "Miltank",
 			"ThumbnailAltText": "Miltank",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/241.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/241.png",
 			"type": "normal"
 		},
 		{
@@ -2666,7 +2666,7 @@ define(function(require){
 			"id": "242",
 			"name": "Blissey",
 			"ThumbnailAltText": "Blissey",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/242.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/242.png",
 			"type": "normal"
 		},
 		{
@@ -2677,7 +2677,7 @@ define(function(require){
 			"id": "243",
 			"name": "Raikou",
 			"ThumbnailAltText": "Raikou",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/243.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/243.png",
 			"type": "electric"
 		},
 		{
@@ -2688,7 +2688,7 @@ define(function(require){
 			"id": "244",
 			"name": "Entei",
 			"ThumbnailAltText": "Entei",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/244.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/244.png",
 			"type": "fire"
 		},
 		{
@@ -2699,7 +2699,7 @@ define(function(require){
 			"id": "245",
 			"name": "Suicune",
 			"ThumbnailAltText": "Suicune",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/245.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/245.png",
 			"type": "water"
 		},
 		{
@@ -2710,7 +2710,7 @@ define(function(require){
 			"id": "246",
 			"name": "Larvitar",
 			"ThumbnailAltText": "Larvitar",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/246.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/246.png",
 			"type": "rock, ground"
 		},
 		{
@@ -2721,7 +2721,7 @@ define(function(require){
 			"id": "247",
 			"name": "Pupitar",
 			"ThumbnailAltText": "Pupitar",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/247.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/247.png",
 			"type": "rock, ground"
 		},
 		{
@@ -2732,7 +2732,7 @@ define(function(require){
 			"id": "248",
 			"name": "Tyranitar",
 			"ThumbnailAltText": "Tyranitar",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/248.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/248.png",
 			"type": "rock, dark"
 		},
 		{
@@ -2743,7 +2743,7 @@ define(function(require){
 			"id": "249",
 			"name": "Lugia",
 			"ThumbnailAltText": "Lugia",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/249.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/249.png",
 			"type": "psychic, flying"
 		},
 		{
@@ -2754,7 +2754,7 @@ define(function(require){
 			"id": "250",
 			"name": "Ho-Oh",
 			"ThumbnailAltText": "Ho-Oh",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/250.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/250.png",
 			"type": "fire, flying"
 		},
 		{
@@ -2765,7 +2765,7 @@ define(function(require){
 			"id": "251",
 			"name": "Celebi",
 			"ThumbnailAltText": "Celebi",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/251.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/251.png",
 			"type": "psychic, grass"
 		},
 		{
@@ -2776,7 +2776,7 @@ define(function(require){
 			"id": "252",
 			"name": "Treecko",
 			"ThumbnailAltText": "Treecko",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/252.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/252.png",
 			"type": "grass"
 		},
 		{
@@ -2787,7 +2787,7 @@ define(function(require){
 			"id": "253",
 			"name": "Grovyle",
 			"ThumbnailAltText": "Grovyle",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/253.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/253.png",
 			"type": "grass"
 		},
 		{
@@ -2798,7 +2798,7 @@ define(function(require){
 			"id": "254",
 			"name": "Sceptile",
 			"ThumbnailAltText": "Sceptile",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/254.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/254.png",
 			"type": "grass"
 		},
 		{
@@ -2809,7 +2809,7 @@ define(function(require){
 			"id": "255",
 			"name": "Torchic",
 			"ThumbnailAltText": "Torchic",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/255.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/255.png",
 			"type": "fire"
 		},
 		{
@@ -2820,7 +2820,7 @@ define(function(require){
 			"id": "256",
 			"name": "Combusken",
 			"ThumbnailAltText": "Combusken",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/256.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/256.png",
 			"type": "fire, fighting"
 		},
 		{
@@ -2831,7 +2831,7 @@ define(function(require){
 			"id": "257",
 			"name": "Blaziken",
 			"ThumbnailAltText": "Blaziken",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/257.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/257.png",
 			"type": "fire, fighting"
 		},
 		{
@@ -2842,7 +2842,7 @@ define(function(require){
 			"id": "258",
 			"name": "Mudkip",
 			"ThumbnailAltText": "Mudkip",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/258.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/258.png",
 			"type": "water"
 		},
 		{
@@ -2853,7 +2853,7 @@ define(function(require){
 			"id": "259",
 			"name": "Marshtomp",
 			"ThumbnailAltText": "Marshtomp",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/259.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/259.png",
 			"type": "water"
 		},
 		{
@@ -2864,7 +2864,7 @@ define(function(require){
 			"id": "260",
 			"name": "Swampert",
 			"ThumbnailAltText": "Swampert",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/260.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/260.png",
 			"type": "water, ground"
 		},
 		{
@@ -2875,7 +2875,7 @@ define(function(require){
 			"id": "261",
 			"name": "Poochyena",
 			"ThumbnailAltText": "Poochyena",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/261.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/261.png",
 			"type": "dark"
 		},
 		{
@@ -2886,7 +2886,7 @@ define(function(require){
 			"id": "262",
 			"name": "Mightyena",
 			"ThumbnailAltText": "Mightyena",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/262.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/262.png",
 			"type": "dark"
 		},
 		{
@@ -2897,7 +2897,7 @@ define(function(require){
 			"id": "263",
 			"name": "Zigzagoon",
 			"ThumbnailAltText": "Zigzagoon",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/263.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/263.png",
 			"type": "normal"
 		},
 		{
@@ -2908,7 +2908,7 @@ define(function(require){
 			"id": "264",
 			"name": "Linoone",
 			"ThumbnailAltText": "Linoone",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/264.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/264.png",
 			"type": "normal"
 		},
 		{
@@ -2919,7 +2919,7 @@ define(function(require){
 			"id": "265",
 			"name": "Wurmple",
 			"ThumbnailAltText": "Wurmple",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/265.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/265.png",
 			"type": "bug"
 		},
 		{
@@ -2930,7 +2930,7 @@ define(function(require){
 			"id": "266",
 			"name": "Silcoon",
 			"ThumbnailAltText": "Silcoon",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/266.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/266.png",
 			"type": "bug"
 		},
 		{
@@ -2941,7 +2941,7 @@ define(function(require){
 			"id": "267",
 			"name": "Beautifly",
 			"ThumbnailAltText": "Beautifly",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/267.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/267.png",
 			"type": "bug, flying"
 		},
 		{
@@ -2952,7 +2952,7 @@ define(function(require){
 			"id": "268",
 			"name": "Cascoon",
 			"ThumbnailAltText": "Cascoon",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/268.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/268.png",
 			"type": "bug"
 		},
 		{
@@ -2963,7 +2963,7 @@ define(function(require){
 			"id": "269",
 			"name": "Dustox",
 			"ThumbnailAltText": "Dustox",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/269.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/269.png",
 			"type": "bug, poison"
 		},
 		{
@@ -2974,7 +2974,7 @@ define(function(require){
 			"id": "270",
 			"name": "Lotad",
 			"ThumbnailAltText": "Lotad",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/270.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/270.png",
 			"type": "water, grass"
 		},
 		{
@@ -2985,7 +2985,7 @@ define(function(require){
 			"id": "271",
 			"name": "Lombre",
 			"ThumbnailAltText": "Lombre",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/271.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/271.png",
 			"type": "water, grass"
 		},
 		{
@@ -2996,7 +2996,7 @@ define(function(require){
 			"id": "272",
 			"name": "Ludicolo",
 			"ThumbnailAltText": "Ludicolo",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/272.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/272.png",
 			"type": "water, grass"
 		},
 		{
@@ -3007,7 +3007,7 @@ define(function(require){
 			"id": "273",
 			"name": "Seedot",
 			"ThumbnailAltText": "Seedot",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/273.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/273.png",
 			"type": "grass"
 		},
 		{
@@ -3018,7 +3018,7 @@ define(function(require){
 			"id": "274",
 			"name": "Nuzleaf",
 			"ThumbnailAltText": "Nuzleaf",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/274.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/274.png",
 			"type": "grass, dark"
 		},
 		{
@@ -3029,7 +3029,7 @@ define(function(require){
 			"id": "275",
 			"name": "Shiftry",
 			"ThumbnailAltText": "Shiftry",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/275.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/275.png",
 			"type": "grass, dark"
 		},
 		{
@@ -3040,7 +3040,7 @@ define(function(require){
 			"id": "276",
 			"name": "Taillow",
 			"ThumbnailAltText": "Taillow",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/276.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/276.png",
 			"type": "normal, flying"
 		},
 		{
@@ -3051,7 +3051,7 @@ define(function(require){
 			"id": "277",
 			"name": "Swellow",
 			"ThumbnailAltText": "Swellow",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/277.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/277.png",
 			"type": "normal, flying"
 		},
 		{
@@ -3062,7 +3062,7 @@ define(function(require){
 			"id": "278",
 			"name": "Wingull",
 			"ThumbnailAltText": "Wingull",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/278.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/278.png",
 			"type": "water, flying"
 		},
 		{
@@ -3073,7 +3073,7 @@ define(function(require){
 			"id": "279",
 			"name": "Pelipper",
 			"ThumbnailAltText": "Pelipper",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/279.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/279.png",
 			"type": "water, flying"
 		},
 		{
@@ -3084,7 +3084,7 @@ define(function(require){
 			"id": "280",
 			"name": "Ralts",
 			"ThumbnailAltText": "Ralts",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/280.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/280.png",
 			"type": "psychic, fairy"
 		},
 		{
@@ -3095,7 +3095,7 @@ define(function(require){
 			"id": "281",
 			"name": "Kirlia",
 			"ThumbnailAltText": "Kirlia",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/281.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/281.png",
 			"type": "psychic, fairy"
 		},
 		{
@@ -3106,7 +3106,7 @@ define(function(require){
 			"id": "282",
 			"name": "Gardevoir",
 			"ThumbnailAltText": "Gardevoir",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/282.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/282.png",
 			"type": "psychic, fairy"
 		},
 		{
@@ -3117,7 +3117,7 @@ define(function(require){
 			"id": "283",
 			"name": "Surskit",
 			"ThumbnailAltText": "Surskit",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/283.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/283.png",
 			"type": "bug, water"
 		},
 		{
@@ -3128,7 +3128,7 @@ define(function(require){
 			"id": "284",
 			"name": "Masquerain",
 			"ThumbnailAltText": "Masquerain",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/284.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/284.png",
 			"type": "bug, flying"
 		},
 		{
@@ -3139,7 +3139,7 @@ define(function(require){
 			"id": "285",
 			"name": "Shroomish",
 			"ThumbnailAltText": "Shroomish",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/285.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/285.png",
 			"type": "grass"
 		},
 		{
@@ -3150,7 +3150,7 @@ define(function(require){
 			"id": "286",
 			"name": "Breloom",
 			"ThumbnailAltText": "Breloom",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/286.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/286.png",
 			"type": "grass, fighting"
 		},
 		{
@@ -3161,7 +3161,7 @@ define(function(require){
 			"id": "287",
 			"name": "Slakoth",
 			"ThumbnailAltText": "Slakoth",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/287.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/287.png",
 			"type": "normal"
 		},
 		{
@@ -3172,7 +3172,7 @@ define(function(require){
 			"id": "288",
 			"name": "Vigoroth",
 			"ThumbnailAltText": "Vigoroth",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/288.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/288.png",
 			"type": "normal"
 		},
 		{
@@ -3183,7 +3183,7 @@ define(function(require){
 			"id": "289",
 			"name": "Slaking",
 			"ThumbnailAltText": "Slaking",
-			"ThumbnailImage": "http://assets8.pokemon.com/static2/_ui/img/pokedex/detail/289.png",
+			"ThumbnailImage": "http://assets20.pokemon.com/assets/cms2/img/pokedex/detail/289.png",
 			"type": "normal"
 		},
 		{
@@ -3194,7 +3194,7 @@ define(function(require){
 			"id": "290",
 			"name": "Nincada",
 			"ThumbnailAltText": "Nincada",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/290.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/290.png",
 			"type": "bug, ground"
 		},
 		{
@@ -3205,7 +3205,7 @@ define(function(require){
 			"id": "291",
 			"name": "Ninjask",
 			"ThumbnailAltText": "Ninjask",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/291.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/291.png",
 			"type": "bug, flying"
 		},
 		{
@@ -3216,7 +3216,7 @@ define(function(require){
 			"id": "292",
 			"name": "Shedinja",
 			"ThumbnailAltText": "Shedinja",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/292.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/292.png",
 			"type": "bug, ghost"
 		},
 		{
@@ -3227,7 +3227,7 @@ define(function(require){
 			"id": "293",
 			"name": "Whismur",
 			"ThumbnailAltText": "Whismur",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/293.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/293.png",
 			"type": "normal"
 		},
 		{
@@ -3238,7 +3238,7 @@ define(function(require){
 			"id": "294",
 			"name": "Loudred",
 			"ThumbnailAltText": "Loudred",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/294.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/294.png",
 			"type": "normal"
 		},
 		{
@@ -3249,7 +3249,7 @@ define(function(require){
 			"id": "295",
 			"name": "Exploud",
 			"ThumbnailAltText": "Exploud",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/295.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/295.png",
 			"type": "normal"
 		},
 		{
@@ -3260,7 +3260,7 @@ define(function(require){
 			"id": "296",
 			"name": "Makuhita",
 			"ThumbnailAltText": "Makuhita",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/296.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/296.png",
 			"type": "fighting"
 		},
 		{
@@ -3271,7 +3271,7 @@ define(function(require){
 			"id": "297",
 			"name": "Hariyama",
 			"ThumbnailAltText": "Hariyama",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/297.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/297.png",
 			"type": "fighting"
 		},
 		{
@@ -3282,7 +3282,7 @@ define(function(require){
 			"id": "298",
 			"name": "Azurill",
 			"ThumbnailAltText": "Azurill",
-			"ThumbnailImage": "http://assets8.pokemon.com/static2/_ui/img/pokedex/detail/298.png",
+			"ThumbnailImage": "http://assets20.pokemon.com/assets/cms2/img/pokedex/detail/298.png",
 			"type": "normal, fairy"
 		},
 		{
@@ -3293,7 +3293,7 @@ define(function(require){
 			"id": "299",
 			"name": "Nosepass",
 			"ThumbnailAltText": "Nosepass",
-			"ThumbnailImage": "http://assets9.pokemon.com/static2/_ui/img/pokedex/detail/299.png",
+			"ThumbnailImage": "http://assets21.pokemon.com/assets/cms2/img/pokedex/detail/299.png",
 			"type": "rock"
 		},
 		{
@@ -3304,7 +3304,7 @@ define(function(require){
 			"id": "300",
 			"name": "Skitty",
 			"ThumbnailAltText": "Skitty",
-			"ThumbnailImage": "http://assets17.pokemon.com/static2/_ui/img/pokedex/detail/300.png",
+			"ThumbnailImage": "http://assets4.pokemon.com/assets/cms2/img/pokedex/detail/300.png",
 			"type": "normal"
 		},
 		{
@@ -3315,7 +3315,7 @@ define(function(require){
 			"id": "301",
 			"name": "Delcatty",
 			"ThumbnailAltText": "Delcatty",
-			"ThumbnailImage": "http://assets18.pokemon.com/static2/_ui/img/pokedex/detail/301.png",
+			"ThumbnailImage": "http://assets5.pokemon.com/assets/cms2/img/pokedex/detail/301.png",
 			"type": "normal"
 		},
 		{
@@ -3326,7 +3326,7 @@ define(function(require){
 			"id": "302",
 			"name": "Sableye",
 			"ThumbnailAltText": "Sableye",
-			"ThumbnailImage": "http://assets19.pokemon.com/static2/_ui/img/pokedex/detail/302.png",
+			"ThumbnailImage": "http://assets6.pokemon.com/assets/cms2/img/pokedex/detail/302.png",
 			"type": "dark, ghost"
 		},
 		{
@@ -3337,7 +3337,7 @@ define(function(require){
 			"id": "303",
 			"name": "Mawile",
 			"ThumbnailAltText": "Mawile",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/303.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/303.png",
 			"type": "steel, fairy"
 		},
 		{
@@ -3348,7 +3348,7 @@ define(function(require){
 			"id": "304",
 			"name": "Aron",
 			"ThumbnailAltText": "Aron",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/304.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/304.png",
 			"type": "steel, rock"
 		},
 		{
@@ -3359,7 +3359,7 @@ define(function(require){
 			"id": "305",
 			"name": "Lairon",
 			"ThumbnailAltText": "Lairon",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/305.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/305.png",
 			"type": "steel, rock"
 		},
 		{
@@ -3370,7 +3370,7 @@ define(function(require){
 			"id": "306",
 			"name": "Aggron",
 			"ThumbnailAltText": "Aggron",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/306.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/306.png",
 			"type": "steel"
 		},
 		{
@@ -3381,7 +3381,7 @@ define(function(require){
 			"id": "307",
 			"name": "Meditite",
 			"ThumbnailAltText": "Meditite",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/307.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/307.png",
 			"type": "fighting, psychic"
 		},
 		{
@@ -3392,7 +3392,7 @@ define(function(require){
 			"id": "308",
 			"name": "Medicham",
 			"ThumbnailAltText": "Medicham",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/308.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/308.png",
 			"type": "fighting, psychic"
 		},
 		{
@@ -3403,7 +3403,7 @@ define(function(require){
 			"id": "309",
 			"name": "Electrike",
 			"ThumbnailAltText": "Electrike",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/309.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/309.png",
 			"type": "electric"
 		},
 		{
@@ -3414,7 +3414,7 @@ define(function(require){
 			"id": "310",
 			"name": "Manectric",
 			"ThumbnailAltText": "Manectric",
-			"ThumbnailImage": "http://assets18.pokemon.com/static2/_ui/img/pokedex/detail/310.png",
+			"ThumbnailImage": "http://assets5.pokemon.com/assets/cms2/img/pokedex/detail/310.png",
 			"type": "electric"
 		},
 		{
@@ -3425,7 +3425,7 @@ define(function(require){
 			"id": "311",
 			"name": "Plusle",
 			"ThumbnailAltText": "Plusle",
-			"ThumbnailImage": "http://assets19.pokemon.com/static2/_ui/img/pokedex/detail/311.png",
+			"ThumbnailImage": "http://assets6.pokemon.com/assets/cms2/img/pokedex/detail/311.png",
 			"type": "electric"
 		},
 		{
@@ -3436,7 +3436,7 @@ define(function(require){
 			"id": "312",
 			"name": "Minun",
 			"ThumbnailAltText": "Minun",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/312.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/312.png",
 			"type": "electric"
 		},
 		{
@@ -3447,7 +3447,7 @@ define(function(require){
 			"id": "313",
 			"name": "Volbeat",
 			"ThumbnailAltText": "Volbeat",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/313.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/313.png",
 			"type": "bug"
 		},
 		{
@@ -3458,7 +3458,7 @@ define(function(require){
 			"id": "314",
 			"name": "Illumise",
 			"ThumbnailAltText": "Illumise",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/314.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/314.png",
 			"type": "bug"
 		},
 		{
@@ -3469,7 +3469,7 @@ define(function(require){
 			"id": "315",
 			"name": "Roselia",
 			"ThumbnailAltText": "Roselia",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/315.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/315.png",
 			"type": "grass, poison"
 		},
 		{
@@ -3480,7 +3480,7 @@ define(function(require){
 			"id": "316",
 			"name": "Gulpin",
 			"ThumbnailAltText": "Gulpin",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/316.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/316.png",
 			"type": "poison"
 		},
 		{
@@ -3491,7 +3491,7 @@ define(function(require){
 			"id": "317",
 			"name": "Swalot",
 			"ThumbnailAltText": "Swalot",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/317.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/317.png",
 			"type": "poison"
 		},
 		{
@@ -3502,7 +3502,7 @@ define(function(require){
 			"id": "318",
 			"name": "Carvanha",
 			"ThumbnailAltText": "Carvanha",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/318.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/318.png",
 			"type": "water, dark"
 		},
 		{
@@ -3513,7 +3513,7 @@ define(function(require){
 			"id": "319",
 			"name": "Sharpedo",
 			"ThumbnailAltText": "Sharpedo",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/319.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/319.png",
 			"type": "water, dark"
 		},
 		{
@@ -3524,7 +3524,7 @@ define(function(require){
 			"id": "320",
 			"name": "Wailmer",
 			"ThumbnailAltText": "Wailmer",
-			"ThumbnailImage": "http://assets19.pokemon.com/static2/_ui/img/pokedex/detail/320.png",
+			"ThumbnailImage": "http://assets6.pokemon.com/assets/cms2/img/pokedex/detail/320.png",
 			"type": "water"
 		},
 		{
@@ -3535,7 +3535,7 @@ define(function(require){
 			"id": "321",
 			"name": "Wailord",
 			"ThumbnailAltText": "Wailord",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/321.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/321.png",
 			"type": "water"
 		},
 		{
@@ -3546,7 +3546,7 @@ define(function(require){
 			"id": "322",
 			"name": "Numel",
 			"ThumbnailAltText": "Numel",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/322.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/322.png",
 			"type": "fire, ground"
 		},
 		{
@@ -3557,7 +3557,7 @@ define(function(require){
 			"id": "323",
 			"name": "Camerupt",
 			"ThumbnailAltText": "Camerupt",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/323.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/323.png",
 			"type": "fire, ground"
 		},
 		{
@@ -3568,7 +3568,7 @@ define(function(require){
 			"id": "324",
 			"name": "Torkoal",
 			"ThumbnailAltText": "Torkoal",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/324.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/324.png",
 			"type": "fire"
 		},
 		{
@@ -3579,7 +3579,7 @@ define(function(require){
 			"id": "325",
 			"name": "Spoink",
 			"ThumbnailAltText": "Spoink",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/325.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/325.png",
 			"type": "psychic"
 		},
 		{
@@ -3590,7 +3590,7 @@ define(function(require){
 			"id": "326",
 			"name": "Grumpig",
 			"ThumbnailAltText": "Grumpig",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/326.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/326.png",
 			"type": "psychic"
 		},
 		{
@@ -3601,7 +3601,7 @@ define(function(require){
 			"id": "327",
 			"name": "Spinda",
 			"ThumbnailAltText": "Spinda",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/327.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/327.png",
 			"type": "normal"
 		},
 		{
@@ -3612,7 +3612,7 @@ define(function(require){
 			"id": "328",
 			"name": "Trapinch",
 			"ThumbnailAltText": "Trapinch",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/328.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/328.png",
 			"type": "ground"
 		},
 		{
@@ -3623,7 +3623,7 @@ define(function(require){
 			"id": "329",
 			"name": "Vibrava",
 			"ThumbnailAltText": "Vibrava",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/329.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/329.png",
 			"type": "ground, dragon"
 		},
 		{
@@ -3634,7 +3634,7 @@ define(function(require){
 			"id": "330",
 			"name": "Flygon",
 			"ThumbnailAltText": "Flygon",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/330.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/330.png",
 			"type": "ground, dragon"
 		},
 		{
@@ -3645,7 +3645,7 @@ define(function(require){
 			"id": "331",
 			"name": "Cacnea",
 			"ThumbnailAltText": "Cacnea",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/331.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/331.png",
 			"type": "grass"
 		},
 		{
@@ -3656,7 +3656,7 @@ define(function(require){
 			"id": "332",
 			"name": "Cacturne",
 			"ThumbnailAltText": "Cacturne",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/332.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/332.png",
 			"type": "grass, dark"
 		},
 		{
@@ -3667,7 +3667,7 @@ define(function(require){
 			"id": "333",
 			"name": "Swablu",
 			"ThumbnailAltText": "Swablu",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/333.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/333.png",
 			"type": "normal, flying"
 		},
 		{
@@ -3678,7 +3678,7 @@ define(function(require){
 			"id": "334",
 			"name": "Altaria",
 			"ThumbnailAltText": "Altaria",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/334.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/334.png",
 			"type": "dragon, flying"
 		},
 		{
@@ -3689,7 +3689,7 @@ define(function(require){
 			"id": "335",
 			"name": "Zangoose",
 			"ThumbnailAltText": "Zangoose",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/335.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/335.png",
 			"type": "normal"
 		},
 		{
@@ -3700,7 +3700,7 @@ define(function(require){
 			"id": "336",
 			"name": "Seviper",
 			"ThumbnailAltText": "Seviper",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/336.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/336.png",
 			"type": "poison"
 		},
 		{
@@ -3711,7 +3711,7 @@ define(function(require){
 			"id": "337",
 			"name": "Lunatone",
 			"ThumbnailAltText": "Lunatone",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/337.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/337.png",
 			"type": "rock, psychic"
 		},
 		{
@@ -3722,7 +3722,7 @@ define(function(require){
 			"id": "338",
 			"name": "Solrock",
 			"ThumbnailAltText": "Solrock",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/338.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/338.png",
 			"type": "rock, psychic"
 		},
 		{
@@ -3733,7 +3733,7 @@ define(function(require){
 			"id": "339",
 			"name": "Barboach",
 			"ThumbnailAltText": "Barboach",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/339.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/339.png",
 			"type": "water, ground"
 		},
 		{
@@ -3744,7 +3744,7 @@ define(function(require){
 			"id": "340",
 			"name": "Whiscash",
 			"ThumbnailAltText": "Whiscash",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/340.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/340.png",
 			"type": "water, ground"
 		},
 		{
@@ -3755,7 +3755,7 @@ define(function(require){
 			"id": "341",
 			"name": "Corphish",
 			"ThumbnailAltText": "Corphish",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/341.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/341.png",
 			"type": "water"
 		},
 		{
@@ -3766,7 +3766,7 @@ define(function(require){
 			"id": "342",
 			"name": "Crawdaunt",
 			"ThumbnailAltText": "Crawdaunt",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/342.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/342.png",
 			"type": "water, dark"
 		},
 		{
@@ -3777,7 +3777,7 @@ define(function(require){
 			"id": "343",
 			"name": "Baltoy",
 			"ThumbnailAltText": "Baltoy",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/343.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/343.png",
 			"type": "ground, psychic"
 		},
 		{
@@ -3788,7 +3788,7 @@ define(function(require){
 			"id": "344",
 			"name": "Claydol",
 			"ThumbnailAltText": "Claydol",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/344.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/344.png",
 			"type": "ground, psychic"
 		},
 		{
@@ -3799,7 +3799,7 @@ define(function(require){
 			"id": "345",
 			"name": "Lileep",
 			"ThumbnailAltText": "Lileep",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/345.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/345.png",
 			"type": "rock, grass"
 		},
 		{
@@ -3810,7 +3810,7 @@ define(function(require){
 			"id": "346",
 			"name": "Cradily",
 			"ThumbnailAltText": "Cradily",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/346.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/346.png",
 			"type": "rock, grass"
 		},
 		{
@@ -3821,7 +3821,7 @@ define(function(require){
 			"id": "347",
 			"name": "Anorith",
 			"ThumbnailAltText": "Anorith",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/347.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/347.png",
 			"type": "rock, bug"
 		},
 		{
@@ -3832,7 +3832,7 @@ define(function(require){
 			"id": "348",
 			"name": "Armaldo",
 			"ThumbnailAltText": "Armaldo",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/348.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/348.png",
 			"type": "rock, bug"
 		},
 		{
@@ -3843,7 +3843,7 @@ define(function(require){
 			"id": "349",
 			"name": "Feebas",
 			"ThumbnailAltText": "Feebas",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/349.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/349.png",
 			"type": "water"
 		},
 		{
@@ -3854,7 +3854,7 @@ define(function(require){
 			"id": "350",
 			"name": "Milotic",
 			"ThumbnailAltText": "Milotic",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/350.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/350.png",
 			"type": "water"
 		},
 		{
@@ -3865,7 +3865,7 @@ define(function(require){
 			"id": "351",
 			"name": "Castform",
 			"ThumbnailAltText": "Castform",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/351.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/351.png",
 			"type": "normal"
 		},
 		{
@@ -3876,7 +3876,7 @@ define(function(require){
 			"id": "352",
 			"name": "Kecleon",
 			"ThumbnailAltText": "Kecleon",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/352.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/352.png",
 			"type": "normal"
 		},
 		{
@@ -3887,7 +3887,7 @@ define(function(require){
 			"id": "353",
 			"name": "Shuppet",
 			"ThumbnailAltText": "Shuppet",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/353.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/353.png",
 			"type": "ghost"
 		},
 		{
@@ -3898,7 +3898,7 @@ define(function(require){
 			"id": "354",
 			"name": "Banette",
 			"ThumbnailAltText": "Banette",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/354.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/354.png",
 			"type": "ghost"
 		},
 		{
@@ -3909,7 +3909,7 @@ define(function(require){
 			"id": "355",
 			"name": "Duskull",
 			"ThumbnailAltText": "Duskull",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/355.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/355.png",
 			"type": "ghost"
 		},
 		{
@@ -3920,7 +3920,7 @@ define(function(require){
 			"id": "356",
 			"name": "Dusclops",
 			"ThumbnailAltText": "Dusclops",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/356.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/356.png",
 			"type": "ghost"
 		},
 		{
@@ -3931,7 +3931,7 @@ define(function(require){
 			"id": "357",
 			"name": "Tropius",
 			"ThumbnailAltText": "Tropius",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/357.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/357.png",
 			"type": "grass, flying"
 		},
 		{
@@ -3942,7 +3942,7 @@ define(function(require){
 			"id": "358",
 			"name": "Chimecho",
 			"ThumbnailAltText": "Chimecho",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/358.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/358.png",
 			"type": "psychic"
 		},
 		{
@@ -3953,7 +3953,7 @@ define(function(require){
 			"id": "359",
 			"name": "Absol",
 			"ThumbnailAltText": "Absol",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/359.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/359.png",
 			"type": "dark"
 		},
 		{
@@ -3964,7 +3964,7 @@ define(function(require){
 			"id": "360",
 			"name": "Wynaut",
 			"ThumbnailAltText": "Wynaut",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/360.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/360.png",
 			"type": "psychic"
 		},
 		{
@@ -3975,7 +3975,7 @@ define(function(require){
 			"id": "361",
 			"name": "Snorunt",
 			"ThumbnailAltText": "Snorunt",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/361.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/361.png",
 			"type": "ice"
 		},
 		{
@@ -3986,7 +3986,7 @@ define(function(require){
 			"id": "362",
 			"name": "Glalie",
 			"ThumbnailAltText": "Glalie",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/362.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/362.png",
 			"type": "ice"
 		},
 		{
@@ -3997,7 +3997,7 @@ define(function(require){
 			"id": "363",
 			"name": "Spheal",
 			"ThumbnailAltText": "Spheal",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/363.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/363.png",
 			"type": "ice, water"
 		},
 		{
@@ -4008,7 +4008,7 @@ define(function(require){
 			"id": "364",
 			"name": "Sealeo",
 			"ThumbnailAltText": "Sealeo",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/364.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/364.png",
 			"type": "ice, water"
 		},
 		{
@@ -4019,7 +4019,7 @@ define(function(require){
 			"id": "365",
 			"name": "Walrein",
 			"ThumbnailAltText": "Walrein",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/365.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/365.png",
 			"type": "ice, water"
 		},
 		{
@@ -4030,7 +4030,7 @@ define(function(require){
 			"id": "366",
 			"name": "Clamperl",
 			"ThumbnailAltText": "Clamperl",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/366.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/366.png",
 			"type": "water"
 		},
 		{
@@ -4041,7 +4041,7 @@ define(function(require){
 			"id": "367",
 			"name": "Huntail",
 			"ThumbnailAltText": "Huntail",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/367.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/367.png",
 			"type": "water"
 		},
 		{
@@ -4052,7 +4052,7 @@ define(function(require){
 			"id": "368",
 			"name": "Gorebyss",
 			"ThumbnailAltText": "Gorebyss",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/368.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/368.png",
 			"type": "water"
 		},
 		{
@@ -4063,7 +4063,7 @@ define(function(require){
 			"id": "369",
 			"name": "Relicanth",
 			"ThumbnailAltText": "Relicanth",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/369.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/369.png",
 			"type": "water, rock"
 		},
 		{
@@ -4074,7 +4074,7 @@ define(function(require){
 			"id": "370",
 			"name": "Luvdisc",
 			"ThumbnailAltText": "Luvdisc",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/370.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/370.png",
 			"type": "water"
 		},
 		{
@@ -4085,7 +4085,7 @@ define(function(require){
 			"id": "371",
 			"name": "Bagon",
 			"ThumbnailAltText": "Bagon",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/371.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/371.png",
 			"type": "dragon"
 		},
 		{
@@ -4096,7 +4096,7 @@ define(function(require){
 			"id": "372",
 			"name": "Shelgon",
 			"ThumbnailAltText": "Shelgon",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/372.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/372.png",
 			"type": "dragon"
 		},
 		{
@@ -4107,7 +4107,7 @@ define(function(require){
 			"id": "373",
 			"name": "Salamence",
 			"ThumbnailAltText": "Salamence",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/373.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/373.png",
 			"type": "dragon, flying"
 		},
 		{
@@ -4118,7 +4118,7 @@ define(function(require){
 			"id": "374",
 			"name": "Beldum",
 			"ThumbnailAltText": "Beldum",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/374.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/374.png",
 			"type": "steel, psychic"
 		},
 		{
@@ -4129,7 +4129,7 @@ define(function(require){
 			"id": "375",
 			"name": "Metang",
 			"ThumbnailAltText": "Metang",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/375.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/375.png",
 			"type": "steel, psychic"
 		},
 		{
@@ -4140,7 +4140,7 @@ define(function(require){
 			"id": "376",
 			"name": "Metagross",
 			"ThumbnailAltText": "Metagross",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/376.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/376.png",
 			"type": "steel, psychic"
 		},
 		{
@@ -4151,7 +4151,7 @@ define(function(require){
 			"id": "377",
 			"name": "Regirock",
 			"ThumbnailAltText": "Regirock",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/377.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/377.png",
 			"type": "rock"
 		},
 		{
@@ -4162,7 +4162,7 @@ define(function(require){
 			"id": "378",
 			"name": "Regice",
 			"ThumbnailAltText": "Regice",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/378.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/378.png",
 			"type": "ice"
 		},
 		{
@@ -4173,7 +4173,7 @@ define(function(require){
 			"id": "379",
 			"name": "Registeel",
 			"ThumbnailAltText": "Registeel",
-			"ThumbnailImage": "http://assets8.pokemon.com/static2/_ui/img/pokedex/detail/379.png",
+			"ThumbnailImage": "http://assets20.pokemon.com/assets/cms2/img/pokedex/detail/379.png",
 			"type": "steel"
 		},
 		{
@@ -4184,7 +4184,7 @@ define(function(require){
 			"id": "380",
 			"name": "Latias",
 			"ThumbnailAltText": "Latias",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/380.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/380.png",
 			"type": "dragon, psychic"
 		},
 		{
@@ -4195,7 +4195,7 @@ define(function(require){
 			"id": "381",
 			"name": "Latios",
 			"ThumbnailAltText": "Latios",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/381.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/381.png",
 			"type": "dragon, psychic"
 		},
 		{
@@ -4206,7 +4206,7 @@ define(function(require){
 			"id": "382",
 			"name": "Kyogre",
 			"ThumbnailAltText": "Kyogre",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/382.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/382.png",
 			"type": "water"
 		},
 		{
@@ -4217,7 +4217,7 @@ define(function(require){
 			"id": "383",
 			"name": "Groudon",
 			"ThumbnailAltText": "Groudon",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/383.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/383.png",
 			"type": "ground"
 		},
 		{
@@ -4228,7 +4228,7 @@ define(function(require){
 			"id": "384",
 			"name": "Rayquaza",
 			"ThumbnailAltText": "Rayquaza",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/384.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/384.png",
 			"type": "dragon, flying"
 		},
 		{
@@ -4239,7 +4239,7 @@ define(function(require){
 			"id": "385",
 			"name": "Jirachi",
 			"ThumbnailAltText": "Jirachi",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/385.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/385.png",
 			"type": "steel, psychic"
 		},
 		{
@@ -4250,7 +4250,7 @@ define(function(require){
 			"id": "386",
 			"name": "Deoxys",
 			"ThumbnailAltText": "Deoxys",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/386.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/386.png",
 			"type": "psychic"
 		},
 		{
@@ -4261,7 +4261,7 @@ define(function(require){
 			"id": "387",
 			"name": "Turtwig",
 			"ThumbnailAltText": "Turtwig",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/387.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/387.png",
 			"type": "grass"
 		},
 		{
@@ -4272,7 +4272,7 @@ define(function(require){
 			"id": "388",
 			"name": "Grotle",
 			"ThumbnailAltText": "Grotle",
-			"ThumbnailImage": "http://assets8.pokemon.com/static2/_ui/img/pokedex/detail/388.png",
+			"ThumbnailImage": "http://assets20.pokemon.com/assets/cms2/img/pokedex/detail/388.png",
 			"type": "grass"
 		},
 		{
@@ -4283,7 +4283,7 @@ define(function(require){
 			"id": "389",
 			"name": "Torterra",
 			"ThumbnailAltText": "Torterra",
-			"ThumbnailImage": "http://assets9.pokemon.com/static2/_ui/img/pokedex/detail/389.png",
+			"ThumbnailImage": "http://assets21.pokemon.com/assets/cms2/img/pokedex/detail/389.png",
 			"type": "grass, ground"
 		},
 		{
@@ -4294,7 +4294,7 @@ define(function(require){
 			"id": "390",
 			"name": "Chimchar",
 			"ThumbnailAltText": "Chimchar",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/390.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/390.png",
 			"type": "fire"
 		},
 		{
@@ -4305,7 +4305,7 @@ define(function(require){
 			"id": "391",
 			"name": "Monferno",
 			"ThumbnailAltText": "Monferno",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/391.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/391.png",
 			"type": "fire, fighting"
 		},
 		{
@@ -4316,7 +4316,7 @@ define(function(require){
 			"id": "392",
 			"name": "Infernape",
 			"ThumbnailAltText": "Infernape",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/392.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/392.png",
 			"type": "fire, fighting"
 		},
 		{
@@ -4327,7 +4327,7 @@ define(function(require){
 			"id": "393",
 			"name": "Piplup",
 			"ThumbnailAltText": "Piplup",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/393.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/393.png",
 			"type": "water"
 		},
 		{
@@ -4338,7 +4338,7 @@ define(function(require){
 			"id": "394",
 			"name": "Prinplup",
 			"ThumbnailAltText": "Prinplup",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/394.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/394.png",
 			"type": "water"
 		},
 		{
@@ -4349,7 +4349,7 @@ define(function(require){
 			"id": "395",
 			"name": "Empoleon",
 			"ThumbnailAltText": "Empoleon",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/395.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/395.png",
 			"type": "water, steel"
 		},
 		{
@@ -4360,7 +4360,7 @@ define(function(require){
 			"id": "396",
 			"name": "Starly",
 			"ThumbnailAltText": "Starly",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/396.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/396.png",
 			"type": "normal, flying"
 		},
 		{
@@ -4371,7 +4371,7 @@ define(function(require){
 			"id": "397",
 			"name": "Staravia",
 			"ThumbnailAltText": "Staravia",
-			"ThumbnailImage": "http://assets8.pokemon.com/static2/_ui/img/pokedex/detail/397.png",
+			"ThumbnailImage": "http://assets20.pokemon.com/assets/cms2/img/pokedex/detail/397.png",
 			"type": "normal, flying"
 		},
 		{
@@ -4382,7 +4382,7 @@ define(function(require){
 			"id": "398",
 			"name": "Staraptor",
 			"ThumbnailAltText": "Staraptor",
-			"ThumbnailImage": "http://assets9.pokemon.com/static2/_ui/img/pokedex/detail/398.png",
+			"ThumbnailImage": "http://assets21.pokemon.com/assets/cms2/img/pokedex/detail/398.png",
 			"type": "normal, flying"
 		},
 		{
@@ -4393,7 +4393,7 @@ define(function(require){
 			"id": "399",
 			"name": "Bidoof",
 			"ThumbnailAltText": "Bidoof",
-			"ThumbnailImage": "http://assets10.pokemon.com/static2/_ui/img/pokedex/detail/399.png",
+			"ThumbnailImage": "http://assets22.pokemon.com/assets/cms2/img/pokedex/detail/399.png",
 			"type": "normal"
 		},
 		{
@@ -4404,7 +4404,7 @@ define(function(require){
 			"id": "400",
 			"name": "Bibarel",
 			"ThumbnailAltText": "Bibarel",
-			"ThumbnailImage": "http://assets18.pokemon.com/static2/_ui/img/pokedex/detail/400.png",
+			"ThumbnailImage": "http://assets5.pokemon.com/assets/cms2/img/pokedex/detail/400.png",
 			"type": "normal, water"
 		},
 		{
@@ -4415,7 +4415,7 @@ define(function(require){
 			"id": "401",
 			"name": "Kricketot",
 			"ThumbnailAltText": "Kricketot",
-			"ThumbnailImage": "http://assets19.pokemon.com/static2/_ui/img/pokedex/detail/401.png",
+			"ThumbnailImage": "http://assets6.pokemon.com/assets/cms2/img/pokedex/detail/401.png",
 			"type": "bug"
 		},
 		{
@@ -4426,7 +4426,7 @@ define(function(require){
 			"id": "402",
 			"name": "Kricketune",
 			"ThumbnailAltText": "Kricketune",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/402.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/402.png",
 			"type": "bug"
 		},
 		{
@@ -4437,7 +4437,7 @@ define(function(require){
 			"id": "403",
 			"name": "Shinx",
 			"ThumbnailAltText": "Shinx",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/403.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/403.png",
 			"type": "electric"
 		},
 		{
@@ -4448,7 +4448,7 @@ define(function(require){
 			"id": "404",
 			"name": "Luxio",
 			"ThumbnailAltText": "Luxio",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/404.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/404.png",
 			"type": "electric"
 		},
 		{
@@ -4459,7 +4459,7 @@ define(function(require){
 			"id": "405",
 			"name": "Luxray",
 			"ThumbnailAltText": "Luxray",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/405.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/405.png",
 			"type": "electric"
 		},
 		{
@@ -4470,7 +4470,7 @@ define(function(require){
 			"id": "406",
 			"name": "Budew",
 			"ThumbnailAltText": "Budew",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/406.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/406.png",
 			"type": "grass, poison"
 		},
 		{
@@ -4481,7 +4481,7 @@ define(function(require){
 			"id": "407",
 			"name": "Roserade",
 			"ThumbnailAltText": "Roserade",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/407.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/407.png",
 			"type": "grass, poison"
 		},
 		{
@@ -4492,7 +4492,7 @@ define(function(require){
 			"id": "408",
 			"name": "Cranidos",
 			"ThumbnailAltText": "Cranidos",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/408.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/408.png",
 			"type": "rock"
 		},
 		{
@@ -4503,7 +4503,7 @@ define(function(require){
 			"id": "409",
 			"name": "Rampardos",
 			"ThumbnailAltText": "Rampardos",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/409.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/409.png",
 			"type": "rock"
 		},
 		{
@@ -4514,7 +4514,7 @@ define(function(require){
 			"id": "410",
 			"name": "Shieldon",
 			"ThumbnailAltText": "Shieldon",
-			"ThumbnailImage": "http://assets19.pokemon.com/static2/_ui/img/pokedex/detail/410.png",
+			"ThumbnailImage": "http://assets6.pokemon.com/assets/cms2/img/pokedex/detail/410.png",
 			"type": "rock, steel"
 		},
 		{
@@ -4525,7 +4525,7 @@ define(function(require){
 			"id": "411",
 			"name": "Bastiodon",
 			"ThumbnailAltText": "Bastiodon",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/411.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/411.png",
 			"type": "rock, steel"
 		},
 		{
@@ -4536,7 +4536,7 @@ define(function(require){
 			"id": "412",
 			"name": "Burmy",
 			"ThumbnailAltText": "Burmy",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/412.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/412.png",
 			"type": "bug"
 		},
 		{
@@ -4547,7 +4547,7 @@ define(function(require){
 			"id": "413",
 			"name": "Wormadam",
 			"ThumbnailAltText": "Wormadam",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/413.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/413.png",
 			"type": "bug, steel"
 		},
 		{
@@ -4558,7 +4558,7 @@ define(function(require){
 			"id": "414",
 			"name": "Mothim",
 			"ThumbnailAltText": "Mothim",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/414.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/414.png",
 			"type": "bug, flying"
 		},
 		{
@@ -4569,7 +4569,7 @@ define(function(require){
 			"id": "415",
 			"name": "Combee",
 			"ThumbnailAltText": "Combee",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/415.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/415.png",
 			"type": "bug, flying"
 		},
 		{
@@ -4580,7 +4580,7 @@ define(function(require){
 			"id": "416",
 			"name": "Vespiquen",
 			"ThumbnailAltText": "Vespiquen",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/416.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/416.png",
 			"type": "bug, flying"
 		},
 		{
@@ -4591,7 +4591,7 @@ define(function(require){
 			"id": "417",
 			"name": "Pachirisu",
 			"ThumbnailAltText": "Pachirisu",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/417.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/417.png",
 			"type": "electric"
 		},
 		{
@@ -4602,7 +4602,7 @@ define(function(require){
 			"id": "418",
 			"name": "Buizel",
 			"ThumbnailAltText": "Buizel",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/418.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/418.png",
 			"type": "water"
 		},
 		{
@@ -4613,7 +4613,7 @@ define(function(require){
 			"id": "419",
 			"name": "Floatzel",
 			"ThumbnailAltText": "Floatzel",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/419.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/419.png",
 			"type": "water"
 		},
 		{
@@ -4624,7 +4624,7 @@ define(function(require){
 			"id": "420",
 			"name": "Cherubi",
 			"ThumbnailAltText": "Cherubi",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/420.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/420.png",
 			"type": "grass"
 		},
 		{
@@ -4635,7 +4635,7 @@ define(function(require){
 			"id": "421",
 			"name": "Cherrim",
 			"ThumbnailAltText": "Cherrim",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/421.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/421.png",
 			"type": "grass"
 		},
 		{
@@ -4646,7 +4646,7 @@ define(function(require){
 			"id": "422",
 			"name": "Shellos",
 			"ThumbnailAltText": "Shellos",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/422.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/422.png",
 			"type": "water"
 		},
 		{
@@ -4657,7 +4657,7 @@ define(function(require){
 			"id": "423",
 			"name": "Gastrodon",
 			"ThumbnailAltText": "Gastrodon",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/423.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/423.png",
 			"type": "water, ground"
 		},
 		{
@@ -4668,7 +4668,7 @@ define(function(require){
 			"id": "424",
 			"name": "Ambipom",
 			"ThumbnailAltText": "Ambipom",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/424.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/424.png",
 			"type": "normal"
 		},
 		{
@@ -4679,7 +4679,7 @@ define(function(require){
 			"id": "425",
 			"name": "Drifloon",
 			"ThumbnailAltText": "Drifloon",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/425.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/425.png",
 			"type": "ghost, flying"
 		},
 		{
@@ -4690,7 +4690,7 @@ define(function(require){
 			"id": "426",
 			"name": "Drifblim",
 			"ThumbnailAltText": "Drifblim",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/426.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/426.png",
 			"type": "ghost, flying"
 		},
 		{
@@ -4701,7 +4701,7 @@ define(function(require){
 			"id": "427",
 			"name": "Buneary",
 			"ThumbnailAltText": "Buneary",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/427.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/427.png",
 			"type": "normal"
 		},
 		{
@@ -4712,7 +4712,7 @@ define(function(require){
 			"id": "428",
 			"name": "Lopunny",
 			"ThumbnailAltText": "Lopunny",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/428.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/428.png",
 			"type": "normal"
 		},
 		{
@@ -4723,7 +4723,7 @@ define(function(require){
 			"id": "429",
 			"name": "Mismagius",
 			"ThumbnailAltText": "Mismagius",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/429.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/429.png",
 			"type": "ghost"
 		},
 		{
@@ -4734,7 +4734,7 @@ define(function(require){
 			"id": "430",
 			"name": "Honchkrow",
 			"ThumbnailAltText": "Honchkrow",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/430.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/430.png",
 			"type": "dark, flying"
 		},
 		{
@@ -4745,7 +4745,7 @@ define(function(require){
 			"id": "431",
 			"name": "Glameow",
 			"ThumbnailAltText": "Glameow",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/431.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/431.png",
 			"type": "normal"
 		},
 		{
@@ -4756,7 +4756,7 @@ define(function(require){
 			"id": "432",
 			"name": "Purugly",
 			"ThumbnailAltText": "Purugly",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/432.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/432.png",
 			"type": "normal"
 		},
 		{
@@ -4767,7 +4767,7 @@ define(function(require){
 			"id": "433",
 			"name": "Chingling",
 			"ThumbnailAltText": "Chingling",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/433.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/433.png",
 			"type": "psychic"
 		},
 		{
@@ -4778,7 +4778,7 @@ define(function(require){
 			"id": "434",
 			"name": "Stunky",
 			"ThumbnailAltText": "Stunky",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/434.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/434.png",
 			"type": "poison, dark"
 		},
 		{
@@ -4789,7 +4789,7 @@ define(function(require){
 			"id": "435",
 			"name": "Skuntank",
 			"ThumbnailAltText": "Skuntank",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/435.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/435.png",
 			"type": "poison, dark"
 		},
 		{
@@ -4800,7 +4800,7 @@ define(function(require){
 			"id": "436",
 			"name": "Bronzor",
 			"ThumbnailAltText": "Bronzor",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/436.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/436.png",
 			"type": "steel, psychic"
 		},
 		{
@@ -4811,7 +4811,7 @@ define(function(require){
 			"id": "437",
 			"name": "Bronzong",
 			"ThumbnailAltText": "Bronzong",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/437.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/437.png",
 			"type": "steel, psychic"
 		},
 		{
@@ -4822,7 +4822,7 @@ define(function(require){
 			"id": "438",
 			"name": "Bonsly",
 			"ThumbnailAltText": "Bonsly",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/438.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/438.png",
 			"type": "rock"
 		},
 		{
@@ -4833,7 +4833,7 @@ define(function(require){
 			"id": "439",
 			"name": "Mime Jr.",
 			"ThumbnailAltText": "Mime Jr.",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/439.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/439.png",
 			"type": "psychic, fairy"
 		},
 		{
@@ -4844,7 +4844,7 @@ define(function(require){
 			"id": "440",
 			"name": "Happiny",
 			"ThumbnailAltText": "Happiny",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/440.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/440.png",
 			"type": "normal"
 		},
 		{
@@ -4855,7 +4855,7 @@ define(function(require){
 			"id": "441",
 			"name": "Chatot",
 			"ThumbnailAltText": "Chatot",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/441.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/441.png",
 			"type": "normal, flying"
 		},
 		{
@@ -4866,7 +4866,7 @@ define(function(require){
 			"id": "442",
 			"name": "Spiritomb",
 			"ThumbnailAltText": "Spiritomb",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/442.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/442.png",
 			"type": "ghost, dark"
 		},
 		{
@@ -4877,7 +4877,7 @@ define(function(require){
 			"id": "443",
 			"name": "Gible",
 			"ThumbnailAltText": "Gible",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/443.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/443.png",
 			"type": "dragon, ground"
 		},
 		{
@@ -4888,7 +4888,7 @@ define(function(require){
 			"id": "444",
 			"name": "Gabite",
 			"ThumbnailAltText": "Gabite",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/444.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/444.png",
 			"type": "dragon, ground"
 		},
 		{
@@ -4899,7 +4899,7 @@ define(function(require){
 			"id": "445",
 			"name": "Garchomp",
 			"ThumbnailAltText": "Garchomp",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/445.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/445.png",
 			"type": "dragon, ground"
 		},
 		{
@@ -4910,7 +4910,7 @@ define(function(require){
 			"id": "446",
 			"name": "Munchlax",
 			"ThumbnailAltText": "Munchlax",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/446.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/446.png",
 			"type": "normal"
 		},
 		{
@@ -4921,7 +4921,7 @@ define(function(require){
 			"id": "447",
 			"name": "Riolu",
 			"ThumbnailAltText": "Riolu",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/447.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/447.png",
 			"type": "fighting"
 		},
 		{
@@ -4932,7 +4932,7 @@ define(function(require){
 			"id": "448",
 			"name": "Lucario",
 			"ThumbnailAltText": "Lucario",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/448.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/448.png",
 			"type": "fighting, steel"
 		},
 		{
@@ -4943,7 +4943,7 @@ define(function(require){
 			"id": "449",
 			"name": "Hippopotas",
 			"ThumbnailAltText": "Hippopotas",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/449.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/449.png",
 			"type": "ground"
 		},
 		{
@@ -4954,7 +4954,7 @@ define(function(require){
 			"id": "450",
 			"name": "Hippowdon",
 			"ThumbnailAltText": "Hippowdon",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/450.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/450.png",
 			"type": "ground"
 		},
 		{
@@ -4965,7 +4965,7 @@ define(function(require){
 			"id": "451",
 			"name": "Skorupi",
 			"ThumbnailAltText": "Skorupi",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/451.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/451.png",
 			"type": "poison, bug"
 		},
 		{
@@ -4976,7 +4976,7 @@ define(function(require){
 			"id": "452",
 			"name": "Drapion",
 			"ThumbnailAltText": "Drapion",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/452.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/452.png",
 			"type": "poison, dark"
 		},
 		{
@@ -4987,7 +4987,7 @@ define(function(require){
 			"id": "453",
 			"name": "Croagunk",
 			"ThumbnailAltText": "Croagunk",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/453.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/453.png",
 			"type": "poison, fighting"
 		},
 		{
@@ -4998,7 +4998,7 @@ define(function(require){
 			"id": "454",
 			"name": "Toxicroak",
 			"ThumbnailAltText": "Toxicroak",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/454.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/454.png",
 			"type": "poison, fighting"
 		},
 		{
@@ -5009,7 +5009,7 @@ define(function(require){
 			"id": "455",
 			"name": "Carnivine",
 			"ThumbnailAltText": "Carnivine",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/455.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/455.png",
 			"type": "grass"
 		},
 		{
@@ -5020,7 +5020,7 @@ define(function(require){
 			"id": "456",
 			"name": "Finneon",
 			"ThumbnailAltText": "Finneon",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/456.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/456.png",
 			"type": "water"
 		},
 		{
@@ -5031,7 +5031,7 @@ define(function(require){
 			"id": "457",
 			"name": "Lumineon",
 			"ThumbnailAltText": "Lumineon",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/457.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/457.png",
 			"type": "water"
 		},
 		{
@@ -5042,7 +5042,7 @@ define(function(require){
 			"id": "458",
 			"name": "Mantyke",
 			"ThumbnailAltText": "Mantyke",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/458.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/458.png",
 			"type": "water, flying"
 		},
 		{
@@ -5053,7 +5053,7 @@ define(function(require){
 			"id": "459",
 			"name": "Snover",
 			"ThumbnailAltText": "Snover",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/459.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/459.png",
 			"type": "grass, ice"
 		},
 		{
@@ -5064,7 +5064,7 @@ define(function(require){
 			"id": "460",
 			"name": "Abomasnow",
 			"ThumbnailAltText": "Abomasnow",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/460.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/460.png",
 			"type": "grass, ice"
 		},
 		{
@@ -5075,7 +5075,7 @@ define(function(require){
 			"id": "461",
 			"name": "Weavile",
 			"ThumbnailAltText": "Weavile",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/461.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/461.png",
 			"type": "dark, ice"
 		},
 		{
@@ -5086,7 +5086,7 @@ define(function(require){
 			"id": "462",
 			"name": "Magnezone",
 			"ThumbnailAltText": "Magnezone",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/462.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/462.png",
 			"type": "electric, steel"
 		},
 		{
@@ -5097,7 +5097,7 @@ define(function(require){
 			"id": "463",
 			"name": "Lickilicky",
 			"ThumbnailAltText": "Lickilicky",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/463.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/463.png",
 			"type": "normal"
 		},
 		{
@@ -5108,7 +5108,7 @@ define(function(require){
 			"id": "464",
 			"name": "Rhyperior",
 			"ThumbnailAltText": "Rhyperior",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/464.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/464.png",
 			"type": "ground, rock"
 		},
 		{
@@ -5119,7 +5119,7 @@ define(function(require){
 			"id": "465",
 			"name": "Tangrowth",
 			"ThumbnailAltText": "Tangrowth",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/465.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/465.png",
 			"type": "grass"
 		},
 		{
@@ -5130,7 +5130,7 @@ define(function(require){
 			"id": "466",
 			"name": "Electivire",
 			"ThumbnailAltText": "Electivire",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/466.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/466.png",
 			"type": "electric"
 		},
 		{
@@ -5141,7 +5141,7 @@ define(function(require){
 			"id": "467",
 			"name": "Magmortar",
 			"ThumbnailAltText": "Magmortar",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/467.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/467.png",
 			"type": "fire"
 		},
 		{
@@ -5152,7 +5152,7 @@ define(function(require){
 			"id": "468",
 			"name": "Togekiss",
 			"ThumbnailAltText": "Togekiss",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/468.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/468.png",
 			"type": "fairy, flying"
 		},
 		{
@@ -5163,7 +5163,7 @@ define(function(require){
 			"id": "469",
 			"name": "Yanmega",
 			"ThumbnailAltText": "Yanmega",
-			"ThumbnailImage": "http://assets8.pokemon.com/static2/_ui/img/pokedex/detail/469.png",
+			"ThumbnailImage": "http://assets20.pokemon.com/assets/cms2/img/pokedex/detail/469.png",
 			"type": "bug, flying"
 		},
 		{
@@ -5174,7 +5174,7 @@ define(function(require){
 			"id": "470",
 			"name": "Leafeon",
 			"ThumbnailAltText": "Leafeon",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/470.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/470.png",
 			"type": "grass"
 		},
 		{
@@ -5185,7 +5185,7 @@ define(function(require){
 			"id": "471",
 			"name": "Glaceon",
 			"ThumbnailAltText": "Glaceon",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/471.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/471.png",
 			"type": "ice"
 		},
 		{
@@ -5196,7 +5196,7 @@ define(function(require){
 			"id": "472",
 			"name": "Gliscor",
 			"ThumbnailAltText": "Gliscor",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/472.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/472.png",
 			"type": "ground, flying"
 		},
 		{
@@ -5207,7 +5207,7 @@ define(function(require){
 			"id": "473",
 			"name": "Mamoswine",
 			"ThumbnailAltText": "Mamoswine",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/473.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/473.png",
 			"type": "ice, ground"
 		},
 		{
@@ -5218,7 +5218,7 @@ define(function(require){
 			"id": "474",
 			"name": "Porygon-Z",
 			"ThumbnailAltText": "Porygon-Z",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/474.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/474.png",
 			"type": "normal"
 		},
 		{
@@ -5229,7 +5229,7 @@ define(function(require){
 			"id": "475",
 			"name": "Gallade",
 			"ThumbnailAltText": "Gallade",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/475.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/475.png",
 			"type": "psychic, fighting"
 		},
 		{
@@ -5240,7 +5240,7 @@ define(function(require){
 			"id": "476",
 			"name": "Probopass",
 			"ThumbnailAltText": "Probopass",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/476.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/476.png",
 			"type": "rock, steel"
 		},
 		{
@@ -5251,7 +5251,7 @@ define(function(require){
 			"id": "477",
 			"name": "Dusknoir",
 			"ThumbnailAltText": "Dusknoir",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/477.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/477.png",
 			"type": "ghost"
 		},
 		{
@@ -5262,7 +5262,7 @@ define(function(require){
 			"id": "478",
 			"name": "Froslass",
 			"ThumbnailAltText": "Froslass",
-			"ThumbnailImage": "http://assets8.pokemon.com/static2/_ui/img/pokedex/detail/478.png",
+			"ThumbnailImage": "http://assets20.pokemon.com/assets/cms2/img/pokedex/detail/478.png",
 			"type": "ice, ghost"
 		},
 		{
@@ -5273,7 +5273,7 @@ define(function(require){
 			"id": "479",
 			"name": "Rotom",
 			"ThumbnailAltText": "Rotom",
-			"ThumbnailImage": "http://assets9.pokemon.com/static2/_ui/img/pokedex/detail/479.png",
+			"ThumbnailImage": "http://assets21.pokemon.com/assets/cms2/img/pokedex/detail/479.png",
 			"type": "electric, grass"
 		},
 		{
@@ -5284,7 +5284,7 @@ define(function(require){
 			"id": "480",
 			"name": "Uxie",
 			"ThumbnailAltText": "Uxie",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/480.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/480.png",
 			"type": "psychic"
 		},
 		{
@@ -5295,7 +5295,7 @@ define(function(require){
 			"id": "481",
 			"name": "Mesprit",
 			"ThumbnailAltText": "Mesprit",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/481.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/481.png",
 			"type": "psychic"
 		},
 		{
@@ -5306,7 +5306,7 @@ define(function(require){
 			"id": "482",
 			"name": "Azelf",
 			"ThumbnailAltText": "Azelf",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/482.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/482.png",
 			"type": "psychic"
 		},
 		{
@@ -5317,7 +5317,7 @@ define(function(require){
 			"id": "483",
 			"name": "Dialga",
 			"ThumbnailAltText": "Dialga",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/483.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/483.png",
 			"type": "steel, dragon"
 		},
 		{
@@ -5328,7 +5328,7 @@ define(function(require){
 			"id": "484",
 			"name": "Palkia",
 			"ThumbnailAltText": "Palkia",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/484.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/484.png",
 			"type": "water, dragon"
 		},
 		{
@@ -5339,7 +5339,7 @@ define(function(require){
 			"id": "485",
 			"name": "Heatran",
 			"ThumbnailAltText": "Heatran",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/485.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/485.png",
 			"type": "fire, steel"
 		},
 		{
@@ -5350,7 +5350,7 @@ define(function(require){
 			"id": "486",
 			"name": "Regigigas",
 			"ThumbnailAltText": "Regigigas",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/486.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/486.png",
 			"type": "normal"
 		},
 		{
@@ -5361,7 +5361,7 @@ define(function(require){
 			"id": "487",
 			"name": "Giratina",
 			"ThumbnailAltText": "Giratina",
-			"ThumbnailImage": "http://assets8.pokemon.com/static2/_ui/img/pokedex/detail/487.png",
+			"ThumbnailImage": "http://assets20.pokemon.com/assets/cms2/img/pokedex/detail/487.png",
 			"type": "ghost, dragon"
 		},
 		{
@@ -5372,7 +5372,7 @@ define(function(require){
 			"id": "488",
 			"name": "Cresselia",
 			"ThumbnailAltText": "Cresselia",
-			"ThumbnailImage": "http://assets9.pokemon.com/static2/_ui/img/pokedex/detail/488.png",
+			"ThumbnailImage": "http://assets21.pokemon.com/assets/cms2/img/pokedex/detail/488.png",
 			"type": "psychic"
 		},
 		{
@@ -5383,7 +5383,7 @@ define(function(require){
 			"id": "489",
 			"name": "Phione",
 			"ThumbnailAltText": "Phione",
-			"ThumbnailImage": "http://assets10.pokemon.com/static2/_ui/img/pokedex/detail/489.png",
+			"ThumbnailImage": "http://assets22.pokemon.com/assets/cms2/img/pokedex/detail/489.png",
 			"type": "water"
 		},
 		{
@@ -5394,7 +5394,7 @@ define(function(require){
 			"id": "490",
 			"name": "Manaphy",
 			"ThumbnailAltText": "Manaphy",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/490.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/490.png",
 			"type": "water"
 		},
 		{
@@ -5405,7 +5405,7 @@ define(function(require){
 			"id": "491",
 			"name": "Darkrai",
 			"ThumbnailAltText": "Darkrai",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/491.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/491.png",
 			"type": "dark"
 		},
 		{
@@ -5416,7 +5416,7 @@ define(function(require){
 			"id": "492",
 			"name": "Shaymin",
 			"ThumbnailAltText": "Shaymin",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/492.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/492.png",
 			"type": "grass, flying"
 		},
 		{
@@ -5427,7 +5427,7 @@ define(function(require){
 			"id": "493",
 			"name": "Arceus",
 			"ThumbnailAltText": "Arceus",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/493.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/493.png",
 			"type": "normal"
 		},
 		{
@@ -5438,7 +5438,7 @@ define(function(require){
 			"id": "494",
 			"name": "Victini",
 			"ThumbnailAltText": "Victini",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/494.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/494.png",
 			"type": "psychic, fire"
 		},
 		{
@@ -5449,7 +5449,7 @@ define(function(require){
 			"id": "495",
 			"name": "Snivy",
 			"ThumbnailAltText": "Snivy",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/495.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/495.png",
 			"type": "grass"
 		},
 		{
@@ -5460,7 +5460,7 @@ define(function(require){
 			"id": "496",
 			"name": "Servine",
 			"ThumbnailAltText": "Servine",
-			"ThumbnailImage": "http://assets8.pokemon.com/static2/_ui/img/pokedex/detail/496.png",
+			"ThumbnailImage": "http://assets20.pokemon.com/assets/cms2/img/pokedex/detail/496.png",
 			"type": "grass"
 		},
 		{
@@ -5471,7 +5471,7 @@ define(function(require){
 			"id": "497",
 			"name": "Serperior",
 			"ThumbnailAltText": "Serperior",
-			"ThumbnailImage": "http://assets9.pokemon.com/static2/_ui/img/pokedex/detail/497.png",
+			"ThumbnailImage": "http://assets21.pokemon.com/assets/cms2/img/pokedex/detail/497.png",
 			"type": "grass"
 		},
 		{
@@ -5482,7 +5482,7 @@ define(function(require){
 			"id": "498",
 			"name": "Tepig",
 			"ThumbnailAltText": "Tepig",
-			"ThumbnailImage": "http://assets10.pokemon.com/static2/_ui/img/pokedex/detail/498.png",
+			"ThumbnailImage": "http://assets22.pokemon.com/assets/cms2/img/pokedex/detail/498.png",
 			"type": "fire"
 		},
 		{
@@ -5493,7 +5493,7 @@ define(function(require){
 			"id": "499",
 			"name": "Pignite",
 			"ThumbnailAltText": "Pignite",
-			"ThumbnailImage": "http://assets11.pokemon.com/static2/_ui/img/pokedex/detail/499.png",
+			"ThumbnailImage": "http://assets23.pokemon.com/assets/cms2/img/pokedex/detail/499.png",
 			"type": "fire, fighting"
 		},
 		{
@@ -5504,7 +5504,7 @@ define(function(require){
 			"id": "500",
 			"name": "Emboar",
 			"ThumbnailAltText": "Emboar",
-			"ThumbnailImage": "http://assets19.pokemon.com/static2/_ui/img/pokedex/detail/500.png",
+			"ThumbnailImage": "http://assets6.pokemon.com/assets/cms2/img/pokedex/detail/500.png",
 			"type": "fire, fighting"
 		},
 		{
@@ -5515,7 +5515,7 @@ define(function(require){
 			"id": "501",
 			"name": "Oshawott",
 			"ThumbnailAltText": "Oshawott",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/501.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/501.png",
 			"type": "water"
 		},
 		{
@@ -5526,7 +5526,7 @@ define(function(require){
 			"id": "502",
 			"name": "Dewott",
 			"ThumbnailAltText": "Dewott",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/502.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/502.png",
 			"type": "water"
 		},
 		{
@@ -5537,7 +5537,7 @@ define(function(require){
 			"id": "503",
 			"name": "Samurott",
 			"ThumbnailAltText": "Samurott",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/503.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/503.png",
 			"type": "water"
 		},
 		{
@@ -5548,7 +5548,7 @@ define(function(require){
 			"id": "504",
 			"name": "Patrat",
 			"ThumbnailAltText": "Patrat",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/504.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/504.png",
 			"type": "normal"
 		},
 		{
@@ -5559,7 +5559,7 @@ define(function(require){
 			"id": "505",
 			"name": "Watchog",
 			"ThumbnailAltText": "Watchog",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/505.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/505.png",
 			"type": "normal"
 		},
 		{
@@ -5570,7 +5570,7 @@ define(function(require){
 			"id": "506",
 			"name": "Lillipup",
 			"ThumbnailAltText": "Lillipup",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/506.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/506.png",
 			"type": "normal"
 		},
 		{
@@ -5581,7 +5581,7 @@ define(function(require){
 			"id": "507",
 			"name": "Herdier",
 			"ThumbnailAltText": "Herdier",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/507.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/507.png",
 			"type": "normal"
 		},
 		{
@@ -5592,7 +5592,7 @@ define(function(require){
 			"id": "508",
 			"name": "Stoutland",
 			"ThumbnailAltText": "Stoutland",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/508.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/508.png",
 			"type": "normal"
 		},
 		{
@@ -5603,7 +5603,7 @@ define(function(require){
 			"id": "509",
 			"name": "Purrloin",
 			"ThumbnailAltText": "Purrloin",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/509.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/509.png",
 			"type": "dark"
 		},
 		{
@@ -5614,7 +5614,7 @@ define(function(require){
 			"id": "510",
 			"name": "Liepard",
 			"ThumbnailAltText": "Liepard",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/510.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/510.png",
 			"type": "dark"
 		},
 		{
@@ -5625,7 +5625,7 @@ define(function(require){
 			"id": "511",
 			"name": "Pansage",
 			"ThumbnailAltText": "Pansage",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/511.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/511.png",
 			"type": "grass"
 		},
 		{
@@ -5636,7 +5636,7 @@ define(function(require){
 			"id": "512",
 			"name": "Simisage",
 			"ThumbnailAltText": "Simisage",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/512.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/512.png",
 			"type": "grass"
 		},
 		{
@@ -5647,7 +5647,7 @@ define(function(require){
 			"id": "513",
 			"name": "Pansear",
 			"ThumbnailAltText": "Pansear",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/513.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/513.png",
 			"type": "fire"
 		},
 		{
@@ -5658,7 +5658,7 @@ define(function(require){
 			"id": "514",
 			"name": "Simisear",
 			"ThumbnailAltText": "Simisear",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/514.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/514.png",
 			"type": "fire"
 		},
 		{
@@ -5669,7 +5669,7 @@ define(function(require){
 			"id": "515",
 			"name": "Panpour",
 			"ThumbnailAltText": "Panpour",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/515.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/515.png",
 			"type": "water"
 		},
 		{
@@ -5680,7 +5680,7 @@ define(function(require){
 			"id": "516",
 			"name": "Simipour",
 			"ThumbnailAltText": "Simipour",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/516.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/516.png",
 			"type": "water"
 		},
 		{
@@ -5691,7 +5691,7 @@ define(function(require){
 			"id": "517",
 			"name": "Munna",
 			"ThumbnailAltText": "Munna",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/517.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/517.png",
 			"type": "psychic"
 		},
 		{
@@ -5702,7 +5702,7 @@ define(function(require){
 			"id": "518",
 			"name": "Musharna",
 			"ThumbnailAltText": "Musharna",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/518.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/518.png",
 			"type": "psychic"
 		},
 		{
@@ -5713,7 +5713,7 @@ define(function(require){
 			"id": "519",
 			"name": "Pidove",
 			"ThumbnailAltText": "Pidove",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/519.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/519.png",
 			"type": "normal, flying"
 		},
 		{
@@ -5724,7 +5724,7 @@ define(function(require){
 			"id": "520",
 			"name": "Tranquill",
 			"ThumbnailAltText": "Tranquill",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/520.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/520.png",
 			"type": "normal, flying"
 		},
 		{
@@ -5735,7 +5735,7 @@ define(function(require){
 			"id": "521",
 			"name": "Unfezant",
 			"ThumbnailAltText": "Unfezant",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/521.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/521.png",
 			"type": "normal, flying"
 		},
 		{
@@ -5746,7 +5746,7 @@ define(function(require){
 			"id": "522",
 			"name": "Blitzle",
 			"ThumbnailAltText": "Blitzle",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/522.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/522.png",
 			"type": "electric"
 		},
 		{
@@ -5757,7 +5757,7 @@ define(function(require){
 			"id": "523",
 			"name": "Zebstrika",
 			"ThumbnailAltText": "Zebstrika",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/523.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/523.png",
 			"type": "electric"
 		},
 		{
@@ -5768,7 +5768,7 @@ define(function(require){
 			"id": "524",
 			"name": "Roggenrola",
 			"ThumbnailAltText": "Roggenrola",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/524.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/524.png",
 			"type": "rock"
 		},
 		{
@@ -5779,7 +5779,7 @@ define(function(require){
 			"id": "525",
 			"name": "Boldore",
 			"ThumbnailAltText": "Boldore",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/525.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/525.png",
 			"type": "rock"
 		},
 		{
@@ -5790,7 +5790,7 @@ define(function(require){
 			"id": "526",
 			"name": "Gigalith",
 			"ThumbnailAltText": "Gigalith",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/526.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/526.png",
 			"type": "rock"
 		},
 		{
@@ -5801,7 +5801,7 @@ define(function(require){
 			"id": "527",
 			"name": "Woobat",
 			"ThumbnailAltText": "Woobat",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/527.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/527.png",
 			"type": "psychic, flying"
 		},
 		{
@@ -5812,7 +5812,7 @@ define(function(require){
 			"id": "528",
 			"name": "Swoobat",
 			"ThumbnailAltText": "Swoobat",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/528.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/528.png",
 			"type": "psychic, flying"
 		},
 		{
@@ -5823,7 +5823,7 @@ define(function(require){
 			"id": "529",
 			"name": "Drilbur",
 			"ThumbnailAltText": "Drilbur",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/529.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/529.png",
 			"type": "ground"
 		},
 		{
@@ -5834,7 +5834,7 @@ define(function(require){
 			"id": "530",
 			"name": "Excadrill",
 			"ThumbnailAltText": "Excadrill",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/530.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/530.png",
 			"type": "ground, steel"
 		},
 		{
@@ -5845,7 +5845,7 @@ define(function(require){
 			"id": "531",
 			"name": "Audino",
 			"ThumbnailAltText": "Audino",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/531.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/531.png",
 			"type": "normal"
 		},
 		{
@@ -5856,7 +5856,7 @@ define(function(require){
 			"id": "532",
 			"name": "Timburr",
 			"ThumbnailAltText": "Timburr",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/532.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/532.png",
 			"type": "fighting"
 		},
 		{
@@ -5867,7 +5867,7 @@ define(function(require){
 			"id": "533",
 			"name": "Gurdurr",
 			"ThumbnailAltText": "Gurdurr",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/533.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/533.png",
 			"type": "fighting"
 		},
 		{
@@ -5878,7 +5878,7 @@ define(function(require){
 			"id": "534",
 			"name": "Conkeldurr",
 			"ThumbnailAltText": "Conkeldurr",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/534.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/534.png",
 			"type": "fighting"
 		},
 		{
@@ -5889,7 +5889,7 @@ define(function(require){
 			"id": "535",
 			"name": "Tympole",
 			"ThumbnailAltText": "Tympole",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/535.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/535.png",
 			"type": "water"
 		},
 		{
@@ -5900,7 +5900,7 @@ define(function(require){
 			"id": "536",
 			"name": "Palpitoad",
 			"ThumbnailAltText": "Palpitoad",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/536.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/536.png",
 			"type": "water, ground"
 		},
 		{
@@ -5911,7 +5911,7 @@ define(function(require){
 			"id": "537",
 			"name": "Seismitoad",
 			"ThumbnailAltText": "Seismitoad",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/537.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/537.png",
 			"type": "water, ground"
 		},
 		{
@@ -5922,7 +5922,7 @@ define(function(require){
 			"id": "538",
 			"name": "Throh",
 			"ThumbnailAltText": "Throh",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/538.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/538.png",
 			"type": "fighting"
 		},
 		{
@@ -5933,7 +5933,7 @@ define(function(require){
 			"id": "539",
 			"name": "Sawk",
 			"ThumbnailAltText": "Sawk",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/539.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/539.png",
 			"type": "fighting"
 		},
 		{
@@ -5944,7 +5944,7 @@ define(function(require){
 			"id": "540",
 			"name": "Sewaddle",
 			"ThumbnailAltText": "Sewaddle",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/540.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/540.png",
 			"type": "bug, grass"
 		},
 		{
@@ -5955,7 +5955,7 @@ define(function(require){
 			"id": "541",
 			"name": "Swadloon",
 			"ThumbnailAltText": "Swadloon",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/541.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/541.png",
 			"type": "bug, grass"
 		},
 		{
@@ -5966,7 +5966,7 @@ define(function(require){
 			"id": "542",
 			"name": "Leavanny",
 			"ThumbnailAltText": "Leavanny",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/542.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/542.png",
 			"type": "bug, grass"
 		},
 		{
@@ -5977,7 +5977,7 @@ define(function(require){
 			"id": "543",
 			"name": "Venipede",
 			"ThumbnailAltText": "Venipede",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/543.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/543.png",
 			"type": "bug, poison"
 		},
 		{
@@ -5988,7 +5988,7 @@ define(function(require){
 			"id": "544",
 			"name": "Whirlipede",
 			"ThumbnailAltText": "Whirlipede",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/544.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/544.png",
 			"type": "bug, poison"
 		},
 		{
@@ -5999,7 +5999,7 @@ define(function(require){
 			"id": "545",
 			"name": "Scolipede",
 			"ThumbnailAltText": "Scolipede",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/545.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/545.png",
 			"type": "bug, poison"
 		},
 		{
@@ -6010,7 +6010,7 @@ define(function(require){
 			"id": "546",
 			"name": "Cottonee",
 			"ThumbnailAltText": "Cottonee",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/546.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/546.png",
 			"type": "grass, fairy"
 		},
 		{
@@ -6021,7 +6021,7 @@ define(function(require){
 			"id": "547",
 			"name": "Whimsicott",
 			"ThumbnailAltText": "Whimsicott",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/547.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/547.png",
 			"type": "grass, fairy"
 		},
 		{
@@ -6032,7 +6032,7 @@ define(function(require){
 			"id": "548",
 			"name": "Petilil",
 			"ThumbnailAltText": "Petilil",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/548.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/548.png",
 			"type": "grass"
 		},
 		{
@@ -6043,7 +6043,7 @@ define(function(require){
 			"id": "549",
 			"name": "Lilligant",
 			"ThumbnailAltText": "Lilligant",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/549.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/549.png",
 			"type": "grass"
 		},
 		{
@@ -6054,7 +6054,7 @@ define(function(require){
 			"id": "550",
 			"name": "Basculin",
 			"ThumbnailAltText": "Basculin",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/550.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/550.png",
 			"type": "water"
 		},
 		{
@@ -6065,7 +6065,7 @@ define(function(require){
 			"id": "551",
 			"name": "Sandile",
 			"ThumbnailAltText": "Sandile",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/551.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/551.png",
 			"type": "ground, dark"
 		},
 		{
@@ -6076,7 +6076,7 @@ define(function(require){
 			"id": "552",
 			"name": "Krokorok",
 			"ThumbnailAltText": "Krokorok",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/552.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/552.png",
 			"type": "ground, dark"
 		},
 		{
@@ -6087,7 +6087,7 @@ define(function(require){
 			"id": "553",
 			"name": "Krookodile",
 			"ThumbnailAltText": "Krookodile",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/553.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/553.png",
 			"type": "ground, dark"
 		},
 		{
@@ -6098,7 +6098,7 @@ define(function(require){
 			"id": "554",
 			"name": "Darumaka",
 			"ThumbnailAltText": "Darumaka",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/554.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/554.png",
 			"type": "fire"
 		},
 		{
@@ -6109,7 +6109,7 @@ define(function(require){
 			"id": "555",
 			"name": "Darmanitan",
 			"ThumbnailAltText": "Darmanitan",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/555.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/555.png",
 			"type": "fire, psychic"
 		},
 		{
@@ -6120,7 +6120,7 @@ define(function(require){
 			"id": "556",
 			"name": "Maractus",
 			"ThumbnailAltText": "Maractus",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/556.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/556.png",
 			"type": "grass"
 		},
 		{
@@ -6131,7 +6131,7 @@ define(function(require){
 			"id": "557",
 			"name": "Dwebble",
 			"ThumbnailAltText": "Dwebble",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/557.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/557.png",
 			"type": "bug, rock"
 		},
 		{
@@ -6142,7 +6142,7 @@ define(function(require){
 			"id": "558",
 			"name": "Crustle",
 			"ThumbnailAltText": "Crustle",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/558.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/558.png",
 			"type": "bug, rock"
 		},
 		{
@@ -6153,7 +6153,7 @@ define(function(require){
 			"id": "559",
 			"name": "Scraggy",
 			"ThumbnailAltText": "Scraggy",
-			"ThumbnailImage": "http://assets8.pokemon.com/static2/_ui/img/pokedex/detail/559.png",
+			"ThumbnailImage": "http://assets20.pokemon.com/assets/cms2/img/pokedex/detail/559.png",
 			"type": "dark, fighting"
 		},
 		{
@@ -6164,7 +6164,7 @@ define(function(require){
 			"id": "560",
 			"name": "Scrafty",
 			"ThumbnailAltText": "Scrafty",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/560.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/560.png",
 			"type": "dark, fighting"
 		},
 		{
@@ -6175,7 +6175,7 @@ define(function(require){
 			"id": "561",
 			"name": "Sigilyph",
 			"ThumbnailAltText": "Sigilyph",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/561.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/561.png",
 			"type": "psychic, flying"
 		},
 		{
@@ -6186,7 +6186,7 @@ define(function(require){
 			"id": "562",
 			"name": "Yamask",
 			"ThumbnailAltText": "Yamask",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/562.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/562.png",
 			"type": "ghost"
 		},
 		{
@@ -6197,7 +6197,7 @@ define(function(require){
 			"id": "563",
 			"name": "Cofagrigus",
 			"ThumbnailAltText": "Cofagrigus",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/563.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/563.png",
 			"type": "ghost"
 		},
 		{
@@ -6208,7 +6208,7 @@ define(function(require){
 			"id": "564",
 			"name": "Tirtouga",
 			"ThumbnailAltText": "Tirtouga",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/564.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/564.png",
 			"type": "water, rock"
 		},
 		{
@@ -6219,7 +6219,7 @@ define(function(require){
 			"id": "565",
 			"name": "Carracosta",
 			"ThumbnailAltText": "Carracosta",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/565.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/565.png",
 			"type": "water, rock"
 		},
 		{
@@ -6230,7 +6230,7 @@ define(function(require){
 			"id": "566",
 			"name": "Archen",
 			"ThumbnailAltText": "Archen",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/566.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/566.png",
 			"type": "rock, flying"
 		},
 		{
@@ -6241,7 +6241,7 @@ define(function(require){
 			"id": "567",
 			"name": "Archeops",
 			"ThumbnailAltText": "Archeops",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/567.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/567.png",
 			"type": "rock, flying"
 		},
 		{
@@ -6252,7 +6252,7 @@ define(function(require){
 			"id": "568",
 			"name": "Trubbish",
 			"ThumbnailAltText": "Trubbish",
-			"ThumbnailImage": "http://assets8.pokemon.com/static2/_ui/img/pokedex/detail/568.png",
+			"ThumbnailImage": "http://assets20.pokemon.com/assets/cms2/img/pokedex/detail/568.png",
 			"type": "poison"
 		},
 		{
@@ -6263,7 +6263,7 @@ define(function(require){
 			"id": "569",
 			"name": "Garbodor",
 			"ThumbnailAltText": "Garbodor",
-			"ThumbnailImage": "http://assets9.pokemon.com/static2/_ui/img/pokedex/detail/569.png",
+			"ThumbnailImage": "http://assets21.pokemon.com/assets/cms2/img/pokedex/detail/569.png",
 			"type": "poison"
 		},
 		{
@@ -6274,7 +6274,7 @@ define(function(require){
 			"id": "570",
 			"name": "Zorua",
 			"ThumbnailAltText": "Zorua",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/570.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/570.png",
 			"type": "dark"
 		},
 		{
@@ -6285,7 +6285,7 @@ define(function(require){
 			"id": "571",
 			"name": "Zoroark",
 			"ThumbnailAltText": "Zoroark",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/571.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/571.png",
 			"type": "dark"
 		},
 		{
@@ -6296,7 +6296,7 @@ define(function(require){
 			"id": "572",
 			"name": "Minccino",
 			"ThumbnailAltText": "Minccino",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/572.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/572.png",
 			"type": "normal"
 		},
 		{
@@ -6307,7 +6307,7 @@ define(function(require){
 			"id": "573",
 			"name": "Cinccino",
 			"ThumbnailAltText": "Cinccino",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/573.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/573.png",
 			"type": "normal"
 		},
 		{
@@ -6318,7 +6318,7 @@ define(function(require){
 			"id": "574",
 			"name": "Gothita",
 			"ThumbnailAltText": "Gothita",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/574.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/574.png",
 			"type": "psychic"
 		},
 		{
@@ -6329,7 +6329,7 @@ define(function(require){
 			"id": "575",
 			"name": "Gothorita",
 			"ThumbnailAltText": "Gothorita",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/575.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/575.png",
 			"type": "psychic"
 		},
 		{
@@ -6340,7 +6340,7 @@ define(function(require){
 			"id": "576",
 			"name": "Gothitelle",
 			"ThumbnailAltText": "Gothitelle",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/576.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/576.png",
 			"type": "psychic"
 		},
 		{
@@ -6351,7 +6351,7 @@ define(function(require){
 			"id": "577",
 			"name": "Solosis ",
 			"ThumbnailAltText": "Solosis ",
-			"ThumbnailImage": "http://assets8.pokemon.com/static2/_ui/img/pokedex/detail/577.png",
+			"ThumbnailImage": "http://assets20.pokemon.com/assets/cms2/img/pokedex/detail/577.png",
 			"type": "psychic"
 		},
 		{
@@ -6362,7 +6362,7 @@ define(function(require){
 			"id": "578",
 			"name": "Duosion",
 			"ThumbnailAltText": "Duosion",
-			"ThumbnailImage": "http://assets9.pokemon.com/static2/_ui/img/pokedex/detail/578.png",
+			"ThumbnailImage": "http://assets21.pokemon.com/assets/cms2/img/pokedex/detail/578.png",
 			"type": "psychic"
 		},
 		{
@@ -6373,7 +6373,7 @@ define(function(require){
 			"id": "579",
 			"name": "Reuniclus",
 			"ThumbnailAltText": "Reuniclus",
-			"ThumbnailImage": "http://assets10.pokemon.com/static2/_ui/img/pokedex/detail/579.png",
+			"ThumbnailImage": "http://assets22.pokemon.com/assets/cms2/img/pokedex/detail/579.png",
 			"type": "psychic"
 		},
 		{
@@ -6384,7 +6384,7 @@ define(function(require){
 			"id": "580",
 			"name": "Ducklett",
 			"ThumbnailAltText": "Ducklett",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/580.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/580.png",
 			"type": "water, flying"
 		},
 		{
@@ -6395,7 +6395,7 @@ define(function(require){
 			"id": "581",
 			"name": "Swanna",
 			"ThumbnailAltText": "Swanna",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/581.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/581.png",
 			"type": "water, flying"
 		},
 		{
@@ -6406,7 +6406,7 @@ define(function(require){
 			"id": "582",
 			"name": "Vanillite",
 			"ThumbnailAltText": "Vanillite",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/582.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/582.png",
 			"type": "ice"
 		},
 		{
@@ -6417,7 +6417,7 @@ define(function(require){
 			"id": "583",
 			"name": "Vanillish",
 			"ThumbnailAltText": "Vanillish",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/583.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/583.png",
 			"type": "ice"
 		},
 		{
@@ -6428,7 +6428,7 @@ define(function(require){
 			"id": "584",
 			"name": "Vanilluxe",
 			"ThumbnailAltText": "Vanilluxe",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/584.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/584.png",
 			"type": "ice"
 		},
 		{
@@ -6439,7 +6439,7 @@ define(function(require){
 			"id": "585",
 			"name": "Deerling",
 			"ThumbnailAltText": "Deerling",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/585.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/585.png",
 			"type": "normal, grass"
 		},
 		{
@@ -6450,7 +6450,7 @@ define(function(require){
 			"id": "586",
 			"name": "Sawsbuck",
 			"ThumbnailAltText": "Sawsbuck",
-			"ThumbnailImage": "http://assets8.pokemon.com/static2/_ui/img/pokedex/detail/586.png",
+			"ThumbnailImage": "http://assets20.pokemon.com/assets/cms2/img/pokedex/detail/586.png",
 			"type": "normal, grass"
 		},
 		{
@@ -6461,7 +6461,7 @@ define(function(require){
 			"id": "587",
 			"name": "Emolga",
 			"ThumbnailAltText": "Emolga",
-			"ThumbnailImage": "http://assets9.pokemon.com/static2/_ui/img/pokedex/detail/587.png",
+			"ThumbnailImage": "http://assets21.pokemon.com/assets/cms2/img/pokedex/detail/587.png",
 			"type": "electric, flying"
 		},
 		{
@@ -6472,7 +6472,7 @@ define(function(require){
 			"id": "588",
 			"name": "Karrablast",
 			"ThumbnailAltText": "Karrablast",
-			"ThumbnailImage": "http://assets10.pokemon.com/static2/_ui/img/pokedex/detail/588.png",
+			"ThumbnailImage": "http://assets22.pokemon.com/assets/cms2/img/pokedex/detail/588.png",
 			"type": "bug"
 		},
 		{
@@ -6483,7 +6483,7 @@ define(function(require){
 			"id": "589",
 			"name": "Escavalier",
 			"ThumbnailAltText": "Escavalier",
-			"ThumbnailImage": "http://assets11.pokemon.com/static2/_ui/img/pokedex/detail/589.png",
+			"ThumbnailImage": "http://assets23.pokemon.com/assets/cms2/img/pokedex/detail/589.png",
 			"type": "bug, steel"
 		},
 		{
@@ -6494,7 +6494,7 @@ define(function(require){
 			"id": "590",
 			"name": "Foongus",
 			"ThumbnailAltText": "Foongus",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/590.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/590.png",
 			"type": "grass, poison"
 		},
 		{
@@ -6505,7 +6505,7 @@ define(function(require){
 			"id": "591",
 			"name": "Amoonguss",
 			"ThumbnailAltText": "Amoonguss",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/591.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/591.png",
 			"type": "grass, poison"
 		},
 		{
@@ -6516,7 +6516,7 @@ define(function(require){
 			"id": "592",
 			"name": "Frillish",
 			"ThumbnailAltText": "Frillish",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/592.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/592.png",
 			"type": "water, ghost"
 		},
 		{
@@ -6527,7 +6527,7 @@ define(function(require){
 			"id": "593",
 			"name": "Jellicent",
 			"ThumbnailAltText": "Jellicent",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/593.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/593.png",
 			"type": "water, ghost"
 		},
 		{
@@ -6538,7 +6538,7 @@ define(function(require){
 			"id": "594",
 			"name": "Alomomola",
 			"ThumbnailAltText": "Alomomola",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/594.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/594.png",
 			"type": "water"
 		},
 		{
@@ -6549,7 +6549,7 @@ define(function(require){
 			"id": "595",
 			"name": "Joltik",
 			"ThumbnailAltText": "Joltik",
-			"ThumbnailImage": "http://assets8.pokemon.com/static2/_ui/img/pokedex/detail/595.png",
+			"ThumbnailImage": "http://assets20.pokemon.com/assets/cms2/img/pokedex/detail/595.png",
 			"type": "bug, electric"
 		},
 		{
@@ -6560,7 +6560,7 @@ define(function(require){
 			"id": "596",
 			"name": "Galvantula",
 			"ThumbnailAltText": "Galvantula",
-			"ThumbnailImage": "http://assets9.pokemon.com/static2/_ui/img/pokedex/detail/596.png",
+			"ThumbnailImage": "http://assets21.pokemon.com/assets/cms2/img/pokedex/detail/596.png",
 			"type": "bug, electric"
 		},
 		{
@@ -6571,7 +6571,7 @@ define(function(require){
 			"id": "597",
 			"name": "Ferroseed",
 			"ThumbnailAltText": "Ferroseed",
-			"ThumbnailImage": "http://assets10.pokemon.com/static2/_ui/img/pokedex/detail/597.png",
+			"ThumbnailImage": "http://assets22.pokemon.com/assets/cms2/img/pokedex/detail/597.png",
 			"type": "grass, steel"
 		},
 		{
@@ -6582,7 +6582,7 @@ define(function(require){
 			"id": "598",
 			"name": "Ferrothorn",
 			"ThumbnailAltText": "Ferrothorn",
-			"ThumbnailImage": "http://assets11.pokemon.com/static2/_ui/img/pokedex/detail/598.png",
+			"ThumbnailImage": "http://assets23.pokemon.com/assets/cms2/img/pokedex/detail/598.png",
 			"type": "grass, steel"
 		},
 		{
@@ -6593,7 +6593,7 @@ define(function(require){
 			"id": "599",
 			"name": "Klink",
 			"ThumbnailAltText": "Klink",
-			"ThumbnailImage": "http://assets12.pokemon.com/static2/_ui/img/pokedex/detail/599.png",
+			"ThumbnailImage": "http://assets24.pokemon.com/assets/cms2/img/pokedex/detail/599.png",
 			"type": "steel"
 		},
 		{
@@ -6604,7 +6604,7 @@ define(function(require){
 			"id": "600",
 			"name": "Klang",
 			"ThumbnailAltText": "Klang",
-			"ThumbnailImage": "http://assets20.pokemon.com/static2/_ui/img/pokedex/detail/600.png",
+			"ThumbnailImage": "http://assets7.pokemon.com/assets/cms2/img/pokedex/detail/600.png",
 			"type": "steel"
 		},
 		{
@@ -6615,7 +6615,7 @@ define(function(require){
 			"id": "601",
 			"name": "Klinklang",
 			"ThumbnailAltText": "Klinklang",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/601.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/601.png",
 			"type": "steel"
 		},
 		{
@@ -6626,7 +6626,7 @@ define(function(require){
 			"id": "602",
 			"name": "Tynamo",
 			"ThumbnailAltText": "Tynamo",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/602.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/602.png",
 			"type": "electric"
 		},
 		{
@@ -6637,7 +6637,7 @@ define(function(require){
 			"id": "603",
 			"name": "Eelektrik",
 			"ThumbnailAltText": "Eelektrik",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/603.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/603.png",
 			"type": "electric"
 		},
 		{
@@ -6648,7 +6648,7 @@ define(function(require){
 			"id": "604",
 			"name": "Eelektross",
 			"ThumbnailAltText": "Eelektross",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/604.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/604.png",
 			"type": "electric"
 		},
 		{
@@ -6659,7 +6659,7 @@ define(function(require){
 			"id": "605",
 			"name": "Elgyem",
 			"ThumbnailAltText": "Elgyem",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/605.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/605.png",
 			"type": "psychic"
 		},
 		{
@@ -6670,7 +6670,7 @@ define(function(require){
 			"id": "606",
 			"name": "Beheeyem",
 			"ThumbnailAltText": "Beheeyem",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/606.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/606.png",
 			"type": "psychic"
 		},
 		{
@@ -6681,7 +6681,7 @@ define(function(require){
 			"id": "607",
 			"name": "Litwick",
 			"ThumbnailAltText": "Litwick",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/607.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/607.png",
 			"type": "ghost, fire"
 		},
 		{
@@ -6692,7 +6692,7 @@ define(function(require){
 			"id": "608",
 			"name": "Lampent",
 			"ThumbnailAltText": "Lampent",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/608.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/608.png",
 			"type": "ghost, fire"
 		},
 		{
@@ -6703,7 +6703,7 @@ define(function(require){
 			"id": "609",
 			"name": "Chandelure",
 			"ThumbnailAltText": "Chandelure",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/609.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/609.png",
 			"type": "ghost, fire"
 		},
 		{
@@ -6714,7 +6714,7 @@ define(function(require){
 			"id": "610",
 			"name": "Axew",
 			"ThumbnailAltText": "Axew",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/610.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/610.png",
 			"type": "dragon"
 		},
 		{
@@ -6725,7 +6725,7 @@ define(function(require){
 			"id": "611",
 			"name": "Fraxure",
 			"ThumbnailAltText": "Fraxure",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/611.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/611.png",
 			"type": "dragon"
 		},
 		{
@@ -6736,7 +6736,7 @@ define(function(require){
 			"id": "612",
 			"name": "Haxorus",
 			"ThumbnailAltText": "Haxorus",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/612.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/612.png",
 			"type": "dragon"
 		},
 		{
@@ -6747,7 +6747,7 @@ define(function(require){
 			"id": "613",
 			"name": "Cubchoo",
 			"ThumbnailAltText": "Cubchoo",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/613.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/613.png",
 			"type": "ice"
 		},
 		{
@@ -6758,7 +6758,7 @@ define(function(require){
 			"id": "614",
 			"name": "Beartic",
 			"ThumbnailAltText": "Beartic",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/614.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/614.png",
 			"type": "ice"
 		},
 		{
@@ -6769,7 +6769,7 @@ define(function(require){
 			"id": "615",
 			"name": "Cryogonal",
 			"ThumbnailAltText": "Cryogonal",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/615.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/615.png",
 			"type": "ice"
 		},
 		{
@@ -6780,7 +6780,7 @@ define(function(require){
 			"id": "616",
 			"name": "Shelmet",
 			"ThumbnailAltText": "Shelmet",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/616.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/616.png",
 			"type": "bug"
 		},
 		{
@@ -6791,7 +6791,7 @@ define(function(require){
 			"id": "617",
 			"name": "Accelgor",
 			"ThumbnailAltText": "Accelgor",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/617.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/617.png",
 			"type": "bug"
 		},
 		{
@@ -6802,7 +6802,7 @@ define(function(require){
 			"id": "618",
 			"name": "Stunfisk",
 			"ThumbnailAltText": "Stunfisk",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/618.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/618.png",
 			"type": "ground, electric"
 		},
 		{
@@ -6813,7 +6813,7 @@ define(function(require){
 			"id": "619",
 			"name": "Mienfoo",
 			"ThumbnailAltText": "Mienfoo",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/619.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/619.png",
 			"type": "fighting"
 		},
 		{
@@ -6824,7 +6824,7 @@ define(function(require){
 			"id": "620",
 			"name": "Mienshao",
 			"ThumbnailAltText": "Mienshao",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/620.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/620.png",
 			"type": "fighting"
 		},
 		{
@@ -6835,7 +6835,7 @@ define(function(require){
 			"id": "621",
 			"name": "Druddigon",
 			"ThumbnailAltText": "Druddigon",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/621.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/621.png",
 			"type": "dragon"
 		},
 		{
@@ -6846,7 +6846,7 @@ define(function(require){
 			"id": "622",
 			"name": "Golett",
 			"ThumbnailAltText": "Golett",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/622.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/622.png",
 			"type": "ground, ghost"
 		},
 		{
@@ -6857,7 +6857,7 @@ define(function(require){
 			"id": "623",
 			"name": "Golurk",
 			"ThumbnailAltText": "Golurk",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/623.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/623.png",
 			"type": "ground, ghost"
 		},
 		{
@@ -6868,7 +6868,7 @@ define(function(require){
 			"id": "624",
 			"name": "Pawniard",
 			"ThumbnailAltText": "Pawniard",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/624.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/624.png",
 			"type": "dark, steel"
 		},
 		{
@@ -6879,7 +6879,7 @@ define(function(require){
 			"id": "625",
 			"name": "Bisharp",
 			"ThumbnailAltText": "Bisharp",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/625.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/625.png",
 			"type": "dark, steel"
 		},
 		{
@@ -6890,7 +6890,7 @@ define(function(require){
 			"id": "626",
 			"name": "Bouffalant",
 			"ThumbnailAltText": "Bouffalant",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/626.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/626.png",
 			"type": "normal"
 		},
 		{
@@ -6901,7 +6901,7 @@ define(function(require){
 			"id": "627",
 			"name": "Rufflet",
 			"ThumbnailAltText": "Rufflet",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/627.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/627.png",
 			"type": "normal, flying"
 		},
 		{
@@ -6912,7 +6912,7 @@ define(function(require){
 			"id": "628",
 			"name": "Braviary",
 			"ThumbnailAltText": "Braviary",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/628.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/628.png",
 			"type": "normal, flying"
 		},
 		{
@@ -6923,7 +6923,7 @@ define(function(require){
 			"id": "629",
 			"name": "Vullaby",
 			"ThumbnailAltText": "Vullaby",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/629.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/629.png",
 			"type": "dark, flying"
 		},
 		{
@@ -6934,7 +6934,7 @@ define(function(require){
 			"id": "630",
 			"name": "Mandibuzz",
 			"ThumbnailAltText": "Mandibuzz",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/630.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/630.png",
 			"type": "dark, flying"
 		},
 		{
@@ -6945,7 +6945,7 @@ define(function(require){
 			"id": "631",
 			"name": "Heatmor",
 			"ThumbnailAltText": "Heatmor",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/631.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/631.png",
 			"type": "fire"
 		},
 		{
@@ -6956,7 +6956,7 @@ define(function(require){
 			"id": "632",
 			"name": "Durant",
 			"ThumbnailAltText": "Durant",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/632.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/632.png",
 			"type": "bug, steel"
 		},
 		{
@@ -6967,7 +6967,7 @@ define(function(require){
 			"id": "633",
 			"name": "Deino",
 			"ThumbnailAltText": "Deino",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/633.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/633.png",
 			"type": "dark, dragon"
 		},
 		{
@@ -6978,7 +6978,7 @@ define(function(require){
 			"id": "634",
 			"name": "Zweilous",
 			"ThumbnailAltText": "Zweilous",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/634.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/634.png",
 			"type": "dark, dragon"
 		},
 		{
@@ -6989,7 +6989,7 @@ define(function(require){
 			"id": "635",
 			"name": "Hydreigon",
 			"ThumbnailAltText": "Hydreigon",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/635.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/635.png",
 			"type": "dark, dragon"
 		},
 		{
@@ -7000,7 +7000,7 @@ define(function(require){
 			"id": "636",
 			"name": "Larvesta",
 			"ThumbnailAltText": "Larvesta",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/636.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/636.png",
 			"type": "bug, fire"
 		},
 		{
@@ -7011,7 +7011,7 @@ define(function(require){
 			"id": "637",
 			"name": "Volcarona",
 			"ThumbnailAltText": "Volcarona",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/637.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/637.png",
 			"type": "bug, fire"
 		},
 		{
@@ -7022,7 +7022,7 @@ define(function(require){
 			"id": "638",
 			"name": "Cobalion",
 			"ThumbnailAltText": "Cobalion",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/638.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/638.png",
 			"type": "steel, fighting"
 		},
 		{
@@ -7033,7 +7033,7 @@ define(function(require){
 			"id": "639",
 			"name": "Terrakion",
 			"ThumbnailAltText": "Terrakion",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/639.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/639.png",
 			"type": "rock, fighting"
 		},
 		{
@@ -7044,7 +7044,7 @@ define(function(require){
 			"id": "640",
 			"name": "Virizion",
 			"ThumbnailAltText": "Virizion",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/640.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/640.png",
 			"type": "grass, fighting"
 		},
 		{
@@ -7055,7 +7055,7 @@ define(function(require){
 			"id": "641",
 			"name": "Tornadus",
 			"ThumbnailAltText": "Tornadus",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/641.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/641.png",
 			"type": "flying"
 		},
 		{
@@ -7066,7 +7066,7 @@ define(function(require){
 			"id": "642",
 			"name": "Thundurus",
 			"ThumbnailAltText": "Thundurus",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/642.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/642.png",
 			"type": "electric, flying"
 		},
 		{
@@ -7077,7 +7077,7 @@ define(function(require){
 			"id": "643",
 			"name": "Reshiram",
 			"ThumbnailAltText": "Reshiram",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/643.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/643.png",
 			"type": "dragon, fire"
 		},
 		{
@@ -7088,7 +7088,7 @@ define(function(require){
 			"id": "644",
 			"name": "Zekrom",
 			"ThumbnailAltText": "Zekrom",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/644.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/644.png",
 			"type": "dragon, electric"
 		},
 		{
@@ -7099,7 +7099,7 @@ define(function(require){
 			"id": "645",
 			"name": "Landorus",
 			"ThumbnailAltText": "Landorus",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/645.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/645.png",
 			"type": "ground, flying"
 		},
 		{
@@ -7110,7 +7110,7 @@ define(function(require){
 			"id": "646",
 			"name": "Kyurem",
 			"ThumbnailAltText": "Kyurem",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/646.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/646.png",
 			"type": "dragon, ice"
 		},
 		{
@@ -7121,7 +7121,7 @@ define(function(require){
 			"id": "647",
 			"name": "Keldeo",
 			"ThumbnailAltText": "Keldeo",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/647.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/647.png",
 			"type": "water, fighting"
 		},
 		{
@@ -7132,7 +7132,7 @@ define(function(require){
 			"id": "648",
 			"name": "Meloetta",
 			"ThumbnailAltText": "Meloetta",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/648.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/648.png",
 			"type": "normal, psychic"
 		},
 		{
@@ -7143,7 +7143,7 @@ define(function(require){
 			"id": "649",
 			"name": "Genesect",
 			"ThumbnailAltText": "Genesect",
-			"ThumbnailImage": "http://assets8.pokemon.com/static2/_ui/img/pokedex/detail/649.png",
+			"ThumbnailImage": "http://assets20.pokemon.com/assets/cms2/img/pokedex/detail/649.png",
 			"type": "bug, steel"
 		},
 		{
@@ -7154,7 +7154,7 @@ define(function(require){
 			"id": "650",
 			"name": "Chespin",
 			"ThumbnailAltText": "Chespin",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/650.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/650.png",
 			"type": "grass"
 		},
 		{
@@ -7165,7 +7165,7 @@ define(function(require){
 			"id": "651",
 			"name": "Quilladin",
 			"ThumbnailAltText": "Quilladin",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/651.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/651.png",
 			"type": "grass"
 		},
 		{
@@ -7176,7 +7176,7 @@ define(function(require){
 			"id": "652",
 			"name": "Chesnaught",
 			"ThumbnailAltText": "Chesnaught",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/652.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/652.png",
 			"type": "grass, fighting"
 		},
 		{
@@ -7187,7 +7187,7 @@ define(function(require){
 			"id": "653",
 			"name": "Fennekin",
 			"ThumbnailAltText": "Fennekin",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/653.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/653.png",
 			"type": "fire"
 		},
 		{
@@ -7198,7 +7198,7 @@ define(function(require){
 			"id": "654",
 			"name": "Braixen",
 			"ThumbnailAltText": "Braixen",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/654.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/654.png",
 			"type": "fire"
 		},
 		{
@@ -7209,7 +7209,7 @@ define(function(require){
 			"id": "655",
 			"name": "Delphox",
 			"ThumbnailAltText": "Delphox",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/655.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/655.png",
 			"type": "fire, psychic"
 		},
 		{
@@ -7220,7 +7220,7 @@ define(function(require){
 			"id": "656",
 			"name": "Froakie",
 			"ThumbnailAltText": "Froakie",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/656.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/656.png",
 			"type": "water"
 		},
 		{
@@ -7231,7 +7231,7 @@ define(function(require){
 			"id": "657",
 			"name": "Frogadier",
 			"ThumbnailAltText": "Frogadier",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/657.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/657.png",
 			"type": "water"
 		},
 		{
@@ -7242,7 +7242,7 @@ define(function(require){
 			"id": "658",
 			"name": "Greninja",
 			"ThumbnailAltText": "Greninja",
-			"ThumbnailImage": "http://assets8.pokemon.com/static2/_ui/img/pokedex/detail/658.png",
+			"ThumbnailImage": "http://assets20.pokemon.com/assets/cms2/img/pokedex/detail/658.png",
 			"type": "water, dark"
 		},
 		{
@@ -7253,7 +7253,7 @@ define(function(require){
 			"id": "659",
 			"name": "Bunnelby",
 			"ThumbnailAltText": "Bunnelby",
-			"ThumbnailImage": "http://assets9.pokemon.com/static2/_ui/img/pokedex/detail/659.png",
+			"ThumbnailImage": "http://assets21.pokemon.com/assets/cms2/img/pokedex/detail/659.png",
 			"type": "normal"
 		},
 		{
@@ -7264,7 +7264,7 @@ define(function(require){
 			"id": "660",
 			"name": "Diggersby",
 			"ThumbnailAltText": "Diggersby",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/660.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/660.png",
 			"type": "normal, ground"
 		},
 		{
@@ -7275,7 +7275,7 @@ define(function(require){
 			"id": "661",
 			"name": "Fletchling",
 			"ThumbnailAltText": "Fletchling",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/661.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/661.png",
 			"type": "normal, flying"
 		},
 		{
@@ -7286,7 +7286,7 @@ define(function(require){
 			"id": "662",
 			"name": "Fletchinder",
 			"ThumbnailAltText": "Fletchinder",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/662.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/662.png",
 			"type": "fire, flying"
 		},
 		{
@@ -7297,7 +7297,7 @@ define(function(require){
 			"id": "663",
 			"name": "Talonflame",
 			"ThumbnailAltText": "Talonflame",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/663.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/663.png",
 			"type": "fire, flying"
 		},
 		{
@@ -7308,7 +7308,7 @@ define(function(require){
 			"id": "664",
 			"name": "Scatterbug",
 			"ThumbnailAltText": "Scatterbug",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/664.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/664.png",
 			"type": "bug"
 		},
 		{
@@ -7319,7 +7319,7 @@ define(function(require){
 			"id": "665",
 			"name": "Spewpa",
 			"ThumbnailAltText": "Spewpa",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/665.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/665.png",
 			"type": "bug"
 		},
 		{
@@ -7330,7 +7330,7 @@ define(function(require){
 			"id": "666",
 			"name": "Vivillon",
 			"ThumbnailAltText": "Vivillon",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/666.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/666.png",
 			"type": "bug, flying"
 		},
 		{
@@ -7341,7 +7341,7 @@ define(function(require){
 			"id": "667",
 			"name": "Litleo",
 			"ThumbnailAltText": "Litleo",
-			"ThumbnailImage": "http://assets8.pokemon.com/static2/_ui/img/pokedex/detail/667.png",
+			"ThumbnailImage": "http://assets20.pokemon.com/assets/cms2/img/pokedex/detail/667.png",
 			"type": "fire, normal"
 		},
 		{
@@ -7352,7 +7352,7 @@ define(function(require){
 			"id": "668",
 			"name": "Pyroar",
 			"ThumbnailAltText": "Pyroar",
-			"ThumbnailImage": "http://assets9.pokemon.com/static2/_ui/img/pokedex/detail/668.png",
+			"ThumbnailImage": "http://assets21.pokemon.com/assets/cms2/img/pokedex/detail/668.png",
 			"type": "fire, normal"
 		},
 		{
@@ -7363,7 +7363,7 @@ define(function(require){
 			"id": "669",
 			"name": "Flabébé",
 			"ThumbnailAltText": "Flabébé",
-			"ThumbnailImage": "http://assets10.pokemon.com/static2/_ui/img/pokedex/detail/669.png",
+			"ThumbnailImage": "http://assets22.pokemon.com/assets/cms2/img/pokedex/detail/669.png",
 			"type": "fairy"
 		},
 		{
@@ -7374,7 +7374,7 @@ define(function(require){
 			"id": "670",
 			"name": "Floette",
 			"ThumbnailAltText": "Floette",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/670.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/670.png",
 			"type": "fairy"
 		},
 		{
@@ -7385,7 +7385,7 @@ define(function(require){
 			"id": "671",
 			"name": "Florges",
 			"ThumbnailAltText": "Florges",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/671.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/671.png",
 			"type": "fairy"
 		},
 		{
@@ -7396,7 +7396,7 @@ define(function(require){
 			"id": "672",
 			"name": "Skiddo",
 			"ThumbnailAltText": "Skiddo",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/672.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/672.png",
 			"type": "grass"
 		},
 		{
@@ -7407,7 +7407,7 @@ define(function(require){
 			"id": "673",
 			"name": "Gogoat",
 			"ThumbnailAltText": "Gogoat",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/673.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/673.png",
 			"type": "grass"
 		},
 		{
@@ -7418,7 +7418,7 @@ define(function(require){
 			"id": "674",
 			"name": "Pancham",
 			"ThumbnailAltText": "Pancham",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/674.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/674.png",
 			"type": "fighting"
 		},
 		{
@@ -7429,7 +7429,7 @@ define(function(require){
 			"id": "675",
 			"name": "Pangoro",
 			"ThumbnailAltText": "Pangoro",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/675.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/675.png",
 			"type": "fighting, dark"
 		},
 		{
@@ -7440,7 +7440,7 @@ define(function(require){
 			"id": "676",
 			"name": "Furfrou",
 			"ThumbnailAltText": "Furfrou",
-			"ThumbnailImage": "http://assets8.pokemon.com/static2/_ui/img/pokedex/detail/676.png",
+			"ThumbnailImage": "http://assets20.pokemon.com/assets/cms2/img/pokedex/detail/676.png",
 			"type": "normal"
 		},
 		{
@@ -7451,7 +7451,7 @@ define(function(require){
 			"id": "677",
 			"name": "Espurr",
 			"ThumbnailAltText": "Espurr",
-			"ThumbnailImage": "http://assets9.pokemon.com/static2/_ui/img/pokedex/detail/677.png",
+			"ThumbnailImage": "http://assets21.pokemon.com/assets/cms2/img/pokedex/detail/677.png",
 			"type": "psychic"
 		},
 		{
@@ -7462,7 +7462,7 @@ define(function(require){
 			"id": "678",
 			"name": "Meowstic",
 			"ThumbnailAltText": "Meowstic",
-			"ThumbnailImage": "http://assets10.pokemon.com/static2/_ui/img/pokedex/detail/678.png",
+			"ThumbnailImage": "http://assets22.pokemon.com/assets/cms2/img/pokedex/detail/678.png",
 			"type": "psychic"
 		},
 		{
@@ -7473,7 +7473,7 @@ define(function(require){
 			"id": "679",
 			"name": "Honedge",
 			"ThumbnailAltText": "Honedge",
-			"ThumbnailImage": "http://assets11.pokemon.com/static2/_ui/img/pokedex/detail/679.png",
+			"ThumbnailImage": "http://assets23.pokemon.com/assets/cms2/img/pokedex/detail/679.png",
 			"type": "steel, ghost"
 		},
 		{
@@ -7484,7 +7484,7 @@ define(function(require){
 			"id": "680",
 			"name": "Doublade",
 			"ThumbnailAltText": "Doublade",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/680.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/680.png",
 			"type": "steel, ghost"
 		},
 		{
@@ -7495,7 +7495,7 @@ define(function(require){
 			"id": "681",
 			"name": "Aegislash",
 			"ThumbnailAltText": "Aegislash",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/681.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/681.png",
 			"type": "steel, ghost"
 		},
 		{
@@ -7506,7 +7506,7 @@ define(function(require){
 			"id": "682",
 			"name": "Spritzee",
 			"ThumbnailAltText": "Spritzee",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/682.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/682.png",
 			"type": "fairy"
 		},
 		{
@@ -7517,7 +7517,7 @@ define(function(require){
 			"id": "683",
 			"name": "Aromatisse",
 			"ThumbnailAltText": "Aromatisse",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/683.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/683.png",
 			"type": "fairy"
 		},
 		{
@@ -7528,7 +7528,7 @@ define(function(require){
 			"id": "684",
 			"name": "Swirlix",
 			"ThumbnailAltText": "Swirlix",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/684.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/684.png",
 			"type": "fairy"
 		},
 		{
@@ -7539,7 +7539,7 @@ define(function(require){
 			"id": "685",
 			"name": "Slurpuff",
 			"ThumbnailAltText": "Slurpuff",
-			"ThumbnailImage": "http://assets8.pokemon.com/static2/_ui/img/pokedex/detail/685.png",
+			"ThumbnailImage": "http://assets20.pokemon.com/assets/cms2/img/pokedex/detail/685.png",
 			"type": "fairy"
 		},
 		{
@@ -7550,7 +7550,7 @@ define(function(require){
 			"id": "686",
 			"name": "Inkay",
 			"ThumbnailAltText": "Inkay",
-			"ThumbnailImage": "http://assets9.pokemon.com/static2/_ui/img/pokedex/detail/686.png",
+			"ThumbnailImage": "http://assets21.pokemon.com/assets/cms2/img/pokedex/detail/686.png",
 			"type": "dark, psychic"
 		},
 		{
@@ -7561,7 +7561,7 @@ define(function(require){
 			"id": "687",
 			"name": "Malamar",
 			"ThumbnailAltText": "Malamar",
-			"ThumbnailImage": "http://assets10.pokemon.com/static2/_ui/img/pokedex/detail/687.png",
+			"ThumbnailImage": "http://assets22.pokemon.com/assets/cms2/img/pokedex/detail/687.png",
 			"type": "dark, psychic"
 		},
 		{
@@ -7572,7 +7572,7 @@ define(function(require){
 			"id": "688",
 			"name": "Binacle",
 			"ThumbnailAltText": "Binacle",
-			"ThumbnailImage": "http://assets11.pokemon.com/static2/_ui/img/pokedex/detail/688.png",
+			"ThumbnailImage": "http://assets23.pokemon.com/assets/cms2/img/pokedex/detail/688.png",
 			"type": "rock, water"
 		},
 		{
@@ -7583,7 +7583,7 @@ define(function(require){
 			"id": "689",
 			"name": "Barbaracle",
 			"ThumbnailAltText": "Barbaracle",
-			"ThumbnailImage": "http://assets12.pokemon.com/static2/_ui/img/pokedex/detail/689.png",
+			"ThumbnailImage": "http://assets24.pokemon.com/assets/cms2/img/pokedex/detail/689.png",
 			"type": "rock, water"
 		},
 		{
@@ -7594,7 +7594,7 @@ define(function(require){
 			"id": "690",
 			"name": "Skrelp",
 			"ThumbnailAltText": "Skrelp",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/690.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/690.png",
 			"type": "poison, water"
 		},
 		{
@@ -7605,7 +7605,7 @@ define(function(require){
 			"id": "691",
 			"name": "Dragalge",
 			"ThumbnailAltText": "Dragalge",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/691.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/691.png",
 			"type": "poison, dragon"
 		},
 		{
@@ -7616,7 +7616,7 @@ define(function(require){
 			"id": "692",
 			"name": "Clauncher",
 			"ThumbnailAltText": "Clauncher",
-			"ThumbnailImage": "http://assets6.pokemon.com/static2/_ui/img/pokedex/detail/692.png",
+			"ThumbnailImage": "http://assets18.pokemon.com/assets/cms2/img/pokedex/detail/692.png",
 			"type": "water"
 		},
 		{
@@ -7627,7 +7627,7 @@ define(function(require){
 			"id": "693",
 			"name": "Clawitzer",
 			"ThumbnailAltText": "Clawitzer",
-			"ThumbnailImage": "http://assets7.pokemon.com/static2/_ui/img/pokedex/detail/693.png",
+			"ThumbnailImage": "http://assets19.pokemon.com/assets/cms2/img/pokedex/detail/693.png",
 			"type": "water"
 		},
 		{
@@ -7638,7 +7638,7 @@ define(function(require){
 			"id": "694",
 			"name": "Helioptile",
 			"ThumbnailAltText": "Helioptile",
-			"ThumbnailImage": "http://assets8.pokemon.com/static2/_ui/img/pokedex/detail/694.png",
+			"ThumbnailImage": "http://assets20.pokemon.com/assets/cms2/img/pokedex/detail/694.png",
 			"type": "electric, normal"
 		},
 		{
@@ -7649,7 +7649,7 @@ define(function(require){
 			"id": "695",
 			"name": "Heliolisk",
 			"ThumbnailAltText": "Heliolisk",
-			"ThumbnailImage": "http://assets9.pokemon.com/static2/_ui/img/pokedex/detail/695.png",
+			"ThumbnailImage": "http://assets21.pokemon.com/assets/cms2/img/pokedex/detail/695.png",
 			"type": "electric, normal"
 		},
 		{
@@ -7660,7 +7660,7 @@ define(function(require){
 			"id": "696",
 			"name": "Tyrunt",
 			"ThumbnailAltText": "Tyrunt",
-			"ThumbnailImage": "http://assets10.pokemon.com/static2/_ui/img/pokedex/detail/696.png",
+			"ThumbnailImage": "http://assets22.pokemon.com/assets/cms2/img/pokedex/detail/696.png",
 			"type": "rock, dragon"
 		},
 		{
@@ -7671,7 +7671,7 @@ define(function(require){
 			"id": "697",
 			"name": "Tyrantrum",
 			"ThumbnailAltText": "Tyrantrum",
-			"ThumbnailImage": "http://assets11.pokemon.com/static2/_ui/img/pokedex/detail/697.png",
+			"ThumbnailImage": "http://assets23.pokemon.com/assets/cms2/img/pokedex/detail/697.png",
 			"type": "rock, dragon"
 		},
 		{
@@ -7682,7 +7682,7 @@ define(function(require){
 			"id": "698",
 			"name": "Amaura",
 			"ThumbnailAltText": "Amaura",
-			"ThumbnailImage": "http://assets12.pokemon.com/static2/_ui/img/pokedex/detail/698.png",
+			"ThumbnailImage": "http://assets24.pokemon.com/assets/cms2/img/pokedex/detail/698.png",
 			"type": "rock, ice"
 		},
 		{
@@ -7693,7 +7693,7 @@ define(function(require){
 			"id": "699",
 			"name": "Aurorus",
 			"ThumbnailAltText": "Aurorus",
-			"ThumbnailImage": "http://assets13.pokemon.com/static2/_ui/img/pokedex/detail/699.png",
+			"ThumbnailImage": "http://assets25.pokemon.com/assets/cms2/img/pokedex/detail/699.png",
 			"type": "rock, ice"
 		},
 		{
@@ -7704,7 +7704,7 @@ define(function(require){
 			"id": "700",
 			"name": "Sylveon",
 			"ThumbnailAltText": "Sylveon",
-			"ThumbnailImage": "http://assets21.pokemon.com/static2/_ui/img/pokedex/detail/700.png",
+			"ThumbnailImage": "http://assets8.pokemon.com/assets/cms2/img/pokedex/detail/700.png",
 			"type": "fairy"
 		},
 		{
@@ -7715,7 +7715,7 @@ define(function(require){
 			"id": "701",
 			"name": "Hawlucha",
 			"ThumbnailAltText": "Hawlucha",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/701.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/701.png",
 			"type": "fighting, flying"
 		},
 		{
@@ -7726,7 +7726,7 @@ define(function(require){
 			"id": "702",
 			"name": "Dedenne",
 			"ThumbnailAltText": "Dedenne",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/702.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/702.png",
 			"type": "electric, fairy"
 		},
 		{
@@ -7737,7 +7737,7 @@ define(function(require){
 			"id": "703",
 			"name": "Carbink",
 			"ThumbnailAltText": "Carbink",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/703.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/703.png",
 			"type": "rock, fairy"
 		},
 		{
@@ -7748,7 +7748,7 @@ define(function(require){
 			"id": "704",
 			"name": "Goomy",
 			"ThumbnailAltText": "Goomy",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/704.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/704.png",
 			"type": "dragon"
 		},
 		{
@@ -7759,7 +7759,7 @@ define(function(require){
 			"id": "705",
 			"name": "Sliggoo",
 			"ThumbnailAltText": "Sliggoo",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/705.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/705.png",
 			"type": "dragon"
 		},
 		{
@@ -7770,7 +7770,7 @@ define(function(require){
 			"id": "706",
 			"name": "Goodra",
 			"ThumbnailAltText": "Goodra",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/706.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/706.png",
 			"type": "dragon"
 		},
 		{
@@ -7781,7 +7781,7 @@ define(function(require){
 			"id": "707",
 			"name": "Klefki",
 			"ThumbnailAltText": "Klefki",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/707.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/707.png",
 			"type": "steel, fairy"
 		},
 		{
@@ -7792,7 +7792,7 @@ define(function(require){
 			"id": "708",
 			"name": "Phantump",
 			"ThumbnailAltText": "Phantump",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/708.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/708.png",
 			"type": "ghost, grass"
 		},
 		{
@@ -7803,7 +7803,7 @@ define(function(require){
 			"id": "709",
 			"name": "Trevenant",
 			"ThumbnailAltText": "Trevenant",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/709.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/709.png",
 			"type": "ghost, grass"
 		},
 		{
@@ -7814,7 +7814,7 @@ define(function(require){
 			"id": "710",
 			"name": "Pumpkaboo",
 			"ThumbnailAltText": "Pumpkaboo",
-			"ThumbnailImage": "http://assets22.pokemon.com/static2/_ui/img/pokedex/detail/710.png",
+			"ThumbnailImage": "http://assets9.pokemon.com/assets/cms2/img/pokedex/detail/710.png",
 			"type": "ghost, grass"
 		},
 		{
@@ -7825,7 +7825,7 @@ define(function(require){
 			"id": "711",
 			"name": "Gourgeist",
 			"ThumbnailAltText": "Gourgeist",
-			"ThumbnailImage": "http://assets23.pokemon.com/static2/_ui/img/pokedex/detail/711.png",
+			"ThumbnailImage": "http://assets10.pokemon.com/assets/cms2/img/pokedex/detail/711.png",
 			"type": "ghost, grass"
 		},
 		{
@@ -7836,7 +7836,7 @@ define(function(require){
 			"id": "712",
 			"name": "Bergmite",
 			"ThumbnailAltText": "Bergmite",
-			"ThumbnailImage": "http://assets24.pokemon.com/static2/_ui/img/pokedex/detail/712.png",
+			"ThumbnailImage": "http://assets11.pokemon.com/assets/cms2/img/pokedex/detail/712.png",
 			"type": "ice"
 		},
 		{
@@ -7847,7 +7847,7 @@ define(function(require){
 			"id": "713",
 			"name": "Avalugg",
 			"ThumbnailAltText": "Avalugg",
-			"ThumbnailImage": "http://assets25.pokemon.com/static2/_ui/img/pokedex/detail/713.png",
+			"ThumbnailImage": "http://assets12.pokemon.com/assets/cms2/img/pokedex/detail/713.png",
 			"type": "ice"
 		},
 		{
@@ -7858,7 +7858,7 @@ define(function(require){
 			"id": "714",
 			"name": "Noibat",
 			"ThumbnailAltText": "Noibat",
-			"ThumbnailImage": "http://assets1.pokemon.com/static2/_ui/img/pokedex/detail/714.png",
+			"ThumbnailImage": "http://assets13.pokemon.com/assets/cms2/img/pokedex/detail/714.png",
 			"type": "flying"
 		},
 		{
@@ -7869,7 +7869,7 @@ define(function(require){
 			"id": "715",
 			"name": "Noivern",
 			"ThumbnailAltText": "Noivern",
-			"ThumbnailImage": "http://assets2.pokemon.com/static2/_ui/img/pokedex/detail/715.png",
+			"ThumbnailImage": "http://assets14.pokemon.com/assets/cms2/img/pokedex/detail/715.png",
 			"type": "flying, dragon"
 		},
 		{
@@ -7880,7 +7880,7 @@ define(function(require){
 			"id": "716",
 			"name": "Xerneas",
 			"ThumbnailAltText": "Xerneas",
-			"ThumbnailImage": "http://assets3.pokemon.com/static2/_ui/img/pokedex/detail/716.png",
+			"ThumbnailImage": "http://assets15.pokemon.com/assets/cms2/img/pokedex/detail/716.png",
 			"type": "fairy"
 		},
 		{
@@ -7891,7 +7891,7 @@ define(function(require){
 			"id": "717",
 			"name": "Yveltal",
 			"ThumbnailAltText": "Yveltal",
-			"ThumbnailImage": "http://assets4.pokemon.com/static2/_ui/img/pokedex/detail/717.png",
+			"ThumbnailImage": "http://assets16.pokemon.com/assets/cms2/img/pokedex/detail/717.png",
 			"type": "dark, flying"
 		},
 		{
@@ -7902,7 +7902,7 @@ define(function(require){
 			"id": "718",
 			"name": "Zygarde",
 			"ThumbnailAltText": "Zygarde",
-			"ThumbnailImage": "http://assets5.pokemon.com/static2/_ui/img/pokedex/detail/718.png",
+			"ThumbnailImage": "http://assets17.pokemon.com/assets/cms2/img/pokedex/detail/718.png",
 			"type": "dragon, ground"
 		}
 	];
