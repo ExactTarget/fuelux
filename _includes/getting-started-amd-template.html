@@ -13,17 +13,17 @@
     <script>
       requirejs.config({
         paths: {
-          'bootstrap': '{{site.bootstrap.js}}',
-          'fuelux': '{{site.cdn.js_dir}}"></',
+          'bootstrap': '{{site.bootstrap.js_amd}}',
+          'fuelux': '{{site.cdn.js_amd}}',
           'jquery': '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery',
           // Moment.js is optional
-          'moment': '//cdn.jsdelivr.net/momentjs/2.6.0/lang-all.min.js' 
+          'moment': '//cdn.jsdelivr.net/momentjs/2.6.0/lang-all.min' 
         },
         // Bootstrap is a "browser globals" script :-(
         shim: { 'bootstrap': { deps: ['jquery'] } }
       });
       // Require all.js or include individual files as needed
-      require(['jquery', 'bootstrap', 'fuelux/all'], function($){});
+      require(['jquery', 'bootstrap', 'fuelux'], function($){});
     </script>
   </head>
   <body class="fuelux">

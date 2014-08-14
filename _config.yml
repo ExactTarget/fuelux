@@ -13,15 +13,21 @@ download:
 
 blog:             http://code.exacttarget.com
 
+# cdn:
+#   css:            //www.fuelcdn.com/3.0.0/css/fuelux.min.css
+#   js:             //www.fuelcdn.com/3.0.0/js/fuelux.min.js
+#   zip:            //www.fuelcdn.com/3.0.0/fuelux.zip
+
 cdn:
-  css:            //www.fuelcdn.com/3.0.0/dist/css/fuelux.min.css
-  js:             //www.fuelcdn.com/3.0.0/dist/js/fuelux.min.js
-  js_dir:         //www.fuelcdn.com/3.0.0/js/
-  zip:            //www.fuelcdn.com/3.0.0/dist/fuelux.zip
+  css:            //fuelux-dev.herokuapp.com/dist/css/fuelux.min.css
+  js:             //fuelux-dev.herokuapp.com/dist/js/fuelux.js
+  js_amd:             //fuelux-dev.herokuapp.com/dist/js/fuelux
+  zip:            //www.fuelcdn.com/3.0.0/fuelux.zip
 
 bootstrap:
-  css:            //netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.css
-  js:             //netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.js
+  css:            //maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css
+  js:             //maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js
+  js_amd:         //maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min
 
  # To view gh-pages locally
 # bundle exec jekyll serve
