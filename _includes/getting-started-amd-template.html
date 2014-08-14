@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FuelUX Basic Template (AMD)</title>
     <!-- CSS -->
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="//fuelux-dev.herokuapp.com/dist/css/fuelux.min.css" rel="stylesheet">
+    <link href="{{site.bootstrap.css}}" rel="stylesheet">
+    <link href="{{site.cdn.css}}" rel="stylesheet">
     <!-- Require.js - AMD loader -->
     <script src="//cdn.jsdelivr.net/requirejs/2.1.11/require.js"></script>
     <script>
       requirejs.config({
         paths: {
-          'bootstrap': '//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap',
-          'fuelux': '//fuelux-dev.herokuapp.com/js',
+          'bootstrap': '{{site.bootstrap.js}}',
+          'fuelux': '{{site.cdn.js_dir}}"></',
           'jquery': '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery',
           // Moment.js is optional
           'moment': '//cdn.jsdelivr.net/momentjs/2.6.0/lang-all.min.js' 
@@ -28,8 +28,8 @@
   </head>
   <body class="fuelux">
     <!-- Checkbox example -->
-    <div class="checkbox" data-initialize="checkbox">
-      <label class="checkbox-custom">
+    <div class="checkbox">
+      <label class="checkbox-custom" data-initialize="checkbox">
         <input class="sr-only" type="checkbox" value="option1" data-toggle="#hereKittyKitty">
         <span class="checkbox-label">I love kittens.</span>
       </label>

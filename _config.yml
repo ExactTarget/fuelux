@@ -9,8 +9,19 @@ repo:             https://github.com/ExactTarget/fuelux
 
 download:
   source:         https://github.com/ExactTarget/fuelux/archive/3.0.0.zip
-  dist:           https://github.com/ExactTarget/fuelux/releases/download/3.0.0/3.0.0.zip
-  sass:           https://www.google.com
-  
-# To view gh-pages locally
+  dist:           https://github.com/ExactTarget/fuelux/raw/master/dist/fuelux.zip
+
+blog:             http://code.exacttarget.com
+
+cdn:
+  css:            //www.fuelcdn.com/3.0.0/dist/css/fuelux.min.css
+  js:             //www.fuelcdn.com/3.0.0/dist/js/fuelux.min.js
+  js_dir:         //www.fuelcdn.com/3.0.0/js/
+  zip:            //www.fuelcdn.com/3.0.0/dist/fuelux.zip
+
+bootstrap:
+  css:            //netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.css
+  js:             //netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.js
+
+ # To view gh-pages locally
 # bundle exec jekyll serve

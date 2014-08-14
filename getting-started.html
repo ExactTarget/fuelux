@@ -20,13 +20,13 @@ lead: "An overview of Fuel UX, how to download and use, basic templates, and mor
   <div class="col-sm-4">
     <h3 id="download-fuelux">Compiled Files</h3>
     <p>Compiled and minified CSS, JavaScript, and fonts. Includes no documentation.</p>
-    <a href="#" class="btn btn-lg btn-outline" role="button">Download Fuel UX</a>
+    <a href="{{ site.download.dist }}" class="btn btn-lg btn-outline" role="button">Download Fuel UX</a>
     <!--<a href="{{ site.download.dist }}" class="btn btn-lg btn-outline" role="button">Download Fuel UX</a>-->
   </div>
   <div class="col-sm-4">
     <h3 id="download-source">Source code</h3>
-    <p>Includes all files. We recommend cloning this git repository.</p>
-    <a href="#" class="btn btn-lg btn-outline" role="button">Download source</a>
+    <p>Includes all files, but we recommend cloning this git repository.</p>
+    <a href="{{ site.download.source }}" class="btn btn-lg btn-outline" role="button">Download source</a>
     <!--<a href="{{ site.download.source }}" class="btn btn-lg btn-outline" role="button">Download source</a>-->
   </div>
 </div>
@@ -65,30 +65,26 @@ lead: "An overview of Fuel UX, how to download and use, basic templates, and mor
 <pre><code>git clone https://github.com/ExactTarget/fuelux/
 </code></pre>
 
-<p>Cloning the repository ensures you can apply future updates to FuelUX easily, but this method requires to you manage its <a href="#dependencies">dependencies</a> on your own.</p>
+<p>Cloning the repository ensures you can apply future updates to FuelUX easily, but this method requires to you manage its dependencies on your own.</p>
 </li>
 <li>
-<p><strong>Also an option</strong> - Download a .zip archive of the latest release <strong>(needthis)</strong> or request files from <a href="http://www.fuelcdn.com/fuelux/">the FuelUX CDN</a>.</p>
+<p><strong>Also an option</strong> - Download a <a href="{{ site.download.dist }}">.zip archive of the latest release</a> or request files from the FuelUX CDN.</p>
 
-<p><em>Using FuelUX in this way can make updating to future releases difficult. Do not use this approach if you plan to maintain your application in the future.</em></p>
-</li>
-</ol>
-
-<!-- END FROM GITHUB README.md -->
-
-
-  <h3 id="download-cdn">FuelUX CDN</h3>
-  <p>If you choose to manage your own dependencies and would like to just copy and paste FuelUX into your project, ExactTarget hosts Fuel UX at <a href="http://www.fuelcdn.com/">FuelCDN.</a> Use these <a href="http://www.fuelcdn.com/fuelux-resources">Fuel CDN</a> links.</p>
+  <p>If you choose to manage your own dependencies and would like to just copy and paste FuelUX into your project, ExactTarget hosts Fuel UX files at its FuelCDN.</p>
 {% highlight html %}
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="{{ site.cdn.css }}">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="{{ site.cdn.css_theme }}">
-
 <!-- Latest compiled and minified JavaScript -->
 <script src="{{ site.cdn.js }}"></script>
 {% endhighlight %}
+
+<p><em>Using FuelUX in this way can make updating to future releases difficult. Do not use this approach if you plan to maintain your application in the future.</em></p>
+</li>
+
+
+</ol>
+
 
 <h3>
 <a name="user-content-whats-included" class="anchor" href="#whats-included"><span class="octicon octicon-link"></span></a>What's included</h3>
@@ -151,7 +147,7 @@ lead: "An overview of Fuel UX, how to download and use, basic templates, and mor
 
 <div class="highlight highlight-javascript"><pre><span class="nx">require</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
     <span class="nx">paths</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s1">'fuelux'</span><span class="o">:</span> <span class="s1">'http://www.fuelcdn.com/fuelux/3.0.0/'</span>
+        <span class="s1">'fuelux'</span><span class="o">:</span> <span class="s1">'{{site.cdn.js_dir}}'</span>
         <span class="c1">//...</span>
     <span class="p">}</span>
 <span class="p">});</span>
@@ -192,7 +188,7 @@ lead: "An overview of Fuel UX, how to download and use, basic templates, and mor
   <h3>
   <a name="user-content-previous-releases" class="anchor" href="#previous-releases"><span class="octicon octicon-link"></span></a>Previous releases</h3>
 
-  <p>Access documentation for v2.6.x at <strong>(need link)</strong> while users transition to Bootstrap 3. You can also download previous releases and  documentation. <strong>(need link)</strong></p>
+  <p>While we will still maintain the 2.6.x version (bug fixes only), it’s deprecated. The <a href="http://exacttarget.github.io/fuelux/2.6/">Fuel UX 2.x documentation</a> has moved and a <a href="https://github.com/ExactTarget/fuelux/tree/fuelux2">legacy branch</a> has been created. We'll leave the Fuel UX 2.x branch up and available for the foreseeable future.</p>
 
 </div>
 
