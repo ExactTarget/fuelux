@@ -28,11 +28,11 @@ $('#myInfiniteScroll').infinitescroll({
   <h3>Markup</h3>
   <p>Simply place <code>class="infinitescroll"</code> on an element of your choosing (preferably a div or span).</p>
 {% highlight html %}
-<div class="infinitescroll"></div>
+<div class="infinitescroll" id="myInfiniteScroll"></div>
 {% endhighlight %}
 
   <h3>Options</h3>
-  <p>You can pass options via Javascript upon initialization.</p>
+  <p>You can pass options via Javascript at initialization.</p>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>
@@ -78,7 +78,7 @@ $('#myInfiniteScroll').infinitescroll({
         <td>percentage</td>
         <td>number</td>
         <td>95</td>
-        <td>Percentage scrolled to the bottom before calling the dataSource function for more content</td>
+        <td>Percentage scrolled to the bottom before calling the dataSource function for more content.</td>
       </tr>
       </tbody>
     </table>
@@ -86,7 +86,7 @@ $('#myInfiniteScroll').infinitescroll({
 
   <h3>Methods</h3>
   <h4>$().infinitescroll();</h4>
-  Attaches infinitescroll to an 'infinitescroll' classed div
+  Attaches infinitescroll control to an <code>infinitescroll</code> classed element.
 
   <h4>.infinitescroll('destroy')</h4>
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
