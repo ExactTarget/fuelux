@@ -50,11 +50,11 @@
   ],
   "name": "fuelux",
   "homepage": "https://github.com/ExactTarget/fuelux",
-  "_release": "d8a567576d",
+  "_release": "686258bfa7",
   "_resolution": {
     "type": "branch",
     "branch": "3.0.0-wip",
-    "commit": "d8a567576d9d238db247da8fe86f3bfff10aa851"
+    "commit": "686258bfa7daa030706fd9a1c5421fe748ce43aa"
   },
   "_source": "git://github.com/ExactTarget/fuelux.git",
   "_target": "3.0.0-wip",
