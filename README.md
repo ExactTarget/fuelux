@@ -1,5 +1,3 @@
-**Please note this currently is a WIP. Bower does not point to version 3.0.0. The `dist` folder may not be versioned, nor up to date. Please build via grunt before using.** 
-
 #Fuel UX
 
 Fuel UX extends [Bootstrap 3](https://github.com/twbs/bootstrap) with additional lightweight [JavaScript controls](#javascript-controls). It is actively maintained by [members of ExactTarget, a salesforce.com company,](https://github.com/orgs/ExactTarget/members) with the support and involvement of the community.
