@@ -1,66 +1,72 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<title>Fuel UX Test Suite</title>
-	<link rel="stylesheet" href="../lib/qunit/qunit.css" media="screen">
-	<script src="../lib/moment.js"></script>
-	<script>
-		window.tmpMoment = window.moment;
-		window.moment    = undefined;
-	</script>
-	<script src="../lib/qunit/qunit.js"></script>
-	<script src="/testem.js"></script>
-	<script src="../lib/require.js"></script>
+	<head>
+		<meta charset="utf-8">
+		<title>Fuel UX Test Suite</title>
 
-	<script>
-		(function () {
-			var jqverParam = location.search.match(/[?&]jquery=(.*?)(?=&|$)/);
-			var jqver = (jqverParam) ? jqverParam[1] : '1.9.1';
+		<link rel="stylesheet" href="../bower_components/qunit/qunit/qunit.css" media="screen">
 
-			require.config({
-				baseUrl: '../src',
-				config: {
-					moment: {
-						noGlobal: true
-					}
-				},
-				paths: {
-					jquery: '../lib/jquery-' + jqver + '.min',
-					bootstrap: '../lib/bootstrap/js',
-					fuelux: '../src',
-					test: '../test',
-					moment: '../path/to/moment' // wrong url because we need to test it without moment first
+		<script src="../bower_components/moment/min/moment-with-langs.js"></script>
+		<script src="../bower_components/qunit/qunit/qunit.js"></script>
+		<script>QUnit.config.autostart = false;</script>
+		<script src="../bower_components/requirejs/require.js"></script>
+
+		<!--[if gte IE 9]> -->
+		<script type="text/javascript" src="../bower_components/blanket/dist/qunit/blanket.js" data-cover-only="/js" data-cover-never="/bower_components"></script>
+		<!-- <![endif]-->
+
+		<script>
+			window.tmpMoment = window.moment;
+			window.moment = undefined;
+
+			(function () {
+				var jQueryPath;
+
+				// Feature detect for jQuery version
+				if('querySelector' in document
+					&& 'localStorage' in window
+					&& 'addEventListener' in window ) {
+					jQueryPath = 'bower_components/jquery/dist/jquery';
+				} else {
+					jQueryPath = 'bower_components/jquery-1.9.1/jquery';
 				}
-			});
-		})();
-	</script>
 
-	<script src="fuelux-test.js"></script>
-	<script src="checkbox-test.js"></script>
-	<script src="combobox-test.js"></script>
-	<script src="datagrid-test.js"></script>
-	<script src="datepicker-test.js"></script>
-	<script src="datepicker-moment-test.js"></script>
-	<script src="pillbox-test.js"></script>
-	<script src="radio-test.js"></script>
-	<script src="scheduler-test.js"></script>
-	<script src="search-test.js"></script>
-	<script src="spinner-test.js"></script>
-	<script src="select-test.js"></script>
-	<script src="tree-test.js"></script>
-	<script src="wizard-test.js"></script>
-</head>
-<body>
-<h1 id="qunit-header">Fuel UX Test Suite</h1>
+				// or force/overwrite the variable with a version via ?jquery= URL parameter
+				var jqverParam = location.search.match(/[?&]jquery=(.*?)(?=&|$)/);
+				var jqver = (jqverParam) ? jqverParam[1] : undefined;
 
-<h2 id="qunit-banner"></h2>
+				// if jquery version does not using dist folder
+				if(jqver == '1.9.1') {
+					jQueryPath = 'bower_components/jquery-' + jqver + '/jquery';
+				}
 
-<div id="qunit-testrunner-toolbar"></div>
-<h2 id="qunit-userAgent"></h2>
-<ol id="qunit-tests"></ol>
-<div id="qunit-fixture">
+				require.config({
+					baseUrl: '../',
+					paths: {
+						jquery: jQueryPath,
+						bootstrap: 'bower_components/bootstrap/dist/js/bootstrap',
+						fuelux: 'js',
+						test: 'test',
+						text: 'bower_components/requirejs-text/text'
+					},
+					shim: {
+						'bootstrap': {
+							deps: ['jquery'],
+							exports: 'bootstrap'
+						}
+					}
+				});
 
-</div>
-</body>
+				require(['jquery', 'test/fuelux-test'], function() {});
+			})();
+		</script>
+	</head>
+	<body>
+		<h1 id="qunit-header">Fuel UX Test Suite</h1>
+		<h2 id="qunit-banner"></h2>
+		<div id="qunit-testrunner-toolbar"></div>
+		<h2 id="qunit-userAgent"></h2>
+		<ol id="qunit-tests"></ol>
+		<div id="qunit-fixture"></div>
+	</body>
 </html>

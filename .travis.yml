@@ -1,9 +1,17 @@
 language: node_js
 node_js:
-  - 0.8
-before_script:
-  - npm install -g grunt-cli
+  - 0.10
+before_install: 
+  - time wget http://fuelux-dev.herokuapp.com/dev/node_modules.tar.gz
+  - time tar -zxf node_modules.tar.gz
+  - chmod +x ./node_modules
+install: 
+  - time npm update
+  - time ./node_modules/bower/bin/bower update
+  - time npm update
 env:
   global:
     - secure: "ZK8M500JH/siU5p6jt2XRhBLV9e3N+qjicz59i6Bvkl4X4klUoGV1dMT3kb/\nLi3c7lrU8Liw/dHr+a5kY5XdgCOPjOeMqZ0VRZzH0PqSyRz0Hf2AYDO5mrhX\nMj/zz/CiaE82MIPlJk9Q27LheVpbCOL7q/aBakriCTJIcIxqbig="
     - secure: "rrbobgc5ZJnt9NnILcJs5CNFQf/fVBGOuFDo8UqSOxNtqmpHeuLTTTqKgvdo\nsHZL3GDo5ujm/pPvrKv41BGi81rPPLMnQyGdmTDRgW5/F5BaKbKoOvK8opuP\n+M1cvJ2Cq14pEK6y2OMAooY2TY4p8MynxsqoKUGOYjmKXsLp1ZE="
+matrix:
+  fast_finish: true

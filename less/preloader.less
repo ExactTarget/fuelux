@@ -1,0 +1,286 @@
+@keyframes fuelux-preloader-1
+{
+    0%      {opacity: 1;}
+    12.4%   {opacity: 1;}
+    12.5%   {opacity: 0;}
+    100%    {opacity: 0;}
+}
+@-webkit-keyframes fuelux-preloader-1
+{
+    0%      {opacity: 1;}
+    12.4%   {opacity: 1;}
+    12.5%   {opacity: 0;}
+    100%    {opacity: 0;}
+}
+
+
+@keyframes fuelux-preloader-2
+{
+    0%      {opacity: 0;}
+    12.4%   {opacity: 0;}
+    12.5%   {opacity: 1;}
+    24.9%   {opacity: 1;}
+    25%     {opacity: 0;}
+    100%    {opacity: 0;}
+}
+@-webkit-keyframes fuelux-preloader-2
+{
+    0%      {opacity: 0;}
+    12.4%   {opacity: 0;}
+    12.5%   {opacity: 1;}
+    24.9%   {opacity: 1;}
+    25%     {opacity: 0;}
+    100%    {opacity: 0;}
+}
+
+
+@keyframes fuelux-preloader-3
+{
+    0%      {opacity: 0;}
+    24.9%   {opacity: 0;}
+    25%     {opacity: 1;}
+    37.4%   {opacity: 1;}
+    37.5%   {opacity: 0;}
+    100%    {opacity: 0;}
+}
+@-webkit-keyframes fuelux-preloader-3
+{
+    0%      {opacity: 0;}
+    24.9%   {opacity: 0;}
+    25%     {opacity: 1;}
+    37.4%   {opacity: 1;}
+    37.5%   {opacity: 0;}
+    100%    {opacity: 0;}
+}
+
+
+@keyframes fuelux-preloader-4
+{
+    0%      {opacity: 0;}
+    37.4%   {opacity: 0;}
+    37.5%   {opacity: 1;}
+    49.4%   {opacity: 1;}
+    50%     {opacity: 0;}
+    100%    {opacity: 0;}
+}
+@-webkit-keyframes fuelux-preloader-4
+{
+    0%      {opacity: 0;}
+    37.4%   {opacity: 0;}
+    37.5%   {opacity: 1;}
+    49.4%   {opacity: 1;}
+    50%     {opacity: 0;}
+    100%    {opacity: 0;}
+}
+
+
+@keyframes fuelux-preloader-5
+{
+    0%      {opacity: 0;}
+    49.4%   {opacity: 0;}
+    50%     {opacity: 1;}
+    62.4%   {opacity: 1;}
+    62.5%   {opacity: 0;}
+    100%    {opacity: 0;}
+}
+@-webkit-keyframes fuelux-preloader-5
+{
+    0%      {opacity: 0;}
+    49.4%   {opacity: 0;}
+    50%     {opacity: 1;}
+    62.4%   {opacity: 1;}
+    62.5%   {opacity: 0;}
+    100%    {opacity: 0;}
+}
+
+
+@keyframes fuelux-preloader-6
+{
+    0%      {opacity: 0;}
+    62.4%   {opacity: 0;}
+    62.5%   {opacity: 1;}
+    74.9%   {opacity: 1;}
+    75%     {opacity: 0;}
+    100%    {opacity: 0;}
+}
+@-webkit-keyframes fuelux-preloader-6
+{
+    0%      {opacity: 0;}
+    62.4%   {opacity: 0;}
+    62.5%   {opacity: 1;}
+    74.9%   {opacity: 1;}
+    75%     {opacity: 0;}
+    100%    {opacity: 0;}
+}
+
+
+@keyframes fuelux-preloader-7
+{
+    0%      {opacity: 0;}
+    74.9%   {opacity: 0;}
+    75%     {opacity: 1;}
+    87.4%   {opacity: 1;}
+    87.5%   {opacity: 0;}
+    100%    {opacity: 0;}
+}
+@-webkit-keyframes fuelux-preloader-7
+{
+    0%      {opacity: 0;}
+    74.9%   {opacity: 0;}
+    75%     {opacity: 1;}
+    87.4%   {opacity: 1;}
+    87.5%   {opacity: 0;}
+    100%    {opacity: 0;}
+}
+
+
+@keyframes fuelux-preloader-8
+{
+    0%      {opacity: 0;}
+    87.4%   {opacity: 0;}
+    87.5%   {opacity: 1;}
+    87.6%   {opacity: 1;}
+    100%    {opacity: 0;}
+    100%    {opacity: 0;}
+}
+@-webkit-keyframes fuelux-preloader-8
+{
+    0%      {opacity: 0;}
+    87.4%   {opacity: 0;}
+    87.5%   {opacity: 1;}
+    87.6%   {opacity: 1;}
+    100%    {opacity: 0;}
+    100%    {opacity: 0;}
+}
+
+
+.preloader {
+    height: 64px;
+    font-size: 64px;
+    position: relative;
+    width: 64px;
+
+    &.iefix span, &:before, b, i {
+		.iconBaseStyles();
+    }
+
+    &:before {
+        content: "\e00b";	/*.fueluxicon-loader-full:before*/
+        left: 0;
+        opacity: 0.33;
+        position: absolute;
+        top: 0;
+    }
+
+    &.iefix {
+        &:before {
+            display: none;
+        }
+
+        b {
+            display: block;
+            left: 0;
+            position: absolute;
+            top: 0;
+        }
+
+        i {
+            display: none;
+
+            &:after,
+            &:before
+            {
+                display: none;
+            }
+        }
+
+        span {
+            display: block;
+            font-size: inherit;
+            height: 100%;
+            left: 0;
+            opacity: 0.33;
+            position: absolute;
+            top: 0;
+            width: 100%;
+
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=33)";
+            filter: alpha(opacity=33);
+        }
+    }
+
+    i {
+        &:after,
+        &:before
+        {
+            display: block;
+            left: 0;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+
+            animation: 1s steps(8) infinite normal running;
+            animation-timing-function: linear;
+            animation-play-state: running;
+            -webkit-animation: 1s steps(8) infinite normal running;
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-play-state: running;
+        }
+
+        &:nth-child(1){
+            &:before {
+                content: "\e003";	/*.fueluxicon-loader-1:before*/
+                animation-name: fuelux-preloader-1;
+                -webkit-animation-name: fuelux-preloader-1;
+            }
+
+            &:after {
+                content: "\e004";	/*.fueluxicon-loader-2:before*/
+                animation-name: fuelux-preloader-2;
+                -webkit-animation-name: fuelux-preloader-2;
+            }
+        }
+
+        &:nth-child(2){
+            &:before {
+                content: "\e005";	/*.fueluxicon-loader-3:before*/
+                animation-name: fuelux-preloader-3;
+                -webkit-animation-name: fuelux-preloader-3;
+            }
+
+            &:after {
+                content: "\e006";	/*.fueluxicon-loader-4:before*/
+                animation-name: fuelux-preloader-4;
+                -webkit-animation-name: fuelux-preloader-4;
+            }
+        }
+
+        &:nth-child(3){
+            &:before {
+                content: "\e007";	/*.fueluxicon-loader-5:before*/
+                animation-name: fuelux-preloader-5;
+                -webkit-animation-name: fuelux-preloader-5;
+            }
+
+            &:after {
+                content: "\e008";	/*.fueluxicon-loader-6:before*/
+                animation-name: fuelux-preloader-6;
+                -webkit-animation-name: fuelux-preloader-6;
+            }
+        }
+
+        &:nth-child(4){
+            &:before {
+                content: "\e009";	/*.fueluxicon-loader-7:before*/
+                animation-name: fuelux-preloader-7;
+                -webkit-animation-name: fuelux-preloader-7;
+            }
+
+            &:after {
+                content: "\e00a";	/*.fueluxicon-loader-8:before*/
+                animation-name: fuelux-preloader-8;
+                -webkit-animation-name: fuelux-preloader-8;
+            }
+        }
+    }
+}

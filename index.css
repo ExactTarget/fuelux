@@ -1,0 +1,70 @@
+body {
+	padding-bottom: 200px;
+	font-family: 'HelveticaNeueW01-55Roma', 'Helvetica Neue', Arial, sans-serif;
+	color: #4f4f4f;
+}
+
+.pillbox {
+	border: 1px solid #bbb;
+	margin-bottom: 10px;
+	border-radius: 4px;
+}
+
+.container > div, .container > table {
+	margin: 20px;
+}
+
+.tree {
+	max-width: 430px;
+	height: 350px;
+}
+
+.static-loader {
+	margin-left: 30px;
+}
+
+.search-form {
+	width: 300px;
+}
+
+.wizard .sample-pane {
+	margin-bottom: 0;
+}
+
+.wizard .alert {
+	margin-bottom: 0;
+}
+
+#MyComboboxContainer {
+	max-width: 300px;
+}
+
+#MyInfiniteScroll1, #MyInfiniteScroll2 {
+	border: 1px solid black; 
+	float: left; 
+	height: 500px; 
+	margin-right: 50px; 
+	max-width: 300px;	
+}
+
+
+
+/* Example schedulers */
+.bs-example.fu-example-scheduler {
+	background-color: #f5f5f5;
+}
+.bs-example.fu-example-scheduler .end-after .spinbox {
+	display: inline-block;
+}
+.bs-example.fu-example-scheduler .end-after > span {
+	vertical-align: middle;
+}
+.fu-example-scheduler .scheduler .repeat-panel {
+	display: block !important;
+}
+.fu-example-scheduler .scheduler .repeat-end {
+	display: block !important;
+}
+.fu-example-scheduler .scheduler .repeat-end .end-option-panel {
+	display: block !important;
+}

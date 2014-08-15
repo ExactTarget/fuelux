@@ -1,0 +1,75 @@
+// For clearing floats
+.clearfix {
+	*zoom: 1;
+	&:before,
+	&:after {
+		display: table;
+		content: "";
+		// Fixes Opera/contenteditable bug:
+		// http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
+		line-height: 0;
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+// Single side border-radius
+.border-top-radius(@radius) {
+	border-top-right-radius: @radius;
+	border-top-left-radius: @radius;
+}
+.border-right-radius(@radius) {
+	border-bottom-right-radius: @radius;
+ 	border-top-right-radius: @radius;
+}
+.border-bottom-radius(@radius) {
+	border-bottom-right-radius: @radius;
+	border-bottom-left-radius: @radius;
+}
+.border-left-radius(@radius) {
+	border-bottom-left-radius: @radius;
+	border-top-left-radius: @radius;
+}
+
+// Gradient Bar Colors for buttons and alerts
+.gradientBar(@primaryColor, @secondaryColor, @textColor: #fff, @textShadow: 0 -1px 0 rgba(0,0,0,.25)) {
+	color: @textColor;
+	text-shadow: @textShadow;
+	#gradient > .vertical(@primaryColor, @secondaryColor);
+	border-color: @secondaryColor @secondaryColor darken(@secondaryColor, 15%);
+	border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) fadein(rgba(0,0,0,.1), 15%);
+}
+
+// Gradients
+#gradient {
+	.vertical(@startColor: #555, @endColor: #333) {
+		background-color: mix(@startColor, @endColor, 60%);
+		background-image: -moz-linear-gradient(top, @startColor, @endColor); // FF 3.6+
+		background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@startColor), to(@endColor)); // Safari 4+, Chrome 2+
+		background-image: -webkit-linear-gradient(top, @startColor, @endColor); // Safari 5.1+, Chrome 10+
+		background-image: -o-linear-gradient(top, @startColor, @endColor); // Opera 11.10
+		background-image: linear-gradient(to bottom, @startColor, @endColor); // Standard, IE10
+		background-repeat: repeat-x;
+		filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",argb(@startColor),argb(@endColor))); // IE9 and down
+	}
+}
+
+// Icon Base Styles
+.iconBaseStyles(@fontFamily: "fuelux"){
+	font-family: @fontFamily !important;
+	font-style: normal !important;
+	font-weight: normal !important;
+	font-variant: normal !important;
+	text-transform: none !important;
+	line-height: 1;
+	speak: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+// Opacity
+.opacity(@opacity) {
+	opacity: @opacity / 100;
+	filter: ~"alpha(opacity=@{opacity})";
+}

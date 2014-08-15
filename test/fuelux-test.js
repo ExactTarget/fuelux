@@ -2,59 +2,63 @@
 /*global start:false, stop:false ok:false, equal:false, notEqual:false, deepEqual:false*/
 /*global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false*/
 
-require(['jquery', 'fuelux/all'], function($) {
+define(function(require){
+	var $ = require('jquery');
 
-	module('Twitter Bootstrap plugins', {
-		setup: function() {
-			this.elems = $('#qunit-fixture').children();
+	QUnit.start(); // starting qunit, or phantom js will have a problem
+	
+	// Needed for saucelab testing
+	var log = [];
+	var testName;
+
+	QUnit.done(function (test_results) {
+		var tests = [];
+		for(var i = 0, len = log.length; i < len; i++) {
+			var details = log[i];
+			tests.push({
+				name: details.name,
+				result: details.result,
+				expected: details.expected,
+				actual: details.actual,
+				source: details.source
+			});
 		}
+		test_results.tests = tests;
+
+		window.global_test_results = test_results;
+
+	// hide passed tests, helps with VM testing screencasts
+	if (!$('#qunit-filter-pass').is(':checked')) {
+		$('#qunit-filter-pass').click();
+	}
+
+	});
+	QUnit.testStart(function(testDetails){
+		QUnit.log = function(details){
+			if (!details.result) {
+				details.name = testDetails.name;
+				log.push(details);
+			}
+		};
 	});
 
-	test('modal is initialized', function() {
-		ok(this.elems.modal() === this.elems, 'modal should be initilized');
-	});
+	require('test/checkbox-test');
+	require('test/combobox-test');
+	require('test/datepicker-test');
+	require('test/datepicker-moment-test');
+	require('test/infinite-scroll-test');
+	require('test/loader-test');
+	require('test/pillbox-test');
+	require('test/placard-test');
+	require('test/radio-test');
+	require('test/repeater-test');
+	require('test/repeater-list-test');
+	require('test/repeater-thumbnail-test');
+	require('test/scheduler-test');
+	require('test/search-test');
+	require('test/selectlist-test');
+	require('test/spinbox-test');
+	require('test/tree-test');
+	require('test/wizard-test');
 
-	test('dropdown is initialized', function() {
-		ok(this.elems.dropdown() === this.elems, 'dropdown should be initialized');
-	});
-
-	test('scrollspy is initialized', function() {
-		ok(this.elems.scrollspy() === this.elems, 'scrollspy should be initialized');
-	});
-
-	test('tab is initialized', function() {
-		ok(this.elems.tab() === this.elems, 'tab should be initialized');
-	});
-
-	test('tooltip is initialized', function() {
-		ok(this.elems.tooltip() === this.elems, 'tooltip should be initialized');
-	});
-
-	test('popover is initialized', function() {
-		ok(this.elems.popover() === this.elems, 'popover should be initialized');
-	});
-
-	test('affix is initialized', function() {
-		ok(this.elems.affix() === this.elems, 'affix should be initialized');
-	});
-
-	test('alert is initialized', function() {
-		ok(this.elems.alert() === this.elems, 'alert should be initialized');
-	});
-
-	test('button is initialized', function() {
-		ok(this.elems.button() === this.elems, 'button should be initialized');
-	});
-
-	test('collapse is initialized', function() {
-		ok(this.elems.collapse() === this.elems, 'collapse should be initialized');
-	});
-
-	test('carousel is initialized', function() {
-		ok(this.elems.carousel() === this.elems, 'carousel should be initialized');
-	});
-
-	test('typeahead is initialized', function() {
-		ok(this.elems.typeahead() === this.elems, 'typeahead should be initialized');
-	});
 });

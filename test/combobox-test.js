@@ -2,47 +2,35 @@
 /*global start:false, stop:false ok:false, equal:false, notEqual:false, deepEqual:false*/
 /*global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false*/
 
-require(['jquery', 'fuelux/combobox'], function ($) {
+define(function(require){
+	var $ = require('jquery');
+	var html = require('text!test/markup/combobox-markup.html');
+	/* FOR DEV TESTING - uncomment to test against index.html */
+	//html = require('text!index.html!strip');
+	html = $('<div>'+html+'<div>').find('#MyComboboxContainer');
 
-	var html = '<div class="input-append dropdown combobox">' +
-		'<input class="span2" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>' +
-		'<ul class="dropdown-menu">' +
-		'<li data-value="1"><a href="#">One</a></li>' +
-		'<li data-value="2"><a href="#">Two</a></li>' +
-		'<li data-value="3" data-selected="true"><a href="#">Three</a></li>' +
-		'<li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Four</a></li>' +
-		'<li data-value="Item Five"><a href="#">Item Five</a></li>' +
-		'</ul>' +
-		'</div>';
+	require('bootstrap');
+	require('fuelux/combobox');
 
-	var htmlNoDefault = '<div class="input-append dropdown combobox">' +
-		'<input class="span2" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>' +
-		'<ul class="dropdown-menu">' +
-		'<li data-value="1"><a href="#">One</a></li>' +
-		'<li data-value="2"><a href="#">Two</a></li>' +
-		'<li data-value="3"><a href="#">Three</a></li>' +
-		'<li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Four</a></li>' +
-		'</ul>' +
-		'</div>';
-
-	module("Fuel UX combobox");
+	module("Fuel UX Combobox");
 
 	test("should be defined on jquery object", function () {
-		ok($(document.body).combobox, 'combobox method is defined');
+		ok($().combobox, 'combobox method is defined');
 	});
 
 	test("should return element", function () {
-		ok($(document.body).combobox()[0] === document.body, 'document.body returned');
+		var $combobox = $(html).find("#MyCombobox");
+		ok($combobox.combobox() === $combobox , 'combobox should be initialized');
 	});
 
 	test("should set disabled state", function () {
-		var $combobox = $(html).combobox();
+		var $combobox = $(html).find("#MyCombobox").combobox();
 		$combobox.combobox('disable');
 		equal($combobox.find('.btn').hasClass('disabled'), true, 'element disabled');
 	});
 
 	test("should set enabled state", function () {
-		var $combobox = $(html).combobox();
+		var $combobox = $(html).find("#MyCombobox").combobox();
 		$combobox.combobox('disable');
 		$combobox.combobox('enable');
 		equal($combobox.find('.btn').hasClass('disabled'), false, 'element enabled');
@@ -50,21 +38,21 @@ require(['jquery', 'fuelux/combobox'], function ($) {
 
 	test("should set default selection", function () {
 		// should be "Three" based on the data-selected attribute
-		var $combobox = $(html).combobox();
+		var $combobox = $(html).find("#MyComboboxWithSelected").combobox();
 		var item = $combobox.combobox('selectedItem');
 		var expectedItem = { text: 'Three', value: 3 };
 		deepEqual(item, expectedItem, 'default item selected');
 	});
 
 	test("should not autoselect when no default selection", function () {
-		var $combobox = $(htmlNoDefault).combobox();
+		var $combobox = $(html).find("#MyCombobox").combobox();
 		var item = $combobox.combobox('selectedItem');
 		var expectedItem = { text: '' };
 		deepEqual(item, expectedItem, 'no item selected');
 	});
 
 	test("should select by index", function () {
-		var $combobox = $(html).combobox();
+		var $combobox = $(html).find("#MyCombobox").combobox();
 		$combobox.combobox('selectByIndex', 0);
 
 		var item = $combobox.combobox('selectedItem');
@@ -73,7 +61,7 @@ require(['jquery', 'fuelux/combobox'], function ($) {
 	});
 
 	test("should select by value", function () {
-		var $combobox = $(html).combobox();
+		var $combobox = $(html).find("#MyCombobox").combobox();
 		$combobox.combobox('selectByValue', 2);
 
 		var item = $combobox.combobox('selectedItem');
@@ -82,7 +70,7 @@ require(['jquery', 'fuelux/combobox'], function ($) {
 	});
 
 	test("should select by value with whitespace", function () {
-		var $combobox = $(html).combobox();
+		var $combobox = $(html).find("#MyCombobox").combobox();
 		$combobox.combobox('selectByValue', 'Item Five');
 
 		var item = $combobox.combobox('selectedItem');
@@ -91,7 +79,7 @@ require(['jquery', 'fuelux/combobox'], function ($) {
 	});
 
 	test("should select by text", function() {
-		var $combobox = $(html).combobox();
+		var $combobox = $(html).find("#MyCombobox").combobox();
 		$combobox.combobox('selectByText', 'THREE');
 
 		var item = $combobox.combobox('selectedItem');
@@ -100,7 +88,7 @@ require(['jquery', 'fuelux/combobox'], function ($) {
 	});
 
 	test("should select by text with whitespace", function() {
-		var $combobox = $(html).combobox();
+		var $combobox = $(html).find("#MyCombobox").combobox();
 		$combobox.combobox('selectByText', 'Item Five');
 
 		var item = $combobox.combobox('selectedItem');
@@ -109,11 +97,11 @@ require(['jquery', 'fuelux/combobox'], function ($) {
 	});
 
 	test("should select by selector", function () {
-		var $combobox = $(html).combobox();
+		var $combobox = $(html).find("#MyCombobox").combobox();
 		$combobox.combobox('selectBySelector', 'li[data-fizz=buzz]');
 
 		var item = $combobox.combobox('selectedItem');
-		var expectedItem = { text: 'Four', value: 4, foo: 'bar', fizz: 'buzz' };
+		var expectedItem = { text: 'Six', value: 6, foo: 'bar', fizz: 'buzz' };
 		deepEqual(item, expectedItem, 'item selected');
 	});
 
@@ -122,7 +110,7 @@ require(['jquery', 'fuelux/combobox'], function ($) {
 		var selectedText = '';
 		var selectedValue = '';
 
-		var $combobox = $(html).combobox().on('changed', function (evt, data) {
+		var $combobox = $(html).find("#MyCombobox").combobox().on('changed.fu.combobox', function (evt, data) {
 			eventFireCount++;
 			selectedText = data.text;
 			selectedValue = data.value;
@@ -139,7 +127,7 @@ require(['jquery', 'fuelux/combobox'], function ($) {
 	test("should fire input change event - item selected", function () {
 		var eventFireCount = 0;
 
-		var $combobox = $(html).combobox();
+		var $combobox = $(html).find("#MyCombobox").combobox();
 
 		$combobox.find('input').on('change', function () {
 			eventFireCount++;
@@ -154,7 +142,7 @@ require(['jquery', 'fuelux/combobox'], function ($) {
 	test("should fire bubblable input change event - item selected", function () {
 		var eventFireCount = 0;
 
-		var $combobox = $(html).combobox();
+		var $combobox = $(html).find("#MyCombobox").combobox();
 
 		$combobox.on('change', 'input', function () {
 			eventFireCount++;
@@ -170,7 +158,7 @@ require(['jquery', 'fuelux/combobox'], function ($) {
 		var eventFireCount = 0;
 		var selectedText = '';
 
-		var $combobox = $(html).combobox().on('changed', function (evt, data) {
+		var $combobox = $(html).find("#MyCombobox").combobox().on('changed.fu.combobox', function (evt, data) {
 			eventFireCount++;
 			selectedText = data.text;
 		});
@@ -179,6 +167,14 @@ require(['jquery', 'fuelux/combobox'], function ($) {
 
 		equal(eventFireCount, 1, 'changed event fired once');
 		equal(selectedText, 'Seven', 'text passed in from changed event');
+	});
+
+	test("should destroy control", function () {
+		var id = '#MyCombobox';
+		var $el = $(html).find(id).combobox();
+
+		equal(typeof( $el.combobox('destroy')) , 'string', 'returns string (markup)');
+		equal( $(html).find(id).length, false, 'control has been removed from DOM');
 	});
 
 });

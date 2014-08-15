@@ -1,0 +1,2 @@
+//Has selected item upon initialization
+- add 'data-selected="true"' to desired 'ul.dropdown-menu li' tag
