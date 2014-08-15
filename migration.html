@@ -50,7 +50,7 @@ lead: "Guidance on how to upgrade from Fuel UX v2.x to v3.x with emphasis on set
 				</p>
 
 				<h2 id="markupChanges">Markup changes</h2>
-				<p>Due to the updated Bootstrap foundation, most controls have had significant changes made to the markup
+				<p>Due to the updated Bootstrap foundation, our controls have had significant changes made to the markup
 					required to be functional. It is recommended that all Fuel UX controls within your project are investigated
 					and updated as needed. Visit our <a href="./javascript.html">controls</a> page for more information.
 				</p>
@@ -121,16 +121,16 @@ lead: "Guidance on how to upgrade from Fuel UX v2.x to v3.x with emphasis on set
 				</div>
 
 				<h2 id="notes">Additional notes</h2>
-				<p>Stub stuff for now.</p>
+				<p>Other changes in v3.0 are not immediately apparent. Here's a partial list:</p>
 				<ul>
-					<li>I've</li>
-					<li>got</li>
-					<li>nuthin'</li>
-					<li>to</li>
-					<li>go</li>
-					<li>here.</li>
-					<li>Any</li>
-					<li>ideas?</li>
+					<li>Events have been namespaced to follow the <code>[eventname].fu.[controlname]</code> format, which is
+						different than the previous structure that contained only the <code>[eventname]</code>. This has been
+						done to avoid collision with events outside the Fuel UX library. Example event: <code>actionclicked.fu.wizard</code>
+					</li>
+					<li>While most javascript methods remain the same, there have been some changes, so be cautious of that.</li>
+					<li>Images are no longer a part of Fuel UX. The loader control uses font-icons, but everything else
+						is all CSS.
+					</li>
 				</ul>
 			</div>
 		</div>

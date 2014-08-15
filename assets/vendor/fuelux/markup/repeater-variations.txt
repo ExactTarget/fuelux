@@ -1,0 +1,3 @@
+//Static height
+- add 'data-staticheight="{{string}}"' to element classed '.repeater' to set the repeater's height
+    (ex: 'data-staticheight="400"' or 'data-staticheight="true")
