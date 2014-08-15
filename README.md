@@ -241,7 +241,7 @@ Copyright &copy; 2014 ExactTarget, a salesforce.com company.
 
 Licensed under the BSD New license (the "License");
 you may not use this work except in compliance with the License.
-You may obtain a copy of the License in the COPYING file.
+You may obtain a copy of the License in the LICENSE file.
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
