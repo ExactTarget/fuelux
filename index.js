@@ -5,6 +5,10 @@ define(function(require){
 	require('fuelux/all');
 
 	// CHECKBOX
+	$('#MyCheckbox1').on('change.fu.checkbox', function() {
+		console.log('changed');
+	});
+
 	$('#btnCheckboxToggle').on('click', function() {
 		$('#MyCheckbox1').checkbox('toggle');
 	});
