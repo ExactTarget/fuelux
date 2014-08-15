@@ -8,17 +8,15 @@
   <p>Wrap the input and search button within <code>.fuelux .search</code></p>
   <div class="fu-example section">
 
-      <form class="search-form" role="search" data-initalize="search">
-        <div id="mySearch" class="search input-group">
-          <input type="search" class="form-control" placeholder="Search"/>
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="button">
-              <span class="glyphicon glyphicon-search"></span>
-              <span class="sr-only">Search</span>
-            </button>
-          </span>
-        </div>
-      </form>
+      <div class="search input-group" role="search" id="mySearch">
+        <input type="search" class="form-control" placeholder="Search"/>
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button">
+            <span class="glyphicon glyphicon-search"></span>
+            <span class="sr-only">Search</span>
+          </button>
+        </span>
+      </div>
 
       <h5>Sample Methods</h5>
       <div class="btn-group">
@@ -28,26 +26,12 @@
 
     </div>
 
-
-{% highlight html %}
-<form class="search-form" role="search" data-initalize="search">
-  <div id="mySearch" class="search input-group">
-    <input type="search" class="form-control" placeholder="Search"/>
-    <span class="input-group-btn">
-      <button class="btn btn-default" type="button">
-        <span class="glyphicon glyphicon-search"></span>
-        <span class="sr-only">Search</span>
-      </button>
-    </span>
-  </div>
-</form>
-{% endhighlight %}
-
   <h2 id="search-usage">Usage</h2>
   <p>This function includes a simple input and button group that styles with a search icon and fires the <code>searched</code> event.</p>
 
   <h3>Via data-attributes</h3>
-  <p>The search will automatically instantiate any searches with <code>data-initialize="search"</code>. If you add the control markup <i>after page load</i> with <code>data-initialize="search"</code>, this control initializes on <code>mousedown</code>.
+
+  <p>To enable the search control without writing Javascript, add <code>data-initialize="search"</code> to the <code>.search</code> element that you wish to initialize. Such elements that exist when <code>$.ready()</code> executes will be initialized. Any search markup that is programatically created with <code>data-initialize="search"</code> sometime after the initial page load will not immediately initialize. Rather, it will initialize when the <code>mousedown</code> event is fired on it.</p>
 
   <h3>Via JavaScript:</h3>
   <p>Call the search control via JavaScript:</p>
@@ -56,7 +40,7 @@
   <h3>Markup</h3>
   <p>Wrap <code>class="search"</code> around an input and a button within a <code>class="fuelux"</code> container.</p>
 {% highlight html %}
-<div id="mySearch" class="search input-group">
+<div class="search input-group" role="search" id="mySearch">
   <input type="search" class="form-control" placeholder="Search"/>
   <span class="input-group-btn">
     <button class="btn btn-default" type="button">
@@ -105,7 +89,7 @@
     </table>
   </div><!-- ./fu-table-responsive -->
 {% highlight js %}
-$('#mySearchResults').on('searched', function () {
+$('#mySearch').on('searched', function () {
   // load search results
 });
 {% endhighlight %}
