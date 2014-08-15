@@ -15,26 +15,26 @@
 
 <!-- Favicons -->
 
-	<!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">-->
-	<!--<link rel="shortcut icon" href="../assets/ico/favicon.ico">-->
+	<!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ site.url }}/assets/ico/apple-touch-icon-144-precomposed.png">-->
+	<!--<link rel="shortcut icon" href="{{ site.url }}/assets/ico/favicon.ico">-->
 
 <!-- Styles -->
 
 	<!-- Bootstrap CSS-->
-	<link href="../assets/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link href="../assets/vendor/fuelux/dist/css/fuelux.css" rel="stylesheet" type="text/css">
+	<link href="{{ site.url }}/assets/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="{{ site.url }}/assets/vendor/fuelux/dist/css/fuelux.css" rel="stylesheet" type="text/css">
 
 	<!-- Docs CSS -->
-	<link href="../assets/css/docs.css" rel="stylesheet">
+	<link href="{{ site.url }}/assets/css/docs.css" rel="stylesheet">
 
 	<!-- Specific Page CSS -->
 	<!--{% if page.title != "Fuel UX" %}
-		<link href="../assets/css/{{page.slug}}.css" rel="stylesheet">
+		<link href="{{ site.url }}/assets/css/{{page.slug}}.css" rel="stylesheet">
 	{% endif %}-->
 
 
 <!-- Scripts -->
-	<script src="../assets/vendor/requirejs/require.js"></script>
+	<script src="{{ site.url }}/assets/vendor/requirejs/require.js"></script>
 
 	<script type="text/javascript">
 		(function () {
@@ -45,12 +45,12 @@
 					}
 				},
 				paths: {
-					assets: '../assets',
-					bootstrap: '../assets/vendor/bootstrap/dist/js/bootstrap',
-					fuelux: '../assets/vendor/fuelux/dist/js/fuelux',
-					jquery: '../assets/vendor/jquery-1.11.0/dist/jquery',
-					moment: '../assets/vendor/moment-with-langs/index', // comment out if you dont want momentjs to be default
-					underscore: '../assets/vendor/underscore/underscore'
+					assets: '{{ site.url }}/assets',
+					bootstrap: '{{ site.url }}/assets/vendor/bootstrap/dist/js/bootstrap',
+					fuelux: '{{ site.url }}/assets/vendor/fuelux/dist/js/fuelux',
+					jquery: '{{ site.url }}/assets/vendor/jquery-1.11.0/dist/jquery',
+					moment: '{{ site.url }}/assets/vendor/moment-with-langs/index', // comment out if you dont want momentjs to be default
+					underscore: '{{ site.url }}/assets/vendor/underscore/underscore'
 				},
 				// Bootstrap is a "browser globals" script :-(
 				shim: { 'bootstrap': { deps: ['jquery'] } }
