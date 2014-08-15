@@ -9,25 +9,6 @@
   <div class="fu-example section">
 
     <div class="form-group">
-      <label class="control-label" for="mySpinboxInput">Without default value</label>
-      <div class="form-group">
-      
-        <div id="mySpinbox" class="spinbox" data-initialize="spinbox">
-          <input id="mySpinboxInput" type="text" class="form-control input-mini spinbox-input">
-          <div class="spinbox-buttons btn-group btn-group-vertical">
-            <button type="button" class="btn btn-default spinbox-up btn-xs">
-              <span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
-            </button>
-            <button type="button" class="btn btn-default spinbox-down btn-xs">
-              <span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
-            </button>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="form-group">
       <label class="control-label" for="mySpinboxWithDefaultInput">With default value and 3-digit class</label>
       <div class="form-group">
         
@@ -47,32 +28,12 @@
       </div>
     </div>
 
-    <div class="form-group">
-      <label class="control-label" for="mySpinboxWithDecimalInput">With custom decimal mark and units</label>
-      <div class="form-group">
-        
-        <div id="mySpinboxDecimal" class="spinbox">
-          <input id="mySpinboxWithDecimalInput" type="text" class="form-control input-mini spinbox-input">
-
-          <div class="spinbox-buttons btn-group btn-group-vertical">
-            <button type="button" class="btn btn-default spinbox-up btn-xs">
-              <span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
-            </button>
-            <button type="button" class="btn btn-default spinbox-down btn-xs">
-              <span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
-            </button>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
     <h5>Sample Methods</h5>
     <div class="btn-group">
-      <input id="spinboxSetValueBtn" type="button" class="btn btn-default" value="set value (4)"/>
-      <input id="spinboxGetValueBtn" type="button" class="btn btn-default" value="get value"/>
-      <input id="enableSpinbox" type="button" class="btn btn-default" value="enable"/>
-      <input id="disableSpinbox" type="button" class="btn btn-default" value="disable"/>
+      <button id="btnSpinboxSetValue" type="button" class="btn btn-default">set value (4)</button>
+      <button id="btnSpinboxGetValue" type="button" class="btn btn-default">get value</button>
+      <button id="btnEnableSpinbox" type="button" class="btn btn-default">enable</button>
+      <button id="btnDisableSpinbox" type="button" class="btn btn-default">disable</button>
       <button id="btnSpinboxDestroy" type="button" class="btn btn-default">destroy and append</button>
     </div>
   
@@ -82,7 +43,7 @@
   <p>A spinbox allows for click interaction with a numeric input.</p>
 
   <h3>Via data-attributes</h3>
-  <p>The spinbox will automatically instantiate any spinbox with <code>data-initialize="spinbox"</code>. If you add control markup <i>after page load</i> with <code>data-initialize="selectlist"</code>, this control initializes on <code>mousedown</code>.
+  <p>To enable the spinbox control without writing Javascript, add <code>data-initialize="spinbox"</code> to the <code>.spinbox</code> element that you wish to initialize. Such elements that exist when <code>$.ready()</code> executes will be initialized. Any spinbox markup that is programatically created with <code>data-initialize="spinbox"</code> sometime after the initial page load will not immediately initialize. Rather, it will initialize when the <code>mousedown</code> event is fired on it.</p>
 
   <h3>Via JavaScript</h3>
   <p>Call the selectlist control via JavaScript:</p>
@@ -92,15 +53,14 @@
 
   <p>Add <code>class="spinbox"</code> to an a div within a <code>class="fuelux"</code> container.</p>
 
-
   {% highlight html %}
-  <div id="mySpinbox" class="spinbox" data-initialize="spinbox">
-    <input id="mySpinboxInput" type="text" class="form-control input-mini spinbox-input">
+  <div class="spinbox" data-initialize="spinbox" id="mySpinbox">
+    <input type="text" class="form-control input-mini spinbox-input">
     <div class="spinbox-buttons btn-group btn-group-vertical">
-      <button type="button" class="btn btn-default spinbox-up btn-xs">
+      <button class="btn btn-default spinbox-up btn-xs">
         <span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
       </button>
-      <button type="button" class="btn btn-default spinbox-down btn-xs">
+      <button class="btn btn-default spinbox-down btn-xs">
         <span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
       </button>
     </div>
@@ -115,12 +75,10 @@
   <h4>.spinbox('value')</h4>
   <p>Sets or returns the spinner value, as shown in the example below:</p>
   {% highlight js %}$('#mySpinbox').combobox('value') {% endhighlight %}
-  <p>This example would return the current value of the spinbox and</p>
-  {% highlight js %}$('#mySpinbox').combobox('value', 37) {% endhighlight %}
-  <p>would set the current value to 37. If value contains units, the value returns as a string. Otherwise, the value returns as a number.</p>
+  <p>If value contains units, the value returns as a string. Otherwise, the value returns as a number.</p>
 
   <h3>Options</h3>
-  <p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-selected=""</code>.</p>
+  <p>Options that can be passed in via JavaScript once at initialization.</p>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>
@@ -136,49 +94,49 @@
           <td>value</td>
           <td>number</td>
           <td>1</td>
-          <td>Sets the initial spinner value</td>
+          <td>Sets the initial spinbox value</td>
         </tr>
         <tr>
           <td>min</td>
           <td>number</td>
           <td>1</td>
-          <td>Sets the minimum spinner value</td>
+          <td>Sets the minimum spinbox value</td>
         </tr>
         <tr>
           <td>max</td>
           <td>number</td>
           <td>999</td>
-          <td>Sets the maximum spinner value</td>
+          <td>Sets the maximum spinbox value</td>
         </tr>
         <tr>
           <td>step</td>
           <td>number</td>
           <td>1</td>
-          <td>Sets the increment by which the value in the spinner will change each time the spinner buttons are pressed</td>
+          <td>Sets the increment by which the value in the spinbox will change each time the spinbox buttons are pressed</td>
         </tr>
         <tr>
           <td>hold</td>
           <td>boolean</td>
           <td>true</td>
-          <td>If <code>true</code>, the spinner will react to its buttons being pressed and held down</td>
+          <td>If <code>true</code>, the spinbox will react to its buttons being pressed and held down</td>
         </tr>
         <tr>
           <td>hold</td>
           <td>boolean</td>
           <td>true</td>
-          <td>If <code>true</code>, the spinner will react to its buttons being pressed and held down</td>
+          <td>If <code>true</code>, the spinbox will react to its buttons being pressed and held down</td>
         </tr>
         <tr>
           <td>speed</td>
           <td>string</td>
           <td>"medium"</td>
-          <td>Assigns spinner speed when buttons are held down. Options include <code>"fast","medium","slow".</code></td>
+          <td>Assigns spinbox speed when buttons are held down. Options include <code>"fast","medium","slow".</code></td>
         </tr>
         <tr>
           <td>disabled</td>
           <td>boolean</td>
           <td>false</td>
-          <td>Creates a disables spinner.</td>
+          <td>Creates a disables spinbox.</td>
         </tr>
         <tr>
           <td>units</td>

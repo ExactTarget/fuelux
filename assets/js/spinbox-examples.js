@@ -12,7 +12,7 @@ define(function(require){
 	require('fuelux');
 
 	// SPINBOX
-	$('#mySpinboxDecimal').spinbox({
+	$('#MySpinboxDecimal').spinbox({
 		value: '1,0px',
 		min: 0,
 		max: 10,
@@ -25,17 +25,18 @@ define(function(require){
 		console.log('Spinbox changed: ', value);
 	});
 
-	$('#mySpinboxDecimal').on('changed.fu.spinbox', function (e, value) {
+	$('#mySpinboxWithDefault').on('changed.fu.spinbox', function (e, value) {
 		console.log('Spinbox changed: ', value);
 	});
 
 	// buttons
-	$('#btnSpinboxGetValue').on('click', function(){
-		console.log( $('#mySpinboxDecimal').spinbox('value') );
+
+	$('#btnSpinboxSetValue').on('click', function(){
+		console.log( $('#mySpinboxWithDefault').spinbox('value', 4) );
 	});
 
-	$('#btnEnableSpinbox').on('click', function () {
-		$('#mySpinboxWithDefault').spinbox('enable');
+	$('#btnSpinboxGetValue').on('click', function(){
+		console.log( $('#mySpinboxWithDefault').spinbox('value') );
 	});
 
 	$('#btnEnableSpinbox').on('click', function () {
@@ -52,5 +53,6 @@ define(function(require){
 		$(this).closest('.section').append(markup);
 		$('#mySpinboxWithDefault').spinbox();
 	});
+
 
 });
