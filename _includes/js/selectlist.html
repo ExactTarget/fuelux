@@ -10,8 +10,8 @@
       <label class="control-label" for="mySelectlistHiddenInput">With auto-resize</label>
       <div class="input-group">
 
-        <div id="mySelectlist" class="btn-group selectlist" data-initialize="selectlist" data-resize="auto">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <div class="btn-group selectlist" data-resize="auto" data-initialize="selectlist" id="mySelectlist">
+          <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
             <span class="selected-label"></span>
             <span class="caret"></span>
             <span class="sr-only">Toggle Dropdown</span>
@@ -23,41 +23,17 @@
             <li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>
             <li data-value="Item Five"><a href="#">Item Five</a></li>
           </ul>
-          <input id="mySelectlistHiddenInput" class="hidden hidden-field" name="mySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
+          <input class="hidden hidden-field" name="mySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
         </div>
 
     </div>
 
     </div>
 
-    <div class="form-group">
-      <label class="control-label" for="mySelectlistHiddenInput2">Default</label>
-      <div class="input-group">
-
-        <div id="mySelectlist2" class="btn-group selectlist" data-initialize="selectlist">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-            <span class="selected-label"></span>
-            <span class="caret"></span>
-            <span class="sr-only">Toggle Dropdown</span>
-          </button>
-          <ul class="dropdown-menu" role="menu">
-            <li data-value="1"><a href="#">One</a></li>
-            <li data-value="2" data-selected="true"><a href="#">Two</a></li>
-            <li data-value="3"><a href="#">Three</a></li>
-            <li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>
-            <li data-value="Item Five"><a href="#">Item Five</a></li>
-          </ul>
-          <input id="mySelectlistHiddenInput2" class="hidden hidden-field" name="mySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
-        </div>
-
-      </div>
-    </div>
-
-    <br/>
     <br/>
     <h5>Sample Methods <small>(output sent to browser console)</small></h5>
     <div class="btn-group">
-      <button type="button" class="btn btn-default" id="btnSelectlistGetSelectedItem">log selected item/value</button>
+      <button type="button" class="btn btn-default" id="btnSelectlistSelectedItem">log selected item/value</button>
       <button type="button" class="btn btn-default" id="btnSelectlistSelectByValue">set by value (3)</button>
       <button type="button" class="btn btn-default" id="btnSelectlistSelectByIndex">set by element index (zero-based) ('4')</button>
     </div>
@@ -72,29 +48,12 @@
 
     </div><!-- /example -->
 
-{% highlight html %}
-<div id="mySelectlist" class="btn-group selectlist" data-initialize="selectlist" data-resize="auto">
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-    <span class="selected-label"></span>
-    <span class="caret"></span>
-    <span class="sr-only">Toggle Dropdown</span>
-  </button>
-  <ul class="dropdown-menu" role="menu">
-    <li data-value="1"><a href="#">One</a></li>
-    <li data-value="2" data-selected="true"><a href="#">Two</a></li>
-    <li data-value="3"><a href="#">Three</a></li>
-    <li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>
-    <li data-value="Item Five"><a href="#">Item Five</a></li>
-  </ul>
-  <input class="hidden hidden-field" name="mySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
-</div>
-{% endhighlight %}
-
   <h2 id="selectlist-usage">Usage</h2>
   <p>This is a single select drop-down similar to the native <code>select</code> control. Data attributes are added to the <code>li</code> tag.</p>
 
   <h3>Via data-attributes</h3>
-  <p>The selectlist will automatically instantiate any selectlists with <code>data-initialize="selectlist"</code>. If you add control markup <i>after page load</i> with <code>data-initialize="selectlist"</code>, this control initializes on <code>mousedown</code>.
+
+  <p>To enable the selectlist control without writing Javascript, add <code>data-initialize="selectlist"</code> to the <code>.selectlist</code> element that you wish to initialize. Such elements that exist when <code>$.ready()</code> executes will be initialized. Any combobox markup that is programatically created with <code>data-initialize="selectlist"</code> sometime after the initial page load will not immediately initialize. Rather, it will initialize when the <code>mousedown</code> event is fired on it.</p>
 
   <h3>Via JavaScript</h3>
   <p>Call the selectlist control via JavaScript:</p>
@@ -103,13 +62,14 @@
   <h3>Markup</h3>
   <p>Wrap <code>class="selectlist"</code> around an input and a button within a <code>class="fuelux"</code> container.</p>
 {% highlight html %}
-<div class="btn-group selectlist" data-resize="auto">
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-    <span class="selected-label">&nbsp;</span>
+<div class="btn-group selectlist" data-resize="auto" data-initialize="selectlist" id="mySelectlist">
+  <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
+    <span class="selected-label"></span>
     <span class="caret"></span>
     <span class="sr-only">Toggle Dropdown</span>
   </button>
   <ul class="dropdown-menu" role="menu">
+    <li data-value="1"><a href="#">One</a></li>
     ...
   </ul>
   <input class="hidden hidden-field" name="mySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
@@ -171,8 +131,8 @@
     </table>
   </div><!-- ./fu-table-responsive -->
 {% highlight js %}
-$('#mySelectlistResults').on('selectlisted', function () {
-  // load selectlist results
+$('#mySelectlist').on('changed.fu.selectlist', function () {
+  // do something
 });
 {% endhighlight %}
 

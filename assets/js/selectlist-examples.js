@@ -23,7 +23,7 @@ define(function(require){
 	});
 
 	$('#btnSelectlistSelectedItem').on('click', function () {
-		console.log($('#mySelectlist2').selectlist('selectedItem'));
+		console.log($('#mySelectlist').selectlist('selectedItem'));
 	});
 
 	$('#btnSelectlistSelectByValue').on('click', function () {
