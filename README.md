@@ -95,7 +95,7 @@ Fuel UX can be obtained one of three ways:
 
    Cloning the repository ensures you can apply future updates to FuelUX easily, but requires to you manage its [dependencies](#dependencies) on your own.
 
-3. **Also an option:** Download a .zip archive of the [latest release](http://www.fuelcdn.com/fuelux/3.0.0/fuelux.zip)  or request files from [the FuelUX CDN](http://www.fuelcdn.com/fuelux/).
+3. **Also an option:** Download a .zip archive of the [latest release](http://www.fuelcdn.com/fuelux/3.0.0/fuelux.zip)  or request files from [the FuelUX CDN](http://www.fuelcdn.com/fuelux/3.0.0/).
 
    *Note: Using FuelUX in this way can make updating to future releases difficult. This approach is not recommended.*
 
