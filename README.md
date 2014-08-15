@@ -1,6 +1,6 @@
 #Fuel UX
 
-Fuel UX extends [Bootstrap 3](https://github.com/twbs/bootstrap) with additional lightweight [JavaScript controls](#javascript-controls). It is actively maintained by [members of ExactTarget, a salesforce.com company,](https://github.com/orgs/ExactTarget/members) with the support and involvement of the community.
+Fuel UX extends [Bootstrap 3](https://github.com/twbs/bootstrap) with additional lightweight [JavaScript controls](#javascript-controls). It is actively maintained by [members of ExactTarget, a salesforce.com company,](https://github.com/orgs/ExactTarget/people) with the support and involvement of the community.
 
 All functionality is covered by the [live documentation](http://exacttarget.github.io/fuelux/) and [unit tests](#automated-testing-status).
 
@@ -22,7 +22,7 @@ All functionality is covered by the [live documentation](http://exacttarget.gith
     ```
     bower install fuelux
     ```
-2. Use AMD (such as [RequireJS](http://require.js.org)) to reference the FuelUX folder in your paths configuration, wherever it is located:
+2. Use AMD (such as [RequireJS](http://requirejs.org)) to reference the FuelUX folder in your paths configuration, wherever it is located:
 
     ```javascript
     require.config({
@@ -32,27 +32,27 @@ All functionality is covered by the [live documentation](http://exacttarget.gith
         }
     });
     ```
-3. List any individual fuelux controls needed as dependencies within your application modules (eg. [checkbox](http://exacttarget.github.io/fuelux/#checkbox)):
+3. List any individual fuelux controls needed as dependencies within your application modules (eg. [checkbox](http://exacttarget.github.io/fuelux/javascript.html#checkbox)):
 
     ```javascript
-    define(function(require) {
-        var checkbox = require('fuelux/checkbox');
-        //...
-    });
+  define(function(require) {
+    var checkbox = require('fuelux/checkbox');
+      //...
+  });
     ```
-4. Use FuelUX in your HTML within the fuelux wrapper class (eg. [checkbox](http://exacttarget.github.io/fuelux/#checkbox)):
+4. Use FuelUX in your HTML within the fuelux wrapper class (eg. [checkbox](http://exacttarget.github.io/fuelux/javascript.html#checkbox)):
 
     ```html
-    <body class="fuelux">
-    	<!-- .... -->
-        <div class="checkbox">
-	    <label class="checkbox-custom">
-	        <input id="chk1" checked="checked" class="checked" type="checkbox" value="">
-		    Custom appearance checkbox checked at page load (#chk1)
-	    </label>
-        </div>
-        <!-- .... -->
-    </body>
+  <body class="fuelux">
+    <!-- .... -->
+    <div class="checkbox">
+      <label class="checkbox-custom" data-initialize="checkbox" id="myCustomCheckbox">
+        <input class="sr-only" type="checkbox" value="">
+        <span class="checkbox-label">Custom checkbox unchecked on page load</span>
+      </label>
+    </div>
+    <!-- .... -->
+  </body>
     ```
 
 ## Documentation
@@ -62,9 +62,9 @@ All functionality is covered by the [live documentation](http://exacttarget.gith
 View [live documentation and demos](http://exacttarget.github.com/fuelux) on GitHub pages.
 
 ### Automated Testing Status
-|TravisCI|SauceLabs|Node modules|Browser Support|
+|TravisCI|SauceLabs|Browser Support|
 |:---|:---:|:---:|----:|
-|[![Build Status](https://api.travis-ci.org/ExactTarget/fuelux.png?branch=master)](http://travis-ci.org/ExactTarget/fuelux) |[![Selenium Test Status](https://saucelabs.com/buildstatus/fuelux)](https://saucelabs.com/u/fuelux) |[![devDependency Status](https://david-dm.org/ExactTarget/fuelux/dev-status.svg)](https://david-dm.org/ExactTarget/fuelux#info=devDependencies)|[![Selenium Test Status](https://saucelabs.com/browser-matrix/fuelux.svg)](https://saucelabs.com/u/fuelux)|
+|[![Build Status](https://api.travis-ci.org/ExactTarget/fuelux.png?branch=master)](http://travis-ci.org/ExactTarget/fuelux) |[![Selenium Test Status](https://saucelabs.com/buildstatus/fuelux)](https://saucelabs.com/u/fuelux) |[![Selenium Test Status](https://saucelabs.com/browser-matrix/fuelux.svg)](https://saucelabs.com/u/fuelux)|
 
 ### Download
 Fuel UX can be obtained one of three ways:
@@ -95,7 +95,7 @@ Fuel UX can be obtained one of three ways:
 
    Cloning the repository ensures you can apply future updates to FuelUX easily, but requires to you manage its [dependencies](#dependencies) on your own.
 
-3. **Also an option:** Download a .zip archive of the latest release **(needthis)** or request files from [the FuelUX CDN](http://www.fuelcdn.com/fuelux/).
+3. **Also an option:** Download a .zip archive of the [latest release](http://www.fuelcdn.com/fuelux/3.0.0/fuelux.zip)  or request files from [the FuelUX CDN](http://www.fuelcdn.com/fuelux/).
 
    *Note: Using FuelUX in this way can make updating to future releases difficult. This approach is not recommended.*
 
@@ -129,7 +129,7 @@ We provide compiled CSS and JS (like `fuelux.*`), as well as compiled and minifi
 
 We recommend only loading the controls you need (eg `fuelux/checkbox`).
 
-If using AMD (such as [RequireJS](http://require.js.org)), reference the FuelUX directory in your paths configuration, wherever it is located:
+If using AMD (such as [RequireJS](http://requirejs.org)), reference the FuelUX directory in your paths configuration, wherever it is located:
 ```javascript
 require.config({
     paths: {
@@ -153,14 +153,12 @@ Fuel UX also supports placing components in their own `<script>` tags. Be sure t
 
 Have a bug or a feature request? Please first review the [open issues](https://github.com/ExactTarget/fuelux/issues), then search for existing and closed issues. If your problem or idea is not addressed yet, [please open a new issue](https://github.com/ExactTarget/fuelux/issues/new).
 
-You can visit [questions tagged FuelUX](https://code.exacttarget.com/tag/fuel-ux) in the ExactTarget Developer Community and search [FuelUX tagged questions on StackOverflow](http://stackoverflow.com/questions/tagged/fuelux).
-
-You can also visit [UserVoice community](https://fuelux.uservoice.com) and post a comment or suggest features. We will maintain of backlog of feature we are considering developing in a [backlog](https://github.com/ExactTarget/fuelux/blob/3.0.0-wip/BACKLOG.md).
+You can visit [Code@](https://code.exacttarget.com/) for general information and search [FuelUX tagged questions on StackOverflow](http://stackoverflow.com/questions/tagged/fuelux).
 
 ### Previous releases
 
 
-Documentation for v2.6.x has been made available for the time being at **(need link)** while folks transition to Bootstrap 3. Previous releases and their documentation are also available for download. **(need link)**
+[Documentation for v2.6](http://exacttarget.github.io/fuelux/2.6/) has been made available for the time being while folks transition to Bootstrap 3. You can download 2.6 updates (bug fixes only) from the [fuelux2 branch](https://github.com/ExactTarget/fuelux/tree/fuelux2).
 
 ## Compiling CSS and JavaScript
 
@@ -237,16 +235,9 @@ And thank you to all those that have submitted issues and contributed to this li
 
 ## Copyright and license
 
-Copyright &copy; 2014 ExactTarget, a salesforce.com company.
+Copyright &copy; 2012-2014 ExactTarget, Inc.
 
-Licensed under the BSD New license (the "License");
-you may not use this work except in compliance with the License.
-You may obtain a copy of the License in the LICENSE file.
+View [BSD-3 license](https://github.com/ExactTarget/fuelux/blob/master/LICENSE).
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
 
 [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/8b519d39e18063752f24876583a6526b "githalytics.com")](http://githalytics.com/ExactTarget/fuelux)
