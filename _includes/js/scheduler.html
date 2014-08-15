@@ -16,7 +16,7 @@
 
   <h3>Live demo</h3>
   <div class="fu-example section">
-    <div id="myScheduler" class="form-horizontal container-fluid scheduler" data-initialize="scheduler" role="form">
+    <div class="form-horizontal container-fluid scheduler" data-initialize="scheduler" role="form" id="myScheduler">
     {% include js/scheduler-example.html %}
     </div>
 
@@ -29,14 +29,7 @@
         <button class="btn btn-default" id="btnSchedulerSetValue">set value to the following schedule</button>
         <button class="btn btn-default" id="btnSchedulerDestroy">destroy and append</button>
     </div>
-    <br/>
-    <br/>
-    <pre>startDateTime: '2014-03-31T03:23+02:00',
-timeZone: {
-name: 'Namibia Standard Time',
-  offset: '+02:00'
-},
-recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'</pre>
+
   </div><!-- /example -->
 
 
@@ -45,6 +38,8 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
   <p>A scheduler can return a time object with a <code>startDateTime</code>, a <code>timeZone</code>, and a<code>recurrencePattern</code></p>
 
   <h3>Via data-attributes</h3>
+  <p>To enable the scheduler control without writing Javascript, add <code>data-initialize="scheduler"</code> to the <code>.scheduler</code> element that you wish to initialize. Such elements that exist when <code>$.ready()</code> executes will be initialized. Any scheduler markup that is programatically created with <code>data-initialize="scheduler"</code> sometime after the initial page load will not immediately initialize. Rather, it will initialized when the <code>mousedown</code> event is fired on it.</p>
+
   <p>The scheduler will automatically instantiate any schedulers with <code>data-initialize="scheduler"</code>. If you add the control markup <i>after page load</i> with <code>data-initialize="scheduler"</code>, this control initializes on <code>mousedown</code>.
 
   <h3>Via JavaScript</h3>
@@ -56,18 +51,15 @@ recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
 
   <div class="truncate-highlight">
     {% highlight html %}
-  <div id="myScheduler" class="form-horizontal container-fluid scheduler" data-initialize="scheduler" role="form">
+<div class="form-horizontal container-fluid scheduler" data-initialize="scheduler" role="form" id="myScheduler">
     {% include js/scheduler-example.html %}
-  </div>
+</div>
     {% endhighlight %}
   </div>
 
-  <h3>Data Attribute Options</h3>
-  <p>Please refer to the component dependencies:
-  </p>
   <h3>Methods</h3>
   <h4>$().scheduler()</h4>
-  Attaches scheduler to a list of steps, navigation, and content
+  Attaches scheduler to a list of steps, navigation, and content.
   
   <h4>.scheduler('destroy')</h4>
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
