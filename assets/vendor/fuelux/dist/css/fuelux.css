@@ -803,13 +803,13 @@
 }
 .fuelux .radio-custom:after {
   background: transparent;
-  border-radius: 8px;
+  border-radius: 6px;
   content: " ";
-  height: 8px;
-  left: 3px;
+  height: 6px;
+  left: 4px;
   position: absolute;
-  top: 6px;
-  width: 8px;
+  top: 7px;
+  width: 6px;
 }
 .fuelux .radio-custom:before {
   border: 1px solid #adadad;
@@ -839,8 +839,8 @@
   opacity: .5;
 }
 .fuelux .radio-custom.radio-inline:after {
-  left: 3px;
-  top: 6px;
+  left: 4px;
+  top: 7px;
 }
 .fuelux .radio-custom.radio-inline:before {
   left: 0;
@@ -850,8 +850,8 @@
   padding: 4px 4px 4px 24px;
 }
 .fuelux .radio-custom.radio-inline.highlight:after {
-  left: 7px;
-  top: 10px;
+  left: 8px;
+  top: 11px;
 }
 .fuelux .radio-custom.radio-inline.highlight:before {
   left: 4px;
