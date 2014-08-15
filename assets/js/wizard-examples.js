@@ -58,19 +58,10 @@ define(function(require){
 								'	turnip greens garlic. JÃ­cama garlic courgette coriander radicchio plantain scallion ' +
 								'	cauliflower fava bean desert raisin spring onion chicory bunya nuts. Sea lettuce water ' +
 								'	spinach gram fava bean leek dandelion silver beet eggplant bush tomato. </p>' +
-								'	<p>Pea horseradish azuki bean lettuce avocado asparagus okra. ' +
-								'	Kohlrabi radish okra azuki bean corn fava bean mustard tigernut jÃ­cama green bean ' +
-								'	celtuce collard greens avocado quandong fennel gumbo black-eyed pea. Grape silver ' +
-								'	beet watercress potato tigernut corn groundnut. Chickweed okra pea winter ' +
-								'	purslane coriander yarrow sweet pepper radish garlic brussels sprout groundnut ' +
-								'	summer purslane earthnut pea tomato spring onion azuki bean gourd. Gumbo kakadu ' +
-								'	plum komatsuna black-eyed pea green bean zucchini gourd winter purslane silver ' +
-								'	beet rock melon radish asparagus spinach. </p>' +
 								'</div>';
 
 	$('#btnWizardAddSteps').on('click', function() {
-		$('#myWizard').wizard('addSteps', 2, 0, 
-			[
+		$('#myWizard').wizard('addSteps', 2, [
 			{
 				badge: '',
 				label: 'Setup',
@@ -80,7 +71,7 @@ define(function(require){
 	});
 
 	$('#btnWizardRemoveStep').on('click', function() {
-		$('#myWizard').wizard('removeSteps', 4, 1);
+		$('#myWizard').wizard('removeSteps', 1, 1);
 	});
 
 	$('#btnWizardDestroy').click(function () {
