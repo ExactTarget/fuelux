@@ -40,8 +40,6 @@
   <h3>Via data-attributes</h3>
   <p>To enable the scheduler control without writing Javascript, add <code>data-initialize="scheduler"</code> to the <code>.scheduler</code> element that you wish to initialize. Such elements that exist when <code>$.ready()</code> executes will be initialized. Any scheduler markup that is programatically created with <code>data-initialize="scheduler"</code> sometime after the initial page load will not immediately initialize. Rather, it will initialized when the <code>mousedown</code> event is fired on it.</p>
 
-  <p>The scheduler will automatically instantiate any schedulers with <code>data-initialize="scheduler"</code>. If you add the control markup <i>after page load</i> with <code>data-initialize="scheduler"</code>, this control initializes on <code>mousedown</code>.
-
   <h3>Via JavaScript</h3>
   <p>Call the scheduler control via JavaScript:</p>
   {% highlight js %}$('#myscheduler').scheduler();{% endhighlight %}
@@ -59,7 +57,7 @@
 
   <h3>Methods</h3>
   <h4>$().scheduler()</h4>
-  Attaches scheduler to a list of steps, navigation, and content.
+  Attaches scheduler to a collection of time and date elements.
   
   <h4>.scheduler('destroy')</h4>
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>

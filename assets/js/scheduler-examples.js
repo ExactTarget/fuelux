@@ -40,7 +40,13 @@ define(function(require){
 	});
 
 	$('#btnSchedulerSetValue').on('click', function(){
-		var json = $.parseJSON( $('#mySchedule').val() );
+		var json = { "startDateTime": "2014-03-31T03:23+02:00",
+									"timeZone": {
+									"name": "Namibia Standard Time",
+										"offset": "+02:00"
+									},
+								"recurrencePattern": "FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;"
+								};
 		console.log(json);
 		$('#myScheduler').scheduler('value', json);
 	});
