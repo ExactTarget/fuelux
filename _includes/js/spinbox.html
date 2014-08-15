@@ -165,10 +165,11 @@
       </tbody>
     </table>
   </div><!-- ./fu-table-responsive -->
-  {% highlight js %}
-  $('#mySpinbox').on('changed.fu.spinbox', function () {
-    // do something
-  })
-  {% endhighlight %}
+	<p>All spinbox events are fired on the <code>.spinbox</code> classed element.</p>
+{% highlight js %}
+$('#mySpinbox').on('changed.fu.spinbox', function () {
+  // do something
+})
+{% endhighlight %}
 
 </div><!-- end docs-section -->

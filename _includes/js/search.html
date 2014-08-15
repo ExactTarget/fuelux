@@ -88,8 +88,9 @@
       </tbody>
     </table>
   </div><!-- ./fu-table-responsive -->
+  <p>All search events are fired on the <code>.search</code> classed element.</p>
 {% highlight js %}
-$('#mySearch').on('searched', function () {
+$('#mySearch').on('searched.fu.search', function () {
   // load search results
 });
 {% endhighlight %}
