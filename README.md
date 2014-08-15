@@ -1,4 +1,4 @@
-FuelUX - Live Documentation
+Fuel UX - Live Documentation
 ======
 
 ### Notes
