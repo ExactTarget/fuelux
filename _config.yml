@@ -14,9 +14,9 @@ download:
 blog:             http://code.exacttarget.com
 
 cdn:
-  css:            //www.fuelcdn.com/3.0.0/css/fuelux.min.css
-  js:             //www.fuelcdn.com/3.0.0/js/fuelux.min.js
-  zip:            //www.fuelcdn.com/3.0.0/fuelux.zip
+  css:            //www.fuelcdn.com/fuelux/3.0.0/css/fuelux.min.css
+  js:             //www.fuelcdn.com/fuelux/3.0.0/js/fuelux.min.js
+  zip:            //www.fuelcdn.com/fuelux/3.0.0/fuelux.zip
 
 bootstrap:
   css:            //maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css
