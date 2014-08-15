@@ -1,7 +1,7 @@
 /*!
  * FuelUX v3.0.0
  * Copyright 2012-2014 ExactTarget
- * Licensed under MIT (https://github.com/ExactTarget/fuelux/blob/master/COPYING)
+ * Licensed under the BSD New license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
 
 
@@ -29,7 +29,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -270,7 +270,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -513,7 +513,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -1225,7 +1225,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -1331,7 +1331,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -1481,7 +1481,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -1740,7 +1740,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -1949,7 +1949,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -2114,7 +2114,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -2345,7 +2345,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -2776,7 +2776,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -3144,7 +3144,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -3560,7 +3560,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -3724,7 +3724,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -4406,7 +4406,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -5087,7 +5087,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -5530,7 +5530,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -5638,7 +5638,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 

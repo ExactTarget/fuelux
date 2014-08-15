@@ -239,9 +239,9 @@ And thank you to all those that have submitted issues and contributed to this li
 
 Copyright &copy; 2014 ExactTarget, a salesforce.com company.
 
-Licensed under the MIT License (the "License");
+Licensed under the BSD New license (the "License");
 you may not use this work except in compliance with the License.
-You may obtain a copy of the License in the COPYING file.
+You may obtain a copy of the License in the LICENSE file.
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
