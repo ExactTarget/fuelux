@@ -1,0 +1,5 @@
+//Has selected item upon initialization
+- add 'data-selected="true"' to desired 'ul.dropdown-menu li' tag
+
+//Auto resizing
+- add 'data-resize="auto"' to 'selectlist' classed element

@@ -1,0 +1,44 @@
+input, textarea {
+	&.glass {
+		background: transparent;
+		border: 1px solid #fff;
+		box-shadow: none;
+
+		&:hover {
+			background: #d9edf7;
+			border-color: #66afe9;
+			cursor: pointer;
+
+			&[disabled] {
+				background: transparent;
+				border-color: #fff;
+				cursor: not-allowed;
+			}
+		}
+
+		&:focus {
+			background: #fff;
+			border-color: #66afe9;
+			box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+			cursor: auto;
+
+			&[disabled] {
+				background: transparent;
+				border-color: #fff;
+				cursor: not-allowed;
+			}
+		}
+
+		&[disabled] {
+			cursor: not-allowed;
+		}
+	}
+}
+
+// makes radios and checkboxes that use Bootstrap button plugin accessible (tabbable)  
+[data-toggle="buttons"] > .btn > input[type="radio"],
+[data-toggle="buttons"] > .btn > input[type="checkbox"] {
+	display:inline;
+	position:absolute;
+	left:-9999px;
+}

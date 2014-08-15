@@ -1,0 +1,194 @@
+<!-- radio
+================================================== -->
+<div class="fu-docs-section">
+  <h1 id="radios" class="page-header">Radios <small>radios.js</small></h1>
+
+  <h2 id="radios-examples">Examples</h2>
+  <p>Customized look and feel for radio button element</p>
+
+  <h4>Default (stacked)</h4>
+  <div class="fu-example section">
+    <div class="radio" data-initialize="radio">
+      <label class="radio-custom">
+        <input class="sr-only" name="radioEx1" type="radio" value="option1">
+        Browser-independent radio unchecked on page load
+      </label>
+    </div>
+    
+    <div class="radio checked" data-initialize="radio">
+      <label class="radio-custom">
+        <input class="sr-only" checked="checked" name="radioEx1" type="radio" value="option2">
+        Browser-independent radio checked on page load
+      </label>
+    </div>
+
+    <div class="radio checked" data-initialize="radio">
+      <label id="lbl3" class="radio-custom">
+        <input id="radio3" class="sr-only" checked="checked" disabled="disabled" name="radio1b" type="radio">
+        <span class="radio-label">Disabled custom appearance radio selected on page load</span>
+      </label>
+    </div>
+
+    <div class="radio" data-initialize="radio">
+      <label class="radio-custom">
+        <input class="sr-only" disabled="disabled" name="radioEx2" type="radio" value="option3">
+        Disabled browser-independent radio unchecked on page load
+      </label>
+    </div>
+  </div>
+{% highlight html %}
+<div class="radio" data-initialize="radio" id="myCustomRadio">
+  <label class="radio-custom">
+    <input class="sr-only" name="radioEx1" type="radio" value="option1">
+    Browser-independent radio unchecked on page load
+  </label>
+</div>
+
+<div class="radio checked" data-initialize="radio" id="myCustomRadio2">
+  <label class="radio-custom">
+    <input class="sr-only" checked="checked" name="radioEx1" type="radio" value="option2">
+    Browser-independent radio checked on page load
+  </label>
+</div>
+
+<div class="radio checked" data-initialize="radio" id="myCustomRadio3">
+  <label class="radio-custom">
+    <input class="sr-only" checked="checked" disabled="disabled" name="radio1b" type="radio">
+    <span class="radio-label">Disabled custom appearance radio selected on page load</span>
+  </label>
+</div>
+
+<div class="radio" data-initialize="radio" id="myCustomRadio4">
+  <label class="radio-custom">
+    <input class="sr-only" disabled="disabled" name="radioEx2" type="radio" value="option3">
+    Disabled browser-independent radio unchecked on page load
+  </label>
+</div>
+{% endhighlight %}
+
+  <h4>Inline radio</h4>
+  <p>Use the <code>.radio-inline</code> classes on radios for controls that appear on the same line.</p>
+  <div class="fu-example section">
+    <label class="radio-custom radio-inline" data-initialize="radio">
+      <input class="sr-only"  name="radioEx2" type="radio" value="option1"> 1
+    </label>
+    <label class="radio-custom radio-inline" data-initialize="radio">
+      <input class="sr-only" checked="checked" name="radioEx2" type="radio" value="option2"> 2
+    </label>
+    <label class="radio-custom radio-inline" data-initialize="radio">
+      <input class="sr-only" disabled="disabled" name="radioEx2" type="radio" value="option3"> 3
+    </label>
+  </div>
+{% highlight html %}
+<label class="radio-custom radio-inline" data-initialize="radio" id="myCustomRadio5">
+  <input class="sr-only" name="radioEx2" type="radio" value="option1"> 1
+</label>
+<label class="radio-custom radio-inline" data-initialize="radio" id="myCustomRadio6">
+  <input class="sr-only" checked="checked" name="radioEx2" type="radio" value="option2"> 2
+</label>
+<label class="radio-custom radio-inline" data-initialize="radio" id="myCustomRadio7">
+  <input class="sr-only" disabled="disabled" name="radioEx2" type="radio" value="option3"> 3
+</label>
+{% endhighlight %}
+
+  <h4>Element toggling radios</h4>
+  <p>Use the <code>data-toggle="{{selector}}"</code> to automatically show or hide elements matching the selector within the body upon check or uncheck. This function works with any <a href="http://api.jquery.com/category/selectors/">jQuery selector</a>.
+  </p>
+  <div class="fu-example section">
+    <div class="radio">
+      <label class="radio-custom" data-initialize="radio">
+        <input class="sr-only" data-toggle="#radioToggleID" name="radioEx3" type="radio" value="option1">
+        Toggles element with matching ID
+      </label>
+    </div>
+    <label class="radio-custom radio-inline" data-initialize="radio">
+      <input class="sr-only" data-toggle=".radioToggleCLASS" name="radioEx3" type="radio" value="option1">
+      Toggles elements with matching class.
+    </label>
+
+    <div class="alert bg-info hide" id="radioToggleID">ID-toggling container</div>
+    <div class="alert bg-success hide radioToggleCLASS">Class-toggling container</div>
+    <div class="alert bg-success hide radioToggleCLASS">Class-toggling container</div>
+  </div>
+{% highlight html %}
+<div class="radio">
+  <label class="radio-custom" data-initialize="radio" id="myCustomRadio8">
+    <input class="sr-only" data-toggle="#radioToggleID" name="radioEx3" type="radio" value="option1">
+    Toggles element with matching ID
+  </label>
+</div>
+<label class="radio-custom radio-inline" data-initialize="radio" id="myCustomRadio9">
+  <input class="sr-only" data-toggle=".radioToggleCLASS" name="radioEx3" type="radio" value="option1">
+  Toggles elements with matching class
+</label>
+
+<div class="alert bg-info" id="radioToggleID" style="display: none;">ID-toggling container</div>
+<div class="alert bg-success radioToggleCLASS" style="display: none;">Class-toggling container</div>
+<div class="alert bg-success radioToggleCLASS" style="display: none;">Class-toggling container</div>
+{% endhighlight %}
+
+  <h4>Highlighting checkboxes</h4>
+  <p>Use the <code>.highlight</code> class to add a background highlight upon check.
+  </p>
+  <div class="fu-example section">
+    <div class="radio highlight" data-initialize="radio">
+      <label class="radio-custom">
+        <input class="sr-only" name="radioEx4" type="radio" value="option1">
+        This block-level radio will highlight on check.
+      </label>
+    </div>
+    <label class="radio-custom radio-inline highlight" data-initialize="radio">
+      <input class="sr-only" name="radioEx4" type="radio" value="option2">
+      This inline radio will highlight on check.
+    </label>
+  </div>
+  {% highlight html %}
+<div class="radio highlight" data-initialize="radio" id="myCustomRadio10">
+  <label class="radio-custom">
+    <input class="sr-only" name="radioEx4" type="radio" value="option1">
+    This block-level radio will highlight on check.
+  </label>
+</div>
+<label class="radio-custom radio-inline highlight" data-initialize="radio" id="myCustomRadio11">
+  <input class="sr-only" name="radioEx4" type="radio" value="option2">
+  This inline radio will highlight on check.
+</label>
+  {% endhighlight %}
+
+  <h2 id="radios-usage">Usage</h2>
+
+  <h3>Via data-attributes</h3>
+  <p>The radio will automatically instantiate any radios with <code>data-initialize="radio"</code>. If you add the control markup <i>after page load</i> with <code>data-initialize="radio"</code>, this control initializes on <code>mouseover</code>.
+
+  <h3>Via JavaScript</h3>
+  <p>Call the radio control via JavaScript:</p>
+  {% highlight js %}$('#myRadio').radio();{% endhighlight %}
+
+  <h3>Methods</h3>
+  <h4>$().radio();</h4>
+  Activates your content as a custom radio
+
+  <h4>.radio('check')</h4>
+  <p>Checks the radio</p>
+  {% highlight js %}$('#myRadio').radio('check');{% endhighlight %}
+
+  <h4>.radio('destroy')</h4>
+  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
+  {% highlight js %}$('#myRadio').radio('destroy');{% endhighlight %}
+
+  <h4>.radio('disable')</h4>
+  <p>Disables the radio</p>
+  {% highlight js %}$('#myRadio').radio('disable');{% endhighlight %}
+
+  <h4>.radio('enable')</h4>
+  <p>Enables the radio</p>
+  {% highlight js %}$('#myRadio').radio('enable');{% endhighlight %}
+
+  <h4>.radio('isChecked')</h4>
+  <p>Returns <code>true</code> or <code>false</code> depending on whether the radio is checked</p>
+  {% highlight js %}$('#myRadio').radio('isChecked');{% endhighlight %}
+
+  <h4>.radio('uncheck')</h4>
+  <p>Unchecks the radio</p>
+  {% highlight js %}$('#myRadio').radio('uncheck');{% endhighlight %}
+</div>

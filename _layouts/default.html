@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" class="fuelux">
+<head>
+	<!-- Meta, title, CSS, favicons, etc. -->
+	{% include header.html %}
+</head>
+<body>
+<a class="sr-only" href="#content">Skip to main content</a>
+
+<!-- Docs master nav -->
+{% include nav/main.html %}
+
+<!-- Docs page layout -->
+<div class="fu-header" id="content">
+	<div class="container">
+		<h1>{{ page.title }}</h1>
+		<p>{{ page.lead }}</p>
+	</div>
+</div>
+
+<div class="container fu-docs-container">
+
+	<div class="row">
+		<div class="col-md-9" role="main">
+			{{ content }}
+		</div>
+		<div class="col-md-3">
+			<div class="fu-sidebar hidden-print" role="complementary">
+				<ul class="nav fu-sidenav">
+					{% if page.slug == "getting-started" %}
+						{% include nav/getting-started.html %}
+					{% endif %}
+					<!-- {% if page.slug == "css" %}
+						{% include nav/css.html %}
+					{% endif %} -->
+					{% if page.slug == "components" %}
+						{% include nav/components.html %}
+					{% endif %}
+					{% if page.slug == "javascript" %}
+						{% include nav/javascript.html %}
+					{% endif %}
+					{% if page.slug == "extensions" %}
+					{% include nav/extensions.html %}
+					{% endif %}
+					{% if page.slug == "customize" %}
+						{% include nav/customize.html %}
+					{% endif %}
+					{% if page.slug == "migration" %}
+						{% include nav/migration.html %}
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+{% include footer.html %}
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!-- combobox
+================================================== -->
+<div class="fu-docs-section">
+  <h1 id="comboboxes" class="page-header">Comboboxes <small>combobox.js</small></h1>
+  <h2 id="comboboxes-examples">Examples</h2>
+  <p>Combines an input and a drop-down for easy and flexible data selection.</p>
+  <div class="fu-example section">
+{% include js/combobox-example.html %}
+  </div><!-- /example -->
+
+  <h3 id="comboboxes-alignment">Alignment</h3>
+  <p>By default, this control automatically positions a drop-down menu 100% from the top and along the right side of its parent. Remove <code>.dropdown-menu-right</code> to left align the drop-down menu.</p>
+
+  <h2 id="comboboxes-usage">Usage</h2>
+
+  <p>The combobox component toggles hidden content (drop-down menus) by toggling the <code>.open</code> class on the parent list item. When opened, the plugin also adds <code>.dropdown-backdrop</code> as a click area for closing drop-down menus when clicking outside the menu. The control relies on the <code>data-toggle=dropdown</code> attribute to close drop-down menus at an application level.</p>
+
+  <h3>Via data-attributes</h3>
+
+  <p>To enable the combobox control without writing Javascript, add <code>data-initialize="combobox"</code> to the <code>.combobox</code> element that you wish to initialize. Such elements that exist when <code>$.ready()</code> executes will be initialized. Any combobox markup that is programatically created with <code>data-initialize="combobox"</code> sometime after the initial page load will not immediately initialize. Rather, it will initialize when the <code>mousedown</code> event is fired on it.</p>
+
+  <h3>Via JavaScript</h3>
+  <p>Call the combobox control via JavaScript:</p>
+  {% highlight js %}$('#myCombobox').combobox();{% endhighlight %}
+
+
+  <h3>Markup</h3>
+  <p>Add <code>class="combobox"</code> to an input and a drop-down within a <code>class="fuelux"</code> container.</p>
+{% highlight html %}
+<div class="input-group input-append dropdown combobox" data-initialize="combobox" id="myCombobox">
+  <input type="text" class="form-control">
+  <div class="input-group-btn">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+    <ul class="dropdown-menu dropdown-menu-right">
+      <li data-value="1"><a href="#">One</a></li>
+      ...
+    </ul>
+  </div>
+</div>
+{% endhighlight %}
+
+
+
+  <h3>Markup options</h3>
+  <p>For data attributes, append the option name to <code>data-</code>, as in <code>data-selected="true"</code> to an <code>li</code> element.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+       <tr>
+         <th style="width: 100px;">Name</th>
+         <th style="width: 100px;">type</th>
+         <th style="width: 50px;">default</th>
+         <th>description</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td>selected</td>
+         <td>boolean</td>
+         <td>false</td>
+         <td>Declare value to initialize with</td>
+       </tr>
+      </tbody>
+    </table>
+  </div><!-- ./fu-table-responsive -->
+
+  <h3>Programatic options</h3>
+  <p>For programatic options, pass in an object with key/value pairs. This only has effect at intialization.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+       <tr>
+         <th style="width: 100px;">Name</th>
+         <th style="width: 100px;">type</th>
+         <th style="width: 50px;">default</th>
+         <th>description</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr>
+         <td>autoResizeMenu</td>
+         <td>boolean</td>
+         <td>true</td>
+         <td>Resizes the drop-down menu to the width of the combobox</td>
+       </tr>
+      </tbody>
+    </table>
+  </div><!-- ./fu-table-responsive -->
+  
+  <h3>Methods</h3>
+  <h4>$().combobox(options)</h4>
+  Attaches a combobox to an input and a drop-down menu
+  
+  <h4>.combobox('destroy')</h4>
+  <p>Remove all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
+  {% highlight js %}$('#myCombobox').combobox('destroy');{% endhighlight %}
+
+  <h4>.combobox('disable')</h4>
+  <p>Disable the component</p>
+  {% highlight js %}$('#myCombobox').combobox('disable'){% endhighlight %}
+
+  <h4>.combobox('enable')</h4>
+  <p>Enable the component</p>
+  {% highlight js %}$('#myCombobox').combobox('enable'){% endhighlight %}
+
+  <h4>.combobox('selectedItem')</h4>
+  <p>Returns an object containing the jQuery data() contents of the selected item which includes <code>.data-*</code> attributes plus a text property with the visible text from the item</p>
+  {% highlight js %}$('#myCombobox').combobox('selectedItem'){% endhighlight %}
+
+  <h4>.combobox('selectByIndex')</h4>
+  <p>Set the selected item based on its index in the list (zero-based index). Convenience method for <code>.selectBySelector('li:eq({index})')</code></p>
+  {% highlight js %}$('#myCombobox').combobox('selectByIndex', '1'){% endhighlight %}
+
+  <h4>.combobox('selectByText')</h4>
+  <p>Set the selected item based on its text value</p>
+  {% highlight js %}$('#myCombobox').('selectByText', 'Four'){% endhighlight %}
+
+  <h4>.combobox('selectBySelector')</h4>
+  <p>Set the selected item based on a selector</p>
+  {% highlight js %}$('#myCombobox').('selectBySelector', 'li[data-fizz=buzz]'){% endhighlight %}
+
+  <h4>.combobox('selectByValue')</h4>
+  <p>Set the selected item based on its value. Convenience method for <code>.selectBySelector('data-value={value}')</code> that requires the item to include a <code>.data-value="{value}"</code> attribute</p>
+  {% highlight js %}$('#myCombobox').('selectByValue', '1'){% endhighlight %}
+
+  <h3>Events</h3>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="width: 150px;">Event Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>changed.fu.combobox</td>
+          <td>This event fires when the value changes (either by selecting an item from the list or updating the input value directly). Arguments include <code>event, data</code> where data represents the same object structure returned by the <code>selectedItem</code> method.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- ./fu-table-responsive -->
+  <p>All combobox events are fired at the <code>.combobox</code> element. For the sample markup provided, it would be:</p>
+{% highlight js %}
+$('#myCombobox').on('changed.fu.combobox', function () {
+  // do something…
+});
+{% endhighlight %}
+</div>

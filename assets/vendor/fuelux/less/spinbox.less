@@ -1,0 +1,68 @@
+.spinbox {
+	display: inline-block;
+	position: relative;
+
+	&.digits-3 {
+		width: 60px;
+	}
+
+	&.disabled {
+		.spinbox-buttons {
+			cursor: not-allowed;
+		}
+	}
+
+	.spinbox-input {
+		float: left;
+		padding-bottom: 3px; /* Magic number */
+		padding: 0px 25px 0px 7px;
+	}
+
+	.btn {
+		position: relative;
+		width: 20px;
+		height: 13px;
+		padding-top: 0;
+		padding-right: 9px;
+		padding-left: 9px;
+
+		&.disabled {
+			cursor: not-allowed;
+		}
+	}
+
+	.spinbox-buttons {
+		position: absolute;
+		height: 28px;
+		width: 20px;
+		right: 2px;
+	}
+
+	.spinbox-up {
+		padding: 0 0 14px 1px;
+		top: 2px;
+
+		.glyphicon-chevron-up {
+			position:relative;
+			top: 0px;
+		}
+	}
+
+	// fix radius from BS btn-group
+	.btn-group > .btn.spinbox-up {
+		border-top-right-radius: 4px;
+	}
+
+	.spinbox-down {
+		padding: 0 0 8px 1px;
+		top: 2px;
+		height: 15px;
+		border-bottom-left-radius: 4px;
+
+		.glyphicon-chevron-down {
+			position: relative;
+			left: -1px;
+			top: 0px;
+		}
+	}
+}

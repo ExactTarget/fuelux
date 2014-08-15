@@ -1,0 +1,27 @@
+.selectlist {
+
+	&.disabled {
+		cursor: not-allowed;
+	}
+
+	&-sizer {
+		display: inline-block;
+		position: absolute;
+		visibility: hidden;
+		top: 0;
+	}
+
+	.selected-label {
+		overflow: hidden;	// helps with text flow on small screens
+		min-width: 2em;
+	}
+
+	.btn.dropdown-toggle {
+		white-space: normal;
+
+		.selected-label {
+			padding-right: 10px;
+			text-align: left;
+		}
+	}
+}

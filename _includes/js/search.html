@@ -1,0 +1,98 @@
+<!-- search
+================================================== -->
+<div class="fu-docs-section">
+  <h1 id="search" class="page-header">Search Box <small>search.js</small></h1>
+  <p>Combines an input and a button to fire the <code>searched</code> event.</p>
+
+  <h2 id="search-examples">Examples</h2>
+  <p>Wrap the input and search button within <code>.fuelux .search</code></p>
+  <div class="fu-example section">
+
+      <div class="search input-group" role="search" id="mySearch">
+        <input type="search" class="form-control" placeholder="Search"/>
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button">
+            <span class="glyphicon glyphicon-search"></span>
+            <span class="sr-only">Search</span>
+          </button>
+        </span>
+      </div>
+
+      <h5>Sample Methods</h5>
+      <div class="btn-group">
+        <button type="button" class="btn btn-default" id="btnSearchDisable" value="disable">disable</button>
+        <button type="button" class="btn btn-default" id="btnSearchEnable" value="enable">enable</button>
+      </div>
+
+    </div>
+
+  <h2 id="search-usage">Usage</h2>
+  <p>This function includes a simple input and button group that styles with a search icon and fires the <code>searched</code> event.</p>
+
+  <h3>Via data-attributes</h3>
+
+  <p>To enable the search control without writing Javascript, add <code>data-initialize="search"</code> to the <code>.search</code> element that you wish to initialize. Such elements that exist when <code>$.ready()</code> executes will be initialized. Any search markup that is programatically created with <code>data-initialize="search"</code> sometime after the initial page load will not immediately initialize. Rather, it will initialize when the <code>mousedown</code> event is fired on it.</p>
+
+  <h3>Via JavaScript:</h3>
+  <p>Call the search control via JavaScript:</p>
+  {% highlight js %}$('#mySearch').search();{% endhighlight %}
+
+  <h3>Markup</h3>
+  <p>Wrap <code>class="search"</code> around an input and a button within a <code>class="fuelux"</code> container.</p>
+{% highlight html %}
+<div class="search input-group" role="search" id="mySearch">
+  <input type="search" class="form-control" placeholder="Search"/>
+  <span class="input-group-btn">
+    <button class="btn btn-default" type="button">
+      <span class="glyphicon glyphicon-search"></span>
+      <span class="sr-only">Search</span>
+    </button>
+  </span>
+</div>
+{% endhighlight %}
+
+  <h3>Methods</h3>
+  <h4>$().search();</h4>
+  Attaches search to an input and a button group
+
+  <h4>.search('destroy')</h4>
+  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
+  {% highlight js %}$('#myScheduler').search('destroy');{% endhighlight %}
+  
+  <h4>.search('disable')</h4>
+  <p>Disables the component</p>
+  {% highlight js %}$('#myScheduler').search('disable');{% endhighlight %}
+
+  <h4>.search('enable')</h4>
+  <p>Enables the component</p>
+  {% highlight js %}$('#myScheduler').search('enable');{% endhighlight %}
+
+  <h3>Events</h3>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th style="width: 150px;">Event Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>searched.fu.search</td>
+          <td>This event fires when a user presses Enter within the input or clicks the button.</td>
+        </tr>
+        <tr>
+          <td>cleared.fu.search</td>
+          <td>This event fires when the user clears the input.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- ./fu-table-responsive -->
+  <p>All search events are fired on the <code>.search</code> classed element.</p>
+{% highlight js %}
+$('#mySearch').on('searched.fu.search', function () {
+  // load search results
+});
+{% endhighlight %}
+
+</div>

@@ -1,0 +1,53 @@
+{
+  "dependencies": {
+    "jquery-1.11.0": "jquery#1.11.0",
+    "requirejs": "~2.1.11",
+    "bootstrap": "~3.2.0",
+    "moment": "2.7.0"
+  },
+  "devDependencies": {
+    "jquery": null,
+    "jquery-1.9.1": "jquery#1.9.1",
+    "qunit": "~1.14.0",
+    "requirejs-text": "~2.0.10",
+    "underscore": "~1.6.0",
+    "blanket": "1.1.5"
+  },
+  "ignore": [
+    "**/.*",
+    "_*",
+    "*.yml",
+    "BACKLOG.md",
+    "data.js",
+    "dev.html",
+    "Gruntfile.js",
+    "index.css",
+    "index.html",
+    "index.js",
+    "lib",
+    "node_modules",
+    "old-index.html",
+    "sample",
+    "test"
+  ],
+  "keywords": [
+    "css",
+    "js",
+    "less",
+    "mobile-first",
+    "responsive",
+    "front-end",
+    "framework",
+    "web"
+  ],
+  "main": [
+    "dist/css/fuelux.css",
+    "dist/js/fuelux.js",
+    "dist/fonts/fuelux.eot",
+    "dist/fonts/fuelux.svg",
+    "dist/fonts/fuelux.ttf",
+    "dist/fonts/fuelux.woff"
+  ],
+  "name": "fuelux",
+  "version": "3.0.0"
+}

@@ -1,0 +1,68 @@
+<meta charset="utf-8">
+<!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+<meta name="description" content="Fuel UX, a front-end library that extends Bootstrap with additional lightweight controls.">
+<meta name="keywords" content="HTML, CSS, JS, JavaScript, framework, fuel ux, bootstrap, extends, front-end, frontend, web development">
+<meta name="author" content="ExactTarget">
+
+<title>
+	{% if page.title == "Fuel UX" %}
+		{{ page.title }}
+	{% else %}
+		{{ page.title }} &middot; Fuel UX
+	{% endif %}
+</title>
+
+<!-- Favicons -->
+
+	<!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">-->
+	<!--<link rel="shortcut icon" href="../assets/ico/favicon.ico">-->
+
+<!-- Styles -->
+
+	<!-- Bootstrap CSS-->
+	<link href="../assets/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../assets/vendor/fuelux/dist/css/fuelux.css" rel="stylesheet" type="text/css">
+
+	<!-- Docs CSS -->
+	<link href="../assets/css/docs.css" rel="stylesheet">
+
+	<!-- Specific Page CSS -->
+	<!--{% if page.title != "Fuel UX" %}
+		<link href="../assets/css/{{page.slug}}.css" rel="stylesheet">
+	{% endif %}-->
+
+
+<!-- Scripts -->
+	<script src="../assets/vendor/requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		(function () {
+			requirejs.config({
+				config: {
+					moment: {
+						noGlobal: true
+					}
+				},
+				paths: {
+					assets: '../assets',
+					bootstrap: '../assets/vendor/bootstrap/dist/js/bootstrap',
+					fuelux: '../assets/vendor/fuelux/dist/js/fuelux',
+					jquery: '../assets/vendor/jquery-1.11.0/dist/jquery',
+					moment: '../assets/vendor/moment-with-langs/index', // comment out if you dont want momentjs to be default
+					underscore: '../assets/vendor/underscore/underscore'
+				},
+				// Bootstrap is a "browser globals" script :-(
+				shim: { 'bootstrap': { deps: ['jquery'] } }
+			});
+		})();
+
+
+		require(['jquery', 'bootstrap', 'moment', 'assets/js/application'], function($){});
+	</script>
+
+	<script src="https://platform.twitter.com/widgets.js" type="text/javascript"></script>
+
+
+
+	<!-- <script src="http://localhost:35729/livereload.js"></script> -->

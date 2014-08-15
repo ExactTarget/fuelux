@@ -1,0 +1,157 @@
+.pillbox {
+	border: 1px solid #BBBBBB;
+	border-radius: 4px;
+	cursor: text;
+	padding: 3px;
+
+	&[data-readonly] {
+		border: 1px solid transparent;
+
+		&.truncate {
+			.pillbox-input-wrap {
+				display: inline-block;
+
+				&.truncated {
+					display: none;
+				}
+			}
+
+			.pillbox-more {
+				display: inline;
+			}
+		}
+
+		.pill {
+			span.glyphicon-close {
+				display: none;
+			}
+		}
+
+		.pillbox-add-item {
+			display: none;
+		}
+
+		.pillbox-input-wrap {
+			display: none;
+
+			button.dropdown-toggle {
+				display: none;
+			}
+		}
+	}
+
+	&.pills-editable {
+		.pill-group {
+			.pill {
+				span {
+					cursor: text;
+
+					&.glyphicon-close {
+						cursor: pointer;
+					}
+				}
+			}
+		}
+	}
+
+	> .pill-group {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+
+		> .pill {
+			margin: 2px;
+			cursor: default;
+			float:left;
+			word-break: break-all;
+
+			&.pillbox-highlight {
+				outline: 1px dotted @grayLight;
+			}
+
+			&.truncated {
+				display: none;
+			}
+
+			.pillbox-list-edit {
+				border: none;
+				color: @grayDark;
+				font-weight: normal;
+				border-radius: 2px;
+
+				&:focus {
+					outline: none;
+					border: none;
+				}
+			}
+
+			.glyphicon-close {
+				cursor: pointer;
+				top: -1px;
+				left: 2px;
+
+				&:before {
+					content: " \00d7";
+				}
+
+				&:hover {
+					opacity: .4;
+				}
+			}
+
+		}
+	}
+
+	.pillbox-input-wrap {
+		position: relative;
+		margin: 4px 0 3px 3px;
+		float: left;
+
+		&.editing {
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			margin: 2px 0 3px 3px;
+
+			input.pillbox-add-item {
+				border-radius: 4px;
+				color: #333;
+				height: 32px;
+			}
+		}
+	}
+
+	.pillbox-add-item {
+		border: none;
+		box-shadow: none;
+
+		&:focus {
+			outline: none;
+			border: none;
+		}
+	}
+
+	.pillbox-more {
+		cursor: pointer;
+		display: none;
+		line-height: 30px;
+	}
+
+	.suggest {
+		max-height: 166px; // arbitrary number
+		overflow-y: auto;
+
+		> li {
+			white-space: nowrap;
+			cursor: pointer;
+			padding: 3px 20px;
+
+			&.pillbox-suggest-sel {
+				background-color: @grayLighter;
+			}
+
+			&:hover {
+				background-color: @grayLighter;
+			}
+		}
+	}
+}

@@ -1,0 +1,12 @@
+{
+  "name": "moment-with-langs",
+  "_cacheHeaders": {
+    "Last-Modified": "Tue, 01 Jul 2014 16:14:57 GMT",
+    "Content-Length": "301138",
+    "Content-Type": "application/javascript; charset=utf-8"
+  },
+  "main": "index.js",
+  "_source": "http://momentjs.com/downloads/moment-with-langs.js",
+  "_target": "*",
+  "_originalSource": "http://momentjs.com/downloads/moment-with-langs.js"
+}

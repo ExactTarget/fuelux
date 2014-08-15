@@ -1,0 +1,530 @@
+<!-- repeater
+================================================== -->
+<div class="fu-docs-section">
+<h1 id="repeaters" class="page-header">Repeaters <small>repeaters.js</small></h1>
+
+<h2 id="repeaters-examples">Examples</h2>
+<p>Data viewer with paging, sorting, and searching. Can be easily extended for various renderings.</p>
+
+<div class="fu-example section">
+  <div class="repeater" data-staticheight="400" id="myRepeater">
+    <div class="repeater-header">
+      <div class="repeater-header-left">
+        <span class="repeater-title">Awesome Repeater</span>
+        <div class="repeater-search">
+          <div class="search input-group">
+            <input type="search" class="form-control" placeholder="Search"/>
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button">
+                <span class="glyphicon glyphicon-search"></span>
+                <span class="sr-only">Search</span>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="repeater-header-right">
+        <div class="btn-group selectlist repeater-filters" data-resize="auto">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <span class="selected-label">&nbsp;</span>
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Filters</span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li data-value="all" data-selected="true"><a href="#">all</a></li>
+            <li data-value="bug"><a href="#">bug</a></li>
+            <li data-value="dark"><a href="#">dark</a></li>
+            <li data-value="dragon"><a href="#">dragon</a></li>
+            <li data-value="electric"><a href="#">electric</a></li>
+            <li data-value="fairy"><a href="#">fairy</a></li>
+            <li data-value="fighting"><a href="#">fighting</a></li>
+            <li data-value="fire"><a href="#">fire</a></li>
+            <li data-value="flying"><a href="#">flying</a></li>
+            <li data-value="ghost"><a href="#">ghost</a></li>
+            <li data-value="grass"><a href="#">grass</a></li>
+            <li data-value="ground"><a href="#">ground</a></li>
+            <li data-value="ice"><a href="#">ice</a></li>
+            <li data-value="normal"><a href="#">normal</a></li>
+            <li data-value="poison"><a href="#">poison</a></li>
+            <li data-value="psychic"><a href="#">psychic</a></li>
+            <li data-value="rock"><a href="#">rock</a></li>
+            <li data-value="steel"><a href="#">steel</a></li>
+            <li data-value="water"><a href="#">water</a></li>
+          </ul>
+          <input class="hidden hidden-field" name="filterSelection" readonly="readonly" aria-hidden="true" type="text"/>
+        </div>
+        <div class="btn-group repeater-views" data-toggle="buttons">
+          <label class="btn btn-default active">
+            <input name="repeaterViews" type="radio" value="list"><span class="glyphicon glyphicon-list"></span>
+          </label>
+          <label class="btn btn-default">
+            <input name="repeaterViews" type="radio" value="thumbnail"><span class="glyphicon glyphicon-th"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="repeater-viewport">
+      <div class="repeater-canvas"></div>
+      <div class="loader repeater-loader"></div>
+    </div>
+    <div class="repeater-footer">
+      <div class="repeater-footer-left">
+        <div class="repeater-itemization">
+          <span><span class="repeater-start"></span> - <span class="repeater-end"></span> of <span class="repeater-count"></span> items</span>
+          <div class="btn-group selectlist" data-resize="auto">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              <span class="selected-label">&nbsp;</span>
+              <span class="caret"></span>
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li data-value="5"><a href="#">5</a></li>
+              <li data-value="10" data-selected="true"><a href="#">10</a></li>
+              <li data-value="20"><a href="#">20</a></li>
+              <li data-value="50" data-foo="bar" data-fizz="buzz"><a href="#">50</a></li>
+              <li data-value="100"><a href="#">100</a></li>
+            </ul>
+            <input class="hidden hidden-field" name="itemsPerPage" readonly="readonly" aria-hidden="true" type="text"/>
+          </div>
+          <span>Per Page</span>
+        </div>
+      </div>
+      <div class="repeater-footer-right">
+        <div class="repeater-pagination">
+          <button type="button" class="btn btn-default btn-sm repeater-prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous Page</span>
+          </button>
+          <label class="page-label" id="myPageLabel">Page</label>
+          <div class="repeater-primaryPaging active">
+            <div class="input-group input-append dropdown combobox">
+              <input type="text" class="form-control" aria-labelledby="myPageLabel">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right"></ul>
+              </div>
+            </div>
+          </div>
+          <input type="text" class="form-control repeater-secondaryPaging" aria-labelledby="myPageLabel">
+          <span>of <span class="repeater-pages"></span></span>
+          <button type="button" class="btn btn-default btn-sm repeater-next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next Page</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2 id="repeaters-usage">Usage</h2>
+<p>Initialize the repeater via JavaScript and use a dataSource to function properly.</p>
+
+<p>Initialize the repeater via JavaScript:</p>
+{% highlight js %}$('#myRepeater').repeater();{% endhighlight %}
+
+<h3>Markup</h3>
+<p>Use the following markup to setup the repeater:</p>
+<div class="truncate-highlight">
+{% highlight html %}
+<div class="repeater" id="myRepeater">
+  <div class="repeater-header">
+    <div class="repeater-header-left">
+      <span class="repeater-title">Awesome Repeater</span>
+      <div class="repeater-search">
+        <div class="search input-group">
+          <input type="search" class="form-control" placeholder="Search"/>
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">
+              <span class="glyphicon glyphicon-search"></span>
+              <span class="sr-only">Search</span>
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="repeater-header-right">
+      <div class="btn-group selectlist repeater-filters" data-resize="auto">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          <span class="selected-label">&nbsp;</span>
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Filters</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li data-value="all" data-selected="true"><a href="#">all</a></li>
+          <li data-value="some"><a href="#">some</a></li>
+          <li data-value="others"><a href="#">others</a></li>
+        </ul>
+        <input class="hidden hidden-field" name="filterSelection" readonly="readonly" aria-hidden="true" type="text"/>
+      </div>
+      <div class="btn-group repeater-views" data-toggle="buttons">
+        <label class="btn btn-default active">
+          <input name="repeaterViews" type="radio" value="list"><span class="glyphicon glyphicon-list"></span>
+        </label>
+        <label class="btn btn-default">
+          <input name="repeaterViews" type="radio" value="thumbnail"><span class="glyphicon glyphicon-th"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="repeater-viewport">
+    <div class="repeater-canvas"></div>
+    <div class="loader repeater-loader"></div>
+  </div>
+  <div class="repeater-footer">
+    <div class="repeater-footer-left">
+      <div class="repeater-itemization">
+        <span><span class="repeater-start"></span> - <span class="repeater-end"></span> of <span class="repeater-count"></span> items</span>
+        <div class="btn-group selectlist" data-resize="auto">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <span class="selected-label">&nbsp;</span>
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li data-value="5"><a href="#">5</a></li>
+            <li data-value="10" data-selected="true"><a href="#">10</a></li>
+            <li data-value="20"><a href="#">20</a></li>
+            <li data-value="50" data-foo="bar" data-fizz="buzz"><a href="#">50</a></li>
+            <li data-value="100"><a href="#">100</a></li>
+          </ul>
+          <input class="hidden hidden-field" name="itemsPerPage" readonly="readonly" aria-hidden="true" type="text"/>
+        </div>
+        <span>Per Page</span>
+      </div>
+    </div>
+    <div class="repeater-footer-right">
+      <div class="repeater-pagination">
+        <button type="button" class="btn btn-default btn-sm repeater-prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+          <span class="sr-only">Previous Page</span>
+        </button>
+        <label class="page-label" id="myPageLabel">Page</label>
+        <div class="repeater-primaryPaging active">
+          <div class="input-group input-append dropdown combobox">
+            <input type="text" class="form-control" aria-labelledby="myPageLabel">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-right"></ul>
+            </div>
+          </div>
+        </div>
+        <input type="text" class="form-control repeater-secondaryPaging" aria-labelledby="myPageLabel">
+        <span>of <span class="repeater-pages"></span></span>
+        <button type="button" class="btn btn-default btn-sm repeater-next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+          <span class="sr-only">Next Page</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endhighlight %}
+</div>
+
+<h3>Via data attributes</h3>
+<p>Add <code>data-staticheight="true"</code> to the repeater element to enable the staticHeight option, which
+  will constrain the repeater to a set height dictated by CSS styles with scrollable data. If set to a number instead
+  (ex: <code>data-staticheight="400"</code>), the height will use that value in pixels. You can also set this option via
+  JavaScript on initialization.
+</p>
+
+<h3>Options</h3>
+<p>Pass options via JavaScript upon initialization.</p>
+<div class="table-responsive">
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th style="width: 100px;">Name</th>
+      <th style="width: 100px;">type</th>
+      <th style="width: 50px;">default</th>
+      <th>description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>dataSource</td>
+      <td>function</td>
+      <td>empty function</td>
+      <td>Use this function to provide paging information and data for the repeater. Call this function prior
+        to rendering the current view, passing a <code>options</code> object and <code>callback</code>
+        function. Run the callback function once you gather the appropriate information to complete
+        the rendering. Review more details on using <a href="#repeaters-dataSource">dataSource</a> below.</td>
+    </tr>
+    <tr>
+      <td>defaultView</td>
+      <td>string or number</td>
+      <td>-1</td>
+      <td>Specifies the initial view the repeater will render (usually a string value equivalent
+        to the desired repeater view extension). If set to <code>-1</code>, the repeater will check the
+        <code>.repeater-views</code> button group for an <code>.active</code> class, using its input
+        value as the defaultView setting.</td>
+    </tr>
+    <tr>
+      <td>dropPagingCap</td>
+      <td>number</td>
+      <td>10</td>
+      <td>Specifies the number of items allowed within the <code>.repeater-primaryPaging</code> drop-down menu.
+        If the number of pages exceeds this amount, the code will use the <code>.repeater-secondaryPaging</code> input.</td>
+    </tr>
+    <tr>
+      <td>staticHeight</td>
+      <td>boolean or number</td>
+      <td>-1</td>
+      <td>Dictates whether the repeater uses a set height with scrollable data. If set to <code>true</code>
+        the height will use the CSS styles applied to the repeater element. If set to a positive
+        <code>number</code>, the code will apply that value as the height in pixels. If set to <code>-1</code>,
+        the repeater will check for the <code>data-staticheight</code> attribute and use its value if
+        present.
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div><!-- ./fu-table-responsive -->
+
+<h3>Methods</h3>
+<h4>$().repeater();</h4>
+Attaches repeater to the repeater markup
+
+<h4>.repeater('clear');</h4>
+<p>Clears the repeater of current data. Accepts an <i>optional</i> <code>options</code> object as an argument, with
+  the attributes listed in the table below.</p>
+{% highlight js %}$('#myRepeater').repeater('clear');{% endhighlight %}
+
+<div class="table-responsive">
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th style="width: 150px;">Attribute</th>
+        <th>type</th>
+        <th>description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>clearInfinite</td>
+        <td>boolean</td>
+        <td>If infinite scrolling is enabled, setting this to <code>true</code> will force a <code>preserve</code>
+          clear if <code>preserve</code> also equals <code>true</code>. Defaults to <code>false</code>.</td>
+      </tr>
+      <tr>
+        <td>preserve</td>
+        <td>boolean</td>
+        <td>If set to <code>true</code>, this function will scan the repeater for any items with the <code>data-preserve</code> attribute instead of emptying the repeater of data. This function will preserve those items while removing all other items. Defaults to <code>false</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+</div><!-- ./fu-table-responsive -->
+
+<h4>.repeater('destroy')</h4>
+<p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
+{% highlight js %}$('#myRepeater').repeater('destroy');{% endhighlight %}
+
+<h4>.repeater('infiniteScrolling');</h4>
+<p>Enables or disabled infinite scrolling within the repeater. Used primarily by view extensions. Possible arguments inlcude the following:
+</p>
+{% highlight js %}$('#myRepeater').repeater('infiniteScrolling');{% endhighlight %}
+
+<div class="table-responsive">
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th style="width: 150px;">Argument</th>
+        <th>type</th>
+        <th>description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>enable</td>
+        <td>boolean</td>
+        <td>If set to <code>true</code>, this function will enable infinite scrolling. Defaults to <code>false</code>.</td>
+      </tr>
+      <tr>
+        <td>options</td>
+        <td>object</td>
+        <td><i>Optional.</i> Specifies the desired infinite scrolling settings. View the infinite scrolling
+          control documentation for more details on available features. Your code will ignore the dataSource option on this
+          object in favor of the <code>dataSource</code> on the repeater.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div><!-- ./fu-table-responsive -->
+
+<h4>.repeater('render');</h4>
+<p>Calls the <a href="#repeaters-dataSource">dataSource</a> and renders the repeater data. Accepts an <i>optional</i> <code>options</code> object as an argument (using the attributes listed in the table below):
+</p>
+{% highlight js %}$('#myRepeater').repeater('render');{% endhighlight %}
+
+<div class="table-responsive">
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th style="width: 150px;">Attribute</th>
+        <th>type</th>
+        <th>description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>changeView</td>
+        <td>string</td>
+        <td>If set to a string value, this attribute will change the current repeater view to be rendered. Defaults to
+          <code>undefined</code>.</td>
+      </tr>
+      <tr>
+        <td>clearInfinite</td>
+        <td>boolean</td>
+        <td>Passed to the <code>clear</code> method - see above for description.</td>
+      </tr>
+      <tr>
+        <td>pageIncrement</td>
+        <td>number or null</td>
+        <td>Use a number value to determine the amount by which the current page will increment or decrement. If
+          <code>null</code> the current page will reset to 0.
+        </td>
+      </tr>
+      <tr>
+        <td>preserve</td>
+        <td>boolean</td>
+        <td>Passed to the <code>clear</code> method - see above for description.</td>
+      </tr>
+    </tbody>
+  </table>
+</div><!-- ./fu-table-responsive -->
+
+<h4>.repeater('resize');</h4>
+<p>Resizes the repeater based on staticHeight presence and value</p>
+{% highlight js %}$('#myRepeater').repeater('resize');{% endhighlight %}
+
+<h3 id="repeaters-dataSource">Data Source</h3>
+<p>Call the <code>dataSource</code> function prior to rendering data for the current view. Receives an
+  <code>options</code> object and <code>callback</code> function as arguments. The <code>options</code> object
+  provides context for which data should return. Use the <code>callback</code> to continue onward
+  with rendering.
+</p>
+
+<p>The options object can vary in content depending on the view extension used. Many objects share
+  these common attributes in <code>options</code> object format:</p>
+<div class="table-responsive">
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th style="width: 100px;">Attribute</th>
+        <th style="width: 100px;">type</th>
+        <th>description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>filter</td>
+        <td>object</td>
+        <td>Provides context for the selected <code>.repeater-filters</code> drop-down item representing data
+          filtering. The object contains a <code>text</code> attribute for the displayed text and
+          a <code>value</code> attribute for the value of the selected item.
+        </td>
+      </tr>
+      <tr>
+        <td>pageIndex</td>
+        <td>number</td>
+        <td>Represents the current page of data</td>
+      </tr>
+      <tr>
+        <td>pageSize</td>
+        <td>number</td>
+        <td>Provides context for the selected <code>.repeater-itemization</code> dropdown item value, representing
+          number of data items to be displayed</td>
+      </tr>
+      <tr>
+        <td>search</td>
+        <td>string</td>
+        <td>Provides context for the entered <code>.repeater-search</code> search box, representing the desired
+          user search value. Only present if the object includes a search value.
+        </td>
+      </tr>
+      <tr>
+        <td>view</td>
+        <td>string</td>
+        <td>Provides context for the selected <code>.repeater-views</code> button group item, representing
+          the current view. Used to determine view-specific return data.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div><!-- ./fu-table-responsive -->
+
+<p>The <code>dataSource's callback</code> function should run after gathering the desired data for rendering. This function requires the code to pass a
+  <code>data</code> object as an argument. Contents of the object will vary depending on the view
+  extension  used. The attributes below include common expected attributes:</p>
+<div class="table-responsive">
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th style="width: 100px;">Attribute</th>
+        <th style="width: 100px;">type</th>
+        <th>description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>count</td>
+        <td>number</td>
+        <td>Provides the number of returned in the data to the repeater. Use this value as the text value for the
+          <code>.repeater-count</code> element.
+        </td>
+      </tr>
+      <tr>
+        <td>end</td>
+        <td>number</td>
+        <td>Provides the end index of current displayed data items to the repeater. Use this value as the text value for the
+          <code>.repeater-end</code> element.
+        </td>
+      </tr>
+      <tr>
+        <td>page</td>
+        <td>number</td>
+        <td>Sets the current repeater page. Also shown in the <code>.repeater-primaryPaging</code> or
+          <code>.repeater-secondaryPaging</code> element.
+        </td>
+      </tr>
+      <tr>
+        <td>pages</td>
+        <td>number</td>
+        <td>Provides the number of available pages of data to the repeater. Use this value as the text value for the <code>.repeater-pages</code>
+          element.
+        </td>
+      </tr>
+      <tr>
+        <td>start</td>
+        <td>number</td>
+        <td>Provides the starting index of current displayed data items to the repeater. Use this value as the text value for the
+          <code>.repeater-start</code> element.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div><!-- ./fu-table-responsive -->
+
+<h3 id="repeaters-dependencies">Fuel UX Dependencies</h3>
+<ul>
+  <li><a href="#comboboxes">Combobox</a></li>
+  <li><a href="#infinite-scrolling">Infinite Scroll</a> <i>(optional)</i></li>
+  <li><a href="#search">Search</a></li>
+  <li><a href="#selectlist">Selectlist</a></li>
+</ul>
+
+<h3 id="repeaters-extensions">Repeater Extensions</h3>
+<p>The repeater uses a view framework that allows for extensions to represent data in different ways. By default,
+  Fuel UX comes with two repeater view extensions (list and thumbnail). Each extension provides additional options and requires
+  different return data from the <a href="#repeaters-dataSource">dataSource</a> to render appropriately. For
+  information on using these extensions, visit the <a href="../../extensions.html">extensions page</a>. You can learn how to write your own repeater
+  extension here.
+</p>
+</div>

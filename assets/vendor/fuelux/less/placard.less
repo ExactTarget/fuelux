@@ -1,0 +1,110 @@
+.placard {
+	display: inline-block;
+	position: relative;
+
+	&[data-ellipsis="true"] {
+		&.showing {
+			input.placard-field {
+				overflow: visible;
+				text-overflow: clip;
+				white-space: normal;
+			}
+		}
+
+		input.placard-field {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		textarea.placard-field {
+			&[readonly] {
+				overflow: hidden;
+			}
+		}
+	}
+
+	&.showing {
+		.placard-footer,
+		.placard-header,
+		.placard-popup {
+			display: block;
+			z-index: 1;
+		}
+
+		input.placard-field, textarea.placard-field {
+			background: #fff;
+			border: 1px solid #CCCCCC;
+			box-shadow: none;
+			position: relative;
+			z-index: 1;
+		}
+	}
+
+	input.placard-field, textarea.placard-field {
+		resize: none;
+
+		&[readonly] {
+			background: #fff;
+			cursor: auto;
+
+			&.glass {
+				background: none;
+
+				&:hover {
+					background: #d9edf7;
+					cursor: pointer;
+				}
+			}
+		}
+
+		&:focus {
+			border: 1px solid #CCCCCC;
+			box-shadow: none;
+		}
+	}
+
+	&-cancel {
+		font-size: 12px;
+		margin-right: 4px;
+		vertical-align: middle;
+	}
+
+	&-footer,
+	&-header {
+		display: none;
+		left: 0;
+		line-height: 1;
+		position: absolute;
+		right: 0;
+	}
+
+	&-footer {
+		padding: 4px 0 8px 0;
+		text-align: right;
+		top: 100%;
+	}
+
+	&-header {
+		bottom: 100%;
+		padding: 8px 0 4px 0;
+
+		h1, h2, h3, h4, h5, h6 {
+			margin: 0;
+		}
+	}
+
+	&-popup {
+		background: #d9edf7;
+		background-clip: padding-box;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		bottom: -8px;
+		box-shadow: 0 0 0 1px #fff inset;
+		display: none;
+		left: -8px;
+		position: absolute;
+		right: -8px;
+		top: -8px;
+	}
+}

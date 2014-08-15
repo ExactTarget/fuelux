@@ -1,0 +1,59 @@
+.loader {
+    height: 64px;
+    font-size: 64px;
+    position: relative;
+    width: 64px;
+
+	&:after, &:before {
+		.iconBaseStyles();
+
+		bottom: 0;
+		display: block;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+
+	&:before {
+		content: '\e000';
+		opacity: 0.33;
+	}
+
+	&.iefix:before{
+		color: #bcbcbc;
+		opacity: 1;
+	}
+
+	&[data-frame="1"]:after {
+		content: '\e001';
+	}
+
+	&[data-frame="2"]:after {
+		content: '\e002';
+	}
+
+	&[data-frame="3"]:after {
+		content: '\e003';
+	}
+
+	&[data-frame="4"]:after {
+		content: '\e004';
+	}
+
+	&[data-frame="5"]:after {
+		content: '\e005';
+	}
+
+	&[data-frame="6"]:after {
+		content: '\e006';
+	}
+
+	&[data-frame="7"]:after {
+		content: '\e007';
+	}
+
+	&[data-frame="8"]:after {
+		content: '\e008';
+	}
+}

@@ -1,0 +1,27 @@
+# Server
+#destination:      ./_gh_pages
+exclude:          [".editorconfig", ".gitignore", "bower.json", "composer.json", "CONTRIBUTING.md", "CNAME", "LICENSE", "Gruntfile.js", "package.json", "node_modules", "README.md", "less", 'config.ru', 'Gemfile', 'Gemfile.lock', 'bundle']
+#port:             9001
+
+# Custom vars
+current_version:  3.0.0
+repo:             https://github.com/ExactTarget/fuelux
+
+download:
+  source:         https://github.com/ExactTarget/fuelux/archive/3.0.0.zip
+  dist:           https://github.com/ExactTarget/fuelux/raw/master/dist/fuelux.zip
+
+blog:             http://code.exacttarget.com
+
+cdn:
+  css:            //www.fuelcdn.com/fuelux/3.0.0/css/fuelux.min.css
+  js:             //www.fuelcdn.com/fuelux/3.0.0/js/fuelux.min.js
+  zip:            //www.fuelcdn.com/fuelux/3.0.0/fuelux.zip
+
+bootstrap:
+  css:            //maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css
+  js:             //maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js
+  js_amd:         //maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min
+
+ # To view gh-pages locally
+# bundle exec jekyll serve

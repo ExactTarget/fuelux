@@ -1,0 +1,65 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: "fuelux";
+	src:url("@{fueluxFontPath}fuelux.eot");
+	src:url("@{fueluxFontPath}fuelux.eot?#iefix") format("embedded-opentype"),
+	url("@{fueluxFontPath}fuelux.woff") format("woff"),
+	url("@{fueluxFontPath}fuelux.ttf") format("truetype"),
+	url("@{fueluxFontPath}fuelux.svg#fuelux") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+
+//This could be an interesting addition...
+//[data-icon]:before {
+//	.iconBaseStyles();
+//	content: attr(data-icon);
+//}
+
+[class^="fueluxicon-"]:before,
+[class*=" fueluxicon-"]:before {
+	.iconBaseStyles();
+}
+
+.fueluxicon-loader-full:before {
+	content: "\e000";
+}
+
+.fueluxicon-loader-1:before {
+	content: "\e001";
+}
+
+.fueluxicon-loader-2:before {
+	content: "\e002";
+}
+
+.fueluxicon-loader-3:before {
+	content: "\e003";
+}
+
+.fueluxicon-loader-4:before {
+	content: "\e004";
+}
+
+.fueluxicon-loader-5:before {
+	content: "\e005";
+}
+
+.fueluxicon-loader-6:before {
+	content: "\e006";
+}
+
+.fueluxicon-loader-7:before {
+	content: "\e007";
+}
+
+.fueluxicon-loader-8:before {
+	content: "\e008";
+}
+
+//tree
+
+.fueluxicon-bullet:before {
+  content: "\e009";
+}

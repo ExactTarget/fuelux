@@ -1,0 +1,13 @@
+//Checked when initialized:
+- add 'checked' class to input
+- add 'checked="checked"' attribute to input
+
+//Disabled when initialized:
+- add 'disabled="disabled"' attribute to input
+
+//Toggling checkboxes:
+- add 'data-toggle="{{selector}}"' attribute to input. This will toggle the matching selector's visibility on check / uncheck
+    (ex: 'data-toggle="#myTogglingBox"')
+
+//Highlighting checkboxes:
+- add 'highlight' class to block wrapper or input for inline. This will highlight the checkbox on check / uncheck.

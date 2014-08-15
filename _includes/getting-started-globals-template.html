@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FuelUX Basic Template (Globals)</title>
+    <!-- CSS -->
+    <link href="{{site.bootstrap.css}}" rel="stylesheet">
+    <link href="{{site.cdn.css}}" rel="stylesheet">
+  </head>
+  <body class="fuelux">
+    <!-- Checkbox example -->
+    <div class="checkbox">
+      <label class="checkbox-custom" data-initialize="checkbox">
+        <input class="sr-only" data-toggle="#hereKittyKitty" type="checkbox" value="option1">
+        <span class="checkbox-label">I love kittens!</span>
+      </label>
+    </div>
+    <div id="hereKittyKitty" class="alert bg-info">Great. Meow, too!</div>
+
+    <!-- jQuery -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{site.bootstrap.js}}"></script>
+    <script src="{{site.cdn.js}}"></script>
+  </body>
+</html>
