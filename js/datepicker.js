@@ -329,7 +329,7 @@
 			if(topPercentage<5) {
 				start = parseInt($yearUl.find('li:first').attr('data-year'), 10);
 				for (i=(start-1); i >(start-11); i--) {
-					$yearUl.prepend('<li data-year="' + i + '"><button>' + i + '</button></li>');
+					$yearUl.prepend('<li data-year="' + i + '"><button type="button">' + i + '</button></li>');
 				}
 				this.artificialScrolling = true;
 				$yearUl.scrollTop(($yearUl.get(0).scrollHeight-scrollHeight) + scrollTop);
@@ -337,7 +337,7 @@
 			}else if(bottomPercentage>90){
 				start = parseInt($yearUl.find('li:last').attr('data-year'), 10);
 				for(i=(start+1); i<(start+11); i++){
-					$yearUl.append('<li data-year="' + i + '"><button>' + i + '</button></li>');
+					$yearUl.append('<li data-year="' + i + '"><button type="button">' + i + '</button></li>');
 				}
 			}
 		},
@@ -450,7 +450,7 @@
 			for(i=0; i<rows; i++){
 				$tr = $('<tr></tr>');
 				for(j=0; j<7; j++){
-					$td = $('<td><span><button class="datepicker-date">' + curDate + '</button></span></td>');
+					$td = $('<td><span><button type="button" class="datepicker-date">' + curDate + '</button></span></td>');
 					if(stage===-1){
 						$td.addClass('last-month');
 					}else if(stage===1){
@@ -521,7 +521,7 @@
 
 			$yearUl.empty();
 			for(i=(year-10); i<(year+11); i++){
-				$yearUl.append('<li data-year="' + i + '"><button>' + i + '</button></li>');
+				$yearUl.append('<li data-year="' + i + '"><button type="button">' + i + '</button></li>');
 			}
 			$yearSelected = $yearUl.find('li[data-year="' + year + '"]');
 			$yearSelected.addClass('selected');
