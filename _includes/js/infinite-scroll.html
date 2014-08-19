@@ -20,8 +20,9 @@
 $('#myInfiniteScroll').infinitescroll({
   //dataSource is required to append additional content
   dataSource: function(helpers, callback){
-  //passing back more content
-  callback({ content: '...' });
+    //passing back more content
+    callback({ content: '...' });
+  }
 });
 {% endhighlight %}
 
