@@ -1,5 +1,4 @@
-(function () {
-/**
+(function () {/**
  * almond 0.1.4 Copyright (c) 2011, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
  * see: http://github.com/jrburke/almond for details
@@ -6603,4 +6602,5 @@ define('moment', [], function () {});
 
 define('fuelux/loader', ['fuelux/all'], function () {});
 
-require('fuelux/loader');}());
+require('fuelux/loader');
+}());
