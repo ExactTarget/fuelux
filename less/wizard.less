@@ -10,7 +10,7 @@
 	min-height: 48px;
 	overflow: hidden;
 
-	.steps {
+	> .steps {
 		list-style: none outside none;
 		padding: 0;
 		margin: 0;
@@ -114,7 +114,7 @@
 		}
 	}
 
-	.actions {
+	> .actions {
 		z-index: 1000;
 		position: absolute;
 		right: 0;
@@ -163,7 +163,7 @@
 			display: none;
 		}
 
-		.active {
+		> .active {
 			display: block;
 
 			.btn-group {
@@ -176,11 +176,11 @@
 
 	// when complete
 	&.complete {
-			.actions .glyphicon-arrow-right:before {
-				display: none;
-			}
-			.actions .glyphicon-arrow-right {
-				margin-left: 0;
-			}
+		> .actions .glyphicon-arrow-right:before {
+			display: none;
 		}
+		> .actions .glyphicon-arrow-right {
+			margin-left: 0;
+		}
+	}
 }
