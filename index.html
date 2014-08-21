@@ -61,6 +61,8 @@
 
 <body>
 
+	<form action="#">
+
 	<div class="container">
 
 		<div class="section clearfix">
@@ -238,9 +240,9 @@
 									<div class="dropdown-menu dropdown-menu-right datepicker-calendar-wrapper" role="menu">
 										<div class="datepicker-calendar">
 											<div class="datepicker-calendar-header">
-												<button class="prev"><span class="glyphicon glyphicon-chevron-left"></span><span class="sr-only">Previous Month</span></button>
-												<button class="next"><span class="glyphicon glyphicon-chevron-right"></span><span class="sr-only">Next Month</span></button>
-												<button class="title">
+												<button type="button" class="prev"><span class="glyphicon glyphicon-chevron-left"></span><span class="sr-only">Previous Month</span></button>
+												<button type="button" class="next"><span class="glyphicon glyphicon-chevron-right"></span><span class="sr-only">Next Month</span></button>
+												<button type="button" class="title">
 														<span class="month">
 															<span data-month="0">January</span>
 															<span data-month="1">February</span>
@@ -272,25 +274,25 @@
 												<tbody></tbody>
 											</table>
 											<div class="datepicker-calendar-footer">
-												<button class="datepicker-today">Today</button>
+												<button type="button" class="datepicker-today">Today</button>
 											</div>
 										</div>
 										<div class="datepicker-wheels" aria-hidden="true">
 											<div class="datepicker-wheels-month">
 												<h2 class="header">Month</h2>
 												<ul>
-													<li data-month="0"><button>Jan</button></li>
-													<li data-month="1"><button>Feb</button></li>
-													<li data-month="2"><button>Mar</button></li>
-													<li data-month="3"><button>Apr</button></li>
-													<li data-month="4"><button>May</button></li>
-													<li data-month="5"><button>Jun</button></li>
-													<li data-month="6"><button>Jul</button></li>
-													<li data-month="7"><button>Aug</button></li>
-													<li data-month="8"><button>Sep</button></li>
-													<li data-month="9"><button>Oct</button></li>
-													<li data-month="10"><button>Nov</button></li>
-													<li data-month="11"><button>Dec</button></li>
+													<li data-month="0"><button type="button">Jan</button></li>
+													<li data-month="1"><button type="button">Feb</button></li>
+													<li data-month="2"><button type="button">Mar</button></li>
+													<li data-month="3"><button type="button">Apr</button></li>
+													<li data-month="4"><button type="button">May</button></li>
+													<li data-month="5"><button type="button">Jun</button></li>
+													<li data-month="6"><button type="button">Jul</button></li>
+													<li data-month="7"><button type="button">Aug</button></li>
+													<li data-month="8"><button type="button">Sep</button></li>
+													<li data-month="9"><button type="button">Oct</button></li>
+													<li data-month="10"><button type="button">Nov</button></li>
+													<li data-month="11"><button type="button">Dec</button></li>
 												</ul>
 											</div>
 											<div class="datepicker-wheels-year">
@@ -298,7 +300,7 @@
 												<ul></ul>
 											</div>
 											<div class="datepicker-wheels-footer clearfix">
-												<button class="btn datepicker-wheels-back"><span class="glyphicon glyphicon-arrow-left"></span><span class="sr-only">Return to Calendar</span></button>
+												<button type="button" class="btn datepicker-wheels-back"><span class="glyphicon glyphicon-arrow-left"></span><span class="sr-only">Return to Calendar</span></button>
 												<button type="button" class="btn datepicker-wheels-select">Select <span class="sr-only">Month and Year</span></button>
 											</div>
 										</div>
@@ -315,12 +317,12 @@
 			<br/>
 			<h5>Sample Methods</h5>
 			<div class="btn-group">
-				<button class="btn btn-default" id="btnDatepickerEnable">enable</button>
-				<button class="btn btn-default" id="btnDatepickerDisable">disable</button>
-				<button class="btn btn-default" id="btnDatepickerLogFormattedDate">log formatted date</button>
-				<button class="btn btn-default" id="btnDatepickerLogDateObj">log date object</button>
-				<button class="btn btn-default" id="btnDatepickerSetDate">set date 7 days ahead (will log new value)</button>
-				<button class="btn btn-default" id="btnDatepickerDestroy">destroy and append</button>
+				<button type="button" class="btn btn-default" id="btnDatepickerEnable">enable</button>
+				<button type="button" class="btn btn-default" id="btnDatepickerDisable">disable</button>
+				<button type="button" class="btn btn-default" id="btnDatepickerLogFormattedDate">log formatted date</button>
+				<button type="button" class="btn btn-default" id="btnDatepickerLogDateObj">log date object</button>
+				<button type="button" class="btn btn-default" id="btnDatepickerSetDate">set date 7 days ahead (will log new value)</button>
+				<button type="button" class="btn btn-default" id="btnDatepickerDestroy">destroy and append</button>
 			</div>
 			<hr/>
 
@@ -353,9 +355,9 @@
 				<br/>
 				<h5>Sample Methods</h5>
 				<div class="btn-group">
-					<button class="btn btn-default" id="btnInfiniteScrollEnable">enable</button>
-					<button class="btn btn-default" id="btnInfiniteScrollDisable">disable</button>
-					<button class="btn btn-default" id="btnInfiniteScrollDestroy">destroy and append</button>
+					<button type="button" class="btn btn-default" id="btnInfiniteScrollEnable">enable</button>
+					<button type="button" class="btn btn-default" id="btnInfiniteScrollDisable">disable</button>
+					<button type="button" class="btn btn-default" id="btnInfiniteScrollDestroy">destroy and append</button>
 				</div>
 				<hr/>
 			</div>
@@ -375,11 +377,11 @@
 				<br/>
 				<h5>Sample Methods</h5>
 				<div class="btn-group">
-					<button class="btn btn-default" id="btnLoaderPlay">play</button>
-					<button class="btn btn-default" id="btnLoaderPause">pause</button>
-					<button class="btn btn-default" id="btnLoaderNext">next</button>
-					<button class="btn btn-default" id="btnLoaderPrevious">previous</button>
-					<button class="btn btn-default" id="btnLoaderDestroy">destroy and append</button>
+					<button type="button" class="btn btn-default" id="btnLoaderPlay">play</button>
+					<button type="button" class="btn btn-default" id="btnLoaderPause">pause</button>
+					<button type="button" class="btn btn-default" id="btnLoaderNext">next</button>
+					<button type="button" class="btn btn-default" id="btnLoaderPrevious">previous</button>
+					<button type="button" class="btn btn-default" id="btnLoaderDestroy">destroy and append</button>
 				</div>
 				<hr/>
 			</div>
@@ -502,14 +504,14 @@
 			<br/>
 			<h5>Sample Methods</h5>
 			<div class="btn-group">
-				<button class="btn btn-default" id="btnPillboxEnable">enable</button>
-				<button class="btn btn-default" id="btnPillboxDisable">disable</button>
-				<button class="btn btn-default" id="btnPillboxAdd">add</button>
-				<button class="btn btn-default" id="btnPillboxRemoveByValue">remove by value</button>
-				<button class="btn btn-default" id="btnPillboxRemoveBySelector">remove by selector</button>
-				<button class="btn btn-default" id="btnPillboxRemoveByText">remove by text</button>
-				<button class="btn btn-default" id="btnPillboxItems">log items to console</button>
-				<button class="btn btn-default" id="btnPillboxDestroy">destroy and append</button>
+				<button type="button" class="btn btn-default" id="btnPillboxEnable">enable</button>
+				<button type="button" class="btn btn-default" id="btnPillboxDisable">disable</button>
+				<button type="button" class="btn btn-default" id="btnPillboxAdd">add</button>
+				<button type="button" class="btn btn-default" id="btnPillboxRemoveByValue">remove by value</button>
+				<button type="button" class="btn btn-default" id="btnPillboxRemoveBySelector">remove by selector</button>
+				<button type="button" class="btn btn-default" id="btnPillboxRemoveByText">remove by text</button>
+				<button type="button" class="btn btn-default" id="btnPillboxItems">log items to console</button>
+				<button type="button" class="btn btn-default" id="btnPillboxDestroy">destroy and append</button>
 			</div>
 			<hr/>
 
@@ -553,9 +555,9 @@
 			<br/>
 			<h5>Sample Methods</h5>
 			<div class="btn-group">
-				<button class="btn btn-default" id="btnPlacardEnable">enable</button>
-				<button class="btn btn-default" id="btnPlacardDisable">disable</button>
-				<button class="btn btn-default" id="btnPlacardDestroy">destroy and append</button>
+				<button type="button" class="btn btn-default" id="btnPlacardEnable">enable</button>
+				<button type="button" class="btn btn-default" id="btnPlacardDisable">disable</button>
+				<button type="button" class="btn btn-default" id="btnPlacardDestroy">destroy and append</button>
 			</div>
 			<hr/>
 
@@ -778,7 +780,7 @@
 
 							<div class="datepicker start-date">
 								<div class="input-group">
-									<input class="form-control" type="text"/>
+									<input id="MyStartDate" class="form-control" type="text"/>
 									<div class="input-group-btn">
 										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 											<span class="glyphicon glyphicon-calendar"></span>
@@ -787,9 +789,9 @@
 										<div class="dropdown-menu dropdown-menu-right datepicker-calendar-wrapper" role="menu">
 											<div class="datepicker-calendar">
 												<div class="datepicker-calendar-header">
-													<button class="prev"><span class="glyphicon glyphicon-chevron-left"></span><span class="sr-only">Previous Month</span></button>
-													<button class="next"><span class="glyphicon glyphicon-chevron-right"></span><span class="sr-only">Next Month</span></button>
-													<button class="title">
+													<button type="button" class="prev"><span class="glyphicon glyphicon-chevron-left"></span><span class="sr-only">Previous Month</span></button>
+													<button type="button" class="next"><span class="glyphicon glyphicon-chevron-right"></span><span class="sr-only">Next Month</span></button>
+													<button type="button" class="title">
 														<span class="month">
 															<span data-month="0">January</span>
 															<span data-month="1">February</span>
@@ -821,25 +823,25 @@
 													<tbody></tbody>
 												</table>
 												<div class="datepicker-calendar-footer">
-													<button class="datepicker-today">Today</button>
+													<button type="button" class="datepicker-today">Today</button>
 												</div>
 											</div>
 											<div class="datepicker-wheels" aria-hidden="true">
 												<div class="datepicker-wheels-month">
 													<h2 class="header">Month</h2>
 													<ul>
-														<li data-month="0"><button>Jan</button></li>
-														<li data-month="1"><button>Feb</button></li>
-														<li data-month="2"><button>Mar</button></li>
-														<li data-month="3"><button>Apr</button></li>
-														<li data-month="4"><button>May</button></li>
-														<li data-month="5"><button>Jun</button></li>
-														<li data-month="6"><button>Jul</button></li>
-														<li data-month="7"><button>Aug</button></li>
-														<li data-month="8"><button>Sep</button></li>
-														<li data-month="9"><button>Oct</button></li>
-														<li data-month="10"><button>Nov</button></li>
-														<li data-month="11"><button>Dec</button></li>
+														<li data-month="0"><button type="button">Jan</button></li>
+														<li data-month="1"><button type="button">Feb</button></li>
+														<li data-month="2"><button type="button">Mar</button></li>
+														<li data-month="3"><button type="button">Apr</button></li>
+														<li data-month="4"><button type="button">May</button></li>
+														<li data-month="5"><button type="button">Jun</button></li>
+														<li data-month="6"><button type="button">Jul</button></li>
+														<li data-month="7"><button type="button">Aug</button></li>
+														<li data-month="8"><button type="button">Sep</button></li>
+														<li data-month="9"><button type="button">Oct</button></li>
+														<li data-month="10"><button type="button">Nov</button></li>
+														<li data-month="11"><button type="button">Dec</button></li>
 													</ul>
 												</div>
 												<div class="datepicker-wheels-year">
@@ -847,7 +849,7 @@
 													<ul></ul>
 												</div>
 												<div class="datepicker-wheels-footer clearfix">
-													<button class="btn datepicker-wheels-back"><span class="glyphicon glyphicon-arrow-left"></span><span class="sr-only">Return to Calendar</span></button>
+													<button type="button" class="btn datepicker-wheels-back"><span class="glyphicon glyphicon-arrow-left"></span><span class="sr-only">Return to Calendar</span></button>
 													<button type="button" class="btn datepicker-wheels-select">Select <span class="sr-only">Month and Year</span></button>
 												</div>
 											</div>
@@ -1389,9 +1391,9 @@
 										<div class="dropdown-menu dropdown-menu-right datepicker-calendar-wrapper" role="menu">
 											<div class="datepicker-calendar">
 												<div class="datepicker-calendar-header">
-													<button class="prev"><span class="glyphicon glyphicon-chevron-left"></span><span class="sr-only">Previous Month</span></button>
-													<button class="next"><span class="glyphicon glyphicon-chevron-right"></span><span class="sr-only">Next Month</span></button>
-													<button class="title">
+													<button type="button" class="prev"><span class="glyphicon glyphicon-chevron-left"></span><span class="sr-only">Previous Month</span></button>
+													<button type="button" class="next"><span class="glyphicon glyphicon-chevron-right"></span><span class="sr-only">Next Month</span></button>
+													<button type="button" class="title">
 														<span class="month">
 															<span data-month="0">January</span>
 															<span data-month="1">February</span>
@@ -1423,25 +1425,25 @@
 													<tbody></tbody>
 												</table>
 												<div class="datepicker-calendar-footer">
-													<button class="datepicker-today">Today</button>
+													<button type="button" class="datepicker-today">Today</button>
 												</div>
 											</div>
 											<div class="datepicker-wheels" aria-hidden="true">
 												<div class="datepicker-wheels-month">
 													<h2 class="header">Month</h2>
 													<ul>
-														<li data-month="0"><button>Jan</button></li>
-														<li data-month="1"><button>Feb</button></li>
-														<li data-month="2"><button>Mar</button></li>
-														<li data-month="3"><button>Apr</button></li>
-														<li data-month="4"><button>May</button></li>
-														<li data-month="5"><button>Jun</button></li>
-														<li data-month="6"><button>Jul</button></li>
-														<li data-month="7"><button>Aug</button></li>
-														<li data-month="8"><button>Sep</button></li>
-														<li data-month="9"><button>Oct</button></li>
-														<li data-month="10"><button>Nov</button></li>
-														<li data-month="11"><button>Dec</button></li>
+														<li data-month="0"><button type="button">Jan</button></li>
+														<li data-month="1"><button type="button">Feb</button></li>
+														<li data-month="2"><button type="button">Mar</button></li>
+														<li data-month="3"><button type="button">Apr</button></li>
+														<li data-month="4"><button type="button">May</button></li>
+														<li data-month="5"><button type="button">Jun</button></li>
+														<li data-month="6"><button type="button">Jul</button></li>
+														<li data-month="7"><button type="button">Aug</button></li>
+														<li data-month="8"><button type="button">Sep</button></li>
+														<li data-month="9"><button type="button">Oct</button></li>
+														<li data-month="10"><button type="button">Nov</button></li>
+														<li data-month="11"><button type="button">Dec</button></li>
 													</ul>
 												</div>
 												<div class="datepicker-wheels-year">
@@ -1449,7 +1451,7 @@
 													<ul></ul>
 												</div>
 												<div class="datepicker-wheels-footer clearfix">
-													<button class="btn datepicker-wheels-back"><span class="glyphicon glyphicon-arrow-left"></span><span class="sr-only">Return to Calendar</span></button>
+													<button type="button" class="btn datepicker-wheels-back"><span class="glyphicon glyphicon-arrow-left"></span><span class="sr-only">Return to Calendar</span></button>
 													<button type="button" class="btn datepicker-wheels-select">Select <span class="sr-only">Month and Year</span></button>
 												</div>
 											</div>
@@ -1468,11 +1470,11 @@
 			<br/>
 			<h5>Sample Methods</h5>
 			<div class="btn-group">
-				<button class="btn btn-default" id="btnSchedulerEnable">enable</button>
-				<button class="btn btn-default" id="btnSchedulerDisable">disable</button>
-				<button class="btn btn-default" id="btnSchedulerLogValue">log value</button>
-				<button class="btn btn-default" id="btnSchedulerSetValue">set value to the following schedule</button>
-				<button class="btn btn-default" id="btnSchedulerDestroy">destroy and append</button>
+				<button type="button" class="btn btn-default" id="btnSchedulerEnable">enable</button>
+				<button type="button" class="btn btn-default" id="btnSchedulerDisable">disable</button>
+				<button type="button" class="btn btn-default" id="btnSchedulerLogValue">log value</button>
+				<button type="button" class="btn btn-default" id="btnSchedulerSetValue">set value to the following schedule</button>
+				<button type="button" class="btn btn-default" id="btnSchedulerDestroy">destroy and append</button>
 			</div>
 			<br/>
 			<br/>
@@ -1491,9 +1493,7 @@
 		<div class="section clearfix">
 			<h2 id="search"><a href="#search">#</a>Search</h2>
 
-			<form class="search-form" role="search">
-
-				<div id="MySearch" class="search input-group" data-initialize="search">
+				<div id="MySearch" class="search input-group" role="search" data-initialize="search">
 					<input type="search" class="form-control" placeholder="Search"/>
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="button">
@@ -1502,8 +1502,6 @@
 						</button>
 					</span>
 				</div>
-
-			</form>
 
 			<br/>
 			<h5>Sample Methods</h5>
@@ -1679,7 +1677,7 @@
 						<!-- branch/folder template -->
 						<li class="tree-branch hide" data-template="treebranch" role="treeitem" aria-expanded="false">
 							<div class="tree-branch-header">
-								<button class="tree-branch-name">
+								<button type="button" class="tree-branch-name">
 									<span class="glyphicon icon-caret glyphicon-play"></span>
 									<span class="glyphicon icon-folder glyphicon-folder-close"></span>
 									<span class="tree-label"></span>
@@ -1690,7 +1688,7 @@
 						</li>
 						<!-- item template -->
 						<li class="tree-item hide" data-template="treeitem" role="treeitem">
-							<button class="tree-item-name">
+							<button type="button" class="tree-item-name">
 								<span class="glyphicon icon-item fueluxicon-bullet"></span>
 								<span class="tree-label"></span>
 							</button>
@@ -1716,8 +1714,8 @@
 						<!-- branch/folder template -->
 						<li class="tree-branch hide" data-template="treebranch" role="treeitem" aria-expanded="false">
 							<div class="tree-branch-header">
-								<button class="glyphicon icon-caret glyphicon-play"><span class="sr-only">Open</span></button>
-								<button class="tree-branch-name">
+								<button type="button" class="glyphicon icon-caret glyphicon-play"><span class="sr-only">Open</span></button>
+								<button type="button" class="tree-branch-name">
 									<span class="glyphicon icon-folder glyphicon-folder-close"></span>
 									<span class="tree-label"></span>
 								</button>
@@ -1727,7 +1725,7 @@
 						</li>
 						<!-- item template -->
 						<li class="tree-item hide" data-template="treeitem" role="treeitem">
-							<button class="tree-item-name">
+							<button type="button" class="tree-item-name">
 								<span class="glyphicon icon-item fueluxicon-bullet"></span>
 								<span class="tree-label"></span>
 							</button>
@@ -1745,14 +1743,21 @@
 						<!-- branch/folder template -->
 						<li class="tree-branch hide" data-template="treebranch" role="treeitem" aria-expanded="false">
 							<div class="tree-branch-header">
-								<button class="glyphicon icon-caret glyphicon-play"><span class="sr-only">Open</span></button>
-								<button class="tree-branch-name">
+								<button type="button" class="glyphicon icon-caret glyphicon-play"><span class="sr-only">Open</span></button>
+								<button type="button" class="tree-branch-name">
 									<span class="glyphicon icon-folder glyphicon-folder-close"></span>
 									<span class="tree-label"></span>
 								</button>
 							</div>
 							<div class="tree-branch-children"></div>
 							<div class="tree-loader" role="alert">Loading...</div>
+						</li>
+						<!-- item template -->
+						<li class="tree-item hide" data-template="treeitem" role="treeitem">
+							<button type="button" class="tree-item-name">
+								<span class="glyphicon icon-item fueluxicon-bullet"></span>
+								<span class="tree-label"></span>
+							</button>
 						</li>
 					</ul>
 
@@ -1952,6 +1957,8 @@
 		</div>
 
 	</div><!-- container -->
+
+</form>
 
 </body>
 </html>
