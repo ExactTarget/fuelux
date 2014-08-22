@@ -1,5 +1,5 @@
 /*jshint expr:true*/
-/*global module:false, process:false*/
+/*global module:false */
 module.exports = function (grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib-clean');
@@ -12,7 +12,6 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-recess');
-	grunt.loadNpmTasks('grunt-saucelabs');
 
 	// Project configuration.
 	grunt.initConfig({
@@ -44,26 +43,6 @@ module.exports = function (grunt) {
 			full: {
 				options: {
 					urls: '<%= testUrls %>'
-				}
-			}
-		},
-		'saucelabs-qunit': {
-			all: {
-				options: {
-					urls: '<%= testUrls %>',
-					concurrency: '3',
-					browsers: [
-						{ browserName: 'internet explorer', platform: 'Windows 2012', version: '10' },
-						{ browserName: 'internet explorer', platform: 'Windows 2008', version: '9' },
-						{ browserName: 'internet explorer', platform: 'Windows 2008', version: '8' },
-						{ browserName: 'firefox', platform: 'Windows 2008', version: '19' },
-						{ browserName: 'firefox', platform: 'Mac 10.6', version: '19' },
-						{ browserName: 'safari', platform: 'Mac 10.8', version: '6' },
-						{ browserName: 'chrome', platform: 'Windows 2008' },
-						{ browserName: 'chrome', platform: 'Mac 10.8' },
-						{ browserName: 'iphone', platform: 'Mac 10.8', version: '6' },
-						{ browserName: 'ipad', platform: 'Mac 10.8', version: '6' }
-					]
 				}
 			}
 		},
@@ -220,7 +199,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('devserver', ['quicktest', 'quickcss', 'connect', 'watch']);
 
 	grunt.registerTask('travisci', 'Run appropriate test strategy for Travis CI', function () {
-		(process.env['TRAVIS_SECURE_ENV_VARS'] === 'true') ? grunt.task.run('saucelabs') : grunt.task.run('fulltest');
+		grunt.task.run('fulltest');
 	});
 
 };
