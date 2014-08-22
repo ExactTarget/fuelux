@@ -1,5 +1,4 @@
-(function () {
-//Wrapped in an outer function to preserve global this
+(function () {//Wrapped in an outer function to preserve global this
 (function (root) { var amdExports; define('bootstrap/bootstrap-transition',['jquery'], function () { (function () {
 
 /* ===================================================
@@ -6247,4 +6246,5 @@ define('fuelux/all',['require','jquery','bootstrap/bootstrap-affix','bootstrap/b
 	require('fuelux/tree');
 	require('fuelux/wizard');
 });
+
 }());

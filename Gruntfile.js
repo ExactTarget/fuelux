@@ -84,6 +84,7 @@ module.exports = function (grunt) {
 				eqeqeq: true,
 				immed: true,
 				latedef: true,
+				laxcomma: true,
 				newcap: true,
 				noarg: true,
 				sub: true,
@@ -114,27 +115,28 @@ module.exports = function (grunt) {
 			combine: {
 				options: {
 					appDir: 'src',
-					baseUrl: '.',
-					dir: 'dist',
+					dir: 'dist/',
+					baseUrl: './',
 					optimize: 'none',
 					optimizeCss: 'none',
 					normalizeDirDefines: 'all',
 					wrap: true,
+					logLevel: 0,
 					paths: {
 						almond: '../lib/almond',
 						bootstrap: '../lib/bootstrap/js',
 						jquery: '../lib/jquery-1.9.1.min',
-						fuelux: '../dist'
+						fuelux: '../src/'
 					},
 					modules: [
 						{
-							name: 'fuelux/all',
-							exclude: ['jquery']
-						},
-						{
-							name: 'fuelux/loader',
-							include: ['almond', 'fuelux/all'],
-							exclude: ['jquery']
+							name: 'fuelux/all'
+							, exclude: [ 'jquery' ]
+						}
+						, {
+							name: 'fuelux/loader'
+							, exclude: [ 'jquery' ]
+							, include: [ 'almond', 'fuelux/all' ]
 						}
 					]
 				}
