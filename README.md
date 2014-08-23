@@ -62,9 +62,10 @@ All functionality is covered by the [live documentation](http://exacttarget.gith
 View [live documentation and demos](http://exacttarget.github.com/fuelux) on GitHub pages.
 
 ### Automated Testing Status
-|TravisCI|SauceLabs|Browser Support|
-|:---|:---:|:---:|----:|
-|[![Build Status](https://api.travis-ci.org/ExactTarget/fuelux.png?branch=master)](http://travis-ci.org/ExactTarget/fuelux) |[![Selenium Test Status](https://saucelabs.com/buildstatus/fuelux)](https://saucelabs.com/u/fuelux) |[![Selenium Test Status](https://saucelabs.com/browser-matrix/fuelux.svg)](https://saucelabs.com/u/fuelux)|
+|TravisCI|SauceLabs|Development Modules|Browser Support|
+|:---|:---:|:---:|----:|----:|
+|[![Build Status](https://api.travis-ci.org/ExactTarget/fuelux.png?branch=master)](http://travis-ci.org/ExactTarget/fuelux) |[![Selenium Test Status](https://saucelabs.com/buildstatus/fuelux)](https://saucelabs.com/u/fuelux) |[![devDependency Status](https://david-dm.org/ExactTarget/fuelux/dev-status.svg)](https://david-dm.org/ExactTarget/fuelux#info=devDependencies)|[![Selenium Test Status](https://saucelabs.com/browser-matrix/fuelux.svg)](https://saucelabs.com/u/fuelux)|
+
 
 ### Download
 Fuel UX can be obtained one of three ways:
