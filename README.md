@@ -1,6 +1,6 @@
 #Fuel UX
 
-Fuel UX extends [Bootstrap 3](https://github.com/twbs/bootstrap) with additional lightweight [JavaScript controls](#javascript-controls). It is actively maintained by [members of ExactTarget, a salesforce.com company,](https://github.com/orgs/ExactTarget/people) with the support and involvement of the community.
+Fuel UX extends [Bootstrap 3](https://github.com/twbs/bootstrap) with additional lightweight JavaScript controls. It is actively maintained by [members of ExactTarget, a salesforce.com company,](https://github.com/orgs/ExactTarget/people) with the support and involvement of the community.
 
 All functionality is covered by the [live documentation](http://exacttarget.github.io/fuelux/) and [unit tests](#automated-testing-status).
 
