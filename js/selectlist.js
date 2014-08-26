@@ -62,7 +62,7 @@
 			this.$selectedItem = $selectedItem = $item;
 
 			this.$hiddenField.val(this.$selectedItem.attr('data-value'));
-			this.$label.text(this.$selectedItem.text());
+			this.$label.html( $(this.$selectedItem.children()[0]).html() );
 
 			// clear and set selected item to allow declarative init state
 			// unlike other controls, selectlist's value is stored internal, not in an input
