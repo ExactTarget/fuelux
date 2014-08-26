@@ -1,5 +1,5 @@
 /*!
- * FuelUX v3.0.0 
+ * Fuel UX v3.0.0 
  * Copyright 2012-2014 ExactTarget
  * Licensed under the BSD New license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -72,7 +72,7 @@
   /* for keyboard tabbing */
 }
 .fuelux .checkbox.highlight {
-  padding: 4px 4px 4px 24px;
+  padding: 4px;
 }
 .fuelux .checkbox.highlight.checked {
   background: #e9e9e9;
@@ -786,7 +786,7 @@
   /* for keyboard tabbing */
 }
 .fuelux .radio.highlight {
-  padding: 4px 4px 4px 24px;
+  padding: 4px;
 }
 .fuelux .radio.highlight.checked {
   background: #e9e9e9;
