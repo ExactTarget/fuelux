@@ -1,5 +1,5 @@
 /*!
- * FuelUX v3.0.0
+ * Fuel UX v3.0.0
  * Copyright 2012-2014 ExactTarget
  * Licensed under the BSD New license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -15,11 +15,11 @@
 }( function( jQuery ) {
 
 	if ( typeof jQuery === 'undefined' ) {
-		throw new Error( 'FuelUX\'s JavaScript requires jQuery' )
+		throw new Error( 'Fuel UX\'s JavaScript requires jQuery' )
 	}
 
-	if ( typeof $.fn.dropdown === 'undefined' || typeof $.fn.collapse === 'undefined' ) {
-		throw new Error( 'FuelUX\'s JavaScript requires Bootstrap' )
+	if ( typeof jQuery.fn.dropdown === 'undefined' || typeof jQuery.fn.collapse === 'undefined' ) {
+		throw new Error( 'Fuel UX\'s JavaScript requires Bootstrap' )
 	}
 
 	( function( $ ) {
@@ -832,7 +832,7 @@
 				if ( topPercentage < 5 ) {
 					start = parseInt( $yearUl.find( 'li:first' ).attr( 'data-year' ), 10 );
 					for ( i = ( start - 1 ); i > ( start - 11 ); i-- ) {
-						$yearUl.prepend( '<li data-year="' + i + '"><button>' + i + '</button></li>' );
+						$yearUl.prepend( '<li data-year="' + i + '"><button type="button">' + i + '</button></li>' );
 					}
 					this.artificialScrolling = true;
 					$yearUl.scrollTop( ( $yearUl.get( 0 ).scrollHeight - scrollHeight ) + scrollTop );
@@ -840,7 +840,7 @@
 				} else if ( bottomPercentage > 90 ) {
 					start = parseInt( $yearUl.find( 'li:last' ).attr( 'data-year' ), 10 );
 					for ( i = ( start + 1 ); i < ( start + 11 ); i++ ) {
-						$yearUl.append( '<li data-year="' + i + '"><button>' + i + '</button></li>' );
+						$yearUl.append( '<li data-year="' + i + '"><button type="button">' + i + '</button></li>' );
 					}
 				}
 			},
@@ -953,7 +953,7 @@
 				for ( i = 0; i < rows; i++ ) {
 					$tr = $( '<tr></tr>' );
 					for ( j = 0; j < 7; j++ ) {
-						$td = $( '<td><span><button class="datepicker-date">' + curDate + '</button></span></td>' );
+						$td = $( '<td><span><button type="button" class="datepicker-date">' + curDate + '</button></span></td>' );
 						if ( stage === -1 ) {
 							$td.addClass( 'last-month' );
 						} else if ( stage === 1 ) {
@@ -1028,7 +1028,7 @@
 
 				$yearUl.empty();
 				for ( i = ( year - 10 ); i < ( year + 11 ); i++ ) {
-					$yearUl.append( '<li data-year="' + i + '"><button>' + i + '</button></li>' );
+					$yearUl.append( '<li data-year="' + i + '"><button type="button">' + i + '</button></li>' );
 				}
 				$yearSelected = $yearUl.find( 'li[data-year="' + year + '"]' );
 				$yearSelected.addClass( 'selected' );
@@ -2159,7 +2159,7 @@
 				this.$selectedItem = $selectedItem = $item;
 
 				this.$hiddenField.val( this.$selectedItem.attr( 'data-value' ) );
-				this.$label.text( this.$selectedItem.text() );
+				this.$label.html( $( this.$selectedItem.children()[ 0 ] ).html() );
 
 				// clear and set selected item to allow declarative init state
 				// unlike other controls, selectlist's value is stored internal, not in an input
