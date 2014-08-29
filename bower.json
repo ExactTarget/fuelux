@@ -19,25 +19,29 @@
     "*.yml",
     "BACKLOG.md",
     "data.js",
-    "dev.html",
+    "dev",
+    "devserver.js",
+    "dist/fuelux.zip",
     "Gruntfile.js",
     "index.css",
     "index.html",
     "index.js",
-    "lib",
     "node_modules",
-    "old-index.html",
-    "sample",
+    "Procfile",
     "test"
   ],
   "keywords": [
+    "application",
+    "bootstrap",
+    "controls",
     "css",
-    "js",
-    "less",
-    "mobile-first",
-    "responsive",
+    "exacttarget",
     "front-end",
-    "framework",
+    "fuelux",
+    "fuel ux",
+    "js",
+    "salesforce",
+    "user interface",
     "web"
   ],
   "main": [
@@ -49,5 +53,5 @@
     "dist/fonts/fuelux.woff"
   ],
   "name": "fuelux",
-  "version": "3.0.0"
+  "version": "3.0.1"
 }
