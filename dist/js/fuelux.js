@@ -1994,15 +1994,21 @@
 			},
 
 			search: function( searchText ) {
-				this.$icon.attr( 'class', 'glyphicon glyphicon-remove' );
+				if ( this.$icon.hasClass( 'glyphicon' ) ) {
+					this.$icon.removeClass( 'glyphicon-search' ).addClass( 'glyphicon-remove' );
+				}
 				this.activeSearch = searchText;
+				this.$element.addClass( 'searched' );
 				this.$element.trigger( 'searched.fu.search', searchText );
 			},
 
 			clear: function() {
-				this.$icon.attr( 'class', 'glyphicon glyphicon-search' );
+				if ( this.$icon.hasClass( 'glyphicon' ) ) {
+					this.$icon.removeClass( 'glyphicon-remove' ).addClass( 'glyphicon-search' );
+				}
 				this.activeSearch = '';
 				this.$input.val( '' );
+				this.$element.removeClass( 'searched' );
 				this.$element.trigger( 'cleared.fu.search' );
 			},
 
@@ -2262,15 +2268,13 @@
 			},
 
 			setDefaultSelection: function() {
-				var selector = 'li[data-selected=true]:first';
-				var item = this.$element.find( selector );
-				if ( item.length === 0 ) {
-					// select first item
-					this.selectByIndex( 0 );
-				} else {
-					// select by data-attribute
-					this.selectBySelector( selector );
+				var $item = this.$element.find( 'li[data-selected=true]' ).eq( 0 );
+
+				if ( $item.length === 0 ) {
+					$item = this.$element.find( 'li' ).has( 'a' ).eq( 0 );
 				}
+
+				this.doSelect( $item );
 			},
 
 			enable: function() {
@@ -4042,6 +4046,7 @@
 						}, 0 );
 					}
 
+					e.preventDefault();
 					return true;
 				} else if ( e.keyCode === 8 || e.keyCode === 46 ) {
 					// backspace: 8

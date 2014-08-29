@@ -331,6 +331,7 @@
 					},0);
 				}
 
+				e.preventDefault();
 				return true;
 			} else if( e.keyCode === 8 || e.keyCode === 46 ) {
 				// backspace: 8
