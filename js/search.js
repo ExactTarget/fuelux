@@ -72,7 +72,7 @@
 
 		clear: function () {
 			if( this.$icon.hasClass('glyphicon') ) {
-				this.$icon.removeClass('glyphicon-search').addClass('glyphicon-remove');
+				this.$icon.removeClass('glyphicon-remove').addClass('glyphicon-search');
 			}
 			this.activeSearch = '';
 			this.$input.val('');
