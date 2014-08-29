@@ -1518,7 +1518,7 @@
 			<h2 id="selectlist"><a href="#selectlist">#</a>Selectlist</h2>
 
 			<div class="form-group">
-				<label class="control-label" for="MySelectlistHiddenInput">With auto-resize</label>
+				<label class="control-label" for="MySelectlistHiddenInput">Default With auto-resize</label>
 				<div class="input-group">
 
 					<div id="MySelectlist" class="btn-group selectlist" data-initialize="selectlist" data-resize="auto">
@@ -1538,6 +1538,28 @@
 					</div>
 
 				</div>
+
+			<div class="form-group">
+				<label class="control-label" for="MySelectlistNoDefaultInput">No default</label>
+				<div class="input-group">
+
+					<div id="MySelectlistNoDefault" class="btn-group selectlist" data-initialize="selectlist" data-resize="auto">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							<span class="selected-label"></span>
+							<span class="caret"></span>
+							<span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li class="dropdown-header">Heading 1</li>
+							<li data-value="1"><a href="#">One</a></li>
+							<li data-value="2"><a href="#">Two</a></li>
+							<li class="dropdown-header">Heading 2</li>
+							<li data-value="3"><a href="#">Three</a></li>
+							<li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>
+							<li data-value="Item Five"><a href="#">Item Five</a></li>
+						</ul>
+						<input id="MySelectlistNoDefaultInput" class="hidden hidden-field" name="MySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
+					</div>
 
 			</div>
 
