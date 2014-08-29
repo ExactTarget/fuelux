@@ -62,15 +62,21 @@
 		},
 
 		search: function (searchText) {
-			this.$icon.attr('class', 'glyphicon glyphicon-remove');
+			if( this.$icon.hasClass('glyphicon') ) {
+				this.$icon.removeClass('glyphicon-search').addClass('glyphicon-remove');
+			}
 			this.activeSearch = searchText;
+			this.$element.addClass('searched');
 			this.$element.trigger('searched.fu.search', searchText);
 		},
 
 		clear: function () {
-			this.$icon.attr('class', 'glyphicon glyphicon-search');
+			if( this.$icon.hasClass('glyphicon') ) {
+				this.$icon.removeClass('glyphicon-search').addClass('glyphicon-remove');
+			}
 			this.activeSearch = '';
 			this.$input.val('');
+			this.$element.removeClass('searched');
 			this.$element.trigger('cleared.fu.search');
 		},
 
