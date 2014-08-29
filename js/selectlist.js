@@ -163,16 +163,13 @@
 		},
 
 		setDefaultSelection: function() {
-			var selector = 'li[data-selected=true]:first';
-			var item = this.$element.find(selector);
-			if(item.length === 0) {
-				// select first item
-				this.selectByIndex(0);
+			var $item = this.$element.find('li[data-selected=true]').eq(0);
+			
+			if($item.length === 0) {
+				$item = this.$element.find('li').has('a').eq(0);
 			}
-			else {
-				// select by data-attribute
-				this.selectBySelector(selector);
-			}
+
+			this.doSelect($item);
 		},
 
 		enable: function() {
