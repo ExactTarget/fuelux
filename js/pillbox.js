@@ -3,7 +3,7 @@
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2014 ExactTarget
- * Licensed under the MIT license.
+ * Licensed under the BSD New license.
  */
 
 // -- BEGIN UMD WRAPPER PREFACE --
@@ -331,6 +331,7 @@
 					},0);
 				}
 
+				e.preventDefault();
 				return true;
 			} else if( e.keyCode === 8 || e.keyCode === 46 ) {
 				// backspace: 8

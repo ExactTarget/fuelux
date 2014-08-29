@@ -7,13 +7,13 @@ module.exports = function (grunt) {
 	grunt.initConfig({
 		// Metadata
 		banner: '/*!\n' +
-			' * FuelUX v<%= pkg.version %> \n' +
+			' * Fuel UX v<%= pkg.version %> \n' +
 			' * Copyright 2012-<%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
-			' * Licensed under <%= pkg.license.type %> (<%= pkg.license.url %>)\n' +
+			' * Licensed under the <%= pkg.license.type %> license (<%= pkg.license.url %>)\n' +
 			' */\n',
-		jqueryCheck: 'if (typeof jQuery === \'undefined\') { throw new Error(\'FuelUX\\\'s JavaScript requires jQuery\') }\n\n',
-		bootstrapCheck: 'if (typeof $.fn.dropdown === \'undefined\' || typeof $.fn.collapse === \'undefined\') ' +
-			'{ throw new Error(\'FuelUX\\\'s JavaScript requires Bootstrap\') }\n\n',
+		jqueryCheck: 'if (typeof jQuery === \'undefined\') { throw new Error(\'Fuel UX\\\'s JavaScript requires jQuery\') }\n\n',
+		bootstrapCheck: 'if (typeof jQuery.fn.dropdown === \'undefined\' || typeof jQuery.fn.collapse === \'undefined\') ' +
+			'{ throw new Error(\'Fuel UX\\\'s JavaScript requires Bootstrap\') }\n\n',
 		pkg: grunt.file.readJSON('package.json'),
 		// Try ENV variables (export SAUCE_ACCESS_KEY=XXXX), if key doesn't exist, try key file 
 		sauceLoginFile: grunt.file.exists('SAUCE_API_KEY.yml') ? grunt.file.readYAML('SAUCE_API_KEY.yml') : undefined,

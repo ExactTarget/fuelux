@@ -1,7 +1,7 @@
 /*!
- * FuelUX v3.0.0
+ * Fuel UX v3.0.0
  * Copyright 2012-2014 ExactTarget
- * Licensed under MIT (https://github.com/ExactTarget/fuelux/blob/master/COPYING)
+ * Licensed under the BSD New license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
 
 
@@ -15,11 +15,11 @@
 }( function( jQuery ) {
 
 	if ( typeof jQuery === 'undefined' ) {
-		throw new Error( 'FuelUX\'s JavaScript requires jQuery' )
+		throw new Error( 'Fuel UX\'s JavaScript requires jQuery' )
 	}
 
-	if ( typeof $.fn.dropdown === 'undefined' || typeof $.fn.collapse === 'undefined' ) {
-		throw new Error( 'FuelUX\'s JavaScript requires Bootstrap' )
+	if ( typeof jQuery.fn.dropdown === 'undefined' || typeof jQuery.fn.collapse === 'undefined' ) {
+		throw new Error( 'Fuel UX\'s JavaScript requires Bootstrap' )
 	}
 
 	( function( $ ) {
@@ -29,7 +29,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -270,7 +270,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -513,7 +513,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -832,7 +832,7 @@
 				if ( topPercentage < 5 ) {
 					start = parseInt( $yearUl.find( 'li:first' ).attr( 'data-year' ), 10 );
 					for ( i = ( start - 1 ); i > ( start - 11 ); i-- ) {
-						$yearUl.prepend( '<li data-year="' + i + '"><button>' + i + '</button></li>' );
+						$yearUl.prepend( '<li data-year="' + i + '"><button type="button">' + i + '</button></li>' );
 					}
 					this.artificialScrolling = true;
 					$yearUl.scrollTop( ( $yearUl.get( 0 ).scrollHeight - scrollHeight ) + scrollTop );
@@ -840,7 +840,7 @@
 				} else if ( bottomPercentage > 90 ) {
 					start = parseInt( $yearUl.find( 'li:last' ).attr( 'data-year' ), 10 );
 					for ( i = ( start + 1 ); i < ( start + 11 ); i++ ) {
-						$yearUl.append( '<li data-year="' + i + '"><button>' + i + '</button></li>' );
+						$yearUl.append( '<li data-year="' + i + '"><button type="button">' + i + '</button></li>' );
 					}
 				}
 			},
@@ -953,7 +953,7 @@
 				for ( i = 0; i < rows; i++ ) {
 					$tr = $( '<tr></tr>' );
 					for ( j = 0; j < 7; j++ ) {
-						$td = $( '<td><span><button class="datepicker-date">' + curDate + '</button></span></td>' );
+						$td = $( '<td><span><button type="button" class="datepicker-date">' + curDate + '</button></span></td>' );
 						if ( stage === -1 ) {
 							$td.addClass( 'last-month' );
 						} else if ( stage === 1 ) {
@@ -1028,7 +1028,7 @@
 
 				$yearUl.empty();
 				for ( i = ( year - 10 ); i < ( year + 11 ); i++ ) {
-					$yearUl.append( '<li data-year="' + i + '"><button>' + i + '</button></li>' );
+					$yearUl.append( '<li data-year="' + i + '"><button type="button">' + i + '</button></li>' );
 				}
 				$yearSelected = $yearUl.find( 'li[data-year="' + year + '"]' );
 				$yearSelected.addClass( 'selected' );
@@ -1225,7 +1225,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -1331,7 +1331,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -1481,7 +1481,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -1740,7 +1740,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -1949,7 +1949,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -1994,15 +1994,21 @@
 			},
 
 			search: function( searchText ) {
-				this.$icon.attr( 'class', 'glyphicon glyphicon-remove' );
+				if ( this.$icon.hasClass( 'glyphicon' ) ) {
+					this.$icon.removeClass( 'glyphicon-search' ).addClass( 'glyphicon-remove' );
+				}
 				this.activeSearch = searchText;
+				this.$element.addClass( 'searched' );
 				this.$element.trigger( 'searched.fu.search', searchText );
 			},
 
 			clear: function() {
-				this.$icon.attr( 'class', 'glyphicon glyphicon-search' );
+				if ( this.$icon.hasClass( 'glyphicon' ) ) {
+					this.$icon.removeClass( 'glyphicon-remove' ).addClass( 'glyphicon-search' );
+				}
 				this.activeSearch = '';
 				this.$input.val( '' );
+				this.$element.removeClass( 'searched' );
 				this.$element.trigger( 'cleared.fu.search' );
 			},
 
@@ -2114,7 +2120,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -2159,7 +2165,7 @@
 				this.$selectedItem = $selectedItem = $item;
 
 				this.$hiddenField.val( this.$selectedItem.attr( 'data-value' ) );
-				this.$label.text( this.$selectedItem.text() );
+				this.$label.html( $( this.$selectedItem.children()[ 0 ] ).html() );
 
 				// clear and set selected item to allow declarative init state
 				// unlike other controls, selectlist's value is stored internal, not in an input
@@ -2262,15 +2268,13 @@
 			},
 
 			setDefaultSelection: function() {
-				var selector = 'li[data-selected=true]:first';
-				var item = this.$element.find( selector );
-				if ( item.length === 0 ) {
-					// select first item
-					this.selectByIndex( 0 );
-				} else {
-					// select by data-attribute
-					this.selectBySelector( selector );
+				var $item = this.$element.find( 'li[data-selected=true]' ).eq( 0 );
+
+				if ( $item.length === 0 ) {
+					$item = this.$element.find( 'li' ).has( 'a' ).eq( 0 );
 				}
+
+				this.doSelect( $item );
 			},
 
 			enable: function() {
@@ -2345,7 +2349,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -2776,7 +2780,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -3144,7 +3148,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -3560,7 +3564,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -3724,7 +3728,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -4042,6 +4046,7 @@
 						}, 0 );
 					}
 
+					e.preventDefault();
 					return true;
 				} else if ( e.keyCode === 8 || e.keyCode === 46 ) {
 					// backspace: 8
@@ -4406,7 +4411,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -5087,7 +5092,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -5530,7 +5535,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -5638,7 +5643,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
