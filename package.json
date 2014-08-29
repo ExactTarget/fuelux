@@ -1,7 +1,7 @@
 {
   "name": "fuelux",
   "title": "Fuel UX",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Base Fuel UX styles and controls",
   "homepage": "https://github.com/ExactTarget/fuelux",
   "author": {
@@ -17,8 +17,7 @@
     "url": "https://github.com/ExactTarget/fuelux/issues"
   },
   "license": {
-    "type": "BSD New",
-    "url": "https://github.com/ExactTarget/fuelux/blob/master/LICENSE"
+    "type": "BSD-3-Clause"
   },
   "engines": {
     "node": "0.10.28"
@@ -50,12 +49,19 @@
     "grunt-blanket-qunit": "~0.2.0"
   },
   "keywords": [
-    "fuelux",
-    "fuel ux",
+    "application",
     "bootstrap",
+    "controls",
+    "css",
     "exacttarget",
     "exact target",
-    "salesforce"
+    "front-end",
+    "fuelux",
+    "fuel ux",
+    "js",
+    "salesforce",
+    "user interface",
+    "web"
   ],
   "private": true,
   "volo": {
