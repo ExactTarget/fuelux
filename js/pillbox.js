@@ -8,7 +8,7 @@
 
 // -- BEGIN UMD WRAPPER PREFACE --
 
-// For more information on UMD visit: 
+// For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
@@ -25,9 +25,9 @@
 		throw new Error('Fuel UX pillbox control requires dropdown-autoflip.');
 	}
 	// -- END UMD WRAPPER PREFACE --
-		
+
 	// -- BEGIN MODULE CODE HERE --
-	
+
 	var old = $.fn.pillbox;
 
 	// PILLBOX CONSTRUCTOR AND PROTOTYPE
@@ -142,7 +142,7 @@
 
 			e.preventDefault();
 			this.$addItem.val('');
-			
+
 			this.addItems({
 				text: $item.html(),
 				value: $item.data('value')
@@ -292,7 +292,7 @@
 
 				if( isInternal ){
 					this.$element.trigger('added.fu.pillbox', {
-						text: items[0].text, 
+						text: items[0].text,
 						value: items[0].value
 					});
 				}
@@ -317,7 +317,8 @@
 					}
 				}
 
-				if( text.length ) {
+				//ignore comma and make sure text that has been entered (protects against " ,". https://github.com/ExactTarget/fuelux/issues/593).
+				if( text.replace(/\,/, '').match(/\S/) ) {
 					this._closeSuggestions();
 					this.$addItem.hide();
 
@@ -550,7 +551,7 @@
 				});
 
 				// suggestion dropdown
-				
+
 				this.$suggest.html('').append(markup);
 				$(document.body).trigger('suggested.fu.pillbox', this.$suggest);
 			}
@@ -665,7 +666,7 @@
 			$this.pillbox($this.data());
 		});
 	});
-	
+
 // -- BEGIN UMD WRAPPER AFTERWORD --
 }));
 	// -- END UMD WRAPPER AFTERWORD --

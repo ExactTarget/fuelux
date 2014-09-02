@@ -4030,7 +4030,8 @@
 						}
 					}
 
-					if ( text.length ) {
+					//ignore comma and make sure text that has been entered (protects against " ,". https://github.com/ExactTarget/fuelux/issues/593).
+					if ( text.replace( /\,/, '' ).match( /\S/ ) ) {
 						this._closeSuggestions();
 						this.$addItem.hide();
 
