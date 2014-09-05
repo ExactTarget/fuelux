@@ -49,6 +49,29 @@
       <button type="button" class="btn btn-default" id="btnSelectlistDestroy">destroy and append</button>
     </div>
 
+    {% highlight html %}
+      <div class="form-group">
+        <label class="control-label" for="mySelectlistHiddenInput">With auto-resize</label>
+        <div class="input-group">
+
+          <div class="btn-group selectlist" data-resize="auto" data-initialize="selectlist" id="mySelectlist">
+            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
+              <span class="selected-label"></span>
+              <span class="caret"></span>
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li data-value="1"><a href="#">One</a></li>
+              <li data-value="2" data-selected="true"><a href="#">Two</a></li>
+              <li data-value="3"><a href="#">Three</a></li>
+              <li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>
+              <li data-value="Item Five"><a href="#">Item Five</a></li>
+            </ul>
+            <input class="hidden hidden-field" name="mySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
+          </div>
+
+      </div>
+    {% endhighlight %}
     </div><!-- /example -->
 
   <h2 id="selectlist-usage">Usage</h2>
@@ -82,7 +105,7 @@
   <h3>Methods</h3>
   <h4>$().selectlist()</h4>
   Attaches selectlist to an input and a button group
-  
+
   <h4>.seleclist('destroy')</h4>
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
   {% highlight js %}$('#mySelectlist').selectlist('destroy');{% endhighlight %}
