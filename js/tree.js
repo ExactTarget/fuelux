@@ -158,7 +158,7 @@
 				});
 			} else if ($all[0] !== $el[0]) {
 				$all.removeClass('tree-selected')
-					.find('.glyphicon').removeClass('glyphicon-ok').addClass('tree-dot');
+					.find('.glyphicon').removeClass('glyphicon-ok').addClass('fueluxicon-bullet');
 				data.push($el.data());
 			}
 
