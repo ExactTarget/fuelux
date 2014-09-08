@@ -189,16 +189,19 @@ define(function(require){
 		test('should restrict days if restricted option is set', function(){
 			var $datepicker = $(html).datepicker({
 				allowPastDates: true,
-				date: new Date(1987, 3, 5),
-				restricted: [{ from: new Date(1987, 3, 1), to: new Date(1987, 3, 4) }, { from: new Date(1987, 3, 13), to: new Date(1987, 3, 17) }]
+				date: new Date(1987, 2, 5),
+				restricted: [{ from: new Date(1987, 2, 1), to: new Date(1987, 2, 4) }, { from: new Date(1987, 2, 28), to: new Date(1987, 3, 1) }]
 			});
-			var dates = ['1', '2', '3', '4', '13', '14', '15', '16', '17'];
+			var dates = ['1', '2', '3', '4', '28', '29', '30', '31', '1'];
 			var i=0;
-			var self = this;
+			var month = '2';
 
 			$datepicker.find('.restricted').each(function(){
 				var $item = $(this);
-				equal(($item.attr('data-date')===dates[i] && $item.attr('data-month')==='3' && $item.attr('data-year')==='1987'), true,
+				if(i>7) {
+					month = '3';
+				}
+				equal(($item.attr('data-date')===dates[i] && $item.attr('data-month')===month && $item.attr('data-year')==='1987'), true,
 					'correct date restricted as expected');
 				i++;
 			});
