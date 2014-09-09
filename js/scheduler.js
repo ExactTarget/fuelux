@@ -75,7 +75,7 @@
 		else {
 			this.$repeatIntervalSpinbox.spinbox({ 'min': 1 });
 		}
-		this.$endAfter.spinbox();
+		this.$endAfter.spinbox({ 'value': 1, 'min': 1 });
 		this.$endDate.datepicker();
 		this.$element.find('.radio-custom').radio();
 
