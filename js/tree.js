@@ -63,7 +63,7 @@
 
 		populate: function ($el) {
 			var self = this;
-			var $parent = $el.parent();
+			var $parent = ($el.hasClass('tree')) ? $el : $el.parent();
 			var loader = $parent.find('.tree-loader:eq(0)');
 
 			loader.removeClass('hide');
