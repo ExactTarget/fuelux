@@ -109,7 +109,7 @@
 
   <h4>.selectlist('selectBySelector')</h4>
   <p>Set the selected item based on a selector</p>
-  {% highlight js %}$('#element').selectlist('mySelectlist', 'li[data-fizz=buzz]');{% endhighlight %}
+  {% highlight js %}$('#mySelectlist').selectlist('selectBySelector', 'li[data-fizz=buzz]');{% endhighlight %}
 
   <h4>.selectlist('selectByValue')</h4>
   <p>Set the selected item based on its value. Convenience method for <code>.selectBySelector('data-value={value}')</code> that requires the item to include a <code>.data-value="{value}"</code> attribute</p>
