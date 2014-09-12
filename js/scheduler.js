@@ -451,14 +451,14 @@
 					}
 					item = 'weekly';
 				}else if(recur.FREQ==='MONTHLY'){
-					this.$element.find('.repeat-monthly input').removeClass('checked');
+					this.$element.find('.repeat-monthly input, .repeat-monthly label.radio-custom').removeClass('checked');
 					if(recur.BYMONTHDAY){
 						temp = this.$element.find('.repeat-monthly-date');
-						temp.find('input').addClass('checked');
-						temp.find('.select').selectlist('selectByValue', recur.BYMONTHDAY);
+						temp.find('input, label.radio-custom').addClass('checked');
+						temp.find('.selectlist').selectlist('selectByValue', recur.BYMONTHDAY);
 					}else if(recur.BYDAY){
 						temp = this.$element.find('.repeat-monthly-day');
-						temp.find('input').addClass('checked');
+						temp.find('input, label.radio-custom').addClass('checked');
 						if(recur.BYSETPOS){
 							temp.find('.month-day-pos').selectlist('selectByValue', recur.BYSETPOS);
 						}
