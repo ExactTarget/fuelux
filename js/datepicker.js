@@ -627,10 +627,10 @@
 
 		var $set = this.each(function () {
 			var $this   = $( this );
-			var data    = $this.data( 'datepicker' );
+			var data    = $this.data( 'fu.datepicker' );
 			var options = typeof option === 'object' && option;
 
-			if( !data ) $this.data('datepicker', (data = new Datepicker( this, options ) ) );
+			if( !data ) $this.data('fu.datepicker', (data = new Datepicker( this, options ) ) );
 			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 
