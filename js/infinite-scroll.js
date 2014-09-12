@@ -38,6 +38,7 @@
 		this.fetchingData = false;
 
 		this.$element.on('scroll.fu.infinitescroll', $.proxy(this.onScroll, this));
+		this.onScroll();
 	};
 
 	InfiniteScroll.prototype = {
@@ -76,7 +77,8 @@
 
 		getPercentage: function(){
 			var height = (this.$element.css('box-sizing')==='border-box') ? this.$element.outerHeight() : this.$element.height();
-			return (height / (this.$element.get(0).scrollHeight - this.curScrollTop)) * 100;
+			var scrollHeight = this.$element.get(0).scrollHeight;
+			return (scrollHeight > height) ? ((height / (scrollHeight - this.curScrollTop)) * 100) : 0;
 		},
 
 		fetchData: function(force){
