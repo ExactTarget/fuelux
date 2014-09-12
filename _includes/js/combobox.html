@@ -113,15 +113,15 @@
 
   <h4>.combobox('selectByText')</h4>
   <p>Set the selected item based on its text value</p>
-  {% highlight js %}$('#myCombobox').('selectByText', 'Four'){% endhighlight %}
+  {% highlight js %}$('#myCombobox').combobox('selectByText', 'Four'){% endhighlight %}
 
   <h4>.combobox('selectBySelector')</h4>
   <p>Set the selected item based on a selector</p>
-  {% highlight js %}$('#myCombobox').('selectBySelector', 'li[data-fizz=buzz]'){% endhighlight %}
+  {% highlight js %}$('#myCombobox').combobox('selectBySelector', 'li[data-fizz=buzz]'){% endhighlight %}
 
   <h4>.combobox('selectByValue')</h4>
   <p>Set the selected item based on its value. Convenience method for <code>.selectBySelector('data-value={value}')</code> that requires the item to include a <code>.data-value="{value}"</code> attribute</p>
-  {% highlight js %}$('#myCombobox').('selectByValue', '1'){% endhighlight %}
+  {% highlight js %}$('#myCombobox').combobox('selectByValue', '1'){% endhighlight %}
 
   <h3>Events</h3>
   <div class="table-responsive">
