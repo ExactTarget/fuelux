@@ -105,15 +105,15 @@
 
   <h4>.selectlist('selectByText')</h4>
   <p>Set the selected item based on its text value</p>
-  {% highlight js %}$('#mySelectlist').('selectByText', 'Four');{% endhighlight %}
+  {% highlight js %}$('#mySelectlist').selectlist('selectByText', 'Four');{% endhighlight %}
 
   <h4>.selectlist('selectBySelector')</h4>
   <p>Set the selected item based on a selector</p>
-  {% highlight js %}$('#element').('mySelectlist', 'li[data-fizz=buzz]');{% endhighlight %}
+  {% highlight js %}$('#element').selectlist('mySelectlist', 'li[data-fizz=buzz]');{% endhighlight %}
 
   <h4>.selectlist('selectByValue')</h4>
   <p>Set the selected item based on its value. Convenience method for <code>.selectBySelector('data-value={value}')</code> that requires the item to include a <code>.data-value="{value}"</code> attribute</p>
-  {% highlight js %}$('#mySelectlist').('selectByValue', '1');{% endhighlight %}
+  {% highlight js %}$('#mySelectlist').selectlist('selectByValue', '1');{% endhighlight %}
 
 
   <h3>Events</h3>
