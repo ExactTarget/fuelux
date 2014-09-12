@@ -2837,7 +2837,7 @@
 
 			populate: function( $el ) {
 				var self = this;
-				var $parent = $el.parent();
+				var $parent = ( $el.hasClass( 'tree' ) ) ? $el : $el.parent();
 				var loader = $parent.find( '.tree-loader:eq(0)' );
 
 				loader.removeClass( 'hide' );
@@ -2932,7 +2932,7 @@
 					} );
 				} else if ( $all[ 0 ] !== $el[ 0 ] ) {
 					$all.removeClass( 'tree-selected' )
-						.find( '.glyphicon' ).removeClass( 'glyphicon-ok' ).addClass( 'tree-dot' );
+						.find( '.glyphicon' ).removeClass( 'glyphicon-ok' ).addClass( 'fueluxicon-bullet' );
 					data.push( $el.data() );
 				}
 
@@ -5705,7 +5705,10 @@
 					'min': 1
 				} );
 			}
-			this.$endAfter.spinbox();
+			this.$endAfter.spinbox( {
+				'value': 1,
+				'min': 1
+			} );
 			this.$endDate.datepicker();
 			this.$element.find( '.radio-custom' ).radio();
 
@@ -6073,14 +6076,17 @@
 						}
 						item = 'weekly';
 					} else if ( recur.FREQ === 'MONTHLY' ) {
-						this.$element.find( '.repeat-monthly input' ).removeClass( 'checked' );
+						this.$element.find( '.repeat-monthly input' ).removeAttr( 'checked' ).removeClass( 'checked' );
+						this.$element.find( '.repeat-monthly label.radio-custom' ).removeClass( 'checked' );
 						if ( recur.BYMONTHDAY ) {
 							temp = this.$element.find( '.repeat-monthly-date' );
-							temp.find( 'input' ).addClass( 'checked' );
-							temp.find( '.select' ).selectlist( 'selectByValue', recur.BYMONTHDAY );
+							temp.find( 'input' ).addClass( 'checked' ).attr( 'checked', 'checked' );
+							temp.find( 'label.radio-custom' ).addClass( 'checked' );
+							temp.find( '.selectlist' ).selectlist( 'selectByValue', recur.BYMONTHDAY );
 						} else if ( recur.BYDAY ) {
 							temp = this.$element.find( '.repeat-monthly-day' );
-							temp.find( 'input' ).addClass( 'checked' );
+							temp.find( 'input' ).addClass( 'checked' ).attr( 'checked', 'checked' );
+							temp.find( 'label.radio-custom' ).addClass( 'checked' );
 							if ( recur.BYSETPOS ) {
 								temp.find( '.month-day-pos' ).selectlist( 'selectByValue', recur.BYSETPOS );
 							}
@@ -6088,17 +6094,20 @@
 						}
 						item = 'monthly';
 					} else if ( recur.FREQ === 'YEARLY' ) {
-						this.$element.find( '.repeat-yearly input' ).removeClass( 'checked' );
+						this.$element.find( '.repeat-yearly input' ).removeAttr( 'checked' ).removeClass( 'checked' );
+						this.$element.find( '.repeat-yearly label.radio-custom' ).removeClass( 'checked' );
 						if ( recur.BYMONTHDAY ) {
 							temp = this.$element.find( '.repeat-yearly-date' );
-							temp.find( 'input' ).addClass( 'checked' );
+							temp.find( 'input' ).addClass( 'checked' ).attr( 'checked', 'checked' );
+							temp.find( 'label.radio-custom' ).addClass( 'checked' );
 							if ( recur.BYMONTH ) {
 								temp.find( '.year-month' ).selectlist( 'selectByValue', recur.BYMONTH );
 							}
 							temp.find( '.year-month-day' ).selectlist( 'selectByValue', recur.BYMONTHDAY );
 						} else if ( recur.BYSETPOS ) {
 							temp = this.$element.find( '.repeat-yearly-day' );
-							temp.find( 'input' ).addClass( 'checked' );
+							temp.find( 'input' ).addClass( 'checked' ).attr( 'checked', 'checked' );
+							temp.find( 'label.radio-custom' ).addClass( 'checked' );
 							temp.find( '.year-month-day-pos' ).selectlist( 'selectByValue', recur.BYSETPOS );
 							if ( recur.BYDAY ) {
 								temp.find( '.year-month-days' ).selectlist( 'selectByValue', recur.BYDAY );
