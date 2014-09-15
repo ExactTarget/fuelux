@@ -1,0 +1,58 @@
+<!-- Template
+================================================== -->
+<div class="fu-docs-section">
+  <h1 id="template" class="page-header">Basic template</h1>
+
+  <p class="lead">Start with this basic HTML template using browser global variables (just like Bootstrap).</p>
+
+  <p>Copy the HTML below to begin working with a minimal Fuel UX document using browser globals.</p>
+{% highlight html %}
+{% include getting-started-globals-template.html %}
+{% endhighlight %}
+
+  <p>The Fuel UX team uses and recommends AMD modules (with a manager such as <a href="http://requirejs.org">require.js</a>) and bundling for production.</p>
+
+  <p>Copy the HTML below to begin working with the Asynchronous Module Definition (AMD) files.</p>
+{% highlight html %}
+{% include getting-started-amd-template.html %}
+{% endhighlight %}
+
+
+<!-- BEGIN FROM GITHUB README.md -->
+
+<h3>
+<a name="user-content-umdamd-support" class="anchor" href="#umdamd-support"><span class="octicon octicon-link"></span></a>UMD/AMD Support</h3>
+
+<p>We recommend only loading the controls you need (e.g.- <code>fuelux/checkbox</code>).</p>
+
+<p>If you use AMD (such as <a href="http://requirejs.org">RequireJS</a>), reference the Fuel UX directory in your paths configuration, wherever it is located:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">require</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span>
+    <span class="nx">paths</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s1">'fuelux'</span><span class="o">:</span> <span class="s1">'{{site.cdn.js}}'</span>
+        <span class="c1">//...</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>Then list any individual fuelux controls needed as dependencies within your application modules:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">define</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">require</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">spinbox</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fuelux/spinbox'</span><span class="p">);</span>
+    <span class="c1">//...</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>For your convenience when using AMD, you can  use <code>fuelux/all</code> instead of listing each module individually. ExactTarget Marketing Cloud does not recommend this practice.</p>
+
+<p>Fuel UX also supports placing components in their own <code>&lt;script&gt;</code> tags. Be sure to put modules in the correct order if you load them in this method.</p>
+
+</div>
+
+<div class="fu-docs-section">
+<!-- Cross link to new migration page -->
+<div class="fu-callout fu-callout-info" id="migration">
+  <h4>Migrating from v2.x to v3.x</h4>
+  <p>Interested in migrating from an older version of Fuel UX to v3.x? Check out <a href="migration.html">our migration guide</a>.</p>
+</div>
+</div>

@@ -1,0 +1,54 @@
+<div class="fu-docs-section">
+	<h1 id="community-extensions" class="page-header">Community Extensions</h1>
+	<h2 class="lead">Do you have an extension that others would find useful?</h2>
+
+	<h3 id="submit-community-extensions">Submit an extension</h3>
+
+	<p>To submit your extension to the Fuel UX Community, first publish a repository on GitHub with complete and well written instructions. Instructions should be a clear and detailed explanation of the purpose and usage of the extension. Please show code, when applicable, that is clear and easy to read and copy as a whole. Bonus points for screen shots in your README.md! If you choose not to support your extension, state this in your description.</p>
+
+	<p>Please <a href="https://github.com/ExactTarget/fuelux/fork">fork</a> the Fuel UX repository and submit a pull request with a modified <a href="https://github.com/ExactTarget/fuelux/blob/gh-pages/extensions.html">extensions.html</a> in the <a href="https://github.com/ExactTarget/fuelux/tree/gh-pages">gh-pages</a> branch.</p>
+
+	<p>Fuel UX controls are also jQuery plugins, so you can <code>$.extend()</code> them, too.</p>
+
+<div class="truncate-highlight">
+{% highlight js %}
+(function (factory) {
+	if (typeof define === 'function' && define.amd) {
+		// if AMD loader is available, register as an anonymous module.
+		define(['jquery', 'fuelux/datepicker'], factory);
+	} else {
+		// OR use browser globals if AMD is not present
+		factory(jQuery);
+	}
+}(function ($) {
+
+	// -- END UMD WRAPPER PREFACE --
+		
+	// -- BEGIN MODULE CODE HERE --
+
+	// change something with the data grid control
+	$.fn.extend($.fn.datepicker.Constructor.prototype, {
+		// adding methods
+		awesomeNewMethod: function () { },
+
+		// overriding methods
+		someExistingMethod: function () { }
+	});
+
+	// rinse and repeat
+
+// -- BEGIN UMD WRAPPER AFTERWORD --
+}));
+	// -- END UMD WRAPPER AFTERWORD --
+{% endhighlight %}
+</div>
+
+	<p>Thank you for your contribution! We look forward to your creative ideas.</p>
+
+<!--	<h3 id="list-community-extensions">List of community extensions</h3>
+
+	<ul>
+		<li>Example Repeater View (NEED REPO LINK)</li>
+	</ul>
+-->
+</div>
