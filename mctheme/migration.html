@@ -1,0 +1,138 @@
+---
+layout: default
+title: Migration Guide
+slug: migration
+lead: "Guidance on how to upgrade from Fuel UX v2.x to v3.x with emphasis on setup differences, updated project structure, and new vs removed features."
+---
+<div class="container bs-docs-container">
+	<div class="row">
+		<div class="col-md-9" role="main">
+			<!-- Migration
+				================================================== -->
+			<div class="bs-docs-section">
+				<h1 class="page-header">Migrating from 2.x to 3.0</h1>
+				<p class="lead">Fuel UX 3 is not backwards compatible with v2.x. Use this section as a general guide to upgrading from v2.x to v3.x.</p>
+
+				<h2 id="noBundles">Bundled no more</h2>
+				<p>In Fuel UX 2.x, Bootstrap was bundled along with the Fuel UX project code, but this is no longer the case.
+					We wanted to enable developers to upgrade either library at their own leisure, so we've decoupled the code.
+					Fuel UX still has a dependency on Bootstrap, so the developer must be certain to include Bootstrap within
+					their project before Fuel UX themselves. For information on how to do this using external script tags or AMD,
+					please see our <a href="./getting-started.html#template">Basic Templates</a>.
+				</p>
+
+				<h2 id="newBase">Upgraded foundation</h2>
+				<p>Fuel UX 3 is built upon Bootstrap 3 rather than Bootstrap 2, which has an improved mobile-first architecture.
+					There are many differences between the two versions. Converting your project to use the latest version
+					of Bootstrap is one of the larger efforts when migrating to Fuel UX 3. For assistance with this task,
+					please visit <a href="http://getbootstrap.com/migration/">Bootstrap's Migration Guide</a>.
+				</p>
+
+				<h2 id="directoryStructure">Directory structure</h2>
+				<p>The directory structure has changed significantly in this version of Fuel UX:</p>
+<pre><code>fuelux/
+├── dev/
+├── dist/
+│   ├── css/
+│   ├── fonts/
+│   └── js/
+├── fonts/
+│   └── src/
+├── js/
+├── less/
+├── markup/
+├── test/
+└── └── markup/
+</code></pre>
+				<p>Since UMD (Universal Module Definition) is used for our controls, the 'loader.js' file is no longer
+					needed for non-AMD users. This means any file within the js directory can be included on the page via
+					external script tag or AMD, which is useful for bringing in individual controls.
+				</p>
+
+				<h2 id="markupChanges">Markup changes</h2>
+				<p>Due to the updated Bootstrap foundation, our controls have had significant changes made to the markup
+					required to be functional. It is recommended that all Fuel UX controls within your project are investigated
+					and updated as needed. Visit our <a href="./javascript.html">controls</a> page for more information.
+				</p>
+
+				<h2 id="new">What's new</h2>
+				<p>This table shows the new controls added to Fuel UX 3.</p>
+				<div class="table-responsive">
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th style="width: 150px;">Control</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><a href="./javascript.html#infinite-scrolling">Infinite Scroll</a></td>
+								<td>Turn any element into an infinite scrolling region with content that loads on demand.</td>
+							</tr>
+							<tr>
+								<td><a href="./javascript.html#loaders">Loader</a></td>
+								<td>Animation for visual indication of waiting time that can be customized to have many appearances.
+									Replaces the preloader.
+								</td>
+							</tr>
+							<tr>
+								<td><a href="./javascript.html#placards">Placard</a></td>
+								<td>Adds a pop-up element to inputs/textareas on focus with additional options for explicit
+									accept/cancel actions.
+								</td>
+							</tr>
+							<tr>
+								<td><a href="./javascript.html#repeaters">Repeater</a></td>
+								<td>Data viewer with paging, sorting, and searching. Can be easily extended for various
+									renderings. Replaces the datagrid.
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<h2 id="removed">What's removed</h2>
+				<p>The following controls have been removed from Fuel UX 3.</p>
+				<div class="table-responsive">
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th style="width: 150px;">Control</th>
+								<th>Reason</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Datagrid</td>
+								<td>This control has been refactored as the <a href="./javascript.html#repeaters">Repeater</a>
+									to enable greater data-rendering flexibility.
+								</td>
+							</tr>
+							<tr>
+								<td>Preloader</td>
+								<td>This control has been refactored as the <a href="./javascript.html#loaders">Loader</a>
+									to be more flexible and consistent across browsers while providing a javascript API.
+									CSS-only variations may be re-introduced at a later date.
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<h2 id="notes">Additional notes</h2>
+				<p>Other changes in v3.0 are not immediately apparent. Here's a partial list:</p>
+				<ul>
+					<li>Events have been namespaced to follow the <code>[eventname].fu.[controlname]</code> format, which is
+						different than the previous structure that contained only the <code>[eventname]</code>. This has been
+						done to avoid collision with events outside the Fuel UX library. Example event: <code>actionclicked.fu.wizard</code>
+					</li>
+					<li>While most javascript methods remain the same, there have been some changes, so be cautious of that.</li>
+					<li>Images are no longer a part of Fuel UX. The loader control uses font-icons, but everything else
+						is all CSS.
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
