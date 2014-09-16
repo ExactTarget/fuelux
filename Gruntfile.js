@@ -26,7 +26,7 @@ module.exports = function (grunt) {
 			return 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + ver;
 		}),
 		trickyTestUrl: 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + '1.9.1',
-		travisCITestUrl: 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + '1.9.1',
+		travisCITestUrls: ['http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + '1.9.1'],
 
 		//Tasks configuration
 		clean: {
@@ -227,17 +227,17 @@ module.exports = function (grunt) {
 							}
 			},
 			travisCIBrowsers: {
-						options: {
-							username: '<%= sauceUser %>',
-							key: '<%= sauceKey %>',
-							tunnelTimeout: 45,
-							testInterval: 3000,
-							tags: [ '<%= sauceUser %>' + "@" + process.env.TRAVIS_BRANCH || '<%= sauceUser %>@local'],
-							browsers: grunt.file.readYAML('sauce_browsers.yml'),
-							build: process.env.TRAVIS_BUILD_NUMBER || '',
-							testname: process.env.TRAVIS_JOB_ID || 'grunt-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
-							urls: '<%= travisCITestUrl %>'
-						}
+					options: {
+						username: '<%= sauceUser %>',
+						key: '<%= sauceKey %>',
+						tunnelTimeout: 45,
+						testInterval: 3000,
+						tags: [ '<%= sauceUser %>' + "@" + process.env.TRAVIS_BRANCH || '<%= sauceUser %>@local'],
+						browsers: grunt.file.readYAML('sauce_browsers.yml'),
+						build: process.env.TRAVIS_BUILD_NUMBER || '',
+						testname: process.env.TRAVIS_JOB_ID || 'grunt-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
+						urls: '<%= travisCITestUrls %>'
+					}
 			},
 			all: {
 				options: {
