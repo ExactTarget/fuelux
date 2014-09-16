@@ -1,9 +1,9 @@
 <!-- repeater
 ================================================== -->
 <div class="fu-docs-section">
-<h1 id="repeaters" class="page-header">Repeaters <small>repeaters.js</small></h1>
+<h1 id="repeater" class="page-header">Repeater <small>repeater.js</small></h1>
 
-<h2 id="repeaters-examples">Examples</h2>
+<h2 id="repeater-examples">Examples</h2>
 <p>Data viewer with paging, sorting, and searching. Can be easily extended for various renderings.</p>
 
 <div class="fu-example section">
@@ -120,7 +120,7 @@
   </div>
 </div>
 
-<h2 id="repeaters-usage">Usage</h2>
+<h2 id="repeater-usage">Usage</h2>
 <p>Initialize the repeater via JavaScript and use a dataSource to function properly.</p>
 
 <p>Initialize the repeater via JavaScript:</p>
@@ -255,7 +255,7 @@
       <td>Use this function to provide paging information and data for the repeater. Call this function prior
         to rendering the current view, passing a <code>options</code> object and <code>callback</code>
         function. Run the callback function once you gather the appropriate information to complete
-        the rendering. Review more details on using <a href="#repeaters-dataSource">dataSource</a> below.</td>
+        the rendering. Review more details on using <a href="#repeater-dataSource">dataSource</a> below.</td>
     </tr>
     <tr>
       <td>defaultView</td>
@@ -359,7 +359,7 @@ Attaches repeater to the repeater markup
 </div><!-- ./fu-table-responsive -->
 
 <h4>.repeater('render');</h4>
-<p>Calls the <a href="#repeaters-dataSource">dataSource</a> and renders the repeater data. Accepts an <i>optional</i> <code>options</code> object as an argument (using the attributes listed in the table below):
+<p>Calls the <a href="#repeater-dataSource">dataSource</a> and renders the repeater data. Accepts an <i>optional</i> <code>options</code> object as an argument (using the attributes listed in the table below):
 </p>
 {% highlight js %}$('#myRepeater').repeater('render');{% endhighlight %}
 
@@ -404,7 +404,7 @@ Attaches repeater to the repeater markup
 <p>Resizes the repeater based on staticHeight presence and value</p>
 {% highlight js %}$('#myRepeater').repeater('resize');{% endhighlight %}
 
-<h3 id="repeaters-dataSource">Data Source</h3>
+<h3 id="repeater-dataSource">Data Source</h3>
 <p>Call the <code>dataSource</code> function prior to rendering data for the current view. Receives an
   <code>options</code> object and <code>callback</code> function as arguments. The <code>options</code> object
   provides context for which data should return. Use the <code>callback</code> to continue onward
@@ -512,7 +512,7 @@ Attaches repeater to the repeater markup
   </table>
 </div><!-- ./fu-table-responsive -->
 
-<h3 id="repeaters-dependencies">Fuel UX Dependencies</h3>
+<h3 id="repeater-dependencies">Fuel UX Dependencies</h3>
 <ul>
   <li><a href="#comboboxes">Combobox</a></li>
   <li><a href="#infinite-scrolling">Infinite Scroll</a> <i>(optional)</i></li>
@@ -520,10 +520,10 @@ Attaches repeater to the repeater markup
   <li><a href="#selectlist">Selectlist</a></li>
 </ul>
 
-<h3 id="repeaters-extensions">Repeater Extensions</h3>
+<h3 id="repeater-extensions">Repeater Extensions</h3>
 <p>The repeater uses a view framework that allows for extensions to represent data in different ways. By default,
   Fuel UX comes with two repeater view extensions (list and thumbnail). Each extension provides additional options and requires
-  different return data from the <a href="#repeaters-dataSource">dataSource</a> to render appropriately. For
+  different return data from the <a href="#repeater-dataSource">dataSource</a> to render appropriately. For
   information on using these extensions, visit the <a href="{{site.url}}/extensions.html">extensions page</a>. You can learn how to write your own repeater
   extension here.
 </p>

@@ -1,8 +1,8 @@
 <!-- combobox
 ================================================== -->
 <div class="fu-docs-section">
-  <h1 id="comboboxes" class="page-header">Comboboxes <small>combobox.js</small></h1>
-  <h2 id="comboboxes-examples">Examples</h2>
+  <h1 id="combobox" class="page-header">Combobox <small>combobox.js</small></h1>
+  <h2 id="combobox-examples">Examples</h2>
   <p>Combines an input and a drop-down for easy and flexible data selection.</p>
   <div class="fu-example section">
 {% include js/combobox-example.html %}
@@ -11,7 +11,7 @@
   <h3 id="comboboxes-alignment">Alignment</h3>
   <p>By default, this control automatically positions a drop-down menu 100% from the top and along the right side of its parent. Remove <code>.dropdown-menu-right</code> to left align the drop-down menu.</p>
 
-  <h2 id="comboboxes-usage">Usage</h2>
+  <h2 id="combobox-usage">Usage</h2>
 
   <p>The combobox component toggles hidden content (drop-down menus) by toggling the <code>.open</code> class on the parent list item. When opened, the plugin also adds <code>.dropdown-backdrop</code> as a click area for closing drop-down menus when clicking outside the menu. The control relies on the <code>data-toggle=dropdown</code> attribute to close drop-down menus at an application level.</p>
 
@@ -86,11 +86,11 @@
       </tbody>
     </table>
   </div><!-- ./fu-table-responsive -->
-  
+
   <h3>Methods</h3>
   <h4>$().combobox(options)</h4>
   Attaches a combobox to an input and a drop-down menu
-  
+
   <h4>.combobox('destroy')</h4>
   <p>Remove all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
   {% highlight js %}$('#myCombobox').combobox('destroy');{% endhighlight %}

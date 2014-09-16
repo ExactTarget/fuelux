@@ -1,8 +1,8 @@
 <!-- datepicker
 ================================================== -->
 <div class="fu-docs-section">
-	<h1 id="datepickers" class="page-header">Datepickers <small>datepicker.js</small></h1>
-	<h2 id="datepickers-examples">Examples</h2>
+	<h1 id="datepicker" class="page-header">Datepicker <small>datepicker.js</small></h1>
+	<h2 id="datepicker-examples">Examples</h2>
 	<p>Choose a date from a calendar dropdown, with input parsing and formatting. Works with moment.js for extended functionality.</p>
 
 	<p>To support various date formats around the world, datepicker has an optional dependency on <a href="http://momentjs.com/">moment.js</a>. <a href="https://github.com/moment/moment/tree/master/min">Download moment.js (with locales).</a></p>
@@ -29,7 +29,7 @@
 		</div>
 	</div><!-- /example -->
 
-	<h2 id="datepickers-usage">Usage</h2>
+	<h2 id="datepicker-usage">Usage</h2>
 
 	<h3>Via data-attributes</h3>
 	<p>The datepicker will automatically instantiate any datepickers with <code>data-initialize="datepicker"</code>. If the control markup is added <i>after page load</i> with <code>data-initialize="datepicker"</code>, this control will be initialized on <code>mousedown</code>.
@@ -45,7 +45,7 @@
 {% include js/datepicker-example.html %}
 {% endhighlight %}
 	</div>
-	
+
 	<h3>Options</h3>
 	<p>Options can be passed via Javascript upon initialization.</p>
 	<div class="table-responsive">
@@ -119,12 +119,12 @@
 			</tbody>
 		</table>
 	</div><!-- ./fu-table-responsive -->
- 
+
 
   <h3>Methods</h3>
   <h4>$().datepicker(options)</h4>
   Attaches a datepicker to an input and a dropdown menu.
-  
+
   <h4>.datepicker('destroy')</h4>
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
   {% highlight js %}$('#myDatepicker').datepicker('destroy');{% endhighlight %}
@@ -167,28 +167,28 @@
 
   <h3>Events</h3>
   <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th style="width: 150px;">Event Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>changed.fu.datepicker</td>
-          <td>This event is fired when the date value has been changed by the user.</td>
-        </tr>
-        <tr>
-          <td>inputParsingFailed.fu.datepicker</td>
-          <td>This event is fired when an invalid date is parsed on blur of the datepicker.</td>
-        </tr>
+	<table class="table table-bordered table-striped">
+	  <thead>
+		<tr>
+		  <th style="width: 150px;">Event Type</th>
+		  <th>Description</th>
+		</tr>
+	  </thead>
+	  <tbody>
+		<tr>
+		  <td>changed.fu.datepicker</td>
+		  <td>This event is fired when the date value has been changed by the user.</td>
+		</tr>
+		<tr>
+		  <td>inputParsingFailed.fu.datepicker</td>
+		  <td>This event is fired when an invalid date is parsed on blur of the datepicker.</td>
+		</tr>
 		<tr>
 		  <td>inputRestrictedDate.fu.datepicker</td>
 		  <td>This event is fired when an restricted date is parsed on blur of the datepicker.</td>
 		</tr>
-      </tbody>
-    </table>
+	  </tbody>
+	</table>
 
 
   </div><!-- ./fu-table-responsive -->

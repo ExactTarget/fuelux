@@ -1,9 +1,9 @@
 <!-- infinite-scroll
 ================================================== -->
 <div class="fu-docs-section">
-  <h1 id="infinite-scrolling" class="page-header">Infinite Scrolling <small>infinite-scroll.js</small></h1>
+  <h1 id="infinite-scroll" class="page-header">Infinite Scroll <small>infinite-scroll.js</small></h1>
 
-  <h2 id="infinite-scrolling-examples">Examples</h2>
+  <h2 id="infinite-scroll-examples">Examples</h2>
   <p>Turn any element into an infinite scrolling region with content that loads on demand.</p>
 
   <div class="fu-example section">
@@ -12,7 +12,7 @@
     <div style="clear:both;"></div>
   </div>
 
-  <h2 id="infinite-scrolling-usage">Usage</h2>
+  <h2 id="infinite-scroll-usage">Usage</h2>
   <p>The infinite scroll control does not use an initializing data API due to its dependency on a <code>dataSource.</code></p>
 
   <p>Initialize the infinite scroll via JavaScript:</p>
@@ -53,10 +53,10 @@ $('#myInfiniteScroll').infinitescroll({
           include a <code>helpers</code> object and <code>callback</code> function. The <code>helpers</code>
           object contains current <code>percentage</code> and <code>scrollTop</code> values. The
           <code>callback</code> function appends more content to the element. Pass an object
-          back within the <code>callback</code> function structured as follows: 
+          back within the <code>callback</code> function structured as follows:
 
           <code>{ content: '...' }</code>
-          
+
           If you append no additonal content, add the attribute <code>end: true</code> to that
           object. This code will append <code>'---------'</code> by default and prevent further dataSource calls. Pass a
           string value for the <code>end</code> attribute to append that string instead of the default.
@@ -69,7 +69,7 @@ $('#myInfiniteScroll').infinitescroll({
         <td>Indicates whether the code will use "hybrid mode" and require the user to click a button before loading
           additional content. If set to <code>true</code>, the code will use a default "load more" icon within
           the button. Additionally, you can set the control to an object with the following structure:
-          
+
           <code>{ label: (string or jQuery obj) }</code>
 
           The code will then append the <code>label</code> attribute value within the button instead of the default icon.

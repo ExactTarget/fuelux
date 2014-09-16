@@ -1,16 +1,16 @@
 <!-- placard
 ================================================== -->
 <div class="fu-docs-section">
-  <h1 id="placards" class="page-header">Placards <small>placard.js</small></h1>
+  <h1 id="placard" class="page-header">Placard <small>placard.js</small></h1>
 
-  <h2 id="placards-examples">Examples</h2>
+  <h2 id="placard-examples">Examples</h2>
   <p>Adds a pop-up element to inputs/textareas on focus with additional options for explicit accept/cancel actions.</p>
 
   <div class="fu-example section">
 {% include js/placard-example.html %}
   </div>
 
-  <h2 id="placards-usage">Usage</h2>
+  <h2 id="placard-usage">Usage</h2>
 
   <h3>Via data-attributes</h3>
   <p>The placard will automatically instantiate any placard with <code>data-initialize="placard"</code>. If you add the control markup <i>after page load</i> with <code>data-initialize="placard"</code>, this control initialize on <code>focus</code>.
@@ -66,7 +66,7 @@
 
   <h3>Glass styling</h3>
   <p>Add the <code>glass</code> class to the <code>input</code> or <code>textarea</code> with class <code>placard-field</code>
-  	for an input area with minimalistic chrome unless hovered upon or clicked.
+    for an input area with minimalistic chrome unless hovered upon or clicked.
   </p>
 
   <h3>Options</h3>
@@ -82,12 +82,12 @@
         </tr>
       </thead>
       <tbody>
-	    <tr>
-		  <td>explicit</td>
-		  <td>boolean</td>
-		  <td>false</td>
-		  <td>Requires the user explicitly select 'accept' or 'cancel' before the placard is dismissed.</td>
-	    </tr>
+      <tr>
+      <td>explicit</td>
+      <td>boolean</td>
+      <td>false</td>
+      <td>Requires the user explicitly select 'accept' or 'cancel' before the placard is dismissed.</td>
+      </tr>
         <tr>
           <td>externalClickAction</td>
           <td>string</td>
@@ -102,24 +102,24 @@
             globally) will not count as an external click. Allows other items to be clicked without dismissing the placard.
           </td>
         </tr>
-		<tr>
-	      <td>onAccept</td>
-		  <td>function</td>
-		  <td>undefined</td>
-		  <td>Call this function when the user indicates they want to <code>'accept'</code> changes. Passes a
-		    <code>helpers</code> object containing <code>previousValue</code> and current
-			<code>value</code> as an argument. The default accept behaviors will not occur, so you can determine what happens next. Useful for validation purposes.
-		  </td>
-		</tr>
-		<tr>
-		  <td>onCancel</td>
-		  <td>function</td>
-		  <td>undefined</td>
-		  <td>Call this function when the user indicates they want to <code>'cancel'</code> changes. Passes a
-		    <code>helpers</code> object containing <code>previousValue</code> and current
-		    <code>value</code> as an argument. The default cancel behaviors will not occur, so you can determine what happens next. Useful for validation purposes.
-	      </td>
-		</tr>
+    <tr>
+        <td>onAccept</td>
+      <td>function</td>
+      <td>undefined</td>
+      <td>Call this function when the user indicates they want to <code>'accept'</code> changes. Passes a
+        <code>helpers</code> object containing <code>previousValue</code> and current
+      <code>value</code> as an argument. The default accept behaviors will not occur, so you can determine what happens next. Useful for validation purposes.
+      </td>
+    </tr>
+    <tr>
+      <td>onCancel</td>
+      <td>function</td>
+      <td>undefined</td>
+      <td>Call this function when the user indicates they want to <code>'cancel'</code> changes. Passes a
+        <code>helpers</code> object containing <code>previousValue</code> and current
+        <code>value</code> as an argument. The default cancel behaviors will not occur, so you can determine what happens next. Useful for validation purposes.
+        </td>
+    </tr>
         <tr>
           <td>revertOnCancel</td>
           <td>boolean OR number</td>
