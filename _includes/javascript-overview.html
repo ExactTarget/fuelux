@@ -7,8 +7,8 @@
     <h4 id="plugin-dependencies">Plugin Dependencies</h4>
     <ul>
       <li>All plugins depend on jQuery <i>and</i> Bootstrap; these must be loaded <strong>before</strong> Fuel UX.</li>
-      <li>Required jQuery/Bootstrap version information is contained in our <a href="{{ site.repo }}/blob/{{ site.current_version }}/bower.json"><code>bower.json</code></a> file.</li>
-      <li>Some controls depend on other controls. Check dependencies if including controls individually <span class="text-muted">(console errors will indicate unmet dependencies).</span></li>
+      <li>Version requirements for jQuery/Bootstrap are documented in our <a href="{{ site.repo }}/blob/{{ site.current_version }}/bower.json"><code>bower.json</code></a> file.</li>
+      <li>Check dependencies if including controls individually <span class="text-muted">(console errors will indicate unmet dependencies). Some controls depend on others.</span></li>
     </ul>
   </div>
 
@@ -20,7 +20,7 @@
 // initialized with defaults (no target method called and no options passed)
 $("#mySelector").control()
 
-// initialized with optional target method to be run and options
+// initialized with optional target method to be run and control options specified
 var options = { option: 'value' };
 $('#mySelector').control('targetMethod', options);
 {% endhighlight %}
@@ -30,7 +30,7 @@ $('#mySelector').control('targetMethod', options);
 
   <div class="fu-callout fu-callout-warning">
     <h4>Destruction and re-initialization</h4>
-    <p><em>Fuel UX controls cannot be re-initialized</em>. Passing new options to an already initialized control <em>will do effectively nothing</em>. Many controls have methods that allow some internal variables to be changed; otherwise use Javascript to call the control's <code>destroy()</code> method and initialize again with the newly desired markup and options.</p>
+    <p><em>Fuel UX controls cannot be re-initialized</em>. Passing new options to an already initialized control <em>will do effectively nothing</em>. Many controls have convenience methods that allow some internal variables to be changed; otherwise use Javascript to call the control's <code>destroy()</code> method and initialize again with the newly desired markup and options. The <code>destroy()</code> method will attempt to return the pre-initialization markup for the element being destroyed.</p>
   </div>
 
   <h4 id="control-initialization-markup">With markup: data-attributes</h4>
