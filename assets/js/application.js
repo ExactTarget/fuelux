@@ -48,4 +48,10 @@ define(function(require){
 		});
 	}, 100);
 
+	//programmatically injecting this is so much easier than writing the html by hand 376 times...
+	$('h1, h2, h3, h4, h5, h6').each(function(i){
+		if(this.id !== ""){
+			$(this).prepend(['<a class="header-anchor" href="#', this.id, '"><span class="glyphicon glyphicon-link"></span></a>'].join(''));
+		}
+	});
 });

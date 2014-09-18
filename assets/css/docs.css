@@ -32,6 +32,21 @@ dd {
 	margin-left: 40px;
 }
 
+.header-anchor {
+  margin-left: -40px;
+  opacity: 0;
+  padding: 0 5px 0 10px;
+  height: 100%;
+  width: 20px;
+  color: #000;
+  -webkit-transition: opacity 0.3s ease-in-out 0s;
+  -moz-transition: opacity 0.3s ease-in-out 0s;
+  transition: opacity 0.3s ease-in-out 0s;
+}
+h1:hover .header-anchor, h2:hover .header-anchor, h3:hover .header-anchor, h4:hover .header-anchor, h5:hover .header-anchor, h6:hover .header-anchor{
+  opacity: 1;
+}
+
 /* Keep code small in tables on account of limited space */
 /*.table code {
 	font-size: 13px;
