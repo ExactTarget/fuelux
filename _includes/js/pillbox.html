@@ -1,7 +1,7 @@
 <!-- pillbox
 ================================================== -->
 <div class="fu-docs-section">
-  <h1 id="pillbox" class="page-header">Pillbox<small> pillbox.js</small></h1>
+  <h1 id="pillbox" class="page-header">Pillbox <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/pillbox.js"><small>pillbox.js</small></a></h1>
 
   <h2 id="pillbox-examples">Example</h2>
   <p>Pillbox is an interface to manage a list of tags. Wrap the list of tags (pills) within <code>.fuelux .pillbox</code></p>
@@ -50,11 +50,11 @@
     <li class="pillbox-input-wrap btn-group">
       <a class="pillbox-more">and <span class="pillbox-more-count"></span> more...</a>
       <input type="text" class="form-control dropdown-toggle pillbox-add-item" placeholder="add item">
-  	  <button type="button" class="dropdown-toggle sr-only">
+      <button type="button" class="dropdown-toggle sr-only">
         <span class="caret"></span>
         <span class="sr-only">Toggle Dropdown</span>
-  	  </button>
-  	  <ul class="suggest dropdown-menu" role="menu" data-toggle="dropdown" data-flip="auto"></ul>
+      </button>
+      <ul class="suggest dropdown-menu" role="menu" data-toggle="dropdown" data-flip="auto"></ul>
     </li>
   </ul>
 </div>
@@ -187,31 +187,31 @@ $('#myPillbox').pillbox('addItems', index, [{ text: '', value: '' }]);
 {% highlight js %}
 callback({data:[
   {
-    text: '', 
+    text: '',
     value:''
   }]
 });
 {% endhighlight %}
           </td>
         </tr>
-		<tr>
-			<td>readonly</td>
-			<td>boolean or -1</td>
-			<td>-1</td>
-			<td>Specifies whether the control is in readonly mode. If set to <code>true</code>, the pillbox disables user
-				capacity to add / edit pills. A <code>-1</code> value means it will check for the presence of the
-				<code>data-readonly="readonly"</code> attribute, and if found initialize in readonly mode.
-			</td>
-		</tr>
-		<tr>
-			<td>truncate</td>
-			<td>boolean</td>
-			<td>false</td>
-			<td>When in readonly mode, this option will display only the number of pills that fit within the pillbox main
-				container, with a message indicating the number of hidden items. The message content that appears is found
-				inside the element with class <code>pillbox-more</code>.
-			</td>
-		</tr>
+    <tr>
+      <td>readonly</td>
+      <td>boolean or -1</td>
+      <td>-1</td>
+      <td>Specifies whether the control is in readonly mode. If set to <code>true</code>, the pillbox disables user
+        capacity to add / edit pills. A <code>-1</code> value means it will check for the presence of the
+        <code>data-readonly="readonly"</code> attribute, and if found initialize in readonly mode.
+      </td>
+    </tr>
+    <tr>
+      <td>truncate</td>
+      <td>boolean</td>
+      <td>false</td>
+      <td>When in readonly mode, this option will display only the number of pills that fit within the pillbox main
+        container, with a message indicating the number of hidden items. The message content that appears is found
+        inside the element with class <code>pillbox-more</code>.
+      </td>
+    </tr>
       </tbody>
     </table>
   </div><!-- ./fu-table-responsive -->

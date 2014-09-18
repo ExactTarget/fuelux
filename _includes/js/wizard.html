@@ -1,7 +1,7 @@
 <!-- wizard
 ================================================== -->
 <div class="fu-docs-section">
-  <h1 id="wizard" class="page-header">Wizard <small>wizard.js</small></h1>
+  <h1 id="wizard" class="page-header">Wizard <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/wizard.js"><small>wizard.js</small></a></h1>
 
   <h2 id="wizard-examples">Examples</h2>
   <p>Wrap the input and wizard button within <code>.fuelux .wizard</code></p>
@@ -15,11 +15,11 @@
       <button type="button" class="btn btn-default" id="btnWizardStep">log current step index</button>
       <button type="button" class="btn btn-default" id="btnWizardSetStep">jump to step 3</button>
     </div>
-	<div class="btn-group">
+  <div class="btn-group">
       <button type="button" class="btn btn-default" id="btnWizardAddSteps">add step at index 2</button>
-	  <button type="button" class="btn btn-default" id="btnWizardRemoveStep">remove step 1</button>
-	  <button type="button" class="btn btn-default" id="btnWizardDestroy">destroy and append</button>
-	</div>
+    <button type="button" class="btn btn-default" id="btnWizardRemoveStep">remove step 1</button>
+    <button type="button" class="btn btn-default" id="btnWizardDestroy">destroy and append</button>
+  </div>
 
   </div><!-- /example -->
 
@@ -68,7 +68,7 @@
   <h4>.wizard('destroy')</h4>
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup</p>
   {% highlight js %}$('#myWizard').wizard('destroy');{% endhighlight %}
-  
+
   <h4>.wizard('previous')</h4>
   <p>Moves to the previous step</p>
   {% highlight js %}$('#myWizard').wizard('previous');{% endhighlight %}

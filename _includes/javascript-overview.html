@@ -13,20 +13,22 @@
     </ul>
   </div>
 
+  <div class="fu-callout fu-callout-danger">
+    <h4 id="plugin-dependencies">Class Dependency</h4>
+    <p>In order for Fuel UX to work, you must have the <code>fuelux</code> class on the body of your document <span class="text-muted">(Or at least on a parent container of the fuelux elements on your page)</span></p>
+  </div>
+
   <h3 id="control-initialization">Control Initialization</h3>
 
   <h4 id="control-initialization-javascript">With JavaScript</h4>
   <p>Initialize a component at any time via JavaScript:
 {% highlight js %}
-// initialized with defaults (no target method called and no options passed)
-$("#mySelector").control()
+// initialized with no options specified (fuelux defaults get used)
+$("#myCombobox").combobox();
 
-// initialized with optional target method to be run and control options specified
-var options = { option: 'value' };
-$('#mySelector').control('targetMethod', options);
+// initialized with options specified
+$('#myCombobox').combobox('selectByIndex', '1');
 {% endhighlight %}
-
-<span class="text-muted">Note that there is no "control" component. This is psuedo-code for illustrative purposes</span>
 </p>
 
   <div class="fu-callout fu-callout-warning">

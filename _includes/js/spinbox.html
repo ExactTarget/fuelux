@@ -1,17 +1,17 @@
 <!-- spinbox
 ================================================== -->
 <div class="fu-docs-section">
-  <h1 id="spinbox" class="page-header">Spinbox<small> spinbox.js</small></h1>
+  <h1 id="spinbox" class="page-header">Spinbox <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/spinbox.js"><small>spinbox.js</small></a></h1>
 
   <h2 id="spinbox-examples">Example</h2>
   <p>Spinbox includes an enhanced numeric input based upon the native <code>&lt;input type=&quot;number&quot;&gt;</code>. Wrap the input and the increment/decrement buttons within <code>.fuelux .spinbox</code></p>
-  
+
   <div class="fu-example section">
 
     <div class="form-group">
       <label class="control-label" for="mySpinboxWithDefaultInput">With default value and 3-digit class</label>
       <div class="form-group">
-        
+
         <div id="mySpinboxWithDefault" class="spinbox digits-3" data-initialize="spinbox">
           <input id="mySpinboxWithDefaultInput" type="text" value="3" class="form-control input-mini spinbox-input">
 
@@ -36,7 +36,7 @@
       <button id="btnDisableSpinbox" type="button" class="btn btn-default">disable</button>
       <button id="btnSpinboxDestroy" type="button" class="btn btn-default">destroy and append</button>
     </div>
-  
+
   </div><!-- /example -->
 
   <h2 id="spinbox-usage">Usage</h2>
@@ -165,7 +165,7 @@
       </tbody>
     </table>
   </div><!-- ./fu-table-responsive -->
-	<p>All spinbox events are fired on the <code>.spinbox</code> classed element.</p>
+  <p>All spinbox events are fired on the <code>.spinbox</code> classed element.</p>
 {% highlight js %}
 $('#mySpinbox').on('changed.fu.spinbox', function () {
   // do something
