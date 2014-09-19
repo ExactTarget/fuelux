@@ -2,30 +2,21 @@
 ================================================== -->
 <div class="fu-docs-section">
   <h1 id="placard" class="page-header">Placard <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/placard.js"><small>placard.js</small></a></h1>
-
-  <h2 id="placard-examples">Examples</h2>
-  <p>Adds a pop-up element to inputs/textareas on focus with additional options for explicit accept/cancel actions.</p>
-
-  <div class="fu-example section">
-{% include js/placard-example.html %}
-  </div>
-
   <h2 id="placard-usage">Usage</h2>
 
-  <h3>Via data-attributes</h3>
-  <p>The placard will automatically instantiate any placard with <code>data-initialize="placard"</code>. If you add the control markup <em>after page load</em> with <code>data-initialize="placard"</code>, this control initialize on <code>focus</code>.
-
-  <p>Add <code>data-ellipsis="true"</code> to the placard element to enable ellipsis for overflow on the
-    input or textarea. This function uses Javascript to enable ellipsis for textareas. Use the
-    <code>.('getValue');</code> and <code>.('setValue');</code> methods to retrieve or set values upon focus gain/loss. Performance drops with larger textareas when ellipsis is enabled.
-  </p>
-
-  <h3>Via JavaScript</h3>
+  <h3 id="placard-usage-javascript">Via JavaScript</h3>
   <p>Call the placard control via JavaScript:</p>
   {% highlight js %}$('#myPlacard').placard();{% endhighlight %}
 
+  <h3 id="placard-usage-data-attributes">Via data-attributes</h3>
+  <p>The placard will automatically instantiate any placard with <code>data-initialize="placard"</code>. If you add the control markup <em>after page load</em> with <code>data-initialize="placard"</code>, this control initialize on <code>focus</code>.
 
-  <h3>Markup</h3>
+  <p>Add <code>data-ellipsis="true"</code> to the placard element to enable ellipsis for overflow on the
+    input or textarea. This function uses JavaScript to enable ellipsis for textareas. Use the
+    <code>.('getValue');</code> and <code>.('setValue');</code> methods to retrieve or set values upon focus gain/loss. Performance drops with larger textareas when ellipsis is enabled.
+  </p>
+
+  <h3 id="placard-usage-markup">Markup</h3>
   <p>Use the following markup for a simple input OR textarea placard:</p>
 {% highlight html %}
 <div class="placard" data-initialize="placard" id="myPlacard">
@@ -64,13 +55,13 @@
 </div>
 {% endhighlight %}
 
-  <h3>Glass styling</h3>
+  <h3 id="placard-usage-glass-styling">Glass styling</h3>
   <p>Add the <code>glass</code> class to the <code>input</code> or <code>textarea</code> with class <code>placard-field</code>
     for an input area with minimalistic chrome unless hovered upon or clicked.
   </p>
 
-  <h3>Options</h3>
-  <p>You can pass options via Javascript upon initialization.</p>
+  <h3 id="placard-usage-options">Options</h3>
+  <p>You can pass options via JavaScript upon initialization.</p>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>
@@ -133,56 +124,54 @@
     </table>
   </div><!-- ./fu-table-responsive -->
 
-  <h3>Methods</h3>
-  <h4>$().placard();</h4>
-  Attaches placard to the placard markup
+  <h3 id="placard-usage-methods">Methods</h3>
+  <dl>
+    <dt id="placard-usage-methods-init">$().placard();</dt>
+    <dd>Attaches placard to the placard markup.</dd>
 
-  <h4>.placard('destroy')</h4>
-  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup</p>
-  {% highlight js %}$('#myPlacard').placard('destroy');{% endhighlight %}
+    <dt id="placard-usage-methods-destroy">.placard('destroy')</dt>
+    <dd>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup</dd>
 
-  <h4>.placard('disable')</h4>
-  <p>Disables the placard, preventing users from manipulating the placard value.</p>
-  {% highlight js %}$('#myPlacard').placard('disable');{% endhighlight %}
+    <dt id="placard-usage-methods-disable">.placard('disable')</dt>
+    <dd>Disables the placard, preventing users from manipulating the placard value.</dd>
 
-  <h4>.placard('enable')</h4>
-  <p>Enables the placard, allowing users to manipulate the placard value.</p>
-  {% highlight js %}$('#myPlacard').placard('enable');{% endhighlight %}
+    <dt id="placard-usage-methods-enable">.placard('enable')</dt>
+    <dd>Enables the placard, allowing users to manipulate the placard value.</dd>
 
-  <h4>.placard('getValue');</h4>
-  <p>Gets the current actual placard value</p>
-  {% highlight js %}$('#myPlacard').placard('getValue');{% endhighlight %}
+    <dt id="placard-usage-methods-getValue">.placard('getValue');</dt>
+    <dd>Gets the current actual placard value</dd>
 
-  <h4>.placard('hide');</h4>
-  <p>Hides the placard pop-up</p>
-  {% highlight js %}$('#myPlacard').placard('hide');{% endhighlight %}
+    <dt id="placard-usage-methods-hide">.placard('hide');</dt>
+    <dd>Hides the placard pop-up</dd>
 
-  <h4>.placard('setValue');</h4>
-  <p>Sets the current actual placard value</p>
-  {% highlight js %}$('#myPlacard').placard('setValue');{% endhighlight %}
+    <dt id="placard-usage-methods-setValue">.placard('setValue');</dt>
+    <dd>
+      Sets the current actual placard value
+{% highlight js %}$('#myPlacard').placard('setValue', {value: 'foxen'});{% endhighlight %}
 
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th style="width: 150px;">Parameter</th>
-          <th>description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>value</td>
-          <td><em>Required.</em> String or number used to set the placard value.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div><!-- ./fu-table-responsive -->
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th style="width: 150px;">Parameter</th>
+              <th>description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>value</td>
+              <td><em>Required.</em> String or number used to set the placard value.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div><!-- ./fu-table-responsive -->
+    </dd>
 
-  <h4>.placard('show');</h4>
-  <p>Shows the placard pop-up.</p>
-  {% highlight js %}$('#myPlacard').placard('show');{% endhighlight %}
+    <dt id="placard-usage-methods-show">.placard('show');</dt>
+    <dd>Shows the placard pop-up.</dd>
+  </dl>
 
-  <h3>Events</h3>
+  <h3 id="placard-usage-events">Events</h3>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>
@@ -221,4 +210,13 @@ $('#myPlacard').on('accept.fu.placard', function () {
   // do something…
 });
 {% endhighlight %}
+
+
+  <h2 id="placard-examples">Examples</h2>
+  <p>Adds a pop-up element to inputs/textareas on focus with additional options for explicit accept/cancel actions.</p>
+
+  <div class="fu-example section">
+{% include js/placard-example.html %}
+  </div>
+
 </div>

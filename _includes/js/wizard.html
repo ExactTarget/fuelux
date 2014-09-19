@@ -8,7 +8,7 @@
   <div class="fu-example section">
     {% include js/wizard-example.html %}
 
-    <h5>Sample Methods</h5>
+    <h5 id="">Sample Methods</h5>
     <div class="btn-group">
       <button type="button" class="btn btn-default" id="btnWizardPrev">previous</button>
       <button type="button" class="btn btn-default" id="btnWizardNext">next</button>
@@ -26,13 +26,13 @@
   <h2 id="wizard-usage">Usage</h2>
   <p>A wizard divides a complex goal into multiple steps by separating sub-tasks or content into panes. You can add or remove panes. Completed steps remain clickable.</p>
 
-  <h3>Via data-attributes</h3>
+  <h3 id="">Via data-attributes</h3>
   <p>The wizard will automatically instantiate any wizards with <code>data-initialize="wizard"</code>. If you add control markup <em>after page load</em> with <code>data-initialize="wizard"</code>, this control initializes on <code>mouseover</code>.
 
-  <h3>Via JavaScript</h3>
+  <h3 id="">Via JavaScript</h3>
   {% highlight js %}$('#myWizard').wizard();{% endhighlight %}
 
-  <h3>Markup</h3>
+  <h3 id="">Markup</h3>
   <p>Wrap <code>class="wizard"</code> around a list of steps, navigation, and content within a <code>class="fuelux"</code> container.</p>
   <div class="truncate-highlight">
 {% highlight html %}
@@ -40,7 +40,7 @@
 {% endhighlight %}
   </div>
 
-  <h3>Data Attribute Options</h3>
+  <h3 id="">Data Attribute Options</h3>
   <p>For data attributes, append the option name to data-, as in data-restrict="".</p>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
@@ -61,23 +61,23 @@
     </table>
   </div><!-- ./fu-table-responsive -->
 
-  <h3>Methods</h3>
-  <h4>$().wizard()</h4>
+  <h3 id="">Methods</h3>
+  <h4 id="">$().wizard()</h4>
   Attaches wizard to a list of steps, navigation, and content
 
-  <h4>.wizard('destroy')</h4>
+  <h4 id="">.wizard('destroy')</h4>
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup</p>
   {% highlight js %}$('#myWizard').wizard('destroy');{% endhighlight %}
 
-  <h4>.wizard('previous')</h4>
+  <h4 id="">.wizard('previous')</h4>
   <p>Moves to the previous step</p>
   {% highlight js %}$('#myWizard').wizard('previous');{% endhighlight %}
 
-  <h4>.wizard('next')</h4>
+  <h4 id="">.wizard('next')</h4>
   <p>Moves to the next step</p>
   {% highlight js %}$('#myWizard').wizard('next');{% endhighlight %}
 
-  <h4>.wizard('selectedItem')</h4>
+  <h4 id="">.wizard('selectedItem')</h4>
   <p>Returns the current step index</p>
 {% highlight js %}
 $('#myWizard').wizard('selectedItem', {
@@ -85,7 +85,7 @@ $('#myWizard').wizard('selectedItem', {
 });
 {% endhighlight %}
 
-  <h4>.wizard('addSteps')</h4>
+  <h4 id="">.wizard('addSteps')</h4>
   <p>Add a pane or an array of panes to a wizard. Wrap this markup with <code>&lt;div class=&quot;step-pane&quot;&gt;&lt;/div&gt;</code></p>
 {% highlight js %}
 $('#myWizard').wizard('addSteps', index, [
@@ -124,7 +124,7 @@ $('#myWizard').wizard('addSteps', index, [
     </table>
   </div><!-- ./fu-table-responsive -->
 
-  <h4>.wizard('removeSteps')</h4>
+  <h4 id="">.wizard('removeSteps')</h4>
   <p>Remove a pane or multiple panes from a wizard</p>
 {% highlight js %}
   $('#myWizard').wizard('removeSteps', index, howMany);
@@ -152,7 +152,7 @@ $('#myWizard').wizard('addSteps', index, [
   </div><!-- ./fu-table-responsive -->
 
 
-  <h3>Events</h3>
+  <h3 id="">Events</h3>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>

@@ -26,14 +26,14 @@ $('#myInfiniteScroll').infinitescroll({
 });
 {% endhighlight %}
 
-  <h3>Markup</h3>
+  <h3 id="infinite-scroll-usage-markup">Markup</h3>
   <p>Simply place <code>class="infinitescroll"</code> on an element of your choosing (preferably a div or span).</p>
 {% highlight html %}
 <div class="infinitescroll" id="myInfiniteScroll"></div>
 {% endhighlight %}
 
-  <h3>Options</h3>
-  <p>You can pass options via Javascript at initialization.</p>
+  <h3 id="infinite-scroll-usage-options">Options</h3>
+  <p>You can pass options via JavaScript at initialization.</p>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>
@@ -85,64 +85,68 @@ $('#myInfiniteScroll').infinitescroll({
     </table>
   </div><!-- ./fu-table-responsive -->
 
-  <h3>Methods</h3>
-  <h4>$().infinitescroll();</h4>
-  Attaches infinitescroll control to an <code>infinitescroll</code> classed element.
+  <h3 id="infinite-scroll-usage-methods">Methods</h3>
+  <dl>
+    <dt id="infinite-scroll-usage-">$().infinitescroll();</dt>
+    <dd>Attaches infinitescroll control to an <code>infinitescroll</code> classed element.</dd>
 
-  <h4>.infinitescroll('destroy')</h4>
-  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
-  {% highlight js %}$('#myInfiniteScroll').infinitescroll('destroy');{% endhighlight %}
+    <dt id="infinite-scroll-usage-destroy">.infinitescroll('destroy')</dt>
+    <dd>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</dd>
 
-  <h4>.infinitescroll('disable');</h4>
-  <p>Disables the infinite scrolling region</p>
-  {% highlight js %}$('#myInfiniteScroll').infinitescroll('disable');{% endhighlight %}
+    <dt id="infinite-scroll-usage-disable">.infinitescroll('disable');</dt>
+    <dd>Disables the infinite scrolling region</dd>
 
-  <h4>.infinitescroll('enable');</h4>
-  <p>Enables the infinite scrolling region</p>
-  {% highlight js %}$('#myInfiniteScroll').infinitescroll('enable');{% endhighlight %}
+    <dt id="infinite-scroll-usage-enable">.infinitescroll('enable');</dt>
+    <dd>Enables the infinite scrolling region</dd>
 
-  <h4>.infinitescroll('end');</h4>
-  <p>Disables the infinite scrolling region and appends an "end" indicator</p>
-  {% highlight js %}$('#myInfiniteScroll').infinitescroll('end');{% endhighlight %}
+    <dt id="infinite-scroll-usage-end">.infinitescroll('end');</dt>
+    <dd>
+      Disables the infinite scrolling region and appends an "end" indicator
+      {% highlight js %}$('#myInfiniteScroll').infinitescroll('fetchData');{% endhighlight %}
+      {% highlight js %}$('#myInfiniteScroll').infinitescroll('fetchData', {content: 'endicator'});{% endhighlight %}
 
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead>
-      <tr>
-        <th style="width: 150px;">Parameter</th>
-        <th>description</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>content</td>
-        <td><em>Optional.</em> String or jQuery object appended as an "end" indicator. Defaults to <code>'---------'</code></td>
-      </tr>
-      </tbody>
-    </table>
-  </div><!-- ./fu-table-responsive -->
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+          <tr>
+            <th style="width: 150px;">Parameter</th>
+            <th>description</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>content</td>
+            <td><em>Optional.</em> String or jQuery object appended as an "end" indicator. Defaults to <code>'---------'</code></td>
+          </tr>
+          </tbody>
+        </table>
+      </div><!-- ./fu-table-responsive -->
+    </dd>
 
-  <h4>.infinitescroll('fetchData');</h4>
-  <p>Tells the infinite scrolling region to make a call to dataSource for additional content.</p>
-  {% highlight js %}$('#myInfiniteScroll').infinitescroll('fetchData');{% endhighlight %}
+    <dt id="infinite-scroll-usage-fetch-data">.infinitescroll('fetchData');</dt>
+    <dd>
+      Tells the infinite scrolling region to make a call to its <code>dataSource</code> for additional content.
+      {% highlight js %}$('#myInfiniteScroll').infinitescroll('fetchData');{% endhighlight %}
+      {% highlight js %}$('#myInfiniteScroll').infinitescroll('fetchData', {force: true});{% endhighlight %}
 
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead>
-      <tr>
-        <th style="width: 150px;">Parameter</th>
-        <th>description</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>force</td>
-        <td><em>Optional.</em> Boolean dictating whether to bypass the button click in hybrid mode and immediately
-          call dataSoruce for more content. Defaults to <code>false</code>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div><!-- ./fu-table-responsive -->
-
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+          <tr>
+            <th style="width: 150px;">Parameter</th>
+            <th>description</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>force</td>
+            <td><em>Optional.</em> Boolean dictating whether to bypass the button click in hybrid mode and immediately
+              call dataSoruce for more content. Defaults to <code>false</code>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div><!-- ./fu-table-responsive -->
+    </dd>
+  </dl>
 </div>

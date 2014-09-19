@@ -3,48 +3,19 @@
 <div class="fu-docs-section">
   <h1 id="scheduler" class="page-header">Scheduler <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/scheduler.js"><small>scheduler.js</small></a></h1>
 
-  <h2 id="scheduler-examples">Examples</h2>
-  <p>Create a time object with support for start date and time, timezone and iCal-compatible reccurance patterns.</p>
-
-  <h3>Static example</h3>
-  <p>A scheduler with start date and time, timezone, and all recurrance and recurrance end options. All options do not show simutaneously in the live demo further along in this document.</p>
-  <div class="fu-example fu-example-scheduler">
-    <fieldset id="mySchedulerStatic" class="form-horizontal container-fluid scheduler" role="form">
-    {% include js/scheduler-example.html %}
-    </fieldset>
-  </div><!-- /example -->
-
-  <h3>Live demo</h3>
-  <div class="fu-example section">
-    <div class="form-horizontal container-fluid scheduler" data-initialize="scheduler" role="form" id="myScheduler">
-    {% include js/scheduler-example.html %}
-    </div>
-
-    <br/>
-    <h5>Sample Methods</h5>
-    <div class="btn-group">
-        <button class="btn btn-default" id="btnSchedulerEnable">enable</button>
-        <button class="btn btn-default" id="btnSchedulerDisable">disable</button>
-        <button class="btn btn-default" id="btnSchedulerLogValue">log value</button>
-        <button class="btn btn-default" id="btnSchedulerSetValue">set value to the following schedule</button>
-        <button class="btn btn-default" id="btnSchedulerDestroy">destroy and append</button>
-    </div>
-
-  </div><!-- /example -->
-
-
   <h2 id="scheduler-usage">Usage</h2>
-
+  <!-- TODO: evaluate this line, it seems very out of place... -->
   <p>A scheduler can return a time object with a <code>startDateTime</code>, a <code>timeZone</code>, and a<code>recurrencePattern</code></p>
 
-  <h3>Via data-attributes</h3>
-  <p>To enable the scheduler control without writing Javascript, add <code>data-initialize="scheduler"</code> to the <code>.scheduler</code> element that you wish to initialize. Such elements that exist when <code>$.ready()</code> executes will be initialized. Any scheduler markup that is programatically created with <code>data-initialize="scheduler"</code> sometime after the initial page load will not immediately initialize. Rather, it will initialize when the <code>mousedown</code> event is fired on it.</p>
-
-  <h3>Via JavaScript</h3>
+  <h3 id="scheduler-usage-javascript">Via JavaScript</h3>
   <p>Call the scheduler control via JavaScript:</p>
   {% highlight js %}$('#myscheduler').scheduler();{% endhighlight %}
 
-  <h3>Markup</h3>
+  <h3 id="scheduler-usage-data-attributes">Via data-attributes</h3>
+  <p>To enable the scheduler control without writing JavaScript, add <code>data-initialize="scheduler"</code> to the <code>.scheduler</code> element that you wish to initialize. Such elements that exist when <code>$.ready()</code> executes will be initialized. Any scheduler markup that is programmatically created with <code>data-initialize="scheduler"</code> sometime after the initial page load will not immediately initialize. Rather, it will initialize when the <code>mousedown</code> event is fired on it.</p>
+
+
+  <h3 id="scheduler-usage-markup">Markup</h3>
   <p>Wrap <code>class="scheduler"</code> around a start date and time, a timezone, and a recurrance pattern within a <code>class="fuelux"</code> container.</p>
 
   <div class="truncate-highlight">
@@ -55,67 +26,58 @@
     {% endhighlight %}
   </div>
 
-  <h3>Methods</h3>
-  <h4>$().scheduler()</h4>
-  Attaches scheduler to a collection of time and date elements.
+  <h3 id="scheduler-usage-methods">Methods</h3>
+  <dl>
+    <dt id="scheduler-usage-methods-destroy">.scheduler('destroy')</dt>
+    <dd>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</dd>
 
-  <h4>.scheduler('destroy')</h4>
-  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
-  {% highlight js %}$('#myScheduler').scheduler('destroy');{% endhighlight %}
+    <dt id="scheduler-usage-methods-disable">.scheduler('disable')</dt>
+    <dd>Ensure all scheduler form fields are disabled</dd>
 
-  <h4>.scheduler('disable')</h4>
-  <p>Disable all scheduler form fields</p>
-  {% highlight js %}$('#myScheduler').scheduler('disable');{% endhighlight %}
+    <dt id="scheduler-usage-methods-enable">.scheduler('enable')</dt>
+    <dd>Ensure all scheduler form fields are enabled</dd>
 
-  <h4>.scheduler('enable')</h4>
-  <p>Enables all scheduler form fields</p>
-  {% highlight js %}$('#myScheduler').scheduler('enable');{% endhighlight %}
+    <dt id="scheduler-usage-methods-value">.scheduler('value')</dt>
+    <dd>Gets or sets the current scheduler form field information
+  {% highlight js %}$('myScheduler').scheduler('value');{% endhighlight %}
+  {% highlight js %}
+  $('myScheduler').scheduler('value', {
+    startDateTime: '2014-03-31T03:23+02:00',
+    timeZone: {
+      offset: '+02:00'
+    },
+    recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
+  });
+  {% endhighlight %}
 
-  <h4>.scheduler('value')</h4>
-  <p>Gets the current scheduler form field information or sets it, depending on arguments present</p>
-{% highlight js %}
-$('myScheduler').scheduler('value');
-{% endhighlight %}
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th style="width: 150px;">Parameter</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>startDateTime</td>
+              <td><em>Required.</em> String representing the start date &amp; time in <a href="http://www.w3.org/TR/NOTE-datetime">ISO 8601 format</a>.</td>
+            </tr>
+            <tr>
+              <td>timeZone</td>
+              <td><em>Optional.</em> <code>String</code> or <code>Object</code> (as <code>{name: 'value'}</code> or <code>{offset: '+00:00'}</code>) used for method call to <a href="#selectlist-usage-methods-select-by-selector"><code>selectBySelector()</code></a> on <a href="#scheduler"><code>scheduler</code></a>'s Timezone <a href="#selectlist"><code>selectList</code></a>. Whatever is passed in will be passed along to <a href="#selectlist-usage-methods-select-by-selector">selectlist.selectBySelector(value)</a>. If a <code>String</code> is passed, it will be passed along <em>as-is</em>. If an <code>Object</code> is passed, <code>name</code> will be passed along if present, otherwise <code>offset</code> will be passed along <strong><em>but never both</em></strong>.</td>
+            </tr>
+            <tr>
+              <td><em>recurrencePattern</em></td>
+              <td><em>Optional.</em> String representing the <a href="http://www.kanzaki.com/docs/ical/recur.html">iCal recurrence value</a>.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div><!-- ./fu-table-responsive -->
+    </dd>
+  </dl>
 
-  <h5>Setter Method</h5>
-  <p>Use <code>'value'</code> while passing an object following the structure listed below as the second parameter</p>
-{% highlight js %}
-$('myScheduler').scheduler('value', {
-  startDateTime: '2014-03-31T03:23+02:00',
-  timeZone: {
-  name: 'Namibia Standard Time',
-    offset: '+02:00'
-  },
-  recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
-});
-{% endhighlight %}
-
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th style="width: 150px;">Parameter</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>startDateTime</td>
-          <td><em>Required.</em> String representing the start date &amp; time in ISO 8601 format.</td>
-        </tr>
-        <tr>
-          <td>timeZone</td>
-          <td>Object containing the time zone name and offset.</td>
-        </tr>
-        <tr>
-          <td><em>recurrencePattern</em></td>
-          <td><em>Optional.</em> String representing the iCal recurrence value.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div><!-- ./fu-table-responsive -->
-
-  <h3>Events</h3>
+  <h3 id="scheduler-usage-events">Events</h3>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>
@@ -132,20 +94,48 @@ $('myScheduler').scheduler('value', {
       </tbody>
     </table>
   </div><!-- ./fu-table-responsive -->
-<p>All scheduler events are fired on the <code>.scheduler</code> classed element.</p>
-{% highlight js %}
-$('#myScheduler').on('changed.fu.scheduler', function () {
-  // do something
-});
-{% endhighlight %}
+  <p>All scheduler events are fired on the <code>.scheduler</code> classed element.</p>
+  {% highlight js %}
+  $('#myScheduler').on('changed.fu.scheduler', function () {
+    // do something
+  });
+  {% endhighlight %}
 
-<h3 id="scheduler-dependencies">Fuel UX Dependencies</h3>
-<ul>
-  <li><a href="#comboboxes">Combobox</a></li>
-  <li><a href="#datepickers">Datepicker</a></li>
-  <li><a href="#radios">Radio</a></li>
-  <li><a href="#selectlists">Selectlist</a></li>
-  <li><a href="#spinboxes">Spinbox</a></li>
-</ul>
+  <h3 id="scheduler-usage-dependencies">Fuel UX Dependencies</h3>
+  <ul>
+    <li><a href="#combobox">Combobox</a></li>
+    <li><a href="#datepicker">Datepicker</a></li>
+    <li><a href="#radio">Radio</a></li>
+    <li><a href="#selectlist">Selectlist</a></li>
+    <li><a href="#spinbox">Spinbox</a></li>
+  </ul>
 
+  <h2 id="scheduler-examples">Examples</h2>
+  <p>Create a time object with support for start date and time, timezone and iCal-compatible reccurance patterns.</p>
+
+  <h3 id="scheduler-examples-static">Static example</h3>
+  <p>A scheduler with start date and time, timezone, and all recurrance and recurrance end options. All options do not show simutaneously in the live demo further along in this document.</p>
+  <div class="fu-example fu-example-scheduler">
+    <fieldset id="mySchedulerStatic" class="form-horizontal container-fluid scheduler" role="form">
+    {% include js/scheduler-example.html %}
+    </fieldset>
+  </div><!-- /example -->
+
+  <h3 id="scheduler-examples-live-demo">Live demo</h3>
+  <div class="fu-example section">
+    <div class="form-horizontal container-fluid scheduler" data-initialize="scheduler" role="form" id="myScheduler">
+    {% include js/scheduler-example.html %}
+    </div>
+
+    <br/>
+    <h5>Sample Methods</h5>
+    <div class="btn-group">
+        <button class="btn btn-default" id="btnSchedulerEnable">enable</button>
+        <button class="btn btn-default" id="btnSchedulerDisable">disable</button>
+        <button class="btn btn-default" id="btnSchedulerLogValue">log value</button>
+        <button class="btn btn-default" id="btnSchedulerSetValue">set value to the following schedule</button>
+        <button class="btn btn-default" id="btnSchedulerDestroy">destroy and append</button>
+    </div>
+
+  </div><!-- /example -->
 </div>

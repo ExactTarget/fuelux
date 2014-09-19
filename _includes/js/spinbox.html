@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <h5>Sample Methods</h5>
+    <h5 id="">Sample Methods</h5>
     <div class="btn-group">
       <button id="btnSpinboxSetValue" type="button" class="btn btn-default">set value (4)</button>
       <button id="btnSpinboxGetValue" type="button" class="btn btn-default">get value</button>
@@ -42,14 +42,14 @@
   <h2 id="spinbox-usage">Usage</h2>
   <p>A spinbox allows for click interaction with a numeric input.</p>
 
-  <h3>Via data-attributes</h3>
-  <p>To enable the spinbox control without writing Javascript, add <code>data-initialize="spinbox"</code> to the <code>.spinbox</code> element that you wish to initialize. Such elements that exist when <code>$.ready()</code> executes will be initialized. Any spinbox markup that is programatically created with <code>data-initialize="spinbox"</code> sometime after the initial page load will not immediately initialize. Rather, it will initialize when the <code>mousedown</code> event is fired on it.</p>
+  <h3 id="">Via data-attributes</h3>
+  <p>To enable the spinbox control without writing JavaScript, add <code>data-initialize="spinbox"</code> to the <code>.spinbox</code> element that you wish to initialize. Such elements that exist when <code>$.ready()</code> executes will be initialized. Any spinbox markup that is programmatically created with <code>data-initialize="spinbox"</code> sometime after the initial page load will not immediately initialize. Rather, it will initialize when the <code>mousedown</code> event is fired on it.</p>
 
-  <h3>Via JavaScript</h3>
+  <h3 id="">Via JavaScript</h3>
   <p>Call the selectlist control via JavaScript:</p>
   {% highlight js %}$('#mySpinbox').spinbox();{% endhighlight %}
 
-  <h3>Markup</h3>
+  <h3 id="">Markup</h3>
 
   <p>Add <code>class="spinbox"</code> to a div within a <code>class="fuelux"</code> container.</p>
 
@@ -67,17 +67,17 @@
   </div>
   {% endhighlight %}
 
-  <h3>Methods</h3>
+  <h3 id="">Methods</h3>
 
-  <h4>.spinbox('destroy')</h4>
+  <h4 id="">.spinbox('destroy')</h4>
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
   {% highlight js %}$('#mySpinbox').spinbox('destroy');{% endhighlight %}
-  <h4>.spinbox('value')</h4>
+  <h4 id="">.spinbox('value')</h4>
   <p>Sets or returns the spinner value, as shown in the example below:</p>
   {% highlight js %}$('#mySpinbox').spinbox('value') {% endhighlight %}
   <p>If value contains units, the value returns as a string. Otherwise, the value returns as a number.</p>
 
-  <h3>Options</h3>
+  <h3 id="">Options</h3>
   <p>Options that can be passed in via JavaScript once at initialization.</p>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
@@ -148,7 +148,7 @@
     </table>
   </div><!-- ./fu-table-responsive -->
 
-  <h3>Events</h3>
+  <h3 id="">Events</h3>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>

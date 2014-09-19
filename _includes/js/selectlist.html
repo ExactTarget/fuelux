@@ -31,7 +31,7 @@
     </div>
 
     <br/>
-    <h5>Sample Methods <small>(output sent to browser console)</small></h5>
+    <h5 id="">Sample Methods <small>(output sent to browser console)</small></h5>
     <div class="btn-group">
       <button type="button" class="btn btn-default" id="btnSelectlistSelectedItem">log selected item/value</button>
       <button type="button" class="btn btn-default" id="btnSelectlistSelectByValue">set by value (3)</button>
@@ -54,15 +54,15 @@
   <h2 id="selectlist-usage">Usage</h2>
   <p>This is a single select drop-down similar to the native <code>select</code> control. Data attributes are added to the <code>li</code> tag.</p>
 
-  <h3>Via data-attributes</h3>
+  <h3 id="">Via data-attributes</h3>
 
-  <p>To enable the selectlist control without writing Javascript, add <code>data-initialize="selectlist"</code> to the <code>.selectlist</code> element that you wish to initialize. Such elements that exist when <code>$.ready()</code> executes will be initialized. Any combobox markup that is programatically created with <code>data-initialize="selectlist"</code> sometime after the initial page load will not immediately initialize. Rather, it will initialize when the <code>mousedown</code> event is fired on it.</p>
+  <p>To enable the selectlist control without writing JavaScript, add <code>data-initialize="selectlist"</code> to the <code>.selectlist</code> element that you wish to initialize. Such elements that exist when <code>$.ready()</code> executes will be initialized. Any combobox markup that is programmatically created with <code>data-initialize="selectlist"</code> sometime after the initial page load will not immediately initialize. Rather, it will initialize when the <code>mousedown</code> event is fired on it.</p>
 
-  <h3>Via JavaScript</h3>
+  <h3 id="">Via JavaScript</h3>
   <p>Call the selectlist control via JavaScript:</p>
   {% highlight js %}$('#mySelectlist').selectlist();{% endhighlight %}
 
-  <h3>Markup</h3>
+  <h3 id="">Markup</h3>
   <p>Wrap <code>class="selectlist"</code> around an input and a button within a <code>class="fuelux"</code> container.</p>
 {% highlight html %}
 <div class="btn-group selectlist" data-resize="auto" data-initialize="selectlist" id="mySelectlist">
@@ -79,44 +79,44 @@
 </div>
 {% endhighlight %}
 
-  <h3>Methods</h3>
-  <h4>$().selectlist()</h4>
+  <h3 id="">Methods</h3>
+  <h4 id="">$().selectlist()</h4>
   Attaches selectlist to an input and a button group
 
-  <h4>.seleclist('destroy')</h4>
+  <h4 id="">.seleclist('destroy')</h4>
   <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
   {% highlight js %}$('#mySelectlist').selectlist('destroy');{% endhighlight %}
 
-  <h4>.selectlist('disable')</h4>
+  <h4 id="">.selectlist('disable')</h4>
   <p>Disables the component</p>
   {% highlight js %}$('#mySelectlist').selectlist('disable');{% endhighlight %}
 
-  <h4>.selectlist('enable')</h4>
+  <h4 id="">.selectlist('enable')</h4>
   <p>Enables the component</p>
   {% highlight js %}$('#mySelectlist').selectlist('enable');{% endhighlight %}
 
-  <h4>.selectlist('selectedItem')</h4>
+  <h4 id="">.selectlist('selectedItem')</h4>
   <p>Returns an object containing the jQuery data() contents of the selected item. This data includes <code>.data-*</code> attributes plus a text property with the visible text from the item.</p>
   {% highlight js %}$('#mySelectlist').selectlist('selectedItem');{% endhighlight %}
 
-  <h4>.selectlist('selectByIndex')</h4>
+  <h4 id="">.selectlist('selectByIndex')</h4>
   <p>Set the selected item based on its index in the list (zero-based index). Convenience method for <code>.selectBySelector('li:eq({index})')</code></p>
   {% highlight js %}$('#mySelectlist').selectlist('selectByIndex', '1');{% endhighlight %}
 
-  <h4>.selectlist('selectByText')</h4>
+  <h4 id="">.selectlist('selectByText')</h4>
   <p>Set the selected item based on its text value</p>
   {% highlight js %}$('#mySelectlist').selectlist('selectByText', 'Four');{% endhighlight %}
 
-  <h4>.selectlist('selectBySelector')</h4>
+  <h4 id="">.selectlist('selectBySelector')</h4>
   <p>Set the selected item based on a selector</p>
   {% highlight js %}$('#mySelectlist').selectlist('selectBySelector', 'li[data-fizz=buzz]');{% endhighlight %}
 
-  <h4>.selectlist('selectByValue')</h4>
+  <h4 id="">.selectlist('selectByValue')</h4>
   <p>Set the selected item based on its value. Convenience method for <code>.selectBySelector('data-value={value}')</code> that requires the item to include a <code>.data-value="{value}"</code> attribute</p>
   {% highlight js %}$('#mySelectlist').selectlist('selectByValue', '1');{% endhighlight %}
 
 
-  <h3>Events</h3>
+  <h3 id="">Events</h3>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>

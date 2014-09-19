@@ -3,6 +3,45 @@
 <div class="fu-docs-section">
   <h1 id="loader" class="page-header">Loader <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/loader.js"><small>loader.js</small></a></h1>
 
+  <h2 id="loader-usage">Usage</h2>
+
+  <h3 id="loader-usage-javascript">Via JavaScript</h3>
+  <p>Call the loader control via JavaScript:</p>
+  {% highlight js %}$('#myLoader').loader();{% endhighlight %}
+
+  <h3 id="loader-usage-data-attributes">Via data-attributes</h3>
+  <p>To enable the loader control without writing JavaScript, add <code>data-initialize="loader"</code> to the <code>.loader</code> element that you wish to initialize. Such elements that exist when <code>$.ready()</code> executes will be initialized.</p>
+
+  <h3 id="loader-usage-markup">Markup</h3>
+  <p>Simply place <code>class="loader"</code> on a div.</p>
+{% highlight html %}
+<div class="loader" data-initialize="loader" id="myLoader"></div>
+{% endhighlight %}
+
+  <h3 id="loader-usage-methods">Methods</h3>
+  <dl>
+    <dt id="loader-usage-methods-">$().loader();</dt>
+    <dd>Attaches loader to a <code>.loader</code> element.</dd>
+
+    <dt id="loader-usage-methods-destroy">.loader('destroy')</dt>
+    <dd>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</dd>
+
+    <dt id="loader-usage-methods-next">.loader('next');</dt>
+    <dd>Increments the loader animation to the next frame</dd>
+
+    <dt id="loader-usage-methods-pause">.loader('pause');</dt>
+    <dd>Pauses the loader animation at the current frame.</dd>
+
+    <dt id="loader-usage-methods-play">.loader('play');</dt>
+    <dd>Plays the loader animation, resuming it if paused.</dd>
+
+    <dt id="loader-usage-methods-prev">.loader('prev');</dt>
+    <dd>Decrements the loader animation to the previous frame.</dd>
+
+    <dt id="loader-usage-methods-reset">.loader('reset');</dt>
+    <dd>Resets the loader animation to the beginning frame.</dd>
+  </dl>
+
   <h2 id="loader-examples">Examples</h2>
   <p>Animation for visual indication of waiting time that can be customized to have many appearances.</p>
 
@@ -13,7 +52,7 @@
 <div class="loader" data-initialize="loader"></div>
 {% endhighlight %}
 
-  <h4>Starting frame</h4>
+  <h4 id="loader-examples-starting-frame">Starting frame</h4>
   <p>Use the <code>data-frame</code> attribute to set the initial animation frame (defaults to 1). Additionally, this attribute can be modified at any time to set the current frame.
   <div class="fu-example section">
     <div class="loader" data-initialize="loader" data-frame="5" id="myLoader"></div>
@@ -22,7 +61,7 @@
 <div class="loader" data-initialize="loader" data-frame="5" id="myLoader"></div>
 {% endhighlight %}
 
-  <h4>Controlling speed</h4>
+  <h4 id="loader-examples-controlling-speed">Controlling speed</h4>
   <p>Use the <code>data-delay</code> attribute to alter animation speed (defaults to 150).
   <div class="fu-example section">
     <div class="loader" data-initialize="loader" data-delay="500" id="myLoader2"></div>
@@ -31,7 +70,7 @@
 <div class="loader" data-initialize="loader" data-delay="500" id="myLoader2"></div>
 {% endhighlight %}
 
-  <h4>Animation range</h4>
+  <h4 id="loader-examples-animation-range">Animation range</h4>
   <p>Use the <code>data-begin</code> and <code>data-end</code> attributes to control at which frames the animation begins and ends, respectively. (Defaults are 1 and 8)
   <div class="fu-example section">
     <div class="loader" data-initialize="loader" data-begin="3" data-end="6" id="myLoader3"></div>
@@ -39,48 +78,5 @@
 {% highlight html %}
 <div class="loader" data-initialize="loader" data-begin="3" data-end="6" id="myLoader3"></div>
 {% endhighlight %}
-
-  <h2 id="loader-usage">Usage</h2>
-
-  <h3>Via data-attributes</h3>
-  <p>To enable the loader control without writing Javascript, add <code>data-initialize="loader"</code> to the <code>.loader</code> element that you wish to initialize. Such elements that exist when <code>$.ready()</code> executes will be initialized.</p>
-
-  <h3>Via JavaScript</h3>
-  <p>Call the loader control via JavaScript:</p>
-  {% highlight js %}$('#myLoader').loader();{% endhighlight %}
-
-  <h3>Markup</h3>
-  <p>Simply place <code>class="loader"</code> on a div.</p>
-{% highlight html %}
-<div class="loader" data-initialize="loader" id="myLoader"></div>
-{% endhighlight %}
-
-  <h3>Methods</h3>
-  <h4>$().loader();</h4>
-  Attaches loader to a <code>.loader</code> element.
-
-  <h4>.loader('destroy')</h4>
-  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
-  {% highlight js %}$('#myLoader').loader('destroy');{% endhighlight %}
-
-  <h4>.loader('next');</h4>
-  <p>Increments the loader animation to the next frame</p>
-  {% highlight js %}$('#myLoader').loader('next');{% endhighlight %}
-
-  <h4>.loader('pause');</h4>
-  <p>Pauses the loader animation at the current frame.</p>
-  {% highlight js %}$('#myLoader').loader('pause');{% endhighlight %}
-
-  <h4>.loader('play');</h4>
-  <p>Plays the loader animation, resuming it if paused.</p>
-  {% highlight js %}$('#myLoader').loader('play');{% endhighlight %}
-
-  <h4>.loader('prev');</h4>
-  <p>Decrements the loader animation to the previous frame.</p>
-  {% highlight js %}$('#myLoader').loader('prev');{% endhighlight %}
-
-  <h4>.loader('reset');</h4>
-  <p>Resets the loader animation to the beginning frame.</p>
-  {% highlight js %}$('#myLoader').loader('reset');{% endhighlight %}
 
 </div>
