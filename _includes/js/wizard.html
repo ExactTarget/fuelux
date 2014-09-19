@@ -27,7 +27,7 @@
   <p>A wizard divides a complex goal into multiple steps by separating sub-tasks or content into panes. You can add or remove panes. Completed steps remain clickable.</p>
 
   <h3>Via data-attributes</h3>
-  <p>The wizard will automatically instantiate any wizards with <code>data-initialize="wizard"</code>. If you add control markup <i>after page load</i> with <code>data-initialize="wizard"</code>, this control initializes on <code>mouseover</code>.
+  <p>The wizard will automatically instantiate any wizards with <code>data-initialize="wizard"</code>. If you add control markup <em>after page load</em> with <code>data-initialize="wizard"</code>, this control initializes on <code>mouseover</code>.
 
   <h3>Via JavaScript</h3>
   {% highlight js %}$('#myWizard').wizard();{% endhighlight %}
@@ -108,10 +108,10 @@ $('#myWizard').wizard('addSteps', index, [
       <tbody>
         <tr>
           <td>index</td>
-          <td><i>Required.</i> Identifies the position used to start inserting pane(s). First pane exists at position 1. If you use -1, the item will append to end of the list of panes.</td>
+          <td><em>Required.</em> Identifies the position used to start inserting pane(s). First pane exists at position 1. If you use -1, the item will append to end of the list of panes.</td>
         </tr>
         <tr>
-          <td><i>[item1, ..., itemX] <br/> item1, ..., itemX</i></td>
+          <td><em>[item1, ..., itemX] <br/> item1, ..., itemX</em></td>
           <td>Identifies an array or list of content pane objects to add at the <code>index</code>. Each pane can contain three strings:
             <ul>
               <li>a <code>badge</code> class to be appended to the <code>class</code> attribute of the step in order to override the default number</li>
@@ -141,11 +141,11 @@ $('#myWizard').wizard('addSteps', index, [
       <tbody>
         <tr>
           <td>index</td>
-          <td><i>Required.</i> Identifies the position where to begin removing pane(s). First pane exists at position 1.</td>
+          <td><em>Required.</em> Identifies the position where to begin removing pane(s). First pane exists at position 1.</td>
         </tr>
         <tr>
           <td>howMany</td>
-          <td><i>Optional.</i> Specifies the number of panes to removed. Defaults to 1.</td>
+          <td><em>Optional.</em> Specifies the number of panes to removed. Defaults to 1.</td>
         </tr>
       </tbody>
     </table>

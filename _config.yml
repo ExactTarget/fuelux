@@ -5,6 +5,7 @@ exclude:          [".editorconfig", ".gitignore", "bower.json", "composer.json",
 url:              http://exacttarget.github.io/fuelux
 # local dev
 #url:              http://localhost:4000/
+# url:              http://0.0.0.0:4000/
 
 # Custom vars
 current_version:  3.0.2
@@ -30,5 +31,3 @@ bootstrap:
   js:             //maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js
   js_amd:         //maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min
 
- # To view gh-pages locally
-# bundle exec jekyll serve

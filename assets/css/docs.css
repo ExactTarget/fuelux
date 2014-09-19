@@ -12,6 +12,7 @@
 body {
 	position: relative; /* For scrollyspy */
 	color: #525354;
+	margin-top: 40px;
 }
 
 a {
@@ -32,8 +33,20 @@ dd {
 	margin-left: 40px;
 }
 
+/* make room for the nav bar */
+h1[id],
+h2[id],
+h3[id],
+h4[id],
+h5[id],
+h6[id],
+dt[id]{
+	padding-top: 60px;
+	margin-top: -40px;
+}
+
 .header-anchor {
-  margin-left: -40px;
+  position: absolute;
   opacity: 0;
   padding: 0 5px 0 10px;
   height: 100%;
@@ -43,7 +56,46 @@ dd {
   -moz-transition: opacity 0.3s ease-in-out 0s;
   transition: opacity 0.3s ease-in-out 0s;
 }
-h1:hover .header-anchor, h2:hover .header-anchor, h3:hover .header-anchor, h4:hover .header-anchor, h5:hover .header-anchor, h6:hover .header-anchor{
+
+.header-anchor .glyphicon {
+	top 0;
+}
+
+h1 .header-anchor {
+  left: -40px;
+}
+
+h2 .header-anchor {
+  left: -35px;
+}
+
+h3 .header-anchor {
+  left: -30px;
+}
+
+h4 .header-anchor {
+  left: -26px;
+}
+
+h5 .header-anchor {
+  left: -23px;
+}
+
+h6 .header-anchor {
+  left: -21px;
+}
+
+dt .header-anchor {
+  left: -16px;
+}
+
+h1:hover .header-anchor,
+h2:hover .header-anchor,
+h3:hover .header-anchor,
+h4:hover .header-anchor,
+h5:hover .header-anchor,
+h6:hover .header-anchor,
+dt:hover .header-anchor{
   opacity: 1;
 }
 
@@ -473,11 +525,6 @@ h1:hover .header-anchor, h2:hover .header-anchor, h3:hover .header-anchor, h4:ho
 	margin-bottom: 0;
 }
 
-h1[id] {
-	margin-top: 0;
-	padding-top: 20px;
-}
-
 /*
  * Pygments - Manni CSS
  *
@@ -560,7 +607,7 @@ h1[id] {
 /* Common styles for all types */
 .fu-callout {
   margin: 20px 0;
-  padding: 20px;
+  padding: 0 20px 60px 40px;/* no padding on top because of scrollspy/navbar hack, extra padding on left and bottom to try and even things out */
   border-left: 3px solid #eee;
 }
 .fu-callout h4 {

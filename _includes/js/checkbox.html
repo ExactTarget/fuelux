@@ -9,17 +9,17 @@
   </label>
 
   <h2 id="checkbox-usage">Usage</h2>
-  <h3>Via JavaScript</h3>
+  <h3 id="checkbox-usage-javascript">Via JavaScript</h3>
   <p>Initialize the checkbox control via JavaScript:</p>
   {% highlight js %}$('#myCheckbox').checkbox();{% endhighlight %}
 
-  <h3>Via data-attributes</h3>
+  <h3 id="checkbox-usage-data-attributes">Via data-attributes</h3>
   <ul>
     <li>Checkbox input elements that exist when <code>$.ready()</code> executes that have <code>data-initialize="checkbox"</code> on their parent will be initialized immediately.</li>
     <li>Checkbox input elements that are created with <code>data-initialize="checkbox"</code> after <code>$.ready()</code> executes will initialize when a <code>mouseover</code> event occurs on them.</li>
   </ul>
 
-  <h3>Methods</h3>
+  <h3 id="checkbox-usage-methods">Methods</h3>
   <p>Once your checkbox is <a href="#checkbox-usage">initialized</a>, you can execute any of the following methods on it:</p>
 
   <style>
@@ -53,7 +53,7 @@
 
   <h2 id="checkbox-examples">Examples</h2>
 
-  <h4>Default (stacked)</h4>
+  <h4 id="checkbox-examples-default">Default (stacked)</h4>
   <div class="fu-example section">
     <div id="myCheckbox" class="checkbox" data-initialize="checkbox">
       <label class="checkbox-custom">
@@ -107,7 +107,7 @@
 </div>
 {% endhighlight %}
 
-  <h4>Inline checkboxes</h4>
+  <h4 id="checkbox-examples-inline">Inline checkboxes</h4>
   <p>Use the <code>.checkbox-inline</code> class on checkboxes for controls that appear on the same line.</p>
   <div class="fu-example section">
     <label class="checkbox-custom checkbox-inline" data-initialize="checkbox">
@@ -132,7 +132,7 @@
 </label>
 {% endhighlight %}
 
-  <h4>Element toggling checkboxes</h4>
+  <h4 id="checkbox-examples-element-toggling">Element toggling checkboxes</h4>
   <p>Use the <code>data-toggle="{{selector}}"</code> to automatically show or hide elements matching the selector within the body upon check or uncheck. This control works with any <a href="http://api.jquery.com/category/selectors/">jQuery selector</a>.
   </p>
   <div class="fu-example section">
@@ -171,7 +171,7 @@
 <div class="alert bg-success checkboxToggleCLASS" style="display: none;">Class toggling container</div>
 {% endhighlight %}
 
-  <h4>Highlighting checkboxes</h4>
+  <h4 id="checkbox-examples-highlighting">Highlighting checkboxes</h4>
   <p>Use the <code>.highlight</code> class to add a background highlight upon check.
   </p>
   <div class="fu-example section">

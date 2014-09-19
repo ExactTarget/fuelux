@@ -26,7 +26,6 @@ define(function(require){
 		target: '.fu-sidebar'
 	});
 
-	// back to top
 	setTimeout(function () {
 		var $sideBar = $('.fu-sidebar');
 
@@ -49,9 +48,7 @@ define(function(require){
 	}, 100);
 
 	//programmatically injecting this is so much easier than writing the html by hand 376 times...
-	$('h1, h2, h3, h4, h5, h6').each(function(i){
-		if(this.id !== ""){
-			$(this).prepend(['<a class="header-anchor" href="#', this.id, '"><span class="glyphicon glyphicon-link"></span></a>'].join(''));
-		}
+	$('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id], dt[id]').each(function(i){
+		$(this).prepend(['<a class="header-anchor" href="#', this.id, '"><span class="glyphicon glyphicon-link"></span></a>'].join(''));
 	});
 });

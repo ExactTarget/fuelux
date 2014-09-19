@@ -36,7 +36,7 @@
 <!-- Scripts -->
 	<script src="{{ site.url }}/assets/vendor/requirejs/require.js"></script>
 
-	<script type="text/javascript">
+	<script>
 		(function () {
 			requirejs.config({
 				config: {
@@ -56,9 +56,6 @@
 				shim: { 'bootstrap': { deps: ['jquery'] } }
 			});
 		})();
-
-
-		require(['jquery', 'bootstrap', 'moment', 'assets/js/application'], function($){});
 	</script>
 
 	<script src="https://platform.twitter.com/widgets.js" type="text/javascript"></script>

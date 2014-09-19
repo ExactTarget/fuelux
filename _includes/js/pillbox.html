@@ -26,7 +26,7 @@
   <p>A pillbox allows user tag management enabling features such as typahead and tag editing.</p>
 
   <h3>Via data-attributes</h3>
-  <p>The pillbox will automatically instantiate any pillboxes with <code>data-initialize="pillbox"</code>. If the control markup is added <i>after page load</i> with <code>data-initialize="pillbox"</code>, this control will be initialized on <code>mousedown</code>.
+  <p>The pillbox will automatically instantiate any pillboxes with <code>data-initialize="pillbox"</code>. If the control markup is added <em>after page load</em> with <code>data-initialize="pillbox"</code>, this control will be initialized on <code>mousedown</code>.
 
   <h3>Via JavaScript</h3>
   <p>Call the Pillbox via JavaScript:</p>
@@ -79,10 +79,10 @@ $('#myPillbox').pillbox('addItems', index, [{ text: '', value: '' }]);
       <tbody>
         <tr>
           <td>index</td>
-          <td><i>Required.</i> The position where to start inserting pill(s). First pane is at position 1. If -1 is used, the item will be appended to end of the list of pills.</td>
+          <td><em>Required.</em> The position where to start inserting pill(s). First pane is at position 1. If -1 is used, the item will be appended to end of the list of pills.</td>
         </tr>
         <tr>
-          <td><i>[item1, ..., itemX] <br/> item1, ..., itemX</i></td>
+          <td><em>[item1, ..., itemX] <br/> item1, ..., itemX</em></td>
           <td>An array or list of pill objects to be added at the <code>index</code>. Each pill can contain a label <code>text</code> and <code>value</code>.</td>
         </tr>
       </tbody>
