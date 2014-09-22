@@ -1,8 +1,18 @@
 <!-- search
 ================================================== -->
 <div class="fu-docs-section">
-  <h1 id="search" class="page-header">Search Box <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/search.js"><small>search.js</small></a></h1>
+  <h1 id="search" class="page-header">Search <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/search.js"><small>search.js</small></a></h1>
   <p>Combines an input and a button to fire the <code>searched</code> event.</p>
+
+  <div class="search input-group col-md-4" role="search" id="mySearch">
+    <input type="search" class="form-control" placeholder="Search"/>
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-search"></span>
+        <span class="sr-only">Search</span>
+      </button>
+    </span>
+  </div>
 
   <h2 id="search-usage">Usage</h2>
   <p>This function includes a simple input and button group that styles with a search icon and fires the <code>searched</code> event.</p>

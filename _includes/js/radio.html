@@ -3,6 +3,14 @@
 <div class="fu-docs-section">
   <h1 id="radio" class="page-header">Radio <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/radio.js"><small>radio.js</small></a></h1>
 
+  <p>The radio control provides a standardized look and feel for the input type radio element across browsers.</p>
+  <div class="radio" data-initialize="radio" id="myCustomRadio">
+    <label class="radio-custom">
+      <input class="sr-only" name="radioEx1" type="radio" value="option1">
+      Browser-independent radio
+    </label>
+  </div>
+
   <h2 id="radio-usage">Usage</h2>
 
   <h3 id="radio-usage-javascript">Via JavaScript</h3>
@@ -14,9 +22,6 @@
 
   <h3 id="radio-usage-methods">Methods</h3>
   <dl>
-    <dt id="">$().radio();</dt>
-    <dd>Activates your content as a custom radio</dd>
-
     <dt id="radio-usage-methods-check">.radio('check')</dt>
     <dd>Ensures the radio is checked</dd>
 

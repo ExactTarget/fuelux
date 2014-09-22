@@ -2,6 +2,15 @@
 ================================================== -->
 <div class="fu-docs-section">
   <h1 id="placard" class="page-header">Placard <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/placard.js"><small>placard.js</small></a></h1>
+
+  <p>Adds a pop-up element to inputs/textareas on focus with additional options for explicit accept/cancel actions.</p>
+
+<div id="myPlacardUsageIllustration" class="placard" data-initialize="placard">
+  <div class="placard-popup"></div>
+  <input class="form-control placard-field" type="text" placeholder="Click here to see example"/>
+</div>
+
+
   <h2 id="placard-usage">Usage</h2>
 
   <h3 id="placard-usage-javascript">Via JavaScript</h3>
@@ -126,17 +135,14 @@
 
   <h3 id="placard-usage-methods">Methods</h3>
   <dl>
-    <dt id="placard-usage-methods-init">$().placard();</dt>
-    <dd>Attaches placard to the placard markup.</dd>
-
     <dt id="placard-usage-methods-destroy">.placard('destroy')</dt>
     <dd>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup</dd>
 
     <dt id="placard-usage-methods-disable">.placard('disable')</dt>
-    <dd>Disables the placard, preventing users from manipulating the placard value.</dd>
+    <dd>Ensures the placard is disabled, preventing users from manipulating the placard value.</dd>
 
     <dt id="placard-usage-methods-enable">.placard('enable')</dt>
-    <dd>Enables the placard, allowing users to manipulate the placard value.</dd>
+    <dd>Ensures the placard is enabled, allowing users to manipulate the placard value.</dd>
 
     <dt id="placard-usage-methods-getValue">.placard('getValue');</dt>
     <dd>Gets the current actual placard value</dd>

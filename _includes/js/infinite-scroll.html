@@ -3,14 +3,8 @@
 <div class="fu-docs-section">
   <h1 id="infinite-scroll" class="page-header">Infinite Scroll <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/infinite-scroll.js"><small>infinite-scroll.js</small></a></h1>
 
-  <h2 id="infinite-scroll-examples">Examples</h2>
   <p>Turn any element into an infinite scrolling region with content that loads on demand.</p>
-
-  <div class="fu-example section">
-    <div class="infinitescroll" id="myInfiniteScroll1" style="border: 1px solid #ccc; border-radius: 4px; float: left; height: 200px; padding: 6px 10px; width: 48%;"></div>
-    <div class="infinitescroll" id="myInfiniteScroll2" style="border: 1px solid #ccc; border-radius: 4px; float: right; height: 200px; padding: 6px 10px; width: 48%;"></div>
-    <div style="clear:both;"></div>
-  </div>
+  <div class="infinitescroll" id="myInfiniteScroll1" style="border: 1px solid #ccc; border-radius: 4px; height: 200px; padding: 6px 10px; width: 300px;"></div>
 
   <h2 id="infinite-scroll-usage">Usage</h2>
   <p>The infinite scroll control does not use an initializing data API due to its dependency on a <code>dataSource.</code></p>
@@ -87,17 +81,14 @@ $('#myInfiniteScroll').infinitescroll({
 
   <h3 id="infinite-scroll-usage-methods">Methods</h3>
   <dl>
-    <dt id="infinite-scroll-usage-">$().infinitescroll();</dt>
-    <dd>Attaches infinitescroll control to an <code>infinitescroll</code> classed element.</dd>
-
     <dt id="infinite-scroll-usage-destroy">.infinitescroll('destroy')</dt>
     <dd>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</dd>
 
     <dt id="infinite-scroll-usage-disable">.infinitescroll('disable');</dt>
-    <dd>Disables the infinite scrolling region</dd>
+    <dd>Ensures the infinite scrolling region is disabled</dd>
 
     <dt id="infinite-scroll-usage-enable">.infinitescroll('enable');</dt>
-    <dd>Enables the infinite scrolling region</dd>
+    <dd>Ensures the infinite scrolling region is enabled</dd>
 
     <dt id="infinite-scroll-usage-end">.infinitescroll('end');</dt>
     <dd>
@@ -149,4 +140,21 @@ $('#myInfiniteScroll').infinitescroll({
       </div><!-- ./fu-table-responsive -->
     </dd>
   </dl>
+
+  <h2 id="infinite-scroll-examples">Examples</h2>
+  <p>Turn any element into an infinite scrolling region with content that loads on demand.</p>
+
+  <div class="fu-example section">
+    <div class="infinitescroll" id="myInfiniteScroll1" style="border: 1px solid #ccc; border-radius: 4px; float: left; height: 200px; padding: 6px 10px; width: 48%;"></div>
+    <div class="infinitescroll" id="myInfiniteScroll2" style="border: 1px solid #ccc; border-radius: 4px; float: right; height: 200px; padding: 6px 10px; width: 48%;"></div>
+    <div style="clear:both;"></div>
+  </div>
+{% highlight html %}
+  <div class="fu-example section">
+    <div class="infinitescroll" id="myInfiniteScroll1" style="border: 1px solid #ccc; border-radius: 4px; float: left; height: 200px; padding: 6px 10px; width: 48%;"></div>
+    <div class="infinitescroll" id="myInfiniteScroll2" style="border: 1px solid #ccc; border-radius: 4px; float: right; height: 200px; padding: 6px 10px; width: 48%;"></div>
+    <div style="clear:both;"></div>
+  </div>
+{% endhighlight %}
 </div>
+

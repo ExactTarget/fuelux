@@ -2,6 +2,21 @@
 ================================================== -->
 <div class="fu-docs-section">
   <h1 id="combobox" class="page-header">Combobox <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/combobox.js"><small>combobox.js</small></a></h1>
+  <p>The combobox control combines an input and a drop-down for easy and flexible data selection. Combobox also offers many <a href="#combobox-usage-methods">methods</a> that allow you to programmatically manipulate it.</p>
+  <div class="input-group input-append dropdown combobox col-sm-4" data-initialize="combobox" id="myCombobox">
+    <input type="text" class="form-control">
+    <div class="input-group-btn">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+      <ul class="dropdown-menu dropdown-menu-right">
+        <li data-value="1"><a href="#">One</a></li>
+        <li data-value="2"><a href="#">Two</a></li>
+        <li data-value="3"><a href="#">Three</a></li>
+        <li data-value="4"><a href="#">Four</a></li>
+        <li data-value="5"><a href="#">Five</a></li>
+      </ul>
+    </div>
+  </div>
+
   <h2 id="combobox-usage">Usage</h2>
 
   <p>The combobox component toggles hidden content (drop-down menus) by toggling the <code>.open</code> class on the parent list item. When opened, the plugin also adds <code>.dropdown-backdrop</code> as a click area for closing drop-down menus when clicking outside the menu. The control relies on the <code>data-toggle=dropdown</code> attribute to close drop-down menus at an application level.</p>
@@ -9,6 +24,9 @@
   <h3 id="combobox-usage-javascript">Via JavaScript</h3>
   <p>Call the combobox control via JavaScript:</p>
   {% highlight js %}$('#myCombobox').combobox();{% endhighlight %}
+
+  <p>The combobox also accepts an optional options param during initialization:</p>
+  {% highlight js %}$('#myCombobox').combobox({autoResizeMenu: false});{% endhighlight %}
 
   <h3 id="combobox-usage-data-attributes">Via data-attributes</h3>
 
@@ -79,6 +97,8 @@
   </div><!-- ./fu-table-responsive -->
 
   <h3 id="combobox-usage-methods">Methods</h3>
+  <p>Once your combobox is <a href="#combobox-usage">initialized</a>, you can execute any of the following methods on it:</p>
+
   <dl>
     <dt id="combobox-usage-methods-">$().combobox(options)</dt>
     <dd>Attaches a combobox to an input and a drop-down menu</dd>
@@ -145,7 +165,6 @@ $('#myCombobox').on('changed.fu.combobox', function () {
 {% endhighlight %}
 
   <h2 id="combobox-examples">Examples</h2>
-  <p>Combines an input and a drop-down for easy and flexible data selection.</p>
   <div class="fu-example section">
 {% include js/combobox-example.html %}
   </div><!-- /example -->
