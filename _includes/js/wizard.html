@@ -3,9 +3,11 @@
 <div class="fu-docs-section">
   <h1 id="wizard" class="page-header">Wizard <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/wizard.js"><small>wizard.js</small></a></h1>
 
-  <h2 id="wizard-usage">Usage</h2>
   <p>A wizard divides a complex goal into multiple steps by separating sub-tasks or content into panes. You can add or remove panes. Completed steps remain clickable.</p>
 
+  {% include js/wizard-example.html %}
+
+  <h2 id="wizard-usage">Usage</h2>
   <h3 id="wizard-usage-javascript">Via JavaScript</h3>
   {% highlight js %}$('#myWizard').wizard();{% endhighlight %}
 
