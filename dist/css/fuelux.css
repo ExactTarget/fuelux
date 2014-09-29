@@ -83,6 +83,9 @@
 .fuelux .checkbox .checkbox-label:hover {
   color: #999999;
 }
+.fuelux .form-horizontal .checkbox-inline {
+  padding-top: 0;
+}
 .fuelux .checkbox-custom {
   position: relative;
   /* for keyboard tabbing */
@@ -796,6 +799,9 @@
 .fuelux .radio input[type="radio"]:hover + .radio-label,
 .fuelux .radio .radio-label:hover {
   color: #999999;
+}
+.fuelux .form-horizontal .radio-inline {
+  padding-top: 0;
 }
 .fuelux .radio-custom {
   position: relative;
