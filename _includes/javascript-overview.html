@@ -56,6 +56,8 @@ $('#myCombobox').combobox('selectByIndex', '1');
     <span class="text-muted">Attribute initialization is used in this section's examples when available.</span>
   </p>
 
+  <p>If not present <cod>onready</cod>, these controls will be 'lazily' initialized when the user interacts with them (such as on <code>mouseover</code>). <span class="text-warning">Be careful of <code>changed</code> events when initializing. To disable this data-api, use <code>$.off('fu.data-api')</code></span>.</p>
+
   <div class="fu-callout fu-callout-warning">
     <h4 id="overview-manual-initialization">Requires Manual Initialization</h4>
     <p>The following Fuel UX controls require a data source and must be initialized manually:
@@ -66,8 +68,6 @@ $('#myCombobox').combobox('selectByIndex', '1');
       </ul>
     </p>
   </div>
-
-  <p>If not present on the page onready, these controls will be 'lazily' initialized when the user interacts with them (such as on <code>mouseover</code>). <span class="text-warn">Be careful of <code>changed</code> events when initializing. To disable this data-api, use <code>$.off('fu.data-api')</code></span>.</p>
 
   <h3 id="overview-events">Events</h3>
   <p>Fuel UX provides custom events for most components' actions. All events are namespaced with 'fu' and their control name (ex. <code>'changed.fu.checkbox'</code> ). All Fuel UX events are past tense so that they don't trigger standard and Bootstrap events (eg. <code>changed</code> vs. <code>change</code>). Listening for standard and Bootstrap supported events on an internal element is not tested, and therefore not recommended.</p>
