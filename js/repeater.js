@@ -90,12 +90,12 @@
 
 		this.$loader.loader();
 		this.$loader.loader('pause');
-        if(this.options.defaultView!==-1){
-            currentView = this.options.defaultView;
-        }else{
-            $btn = this.$views.find('label.active input');
-            currentView = ($btn.length>0) ? $btn.val() : 'list';
-        }
+		if(this.options.defaultView!==-1){
+			currentView = this.options.defaultView;
+		}else{
+			$btn = this.$views.find('label.active input');
+			currentView = ($btn.length>0) ? $btn.val() : 'list';
+		}
 
 		this.initViews(function(){
 			self.resize();
