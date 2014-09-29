@@ -200,7 +200,7 @@
 					if( this.options.edit && this.currentEdit ){
 						self.options.onAdd( items[0], $.proxy(self.saveEdit,this));
 					} else {
-						self.options.onAdd( items[0], $.proxy(self.placeItems,this, true));
+						self.options.onAdd( items[0], $.proxy(self.placeItems, this));
 					}
 				} else {
 					if( this.options.edit && this.currentEdit ){
@@ -418,7 +418,7 @@
 		//Must match syntax of placeItem so addItem callback is called when an item is edited
 		//expecting to receive an array back from the callback containing edited items
 		saveEdit: function() {
-			var item = arguments[0][0];
+			var item = arguments[0][0] ? arguments[0][0] : arguments[0];
 
 			this.currentEdit = $(item.el);
 			this.currentEdit.data('value', item.value);
