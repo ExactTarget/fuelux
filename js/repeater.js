@@ -30,7 +30,7 @@
 
 	var Repeater = function (element, options) {
 		var self = this;
-		var currentView;
+		var $btn, currentView;
 
 		this.$element = $(element);
 
@@ -90,7 +90,12 @@
 
 		this.$loader.loader();
 		this.$loader.loader('pause');
-		currentView = (this.options.defaultView!==-1) ? this.options.defaultView : this.$views.find('label.active input').val();
+        if(this.options.defaultView!==-1){
+            currentView = this.options.defaultView;
+        }else{
+            $btn = this.$views.find('label.active input');
+            currentView = ($btn.length>0) ? $btn.val() : 'list';
+        }
 
 		this.initViews(function(){
 			self.resize();
@@ -162,11 +167,11 @@
 
 			options = options || {};
 
-			opts.filter = this.$filters.selectlist('selectedItem');
+			opts.filter = (this.$filters.length>0) ? this.$filters.selectlist('selectedItem') : 'all';
 			opts.view = this.currentView;
 
 			if(!this.infiniteScrollingEnabled){
-				opts.pageSize = parseInt(this.$pageSize.selectlist('selectedItem').value, 10);
+				opts.pageSize = (this.$pageSize.length>0) ? parseInt(this.$pageSize.selectlist('selectedItem').value, 10) : 25;
 			}
 			if(options.pageIncrement!==undefined){
 				if(options.pageIncrement===null){
@@ -177,7 +182,7 @@
 			}
 			opts.pageIndex = this.currentPage;
 
-			val = this.$search.find('input').val();
+			val = (this.$search.length>0) ? this.$search.find('input').val() : '';
 			if(val!==''){
 				opts.search = val;
 			}
