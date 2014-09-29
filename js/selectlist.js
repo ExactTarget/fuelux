@@ -93,7 +93,8 @@
 
 		itemChanged: function (e) {
 
-			this.doSelect( $(e.target).parent() );
+			//selectedItem needs to be <li> since the data is stored there, not in <a>
+			this.doSelect( $(e.target).closest('li') );
 
 			// pass object including text and any data-attributes
 			// to onchange event
