@@ -720,10 +720,6 @@ $('#MyScheduler').on('changed.fu.scheduler', function(){
 		}
 	});
 
-	$('#MyTree').on('selected.fu.tree', function (e, info) {
-		console.log('Select Event: ', info);
-	});
-
 	$('#MyTreeSelectableFolder').on('selected.fu.tree', function (e, info) {
 		console.log('Select Event: ', info);
 	});
