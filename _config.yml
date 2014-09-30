@@ -2,10 +2,10 @@
 #destination:      ./_gh_pages
 exclude:          [".editorconfig", ".gitignore", "bower.json", "composer.json", "CONTRIBUTING.md", "CNAME", "LICENSE", "Gruntfile.js", "package.json", "node_modules", "README.md", "less", 'config.ru', 'Gemfile', 'Gemfile.lock', 'bundle']
 #port:             9001
-url:              http://exacttarget.github.io/fuelux
+# url:              http://exacttarget.github.io/fuelux
 # local dev
 #url:              http://localhost:4000/
-# url:              http://0.0.0.0:4000/
+url:              http://0.0.0.0:4000/
 
 # Custom vars
 current_version:  3.0.2
