@@ -20,6 +20,13 @@ define(function(require){
 	require('fuelux');
 
 	// INFINITE SCROLL
+	$('#infiniteScrollIllustration').infinitescroll({
+		dataSource: function(helpers, callback){
+			setTimeout(function(){
+				callback({ content: content });
+			}, delays[Math.floor(Math.random() * 4)]);
+		}
+	});
 	$('#myInfiniteScroll1').infinitescroll({
 		dataSource: function(helpers, callback){
 			setTimeout(function(){
@@ -36,6 +43,7 @@ define(function(require){
 		hybrid: true
 	});
 
+	setup('#infiniteScrollIllustration');
 	setup('#myInfiniteScroll1');
 	setup('#myInfiniteScroll2');
 });
