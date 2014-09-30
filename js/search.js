@@ -82,7 +82,7 @@
 
 		action: function () {
 			var val = this.$input.val();
-			var inputEmptyOrUnchanged = val === '' || val === this.activeSearch;
+			var inputEmptyOrUnchanged = (val === '' || val === this.activeSearch);
 
 			if (this.activeSearch && inputEmptyOrUnchanged) {
 				this.clear();
@@ -104,15 +104,22 @@
 		},
 
 		keypressed: function (e) {
-			var val, inputPresentAndUnchanged;
+			var remove = 'glyphicon-remove';
+			var search = 'glyphicon-search';
+			var val;
 
 			if (e.which === 13) {
 				e.preventDefault();
 				this.action();
 			} else {
 				val = this.$input.val();
-				inputPresentAndUnchanged = val && (val === this.activeSearch);
-				this.$icon.attr('class', inputPresentAndUnchanged ? 'glyphicon glyphicon-remove' : 'glyphicon glyphicon-search');
+				if(!val){
+					this.clear();
+				}else if(val!==this.activeSearch){
+					this.$icon.removeClass(remove).addClass(search);
+				}else{
+					this.$icon.removeClass(search).addClass(remove);
+				}
 			}
 		},
 
