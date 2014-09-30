@@ -1,5 +1,5 @@
 /*!
- * JavaScript for FuelUX's docs - Examples
+ * JavaScript for Fuel UX's docs - Examples
  * Copyright 2011-2014 ExactTarget, Inc.
  * Licensed under the Creative Commons Attribution 3.0 Unported License. For
  * details, see http://creativecommons.org/licenses/by/3.0/.
@@ -58,5 +58,5 @@ define(function(require){
 		$('#myScheduler').scheduler();
 	});
 
-	
+
 });

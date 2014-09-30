@@ -1,5 +1,5 @@
 /*!
- * JavaScript for FuelUX's docs
+ * JavaScript for Fuel UX's docs
  * Copyright 2011-2014 ExactTarget, Inc.
  * Licensed under the Creative Commons Attribution 3.0 Unported License. For
  * details, see http://creativecommons.org/licenses/by/3.0/.
