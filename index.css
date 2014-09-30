@@ -33,3 +33,8 @@
 #myPlacard1, #myPlacard2, #myPlacard3 {
 	width: 300px;
 }
+
+.example-pill-class {
+	font-style: italic;
+	font-weight: bold;
+}
