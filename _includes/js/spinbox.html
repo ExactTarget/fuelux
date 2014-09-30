@@ -6,11 +6,11 @@
   <p>Spinbox includes an enhanced numeric input based upon the native <code>&lt;input type=&quot;number&quot;&gt;</code>.</p>
 
   <div class="form-group">
-    <label class="control-label" for="mySpinboxWithDefaultInput">spinbox</label>
+    <label class="control-label" for="overviewSpinboxInput">spinbox</label>
     <div class="form-group">
 
-      <div id="mySpinboxWithDefault" class="spinbox digits-3" data-initialize="spinbox">
-        <input id="mySpinboxWithDefaultInput" type="text" value="3" class="form-control input-mini spinbox-input">
+      <div id="overviewSpinbox" class="spinbox digits-3" data-initialize="spinbox">
+        <input id="overviewSpinboxInput" type="text" value="3" class="form-control input-mini spinbox-input">
 
         <div class="spinbox-buttons btn-group btn-group-vertical">
           <button type="button" class="btn btn-default spinbox-up btn-xs">
@@ -27,6 +27,8 @@
 
   <h2 id="spinbox-usage">Usage</h2>
   <p>A spinbox allows for click interaction with a numeric input.</p>
+
+  <p class="bg-danger">Currently there is a bug causing <code>changed</code> events to fire twice for some elements. The workaround is to disable this data-api, using <code>$.off('fu.data-api')</code></p>
 
   <h3 id="spinbox-usage-javascript">Via JavaScript</h3>
   <p>Call the selectlist control via JavaScript:</p>

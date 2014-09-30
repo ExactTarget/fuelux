@@ -15,6 +15,10 @@ body {
 	margin-top: 40px;
 }
 
+.bg-danger {
+	padding: 15px;
+}
+
 a {
 	color: #8fa5b7;
 }

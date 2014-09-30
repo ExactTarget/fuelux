@@ -37,7 +37,7 @@ $('#myCombobox').combobox('selectByIndex', '1');
   </div>
 
   <h4 id="overview-control-initialization-markup">With markup: data-attributes</h4>
-  <p class="bg-danger" style="padding: 15px;">The Fuel UX team recommends the precision and greater number of options provided by <a href="#control-initialization-javascript">initializing manually via JavaScript</a>.</p>
+  <p class="bg-danger">The Fuel UX team recommends the precision and greater number of options provided by <a href="#control-initialization-javascript">initializing manually via JavaScript</a>.</p>
   <p>The following Fuel UX controls <em class="text-muted">(those that that do not require a data source)</em> can be initialized on page load using the <code>data-initialize</code> attribute:
     <ul>
       <li><a href="#checkbox">checkbox</a></li>
@@ -53,10 +53,12 @@ $('#myCombobox').combobox('selectByIndex', '1');
       <li><a href="#spinbox">spinbox</a></li>
       <li><a href="#wizard">wizard</a></li>
     </ul>
-    <span class="text-muted">Attribute initialization is used in this section's examples when available.</span>
+    <span class="text-muted">Attribute initialization is used in each section's examples when available.</span>
   </p>
 
-  <p>If not present <cod>onready</cod>, these controls will be 'lazily' initialized when the user interacts with them (such as on <code>mouseover</code>). <span class="text-warning">Be careful of <code>changed</code> events when initializing. To disable this data-api, use <code>$.off('fu.data-api')</code></span>.</p>
+  <p>If control is not present <cod>onready</cod>, it will be 'lazily' initialized when the user interacts with it (such as on <code>mouseover</code>).</p>
+
+  <p class="bg-danger">Currently there is a bug causing <code>changed</code> events to fire twice for some elements (such as <a href="#spinbox">spinbox</a>). The workaround is to disable this data-api, using <code>$.off('fu.data-api')</code></p>
 
   <div class="fu-callout fu-callout-warning">
     <h4 id="overview-manual-initialization">Requires Manual Initialization</h4>
