@@ -184,6 +184,10 @@
 						el: self.$pillHTML
 					};
 
+					if(value.attr) {
+						data.attr = value.attr;
+					}
+
 					items[i] = data;
 				});
 
@@ -271,6 +275,18 @@
 					$item.attr('data-value', item.value);
 					$item.find('span:first').html( item.text );
 
+					// DOM attributes
+					$.each(item.attr, function(key, value){
+
+						if(key == 'cssClass' || key == 'class') {
+							$item.addClass(value);
+						}
+						else {
+							$item.attr(key, value);
+						}
+
+					});
+
 					newHtml += $item.wrap('<div></div>').parent().html();
 				});
 
@@ -292,7 +308,7 @@
 
 				if( isInternal ){
 					this.$element.trigger('added.fu.pillbox', {
-						text: items[0].text, 
+						text: items[0].text,
 						value: items[0].value
 					});
 				}
