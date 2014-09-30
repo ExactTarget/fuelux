@@ -66,7 +66,10 @@
 				nested: [
 					{
 						after: function(helpers, callback){
-							var obj = { container: helpers.container };
+							var obj = {
+								container: helpers.container,
+								itemData: helpers.subset[helpers.index]
+							};
 							if(helpers.item!==undefined){
 								obj.item = helpers.item;
 							}

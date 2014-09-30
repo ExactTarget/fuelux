@@ -307,7 +307,10 @@
 						nested: [
 							{
 								complete: function(helpers, callback){
-									var obj = { container: helpers.container };
+									var obj = {
+										container: helpers.container,
+										rowData: helpers.subset[helpers.index]
+									};
 									if(helpers.item!==undefined){
 										obj.item = helpers.item;
 									}
@@ -354,8 +357,6 @@
 										});
 									}
 
-									
-
 									this.list_curRowIndex = helpers.index;
 									callback({ item: $item });
 								},
@@ -363,7 +364,11 @@
 								nested: [
 									{
 										after: function(helpers, callback){
-											var obj = { container: helpers.container };
+											var obj = {
+												container: helpers.container,
+												colAttr: helpers.subset[helpers.index].property,
+												rowData: helpers.data.items[this.list_curRowIndex]
+											};
 											if(helpers.item!==undefined){
 												obj.item = helpers.item;
 											}
