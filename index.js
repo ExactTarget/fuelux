@@ -232,13 +232,25 @@ define(function(require) {
 	});
 	$('#btnPillboxAdd').click(function () {
 		var newItemCount = $('#myPillbox1 ul li').length + 1;
-		$('#myPillbox1').pillbox('addItems', {text: 'item ' + newItemCount, value: 'item ' + newItemCount} );
+		var backgroundColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+		$('#myPillbox1').pillbox('addItems',
+			{
+				text: 'item ' + newItemCount,
+				value: 'item ' + newItemCount,
+				attr: {
+						'cssClass': 'example-pill-class',
+						'style': 'background-color: ' + backgroundColor + ';',
+						'data-example-attribute': 'true'
+					}
+			});
+	$('#myPillbox1').pillbox('items');
+
 	});
 	$('#btnPillboxRemoveByValue').click(function () {
 		$('#myPillbox1').pillbox('removeByValue', 'item 2');
 	});
 	$('#btnPillboxRemoveBySelector').click(function () {
-		$('#myPillbox1').pillbox('removeBySelector', '.status-success');
+		$('#myPillbox1').pillbox('removeBySelector', '.example-pill-class');
 	});
 	$('#btnPillboxRemoveByText').click(function () {
 		$('#myPillbox1').pillbox('removeByText', 'item 3');

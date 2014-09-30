@@ -56,8 +56,23 @@ define(function(require){
 
 		equal($pillbox.pillbox('itemCount'), 0, 'pillbox is initially empty');
 
-		$pillbox.pillbox('addItems', {text:'Item 1', value:1});
-		deepEqual($pillbox.pillbox('items')[0], {text: 'Item 1', value: 1}, 'singe item added has correct text and value');
+		$pillbox.pillbox('addItems',
+			{
+				text: 'Item 1',
+				value: 1,
+				attr: {
+						'cssClass': 'example-pill-class',
+						'style': 'background-color: #0000FF',
+						'data-example-attribute': true
+					}
+			});
+		deepEqual($pillbox.pillbox('items')[0],
+			{
+				text: 'Item 1',
+				value: 1,
+				'exampleAttribute': true
+			},
+		'single item added has correct text, value, and data');
 
 		$pillbox.pillbox('addItems', {text:'Item 2', value:2});
 		$pillbox.pillbox('removeItems');
