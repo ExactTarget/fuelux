@@ -6,64 +6,50 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<link href="../bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
-	<!--<link href="../dist/css/fuelux.css" rel="stylesheet" type="text/css">-->
-	<link href="../less/fuelux.less" rel="stylesheet/less" type="text/css" />
-	<link href="../index.css" rel="stylesheet" type="text/css" />
 
-	<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js"></script>
+	<!--<link href="../dist/css/fuelux.css" rel="stylesheet" type="text/css">-->
+
+    <!--CLIENT-SIDE LESS COMPILATION FOR WATCHER-LESS DEV-->
+    <link href="../less/fuelux.less" rel="stylesheet/less" type="text/css"/>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js"></script>
+    <script type="text/javascript">if(window.console && window.console.clear){ window.console.clear(); }</script>
 
 	<script src="../bower_components/requirejs/require.js" type="text/javascript"></script>
-	<script type="text/javascript">
-		if(window.console && window.console.clear){
-			window.console.clear();
-		}
+    <script type="text/javascript">
+        (function () {
+            requirejs.config({
+                config: {
+                    moment: {
+                        noGlobal: true
+                    }
+                },
+                paths: {
+                    jquery: '../bower_components/jquery/dist/jquery',
+                    underscore: '../bower_components/underscore/underscore',
+                    bootstrap: '../bower_components/bootstrap/dist/js/bootstrap',
+                    //moment: '../bower_components/moment/min/moment-with-langs',
+                    fuelux: '../js'
+                },
+                shim: {
+                    'bootstrap': {
+                        deps: ['jquery'],
+                        exports: 'bootstrap'
+                    }
+                }
+            });
+        })();
+        require(['jquery', 'fuelux/all'], function($){
 
-		// Feature detect for jQuery version
-		var pathToJQuery;
-		if('querySelector' in document
-			&& 'localStorage' in window
-			&& 'addEventListener' in window ) {
-			pathToJQuery = '../bower_components/jquery/dist/jquery';
-		} else {
-			pathToJQuery = '../bower_components/jquery-1.9.1/jquery';
-		}
+            //insert code here
 
-		requirejs.config({
-			config: {
-				moment: {
-					noGlobal: true
-				}
-			},
-			paths: {
-				jquery: pathToJQuery,
-				//underscore: '../bower_components/underscore/underscore',
-				bootstrap: '../bower_components/bootstrap/dist/js/bootstrap',
-				moment: '../bower_components/moment-with-langs/index', // comment out if you dont want momentjs to be default
-				fuelux: '../js'
-			},
-			shim: {
-				'bootstrap': {
-					deps: ['jquery'],
-					exports: 'bootstrap'
-				}
-			}
-		});
-
-		require(['jquery', '../data', 'fuelux/all'], function ($, data){
-			$('#MyDatepicker').datepicker({
-				allowPastDates: true,
-				momentConfig: {
-					culture: 'en',
-					format: 'MM-DD-YYYY'
-				},
-				restricted: [{ from: '08-04-2014', to: '08-15-2014' }, { from: '08-25-2014', to: '08-28-2014' }, { from: '10-01-2014', to: '10-31-2014' }]
-			});
-		});
-	</script>
+        });
+    </script>
 </head>
 
 <body style="padding: 20px;">
 	<div class="container" style="padding: 20px; margin-top:20px;">
+
+        <!--insert control here-->
 
 	</div>
 </body>
