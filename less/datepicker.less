@@ -35,12 +35,17 @@
 			}
 
 			td {
-				button {
+				b, button {
 					color: #231f20;
 					display: inline-block;
+					font-weight: normal;
 					height: 30px;
 					text-decoration: none;
 					width: 30px;
+				}
+
+				b {
+					line-height: 30px;
 				}
 
 				span {
@@ -53,7 +58,7 @@
 				}
 
 				&.current-day {
-					button {
+					b, button {
 						border: 1px solid #1d75bb;
 					}
 				}
@@ -63,13 +68,13 @@
 				}
 
 				&.past {
-					button {
+					b, button {
 						color: #8d8787;
 					}
 				}
 
 				&.restricted {
-					button {
+					b, button {
 						cursor: no-drop;
 						position: relative;
 
@@ -97,15 +102,22 @@
 						&:hover {
 							background: #0f5f9f;
 						}
-
 					}
 
-					button {
+					b, button {
 						color: #fff;
 					}
 
 					&.current-day {
 						box-shadow: 0 0 0 1px #fff offset;
+
+						span {
+							&:hover {
+								b, button {
+									border-color: #0f5f9f;
+								}
+							}
+						}
 					}
 				}
 			}
