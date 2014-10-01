@@ -675,6 +675,7 @@
 				this.$input.val( this.formatDate( date ) );
 				this.inputValue = this.$input.val();
 				this.$input.focus();
+				this.$element.trigger( 'dateClicked.fu.datepicker', date );
 			},
 
 			destroy: function() {
@@ -956,7 +957,7 @@
 				for ( i = 0; i < rows; i++ ) {
 					$tr = $( '<tr></tr>' );
 					for ( j = 0; j < 7; j++ ) {
-						$td = $( '<td><span><button type="button" class="datepicker-date">' + curDate + '</button></span></td>' );
+						$td = $( '<td></td>' );
 						if ( stage === -1 ) {
 							$td.addClass( 'last-month' );
 						} else if ( stage === 1 ) {
@@ -992,6 +993,12 @@
 						}
 						if ( selected && curYear === selected.year && curMonth === selected.month && curDate === selected.date ) {
 							$td.addClass( 'selected' );
+						}
+
+						if ( $td.hasClass( 'restricted' ) ) {
+							$td.html( '<span><b class="datepicker-date">' + curDate + '</b></span>' );
+						} else {
+							$td.html( '<span><button type="button" class="datepicker-date">' + curDate + '</button></span>' );
 						}
 
 						curDate++;
@@ -2017,7 +2024,7 @@
 
 			action: function() {
 				var val = this.$input.val();
-				var inputEmptyOrUnchanged = val === '' || val === this.activeSearch;
+				var inputEmptyOrUnchanged = ( val === '' || val === this.activeSearch );
 
 				if ( this.activeSearch && inputEmptyOrUnchanged ) {
 					this.clear();
@@ -2039,15 +2046,22 @@
 			},
 
 			keypressed: function( e ) {
-				var val, inputPresentAndUnchanged;
+				var remove = 'glyphicon-remove';
+				var search = 'glyphicon-search';
+				var val;
 
 				if ( e.which === 13 ) {
 					e.preventDefault();
 					this.action();
 				} else {
 					val = this.$input.val();
-					inputPresentAndUnchanged = val && ( val === this.activeSearch );
-					this.$icon.attr( 'class', inputPresentAndUnchanged ? 'glyphicon glyphicon-remove' : 'glyphicon glyphicon-search' );
+					if ( !val ) {
+						this.clear();
+					} else if ( val !== this.activeSearch ) {
+						this.$icon.removeClass( remove ).addClass( search );
+					} else {
+						this.$icon.removeClass( search ).addClass( remove );
+					}
 				}
 			},
 
@@ -3901,7 +3915,12 @@
 							el: self.$pillHTML
 						};
 
+						if ( value[ 'attr' ] ) {
+							data[ 'attr' ] = value.attr; // avoid confusion with $.attr();
+						}
+
 						items[ i ] = data;
+
 					} );
 
 					if ( this.options.edit && this.currentEdit ) {
@@ -3989,6 +4008,20 @@
 
 						$item.attr( 'data-value', item.value );
 						$item.find( 'span:first' ).html( item.text );
+
+						// DOM attributes
+						if ( item[ 'attr' ] ) {
+							$.each( item[ 'attr' ], function( key, value ) {
+
+								if ( key === 'cssClass' || key === 'class' ) {
+									$item.addClass( value );
+								} else {
+									$item.attr( key, value );
+								}
+
+							} );
+
+						}
 
 						newHtml += $item.wrap( '<div></div>' ).parent().html();
 					} );
@@ -4430,7 +4463,7 @@
 
 		var Repeater = function( element, options ) {
 			var self = this;
-			var currentView;
+			var $btn, currentView;
 
 			this.$element = $( element );
 
@@ -4504,7 +4537,12 @@
 
 			this.$loader.loader();
 			this.$loader.loader( 'pause' );
-			currentView = ( this.options.defaultView !== -1 ) ? this.options.defaultView : this.$views.find( 'label.active input' ).val();
+			if ( this.options.defaultView !== -1 ) {
+				currentView = this.options.defaultView;
+			} else {
+				$btn = this.$views.find( 'label.active input' );
+				currentView = ( $btn.length > 0 ) ? $btn.val() : 'list';
+			}
 
 			this.initViews( function() {
 				self.resize();
@@ -4578,11 +4616,11 @@
 
 				options = options || {};
 
-				opts.filter = this.$filters.selectlist( 'selectedItem' );
+				opts.filter = ( this.$filters.length > 0 ) ? this.$filters.selectlist( 'selectedItem' ) : 'all';
 				opts.view = this.currentView;
 
 				if ( !this.infiniteScrollingEnabled ) {
-					opts.pageSize = parseInt( this.$pageSize.selectlist( 'selectedItem' ).value, 10 );
+					opts.pageSize = ( this.$pageSize.length > 0 ) ? parseInt( this.$pageSize.selectlist( 'selectedItem' ).value, 10 ) : 25;
 				}
 				if ( options.pageIncrement !== undefined ) {
 					if ( options.pageIncrement === null ) {
@@ -4593,7 +4631,7 @@
 				}
 				opts.pageIndex = this.currentPage;
 
-				val = this.$search.find( 'input' ).val();
+				val = ( this.$search.length > 0 ) ? this.$search.find( 'input' ).val() : '';
 				if ( val !== '' ) {
 					opts.search = val;
 				}
@@ -5405,7 +5443,8 @@
 						nested: [ {
 							complete: function( helpers, callback ) {
 								var obj = {
-									container: helpers.container
+									container: helpers.container,
+									rowData: helpers.subset[ helpers.index ]
 								};
 								if ( helpers.item !== undefined ) {
 									obj.item = helpers.item;
@@ -5453,8 +5492,6 @@
 									} );
 								}
 
-
-
 								this.list_curRowIndex = helpers.index;
 								callback( {
 									item: $item
@@ -5464,7 +5501,9 @@
 							nested: [ {
 								after: function( helpers, callback ) {
 									var obj = {
-										container: helpers.container
+										container: helpers.container,
+										colAttr: helpers.subset[ helpers.index ].property,
+										rowData: helpers.data.items[ this.list_curRowIndex ]
 									};
 									if ( helpers.item !== undefined ) {
 										obj.item = helpers.item;
@@ -5590,7 +5629,8 @@
 					nested: [ {
 						after: function( helpers, callback ) {
 							var obj = {
-								container: helpers.container
+								container: helpers.container,
+								itemData: helpers.subset[ helpers.index ]
 							};
 							if ( helpers.item !== undefined ) {
 								obj.item = helpers.item;
