@@ -4,6 +4,8 @@ define(function(require){
 	require('bootstrap');
 	require('fuelux');
 
+	$('#pillboxIllustration').pillbox();
+
 	$('#myPillbox').pillbox({
 		edit: true,
 		onKeyDown: function( data, callback ){

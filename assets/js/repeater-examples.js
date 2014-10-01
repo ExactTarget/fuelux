@@ -150,6 +150,10 @@ define(function(require){
 	};
 
 	// REPEATER
+	$('#repeaterIllustration').repeater({
+		dataSource: dataSource
+	});
+
 	$('#myRepeater').repeater({
 		dataSource: dataSource
 	});

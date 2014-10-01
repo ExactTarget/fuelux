@@ -5,7 +5,9 @@
 
   <p>A wizard divides a complex goal into multiple steps by separating sub-tasks or content into panes. You can add or remove panes. Completed steps remain clickable.</p>
 
+<div class="wizard" data-initialize="wizard" id="wizardIllustration">
   {% include js/wizard-example.html %}
+</div>
 
   <h2 id="wizard-usage">Usage</h2>
   <h3 id="wizard-usage-javascript">Via JavaScript</h3>
@@ -171,7 +173,9 @@ $('#myWizard').on('actionclicked.fu.wizard', function () {
   <h2 id="wizard-examples">Examples</h2>
   <p>Wrap the input and wizard button within <code>.fuelux .wizard</code></p>
   <div class="fu-example section">
-    {% include js/wizard-example.html %}
+    <div class="wizard" data-initialize="wizard" id="myWizard">
+      {% include js/wizard-example.html %}
+    </div>
 
     <h5 id="wizard-examples-sample-methods">Sample Methods</h5>
     <div class="btn-group">

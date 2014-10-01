@@ -11,6 +11,24 @@ define(function(require){
 	require('bootstrap');
 	require('fuelux');
 
+
+	$('#treeIllustration').tree({
+		dataSource: function(options, callback){
+			setTimeout(function () {
+				callback({ data: [
+					{ name: 'Waterfall', type: 'item', dataAttributes: { id: 'item2' } },
+					{ name: 'Ascending and Descending', type: 'folder', dataAttributes: { id: 'folder1' } },
+					{ name: 'Sky and Water I (with custom icon)', type: 'item', dataAttributes: { id: 'item1', 'data-icon': 'glyphicon glyphicon-file' } },
+				]});
+
+			}, 400);
+		},
+		multiSelect: true,
+		cacheItems: true,
+		folderSelect: false,
+	});
+
+
 	// TREE
 
 	$('#myTree').on('loaded.fu.tree', function (e) {
