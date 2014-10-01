@@ -83,16 +83,16 @@
 						$entity.data(value);
 					}
 
-					// Decorate $entity with data making the element
-					// easily accessable with libraries like jQuery.
+					// Decorate $entity with data or other attributes making the
+					// element easily accessable with libraries like jQuery.
 					//
 					// Values are contained within the object returned
-					// for folders and items as dataAttributes:
+					// for folders and items as attr:
 					//
 					// {
 					//     name: "An Item",
 					//     type: 'item',
-					//     dataAttributes = {
+					//     attr = {
 					//         'classes': 'required-item red-text',
 					//         'data-parent': parentId,
 					//         'guid': guid,
@@ -101,8 +101,8 @@
 					// };
 
 					// add attributes to tree-branch or tree-item
-					var dataAttributes = value.dataAttributes || [];
-					$.each(dataAttributes, function(key, value) {
+					var attr = value['attr'] || value.dataAttributes || [];
+					$.each(attr, function(key, value) {
 						switch (key) {
 						case 'class':
 						case 'classes':
