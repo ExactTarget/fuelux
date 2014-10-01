@@ -232,8 +232,12 @@
   </div>
 
   <h3 id="repeater-usage-optional-data-attributes">Optional data attributes</h3>
-  <p>While the repeater must be initialized using JavaScript, you may add <code>data-staticheight="true"</code> to the repeater element to enable the <code>staticHeight</code> option, which will constrain the repeater to a set height dictated by CSS styles with scrollable data. If set to a number instead (eg: <code>data-staticheight="400"</code>), the height will use that value in pixels. You can also set this option via JavaScript on initialization.
-  </p>
+  <p>The repeater must be initialized via JavaScript, however it also accepts some optional data-attributes.</p>
+  <dl>
+    <dt>data-staticheight="true"</dt>
+    <dd>enables <a href="#repeater-usage-options"><code>staticHeight</code></a> on initialization.</dd>
+  </dl>
+
 
   <h3 id="repeater-usage-options">Options</h3>
   <p>Pass options via JavaScript upon initialization.</p>
@@ -277,11 +281,13 @@
         <td>staticHeight</td>
         <td>boolean or number</td>
         <td>-1</td>
-        <td>Dictates whether the repeater uses a set height with scrollable data. If set to <code>true</code>
-          the height will use the CSS styles applied to the repeater element. If set to a positive
-          <code>number</code>, the code will apply that value as the height in pixels. If set to <code>-1</code>,
-          the repeater will check for the <code>data-staticheight</code> attribute and use its value if
-          present.
+        <td>
+          <ul>
+            <li>If <code>true</code>; height of CSS styles applied to repeater element will be used.</li>
+            <li>If a positive <code>number</code>; that value will be used as height in pixels.</li>
+            <li>If <code>-1</code>; value of <code>data-staticheight</code> attribute will be used if present</li>
+            <li>If <code>false</code>; <a href="http://www2.warnerbros.com/spacejam/movie/jam.htm">SpaceJam website</a> will be loaded instead of your page</li>
+          </ul>
         </td>
       </tr>
       </tbody>
