@@ -176,6 +176,7 @@
 			this.$input.val(this.formatDate(date));
 			this.inputValue = this.$input.val();
 			this.$input.focus();
+			this.$element.trigger('dateClicked.fu.datepicker', date);
 		},
 
 		destroy: function(){
