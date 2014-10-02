@@ -314,13 +314,12 @@
             <tr>
               <td>clearInfinite</td>
               <td>boolean</td>
-              <td><em>optional</em> If infinite scrolling is enabled, setting this to <code>true</code> will force a <code>preserve</code>
-                clear if <code>preserve</code> also equals <code>true</code>. Defaults to <code>false</code>.</td>
+              <td><em>optional -- if true, <code>preserve</code> must also be set to true to have an effect</em>. If infinite scrolling is enabled, setting to <code>true</code> will clear all non <code>data-preserve</code>d elements. Defaults to <code>false</code>.</td>
             </tr>
             <tr>
               <td>preserve</td>
               <td>boolean</td>
-              <td><em>optional</em> If set to <code>true</code>, this function will scan the repeater for any items with the <code>data-preserve</code> attribute instead of emptying the repeater of data. This function will preserve those items while removing all other items. Defaults to <code>false</code>.</td>
+              <td><em>optional</em> If <code>true</code>, only items that don't have the <code>data-preserve</code> attribute will be removed. Otherwise, all items will be removed. Defaults to <code>false</code>.</td>
             </tr>
           </tbody>
         </table>
