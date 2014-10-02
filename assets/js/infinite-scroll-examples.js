@@ -1,5 +1,5 @@
 /*!
- * JavaScript for FuelUX's docs - Infinite Scroll Examples
+ * JavaScript for Fuel UX's docs - Infinite Scroll Examples
  * Copyright 2011-2014 ExactTarget, Inc.
  * Licensed under the Creative Commons Attribution 3.0 Unported License. For
  * details, see http://creativecommons.org/licenses/by/3.0/.
@@ -20,6 +20,13 @@ define(function(require){
 	require('fuelux');
 
 	// INFINITE SCROLL
+	$('#infiniteScrollIllustration').infinitescroll({
+		dataSource: function(helpers, callback){
+			setTimeout(function(){
+				callback({ content: content });
+			}, delays[Math.floor(Math.random() * 4)]);
+		}
+	});
 	$('#myInfiniteScroll1').infinitescroll({
 		dataSource: function(helpers, callback){
 			setTimeout(function(){
@@ -36,6 +43,7 @@ define(function(require){
 		hybrid: true
 	});
 
+	setup('#infiniteScrollIllustration');
 	setup('#myInfiniteScroll1');
 	setup('#myInfiniteScroll2');
 });

@@ -1,5 +1,5 @@
 /*!
- * FuelUX v3.0.0
+ * Fuel UX v3.0.0
  * Copyright 2012-2014 ExactTarget
  * Licensed under MIT (https://github.com/ExactTarget/fuelux/blob/master/COPYING)
  */
@@ -15,11 +15,11 @@
 }( function( jQuery ) {
 
 	if ( typeof jQuery === 'undefined' ) {
-		throw new Error( 'FuelUX\'s JavaScript requires jQuery' )
+		throw new Error( 'Fuel UX\'s JavaScript requires jQuery' )
 	}
 
 	if ( typeof $.fn.dropdown === 'undefined' || typeof $.fn.collapse === 'undefined' ) {
-		throw new Error( 'FuelUX\'s JavaScript requires Bootstrap' )
+		throw new Error( 'Fuel UX\'s JavaScript requires Bootstrap' )
 	}
 
 	( function( $ ) {
@@ -1239,7 +1239,7 @@
 			}
 		} );
 
-		// For pillbox suggestions dropdown 
+		// For pillbox suggestions dropdown
 		$( document.body ).on( 'suggested.fu.pillbox', function( event, element ) {
 			_autoFlip( $( element ) );
 			$( element ).parent().addClass( 'open' );

@@ -4,41 +4,81 @@
   <h1 id="overview" class="page-header">Overview</h1>
 
   <div class="fu-callout fu-callout-danger">
-    <h4 id="plugin-dependencies">Plugin dependencies</h4>
-    <p>Some controls depend on other controls. If you include a control individually, make sure to check for dependencies in the documentation below. A console error should be thrown if dependencies are not met.  All plugins depend on jQuery <i>and</i> Bootstrap and these must be loaded <strong>before</strong> any Fuel UX files).</p> 
-    <p><a href="{{ site.repo }}/blob/{{ site.current_version }}/bower.json">Consult our <code>bower.json</code></a> to see which versions of jQuery and Bootstrap are currently tested and supported.</p>
+    <h4 id="overview-plugin-dependencies">Plugin Dependencies</h4>
+    <p>Like Bootstrap, Fuel UX is a collection of jQuery plugins.</p>
+    <ul>
+      <li>All plugins depend on jQuery <i>and</i> Bootstrap; these must be loaded <strong>before</strong> Fuel UX.</li>
+      <li>Version requirements for jQuery/Bootstrap are documented in our <a href="{{ site.repo }}/blob/{{ site.current_version }}/bower.json"><code>bower.json</code></a> file.</li>
+      <li>Check dependencies if including controls individually <span class="text-muted">(console errors will indicate unmet dependencies). Some controls depend on others.</span></li>
+    </ul>
   </div>
 
-  <h3 id="control-initialization">Control initialization</h3>
+  <div class="fu-callout fu-callout-danger">
+    <h4 id="overview-class-dependeny">Class Dependency</h4>
+    <p>In order for Fuel UX to work, you must have the <code>fuelux</code> class on the body of your document <span class="text-muted">(Or at least on a parent container of the fuelux elements on your page)</span></p>
+  </div>
 
-  <h4>With markup: data-attributes</h4>
-  <p>You can initialize Fuel UX controls that <i>do not require a data source</i> on page load purely through markup without writing a single line of JavaScript. Controls that can to be auto-initialized are checkbox, combobox, datepicker, loader, pillbox, placard, radio, scheduler, search, selectlist, spinbox, and wizard. These controls can contain the <code>data-initialize</code> attribute. Attribute initialization is used in this section's examples when available.
+  <h3 id="overview-control-initialization">Control Initialization</h3>
 
-  <p>Like Bootstrap, these controls can be 'lazily' initialized when the user interacts with them (such as on <code>mouseover</code>. Be careful of <code>changed</code> events when initializing. To disable this data-api, use <code>$.off('fu.data-api')</code>. The Fuel UX team recommends the precision and greater number of options provided by initializing manually via JavaScript.</p>
-
-  <h4>With JavaScript</h4>
-  <p>You can also initialize a component at any time via JavaScript. Most controls accept an optional options object, a string which targets a particular method, or nothing (which initiates a plugin with default behavior):</p>
+  <h4 id="overview-control-initialization-javascript">With JavaScript</h4>
+  <p>Initialize a component at any time via JavaScript:
 {% highlight js %}
-// initialized with defaults
-$('#myWizard').wizard()
+// initialized with no options specified (fuelux defaults get used)
+$("#myCombobox").combobox();
 
-// initialized with selectedItem
-$('#myWizard').wizard('selectedItem', { step: 3 });)
+// initialized with options specified
+$('#myCombobox').combobox('selectByIndex', '1');
 {% endhighlight %}
+</p>
 
-  <div class="bs-callout bs-callout-warning">
-    <h4>Destruction and re-initialization</h4>
-    <p>Unlike some heavier UI control libraries, <i>Fuel UX controls cannot be re-initialized</i>. If a control is already initialized, passing in an options/default object will only change the defaults--which means <i>nothing will happen</i>. Many controls have methods that allow certain internal variables to be changed, but if the variable you would like to change is not available via a method mentioned in the tables below, then you should use the control's <code>destroy</code> method and initialize new markup with the respective options object via Javascript.</p>
+  <div class="fu-callout fu-callout-warning">
+    <h4 id="overview-destruction-and-reinitialization">Destruction and re-initialization</h4>
+    <p><em>Fuel UX controls cannot be re-initialized</em>. Passing new options to an already initialized control <em>will do effectively nothing</em>. Many controls have convenience methods that allow some internal variables to be changed; otherwise use Javascript to call the control's <code>destroy()</code> method and initialize again with the newly desired markup and options. The <code>destroy()</code> method will attempt to return the pre-initialization markup for the element being destroyed.</p>
   </div>
 
-  <h3 id="events">Events</h3>
-  <p>Fuel UX provides custom events for most components' actions. All events are namespaced with 'fu' and their control name (ex. <code>'changed.fu.checkbox'</code> ). All Fuel UX events are past tense, so not to trigger standard events (ex. <code>changed</code> vs. <code>change</code>). Although it is not tested, nor recommended, this allows you listen for standard events and Bootstrap supported events on any internal element that you choose.</p>
+  <h4 id="overview-control-initialization-markup">With markup: data-attributes</h4>
+  <p class="bg-danger">The Fuel UX team recommends the precision and greater number of options provided by <a href="#control-initialization-javascript">initializing manually via JavaScript</a>.</p>
+  <p>The following Fuel UX controls <em class="text-muted">(those that that do not require a data source)</em> can be initialized on page load using the <code>data-initialize</code> attribute:
+    <ul>
+      <li><a href="#checkbox">checkbox</a></li>
+      <li><a href="#combobox">combobox</a></li>
+      <li><a href="#datepicker">datepicker</a></li>
+      <li><a href="#loader">loader</a></li>
+      <li><a href="#pillbox">pillbox</a></li>
+      <li><a href="#placard">placard</a></li>
+      <li><a href="#radio">radio</a></li>
+      <li><a href="#scheduler">scheduler</a></li>
+      <li><a href="#search">search</a></li>
+      <li><a href="#selectlist">selectlist</a></li>
+      <li><a href="#spinbox">spinbox</a></li>
+      <li><a href="#wizard">wizard</a></li>
+    </ul>
+    <span class="text-muted">Attribute initialization is used in each section's examples when available.</span>
+  </p>
 
-  <h3 id="individual-compiled">Individual or compiled</h3>
-  <p>Components can be included individually (using Fuel UX's individual <code>*.js</code> files), or all at once (using <code>fuelux.js</code> or the minified <code>fuelux.min.js</code>). Do not include both files on your page.</p>
+  <p>If control is not present <cod>onready</cod>, it will be 'lazily' initialized when the user interacts with it (such as on <code>mouseover</code>).</p>
 
-  <h3 id="accessibility">Accessibility</h3>
+  <p class="bg-danger">Currently there is a bug causing <code>changed</code> events to fire twice for some elements (such as <a href="#spinbox">spinbox</a>). The workaround is to disable this data-api, using <code>$.off('fu.data-api')</code></p>
 
-  <p>ARIA support has been added when appropriate, and all inputs have labels even if they are "screen reader only." All controls are keyboard friendly and can be navigated by tabbing to display a keyboard-focus. We hope this not only aids in accessibility, but also increases the user's productivity. Controls have been "fat-finger" tested on touch devices. If you have accessibility issues with Fuel UX controls, please <a href="https://github.com/ExactTarget/fuelux/issues/new">create an issue on GitHub</a>.</p>
+  <div class="fu-callout fu-callout-warning">
+    <h4 id="overview-manual-initialization">Requires Manual Initialization</h4>
+    <p>The following Fuel UX controls require a data source and must be initialized manually:
+      <ul>
+        <li><a href="#infinite-scroll">Infinite Scroll</a></li>
+        <li><a href="#repeater">Repeater</a></li>
+        <li><a href="#tree">Tree</a></li>
+      </ul>
+    </p>
+  </div>
+
+  <h3 id="overview-events">Events</h3>
+  <p>Fuel UX provides custom events for most components' actions. All events are namespaced with 'fu' and their control name (ex. <code>'changed.fu.checkbox'</code> ). All Fuel UX events are past tense so that they don't trigger standard and Bootstrap events (eg. <code>changed</code> vs. <code>change</code>). Listening for standard and Bootstrap supported events on an internal element is not tested, and therefore not recommended.</p>
+
+  <h3 id="overview-individual-compiled">Individual or compiled</h3>
+  <p>Include components either altogether or individually, <em class="text-danger">but never do both</em> (include either individual <code>*.js</code> files, or the unminified <code>fuelux.js</code>, or the minified <code>fuelux.min.js</code>).</p>
+
+  <h3 id="overview-accessibility">Accessibility</h3>
+
+  <p>ARIA support has been added when appropriate, and all inputs have labels even if they are "screen reader only." All controls are keyboard friendly and can be navigated by tabbing to display a keyboard-focus. Controls have been "fat-finger" tested on touch devices. <em>We care</em>; if you have accessibility issues with Fuel UX controls, please <a href="https://github.com/ExactTarget/fuelux/issues/new">create an issue on GitHub</a>.</p>
 
 </div>

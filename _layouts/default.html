@@ -4,7 +4,7 @@
 	<!-- Meta, title, CSS, favicons, etc. -->
 	{% include header.html %}
 </head>
-<body>
+<body data-spy="scroll" data-offset="80">
 <a class="sr-only" href="#content">Skip to main content</a>
 
 <!-- Docs master nav -->
@@ -25,7 +25,7 @@
 			{{ content }}
 		</div>
 		<div class="col-md-3">
-			<div class="fu-sidebar hidden-print" role="complementary">
+			<div class="fu-sidebar hidden-print" role="complementary" style="margin-top: 40px;">
 				<ul class="nav fu-sidenav">
 					{% if page.slug == "getting-started" %}
 						{% include nav/getting-started.html %}

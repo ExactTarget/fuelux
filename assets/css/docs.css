@@ -6,12 +6,17 @@
  * anchor blue: #293f54
  * primary blue: #1378b7
  * slate gray: #F0F1F2
- * 
+ *
  */
 
 body {
 	position: relative; /* For scrollyspy */
 	color: #525354;
+	margin-top: 40px;
+}
+
+.bg-danger {
+	padding: 15px;
 }
 
 a {
@@ -22,6 +27,80 @@ a:hover,
 a:focus
 {
 	color: #436078;
+}
+
+dt {
+	margin-top: 10px;
+}
+
+dd {
+	margin-left: 40px;
+}
+
+/* make room for the nav bar */
+h1[id],
+h2[id],
+h3[id],
+h4[id],
+h5[id],
+h6[id],
+dt[id]{
+	padding-top: 60px;
+	margin-top: -40px;
+}
+
+.header-anchor {
+  position: absolute;
+  opacity: 0;
+  padding: 0 5px 0 10px;
+  height: 100%;
+  width: 20px;
+  color: #000;
+  -webkit-transition: opacity 0.3s ease-in-out 0s;
+  -moz-transition: opacity 0.3s ease-in-out 0s;
+  transition: opacity 0.3s ease-in-out 0s;
+}
+
+.header-anchor .glyphicon {
+	top 0;
+}
+
+h1 .header-anchor {
+  left: -40px;
+}
+
+h2 .header-anchor {
+  left: -35px;
+}
+
+h3 .header-anchor {
+  left: -30px;
+}
+
+h4 .header-anchor {
+  left: -26px;
+}
+
+h5 .header-anchor {
+  left: -23px;
+}
+
+h6 .header-anchor {
+  left: -21px;
+}
+
+dt .header-anchor {
+  left: -16px;
+}
+
+h1:hover .header-anchor,
+h2:hover .header-anchor,
+h3:hover .header-anchor,
+h4:hover .header-anchor,
+h5:hover .header-anchor,
+h6:hover .header-anchor,
+dt:hover .header-anchor{
+  opacity: 1;
 }
 
 /* Keep code small in tables on account of limited space */
@@ -450,11 +529,6 @@ a:focus
 	margin-bottom: 0;
 }
 
-h1[id] {
-	margin-top: 0;
-	padding-top: 20px;
-}
-
 /*
  * Pygments - Manni CSS
  *
@@ -537,7 +611,7 @@ h1[id] {
 /* Common styles for all types */
 .fu-callout {
   margin: 20px 0;
-  padding: 20px;
+  padding: 0 20px 60px 40px;/* no padding on top because of scrollspy/navbar hack, extra padding on left and bottom to try and even things out */
   border-left: 3px solid #eee;
 }
 .fu-callout h4 {
@@ -615,21 +689,21 @@ h1[id] {
 /* Make the examples and snippets not full-width */
 @media (min-width: 768px) {
   .fu-example {
-    margin-left: 0;
-    margin-right: 0;
-    background-color: #fff;
-    border-width: 1px;
-    border-color: #ddd;
-    border-radius: 4px 4px 0 0;
-    box-shadow: none;
+	margin-left: 0;
+	margin-right: 0;
+	background-color: #fff;
+	border-width: 1px;
+	border-color: #ddd;
+	border-radius: 4px 4px 0 0;
+	box-shadow: none;
   }
   .fu-example + .highlight {
-    margin-top: -16px;
-    margin-left: 0;
-    margin-right: 0;
-    border-width: 1px;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
+	margin-top: -16px;
+	margin-left: 0;
+	margin-right: 0;
+	border-width: 1px;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
   }
 }
 
@@ -736,8 +810,8 @@ h6 {
 
 
 /* =======================================================
- * FuelUX Components
- * 
+ * Fuel UX Components
+ *
  * ======================================================= */
 
 .highlight {
@@ -841,7 +915,7 @@ h6 {
 
 /* =======================================================
  * MC Theme demo
- * 
+ *
  * ======================================================= */
 
 .mctheme-container {

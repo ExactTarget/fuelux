@@ -1,12 +1,54 @@
 <!-- checkbox
 ================================================== -->
 <div class="fu-docs-section">
-  <h1 id="checkboxes" class="page-header">Checkboxes <small>checkboxes.js</small></h1>
+  <h1 id="checkbox" class="page-header">Checkbox <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/checkbox.js"><small>checkbox.js</small></a></h1>
 
-  <h2 id="checkboxes-examples">Examples</h2>
-  <p>Add a custom look and feel for checkbox element.</p>
+  <p>The checkbox control provides a customized look and feel that can be standardized across all browsers.</p>
+  <label class="checkbox-custom checkbox-inline" data-initialize="checkbox"  id="myCheckbox7">
+    <input class="sr-only" type="checkbox" value="option3"> <span class="checkbox-label">checkbox</span>
+  </label>
 
-  <h4>Default (stacked)</h4>
+  <h2 id="checkbox-usage">Usage</h2>
+  <h3 id="checkbox-usage-javascript">Via JavaScript</h3>
+  <p>Initialize the checkbox control via JavaScript:</p>
+  {% highlight js %}$('#myCheckbox').checkbox();{% endhighlight %}
+
+  <h3 id="checkbox-usage-data-attributes">Via data-attributes</h3>
+  <ul>
+    <li>Checkbox input elements that exist when <code>$.ready()</code> executes that have <code>data-initialize="checkbox"</code> on their parent will be initialized immediately.</li>
+    <li>Checkbox input elements that are created with <code>data-initialize="checkbox"</code> after <code>$.ready()</code> executes will initialize when a <code>mouseover</code> event occurs on them.</li>
+  </ul>
+
+  <h3 id="checkbox-usage-methods">Methods</h3>
+  <p>Once your checkbox is <a href="#checkbox-usage">initialized</a>, you can execute any of the following methods on it:</p>
+
+  <dl>
+    <dt>.checkbox('check')</dt>
+    <dd>Ensures the checkbox is checked.</dd>
+
+    <dt>.checkbox('destroy')</dt>
+    <dd>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup as close to it's pre-initialization state as possible.</dd>
+
+    <dt>.checkbox('disable')</dt>
+    <dd>Ensures the checkbox is disabled.</dd>
+
+    <dt>.checkbox('enable')</dt>
+    <dd>Ensures the checkbox is enabled.</dd>
+
+    <dt>.checkbox('isChecked')</dt>
+    <dd>Returns <code>true</code> or <code>false</code> indicating the checked state of the checkbox.</dt>
+
+    <dt>.checkbox('toggle')</dt>
+    <dd>Toggles the checkbox between checked/unchecked states.</dd>
+
+    <dt>.checkbox('uncheck')</dt>
+    <dd>Ensures the checkbox is unchecked.</dd>
+
+  </dl>
+
+  <h2 id="checkbox-examples">Examples</h2>
+
+  <h4 id="checkbox-examples-default">Default (stacked)</h4>
   <div class="fu-example section">
     <div id="myCheckbox" class="checkbox" data-initialize="checkbox">
       <label class="checkbox-custom">
@@ -60,7 +102,7 @@
 </div>
 {% endhighlight %}
 
-  <h4>Inline checkboxes</h4>
+  <h4 id="checkbox-examples-inline">Inline checkboxes</h4>
   <p>Use the <code>.checkbox-inline</code> class on checkboxes for controls that appear on the same line.</p>
   <div class="fu-example section">
     <label class="checkbox-custom checkbox-inline" data-initialize="checkbox">
@@ -85,7 +127,7 @@
 </label>
 {% endhighlight %}
 
-  <h4>Element toggling checkboxes</h4>
+  <h4 id="checkbox-examples-element-toggling">Element toggling checkboxes</h4>
   <p>Use the <code>data-toggle="{{selector}}"</code> to automatically show or hide elements matching the selector within the body upon check or uncheck. This control works with any <a href="http://api.jquery.com/category/selectors/">jQuery selector</a>.
   </p>
   <div class="fu-example section">
@@ -124,7 +166,7 @@
 <div class="alert bg-success checkboxToggleCLASS" style="display: none;">Class toggling container</div>
 {% endhighlight %}
 
-  <h4>Highlighting checkboxes</h4>
+  <h4 id="checkbox-examples-highlighting">Highlighting checkboxes</h4>
   <p>Use the <code>.highlight</code> class to add a background highlight upon check.
   </p>
   <div class="fu-example section">
@@ -151,46 +193,5 @@
   This control highlights an inline checkbox on check
 </label>
 {% endhighlight %}
-
-  <h2 id="checkboxes-usage">Usage</h2>
-
-  <h3>Via data-attributes</h3>
-  <p>To enable the checkbox control without writing Javascript, add <code>data-initialize="checkbox"</code> to the parent of the checkbox input that you wish to initialize. Such elements that exist when <code>$.ready()</code> executes will be initialized. Any checkbox markup that is programatically created with <code>data-initialize="checkbox"</code> sometime after the initial page load will not immediately initialize. Rather, it will be initialized when the <code>mouseover</code> event is fired on it.</p>
-
-  <h3>Via JavaScript</h3>
-  <p>Call the checkbox control via JavaScript:</p>
-  {% highlight js %}$('#myCheckbox').checkbox();{% endhighlight %}
-
-  <h3>Methods</h3>
-  <h4>$().checkbox();</h4>
-  Activates your content as a custom checkbox
-
-  <h4>.checkbox('check')</h4>
-  <p>Checks the checkbox</p>
-  {% highlight js %}$('#myCheckbox').checkbox('check');{% endhighlight %}
-
-  <h4>.checkbox('destroy')</h4>
-  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
-  {% highlight js %}$('#myCheckbox').checkbox('destroy');{% endhighlight %}
-
-  <h4>.checkbox('disable')</h4>
-  <p>Disables the checkbox</p>
-  {% highlight js %}$('#myCheckbox').checkbox('disable');{% endhighlight %}
-
-  <h4>.checkbox('enable')</h4>
-  <p>Enables the checkbox</p>
-  {% highlight js %}$('#myCheckbox').checkbox('enable');{% endhighlight %}
-
-  <h4>.checkbox('isChecked')</h4>
-  <p>Returns <code>true</code> or <code>false</code> depending on whether the checkbox is checked</p>
-  {% highlight js %}$('#myCheckbox').checkbox('isChecked');{% endhighlight %}
-
-  <h4>.checkbox('toggle')</h4>
-  <p>Toggles the checkbox between checked/unchecked states</p>
-  {% highlight js %}$('#myCheckbox').checkbox('toggle');{% endhighlight %}
-
-  <h4>.checkbox('uncheck')</h4>
-  <p>Unchecks the checkbox</p>
-  {% highlight js %}$('#myCheckbox').checkbox('uncheck');{% endhighlight %}
 
 </div>

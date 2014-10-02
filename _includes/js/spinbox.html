@@ -1,55 +1,43 @@
 <!-- spinbox
 ================================================== -->
 <div class="fu-docs-section">
-  <h1 id="spinbox" class="page-header">Spinbox<small> spinbox.js</small></h1>
+  <h1 id="spinbox" class="page-header">Spinbox <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/spinbox.js"><small>spinbox.js</small></a></h1>
 
-  <h2 id="spinbox-examples">Example</h2>
-  <p>Spinbox includes an enhanced numeric input based upon the native <code>&lt;input type=&quot;number&quot;&gt;</code>. Wrap the input and the increment/decrement buttons within <code>.fuelux .spinbox</code></p>
-  
-  <div class="fu-example section">
+  <p>Spinbox includes an enhanced numeric input based upon the native <code>&lt;input type=&quot;number&quot;&gt;</code>.</p>
 
+  <div class="form-group">
+    <label class="control-label" for="spinboxIllustration">spinbox</label>
     <div class="form-group">
-      <label class="control-label" for="mySpinboxWithDefaultInput">With default value and 3-digit class</label>
-      <div class="form-group">
-        
-        <div id="mySpinboxWithDefault" class="spinbox digits-3" data-initialize="spinbox">
-          <input id="mySpinboxWithDefaultInput" type="text" value="3" class="form-control input-mini spinbox-input">
 
-          <div class="spinbox-buttons btn-group btn-group-vertical">
-            <button type="button" class="btn btn-default spinbox-up btn-xs">
-              <span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
-            </button>
-            <button type="button" class="btn btn-default spinbox-down btn-xs">
-              <span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
-            </button>
-          </div>
+      <div id="spinboxIllustration" class="spinbox digits-3" data-initialize="spinbox">
+        <input id="overviewSpinboxInput" type="text" value="3" class="form-control input-mini spinbox-input">
+
+        <div class="spinbox-buttons btn-group btn-group-vertical">
+          <button type="button" class="btn btn-default spinbox-up btn-xs">
+            <span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
+          </button>
+          <button type="button" class="btn btn-default spinbox-down btn-xs">
+            <span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
+          </button>
         </div>
-
       </div>
-    </div>
 
-    <h5>Sample Methods</h5>
-    <div class="btn-group">
-      <button id="btnSpinboxSetValue" type="button" class="btn btn-default">set value (4)</button>
-      <button id="btnSpinboxGetValue" type="button" class="btn btn-default">get value</button>
-      <button id="btnEnableSpinbox" type="button" class="btn btn-default">enable</button>
-      <button id="btnDisableSpinbox" type="button" class="btn btn-default">disable</button>
-      <button id="btnSpinboxDestroy" type="button" class="btn btn-default">destroy and append</button>
     </div>
-  
-  </div><!-- /example -->
+  </div>
 
   <h2 id="spinbox-usage">Usage</h2>
   <p>A spinbox allows for click interaction with a numeric input.</p>
 
-  <h3>Via data-attributes</h3>
-  <p>To enable the spinbox control without writing Javascript, add <code>data-initialize="spinbox"</code> to the <code>.spinbox</code> element that you wish to initialize. Such elements that exist when <code>$.ready()</code> executes will be initialized. Any spinbox markup that is programatically created with <code>data-initialize="spinbox"</code> sometime after the initial page load will not immediately initialize. Rather, it will initialize when the <code>mousedown</code> event is fired on it.</p>
+  <p class="bg-danger">Currently there is a bug causing <code>changed</code> events to fire twice for some elements. The workaround is to disable this data-api, using <code>$.off('fu.data-api')</code></p>
 
-  <h3>Via JavaScript</h3>
+  <h3 id="spinbox-usage-javascript">Via JavaScript</h3>
   <p>Call the selectlist control via JavaScript:</p>
   {% highlight js %}$('#mySpinbox').spinbox();{% endhighlight %}
 
-  <h3>Markup</h3>
+  <h3 id="spinbox-usage-data-attributes">Via data-attributes</h3>
+  <p>To enable the spinbox control without writing JavaScript, add <code>data-initialize="spinbox"</code> to the <code>.spinbox</code> element that you wish to initialize. Such elements that exist when <code>$.ready()</code> executes will be initialized. Any spinbox markup that is programmatically created with <code>data-initialize="spinbox"</code> sometime after the initial page load will not immediately initialize. Rather, it will initialize when the <code>mousedown</code> event is fired on it.</p>
+
+  <h3 id="spinbox-usage-markup">Markup</h3>
 
   <p>Add <code>class="spinbox"</code> to a div within a <code>class="fuelux"</code> container.</p>
 
@@ -67,17 +55,22 @@
   </div>
   {% endhighlight %}
 
-  <h3>Methods</h3>
+  <h3 id="spinbox-usage-methods">Methods</h3>
+  <dl>
+    <dt id="spinbox-usage-methods-destroy">.spinbox('destroy')</dt>
+    <dd>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.
+    {% highlight js %}$('#mySpinbox').spinbox('destroy');{% endhighlight %}</dd>
 
-  <h4>.spinbox('destroy')</h4>
-  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</p>
-  {% highlight js %}$('#mySpinbox').spinbox('destroy');{% endhighlight %}
-  <h4>.spinbox('value')</h4>
-  <p>Sets or returns the spinner value, as shown in the example below:</p>
-  {% highlight js %}$('#mySpinbox').spinbox('value') {% endhighlight %}
-  <p>If value contains units, the value returns as a string. Otherwise, the value returns as a number.</p>
+    <dt id="spinbox-usage-methods-value">.spinbox('value')</dt>
+    <dd>
+      Sets or returns the spinner value
+      {% highlight js %}$('#mySpinbox').spinbox('value') {% endhighlight %}
+      {% highlight js %}$('#mySpinbox').spinbox('value', 11) {% endhighlight %}
+      <p>If value contains non-integers, the value returns as a string. Otherwise, the value returns as a number.</p>
+    </dd>
+  </dl>
 
-  <h3>Options</h3>
+  <h3 id="spinbox-usage-options">Options</h3>
   <p>Options that can be passed in via JavaScript once at initialization.</p>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
@@ -148,7 +141,7 @@
     </table>
   </div><!-- ./fu-table-responsive -->
 
-  <h3>Events</h3>
+  <h3 id="spinbox-usage-events">Events</h3>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>
@@ -165,11 +158,46 @@
       </tbody>
     </table>
   </div><!-- ./fu-table-responsive -->
-	<p>All spinbox events are fired on the <code>.spinbox</code> classed element.</p>
+  <p>All spinbox events are fired on the <code>.spinbox</code> classed element.</p>
 {% highlight js %}
 $('#mySpinbox').on('changed.fu.spinbox', function () {
   // do something
 })
 {% endhighlight %}
 
+  <h2 id="spinbox-examples">Example</h2>
+  <p>Spinbox includes an enhanced numeric input based upon the native <code>&lt;input type=&quot;number&quot;&gt;</code>. Wrap the input and the increment/decrement buttons within <code>.fuelux .spinbox</code></p>
+
+  <div class="fu-example section">
+
+    <div class="form-group">
+      <label class="control-label" for="mySpinboxWithDefaultInput">With default value and 3-digit class</label>
+      <div class="form-group">
+
+        <div id="mySpinboxWithDefault" class="spinbox digits-3" data-initialize="spinbox">
+          <input id="mySpinboxWithDefaultInput" type="text" value="3" class="form-control input-mini spinbox-input">
+
+          <div class="spinbox-buttons btn-group btn-group-vertical">
+            <button type="button" class="btn btn-default spinbox-up btn-xs">
+              <span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
+            </button>
+            <button type="button" class="btn btn-default spinbox-down btn-xs">
+              <span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <h5 id="spinbox-examples-sample-methods">Sample Methods</h5>
+    <div class="btn-group">
+      <button id="btnSpinboxSetValue" type="button" class="btn btn-default">set value (4)</button>
+      <button id="btnSpinboxGetValue" type="button" class="btn btn-default">get value</button>
+      <button id="btnEnableSpinbox" type="button" class="btn btn-default">enable</button>
+      <button id="btnDisableSpinbox" type="button" class="btn btn-default">disable</button>
+      <button id="btnSpinboxDestroy" type="button" class="btn btn-default">destroy and append</button>
+    </div>
+
+  </div><!-- /example -->
 </div><!-- end docs-section -->

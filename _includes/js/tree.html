@@ -1,7 +1,124 @@
 <!-- tree
 ================================================== -->
 <div class="fu-docs-section">
-  <h1 id="tree" class="page-header">Tree<small> tree.js</small></h1>
+  <h1 id="tree" class="page-header">Tree <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/tree.js"><small>tree.js</small></a></h1>
+
+  <h2 id="tree-usage">Usage</h2>
+  <p>The tree provides a categorical selection interface that allows for interaction and selection of nested elements.</p>
+
+  <div class="form-group">
+    <ul class="tree" role="tree" id="treeIllustration">
+      <li class="tree-branch hide" data-template="treebranch" role="treeitem" aria-expanded="false">
+        <div class="tree-branch-header">
+          <button class="tree-branch-name">
+            <span class="glyphicon icon-caret glyphicon-play"></span>
+            <span class="glyphicon icon-folder glyphicon-folder-close"></span>
+            <span class="tree-label"></span>
+          </button>
+        </div>
+        <ul class="tree-branch-children" role="group"></ul>
+        <div class="tree-loader" role="alert">Loading...</div>
+      </li>
+      <li class="tree-item hide" data-template="treeitem" role="treeitem">
+        <button class="tree-item-name">
+          <span class="glyphicon icon-item fueluxicon-bullet"></span>
+          <span class="tree-label"></span>
+        </button>
+      </li>
+    </ul>
+  </div>
+
+
+  <h3 id="tree-usage-javascript">Via JavaScript</h3>
+  <p>Call the tree control via JavaScript:</p>
+{% highlight js %}
+dataSource = function(options, callback){
+  //...
+};
+
+$('#myTree').tree({ dataSource: dataSource });
+{% endhighlight %}
+
+  <h3 id="tree-usage-methods">Methods</h3>
+
+  <dl>
+    <dt id="tree-usage-methods-destroy">.tree('destroy')</dt>
+    <dd>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup</dd>
+
+    <dt id="tree-usage-methods-selectedItems">.tree('selectedItems')</dt>
+    <dd>Returns an array containing selected items and associated data</dd>
+  </dl>
+
+  <h3 id="tree-usage-options">Options</h3>
+  <p>You can pass options via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>. For example, you could use <code>data-selected=""</code>.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th style="width: 100px;">Name</th>
+        <th style="width: 100px;">type</th>
+        <th style="width: 50px;">default</th>
+        <th>description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>multiSelect</td>
+        <td>boolean</td>
+        <td>false</td>
+        <td>Allows multiple tree items to be selected at once</td>
+      </tr>
+      <tr>
+        <td>cacheItems</td>
+        <td>boolean</td>
+        <td>true</td>
+        <td>Prevents refresh of sub-items when a user closes and reopens a folder</td>
+      </tr>
+      <tr>
+        <td>folderSelect</td>
+        <td>boolean</td>
+        <td>false</td>
+        <td>Enables folder selection</td>
+      </tr>
+      </tbody>
+    </table>
+  </div><!-- ./fu-table-responsive -->
+
+  <h3 id="tree-usage-events">Events</h3>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th style="width: 150px;">Event Type</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>loaded.fu.tree</td>
+        <td>This event fires when sub-content has been is loaded.</td>
+      </tr>
+      <tr>
+        <td>selected.fu.tree</td>
+        <td>This event fires when a user selects one or more items. Returns an object containing <code>{info: data}</code>. <code>data</code> represents an array of selected items.</td>
+      </tr>
+      <tr>
+        <td>opened.fu.tree</td>
+        <td>This event fires when a user opens a sub-folder. Returns an object containing folder information.</td>
+      </tr>
+      <tr>
+        <td>closed.fu.tree</td>
+        <td>This event fires when a user closes a sub-folder. Returns an object containing folder information.</td>
+      </tr>
+      </tbody>
+    </table>
+  </div><!-- ./fu-table-responsive -->
+  <p>All tree events are fired on the <code>.tree</code> classed element.</p>
+{% highlight js %}
+$('#myTree').on('loaded.fu.tree', function () {
+  // do something
+})
+{% endhighlight %}
 
   <h2 id="tree-examples">Examples</h2>
 
@@ -104,92 +221,5 @@
 </ul>
 {% endhighlight %}
 
-  <h2 id="tree-usage">Usage</h2>
-  <p>The tree provides a categorical selection interface that allows for interaction and selection of nested elements.</p>
-
-  <h3>Via JavaScript</h3>
-  <p>Call the tree control via JavaScript:</p>
-  {% highlight js %}$('#myTree').tree({ dataSource: dataSource });{% endhighlight %}
-
-  <h3>Methods</h3>
-
-  <h4>.tree('destroy')</h4>
-  <p>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup</p>
-  {% highlight js %}$('#myTree').tree('destroy');{% endhighlight %}
-
-  <h4>.tree('selectedItems')</h4>
-  <p>Returns an array containing selected items and associated data</p>
-  {% highlight js %}$('#myTree').tree('selectedItems'){% endhighlight %}
-
-  <h3>Options</h3>
-  <p>You can pass options via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>. For example, you could use <code>data-selected=""</code>.</p>
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead>
-      <tr>
-        <th style="width: 100px;">Name</th>
-        <th style="width: 100px;">type</th>
-        <th style="width: 50px;">default</th>
-        <th>description</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>multiSelect</td>
-        <td>boolean</td>
-        <td>false</td>
-        <td>Allows multiple tree items to be selected at once</td>
-      </tr>
-      <tr>
-        <td>cacheItems</td>
-        <td>boolean</td>
-        <td>true</td>
-        <td>Prevents refresh of sub-items when a user closes and reopens a folder</td>
-      </tr>
-      <tr>
-        <td>folderSelect</td>
-        <td>boolean</td>
-        <td>false</td>
-        <td>Enables folder selection</td>
-      </tr>
-      </tbody>
-    </table>
-  </div><!-- ./fu-table-responsive -->
-
-  <h3>Events</h3>
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead>
-      <tr>
-        <th style="width: 150px;">Event Type</th>
-        <th>Description</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>loaded.fu.tree</td>
-        <td>This event fires when sub-content has been is loaded.</td>
-      </tr>
-      <tr>
-        <td>selected.fu.tree</td>
-        <td>This event fires when a user selects one or more items. Returns an object containing <code>{info: data}</code>. <code>data</code> represents an array of selected items.</td>
-      </tr>
-      <tr>
-        <td>opened.fu.tree</td>
-        <td>This event fires when a user opens a sub-folder. Returns an object containing folder information.</td>
-      </tr>
-      <tr>
-        <td>closed.fu.tree</td>
-        <td>This event fires when a user closes a sub-folder. Returns an object containing folder information.</td>
-      </tr>
-      </tbody>
-    </table>
-  </div><!-- ./fu-table-responsive -->
-	<p>All tree events are fired on the <code>.tree</code> classed element.</p>
-{% highlight js %}
-$('#myTree').on('loaded.fu.tree', function () {
-  // do something
-})
-{% endhighlight %}
 
 </div>
