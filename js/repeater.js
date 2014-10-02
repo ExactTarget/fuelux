@@ -108,6 +108,15 @@
 		constructor: Repeater,
 
 		clear: function(options){
+			options = options || {};
+
+			if(!options.preserve){
+				//Just trash everything because preserve is false
+				this.$canvas.empty();
+				return;
+			}
+			//otherwise, scan and preserve if appropriate...
+
 			var scan = function(cont){
 				var keep = [];
 				cont.children().each(function(){
@@ -126,12 +135,14 @@
 				cont.append(keep);
 			};
 
-			options = options || {};
 
-			if(!options.preserve){
-				this.$canvas.empty();
-			}else if(!this.infiniteScrollingEnabled || options.clearInfinite){
+			//Make sure not to trash everything if infiniteScoll is enabled unless they explicitly say to do so
+			if(!this.infiniteScrollingEnabled){
 				scan(this.$canvas);
+			}else if(options.clearInfinite){
+				scan(this.$canvas);	
+			}else{
+				//do nothing for some reason... Is this a bug?
 			}
 		},
 
