@@ -398,34 +398,45 @@
 			var prevView;
 
 			var start = function(){
+				var next = function(){
+					if(!self.infiniteScrollingEnabled || (self.infiniteScrollingEnabled && viewChanged)){
+						self.$loader.show().loader('play');
+					}
+					self.getDataOptions(options, function(opts){
+						self.options.dataSource(opts, function(data){
+							var renderer = viewObj.renderer;
+							if(self.infiniteScrollingEnabled){
+								self.infiniteScrollingCallback({});
+							}else{
+								self.itemization(data);
+								self.pagination(data);
+							}
+							if(renderer){
+								self.runRenderer(self.$canvas, renderer, data, function(){
+									if(self.infiniteScrollingEnabled){
+										if(viewChanged || options.clearInfinite){
+											self.initInfiniteScrolling();
+										}
+										self.infiniteScrollPaging(data, options);
+									}
+									self.$loader.hide().loader('pause');
+									self.$element.trigger('loaded.fu.repeater');
+								});
+							}
+						});
+					});
+				};
+
 				options.preserve = (options.preserve!==undefined) ? options.preserve : !viewChanged;
 				self.clear(options);
-				if(!self.infiniteScrollingEnabled || (self.infiniteScrollingEnabled && viewChanged)){
-					self.$loader.show().loader('play');
-				}
-				self.getDataOptions(options, function(opts){
-					self.options.dataSource(opts, function(data){
-						var renderer = viewObj.renderer;
-						if(self.infiniteScrollingEnabled){
-							self.infiniteScrollingCallback({});
-						}else{
-							self.itemization(data);
-							self.pagination(data);
-						}
-						if(renderer){
-							self.runRenderer(self.$canvas, renderer, data, function(){
-								if(self.infiniteScrollingEnabled){
-									if(viewChanged || options.clearInfinite){
-										self.initInfiniteScrolling();
-									}
-									self.infiniteScrollPaging(data, options);
-								}
-								self.$loader.hide().loader('pause');
-								self.$element.trigger('loaded.fu.repeater');
-							});
-						}
+				if(!viewChanged && viewObj.cleared){
+					viewObj.cleared.call(self, {}, function(){
+						next();
 					});
-				});
+				}else{
+					next();
+				}
+
 			};
 
 			options = options || {};
@@ -632,17 +643,20 @@
 
 	//views object contains keyed list of view plugins, each an object with following optional parameters:
 		//{
-			//initialize: function(){},
-			//selected: function(){},
+			//cleared: function(helpers, callback){},
+			//dataOptions: function(helpers, callback){},
+			//initialize: function(helpers, callback){},
+			//selected: function(helpers, callback){},
+			//resize: function(helpers, callback){},
 			//renderer: {}
 		//}
 			//renderer object contains following optional parameters:
 				//{
-					//before: function(helpers){},
-					//after: function(helpers){},
-					//complete: function(helpers){},
+					//before: function(helpers, callback){},
+					//after: function(helpers, callback){},
+					//complete: function(helpers, callback){},
 					//repeat: 'parameter.subparameter.etc',
-					//render: function(helpers){},
+					//render: function(helpers, callback){},
 					//nested: [ *array of renderer objects* ]
 				//}
 

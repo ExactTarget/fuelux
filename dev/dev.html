@@ -63,7 +63,8 @@
 					{
 						label: 'Common Name',
 						property: 'commonName',
-						sortable: true
+						sortable: true,
+						className: 'rover'
 					},
 					{
 						label: 'Latin Name',
@@ -73,7 +74,8 @@
 					{
 						label: 'Appearance',
 						property: 'appearance',
-						sortable: true
+						sortable: true,
+						className: 'blub'
 					},
 					{
 						label: 'Sound',
@@ -85,6 +87,8 @@
 				for(i; i<l; i++){
 					resp.items.push(data.repeater.listData[i]);
 				}
+
+				console.log(options);
 
 				//if(options.search){
 				//resp.items = [];
@@ -149,7 +153,7 @@
 <body style="padding: 20px;">
 	<div class="container" style="padding: 20px; margin-top:20px;">
 
-		<div class="repeater" id="myRepeater">
+		<div class="repeater" data-staticheight="400" id="myRepeater">
 			<div class="repeater-header">
 				<div class="repeater-header-left">
 					<span class="repeater-title">Awesome Repeater</span>
