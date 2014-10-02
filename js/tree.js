@@ -104,29 +104,29 @@
 					var attr = value['attr'] || value.dataAttributes || [];
 					$.each(attr, function(key, value) {
 						switch (key) {
-						case 'class':
-						case 'classes':
-						case 'className':
-							$entity.addClass(value);
-							break;
-						
-						// allow custom icons
-						case 'data-icon':
-							$entity.find('.icon-item').removeClass().addClass('icon-item ' + value);
-							$entity.attr(key, value);
-							break;
+							case 'cssClass':
+							case 'class':
+							case 'className':
+								$entity.addClass(value);
+								break;
+							
+							// allow custom icons
+							case 'data-icon':
+								$entity.find('.icon-item').removeClass().addClass('icon-item ' + value);
+								$entity.attr(key, value);
+								break;
 
-						// ARIA support
-						case 'id':
-							$entity.attr(key, value);
-							$entity.attr('aria-labelledby', value + '-label');
-							$entity.find('.tree-branch-name > .tree-label').attr('id', value + '-label');
-							break;
+							// ARIA support
+							case 'id':
+								$entity.attr(key, value);
+								$entity.attr('aria-labelledby', value + '-label');
+								$entity.find('.tree-branch-name > .tree-label').attr('id', value + '-label');
+								break;
 
-						// id, style, data-*
-						default:
-							$entity.attr(key, value);
-							break;
+							// id, style, data-*
+							default:
+								$entity.attr(key, value);
+								break;
 						}
 					});
 
