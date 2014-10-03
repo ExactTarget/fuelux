@@ -626,7 +626,9 @@ define(function(require) {
 
 	function myTreeInit() {
 		$('#myTree1').tree({
-			dataSource: function(options, callback){
+			dataSource: function(parentData, callback){
+				log("Opening branch data: ", parentData);
+
 				setTimeout(function () {
 					callback({ data: [
 						{
@@ -695,22 +697,24 @@ define(function(require) {
 	myTreeInit();
 
 	$('#myTree1').on('selected.fu.tree', function (e, selected) {
-		log('Select Event: ', selected);
+		log('Selected Event: ', selected);
 		log($('#myTree1').tree('selectedItems'));
 	});
 	$('#myTree1').on('updated.fu.tree', function (e, selected) {
 		log('Updated Event: ', selected);
 		log($('#myTree1').tree('selectedItems'));
 	});
-	$('#myTree1').on('opened.fu.tree', function (e, info) {
-		log('Open Event: ', info);
+	$('#myTree1').on('opened.fu.tree', function (e, parentData) {
+		log('Opened Event, parent data: ', parentData);
 	});
-	$('#myTree1').on('closed.fu.tree', function (e, info) {
-		log('Close Event: ', info);
+	$('#myTree1').on('closed.fu.tree', function (e, parentData) {
+		log('Closed Event, parent data: ', parentData);
 	});
 
 	$('#myTree2').tree({
-		dataSource: function(options, callback){
+		dataSource: function(parentData, callback){
+			log("Opening branch data: ", parentData);
+
 			setTimeout(function () {
 				callback({ data: [
 						{
