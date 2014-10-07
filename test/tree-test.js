@@ -127,6 +127,10 @@ define(function(require){
 				data = items.selected;
 			});
 
+			$tree.on('unselected.fu.tree', function (e, items) {
+				data = items.selected;
+			});
+
 			$tree.tree('selectItem', $tree.find('.tree-item:eq(1)'));
 			equal(data.length, 1, 'Single item selected');
 			equal($tree.tree('selectedItems').length, 1, 'Return single selected value');
