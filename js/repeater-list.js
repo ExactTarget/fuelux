@@ -354,7 +354,7 @@
 											}else{
 												if(self.options.list_selectable!=='multi'){
 													self.$canvas.find('.repeater-list-check').remove();
-													self.$canvas.find('.repeater-list-items tr.selected').each(function(){
+													self.$canvas.find('.repeater-list tbody tr.selected').each(function(){
 														$(this).removeClass('selected');
 														self.$element.trigger('itemDeselected.fu.repeater', $(this));
 													});
