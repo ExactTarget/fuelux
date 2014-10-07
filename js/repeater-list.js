@@ -92,6 +92,19 @@
 			}
 		};
 
+		$.fn.repeater.Constructor.prototype.list_syncColumns = function(force){
+			var $table;
+			if(this.options.list_columnSyncing || force){
+				$table = this.$element.find('.repeater-list table');
+				$table.find('thead th').each(function(){
+					var $hr = $(this);
+					var $heading = $hr.find('.repeater-list-heading');
+					$heading.outerHeight($hr.outerHeight());
+					$heading.outerWidth($hr.outerWidth());
+				});
+			}
+		};
+
 		$.fn.repeater.defaults = $.extend({}, $.fn.repeater.defaults, {
 			list_columnRendered: null,
 			list_columnSizing: true,
@@ -105,7 +118,7 @@
 
 		$.fn.repeater.views.list = {
 			cleared: function(helpers, callback){
-				columnSyncing.call(this);
+				this.list_syncColumns();
 				callback();
 			},
 			dataOptions: function(opts, callback){
@@ -137,12 +150,12 @@
 				callback();
 			},
 			resize: function(helpers, callback){
-				columnSyncing.call(this);
+				this.list_syncColumns();
 				callback();
 			},
 			renderer: {	//RENDERING REPEATER-LIST, REPEATER-LIST-WRAPPER, AND TABLE
 				complete: function(helpers, callback){
-					columnSyncing.call(this);
+					this.list_syncColumns();
 					callback();
 				},
 				render: function(helpers, callback){
@@ -417,17 +430,6 @@
 			}
 		};
 
-		var columnSyncing = function(){
-			var $table = this.$element.find('.repeater-list table');
-			if(this.options.list_columnSyncing){
-				$table.find('thead th').each(function(){
-					var $hr = $(this);
-					var $heading = $hr.find('.repeater-list-heading');
-					$heading.outerHeight($hr.outerHeight());
-					$heading.outerWidth($hr.outerWidth());
-				});
-			}
-		};
 	}
 
 // -- BEGIN UMD WRAPPER AFTERWORD --
