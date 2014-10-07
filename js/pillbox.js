@@ -142,11 +142,20 @@
 
 			e.preventDefault();
 			this.$addItem.val('');
-			
-			this.addItems({
-				text: $item.html(),
-				value: $item.data('value')
-			}, true);
+
+			if ( $item.data('attr') ) {
+				this.addItems({
+					text: $item.html(),
+					value: $item.data('value'),
+					attr: JSON.parse($item.data('attr'))
+				}, true);
+			}
+			else {
+				this.addItems({
+					text: $item.html(),
+					value: $item.data('value')
+				}, true);
+			}
 
 			// needs to be after addItems for IE
 			this._closeSuggestions();
@@ -558,20 +567,28 @@
 
 		_openSuggestions: function(e, data){
 			var markup = '';
+			var $suggestionList = $('<ul>');
 
 			if( this.callbackId !== e.timeStamp) {
 				return false;
 			}
 
 			if(data.data && data.data.length){
+
 				$.each(data.data, function(index, value){
 					var val = value.value ? value.value : value.text;
-					markup += '<li data-value="' + val + '">' + value.text + '</li>';
+
+					// markup concatentation is 10x faster, but does not allow data store
+					var $suggestion = $('<li data-value="' + val + '">' + value.text + '</li>');
+
+					if(value.attr) {
+						$suggestion.data('attr', JSON.stringify(value.attr));
+					}
+					$suggestionList.append($suggestion);
 				});
 
 				// suggestion dropdown
-				
-				this.$suggest.html('').append(markup);
+				this.$suggest.html('').append($suggestionList.children());
 				$(document.body).trigger('suggested.fu.pillbox', this.$suggest);
 			}
 		},
