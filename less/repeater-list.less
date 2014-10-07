@@ -137,6 +137,11 @@
 
 		&.shifted {
 			margin-left: -1px;
+
+			//Webkit override
+			@media screen and (-webkit-min-device-pixel-ratio:0) {
+				margin-left: 0;
+			}
 		}
 
 		&.sortable {
@@ -149,6 +154,7 @@
 			&.sorted {
 				span.glyphicon {
 					display: block;
+					visibility: visible;
 				}
 			}
 		}

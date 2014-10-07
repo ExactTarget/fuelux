@@ -41,6 +41,23 @@
 			return selected;
 		};
 
+		$.fn.repeater.Constructor.prototype.list_positionHeadings = function(){
+			var $wrapper = this.$element.find('.repeater-list-wrapper');
+			var offsetLeft = $wrapper.offset().left;
+			var scrollLeft = $wrapper.scrollLeft();
+			if(scrollLeft>0){
+				$wrapper.find('.repeater-list-heading').each(function(){
+					var $heading = $(this);
+					var left = ($heading.parents('th:first').offset().left - offsetLeft) + 'px';
+					$heading.addClass('shifted').css('left', left);
+				});
+			}else{
+				$wrapper.find('.repeater-list-heading').each(function(){
+					$(this).removeClass('shifted').css('left', '');
+				});
+			}
+		};
+
 		$.fn.repeater.Constructor.prototype.list_setSelectedItems = function(items, force){
 			var selectable = this.options.list_selectable;
 			var self = this;
@@ -93,17 +110,14 @@
 			}
 		};
 
-		$.fn.repeater.Constructor.prototype.list_syncColumns = function(force){
-			var $table;
-			if(this.options.list_columnSyncing || force){
-				$table = this.$element.find('.repeater-list table');
-				$table.find('thead th').each(function(){
-					var $hr = $(this);
-					var $heading = $hr.find('.repeater-list-heading');
-					$heading.outerHeight($hr.outerHeight());
-					$heading.outerWidth($hr.outerWidth());
-				});
-			}
+		$.fn.repeater.Constructor.prototype.list_sizeHeadings = function(){
+			var $table = this.$element.find('.repeater-list table');
+			$table.find('thead th').each(function(){
+				var $hr = $(this);
+				var $heading = $hr.find('.repeater-list-heading');
+				$heading.outerHeight($hr.outerHeight());
+				$heading.outerWidth($hr.outerWidth());
+			});
 		};
 
 		//ADDITIONAL DEFAULT OPTIONS
@@ -121,7 +135,9 @@
 		//EXTENSION DEFINITION
 		$.fn.repeater.views.list = {
 			cleared: function(helpers, callback){
-				this.list_syncColumns();
+				if(this.options.list_columnSyncing){
+					this.list_sizeHeadings();
+				}
 				callback();
 			},
 			dataOptions: function(opts, callback){
@@ -153,36 +169,30 @@
 				callback();
 			},
 			resize: function(helpers, callback){
-				this.list_syncColumns();
+				if(this.options.list_columnSyncing){
+					this.list_sizeHeadings();
+				}
 				callback();
 			},
 			renderer: {	//RENDERING REPEATER-LIST, REPEATER-LIST-WRAPPER, AND TABLE
 				complete: function(helpers, callback){
-					this.list_syncColumns();
+					if(this.options.list_columnSyncing){
+						this.list_sizeHeadings();
+						this.list_positionHeadings();
+					}
 					callback();
 				},
 				render: function(helpers, callback){
 					var $list = this.$element.find('.repeater-list');
+					var self = this;
 					var $item;
 					if($list.length>0){
 						callback({ action: 'none', item: $list });
 					}else{
 						$item = $('<div class="repeater-list" data-preserve="shallow"><div class="repeater-list-wrapper" data-infinite="true" data-preserve="shallow"><table aria-readonly="true" class="table" data-container="true" data-preserve="shallow" role="grid"></table></div></div>');
 						$item.find('.repeater-list-wrapper').on('scroll', function(){
-							var $wrapper = $(this);
-							var offsetLeft = $wrapper.offset().left;
-							var scrollLeft = $wrapper.scrollLeft();
-							if(scrollLeft>0){
-								$wrapper.find('.repeater-list-heading').each(function(){
-									var $heading = $(this);
-									var left = ($heading.parents('th:first').offset().left - offsetLeft) + 'px';
-									$heading.addClass('shifted').css('left', left);
-								});
-							}else{
-								$wrapper.find('.repeater-list-heading').each(function(){
-									var $heading = $(this);
-									$heading.removeClass('shifted').css('left', '');
-								});
+							if(self.options.list_columnSyncing){
+								self.list_positionHeadings();
 							}
 						});
 						callback({ item: $item });
