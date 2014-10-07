@@ -255,7 +255,7 @@ define(function(require){
 			//TODO: why is this timeout needed???
 			setTimeout(function(){
 				start();
-				$repeater.repeater('clearSelectedItems');
+				$repeater.repeater('list_clearSelectedItems');
 				equal((!$firstRow.hasClass('selected') && !$lastRow.hasClass('selected')), true, 'selected items cleared as expected');
 			}, 0);
 		};
@@ -279,7 +279,7 @@ define(function(require){
 			$lastRow.click();
 			setTimeout(function(){
 				start();
-				selected = $repeater.repeater('getSelectedItems');
+				selected = $repeater.repeater('list_getSelectedItems');
 				equal(selected.length, 2, 'returned array contains appropriate number of items');
 				equal((typeof selected[0].data==='object' && selected[0].element.length>0), true, 'items in returned array contain appropriate object and attributes');
 			}, 0);
@@ -301,16 +301,16 @@ define(function(require){
 			setTimeout(function(){
 				start();
 
-				$repeater.repeater('setSelectedItems', [{ index: 0 }]);
-				equal($repeater.repeater('getSelectedItems').length, 1, 'correct number of items selected');
+				$repeater.repeater('list_setSelectedItems', [{ index: 0 }]);
+				equal($repeater.repeater('list_getSelectedItems').length, 1, 'correct number of items selected');
 				equal($items.find('tr:first').hasClass('selected'), true, 'correct row selected by index');
 
-				$repeater.repeater('setSelectedItems', [{ property: 'commonName', value: 'pig' }]);
-				equal($repeater.repeater('getSelectedItems').length, 1, 'correct number of items selected');
+				$repeater.repeater('list_setSelectedItems', [{ property: 'commonName', value: 'pig' }]);
+				equal($repeater.repeater('list_getSelectedItems').length, 1, 'correct number of items selected');
 				equal($items.find('tr:nth-child(5)').hasClass('selected'), true, 'correct row selected by property/value');
 
-				$repeater.repeater('setSelectedItems', [{ index: 0 }, { property: 'commonName', value: 'dog' }], true);
-				equal($repeater.repeater('getSelectedItems').length, 4, 'correct number of items selected when using force');
+				$repeater.repeater('list_setSelectedItems', [{ index: 0 }, { property: 'commonName', value: 'dog' }], true);
+				equal($repeater.repeater('list_getSelectedItems').length, 4, 'correct number of items selected when using force');
 			}, 0);
 
 		};

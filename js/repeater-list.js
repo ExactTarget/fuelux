@@ -26,12 +26,12 @@
 
 	if($.fn.repeater){
 
-		$.fn.repeater.Constructor.prototype.clearSelectedItems = function(){
+		$.fn.repeater.Constructor.prototype.list_clearSelectedItems = function(){
 			this.$canvas.find('.repeater-list-check').remove();
 			this.$canvas.find('.repeater-list table tbody tr.selected').removeClass('selected');
 		};
 
-		$.fn.repeater.Constructor.prototype.getSelectedItems = function(){
+		$.fn.repeater.Constructor.prototype.list_getSelectedItems = function(){
 			var selected = [];
 			this.$canvas.find('.repeater-list table tbody tr.selected').each(function(){
 				var $item = $(this);
@@ -40,7 +40,7 @@
 			return selected;
 		};
 
-		$.fn.repeater.Constructor.prototype.setSelectedItems = function(items, force){
+		$.fn.repeater.Constructor.prototype.list_setSelectedItems = function(items, force){
 			var selectable = this.options.list_selectable;
 			var self = this;
 			var data, i, $item, l;
@@ -57,7 +57,7 @@
 				select = (select!==undefined) ? select : true;
 				if(select){
 					if(!force && selectable!=='multi'){
-						self.clearSelectedItems();
+						self.list_clearSelectedItems();
 					}
 					if(!$itm.hasClass('selected')){
 						$itm.addClass('selected');
