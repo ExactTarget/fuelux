@@ -26,6 +26,7 @@
 
 	if($.fn.repeater){
 
+		//ADDITIONAL METHODS
 		$.fn.repeater.Constructor.prototype.list_clearSelectedItems = function(){
 			this.$canvas.find('.repeater-list-check').remove();
 			this.$canvas.find('.repeater-list table tbody tr.selected').removeClass('selected');
@@ -105,6 +106,7 @@
 			}
 		};
 
+		//ADDITIONAL DEFAULT OPTIONS
 		$.fn.repeater.defaults = $.extend({}, $.fn.repeater.defaults, {
 			list_columnRendered: null,
 			list_columnSizing: true,
@@ -116,6 +118,7 @@
 			list_rowRendered: null
 		});
 
+		//EXTENSION DEFINITION
 		$.fn.repeater.views.list = {
 			cleared: function(helpers, callback){
 				this.list_syncColumns();
@@ -160,10 +163,29 @@
 				},
 				render: function(helpers, callback){
 					var $list = this.$element.find('.repeater-list');
+					var $item;
 					if($list.length>0){
 						callback({ action: 'none', item: $list });
 					}else{
-						callback({ item: '<div class="repeater-list" data-preserve="shallow"><div class="repeater-list-wrapper" data-infinite="true" data-preserve="shallow"><table aria-readonly="true" class="table" data-container="true" data-preserve="shallow" role="grid"></table></div></div>'});
+						$item = $('<div class="repeater-list" data-preserve="shallow"><div class="repeater-list-wrapper" data-infinite="true" data-preserve="shallow"><table aria-readonly="true" class="table" data-container="true" data-preserve="shallow" role="grid"></table></div></div>');
+						$item.find('.repeater-list-wrapper').on('scroll', function(){
+							var $wrapper = $(this);
+							var offsetLeft = $wrapper.offset().left;
+							var scrollLeft = $wrapper.scrollLeft();
+							if(scrollLeft>0){
+								$wrapper.find('.repeater-list-heading').each(function(){
+									var $heading = $(this);
+									var left = ($heading.parents('th:first').offset().left - offsetLeft) + 'px';
+									$heading.addClass('shifted').css('left', left);
+								});
+							}else{
+								$wrapper.find('.repeater-list-heading').each(function(){
+									var $heading = $(this);
+									$heading.removeClass('shifted').css('left', '');
+								});
+							}
+						});
+						callback({ item: $item });
 					}
 				},
 				nested: [
