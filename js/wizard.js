@@ -337,20 +337,28 @@
 				step = selectedItem.step || -1;
 
 				if(step >= 1 && step <= this.numSteps) {
+
 					this.currentStep = step;
 					this.setState();
+
 				}else{
+
 					step = this.$element.find('.steps li.active:first').attr('data-step');
-					if(!isNaN(step)){
-						this.currentStep = parseInt(step, 10);
-						this.setState();
+
+					if(step === 0){
+						step = 1;
 					}
+
+					this.currentStep = parseInt(step, 10);
+					this.setState();
+
 				}
 
 				retVal = this;
-			}
-			else {
-				retVal = { step: this.currentStep };
+			} else {
+				retVal = { 
+					step: this.currentStep 
+				};
 			}
 
 			return retVal;
