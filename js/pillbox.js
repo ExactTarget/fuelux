@@ -332,6 +332,7 @@
 			var self = this;
 			var text = this.$addItem.val();
 			var value;
+			var attr;
 			var $lastItem;
 			var $selection;
 
@@ -343,6 +344,7 @@
 					if($selection.length){
 						text = $selection.html();
 						value = $selection.data('value');
+						attr = $selection.data('attr');
 					}
 				}
 
@@ -350,10 +352,19 @@
 					this._closeSuggestions();
 					this.$addItem.hide();
 
-					this.addItems({
-						text: text,
-						value: value
-					}, true);
+					if ( attr ) {
+						this.addItems({
+							text: text,
+							value: value,
+							attr: JSON.parse(attr)
+						}, true);
+					}
+					else {
+						this.addItems({
+							text: text,
+							value: value
+						}, true);
+					}
 
 					setTimeout(function(){
 						self.$addItem.show().val('').attr({ size: 10 });
