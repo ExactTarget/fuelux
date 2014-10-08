@@ -145,6 +145,7 @@
 
 		selectItem: function (el) {
 			var $el = $(el);
+			var selData = $el.data();
 			var $all = this.$element.find('.tree-selected');
 			var data = [];
 			var $icon = $el.find('.icon-item');
@@ -159,7 +160,7 @@
 			} else if ($all[0] !== $el[0]) {
 				$all.removeClass('tree-selected')
 					.find('.glyphicon').removeClass('glyphicon-ok').addClass('fueluxicon-bullet');
-				data.push($el.data());
+				data.push(selData);
 			}
 
 			var eventType = 'selected';
@@ -176,13 +177,11 @@
 					$icon.removeClass('fueluxicon-bullet').addClass('glyphicon-ok');
 				}
 				if (this.options.multiSelect) {
-					data.push( $el.data() );
+					data.push( selData );
 				}
 			}
 
-			if(data.length) {
-				this.$element.trigger('selected', {selected: data});
-			}
+			this.$element.trigger(eventType + '.fu.tree', {target: selData, selected: data});
 
 			// Return new list of selected items, the item
 			// clicked, and the type of event:
@@ -250,6 +249,7 @@
 			var $clickedElement = $(clickedElement);
 			var $clickedBranch = $clickedElement.closest('.tree-branch');
 			var $selectedBranch = this.$element.find('.tree-branch.tree-selected');
+			var clickedData = $clickedBranch.data();
 			var selectedData = [];
 			var eventType = 'selected';
 
@@ -276,13 +276,11 @@
 			} else if ($selectedBranch[0] !== $clickedElement[0]) {
 				$selectedBranch.removeClass('tree-selected');
 
-				selectedData.push($clickedBranch.data());
+				selectedData.push(clickedData);
 			}
 
-			if(selectedData.length) {
-				this.$element.trigger('selected.fu.tree', {selected: selectedData});
-			}
-			
+			this.$element.trigger(eventType + '.fu.tree', {target: clickedData, selected: selectedData});
+
 			// Return new list of selected items, the item
 			// clicked, and the type of event:
 			$clickedElement.trigger('updated.fu.tree', {

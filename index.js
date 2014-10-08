@@ -873,6 +873,9 @@ define(function(require) {
 		log('Selected Event: ', selected);
 		log($('#myTree1').tree('selectedItems'));
 	});
+	$('#myTree1').on('unselected.fu.tree', function (e, selected) {
+		log('Deselected Event: ', selected);
+	});
 	$('#myTree1').on('updated.fu.tree', function (event, selected) {
 		log('Updated Event: ', selected);
 		log($('#myTree1').tree('selectedItems'));
