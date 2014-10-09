@@ -7,7 +7,7 @@ define(function(require){
 	var html = require('text!test/markup/radio-markup.html');
 	/* FOR DEV TESTING - uncomment to test against index.html */
 	//html = require('text!index.html!strip');
-	html = $('<div>'+html+'<div>').find('#MyRadioContainer');
+	html = $('<div>'+html+'</div>').find('#MyRadioContainer');
 
 	require('bootstrap');
 	require('fuelux/radio');
@@ -65,14 +65,14 @@ define(function(require){
 		var $l1 = $fixture.find('#lbl1');
 		var $radio2 = $fixture.find('#radio2');
 		var $l2 = $fixture.find('#lbl2');
-		
+
 		$fixture.find('input').radio();
-		
+
 		equal($l1.hasClass('checked'), true, 'checked - default state radio 1');
 		equal($l2.hasClass('checked'), false, 'unchecked - default state radio 2');
 
 		$radio2.radio('check');
-		
+
 		equal($l1.hasClass('checked'), false, 'unchecked - radio 1 confirmation by css class');
 		equal($radio1.is(':checked'), false, 'unchecked - radio 1 confirmation by is(:checked)');
 		equal($radio1.radio('isChecked'), false, 'unchecked - radio 1 confirmation by isChecked method');

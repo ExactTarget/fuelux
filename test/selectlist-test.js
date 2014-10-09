@@ -7,7 +7,7 @@ define(function(require){
 	var html = require('text!test/markup/selectlist-markup.html');
 	/* FOR DEV TESTING */
 	//var html = require('text!dev.html!strip');
-	html = $('<div>'+html+'<div>');
+	html = $('<div>'+html+'</div>');
 
 	require('bootstrap');
 	require('fuelux/selectlist');

@@ -7,7 +7,7 @@ define(function(require){
 	var html = require('text!test/markup/scheduler-markup.html');
 	/* FOR DEV TESTING */
 	// html = require('text!index.html!strip');
-	html = $('<div>'+html+'<div>').find('#MyScheduler');
+	html = $('<div>'+html+'</div>').find('#MyScheduler');
 
 	require('bootstrap');
 	require('fuelux/scheduler');
