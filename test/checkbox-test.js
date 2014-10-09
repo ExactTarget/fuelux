@@ -7,7 +7,7 @@ define(function(require){
 	var html = require('text!test/markup/checkbox-markup.html');
 	/* FOR DEV TESTING - uncomment to test against index.html */
 	//html = require('text!index.html!strip');
-	html = $('<div>'+html+'<div>').find('#MyCheckboxContainer');
+	html = $('<div>'+html+'</div>').find('#MyCheckboxContainer');
 
 	require('bootstrap');
 	require('fuelux/checkbox');
@@ -71,7 +71,7 @@ define(function(require){
 
 		$fixture.remove();
 	});
-	
+
 	test("test check/uncheck/isChecked convenience methods", function () {
         var $fixture = $(html).appendTo('#qunit-fixture');
         var $chk5 = $fixture.find('#Checkbox5');
