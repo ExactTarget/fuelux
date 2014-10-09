@@ -426,7 +426,7 @@
 										after: function(helpers, callback){
 											var obj = {
 												container: helpers.container,
-												colAttr: helpers.subset[helpers.index].property,
+												columnAttr: helpers.subset[helpers.index].property,
 												rowData: helpers.data.items[this.list_curRowIndex]
 											};
 											if(helpers.item!==undefined){
