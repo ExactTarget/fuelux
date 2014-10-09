@@ -1007,11 +1007,85 @@
   line-height: 34px;
   margin-right: 10px;
 }
+.fuelux .repeater[data-currentview="list"] .repeater-canvas.scrolling {
+  overflow: visible;
+}
+.fuelux .repeater[data-currentview="list"] .repeater-canvas.scrolling .repeater-list {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.fuelux .repeater[data-currentview="list"] .repeater-canvas.scrolling .repeater-list-wrapper {
+  height: 100%;
+  overflow: auto;
+}
 .fuelux .repeater[data-currentview="list"] .repeater-loader {
   margin-top: -12px;
 }
 .fuelux .repeater[data-currentview="list"] .repeater-loader.noHeader {
   margin-top: -32px;
+}
+.fuelux .repeater[data-currentview="list"] .repeater-viewport {
+  overflow: hidden;
+}
+.fuelux .repeater-list {
+  position: relative;
+}
+.fuelux .repeater-list table {
+  margin-bottom: 0;
+  width: 100%;
+}
+.fuelux .repeater-list table tbody td {
+  border-bottom: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-top: none;
+}
+.fuelux .repeater-list table tbody td:first-child {
+  border-left: none;
+}
+.fuelux .repeater-list table tbody tr.empty td {
+  border-bottom: none;
+  font-style: italic;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+}
+.fuelux .repeater-list table tbody tr.selectable:hover {
+  background: #d9edf7;
+  cursor: pointer;
+}
+.fuelux .repeater-list table tbody tr.selected {
+  background: #66AFE9;
+  color: #fff;
+}
+.fuelux .repeater-list table tbody tr.selected:hover {
+  background: #428bca;
+}
+.fuelux .repeater-list table tbody tr.selected td:first-child {
+  padding-left: 30px;
+}
+.fuelux .repeater-list table thead > tr > th {
+  background: none;
+  border-bottom: 1px solid transparent;
+  border-left: 1px solid transparent;
+  border-top: none;
+  color: rgba(0, 0, 0, 0);
+  line-height: 1.42857;
+  padding: 8px;
+}
+.fuelux .repeater-list table thead > tr > th:first-child {
+  border-left: none;
+}
+.fuelux .repeater-list table thead > tr > th.sorted span.glyphicon {
+  display: block;
+  visibility: hidden;
+}
+.fuelux .repeater-list table thead > tr > th span.glyphicon {
+  display: none;
+  float: right;
+  margin-top: 2px;
 }
 .fuelux .repeater-list-check {
   display: inline-block;
@@ -1026,29 +1100,28 @@
   position: absolute;
   top: 2px;
 }
-.fuelux .repeater-list-header,
-.fuelux .repeater-list-items {
-  margin-bottom: 0;
-  width: 100%;
-}
-.fuelux .repeater-list-header td,
-.fuelux .repeater-list-items td {
+.fuelux .repeater-list-heading {
+  background: #F9F9F9;
   border-bottom: 1px solid #ddd;
   border-left: 1px solid #ddd;
   border-top: none;
+  color: #333;
+  line-height: 1.42857;
+  margin-left: -9px;
+  padding: 8px;
+  position: absolute;
+  top: 0;
 }
-.fuelux .repeater-list-header td:first-child,
-.fuelux .repeater-list-items td:first-child {
-  border-left: none;
+.fuelux .repeater-list-heading.shifted {
+  margin-left: -1px;
 }
-.fuelux .repeater-list-header {
-  background: #F9F9F9;
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .fuelux .repeater-list-heading.shifted {
+    margin-left: 0;
+  }
 }
-.fuelux .repeater-list-header td {
-  font-weight: bold;
-}
-.fuelux .repeater-list-header td.sortable:hover,
-.fuelux .repeater-list-header td.sortable.sorted {
+.fuelux .repeater-list-heading.sortable:hover,
+.fuelux .repeater-list-heading.sortable.sorted {
   background: #F1F1F1;
   cursor: pointer;
   background-color: #f1f1f1;
@@ -1060,59 +1133,33 @@
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff9f9f9', endColorstr='#ffe5e5e5', GradientType=0);
 }
-.fuelux .repeater-list-header td.sortable.sorted span.glyphicon {
+.fuelux .repeater-list-heading.sortable.sorted span.glyphicon {
   display: block;
+  visibility: visible;
 }
-.fuelux .repeater-list-header td span.glyphicon {
+.fuelux .repeater-list-heading span.glyphicon {
   display: none;
   float: right;
   margin-top: 2px;
-}
-.fuelux .repeater-list-items tr.empty td {
-  border-bottom: none;
-  font-style: italic;
-  padding: 20px;
-  text-align: center;
-  width: 100%;
-}
-.fuelux .repeater-list-items tr.selectable:hover {
-  background: #d9edf7;
-  cursor: pointer;
-}
-.fuelux .repeater-list-items tr.selected {
-  background: #66AFE9;
-  color: #fff;
-}
-.fuelux .repeater-list-items tr.selected:hover {
-  background: #428bca;
-}
-.fuelux .repeater-list-items tr.selected td:first-child {
-  padding-left: 30px;
-}
-.fuelux .repeater-list-wrapper {
-  overflow-y: auto;
 }
 .fuelux .repeater-thumbnail {
   border: 1px solid #ddd;
   color: #666;
   float: left;
-  font-size: 12px;
-  height: 130px;
-  line-height: 36px;
-  margin: 10px 12px;
+  height: 110px;
+  margin: 8px 7px;
   text-align: center;
   width: 100px;
-  -webkit-box-shadow: 0 1px 4px 0 #ddd;
-  box-shadow: 0 1px 4px 0 #ddd;
 }
 .fuelux .repeater-thumbnail img {
   display: block;
-  margin-top: 12px;
+  margin-top: 10px;
+  margin-bottom: 3px;
 }
 .fuelux .repeater-thumbnail-cont {
   height: 100%;
   overflow-y: auto;
-  padding: 10px;
+  padding: 6px;
   width: 100%;
 }
 .fuelux .repeater-thumbnail-cont div.empty {
