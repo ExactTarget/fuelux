@@ -80,28 +80,32 @@ define(function(require){
 	});
 
 	test('should render correctly', function () {
-		var headerColumns = ['Common Name', 'Latin Name', 'Appearance', 'Sound'];
+		var headingColumns = ['Common Name', 'Latin Name', 'Appearance', 'Sound'];
 		var itemColumns = ['cat', 'Felis catus', 'small, usually furry, domesticated carnivorous mammal', 'Meow meow!'];
 		var $repeater = $(this.$markup);
 
 		afterSource = function(){
-			var $items = $repeater.find('.repeater-list-items');
-			var i;
-			equal($repeater.find('.repeater-list-header').length, 1, 'repeater list header rendered');
+			var $list = $repeater.find('.repeater-list');
+			var i, $tbody;
+
+			equal($list.length, 1, 'repeater-list rendered');
+			equal($list.find('.repeater-list-wrapper').length, 1, 'repeater-list-wrapper rendered');
+			equal($list.find('table').length, 1, 'repeater-list table rendered');
+			equal($list.find('thead').length, 1, 'repeater-list thead rendered');
 			i = 0;
-			$repeater.find('.repeater-list-header td').each(function(){
-				equal($(this).text(), headerColumns[i], 'repeater list rendered correct header column');
+			$repeater.find('thead th').each(function(){
+				equal($(this).find('.repeater-list-heading').text(), headingColumns[i], 'repeater-list rendered correct heading column');
 				i++;
 			});
-			equal($repeater.find('.repeater-list-wrapper').length, 1, 'repeater list wrapper rendered');
-			equal($items.length, 1, 'repeater list items rendered');
+			$tbody = $list.find('tbody');
+			equal($tbody.length, 1, 'repeater-list tbody rendered');
 			i = 0;
-			$items.find('tr:first td').each(function(){
-				equal($(this).text(), itemColumns[i], 'repeater list rendered correct item column');
+			$tbody.find('tr:first td').each(function(){
+				equal($(this).text(), itemColumns[i], 'repeater-list rendered correct item column');
 				i++;
 			});
-			i = $items.find('tr');
-			equal(i.length, 10, 'repeater list rendered appropriate number of rows');
+			i = $tbody.find('tr');
+			equal(i.length, 10, 'repeater-list rendered appropriate number of rows');
 		};
 
 		$repeater.repeater({
@@ -151,7 +155,7 @@ define(function(require){
 			count++;
 			switch(count){
 				case 1:
-					$first = $repeater.find('.repeater-list-header td:first');
+					$first = $repeater.find('.repeater-list thead .repeater-list-heading:first');
 					$first.click();
 					break;
 				case 2:
@@ -184,7 +188,7 @@ define(function(require){
 		var $repeater = $(this.$markup);
 
 		afterSource = function(){
-			var txt = $repeater.find('.repeater-list-items tr.empty').text();
+			var txt = $repeater.find('.repeater-list tbody tr.empty').text();
 			equal(txt, 'TEST', 'correct noItemsHTML content appended when appropriate');
 			noItems = false;
 		};
@@ -200,7 +204,7 @@ define(function(require){
 		var $repeater = $(this.$markup);
 
 		afterSource = function(){
-			var $items = $repeater.find('.repeater-list-items');
+			var $items = $repeater.find('.repeater-list tbody');
 			var $firstRow = $items.find('tr:first');
 			var $lastRow = $items.find('tr:last');
 
@@ -208,7 +212,7 @@ define(function(require){
 			$firstRow.click();
 			equal($firstRow.hasClass('selected'), true, 'row has selected class after being clicked as expected');
 			$lastRow.click();
-			equal((!$firstRow.hasClass('selected') && $lastRow.hasClass('selected')), true, 'selected class transfered to different row when clicked');
+			equal((!$firstRow.hasClass('selected') && $lastRow.hasClass('selected')), true, 'selected class transferred to different row when clicked');
 		};
 
 		$repeater.repeater({
@@ -221,7 +225,7 @@ define(function(require){
 		var $repeater = $(this.$markup);
 
 		afterSource = function(){
-			var $items = $repeater.find('.repeater-list-items');
+			var $items = $repeater.find('.repeater-list tbody');
 			var $firstRow = $items.find('tr:first');
 			var $lastRow = $items.find('tr:last');
 
@@ -242,7 +246,7 @@ define(function(require){
 		var $repeater = $(this.$markup);
 
 		afterSource = function(){
-			var $items = $repeater.find('.repeater-list-items');
+			var $items = $repeater.find('.repeater-list tbody');
 			var $firstRow = $items.find('tr:first');
 			var $lastRow = $items.find('tr:last');
 
@@ -251,7 +255,7 @@ define(function(require){
 			//TODO: why is this timeout needed???
 			setTimeout(function(){
 				start();
-				$repeater.repeater('clearSelectedItems');
+				$repeater.repeater('list_clearSelectedItems');
 				equal((!$firstRow.hasClass('selected') && !$lastRow.hasClass('selected')), true, 'selected items cleared as expected');
 			}, 0);
 		};
@@ -266,7 +270,7 @@ define(function(require){
 		var $repeater = $(this.$markup);
 
 		afterSource = function(){
-			var $items = $repeater.find('.repeater-list-items');
+			var $items = $repeater.find('.repeater-list tbody');
 			var $firstRow = $items.find('tr:first');
 			var $lastRow = $items.find('tr:last');
 			var selected;
@@ -275,7 +279,7 @@ define(function(require){
 			$lastRow.click();
 			setTimeout(function(){
 				start();
-				selected = $repeater.repeater('getSelectedItems');
+				selected = $repeater.repeater('list_getSelectedItems');
 				equal(selected.length, 2, 'returned array contains appropriate number of items');
 				equal((typeof selected[0].data==='object' && selected[0].element.length>0), true, 'items in returned array contain appropriate object and attributes');
 			}, 0);
@@ -292,21 +296,21 @@ define(function(require){
 		var $repeater = $(this.$markup);
 
 		afterSource = function(){
-			var $items = $repeater.find('.repeater-list-items');
+			var $items = $repeater.find('.repeater-list tbody');
 
 			setTimeout(function(){
 				start();
 
-				$repeater.repeater('setSelectedItems', [{ index: 0 }]);
-				equal($repeater.repeater('getSelectedItems').length, 1, 'correct number of items selected');
+				$repeater.repeater('list_setSelectedItems', [{ index: 0 }]);
+				equal($repeater.repeater('list_getSelectedItems').length, 1, 'correct number of items selected');
 				equal($items.find('tr:first').hasClass('selected'), true, 'correct row selected by index');
 
-				$repeater.repeater('setSelectedItems', [{ property: 'commonName', value: 'pig' }]);
-				equal($repeater.repeater('getSelectedItems').length, 1, 'correct number of items selected');
+				$repeater.repeater('list_setSelectedItems', [{ property: 'commonName', value: 'pig' }]);
+				equal($repeater.repeater('list_getSelectedItems').length, 1, 'correct number of items selected');
 				equal($items.find('tr:nth-child(5)').hasClass('selected'), true, 'correct row selected by property/value');
 
-				$repeater.repeater('setSelectedItems', [{ index: 0 }, { property: 'commonName', value: 'dog' }], true);
-				equal($repeater.repeater('getSelectedItems').length, 4, 'correct number of items selected when using force');
+				$repeater.repeater('list_setSelectedItems', [{ index: 0 }, { property: 'commonName', value: 'dog' }], true);
+				equal($repeater.repeater('list_getSelectedItems').length, 4, 'correct number of items selected when using force');
 			}, 0);
 
 		};
@@ -321,12 +325,10 @@ define(function(require){
 		var $repeater = $(this.$markup);
 
 		afterSource = function(){
-			var $items = $repeater.find('.repeater-list-items');
-
 			setTimeout(function(){
 				start();
 
-				equal(typeof( $repeater.datepicker('destroy')) , 'string', 'returns string (markup)');
+				equal(typeof( $repeater.repeater('destroy')) , 'string', 'returns string (markup)');
 				equal( $repeater.parent().length, false, 'control has been removed from DOM');
 
 			}, 0);
