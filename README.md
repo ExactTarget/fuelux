@@ -12,6 +12,7 @@ All functionality is covered by the [live documentation](http://exacttarget.gith
  * [Compiling CSS and JavaScript](#Customizing-and-building)
  * [Issues and feature requests](#issues-and-feature-requests)
  * [Contributing](#contributing)
+ * [Developing](#developing)
  * [Philosophy and authors](#philosophy-and-authors)
  * [Copyright and license](#copyright-and-license)
 
@@ -71,19 +72,19 @@ View [live documentation and demos](http://exacttarget.github.com/fuelux) on Git
 Fuel UX can be obtained one of three ways:
 
 1. **Best way:** Install with a dependency manager:
-    
+
    Using [Bower](https://github.com/bower/bower):
 
    ```
    bower install fuelux
    ```
    Update with `bower update fuelux`.
-    
+
    Using [Volo](https://github.com/volojs/volo):
-   
+
    ```
    volo add fuelux
-   
+
    ```
    Update with `volo add -f fuelux`.
 
@@ -182,7 +183,7 @@ When completed, you'll be able to run the various Grunt commands provided from t
 Run `grunt` to run tests locally and compile the CSS and JavaScript into `dist`. Uses [Less](http://lesscss.org/) and [UglifyJS](http://lisperator.net/uglifyjs/).
 
 #### Testing - `grunt test`
-Runs [JSHint](http://jshint.com), [HTML validation](https://www.npmjs.org/package/grunt-html-validation), and [QUnit](http://qunitjs.com/) tests headlessly in [PhantomJS](http://phantomjs.org/). `grunt releasetest` uses multiple versions of jQuery. 
+Runs [JSHint](http://jshint.com), [HTML validation](https://www.npmjs.org/package/grunt-html-validation), and [QUnit](http://qunitjs.com/) tests headlessly in [PhantomJS](http://phantomjs.org/). `grunt releasetest` uses multiple versions of jQuery.
 
 #### Watch - `grunt serve`
 This is a convenience method for watching source files and automatically building them when you save. To compile only CSS without running unit tests, use `grunt servecss`.
@@ -197,13 +198,21 @@ Should you encounter problems with installing dependencies or running Grunt comm
 Before writing code, we suggest you [search for issues](https://github.com/ExactTarget/fuelux/issues?state=open) or [create a new one](https://github.com/ExactTarget/fuelux/issues/new) to confirm where your contribution fits into
 our roadmap.
 
-Take care to maintain the existing coding style: tabs, clarity over brevity, declarative markup, semicolons, etc. Please review the [ExactTarget JavaScript style guide](https://github.com/ExactTarget/javascript) if you have any questions. Be sure to add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
-
-Read more about [contributing to FuelUX](https://github.com/ExactTarget/fuelux/wiki/Contributing-to-Fuel-UX)
-
 Please do not edit files in the `dist` directory as they are generated via grunt. You'll find source code in the respective `js`, `less`, and `fonts` directory.
 
-While grunt can run the included unit tests via PhantomJS, this isn't a substitute for running tests across a variety of browsers and environments. Please be sure to view the test page at [http://localhost:8000/test/](http://localhost:8000/test/) in as many of the browsers listed in `sauce_browsers.yml` as you can before contributing.
+Take care to maintain the existing coding style (tabs, clarity over brevity, declarative markup, semicolons, etc).
+
+Please review the [ExactTarget JavaScript style guide](https://github.com/ExactTarget/javascript) if you have any questions.
+
+## Developing
+
+Be sure to add unit tests for any new or changed functionality.
+
+To serve the test page and lint your changes run `grunt serve` while developing. View the test page at [http://localhost:8000/test/](http://localhost:8000/test/). The `serve` task will run lint and unit tests against saved code.
+
+While grunt can run the included unit tests via PhantomJS, this isn't a substitute for running tests across a variety of browsers and environments. Please be sure to test in as many of the browsers listed in `sauce_browsers.yml` as you can before contributing.
+
+Read more about [contributing to FuelUX](https://github.com/ExactTarget/fuelux/wiki/Contributing-to-Fuel-UX)
 
 ##Philosophy and authors
 
@@ -226,7 +235,7 @@ Our aim is to provide a suite of related but independent projects that help web 
 |Ryan Moore | [![rbmoore on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/rbmoore)|
 |Steven Rogers | [![soldoutactivist on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/soldoutactivist)|
 |*Alex Vernacchia (current)* | [![vernacchia on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/vernacchia) [![vernak2539 on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/vernak2539)|
-|*David Waltz (current)* | [![dwaltz on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/dwaltz)| 
+|*David Waltz (current)* | [![dwaltz on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/dwaltz)|
 
 |Original Author&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | |
 |:----|----:|
