@@ -2,10 +2,26 @@
 	border: 1px solid #ddd;
 	color: #666;
 	float: left;
-	height: 110px;
+	min-height: 110px;
+	min-width: 100px;
 	margin: 8px 7px;
 	text-align: center;
-	width: 100px;
+
+	&.selectable {
+		&:hover {
+			background: #d9edf7;
+			cursor: pointer;
+		}
+	}
+
+	&.selected {
+		background: #66AFE9;
+		color: #fff;
+
+		&:hover {
+			background: #428bca;
+		}
+	}
 
 	img {
 		display: block;

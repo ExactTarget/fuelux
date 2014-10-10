@@ -485,7 +485,6 @@ define(function(require) {
 		// thumbnail view setup
 		var thumbnail = function(options, callback){
 			var sampleImageCategories = ['abstract', 'animals', 'business', 'cats', 'city', 'food', 'nature', 'technics', 'transport'];
-			var thumbnailBackgroundColors = ['#D9EDF7', '#F2DEDE', '#FCF8E3', '#DFF0D8'];
 			var numItems = 200;
 
 			// build dataSource based with options
@@ -506,7 +505,6 @@ define(function(require) {
 			// add sample items to datasource
 			for(i; i<l; i++){
 				resp.items.push({
-					color: thumbnailBackgroundColors[Math.floor(Math.random() * 4)],
 					name: ('Thumbnail ' + (i + 1)),
 					src: 'http://lorempixel.com/65/65/' + sampleImageCategories[Math.floor(Math.random() * 9)] + '/?_=' + i
 				});
