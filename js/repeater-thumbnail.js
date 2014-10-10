@@ -44,6 +44,13 @@
 			var self = this;
 			var i, $item, l;
 
+			var eachFunc = function(){
+				$item = $(this);
+				if($item.is(items[i].selector)){
+					selectItem($item, items[i].selected);
+				}
+			};
+
 			var selectItem = function($itm, select){
 				select = (select!==undefined) ? select : true;
 				if(select){
@@ -73,12 +80,7 @@
 						selectItem($item, items[i].selected);
 					}
 				}else if(items[i].selector){
-					this.$canvas.find('.repeater-thumbnail-cont .repeater-thumbnail').each(function(){
-						$item = $(this);
-						if($item.is(items[i].selector)){
-							selectItem($item, items[i].selected);
-						}
-					});
+					this.$canvas.find('.repeater-thumbnail-cont .repeater-thumbnail').each(eachFunc);
 				}
 			}
 		};
