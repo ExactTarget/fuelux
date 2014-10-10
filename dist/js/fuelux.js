@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.0.2
+ * Fuel UX v3.1.0
  * Copyright 2012-2014 ExactTarget
  * Licensed under the BSD-3-Clause license ()
  */
@@ -2954,7 +2954,7 @@
 
 				var eventType = 'selected';
 				if ( $el.hasClass( 'tree-selected' ) ) {
-					eventType = 'unselected';
+					eventType = 'deselected';
 					$el.removeClass( 'tree-selected' );
 					if ( $icon.hasClass( 'glyphicon-ok' ) || $icon.hasClass( 'fueluxicon-bullet' ) ) {
 						$icon.removeClass( 'glyphicon-ok' ).addClass( 'fueluxicon-bullet' );
@@ -3034,7 +3034,7 @@
 					.removeClass( 'glyphicon-folder-close glyphicon-folder-open' )
 					.addClass( classToAdd );
 
-				this.$element.trigger( eventType, $branch.data() );
+				this.$element.trigger( eventType + 'fu.tree', $branch.data() );
 			},
 
 			selectFolder: function( clickedElement ) {
@@ -3047,7 +3047,7 @@
 
 				// select clicked item
 				if ( $clickedBranch.hasClass( 'tree-selected' ) ) {
-					eventType = 'unselected';
+					eventType = 'deselected';
 					$clickedBranch.removeClass( 'tree-selected' );
 				} else {
 					$clickedBranch.addClass( 'tree-selected' );
@@ -3870,22 +3870,21 @@
 
 			suggestionClick: function( e ) {
 				var $item = $( e.currentTarget );
+				var item = {
+					text: $item.html(),
+					value: $item.data( 'value' )
+				};
 
 				e.preventDefault();
 				this.$addItem.val( '' );
 
 				if ( $item.data( 'attr' ) ) {
-					this.addItems( {
-						text: $item.html(),
-						value: $item.data( 'value' ),
-						attr: JSON.parse( $item.data( 'attr' ) )
-					}, true );
-				} else {
-					this.addItems( {
-						text: $item.html(),
-						value: $item.data( 'value' )
-					}, true );
+					item.attr = JSON.parse( $item.data( 'attr' ) );
 				}
+
+				item.data = $item.data( 'data' );
+
+				this.addItems( item, true );
 
 				// needs to be after addItems for IE
 				this._closeSuggestions();
@@ -3925,6 +3924,10 @@
 
 						if ( value[ 'attr' ] ) {
 							data[ 'attr' ] = value.attr; // avoid confusion with $.attr();
+						}
+
+						if ( value[ 'data' ] ) {
+							data[ 'data' ] = value.data;
 						}
 
 						items[ i ] = data;
@@ -3991,7 +3994,7 @@
 			//First parameter is index (optional)
 			//Second parameter is new arguments
 			placeItems: function() {
-				var newHtml = '';
+				var $newHtml = [];
 				var items;
 				var index;
 				var $neighbor;
@@ -4031,7 +4034,11 @@
 
 						}
 
-						newHtml += $item.wrap( '<div></div>' ).parent().html();
+						if ( item[ 'data' ] ) {
+							$item.data( 'data', item.data );
+						}
+
+						$newHtml.push( $item );
 					} );
 
 					if ( this.$pillGroup.children( '.pill' ).length > 0 ) {
@@ -4039,15 +4046,15 @@
 							$neighbor = this.$pillGroup.find( '.pill:nth-child(' + index + ')' );
 
 							if ( $neighbor.length ) {
-								$neighbor.before( newHtml );
+								$neighbor.before( $newHtml );
 							} else {
-								this.$pillGroup.children( '.pill:last' ).after( newHtml );
+								this.$pillGroup.children( '.pill:last' ).after( $newHtml );
 							}
 						} else {
-							this.$pillGroup.children( '.pill:last' ).after( newHtml );
+							this.$pillGroup.children( '.pill:last' ).after( $newHtml );
 						}
 					} else {
-						this.$pillGroup.prepend( newHtml );
+						this.$pillGroup.prepend( $newHtml );
 					}
 
 					if ( isInternal ) {
@@ -4346,6 +4353,11 @@
 						if ( value.attr ) {
 							$suggestion.data( 'attr', JSON.stringify( value.attr ) );
 						}
+
+						if ( value.data ) {
+							$suggestion.data( 'data', value.data );
+						}
+
 						$suggestionList.append( $suggestion );
 					} );
 
@@ -4528,27 +4540,39 @@
 			this.$primaryPaging.find( '.combobox' ).combobox();
 			this.$search.search();
 
-			this.$filters.on( 'changed.fu.selectlist', $.proxy( this.render, this, {
-				clearInfinite: true,
-				pageIncrement: null
-			} ) );
+			this.$filters.on( 'changed.fu.selectlist', function( e, value ) {
+				self.$element.trigger( 'filtered.fu.repeater', value );
+				self.render( {
+					clearInfinite: true,
+					pageIncrement: null
+				} );
+			} );
 			this.$nextBtn.on( 'click.fu.repeater', $.proxy( this.next, this ) );
-			this.$pageSize.on( 'changed.fu.selectlist', $.proxy( this.render, this, {
-				pageIncrement: null
-			} ) );
+			this.$pageSize.on( 'changed.fu.selectlist', function( e, value ) {
+				self.$element.trigger( 'pageSizeChanged.fu.repeater', value );
+				self.render( {
+					pageIncrement: null
+				} );
+			} );
 			this.$prevBtn.on( 'click.fu.repeater', $.proxy( this.previous, this ) );
 			this.$primaryPaging.find( '.combobox' ).on( 'changed.fu.combobox', function( evt, data ) {
+				self.$element.trigger( 'pageChanged.fu.repeater', [ data.text, data ] );
 				self.pageInputChange( data.text );
 			} );
-			this.$search.on( 'searched.fu.search cleared.fu.search', $.proxy( this.render, this, {
-				clearInfinite: true,
-				pageIncrement: null
-			} ) );
-			this.$secondaryPaging.on( 'blur.fu.repeater', function() {
+			this.$search.on( 'searched.fu.search cleared.fu.search', function( e, value ) {
+				self.$element.trigger( 'searchChanged.fu.repeater', value );
+				self.render( {
+					clearInfinite: true,
+					pageIncrement: null
+				} );
+			} );
+			this.$secondaryPaging.on( 'blur.fu.repeater', function( e ) {
 				self.pageInputChange( self.$secondaryPaging.val() );
 			} );
-			this.$secondaryPaging.on( 'change.fu.repeater', function() {
-				self.pageInputChange( self.$secondaryPaging.val() );
+			this.$secondaryPaging.on( 'keyup', function( e ) {
+				if ( e.keyCode === 13 ) {
+					self.pageInputChange( self.$secondaryPaging.val() );
+				}
 			} );
 			this.$views.find( 'input' ).on( 'change.fu.repeater', $.proxy( this.viewChanged, this ) );
 
@@ -4780,11 +4804,12 @@
 				this.$start.html( data.start || '' );
 			},
 
-			next: function() {
+			next: function( e ) {
 				var d = 'disabled';
 				this.$nextBtn.attr( d, d );
 				this.$prevBtn.attr( d, d );
 				this.pageIncrement = 1;
+				this.$element.trigger( 'nextClicked.fu.repeater' );
 				this.render( {
 					pageIncrement: this.pageIncrement
 				} );
@@ -4796,6 +4821,7 @@
 					this.lastPageInput = val;
 					val = parseInt( val, 10 ) - 1;
 					pageInc = val - this.currentPage;
+					this.$element.trigger( 'pageChanged.fu.repeater', val );
 					this.render( {
 						pageIncrement: pageInc
 					} );
@@ -4869,6 +4895,7 @@
 				this.$nextBtn.attr( d, d );
 				this.$prevBtn.attr( d, d );
 				this.pageIncrement = -1;
+				this.$element.trigger( 'previousClicked.fu.repeater' );
 				this.render( {
 					pageIncrement: this.pageIncrement
 				} );
@@ -5100,8 +5127,10 @@
 
 			viewChanged: function( e ) {
 				var $selected = $( e.target );
+				var val = $selected.val();
+				this.$element.trigger( 'viewChanged.fu.repeater', val );
 				this.render( {
-					changeView: $selected.val(),
+					changeView: val,
 					pageIncrement: null
 				} );
 			}
@@ -5359,7 +5388,7 @@
 							} );
 						} else {
 							$item = $( '<div class="repeater-list" data-preserve="shallow"><div class="repeater-list-wrapper" data-infinite="true" data-preserve="shallow"><table aria-readonly="true" class="table" data-container="true" data-preserve="shallow" role="grid"></table></div></div>' );
-							$item.find( '.repeater-list-wrapper' ).on( 'scroll', function() {
+							$item.find( '.repeater-list-wrapper' ).on( 'scroll.fu.repeaterList', function() {
 								if ( self.options.list_columnSyncing ) {
 									self.list_positionHeadings();
 								}
@@ -5483,7 +5512,7 @@
 								sortable = subset[ index ].sortable;
 								if ( sortable ) {
 									$both.addClass( 'sortable' );
-									$div.on( 'click.fu.repeater-list', function() {
+									$div.on( 'click.fu.repeaterList', function() {
 										self.list_sortProperty = ( typeof sortable === 'string' ) ? sortable : subset[ index ].property;
 										if ( $div.hasClass( 'sorted' ) ) {
 											if ( $span.hasClass( chevUp ) ) {
@@ -5573,29 +5602,29 @@
 									$item.addClass( 'selectable' );
 									$item.attr( 'tabindex', 0 ); // allow items to be tabbed to / focused on
 									$item.data( 'item_data', helpers.subset[ helpers.index ] );
-									$item.on( 'click.fu.repeater-list', function() {
+									$item.on( 'click.fu.repeaterList', function() {
 										var $row = $( this );
 										if ( $row.hasClass( 'selected' ) ) {
 											$row.removeClass( 'selected' );
 											$row.find( '.repeater-list-check' ).remove();
-											self.$element.trigger( 'itemDeselected.fu.repeater', $row );
+											self.$element.trigger( 'deselected.fu.repeaterList', $row );
 										} else {
 											if ( self.options.list_selectable !== 'multi' ) {
 												self.$canvas.find( '.repeater-list-check' ).remove();
 												self.$canvas.find( '.repeater-list tbody tr.selected' ).each( function() {
 													$( this ).removeClass( 'selected' );
-													self.$element.trigger( 'itemDeselected.fu.repeater', $( this ) );
+													self.$element.trigger( 'deselected.fu.repeaterList', $( this ) );
 												} );
 											}
 											$row.addClass( 'selected' );
 											$row.find( 'td:first' ).prepend( '<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>' );
-											self.$element.trigger( 'itemSelected.fu.repeater', $row );
+											self.$element.trigger( 'selected.fu.repeaterList', $row );
 										}
 									} );
 									// allow selection via enter key
 									$item.keyup( function( e ) {
 										if ( e.keyCode === 13 ) {
-											$item.trigger( 'click.fu.repeater-list' );
+											$item.trigger( 'clicked.fu.repeaterList' );
 										}
 									} );
 								}
@@ -5667,12 +5696,74 @@
 
 		if ( $.fn.repeater ) {
 
+			//ADDITIONAL METHODS
+			$.fn.repeater.Constructor.prototype.thumbnail_clearSelectedItems = function() {
+				this.$canvas.find( '.repeater-thumbnail-cont .repeater-thumbnail.selected' ).removeClass( 'selected' );
+			};
+
+			$.fn.repeater.Constructor.prototype.thumbnail_getSelectedItems = function() {
+				var selected = [];
+				this.$canvas.find( '.repeater-thumbnail-cont .repeater-thumbnail.selected' ).each( function() {
+					selected.push( $( this ) );
+				} );
+				return selected;
+			};
+
+			$.fn.repeater.Constructor.prototype.thumbnail_setSelectedItems = function( items, force ) {
+				var selectable = this.options.thumbnail_selectable;
+				var self = this;
+				var i, $item, l;
+
+				var eachFunc = function() {
+					$item = $( this );
+					if ( $item.is( items[ i ].selector ) ) {
+						selectItem( $item, items[ i ].selected );
+					}
+				};
+
+				var selectItem = function( $itm, select ) {
+					select = ( select !== undefined ) ? select : true;
+					if ( select ) {
+						if ( !force && selectable !== 'multi' ) {
+							self.thumbnail_clearSelectedItems();
+						}
+						$itm.addClass( 'selected' );
+					} else {
+						$itm.removeClass( 'selected' );
+					}
+				};
+
+				if ( !$.isArray( items ) ) {
+					items = [ items ];
+				}
+				if ( force === true || selectable === 'multi' ) {
+					l = items.length;
+				} else if ( selectable ) {
+					l = ( items.length > 0 ) ? 1 : 0;
+				} else {
+					l = 0;
+				}
+				for ( i = 0; i < l; i++ ) {
+					if ( items[ i ].index !== undefined ) {
+						$item = this.$canvas.find( '.repeater-thumbnail-cont .repeater-thumbnail:nth-child(' + ( items[ i ].index + 1 ) + ')' );
+						if ( $item.length > 0 ) {
+							selectItem( $item, items[ i ].selected );
+						}
+					} else if ( items[ i ].selector ) {
+						this.$canvas.find( '.repeater-thumbnail-cont .repeater-thumbnail' ).each( eachFunc );
+					}
+				}
+			};
+
+			//ADDITIONAL DEFAULT OPTIONS
 			$.fn.repeater.defaults = $.extend( {}, $.fn.repeater.defaults, {
 				thumbnail_infiniteScroll: false,
 				thumbnail_itemRendered: null,
-				thumbnail_template: '<div class="thumbnail repeater-thumbnail" style="background-color: {{color}};"><img height="75" src="{{src}}" width="65"><span>{{name}}</span></div>'
+				thumbnail_selectable: false,
+				thumbnail_template: '<div class="thumbnail repeater-thumbnail"><img height="75" src="{{src}}" width="65"><span>{{name}}</span></div>'
 			} );
 
+			//EXTENSION DEFINITION
 			$.fn.repeater.views.thumbnail = {
 				selected: function( helpers, callback ) {
 					var infScroll = this.options.thumbnail_infiniteScroll;
@@ -5685,7 +5776,7 @@
 				},
 				renderer: {
 					render: function( helpers, callback ) {
-						var $item = this.$element.find( '.repeater-thumbnail-cont' );
+						var $item = this.$canvas.find( '.repeater-thumbnail-cont' );
 						var obj = {};
 						var $empty;
 						if ( $item.length > 0 ) {
@@ -5710,8 +5801,32 @@
 								container: helpers.container,
 								itemData: helpers.subset[ helpers.index ]
 							};
+							var selectable = this.options.thumbnail_selectable;
+							var selected = 'selected';
+							var self = this;
+							var $item;
 							if ( helpers.item !== undefined ) {
 								obj.item = helpers.item;
+								if ( selectable ) {
+									$item = $( obj.item );
+									$item.addClass( 'selectable' );
+									$item.on( 'click', function() {
+										if ( !$item.hasClass( selected ) ) {
+											if ( selectable !== 'multi' ) {
+												self.$canvas.find( '.repeater-thumbnail-cont .repeater-thumbnail.selected' ).each( function() {
+													var $itm = $( this );
+													$itm.removeClass( selected );
+													self.$element.trigger( 'deselected.fu.repeaterThumbnail', $itm );
+												} );
+											}
+											$item.addClass( selected );
+											self.$element.trigger( 'selected.fu.repeaterThumbnail', $item );
+										} else {
+											$item.removeClass( selected );
+											self.$element.trigger( 'deselected.fu.repeaterThumbnail', $item );
+										}
+									} );
+								}
 							}
 							if ( this.options.thumbnail_itemRendered ) {
 								this.options.thumbnail_itemRendered( obj, function() {

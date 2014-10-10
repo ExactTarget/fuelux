@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.0.2 
+ * Fuel UX v3.1.0 
  * Copyright 2012-2014 ExactTarget
  * Licensed under the BSD-3-Clause license ()
  */
@@ -85,6 +85,10 @@
 }
 .fuelux .form-horizontal .checkbox-inline {
   padding-top: 0;
+}
+.fuelux .input-group-addon.checkbox-custom.checkbox-inline:before {
+  left: 11px;
+  top: 9px;
 }
 .fuelux .checkbox-custom {
   position: relative;
@@ -580,6 +584,9 @@
 .fuelux textarea.glass[disabled] {
   cursor: not-allowed;
 }
+.fuelux .input-group-addon {
+  padding: 6px 18px;
+}
 .fuelux [data-toggle="buttons"] > .btn > input[type="radio"],
 .fuelux [data-toggle="buttons"] > .btn > input[type="checkbox"] {
   display: inline;
@@ -817,6 +824,10 @@
 }
 .fuelux .form-horizontal .radio-inline {
   padding-top: 0;
+}
+.fuelux .input-group-addon.radio-custom.radio-inline:before {
+  left: 11px;
+  top: 9px;
 }
 .fuelux .radio-custom {
   position: relative;
@@ -1147,10 +1158,21 @@
   border: 1px solid #ddd;
   color: #666;
   float: left;
-  height: 110px;
+  min-height: 110px;
+  min-width: 100px;
   margin: 8px 7px;
   text-align: center;
-  width: 100px;
+}
+.fuelux .repeater-thumbnail.selectable:hover {
+  background: #d9edf7;
+  cursor: pointer;
+}
+.fuelux .repeater-thumbnail.selected {
+  background: #66AFE9;
+  color: #fff;
+}
+.fuelux .repeater-thumbnail.selected:hover {
+  background: #428bca;
 }
 .fuelux .repeater-thumbnail img {
   display: block;
