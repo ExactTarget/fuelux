@@ -8,20 +8,20 @@ url:              http://exacttarget.github.io/fuelux
 # url:              http://0.0.0.0:4000/
 
 # Custom vars
-current_version:  3.0.2
+current_version:  3.1.0
 repo:             https://github.com/ExactTarget/fuelux
 
 
 download:
-  source:         https://github.com/ExactTarget/fuelux/archive/3.0.2.zip
+  source:         https://github.com/ExactTarget/fuelux/archive/3.1.0.zip
   dist:           https://github.com/ExactTarget/fuelux/raw/master/dist/fuelux.zip
 
 blog:             http://code.exacttarget.com
 
 cdn:
-  css:            //www.fuelcdn.com/fuelux/3.0.2/css/fuelux.min.css
-  js:             //www.fuelcdn.com/fuelux/3.0.2/js/fuelux.min.js
-  zip:            //www.fuelcdn.com/fuelux/3.0.2/fuelux.zip
+  css:            //www.fuelcdn.com/fuelux/3.1.0/css/fuelux.min.css
+  js:             //www.fuelcdn.com/fuelux/3.1.0/js/fuelux.min.js
+  zip:            //www.fuelcdn.com/fuelux/3.1.0/fuelux.zip
 
 mctheme:
   css:            //www.fuelcdn.com/fuelux-mctheme/1.0.0/css/fuelux-mctheme.min.css
