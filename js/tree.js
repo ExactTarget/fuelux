@@ -242,7 +242,7 @@
 				.removeClass('glyphicon-folder-close glyphicon-folder-open')
 				.addClass(classToAdd);
 
-			this.$element.trigger(eventType, $branch.data());
+			this.$element.trigger(eventType + 'fu.tree', $branch.data());
 		},
 
 		selectFolder: function (clickedElement) {
