@@ -165,7 +165,7 @@
 
 			var eventType = 'selected';
 			if($el.hasClass('tree-selected')) {
-				eventType = 'unselected';
+				eventType = 'deselected';
 				$el.removeClass('tree-selected');
 				if($icon.hasClass('glyphicon-ok') || $icon.hasClass('fueluxicon-bullet') ) {
 					$icon.removeClass('glyphicon-ok').addClass('fueluxicon-bullet');
@@ -255,7 +255,7 @@
 
 			// select clicked item
 			if($clickedBranch.hasClass('tree-selected')) {
-				eventType = 'unselected';
+				eventType = 'deselected';
 				$clickedBranch.removeClass('tree-selected');
 			} else {
 				$clickedBranch.addClass('tree-selected');

@@ -127,7 +127,7 @@ define(function(require){
 				data = items.selected;
 			});
 
-			$tree.on('unselected.fu.tree', function (e, items) {
+			$tree.on('deselected.fu.tree', function (e, items) {
 				data = items.selected;
 			});
 
