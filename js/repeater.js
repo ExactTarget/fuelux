@@ -69,14 +69,32 @@
 		this.$primaryPaging.find('.combobox').combobox();
 		this.$search.search();
 
-		this.$filters.on('changed.fu.selectlist', $.proxy(this.render, this, { clearInfinite: true, pageIncrement: null }));
+		this.$filters.on('changed.fu.selectlist', function(e, value){
+			self.$element.trigger('filtered.fu.repeater', value);
+			self.render({ clearInfinite: true, pageIncrement: null });
+		});
 		this.$nextBtn.on('click.fu.repeater', $.proxy(this.next, this));
-		this.$pageSize.on('changed.fu.selectlist', $.proxy(this.render, this, { pageIncrement: null }));
+		this.$pageSize.on('changed.fu.selectlist', function(e, value){
+			self.$element.trigger('pageSizeChanged.fu.repeater', value);
+			self.render({ pageIncrement: null });
+		});
 		this.$prevBtn.on('click.fu.repeater', $.proxy(this.previous, this));
-		this.$primaryPaging.find('.combobox').on('changed.fu.combobox', function(evt, data){ self.pageInputChange(data.text); });
-		this.$search.on('searched.fu.search cleared.fu.search', $.proxy(this.render, this, { clearInfinite: true, pageIncrement: null }));
-		this.$secondaryPaging.on('blur.fu.repeater', function(){ self.pageInputChange(self.$secondaryPaging.val()); });
-		this.$secondaryPaging.on('change.fu.repeater', function(){ self.pageInputChange(self.$secondaryPaging.val()); });
+		this.$primaryPaging.find('.combobox').on('changed.fu.combobox', function(evt, data){
+			self.$element.trigger('pageChanged.fu.repeater', [data.text, data]);
+			self.pageInputChange(data.text);
+		});
+		this.$search.on('searched.fu.search cleared.fu.search', function(e, value){
+			self.$element.trigger('searchChanged.fu.repeater', value);
+			self.render({ clearInfinite: true, pageIncrement: null });
+		});
+		this.$secondaryPaging.on('blur.fu.repeater', function(e){
+			self.pageInputChange(self.$secondaryPaging.val());
+		});
+		this.$secondaryPaging.on('keyup', function(e){
+			if(e.keyCode===13){
+				self.pageInputChange(self.$secondaryPaging.val());
+			}
+		});
 		this.$views.find('input').on('change.fu.repeater', $.proxy(this.viewChanged, this));
 
 		// ID needed since event is bound to instance
@@ -303,11 +321,12 @@
 			this.$start.html(data.start || '');
 		},
 
-		next: function(){
+		next: function(e){
 			var d = 'disabled';
 			this.$nextBtn.attr(d, d);
 			this.$prevBtn.attr(d, d);
 			this.pageIncrement = 1;
+			this.$element.trigger('nextClicked.fu.repeater');
 			this.render({ pageIncrement: this.pageIncrement });
 		},
 
@@ -317,6 +336,7 @@
 				this.lastPageInput = val;
 				val = parseInt(val, 10) - 1;
 				pageInc = val - this.currentPage;
+				this.$element.trigger('pageChanged.fu.repeater', val);
 				this.render({ pageIncrement: pageInc });
 			}
 		},
@@ -391,6 +411,7 @@
 			this.$nextBtn.attr(d, d);
 			this.$prevBtn.attr(d, d);
 			this.pageIncrement = -1;
+			this.$element.trigger('previousClicked.fu.repeater');
 			this.render({ pageIncrement: this.pageIncrement });
 		},
 
@@ -615,7 +636,9 @@
 
 		viewChanged: function(e){
 			var $selected = $(e.target);
-			this.render({ changeView: $selected.val(), pageIncrement: null });
+			var val = $selected.val();
+			this.$element.trigger('viewChanged.fu.repeater', val);
+			this.render({ changeView: val, pageIncrement: null });
 		}
 	};
 

@@ -395,18 +395,18 @@
 											if($row.hasClass('selected')){
 												$row.removeClass('selected');
 												$row.find('.repeater-list-check').remove();
-												self.$element.trigger('itemDeselected.fu.repeater', $row);
+												self.$element.trigger('itemDeselected.fu.repeater-list', $row);
 											}else{
 												if(self.options.list_selectable!=='multi'){
 													self.$canvas.find('.repeater-list-check').remove();
 													self.$canvas.find('.repeater-list tbody tr.selected').each(function(){
 														$(this).removeClass('selected');
-														self.$element.trigger('itemDeselected.fu.repeater', $(this));
+														self.$element.trigger('itemDeselected.fu.repeater-list', $(this));
 													});
 												}
 												$row.addClass('selected');
 												$row.find('td:first').prepend('<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>');
-												self.$element.trigger('itemSelected.fu.repeater', $row);
+												self.$element.trigger('itemSelected.fu.repeater-list', $row);
 											}
 										});
 										// allow selection via enter key
