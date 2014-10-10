@@ -190,7 +190,7 @@
 						callback({ action: 'none', item: $list });
 					}else{
 						$item = $('<div class="repeater-list" data-preserve="shallow"><div class="repeater-list-wrapper" data-infinite="true" data-preserve="shallow"><table aria-readonly="true" class="table" data-container="true" data-preserve="shallow" role="grid"></table></div></div>');
-						$item.find('.repeater-list-wrapper').on('scroll', function(){
+						$item.find('.repeater-list-wrapper').on('scroll.fu.repeaterList', function(){
 							if(self.options.list_columnSyncing){
 								self.list_positionHeadings();
 							}
@@ -302,7 +302,7 @@
 									sortable = subset[index].sortable;
 									if(sortable){
 										$both.addClass('sortable');
-										$div.on('click.fu.repeater-list', function(){
+										$div.on('click.fu.repeaterList', function(){
 											self.list_sortProperty = (typeof sortable === 'string') ? sortable : subset[index].property;
 											if($div.hasClass('sorted')){
 												if($span.hasClass(chevUp)){
@@ -390,29 +390,29 @@
 										$item.addClass('selectable');
 										$item.attr('tabindex', 0);	// allow items to be tabbed to / focused on
 										$item.data('item_data', helpers.subset[helpers.index]);
-										$item.on('click.fu.repeater-list', function() {
+										$item.on('click.fu.repeaterList', function() {
 											var $row = $(this);
 											if($row.hasClass('selected')){
 												$row.removeClass('selected');
 												$row.find('.repeater-list-check').remove();
-												self.$element.trigger('itemDeselected.fu.repeater-list', $row);
+												self.$element.trigger('deselected.fu.repeaterList', $row);
 											}else{
 												if(self.options.list_selectable!=='multi'){
 													self.$canvas.find('.repeater-list-check').remove();
 													self.$canvas.find('.repeater-list tbody tr.selected').each(function(){
 														$(this).removeClass('selected');
-														self.$element.trigger('itemDeselected.fu.repeater-list', $(this));
+														self.$element.trigger('deselected.fu.repeaterList', $(this));
 													});
 												}
 												$row.addClass('selected');
 												$row.find('td:first').prepend('<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>');
-												self.$element.trigger('itemSelected.fu.repeater-list', $row);
+												self.$element.trigger('selected.fu.repeaterList', $row);
 											}
 										});
 										// allow selection via enter key
 										$item.keyup(function (e) {
 											if (e.keyCode === 13) {
-												$item.trigger('click.fu.repeater-list');
+												$item.trigger('clicked.fu.repeaterList');
 											}
 										});
 									}

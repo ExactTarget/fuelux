@@ -144,11 +144,17 @@
 									$item.on('click', function(){
 										if(!$item.hasClass(selected)){
 											if(selectable!=='multi'){
-												self.thumbnail_clearSelectedItems();
+												self.$canvas.find('.repeater-thumbnail-cont .repeater-thumbnail.selected').each(function(){
+													var $itm = $(this);
+													$itm.removeClass(selected);
+													self.$element.trigger('deselected.fu.repeaterThumbnail', $itm);
+												});
 											}
 											$item.addClass(selected);
+											self.$element.trigger('selected.fu.repeaterThumbnail', $item);
 										}else{
 											$item.removeClass(selected);
+											self.$element.trigger('deselected.fu.repeaterThumbnail', $item);
 										}
 									});
 								}
