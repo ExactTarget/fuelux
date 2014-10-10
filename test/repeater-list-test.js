@@ -321,25 +321,4 @@ define(function(require){
 		});
 	});
 
-	asyncTest('should destroy control', function(){
-		var $repeater = $(this.$markup);
-
-		afterSource = function(){
-			setTimeout(function(){
-				start();
-
-				equal(typeof( $repeater.repeater('destroy')) , 'string', 'returns string (markup)');
-				equal( $repeater.parent().length, false, 'control has been removed from DOM');
-
-			}, 0);
-
-		};
-
-		$repeater.repeater({
-			dataSource: dataSource,
-			list_selectable: true
-		});
-	});
-
-
 });

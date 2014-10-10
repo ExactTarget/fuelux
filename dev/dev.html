@@ -165,7 +165,6 @@
 
 			var thumbnail = function(options, callback){
 				var categories = ['abstract', 'animals', 'business', 'cats', 'city', 'food', 'nature', 'technics', 'transport'];
-				var colors = ['#D9EDF7', '#F2DEDE', '#FCF8E3', '#DFF0D8'];
 				var numItems = 200;
 				var resp = {
 					count: numItems,
@@ -182,7 +181,6 @@
 
 				for(i; i<l; i++){
 					resp.items.push({
-						color: colors[Math.floor(Math.random() * 4)],
 						name: ('Thumbnail ' + (i + 1)),
 						src: 'http://lorempixel.com/65/75/' + categories[Math.floor(Math.random() * 9)] + '/?_=' + i
 					});
@@ -208,7 +206,8 @@
 				list_selectable: 'multi',
 				list_noItemsHTML: 'no items found',
 				thumbnail_noItemsHTML: 'no items found',
-				thumbnail_infiniteScroll: { hybrid: true }
+				thumbnail_infiniteScroll: { hybrid: true },
+				thumbnail_selectable: true
 			});
 		});
 	</script>
