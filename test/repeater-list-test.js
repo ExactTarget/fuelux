@@ -8,7 +8,7 @@ define(function(require){
 	var data = require('data');
 	var dataSource = function(options, callback){
 
-		// TODO: add 'itemDeselected.fu.repeater' event test
+		// TODO: add 'itemDeselected.fu.repeater-list' event test
 
 		var resp = {
 			count: data.repeater.listData.length,
