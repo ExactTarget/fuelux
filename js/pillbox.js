@@ -139,23 +139,21 @@
 
 		suggestionClick: function(e){
 			var $item = $(e.currentTarget);
+			var item = {
+				text: $item.html(),
+				value: $item.data('value')
+			};
 
 			e.preventDefault();
 			this.$addItem.val('');
 
 			if ( $item.data('attr') ) {
-				this.addItems({
-					text: $item.html(),
-					value: $item.data('value'),
-					attr: JSON.parse($item.data('attr'))
-				}, true);
+				item.attr = JSON.parse($item.data('attr'));
 			}
-			else {
-				this.addItems({
-					text: $item.html(),
-					value: $item.data('value')
-				}, true);
-			}
+
+			item.data = $item.data('data');
+
+			this.addItems(item, true);
 
 			// needs to be after addItems for IE
 			this._closeSuggestions();
@@ -195,6 +193,10 @@
 
 					if(value['attr']) {
 						data['attr'] = value.attr;	// avoid confusion with $.attr();
+					}
+
+					if(value['data']){
+						data['data'] = value.data;
 					}
 
 					items[i] = data;
@@ -259,7 +261,7 @@
 		//First parameter is index (optional)
 		//Second parameter is new arguments
 		placeItems: function(){
-			var newHtml = '';
+			var $newHtml = [];
 			var items;
 			var index;
 			var $neighbor;
@@ -300,7 +302,11 @@
 
 					}
 
-					newHtml += $item.wrap('<div></div>').parent().html();
+					if(item['data']) {
+						$item.data('data', item.data);
+					}
+
+					$newHtml.push($item);
 				});
 
 				if( this.$pillGroup.children('.pill').length > 0 ) {
@@ -308,15 +314,15 @@
 						$neighbor = this.$pillGroup.find('.pill:nth-child(' + index + ')');
 
 						if( $neighbor.length ){
-							$neighbor.before(newHtml);
+							$neighbor.before($newHtml);
 						} else {
-							this.$pillGroup.children('.pill:last').after(newHtml);
+							this.$pillGroup.children('.pill:last').after($newHtml);
 						}
 					} else {
-						this.$pillGroup.children('.pill:last').after(newHtml);
+						this.$pillGroup.children('.pill:last').after($newHtml);
 					}
 				} else {
-					this.$pillGroup.prepend(newHtml);
+					this.$pillGroup.prepend($newHtml);
 				}
 
 				if( isInternal ){
@@ -595,6 +601,11 @@
 					if(value.attr) {
 						$suggestion.data('attr', JSON.stringify(value.attr));
 					}
+
+					if(value.data){
+						$suggestion.data('data', value.data);
+					}
+
 					$suggestionList.append($suggestion);
 				});
 

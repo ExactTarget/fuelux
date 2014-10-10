@@ -222,6 +222,10 @@ define(function(require) {
 						"cssClass": "example-pill-class",
 						"style": "background-color: orange;",
 						"data-example-attribute": "true"
+					},
+					"data": {
+						"flora": true,
+						"color": "orange"
 					}
 				},
 				{
@@ -231,6 +235,10 @@ define(function(require) {
 						"cssClass": "example-pill-class",
 						"style": "background-color: midnightBlue;",
 						"data-example-attribute": "true"
+					},
+					"data": {
+						"flora": true,
+						"color": "blue"
 					}
 				},
 				{
