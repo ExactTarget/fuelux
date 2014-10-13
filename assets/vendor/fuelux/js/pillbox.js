@@ -3,7 +3,7 @@
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2014 ExactTarget
- * Licensed under the MIT license.
+ * Licensed under the BSD New license.
  */
 
 // -- BEGIN UMD WRAPPER PREFACE --
@@ -139,14 +139,21 @@
 
 		suggestionClick: function(e){
 			var $item = $(e.currentTarget);
+			var item = {
+				text: $item.html(),
+				value: $item.data('value')
+			};
 
 			e.preventDefault();
 			this.$addItem.val('');
-			
-			this.addItems({
-				text: $item.html(),
-				value: $item.data('value')
-			}, true);
+
+			if ( $item.data('attr') ) {
+				item.attr = JSON.parse($item.data('attr'));
+			}
+
+			item.data = $item.data('data');
+
+			this.addItems(item, true);
 
 			// needs to be after addItems for IE
 			this._closeSuggestions();
@@ -184,7 +191,16 @@
 						el: self.$pillHTML
 					};
 
+					if(value['attr']) {
+						data['attr'] = value.attr;	// avoid confusion with $.attr();
+					}
+
+					if(value['data']){
+						data['data'] = value.data;
+					}
+
 					items[i] = data;
+
 				});
 
 				if( this.options.edit && this.currentEdit ){
@@ -200,7 +216,7 @@
 					if( this.options.edit && this.currentEdit ){
 						self.options.onAdd( items[0], $.proxy(self.saveEdit,this));
 					} else {
-						self.options.onAdd( items[0], $.proxy(self.placeItems,this, true));
+						self.options.onAdd( items[0], $.proxy(self.placeItems, this));
 					}
 				} else {
 					if( this.options.edit && this.currentEdit ){
@@ -245,7 +261,7 @@
 		//First parameter is index (optional)
 		//Second parameter is new arguments
 		placeItems: function(){
-			var newHtml = '';
+			var $newHtml = [];
 			var items;
 			var index;
 			var $neighbor;
@@ -271,7 +287,26 @@
 					$item.attr('data-value', item.value);
 					$item.find('span:first').html( item.text );
 
-					newHtml += $item.wrap('<div></div>').parent().html();
+					// DOM attributes
+					if(item['attr']) {
+						$.each(item['attr'], function(key, value){
+
+							if(key === 'cssClass' || key === 'class') {
+								$item.addClass(value);
+							}
+							else {
+								$item.attr(key, value);
+							}
+
+						});
+
+					}
+
+					if(item['data']) {
+						$item.data('data', item.data);
+					}
+
+					$newHtml.push($item);
 				});
 
 				if( this.$pillGroup.children('.pill').length > 0 ) {
@@ -279,20 +314,20 @@
 						$neighbor = this.$pillGroup.find('.pill:nth-child(' + index + ')');
 
 						if( $neighbor.length ){
-							$neighbor.before(newHtml);
+							$neighbor.before($newHtml);
 						} else {
-							this.$pillGroup.children('.pill:last').after(newHtml);
+							this.$pillGroup.children('.pill:last').after($newHtml);
 						}
 					} else {
-						this.$pillGroup.children('.pill:last').after(newHtml);
+						this.$pillGroup.children('.pill:last').after($newHtml);
 					}
 				} else {
-					this.$pillGroup.prepend(newHtml);
+					this.$pillGroup.prepend($newHtml);
 				}
 
 				if( isInternal ){
 					this.$element.trigger('added.fu.pillbox', {
-						text: items[0].text, 
+						text: items[0].text,
 						value: items[0].value
 					});
 				}
@@ -303,6 +338,7 @@
 			var self = this;
 			var text = this.$addItem.val();
 			var value;
+			var attr;
 			var $lastItem;
 			var $selection;
 
@@ -314,6 +350,7 @@
 					if($selection.length){
 						text = $selection.html();
 						value = $selection.data('value');
+						attr = $selection.data('attr');
 					}
 				}
 
@@ -321,16 +358,26 @@
 					this._closeSuggestions();
 					this.$addItem.hide();
 
-					this.addItems({
-						text: text,
-						value: value
-					}, true);
+					if ( attr ) {
+						this.addItems({
+							text: text,
+							value: value,
+							attr: JSON.parse(attr)
+						}, true);
+					}
+					else {
+						this.addItems({
+							text: text,
+							value: value
+						}, true);
+					}
 
 					setTimeout(function(){
 						self.$addItem.show().val('').attr({ size: 10 });
 					},0);
 				}
 
+				e.preventDefault();
 				return true;
 			} else if( e.keyCode === 8 || e.keyCode === 46 ) {
 				// backspace: 8
@@ -417,7 +464,7 @@
 		//Must match syntax of placeItem so addItem callback is called when an item is edited
 		//expecting to receive an array back from the callback containing edited items
 		saveEdit: function() {
-			var item = arguments[0][0];
+			var item = arguments[0][0] ? arguments[0][0] : arguments[0];
 
 			this.currentEdit = $(item.el);
 			this.currentEdit.data('value', item.value);
@@ -537,20 +584,33 @@
 
 		_openSuggestions: function(e, data){
 			var markup = '';
+			var $suggestionList = $('<ul>');
 
 			if( this.callbackId !== e.timeStamp) {
 				return false;
 			}
 
 			if(data.data && data.data.length){
+
 				$.each(data.data, function(index, value){
 					var val = value.value ? value.value : value.text;
-					markup += '<li data-value="' + val + '">' + value.text + '</li>';
+
+					// markup concatentation is 10x faster, but does not allow data store
+					var $suggestion = $('<li data-value="' + val + '">' + value.text + '</li>');
+
+					if(value.attr) {
+						$suggestion.data('attr', JSON.stringify(value.attr));
+					}
+
+					if(value.data){
+						$suggestion.data('data', value.data);
+					}
+
+					$suggestionList.append($suggestion);
 				});
 
 				// suggestion dropdown
-				
-				this.$suggest.html('').append(markup);
+				this.$suggest.html('').append($suggestionList.children());
 				$(document.body).trigger('suggested.fu.pillbox', this.$suggest);
 			}
 		},

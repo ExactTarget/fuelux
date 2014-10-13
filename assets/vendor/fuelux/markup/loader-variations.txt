@@ -3,8 +3,8 @@
     (ex: 'data-frame="5"')
 
 //Controlling speed (default is 150)
-- add 'data-frame="{{milliseconds}}"' to 'loader' classed div
-    (ex: 'data-frame="500"')
+- add 'data-delay="{{milliseconds}}"' to 'loader' classed div
+    (ex: 'data-delay="500"')
 
 //Animation range
 - add 'data-begin="{{number}}"' to 'loader' classed div to specify beginning frame

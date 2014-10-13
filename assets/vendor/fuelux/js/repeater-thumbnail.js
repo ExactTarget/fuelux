@@ -3,7 +3,7 @@
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2014 ExactTarget
- * Licensed under the MIT license.
+ * Licensed under the BSD New license.
  */
 
 // -- BEGIN UMD WRAPPER PREFACE --
@@ -26,12 +26,74 @@
 
 	if($.fn.repeater){
 
+		//ADDITIONAL METHODS
+		$.fn.repeater.Constructor.prototype.thumbnail_clearSelectedItems = function(){
+			this.$canvas.find('.repeater-thumbnail-cont .repeater-thumbnail.selected').removeClass('selected');
+		};
+
+		$.fn.repeater.Constructor.prototype.thumbnail_getSelectedItems = function(){
+			var selected = [];
+			this.$canvas.find('.repeater-thumbnail-cont .repeater-thumbnail.selected').each(function(){
+				selected.push($(this));
+			});
+			return selected;
+		};
+
+		$.fn.repeater.Constructor.prototype.thumbnail_setSelectedItems = function(items, force){
+			var selectable = this.options.thumbnail_selectable;
+			var self = this;
+			var i, $item, l;
+
+			var eachFunc = function(){
+				$item = $(this);
+				if($item.is(items[i].selector)){
+					selectItem($item, items[i].selected);
+				}
+			};
+
+			var selectItem = function($itm, select){
+				select = (select!==undefined) ? select : true;
+				if(select){
+					if(!force && selectable!=='multi'){
+						self.thumbnail_clearSelectedItems();
+					}
+					$itm.addClass('selected');
+				}else{
+					$itm.removeClass('selected');
+				}
+			};
+
+			if(!$.isArray(items)){
+				items = [items];
+			}
+			if(force===true || selectable==='multi'){
+				l = items.length;
+			}else if(selectable){
+				l = (items.length>0) ? 1 : 0;
+			}else{
+				l = 0;
+			}
+			for(i=0; i<l; i++){
+				if(items[i].index!==undefined){
+					$item = this.$canvas.find('.repeater-thumbnail-cont .repeater-thumbnail:nth-child(' + (items[i].index + 1) + ')');
+					if($item.length>0){
+						selectItem($item, items[i].selected);
+					}
+				}else if(items[i].selector){
+					this.$canvas.find('.repeater-thumbnail-cont .repeater-thumbnail').each(eachFunc);
+				}
+			}
+		};
+
+		//ADDITIONAL DEFAULT OPTIONS
 		$.fn.repeater.defaults = $.extend({}, $.fn.repeater.defaults, {
 			thumbnail_infiniteScroll: false,
 			thumbnail_itemRendered: null,
-			thumbnail_template: '<div class="thumbnail repeater-thumbnail" style="background-color: {{color}};"><img height="75" src="{{src}}" width="65"><span>{{name}}</span></div>'
+			thumbnail_selectable: false,
+			thumbnail_template: '<div class="thumbnail repeater-thumbnail"><img height="75" src="{{src}}" width="65"><span>{{name}}</span></div>'
 		});
 
+		//EXTENSION DEFINITION
 		$.fn.repeater.views.thumbnail = {
 			selected: function(helpers, callback){
 				var infScroll = this.options.thumbnail_infiniteScroll;
@@ -44,7 +106,7 @@
 			},
 			renderer: {
 				render: function(helpers, callback){
-					var $item = this.$element.find('.repeater-thumbnail-cont');
+					var $item = this.$canvas.find('.repeater-thumbnail-cont');
 					var obj = {};
 					var $empty;
 					if($item.length>0){
@@ -66,9 +128,36 @@
 				nested: [
 					{
 						after: function(helpers, callback){
-							var obj = { container: helpers.container };
+							var obj = {
+								container: helpers.container,
+								itemData: helpers.subset[helpers.index]
+							};
+							var selectable = this.options.thumbnail_selectable;
+							var selected = 'selected';
+							var self = this;
+							var $item;
 							if(helpers.item!==undefined){
 								obj.item = helpers.item;
+								if(selectable){
+									$item = $(obj.item);
+									$item.addClass('selectable');
+									$item.on('click', function(){
+										if(!$item.hasClass(selected)){
+											if(selectable!=='multi'){
+												self.$canvas.find('.repeater-thumbnail-cont .repeater-thumbnail.selected').each(function(){
+													var $itm = $(this);
+													$itm.removeClass(selected);
+													self.$element.trigger('deselected.fu.repeaterThumbnail', $itm);
+												});
+											}
+											$item.addClass(selected);
+											self.$element.trigger('selected.fu.repeaterThumbnail', $item);
+										}else{
+											$item.removeClass(selected);
+											self.$element.trigger('deselected.fu.repeaterThumbnail', $item);
+										}
+									});
+								}
 							}
 							if(this.options.thumbnail_itemRendered){
 								this.options.thumbnail_itemRendered(obj, function(){

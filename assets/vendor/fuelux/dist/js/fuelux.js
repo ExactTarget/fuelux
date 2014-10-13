@@ -1,7 +1,7 @@
 /*!
- * Fuel UX v3.0.0
+ * Fuel UX v3.1.0
  * Copyright 2012-2014 ExactTarget
- * Licensed under MIT (https://github.com/ExactTarget/fuelux/blob/master/COPYING)
+ * Licensed under the BSD-3-Clause license ()
  */
 
 
@@ -18,7 +18,7 @@
 		throw new Error( 'Fuel UX\'s JavaScript requires jQuery' )
 	}
 
-	if ( typeof $.fn.dropdown === 'undefined' || typeof $.fn.collapse === 'undefined' ) {
+	if ( typeof jQuery.fn.dropdown === 'undefined' || typeof jQuery.fn.collapse === 'undefined' ) {
 		throw new Error( 'Fuel UX\'s JavaScript requires Bootstrap' )
 	}
 
@@ -29,7 +29,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -270,7 +270,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -513,7 +513,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -675,6 +675,7 @@
 				this.$input.val( this.formatDate( date ) );
 				this.inputValue = this.$input.val();
 				this.$input.focus();
+				this.$element.trigger( 'dateClicked.fu.datepicker', date );
 			},
 
 			destroy: function() {
@@ -789,7 +790,10 @@
 				for ( i = 0, l = restricted.length; i < l; i++ ) {
 					from = restricted[ i ].from;
 					to = restricted[ i ].to;
-					if ( ( date >= from.date && month >= from.month && year >= from.year ) && ( date <= to.date && month <= to.month && year <= to.year ) ) {
+					if (
+						( year > from.year || ( year === from.year && month > from.month ) || ( year === from.year && month === from.month && date >= from.date ) ) &&
+						( year < to.year || ( year === to.year && month < to.month ) || ( year === to.year && month === to.month && date <= to.date ) )
+					) {
 						return true;
 					}
 				}
@@ -832,7 +836,7 @@
 				if ( topPercentage < 5 ) {
 					start = parseInt( $yearUl.find( 'li:first' ).attr( 'data-year' ), 10 );
 					for ( i = ( start - 1 ); i > ( start - 11 ); i-- ) {
-						$yearUl.prepend( '<li data-year="' + i + '"><button>' + i + '</button></li>' );
+						$yearUl.prepend( '<li data-year="' + i + '"><button type="button">' + i + '</button></li>' );
 					}
 					this.artificialScrolling = true;
 					$yearUl.scrollTop( ( $yearUl.get( 0 ).scrollHeight - scrollHeight ) + scrollTop );
@@ -840,7 +844,7 @@
 				} else if ( bottomPercentage > 90 ) {
 					start = parseInt( $yearUl.find( 'li:last' ).attr( 'data-year' ), 10 );
 					for ( i = ( start + 1 ); i < ( start + 11 ); i++ ) {
-						$yearUl.append( '<li data-year="' + i + '"><button>' + i + '</button></li>' );
+						$yearUl.append( '<li data-year="' + i + '"><button type="button">' + i + '</button></li>' );
 					}
 				}
 			},
@@ -953,7 +957,7 @@
 				for ( i = 0; i < rows; i++ ) {
 					$tr = $( '<tr></tr>' );
 					for ( j = 0; j < 7; j++ ) {
-						$td = $( '<td><span><button class="datepicker-date">' + curDate + '</button></span></td>' );
+						$td = $( '<td></td>' );
 						if ( stage === -1 ) {
 							$td.addClass( 'last-month' );
 						} else if ( stage === 1 ) {
@@ -989,6 +993,12 @@
 						}
 						if ( selected && curYear === selected.year && curMonth === selected.month && curDate === selected.date ) {
 							$td.addClass( 'selected' );
+						}
+
+						if ( $td.hasClass( 'restricted' ) ) {
+							$td.html( '<span><b class="datepicker-date">' + curDate + '</b></span>' );
+						} else {
+							$td.html( '<span><button type="button" class="datepicker-date">' + curDate + '</button></span>' );
 						}
 
 						curDate++;
@@ -1028,7 +1038,7 @@
 
 				$yearUl.empty();
 				for ( i = ( year - 10 ); i < ( year + 11 ); i++ ) {
-					$yearUl.append( '<li data-year="' + i + '"><button>' + i + '</button></li>' );
+					$yearUl.append( '<li data-year="' + i + '"><button type="button">' + i + '</button></li>' );
 				}
 				$yearSelected = $yearUl.find( 'li[data-year="' + year + '"]' );
 				$yearSelected.addClass( 'selected' );
@@ -1150,10 +1160,10 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'datepicker' );
+				var data = $this.data( 'fu.datepicker' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'datepicker', ( data = new Datepicker( this, options ) ) );
+				if ( !data ) $this.data( 'fu.datepicker', ( data = new Datepicker( this, options ) ) );
 				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 			} );
 
@@ -1225,7 +1235,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -1239,7 +1249,7 @@
 			}
 		} );
 
-		// For pillbox suggestions dropdown
+		// For pillbox suggestions dropdown 
 		$( document.body ).on( 'suggested.fu.pillbox', function( event, element ) {
 			_autoFlip( $( element ) );
 			$( element ).parent().addClass( 'open' );
@@ -1331,7 +1341,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -1481,7 +1491,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -1740,7 +1750,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -1949,7 +1959,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -1994,21 +2004,27 @@
 			},
 
 			search: function( searchText ) {
-				this.$icon.attr( 'class', 'glyphicon glyphicon-remove' );
+				if ( this.$icon.hasClass( 'glyphicon' ) ) {
+					this.$icon.removeClass( 'glyphicon-search' ).addClass( 'glyphicon-remove' );
+				}
 				this.activeSearch = searchText;
+				this.$element.addClass( 'searched' );
 				this.$element.trigger( 'searched.fu.search', searchText );
 			},
 
 			clear: function() {
-				this.$icon.attr( 'class', 'glyphicon glyphicon-search' );
+				if ( this.$icon.hasClass( 'glyphicon' ) ) {
+					this.$icon.removeClass( 'glyphicon-remove' ).addClass( 'glyphicon-search' );
+				}
 				this.activeSearch = '';
 				this.$input.val( '' );
+				this.$element.removeClass( 'searched' );
 				this.$element.trigger( 'cleared.fu.search' );
 			},
 
 			action: function() {
 				var val = this.$input.val();
-				var inputEmptyOrUnchanged = val === '' || val === this.activeSearch;
+				var inputEmptyOrUnchanged = ( val === '' || val === this.activeSearch );
 
 				if ( this.activeSearch && inputEmptyOrUnchanged ) {
 					this.clear();
@@ -2030,15 +2046,22 @@
 			},
 
 			keypressed: function( e ) {
-				var val, inputPresentAndUnchanged;
+				var remove = 'glyphicon-remove';
+				var search = 'glyphicon-search';
+				var val;
 
 				if ( e.which === 13 ) {
 					e.preventDefault();
 					this.action();
 				} else {
 					val = this.$input.val();
-					inputPresentAndUnchanged = val && ( val === this.activeSearch );
-					this.$icon.attr( 'class', inputPresentAndUnchanged ? 'glyphicon glyphicon-remove' : 'glyphicon glyphicon-search' );
+					if ( !val ) {
+						this.clear();
+					} else if ( val !== this.activeSearch ) {
+						this.$icon.removeClass( remove ).addClass( search );
+					} else {
+						this.$icon.removeClass( search ).addClass( remove );
+					}
 				}
 			},
 
@@ -2114,7 +2137,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -2159,7 +2182,7 @@
 				this.$selectedItem = $selectedItem = $item;
 
 				this.$hiddenField.val( this.$selectedItem.attr( 'data-value' ) );
-				this.$label.text( this.$selectedItem.text() );
+				this.$label.html( $( this.$selectedItem.children()[ 0 ] ).html() );
 
 				// clear and set selected item to allow declarative init state
 				// unlike other controls, selectlist's value is stored internal, not in an input
@@ -2190,7 +2213,8 @@
 
 			itemChanged: function( e ) {
 
-				this.doSelect( $( e.target ).parent() );
+				//selectedItem needs to be <li> since the data is stored there, not in <a>
+				this.doSelect( $( e.target ).closest( 'li' ) );
 
 				// pass object including text and any data-attributes
 				// to onchange event
@@ -2262,15 +2286,13 @@
 			},
 
 			setDefaultSelection: function() {
-				var selector = 'li[data-selected=true]:first';
-				var item = this.$element.find( selector );
-				if ( item.length === 0 ) {
-					// select first item
-					this.selectByIndex( 0 );
-				} else {
-					// select by data-attribute
-					this.selectBySelector( selector );
+				var $item = this.$element.find( 'li[data-selected=true]' ).eq( 0 );
+
+				if ( $item.length === 0 ) {
+					$item = this.$element.find( 'li' ).has( 'a' ).eq( 0 );
 				}
+
+				this.doSelect( $item );
 			},
 
 			enable: function() {
@@ -2345,7 +2367,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -2776,7 +2798,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -2830,11 +2852,11 @@
 
 			populate: function( $el ) {
 				var self = this;
-				var $parent = $el.parent();
+				var $parent = ( $el.hasClass( 'tree' ) ) ? $el : $el.parent();
 				var loader = $parent.find( '.tree-loader:eq(0)' );
 
 				loader.removeClass( 'hide' );
-				this.options.dataSource( this.options.folderSelect ? $parent.data() : $el.data(), function( items ) {
+				this.options.dataSource( $parent.data(), function( items ) {
 					loader.addClass( 'hide' );
 
 					$.each( items.data, function( index, value ) {
@@ -2850,16 +2872,16 @@
 							$entity.data( value );
 						}
 
-						// Decorate $entity with data making the element
-						// easily accessable with libraries like jQuery.
+						// Decorate $entity with data or other attributes making the
+						// element easily accessable with libraries like jQuery.
 						//
 						// Values are contained within the object returned
-						// for folders and items as dataAttributes:
+						// for folders and items as attr:
 						//
 						// {
 						//     name: "An Item",
 						//     type: 'item',
-						//     dataAttributes = {
+						//     attr = {
 						//         'classes': 'required-item red-text',
 						//         'data-parent': parentId,
 						//         'guid': guid,
@@ -2868,11 +2890,11 @@
 						// };
 
 						// add attributes to tree-branch or tree-item
-						var dataAttributes = value.dataAttributes || [];
-						$.each( dataAttributes, function( key, value ) {
+						var attr = value[ 'attr' ] || value.dataAttributes || [];
+						$.each( attr, function( key, value ) {
 							switch ( key ) {
+								case 'cssClass':
 								case 'class':
-								case 'classes':
 								case 'className':
 									$entity.addClass( value );
 									break;
@@ -2912,6 +2934,7 @@
 
 			selectItem: function( el ) {
 				var $el = $( el );
+				var selData = $el.data();
 				var $all = this.$element.find( '.tree-selected' );
 				var data = [];
 				var $icon = $el.find( '.icon-item' );
@@ -2925,13 +2948,13 @@
 					} );
 				} else if ( $all[ 0 ] !== $el[ 0 ] ) {
 					$all.removeClass( 'tree-selected' )
-						.find( '.glyphicon' ).removeClass( 'glyphicon-ok' ).addClass( 'tree-dot' );
-					data.push( $el.data() );
+						.find( '.glyphicon' ).removeClass( 'glyphicon-ok' ).addClass( 'fueluxicon-bullet' );
+					data.push( selData );
 				}
 
 				var eventType = 'selected';
 				if ( $el.hasClass( 'tree-selected' ) ) {
-					eventType = 'unselected';
+					eventType = 'deselected';
 					$el.removeClass( 'tree-selected' );
 					if ( $icon.hasClass( 'glyphicon-ok' ) || $icon.hasClass( 'fueluxicon-bullet' ) ) {
 						$icon.removeClass( 'glyphicon-ok' ).addClass( 'fueluxicon-bullet' );
@@ -2943,15 +2966,14 @@
 						$icon.removeClass( 'fueluxicon-bullet' ).addClass( 'glyphicon-ok' );
 					}
 					if ( this.options.multiSelect ) {
-						data.push( $el.data() );
+						data.push( selData );
 					}
 				}
 
-				if ( data.length ) {
-					this.$element.trigger( 'selected', {
-						selected: data
-					} );
-				}
+				this.$element.trigger( eventType + '.fu.tree', {
+					target: selData,
+					selected: data
+				} );
 
 				// Return new list of selected items, the item
 				// clicked, and the type of event:
@@ -3012,19 +3034,20 @@
 					.removeClass( 'glyphicon-folder-close glyphicon-folder-open' )
 					.addClass( classToAdd );
 
-				this.$element.trigger( eventType, $branch.data() );
+				this.$element.trigger( eventType + 'fu.tree', $branch.data() );
 			},
 
 			selectFolder: function( clickedElement ) {
 				var $clickedElement = $( clickedElement );
 				var $clickedBranch = $clickedElement.closest( '.tree-branch' );
 				var $selectedBranch = this.$element.find( '.tree-branch.tree-selected' );
+				var clickedData = $clickedBranch.data();
 				var selectedData = [];
 				var eventType = 'selected';
 
 				// select clicked item
 				if ( $clickedBranch.hasClass( 'tree-selected' ) ) {
-					eventType = 'unselected';
+					eventType = 'deselected';
 					$clickedBranch.removeClass( 'tree-selected' );
 				} else {
 					$clickedBranch.addClass( 'tree-selected' );
@@ -3045,14 +3068,13 @@
 				} else if ( $selectedBranch[ 0 ] !== $clickedElement[ 0 ] ) {
 					$selectedBranch.removeClass( 'tree-selected' );
 
-					selectedData.push( $clickedBranch.data() );
+					selectedData.push( clickedData );
 				}
 
-				if ( selectedData.length ) {
-					this.$element.trigger( 'selected.fu.tree', {
-						selected: selectedData
-					} );
-				}
+				this.$element.trigger( eventType + '.fu.tree', {
+					target: clickedData,
+					selected: selectedData
+				} );
 
 				// Return new list of selected items, the item
 				// clicked, and the type of event:
@@ -3144,7 +3166,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -3560,7 +3582,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -3581,6 +3603,7 @@
 			this.fetchingData = false;
 
 			this.$element.on( 'scroll.fu.infinitescroll', $.proxy( this.onScroll, this ) );
+			this.onScroll();
 		};
 
 		InfiniteScroll.prototype = {
@@ -3619,7 +3642,8 @@
 
 			getPercentage: function() {
 				var height = ( this.$element.css( 'box-sizing' ) === 'border-box' ) ? this.$element.outerHeight() : this.$element.height();
-				return ( height / ( this.$element.get( 0 ).scrollHeight - this.curScrollTop ) ) * 100;
+				var scrollHeight = this.$element.get( 0 ).scrollHeight;
+				return ( scrollHeight > height ) ? ( ( height / ( scrollHeight - this.curScrollTop ) ) * 100 ) : 0;
 			},
 
 			fetchData: function( force ) {
@@ -3688,7 +3712,7 @@
 
 			var $set = this.each( function() {
 				var $this = $( this );
-				var data = $this.data( 'infinitescroll' );
+				var data = $this.data( 'fu.infinitescroll' );
 				var options = typeof option === 'object' && option;
 
 				if ( !data ) $this.data( 'fu.infinitescroll', ( data = new InfiniteScroll( this, options ) ) );
@@ -3724,7 +3748,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -3846,14 +3870,21 @@
 
 			suggestionClick: function( e ) {
 				var $item = $( e.currentTarget );
+				var item = {
+					text: $item.html(),
+					value: $item.data( 'value' )
+				};
 
 				e.preventDefault();
 				this.$addItem.val( '' );
 
-				this.addItems( {
-					text: $item.html(),
-					value: $item.data( 'value' )
-				}, true );
+				if ( $item.data( 'attr' ) ) {
+					item.attr = JSON.parse( $item.data( 'attr' ) );
+				}
+
+				item.data = $item.data( 'data' );
+
+				this.addItems( item, true );
 
 				// needs to be after addItems for IE
 				this._closeSuggestions();
@@ -3891,7 +3922,16 @@
 							el: self.$pillHTML
 						};
 
+						if ( value[ 'attr' ] ) {
+							data[ 'attr' ] = value.attr; // avoid confusion with $.attr();
+						}
+
+						if ( value[ 'data' ] ) {
+							data[ 'data' ] = value.data;
+						}
+
 						items[ i ] = data;
+
 					} );
 
 					if ( this.options.edit && this.currentEdit ) {
@@ -3907,7 +3947,7 @@
 						if ( this.options.edit && this.currentEdit ) {
 							self.options.onAdd( items[ 0 ], $.proxy( self.saveEdit, this ) );
 						} else {
-							self.options.onAdd( items[ 0 ], $.proxy( self.placeItems, this, true ) );
+							self.options.onAdd( items[ 0 ], $.proxy( self.placeItems, this ) );
 						}
 					} else {
 						if ( this.options.edit && this.currentEdit ) {
@@ -3954,7 +3994,7 @@
 			//First parameter is index (optional)
 			//Second parameter is new arguments
 			placeItems: function() {
-				var newHtml = '';
+				var $newHtml = [];
 				var items;
 				var index;
 				var $neighbor;
@@ -3980,7 +4020,25 @@
 						$item.attr( 'data-value', item.value );
 						$item.find( 'span:first' ).html( item.text );
 
-						newHtml += $item.wrap( '<div></div>' ).parent().html();
+						// DOM attributes
+						if ( item[ 'attr' ] ) {
+							$.each( item[ 'attr' ], function( key, value ) {
+
+								if ( key === 'cssClass' || key === 'class' ) {
+									$item.addClass( value );
+								} else {
+									$item.attr( key, value );
+								}
+
+							} );
+
+						}
+
+						if ( item[ 'data' ] ) {
+							$item.data( 'data', item.data );
+						}
+
+						$newHtml.push( $item );
 					} );
 
 					if ( this.$pillGroup.children( '.pill' ).length > 0 ) {
@@ -3988,15 +4046,15 @@
 							$neighbor = this.$pillGroup.find( '.pill:nth-child(' + index + ')' );
 
 							if ( $neighbor.length ) {
-								$neighbor.before( newHtml );
+								$neighbor.before( $newHtml );
 							} else {
-								this.$pillGroup.children( '.pill:last' ).after( newHtml );
+								this.$pillGroup.children( '.pill:last' ).after( $newHtml );
 							}
 						} else {
-							this.$pillGroup.children( '.pill:last' ).after( newHtml );
+							this.$pillGroup.children( '.pill:last' ).after( $newHtml );
 						}
 					} else {
-						this.$pillGroup.prepend( newHtml );
+						this.$pillGroup.prepend( $newHtml );
 					}
 
 					if ( isInternal ) {
@@ -4012,6 +4070,7 @@
 				var self = this;
 				var text = this.$addItem.val();
 				var value;
+				var attr;
 				var $lastItem;
 				var $selection;
 
@@ -4023,6 +4082,7 @@
 						if ( $selection.length ) {
 							text = $selection.html();
 							value = $selection.data( 'value' );
+							attr = $selection.data( 'attr' );
 						}
 					}
 
@@ -4030,10 +4090,18 @@
 						this._closeSuggestions();
 						this.$addItem.hide();
 
-						this.addItems( {
-							text: text,
-							value: value
-						}, true );
+						if ( attr ) {
+							this.addItems( {
+								text: text,
+								value: value,
+								attr: JSON.parse( attr )
+							}, true );
+						} else {
+							this.addItems( {
+								text: text,
+								value: value
+							}, true );
+						}
 
 						setTimeout( function() {
 							self.$addItem.show().val( '' ).attr( {
@@ -4042,6 +4110,7 @@
 						}, 0 );
 					}
 
+					e.preventDefault();
 					return true;
 				} else if ( e.keyCode === 8 || e.keyCode === 46 ) {
 					// backspace: 8
@@ -4135,7 +4204,7 @@
 			//Must match syntax of placeItem so addItem callback is called when an item is edited
 			//expecting to receive an array back from the callback containing edited items
 			saveEdit: function() {
-				var item = arguments[ 0 ][ 0 ];
+				var item = arguments[ 0 ][ 0 ] ? arguments[ 0 ][ 0 ] : arguments[ 0 ];
 
 				this.currentEdit = $( item.el );
 				this.currentEdit.data( 'value', item.value );
@@ -4267,20 +4336,33 @@
 
 			_openSuggestions: function( e, data ) {
 				var markup = '';
+				var $suggestionList = $( '<ul>' );
 
 				if ( this.callbackId !== e.timeStamp ) {
 					return false;
 				}
 
 				if ( data.data && data.data.length ) {
+
 					$.each( data.data, function( index, value ) {
 						var val = value.value ? value.value : value.text;
-						markup += '<li data-value="' + val + '">' + value.text + '</li>';
+
+						// markup concatentation is 10x faster, but does not allow data store
+						var $suggestion = $( '<li data-value="' + val + '">' + value.text + '</li>' );
+
+						if ( value.attr ) {
+							$suggestion.data( 'attr', JSON.stringify( value.attr ) );
+						}
+
+						if ( value.data ) {
+							$suggestion.data( 'data', value.data );
+						}
+
+						$suggestionList.append( $suggestion );
 					} );
 
 					// suggestion dropdown
-
-					this.$suggest.html( '' ).append( markup );
+					this.$suggest.html( '' ).append( $suggestionList.children() );
 					$( document.body ).trigger( 'suggested.fu.pillbox', this.$suggest );
 				}
 			},
@@ -4406,7 +4488,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -4419,7 +4501,7 @@
 
 		var Repeater = function( element, options ) {
 			var self = this;
-			var currentView;
+			var $btn, currentView;
 
 			this.$element = $( element );
 
@@ -4458,27 +4540,39 @@
 			this.$primaryPaging.find( '.combobox' ).combobox();
 			this.$search.search();
 
-			this.$filters.on( 'changed.fu.selectlist', $.proxy( this.render, this, {
-				clearInfinite: true,
-				pageIncrement: null
-			} ) );
+			this.$filters.on( 'changed.fu.selectlist', function( e, value ) {
+				self.$element.trigger( 'filtered.fu.repeater', value );
+				self.render( {
+					clearInfinite: true,
+					pageIncrement: null
+				} );
+			} );
 			this.$nextBtn.on( 'click.fu.repeater', $.proxy( this.next, this ) );
-			this.$pageSize.on( 'changed.fu.selectlist', $.proxy( this.render, this, {
-				pageIncrement: null
-			} ) );
+			this.$pageSize.on( 'changed.fu.selectlist', function( e, value ) {
+				self.$element.trigger( 'pageSizeChanged.fu.repeater', value );
+				self.render( {
+					pageIncrement: null
+				} );
+			} );
 			this.$prevBtn.on( 'click.fu.repeater', $.proxy( this.previous, this ) );
 			this.$primaryPaging.find( '.combobox' ).on( 'changed.fu.combobox', function( evt, data ) {
+				self.$element.trigger( 'pageChanged.fu.repeater', [ data.text, data ] );
 				self.pageInputChange( data.text );
 			} );
-			this.$search.on( 'searched.fu.search cleared.fu.search', $.proxy( this.render, this, {
-				clearInfinite: true,
-				pageIncrement: null
-			} ) );
-			this.$secondaryPaging.on( 'blur.fu.repeater', function() {
+			this.$search.on( 'searched.fu.search cleared.fu.search', function( e, value ) {
+				self.$element.trigger( 'searchChanged.fu.repeater', value );
+				self.render( {
+					clearInfinite: true,
+					pageIncrement: null
+				} );
+			} );
+			this.$secondaryPaging.on( 'blur.fu.repeater', function( e ) {
 				self.pageInputChange( self.$secondaryPaging.val() );
 			} );
-			this.$secondaryPaging.on( 'change.fu.repeater', function() {
-				self.pageInputChange( self.$secondaryPaging.val() );
+			this.$secondaryPaging.on( 'keyup', function( e ) {
+				if ( e.keyCode === 13 ) {
+					self.pageInputChange( self.$secondaryPaging.val() );
+				}
 			} );
 			this.$views.find( 'input' ).on( 'change.fu.repeater', $.proxy( this.viewChanged, this ) );
 
@@ -4493,7 +4587,12 @@
 
 			this.$loader.loader();
 			this.$loader.loader( 'pause' );
-			currentView = ( this.options.defaultView !== -1 ) ? this.options.defaultView : this.$views.find( 'label.active input' ).val();
+			if ( this.options.defaultView !== -1 ) {
+				currentView = this.options.defaultView;
+			} else {
+				$btn = this.$views.find( 'label.active input' );
+				currentView = ( $btn.length > 0 ) ? $btn.val() : 'list';
+			}
 
 			this.initViews( function() {
 				self.resize();
@@ -4529,10 +4628,13 @@
 				options = options || {};
 
 				if ( !options.preserve ) {
+					//Just trash everything because preserve is false
 					this.$canvas.empty();
 				} else if ( !this.infiniteScrollingEnabled || options.clearInfinite ) {
+					//Preserve clear only if infiniteScrolling is disabled or if specifically told to do so
 					scan( this.$canvas );
 				}
+				//otherwise don't clear because infiniteScrolling is enabled
 			},
 
 			destroy: function() {
@@ -4567,11 +4669,11 @@
 
 				options = options || {};
 
-				opts.filter = this.$filters.selectlist( 'selectedItem' );
+				opts.filter = ( this.$filters.length > 0 ) ? this.$filters.selectlist( 'selectedItem' ) : 'all';
 				opts.view = this.currentView;
 
 				if ( !this.infiniteScrollingEnabled ) {
-					opts.pageSize = parseInt( this.$pageSize.selectlist( 'selectedItem' ).value, 10 );
+					opts.pageSize = ( this.$pageSize.length > 0 ) ? parseInt( this.$pageSize.selectlist( 'selectedItem' ).value, 10 ) : 25;
 				}
 				if ( options.pageIncrement !== undefined ) {
 					if ( options.pageIncrement === null ) {
@@ -4582,7 +4684,7 @@
 				}
 				opts.pageIndex = this.currentPage;
 
-				val = this.$search.find( 'input' ).val();
+				val = ( this.$search.length > 0 ) ? this.$search.find( 'input' ).val() : '';
 				if ( val !== '' ) {
 					opts.search = val;
 				}
@@ -4702,11 +4804,12 @@
 				this.$start.html( data.start || '' );
 			},
 
-			next: function() {
+			next: function( e ) {
 				var d = 'disabled';
 				this.$nextBtn.attr( d, d );
 				this.$prevBtn.attr( d, d );
 				this.pageIncrement = 1;
+				this.$element.trigger( 'nextClicked.fu.repeater' );
 				this.render( {
 					pageIncrement: this.pageIncrement
 				} );
@@ -4718,6 +4821,7 @@
 					this.lastPageInput = val;
 					val = parseInt( val, 10 ) - 1;
 					pageInc = val - this.currentPage;
+					this.$element.trigger( 'pageChanged.fu.repeater', val );
 					this.render( {
 						pageIncrement: pageInc
 					} );
@@ -4791,6 +4895,7 @@
 				this.$nextBtn.attr( d, d );
 				this.$prevBtn.attr( d, d );
 				this.pageIncrement = -1;
+				this.$element.trigger( 'previousClicked.fu.repeater' );
 				this.render( {
 					pageIncrement: this.pageIncrement
 				} );
@@ -4803,34 +4908,45 @@
 				var prevView;
 
 				var start = function() {
+					var next = function() {
+						if ( !self.infiniteScrollingEnabled || ( self.infiniteScrollingEnabled && viewChanged ) ) {
+							self.$loader.show().loader( 'play' );
+						}
+						self.getDataOptions( options, function( opts ) {
+							self.options.dataSource( opts, function( data ) {
+								var renderer = viewObj.renderer;
+								if ( self.infiniteScrollingEnabled ) {
+									self.infiniteScrollingCallback( {} );
+								} else {
+									self.itemization( data );
+									self.pagination( data );
+								}
+								if ( renderer ) {
+									self.runRenderer( self.$canvas, renderer, data, function() {
+										if ( self.infiniteScrollingEnabled ) {
+											if ( viewChanged || options.clearInfinite ) {
+												self.initInfiniteScrolling();
+											}
+											self.infiniteScrollPaging( data, options );
+										}
+										self.$loader.hide().loader( 'pause' );
+										self.$element.trigger( 'loaded.fu.repeater' );
+									} );
+								}
+							} );
+						} );
+					};
+
 					options.preserve = ( options.preserve !== undefined ) ? options.preserve : !viewChanged;
 					self.clear( options );
-					if ( !self.infiniteScrollingEnabled || ( self.infiniteScrollingEnabled && viewChanged ) ) {
-						self.$loader.show().loader( 'play' );
-					}
-					self.getDataOptions( options, function( opts ) {
-						self.options.dataSource( opts, function( data ) {
-							var renderer = viewObj.renderer;
-							if ( self.infiniteScrollingEnabled ) {
-								self.infiniteScrollingCallback( {} );
-							} else {
-								self.itemization( data );
-								self.pagination( data );
-							}
-							if ( renderer ) {
-								self.runRenderer( self.$canvas, renderer, data, function() {
-									if ( self.infiniteScrollingEnabled ) {
-										if ( viewChanged || options.clearInfinite ) {
-											self.initInfiniteScrolling();
-										}
-										self.infiniteScrollPaging( data, options );
-									}
-									self.$loader.hide().loader( 'pause' );
-									self.$element.trigger( 'loaded.fu.repeater' );
-								} );
-							}
+					if ( !viewChanged && viewObj.cleared ) {
+						viewObj.cleared.call( self, {}, function() {
+							next();
 						} );
-					} );
+					} else {
+						next();
+					}
+
 				};
 
 				options = options || {};
@@ -5011,8 +5127,10 @@
 
 			viewChanged: function( e ) {
 				var $selected = $( e.target );
+				var val = $selected.val();
+				this.$element.trigger( 'viewChanged.fu.repeater', val );
 				this.render( {
-					changeView: $selected.val(),
+					changeView: val,
 					pageIncrement: null
 				} );
 			}
@@ -5045,17 +5163,20 @@
 
 		//views object contains keyed list of view plugins, each an object with following optional parameters:
 		//{
-		//initialize: function(){},
-		//selected: function(){},
+		//cleared: function(helpers, callback){},
+		//dataOptions: function(helpers, callback){},
+		//initialize: function(helpers, callback){},
+		//selected: function(helpers, callback){},
+		//resize: function(helpers, callback){},
 		//renderer: {}
 		//}
 		//renderer object contains following optional parameters:
 		//{
-		//before: function(helpers){},
-		//after: function(helpers){},
-		//complete: function(helpers){},
+		//before: function(helpers, callback){},
+		//after: function(helpers, callback){},
+		//complete: function(helpers, callback){},
 		//repeat: 'parameter.subparameter.etc',
-		//render: function(helpers){},
+		//render: function(helpers, callback){},
 		//nested: [ *array of renderer objects* ]
 		//}
 
@@ -5077,6 +5198,7 @@
 		};
 
 
+
 	} )( jQuery );
 
 
@@ -5087,7 +5209,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -5096,14 +5218,15 @@
 
 		if ( $.fn.repeater ) {
 
-			$.fn.repeater.Constructor.prototype.clearSelectedItems = function() {
+			//ADDITIONAL METHODS
+			$.fn.repeater.Constructor.prototype.list_clearSelectedItems = function() {
 				this.$canvas.find( '.repeater-list-check' ).remove();
-				this.$canvas.find( '.repeater-list-items tr.selected' ).removeClass( 'selected' );
+				this.$canvas.find( '.repeater-list table tbody tr.selected' ).removeClass( 'selected' );
 			};
 
-			$.fn.repeater.Constructor.prototype.getSelectedItems = function() {
+			$.fn.repeater.Constructor.prototype.list_getSelectedItems = function() {
 				var selected = [];
-				this.$canvas.find( '.repeater-list-items tr.selected' ).each( function() {
+				this.$canvas.find( '.repeater-list table tbody tr.selected' ).each( function() {
 					var $item = $( this );
 					selected.push( {
 						data: $item.data( 'item_data' ),
@@ -5113,7 +5236,24 @@
 				return selected;
 			};
 
-			$.fn.repeater.Constructor.prototype.setSelectedItems = function( items, force ) {
+			$.fn.repeater.Constructor.prototype.list_positionHeadings = function() {
+				var $wrapper = this.$element.find( '.repeater-list-wrapper' );
+				var offsetLeft = $wrapper.offset().left;
+				var scrollLeft = $wrapper.scrollLeft();
+				if ( scrollLeft > 0 ) {
+					$wrapper.find( '.repeater-list-heading' ).each( function() {
+						var $heading = $( this );
+						var left = ( $heading.parents( 'th:first' ).offset().left - offsetLeft ) + 'px';
+						$heading.addClass( 'shifted' ).css( 'left', left );
+					} );
+				} else {
+					$wrapper.find( '.repeater-list-heading' ).each( function() {
+						$( this ).removeClass( 'shifted' ).css( 'left', '' );
+					} );
+				}
+			};
+
+			$.fn.repeater.Constructor.prototype.list_setSelectedItems = function( items, force ) {
 				var selectable = this.options.list_selectable;
 				var self = this;
 				var data, i, $item, l;
@@ -5130,7 +5270,7 @@
 					select = ( select !== undefined ) ? select : true;
 					if ( select ) {
 						if ( !force && selectable !== 'multi' ) {
-							self.clearSelectedItems();
+							self.list_clearSelectedItems();
 						}
 						if ( !$itm.hasClass( 'selected' ) ) {
 							$itm.addClass( 'selected' );
@@ -5154,17 +5294,28 @@
 				}
 				for ( i = 0; i < l; i++ ) {
 					if ( items[ i ].index !== undefined ) {
-						$item = this.$canvas.find( '.repeater-list-items tr:nth-child(' + ( items[ i ].index + 1 ) + ')' );
+						$item = this.$canvas.find( '.repeater-list table tbody tr:nth-child(' + ( items[ i ].index + 1 ) + ')' );
 						if ( $item.length > 0 ) {
 							selectItem( $item, items[ i ].selected );
 						}
 					} else if ( items[ i ].property !== undefined && items[ i ].value !== undefined ) {
 						//lint demanded this function not be within this loop
-						this.$canvas.find( '.repeater-list-items tr' ).each( eachFunc );
+						this.$canvas.find( '.repeater-list table tbody tr' ).each( eachFunc );
 					}
 				}
 			};
 
+			$.fn.repeater.Constructor.prototype.list_sizeHeadings = function() {
+				var $table = this.$element.find( '.repeater-list table' );
+				$table.find( 'thead th' ).each( function() {
+					var $hr = $( this );
+					var $heading = $hr.find( '.repeater-list-heading' );
+					$heading.outerHeight( $hr.outerHeight() );
+					$heading.outerWidth( $hr.outerWidth() );
+				} );
+			};
+
+			//ADDITIONAL DEFAULT OPTIONS
 			$.fn.repeater.defaults = $.extend( {}, $.fn.repeater.defaults, {
 				list_columnRendered: null,
 				list_columnSizing: true,
@@ -5176,7 +5327,14 @@
 				list_rowRendered: null
 			} );
 
+			//EXTENSION DEFINITION
 			$.fn.repeater.views.list = {
+				cleared: function( helpers, callback ) {
+					if ( this.options.list_columnSyncing ) {
+						this.list_sizeHeadings();
+					}
+					callback();
+				},
 				dataOptions: function( opts, callback ) {
 					if ( this.list_sortDirection ) {
 						opts.sortDirection = this.list_sortDirection;
@@ -5203,13 +5361,44 @@
 						this.infiniteScrolling( true, opts );
 					}
 
-					callback( {} );
+					callback();
 				},
-				renderer: {
+				resize: function( helpers, callback ) {
+					if ( this.options.list_columnSyncing ) {
+						this.list_sizeHeadings();
+					}
+					callback();
+				},
+				renderer: { //RENDERING REPEATER-LIST, REPEATER-LIST-WRAPPER, AND TABLE
 					complete: function( helpers, callback ) {
-						columnSyncing.call( this, helpers, callback );
+						if ( this.options.list_columnSyncing ) {
+							this.list_sizeHeadings();
+							this.list_positionHeadings();
+						}
+						callback();
 					},
-					nested: [ {
+					render: function( helpers, callback ) {
+						var $list = this.$element.find( '.repeater-list' );
+						var self = this;
+						var $item;
+						if ( $list.length > 0 ) {
+							callback( {
+								action: 'none',
+								item: $list
+							} );
+						} else {
+							$item = $( '<div class="repeater-list" data-preserve="shallow"><div class="repeater-list-wrapper" data-infinite="true" data-preserve="shallow"><table aria-readonly="true" class="table" data-container="true" data-preserve="shallow" role="grid"></table></div></div>' );
+							$item.find( '.repeater-list-wrapper' ).on( 'scroll.fu.repeaterList', function() {
+								if ( self.options.list_columnSyncing ) {
+									self.list_positionHeadings();
+								}
+							} );
+							callback( {
+								item: $item
+							} );
+						}
+					},
+					nested: [ { //RENDERING THEAD
 						complete: function( helpers, callback ) {
 							var auto = [];
 							var self = this;
@@ -5220,22 +5409,22 @@
 							} else {
 								i = 0;
 								taken = 0;
-								helpers.item.find( 'td' ).each( function() {
-									var $col = $( this );
-									var isLast = ( $col.next( 'td' ).length === 0 ) ? true : false;
+								helpers.item.find( 'th' ).each( function() {
+									var $th = $( this );
+									var isLast = ( $th.next( 'th' ).length === 0 );
 									var width;
 									if ( self.list_columns[ i ].width !== undefined ) {
 										width = self.list_columns[ i ].width;
-										$col.outerWidth( width );
-										taken += $col.outerWidth();
+										$th.outerWidth( width );
+										taken += $th.outerWidth();
 										if ( !isLast ) {
 											self.list_columns[ i ]._auto_width = width;
 										} else {
-											$col.outerWidth( '' );
+											$th.outerWidth( '' );
 										}
 									} else {
 										auto.push( {
-											col: $col,
+											col: $th,
 											index: i,
 											last: isLast
 										} );
@@ -5286,8 +5475,7 @@
 								this.list_firstRender = false;
 								this.$loader.removeClass( 'noHeader' );
 								callback( {
-									action: 'prepend',
-									item: '<table class="table repeater-list-header" data-preserve="deep" role="grid" aria-readonly="true"><tr data-container="true"></tr></table>'
+									item: '<thead data-preserve="deep"><tr data-container="true"></tr></thead>'
 								} );
 							} else {
 								this.list_columnsSame = true;
@@ -5296,46 +5484,56 @@
 								} );
 							}
 						},
-						nested: [ {
+						nested: [ { //RENDERING COLUMN HEADERS (TH AND REPEATER-LIST-HEADING)
 							render: function( helpers, callback ) {
-								var chev = 'glyphicon-chevron';
-								var chevDown = chev + '-down';
-								var chevUp = chev + '-up';
+								var chevDown = 'glyphicon-chevron-down';
+								var chevron = '.glyphicon.rlc:first';
+								var chevUp = 'glyphicon-chevron-up';
+								var $div = $( '<div class="repeater-list-heading"><span class="glyphicon rlc"></span></div>' );
 								var index = helpers.index;
+								var $item = $( '<th></th>' );
 								var self = this;
 								var subset = helpers.subset;
-								var cssClass, $item, sortable, $span;
+								var $both, className, sortable, $span, $spans;
 
-								cssClass = subset[ index ].cssClass;
-								$item = $( '<td><span class="glyphicon"></span></td>' );
-								$item.addClass( ( ( cssClass !== undefined ) ? cssClass : '' ) ).prepend( subset[ index ].label );
-								$span = $item.find( 'span.glyphicon:first' );
+								$div.prepend( helpers.subset[ helpers.index ].label );
+								$item.html( $div.html() ).find( '[id]' ).removeAttr( 'id' );
+								$item.append( $div );
+
+								$both = $item.add( $div );
+								$span = $div.find( chevron );
+								$spans = $span.add( $item.find( chevron ) );
+
+								className = subset[ index ].className;
+								if ( className !== undefined ) {
+									$both.addClass( className );
+								}
 
 								sortable = subset[ index ].sortable;
 								if ( sortable ) {
-									$item.addClass( 'sortable' );
-									$item.on( 'click.fu.repeater-list', function() {
+									$both.addClass( 'sortable' );
+									$div.on( 'click.fu.repeaterList', function() {
 										self.list_sortProperty = ( typeof sortable === 'string' ) ? sortable : subset[ index ].property;
-										if ( $item.hasClass( 'sorted' ) ) {
+										if ( $div.hasClass( 'sorted' ) ) {
 											if ( $span.hasClass( chevUp ) ) {
-												$span.removeClass( chevUp ).addClass( chevDown );
+												$spans.removeClass( chevUp ).addClass( chevDown );
 												self.list_sortDirection = 'desc';
 											} else {
 												if ( !self.options.list_sortClearing ) {
-													$span.removeClass( chevDown ).addClass( chevUp );
+													$spans.removeClass( chevDown ).addClass( chevUp );
 													self.list_sortDirection = 'asc';
 												} else {
-													$item.removeClass( 'sorted' );
-													$span.removeClass( chevDown );
+													$both.removeClass( 'sorted' );
+													$spans.removeClass( chevDown );
 													self.list_sortDirection = null;
 													self.list_sortProperty = null;
 												}
 											}
 										} else {
-											helpers.container.find( 'td' ).removeClass( 'sorted' );
-											$span.removeClass( chevDown ).addClass( chevUp );
+											helpers.container.find( 'th, .repeater-list-heading' ).removeClass( 'sorted' );
+											$spans.removeClass( chevDown ).addClass( chevUp );
 											self.list_sortDirection = 'asc';
-											$item.addClass( 'sorted' );
+											$both.addClass( 'sorted' );
 										}
 										self.render( {
 											clearInfinite: true,
@@ -5343,14 +5541,15 @@
 										} );
 									} );
 								}
+
 								if ( subset[ index ].sortDirection === 'asc' || subset[ index ].sortDirection === 'desc' ) {
-									helpers.container.find( 'td' ).removeClass( 'sorted' );
-									$item.addClass( 'sortable sorted' );
+									helpers.container.find( 'th, .repeater-list-heading' ).removeClass( 'sorted' );
+									$both.addClass( 'sortable sorted' );
 									if ( subset[ index ].sortDirection === 'asc' ) {
-										$span.addClass( chevUp );
+										$spans.addClass( chevUp );
 										this.list_sortDirection = 'asc';
 									} else {
-										$span.addClass( chevDown );
+										$spans.addClass( chevDown );
 										this.list_sortDirection = 'desc';
 									}
 									this.list_sortProperty = ( typeof sortable === 'string' ) ? sortable : subset[ index ].property;
@@ -5362,39 +5561,27 @@
 							},
 							repeat: 'data.columns'
 						} ]
-					}, {
-						after: function( helpers, callback ) {
-							var canvas = this.$canvas;
-							var header = canvas.find( '.repeater-list-header' );
-							if ( this.staticHeight ) {
-								helpers.item.height( canvas.height() - header.outerHeight() );
-							}
-							callback();
-						},
+					}, { //RENDERING TBODY
 						render: function( helpers, callback ) {
-							var $item = this.$canvas.find( '.repeater-list-wrapper' );
+							var $item = $( '<tbody data-container="true"></tbody>' );
 							var obj = {};
 							var $empty;
-							if ( $item.length > 0 ) {
-								obj.action = 'none';
-							} else {
-								$item = $( '<div class="repeater-list-wrapper" data-infinite="true"><table class="table repeater-list-items" data-container="true" role="grid" aria-readonly="true"></table></div>' );
-							}
-							obj.item = $item;
+
 							if ( helpers.data.items.length < 1 ) {
 								obj.skipNested = true;
-								$empty = $( '<tr class="empty"><td></td></tr>' );
+								$empty = $( '<tr class="empty"><td colspan="' + this.list_columns.length + '"></td></tr>' );
 								$empty.find( 'td' ).append( this.options.list_noItemsHTML );
-								$item.find( '.repeater-list-items' ).append( $empty );
-							} else {
-								$item.find( '.repeater-list-items tr.empty:first' ).remove();
+								$item.append( $empty );
 							}
+							obj.item = $item;
+
 							callback( obj );
 						},
-						nested: [ {
+						nested: [ { //RENDERING ROWS (TR)
 							complete: function( helpers, callback ) {
 								var obj = {
-									container: helpers.container
+									container: helpers.container,
+									rowData: helpers.subset[ helpers.index ]
 								};
 								if ( helpers.item !== undefined ) {
 									obj.item = helpers.item;
@@ -5415,34 +5602,32 @@
 									$item.addClass( 'selectable' );
 									$item.attr( 'tabindex', 0 ); // allow items to be tabbed to / focused on
 									$item.data( 'item_data', helpers.subset[ helpers.index ] );
-									$item.on( 'click.fu.repeater-list', function() {
+									$item.on( 'click.fu.repeaterList', function() {
 										var $row = $( this );
 										if ( $row.hasClass( 'selected' ) ) {
 											$row.removeClass( 'selected' );
 											$row.find( '.repeater-list-check' ).remove();
-											self.$element.trigger( 'itemDeselected.fu.repeater', $row );
+											self.$element.trigger( 'deselected.fu.repeaterList', $row );
 										} else {
 											if ( self.options.list_selectable !== 'multi' ) {
 												self.$canvas.find( '.repeater-list-check' ).remove();
-												self.$canvas.find( '.repeater-list-items tr.selected' ).each( function() {
+												self.$canvas.find( '.repeater-list tbody tr.selected' ).each( function() {
 													$( this ).removeClass( 'selected' );
-													self.$element.trigger( 'itemDeselected.fu.repeater', $( this ) );
+													self.$element.trigger( 'deselected.fu.repeaterList', $( this ) );
 												} );
 											}
 											$row.addClass( 'selected' );
 											$row.find( 'td:first' ).prepend( '<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>' );
-											self.$element.trigger( 'itemSelected.fu.repeater', $row );
+											self.$element.trigger( 'selected.fu.repeaterList', $row );
 										}
 									} );
 									// allow selection via enter key
 									$item.keyup( function( e ) {
 										if ( e.keyCode === 13 ) {
-											$item.trigger( 'click.fu.repeater-list' );
+											$item.trigger( 'clicked.fu.repeaterList' );
 										}
 									} );
 								}
-
-
 
 								this.list_curRowIndex = helpers.index;
 								callback( {
@@ -5450,10 +5635,12 @@
 								} );
 							},
 							repeat: 'data.items',
-							nested: [ {
+							nested: [ { //RENDERING COLUMNS (TD)
 								after: function( helpers, callback ) {
 									var obj = {
-										container: helpers.container
+										container: helpers.container,
+										columnAttr: helpers.subset[ helpers.index ].property,
+										rowData: helpers.data.items[ this.list_curRowIndex ]
 									};
 									if ( helpers.item !== undefined ) {
 										obj.item = helpers.item;
@@ -5467,12 +5654,12 @@
 									}
 								},
 								render: function( helpers, callback ) {
-									var cssClass = helpers.subset[ helpers.index ].cssClass;
+									var className = helpers.subset[ helpers.index ].className;
 									var content = helpers.data.items[ this.list_curRowIndex ][ helpers.subset[ helpers.index ].property ];
 									var $item = $( '<td></td>' );
 									var width = helpers.subset[ helpers.index ]._auto_width;
 
-									$item.addClass( ( ( cssClass !== undefined ) ? cssClass : '' ) ).append( content );
+									$item.addClass( ( ( className !== undefined ) ? className : '' ) ).append( content );
 									if ( width !== undefined ) {
 										$item.outerWidth( width );
 									}
@@ -5484,39 +5671,9 @@
 							} ]
 						} ]
 					} ]
-				},
-				resize: function( helpers, callback ) {
-					columnSyncing.call( this, {
-						data: {
-							items: [ '' ]
-						}
-					}, callback );
 				}
 			};
 
-			var columnSyncing = function( helpers, callback ) {
-				var i = 0;
-				var widths = [];
-				var $header, $items;
-
-				if ( !this.options.list_columnSyncing || ( helpers.data.items.length < 1 ) ) {
-					callback();
-				} else {
-					$header = this.$element.find( '.repeater-list-header:first' );
-					$items = this.$element.find( '.repeater-list-items:first' );
-					$items.find( 'tr:first td' ).each( function() {
-						widths.push( $( this ).outerWidth() );
-					} );
-					widths.pop();
-					$header.find( 'td' ).each( function() {
-						if ( widths[ i ] !== undefined ) {
-							$( this ).outerWidth( widths[ i ] );
-						}
-						i++;
-					} );
-					callback();
-				}
-			};
 		}
 
 
@@ -5530,7 +5687,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -5539,12 +5696,74 @@
 
 		if ( $.fn.repeater ) {
 
+			//ADDITIONAL METHODS
+			$.fn.repeater.Constructor.prototype.thumbnail_clearSelectedItems = function() {
+				this.$canvas.find( '.repeater-thumbnail-cont .repeater-thumbnail.selected' ).removeClass( 'selected' );
+			};
+
+			$.fn.repeater.Constructor.prototype.thumbnail_getSelectedItems = function() {
+				var selected = [];
+				this.$canvas.find( '.repeater-thumbnail-cont .repeater-thumbnail.selected' ).each( function() {
+					selected.push( $( this ) );
+				} );
+				return selected;
+			};
+
+			$.fn.repeater.Constructor.prototype.thumbnail_setSelectedItems = function( items, force ) {
+				var selectable = this.options.thumbnail_selectable;
+				var self = this;
+				var i, $item, l;
+
+				var eachFunc = function() {
+					$item = $( this );
+					if ( $item.is( items[ i ].selector ) ) {
+						selectItem( $item, items[ i ].selected );
+					}
+				};
+
+				var selectItem = function( $itm, select ) {
+					select = ( select !== undefined ) ? select : true;
+					if ( select ) {
+						if ( !force && selectable !== 'multi' ) {
+							self.thumbnail_clearSelectedItems();
+						}
+						$itm.addClass( 'selected' );
+					} else {
+						$itm.removeClass( 'selected' );
+					}
+				};
+
+				if ( !$.isArray( items ) ) {
+					items = [ items ];
+				}
+				if ( force === true || selectable === 'multi' ) {
+					l = items.length;
+				} else if ( selectable ) {
+					l = ( items.length > 0 ) ? 1 : 0;
+				} else {
+					l = 0;
+				}
+				for ( i = 0; i < l; i++ ) {
+					if ( items[ i ].index !== undefined ) {
+						$item = this.$canvas.find( '.repeater-thumbnail-cont .repeater-thumbnail:nth-child(' + ( items[ i ].index + 1 ) + ')' );
+						if ( $item.length > 0 ) {
+							selectItem( $item, items[ i ].selected );
+						}
+					} else if ( items[ i ].selector ) {
+						this.$canvas.find( '.repeater-thumbnail-cont .repeater-thumbnail' ).each( eachFunc );
+					}
+				}
+			};
+
+			//ADDITIONAL DEFAULT OPTIONS
 			$.fn.repeater.defaults = $.extend( {}, $.fn.repeater.defaults, {
 				thumbnail_infiniteScroll: false,
 				thumbnail_itemRendered: null,
-				thumbnail_template: '<div class="thumbnail repeater-thumbnail" style="background-color: {{color}};"><img height="75" src="{{src}}" width="65"><span>{{name}}</span></div>'
+				thumbnail_selectable: false,
+				thumbnail_template: '<div class="thumbnail repeater-thumbnail"><img height="75" src="{{src}}" width="65"><span>{{name}}</span></div>'
 			} );
 
+			//EXTENSION DEFINITION
 			$.fn.repeater.views.thumbnail = {
 				selected: function( helpers, callback ) {
 					var infScroll = this.options.thumbnail_infiniteScroll;
@@ -5557,7 +5776,7 @@
 				},
 				renderer: {
 					render: function( helpers, callback ) {
-						var $item = this.$element.find( '.repeater-thumbnail-cont' );
+						var $item = this.$canvas.find( '.repeater-thumbnail-cont' );
 						var obj = {};
 						var $empty;
 						if ( $item.length > 0 ) {
@@ -5579,10 +5798,35 @@
 					nested: [ {
 						after: function( helpers, callback ) {
 							var obj = {
-								container: helpers.container
+								container: helpers.container,
+								itemData: helpers.subset[ helpers.index ]
 							};
+							var selectable = this.options.thumbnail_selectable;
+							var selected = 'selected';
+							var self = this;
+							var $item;
 							if ( helpers.item !== undefined ) {
 								obj.item = helpers.item;
+								if ( selectable ) {
+									$item = $( obj.item );
+									$item.addClass( 'selectable' );
+									$item.on( 'click', function() {
+										if ( !$item.hasClass( selected ) ) {
+											if ( selectable !== 'multi' ) {
+												self.$canvas.find( '.repeater-thumbnail-cont .repeater-thumbnail.selected' ).each( function() {
+													var $itm = $( this );
+													$itm.removeClass( selected );
+													self.$element.trigger( 'deselected.fu.repeaterThumbnail', $itm );
+												} );
+											}
+											$item.addClass( selected );
+											self.$element.trigger( 'selected.fu.repeaterThumbnail', $item );
+										} else {
+											$item.removeClass( selected );
+											self.$element.trigger( 'deselected.fu.repeaterThumbnail', $item );
+										}
+									} );
+								}
 							}
 							if ( this.options.thumbnail_itemRendered ) {
 								this.options.thumbnail_itemRendered( obj, function() {
@@ -5638,7 +5882,7 @@
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
-		 * Licensed under the MIT license.
+		 * Licensed under the BSD New license.
 		 */
 
 
@@ -5697,7 +5941,10 @@
 					'min': 1
 				} );
 			}
-			this.$endAfter.spinbox();
+			this.$endAfter.spinbox( {
+				'value': 1,
+				'min': 1
+			} );
 			this.$endDate.datepicker();
 			this.$element.find( '.radio-custom' ).radio();
 
@@ -6065,14 +6312,17 @@
 						}
 						item = 'weekly';
 					} else if ( recur.FREQ === 'MONTHLY' ) {
-						this.$element.find( '.repeat-monthly input' ).removeClass( 'checked' );
+						this.$element.find( '.repeat-monthly input' ).removeAttr( 'checked' ).removeClass( 'checked' );
+						this.$element.find( '.repeat-monthly label.radio-custom' ).removeClass( 'checked' );
 						if ( recur.BYMONTHDAY ) {
 							temp = this.$element.find( '.repeat-monthly-date' );
-							temp.find( 'input' ).addClass( 'checked' );
-							temp.find( '.select' ).selectlist( 'selectByValue', recur.BYMONTHDAY );
+							temp.find( 'input' ).addClass( 'checked' ).attr( 'checked', 'checked' );
+							temp.find( 'label.radio-custom' ).addClass( 'checked' );
+							temp.find( '.selectlist' ).selectlist( 'selectByValue', recur.BYMONTHDAY );
 						} else if ( recur.BYDAY ) {
 							temp = this.$element.find( '.repeat-monthly-day' );
-							temp.find( 'input' ).addClass( 'checked' );
+							temp.find( 'input' ).addClass( 'checked' ).attr( 'checked', 'checked' );
+							temp.find( 'label.radio-custom' ).addClass( 'checked' );
 							if ( recur.BYSETPOS ) {
 								temp.find( '.month-day-pos' ).selectlist( 'selectByValue', recur.BYSETPOS );
 							}
@@ -6080,17 +6330,20 @@
 						}
 						item = 'monthly';
 					} else if ( recur.FREQ === 'YEARLY' ) {
-						this.$element.find( '.repeat-yearly input' ).removeClass( 'checked' );
+						this.$element.find( '.repeat-yearly input' ).removeAttr( 'checked' ).removeClass( 'checked' );
+						this.$element.find( '.repeat-yearly label.radio-custom' ).removeClass( 'checked' );
 						if ( recur.BYMONTHDAY ) {
 							temp = this.$element.find( '.repeat-yearly-date' );
-							temp.find( 'input' ).addClass( 'checked' );
+							temp.find( 'input' ).addClass( 'checked' ).attr( 'checked', 'checked' );
+							temp.find( 'label.radio-custom' ).addClass( 'checked' );
 							if ( recur.BYMONTH ) {
 								temp.find( '.year-month' ).selectlist( 'selectByValue', recur.BYMONTH );
 							}
 							temp.find( '.year-month-day' ).selectlist( 'selectByValue', recur.BYMONTHDAY );
 						} else if ( recur.BYSETPOS ) {
 							temp = this.$element.find( '.repeat-yearly-day' );
-							temp.find( 'input' ).addClass( 'checked' );
+							temp.find( 'input' ).addClass( 'checked' ).attr( 'checked', 'checked' );
+							temp.find( 'label.radio-custom' ).addClass( 'checked' );
 							temp.find( '.year-month-day-pos' ).selectlist( 'selectByValue', recur.BYSETPOS );
 							if ( recur.BYDAY ) {
 								temp.find( '.year-month-days' ).selectlist( 'selectByValue', recur.BYDAY );

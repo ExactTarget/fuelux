@@ -1,11 +1,11 @@
 /*!
- * Fuel UX v3.0.0
+ * Fuel UX v3.1.0 
  * Copyright 2012-2014 ExactTarget
- * Licensed under MIT (https://github.com/ExactTarget/fuelux/blob/master/COPYING)
+ * Licensed under the BSD-3-Clause license ()
  */
 
 .fuelux {
-
+  
 }@charset "UTF-8";
 .fuelux .clearfix {
   *zoom: 1;
@@ -72,7 +72,7 @@
   /* for keyboard tabbing */
 }
 .fuelux .checkbox.highlight {
-  padding: 4px 4px 4px 24px;
+  padding: 4px;
 }
 .fuelux .checkbox.highlight.checked {
   background: #e9e9e9;
@@ -82,6 +82,13 @@
 .fuelux .checkbox input[type="checkbox"]:hover + .checkbox-label,
 .fuelux .checkbox .checkbox-label:hover {
   color: #999999;
+}
+.fuelux .form-horizontal .checkbox-inline {
+  padding-top: 0;
+}
+.fuelux .input-group-addon.checkbox-custom.checkbox-inline:before {
+  left: 11px;
+  top: 9px;
 }
 .fuelux .checkbox-custom {
   position: relative;
@@ -173,12 +180,17 @@
   vertical-align: middle;
   width: 14.29%;
 }
+.fuelux .datepicker-calendar-days td b,
 .fuelux .datepicker-calendar-days td button {
   color: #231f20;
   display: inline-block;
+  font-weight: normal;
   height: 30px;
   text-decoration: none;
   width: 30px;
+}
+.fuelux .datepicker-calendar-days td b {
+  line-height: 30px;
 }
 .fuelux .datepicker-calendar-days td span {
   display: block;
@@ -187,6 +199,7 @@
   background: #b7e3f8;
   text-decoration: none;
 }
+.fuelux .datepicker-calendar-days td.current-day b,
 .fuelux .datepicker-calendar-days td.current-day button {
   border: 1px solid #1d75bb;
 }
@@ -194,13 +207,16 @@
 .fuelux .datepicker-calendar-days td.next-month {
   background: #e3e2e1;
 }
+.fuelux .datepicker-calendar-days td.past b,
 .fuelux .datepicker-calendar-days td.past button {
   color: #8d8787;
 }
+.fuelux .datepicker-calendar-days td.restricted b,
 .fuelux .datepicker-calendar-days td.restricted button {
   cursor: no-drop;
   position: relative;
 }
+.fuelux .datepicker-calendar-days td.restricted b:before,
 .fuelux .datepicker-calendar-days td.restricted button:before {
   border-top: 1px solid #a94442;
   bottom: 0;
@@ -211,6 +227,7 @@
   right: 5px;
   top: 50%;
 }
+.fuelux .datepicker-calendar-days td.restricted b:hover,
 .fuelux .datepicker-calendar-days td.restricted button:hover {
   background: none;
 }
@@ -220,11 +237,16 @@
 .fuelux .datepicker-calendar-days td.selected span:hover {
   background: #0f5f9f;
 }
+.fuelux .datepicker-calendar-days td.selected b,
 .fuelux .datepicker-calendar-days td.selected button {
   color: #fff;
 }
 .fuelux .datepicker-calendar-days td.selected.current-day {
   box-shadow: 0 0 0 1px #fff offset;
+}
+.fuelux .datepicker-calendar-days td.selected.current-day span:hover b,
+.fuelux .datepicker-calendar-days td.selected.current-day span:hover button {
+  border-color: #0f5f9f;
 }
 .fuelux .datepicker-calendar-days th {
   font-weight: bold;
@@ -562,6 +584,9 @@
 .fuelux textarea.glass[disabled] {
   cursor: not-allowed;
 }
+.fuelux .input-group-addon {
+  padding: 6px 18px;
+}
 .fuelux [data-toggle="buttons"] > .btn > input[type="radio"],
 .fuelux [data-toggle="buttons"] > .btn > input[type="checkbox"] {
   display: inline;
@@ -786,7 +811,7 @@
   /* for keyboard tabbing */
 }
 .fuelux .radio.highlight {
-  padding: 4px 4px 4px 24px;
+  padding: 4px;
 }
 .fuelux .radio.highlight.checked {
   background: #e9e9e9;
@@ -796,6 +821,13 @@
 .fuelux .radio input[type="radio"]:hover + .radio-label,
 .fuelux .radio .radio-label:hover {
   color: #999999;
+}
+.fuelux .form-horizontal .radio-inline {
+  padding-top: 0;
+}
+.fuelux .input-group-addon.radio-custom.radio-inline:before {
+  left: 11px;
+  top: 9px;
 }
 .fuelux .radio-custom {
   position: relative;
@@ -986,11 +1018,85 @@
   line-height: 34px;
   margin-right: 10px;
 }
+.fuelux .repeater[data-currentview="list"] .repeater-canvas.scrolling {
+  overflow: visible;
+}
+.fuelux .repeater[data-currentview="list"] .repeater-canvas.scrolling .repeater-list {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.fuelux .repeater[data-currentview="list"] .repeater-canvas.scrolling .repeater-list-wrapper {
+  height: 100%;
+  overflow: auto;
+}
 .fuelux .repeater[data-currentview="list"] .repeater-loader {
   margin-top: -12px;
 }
 .fuelux .repeater[data-currentview="list"] .repeater-loader.noHeader {
   margin-top: -32px;
+}
+.fuelux .repeater[data-currentview="list"] .repeater-viewport {
+  overflow: hidden;
+}
+.fuelux .repeater-list {
+  position: relative;
+}
+.fuelux .repeater-list table {
+  margin-bottom: 0;
+  width: 100%;
+}
+.fuelux .repeater-list table tbody td {
+  border-bottom: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-top: none;
+}
+.fuelux .repeater-list table tbody td:first-child {
+  border-left: none;
+}
+.fuelux .repeater-list table tbody tr.empty td {
+  border-bottom: none;
+  font-style: italic;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+}
+.fuelux .repeater-list table tbody tr.selectable:hover {
+  background: #d9edf7;
+  cursor: pointer;
+}
+.fuelux .repeater-list table tbody tr.selected {
+  background: #66AFE9;
+  color: #fff;
+}
+.fuelux .repeater-list table tbody tr.selected:hover {
+  background: #428bca;
+}
+.fuelux .repeater-list table tbody tr.selected td:first-child {
+  padding-left: 30px;
+}
+.fuelux .repeater-list table thead > tr > th {
+  background: none;
+  border-bottom: 1px solid transparent;
+  border-left: 1px solid transparent;
+  border-top: none;
+  color: rgba(0, 0, 0, 0);
+  line-height: 1.42857;
+  padding: 8px;
+}
+.fuelux .repeater-list table thead > tr > th:first-child {
+  border-left: none;
+}
+.fuelux .repeater-list table thead > tr > th.sorted span.glyphicon {
+  display: block;
+  visibility: hidden;
+}
+.fuelux .repeater-list table thead > tr > th span.glyphicon {
+  display: none;
+  float: right;
+  margin-top: 2px;
 }
 .fuelux .repeater-list-check {
   display: inline-block;
@@ -1005,29 +1111,29 @@
   position: absolute;
   top: 2px;
 }
-.fuelux .repeater-list-header,
-.fuelux .repeater-list-items {
-  margin-bottom: 0;
-  width: 100%;
-}
-.fuelux .repeater-list-header td,
-.fuelux .repeater-list-items td {
+.fuelux .repeater-list-heading {
+  background: #F9F9F9;
   border-bottom: 1px solid #ddd;
   border-left: 1px solid #ddd;
   border-top: none;
+  color: #333;
+  line-height: 1.42857;
+  margin-left: -9px;
+  padding: 8px;
+  position: absolute;
+  top: 0;
+  z-index: 1;
 }
-.fuelux .repeater-list-header td:first-child,
-.fuelux .repeater-list-items td:first-child {
-  border-left: none;
+.fuelux .repeater-list-heading.shifted {
+  margin-left: -1px;
 }
-.fuelux .repeater-list-header {
-  background: #F9F9F9;
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .fuelux .repeater-list-heading.shifted {
+    margin-left: 0;
+  }
 }
-.fuelux .repeater-list-header td {
-  font-weight: bold;
-}
-.fuelux .repeater-list-header td.sortable:hover,
-.fuelux .repeater-list-header td.sortable.sorted {
+.fuelux .repeater-list-heading.sortable:hover,
+.fuelux .repeater-list-heading.sortable.sorted {
   background: #F1F1F1;
   cursor: pointer;
   background-color: #f1f1f1;
@@ -1039,59 +1145,44 @@
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff9f9f9', endColorstr='#ffe5e5e5', GradientType=0);
 }
-.fuelux .repeater-list-header td.sortable.sorted span.glyphicon {
+.fuelux .repeater-list-heading.sortable.sorted span.glyphicon {
   display: block;
+  visibility: visible;
 }
-.fuelux .repeater-list-header td span.glyphicon {
+.fuelux .repeater-list-heading span.glyphicon {
   display: none;
   float: right;
   margin-top: 2px;
-}
-.fuelux .repeater-list-items tr.empty td {
-  border-bottom: none;
-  font-style: italic;
-  padding: 20px;
-  text-align: center;
-  width: 100%;
-}
-.fuelux .repeater-list-items tr.selectable:hover {
-  background: #d9edf7;
-  cursor: pointer;
-}
-.fuelux .repeater-list-items tr.selected {
-  background: #66AFE9;
-  color: #fff;
-}
-.fuelux .repeater-list-items tr.selected:hover {
-  background: #428bca;
-}
-.fuelux .repeater-list-items tr.selected td:first-child {
-  padding-left: 30px;
-}
-.fuelux .repeater-list-wrapper {
-  overflow-y: auto;
 }
 .fuelux .repeater-thumbnail {
   border: 1px solid #ddd;
   color: #666;
   float: left;
-  font-size: 12px;
-  height: 130px;
-  line-height: 36px;
-  margin: 10px 12px;
+  min-height: 110px;
+  min-width: 100px;
+  margin: 8px 7px;
   text-align: center;
-  width: 100px;
-  -webkit-box-shadow: 0 1px 4px 0 #ddd;
-  box-shadow: 0 1px 4px 0 #ddd;
+}
+.fuelux .repeater-thumbnail.selectable:hover {
+  background: #d9edf7;
+  cursor: pointer;
+}
+.fuelux .repeater-thumbnail.selected {
+  background: #66AFE9;
+  color: #fff;
+}
+.fuelux .repeater-thumbnail.selected:hover {
+  background: #428bca;
 }
 .fuelux .repeater-thumbnail img {
   display: block;
-  margin-top: 12px;
+  margin-top: 10px;
+  margin-bottom: 3px;
 }
 .fuelux .repeater-thumbnail-cont {
   height: 100%;
   overflow-y: auto;
-  padding: 10px;
+  padding: 6px;
   width: 100%;
 }
 .fuelux .repeater-thumbnail-cont div.empty {
@@ -1156,13 +1247,13 @@
 }
 .fuelux .scheduler {
   /* -------------------------------
-  START DATE/TIME
+	START DATE/TIME
 ------------------------------- */
   /* -------------------------------
-  TIMEZONE
+	TIMEZONE
 ------------------------------- */
   /* -------------------------------
-  REPEAT PANELS
+	REPEAT PANELS
 ------------------------------- */
   /* -------------------------------
 END
@@ -1453,7 +1544,7 @@ END
   position: relative;
   cursor: pointer;
   border-radius: 6px;
-  margin-left: 19px;
+  margin-left: 26px;
 }
 .fuelux .tree .tree-item .tree-item-name {
   white-space: nowrap;
@@ -1473,16 +1564,6 @@ END
   padding-left: 7px;
   margin-bottom: 0;
   cursor: pointer;
-}
-.fuelux .tree .tree-item .tree-dot {
-  position: absolute;
-  top: 8px;
-  left: 10px;
-  display: block;
-  width: 4px;
-  height: 4px;
-  background-color: #333333;
-  border-radius: 6px;
 }
 .fuelux .tree .icon-caret:hover + .tree-branch-name {
   color: #999999;
@@ -1530,24 +1611,24 @@ END
 .fuelux .wizard:after {
   clear: both;
 }
-.fuelux .wizard .steps {
+.fuelux .wizard > .steps {
   list-style: none outside none;
   padding: 0;
   margin: 0;
   width: 4000px;
 }
-.fuelux .wizard .steps.previous-disabled li.complete {
+.fuelux .wizard > .steps.previous-disabled li.complete {
   cursor: default;
 }
-.fuelux .wizard .steps.previous-disabled li.complete:hover {
+.fuelux .wizard > .steps.previous-disabled li.complete:hover {
   background: #f3f4f5;
   color: #468847;
   cursor: default;
 }
-.fuelux .wizard .steps.previous-disabled li.complete:hover .chevron:before {
+.fuelux .wizard > .steps.previous-disabled li.complete:hover .chevron:before {
   border-left-color: #f3f4f5;
 }
-.fuelux .wizard .steps li {
+.fuelux .wizard > .steps li {
   float: left;
   margin: 0;
   padding: 0 20px 0 30px;
@@ -1559,7 +1640,7 @@ END
   font-size: 16px;
   cursor: not-allowed;
 }
-.fuelux .wizard .steps li .chevron {
+.fuelux .wizard > .steps li .chevron {
   border: 24px solid transparent;
   border-left: 14px solid #d4d4d4;
   border-right: 0;
@@ -1569,7 +1650,7 @@ END
   top: 0;
   z-index: 1;
 }
-.fuelux .wizard .steps li .chevron:before {
+.fuelux .wizard > .steps li .chevron:before {
   border: 24px solid transparent;
   border-left: 14px solid #ededed;
   border-right: 0;
@@ -1579,42 +1660,42 @@ END
   right: 1px;
   top: -24px;
 }
-.fuelux .wizard .steps li.complete {
+.fuelux .wizard > .steps li.complete {
   background: #f3f4f5;
   color: #468847;
 }
-.fuelux .wizard .steps li.complete:hover {
+.fuelux .wizard > .steps li.complete:hover {
   background: #e7eff8;
   cursor: pointer;
 }
-.fuelux .wizard .steps li.complete:hover .chevron:before {
+.fuelux .wizard > .steps li.complete:hover .chevron:before {
   border-left: 14px solid #e7eff8;
 }
-.fuelux .wizard .steps li.complete .chevron:before {
+.fuelux .wizard > .steps li.complete .chevron:before {
   border-left: 14px solid #f3f4f5;
 }
-.fuelux .wizard .steps li.active {
+.fuelux .wizard > .steps li.active {
   background: #f1f6fc;
   color: #3a87ad;
   cursor: default;
 }
-.fuelux .wizard .steps li.active .chevron:before {
+.fuelux .wizard > .steps li.active .chevron:before {
   border-left: 14px solid #f1f6fc;
 }
-.fuelux .wizard .steps li.active .badge {
+.fuelux .wizard > .steps li.active .badge {
   background-color: #3a87ad;
 }
-.fuelux .wizard .steps li .badge {
+.fuelux .wizard > .steps li .badge {
   margin-right: 8px;
 }
-.fuelux .wizard .steps li .badge-success {
+.fuelux .wizard > .steps li .badge-success {
   background-color: #468847;
 }
-.fuelux .wizard .steps li:first-child {
+.fuelux .wizard > .steps li:first-child {
   border-radius: 4px 0 0 4px;
   padding-left: 20px;
 }
-.fuelux .wizard .actions {
+.fuelux .wizard > .actions {
   z-index: 1000;
   position: absolute;
   right: 0;
@@ -1626,21 +1707,21 @@ END
   background-color: #e5e5e5;
   border-left: 1px solid #d4d4d4;
 }
-.fuelux .wizard .actions a {
+.fuelux .wizard > .actions a {
   line-height: 45px;
   font-size: 12px;
   margin-right: 8px;
 }
-.fuelux .wizard .actions .btn-prev[disabled] {
+.fuelux .wizard > .actions .btn-prev[disabled] {
   cursor: not-allowed;
 }
-.fuelux .wizard .actions .btn-prev span {
+.fuelux .wizard > .actions .btn-prev span {
   margin-right: 5px;
 }
-.fuelux .wizard .actions .btn-next[disabled] {
+.fuelux .wizard > .actions .btn-next[disabled] {
   cursor: not-allowed;
 }
-.fuelux .wizard .actions .btn-next span {
+.fuelux .wizard > .actions .btn-next span {
   margin-left: 5px;
 }
 .fuelux .wizard .step-content {
@@ -1652,16 +1733,16 @@ END
 .fuelux .wizard .step-content .step-pane {
   display: none;
 }
-.fuelux .wizard .step-content .active {
+.fuelux .wizard .step-content > .active {
   display: block;
 }
-.fuelux .wizard .step-content .active .btn-group .active {
+.fuelux .wizard .step-content > .active .btn-group .active {
   display: inline-block;
 }
-.fuelux .wizard.complete .actions .glyphicon-arrow-right:before {
+.fuelux .wizard.complete > .actions .glyphicon-arrow-right:before {
   display: none;
 }
-.fuelux .wizard.complete .actions .glyphicon-arrow-right {
+.fuelux .wizard.complete > .actions .glyphicon-arrow-right {
   margin-left: 0;
 }
 /*# sourceMappingURL=fuelux.css.map */

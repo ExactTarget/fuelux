@@ -10,4 +10,4 @@
     (ex: 'data-toggle="#myTogglingBox"')
 
 //Highlighting checkboxes:
-- add 'highlight' class to block wrapper or input for inline. This will highlight the checkbox on check / uncheck.
+- add 'highlight' class to block wrapper or label for inline. This will highlight the checkbox on check / uncheck.

@@ -3,7 +3,7 @@
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2014 ExactTarget
- * Licensed under the MIT license.
+ * Licensed under the BSD New license.
  */
 
 // -- BEGIN UMD WRAPPER PREFACE --
@@ -176,6 +176,7 @@
 			this.$input.val(this.formatDate(date));
 			this.inputValue = this.$input.val();
 			this.$input.focus();
+			this.$element.trigger('dateClicked.fu.datepicker', date);
 		},
 
 		destroy: function(){
@@ -288,7 +289,10 @@
 			for(i=0,l=restricted.length; i<l; i++){
 				from = restricted[i].from;
 				to = restricted[i].to;
-				if((date>=from.date && month>=from.month && year>=from.year) && (date<=to.date && month<=to.month && year<=to.year)){
+				if(
+					(year>from.year || (year===from.year && month>from.month) || (year===from.year && month===from.month && date>=from.date)) &&
+					(year<to.year || (year===to.year && month<to.month) || (year===to.year && month===to.month && date<=to.date))
+				){
 					return true;
 				}
 			}
@@ -329,7 +333,7 @@
 			if(topPercentage<5) {
 				start = parseInt($yearUl.find('li:first').attr('data-year'), 10);
 				for (i=(start-1); i >(start-11); i--) {
-					$yearUl.prepend('<li data-year="' + i + '"><button>' + i + '</button></li>');
+					$yearUl.prepend('<li data-year="' + i + '"><button type="button">' + i + '</button></li>');
 				}
 				this.artificialScrolling = true;
 				$yearUl.scrollTop(($yearUl.get(0).scrollHeight-scrollHeight) + scrollTop);
@@ -337,7 +341,7 @@
 			}else if(bottomPercentage>90){
 				start = parseInt($yearUl.find('li:last').attr('data-year'), 10);
 				for(i=(start+1); i<(start+11); i++){
-					$yearUl.append('<li data-year="' + i + '"><button>' + i + '</button></li>');
+					$yearUl.append('<li data-year="' + i + '"><button type="button">' + i + '</button></li>');
 				}
 			}
 		},
@@ -450,7 +454,7 @@
 			for(i=0; i<rows; i++){
 				$tr = $('<tr></tr>');
 				for(j=0; j<7; j++){
-					$td = $('<td><span><button class="datepicker-date">' + curDate + '</button></span></td>');
+					$td = $('<td></td>');
 					if(stage===-1){
 						$td.addClass('last-month');
 					}else if(stage===1){
@@ -482,6 +486,12 @@
 					}
 					if(selected && curYear===selected.year && curMonth===selected.month && curDate===selected.date){
 						$td.addClass('selected');
+					}
+
+					if($td.hasClass('restricted')){
+						$td.html('<span><b class="datepicker-date">' + curDate + '</b></span>');
+					}else{
+						$td.html('<span><button type="button" class="datepicker-date">' + curDate + '</button></span>');
 					}
 
 					curDate++;
@@ -521,7 +531,7 @@
 
 			$yearUl.empty();
 			for(i=(year-10); i<(year+11); i++){
-				$yearUl.append('<li data-year="' + i + '"><button>' + i + '</button></li>');
+				$yearUl.append('<li data-year="' + i + '"><button type="button">' + i + '</button></li>');
 			}
 			$yearSelected = $yearUl.find('li[data-year="' + year + '"]');
 			$yearSelected.addClass('selected');
@@ -624,10 +634,10 @@
 
 		var $set = this.each(function () {
 			var $this   = $( this );
-			var data    = $this.data( 'datepicker' );
+			var data    = $this.data( 'fu.datepicker' );
 			var options = typeof option === 'object' && option;
 
-			if( !data ) $this.data('datepicker', (data = new Datepicker( this, options ) ) );
+			if( !data ) $this.data('fu.datepicker', (data = new Datepicker( this, options ) ) );
 			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
 

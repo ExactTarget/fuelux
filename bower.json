@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "underscore": "~1.6.0",
-    "fuelux": "#3.0.0-wip"
+    "fuelux": "3.1.0"
   },
   "ignore": [
     "**/.*",

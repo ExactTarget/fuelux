@@ -3,7 +3,7 @@
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2014 ExactTarget
- * Licensed under the MIT license.
+ * Licensed under the BSD New license.
  */
 
 // -- BEGIN UMD WRAPPER PREFACE --
@@ -30,7 +30,7 @@
 
 	var Repeater = function (element, options) {
 		var self = this;
-		var currentView;
+		var $btn, currentView;
 
 		this.$element = $(element);
 
@@ -69,14 +69,32 @@
 		this.$primaryPaging.find('.combobox').combobox();
 		this.$search.search();
 
-		this.$filters.on('changed.fu.selectlist', $.proxy(this.render, this, { clearInfinite: true, pageIncrement: null }));
+		this.$filters.on('changed.fu.selectlist', function(e, value){
+			self.$element.trigger('filtered.fu.repeater', value);
+			self.render({ clearInfinite: true, pageIncrement: null });
+		});
 		this.$nextBtn.on('click.fu.repeater', $.proxy(this.next, this));
-		this.$pageSize.on('changed.fu.selectlist', $.proxy(this.render, this, { pageIncrement: null }));
+		this.$pageSize.on('changed.fu.selectlist', function(e, value){
+			self.$element.trigger('pageSizeChanged.fu.repeater', value);
+			self.render({ pageIncrement: null });
+		});
 		this.$prevBtn.on('click.fu.repeater', $.proxy(this.previous, this));
-		this.$primaryPaging.find('.combobox').on('changed.fu.combobox', function(evt, data){ self.pageInputChange(data.text); });
-		this.$search.on('searched.fu.search cleared.fu.search', $.proxy(this.render, this, { clearInfinite: true, pageIncrement: null }));
-		this.$secondaryPaging.on('blur.fu.repeater', function(){ self.pageInputChange(self.$secondaryPaging.val()); });
-		this.$secondaryPaging.on('change.fu.repeater', function(){ self.pageInputChange(self.$secondaryPaging.val()); });
+		this.$primaryPaging.find('.combobox').on('changed.fu.combobox', function(evt, data){
+			self.$element.trigger('pageChanged.fu.repeater', [data.text, data]);
+			self.pageInputChange(data.text);
+		});
+		this.$search.on('searched.fu.search cleared.fu.search', function(e, value){
+			self.$element.trigger('searchChanged.fu.repeater', value);
+			self.render({ clearInfinite: true, pageIncrement: null });
+		});
+		this.$secondaryPaging.on('blur.fu.repeater', function(e){
+			self.pageInputChange(self.$secondaryPaging.val());
+		});
+		this.$secondaryPaging.on('keyup', function(e){
+			if(e.keyCode===13){
+				self.pageInputChange(self.$secondaryPaging.val());
+			}
+		});
 		this.$views.find('input').on('change.fu.repeater', $.proxy(this.viewChanged, this));
 
 		// ID needed since event is bound to instance
@@ -90,7 +108,12 @@
 
 		this.$loader.loader();
 		this.$loader.loader('pause');
-		currentView = (this.options.defaultView!==-1) ? this.options.defaultView : this.$views.find('label.active input').val();
+		if(this.options.defaultView!==-1){
+			currentView = this.options.defaultView;
+		}else{
+			$btn = this.$views.find('label.active input');
+			currentView = ($btn.length>0) ? $btn.val() : 'list';
+		}
 
 		this.initViews(function(){
 			self.resize();
@@ -124,10 +147,13 @@
 			options = options || {};
 
 			if(!options.preserve){
+				//Just trash everything because preserve is false
 				this.$canvas.empty();
 			}else if(!this.infiniteScrollingEnabled || options.clearInfinite){
+				//Preserve clear only if infiniteScrolling is disabled or if specifically told to do so
 				scan(this.$canvas);
 			}
+			//otherwise don't clear because infiniteScrolling is enabled
 		},
 
 		destroy: function() {
@@ -162,11 +188,11 @@
 
 			options = options || {};
 
-			opts.filter = this.$filters.selectlist('selectedItem');
+			opts.filter = (this.$filters.length>0) ? this.$filters.selectlist('selectedItem') : 'all';
 			opts.view = this.currentView;
 
 			if(!this.infiniteScrollingEnabled){
-				opts.pageSize = parseInt(this.$pageSize.selectlist('selectedItem').value, 10);
+				opts.pageSize = (this.$pageSize.length>0) ? parseInt(this.$pageSize.selectlist('selectedItem').value, 10) : 25;
 			}
 			if(options.pageIncrement!==undefined){
 				if(options.pageIncrement===null){
@@ -177,7 +203,7 @@
 			}
 			opts.pageIndex = this.currentPage;
 
-			val = this.$search.find('input').val();
+			val = (this.$search.length>0) ? this.$search.find('input').val() : '';
 			if(val!==''){
 				opts.search = val;
 			}
@@ -295,11 +321,12 @@
 			this.$start.html(data.start || '');
 		},
 
-		next: function(){
+		next: function(e){
 			var d = 'disabled';
 			this.$nextBtn.attr(d, d);
 			this.$prevBtn.attr(d, d);
 			this.pageIncrement = 1;
+			this.$element.trigger('nextClicked.fu.repeater');
 			this.render({ pageIncrement: this.pageIncrement });
 		},
 
@@ -309,6 +336,7 @@
 				this.lastPageInput = val;
 				val = parseInt(val, 10) - 1;
 				pageInc = val - this.currentPage;
+				this.$element.trigger('pageChanged.fu.repeater', val);
 				this.render({ pageIncrement: pageInc });
 			}
 		},
@@ -383,6 +411,7 @@
 			this.$nextBtn.attr(d, d);
 			this.$prevBtn.attr(d, d);
 			this.pageIncrement = -1;
+			this.$element.trigger('previousClicked.fu.repeater');
 			this.render({ pageIncrement: this.pageIncrement });
 		},
 
@@ -393,34 +422,45 @@
 			var prevView;
 
 			var start = function(){
+				var next = function(){
+					if(!self.infiniteScrollingEnabled || (self.infiniteScrollingEnabled && viewChanged)){
+						self.$loader.show().loader('play');
+					}
+					self.getDataOptions(options, function(opts){
+						self.options.dataSource(opts, function(data){
+							var renderer = viewObj.renderer;
+							if(self.infiniteScrollingEnabled){
+								self.infiniteScrollingCallback({});
+							}else{
+								self.itemization(data);
+								self.pagination(data);
+							}
+							if(renderer){
+								self.runRenderer(self.$canvas, renderer, data, function(){
+									if(self.infiniteScrollingEnabled){
+										if(viewChanged || options.clearInfinite){
+											self.initInfiniteScrolling();
+										}
+										self.infiniteScrollPaging(data, options);
+									}
+									self.$loader.hide().loader('pause');
+									self.$element.trigger('loaded.fu.repeater');
+								});
+							}
+						});
+					});
+				};
+
 				options.preserve = (options.preserve!==undefined) ? options.preserve : !viewChanged;
 				self.clear(options);
-				if(!self.infiniteScrollingEnabled || (self.infiniteScrollingEnabled && viewChanged)){
-					self.$loader.show().loader('play');
-				}
-				self.getDataOptions(options, function(opts){
-					self.options.dataSource(opts, function(data){
-						var renderer = viewObj.renderer;
-						if(self.infiniteScrollingEnabled){
-							self.infiniteScrollingCallback({});
-						}else{
-							self.itemization(data);
-							self.pagination(data);
-						}
-						if(renderer){
-							self.runRenderer(self.$canvas, renderer, data, function(){
-								if(self.infiniteScrollingEnabled){
-									if(viewChanged || options.clearInfinite){
-										self.initInfiniteScrolling();
-									}
-									self.infiniteScrollPaging(data, options);
-								}
-								self.$loader.hide().loader('pause');
-								self.$element.trigger('loaded.fu.repeater');
-							});
-						}
+				if(!viewChanged && viewObj.cleared){
+					viewObj.cleared.call(self, {}, function(){
+						next();
 					});
-				});
+				}else{
+					next();
+				}
+
 			};
 
 			options = options || {};
@@ -596,7 +636,9 @@
 
 		viewChanged: function(e){
 			var $selected = $(e.target);
-			this.render({ changeView: $selected.val(), pageIncrement: null });
+			var val = $selected.val();
+			this.$element.trigger('viewChanged.fu.repeater', val);
+			this.render({ changeView: val, pageIncrement: null });
 		}
 	};
 
@@ -627,17 +669,20 @@
 
 	//views object contains keyed list of view plugins, each an object with following optional parameters:
 		//{
-			//initialize: function(){},
-			//selected: function(){},
+			//cleared: function(helpers, callback){},
+			//dataOptions: function(helpers, callback){},
+			//initialize: function(helpers, callback){},
+			//selected: function(helpers, callback){},
+			//resize: function(helpers, callback){},
 			//renderer: {}
 		//}
 			//renderer object contains following optional parameters:
 				//{
-					//before: function(helpers){},
-					//after: function(helpers){},
-					//complete: function(helpers){},
+					//before: function(helpers, callback){},
+					//after: function(helpers, callback){},
+					//complete: function(helpers, callback){},
 					//repeat: 'parameter.subparameter.etc',
-					//render: function(helpers){},
+					//render: function(helpers, callback){},
 					//nested: [ *array of renderer objects* ]
 				//}
 

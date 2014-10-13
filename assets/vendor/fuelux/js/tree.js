@@ -3,7 +3,7 @@
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2014 ExactTarget
- * Licensed under the MIT license.
+ * Licensed under the BSD New license.
  */
 
 // -- BEGIN UMD WRAPPER PREFACE --
@@ -63,11 +63,11 @@
 
 		populate: function ($el) {
 			var self = this;
-			var $parent = $el.parent();
+			var $parent = ($el.hasClass('tree')) ? $el : $el.parent();
 			var loader = $parent.find('.tree-loader:eq(0)');
 
 			loader.removeClass('hide');
-			this.options.dataSource( this.options.folderSelect ? $parent.data() : $el.data(), function (items) {
+			this.options.dataSource( $parent.data() , function (items) {
 				loader.addClass('hide');
 
 				$.each( items.data, function(index, value) {
@@ -83,16 +83,16 @@
 						$entity.data(value);
 					}
 
-					// Decorate $entity with data making the element
-					// easily accessable with libraries like jQuery.
+					// Decorate $entity with data or other attributes making the
+					// element easily accessable with libraries like jQuery.
 					//
 					// Values are contained within the object returned
-					// for folders and items as dataAttributes:
+					// for folders and items as attr:
 					//
 					// {
 					//     name: "An Item",
 					//     type: 'item',
-					//     dataAttributes = {
+					//     attr = {
 					//         'classes': 'required-item red-text',
 					//         'data-parent': parentId,
 					//         'guid': guid,
@@ -101,32 +101,32 @@
 					// };
 
 					// add attributes to tree-branch or tree-item
-					var dataAttributes = value.dataAttributes || [];
-					$.each(dataAttributes, function(key, value) {
+					var attr = value['attr'] || value.dataAttributes || [];
+					$.each(attr, function(key, value) {
 						switch (key) {
-						case 'class':
-						case 'classes':
-						case 'className':
-							$entity.addClass(value);
-							break;
-						
-						// allow custom icons
-						case 'data-icon':
-							$entity.find('.icon-item').removeClass().addClass('icon-item ' + value);
-							$entity.attr(key, value);
-							break;
+							case 'cssClass':
+							case 'class':
+							case 'className':
+								$entity.addClass(value);
+								break;
+							
+							// allow custom icons
+							case 'data-icon':
+								$entity.find('.icon-item').removeClass().addClass('icon-item ' + value);
+								$entity.attr(key, value);
+								break;
 
-						// ARIA support
-						case 'id':
-							$entity.attr(key, value);
-							$entity.attr('aria-labelledby', value + '-label');
-							$entity.find('.tree-branch-name > .tree-label').attr('id', value + '-label');
-							break;
+							// ARIA support
+							case 'id':
+								$entity.attr(key, value);
+								$entity.attr('aria-labelledby', value + '-label');
+								$entity.find('.tree-branch-name > .tree-label').attr('id', value + '-label');
+								break;
 
-						// id, style, data-*
-						default:
-							$entity.attr(key, value);
-							break;
+							// id, style, data-*
+							default:
+								$entity.attr(key, value);
+								break;
 						}
 					});
 
@@ -145,6 +145,7 @@
 
 		selectItem: function (el) {
 			var $el = $(el);
+			var selData = $el.data();
 			var $all = this.$element.find('.tree-selected');
 			var data = [];
 			var $icon = $el.find('.icon-item');
@@ -158,13 +159,13 @@
 				});
 			} else if ($all[0] !== $el[0]) {
 				$all.removeClass('tree-selected')
-					.find('.glyphicon').removeClass('glyphicon-ok').addClass('tree-dot');
-				data.push($el.data());
+					.find('.glyphicon').removeClass('glyphicon-ok').addClass('fueluxicon-bullet');
+				data.push(selData);
 			}
 
 			var eventType = 'selected';
 			if($el.hasClass('tree-selected')) {
-				eventType = 'unselected';
+				eventType = 'deselected';
 				$el.removeClass('tree-selected');
 				if($icon.hasClass('glyphicon-ok') || $icon.hasClass('fueluxicon-bullet') ) {
 					$icon.removeClass('glyphicon-ok').addClass('fueluxicon-bullet');
@@ -176,13 +177,11 @@
 					$icon.removeClass('fueluxicon-bullet').addClass('glyphicon-ok');
 				}
 				if (this.options.multiSelect) {
-					data.push( $el.data() );
+					data.push( selData );
 				}
 			}
 
-			if(data.length) {
-				this.$element.trigger('selected', {selected: data});
-			}
+			this.$element.trigger(eventType + '.fu.tree', {target: selData, selected: data});
 
 			// Return new list of selected items, the item
 			// clicked, and the type of event:
@@ -243,19 +242,20 @@
 				.removeClass('glyphicon-folder-close glyphicon-folder-open')
 				.addClass(classToAdd);
 
-			this.$element.trigger(eventType, $branch.data());
+			this.$element.trigger(eventType + 'fu.tree', $branch.data());
 		},
 
 		selectFolder: function (clickedElement) {
 			var $clickedElement = $(clickedElement);
 			var $clickedBranch = $clickedElement.closest('.tree-branch');
 			var $selectedBranch = this.$element.find('.tree-branch.tree-selected');
+			var clickedData = $clickedBranch.data();
 			var selectedData = [];
 			var eventType = 'selected';
 
 			// select clicked item
 			if($clickedBranch.hasClass('tree-selected')) {
-				eventType = 'unselected';
+				eventType = 'deselected';
 				$clickedBranch.removeClass('tree-selected');
 			} else {
 				$clickedBranch.addClass('tree-selected');
@@ -276,13 +276,11 @@
 			} else if ($selectedBranch[0] !== $clickedElement[0]) {
 				$selectedBranch.removeClass('tree-selected');
 
-				selectedData.push($clickedBranch.data());
+				selectedData.push(clickedData);
 			}
 
-			if(selectedData.length) {
-				this.$element.trigger('selected.fu.tree', {selected: selectedData});
-			}
-			
+			this.$element.trigger(eventType + '.fu.tree', {target: clickedData, selected: selectedData});
+
 			// Return new list of selected items, the item
 			// clicked, and the type of event:
 			$clickedElement.trigger('updated.fu.tree', {

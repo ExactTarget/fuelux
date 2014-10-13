@@ -3,7 +3,7 @@
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2014 ExactTarget
- * Licensed under the MIT license.
+ * Licensed under the BSD New license.
  */
 
 // -- BEGIN UMD WRAPPER PREFACE --
@@ -62,21 +62,27 @@
 		},
 
 		search: function (searchText) {
-			this.$icon.attr('class', 'glyphicon glyphicon-remove');
+			if( this.$icon.hasClass('glyphicon') ) {
+				this.$icon.removeClass('glyphicon-search').addClass('glyphicon-remove');
+			}
 			this.activeSearch = searchText;
+			this.$element.addClass('searched');
 			this.$element.trigger('searched.fu.search', searchText);
 		},
 
 		clear: function () {
-			this.$icon.attr('class', 'glyphicon glyphicon-search');
+			if( this.$icon.hasClass('glyphicon') ) {
+				this.$icon.removeClass('glyphicon-remove').addClass('glyphicon-search');
+			}
 			this.activeSearch = '';
 			this.$input.val('');
+			this.$element.removeClass('searched');
 			this.$element.trigger('cleared.fu.search');
 		},
 
 		action: function () {
 			var val = this.$input.val();
-			var inputEmptyOrUnchanged = val === '' || val === this.activeSearch;
+			var inputEmptyOrUnchanged = (val === '' || val === this.activeSearch);
 
 			if (this.activeSearch && inputEmptyOrUnchanged) {
 				this.clear();
@@ -98,15 +104,22 @@
 		},
 
 		keypressed: function (e) {
-			var val, inputPresentAndUnchanged;
+			var remove = 'glyphicon-remove';
+			var search = 'glyphicon-search';
+			var val;
 
 			if (e.which === 13) {
 				e.preventDefault();
 				this.action();
 			} else {
 				val = this.$input.val();
-				inputPresentAndUnchanged = val && (val === this.activeSearch);
-				this.$icon.attr('class', inputPresentAndUnchanged ? 'glyphicon glyphicon-remove' : 'glyphicon glyphicon-search');
+				if(!val){
+					this.clear();
+				}else if(val!==this.activeSearch){
+					this.$icon.removeClass(remove).addClass(search);
+				}else{
+					this.$icon.removeClass(search).addClass(remove);
+				}
 			}
 		},
 
