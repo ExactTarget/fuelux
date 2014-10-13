@@ -32,7 +32,7 @@
   <h3 id="tree-usage-javascript">Via JavaScript</h3>
   <p>Call the tree control via JavaScript:</p>
 {% highlight js %}
-dataSource = function(options, callback){
+dataSource = function(parentData, callback){
   //...
 };
 
@@ -84,6 +84,53 @@ $('#myTree').tree({ dataSource: dataSource });
     </table>
   </div><!-- ./fu-table-responsive -->
 
+  <h3 id="tree-usage-datasource">Required Data Source</h3>
+  <p>The tree control requires an array of objects in order to create a tree. To determine what tree nodes to create, the tree control uses a callback function named <code>datasource</code> that returns an object with an array named <code>data</code> within it. Items in <codd>data</codd> will be created when a branch is opened. All tree nodes <i>must be loaded</i> into the control one folder (branch) at a time. However, one can store the entire tree from a single network request, and use the datasource function to parse this combined object and not make additional network requests. The following are reserved keys within each item object.</p>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th style="width: 125px;">Key</th>
+        <th style="width: 100px;">Type</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>name</td>
+        <td>string</td>
+        <td><i>Required.</i> Text of tree node</td>
+      </tr>
+      <tr>
+        <td>type</td>
+        <td>string</td>
+        <td><i>Required.</i> Options are <code>folder</code> or <code>item</code>.</td>
+      </tr>
+      <tr>
+        <td>attr</td>
+        <td>object</td>
+        <td>Unless it is a reserved key in this table, child keys will be added as attributes to <code>.tree-item</code> or <code>.tree-branch</code>.</td>
+      </tr>
+      <tr>
+        <td>attr.cssClass</td>
+        <td>string</td>
+        <td>CSS classes that will be added to <code>.tree-item</code> or <code>.tree-branch</code></td>
+      </tr>
+      <tr>
+        <td>attr.data-icon</td>
+        <td>string</td>
+        <td>CSS classes that will be added to <code>.icon-item</code></td>
+      </tr>
+      <tr>
+        <td>attr.id</td>
+        <td>string</td>
+        <td>Adds <code>id</code> to <code>.tree-item</code> or <code>.tree-branch</code> and adds ARIA support with <code>aria-labelledby</code>.</td>
+      </tr>
+      </tbody>
+    </table>
+  </div><!-- ./fu-table-responsive -->
+
   <h3 id="tree-usage-events">Events</h3>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
@@ -95,12 +142,12 @@ $('#myTree').tree({ dataSource: dataSource });
       </thead>
       <tbody>
       <tr>
-        <td>loaded.fu.tree</td>
-        <td>This event fires when sub-content has been is loaded.</td>
+        <td>deselected.fu.tree</td>
+        <td>This event fires when a user closes a sub-folder. Returns an object containing folder information.</td>
       </tr>
       <tr>
-        <td>selected.fu.tree</td>
-        <td>This event fires when a user selects one or more items. Returns an object containing <code>{info: data}</code>. <code>data</code> represents an array of selected items.</td>
+        <td>loaded.fu.tree</td>
+        <td>This event fires when sub-content has been is loaded.</td>
       </tr>
       <tr>
         <td>opened.fu.tree</td>
@@ -109,6 +156,10 @@ $('#myTree').tree({ dataSource: dataSource });
       <tr>
         <td>closed.fu.tree</td>
         <td>This event fires when a user closes a sub-folder. Returns an object containing folder information.</td>
+      </tr>
+      <tr>
+        <td>selected.fu.tree</td>
+        <td>This event fires when a user selects one or more items. Returns an object containing <code>{info: data}</code>. <code>data</code> represents an array of selected items.</td>
       </tr>
       </tbody>
     </table>

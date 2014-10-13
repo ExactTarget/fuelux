@@ -53,7 +53,7 @@
     <dt id="pillbox-usage-methods-add-items">.pillbox('addItems')</dt>
     <dd>Adds Items to the pillbox programmatically.
 {% highlight js %}
-$('#myPillbox').pillbox('addItems', index, [{ text: '', value: '' }]);
+$('#myPillbox').pillbox('addItems', index, [{ text: '', value: '', attr: {}, data: {} }]);
 {% endhighlight %}
 
       <div class="table-responsive">
@@ -71,11 +71,52 @@ $('#myPillbox').pillbox('addItems', index, [{ text: '', value: '' }]);
             </tr>
             <tr>
               <td><em>[item1, ..., itemX] <br/> item1, ..., itemX</em></td>
-              <td>An array or list of pill objects to be added at the <code>index</code>. Each pill can contain a label <code>text</code> and <code>value</code>.</td>
+              <td>An array or list of pill objects to be added at the <code>index</code>. See the following table for an overview of the pill object.</td> 
             </tr>
           </tbody>
         </table>
       </div><!-- ./fu-table-responsive -->
+
+      
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+          <tr>
+            <th style="width: 125px;">Pill object key</th>
+            <th style="width: 100px;">Type</th>
+            <th>Description</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>text</td>
+            <td>string</td>
+            <td><i>Required.</i> Text of pillbox</td>
+          </tr>
+          <tr>
+            <td>value</td>
+            <td>string</td>
+            <td>A value stored in the <code>data-value</code> of the pill markup and returned with events</td>
+          </tr>
+          <tr>
+            <td>attr</td>
+            <td>object</td>
+            <td>Unless it is a reserved key in this table, child keys will be added as attributes to <code>.pill</code>.</td>
+          </tr>
+          <tr>
+            <td>attr.cssClass</td>
+            <td>string</td>
+            <td>CSS classes that will be added to <code>.pill</code></td>
+          </tr>
+          <tr>
+            <td>data</td>
+            <td>object</td>
+            <td>An object of key/value pairs that can be stored in the jQuery data of a pill</td>
+          </tr>
+          </tbody>
+        </table>
+      </div><!-- ./fu-table-responsive -->
+
     </dd>
 
     <dt id="pillbox-usage-methods-destroy">.pillbox('destroy')</dt>
