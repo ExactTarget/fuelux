@@ -163,7 +163,8 @@ define(function(require){
 	});
 
 	$('#myRepeaterThumbnail').repeater({
-		dataSource: dataSource
+		dataSource: dataSource,
+		thumbnail_template: '<div class="thumbnail repeater-thumbnail" style="background: {{color}};"><img height="75" src="{{src}}" width="65"><span>{{name}}</span></div>'
 	});
 
 });

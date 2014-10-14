@@ -1,109 +1,277 @@
 <!-- repeater thumbnail
 ================================================== -->
 <h2 id="bundled-extensions-thumbnail">Repeater Thumbnail View</h2>
-<p>Thumbnail View docs.</p>
+<p>The repeater thumbnail view plug-in will render data in customizable thumbnails, with many options and methods to suit your needs.</p>
 
 <h3>Example</h3>
 <div class="fu-example section">
-		<div class="repeater" data-staticheight="400px" id="myRepeaterThumbnail">
-			<div class="repeater-header">
-				<div class="repeater-header-left">
-					<span class="repeater-title">Awesome Repeater</span>
-					<div class="repeater-search">
-						<div class="search input-group">
-							<input type="search" class="form-control" placeholder="Search"/>
-							<span class="input-group-btn">
-								<button class="btn btn-default" type="button">
-									<span class="glyphicon glyphicon-search"></span>
-									<span class="sr-only">Search</span>
-								</button>
-							</span>
-						</div>
+	<div class="repeater" data-staticheight="400px" id="myRepeaterThumbnail">
+		<div class="repeater-header">
+			<div class="repeater-header-left">
+				<span class="repeater-title">Awesome Repeater</span>
+				<div class="repeater-search">
+					<div class="search input-group">
+						<input type="search" class="form-control" placeholder="Search"/>
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="button">
+								<span class="glyphicon glyphicon-search"></span>
+								<span class="sr-only">Search</span>
+							</button>
+						</span>
 					</div>
 				</div>
-				<div class="repeater-header-right">
-					<div class="btn-group selectlist repeater-filters" data-resize="auto">
+			</div>
+			<div class="repeater-header-right">
+				<div class="btn-group selectlist repeater-filters" data-resize="auto">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+						<span class="selected-label">&nbsp;</span>
+						<span class="caret"></span>
+						<span class="sr-only">Toggle Filters</span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+						<li data-value="all" data-selected="true"><a href="#">all</a></li>
+						<li data-value="bug"><a href="#">bug</a></li>
+						<li data-value="dark"><a href="#">dark</a></li>
+						<li data-value="dragon"><a href="#">dragon</a></li>
+						<li data-value="electric"><a href="#">electric</a></li>
+						<li data-value="fairy"><a href="#">fairy</a></li>
+						<li data-value="fighting"><a href="#">fighting</a></li>
+						<li data-value="fire"><a href="#">fire</a></li>
+						<li data-value="flying"><a href="#">flying</a></li>
+						<li data-value="ghost"><a href="#">ghost</a></li>
+						<li data-value="grass"><a href="#">grass</a></li>
+						<li data-value="ground"><a href="#">ground</a></li>
+						<li data-value="ice"><a href="#">ice</a></li>
+						<li data-value="normal"><a href="#">normal</a></li>
+						<li data-value="poison"><a href="#">poison</a></li>
+						<li data-value="psychic"><a href="#">psychic</a></li>
+						<li data-value="rock"><a href="#">rock</a></li>
+						<li data-value="steel"><a href="#">steel</a></li>
+						<li data-value="water"><a href="#">water</a></li>
+					</ul>
+					<input class="hidden hidden-field" name="filterSelection" readonly="readonly" aria-hidden="true" type="text"/>
+				</div>
+				<div class="btn-group repeater-views" data-toggle="buttons">
+					<label class="btn btn-default active">
+						<input name="repeaterViews2" type="radio" value="thumbnail"><span class="glyphicon glyphicon-th"></span>
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="repeater-viewport">
+			<div class="repeater-canvas"></div>
+			<div class="loader repeater-loader"></div>
+		</div>
+		<div class="repeater-footer">
+			<div class="repeater-footer-left">
+				<div class="repeater-itemization">
+					<span><span class="repeater-start"></span> - <span class="repeater-end"></span> of <span class="repeater-count"></span> items</span>
+					<div class="btn-group selectlist" data-resize="auto">
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 							<span class="selected-label">&nbsp;</span>
 							<span class="caret"></span>
-							<span class="sr-only">Toggle Filters</span>
+							<span class="sr-only">Toggle Drop-down</span>
 						</button>
 						<ul class="dropdown-menu" role="menu">
-							<li data-value="all" data-selected="true"><a href="#">all</a></li>
-							<li data-value="bug"><a href="#">bug</a></li>
-							<li data-value="dark"><a href="#">dark</a></li>
-							<li data-value="dragon"><a href="#">dragon</a></li>
-							<li data-value="electric"><a href="#">electric</a></li>
-							<li data-value="fairy"><a href="#">fairy</a></li>
-							<li data-value="fighting"><a href="#">fighting</a></li>
-							<li data-value="fire"><a href="#">fire</a></li>
-							<li data-value="flying"><a href="#">flying</a></li>
-							<li data-value="ghost"><a href="#">ghost</a></li>
-							<li data-value="grass"><a href="#">grass</a></li>
-							<li data-value="ground"><a href="#">ground</a></li>
-							<li data-value="ice"><a href="#">ice</a></li>
-							<li data-value="normal"><a href="#">normal</a></li>
-							<li data-value="poison"><a href="#">poison</a></li>
-							<li data-value="psychic"><a href="#">psychic</a></li>
-							<li data-value="rock"><a href="#">rock</a></li>
-							<li data-value="steel"><a href="#">steel</a></li>
-							<li data-value="water"><a href="#">water</a></li>
+							<li data-value="5"><a href="#">5</a></li>
+							<li data-value="10" data-selected="true"><a href="#">10</a></li>
+							<li data-value="20"><a href="#">20</a></li>
+							<li data-value="50" data-foo="bar" data-fizz="buzz"><a href="#">50</a></li>
+							<li data-value="100"><a href="#">100</a></li>
 						</ul>
-						<input class="hidden hidden-field" name="filterSelection" readonly="readonly" aria-hidden="true" type="text"/>
+						<input class="hidden hidden-field" name="itemsPerPage" readonly="readonly" aria-hidden="true" type="text"/>
 					</div>
-					<div class="btn-group repeater-views" data-toggle="buttons">
-						<label class="btn btn-default active">
-							<input name="repeaterViews2" type="radio" value="thumbnail"><span class="glyphicon glyphicon-th"></span>
-						</label>
-					</div>
+					<span>Per Page</span>
 				</div>
 			</div>
-			<div class="repeater-viewport">
-				<div class="repeater-canvas"></div>
-				<div class="loader repeater-loader"></div>
-			</div>
-			<div class="repeater-footer">
-				<div class="repeater-footer-left">
-					<div class="repeater-itemization">
-						<span><span class="repeater-start"></span> - <span class="repeater-end"></span> of <span class="repeater-count"></span> items</span>
-						<div class="btn-group selectlist" data-resize="auto">
-							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-								<span class="selected-label">&nbsp;</span>
-								<span class="caret"></span>
-								<span class="sr-only">Toggle Drop-down</span>
-							</button>
-							<ul class="dropdown-menu" role="menu">
-								<li data-value="5"><a href="#">5</a></li>
-								<li data-value="10" data-selected="true"><a href="#">10</a></li>
-								<li data-value="20"><a href="#">20</a></li>
-								<li data-value="50" data-foo="bar" data-fizz="buzz"><a href="#">50</a></li>
-								<li data-value="100"><a href="#">100</a></li>
-							</ul>
-							<input class="hidden hidden-field" name="itemsPerPage" readonly="readonly" aria-hidden="true" type="text"/>
-						</div>
-						<span>Per Page</span>
-					</div>
-				</div>
-				<div class="repeater-footer-right">
-					<div class="repeater-pagination">
-						<button type="button" class="btn btn-default btn-sm repeater-prev"><span class="glyphicon glyphicon-chevron-left"></span></button>
-						<span>Page</span>
-						<div class="repeater-primaryPaging active">
-							<div class="input-group input-append dropdown combobox">
-								<input type="text" class="form-control">
-								<div class="input-group-btn">
-									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-									<ul class="dropdown-menu pull-right"></ul>
-								</div>
+			<div class="repeater-footer-right">
+				<div class="repeater-pagination">
+					<button type="button" class="btn btn-default btn-sm repeater-prev"><span class="glyphicon glyphicon-chevron-left"></span></button>
+					<span>Page</span>
+					<div class="repeater-primaryPaging active">
+						<div class="input-group input-append dropdown combobox">
+							<input type="text" class="form-control">
+							<div class="input-group-btn">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+								<ul class="dropdown-menu pull-right"></ul>
 							</div>
 						</div>
-						<input type="text" class="form-control repeater-secondaryPaging">
-						<span>of <span class="repeater-pages"></span></span>
-						<button type="button" class="btn btn-default btn-sm repeater-next"><span class="glyphicon glyphicon-chevron-right"></span></button>
 					</div>
+					<input type="text" class="form-control repeater-secondaryPaging">
+					<span>of <span class="repeater-pages"></span></span>
+					<button type="button" class="btn btn-default btn-sm repeater-next"><span class="glyphicon glyphicon-chevron-right"></span></button>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 
-<p>The Fuel UX team will add more documentation as we solidfy the thumbnail view.</p>
+<h3>Usage</h3>
+<p>The repeater thumbnail plug-in extends repeater functionality. This plug-in follows the steps specified in the <a href="/javascript.html#repeater">repeater
+	docs.</a> You can also use the following additional features:</p>
+
+<h3>Data Source</h3>
+<p>The <a href="javascript.html#repeater-dataSource">dataSource</a> function behaves as described in the repeater docs. However, the function requires a few additional parameters on the returned <code>data</code> object to render the data properly:
+</p>
+<div class="table-responsive">
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th style="width: 100px;">Attribute</th>
+				<th style="width: 100px;">type</th>
+				<th>description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>items</td>
+				<td>array</td>
+				<td>Array of objects representing the thumbnails that will be displayed within the repeater. The item
+					objects can contain any number of attributes, although attributes with certain names will be
+					used to render the thumbnail. In the default thumbnail template, the `src` and `name` attributes
+					are expected.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div><!-- ./fu-table-responsive -->
+
+<h3>Options</h3>
+<p>You can pass options via Javascript upon initialization.</p>
+<div class="table-responsive">
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th style="width: 100px;">Name</th>
+				<th style="width: 100px;">type</th>
+				<th style="width: 200px;">default</th>
+				<th>description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>thumbnail_infiniteScroll</td>
+				<td>boolean or object</td>
+				<td>false</td>
+				<td>Dictates whether the repeater thumbnail view should utilize infinite scrolling instead of pagination.
+					A <code>true</code> value enables infinite scrolling with default settings. Additionally,
+					you can set this value to an object with attributes matching the options available in the
+					<a href="javascript#infinitescroll">infinite scroll</a> control. This option allows for further
+					customization and ignores the dataSource option.
+				</td>
+			</tr>
+			<tr>
+				<td>thumbnail_itemRendered</td>
+				<td>function</td>
+				<td>null</td>
+				<td>The repeater calls this function after the repeater renders each item, passing a a <code>helpers</code>
+					object and <code>callback</code> function as arguments. The <code>helpers</code> object includes
+					<code>itemData</code>, parent <code>container</code>, and current thumbnail <code>item</code> as attributes,
+					if available. Once ready, call the <code>callback</code> function in order to continue with rendering.
+				</td>
+			</tr>
+			<tr>
+				<td>thumbnail_selectable</td>
+				<td>boolean or string</td>
+				<td>false</td>
+				<td>Specifies whether a user can select rendered thumbnails. If you set the value to <code>true</code>,
+					users can select only one thumbnail at a time. If you set the value to <code>'multi'</code>, users
+					can select multiple thumbnails at once.
+				</td>
+			</tr>
+			<tr>
+				<td>thumbnail_template</td>
+				<td>string</td>
+				<td>
+{% highlight html %}
+<div class="thumbnail repeater-thumbnail"><img height="75" src="{% raw %}{{src}}{% endraw %}" width="65"><span>{% raw %}{{name}}{% endraw %}</span></div>
+{% endhighlight %}
+				</td>
+				<td>Dictates the template used to render the repeater thumbnails. Mustache/Handlebar-style syntax ('{% raw %}{{example}}{% endraw %}')
+					can be used to specify where various attribute values will be inserted. NOTE: only the immediate
+					decendents of the thumbnail item object can be referenced; all other Mustache/Handlebars functionality
+					not supported.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div><!-- ./fu-table-responsive -->
+
+<h3>Methods</h3>
+
+<h4>.repeater('thumbnail_clearSelectedItems');</h4>
+<p>Clears any currently selected thumbnail items. You can use selectable thumbnail items only by enabling the <code>thumbnail_selectable</code> option.</p>
+{% highlight js %}$('#myRepeater').repeater('thumbnail_clearSelectedItems');{% endhighlight %}
+
+<h4>.repeater('thumbnail_getSelectedItems');</h4>
+<p>Returns the currently selected thumbnail items in an array. You can use selectable thumbnail items only by enabling the <code>thumbnail_selectable</code> option.
+</p>
+{% highlight js %}$('#element').repeater('thumbnail_getSelectedItems');{% endhighlight %}
+
+<h4>.repeater('thumbnail_setSelectedItems');</h4>
+<p>Set the selected thumbnail items for the current displayed data. This function accepts an array of <code>items</code> objects and
+	<code>force</code> boolean as arguments.
+</p>
+{% highlight js %}$('#myRepeater').repeater('thumbnail_setSelectedItems', [ {...}, ...]);{% endhighlight %}
+<div class="table-responsive">
+	<table class="table table-bordered table-striped">
+		<thead>
+		<tr>
+			<th style="width: 150px;">Parameter</th>
+			<th>description</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td>items</td>
+			<td><i>Required</i> Array of items objects. The items objects specify which thumbnails to select with attributes
+				to identify the item. If the items object contains an <code>index</code> property, the method will
+				select the matching thumbnail index within the currently displayed data. If the items object contains a
+				<code>selector</code> property, the method will select any thumbnails matching that selector.
+				<br/> (ex: <code>[ { index: 4 }, { selector: '.coolThumbnail' } ]</code> )
+			</td>
+		</tr>
+		<tr>
+			<td>force</td>
+			<td><i>Optional</i> Boolean specifying whether to ignore current <code>thumbnail_selectable</code> mode when
+				selecting items. This value defaults to <code>false</code> and allows only one selectable item if
+				<code>thumbnail_selectable</code> does not equal <code>'multi'</code>, regardless of how many items
+				are passed into the items array parameter. Set the value to <code>true</code> to override this behavior
+				and select all provided items.
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div><!-- ./fu-table-responsive -->
+
+<h3>Events</h3>
+
+<div class="table-responsive">
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th style="width: 150px;">Event Type</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>deselected.fu.repeaterThumbnail</td>
+				<td>If <code>thumbnail_selectable</code> is enabled, fires whenever the user deselects a thumbnail. Provides an event
+					object and the deselected thumbnail as arguments.</td>
+			</tr>
+			<tr>
+				<td>selected.fu.repeaterThumbnail</td>
+				<td>If <code>thumbnail_selectable</code> is enabled, fires whenever the user selects a thumbnail. Provides an event
+					object and the selected thumbnail as arguments.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div><!-- ./fu-table-responsive -->
+<p>All repeater-thumbnail events are fired on the <code>.repeater</code> classed element.</p>
+{% highlight js %}
+$('#myRepeater').on('selected.fu.repeaterThumbnail', function () {
+    // do something…
+});
+{% endhighlight %}

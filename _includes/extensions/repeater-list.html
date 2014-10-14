@@ -109,11 +109,11 @@
 </div>
 
 <h3>Usage</h3>
-<p>The repeater view plug-in extends repeater functionality. This plug-in follows the steps specified in the <a href="/javascript.html#repeater">repeater
+<p>The repeater list plug-in extends repeater functionality. This plug-in follows the steps specified in the <a href="/javascript.html#repeater">repeater
 	docs.</a> You can also use the following additional features:</p>
 
 <h3>Data Source</h3>
-<p>The <a href="javascript.html#repeater-dataSource">dataSource</a> function functions as described in the repeater docs. However, the function requires a few additional parameters on the returned <code>data</code> object to render the data properly:
+<p>The <a href="javascript.html#repeater-dataSource">dataSource</a> function behaves as described in the repeater docs. However, the function requires a few additional parameters on the returned <code>data</code> object to render the data properly:
 </p>
 <div class="table-responsive">
 	<table class="table table-bordered table-striped">
@@ -168,11 +168,11 @@
 				<td>list_columnRendered</td>
 				<td>function</td>
 				<td>null</td>
-				<td>If set, the repeater calls this function after the repeater renders each column. This function passes
-					a <code>helpers</code> object and <code>callback</code> function as arguments. The <code>helpers</code>
-					object includes <code>rowData</code>, <code>columnAttr</code>, parent <code>container</code>, and
-					current column <code>item</code> as attributes, if available. Once ready, call the <code>callback</code>
-					function to continue rendering.
+				<td>If set, the repeater calls this function after rendering each column, passing a <code>helpers</code>
+					object and <code>callback</code> function as arguments. The <code>helpers</code> object includes
+					<code>rowData</code>, <code>columnAttr</code>, parent <code>container</code>, and current column
+					<code>item</code> as attributes, if available. Once ready, call the <code>callback</code> function
+					to continue rendering.
 				</td>
 			</tr>
 			<tr>
@@ -198,8 +198,9 @@
 				<td>false</td>
 				<td>Dictates whether the repeater list view should utilize infinite scrolling instead of pagination.
 					A <code>true</code> value enables infinite scrolling with default settings. Additionally,
-					you can set this value to an object with attributes matching the options available in the infinite scroll
-					control. This option allows for further customization and ignores the dataSource option.
+					you can set this value to an object with attributes matching the options available in the
+					<a href="javascript#infinitescroll">infinite scroll</a> control. This option allows for further
+					customization and ignores the dataSource option.
 				</td>
 			</tr>
 			<tr>
@@ -214,7 +215,7 @@
 				<td>list_selectable</td>
 				<td>boolean or string</td>
 				<td>false</td>
-				<td>Specifies whether a user can select rendered items rows. If you set the value to <code>true</code>,
+				<td>Specifies whether a user can select rendered item rows. If you set the value to <code>true</code>,
 					users can select only one row at a time. If you set the value to <code>'multi'</code>, users can select multiple rows at once.
 				</td>
 			</tr>
@@ -234,10 +235,10 @@
 				<td>list_rowRendered</td>
 				<td>function</td>
 				<td>null</td>
-				<td>The code calls this function after the repeater renders each row. This function passes a <code>helpers</code>
+				<td>If set, the repeater calls this function after the repeater renders each row, passing a <code>helpers</code>
 					object and <code>callback</code> function as arguments. The <code>helpers</code> object includes
-					the parent <code>container</code> and current row <code>item</code> as attributes, if available.
-					Once ready, call the <code>callback</code> function in order to continue with rendering.
+					<code>rowData</code>, parent <code>container</code>, and current row <code>item</code> as attributes,
+					if available. Once ready, call the <code>callback</code> function in order to continue with rendering.
 				</td>
 			</tr>
 		</tbody>
