@@ -129,6 +129,26 @@
 </label>
 {% endhighlight %}
 
+  <h4 id="radio-examples-addon">Addon radios</h4>
+  <p>Place any radio option within an input group's addon instead of text.</p>
+  <div class="fu-example section">
+    <div class="input-group">
+      <label class="input-group-addon radio-custom radio-inline" data-initialize="radio">
+        <input class="sr-only" type="radio" value="option1">
+      </label>
+      <input type="text" class="form-control">
+    </div>
+  </div>
+{% highlight html %}
+  <div class="input-group">
+    <label class="input-group-addon radio-custom radio-inline" data-initialize="radio">
+      <input class="sr-only" type="radio" value="option1">
+    </label>
+    <input type="text" class="form-control">
+  </div>
+{% endhighlight %}
+
+
   <h4 id="radio-examples-element-toggling">Element toggling radios</h4>
   <p>Use the <code>data-toggle="{{selector}}"</code> to automatically show or hide elements matching the selector within the body upon check or uncheck. This function works with any <a href="http://api.jquery.com/category/selectors/">jQuery selector</a>.
   </p>
