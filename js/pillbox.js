@@ -558,7 +558,7 @@
 
 		getItemData: function(el, data) {
 			return $.extend({
-				text: el.find('span:first').html()
+				name: el.find('span:first').html()
 			}, el.data(), data);
 		},
 
