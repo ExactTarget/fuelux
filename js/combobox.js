@@ -68,7 +68,7 @@
 		doSelect: function($item){
 			if (typeof $item[0] !== 'undefined') {
 				this.$selectedItem = $item;
-				this.$input.val(this.$selectedItem.text());
+				this.$input.val(this.$selectedItem.text().trim());
 			}
 			else {
 				this.$selectedItem = null;
@@ -91,7 +91,7 @@
 			var data = {};
 
 			if (item) {
-				var txt = this.$selectedItem.text();
+				var txt = this.$selectedItem.text().trim();
 				data = $.extend({ text: txt }, this.$selectedItem.data());
 			}
 			else {
@@ -156,7 +156,7 @@
 			this.$selectedItem = $(e.target).parent();
 
 			// set input text and trigger input change event marked as synthetic
-			this.$input.val(this.$selectedItem.text()).trigger('change', { synthetic: true });
+			this.$input.val(this.$selectedItem.text().trim()).trigger('change', { synthetic: true });
 
 			// pass object including text and any data-attributes
 			// to onchange event
