@@ -216,7 +216,7 @@ define(function(require) {
 
 			callback({ data:[
 				{
-					"text": "African cherry orange",
+					"name": "African cherry orange",
 					"value": "african cherry orange",
 					"attr": {
 						"cssClass": "example-pill-class",
@@ -229,7 +229,7 @@ define(function(require) {
 					}
 				},
 				{
-					"text": "Bilberry",
+					"name": "Bilberry",
 					"value": "bilberry",
 					"attr": {
 						"cssClass": "example-pill-class",
@@ -242,7 +242,7 @@ define(function(require) {
 					}
 				},
 				{
-					"text": "Ceylon gooseberry",
+					"name": "Ceylon gooseberry",
 					"value": "ceylon gooseberry",
 					"attr": {
 						"cssClass": "example-pill-class",
@@ -251,7 +251,7 @@ define(function(require) {
 					}
 				},
 				{
-					"text": "Dead Man's Fingers",
+					"name": "Dead Man's Fingers",
 					"value": "dead man's fingers",
 					"attr": {
 						"cssClass": "example-pill-class",
@@ -260,7 +260,7 @@ define(function(require) {
 					}
 				},
 				{
-					"text": "Governor’s Plum",
+					"name": "Governor’s Plum",
 					"value": "governor’s plum",
 					"attr": {
 						"cssClass": "example-pill-class",
@@ -269,7 +269,7 @@ define(function(require) {
 					}
 				},
 				{
-					"text": "Huckleberry",
+					"name": "Huckleberry",
 					"value": "huckleberry",
 					"attr": {
 						"cssClass": "example-pill-class",
@@ -278,7 +278,7 @@ define(function(require) {
 					}
 				},
 				{
-					"text": "Jackfruit",
+					"name": "Jackfruit",
 					"value": "jackfruit",
 					"attr": {
 						"cssClass": "example-pill-class",
@@ -287,7 +287,7 @@ define(function(require) {
 					}
 				},
 				{
-					"text": "Lillypilly",
+					"name": "Lillypilly",
 					"value": "lillypilly",
 					"attr": {
 						"cssClass": "example-pill-class",
@@ -296,7 +296,7 @@ define(function(require) {
 					}
 				},
 				{
-					"text": "Soursop",
+					"name": "Soursop",
 					"value": "soursop",
 					"attr": {
 						"cssClass": "example-pill-class",
@@ -305,7 +305,7 @@ define(function(require) {
 					}
 				},
 				{
-					"text": "Thimbleberry",
+					"name": "Thimbleberry",
 					"value": "thimbleberry",
 					"attr": {
 						"cssClass": "example-pill-class",
@@ -314,7 +314,7 @@ define(function(require) {
 					}
 				},
 				{
-					"text": "Wongi",
+					"name": "Wongi",
 					"value": "wongi",
 					"attr": {
 						"cssClass": "example-pill-class",
@@ -341,7 +341,7 @@ define(function(require) {
 		var randomBackgroundColor = '#'+Math.floor(Math.random()*16777215).toString(16);
 		$('#myPillbox1').pillbox('addItems',
 			{
-				"text": "item " + newItemCount,
+				"name": "item " + newItemCount,
 				"value": "item" + newItemCount,
 				"attr": {
 						"cssClass": "example-pill-class",
