@@ -178,7 +178,17 @@
 			var interval = this.$repeatIntervalSpinbox.spinbox('value');
 			var pattern = '';
 			var repeat = this.$repeatIntervalSelect.selectlist('selectedItem').value;
-			var startTime = this.$startTime.combobox('selectedItem').text.toLowerCase();
+			var startTime;
+
+			if (this.$startTime.combobox('selectedItem').value){
+				startTime = this.$startTime.combobox('selectedItem').value;
+				startTime = startTime.toLowerCase();
+
+			}
+			else {
+				startTime = this.$startTime.combobox('selectedItem').text.toLowerCase();
+			}
+
 			var timeZone = this.$timeZone.selectlist('selectedItem');
 			var getFormattedDate;
 
@@ -367,7 +377,7 @@
 
 			if(options.startDateTime){
 				temp = options.startDateTime.split('T');
-				this.$startDate.datepicker('setDate', temp[0]);
+				this.$startDate.datepicker('setDate', temp);
 
 				if(temp[1]){
 					temp[1] = temp[1].split(':');
@@ -507,7 +517,11 @@
 						temp.splice(7, 0, '-');
 						temp = temp.join('');
 					}
-					this.$endDate.datepicker('setDate', temp);
+					var timeZone = this.$timeZone.selectlist('selectedItem');
+					var timezoneOffset = (timeZone.offset==='+00:00') ? 'Z' : timeZone.offset;
+
+					this.$endDate.datepicker('setDate', temp + 'T' + timezoneOffset);
+
 					this.$endSelect.selectlist('selectByValue', 'date');
 				}
 				this.endSelectChanged();
