@@ -127,6 +127,25 @@
 </label>
 {% endhighlight %}
 
+  <h4 id="checkbox-examples-addon">Addon checkboxes</h4>
+  <p>Place any checkbox option within an input group's addon instead of text.</p>
+  <div class="fu-example section">
+    <div class="input-group">
+      <label class="input-group-addon checkbox-custom checkbox-inline" data-initialize="checkbox">
+        <input class="sr-only" type="checkbox" value="option1">
+      </label>
+      <input type="text" class="form-control">
+    </div>
+  </div>
+{% highlight html %}
+  <div class="input-group">
+    <label class="input-group-addon checkbox-custom checkbox-inline" data-initialize="checkbox">
+      <input class="sr-only" type="checkbox" value="option1">
+    </label>
+    <input type="text" class="form-control">
+  </div>
+{% endhighlight %}
+
   <h4 id="checkbox-examples-element-toggling">Element toggling checkboxes</h4>
   <p>Use the <code>data-toggle="{{selector}}"</code> to automatically show or hide elements matching the selector within the body upon check or uncheck. This control works with any <a href="http://api.jquery.com/category/selectors/">jQuery selector</a>.
   </p>
