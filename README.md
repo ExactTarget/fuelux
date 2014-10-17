@@ -198,7 +198,9 @@ Should you encounter problems with installing dependencies or running Grunt comm
 Before writing code, we suggest you [search for issues](https://github.com/ExactTarget/fuelux/issues?state=open) or [create a new one](https://github.com/ExactTarget/fuelux/issues/new) to confirm where your contribution fits into
 our roadmap.
 
-Please do not edit or commit files in the `dist` directory as they are generated via grunt. You'll find source files in the respective `js`, `less`, and `fonts` directory. Project maintainers will commit files in the `dist` directory from time to time.
+Please do not edit or commit files in the `dist` directory. You'll find source files in the respective `js`, `less`, and `fonts` directory. Project maintainers will commit files in the `dist` directory from time to time.
+
+Prior to submitting a pull request, please run `grunt` to lint & test your code.
 
 Take care to maintain the existing coding style (tabs, clarity over brevity, declarative markup, semicolons, etc).
 
@@ -208,7 +210,7 @@ Please review the [ExactTarget JavaScript style guide](https://github.com/ExactT
 
 Be sure to add unit tests for any new or changed functionality.
 
-To serve the test page and lint your changes run `grunt serve` while developing. View the test page at [http://localhost:8000/test/](http://localhost:8000/test/). The `serve` task will run lint and unit tests against saved code.
+To serve the test page and lint your changes run `grunt serve` while developing. View the test page at [http://localhost:8000/test/](http://localhost:8000/test/). The `serve` task will run lint and unit tests against saved code. If you have CSS changes, you will either need to use client-side LESS compilation (comment out line 10 and uncomment lines 12-15 in index.html), or run `grunt servedist` to compile your CSS changes into the `dist` directory so that you can view them on the test page. _make sure not to commit changes to the dist directory resulting from this compilation_
 
 While grunt can run the included unit tests via PhantomJS, this isn't a substitute for running tests across a variety of browsers and environments. Please be sure to test in as many of the browsers listed in `sauce_browsers.yml` as you can before contributing.
 
