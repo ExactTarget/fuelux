@@ -6,15 +6,17 @@
 	var currentHost =  window.location.host.toLowerCase();
 	var currentPath = window.location.pathname || '';
 	var currentProtocol = window.location.protocol.toLowerCase();
+
+	var ghDomain = 'exacttarget.github.io';
 	if (
-		'exacttarget.github.io' === currentHost
+		ghDomain === currentHost
 		// force preferred protocol
 		|| (
 			domain === currentHost
 			&& protocol && protocol !== currentProtocol
 		)
 	) {
-		window.location = siteUrl + currentPath.replace('/fuelux', '');
+		window.location = window.location.replace(ghDomain + '/fuelux', domain);
 	}
 </script>
 
