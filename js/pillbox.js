@@ -175,7 +175,7 @@
 				index = arguments[0];
 			} else {
 				items = [].slice.call(arguments).slice(0);
-				isInternal = items[1] && !items[1].name;
+				isInternal = items[1] && ! (items[1].name || items[1].text);
 			}
 
 			//Accounting for array parameter
@@ -185,6 +185,15 @@
 
 			if( items.length ){
 				$.each(items, function(i, value){
+
+					// Maintain backwards compatibility if end-user is still using "text" as the key name
+					if( value.text && !value.name ){
+						value.name = value.text;
+						if(i === 0){
+							window.console.warn('Property name "text" has been deprecated and will be removed. Use Property name "name" instead.');
+						}
+					}
+
 					var data = {
 						name: value.name,
 						value: (value.value ? value.value : value.name),
@@ -502,7 +511,13 @@
 			this._removePillTrigger( { method: 'removeByValue', removedValues: values } );
 		},
 
+		// This function is kept for backwards compatibility
 		removeByText: function() {
+			window.console.warn('Method "removeByText" has been deprecated. Use "removeByName" instead.');
+			this.removeByName.apply(this, arguments);
+		},
+
+		removeByName: function() {
 			var text = [].slice.call(arguments).slice(0);
 			var self = this;
 
@@ -557,7 +572,12 @@
 		},
 
 		getItemData: function(el, data) {
+			window.console.warn('Property name "text" has been deprecated and will be removed. Use Property name "name" instead.');
+
 			return $.extend({
+
+				//include "text" property to maintain backwards compatibility
+				text: el.find('span:first').html(),
 				name: el.find('span:first').html()
 			}, el.data(), data);
 		},
