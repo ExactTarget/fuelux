@@ -1,4 +1,9 @@
 #[Fuel UX](http://exacttarget.github.io/fuelux/)
+[![Bower version](https://badge.fury.io/bo/fuelux.svg)](http://badge.fury.io/bo/fuelux)
+[![NPM version](https://badge.fury.io/js/fuelux.svg)](http://badge.fury.io/js/fuelux)
+[![Build Status](https://api.travis-ci.org/ExactTarget/fuelux.png?branch=master)](http://travis-ci.org/ExactTarget/fuelux)
+[![devDependency Status](https://david-dm.org/exacttarget/fuelux/dev-status.svg)](https://david-dm.org/exacttarget/fuelux#info=devDependencies)
+[![Selenium Test Status](https://saucelabs.com/browser-matrix/fuelux.svg)](https://saucelabs.com/u/fuelux)
 
 Fuel UX extends [Bootstrap 3](https://github.com/twbs/bootstrap) with additional lightweight JavaScript controls. It is actively maintained by [members of ExactTarget, a salesforce.com company,](https://github.com/orgs/ExactTarget/people) with the support and involvement of the community.
 
@@ -61,12 +66,6 @@ All functionality is covered by the [live documentation](http://exacttarget.gith
 ### Live docs and demos
 
 View [live documentation and demos](http://exacttarget.github.com/fuelux) on GitHub pages.
-
-### Automated Testing Status
-|TravisCI|Development Modules|Browser Support|
-|:---|:---:|:---:|----:|----:|
-|[![Build Status](https://api.travis-ci.org/ExactTarget/fuelux.png?branch=master)](http://travis-ci.org/ExactTarget/fuelux) |[![devDependency Status](https://david-dm.org/ExactTarget/fuelux/dev-status.svg)](https://david-dm.org/ExactTarget/fuelux#info=devDependencies)|[![Selenium Test Status](https://saucelabs.com/browser-matrix/fuelux.svg)](https://saucelabs.com/u/fuelux)|
-
 
 ### Download
 Fuel UX can be obtained one of three ways:
