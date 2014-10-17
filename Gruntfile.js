@@ -17,10 +17,10 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		// Try ENV variables (export SAUCE_ACCESS_KEY=XXXX), if key doesn't exist, try key file
 		sauceLoginFile: grunt.file.exists('SAUCE_API_KEY.yml') ? grunt.file.readYAML('SAUCE_API_KEY.yml') : undefined,
-		sauceUser: 'fuelux',
-		sauceKey: process.env['SAUCE_ACCESS_KEY'] ? process.env['SAUCE_ACCESS_KEY'] : '<%= sauceLoginFile.key %>',
-		allTestUrls: ['2.1.0', '1.11.0', '1.9.1', 'browserGlobals'].map(function(ver) {
-			if (ver === 'browserGlobals') {
+		sauceUser: process.env.SAUCE_USERNAME || 'fuelux',
+		sauceKey: process.env.SAUCE_ACCESS_KEY ? process.env.SAUCE_ACCESS_KEY : '<%= sauceLoginFile.key %>',
+		allTestUrls: ['2.1.0', '1.11.0', '1.9.1', 'browserGlobals'].map(function (ver) {
+			if(ver==='browserGlobals'){
 				return 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux-browser-globals.html';
 			}
 			return 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + ver;
@@ -365,7 +365,7 @@ module.exports = function(grunt) {
 
 	//Travis CI task
 	grunt.registerTask('travisci', 'Run appropriate test strategy for Travis CI', function() {
-		(process.env['TRAVIS_SECURE_ENV_VARS'] === 'true') ? grunt.task.run('traviscisauce') : grunt.task.run('releasetest');
+		(process.env.TRAVIS_SECURE_ENV_VARS === 'true') ? grunt.task.run('traviscisauce') : grunt.task.run('releasetest');
 	});
 
 	/* -------------
