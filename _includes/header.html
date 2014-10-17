@@ -1,3 +1,23 @@
+<script>
+	var siteUrl = '{{ site.url }}'.toLowerCase();
+	var domain = siteUrl.split('//')[1] || siteUrl;
+	var protocol = siteUrl.split('//')[0];
+
+	var currentHost =  window.location.host.toLowerCase();
+	var currentPath = window.location.pathname || '';
+	var currentProtocol = window.location.protocol.toLowerCase();
+	if (
+		'exacttarget.github.io' === currentHost
+		// force preferred protocol
+		|| (
+			domain === currentHost
+			&& protocol && protocol !== currentProtocol
+		)
+	) {
+		window.location = siteUrl + currentPath.replace('/fuelux', '');
+	}
+</script>
+
 <meta charset="utf-8">
 <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
