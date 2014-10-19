@@ -27,6 +27,7 @@ module.exports = function (grunt) {
 		}),
 		trickyTestUrl: 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + '1.9.1',
 		travisCITestUrls: ['http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + '1.9.1'],
+		watchFiles: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
 
 		//Tasks configuration
 		clean: {
@@ -101,13 +102,15 @@ module.exports = function (grunt) {
 			server: {
 				options: {
 					hostname: '*',
-					port: 8000
+					port: 8000,
+					useAvailablePort: true		// don't be greedy
 				}
 			},
 			testServer: {
 				options: {
 					hostname: '*',
-					port: 9000		// allows main server to be run simultaneously 
+					port: 9000,		// allows main server to be run simultaneously
+					useAvailablePort: true		// don't be greedy
 				}
 			}
 		},
@@ -293,14 +296,19 @@ module.exports = function (grunt) {
 		},
 		watch: {
 			full: {
-				files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
+				files: '<%= watchFiles %>',
 				options: { livereload: true },
 				tasks: ['test', 'dist']
 			},
 			css: {
-				files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
+				files: '<%= watchFiles %>',
 				options: { livereload: true },
 				tasks: ['distcss']
+			},
+			submodule: {
+				files: '<%= watchFiles %>',
+				options: { livereload: false },
+				tasks: ['test', 'dist']
 			}
 		}
 	});
@@ -352,8 +360,14 @@ module.exports = function (grunt) {
 	/* -------------
 		SERVE
 	------------- */
+	// default serve for contributing to library
 	grunt.registerTask('serve', ['test', 'dist', 'connect:server', 'watch:full']);
+
+	// a faster serve for modifying LESS/CSS only. No tests run.
 	grunt.registerTask('servecss', ['connect:server', 'watch:css']);
 
+	// Use when contributing to Fuel UX from within another project 
+	// (e.g.- git submodule or clone within bower_components)
+	grunt.registerTask('servesubmodule', ['test', 'dist', 'connect:server', 'watch:submodule']);
 
 };
