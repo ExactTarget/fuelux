@@ -330,38 +330,38 @@ module.exports = function(grunt) {
 	grunt.registerTask('distjs', 'concat, uglify, and beautifying JS', ['concat', 'uglify', 'jsbeautifier']);
 
 	// CSS distribution task
-	grunt.registerTask('distcss', 'less-ifying CSS', ['less', 'usebanner']);
+	grunt.registerTask('distcss', 'less compile CSS', ['less', 'usebanner']);
 
 	// ZIP distribution task
-	grunt.registerTask('distzip', 'zipping dist', ['copy:zipsrc', 'compress', 'clean:zipsrc']);
+	grunt.registerTask('distzip', 'compress and zip dist', ['copy:zipsrc', 'compress', 'clean:zipsrc']);
 
 	// Full distribution task
-	grunt.registerTask('dist', 'building and zipping dist --contributors should not be doing this!!!', ['clean:dist', 'distcss', 'copy:fonts', 'distjs', 'distzip']);
+	grunt.registerTask('dist', 'build and zip dist --contributors should do this!!!', ['clean:dist', 'distcss', 'copy:fonts', 'distjs', 'distzip']);
 
 	// The default build task
-	grunt.registerTask('default', 'running release tests. Not building dist.', ['releasetest']);
+	grunt.registerTask('default', 'run release tests. Does not build dist.', ['releasetest']);
 
 	// This task should be run to build dist directory. This is mostly for maintainers prior to a release.
 	// Contributors who run this will need to revert changes to dist afterwards (there shouldn't be a reason for a contributor to run this)
-	grunt.registerTask('release', 'running release tests and building dist directory', ['releasetest', 'dist']);
+	grunt.registerTask('release', 'run release tests and build dist directory', ['releasetest', 'dist']);
 
 	/* -------------
 		TESTS
 	------------- */
 	// minimal tests for developmeent
-	grunt.registerTask('test', 'running jshint, qunit, and validation', ['jshint', 'qunit:simple', 'validation']);
+	grunt.registerTask('test', 'run jshint, qunit, and validation', ['jshint', 'qunit:simple', 'validation']);
 
 	// multiple jquery versions, but still no VMs
-	grunt.registerTask('releasetest', 'running testServer, jshint, and qunit', ['connect:testServer', 'jshint', 'qunit:full']);
+	grunt.registerTask('releasetest', 'run testServer, jshint, and qunit', ['connect:testServer', 'jshint', 'qunit:full']);
 
 	// multiple jquery versions, sent to VMs
-	grunt.registerTask('saucelabs', 'running testServer, jshint, and qunity on saucelabs', ['connect:testServer', 'jshint', 'saucelabs-qunit:all']);
+	grunt.registerTask('saucelabs', 'run testServer, jshint, and qunity on saucelabs', ['connect:testServer', 'jshint', 'saucelabs-qunit:all']);
 
 	// multiple jquery versions, sent to VMs including IE8-11, etc.
-	grunt.registerTask('trickysauce', 'running testServer, jshint, and qunit for "tricky browsers" (IE8-11)', ['connect:testServer', 'jshint', 'saucelabs-qunit:trickyBrowsers']);
+	grunt.registerTask('trickysauce', 'run testServer, jshint, and qunit for "tricky browsers" (IE8-11)', ['connect:testServer', 'jshint', 'saucelabs-qunit:trickyBrowsers']);
 
 	//command line travisci / saucelabs
-	grunt.registerTask('traviscisauce', 'running testServer, jshint, and saucelabs with TravisCI', ['connect:testServer', 'jshint', 'saucelabs-qunit:travisCIBrowsers']);
+	grunt.registerTask('traviscisauce', 'run testServer, jshint, and saucelabs with TravisCI', ['connect:testServer', 'jshint', 'saucelabs-qunit:travisCIBrowsers']);
 
 	//Travis CI task
 	grunt.registerTask('travisci', 'Run appropriate test strategy for Travis CI', function() {
@@ -371,8 +371,9 @@ module.exports = function(grunt) {
 	/* -------------
 		SERVE
 	------------- */
-	grunt.registerTask('serve', 'serving files without compilation', ['test', 'connect:server', 'watch:contrib']);
-	grunt.registerTask('servedist', 'building dist directory and serving files with compilation', ['test', 'dist', 'connect:server', 'watch:full']);
+	grunt.registerTask('serve', 'serve files without compilation', ['test', 'connect:server', 'watch:contrib']);
+	grunt.registerTask('servefast', 'serve files without compilation or watch (tests take time...)', ['connect:server']);
+	grunt.registerTask('servedist', 'build dist directory and serve files with compilation', ['test', 'dist', 'connect:server', 'watch:full']);
 
 
 };
