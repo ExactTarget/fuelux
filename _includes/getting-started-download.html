@@ -1,8 +1,7 @@
 <div class="fu-docs-section">
 
 <h1 id="download">Download</h1>
-
-<p class="lead">Fuel UX provides a few easy ways to quickly get started, each one appealing to a different skill level and use case. Read through to see which method suits your particular needs.</p>
+  <p class="muted">Currently v{{ site.current_version }}</p>
 
 <div class="row fu-downloads" style="margin-bottom: 20px;">
   <div class="col-sm-4">
@@ -14,27 +13,36 @@
     <h3 id="download-fuelux">Compiled Files</h3>
     <p>Compiled and minified CSS, JavaScript, and fonts. Includes no documentation.</p>
     <a href="{{ site.download.dist }}" class="btn btn-lg btn-outline" role="button">Download Fuel UX</a>
-    <!--<a href="{{ site.download.dist }}" class="btn btn-lg btn-outline" role="button">Download Fuel UX</a>-->
   </div>
   <div class="col-sm-4">
     <h3 id="download-source">Source code</h3>
     <p>Includes all files, but we recommend cloning this git repository.</p>
     <a href="{{ site.download.source }}" class="btn btn-lg btn-outline" role="button">Download source</a>
-    <!--<a href="{{ site.download.source }}" class="btn btn-lg btn-outline" role="button">Download source</a>-->
   </div>
 </div>
 
-  <p class="muted">Currently v{{ site.current_version }}.</p>
-
 <a id="download-list"></a>
 
-<!-- BEGIN FROM GITHUB README.md -->
 
 <p>Obtain Fuel UX in one of three ways:</p>
 
 <ol class="task-list">
-<li>
-<p><strong>Best way</strong> - Install with a dependency manager:</p>
+<li id="use-cdn">
+<p>Request files from the Fuel UX CDN (you can also use the CDN to download a <a href="{{ site.download.dist }}">.zip archive of the latest release</a>)</p>
+
+  <p>ExactTarget hosts Fuel UX files at its FuelCDN. This will require you to manage your own <a href="{{site.repo}}/blob/master/bower.json">dependencies</a>, or <a href="#use-bower">use bower</a> to have that taken care of for you.</p>
+{% highlight html %}
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="{{ site.cdn.css }}">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="{{ site.cdn.js }}"></script>
+{% endhighlight %}
+
+</li>
+
+<li id="use-bower">
+<p>Install with a dependency manager:</p>
 
 <p>Using <a href="https://github.com/bower/bower">Bower</a>:</p>
 
@@ -52,27 +60,13 @@
 
 <p>This method ensures you receive all the dependencies you might need, such as jQuery, Bootstap, moment.js (for extended date support), and requireJS (for AMD support).</p>
 </li>
-<li>
-<p><strong>Another good way</strong> - Clone the Git repository:</p>
+<li id="clone-repo">
+<p>Clone the Git repository:</p>
 
 <pre><code>git clone https://github.com/ExactTarget/fuelux/
 </code></pre>
 
 <p>Cloning the repository ensures you can apply future updates to Fuel UX easily, but this method requires to you manage its dependencies on your own.</p>
-</li>
-<li>
-<p><strong>Also an option</strong> - Download a <a href="{{ site.download.dist }}">.zip archive of the latest release</a> or request files from the Fuel UX CDN.</p>
-
-  <p>If you choose to manage your own dependencies and would like to just copy and paste Fuel UX into your project, ExactTarget hosts Fuel UX files at its FuelCDN.</p>
-{% highlight html %}
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="{{ site.cdn.css }}">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="{{ site.cdn.js }}"></script>
-{% endhighlight %}
-
-<p><em>Using Fuel UX in this way can make updating to future releases difficult. Do not use this approach if you plan to maintain your application in the future.</em></p>
 </li>
 
 
@@ -82,7 +76,7 @@
 <h3>
 <a name="user-content-whats-included" class="anchor" href="#whats-included"><span class="octicon octicon-link"></span></a>What's included</h3>
 
-<p class="lead">You can download Fuel UX in four forms, and each form includes the following directories and files, logically grouping common resources and providing both compiled and minified variations.</p>
+<p class="lead">FuelUX includes the following directories and files, logically grouping common resources and providing both compiled and minified variations.</p>
 
   <div class="bs-callout bs-callout-warning" id="jquery-required">
     <h4>jQuery and Bootstrap 3 required</h4>
