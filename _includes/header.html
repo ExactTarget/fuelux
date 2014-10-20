@@ -1,20 +1,13 @@
 <script>
 	var siteUrl = '{{ site.url }}'.toLowerCase();
 	var domain = siteUrl.split('//')[1] || siteUrl;
-	var protocol = siteUrl.split('//')[0];
 
-	var currentHost =  window.location.host.toLowerCase();
-	var currentPath = window.location.pathname || '';
-	var currentProtocol = window.location.protocol.toLowerCase();
-	if (
-		'exacttarget.github.io' === currentHost
-		// force preferred protocol
-		|| (
-			domain === currentHost
-			&& protocol && protocol !== currentProtocol
-		)
-	) {
-		window.location = siteUrl + currentPath.replace('/fuelux', '');
+	var currentHref = window.location.href;
+
+	var ghDomain = 'exacttarget.github.io/fuelux';
+	var rGhDomain = new RegExp(ghDomain.replace(/\./g, '\\.'), 'i');
+	if ( rGhDomain.test(currentHref)) {
+		window.location.replace(currentHref.replace(ghDomain, domain));
 	}
 </script>
 
