@@ -21,6 +21,7 @@ blog:             http://code.exacttarget.com
 cdn:
   css:            //www.fuelcdn.com/fuelux/3.1.0/css/fuelux.min.css
   js:             //www.fuelcdn.com/fuelux/3.1.0/js/fuelux.min.js
+  js_amd:             //www.fuelcdn.com/fuelux/3.1.0/js/fuelux.min
   zip:            //www.fuelcdn.com/fuelux/3.1.0/fuelux.zip
 
 mctheme:
