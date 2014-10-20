@@ -198,7 +198,9 @@ Should you encounter problems with installing dependencies or running Grunt comm
 Before writing code, we suggest you [search for issues](https://github.com/ExactTarget/fuelux/issues?state=open) or [create a new one](https://github.com/ExactTarget/fuelux/issues/new) to confirm where your contribution fits into
 our roadmap.
 
-Please do not edit or commit files in the `dist` directory as they are generated via grunt. You'll find source files in the respective `js`, `less`, and `fonts` directory. Project maintainers will commit files in the `dist` directory from time to time.
+Please do not edit or commit files in the `dist` directory. You'll find source files in the respective `js`, `less`, and `fonts` directory. Project maintainers will commit files in the `dist` directory from time to time.
+
+Prior to submitting a pull request, please run `grunt` to lint & test your code.
 
 Take care to maintain the existing coding style (tabs, clarity over brevity, declarative markup, semicolons, etc).
 
