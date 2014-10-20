@@ -7,13 +7,13 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		// Metadata
 		banner: '/*!\n' +
-		' * Fuel UX v<%= pkg.version %> \n' +
-		' * Copyright 2012-<%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
-		' * Licensed under the <%= pkg.license.type %> license (<%= pkg.license.url %>)\n' +
-		' */\n',
+				' * Fuel UX v<%= pkg.version %> \n' +
+				' * Copyright 2012-<%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
+				' * Licensed under the <%= pkg.license.type %> license (<%= pkg.license.url %>)\n' +
+				' */\n',
 		jqueryCheck: 'if (typeof jQuery === \'undefined\') { throw new Error(\'Fuel UX\\\'s JavaScript requires jQuery\') }\n\n',
 		bootstrapCheck: 'if (typeof jQuery.fn.dropdown === \'undefined\' || typeof jQuery.fn.collapse === \'undefined\') ' +
-		'{ throw new Error(\'Fuel UX\\\'s JavaScript requires Bootstrap\') }\n\n',
+						'{ throw new Error(\'Fuel UX\\\'s JavaScript requires Bootstrap\') }\n\n',
 		pkg: grunt.file.readJSON('package.json'),
 		// Try ENV variables (export SAUCE_ACCESS_KEY=XXXX), if key doesn't exist, try key file
 		sauceLoginFile: grunt.file.exists('SAUCE_API_KEY.yml') ? grunt.file.readYAML('SAUCE_API_KEY.yml') : undefined,
@@ -77,16 +77,16 @@ module.exports = function(grunt) {
 				},
 				options: {
 					banner: '<%= banner %>' + '\n\n' +
-					'// For more information on UMD visit: https://github.com/umdjs/umd/' + '\n' +
-					'(function (factory) {' + '\n' +
-					'\tif (typeof define === \'function\' && define.amd) {' + '\n' +
-					'\t\tdefine([\'jquery\', \'bootstrap\'], factory);' + '\n' +
-					'\t} else {' + '\n' +
-					'\t\tfactory(jQuery);' + '\n' +
-					'\t}' + '\n' +
-					'}(function (jQuery) {\n\n' +
-					'<%= jqueryCheck %>' +
-					'<%= bootstrapCheck %>',
+							'// For more information on UMD visit: https://github.com/umdjs/umd/' + '\n' +
+							'(function (factory) {' + '\n' +
+								'\tif (typeof define === \'function\' && define.amd) {' + '\n' +
+									'\t\tdefine([\'jquery\', \'bootstrap\'], factory);' + '\n' +
+								'\t} else {' + '\n' +
+									'\t\tfactory(jQuery);' + '\n' +
+								'\t}' + '\n' +
+							'}(function (jQuery) {\n\n' +
+							'<%= jqueryCheck %>' +
+							'<%= bootstrapCheck %>',
 					footer: '\n}));',
 					process: function(source) {
 						source = '(function ($) {\n\n' +
