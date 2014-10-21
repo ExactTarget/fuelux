@@ -10,16 +10,9 @@ define(function(require){
 
 	module("Fuel UX Tree", {
 		setup: function(){
-			this.emptyDataSource = function (options, callback) {
-				setTimeout(function () {
-					callback({ data: []});
-				}, 0);
-			};
-
-			this.stubDataSource = function (options, callback) {
-				setTimeout(function () {
-					callback({
-						data: [
+			this.dataSource = function (options, callback) {
+				callback({
+					data: [
 						{ name: 'Ascending and Descending', type: 'folder', attr: { id: 'folder1' } },
 						{ name: 'Sky and Water I (with custom icon)', type: 'item', attr: { id: 'item1', 'data-icon': 'glyphicon glyphicon-file' } },
 						{ name: 'Drawing Hands', type: 'folder', attr: { id: 'folder2', 'data-children': false } },
@@ -28,9 +21,8 @@ define(function(require){
 						{ name: 'Relativity (with custom icon)', type: 'item', attr: { id: 'item3', 'data-icon': 'glyphicon glyphicon-picture' } },
 						{ name: 'House of Stairs', type: 'folder', attr: { id: 'folder4' } },
 						{ name: 'Convex and Concave', type: 'item', attr: { id: 'item4' } }
-						]
-					});
-				}, 0);
+					]
+				});
 			};
 
 		}
@@ -45,120 +37,111 @@ define(function(require){
 		ok($tree.tree() === $tree, 'tree should be initialized');
 	});
 
-	asyncTest("Tree should be populated by items on initialization", function () {
-
-		var $tree = $(html).find('#MyTree').tree({ dataSource: this.stubDataSource }).on('loaded.fu.tree', function () {
-
-			equal($tree.find('.tree-branch').length, 5, 'Initial set of folders have been added');
-			equal($tree.find('.tree-item').length, 5, 'Initial set of items have been added');
-
-			start();
+	test("should call dataSource correctly", function () {
+		var $tree= $(html);
+		$tree.tree({
+			dataSource: function(options, callback){
+				ok(1===1, 'dataSource function called prior to rendering');
+				equal(typeof options, 'object', 'dataSource provided options object');
+				equal(typeof callback,'function', 'dataSource provided callback function');
+				callback({data: []});
+			}
 		});
-
 	});
 
-//	asyncTest("Folders should be populated when folder is clicked", function () {
-//
-//		var $tree = $(html).tree({ dataSource: this.stubDataSource }).on('loaded.fu.tree, function () {
-//
-//			var $folder = $tree.find('.tree-folder:eq(1)');
-//			var event = 0;
-//
-//			$tree.off('loaded');
-//
-//			$tree.on('opened.fu.tree', function () {
-//				event++;
-//			});
-//
-//			$tree.on('closed.fu.tree', function () {
-//				event++;
-//			});
-//
-//			$tree.tree('selectFolder', $folder[0]);
-//
-//			$tree.on('loaded.fu.tree', function() {
-//				$tree.off('loaded');
-//
-//				equal($folder.find('.tree-folder').length, 2, 'Folders have populated');
-//				equal($folder.find('.tree-item').length, 2, 'Items have populated');
-//
-//				equal(event, 1, 'Open event triggered');
-//
-//				$tree.tree('selectFolder', $folder[0]);
-//				$tree.on('loaded.fu.tree', function() {
-//					equal(event, 2, 'Close event triggered');
-//					start();
-//				});
-//			});
-//
-//		});
-//
-//	});
+	test("Tree should be populated by items on initialization", function () {
+		var $tree = $(html).find('#MyTree');
 
-	asyncTest("Single item selection works as designed", function () {
+		$tree.tree({ dataSource: this.dataSource });
 
-		var $tree = $(html).find('#MyTree').tree({ dataSource: this.stubDataSource }).on('loaded.fu.tree',function() {
-
-			var data;
-
-			$tree.on('selected.fu.tree', function (e, items) {
-				data = items.selected;
-			});
-
-			$tree.tree('selectItem', $tree.find('.tree-item:eq(1)'));
-			equal(data.length, 1, 'Single item selected');
-			equal($tree.tree('selectedItems').length, 1, 'Return single selected value');
-			$tree.tree('selectItem', $tree.find('.tree-item:eq(2)'));
-			equal(data.length, 1, 'New single item selected');
-			equal($tree.tree('selectedItems').length, 1, 'Return new single selected value');
-
-			start();
-		});
-
+		equal($tree.find('.tree-branch').length, 5, 'Initial set of folders have been added');
+		equal($tree.find('.tree-item').length, 5, 'Initial set of items have been added');
 	});
 
-	asyncTest("Multiple item selection works as designed", function () {
+	test("Folder should populate when opened", function(){
+		var $tree = $(html).find('#MyTree');
+		var $selNode;
 
-		var $tree = $(html).find('#MyTree').tree({ dataSource: this.stubDataSource, multiSelect: true }).on('loaded.fu.tree',function() {
+		$tree.tree({ dataSource: this.dataSource });
 
-			var data;
+		$selNode = $tree.find('.tree-branch:eq(1)');
+		$tree.tree('openFolder', $selNode.find('.tree-branch-name'));
+		equal($selNode.find('.tree-branch-children > li').length, 8, 'Folder has been populated with items/sub-folders');
 
-			$tree.on('selected.fu.tree', function (e, items) {
-				data = items.selected;
-			});
+		$tree = $(html).find('#MyTreeSelectableFolder');
 
-			$tree.on('deselected.fu.tree', function (e, items) {
-				data = items.selected;
-			});
-
-			$tree.tree('selectItem', $tree.find('.tree-item:eq(1)'));
-			equal(data.length, 1, 'Single item selected');
-			equal($tree.tree('selectedItems').length, 1, 'Return single selected value');
-			$tree.tree('selectItem', $tree.find('.tree-item:eq(2)'));
-			equal(data.length, 2, 'Double item selected');
-			equal($tree.tree('selectedItems').length, 2, 'Return multiple selected values');
-			$tree.tree('selectItem', $tree.find('.tree-item:eq(1)'));
-			equal(data.length, 1, 'Duplicate selection');
-
-			start();
+		$tree.tree({
+			dataSource: this.dataSource,
+			folderSelect: true
 		});
 
+		$selNode = $tree.find('.tree-branch:eq(1)');
+		$tree.tree('openFolder', $selNode.find('.tree-branch-header'));
+		equal($selNode.find('.tree-branch-children > li').length, 4, 'Folder has been populated with sub-folders');
 	});
 
+	test("Single item/folder selection works as designed", function () {
+		var $tree = $(html).find('#MyTree');
 
-	asyncTest('should destroy control', function () {
+		$tree.tree({ dataSource: this.dataSource });
 
-		var $tree = $(html).find('#MyTree').tree({ dataSource: this.stubDataSource, multiSelect: true }).on('loaded.fu.tree',function() {
+		$tree.tree('selectItem', $tree.find('.tree-item:eq(1)'));
+		equal($tree.tree('selectedItems').length, 1, 'Return single selected value');
+		$tree.tree('selectItem', $tree.find('.tree-item:eq(2)'));
+		equal($tree.tree('selectedItems').length, 1, 'Return new single selected value');
 
-			var $el = $(this);
+		$tree = $(html).find('#MyTreeSelectableFolder');
 
-			equal(typeof( $el.tree('destroy')) , 'string', 'returns string (markup)');
-			equal( $el.parent().length, false, 'control has been removed from DOM');
-
-			start();
+		$tree.tree({
+			dataSource: this.dataSource,
+			folderSelect: true
 		});
 
+		$tree.tree('selectItem', $tree.find('.tree-branch-name:eq(1)'));
+		equal($tree.tree('selectedItems').length, 1, 'Return single selected value');
+		$tree.tree('selectItem', $tree.find('.tree-branch-name:eq(2)'));
+		equal($tree.tree('selectedItems').length, 1, 'Return new single selected value');
 	});
 
+	test("Multiple item/folder selection works as designed", function () {
+		var $tree = $(html).find('#MyTree');
 
+		$tree.tree({
+			dataSource: this.dataSource,
+			multiSelect: true
+		});
+
+		$tree.tree('selectItem', $tree.find('.tree-item:eq(1)'));
+		equal($tree.tree('selectedItems').length, 1, 'Return single selected value');
+		$tree.tree('selectItem', $tree.find('.tree-item:eq(2)'));
+		equal($tree.tree('selectedItems').length, 2, 'Return multiple selected values');
+		$tree.tree('selectItem', $tree.find('.tree-item:eq(1)'));
+		equal($tree.tree('selectedItems').length, 1, 'Return single selected value');
+
+		$tree = $(html).find('#MyTreeSelectableFolder');
+
+		$tree.tree({
+			dataSource: this.dataSource,
+			multiSelect: true,
+			folderSelect: true
+		});
+
+		$tree.tree('selectFolder', $tree.find('.tree-branch-name:eq(1)'));
+		equal($tree.tree('selectedItems').length, 1, 'Return single selected value');
+		$tree.tree('selectFolder', $tree.find('.tree-branch-name:eq(2)'));
+		equal($tree.tree('selectedItems').length, 2, 'Return multiple selected values');
+		$tree.tree('selectFolder', $tree.find('.tree-branch-name:eq(1)'));
+		equal($tree.tree('selectedItems').length, 1, 'Return single selected value');
+	});
+
+	test("should destroy control", function () {
+		var $tree = $(html).find('#MyTree');
+
+		$tree.tree({
+			dataSource: this.dataSource
+		});
+
+		equal(typeof( $tree.tree('destroy')) , 'string', 'returns string (markup)');
+		equal( $tree.parent().length, false, 'control has been removed from DOM');
+	});
 });
