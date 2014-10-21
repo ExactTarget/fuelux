@@ -140,7 +140,7 @@
 		suggestionClick: function(e){
 			var $item = $(e.currentTarget);
 			var item = {
-				text: $item.html(),
+				name: $item.html(),
 				value: $item.data('value')
 			};
 
@@ -165,7 +165,7 @@
 
 		// First parameter is 1 based index (optional, if index is not passed all new items will be appended)
 		// Second parameter can be array of objects [{ ... }, { ... }] or you can pass n additional objects as args
-		// object structure is as follows (index and value are optional): { text: '', value: '' }
+		// object structure is as follows (index and value are optional): { name: '', value: '' }
 		addItems: function(){
 			var self = this;
 			var items, index, isInternal;
@@ -175,7 +175,7 @@
 				index = arguments[0];
 			} else {
 				items = [].slice.call(arguments).slice(0);
-				isInternal = items[1] && !items[1].text;
+				isInternal = items[1] && ! (items[1].name || items[1].text);
 			}
 
 			//Accounting for array parameter
@@ -185,9 +185,18 @@
 
 			if( items.length ){
 				$.each(items, function(i, value){
+
+					// Maintain backwards compatibility if end-user is still using "text" as the key name
+					if( value.text && !value.name ){
+						value.name = value.text;
+						if(i === 0){
+							window.console.warn('Property name "text" has been deprecated and will be removed. Use Property name "name" instead.');
+						}
+					}
+
 					var data = {
-						text: value.text,
-						value: (value.value ? value.value : value.text),
+						name: value.name,
+						value: (value.value ? value.value : value.name),
 						el: self.$pillHTML
 					};
 
@@ -285,7 +294,7 @@
 					var $neighbor;
 
 					$item.attr('data-value', item.value);
-					$item.find('span:first').html( item.text );
+					$item.find('span:first').html( item.name );
 
 					// DOM attributes
 					if(item['attr']) {
@@ -327,7 +336,7 @@
 
 				if( isInternal ){
 					this.$element.trigger('added.fu.pillbox', {
-						text: items[0].text,
+						name: items[0].text,
 						value: items[0].value
 					});
 				}
@@ -360,14 +369,14 @@
 
 					if ( attr ) {
 						this.addItems({
-							text: text,
+							name: text,
 							value: value,
 							attr: JSON.parse(attr)
 						}, true);
 					}
 					else {
 						this.addItems({
-							text: text,
+							name: text,
 							value: value
 						}, true);
 					}
@@ -468,7 +477,7 @@
 
 			this.currentEdit = $(item.el);
 			this.currentEdit.data('value', item.value);
-			this.currentEdit.find('span:first').html(item.text);
+			this.currentEdit.find('span:first').html(item.name);
 
 			this.$addItemWrap.hide();
 			this.$addItemWrap.before(this.currentEdit);
@@ -477,7 +486,7 @@
 			this.$addItem.val('');
 			this.$addItemWrap.removeClass('editing');
 			this.$pillGroup.append(this.$addItemWrap.detach().show());
-			this.$element.trigger( 'edited.fu.pillbox', { value: item.value, text: item.text });
+			this.$element.trigger( 'edited.fu.pillbox', { value: item.value, name: item.name });
 		},
 
 		removeBySelector: function() {
@@ -502,7 +511,13 @@
 			this._removePillTrigger( { method: 'removeByValue', removedValues: values } );
 		},
 
+		// This function is kept for backwards compatibility
 		removeByText: function() {
+			window.console.warn('Method "removeByText" has been deprecated. Use "removeByName" instead.');
+			this.removeByName.apply(this, arguments);
+		},
+
+		removeByName: function() {
 			var text = [].slice.call(arguments).slice(0);
 			var self = this;
 
@@ -557,8 +572,13 @@
 		},
 
 		getItemData: function(el, data) {
+			window.console.warn('Property name "text" has been deprecated and will be removed. Use Property name "name" instead.');
+
 			return $.extend({
-				text: el.find('span:first').html()
+
+				//include "text" property to maintain backwards compatibility
+				text: el.find('span:first').html(),
+				name: el.find('span:first').html()
 			}, el.data(), data);
 		},
 
@@ -593,10 +613,10 @@
 			if(data.data && data.data.length){
 
 				$.each(data.data, function(index, value){
-					var val = value.value ? value.value : value.text;
+					var val = value.value ? value.value : value.name;
 
 					// markup concatentation is 10x faster, but does not allow data store
-					var $suggestion = $('<li data-value="' + val + '">' + value.text + '</li>');
+					var $suggestion = $('<li data-value="' + val + '">' + value.name + '</li>');
 
 					if(value.attr) {
 						$suggestion.data('attr', JSON.stringify(value.attr));
@@ -687,8 +707,8 @@
 		//example on key down
 		/*onKeyDown: function(event, data, callback ){
 			callback({data:[
-				{text: Math.random(),value:'sdfsdfsdf'},
-				{text: Math.random(),value:'sdfsdfsdf'}
+				{name: Math.random(),value:'sdfsdfsdf'},
+				{name: Math.random(),value:'sdfsdfsdf'}
 			]});
 		}
 		*/
