@@ -2,7 +2,7 @@
  * Fuel UX Infinite Scroll
  * https://github.com/ExactTarget/fuelux
  *
- * Copyright (c) 2014 ExactTarget
+ * Copyright (c) 2014 SalesForce
  * Licensed under the BSD New license.
  */
 
