@@ -1,0 +1,47 @@
+<div class="fu-docs-section">
+	<h1 id="quickstart" class="page-header">Quick Start</h1>
+
+	<p>This will get you from nothing to done in no time flat <span class="text-muted">(it assumes use of the <a href="http://www.fuelcdn.com/fuelux/">Fuel UX CDN</a>)</span>. To use a <a href="#get-fuelux">downloaded version</a> and for more detailed documentation see the <a href="#get-fuelux">further sections below</a>.</p>
+
+	<ol>
+		<li>Add the <code>fuelux</code>class to a page wrapper (usually either <code>&lt;html&gt;</code> tag or <code>&lt;body&gt;</code> tag)</li>
+{% highlight html %}
+<body class="fuelux">
+{% endhighlight %}
+		<li>Include the CSS on your page somewhere:
+{% highlight html %}
+<link href="{{site.bootstrap.css}}" rel="stylesheet">
+<link href="{{site.cdn.css}}" rel="stylesheet">
+{% endhighlight %}
+		</li>
+		<li>Include the JS on your page somewhere:
+{% highlight html %}
+<!-- jQuery -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="{{site.bootstrap.js}}"></script>
+<script src="{{site.cdn.js}}"></script>
+{% endhighlight %}
+		<em>(or AMD)</em>:
+{% highlight html %}
+<script src="//cdn.jsdelivr.net/requirejs/2.1.11/require.js"></script>
+<script>
+  requirejs.config({
+    paths: {
+      'bootstrap': '{{site.bootstrap.js_amd}}',
+      'fuelux': '{{site.cdn.js_amd}}',
+      'jquery': '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery',
+      // Moment.js is optional
+      'moment': '//cdn.jsdelivr.net/momentjs/2.6.0/lang-all.min'
+    },
+    // Bootstrap is a "browser globals" script :-(
+    shim: { 'bootstrap': { deps: ['jquery'] } }
+  });
+  // Require all.js or include individual files as needed
+  require(['jquery', 'bootstrap', 'fuelux'], function($){});
+</script>
+{% endhighlight %}
+		</li>
+		<li><a href="javascript.html#overview-control-initialization">Proceed with the awesome</a></li>
+	</ol>
+</div>
