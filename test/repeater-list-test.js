@@ -197,10 +197,10 @@ define(function(require){
 					break;
 				case 2:
 					$col = $repeater.find('.repeater-list tbody tr:first-child td:nth-child(1)');
-					equal($col.hasClass('highlight'), true, 'correct sorted column highlighted');
+					equal($col.hasClass('sorted'), true, 'correct sorted column highlighted');
 					num = 0;
 					$repeater.find('.repeater-list tbody tr').each(function(){
-						if($(this).find('td:nth-child(1)').hasClass('highlight')){
+						if($(this).find('td:nth-child(1)').hasClass('sorted')){
 							num++;
 						}
 					});

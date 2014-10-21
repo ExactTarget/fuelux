@@ -35,10 +35,10 @@
 		$.fn.repeater.Constructor.prototype.list_highlightColumn = function(index, force){
 			var tbody = this.$canvas.find('.repeater-list tbody');
 			if(this.options.list_highlightSortedColumn || force){
-				tbody.find('td.highlight').removeClass('highlight');
+				tbody.find('td.sorted').removeClass('sorted');
 				tbody.find('tr').each(function(){
 					var col = $(this).find('td:nth-child(' + (index + 1) + ')');
-					col.addClass('highlight');
+					col.addClass('sorted');
 				});
 			}
 		};
