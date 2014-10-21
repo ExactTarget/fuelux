@@ -182,7 +182,7 @@ define(function(require){
 		$combobox.combobox('selectByIndex', 0);
 
 		var item = $combobox.combobox('selectedItem');
-		equal(item.text, 'no whitespace', 'whitespace was removed')
+		equal(item.text, 'no whitespace', 'whitespace was removed');
 	});
 
 });
