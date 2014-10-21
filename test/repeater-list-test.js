@@ -184,6 +184,37 @@ define(function(require){
 		});
 	});
 
+	test('should highlight correct sorted column', function(){
+		var count = 0;
+		var $repeater = $(this.$markup);
+		var $col, num;
+
+		afterSource = function(options){
+			count++;
+			switch(count){
+				case 1:
+					$repeater.find('.repeater-list thead th:nth-child(1) .repeater-list-heading').click();
+					break;
+				case 2:
+					$col = $repeater.find('.repeater-list tbody tr:first-child td:nth-child(1)');
+					equal($col.hasClass('highlight'), true, 'correct sorted column highlighted');
+					num = 0;
+					$repeater.find('.repeater-list tbody tr').each(function(){
+						if($(this).find('td:nth-child(1)').hasClass('highlight')){
+							num++;
+						}
+					});
+					equal(num, 10, 'correct number of columns highlighted');
+					break;
+			}
+		};
+
+		$repeater.repeater({
+			dataSource: dataSource,
+			list_highlightSortedColumn: true
+		});
+	});
+
 	test('should handle noItemsHTML option correctly', function(){
 		var $repeater = $(this.$markup);
 

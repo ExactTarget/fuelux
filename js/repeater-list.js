@@ -32,6 +32,17 @@
 			this.$canvas.find('.repeater-list table tbody tr.selected').removeClass('selected');
 		};
 
+		$.fn.repeater.Constructor.prototype.list_highlightColumn = function(index, force){
+			var tbody = this.$canvas.find('.repeater-list tbody');
+			if(this.options.list_highlightSortedColumn || force){
+				tbody.find('td.highlight').removeClass('highlight');
+				tbody.find('tr').each(function(){
+					var col = $(this).find('td:nth-child(' + (index + 1) + ')');
+					col.addClass('highlight');
+				});
+			}
+		};
+
 		$.fn.repeater.Constructor.prototype.list_getSelectedItems = function(){
 			var selected = [];
 			this.$canvas.find('.repeater-list table tbody tr.selected').each(function(){
@@ -125,6 +136,7 @@
 			list_columnRendered: null,
 			list_columnSizing: true,
 			list_columnSyncing: true,
+			list_highlightSortedColumn: false,
 			list_infiniteScroll: false,
 			list_noItemsHTML: '',
 			list_selectable: false,
@@ -176,9 +188,14 @@
 			},
 			renderer: {	//RENDERING REPEATER-LIST, REPEATER-LIST-WRAPPER, AND TABLE
 				complete: function(helpers, callback){
+					var $sorted;
 					if(this.options.list_columnSyncing){
 						this.list_sizeHeadings();
 						this.list_positionHeadings();
+					}
+					$sorted = this.$canvas.find('.repeater-list-heading.sorted');
+					if($sorted.length>0){
+						this.list_highlightColumn($sorted.data('fu_item_index'));
 					}
 					callback();
 				},
@@ -286,6 +303,7 @@
 									var subset = helpers.subset;
 									var $both, className, sortable, $span, $spans;
 
+									$div.data('fu_item_index', index);
 									$div.prepend(helpers.subset[helpers.index].label);
 									$item.html($div.html()).find('[id]').removeAttr('id');
 									$item.append($div);
@@ -350,9 +368,16 @@
 					},
 					{	//RENDERING TBODY
 						render: function(helpers, callback){
-							var $item = $('<tbody data-container="true"></tbody>');
 							var obj = {};
-							var $empty;
+							var $empty, $item;
+
+							$item = this.$canvas.find('.repeater-list table tbody');
+							if($item.length>0){
+								obj.action = 'none';
+							}else{
+								$item = $('<tbody data-container="true"></tbody>');
+							}
+							obj.item = $item;
 
 							if(helpers.data.items.length<1){
 								obj.skipNested = true;
@@ -360,7 +385,6 @@
 								$empty.find('td').append(this.options.list_noItemsHTML);
 								$item.append($empty);
 							}
-							obj.item = $item;
 
 							callback(obj);
 						},
