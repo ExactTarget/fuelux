@@ -45,6 +45,10 @@
 				&:first-child {
 					border-left: none;
 				}
+
+				&.highlight {
+					background: #f9f9f9;
+				}
 			}
 
 			tr {
@@ -59,22 +63,24 @@
 				}
 
 				&.selectable{
-					&:hover {
+					&:hover td {
 						background: #d9edf7;
 						cursor: pointer;
 					}
 				}
 
 				&.selected {
-					background: #66AFE9;
-					color: #fff;
-
-					&:hover {
+					&:hover td {
 						background: #428bca;
 					}
 
-					td:first-child {
-						padding-left: 30px;
+					td {
+						background: #66AFE9;
+						color: #fff;
+
+						&:first-child {
+							padding-left: 30px;
+						}
 					}
 				}
 			}

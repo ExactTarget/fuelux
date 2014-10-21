@@ -14,8 +14,6 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js"></script>
 	<script type="text/javascript">if(window.console && window.console.clear){ window.console.clear(); }</script>
 
-	<link href="http://www.fuelcdn.com/fuelux-mctheme/1.0.0/css/fuelux-mctheme.css" rel="stylesheet" type="text/css">
-
 	<script src="../bower_components/requirejs/require.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		(function () {
@@ -83,72 +81,6 @@
 						label: 'Sound',
 						property: 'sound',
 						sortable: true
-					},
-					{
-						label: 'Common Name',
-						property: 'commonName2',
-						sortable: true,
-						className: 'rover'
-					},
-					{
-						label: 'Latin Name',
-						property: 'latinName2',
-						sortable: true
-					},
-					{
-						label: 'Appearance',
-						property: 'appearance2',
-						sortable: true,
-						className: 'blub'
-					},
-					{
-						label: 'Sound',
-						property: 'sound2',
-						sortable: true
-					},
-					{
-						label: 'Common Name',
-						property: 'commonName3',
-						sortable: true,
-						className: 'rover'
-					},
-					{
-						label: 'Latin Name',
-						property: 'latinName3',
-						sortable: true
-					},
-					{
-						label: 'Appearance',
-						property: 'appearance3',
-						sortable: true,
-						className: 'blub'
-					},
-					{
-						label: 'Sound',
-						property: 'sound3',
-						sortable: true
-					},
-					{
-						label: 'Common Name',
-						property: 'commonName4',
-						sortable: true,
-						className: 'rover'
-					},
-					{
-						label: 'Latin Name',
-						property: 'latinName4',
-						sortable: true
-					},
-					{
-						label: 'Appearance',
-						property: 'appearance4',
-						sortable: true,
-						className: 'blub'
-					},
-					{
-						label: 'Sound',
-						property: 'sound4',
-						sortable: true
 					}
 				];
 
@@ -205,20 +137,16 @@
 						thumbnail(options, callback);
 					}
 				},
+				list_highlightSortedColumn: true,
 				list_selectable: 'multi',
 				list_noItemsHTML: 'no items found',
+				list_infiniteScroll: true,
 				thumbnail_noItemsHTML: 'no items found',
 				thumbnail_infiniteScroll: { hybrid: true },
 				thumbnail_selectable: true
 			});
 		});
 	</script>
-
-	<style>
-		.repeater-list-wrapper table {
-			min-width: 2000px;
-		}
-	</style>
 </head>
 
 <body style="padding: 20px;">
