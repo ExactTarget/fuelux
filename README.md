@@ -1,4 +1,4 @@
-#[Fuel UX](http://exacttarget.github.io/fuelux/)
+#[Fuel UX](http://getfuelux.com/)
 [![Bower version](https://badge.fury.io/bo/fuelux.svg)](http://badge.fury.io/bo/fuelux)
 [![NPM version](https://badge.fury.io/js/fuelux.svg)](http://badge.fury.io/js/fuelux)
 [![Build Status](https://api.travis-ci.org/ExactTarget/fuelux.png?branch=master)](http://travis-ci.org/ExactTarget/fuelux)
@@ -7,7 +7,7 @@
 
 Fuel UX extends [Bootstrap 3](https://github.com/twbs/bootstrap) with additional lightweight JavaScript controls. It is actively maintained by [members of ExactTarget, a salesforce.com company,](https://github.com/orgs/ExactTarget/people) with the support and involvement of the community.
 
-All functionality is covered by the [live documentation](http://exacttarget.github.io/fuelux/) and [unit tests](#automated-testing-status).
+All functionality is covered by the [live documentation](http://getfuelux.com/) and [unit tests](#automated-testing-status).
 
 ## Table of contents
 
@@ -38,7 +38,7 @@ All functionality is covered by the [live documentation](http://exacttarget.gith
         }
     });
     ```
-3. List any individual fuelux controls needed as dependencies within your application modules (eg. [checkbox](http://exacttarget.github.io/fuelux/javascript.html#checkbox)):
+3. List any individual fuelux controls needed as dependencies within your application modules (eg. [checkbox](http://getfuelux.com/javascript.html#checkbox)):
 
     ```javascript
   define(function(require) {
@@ -46,7 +46,7 @@ All functionality is covered by the [live documentation](http://exacttarget.gith
       //...
   });
     ```
-4. Use FuelUX in your HTML within the fuelux wrapper class (eg. [checkbox](http://exacttarget.github.io/fuelux/javascript.html#checkbox)):
+4. Use FuelUX in your HTML within the fuelux wrapper class (eg. [checkbox](http://getfuelux.com/javascript.html#checkbox)):
 
     ```html
   <body class="fuelux">
@@ -159,7 +159,7 @@ You can visit [Code@](https://code.exacttarget.com/) for general information and
 ### Previous releases
 
 
-[Documentation for v2.6](http://exacttarget.github.io/fuelux/2.6/) has been made available for the time being while folks transition to Bootstrap 3. You can download 2.6 updates (bug fixes only) from the [fuelux2 branch](https://github.com/ExactTarget/fuelux/tree/fuelux2).
+[Documentation for v2.6](http://getfuelux.com/2.6/) has been made available for the time being while folks transition to Bootstrap 3. You can download 2.6 updates (bug fixes only) from the [fuelux2 branch](https://github.com/ExactTarget/fuelux/tree/fuelux2).
 
 ## Compiling CSS and JavaScript
 
