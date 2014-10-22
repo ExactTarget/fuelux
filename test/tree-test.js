@@ -25,6 +25,14 @@ define(function(require){
 				});
 			};
 
+			this.textDataSource = function (options, callback) {
+				callback({
+					data: [
+						{ text: 'node text', type: 'folder', attr: { id: 'folder1' } },
+					]
+				});
+			};
+
 		}
 	});
 
@@ -143,5 +151,14 @@ define(function(require){
 
 		equal(typeof( $tree.tree('destroy')) , 'string', 'returns string (markup)');
 		equal( $tree.parent().length, false, 'control has been removed from DOM');
+	});
+
+	test("Tree should accept TEXT as the NAME property in the datasource", function () {
+		var $tree = $(html).find('#MyTree');
+
+		$tree.tree({ dataSource: this.textDataSource});
+
+		$tree.tree('selectFolder', $tree.find('.tree-branch-name:eq(1)'));
+		equal($tree.tree('selectedItems')[0].text, 'node text', 'Param TEXT used in the datasource');
 	});
 });
