@@ -10,7 +10,7 @@ All functionality is covered by the [live documentation](http://getfuelux.com/) 
 
 ## Table of contents
 
- * [Quick start](#quick-start)
+ * [Quick Start](#quick-start)
  * [Documentation](#documentation)
  * [Bugs and Feature Requests](#bugs-and-feature-requests)
  * [Grunting](#grunting)
@@ -19,7 +19,7 @@ All functionality is covered by the [live documentation](http://getfuelux.com/) 
  * [Philosophy and Authors](#philosophy-and-authors)
  * [Copyright and License](#copyright-and-license)
 
-## [Quick start](http://getfuelux.com/getting-started.html#quickstart)
+## [Quick Start](http://getfuelux.com/getting-started.html#quickstart)
 
 Get Fuel UX by doing one of the following:
 
@@ -31,7 +31,7 @@ Get Fuel UX by doing one of the following:
 
 ## Documentation
 
-### Live docs and demos
+### Live Docs and Demos
 
 View [live documentation and demos](http://getfuelux.com) for more in-depth getting started guide and documentation.
 
@@ -41,7 +41,7 @@ Fuel UX is dependent upon [Bootstrap 3](https://github.com/twbs/bootstrap) and [
 - [Bootstrap 3](https://github.com/twbs/bootstrap)
 
 
-### What's included
+### What's Included
 
 Downloading the zip of FuelUX provides the following directories and files, which are grouped according to file type:
 ```
@@ -90,7 +90,7 @@ Have a bug or a feature request? Please first review the [open issues](https://g
 
 You can visit [Code@](https://code.exacttarget.com/) for general information and search [FuelUX tagged questions on StackOverflow](http://stackoverflow.com/questions/tagged/fuelux).
 
-### Previous releases
+### Previous Releases
 
 
 [Documentation for v2.6](http://getfuelux.com/2.6/) has been made available for the time being while folks transition to Bootstrap 3. You can download 2.6 updates (bug fixes only) from the [fuelux2 branch](https://github.com/ExactTarget/fuelux/tree/fuelux2).
@@ -98,17 +98,6 @@ You can visit [Code@](https://code.exacttarget.com/) for general information and
 ## Grunting
 
 FuelUX is lightweight to give you a fast dependable foundation to build upon. It uses [Grunt](http://gruntjs.com/) with convenient methods for working with the library. It's how we compile our code, run tests, and more. To use it, install the required dependencies as directed, and then run some Grunt tasks.
-
-### Install Grunt
-
-From the command line:
-
-1. Install `grunt-cli` globally with `npm install -g grunt-cli`.
-2. Navigate to the root `/bootstrap` directory, then run `npm install`. npm will look at [package.json](https://github.com/twbs/bootstrap/blob/master/package.json) and automatically install the necessary local dependencies listed there.
-
-When completed, you'll be able to run the various Grunt commands provided from the command line.
-
-**Unfamiliar with npm? Don't have node installed?** npm stands for [node package manager](http://npmjs.org/) and is a way to manage development dependencies through node.js. [Download and install node.js](http://nodejs.org/download/) before proceeding.
 
 ### Grunt Tasks
 
@@ -151,7 +140,7 @@ While grunt can run the included unit tests via PhantomJS, this isn't a substitu
 
 Read more about [contributing to FuelUX](https://github.com/ExactTarget/fuelux/wiki/Contributing-to-Fuel-UX)
 
-##Philosophy and authors
+##Philosophy and Authors
 
 ### The Fuel UX Philosophy
 Our aim is to provide a suite of related but independent projects that help web developers integrate, manage, and customize quality libraries and utilities to more efficiently develop, maintain, test, and distribute their projects.  Any improvements or fixes we make to the open source projects, we use will be contributed upstream if they are useful to the rest of the community.
@@ -182,7 +171,7 @@ Our aim is to provide a suite of related but independent projects that help web 
 
 And thank you to all those that have submitted issues and contributed to this library.
 
-## Copyright and license
+## Copyright and License
 
 Copyright &copy; 2012-2014 ExactTarget, Inc.
 
