@@ -16,7 +16,7 @@
     "user interface",
     "web"
   ],
-  "homepage": "http://getfuelux.com"
+  "homepage": "http://getfuelux.com",
   "dependencies": {
     "jquery-1.11.0": "jquery#1.11.0",
     "requirejs": "~2.1.11",
