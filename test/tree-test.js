@@ -28,7 +28,7 @@ define(function(require){
 			this.textDataSource = function (options, callback) {
 				callback({
 					data: [
-						{ text: 'node text', type: 'folder', attr: { id: 'folder1' } },
+						{ text: 'node text', type: 'folder', attr: { id: 'folder1' } }
 					]
 				});
 			};
