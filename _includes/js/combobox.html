@@ -18,7 +18,6 @@
   </div>
 
   <h2 id="combobox-usage">Usage</h2>
-  <p>The combobox component toggles hidden content (drop-down menus) by toggling the <code>.open</code> class on the parent list item. When opened, the plugin also adds <code>.dropdown-backdrop</code> as a click area for closing drop-down menus when clicking outside the menu. The control relies on the <code>data-toggle=dropdown</code> attribute to close drop-down menus at an application level.</p>
 
   <h3 id="combobox-usage-javascript">Via JavaScript</h3>
   <p>Call the combobox control via JavaScript:</p>
@@ -29,11 +28,11 @@
 
   <h3 id="combobox-usage-data-attributes">Via data-attributes</h3>
 
-  <p>To enable the combobox control without writing JavaScript, add <code>data-initialize="combobox"</code> to the <code>.combobox</code> element that you wish to initialize. Such elements that exist when <code>$.ready()</code> executes will be initialized. Any combobox markup that is programmatically created with <code>data-initialize="combobox"</code> sometime after the initial page load will not immediately initialize. Rather, it will initialize when the <code>mousedown</code> event is fired on it.</p>
+  <p>Add <code>data-initialize="combobox"</code> to the <code>.combobox</code> element that you wish to initialize on <code>$.ready()</code>. Any combobox that is programmatically generated after the initial page load will initialize when the <code>mousedown</code> event is fired on it if it has <code>data-initialize="combobox"</code>.</p>
 
 
   <h3 id="combobox-usage-markup">Markup</h3>
-  <p>Add <code>class="combobox"</code> to an input and a drop-down within a <code>class="fuelux"</code> container.</p>
+  <p>A combobox consists of an input group containing a text <code>input</code> with a <code><a href="#selectlist">selectlist</a></code> appended to it.</code>
 {% highlight html %}
 <div class="input-group input-append dropdown combobox" data-initialize="combobox" id="myCombobox">
   <input type="text" class="form-control">
@@ -50,7 +49,7 @@
 
 
   <h3 id="combobox-usage-markup-options">Markup options</h3>
-  <p>For data attributes, append the option name to <code>data-</code>, as in <code>data-selected="true"</code> to an <code>li</code> element.</p>
+  <p>The following options are applicable to the <code>li</code> elements of the <code><a href="#selectlist">selectlist</a></code>. Append the option name to <code>data-</code>, as in <code>data-selected="true"</code>.</p>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>
@@ -66,14 +65,14 @@
          <td>selected</td>
          <td>boolean</td>
          <td>false</td>
-         <td>Declare value to initialize with</td>
+         <td>Indicates element should be selected by default.</td>
        </tr>
       </tbody>
     </table>
   </div><!-- ./fu-table-responsive -->
 
   <h3 id="combobox-usage-programmatic-options">Programmatic options</h3>
-  <p>For programatic options, pass in an object with key/value pairs. This only has effect at intialization.</p>
+  <p>Should be passed in as an <code>object</code> (eg. <code>{name: value}</code>) on intialization. <a href="#combobox-usage-javascript">Javascript initialization</a> is required (you can't initialize through data-attributes) if you would like to use this.</p>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>
@@ -103,13 +102,13 @@
     <dd>Remove all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</dd>
 
     <dt id="combobox-usage-methods-disable">.combobox('disable')</dt>
-    <dd>Disable the component</dd>
+    <dd>Disable the combobox</dd>
 
     <dt id="combobox-usage-methods-enable">.combobox('enable')</dt>
-    <dd>Enable the component</dd>
+    <dd>Enable the combobox</dd>
 
     <dt id="combobox-usage-methods-selected-item">.combobox('selectedItem')</dt>
-    <dd>Returns an object containing the jQuery <code>data()</code> contents of the selected item which includes <code>.data-*</code> attributes plus a text property with the visible text from the item</dd>
+    <dd>Returns an object containing a <code>text</code> property with the visible text of the selected item as well as the results of a <a href="http://api.jquery.com/data/#data2">jQuery <code>.data()</code></a> call on the selected item (which will map the contents of any <code>data-*</code> attributes into the returned object).</dd>
 
     <dt id="combobox-usage-methods-select-by-index">.combobox('selectByIndex')</dt>
     <dd>
@@ -148,22 +147,25 @@
       <tbody>
         <tr>
           <td>changed.fu.combobox</td>
-          <td>This event fires when the value changes (either by selecting an item from the list or updating the input value directly). Arguments include <code>event, data</code> where data represents the same object structure returned by the <code>selectedItem</code> method.</td>
+          <td>This event fires when the value changes (either by selecting an item from the list or updating the input value directly). Arguments include <code>event, data</code> where data represents the same object structure returned by the <a href="#combobox-usage-methods-selected-item"><code>selectedItem</code></a> method.</td>
         </tr>
       </tbody>
     </table>
   </div><!-- ./fu-table-responsive -->
-  <p>All combobox events are fired at the <code>.combobox</code> element. For the sample markup provided, it would be:</p>
+  <p>All combobox event listeners should be attached to the element containing the <code>combobox</code> class; given the following HTML:</p>
+{% highlight html %}
+<div class="input-group input-append dropdown combobox" data-initialize="combobox" id="myCombobox">..</div>
+{% endhighlight %}
+<p>You would attach your event listener thusly:</p>
 {% highlight js %}
-$('#myCombobox').on('changed.fu.combobox', function () {
+$('#myCombobox').on('changed.fu.combobox', function (event, data) {
   // do something…
 });
 {% endhighlight %}
 
   <h2 id="combobox-examples">Examples</h2>
-  <div class="fu-example section">
-{% include js/combobox-example.html %}
-  </div><!-- /example -->
+  {% include js/combobox-example.html %}
+
 
   <h3 id="comboboxes-alignment">Alignment</h3>
   <p>The <code>dropdown-menu-right</code> class on the <code>ul</code> in the example markup causes the drop-down menu to appear directly underneath the dropdown, its right side appearing flush with the right side of the triggering element. If you wish the dropdown menu's left side to align with the left side of the triggering button's left side, exclude the <code>dropdown-menu-right</code> class on the <code>ul</code>.</p>
