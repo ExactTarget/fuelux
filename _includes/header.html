@@ -1,5 +1,4 @@
 <script>
-/*
 	var siteUrl = '{{ site.url }}'.toLowerCase();
 	var domain = siteUrl.split('//')[1] || siteUrl;
 
@@ -7,10 +6,10 @@
 
 	var ghDomain = 'exacttarget.github.io/fuelux';
 	var rGhDomain = new RegExp(ghDomain.replace(/\./g, '\\.'), 'i');
-	if ( rGhDomain.test(currentHref)) {
+	var bRedirect = rGhDomain.test(currentHref);
+	if ( bRedirect ) {
 		window.location.replace(currentHref.replace(ghDomain, domain));
 	}
-*/
 </script>
 
 <meta charset="utf-8">
