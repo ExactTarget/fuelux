@@ -284,7 +284,7 @@ callback({data:[
 
   <p>All pillbox events are fired on the <code>.pillbox</code> classed element.</p>
 {% highlight js %}
-$('#myPillbox').on('clicked.fu.pillbox', function (item) {
+$('#myPillbox').on('clicked.fu.pillbox', function (evt, item) {
   // do something
 });
 {% endhighlight %}
