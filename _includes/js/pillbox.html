@@ -124,7 +124,10 @@ $('#myPillbox').pillbox('addItems', index, [{ text: '', value: '', attr: {}, dat
 
     <dt id="pillbox-usage-methods-remove-items">.pillbox('removeItems')</dt>
     <dd>
-      Remove items from the pillbox programmatically. The first parameter is a <code>1</code> based index that represent the location of the first element to be removed. The second parameter is the number of items that will be removed.
+    Removes all items from the pillbox.
+{% highlight js %}$('#myPillbox').pillbox('removeItems');{% endhighlight %}
+
+Remove one or more items at a specific position in the pillbox by passing optional parameters. The first parameter is a <code>1</code> based index that represent the location of the first element to be removed. The second parameter is the number of items that will be removed.
 {% highlight js %}$('#myPillbox').pillbox('removeItems', index, count);{% endhighlight %}
     </dd>
 
