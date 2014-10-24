@@ -23,6 +23,10 @@
 	var rGhDomain = new RegExp(ghDomain.replace(/\./g, '\\.'), 'i');
 	var bRedirect = rGhDomain.test(currentHref);
 	if ( bRedirect ) {
+		window.onload = function() {
+			document.body.remove();
+		};
+
 		window.location.replace(currentHref.replace(ghDomain, domain));
 	}
 </script>
