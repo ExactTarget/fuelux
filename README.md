@@ -99,6 +99,17 @@ You can visit [Code@](https://code.exacttarget.com/) for general information and
 
 FuelUX is lightweight to give you a fast dependable foundation to build upon. It uses [Grunt](http://gruntjs.com/) with convenient methods for working with the library. It's how we compile our code, run tests, and more. To use it, install the required dependencies as directed, and then run some Grunt tasks.
 
+### Install Grunt
+
+From the command line:
+
+1. Install `grunt-cli` globally with `npm install -g grunt-cli`.
+2. Make sure you're in the root of the fuel directory, then run `npm install`. npm will look at [package.json](https://github.com/exacttarget/fuelux/blob/master/package.json) and automatically install the necessary local dependencies listed there.
+
+When completed, you'll be able to run the various Grunt commands provided from the command line.
+
+**Unfamiliar with npm? Don't have node installed?** npm stands for [node packaged modules](http://npmjs.org/) and is a way to manage development dependencies through node.js. [Download and install node.js](http://nodejs.org/download/) before proceeding.
+
 ### Grunt Tasks
 
 Run `grunt --help` or [check out the Gruntfile](https://github.com/ExactTarget/fuelux/blob/master/Gruntfile.js) to see all possible grunt tasks. When contributing, these are the two grunt tasks you will be most likely to use:
