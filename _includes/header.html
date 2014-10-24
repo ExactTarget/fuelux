@@ -1,17 +1,3 @@
-<script>
-	var siteUrl = '{{ site.url }}'.toLowerCase();
-	var domain = siteUrl.split('//')[1] || siteUrl;
-
-	var currentHref = window.location.href;
-
-	var ghDomain = 'exacttarget.github.io/fuelux';
-	var rGhDomain = new RegExp(ghDomain.replace(/\./g, '\\.'), 'i');
-	var bRedirect = rGhDomain.test(currentHref);
-	if ( bRedirect ) {
-		window.location.replace(currentHref.replace(ghDomain, domain));
-	}
-</script>
-
 <meta charset="utf-8">
 <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,6 +12,21 @@
 		{{ page.title }} &middot; Fuel UX
 	{% endif %}
 </title>
+
+<script>
+	var siteUrl = '{{ site.url }}'.toLowerCase();
+	var domain = siteUrl.split('//')[1] || siteUrl;
+
+	var currentHref = window.location.href;
+
+	var ghDomain = 'exacttarget.github.io/fuelux';
+	var rGhDomain = new RegExp(ghDomain.replace(/\./g, '\\.'), 'i');
+	var bRedirect = rGhDomain.test(currentHref);
+	if ( bRedirect ) {
+		window.location.replace(currentHref.replace(ghDomain, domain));
+	}
+</script>
+
 
 <!-- Favicons -->
 
