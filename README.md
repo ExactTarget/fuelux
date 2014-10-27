@@ -27,7 +27,9 @@ Read the [Getting started page](http://getfuelux.com/getting-started.html) for m
 
 ### Use
 
-Ensure all the dependencies are included on the page.
+Add `fuelux` class to the portion of the page using Fuel UX as seen [here](https://github.com/exacttarget/fuelux/blob/master/DETAILS.md#using-fuel-ux).
+
+Ensure all the dependencies are included on the page (eg, such as using the CDN as shown below).
 ```
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 <link href="//www.fuelcdn.com/fuelux/3.1.0/css/fuelux.min.css" rel="stylesheet">
@@ -38,15 +40,14 @@ Ensure all the dependencies are included on the page.
 
 ```
 
-Add `.fuelux` class to the portion of the page using Fuel UX as seen [here](https://github.com/exacttarget/fuelux/blob/master/DETAILS.md#using-fuel-ux).
-
 ### Install
 A few ways available to install.
 
+- Request files from [the Fuel UX CDN](http://www.fuelcdn.com/fuelux/3.1.0/)
 - [Download the latest release](https://github.com/exacttarget/fuelux/archive/3.1.0.zip).
 - Clone the repo: `git clone https://github.com/exacttarget/fuelux.git`.
-- Install with [Bower](http://bower.io): `bower install bootstrap`.
-- Install with [npm](https://www.npmjs.org): `npm install bootstrap`.
+- Install with [Bower](http://bower.io): `bower install fuelux`.
+- Install with [Volo](https://github.com/volojs/volo): `volo add fuelux`.
 
 More details for the above can be found [here](https://github.com/exacttarget/fuelux/blob/master/DETAILS.md#downloading-code).
 
