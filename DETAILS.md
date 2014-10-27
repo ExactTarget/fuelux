@@ -8,6 +8,7 @@ Additional details to supplement the brief nature of the README file.
  * [Compiling code](#compiling-code)
  * [Running docs locally](#running-docs-locally)
  * [Contributors](#contributors)
+ * [Travis CI](#travis-ci)
 
 ## Using Fuel UX
 
@@ -139,3 +140,30 @@ Giving credit where credit is due.
 |Steven Rogers | [![soldoutactivist on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/soldoutactivist)|
 |*Alex Vernacchia (current)* | [![vernacchia on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/vernacchia) [![vernak2539 on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/vernak2539)|
 |*David Waltz (current)* | [![dwaltz on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/dwaltz)|
+
+## Travis CI
+
+Pull requests are validate via [Travis CI](https://travis-ci.org/).
+
+Periodically pull requests may fail Travis CI build integration testing with a false negative. If you suspect this is the case you can restart the test via the command line.
+
+### Install Travis CI Client
+
+Travis requires ruby and the [appropriate ruby gem](https://github.com/travis-ci/travis.rb#installation).
+
+### Acquire build number
+
+Restarting the build requires a build number.
+
+1. Click the "details" link in the failed build request.
+
+2. Copy the number in red button on the far right of the Travis dashboard.
+
+### Restart test
+
+With Travis installed and the build number acquired now run the following command.
+
+```
+travis restart 9999
+```
+
