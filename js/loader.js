@@ -2,7 +2,7 @@
  * Fuel UX Loader
  * https://github.com/ExactTarget/fuelux
  *
- * Copyright (c) 2014 ExactTarget
+ * Copyright (c) 2014 Salesforce
  * Licensed under the BSD New license.
  */
 

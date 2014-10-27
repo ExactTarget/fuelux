@@ -2,13 +2,13 @@
  * Fuel UX Button Dropdown
  * https://github.com/ExactTarget/fuelux
  *
- * Copyright (c) 2014 ExactTarget
+ * Copyright (c) 2014 Salesforce
  * Licensed under the BSD New license.
  */
 
 // -- BEGIN UMD WRAPPER PREFACE --
 
-// For more information on UMD visit: 
+// For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
@@ -21,7 +21,7 @@
 	}
 }(function ($) {
 	// -- END UMD WRAPPER PREFACE --
-		
+
 	// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.selectlist;
@@ -165,7 +165,7 @@
 
 		setDefaultSelection: function() {
 			var $item = this.$element.find('li[data-selected=true]').eq(0);
-			
+
 			if($item.length === 0) {
 				$item = this.$element.find('li').has('a').eq(0);
 			}

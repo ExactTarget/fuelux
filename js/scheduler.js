@@ -2,13 +2,13 @@
  * Fuel UX Scheduler
  * https://github.com/ExactTarget/fuelux
  *
- * Copyright (c) 2014 ExactTarget
+ * Copyright (c) 2014 Salesforce
  * Licensed under the BSD New license.
  */
 
 // -- BEGIN UMD WRAPPER PREFACE --
 
-// For more information on UMD visit: 
+// For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
@@ -24,7 +24,7 @@
 		throw new Error('Fuel UX scheduler control requires combobox, datepicker, radio, selectlist, and spinbox.');
 	}
 	// -- END UMD WRAPPER PREFACE --
-		
+
 	// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.scheduler;
@@ -88,7 +88,7 @@
 		this.$element.find('.selectlist').on('changed.fu.selectlist', $.proxy(this.changed, this));
 		this.$element.find('.spinbox').on('changed.fu.spinbox', $.proxy(this.changed, this));
 		this.$element.find('.repeat-monthly .radio, .repeat-yearly .radio').on('change.fu.scheduler', $.proxy(this.changed, this));
-		
+
 	};
 
 	Scheduler.prototype = {
@@ -101,10 +101,10 @@
 			this.$element.find('input').each(function() {
 				$(this).attr('value', $(this).val());
 			});
-			
+
 			// empty elements to return to original markup and store
 			this.$element.find('.datepicker .calendar').empty();
-			
+
 			markup = this.$element[0].outerHTML;
 
 			// destroy components

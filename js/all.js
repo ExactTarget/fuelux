@@ -2,7 +2,7 @@
  * Fuel UX All
  * https://github.com/ExactTarget/fuelux
  *
- * Copyright (c) 2014 ExactTarget
+ * Copyright (c) 2014 Salesforce
  * Licensed under the BSD New license.
  *
  * NOTE: This file works with AMD only.

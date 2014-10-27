@@ -2,13 +2,13 @@
  * Fuel UX Wizard
  * https://github.com/ExactTarget/fuelux
  *
- * Copyright (c) 2014 ExactTarget
+ * Copyright (c) 2014 Salesforce
  * Licensed under the BSD New license.
  */
 
 // -- BEGIN UMD WRAPPER PREFACE --
 
-// For more information on UMD visit: 
+// For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
@@ -21,7 +21,7 @@
 	}
 }(function ($) {
 	// -- END UMD WRAPPER PREFACE --
-		
+
 	// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.wizard;
@@ -47,7 +47,7 @@
 		this.$prevBtn.on('click.fu.wizard', $.proxy(this.previous, this));
 		this.$nextBtn.on('click.fu.wizard', $.proxy(this.next, this));
 		this.$element.on('click.fu.wizard', 'li.complete', $.proxy(this.stepclicked, this));
-		
+
 		this.selectedItem(this.options.selectedItem);
 
 		if( this.options.disablePreviousStep ) {
@@ -214,11 +214,11 @@
 				containerWidth = this.$element.width();
 			}
 			if (totalWidth > containerWidth) {
-			
+
 				// set the position so that the last step is on the right
 				var newMargin = totalWidth - containerWidth;
 				this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
-				
+
 				// set the position so that the active step is in a good
 				// position if it has been moved out of view
 				if (this.$element.find('li.active').first().position().left < 200) {

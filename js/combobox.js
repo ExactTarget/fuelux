@@ -2,13 +2,13 @@
  * Fuel UX Combobox
  * https://github.com/ExactTarget/fuelux
  *
- * Copyright (c) 2014 ExactTarget
+ * Copyright (c) 2014 Salesforce
  * Licensed under the BSD New license.
  */
 
 // -- BEGIN UMD WRAPPER PREFACE --
 
-// For more information on UMD visit: 
+// For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
@@ -58,10 +58,10 @@
 			this.$element.find('input').each(function() {
 				$(this).attr('value', $(this).val());
 			});
-			
+
 			// empty elements to return to original markup
 			// [none]
-			
+
 			return this.$element[0].outerHTML;
 		},
 
