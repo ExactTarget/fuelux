@@ -11,7 +11,7 @@ Additional details to supplement the brief nature of the README file.
 
 ## Using Fuel UX
 
-Fuel UX can be applied to a section of your your HTML or the entire page by addingg the `.fuelux` wrapper class (eg. [checkbox](http://getfuelux.com/javascript.html#checkbox)):
+Fuel UX can be applied to a section of your your HTML or the entire page by adding the `fuelux` wrapper class (eg. [checkbox](http://getfuelux.com/javascript.html#checkbox)):
 
 ```html
 <body class="fuelux">
@@ -27,18 +27,17 @@ Fuel UX can be applied to a section of your your HTML or the entire page by addi
 ```
 
 ## Downloading code
-Fuel UX can be obtained one of three ways:
+Fuel UX can be obtained in any of the following ways:
 
-1. **Best way:** Install with a dependency manager:
-
-   Using [Bower](https://github.com/bower/bower):
+* Request files from [the Fuel UX CDN](http://www.fuelcdn.com/fuelux/3.1.0/)
+* Using [Bower](https://github.com/bower/bower) (ensures you get all the [dependencies](#dependencies)):
 
    ```
    bower install fuelux
    ```
    Update with `bower update fuelux`.
 
-   Using [Volo](https://github.com/volojs/volo):
+* Using [Volo](https://github.com/volojs/volo) (ensures you get all the [dependencies](#dependencies)):
 
    ```
    volo add fuelux
@@ -46,16 +45,14 @@ Fuel UX can be obtained one of three ways:
    ```
    Update with `volo add -f fuelux`.
 
-   This ensures you get all the [dependencies](#dependencies).
-
-2. **Another good way:** Clone the Git repository:
+* Clone the Git repository:
    ```
    git clone https://github.com/ExactTarget/fuelux/
    ```
 
    Cloning the repository ensures you can apply future updates to Fuel UX easily, but requires to you manage its [dependencies](#dependencies) on your own.
 
-3. **Also an option:** Download a .zip archive of the [latest release](http://www.fuelcdn.com/fuelux/3.1.0/fuelux.zip)  or request files from [the Fuel UX CDN](http://www.fuelcdn.com/fuelux/3.1.0/).
+* Download a .zip archive of the [latest release](http://www.fuelcdn.com/fuelux/3.1.0/fuelux.zip).
 
 ## AMD support
 
@@ -135,7 +132,7 @@ Giving credit where credit is due.
 |Matt Beard |[![mbeard on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/mbeard) |
 |Bryan Kohlmeier |[![bkohlmeier on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/bkohlmeier) |
 |Dustin McCormick | [![djmccormick on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/djmccormick) [![djmccormick on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/djmccormick)|
-|Christopher McCulloh | [![@cmcculloh on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/cmcculloh) [![cmcculloh on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/cmcculloh)|
+|Christopher McCulloh | [![@cmcculloh on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/cmcculloh) [![cmcculloh on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/cmcculloh) [![cormacmccarthy on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/cormacmccarthy)|
 |Scott Plumlee | [![scottplumlee on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/scottplumlee) [![plumlee on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/plumlee)|
 |Marvin Pribble | [![marvinpribble on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/marvinpribble)|
 |Ryan Moore | [![rbmoore on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/rbmoore)|
