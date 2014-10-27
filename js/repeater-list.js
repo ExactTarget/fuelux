@@ -436,6 +436,7 @@
 										// allow selection via enter key
 										$item.keyup(function (e) {
 											if (e.keyCode === 13) {
+												// triggering a standard click event to be caught by the row click handler above
 												$item.trigger('click.fu.repeaterList');
 											}
 										});
