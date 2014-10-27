@@ -46,12 +46,16 @@
 					border-left: none;
 				}
 
-				&.highlight {
+				&.sorted {
 					background: #f9f9f9;
 				}
 			}
 
 			tr {
+				&:focus {
+					outline: 1px dotted #66afe9;
+				}
+
 				&.empty {
 					td {
 						border-bottom: none;
