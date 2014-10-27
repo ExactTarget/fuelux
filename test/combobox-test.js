@@ -177,4 +177,12 @@ define(function(require){
 		equal( $(html).find(id).length, false, 'control has been removed from DOM');
 	});
 
+	test("should remove whitespace", function () {
+		var $combobox = $(html).find("#MyComboboxWithWhiteSpace").combobox();
+		$combobox.combobox('selectByIndex', 0);
+
+		var item = $combobox.combobox('selectedItem');
+		equal(item.text, 'no whitespace', 'whitespace was removed');
+	});
+
 });

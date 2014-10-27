@@ -65,9 +65,10 @@
 			var self = this;
 			var $parent = ($el.hasClass('tree')) ? $el : $el.parent();
 			var loader = $parent.find('.tree-loader:eq(0)');
+			var treeData = $parent.data();
 
 			loader.removeClass('hide');
-			this.options.dataSource( $parent.data() , function (items) {
+			this.options.dataSource( treeData ? treeData : {} , function (items) {
 				loader.addClass('hide');
 
 				$.each( items.data, function(index, value) {
