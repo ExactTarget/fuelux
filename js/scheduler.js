@@ -140,6 +140,41 @@
 			this.toggleState('enable');
 		},
 
+		setUtcTime: function(d, t, offset) {
+			var date = d.split('-');
+			var time = t.split(':');
+			function z(n){return (n < 10? '0' : '') + n;}
+
+			var utcDate = new Date(Date.UTC(date[0], (date[1] - 1), date[2], time[0], time[1], (time[2] ? time[2] : 0)));
+
+			if (offset === 'Z'){
+				utcDate.setUTCHours(utcDate.getUTCHours() + 0);
+			}
+			else {
+				var re1='(.)';	// Any Single Character 1
+				var re2='.*?';	// Non-greedy match on filler
+				var re3='\\d';	// Uninteresting: d
+				var re4='.*?';	// Non-greedy match on filler
+				var re5='(\\d)';	// Any Single Digit 1
+
+				var p = new RegExp(re1+re2+re3+re4+re5,["i"]);
+				var m = p.exec(offset);
+				if (m != null)
+				{
+					var c1=m[1];
+					var d1=m[2];
+
+					var modifier = (c1 === '+') ? 1 : -1;
+
+					utcDate.setUTCHours(utcDate.getUTCHours() + (modifier * parseInt(d1,10)));
+				}
+			}
+
+			var localDifference = utcDate.getTimezoneOffset();
+			utcDate.setMinutes(localDifference);
+			return utcDate;
+		},
+
 		// called when the end range changes
 		// (Never, After, On date)
 		endSelectChanged: function(e, data) {
@@ -178,7 +213,17 @@
 			var interval = this.$repeatIntervalSpinbox.spinbox('value');
 			var pattern = '';
 			var repeat = this.$repeatIntervalSelect.selectlist('selectedItem').value;
-			var startTime = this.$startTime.combobox('selectedItem').text.toLowerCase();
+			var startTime;
+
+			if (this.$startTime.combobox('selectedItem').value){
+				startTime = this.$startTime.combobox('selectedItem').value;
+				startTime = startTime.toLowerCase();
+
+			}
+			else {
+				startTime = this.$startTime.combobox('selectedItem').text.toLowerCase();
+			}
+
 			var timeZone = this.$timeZone.selectlist('selectedItem');
 			var getFormattedDate;
 
@@ -363,13 +408,14 @@
 		},
 
 		setValue: function(options){
-			var hours, i, item, l, minutes, period, recur, temp;
+			var hours, i, item, l, minutes, period, recur, temp, startDate, startTime, timeOffset;
 
 			if(options.startDateTime){
 				temp = options.startDateTime.split('T');
-				this.$startDate.datepicker('setDate', temp[0]);
+				startDate = temp[0];
 
 				if(temp[1]){
+					startTime = temp[1];
 					temp[1] = temp[1].split(':');
 					hours = parseInt(temp[1][0], 10);
 					minutes = (temp[1][1]) ? parseInt(temp[1][1].split('+')[0].split('-')[0].split('Z')[0], 10) : 0;
@@ -381,11 +427,19 @@
 						hours -= 12;
 					}
 					minutes = (minutes<10) ? '0' + minutes : minutes;
-
+					startTime = hours + ':' + minutes;
 					temp = hours + ':' + minutes + ' ' + period;
 					this.$startTime.find('input').val(temp);
 					this.$startTime.combobox('selectByText', temp);
 				}
+				else {
+					startTime = '00:00';
+				}
+			}
+			else {
+				startTime = '00:00';
+				var currentDate = this.$startDate.datepicker('getDate');
+				startDate = currentDate.getFullYear() + '-' + currentDate.getMonth() + '-' + currentDate.getDate();
 			}
 
 			item = 'li[data';
@@ -400,6 +454,7 @@
 					}
 				}
 				item += '"]';
+				timeOffset = options.timeZone.offset;
 				this.$timeZone.selectlist('selectBySelector', item);
 			}else if(options.startDateTime){
 				temp = options.startDateTime.split('T')[1];
@@ -414,8 +469,14 @@
 				}else{
 					temp = '+00:00';
 				}
+
+				timeOffset = (temp === '+00:00') ? 'Z' : temp;
+
 				item += '-offset="' + temp + '"]';
 				this.$timeZone.selectlist('selectBySelector', item);
+			}
+			else {
+				timeOffset = 'Z';
 			}
 
 			if(options.recurrencePattern){
@@ -507,7 +568,13 @@
 						temp.splice(7, 0, '-');
 						temp = temp.join('');
 					}
-					this.$endDate.datepicker('setDate', temp);
+					var timeZone = this.$timeZone.selectlist('selectedItem');
+					var timezoneOffset = (timeZone.offset==='+00:00') ? 'Z' : timeZone.offset;
+
+					startDate = temp;
+					var utcEndHours = this.setUtcTime(startDate, startTime, timezoneOffset);
+					this.$endDate.datepicker('setDate', utcEndHours);
+
 					this.$endSelect.selectlist('selectByValue', 'date');
 				}
 				this.endSelectChanged();
@@ -518,6 +585,12 @@
 				this.$repeatIntervalSelect.selectlist('selectByValue', item);
 				this.repeatIntervalSelectChanged();
 			}
+
+			var utcStartHours = this.setUtcTime(startDate, startTime, timeOffset);
+
+			this.$startDate.datepicker('setDate', utcStartHours);
+
+
 		},
 
 		toggleState: function(action){
