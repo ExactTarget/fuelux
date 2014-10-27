@@ -49,6 +49,32 @@ define(function(require) {
 		}, 'pillbox returns added item');
 	});
 
+	test('Input functionality should, by default, not allow empty pills', function() {
+		var $pillbox = $(html).find('#MyPillbox').pillbox();
+		var $input = $pillbox.find('.pillbox-add-item');
+
+		$input.val(',');
+		$input.trigger($.Event('keydown', {
+			keyCode: 13
+		}));
+
+		equal($pillbox.pillbox('items').length, 5, 'no item added');
+	});
+
+	test('Input functionality should allow empty pills if allowEmptyPills is set to true', function() {
+		var $pillbox = $(html).find('#MyPillbox').pillbox({
+			allowEmptyPills: true
+		});
+		var $input = $pillbox.find('.pillbox-add-item');
+
+		$input.val(',');
+		$input.trigger($.Event('keydown', {
+			keyCode: 13
+		}));
+
+		equal($pillbox.pillbox('items').length, 6, 'item added');
+	});
+
 	test('itemCount function', function() {
 		var $pillbox = $(html).find('#MyPillboxEmpty').pillbox();
 

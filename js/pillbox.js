@@ -359,7 +359,8 @@
 					}
 				}
 
-				if (text.length) {
+				//ignore comma and make sure text that has been entered (protects against " ,". https://github.com/ExactTarget/fuelux/issues/593), unless allowEmptyPills is true.
+				if (text.replace(/[ ]*\,[ ]*/, '').match(/\S/) || (this.options.allowEmptyPills && text.length)) {
 					this._closeSuggestions();
 					this.$addItem.hide();
 
@@ -705,7 +706,8 @@
 		acceptKeyCodes: [
 			13, //Enter
 			188 //Comma
-		]
+		],
+		allowEmptyPills: false
 
 		//example on remove
 		/*onRemove: function(data,callback){
