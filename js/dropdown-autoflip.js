@@ -2,13 +2,13 @@
  * Fuel UX Dropdown Auto Flip
  * https://github.com/ExactTarget/fuelux
  *
- * Copyright (c) 2014 ExactTarget
+ * Copyright (c) 2014 Salesforce
  * Licensed under the BSD New license.
  */
 
 // -- BEGIN UMD WRAPPER PREFACE --
 
-// For more information on UMD visit: 
+// For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
@@ -21,9 +21,9 @@
 	}
 }(function ($) {
 	// -- END UMD WRAPPER PREFACE --
-		
+
 	// -- BEGIN MODULE CODE HERE --
-	
+
 	$(document.body).on('click.fu.dropdown-autoflip', '[data-toggle=dropdown][data-flip]', function( event ) {
 		if( $(this).data().flip === "auto" ) {
 			// have the drop down decide where to place itself
@@ -31,7 +31,7 @@
 		}
 	});
 
-	// For pillbox suggestions dropdown 
+	// For pillbox suggestions dropdown
 	$(document.body).on('suggested.fu.pillbox', function(event, element) {
 		_autoFlip( $(element) );
 		$(element).parent().addClass('open');

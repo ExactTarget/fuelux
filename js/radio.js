@@ -2,13 +2,13 @@
  * Fuel UX Radio
  * https://github.com/ExactTarget/fuelux
  *
- * Copyright (c) 2014 ExactTarget
+ * Copyright (c) 2014 Salesforce
  * Licensed under the BSD New license.
  */
 
 // -- BEGIN UMD WRAPPER PREFACE --
 
-// For more information on UMD visit: 
+// For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
@@ -21,7 +21,7 @@
 		}
 }(function ($) {
 		// -- END UMD WRAPPER PREFACE --
-				
+
 		// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.radio;

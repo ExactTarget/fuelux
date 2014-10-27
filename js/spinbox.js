@@ -2,13 +2,13 @@
  * Fuel UX Spinbox
  * https://github.com/ExactTarget/fuelux
  *
- * Copyright (c) 2014 ExactTarget
+ * Copyright (c) 2014 Salesforce
  * Licensed under the BSD New license.
  */
 
 // -- BEGIN UMD WRAPPER PREFACE --
 
-// For more information on UMD visit: 
+// For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
@@ -234,12 +234,12 @@
 				if( this.options.units.length || this.options.decimalMark !== '.' ) {
 					this.output( this.parseValueWithUnit( value + (this.unit || '') ) );
 					return this;
-				
+
 				} else if ( !isNaN(parseFloat(value)) && isFinite(value) ) {
 					this.options.value = value/1;
 					this.output ( value + (this.unit ? this.unit : '') ) ;
 					return this;
-				
+
 				}
 			} else {
 				if( this.changeFlag ) {
