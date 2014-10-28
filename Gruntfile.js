@@ -11,6 +11,21 @@ module.exports = function(grunt) {
 		' * Copyright 2012-<%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
 		' * Licensed under the <%= pkg.license.type %> license (<%= pkg.license.url %>)\n' +
 		' */\n',
+		bump: {
+			options: {
+				files: [ 'bower.json', 'package.json' ],
+				updateConfigs: [ 'pkg' ],
+				commit: true,
+				commitMessage: 'Release %VERSION%',
+				commitFiles: [ 'bower.json', 'README.md', 'package.json' ],
+				createTag: true,
+				tagName: '%VERSION%',
+				tagMessage: '%VERSION%',
+				push: true,
+				pushTo: 'upstream',
+				gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d'
+			}
+		},
 		jqueryCheck: 'if (typeof jQuery === \'undefined\') { throw new Error(\'Fuel UX\\\'s JavaScript requires jQuery\') }\n\n',
 		bootstrapCheck: 'if (typeof jQuery.fn.dropdown === \'undefined\' || typeof jQuery.fn.collapse === \'undefined\') ' +
 		'{ throw new Error(\'Fuel UX\\\'s JavaScript requires Bootstrap\') }\n\n',
