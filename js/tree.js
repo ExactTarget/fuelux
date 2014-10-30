@@ -91,7 +91,7 @@
 					// for folders and items as attr:
 					//
 					// {
-					//     name: "An Item",
+					//     text: "An Item",
 					//     type: 'item',
 					//     attr = {
 					//         'classes': 'required-item red-text',
