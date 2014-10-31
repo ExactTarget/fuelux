@@ -8,7 +8,7 @@
 
 // -- BEGIN UMD WRAPPER PREFACE --
 
-// For more information on UMD visit: 
+// For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
@@ -21,7 +21,7 @@
 	}
 }(function ($) {
 	// -- END UMD WRAPPER PREFACE --
-		
+
 	// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.tree;
@@ -100,6 +100,8 @@
 					//         'id': guid
 					//     }
 					// };
+					//
+					// the "name" attribute is also supported but is deprecated for "text".
 
 					// add attributes to tree-branch or tree-item
 					var attr = value['attr'] || value.dataAttributes || [];
@@ -110,7 +112,7 @@
 							case 'className':
 								$entity.addClass(value);
 								break;
-							
+
 							// allow custom icons
 							case 'data-icon':
 								$entity.find('.icon-item').removeClass().addClass('icon-item ' + value);
