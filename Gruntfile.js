@@ -15,14 +15,11 @@ module.exports = function(grunt) {
 			options: {
 				files: [ 'bower.json', 'package.json' ],
 				updateConfigs: [ 'pkg' ],
-				commit: true,
-				commitMessage: 'Release %VERSION%',
-				commitFiles: [ 'bower.json', 'README.md', 'package.json' ],
-				createTag: true,
+				commit: false,
+				createTag: false,
 				tagName: '%VERSION%',
 				tagMessage: '%VERSION%',
-				push: true,
-				pushTo: 'upstream',
+				push: false,
 				gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d'
 			}
 		},
