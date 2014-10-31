@@ -97,7 +97,7 @@ our roadmap.
 
 Please do not edit or commit files in the `dist` directory. You'll find source files in the respective `js`, `less`, and `fonts` directory. Project maintainers will commit files in the `dist` directory from time to time. Details on compiling CSS and JavasScript can be found [here](https://github.com/exacttarget/fuelux/blob/master/DETAILS.md#compiling-code).
 
-Prior to submitting a pull request, please run `grunt` to lint & test your code.
+Prior to submitting a pull request, please run `grunt` to lint & test your code. All pull requests are validated via [Travis CI](https://travis-ci.org/). If the tests fail unexpectedly feel free to [trigger a restart](https://github.com/exacttarget/fuelux/blob/master/DETAILS.md#travis-ci).
 
 Take care to maintain the existing coding style (tabs, clarity over brevity, declarative markup, semicolons, etc).
 
