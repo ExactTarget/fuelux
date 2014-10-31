@@ -16,6 +16,10 @@
 		float: left;
 		padding-bottom: 3px; /* Magic number */
 		padding: 0px 25px 0px 7px;
+
+		&::-ms-clear {
+			display:none;
+		}
 	}
 
 	.btn {
@@ -63,6 +67,11 @@
 			position: relative;
 			left: -1px;
 			top: 0px;
+		}
+	}
+	input {
+		&::-ms-clear {
+			display:none;
 		}
 	}
 }
