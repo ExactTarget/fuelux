@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.1.0
+ * Fuel UX v3.2.0
  * Copyright 2012-2014 ExactTarget
  * Licensed under the BSD-3-Clause license ()
  */
@@ -321,7 +321,7 @@
 			doSelect: function( $item ) {
 				if ( typeof $item[ 0 ] !== 'undefined' ) {
 					this.$selectedItem = $item;
-					this.$input.val( this.$selectedItem.text() );
+					this.$input.val( this.$selectedItem.text().trim() );
 				} else {
 					this.$selectedItem = null;
 				}
@@ -343,7 +343,7 @@
 				var data = {};
 
 				if ( item ) {
-					var txt = this.$selectedItem.text();
+					var txt = this.$selectedItem.text().trim();
 					data = $.extend( {
 						text: txt
 					}, this.$selectedItem.data() );
@@ -411,7 +411,7 @@
 				this.$selectedItem = $( e.target ).parent();
 
 				// set input text and trigger input change event marked as synthetic
-				this.$input.val( this.$selectedItem.text() ).trigger( 'change', {
+				this.$input.val( this.$selectedItem.text().trim() ).trigger( 'change', {
 					synthetic: true
 				} );
 
@@ -1310,8 +1310,14 @@
 		}
 
 		function _getContainer( element ) {
-			var containerElement = window;
-			var isWindow = true;
+			var containerElement, isWindow;
+			if ( element.attr( 'data-target' ) ) {
+				containerElement = element.attr( 'data-target' );
+				isWindow = false;
+			} else {
+				containerElement = window;
+				isWindow = true;
+			}
 
 			$.each( element.parents(), function( index, value ) {
 				if ( $( value ).css( 'overflow' ) !== 'visible' ) {
@@ -2854,9 +2860,10 @@
 				var self = this;
 				var $parent = ( $el.hasClass( 'tree' ) ) ? $el : $el.parent();
 				var loader = $parent.find( '.tree-loader:eq(0)' );
+				var treeData = $parent.data();
 
 				loader.removeClass( 'hide' );
-				this.options.dataSource( $parent.data(), function( items ) {
+				this.options.dataSource( treeData ? treeData : {}, function( items ) {
 					loader.addClass( 'hide' );
 
 					$.each( items.data, function( index, value ) {
@@ -2865,10 +2872,10 @@
 						if ( value.type === 'folder' ) {
 							$entity = self.$element.find( '[data-template=treebranch]:eq(0)' ).clone().removeClass( 'hide' ).removeAttr( 'data-template' );
 							$entity.data( value );
-							$entity.find( '.tree-branch-name > .tree-label' ).html( value.name );
+							$entity.find( '.tree-branch-name > .tree-label' ).html( value.text || value.name );
 						} else if ( value.type === 'item' ) {
 							$entity = self.$element.find( '[data-template=treeitem]:eq(0)' ).clone().removeClass( 'hide' ).removeAttr( 'data-template' );
-							$entity.find( '.tree-item-name > .tree-label' ).html( value.name );
+							$entity.find( '.tree-item-name > .tree-label' ).html( value.text || value.name );
 							$entity.data( value );
 						}
 
@@ -2879,7 +2886,7 @@
 						// for folders and items as attr:
 						//
 						// {
-						//     name: "An Item",
+						//     text: "An Item",
 						//     type: 'item',
 						//     attr = {
 						//         'classes': 'required-item red-text',
@@ -2888,6 +2895,8 @@
 						//         'id': guid
 						//     }
 						// };
+						//
+						// the "name" attribute is also supported but is deprecated for "text".
 
 						// add attributes to tree-branch or tree-item
 						var attr = value[ 'attr' ] || value.dataAttributes || [];
@@ -4086,7 +4095,8 @@
 						}
 					}
 
-					if ( text.length ) {
+					//ignore comma and make sure text that has been entered (protects against " ,". https://github.com/ExactTarget/fuelux/issues/593), unless allowEmptyPills is true.
+					if ( text.replace( /[ ]*\,[ ]*/, '' ).match( /\S/ ) || ( this.options.allowEmptyPills && text.length ) ) {
 						this._closeSuggestions();
 						this.$addItem.hide();
 
@@ -4411,8 +4421,12 @@
 				var data = $this.data( 'fu.pillbox' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'fu.pillbox', ( data = new Pillbox( this, options ) ) );
-				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+				if ( !data ) {
+					$this.data( 'fu.pillbox', ( data = new Pillbox( this, options ) ) );
+				}
+				if ( typeof option === 'string' ) {
+					methodReturn = data[ option ].apply( data, args );
+				}
 			} );
 
 			return ( methodReturn === undefined ) ? $set : methodReturn;
@@ -4428,7 +4442,8 @@
 			acceptKeyCodes: [
 				13, //Enter
 				188 //Comma
-			]
+			],
+			allowEmptyPills: false
 
 			//example on remove
 			/*onRemove: function(data,callback){
@@ -4476,6 +4491,7 @@
 				$this.pillbox( $this.data() );
 			} );
 		} );
+
 
 
 	} )( jQuery );
@@ -5224,6 +5240,17 @@
 				this.$canvas.find( '.repeater-list table tbody tr.selected' ).removeClass( 'selected' );
 			};
 
+			$.fn.repeater.Constructor.prototype.list_highlightColumn = function( index, force ) {
+				var tbody = this.$canvas.find( '.repeater-list tbody' );
+				if ( this.options.list_highlightSortedColumn || force ) {
+					tbody.find( 'td.sorted' ).removeClass( 'sorted' );
+					tbody.find( 'tr' ).each( function() {
+						var col = $( this ).find( 'td:nth-child(' + ( index + 1 ) + ')' );
+						col.addClass( 'sorted' );
+					} );
+				}
+			};
+
 			$.fn.repeater.Constructor.prototype.list_getSelectedItems = function() {
 				var selected = [];
 				this.$canvas.find( '.repeater-list table tbody tr.selected' ).each( function() {
@@ -5320,6 +5347,7 @@
 				list_columnRendered: null,
 				list_columnSizing: true,
 				list_columnSyncing: true,
+				list_highlightSortedColumn: false,
 				list_infiniteScroll: false,
 				list_noItemsHTML: '',
 				list_selectable: false,
@@ -5371,9 +5399,14 @@
 				},
 				renderer: { //RENDERING REPEATER-LIST, REPEATER-LIST-WRAPPER, AND TABLE
 					complete: function( helpers, callback ) {
+						var $sorted;
 						if ( this.options.list_columnSyncing ) {
 							this.list_sizeHeadings();
 							this.list_positionHeadings();
+						}
+						$sorted = this.$canvas.find( '.repeater-list-heading.sorted' );
+						if ( $sorted.length > 0 ) {
+							this.list_highlightColumn( $sorted.data( 'fu_item_index' ) );
 						}
 						callback();
 					},
@@ -5496,6 +5529,7 @@
 								var subset = helpers.subset;
 								var $both, className, sortable, $span, $spans;
 
+								$div.data( 'fu_item_index', index );
 								$div.prepend( helpers.subset[ helpers.index ].label );
 								$item.html( $div.html() ).find( '[id]' ).removeAttr( 'id' );
 								$item.append( $div );
@@ -5563,9 +5597,16 @@
 						} ]
 					}, { //RENDERING TBODY
 						render: function( helpers, callback ) {
-							var $item = $( '<tbody data-container="true"></tbody>' );
 							var obj = {};
-							var $empty;
+							var $empty, $item;
+
+							$item = this.$canvas.find( '.repeater-list table tbody' );
+							if ( $item.length > 0 ) {
+								obj.action = 'none';
+							} else {
+								$item = $( '<tbody data-container="true"></tbody>' );
+							}
+							obj.item = $item;
 
 							if ( helpers.data.items.length < 1 ) {
 								obj.skipNested = true;
@@ -5573,7 +5614,6 @@
 								$empty.find( 'td' ).append( this.options.list_noItemsHTML );
 								$item.append( $empty );
 							}
-							obj.item = $item;
 
 							callback( obj );
 						},
@@ -5624,7 +5664,8 @@
 									// allow selection via enter key
 									$item.keyup( function( e ) {
 										if ( e.keyCode === 13 ) {
-											$item.trigger( 'clicked.fu.repeaterList' );
+											// triggering a standard click event to be caught by the row click handler above
+											$item.trigger( 'click.fu.repeaterList' );
 										}
 									} );
 								}
@@ -6011,6 +6052,42 @@
 				this.toggleState( 'enable' );
 			},
 
+			setUtcTime: function( d, t, offset ) {
+				var date = d.split( '-' );
+				var time = t.split( ':' );
+
+				function z( n ) {
+					return ( n < 10 ? '0' : '' ) + n;
+				}
+
+				var utcDate = new Date( Date.UTC( date[ 0 ], ( date[ 1 ] - 1 ), date[ 2 ], time[ 0 ], time[ 1 ], ( time[ 2 ] ? time[ 2 ] : 0 ) ) );
+
+				if ( offset === 'Z' ) {
+					utcDate.setUTCHours( utcDate.getUTCHours() + 0 );
+				} else {
+					var re1 = '(.)'; // Any Single Character 1
+					var re2 = '.*?'; // Non-greedy match on filler
+					var re3 = '\\d'; // Uninteresting: d
+					var re4 = '.*?'; // Non-greedy match on filler
+					var re5 = '(\\d)'; // Any Single Digit 1
+
+					var p = new RegExp( re1 + re2 + re3 + re4 + re5, [ "i" ] );
+					var m = p.exec( offset );
+					if ( m != null ) {
+						var c1 = m[ 1 ];
+						var d1 = m[ 2 ];
+
+						var modifier = ( c1 === '+' ) ? 1 : -1;
+
+						utcDate.setUTCHours( utcDate.getUTCHours() + ( modifier * parseInt( d1, 10 ) ) );
+					}
+				}
+
+				var localDifference = utcDate.getTimezoneOffset();
+				utcDate.setMinutes( localDifference );
+				return utcDate;
+			},
+
 			// called when the end range changes
 			// (Never, After, On date)
 			endSelectChanged: function( e, data ) {
@@ -6049,7 +6126,16 @@
 				var interval = this.$repeatIntervalSpinbox.spinbox( 'value' );
 				var pattern = '';
 				var repeat = this.$repeatIntervalSelect.selectlist( 'selectedItem' ).value;
-				var startTime = this.$startTime.combobox( 'selectedItem' ).text.toLowerCase();
+				var startTime;
+
+				if ( this.$startTime.combobox( 'selectedItem' ).value ) {
+					startTime = this.$startTime.combobox( 'selectedItem' ).value;
+					startTime = startTime.toLowerCase();
+
+				} else {
+					startTime = this.$startTime.combobox( 'selectedItem' ).text.toLowerCase();
+				}
+
 				var timeZone = this.$timeZone.selectlist( 'selectedItem' );
 				var getFormattedDate;
 
@@ -6224,13 +6310,14 @@
 			},
 
 			setValue: function( options ) {
-				var hours, i, item, l, minutes, period, recur, temp;
+				var hours, i, item, l, minutes, period, recur, temp, startDate, startTime, timeOffset;
 
 				if ( options.startDateTime ) {
 					temp = options.startDateTime.split( 'T' );
-					this.$startDate.datepicker( 'setDate', temp[ 0 ] );
+					startDate = temp[ 0 ];
 
 					if ( temp[ 1 ] ) {
+						startTime = temp[ 1 ];
 						temp[ 1 ] = temp[ 1 ].split( ':' );
 						hours = parseInt( temp[ 1 ][ 0 ], 10 );
 						minutes = ( temp[ 1 ][ 1 ] ) ? parseInt( temp[ 1 ][ 1 ].split( '+' )[ 0 ].split( '-' )[ 0 ].split( 'Z' )[ 0 ], 10 ) : 0;
@@ -6242,11 +6329,17 @@
 							hours -= 12;
 						}
 						minutes = ( minutes < 10 ) ? '0' + minutes : minutes;
-
+						startTime = hours + ':' + minutes;
 						temp = hours + ':' + minutes + ' ' + period;
 						this.$startTime.find( 'input' ).val( temp );
 						this.$startTime.combobox( 'selectByText', temp );
+					} else {
+						startTime = '00:00';
 					}
+				} else {
+					startTime = '00:00';
+					var currentDate = this.$startDate.datepicker( 'getDate' );
+					startDate = currentDate.getFullYear() + '-' + currentDate.getMonth() + '-' + currentDate.getDate();
 				}
 
 				item = 'li[data';
@@ -6261,6 +6354,7 @@
 						}
 					}
 					item += '"]';
+					timeOffset = options.timeZone.offset;
 					this.$timeZone.selectlist( 'selectBySelector', item );
 				} else if ( options.startDateTime ) {
 					temp = options.startDateTime.split( 'T' )[ 1 ];
@@ -6275,8 +6369,13 @@
 					} else {
 						temp = '+00:00';
 					}
+
+					timeOffset = ( temp === '+00:00' ) ? 'Z' : temp;
+
 					item += '-offset="' + temp + '"]';
 					this.$timeZone.selectlist( 'selectBySelector', item );
+				} else {
+					timeOffset = 'Z';
 				}
 
 				if ( options.recurrencePattern ) {
@@ -6368,7 +6467,13 @@
 							temp.splice( 7, 0, '-' );
 							temp = temp.join( '' );
 						}
-						this.$endDate.datepicker( 'setDate', temp );
+						var timeZone = this.$timeZone.selectlist( 'selectedItem' );
+						var timezoneOffset = ( timeZone.offset === '+00:00' ) ? 'Z' : timeZone.offset;
+
+						startDate = temp;
+						var utcEndHours = this.setUtcTime( startDate, startTime, timezoneOffset );
+						this.$endDate.datepicker( 'setDate', utcEndHours );
+
 						this.$endSelect.selectlist( 'selectByValue', 'date' );
 					}
 					this.endSelectChanged();
@@ -6379,6 +6484,12 @@
 					this.$repeatIntervalSelect.selectlist( 'selectByValue', item );
 					this.repeatIntervalSelectChanged();
 				}
+
+				var utcStartHours = this.setUtcTime( startDate, startTime, timeOffset );
+
+				this.$startDate.datepicker( 'setDate', utcStartHours );
+
+
 			},
 
 			toggleState: function( action ) {
