@@ -46,6 +46,43 @@
 
   </dl>
 
+  <h3 id="checkbox-usage-events">Events</h3>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th style="width: 150px;">Event Type</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>enabled.fu.checkbox</td>
+        <td>Event fires when checkbox is enabled</td>
+      </tr>
+      <tr>
+        <td>disabled.fu.checkbox</td>
+        <td>Event fires when checkbox is disabled</td>
+      </tr>
+      <tr>
+        <td>checked.fu.checkbox</td>
+        <td>Event fires when checkbox is checked</td>
+      </tr>
+      <tr>
+        <td>unchecked.fu.checkbox</td>
+        <td>Event fires when checkbox is unchecked</td>
+      </tr>
+      </tbody>
+    </table>
+  </div><!-- ./fu-table-responsive -->
+
+  <p>All checkbox events are fired on the <code>.checkbox</code> classed element.</p>
+{% highlight js %}
+$('#myCheckbox').on('checked.fu.checkbox', function (evt, item) {
+  // do something
+});
+{% endhighlight %}
+
   <h2 id="checkbox-examples">Examples</h2>
 
   <h4 id="checkbox-examples-default">Default (stacked)</h4>
