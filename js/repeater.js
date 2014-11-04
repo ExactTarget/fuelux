@@ -470,6 +470,9 @@
 				this.currentView = options.changeView;
 				this.$element.attr('data-currentview', this.currentView);
 				viewChanged = true;
+
+				this.$element.trigger('viewChanged.fu.repeater', this.currentView);
+
 				if(this.infiniteScrollingEnabled){
 					self.infiniteScrolling(false);
 				}
@@ -637,7 +640,6 @@
 		viewChanged: function(e){
 			var $selected = $(e.target);
 			var val = $selected.val();
-			this.$element.trigger('viewChanged.fu.repeater', val);
 			this.render({ changeView: val, pageIncrement: null });
 		}
 	};
