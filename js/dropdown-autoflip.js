@@ -89,8 +89,15 @@
 	}
 
 	function _getContainer( element ) {
-		var containerElement = window;
-		var isWindow = true;
+		var containerElement, isWindow;
+		if (element.attr('data-target')){
+			containerElement = element.attr('data-target');
+			isWindow = false;
+		}
+		else {
+			containerElement = window;
+			isWindow = true;
+		}
 
 		$.each( element.parents(), function(index, value) {
 			if( $(value).css('overflow') !== 'visible' ) {

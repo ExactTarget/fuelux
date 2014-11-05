@@ -7,12 +7,14 @@
 
 	<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
 
-	<link href="dist/css/fuelux.css" rel="stylesheet" type="text/css">
+	<!-- allows for visual check of compiled LESS for debugging/testing purposes. Uncomment this, and comment out client-side LESS compilation code below to use this -->
+	<!--<link href="dist/css/fuelux.css" rel="stylesheet" type="text/css">-->
+	<!--<link href="dist/css/fuelux.min.css" rel="stylesheet" type="text/css">-->
 
 	<!--CLIENT-SIDE LESS COMPILATION FOR WATCHER-LESS DEV-->
-	<!--<link href="less/fuelux.less" rel="stylesheet/less" type="text/css"/>-->
-	<!--<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js"></script>-->
-	<!--<script type="text/javascript">if(window.console && window.console.clear){ window.console.clear(); }</script>-->
+	<link href="less/fuelux.less" rel="stylesheet/less" type="text/css"/>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js"></script>
+	<script type="text/javascript">if(window.console && window.console.clear){ window.console.clear(); }</script>
 
 	<link href="index.css" rel="stylesheet" type="text/css">
 
@@ -143,7 +145,7 @@
 					<input type="text" class="form-control">
 					<div class="input-group-btn">
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-						<ul class="dropdown-menu dropdown-menu-right">
+						<ul class="dropdown-menu dropdown-menu-right" role="menu">
 							<li data-value="1"><a href="#">One</a></li>
 							<li data-value="2"><a href="#">Two</a></li>
 							<li data-selected="true" data-value="3"><a href="#">Three</a></li>

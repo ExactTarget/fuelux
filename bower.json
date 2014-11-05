@@ -1,4 +1,22 @@
 {
+  "name": "fuelux",
+  "description": "Extending Bootstrap with additional lightweight JavaScript controls.",
+  "version": "3.2.1",
+  "keywords": [
+    "application",
+    "bootstrap",
+    "controls",
+    "css",
+    "exacttarget",
+    "front-end",
+    "fuelux",
+    "fuel ux",
+    "js",
+    "salesforce",
+    "user interface",
+    "web"
+  ],
+  "homepage": "http://getfuelux.com",
   "dependencies": {
     "jquery-1.11.0": "jquery#1.11.0",
     "requirejs": "~2.1.11",
@@ -30,20 +48,6 @@
     "Procfile",
     "test"
   ],
-  "keywords": [
-    "application",
-    "bootstrap",
-    "controls",
-    "css",
-    "exacttarget",
-    "front-end",
-    "fuelux",
-    "fuel ux",
-    "js",
-    "salesforce",
-    "user interface",
-    "web"
-  ],
   "license": "BSD-3-Clause",
   "main": [
     "dist/css/fuelux.css",
@@ -52,6 +56,5 @@
     "dist/fonts/fuelux.svg",
     "dist/fonts/fuelux.ttf",
     "dist/fonts/fuelux.woff"
-  ],
-  "name": "fuelux"
+  ]
 }

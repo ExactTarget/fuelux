@@ -8,7 +8,7 @@
 
 // -- BEGIN UMD WRAPPER PREFACE --
 
-// For more information on UMD visit: 
+// For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
@@ -21,7 +21,7 @@
 	}
 }(function ($) {
 	// -- END UMD WRAPPER PREFACE --
-		
+
 	// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.tree;
@@ -65,9 +65,10 @@
 			var self = this;
 			var $parent = ($el.hasClass('tree')) ? $el : $el.parent();
 			var loader = $parent.find('.tree-loader:eq(0)');
+			var treeData = $parent.data();
 
 			loader.removeClass('hide');
-			this.options.dataSource( $parent.data() , function (items) {
+			this.options.dataSource( treeData ? treeData : {} , function (items) {
 				loader.addClass('hide');
 
 				$.each( items.data, function(index, value) {
@@ -76,10 +77,10 @@
 					if(value.type === 'folder') {
 						$entity = self.$element.find('[data-template=treebranch]:eq(0)').clone().removeClass('hide').removeAttr('data-template');
 						$entity.data(value);
-						$entity.find('.tree-branch-name > .tree-label').html(value.name);
+						$entity.find('.tree-branch-name > .tree-label').html(value.text || value.name);
 					} else if (value.type === 'item') {
 						$entity = self.$element.find('[data-template=treeitem]:eq(0)').clone().removeClass('hide').removeAttr('data-template');
-						$entity.find('.tree-item-name > .tree-label').html(value.name);
+						$entity.find('.tree-item-name > .tree-label').html(value.text || value.name);
 						$entity.data(value);
 					}
 
@@ -90,7 +91,7 @@
 					// for folders and items as attr:
 					//
 					// {
-					//     name: "An Item",
+					//     text: "An Item",
 					//     type: 'item',
 					//     attr = {
 					//         'classes': 'required-item red-text',
@@ -99,6 +100,8 @@
 					//         'id': guid
 					//     }
 					// };
+					//
+					// the "name" attribute is also supported but is deprecated for "text".
 
 					// add attributes to tree-branch or tree-item
 					var attr = value['attr'] || value.dataAttributes || [];
@@ -109,7 +112,7 @@
 							case 'className':
 								$entity.addClass(value);
 								break;
-							
+
 							// allow custom icons
 							case 'data-icon':
 								$entity.find('.icon-item').removeClass().addClass('icon-item ' + value);

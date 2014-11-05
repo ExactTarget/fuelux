@@ -1,26 +1,38 @@
 /*jshint expr:true*/
 /*global module:false, process:false*/
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 	'use strict';
 
 	// Project configuration.
 	grunt.initConfig({
 		// Metadata
 		banner: '/*!\n' +
-			' * Fuel UX v<%= pkg.version %> \n' +
-			' * Copyright 2012-<%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
-			' * Licensed under the <%= pkg.license.type %> license (<%= pkg.license.url %>)\n' +
-			' */\n',
+		' * Fuel UX v<%= pkg.version %> \n' +
+		' * Copyright 2012-<%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
+		' * Licensed under the <%= pkg.license.type %> license (<%= pkg.license.url %>)\n' +
+		' */\n',
+		bump: {
+			options: {
+				files: [ 'bower.json', 'package.json' ],
+				updateConfigs: [ 'pkg' ],
+				commit: false,
+				createTag: false,
+				tagName: '%VERSION%',
+				tagMessage: '%VERSION%',
+				push: false,
+				gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d'
+			}
+		},
 		jqueryCheck: 'if (typeof jQuery === \'undefined\') { throw new Error(\'Fuel UX\\\'s JavaScript requires jQuery\') }\n\n',
 		bootstrapCheck: 'if (typeof jQuery.fn.dropdown === \'undefined\' || typeof jQuery.fn.collapse === \'undefined\') ' +
-			'{ throw new Error(\'Fuel UX\\\'s JavaScript requires Bootstrap\') }\n\n',
+		'{ throw new Error(\'Fuel UX\\\'s JavaScript requires Bootstrap\') }\n\n',
 		pkg: grunt.file.readJSON('package.json'),
-		// Try ENV variables (export SAUCE_ACCESS_KEY=XXXX), if key doesn't exist, try key file 
+		// Try ENV variables (export SAUCE_ACCESS_KEY=XXXX), if key doesn't exist, try key file
 		sauceLoginFile: grunt.file.exists('SAUCE_API_KEY.yml') ? grunt.file.readYAML('SAUCE_API_KEY.yml') : undefined,
-		sauceUser: 'fuelux',
-		sauceKey: process.env['SAUCE_ACCESS_KEY'] ? process.env['SAUCE_ACCESS_KEY'] : '<%= sauceLoginFile.key %>',
-		allTestUrls: ['2.1.0', '1.11.0', '1.9.1', 'browserGlobals'].map(function (ver) {
-			if(ver==='browserGlobals'){
+		sauceUser: process.env.SAUCE_USERNAME || 'fuelux',
+		sauceKey: process.env.SAUCE_ACCESS_KEY ? process.env.SAUCE_ACCESS_KEY : '<%= sauceLoginFile.key %>',
+		allTestUrls: ['2.1.0', '1.11.0', '1.9.1', 'browserGlobals'].map(function(ver) {
+			if (ver === 'browserGlobals') {
 				return 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux-browser-globals.html';
 			}
 			return 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + ver;
@@ -77,16 +89,16 @@ module.exports = function (grunt) {
 				},
 				options: {
 					banner: '<%= banner %>' + '\n\n' +
-						'// For more information on UMD visit: https://github.com/umdjs/umd/' + '\n' +
-						'(function (factory) {' + '\n' +
-							'\tif (typeof define === \'function\' && define.amd) {' + '\n' +
-								'\t\tdefine([\'jquery\', \'bootstrap\'], factory);' + '\n' +
-							'\t} else {' + '\n' +
-								'\t\tfactory(jQuery);' + '\n' +
-							'\t}' + '\n' +
-						'}(function (jQuery) {\n\n' +
-							'<%= jqueryCheck %>' +
-							'<%= bootstrapCheck %>',
+					'// For more information on UMD visit: https://github.com/umdjs/umd/' + '\n' +
+					'(function (factory) {' + '\n' +
+					'\tif (typeof define === \'function\' && define.amd) {' + '\n' +
+					'\t\tdefine([\'jquery\', \'bootstrap\'], factory);' + '\n' +
+					'\t} else {' + '\n' +
+					'\t\tfactory(jQuery);' + '\n' +
+					'\t}' + '\n' +
+					'}(function (jQuery) {\n\n' +
+					'<%= jqueryCheck %>' +
+					'<%= bootstrapCheck %>',
 					footer: '\n}));',
 					process: function(source) {
 						source = '(function ($) {\n\n' +
@@ -107,7 +119,7 @@ module.exports = function (grunt) {
 			testServer: {
 				options: {
 					hostname: '*',
-					port: 9000		// allows main server to be run simultaneously 
+					port: 9000 // allows main server to be run simultaneously
 				}
 			}
 		},
@@ -167,7 +179,7 @@ module.exports = function (grunt) {
 				noarg: true,
 				sub: true,
 				undef: true,
-				unused: false	// changed
+				unused: false // changed
 			},
 			source: ['Gruntfile.js', 'js/*.js', 'dist/fuelux.js'],
 			tests: {
@@ -214,30 +226,30 @@ module.exports = function (grunt) {
 		},
 		'saucelabs-qunit': {
 			trickyBrowsers: {
-							options: {
-								username: '<%= sauceUser %>',
-								key: '<%= sauceKey %>',
-								tunnelTimeout: 45,
-								testInterval: 3000,
-								tags: [ '<%= sauceUser %>' + "@" + process.env.TRAVIS_BRANCH || '<%= sauceUser %>' +"@local"],
-								browsers: grunt.file.readYAML('sauce_browsers_tricky.yml'),
-								build: process.env.TRAVIS_BUILD_NUMBER || '',
-								testname: process.env.TRAVIS_JOB_ID || Math.floor((new Date()).getTime() / 1000 - 1230768000).toString(),
-								urls: '<%= trickyTestUrl %>'
-							}
+				options: {
+					username: '<%= sauceUser %>',
+					key: '<%= sauceKey %>',
+					tunnelTimeout: 45,
+					testInterval: 3000,
+					tags: ['<%= sauceUser %>' + '@' + process.env.TRAVIS_BRANCH || '<%= sauceUser %>' + '@local'],
+					browsers: grunt.file.readYAML('sauce_browsers_tricky.yml'),
+					build: process.env.TRAVIS_BUILD_NUMBER || '',
+					testname: process.env.TRAVIS_JOB_ID || Math.floor((new Date()).getTime() / 1000 - 1230768000).toString(),
+					urls: '<%= trickyTestUrl %>'
+				}
 			},
 			travisCIBrowsers: {
-					options: {
-						username: '<%= sauceUser %>',
-						key: '<%= sauceKey %>',
-						tunnelTimeout: 45,
-						testInterval: 3000,
-						tags: [ '<%= sauceUser %>' + "@" + process.env.TRAVIS_BRANCH || '<%= sauceUser %>@local'],
-						browsers: grunt.file.readYAML('sauce_browsers.yml'),
-						build: process.env.TRAVIS_BUILD_NUMBER || '',
-						testname: process.env.TRAVIS_JOB_ID || 'grunt-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
-						urls: '<%= travisCITestUrls %>'
-					}
+				options: {
+					username: '<%= sauceUser %>',
+					key: '<%= sauceKey %>',
+					tunnelTimeout: 45,
+					testInterval: 3000,
+					tags: ['<%= sauceUser %>' + '@' + process.env.TRAVIS_BRANCH || '<%= sauceUser %>@local'],
+					browsers: grunt.file.readYAML('sauce_browsers.yml'),
+					build: process.env.TRAVIS_BUILD_NUMBER || '',
+					testname: process.env.TRAVIS_JOB_ID || 'grunt-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
+					urls: '<%= travisCITestUrls %>'
+				}
 			},
 			all: {
 				options: {
@@ -278,9 +290,11 @@ module.exports = function (grunt) {
 		validation: {
 			// if many errors are found, this may log to console while other tasks are running
 			options: {
-				reset: function() { grunt.option('reset') || false ;},
+				reset: function() {
+					grunt.option('reset') || false ;
+				},
 				stoponerror: true,
-				relaxerror: [	//ignores these errors
+				relaxerror: [ //ignores these errors
 					'Bad value X-UA-Compatible for attribute http-equiv on element meta.',
 					'Element head is missing a required instance of child element title.'
 				],
@@ -294,66 +308,87 @@ module.exports = function (grunt) {
 		watch: {
 			full: {
 				files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
-				options: { livereload: true },
+				options: {
+					livereload: true
+				},
 				tasks: ['test', 'dist']
 			},
 			css: {
 				files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
-				options: { livereload: true },
+				options: {
+					livereload: true
+				},
 				tasks: ['distcss']
+			},
+			contrib: {
+				files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
+				options: {
+					livereload: true
+				},
+				tasks: ['test']
 			}
 		}
 	});
 
 	// Look ma! Load all grunt plugins in one line from package.json
-	require('load-grunt-tasks')(grunt, {scope: 'devDependencies'});
+	require('load-grunt-tasks')(grunt, {
+		scope: 'devDependencies'
+	});
 
 	/* -------------
 		BUILD
 	------------- */
 	// JS distribution task
-	grunt.registerTask('distjs', ['concat', 'uglify', 'jsbeautifier']);
+	grunt.registerTask('distjs', 'concat, uglify, and beautifying JS', ['concat', 'uglify', 'jsbeautifier']);
 
 	// CSS distribution task
-	grunt.registerTask('distcss', ['less', 'usebanner']);
+	grunt.registerTask('distcss', 'less compile CSS', ['less', 'usebanner']);
 
-	// ZIP distribution task 
-	grunt.registerTask('distzip', ['copy:zipsrc', 'compress', 'clean:zipsrc']);
+	// ZIP distribution task
+	grunt.registerTask('distzip', 'compress and zip dist', ['copy:zipsrc', 'compress', 'clean:zipsrc']);
 
 	// Full distribution task
-	grunt.registerTask('dist', ['clean:dist', 'distcss', 'copy:fonts', 'distjs', 'distzip']);
+	grunt.registerTask('dist', 'build and zip dist --contributors should do this!!!', ['clean:dist', 'distcss', 'copy:fonts', 'distjs', 'distzip']);
 
-	//The default build task
-	grunt.registerTask('default', ['releasetest', 'dist']);
+	// The default build task
+	grunt.registerTask('default', 'run release tests. Does not build dist.', ['releasetest']);
+
+	// This task should be run to build dist directory. This is mostly for maintainers prior to a release.
+	// Contributors who run this will need to revert changes to dist afterwards (there shouldn't be a reason for a contributor to run this)
+	grunt.registerTask('release', 'run release tests and build dist directory', ['releasetest', 'dist']);
 
 	/* -------------
 		TESTS
 	------------- */
 	// minimal tests for developmeent
-	grunt.registerTask('test', ['jshint', 'qunit:simple', 'validation']);
+	grunt.registerTask('test', 'run jshint, qunit, and validation', ['jshint', 'qunit:simple', 'validation']);
 
 	// multiple jquery versions, but still no VMs
-	grunt.registerTask('releasetest', ['connect:testServer', 'jshint', 'qunit:full']);
+	grunt.registerTask('releasetest', 'run testServer, jshint, and qunit', ['connect:testServer', 'jshint', 'qunit:full']);
 
+
+	// can be run locally instead of through TravisCI, but requires the FuelUX Saucelabs API key file which is not public at this time.
 	// multiple jquery versions, sent to VMs
-	grunt.registerTask('saucelabs', ['connect:testServer', 'jshint', 'saucelabs-qunit:all']);
+	grunt.registerTask('saucelabs', 'run testServer, jshint, and qunity on saucelabs', ['connect:testServer', 'jshint', 'saucelabs-qunit:all']);
 
+	// can be run locally instead of through TravisCI, but requires the FuelUX Saucelabs API key file which is not public at this time.
 	// multiple jquery versions, sent to VMs including IE8-11, etc.
-	grunt.registerTask('trickysauce', ['connect:testServer', 'jshint', 'saucelabs-qunit:trickyBrowsers']);
+	grunt.registerTask('trickysauce', 'run testServer, jshint, and qunit for "tricky browsers" (IE8-11)', ['connect:testServer', 'jshint', 'saucelabs-qunit:trickyBrowsers']);
 
 	//command line travisci / saucelabs
-	grunt.registerTask('traviscisauce', ['connect:testServer', 'jshint', 'saucelabs-qunit:travisCIBrowsers']);
+	grunt.registerTask('traviscisauce', 'run testServer, jshint, and saucelabs with TravisCI', ['connect:testServer', 'jshint', 'saucelabs-qunit:travisCIBrowsers']);
 
 	//Travis CI task
-	grunt.registerTask('travisci', 'Run appropriate test strategy for Travis CI', function () {
-		(process.env['TRAVIS_SECURE_ENV_VARS'] === 'true') ? grunt.task.run('traviscisauce') : grunt.task.run('releasetest');
+	grunt.registerTask('travisci', 'Run appropriate test strategy for Travis CI', function() {
+		(process.env.TRAVIS_SECURE_ENV_VARS === 'true') ? grunt.task.run('traviscisauce') : grunt.task.run('releasetest');
 	});
 
 	/* -------------
 		SERVE
 	------------- */
-	grunt.registerTask('serve', ['test', 'dist', 'connect:server', 'watch:full']);
-	grunt.registerTask('servecss', ['connect:server', 'watch:css']);
+	grunt.registerTask('serve', 'serve files without compilation', ['test', 'connect:server', 'watch:contrib']);
+	grunt.registerTask('servefast', 'serve files without compilation or watch (tests take time...)', ['connect:server']);
+	grunt.registerTask('servedist', 'build dist directory and serve files with compilation', ['test', 'dist', 'connect:server', 'watch:full']);
 
 
 };
