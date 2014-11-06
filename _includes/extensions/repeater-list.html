@@ -113,8 +113,33 @@
 	docs.</a> You can also use the following additional features:</p>
 
 <h3>Data Source</h3>
-<p>The <a href="javascript.html#repeater-dataSource">dataSource</a> function behaves as described in the repeater docs. However, the function requires a few additional parameters on the returned <code>data</code> object to render the data properly:
-</p>
+<p>The <a href="javascript.html#repeater-dataSource">dataSource</a> function behaves as described in the repeater docs. However, the function potentially provides a few additional attributes in the <code>options</code> argument:</p>
+<div class="table-responsive">
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th style="width: 100px;">Attribute</th>
+				<th style="width: 100px;">type</th>
+				<th>description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>sortDirection</td>
+				<td>string</td>
+				<td>If the list view is sortable and has been sorted by the user, this will indicate the sort direction.
+				Values are either <code>'asc'</code> or <code>'desc'</code>.</td>
+			</tr>
+			<tr>
+				<td>sortProperty</td>
+				<td>string</td>
+				<td>If the list view is sortable and has been sorted by the user, this will indicate the column property
+				that has been sorted on.</td>
+			</tr>
+		</tbody>
+	</table>
+</div><!-- ./fu-table-responsive -->
+<p>Additionally, the function requires a few additional parameters on the returned <code>data</code> object to render the data properly:</p>
 <div class="table-responsive">
 	<table class="table table-bordered table-striped">
 		<thead>
@@ -247,6 +272,12 @@
 						<li><code>callback</code> - Call this function to continue rendering the view</li>
 					</ul>
 				</td>
+			</tr>
+			<tr>
+				<td>list_highlightSortedColumn</td>
+				<td>boolean</td>
+				<td>false</td>
+				<td>If <code>true</code>, column is highlighted when selected for sorting.</td>
 			</tr>
 		</tbody>
 	</table>

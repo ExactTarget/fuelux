@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.1.0 
+ * Fuel UX v3.2.1 
  * Copyright 2012-2014 ExactTarget
  * Licensed under the BSD-3-Clause license ()
  */
@@ -148,6 +148,9 @@
 }
 .fuelux .combobox.disabled .input-group-btn {
   cursor: not-allowed;
+}
+.fuelux .combobox input::-ms-clear {
+  display: none;
 }
 .fuelux .datepicker-calendar {
   padding: 16px 16px 0;
@@ -465,6 +468,9 @@
 .fuelux .datepicker-wheels-year .header {
   border-radius: 0 4px 0 0;
 }
+.fuelux .datepicker input::-ms-clear {
+  display: none;
+}
 .fuelux .infinitescroll {
   overflow-y: auto;
 }
@@ -710,6 +716,9 @@
 .fuelux .pillbox .suggest > li:hover {
   background-color: #eeeeee;
 }
+.fuelux .pillbox input::-ms-clear {
+  display: none;
+}
 .fuelux .placard {
   display: inline-block;
   position: relative;
@@ -723,6 +732,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.fuelux .placard[data-ellipsis="true"] input.placard-field::-ms-clear {
+  display: none;
 }
 .fuelux .placard[data-ellipsis="true"] textarea.placard-field[readonly] {
   overflow: hidden;
@@ -828,6 +840,10 @@
 .fuelux .input-group-addon.radio-custom.radio-inline:before {
   left: 11px;
   top: 9px;
+}
+.fuelux .input-group-addon.radio-custom.radio-inline:after {
+  left: 15px;
+  top: 13px;
 }
 .fuelux .radio-custom {
   position: relative;
@@ -1056,6 +1072,12 @@
 .fuelux .repeater-list table tbody td:first-child {
   border-left: none;
 }
+.fuelux .repeater-list table tbody td.sorted {
+  background: #f9f9f9;
+}
+.fuelux .repeater-list table tbody tr:focus {
+  outline: 1px dotted #66afe9;
+}
 .fuelux .repeater-list table tbody tr.empty td {
   border-bottom: none;
   font-style: italic;
@@ -1063,16 +1085,16 @@
   text-align: center;
   width: 100%;
 }
-.fuelux .repeater-list table tbody tr.selectable:hover {
+.fuelux .repeater-list table tbody tr.selectable:hover td {
   background: #d9edf7;
   cursor: pointer;
 }
-.fuelux .repeater-list table tbody tr.selected {
+.fuelux .repeater-list table tbody tr.selected:hover td {
+  background: #428bca;
+}
+.fuelux .repeater-list table tbody tr.selected td {
   background: #66AFE9;
   color: #fff;
-}
-.fuelux .repeater-list table tbody tr.selected:hover {
-  background: #428bca;
 }
 .fuelux .repeater-list table tbody tr.selected td:first-child {
   padding-left: 30px;
@@ -1206,6 +1228,9 @@
   /* Magic number */
   padding: 0px 25px 0px 7px;
 }
+.fuelux .spinbox .spinbox-input::-ms-clear {
+  display: none;
+}
 .fuelux .spinbox .btn {
   position: relative;
   width: 20px;
@@ -1244,6 +1269,9 @@
   position: relative;
   left: -1px;
   top: 0px;
+}
+.fuelux .spinbox input::-ms-clear {
+  display: none;
 }
 .fuelux .scheduler {
   /* -------------------------------
@@ -1448,8 +1476,14 @@ END
 .fuelux .scheduler .repeat-end .form-group {
   margin-left: 0;
 }
+.fuelux .scheduler input::-ms-clear {
+  display: none;
+}
 .fuelux .search.disabled .input-group-btn {
   cursor: not-allowed;
+}
+.fuelux .search input::-ms-clear {
+  display: none;
 }
 .fuelux .selectlist.disabled {
   cursor: not-allowed;
@@ -1520,6 +1554,7 @@ END
 .fuelux .tree .tree-branch .tree-branch-header .glyphicon-play {
   font-size: 10px;
   padding-right: 5px;
+  padding-left: 7px;
 }
 .fuelux .tree .tree-branch .tree-branch-header .glyphicon-play:before {
   position: relative;
