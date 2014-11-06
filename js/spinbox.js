@@ -30,6 +30,10 @@
 
 	var Spinbox = function(element, options) {
 		this.$element = $(element);
+		this.$element.find('.btn').on('click', function(e) {
+			//keep spinbox from submitting if they forgot to say type="button" on their spinner buttons
+			e.preventDefault();
+		});
 		this.options = $.extend({}, $.fn.spinbox.defaults, options);
 		this.$input = this.$element.find('.spinbox-input');
 		this.$element.on('focusin.fu.spinbox', this.$input, $.proxy(this.changeFlag, this));
