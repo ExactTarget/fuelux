@@ -123,13 +123,13 @@ define(function(require){
 			search = options.search.toLowerCase();
 			items = _.filter(items, function(item){
 				return (
-					(item.name.toLowerCase().search(options.search)>=0) ||
-					(item.id.toLowerCase().search(options.search)>=0) ||
-					(item.type.toLowerCase().search(options.search)>=0) ||
-					(item.height.toLowerCase().search(options.search)>=0) ||
-					(item.weight.toLowerCase().search(options.search)>=0) ||
-					(item.abilities.toLowerCase().search(options.search)>=0) ||
-					(item.weakness.toLowerCase().search(options.search)>=0)
+					(item.name.toLowerCase().search(options.search.toLowerCase())>=0) ||
+					(item.id.toLowerCase().search(options.search.toLowerCase())>=0) ||
+					(item.type.toLowerCase().search(options.search.toLowerCase())>=0) ||
+					(item.height.toLowerCase().search(options.search.toLowerCase())>=0) ||
+					(item.weight.toLowerCase().search(options.search.toLowerCase())>=0) ||
+					(item.abilities.toLowerCase().search(options.search.toLowerCase())>=0) ||
+					(item.weakness.toLowerCase().search(options.search.toLowerCase())>=0)
 				);
 			});
 		}
