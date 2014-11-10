@@ -40,7 +40,7 @@
 		};
 
 		$.fn.repeater.Constructor.prototype.thumbnail_setSelectedItems = function(items, force){
-			var selectable = this.options.thumbnail_selectable;
+			var selectable = this.viewOptions.thumbnail_selectable;
 			var self = this;
 			var i, $item, l;
 
@@ -94,9 +94,9 @@
 		});
 
 		//EXTENSION DEFINITION
-		$.fn.repeater.views.thumbnail = {
+		$.fn.repeater.viewTypes.thumbnail = {
 			selected: function(helpers, callback){
-				var infScroll = this.options.thumbnail_infiniteScroll;
+				var infScroll = this.viewOptions.thumbnail_infiniteScroll;
 				var opts;
 				if(infScroll){
 					opts = (typeof infScroll === 'object') ? infScroll : {};
@@ -118,7 +118,7 @@
 					if(helpers.data.items.length<1){
 						obj.skipNested = true;
 						$empty = $('<div class="empty"></div>');
-						$empty.append(this.options.thumbnail_noItemsHTML);
+						$empty.append(this.viewOptions.thumbnail_noItemsHTML);
 						$item.append($empty);
 					}else{
 						$item.find('.empty:first').remove();
@@ -132,7 +132,7 @@
 								container: helpers.container,
 								itemData: helpers.subset[helpers.index]
 							};
-							var selectable = this.options.thumbnail_selectable;
+							var selectable = this.viewOptions.thumbnail_selectable;
 							var selected = 'selected';
 							var self = this;
 							var $item;
@@ -159,8 +159,8 @@
 									});
 								}
 							}
-							if(this.options.thumbnail_itemRendered){
-								this.options.thumbnail_itemRendered(obj, function(){
+							if(this.viewOptions.thumbnail_itemRendered){
+								this.viewOptions.thumbnail_itemRendered(obj, function(){
 									callback();
 								});
 							}else{
@@ -191,7 +191,7 @@
 								}
 								return str;
 							};
-							callback({ item: template(this.options.thumbnail_template) });
+							callback({ item: template(this.viewOptions.thumbnail_template) });
 						},
 						repeat: 'data.items'
 					}

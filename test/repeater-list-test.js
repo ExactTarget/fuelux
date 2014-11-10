@@ -76,7 +76,7 @@ define(function(require){
 	});
 
 	test('should be defined on jquery object', function () {
-		ok($.fn.repeater.views.list, 'repeater-list view plugin is defined');
+		ok($.fn.repeater.viewTypes.list, 'repeater-list view plugin is defined');
 	});
 
 	test('should render correctly', function () {

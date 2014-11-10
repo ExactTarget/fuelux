@@ -49,7 +49,7 @@ define(function(require){
 	});
 
 	test('should be defined on jquery object', function () {
-		ok($.fn.repeater.views.thumbnail, 'repeater-thumbnail view plugin is defined');
+		ok($.fn.repeater.viewTypes.thumbnail, 'repeater-thumbnail view plugin is defined');
 	});
 
 	test('should render correctly', function(){
