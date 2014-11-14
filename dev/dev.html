@@ -166,6 +166,12 @@
 						},
 						list_infiniteScroll: true,
 						list_highlightSortedColumn: true
+					},
+					'thumbnail.view3': {
+						dataSource: function(options, callback){
+							thumbnail(options, callback);
+						},
+						thumbnail_selectable: 'multi'
 					}
 				}
 			});
@@ -213,9 +219,9 @@
 						<label class="btn btn-default">
 							<input name="repeaterViews" type="radio" value="list.view2"><span class="glyphicon glyphicon-list"></span>
 						</label>
-						<!--<label class="btn btn-default">-->
-							<!--<input name="repeaterViews" type="radio" value="thumbnail"><span class="glyphicon glyphicon-th"></span>-->
-						<!--</label>-->
+						<label class="btn btn-default">
+							<input name="repeaterViews" type="radio" value="thumbnail.view3"><span class="glyphicon glyphicon-th"></span>
+						</label>
 					</div>
 				</div>
 			</div>

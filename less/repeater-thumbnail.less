@@ -7,22 +7,6 @@
 	margin: 8px 7px;
 	text-align: center;
 
-	&.selectable {
-		&:hover {
-			background: #d9edf7;
-			cursor: pointer;
-		}
-	}
-
-	&.selected {
-		background: #66AFE9;
-		color: #fff;
-
-		&:hover {
-			background: #428bca;
-		}
-	}
-
 	img {
 		display: block;
 		margin-top: 10px;
@@ -39,6 +23,22 @@
 			font-style: italic;
 			padding: 20px 10px;
 			text-align: center;
+		}
+
+		.selectable {
+			&:hover {
+				background: #d9edf7;
+				cursor: pointer;
+			}
+
+			&.selected {
+				background: #66AFE9;
+				color: #fff;
+
+				&:hover {
+					background: #428bca;
+				}
+			}
 		}
 	}
 }
