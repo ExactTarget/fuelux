@@ -33,8 +33,16 @@
 
 		// cache elements
 		this.$element = $(element).is('input[type="checkbox"]') ? $(element) : $(element).find('input[type="checkbox"]:first');
-		this.$label = this.$element.parent();
-		this.$parent = this.$label.parent('.checkbox');
+		this.$checkedElement = this.$element.parent();
+		this.$uncheckedElement = this.$checkedElement.clone().attr('id', this.$checkedElement.attr('id') + 'unchecked');
+		this.$uncheckedElement = this.$uncheckedElement.insertAfter(this.$checkedElement);
+
+		this.$checkedElement.addClass('checked');
+		this.$uncheckedElement.removeClass('checked');
+
+		//need to bind toggle (click, spacebar, etc) events to BOTH of the checkboxes
+
+		this.$parent = this.$checkedElement.parent('.checkbox');
 		this.$toggleContainer = this.$element.attr('data-toggle');
 		this.state = {
 			disabled: false,
@@ -55,7 +63,6 @@
 		this.$element.on('change.fu.checkbox', $.proxy(this.itemchecked, this));
 
 		// set default state
-		this._clearCheckedClasses();
 		this._clearDisabledClasses();
 		this.setState();
 	};
@@ -66,6 +73,8 @@
 
 		setState: function($chk) {
 			$chk = $chk || this.$element;
+
+			console.log('hereeeeeeee');
 
 			this.state.disabled = Boolean($chk.prop('disabled'));
 			this.state.checked = Boolean($chk.is(':checked'));
@@ -93,16 +102,17 @@
 		},
 
 		check: function() {
+			console.log('checkityo');
+			this.$uncheckedElement.hide();
+			this.$checkedElement.show();
 			this.state.checked = true;
-			this.$element.prop('checked', true);
-			this._setCheckedClass();
 			this.$element.trigger('checked.fu.checkbox');
 		},
 
 		uncheck: function() {
+			this.$checkedElement.hide();
+			this.$uncheckedElement.show();
 			this.state.checked = false;
-			this.$element.prop('checked', false);
-			this._clearCheckedClasses();
 			this.$element.trigger('unchecked.fu.checkbox');
 		},
 
@@ -144,17 +154,7 @@
 		_clearDisabledClasses: function() {
 			var classesToRemove = 'disabled';
 
-			this.$label.removeClass(classesToRemove);
-
-			if (this.$parent) {
-				this.$parent.removeClass(classesToRemove);
-			}
-		},
-
-		_clearCheckedClasses: function() {
-			var classesToRemove = 'checked';
-
-			this.$label.removeClass(classesToRemove);
+			// this.$label.removeClass(classesToRemove);
 
 			if (this.$parent) {
 				this.$parent.removeClass(classesToRemove);
@@ -177,16 +177,8 @@
 			}
 		},
 
-		_setCheckedClass: function() {
-			this.$label.addClass('checked');
-
-			if (this.$parent) {
-				this.$parent.addClass('checked');
-			}
-		},
-
 		_setDisabledClass: function() {
-			this.$label.addClass('disabled');
+			// this.$label.addClass('disabled');
 
 			if (this.$parent) {
 				this.$parent.addClass('disabled');
