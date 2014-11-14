@@ -13,8 +13,8 @@ module.exports = function(grunt) {
 		' */\n',
 		bump: {
 			options: {
-				files: [ 'bower.json', 'package.json' ],
-				updateConfigs: [ 'pkg' ],
+				files: ['bower.json', 'package.json'],
+				updateConfigs: ['pkg'],
 				commit: false,
 				createTag: false,
 				tagName: '%VERSION%',
@@ -387,7 +387,7 @@ module.exports = function(grunt) {
 		SERVE
 	------------- */
 	grunt.registerTask('serve', 'serve files without compilation', ['test', 'connect:server', 'watch:contrib']);
-	grunt.registerTask('servefast', 'serve files without compilation or watch (tests take time...)', ['connect:server']);
+	grunt.registerTask('servefast', 'serve files without compilation or watch (tests take time...)', ['connect:server', 'watch:contrib']);
 	grunt.registerTask('servedist', 'build dist directory and serve files with compilation', ['test', 'dist', 'connect:server', 'watch:full']);
 
 
