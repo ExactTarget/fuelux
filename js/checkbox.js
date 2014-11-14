@@ -55,6 +55,8 @@
 		this.$element.on('change.fu.checkbox', $.proxy(this.itemchecked, this));
 
 		// set default state
+		this._clearCheckedClasses();
+		this._clearDisabledClasses();
 		this.setState();
 	};
 
@@ -68,11 +70,9 @@
 			this.state.disabled = Boolean($chk.prop('disabled'));
 			this.state.checked = Boolean($chk.is(':checked'));
 
-			this._resetClasses();
-
 			// set state of checkbox
-			this._toggleCheckedState();
-			this._toggleDisabledState();
+			this._ensureCheckedState();
+			this._ensureDisabledState();
 
 			//toggle container
 			this.toggleContainer();
@@ -81,7 +81,7 @@
 		enable: function() {
 			this.state.disabled = false;
 			this.$element.attr('disabled', false);
-			this._resetClasses();
+			this._clearDisabledClasses();
 			this.$element.trigger('enabled.fu.checkbox');
 		},
 
@@ -102,7 +102,7 @@
 		uncheck: function() {
 			this.state.checked = false;
 			this.$element.prop('checked', false);
-			this._resetClasses();
+			this._clearCheckedClasses();
 			this.$element.trigger('unchecked.fu.checkbox');
 		},
 
@@ -113,7 +113,7 @@
 		toggle: function() {
 			this.state.checked = !this.state.checked;
 
-			this._toggleCheckedState();
+			this._ensureCheckedState();
 		},
 
 		toggleContainer: function() {
@@ -141,18 +141,8 @@
 			return this.$parent[0].outerHTML;
 		},
 
-		_resetClasses: function() {
-			var classesToRemove = [];
-
-			if (!this.state.checked) {
-				classesToRemove.push('checked');
-			}
-
-			if (!this.state.disabled) {
-				classesToRemove.push('disabled');
-			}
-
-			classesToRemove = classesToRemove.join(' ');
+		_clearDisabledClasses: function() {
+			var classesToRemove = 'disabled';
 
 			this.$label.removeClass(classesToRemove);
 
@@ -161,7 +151,17 @@
 			}
 		},
 
-		_toggleCheckedState: function() {
+		_clearCheckedClasses: function() {
+			var classesToRemove = 'checked';
+
+			this.$label.removeClass(classesToRemove);
+
+			if (this.$parent) {
+				this.$parent.removeClass(classesToRemove);
+			}
+		},
+
+		_ensureCheckedState: function() {
 			if (this.state.checked) {
 				this.check();
 			} else {
@@ -169,7 +169,7 @@
 			}
 		},
 
-		_toggleDisabledState: function() {
+		_ensureDisabledState: function() {
 			if (this.state.disabled) {
 				this.disable();
 			} else {

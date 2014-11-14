@@ -2,28 +2,28 @@
 /*global start:false, stop:false ok:false, equal:false, notEqual:false, deepEqual:false*/
 /*global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false*/
 
-define(function(require){
+define(function(require) {
 	var $ = require('jquery');
 	var html = require('text!test/markup/checkbox-markup.html');
 	/* FOR DEV TESTING - uncomment to test against index.html */
 	//html = require('text!index.html!strip');
-	html = $('<div>'+html+'</div>').find('#MyCheckboxContainer');
+	html = $('<div>' + html + '</div>').find('#MyCheckboxContainer');
 
 	require('bootstrap');
 	require('fuelux/checkbox');
 
-	module("Fuel UX Checkbox");
+	module('Fuel UX Checkbox');
 
-	test("should be defined on jquery object", function () {
+	test('should be defined on jquery object', function() {
 		ok($().checkbox, 'checkbox method is defined');
 	});
 
-	test("should return element", function () {
+	test('should return element', function() {
 		var $chk1 = $(html).find('#Checkbox1');
 		ok($chk1.checkbox() === $chk1, 'checkbox should be initialized');
 	});
 
-	test("should set initial state", function () {
+	test('should set initial state', function() {
 		var $list = $(html);
 
 		$list.find('input').checkbox();
@@ -49,7 +49,7 @@ define(function(require){
 		equal(wrapper5.hasClass('disabled'), true, 'wrapper5 has disabled class');
 	});
 
-	test("should disable/enable checkbox", function () {
+	test('should disable/enable checkbox', function() {
 		var $chk1 = $(html).find('#Checkbox1');
 
 		equal($chk1.is(':disabled'), false, 'enabled - default state');
@@ -59,7 +59,7 @@ define(function(require){
 		equal($chk1.is(':disabled'), false, 're-enabled');
 	});
 
-	test("should check/uncheck checkbox", function () {
+	test('should check/uncheck checkbox', function() {
 		var $fixture = $(html).appendTo('#qunit-fixture');
 		var $chk1 = $fixture.find('#Checkbox1');
 
@@ -72,35 +72,35 @@ define(function(require){
 		$fixture.remove();
 	});
 
-	test("test check/uncheck/isChecked convenience methods", function () {
-        var $fixture = $(html).appendTo('#qunit-fixture');
-        var $chk5 = $fixture.find('#Checkbox5');
-        var $wrapper5 = $fixture.find('#CheckboxWrapper5');
+	test('test check/uncheck/isChecked convenience methods', function() {
+		var $fixture = $(html).appendTo('#qunit-fixture');
+		var $chk5 = $fixture.find('#Checkbox5');
+		var $wrapper5 = $fixture.find('#CheckboxWrapper5');
 
-        $chk5.checkbox();
+		$chk5.checkbox();
 
-        equal($chk5.is(':checked'), false, 'unchecked - default value');
+		equal($chk5.is(':checked'), false, 'unchecked - default value');
 
-        $chk5.checkbox('check');
-        equal($chk5.is(':checked'), true, 'checked - confirmation by is(:checked)');
-        equal($wrapper5.hasClass('checked'), true, 'checked - confirmation by css class');
-        equal($chk5.checkbox('isChecked'), true, 'checked - confirmation by isChecked method');
+		$chk5.checkbox('check');
+		equal($chk5.is(':checked'), true, 'checked - confirmation by is(:checked)');
+		equal($wrapper5.hasClass('checked'), true, 'checked - confirmation by css class');
+		equal($chk5.checkbox('isChecked'), true, 'checked - confirmation by isChecked method');
 
-        $chk5.checkbox('uncheck');
-        equal($chk5.is(':checked'), false, 'unchecked - confirmation by is(:checked)');
-        equal($wrapper5.hasClass('checked'), false, 'unchecked - confirmation by css class');
-        equal($chk5.checkbox('isChecked'), false, 'unchecked - confirmation by isChecked method');
+		$chk5.checkbox('uncheck');
+		equal($chk5.is(':checked'), false, 'unchecked - confirmation by is(:checked)');
+		equal($wrapper5.hasClass('checked'), false, 'unchecked - confirmation by css class');
+		equal($chk5.checkbox('isChecked'), false, 'unchecked - confirmation by isChecked method');
 
-        $fixture.remove();
+		$fixture.remove();
 	});
 
-	test("should destroy control", function () {
+	test('should destroy control', function() {
 		var id = '#Checkbox1';
 		var $el = $(html).find(id);
 		var $parent = $el.closest('.checkbox');
 
 		equal($el.checkbox('destroy'), '' + $parent[0].outerHTML, 'returns markup');
-		equal( $(html).find(id).length, false, 'element has been removed from DOM');
+		equal($(html).find(id).length, false, 'element has been removed from DOM');
 	});
 
 });
