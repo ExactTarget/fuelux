@@ -71,8 +71,8 @@
 			this._resetClasses();
 
 			// set state of checkbox
-			this._toggleCheckedState();
-			this._toggleDisabledState();
+			this._ensureCheckedState();
+			this._ensureDisabledState();
 
 			//toggle container
 			this.toggleContainer();
@@ -113,7 +113,7 @@
 		toggle: function() {
 			this.state.checked = !this.state.checked;
 
-			this._toggleCheckedState();
+			this._ensureCheckedState();
 		},
 
 		toggleContainer: function() {
@@ -142,17 +142,7 @@
 		},
 
 		_resetClasses: function() {
-			var classesToRemove = [];
-
-			if (!this.state.checked) {
-				classesToRemove.push('checked');
-			}
-
-			if (!this.state.disabled) {
-				classesToRemove.push('disabled');
-			}
-
-			classesToRemove = classesToRemove.join(' ');
+			var classesToRemove = 'checked disabled';
 
 			this.$label.removeClass(classesToRemove);
 
@@ -161,15 +151,15 @@
 			}
 		},
 
-		_toggleCheckedState: function() {
-			if (this.state.checked) {
+		_ensureCheckedState: function() {
+			if (this.isChecked()) {
 				this.check();
 			} else {
 				this.uncheck();
 			}
 		},
 
-		_toggleDisabledState: function() {
+		_ensureDisabledState: function() {
 			if (this.state.disabled) {
 				this.disable();
 			} else {
