@@ -83,11 +83,11 @@
 		});
 
 		test('repeater list should be defined on jQuery object', function () {
-			ok($.fn.repeater.views.list, 'repeater list view is defined');
+			ok($.fn.repeater.viewTypes.list, 'repeater list view is defined');
 		});
 
 		test('repeater thumbnail should be defined on jQuery object', function () {
-			ok($.fn.repeater.views.thumbnail, 'repeater thumbnail view is defined');
+			ok($.fn.repeater.viewTypes.thumbnail, 'repeater thumbnail view is defined');
 		});
 
 		test('scheduler should be defined on the jQuery object', function () {

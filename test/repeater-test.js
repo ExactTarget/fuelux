@@ -17,16 +17,16 @@ define(function(require){
 			this.$markup = $(html);
 			this.$markup.find('.repeater-views').append('' +
 				'<label class="btn btn-default active">' +
-					'<input name="repeaterViews" type="radio" value="test1">' +
+					'<input name="repeaterViews" type="radio" value="test1.view1">' +
 					'<span class="glyphicon glyphicon-asterisk"></span>' +
 				'</label>' +
 				'<label class="btn btn-default">' +
-					'<input name="repeaterViews" type="radio" value="test2">' +
+					'<input name="repeaterViews" type="radio" value="test2.view2">' +
 					'<span class="glyphicon glyphicon-asterisk"></span>' +
 				'</label>');
 		},
 		teardown: function(){
-			delete $.fn.repeater.views.test1;
+			delete $.fn.repeater.viewTypes.test1;
 		}
 	});
 
@@ -173,9 +173,9 @@ define(function(require){
 		$repeater.repeater({
 			dataSource: function(options, callback){
 				if(hasCalledDS){
-					equal(options.view, 'test2', 'correct view value passed to dataSource upon selecting different view');
+					equal(options.view, 'test2.view2', 'correct view value passed to dataSource upon selecting different view');
 				}else{
-					equal(options.view, 'test1', 'correct view value passed to dataSource initially');
+					equal(options.view, 'test1.view1', 'correct view value passed to dataSource initially');
 					hasCalledDS = true;
 					callback({});
 					$views.find('label:last input').trigger('change');
@@ -190,7 +190,7 @@ define(function(require){
 		var $repeater = $(this.$markup);
 		var repeated = false;
 		var skipped = false;
-		$.fn.repeater.views.test1 = {
+		$.fn.repeater.viewTypes.test1 = {
 			initialize: function(helpers, callback){
 				equal(ran, 0, 'initialize function correctly ran first');
 				equal(typeof helpers, 'object', 'initialize function provided helpers object');
@@ -274,6 +274,27 @@ define(function(require){
 		$repeater.repeater({
 			dataSource: function(options, callback){
 				callback({ smileys: [':)', ':)', ':)'] });
+			}
+		});
+	});
+
+	test('views config option should function as expected', function(){
+		var $repeater = $(this.$markup);
+		var $views = $repeater.find('.repeater-views');
+		$repeater.repeater({
+			views: {
+				view1: {
+					dataSource: function(options, callback){
+						equal(options.view, 'test1.view1', 'view-specific configuration honored');
+					}
+				},
+				'test2.view2': {
+					dataSource: function(options, callback){
+						equal(options.view, 'test1.view1', 'view-specific configuration honored');
+						callback({});
+						$views.find('label:last input').trigger('change');
+					}
+				}
 			}
 		});
 	});
