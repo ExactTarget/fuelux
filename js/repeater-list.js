@@ -34,7 +34,7 @@
 
 		$.fn.repeater.Constructor.prototype.list_highlightColumn = function(index, force){
 			var tbody = this.$canvas.find('.repeater-list tbody');
-			if(this.options.list_highlightSortedColumn || force){
+			if(this.viewOptions.list_highlightSortedColumn || force){
 				tbody.find('td.sorted').removeClass('sorted');
 				tbody.find('tr').each(function(){
 					var col = $(this).find('td:nth-child(' + (index + 1) + ')');
@@ -70,7 +70,7 @@
 		};
 
 		$.fn.repeater.Constructor.prototype.list_setSelectedItems = function(items, force){
-			var selectable = this.options.list_selectable;
+			var selectable = this.viewOptions.list_selectable;
 			var self = this;
 			var data, i, $item, l;
 
@@ -145,9 +145,9 @@
 		});
 
 		//EXTENSION DEFINITION
-		$.fn.repeater.views.list = {
+		$.fn.repeater.viewTypes.list = {
 			cleared: function(helpers, callback){
-				if(this.options.list_columnSyncing){
+				if(this.viewOptions.list_columnSyncing){
 					this.list_sizeHeadings();
 				}
 				callback();
@@ -167,7 +167,7 @@
 				callback();
 			},
 			selected: function(helpers, callback){
-				var infScroll = this.options.list_infiniteScroll;
+				var infScroll = this.viewOptions.list_infiniteScroll;
 				var opts;
 
 				this.list_firstRender = true;
@@ -181,7 +181,7 @@
 				callback();
 			},
 			resize: function(helpers, callback){
-				if(this.options.list_columnSyncing){
+				if(this.viewOptions.list_columnSyncing){
 					this.list_sizeHeadings();
 				}
 				callback();
@@ -189,7 +189,7 @@
 			renderer: {	//RENDERING REPEATER-LIST, REPEATER-LIST-WRAPPER, AND TABLE
 				complete: function(helpers, callback){
 					var $sorted;
-					if(this.options.list_columnSyncing){
+					if(this.viewOptions.list_columnSyncing){
 						this.list_sizeHeadings();
 						this.list_positionHeadings();
 					}
@@ -208,7 +208,7 @@
 					}else{
 						$item = $('<div class="repeater-list" data-preserve="shallow"><div class="repeater-list-wrapper" data-infinite="true" data-preserve="shallow"><table aria-readonly="true" class="table" data-container="true" data-preserve="shallow" role="grid"></table></div></div>');
 						$item.find('.repeater-list-wrapper').on('scroll.fu.repeaterList', function(){
-							if(self.options.list_columnSyncing){
+							if(self.viewOptions.list_columnSyncing){
 								self.list_positionHeadings();
 							}
 						});
@@ -222,7 +222,7 @@
 							var self = this;
 							var i, l, newWidth, taken;
 
-							if(!this.options.list_columnSizing || this.list_columnsSame){
+							if(!this.viewOptions.list_columnSizing || this.list_columnsSame){
 								callback();
 							}else{
 								i = 0;
@@ -327,7 +327,7 @@
 													$spans.removeClass(chevUp).addClass(chevDown);
 													self.list_sortDirection = 'desc';
 												}else{
-													if(!self.options.list_sortClearing){
+													if(!self.viewOptions.list_sortClearing){
 														$spans.removeClass(chevDown).addClass(chevUp);
 														self.list_sortDirection = 'asc';
 													}else{
@@ -382,7 +382,7 @@
 							if(helpers.data.items.length<1){
 								obj.skipNested = true;
 								$empty = $('<tr class="empty"><td colspan="' + this.list_columns.length + '"></td></tr>');
-								$empty.find('td').append(this.options.list_noItemsHTML);
+								$empty.find('td').append(this.viewOptions.list_noItemsHTML);
 								$item.append($empty);
 							}
 
@@ -398,8 +398,8 @@
 									if(helpers.item!==undefined){
 										obj.item = helpers.item;
 									}
-									if(this.options.list_rowRendered){
-										this.options.list_rowRendered(obj, function(){
+									if(this.viewOptions.list_rowRendered){
+										this.viewOptions.list_rowRendered(obj, function(){
 											callback();
 										});
 									}else{
@@ -410,7 +410,7 @@
 									var $item = $('<tr data-container="true"></tr>');
 									var self = this;
 
-									if(this.options.list_selectable){
+									if(this.viewOptions.list_selectable){
 										$item.addClass('selectable');
 										$item.attr('tabindex', 0);	// allow items to be tabbed to / focused on
 										$item.data('item_data', helpers.subset[helpers.index]);
@@ -421,7 +421,7 @@
 												$row.find('.repeater-list-check').remove();
 												self.$element.trigger('deselected.fu.repeaterList', $row);
 											}else{
-												if(self.options.list_selectable!=='multi'){
+												if(self.viewOptions.list_selectable!=='multi'){
 													self.$canvas.find('.repeater-list-check').remove();
 													self.$canvas.find('.repeater-list tbody tr.selected').each(function(){
 														$(this).removeClass('selected');
@@ -457,8 +457,8 @@
 											if(helpers.item!==undefined){
 												obj.item = helpers.item;
 											}
-											if(this.options.list_columnRendered){
-												this.options.list_columnRendered(obj, function(){
+											if(this.viewOptions.list_columnRendered){
+												this.viewOptions.list_columnRendered(obj, function(){
 													callback();
 												});
 											}else{
