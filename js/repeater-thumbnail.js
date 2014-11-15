@@ -8,7 +8,7 @@
 
 // -- BEGIN UMD WRAPPER PREFACE --
 
-// For more information on UMD visit: 
+// For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
@@ -90,7 +90,8 @@
 			thumbnail_infiniteScroll: false,
 			thumbnail_itemRendered: null,
 			thumbnail_selectable: false,
-			thumbnail_template: '<div class="thumbnail repeater-thumbnail"><img height="75" src="{{src}}" width="65"><span>{{name}}</span></div>'
+			// span space required for justified rows
+			thumbnail_template: '<div class="thumbnail repeater-thumbnail"><img height="75" src="{{src}}" width="65"><span>{{name}}</span></div><span>&nbsp;</span>'
 		});
 
 		//EXTENSION DEFINITION
