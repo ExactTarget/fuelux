@@ -37,10 +37,12 @@
 		this.$uncheckedElement = this.$checkedElement.clone().attr('id', this.$checkedElement.attr('id') + 'unchecked');
 		this.$uncheckedElement = this.$uncheckedElement.insertAfter(this.$checkedElement);
 
-		this.$checkedElement.addClass('checked');
-		this.$uncheckedElement.removeClass('checked');
+		this.$checkedElement.addClass('checked').attr('checked', 'checked');
+		this.$uncheckedElement.removeClass('checked').removeAttr('checked');
 
 		//need to bind toggle (click, spacebar, etc) events to BOTH of the checkboxes
+		this.$checkedElement.on('click', $.proxy(this.toggle, this));
+		this.$uncheckedElement.on('click', $.proxy(this.toggle, this));
 
 		this.$parent = this.$checkedElement.parent('.checkbox');
 		this.$toggleContainer = this.$element.attr('data-toggle');
@@ -74,8 +76,6 @@
 		setState: function($chk) {
 			$chk = $chk || this.$element;
 
-			console.log('hereeeeeeee');
-
 			this.state.disabled = Boolean($chk.prop('disabled'));
 			this.state.checked = Boolean($chk.is(':checked'));
 
@@ -102,9 +102,14 @@
 		},
 
 		check: function() {
-			console.log('checkityo');
 			this.$uncheckedElement.hide();
 			this.$checkedElement.show();
+
+			this.$checkedElement.attr('checked', 'checked').addClass('checked').find('input').attr('checked', 'checked');
+			if (!!this.$parent) {
+				this.$parent.addClass('checked');
+			}
+
 			this.state.checked = true;
 			this.$element.trigger('checked.fu.checkbox');
 		},
@@ -112,6 +117,12 @@
 		uncheck: function() {
 			this.$checkedElement.hide();
 			this.$uncheckedElement.show();
+
+			this.$checkedElement.removeAttr('checked').removeClass('checked').find('input').removeAttr('checked');
+			if (!!this.$parent) {
+				this.$parent.removeClass('checked');
+			}
+
 			this.state.checked = false;
 			this.$element.trigger('unchecked.fu.checkbox');
 		},
@@ -120,10 +131,15 @@
 			return this.state.checked;
 		},
 
-		toggle: function() {
+		toggle: function toggle(e) {
 			this.state.checked = !this.state.checked;
 
-			this._ensureCheckedState();
+			//keep event from bubbling into the checkbox, causing the checkbox to cycle immediately back into the last state and appearing as if nothing happened.
+			if (!!e) {
+				e.preventDefault();
+			}
+
+			this._ensureCheckedState(e);
 		},
 
 		toggleContainer: function() {
@@ -161,11 +177,11 @@
 			}
 		},
 
-		_ensureCheckedState: function() {
+		_ensureCheckedState: function _ensureCheckedState(e) {
 			if (this.state.checked) {
-				this.check();
+				this.check(e);
 			} else {
-				this.uncheck();
+				this.uncheck(e);
 			}
 		},
 
