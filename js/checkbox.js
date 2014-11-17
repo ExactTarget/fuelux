@@ -211,7 +211,7 @@
 
 		var $set = this.each(function() {
 			var $this = $(this);
-			var data = $this.data('fu.checkbox');
+			var data = $this.data('fu.checkbox') || $this.find('[type=checkbox]').data('fu.checkbox');
 			var options = typeof option === 'object' && option;
 
 			if (!data) {
