@@ -52,14 +52,14 @@
 					display: block;
 
 					&:hover {
-						background: #b7e3f8;
+						background: @selectableHover;
 						text-decoration: none;
 					}
 				}
 
 				&.current-day {
 					b, button {
-						border: 1px solid #1d75bb;
+						border: 1px solid #333;
 					}
 				}
 
@@ -97,15 +97,15 @@
 
 				&.selected {
 					span {
-						background: #1d75bb;
+						background: @selected;
 
 						&:hover {
-							background: #0f5f9f;
+							background: @selectedHover;
 						}
 					}
 
 					b, button {
-						color: #fff;
+						color: #8d8787;
 					}
 
 					&.current-day {
