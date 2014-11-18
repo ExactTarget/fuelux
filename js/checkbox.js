@@ -33,12 +33,15 @@
 
 		// cache elements
 		this.$element = $(element).is('input[type="checkbox"]') ? $(element) : $(element).find('input[type="checkbox"]:first');
-		this.$checkedElement = this.$element.parent();
-		this.$uncheckedElement = this.$checkedElement.clone().attr('id', this.$checkedElement.attr('id') + 'unchecked');
-		this.$uncheckedElement = this.$uncheckedElement.insertAfter(this.$checkedElement);
 
-		this.$checkedElement.addClass('checked').attr('checked', 'checked');
-		this.$uncheckedElement.removeClass('checked').removeAttr('checked');
+		this.$checkedElement = this.$element.parent();
+		this.$checkedElement.addClass('checked').attr('checked', 'checked').prop('checked', true);
+
+		this.$uncheckedElement = this.$checkedElement.clone();
+		//clean up the unchecked checkbox, ensure double ids do not occur on the page if the starting element is the checkbox
+		this.$uncheckedElement.removeClass('checked').removeAttr('checked').prop('checked', false);
+		this.$uncheckedElement.find('input[type="checkbox"]:first').remove();
+		this.$uncheckedElement = this.$uncheckedElement.insertAfter(this.$checkedElement);
 
 		//need to bind toggle (click, spacebar, etc) events to BOTH of the checkboxes
 		this.$checkedElement.on('click', $.proxy(this.toggle, this));
@@ -105,7 +108,8 @@
 			this.$uncheckedElement.hide();
 			this.$checkedElement.show();
 
-			this.$checkedElement.attr('checked', 'checked').addClass('checked').find('input').attr('checked', 'checked');
+			this.$checkedElement.attr('checked', 'checked').prop('checked', true).addClass('checked');
+			this.$element.attr('checked', 'checked').prop('checked', true).addClass('checked');
 			if (!!this.$parent) {
 				this.$parent.addClass('checked');
 			}
@@ -118,7 +122,8 @@
 			this.$checkedElement.hide();
 			this.$uncheckedElement.show();
 
-			this.$checkedElement.removeAttr('checked').removeClass('checked').find('input').removeAttr('checked');
+			this.$checkedElement.removeAttr('checked').removeProp('checked').removeClass('checked');
+			this.$element.removeAttr('checked').prop('checked', false).removeClass('checked');
 			if (!!this.$parent) {
 				this.$parent.removeClass('checked');
 			}
