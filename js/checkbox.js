@@ -28,7 +28,7 @@
 
 	// CHECKBOX CONSTRUCTOR AND PROTOTYPE
 
-	var Checkbox = function(element, options) {
+	var Checkbox = function Checkbox(element, options) {
 		this.options = $.extend({}, $.fn.checkbox.defaults, options);
 
 		// cache elements
@@ -76,7 +76,7 @@
 
 		constructor: Checkbox,
 
-		setState: function($chk) {
+		setState: function setState($chk) {
 			$chk = $chk || this.$element;
 
 			this.state.disabled = Boolean($chk.prop('disabled'));
@@ -90,21 +90,21 @@
 			this.toggleContainer();
 		},
 
-		enable: function() {
+		enable: function enable() {
 			this.state.disabled = false;
 			this.$element.attr('disabled', false);
 			this._clearDisabledClasses();
 			this.$element.trigger('enabled.fu.checkbox');
 		},
 
-		disable: function() {
+		disable: function disable() {
 			this.state.disabled = true;
 			this.$element.attr('disabled', true);
 			this._setDisabledClass();
 			this.$element.trigger('disabled.fu.checkbox');
 		},
 
-		check: function() {
+		check: function check() {
 			this.$uncheckedElement.hide();
 			this.$checkedElement.show();
 
@@ -118,7 +118,7 @@
 			this.$element.trigger('checked.fu.checkbox');
 		},
 
-		uncheck: function() {
+		uncheck: function uncheck() {
 			this.$checkedElement.hide();
 			this.$uncheckedElement.show();
 
@@ -132,7 +132,7 @@
 			this.$element.trigger('unchecked.fu.checkbox');
 		},
 
-		isChecked: function() {
+		isChecked: function isChecked() {
 			return this.state.checked;
 		},
 
@@ -153,7 +153,7 @@
 			this._ensureCheckedState(e);
 		},
 
-		toggleContainer: function() {
+		toggleContainer: function toggleContainer() {
 			if (Boolean(this.$toggleContainer)) {
 				if (this.state.checked) {
 					this.$toggleContainer.removeClass('hide');
@@ -165,11 +165,11 @@
 			}
 		},
 
-		itemchecked: function(element) {
+		itemchecked: function itemchecked(element) {
 			this.setState($(element.target));
 		},
 
-		destroy: function() {
+		destroy: function destroy() {
 			this.$parent.remove();
 			// remove any external bindings
 			// [none]
@@ -178,7 +178,7 @@
 			return this.$parent[0].outerHTML;
 		},
 
-		_clearDisabledClasses: function() {
+		_clearDisabledClasses: function _clearDisabledClasses() {
 			var classesToRemove = 'disabled';
 
 			// this.$label.removeClass(classesToRemove);
@@ -196,7 +196,7 @@
 			}
 		},
 
-		_ensureDisabledState: function() {
+		_ensureDisabledState: function _ensureDisabledState() {
 			if (this.state.disabled) {
 				this.disable();
 			} else {
@@ -204,7 +204,7 @@
 			}
 		},
 
-		_setDisabledClass: function() {
+		_setDisabledClass: function _setDisabledClass() {
 			// this.$label.addClass('disabled');
 
 			if (this.$parent) {
@@ -216,7 +216,7 @@
 
 	// CHECKBOX PLUGIN DEFINITION
 
-	$.fn.checkbox = function(option) {
+	$.fn.checkbox = function checkbox(option) {
 		var args = Array.prototype.slice.call(arguments, 1);
 		var methodReturn;
 
@@ -241,14 +241,14 @@
 
 	$.fn.checkbox.Constructor = Checkbox;
 
-	$.fn.checkbox.noConflict = function() {
+	$.fn.checkbox.noConflict = function noConflict() {
 		$.fn.checkbox = old;
 		return this;
 	};
 
 	// DATA-API
 
-	$(document).on('mouseover.fu.checkbox.data-api', '[data-initialize=checkbox]', function(e) {
+	$(document).on('mouseover.fu.checkbox.data-api', '[data-initialize=checkbox]', function onmouseover_checkbox(e) {
 		var $control = $(e.target).closest('.checkbox').find('[type=checkbox]');
 		if (!$control.data('fu.checkbox')) {
 			$control.checkbox($control.data());
@@ -257,7 +257,7 @@
 
 	// Must be domReady for AMD compatibility
 	$(function() {
-		$('[data-initialize=checkbox] [type=checkbox]').each(function() {
+		$('[data-initialize=checkbox] [type=checkbox]').each(function initialize_checkboxen() {
 			var $this = $(this);
 			if (!$this.data('fu.checkbox')) {
 				$this.checkbox($this.data());
