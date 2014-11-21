@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.2.1
+ * Fuel UX v3.3.0
  * Copyright 2012-2014 ExactTarget
  * Licensed under the BSD-3-Clause license ()
  */
@@ -5769,12 +5769,12 @@
 
 			//ADDITIONAL METHODS
 			$.fn.repeater.Constructor.prototype.thumbnail_clearSelectedItems = function() {
-				this.$canvas.find( '.repeater-thumbnail-cont .repeater-thumbnail.selected' ).removeClass( 'selected' );
+				this.$canvas.find( '.repeater-thumbnail-cont .selectable.selected' ).removeClass( 'selected' );
 			};
 
 			$.fn.repeater.Constructor.prototype.thumbnail_getSelectedItems = function() {
 				var selected = [];
-				this.$canvas.find( '.repeater-thumbnail-cont .repeater-thumbnail.selected' ).each( function() {
+				this.$canvas.find( '.repeater-thumbnail-cont .selectable.selected' ).each( function() {
 					selected.push( $( this ) );
 				} );
 				return selected;
@@ -5816,12 +5816,12 @@
 				}
 				for ( i = 0; i < l; i++ ) {
 					if ( items[ i ].index !== undefined ) {
-						$item = this.$canvas.find( '.repeater-thumbnail-cont .repeater-thumbnail:nth-child(' + ( items[ i ].index + 1 ) + ')' );
+						$item = this.$canvas.find( '.repeater-thumbnail-cont .selectable:nth-child(' + ( items[ i ].index + 1 ) + ')' );
 						if ( $item.length > 0 ) {
 							selectItem( $item, items[ i ].selected );
 						}
 					} else if ( items[ i ].selector ) {
-						this.$canvas.find( '.repeater-thumbnail-cont .repeater-thumbnail' ).each( eachFunc );
+						this.$canvas.find( '.repeater-thumbnail-cont .selectable' ).each( eachFunc );
 					}
 				}
 			};
@@ -5884,7 +5884,7 @@
 									$item.on( 'click', function() {
 										if ( !$item.hasClass( selected ) ) {
 											if ( selectable !== 'multi' ) {
-												self.$canvas.find( '.repeater-thumbnail-cont .repeater-thumbnail.selected' ).each( function() {
+												self.$canvas.find( '.repeater-thumbnail-cont .selectable.selected' ).each( function() {
 													var $itm = $( this );
 													$itm.removeClass( selected );
 													self.$element.trigger( 'deselected.fu.repeaterThumbnail', $itm );
