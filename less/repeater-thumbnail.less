@@ -1,31 +1,11 @@
 .repeater-thumbnail {
 	border: 1px solid #ddd;
 	color: #666;
-	display: inline-block;
+	float: left;
 	min-height: 110px;
 	min-width: 100px;
 	margin: 8px 7px;
 	text-align: center;
-
-	&:after {
-		content: ' ';
-	}
-
-	&.selectable {
-		&:hover {
-			background: @selectableHover;
-			cursor: pointer;
-		}
-	}
-
-	&.selected {
-		background: @selected;
-		color: #fff;
-
-		&:hover {
-			background: @selectedHover;
-		}
-	}
 
 	img {
 		display: block;
@@ -38,16 +18,6 @@
 		overflow-y: auto;
 		padding: 6px;
 		width: 100%;
-
-		position: relative;
-		text-align: justify;
-		text-size: 0.1px;
-
-		&:after {
-			display: inline-block;
-			width: 100%;
-			content: '';
-		}
 
 		div.empty {
 			font-style: italic;
@@ -67,13 +37,6 @@
 				&:hover {
 					background: @selectedHover;
 				}
-			}
-		}
-
-		.infinitescroll {
-			&-end, &-load {
-				display: inline-block;
-				width: 100%;
 			}
 		}
 	}
