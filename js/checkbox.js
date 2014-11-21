@@ -137,12 +137,18 @@
 		},
 
 		toggle: function toggle(e) {
-			this.state.checked = !this.state.checked;
-
 			//keep event from bubbling into the checkbox, causing the checkbox to cycle immediately back into the last state and appearing as if nothing happened.
 			if (!!e) {
 				e.preventDefault();
 			}
+
+			//keep disabled checkboxen from being interactive
+			if (this.state.disabled) {
+				return;
+			}
+
+			//flip, flip, flip tha bit.
+			this.state.checked = !this.state.checked;
 
 			this._ensureCheckedState(e);
 		},
