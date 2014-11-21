@@ -38,7 +38,6 @@
 		-ms-transform:rotate(90deg);
 		-webkit-transform:rotate(90deg);
 		position: relative;
-		left: -5px;
 	}
 
 	[data-children=false] > .tree-branch-header .icon-caret:before {
@@ -85,6 +84,11 @@
 
 		.tree-branch-children {
 			margin-left: 14px;
+		}
+		&[haschildren='false'] {
+			.icon-caret {
+				visibility: hidden;
+			}
 		}
 
 	}
