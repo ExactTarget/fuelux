@@ -306,10 +306,12 @@ $('#myRepeater').repeater({
   views: {
     'list.view1': {
       dropPagingCap: 20,
-      list_infiniteScroll: true
+      list_infiniteScroll: true,
+      list_selectable: 'multi'
     },
     'list.view2': {
       dataSource: function(options, callback){ ... },
+      dropPagingCap: 30,
       list_selectable: true
     }
   },
