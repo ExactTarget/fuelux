@@ -503,7 +503,7 @@
 				viewTypeObj = $.fn.repeater.viewTypes[this.viewType] || {};
 			}
 
-			if(staticHeight!==undefined){
+			if(staticHeight!==undefined && staticHeight!==false && staticHeight!=='false'){
 				this.$canvas.addClass('scrolling');
 				viewportMargins = {
 					bottom: this.$viewport.css('margin-bottom'),
