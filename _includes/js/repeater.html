@@ -290,6 +290,34 @@
           </ul>
         </td>
       </tr>
+      <tr>
+        <td>views</td>
+        <td>object</td>
+        <td>null</td>
+        <td>
+          Can be optionally used to configure multiple views, including those of the same view type (2 'list' views, 2
+          'thumbnail' views, etc) To utilize, first set the input values within <code>.repeater-views</code> to their
+          appropriate view names. For multiple views of the same type, use the <code>.</code> operator as a separator,
+          following the syntax <code>[viewType].[viewName]</code> (Ex: "list.view1") Then, within the <code>views</code>
+          option object, add these view names as attributes. Each attribute can be an object, with it's own view plugin / repeater
+          configuration. This configuration will then be honored by the repeater per view. Example:
+{% highlight js %}
+$('#myRepeater').repeater({
+  views: {
+    'list.view1': {
+      dropPagingCap: 20,
+      list_infiniteScroll: true
+    },
+    'list.view2': {
+      dataSource: function(options, callback){ ... },
+      list_selectable: true
+    }
+  },
+  ...
+});
+{% endhighlight %}
+        </td>
+      </tr>
       </tbody>
     </table>
   </div><!-- ./fu-table-responsive -->
