@@ -1,4 +1,4 @@
-.repeater[data-currentview="list"] {
+.repeater[data-currentview^="list"] {
 	.repeater-canvas.scrolling {
 		overflow: visible;
 
@@ -53,7 +53,7 @@
 
 			tr {
 				&:focus {
-					outline: 1px dotted #66afe9;
+					outline: 1px dotted #d7d7d7;
 				}
 
 				&.empty {
@@ -68,19 +68,19 @@
 
 				&.selectable{
 					&:hover td {
-						background: #d9edf7;
+						background: @selectableHover;
 						cursor: pointer;
 					}
 				}
 
 				&.selected {
 					&:hover td {
-						background: #428bca;
+						background: @selectedHover;
 					}
 
 					td {
-						background: #66AFE9;
-						color: #fff;
+						background: @selected;
+						color: #333;
 
 						&:first-child {
 							padding-left: 30px;

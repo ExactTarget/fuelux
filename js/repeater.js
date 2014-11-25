@@ -62,7 +62,8 @@
 		this.options = $.extend({}, $.fn.repeater.defaults, options);
 		this.pageIncrement = 0; // store direction navigated
 		this.resizeTimeout = {};
-		this.staticHeight = (this.options.staticHeight === -1) ? this.$element.attr('data-staticheight') : this.options.staticHeight;
+		this.viewOptions = {};
+		this.viewType = null;
 
 		this.$filters.selectlist();
 		this.$pageSize.selectlist();
@@ -122,8 +123,9 @@
 			$btn = this.$views.find('label.active input');
 			currentView = ($btn.length > 0) ? $btn.val() : 'list';
 		}
+		this.setViewOptions(currentView);
 
-		this.initViews(function() {
+		this.initViewTypes(function(){
 			self.resize();
 			self.$element.trigger('resized.fu.repeater');
 			self.render({
@@ -218,7 +220,7 @@
 				opts.search = val;
 			}
 
-			viewDataOpts = $.fn.repeater.views[this.currentView] || {};
+			viewDataOpts = $.fn.repeater.viewTypes[this.viewType] || {};
 			viewDataOpts = viewDataOpts.dataOptions;
 			if (viewDataOpts) {
 				viewDataOpts.call(this, opts, function(obj) {
@@ -293,22 +295,22 @@
 			}
 		},
 
-		initViews: function(callback) {
-			var views = [];
-			var i, viewsLength;
+		initViewTypes: function(callback){
+			var viewTypes = [];
+			var i, viewTypesLength;
 
 			var init = function(index) {
 				var next = function() {
 					index++;
-					if (index < viewsLength) {
+					if(index<viewTypesLength){
 						init(index);
 					} else {
 						callback();
 					}
 				};
 
-				if (views[index].initialize) {
-					views[index].initialize.call(this, {}, function() {
+				if(viewTypes[index].initialize){
+					viewTypes[index].initialize.call(this, {}, function(){
 						next();
 					});
 				} else {
@@ -316,11 +318,11 @@
 				}
 			};
 
-			for (i in $.fn.repeater.views) {
-				views.push($.fn.repeater.views[i]);
+			for(i in $.fn.repeater.viewTypes){
+				viewTypes.push($.fn.repeater.viewTypes[i]);
 			}
-			viewsLength = views.length;
-			if (viewsLength > 0) {
+			viewTypesLength = viewTypes.length;
+			if(viewTypesLength>0){
 				init(0);
 			} else {
 				callback();
@@ -369,7 +371,7 @@
 			this.$primaryPaging.removeClass(act);
 			this.$secondaryPaging.removeClass(act);
 
-			if (pages <= this.options.dropPagingCap) {
+			if(pages<=this.viewOptions.dropPagingCap){
 				this.$primaryPaging.addClass(act);
 				dropMenu = this.$primaryPaging.find('.dropdown-menu');
 				dropMenu.empty();
@@ -433,7 +435,7 @@
 		render: function(options) {
 			var self = this;
 			var viewChanged = false;
-			var viewObj = $.fn.repeater.views[self.currentView] || {};
+			var viewTypeObj = $.fn.repeater.viewTypes[self.viewType] || {};
 			var prevView;
 
 			var start = function() {
@@ -441,10 +443,10 @@
 					if (!self.infiniteScrollingEnabled || (self.infiniteScrollingEnabled && viewChanged)) {
 						self.$loader.show().loader('play');
 					}
-					self.getDataOptions(options, function(opts) {
-						self.options.dataSource(opts, function(data) {
-							var renderer = viewObj.renderer;
-							if (self.infiniteScrollingEnabled) {
+					self.getDataOptions(options, function(opts){
+						self.viewOptions.dataSource(opts, function(data){
+							var renderer = viewTypeObj.renderer;
+							if(self.infiniteScrollingEnabled){
 								self.infiniteScrollingCallback({});
 							} else {
 								self.itemization(data);
@@ -468,8 +470,8 @@
 
 				options.preserve = (options.preserve !== undefined) ? options.preserve : !viewChanged;
 				self.clear(options);
-				if (!viewChanged && viewObj.cleared) {
-					viewObj.cleared.call(self, {}, function() {
+				if(!viewChanged && viewTypeObj.cleared){
+					viewTypeObj.cleared.call(self, {}, function(){
 						next();
 					});
 				} else {
@@ -483,7 +485,10 @@
 			if (options.changeView && this.currentView !== options.changeView) {
 				prevView = this.currentView;
 				this.currentView = options.changeView;
+				this.viewType = this.currentView.split('.')[0];
+				this.setViewOptions(this.currentView);
 				this.$element.attr('data-currentview', this.currentView);
+				this.$element.attr('data-viewtype', this.viewType);
 				viewChanged = true;
 
 				this.$element.trigger('viewChanged.fu.repeater', this.currentView);
@@ -491,8 +496,8 @@
 				if (this.infiniteScrollingEnabled) {
 					self.infiniteScrolling(false);
 				}
-				viewObj = $.fn.repeater.views[self.currentView] || {};
-				if (viewObj.selected) {
+				viewTypeObj = $.fn.repeater.viewTypes[self.viewType] || {};
+				if(viewTypeObj.selected){
 					viewObj.selected.call(this, {
 						prevView: prevView
 					}, function() {
@@ -506,10 +511,14 @@
 			}
 		},
 
-		resize: function() {
-			var staticHeight = this.staticHeight;
-			var viewObj = $.fn.repeater.views[this.currentView] || {};
+		resize: function(){
+			var staticHeight = (this.viewOptions.staticHeight===-1) ? this.$element.attr('data-staticheight') : this.viewOptions.staticHeight;
+			var viewTypeObj = {};
 			var height, viewportMargins;
+
+			if(this.viewType){
+				viewTypeObj = $.fn.repeater.viewTypes[this.viewType] || {};
+			}
 
 			if (staticHeight !== undefined) {
 				this.$canvas.addClass('scrolling');
@@ -527,8 +536,8 @@
 				this.$canvas.removeClass('scrolling');
 			}
 
-			if (viewObj.resize) {
-				viewObj.resize.call(this, {
+			if(viewTypeObj.resize){
+				viewTypeObj.resize.call(this, {
 					height: this.$element.outerHeight(),
 					width: this.$element.outerWidth()
 				}, function() {});
@@ -657,6 +666,19 @@
 			loopSubset(0);
 		},
 
+		setViewOptions: function(curView){
+			var opts = {};
+			var viewName = curView.split('.')[1];
+
+			if(viewName && this.options.views){
+				opts = this.options.views[viewName] || this.options.views[curView] || {};
+			}else{
+				opts = {};
+			}
+
+			this.viewOptions = $.extend({}, this.options, opts);
+		},
+
 		viewChanged: function(e) {
 			var $selected = $(e.target);
 			var val = $selected.val();
@@ -693,7 +715,8 @@
 		dataSource: function(options, callback) {},
 		defaultView: -1, //should be a string value. -1 means it will grab the active view from the view controls
 		dropPagingCap: 10,
-		staticHeight: -1 //normally true or false. -1 means it will look for data-staticheight on the element
+		staticHeight: -1,	//normally true or false. -1 means it will look for data-staticheight on the element
+		views: null	//can be set to an object to configure multiple views of the same type
 	};
 
 	//views object contains keyed list of view plugins, each an object with following optional parameters:
@@ -723,7 +746,8 @@
 	//item: str or jQuery object, (only there if rendered function returned item)
 	//subset: {}, (only there if repeat was set. subset of data being repeated on)
 	//}
-	$.fn.repeater.views = {};
+
+	$.fn.repeater.viewTypes = {};
 
 	$.fn.repeater.Constructor = Repeater;
 

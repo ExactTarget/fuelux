@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.2.1
+ * Fuel UX v3.3.0
  * Copyright 2012-2014 ExactTarget
  * Licensed under the BSD-3-Clause license ()
  */
@@ -2386,6 +2386,10 @@
 
 		var Spinbox = function( element, options ) {
 			this.$element = $( element );
+			this.$element.find( '.btn' ).on( 'click', function( e ) {
+				//keep spinbox from submitting if they forgot to say type="button" on their spinner buttons
+				e.preventDefault();
+			} );
 			this.options = $.extend( {}, $.fn.spinbox.defaults, options );
 			this.$input = this.$element.find( '.spinbox-input' );
 			this.$element.on( 'focusin.fu.spinbox', this.$input, $.proxy( this.changeFlag, this ) );
@@ -2669,7 +2673,7 @@
 			enable: function() {
 				this.options.disabled = false;
 				this.$element.removeClass( 'disabled' );
-				this.$input.removeAttr( "disabled" );
+				this.$input.removeAttr( 'disabled' );
 				this.$element.find( 'button' ).removeClass( 'disabled' );
 			},
 
@@ -4549,7 +4553,8 @@
 			this.options = $.extend( {}, $.fn.repeater.defaults, options );
 			this.pageIncrement = 0; // store direction navigated
 			this.resizeTimeout = {};
-			this.staticHeight = ( this.options.staticHeight === -1 ) ? this.$element.attr( 'data-staticheight' ) : this.options.staticHeight;
+			this.viewOptions = {};
+			this.viewType = null;
 
 			this.$filters.selectlist();
 			this.$pageSize.selectlist();
@@ -4609,8 +4614,9 @@
 				$btn = this.$views.find( 'label.active input' );
 				currentView = ( $btn.length > 0 ) ? $btn.val() : 'list';
 			}
+			this.setViewOptions( currentView );
 
-			this.initViews( function() {
+			this.initViewTypes( function() {
 				self.resize();
 				self.$element.trigger( 'resized.fu.repeater' );
 				self.render( {
@@ -4705,7 +4711,7 @@
 					opts.search = val;
 				}
 
-				viewDataOpts = $.fn.repeater.views[ this.currentView ] || {};
+				viewDataOpts = $.fn.repeater.viewTypes[ this.viewType ] || {};
 				viewDataOpts = viewDataOpts.dataOptions;
 				if ( viewDataOpts ) {
 					viewDataOpts.call( this, opts, function( obj ) {
@@ -4780,22 +4786,22 @@
 				}
 			},
 
-			initViews: function( callback ) {
-				var views = [];
-				var i, viewsLength;
+			initViewTypes: function( callback ) {
+				var viewTypes = [];
+				var i, viewTypesLength;
 
 				var init = function( index ) {
 					var next = function() {
 						index++;
-						if ( index < viewsLength ) {
+						if ( index < viewTypesLength ) {
 							init( index );
 						} else {
 							callback();
 						}
 					};
 
-					if ( views[ index ].initialize ) {
-						views[ index ].initialize.call( this, {}, function() {
+					if ( viewTypes[ index ].initialize ) {
+						viewTypes[ index ].initialize.call( this, {}, function() {
 							next();
 						} );
 					} else {
@@ -4803,11 +4809,11 @@
 					}
 				};
 
-				for ( i in $.fn.repeater.views ) {
-					views.push( $.fn.repeater.views[ i ] );
+				for ( i in $.fn.repeater.viewTypes ) {
+					viewTypes.push( $.fn.repeater.viewTypes[ i ] );
 				}
-				viewsLength = views.length;
-				if ( viewsLength > 0 ) {
+				viewTypesLength = viewTypes.length;
+				if ( viewTypesLength > 0 ) {
 					init( 0 );
 				} else {
 					callback();
@@ -4856,7 +4862,7 @@
 				this.$primaryPaging.removeClass( act );
 				this.$secondaryPaging.removeClass( act );
 
-				if ( pages <= this.options.dropPagingCap ) {
+				if ( pages <= this.viewOptions.dropPagingCap ) {
 					this.$primaryPaging.addClass( act );
 					dropMenu = this.$primaryPaging.find( '.dropdown-menu' );
 					dropMenu.empty();
@@ -4920,7 +4926,7 @@
 			render: function( options ) {
 				var self = this;
 				var viewChanged = false;
-				var viewObj = $.fn.repeater.views[ self.currentView ] || {};
+				var viewTypeObj = $.fn.repeater.viewTypes[ self.viewType ] || {};
 				var prevView;
 
 				var start = function() {
@@ -4929,8 +4935,8 @@
 							self.$loader.show().loader( 'play' );
 						}
 						self.getDataOptions( options, function( opts ) {
-							self.options.dataSource( opts, function( data ) {
-								var renderer = viewObj.renderer;
+							self.viewOptions.dataSource( opts, function( data ) {
+								var renderer = viewTypeObj.renderer;
 								if ( self.infiniteScrollingEnabled ) {
 									self.infiniteScrollingCallback( {} );
 								} else {
@@ -4955,8 +4961,8 @@
 
 					options.preserve = ( options.preserve !== undefined ) ? options.preserve : !viewChanged;
 					self.clear( options );
-					if ( !viewChanged && viewObj.cleared ) {
-						viewObj.cleared.call( self, {}, function() {
+					if ( !viewChanged && viewTypeObj.cleared ) {
+						viewTypeObj.cleared.call( self, {}, function() {
 							next();
 						} );
 					} else {
@@ -4970,14 +4976,20 @@
 				if ( options.changeView && this.currentView !== options.changeView ) {
 					prevView = this.currentView;
 					this.currentView = options.changeView;
+					this.viewType = this.currentView.split( '.' )[ 0 ];
+					this.setViewOptions( this.currentView );
 					this.$element.attr( 'data-currentview', this.currentView );
+					this.$element.attr( 'data-viewtype', this.viewType );
 					viewChanged = true;
+
+					this.$element.trigger( 'viewChanged.fu.repeater', this.currentView );
+
 					if ( this.infiniteScrollingEnabled ) {
 						self.infiniteScrolling( false );
 					}
-					viewObj = $.fn.repeater.views[ self.currentView ] || {};
-					if ( viewObj.selected ) {
-						viewObj.selected.call( this, {
+					viewTypeObj = $.fn.repeater.viewTypes[ self.viewType ] || {};
+					if ( viewTypeObj.selected ) {
+						viewTypeObj.selected.call( this, {
 							prevView: prevView
 						}, function() {
 							start();
@@ -4991,9 +5003,13 @@
 			},
 
 			resize: function() {
-				var staticHeight = this.staticHeight;
-				var viewObj = $.fn.repeater.views[ this.currentView ] || {};
+				var staticHeight = ( this.viewOptions.staticHeight === -1 ) ? this.$element.attr( 'data-staticheight' ) : this.viewOptions.staticHeight;
+				var viewTypeObj = {};
 				var height, viewportMargins;
+
+				if ( this.viewType ) {
+					viewTypeObj = $.fn.repeater.viewTypes[ this.viewType ] || {};
+				}
 
 				if ( staticHeight !== undefined ) {
 					this.$canvas.addClass( 'scrolling' );
@@ -5011,8 +5027,8 @@
 					this.$canvas.removeClass( 'scrolling' );
 				}
 
-				if ( viewObj.resize ) {
-					viewObj.resize.call( this, {
+				if ( viewTypeObj.resize ) {
+					viewTypeObj.resize.call( this, {
 						height: this.$element.outerHeight(),
 						width: this.$element.outerWidth()
 					}, function() {} );
@@ -5141,10 +5157,22 @@
 				loopSubset( 0 );
 			},
 
+			setViewOptions: function( curView ) {
+				var opts = {};
+				var viewName = curView.split( '.' )[ 1 ];
+
+				if ( viewName && this.options.views ) {
+					opts = this.options.views[ viewName ] || this.options.views[ curView ] || {};
+				} else {
+					opts = {};
+				}
+
+				this.viewOptions = $.extend( {}, this.options, opts );
+			},
+
 			viewChanged: function( e ) {
 				var $selected = $( e.target );
 				var val = $selected.val();
-				this.$element.trigger( 'viewChanged.fu.repeater', val );
 				this.render( {
 					changeView: val,
 					pageIncrement: null
@@ -5174,7 +5202,8 @@
 			dataSource: function( options, callback ) {},
 			defaultView: -1, //should be a string value. -1 means it will grab the active view from the view controls
 			dropPagingCap: 10,
-			staticHeight: -1 //normally true or false. -1 means it will look for data-staticheight on the element
+			staticHeight: -1, //normally true or false. -1 means it will look for data-staticheight on the element
+			views: null //can be set to an object to configure multiple views of the same type
 		};
 
 		//views object contains keyed list of view plugins, each an object with following optional parameters:
@@ -5204,7 +5233,8 @@
 		//item: str or jQuery object, (only there if rendered function returned item)
 		//subset: {}, (only there if repeat was set. subset of data being repeated on)
 		//}
-		$.fn.repeater.views = {};
+
+		$.fn.repeater.viewTypes = {};
 
 		$.fn.repeater.Constructor = Repeater;
 
@@ -5242,7 +5272,7 @@
 
 			$.fn.repeater.Constructor.prototype.list_highlightColumn = function( index, force ) {
 				var tbody = this.$canvas.find( '.repeater-list tbody' );
-				if ( this.options.list_highlightSortedColumn || force ) {
+				if ( this.viewOptions.list_highlightSortedColumn || force ) {
 					tbody.find( 'td.sorted' ).removeClass( 'sorted' );
 					tbody.find( 'tr' ).each( function() {
 						var col = $( this ).find( 'td:nth-child(' + ( index + 1 ) + ')' );
@@ -5281,7 +5311,7 @@
 			};
 
 			$.fn.repeater.Constructor.prototype.list_setSelectedItems = function( items, force ) {
-				var selectable = this.options.list_selectable;
+				var selectable = this.viewOptions.list_selectable;
 				var self = this;
 				var data, i, $item, l;
 
@@ -5356,9 +5386,9 @@
 			} );
 
 			//EXTENSION DEFINITION
-			$.fn.repeater.views.list = {
+			$.fn.repeater.viewTypes.list = {
 				cleared: function( helpers, callback ) {
-					if ( this.options.list_columnSyncing ) {
+					if ( this.viewOptions.list_columnSyncing ) {
 						this.list_sizeHeadings();
 					}
 					callback();
@@ -5378,7 +5408,7 @@
 					callback();
 				},
 				selected: function( helpers, callback ) {
-					var infScroll = this.options.list_infiniteScroll;
+					var infScroll = this.viewOptions.list_infiniteScroll;
 					var opts;
 
 					this.list_firstRender = true;
@@ -5392,7 +5422,7 @@
 					callback();
 				},
 				resize: function( helpers, callback ) {
-					if ( this.options.list_columnSyncing ) {
+					if ( this.viewOptions.list_columnSyncing ) {
 						this.list_sizeHeadings();
 					}
 					callback();
@@ -5400,7 +5430,7 @@
 				renderer: { //RENDERING REPEATER-LIST, REPEATER-LIST-WRAPPER, AND TABLE
 					complete: function( helpers, callback ) {
 						var $sorted;
-						if ( this.options.list_columnSyncing ) {
+						if ( this.viewOptions.list_columnSyncing ) {
 							this.list_sizeHeadings();
 							this.list_positionHeadings();
 						}
@@ -5422,7 +5452,7 @@
 						} else {
 							$item = $( '<div class="repeater-list" data-preserve="shallow"><div class="repeater-list-wrapper" data-infinite="true" data-preserve="shallow"><table aria-readonly="true" class="table" data-container="true" data-preserve="shallow" role="grid"></table></div></div>' );
 							$item.find( '.repeater-list-wrapper' ).on( 'scroll.fu.repeaterList', function() {
-								if ( self.options.list_columnSyncing ) {
+								if ( self.viewOptions.list_columnSyncing ) {
 									self.list_positionHeadings();
 								}
 							} );
@@ -5437,7 +5467,7 @@
 							var self = this;
 							var i, l, newWidth, taken;
 
-							if ( !this.options.list_columnSizing || this.list_columnsSame ) {
+							if ( !this.viewOptions.list_columnSizing || this.list_columnsSame ) {
 								callback();
 							} else {
 								i = 0;
@@ -5553,7 +5583,7 @@
 												$spans.removeClass( chevUp ).addClass( chevDown );
 												self.list_sortDirection = 'desc';
 											} else {
-												if ( !self.options.list_sortClearing ) {
+												if ( !self.viewOptions.list_sortClearing ) {
 													$spans.removeClass( chevDown ).addClass( chevUp );
 													self.list_sortDirection = 'asc';
 												} else {
@@ -5611,7 +5641,7 @@
 							if ( helpers.data.items.length < 1 ) {
 								obj.skipNested = true;
 								$empty = $( '<tr class="empty"><td colspan="' + this.list_columns.length + '"></td></tr>' );
-								$empty.find( 'td' ).append( this.options.list_noItemsHTML );
+								$empty.find( 'td' ).append( this.viewOptions.list_noItemsHTML );
 								$item.append( $empty );
 							}
 
@@ -5626,8 +5656,8 @@
 								if ( helpers.item !== undefined ) {
 									obj.item = helpers.item;
 								}
-								if ( this.options.list_rowRendered ) {
-									this.options.list_rowRendered( obj, function() {
+								if ( this.viewOptions.list_rowRendered ) {
+									this.viewOptions.list_rowRendered( obj, function() {
 										callback();
 									} );
 								} else {
@@ -5638,7 +5668,7 @@
 								var $item = $( '<tr data-container="true"></tr>' );
 								var self = this;
 
-								if ( this.options.list_selectable ) {
+								if ( this.viewOptions.list_selectable ) {
 									$item.addClass( 'selectable' );
 									$item.attr( 'tabindex', 0 ); // allow items to be tabbed to / focused on
 									$item.data( 'item_data', helpers.subset[ helpers.index ] );
@@ -5649,7 +5679,7 @@
 											$row.find( '.repeater-list-check' ).remove();
 											self.$element.trigger( 'deselected.fu.repeaterList', $row );
 										} else {
-											if ( self.options.list_selectable !== 'multi' ) {
+											if ( self.viewOptions.list_selectable !== 'multi' ) {
 												self.$canvas.find( '.repeater-list-check' ).remove();
 												self.$canvas.find( '.repeater-list tbody tr.selected' ).each( function() {
 													$( this ).removeClass( 'selected' );
@@ -5686,8 +5716,8 @@
 									if ( helpers.item !== undefined ) {
 										obj.item = helpers.item;
 									}
-									if ( this.options.list_columnRendered ) {
-										this.options.list_columnRendered( obj, function() {
+									if ( this.viewOptions.list_columnRendered ) {
+										this.viewOptions.list_columnRendered( obj, function() {
 											callback();
 										} );
 									} else {
@@ -5739,19 +5769,19 @@
 
 			//ADDITIONAL METHODS
 			$.fn.repeater.Constructor.prototype.thumbnail_clearSelectedItems = function() {
-				this.$canvas.find( '.repeater-thumbnail-cont .repeater-thumbnail.selected' ).removeClass( 'selected' );
+				this.$canvas.find( '.repeater-thumbnail-cont .selectable.selected' ).removeClass( 'selected' );
 			};
 
 			$.fn.repeater.Constructor.prototype.thumbnail_getSelectedItems = function() {
 				var selected = [];
-				this.$canvas.find( '.repeater-thumbnail-cont .repeater-thumbnail.selected' ).each( function() {
+				this.$canvas.find( '.repeater-thumbnail-cont .selectable.selected' ).each( function() {
 					selected.push( $( this ) );
 				} );
 				return selected;
 			};
 
 			$.fn.repeater.Constructor.prototype.thumbnail_setSelectedItems = function( items, force ) {
-				var selectable = this.options.thumbnail_selectable;
+				var selectable = this.viewOptions.thumbnail_selectable;
 				var self = this;
 				var i, $item, l;
 
@@ -5786,12 +5816,12 @@
 				}
 				for ( i = 0; i < l; i++ ) {
 					if ( items[ i ].index !== undefined ) {
-						$item = this.$canvas.find( '.repeater-thumbnail-cont .repeater-thumbnail:nth-child(' + ( items[ i ].index + 1 ) + ')' );
+						$item = this.$canvas.find( '.repeater-thumbnail-cont .selectable:nth-child(' + ( items[ i ].index + 1 ) + ')' );
 						if ( $item.length > 0 ) {
 							selectItem( $item, items[ i ].selected );
 						}
 					} else if ( items[ i ].selector ) {
-						this.$canvas.find( '.repeater-thumbnail-cont .repeater-thumbnail' ).each( eachFunc );
+						this.$canvas.find( '.repeater-thumbnail-cont .selectable' ).each( eachFunc );
 					}
 				}
 			};
@@ -5805,9 +5835,9 @@
 			} );
 
 			//EXTENSION DEFINITION
-			$.fn.repeater.views.thumbnail = {
+			$.fn.repeater.viewTypes.thumbnail = {
 				selected: function( helpers, callback ) {
-					var infScroll = this.options.thumbnail_infiniteScroll;
+					var infScroll = this.viewOptions.thumbnail_infiniteScroll;
 					var opts;
 					if ( infScroll ) {
 						opts = ( typeof infScroll === 'object' ) ? infScroll : {};
@@ -5829,7 +5859,7 @@
 						if ( helpers.data.items.length < 1 ) {
 							obj.skipNested = true;
 							$empty = $( '<div class="empty"></div>' );
-							$empty.append( this.options.thumbnail_noItemsHTML );
+							$empty.append( this.viewOptions.thumbnail_noItemsHTML );
 							$item.append( $empty );
 						} else {
 							$item.find( '.empty:first' ).remove();
@@ -5842,7 +5872,7 @@
 								container: helpers.container,
 								itemData: helpers.subset[ helpers.index ]
 							};
-							var selectable = this.options.thumbnail_selectable;
+							var selectable = this.viewOptions.thumbnail_selectable;
 							var selected = 'selected';
 							var self = this;
 							var $item;
@@ -5854,7 +5884,7 @@
 									$item.on( 'click', function() {
 										if ( !$item.hasClass( selected ) ) {
 											if ( selectable !== 'multi' ) {
-												self.$canvas.find( '.repeater-thumbnail-cont .repeater-thumbnail.selected' ).each( function() {
+												self.$canvas.find( '.repeater-thumbnail-cont .selectable.selected' ).each( function() {
 													var $itm = $( this );
 													$itm.removeClass( selected );
 													self.$element.trigger( 'deselected.fu.repeaterThumbnail', $itm );
@@ -5869,8 +5899,8 @@
 									} );
 								}
 							}
-							if ( this.options.thumbnail_itemRendered ) {
-								this.options.thumbnail_itemRendered( obj, function() {
+							if ( this.viewOptions.thumbnail_itemRendered ) {
+								this.viewOptions.thumbnail_itemRendered( obj, function() {
 									callback();
 								} );
 							} else {
@@ -5902,7 +5932,7 @@
 								return str;
 							};
 							callback( {
-								item: template( this.options.thumbnail_template )
+								item: template( this.viewOptions.thumbnail_template )
 							} );
 						},
 						repeat: 'data.items'
