@@ -993,16 +993,4 @@ define(function(require) {
 		log('finished');
 	});
 
-
-	console.log('here', $('myCustomCheckbox3checked'));
-	$('#myCustomCheckbox3checked').hide();
-	$('#myCustomCheckbox3unchecked').on('click', function clickun(e) {
-		$('#myCustomCheckbox3unchecked').hide();
-		$('#myCustomCheckbox3checked').show();
-	});
-	$('#myCustomCheckbox3checked').on('click', function clickun(e) {
-		$('#myCustomCheckbox3checked').hide();
-		$('#myCustomCheckbox3unchecked').show();
-	});
-
 });

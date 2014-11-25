@@ -39,6 +39,7 @@
 
 		this.$uncheckedElement = this.$checkedElement.clone();
 		//clean up the unchecked checkbox, ensure double ids do not occur on the page if the starting element is the checkbox
+		this.$uncheckedElement.attr('id', this.$checkedElement.attr('id') + 'unchecked');
 		this.$uncheckedElement.removeClass('checked').removeAttr('checked').prop('checked', false);
 		this.$uncheckedElement.find('input[type="checkbox"]:first').remove();
 		this.$uncheckedElement = this.$uncheckedElement.insertAfter(this.$checkedElement);
@@ -48,7 +49,7 @@
 		this.$uncheckedElement.on('click', $.proxy(this.toggle, this));
 
 		this.$parent = this.$checkedElement.parent('.checkbox');
-		this.$toggleContainer = this.$element.attr('data-toggle');
+		this.$linkedElement = this.$element.attr('data-toggle');
 		this.state = {
 			disabled: false,
 			checked: false
@@ -58,10 +59,10 @@
 			this.$parent = null;
 		}
 
-		if (Boolean(this.$toggleContainer)) {
-			this.$toggleContainer = $(this.$toggleContainer);
+		if (Boolean(this.$linkedElement)) {
+			this.$linkedElement = $(this.$linkedElement);
 		} else {
-			this.$toggleContainer = null;
+			this.$linkedElement = null;
 		}
 
 		// handle events
@@ -80,14 +81,14 @@
 			$chk = $chk || this.$element;
 
 			this.state.disabled = Boolean($chk.prop('disabled'));
-			this.state.checked = Boolean($chk.is(':checked'));
+			this.setChecked(Boolean($chk.is(':checked')));
 
 			// set state of checkbox
 			this._ensureCheckedState();
 			this._ensureDisabledState();
 
 			//toggle container
-			this.toggleContainer();
+			this.toggleLinkedElement();
 		},
 
 		enable: function enable() {
@@ -105,37 +106,43 @@
 		},
 
 		check: function check() {
-			this.state.checked = true;
+			this.setChecked(true);
 
 			this.$uncheckedElement.hide();
 			this.$checkedElement.show();
 
-			this.$checkedElement.attr('checked', 'checked').prop('checked', this.state.checked).addClass('checked');
-			this.$element.attr('checked', 'checked').prop('checked', this.state.checked).addClass('checked');
+			this.$checkedElement.attr('checked', 'checked').prop('checked', this.isChecked()).toggleClass('checked', this.isChecked());
+			this.$element.attr('checked', 'checked').prop('checked', this.isChecked()).toggleClass('checked', this.isChecked());
 			if (!!this.$parent) {
-				this.$parent.addClass('checked');
+				this.$parent.toggleClass('checked', this.isChecked());
 			}
 
 			this.$element.trigger('checked.fu.checkbox');
+			this.toggleLinkedElement();
 		},
 
 		uncheck: function uncheck() {
-			this.state.checked = false;
+			this.setChecked(false);
 
 			this.$checkedElement.hide();
 			this.$uncheckedElement.show();
 
-			this.$checkedElement.removeAttr('checked').removeProp('checked').removeClass('checked');
-			this.$element.removeAttr('checked').prop('checked', this.state.checked).removeClass('checked');
+			this.$checkedElement.removeAttr('checked').removeProp('checked').toggleClass('checked', this.isChecked());
+			this.$element.removeAttr('checked').prop('checked', this.isChecked()).toggleClass('checked', this.isChecked());
 			if (!!this.$parent) {
-				this.$parent.removeClass('checked');
+				this.$parent.toggleClass('checked', this.isChecked());
 			}
 
 			this.$element.trigger('unchecked.fu.checkbox');
+			this.toggleLinkedElement();
 		},
 
 		isChecked: function isChecked() {
 			return this.state.checked;
+		},
+
+		setChecked: function setChecked(state){
+			this.state.checked = state;
 		},
 
 		toggle: function toggle(e) {
@@ -149,20 +156,15 @@
 				return;
 			}
 
-			this.state.checked = !this.state.checked;
+			this.setChecked(!this.isChecked());
 
 			this._ensureCheckedState(e);
 		},
 
-		toggleContainer: function toggleContainer() {
-			if (Boolean(this.$toggleContainer)) {
-				if (this.state.checked) {
-					this.$toggleContainer.removeClass('hide');
-					this.$toggleContainer.attr('aria-hidden', 'false');
-				} else {
-					this.$toggleContainer.addClass('hide');
-					this.$toggleContainer.attr('aria-hidden', 'true');
-				}
+		toggleLinkedElement: function toggleLinkedElement() {
+			if (Boolean(this.$linkedElement)) {
+				this.$linkedElement.toggleClass('hide', this.isChecked());
+				this.$linkedElement.attr('aria-hidden', this.isChecked().toString());
 			}
 		},
 
@@ -172,6 +174,10 @@
 
 		destroy: function destroy() {
 			this.$parent.remove();
+			//clean up original checkbox in case they re-insert elsewhere. Removing uncheckedElement keeps it from getting duplicated on re-init
+			this.$uncheckedElement.remove();
+			//Make sure that checkedElement is visible if they re-insert elsewhere.
+			this.$checkedElement.show();
 			// remove any external bindings
 			// [none]
 			// empty elements to return to original markup
@@ -188,7 +194,7 @@
 		},
 
 		_ensureCheckedState: function _ensureCheckedState(e) {
-			if (this.state.checked) {
+			if (this.isChecked()) {
 				this.check(e);
 			} else {
 				this.uncheck(e);
