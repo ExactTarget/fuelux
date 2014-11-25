@@ -92,43 +92,45 @@
 
 		enable: function enable() {
 			this.state.disabled = false;
-			this.$element.attr('disabled', false);
+			this.$element.attr('disabled', this.state.disabled);
 			this._clearDisabledClasses();
 			this.$element.trigger('enabled.fu.checkbox');
 		},
 
 		disable: function disable() {
 			this.state.disabled = true;
-			this.$element.attr('disabled', true);
+			this.$element.attr('disabled', this.state.disabled);
 			this._setDisabledClass();
 			this.$element.trigger('disabled.fu.checkbox');
 		},
 
 		check: function check() {
+			this.state.checked = true;
+
 			this.$uncheckedElement.hide();
 			this.$checkedElement.show();
 
-			this.$checkedElement.attr('checked', 'checked').prop('checked', true).addClass('checked');
-			this.$element.attr('checked', 'checked').prop('checked', true).addClass('checked');
+			this.$checkedElement.attr('checked', 'checked').prop('checked', this.state.checked).addClass('checked');
+			this.$element.attr('checked', 'checked').prop('checked', this.state.checked).addClass('checked');
 			if (!!this.$parent) {
 				this.$parent.addClass('checked');
 			}
 
-			this.state.checked = true;
 			this.$element.trigger('checked.fu.checkbox');
 		},
 
 		uncheck: function uncheck() {
+			this.state.checked = false;
+
 			this.$checkedElement.hide();
 			this.$uncheckedElement.show();
 
 			this.$checkedElement.removeAttr('checked').removeProp('checked').removeClass('checked');
-			this.$element.removeAttr('checked').prop('checked', false).removeClass('checked');
+			this.$element.removeAttr('checked').prop('checked', this.state.checked).removeClass('checked');
 			if (!!this.$parent) {
 				this.$parent.removeClass('checked');
 			}
 
-			this.state.checked = false;
 			this.$element.trigger('unchecked.fu.checkbox');
 		},
 
@@ -147,7 +149,6 @@
 				return;
 			}
 
-			//flip, flip, flip tha bit.
 			this.state.checked = !this.state.checked;
 
 			this._ensureCheckedState(e);
@@ -181,8 +182,6 @@
 		_clearDisabledClasses: function _clearDisabledClasses() {
 			var classesToRemove = 'disabled';
 
-			// this.$label.removeClass(classesToRemove);
-
 			if (this.$parent) {
 				this.$parent.removeClass(classesToRemove);
 			}
@@ -205,8 +204,6 @@
 		},
 
 		_setDisabledClass: function _setDisabledClass() {
-			// this.$label.addClass('disabled');
-
 			if (this.$parent) {
 				this.$parent.addClass('disabled');
 			}
