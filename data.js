@@ -704,7 +704,63 @@
 					sound: '???'
 				}
 			]
-		}
+		},
+		tree: [
+			{
+				"name": "Aquire",
+				"type": "folder",
+				"dataAttributes": { "id": "aquire-folder" },
+				"children": [
+					{
+						"name": "POS Receipt",
+						"type": "item"
+					},
+					{
+						"name": "Confirm Subscription",
+						"type": "item"
+					},
+					{
+						"name": "Thanks for Signing Up",
+						"type": "item"
+					}
+				]
+			},
+			{
+				"name": "Onboard",
+				"type": "folder"
+			},
+			{
+				"name": "Engage",
+				"type": "folder",
+				"dataAttributes": { "id": "engage-folder" },
+				"children":[
+					{
+						"name": "Abandoned Cart",
+						"type": "folder",
+						"children": [
+							{
+								"name": "Archive",
+								"type": "folder"
+							}
+						]
+					},
+					{
+						"name": "Transactional",
+						"type": "folder",
+						"children": [
+							{
+								"name": "Archive",
+								"type": "folder"
+							}
+						]
+					}
+				]
+			},
+			{
+				"name": "Retain",
+				"type": "folder"
+			}
+		]
 	};
 
 	window.data = data;
