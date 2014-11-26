@@ -38,142 +38,14 @@
 				}
 			});
 		})();
-		require(['jquery', '../data', 'fuelux/all'], function($, data){
-			// simulate network latency
-			var loadDelays = ['300', '600', '900', '1200'];
-
-			// list view setup
-			var list = function(options, callback){
-
-				// build dataSource based with options
-				var resp = {
-					count: data.repeater.listData.length,
-					items: [],
-					page: options.pageIndex
-				};
-
-				// get start and end limits for JSON
-				var i, l;
-				resp.pages = Math.ceil(resp.count/(options.pageSize || 50));
-
-				i = options.pageIndex * (options.pageSize || 50);
-				l = i + (options.pageSize || 50);
-				l = (l <= resp.count) ? l : resp.count;
-				resp.start = i + 1;
-				resp.end = l;
-
-				// setup columns for list view
-				resp.columns = [
-					{
-						label: 'Common Name',
-						property: 'commonName',
-						sortable: true
-					},
-					{
-						label: 'Latin Name',
-						property: 'latinName',
-						sortable: true
-					},
-					{
-						label: 'Appearance',
-						property: 'appearance',
-						sortable: true
-					},
-					{
-						label: 'Sound',
-						property: 'sound',
-						sortable: true
-					}
-				];
-
-				// add sample items to datasource
-				for(i; i<l; i++){
-					// from data.js
-					resp.items.push(data.repeater.listData[i]);
-				}
-
-				//if(options.search){
-				//resp.items = [];
-				//}
-
-				// call and simulate latency
-				setTimeout(function(){
-					callback(resp);
-				}, loadDelays[Math.floor(Math.random() * 4)]);
-			};
-
-
-			// thumbnail view setup
-			var thumbnail = function(options, callback){
-				var sampleImageCategories = ['abstract', 'animals', 'business', 'cats', 'city', 'food', 'nature', 'technics', 'transport'];
-				var numItems = 200;
-
-				// build dataSource based with options
-				var resp = {
-					count: numItems,
-					items: [],
-					pages: (Math.ceil(numItems/(options.pageSize || 30))),
-					page: options.pageIndex
-				};
-
-				// get start and end limits for JSON
-				var i, l;
-				i = options.pageIndex * (options.pageSize || 30);
-				l = i + (options.pageSize || 30);
-				resp.start = i + 1;
-				resp.end = l;
-
-				// add sample items to datasource
-				for(i; i<l; i++){
-					resp.items.push({
-						name: ('Thumbnail ' + (i + 1)),
-						src: 'http://lorempixel.com/65/65/' + sampleImageCategories[Math.floor(Math.random() * 9)] + '/?_=' + i
-					});
-				}
-
-				//if(options.search){
-				//resp.items = [];
-				//}
-
-				// call and simulate latency
-				setTimeout(function(){
-					callback(resp);
-				}, loadDelays[Math.floor(Math.random() * 4)]);
-			};
+		require(['jquery', 'fuelux/all'], function($){
 
 			// initialize repater
 			$('#myRepeater').repeater({
-				dataSource: function(options, callback){
-					//you can check view name here, and call separate functions...
-					if(options.view==='list.view1'){
-						list(options, callback);
-					}
-				},
 				list_selectable: 'multi',
 				list_noItemsHTML: 'no items found',
 				thumbnail_noItemsHTML: 'no items found',
-				thumbnail_infiniteScroll: { hybrid: true },
-				views: {
-					//you can go with just the view name
-					'view1': {
-						list_selectable: true
-					},
-					//this syntax is also supported (makes it possible to do 'list' and 'thumbnail' this way)
-					'list.view2': {
-						//...or you can do this! :)
-						dataSource: function(options, callback){
-							list(options, callback);
-						},
-						list_infiniteScroll: true,
-						list_highlightSortedColumn: true
-					},
-					'thumbnail.view3': {
-						dataSource: function(options, callback){
-							thumbnail(options, callback);
-						},
-						thumbnail_selectable: 'multi'
-					}
-				}
+				thumbnail_infiniteScroll: { hybrid: true }
 			});
 		});
 	</script>
@@ -214,13 +86,7 @@
 					</div>
 					<div class="btn-group repeater-views" data-toggle="buttons">
 						<label class="btn btn-default active">
-							<input name="repeaterViews" type="radio" value="list.view1"><span class="glyphicon glyphicon-list"></span>
-						</label>
-						<label class="btn btn-default">
-							<input name="repeaterViews" type="radio" value="list.view2"><span class="glyphicon glyphicon-list"></span>
-						</label>
-						<label class="btn btn-default">
-							<input name="repeaterViews" type="radio" value="thumbnail.view3"><span class="glyphicon glyphicon-th"></span>
+							<input name="repeaterViews" type="radio" value="list"><span class="glyphicon glyphicon-list"></span>
 						</label>
 					</div>
 				</div>
