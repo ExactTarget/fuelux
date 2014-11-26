@@ -68,6 +68,15 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+// Disables selection of text
+.noSelectionAllowed(){
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
 // Opacity
 .opacity(@opacity) {
 	opacity: @opacity / 100;

@@ -50,6 +50,7 @@
 
 		// handle events
 		this.$element.on('change.fu.checkbox', $.proxy( this.itemchecked, this ));
+		this.$label.on('click', $.proxy(this.toggle, this));//make repeated label clicks work
 
 		// set default state
 		this.setState();
@@ -107,10 +108,12 @@
 			return this.state.checked;
 		},
 
-		toggle: function() {
-			this.state.checked = !this.state.checked;
+		toggle: function(e) {
+			if (!e || e.currentTarget === e.originalEvent.target) {
+				this.state.checked = !this.state.checked;
 
-			this._toggleCheckedState();
+				this._toggleCheckedState();
+			}
 		},
 
 		toggleContainer: function(){

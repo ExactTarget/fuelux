@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.2.1 
+ * Fuel UX v3.3.1 
  * Copyright 2012-2014 ExactTarget
  * Licensed under the BSD-3-Clause license ()
  */
@@ -199,12 +199,12 @@
   display: block;
 }
 .fuelux .datepicker-calendar-days td span:hover {
-  background: #b7e3f8;
+  background: #f1f1f1;
   text-decoration: none;
 }
 .fuelux .datepicker-calendar-days td.current-day b,
 .fuelux .datepicker-calendar-days td.current-day button {
-  border: 1px solid #1d75bb;
+  border: 1px solid #333;
 }
 .fuelux .datepicker-calendar-days td.last-month,
 .fuelux .datepicker-calendar-days td.next-month {
@@ -235,14 +235,14 @@
   background: none;
 }
 .fuelux .datepicker-calendar-days td.selected span {
-  background: #1d75bb;
+  background: #efefef;
 }
 .fuelux .datepicker-calendar-days td.selected span:hover {
-  background: #0f5f9f;
+  background: #d7d7d7;
 }
 .fuelux .datepicker-calendar-days td.selected b,
 .fuelux .datepicker-calendar-days td.selected button {
-  color: #fff;
+  color: #8d8787;
 }
 .fuelux .datepicker-calendar-days td.selected.current-day {
   box-shadow: 0 0 0 1px #fff offset;
@@ -915,6 +915,9 @@
 .fuelux .repeater {
   border: 1px solid #ddd;
   border-radius: 4px;
+  /*
+	 * reinforce spacing around control buttons
+	 */
 }
 .fuelux .repeater-canvas.scrolling {
   bottom: 0;
@@ -1034,27 +1037,35 @@
   line-height: 34px;
   margin-right: 10px;
 }
-.fuelux .repeater[data-currentview="list"] .repeater-canvas.scrolling {
+.fuelux .repeater-itemization .selectlist,
+.fuelux .repeater-filters,
+.fuelux .repeater-secondaryPaging,
+.fuelux .repeater-primaryPaging,
+.fuelux .repeater-next,
+.fuelux .repeater-prev {
+  margin: auto 0.3em;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.scrolling {
   overflow: visible;
 }
-.fuelux .repeater[data-currentview="list"] .repeater-canvas.scrolling .repeater-list {
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.scrolling .repeater-list {
   bottom: 0;
   left: 0;
   position: absolute;
   right: 0;
   top: 0;
 }
-.fuelux .repeater[data-currentview="list"] .repeater-canvas.scrolling .repeater-list-wrapper {
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.scrolling .repeater-list-wrapper {
   height: 100%;
   overflow: auto;
 }
-.fuelux .repeater[data-currentview="list"] .repeater-loader {
+.fuelux .repeater[data-viewtype="list"] .repeater-loader {
   margin-top: -12px;
 }
-.fuelux .repeater[data-currentview="list"] .repeater-loader.noHeader {
+.fuelux .repeater[data-viewtype="list"] .repeater-loader.noHeader {
   margin-top: -32px;
 }
-.fuelux .repeater[data-currentview="list"] .repeater-viewport {
+.fuelux .repeater[data-viewtype="list"] .repeater-viewport {
   overflow: hidden;
 }
 .fuelux .repeater-list {
@@ -1076,7 +1087,7 @@
   background: #f9f9f9;
 }
 .fuelux .repeater-list table tbody tr:focus {
-  outline: 1px dotted #66afe9;
+  outline: 1px dotted #d7d7d7;
 }
 .fuelux .repeater-list table tbody tr.empty td {
   border-bottom: none;
@@ -1086,30 +1097,48 @@
   width: 100%;
 }
 .fuelux .repeater-list table tbody tr.selectable:hover td {
-  background: #d9edf7;
+  background: #f1f1f1;
   cursor: pointer;
 }
 .fuelux .repeater-list table tbody tr.selected:hover td {
-  background: #428bca;
+  background: #d7d7d7;
 }
 .fuelux .repeater-list table tbody tr.selected td {
-  background: #66AFE9;
-  color: #fff;
+  background: #efefef;
+  color: #333;
 }
 .fuelux .repeater-list table tbody tr.selected td:first-child {
   padding-left: 30px;
 }
 .fuelux .repeater-list table thead > tr > th {
-  background: none;
-  border-bottom: 1px solid transparent;
+  background: #F9F9F9;
+  border-bottom: 1px solid #ddd;
   border-left: 1px solid transparent;
   border-top: none;
   color: rgba(0, 0, 0, 0);
   line-height: 1.42857;
   padding: 8px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }
 .fuelux .repeater-list table thead > tr > th:first-child {
   border-left: none;
+}
+.fuelux .repeater-list table thead > tr > th.sortable:hover,
+.fuelux .repeater-list table thead > tr > th.sortable.sorted {
+  background: #F1F1F1;
+  cursor: pointer;
+  background-color: #f1f1f1;
+  background-image: -moz-linear-gradient(top, #f9f9f9, #e5e5e5);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f9f9f9), to(#e5e5e5));
+  background-image: -webkit-linear-gradient(top, #f9f9f9, #e5e5e5);
+  background-image: -o-linear-gradient(top, #f9f9f9, #e5e5e5);
+  background-image: linear-gradient(to bottom, #f9f9f9, #e5e5e5);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff9f9f9', endColorstr='#ffe5e5e5', GradientType=0);
 }
 .fuelux .repeater-list table thead > tr > th.sorted span.glyphicon {
   display: block;
@@ -1145,6 +1174,11 @@
   position: absolute;
   top: 0;
   z-index: 1;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }
 .fuelux .repeater-list-heading.shifted {
   margin-left: -1px;
@@ -1185,17 +1219,6 @@
   margin: 8px 7px;
   text-align: center;
 }
-.fuelux .repeater-thumbnail.selectable:hover {
-  background: #d9edf7;
-  cursor: pointer;
-}
-.fuelux .repeater-thumbnail.selected {
-  background: #66AFE9;
-  color: #fff;
-}
-.fuelux .repeater-thumbnail.selected:hover {
-  background: #428bca;
-}
 .fuelux .repeater-thumbnail img {
   display: block;
   margin-top: 10px;
@@ -1211,6 +1234,16 @@
   font-style: italic;
   padding: 20px 10px;
   text-align: center;
+}
+.fuelux .repeater-thumbnail-cont .selectable:hover {
+  background: #f1f1f1;
+  cursor: pointer;
+}
+.fuelux .repeater-thumbnail-cont .selectable.selected {
+  background: #efefef;
+}
+.fuelux .repeater-thumbnail-cont .selectable.selected:hover {
+  background: #d7d7d7;
 }
 .fuelux .spinbox {
   display: inline-block;
@@ -1539,7 +1572,6 @@ END
   -ms-transform: rotate(90deg);
   -webkit-transform: rotate(90deg);
   position: relative;
-  left: -5px;
 }
 .fuelux .tree [data-children=false] > .tree-branch-header .icon-caret:before {
   content: '\00a0';
@@ -1575,6 +1607,9 @@ END
 .fuelux .tree .tree-branch .tree-branch-children {
   margin-left: 14px;
 }
+.fuelux .tree .tree-branch[haschildren='false'] .icon-caret {
+  visibility: hidden;
+}
 .fuelux .tree .tree-item {
   position: relative;
   cursor: pointer;
@@ -1591,8 +1626,8 @@ END
   color: #999999;
 }
 .fuelux .tree .tree-item.tree-selected .tree-item-name {
-  background-color: #4f4f4f;
-  color: #fff;
+  background-color: #efefef;
+  color: #333;
 }
 .fuelux .tree .tree-item label {
   font-weight: normal;
@@ -1616,16 +1651,13 @@ END
   border-radius: 6px;
 }
 .fuelux .tree.tree-folder-select .tree-branch > .tree-branch-name.tree-selected {
-  background-color: #4f4f4f;
-  color: #fff;
+  background-color: #efefef;
 }
 .fuelux .tree.tree-folder-select .tree-branch.tree-selected > .tree-branch-header .tree-branch-name {
-  background-color: #4f4f4f;
-  color: #fff;
+  background-color: #efefef;
 }
 .fuelux .tree.tree-folder-select .tree-branch.tree-selected > .tree-branch-header .tree-branch-name:hover {
-  background-color: #4f4f4f;
-  color: #fff;
+  background-color: #efefef;
 }
 .fuelux .wizard {
   *zoom: 1;
