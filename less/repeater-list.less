@@ -99,6 +99,8 @@
 			line-height: 1.42857;
 			padding: 8px;
 
+			.noSelectionAllowed();
+
 			&:first-child {
 				border-left: none;
 			}
@@ -145,6 +147,8 @@
 		position: absolute;
 		top: 0;
 		z-index: 1;
+
+		.noSelectionAllowed();
 
 		&.shifted {
 			margin-left: -1px;
