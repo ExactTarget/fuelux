@@ -38,7 +38,6 @@
 		-ms-transform:rotate(90deg);
 		-webkit-transform:rotate(90deg);
 		position: relative;
-		left: -5px;
 	}
 
 	[data-children=false] > .tree-branch-header .icon-caret:before {
@@ -50,6 +49,7 @@
 		.tree-branch-header {
 			position: relative;
 			border-radius: 6px;
+			white-space: nowrap;
 
 			.tree-branch-name:hover {
 				color: @treeHoverText;
@@ -86,10 +86,16 @@
 		.tree-branch-children {
 			margin-left: 14px;
 		}
+		&[haschildren='false'] {
+			.icon-caret {
+				visibility: hidden;
+			}
+		}
 
 	}
 
 	.tree-item {
+		white-space: nowrap;
 		position: relative;
 		cursor: pointer;
 		border-radius: 6px;
@@ -124,7 +130,10 @@
 		color: @treeHoverText;
 	}
 
-	// folder selectable
+	// - - - - - - - - - - - - - -
+	// folder selectable option
+	// - - - - - - - - - - - - - -
+
 	&.tree-folder-select {
 
 		.tree-branch {

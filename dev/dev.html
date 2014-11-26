@@ -168,6 +168,7 @@
 						list_highlightSortedColumn: true
 					},
 					'thumbnail.view3': {
+						thumbnail_alignment: 'center',
 						dataSource: function(options, callback){
 							thumbnail(options, callback);
 						},
@@ -175,6 +176,20 @@
 					}
 				}
 			});
+
+//			setTimeout(function(){
+//				$('#myRepeater').repeater('render', {
+//					dataSourceOptions: {
+//						pageIndex: 1,
+//						pageSize: 20,
+//						filter: { text: 'Some', value: 'some' }
+//						//sortProperty: 'name',
+//						//sortDirection: 'asc',
+//						//search: 'term'
+//					},
+//					preserveDataSourceOptions: true
+//				});
+//			}, 5000);
 		});
 	</script>
 </head>

@@ -62,6 +62,7 @@
 		this.options = $.extend({}, $.fn.repeater.defaults, options);
 		this.pageIncrement = 0;	// store direction navigated
 		this.resizeTimeout = {};
+		this.storedDataSourceOpts = null;
 		this.viewOptions = {};
 		this.viewType = null;
 
@@ -158,6 +159,10 @@
 			//otherwise don't clear because infiniteScrolling is enabled
 		},
 
+		clearPreservedDataSourceOptions: function(){
+			this.storedDataSourceOpts = null;
+		},
+
 		destroy: function() {
 			var markup;
 			// set input value attrbute in markup
@@ -185,12 +190,13 @@
 		},
 
 		getDataOptions: function(options, callback){
+			var dataSourceOptions = {};
 			var opts = {};
 			var val, viewDataOpts;
 
 			options = options || {};
 
-			opts.filter = (this.$filters.length>0) ? this.$filters.selectlist('selectedItem') : 'all';
+			opts.filter = (this.$filters.length>0) ? this.$filters.selectlist('selectedItem') : { text: 'All', value: 'all' };
 			opts.view = this.currentView;
 
 			if(!this.infiniteScrollingEnabled){
@@ -210,14 +216,24 @@
 				opts.search = val;
 			}
 
+			if(options.dataSourceOptions){
+				dataSourceOptions = options.dataSourceOptions;
+				if(options.preserveDataSourceOptions){
+					this.storedDataSourceOpts = (this.storedDataSourceOpts) ? $.extend(this.storedDataSourceOpts, dataSourceOptions) : dataSourceOptions;
+				}
+			}
+			if(this.storedDataSourceOpts){
+				dataSourceOptions = $.extend(this.storedDataSourceOpts, dataSourceOptions);
+			}
+
 			viewDataOpts = $.fn.repeater.viewTypes[this.viewType] || {};
 			viewDataOpts = viewDataOpts.dataOptions;
 			if(viewDataOpts){
 				viewDataOpts.call(this, opts, function(obj){
-					callback(obj);
+					callback($.extend(obj, dataSourceOptions));
 				});
 			}else{
-				callback(opts);
+				callback($.extend(opts, dataSourceOptions));
 			}
 		},
 

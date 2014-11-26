@@ -3,6 +3,9 @@
 module.exports = function(grunt) {
 	'use strict';
 
+	// use --no-livereload to disable livereload. Helpful to 'serve' multiple projects
+	var isLivereloadEnabled = (typeof grunt.option('livereload') !== 'undefined') ? grunt.option('livereload') : true;
+
 	// Project configuration.
 	grunt.initConfig({
 		// Metadata
@@ -113,13 +116,15 @@ module.exports = function(grunt) {
 			server: {
 				options: {
 					hostname: '*',
-					port: 8000
+					port: 8000,
+					useAvailablePort: true	// increment port number, if unavailable...
 				}
 			},
 			testServer: {
 				options: {
 					hostname: '*',
-					port: 9000 // allows main server to be run simultaneously
+					port: 9000, // allows main server to be run simultaneously
+					useAvailablePort: true	// increment port number, if unavailable...
 				}
 			}
 		},
@@ -309,21 +314,21 @@ module.exports = function(grunt) {
 			full: {
 				files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
 				options: {
-					livereload: true
+					livereload: isLivereloadEnabled
 				},
 				tasks: ['test', 'dist']
 			},
 			css: {
 				files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
 				options: {
-					livereload: true
+					livereload: isLivereloadEnabled
 				},
 				tasks: ['distcss']
 			},
 			contrib: {
 				files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
 				options: {
-					livereload: true
+					livereload: isLivereloadEnabled
 				},
 				tasks: ['test']
 			}
@@ -387,7 +392,7 @@ module.exports = function(grunt) {
 		SERVE
 	------------- */
 	grunt.registerTask('serve', 'serve files without compilation', ['test', 'connect:server', 'watch:contrib']);
-	grunt.registerTask('servefast', 'serve files without compilation or watch (tests take time...)', ['connect:server']);
+	grunt.registerTask('servefast', 'serve files without compilation or testing (tests take time...)', ['connect:server', 'watch:contrib']);
 	grunt.registerTask('servedist', 'build dist directory and serve files with compilation', ['test', 'dist', 'connect:server', 'watch:full']);
 
 
