@@ -91,8 +91,8 @@
 		}
 
 		thead > tr > th {
-			background: none;
-			border-bottom: 1px solid transparent;
+			background: #F9F9F9;
+			border-bottom: 1px solid #ddd;
 			border-left: 1px solid transparent;
 			border-top: none;
 			color: rgba(0, 0, 0, 0);
@@ -103,6 +103,14 @@
 
 			&:first-child {
 				border-left: none;
+			}
+
+			&.sortable {
+				&:hover, &.sorted {
+					background: #F1F1F1;
+					cursor: pointer;
+					#gradient > .vertical(@startColor: #F9F9F9; @endColor: #E5E5E5);
+				}
 			}
 
 			&.sorted {
