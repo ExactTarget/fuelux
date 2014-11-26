@@ -14,7 +14,7 @@
 (function (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
-		define(['jquery'], factory);
+		define(['jquery', 'fuelux/tree-datasource'], factory);
 	} else {
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
@@ -40,8 +40,11 @@
 			this.$element.on('click.fu.tree', '.icon-caret', $.proxy( function(ev) { this.openFolder($(ev.currentTarget).parent()); }, this));
 			this.$element.on('click.fu.tree', '.tree-branch-name', $.proxy( function(ev) { this.selectFolder($(ev.currentTarget)); }, this));
 		}
-
+		if (!this.options.dataSource()){
+			this.options.dataSource = window.treeDataSource;
+		}
 		this.render();
+
 	};
 
 	Tree.prototype = {
