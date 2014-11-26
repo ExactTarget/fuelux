@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.3.0
+ * Fuel UX v3.3.1
  * Copyright 2012-2014 ExactTarget
  * Licensed under the BSD-3-Clause license ()
  */
@@ -65,6 +65,7 @@
 
 			// handle events
 			this.$element.on( 'change.fu.checkbox', $.proxy( this.itemchecked, this ) );
+			this.$label.on( 'click', $.proxy( this.toggle, this ) ); //make repeated label clicks work
 
 			// set default state
 			this.setState();
@@ -122,10 +123,12 @@
 				return this.state.checked;
 			},
 
-			toggle: function() {
-				this.state.checked = !this.state.checked;
+			toggle: function( e ) {
+				if ( !e || e.currentTarget === e.originalEvent.target ) {
+					this.state.checked = !this.state.checked;
 
-				this._toggleCheckedState();
+					this._toggleCheckedState();
+				}
 			},
 
 			toggleContainer: function() {
@@ -5011,7 +5014,7 @@
 					viewTypeObj = $.fn.repeater.viewTypes[ this.viewType ] || {};
 				}
 
-				if ( staticHeight !== undefined ) {
+				if ( staticHeight !== undefined && staticHeight !== false && staticHeight !== 'false' ) {
 					this.$canvas.addClass( 'scrolling' );
 					viewportMargins = {
 						bottom: this.$viewport.css( 'margin-bottom' ),
