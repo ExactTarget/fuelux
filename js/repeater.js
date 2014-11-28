@@ -14,7 +14,7 @@
 (function (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
-		 define(['jquery', 'fuelux/combobox', 'fuelux/infinite-scroll', 'fuelux/search', 'fuelux/selectlist'], factory);
+		 define(['jquery', 'fuelux/repeater-datasource', 'fuelux/combobox', 'fuelux/infinite-scroll', 'fuelux/search', 'fuelux/selectlist'], factory);
 	} else {
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
@@ -106,6 +106,10 @@
 				self.$element.trigger('resized.fu.repeater');
 			}, 75);
 		});
+
+		if (!this.options.dataSource()){
+			this.options.dataSource = window.repeaterListDataSource;
+		}
 
 		this.$loader.loader();
 		this.$loader.loader('pause');
