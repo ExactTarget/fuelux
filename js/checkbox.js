@@ -109,7 +109,7 @@
 		},
 
 		toggle: function(e) {
-			if (!e || e.currentTarget === e.originalEvent.target) {
+			if (!e || (e.target === e.originalEvent.target)) {
 				this.state.checked = !this.state.checked;
 
 				this._toggleCheckedState();
