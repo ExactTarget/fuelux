@@ -190,7 +190,7 @@
 
 			options = options || {};
 
-			opts.filter = (this.$filters.length>0) ? this.$filters.selectlist('selectedItem') : 'all';
+			opts.filter = (this.$filters.length>0) ? this.$filters.selectlist('selectedItem') : { text: 'All', value: 'all' };
 			opts.view = this.currentView;
 
 			if(!this.infiniteScrollingEnabled){
