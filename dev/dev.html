@@ -168,6 +168,7 @@
 						list_highlightSortedColumn: true
 					},
 					'thumbnail.view3': {
+						thumbnail_alignment: 'center',
 						dataSource: function(options, callback){
 							thumbnail(options, callback);
 						},
@@ -213,13 +214,13 @@
 						<input class="hidden hidden-field" name="filterSelection" readonly="readonly" aria-hidden="true" type="text"/>
 					</div>
 					<div class="btn-group repeater-views" data-toggle="buttons">
-						<label class="btn btn-default active">
+						<label class="btn btn-default">
 							<input name="repeaterViews" type="radio" value="list.view1"><span class="glyphicon glyphicon-list"></span>
 						</label>
 						<label class="btn btn-default">
 							<input name="repeaterViews" type="radio" value="list.view2"><span class="glyphicon glyphicon-list"></span>
 						</label>
-						<label class="btn btn-default">
+						<label class="btn btn-default active">
 							<input name="repeaterViews" type="radio" value="thumbnail.view3"><span class="glyphicon glyphicon-th"></span>
 						</label>
 					</div>

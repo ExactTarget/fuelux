@@ -42,9 +42,20 @@
 		$.fn.repeater.Constructor.prototype.thumbnail_setSelectedItems = function(items, force){
 			var selectable = this.viewOptions.thumbnail_selectable;
 			var self = this;
-			var i, $item, l;
+			var i, $item, l, n;
 
-			var eachFunc = function(){
+			//this function is necessary because lint yells when a function is in a loop
+			var compareItemIndex = function(){
+				if(n===items[i].index){
+					$item = $(this);
+					return false;
+				}else{
+					n++;
+				}
+			};
+
+			//this function is necessary because lint yells when a function is in a loop
+			var compareItemSelector = function(){
 				$item = $(this);
 				if($item.is(items[i].selector)){
 					selectItem($item, items[i].selected);
@@ -75,18 +86,21 @@
 			}
 			for(i=0; i<l; i++){
 				if(items[i].index!==undefined){
-					$item = this.$canvas.find('.repeater-thumbnail-cont .selectable:nth-child(' + (items[i].index + 1) + ')');
+					$item = $();
+					n = 0;
+					this.$canvas.find('.repeater-thumbnail-cont .selectable').each(compareItemIndex);
 					if($item.length>0){
 						selectItem($item, items[i].selected);
 					}
 				}else if(items[i].selector){
-					this.$canvas.find('.repeater-thumbnail-cont .selectable').each(eachFunc);
+					this.$canvas.find('.repeater-thumbnail-cont .selectable').each(compareItemSelector);
 				}
 			}
 		};
 
 		//ADDITIONAL DEFAULT OPTIONS
 		$.fn.repeater.defaults = $.extend({}, $.fn.repeater.defaults, {
+			thumbnail_alignment: 'justify',
 			thumbnail_infiniteScroll: false,
 			thumbnail_itemRendered: null,
 			thumbnail_selectable: false,
@@ -106,13 +120,22 @@
 			},
 			renderer: {
 				render: function(helpers, callback){
+					var alignment = this.viewOptions.thumbnail_alignment;
 					var $item = this.$canvas.find('.repeater-thumbnail-cont');
 					var obj = {};
-					var $empty;
+					var $empty, validAlignments;
 					if($item.length>0){
 						obj.action = 'none';
 					}else{
 						$item = $('<div class="clearfix repeater-thumbnail-cont" data-container="true" data-infinite="true" data-preserve="shallow"></div>');
+						if(alignment && alignment!=='none'){
+							validAlignments = { 'center': 1, 'justify': 1, 'left': 1, 'right': 1 };
+							alignment = (validAlignments[alignment]) ? alignment : 'justify';
+							$item.addClass('align-' + alignment);
+							this.thumbnail_injectSpacers = true;
+						}else{
+							this.thumbnail_injectSpacers = false;
+						}
 					}
 					obj.item = $item;
 					if(helpers.data.items.length<1){
@@ -138,8 +161,8 @@
 							var $item;
 							if(helpers.item!==undefined){
 								obj.item = helpers.item;
+								$item = $(obj.item);
 								if(selectable){
-									$item = $(obj.item);
 									$item.addClass('selectable');
 									$item.on('click', function(){
 										if(!$item.hasClass(selected)){
@@ -157,6 +180,9 @@
 											self.$element.trigger('deselected.fu.repeaterThumbnail', $item);
 										}
 									});
+								}
+								if(this.thumbnail_injectSpacers){
+									$item.after('<span class="spacer">&nbsp;</span>');
 								}
 							}
 							if(this.viewOptions.thumbnail_itemRendered){
