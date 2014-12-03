@@ -176,6 +176,16 @@
 					}
 				}
 			});
+
+//			setTimeout(function(){
+//				$('#myRepeater').repeater('render', { dataSourceOptions: {
+//					pageIndex: 1,
+//					pageSize: 20,
+//					sortProperty: 'name',
+//					sortDirection: 'asc',
+//					search: 'term'
+//				}});
+//			}, 5000);
 		});
 	</script>
 </head>
@@ -214,13 +224,13 @@
 						<input class="hidden hidden-field" name="filterSelection" readonly="readonly" aria-hidden="true" type="text"/>
 					</div>
 					<div class="btn-group repeater-views" data-toggle="buttons">
-						<label class="btn btn-default">
+						<label class="btn btn-default active">
 							<input name="repeaterViews" type="radio" value="list.view1"><span class="glyphicon glyphicon-list"></span>
 						</label>
 						<label class="btn btn-default">
 							<input name="repeaterViews" type="radio" value="list.view2"><span class="glyphicon glyphicon-list"></span>
 						</label>
-						<label class="btn btn-default active">
+						<label class="btn btn-default">
 							<input name="repeaterViews" type="radio" value="thumbnail.view3"><span class="glyphicon glyphicon-th"></span>
 						</label>
 					</div>
