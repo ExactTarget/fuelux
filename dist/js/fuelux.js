@@ -124,7 +124,12 @@
 			},
 
 			toggle: function( e ) {
-				if ( !e || e.currentTarget === e.originalEvent.target ) {
+				//keep event from firing twice in Chrome
+				if ( !e || ( e.target === e.originalEvent.target ) ) {
+					//stop bubbling, otherwise event fires twice in Firefox.
+					if ( Boolean( e ) ) {
+						e.preventDefault();
+					}
 					this.state.checked = !this.state.checked;
 
 					this._toggleCheckedState();
@@ -4556,6 +4561,7 @@
 			this.options = $.extend( {}, $.fn.repeater.defaults, options );
 			this.pageIncrement = 0; // store direction navigated
 			this.resizeTimeout = {};
+			this.storedDataSourceOpts = null;
 			this.viewOptions = {};
 			this.viewType = null;
 
@@ -4662,6 +4668,10 @@
 				//otherwise don't clear because infiniteScrolling is enabled
 			},
 
+			clearPreservedDataSourceOptions: function() {
+				this.storedDataSourceOpts = null;
+			},
+
 			destroy: function() {
 				var markup;
 				// set input value attrbute in markup
@@ -4689,12 +4699,16 @@
 			},
 
 			getDataOptions: function( options, callback ) {
+				var dataSourceOptions = {};
 				var opts = {};
 				var val, viewDataOpts;
 
 				options = options || {};
 
-				opts.filter = ( this.$filters.length > 0 ) ? this.$filters.selectlist( 'selectedItem' ) : 'all';
+				opts.filter = ( this.$filters.length > 0 ) ? this.$filters.selectlist( 'selectedItem' ) : {
+					text: 'All',
+					value: 'all'
+				};
 				opts.view = this.currentView;
 
 				if ( !this.infiniteScrollingEnabled ) {
@@ -4714,14 +4728,24 @@
 					opts.search = val;
 				}
 
+				if ( options.dataSourceOptions ) {
+					dataSourceOptions = options.dataSourceOptions;
+					if ( options.preserveDataSourceOptions ) {
+						this.storedDataSourceOpts = ( this.storedDataSourceOpts ) ? $.extend( this.storedDataSourceOpts, dataSourceOptions ) : dataSourceOptions;
+					}
+				}
+				if ( this.storedDataSourceOpts ) {
+					dataSourceOptions = $.extend( this.storedDataSourceOpts, dataSourceOptions );
+				}
+
 				viewDataOpts = $.fn.repeater.viewTypes[ this.viewType ] || {};
 				viewDataOpts = viewDataOpts.dataOptions;
 				if ( viewDataOpts ) {
 					viewDataOpts.call( this, opts, function( obj ) {
-						callback( obj );
+						callback( $.extend( obj, dataSourceOptions ) );
 					} );
 				} else {
-					callback( opts );
+					callback( $.extend( opts, dataSourceOptions ) );
 				}
 			},
 
@@ -5318,7 +5342,8 @@
 				var self = this;
 				var data, i, $item, l;
 
-				var eachFunc = function() {
+				//this function is necessary because lint yells when a function is in a loop
+				var checkIfItemMatchesValue = function() {
 					$item = $( this );
 					data = $item.data( 'item_data' ) || {};
 					if ( data[ items[ i ].property ] === items[ i ].value ) {
@@ -5359,8 +5384,7 @@
 							selectItem( $item, items[ i ].selected );
 						}
 					} else if ( items[ i ].property !== undefined && items[ i ].value !== undefined ) {
-						//lint demanded this function not be within this loop
-						this.$canvas.find( '.repeater-list table tbody tr' ).each( eachFunc );
+						this.$canvas.find( '.repeater-list table tbody tr' ).each( checkIfItemMatchesValue );
 					}
 				}
 			};
@@ -5786,9 +5810,20 @@
 			$.fn.repeater.Constructor.prototype.thumbnail_setSelectedItems = function( items, force ) {
 				var selectable = this.viewOptions.thumbnail_selectable;
 				var self = this;
-				var i, $item, l;
+				var i, $item, l, n;
 
-				var eachFunc = function() {
+				//this function is necessary because lint yells when a function is in a loop
+				var compareItemIndex = function() {
+					if ( n === items[ i ].index ) {
+						$item = $( this );
+						return false;
+					} else {
+						n++;
+					}
+				};
+
+				//this function is necessary because lint yells when a function is in a loop
+				var compareItemSelector = function() {
 					$item = $( this );
 					if ( $item.is( items[ i ].selector ) ) {
 						selectItem( $item, items[ i ].selected );
@@ -5819,18 +5854,21 @@
 				}
 				for ( i = 0; i < l; i++ ) {
 					if ( items[ i ].index !== undefined ) {
-						$item = this.$canvas.find( '.repeater-thumbnail-cont .selectable:nth-child(' + ( items[ i ].index + 1 ) + ')' );
+						$item = $();
+						n = 0;
+						this.$canvas.find( '.repeater-thumbnail-cont .selectable' ).each( compareItemIndex );
 						if ( $item.length > 0 ) {
 							selectItem( $item, items[ i ].selected );
 						}
 					} else if ( items[ i ].selector ) {
-						this.$canvas.find( '.repeater-thumbnail-cont .selectable' ).each( eachFunc );
+						this.$canvas.find( '.repeater-thumbnail-cont .selectable' ).each( compareItemSelector );
 					}
 				}
 			};
 
 			//ADDITIONAL DEFAULT OPTIONS
 			$.fn.repeater.defaults = $.extend( {}, $.fn.repeater.defaults, {
+				thumbnail_alignment: 'justify',
 				thumbnail_infiniteScroll: false,
 				thumbnail_itemRendered: null,
 				thumbnail_selectable: false,
@@ -5850,13 +5888,27 @@
 				},
 				renderer: {
 					render: function( helpers, callback ) {
+						var alignment = this.viewOptions.thumbnail_alignment;
 						var $item = this.$canvas.find( '.repeater-thumbnail-cont' );
 						var obj = {};
-						var $empty;
+						var $empty, validAlignments;
 						if ( $item.length > 0 ) {
 							obj.action = 'none';
 						} else {
 							$item = $( '<div class="clearfix repeater-thumbnail-cont" data-container="true" data-infinite="true" data-preserve="shallow"></div>' );
+							if ( alignment && alignment !== 'none' ) {
+								validAlignments = {
+									'center': 1,
+									'justify': 1,
+									'left': 1,
+									'right': 1
+								};
+								alignment = ( validAlignments[ alignment ] ) ? alignment : 'justify';
+								$item.addClass( 'align-' + alignment );
+								this.thumbnail_injectSpacers = true;
+							} else {
+								this.thumbnail_injectSpacers = false;
+							}
 						}
 						obj.item = $item;
 						if ( helpers.data.items.length < 1 ) {
@@ -5881,8 +5933,8 @@
 							var $item;
 							if ( helpers.item !== undefined ) {
 								obj.item = helpers.item;
+								$item = $( obj.item );
 								if ( selectable ) {
-									$item = $( obj.item );
 									$item.addClass( 'selectable' );
 									$item.on( 'click', function() {
 										if ( !$item.hasClass( selected ) ) {
@@ -5900,6 +5952,9 @@
 											self.$element.trigger( 'deselected.fu.repeaterThumbnail', $item );
 										}
 									} );
+								}
+								if ( this.thumbnail_injectSpacers ) {
+									$item.after( '<span class="spacer">&nbsp;</span>' );
 								}
 							}
 							if ( this.viewOptions.thumbnail_itemRendered ) {
