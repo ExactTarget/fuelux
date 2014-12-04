@@ -112,7 +112,7 @@
 			//keep event from firing twice in Chrome
 			if (!e || (e.target === e.originalEvent.target)) {
 				//stop bubbling, otherwise event fires twice in Firefox.
-				if(!!e){e.preventDefault();}
+				if(Boolean(e)){e.preventDefault();}
 				this.state.checked = !this.state.checked;
 
 				this._toggleCheckedState();
