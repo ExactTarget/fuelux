@@ -219,10 +219,10 @@
 			if(options.dataSourceOptions){
 				dataSourceOptions = options.dataSourceOptions;
 				if(options.preserveDataSourceOptions){
-					this.storedDataSourceOpts = dataSourceOptions;
+					this.storedDataSourceOpts = (this.storedDataSourceOpts) ? $.extend(this.storedDataSourceOpts, dataSourceOptions) : dataSourceOptions;
 				}
 			}
-			if(this.storedDataSourceOpts && !options.preserveDataSourceOptions){
+			if(this.storedDataSourceOpts){
 				dataSourceOptions = $.extend(this.storedDataSourceOpts, dataSourceOptions);
 			}
 
