@@ -186,11 +186,11 @@
 
 		getDataOptions: function(options, callback){
 			var opts = {};
-			var val, viewDataOpts;
+			var dataSourceOptions, val, viewDataOpts;
 
 			options = options || {};
 
-			opts.filter = (this.$filters.length>0) ? this.$filters.selectlist('selectedItem') : 'all';
+			opts.filter = (this.$filters.length>0) ? this.$filters.selectlist('selectedItem') : { text: 'All', value: 'all' };
 			opts.view = this.currentView;
 
 			if(!this.infiniteScrollingEnabled){
@@ -210,14 +210,15 @@
 				opts.search = val;
 			}
 
+			dataSourceOptions = options.dataSourceOptions || {};
 			viewDataOpts = $.fn.repeater.viewTypes[this.viewType] || {};
 			viewDataOpts = viewDataOpts.dataOptions;
 			if(viewDataOpts){
 				viewDataOpts.call(this, opts, function(obj){
-					callback(obj);
+					callback($.extend(obj, dataSourceOptions));
 				});
 			}else{
-				callback(opts);
+				callback($.extend(opts, dataSourceOptions));
 			}
 		},
 

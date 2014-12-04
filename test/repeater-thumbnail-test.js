@@ -231,9 +231,18 @@ define(function(require){
 			var $cont = $repeater.find('.repeater-thumbnail-cont');
 
 			setTimeout(function(){
+				var n = 0;
+
 				start();
 
-				$repeater.find('.repeater-thumbnail:nth-child(5)').addClass('test');
+				$repeater.find('.repeater-thumbnail').each(function(){
+					if(n===4){
+						$(this).addClass('test');
+						return false;
+					}else{
+						n++;
+					}
+				});
 
 				$repeater.repeater('thumbnail_setSelectedItems', [{ index: 0 }]);
 				equal($repeater.repeater('thumbnail_getSelectedItems').length, 1, 'correct number of items selected');
@@ -251,6 +260,64 @@ define(function(require){
 		$repeater.repeater({
 			dataSource: dataSource,
 			thumbnail_selectable: true
+		});
+	});
+
+	asyncTest('should handle alignment option properly', function(){
+		var alignment = 'none';
+		var $repeater = $(this.$markup);
+		var self = this;
+
+		afterSource = function(){
+			var $cont = $repeater.find('.repeater-thumbnail-cont');
+
+			setTimeout(function(){
+				start();
+
+				switch(alignment){
+					case 'center':
+						equal($cont.hasClass('align-center'), true, 'repeater-thumbnail-cont has align-center class when alignment option set to ' + alignment);
+						equal($cont.find('span.spacer').length>0, true, 'repeater-thumbnail-cont contains spacers when alignment option set to ' + alignment);
+						alignment = 'justify';
+						break;
+					case 'justify':
+						equal($cont.hasClass('align-justify'), true, 'repeater-thumbnail-cont has align-justify class when alignment option set to ' + alignment);
+						equal($cont.find('span.spacer').length>0, true, 'repeater-thumbnail-cont contains spacers when alignment option set to ' + alignment);
+						alignment = 'left';
+						break;
+					case 'left':
+						equal($cont.hasClass('align-left'), true, 'repeater-thumbnail-cont has align-left class when alignment option set to ' + alignment);
+						equal($cont.find('span.spacer').length>0, true, 'repeater-thumbnail-cont contains spacers when alignment option set to ' + alignment);
+						alignment = 'right';
+						break;
+					case 'right':
+						equal($cont.hasClass('align-right'), true, 'repeater-thumbnail-cont has align-right class when alignment option set to ' + alignment);
+						equal($cont.find('span.spacer').length>0, true, 'repeater-thumbnail-cont contains spacers when alignment option set to ' + alignment);
+						alignment = false;
+						break;
+					default:
+						equal($cont.hasClass('align-center align-justify align-left align-right'), false, 'repeater-thumbnail-cont does not have alignment classes when alignment set to ' + alignment);
+						equal($cont.find('span.spacer').length, 0, 'repeater-thumbnail-cont does not contain spacers when alignment option set to ' + alignment);
+						if(alignment==='none'){
+							alignment = 'center';
+						}else{
+							return;
+						}
+				}
+
+				stop();
+				$repeater.remove();
+				$repeater = $(self.$markup);
+				$repeater.repeater({
+					dataSource: dataSource,
+					thumbnail_alignment: alignment
+				});
+			}, 0);
+		};
+
+		$repeater.repeater({
+			dataSource: dataSource,
+			thumbnail_alignment: alignment
 		});
 	});
 });
