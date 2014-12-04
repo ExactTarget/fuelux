@@ -59,15 +59,28 @@ define(function(require){
 		equal($chk1.is(':disabled'), false, 're-enabled');
 	});
 
-	test("should check/uncheck checkbox", function () {
+	test("toggle should check/uncheck checkbox", function () {
 		var $fixture = $(html).appendTo('#qunit-fixture');
 		var $chk1 = $fixture.find('#Checkbox1');
 
-		equal($chk1.is(':checked'), true, 'checked');
+		equal($chk1.is(':checked'), true, 'starts checked - confirmation by is(:checked)');
 		$chk1.checkbox('toggle');
-		equal($chk1.is(':checked'), false, 'unchecked');
+		equal($chk1.is(':checked'), false, 'calling toggle unchecks - confirmation by is(:checked)');
 		$chk1.checkbox('toggle');
-		equal($chk1.is(':checked'), true, 'checked');
+		equal($chk1.is(':checked'), true, 'calling toggle again ends with checked - confirmation by is(:checked)');
+
+		$fixture.remove();
+	});
+
+	test("click should check/uncheck checkbox", function () {
+		var $fixture = $(html).appendTo('#qunit-fixture');
+		var $chk1 = $fixture.find('#Checkbox1');
+
+		equal($chk1.is(':checked'), true, 'starts checked - confirmation by is(:checked)');
+		$chk1.trigger('click');
+		equal($chk1.is(':checked'), false, 'calling click unchecks - confirmation by is(:checked)');
+		$chk1.trigger('click');
+		equal($chk1.is(':checked'), true, 'calling click again checks - confirmation by is(:checked)');
 
 		$fixture.remove();
 	});
