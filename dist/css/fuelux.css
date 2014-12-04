@@ -1214,6 +1214,7 @@
   border: 1px solid #ddd;
   color: #666;
   float: left;
+  font-size: 14px;
   min-height: 110px;
   min-width: 100px;
   margin: 8px 7px;
@@ -1229,6 +1230,58 @@
   overflow-y: auto;
   padding: 6px;
   width: 100%;
+}
+.fuelux .repeater-thumbnail-cont.align-center,
+.fuelux .repeater-thumbnail-cont.align-justify,
+.fuelux .repeater-thumbnail-cont.align-left,
+.fuelux .repeater-thumbnail-cont.align-right {
+  position: relative;
+  font-size: 0.1px;
+}
+.fuelux .repeater-thumbnail-cont.align-center:after,
+.fuelux .repeater-thumbnail-cont.align-justify:after,
+.fuelux .repeater-thumbnail-cont.align-left:after,
+.fuelux .repeater-thumbnail-cont.align-right:after {
+  display: inline-block;
+  width: 100%;
+  content: '';
+}
+.fuelux .repeater-thumbnail-cont.align-center .infinitescroll-end,
+.fuelux .repeater-thumbnail-cont.align-justify .infinitescroll-end,
+.fuelux .repeater-thumbnail-cont.align-left .infinitescroll-end,
+.fuelux .repeater-thumbnail-cont.align-right .infinitescroll-end,
+.fuelux .repeater-thumbnail-cont.align-center .infinitescroll-load,
+.fuelux .repeater-thumbnail-cont.align-justify .infinitescroll-load,
+.fuelux .repeater-thumbnail-cont.align-left .infinitescroll-load,
+.fuelux .repeater-thumbnail-cont.align-right .infinitescroll-load {
+  display: inline-block;
+  width: 100%;
+}
+.fuelux .repeater-thumbnail-cont.align-center .repeater-thumbnail,
+.fuelux .repeater-thumbnail-cont.align-justify .repeater-thumbnail,
+.fuelux .repeater-thumbnail-cont.align-left .repeater-thumbnail,
+.fuelux .repeater-thumbnail-cont.align-right .repeater-thumbnail {
+  display: inline-block;
+  float: none;
+  font-size: 14px;
+}
+.fuelux .repeater-thumbnail-cont.align-center .repeater-thumbnail:after,
+.fuelux .repeater-thumbnail-cont.align-justify .repeater-thumbnail:after,
+.fuelux .repeater-thumbnail-cont.align-left .repeater-thumbnail:after,
+.fuelux .repeater-thumbnail-cont.align-right .repeater-thumbnail:after {
+  content: ' ';
+}
+.fuelux .repeater-thumbnail-cont.align-center {
+  text-align: center;
+}
+.fuelux .repeater-thumbnail-cont.align-justify {
+  text-align: justify;
+}
+.fuelux .repeater-thumbnail-cont.align-left {
+  text-align: left;
+}
+.fuelux .repeater-thumbnail-cont.align-right {
+  text-align: right;
 }
 .fuelux .repeater-thumbnail-cont div.empty {
   font-style: italic;
