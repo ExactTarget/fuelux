@@ -111,12 +111,21 @@
 			if (e.which === 13) {
 				e.preventDefault();
 				this.action();
-			} else {
+			}
+			else if (e.which === 9) {
+				e.preventDefault();
+			}
+			else {
 				val = this.$input.val();
-				if(!val){
-					this.clear();
-				}else if(val!==this.activeSearch){
+
+				if(val!==this.activeSearch){
 					this.$icon.removeClass(remove).addClass(search);
+					if(val) {
+						this.$element.removeClass('searched');
+					}
+					else if (this.options.clearOnEmpty){
+						this.clear();
+					}
 				}else{
 					this.$icon.removeClass(search).addClass(remove);
 				}
@@ -156,7 +165,9 @@
 		return ( methodReturn === undefined ) ? $set : methodReturn;
 	};
 
-	$.fn.search.defaults = {};
+	$.fn.search.defaults = {
+		clearOnEmpty: false
+	};
 
 	$.fn.search.Constructor = Search;
 
