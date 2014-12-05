@@ -40,8 +40,7 @@ module.exports = function(grunt) {
 			}
 			return 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + ver;
 		}),
-		trickyTestUrl: 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + '1.9.1',
-		travisCITestUrls: ['http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + '1.9.1'],
+		testUrl: ['http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + '1.9.1'],
 
 		//Tasks configuration
 		clean: {
@@ -240,10 +239,10 @@ module.exports = function(grunt) {
 					browsers: grunt.file.readYAML('sauce_browsers_tricky.yml'),
 					build: process.env.TRAVIS_BUILD_NUMBER || '',
 					testname: process.env.TRAVIS_JOB_ID || Math.floor((new Date()).getTime() / 1000 - 1230768000).toString(),
-					urls: '<%= trickyTestUrl %>'
+					urls: '<%= testUrl %>'
 				}
 			},
-			travisCIBrowsers: {
+			defaultBrowsers: {
 				options: {
 					username: '<%= sauceUser %>',
 					key: '<%= sauceKey %>',
@@ -253,7 +252,7 @@ module.exports = function(grunt) {
 					browsers: grunt.file.readYAML('sauce_browsers.yml'),
 					build: process.env.TRAVIS_BUILD_NUMBER || '',
 					testname: process.env.TRAVIS_JOB_ID || 'grunt-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
-					urls: '<%= travisCITestUrls %>'
+					urls: '<%= testUrl %>'
 				}
 			},
 			all: {
@@ -340,6 +339,7 @@ module.exports = function(grunt) {
 		scope: 'devDependencies'
 	});
 
+
 	/* -------------
 		BUILD
 	------------- */
@@ -347,53 +347,51 @@ module.exports = function(grunt) {
 	grunt.registerTask('distjs', 'concat, uglify, and beautifying JS', ['concat', 'uglify', 'jsbeautifier']);
 
 	// CSS distribution task
-	grunt.registerTask('distcss', 'less compile CSS', ['less', 'usebanner']);
+	grunt.registerTask('distcss', 'Compile LESS into CSS', ['less', 'usebanner']);
 
 	// ZIP distribution task
-	grunt.registerTask('distzip', 'compress and zip dist', ['copy:zipsrc', 'compress', 'clean:zipsrc']);
+	grunt.registerTask('distzip', 'Compress and zip "dist"', ['copy:zipsrc', 'compress', 'clean:zipsrc']);
 
 	// Full distribution task
-	grunt.registerTask('dist', 'build and zip dist --contributors should do this!!!', ['clean:dist', 'distcss', 'copy:fonts', 'distjs', 'distzip']);
+	grunt.registerTask('dist', 'Build "dist." Contributors: do not commit "dist."', ['clean:dist', 'distcss', 'copy:fonts', 'distjs', 'distzip']);
 
-	// The default build task
-	grunt.registerTask('default', 'run release tests. Does not build dist.', ['releasetest']);
-
-	// This task should be run to build dist directory. This is mostly for maintainers prior to a release.
-	// Contributors who run this will need to revert changes to dist afterwards (there shouldn't be a reason for a contributor to run this)
-	grunt.registerTask('release', 'run release tests and build dist directory', ['releasetest', 'dist']);
 
 	/* -------------
 		TESTS
 	------------- */
+	// The default build task
+	grunt.registerTask('default', 'Run simple tests. Does not build "dist."', ['test']);
+
 	// minimal tests for developmeent
-	grunt.registerTask('test', 'run jshint, qunit, and validation', ['jshint', 'qunit:simple', 'validation']);
+	grunt.registerTask('test', 'run jshint, qunit:simple, and validate HTML', ['jshint', 'qunit:simple', 'validation']);
 
-	// multiple jquery versions, but still no VMs
-	grunt.registerTask('releasetest', 'run testServer, jshint, and qunit', ['connect:testServer', 'jshint', 'qunit:full']);
+	// multiple jquery versions, then run SauceLabs VMs
+	grunt.registerTask('releasetest', 'run jshint, qunit:full, and saucelabs', ['connect:testServer', 'jshint', 'qunit:full', 'saucelabs']);
 
-
-	// can be run locally instead of through TravisCI, but requires the FuelUX Saucelabs API key file which is not public at this time.
-	// multiple jquery versions, sent to VMs
-	grunt.registerTask('saucelabs', 'run testServer, jshint, and qunity on saucelabs', ['connect:testServer', 'jshint', 'saucelabs-qunit:all']);
+	// can be run locally instead of through TravisCI, but requires the Fuel UX Saucelabs API key file which is not public at this time.
+	grunt.registerTask('saucelabs', 'run jshint, and qunit on saucelabs', ['connect:testServer', 'jshint', 'saucelabs-qunit:defaultBrowsers']);
 
 	// can be run locally instead of through TravisCI, but requires the FuelUX Saucelabs API key file which is not public at this time.
-	// multiple jquery versions, sent to VMs including IE8-11, etc.
-	grunt.registerTask('trickysauce', 'run testServer, jshint, and qunit for "tricky browsers" (IE8-11)', ['connect:testServer', 'jshint', 'saucelabs-qunit:trickyBrowsers']);
+	grunt.registerTask('trickysauce', 'run tests, jshint, and qunit for "tricky browsers" (IE8-11)', ['connect:testServer', 'jshint', 'saucelabs-qunit:trickyBrowsers']);
 
-	//command line travisci / saucelabs
-	grunt.registerTask('traviscisauce', 'run testServer, jshint, and saucelabs with TravisCI', ['connect:testServer', 'jshint', 'saucelabs-qunit:travisCIBrowsers']);
+	// Travis CI task. This task no longer uses SauceLabs. Please run 'grunt saucelabs' manually.
+	grunt.registerTask('travisci', 'Tests to run when in Travis CI environment', ['connect:testServer', 'jshint', 'qunit:full']);
 
-	//Travis CI task
-	grunt.registerTask('travisci', 'Run appropriate test strategy for Travis CI', function() {
-		(process.env.TRAVIS_SECURE_ENV_VARS === 'true') ? grunt.task.run('traviscisauce') : grunt.task.run('releasetest');
-	});
+
+	/* -------------
+		RELEASE
+	------------- */
+	// Maintainers: Run prior to a release. Includes SauceLabs VM tests.
+	grunt.registerTask('release', 'Run full tests, saucelabs, build "dist"', ['releasetest', 'dist']);
+
 
 	/* -------------
 		SERVE
 	------------- */
-	grunt.registerTask('serve', 'serve files without compilation', ['test', 'connect:server', 'watch:contrib']);
-	grunt.registerTask('servefast', 'serve files without compilation or testing (tests take time...)', ['connect:server', 'watch:contrib']);
-	grunt.registerTask('servedist', 'build dist directory and serve files with compilation', ['test', 'dist', 'connect:server', 'watch:full']);
+	// use '--no-livereload' to disable livereload
+	grunt.registerTask('serve', 'serve files without "dist" build', ['test', 'connect:server', 'watch:contrib']);
+	grunt.registerTask('servefast', 'serve files w/o "dist" build or tests', ['connect:server', 'watch:contrib']);
+	grunt.registerTask('servedist', 'test, build "dist", serve files w/ watch', ['test', 'dist', 'connect:server', 'watch:full']);
 
 
 };
