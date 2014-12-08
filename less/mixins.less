@@ -104,3 +104,10 @@
   padding: 0;
   text-shadow: 0 1px #fff;
 }
+
+.text-emphasis-variant(@color) {
+	color: @color;
+	a&:hover {
+		color: darken(@color, 10%);
+	}
+}
