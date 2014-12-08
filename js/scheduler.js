@@ -8,7 +8,7 @@
 
 // -- BEGIN UMD WRAPPER PREFACE --
 
-// For more information on UMD visit: 
+// For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
@@ -24,7 +24,7 @@
 		throw new Error('Fuel UX scheduler control requires combobox, datepicker, radio, selectlist, and spinbox.');
 	}
 	// -- END UMD WRAPPER PREFACE --
-		
+
 	// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.scheduler;
@@ -62,7 +62,7 @@
 
 		//initialize sub-controls
 		this.$element.find('.selectlist').selectlist();
-		this.$startDate.datepicker();
+		this.$startDate.datepicker(this.options.startDateOptions);
 		this.$startTime.combobox();
 		// init start time
 		if(this.$startTime.find('input').val()===''){
@@ -76,7 +76,7 @@
 			this.$repeatIntervalSpinbox.spinbox({ 'min': 1 });
 		}
 		this.$endAfter.spinbox({ 'value': 1, 'min': 1 });
-		this.$endDate.datepicker();
+		this.$endDate.datepicker(this.options.endDateOptions);
 		this.$element.find('.radio-custom').radio();
 
 		// bind events: 'change' is a Bootstrap JS fired event
@@ -88,7 +88,7 @@
 		this.$element.find('.selectlist').on('changed.fu.selectlist', $.proxy(this.changed, this));
 		this.$element.find('.spinbox').on('changed.fu.spinbox', $.proxy(this.changed, this));
 		this.$element.find('.repeat-monthly .radio, .repeat-yearly .radio').on('change.fu.scheduler', $.proxy(this.changed, this));
-		
+
 	};
 
 	Scheduler.prototype = {
@@ -101,10 +101,10 @@
 			this.$element.find('input').each(function() {
 				$(this).attr('value', $(this).val());
 			});
-			
+
 			// empty elements to return to original markup and store
 			this.$element.find('.datepicker .calendar').empty();
-			
+
 			markup = this.$element[0].outerHTML;
 
 			// destroy components
@@ -159,7 +159,7 @@
 
 				var p = new RegExp(re1+re2+re3+re4+re5,["i"]);
 				var m = p.exec(offset);
-				if (m != null)
+				if (m !== null)
 				{
 					var c1=m[1];
 					var d1=m[2];
