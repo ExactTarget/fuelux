@@ -118,7 +118,9 @@ define(function(require){
 
 		//this doesn't work right from terminal, but, if you open in browser you'll see 'changed' in console
 		$chk1.on('change', function(){
-			console.log('change fired');
+			if(window.console && window.console.log) {
+				console.log('change fired');
+			}
 			changeOccurred = true;
 		});
 
