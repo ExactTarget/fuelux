@@ -354,7 +354,16 @@
 			if(date){
 				if(this.moment){	//if we have moment, use that to parse the dates
 					momentParse = function(type, d){
-						d = (type==='b') ? moment(d, self.momentFormat) : moment(d);
+						if(type==='b') {
+							d = moment(d, self.momentFormat);
+						}
+						else {
+							// moment shows deprecated warning if sent poorly formated string
+							// building via "new Date" first
+							// still possible unpredictable results if the string is kindof well formated
+							d =  moment( new Date(d) );
+						}
+
 						return (d.isValid()===true) ? d.toDate() : new Date(NaN);
 					};
 					use = (typeof(date)==='string') ? ['b', 'a'] : ['a', 'b'];
