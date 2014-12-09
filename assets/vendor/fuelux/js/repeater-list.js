@@ -74,7 +74,8 @@
 			var self = this;
 			var data, i, $item, l;
 
-			var eachFunc = function(){
+			//this function is necessary because lint yells when a function is in a loop
+			var checkIfItemMatchesValue = function(){
 				$item = $(this);
 				data = $item.data('item_data') || {};
 				if(data[items[i].property]===items[i].value){
@@ -115,8 +116,7 @@
 						selectItem($item, items[i].selected);
 					}
 				}else if(items[i].property!==undefined && items[i].value!==undefined){
-					//lint demanded this function not be within this loop
-					this.$canvas.find('.repeater-list table tbody tr').each(eachFunc);
+					this.$canvas.find('.repeater-list table tbody tr').each(checkIfItemMatchesValue);
 				}
 			}
 		};

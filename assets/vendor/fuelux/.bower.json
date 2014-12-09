@@ -1,7 +1,7 @@
 {
   "name": "fuelux",
   "description": "Extending Bootstrap with additional lightweight JavaScript controls.",
-  "version": "3.3.1",
+  "version": "3.4.0",
   "keywords": [
     "application",
     "bootstrap",
@@ -57,13 +57,14 @@
     "dist/fonts/fuelux.ttf",
     "dist/fonts/fuelux.woff"
   ],
-  "_release": "3.3.1",
+  "_release": "3.4.0",
   "_resolution": {
     "type": "version",
-    "tag": "3.3.1",
-    "commit": "72ecf3e4b9c7c4ceaa11d61163877cb3f72409c7"
+    "tag": "3.4.0",
+    "commit": "96dd8e80df2d008dae7092650773dfd84e4eee01"
   },
   "_source": "git://github.com/ExactTarget/fuelux.git",
-  "_target": "~3.3.1",
-  "_originalSource": "fuelux"
+  "_target": "~3.4.0",
+  "_originalSource": "fuelux",
+  "_direct": true
 }
