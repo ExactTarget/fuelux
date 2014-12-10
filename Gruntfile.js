@@ -229,6 +229,16 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		replace: {
+			dist: {
+				src: ['DETAILS.md', 'README.md'],
+				overwrite: true,                 // overwrite matched source files
+				replacements: [{
+					from: /fuelux\/\d\.\d\.\d/g,
+					to: "fuelux/<%= pkg.version %>"
+				}]
+			}
+		},
 		'saucelabs-qunit': {
 			trickyBrowsers: {
 				options: {
@@ -360,7 +370,7 @@ module.exports = function(grunt) {
 
 	// This task should be run to build dist directory. This is mostly for maintainers prior to a release.
 	// Contributors who run this will need to revert changes to dist afterwards (there shouldn't be a reason for a contributor to run this)
-	grunt.registerTask('release', 'run release tests and build dist directory', ['releasetest', 'dist']);
+	grunt.registerTask('release', 'run release tests and build dist directory', ['releasetest', 'dist', 'replace']);
 
 	/* -------------
 		TESTS
