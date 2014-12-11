@@ -40,7 +40,7 @@ define(function(require){
 					return this.top;
 				},
 				bottom: function () {
-					this.bottom = $('.fu-docs-footer').outerHeight(true);
+					this.bottom = $('.fu-footer').outerHeight(true);
 					return this.bottom;
 				}
 			}

@@ -53,7 +53,7 @@ dt[id]{
   position: absolute;
   opacity: 0;
   padding: 0 5px 0 10px;
-  height: 100%;
+  height: auto;
   width: 20px;
   color: #000;
   -webkit-transition: opacity 0.3s ease-in-out 0s;
@@ -62,7 +62,7 @@ dt[id]{
 }
 
 .header-anchor .glyphicon {
-	top 0;
+	top: 0;
 }
 
 h1 .header-anchor {
