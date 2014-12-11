@@ -31,7 +31,7 @@
       <thead>
         <tr>
           <th style="width: 150px;">Attribute</th>
-          <th style="width: 50px;">Description</th>
+          <th style="width: 50px;">Value</th>
           <th>Description</th>
         </tr>
       </thead>
@@ -41,6 +41,43 @@
           <td>previous</td>
           <td>Prevents the user from navigating to a previous step</td>
         </tr>
+        <tr>
+          <td>step</td>
+          <td>1</td>
+          <td>Sets the current wizard step. Replace the value with a number of the wizard step to load on.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- ./fu-table-responsive -->
+
+  <h3 id="wizard-usage-options">Options</h3>
+  <p>You can pass options via Javascript upon initialization.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th style="width: 100px;">Name</th>
+        <th style="width: 100px;">type</th>
+        <th style="width: 200px;">default</th>
+        <th>description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>disablePreviousStep</td>
+        <td>boolean</td>
+        <td>false</td>
+        <td>Dictates whether the wizard should make the previous step button disabled.
+          Setting this value to <code>true</code> will make the previous step button disabled</td>
+      </tr>
+      <tr>
+        <td>selectedItem</td>
+        <td>object</td>
+        <td>{ step: -1 }</td>
+        <td>By default <code>{ step: -1 }</code> means it will attempt to look for "active" class in order to set the
+          step. Changing the step number would set the step that is loaded by default when the wizard loads.
+        </td>
+      </tr>
       </tbody>
     </table>
   </div><!-- ./fu-table-responsive -->
