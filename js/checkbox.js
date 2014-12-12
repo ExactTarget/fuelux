@@ -117,11 +117,12 @@
 					//stop bubbling, otherwise event fires twice in Firefox.
 					e.preventDefault();
 					//make change event still fire (prevented by preventDefault)
-					this.$element.trigger('change', e);
+					//
 				}
 				this.state.checked = !this.state.checked;
 
 				this._toggleCheckedState();
+				this.$element.trigger('change', e);
 			}
 		},
 
