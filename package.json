@@ -71,7 +71,7 @@
     "url": "https://raw.github.com/ExactTarget/fuelux/{version}/dist/fuelux.zip",
     "type": "directory",
     "dependencies": {
-      "moment": "http://momentjs.com/downloads/moment-with-langs.js"
+      "moment": "http://momentjs.com/downloads/moment-with-locales.js"
     }
   },
   "dependencies": {
