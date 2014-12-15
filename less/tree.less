@@ -49,6 +49,7 @@
 		.tree-branch-header {
 			position: relative;
 			border-radius: 6px;
+			white-space: nowrap;
 
 			.tree-branch-name:hover {
 				color: @treeHoverText;
@@ -94,6 +95,7 @@
 	}
 
 	.tree-item {
+		white-space: nowrap;
 		position: relative;
 		cursor: pointer;
 		border-radius: 6px;
@@ -128,7 +130,10 @@
 		color: @treeHoverText;
 	}
 
-	// folder selectable
+	// - - - - - - - - - - - - - -
+	// folder selectable option
+	// - - - - - - - - - - - - - -
+
 	&.tree-folder-select {
 
 		.tree-branch {

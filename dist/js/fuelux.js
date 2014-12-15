@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.3.1
+ * Fuel UX v3.4.0
  * Copyright 2012-2014 ExactTarget
  * Licensed under the BSD-3-Clause license ()
  */
@@ -108,6 +108,7 @@
 			check: function() {
 				this.state.checked = true;
 				this.$element.prop( 'checked', true );
+				this.$element.attr( 'checked', 'checked' );
 				this._setCheckedClass();
 				this.$element.trigger( 'checked.fu.checkbox' );
 			},
@@ -115,6 +116,7 @@
 			uncheck: function() {
 				this.state.checked = false;
 				this.$element.prop( 'checked', false );
+				this.$element.removeAttr( 'checked' );
 				this._resetClasses();
 				this.$element.trigger( 'unchecked.fu.checkbox' );
 			},
@@ -126,9 +128,11 @@
 			toggle: function( e ) {
 				//keep event from firing twice in Chrome
 				if ( !e || ( e.target === e.originalEvent.target ) ) {
-					//stop bubbling, otherwise event fires twice in Firefox.
 					if ( Boolean( e ) ) {
+						//stop bubbling, otherwise event fires twice in Firefox.
 						e.preventDefault();
+						//make change event still fire (prevented by preventDefault)
+						this.$element.trigger( 'change', e );
 					}
 					this.state.checked = !this.state.checked;
 
@@ -5868,7 +5872,7 @@
 
 			//ADDITIONAL DEFAULT OPTIONS
 			$.fn.repeater.defaults = $.extend( {}, $.fn.repeater.defaults, {
-				thumbnail_alignment: 'justify',
+				thumbnail_alignment: 'left',
 				thumbnail_infiniteScroll: false,
 				thumbnail_itemRendered: null,
 				thumbnail_selectable: false,

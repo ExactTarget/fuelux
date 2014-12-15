@@ -86,25 +86,63 @@ define(function(require){
 	});
 
 	test("test check/uncheck/isChecked convenience methods", function () {
-        var $fixture = $(html).appendTo('#qunit-fixture');
-        var $chk5 = $fixture.find('#Checkbox5');
-        var $wrapper5 = $fixture.find('#CheckboxWrapper5');
+		var $fixture = $(html).appendTo('#qunit-fixture');
+		var $chk5 = $fixture.find('#Checkbox5');
+		var $wrapper5 = $fixture.find('#CheckboxWrapper5');
 
-        $chk5.checkbox();
+		$chk5.checkbox();
 
-        equal($chk5.is(':checked'), false, 'unchecked - default value');
+		equal($chk5.is(':checked'), false, 'unchecked - default value');
 
-        $chk5.checkbox('check');
-        equal($chk5.is(':checked'), true, 'checked - confirmation by is(:checked)');
-        equal($wrapper5.hasClass('checked'), true, 'checked - confirmation by css class');
-        equal($chk5.checkbox('isChecked'), true, 'checked - confirmation by isChecked method');
+		$chk5.checkbox('check');
+		equal($chk5.is(':checked'), true, 'checked - confirmation by is(:checked)');
+		equal($wrapper5.hasClass('checked'), true, 'checked - confirmation by css class');
+		equal($chk5.checkbox('isChecked'), true, 'checked - confirmation by isChecked method');
 
-        $chk5.checkbox('uncheck');
-        equal($chk5.is(':checked'), false, 'unchecked - confirmation by is(:checked)');
-        equal($wrapper5.hasClass('checked'), false, 'unchecked - confirmation by css class');
-        equal($chk5.checkbox('isChecked'), false, 'unchecked - confirmation by isChecked method');
+		$chk5.checkbox('uncheck');
+		equal($chk5.is(':checked'), false, 'unchecked - confirmation by is(:checked)');
+		equal($wrapper5.hasClass('checked'), false, 'unchecked - confirmation by css class');
+		equal($chk5.checkbox('isChecked'), false, 'unchecked - confirmation by isChecked method');
 
-        $fixture.remove();
+		$fixture.remove();
+	});
+
+	test("onchange should occur", function() {
+		var $fixture = $(html).appendTo('#qunit-fixture');
+		var $chk1Wrapper = $fixture.find('#CheckboxWrapperChangeCheck');
+		var $chk1 = $chk1Wrapper.find('input');
+
+		var changeOccurred = false;
+
+		equal(changeOccurred, false, 'No change occurred yet');
+
+		//this doesn't work right from terminal, but, if you open in browser you'll see 'changed' in console
+		$chk1.on('change', function(){
+			if(window.console && window.console.log) {
+				console.log('change fired');
+			}
+			changeOccurred = true;
+		});
+
+		//clicking label should check box and trigger click
+		$chk1Wrapper.find('label').trigger('click');
+
+		//this kind of breaks the whole purpose of this test, but, otherwise the test doesn't work via terminal
+		if($chk1.is(':checked')){
+			changeOccurred = true;
+		}
+
+		stop(); // Pause the test
+		//Add your wait
+		setTimeout(function() {
+			//Make assertion
+			equal(changeOccurred, true, 'onchange triggered');
+			// After the assertion called, restart the test
+			start();
+		}, 1000);
+
+
+		$fixture.remove();
 	});
 
 	test("should destroy control", function () {

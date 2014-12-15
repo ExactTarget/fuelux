@@ -228,6 +228,16 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		replace: {
+			dist: {
+				src: ['DETAILS.md', 'README.md'],
+				overwrite: true,                 // overwrite matched source files
+				replacements: [{
+					from: /fuelux\/\d\.\d\.\d/g,
+					to: "fuelux/<%= pkg.version %>"
+				}]
+			}
+		},
 		'saucelabs-qunit': {
 			trickyBrowsers: {
 				options: {
@@ -340,6 +350,7 @@ module.exports = function(grunt) {
 	});
 
 
+
 	/* -------------
 		BUILD
 	------------- */
@@ -381,8 +392,8 @@ module.exports = function(grunt) {
 	/* -------------
 		RELEASE
 	------------- */
-	// Maintainers: Run prior to a release. Includes SauceLabs VM tests.
-	grunt.registerTask('release', 'Run full tests, saucelabs, build "dist"', ['releasetest', 'dist']);
+	// Maintainers: Run prior to a release. Includes SauceLabs VM tests. Run `grunt bump` first.
+	grunt.registerTask('release', 'Run full tests, saucelabs, build "dist"', ['releasetest', 'dist', 'replace:dist']);
 
 
 	/* -------------
