@@ -90,20 +90,28 @@
 			this.$element.trigger( 'disabled.fu.checkbox' );
 		},
 
-		check: function () {
+		check: function (e) {
 			this.state.checked = true;
 			this.$element.prop('checked', true);
 			this.$element.attr('checked','checked');
 			this._setCheckedClass();
 			this.$element.trigger( 'checked.fu.checkbox' );
+			if(Boolean(e)){
+				//make change event still fire (prevented by preventDefault)
+				this.$element.trigger('change', e);
+			}
 		},
 
-		uncheck: function () {
+		uncheck: function (e) {
 			this.state.checked = false;
 			this.$element.prop('checked', false);
 			this.$element.removeAttr('checked');
 			this._resetClasses();
 			this.$element.trigger( 'unchecked.fu.checkbox' );
+			if(Boolean(e)){
+				//make change event still fire (prevented by preventDefault)
+				this.$element.trigger('change', e);
+			}
 		},
 
 		isChecked: function () {
@@ -170,11 +178,11 @@
 			}
 		},
 
-		_toggleCheckedState: function() {
+		_toggleCheckedState: function(e) {
 			if( this.state.checked ) {
-				this.check();
+				this.check(e);
 			} else {
-				this.uncheck();
+				this.uncheck(e);
 			}
 		},
 
