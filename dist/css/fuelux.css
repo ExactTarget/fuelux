@@ -1873,85 +1873,11 @@ END
 .fuelux .monospace {
   font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
 }
-.fuelux .h1,
-.fuelux .h2,
-.fuelux .h3,
-.fuelux .h4,
-.fuelux .h5,
-.fuelux .h6 {
-  margin: 0;
-}
 .fuelux .text-sm {
   font-size: 14px * 0.85;
 }
 .fuelux .text-lg {
   font-size: 14px * 1.25;
-}
-.fuelux h1,
-.fuelux .h1 {
-  font-size: 36px;
-}
-.fuelux h2,
-.fuelux .h2 {
-  font-size: 30px;
-}
-.fuelux h3,
-.fuelux .h3 {
-  font-size: 24px;
-}
-.fuelux h4,
-.fuelux .h4 {
-  font-size: 18px;
-}
-.fuelux h5,
-.fuelux .h5 {
-  font-size: 14px;
-}
-.fuelux h6,
-.fuelux .h6 {
-  font-size: 12px;
-}
-.fuelux .text-dimmed {
-  color: #666666;
-}
-a.fuelux .text-dimmed:hover {
-  color: #4d4d4d;
-}
-.fuelux .text-muted {
-  color: #999999;
-}
-a.fuelux .text-muted:hover {
-  color: #808080;
-}
-.fuelux .text-primary {
-  color: #333333;
-}
-a.fuelux .text-primary:hover {
-  color: #1a1a1a;
-}
-.fuelux .text-success {
-  color: #3c763d;
-}
-a.fuelux .text-success:hover {
-  color: #2b542c;
-}
-.fuelux .text-info {
-  color: #31708f;
-}
-a.fuelux .text-info:hover {
-  color: #245269;
-}
-.fuelux .text-warning {
-  color: #8a6d3b;
-}
-a.fuelux .text-warning:hover {
-  color: #66512c;
-}
-.fuelux .text-danger {
-  color: #a94442;
-}
-a.fuelux .text-danger:hover {
-  color: #843534;
 }
 .fuelux .padding-xs {
   padding: 5px;

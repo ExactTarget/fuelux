@@ -108,6 +108,7 @@
 			check: function() {
 				this.state.checked = true;
 				this.$element.prop( 'checked', true );
+				this.$element.attr( 'checked', 'checked' );
 				this._setCheckedClass();
 				this.$element.trigger( 'checked.fu.checkbox' );
 			},
@@ -115,6 +116,7 @@
 			uncheck: function() {
 				this.state.checked = false;
 				this.$element.prop( 'checked', false );
+				this.$element.removeAttr( 'checked' );
 				this._resetClasses();
 				this.$element.trigger( 'unchecked.fu.checkbox' );
 			},
@@ -5870,7 +5872,7 @@
 
 			//ADDITIONAL DEFAULT OPTIONS
 			$.fn.repeater.defaults = $.extend( {}, $.fn.repeater.defaults, {
-				thumbnail_alignment: 'justify',
+				thumbnail_alignment: 'left',
 				thumbnail_infiniteScroll: false,
 				thumbnail_itemRendered: null,
 				thumbnail_selectable: false,
