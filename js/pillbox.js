@@ -349,6 +349,11 @@
 
 			if (this.acceptKeyCodes[e.keyCode]) {
 
+				// If this is a current edit, use the existing tag value.
+				if (this.currentEdit) {
+					value = this.currentEdit.data('value');
+				}
+
 				if (this.options.onKeyDown && this._isSuggestionsOpen()) {
 					$selection = this.$suggest.find('.pillbox-suggest-sel');
 
