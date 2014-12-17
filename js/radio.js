@@ -133,6 +133,7 @@
 		check: function () {
 			this.resetGroup();
 			this.$radio.prop('checked', true);
+			this.$radio.attr('checked','checked');
 			this.setState(this.$radio);
 		},
 
@@ -160,6 +161,7 @@
 
 		uncheck: function () {
 			this.$radio.prop('checked', false);
+			this.$radio.removeAttr('checked');
 			this.setState(this.$radio);
 		},
 
