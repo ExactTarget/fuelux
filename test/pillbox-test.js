@@ -465,8 +465,19 @@ define(function(require) {
 		}));
 		deepEqual($pillbox.pillbox('items')[0], {
 			text: 'test edit',
-			value: 'test edit'
+			value: 'foo'
 		}, 'pillbox item was able to be edited');
+
+		// No data-value tag is set. value should be same as text.
+		$pillbox.find('.pill-group > li:nth-child(4) span:first').click();
+		$input.val('test edit2');
+		$input.trigger($.Event('keydown', {
+			keyCode: 13
+		}));
+		deepEqual($pillbox.pillbox('items')[3], {
+			text: 'test edit2',
+			value: 'test edit2'
+		}, 'pillbox item was able to be edited (no data-value)');
 	});
 
 	test('Triggers behave as designed', function() {
@@ -487,7 +498,7 @@ define(function(require) {
 		$pillbox.on('added.fu.pillbox', function(ev, item) {
 			deepEqual(item, {
 				text: 'added test',
-				value: 'added test'
+				value: 'foo'
 			}, 'added event is triggered');
 		});
 		$input.val('added test');
@@ -499,7 +510,7 @@ define(function(require) {
 		$pillbox.on('removed.fu.pillbox', function(ev, item) {
 			deepEqual(item, {
 				text: 'added test',
-				value: 'added test'
+				value: 'foo'
 			}, 'removed event is triggered');
 		});
 		$pillbox.find('> ul > li:first > span:last').click();
@@ -511,7 +522,7 @@ define(function(require) {
 		$pillbox.on('edited.fu.pillbox', function(ev, item) {
 			deepEqual(item, {
 				text: 'edit test',
-				value: 'edit test'
+				value: 'foo'
 			}, 'edit event is triggered');
 		});
 		$pillbox.find('> ul > li:first').click();
