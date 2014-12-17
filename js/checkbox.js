@@ -113,12 +113,14 @@
 		toggle: function(e) {
 			//keep event from firing twice in Chrome
 			if (!e || (e.target === e.originalEvent.target)) {
-
 				this.state.checked = !this.state.checked;
 
 				this._toggleCheckedState();
 
 				if(Boolean(e)){
+					//stop bubbling, otherwise event fires twice in Firefox.
+					e.preventDefault();
+					//make change event still fire (prevented by preventDefault to avoid firefox bug, see preceeding line)
 					this.$element.trigger('change', e);
 				}
 			}
