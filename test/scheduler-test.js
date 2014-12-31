@@ -9,6 +9,9 @@ define(function(require){
 	// html = require('text!index.html!strip');
 	html = $('<div>'+html+'</div>').find('#MyScheduler');
 
+	var uninitializedHtml = html.clone();
+	uninitializedHtml.removeAttr('data-initializer');
+
 	require('bootstrap');
 	require('fuelux/scheduler');
 
@@ -192,6 +195,35 @@ define(function(require){
 		test = (!isPhantomJS) ? ($scheduler.find('.repeat-end .datepicker input').val() ==='03-31-2051' || $scheduler.find('.repeat-end .datepicker input').val() ==='03/31/2051' ) : true;
 		ok(($scheduler.find('.repeat-end .selectlist .selected-label').html()==='On date' && test), 'end on date set correctly');
 	});
+
+	test('should initialize with start date provided', function() {
+		//needed due to PhantomJS bug: https://github.com/ariya/phantomjs/issues/11151
+		var isPhantomJS = (window.navigator.userAgent.search('PhantomJS')>=0);
+		var $scheduler = $(uninitializedHtml).scheduler({
+			startDateOptions: { date: '03/31/2050' }
+		});
+		//make this test always present once PhantomJS fixes their bug
+		if(!isPhantomJS){
+			tmpDatepickerVal = $scheduler.find('.start-datetime .datepicker input').val();
+			equal( tmpDatepickerVal, '03/31/2050', 'startDate set correctly');
+		}
+	});
+
+	// TODO: need more end date test or dry out code where start and end use same methods
+	/*
+	test('should initialize with end date provided', function() {
+		//needed due to PhantomJS bug: https://github.com/ariya/phantomjs/issues/11151
+		var isPhantomJS = (window.navigator.userAgent.search('PhantomJS')>=0);
+		var $scheduler = $(uninitializedHtml).scheduler({
+			endDateOptions: { date: '03/31/2050' }
+		});
+		//make this test always present once PhantomJS fixes their bug
+		if(!isPhantomJS){
+			tmpDatepickerVal = $scheduler.find('.end-datetime .datepicker input').val();
+			equal( tmpDatepickerVal, '03/31/2050', 'endDate set correctly');
+		}
+	});
+	*/
 
 	test("should destroy control", function () {
 		var $el = $(html).scheduler();
