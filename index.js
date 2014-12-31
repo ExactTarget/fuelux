@@ -37,7 +37,11 @@ define(function(require) {
 		$container.append(markup);
 	});
 
+	// $('#myCustomCheckbox1 > input').on('change', function(){
+	// 	console.log('changed');
+	// });
 
+	// $('#myCustomCheckbox1').trigger('click');
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		COMBOBOX
 	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */

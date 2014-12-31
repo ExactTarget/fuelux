@@ -8,7 +8,7 @@
 
 // -- BEGIN UMD WRAPPER PREFACE --
 
-// For more information on UMD visit: 
+// For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
@@ -279,7 +279,7 @@
 							};
 
 							if(this.list_firstRender || differentColumns(this.list_columns, helpers.data.columns)){
-								this.$element.find('.repeater-list-header').remove();
+								this.$element.find('thead').remove();
 								this.list_columns = helpers.data.columns;
 								this.list_columnsSame = false;
 								this.list_firstRender = false;

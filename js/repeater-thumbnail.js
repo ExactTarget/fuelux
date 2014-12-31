@@ -100,7 +100,7 @@
 
 		//ADDITIONAL DEFAULT OPTIONS
 		$.fn.repeater.defaults = $.extend({}, $.fn.repeater.defaults, {
-			thumbnail_alignment: 'justify',
+			thumbnail_alignment: 'left',
 			thumbnail_infiniteScroll: false,
 			thumbnail_itemRendered: null,
 			thumbnail_selectable: false,
