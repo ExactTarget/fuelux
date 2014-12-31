@@ -250,4 +250,12 @@ $('#myCheckbox').on('checked.fu.checkbox', function (evt, item) {
 </label>
 {% endhighlight %}
 
+ <h3>Events</h3>
+    <p>Unlike the majority of Fuel UX controls, it is recommended to listen to and check the state of the checkbox control by listening to the native checkbox with the <code>change</code> event and check its status with the presence of the <code>checked</code> attribute. For the sample markup provided, this would be:</p>
+{% highlight js %}
+$('.checkbox input').on('change', function () {
+  console.log( $(this).is(':checked') );
+});
+{% endhighlight %}
+
 </div>
