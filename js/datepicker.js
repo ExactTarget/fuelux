@@ -349,23 +349,38 @@
 		//some code ripped from http://stackoverflow.com/questions/2182246/javascript-dates-in-ie-nan-firefox-chrome-ok
 		parseDate: function(date) {
 			var self = this;
-			var dt, isoExp, momentParse, month, parts, use;
+			var BAD_DATE = new Date(NaN);
+			var dt, isoExp, momentParse, momentParseWithFormat, tryMomentParseAll, month, parts, use;
 
 			if(date){
 				if(this.moment){	//if we have moment, use that to parse the dates
-					momentParse = function(type, d){
-						d = (type==='b') ? moment(d, self.momentFormat) : moment(d);
-						return (d.isValid()===true) ? d.toDate() : new Date(NaN);
+					momentParseWithFormat = function(d) {
+						var md = moment(d, self.momentFormat);
+						return (true === md.isValid()) ? md.toDate() : BAD_DATE;
 					};
-					use = (typeof(date)==='string') ? ['b', 'a'] : ['a', 'b'];
-					dt = momentParse(use[0], date);
-					if(!this.isInvalidDate(dt)){
-						return dt;
-					}else{
-						dt = momentParse(use[1], date);
-						if(!this.isInvalidDate(dt)){
-							return dt;
+					momentParse = function(d) {
+						var md = moment( new Date(d) );
+						return (true === md.isValid()) ? md.toDate() : BAD_DATE;
+					};
+
+					tryMomentParseAll = function(d, parseFunc1, parseFunc2) {
+						var pd = parseFunc1(d);
+						if (!self.isInvalidDate(pd)) {
+							return pd;
 						}
+						pd = parseFunc2(pd);
+						if (!self.isInvalidDate(pd)) {
+							return pd;
+						}
+						return BAD_DATE;
+					};
+
+					if ('string' === typeof(date)) {
+						// Attempts to parse date strings using this.momentFormat, falling back on newing a date
+						return tryMomentParseAll(date, momentParseWithFormat, momentParse);
+					} else {
+						// Attempts to parse date by newing a date object directly, falling back on parsing using this.momentFormat
+						return tryMomentParseAll(date, momentParse, momentParseWithFormat);
 					}
 				}else{	//if moment isn't present, use previous date parsing strategy
 					if(typeof(date)==='string'){
