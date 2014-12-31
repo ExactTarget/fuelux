@@ -76,12 +76,13 @@
     </table>
   </div><!-- ./fu-table-responsive -->
 
-  <p>All checkbox events are fired on the <code>.checkbox</code> classed element.</p>
+  <p>All checkbox events are fired on the <code>.checkbox</code> classed element. However, unlike the majority of Fuel UX controls, it is recommended to listen to and check the state of the checkbox control by listening to the native checkbox with the <code>change</code> event and check its status with the presence of the <code>checked</code> attribute. For the sample markup provided, this would be:</p>
 {% highlight js %}
-$('#myCheckbox').on('checked.fu.checkbox', function (evt, item) {
-  // do something
+$('.checkbox input').on('change', function () {
+  console.log( $(this).is(':checked') );
 });
 {% endhighlight %}
+
 
   <h2 id="checkbox-examples">Examples</h2>
 
