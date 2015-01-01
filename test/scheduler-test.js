@@ -9,8 +9,11 @@ define(function(require){
 	// html = require('text!index.html!strip');
 	html = $('<div>'+html+'</div>').find('#MyScheduler');
 
-	var uninitializedHtml = html.clone();
-	uninitializedHtml.removeAttr('data-initializer');
+	var uninitializedHtmlStartDate = html.clone();
+	uninitializedHtmlStartDate.removeAttr('data-initialize');
+
+	var uninitializedHtmlEndDate = html.clone();
+	uninitializedHtmlEndDate.removeAttr('data-initialize');
 
 	require('bootstrap');
 	require('fuelux/scheduler');
@@ -198,32 +201,32 @@ define(function(require){
 
 	test('should initialize with start date provided', function() {
 		//needed due to PhantomJS bug: https://github.com/ariya/phantomjs/issues/11151
-		var isPhantomJS = (window.navigator.userAgent.search('PhantomJS')>=0);
-		var $scheduler = $(uninitializedHtml).scheduler({
+		// var isPhantomJS = (window.navigator.userAgent.search('PhantomJS')>=0);
+		var $scheduler = $(uninitializedHtmlStartDate).scheduler({
 			startDateOptions: { date: '03/31/2050' }
 		});
 		//make this test always present once PhantomJS fixes their bug
-		if(!isPhantomJS){
-			tmpDatepickerVal = $scheduler.find('.start-datetime .datepicker input').val();
+		// if(!isPhantomJS){
+			var tmpDatepickerVal = $scheduler.find('.start-date input').val();
 			equal( tmpDatepickerVal, '03/31/2050', 'startDate set correctly');
-		}
+		// }
 	});
 
 	// TODO: need more end date test or dry out code where start and end use same methods
-	/*
+	
 	test('should initialize with end date provided', function() {
 		//needed due to PhantomJS bug: https://github.com/ariya/phantomjs/issues/11151
-		var isPhantomJS = (window.navigator.userAgent.search('PhantomJS')>=0);
-		var $scheduler = $(uninitializedHtml).scheduler({
-			endDateOptions: { date: '03/31/2050' }
+		// var isPhantomJS = (window.navigator.userAgent.search('PhantomJS')>=0);
+		var $scheduler = $(uninitializedHtmlEndDate).scheduler({
+			endDateOptions: { date: '04/01/2050' }
 		});
 		//make this test always present once PhantomJS fixes their bug
-		if(!isPhantomJS){
-			tmpDatepickerVal = $scheduler.find('.end-datetime .datepicker input').val();
-			equal( tmpDatepickerVal, '03/31/2050', 'endDate set correctly');
-		}
+		// if(!isPhantomJS){
+			var tmpDatepickerVal = $scheduler.find('.end-on-date input').val();
+			equal( tmpDatepickerVal, '04/01/2050', 'endDate set correctly');
+		// }
 	});
-	*/
+	
 
 	test("should destroy control", function () {
 		var $el = $(html).scheduler();
