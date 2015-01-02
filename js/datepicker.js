@@ -223,7 +223,7 @@
 
 		getCulture: function(){
 			if(this.moment){
-				return moment.lang();
+				return moment.locale();
 			}else{
 				throw MOMENT_NOT_AVAILABLE;
 			}
@@ -565,7 +565,7 @@
 		setCulture: function(cultureCode){
 			if(!cultureCode){ return false; }
 			if(this.moment){
-				moment.lang(cultureCode);
+				moment.locale(cultureCode);
 			}else{
 				throw MOMENT_NOT_AVAILABLE;
 			}
