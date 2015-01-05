@@ -48,29 +48,16 @@
 
 <body style="padding: 20px;">
 	<div class="container" style="padding: 20px; margin-top:20px;">
-		<div class="checkbox" id="myCheckbox">
-			<label class="checkbox-custom" data-initialize="checkbox">
-				<input class="sr-only" type="checkbox" value="">
-				<span class="checkbox-label">Custom checkbox unchecked on page load</span>
-			</label>
-		</div>
-		<div class="checkbox" id="myCheckbox2">
-			<label class="checkbox-custom" data-initialize="checkbox">
-				<input class="sr-only" checked="checked" type="checkbox" value="">
-				<span class="checkbox-label">Custom checkbox checked on page load</span>
-			</label>
-		</div>
-		<div class="checkbox" id="myCheckbox3">
-			<label class="checkbox-custom" data-initialize="checkbox">
-				<input class="sr-only" disabled="disabled" type="checkbox" value="">
-				<span class="checkbox-label">Disabled custom checkbox unchecked on page load</span>
-			</label>
-		</div>
-		<div class="checkbox" id="myCheckbox4">
-			<label class="checkbox-custom" data-initialize="checkbox">
-				<input class="sr-only" checked="checked" disabled="disabled" type="checkbox" value="">
-				<span class="checkbox-label">Disabled custom checkbox checked on page load</span>
-			</label>
+		<div class="thin-box">
+			<div class="search input-group searched" data-initialize="search" role="search" id="mySearch">
+				<input type="search" class="form-control" placeholder="Search">
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="button">
+								<span class="glyphicon glyphicon-search"></span>
+								<span class="sr-only">Search</span>
+							</button>
+						</span>
+			</div>
 		</div>
 
 	</div>
