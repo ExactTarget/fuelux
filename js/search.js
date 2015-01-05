@@ -118,7 +118,7 @@
 			else {
 				val = this.$input.val();
 
-				if(val!==this.activeSearch){
+				if(val!==this.activeSearch || !val){
 					this.$icon.removeClass(remove).addClass(search);
 					if(val) {
 						this.$element.removeClass('searched');
@@ -126,7 +126,8 @@
 					else if (this.options.clearOnEmpty){
 						this.clear();
 					}
-				}else{
+				}
+				else{
 					this.$icon.removeClass(search).addClass(remove);
 				}
 			}
