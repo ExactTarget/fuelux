@@ -105,6 +105,9 @@
 				this.moment = true;
 				this.momentFormat = this.options.momentConfig.format;
 				this.setCulture(this.options.momentConfig.culture);
+
+				// support moment with lang (< v2.8) or locale
+				moment.locale = moment.locale || moment.lang;
 			}
 
 			this.setRestrictedDates(this.restricted);
