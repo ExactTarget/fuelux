@@ -352,27 +352,29 @@
 		},
 
 		mousewheelHandler: function(event) {
-			var e = window.event || event; // old IE support
-			var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-			var self = this;
+			if (!this.options.disabled) {
+				var e = window.event || event; // old IE support
+				var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+				var self = this;
 
-			clearTimeout(this.mousewheelTimeout);
-			this.mousewheelTimeout = setTimeout(function() {
-				self.triggerChangedEvent();
-			}, 300);
+				clearTimeout(this.mousewheelTimeout);
+				this.mousewheelTimeout = setTimeout(function () {
+					self.triggerChangedEvent();
+				}, 300);
 
-			if (delta < 0) {
-				this.step(true);
-			} else {
-				this.step(false);
+				if (delta < 0) {
+					this.step(true);
+				} else {
+					this.step(false);
+				}
+
+				if (e.preventDefault) {
+					e.preventDefault();
+				} else {
+					e.returnValue = false;
+				}
+				return false;
 			}
-
-			if (e.preventDefault) {
-				e.preventDefault();
-			} else {
-				e.returnValue = false;
-			}
-			return false;
 		}
 	};
 
