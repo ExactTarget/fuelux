@@ -6,7 +6,6 @@
 // Global values
 // --------------------------------------------------
 
-
 // Grays
 // -------------------------
 @black:                 #000;
@@ -29,6 +28,15 @@
 @pink:                  #c3325f;
 @purple:                #7a43b6;
 
+// Text Colors
+// -------------------------
+@text-primary:         #428bca;
+@text-success:         #3c763d;
+@text-info:            #31708f;
+@text-warning:         #8a6d3b;
+@text-danger:          #a94442;
+@text-dimmed:          #666666;
+@text-muted:           #999999;
 
 // Scaffolding
 // -------------------------
@@ -65,6 +73,13 @@
 @fontSizeLarge:         @baseFontSize * 1.25; // ~18px
 @fontSizeSmall:         @baseFontSize * 0.85; // ~12px
 @fontSizeMini:          @baseFontSize * 0.75; // ~11px
+
+@font-size-h1:            floor((@baseFontSize * 2.6)); // ~36px
+@font-size-h2:            floor((@baseFontSize * 2.15)); // ~30px
+@font-size-h3:            ceil((@baseFontSize * 1.7)); // ~24px
+@font-size-h4:            ceil((@baseFontSize * 1.25)); // ~18px
+@font-size-h5:            @baseFontSize;
+@font-size-h6:            ceil((@baseFontSize * 0.85)); // ~12pxgr
 
 @paddingLarge:          11px 19px; // 44px
 @paddingSmall:          2px 10px;  // 26px
@@ -147,6 +162,13 @@
 @zindexFixedNavbar:       1030;
 @zindexModalBackdrop:     1040;
 @zindexModal:             1050;
+
+//Selectable Hover, Selected, Selected Hover
+// -------------------------
+@selectableHover: #f1f1f1;
+@selected: #efefef;
+@selectedHover: #d7d7d7;
+
 
 
 // Sprite icons path
@@ -304,9 +326,23 @@
 // Tree
 // --------------------------------------------------
 @treeHoverText: @grayLight;
-@treeSelectBackground: #4f4f4f;
+@treeSelectBackground: @selected;
 
 
 // Icons
 // --------------------------------------------------
 @fueluxFontPath: "../fonts/";
+
+// Padding / Margin
+// --------------------------------------------------
+@padding-xs: 5px;
+@padding-sm: 10px;
+@padding-md: 15px;
+@padding-lg: 20px;
+
+@margin-xs: 5px;
+@margin-sm: 10px;
+@margin-md: 15px;
+@margin-lg: 20px;
+
+
