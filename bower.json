@@ -2,6 +2,9 @@
   "dependencies": {
     "underscore": "~1.6.0",
     "fuelux": "~3.3.1"
+    "requirejs": "2.x",
+    "bootstrap": "3.x",
+    "moment": "2.x"
   },
   "ignore": [
     "**/.*",
