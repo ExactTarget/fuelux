@@ -39,8 +39,8 @@
 			});
 		})();
 		require(['jquery', '../data', 'fuelux/all'], function($, data) {
-			$('input').on('change', function() {
-				console.log( $(this).prop('checked') );
+			$('#btnDisableSpinbox').on('click', function () {
+				$('#mySpinbox').spinbox('disable');
 			});
 		});
 	</script>
@@ -49,15 +49,18 @@
 <body style="padding: 20px;">
 	<div class="container" style="padding: 20px; margin-top:20px;">
 		<div class="thin-box">
-			<div class="search input-group searched" data-initialize="search" role="search" id="mySearch">
-				<input type="search" class="form-control" placeholder="Search">
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button">
-								<span class="glyphicon glyphicon-search"></span>
-								<span class="sr-only">Search</span>
-							</button>
-						</span>
+			<div class="spinbox" data-initialize="spinbox" id="mySpinbox">
+				<input type="text" class="form-control input-mini spinbox-input">
+				<div class="spinbox-buttons btn-group btn-group-vertical">
+					<button type="button" class="btn btn-default spinbox-up btn-xs">
+						<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
+					</button>
+					<button type="button" class="btn btn-default spinbox-down btn-xs">
+						<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
+					</button>
+				</div>
 			</div>
+			<button id="btnDisableSpinbox" type="button" class="btn btn-default">disable</button>
 		</div>
 
 	</div>
