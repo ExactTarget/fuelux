@@ -32,6 +32,38 @@
     {% endhighlight %}
   </div>
 
+  <h3 id="scheduler-usage-options">Options</h3>
+  <p>Pass options via JavaScript upon initialization.</p>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th style="width: 100px;">Name</th>
+        <th style="width: 100px;">type</th>
+        <th style="width: 50px;">default</th>
+        <th>description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>startDateOptions</td>
+        <td>object</td>
+        <td>{}</td>
+        <td>Attributes used to configure the datepicker object. All options for datepicker are avaibable and they can
+          be found in the <a href="#datepicker-usage-options">datepicker documentation</a>.</td>
+      </tr>
+      <tr>
+        <td>endDateOptions</td>
+        <td>object</td>
+        <td>{}</td>
+        <td>This option can be set but will only be used if the event is repeated. Attributes used to configure the datepicker object.
+          All options for datepicker are avaibable and they can
+          be found in the <a href="#datepicker-usage-options">datepicker documentation</a>.</td>
+      </tr>
+      </tbody>
+    </table>
+  </div><!-- ./fu-table-responsive -->
+
   <h3 id="scheduler-usage-methods">Methods</h3>
   <dl>
     <dt id="scheduler-usage-methods-destroy">.scheduler('destroy')</dt>
