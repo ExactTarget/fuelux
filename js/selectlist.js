@@ -105,17 +105,34 @@
 		},
 
 		resize: function() {
-			var width = this.$dropdownMenu.outerWidth();
+			var sizer = $('<div/>').addClass('selectlist-sizer selectlist');
+			var btnSizer = $('<div/>').addClass('button-sizer selectlist');
 
-			if (this.$button.outerWidth() > width){
-				var btnWidth = this.$button.outerWidth();
+
+			if( Boolean( $(document).find( 'html' ).hasClass( 'fuelux' ) ) ) {
+				// default behavior for fuel ux setup. means fuelux was a class on the html tag
+				$( document.body ).append( sizer).append(btnSizer);
+			} else {
+				// fuelux is not a class on the html tag. So we'll look for the first one we find so the correct styles get applied to the sizer
+				$( '.fuelux:first' ).append( sizer ).append(btnSizer);
+			}
+
+			btnSizer.append(this.$button.clone());
+			sizer.append(this.$dropdownMenu.clone());
+
+
+			var btnWidth = btnSizer.outerWidth();
+			var width = sizer.find('.dropdown-menu').outerWidth();
+
+			if (btnWidth > width){
 				this.$dropdownMenu.css('width', btnWidth);
 			}
 			else {
 				this.$button.css('width', width);
 				this.$dropdownMenu.css('width', width);
 			}
-
+			sizer.remove();
+			btnSizer.remove();
 
 		},
 
