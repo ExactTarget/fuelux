@@ -264,6 +264,7 @@
 								var i, j, l;
 								if(!oldCols){ return true; }
 								if(!newCols){ return false; }
+								if(newCols.length!==oldCols.length){ return true; }
 								for(i=0, l=newCols.length; i<l; i++){
 									if(!oldCols[i]){
 										return true;
