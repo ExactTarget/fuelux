@@ -38,89 +38,240 @@
 				}
 			});
 		})();
-		require(['jquery', '../data', 'fuelux/all'], function($, data){
-			// simulate network latency
-			var loadDelays = ['300', '600', '900', '1200'];
+		require(['jquery', '../data','underscore', 'fuelux/all'], function($, data,_) {
+			var columns = [
+				{
+					label: 'Name &amp; Description',
+					property: 'name',
+					sortable: true
+				},
+				{
+					label: 'Key',
+					property: 'key',
+					sortable: true
+				},
+				{
+					label: 'Status',
+					property: 'status',
+					sortable: true
+				},
+				{
+					label: 'Category',
+					property: 'category',
+					sortable: true
+				}
+			];
+			function getSampleDataSet() {
+				var items = [];
+				var statuses = ['archived', 'active', 'draft'];
+				var categories = ['category1', 'category2', 'category3'];
+				function getRandomStatus() {
+					var min = 0;
+					var max = 2;
+					var index = Math.floor(Math.random() * (max - min + 1)) + min;
+					return statuses[index];
+				}
+				function getRandomCategory() {
+					var min = 0;
+					var max = 2;
+					var index = Math.floor(Math.random() * (max - min + 1)) + min;
+					return categories[index];
+				}
 
-			// list view setup
-			var list = function(options, callback, halfColumns){
+				for(var i=1; i<=100; i++) {
+					var item = {
+						id: i,
+						name: 'item ' + i,
+						key: 'key ' + i,
+						description: 'desc ' + i,
+						status: getRandomStatus(),
+						category: getRandomCategory()
+					}
+					items.push(item);
+				}
 
-				// build dataSource based with options
-				var resp = {
-					count: data.repeater.listData.length,
-					items: [],
-					page: options.pageIndex
+				return items;
+			}
+
+			// define the rows in your datasource
+			var items = getSampleDataSet();
+
+			$.fn.repeater.staticDataSource = function(columns, data){
+				var dataset = data;
+
+				var sort = function(data, sortProperty, sortDirection) {
+					var sortedData = _.sortBy(data, function(item) {
+						return item[sortProperty];
+					});
+
+					// sort direction
+					if (sortDirection === 'desc') {
+						sortedData = sortedData.reverse();
+					}
+
+					return sortedData;
 				};
 
-				// get start and end limits for JSON
-				var i, l;
-				resp.pages = Math.ceil(resp.count/(options.pageSize || 50));
+				var filter = function(data, filter) {
+					var filteredData;
 
-				i = options.pageIndex * (options.pageSize || 50);
-				l = i + (options.pageSize || 50);
-				l = (l <= resp.count) ? l : resp.count;
-				resp.start = i + 1;
-				resp.end = l;
+					if(filter === 'all' || filter.value === 'all') {
+						return data;
+					} else if(filter.property) {
+						// simple filter
+						filteredData = _.filter(data, function(item){
+							return item[filter.property] === filter.value;
+						});
+						return filteredData;
+					} else {
+						// advanced filter
+						filteredData = _.filter(data, function(item){
+							var match = true;
+							for (var key in filter) {
+								if (item[key] !== filter[key]) {
+									match = false;
+									break;
+								}
+							}
+							return match;
+						});
 
-				// setup columns for list view
-				resp.columns = [
-					{
-						label: 'Common Name',
-						property: 'commonName',
-						sortable: true
-					},
-					{
-						label: 'Latin Name',
-						property: 'latinName',
-						sortable: true
+						return filteredData;
 					}
-				];
+				};
 
-				if(!halfColumns){
-					resp.columns.push(
-						{
-							label: 'Appearance',
-							property: 'appearance',
-							sortable: true
-						},
-						{
-							label: 'Sound',
-							property: 'sound',
-							sortable: true
-						}
-					);
-				}
+				var search = function(data, search) {
+					var searchedData = [];
+					var searchTerm = search.toLowerCase();
 
-				console.log('resp.columns: ', resp.columns);
+					_.each(data, function(item) {
+						var values = _.values(item);
+						var found = _.find(values, function(val) {
 
-				// add sample items to datasource
-				for(i; i<l; i++){
-					// from data.js
-					resp.items.push(data.repeater.listData[i]);
-				}
+							if(val.toString().toLowerCase().indexOf(searchTerm) > -1) {
+								searchedData.push(item);
+								return true;
+							}
+						});
+					});
 
-				//this dataSource doesn't handle search
+					return searchedData;
+				};
 
-				// call and simulate latency
-				setTimeout(function(){
-					callback(resp);
-				}, loadDelays[Math.floor(Math.random() * 4)]);
+				var delay = function() {
+					var min = 200;  // 200 milliseconds
+					var max = 1000; // 1 second
+
+					// random delay interval
+					return Math.floor(Math.random() * (max - min + 1)) + min;
+				};
+
+				this.getData = function(options, callback) {
+					var pageIndex = options.pageIndex;
+					var pageSize = options.pageSize;
+					var view = options.view;
+					var viewColumns = columns;
+
+					if(columns[view]) {
+						// if columns vary by view
+						viewColumns = columns[view];
+					}
+
+					// sort by
+					var rows = sort(dataset, options.sortProperty, options.sortDirection);
+
+					// filter
+					rows = filter(rows, options.filter);
+
+					// search
+					if (options.search && options.search.length > 0) {
+						rows = search(rows, options.search);
+					}
+
+					var totalItems = rows.length;
+					var totalPages = Math.ceil(totalItems / pageSize);
+					var startIndex = (pageIndex * pageSize) + 1;
+					var endIndex = (startIndex + pageSize) - 1;
+					if(endIndex > rows.length) {
+						endIndex = rows.length;
+					}
+
+					rows = rows.slice(startIndex-1, endIndex);
+
+					var dataSource = {
+						page: pageIndex,
+						pages: totalPages,
+						count: totalItems,
+						start: startIndex,
+						end: endIndex,
+						columns: viewColumns,
+						items: rows
+					};
+
+					// simulate delay
+					window.setTimeout(function () {
+						callback(dataSource);
+					}, delay());
+				};
 			};
 
-			// initialize repater
-			$('#myRepeater').repeater({
-				dataSource: function(options, callback){
-					//this is done to be able to check the same view but provide different columns
-					setTimeout(function(){
-						var halfIt = $('.halfIt').hasClass('active');
-						if(options.view==='list.view1'){
-							list(options, callback, halfIt);
-						}
-					}, 0);
-				},
-				list_selectable: 'multi',
-				list_noItemsHTML: 'no items found'
+			var customDataSource = new $.fn.repeater.staticDataSource(columns, items);
+
+			function customColumnRenderer(helpers, callback) {
+
+				// determine what column is being rendered
+				var column = helpers.columnAttr;
+
+				// get all the data for the entire row
+				var rowData = helpers.rowData;
+				var customMarkup = '';
+
+				// only override the output for specific columns.
+				// will default to output the text value of the row item
+				switch(column) {
+					case 'name':
+						// let's combine name and description into a single column
+						customMarkup = '<div style="font-size:12px;">' + rowData.name + '</div><div class="small text-muted">' + rowData.description + '</div>';
+						break;
+					default:
+						// otherwise, just use the existing text value
+						customMarkup = helpers.item.text();
+						break;
+				}
+
+				helpers.item.html(customMarkup);
+
+				callback();
+			}
+
+			function customRowRenderer(helpers, callback) {
+				// let's get the id and add it to the "tr" DOM element
+				var item = helpers.item;
+				item.attr('id', 'row' + helpers.rowData.id);
+
+				callback();
+			}
+
+			// initialize the repeater
+			var repeater = $('#myRepeater');
+			repeater.repeater({
+				list_selectable: false, // (single | multi)
+				list_noItemsHTML: '<span>No Items HTML</span>',
+				list_highlightSortedColumn: true,
+
+				// override the column output via a custom renderer.
+				// this will allow you to output custom markup for each column.
+				list_columnRendered: customColumnRenderer,
+
+				// override the row output via a custom renderer.
+				// this example will use this to add an "id" attribute to each row.
+				list_rowRendered: customRowRenderer,
+
+				// setup your custom datasource to handle data retrieval;
+				// responsible for any paging, sorting, filtering, searching logic
+				dataSource: customDataSource.getData
 			});
+
 		});
 	</script>
 </head>
@@ -133,7 +284,7 @@
 			<div class="repeater-header-left">
 				<span class="repeater-title">Awesome Repeater</span>
 				<div class="repeater-search">
-					<div class="search input-group">
+					<div class="search input-group" role="search" id="mySearch" data-initialize="search">
 						<input type="search" class="form-control" placeholder="Search"/>
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="button">
@@ -162,8 +313,11 @@
 					<label class="btn btn-default active">
 						<input name="repeaterViews" type="radio" value="list.view1"><span class="glyphicon glyphicon-list"></span>
 					</label>
-					<label class="btn btn-default halfIt">
-						<input name="repeaterViews" type="radio" value="list.view1"><span class="glyphicon glyphicon-list"></span>
+					<label class="btn btn-default">
+						<input name="repeaterViews" type="radio" value="list.view2"><span class="glyphicon glyphicon-list"></span>
+					</label>
+					<label class="btn btn-default">
+						<input name="repeaterViews" type="radio" value="thumbnail.view3"><span class="glyphicon glyphicon-th"></span>
 					</label>
 				</div>
 			</div>
