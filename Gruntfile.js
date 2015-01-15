@@ -247,7 +247,7 @@ module.exports = function(grunt) {
 					testInterval: 3000,
 					tags: ['<%= sauceUser %>' + '@' + process.env.TRAVIS_BRANCH || '<%= sauceUser %>' + '@local'],
 					browsers: grunt.file.readYAML('sauce_browsers_tricky.yml'),
-					build: process.env.TRAVIS_BUILD_NUMBER || '',
+					build: process.env.TRAVIS_BUILD_NUMBER || '<%= pkg.version %>',
 					testname: process.env.TRAVIS_JOB_ID || Math.floor((new Date()).getTime() / 1000 - 1230768000).toString(),
 					urls: '<%= testUrl %>'
 				}
@@ -258,10 +258,10 @@ module.exports = function(grunt) {
 					key: '<%= sauceKey %>',
 					tunnelTimeout: 45,
 					testInterval: 3000,
-					tags: ['<%= sauceUser %>' + '@' + process.env.TRAVIS_BRANCH || '<%= sauceUser %>@local'],
+					tags: ['<%= pkg.version %>','<%= sauceUser %>' + '@' + process.env.TRAVIS_BRANCH || '<%= sauceUser %>@local'],
 					browsers: grunt.file.readYAML('sauce_browsers.yml'),
-					build: process.env.TRAVIS_BUILD_NUMBER || '',
-					testname: process.env.TRAVIS_JOB_ID || 'grunt-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
+					build: process.env.TRAVIS_BUILD_NUMBER || '<%= pkg.version %>',
+					testname: process.env.TRAVIS_JOB_ID || '<%= pkg.version %>-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
 					urls: '<%= testUrl %>',
 					maxPollRetries: 4,
 					throttled: 3,
@@ -273,6 +273,7 @@ module.exports = function(grunt) {
 					username: '<%= sauceUser %>',
 					key: '<%= sauceKey %>',
 					browsers: grunt.file.readYAML('sauce_browsers.yml'),
+					build: process.env.TRAVIS_BUILD_NUMBER || '<%= pkg.version %>',
 					testname: 'grunt-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
 					urls: '<%= allTestUrls %>'
 				}
