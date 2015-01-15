@@ -1,6 +1,6 @@
 /*!
- * Fuel UX v3.4.0
- * Copyright 2012-2014 ExactTarget
+ * Fuel UX v3.5.0
+ * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license ()
  */
 
@@ -108,6 +108,7 @@
 			check: function() {
 				this.state.checked = true;
 				this.$element.prop( 'checked', true );
+				this.$element.attr( 'checked', 'checked' );
 				this._setCheckedClass();
 				this.$element.trigger( 'checked.fu.checkbox' );
 			},
@@ -115,6 +116,7 @@
 			uncheck: function() {
 				this.state.checked = false;
 				this.$element.prop( 'checked', false );
+				this.$element.removeAttr( 'checked' );
 				this._resetClasses();
 				this.$element.trigger( 'unchecked.fu.checkbox' );
 			},
@@ -126,15 +128,16 @@
 			toggle: function( e ) {
 				//keep event from firing twice in Chrome
 				if ( !e || ( e.target === e.originalEvent.target ) ) {
-					if ( Boolean( e ) ) {
-						//stop bubbling, otherwise event fires twice in Firefox.
-						e.preventDefault();
-						//make change event still fire (prevented by preventDefault)
-						this.$element.trigger( 'change', e );
-					}
 					this.state.checked = !this.state.checked;
 
 					this._toggleCheckedState();
+
+					if ( Boolean( e ) ) {
+						//stop bubbling, otherwise event fires twice in Firefox.
+						e.preventDefault();
+						//make change event still fire (prevented by preventDefault to avoid firefox bug, see preceeding line)
+						this.$element.trigger( 'change', e );
+					}
 				}
 			},
 
@@ -611,6 +614,9 @@
 					this.moment = true;
 					this.momentFormat = this.options.momentConfig.format;
 					this.setCulture( this.options.momentConfig.culture );
+
+					// support moment with lang (< v2.8) or locale
+					moment.locale = moment.locale || moment.lang;
 				}
 
 				this.setRestrictedDates( this.restricted );
@@ -734,7 +740,7 @@
 
 			getCulture: function() {
 				if ( this.moment ) {
-					return moment.lang();
+					return moment.locale();
 				} else {
 					throw MOMENT_NOT_AVAILABLE;
 				}
@@ -862,23 +868,38 @@
 			//some code ripped from http://stackoverflow.com/questions/2182246/javascript-dates-in-ie-nan-firefox-chrome-ok
 			parseDate: function( date ) {
 				var self = this;
-				var dt, isoExp, momentParse, month, parts, use;
+				var BAD_DATE = new Date( NaN );
+				var dt, isoExp, momentParse, momentParseWithFormat, tryMomentParseAll, month, parts, use;
 
 				if ( date ) {
 					if ( this.moment ) { //if we have moment, use that to parse the dates
-						momentParse = function( type, d ) {
-							d = ( type === 'b' ) ? moment( d, self.momentFormat ) : moment( d );
-							return ( d.isValid() === true ) ? d.toDate() : new Date( NaN );
+						momentParseWithFormat = function( d ) {
+							var md = moment( d, self.momentFormat );
+							return ( true === md.isValid() ) ? md.toDate() : BAD_DATE;
 						};
-						use = ( typeof( date ) === 'string' ) ? [ 'b', 'a' ] : [ 'a', 'b' ];
-						dt = momentParse( use[ 0 ], date );
-						if ( !this.isInvalidDate( dt ) ) {
-							return dt;
-						} else {
-							dt = momentParse( use[ 1 ], date );
-							if ( !this.isInvalidDate( dt ) ) {
-								return dt;
+						momentParse = function( d ) {
+							var md = moment( new Date( d ) );
+							return ( true === md.isValid() ) ? md.toDate() : BAD_DATE;
+						};
+
+						tryMomentParseAll = function( d, parseFunc1, parseFunc2 ) {
+							var pd = parseFunc1( d );
+							if ( !self.isInvalidDate( pd ) ) {
+								return pd;
 							}
+							pd = parseFunc2( pd );
+							if ( !self.isInvalidDate( pd ) ) {
+								return pd;
+							}
+							return BAD_DATE;
+						};
+
+						if ( 'string' === typeof( date ) ) {
+							// Attempts to parse date strings using this.momentFormat, falling back on newing a date
+							return tryMomentParseAll( date, momentParseWithFormat, momentParse );
+						} else {
+							// Attempts to parse date by newing a date object directly, falling back on parsing using this.momentFormat
+							return tryMomentParseAll( date, momentParse, momentParseWithFormat );
 						}
 					} else { //if moment isn't present, use previous date parsing strategy
 						if ( typeof( date ) === 'string' ) {
@@ -1069,7 +1090,7 @@
 					return false;
 				}
 				if ( this.moment ) {
-					moment.lang( cultureCode );
+					moment.locale( cultureCode );
 				} else {
 					throw MOMENT_NOT_AVAILABLE;
 				}
@@ -1882,6 +1903,7 @@
 			check: function() {
 				this.resetGroup();
 				this.$radio.prop( 'checked', true );
+				this.$radio.attr( 'checked', 'checked' );
 				this.setState( this.$radio );
 			},
 
@@ -1909,6 +1931,7 @@
 
 			uncheck: function() {
 				this.$radio.prop( 'checked', false );
+				this.$radio.removeAttr( 'checked' );
 				this.setState( this.$radio );
 			},
 
@@ -2069,12 +2092,18 @@
 				if ( e.which === 13 ) {
 					e.preventDefault();
 					this.action();
+				} else if ( e.which === 9 ) {
+					e.preventDefault();
 				} else {
 					val = this.$input.val();
-					if ( !val ) {
-						this.clear();
-					} else if ( val !== this.activeSearch ) {
+
+					if ( val !== this.activeSearch || !val ) {
 						this.$icon.removeClass( remove ).addClass( search );
+						if ( val ) {
+							this.$element.removeClass( 'searched' );
+						} else if ( this.options.clearOnEmpty ) {
+							this.clear();
+						}
 					} else {
 						this.$icon.removeClass( search ).addClass( remove );
 					}
@@ -2114,7 +2143,9 @@
 			return ( methodReturn === undefined ) ? $set : methodReturn;
 		};
 
-		$.fn.search.defaults = {};
+		$.fn.search.defaults = {
+			clearOnEmpty: false
+		};
 
 		$.fn.search.Constructor = Search;
 
@@ -2170,11 +2201,12 @@
 			this.$button = this.$element.find( '.btn.dropdown-toggle' );
 			this.$hiddenField = this.$element.find( '.hidden-field' );
 			this.$label = this.$element.find( '.selected-label' );
+			this.$dropdownMenu = this.$element.find( '.dropdown-menu' );
 
 			this.$element.on( 'click.fu.selectlist', '.dropdown-menu a', $.proxy( this.itemClicked, this ) );
 			this.setDefaultSelection();
 
-			if ( options.resize === 'auto' ) {
+			if ( options.resize === 'auto' || this.$element.attr( 'data-resize' ) === 'auto' ) {
 				this.resize();
 			}
 		};
@@ -2240,31 +2272,17 @@
 			},
 
 			resize: function() {
-				var newWidth = 0;
-				var sizer = $( '<div/>' ).addClass( 'selectlist-sizer' );
-				var width = 0;
+				var width = this.$dropdownMenu.outerWidth();
 
-				if ( Boolean( $( document ).find( 'html' ).hasClass( 'fuelux' ) ) ) {
-					// default behavior for fuel ux setup. means fuelux was a class on the html tag
-					$( document.body ).append( sizer );
+				if ( this.$button.outerWidth() > width ) {
+					var btnWidth = this.$button.outerWidth();
+					this.$dropdownMenu.css( 'width', btnWidth );
 				} else {
-					// fuelux is not a class on the html tag. So we'll look for the first one we find so the correct styles get applied to the sizer
-					$( '.fuelux:first' ).append( sizer );
+					this.$button.css( 'width', width );
+					this.$dropdownMenu.css( 'width', width );
 				}
 
-				// iterate through each item to find longest string
-				this.$element.find( 'a' ).each( function() {
-					sizer.text( $( this ).text() );
-					newWidth = sizer.outerWidth();
-					if ( newWidth > width ) {
-						width = newWidth;
-					}
-				} );
 
-				sizer.remove();
-
-				//TODO: betting this is somewhat off with box-sizing: border-box
-				this.$label.width( width );
 			},
 
 			selectedItem: function() {
@@ -2718,27 +2736,29 @@
 			},
 
 			mousewheelHandler: function( event ) {
-				var e = window.event || event; // old IE support
-				var delta = Math.max( -1, Math.min( 1, ( e.wheelDelta || -e.detail ) ) );
-				var self = this;
+				if ( !this.options.disabled ) {
+					var e = window.event || event; // old IE support
+					var delta = Math.max( -1, Math.min( 1, ( e.wheelDelta || -e.detail ) ) );
+					var self = this;
 
-				clearTimeout( this.mousewheelTimeout );
-				this.mousewheelTimeout = setTimeout( function() {
-					self.triggerChangedEvent();
-				}, 300 );
+					clearTimeout( this.mousewheelTimeout );
+					this.mousewheelTimeout = setTimeout( function() {
+						self.triggerChangedEvent();
+					}, 300 );
 
-				if ( delta < 0 ) {
-					this.step( true );
-				} else {
-					this.step( false );
+					if ( delta < 0 ) {
+						this.step( true );
+					} else {
+						this.step( false );
+					}
+
+					if ( e.preventDefault ) {
+						e.preventDefault();
+					} else {
+						e.returnValue = false;
+					}
+					return false;
 				}
-
-				if ( e.preventDefault ) {
-					e.preventDefault();
-				} else {
-					e.returnValue = false;
-				}
-				return false;
 			}
 		};
 
@@ -4461,23 +4481,23 @@
 
 			//example on remove
 			/*onRemove: function(data,callback){
-			console.log('onRemove');
-			callback(data);
-		}*/
+				console.log('onRemove');
+				callback(data);
+			}*/
 
 			//example on key down
 			/*onKeyDown: function(event, data, callback ){
-			callback({data:[
-				{text: Math.random(),value:'sdfsdfsdf'},
-				{text: Math.random(),value:'sdfsdfsdf'}
-			]});
-		}
-		*/
+				callback({data:[
+					{text: Math.random(),value:'sdfsdfsdf'},
+					{text: Math.random(),value:'sdfsdfsdf'}
+				]});
+			}
+			*/
 			//example onAdd
 			/*onAdd: function( data, callback ){
-			console.log(data, callback);
-			callback(data);
-		}*/
+				console.log(data, callback);
+				callback(data);
+			}*/
 		};
 
 		$.fn.pillbox.Constructor = Pillbox;
@@ -5546,6 +5566,9 @@
 								if ( !newCols ) {
 									return false;
 								}
+								if ( newCols.length !== oldCols.length ) {
+									return true;
+								}
 								for ( i = 0, l = newCols.length; i < l; i++ ) {
 									if ( !oldCols[ i ] ) {
 										return true;
@@ -5561,7 +5584,7 @@
 							};
 
 							if ( this.list_firstRender || differentColumns( this.list_columns, helpers.data.columns ) ) {
-								this.$element.find( '.repeater-list-header' ).remove();
+								this.$element.find( 'thead' ).remove();
 								this.list_columns = helpers.data.columns;
 								this.list_columnsSame = false;
 								this.list_firstRender = false;
@@ -5870,7 +5893,7 @@
 
 			//ADDITIONAL DEFAULT OPTIONS
 			$.fn.repeater.defaults = $.extend( {}, $.fn.repeater.defaults, {
-				thumbnail_alignment: 'justify',
+				thumbnail_alignment: 'left',
 				thumbnail_infiniteScroll: false,
 				thumbnail_itemRendered: null,
 				thumbnail_selectable: false,
@@ -6055,7 +6078,7 @@
 
 			//initialize sub-controls
 			this.$element.find( '.selectlist' ).selectlist();
-			this.$startDate.datepicker();
+			this.$startDate.datepicker( this.options.startDateOptions );
 			this.$startTime.combobox();
 			// init start time
 			if ( this.$startTime.find( 'input' ).val() === '' ) {
@@ -6076,7 +6099,7 @@
 				'value': 1,
 				'min': 1
 			} );
-			this.$endDate.datepicker();
+			this.$endDate.datepicker( this.options.endDateOptions );
 			this.$element.find( '.radio-custom' ).radio();
 
 			// bind events: 'change' is a Bootstrap JS fired event
@@ -6163,7 +6186,7 @@
 
 					var p = new RegExp( re1 + re2 + re3 + re4 + re5, [ "i" ] );
 					var m = p.exec( offset );
-					if ( m != null ) {
+					if ( m !== null ) {
 						var c1 = m[ 1 ];
 						var d1 = m[ 2 ];
 

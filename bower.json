@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "underscore": "~1.6.0",
-    "fuelux": "~3.3.1"
+    "fuelux": "~3.3.1",
     "requirejs": "2.x",
     "bootstrap": "3.x",
     "moment": "2.x"
@@ -13,6 +13,6 @@
   "name": "fueluxdocs",
   "version": "3.3.1",
   "resolutions": {
-    "fuelux": "~3.4.0"
+    "fuelux": "~3.5.0"
   }
 }
