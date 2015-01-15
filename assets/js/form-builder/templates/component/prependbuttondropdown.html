@@ -1,0 +1,20 @@
+<!-- Button Drop Down -->
+<div class="control-group">
+	<label class="control-label" for="<%= id %>"><%= label %></label>
+	<div class="controls">
+		<div class="input-group">
+			<div class="input-group-btn">
+				<button class="btn dropdown-toggle" data-toggle="dropdown">
+					<%= buttontext %>
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu"><% _.each(buttonoptions, function(value) { %>
+					<li><a href="#"><%= value %></a></li><% }); %>
+				</ul>
+			</div><!-- /btn-group -->
+			<input id="<%= id %>" name="<%= id %>" class="<%= inputsize %> form-control" placeholder="<%= placeholder %>" type="text" <% if(required) {%> required <% } %> />
+		</div><!-- /input-group -->
+
+		<% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+	</div>
+</div>
