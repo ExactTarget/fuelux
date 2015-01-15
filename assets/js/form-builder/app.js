@@ -35,10 +35,10 @@ define(function(require) {
 				title: 'Select',
 				collection: new AvailableComponents(JSON.parse(selectJSON))
 			});
-			// new TabView({
-			//   title: "Buttons"
-			//   , collection: new AvailableComponents(JSON.parse(buttonsJSON))
-			// });
+			new TabView({
+				title: "Buttons"
+				, collection: new AvailableComponents(JSON.parse(buttonsJSON))
+			});
 			new TabView({
 				title: 'HTML',
 				content: renderTab
