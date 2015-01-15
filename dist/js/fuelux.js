@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.4.0
+ * Fuel UX v3.5.0
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license ()
  */
@@ -2201,11 +2201,12 @@
 			this.$button = this.$element.find( '.btn.dropdown-toggle' );
 			this.$hiddenField = this.$element.find( '.hidden-field' );
 			this.$label = this.$element.find( '.selected-label' );
+			this.$dropdownMenu = this.$element.find( '.dropdown-menu' );
 
 			this.$element.on( 'click.fu.selectlist', '.dropdown-menu a', $.proxy( this.itemClicked, this ) );
 			this.setDefaultSelection();
 
-			if ( options.resize === 'auto' ) {
+			if ( options.resize === 'auto' || this.$element.attr( 'data-resize' ) === 'auto' ) {
 				this.resize();
 			}
 		};
@@ -2271,31 +2272,17 @@
 			},
 
 			resize: function() {
-				var newWidth = 0;
-				var sizer = $( '<div/>' ).addClass( 'selectlist-sizer' );
-				var width = 0;
+				var width = this.$dropdownMenu.outerWidth();
 
-				if ( Boolean( $( document ).find( 'html' ).hasClass( 'fuelux' ) ) ) {
-					// default behavior for fuel ux setup. means fuelux was a class on the html tag
-					$( document.body ).append( sizer );
+				if ( this.$button.outerWidth() > width ) {
+					var btnWidth = this.$button.outerWidth();
+					this.$dropdownMenu.css( 'width', btnWidth );
 				} else {
-					// fuelux is not a class on the html tag. So we'll look for the first one we find so the correct styles get applied to the sizer
-					$( '.fuelux:first' ).append( sizer );
+					this.$button.css( 'width', width );
+					this.$dropdownMenu.css( 'width', width );
 				}
 
-				// iterate through each item to find longest string
-				this.$element.find( 'a' ).each( function() {
-					sizer.text( $( this ).text() );
-					newWidth = sizer.outerWidth();
-					if ( newWidth > width ) {
-						width = newWidth;
-					}
-				} );
 
-				sizer.remove();
-
-				//TODO: betting this is somewhat off with box-sizing: border-box
-				this.$label.width( width );
 			},
 
 			selectedItem: function() {
