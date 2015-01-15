@@ -262,7 +262,10 @@ module.exports = function(grunt) {
 					browsers: grunt.file.readYAML('sauce_browsers.yml'),
 					build: process.env.TRAVIS_BUILD_NUMBER || '',
 					testname: process.env.TRAVIS_JOB_ID || 'grunt-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
-					urls: '<%= testUrl %>'
+					urls: '<%= testUrl %>',
+					maxPollRetries: 4,
+					throttled: 3,
+					maxRetries: 3
 				}
 			},
 			all: {
