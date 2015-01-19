@@ -43,7 +43,7 @@
     "volo": "0.x"
   },
   "engines": {
-    "node": ">= 0.8.0"
+    "node": "0.10.x"
   },
   "homepage": "https://github.com/ExactTarget/fuelux",
   "keywords": [
