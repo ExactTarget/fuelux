@@ -105,6 +105,8 @@
 		},
 
 		resize: function() {
+			var width = 0;
+			var newWidth = 0;
 			var sizer = $('<div/>').addClass('selectlist-sizer selectlist');
 			var btnSizer = $('<div/>').addClass('button-sizer selectlist');
 
@@ -117,22 +119,20 @@
 				$( '.fuelux:first' ).append( sizer ).append(btnSizer);
 			}
 
-			btnSizer.append(this.$button.clone());
-			sizer.append(this.$dropdownMenu.clone());
+			sizer.append(this.$element.clone());
 
+			this.$element.find('a').each(function () {
+				sizer.find('.selected-label').text($(this).text());
+				newWidth = sizer.outerWidth();
+				if(newWidth > width) {
+					width = newWidth;
+				}
+			});
 
-			var btnWidth = btnSizer.outerWidth();
-			var width = sizer.find('.dropdown-menu').outerWidth();
+			this.$button.css('width', width);
+			this.$dropdownMenu.css('width', width);
 
-			if (btnWidth > width){
-				this.$dropdownMenu.css('width', btnWidth);
-			}
-			else {
-				this.$button.css('width', width);
-				this.$dropdownMenu.css('width', width);
-			}
 			sizer.remove();
-			btnSizer.remove();
 
 		},
 
