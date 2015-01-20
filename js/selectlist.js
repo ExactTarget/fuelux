@@ -105,34 +105,34 @@
 		},
 
 		resize: function() {
-			var sizer = $('<div/>').addClass('selectlist-sizer selectlist');
-			var btnSizer = $('<div/>').addClass('button-sizer selectlist');
+			var width = 0;
+			var newWidth = 0;
+			var sizer = $('<div/>').addClass('selectlist-sizer');
 
 
 			if( Boolean( $(document).find( 'html' ).hasClass( 'fuelux' ) ) ) {
 				// default behavior for fuel ux setup. means fuelux was a class on the html tag
-				$( document.body ).append( sizer).append(btnSizer);
+				$( document.body ).append( sizer);
 			} else {
 				// fuelux is not a class on the html tag. So we'll look for the first one we find so the correct styles get applied to the sizer
-				$( '.fuelux:first' ).append( sizer ).append(btnSizer);
+				$( '.fuelux:first' ).append( sizer );
 			}
 
-			btnSizer.append(this.$button.clone());
-			sizer.append(this.$dropdownMenu.clone());
+			sizer.append(this.$element.clone());
 
+			this.$element.find('a').each(function () {
+				sizer.find('.selected-label').text($(this).text());
+				newWidth = sizer.find('.selectlist').outerWidth();
+				newWidth = newWidth + sizer.find('.sr-only').outerWidth();
+				if(newWidth > width) {
+					width = newWidth;
+				}
+			});
 
-			var btnWidth = btnSizer.outerWidth();
-			var width = sizer.find('.dropdown-menu').outerWidth();
+			this.$button.css('width', width);
+			this.$dropdownMenu.css('width', width);
 
-			if (btnWidth > width){
-				this.$dropdownMenu.css('width', btnWidth);
-			}
-			else {
-				this.$button.css('width', width);
-				this.$dropdownMenu.css('width', width);
-			}
 			sizer.remove();
-			btnSizer.remove();
 
 		},
 
