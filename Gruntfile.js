@@ -6,11 +6,20 @@ module.exports = function(grunt) {
 	// use --no-livereload to disable livereload. Helpful to 'serve' multiple projects
 	var isLivereloadEnabled = (typeof grunt.option('livereload') !== 'undefined') ? grunt.option('livereload') : true;
 
+	// release minor or patch version. Do major releases manually
+	var versionReleaseType = (typeof grunt.option('minor') !== 'undefined') ? 'minor':'patch';
+
 	// Project configuration.
 	grunt.initConfig({
 		// Metadata
-		banner: '/*!\n' +
+		bannerRelease: '/*!\n' +
 		' * Fuel UX v<%= pkg.version %> \n' +
+		' * Copyright 2012-<%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
+		' * Licensed under the <%= pkg.license.type %> license (<%= pkg.license.url %>)\n' +
+		' */\n',
+		banner: '/*!\n' +
+		' * Fuel UX EDGE - Built <%= grunt.template.today("yyyy/mm/dd, h:MM:ss TT") %> \n' +
+		' * Previous release: v<%= pkg.version %> \n' +
 		' * Copyright 2012-<%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
 		' * Licensed under the <%= pkg.license.type %> license (<%= pkg.license.url %>)\n' +
 		' */\n',
@@ -229,7 +238,7 @@ module.exports = function(grunt) {
 			}
 		},
 		replace: {
-			dist: {
+			readme: {
 				src: ['DETAILS.md', 'README.md'],
 				overwrite: true,                 // overwrite matched source files
 				replacements: [{
@@ -396,9 +405,13 @@ module.exports = function(grunt) {
 	/* -------------
 		RELEASE
 	------------- */
-	// Maintainers: Run prior to a release. Includes SauceLabs VM tests. Run `grunt bump` first.
-	grunt.registerTask('release', 'Run full tests, saucelabs, build "dist"', ['releasetest', 'dist', 'replace:dist']);
-
+	// Maintainers: Run prior to a release. Includes SauceLabs VM tests. 
+	// --minor will create a semver minor release, otherwise a patch release will be created
+	grunt.registerTask('release', 'Release a new version, push it and publish it', function() {
+		if (! grunt.option('no-tests') ) { grunt.task.run(['releasetest']); }
+		grunt.config('banner', '<%= bannerRelease %>');
+		grunt.task.run(['bump-only:' + versionReleaseType, 'dist', 'replace:readme']);
+	});
 
 	/* -------------
 		SERVE
