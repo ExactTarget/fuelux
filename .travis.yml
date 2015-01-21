@@ -20,12 +20,3 @@ env:
       +M1cvJ2Cq14pEK6y2OMAooY2TY4p8MynxsqoKUGOYjmKXsLp1ZE=
 matrix:
   fast_finish: true
-deploy:
-  provider: heroku
-  api_key:
-    secure: Otn2JCvGSETNBjqQzithRjtz9uyLFkhpyUiXF+oV+j7cnL8W2j7RSQ9Mzd3h0viAC8ONR+S5KbsX513QUVO9ZxFiZEg2Zwv7Qeg9nmuGaosQ23OpHXjllB3rwOrCasJknlXLkYvY7SPR9YrgunK2Gd4OO4ISbyke5RQB4Gq4L80=
-  app:
-    master: fuelux-dev
-    travis-deploy: fuelux-dev
-  on:
-    repo: ExactTarget/fuelux
