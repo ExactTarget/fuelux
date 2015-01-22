@@ -294,14 +294,15 @@
 				this.setState();
 			}
 
-			// return focus to control after selecting an option
-			if( this.$prevBtn.is(':disabled') ) {
-				this.$nextBtn.focus();
+			if( this.$prevBtn.is(':focus') ) {
+				// return focus to control after selecting an option
+				if( this.$prevBtn.is(':disabled') ) {
+					this.$nextBtn.focus();
+				}
+				else {
+					this.$prevBtn.focus();
+				}
 			}
-			else {
-				this.$prevBtn.focus();
-			}
-
 		},
 
 		next: function () {
@@ -320,12 +321,14 @@
 				this.$element.trigger('finished.fu.wizard');
 			}
 
-			// return focus to control after selecting an option
-			if( this.$nextBtn.is(':disabled') ) {
-				this.$prevBtn.focus();
-			}
-			else {
-				this.$nextBtn.focus();
+			if( this.$nextBtn.is(':focus') ) {
+				// return focus to control after selecting an option
+				if( this.$nextBtn.is(':disabled') ) {
+					this.$prevBtn.focus();
+				}
+				else {
+					this.$nextBtn.focus();
+				}
 			}
 		},
 
