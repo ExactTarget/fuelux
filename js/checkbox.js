@@ -129,10 +129,10 @@
 		toggleContainer: function(){
 			if( Boolean( this.$toggleContainer ) ) {
 				if( this.state.checked ) {
-					this.$toggleContainer.removeClass('hide');
+					this.$toggleContainer.removeClass('hide hidden');
 					this.$toggleContainer.attr('aria-hidden', 'false');
 				}else {
-					this.$toggleContainer.addClass('hide');
+					this.$toggleContainer.addClass('hidden');
 					this.$toggleContainer.attr('aria-hidden', 'true');
 				}
 			}

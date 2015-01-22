@@ -146,13 +146,13 @@
 					group = $('input[name="' + this.groupName + '"]');
 					group.each(function(){
 						var selector = $(this).attr('data-toggle');
-						$(selector).addClass('hide');
+						$(selector).addClass('hidden');
 						$(selector).attr('aria-hidden', 'true');
 					});
-					this.$toggleContainer.removeClass('hide');
+					this.$toggleContainer.removeClass('hide hidden');
 					this.$toggleContainer.attr('aria-hidden', 'false');
 				}else {
-					this.$toggleContainer.addClass('hide');
+					this.$toggleContainer.addClass('hidden');
 					this.$toggleContainer.attr('aria-hidden', 'true');
 				}
 
