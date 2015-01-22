@@ -1,0 +1,112 @@
+body {
+  position: relative;
+}
+
+@media (max-width: 979px) {
+  body {
+    padding-top: 0px;
+  }
+}
+
+#components {
+  min-height: 500px;
+}
+
+#target fieldset {
+  border: 1px solid #ccc;
+  min-height: 200px;
+  padding: 5px;
+  padding-bottom: 30px;
+}
+
+.component {
+  cursor: pointer;
+}
+
+input {
+  cursor: pointer;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.popover .control-group {
+  cursor: default;
+}
+.popover input {
+  cursor: text;
+}
+
+.popover-content label{
+  display: block;
+}
+
+.drag-helper-component{
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  position: absolute;
+  z-index: 999999;
+  top: 0;
+  overflow-x: hidden;
+  left: 0;
+}
+
+.drag-helper-component form {
+  padding: 8px 4px;
+  border: 1px dotted #ccc;
+  position: absolute;
+  background: white;
+  box-shadow: 0px 0px 30px #999;
+  -webkit-transition: -webkit-transform 0.1s ease-out;
+  overflow: hidden;
+}
+
+#render{
+  min-height: 500px;
+  font-family: monospace;
+}
+
+/* Popovers now are appended to their parent rather
+than to the body/main document as they once were.
+We need to over-ride some inherited stuff.. */
+form .popover .controls {
+  margin-left: 0;
+}
+
+form .popover .control-label {
+  text-align: left;
+}
+
+form .popover form {
+  width: 224px;
+}
+
+.popover-content form .btn{
+  margin-right: 10px
+}
+
+.target:after{
+  float:left;
+  content: " ";
+  height: 77px;
+  margin-top: 3px;
+  background: #f0f0f0;
+  width: 100%;
+  border: 1px dashed #ccc;
+}
+
+#target, #input, #radioscheckboxes, #select, #buttons {
+ -webkit-touch-callout: none;
+ -webkit-user-select: none;
+ -khtml-user-select: none;
+ -moz-user-select: none;
+ -ms-user-select: none;
+ user-select: none;
+}
+
+#target fieldset{
+ width: 100%;
+ overflow: hidden;
+}

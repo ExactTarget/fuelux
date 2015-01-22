@@ -47,9 +47,9 @@
 	<link href="{{ site.url }}/assets/css/docs.css" rel="stylesheet">
 
 	<!-- Specific Page CSS -->
-	<!--{% if page.title != "Fuel UX" %}
+	{% if page.title != "Fuel UX" %}
 		<link href="{{ site.url }}/assets/css/{{page.slug}}.css" rel="stylesheet">
-	{% endif %}-->
+	{% endif %}
 
 
 <!-- Scripts -->
@@ -69,10 +69,25 @@
 					fuelux: '{{ site.url }}/assets/vendor/fuelux/dist/js/fuelux',
 					jquery: '{{ site.url }}/assets/vendor/jquery-1.11.0/dist/jquery',
 					moment: '{{ site.url }}/assets/vendor/moment/min/moment-with-langs.min', // comment out if you dont want momentjs to be default
-					underscore: '{{ site.url }}/assets/vendor/underscore/underscore'
+					underscore: '{{ site.url }}/assets/vendor/underscore/underscore',
+					backbone: '{{ site.url }}/assets/vendor/backbone/backbone',
+					formbuilder: '{{ site.url }}/assets/js/form-builder',
+					collections: '{{ site.url }}/assets/js/form-builder/collections',
+					data: '{{ site.url }}/assets/js/form-builder/data',
+					models: '{{ site.url }}/assets/js/form-builder/models',
+					helper: '{{ site.url }}/assets/js/form-builder/helper',
+					templates: '{{ site.url }}/assets/js/form-builder/templates',
+					views: '{{ site.url }}/assets/js/form-builder/views',
+					text: '{{ site.url }}/assets/vendor/requirejs-text/text',
 				},
 				// Bootstrap is a "browser globals" script :-(
-				shim: { 'bootstrap': { deps: ['jquery'] } }
+				shim: {
+					'bootstrap': { deps: ['jquery'] },
+					'backbone': {
+						deps: ['underscore', 'jquery'],
+						exports: 'Backbone'
+					}
+				}
 			});
 		})();
 	</script>

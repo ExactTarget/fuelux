@@ -1,0 +1,14 @@
+<div>
+	<label class='control-label'> <%= label %> </label>
+	<div class="spinbox" data-initialize="spinbox">
+		<input type="text" class="form-control input-mini spinbox-input" data-type="<%= type %>" value ='<%= value %>' id='<%= name %>' name='<%= name %>'>
+		<div class="spinbox-buttons btn-group btn-group-vertical">
+			<button type="button" class="btn btn-default spinbox-up btn-xs">
+				<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
+			</button>
+			<button type="button" class="btn btn-default spinbox-down btn-xs">
+				<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
+			</button>
+		</div>
+	</div>
+</div>

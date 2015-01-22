@@ -1,0 +1,332 @@
+[
+	{
+		"fields": {
+			"id": {
+				"type": "input",
+				"label": "ID / Name",
+				"value": "textinput"
+			},
+			"inputsize": {
+				"type": "select",
+				"label": "Input Size",
+				"value": [
+					{
+						"label": "Small",
+						"value": "input-sm",
+						"selected": false
+					},{
+						"label": "Normal",
+						"value": "",
+						"selected": true
+					},
+					{
+						"label": "Large",
+						"value": "input-lg",
+						"selected": false
+					}
+				]
+			},
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Text Input"
+			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
+			},
+			"placeholder": {
+				"type": "input",
+				"label": "Placeholder",
+				"value": "placeholder"
+			},
+			"required": {
+				"type": "checkbox",
+				"label": "Required",
+				"value": false
+			}
+		},
+		"title": "Text Input"
+	},
+	{
+		"fields": {
+			"id": {
+				"type": "input",
+				"label": "ID / Name",
+				"value": "passwordinput"
+			},
+			"inputsize": {
+				"type": "select",
+				"label": "Input Size",
+				"value": [
+					{
+						"label": "Small",
+						"value": "input-sm",
+						"selected": false
+					},{
+						"label": "Normal",
+						"value": "",
+						"selected": true
+					},
+					{
+						"label": "Large",
+						"value": "input-lg",
+						"selected": false
+					}
+				]
+			},
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Password Input"
+			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
+			},
+			"placeholder": {
+				"type": "input",
+				"label": "Placeholder",
+				"value": "placeholder"
+			},
+			"required": {
+				"type": "checkbox",
+				"label": "Required",
+				"value": false
+			}
+		},
+		"title": "Password Input"
+	},
+	{
+		"fields": {
+			"id": {
+				"type": "input",
+				"label": "ID / Name",
+				"value": "searchinput"
+			},
+			"inputsize": {
+				"type": "select",
+				"label": "Input Size",
+				"value": [
+					{
+						"label": "Small",
+						"value": "input-sm",
+						"selected": false
+					},{
+						"label": "Normal",
+						"value": "",
+						"selected": true
+					},
+					{
+						"label": "Large",
+						"value": "input-lg",
+						"selected": false
+					}
+				]
+			},
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Search Input"
+			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
+			},
+			"placeholder": {
+				"type": "input",
+				"label": "Placeholder",
+				"value": "placeholder"
+			},
+			"required": {
+				"type": "checkbox",
+				"label": "Required",
+				"value": false
+			}
+		},
+		"title": "Search Input"
+	},
+	{
+		"fields": {
+			"id": {
+				"type": "input",
+				"label": "ID / Name",
+				"value": "spinbox"
+			},
+			"inputsize": {
+				"type": "select",
+				"label": "Input Size",
+				"value": [
+					{
+						"label": "Small",
+						"value": "input-sm",
+						"selected": false
+					},{
+						"label": "Normal",
+						"value": "",
+						"selected": true
+					},
+					{
+						"label": "Large",
+						"value": "input-lg",
+						"selected": false
+					}
+				]
+			},
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Spinbox"
+			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
+			},
+			"placeholder": {
+				"type": "number",
+				"label": "Initial Value",
+				"value": 1
+			},
+			"required": {
+				"type": "checkbox",
+				"label": "Required",
+				"value": false
+			}
+		},
+		"title": "Spinbox"
+	},
+	{
+		"fields": {
+			"id": {
+				"type": "input",
+				"label": "ID / Name",
+				"value": "prependedtext"
+			},
+			"prepend": {
+				"type": "input",
+				"label": "Prepend",
+				"value": "prepend"
+			},
+			"inputsize": {
+				"type": "select",
+				"label": "Input Size",
+				"value": [
+					{
+						"label": "Small",
+						"value": "input-sm",
+						"selected": false
+					},{
+						"label": "Normal",
+						"value": "",
+						"selected": true
+					},
+					{
+						"label": "Large",
+						"value": "input-lg",
+						"selected": false
+					}
+				]
+			},
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Prepended Text"
+			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
+			},
+			"placeholder": {
+				"type": "input",
+				"label": "Placeholder",
+				"value": "placeholder"
+			},
+			"required": {
+				"type": "checkbox",
+				"label": "Required",
+				"value": false
+			}
+		},
+		"title": "Prepended Text"
+	},
+	{
+		"fields": {
+			"id": {
+				"type": "input",
+				"label": "ID / Name",
+				"value": "appendedtext"
+			},
+			"append": {
+				"type": "input",
+				"label": "Append",
+				"value": "append"
+			},
+			"inputsize": {
+				"type": "select",
+				"label": "Input Size",
+				"value": [
+					{
+						"label": "Small",
+						"value": "input-sm",
+						"selected": false
+					},{
+						"label": "Normal",
+						"value": "",
+						"selected": true
+					},
+					{
+						"label": "Large",
+						"value": "input-lg",
+						"selected": false
+					}
+				]
+			},
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Appended Text"
+			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
+			},
+			"placeholder": {
+				"type": "input",
+				"label": "Placeholder",
+				"value": "placeholder"
+			},
+			"required": {
+				"type": "checkbox",
+				"label": "Required",
+				"value": false
+			}
+		},
+		"title": "Appended Text"
+	},
+	{
+		"fields": {
+			"id": {
+				"type": "input",
+				"label": "ID / Name",
+				"value": "textarea"
+			},
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Text Area"
+			},
+			"textarea": {
+				"type": "textarea",
+				"label": "Starting Text",
+				"value": "default text"
+			}
+		},
+		"title": "Text Area"
+	}
+]

@@ -679,14 +679,14 @@ dt:hover .header-anchor{
   letter-spacing: 1px;
 }
 
-/* Tweak display of the code snippets when following an example */
+/* Tweak display of the code components when following an example */
 .fu-example + .highlight {
   margin: -15px -15px 15px;
   border-radius: 0;
   border-width: 0 0 1px;
 }
 
-/* Make the examples and snippets not full-width */
+/* Make the examples and components not full-width */
 @media (min-width: 768px) {
   .fu-example {
 	margin-left: 0;

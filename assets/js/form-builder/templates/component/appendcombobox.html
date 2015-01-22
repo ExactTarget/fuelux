@@ -1,0 +1,16 @@
+<div class="control-group">
+	<label class="control-label" for="<%= id %>"><%= label %></label>
+	<div class="controls">
+		<div class="input-group input-append dropdown combobox" data-initialize="combobox" id="<%= id %>">
+			<input type="text" class="<%= inputsize %> form-control" placeholder="<%= placeholder %>" name="<%= id %>" <% if(required) {%> required <% } %>>
+			<div class="input-group-btn">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+				<ul class="dropdown-menu dropdown-menu-right"><% _.each(buttonoptions, function(value) { %>
+					<li data-value="<%= value %>"><a href="#"><%= value %></a></li><% }); %>
+				</ul>
+			</div>
+		</div>
+
+		<% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+	</div>
+</div>

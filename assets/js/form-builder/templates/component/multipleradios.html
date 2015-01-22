@@ -1,0 +1,14 @@
+<!-- Multiple Radios -->
+<div class="control-group">
+	<label class="control-label" for="<%= name %>"><%= label %></label>
+	<div class="controls">
+		<% _.each(radios, function(radio, i){ %>
+			<div class="radio" data-initialize="radio" id="<%= name+'-'+i %>">
+				<label class="radio-custom" for="<%= name+'-'+i %>">
+					<input class="sr-only" name="<%= name+'-'+i %>" type="radio" value="<%= radio %>">
+					<%= radio %>
+				</label>
+			</div>
+		<% }); %>
+	</div>
+</div>

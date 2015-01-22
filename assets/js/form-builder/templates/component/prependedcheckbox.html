@@ -1,0 +1,14 @@
+<!-- Prepended checkbox -->
+<div class="control-group">
+	<label class="control-label" for="<%= id %>"><%= label %></label>
+	<div class="controls">
+		<div class="input-group">
+			<label class="input-group-addon checkbox-custom checkbox-inline" data-initialize="checkbox">
+			<input class="sr-only" type="checkbox" value="option1">
+			</label>
+			<input type="text" class="form-control <%= inputsize %>" id="<%= id %>" name="<%= id %>" placeholder="<%= placeholder %>" <% if(required) {%> required <% } %> <% if (checked){ %>checked="checked"<% } %>>
+		</div>
+
+		<% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+	</div>
+</div>

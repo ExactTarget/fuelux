@@ -1,0 +1,467 @@
+[
+	{
+		"fields": {
+			"id": {
+				"type": "input",
+				"label": "ID / Name",
+				"value": "prependedsearch"
+			},
+			"inputsize": {
+				"type": "select",
+				"label": "Input Size",
+				"value": [
+					{
+						"label": "Small",
+						"value": "input-sm",
+						"selected": false
+					},{
+						"label": "Normal",
+						"value": "",
+						"selected": true
+					},
+					{
+						"label": "Large",
+						"value": "input-lg",
+						"selected": false
+					}
+				]
+			},
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Prepended Search"
+			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
+			},
+			"placeholder": {
+				"type": "input",
+				"label": "Placeholder",
+				"value": "placeholder"
+			},
+			"required": {
+				"type": "checkbox",
+				"label": "Required",
+				"value": false
+			}
+		},
+		"title": "Prepended Search"
+	},
+	{
+		"fields": {
+			"id": {
+				"type": "input",
+				"label": "ID / Name",
+				"value": "appendedsearch"
+			},
+			"inputsize": {
+				"type": "select",
+				"label": "Input Size",
+				"value": [
+					{
+						"label": "Small",
+						"value": "input-sm",
+						"selected": false
+					},{
+						"label": "Normal",
+						"value": "",
+						"selected": true
+					},
+					{
+						"label": "Large",
+						"value": "input-lg",
+						"selected": false
+					}
+				]
+			},
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Appended Search"
+			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
+			},
+			"placeholder": {
+				"type": "input",
+				"label": "Placeholder",
+				"value": "placeholder"
+			},
+			"required": {
+				"type": "checkbox",
+				"label": "Required",
+				"value": false
+			}
+		},
+		"title": "Appended Search"
+	},{
+		"fields": {
+			"id": {
+				"type": "input",
+				"label": "ID / Name",
+				"value": "prependedcheckbox"
+			},
+			"inputsize": {
+				"type": "select",
+				"label": "Input Size",
+				"value": [
+					{
+						"label": "Small",
+						"value": "input-sm",
+						"selected": false
+					},{
+						"label": "Normal",
+						"value": "",
+						"selected": true
+					},
+					{
+						"label": "Large",
+						"value": "input-lg",
+						"selected": false
+					}
+				]
+			},
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Prepended Checkbox"
+			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
+			},
+			"placeholder": {
+				"type": "input",
+				"label": "Placeholder",
+				"value": "placeholder"
+			},
+			"checked": {
+				"type": "checkbox",
+				"label": "Checked",
+				"value": false
+			},
+			"required": {
+				"type": "checkbox",
+				"label": "Required",
+				"value": false
+			}
+		},
+		"title": "Prepended Checkbox"
+	},
+	{
+		"fields": {
+			"id": {
+				"type": "input",
+				"label": "ID / Name",
+				"value": "appendedcheckbox"
+			},
+			"inputsize": {
+				"type": "select",
+				"label": "Input Size",
+				"value": [
+					{
+						"label": "Small",
+						"value": "input-sm",
+						"selected": false
+					},{
+						"label": "Normal",
+						"value": "",
+						"selected": true
+					},
+					{
+						"label": "Large",
+						"value": "input-lg",
+						"selected": false
+					}
+				]
+			},
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Appended Checkbox"
+			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
+			},
+			"placeholder": {
+				"type": "input",
+				"label": "Placeholder",
+				"value": "placeholder"
+			},
+			"checked": {
+				"type": "checkbox",
+				"label": "Checked",
+				"value": false
+			},
+			"required": {
+				"type": "checkbox",
+				"label": "Required",
+				"value": false
+			}
+		},
+		"title": "Appended Checkbox"
+	},
+	{
+		"fields": {
+			"id": {
+				"type": "input",
+				"label": "ID / Name",
+				"value": "prependbuttondropdown"
+			},
+			"buttonoptions": {
+				"type": "textarea-split",
+				"label": "Options",
+				"value": [
+					"Option one",
+					"Option two",
+					"Option three"
+				]
+			},
+			"buttontext": {
+				"type": "input",
+				"label": "Button Text",
+				"value": "Action"
+			},
+			"inputsize": {
+				"type": "select",
+				"label": "Input Size",
+				"value": [
+					{
+						"label": "Small",
+						"value": "input-sm",
+						"selected": false
+					},{
+						"label": "Normal",
+						"value": "",
+						"selected": true
+					},
+					{
+						"label": "Large",
+						"value": "input-lg",
+						"selected": false
+					}
+				]
+			},
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Prepend Button Drop Down"
+			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
+			},
+			"placeholder": {
+				"type": "input",
+				"label": "Placeholder",
+				"value": "placeholder"
+			},
+			"required": {
+				"type": "checkbox",
+				"label": "Required",
+				"value": false
+			}
+		},
+		"title": "Prepend Button Drop Down"
+	},
+	{
+		"fields": {
+			"id": {
+				"type": "input",
+				"label": "ID / Name",
+				"value": "appendbuttondropdown"
+			},
+			"buttonoptions": {
+				"type": "textarea-split",
+				"label": "Options",
+				"value": [
+					"Option one",
+					"Option two",
+					"Option three"
+				]
+			},
+			"buttontext": {
+				"type": "input",
+				"label": "Button Text",
+				"value": "Action"
+			},
+			"inputsize": {
+				"type": "select",
+				"label": "Input Size",
+				"value": [
+					{
+						"label": "Small",
+						"value": "input-sm",
+						"selected": false
+					},{
+						"label": "Normal",
+						"value": "",
+						"selected": true
+					},
+					{
+						"label": "Large",
+						"value": "input-lg",
+						"selected": false
+					}
+				]
+			},
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Append Button Drop Down"
+			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
+			},
+			"placeholder": {
+				"type": "input",
+				"label": "Placeholder",
+				"value": "placeholder"
+			},
+			"required": {
+				"type": "checkbox",
+				"label": "Required",
+				"value": false
+			}
+		},
+		"title": "Append Button Drop Down"
+	},
+	{
+		"fields": {
+			"id": {
+				"type": "input",
+				"label": "ID / Name",
+				"value": "prependcombobox"
+			},
+			"buttonoptions": {
+				"type": "textarea-split",
+				"label": "Options",
+				"value": [
+					"Option one",
+					"Option two",
+					"Option three"
+				]
+			},
+			"buttontext": {
+				"type": "input",
+				"label": "Button Text",
+				"value": "Action"
+			},
+			"inputsize": {
+				"type": "select",
+				"label": "Input Size",
+				"value": [
+					{
+						"label": "Small",
+						"value": "input-sm",
+						"selected": false
+					},{
+						"label": "Normal",
+						"value": "",
+						"selected": true
+					},
+					{
+						"label": "Large",
+						"value": "input-lg",
+						"selected": false
+					}
+				]
+			},
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Prepend Combobox"
+			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
+			},
+			"placeholder": {
+				"type": "input",
+				"label": "Placeholder",
+				"value": "placeholder"
+			},
+			"required": {
+				"type": "checkbox",
+				"label": "Required",
+				"value": false
+			}
+		},
+		"title": "Prepend Combobox"
+	},
+	{
+		"fields": {
+			"id": {
+				"type": "input",
+				"label": "ID / Name",
+				"value": "appendcombobox"
+			},
+			"buttonoptions": {
+				"type": "textarea-split",
+				"label": "Options",
+				"value": [
+					"Option one",
+					"Option two",
+					"Option three"
+				]
+			},
+			"buttontext": {
+				"type": "input",
+				"label": "Button Text",
+				"value": "Action"
+			},
+			"inputsize": {
+				"type": "select",
+				"label": "Input Size",
+				"value": [
+					{
+						"label": "Small",
+						"value": "input-sm",
+						"selected": false
+					},{
+						"label": "Normal",
+						"value": "",
+						"selected": true
+					},
+					{
+						"label": "Large",
+						"value": "input-lg",
+						"selected": false
+					}
+				]
+			},
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Append Combobox"
+			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
+			},
+			"placeholder": {
+				"type": "input",
+				"label": "Placeholder",
+				"value": "placeholder"
+			},
+			"required": {
+				"type": "checkbox",
+				"label": "Required",
+				"value": false
+			}
+		},
+		"title": "Append Combobox"
+	}
+]

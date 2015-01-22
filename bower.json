@@ -1,10 +1,12 @@
 {
   "dependencies": {
     "underscore": "~1.6.0",
-    "fuelux": "~3.3.1",
+    "fuelux": "~3.5.0",
     "requirejs": "2.x",
     "bootstrap": "3.x",
-    "moment": "2.x"
+    "moment": "2.x",
+    "backbone": "~1.1.2",
+    "requirejs-text": "~2.0.12"
   },
   "ignore": [
     "**/.*",

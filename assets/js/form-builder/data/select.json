@@ -1,0 +1,91 @@
+[
+  {
+    "fields": {
+      "id": {
+        "type": "input",
+        "label": "ID / Name",
+        "value": "selectbasic"
+      },
+      "options": {
+        "type": "textarea-split",
+        "label": "Options",
+        "value": [
+          "Option one",
+          "Option two"
+        ]
+      },
+      "inputsize": {
+        "type": "select",
+        "label": "Input Size",
+        "value": [
+          {
+            "label": "Small",
+            "value": "input-sm",
+            "selected": false
+          },
+          {
+            "label": "Normal",
+            "value": "",
+            "selected": true
+          },
+          {
+            "label": "Large",
+            "value": "input-lg",
+            "selected": false
+          }
+        ]
+      },
+      "label": {
+        "type": "input",
+        "label": "Label Text",
+        "value": "Select Basic"
+      }
+    },
+    "title": "Select Basic"
+  },
+  {
+    "fields": {
+      "id": {
+        "type": "input",
+        "label": "ID / Name",
+        "value": "selectmultiple"
+      },
+      "options": {
+        "type": "textarea-split",
+        "label": "Options",
+        "value": [
+          "Option one",
+          "Option two"
+        ]
+      },
+      "inputsize": {
+        "type": "select",
+        "label": "Input Size",
+        "value": [
+
+          {
+            "label": "Small",
+            "value": "input-sm",
+            "selected": false
+          },
+          {
+            "label": "Normal",
+            "value": "",
+            "selected": true
+          },
+          {
+            "label": "Large",
+            "value": "input-lg",
+            "selected": false
+          }
+        ]
+      },
+      "label": {
+        "type": "input",
+        "label": "Label Text",
+        "value": "Select Multiple"
+      }
+    },
+    "title": "Select Multiple"
+  }
+]
