@@ -124,7 +124,7 @@ module.exports = function(grunt) {
 			server: {
 				options: {
 					hostname: '*',
-					port: 8000,
+					port: process.env.PORT || 8000,
 					useAvailablePort: true	// increment port number, if unavailable...
 				}
 			},
