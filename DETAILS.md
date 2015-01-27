@@ -167,3 +167,10 @@ With Travis installed and the build number acquired now run the following comman
 travis restart 9999
 ```
 
+## Edge servers
+
+A build of master is available at `https://fuelux-dev.herokuapp.com/dist/js/fuelux.js` and `https://fuelux-dev.herokuapp.com/dist/css/fuelux.css`. 
+
+_These files should never be used in production and may not have been fully tested._
+
+To create your own edge server, setup a github web hook on Heroku for this repository and put the app into development mode with `heroku config:set NPM_CONFIG_PRODUCTION=false`.
