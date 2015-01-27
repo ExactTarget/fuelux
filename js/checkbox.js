@@ -50,6 +50,7 @@
 
 		// handle events
 		this.$element.on('change.fu.checkbox', $.proxy( this.itemchecked, this ));
+		this.$label.unbind('click', $.proxy(this.toggle, this));//unbind previous binds so that double clickage doesn't happen (thus making checkbox appear to not work)
 		this.$label.on('click', $.proxy(this.toggle, this));//make repeated label clicks work
 
 		// set default state
@@ -78,14 +79,16 @@
 
 		enable: function() {
 			this.state.disabled = false;
-			this.$element.attr('disabled', false);
+			this.$element.removeAttr('disabled');
+			this.$element.prop('disabled', false);
 			this._resetClasses();
 			this.$element.trigger( 'enabled.fu.checkbox' );
 		},
 
 		disable: function() {
 			this.state.disabled = true;
-			this.$element.attr('disabled', true);
+			this.$element.prop('disabled', true);
+			this.$element.attr('disabled', 'disabled');
 			this._setDisabledClass();
 			this.$element.trigger( 'disabled.fu.checkbox' );
 		},
@@ -111,6 +114,11 @@
 		},
 
 		toggle: function(e) {
+			//keep checkbox from being used if it is disabled. You can't rely on this.state.disabled, because on bind time it might not be disabled, but, state.disabled may be set to true after bind time (and this.state.disabled won't be updated for this bound instance)
+			//To see how this works, uncomment the next line of code and go to http://0.0.0.0:8000/index.html click the "disable #myCustomCheckbox1" and then click on the first checkbox and see the disparity in the output between this.state and this.$element.attr
+			//console.log('is disabled? this.state says, "' + this.state.disabled + '"; this.$element.attr says, "' + this.$element.attr('disabled') + '"');
+			if(/* do not change this to this.state.disabled. It will break edge cases */ this.$element.prop('disabled')){return;}
+
 			//keep event from firing twice in Chrome
 			if (!e || (e.target === e.originalEvent.target)) {
 				this.state.checked = !this.state.checked;
