@@ -122,6 +122,26 @@ define(function(require){
 		$placard.find('.placard-cancel').click();
 	});
 
+	test('Enter and exit keys should trigger appropriate response', function(){
+		var $placard = $(html).find('#placard1');
+		var $input  = $placard.find('input');
+		var e = $.Event("keydown");
+
+		$placard.placard({
+			onAccept: function(){
+				ok(1===1, 'onAccept function called when enter keypress');
+			},
+			onCancel: function(){
+				ok(1===1, 'onCancel function called when exit keypress');
+			}
+		});
+
+		e.keyCode = 13;
+		$input.trigger(e);
+		e.keyCode = 27;
+		$input.trigger(e);
+	});
+
 	test('externalClickAction option should work as expected', function(){
 		var $placard = $(html).find('#placard1');
 

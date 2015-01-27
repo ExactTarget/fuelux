@@ -47,7 +47,10 @@
 			this.options.revertOnCancel = (this.$accept.length>0) ? true : false;
 		}
 
+		this.isInput = this.$field.is('input');
+
 		this.$field.on('focus.fu.placard', $.proxy(this.show, this));
+		this.$field.on('keydown.fu.placard', $.proxy(this.keyComplete, this));
 		this.$accept.on('click.fu.placard', $.proxy(this.complete, this, 'accept'));
 		this.$cancel.on('click.fu.placard', function(e){ e.preventDefault(); self.complete('cancel'); });
 
@@ -69,6 +72,16 @@
 				}
 				this.$element.trigger(action, obj);
 				this.hide();
+			}
+		},
+
+		keyComplete: function(e){
+			if(this.isInput && e.keyCode === 13){
+				this.complete('accept');
+				this.$field.blur();
+			} else if (e.keyCode === 27) {
+				this.complete('cancel');
+				this.$field.blur();
 			}
 		},
 
