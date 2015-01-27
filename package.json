@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "bower": "1.x",
-    "connect": "3.x"
+    "connect": "3.x",
+    "serve-static": "1.x"
   },
   "description": "Base Fuel UX styles and controls",
   "devDependencies": {
