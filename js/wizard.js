@@ -8,7 +8,7 @@
 
 // -- BEGIN UMD WRAPPER PREFACE --
 
-// For more information on UMD visit: 
+// For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
@@ -21,7 +21,7 @@
 	}
 }(function ($) {
 	// -- END UMD WRAPPER PREFACE --
-		
+
 	// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.wizard;
@@ -33,7 +33,7 @@
 
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.wizard.defaults, options);
-		this.options.disablePreviousStep = ( this.$element.attr('data-restrict') === "previous" ) ? true : this.options.disablePreviousStep;
+		this.options.disablePreviousStep = ( this.$element.attr('data-restrict') === 'previous' ) ? true : this.options.disablePreviousStep;
 		this.currentStep = this.options.selectedItem.step;
 		this.numSteps = this.$element.find('.steps li').length;
 		this.$prevBtn = this.$element.find('button.btn-prev');
@@ -47,7 +47,7 @@
 		this.$prevBtn.on('click.fu.wizard', $.proxy(this.previous, this));
 		this.$nextBtn.on('click.fu.wizard', $.proxy(this.next, this));
 		this.$element.on('click.fu.wizard', 'li.complete', $.proxy(this.stepclicked, this));
-		
+
 		this.selectedItem(this.options.selectedItem);
 
 		if( this.options.disablePreviousStep ) {
@@ -149,13 +149,13 @@
 		},
 
 		setState: function () {
-			var canMovePrev = (this.currentStep > 1);
-			var firstStep = (this.currentStep === 1);
-			var lastStep = (this.currentStep === this.numSteps);
+			var canMovePrev = (this.currentStep > 1);//remember, steps index is 1 based...
+			var isFirstStep = (this.currentStep === 1);
+			var isLastStep = (this.currentStep === this.numSteps);
 
 			// disable buttons based on current step
 			if( !this.options.disablePreviousStep ) {
-				this.$prevBtn.attr('disabled', (firstStep === true || canMovePrev === false));
+				this.$prevBtn.attr('disabled', (isFirstStep === true || canMovePrev === false));
 			}
 
 			// change button text of last step, if specified
@@ -164,12 +164,11 @@
 				this.lastText = last;
 				// replace text
 				var text = this.nextText;
-				if ( lastStep === true ) {
+				if ( isLastStep === true ) {
 					text = this.lastText;
 					// add status class to wizard
 					this.$element.addClass('complete');
-				}
-				else {
+				} else {
 					this.$element.removeClass('complete');
 				}
 				var kids = this.$nextBtn.children().detach();
@@ -213,12 +212,12 @@
 			} else {
 				containerWidth = this.$element.width();
 			}
+
 			if (totalWidth > containerWidth) {
-			
 				// set the position so that the last step is on the right
 				var newMargin = totalWidth - containerWidth;
 				this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
-				
+
 				// set the position so that the active step is in a good
 				// position if it has been moved out of view
 				if (this.$element.find('li.active').first().position().left < 200) {
@@ -243,15 +242,10 @@
 		stepclicked: function (e) {
 			var li          = $(e.currentTarget);
 			var index       = this.$element.find('.steps li').index(li);
-			var canMovePrev = true;
 
-			if( this.options.disablePreviousStep ) {
-				if( index < this.currentStep ) {
-					canMovePrev = false;
-				}
-			}
-
-			if( canMovePrev ) {
+			if( index < this.currentStep && this.options.disablePreviousStep ) { //enforce restrictions
+				return;
+			} else {
 				var evt = $.Event('stepclicked.fu.wizard');
 				this.$element.trigger(evt, {step: index + 1});
 				if (evt.isDefaultPrevented()) { return; }
@@ -281,53 +275,53 @@
 		},
 
 		previous: function () {
-			var canMovePrev = (this.currentStep > 1);
-			if( this.options.disablePreviousStep ) {
-				canMovePrev = false;
-			}
-			if (canMovePrev) {
-				var e = $.Event('actionclicked.fu.wizard');
-				this.$element.trigger(e, {step: this.currentStep, direction: 'previous'});
-				if (e.isDefaultPrevented()) { return; } // don't increment
-
-				this.currentStep -= 1;
-				this.setState();
+			if( this.options.disablePreviousStep || this.currentStep === 1) {
+				return;
 			}
 
+			var e = $.Event('actionclicked.fu.wizard');
+			this.$element.trigger(e, {step: this.currentStep, direction: 'previous'});
+			if (e.isDefaultPrevented()) { return; }// don't increment ...what? Why?
+
+			this.currentStep -= 1;
+			this.setState();
+
+			// only set focus if focus is still on the $nextBtn (avoid stomping on a focus set programmatically in actionclicked callback)
 			if( this.$prevBtn.is(':focus') ) {
-				// return focus to control after selecting an option
-				if( this.$prevBtn.is(':disabled') ) {
+				var firstFormField = this.$element.find('.active').find('input, select, textarea')[0];
+
+				if(typeof firstFormField !== 'undefined'){
+					// allow user to start typing immediately instead of having to click on the form field.
+					$(firstFormField).focus();
+				}else if(this.$element.find('.active input:first').length === 0 && this.$prevBtn.is(':disabled') ) {
+					//only set focus on a button as the last resort if no form fields exist and the just clicked button is now disabled
 					this.$nextBtn.focus();
-				}
-				else {
-					this.$prevBtn.focus();
 				}
 			}
 		},
 
 		next: function () {
-			var canMoveNext = (this.currentStep + 1 <= this.numSteps);
-			var lastStep = (this.currentStep === this.numSteps);
-
-			if (canMoveNext) {
+			if (this.currentStep < this.numSteps) {
 				var e = $.Event('actionclicked.fu.wizard');
 				this.$element.trigger(e, {step: this.currentStep, direction: 'next'});
-				if (e.isDefaultPrevented()) { return; }	// don't increment
+				if (e.isDefaultPrevented()) { return; }// don't increment ...what? Why?
 
 				this.currentStep += 1;
 				this.setState();
-			}
-			else if (lastStep) {
+			} else {//is last step
 				this.$element.trigger('finished.fu.wizard');
 			}
 
+			// only set focus if focus is still on the $nextBtn (avoid stomping on a focus set programmatically in actionclicked callback)
 			if( this.$nextBtn.is(':focus') ) {
-				// return focus to control after selecting an option
-				if( this.$nextBtn.is(':disabled') ) {
+				var firstFormField = this.$element.find('.active').find('input, select, textarea')[0];
+
+				if(typeof firstFormField  !== 'undefined'){
+					// allow user to start typing immediately instead of having to click on the form field.
+					$(firstFormField).focus();
+				}else if(this.$element.find('.active input:first').length === 0 && this.$nextBtn.is(':disabled') ) {
+					//only set focus on a button as the last resort if no form fields exist and the just clicked button is now disabled
 					this.$prevBtn.focus();
-				}
-				else {
-					this.$nextBtn.focus();
 				}
 			}
 		},
@@ -351,8 +345,7 @@
 				}
 
 				retVal = this;
-			}
-			else {
+			} else {
 				retVal = { step: this.currentStep };
 			}
 
@@ -412,4 +405,4 @@
 
 // -- BEGIN UMD WRAPPER AFTERWORD --
 }));
-	// -- END UMD WRAPPER AFTERWORD --
+// -- END UMD WRAPPER AFTERWORD --
