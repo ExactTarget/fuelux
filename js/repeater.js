@@ -546,9 +546,21 @@
 		runRenderer: function(container, renderer, data, callback){
 			var self = this;
 			var skipNested = false;
+			var index = 0;
 			var repeat, subset, i, l;
 
-			var loopSubset = function(index){
+			function loopSubset(){
+				next(function(){
+					index++;
+					if(index<subset.length){
+						loopSubset(index);
+					}else{
+						callback();
+					}
+				});
+			}
+			
+			function next(cb){
 				var args = { container: container, data: data };
 				if(renderer.repeat){
 					args.subset = subset;
@@ -557,18 +569,11 @@
 				if(subset.length<1){
 					callback();
 				}else{
-					start(args, function(){
-						index++;
-						if(index<subset.length){
-							loopSubset(index);
-						}else{
-							callback();
-						}
-					});
+					start(args, cb);
 				}
-			};
+			}
 
-			var start = function(args, cb){
+			function start(args, cb){
 				var item = '';
 
 				var callbacks = {
@@ -598,14 +603,16 @@
 					after: function(resp){
 						var cont;
 						var loopNested = function(cont, index){
-							self.runRenderer(cont, renderer.nested[index], data, function(){
-								index++;
-								if(index<renderer.nested.length){
-									loopNested(cont, index);
-								}else{
-									proceed('complete', args);
-								}
-							});
+							setTimeout(function(){
+								self.runRenderer(cont, renderer.nested[index], data, function(){
+									index++;
+									if(index<renderer.nested.length){
+										loopNested(cont, index);
+									}else{
+										proceed('complete', args);
+									}
+								});
+							}, 0);
 						};
 
 						if(resp && resp.skipNested===true){
@@ -630,7 +637,7 @@
 					}
 				};
 
-				var proceed = function(stage, argus){
+				function proceed(stage, argus){
 					argus = $.extend({}, argus);
 					if(renderer[stage]){
 						renderer[stage].call(self, argus, callbacks[stage]);
@@ -638,7 +645,7 @@
 						callbacks[stage](null);
 					}
 				};
-
+				
 				proceed('before', args);
 			};
 
@@ -659,7 +666,7 @@
 				subset = [''];
 			}
 
-			loopSubset(0);
+			loopSubset();
 		},
 
 		setViewOptions: function(curView){
