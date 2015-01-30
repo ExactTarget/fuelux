@@ -43,7 +43,7 @@
     "volo": "0.x"
   },
   "engines": {
-    "node": ">= 0.8.0"
+    "node": "0.10.x"
   },
   "homepage": "https://github.com/ExactTarget/fuelux",
   "keywords": [
@@ -76,7 +76,7 @@
     "test": "grunt travisci"
   },
   "title": "Fuel UX",
-  "version": "3.5.0",
+  "version": "3.5.1",
   "volo": {
     "baseDir": "lib",
     "dependencies": {

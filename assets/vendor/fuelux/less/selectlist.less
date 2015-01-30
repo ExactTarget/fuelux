@@ -12,13 +12,16 @@
 	.dropdown-menu {
 		min-width: inherit;
 	}
-
 	.btn.dropdown-toggle {
 		white-space: normal;
 
 		.selected-label {
-			padding-right: 10px;
-			text-align: left;
+			padding-right: 18px;
+			float: left;
+		}
+		.caret {
+			.vertical-align();
+			right: @btnPaddingHorizontal;
 		}
 	}
 }

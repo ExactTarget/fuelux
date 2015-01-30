@@ -46,3 +46,18 @@ input, textarea {
 	position:absolute;
 	left:-9999px;
 }
+
+.button-sizer, .selectlist-sizer {
+	display: inline-block;
+	position: absolute;
+	visibility: hidden;
+	top: 0;
+	float: left;
+	.dropdown-menu {
+		display: block;
+		min-width: inherit;
+	}
+	.selected-label {
+		width: auto !important;
+	}
+}
