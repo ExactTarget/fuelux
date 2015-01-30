@@ -152,34 +152,31 @@ define(function(require){
 		var $first;
 
 		$repeater.on('loaded.fu.repeater', function(e, options){
-			start();
-			
 			count++;
+			
 			switch(count){
 				case 1:
 					$first = $repeater.find('.repeater-list thead .repeater-list-heading:first');
 					$first.click();
-					stop();
 					break;
 				case 2:
 					equal(($first.hasClass('sorted') && $first.find('span').hasClass('glyphicon-chevron-up')), true, 'asc sorted header has appropriate class and icon');
 					equal(options.sortDirection, 'asc', 'dataSource passed appropriate sortDirection value');
 					equal(options.sortProperty, 'commonName', 'dataSource passed appropriate sortProperty value');
 					$first.click();
-					stop();
 					break;
 				case 3:
 					equal(($first.hasClass('sorted') && $first.find('span').hasClass('glyphicon-chevron-down')), true, 'desc sorted header has appropriate class and icon');
 					equal(options.sortDirection, 'desc', 'dataSource passed appropriate sortDirection value');
 					equal(options.sortProperty, 'commonName', 'dataSource passed appropriate sortProperty value');
 					$first.click();
-					stop();
 					break;
 				case 4:
 					equal($first.hasClass('sorted'), false, 'previously sorted header reverted to non-sorted');
 					equal(options.sortDirection, undefined, 'dataSource passed appropriate sortDirection value');
 					equal(options.sortProperty, undefined, 'dataSource passed appropriate sortProperty value');
 					$repeater.off('loaded.fu.repeater');
+					start();
 					break;
 			}
 		});
@@ -196,13 +193,11 @@ define(function(require){
 		var $col, num;
 
 		$repeater.on('loaded.fu.repeater', function(){
-			start();
-			
 			count++;
+			
 			switch(count){
 				case 1:
 					$repeater.find('.repeater-list thead th:nth-child(1) .repeater-list-heading').click();
-					stop();
 					break;
 				case 2:
 					$col = $repeater.find('.repeater-list tbody tr:first-child td:nth-child(1)');
@@ -215,6 +210,7 @@ define(function(require){
 					});
 					equal(num, 10, 'correct number of columns highlighted');
 					$repeater.off('loaded.fu.repeater');
+					start();
 					break;
 			}
 		});
@@ -344,18 +340,18 @@ define(function(require){
 			var $items = $repeater.find('.repeater-list tbody');
 
 			setTimeout(function(){
-			start();
-
-			$repeater.repeater('list_setSelectedItems', [{ index: 0 }]);
-			equal($repeater.repeater('list_getSelectedItems').length, 1, 'correct number of items selected');
-			equal($items.find('tr:first').hasClass('selected'), true, 'correct row selected by index');
-
-			$repeater.repeater('list_setSelectedItems', [{ property: 'commonName', value: 'pig' }]);
-			equal($repeater.repeater('list_getSelectedItems').length, 1, 'correct number of items selected');
-			equal($items.find('tr:nth-child(5)').hasClass('selected'), true, 'correct row selected by property/value');
-
-			$repeater.repeater('list_setSelectedItems', [{ index: 0 }, { property: 'commonName', value: 'dog' }], true);
-			equal($repeater.repeater('list_getSelectedItems').length, 4, 'correct number of items selected when using force');
+				start();
+	
+				$repeater.repeater('list_setSelectedItems', [{ index: 0 }]);
+				equal($repeater.repeater('list_getSelectedItems').length, 1, 'correct number of items selected');
+				equal($items.find('tr:first').hasClass('selected'), true, 'correct row selected by index');
+	
+				$repeater.repeater('list_setSelectedItems', [{ property: 'commonName', value: 'pig' }]);
+				equal($repeater.repeater('list_getSelectedItems').length, 1, 'correct number of items selected');
+				equal($items.find('tr:nth-child(5)').hasClass('selected'), true, 'correct row selected by property/value');
+	
+				$repeater.repeater('list_setSelectedItems', [{ index: 0 }, { property: 'commonName', value: 'dog' }], true);
+				equal($repeater.repeater('list_getSelectedItems').length, 4, 'correct number of items selected when using force');
 			}, 0);
 
 		});

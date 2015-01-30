@@ -277,8 +277,6 @@ define(function(require){
 			var $cont = $repeater.find('.repeater-thumbnail-cont');
 		
 			setTimeout(function(){
-				start();
-		
 				switch(alignment){
 					case 'center':
 						equal($cont.hasClass('align-center'), true, 'repeater-thumbnail-cont has align-center class when alignment option set to ' + alignment);
@@ -306,11 +304,11 @@ define(function(require){
 						if(alignment==='none'){
 							alignment = 'center';
 						}else{
+							start();
 							return;
 						}
 				}
-		
-				stop();
+				
 				$repeater.remove();
 				$repeater = $(self.$markup);
 				
