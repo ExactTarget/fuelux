@@ -644,10 +644,10 @@
 					}else{
 						callbacks[stage](null);
 					}
-				};
+				}
 				
 				proceed('before', args);
-			};
+			}
 
 			if(renderer.repeat){
 				repeat = renderer.repeat.split('.');
