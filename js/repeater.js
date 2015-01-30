@@ -462,7 +462,7 @@
 										self.infiniteScrollPaging(data, options);
 									}
 									self.$loader.hide().loader('pause');
-									self.$element.trigger('loaded.fu.repeater');
+									self.$element.trigger('loaded.fu.repeater', opts);
 								});
 							}
 						});

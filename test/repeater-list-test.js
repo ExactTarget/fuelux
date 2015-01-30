@@ -4,7 +4,6 @@
 
 define(function(require){
 	var $ = require('jquery');
-	var afterSource = function(options){};
 	var data = require('data');
 	var dataSource = function(options, callback){
 
@@ -55,7 +54,6 @@ define(function(require){
 		}
 
 		callback(resp);
-		afterSource(options);
 	};
 	var html = require('text!test/markup/repeater-markup.html');
 	var noItems = false;
@@ -79,12 +77,13 @@ define(function(require){
 		ok($.fn.repeater.viewTypes.list, 'repeater-list view plugin is defined');
 	});
 
-	test('should render correctly', function () {
+	asyncTest('should render correctly', function () {
 		var headingColumns = ['Common Name', 'Latin Name', 'Appearance', 'Sound'];
 		var itemColumns = ['cat', 'Felis catus', 'small, usually furry, domesticated carnivorous mammal', 'Meow meow!'];
 		var $repeater = $(this.$markup);
 
-		afterSource = function(){
+		$repeater.one('loaded.fu.repeater', function(){
+			start();
 			var $list = $repeater.find('.repeater-list');
 			var i, $tbody;
 
@@ -106,22 +105,23 @@ define(function(require){
 			});
 			i = $tbody.find('tr');
 			equal(i.length, 10, 'repeater-list rendered appropriate number of rows');
-		};
+		});
 
 		$repeater.repeater({
 			dataSource: dataSource
 		});
 	});
 
-	test('should call column and row callbacks correctly', function(){
+	asyncTest('should call column and row callbacks correctly', function(){
 		var hasCalled = { column: false, row: false };
 		var num = { cols: 0, rows: 0 };
 		var $repeater = $(this.$markup);
 
-		afterSource = function(){
+		$repeater.one('loaded.fu.repeater', function(){
+			start();
 			equal(num.cols, 40, 'columnRendered callback called expected number of times');
 			equal(num.rows, 10, 'rowRendered callback called expected number of times');
-		};
+		});
 
 		$repeater.repeater({
 			dataSource: dataSource,
@@ -146,37 +146,43 @@ define(function(require){
 		});
 	});
 
-	test('should handle sorting option correctly', function(){
-		var count = 0;
+	asyncTest('should handle sorting option correctly', function(){
 		var $repeater = $(this.$markup);
+		var count = 0;
 		var $first;
 
-		afterSource = function(options){
+		$repeater.on('loaded.fu.repeater', function(e, options){
+			start();
+			
 			count++;
 			switch(count){
 				case 1:
 					$first = $repeater.find('.repeater-list thead .repeater-list-heading:first');
 					$first.click();
+					stop();
 					break;
 				case 2:
 					equal(($first.hasClass('sorted') && $first.find('span').hasClass('glyphicon-chevron-up')), true, 'asc sorted header has appropriate class and icon');
 					equal(options.sortDirection, 'asc', 'dataSource passed appropriate sortDirection value');
 					equal(options.sortProperty, 'commonName', 'dataSource passed appropriate sortProperty value');
 					$first.click();
+					stop();
 					break;
 				case 3:
 					equal(($first.hasClass('sorted') && $first.find('span').hasClass('glyphicon-chevron-down')), true, 'desc sorted header has appropriate class and icon');
 					equal(options.sortDirection, 'desc', 'dataSource passed appropriate sortDirection value');
 					equal(options.sortProperty, 'commonName', 'dataSource passed appropriate sortProperty value');
 					$first.click();
+					stop();
 					break;
 				case 4:
 					equal($first.hasClass('sorted'), false, 'previously sorted header reverted to non-sorted');
 					equal(options.sortDirection, undefined, 'dataSource passed appropriate sortDirection value');
 					equal(options.sortProperty, undefined, 'dataSource passed appropriate sortProperty value');
+					$repeater.off('loaded.fu.repeater');
 					break;
 			}
-		};
+		});
 
 		$repeater.repeater({
 			dataSource: dataSource,
@@ -184,16 +190,19 @@ define(function(require){
 		});
 	});
 
-	test('should highlight correct sorted column', function(){
+	asyncTest('should highlight correct sorted column', function(){
 		var count = 0;
 		var $repeater = $(this.$markup);
 		var $col, num;
 
-		afterSource = function(options){
+		$repeater.on('loaded.fu.repeater', function(){
+			start();
+			
 			count++;
 			switch(count){
 				case 1:
 					$repeater.find('.repeater-list thead th:nth-child(1) .repeater-list-heading').click();
+					stop();
 					break;
 				case 2:
 					$col = $repeater.find('.repeater-list tbody tr:first-child td:nth-child(1)');
@@ -205,9 +214,10 @@ define(function(require){
 						}
 					});
 					equal(num, 10, 'correct number of columns highlighted');
+					$repeater.off('loaded.fu.repeater');
 					break;
 			}
-		};
+		});
 
 		$repeater.repeater({
 			dataSource: dataSource,
@@ -215,14 +225,15 @@ define(function(require){
 		});
 	});
 
-	test('should handle noItemsHTML option correctly', function(){
+	asyncTest('should handle noItemsHTML option correctly', function(){
 		var $repeater = $(this.$markup);
 
-		afterSource = function(){
+		$repeater.one('loaded.fu.repeater', function(){
+			start();
 			var txt = $repeater.find('.repeater-list tbody tr.empty').text();
 			equal(txt, 'TEST', 'correct noItemsHTML content appended when appropriate');
 			noItems = false;
-		};
+		});
 
 		noItems = true;
 		$repeater.repeater({
@@ -231,10 +242,11 @@ define(function(require){
 		});
 	});
 
-	test('should handle selectable (single) option correctly', function(){
+	asyncTest('should handle selectable (single) option correctly', function(){
 		var $repeater = $(this.$markup);
 
-		afterSource = function(){
+		$repeater.one('loaded.fu.repeater', function(){
+			start();
 			var $items = $repeater.find('.repeater-list tbody');
 			var $firstRow = $items.find('tr:first');
 			var $lastRow = $items.find('tr:last');
@@ -244,7 +256,7 @@ define(function(require){
 			equal($firstRow.hasClass('selected'), true, 'row has selected class after being clicked as expected');
 			$lastRow.click();
 			equal((!$firstRow.hasClass('selected') && $lastRow.hasClass('selected')), true, 'selected class transferred to different row when clicked');
-		};
+		});
 
 		$repeater.repeater({
 			dataSource: dataSource,
@@ -252,10 +264,11 @@ define(function(require){
 		});
 	});
 
-	test('should handle selectable (multi) option correctly', function(){
+	asyncTest('should handle selectable (multi) option correctly', function(){
 		var $repeater = $(this.$markup);
 
-		afterSource = function(){
+		$repeater.one('loaded.fu.repeater', function(){
+			start();
 			var $items = $repeater.find('.repeater-list tbody');
 			var $firstRow = $items.find('tr:first');
 			var $lastRow = $items.find('tr:last');
@@ -265,7 +278,7 @@ define(function(require){
 			equal($firstRow.hasClass('selected'), true, 'row has selected class after being clicked as expected');
 			$lastRow.click();
 			equal(($firstRow.hasClass('selected') && $lastRow.hasClass('selected')), true, 'both rows have selected class after another click');
-		};
+		});
 
 		$repeater.repeater({
 			dataSource: dataSource,
@@ -276,20 +289,20 @@ define(function(require){
 	asyncTest('should clear selected items', function(){
 		var $repeater = $(this.$markup);
 
-		afterSource = function(){
+		$repeater.one('loaded.fu.repeater', function(){
 			var $items = $repeater.find('.repeater-list tbody');
 			var $firstRow = $items.find('tr:first');
 			var $lastRow = $items.find('tr:last');
 
 			$firstRow.click();
 			$lastRow.click();
-			//TODO: why is this timeout needed???
+			
 			setTimeout(function(){
 				start();
 				$repeater.repeater('list_clearSelectedItems');
 				equal((!$firstRow.hasClass('selected') && !$lastRow.hasClass('selected')), true, 'selected items cleared as expected');
 			}, 0);
-		};
+		});
 
 		$repeater.repeater({
 			dataSource: dataSource,
@@ -300,7 +313,7 @@ define(function(require){
 	asyncTest('should get selected items', function(){
 		var $repeater = $(this.$markup);
 
-		afterSource = function(){
+		$repeater.one('loaded.fu.repeater', function(){
 			var $items = $repeater.find('.repeater-list tbody');
 			var $firstRow = $items.find('tr:first');
 			var $lastRow = $items.find('tr:last');
@@ -308,6 +321,7 @@ define(function(require){
 
 			$firstRow.click();
 			$lastRow.click();
+			
 			setTimeout(function(){
 				start();
 				selected = $repeater.repeater('list_getSelectedItems');
@@ -315,7 +329,7 @@ define(function(require){
 				equal((typeof selected[0].data==='object' && selected[0].element.length>0), true, 'items in returned array contain appropriate object and attributes');
 			}, 0);
 
-		};
+		});
 
 		$repeater.repeater({
 			dataSource: dataSource,
@@ -326,25 +340,25 @@ define(function(require){
 	asyncTest('should set selected items', function(){
 		var $repeater = $(this.$markup);
 
-		afterSource = function(){
+		$repeater.one('loaded.fu.repeater', function(){
 			var $items = $repeater.find('.repeater-list tbody');
 
 			setTimeout(function(){
-				start();
+			start();
 
-				$repeater.repeater('list_setSelectedItems', [{ index: 0 }]);
-				equal($repeater.repeater('list_getSelectedItems').length, 1, 'correct number of items selected');
-				equal($items.find('tr:first').hasClass('selected'), true, 'correct row selected by index');
+			$repeater.repeater('list_setSelectedItems', [{ index: 0 }]);
+			equal($repeater.repeater('list_getSelectedItems').length, 1, 'correct number of items selected');
+			equal($items.find('tr:first').hasClass('selected'), true, 'correct row selected by index');
 
-				$repeater.repeater('list_setSelectedItems', [{ property: 'commonName', value: 'pig' }]);
-				equal($repeater.repeater('list_getSelectedItems').length, 1, 'correct number of items selected');
-				equal($items.find('tr:nth-child(5)').hasClass('selected'), true, 'correct row selected by property/value');
+			$repeater.repeater('list_setSelectedItems', [{ property: 'commonName', value: 'pig' }]);
+			equal($repeater.repeater('list_getSelectedItems').length, 1, 'correct number of items selected');
+			equal($items.find('tr:nth-child(5)').hasClass('selected'), true, 'correct row selected by property/value');
 
-				$repeater.repeater('list_setSelectedItems', [{ index: 0 }, { property: 'commonName', value: 'dog' }], true);
-				equal($repeater.repeater('list_getSelectedItems').length, 4, 'correct number of items selected when using force');
+			$repeater.repeater('list_setSelectedItems', [{ index: 0 }, { property: 'commonName', value: 'dog' }], true);
+			equal($repeater.repeater('list_getSelectedItems').length, 4, 'correct number of items selected when using force');
 			}, 0);
 
-		};
+		});
 
 		$repeater.repeater({
 			dataSource: dataSource,
