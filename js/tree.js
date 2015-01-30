@@ -32,7 +32,10 @@
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.tree.defaults, options);
 
-		this.$element.on('click.fu.tree', '.tree-item', $.proxy( function(ev) { this.selectItem(ev.currentTarget); } ,this));
+		if( this.options.itemSelect ){
+      this.$element.on('click.fu.tree', '.tree-item', $.proxy( function(ev) { this.selectItem(ev.currentTarget); } ,this));
+    }
+
 		this.$element.on('click.fu.tree', '.tree-branch-name', $.proxy( function(ev) { this.openFolder(ev.currentTarget); }, this));
 
 		if( this.options.folderSelect ){
@@ -147,6 +150,8 @@
 		},
 
 		selectItem: function (el) {
+      if(!this.options.itemSelect) return;
+
 			var $el = $(el);
 			var selData = $el.data();
 			var $all = this.$element.find('.tree-selected');
@@ -249,6 +254,8 @@
 		},
 
 		selectFolder: function (clickedElement) {
+      if(!this.options.folderSelect) return;
+
 			var $clickedElement = $(clickedElement);
 			var $clickedBranch = $clickedElement.closest('.tree-branch');
 			var $selectedBranch = this.$element.find('.tree-branch.tree-selected');
@@ -349,7 +356,8 @@
 		dataSource: function(options, callback){},
 		multiSelect: false,
 		cacheItems: true,
-		folderSelect: true
+		folderSelect: true,
+		itemSelect: true
 	};
 
 	$.fn.tree.Constructor = Tree;

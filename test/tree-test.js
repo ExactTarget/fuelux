@@ -142,6 +142,30 @@ define(function(require){
 		equal($tree.tree('selectedItems').length, 1, 'Return single selected value');
 	});
 
+  test("should not allow selecting items if disabled", function() {
+		var $tree = $(html).find('#MyTree');
+
+		$tree.tree({
+			dataSource: this.dataSource,
+			itemSelect: false
+		});
+
+		$tree.tree('selectItem', $tree.find('.tree-item:eq(1)'));
+		equal($tree.tree('selectedItems').length, 0, 'Return no value');
+  });
+
+  test("should not allow selecting folders if disabled", function() {
+		var $tree = $(html).find('#MyTree');
+
+		$tree.tree({
+			dataSource: this.dataSource,
+			folderSelect: false
+		});
+
+		$tree.tree('selectFolder', $tree.find('.tree-branch-name:eq(1)'));
+		equal($tree.tree('selectedItems').length, 0, 'Return no value');
+  });
+
 	test("should destroy control", function () {
 		var $tree = $(html).find('#MyTree');
 
