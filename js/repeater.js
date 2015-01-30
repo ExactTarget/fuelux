@@ -547,6 +547,7 @@
 			var self = this;
 			var skipNested = false;
 			var index = 0;
+			var skip = 0;
 			var repeat, subset, i, l;
 
 			function loopSubset(){
@@ -603,16 +604,20 @@
 					after: function(resp){
 						var cont;
 						var loopNested = function(cont, index){
-							setTimeout(function(){
-								self.runRenderer(cont, renderer.nested[index], data, function(){
-									index++;
-									if(index<renderer.nested.length){
-										loopNested(cont, index);
-									}else{
+							self.runRenderer(cont, renderer.nested[index], data, function(){
+								index++;
+								if(index<renderer.nested.length){
+									loopNested(cont, index);
+								}else{
+									if (++skip % 50 === 0) {
+										setTimeout(function(){
+											proceed('complete', args);
+										}, 1);
+									} else {
 										proceed('complete', args);
 									}
-								});
-							}, 0);
+								}
+							});
 						};
 
 						if(resp && resp.skipNested===true){
