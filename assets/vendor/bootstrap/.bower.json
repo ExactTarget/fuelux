@@ -1,7 +1,7 @@
 {
   "name": "bootstrap",
   "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
-  "version": "3.2.0",
+  "version": "3.3.2",
   "keywords": [
     "css",
     "js",
@@ -23,7 +23,7 @@
     "dist/fonts/glyphicons-halflings-regular.woff"
   ],
   "ignore": [
-    ".*",
+    "/.*",
     "_config.yml",
     "CNAME",
     "composer.json",
@@ -33,15 +33,15 @@
     "test-infra"
   ],
   "dependencies": {
-    "jquery": ">= 1.9.0"
+    "jquery": ">= 1.9.1"
   },
-  "_release": "3.2.0",
+  "_release": "3.3.2",
   "_resolution": {
     "type": "version",
-    "tag": "v3.2.0",
-    "commit": "c068162161154a4b85110ea1e7dd3d7897ce2b72"
+    "tag": "v3.3.2",
+    "commit": "bcf7dd38b5ab180256e2e4fb5da0369551b3f082"
   },
   "_source": "git://github.com/twbs/bootstrap.git",
-  "_target": "~3.2.0",
+  "_target": "3.x",
   "_originalSource": "bootstrap"
 }

@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.5.0
+ * Fuel UX v3.5.1
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license ()
  */
@@ -2272,16 +2272,34 @@
 			},
 
 			resize: function() {
-				var width = this.$dropdownMenu.outerWidth();
+				var width = 0;
+				var newWidth = 0;
+				var sizer = $( '<div/>' ).addClass( 'selectlist-sizer' );
 
-				if ( this.$button.outerWidth() > width ) {
-					var btnWidth = this.$button.outerWidth();
-					this.$dropdownMenu.css( 'width', btnWidth );
+
+				if ( Boolean( $( document ).find( 'html' ).hasClass( 'fuelux' ) ) ) {
+					// default behavior for fuel ux setup. means fuelux was a class on the html tag
+					$( document.body ).append( sizer );
 				} else {
-					this.$button.css( 'width', width );
-					this.$dropdownMenu.css( 'width', width );
+					// fuelux is not a class on the html tag. So we'll look for the first one we find so the correct styles get applied to the sizer
+					$( '.fuelux:first' ).append( sizer );
 				}
 
+				sizer.append( this.$element.clone() );
+
+				this.$element.find( 'a' ).each( function() {
+					sizer.find( '.selected-label' ).text( $( this ).text() );
+					newWidth = sizer.find( '.selectlist' ).outerWidth();
+					newWidth = newWidth + sizer.find( '.sr-only' ).outerWidth();
+					if ( newWidth > width ) {
+						width = newWidth;
+					}
+				} );
+
+				this.$button.css( 'width', width );
+				this.$dropdownMenu.css( 'width', width );
+
+				sizer.remove();
 
 			},
 
