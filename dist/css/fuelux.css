@@ -1,12 +1,11 @@
 /*!
- * Fuel UX v3.5.1 
+ * Fuel UX EDGE - Built 2015/02/02, 1:42:50 PM 
+ * Previous release: v3.5.1 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license ()
  */
 
-.fuelux {
-  @charset "UTF-8";
-}
+@charset "UTF-8";
 .fuelux .clearfix {
   *zoom: 1;
 }
