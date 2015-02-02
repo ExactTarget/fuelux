@@ -396,6 +396,9 @@
 										container: helpers.container,
 										rowData: helpers.subset[helpers.index]
 									};
+									if(this.viewOptions.list_columnSyncing){
+										this.list_sizeHeadings();
+									}
 									if(helpers.item!==undefined){
 										obj.item = helpers.item;
 									}
