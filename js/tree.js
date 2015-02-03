@@ -32,16 +32,24 @@
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.tree.defaults, options);
 
-		if( this.options.itemSelect ){
-      this.$element.on('click.fu.tree', '.tree-item', $.proxy( function(ev) { this.selectItem(ev.currentTarget); } ,this));
-    }
+		if (this.options.itemSelect) {
+			this.$element.on('click.fu.tree', '.tree-item', $.proxy(function (ev) {
+				this.selectItem(ev.currentTarget);
+			}, this));
+		}
 
-		this.$element.on('click.fu.tree', '.tree-branch-name', $.proxy( function(ev) { this.openFolder(ev.currentTarget); }, this));
+		this.$element.on('click.fu.tree', '.tree-branch-name', $.proxy(function (ev) {
+			this.openFolder(ev.currentTarget);
+		}, this));
 
-		if( this.options.folderSelect ){
+		if (this.options.folderSelect) {
 			this.$element.off('click.fu.tree', '.tree-branch-name');
-			this.$element.on('click.fu.tree', '.icon-caret', $.proxy( function(ev) { this.openFolder($(ev.currentTarget).parent()); }, this));
-			this.$element.on('click.fu.tree', '.tree-branch-name', $.proxy( function(ev) { this.selectFolder($(ev.currentTarget)); }, this));
+			this.$element.on('click.fu.tree', '.icon-caret', $.proxy(function (ev) {
+				this.openFolder($(ev.currentTarget).parent());
+			}, this));
+			this.$element.on('click.fu.tree', '.tree-branch-name', $.proxy(function (ev) {
+				this.selectFolder($(ev.currentTarget));
+			}, this));
 		}
 
 		this.render();
@@ -50,7 +58,7 @@
 	Tree.prototype = {
 		constructor: Tree,
 
-		destroy: function() {
+		destroy: function () {
 			// any external bindings [none]
 			// empty elements to return to original markup
 			this.$element.find("li:not([data-template])").remove();
@@ -71,13 +79,13 @@
 			var treeData = $parent.data();
 
 			loader.removeClass('hide');
-			this.options.dataSource( treeData ? treeData : {} , function (items) {
+			this.options.dataSource(treeData ? treeData : {}, function (items) {
 				loader.addClass('hide');
 
-				$.each( items.data, function(index, value) {
+				$.each(items.data, function (index, value) {
 					var $entity;
 
-					if(value.type === 'folder') {
+					if (value.type === 'folder') {
 						$entity = self.$element.find('[data-template=treebranch]:eq(0)').clone().removeClass('hide').removeAttr('data-template');
 						$entity.data(value);
 						$entity.find('.tree-branch-name > .tree-label').html(value.text || value.name);
@@ -108,7 +116,7 @@
 
 					// add attributes to tree-branch or tree-item
 					var attr = value['attr'] || value.dataAttributes || [];
-					$.each(attr, function(key, value) {
+					$.each(attr, function (key, value) {
 						switch (key) {
 							case 'cssClass':
 							case 'class':
@@ -137,7 +145,7 @@
 					});
 
 					// add child nodes
-					if($el.hasClass('tree-branch-header')) {
+					if ($el.hasClass('tree-branch-header')) {
 						$parent.find('.tree-branch-children:eq(0)').append($entity);
 					} else {
 						$el.append($entity);
@@ -150,8 +158,7 @@
 		},
 
 		selectItem: function (el) {
-      if(!this.options.itemSelect) return;
-
+			if (!this.options.itemSelect) return;
 			var $el = $(el);
 			var selData = $el.data();
 			var $all = this.$element.find('.tree-selected');
@@ -159,10 +166,10 @@
 			var $icon = $el.find('.icon-item');
 
 			if (this.options.multiSelect) {
-				$.each($all, function(index, value) {
+				$.each($all, function (index, value) {
 					var $val = $(value);
-					if($val[0] !== $el[0]) {
-						data.push( $(value).data() );
+					if ($val[0] !== $el[0]) {
+						data.push($(value).data());
 					}
 				});
 			} else if ($all[0] !== $el[0]) {
@@ -172,24 +179,30 @@
 			}
 
 			var eventType = 'selected';
-			if($el.hasClass('tree-selected')) {
+			if ($el.hasClass('tree-selected')) {
 				eventType = 'deselected';
 				$el.removeClass('tree-selected');
-				if($icon.hasClass('glyphicon-ok') || $icon.hasClass('fueluxicon-bullet') ) {
+				if ($icon.hasClass('glyphicon-ok') || $icon.hasClass('fueluxicon-bullet')) {
 					$icon.removeClass('glyphicon-ok').addClass('fueluxicon-bullet');
 				}
+
 			} else {
 				$el.addClass ('tree-selected');
 				// add tree dot back in
-				if($icon.hasClass('glyphicon-ok') || $icon.hasClass('fueluxicon-bullet') ) {
+				if ($icon.hasClass('glyphicon-ok') || $icon.hasClass('fueluxicon-bullet')) {
 					$icon.removeClass('fueluxicon-bullet').addClass('glyphicon-ok');
 				}
+
 				if (this.options.multiSelect) {
-					data.push( selData );
+					data.push(selData);
 				}
+
 			}
 
-			this.$element.trigger(eventType + '.fu.tree', {target: selData, selected: data});
+			this.$element.trigger(eventType + '.fu.tree', {
+				target: selData,
+				selected: data
+			});
 
 			// Return new list of selected items, the item
 			// clicked, and the type of event:
@@ -201,17 +214,17 @@
 		},
 
 		openFolder: function (el) {
-			var $el = $(el); // tree-branch-name
+			var $el = $(el);// tree-branch-name
 			var $branch;
 			var $treeFolderContent;
 			var $treeFolderContentFirstChild;
 
 			// if item select only
 			if (!this.options.folderSelect) {
-				$el = $(el).parent(); // tree-branch, if tree-branch-name clicked
+				$el = $(el).parent();// tree-branch, if tree-branch-name clicked
 			}
 
-			$branch = $el.closest('.tree-branch'); // tree branch
+			$branch = $el.closest('.tree-branch');// tree branch
 			$treeFolderContent = $branch.find('.tree-branch-children');
 			$treeFolderContentFirstChild = $treeFolderContent.eq(0);
 
@@ -230,7 +243,7 @@
 					this.populate($treeFolderContent);
 				}
 
-			} else if($el.find('.glyphicon-folder-open')) {
+			} else if ($el.find('.glyphicon-folder-open')) {
 				eventType = 'closed';
 				classToTarget = '.glyphicon-folder-open';
 				classToAdd = 'glyphicon-folder-close';
@@ -254,8 +267,7 @@
 		},
 
 		selectFolder: function (clickedElement) {
-      if(!this.options.folderSelect) return;
-
+			if (!this.options.folderSelect) return;
 			var $clickedElement = $(clickedElement);
 			var $clickedBranch = $clickedElement.closest('.tree-branch');
 			var $selectedBranch = this.$element.find('.tree-branch.tree-selected');
@@ -264,7 +276,7 @@
 			var eventType = 'selected';
 
 			// select clicked item
-			if($clickedBranch.hasClass('tree-selected')) {
+			if ($clickedBranch.hasClass('tree-selected')) {
 				eventType = 'deselected';
 				$clickedBranch.removeClass('tree-selected');
 			} else {
@@ -272,14 +284,13 @@
 			}
 
 			if (this.options.multiSelect) {
-
-			// get currently selected
+				// get currently selected
 				$selectedBranch = this.$element.find('.tree-branch.tree-selected');
 
-				$.each($selectedBranch, function(index, value) {
+				$.each($selectedBranch, function (index, value) {
 					var $value = $(value);
-					if($value[0] !== $clickedElement[0]) {
-						selectedData.push( $(value).data() );
+					if ($value[0] !== $clickedElement[0]) {
+						selectedData.push($(value).data());
 					}
 				});
 
@@ -289,7 +300,10 @@
 				selectedData.push(clickedData);
 			}
 
-			this.$element.trigger(eventType + '.fu.tree', {target: clickedData, selected: selectedData});
+			this.$element.trigger(eventType + '.fu.tree', {
+				target: clickedData,
+				selected: selectedData
+			});
 
 			// Return new list of selected items, the item
 			// clicked, and the type of event:
@@ -337,23 +351,28 @@
 	// TREE PLUGIN DEFINITION
 
 	$.fn.tree = function (option) {
-		var args = Array.prototype.slice.call( arguments, 1 );
+		var args = Array.prototype.slice.call(arguments, 1);
 		var methodReturn;
 
 		var $set = this.each(function () {
-			var $this   = $( this );
-			var data    = $this.data( 'fu.tree' );
+			var $this = $(this);
+			var data = $this.data('fu.tree');
 			var options = typeof option === 'object' && option;
 
-			if( !data ) $this.data('fu.tree', (data = new Tree( this, options ) ) );
-			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+			if (!data) {
+				$this.data('fu.tree', (data = new Tree(this, options)));
+			}
+
+			if (typeof option === 'string') {
+				methodReturn = data[option].apply(data, args);
+			}
 		});
 
-		return ( methodReturn === undefined ) ? $set : methodReturn;
+		return (methodReturn === undefined) ? $set : methodReturn;
 	};
 
 	$.fn.tree.defaults = {
-		dataSource: function(options, callback){},
+		dataSource: function (options, callback) {},
 		multiSelect: false,
 		cacheItems: true,
 		folderSelect: true,
@@ -370,6 +389,6 @@
 
 	// NO DATA-API DUE TO NEED OF DATA-SOURCE
 
-// -- BEGIN UMD WRAPPER AFTERWORD --
+	// -- BEGIN UMD WRAPPER AFTERWORD --
 }));
-	// -- END UMD WRAPPER AFTERWORD --
+// -- END UMD WRAPPER AFTERWORD --

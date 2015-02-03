@@ -8,7 +8,7 @@
 
 // -- BEGIN UMD WRAPPER PREFACE --
 
-// For more information on UMD visit: 
+// For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
@@ -21,7 +21,7 @@
 	}
 }(function ($) {
 	// -- END UMD WRAPPER PREFACE --
-	
+
 	// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.search;
@@ -47,12 +47,12 @@
 
 		constructor: Search,
 
-		destroy: function() {
+		destroy: function () {
 			this.$element.remove();
 			// any external bindings
 			// [none]
 			// set input value attrbute
-			this.$element.find('input').each(function() {
+			this.$element.find('input').each(function () {
 				$(this).attr('value', $(this).val());
 			});
 			// empty elements to return to original markup
@@ -62,18 +62,20 @@
 		},
 
 		search: function (searchText) {
-			if( this.$icon.hasClass('glyphicon') ) {
+			if (this.$icon.hasClass('glyphicon')) {
 				this.$icon.removeClass('glyphicon-search').addClass('glyphicon-remove');
 			}
+
 			this.activeSearch = searchText;
 			this.$element.addClass('searched');
 			this.$element.trigger('searched.fu.search', searchText);
 		},
 
 		clear: function () {
-			if( this.$icon.hasClass('glyphicon') ) {
+			if (this.$icon.hasClass('glyphicon')) {
 				this.$icon.removeClass('glyphicon-remove').addClass('glyphicon-search');
 			}
+
 			this.activeSearch = '';
 			this.$input.val('');
 			this.$element.removeClass('searched');
@@ -111,25 +113,23 @@
 			if (e.which === 13) {
 				e.preventDefault();
 				this.action();
-			}
-			else if (e.which === 9) {
+			} else if (e.which === 9) {
 				e.preventDefault();
-			}
-			else {
+			} else {
 				val = this.$input.val();
 
-				if(val!==this.activeSearch || !val){
+				if (val !== this.activeSearch || !val) {
 					this.$icon.removeClass(remove).addClass(search);
-					if(val) {
+					if (val) {
 						this.$element.removeClass('searched');
-					}
-					else if (this.options.clearOnEmpty){
+					} else if (this.options.clearOnEmpty) {
 						this.clear();
 					}
-				}
-				else{
+
+				} else {
 					this.$icon.removeClass(search).addClass(remove);
 				}
+
 			}
 		},
 
@@ -144,26 +144,30 @@
 			this.$input.removeAttr('disabled');
 			this.$button.removeClass('disabled');
 		}
-
 	};
 
 
 	// SEARCH PLUGIN DEFINITION
 
 	$.fn.search = function (option) {
-		var args = Array.prototype.slice.call( arguments, 1 );
+		var args = Array.prototype.slice.call(arguments, 1);
 		var methodReturn;
 
 		var $set = this.each(function () {
-			var $this = $( this );
+			var $this = $(this);
 			var data = $this.data('fu.search');
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('fu.search', (data = new Search(this, options)));
-			if (typeof option === 'string') methodReturn = data[ option ].apply( data, args );
+			if (!data) {
+				$this.data('fu.search', (data = new Search(this, options)));
+			}
+
+			if (typeof option === 'string') {
+				methodReturn = data[option].apply(data, args);
+			}
 		});
 
-		return ( methodReturn === undefined ) ? $set : methodReturn;
+		return (methodReturn === undefined) ? $set : methodReturn;
 	};
 
 	$.fn.search.defaults = {
@@ -182,7 +186,7 @@
 
 	$(document).on('mousedown.fu.search.data-api', '[data-initialize=search]', function (e) {
 		var $control = $(e.target).closest('.search');
-		if ( !$control.data('fu.search') ) {
+		if (!$control.data('fu.search')) {
 			$control.search($control.data());
 		}
 	});
@@ -196,6 +200,6 @@
 		});
 	});
 
-// -- BEGIN UMD WRAPPER AFTERWORD --
+	// -- BEGIN UMD WRAPPER AFTERWORD --
 }));
-	// -- END UMD WRAPPER AFTERWORD --
+// -- END UMD WRAPPER AFTERWORD --
