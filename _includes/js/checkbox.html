@@ -143,26 +143,30 @@ $('.checkbox input').on('change', function () {
   <h4 id="checkbox-examples-inline">Inline checkboxes</h4>
   <p>Use the <code>.checkbox-inline</code> class on checkboxes for controls that appear on the same line.</p>
   <div class="fu-example section">
-    <label class="checkbox-custom checkbox-inline" data-initialize="checkbox">
-      <input class="sr-only" type="checkbox" value="option1"> <span class="checkbox-label">1</span>
-    </label>
-    <label class="checkbox-custom checkbox-inline" data-initialize="checkbox">
-      <input class="sr-only" checked="checked" type="checkbox" value="option2"> <span class="checkbox-label">2</span>
-    </label>
-    <label class="checkbox-custom checkbox-inline" data-initialize="checkbox">
-      <input class="sr-only" disabled="disabled" type="checkbox" value="option3"> <span class="checkbox-label">3</span>
-    </label>
+    <div class="checkbox" data-initialize="checkbox">
+      <label class="checkbox-custom checkbox-inline" data-initialize="checkbox">
+        <input class="sr-only" type="checkbox" value="option1"> <span class="checkbox-label">1</span>
+      </label>
+      <label class="checkbox-custom checkbox-inline" data-initialize="checkbox">
+        <input class="sr-only" checked="checked" type="checkbox" value="option2"> <span class="checkbox-label">2</span>
+      </label>
+      <label class="checkbox-custom checkbox-inline" data-initialize="checkbox">
+        <input class="sr-only" disabled="disabled" type="checkbox" value="option3"> <span class="checkbox-label">3</span>
+      </label>
+    </div>
   </div>
 {% highlight html %}
-<label class="checkbox-custom checkbox-inline" data-initialize="checkbox"  id="myCheckbox5">
-  <input class="sr-only" type="checkbox" value="option1"> <span class="checkbox-label">1</span>
-</label>
-<label class="checkbox-custom checkbox-inline" data-initialize="checkbox"  id="myCheckbox6">
-  <input class="sr-only" checked="checked" type="checkbox" value="option2"> <span class="checkbox-label">2</span>
-</label>
-<label class="checkbox-custom checkbox-inline" data-initialize="checkbox"  id="myCheckbox7">
-  <input class="sr-only" disabled="disabled" type="checkbox" value="option3"> <span class="checkbox-label">3</span>
-</label>
+<div class="checkbox" data-initialize="checkbox">
+  <label class="checkbox-custom checkbox-inline" data-initialize="checkbox"  id="myCheckbox5">
+    <input class="sr-only" type="checkbox" value="option1"> <span class="checkbox-label">1</span>
+  </label>
+  <label class="checkbox-custom checkbox-inline" data-initialize="checkbox"  id="myCheckbox6">
+    <input class="sr-only" checked="checked" type="checkbox" value="option2"> <span class="checkbox-label">2</span>
+  </label>
+  <label class="checkbox-custom checkbox-inline" data-initialize="checkbox"  id="myCheckbox7">
+    <input class="sr-only" disabled="disabled" type="checkbox" value="option3"> <span class="checkbox-label">3</span>
+  </label>
+</div>
 {% endhighlight %}
 
   <h4 id="checkbox-examples-addon">Addon checkboxes</h4>
