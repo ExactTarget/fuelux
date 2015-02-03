@@ -8,7 +8,7 @@
 
 // -- BEGIN UMD WRAPPER PREFACE --
 
-// For more information on UMD visit: 
+// For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
@@ -49,39 +49,38 @@
 
 		constructor: Combobox,
 
-		destroy: function() {
+		destroy: function () {
 			this.$element.remove();
 			// remove any external bindings
 			// [none]
 
 			// set input value attrbute in markup
-			this.$element.find('input').each(function() {
+			this.$element.find('input').each(function () {
 				$(this).attr('value', $(this).val());
 			});
-			
+
 			// empty elements to return to original markup
 			// [none]
-			
+
 			return this.$element[0].outerHTML;
 		},
 
-		doSelect: function($item){
+		doSelect: function ($item) {
 			if (typeof $item[0] !== 'undefined') {
 				this.$selectedItem = $item;
 				this.$input.val(this.$selectedItem.text().trim());
-			}
-			else {
+			} else {
 				this.$selectedItem = null;
 			}
 		},
 
-		menuShown: function(){
-			if(this.options.autoResizeMenu){
+		menuShown: function () {
+			if (this.options.autoResizeMenu) {
 				this.resizeMenu();
 			}
 		},
 
-		resizeMenu: function(){
+		resizeMenu: function () {
 			var width = this.$element.outerWidth();
 			this.$dropMenu.outerWidth(width);
 		},
@@ -92,10 +91,13 @@
 
 			if (item) {
 				var txt = this.$selectedItem.text().trim();
-				data = $.extend({ text: txt }, this.$selectedItem.data());
-			}
-			else {
-				data = { text: this.$input.val()};
+				data = $.extend({
+					text: txt
+				}, this.$selectedItem.data());
+			} else {
+				data = {
+					text: this.$input.val()
+				};
 			}
 
 			return data;
@@ -103,8 +105,8 @@
 
 		selectByText: function (text) {
 			var $item = $([]);
-			this.$element.find('li').each(function(){
-				if((this.textContent || this.innerText || $(this).text() || '').toLowerCase() === (text || '').toLowerCase()){
+			this.$element.find('li').each(function () {
+				if ((this.textContent || this.innerText || $(this).text() || '').toLowerCase() === (text || '').toLowerCase()) {
 					$item = $(this);
 					return false;
 				}
@@ -156,7 +158,9 @@
 			this.$selectedItem = $(e.target).parent();
 
 			// set input text and trigger input change event marked as synthetic
-			this.$input.val(this.$selectedItem.text().trim()).trigger('change', { synthetic: true });
+			this.$input.val(this.$selectedItem.text().trim()).trigger('change', {
+				synthetic: true
+			});
 
 			// pass object including text and any data-attributes
 			// to onchange event
@@ -172,11 +176,9 @@
 		},
 
 		inputchanged: function (e, extra) {
-
 			// skip processing for internally-generated synthetic event
 			// to avoid double processing
 			if (extra && extra.synthetic) return;
-
 			var val = $(e.target).val();
 			this.selectByText(val);
 
@@ -184,33 +186,38 @@
 			// if no match, pass the input value
 			var data = this.selectedItem();
 			if (data.text.length === 0) {
-				data = { text: val };
+				data = {
+					text: val
+				};
 			}
 
 			// trigger changed event
 			this.$element.trigger('changed.fu.combobox', data);
-
 		}
-
 	};
 
 
 	// COMBOBOX PLUGIN DEFINITION
 
 	$.fn.combobox = function (option) {
-		var args = Array.prototype.slice.call( arguments, 1 );
+		var args = Array.prototype.slice.call(arguments, 1);
 		var methodReturn;
 
 		var $set = this.each(function () {
-			var $this   = $( this );
-			var data    = $this.data('fu.combobox');
+			var $this = $(this);
+			var data = $this.data('fu.combobox');
 			var options = typeof option === 'object' && option;
 
-			if( !data ) $this.data('fu.combobox', (data = new Combobox( this, options ) ) );
-			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+			if (!data) {
+				$this.data('fu.combobox', (data = new Combobox(this, options)));
+			}
+
+			if (typeof option === 'string') {
+				methodReturn = data[option].apply(data, args);
+			}
 		});
 
-		return ( methodReturn === undefined ) ? $set : methodReturn;
+		return (methodReturn === undefined) ? $set : methodReturn;
 	};
 
 	$.fn.combobox.defaults = {
@@ -228,7 +235,7 @@
 
 	$(document).on('mousedown.fu.combobox.data-api', '[data-initialize=combobox]', function (e) {
 		var $control = $(e.target).closest('.combobox');
-		if ( !$control.data('fu.combobox') ) {
+		if (!$control.data('fu.combobox')) {
 			$control.combobox($control.data());
 		}
 	});
@@ -237,12 +244,12 @@
 	$(function () {
 		$('[data-initialize=combobox]').each(function () {
 			var $this = $(this);
-			if ( !$this.data('fu.combobox') ) {
+			if (!$this.data('fu.combobox')) {
 				$this.combobox($this.data());
 			}
 		});
 	});
 
-// -- BEGIN UMD WRAPPER AFTERWORD --
+	// -- BEGIN UMD WRAPPER AFTERWORD --
 }));
-	// -- END UMD WRAPPER AFTERWORD --
+// -- END UMD WRAPPER AFTERWORD --
