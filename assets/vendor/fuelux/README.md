@@ -119,7 +119,7 @@ Keep track of development and community news.
 
 - Fuel UX, API's, and building with other Salesforce Marketing Cloud products visit [Code@](https://code.exacttarget.com/).
 - Implementation help may be found at Stack Overflow (tagged [`fuelux`](http://stackoverflow.com/questions/tagged/fuelux)).
-- Follow [@EtFuel on Twitter](https://twitter.com/etfuel).
+- Follow [@FuelUX on Twitter](https://twitter.com/fuelux).
 
 ### Philosophy
 Our aim is to provide a suite of related but independent projects that help web developers integrate, manage, and customize quality libraries and utilities to more efficiently develop, maintain, test, and distribute their projects.  Any improvements or fixes we make to the open source projects, we use will be contributed upstream if they are useful to the rest of the community.
