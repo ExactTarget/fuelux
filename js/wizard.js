@@ -352,12 +352,17 @@
 		},
 
 		selectedItem: function (selectedItem) {
-			var retVal, step;
+			var retVal, step, $matchedByName, matchedStep;
 
 			if (selectedItem) {
 				step = selectedItem.step || -1;
+				$matchedByName = this.$element.find('.steps').filter('[data-name="'+step+'"]');
 
-				if (step >= 1 && step <= this.numSteps) {
+				if (isNaN(step) && $matchedByName.length() >0){
+					matchedStep = $matchedByName.get(0).attr('data-step');
+					this.currentStep = matchedStep;
+					this.setState();
+				} else if (step >= 1 && step <= this.numSteps) {
 					this.currentStep = step;
 					this.setState();
 				} else {
