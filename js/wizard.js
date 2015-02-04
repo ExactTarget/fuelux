@@ -356,10 +356,10 @@
 
 			if (selectedItem) {
 				step = selectedItem.step || -1;
-				$matchedByName = this.$element.find('.steps').filter('[data-name="'+step+'"]');
+				$matchedByName = this.$element.find('.steps li').filter('[data-name="'+step+'"]');
 
-				if (isNaN(step) && $matchedByName.length() >0){
-					matchedStep = $matchedByName.get(0).attr('data-step');
+				if (isNaN(step) && $matchedByName.length){
+					matchedStep = $matchedByName.first().attr('data-step');
 					this.currentStep = matchedStep;
 					this.setState();
 				} else if (step >= 1 && step <= this.numSteps) {
