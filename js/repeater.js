@@ -476,7 +476,8 @@
 		render: function (options) {
 			var self = this;
 			var viewChanged = false;
-			var dataOptions, prevView, viewTypeObj;
+			var viewTypeObj = $.fn.repeater.viewTypes[this.viewType] || {};
+			var dataOptions, prevView;
 
 			options = options || {};
 
