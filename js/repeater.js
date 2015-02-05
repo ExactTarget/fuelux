@@ -583,12 +583,10 @@
 			function addItem (cont, resp) {
 				var action;
 				if (resp) {
-					cont = (resp.container !== undefined) ? $(resp.container) : cont;
-					if (resp.item !== undefined) {
-						action = (resp.action) ? resp.action : 'append';
-						if (action !== 'none') {
-							cont[action](resp.item);
-						}
+					action = (resp.action) ? resp.action : 'append';
+					if (action !== 'none' && resp.item !== undefined) {
+						cont = (resp.container !== undefined) ? $(resp.container) : cont;
+						cont[action](resp.item);
 					}
 				}
 			}
