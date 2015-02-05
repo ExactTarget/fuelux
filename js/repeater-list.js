@@ -190,7 +190,6 @@
 					this.infiniteScrolling(true, opts);
 				}
 			},
-
 			before: function(helpers){
 				var $listContainer = helpers.container.find('.repeater-list');
 				var self = this;
@@ -234,6 +233,7 @@
 		};
 	}
 
+	//ADDITIONAL METHODS
 	function renderColumn ($row, data, rowIndex, columns, index) {
 		var className = columns[index].className;
 		var content = data.items[rowIndex][columns[index].property];
@@ -373,10 +373,6 @@
 
 		for (i = 0, l = this.list_columns.length; i < l; i++) {
 			renderColumn.call(this, $row, data, index, this.list_columns, i);
-		}
-
-		if (this.viewOptions.list_columnSyncing) {
-			this.list_sizeHeadings();
 		}
 
 		if (this.viewOptions.list_rowRendered) {

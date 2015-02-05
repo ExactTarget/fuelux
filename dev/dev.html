@@ -92,7 +92,7 @@
 					// from data.js
 					resp.items.push(data.repeater.listData[j]);
 					j++;
-					if(j > data.repeater.listData.length){
+					if(j >= data.repeater.listData.length){
 						j = 0;
 					}
 				}
@@ -173,7 +173,7 @@
 						list_highlightSortedColumn: true
 					},
 					'thumbnail.view3': {
-						thumbnail_alignment: 'center',
+						thumbnail_alignment: 'none',
 						dataSource: function(options, callback){
 							thumbnail(options, callback);
 						},
