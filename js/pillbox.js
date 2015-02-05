@@ -202,12 +202,12 @@
 						el: self.$pillHTML
 					};
 
-					if (value['attr']) {
-						data['attr'] = value.attr;// avoid confusion with $.attr();
+					if (value.attr) {
+						data.attr = value.attr;// avoid confusion with $.attr();
 					}
 
-					if (value['data']) {
-						data['data'] = value.data;
+					if (value.data) {
+						data.data = value.data;
 					}
 
 					items[i] = data;
@@ -303,8 +303,8 @@
 					$item.find('span:first').html(item.text);
 
 					// DOM attributes
-					if (item['attr']) {
-						$.each(item['attr'], function (key, value) {
+					if (item.attr) {
+						$.each(item.attr, function (key, value) {
 							if (key === 'cssClass' || key === 'class') {
 								$item.addClass(value);
 							} else {
@@ -314,7 +314,7 @@
 
 					}
 
-					if (item['data']) {
+					if (item.data) {
 						$item.data('data', item.data);
 					}
 
