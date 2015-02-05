@@ -379,6 +379,9 @@
 				retVal = {
 					step: this.currentStep
 				};
+				if (this.$element.find('.steps li[data-name]').filter('[data-step="'+this.currentStep+'"]').length){
+					retVal.stepname = this.$element.find('.steps li.active:first').attr('data-name');
+				}
 			}
 
 			return retVal;
