@@ -1,5 +1,5 @@
 /*!
- * Fuel UX EDGE - Built 2015/02/02, 1:42:50 PM
+ * Fuel UX EDGE - Built 2015/02/06, 2:49:46 PM
  * Previous release: v3.5.1
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license ()
@@ -149,6 +149,7 @@
 						//make change event still fire (prevented by preventDefault to avoid firefox bug, see preceeding line)
 						this.$element.trigger( 'change', e );
 					}
+
 				}
 			},
 
@@ -161,6 +162,7 @@
 						this.$toggleContainer.addClass( 'hidden' );
 						this.$toggleContainer.attr( 'aria-hidden', 'true' );
 					}
+
 				}
 			},
 
@@ -453,11 +455,9 @@
 			},
 
 			inputchanged: function( e, extra ) {
-
 				// skip processing for internally-generated synthetic event
 				// to avoid double processing
 				if ( extra && extra.synthetic ) return;
-
 				var val = $( e.target ).val();
 				this.selectByText( val );
 
@@ -472,9 +472,7 @@
 
 				// trigger changed event
 				this.$element.trigger( 'changed.fu.combobox', data );
-
 			}
-
 		};
 
 
@@ -489,8 +487,13 @@
 				var data = $this.data( 'fu.combobox' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'fu.combobox', ( data = new Combobox( this, options ) ) );
-				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+				if ( !data ) {
+					$this.data( 'fu.combobox', ( data = new Combobox( this, options ) ) );
+				}
+
+				if ( typeof option === 'string' ) {
+					methodReturn = data[ option ].apply( data, args );
+				}
 			} );
 
 			return ( methodReturn === undefined ) ? $set : methodReturn;
@@ -525,6 +528,7 @@
 				}
 			} );
 		} );
+
 
 
 	} )( jQuery );
@@ -635,6 +639,7 @@
 					this.$input.val( '' );
 					this.inputValue = this.$input.val();
 				}
+
 				if ( this.sameYearOnly ) {
 					this.yearRestriction = ( this.selectedDate ) ? this.selectedDate.getFullYear() : new Date().getFullYear();
 				}
@@ -665,12 +670,14 @@
 					if ( date ) {
 						this.renderWheel( date );
 					}
+
 				} else {
 					this.$wheels.hide().attr( 'aria-hidden', 'true' );
 					this.$calendar.show().removeAttr( 'aria-hidden', '' );
 					if ( date ) {
 						this.renderMonth( date );
 					}
+
 				}
 			},
 
@@ -789,7 +796,9 @@
 					} else {
 						this.$element.trigger( 'changed.fu.datepicker', date );
 					}
+
 				}
+
 				if ( !this.preventBlurHide ) {
 					this.$element.find( '.input-group-btn' ).removeClass( 'open' );
 				}
@@ -804,6 +813,7 @@
 				if ( dateString === INVALID_DATE || dateString === 'NaN' ) {
 					return true;
 				}
+
 				return false;
 			},
 
@@ -814,6 +824,7 @@
 				if ( this.sameYearOnly && this.yearRestriction !== null && year !== this.yearRestriction ) {
 					return true;
 				}
+
 				for ( i = 0, l = restricted.length; i < l; i++ ) {
 					from = restricted[ i ].from;
 					to = restricted[ i ].to;
@@ -823,6 +834,7 @@
 					) {
 						return true;
 					}
+
 				}
 
 				return false;
@@ -841,9 +853,11 @@
 					if ( this.sameYearOnly ) {
 						return;
 					}
+
 					month = 0;
 					year++;
 				}
+
 				this.renderMonth( new Date( year, month, 1 ) );
 			},
 
@@ -898,10 +912,12 @@
 							if ( !self.isInvalidDate( pd ) ) {
 								return pd;
 							}
+
 							pd = parseFunc2( pd );
 							if ( !self.isInvalidDate( pd ) ) {
 								return pd;
 							}
+
 							return BAD_DATE;
 						};
 
@@ -912,6 +928,7 @@
 							// Attempts to parse date by newing a date object directly, falling back on parsing using this.momentFormat
 							return tryMomentParseAll( date, momentParse, momentParseWithFormat );
 						}
+
 					} else { //if moment isn't present, use previous date parsing strategy
 						if ( typeof( date ) === 'string' ) {
 							dt = new Date( Date.parse( date ) );
@@ -927,16 +944,23 @@
 									if ( month === ( dt.getMonth() + 1 ) ) {
 										return dt;
 									}
+
 								}
+
 							}
+
 						} else {
 							dt = new Date( date );
 							if ( !this.isInvalidDate( dt ) ) {
 								return dt;
 							}
+
 						}
+
 					}
+
 				}
+
 				return new Date( NaN );
 			},
 
@@ -948,9 +972,11 @@
 					if ( this.sameYearOnly ) {
 						return;
 					}
+
 					month = 11;
 					year--;
 				}
+
 				this.renderMonth( new Date( year, month, 1 ) );
 			},
 
@@ -995,6 +1021,7 @@
 					curDate = 1;
 					stage = 0;
 				}
+
 				rows = ( lastDate <= ( 35 - firstDay ) ) ? 5 : 6;
 				for ( i = 0; i < rows; i++ ) {
 					$tr = $( '<tr></tr>' );
@@ -1029,10 +1056,13 @@
 							if ( !this.options.allowPastDates ) {
 								$td.addClass( 'restricted' ).attr( 'title', this.restrictedText );
 							}
+
 						}
+
 						if ( this.isRestricted( curDate, curMonth, curYear ) ) {
 							$td.addClass( 'restricted' ).attr( 'title', this.restrictedText );
 						}
+
 						if ( selected && curYear === selected.year && curMonth === selected.month && curDate === selected.date ) {
 							$td.addClass( 'selected' );
 						}
@@ -1100,6 +1130,7 @@
 				if ( !cultureCode ) {
 					return false;
 				}
+
 				if ( this.moment ) {
 					moment.locale( cultureCode );
 				} else {
@@ -1118,10 +1149,12 @@
 						this.selectedDate = false;
 						this.renderMonth();
 					}
+
 				} else {
 					this.selectedDate = null;
 					this.renderMonth();
 				}
+
 				this.inputValue = this.$input.val();
 				return this.selectedDate;
 			},
@@ -1130,6 +1163,7 @@
 				if ( !format ) {
 					return false;
 				}
+
 				if ( this.moment ) {
 					this.momentFormat = format;
 				} else {
@@ -1205,8 +1239,13 @@
 				var data = $this.data( 'fu.datepicker' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'fu.datepicker', ( data = new Datepicker( this, options ) ) );
-				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+				if ( !data ) {
+					$this.data( 'fu.datepicker', ( data = new Datepicker( this, options ) ) );
+				}
+
+				if ( typeof option === 'string' ) {
+					methodReturn = data[ option ].apply( data, args );
+				}
 			} );
 
 			return ( methodReturn === undefined ) ? $set : methodReturn;
@@ -1261,6 +1300,7 @@
 				if ( $this.data( 'datepicker' ) ) {
 					return;
 				}
+
 				$this.datepicker( $this.data() );
 			} );
 		} );
@@ -1291,7 +1331,7 @@
 			}
 		} );
 
-		// For pillbox suggestions dropdown 
+		// For pillbox suggestions dropdown
 		$( document.body ).on( 'suggested.fu.pillbox', function( event, element ) {
 			_autoFlip( $( element ) );
 			$( element ).parent().addClass( 'open' );
@@ -1348,7 +1388,9 @@
 				} else {
 					return false;
 				}
+
 			}
+
 		}
 
 		function _getContainer( element ) {
@@ -1376,7 +1418,10 @@
 		}
 
 		// register empty plugin
-		$.fn.dropdownautoflip = function() { /* empty */ };
+		$.fn.dropdownautoflip = function() {
+			/* empty */
+		};
+
 
 
 	} )( jQuery );
@@ -1456,6 +1501,7 @@
 				if ( this.frame > this.end ) {
 					this.frame = this.begin;
 				}
+
 				this.$element.attr( 'data-frame', this.frame + '' );
 				this.ieRepaint();
 			},
@@ -1478,6 +1524,7 @@
 				if ( this.frame < this.begin ) {
 					this.frame = this.end;
 				}
+
 				this.$element.attr( 'data-frame', this.frame + '' );
 				this.ieRepaint();
 			},
@@ -1487,7 +1534,6 @@
 				this.$element.attr( 'data-frame', this.frame + '' );
 				this.ieRepaint();
 			}
-
 		};
 
 		// LOADER PLUGIN DEFINITION
@@ -1501,8 +1547,13 @@
 				var data = $this.data( 'fu.loader' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'fu.loader', ( data = new Loader( this, options ) ) );
-				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+				if ( !data ) {
+					$this.data( 'fu.loader', ( data = new Loader( this, options ) ) );
+				}
+
+				if ( typeof option === 'string' ) {
+					methodReturn = data[ option ].apply( data, args );
+				}
 			} );
 
 			return ( methodReturn === undefined ) ? $set : methodReturn;
@@ -1527,6 +1578,7 @@
 				}
 			} );
 		} );
+
 
 
 	} )( jQuery );
@@ -1598,6 +1650,7 @@
 					if ( action === 'cancel' && this.options.revertOnCancel ) {
 						this.$field.val( this.previousValue );
 					}
+
 					this.$element.trigger( action, obj );
 					this.hide();
 				}
@@ -1654,7 +1707,9 @@
 							str = ( str.length > 0 ) ? str.substring( 0, str.length - 1 ) : '';
 							this.$field.val( str + '...' );
 						}
+
 					}
+
 				}
 			},
 
@@ -1681,6 +1736,7 @@
 				if ( !this.$element.hasClass( 'showing' ) ) {
 					return;
 				}
+
 				this.$element.removeClass( 'showing' );
 				this.ellipsis();
 				$( document ).off( 'click.fu.placard.externalClick.' + this.clickStamp );
@@ -1700,8 +1756,10 @@
 						if ( $originEl.is( exceptions[ i ] ) || $originEl.parents( exceptions[ i ] ).length > 0 ) {
 							return false;
 						}
+
 					}
 				}
+
 				return true;
 			},
 
@@ -1718,13 +1776,16 @@
 				if ( this.$element.hasClass( 'showing' ) ) {
 					return;
 				}
+
 				other = $( document ).find( '.placard.showing' );
 				if ( other.length > 0 ) {
 					if ( other.data( 'fu.placard' ) && other.data( 'fu.placard' ).options.explicit ) {
 						return;
 					}
+
 					other.placard( 'externalClickListener', {}, true );
 				}
+
 				this.previousValue = this.$field.val();
 
 				this.$element.addClass( 'showing' );
@@ -1732,9 +1793,11 @@
 					this.$field.val( this.actualValue );
 					this.actualValue = null;
 				}
+
 				if ( this.$header.length > 0 ) {
 					this.$popup.css( 'top', '-' + this.$header.outerHeight( true ) + 'px' );
 				}
+
 				if ( this.$footer.length > 0 ) {
 					this.$popup.css( 'bottom', '-' + this.$footer.outerHeight( true ) + 'px' );
 				}
@@ -1758,8 +1821,13 @@
 				var data = $this.data( 'fu.placard' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'fu.placard', ( data = new Placard( this, options ) ) );
-				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+				if ( !data ) {
+					$this.data( 'fu.placard', ( data = new Placard( this, options ) ) );
+				}
+
+				if ( typeof option === 'string' ) {
+					methodReturn = data[ option ].apply( data, args );
+				}
 			} );
 
 			return ( methodReturn === undefined ) ? $set : methodReturn;
@@ -1879,12 +1947,15 @@
 					if ( this.$parent ) {
 						this.$parent.addClass( 'checked' );
 					}
+
 				}
+
 				if ( disabled === true ) {
 					this.$label.addClass( 'disabled' );
 					if ( this.$parent ) {
 						this.$parent.addClass( 'disabled' );
 					}
+
 				}
 
 				//toggle container
@@ -1976,8 +2047,13 @@
 				var data = $this.data( 'fu.radio' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'fu.radio', ( data = new Radio( this, options ) ) );
-				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+				if ( !data ) {
+					$this.data( 'fu.radio', ( data = new Radio( this, options ) ) );
+				}
+
+				if ( typeof option === 'string' ) {
+					methodReturn = data[ option ].apply( data, args );
+				}
 			} );
 
 			return ( methodReturn === undefined ) ? $set : methodReturn;
@@ -2010,6 +2086,7 @@
 				$this.radio( $this.data() );
 			} );
 		} );
+
 
 
 	} )( jQuery );
@@ -2070,6 +2147,7 @@
 				if ( this.$icon.hasClass( 'glyphicon' ) ) {
 					this.$icon.removeClass( 'glyphicon-search' ).addClass( 'glyphicon-remove' );
 				}
+
 				this.activeSearch = searchText;
 				this.$element.addClass( 'searched' );
 				this.$element.trigger( 'searched.fu.search', searchText );
@@ -2079,6 +2157,7 @@
 				if ( this.$icon.hasClass( 'glyphicon' ) ) {
 					this.$icon.removeClass( 'glyphicon-remove' ).addClass( 'glyphicon-search' );
 				}
+
 				this.activeSearch = '';
 				this.$input.val( '' );
 				this.$element.removeClass( 'searched' );
@@ -2128,9 +2207,11 @@
 						} else if ( this.options.clearOnEmpty ) {
 							this.clear();
 						}
+
 					} else {
 						this.$icon.removeClass( search ).addClass( remove );
 					}
+
 				}
 			},
 
@@ -2145,7 +2226,6 @@
 				this.$input.removeAttr( 'disabled' );
 				this.$button.removeClass( 'disabled' );
 			}
-
 		};
 
 
@@ -2160,8 +2240,13 @@
 				var data = $this.data( 'fu.search' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'fu.search', ( data = new Search( this, options ) ) );
-				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+				if ( !data ) {
+					$this.data( 'fu.search', ( data = new Search( this, options ) ) );
+				}
+
+				if ( typeof option === 'string' ) {
+					methodReturn = data[ option ].apply( data, args );
+				}
 			} );
 
 			return ( methodReturn === undefined ) ? $set : methodReturn;
@@ -2196,6 +2281,7 @@
 				$this.search( $this.data() );
 			} );
 		} );
+
 
 
 	} )( jQuery );
@@ -2265,7 +2351,6 @@
 						$( this ).removeData( 'selected' ).removeAttr( 'data-selected' );
 					}
 				} );
-
 			},
 
 			itemClicked: function( e ) {
@@ -2280,11 +2365,9 @@
 
 				// return focus to control after selecting an option
 				this.$element.find( '.dropdown-toggle' ).focus();
-
 			},
 
 			itemChanged: function( e ) {
-
 				//selectedItem needs to be <li> since the data is stored there, not in <a>
 				this.doSelect( $( e.target ).closest( 'li' ) );
 
@@ -2324,7 +2407,6 @@
 				this.$dropdownMenu.css( 'width', width );
 
 				sizer.remove();
-
 			},
 
 			selectedItem: function() {
@@ -2380,7 +2462,6 @@
 				this.$element.addClass( 'disabled' );
 				this.$button.addClass( 'disabled' );
 			}
-
 		};
 
 
@@ -2395,8 +2476,13 @@
 				var data = $this.data( 'fu.selectlist' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'fu.selectlist', ( data = new Selectlist( this, options ) ) );
-				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+				if ( !data ) {
+					$this.data( 'fu.selectlist', ( data = new Selectlist( this, options ) ) );
+				}
+
+				if ( typeof option === 'string' ) {
+					methodReturn = data[ option ].apply( data, args );
+				}
 			} );
 
 			return ( methodReturn === undefined ) ? $set : methodReturn;
@@ -2545,7 +2631,6 @@
 						}
 					} );
 				}
-
 			},
 
 			output: function( value, updateField ) {
@@ -2575,6 +2660,7 @@
 					newVal = this.checkMaxMin( newVal.replace( /[^0-9.-]/g, '' ) || '' );
 					this.options.value = newVal / 1;
 				}
+
 				this.output( newVal );
 
 				this.changeFlag = false;
@@ -2596,7 +2682,6 @@
 			triggerChangedEvent: function() {
 				var currentValue = this.value();
 				if ( currentValue === this.lastValue ) return;
-
 				this.lastValue = currentValue;
 
 				// Primary changed event
@@ -2604,7 +2689,6 @@
 			},
 
 			startSpin: function( type ) {
-
 				if ( !this.options.disabled ) {
 					var divisor = this.switches.count;
 
@@ -2669,7 +2753,6 @@
 			},
 
 			value: function( value ) {
-
 				if ( value || value === 0 ) {
 					if ( this.options.units.length || this.options.decimalMark !== '.' ) {
 						this.output( this.parseValueWithUnit( value + ( this.unit || '' ) ) );
@@ -2681,6 +2764,7 @@
 						return this;
 
 					}
+
 				} else {
 					if ( this.changeFlag ) {
 						this.change();
@@ -2691,6 +2775,7 @@
 					} else {
 						return this.output( this.options.value, false ); // no DOM update
 					}
+
 				}
 			},
 
@@ -2726,10 +2811,12 @@
 				if ( isNaN( parseFloat( value ) ) ) {
 					return value;
 				}
+
 				// if not within range return the limit
 				if ( !( value <= this.options.max && value >= this.options.min ) ) {
 					value = value >= this.options.max ? this.options.max : this.options.min;
 				}
+
 				return value;
 			},
 
@@ -2799,6 +2886,7 @@
 					} else {
 						e.returnValue = false;
 					}
+
 					return false;
 				}
 			}
@@ -2819,6 +2907,7 @@
 				if ( !data ) {
 					$this.data( 'fu.spinbox', ( data = new Spinbox( this, options ) ) );
 				}
+
 				if ( typeof option === 'string' ) {
 					methodReturn = data[ option ].apply( data, args );
 				}
@@ -3022,7 +3111,6 @@
 
 			selectItem: function( el ) {
 				if ( !this.options.itemSelect ) return;
-
 				var $el = $( el );
 				var selData = $el.data();
 				var $all = this.$element.find( '.tree-selected' );
@@ -3049,15 +3137,18 @@
 					if ( $icon.hasClass( 'glyphicon-ok' ) || $icon.hasClass( 'fueluxicon-bullet' ) ) {
 						$icon.removeClass( 'glyphicon-ok' ).addClass( 'fueluxicon-bullet' );
 					}
+
 				} else {
 					$el.addClass( 'tree-selected' );
 					// add tree dot back in
 					if ( $icon.hasClass( 'glyphicon-ok' ) || $icon.hasClass( 'fueluxicon-bullet' ) ) {
 						$icon.removeClass( 'fueluxicon-bullet' ).addClass( 'glyphicon-ok' );
 					}
+
 					if ( this.options.multiSelect ) {
 						data.push( selData );
 					}
+
 				}
 
 				this.$element.trigger( eventType + '.fu.tree', {
@@ -3129,7 +3220,6 @@
 
 			selectFolder: function( clickedElement ) {
 				if ( !this.options.folderSelect ) return;
-
 				var $clickedElement = $( clickedElement );
 				var $clickedBranch = $clickedElement.closest( '.tree-branch' );
 				var $selectedBranch = this.$element.find( '.tree-branch.tree-selected' );
@@ -3146,7 +3236,6 @@
 				}
 
 				if ( this.options.multiSelect ) {
-
 					// get currently selected
 					$selectedBranch = this.$element.find( '.tree-branch.tree-selected' );
 
@@ -3222,8 +3311,13 @@
 				var data = $this.data( 'fu.tree' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'fu.tree', ( data = new Tree( this, options ) ) );
-				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+				if ( !data ) {
+					$this.data( 'fu.tree', ( data = new Tree( this, options ) ) );
+				}
+
+				if ( typeof option === 'string' ) {
+					methodReturn = data[ option ].apply( data, args );
+				}
 			} );
 
 			return ( methodReturn === undefined ) ? $set : methodReturn;
@@ -3345,6 +3439,7 @@
 						$startStep.before( $step );
 						$startPane.before( $pane );
 					}
+
 					index++;
 				}
 
@@ -3371,6 +3466,7 @@
 						action = 'children';
 						$start = $steps;
 					}
+
 				}
 
 				$start[ action ]().each( function() {
@@ -3382,6 +3478,7 @@
 					} else {
 						return false;
 					}
+
 					i++;
 				} );
 
@@ -3413,6 +3510,7 @@
 					} else {
 						this.$element.removeClass( 'complete' );
 					}
+
 					var kids = this.$nextBtn.children().detach();
 					this.$nextBtn.text( text ).append( kids );
 				}
@@ -3469,7 +3567,9 @@
 						} else {
 							this.$element.find( '.steps' ).first().attr( 'style', 'margin-left: -' + newMargin + 'px' );
 						}
+
 					}
+
 				}
 
 				// only fire changed event after initializing
@@ -3516,6 +3616,7 @@
 					if ( !isNaN( parseInt( badge.html(), 10 ) ) ) {
 						badge.html( i );
 					}
+
 					item.attr( 'data-step', i );
 					$stepContent.find( '.step-pane[data-step="' + step + '"]:last' ).attr( 'data-step', i );
 					i++;
@@ -3550,6 +3651,7 @@
 						//only set focus on a button as the last resort if no form fields exist and the just clicked button is now disabled
 						this.$nextBtn.focus();
 					}
+
 				}
 			},
 
@@ -3581,6 +3683,7 @@
 						//only set focus on a button as the last resort if no form fields exist and the just clicked button is now disabled
 						this.$prevBtn.focus();
 					}
+
 				}
 			},
 
@@ -3588,7 +3691,6 @@
 				var retVal, step;
 
 				if ( selectedItem ) {
-
 					step = selectedItem.step || -1;
 
 					if ( step >= 1 && step <= this.numSteps ) {
@@ -3600,6 +3702,7 @@
 							this.currentStep = parseInt( step, 10 );
 							this.setState();
 						}
+
 					}
 
 					retVal = this;
@@ -3625,8 +3728,13 @@
 				var data = $this.data( 'fu.wizard' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'fu.wizard', ( data = new Wizard( this, options ) ) );
-				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+				if ( !data ) {
+					$this.data( 'fu.wizard', ( data = new Wizard( this, options ) ) );
+				}
+
+				if ( typeof option === 'string' ) {
+					methodReturn = data[ option ].apply( data, args );
+				}
 			} );
 
 			return ( methodReturn === undefined ) ? $set : methodReturn;
@@ -3731,6 +3839,7 @@
 				} else {
 					end.append( '---------' );
 				}
+
 				this.$element.append( end );
 				this.disable();
 			},
@@ -3761,10 +3870,12 @@
 							if ( resp.content ) {
 								self.$element.append( resp.content );
 							}
+
 							if ( resp.end ) {
 								end = ( resp.end !== true ) ? resp.end : undefined;
 								self.end( end );
 							}
+
 							self.fetchingData = false;
 						} );
 					}
@@ -3779,6 +3890,7 @@
 					} else {
 						moreBtn.append( '<span class="glyphicon glyphicon-repeat"></span>' );
 					}
+
 					moreBtn.on( 'click.fu.infinitescroll', function() {
 						moreBtn.remove();
 						fetch();
@@ -3796,7 +3908,6 @@
 					this.fetchData();
 				}
 			}
-
 		};
 
 		// INFINITE SCROLL PLUGIN DEFINITION
@@ -3810,8 +3921,13 @@
 				var data = $this.data( 'fu.infinitescroll' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'fu.infinitescroll', ( data = new InfiniteScroll( this, options ) ) );
-				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+				if ( !data ) {
+					$this.data( 'fu.infinitescroll', ( data = new InfiniteScroll( this, options ) ) );
+				}
+
+				if ( typeof option === 'string' ) {
+					methodReturn = data[ option ].apply( data, args );
+				}
 			} );
 
 			return ( methodReturn === undefined ) ? $set : methodReturn;
@@ -3831,6 +3947,7 @@
 		};
 
 		// NO DATA-API DUE TO NEED OF DATA-SOURCE
+
 
 
 	} )( jQuery );
@@ -3874,6 +3991,7 @@
 				if ( this.$element.attr( 'data-readonly' ) !== undefined ) {
 					this.readonly( true );
 				}
+
 			} else if ( this.options.readonly ) {
 				this.readonly( true );
 			}
@@ -3888,6 +4006,7 @@
 			if ( this.options.onKeyDown ) {
 				this.$element.on( 'mousedown.fu.pillbox', '.suggest > li', $.proxy( this.suggestionClick, this ) );
 			}
+
 			if ( this.options.edit ) {
 				this.$element.addClass( 'pills-editable' );
 				this.$element.on( 'blur.fu.pillbox', '.pillbox-add-item', $.proxy( this.cancelEdit, this ) );
@@ -3937,14 +4056,18 @@
 									el: $item
 								} ) );
 							}
+
 							return false;
 						} else if ( this.options.edit ) {
 							if ( $item.find( '.pillbox-list-edit' ).length ) {
 								return false;
 							}
+
 							this.openEdit( $item );
 						}
+
 					}
+
 				} else {
 					$item = $target;
 				}
@@ -3958,6 +4081,7 @@
 				} else {
 					this.$element.removeAttr( 'data-readonly' );
 				}
+
 				if ( this.options.truncate ) {
 					this.truncate( enable );
 				}
@@ -4026,7 +4150,6 @@
 						}
 
 						items[ i ] = data;
-
 					} );
 
 					if ( this.options.edit && this.currentEdit ) {
@@ -4038,12 +4161,12 @@
 					}
 
 					if ( self.options.onAdd && isInternal ) {
-
 						if ( this.options.edit && this.currentEdit ) {
 							self.options.onAdd( items[ 0 ], $.proxy( self.saveEdit, this ) );
 						} else {
 							self.options.onAdd( items[ 0 ], $.proxy( self.placeItems, this ) );
 						}
+
 					} else {
 						if ( this.options.edit && this.currentEdit ) {
 							self.saveEdit( items );
@@ -4053,10 +4176,12 @@
 							} else {
 								self.placeItems( items, isInternal );
 							}
-						}
-					}
-				}
 
+						}
+
+					}
+
+				}
 			},
 
 			//First parameter is the index (1 based) to start removing items
@@ -4082,6 +4207,7 @@
 						} else {
 							break;
 						}
+
 					}
 				}
 			},
@@ -4118,13 +4244,11 @@
 						// DOM attributes
 						if ( item[ 'attr' ] ) {
 							$.each( item[ 'attr' ], function( key, value ) {
-
 								if ( key === 'cssClass' || key === 'class' ) {
 									$item.addClass( value );
 								} else {
 									$item.attr( key, value );
 								}
-
 							} );
 
 						}
@@ -4145,9 +4269,11 @@
 							} else {
 								this.$pillGroup.children( '.pill:last' ).after( $newHtml );
 							}
+
 						} else {
 							this.$pillGroup.children( '.pill:last' ).after( $newHtml );
 						}
+
 					} else {
 						this.$pillGroup.prepend( $newHtml );
 					}
@@ -4158,6 +4284,7 @@
 							value: items[ 0 ].value
 						} );
 					}
+
 				}
 			},
 
@@ -4170,7 +4297,6 @@
 				var $selection;
 
 				if ( this.acceptKeyCodes[ e.keyCode ] ) {
-
 					if ( this.options.onKeyDown && this._isSuggestionsOpen() ) {
 						$selection = this.$suggest.find( '.pillbox-suggest-sel' );
 
@@ -4179,6 +4305,7 @@
 							value = $selection.data( 'value' );
 							attr = $selection.data( 'attr' );
 						}
+
 					}
 
 					//ignore comma and make sure text that has been entered (protects against " ,". https://github.com/ExactTarget/fuelux/issues/593), unless allowEmptyPills is true.
@@ -4233,12 +4360,14 @@
 
 						return true;
 					}
+
 				} else if ( text.length > 10 ) {
 					if ( this.$addItem.width() < ( this.$pillGroup.width() - 6 ) ) {
 						this.$addItem.attr( {
 							size: text.length + 3
 						} );
 					}
+
 				}
 
 				this.$pillGroup.find( '.pill' ).removeClass( 'pillbox-highlight' );
@@ -4252,6 +4381,7 @@
 						if ( this._isSuggestionsOpen() ) {
 							this._keySuggestions( e );
 						}
+
 						return true;
 					}
 
@@ -4289,6 +4419,7 @@
 				if ( e ) {
 					this.$addItemWrap.before( this.currentEdit );
 				}
+
 				this.currentEdit = false;
 
 				$addItemWrap = this.$addItemWrap.detach();
@@ -4390,6 +4521,7 @@
 								pill.addClass( 'truncated' );
 								full = true;
 							}
+
 						} else {
 							pill.addClass( 'truncated' );
 						}
@@ -4397,6 +4529,7 @@
 					if ( i === pills ) {
 						this.$addItemWrap.addClass( 'truncated' );
 					}
+
 				}
 			},
 
@@ -4439,7 +4572,6 @@
 				}
 
 				if ( data.data && data.data.length ) {
-
 					$.each( data.data, function( index, value ) {
 						var val = value.value ? value.value : value.text;
 
@@ -4492,6 +4624,7 @@
 						$next.addClass( 'pillbox-suggest-sel' );
 						$first.removeClass( 'pillbox-suggest-sel' );
 					}
+
 				}
 			}
 		};
@@ -4510,6 +4643,7 @@
 				if ( !data ) {
 					$this.data( 'fu.pillbox', ( data = new Pillbox( this, options ) ) );
 				}
+
 				if ( typeof option === 'string' ) {
 					methodReturn = data[ option ].apply( data, args );
 				}
@@ -4697,6 +4831,7 @@
 				$btn = this.$views.find( 'label.active input' );
 				currentView = ( $btn.length > 0 ) ? $btn.val() : 'list';
 			}
+
 			this.setViewOptions( currentView );
 
 			this.initViewTypes( function() {
@@ -4739,6 +4874,7 @@
 					//Preserve clear only if infiniteScrolling is disabled or if specifically told to do so
 					scan( this.$canvas );
 				}
+
 				//otherwise don't clear because infiniteScrolling is enabled
 			},
 
@@ -4764,6 +4900,7 @@
 				if ( this.infiniteScrollingEnabled ) {
 					$( this.infiniteScrollingCont ).infinitescroll( 'destroy' );
 				}
+
 				this.$element.remove();
 
 				// any external events
@@ -4788,13 +4925,16 @@
 				if ( !this.infiniteScrollingEnabled ) {
 					opts.pageSize = ( this.$pageSize.length > 0 ) ? parseInt( this.$pageSize.selectlist( 'selectedItem' ).value, 10 ) : 25;
 				}
+
 				if ( options.pageIncrement !== undefined ) {
 					if ( options.pageIncrement === null ) {
 						this.currentPage = 0;
 					} else {
 						this.currentPage += options.pageIncrement;
 					}
+
 				}
+
 				opts.pageIndex = this.currentPage;
 
 				val = ( this.$search.length > 0 ) ? this.$search.find( 'input' ).val() : '';
@@ -4807,7 +4947,9 @@
 					if ( options.preserveDataSourceOptions ) {
 						this.storedDataSourceOpts = ( this.storedDataSourceOpts ) ? $.extend( this.storedDataSourceOpts, dataSourceOptions ) : dataSourceOptions;
 					}
+
 				}
+
 				if ( this.storedDataSourceOpts ) {
 					dataSourceOptions = $.extend( this.storedDataSourceOpts, dataSourceOptions );
 				}
@@ -4976,6 +5118,7 @@
 					this.$secondaryPaging.addClass( act );
 					this.$secondaryPaging.val( this.currentPage + 1 );
 				}
+
 				this.lastPageInput = this.currentPage + 1 + '';
 
 				this.$pages.html( pages );
@@ -4986,6 +5129,7 @@
 				} else {
 					this.$nextBtn.attr( dsbl, dsbl );
 				}
+
 				// this is not the first page
 				if ( ( this.currentPage - 1 ) >= 0 ) {
 					this.$prevBtn.removeAttr( dsbl );
@@ -5002,6 +5146,7 @@
 						} else {
 							this.$nextBtn.focus();
 						}
+
 					} else {
 						if ( this.$prevBtn.is( ':disabled' ) ) {
 							// if you can't focus, go the other way
@@ -5009,7 +5154,9 @@
 						} else {
 							this.$prevBtn.focus();
 						}
+
 					}
+
 				}
 			},
 
@@ -5035,6 +5182,7 @@
 						if ( !self.infiniteScrollingEnabled || ( self.infiniteScrollingEnabled && viewChanged ) ) {
 							self.$loader.show().loader( 'play' );
 						}
+
 						self.getDataOptions( options, function( opts ) {
 							self.viewOptions.dataSource( opts, function( data ) {
 								var renderer = viewTypeObj.renderer;
@@ -5044,14 +5192,17 @@
 									self.itemization( data );
 									self.pagination( data );
 								}
+
 								if ( renderer ) {
 									self.runRenderer( self.$canvas, renderer, data, function() {
 										if ( self.infiniteScrollingEnabled ) {
 											if ( viewChanged || options.clearInfinite ) {
 												self.initInfiniteScrolling();
 											}
+
 											self.infiniteScrollPaging( data, options );
 										}
+
 										self.$loader.hide().loader( 'pause' );
 										self.$element.trigger( 'loaded.fu.repeater', opts );
 									} );
@@ -5069,7 +5220,6 @@
 					} else {
 						next();
 					}
-
 				};
 
 				options = options || {};
@@ -5088,6 +5238,7 @@
 					if ( this.infiniteScrollingEnabled ) {
 						self.infiniteScrolling( false );
 					}
+
 					viewTypeObj = $.fn.repeater.viewTypes[ self.viewType ] || {};
 					if ( viewTypeObj.selected ) {
 						viewTypeObj.selected.call( this, {
@@ -5098,6 +5249,7 @@
 					} else {
 						start();
 					}
+
 				} else {
 					start();
 				}
@@ -5163,11 +5315,13 @@
 						args.subset = subset;
 						args.index = index;
 					}
+
 					if ( subset.length < 1 ) {
 						callback();
 					} else {
 						start( args, cb );
 					}
+
 				}
 
 				function start( args, cb ) {
@@ -5178,6 +5332,7 @@
 							if ( resp && resp.skipNested === true ) {
 								skipNested = true;
 							}
+
 							proceed( 'render', args );
 						},
 						render: function( resp ) {
@@ -5187,14 +5342,18 @@
 								if ( item.length < 1 ) {
 									item = resp.item;
 								}
+
 								if ( action !== 'none' ) {
 									container[ action ]( item );
 								}
+
 								args.item = item;
 							}
+
 							if ( resp && resp.skipNested === true ) {
 								skipNested = true;
 							}
+
 							proceed( 'after', args );
 						},
 						after: function( resp ) {
@@ -5212,6 +5371,7 @@
 										} else {
 											proceed( 'complete', args );
 										}
+
 									}
 								} );
 							};
@@ -5226,6 +5386,7 @@
 								if ( cont.length < 1 ) {
 									cont = container;
 								}
+
 								loopNested( cont, 0 );
 							} else {
 								callbacks.complete( null );
@@ -5245,6 +5406,7 @@
 						} else {
 							callbacks[ stage ]( null );
 						}
+
 					}
 
 					proceed( 'before', args );
@@ -5304,8 +5466,13 @@
 				var data = $this.data( 'fu.repeater' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'fu.repeater', ( data = new Repeater( this, options ) ) );
-				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+				if ( !data ) {
+					$this.data( 'fu.repeater', ( data = new Repeater( this, options ) ) );
+				}
+
+				if ( typeof option === 'string' ) {
+					methodReturn = data[ option ].apply( data, args );
+				}
 			} );
 
 			return ( methodReturn === undefined ) ? $set : methodReturn;
@@ -5376,7 +5543,6 @@
 		// -- BEGIN MODULE CODE HERE --
 
 		if ( $.fn.repeater ) {
-
 			//ADDITIONAL METHODS
 			$.fn.repeater.Constructor.prototype.list_clearSelectedItems = function() {
 				this.$canvas.find( '.repeater-list-check' ).remove();
@@ -5443,10 +5609,12 @@
 						if ( !force && selectable !== 'multi' ) {
 							self.list_clearSelectedItems();
 						}
+
 						if ( !$itm.hasClass( 'selected' ) ) {
 							$itm.addClass( 'selected' );
 							$itm.find( 'td:first' ).prepend( '<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>' );
 						}
+
 					} else {
 						$itm.find( '.repeater-list-check' ).remove();
 						$itm.removeClass( 'selected' );
@@ -5456,6 +5624,7 @@
 				if ( !$.isArray( items ) ) {
 					items = [ items ];
 				}
+
 				if ( force === true || selectable === 'multi' ) {
 					l = items.length;
 				} else if ( selectable ) {
@@ -5463,15 +5632,18 @@
 				} else {
 					l = 0;
 				}
+
 				for ( i = 0; i < l; i++ ) {
 					if ( items[ i ].index !== undefined ) {
 						$item = this.$canvas.find( '.repeater-list table tbody tr:nth-child(' + ( items[ i ].index + 1 ) + ')' );
 						if ( $item.length > 0 ) {
 							selectItem( $item, items[ i ].selected );
 						}
+
 					} else if ( items[ i ].property !== undefined && items[ i ].value !== undefined ) {
 						this.$canvas.find( '.repeater-list table tbody tr' ).each( checkIfItemMatchesValue );
 					}
+
 				}
 			};
 
@@ -5504,15 +5676,18 @@
 					if ( this.viewOptions.list_columnSyncing ) {
 						this.list_sizeHeadings();
 					}
+
 					callback();
 				},
 				dataOptions: function( opts, callback ) {
 					if ( this.list_sortDirection ) {
 						opts.sortDirection = this.list_sortDirection;
 					}
+
 					if ( this.list_sortProperty ) {
 						opts.sortProperty = this.list_sortProperty;
 					}
+
 					callback( opts );
 				},
 				initialize: function( helpers, callback ) {
@@ -5538,6 +5713,7 @@
 					if ( this.viewOptions.list_columnSyncing ) {
 						this.list_sizeHeadings();
 					}
+
 					callback();
 				},
 				renderer: { //RENDERING REPEATER-LIST, REPEATER-LIST-WRAPPER, AND TABLE
@@ -5547,10 +5723,12 @@
 							this.list_sizeHeadings();
 							this.list_positionHeadings();
 						}
+
 						$sorted = this.$canvas.find( '.repeater-list-heading.sorted' );
 						if ( $sorted.length > 0 ) {
 							this.list_highlightColumn( $sorted.data( 'fu_item_index' ) );
 						}
+
 						callback();
 					},
 					render: function( helpers, callback ) {
@@ -5598,6 +5776,7 @@
 										} else {
 											$th.outerWidth( '' );
 										}
+
 									} else {
 										auto.push( {
 											col: $th,
@@ -5605,6 +5784,7 @@
 											last: isLast
 										} );
 									}
+
 									i++;
 								} );
 
@@ -5616,8 +5796,10 @@
 											auto[ i ].col.outerWidth( newWidth );
 											this.list_columns[ auto[ i ].index ]._auto_width = newWidth;
 										}
+
 									}
 								}
+
 								callback();
 							}
 						},
@@ -5627,12 +5809,15 @@
 								if ( !oldCols ) {
 									return true;
 								}
+
 								if ( !newCols ) {
 									return false;
 								}
+
 								if ( newCols.length !== oldCols.length ) {
 									return true;
 								}
+
 								for ( i = 0, l = newCols.length; i < l; i++ ) {
 									if ( !oldCols[ i ] ) {
 										return true;
@@ -5641,8 +5826,10 @@
 											if ( oldCols[ i ][ j ] !== newCols[ i ][ j ] ) {
 												return true;
 											}
+
 										}
 									}
+
 								}
 								return false;
 							};
@@ -5708,13 +5895,16 @@
 													self.list_sortDirection = null;
 													self.list_sortProperty = null;
 												}
+
 											}
+
 										} else {
 											helpers.container.find( 'th, .repeater-list-heading' ).removeClass( 'sorted' );
 											$spans.removeClass( chevDown ).addClass( chevUp );
 											self.list_sortDirection = 'asc';
 											$both.addClass( 'sorted' );
 										}
+
 										self.render( {
 											clearInfinite: true,
 											pageIncrement: null
@@ -5732,6 +5922,7 @@
 										$spans.addClass( chevDown );
 										this.list_sortDirection = 'desc';
 									}
+
 									this.list_sortProperty = ( typeof sortable === 'string' ) ? sortable : subset[ index ].property;
 								}
 
@@ -5752,6 +5943,7 @@
 							} else {
 								$item = $( '<tbody data-container="true"></tbody>' );
 							}
+
 							obj.item = $item;
 
 							if ( helpers.data.items.length < 1 ) {
@@ -5772,9 +5964,11 @@
 								if ( this.viewOptions.list_columnSyncing ) {
 									this.list_sizeHeadings();
 								}
+
 								if ( helpers.item !== undefined ) {
 									obj.item = helpers.item;
 								}
+
 								if ( this.viewOptions.list_rowRendered ) {
 									this.viewOptions.list_rowRendered( obj, function() {
 										callback();
@@ -5805,6 +5999,7 @@
 													self.$element.trigger( 'deselected.fu.repeaterList', $( this ) );
 												} );
 											}
+
 											$row.addClass( 'selected' );
 											$row.find( 'td:first' ).prepend( '<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>' );
 											self.$element.trigger( 'selected.fu.repeaterList', $row );
@@ -5835,6 +6030,7 @@
 									if ( helpers.item !== undefined ) {
 										obj.item = helpers.item;
 									}
+
 									if ( this.viewOptions.list_columnRendered ) {
 										this.viewOptions.list_columnRendered( obj, function() {
 											callback();
@@ -5853,6 +6049,7 @@
 									if ( width !== undefined ) {
 										$item.outerWidth( width );
 									}
+
 									callback( {
 										item: $item
 									} );
@@ -5865,6 +6062,7 @@
 			};
 
 		}
+
 
 
 	} )( jQuery );
@@ -5885,7 +6083,6 @@
 		// -- BEGIN MODULE CODE HERE --
 
 		if ( $.fn.repeater ) {
-
 			//ADDITIONAL METHODS
 			$.fn.repeater.Constructor.prototype.thumbnail_clearSelectedItems = function() {
 				this.$canvas.find( '.repeater-thumbnail-cont .selectable.selected' ).removeClass( 'selected' );
@@ -5928,6 +6125,7 @@
 						if ( !force && selectable !== 'multi' ) {
 							self.thumbnail_clearSelectedItems();
 						}
+
 						$itm.addClass( 'selected' );
 					} else {
 						$itm.removeClass( 'selected' );
@@ -5937,6 +6135,7 @@
 				if ( !$.isArray( items ) ) {
 					items = [ items ];
 				}
+
 				if ( force === true || selectable === 'multi' ) {
 					l = items.length;
 				} else if ( selectable ) {
@@ -5944,6 +6143,7 @@
 				} else {
 					l = 0;
 				}
+
 				for ( i = 0; i < l; i++ ) {
 					if ( items[ i ].index !== undefined ) {
 						$item = $();
@@ -5952,9 +6152,11 @@
 						if ( $item.length > 0 ) {
 							selectItem( $item, items[ i ].selected );
 						}
+
 					} else if ( items[ i ].selector ) {
 						this.$canvas.find( '.repeater-thumbnail-cont .selectable' ).each( compareItemSelector );
 					}
+
 				}
 			};
 
@@ -5976,6 +6178,7 @@
 						opts = ( typeof infScroll === 'object' ) ? infScroll : {};
 						this.infiniteScrolling( true, opts );
 					}
+
 					callback( {} );
 				},
 				renderer: {
@@ -6001,7 +6204,9 @@
 							} else {
 								this.thumbnail_injectSpacers = false;
 							}
+
 						}
+
 						obj.item = $item;
 						if ( helpers.data.items.length < 1 ) {
 							obj.skipNested = true;
@@ -6011,6 +6216,7 @@
 						} else {
 							$item.find( '.empty:first' ).remove();
 						}
+
 						callback( obj );
 					},
 					nested: [ {
@@ -6037,6 +6243,7 @@
 													self.$element.trigger( 'deselected.fu.repeaterThumbnail', $itm );
 												} );
 											}
+
 											$item.addClass( selected );
 											self.$element.trigger( 'selected.fu.repeaterThumbnail', $item );
 										} else {
@@ -6045,10 +6252,13 @@
 										}
 									} );
 								}
+
 								if ( this.thumbnail_injectSpacers ) {
 									$item.after( '<span class="spacer">&nbsp;</span>' );
 								}
+
 							}
+
 							if ( this.viewOptions.thumbnail_itemRendered ) {
 								this.viewOptions.thumbnail_itemRendered( obj, function() {
 									callback();
@@ -6091,6 +6301,7 @@
 			};
 
 		}
+
 
 
 	} )( jQuery );
@@ -6151,6 +6362,7 @@
 			if ( this.$startTime.find( 'input' ).val() === '' ) {
 				this.$startTime.combobox( 'selectByIndex', 0 );
 			}
+
 			// every 0 days/hours doesn't make sense, change if not set
 			if ( this.$repeatIntervalSpinbox.find( 'input' ).val() === '0' ) {
 				this.$repeatIntervalSpinbox.spinbox( {
@@ -6162,6 +6374,7 @@
 					'min': 1
 				} );
 			}
+
 			this.$endAfter.spinbox( {
 				'value': 1,
 				'min': 1
@@ -6180,14 +6393,12 @@
 			this.$element.find( '.selectlist' ).on( 'changed.fu.selectlist', $.proxy( this.changed, this ) );
 			this.$element.find( '.spinbox' ).on( 'changed.fu.spinbox', $.proxy( this.changed, this ) );
 			this.$element.find( '.repeat-monthly .radio, .repeat-yearly .radio' ).on( 'change.fu.scheduler', $.proxy( this.changed, this ) );
-
 		};
 
 		Scheduler.prototype = {
 			constructor: Scheduler,
 
 			destroy: function() {
-
 				var markup;
 				// set input value attribute
 				this.$element.find( 'input' ).each( function() {
@@ -6217,6 +6428,7 @@
 				if ( !propagate ) {
 					e.stopPropagation();
 				}
+
 				this.$element.trigger( 'changed.fu.scheduler', {
 					data: ( data !== undefined ) ? data : $( e.currentTarget ).data(),
 					originalEvent: e,
@@ -6261,6 +6473,7 @@
 
 						utcDate.setUTCHours( utcDate.getUTCHours() + ( modifier * parseInt( d1, 10 ) ) );
 					}
+
 				}
 
 				var localDifference = utcDate.getTimezoneOffset();
@@ -6349,6 +6562,7 @@
 				} else if ( hasPm && startTime[ 0 ] < 12 ) {
 					startTime[ 0 ] += 12;
 				}
+
 				startDateTime += ( startTime[ 0 ] < 10 ) ? '0' + startTime[ 0 ] : startTime[ 0 ];
 				startDateTime += ':';
 				startDateTime += ( startTime[ 1 ] < 10 ) ? '0' + startTime[ 1 ] : startTime[ 1 ];
@@ -6423,6 +6637,7 @@
 					} else if ( end === 'date' ) {
 						duration = 'UNTIL=' + getFormattedDate( this.$endDate.datepicker( 'getDate' ), '' ) + ';';
 					}
+
 				}
 
 				pattern += duration;
@@ -6508,6 +6723,7 @@
 						} else if ( hours > 12 ) {
 							hours -= 12;
 						}
+
 						minutes = ( minutes < 10 ) ? '0' + minutes : minutes;
 						startTime = hours + ':' + minutes;
 						temp = hours + ':' + minutes + ' ' + period;
@@ -6516,6 +6732,7 @@
 					} else {
 						startTime = '00:00';
 					}
+
 				} else {
 					startTime = '00:00';
 					var currentDate = this.$startDate.datepicker( 'getDate' );
@@ -6532,7 +6749,9 @@
 						} else {
 							item += '-offset="' + options.timeZone.offset;
 						}
+
 					}
+
 					item += '"]';
 					timeOffset = options.timeZone.offset;
 					this.$timeZone.selectlist( 'selectBySelector', item );
@@ -6546,6 +6765,7 @@
 						} else {
 							temp = '+00:00';
 						}
+
 					} else {
 						temp = '+00:00';
 					}
@@ -6566,6 +6786,7 @@
 							item = temp[ i ].split( '=' );
 							recur[ item[ 0 ] ] = item[ 1 ];
 						}
+
 					}
 
 					if ( recur.FREQ === 'DAILY' ) {
@@ -6577,7 +6798,9 @@
 							} else {
 								item = 'daily';
 							}
+
 						}
+
 					} else if ( recur.FREQ === 'HOURLY' ) {
 						item = 'hourly';
 					} else if ( recur.FREQ === 'WEEKLY' ) {
@@ -6589,6 +6812,7 @@
 								item.find( 'input[data-value="' + temp[ i ] + '"]' ).parent().addClass( 'active' );
 							}
 						}
+
 						item = 'weekly';
 					} else if ( recur.FREQ === 'MONTHLY' ) {
 						this.$element.find( '.repeat-monthly input' ).removeAttr( 'checked' ).removeClass( 'checked' );
@@ -6605,8 +6829,10 @@
 							if ( recur.BYSETPOS ) {
 								temp.find( '.month-day-pos' ).selectlist( 'selectByValue', recur.BYSETPOS );
 							}
+
 							temp.find( '.month-days' ).selectlist( 'selectByValue', recur.BYDAY );
 						}
+
 						item = 'monthly';
 					} else if ( recur.FREQ === 'YEARLY' ) {
 						this.$element.find( '.repeat-yearly input' ).removeAttr( 'checked' ).removeClass( 'checked' );
@@ -6618,6 +6844,7 @@
 							if ( recur.BYMONTH ) {
 								temp.find( '.year-month' ).selectlist( 'selectByValue', recur.BYMONTH );
 							}
+
 							temp.find( '.year-month-day' ).selectlist( 'selectByValue', recur.BYMONTHDAY );
 						} else if ( recur.BYSETPOS ) {
 							temp = this.$element.find( '.repeat-yearly-day' );
@@ -6627,10 +6854,13 @@
 							if ( recur.BYDAY ) {
 								temp.find( '.year-month-days' ).selectlist( 'selectByValue', recur.BYDAY );
 							}
+
 							if ( recur.BYMONTH ) {
 								temp.find( '.year-month' ).selectlist( 'selectByValue', recur.BYMONTH );
 							}
+
 						}
+
 						item = 'yearly';
 					} else {
 						item = 'none';
@@ -6647,6 +6877,7 @@
 							temp.splice( 7, 0, '-' );
 							temp = temp.join( '' );
 						}
+
 						var timeZone = this.$timeZone.selectlist( 'selectedItem' );
 						var timezoneOffset = ( timeZone.offset === '+00:00' ) ? 'Z' : timeZone.offset;
 
@@ -6656,11 +6887,13 @@
 
 						this.$endSelect.selectlist( 'selectByValue', 'date' );
 					}
+
 					this.endSelectChanged();
 
 					if ( recur.INTERVAL ) {
 						this.$repeatIntervalSpinbox.spinbox( 'value', parseInt( recur.INTERVAL, 10 ) );
 					}
+
 					this.$repeatIntervalSelect.selectlist( 'selectByValue', item );
 					this.repeatIntervalSelectChanged();
 				}
@@ -6668,8 +6901,6 @@
 				var utcStartHours = this.setUtcTime( startDate, startTime, timeOffset );
 
 				this.$startDate.datepicker( 'setDate', utcStartHours );
-
-
 			},
 
 			toggleState: function( action ) {
@@ -6684,6 +6915,7 @@
 				} else {
 					action = 'removeClass';
 				}
+
 				this.$element.find( '.repeat-days-of-the-week .btn-group' )[ action ]( 'disabled' );
 			},
 
@@ -6708,8 +6940,13 @@
 				var data = $this.data( 'fu.scheduler' );
 				var options = typeof option === 'object' && option;
 
-				if ( !data ) $this.data( 'fu.scheduler', ( data = new Scheduler( this, options ) ) );
-				if ( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+				if ( !data ) {
+					$this.data( 'fu.scheduler', ( data = new Scheduler( this, options ) ) );
+				}
+
+				if ( typeof option === 'string' ) {
+					methodReturn = data[ option ].apply( data, args );
+				}
 			} );
 
 			return ( methodReturn === undefined ) ? $set : methodReturn;
