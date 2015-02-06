@@ -224,8 +224,8 @@ module.exports = function(grunt) {
 					sourceMapFilename: 'dist/css/<%= pkg.name %>.css.map'
 				},
 				files: {
-					'less/fuelux-no-namespace.less': 'less/fuelux.less'
-				,	'dist/css/fuelux.css': 'less/fuelux-namespace.less'
+					'less/fuelux-no-namespace.less': 'less/fuelux.less',
+					'dist/css/fuelux.css': 'less/fuelux-namespace.less'
 				}
 			},
 			minify: {
@@ -380,7 +380,7 @@ module.exports = function(grunt) {
 		var options = {
 			force: true
 		};
-		grunt.file.delete('less/fuelux-no-namespace.less', options)
+		grunt.file.delete('less/fuelux-no-namespace.less', options);
 	});
 
 
@@ -418,7 +418,7 @@ module.exports = function(grunt) {
 	/* -------------
 		RELEASE
 	------------- */
-	// Maintainers: Run prior to a release. Includes SauceLabs VM tests. 
+	// Maintainers: Run prior to a release. Includes SauceLabs VM tests.
 	// --minor will create a semver minor release, otherwise a patch release will be created
 	grunt.registerTask('release', 'Release a new version, push it and publish it', function() {
 		if (! grunt.option('no-tests') ) { grunt.task.run(['releasetest']); }
@@ -430,9 +430,9 @@ module.exports = function(grunt) {
 	/* -------------
 		SERVEFAST
 	------------- */
-	grunt.registerTask('servefast', 'Serve the files with no "dist" build or tests. Optional --no-less to also disabled compiling less into css.', function() {
-		if (! grunt.option('no-less') ) { 
-			grunt.task.run(['distcss']); 
+	grunt.registerTask('servefast', 'Serve the files with no "dist" build or tests. Optional --no-less to also disable compiling less into css.', function() {
+		if (! grunt.option('no-less') ) {
+			grunt.task.run(['distcss']);
 		}
 		grunt.task.run(['connect:server', 'watch:css']);
 	});
