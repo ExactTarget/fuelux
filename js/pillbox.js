@@ -176,7 +176,7 @@
 
 		// First parameter is 1 based index (optional, if index is not passed all new items will be appended)
 		// Second parameter can be array of objects [{ ... }, { ... }] or you can pass n additional objects as args
-		// object structure is as follows (index and value are optional): { text: '', value: '' }
+		// object structure is as follows (attr and value are optional): { text: '', value: '', attr: {}, data: {} }
 		addItems: function () {
 			var self = this;
 			var items, index, isInternal;
@@ -189,7 +189,7 @@
 				isInternal = items[1] && !items[1].text;
 			}
 
-			//Accounting for array parameter
+			//If first argument is an array, use that, otherwise they probably passed each thing through as a separate arg, so use items as-is
 			if (items[0] instanceof Array) {
 				items = items[0];
 			}
@@ -203,7 +203,7 @@
 					};
 
 					if (value.attr) {
-						data.attr = value.attr;// avoid confusion with $.attr();
+						data.attr = value.attr;
 					}
 
 					if (value.data) {
