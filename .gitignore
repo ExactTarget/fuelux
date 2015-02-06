@@ -20,3 +20,6 @@ SAUCE_API_KEY.yml
 
 # node_module cache for TravisCI, etc.
 node_modules.tar.gz
+
+# Temp file created in the LESS build
+less/fuelux-no-namespace.less

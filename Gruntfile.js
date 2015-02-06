@@ -224,7 +224,8 @@ module.exports = function(grunt) {
 					sourceMapFilename: 'dist/css/<%= pkg.name %>.css.map'
 				},
 				files: {
-					'dist/css/fuelux.css': 'less/fuelux.less'
+					'less/fuelux-no-namespace.less': 'less/fuelux.less',
+					'dist/css/fuelux.css': 'less/fuelux-namespace.less'
 				}
 			},
 			minify: {
@@ -235,7 +236,8 @@ module.exports = function(grunt) {
 				files: {
 					'dist/css/<%= pkg.name %>.min.css': 'dist/css/<%= pkg.name %>.css'
 				}
-			}
+			},
+
 		},
 		replace: {
 			readme: {
@@ -371,7 +373,18 @@ module.exports = function(grunt) {
 	grunt.registerTask('distjs', 'concat, uglify, and beautifying JS', ['concat', 'uglify', 'jsbeautifier']);
 
 	// CSS distribution task
-	grunt.registerTask('distcss', 'Compile LESS into CSS', ['less', 'usebanner']);
+	grunt.registerTask('distcss', 'Compile LESS into CSS', ['less', 'usebanner', 'delete-temp-less-file']);
+
+	// Temporary LESS file deletion task
+	grunt.registerTask('delete-temp-less-file', 'Delete the temporary LESS file created during the build process', function() {
+		var options = {
+			force: true
+		};
+		grunt.file.delete('less/fuelux-no-namespace.less', options);
+	});
+
+
+
 
 	// ZIP distribution task
 	grunt.registerTask('distzip', 'Compress and zip "dist"', ['copy:zipsrc', 'compress', 'clean:zipsrc']);
@@ -405,7 +418,7 @@ module.exports = function(grunt) {
 	/* -------------
 		RELEASE
 	------------- */
-	// Maintainers: Run prior to a release. Includes SauceLabs VM tests. 
+	// Maintainers: Run prior to a release. Includes SauceLabs VM tests.
 	// --minor will create a semver minor release, otherwise a patch release will be created
 	grunt.registerTask('release', 'Release a new version, push it and publish it', function() {
 		if (! grunt.option('no-tests') ) { grunt.task.run(['releasetest']); }
@@ -413,12 +426,22 @@ module.exports = function(grunt) {
 		grunt.task.run(['bump-only:' + versionReleaseType, 'dist', 'replace:readme']);
 	});
 
+
+	/* -------------
+		SERVEFAST
+	------------- */
+	grunt.registerTask('servefast', 'Serve the files with no "dist" build or tests. Optional --no-less to also disable compiling less into css.', function() {
+		if (! grunt.option('no-less') ) {
+			grunt.task.run(['distcss']);
+		}
+		grunt.task.run(['connect:server', 'watch:css']);
+	});
+
 	/* -------------
 		SERVE
 	------------- */
 	// use '--no-livereload' to disable livereload
 	grunt.registerTask('serve', 'serve files without "dist" build', ['test', 'connect:server', 'watch:contrib']);
-	grunt.registerTask('servefast', 'serve files w/o "dist" build or tests', ['connect:server', 'watch:contrib']);
 	grunt.registerTask('servedist', 'test, build "dist", serve files w/ watch', ['test', 'dist', 'connect:server', 'watch:full']);
 
 
