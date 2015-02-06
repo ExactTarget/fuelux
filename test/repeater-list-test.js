@@ -82,7 +82,7 @@ define(function(require){
 		var itemColumns = ['cat', 'Felis catus', 'small, usually furry, domesticated carnivorous mammal', 'Meow meow!'];
 		var $repeater = $(this.$markup);
 
-		$repeater.one('loaded.fu.repeater', function(){
+		$repeater.one('rendered.fu.repeater', function(){
 			start();
 			var $list = $repeater.find('.repeater-list');
 			var i, $tbody;
@@ -117,7 +117,7 @@ define(function(require){
 		var num = { cols: 0, rows: 0 };
 		var $repeater = $(this.$markup);
 
-		$repeater.one('loaded.fu.repeater', function(){
+		$repeater.one('rendered.fu.repeater', function(){
 			start();
 			equal(num.cols, 40, 'columnRendered callback called expected number of times');
 			equal(num.rows, 10, 'rowRendered callback called expected number of times');
@@ -151,7 +151,9 @@ define(function(require){
 		var count = 0;
 		var $first;
 
-		$repeater.on('loaded.fu.repeater', function(e, options){
+		$repeater.on('rendered.fu.repeater', function(e, helpers){
+			var options = helpers.options;
+
 			count++;
 			
 			switch(count){
@@ -175,7 +177,7 @@ define(function(require){
 					equal($first.hasClass('sorted'), false, 'previously sorted header reverted to non-sorted');
 					equal(options.sortDirection, undefined, 'dataSource passed appropriate sortDirection value');
 					equal(options.sortProperty, undefined, 'dataSource passed appropriate sortProperty value');
-					$repeater.off('loaded.fu.repeater');
+					$repeater.off('rendered.fu.repeater');
 					start();
 					break;
 			}
@@ -192,7 +194,7 @@ define(function(require){
 		var $repeater = $(this.$markup);
 		var $col, num;
 
-		$repeater.on('loaded.fu.repeater', function(){
+		$repeater.on('rendered.fu.repeater', function(){
 			count++;
 			
 			switch(count){
@@ -209,7 +211,7 @@ define(function(require){
 						}
 					});
 					equal(num, 10, 'correct number of columns highlighted');
-					$repeater.off('loaded.fu.repeater');
+					$repeater.off('rendered.fu.repeater');
 					start();
 					break;
 			}
@@ -224,7 +226,7 @@ define(function(require){
 	asyncTest('should handle noItemsHTML option correctly', function(){
 		var $repeater = $(this.$markup);
 
-		$repeater.one('loaded.fu.repeater', function(){
+		$repeater.one('rendered.fu.repeater', function(){
 			start();
 			var txt = $repeater.find('.repeater-list tbody tr.empty').text();
 			equal(txt, 'TEST', 'correct noItemsHTML content appended when appropriate');
@@ -241,7 +243,7 @@ define(function(require){
 	asyncTest('should handle selectable (single) option correctly', function(){
 		var $repeater = $(this.$markup);
 
-		$repeater.one('loaded.fu.repeater', function(){
+		$repeater.one('rendered.fu.repeater', function(){
 			start();
 			var $items = $repeater.find('.repeater-list tbody');
 			var $firstRow = $items.find('tr:first');
@@ -263,7 +265,7 @@ define(function(require){
 	asyncTest('should handle selectable (multi) option correctly', function(){
 		var $repeater = $(this.$markup);
 
-		$repeater.one('loaded.fu.repeater', function(){
+		$repeater.one('rendered.fu.repeater', function(){
 			start();
 			var $items = $repeater.find('.repeater-list tbody');
 			var $firstRow = $items.find('tr:first');
@@ -285,7 +287,7 @@ define(function(require){
 	asyncTest('should clear selected items', function(){
 		var $repeater = $(this.$markup);
 
-		$repeater.one('loaded.fu.repeater', function(){
+		$repeater.one('rendered.fu.repeater', function(){
 			var $items = $repeater.find('.repeater-list tbody');
 			var $firstRow = $items.find('tr:first');
 			var $lastRow = $items.find('tr:last');
@@ -309,7 +311,7 @@ define(function(require){
 	asyncTest('should get selected items', function(){
 		var $repeater = $(this.$markup);
 
-		$repeater.one('loaded.fu.repeater', function(){
+		$repeater.one('rendered.fu.repeater', function(){
 			var $items = $repeater.find('.repeater-list tbody');
 			var $firstRow = $items.find('tr:first');
 			var $lastRow = $items.find('tr:last');
@@ -336,7 +338,7 @@ define(function(require){
 	asyncTest('should set selected items', function(){
 		var $repeater = $(this.$markup);
 
-		$repeater.one('loaded.fu.repeater', function(){
+		$repeater.one('rendered.fu.repeater', function(){
 			var $items = $repeater.find('.repeater-list tbody');
 
 			setTimeout(function(){
