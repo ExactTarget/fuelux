@@ -211,7 +211,7 @@
 			return markup;
 		},
 
-		getDataOptions: function (options, callback) {
+		getDataOptions: function (options) {
 			var dataSourceOptions = {};
 			var opts = {};
 			var val, viewDataOpts;

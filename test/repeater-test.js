@@ -185,11 +185,9 @@ define(function(require){
 		});
 	});
 
-	test("should run view plugin aspects correctly", function () {
+	test("should run view plugin aspects correctly - pt 1", function () {
 		var ran = 0;
 		var $repeater = $(this.$markup);
-		var repeated = false;
-		var skipped = false;
 		$.fn.repeater.viewTypes.test1 = {
 			initialize: function(helpers, callback){
 				equal(ran, 0, 'initialize function correctly ran first');
@@ -198,82 +196,72 @@ define(function(require){
 				ran++;
 				callback({});
 			},
-			selected: function(helpers, callback){
-				equal(ran, 1, 'selected function correctly ran after initialization upon view select');
+			selected: function(helpers){
+				equal(ran, 1, 'selected function correctly ran upon view select');
 				equal(typeof helpers, 'object', 'selected function provided helpers object');
-				equal(typeof callback,'function', 'selected function provided callback function');
 				ran++;
-				callback({});
 			},
-			renderer: {
-				before: function(helpers, callback){
-					equal(ran, 2, 'running first renderer as expected');
-					equal(this.$element.find('.test1-wrapper').length, 0, 'before function ran before render function');
-					equal(typeof helpers, 'object', 'before function provided helpers object');
-					equal((helpers.container.length>0 && typeof helpers.data==='object'), true, 'helpers object contains appropriate attributes');
-					equal(typeof callback,'function', 'before function provided callback function');
-					ran++;
-					callback({});
-				},
-				after: function(helpers, callback){
-					equal(this.$element.find('.test1-wrapper').length, 1, 'after function ran after render function');
-					equal(typeof helpers, 'object', 'before function provided helpers object');
-					equal((helpers.container.length>0 && typeof helpers.data==='object' && helpers.item.length>0), true,
-						'helpers object contains appropriate attributes');
-					equal(typeof callback,'function', 'before function provided callback function');
-					ran++;
-					callback({});
-				},
-				complete: function(helpers, callback){
-					equal(ran, 8, 'complete function ran after all nested renderers ran');
-					equal(skipped, true, 'nested renderer\'s nested items skipped as appropriate');
-					equal(typeof helpers, 'object', 'complete function provided helpers object');
-					equal((helpers.container.length>0 && typeof helpers.data==='object' && helpers.item.length>0), true,
-						'helpers object contains appropriate attributes');
-					equal(typeof callback,'function', 'complete function provided callback function');
-				},
-				render: function(helpers, callback){
-					equal(ran, 3, 'running render function when expected');
-					equal(typeof helpers, 'object', 'render function provided helpers object');
-					equal((helpers.container.length>0 && typeof helpers.data==='object'), true, 'helpers object contains appropriate attributes');
-					equal(typeof callback,'function', 'render function provided callback function');
-					ran++;
-					callback({ item: '<div class="test1-wrapper" data-container="true"></div>' });
-				},
-				nested: [
-					{
-						render: function(helpers, callback){
-							if(!repeated){
-								equal(ran, 5, 'running nested renderer when expected');
-								equal(typeof helpers, 'object', 'nested render function provided helpers object');
-								equal((helpers.container.length>0 && typeof helpers.data==='object' &&
-									helpers.index===0 && typeof helpers.subset==='object'), true, 'helpers object contains appropriate attributes');
-								equal(helpers.container.hasClass('test1-wrapper'), true, 'data-container="true" attribute functioning correctly');
-								equal(typeof callback,'function', 'nested render function provided callback function');
-								repeated = true;
-							}else{
-								equal((ran===6 || ran===7), true, 'nested renderer repeated as expected');
-							}
-							ran++;
-							skipped = true;
-							callback({ item: $('<div class="test1-item"></div>'), skipNested: true });
-						},
-						repeat: 'data.smileys',
-						nested: [
-							{
-								render: function(helpers, callback){
-									skipped = false;
-									callback({});
-								}
-							}
-						]
-					}
-				]
+			dataOptions: function(options){
+				equal(ran, 2, 'dataOptions function correctly ran prior to rendering');
+				equal(typeof options, 'object', 'dataOptions function provided options object');
+				ran++;
+				return options;
+			},
+
+			before: function(helpers){
+				equal(ran, 3, 'before function ran before renderItems function');
+				equal(typeof helpers, 'object', 'before function provided helpers object');
+				equal((helpers.container.length>0 && typeof helpers.data==='object'), true, 'helpers object contains appropriate attributes');
+				ran++;
+				return { item: '<div class="test1-wrapper" data-container="true"></div>' };
+			},
+			renderItem: function(helpers){
+				equal((ran>3), true, 'renderItem function ran after before function');
+				equal(typeof helpers, 'object', 'renderItem function provided helpers object');
+				equal((helpers.container.length>0 && typeof helpers.data==='object' &&
+					typeof helpers.index==='number' && typeof helpers.subset==='object'), true, 'helpers object contains appropriate attributes');
+				equal(helpers.container.hasClass('test1-wrapper'), true, 'data-container="true" attribute functioning correctly');
+				ran++;
+				return { item: '<div class="test1-item"></div>' };
+			},
+			after: function(helpers){
+				equal(ran, 7, 'after function ran after renderItems function');
+				equal(typeof helpers, 'object', 'after function provided helpers object');
+				equal((helpers.container.length>0 && typeof helpers.data==='object'), true, 'helpers object contains appropriate attributes');
+				return false;
+			},
+			repeat: 'data.smileys'
+		};
+		$repeater.repeater({
+			dataSource: function(options, callback){
+				callback({ smileys: [':)', ':)', ':)'] });
+			}
+		});
+	});
+
+	test("should run view plugin aspects correctly - pt 2", function () {
+		var ran = 0;
+		var $repeater = $(this.$markup);
+		$.fn.repeater.viewTypes.test1 = {
+			render: function(helpers, callback){
+				equal(1, 1, 'render function ran when defined');
+				equal(typeof helpers, 'object', 'render function provided helpers object');
+				equal((helpers.container.length>0 && typeof helpers.data==='object'), true, 'helpers object contains appropriate attributes');
+			},
+			resize: function(helpers){
+				equal(1, 1, 'resize function correctly ran when control is cleared');
+				equal(typeof helpers, 'object', 'resize function provided helpers object');
+			},
+			cleared: function(helpers){
+				equal(1, 1, 'cleared function correctly ran when control is cleared');
+				equal(typeof helpers, 'object', 'cleared function provided helpers object');
 			}
 		};
 		$repeater.repeater({
 			dataSource: function(options, callback){
 				callback({ smileys: [':)', ':)', ':)'] });
+				$repeater.repeater('resize');
+				$repeater.repeater('clear');
 			}
 		});
 	});
@@ -286,13 +274,14 @@ define(function(require){
 				view1: {
 					dataSource: function(options, callback){
 						equal(options.view, 'test1.view1', 'view-specific configuration honored');
+						callback({});
+						$views.find('label:last input').trigger('change');
 					}
 				},
 				'test2.view2': {
 					dataSource: function(options, callback){
-						equal(options.view, 'test1.view1', 'view-specific configuration honored');
+						equal(options.view, 'test2.view2', 'view-specific configuration honored');
 						callback({});
-						$views.find('label:last input').trigger('change');
 					}
 				}
 			}
