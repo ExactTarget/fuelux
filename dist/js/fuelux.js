@@ -1,5 +1,6 @@
 /*!
- * Fuel UX v3.5.1
+ * Fuel UX EDGE - Built 2015/02/02, 1:42:50 PM
+ * Previous release: v3.5.1
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license ()
  */
@@ -65,6 +66,7 @@
 
 			// handle events
 			this.$element.on( 'change.fu.checkbox', $.proxy( this.itemchecked, this ) );
+			this.$label.unbind( 'click', $.proxy( this.toggle, this ) ); //unbind previous binds so that double clickage doesn't happen (thus making checkbox appear to not work)
 			this.$label.on( 'click', $.proxy( this.toggle, this ) ); //make repeated label clicks work
 
 			// set default state
@@ -93,14 +95,16 @@
 
 			enable: function() {
 				this.state.disabled = false;
-				this.$element.attr( 'disabled', false );
+				this.$element.removeAttr( 'disabled' );
+				this.$element.prop( 'disabled', false );
 				this._resetClasses();
 				this.$element.trigger( 'enabled.fu.checkbox' );
 			},
 
 			disable: function() {
 				this.state.disabled = true;
-				this.$element.attr( 'disabled', true );
+				this.$element.prop( 'disabled', true );
+				this.$element.attr( 'disabled', 'disabled' );
 				this._setDisabledClass();
 				this.$element.trigger( 'disabled.fu.checkbox' );
 			},
@@ -126,6 +130,13 @@
 			},
 
 			toggle: function( e ) {
+				//keep checkbox from being used if it is disabled. You can't rely on this.state.disabled, because on bind time it might not be disabled, but, state.disabled may be set to true after bind time (and this.state.disabled won't be updated for this bound instance)
+				//To see how this works, uncomment the next line of code and go to http://0.0.0.0:8000/index.html click the "disable #myCustomCheckbox1" and then click on the first checkbox and see the disparity in the output between this.state and this.$element.attr
+				//console.log('is disabled? this.state says, "' + this.state.disabled + '"; this.$element.attr says, "' + this.$element.attr('disabled') + '"');
+				if ( /* do not change this to this.state.disabled. It will break edge cases */ this.$element.prop( 'disabled' ) ) {
+					return;
+				}
+
 				//keep event from firing twice in Chrome
 				if ( !e || ( e.target === e.originalEvent.target ) ) {
 					this.state.checked = !this.state.checked;
@@ -144,10 +155,10 @@
 			toggleContainer: function() {
 				if ( Boolean( this.$toggleContainer ) ) {
 					if ( this.state.checked ) {
-						this.$toggleContainer.removeClass( 'hide' );
+						this.$toggleContainer.removeClass( 'hide hidden' );
 						this.$toggleContainer.attr( 'aria-hidden', 'false' );
 					} else {
-						this.$toggleContainer.addClass( 'hide' );
+						this.$toggleContainer.addClass( 'hidden' );
 						this.$toggleContainer.attr( 'aria-hidden', 'true' );
 					}
 				}
@@ -1558,7 +1569,10 @@
 				this.options.revertOnCancel = ( this.$accept.length > 0 ) ? true : false;
 			}
 
+			this.isInput = this.$field.is( 'input' );
+
 			this.$field.on( 'focus.fu.placard', $.proxy( this.show, this ) );
+			this.$field.on( 'keydown.fu.placard', $.proxy( this.keyComplete, this ) );
 			this.$accept.on( 'click.fu.placard', $.proxy( this.complete, this, 'accept' ) );
 			this.$cancel.on( 'click.fu.placard', function( e ) {
 				e.preventDefault();
@@ -1586,6 +1600,16 @@
 					}
 					this.$element.trigger( action, obj );
 					this.hide();
+				}
+			},
+
+			keyComplete: function( e ) {
+				if ( this.isInput && e.keyCode === 13 ) {
+					this.complete( 'accept' );
+					this.$field.blur();
+				} else if ( e.keyCode === 27 ) {
+					this.complete( 'cancel' );
+					this.$field.blur();
 				}
 			},
 
@@ -1916,13 +1940,13 @@
 						group = $( 'input[name="' + this.groupName + '"]' );
 						group.each( function() {
 							var selector = $( this ).attr( 'data-toggle' );
-							$( selector ).addClass( 'hide' );
+							$( selector ).addClass( 'hidden' );
 							$( selector ).attr( 'aria-hidden', 'true' );
 						} );
-						this.$toggleContainer.removeClass( 'hide' );
+						this.$toggleContainer.removeClass( 'hide hidden' );
 						this.$toggleContainer.attr( 'aria-hidden', 'false' );
 					} else {
-						this.$toggleContainer.addClass( 'hide' );
+						this.$toggleContainer.addClass( 'hidden' );
 						this.$toggleContainer.attr( 'aria-hidden', 'true' );
 					}
 
@@ -2871,9 +2895,12 @@
 			this.$element = $( element );
 			this.options = $.extend( {}, $.fn.tree.defaults, options );
 
-			this.$element.on( 'click.fu.tree', '.tree-item', $.proxy( function( ev ) {
-				this.selectItem( ev.currentTarget );
-			}, this ) );
+			if ( this.options.itemSelect ) {
+				this.$element.on( 'click.fu.tree', '.tree-item', $.proxy( function( ev ) {
+					this.selectItem( ev.currentTarget );
+				}, this ) );
+			}
+
 			this.$element.on( 'click.fu.tree', '.tree-branch-name', $.proxy( function( ev ) {
 				this.openFolder( ev.currentTarget );
 			}, this ) );
@@ -2994,6 +3021,8 @@
 			},
 
 			selectItem: function( el ) {
+				if ( !this.options.itemSelect ) return;
+
 				var $el = $( el );
 				var selData = $el.data();
 				var $all = this.$element.find( '.tree-selected' );
@@ -3099,6 +3128,8 @@
 			},
 
 			selectFolder: function( clickedElement ) {
+				if ( !this.options.folderSelect ) return;
+
 				var $clickedElement = $( clickedElement );
 				var $clickedBranch = $clickedElement.closest( '.tree-branch' );
 				var $selectedBranch = this.$element.find( '.tree-branch.tree-selected' );
@@ -3202,7 +3233,8 @@
 			dataSource: function( options, callback ) {},
 			multiSelect: false,
 			cacheItems: true,
-			folderSelect: true
+			folderSelect: true,
+			itemSelect: true
 		};
 
 		$.fn.tree.Constructor = Tree;
@@ -3243,7 +3275,7 @@
 
 			this.$element = $( element );
 			this.options = $.extend( {}, $.fn.wizard.defaults, options );
-			this.options.disablePreviousStep = ( this.$element.attr( 'data-restrict' ) === "previous" ) ? true : this.options.disablePreviousStep;
+			this.options.disablePreviousStep = ( this.$element.attr( 'data-restrict' ) === 'previous' ) ? true : this.options.disablePreviousStep;
 			this.currentStep = this.options.selectedItem.step;
 			this.numSteps = this.$element.find( '.steps li' ).length;
 			this.$prevBtn = this.$element.find( 'button.btn-prev' );
@@ -3359,13 +3391,13 @@
 			},
 
 			setState: function() {
-				var canMovePrev = ( this.currentStep > 1 );
-				var firstStep = ( this.currentStep === 1 );
-				var lastStep = ( this.currentStep === this.numSteps );
+				var canMovePrev = ( this.currentStep > 1 ); //remember, steps index is 1 based...
+				var isFirstStep = ( this.currentStep === 1 );
+				var isLastStep = ( this.currentStep === this.numSteps );
 
 				// disable buttons based on current step
 				if ( !this.options.disablePreviousStep ) {
-					this.$prevBtn.attr( 'disabled', ( firstStep === true || canMovePrev === false ) );
+					this.$prevBtn.attr( 'disabled', ( isFirstStep === true || canMovePrev === false ) );
 				}
 
 				// change button text of last step, if specified
@@ -3374,7 +3406,7 @@
 					this.lastText = last;
 					// replace text
 					var text = this.nextText;
-					if ( lastStep === true ) {
+					if ( isLastStep === true ) {
 						text = this.lastText;
 						// add status class to wizard
 						this.$element.addClass( 'complete' );
@@ -3422,8 +3454,8 @@
 				} else {
 					containerWidth = this.$element.width();
 				}
-				if ( totalWidth > containerWidth ) {
 
+				if ( totalWidth > containerWidth ) {
 					// set the position so that the last step is on the right
 					var newMargin = totalWidth - containerWidth;
 					this.$element.find( '.steps' ).first().attr( 'style', 'margin-left: -' + newMargin + 'px' );
@@ -3454,15 +3486,10 @@
 			stepclicked: function( e ) {
 				var li = $( e.currentTarget );
 				var index = this.$element.find( '.steps li' ).index( li );
-				var canMovePrev = true;
 
-				if ( this.options.disablePreviousStep ) {
-					if ( index < this.currentStep ) {
-						canMovePrev = false;
-					}
-				}
-
-				if ( canMovePrev ) {
+				if ( index < this.currentStep && this.options.disablePreviousStep ) { //enforce restrictions
+					return;
+				} else {
 					var evt = $.Event( 'stepclicked.fu.wizard' );
 					this.$element.trigger( evt, {
 						step: index + 1
@@ -3496,38 +3523,38 @@
 			},
 
 			previous: function() {
-				var canMovePrev = ( this.currentStep > 1 );
-				if ( this.options.disablePreviousStep ) {
-					canMovePrev = false;
-				}
-				if ( canMovePrev ) {
-					var e = $.Event( 'actionclicked.fu.wizard' );
-					this.$element.trigger( e, {
-						step: this.currentStep,
-						direction: 'previous'
-					} );
-					if ( e.isDefaultPrevented() ) {
-						return;
-					} // don't increment
-
-					this.currentStep -= 1;
-					this.setState();
+				if ( this.options.disablePreviousStep || this.currentStep === 1 ) {
+					return;
 				}
 
-				// return focus to control after selecting an option
-				if ( this.$prevBtn.is( ':disabled' ) ) {
-					this.$nextBtn.focus();
-				} else {
-					this.$prevBtn.focus();
-				}
+				var e = $.Event( 'actionclicked.fu.wizard' );
+				this.$element.trigger( e, {
+					step: this.currentStep,
+					direction: 'previous'
+				} );
+				if ( e.isDefaultPrevented() ) {
+					return;
+				} // don't increment ...what? Why?
 
+				this.currentStep -= 1;
+				this.setState();
+
+				// only set focus if focus is still on the $nextBtn (avoid stomping on a focus set programmatically in actionclicked callback)
+				if ( this.$prevBtn.is( ':focus' ) ) {
+					var firstFormField = this.$element.find( '.active' ).find( 'input, select, textarea' )[ 0 ];
+
+					if ( typeof firstFormField !== 'undefined' ) {
+						// allow user to start typing immediately instead of having to click on the form field.
+						$( firstFormField ).focus();
+					} else if ( this.$element.find( '.active input:first' ).length === 0 && this.$prevBtn.is( ':disabled' ) ) {
+						//only set focus on a button as the last resort if no form fields exist and the just clicked button is now disabled
+						this.$nextBtn.focus();
+					}
+				}
 			},
 
 			next: function() {
-				var canMoveNext = ( this.currentStep + 1 <= this.numSteps );
-				var lastStep = ( this.currentStep === this.numSteps );
-
-				if ( canMoveNext ) {
+				if ( this.currentStep < this.numSteps ) {
 					var e = $.Event( 'actionclicked.fu.wizard' );
 					this.$element.trigger( e, {
 						step: this.currentStep,
@@ -3535,19 +3562,25 @@
 					} );
 					if ( e.isDefaultPrevented() ) {
 						return;
-					} // don't increment
+					} // don't increment ...what? Why?
 
 					this.currentStep += 1;
 					this.setState();
-				} else if ( lastStep ) {
+				} else { //is last step
 					this.$element.trigger( 'finished.fu.wizard' );
 				}
 
-				// return focus to control after selecting an option
-				if ( this.$nextBtn.is( ':disabled' ) ) {
-					this.$prevBtn.focus();
-				} else {
-					this.$nextBtn.focus();
+				// only set focus if focus is still on the $nextBtn (avoid stomping on a focus set programmatically in actionclicked callback)
+				if ( this.$nextBtn.is( ':focus' ) ) {
+					var firstFormField = this.$element.find( '.active' ).find( 'input, select, textarea' )[ 0 ];
+
+					if ( typeof firstFormField !== 'undefined' ) {
+						// allow user to start typing immediately instead of having to click on the form field.
+						$( firstFormField ).focus();
+					} else if ( this.$element.find( '.active input:first' ).length === 0 && this.$nextBtn.is( ':disabled' ) ) {
+						//only set focus on a button as the last resort if no form fields exist and the just clicked button is now disabled
+						this.$prevBtn.focus();
+					}
 				}
 			},
 
@@ -3631,6 +3664,7 @@
 				$this.wizard( $this.data() );
 			} );
 		} );
+
 
 
 	} )( jQuery );
@@ -5019,7 +5053,7 @@
 											self.infiniteScrollPaging( data, options );
 										}
 										self.$loader.hide().loader( 'pause' );
-										self.$element.trigger( 'loaded.fu.repeater' );
+										self.$element.trigger( 'loaded.fu.repeater', opts );
 									} );
 								}
 							} );
@@ -5105,9 +5139,22 @@
 			runRenderer: function( container, renderer, data, callback ) {
 				var self = this;
 				var skipNested = false;
+				var index = 0;
+				var skip = 0;
 				var repeat, subset, i, l;
 
-				var loopSubset = function( index ) {
+				function loopSubset() {
+					next( function() {
+						index++;
+						if ( index < subset.length ) {
+							loopSubset( index );
+						} else {
+							callback();
+						}
+					} );
+				}
+
+				function next( cb ) {
 					var args = {
 						container: container,
 						data: data
@@ -5119,18 +5166,11 @@
 					if ( subset.length < 1 ) {
 						callback();
 					} else {
-						start( args, function() {
-							index++;
-							if ( index < subset.length ) {
-								loopSubset( index );
-							} else {
-								callback();
-							}
-						} );
+						start( args, cb );
 					}
-				};
+				}
 
-				var start = function( args, cb ) {
+				function start( args, cb ) {
 					var item = '';
 
 					var callbacks = {
@@ -5165,7 +5205,13 @@
 									if ( index < renderer.nested.length ) {
 										loopNested( cont, index );
 									} else {
-										proceed( 'complete', args );
+										if ( ++skip % 50 === 0 ) {
+											setTimeout( function() {
+												proceed( 'complete', args );
+											}, 1 );
+										} else {
+											proceed( 'complete', args );
+										}
 									}
 								} );
 							};
@@ -5192,17 +5238,17 @@
 						}
 					};
 
-					var proceed = function( stage, argus ) {
+					function proceed( stage, argus ) {
 						argus = $.extend( {}, argus );
 						if ( renderer[ stage ] ) {
 							renderer[ stage ].call( self, argus, callbacks[ stage ] );
 						} else {
 							callbacks[ stage ]( null );
 						}
-					};
+					}
 
 					proceed( 'before', args );
-				};
+				}
 
 				if ( renderer.repeat ) {
 					repeat = renderer.repeat.split( '.' );
@@ -5221,7 +5267,7 @@
 					subset = [ '' ];
 				}
 
-				loopSubset( 0 );
+				loopSubset();
 			},
 
 			setViewOptions: function( curView ) {
@@ -5723,6 +5769,9 @@
 									container: helpers.container,
 									rowData: helpers.subset[ helpers.index ]
 								};
+								if ( this.viewOptions.list_columnSyncing ) {
+									this.list_sizeHeadings();
+								}
 								if ( helpers.item !== undefined ) {
 									obj.item = helpers.item;
 								}

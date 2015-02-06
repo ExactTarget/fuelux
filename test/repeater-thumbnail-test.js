@@ -4,7 +4,6 @@
 
 define(function(require){
 	var $ = require('jquery');
-	var afterSource = function(options){};
 	var data = require('data');
 	var dataSource = function(options, callback){
 		var numItems = 200;
@@ -29,7 +28,6 @@ define(function(require){
 		}
 
 		callback(resp);
-		afterSource(options);
 	};
 	var html = require('text!test/markup/repeater-markup.html');
 
@@ -52,10 +50,11 @@ define(function(require){
 		ok($.fn.repeater.viewTypes.thumbnail, 'repeater-thumbnail view plugin is defined');
 	});
 
-	test('should render correctly', function(){
+	asyncTest('should render correctly', function(){
 		var $repeater = $(this.$markup);
 
-		afterSource = function(){
+		$repeater.one('loaded.fu.repeater', function(){
+			start();
 			var items = 0;
 			var $item;
 
@@ -68,17 +67,18 @@ define(function(require){
 			$item = $repeater.find('.thumbnail:first');
 			equal($item.find('img').attr('src'), 'http://www.exacttarget.com/sites/exacttarget/themes/custom/exacttarget/logo.png', 'thumbnail image rendered correctly');
 			equal($item.find('span').text(), 'Thumbnail 1', 'thumbnail label rendered correctly');
-		};
+		});
 
 		$repeater.repeater({
 			dataSource: dataSource
 		});
 	});
 
-	test('should render correctly if infinite scroll enabled', function(){
+	asyncTest('should render correctly if infinite scroll enabled', function(){
 		var $repeater = $(this.$markup);
 
-		afterSource = function(){
+		$repeater.one('loaded.fu.repeater', function(){
+			start();
 			var items = 0;
 
 			$repeater.find('.repeater-thumbnail-cont:first').find('.thumbnail').each(function(){
@@ -86,7 +86,7 @@ define(function(require){
 			});
 
 			equal(items, 30, 'correct number of items rendered');
-		};
+		});
 
 		$repeater.repeater({
 			dataSource: dataSource,
@@ -94,14 +94,15 @@ define(function(require){
 		});
 	});
 
-	test('should call item callback correctly', function(){
+	asyncTest('should call item callback correctly', function(){
 		var hasCalled = false;
 		var items = 0;
 		var $repeater = $(this.$markup);
 
-		afterSource = function(){
+		$repeater.one('loaded.fu.repeater', function(){
+			start();
 			equal(items, 10, 'items callback called expected number of times');
-		};
+		});
 
 		$repeater.repeater({
 			dataSource: dataSource,
@@ -117,15 +118,16 @@ define(function(require){
 		});
 	});
 
-	test('template option should work as expected', function() {
+	asyncTest('template option should work as expected', function() {
 		var $repeater = $(this.$markup);
 		var $item;
 
-		afterSource = function () {
+		$repeater.one('loaded.fu.repeater', function(){
+			start();
 			$item = $repeater.find('.thumbnail:first');
 			equal($item.find('.test2').text(), 'Thumbnail 1', 'template option working correctly - test 1');
 			equal($item.find('.test3').text(), 'http://www.exacttarget.com/sites/exacttarget/themes/custom/exacttarget/logo.png', 'template option working correctly - test 2');
-		};
+		});
 
 		$repeater.repeater({
 			dataSource: dataSource,
@@ -133,10 +135,11 @@ define(function(require){
 		});
 	});
 
-	test('should handle selectable (single) option correctly', function(){
+	asyncTest('should handle selectable (single) option correctly', function(){
 		var $repeater = $(this.$markup);
 
-		afterSource = function(){
+		$repeater.one('loaded.fu.repeater', function(){
+			start();
 			var $cont = $repeater.find('.repeater-thumbnail-cont');
 			var $firstItem = $cont.find('.repeater-thumbnail:first');
 			var $lastItem = $cont.find('.repeater-thumbnail:last');
@@ -146,7 +149,7 @@ define(function(require){
 			equal($firstItem.hasClass('selected'), true, 'thumbnail has selected class after being clicked as expected');
 			$lastItem.click();
 			equal((!$firstItem.hasClass('selected') && $lastItem.hasClass('selected')), true, 'selected class transferred to different thumbnail when clicked');
-		};
+		});
 
 		$repeater.repeater({
 			dataSource: dataSource,
@@ -154,10 +157,11 @@ define(function(require){
 		});
 	});
 
-	test('should handle selectable (multi) option correctly', function(){
+	asyncTest('should handle selectable (multi) option correctly', function(){
 		var $repeater = $(this.$markup);
 
-		afterSource = function(){
+		$repeater.one('loaded.fu.repeater', function(){
+			start();
 			var $cont = $repeater.find('.repeater-thumbnail-cont');
 			var $firstItem = $cont.find('.repeater-thumbnail:first');
 			var $lastItem = $cont.find('.repeater-thumbnail:last');
@@ -167,7 +171,7 @@ define(function(require){
 			equal($firstItem.hasClass('selected'), true, 'thumbnail has selected class after being clicked as expected');
 			$lastItem.click();
 			equal(($firstItem.hasClass('selected') && $lastItem.hasClass('selected')), true, 'both thumbnails have selected class after another click');
-		};
+		});
 
 		$repeater.repeater({
 			dataSource: dataSource,
@@ -178,20 +182,20 @@ define(function(require){
 	asyncTest('should clear selected items', function(){
 		var $repeater = $(this.$markup);
 
-		afterSource = function(){
+		$repeater.one('loaded.fu.repeater', function(){
 			var $cont = $repeater.find('.repeater-thumbnail-cont');
 			var $firstItem = $cont.find('.repeater-thumbnail:first');
 			var $lastItem = $cont.find('.repeater-thumbnail:last');
 
 			$firstItem.click();
 			$lastItem.click();
-			//TODO: why is this timeout needed???
+			
 			setTimeout(function(){
 				start();
 				$repeater.repeater('thumbnail_clearSelectedItems');
 				equal((!$firstItem.hasClass('selected') && !$lastItem.hasClass('selected')), true, 'selected thumbnails cleared as expected');
 			}, 0);
-		};
+		});
 
 		$repeater.repeater({
 			dataSource: dataSource,
@@ -202,7 +206,7 @@ define(function(require){
 	asyncTest('should get selected items', function(){
 		var $repeater = $(this.$markup);
 
-		afterSource = function(){
+		$repeater.one('loaded.fu.repeater', function(){
 			var $cont = $repeater.find('.repeater-thumbnail-cont');
 			var $firstItem = $cont.find('.repeater-thumbnail:first');
 			var $lastItem = $cont.find('.repeater-thumbnail:last');
@@ -210,13 +214,14 @@ define(function(require){
 
 			$firstItem.click();
 			$lastItem.click();
+			
 			setTimeout(function(){
 				start();
 				selected = $repeater.repeater('thumbnail_getSelectedItems');
 				equal(selected.length, 2, 'returned array contains appropriate number of items');
 				equal(selected[0].length>0, true, 'returned array items are jQuery elements as appropriate');
 			}, 0);
-		};
+		});
 
 		$repeater.repeater({
 			dataSource: dataSource,
@@ -227,7 +232,7 @@ define(function(require){
 	asyncTest('should set selected items', function(){
 		var $repeater = $(this.$markup);
 
-		afterSource = function(){
+		$repeater.one('loaded.fu.repeater', function(){
 			var $cont = $repeater.find('.repeater-thumbnail-cont');
 
 			setTimeout(function(){
@@ -255,7 +260,7 @@ define(function(require){
 				$repeater.repeater('thumbnail_setSelectedItems', [{ index: 0 }, { index: 1 }, { index: 2 }, { selector: '.test' }], true);
 				equal($repeater.repeater('thumbnail_getSelectedItems').length, 4, 'correct number of thumbnails selected when using force');
 			}, 0);
-		};
+		});
 
 		$repeater.repeater({
 			dataSource: dataSource,
@@ -267,13 +272,11 @@ define(function(require){
 		var alignment = 'none';
 		var $repeater = $(this.$markup);
 		var self = this;
-
-		afterSource = function(){
+		
+		function loaded(){
 			var $cont = $repeater.find('.repeater-thumbnail-cont');
-
+		
 			setTimeout(function(){
-				start();
-
 				switch(alignment){
 					case 'center':
 						equal($cont.hasClass('align-center'), true, 'repeater-thumbnail-cont has align-center class when alignment option set to ' + alignment);
@@ -301,19 +304,24 @@ define(function(require){
 						if(alignment==='none'){
 							alignment = 'center';
 						}else{
+							start();
 							return;
 						}
 				}
-
-				stop();
+				
 				$repeater.remove();
 				$repeater = $(self.$markup);
+				
+				$repeater.one('loaded.fu.repeater', loaded);
+				
 				$repeater.repeater({
 					dataSource: dataSource,
 					thumbnail_alignment: alignment
 				});
 			}, 0);
-		};
+		}
+
+		$repeater.one('loaded.fu.repeater', loaded);
 
 		$repeater.repeater({
 			dataSource: dataSource,

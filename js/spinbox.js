@@ -11,7 +11,7 @@
 // For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
-(function(factory) {
+(function (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
 		define(['jquery'], factory);
@@ -19,7 +19,7 @@
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
 	}
-}(function($) {
+}(function ($) {
 	// -- END UMD WRAPPER PREFACE --
 
 	// -- BEGIN MODULE CODE HERE --
@@ -28,9 +28,9 @@
 
 	// SPINBOX CONSTRUCTOR AND PROTOTYPE
 
-	var Spinbox = function(element, options) {
+	var Spinbox = function (element, options) {
 		this.$element = $(element);
-		this.$element.find('.btn').on('click', function(e) {
+		this.$element.find('.btn').on('click', function (e) {
 			//keep spinbox from submitting if they forgot to say type="button" on their spinner buttons
 			e.preventDefault();
 		});
@@ -45,19 +45,19 @@
 		this.mousewheelTimeout = {};
 
 		if (this.options.hold) {
-			this.$element.on('mousedown.fu.spinbox', '.spinbox-up', $.proxy(function() {
+			this.$element.on('mousedown.fu.spinbox', '.spinbox-up', $.proxy(function () {
 				this.startSpin(true);
 			}, this));
 			this.$element.on('mouseup.fu.spinbox', '.spinbox-up, .spinbox-down', $.proxy(this.stopSpin, this));
 			this.$element.on('mouseout.fu.spinbox', '.spinbox-up, .spinbox-down', $.proxy(this.stopSpin, this));
-			this.$element.on('mousedown.fu.spinbox', '.spinbox-down', $.proxy(function() {
+			this.$element.on('mousedown.fu.spinbox', '.spinbox-down', $.proxy(function () {
 				this.startSpin(false);
 			}, this));
 		} else {
-			this.$element.on('click.fu.spinbox', '.spinbox-up', $.proxy(function() {
+			this.$element.on('click.fu.spinbox', '.spinbox-up', $.proxy(function () {
 				this.step(true);
 			}, this));
-			this.$element.on('click.fu.spinbox', '.spinbox-down', $.proxy(function() {
+			this.$element.on('click.fu.spinbox', '.spinbox-down', $.proxy(function () {
 				this.step(false);
 			}, this));
 		}
@@ -87,12 +87,12 @@
 	Spinbox.prototype = {
 		constructor: Spinbox,
 
-		destroy: function() {
+		destroy: function () {
 			this.$element.remove();
 			// any external bindings
 			// [none]
 			// set input value attrbute
-			this.$element.find('input').each(function() {
+			this.$element.find('input').each(function () {
 				$(this).attr('value', $(this).val());
 			});
 			// empty elements to return to original markup
@@ -101,7 +101,7 @@
 			return this.$element[0].outerHTML;
 		},
 
-		render: function() {
+		render: function () {
 			var inputValue = this.parseInput(this.$input.val());
 			var maxUnitLength = '';
 
@@ -113,16 +113,15 @@
 			}
 
 			if (this.options.units.length) {
-				$.each(this.options.units, function(index, value) {
+				$.each(this.options.units, function (index, value) {
 					if (value.length > maxUnitLength.length) {
 						maxUnitLength = value;
 					}
 				});
 			}
-
 		},
 
-		output: function(value, updateField) {
+		output: function (value, updateField) {
 			value = (value + '').split('.').join(this.options.decimalMark);
 			updateField = (updateField || true);
 			if (updateField) {
@@ -132,13 +131,13 @@
 			return value;
 		},
 
-		parseInput: function(value) {
+		parseInput: function (value) {
 			value = (value + '').split(this.options.decimalMark).join('.');
 
 			return value;
 		},
 
-		change: function() {
+		change: function () {
 			var newVal = this.parseInput(this.$input.val()) || '';
 
 			if (this.options.units.length || this.options.decimalMark !== '.') {
@@ -149,17 +148,18 @@
 				newVal = this.checkMaxMin(newVal.replace(/[^0-9.-]/g, '') || '');
 				this.options.value = newVal / 1;
 			}
+
 			this.output (newVal);
 
 			this.changeFlag = false;
 			this.triggerChangedEvent();
 		},
 
-		changeFlag: function() {
+		changeFlag: function () {
 			this.changeFlag = true;
 		},
 
-		stopSpin: function() {
+		stopSpin: function () {
 			if (this.switches.timeout !== undefined) {
 				clearTimeout(this.switches.timeout);
 				this.switches.count = 1;
@@ -167,18 +167,16 @@
 			}
 		},
 
-		triggerChangedEvent: function() {
+		triggerChangedEvent: function () {
 			var currentValue = this.value();
 			if (currentValue === this.lastValue) return;
-
 			this.lastValue = currentValue;
 
 			// Primary changed event
-			this.$element.trigger('changed.fu.spinbox', this.output(currentValue, false)); // no DOM update
+			this.$element.trigger('changed.fu.spinbox', this.output(currentValue, false));// no DOM update
 		},
 
-		startSpin: function(type) {
-
+		startSpin: function (type) {
 			if (!this.options.disabled) {
 				var divisor = this.switches.count;
 
@@ -193,19 +191,19 @@
 					divisor = 4;
 				}
 
-				this.switches.timeout = setTimeout($.proxy(function() {
+				this.switches.timeout = setTimeout($.proxy(function () {
 					this.iterate(type);
 				}, this), this.switches.speed / divisor);
 				this.switches.count++;
 			}
 		},
 
-		iterate: function(type) {
+		iterate: function (type) {
 			this.step(type);
 			this.startSpin(type);
 		},
 
-		step: function(isIncrease) {
+		step: function (isIncrease) {
 			// isIncrease: true is up, false is down
 
 			var digits, multiple, currentValue, limitValue;
@@ -242,8 +240,7 @@
 			}
 		},
 
-		value: function(value) {
-
+		value: function (value) {
 			if (value || value === 0) {
 				if (this.options.units.length || this.options.decimalMark !== '.') {
 					this.output(this.parseValueWithUnit(value + (this.unit || '')));
@@ -255,6 +252,7 @@
 					return this;
 
 				}
+
 			} else {
 				if (this.changeFlag) {
 					this.change();
@@ -263,15 +261,16 @@
 				if (this.unit) {
 					return this.options.value + this.unit;
 				} else {
-					return this.output(this.options.value, false); // no DOM update
+					return this.output(this.options.value, false);// no DOM update
 				}
+
 			}
 		},
 
-		isUnitLegal: function(unit) {
+		isUnitLegal: function (unit) {
 			var legalUnit;
 
-			$.each(this.options.units, function(index, value) {
+			$.each(this.options.units, function (index, value) {
 				if (value.toLowerCase() === unit.toLowerCase()) {
 					legalUnit = unit.toLowerCase();
 					return false;
@@ -282,7 +281,7 @@
 		},
 
 		// strips units and add them back
-		parseValueWithUnit: function(value) {
+		parseValueWithUnit: function (value) {
 			var unit = value.replace(/[^a-zA-Z]/g, '');
 			var number = value.replace(/[^0-9.-]/g, '');
 
@@ -295,33 +294,35 @@
 			return this.options.value + (unit || '');
 		},
 
-		checkMaxMin: function(value) {
+		checkMaxMin: function (value) {
 			// if unreadable
 			if (isNaN(parseFloat(value))) {
 				return value;
 			}
+
 			// if not within range return the limit
 			if (!(value <= this.options.max && value >= this.options.min)) {
 				value = value >= this.options.max ? this.options.max : this.options.min;
 			}
+
 			return value;
 		},
 
-		disable: function() {
+		disable: function () {
 			this.options.disabled = true;
 			this.$element.addClass('disabled');
 			this.$input.attr('disabled', '');
 			this.$element.find('button').addClass('disabled');
 		},
 
-		enable: function() {
+		enable: function () {
 			this.options.disabled = false;
 			this.$element.removeClass('disabled');
 			this.$input.removeAttr('disabled');
 			this.$element.find('button').removeClass('disabled');
 		},
 
-		keydown: function(event) {
+		keydown: function (event) {
 			var keyCode = event.keyCode;
 			if (keyCode === 38) {
 				this.step(true);
@@ -330,7 +331,7 @@
 			}
 		},
 
-		keyup: function(event) {
+		keyup: function (event) {
 			var keyCode = event.keyCode;
 
 			if (keyCode === 38 || keyCode === 40) {
@@ -338,7 +339,7 @@
 			}
 		},
 
-		bindMousewheelListeners: function() {
+		bindMousewheelListeners: function () {
 			var inputEl = this.$input.get(0);
 			if (inputEl.addEventListener) {
 				//IE 9, Chrome, Safari, Opera
@@ -351,9 +352,9 @@
 			}
 		},
 
-		mousewheelHandler: function(event) {
+		mousewheelHandler: function (event) {
 			if (!this.options.disabled) {
-				var e = window.event || event; // old IE support
+				var e = window.event || event;// old IE support
 				var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
 				var self = this;
 
@@ -373,6 +374,7 @@
 				} else {
 					e.returnValue = false;
 				}
+
 				return false;
 			}
 		}
@@ -381,11 +383,11 @@
 
 	// SPINBOX PLUGIN DEFINITION
 
-	$.fn.spinbox = function(option) {
+	$.fn.spinbox = function (option) {
 		var args = Array.prototype.slice.call(arguments, 1);
 		var methodReturn;
 
-		var $set = this.each(function() {
+		var $set = this.each(function () {
 			var $this = $(this);
 			var data = $this.data('fu.spinbox');
 			var options = typeof option === 'object' && option;
@@ -393,6 +395,7 @@
 			if (!data) {
 				$this.data('fu.spinbox', (data = new Spinbox(this, options)));
 			}
+
 			if (typeof option === 'string') {
 				methodReturn = data[option].apply(data, args);
 			}
@@ -417,7 +420,7 @@
 
 	$.fn.spinbox.Constructor = Spinbox;
 
-	$.fn.spinbox.noConflict = function() {
+	$.fn.spinbox.noConflict = function () {
 		$.fn.spinbox = old;
 		return this;
 	};
@@ -425,7 +428,7 @@
 
 	// DATA-API
 
-	$(document).on('mousedown.fu.spinbox.data-api', '[data-initialize=spinbox]', function(e) {
+	$(document).on('mousedown.fu.spinbox.data-api', '[data-initialize=spinbox]', function (e) {
 		var $control = $(e.target).closest('.spinbox');
 		if (!$control.data('fu.spinbox')) {
 			$control.spinbox($control.data());
@@ -433,8 +436,8 @@
 	});
 
 	// Must be domReady for AMD compatibility
-	$(function() {
-		$('[data-initialize=spinbox]').each(function() {
+	$(function () {
+		$('[data-initialize=spinbox]').each(function () {
 			var $this = $(this);
 			if (!$this.data('fu.spinbox')) {
 				$this.spinbox($this.data());

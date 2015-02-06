@@ -8,21 +8,21 @@
 
 // -- BEGIN UMD WRAPPER PREFACE --
 
-// For more information on UMD visit: 
+// For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
-		if (typeof define === 'function' && define.amd) {
-				// if AMD loader is available, register as an anonymous module.
-				define(['jquery'], factory);
-		} else {
-				// OR use browser globals if AMD is not present
-				factory(jQuery);
-		}
+	if (typeof define === 'function' && define.amd) {
+		// if AMD loader is available, register as an anonymous module.
+		define(['jquery'], factory);
+	} else {
+		// OR use browser globals if AMD is not present
+		factory(jQuery);
+	}
 }(function ($) {
-		// -- END UMD WRAPPER PREFACE --
-				
-		// -- BEGIN MODULE CODE HERE --
+	// -- END UMD WRAPPER PREFACE --
+
+	// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.radio;
 
@@ -38,12 +38,12 @@
 		this.$parent = this.$label.parent('.radio');
 		this.$toggleContainer = null;
 
-		if(this.$parent.length===0){
+		if (this.$parent.length === 0) {
 			this.$parent = null;
 		}
 
 		var toggleSelector = this.$radio.attr('data-toggle');
-		if(toggleSelector) {
+		if (toggleSelector) {
 			this.$toggleContainer = $(toggleSelector);
 		}
 
@@ -58,7 +58,7 @@
 
 		constructor: Radio,
 
-		destroy: function() {
+		destroy: function () {
 			this.$parent.remove();
 			// remove any external bindings
 			// [none]
@@ -75,22 +75,25 @@
 			var disabled = !!$radio.prop('disabled');
 
 			this.$label.removeClass('checked');
-			if(this.$parent){
+			if (this.$parent) {
 				this.$parent.removeClass('checked disabled');
 			}
 
 			// set state of radio
 			if (checked === true) {
 				this.$label.addClass('checked');
-				if(this.$parent){
+				if (this.$parent) {
 					this.$parent.addClass('checked');
 				}
+
 			}
+
 			if (disabled === true) {
 				this.$label.addClass('disabled');
-				if(this.$parent){
+				if (this.$parent) {
 					this.$parent.addClass('disabled');
 				}
+
 			}
 
 			//toggle container
@@ -100,7 +103,7 @@
 		resetGroup: function () {
 			var group = $('input[name="' + this.groupName + '"]');
 
-			group.each(function(){
+			group.each(function () {
 				var lbl = $(this).parent('label');
 				lbl.removeClass('checked');
 				lbl.parent('.radio').removeClass('checked');
@@ -110,7 +113,7 @@
 		enable: function () {
 			this.$radio.attr('disabled', false);
 			this.$label.removeClass('disabled');
-			if(this.$parent){
+			if (this.$parent) {
 				this.$parent.removeClass('disabled');
 			}
 		},
@@ -118,7 +121,7 @@
 		disable: function () {
 			this.$radio.attr('disabled', true);
 			this.$label.addClass('disabled');
-			if(this.$parent){
+			if (this.$parent) {
 				this.$parent.addClass('disabled');
 			}
 		},
@@ -133,25 +136,25 @@
 		check: function () {
 			this.resetGroup();
 			this.$radio.prop('checked', true);
-			this.$radio.attr('checked','checked');
+			this.$radio.attr('checked', 'checked');
 			this.setState(this.$radio);
 		},
 
-		toggleContainer: function() {
+		toggleContainer: function () {
 			var group;
-			if(this.$toggleContainer) {
+			if (this.$toggleContainer) {
 				// show corresponding container for currently selected radio
-				if(this.isChecked()) {
+				if (this.isChecked()) {
 					// hide containers for each item in group
 					group = $('input[name="' + this.groupName + '"]');
-					group.each(function(){
+					group.each(function () {
 						var selector = $(this).attr('data-toggle');
 						$(selector).addClass('hidden');
 						$(selector).attr('aria-hidden', 'true');
 					});
 					this.$toggleContainer.removeClass('hide hidden');
 					this.$toggleContainer.attr('aria-hidden', 'false');
-				}else {
+				} else {
 					this.$toggleContainer.addClass('hidden');
 					this.$toggleContainer.attr('aria-hidden', 'true');
 				}
@@ -174,19 +177,24 @@
 	// RADIO PLUGIN DEFINITION
 
 	$.fn.radio = function (option) {
-		var args = Array.prototype.slice.call( arguments, 1 );
+		var args = Array.prototype.slice.call(arguments, 1);
 		var methodReturn;
 
 		var $set = this.each(function () {
-			var $this   = $( this );
-			var data    = $this.data('fu.radio');
+			var $this = $(this);
+			var data = $this.data('fu.radio');
 			var options = typeof option === 'object' && option;
 
-			if( !data ) $this.data('fu.radio', (data = new Radio( this, options ) ) );
-			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+			if (!data) {
+				$this.data('fu.radio', (data = new Radio(this, options)));
+			}
+
+			if (typeof option === 'string') {
+				methodReturn = data[option].apply(data, args);
+			}
 		});
 
-		return ( methodReturn === undefined ) ? $set : methodReturn;
+		return (methodReturn === undefined) ? $set : methodReturn;
 	};
 
 	$.fn.radio.defaults = {};
@@ -203,7 +211,7 @@
 
 	$(document).on('mouseover.fu.checkbox.data-api', '[data-initialize=radio]', function (e) {
 		var $control = $(e.target).closest('.radio').find('[type=radio]');
-		if ( !$control.data('fu.radio') ) {
+		if (!$control.data('fu.radio')) {
 			$control.radio($control.data());
 		}
 	});
@@ -217,6 +225,6 @@
 		});
 	});
 
-// -- BEGIN UMD WRAPPER AFTERWORD --
+	// -- BEGIN UMD WRAPPER AFTERWORD --
 }));
-		// -- END UMD WRAPPER AFTERWORD --
+// -- END UMD WRAPPER AFTERWORD --
