@@ -53,7 +53,7 @@ define(function(require){
 	asyncTest('should render correctly', function(){
 		var $repeater = $(this.$markup);
 
-		$repeater.one('rendered.fu.repeater', function(){
+		$repeater.one('loaded.fu.repeater', function(){
 			start();
 			var items = 0;
 			var $item;
@@ -77,7 +77,7 @@ define(function(require){
 	asyncTest('should render correctly if infinite scroll enabled', function(){
 		var $repeater = $(this.$markup);
 
-		$repeater.one('rendered.fu.repeater', function(){
+		$repeater.one('loaded.fu.repeater', function(){
 			start();
 			var items = 0;
 
@@ -99,7 +99,7 @@ define(function(require){
 		var items = 0;
 		var $repeater = $(this.$markup);
 
-		$repeater.one('rendered.fu.repeater', function(){
+		$repeater.one('loaded.fu.repeater', function(){
 			start();
 			equal(items, 10, 'items callback called expected number of times');
 		});
@@ -122,7 +122,7 @@ define(function(require){
 		var $repeater = $(this.$markup);
 		var $item;
 
-		$repeater.one('rendered.fu.repeater', function(){
+		$repeater.one('loaded.fu.repeater', function(){
 			start();
 			$item = $repeater.find('.thumbnail:first');
 			equal($item.find('.test2').text(), 'Thumbnail 1', 'template option working correctly - test 1');
@@ -138,7 +138,7 @@ define(function(require){
 	asyncTest('should handle selectable (single) option correctly', function(){
 		var $repeater = $(this.$markup);
 
-		$repeater.one('rendered.fu.repeater', function(){
+		$repeater.one('loaded.fu.repeater', function(){
 			start();
 			var $cont = $repeater.find('.repeater-thumbnail-cont');
 			var $firstItem = $cont.find('.repeater-thumbnail:first');
@@ -160,7 +160,7 @@ define(function(require){
 	asyncTest('should handle selectable (multi) option correctly', function(){
 		var $repeater = $(this.$markup);
 
-		$repeater.one('rendered.fu.repeater', function(){
+		$repeater.one('loaded.fu.repeater', function(){
 			start();
 			var $cont = $repeater.find('.repeater-thumbnail-cont');
 			var $firstItem = $cont.find('.repeater-thumbnail:first');
@@ -182,7 +182,7 @@ define(function(require){
 	asyncTest('should clear selected items', function(){
 		var $repeater = $(this.$markup);
 
-		$repeater.one('rendered.fu.repeater', function(){
+		$repeater.one('loaded.fu.repeater', function(){
 			var $cont = $repeater.find('.repeater-thumbnail-cont');
 			var $firstItem = $cont.find('.repeater-thumbnail:first');
 			var $lastItem = $cont.find('.repeater-thumbnail:last');
@@ -206,7 +206,7 @@ define(function(require){
 	asyncTest('should get selected items', function(){
 		var $repeater = $(this.$markup);
 
-		$repeater.one('rendered.fu.repeater', function(){
+		$repeater.one('loaded.fu.repeater', function(){
 			var $cont = $repeater.find('.repeater-thumbnail-cont');
 			var $firstItem = $cont.find('.repeater-thumbnail:first');
 			var $lastItem = $cont.find('.repeater-thumbnail:last');
@@ -232,7 +232,7 @@ define(function(require){
 	asyncTest('should set selected items', function(){
 		var $repeater = $(this.$markup);
 
-		$repeater.one('rendered.fu.repeater', function(){
+		$repeater.one('loaded.fu.repeater', function(){
 			var $cont = $repeater.find('.repeater-thumbnail-cont');
 
 			setTimeout(function(){
@@ -273,7 +273,7 @@ define(function(require){
 		var $repeater = $(this.$markup);
 		var self = this;
 		
-		function rendered(){
+		function loaded(){
 			var $cont = $repeater.find('.repeater-thumbnail-cont');
 		
 			setTimeout(function(){
@@ -312,7 +312,7 @@ define(function(require){
 				$repeater.remove();
 				$repeater = $(self.$markup);
 				
-				$repeater.one('rendered.fu.repeater', rendered);
+				$repeater.one('loaded.fu.repeater', loaded);
 				
 				$repeater.repeater({
 					dataSource: dataSource,
@@ -321,7 +321,7 @@ define(function(require){
 			}, 0);
 		}
 
-		$repeater.one('rendered.fu.repeater', rendered);
+		$repeater.one('loaded.fu.repeater', loaded);
 
 		$repeater.repeater({
 			dataSource: dataSource,

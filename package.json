@@ -63,7 +63,8 @@
     "web"
   ],
   "license": {
-    "type": "BSD-3-Clause"
+    "type": "BSD-3-Clause",
+    "url": "https://github.com/ExactTarget/fuelux/blob/master/LICENSE"
   },
   "name": "fuelux",
   "private": true,
