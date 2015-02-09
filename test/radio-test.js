@@ -94,4 +94,13 @@ define(function(require){
 		equal( $(html).find(id).length, false, 'element has been removed from DOM');
 	});
 
+	test("should destroy control [INLINE]", function () {
+		var id = '#myCustomInlineRadio1';
+		var $el = $(html).find(id);
+		var $parentInline = $el.closest('.radio-inline');
+
+		equal($el.radio('destroy'), '' + $parentInline[0].outerHTML, 'returns markup');
+		equal( $(html).find(id).length, false, 'element has been removed from DOM');
+	});
+
 });

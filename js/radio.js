@@ -35,11 +35,12 @@
 		this.$radio = $(element).is('input[type="radio"]') ? $(element) : $(element).find('input[type="radio"]:first');
 		this.$label = this.$radio.parent();
 		this.groupName = this.$radio.attr('name');
-		this.$parent = this.$label.parent('.radio');
+		this.$blockWrapper = this.$label.parent('.radio');	// only used if block radio control, otherwise radio is inline
+		this.isBlockWrapped = true;	// initialized as a block radio control
 		this.$toggleContainer = null;
 
-		if (this.$parent.length === 0) {
-			this.$parent = null;
+		if (this.$blockWrapper.length === 0) {
+			this.isBlockWrapped = false;
 		}
 
 		var toggleSelector = this.$radio.attr('data-toggle');
@@ -59,13 +60,19 @@
 		constructor: Radio,
 
 		destroy: function () {
-			this.$parent.remove();
 			// remove any external bindings
 			// [none]
 			// empty elements to return to original markup
 			// [none]
 			// return string of markup
-			return this.$parent[0].outerHTML;
+			if (this.isBlockWrapped) {
+				this.$blockWrapper.remove();
+				return this.$blockWrapper[0].outerHTML;
+			}	else {
+				this.$label.remove();
+				return this.$label[0].outerHTML;
+			}
+
 		},
 
 		setState: function ($radio) {
@@ -75,23 +82,23 @@
 			var disabled = !!$radio.prop('disabled');
 
 			this.$label.removeClass('checked');
-			if (this.$parent) {
-				this.$parent.removeClass('checked disabled');
+			if (this.isBlockWrapped) {
+				this.$blockWrapper.removeClass('checked disabled');
 			}
 
 			// set state of radio
 			if (checked === true) {
 				this.$label.addClass('checked');
-				if (this.$parent) {
-					this.$parent.addClass('checked');
+				if (this.isBlockWrapped) {
+					this.$blockWrapper.addClass('checked');
 				}
 
 			}
 
 			if (disabled === true) {
 				this.$label.addClass('disabled');
-				if (this.$parent) {
-					this.$parent.addClass('disabled');
+				if (this.isBlockWrapped) {
+					this.$blockWrapper.addClass('disabled');
 				}
 
 			}
@@ -113,16 +120,16 @@
 		enable: function () {
 			this.$radio.attr('disabled', false);
 			this.$label.removeClass('disabled');
-			if (this.$parent) {
-				this.$parent.removeClass('disabled');
+			if (this.isBlockWrapped) {
+				this.$blockWrapper.removeClass('disabled');
 			}
 		},
 
 		disable: function () {
 			this.$radio.attr('disabled', true);
 			this.$label.addClass('disabled');
-			if (this.$parent) {
-				this.$parent.addClass('disabled');
+			if (this.isBlockWrapped) {
+				this.$blockWrapper.addClass('disabled');
 			}
 		},
 
