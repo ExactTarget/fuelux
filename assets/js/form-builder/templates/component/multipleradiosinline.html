@@ -3,8 +3,8 @@
 	<label class="control-label" for="<%= name %>"><%= label %></label>
 	<div class="controls">
 		<% _.each(radios, function(radio, i){ %>
-			<label class="radio-custom radio-inline" data-initialize="radio" id="<%= name+'-'+i %>" for="<%= name+'-'+i %>">
-				<input class="sr-only" type="radio" name="<%= name %>" value="<%= radio %>" <% if(i < 1) { %>checked="checked" <% } %><% if(required){ %> required="required"<% } %>>
+			<label class="radio-custom radio-inline" data-initialize="radio" for="<%= name+'-'+i %>">
+				<input class="sr-only" type="radio" id="<%= name+'-'+i %>" name="<%= name %>" value="<%= radio %>" <% if(i < 1) { %>checked="checked" <% } %><% if(required){ %> required="required"<% } %>>
 				<%= radio %>
 			</label>
 		<% }); %>
