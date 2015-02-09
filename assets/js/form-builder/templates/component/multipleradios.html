@@ -5,7 +5,7 @@
 		<% _.each(radios, function(radio, i){ %>
 			<div class="radio" data-initialize="radio" id="<%= name+'-'+i %>">
 				<label class="radio-custom" for="<%= name+'-'+i %>">
-					<input class="sr-only" name="<%= name+'-'+i %>" type="radio" value="<%= radio %>">
+					<input class="sr-only" id="<%= name+'-'+i %>" name="<%= name %>" type="radio" value="<%= radio %>">
 					<%= radio %>
 				</label>
 			</div>
