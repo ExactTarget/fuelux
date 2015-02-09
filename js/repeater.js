@@ -578,15 +578,15 @@
 		},
 
 		runRenderer: function (viewTypeObj, data, callback) {
-			var container, i, l, response, repeat, subset;
+			var $container, i, l, response, repeat, subset;
 
-			function addItem (cont, resp) {
+			function addItem ($parent, resp) {
 				var action;
 				if (resp) {
 					action = (resp.action) ? resp.action : 'append';
 					if (action !== 'none' && resp.item !== undefined) {
-						cont = (resp.container !== undefined) ? $(resp.container) : cont;
-						cont[action](resp.item);
+						$parent = (resp.container !== undefined) ? $(resp.container) : $parent;
+						$parent[action](resp.item);
 					}
 				}
 			}
@@ -600,8 +600,8 @@
 					addItem(this.$canvas, response);
 				}
 
-				container = this.$canvas.find('[data-container="true"]:last');
-				container = (container.length > 0) ? container : this.$canvas;
+				$container = this.$canvas.find('[data-container="true"]:last');
+				$container = ($container.length > 0) ? $container : this.$canvas;
 
 				if (viewTypeObj.renderItem) {
 					repeat = viewTypeObj.repeat || 'data.items';
@@ -612,20 +612,31 @@
 					} else {
 						repeat = [];
 						subset = [];
+						if (window.console && window.console.warn) {
+							window.console.warn('WARNING: Repeater plugin "repeat" value must start with either "data" or "this"');
+						}
 					}
 
 					for (i = 0, l = repeat.length; i < l; i++) {
-						subset = subset[repeat[i]];
+						if (subset[repeat[i]] !== undefined){
+							subset = subset[repeat[i]];
+						} else {
+							subset = [];
+							if (window.console && window.console.warn) {
+								window.console.warn('WARNING: Repeater unable to find property to iterate renderItem on.');
+							}
+							break;
+						}
 					}
 
 					for (i = 0, l = subset.length; i < l; i++) {
 						response = viewTypeObj.renderItem.call(this, {
-							container: container,
+							container: $container,
 							data: data,
 							index: i,
 							subset: subset
 						});
-						addItem(container, response);
+						addItem($container, response);
 					}
 				}
 
