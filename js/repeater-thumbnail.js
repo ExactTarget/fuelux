@@ -123,6 +123,7 @@
 			before: function (helpers) {
 				var alignment = this.viewOptions.thumbnail_alignment;
 				var $cont = this.$canvas.find('.repeater-thumbnail-cont');
+				var data = helpers.data;
 				var response = {};
 				var $empty, validAlignments;
 
@@ -145,7 +146,7 @@
 					}
 				}
 
-				if (helpers.data.items.length < 1) {
+				if (data.items && data.items.length < 1) {
 					$empty = $('<div class="empty"></div>');
 					$empty.append(this.viewOptions.thumbnail_noItemsHTML);
 					$cont.append($empty);

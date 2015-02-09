@@ -393,7 +393,7 @@
 			$table.append($tbody);
 		}
 
-		if (data.items.length < 1) {
+		if (data.items && data.items.length < 1) {
 			$empty = $('<tr class="empty"><td colspan="' + this.list_columns.length + '"></td></tr>');
 			$empty.find('td').append(this.viewOptions.list_noItemsHTML);
 			$tbody.append($empty);
