@@ -50,6 +50,7 @@
 		this.$viewport = this.$element.find('.repeater-viewport');
 		this.$views = this.$element.find('.repeater-views');
 
+		this.eventStamp = new Date().getTime() + (Math.floor(Math.random() * 100) + 1);
 		this.currentPage = 0;
 		this.currentView = null;
 		this.infiniteScrollingCallback = function () {};
@@ -61,7 +62,6 @@
 		this.options = $.extend({}, $.fn.repeater.defaults, options);
 		this.pageIncrement = 0;// store direction navigated
 		this.resizeTimeout = {};
-		this.stamp = new Date().getTime() + (Math.floor(Math.random() * 100) + 1);
 		this.storedDataSourceOpts = null;
 		this.viewOptions = {};
 		this.viewType = null;
@@ -108,7 +108,7 @@
 		this.$views.find('input').on('change.fu.repeater', $.proxy(this.viewChanged, this));
 
 		// ID needed since event is bound to instance
-		$(window).on('resize.fu.repeater.' + this.stamp, function (event) {
+		$(window).on('resize.fu.repeater.' + this.eventStamp, function (event) {
 			clearTimeout(self.resizeTimeout);
 			self.resizeTimeout = setTimeout(function () {
 				self.resize();
@@ -140,9 +140,7 @@
 		constructor: Repeater,
 
 		clear: function (options) {
-			var viewChanged, viewTypeObj;
-
-		 	function scan (cont) {
+			var scan = function (cont) {
 				var keep = [];
 				cont.children().each(function () {
 					var item = $(this);
@@ -158,7 +156,7 @@
 				});
 				cont.empty();
 				cont.append(keep);
-			}
+			};
 
 			options = options || {};
 
@@ -168,16 +166,9 @@
 			} else if (!this.infiniteScrollingEnabled || options.clearInfinite) {
 				//Preserve clear only if infiniteScrolling is disabled or if specifically told to do so
 				scan(this.$canvas);
-			}	//Otherwise don't clear because infiniteScrolling is enabled
-
-			//If viewChanged and current viewTypeObj has a cleared function, call it
-			viewChanged = (options.viewChanged !== undefined) ? options.viewChanged : false;
-			viewTypeObj = $.fn.repeater.viewTypes[this.viewType] || {};
-			if (!viewChanged && viewTypeObj.cleared) {
-				viewTypeObj.cleared.call(this, {
-					options: options
-				});
 			}
+
+			//otherwise don't clear because infiniteScrolling is enabled
 		},
 
 		clearPreservedDataSourceOptions: function () {
@@ -206,12 +197,12 @@
 			this.$element.remove();
 
 			// any external events
-			$(window).off('resize.fu.repeater.' + this.stamp);
+			$(window).off('resize.fu.repeater.' + this.eventStamp);
 
 			return markup;
 		},
 
-		getDataOptions: function (options) {
+		getDataOptions: function (options, callback) {
 			var dataSourceOptions = {};
 			var opts = {};
 			var val, viewDataOpts;
@@ -249,6 +240,7 @@
 				if (options.preserveDataSourceOptions) {
 					this.storedDataSourceOpts = (this.storedDataSourceOpts) ? $.extend(this.storedDataSourceOpts, dataSourceOptions) : dataSourceOptions;
 				}
+
 			}
 
 			if (this.storedDataSourceOpts) {
@@ -258,13 +250,12 @@
 			viewDataOpts = $.fn.repeater.viewTypes[this.viewType] || {};
 			viewDataOpts = viewDataOpts.dataOptions;
 			if (viewDataOpts) {
-				viewDataOpts = viewDataOpts.call(this, opts);
-				opts = $.extend(viewDataOpts, dataSourceOptions);
+				viewDataOpts.call(this, opts, function (obj) {
+					callback($.extend(obj, dataSourceOptions));
+				});
 			} else {
-				opts = $.extend(opts, dataSourceOptions);
+				callback($.extend(opts, dataSourceOptions));
 			}
-
-			return opts;
 		},
 
 		infiniteScrolling: function (enable, options) {
@@ -335,15 +326,15 @@
 			var viewTypes = [];
 			var i, viewTypesLength;
 
-			function init (index) {
-				function next () {
+			var init = function (index) {
+				var next = function () {
 					index++;
 					if (index < viewTypesLength) {
 						init(index);
 					} else {
 						callback();
 					}
-				}
+				};
 
 				if (viewTypes[index].initialize) {
 					viewTypes[index].initialize.call(this, {}, function () {
@@ -352,7 +343,7 @@
 				} else {
 					next();
 				}
-			}
+			};
 
 			for (i in $.fn.repeater.viewTypes) {
 				viewTypes.push($.fn.repeater.viewTypes[i]);
@@ -476,12 +467,57 @@
 		render: function (options) {
 			var self = this;
 			var viewChanged = false;
-			var viewTypeObj = $.fn.repeater.viewTypes[this.viewType] || {};
-			var dataOptions, prevView;
+			var viewTypeObj = $.fn.repeater.viewTypes[self.viewType] || {};
+			var prevView;
+
+			var start = function () {
+				var next = function () {
+					if (!self.infiniteScrollingEnabled || (self.infiniteScrollingEnabled && viewChanged)) {
+						self.$loader.show().loader('play');
+					}
+
+					self.getDataOptions(options, function (opts) {
+						self.viewOptions.dataSource(opts, function (data) {
+							var renderer = viewTypeObj.renderer;
+							if (self.infiniteScrollingEnabled) {
+								self.infiniteScrollingCallback({});
+							} else {
+								self.itemization(data);
+								self.pagination(data);
+							}
+
+							if (renderer) {
+								self.runRenderer(self.$canvas, renderer, data, function () {
+									if (self.infiniteScrollingEnabled) {
+										if (viewChanged || options.clearInfinite) {
+											self.initInfiniteScrolling();
+										}
+
+										self.infiniteScrollPaging(data, options);
+									}
+
+									self.$loader.hide().loader('pause');
+									self.$element.trigger('loaded.fu.repeater', opts);
+								});
+							}
+						});
+					});
+				};
+
+				options.preserve = (options.preserve !== undefined) ? options.preserve : !viewChanged;
+				self.clear(options);
+				if (!viewChanged && viewTypeObj.cleared) {
+					viewTypeObj.cleared.call(self, {}, function () {
+						next();
+					});
+				} else {
+					next();
+				}
+			};
 
 			options = options || {};
 
-			if (options.changeView && (this.currentView !== options.changeView)) {
+			if (options.changeView && this.currentView !== options.changeView) {
 				prevView = this.currentView;
 				this.currentView = options.changeView;
 				this.viewType = this.currentView.split('.')[0];
@@ -489,7 +525,6 @@
 				this.$element.attr('data-currentview', this.currentView);
 				this.$element.attr('data-viewtype', this.viewType);
 				viewChanged = true;
-				options.viewChanged = viewChanged;
 
 				this.$element.trigger('viewChanged.fu.repeater', this.currentView);
 
@@ -497,51 +532,20 @@
 					self.infiniteScrolling(false);
 				}
 
-				viewTypeObj = $.fn.repeater.viewTypes[this.viewType] || {};
+				viewTypeObj = $.fn.repeater.viewTypes[self.viewType] || {};
 				if (viewTypeObj.selected) {
 					viewTypeObj.selected.call(this, {
 						prevView: prevView
-					});
-				}
-			}
-
-			options.preserve = (options.preserve !== undefined) ? options.preserve : !viewChanged;
-			this.clear(options);
-
-			if (!this.infiniteScrollingEnabled || (this.infiniteScrollingEnabled && viewChanged)) {
-				this.$loader.show().loader('play');
-			}
-
-			dataOptions = this.getDataOptions(options);
-
-			this.viewOptions.dataSource(dataOptions, function (data) {
-				if (self.infiniteScrollingEnabled) {
-					self.infiniteScrollingCallback({});
+					}, function () {
+							start();
+						});
 				} else {
-					self.itemization(data);
-					self.pagination(data);
+					start();
 				}
 
-				self.runRenderer(viewTypeObj, data, function () {
-					if (self.infiniteScrollingEnabled) {
-						if (viewChanged || options.clearInfinite) {
-							self.initInfiniteScrolling();
-						}
-
-						self.infiniteScrollPaging(data, options);
-					}
-
-					self.$loader.hide().loader('pause');
-					self.$element.trigger('rendered.fu.repeater', {
-						data: data,
-						options: dataOptions,
-						renderOptions: options
-					});
-
-					//for maintaining support of 'loaded' event
-					self.$element.trigger('loaded.fu.repeater', dataOptions);
-				});
-			});
+			} else {
+				start();
+			}
 		},
 
 		resize: function () {
@@ -573,80 +577,152 @@
 				viewTypeObj.resize.call(this, {
 					height: this.$element.outerHeight(),
 					width: this.$element.outerWidth()
-				});
+				}, function () {});
 			}
 		},
 
-		runRenderer: function (viewTypeObj, data, callback) {
-			var container, i, l, response, repeat, subset;
+		runRenderer: function (container, renderer, data, callback) {
+			var self = this;
+			var skipNested = false;
+			var index = 0;
+			var skip = 0;
+			var repeat, subset, i, l;
 
-			function addItem (cont, resp) {
-				var action;
-				if (resp) {
-					action = (resp.action) ? resp.action : 'append';
-					if (action !== 'none' && resp.item !== undefined) {
-						cont = (resp.container !== undefined) ? $(resp.container) : cont;
-						cont[action](resp.item);
-					}
-				}
-			}
-
-			if (!viewTypeObj.render) {
-				if (viewTypeObj.before) {
-					response = viewTypeObj.before.call(this, {
-						container: this.$canvas,
-						data: data
-					});
-					addItem(this.$canvas, response);
-				}
-
-				container = this.$canvas.find('[data-container="true"]:last');
-				container = (container.length > 0) ? container : this.$canvas;
-
-				if (viewTypeObj.renderItem) {
-					repeat = viewTypeObj.repeat || 'data.items';
-					repeat = repeat.split('.');
-					if (repeat[0] === 'data' || repeat[0] === 'this') {
-						subset = (repeat[0] === 'this') ? this : data;
-						repeat.shift();
+			function loopSubset() {
+				next(function () {
+					index++;
+					if (index < subset.length) {
+						loopSubset(index);
 					} else {
-						repeat = [];
-						subset = [];
+						callback();
 					}
-
-					for (i = 0, l = repeat.length; i < l; i++) {
-						subset = subset[repeat[i]];
-					}
-
-					for (i = 0, l = subset.length; i < l; i++) {
-						response = viewTypeObj.renderItem.call(this, {
-							container: container,
-							data: data,
-							index: i,
-							subset: subset
-						});
-						addItem(container, response);
-					}
-				}
-
-				if (viewTypeObj.after) {
-					response = viewTypeObj.after.call(this, {
-						container: this.$canvas,
-						data: data
-					});
-					addItem(this.$canvas, response);
-				}
-
-				callback();
-			} else {
-				viewTypeObj.render.call(this, {
-					container: this.$canvas,
-					data: data
-				}, function(){
-					callback();
 				});
 			}
 
+			function next(cb) {
+				var args = {
+					container: container,
+					data: data
+				};
+				if (renderer.repeat) {
+					args.subset = subset;
+					args.index = index;
+				}
+
+				if (subset.length < 1) {
+					callback();
+				} else {
+					start(args, cb);
+				}
+
+			}
+
+			function start(args, cb) {
+				var item = '';
+
+				var callbacks = {
+					before: function (resp) {
+						if (resp && resp.skipNested === true) {
+							skipNested = true;
+						}
+
+						proceed('render', args);
+					},
+					render: function (resp) {
+						var action = (resp && resp.action) ? resp.action : 'append';
+						if (resp && resp.item !== undefined) {
+							item = $(resp.item);
+							if (item.length < 1) {
+								item = resp.item;
+							}
+
+							if (action !== 'none') {
+								container[action](item);
+							}
+
+							args.item = item;
+						}
+
+						if (resp && resp.skipNested === true) {
+							skipNested = true;
+						}
+
+						proceed('after', args);
+					},
+					after: function (resp) {
+						var cont;
+						var loopNested = function (cont, index) {
+							self.runRenderer(cont, renderer.nested[index], data, function () {
+								index++;
+								if (index < renderer.nested.length) {
+									loopNested(cont, index);
+								} else {
+									if (++skip % 50 === 0) {
+										setTimeout(function () {
+											proceed('complete', args);
+										}, 1);
+									} else {
+										proceed('complete', args);
+									}
+
+								}
+							});
+						};
+
+						if (resp && resp.skipNested === true) {
+							skipNested = true;
+						}
+
+						if (renderer.nested && !skipNested) {
+							cont = $(item);
+							cont = (cont.attr('data-container') === 'true') ? cont : cont.find('[data-container="true"]:first');
+							if (cont.length < 1) {
+								cont = container;
+							}
+
+							loopNested(cont, 0);
+						} else {
+							callbacks.complete(null);
+						}
+					},
+					complete: function (resp) {
+						if (cb) {
+							cb();
+						}
+					}
+				};
+
+				function proceed(stage, argus) {
+					argus = $.extend({}, argus);
+					if (renderer[stage]) {
+						renderer[stage].call(self, argus, callbacks[stage]);
+					} else {
+						callbacks[stage](null);
+					}
+
+				}
+
+				proceed('before', args);
+			}
+
+			if (renderer.repeat) {
+				repeat = renderer.repeat.split('.');
+				if (repeat[0] === 'data' || repeat[0] === 'this') {
+					subset = (repeat[0] === 'this') ? this : data;
+					repeat.shift();
+				} else {
+					repeat = [];
+					subset = [''];
+				}
+
+				for (i = 0, l = repeat.length; i < l; i++) {
+					subset = subset[repeat[i]];
+				}
+			} else {
+				subset = [''];
+			}
+
+			loopSubset();
 		},
 
 		setViewOptions: function (curView) {
@@ -697,11 +773,39 @@
 
 	$.fn.repeater.defaults = {
 		dataSource: function (options, callback) {},
-		defaultView: -1,	//should be a string value. -1 means it will grab the active view from the view controls
+		defaultView: -1,//should be a string value. -1 means it will grab the active view from the view controls
 		dropPagingCap: 10,
-		staticHeight: -1,	//normally true or false. -1 means it will look for data-staticheight on the element
-		views: null			//can be set to an object to configure multiple views of the same type
+		staticHeight: -1,//normally true or false. -1 means it will look for data-staticheight on the element
+		views: null//can be set to an object to configure multiple views of the same type
 	};
+
+	//views object contains keyed list of view plugins, each an object with following optional parameters:
+	//{
+	//cleared: function(helpers, callback){},
+	//dataOptions: function(helpers, callback){},
+	//initialize: function(helpers, callback){},
+	//selected: function(helpers, callback){},
+	//resize: function(helpers, callback){},
+	//renderer: {}
+	//}
+	//renderer object contains following optional parameters:
+	//{
+	//before: function(helpers, callback){},
+	//after: function(helpers, callback){},
+	//complete: function(helpers, callback){},
+	//repeat: 'parameter.subparameter.etc',
+	//render: function(helpers, callback){},
+	//nested: [ *array of renderer objects* ]
+	//}
+
+	//helpers object structure:
+	//{
+	//container: jQuery object,	(current renderer parent)
+	//data: {...}, (data returned from dataSource)
+	//index: int, (only there if repeat was set. current item index)
+	//item: str or jQuery object, (only there if rendered function returned item)
+	//subset: {}, (only there if repeat was set. subset of data being repeated on)
+	//}
 
 	$.fn.repeater.viewTypes = {};
 
