@@ -15,298 +15,6 @@
 	<script type="text/javascript">if(window.console && window.console.clear){ window.console.clear(); }</script>
 
 	<script src="../bower_components/requirejs/require.js" type="text/javascript"></script>
-	<style>
-		#triggerModal .modal-content {
-			/* new custom width */
-			width: 1100px;
-			/* Left Margin = (600px – [New Width]) / 2 */
-			margin-left: -200px;
-		}
-		#triggerModal .panel {
-			margin-bottom: 0;
-		}
-		.panel-card {
-			padding: 5px;
-			background-color: #F0F2F3;
-		}
-		.panel-card .row {
-			margin-left: 0;
-			margin-right: 0;
-		}
-		.panel-card .col-md-4 {
-			padding-left: 0;
-			padding-right: 0;
-		}
-		.card {
-			border: solid 1px #CCC;
-			background-color: #FFF;
-			height: 165px;
-			position: relative;
-			border-radius: 5px;
-			cursor: pointer;
-			color: #666;
-			margin: 5px;
-			padding-left: 100px;
-		}
-		.card.active {
-			background: url(/img/card-checkmark.png) no-repeat center center;
-		}
-		.card:hover,
-		.card.active {
-			background-color: #E5F3FE;
-			border-color: #8FC7FA;
-		}
-		.card:hover footer {
-			border-top: solid 1px #8FC7FA;
-		}
-		.card .title {
-			font-weight: normal;
-			padding: 15px 10px 0 10px;
-			margin-bottom: 3px;
-			color: #333;
-		}
-		.card .desc {
-			padding: 0 10px 0 10px;
-			color: #333;
-		}
-		.card .contact-attributes-header {
-			padding: 5px 10px 0 10px;
-			text-transform: uppercase;
-		}
-		.card .contact-attributes {
-			padding: 0 10px 20px 10px;
-			color: #333;
-		}
-		.card footer {
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			border-top: solid 1px #CCC;
-			height: 30px;
-			line-height: 30px;
-			padding: 0 10px;
-		}
-		.trigger-type-icon {
-			position: absolute;
-			width: 25px;
-			height: 30px;
-			background: no-repeat left center;
-		}
-		.trigger-type-name {
-			margin-left: 25px;
-			text-transform: capitalize;
-		}
-		.trigger-type-interaction {
-			background-image: url(/img/triggers/trigger-interaction.png);
-		}
-		.trigger-type-salesforce {
-			background-image: url(/img/triggers/trigger-salesforce.png);
-		}
-		.trigger-type-contacts {
-			background-image: url(/img/triggers/trigger-contact.png);
-		}
-		.trigger-type-mobile {
-			background-image: url(/img/triggers/trigger-mobile.png);
-		}
-		.trigger-type-custom {
-			background-image: url(/img/triggers/trigger-custom.png);
-		}
-		.trigger-type-radian6 {
-			background-image: url(/img/triggers/trigger-radian6.png);
-		}
-		.trigger-icon {
-			position: absolute;
-			top: 20px;
-			left: 20px;
-			width: 100px;
-			height: 100px;
-			background: no-repeat top left;
-		}
-		.trigger-placeholder {
-			background-image: url(/img/triggers/placeholder.png);
-		}
-		.trigger-create {
-			background-image: url(/img/triggers/createTrigger.png);
-		}
-		/* social media */
-		.trigger-facebook-page-signup {
-			background-image: url(/img/triggers/facebookPageSignUp.png);
-		}
-		.trigger-facebook-like {
-			background-image: url(/img/triggers/facebookLike.png);
-		}
-		.trigger-keyword-listener {
-			background-image: url(/img/triggers/radian6keywordListener.png);
-		}
-		.trigger-twitter-follow {
-			background-image: url(/img/triggers/twitterFollow.png);
-		}
-		.trigger-pinterest-pin {
-			background-image: url(/img/triggers/pinterestNewPin.png);
-		}
-		.trigger-instagram-follow {
-			background-image: url(/img/triggers/instagramFollow.png);
-		}
-		.trigger-ad-clicked {
-			background-image: url(/img/triggers/adClicked.png);
-		}
-		/* salesforce */
-		.trigger-case-opened {
-			background-image: url(/img/triggers/caseOpened.png);
-		}
-		.trigger-lead-to-contact {
-			background-image: url(/img/triggers/leadConvertstoContact.png);
-		}
-		.trigger-opportunity-closed {
-			background-image: url(/img/triggers/closedOpportunityWon.png);
-		}
-		.trigger-case-closed {
-			background-image: url(/img/triggers/caseClosed.png);
-		}
-		/* hotel */
-		.trigger-hotel-reservation-3days-prior {
-			background-image: url(/img/triggers/3daysBeforeReservation.png);
-		}
-		.trigger-hotel-lobby-enter {
-			background-image: url(/img/triggers/beaconHotelArrival.png);
-		}
-		.trigger-hotel-room-enter {
-			background-image: url(/img/triggers/enterRoom.png);
-		}
-		.trigger-hotel-tv-on {
-			background-image: url(/img/triggers/sendMessageToTV.png);
-		}
-		.trigger-hotel-room-phone {
-			background-image: url(/img/triggers/sendMessagetoRoomPhone.png);
-		}
-		.trigger-hotel-restaurant-reservation {
-			background-image: url(/img/triggers/newRestaurantReservation.png);
-		}
-		.trigger-hotel-drink-preference {
-			background-image: url(/img/triggers/updateDrinkPreference.png);
-		}
-		.trigger-hotel-checkout {
-			background-image: url(/img/triggers/checkOut.png);
-		}
-		/* fitbit */
-		.trigger-fitbit-product-registered {
-			background-image: url(/img/triggers/productRegistered.png);
-		}
-		.trigger-fitbit-low-battery {
-			background-image: url(/img/triggers/lowBattery.png);
-		}
-		.trigger-fitbit-5k-steps {
-			background-image: url(/img/triggers/steps5k.png);
-		}
-		.trigger-fitbit-10k-steps {
-			background-image: url(/img/triggers/steps10k.png);
-		}
-		.trigger-fitbit-20k-steps {
-			background-image: url(/img/triggers/steps20k.png);
-		}
-		.trigger-fitbit-finished-race {
-			background-image: url(/img/triggers/finishedRace.png);
-		}
-		.trigger-fitbit-goal-met {
-			background-image: url(/img/triggers/fitBitActivityTracker.png);
-		}
-		/* geo */
-		.trigger-geofence {
-			background-image: url(/img/triggers/geoFence.png);
-		}
-		.trigger-geofence-enter {
-			background-image: url(/img/triggers/enteredGeoFence.png);
-		}
-		.trigger-geofence-exit {
-			background-image: url(/img/triggers/exitedGeoFence.png);
-		}
-		.trigger-beacon {
-			background-image: url(/img/triggers/beaconProximity.png);
-		}
-		/* other */
-		.trigger-send-to-list {
-			background-image: url(/img/triggers/sendToTargetList.png);
-		}
-		.trigger-product-activation {
-			background-image: url(/img/triggers/activation.png);
-		}
-		.trigger-anniversary {
-			background-image: url(/img/triggers/anniversary.png);
-		}
-		.trigger-birthday {
-			background-image: url(/img/triggers/birthday.png);
-		}
-		.trigger-first-purchase {
-			background-image: url(/img/triggers/1stTimePurchase.png);
-		}
-		.trigger-sms-optin {
-			background-image: url(/img/triggers/smsOptIn.png);
-		}
-		.trigger-favorite-location {
-			background-image: url(/img/triggers/newFavoriteLocation.png);
-		}
-		.trigger-affinity-change {
-			background-image: url(/img/triggers/affinityChange.png);
-		}
-		.trigger-complete-purchase {
-			background-image: url(/img/triggers/completePurchase.png);
-		}
-		.trigger-abandoned-cart {
-			background-image: url(/img/triggers/abandonedCart.png);
-		}
-		.trigger-loyalty-program-signup {
-			background-image: url(/img/triggers/loyaltyProgramSignUp.png);
-		}
-		.trigger-view-changed {
-			background-image: url(/img/triggers/viewChanged.png);
-		}
-		.trigger-content-changed {
-			background-image: url(/img/triggers/contentChanged.png);
-		}
-		.trigger-email-opened {
-			background-image: url(/img/triggers/emailOpened.png);
-		}
-		.trigger-rate-experience {
-			background-image: url(/img/triggers/rateExperience.png);
-		}
-		.trigger-ticket-purchase {
-			background-image: url(/img/triggers/ticketPurchase2.png);
-		}
-		.trigger-mobile-app-downloaded {
-			background-image: url(/img/triggers/mobileAppDownload.png);
-		}
-		.trigger-mobile-app-installed {
-			background-image: url(/img/triggers/mobileAppDownload.png);
-		}
-		.trigger-signinto-app {
-			background-image: url(/img/triggers/signIntoApp.png);
-		}
-		.trigger-contact-changed {
-			background-image: url(/img/triggers/contactChange.png);
-		}
-		.trigger-store-checkin {
-			background-image: url(/img/triggers/storeCheckIn.png);
-		}
-		.trigger-date-based-attribute {
-			background-image: url(/img/triggers/dateBasedAttributeTrigger.png);
-		}
-		.trigger-scheduled-date {
-			background-image: url(/img/triggers/scheduledDate.png);
-		}
-		.trigger-vip-customers {
-			background-image: url(/img/triggers/vipCustomers.png);
-		}
-		.trigger-high-value-customers {
-			background-image: url(/img/triggers/highValueCustomers2.png);
-		}
-		.trigger-trial-customers {
-			background-image: url(/img/triggers/trialCustomers.png);
-		}
-		.trigger-loyal-customers {
-			background-image: url(/img/triggers/loyalCustomer.png);
-		}
-	</style>
 	<script type="text/javascript">
 		(function () {
 			requirejs.config({
@@ -330,1111 +38,269 @@
 				}
 			});
 		})();
-		require(['jquery', '../data','underscore', 'fuelux/all'], function($, data,_) {
-//			$('#triggerModal').modal('show');
+		require(['jquery', '../data', 'fuelux/all'], function($, data){
+			// simulate network latency
+			var loadDelays = ['300', '600', '900', '1200'];
 
-			$('.card').on('click', function () {
-				$('.card').removeClass('active');
-				$(this).addClass('active');
+			// list view setup
+			var list = function(options, callback){
+
+				// build dataSource based with options
+				var resp = {
+					count: data.repeater.listData.length,
+					items: [],
+					page: options.pageIndex
+				};
+
+				// get start and end limits for JSON
+				var i, l;
+				resp.pages = Math.ceil(resp.count/(options.pageSize || 50));
+
+				i = options.pageIndex * (options.pageSize || 50);
+				l = i + (options.pageSize || 50);
+				//l = (l <= resp.count) ? l : resp.count;
+				resp.start = i + 1;
+				resp.end = l;
+
+				// setup columns for list view
+				resp.columns = [
+					{
+						label: 'Common Name',
+						property: 'commonName',
+						sortable: true
+					},
+					{
+						label: 'Latin Name',
+						property: 'latinName',
+						sortable: true
+					},
+					{
+						label: 'Appearance',
+						property: 'appearance',
+						sortable: true
+					},
+					{
+						label: 'Sound',
+						property: 'sound',
+						sortable: true
+					}
+				];
+
+				// add sample items to datasource
+				var j = 0;
+				for(i; i<l; i++){
+					// from data.js
+					resp.items.push(data.repeater.listData[j]);
+					j++;
+					if(j >= data.repeater.listData.length){
+						j = 0;
+					}
+				}
+
+				//if(options.search){
+				//resp.items = [];
+				//}
+
+				// call and simulate latency
+				setTimeout(function(){
+					callback(resp);
+				}, loadDelays[Math.floor(Math.random() * 4)]);
+			};
+
+
+			// thumbnail view setup
+			var thumbnail = function(options, callback){
+				var sampleImageCategories = ['abstract', 'animals', 'business', 'cats', 'city', 'food', 'nature', 'technics', 'transport'];
+				var numItems = 200;
+
+				// build dataSource based with options
+				var resp = {
+					count: numItems,
+					items: [],
+					pages: (Math.ceil(numItems/(options.pageSize || 30))),
+					page: options.pageIndex
+				};
+
+				// get start and end limits for JSON
+				var i, l;
+				i = options.pageIndex * (options.pageSize || 30);
+				l = i + (options.pageSize || 30);
+				resp.start = i + 1;
+				resp.end = l;
+
+				// add sample items to datasource
+				for(i; i<l; i++){
+					resp.items.push({
+						name: ('Thumbnail ' + (i + 1)),
+						src: 'http://lorempixel.com/65/65/' + sampleImageCategories[Math.floor(Math.random() * 9)] + '/?_=' + i
+					});
+				}
+
+				//if(options.search){
+				//resp.items = [];
+				//}
+
+				// call and simulate latency
+				setTimeout(function(){
+					callback(resp);
+				}, loadDelays[Math.floor(Math.random() * 4)]);
+			};
+
+			// initialize repater
+			$('#myRepeater').repeater({
+				dataSource: function(options, callback){
+					//you can check view name here, and call separate functions...
+					if(options.view==='list.view1'){
+						list(options, callback);
+					}
+				},
+				list_selectable: 'multi',
+				list_noItemsHTML: 'no items found',
+				thumbnail_noItemsHTML: 'no items found',
+				thumbnail_infiniteScroll: { hybrid: true },
+				views: {
+					//you can go with just the view name
+					'view1': {
+						list_selectable: true
+					},
+					//this syntax is also supported (makes it possible to do 'list' and 'thumbnail' this way)
+					'list.view2': {
+						//...or you can do this! :)
+						dataSource: function(options, callback){
+							list(options, callback);
+						},
+						list_infiniteScroll: true,
+						list_highlightSortedColumn: true
+					},
+					'thumbnail.view3': {
+						thumbnail_alignment: 'none',
+						dataSource: function(options, callback){
+							thumbnail(options, callback);
+						},
+						thumbnail_selectable: 'multi'
+					}
+				}
 			});
 
+//			setTimeout(function(){
+//				$('#myRepeater').repeater('render', {
+//					dataSourceOptions: {
+//						pageIndex: 1,
+//						pageSize: 20,
+//						filter: { text: 'Some', value: 'some' }
+//						//sortProperty: 'name',
+//						//sortDirection: 'asc',
+//						//search: 'term'
+//					},
+//					preserveDataSourceOptions: true
+//				});
+//			}, 5000);
 		});
 	</script>
 </head>
-<body style="padding: 10px;">
-<!-- example markup here -->
-<!--%Name:Trigger Modal-->
-<!--%Description:Trigger modal standard UI.-->
-<!--%Type:Standard UI-->
-<div class="container">
-<div class="row">
-	<div class="col-md-12">
-		<div class="btn-group selectlist" data-resize="auto" data-initialize="selectlist" id="mySelectlist">
-			<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
-				<span class="selected-label"></span>
-				<span class="caret"></span>
-				<span class="sr-only">Toggle Dropdown</span>
-			</button>
-			<ul class="dropdown-menu" role="menu">
-				<li data-value="1"><a href="#">One Two Three</a></li>
-				<li data-value="1"><a href="#">One Two</a></li>
-				<li data-value="1" data-selected="true"><a href="#">One</a></li>
-			</ul>
-			<input class="hidden hidden-field" name="mySelectlist" readonly="readonly" aria-hidden="true" type="text"/>
-		</div>
 
+<body style="padding: 20px;">
+<div class="container" style="padding: 20px; margin-top:20px;">
 
-
-		<div style="width: 100px">
-	<div class="input-group input-append dropdown combobox" data-resize="auto" data-initialize="combobox" id="myCombobox">
-		<input type="text" class="form-control">
-		<div class="input-group-btn">
-
-			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-			<ul class="dropdown-menu dropdown-menu-right">
-				<li data-value="1"><a href="#">One Two Three</a></li>
-				<li data-value="1"><a href="#">One Two</a></li>
-				<li data-value="1" data-selected="true"><a href="#">One</a></li>
-			</ul>
-		</div>
-	</div>
-
-</div>
-		<div>
-			<div class="input-group input-append dropdown combobox" data-resize="auto" data-initialize="combobox" id="myCombobox">
-				<input type="text" class="form-control">
-				<div class="input-group-btn">
-					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-					<ul class="dropdown-menu dropdown-menu-right">
-						<li data-value="1" data-selected="true"><a href="#">One Two Three</a></li>
-						<li data-value="1"><a href="#">One Two</a></li>
-						<li data-value="1"><a href="#">One</a></li>
+	<div class="repeater" data-staticheight="400" id="myRepeater">
+		<div class="repeater-header">
+			<div class="repeater-header-left">
+				<span class="repeater-title">Awesome Repeater</span>
+				<div class="repeater-search">
+					<div class="search input-group">
+						<input type="search" class="form-control" placeholder="Search"/>
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button">
+							<span class="glyphicon glyphicon-search"></span>
+							<span class="sr-only">Search</span>
+						</button>
+					</span>
+					</div>
+				</div>
+			</div>
+			<div class="repeater-header-right">
+				<div class="btn-group selectlist repeater-filters" data-resize="auto">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+						<span class="selected-label">&nbsp;</span>
+						<span class="caret"></span>
+						<span class="sr-only">Toggle Filters</span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+						<li data-value="all" data-selected="true"><a href="#">All</a></li>
+						<li data-value="some"><a href="#">Some</a></li>
+						<li data-value="others"><a href="#">Others</a></li>
 					</ul>
+					<input class="hidden hidden-field" name="filterSelection" readonly="readonly" aria-hidden="true" type="text"/>
+				</div>
+				<div class="btn-group repeater-views" data-toggle="buttons">
+					<label class="btn btn-default active">
+						<input name="repeaterViews" type="radio" value="list.view1"><span class="glyphicon glyphicon-list"></span>
+					</label>
+					<label class="btn btn-default">
+						<input name="repeaterViews" type="radio" value="list.view2"><span class="glyphicon glyphicon-list"></span>
+					</label>
+					<label class="btn btn-default">
+						<input name="repeaterViews" type="radio" value="thumbnail.view3"><span class="glyphicon glyphicon-th"></span>
+					</label>
 				</div>
 			</div>
-
 		</div>
-
-
-
-
-
-<div class="modal" id="triggerModal" data-backdrop="static">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">
-					<span aria-hidden="true">&#xD7;</span>
-					<span class="sr-only">Close</span>
-				</button>
-				<h4 class="modal-title">Add Program Trigger</h4>
-			</div>
-			<div class="modal-body" style="padding:0;">
-				<div class="clearfix">
-					<div class="wizard" data-initialize="wizard" id="myWizard">
-						<ul class="steps">
-							<li data-step="1" class="active"><span class="badge">1</span>Select Trigger<span class="chevron"></span>
-							</li>
-							<li data-step="2"><span class="badge">2</span>Configure Trigger<span class="chevron"></span></li>
-							<li data-step="3"><span class="badge">3</span>Summary<span class="chevron"></span></li>
+		<div class="repeater-viewport">
+			<div class="repeater-canvas"></div>
+			<div class="loader repeater-loader"></div>
+		</div>
+		<div class="repeater-footer">
+			<div class="repeater-footer-left">
+				<div class="repeater-itemization">
+					<span><span class="repeater-start"></span> - <span class="repeater-end"></span> of <span class="repeater-count"></span> items</span>
+					<div class="btn-group selectlist" data-resize="auto">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							<span class="selected-label">&nbsp;</span>
+							<span class="caret"></span>
+							<span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li data-value="5"><a href="#">5</a></li>
+							<li data-value="10" data-selected="true"><a href="#">10</a></li>
+							<li data-value="20"><a href="#">20</a></li>
+							<li data-value="50" data-foo="bar" data-fizz="buzz"><a href="#">50</a></li>
+							<li data-value="1000" data-foo="bar" data-fizz="buzz"><a href="#">1000</a></li>
 						</ul>
+						<input class="hidden hidden-field" name="itemsPerPage" readonly="readonly" aria-hidden="true" type="text"/>
 					</div>
+					<span>Per Page</span>
 				</div>
-				<div style="padding:15px;">
-					<div class="clearfix">
-						<span style="color:#333; font-size:14px; float:left; margin-right:10px;">Triggers (33)</span>
-
-						<div class="search input-group" role="search" style="float:left; width:220px;">
-							<input type="search" class="form-control" placeholder="Search">
-							<span class="input-group-btn">
-								<button class="btn btn-default" type="button">
-									<span class="glyphicon glyphicon-search"></span>
-									<span class="sr-only">Search</span>
-								</button>
-							</span>
-						</div>
-
-						<div class="pull-right">
-							Sort by
-							<div class="btn-group selectlist" data-resize="auto" data-initialize="selectlist" style="margin-right:20px;">
-								<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
-									<span class="selected-label"></span>
+			</div>
+			<div class="repeater-footer-right">
+				<div class="repeater-pagination">
+					<button type="button" class="btn btn-default btn-sm repeater-prev">
+						<span class="glyphicon glyphicon-chevron-left"></span>
+						<span class="sr-only">Previous Page</span>
+					</button>
+					<label id="myPageLabel" class="page-label">Page</label>
+					<div class="repeater-primaryPaging active">
+						<div class="input-group input-append dropdown combobox">
+							<input type="text" class="form-control" aria-labelledby="MyPageLabel">
+							<div class="input-group-btn">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 									<span class="caret"></span>
 									<span class="sr-only">Toggle Dropdown</span>
 								</button>
-								<ul class="dropdown-menu" role="menu">
-									<li data-value="1"><a href="#">Name</a></li>
-									<li data-value="1"><a href="#">Last Modified</a></li>
-								</ul>
-								<input class="hidden hidden-field" name="mySelectlist" readonly="readonly" aria-hidden="true" type="text">
-							</div>
-
-							Filter by
-							<div class="btn-group selectlist" data-resize="auto" data-initialize="selectlist">
-								<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
-									<span class="selected-label"></span>
-									<span class="caret"></span>
-									<span class="sr-only">Toggle Dropdown</span>
-								</button>
-								<ul class="dropdown-menu dropdown-menu-right" role="menu">
-									<li data-value="1"><a href="#">All types (33)</a></li>
-									<li data-value="2"><a href="#">Contacts</a></li>
-									<li data-value="3"><a href="#">Custom</a></li>
-									<li data-value="4"><a href="#">Interaction</a></li>
-									<li data-value="5"><a href="#">Mobile</a></li>
-									<li data-value="6"><a href="#">Salesforce</a></li>
-									<li data-value="7"><a href="#">Radian6</a></li>
-								</ul>
-								<input class="hidden hidden-field" name="mySelectlist" readonly="readonly" aria-hidden="true" type="text">
+								<ul class="dropdown-menu dropdown-menu-right"></ul>
 							</div>
 						</div>
 					</div>
-
-					<div class="panel panel-default" style="margin-top:15px; height:536px; overflow:auto;">
-						<div class="panel-body panel-card">
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-placeholder"></div>
-									<h5 class="title text-adjust">Placeholder</h5>
-									<div class="desc">Use a placeholder to get started now, and configure a trigger later.</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-interaction"></span><span class="trigger-type-name">interaction</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-create"></div>
-									<h5 class="title text-adjust">Create Trigger</h5>
-									<div class="desc">Build a new trigger for this interaction.</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-interaction"></span><span class="trigger-type-name">interaction</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-facebook-page-signup"></div>
-									<h5 class="title text-adjust">Facebook Page Sign Up</h5>
-									<div class="desc">Listens for sign up on Facebook Page.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Facebook ID, Date, Customer ID</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-contacts"></span><span class="trigger-type-name">contacts</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-facebook-like"></div>
-									<h5 class="title text-adjust">Facebook Like</h5>
-									<div class="desc">Listens for customer clicking Like.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Customer ID, Date, Like Status</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-keyword-listener"></div>
-									<h5 class="title text-adjust">Radian6 Keyword Listener</h5>
-									<div class="desc">Listening for user specified keywords.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Facebook ID, Twitter ID, LinkedIn ID, Pinterest ID</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-radian6"></span><span class="trigger-type-name">radian6</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-twitter-follow"></div>
-									<h5 class="title text-adjust">Twitter Follow</h5>
-									<div class="desc">Listens for a Twitter follow opt-in.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Device ID, Customer ID, Location</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-pinterest-pin"></div>
-									<h5 class="title text-adjust">Pinterest New Pin</h5>
-									<div class="desc">Listens for a user &quot;pinning&quot; an element on a web page.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Device ID, Customer ID, Date, URL</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-instagram-follow"></div>
-									<h5 class="title text-adjust">Instagram Follow</h5>
-									<div class="desc">Listens for an Instagram follow opt-in.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Device ID, Customer, Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-ad-clicked"></div>
-									<h5 class="title text-adjust">Ad Clicked (Social Media)</h5>
-									<div class="desc">Listens for an interaction with a social media ad.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Device ID, Ad ID, Customer ID, Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-case-opened"></div>
-									<h5 class="title text-adjust">Case Opened</h5>
-									<div class="desc">Listens for Salesforce case to be opened.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Customer ID, Date, SFDC ID</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-salesforce"></span><span class="trigger-type-name">salesforce</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-lead-to-contact"></div>
-									<h5 class="title text-adjust">Lead Converts to Contact</h5>
-									<div class="desc">Listens for when a lead is converted to a contact.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Customer ID, Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-salesforce"></span><span class="trigger-type-name">salesforce</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-opportunity-closed"></div>
-									<h5 class="title text-adjust">Closed Opportunity</h5>
-									<div class="desc">Listens for a win on a closed opportunity.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Customer ID, Date, Account Status</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-salesforce"></span><span class="trigger-type-name">salesforce</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-case-closed"></div>
-									<h5 class="title text-adjust">Case Closed</h5>
-									<div class="desc">Listens for Salesforce case to be closed.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Customer ID, Date, SFDC ID</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-salesforce"></span><span class="trigger-type-name">salesforce</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-hotel-reservation-3days-prior"></div>
-									<h5 class="title text-adjust">3 Days Before Reservation</h5>
-									<div class="desc">Fires 3 days before reservation start date.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Guest ID, Location ID, Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-hotel-lobby-enter"></div>
-									<h5 class="title text-adjust">Welcome to the Argonaut</h5>
-									<div class="desc">Listens for guest to enter into the lobby.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Mobile ID, Customer ID, Location, Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-hotel-lobby-enter"></div>
-									<h5 class="title text-adjust">Beacon Hotel Arrival</h5>
-									<div class="desc">Listens for an entry into the hotel&apos;s lobby or entry beacon location.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Device ID, Customer ID, Location, Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-hotel-room-enter"></div>
-									<h5 class="title text-adjust">Enter Room</h5>
-									<div class="desc">Listens for registered gues to enter the room.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Customer ID, Location, Hotel ID</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-hotel-tv-on"></div>
-									<h5 class="title text-adjust">Send Message to TV</h5>
-									<div class="desc">Fires when hotel guest turns on their room TV.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Customer ID, Location, Hotel ID</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-hotel-room-phone"></div>
-									<h5 class="title text-adjust">Send Message to Room Phone</h5>
-									<div class="desc">Fires messages and reminders to guest&apos;s room phone.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Guest ID, Guest Profile, Room Number, Location ID, Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-hotel-restaurant-reservation"></div>
-									<h5 class="title text-adjust">New Restaurant Reservation</h5>
-									<div class="desc">Listens for a hotel restaurant reservation from a registered guest.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Guest ID, Room Number, Location, Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-hotel-drink-preference"></div>
-									<h5 class="title text-adjust">Update Drink Preference</h5>
-									<div class="desc">Listens for customer update to drink preference.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Customer ID, Preferences, Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-hotel-checkout"></div>
-									<h5 class="title text-adjust">Check Out</h5>
-									<div class="desc">Listens for guest to check out of room.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Customer ID, Location, Hotel ID</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-fitbit-product-registered"></div>
-									<h5 class="title text-adjust">Product Registered</h5>
-									<div class="desc">Listens for registration update via API.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Product ID, Customer ID, Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-fitbit-low-battery"></div>
-									<h5 class="title text-adjust">Low Battery</h5>
-									<div class="desc">Listens for low battery warning from device.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Device ID</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-fitbit-5k-steps"></div>
-									<h5 class="title text-adjust">Steps 5k</h5>
-									<div class="desc">Listens for customer reaching 5,000 steps.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Mobile ID, Date, Step Count, Customer ID</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-fitbit-10k-steps"></div>
-									<h5 class="title text-adjust">Steps 10k</h5>
-									<div class="desc">Listens for customer reaching 10,000 steps.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Mobile ID, Date, Step Count, Customer ID</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-fitbit-20k-steps"></div>
-									<h5 class="title text-adjust">Steps 20k</h5>
-									<div class="desc">Listens for customer reaching 20,000 steps.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Mobile ID, Date, Step Count, Customer ID</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-fitbit-finished-race"></div>
-									<h5 class="title text-adjust">Finished Race</h5>
-									<div class="desc">Listens for when a runner reaches the goal.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Device ID, Customer ID, Location</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-fitbit-goal-met"></div>
-									<h5 class="title text-adjust">Fitbit Activity Tracker</h5>
-									<div class="desc">Fires when preset activity goal is met.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Mobile ID, Location, Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-geofence"></div>
-									<h5 class="title text-adjust">Geofence</h5>
-									<div class="desc">Listens for customer entry or exit from a location.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Contact ID, Location</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-geofence-enter"></div>
-									<h5 class="title text-adjust">Entered Geofence</h5>
-									<div class="desc">Listens for customer entry to a location.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Contact ID, Location</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-geofence-exit"></div>
-									<h5 class="title text-adjust">Exited Geofence</h5>
-									<div class="desc">Listens for customer exit from a location.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Contact ID, Location</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-beacon"></div>
-									<h5 class="title text-adjust">Beacon Proximity</h5>
-									<div class="desc">Listens for devices in proximity of a beacon.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Device ID, Location</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-send-to-list"></div>
-									<h5 class="title text-adjust">Send to Target List</h5>
-									<div class="desc">Select group of contacts to send to based on a specified date and time.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Subscription Status, Age, Location, Product Usage, Opt-in Status</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-contacts"></span><span class="trigger-type-name">contacts</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-product-activation"></div>
-									<h5 class="title text-adjust">Activation</h5>
-									<div class="desc">Listens for a product activation flag via API.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Product ID, Customer ID, Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-contacts"></span><span class="trigger-type-name">contacts</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-anniversary"></div>
-									<h5 class="title text-adjust">Anniversary</h5>
-									<div class="desc">Listens for an annual customer event, or date relative to it.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Anniversary Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-contacts"></span><span class="trigger-type-name">contacts</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-birthday"></div>
-									<h5 class="title text-adjust">Birthday</h5>
-									<div class="desc">Listens for an annual customer event, or date relative to it.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Birth Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-contacts"></span><span class="trigger-type-name">contacts</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-first-purchase"></div>
-									<h5 class="title text-adjust">1st Time Purchase</h5>
-									<div class="desc">Fires after the 1st time purchase to encourage the next purchase.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Customer Email, Customer ID, Date, Product ID</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-contacts"></span><span class="trigger-type-name">contacts</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-sms-optin"></div>
-									<h5 class="title text-adjust">SMS Opt-In</h5>
-									<div class="desc">Listens for customer opt-in via SMS.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Mobile ID, Opt-in Status, Keyword</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-favorite-location"></div>
-									<h5 class="title text-adjust">New Favorite Location</h5>
-									<div class="desc">Listens for profile update to a favorite location setting.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Customer ID, Location ID</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-affinity-change"></div>
-									<h5 class="title text-adjust">Affinity Change</h5>
-									<div class="desc"></div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-complete-purchase"></div>
-									<h5 class="title text-adjust">Complete Purchase</h5>
-									<div class="desc">Listens for any purchase</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Contact ID, Order ID, Product SKU, Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-abandoned-cart"></div>
-									<h5 class="title text-adjust">Abandoned Cart</h5>
-									<div class="desc">Listens for shopping cart abandonment.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Product ID, Customer ID, Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-loyalty-program-signup"></div>
-									<h5 class="title text-adjust">Loyalty Program Sign Up</h5>
-									<div class="desc">Listens for customer loyalty program registration.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Contact ID, Loyalty Status, Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-contacts"></span><span class="trigger-type-name">contacts</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-view-changed"></div>
-									<h5 class="title text-adjust">View Changed</h5>
-									<div class="desc">Fires when user sets a new default view.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Contact ID, View Status, Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-contacts"></span><span class="trigger-type-name">contacts</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-content-changed"></div>
-									<h5 class="title text-adjust">Content Changed</h5>
-									<div class="desc">Listens for content update.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Date, File ID, File Status</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-email-opened"></div>
-									<h5 class="title text-adjust">Email Opened</h5>
-									<div class="desc">Listens for an email open event.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Contact ID, Email ID, Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-contacts"></span><span class="trigger-type-name">contacts</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-rate-experience"></div>
-									<h5 class="title text-adjust">Rate Experience</h5>
-									<div class="desc">Listens for customer submitted rating.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Customer ID, Product ID, Rating</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-ticket-purchase"></div>
-									<h5 class="title text-adjust">Ticket Purchase</h5>
-									<div class="desc">Listen&apos;s for a customer&apos;s ticket purchase.</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-contacts"></span><span class="trigger-type-name">contacts</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-mobile-app-downloaded"></div>
-									<h5 class="title text-adjust">Mobile App Downloaded</h5>
-									<div class="desc">Fires when mobile app is downloaded to device.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Mobile ID, Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-mobile"></span><span class="trigger-type-name">mobile</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-mobile-app-installed"></div>
-									<h5 class="title text-adjust">Mobile App Installed</h5>
-									<div class="desc">Fires when the app is installed on a mobile device.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Mobile ID, Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-mobile"></span><span class="trigger-type-name">mobile</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-signinto-app"></div>
-									<h5 class="title text-adjust">Sign Into App</h5>
-									<div class="desc">Listens for user to log into app.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Customer ID, App ID, Mobile ID, Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-contact-changed"></div>
-									<h5 class="title text-adjust">Contact Change</h5>
-									<div class="desc">Listens for a change in contacts.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Contact ID, Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-contacts"></span><span class="trigger-type-name">contacts</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-store-checkin"></div>
-									<h5 class="title text-adjust">Store Check-In</h5>
-									<div class="desc">Listens for rental check-in at location.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Customer ID, Store ID, Rental History</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-date-based-attribute"></div>
-									<h5 class="title text-adjust">Date-Based Attribute Trigger</h5>
-									<div class="desc">Listens for a key contact date or relative date to it.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-contacts"></span><span class="trigger-type-name">contacts</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-scheduled-date"></div>
-									<h5 class="title text-adjust">Scheduled Date</h5>
-									<div class="desc">Listens for a specific date or repeating dates.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-vip-customers"></div>
-									<h5 class="title text-adjust">VIP Customers</h5>
-									<div class="desc">Listens for customer data attribute equal to VIP.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Customer ID, Subscription Status, Product ID, Opt-in Status</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-contacts"></span><span class="trigger-type-name">contacts</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-high-value-customers"></div>
-									<h5 class="title text-adjust">High Value Customers</h5>
-									<div class="desc">Listens for customers with attribute equal to high value.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Customer ID, Value, Usage</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-custom"></span><span class="trigger-type-name">custom</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-trial-customers"></div>
-									<h5 class="title text-adjust">Trial Customers</h5>
-									<div class="desc">Listens for customers with attribute equal to trial subscription or trial period.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Contact ID, Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-contacts"></span><span class="trigger-type-name">contacts</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-							<div class="col-md-4">
-								<div class="card">
-									<div class="trigger-icon trigger-loyal-customers"></div>
-									<h5 class="title text-adjust">Loyal Customer</h5>
-									<div class="desc">Customer has been active for more than 3 years.</div>
-
-									<div class="contact-attributes-header text-muted">Contact Attributes</div>
-									<div class="contact-attributes">Contact ID, Date</div>
-
-									<footer>
-										<div class="pull-left text-left"><span class="trigger-type-icon trigger-type-contacts"></span><span class="trigger-type-name">contacts</span></div>
-										<div class="pull-right text-right"><span class="text-muted small">Last Modified: </span><span class="small">February 8, 2013 at 11:02 AM</span></div>
-									</footer>
-								</div>
-							</div>
-
-						</div>
-					</div>
+					<input type="text" class="form-control repeater-secondaryPaging" aria-labelledby="MyPageLabel">
+					<span>of <span class="repeater-pages"></span></span>
+					<button type="button" class="btn btn-default btn-sm repeater-next">
+						<span class="glyphicon glyphicon-chevron-right"></span>
+						<span class="sr-only">Next Page</span>
+					</button>
 				</div>
 			</div>
-			<div class="modal-footer clearfix">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Next</button>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+		</div>
 	</div>
-</div>
+
 </div>
 </body>
-</html>
 </html>
