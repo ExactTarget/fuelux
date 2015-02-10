@@ -212,6 +212,21 @@ define(function(require){
 		// }
 	});
 
+	test('should set/get recurrence pattern properly', function() {
+		var schedule = {
+			startDateTime: '2014-03-31T03:23+02:00',
+			timeZone: {
+				offset: '+02:00'
+			},
+			recurrencePattern: 'FREQ=WEEKLY;BYDAY=WE;INTERVAL=1;'
+		};
+
+		var $scheduler = $(html).scheduler();
+		$scheduler.scheduler('value', schedule);
+
+		equal($scheduler.scheduler('value').recurrencePattern, schedule.recurrencePattern, 'schedule set correctly');
+	});
+
 	// TODO: need more end date test or dry out code where start and end use same methods
 	
 	test('should initialize with end date provided', function() {

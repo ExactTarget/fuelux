@@ -515,7 +515,7 @@
 						item.find('label').removeClass('active');
 						temp = recur.BYDAY.split(',');
 						for (i = 0, l = temp.length; i < l; i++) {
-							item.find('input[data-value="' + temp[i] + '"]').parent().addClass('active');
+							item.find('input[data-value="' + temp[i] + '"]').attr('checked',true).parent().addClass('active');
 						}
 					}
 
