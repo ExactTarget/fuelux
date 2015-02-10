@@ -417,10 +417,15 @@ define(function(require) {
 	});
 	$('#btnRadioDestroy').on('click', function() {
 		var $container = $('#myCustomRadio1').parents('.thin-box:first');
-		log($cont);
 		var markup = $('#myCustomRadio1').radio('destroy');
 		$container.append(markup);
 		$('#myRadio1').radio();
+	});
+	$('#btnRadioInlineDestroy').on('click', function() {
+		var $container = $('#myCustomInlineRadio1').parents('.thin-box:first');
+		var markup = $('#myCustomInlineRadio1').radio('destroy');
+		$container.append(markup);
+		$('#myCustomInlineRadio1').radio();
 	});
 
 
