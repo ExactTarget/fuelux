@@ -1,5 +1,5 @@
 /*
- * Fuel UX Button Dropdown
+ * Fuel UX Selectlist
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2014 ExactTarget
