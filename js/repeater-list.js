@@ -379,7 +379,7 @@
 			this.viewOptions.list_rowRendered({
 				container: $tbody,
 				item: $row,
-				rowData: data
+				rowData: data.items[index]
 			}, function () {});
 		}
 	}
