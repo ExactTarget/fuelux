@@ -179,6 +179,11 @@ define(function(require){
 		test = (test.find('[data-value="MO"]').parent().hasClass('active') && test.find('[data-value="TH"]').parent().hasClass('active')) ? true : false;
 		ok(($repIntSelDrop.html()==='Weekly' && $repPanSpinbox.spinbox('value')==='7' && test), 'weekly recurrence set correctly');
 
+		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=WEEKLY;BYDAY=MO,TH;' });
+		test = $scheduler.find('.repeat-days-of-the-week .btn-group');
+		ok(test.find('[data-value="MO"]').is(':checked'), 'weekly recurrence option set correctly with "checked" attribute');
+		ok(test.find('[data-value="TH"]').is(':checked'), 'weekly recurrence option set correctly with "checked" attribute');
+
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=MONTHLY;INTERVAL=9;BYDAY=SA;BYSETPOS=4;' });
 		test = $scheduler.find('.repeat-monthly-day');
 		ok(($repIntSelDrop.html()==='Monthly' && $repPanSpinbox.spinbox('value')==='9' && test.find('div.radio input').hasClass('checked') &&
