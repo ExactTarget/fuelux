@@ -5,6 +5,8 @@
 define(function(require){
 	var $ = require('jquery');
 	var html = require('text!test/markup/scheduler-markup.html');
+	var templateHtml = html;
+
 	/* FOR DEV TESTING */
 	// html = require('text!index.html!strip');
 	html = $('<div>'+html+'</div>').find('#MyScheduler');
@@ -221,7 +223,10 @@ define(function(require){
 			recurrencePattern: 'FREQ=WEEKLY;BYDAY=WE;INTERVAL=1;'
 		};
 
-		var $scheduler = $(html).scheduler();
+		// note: currently, the scheduler doesn't reset it's markup/state
+		// when setValue is called.  so ensure we're starting with initial template markup
+		// that hasn't been altered by another unit test
+		var $scheduler = $('<div>'+templateHtml+'</div>').find('#MyScheduler').scheduler();
 		$scheduler.scheduler('value', schedule);
 
 		equal($scheduler.scheduler('value').recurrencePattern, schedule.recurrencePattern, 'schedule set correctly');
