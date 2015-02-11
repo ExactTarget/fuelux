@@ -129,6 +129,8 @@ define(function(require){
 				if(!hasCalled.column){
 					ok(1===1, 'columnRendered callback called upon rendering column');
 					equal((helpers.container.length>0 && helpers.item.length>0), true, 'columnRendered helpers object contains appropriate attributes');
+					equal((helpers.rowData instanceof Array), false, 'rowRendered rowData is an object');
+					equal((typeof helpers.rowData.appearance), 'string', 'rowRendered rowData is an item from the dataSource');
 					hasCalled.column = true;
 				}
 				num.cols++;
@@ -137,6 +139,8 @@ define(function(require){
 			list_rowRendered: function(helpers, callback){
 				if(!hasCalled.row){
 					ok(1===1, 'rowRendered callback called upon rendering column');
+					equal((helpers.rowData instanceof Array), false, 'rowRendered rowData is an object');
+					equal((typeof helpers.rowData.appearance), 'string', 'rowRendered rowData is an item from the dataSource');
 					equal((helpers.container.length>0 && helpers.item.length>0), true, 'rowRendered helpers object contains appropriate attributes');
 					hasCalled.row = true;
 				}
