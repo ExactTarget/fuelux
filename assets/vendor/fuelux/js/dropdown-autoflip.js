@@ -8,7 +8,7 @@
 
 // -- BEGIN UMD WRAPPER PREFACE --
 
-// For more information on UMD visit: 
+// For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
@@ -21,86 +21,90 @@
 	}
 }(function ($) {
 	// -- END UMD WRAPPER PREFACE --
-		
+
 	// -- BEGIN MODULE CODE HERE --
-	
-	$(document.body).on('click.fu.dropdown-autoflip', '[data-toggle=dropdown][data-flip]', function( event ) {
-		if( $(this).data().flip === "auto" ) {
+
+	$(document.body).on('click.fu.dropdown-autoflip', '[data-toggle=dropdown][data-flip]', function (event) {
+		if ($(this).data().flip === "auto") {
 			// have the drop down decide where to place itself
-			_autoFlip( $(this).next('.dropdown-menu') );
+			_autoFlip($(this).next('.dropdown-menu'));
 		}
 	});
 
-	// For pillbox suggestions dropdown 
-	$(document.body).on('suggested.fu.pillbox', function(event, element) {
-		_autoFlip( $(element) );
+	// For pillbox suggestions dropdown
+	$(document.body).on('suggested.fu.pillbox', function (event, element) {
+		_autoFlip($(element));
 		$(element).parent().addClass('open');
 	});
 
-	function _autoFlip( menu ) {
+	function _autoFlip(menu) {
 		// hide while the browser thinks
-		$(menu).css({ visibility: "hidden" });
+		$(menu).css({
+			visibility: "hidden"
+		});
 
 		// decide where to put menu
-		if ( dropUpCheck( menu ) ) {
+		if (dropUpCheck(menu)) {
 			menu.parent().addClass("dropup");
-		}
-		else {
+		} else {
 			menu.parent().removeClass("dropup");
 		}
 
 		// show again
-		$(menu).css({ visibility: "visible" });
+		$(menu).css({
+			visibility: "visible"
+		});
 	}
 
-	function dropUpCheck( element ) {
+	function dropUpCheck(element) {
 		// caching container
-		var $container = _getContainer( element );
+		var $container = _getContainer(element);
 
 		// building object with measurementsances for later use
-		var measurements                = {};
-		measurements.parentHeight       = element.parent().outerHeight();
-		measurements.parentOffsetTop    = element.parent().offset().top;
-		measurements.dropdownHeight     = element.outerHeight();
-		measurements.containerHeight    = $container.overflowElement.outerHeight();
+		var measurements = {};
+		measurements.parentHeight = element.parent().outerHeight();
+		measurements.parentOffsetTop = element.parent().offset().top;
+		measurements.dropdownHeight = element.outerHeight();
+		measurements.containerHeight = $container.overflowElement.outerHeight();
 
 		// this needs to be different if the window is the container or another element is
-		measurements.containerOffsetTop = ( !! $container.isWindow ) ? $container.overflowElement.scrollTop() : $container.overflowElement.offset().top;
+		measurements.containerOffsetTop = (!!$container.isWindow) ? $container.overflowElement.scrollTop() : $container.overflowElement.offset().top;
 
 		// doing the calculations
-		measurements.fromTop    = measurements.parentOffsetTop - measurements.containerOffsetTop;
-		measurements.fromBottom = measurements.containerHeight - measurements.parentHeight - ( measurements.parentOffsetTop - measurements.containerOffsetTop );
+		measurements.fromTop = measurements.parentOffsetTop - measurements.containerOffsetTop;
+		measurements.fromBottom = measurements.containerHeight - measurements.parentHeight - (measurements.parentOffsetTop - measurements.containerOffsetTop);
 
 		// actual determination of where to put menu
 		// false = drop down
 		// true = drop up
-		if( measurements.dropdownHeight < measurements.fromBottom ) {
+		if (measurements.dropdownHeight < measurements.fromBottom) {
 			return false;
-		} else if ( measurements.dropdownHeight < measurements.fromTop ) {
+		} else if (measurements.dropdownHeight < measurements.fromTop) {
 			return true;
-		} else if ( measurements.dropdownHeight >= measurements.fromTop && measurements.dropdownHeight >= measurements.fromBottom ) {
+		} else if (measurements.dropdownHeight >= measurements.fromTop && measurements.dropdownHeight >= measurements.fromBottom) {
 			// decide which one is bigger and put it there
-			if( measurements.fromTop >= measurements.fromBottom ) {
+			if (measurements.fromTop >= measurements.fromBottom) {
 				return true;
 			} else {
 				return false;
 			}
+
 		}
+
 	}
 
-	function _getContainer( element ) {
+	function _getContainer(element) {
 		var containerElement, isWindow;
-		if (element.attr('data-target')){
+		if (element.attr('data-target')) {
 			containerElement = element.attr('data-target');
 			isWindow = false;
-		}
-		else {
+		} else {
 			containerElement = window;
 			isWindow = true;
 		}
 
-		$.each( element.parents(), function(index, value) {
-			if( $(value).css('overflow') !== 'visible' ) {
+		$.each(element.parents(), function (index, value) {
+			if ($(value).css('overflow') !== 'visible') {
 				containerElement = value;
 				isWindow = false;
 				return false;
@@ -108,14 +112,16 @@
 		});
 
 		return {
-			overflowElement: $( containerElement ),
+			overflowElement: $(containerElement),
 			isWindow: isWindow
 		};
 	}
 
 	// register empty plugin
-	$.fn.dropdownautoflip = function () { /* empty */ };
+	$.fn.dropdownautoflip = function () {
+		/* empty */
+	};
 
-// -- BEGIN UMD WRAPPER AFTERWORD --
+	// -- BEGIN UMD WRAPPER AFTERWORD --
 }));
-	// -- END UMD WRAPPER AFTERWORD --
+// -- END UMD WRAPPER AFTERWORD --

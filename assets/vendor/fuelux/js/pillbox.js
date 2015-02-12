@@ -11,7 +11,7 @@
 // For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
-(function(factory) {
+(function (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
 		define(['jquery', 'fuelux/dropdown-autoflip'], factory);
@@ -19,11 +19,11 @@
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
 	}
-}(function($) {
-
+}(function ($) {
 	if (!$.fn.dropdownautoflip) {
 		throw new Error('Fuel UX pillbox control requires dropdown-autoflip.');
 	}
+
 	// -- END UMD WRAPPER PREFACE --
 
 	// -- BEGIN MODULE CODE HERE --
@@ -32,7 +32,7 @@
 
 	// PILLBOX CONSTRUCTOR AND PROTOTYPE
 
-	var Pillbox = function(element, options) {
+	var Pillbox = function (element, options) {
 		this.$element = $(element);
 		this.$moreCount = this.$element.find('.pillbox-more-count');
 		this.$pillGroup = this.$element.find('.pill-group');
@@ -52,6 +52,7 @@
 			if (this.$element.attr('data-readonly') !== undefined) {
 				this.readonly(true);
 			}
+
 		} else if (this.options.readonly) {
 			this.readonly(true);
 		}
@@ -66,6 +67,7 @@
 		if (this.options.onKeyDown) {
 			this.$element.on('mousedown.fu.pillbox', '.suggest > li', $.proxy(this.suggestionClick, this));
 		}
+
 		if (this.options.edit) {
 			this.$element.addClass('pills-editable');
 			this.$element.on('blur.fu.pillbox', '.pillbox-add-item', $.proxy(this.cancelEdit, this));
@@ -75,7 +77,7 @@
 	Pillbox.prototype = {
 		constructor: Pillbox,
 
-		destroy: function() {
+		destroy: function () {
 			this.$element.remove();
 			// any external bindings
 			// [none]
@@ -85,15 +87,15 @@
 			return this.$element[0].outerHTML;
 		},
 
-		items: function() {
+		items: function () {
 			var self = this;
 
-			return this.$pillGroup.children('.pill').map(function() {
+			return this.$pillGroup.children('.pill').map(function () {
 				return self.getItemData($(this));
 			}).get();
 		},
 
-		itemClicked: function(e) {
+		itemClicked: function (e) {
 			var self = this;
 			var $target = $(e.target);
 			var $item;
@@ -115,14 +117,18 @@
 								el: $item
 							}));
 						}
+
 						return false;
 					} else if (this.options.edit) {
 						if ($item.find('.pillbox-list-edit').length) {
 							return false;
 						}
+
 						this.openEdit($item);
 					}
+
 				}
+
 			} else {
 				$item = $target;
 			}
@@ -130,18 +136,19 @@
 			this.$element.trigger('clicked.fu.pillbox', this.getItemData($item));
 		},
 
-		readonly: function(enable) {
+		readonly: function (enable) {
 			if (enable) {
 				this.$element.attr('data-readonly', 'readonly');
 			} else {
 				this.$element.removeAttr('data-readonly');
 			}
+
 			if (this.options.truncate) {
 				this.truncate(enable);
 			}
 		},
 
-		suggestionClick: function(e) {
+		suggestionClick: function (e) {
 			var $item = $(e.currentTarget);
 			var item = {
 				text: $item.html(),
@@ -163,14 +170,14 @@
 			this._closeSuggestions();
 		},
 
-		itemCount: function() {
+		itemCount: function () {
 			return this.$pillGroup.children('.pill').length;
 		},
 
 		// First parameter is 1 based index (optional, if index is not passed all new items will be appended)
 		// Second parameter can be array of objects [{ ... }, { ... }] or you can pass n additional objects as args
-		// object structure is as follows (index and value are optional): { text: '', value: '' }
-		addItems: function() {
+		// object structure is as follows (attr and value are optional): { text: '', value: '', attr: {}, data: {} }
+		addItems: function () {
 			var self = this;
 			var items, index, isInternal;
 
@@ -182,29 +189,28 @@
 				isInternal = items[1] && !items[1].text;
 			}
 
-			//Accounting for array parameter
+			//If first argument is an array, use that, otherwise they probably passed each thing through as a separate arg, so use items as-is
 			if (items[0] instanceof Array) {
 				items = items[0];
 			}
 
 			if (items.length) {
-				$.each(items, function(i, value) {
+				$.each(items, function (i, value) {
 					var data = {
 						text: value.text,
 						value: (value.value ? value.value : value.text),
 						el: self.$pillHTML
 					};
 
-					if (value['attr']) {
-						data['attr'] = value.attr; // avoid confusion with $.attr();
+					if (value.attr) {
+						data.attr = value.attr;
 					}
 
-					if (value['data']) {
-						data['data'] = value.data;
+					if (value.data) {
+						data.data = value.data;
 					}
 
 					items[i] = data;
-
 				});
 
 				if (this.options.edit && this.currentEdit) {
@@ -216,12 +222,12 @@
 				}
 
 				if (self.options.onAdd && isInternal) {
-
 					if (this.options.edit && this.currentEdit) {
 						self.options.onAdd(items[0], $.proxy(self.saveEdit, this));
 					} else {
 						self.options.onAdd(items[0], $.proxy(self.placeItems, this));
 					}
+
 				} else {
 					if (this.options.edit && this.currentEdit) {
 						self.saveEdit(items);
@@ -231,15 +237,17 @@
 						} else {
 							self.placeItems(items, isInternal);
 						}
-					}
-				}
-			}
 
+					}
+
+				}
+
+			}
 		},
 
 		//First parameter is the index (1 based) to start removing items
 		//Second parameter is the number of items to be removed
-		removeItems: function(index, howMany) {
+		removeItems: function (index, howMany) {
 			var self = this;
 			var count;
 			var $currentItem;
@@ -260,13 +268,14 @@
 					} else {
 						break;
 					}
+
 				}
 			}
 		},
 
 		//First parameter is index (optional)
 		//Second parameter is new arguments
-		placeItems: function() {
+		placeItems: function () {
 			var $newHtml = [];
 			var items;
 			var index;
@@ -286,7 +295,7 @@
 			}
 
 			if (items.length) {
-				$.each(items, function(i, item) {
+				$.each(items, function (i, item) {
 					var $item = $(item.el);
 					var $neighbor;
 
@@ -294,20 +303,18 @@
 					$item.find('span:first').html(item.text);
 
 					// DOM attributes
-					if (item['attr']) {
-						$.each(item['attr'], function(key, value) {
-
+					if (item.attr) {
+						$.each(item.attr, function (key, value) {
 							if (key === 'cssClass' || key === 'class') {
 								$item.addClass(value);
 							} else {
 								$item.attr(key, value);
 							}
-
 						});
 
 					}
 
-					if (item['data']) {
+					if (item.data) {
 						$item.data('data', item.data);
 					}
 
@@ -323,9 +330,11 @@
 						} else {
 							this.$pillGroup.children('.pill:last').after($newHtml);
 						}
+
 					} else {
 						this.$pillGroup.children('.pill:last').after($newHtml);
 					}
+
 				} else {
 					this.$pillGroup.prepend($newHtml);
 				}
@@ -336,10 +345,11 @@
 						value: items[0].value
 					});
 				}
+
 			}
 		},
 
-		inputEvent: function(e) {
+		inputEvent: function (e) {
 			var self = this;
 			var text = this.$addItem.val();
 			var value;
@@ -348,7 +358,6 @@
 			var $selection;
 
 			if (this.acceptKeyCodes[e.keyCode]) {
-
 				if (this.options.onKeyDown && this._isSuggestionsOpen()) {
 					$selection = this.$suggest.find('.pillbox-suggest-sel');
 
@@ -357,6 +366,7 @@
 						value = $selection.data('value');
 						attr = $selection.data('attr');
 					}
+
 				}
 
 				//ignore comma and make sure text that has been entered (protects against " ,". https://github.com/ExactTarget/fuelux/issues/593), unless allowEmptyPills is true.
@@ -377,7 +387,7 @@
 						}, true);
 					}
 
-					setTimeout(function() {
+					setTimeout(function () {
 						self.$addItem.show().val('').attr({
 							size: 10
 						});
@@ -411,12 +421,14 @@
 
 					return true;
 				}
+
 			} else if (text.length > 10) {
 				if (this.$addItem.width() < (this.$pillGroup.width() - 6)) {
 					this.$addItem.attr({
 						size: text.length + 3
 					});
 				}
+
 			}
 
 			this.$pillGroup.find('.pill').removeClass('pillbox-highlight');
@@ -430,6 +442,7 @@
 					if (this._isSuggestionsOpen()) {
 						this._keySuggestions(e);
 					}
+
 					return true;
 				}
 
@@ -438,13 +451,13 @@
 				this.options.onKeyDown({
 					event: e,
 					value: text
-				}, function(data) {
+				}, function (data) {
 						self._openSuggestions(e, data);
 					});
 			}
 		},
 
-		openEdit: function(el) {
+		openEdit: function (el) {
 			var index = el.index() + 1;
 			var $addItemWrap = this.$addItemWrap.detach().hide();
 
@@ -457,7 +470,7 @@
 			this.$addItem.focus().select();
 		},
 
-		cancelEdit: function(e) {
+		cancelEdit: function (e) {
 			var $addItemWrap;
 			if (!this.currentEdit) {
 				return false;
@@ -467,6 +480,7 @@
 			if (e) {
 				this.$addItemWrap.before(this.currentEdit);
 			}
+
 			this.currentEdit = false;
 
 			$addItemWrap = this.$addItemWrap.detach();
@@ -477,7 +491,7 @@
 
 		//Must match syntax of placeItem so addItem callback is called when an item is edited
 		//expecting to receive an array back from the callback containing edited items
-		saveEdit: function() {
+		saveEdit: function () {
 			var item = arguments[0][0] ? arguments[0][0] : arguments[0];
 
 			this.currentEdit = $(item.el);
@@ -497,11 +511,11 @@
 			});
 		},
 
-		removeBySelector: function() {
+		removeBySelector: function () {
 			var selectors = [].slice.call(arguments).slice(0);
 			var self = this;
 
-			$.each(selectors, function(i, sel) {
+			$.each(selectors, function (i, sel) {
 				self.$pillGroup.find(sel).remove();
 			});
 
@@ -511,11 +525,11 @@
 			});
 		},
 
-		removeByValue: function() {
+		removeByValue: function () {
 			var values = [].slice.call(arguments).slice(0);
 			var self = this;
 
-			$.each(values, function(i, val) {
+			$.each(values, function (i, val) {
 				self.$pillGroup.find('> .pill[data-value="' + val + '"]').remove();
 			});
 
@@ -525,11 +539,11 @@
 			});
 		},
 
-		removeByText: function() {
+		removeByText: function () {
 			var text = [].slice.call(arguments).slice(0);
 			var self = this;
 
-			$.each(text, function(i, text) {
+			$.each(text, function (i, text) {
 				self.$pillGroup.find('> .pill:contains("' + text + '")').remove();
 			});
 
@@ -539,7 +553,7 @@
 			});
 		},
 
-		truncate: function(enable) {
+		truncate: function (enable) {
 			var self = this;
 			var available, full, i, pills, used;
 
@@ -556,7 +570,7 @@
 				pills = this.$pillGroup.find('.pill').length;
 				used = 0;
 
-				this.$pillGroup.find('.pill').each(function() {
+				this.$pillGroup.find('.pill').each(function () {
 					var pill = $(this);
 					if (!full) {
 						i++;
@@ -568,6 +582,7 @@
 							pill.addClass('truncated');
 							full = true;
 						}
+
 					} else {
 						pill.addClass('truncated');
 					}
@@ -575,40 +590,41 @@
 				if (i === pills) {
 					this.$addItemWrap.addClass('truncated');
 				}
+
 			}
 		},
 
-		inputFocus: function(e) {
+		inputFocus: function (e) {
 			this.$element.find('.pillbox-add-item').focus();
 		},
 
-		getItemData: function(el, data) {
+		getItemData: function (el, data) {
 			return $.extend({
 				text: el.find('span:first').html()
 			}, el.data(), data);
 		},
 
-		_removeElement: function(data) {
+		_removeElement: function (data) {
 			data.el.remove();
 			delete data.el;
 			this.$element.trigger('removed.fu.pillbox', data);
 		},
 
-		_removePillTrigger: function(removedBy) {
+		_removePillTrigger: function (removedBy) {
 			this.$element.trigger('removed.fu.pillbox', removedBy);
 		},
 
-		_generateObject: function(data) {
+		_generateObject: function (data) {
 			var obj = {};
 
-			$.each(data, function(index, value) {
+			$.each(data, function (index, value) {
 				obj[value] = true;
 			});
 
 			return obj;
 		},
 
-		_openSuggestions: function(e, data) {
+		_openSuggestions: function (e, data) {
 			var markup = '';
 			var $suggestionList = $('<ul>');
 
@@ -617,8 +633,7 @@
 			}
 
 			if (data.data && data.data.length) {
-
-				$.each(data.data, function(index, value) {
+				$.each(data.data, function (index, value) {
 					var val = value.value ? value.value : value.text;
 
 					// markup concatentation is 10x faster, but does not allow data store
@@ -641,17 +656,17 @@
 			}
 		},
 
-		_closeSuggestions: function() {
+		_closeSuggestions: function () {
 			this.$suggest.html('').parent().removeClass('open');
 		},
 
-		_isSuggestionsOpen: function() {
+		_isSuggestionsOpen: function () {
 			return this.$suggest.parent().hasClass('open');
 		},
 
-		_keySuggestions: function(e) {
+		_keySuggestions: function (e) {
 			var $first = this.$suggest.find('li.pillbox-suggest-sel');
-			var dir = e.keyCode === 38; // up arrow
+			var dir = e.keyCode === 38;// up arrow
 			var $next, val;
 
 			e.preventDefault();
@@ -670,17 +685,18 @@
 					$next.addClass('pillbox-suggest-sel');
 					$first.removeClass('pillbox-suggest-sel');
 				}
+
 			}
 		}
 	};
 
 	// PILLBOX PLUGIN DEFINITION
 
-	$.fn.pillbox = function(option) {
+	$.fn.pillbox = function (option) {
 		var args = Array.prototype.slice.call(arguments, 1);
 		var methodReturn;
 
-		var $set = this.each(function() {
+		var $set = this.each(function () {
 			var $this = $(this);
 			var data = $this.data('fu.pillbox');
 			var options = typeof option === 'object' && option;
@@ -688,6 +704,7 @@
 			if (!data) {
 				$this.data('fu.pillbox', (data = new Pillbox(this, options)));
 			}
+
 			if (typeof option === 'string') {
 				methodReturn = data[option].apply(data, args);
 			}
@@ -701,11 +718,11 @@
 		onRemove: undefined,
 		onKeyDown: undefined,
 		edit: false,
-		readonly: -1, //can be true or false. -1 means it will check for data-readonly="readonly"
+		readonly: -1,//can be true or false. -1 means it will check for data-readonly="readonly"
 		truncate: false,
 		acceptKeyCodes: [
-			13, //Enter
-			188 //Comma
+			13,//Enter
+			188//Comma
 		],
 		allowEmptyPills: false
 
@@ -732,7 +749,7 @@
 
 	$.fn.pillbox.Constructor = Pillbox;
 
-	$.fn.pillbox.noConflict = function() {
+	$.fn.pillbox.noConflict = function () {
 		$.fn.pillbox = old;
 		return this;
 	};
@@ -740,7 +757,7 @@
 
 	// DATA-API
 
-	$(document).on('mousedown.fu.pillbox.data-api', '[data-initialize=pillbox]', function(e) {
+	$(document).on('mousedown.fu.pillbox.data-api', '[data-initialize=pillbox]', function (e) {
 		var $control = $(e.target).closest('.pillbox');
 		if (!$control.data('fu.pillbox')) {
 			$control.pillbox($control.data());
@@ -748,8 +765,8 @@
 	});
 
 	// Must be domReady for AMD compatibility
-	$(function() {
-		$('[data-initialize=pillbox]').each(function() {
+	$(function () {
+		$('[data-initialize=pillbox]').each(function () {
 			var $this = $(this);
 			if ($this.data('fu.pillbox')) return;
 			$this.pillbox($this.data());

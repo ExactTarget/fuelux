@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "bower": "1.x",
-    "connect": "3.x"
+    "connect": "3.x",
+    "serve-static": "1.x"
   },
   "description": "Base Fuel UX styles and controls",
   "devDependencies": {
@@ -62,7 +63,8 @@
     "web"
   ],
   "license": {
-    "type": "BSD-3-Clause"
+    "type": "BSD-3-Clause",
+    "url": "https://github.com/ExactTarget/fuelux/blob/master/LICENSE"
   },
   "name": "fuelux",
   "private": true,
@@ -73,10 +75,10 @@
   "scripts": {
     "main": "devserver.js",
     "postinstall": "./node_modules/bower/bin/bower install && tar -zcf dev/node_modules.tar.gz node_modules/;",
-    "test": "grunt travisci"
+    "test": "grunt travisci --verbose"
   },
   "title": "Fuel UX",
-  "version": "3.5.1",
+  "version": "3.5.2",
   "volo": {
     "baseDir": "lib",
     "dependencies": {

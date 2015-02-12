@@ -45,7 +45,7 @@
 
 		constructor: InfiniteScroll,
 
-		destroy: function() {
+		destroy: function () {
 			this.$element.remove();
 			// any external bindings
 			// [none]
@@ -56,52 +56,58 @@
 			return this.$element[0].outerHTML;
 		},
 
-		disable: function(){
+		disable: function () {
 			this.$element.off('scroll.fu.infinitescroll');
 		},
 
-		enable: function(){
+		enable: function () {
 			this.$element.on('scroll.fu.infinitescroll', $.proxy(this.onScroll, this));
 		},
 
-		end: function(content){
+		end: function (content) {
 			var end = $('<div class="infinitescroll-end"></div>');
-			if(content){
+			if (content) {
 				end.append(content);
-			}else{
+			} else {
 				end.append('---------');
 			}
+
 			this.$element.append(end);
 			this.disable();
 		},
 
-		getPercentage: function(){
-			var height = (this.$element.css('box-sizing')==='border-box') ? this.$element.outerHeight() : this.$element.height();
+		getPercentage: function () {
+			var height = (this.$element.css('box-sizing') === 'border-box') ? this.$element.outerHeight() : this.$element.height();
 			var scrollHeight = this.$element.get(0).scrollHeight;
 			return (scrollHeight > height) ? ((height / (scrollHeight - this.curScrollTop)) * 100) : 0;
 		},
 
-		fetchData: function(force){
+		fetchData: function (force) {
 			var load = $('<div class="infinitescroll-load"></div>');
 			var self = this;
 			var moreBtn;
 
-			var fetch = function(){
-				var helpers = { percentage: self.curPercentage, scrollTop: self.curScrollTop };
+			var fetch = function () {
+				var helpers = {
+					percentage: self.curPercentage,
+					scrollTop: self.curScrollTop
+				};
 				var $loader = $('<div class="loader"></div>');
 				load.append($loader);
 				$loader.loader();
-				if(self.options.dataSource){
-					self.options.dataSource(helpers, function(resp){
+				if (self.options.dataSource) {
+					self.options.dataSource(helpers, function (resp) {
 						var end;
 						load.remove();
-						if(resp.content){
+						if (resp.content) {
 							self.$element.append(resp.content);
 						}
-						if(resp.end){
-							end = (resp.end!==true) ? resp.end : undefined;
+
+						if (resp.end) {
+							end = (resp.end !== true) ? resp.end : undefined;
 							self.end(end);
 						}
+
 						self.fetchingData = false;
 					});
 				}
@@ -109,55 +115,60 @@
 
 			this.fetchingData = true;
 			this.$element.append(load);
-			if(this.options.hybrid && force!==true){
+			if (this.options.hybrid && force !== true) {
 				moreBtn = $('<button type="button" class="btn btn-primary"></button>');
-				if(typeof this.options.hybrid === 'object'){
+				if (typeof this.options.hybrid === 'object') {
 					moreBtn.append(this.options.hybrid.label);
-				}else{
+				} else {
 					moreBtn.append('<span class="glyphicon glyphicon-repeat"></span>');
 				}
-				moreBtn.on('click.fu.infinitescroll', function(){
+
+				moreBtn.on('click.fu.infinitescroll', function () {
 					moreBtn.remove();
 					fetch();
 				});
 				load.append(moreBtn);
-			}else{
+			} else {
 				fetch();
 			}
 		},
 
-		onScroll: function(e){
+		onScroll: function (e) {
 			this.curScrollTop = this.$element.scrollTop();
 			this.curPercentage = this.getPercentage();
-			if(!this.fetchingData && this.curPercentage>=this.options.percentage){
+			if (!this.fetchingData && this.curPercentage >= this.options.percentage) {
 				this.fetchData();
 			}
 		}
-
 	};
 
 	// INFINITE SCROLL PLUGIN DEFINITION
 
 	$.fn.infinitescroll = function (option) {
-		var args = Array.prototype.slice.call( arguments, 1 );
+		var args = Array.prototype.slice.call(arguments, 1);
 		var methodReturn;
 
 		var $set = this.each(function () {
-			var $this   = $( this );
-			var data    = $this.data('fu.infinitescroll');
+			var $this = $(this);
+			var data = $this.data('fu.infinitescroll');
 			var options = typeof option === 'object' && option;
 
-			if( !data ) $this.data('fu.infinitescroll', (data = new InfiniteScroll( this, options ) ) );
-			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+			if (!data) {
+				$this.data('fu.infinitescroll', (data = new InfiniteScroll(this, options)));
+			}
+
+			if (typeof option === 'string') {
+				methodReturn = data[option].apply(data, args);
+			}
 		});
 
-		return ( methodReturn === undefined ) ? $set : methodReturn;
+		return (methodReturn === undefined) ? $set : methodReturn;
 	};
 
 	$.fn.infinitescroll.defaults = {
 		dataSource: null,
-		hybrid: false,	//can be true or an object with structure: { 'label': (markup or jQuery obj) }
-		percentage: 95	//percentage scrolled to the bottom before more is loaded
+		hybrid: false,//can be true or an object with structure: { 'label': (markup or jQuery obj) }
+		percentage: 95//percentage scrolled to the bottom before more is loaded
 	};
 
 	$.fn.infinitescroll.Constructor = InfiniteScroll;
@@ -169,6 +180,6 @@
 
 	// NO DATA-API DUE TO NEED OF DATA-SOURCE
 
-// -- BEGIN UMD WRAPPER AFTERWORD --
+	// -- BEGIN UMD WRAPPER AFTERWORD --
 }));
 // -- END UMD WRAPPER AFTERWORD --

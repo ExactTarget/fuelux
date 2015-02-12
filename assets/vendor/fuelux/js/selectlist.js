@@ -1,5 +1,5 @@
 /*
- * Fuel UX Button Dropdown
+ * Fuel UX Selectlist
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2014 ExactTarget
@@ -8,7 +8,7 @@
 
 // -- BEGIN UMD WRAPPER PREFACE --
 
-// For more information on UMD visit: 
+// For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
@@ -21,7 +21,7 @@
 	}
 }(function ($) {
 	// -- END UMD WRAPPER PREFACE --
-		
+
 	// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.selectlist;
@@ -48,7 +48,7 @@
 
 		constructor: Selectlist,
 
-		destroy: function() {
+		destroy: function () {
 			this.$element.remove();
 			// any external bindings
 			// [none]
@@ -58,23 +58,22 @@
 			return this.$element[0].outerHTML;
 		},
 
-		doSelect: function($item){
+		doSelect: function ($item) {
 			var $selectedItem;
 			this.$selectedItem = $selectedItem = $item;
 
 			this.$hiddenField.val(this.$selectedItem.attr('data-value'));
-			this.$label.html( $(this.$selectedItem.children()[0]).html() );
+			this.$label.html($(this.$selectedItem.children()[0]).html());
 
 			// clear and set selected item to allow declarative init state
 			// unlike other controls, selectlist's value is stored internal, not in an input
 			this.$element.find('li').each(function () {
-				if ( $selectedItem.is( $(this) ) ) {
+				if ($selectedItem.is($(this))) {
 					$(this).attr('data-selected', true);
 				} else {
 					$(this).removeData('selected').removeAttr('data-selected');
 				}
 			});
-
 		},
 
 		itemClicked: function (e) {
@@ -83,19 +82,17 @@
 			e.preventDefault();
 
 			// is clicked element different from currently selected element?
-			if( !($(e.target).parent().is( this.$selectedItem) ) ) {
+			if (!($(e.target).parent().is(this.$selectedItem))) {
 				this.itemChanged(e);
 			}
 
 			// return focus to control after selecting an option
 			this.$element.find('.dropdown-toggle').focus();
-
 		},
 
 		itemChanged: function (e) {
-
 			//selectedItem needs to be <li> since the data is stored there, not in <a>
-			this.doSelect( $(e.target).closest('li') );
+			this.doSelect($(e.target).closest('li'));
 
 			// pass object including text and any data-attributes
 			// to onchange event
@@ -104,18 +101,18 @@
 			this.$element.trigger('changed.fu.selectlist', data);
 		},
 
-		resize: function() {
+		resize: function () {
 			var width = 0;
 			var newWidth = 0;
 			var sizer = $('<div/>').addClass('selectlist-sizer');
 
 
-			if( Boolean( $(document).find( 'html' ).hasClass( 'fuelux' ) ) ) {
+			if (Boolean($(document).find('html').hasClass('fuelux'))) {
 				// default behavior for fuel ux setup. means fuelux was a class on the html tag
-				$( document.body ).append( sizer);
+				$(document.body).append(sizer);
 			} else {
 				// fuelux is not a class on the html tag. So we'll look for the first one we find so the correct styles get applied to the sizer
-				$( '.fuelux:first' ).append( sizer );
+				$('.fuelux:first').append(sizer);
 			}
 
 			sizer.append(this.$element.clone());
@@ -124,27 +121,32 @@
 				sizer.find('.selected-label').text($(this).text());
 				newWidth = sizer.find('.selectlist').outerWidth();
 				newWidth = newWidth + sizer.find('.sr-only').outerWidth();
-				if(newWidth > width) {
+				if (newWidth > width) {
 					width = newWidth;
 				}
 			});
+
+			if (width <= 1) {
+				return;
+			}
 
 			this.$button.css('width', width);
 			this.$dropdownMenu.css('width', width);
 
 			sizer.remove();
-
 		},
 
-		selectedItem: function() {
+		selectedItem: function () {
 			var txt = this.$selectedItem.text();
-			return $.extend({ text: txt }, this.$selectedItem.data());
+			return $.extend({
+				text: txt
+			}, this.$selectedItem.data());
 		},
 
-		selectByText: function(text) {
+		selectByText: function (text) {
 			var $item = $([]);
-			this.$element.find('li').each(function(){
-				if((this.textContent || this.innerText || $(this).text() || '').toLowerCase() === (text || '').toLowerCase()){
+			this.$element.find('li').each(function () {
+				if ((this.textContent || this.innerText || $(this).text() || '').toLowerCase() === (text || '').toLowerCase()) {
 					$item = $(this);
 					return false;
 				}
@@ -152,42 +154,41 @@
 			this.doSelect($item);
 		},
 
-		selectByValue: function(value) {
+		selectByValue: function (value) {
 			var selector = 'li[data-value="' + value + '"]';
 			this.selectBySelector(selector);
 		},
 
-		selectByIndex: function(index) {
+		selectByIndex: function (index) {
 			// zero-based index
 			var selector = 'li:eq(' + index + ')';
 			this.selectBySelector(selector);
 		},
 
-		selectBySelector: function(selector) {
+		selectBySelector: function (selector) {
 			var $item = this.$element.find(selector);
 			this.doSelect($item);
 		},
 
-		setDefaultSelection: function() {
+		setDefaultSelection: function () {
 			var $item = this.$element.find('li[data-selected=true]').eq(0);
-			
-			if($item.length === 0) {
+
+			if ($item.length === 0) {
 				$item = this.$element.find('li').has('a').eq(0);
 			}
 
 			this.doSelect($item);
 		},
 
-		enable: function() {
+		enable: function () {
 			this.$element.removeClass('disabled');
 			this.$button.removeClass('disabled');
 		},
 
-		disable: function() {
+		disable: function () {
 			this.$element.addClass('disabled');
 			this.$button.addClass('disabled');
 		}
-
 	};
 
 
@@ -202,11 +203,16 @@
 			var data = $this.data('fu.selectlist');
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('fu.selectlist', (data = new Selectlist(this, options)));
-			if (typeof option === 'string') methodReturn = data[option].apply(data, args);
+			if (!data) {
+				$this.data('fu.selectlist', (data = new Selectlist(this, options)));
+			}
+
+			if (typeof option === 'string') {
+				methodReturn = data[option].apply(data, args);
+			}
 		});
 
-		return ( methodReturn === undefined ) ? $set : methodReturn;
+		return (methodReturn === undefined) ? $set : methodReturn;
 	};
 
 	$.fn.selectlist.defaults = {};
@@ -223,7 +229,7 @@
 
 	$(document).on('mousedown.fu.selectlist.data-api', '[data-initialize=selectlist]', function (e) {
 		var $control = $(e.target).closest('.selectlist');
-		if ( !$control.data('fu.selectlist') ) {
+		if (!$control.data('fu.selectlist')) {
 			$control.selectlist($control.data());
 		}
 	});
@@ -238,6 +244,6 @@
 		});
 	});
 
-// -- BEGIN UMD WRAPPER AFTERWORD --
+	// -- BEGIN UMD WRAPPER AFTERWORD --
 }));
-	// -- END UMD WRAPPER AFTERWORD --
+// -- END UMD WRAPPER AFTERWORD --
