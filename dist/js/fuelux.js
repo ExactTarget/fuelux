@@ -1,5 +1,5 @@
 /*!
- * Fuel UX EDGE - Built 2015/02/10, 3:42:38 PM
+ * Fuel UX EDGE - Built 2015/02/12, 1:54:42 PM
  * Previous release: v3.5.1
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
@@ -2297,7 +2297,7 @@
 	( function( $ ) {
 
 		/*
-		 * Fuel UX Button Dropdown
+		 * Fuel UX Selectlist
 		 * https://github.com/ExactTarget/fuelux
 		 *
 		 * Copyright (c) 2014 ExactTarget
@@ -2409,6 +2409,10 @@
 						width = newWidth;
 					}
 				} );
+
+				if ( width <= 1 ) {
+					return;
+				}
 
 				this.$button.css( 'width', width );
 				this.$dropdownMenu.css( 'width', width );
@@ -5644,7 +5648,7 @@
 					return false;
 				},
 				renderItem: function( helpers ) {
-					renderRow.call( this, helpers.container, helpers.data, helpers.subset, helpers.index );
+					renderRow.call( this, helpers.container, helpers.subset, helpers.index );
 					return false;
 				},
 				after: function() {
@@ -5666,11 +5670,11 @@
 		}
 
 		//ADDITIONAL METHODS
-		function renderColumn( $row, data, rowIndex, columns, index ) {
-			var className = columns[ index ].className;
-			var content = data.items[ rowIndex ][ columns[ index ].property ];
+		function renderColumn( $row, rows, rowIndex, columns, columnIndex ) {
+			var className = columns[ columnIndex ].className;
+			var content = rows[ rowIndex ][ columns[ columnIndex ].property ];
 			var $col = $( '<td></td>' );
-			var width = columns[ index ]._auto_width;
+			var width = columns[ columnIndex ]._auto_width;
 
 			$col.addClass( ( ( className !== undefined ) ? className : '' ) ).append( content );
 			if ( width !== undefined ) {
@@ -5681,9 +5685,9 @@
 			if ( this.viewOptions.list_columnRendered ) {
 				this.viewOptions.list_columnRendered( {
 					container: $row,
-					columnAttr: columns[ index ].property,
+					columnAttr: columns[ columnIndex ].property,
 					item: $col,
-					rowData: data.items[ rowIndex ]
+					rowData: rows[ rowIndex ]
 				}, function() {} );
 			}
 		}
@@ -5763,7 +5767,7 @@
 			$tr.append( $header );
 		}
 
-		function renderRow( $tbody, data, subset, index ) {
+		function renderRow( $tbody, rows, index ) {
 			var $row = $( '<tr></tr>' );
 			var self = this;
 			var i, l;
@@ -5771,7 +5775,7 @@
 			if ( this.viewOptions.list_selectable ) {
 				$row.addClass( 'selectable' );
 				$row.attr( 'tabindex', 0 ); // allow items to be tabbed to / focused on
-				$row.data( 'item_data', subset[ index ] );
+				$row.data( 'item_data', rows[ index ] );
 				$row.on( 'click.fu.repeaterList', function() {
 					var $item = $( this );
 					if ( $item.hasClass( 'selected' ) ) {
@@ -5804,14 +5808,14 @@
 			$tbody.append( $row );
 
 			for ( i = 0, l = this.list_columns.length; i < l; i++ ) {
-				renderColumn.call( this, $row, data, index, this.list_columns, i );
+				renderColumn.call( this, $row, rows, index, this.list_columns, i );
 			}
 
 			if ( this.viewOptions.list_rowRendered ) {
 				this.viewOptions.list_rowRendered( {
 					container: $tbody,
 					item: $row,
-					rowData: data
+					rowData: rows[ index ]
 				}, function() {} );
 			}
 		}

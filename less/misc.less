@@ -47,12 +47,15 @@ input, textarea {
 	left:-9999px;
 }
 
-.button-sizer, .selectlist-sizer {
+.button-sizer, .selectlist-sizer{
 	display: inline-block;
 	position: absolute;
 	visibility: hidden;
 	top: 0;
 	float: left;
+	.selectlist {
+		display: block !important;
+	}
 	.dropdown-menu {
 		display: block;
 		min-width: inherit;

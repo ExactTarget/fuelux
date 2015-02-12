@@ -9,6 +9,8 @@ define(function(require){
 	//var html = require('text!dev.html!strip');
 	html = $('<div>'+html+'</div>');
 
+	$('body').append(html);
+
 	require('bootstrap');
 	require('fuelux/selectlist');
 
@@ -21,6 +23,35 @@ define(function(require){
 	test("should return element", function () {
 		var $selectlist = $(html).find('#MySelectlist').selectlist();
 		ok($selectlist.selectlist() === $selectlist, 'selectlist should be initialized');
+	});
+
+	test("should autosize correctly", function () {
+		var $selectlist8 = $('body').find('#MySelectlist8').selectlist();
+		var $selectlist9 = $('body').find('#MySelectlist9').selectlist();
+		var minWidth;
+
+		//measure all children of selectlist to be tested (add them all to a span and see how wide the span is) and make sure the selectlist is actually big enough to fit that
+		var $textLengthTester = $('<span id="textLengthTester" style="display:inline-block;"></span>').appendTo('body');
+		$selectlist8.find('li').each(function(index, element){
+			$('<p style="padding: 0 12px 0 28px;">' + $(element).text() + '</p>').appendTo($textLengthTester);
+		});
+		minWidth = $textLengthTester.width();
+		ok(($selectlist8.width() >= minWidth), 'selectlist autoresized to ' + $selectlist8.width() + ' should be greater than ' + minWidth);
+
+
+		//hidden selectlists have no size
+		ok($selectlist9.width() === 0, 'selectlist hidden, sized 0');
+
+		//remove hidden to prepare to measure its new size
+		$selectlist9.removeClass('hidden');
+
+		//measure all children of selectlist to be tested (add them all to a span and see how wide the span is) and make sure the selectlist is actually big enough to fit that
+		$textLengthTester = $('<span id="textLengthTester" style="display:inline-block;"></span>').appendTo('body');
+		$selectlist9.find('li').each(function(index, element){
+			$('<p style="padding: 0 12px 0 28px;">' + $(element).text() + '</p>').appendTo($textLengthTester);
+		});
+		minWidth = $textLengthTester.width();
+		ok(($selectlist9.width() >= minWidth), 'selectlist was hidden, now shown, sized ' + $selectlist9.width() + ' should be greater than ' + minWidth);
 	});
 
 	test("should set disabled state", function () {
