@@ -1,5 +1,5 @@
 /*!
- * Fuel UX EDGE - Built 2015/02/10, 3:42:38 PM 
+ * Fuel UX EDGE - Built 2015/02/12, 12:42:22 PM 
  * Previous release: v3.5.1 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
@@ -8,7 +8,6 @@
 @charset "UTF-8";
 .fuelux {
   /* TODO use bs base variables if possible */
-  /*# sourceMappingURL=fuelux.css.map */
 }
 .fuelux .clearfix {
   *zoom: 1;
@@ -609,6 +608,10 @@
   visibility: hidden;
   top: 0;
   float: left;
+}
+.fuelux .button-sizer .selectlist,
+.fuelux .selectlist-sizer .selectlist {
+  display: block !important;
 }
 .fuelux .button-sizer .dropdown-menu,
 .fuelux .selectlist-sizer .dropdown-menu {
@@ -1603,7 +1606,7 @@ END
 }
 .fuelux .selectlist .btn.dropdown-toggle {
   text-align: left;
-  padding-right: 2 * 12px + 4px;
+  padding-right: 28px;
 }
 .fuelux .selectlist .btn.dropdown-toggle .caret {
   margin: auto;
