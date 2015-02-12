@@ -46,7 +46,7 @@ define(function(require){
 		$selectlist9.removeClass('hidden');
 
 		//measure all children of selectlist to be tested (add them all to a span and see how wide the span is) and make sure the selectlist is actually big enough to fit that
-		var $textLengthTester = $('<span id="textLengthTester" style="display:inline-block;"></span>').appendTo('body');
+		$textLengthTester = $('<span id="textLengthTester" style="display:inline-block;"></span>').appendTo('body');
 		$selectlist9.find('li').each(function(index, element){
 			$('<p style="padding: 0 12px 0 28px;">' + $(element).text() + '</p>').appendTo($textLengthTester);
 		});
