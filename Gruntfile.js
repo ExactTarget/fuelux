@@ -209,7 +209,14 @@ module.exports = function(grunt) {
 		qunit: {
 			full: {
 				options: {
-					urls: '<%= allTestUrls %>'
+					urls: '<%= allTestUrls %>',
+					screenshot: true,
+					page: {
+						viewportSize: {
+							width: 1280,
+							height: 1024
+						}
+					}
 				}
 			},
 			simple: ['test/*.html']
