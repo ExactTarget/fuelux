@@ -5,6 +5,8 @@
 define(function(require){
 	var $ = require('jquery');
 	var html = require('text!test/markup/scheduler-markup.html');
+	var templateHtml = html;
+
 	/* FOR DEV TESTING */
 	// html = require('text!index.html!strip');
 	html = $('<div>'+html+'</div>').find('#MyScheduler');
@@ -177,6 +179,11 @@ define(function(require){
 		test = (test.find('[data-value="MO"]').parent().hasClass('active') && test.find('[data-value="TH"]').parent().hasClass('active')) ? true : false;
 		ok(($repIntSelDrop.html()==='Weekly' && $repPanSpinbox.spinbox('value')==='7' && test), 'weekly recurrence set correctly');
 
+		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=WEEKLY;BYDAY=MO,TH;' });
+		test = $scheduler.find('.repeat-days-of-the-week .btn-group');
+		ok(test.find('[data-value="MO"]').is(':checked'), 'weekly recurrence option set correctly with "checked" attribute');
+		ok(test.find('[data-value="TH"]').is(':checked'), 'weekly recurrence option set correctly with "checked" attribute');
+
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=MONTHLY;INTERVAL=9;BYDAY=SA;BYSETPOS=4;' });
 		test = $scheduler.find('.repeat-monthly-day');
 		ok(($repIntSelDrop.html()==='Monthly' && $repPanSpinbox.spinbox('value')==='9' && test.find('div.radio input').hasClass('checked') &&
@@ -210,6 +217,24 @@ define(function(require){
 			var tmpDatepickerVal = $scheduler.find('.start-date input').val();
 			equal( tmpDatepickerVal, '03/31/2050', 'startDate set correctly');
 		// }
+	});
+
+	test('should set/get recurrence pattern properly', function() {
+		var schedule = {
+			startDateTime: '2014-03-31T03:23+02:00',
+			timeZone: {
+				offset: '+02:00'
+			},
+			recurrencePattern: 'FREQ=WEEKLY;BYDAY=WE;INTERVAL=1;'
+		};
+
+		// note: currently, the scheduler doesn't reset it's markup/state
+		// when setValue is called.  so ensure we're starting with initial template markup
+		// that hasn't been altered by another unit test
+		var $scheduler = $('<div>'+templateHtml+'</div>').find('#MyScheduler').scheduler();
+		$scheduler.scheduler('value', schedule);
+
+		equal($scheduler.scheduler('value').recurrencePattern, schedule.recurrencePattern, 'schedule set correctly');
 	});
 
 	// TODO: need more end date test or dry out code where start and end use same methods

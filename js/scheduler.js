@@ -515,7 +515,7 @@
 						item.find('label').removeClass('active');
 						temp = recur.BYDAY.split(',');
 						for (i = 0, l = temp.length; i < l; i++) {
-							item.find('input[data-value="' + temp[i] + '"]').parent().addClass('active');
+							item.find('input[data-value="' + temp[i] + '"]').prop('checked',true).parent().addClass('active');
 						}
 					}
 
@@ -525,12 +525,12 @@
 					this.$element.find('.repeat-monthly label.radio-custom').removeClass('checked');
 					if (recur.BYMONTHDAY) {
 						temp = this.$element.find('.repeat-monthly-date');
-						temp.find('input').addClass('checked').attr('checked', 'checked');
+						temp.find('input').addClass('checked').prop('checked', true);
 						temp.find('label.radio-custom').addClass('checked');
 						temp.find('.selectlist').selectlist('selectByValue', recur.BYMONTHDAY);
 					} else if (recur.BYDAY) {
 						temp = this.$element.find('.repeat-monthly-day');
-						temp.find('input').addClass('checked').attr('checked', 'checked');
+						temp.find('input').addClass('checked').prop('checked', true);
 						temp.find('label.radio-custom').addClass('checked');
 						if (recur.BYSETPOS) {
 							temp.find('.month-day-pos').selectlist('selectByValue', recur.BYSETPOS);
@@ -545,7 +545,7 @@
 					this.$element.find('.repeat-yearly label.radio-custom').removeClass('checked');
 					if (recur.BYMONTHDAY) {
 						temp = this.$element.find('.repeat-yearly-date');
-						temp.find('input').addClass('checked').attr('checked', 'checked');
+						temp.find('input').addClass('checked').prop('checked', true);
 						temp.find('label.radio-custom').addClass('checked');
 						if (recur.BYMONTH) {
 							temp.find('.year-month').selectlist('selectByValue', recur.BYMONTH);
@@ -554,7 +554,7 @@
 						temp.find('.year-month-day').selectlist('selectByValue', recur.BYMONTHDAY);
 					} else if (recur.BYSETPOS) {
 						temp = this.$element.find('.repeat-yearly-day');
-						temp.find('input').addClass('checked').attr('checked', 'checked');
+						temp.find('input').addClass('checked').prop('checked', true);
 						temp.find('label.radio-custom').addClass('checked');
 						temp.find('.year-month-day-pos').selectlist('selectByValue', recur.BYSETPOS);
 						if (recur.BYDAY) {
