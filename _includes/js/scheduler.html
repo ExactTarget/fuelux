@@ -77,16 +77,14 @@
 
     <dt id="scheduler-usage-methods-value">.scheduler('value')</dt>
     <dd>Gets or sets the current scheduler form field information
-  {% highlight js %}$('myScheduler').scheduler('value');{% endhighlight %}
-  {% highlight js %}
-  $('myScheduler').scheduler('value', {
-    startDateTime: '2014-03-31T03:23+02:00',
-    timeZone: {
-      offset: '+02:00'
-    },
-    recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
-  });
-  {% endhighlight %}
+  {% highlight js %}$('#myScheduler').scheduler('value');{% endhighlight %}
+  {% highlight js %}$('#myScheduler').scheduler('value', {
+  startDateTime: '2014-03-31T03:23+02:00',
+  timeZone: {
+    offset: '+02:00'
+  },
+  recurrencePattern: 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;'
+});{% endhighlight %}
 
       <div class="table-responsive">
         <table class="table table-bordered table-striped">
@@ -133,11 +131,9 @@
     </table>
   </div><!-- ./fu-table-responsive -->
   <p>All scheduler events are fired on the <code>.scheduler</code> classed element.</p>
-  {% highlight js %}
-  $('#myScheduler').on('changed.fu.scheduler', function () {
-    // do something
-  });
-  {% endhighlight %}
+  {% highlight js %}$('#myScheduler').on('changed.fu.scheduler', function () {
+  // do something
+});{% endhighlight %}
 
   <h3 id="scheduler-usage-dependencies">Fuel UX Dependencies</h3>
   <ul>
