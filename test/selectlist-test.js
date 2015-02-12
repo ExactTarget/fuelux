@@ -9,6 +9,8 @@ define(function(require){
 	//var html = require('text!dev.html!strip');
 	html = $('<div>'+html+'</div>');
 
+	$('body').append(html);
+
 	require('bootstrap');
 	require('fuelux/selectlist');
 
@@ -21,6 +23,21 @@ define(function(require){
 	test("should return element", function () {
 		var $selectlist = $(html).find('#MySelectlist').selectlist();
 		ok($selectlist.selectlist() === $selectlist, 'selectlist should be initialized');
+	});
+
+	test("should autosize correctly", function () {
+		var $selectlist8 = $('body').find('#MySelectlist8').selectlist();
+		var $selectlist9 = $('body').find('#MySelectlist9').selectlist();
+
+		// stop();
+		// setTimeout(function() {
+			ok(($selectlist8.width() >= 147 && $selectlist8.width() <= 152), 'selectlist autoresized');
+			ok($selectlist9.width() === 0, 'selectlist hidden, sized 0');
+
+			$selectlist9.removeClass('hidden');
+			ok(($selectlist9.width() >= 147 && $selectlist9.width() <= 152), 'selectlist was hidden, now shown, sized 149');
+		// 	start();
+		// }, 1000);
 	});
 
 	test("should set disabled state", function () {
