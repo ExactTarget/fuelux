@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.5.2 
+ * Fuel UX v3.6.2 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
