@@ -78,7 +78,7 @@
     "test": "grunt travisci --verbose"
   },
   "title": "Fuel UX",
-  "version": "3.5.1",
+  "version": "3.5.2",
   "volo": {
     "baseDir": "lib",
     "dependencies": {
