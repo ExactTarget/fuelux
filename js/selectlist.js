@@ -126,6 +126,10 @@
 				}
 			});
 
+			if (width <= 1) {
+				return;
+			}
+
 			this.$button.css('width', width);
 			this.$dropdownMenu.css('width', width);
 
