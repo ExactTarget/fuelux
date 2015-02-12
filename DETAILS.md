@@ -30,7 +30,7 @@ Fuel UX can be applied to a section of your your HTML or the entire page by addi
 ## Downloading code
 Fuel UX can be obtained in any of the following ways:
 
-* Request files from [the Fuel UX CDN](http://www.fuelcdn.com/fuelux/3.5.2/)
+* Request files from [the Fuel UX CDN](http://www.fuelcdn.com/fuelux/3.6.0/)
 * Using [Bower](https://github.com/bower/bower) (ensures you get all the [dependencies](#dependencies)):
 
    ```
@@ -53,7 +53,7 @@ Fuel UX can be obtained in any of the following ways:
 
    Cloning the repository ensures you can apply future updates to Fuel UX easily, but requires to you manage its [dependencies](#dependencies) on your own.
 
-* Download a .zip archive of the [latest release](http://www.fuelcdn.com/fuelux/3.5.2/fuelux.zip).
+* Download a .zip archive of the [latest release](http://www.fuelcdn.com/fuelux/3.6.0/fuelux.zip).
 
 ## AMD support
 
@@ -63,7 +63,7 @@ If using AMD (such as [RequireJS](http://requirejs.org)), reference the FuelUX d
 ```javascript
 require.config({
     paths: {
-        'fuelux': 'http://www.fuelcdn.com/fuelux/3.5.2/'
+        'fuelux': 'http://www.fuelcdn.com/fuelux/3.6.0/'
         //...
     }
 });
@@ -169,7 +169,7 @@ travis restart 9999
 
 ## Edge servers
 
-A build of master is available at `https://fuelux-dev.herokuapp.com/dist/js/fuelux.js` and `https://fuelux-dev.herokuapp.com/dist/css/fuelux.css`. 
+A build of master is available at `https://fuelux-dev.herokuapp.com/dist/js/fuelux.js` and `https://fuelux-dev.herokuapp.com/dist/css/fuelux.css`.
 
 _These files should never be used in production and may not have been fully tested._
 
