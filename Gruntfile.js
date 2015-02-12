@@ -202,7 +202,7 @@ module.exports = function(grunt) {
 					unused: false
 				},
 				files: {
-					src: ['test/**/*.js']
+					src: ['test/**/*.js', '!test/run-qunit.js']
 				}
 			}
 		},

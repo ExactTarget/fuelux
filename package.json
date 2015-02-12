@@ -75,7 +75,7 @@
   "scripts": {
     "main": "devserver.js",
     "postinstall": "./node_modules/bower/bin/bower install && tar -zcf dev/node_modules.tar.gz node_modules/;",
-    "test": "grunt travisci --verbose"
+    "test": "phantomjs test/run-qunit.js test/fuelux.html?jquery=2.1.0 && phantomjs test/run-qunit.js test/fuelux.html?jquery=1.11.0 && phantomjs test/run-qunit.js test/fuelux.html?jquery=1.9.1 && phantomjs test/run-qunit.js test/fuelux-browser-globals.html"
   },
   "title": "Fuel UX",
   "version": "3.5.1",
