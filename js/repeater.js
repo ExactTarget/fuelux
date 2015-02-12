@@ -332,6 +332,7 @@
 		},
 
 		initViewTypes: function (callback) {
+			var self = this;
 			var viewTypes = [];
 			var i, viewTypesLength;
 
@@ -346,7 +347,7 @@
 				}
 
 				if (viewTypes[index].initialize) {
-					viewTypes[index].initialize.call(this, {}, function () {
+					viewTypes[index].initialize.call(self, {}, function () {
 						next();
 					});
 				} else {
