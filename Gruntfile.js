@@ -6,8 +6,8 @@ module.exports = function(grunt) {
 	// use --no-livereload to disable livereload. Helpful to 'serve' multiple projects
 	var isLivereloadEnabled = (typeof grunt.option('livereload') !== 'undefined') ? grunt.option('livereload') : true;
 
-	// release minor or patch version. Do major releases manually
-	var versionReleaseType = (typeof grunt.option('minor') !== 'undefined') ? 'minor':'patch';
+	var semver = require('semver');
+	var currentVersion = require('./package.json').version;
 
 	// Project configuration.
 	grunt.initConfig({
@@ -47,14 +47,15 @@ module.exports = function(grunt) {
 			if (ver === 'browserGlobals') {
 				return 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux-browser-globals.html';
 			}
-			return 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + ver;
+			return 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + ver + '&testdist=true';
 		}),
-		testUrl: ['http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + '1.9.1'],
+		testUrl: ['http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + '1.9.1&testdist=true'],
 
 		//Tasks configuration
 		clean: {
 			dist: ['dist'],
-			zipsrc: ['dist/fuelux'] // temp folder
+			zipsrc: ['dist/fuelux'], // temp folder
+			screenshots: ['page-at-timeout-*.jpg']
 		},
 		compress: {
 			zip: {
@@ -207,6 +208,7 @@ module.exports = function(grunt) {
 			}
 		},
 		qunit: {
+			//run with `grunt releasetest` or `grunt travisci`. Requires connect server to be running.
 			full: {
 				options: {
 					urls: '<%= allTestUrls %>',
@@ -219,7 +221,13 @@ module.exports = function(grunt) {
 					}
 				}
 			},
-			simple: ['test/*.html']
+			//can be run with `grunt qunit:simple`
+			simple: ['test/*.html'],
+			dist: {
+				options: {
+					urls: ['http://localhost:<%= connect.server.options.port %>/test/fuelux.html?testdist=true']
+				}
+			}
 		},
 		less: {
 			dist: {
@@ -245,6 +253,75 @@ module.exports = function(grunt) {
 				}
 			},
 
+		},
+		prompt: {
+			bump: {
+				options: {
+					questions: [
+						{
+							config:  'bump.increment',
+							type:    'list',
+							message: 'Bump version from ' + '<%= pkg.version %>' + ' to:',
+							choices: [
+								// {
+								// 	value: 'build',
+								// 	name:  'Build:  '+ (currentVersion + '-?') + ' Unstable, betas, and release candidates.'
+								// },
+								{
+									value: 'patch',
+									name:  'Patch:  ' + semver.inc(currentVersion, 'patch') + ' Backwards-compatible bug fixes.'
+								},
+								{
+									value: 'minor',
+									name:  'Minor:  ' + semver.inc(currentVersion, 'minor') + ' Add functionality in a backwards-compatible manner.'
+								},
+								{
+									value: 'major',
+									name:  'Major:  ' + semver.inc(currentVersion, 'major') + ' Incompatible API changes.'
+								},
+								{
+									value: 'custom',
+									name:  'Custom: ?.?.? Specify version...'
+								}
+							]
+						},
+						{
+							config:   'bump.version',
+							type:     'input',
+							message:  'What specific version would you like',
+							when:     function (answers) {
+								return answers['bump.increment'] === 'custom';
+							},
+							validate: function (value) {
+								var valid = semver.valid(value);
+								return valid || 'Must be a valid semver, such as 1.2.3-rc1. See http://semver.org/ for more details.';
+							}
+						}//,
+						// {
+						// 	config:  'bump.files',
+						// 	type:    'checkbox',
+						// 	message: 'What should get the new version:',
+						// 	choices: [
+						// 		{
+						// 			value:   'package',
+						// 			name:    'package.json' + (!grunt.file.isFile('package.json') ? ' not found, will create one' : ''),
+						// 			checked: grunt.file.isFile('package.json')
+						// 		},
+						// 		{
+						// 			value:   'bower',
+						// 			name:    'bower.json' + (!grunt.file.isFile('bower.json') ? ' not found, will create one' : ''),
+						// 			checked: grunt.file.isFile('bower.json')
+						// 		},
+								// {
+								// 	value:   'git',
+								// 	name:    'git tag',
+								// 	checked: grunt.file.isDir('.git')
+								// }
+						// 	]
+						// }
+					]
+				}
+			}
 		},
 		replace: {
 			readme: {
@@ -347,7 +424,7 @@ module.exports = function(grunt) {
 				options: {
 					livereload: isLivereloadEnabled
 				},
-				tasks: ['test', 'dist']
+				tasks: ['jshint', 'dist', 'qunit:dist', 'validation']
 			},
 			css: {
 				files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
@@ -361,7 +438,7 @@ module.exports = function(grunt) {
 				options: {
 					livereload: isLivereloadEnabled
 				},
-				tasks: ['test']
+				tasks: ['jshint', 'dist', 'qunit:dist', 'validation']
 			}
 		}
 	});
@@ -377,7 +454,7 @@ module.exports = function(grunt) {
 		BUILD
 	------------- */
 	// JS distribution task
-	grunt.registerTask('distjs', 'concat, uglify, and beautifying JS', ['concat', 'uglify', 'jsbeautifier']);
+	grunt.registerTask('distjs', 'concat, uglify', ['concat', 'uglify', 'jsbeautifier']);
 
 	// CSS distribution task
 	grunt.registerTask('distcss', 'Compile LESS into CSS', ['less', 'usebanner', 'delete-temp-less-file']);
@@ -404,13 +481,19 @@ module.exports = function(grunt) {
 		TESTS
 	------------- */
 	// The default build task
-	grunt.registerTask('default', 'Run simple tests. Does not build "dist."', ['test']);
+	grunt.registerTask('default', 'Run simple tests.', ['test']);
 
-	// minimal tests for developmeent
-	grunt.registerTask('test', 'run jshint, qunit:simple, and validate HTML', ['jshint', 'qunit:simple', 'validation']);
+	// to be run prior to submitting a PR
+	grunt.registerTask('test', 'run jshint, dist, qunit:full, and validate HTML', ['connect:testServer', 'jshint', 'dist', 'qunit:full', 'validation']);
+
+	// to be run prior to submitting a PR
+	grunt.registerTask('testdist', 'run jshint, dist, qunit:full, and validate HTML', ['connect:testServer', 'jshint', 'dist', 'qunit:dist', 'validation']);
+
+	//If qunit:simple is working but test is breaking, check to see if the dist broke the code. This would be especially useful if we start mangling our code, but, is 99.99% unlikely right now
+	grunt.registerTask('validate-dist', 'run qunit:simple, dist, and then qunit:full', ['connect:testServer', 'qunit:simple', 'dist', 'qunit:full']);
 
 	// multiple jquery versions, then run SauceLabs VMs
-	grunt.registerTask('releasetest', 'run jshint, qunit:full, and saucelabs', ['connect:testServer', 'jshint', 'qunit:full', 'saucelabs']);
+	grunt.registerTask('releasetest', 'run jshint, qunit:full, and saucelabs', ['connect:testServer', 'jshint', 'dist', 'qunit:full', 'validation', 'saucelabs']);
 
 	// can be run locally instead of through TravisCI, but requires the Fuel UX Saucelabs API key file which is not public at this time.
 	grunt.registerTask('saucelabs', 'run jshint, and qunit on saucelabs', ['connect:testServer', 'jshint', 'saucelabs-qunit:defaultBrowsers']);
@@ -427,10 +510,20 @@ module.exports = function(grunt) {
 	------------- */
 	// Maintainers: Run prior to a release. Includes SauceLabs VM tests.
 	// --minor will create a semver minor release, otherwise a patch release will be created
-	grunt.registerTask('release', 'Release a new version, push it and publish it', function() {
+	grunt.registerTask('release', 'Release a new version, push it and publish it', ['prompt:bump', 'dorelease']);
+	grunt.registerTask('dorelease', '', function() {
+		if(typeof grunt.config('bump.increment') === 'undefined'){
+			grunt.fail.fatal('you must choose a version to bump to');
+		}
+		grunt.log.writeln('');
+		grunt.log.oklns('releasing: ', grunt.config('bump.increment'));
+
 		if (! grunt.option('no-tests') ) { grunt.task.run(['releasetest']); }
+
 		grunt.config('banner', '<%= bannerRelease %>');
-		grunt.task.run(['bump-only:' + versionReleaseType, 'dist', 'replace:readme']);
+		grunt.task.run(['bump-only:' + grunt.config('bump.increment'), 'replace:readme']);
+		//delete any screenshots that may have happened if it got this far
+		grunt.task.run('clean:screenshots');
 	});
 
 
@@ -448,8 +541,6 @@ module.exports = function(grunt) {
 		SERVE
 	------------- */
 	// use '--no-livereload' to disable livereload
-	grunt.registerTask('serve', 'serve files without "dist" build', ['test', 'connect:server', 'watch:contrib']);
-	grunt.registerTask('servedist', 'test, build "dist", serve files w/ watch', ['test', 'dist', 'connect:server', 'watch:full']);
-
+	grunt.registerTask('serve', 'dist, test, and serve files', ['connect:server', 'qunit:dist', 'watch:contrib']);
 
 };

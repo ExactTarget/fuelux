@@ -43,7 +43,7 @@
 					jQueryPath = 'bower_components/jquery-' + jqver + '/jquery';
 				}
 
-				require.config({
+				var requireConfig = {
 					baseUrl: '../',
 					paths: {
 						jquery: jQueryPath,
@@ -58,7 +58,40 @@
 							exports: 'bootstrap'
 						}
 					}
-				});
+				};
+
+				//default to non-dist for dev
+				var testdistParam = location.search.match(/[?&]testdist=(true|false?)(?=&|$)/);
+				var testdist = (testdistParam && testdistParam[1] === 'true') ? true : false;
+				if(testdist){
+					var fueluxLocation;
+
+					//map all calls for individual fuelux modules to merged fuelux library
+					requireConfig.map = {
+						'*': {
+							'fuelux/checkbox': 'dist/js/fuelux',
+							'fuelux/combobox': 'dist/js/fuelux',
+							'fuelux/datepicker': 'dist/js/fuelux',
+							'fuelux/dropdown-autoflip': 'dist/js/fuelux',
+							'fuelux/infinite-scroll': 'dist/js/fuelux',
+							'fuelux/loader': 'dist/js/fuelux',
+							'fuelux/pillbox': 'dist/js/fuelux',
+							'fuelux/placard': 'dist/js/fuelux',
+							'fuelux/radio': 'dist/js/fuelux',
+							'fuelux/repeater-list': 'dist/js/fuelux',
+							'fuelux/repeater-thumbnail': 'dist/js/fuelux',
+							'fuelux/repeater': 'dist/js/fuelux',
+							'fuelux/scheduler': 'dist/js/fuelux',
+							'fuelux/search': 'dist/js/fuelux',
+							'fuelux/selectlist': 'dist/js/fuelux',
+							'fuelux/spinbox': 'dist/js/fuelux',
+							'fuelux/tree': 'dist/js/fuelux',
+							'fuelux/wizard': 'dist/js/fuelux'
+						}
+					}
+				}
+
+				require.config(requireConfig);
 
 				require(['jquery', 'test/fuelux-test'], function() {});
 			})();
