@@ -325,7 +325,7 @@
 		},
 
 		// collapses open folders
-		collapse: function () {
+		collapse: function collapse() {
 			var cacheItems = this.options.cacheItems;
 
 			// find open folders
@@ -344,6 +344,45 @@
 					$folder.empty();
 				}
 			});
+		},
+
+		closeAll: this.collapse,
+
+		discloseVisible: function discloseVisible() {
+			var self = this;
+
+			// open all visible folders
+			this.$element.find(".tree-branch:not('.tree-open')").each(function () {
+				self.openFolder($(this).find('.tree-branch-name'));
+			});
+
+		},
+
+		discloseAll: function discloseAll() {
+			var self = this;
+
+			//keep infinite loops from happening
+			if(typeof self.failsafeCounter !== 'undefined'){
+				self.failsafeCounter--;
+				if(self.failsafeCounter <= 0){
+					self.failsafeCounter = 20;
+					return;
+				}
+			}else{
+				//define this here instead of in obj properties to reduce code complexity and keep this encapsulated.
+				self.failsafeCounter = 20;
+			}
+
+
+			self.discloseVisible();
+
+			//make sure new closed branches did not get added to the tree
+			if($(".tree-branch:not('.tree-open')").length !== 0){
+				window.setTimeout(function(){self.discloseAll();}, 0);
+			}else{
+				//make sure it's ready for the next time...
+				self.failsafeCounter = 20;
+			}
 		}
 	};
 
