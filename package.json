@@ -31,17 +31,13 @@
     "grunt-contrib-qunit": "0.5.x",
     "grunt-contrib-uglify": "0.x",
     "grunt-contrib-watch": "0.x",
-    "grunt-curl": "2.x",
-    "grunt-grunticon": "1.x",
     "grunt-html-validation": "0.x",
     "grunt-jsbeautifier": "0.x",
     "grunt-saucelabs": "8.x",
-    "grunt-svgmin": "2.x",
     "grunt-text-replace": "0.x",
     "grunt-zip": "0.x",
     "load-grunt-tasks": "2.x",
-    "serve-static": "1.x",
-    "volo": "0.x"
+    "serve-static": "1.x"
   },
   "engines": {
     "node": "0.10.x"
