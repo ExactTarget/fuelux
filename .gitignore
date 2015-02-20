@@ -26,3 +26,6 @@ less/fuelux-no-namespace.less
 
 # sandbox
 dev/dev.html
+
+# screenshots
+page-at-timeout-*
