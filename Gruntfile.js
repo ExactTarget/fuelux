@@ -515,12 +515,15 @@ module.exports = function(grunt) {
 		grunt.log.writeln('');
 		grunt.log.oklns('releasing: ', grunt.config('bump.increment'));
 
-		if (! grunt.option('no-tests') ) { grunt.task.run(['releasetest']); }
+		if (! grunt.option('no-tests') ) {
+			grunt.task.run(['releasetest']);
+			//delete any screenshots that may have happened if it got this far. This isn't foolproof because it relies on the phantomjs server/page timeout, which can take longer than this grunt task depending on how long saucelabs takes to run...
+			grunt.task.run('clean:screenshots');
+		}
 
 		grunt.config('banner', '<%= bannerRelease %>');
-		grunt.task.run(['bump-only:' + grunt.config('bump.increment'), 'replace:readme']);
-		//delete any screenshots that may have happened if it got this far
-		grunt.task.run('clean:screenshots');
+		//make sure we run dist again to grab the latest version numbers. Yeah, we're running it twice... ¯\_(ツ)_/¯
+		grunt.task.run(['bump-only:' + grunt.config('bump.increment'), 'replace:readme', 'dist']);
 	});
 
 
