@@ -28,7 +28,7 @@
 
 	// TREE CONSTRUCTOR AND PROTOTYPE
 
-	var Tree = function (element, options) {
+	var Tree = function Tree(element, options) {
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.tree.defaults, options);
 
@@ -58,7 +58,7 @@
 	Tree.prototype = {
 		constructor: Tree,
 
-		destroy: function () {
+		destroy: function destroy() {
 			// any external bindings [none]
 			// empty elements to return to original markup
 			this.$element.find("li:not([data-template])").remove();
@@ -68,11 +68,11 @@
 			return this.$element[0].outerHTML;
 		},
 
-		render: function () {
+		render: function render() {
 			this.populate(this.$element);
 		},
 
-		populate: function ($el) {
+		populate: function populate($el) {
 			var self = this;
 			var $parent = ($el.hasClass('tree')) ? $el : $el.parent();
 			var loader = $parent.find('.tree-loader:eq(0)');
@@ -157,7 +157,7 @@
 			});
 		},
 
-		selectItem: function (el) {
+		selectItem: function selectItem(el) {
 			if (!this.options.itemSelect) return;
 			var $el = $(el);
 			var selData = $el.data();
@@ -353,7 +353,8 @@
 			});
 		},
 
-		expandVisible: function expandVisible() {
+		//disclose visible will only disclose visible tree folders
+		discloseVisible: function discloseVisible() {
 			var self = this;
 
 			// open all visible folders
@@ -362,18 +363,37 @@
 			});
 		},
 
-		expandAll: function expandAll() {
+		//disclose all will keep listening for loaded.fu.tree and if $(tree-el).data('keep-disclosing') is true (defaults to true) it will attempt to disclose any new folders than were disclosed during the last disclosure
+		//if you want to call this function more than once after killing it by setting keep-disclosing to false, you will have to set keep-disclosing to true before calling again.
+		discloseAll: function discloseAll() {
 			var self = this;
 
-			self.$element.one('loaded.fu.tree', function () {
-				console.log('loaded');
-				//make sure new closed branches did not get added to the tree
-				if ($(".tree-branch:not('.tree-open, .hide')").length !== 0) {
-					self.expandAll();
-				}
-			});
+			//first time
+			if (typeof self.$element.data('disclosures') === 'undefined') {
+				self.$element.data('disclosures', 0);
+				self.$element.data('keep-disclosing', true);
+			}
 
-			self.expandVisible();
+			//stop the recursion if they throw the kill switch, or if there isn't anything left to do
+			if (self.$element.data('keep-disclosing') && self.$element.find(".tree-branch:not('.tree-open, .hide')").length !== 0) {
+				self.discloseVisible();
+
+				self.$element.data('disclosures', self.$element.data('disclosures') + 1);
+
+				//new closed branched can be loaded in, make sure those get handled too.
+				self.$element.one('loaded.fu.tree', function () {
+					self.discloseAll();
+				});
+
+				//give the dev a hook to hook into to listen for exceeding disclusure limit. We can't do `disclosures >= upperLimit` because then if they call it again it will exit immediately unless they "reset the machine". If instead we check to see if `disclosures` is a multiple of `upperLimit`, it will run exactly `upperLimit` times while preserving (as an accurate data point for the dev) the number of `disclosures`
+				if (!(self.$element.data('disclosures') % self.options.disclosuresUpperLimit)) {
+					self.$element.trigger('exceededDisclosuresLimit.fu.tree');
+				}
+
+			} else {
+				//we're all done, reset keep disclosing in case they want to call again. Don't reset `disclosures` here because that would be lying.
+				self.$element.data('keep-disclosing', true);
+			}
 		}
 	};
 
@@ -402,12 +422,13 @@
 	};
 
 	$.fn.tree.defaults = {
-		dataSource: function (options, callback) {},
+		dataSource: function dataSource(options, callback) {},
 		multiSelect: false,
 		cacheItems: true,
 		folderSelect: true,
 		itemSelect: true,
-		ignoreRedundantOpens: false
+		ignoreRedundantOpens: false,
+		disclosuresUpperLimit: 6//this is not necessarily indicative of how many layers deep the tree goes, only how many times `discloseAll` should be called at most. Depending on the delay for loading layers, this will disclose anywhere from 1 to disclosuresUpperLimit layers. During testing, setting to 6 resulted in 4 layers disclosing.
 	};
 
 	$.fn.tree.Constructor = Tree;
