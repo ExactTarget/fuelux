@@ -333,23 +333,10 @@
 
 		// collapses open folders
 		collapse: function collapse() {
-			var cacheItems = this.options.cacheItems;
+			var self = this;
 
-			// find open folders
-			this.$element.find('.icon-folder-open').each(function () {
-				// update icon class
-				var $this = $(this)
-					.removeClass('icon-folder-close icon-folder-open')
-					.addClass('icon-folder-close');
-
-				// "close" or empty folder contents
-				var $parent = $this.parent().parent();
-				var $folder = $parent.children('.tree-branch-children');
-
-				$folder.addClass('hide');
-				if (!cacheItems) {
-					$folder.empty();
-				}
+			self.$element.find(".tree-branch:not('.hide')").each(function () {
+				self.closeFolder(this)
 			});
 		},
 
@@ -397,6 +384,8 @@
 		}
 	};
 
+	//alias for collapse for consistency. It is an ambiguous term (collapse what? All? One specific branch?)
+	Tree.prototype.closeAll = Tree.prototype.collapse,
 
 	// TREE PLUGIN DEFINITION
 

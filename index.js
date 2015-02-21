@@ -911,6 +911,10 @@ define(function (require) {
 		$('#myTree1').tree('discloseAll');
 	});
 
+	$('#btnTreeCloseAll').click(function () {
+		$('#myTree1').tree('closeAll');
+	});
+
 	// events
 	$('#myTree1').on('loaded.fu.tree', function (e) {
 		log('#myTree1 Loaded');
