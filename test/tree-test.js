@@ -1,7 +1,7 @@
 /*global QUnit:false, module:false, test:false, asyncTest:false, expect:false*/
 /*global start:false, stop:false ok:false, equal:false, notEqual:false, deepEqual:false*/
 /*global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false*/
-define(function(require){
+define(function (require) {
 	var $ = require('jquery');
 	var html = require('text!test/markup/tree-markup.html');
 
@@ -9,18 +9,69 @@ define(function(require){
 	require('fuelux/tree');
 
 	module("Fuel UX Tree", {
-		setup: function(){
+		setup: function () {
 			this.dataSource = function (options, callback) {
 				callback({
 					data: [
-						{ name: 'Ascending and Descending', type: 'folder', attr: { id: 'folder1' } },
-						{ name: 'Sky and Water I (with custom icon)', type: 'item', attr: { id: 'item1', 'data-icon': 'glyphicon glyphicon-file' } },
-						{ name: 'Drawing Hands', type: 'folder', attr: { id: 'folder2', 'data-children': false } },
-						{ name: 'Waterfall', type: 'item', attr: { id: 'item2' } },
-						{ name: 'Belvedere', type: 'folder', attr: { id: 'folder3' } },
-						{ name: 'Relativity (with custom icon)', type: 'item', attr: { id: 'item3', 'data-icon': 'glyphicon glyphicon-picture' } },
-						{ name: 'House of Stairs', type: 'folder', attr: { id: 'folder4' } },
-						{ name: 'Convex and Concave', type: 'item', attr: { id: 'item4' } }
+						{
+							name: 'Ascending and Descending',
+							type: 'folder',
+							attr: {
+								id: 'folder1'
+							}
+						},
+						{
+							name: 'Sky and Water I (with custom icon)',
+							type: 'item',
+							attr: {
+								id: 'item1',
+								'data-icon': 'glyphicon glyphicon-file'
+							}
+						},
+						{
+							name: 'Drawing Hands',
+							type: 'folder',
+							attr: {
+								id: 'folder2',
+								'data-children': false
+							}
+						},
+						{
+							name: 'Waterfall',
+							type: 'item',
+							attr: {
+								id: 'item2'
+							}
+						},
+						{
+							name: 'Belvedere',
+							type: 'folder',
+							attr: {
+								id: 'folder3'
+							}
+						},
+						{
+							name: 'Relativity (with custom icon)',
+							type: 'item',
+							attr: {
+								id: 'item3',
+								'data-icon': 'glyphicon glyphicon-picture'
+							}
+						},
+						{
+							name: 'House of Stairs',
+							type: 'folder',
+							attr: {
+								id: 'folder4'
+							}
+						},
+						{
+							name: 'Convex and Concave',
+							type: 'item',
+							attr: {
+								id: 'item4'
+							}
+						}
 					]
 				});
 			};
@@ -28,11 +79,16 @@ define(function(require){
 			this.textDataSource = function (options, callback) {
 				callback({
 					data: [
-						{ text: 'node text', type: 'folder', attr: { id: 'folder1' } }
+						{
+							text: 'node text',
+							type: 'folder',
+							attr: {
+								id: 'folder1'
+							}
+						}
 					]
 				});
 			};
-
 		}
 	});
 
@@ -46,13 +102,15 @@ define(function(require){
 	});
 
 	test("should call dataSource correctly", function () {
-		var $tree= $(html);
+		var $tree = $(html);
 		$tree.tree({
-			dataSource: function(options, callback){
-				ok(1===1, 'dataSource function called prior to rendering');
+			dataSource: function (options, callback) {
+				ok(1 === 1, 'dataSource function called prior to rendering');
 				equal(typeof options, 'object', 'dataSource provided options object');
-				equal(typeof callback,'function', 'dataSource provided callback function');
-				callback({data: []});
+				equal(typeof callback, 'function', 'dataSource provided callback function');
+				callback({
+					data: []
+				});
 			}
 		});
 	});
@@ -60,17 +118,21 @@ define(function(require){
 	test("Tree should be populated by items on initialization", function () {
 		var $tree = $(html).find('#MyTree');
 
-		$tree.tree({ dataSource: this.dataSource });
+		$tree.tree({
+			dataSource: this.dataSource
+		});
 
 		equal($tree.find('.tree-branch').length, 5, 'Initial set of folders have been added');
 		equal($tree.find('.tree-item').length, 5, 'Initial set of items have been added');
 	});
 
-	test("Folder should populate when opened", function(){
+	test("Folder should populate when opened", function () {
 		var $tree = $(html).find('#MyTree');
 		var $selNode;
 
-		$tree.tree({ dataSource: this.dataSource });
+		$tree.tree({
+			dataSource: this.dataSource
+		});
 
 		$selNode = $tree.find('.tree-branch:eq(1)');
 		$tree.tree('openFolder', $selNode.find('.tree-branch-name'));
@@ -91,7 +153,9 @@ define(function(require){
 	test("Single item/folder selection works as designed", function () {
 		var $tree = $(html).find('#MyTree');
 
-		$tree.tree({ dataSource: this.dataSource });
+		$tree.tree({
+			dataSource: this.dataSource
+		});
 
 		$tree.tree('selectItem', $tree.find('.tree-item:eq(1)'));
 		equal($tree.tree('selectedItems').length, 1, 'Return single selected value');
@@ -142,7 +206,7 @@ define(function(require){
 		equal($tree.tree('selectedItems').length, 1, 'Return single selected value');
 	});
 
-  test("should not allow selecting items if disabled", function() {
+	test("should not allow selecting items if disabled", function () {
 		var $tree = $(html).find('#MyTree');
 
 		$tree.tree({
@@ -152,9 +216,9 @@ define(function(require){
 
 		$tree.tree('selectItem', $tree.find('.tree-item:eq(1)'));
 		equal($tree.tree('selectedItems').length, 0, 'Return no value');
-  });
+	});
 
-  test("should not allow selecting folders if disabled", function() {
+	test("should not allow selecting folders if disabled", function () {
 		var $tree = $(html).find('#MyTree');
 
 		$tree.tree({
@@ -164,7 +228,7 @@ define(function(require){
 
 		$tree.tree('selectFolder', $tree.find('.tree-branch-name:eq(1)'));
 		equal($tree.tree('selectedItems').length, 0, 'Return no value');
-  });
+	});
 
 	test("should destroy control", function () {
 		var $tree = $(html).find('#MyTree');
@@ -173,14 +237,16 @@ define(function(require){
 			dataSource: this.dataSource
 		});
 
-		equal(typeof( $tree.tree('destroy')) , 'string', 'returns string (markup)');
-		equal( $tree.parent().length, false, 'control has been removed from DOM');
+		equal(typeof ($tree.tree('destroy')), 'string', 'returns string (markup)');
+		equal($tree.parent().length, false, 'control has been removed from DOM');
 	});
 
 	test("Tree should accept TEXT as the NAME property in the datasource", function () {
 		var $tree = $(html).find('#MyTree');
 
-		$tree.tree({ dataSource: this.textDataSource});
+		$tree.tree({
+			dataSource: this.textDataSource
+		});
 
 		$tree.tree('selectFolder', $tree.find('.tree-branch-name:eq(1)'));
 		equal($tree.tree('selectedItems')[0].text, 'node text', 'Param TEXT used in the datasource');
