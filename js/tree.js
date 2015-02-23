@@ -334,6 +334,19 @@
 		// collapses open folders
 		collapse: function collapse() {
 			var self = this;
+			var reportedClosed = [];
+
+			var closedReported = function closedReported(event, closed) {
+				reportedClosed.push(closed);
+
+				if (self.$element.find(".tree-branch.tree-open:not('.hide')").length === 0) {
+					self.$element.trigger('closedAll.fu.tree', self.$element, reportedClosed);
+					self.$element.off('loaded.fu.tree', self.$element, closedReported);
+				}
+			}
+
+			//trigger callback when all folders have reported opened
+			self.$element.on('closed.fu.tree', closedReported);
 
 			self.$element.find(".tree-branch:not('.hide')").each(function () {
 				self.closeFolder(this)
@@ -343,9 +356,23 @@
 		//disclose visible will only disclose visible tree folders
 		discloseVisible: function discloseVisible() {
 			var self = this;
+			var $openableFolders = self.$element.find(".tree-branch:not('.tree-open, .hide')");
+			var reportedOpened = [];
+
+			var openReported = function openReported(event, opened) {
+				reportedOpened.push(opened);
+
+				if (reportedOpened.length === $openableFolders.length) {
+					self.$element.trigger('disclosedVisible.fu.tree', self.$element, reportedOpened);
+					self.$element.off('loaded.fu.tree', self.$element, openReported);//unbind this event. discloseAll may be running and we want to reset this method for the next iteration.
+				}
+			}
+
+			//trigger callback when all folders have reported opened
+			self.$element.on('loaded.fu.tree', openReported);
 
 			// open all visible folders
-			this.$element.find(".tree-branch:not('.tree-open, .hide')").each(function () {
+			self.$element.find(".tree-branch:not('.tree-open, .hide')").each(function triggerOpen() {
 				self.openFolder($(this).find('.tree-branch-header'), true);
 			});
 		},
@@ -363,21 +390,21 @@
 
 			//stop the recursion if they throw the kill switch, or if there isn't anything left to do
 			if (self.$element.data('keep-disclosing') && self.$element.find(".tree-branch:not('.tree-open, .hide')").length !== 0) {
-				self.discloseVisible();
-
+				//give the dev a hook to hook into to listen for exceeding disclusure limit. We can't do `disclosures >= upperLimit` because then if they call it again it will exit immediately unless they "reset the machine". If instead we check to see if `disclosures` is a multiple of `upperLimit`, it will run exactly `upperLimit` times while preserving (as an accurate data point for the dev) the number of `disclosures`
 				self.$element.data('disclosures', self.$element.data('disclosures') + 1);
+				if (!(self.$element.data('disclosures') % self.options.disclosuresUpperLimit)) {
+					self.$element.trigger('exceededDisclosuresLimit.fu.tree', self.$element, self.$element.data('disclosures'));
+				}
 
-				//new closed branched can be loaded in, make sure those get handled too.
-				self.$element.one('loaded.fu.tree', function () {
+				//a new branch that is closed might be loaded in, make sure those get handled too. Attach this before calling discloseVisible to make sure that if the execution of discloseVisible happens _super fast_ this will still be called. However, make sure this only gets called _once_, because otherwise, every single time we go through this loop, _another_ event will be bound and then when the trigger happens, this will fire N times (instead of just one)
+				self.$element.one('disclosedVisible.fu.tree', function () {
 					self.discloseAll();
 				});
 
-				//give the dev a hook to hook into to listen for exceeding disclusure limit. We can't do `disclosures >= upperLimit` because then if they call it again it will exit immediately unless they "reset the machine". If instead we check to see if `disclosures` is a multiple of `upperLimit`, it will run exactly `upperLimit` times while preserving (as an accurate data point for the dev) the number of `disclosures`
-				if (!(self.$element.data('disclosures') % self.options.disclosuresUpperLimit)) {
-					self.$element.trigger('exceededDisclosuresLimit.fu.tree');
-				}
-
+				//if the page is very fast, calling this first will cause loaded.fu.tree to to not be bound in time to be called, so, we need to call this last so that the things bound and triggered above can have time to take place before the next execution of the `discloseAll` method.
+				self.discloseVisible();
 			} else {
+				self.$element.trigger('disclosedAll.fu.tree', self.$element);
 				//we're all done, reset keep disclosing in case they want to call again. Don't reset `disclosures` here because that would be lying.
 				self.$element.data('keep-disclosing', true);
 			}
