@@ -5,6 +5,8 @@ define(function (require) {
 	var $ = require('jquery');
 	var html = require('text!test/markup/tree-markup.html');
 
+	$('body').append(html);
+
 	require('bootstrap');
 	require('fuelux/tree');
 
@@ -99,6 +101,20 @@ define(function (require) {
 	test("should return element", function () {
 		var $tree = $(html);
 		ok($tree.tree() === $tree, 'tree should be initialized');
+	});
+
+	test("should have correct defaults", function correctDefaults() {
+		var $tree = $(html);
+
+		var defaults = $tree.tree.defaults;
+
+		equal(defaults.multiSelect, false, 'multiSelect defaults to false');
+		equal(defaults.cacheItems, true, 'cacheItems defaults to true');
+		equal(defaults.folderSelect, true, 'folderSelect defaults to true');
+		equal(defaults.itemSelect, true, 'itemSelect defaults to true');
+		equal(defaults.ignoreRedundantOpens, false, 'ignoreRedundantOpens defaults to false');
+		equal(defaults.disclosuresUpperLimit, 6, 'disclosuresUpperLimit defaults to 6');
+		ok(defaults.dataSource, 'dataSource exists by default');
 	});
 
 	test("should call dataSource correctly", function () {
@@ -229,6 +245,54 @@ define(function (require) {
 		$tree.tree('selectFolder', $tree.find('.tree-branch-name:eq(1)'));
 		equal($tree.tree('selectedItems').length, 0, 'Return no value');
 	});
+
+	asyncTest("should disclose visible folders", function () {
+		var $tree = $('body').find('#MyTree');
+
+		$tree.tree({
+			dataSource: this.dataSource
+		});
+
+		var toBeOpened = $tree.find(".tree-branch:not('.tree-open, .hide')").length
+		equal($tree.find(".tree-branch.tree-open:not('.hide')").length, 0, '0 folders open');
+
+		$tree.one('disclosedVisible.fu.tree', function () {
+			console.log('disclosedVisible');
+			equal($tree.find(".tree-branch.tree-open:not('.hide')").length, toBeOpened, toBeOpened + ' folders open');
+			start();
+		});
+
+		$tree.tree('discloseVisible');
+	});
+
+	asyncTest("should disclose all folders, and then close them", function () {
+		var $tree = $('body').find('#MyTree2');
+
+		$tree.tree({
+			dataSource: this.dataSource,
+			disclosuresUpperLimit: 2
+		});
+
+		equal($tree.find(".tree-branch.tree-open:not('.hide')").length, 0, '0 folders open');
+		$tree.one('exceededDisclosuresLimit.fu.tree', function () {
+			//do not trigger another round
+			$tree.data('keep-disclosing', false);
+			$tree.one('disclosedAll.fu.tree', function disclosedAll() {
+				$tree.data('keep-disclosing', false);
+				equal($tree.find(".tree-branch.tree-open:not('.hide')").length, 20, '20 folders open');
+
+				$tree.one('closedAll.fu.tree', function closedAll() {
+					equal($tree.find(".tree-branch.tree-open:not('.hide')").length, 0, '0 folders open');
+					start();
+				});
+
+				$tree.tree('closeAll');
+			});
+		});
+
+		$tree.tree('discloseAll');
+	});
+
 
 	test("should destroy control", function () {
 		var $tree = $(html).find('#MyTree');
