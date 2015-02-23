@@ -6,7 +6,7 @@ define(function(require){
 	var $ = require('jquery');
 
 	QUnit.start(); // starting qunit, or phantom js will have a problem
-
+	
 	// Needed for saucelab testing
 	var log = [];
 	var testName;
@@ -42,23 +42,6 @@ define(function(require){
 		};
 	});
 
-	require('test/checkbox-test');
-	require('test/combobox-test');
 	require('test/datepicker-test');
-	require('test/datepicker-moment-test');
-	require('test/infinite-scroll-test');
-	require('test/loader-test');
-	require('test/pillbox-test');
-	require('test/placard-test');
-	require('test/radio-test');
-	require('test/repeater-test');
-	require('test/repeater-list-test');
-	require('test/repeater-thumbnail-test');
-	require('test/scheduler-test');
-	require('test/search-test');
-	require('test/selectlist-test');
-	require('test/spinbox-test');
-	require('test/tree-test');
-	require('test/wizard-test');
 
 });
