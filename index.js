@@ -936,6 +936,18 @@ define(function (require) {
 	$('#myTree1').on('closed.fu.tree', function (event, parentData) {
 		log('Closed Event, parent data: ', parentData);
 	});
+	$('#myTree1').on('closedAll.fu.tree', function (event, data) {
+		log('Closed All Event, this many reported closed: ', data.reportedClosed.length);
+	});
+	$('#myTree1').on('disclosedVisible.fu.tree', function (event, data) {
+		log('Disclosed Visible, this many folders opened: ', data.reportedOpened.length);
+	});
+	$('#myTree1').on('exceededDisclosuresLimit.fu.tree', function (event, data) {
+		log('Disclosed All failsafe exit occurred, this many recursions: ', data.disclosures);
+	});
+	$('#myTree1').on('disclosedAll.fu.tree', function (event, data) {
+		log('Disclosed All, this many recursions: ', data.disclosures);
+	});
 
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
