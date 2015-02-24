@@ -742,9 +742,53 @@ define(function (require) {
 
 	// initialize
 	function myTreeInit() {
+		var callLimit = 200;
+		var callCount = 0;
 		$('#myTree1').tree({
 			dataSource: function (parentData, callback) {
 				// log("Opening branch data: ", parentData);
+
+				if (callCount >= callLimit) {
+					setTimeout(function () {
+						callback({
+							data: [
+								{
+									"name": "Sky and Water I (with custom icon)",
+									"type": "item",
+									"attr": {
+										"id": "item1",
+										"data-icon": "glyphicon glyphicon-file"
+									}
+								},
+								{
+									"name": "Waterfall",
+									"type": "item",
+									"attr": {
+										"id": "item2"
+									}
+								},
+								{
+									"name": "Relativity (with custom icon)",
+									"type": "item",
+									"attr": {
+										"id": "item3",
+										"data-icon": "glyphicon glyphicon-picture"
+									}
+								},
+								{
+									"name": "Convex and Concave",
+									"type": "item",
+									"attr": {
+										"id": "item4"
+									}
+								}
+							]
+						});
+					}, 400);
+					return;
+				}
+
+				callCount++;
 
 				setTimeout(function () {
 					callback({
