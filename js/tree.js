@@ -346,13 +346,13 @@
 					});
 					self.$element.off('loaded.fu.tree', self.$element, closedReported);
 				}
-			}
+			};
 
 			//trigger callback when all folders have reported opened
 			self.$element.on('closed.fu.tree', closedReported);
 
 			self.$element.find(".tree-branch.tree-open:not('.hide')").each(function () {
-				self.closeFolder(this)
+				self.closeFolder(this);
 			});
 		},
 
@@ -376,7 +376,7 @@
 					*/
 					self.$element.off('loaded.fu.tree', self.$element, openReported);
 				}
-			}
+			};
 
 			//trigger callback when all folders have reported opened
 			self.$element.on('loaded.fu.tree', openReported);
@@ -412,7 +412,7 @@
 				* that have occurred on this element since page load
 				*/
 				self.$element.data('disclosures', self.$element.data('disclosures') + 1);
-				if (self.options.disclosuresUpperLimit >= 1 && !(self.$element.data('disclosures') % self.options.disclosuresUpperLimit)) {
+				if (self.options.disclosuresUpperLimit >= 1 && (self.$element.data('disclosures') % self.options.disclosuresUpperLimit) === 0) {
 					/*
 					* This trigger will fire at the beginning of the upper limit recursion layer
 					* (prior to the calling of `discloseVisible()`). So, if you set the
@@ -477,11 +477,11 @@
 	};
 
 	//alias for collapse for consistency. "Collapse" is an ambiguous term (collapse what? All? One specific branch?)
-	Tree.prototype.closeAll = Tree.prototype.collapse,
+	Tree.prototype.closeAll = Tree.prototype.collapse;
 
 	// TREE PLUGIN DEFINITION
 
-	$.fn.tree = function (option) {
+	$.fn.tree = function tree(option) {
 		var args = Array.prototype.slice.call(arguments, 1);
 		var methodReturn;
 

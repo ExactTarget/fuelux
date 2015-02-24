@@ -253,7 +253,7 @@ define(function (require) {
 			dataSource: this.dataSource
 		});
 
-		var toBeOpened = $tree.find(".tree-branch:not('.tree-open, .hide')").length
+		var toBeOpened = $tree.find(".tree-branch:not('.tree-open, .hide')").length;
 		equal($tree.find(".tree-branch.tree-open:not('.hide')").length, 0, '0 folders open');
 
 		$tree.one('disclosedVisible.fu.tree', function () {
