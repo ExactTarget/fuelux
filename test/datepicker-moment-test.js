@@ -7,9 +7,10 @@ define(function(require){
 	var html = require('text!test/markup/datepicker-markup.html');
 
 	require('bootstrap');
+	require('moment');
 	require('fuelux/datepicker');
 
-	require('test/datepicker-test');	//this ensures the non-moment tests run before the moment tests
+	// require('test/datepicker-test');	//this ensures the non-moment tests run before the moment tests
 
 	function uaMatch(ua){
 		ua = ua.toLowerCase();
@@ -38,14 +39,7 @@ define(function(require){
 	//IE 8 & 9 have problems with the moment switching. Figure a way around this later, if possible. Otherwise, just
 	//test manually by commenting this if statement out and refreshing over and over again.
 	if(runTestsBoolean){
-		module('Fuel UX Datepicker with moment.js', {
-			setup: function(){
-				window.moment = window.tmpMoment;
-			},
-			teardown: function(){
-				window.moment = undefined;
-			}
-		});
+		module('Fuel UX Datepicker with moment.js');
 
 		test("should be defined on jquery object", function () {
 			ok($().datepicker, 'datepicker method is defined');

@@ -8,8 +8,6 @@
 		<link href="../bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
 		<link href="../dist/css/fuelux.css" rel="stylesheet" type="text/css">
 
-
-		<script src="../bower_components/moment/min/moment-with-locales.js"></script>
 		<script src="../bower_components/qunit/qunit/qunit.js"></script>
 		<script>QUnit.config.autostart = false;</script>
 		<script src="../bower_components/requirejs/require.js"></script>
@@ -19,37 +17,43 @@
 		<!-- <![endif]-->
 
 		<script>
-			window.tmpMoment = window.moment;
-			window.moment = undefined;
-
 			(function () {
-				var jQueryPath;
 
-				// Feature detect for jQuery version
+				/* - - - - - - - - - - - - - - - - - -
+					URL PARAMETER CONFIGURATION
+				- - - - - - - - - - - - - - - - - - */
+
+				// jQuery config
+				var jQueryPath;
+				// Feature detect
 				if('querySelector' in document
 					&& 'localStorage' in window
 					&& 'addEventListener' in window ) {
-					jQueryPath = 'bower_components/jquery/dist/jquery';
+					jQueryPath = 'bower_components/jquery/dist/jquery';	// v2.x
 				} else {
 					jQueryPath = 'bower_components/jquery-1.9.1/jquery';
 				}
-
-				// or force/overwrite the variable with a version via ?jquery= URL parameter
-				var jqverParam = location.search.match(/[?&]jquery=(.*?)(?=&|$)/);
-				var jqver = (jqverParam) ? jqverParam[1] : undefined;
-
-				// if jquery version does not using dist folder
-				if(jqver == '1.9.1') {
-					jQueryPath = 'bower_components/jquery-' + jqver + '/jquery';
+				// or force/overwrite the variable with a version via '?jquery='' URL parameter
+				var jQueryVersionParameter = location.search.match(/[?&]jquery=(.*?)(?=&|$)/);
+				var jQueryVersion = (jQueryVersionParameter) ? jQueryVersionParameter[1] : undefined;
+				// if jquery version does not use dist folder
+				if(jQueryVersion == '1.9.1') {
+					jQueryPath = 'bower_components/jquery-' + jQueryVersion + '/jquery';
 				}
 
+				// moment config
+				var momentPath = '../bower_components/moment/min/moment-with-locales';
+				var momentParameter = location.search.match(/[?&]no-moment=(.*?)(?=&|$)/);
+				window.noMoment = (momentParameter) ? momentParameter[1] : false;
+
+				// base config
 				var requireConfig = {
 					baseUrl: '../',
 					paths: {
 						jquery: jQueryPath,
 						bootstrap: 'bower_components/bootstrap/dist/js/bootstrap',
 						fuelux: 'js',
-						test: 'test',
+						tests: window.noMoment ? 'test/tests-no-moment' : 'test/tests' ,
 						text: 'bower_components/requirejs-text/text'
 					},
 					shim: {
@@ -60,13 +64,20 @@
 					}
 				};
 
-				//default to non-dist for dev
-				var testdistParam = location.search.match(/[?&]testdist=(true|false?)(?=&|$)/);
-				var testdist = (testdistParam && testdistParam[1] === 'true') ? true : false;
-				if(testdist){
-					var fueluxLocation;
+				if (window.noMoment === false) {
+					requireConfig.paths.moment = momentPath;
+				}
 
-					//map all calls for individual fuelux modules to merged fuelux library
+				// have Blanket coverage test talk to grunt via alert()
+				if (location.href.match(/(\?|&)gruntReport($|&|=)/)) {
+					blanket.options("reporter", "/node_modules/grunt-blanket-qunit/reporter/grunt-reporter.js");
+				}
+
+				// default to not testing dist
+				var testdistParameter = location.search.match(/[?&]testdist=(true|false?)(?=&|$)/);
+				var testdist = (testdistParameter && testdistParameter[1] === 'true') ? true : false;
+				if(testdist){
+					// map all requests for individual modules to merged library
 					requireConfig.map = {
 						'*': {
 							'fuelux/checkbox': 'dist/js/fuelux',
@@ -93,7 +104,8 @@
 
 				require.config(requireConfig);
 
-				require(['jquery', 'test/fuelux-test'], function() {});
+				require(['jquery', 'tests'], function() {});
+
 			})();
 		</script>
 	</head>

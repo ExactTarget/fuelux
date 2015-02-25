@@ -43,16 +43,33 @@ module.exports = function (grunt) {
 		sauceLoginFile: grunt.file.exists('SAUCE_API_KEY.yml') ? grunt.file.readYAML('SAUCE_API_KEY.yml') : undefined,
 		sauceUser: process.env.SAUCE_USERNAME || 'fuelux',
 		sauceKey: process.env.SAUCE_ACCESS_KEY ? process.env.SAUCE_ACCESS_KEY : '<%= sauceLoginFile.key %>',
-		allTestUrls: ['2.1.0', '1.11.0', '1.9.1', 'browserGlobals'].map(function (ver) {
-			if (ver === 'browserGlobals') {
-				return 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux-browser-globals.html';
+		// TEST URLS
+		allTestUrls: ['2.1.0', '1.11.0', '1.9.1', 'browserGlobals', 'noMoment', 'codeCoverage' ].map(function (type) {
+			if (type === 'browserGlobals') {
+				return 'http://localhost:<%= connect.testServer.options.port %>/test/browser-globals.html';
 			}
-
-			return 'http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + ver + '&testdist=true';
+			else if (type === 'codeCoverage') {
+				return 'http://localhost:<%= connect.testServer.options.port %>/test/?coverage=true';
+			}
+			else if (type === 'noMoment') {
+				return 'http://localhost:<%= connect.testServer.options.port %>/test/?no-moment=true';
+			}
+			else {
+				// test dist with multiple jQuery versions 
+				return 'http://localhost:<%= connect.testServer.options.port %>/test/?testdist=true';
+			}
 		}),
-		testUrl: ['http://localhost:<%= connect.testServer.options.port %>/test/fuelux.html?jquery=' + '1.9.1&testdist=true'],
 
 		//Tasks configuration
+		blanket_qunit: {
+			source: {
+				options: {
+					urls: ['http://localhost:<%= connect.testServer.options.port %>/test/?coverage=true&gruntReport'],
+					threshold: 1,
+					globalThreshold: 1
+				}
+			}
+		},
 		clean: {
 			dist: ['dist'],
 			zipsrc: ['dist/fuelux'],// temp folder
@@ -126,14 +143,26 @@ module.exports = function (grunt) {
 			server: {
 				options: {
 					hostname: '*',
+					base: {
+						path: '.',
+						options: {
+							index: ['index.html', 'tests.html'],
+						}
+					},
 					port: process.env.PORT || 8000,
-					useAvailablePort: true// increment port number, if unavailable...
+					useAvailablePort: true // increment port number, if unavailable...
 				}
 			},
 			testServer: {
 				options: {
+					base: {
+						path: '.',
+						options: {
+							index: ['index.html', 'tests.html'],
+						}
+					},
 					hostname: '*',
-					port: 9000,// allows main server to be run simultaneously
+					port: 9000, // allows main server to be run simultaneously
 					useAvailablePort: true// increment port number, if unavailable...
 				}
 			}
@@ -196,7 +225,7 @@ module.exports = function (grunt) {
 				undef: true,
 				unused: false// changed
 			},
-			source: ['Gruntfile.js', 'js/*.js', 'dist/fuelux.js'],
+			sourceAndDist: ['Gruntfile.js', 'js/*.js', 'dist/fuelux.js'],
 			tests: {
 				options: {
 					latedef: false,
@@ -210,7 +239,7 @@ module.exports = function (grunt) {
 		},
 		qunit: {
 			//run with `grunt releasetest` or `grunt travisci`. Requires connect server to be running.
-			full: {
+			release: {
 				options: {
 					urls: '<%= allTestUrls %>',
 					screenshot: true,
@@ -222,11 +251,25 @@ module.exports = function (grunt) {
 					}
 				}
 			},
-			//can be run with `grunt qunit:simple`
-			simple: ['test/*.html'],
+			globals: {
+				options: {
+					urls: ['http://localhost:<%= connect.testServer.options.port %>/test/browser-globals.html']
+				}
+			},
+			noMoment: {
+				options: {
+					urls: ['http://localhost:<%= connect.testServer.options.port %>/test/?no-moment=true']
+				}
+			},
+			// `grunt qunit:source` will test the source files directly.
+			source: {
+				options: {
+					urls: ['http://localhost:<%= connect.testServer.options.port %>/test/']
+				}
+			},
 			dist: {
 				options: {
-					urls: ['http://localhost:<%= connect.server.options.port %>/test/fuelux.html?testdist=true']
+					urls: ['http://localhost:<%= connect.testServer.options.port %>/test/?testdist=true']
 				}
 			}
 		},
@@ -297,29 +340,7 @@ module.exports = function (grunt) {
 								var valid = semver.valid(value);
 								return valid || 'Must be a valid semver, such as 1.2.3-rc1. See http://semver.org/ for more details.';
 							}
-						}//,
-						// {
-						// 	config:  'bump.files',
-						// 	type:    'checkbox',
-						// 	message: 'What should get the new version:',
-						// 	choices: [
-						// 		{
-						// 			value:   'package',
-						// 			name:    'package.json' + (!grunt.file.isFile('package.json') ? ' not found, will create one' : ''),
-						// 			checked: grunt.file.isFile('package.json')
-						// 		},
-						// 		{
-						// 			value:   'bower',
-						// 			name:    'bower.json' + (!grunt.file.isFile('bower.json') ? ' not found, will create one' : ''),
-						// 			checked: grunt.file.isFile('bower.json')
-						// 		},
-						// {
-						// 	value:   'git',
-						// 	name:    'git tag',
-						// 	checked: grunt.file.isDir('.git')
-						// }
-						// 	]
-						// }
+						}
 					]
 				}
 			}
@@ -345,7 +366,7 @@ module.exports = function (grunt) {
 					browsers: grunt.file.readYAML('sauce_browsers_tricky.yml'),
 					build: process.env.TRAVIS_BUILD_NUMBER || '<%= pkg.version %>',
 					testname: process.env.TRAVIS_JOB_ID || Math.floor((new Date()).getTime() / 1000 - 1230768000).toString(),
-					urls: '<%= testUrl %>'
+					urls: ['http://localhost:<%= connect.testServer.options.port %>/test/?testdist=true']
 				}
 			},
 			defaultBrowsers: {
@@ -358,7 +379,7 @@ module.exports = function (grunt) {
 					browsers: grunt.file.readYAML('sauce_browsers.yml'),
 					build: process.env.TRAVIS_BUILD_NUMBER || '<%= pkg.version %>',
 					testname: process.env.TRAVIS_JOB_ID || '<%= pkg.version %>-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
-					urls: '<%= testUrl %>',
+					urls: ['http://localhost:<%= connect.testServer.options.port %>/test/?testdist=true'],
 					maxPollRetries: 4,
 					throttled: 3,
 					maxRetries: 3
@@ -422,19 +443,19 @@ module.exports = function (grunt) {
 		watch: {
 			//watch everything and test everything (test dist)
 			full: {
-				files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
+				files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'test/**', 'index.html', 'dev.html'],
 				options: {
 					livereload: isLivereloadEnabled
 				},
-				tasks: ['jshint', 'dist', 'qunit:dist', 'validation']
+				tasks: ['jshint', 'blanket_qunit:source', 'qunit:noMoment', 'qunit:globals', 'dist', 'qunit:dist', 'validation']
 			},
-			//watch everything but only perform simple qunit tests (don't test dist)
-			simple: {
-				files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'lib/**', 'test/**', 'index.html', 'dev.html'],
+			//watch everything but only perform source qunit tests (don't test dist)
+			source: {
+				files: ['Gruntfile.js', 'fonts/**', 'js/**', 'less/**', 'test/**', 'index.html', 'dev.html'],
 				options: {
 					livereload: isLivereloadEnabled
 				},
-				tasks: ['jshint', 'qunit:simple', 'validation']
+				tasks: ['jshint', 'connect:testServer', 'blanket_qunit:source', 'qunit:noMoment', 'qunit:globals', 'validation']
 			},
 			//only watch and dist less, useful when doing LESS/CSS work
 			less: {
@@ -469,7 +490,6 @@ module.exports = function (grunt) {
 	});
 
 
-
 	/* -------------
 		BUILD
 	------------- */
@@ -487,9 +507,6 @@ module.exports = function (grunt) {
 		grunt.file.delete('less/fuelux-no-namespace.less', options);
 	});
 
-
-
-
 	// ZIP distribution task
 	grunt.registerTask('distzip', 'Compress and zip "dist"', ['copy:zipsrc', 'compress', 'clean:zipsrc']);
 
@@ -501,25 +518,32 @@ module.exports = function (grunt) {
 		TESTS
 	------------- */
 	// The default build task
-	grunt.registerTask('default', 'Run simple tests. Pass --no-resetdist to keep dist changes from being wiped out', ['test', 'clean:screenshots', 'resetdist']);
+	grunt.registerTask('default', 'Run source file tests. Pass --no-resetdist to keep "dist" changes from being wiped out', 
+		['test', 'clean:screenshots', 'resetdist']);
 
 	// to be run prior to submitting a PR
-	grunt.registerTask('test', 'run jshint, qunit:simple, and validate HTML', ['jshint', 'qunit:simple', 'validation']);
+	grunt.registerTask('test', 'run jshint, qunit source w/ coverage, and validate HTML', 
+		['jshint', 'connect:testServer', 'blanket_qunit:source', 'qunit:noMoment', 'qunit:globals', 'validation']);
 
-	//If qunit:simple is working but qunit:full is breaking, check to see if the dist broke the code. This would be especially useful if we start mangling our code, but, is 99.99% unlikely right now
-	grunt.registerTask('validate-dist', 'run qunit:simple, dist, and then qunit:full', ['connect:testServer', 'qunit:simple', 'dist', 'qunit:full']);
+	//If qunit:source is working but qunit:full is breaking, check to see if the dist broke the code. This would be especially useful if we start mangling our code, but, is 99.99% unlikely right now
+	grunt.registerTask('validate-dist', 'run qunit:source, dist, and then qunit:full', 
+		['connect:testServer', 'qunit:source', 'dist', 'qunit:dist']);
 
-	// multiple jquery versions, then run SauceLabs VMs
-	grunt.registerTask('releasetest', 'run jshint, dist, qunit:full, validation, and qunit on saucelabs', ['connect:testServer', 'jshint', 'qunit:simple', 'dist', 'qunit:full', 'validation', 'saucelabs-qunit:defaultBrowsers']);
+	// multiple jQuery versions, then run SauceLabs VMs
+	grunt.registerTask('releasetest', 'run jshint, build dist, all source tests, validation, and qunit on SauceLabs', 
+		['test', 'dist', 'qunit:dist', 'saucelabs-qunit:defaultBrowsers']);
 
 	// can be run locally instead of through TravisCI, but requires the Fuel UX Saucelabs API key file which is not public at this time.
-	grunt.registerTask('saucelabs', 'run jshint, and qunit on saucelabs', ['connect:testServer', 'jshint', 'saucelabs-qunit:defaultBrowsers']);
+	grunt.registerTask('saucelabs', 'run jshint, and qunit on saucelabs', 
+		['connect:testServer', 'jshint', 'saucelabs-qunit:defaultBrowsers']);
 
 	// can be run locally instead of through TravisCI, but requires the FuelUX Saucelabs API key file which is not public at this time.
-	grunt.registerTask('trickysauce', 'run tests, jshint, and qunit for "tricky browsers" (IE8-11)', ['connect:testServer', 'jshint', 'saucelabs-qunit:trickyBrowsers']);
+	grunt.registerTask('trickysauce', 'run tests, jshint, and qunit for "tricky browsers" (IE8-11)', 
+		['connect:testServer', 'jshint', 'saucelabs-qunit:trickyBrowsers']);
 
 	// Travis CI task. This task no longer uses SauceLabs. Please run 'grunt saucelabs' manually.
-	grunt.registerTask('travisci', 'Tests to run when in Travis CI environment', ['connect:testServer', 'jshint', 'qunit:simple', 'dist', 'qunit:full']);
+	grunt.registerTask('travisci', 'Tests to run when in Travis CI environment', 
+		['test', 'dist', 'qunit:dist']);
 
 	//if you've already accidentally added your files for commit, this will at least unstage them. If you haven't, this will wipe them out.
 	grunt.registerTask('resetdist', 'resets changes to dist to keep them from being checked in', function () {
@@ -546,12 +570,14 @@ module.exports = function (grunt) {
 
 		if (!grunt.option('no-tests')) {
 			grunt.task.run(['releasetest']);
-			//delete any screenshots that may have happened if it got this far. This isn't foolproof because it relies on the phantomjs server/page timeout, which can take longer than this grunt task depending on how long saucelabs takes to run...
+			// Delete any screenshots that may have happened if it got this far. This isn't foolproof 
+			// because it relies on the phantomjs server/page timeout, which can take longer than this 
+			// grunt task depending on how long saucelabs takes to run...
 			grunt.task.run('clean:screenshots');
 		}
 
 		grunt.config('banner', '<%= bannerRelease %>');
-		//make sure we run dist again to grab the latest version numbers. Yeah, we're running it twice... ¯\_(ツ)_/¯
+		// Run dist again to grab the latest version numbers. Yeah, we're running it twice... ¯\_(ツ)_/¯
 		grunt.task.run(['bump-only:' + grunt.config('bump.increment'), 'replace:readme', 'dist']);
 	});
 
@@ -559,52 +585,55 @@ module.exports = function (grunt) {
 	/* -------------
 		SERVE
 	------------- */
-	//most basic serve task, it's the safest, but also the slowest.
-	grunt.registerTask('serve', 'Serve the files. --no-test to skip tests', function () {
-		//default --test=true
-		if (typeof grunt.option('test') === "undefined") {
-			grunt.option('test', true);
-		}
-
-		grunt.task.run(['servedist']);
+	// default serve task that runs tests and builds and tests dist by default.
+	grunt.registerTask('serve', 'Test, build, serve files. (~20s)', function () {
+		var tasks = ['test', 'servedist'];
+		grunt.task.run(tasks);
 	});
 
-	//Fastest serve command for freely slinging code (you won't get interrupted by tests, etc).
-	grunt.registerTask('servefast', 'Serve the files. pass --test to run tests.', function () {
+	// default serve task that runs tests and builds and tests dist by default (~20s).
+	grunt.registerTask('serveslow', 'Serve files. Run all tests. Does not build. (~20s)', function () {
+		var tasks = ['connect:server', 'test', 'watch:source'];
+		grunt.task.run(tasks);
+	});
+
+	//Fastest serve command for freely slinging code (no tests will run by default).
+	grunt.registerTask('servefast', 'Serve the files (no watch), --test to run minimal tests. (~0s)', function () {
 		grunt.task.run(['connect:server']);
 
 		if (grunt.option('test')) {
-			grunt.task.run(['qunit:simple', 'watch:simple']);
+			grunt.task.run(['connect:testServer', 'qunit:source', 'watch:source']);
 		} else {
 			grunt.task.run(['watch:lite']);
 		}
 	});
 
-	//Fastest serve command when you're working on LESS
-	grunt.registerTask('serveless', 'Compile LESS and serve the files. pass --tests to run test.', function () {
+	// Fastest serve command when you're working on LESS
+	grunt.registerTask('serveless', 'Compile LESS and serve the files. pass --tests to run test. (~3s)', function () {
 		grunt.task.run(['distcss']);
 
 		if (grunt.option('test')) {
-			//add qunit:simple as a watch task for watch:less since they want tests
+			// add qunit:source as a watch task for watch:less since they want tests
 			grunt.config.merge({
 				watch: {
 					less: {
-						tasks: ['qunit:simple']
+						tasks: ['qunit:source']
 					}
 				}
 			});
-			grunt.task.run(['qunit:simple']);
+			grunt.task.run(['qunit:source']);
 		}
 
 		grunt.task.run(['connect:server', 'watch:less']);
 	});
 
-	//basically just `grunt serve` but tests default to being off
-	grunt.registerTask('servedist', 'Compile and serve everything, pass --test to run tests.', function () {
+	// same as `grunt serve` but tests default to being off
+	grunt.registerTask('servedist', 'Compile and serve everything, pass --test to run tests. (~7s)', function () {
 		grunt.task.run(['dist']);
 
-		//start up the server here so we can run tests if appropriate
+		//start up the servers here so we can run tests if appropriate
 		grunt.task.run(['connect:server']);
+		grunt.task.run(['connect:testServer']);
 
 		if (grunt.option('test')) {
 			grunt.task.run(['qunit:dist', 'watch:full']);
