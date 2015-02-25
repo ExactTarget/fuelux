@@ -12,7 +12,27 @@ define(function (require) {
 
 	module("Fuel UX Tree", {
 		setup: function () {
+			var callLimit = 50;
+			var callCount = 0;
+
 			this.dataSource = function (options, callback) {
+				if (callCount >= callLimit) {
+					callback({
+						data: [
+							{
+								"name": "Convex and Concave",
+								"type": "item",
+								"attr": {
+									"id": "item4"
+								}
+							}
+						]
+					}, 400);
+					return;
+				}
+
+				callCount++;
+
 				callback({
 					data: [
 						{
@@ -113,7 +133,7 @@ define(function (require) {
 		equal(defaults.folderSelect, true, 'folderSelect defaults to true');
 		equal(defaults.itemSelect, true, 'itemSelect defaults to true');
 		equal(defaults.ignoreRedundantOpens, false, 'ignoreRedundantOpens defaults to false');
-		equal(defaults.disclosuresUpperLimit, 6, 'disclosuresUpperLimit defaults to 6');
+		equal(defaults.disclosuresUpperLimit, 0, 'disclosuresUpperLimit defaults to 0');
 		ok(defaults.dataSource, 'dataSource exists by default');
 	});
 
@@ -264,7 +284,7 @@ define(function (require) {
 		$tree.tree('discloseVisible');
 	});
 
-	asyncTest("should disclose all folders, and then close them", function () {
+	asyncTest("should disclose all folders up to limit, and then close them, then open them all", function () {
 		var $tree = $('body').find('#MyTree2');
 
 		$tree.tree({
@@ -273,19 +293,23 @@ define(function (require) {
 		});
 
 		equal($tree.find(".tree-branch.tree-open:not('.hide')").length, 0, '0 folders open');
-		$tree.one('exceededDisclosuresLimit.fu.tree', function () {
-			//do not trigger another round
-			$tree.data('keep-disclosing', false);
-			$tree.one('disclosedAll.fu.tree', function disclosedAll() {
-				equal($tree.find(".tree-branch.tree-open:not('.hide')").length, 20, '20 folders open');
+		$tree.one('exceededDisclosuresLimit.fu.tree', function exceededDisclosuresLimit() {
+			equal($tree.find(".tree-branch.tree-open:not('.hide')").length, 20, '20 folders open');
 
-				$tree.one('closedAll.fu.tree', function closedAll() {
-					equal($tree.find(".tree-branch.tree-open:not('.hide')").length, 0, '0 folders open');
+			$tree.one('closedAll.fu.tree', function closedAll() {
+				equal($tree.find(".tree-branch.tree-open:not('.hide')").length, 0, '0 folders open');
+
+				$tree.data('ignore-disclosures-limit', true);
+
+				$tree.one('disclosedAll.fu.tree', function exceededDisclosuresLimit() {
+					equal($tree.find(".tree-branch.tree-open:not('.hide')").length, 200, '200 folders open');
 					start();
 				});
 
-				$tree.tree('closeAll');
+				$tree.tree('discloseAll');
 			});
+
+			$tree.tree('closeAll');
 		});
 
 		$tree.tree('discloseAll');

@@ -388,7 +388,7 @@
 		},
 
 		/**
-		* Disclose all will keep listening for `loaded.fu.tree` and if `$(tree-el).data('keep-disclosing')`
+		* Disclose all will keep listening for `loaded.fu.tree` and if `$(tree-el).data('ignore-disclosures-limit')`
 		* is `true` (defaults to `true`) it will attempt to disclose any new closed folders than were
 		* loaded in during the last disclosure.
 		*/
@@ -398,27 +398,35 @@
 			//first time
 			if (typeof self.$element.data('disclosures') === 'undefined') {
 				self.$element.data('disclosures', 0);
-				self.$element.data('keep-disclosing', true);
 			}
 
-			//stop the recursion if they throw the kill switch, or if there isn't anything left to do
-			if (self.$element.data('keep-disclosing') && self.$element.find(".tree-branch:not('.tree-open, .hide')").length !== 0) {
-				/*
-				* give the dev a hook to listen for exceeding disclosure limit `exceededDisclosuresLimit`.
-				*/
-				self.$element.data('disclosures', self.$element.data('disclosures') + 1);
-				if (self.options.disclosuresUpperLimit >= 1 && self.$element.data('disclosures') >= self.options.disclosuresUpperLimit) {
-					/*
-					* This trigger will fire at the beginning of the upper limit recursion layer
-					* (prior to the calling of `discloseVisible()`). So, if you set the
-					* `disclosuresUpperLimit` to 4, this trigger will fire at the _apparent end_
-					* of round 3, just before round 4 occurs.
-					*/
+			var isExceededLimit = (self.options.disclosuresUpperLimit >= 1 && self.$element.data('disclosures') >= self.options.disclosuresUpperLimit);
+			var isAllDisclosed = self.$element.find(".tree-branch:not('.tree-open, .hide')").length === 0;
+
+
+			if (!isAllDisclosed) {
+				if (isExceededLimit) {
 					self.$element.trigger('exceededDisclosuresLimit.fu.tree', {
 						tree: self.$element,
 						disclosures: self.$element.data('disclosures')
 					});
+
+					/*
+					* If you've exceeded the limit, the loop will be killed unless you
+					* explicitly ignore the limit and start the loop again:
+					*
+					*    $tree.one('exceededDisclosuresLimit.fu.tree', function () {
+					*        $tree.data('ignore-disclosures-limit', true);
+					*        $tree.tree('discloseAll');
+					*    });
+					*/
+					if (!self.$element.data('ignore-disclosures-limit')) {
+						return;
+					}
+
 				}
+
+				self.$element.data('disclosures', self.$element.data('disclosures') + 1);
 
 				/*
 				* A new branch that is closed might be loaded in, make sure those get handled too.
@@ -445,13 +453,6 @@
 					tree: self.$element,
 					disclosures: self.$element.data('disclosures')
 				});
-				/*
-				* we're all done, reset `keep-disclosing` in case they want to call `discloseAll` again.
-				* (Like, if the `discloseAll` function was killed for exceeding the disclosure limit, but
-				* now they want to start it back up again). Don't reset `disclosures` here because that
-				* would be lying.
-				*/
-				self.$element.data('keep-disclosing', true);
 
 				//if `cacheItems` is false, and they call closeAll, the data is trashed and therefore
 				//disclosures needs to accurately reflect that
@@ -498,29 +499,35 @@
 		folderSelect: true,
 		itemSelect: true,
 		/*
-		* currently calling "open" again on a folder will close it. Setting
-		* `ignoreRedundantOpens` to `true` will make the folder instead ignore
-		* the redundant call and stay open.
+		* Calling "open" on something, should do that. However, the current API
+		* instead treats "open" as a "toggle" and will close a folder that is open
+		* if you call `openFolder` on it. Setting `ignoreRedundantOpens` to `true`
+		* will make the folder instead ignore the redundant call and stay open.
+		* This allows you to fix the API until 3.7.x when we can deprecate the switch
+		* and make `openFolder` behave correctly by default.
 		*/
 		ignoreRedundantOpens: false,
 		/*
-		* How many times `discloseAll` should be called before a warning trigger
-		* is fired for the dev to hook into. `discloseAll` will continue running
-		* after this many recursions unless the dev manually kills it by setting
-		* `keep-disclosing` to `false`:
+		* How many times `discloseAll` should be called before a stopping and firing
+		* an `exceededDisclosuresLimit` event. You can force it to continue by
+		* listening for this event, setting `ignore-disclosures-limit` to `true` and
+		* starting `discloseAll` back up again. This lets you make more decisions
+		* about if/when/how/why/how many times `discloseAll` will be started back
+		* up after it exceeds the limit.
 		*
 		*    $tree.one('exceededDisclosuresLimit.fu.tree', function () {
-		*        $tree.data('keep-disclosing', false);
+		*        $tree.data('ignore-disclosures-limit', true);
+		*        $tree.tree('discloseAll');
 		*    });
 		*
-		* Setting `disclusuresUpperLimiet` to `0` means this trigger will never fire.
-		* The true hard the upper limit is merely be the browser's ability to load new items
-		* (i.e. it will keep loading until the browser falls over and dies). On the
-		* Fuel UX `index.html` page, the point at which the page became super slow
-		* (enough to seem almost unresponsive) was `4`, meaning 256 folders had
-		* been opened, and 1024 were attempting to open.
+		* `disclusuresUpperLimit` defaults to `0`, so by default this trigger
+		* will never fire. The true hard the upper limit is the browser's
+		* ability to load new items (i.e. it will keep loading until the browser
+		* falls over and dies). On the Fuel UX `index.html` page, the point at
+		* which the page became super slow (enough to seem almost unresponsive)
+		* was `4`, meaning 256 folders had been opened, and 1024 were attempting to open.
 		*/
-		disclosuresUpperLimit: 6
+		disclosuresUpperLimit: 0
 	};
 
 	$.fn.tree.Constructor = Tree;
