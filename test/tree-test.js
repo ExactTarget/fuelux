@@ -257,7 +257,6 @@ define(function (require) {
 		equal($tree.find(".tree-branch.tree-open:not('.hide')").length, 0, '0 folders open');
 
 		$tree.one('disclosedVisible.fu.tree', function () {
-			console.log('disclosedVisible');
 			equal($tree.find(".tree-branch.tree-open:not('.hide')").length, toBeOpened, toBeOpened + ' folders open');
 			start();
 		});
@@ -278,7 +277,6 @@ define(function (require) {
 			//do not trigger another round
 			$tree.data('keep-disclosing', false);
 			$tree.one('disclosedAll.fu.tree', function disclosedAll() {
-				$tree.data('keep-disclosing', false);
 				equal($tree.find(".tree-branch.tree-open:not('.hide')").length, 20, '20 folders open');
 
 				$tree.one('closedAll.fu.tree', function closedAll() {

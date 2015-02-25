@@ -348,7 +348,7 @@
 				}
 			};
 
-			//trigger callback when all folders have reported opened
+			//trigger callback when all folders have reported closed
 			self.$element.on('closed.fu.tree', closedReported);
 
 			self.$element.find(".tree-branch.tree-open:not('.hide')").each(function () {
@@ -404,35 +404,15 @@
 			//stop the recursion if they throw the kill switch, or if there isn't anything left to do
 			if (self.$element.data('keep-disclosing') && self.$element.find(".tree-branch:not('.tree-open, .hide')").length !== 0) {
 				/*
-				* give the dev a hook to listen for exceeding disclusure limit `exceededDisclosuresLimit`.
-				* We can't do `disclosures >= upperLimit` because then if they call it again it will
-				* exit immediately unless they "reset the machine". If instead we check to see if
-				* `disclosures` is a multiple of `upperLimit`, it will run exactly `upperLimit` times
-				* while preserving (as an accurate data point for the dev) the number of `disclosures`
-				* that have occurred on this element since page load
+				* give the dev a hook to listen for exceeding disclosure limit `exceededDisclosuresLimit`.
 				*/
 				self.$element.data('disclosures', self.$element.data('disclosures') + 1);
-				if (self.options.disclosuresUpperLimit >= 1 && (self.$element.data('disclosures') % self.options.disclosuresUpperLimit) === 0) {
+				if (self.options.disclosuresUpperLimit >= 1 && self.$element.data('disclosures') >= self.options.disclosuresUpperLimit) {
 					/*
 					* This trigger will fire at the beginning of the upper limit recursion layer
 					* (prior to the calling of `discloseVisible()`). So, if you set the
 					* `disclosuresUpperLimit` to 4, this trigger will fire at the _apparent end_
-					* of round 3, just before round 4 occurs. This could theoretically give you time
-					* to prompt the user if they'd like to continue waiting or not before round 4
-					* ends, changing whether the recursion gets killed or not.
-					*/
-					self.$element.trigger('exceededDisclosuresLimit.fu.tree', {
-						tree: self.$element,
-						disclosures: self.$element.data('disclosures')
-					});
-				} else if (self.options.disclosuresUpperLimit >= 1 && self.$element.data('disclosures') > self.options.disclosuresUpperLimit) {
-					/*
-					* Give the dev an out at each execution following the upper limit execution.
-					* If this is not the first time `discloseAll` has been called, this will
-					* likely fire _each round_ because the tree remembers the total disclosures since
-					* page load, _even if you've called `closeAll`. In order to prevent that, you will
-					* need to manually reset `disclosures` if you call `closeAll`:
-					*    $tree.data('disclosures', 0);
+					* of round 3, just before round 4 occurs.
 					*/
 					self.$element.trigger('exceededDisclosuresLimit.fu.tree', {
 						tree: self.$element,
@@ -472,6 +452,15 @@
 				* would be lying.
 				*/
 				self.$element.data('keep-disclosing', true);
+
+				//if `cacheItems` is false, and they call closeAll, the data is trashed and therefore
+				//disclosures needs to accurately reflect that
+				if (!self.options.cacheItems) {
+					self.$element.one('closeAll.fu.tree', function () {
+						self.$element.data('disclosures', 0);
+					});
+				}
+
 			}
 		}
 	};
@@ -515,10 +504,9 @@
 		*/
 		ignoreRedundantOpens: false,
 		/*
-		* this is not necessarily indicative of how many layers deep the tree goes,
-		* only how many times `discloseAll` should be called before a warning trigger
+		* How many times `discloseAll` should be called before a warning trigger
 		* is fired for the dev to hook into. `discloseAll` will continue running
-		* after this many recursions unles the dev manually kilss it by setting
+		* after this many recursions unless the dev manually kills it by setting
 		* `keep-disclosing` to `false`:
 		*
 		*    $tree.one('exceededDisclosuresLimit.fu.tree', function () {
