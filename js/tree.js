@@ -115,7 +115,7 @@
 					// the "name" attribute is also supported but is deprecated for "text".
 
 					// add attributes to tree-branch or tree-item
-					var attr = value['attr'] || value.dataAttributes || [];
+					var attr = value.attr || value.dataAttributes || [];
 					$.each(attr, function (key, value) {
 						switch (key) {
 							case 'cssClass':
