@@ -1,6 +1,5 @@
 /*!
- * Fuel UX EDGE - Built 2015/02/25, 5:07:13 PM
- * Previous release: v3.6.2
+ * Fuel UX v3.6.3
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -3078,7 +3077,7 @@
 						// the "name" attribute is also supported but is deprecated for "text".
 
 						// add attributes to tree-branch or tree-item
-						var attr = value[ 'attr' ] || value.dataAttributes || [];
+						var attr = value.attr || value.dataAttributes || [];
 						$.each( attr, function( key, value ) {
 							switch ( key ) {
 								case 'cssClass':
