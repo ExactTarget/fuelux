@@ -181,7 +181,7 @@ define(function (require) {
 		testWizardStepStates($wizard, step);
 	});
 
-	test("use selectedItem to set current step > 1", function () {
+	test("use selectedItem to set current step", function () {
 		var step = 3;
 		var $wizard = $(html).find('#MyWizard').wizard();
 
@@ -192,6 +192,26 @@ define(function (require) {
 		});
 
 		testWizardStepStates($wizard, step);
+
+		$wizard.wizard('selectedItem', {
+			step: "named step"
+		});
+
+		testWizardStepStates($wizard, 5);
+
+		//this shouldn't cause anything to happen
+		$wizard.wizard('selectedItem', {
+			step: "nonexistent step"
+		});
+
+		testWizardStepStates($wizard, 5);
+
+		//this shouldn't cause anything to happen
+		$wizard.wizard('selectedItem', {
+			step: 99999999999
+		});
+
+		testWizardStepStates($wizard, 5);
 	});
 
 	test("should disabled previous steps when data attribute is present", function () {
