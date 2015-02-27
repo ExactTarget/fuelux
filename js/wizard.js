@@ -352,17 +352,14 @@
 		},
 
 		selectedItem: function (selectedItem) {
-			var retVal, step, $matchedByName, matchedStep;
+			var retVal, step;
 
 			if (selectedItem) {
 				step = selectedItem.step || -1;
-				$matchedByName = this.$element.find('.steps li').filter('[data-name="' + step + '"]');
+				//allow selection of step by data-name
+				step = isNaN(step) && this.$element.find('.steps li[data-name="' + step + '"]').first().attr('data-step') || step;
 
-				if (isNaN(step) && $matchedByName.length) {
-					matchedStep = $matchedByName.first().attr('data-step');
-					this.currentStep = matchedStep;
-					this.setState();
-				} else if (1 <= step && step <= this.numSteps) {
+				if (1 <= step && step <= this.numSteps) {
 					this.currentStep = step;
 					this.setState();
 				} else {
