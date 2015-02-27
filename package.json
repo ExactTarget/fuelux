@@ -10,12 +10,10 @@
   "dependencies": {
     "bower": "1.x",
     "connect": "3.x",
-    "serve-static": "1.x"
+    "serve-static": ">=1.7.2"
   },
   "description": "Base Fuel UX styles and controls",
   "devDependencies": {
-    "bower": "1.x",
-    "connect": "3.x",
     "grunt": "0.x",
     "grunt-banner": "0.x",
     "grunt-blanket-qunit": "~0.2.0",
@@ -37,9 +35,8 @@
     "grunt-saucelabs": "8.x",
     "grunt-text-replace": "0.x",
     "grunt-zip": "0.x",
-    "load-grunt-tasks": "2.x",
-    "semver": "4.x",
-    "serve-static": "1.x"
+    "load-grunt-tasks": "3.x",
+    "semver": "4.x"
   },
   "engines": {
     "node": "0.10.x"
