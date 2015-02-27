@@ -328,7 +328,7 @@
 				});
 				if (e.isDefaultPrevented()) {
 					return;
-				}// don't increment ...what? Why?
+				}// respect preventDefault in case dev has attached validation to step and wants to stop propagation based on it.
 
 				this.currentStep += 1;
 				this.setState();
@@ -376,7 +376,7 @@
 				retVal = {
 					step: this.currentStep
 				};
-				if (this.$element.find('.steps li[data-name]').filter('[data-step="' + this.currentStep + '"]').length) {
+				if (this.$element.find('.steps li.active:first[data-name]').length) {
 					retVal.stepname = this.$element.find('.steps li.active:first').attr('data-name');
 				}
 
