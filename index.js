@@ -1035,6 +1035,12 @@ define(function (require) {
 			step: 3
 		});
 	});
+	$('#btnWizardSetStepByName').on('click', function () {
+		$('#myWizard').wizard('selectedItem', {
+			step: "distep"
+		});
+	});
+
 
 	$('#btnWizardAddSteps').on('click', function () {
 		$('#myWizard').wizard('addSteps', 2, [{

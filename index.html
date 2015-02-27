@@ -1436,7 +1436,7 @@
 					<li class="active" data-step="2"><span class="badge">2</span>Recipients<span class="chevron"></span></li>
 					<li data-step="3"><span class="badge">3</span>Template<span class="chevron"></span></li>
 					<li data-step="4"><span class="badge">4</span>Preview<span class="chevron"></span></li>
-					<li data-step="5"><span class="badge">5</span>Send<span class="chevron"></span></li>
+					<li data-step="5" data-name="distep"><span class="badge">5</span>Send<span class="chevron"></span></li>
 				</ul>
 				<div class="actions">
 					<button class="btn btn-default btn-prev"><span class="glyphicon glyphicon-arrow-left"></span>Prev</button>
@@ -1467,7 +1467,7 @@
 						<p>Soko radicchio bunya nuts gram dulse silver beet parsnip napa cabbage lotus root sea lettuce brussels sprout cabbage. Catsear cauliflower garbanzo yarrow salsify chicory garlic bell pepper napa cabbage lettuce tomato kale arugula melon sierra leone bologi rutabaga tigernut. Sea lettuce gumbo grape kale kombu cauliflower salsify kohlrabi okra sea lettuce broccoli celery lotus root carrot winter purslane turnip greens garlic.</p>
 						<p>Ja­cama garlic courgette coriander radicchio plantain scallion cauliflower fava bean desert raisin spring onion chicory bunya nuts. Sea lettuce water spinach gram fava bean leek dandelion silver beet eggplant bush tomato. </p>
 					</div>
-					<div class="step-pane sample-pane alert-success alert" data-step="5">
+					<div class="step-pane sample-pane alert-success alert" data-step="5" data-name="distep">
 						<h4>Send Message</h4>
 						<p>Soko radicchio bunya nuts gram dulse silver beet parsnip napa cabbage lotus root sea lettuce brussels sprout cabbage. Catsear cauliflower garbanzo yarrow salsify chicory garlic bell pepper napa cabbage lettuce tomato kale arugula melon sierra leone bologi rutabaga tigernut.</p>
 						<p>Sea lettuce gumbo grape kale kombu cauliflower salsify kohlrabi okra sea lettuce broccoli celery lotus root carrot winter purslane turnip greens garlic. JÃ­cama garlic courgette coriander radicchio plantain scallion cauliflower fava bean desert raisin spring onion chicory bunya nuts. Sea lettuce water spinach gram fava bean leek dandelion silver beet eggplant bush tomato. </p>
@@ -1481,6 +1481,7 @@
 			<button type="button" class="btn btn-default" id="btnWizardNext">next</button>
 			<button type="button" class="btn btn-default" id="btnWizardStep">log current step index</button>
 			<button type="button" class="btn btn-default" id="btnWizardSetStep">jump to step 3 (recipients)</button>
+			<button type="button" class="btn btn-default" id="btnWizardSetStepByName">jump to named step (Send Message)</button>
 			<button type="button" class="btn btn-default" id="btnWizardAddSteps">add step (setup)</button>
 			<button type="button" class="btn btn-default" id="btnWizardRemoveStep">remove step (preview)</button>
 			<button type="button" class="btn btn-default" id="btnWizardDestroy">destroy and append</button>
