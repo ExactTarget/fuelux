@@ -2,7 +2,7 @@
 /*global start:false, stop:false ok:false, equal:false, notEqual:false, deepEqual:false*/
 /*global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false*/
 
-define(function(require){
+define(function (require) {
 	var $ = require('jquery');
 	var html = require('text!test/markup/wizard-markup.html');
 
@@ -12,16 +12,15 @@ define(function(require){
 	function testWizardStepStates($wizard, activeStep) {
 		var $steps = $wizard.find('li');
 
-		for(var i = 0; i < $steps.length; i++) {
-			if(i === (activeStep - 1)){
+		for (var i = 0; i < $steps.length; i++) {
+			if (i === (activeStep - 1)) {
 				equal($steps.eq(i).hasClass('active'), true, 'step ' + activeStep + ' is active');
-			}
-			else if (i < (activeStep - 1)) {
+			} else if (i < (activeStep - 1)) {
 				equal($steps.eq(i).hasClass('complete'), true, 'step ' + (i + 1) + ' is complete');
-			}
-			else {
+			} else {
 				equal($steps.eq(i).hasClass('complete'), false, 'step ' + (i + 1) + ' is not complete');
 			}
+
 		}
 	}
 
@@ -38,7 +37,7 @@ define(function(require){
 
 	test("should set step index", function () {
 		var $wizard = $(html).find('#MyWizard').wizard();
-		var index   = $wizard.wizard('selectedItem').step;
+		var index = $wizard.wizard('selectedItem').step;
 
 		// check default state
 		equal(index, 1, 'default step is set');
@@ -55,7 +54,7 @@ define(function(require){
 	});
 
 	test("should fire actionclicked event", function () {
-		var $wizard    = $(html).find('#MyWizard').wizard();
+		var $wizard = $(html).find('#MyWizard').wizard();
 		var eventFired = false;
 
 		$wizard.on('actionclicked.fu.wizard', function (evt, data) {
@@ -90,7 +89,7 @@ define(function(require){
 
 		$wizard.on('actionclicked.fu.wizard', function (evt, data) {
 			eventFired = true;
-			return evt.preventDefault(); // prevent action
+			return evt.preventDefault();// prevent action
 		});
 
 		// move to next step
@@ -107,9 +106,9 @@ define(function(require){
 
 		$wizard.on('stepclicked.fu.wizard', function (evt, data) {
 			eventFired = true;
-			return evt.preventDefault(); // prevent action
+			return evt.preventDefault();// prevent action
 		});
-		
+
 		// move to second step
 		$wizard.wizard('next');
 
@@ -132,11 +131,11 @@ define(function(require){
 		});
 
 		// move to next step
-		$wizard.wizard('next'); // move to step2
-		$wizard.wizard('next'); // move to step3
-		$wizard.wizard('next'); // move to step4
-		$wizard.wizard('next'); // move to step5
-		$wizard.wizard('next'); // calling next method on last step triggers event
+		$wizard.wizard('next');// move to step2
+		$wizard.wizard('next');// move to step3
+		$wizard.wizard('next');// move to step4
+		$wizard.wizard('next');// move to step5
+		$wizard.wizard('next');// calling next method on last step triggers event
 
 		equal(eventFired, true, 'finish event fired');
 	});
@@ -163,17 +162,21 @@ define(function(require){
 		$nextClone.children().remove();
 		equal($.trim($nextClone.text()), 'Next', 'nextBtn text equal to "Next"');
 	});
-	
+
 	test("pass no init parameter to set current step", function () {
-		var step    = 1;
+		var step = 1;
 		var $wizard = $(html).find('#MyWizard').wizard();
 
 		testWizardStepStates($wizard, step);
 	});
 
 	test("pass init parameter to set current step > 1", function () {
-		var step    = 3;
-		var $wizard = $(html).find('#MyWizard').wizard({selectedItem:{step:step}});
+		var step = 3;
+		var $wizard = $(html).find('#MyWizard').wizard({
+			selectedItem: {
+				step: step
+			}
+		});
 
 		testWizardStepStates($wizard, step);
 	});
@@ -183,40 +186,46 @@ define(function(require){
 		var $wizard = $(html).find('#MyWizard').wizard();
 
 		testWizardStepStates($wizard, 1);
- 
-		$wizard.wizard('selectedItem', {step:step});
- 
+
+		$wizard.wizard('selectedItem', {
+			step: step
+		});
+
 		testWizardStepStates($wizard, step);
 	});
 
-	test( "should disabled previous steps when data attribute is present", function() {
-		var step       = 3;
+	test("should disabled previous steps when data attribute is present", function () {
+		var step = 3;
 		var secondStep = 2;
 		var $wizard = $(html).find('#MyWizardPreviousStepDisabled').wizard();
 
 		// checking disabled property of previous button and making sure CSS class is present that removes hovers and changes cursor on previous steps
-		var prevBtnDisabled   = !!$wizard.find( '.btn-prev' ).prop( 'disabled' );
-		var stepsListCssClass = !!$wizard.find( '.steps' ).hasClass( 'previous-disabled' );
+		var prevBtnDisabled = !!$wizard.find('.btn-prev').prop('disabled');
+		var stepsListCssClass = !!$wizard.find('.steps').hasClass('previous-disabled');
 
-		testWizardStepStates( $wizard, 1 );
+		testWizardStepStates($wizard, 1);
 
 		// testing to see if step changes when previous step clicked on
-		$wizard.wizard( 'selectedItem', { step: step } );
-		$wizard.find( '.steps > li:first-child' ).click();
-		var activeStepIndex = $wizard.find( '.steps > li' ).index( $wizard.find( '.steps > li.active' ) ) + 1;
+		$wizard.wizard('selectedItem', {
+			step: step
+		});
+		$wizard.find('.steps > li:first-child').click();
+		var activeStepIndex = $wizard.find('.steps > li').index($wizard.find('.steps > li.active')) + 1;
 
 		// making sure wizard can still programatically set it's own step
-		$wizard.wizard( 'selectedItem', { step: secondStep } );
-		var wizardSetActiveStep = $wizard.find( '.steps > li' ).index( $wizard.find( '.steps > li.active' ) ) + 1;
+		$wizard.wizard('selectedItem', {
+			step: secondStep
+		});
+		var wizardSetActiveStep = $wizard.find('.steps > li').index($wizard.find('.steps > li.active')) + 1;
 
 		// tests
-		equal( prevBtnDisabled, true, 'previous step button is disabled' );
-		equal( stepsListCssClass, true, 'step list has correct CSS class for disabling hovers and changing cursor' );
-		equal( activeStepIndex, step, 'did not go to step when previous step clicked' );
-		equal( wizardSetActiveStep, secondStep, 'can still programatically set previous step' );
+		equal(prevBtnDisabled, true, 'previous step button is disabled');
+		equal(stepsListCssClass, true, 'step list has correct CSS class for disabling hovers and changing cursor');
+		equal(activeStepIndex, step, 'did not go to step when previous step clicked');
+		equal(wizardSetActiveStep, secondStep, 'can still programatically set previous step');
 	});
 
-	test("should manage step panes", function() {
+	test("should manage step panes", function () {
 		var $wizard = $(html).find('#MyWizard').wizard();
 		var $step = $wizard.find('.steps li:first');
 
@@ -225,17 +234,28 @@ define(function(require){
 		equal($step.hasClass('active'), false, 'active class removed');
 	});
 
-	test('addSteps method should behave as expected', function(){
+	test('addSteps method should behave as expected', function () {
 		var $wizard = $(html).find('#MyWizard').wizard();
 		var $test;
 
-		$wizard.wizard('addSteps', -1, [{ label: 'Test0', pane: 'Test Pane Content 0' }]);
+		$wizard.wizard('addSteps', -1, [{
+			label: 'Test0',
+			pane: 'Test Pane Content 0'
+		}]);
 		$test = $wizard.find('.steps li:last');
 		$test.find('span').remove();
 		equal($test.text(), 'Test0', 'item correctly added via array and negative index, has correct label');
 		equal($wizard.find('.step-content .step-pane:last').text(), 'Test Pane Content 0', 'pane content set correctly');
 
-		$wizard.wizard('addSteps', 2, { badge: 'T1', label: 'Test1', pane: 'Test Pane Content 1' }, { badge: 'T2', label: 'Test2', pane: 'Test Pane Content 2' });
+		$wizard.wizard('addSteps', 2, {
+			badge: 'T1',
+			label: 'Test1',
+			pane: 'Test Pane Content 1'
+		}, {
+				badge: 'T2',
+				label: 'Test2',
+				pane: 'Test Pane Content 2'
+			});
 		$test = $wizard.find('.steps li:nth-child(2)');
 		equal($test.find('.badge').text(), 'T1', 'item correctly added at index via arguments, has correct badge');
 		$test = $test.next();
@@ -244,7 +264,7 @@ define(function(require){
 		equal($wizard.find('.step-content .step-pane:nth-child(3)').text(), 'Test Pane Content 2', 'pane content set correctly');
 	});
 
-	test('removeSteps method should behave as expected', function(){
+	test('removeSteps method should behave as expected', function () {
 		var $wizard = $(html).find('#MyWizard').wizard();
 		var $test;
 
@@ -261,8 +281,7 @@ define(function(require){
 	test("should destroy control", function () {
 		var $el = $(html).find('#MyWizard').wizard();
 
-		equal(typeof( $el.wizard('destroy')) , 'string', 'returns string (markup)');
-		equal( $el.parent().length, false, 'control has been removed from DOM');
+		equal(typeof ($el.wizard('destroy')), 'string', 'returns string (markup)');
+		equal($el.parent().length, false, 'control has been removed from DOM');
 	});
-
 });
