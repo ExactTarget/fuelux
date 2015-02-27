@@ -1028,7 +1028,7 @@ define(function (require) {
 	});
 	$('#btnWizardStep').on('click', function () {
 		var item = $('#myWizard').wizard('selectedItem');
-		log(item.step);
+		log(item);
 	});
 	$('#btnWizardSetStep').on('click', function () {
 		$('#myWizard').wizard('selectedItem', {
@@ -1036,9 +1036,10 @@ define(function (require) {
 		});
 	});
 	$('#btnWizardSetStepByName').on('click', function () {
-		$('#myWizard').wizard('selectedItem', {
+		var item = $('#myWizard').wizard('selectedItem', {
 			step: "distep"
 		});
+		log(item);
 	});
 
 
