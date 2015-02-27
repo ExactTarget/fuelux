@@ -35,22 +35,32 @@ define(function (require) {
 		ok($wizard.wizard() === $wizard, 'wizard should be initialized');
 	});
 
-	test("should set step index", function () {
+	test("next and previous should work as expected", function () {
 		var $wizard = $(html).find('#MyWizard').wizard();
-		var index = $wizard.wizard('selectedItem').step;
 
 		// check default state
-		equal(index, 1, 'default step is set');
+		equal($wizard.find('.active').data('step'), 1, 'default step is set');
 
 		// move to next step
 		$wizard.wizard('next');
-		index = $wizard.wizard('selectedItem').step;
-		equal(index, 2, 'next step is set');
+		equal($wizard.find('.active').data('step'), 2, 'next step is set');
 
 		// move to previous step
 		$wizard.wizard('previous');
-		index = $wizard.wizard('selectedItem').step;
-		equal(index, 1, 'previous step is set');
+		equal($wizard.find('.active').data('step'), 1, 'previous step is set');
+	});
+
+	test("selectedItem should return expected object", function () {
+		var $wizard = $(html).find('#MyWizard').wizard();
+
+		var retVal = $wizard.wizard('selectedItem');
+		var expectedRetVal = {
+			step: 1
+		};
+		deepEqual(retVal, expectedRetVal, 'selectedItem used as getter returns step data as expected');
+
+		retVal = $wizard.wizard('selectedItem', 2);
+		equal(retVal.$element.hasClass('wizard'), true, 'selectedItem used as setter returns Wizard() as expected');
 	});
 
 	test("should fire actionclicked event", function () {
