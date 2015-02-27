@@ -356,13 +356,13 @@
 
 			if (selectedItem) {
 				step = selectedItem.step || -1;
-				$matchedByName = this.$element.find('.steps li').filter('[data-name="'+step+'"]');
+				$matchedByName = this.$element.find('.steps li').filter('[data-name="' + step + '"]');
 
-				if (isNaN(step) && $matchedByName.length){
+				if (isNaN(step) && $matchedByName.length) {
 					matchedStep = $matchedByName.first().attr('data-step');
 					this.currentStep = matchedStep;
 					this.setState();
-				} else if (step >= 1 && step <= this.numSteps) {
+				} else if (1 <= step && step <= this.numSteps) {
 					this.currentStep = step;
 					this.setState();
 				} else {
@@ -379,9 +379,10 @@
 				retVal = {
 					step: this.currentStep
 				};
-				if (this.$element.find('.steps li[data-name]').filter('[data-step="'+this.currentStep+'"]').length){
+				if (this.$element.find('.steps li[data-name]').filter('[data-step="' + this.currentStep + '"]').length) {
 					retVal.stepname = this.$element.find('.steps li.active:first').attr('data-name');
 				}
+
 			}
 
 			return retVal;
