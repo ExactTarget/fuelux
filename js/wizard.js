@@ -328,7 +328,7 @@
 				});
 				if (e.isDefaultPrevented()) {
 					return;
-				}// don't increment ...what? Why?
+				}// respect preventDefault in case dev has attached validation to step and wants to stop propagation based on it.
 
 				this.currentStep += 1;
 				this.setState();
@@ -356,8 +356,10 @@
 
 			if (selectedItem) {
 				step = selectedItem.step || -1;
+				//allow selection of step by data-name
+				step = isNaN(step) && this.$element.find('.steps li[data-name="' + step + '"]').first().attr('data-step') || step;
 
-				if (step >= 1 && step <= this.numSteps) {
+				if (1 <= step && step <= this.numSteps) {
 					this.currentStep = step;
 					this.setState();
 				} else {
@@ -374,6 +376,10 @@
 				retVal = {
 					step: this.currentStep
 				};
+				if (this.$element.find('.steps li.active:first[data-name]').length) {
+					retVal.stepname = this.$element.find('.steps li.active:first').attr('data-name');
+				}
+
 			}
 
 			return retVal;

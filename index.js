@@ -1028,13 +1028,20 @@ define(function (require) {
 	});
 	$('#btnWizardStep').on('click', function () {
 		var item = $('#myWizard').wizard('selectedItem');
-		log(item.step);
+		log(item);
 	});
 	$('#btnWizardSetStep').on('click', function () {
 		$('#myWizard').wizard('selectedItem', {
 			step: 3
 		});
 	});
+	$('#btnWizardSetStepByName').on('click', function () {
+		var item = $('#myWizard').wizard('selectedItem', {
+			step: "distep"
+		});
+		log(item);
+	});
+
 
 	$('#btnWizardAddSteps').on('click', function () {
 		$('#myWizard').wizard('addSteps', 2, [{
