@@ -47,6 +47,41 @@ $('#myTree').tree({ dataSource: dataSource });
 
     <dt id="tree-usage-methods-selectedItems">.tree('selectedItems')</dt>
     <dd>Returns an array containing selected items and associated data</dd>
+
+    <dt id="tree-usage-methods-selectItem">.tree('selectItem', $('#itemId'))</dt>
+    <dd>Select the passed in non-folder item in the tree.</dd>
+
+    <dt id="tree-usage-methods-selectFolder">.tree('selectFolder', $('#itemId'))</dt>
+    <dd>Select the passed in folder item in the tree.</dd>
+
+
+    <dt id="tree-usage-methods-openFolder">.tree('openFolder', $('#folderId'))</dt>
+    <dd>Open the targeted folder</dd>
+
+    <dt id="tree-usage-methods-closeFolder">.tree('closeFolder', $('#folderId'))</dt>
+    <dd>Close the targeted folder</dd>
+
+    <dt id="tree-usage-methods-toggleFolder">.tree('toggleFolder', $('#folderId'))</dt>
+    <dd>Toggle the targeted folder (opened or closed)</dd>
+
+    <dt id="tree-usage-methods-closeAll">.tree('closeAll')</dt>
+    <dd>Close all folders (collapse the entire tree).</dd>
+
+    <dt id="tree-usage-methods-discloseAll">.tree('discloseAll')</dt>
+    <dd>Disclose all folders (expand the entire tree).</dd>
+
+    <dt id="tree-usage-methods-discloseVisible">.tree('discloseVisible')</dt>
+    <dd>Disclose only currently visible folders (expand already displayed folders).</dd>
+
+    <dt id="tree-usage-methods-populate">.tree('populate', $el)</dt>
+    <dd><em>deprecated</em>Populate the passed in element as if it were a new copy of the instantiated tree. If you call this on an already instantiated tree, it will append all of the items to the tree again. You probably don't want to call this. It will most likely become a private function in the future.</dd>
+
+    <dt id="tree-usage-methods-render">.render('render')</dt>
+    <dd><em>caution</em>Currently a short-cut to <a href="#tree-usage-methods-populate">.tree('populate', $el)</a> but in the future may behave as a <code>refresh();</code>. At that point this may be deprecated in favor of an actual <code>refresh()</code> function.</dd>
+
+    <dt id="tree-usage-methods-collapse">.tree('collapse')</dt>
+    <dd><em>deprecated</em>Same as <a href="#tree-usage-methods-closeAll">.tree('closeAll')</a></dd>
+
   </dl>
 
   <h3 id="tree-usage-options">Options</h3>
@@ -79,6 +114,24 @@ $('#myTree').tree({ dataSource: dataSource });
         <td>boolean</td>
         <td>true</td>
         <td>Enables folder selection</td>
+      </tr><tr>
+        <td>ignoreRedundantOpens</td>
+        <td>boolean</td>
+        <td>false</td>
+        <td>Makes <code>openFolder()</code> behave like <code>toggleFolder()</code> instead. <em>Will be deprecated in <code>3.7.0</code> when <code>openFolder()</code> will only open the folder instead of toggling</em></td>
+      </tr><tr>
+        <td>disclosuresUpperLimit</td>
+        <td>integer</td>
+        <td>0</td>
+        <td>How many times <code>discloseAll()</code> should be called before a stopping and firing an <code>exceededDisclosuresLimit.fu.tree</code> event. You can force it to continue by listening for this event, setting <code>data-ignore-disclosures-limit</code> to <code>true</code> and starting <code>discloseAll()</code> back up again. This lets you make more decisions about if/when/how/why/how many times <code>discloseAll()</code> will be started back up after it exceeds the limit.
+
+<pre>
+    $tree.one('exceededDisclosuresLimit.fu.tree', function () {
+        $tree.data('ignore-disclosures-limit', true);
+        $tree.tree('discloseAll');
+    });
+</pre>
+<code>disclusuresUpperLimit</code> defaults to <code>0</code>, so by default this trigger will never fire. The true hard the upper limit is the browser's ability to load new items (i.e. it will keep loading until the browser falls over and dies). On the Fuel UX <code>index.html</code> testing page, the point at which the page became super slow (enough to seem almost unresponsive) was <code>4</code>, meaning 256 folders had been opened, and 1024 were attempting to open.</td>
       </tr>
       </tbody>
     </table>
@@ -156,16 +209,31 @@ $('#myTree').tree({ dataSource: dataSource });
       </tr>
       <tr>
         <td>opened.fu.tree</td>
-        <td>This event fires when a user opens a sub-folder. Returns an object containing folder information.</td>
+        <td>This event fires when a user opens a folder. Returns an object containing folder information.</td>
       </tr>
       <tr>
         <td>closed.fu.tree</td>
-        <td>This event fires when a user closes a sub-folder. Returns an object containing folder information.</td>
+        <td>This event fires when a user closes a folder. Returns an object containing folder information.</td>
       </tr>
       <tr>
         <td>selected.fu.tree</td>
         <td>This event fires when a user selects one or more items. Returns an object containing <code>{info: data}</code>. <code>data</code> represents an array of selected items.</td>
       </tr>
+      <tr>
+        <td>closeAll.fu.tree</td>
+        <td>This event fires when all folders have finished closing</td>
+      </tr>
+      <tr>
+      <tr>
+        <td>disclosedVisible.fu.tree</td>
+        <td>This event fires when all visible folders have disclosed. Returns an object containing <code>{tree: $el, reportedOpened: N}</code></td>
+      </tbody>
+        <td>exceededDisclosuresLimit.fu.tree</td>
+        <td>This event fires when tree halts disclosing due to hitting discloserLimit cap. Returns an object containing <code>{tree: $el, disclosures: N}</code></td>
+      </tbody>
+      <tr>
+        <td>disclosedAll.fu.tree</td>
+        <td>This event fires when all folders have disclosed. It will not fire if tree stops disclosing due to hitting discloserLimit cap. Returns an object containing <code>{tree: $el, disclosures: N}</code></td>
       </tbody>
     </table>
   </div><!-- ./fu-table-responsive -->
