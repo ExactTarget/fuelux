@@ -5,7 +5,7 @@
  * details, see http://creativecommons.org/licenses/by/3.0/.
  */
 
-define(function(require){
+define(function (require) {
 	var jquery = require('jquery');
 
 	require('bootstrap');
@@ -52,9 +52,8 @@ define(function(require){
 
 	$('#btnSelectlistDestroy').on('click', function () {
 		var markup = $('#mySelectlist').selectlist('destroy');
-		console.log( markup );
+		console.log(markup);
 		$(this).closest('.section').append(markup);
 		$('#mySelectlist').selectlist();
 	});
-
 });

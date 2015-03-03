@@ -8,15 +8,15 @@ define(function placedComponent(require) {
 
 	return AvailableComponents.extend({
 		model: Component,
-		renderAll: function() {
-			return this.map(function(component) {
+		renderAll: function () {
+			return this.map(function (component) {
 				return new PlacedComponent({
 					model: component
 				}).render(true);
 			});
 		},
-		renderAllClean: function() {
-			return this.map(function(component) {
+		renderAllClean: function () {
+			return this.map(function (component) {
 				return new PlacedComponent({
 					model: component
 				}).render(false);

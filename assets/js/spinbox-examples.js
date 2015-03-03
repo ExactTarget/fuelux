@@ -5,7 +5,7 @@
  * details, see http://creativecommons.org/licenses/by/3.0/.
  */
 
-define(function(require){
+define(function (require) {
 	var jquery = require('jquery');
 
 	require('bootstrap');
@@ -19,7 +19,7 @@ define(function(require){
 		step: 0.1,
 		decimalMark: ',',
 		units: ['px']
-		});
+	});
 
 	$('#mySpinboxWithDefault').on('changed.fu.spinbox', function (e, value) {
 		console.log('Spinbox changed: ', value);
@@ -31,12 +31,12 @@ define(function(require){
 
 	// buttons
 
-	$('#btnSpinboxSetValue').on('click', function(){
-		console.log( $('#mySpinboxWithDefault').spinbox('value', 4) );
+	$('#btnSpinboxSetValue').on('click', function () {
+		console.log($('#mySpinboxWithDefault').spinbox('value', 4));
 	});
 
-	$('#btnSpinboxGetValue').on('click', function(){
-		console.log( $('#mySpinboxWithDefault').spinbox('value') );
+	$('#btnSpinboxGetValue').on('click', function () {
+		console.log($('#mySpinboxWithDefault').spinbox('value'));
 	});
 
 	$('#btnEnableSpinbox').on('click', function () {
@@ -49,10 +49,8 @@ define(function(require){
 
 	$('#btnSpinboxDestroy').on('click', function () {
 		var markup = $('#mySpinboxWithDefault').spinbox('destroy');
-		console.log( markup );
+		console.log(markup);
 		$(this).closest('.section').append(markup);
 		$('#mySpinboxWithDefault').spinbox();
 	});
-
-
 });

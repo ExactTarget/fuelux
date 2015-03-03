@@ -24,11 +24,11 @@ define(function MyForm(require) {
 			//Render Snippet Views
 			this.$el.empty();
 			var that = this;
-			_.each(this.collection.renderAll(), function(component) {
+			_.each(this.collection.renderAll(), function (component) {
 				that.$el.append(component);
 			});
 			$('#render').val(that.renderForm({
-				text: _.map(this.collection.renderAllClean(), function(e) {
+				text: _.map(this.collection.renderAllClean(), function (e) {
 					return e.html();
 				}).join('\n')
 			}));
@@ -38,7 +38,7 @@ define(function MyForm(require) {
 
 		getBottomAbove: function getBottomAbove(eventY) {
 			var myFormBits = $(this.$el.find('.component'));
-			var topelement = _.find(myFormBits, function(renderedSnippet) {
+			var topelement = _.find(myFormBits, function (renderedSnippet) {
 				if (($(renderedSnippet).offset().top + $(renderedSnippet).height()) > eventY - 90) {
 					return true;
 				} else {

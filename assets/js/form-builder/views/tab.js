@@ -17,12 +17,13 @@ define(function Tab(require) {
 			// Render Snippet Views
 			var that = this;
 			if (that.collection !== undefined) {
-				_.each(this.collection.renderAll(), function(component) {
+				_.each(this.collection.renderAll(), function (component) {
 					that.$el.append(component);
 				});
 			} else if (that.options.content) {
 				that.$el.append(that.options.content);
 			}
+
 			// Render & append nav for tab
 			$('#formtabs').append(this.tabNavTemplate({
 				title: this.options.title,
