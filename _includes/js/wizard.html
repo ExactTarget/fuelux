@@ -94,10 +94,21 @@
     <dd>Moves to the next step</dd>
 
     <dt id="wizard-usage-methods-selectedItem">.wizard('selectedItem')</dt>
-    <dd>Returns the current step index
+    <dd>Returns the current step index.
+  {% highlight js %}
+  $('#myWizard').wizard('selectedItem');
+  {% endhighlight %}
+    </dd>
+
+    <dt id="wizard-usage-methods-selectedItem">.wizard('selectedItem', 3)</dt>
+    <dd>Moves to passed in step. This can be either an integer or the `data-name` of a step.
   {% highlight js %}
   $('#myWizard').wizard('selectedItem', {
     step: 3
+  });
+
+  $('#myWizard').wizard('selectedItem', {
+    step: "named item"
   });
   {% endhighlight %}
     </dd>
@@ -220,6 +231,7 @@ $('#myWizard').on('actionclicked.fu.wizard', function (evt, data) {
       <button type="button" class="btn btn-default" id="btnWizardNext">next</button>
       <button type="button" class="btn btn-default" id="btnWizardStep">log current step index</button>
       <button type="button" class="btn btn-default" id="btnWizardSetStep">jump to step 3</button>
+      <button type="button" class="btn btn-default" id="btnWizardSetStepByName">jump to named step (Template)</button>
     </div>
   <div class="btn-group">
       <button type="button" class="btn btn-default" id="btnWizardAddSteps">add step at index 2</button>

@@ -47,6 +47,11 @@ define(function (require) {
 			step: 3
 		});
 	});
+	$('#btnWizardSetStepByName').on('click', function () {
+		$('#myWizard').wizard('selectedItem', {
+			step: "template"
+		});
+	});
 
 	var emailSetupSamplePane = '<div class="bg-warning alert">' +
 	'	<h4>Setup Message</h4>' +
