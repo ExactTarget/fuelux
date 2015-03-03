@@ -213,13 +213,8 @@
 			});
 		},
 
-		openFolder: function openFolder(el, ignoreRedundantOpens) {
+		openFolder: function openFolder(el) {
 			var $el = $(el);
-
-			//don't break the API :| (make this functionally the same as calling 'toggleFolder')
-			if (!ignoreRedundantOpens && $el.find('.glyphicon-folder-open').length && !this.options.ignoreRedundantOpens) {
-				this.closeFolder(el);
-			}
 
 			var $branch = $el.closest('.tree-branch');
 			var $treeFolderContent = $branch.find('.tree-branch-children');
@@ -383,7 +378,7 @@
 
 			// open all visible folders
 			self.$element.find(".tree-branch:not('.tree-open, .hide')").each(function triggerOpen() {
-				self.openFolder($(this).find('.tree-branch-header'), true);
+				self.openFolder($(this).find('.tree-branch-header'));
 			});
 		},
 
@@ -498,15 +493,6 @@
 		cacheItems: true,
 		folderSelect: true,
 		itemSelect: true,
-		/*
-		* Calling "open" on something, should do that. However, the current API
-		* instead treats "open" as a "toggle" and will close a folder that is open
-		* if you call `openFolder` on it. Setting `ignoreRedundantOpens` to `true`
-		* will make the folder instead ignore the redundant call and stay open.
-		* This allows you to fix the API until 3.7.x when we can deprecate the switch
-		* and make `openFolder` behave correctly by default.
-		*/
-		ignoreRedundantOpens: false,
 		/*
 		* How many times `discloseAll` should be called before a stopping and firing
 		* an `exceededDisclosuresLimit` event. You can force it to continue by
