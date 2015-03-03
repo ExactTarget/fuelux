@@ -132,7 +132,6 @@ define(function (require) {
 		equal(defaults.cacheItems, true, 'cacheItems defaults to true');
 		equal(defaults.folderSelect, true, 'folderSelect defaults to true');
 		equal(defaults.itemSelect, true, 'itemSelect defaults to true');
-		equal(defaults.ignoreRedundantOpens, false, 'ignoreRedundantOpens defaults to false');
 		equal(defaults.disclosuresUpperLimit, 0, 'disclosuresUpperLimit defaults to 0');
 		ok(defaults.dataSource, 'dataSource exists by default');
 	});
@@ -264,6 +263,30 @@ define(function (require) {
 
 		$tree.tree('selectFolder', $tree.find('.tree-branch-name:eq(1)'));
 		equal($tree.tree('selectedItems').length, 0, 'Return no value');
+	});
+
+	test('folders should open and close correctly', function () {
+		var $tree = $(html).find('#MyTree');
+
+		$tree.tree({
+			dataSource: this.dataSource
+		});
+
+		var $targetBranch = $($tree.find('.tree-branch')[0]);
+
+		equal($targetBranch.hasClass('tree-open'), false, 'Branch starts closed');
+		$tree.tree('openFolder', $targetBranch);
+		equal($targetBranch.hasClass('tree-open'), true, 'openFolder opens folder');
+		$tree.tree('openFolder', $targetBranch);
+		equal($targetBranch.hasClass('tree-open'), true, 'redundant openFolder calls leaves folder open');
+		$tree.tree('closeFolder', $targetBranch);
+		equal($targetBranch.hasClass('tree-open'), false, 'closeFolder closes folder');
+		$tree.tree('closeFolder', $targetBranch);
+		equal($targetBranch.hasClass('tree-open'), false, 'redundant closeFolder calls leaves folder closed');
+		$tree.tree('toggleFolder', $targetBranch);
+		equal($targetBranch.hasClass('tree-open'), true, 'toggleFolder on closed folder opens folder');
+		$tree.tree('toggleFolder', $targetBranch);
+		equal($targetBranch.hasClass('tree-open'), false, 'toggleFolder on open folder closes folder');
 	});
 
 	asyncTest("should disclose visible folders", function () {
