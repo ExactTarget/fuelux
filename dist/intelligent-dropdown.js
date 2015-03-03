@@ -6,7 +6,7 @@
  * Licensed under the MIT license.
  */
 
-define([ "jquery", "fuelux/all"], function($) {
+define([ "jquery" ], function($) {
 
 	$(function() {
 		$(document.body).on("click", "[data-toggle=dropdown][data-direction]", function( event ) {

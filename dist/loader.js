@@ -4598,7 +4598,7 @@ define('fuelux/datepicker',['require','jquery'],function (require) {
  * Licensed under the MIT license.
  */
 
-define('fuelux/intelligent-dropdown',[ "jquery", "fuelux/all"], function($) {
+define('fuelux/intelligent-dropdown',[ "jquery" ], function($) {
 
 	$(function() {
 		$(document.body).on("click", "[data-toggle=dropdown][data-direction]", function( event ) {
@@ -4722,6 +4722,7 @@ define('fuelux/intelligent-dropdown',[ "jquery", "fuelux/all"], function($) {
 		}
 	});
 });
+
 /*
  * Fuel UX Pillbox
  * https://github.com/ExactTarget/fuelux
