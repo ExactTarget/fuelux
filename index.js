@@ -11,6 +11,11 @@ define(function (require) {
 		}
 	};
 
+	// programmatically injecting this is so much easier than writing the html by hand 376 times...
+	$('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id], dt[id]').each(function(i){
+		$(this).prepend(['<a class="header-anchor" href="#', this.id, '"><small><span class="glyphicon glyphicon-link"></span></a></small> '].join(''));
+	});
+
 	// load fuel controls
 	require('fuelux/all');
 
