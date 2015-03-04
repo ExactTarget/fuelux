@@ -3,7 +3,7 @@
 <div class="fu-docs-section">
   <h1 id="repeater" class="page-header">Repeater <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/repeater.js"><small>repeater.js</small></a></h1>
 
-  <p>Data viewer with paging, sorting, and searching. Can be easily extended for various renderings.</p>
+  <p>Data viewer with paging, sorting, and searching. Must use at least one <a href="/extensions.html">extension</a> to display items. Fuel UX bundles a <a href="/extensions.html#bundled-extensions-list">list view extension</a> and <a href="/extensions.html#bundled-extensions-thumbnail">thumbnail view extension</a>, but you can <a href="/extensions.html#submit-community-extensions">build your own</a>. The following example uses the <a href="/extensions.html#bundled-extensions-list">list</a> and <a href="/extensions.html#bundled-extensions-thumbnail">thumbnail</a> extensions.</p>
 
   <div class="fu-example section">
     <div class="repeater" data-staticheight="400" id="repeaterIllustration">
@@ -557,15 +557,26 @@ $('#myRepeater').repeater({
   </ul>
 
   <h3 id="repeater-extensions">Repeater Extensions</h3>
+
+  <ul>
+    <li>
+      <a href="/extensions.html#bundled-extensions-list">list view extension</a> (<a href="{{ site.repo }}/blob/{{ site.current_version }}/js/repeater-list.js"><small>repeater-list.js</small></a>)
+    </li>
+    <li>
+      <a href="/extensions.html#bundled-extensions-thumbnail">thumbnail view extension</a> (<a href="{{ site.repo }}/blob/{{ site.current_version }}/js/repeater-thumbnail.js"><small>repeater-thumbnail.js</small></a>)
+    </li>
+  </ul>
   <p>The repeater uses a view framework that allows for extensions to represent data in different ways. By default,
-    Fuel UX comes with two repeater view extensions (list and thumbnail). Each extension provides additional options and requires
-    different return data from the <a href="#repeater-dataSource">dataSource</a> to render appropriately. For
-    information on using these extensions, visit the <a href="{{site.url}}/extensions.html">extensions page</a>. You can learn how to write your own repeater
-    extension here.
+    Fuel UX comes with two repeater view extensions (<a href="/extensions.html#bundled-extensions-list">list</a> and <a href="/extensions.html#bundled-extensions-thumbnail">thumbnail</a>).
+    Each extension provides additional options and requires different return data from the
+    <a href="#repeater-dataSource">dataSource</a> to render appropriately. For
+    information on using extensions, visit the <a href="/extensions.html">extensions page</a>.
+    You can also <a href="/extensions.html#writing-extensions">learn how to write your own repeater extension</a>.
   </p>
 
   <h2 id="repeater-examples">Examples</h2>
-  <p>Data viewer with paging, sorting, and searching. Can be easily extended for various renderings. <a href="{{ site.repo }}/blob/gh-pages/assets/js/repeater-examples.js">More thorough examples here</a>.</p>
+  <p>Data viewer with paging, sorting, and searching using <a href="/extensions.html#bundled-extensions-list">list</a> and <a href="/extensions.html#bundled-extensions-thumbnail">thumbnail</a> extensions.
+  Can be extended further for various other renderings. <a href="{{ site.repo }}/blob/gh-pages/assets/js/repeater-examples.js">More thorough examples here</a>.</p>
   <p>Examples using both a static datasource and an API can be found <a href="{{ site.repo }}/wiki/Repeater-DataSource-Examples">here</a>.
 
   <div class="fu-example section">
