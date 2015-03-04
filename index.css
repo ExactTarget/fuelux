@@ -16,7 +16,15 @@
 }
 
 #mainWrapper {
-	padding-bottom: 40px;
+	padding-bottom: 1.5rem;
+}
+
+#mainWrapper section {
+	padding-bottom: 1.5rem;
+}
+
+#mainWrapper section section {
+	padding-bottom: 1.5rem;
 }
 
 #myInfiniteScroll1, #myInfiniteScroll2 {

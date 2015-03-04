@@ -274,6 +274,30 @@ module.exports = function (grunt) {
 			}
 		},
 		less: {
+			pre: {
+				options: {
+					strictMath: true,
+					sourceMap: true,
+					outputSourceFiles: true,
+					sourceMapURL: '<%= pkg.name %>-fuelux-no-namespace.css.map',
+					sourceMapFilename: 'dist/css/<%= pkg.name %>-fuelux-no-namespace.css.map'
+				},
+				files: {
+					'less/fuelux-no-namespace.less': 'less/fuelux.less'
+				}
+			},
+			dev: {
+				options: {
+					strictMath: true,
+					sourceMap: true,
+					outputSourceFiles: true,
+					sourceMapURL: '<%= pkg.name %>-dev.css.map',
+					sourceMapFilename: 'dist/css/<%= pkg.name %>-dev.css.map'
+				},
+				files: {
+					'dist/css/fuelux-dev.css': 'less/fuelux.less'
+				}
+			},
 			dist: {
 				options: {
 					strictMath: true,
@@ -283,10 +307,10 @@ module.exports = function (grunt) {
 					sourceMapFilename: 'dist/css/<%= pkg.name %>.css.map'
 				},
 				files: {
-					'less/fuelux-no-namespace.less': 'less/fuelux.less',
 					'dist/css/fuelux.css': 'less/fuelux-namespace.less'
 				}
 			},
+
 			minify: {
 				options: {
 					cleancss: true,
@@ -296,7 +320,8 @@ module.exports = function (grunt) {
 				files: {
 					'dist/css/<%= pkg.name %>.min.css': 'dist/css/<%= pkg.name %>.css'
 				}
-			},
+			}
+
 		},
 		prompt: {
 			bump: {
@@ -430,6 +455,7 @@ module.exports = function (grunt) {
 				},
 				stoponerror: true,
 				relaxerror: [//ignores these errors
+					'Section lacks heading. Consider using h2-h6 elements to add identifying headings to all sections.',
 					'Bad value X-UA-Compatible for attribute http-equiv on element meta.',
 					'Element head is missing a required instance of child element title.'
 				],
@@ -459,11 +485,18 @@ module.exports = function (grunt) {
 			},
 			//only watch and dist less, useful when doing LESS/CSS work
 			less: {
-				files: ['fonts/**', 'less/**'],
+				files: ['fonts/**', 'less/**', '!less/fuelux-no-namespace.less'],
 				options: {
 					livereload: isLivereloadEnabled
 				},
 				tasks: ['distcss']
+			},
+			cssdev: {
+				files: ['Gruntfile.js', 'less/**', 'index.html', 'index-dev.html', 'dev.html', '!less/fuelux-no-namespace.less'],
+				options: {
+					livereload: isLivereloadEnabled
+				},
+				tasks: ['distcssdev']
 			},
 			//watch things that need compiled, useful for debugging/developing against dist
 			dist: {
@@ -498,6 +531,10 @@ module.exports = function (grunt) {
 
 	// CSS distribution task
 	grunt.registerTask('distcss', 'Compile LESS into CSS', ['less', 'usebanner', 'delete-temp-less-file']);
+
+	// CSS distribution task (dev)
+	grunt.registerTask('distcssdev', 'Compile LESS into the dev CSS', ['less:pre', 'less:dev', 'delete-temp-less-file']);
+
 
 	// Temporary LESS file deletion task
 	grunt.registerTask('delete-temp-less-file', 'Delete the temporary LESS file created during the build process', function () {
@@ -591,7 +628,7 @@ module.exports = function (grunt) {
 		grunt.task.run(tasks);
 	});
 
-	// default serve task that runs tests and builds and tests dist by default (~20s).
+	// serve task that runs tests and builds and tests dist by default (~20s).
 	grunt.registerTask('serveslow', 'Serve files. Run all tests. Does not build. (~20s)', function () {
 		var tasks = ['connect:server', 'test', 'watch:source'];
 		grunt.task.run(tasks);
@@ -625,6 +662,14 @@ module.exports = function (grunt) {
 		}
 
 		grunt.task.run(['connect:server', 'watch:less']);
+	});
+
+	// Complies the less files into the -dev versions, does not overwrite the main css files.
+	grunt.registerTask('servedev', 'Serve the files with no "dist" build or tests. Optional --no-less to also disable compiling less into css.', function() {
+		if (! grunt.option('no-less') ) {
+			grunt.task.run(['distcssdev']);
+		}
+		grunt.task.run(['connect:server', 'watch:cssdev']);
 	});
 
 	// same as `grunt serve` but tests default to being off
