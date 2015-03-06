@@ -8,26 +8,11 @@
 define(function (require) {
 	var $ = require('jquery');
 	var _ = require('underscore');
-	var colors = {
-		bug: '#A8B820',
-		dark: '#705848',
-		dragon: '#7038F8',
-		electric: '#F8D030',
-		fairy: '#EE99AC',
-		fighting: '#C03028',
-		fire: '#F08030',
-		flying: '#A890F0',
-		ghost: '#705898',
-		grass: '#78C850',
-		ground: '#E0C068',
-		ice: '#98D8D8',
-		normal: '#A8A878',
-		poison: '#A040A0',
-		psychic: '#F85888',
-		rock: '#B8A038',
-		steel: '#B8B8D0',
-		water: '#6890F0'
-	};
+	require('bootstrap');
+	require('fuelux');
+	var pokemon = require('assets/js/data/pokemon');
+	var colors = require('assets/js/data/colors');
+
 	var columns = [
 		{
 			label: 'Name',
@@ -66,72 +51,29 @@ define(function (require) {
 		}
 	];
 	var delays = ['300', '600', '900', '1200'];
-	var pokemon = require('assets/js/repeater-data');
-	var dataSource, filtering;
 
-	require('bootstrap');
-	require('fuelux');
-
-	dataSource = function (options, callback) {
-		var items = filtering(options);
-		var resp = {
-			count: items.length,
-			items: [],
-			page: options.pageIndex,
-			pages: Math.ceil(items.length / (options.pageSize || 50))
-		};
-		var i, items, l;
-
-		i = options.pageIndex * (options.pageSize || 50);
-		l = i + (options.pageSize || 50);
-		l = (l <= resp.count) ? l : resp.count;
-		resp.start = i + 1;
-		resp.end = l;
-
-		if (options.view === 'list' || options.view === 'thumbnail') {
-			if (options.view === 'list') {
-				resp.columns = columns;
-				for (i; i < l; i++) {
-					resp.items.push(items[i]);
-				}
-			} else {
-				for (i; i < l; i++) {
-					resp.items.push({
-						color: colors[items[i].type.split(', ')[0]],
-						name: items[i].name,
-						src: items[i].ThumbnailImage
-					});
-				}
-			}
-
-			setTimeout(function () {
-				callback(resp);
-			}, delays[Math.floor(Math.random() * 4)]);
-		}
-	};
-
-	filtering = function (options) {
+	var dataFilter = function dataFilter(options) {
 		var items = $.extend([], pokemon);
-		var search;
 
-		if (options.filter.value !== 'all') {
+		var filterValue = new RegExp(options.filter, 'i');//Explicitly make a regex object instead of just using String.search() to avoid confusion with FuelUX search() and options.search
+		if (!filterValue.test('all')) {
 			items = _.filter(items, function (item) {
-				return (item.type.search(options.filter.value) >= 0);
+				var isFilterMatch = filterValue.test(item.type);
+				return isFilterMatch;
 			});
 		}
 
+		var searchTerm;
 		if (options.search) {
-			search = options.search.toLowerCase();
+			searchTerm = new RegExp(options.search, 'i');//Explicitly make a regex object instead of just using String.search() to avoid confusion with FuelUX search() and options.search
 			items = _.filter(items, function (item) {
-				return (
-				(item.name.toLowerCase().search(options.search.toLowerCase()) >= 0) ||
-				(item.id.toLowerCase().search(options.search.toLowerCase()) >= 0) ||
-				(item.type.toLowerCase().search(options.search.toLowerCase()) >= 0) ||
-				(item.height.toLowerCase().search(options.search.toLowerCase()) >= 0) ||
-				(item.weight.toLowerCase().search(options.search.toLowerCase()) >= 0) ||
-				(item.abilities.toLowerCase().search(options.search.toLowerCase()) >= 0) ||
-				(item.weakness.toLowerCase().search(options.search.toLowerCase()) >= 0)
-				);
+				//collapse all item property values down to a single string to make matching on it easier to manage
+				var itemText = _.reduce(_.values(_.omit(item, 'ThumbnailAltText', 'ThumbnailImage')), function (finalText, currentText) {
+					return finalText + " " + currentText;
+				});
+
+				var isSearchMatch = searchTerm.test(itemText);
+				return isSearchMatch;
 			});
 		}
 
@@ -150,6 +92,44 @@ define(function (require) {
 		}
 
 		return items;
+	};
+
+	var dataSource = function dataSource(options, callback) {
+		var items = dataFilter(options);
+		var responseData = {
+			count: items.length,
+			items: [],
+			page: options.pageIndex,
+			pages: Math.ceil(items.length / (options.pageSize || 50))
+		};
+		var firstItem, lastItem;
+
+		firstItem = options.pageIndex * (options.pageSize || 50);
+		lastItem = firstItem + (options.pageSize || 50);
+		lastItem = (lastItem <= responseData.count) ? lastItem : responseData.count;
+		responseData.start = firstItem + 1;
+		responseData.end = lastItem;
+
+		if (options.view === 'thumbnail') {
+			for (var i = firstItem; i < lastItem; i++) {
+				responseData.items.push({
+					color: colors[items[i].type.split(', ')[0]],
+					name: items[i].name,
+					src: items[i].ThumbnailImage
+				});
+			}
+		} else {//default to 'list'
+			responseData.columns = columns;
+			for (var i = firstItem; i < lastItem; i++) {
+				responseData.items.push(items[i]);
+			}
+
+		}
+
+		//use setTimeout to simulate server response delay. In production, you would not want to do this
+		setTimeout(function () {
+			callback(responseData);
+		}, delays[Math.floor(Math.random() * 4)]);
 	};
 
 	// REPEATER
