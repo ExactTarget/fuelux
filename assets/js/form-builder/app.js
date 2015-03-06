@@ -1,5 +1,4 @@
-define(function(require) {
-
+define(function (require) {
 	var $ = require('jquery');
 	var _ = require('underscore');
 	var Backbone = require('backbone');
@@ -17,7 +16,6 @@ define(function(require) {
 
 	return {
 		initialize: function initialize() {
-
 			//Bootstrap tabs from json.
 			new TabView({
 				title: 'Input',
@@ -36,8 +34,8 @@ define(function(require) {
 				collection: new AvailableComponents(JSON.parse(selectJSON))
 			});
 			new TabView({
-				title: "Buttons"
-				, collection: new AvailableComponents(JSON.parse(buttonsJSON))
+				title: "Buttons",
+				collection: new AvailableComponents(JSON.parse(buttonsJSON))
 			});
 			new TabView({
 				title: 'HTML',
@@ -64,7 +62,7 @@ define(function(require) {
 				])
 			});
 
-			$('#theme-toggle').on('change', function(e) {
+			$('#theme-toggle').on('change', function (e) {
 				if ($(e.target).is(':checked')) {
 					$('head').append('<link rel="stylesheet" href="http://www.fuelcdn.com/fuelux-mctheme/1.1.0/css/fuelux-mctheme.min.css" type="text/css" id="mctheme"/>');
 				} else {

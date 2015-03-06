@@ -5,7 +5,7 @@
  * details, see http://creativecommons.org/licenses/by/3.0/.
  */
 
-define(function(require){
+define(function (require) {
 	var jquery = require('jquery');
 
 	require('bootstrap');
@@ -13,40 +13,39 @@ define(function(require){
 
 	// DATEPICKER
 
-	$('#myDatepicker').on('changed.fu.datepicker', function( event, data ) {
-		console.log( 'datepicker change event fired' );
+	$('#myDatepicker').on('changed.fu.datepicker', function (event, data) {
+		console.log('datepicker change event fired');
 	});
 
-	$('#myDatepicker').on('inputParsingFailed.fu.datepicker', function() {
-		console.log( 'datepicker inputParsingFailed event fired' );
+	$('#myDatepicker').on('inputParsingFailed.fu.datepicker', function () {
+		console.log('datepicker inputParsingFailed event fired');
 	});
 
-	$('#btnDatepickerEnable').on('click', function() {
+	$('#btnDatepickerEnable').on('click', function () {
 		$('#myDatepicker').datepicker('enable');
 	});
 
-	$('#btnDatepickerDisable').on('click', function() {
+	$('#btnDatepickerDisable').on('click', function () {
 		$('#myDatepicker').datepicker('disable');
 	});
 
-	$('#btnDatepickerLogFormattedDate').on('click', function() {
-		console.log( $('#myDatepicker').datepicker('getFormattedDate') );
+	$('#btnDatepickerLogFormattedDate').on('click', function () {
+		console.log($('#myDatepicker').datepicker('getFormattedDate'));
 	});
 
-	$('#btnDatepickerLogDateObj').on('click', function() {
-		console.log( $('#myDatepicker').datepicker('getDate') );
+	$('#btnDatepickerLogDateObj').on('click', function () {
+		console.log($('#myDatepicker').datepicker('getDate'));
 	});
 
-	$('#btnDatepickerSetDate').on('click', function() {
-		var futureDate = new Date(+new Date() + ( 7 * 24 * 60 * 60 * 1000 ) );
-		$('#myDatepicker').datepicker('setDate', futureDate );
-		console.log( $('#datepicker').datepicker('getDate') );
+	$('#btnDatepickerSetDate').on('click', function () {
+		var futureDate = new Date(+new Date() + (7 * 24 * 60 * 60 * 1000));
+		$('#myDatepicker').datepicker('setDate', futureDate);
+		console.log($('#datepicker').datepicker('getDate'));
 	});
 
-	$('#btnDatepickerDestroy').on('click', function() {
+	$('#btnDatepickerDestroy').on('click', function () {
 		var markup = $('#myDatepicker').datepicker('destroy');
-		console.log( markup );
+		console.log(markup);
 		$(this).closest('.section').append(markup);
 	});
-
 });

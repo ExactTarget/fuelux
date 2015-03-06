@@ -5,14 +5,15 @@ define(function Snippet(require) {
 
 	return Backbone.Model.extend({
 		getValues: function getValues() {
-			return _.reduce(this.get('fields'), function(fields, field, index) {
+			return _.reduce(this.get('fields'), function (fields, field, index) {
 				if (field.type === 'select') {
-					fields[index] = _.find(field.value, function(fields) {
+					fields[index] = _.find(field.value, function (fields) {
 						return fields.selected;
 					}).value;
 				} else {
 					fields[index] = field.value;
 				}
+
 				return fields;
 			}, {});
 		},

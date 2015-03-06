@@ -5,7 +5,7 @@
  * details, see http://creativecommons.org/licenses/by/3.0/.
  */
 
-define(function(require){
+define(function (require) {
 	var jquery = require('jquery');
 
 	require('bootstrap');
@@ -22,9 +22,10 @@ define(function(require){
 
 	$('#btnPlacardDestroy').click(function () {
 		var markup = $('#myPlacard1').placard('destroy');
-		console.log( markup );
+		console.log(markup);
 		$(this).closest('.section').append(markup);
-		$('#myPlacard1').placard( { edit: true } );
+		$('#myPlacard1').placard({
+			edit: true
+		});
 	});
-
 });

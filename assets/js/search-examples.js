@@ -5,7 +5,7 @@
  * details, see http://creativecommons.org/licenses/by/3.0/.
  */
 
-define(function(require){
+define(function (require) {
 	var jquery = require('jquery');
 
 	require('bootstrap');
@@ -21,5 +21,4 @@ define(function(require){
 	$('#btnSearchEnable').on('click', function () {
 		$('#mySearch').search('enable');
 	});
-
 });

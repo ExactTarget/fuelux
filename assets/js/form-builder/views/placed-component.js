@@ -8,7 +8,7 @@ define(function MyFormSnippet(require) {
 
 	return Component.extend({
 		events: {
-			'click': 'preventPropagation', //stops checkbox / radio reacting.
+			'click': 'preventPropagation',//stops checkbox / radio reacting.
 			'mousedown': 'mouseDownHandler',
 			'mouseup': 'mouseUpHandler'
 		},
@@ -24,7 +24,7 @@ define(function MyFormSnippet(require) {
 			$('.popover #cancel').on('click', this.cancelHandler(that));
 			//add drag event or all but form name
 			if (this.model.get('title') !== 'Form Name') {
-				$('body').on('mousemove', function(mouseMoveEvent) {
+				$('body').on('mousemove', function (mouseMoveEvent) {
 					if (
 						Math.abs(mouseDownEvent.pageX - mouseMoveEvent.pageX) > 10 ||
 						Math.abs(mouseDownEvent.pageY - mouseMoveEvent.pageY) > 10
@@ -47,12 +47,12 @@ define(function MyFormSnippet(require) {
 		},
 
 		saveHandler: function saveHandler(boundContext) {
-			return function(mouseEvent) {
+			return function (mouseEvent) {
 				mouseEvent.preventDefault();
 
 				var fields = $('.popover input:not([type=submit],[type=button]), textarea');
 
-				_.each(fields, function(e) {
+				_.each(fields, function (e) {
 					var $e = $(e),
 						type = $e.attr('data-type'),
 						name = $e.attr('id');
@@ -71,17 +71,17 @@ define(function MyFormSnippet(require) {
 						case 'textarea-split':
 							boundContext.model.setField(name,
 								_.chain($e.val().split('\n'))
-									.map(function(t) {
+									.map(function (t) {
 										return $.trim(t);
 									})
-									.filter(function(t) {
+									.filter(function (t) {
 										return t.length > 0;
 									})
 									.value()
 							);
 							break;
 						case 'select':
-							var valarr = _.map($e.find('option'), function(e) {
+							var valarr = _.map($e.find('option'), function (e) {
 								return {
 									value: e.value,
 									selected: e.selected,
@@ -98,7 +98,7 @@ define(function MyFormSnippet(require) {
 		},
 
 		cancelHandler: function cancelHandler(boundContext) {
-			return function(mouseEvent) {
+			return function (mouseEvent) {
 				mouseEvent.preventDefault();
 				$('.popover').remove();
 				boundContext.model.trigger('change');

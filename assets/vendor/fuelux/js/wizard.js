@@ -8,7 +8,7 @@
 
 // -- BEGIN UMD WRAPPER PREFACE --
 
-// For more information on UMD visit: 
+// For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
 (function (factory) {
@@ -21,7 +21,7 @@
 	}
 }(function ($) {
 	// -- END UMD WRAPPER PREFACE --
-		
+
 	// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.wizard;
@@ -33,7 +33,7 @@
 
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.wizard.defaults, options);
-		this.options.disablePreviousStep = ( this.$element.attr('data-restrict') === "previous" ) ? true : this.options.disablePreviousStep;
+		this.options.disablePreviousStep = (this.$element.attr('data-restrict') === 'previous') ? true : this.options.disablePreviousStep;
 		this.currentStep = this.options.selectedItem.step;
 		this.numSteps = this.$element.find('.steps li').length;
 		this.$prevBtn = this.$element.find('button.btn-prev');
@@ -47,12 +47,12 @@
 		this.$prevBtn.on('click.fu.wizard', $.proxy(this.previous, this));
 		this.$nextBtn.on('click.fu.wizard', $.proxy(this.next, this));
 		this.$element.on('click.fu.wizard', 'li.complete', $.proxy(this.stepclicked, this));
-		
+
 		this.selectedItem(this.options.selectedItem);
 
-		if( this.options.disablePreviousStep ) {
-			this.$prevBtn.attr( 'disabled', true );
-			this.$element.find( '.steps' ).addClass( 'previous-disabled' );
+		if (this.options.disablePreviousStep) {
+			this.$prevBtn.attr('disabled', true);
+			this.$element.find('.steps').addClass('previous-disabled');
 		}
 	};
 
@@ -60,7 +60,7 @@
 
 		constructor: Wizard,
 
-		destroy: function() {
+		destroy: function () {
 			this.$element.remove();
 			// any external bindings [none]
 			// empty elements to return to original markup [none]
@@ -71,24 +71,24 @@
 		//index is 1 based
 		//second parameter can be array of objects [{ ... }, { ... }] or you can pass n additional objects as args
 		//object structure is as follows (all params are optional): { badge: '', label: '', pane: '' }
-		addSteps: function(index){
+		addSteps: function (index) {
 			var items = [].slice.call(arguments).slice(1);
 			var $steps = this.$element.find('.steps');
 			var $stepContent = this.$element.find('.step-content');
 			var i, l, $pane, $startPane, $startStep, $step;
 
-			index = (index===-1 || (index>(this.numSteps+1))) ? this.numSteps+1 : index;
-			if(items[0] instanceof Array){
+			index = (index === -1 || (index > (this.numSteps + 1))) ? this.numSteps + 1 : index;
+			if (items[0] instanceof Array) {
 				items = items[0];
 			}
 
 			$startStep = $steps.find('li:nth-child(' + index + ')');
 			$startPane = $stepContent.find('.step-pane:nth-child(' + index + ')');
-			if($startStep.length<1){
+			if ($startStep.length < 1) {
 				$startStep = null;
 			}
 
-			for(i=0, l=items.length; i<l; i++){
+			for (i = 0, l = items.length; i < l; i++) {
 				$step = $('<li data-step="' + index + '"><span class="badge badge-info"></span></li>');
 				$step.append(items[i].label || '').append('<span class="chevron"></span>');
 				$step.find('.badge').append(items[i].badge || index);
@@ -96,13 +96,14 @@
 				$pane = $('<div class="step-pane" data-step="' + index + '"></div>');
 				$pane.append(items[i].pane || '');
 
-				if(!$startStep){
+				if (!$startStep) {
 					$steps.append($step);
 					$stepContent.append($pane);
-				}else{
+				} else {
 					$startStep.before($step);
 					$startPane.before($pane);
 				}
+
 				index++;
 			}
 
@@ -112,34 +113,36 @@
 		},
 
 		//index is 1 based, howMany is number to remove
-		removeSteps: function(index, howMany){
+		removeSteps: function (index, howMany) {
 			var action = 'nextAll';
 			var i = 0;
 			var $steps = this.$element.find('.steps');
 			var $stepContent = this.$element.find('.step-content');
 			var $start;
 
-			howMany = (howMany!==undefined) ? howMany : 1;
+			howMany = (howMany !== undefined) ? howMany : 1;
 
-			if(index>$steps.find('li').length){
+			if (index > $steps.find('li').length) {
 				$start = $steps.find('li:last');
-			}else{
+			} else {
 				$start = $steps.find('li:nth-child(' + index + ')').prev();
-				if($start.length<1){
+				if ($start.length < 1) {
 					action = 'children';
 					$start = $steps;
 				}
+
 			}
 
-			$start[action]().each(function(){
+			$start[action]().each(function () {
 				var item = $(this);
 				var step = item.attr('data-step');
-				if(i<howMany){
+				if (i < howMany) {
 					item.remove();
 					$stepContent.find('.step-pane[data-step="' + step + '"]:first').remove();
-				}else{
+				} else {
 					return false;
 				}
+
 				i++;
 			});
 
@@ -149,13 +152,13 @@
 		},
 
 		setState: function () {
-			var canMovePrev = (this.currentStep > 1);
-			var firstStep = (this.currentStep === 1);
-			var lastStep = (this.currentStep === this.numSteps);
+			var canMovePrev = (this.currentStep > 1);//remember, steps index is 1 based...
+			var isFirstStep = (this.currentStep === 1);
+			var isLastStep = (this.currentStep === this.numSteps);
 
 			// disable buttons based on current step
-			if( !this.options.disablePreviousStep ) {
-				this.$prevBtn.attr('disabled', (firstStep === true || canMovePrev === false));
+			if (!this.options.disablePreviousStep) {
+				this.$prevBtn.attr('disabled', (isFirstStep === true || canMovePrev === false));
 			}
 
 			// change button text of last step, if specified
@@ -164,14 +167,14 @@
 				this.lastText = last;
 				// replace text
 				var text = this.nextText;
-				if ( lastStep === true ) {
+				if (isLastStep === true) {
 					text = this.lastText;
 					// add status class to wizard
 					this.$element.addClass('complete');
-				}
-				else {
+				} else {
 					this.$element.removeClass('complete');
 				}
+
 				var kids = this.$nextBtn.children().detach();
 				this.$nextBtn.text(text).append(kids);
 			}
@@ -200,7 +203,7 @@
 			$stepContent.find('.step-pane[data-step="' + target + '"]:first').addClass('active');
 
 			// reset the wizard position to the left
-			this.$element.find('.steps').first().attr('style','margin-left: 0');
+			this.$element.find('.steps').first().attr('style', 'margin-left: 0');
 
 			// check if the steps are wider than the container div
 			var totalWidth = 0;
@@ -213,67 +216,71 @@
 			} else {
 				containerWidth = this.$element.width();
 			}
+
 			if (totalWidth > containerWidth) {
-			
 				// set the position so that the last step is on the right
 				var newMargin = totalWidth - containerWidth;
-				this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
-				
+				this.$element.find('.steps').first().attr('style', 'margin-left: -' + newMargin + 'px');
+
 				// set the position so that the active step is in a good
 				// position if it has been moved out of view
 				if (this.$element.find('li.active').first().position().left < 200) {
 					newMargin += this.$element.find('li.active').first().position().left - 200;
 					if (newMargin < 1) {
-						this.$element.find('.steps').first().attr('style','margin-left: 0');
+						this.$element.find('.steps').first().attr('style', 'margin-left: 0');
 					} else {
-						this.$element.find('.steps').first().attr('style','margin-left: -' + newMargin + 'px');
+						this.$element.find('.steps').first().attr('style', 'margin-left: -' + newMargin + 'px');
 					}
+
 				}
+
 			}
 
 			// only fire changed event after initializing
-			if(typeof(this.initialized) !== 'undefined' ) {
+			if (typeof (this.initialized) !== 'undefined') {
 				var e = $.Event('changed.fu.wizard');
-				this.$element.trigger(e, {step: this.currentStep});
+				this.$element.trigger(e, {
+					step: this.currentStep
+				});
 			}
 
 			this.initialized = true;
 		},
 
 		stepclicked: function (e) {
-			var li          = $(e.currentTarget);
-			var index       = this.$element.find('.steps li').index(li);
-			var canMovePrev = true;
+			var li = $(e.currentTarget);
+			var index = this.$element.find('.steps li').index(li);
 
-			if( this.options.disablePreviousStep ) {
-				if( index < this.currentStep ) {
-					canMovePrev = false;
-				}
-			}
-
-			if( canMovePrev ) {
+			if (index < this.currentStep && this.options.disablePreviousStep) {//enforce restrictions
+				return;
+			} else {
 				var evt = $.Event('stepclicked.fu.wizard');
-				this.$element.trigger(evt, {step: index + 1});
-				if (evt.isDefaultPrevented()) { return; }
+				this.$element.trigger(evt, {
+					step: index + 1
+				});
+				if (evt.isDefaultPrevented()) {
+					return;
+				}
 
 				this.currentStep = (index + 1);
 				this.setState();
 			}
 		},
 
-		syncSteps: function(){
+		syncSteps: function () {
 			var i = 1;
 			var $steps = this.$element.find('.steps');
 			var $stepContent = this.$element.find('.step-content');
 
-			$steps.children().each(function(){
+			$steps.children().each(function () {
 				var item = $(this);
 				var badge = item.find('.badge');
 				var step = item.attr('data-step');
 
-				if(!isNaN(parseInt(badge.html(), 10))){
+				if (!isNaN(parseInt(badge.html(), 10))) {
 					badge.html(i);
 				}
+
 				item.attr('data-step', i);
 				$stepContent.find('.step-pane[data-step="' + step + '"]:last').attr('data-step', i);
 				i++;
@@ -281,76 +288,92 @@
 		},
 
 		previous: function () {
-			var canMovePrev = (this.currentStep > 1);
-			if( this.options.disablePreviousStep ) {
-				canMovePrev = false;
-			}
-			if (canMovePrev) {
-				var e = $.Event('actionclicked.fu.wizard');
-				this.$element.trigger(e, {step: this.currentStep, direction: 'previous'});
-				if (e.isDefaultPrevented()) { return; } // don't increment
-
-				this.currentStep -= 1;
-				this.setState();
+			if (this.options.disablePreviousStep || this.currentStep === 1) {
+				return;
 			}
 
-			// return focus to control after selecting an option
-			if( this.$prevBtn.is(':disabled') ) {
-				this.$nextBtn.focus();
-			}
-			else {
-				this.$prevBtn.focus();
-			}
+			var e = $.Event('actionclicked.fu.wizard');
+			this.$element.trigger(e, {
+				step: this.currentStep,
+				direction: 'previous'
+			});
+			if (e.isDefaultPrevented()) {
+				return;
+			}// don't increment ...what? Why?
 
+			this.currentStep -= 1;
+			this.setState();
+
+			// only set focus if focus is still on the $nextBtn (avoid stomping on a focus set programmatically in actionclicked callback)
+			if (this.$prevBtn.is(':focus')) {
+				var firstFormField = this.$element.find('.active').find('input, select, textarea')[0];
+
+				if (typeof firstFormField !== 'undefined') {
+					// allow user to start typing immediately instead of having to click on the form field.
+					$(firstFormField).focus();
+				} else if (this.$element.find('.active input:first').length === 0 && this.$prevBtn.is(':disabled')) {
+					//only set focus on a button as the last resort if no form fields exist and the just clicked button is now disabled
+					this.$nextBtn.focus();
+				}
+
+			}
 		},
 
 		next: function () {
-			var canMoveNext = (this.currentStep + 1 <= this.numSteps);
-			var lastStep = (this.currentStep === this.numSteps);
-
-			if (canMoveNext) {
+			if (this.currentStep < this.numSteps) {
 				var e = $.Event('actionclicked.fu.wizard');
-				this.$element.trigger(e, {step: this.currentStep, direction: 'next'});
-				if (e.isDefaultPrevented()) { return; }	// don't increment
+				this.$element.trigger(e, {
+					step: this.currentStep,
+					direction: 'next'
+				});
+				if (e.isDefaultPrevented()) {
+					return;
+				}// don't increment ...what? Why?
 
 				this.currentStep += 1;
 				this.setState();
-			}
-			else if (lastStep) {
+			} else {//is last step
 				this.$element.trigger('finished.fu.wizard');
 			}
 
-			// return focus to control after selecting an option
-			if( this.$nextBtn.is(':disabled') ) {
-				this.$prevBtn.focus();
-			}
-			else {
-				this.$nextBtn.focus();
+			// only set focus if focus is still on the $nextBtn (avoid stomping on a focus set programmatically in actionclicked callback)
+			if (this.$nextBtn.is(':focus')) {
+				var firstFormField = this.$element.find('.active').find('input, select, textarea')[0];
+
+				if (typeof firstFormField !== 'undefined') {
+					// allow user to start typing immediately instead of having to click on the form field.
+					$(firstFormField).focus();
+				} else if (this.$element.find('.active input:first').length === 0 && this.$nextBtn.is(':disabled')) {
+					//only set focus on a button as the last resort if no form fields exist and the just clicked button is now disabled
+					this.$prevBtn.focus();
+				}
+
 			}
 		},
 
 		selectedItem: function (selectedItem) {
 			var retVal, step;
 
-			if(selectedItem) {
-
+			if (selectedItem) {
 				step = selectedItem.step || -1;
 
-				if(step >= 1 && step <= this.numSteps) {
+				if (step >= 1 && step <= this.numSteps) {
 					this.currentStep = step;
 					this.setState();
-				}else{
+				} else {
 					step = this.$element.find('.steps li.active:first').attr('data-step');
-					if(!isNaN(step)){
+					if (!isNaN(step)) {
 						this.currentStep = parseInt(step, 10);
 						this.setState();
 					}
+
 				}
 
 				retVal = this;
-			}
-			else {
-				retVal = { step: this.currentStep };
+			} else {
+				retVal = {
+					step: this.currentStep
+				};
 			}
 
 			return retVal;
@@ -361,24 +384,31 @@
 	// WIZARD PLUGIN DEFINITION
 
 	$.fn.wizard = function (option) {
-		var args = Array.prototype.slice.call( arguments, 1 );
+		var args = Array.prototype.slice.call(arguments, 1);
 		var methodReturn;
 
 		var $set = this.each(function () {
-			var $this   = $( this );
-			var data    = $this.data('fu.wizard');
+			var $this = $(this);
+			var data = $this.data('fu.wizard');
 			var options = typeof option === 'object' && option;
 
-			if( !data ) $this.data('fu.wizard', (data = new Wizard( this, options ) ) );
-			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
+			if (!data) {
+				$this.data('fu.wizard', (data = new Wizard(this, options)));
+			}
+
+			if (typeof option === 'string') {
+				methodReturn = data[option].apply(data, args);
+			}
 		});
 
-		return ( methodReturn === undefined ) ? $set : methodReturn;
+		return (methodReturn === undefined) ? $set : methodReturn;
 	};
 
 	$.fn.wizard.defaults = {
 		disablePreviousStep: false,
-		selectedItem: { step: -1 }	//-1 means it will attempt to look for "active" class in order to set the step
+		selectedItem: {
+			step: -1
+		}//-1 means it will attempt to look for "active" class in order to set the step
 	};
 
 	$.fn.wizard.Constructor = Wizard;
@@ -393,7 +423,7 @@
 
 	$(document).on('mouseover.fu.wizard.data-api', '[data-initialize=wizard]', function (e) {
 		var $control = $(e.target).closest('.wizard');
-		if ( !$control.data('fu.wizard') ) {
+		if (!$control.data('fu.wizard')) {
 			$control.wizard($control.data());
 		}
 	});
@@ -407,6 +437,6 @@
 		});
 	});
 
-// -- BEGIN UMD WRAPPER AFTERWORD --
+	// -- BEGIN UMD WRAPPER AFTERWORD --
 }));
-	// -- END UMD WRAPPER AFTERWORD --
+// -- END UMD WRAPPER AFTERWORD --

@@ -30,7 +30,7 @@ Fuel UX can be applied to a section of your your HTML or the entire page by addi
 ## Downloading code
 Fuel UX can be obtained in any of the following ways:
 
-* Request files from [the Fuel UX CDN](http://www.fuelcdn.com/fuelux/3.5.1/)
+* Request files from [the Fuel UX CDN](http://www.fuelcdn.com/fuelux/3.6.3/)
 * Using [Bower](https://github.com/bower/bower) (ensures you get all the [dependencies](#dependencies)):
 
    ```
@@ -53,7 +53,7 @@ Fuel UX can be obtained in any of the following ways:
 
    Cloning the repository ensures you can apply future updates to Fuel UX easily, but requires to you manage its [dependencies](#dependencies) on your own.
 
-* Download a .zip archive of the [latest release](http://www.fuelcdn.com/fuelux/3.5.1/fuelux.zip).
+* Download a .zip archive of the [latest release](http://www.fuelcdn.com/fuelux/3.6.3/fuelux.zip).
 
 ## AMD support
 
@@ -63,7 +63,7 @@ If using AMD (such as [RequireJS](http://requirejs.org)), reference the FuelUX d
 ```javascript
 require.config({
     paths: {
-        'fuelux': 'http://www.fuelcdn.com/fuelux/3.5.1/'
+        'fuelux': 'http://www.fuelcdn.com/fuelux/3.6.3/'
         //...
     }
 });
@@ -147,23 +147,43 @@ Pull requests are validate via [Travis CI](https://travis-ci.org/).
 
 Periodically pull requests may fail Travis CI build integration testing with a false negative. If you suspect this is the case you can restart the test via the command line.
 
+[Travis](https://travis-ci.org/) downloads the `node_modules` folder from the "[Edge](https://fuelux-dev.herokuapp.com)" server (["fuelux-dev"](https://fuelux-dev.herokuapp.com)) hosted on [Heroku](https://www.heroku.com). If you add or update a dependency in `package.json`, you will need to also update `package.json` in `master` locally and push it to [Heroku](https://www.heroku.com) for the dependency errors to be resolved in [Travis](https://travis-ci.org/).
+
 ### Install Travis CI Client
 
 Travis requires ruby and the [appropriate ruby gem](https://github.com/travis-ci/travis.rb#installation).
 
-### Acquire build number
+### Restarting a Travis CI Build
+#### From the Browser
+1. On the Pull Request page on Github, click on the "details" link in the Travis CI build area
+1. Click "Login with Github" at the top right of the page
+1. Click the "Restart Build" button (circular button with an arrow going in a circle)
 
-Restarting the build requires a build number.
 
-1. Click the "details" link in the failed build request.
+#### From the Command Line
+1. Login to Travis
+    In the terminal, issue the following command (You'll need to use your Github credentials):
+    ```
+    travis login --org
+    ```
+1. Acquire build number
+    In the terminal, issue the following command:
+    ```
+    travis history
+    ```
 
-2. Copy the number in red button on the far right of the Travis dashboard.
+1. Restart Build using the build number you obtained from `travis history`
+    In the terminal, issue the following command:
+    ```
+    travis restart 9999
+    ```
 
-### Restart test
+## Edge servers
 
-With Travis installed and the build number acquired now run the following command.
+We have an "Edge Server" on Heroku named "fuelux-dev". If you have permissions to the ExactTarget org on Heroku, you can get information on cloning the `fuelux-dev` remote from its [app page](https://dashboard.heroku.com/orgs/exacttarget/apps/fuelux-dev/deploy/heroku-git) on [Heroku](https://www.heroku.com). If you do not have permissions and believe you should, please contact one of the FuelUX project maintainers.
 
-```
-travis restart 9999
-```
+A build of master is available at `https://fuelux-dev.herokuapp.com/dist/js/fuelux.js` and `https://fuelux-dev.herokuapp.com/dist/css/fuelux.css`.
 
+_These files should be considered unstable as this is our dev server_
+
+To create your own edge server, setup a github web hook on Heroku for this repository and put the app into development mode with `heroku config:set NPM_CONFIG_PRODUCTION=false`.

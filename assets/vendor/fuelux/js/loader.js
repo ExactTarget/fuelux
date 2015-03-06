@@ -20,9 +20,9 @@
 		factory(jQuery);
 	}
 }(function ($) {
-// -- END UMD WRAPPER PREFACE --
+	// -- END UMD WRAPPER PREFACE --
 
-// -- BEGIN MODULE CODE HERE --
+	// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.loader;
 
@@ -40,7 +40,7 @@
 		this.timeout = {};
 
 		var ieVer = this.msieVersion();
-		if(ieVer!==false && ieVer<9){
+		if (ieVer !== false && ieVer < 9) {
 			this.$element.addClass('iefix');
 			this.isIElt9 = true;
 		}
@@ -53,7 +53,7 @@
 
 		constructor: Loader,
 
-		destroy: function() {
+		destroy: function () {
 			this.$element.remove();
 			// any external bindings
 			// [none]
@@ -63,77 +63,83 @@
 			return this.$element[0].outerHTML;
 		},
 
-		ieRepaint: function(){
-			if(this.isIElt9){
+		ieRepaint: function () {
+			if (this.isIElt9) {
 				this.$element.addClass('iefix_repaint').removeClass('iefix_repaint');
 			}
 		},
 
-		msieVersion: function(){
+		msieVersion: function () {
 			var ua = window.navigator.userAgent;
 			var msie = ua.indexOf('MSIE ');
-			if(msie>0){
-				return parseInt(ua.substring(msie+5, ua.indexOf(".", msie )), 10);
-			}else{
+			if (msie > 0) {
+				return parseInt(ua.substring(msie + 5, ua.indexOf(".", msie)), 10);
+			} else {
 				return false;
 			}
 		},
 
-		next: function(){
+		next: function () {
 			this.frame++;
-			if(this.frame>this.end){
+			if (this.frame > this.end) {
 				this.frame = this.begin;
 			}
+
 			this.$element.attr('data-frame', this.frame + '');
 			this.ieRepaint();
 		},
 
-		pause: function(){
+		pause: function () {
 			clearTimeout(this.timeout);
 		},
 
-		play: function(){
+		play: function () {
 			var self = this;
 			clearTimeout(this.timeout);
-			this.timeout = setTimeout(function(){
+			this.timeout = setTimeout(function () {
 				self.next();
 				self.play();
 			}, this.delay);
 		},
 
-		previous: function(){
+		previous: function () {
 			this.frame--;
-			if(this.frame<this.begin){
+			if (this.frame < this.begin) {
 				this.frame = this.end;
 			}
+
 			this.$element.attr('data-frame', this.frame + '');
 			this.ieRepaint();
 		},
 
-		reset: function(){
+		reset: function () {
 			this.frame = this.begin;
 			this.$element.attr('data-frame', this.frame + '');
 			this.ieRepaint();
 		}
-
 	};
 
 	// LOADER PLUGIN DEFINITION
 
 	$.fn.loader = function (option) {
-		var args = Array.prototype.slice.call( arguments, 1 );
+		var args = Array.prototype.slice.call(arguments, 1);
 		var methodReturn;
 
 		var $set = this.each(function () {
-			var $this = $( this );
+			var $this = $(this);
 			var data = $this.data('fu.loader');
 			var options = typeof option === 'object' && option;
 
-			if (!data) $this.data('fu.loader', (data = new Loader(this, options)));
-			if (typeof option === 'string') methodReturn = data[ option ].apply( data, args );
+			if (!data) {
+				$this.data('fu.loader', (data = new Loader(this, options)));
+			}
+
+			if (typeof option === 'string') {
+				methodReturn = data[option].apply(data, args);
+			}
 		});
 
-		return ( methodReturn === undefined ) ? $set : methodReturn;
+		return (methodReturn === undefined) ? $set : methodReturn;
 	};
 
 	$.fn.loader.defaults = {};
@@ -156,6 +162,6 @@
 		});
 	});
 
-// -- BEGIN UMD WRAPPER AFTERWORD --
+	// -- BEGIN UMD WRAPPER AFTERWORD --
 }));
 // -- END UMD WRAPPER AFTERWORD --
