@@ -170,7 +170,7 @@ define(function (require) {
 		});
 
 		$selNode = $tree.find('.tree-branch:eq(1)');
-		$tree.tree('openFolder', $selNode.find('.tree-branch-name'));
+		$tree.tree('discloseFolder', $selNode.find('.tree-branch-name'));
 		equal($selNode.find('.tree-branch-children > li').length, 8, 'Folder has been populated with items/sub-folders');
 
 		$tree = $(html).find('#MyTreeSelectableFolder');
@@ -181,7 +181,7 @@ define(function (require) {
 		});
 
 		$selNode = $tree.find('.tree-branch:eq(1)');
-		$tree.tree('openFolder', $selNode.find('.tree-branch-header'));
+		$tree.tree('discloseFolder', $selNode.find('.tree-branch-header'));
 		equal($selNode.find('.tree-branch-children > li').length, 4, 'Folder has been populated with sub-folders');
 	});
 
@@ -275,10 +275,10 @@ define(function (require) {
 		var $targetBranch = $($tree.find('.tree-branch')[0]);
 
 		equal($targetBranch.hasClass('tree-open'), false, 'Branch starts closed');
-		$tree.tree('openFolder', $targetBranch);
-		equal($targetBranch.hasClass('tree-open'), true, 'openFolder opens folder');
-		$tree.tree('openFolder', $targetBranch);
-		equal($targetBranch.hasClass('tree-open'), true, 'redundant openFolder calls leaves folder open');
+		$tree.tree('discloseFolder', $targetBranch);
+		equal($targetBranch.hasClass('tree-open'), true, 'discloseFolder opens folder');
+		$tree.tree('discloseFolder', $targetBranch);
+		equal($targetBranch.hasClass('tree-open'), true, 'redundant discloseFolder calls leaves folder open');
 		$tree.tree('closeFolder', $targetBranch);
 		equal($targetBranch.hasClass('tree-open'), false, 'closeFolder closes folder');
 		$tree.tree('closeFolder', $targetBranch);

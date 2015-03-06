@@ -213,7 +213,7 @@
 			});
 		},
 
-		openFolder: function openFolder(el) {
+		discloseFolder: function discloseFolder(el) {
 			var $el = $(el);
 
 			var $branch = $el.closest('.tree-branch');
@@ -233,7 +233,7 @@
 				this.populate($treeFolderContent);
 			}
 
-			this.$element.trigger('opened.fu.tree', $branch.data());
+			this.$element.trigger('disclosedFolder.fu.tree', $branch.data());
 		},
 
 		closeFolder: function closeFolder(el) {
@@ -262,7 +262,7 @@
 			var $el = $(el);
 
 			if ($el.find('.glyphicon-folder-close').length) {
-				this.openFolder(el);
+				this.discloseFolder(el);
 			} else if ($el.find('.glyphicon-folder-open').length) {
 				this.closeFolder(el);
 			}
@@ -378,7 +378,7 @@
 
 			// open all visible folders
 			self.$element.find(".tree-branch:not('.tree-open, .hide')").each(function triggerOpen() {
-				self.openFolder($(this).find('.tree-branch-header'));
+				self.discloseFolder($(this).find('.tree-branch-header'));
 			});
 		},
 
