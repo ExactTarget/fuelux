@@ -463,6 +463,8 @@
 
 	//alias for collapse for consistency. "Collapse" is an ambiguous term (collapse what? All? One specific branch?)
 	Tree.prototype.closeAll = Tree.prototype.collapse;
+	//alias for backwards compatibility because there's no reason not to.
+	Tree.prototype.openFolder = Tree.prototype.discloseFolder;
 
 	// TREE PLUGIN DEFINITION
 
