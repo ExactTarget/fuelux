@@ -6,22 +6,6 @@
  * Licensed under the BSD New license.
  */
 
-// -- BEGIN UMD WRAPPER PREFACE --
-
-// For more information on UMD visit:
-// https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
-
-(function (factory) {
-	if (typeof define === 'function' && define.amd) {
-		// if AMD loader is available, register as an anonymous module.
-		define(['jquery', 'fuelux/loader'], factory);
-	} else {
-		// OR use browser globals if AMD is not present
-		factory(jQuery);
-	}
-}(function ($) {
-	// -- END UMD WRAPPER PREFACE --
-
 	// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.infinitescroll;
@@ -179,7 +163,3 @@
 	};
 
 	// NO DATA-API DUE TO NEED OF DATA-SOURCE
-
-	// -- BEGIN UMD WRAPPER AFTERWORD --
-}));
-// -- END UMD WRAPPER AFTERWORD --

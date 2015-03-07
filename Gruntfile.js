@@ -90,6 +90,128 @@ module.exports = function (grunt) {
 				}
 			}
 		},
+		umd: {
+			default: {
+				options: {
+					src: [
+						'js/checkbox.js',
+						'js/combobox.js',
+						'js/datepicker.js',
+						'js/dropdown-autoflip.js',
+						'js/loader.js',
+						'js/placard.js',
+						'js/radio.js',
+						'js/search.js',
+						'js/selectlist.js',
+						'js/spinbox.js',
+						'js/tree.js',
+						'js/wizard.js',
+					],
+					template: 'umd.hbs',
+					dest: 'dist',
+					deps: {
+						'default': ['$'],
+						'amd': ['jquery'],
+						global: ['jQuery']
+					}
+				}
+			},
+			infinite_scroll: {
+				options: {
+					src: [
+						'js/infinite-scroll.js',
+					],
+					template: 'umd.hbs',
+					dest: 'dist',
+					deps: {
+						'default': ['$'],
+						'amd': ['jquery', 'fuelux/loader'],
+						global: ['jQuery']
+					}
+				}
+			},
+			pillbox: {
+				options: {
+					src: [
+						'js/pillbox.js',
+					],
+					template: 'umd.hbs',
+					dest: 'dist',
+					deps: {
+						'default': ['$'],
+						'amd': ['jquery', 'fuelux/dropdown-autoflip'],
+						global: ['jQuery']
+					}
+				}
+			},
+			repeater: {
+				options: {
+					src: [
+						'js/repeater.js'
+					],
+					template: 'umd.hbs',
+					dest: 'dist',
+					deps: {
+						'default': ['$'],
+						'amd': ['jquery', 'fuelux/combobox', 'fuelux/infinite-scroll', 'fuelux/search', 'fuelux/selectlist'],
+						global: ['jQuery']
+					}
+				}
+			},
+			repeater_list: {
+				options: {
+					src: [
+						'js/repeater_list.js'
+					],
+					template: 'umd.hbs',
+					dest: 'dist',
+					deps: {
+						'default': ['$'],
+						'amd': ['jquery', 'fuelex/repeater'],
+						global: ['jQuery']
+					}
+				}
+			},
+			repeater_thumbnail: {
+				options: {
+					src: [
+						'js/repeater_thumbnail.js'
+					],
+					template: 'umd.hbs',
+					dest: 'dist',
+					deps: {
+						'default': ['$'],
+						'amd': ['jquery', 'fuelex/repeater'],
+						global: ['jQuery']
+					}
+				}
+			},
+			scheduler: {
+				options: {
+					src: [
+						'js/scheduler.js'
+					],
+					template: 'umd.hbs',
+					dest: 'dist',
+					deps: {
+						'default': ['$'],
+						'amd': ['jquery', 'fuelux/combobox', 'fuelux/datepicker', 'fuelux/radio', 'fuelux/selectlist', 'fuelux/spinbox'],
+						global: ['jQuery']
+					}
+				}
+			},
+			fuelux: {
+				options: {
+					src: 'dist/js/fuelux.js',
+					template: 'umd.hbs',
+					deps: {
+						'default': ['$'],
+						'amd': ['jquery', 'bootstrap'],
+						global: ['jQuery']
+					}
+				}
+			}
+		},
 		concat: {
 			dist: {
 				files: {
@@ -118,26 +240,13 @@ module.exports = function (grunt) {
 					]
 				},
 				options: {
-					banner: '<%= banner %>' + '\n\n' +
-					'// For more information on UMD visit: https://github.com/umdjs/umd/' + '\n' +
-					'(function (factory) {' + '\n' +
-					'\tif (typeof define === \'function\' && define.amd) {' + '\n' +
-					'\t\tdefine([\'jquery\', \'bootstrap\'], factory);' + '\n' +
-					'\t} else {' + '\n' +
-					'\t\tfactory(jQuery);' + '\n' +
-					'\t}' + '\n' +
-					'}(function (jQuery) {\n\n' +
-					'<%= jqueryCheck %>' +
-					'<%= bootstrapCheck %>',
-					footer: '\n}));',
+					banner: '<%= banner %>',
 					process: function (source) {
-						source = '(function ($) {\n\n' +
-							source.replace(/\/\/ -- BEGIN UMD WRAPPER PREFACE --(\n|.)*\/\/ -- END UMD WRAPPER PREFACE --/g, '');
-						source = source.replace(/\/\/ -- BEGIN UMD WRAPPER AFTERWORD --(\n|.)*\/\/ -- END UMD WRAPPER AFTERWORD --/g, '') + '\n})(jQuery);\n\n';
+						source = '(function ($) {\n\n' + source + '\n})(jQuery);\n\n';
 						return source;
 					}
 				}
-			}
+			}	
 		},
 		connect: {
 			server: {
@@ -215,7 +324,8 @@ module.exports = function (grunt) {
 				globals: {
 					jQuery: true,
 					define: true,
-					require: true
+					require: true,
+					'$': false
 				},
 				immed: true,
 				latedef: true,
@@ -333,8 +443,8 @@ module.exports = function (grunt) {
 							message: 'Bump version from ' + '<%= pkg.version %>' + ' to:',
 							choices: [
 								// {
-								// 	value: 'build',
-								// 	name:  'Build:  '+ (currentVersion + '-?') + ' Unstable, betas, and release candidates.'
+								//	value: 'build',
+								//	name:  'Build:	'+ (currentVersion + '-?') + ' Unstable, betas, and release candidates.'
 								// },
 								{
 									value: 'patch',
@@ -527,7 +637,7 @@ module.exports = function (grunt) {
 		BUILD
 	------------- */
 	// JS distribution task
-	grunt.registerTask('distjs', 'concat, uglify', ['concat', 'uglify', 'jsbeautifier']);
+	grunt.registerTask('distjs', 'concat, uglify', ['concat', 'umd', 'uglify', 'jsbeautifier']);
 
 	// CSS distribution task
 	grunt.registerTask('distcss', 'Compile LESS into CSS', ['less', 'usebanner', 'delete-temp-less-file']);

@@ -6,26 +6,6 @@
  * Licensed under the BSD New license.
  */
 
-// -- BEGIN UMD WRAPPER PREFACE --
-
-// For more information on UMD visit:
-// https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
-
-(function (factory) {
-	if (typeof define === 'function' && define.amd) {
-		// if AMD loader is available, register as an anonymous module.
-		define(['jquery', 'fuelux/dropdown-autoflip'], factory);
-	} else {
-		// OR use browser globals if AMD is not present
-		factory(jQuery);
-	}
-}(function ($) {
-	if (!$.fn.dropdownautoflip) {
-		throw new Error('Fuel UX pillbox control requires dropdown-autoflip.');
-	}
-
-	// -- END UMD WRAPPER PREFACE --
-
 	// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.pillbox;
@@ -772,7 +752,3 @@
 			$this.pillbox($this.data());
 		});
 	});
-
-	// -- BEGIN UMD WRAPPER AFTERWORD --
-}));
-// -- END UMD WRAPPER AFTERWORD --
