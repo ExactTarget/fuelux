@@ -240,7 +240,9 @@ module.exports = function (grunt) {
 					]
 				},
 				options: {
-					banner: '<%= banner %>',
+					banner: '<%= banner %>\n\n' +
+								'<%= jqueryCheck %>' +
+								'<%= bootstrapCheck %>',
 					process: function (source) {
 						source = '(function ($) {\n\n' + source + '\n})(jQuery);\n\n';
 						return source;
