@@ -8,6 +8,32 @@
 
 	// -- BEGIN MODULE CODE HERE --
 
+	//ADDITIONAL METHODS
+	function fillTemplate (itemData, template) {
+		var invalid = false;
+
+		function replace () {
+			var end, start, val;
+
+			start = template.indexOf('{{');
+			end = template.indexOf('}}', start + 2);
+
+			if (start > -1 && end > -1) {
+				val = $.trim(template.substring(start + 2, end));
+				val = (itemData[val] !== undefined) ? itemData[val] : '';
+				template = template.substring(0, start) + val + template.substring(end + 2);
+			} else {
+				invalid = true;
+			}
+		}
+
+		while (!invalid && template.search('{{') >= 0) {
+			replace(template);
+		}
+
+		return template;
+	}
+
 	if ($.fn.repeater) {
 		//ADDITIONAL METHODS
 		$.fn.repeater.Constructor.prototype.thumbnail_clearSelectedItems = function () {
@@ -183,30 +209,4 @@
 				return false;
 			}
 		};
-	}
-
-	//ADDITIONAL METHODS
-	function fillTemplate (itemData, template) {
-		var invalid = false;
-
-		function replace () {
-			var end, start, val;
-
-			start = template.indexOf('{{');
-			end = template.indexOf('}}', start + 2);
-
-			if (start > -1 && end > -1) {
-				val = $.trim(template.substring(start + 2, end));
-				val = (itemData[val] !== undefined) ? itemData[val] : '';
-				template = template.substring(0, start) + val + template.substring(end + 2);
-			} else {
-				invalid = true;
-			}
-		}
-
-		while (!invalid && template.search('{{') >= 0) {
-			replace(template);
-		}
-
-		return template;
 	}

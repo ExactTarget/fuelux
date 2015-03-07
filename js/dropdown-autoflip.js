@@ -8,36 +8,28 @@
 
 	// -- BEGIN MODULE CODE HERE --
 
-	$(document.body).on('click.fu.dropdown-autoflip', '[data-toggle=dropdown][data-flip]', function (event) {
-		if ($(this).data().flip === "auto") {
-			// have the drop down decide where to place itself
-			_autoFlip($(this).next('.dropdown-menu'));
-		}
-	});
-
-	// For pillbox suggestions dropdown
-	$(document.body).on('suggested.fu.pillbox', function (event, element) {
-		_autoFlip($(element));
-		$(element).parent().addClass('open');
-	});
-
-	function _autoFlip(menu) {
-		// hide while the browser thinks
-		$(menu).css({
-			visibility: "hidden"
-		});
-
-		// decide where to put menu
-		if (dropUpCheck(menu)) {
-			menu.parent().addClass("dropup");
+	function _getContainer(element) {
+		var containerElement, isWindow;
+		if (element.attr('data-target')) {
+			containerElement = element.attr('data-target');
+			isWindow = false;
 		} else {
-			menu.parent().removeClass("dropup");
+			containerElement = window;
+			isWindow = true;
 		}
 
-		// show again
-		$(menu).css({
-			visibility: "visible"
+		$.each(element.parents(), function (index, value) {
+			if ($(value).css('overflow') !== 'visible') {
+				containerElement = value;
+				isWindow = false;
+				return false;
+			}
 		});
+
+		return {
+			overflowElement: $(containerElement),
+			isWindow: isWindow
+		};
 	}
 
 	function dropUpCheck(element) {
@@ -77,29 +69,37 @@
 
 	}
 
-	function _getContainer(element) {
-		var containerElement, isWindow;
-		if (element.attr('data-target')) {
-			containerElement = element.attr('data-target');
-			isWindow = false;
-		} else {
-			containerElement = window;
-			isWindow = true;
-		}
-
-		$.each(element.parents(), function (index, value) {
-			if ($(value).css('overflow') !== 'visible') {
-				containerElement = value;
-				isWindow = false;
-				return false;
-			}
+	function _autoFlip(menu) {
+		// hide while the browser thinks
+		$(menu).css({
+			visibility: "hidden"
 		});
 
-		return {
-			overflowElement: $(containerElement),
-			isWindow: isWindow
-		};
+		// decide where to put menu
+		if (dropUpCheck(menu)) {
+			menu.parent().addClass("dropup");
+		} else {
+			menu.parent().removeClass("dropup");
+		}
+
+		// show again
+		$(menu).css({
+			visibility: "visible"
+		});
 	}
+
+	$(document.body).on('click.fu.dropdown-autoflip', '[data-toggle=dropdown][data-flip]', function (event) {
+		if ($(this).data().flip === "auto") {
+			// have the drop down decide where to place itself
+			_autoFlip($(this).next('.dropdown-menu'));
+		}
+	});
+
+	// For pillbox suggestions dropdown
+	$(document.body).on('suggested.fu.pillbox', function (event, element) {
+		_autoFlip($(element));
+		$(element).parent().addClass('open');
+	});
 
 	// register empty plugin
 	$.fn.dropdownautoflip = function () {
