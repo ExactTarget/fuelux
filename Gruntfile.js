@@ -105,7 +105,7 @@ module.exports = function (grunt) {
 						'js/selectlist.js',
 						'js/spinbox.js',
 						'js/tree.js',
-						'js/wizard.js',
+						'js/wizard.js'
 					],
 					template: 'umd.hbs',
 					dest: 'dist',
@@ -161,13 +161,13 @@ module.exports = function (grunt) {
 			repeater_list: {
 				options: {
 					src: [
-						'js/repeater_list.js'
+						'js/repeater-list.js'
 					],
 					template: 'umd.hbs',
 					dest: 'dist',
 					deps: {
 						'default': ['$'],
-						'amd': ['jquery', 'fuelex/repeater'],
+						'amd': ['jquery', 'fuelux/repeater'],
 						global: ['jQuery']
 					}
 				}
@@ -175,13 +175,13 @@ module.exports = function (grunt) {
 			repeater_thumbnail: {
 				options: {
 					src: [
-						'js/repeater_thumbnail.js'
+						'js/repeater-thumbnail.js'
 					],
 					template: 'umd.hbs',
 					dest: 'dist',
 					deps: {
 						'default': ['$'],
-						'amd': ['jquery', 'fuelex/repeater'],
+						'amd': ['jquery', 'fuelux/repeater'],
 						global: ['jQuery']
 					}
 				}
