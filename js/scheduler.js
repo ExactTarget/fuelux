@@ -6,26 +6,6 @@
  * Licensed under the BSD New license.
  */
 
-// -- BEGIN UMD WRAPPER PREFACE --
-
-// For more information on UMD visit:
-// https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
-
-(function (factory) {
-	if (typeof define === 'function' && define.amd) {
-		// if AMD loader is available, register as an anonymous module.
-		define(['jquery', 'fuelux/combobox', 'fuelux/datepicker', 'fuelux/radio', 'fuelux/selectlist', 'fuelux/spinbox'], factory);
-	} else {
-		// OR use browser globals if AMD is not present
-		factory(jQuery);
-	}
-}(function ($) {
-	if (!$.fn.combobox || !$.fn.datepicker || !$.fn.radio || !$.fn.selectlist || !$.fn.spinbox) {
-		throw new Error('Fuel UX scheduler control requires combobox, datepicker, radio, selectlist, and spinbox.');
-	}
-
-	// -- END UMD WRAPPER PREFACE --
-
 	// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.scheduler;
@@ -685,7 +665,3 @@
 			$this.scheduler($this.data());
 		});
 	});
-
-	// -- BEGIN UMD WRAPPER AFTERWORD --
-}));
-// -- END UMD WRAPPER AFTERWORD --

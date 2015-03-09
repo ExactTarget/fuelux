@@ -6,23 +6,33 @@
  * Licensed under the BSD New license.
  */
 
-// -- BEGIN UMD WRAPPER PREFACE --
-
-// For more information on UMD visit:
-// https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
-
-(function (factory) {
-	if (typeof define === 'function' && define.amd) {
-		// if AMD loader is available, register as an anonymous module.
-		define(['jquery', 'fuelux/repeater'], factory);
-	} else {
-		// OR use browser globals if AMD is not present
-		factory(jQuery);
-	}
-}(function ($) {
-	// -- END UMD WRAPPER PREFACE --
-
 	// -- BEGIN MODULE CODE HERE --
+
+	//ADDITIONAL METHODS
+	function fillTemplate (itemData, template) {
+		var invalid = false;
+
+		function replace () {
+			var end, start, val;
+
+			start = template.indexOf('{{');
+			end = template.indexOf('}}', start + 2);
+
+			if (start > -1 && end > -1) {
+				val = $.trim(template.substring(start + 2, end));
+				val = (itemData[val] !== undefined) ? itemData[val] : '';
+				template = template.substring(0, start) + val + template.substring(end + 2);
+			} else {
+				invalid = true;
+			}
+		}
+
+		while (!invalid && template.search('{{') >= 0) {
+			replace(template);
+		}
+
+		return template;
+	}
 
 	if ($.fn.repeater) {
 		//ADDITIONAL METHODS
@@ -200,33 +210,3 @@
 			}
 		};
 	}
-
-	//ADDITIONAL METHODS
-	function fillTemplate (itemData, template) {
-		var invalid = false;
-
-		function replace () {
-			var end, start, val;
-
-			start = template.indexOf('{{');
-			end = template.indexOf('}}', start + 2);
-
-			if (start > -1 && end > -1) {
-				val = $.trim(template.substring(start + 2, end));
-				val = (itemData[val] !== undefined) ? itemData[val] : '';
-				template = template.substring(0, start) + val + template.substring(end + 2);
-			} else {
-				invalid = true;
-			}
-		}
-
-		while (!invalid && template.search('{{') >= 0) {
-			replace(template);
-		}
-
-		return template;
-	}
-
-	// -- BEGIN UMD WRAPPER AFTERWORD --
-}));
-// -- END UMD WRAPPER AFTERWORD --

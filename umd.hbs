@@ -1,0 +1,16 @@
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module unless amdModuleId is set
+    define({{#if amdModuleId}}'{{amdModuleId}}', {{/if}}[{{{amdDependencies.wrapped}}}], function ({{{amdDependencies.params}}}) {
+      return ({{#if objectToExport}}root['{{{objectToExport}}}'] = {{/if}}factory({{{amdDependencies.params}}}));
+    });
+  } else {
+		// OR use browser globals if AMD is not present
+    {{#if globalAlias}}root['{{{globalAlias}}}'] = {{else}}{{#if objectToExport}}root['{{{objectToExport}}}'] = {{/if}}{{/if}}factory({{{globalDependencies.normal}}});
+  }
+}(this, function ({{dependencies}}) {
+{{{code}}}
+{{#if objectToExport}}
+return {{{objectToExport}}};
+{{/if}}
+}));

@@ -6,23 +6,268 @@
  * Licensed under the BSD New license.
  */
 
-// -- BEGIN UMD WRAPPER PREFACE --
-
-// For more information on UMD visit:
-// https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
-
-(function (factory) {
-	if (typeof define === 'function' && define.amd) {
-		// if AMD loader is available, register as an anonymous module.
-		define(['jquery', 'fuelux/repeater'], factory);
-	} else {
-		// OR use browser globals if AMD is not present
-		factory(jQuery);
-	}
-}(function ($) {
-	// -- END UMD WRAPPER PREFACE --
-
 	// -- BEGIN MODULE CODE HERE --
+
+
+	//ADDITIONAL METHODS
+	function renderColumn ($row, rows, rowIndex, columns, columnIndex) {
+		var className = columns[columnIndex].className;
+		var content = rows[rowIndex][columns[columnIndex].property];
+		var $col = $('<td></td>');
+		var width = columns[columnIndex]._auto_width;
+
+		$col.addClass(((className !== undefined) ? className : '')).append(content);
+		if (width !== undefined) {
+			$col.outerWidth(width);
+		}
+		$row.append($col);
+
+		if (this.viewOptions.list_columnRendered) {
+			this.viewOptions.list_columnRendered({
+				container: $row,
+				columnAttr: columns[columnIndex].property,
+				item: $col,
+				rowData: rows[rowIndex]
+			}, function () {});
+		}
+	}
+
+	function renderHeader ($tr, columns, index) {
+		var chevDown = 'glyphicon-chevron-down';
+		var chevron = '.glyphicon.rlc:first';
+		var chevUp = 'glyphicon-chevron-up';
+		var $div = $('<div class="repeater-list-heading"><span class="glyphicon rlc"></span></div>');
+		var $header = $('<th></th>');
+		var self = this;
+		var $both, className, sortable, $span, $spans;
+
+		$div.data('fu_item_index', index);
+		$div.prepend(columns[index].label);
+		$header.html($div.html()).find('[id]').removeAttr('id');
+		$header.append($div);
+
+		$both = $header.add($div);
+		$span = $div.find(chevron);
+		$spans = $span.add($header.find(chevron));
+
+		className = columns[index].className;
+		if (className !== undefined) {
+			$both.addClass(className);
+		}
+
+		sortable = columns[index].sortable;
+		if (sortable) {
+			$both.addClass('sortable');
+			$div.on('click.fu.repeaterList', function () {
+				self.list_sortProperty = (typeof sortable === 'string') ? sortable : columns[index].property;
+				if ($div.hasClass('sorted')) {
+					if ($span.hasClass(chevUp)) {
+						$spans.removeClass(chevUp).addClass(chevDown);
+						self.list_sortDirection = 'desc';
+					} else {
+						if (!self.viewOptions.list_sortClearing) {
+							$spans.removeClass(chevDown).addClass(chevUp);
+							self.list_sortDirection = 'asc';
+						} else {
+							$both.removeClass('sorted');
+							$spans.removeClass(chevDown);
+							self.list_sortDirection = null;
+							self.list_sortProperty = null;
+						}
+					}
+
+				} else {
+					$tr.find('th, .repeater-list-heading').removeClass('sorted');
+					$spans.removeClass(chevDown).addClass(chevUp);
+					self.list_sortDirection = 'asc';
+					$both.addClass('sorted');
+				}
+
+				self.render({
+					clearInfinite: true,
+					pageIncrement: null
+				});
+			});
+		}
+
+		if (columns[index].sortDirection === 'asc' || columns[index].sortDirection === 'desc') {
+			$tr.find('th, .repeater-list-heading').removeClass('sorted');
+			$both.addClass('sortable sorted');
+			if (columns[index].sortDirection === 'asc') {
+				$spans.addClass(chevUp);
+				this.list_sortDirection = 'asc';
+			} else {
+				$spans.addClass(chevDown);
+				this.list_sortDirection = 'desc';
+			}
+
+			this.list_sortProperty = (typeof sortable === 'string') ? sortable : columns[index].property;
+		}
+
+		$tr.append($header);
+	}
+
+	function renderRow ($tbody, rows, index) {
+		var $row = $('<tr></tr>');
+		var self = this;
+		var i, l;
+
+		if (this.viewOptions.list_selectable) {
+			$row.addClass('selectable');
+			$row.attr('tabindex', 0);	// allow items to be tabbed to / focused on
+			$row.data('item_data', rows[index]);
+			$row.on('click.fu.repeaterList', function () {
+				var $item = $(this);
+				if ($item.hasClass('selected')) {
+					$item.removeClass('selected');
+					$item.find('.repeater-list-check').remove();
+					$item.$element.trigger('deselected.fu.repeaterList', $item);
+				} else {
+					if (self.viewOptions.list_selectable !== 'multi') {
+						self.$canvas.find('.repeater-list-check').remove();
+						self.$canvas.find('.repeater-list tbody tr.selected').each(function () {
+							$(this).removeClass('selected');
+							self.$element.trigger('deselected.fu.repeaterList', $(this));
+						});
+					}
+
+					$item.addClass('selected');
+					$item.find('td:first').prepend('<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>');
+					self.$element.trigger('selected.fu.repeaterList', $item);
+				}
+			});
+			// allow selection via enter key
+			$row.keyup(function (e) {
+				if (e.keyCode === 13) {
+					// triggering a standard click event to be caught by the row click handler above
+					$row.trigger('click.fu.repeaterList');
+				}
+			});
+		}
+
+		$tbody.append($row);
+
+		for (i = 0, l = this.list_columns.length; i < l; i++) {
+			renderColumn.call(this, $row, rows, index, this.list_columns, i);
+		}
+
+		if (this.viewOptions.list_rowRendered) {
+			this.viewOptions.list_rowRendered({
+				container: $tbody,
+				item: $row,
+				rowData: rows[index]
+			}, function () {});
+		}
+	}
+
+	function renderTbody ($table, data) {
+		var $tbody = $table.find('tbody');
+		var $empty;
+
+		if ($tbody.length < 1) {
+			$tbody = $('<tbody data-container="true"></tbody>');
+			$table.append($tbody);
+		}
+
+		if (data.items && data.items.length < 1) {
+			$empty = $('<tr class="empty"><td colspan="' + this.list_columns.length + '"></td></tr>');
+			$empty.find('td').append(this.viewOptions.list_noItemsHTML);
+			$tbody.append($empty);
+		}
+	}
+
+	function sizeColumns ($tr) {
+		var auto = [];
+		var self = this;
+		var i, l, newWidth, taken;
+
+		if (this.viewOptions.list_columnSizing) {
+			i = 0;
+			taken = 0;
+			$tr.find('th').each(function () {
+				var $th = $(this);
+				var isLast = ($th.next('th').length === 0);
+				var width;
+				if (self.list_columns[i].width !== undefined) {
+					width = self.list_columns[i].width;
+					$th.outerWidth(width);
+					taken += $th.outerWidth();
+					if (!isLast) {
+						self.list_columns[i]._auto_width = width;
+					} else {
+						$th.outerWidth('');
+					}
+
+				} else {
+					auto.push({
+						col: $th,
+						index: i,
+						last: isLast
+					});
+				}
+
+				i++;
+			});
+
+			l = auto.length;
+			if (l > 0) {
+				newWidth = Math.floor((this.$canvas.width() - taken) / l);
+				for (i = 0; i < l; i++) {
+					if (!auto[i].last) {
+						auto[i].col.outerWidth(newWidth);
+						this.list_columns[auto[i].index]._auto_width = newWidth;
+					}
+
+				}
+			}
+		}
+	}
+
+	function renderThead ($table, data) {
+		var columns = data.columns || [];
+		var i, j, l, $thead, $tr;
+
+		function differentColumns (oldCols, newCols) {
+			if (!newCols) {
+				return false;
+			}
+			if (!oldCols || (newCols.length !== oldCols.length)) {
+				return true;
+			}
+			for (i = 0, l = newCols.length; i < l; i++) {
+				if (!oldCols[i]) {
+					return true;
+				} else {
+					for (j in newCols[i]) {
+						if (oldCols[i][j] !== newCols[i][j]) {
+							return true;
+						}
+
+					}
+				}
+
+			}
+			return false;
+		}
+
+		if (this.list_firstRender || differentColumns(this.list_columns, columns)) {
+			$table.find('thead').remove();
+
+			this.list_columns = columns;
+			this.list_firstRender = false;
+			this.$loader.removeClass('noHeader');
+
+			$thead = $('<thead data-preserve="deep"><tr></tr></thead>');
+			$tr = $thead.find('tr');
+			for (i = 0, l = columns.length; i < l; i++) {
+				renderHeader.call(this, $tr, columns, i);
+			}
+			$table.prepend($thead);
+
+			sizeColumns.call(this, $tr);
+		}
+	}
+
 
 	if($.fn.repeater){
 		//ADDITIONAL METHODS
@@ -232,266 +477,3 @@
 			}
 		};
 	}
-
-	//ADDITIONAL METHODS
-	function renderColumn ($row, rows, rowIndex, columns, columnIndex) {
-		var className = columns[columnIndex].className;
-		var content = rows[rowIndex][columns[columnIndex].property];
-		var $col = $('<td></td>');
-		var width = columns[columnIndex]._auto_width;
-
-		$col.addClass(((className !== undefined) ? className : '')).append(content);
-		if (width !== undefined) {
-			$col.outerWidth(width);
-		}
-		$row.append($col);
-
-		if (this.viewOptions.list_columnRendered) {
-			this.viewOptions.list_columnRendered({
-				container: $row,
-				columnAttr: columns[columnIndex].property,
-				item: $col,
-				rowData: rows[rowIndex]
-			}, function () {});
-		}
-	}
-
-	function renderHeader ($tr, columns, index) {
-		var chevDown = 'glyphicon-chevron-down';
-		var chevron = '.glyphicon.rlc:first';
-		var chevUp = 'glyphicon-chevron-up';
-		var $div = $('<div class="repeater-list-heading"><span class="glyphicon rlc"></span></div>');
-		var $header = $('<th></th>');
-		var self = this;
-		var $both, className, sortable, $span, $spans;
-
-		$div.data('fu_item_index', index);
-		$div.prepend(columns[index].label);
-		$header.html($div.html()).find('[id]').removeAttr('id');
-		$header.append($div);
-
-		$both = $header.add($div);
-		$span = $div.find(chevron);
-		$spans = $span.add($header.find(chevron));
-
-		className = columns[index].className;
-		if (className !== undefined) {
-			$both.addClass(className);
-		}
-
-		sortable = columns[index].sortable;
-		if (sortable) {
-			$both.addClass('sortable');
-			$div.on('click.fu.repeaterList', function () {
-				self.list_sortProperty = (typeof sortable === 'string') ? sortable : columns[index].property;
-				if ($div.hasClass('sorted')) {
-					if ($span.hasClass(chevUp)) {
-						$spans.removeClass(chevUp).addClass(chevDown);
-						self.list_sortDirection = 'desc';
-					} else {
-						if (!self.viewOptions.list_sortClearing) {
-							$spans.removeClass(chevDown).addClass(chevUp);
-							self.list_sortDirection = 'asc';
-						} else {
-							$both.removeClass('sorted');
-							$spans.removeClass(chevDown);
-							self.list_sortDirection = null;
-							self.list_sortProperty = null;
-						}
-					}
-
-				} else {
-					$tr.find('th, .repeater-list-heading').removeClass('sorted');
-					$spans.removeClass(chevDown).addClass(chevUp);
-					self.list_sortDirection = 'asc';
-					$both.addClass('sorted');
-				}
-
-				self.render({
-					clearInfinite: true,
-					pageIncrement: null
-				});
-			});
-		}
-
-		if (columns[index].sortDirection === 'asc' || columns[index].sortDirection === 'desc') {
-			$tr.find('th, .repeater-list-heading').removeClass('sorted');
-			$both.addClass('sortable sorted');
-			if (columns[index].sortDirection === 'asc') {
-				$spans.addClass(chevUp);
-				this.list_sortDirection = 'asc';
-			} else {
-				$spans.addClass(chevDown);
-				this.list_sortDirection = 'desc';
-			}
-
-			this.list_sortProperty = (typeof sortable === 'string') ? sortable : columns[index].property;
-		}
-
-		$tr.append($header);
-	}
-
-	function renderRow ($tbody, rows, index) {
-		var $row = $('<tr></tr>');
-		var self = this;
-		var i, l;
-
-		if (this.viewOptions.list_selectable) {
-			$row.addClass('selectable');
-			$row.attr('tabindex', 0);	// allow items to be tabbed to / focused on
-			$row.data('item_data', rows[index]);
-			$row.on('click.fu.repeaterList', function () {
-				var $item = $(this);
-				if ($item.hasClass('selected')) {
-					$item.removeClass('selected');
-					$item.find('.repeater-list-check').remove();
-					$item.$element.trigger('deselected.fu.repeaterList', $item);
-				} else {
-					if (self.viewOptions.list_selectable !== 'multi') {
-						self.$canvas.find('.repeater-list-check').remove();
-						self.$canvas.find('.repeater-list tbody tr.selected').each(function () {
-							$(this).removeClass('selected');
-							self.$element.trigger('deselected.fu.repeaterList', $(this));
-						});
-					}
-
-					$item.addClass('selected');
-					$item.find('td:first').prepend('<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>');
-					self.$element.trigger('selected.fu.repeaterList', $item);
-				}
-			});
-			// allow selection via enter key
-			$row.keyup(function (e) {
-				if (e.keyCode === 13) {
-					// triggering a standard click event to be caught by the row click handler above
-					$row.trigger('click.fu.repeaterList');
-				}
-			});
-		}
-
-		$tbody.append($row);
-
-		for (i = 0, l = this.list_columns.length; i < l; i++) {
-			renderColumn.call(this, $row, rows, index, this.list_columns, i);
-		}
-
-		if (this.viewOptions.list_rowRendered) {
-			this.viewOptions.list_rowRendered({
-				container: $tbody,
-				item: $row,
-				rowData: rows[index]
-			}, function () {});
-		}
-	}
-
-	function renderTbody ($table, data) {
-		var $tbody = $table.find('tbody');
-		var $empty;
-
-		if ($tbody.length < 1) {
-			$tbody = $('<tbody data-container="true"></tbody>');
-			$table.append($tbody);
-		}
-
-		if (data.items && data.items.length < 1) {
-			$empty = $('<tr class="empty"><td colspan="' + this.list_columns.length + '"></td></tr>');
-			$empty.find('td').append(this.viewOptions.list_noItemsHTML);
-			$tbody.append($empty);
-		}
-	}
-
-	function renderThead ($table, data) {
-		var columns = data.columns || [];
-		var i, j, l, $thead, $tr;
-
-		function differentColumns (oldCols, newCols) {
-			if (!newCols) {
-				return false;
-			}
-			if (!oldCols || (newCols.length !== oldCols.length)) {
-				return true;
-			}
-			for (i = 0, l = newCols.length; i < l; i++) {
-				if (!oldCols[i]) {
-					return true;
-				} else {
-					for (j in newCols[i]) {
-						if (oldCols[i][j] !== newCols[i][j]) {
-							return true;
-						}
-
-					}
-				}
-
-			}
-			return false;
-		}
-
-		if (this.list_firstRender || differentColumns(this.list_columns, columns)) {
-			$table.find('thead').remove();
-
-			this.list_columns = columns;
-			this.list_firstRender = false;
-			this.$loader.removeClass('noHeader');
-
-			$thead = $('<thead data-preserve="deep"><tr></tr></thead>');
-			$tr = $thead.find('tr');
-			for (i = 0, l = columns.length; i < l; i++) {
-				renderHeader.call(this, $tr, columns, i);
-			}
-			$table.prepend($thead);
-
-			sizeColumns.call(this, $tr);
-		}
-	}
-
-	function sizeColumns ($tr) {
-		var auto = [];
-		var self = this;
-		var i, l, newWidth, taken;
-
-		if (this.viewOptions.list_columnSizing) {
-			i = 0;
-			taken = 0;
-			$tr.find('th').each(function () {
-				var $th = $(this);
-				var isLast = ($th.next('th').length === 0);
-				var width;
-				if (self.list_columns[i].width !== undefined) {
-					width = self.list_columns[i].width;
-					$th.outerWidth(width);
-					taken += $th.outerWidth();
-					if (!isLast) {
-						self.list_columns[i]._auto_width = width;
-					} else {
-						$th.outerWidth('');
-					}
-
-				} else {
-					auto.push({
-						col: $th,
-						index: i,
-						last: isLast
-					});
-				}
-
-				i++;
-			});
-
-			l = auto.length;
-			if (l > 0) {
-				newWidth = Math.floor((this.$canvas.width() - taken) / l);
-				for (i = 0; i < l; i++) {
-					if (!auto[i].last) {
-						auto[i].col.outerWidth(newWidth);
-						this.list_columns[auto[i].index]._auto_width = newWidth;
-					}
-
-				}
-			}
-		}
-	}
-
-	// -- BEGIN UMD WRAPPER AFTERWORD --
-}));
-// -- END UMD WRAPPER AFTERWORD --
