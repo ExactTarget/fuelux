@@ -1,0 +1,45 @@
+.checkbox, .checkbox-inline {
+	
+	input[type="checkbox"]:not(.sr-only) {
+		& ~ label {
+			&:before {
+				border-radius: 4px;
+				z-index: 1;
+			}
+		}
+
+		&:checked {
+			& ~ label {
+				&:before {
+					color: white;
+					content: "\e013";
+					line-height: 1em;
+					padding-left: 1px;
+					font-size: 8px;
+					padding-top: 2px;
+				}
+			}
+		}
+	}
+
+	&.hightlight {
+		& + .checkbox-inline.highlight {
+			margin-left: -14px;
+			&.checkbox-custom {
+				margin-left: 0px;
+			}
+		}
+	}
+}
+
+.checkbox {
+
+	&.highlight {
+		input:not(.sr-only) {
+			& ~ label {
+				left: -4px;
+			}
+		}
+	}
+
+}

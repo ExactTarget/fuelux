@@ -1,6 +1,7 @@
 #[Fuel UX](http://getfuelux.com/)
 [![Bower version](https://badge.fury.io/bo/fuelux.svg)](http://badge.fury.io/bo/fuelux)
 [![Build Status](https://api.travis-ci.org/ExactTarget/fuelux.svg?branch=master)](http://travis-ci.org/ExactTarget/fuelux)
+[![devDependency Status](https://david-dm.org/exacttarget/fuelux/dev-status.svg)](https://david-dm.org/exacttarget/fuelux#info=devDependencies)
 
 [![Selenium Test Status](https://saucelabs.com/browser-matrix/fuelux.svg)](https://saucelabs.com/u/fuelux)
 
@@ -31,18 +32,18 @@ Add `fuelux` class to the portion of the page using Fuel UX as seen [here](https
 Ensure all the dependencies are included on the page (eg, such as using the CDN as shown below).
 ```
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-<link href="//www.fuelcdn.com/fuelux/3.6.3/css/fuelux.min.css" rel="stylesheet">
+<link href="//www.fuelcdn.com/fuelux/3.6.4/css/fuelux.min.css" rel="stylesheet">
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.1/js/bootstrap.min.js"></script>
-<script src="//www.fuelcdn.com/fuelux/3.6.3/js/fuelux.min.js"></script>
+<script src="//www.fuelcdn.com/fuelux/3.6.4/js/fuelux.min.js"></script>
 
 ```
 
 ### Install
 A few ways available to install.
 
-- Request files from [the Fuel UX CDN](http://www.fuelcdn.com/fuelux/3.6.3/)
+- Request files from [the Fuel UX CDN](http://www.fuelcdn.com/fuelux/3.6.4/)
 - [Download the latest release](https://github.com/exacttarget/fuelux/archive/3.4.0.zip).
 - Clone the repo: `git clone https://github.com/exacttarget/fuelux.git`.
 - Install with [Bower](http://bower.io): `bower install fuelux`.

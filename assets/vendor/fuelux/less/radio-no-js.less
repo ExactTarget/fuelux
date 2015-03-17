@@ -1,0 +1,60 @@
+.radio, .radio-inline {
+	
+	input[type="radio"]:not(.sr-only) {
+
+		& ~ label {
+			&:before {
+				border-radius: 8px;
+				z-index: 1;
+			}
+		}
+
+		&:checked {
+
+			& ~ label {
+				&:before {
+					background: #39b3d7; /* Old browsers */
+					background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #ffffff 40%, #39b3d7 41%, #39b3d7 100%); /* FF3.6+ */
+					background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(40%,#ffffff), color-stop(41%,#39b3d7), color-stop(100%,#39b3d7)); /* Chrome,Safari4+ */
+					background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%,#ffffff 40%,#39b3d7 41%,#39b3d7 100%); /* Chrome10+,Safari5.1+ */
+					background: -o-radial-gradient(center, ellipse cover, #ffffff 0%,#ffffff 40%,#39b3d7 41%,#39b3d7 100%); /* Opera 12+ */
+					background: -ms-radial-gradient(center, ellipse cover, #ffffff 0%,#ffffff 40%,#39b3d7 41%,#39b3d7 100%); /* IE10+ */
+					background: radial-gradient(ellipse at center, #ffffff 0%,#ffffff 40%,#39b3d7 41%,#39b3d7 100%); /* W3C */
+					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#39b3d7',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+				}
+			}
+		}
+
+
+
+
+		/* for keyboard tabbing */
+		&:hover ~ label, &:active ~ label, &:focus ~ label {
+		
+			&:before {
+				outline-color: rgba(91, 157, 217, 0.7);
+				outline-offset: -4px;
+				outline-style: auto;
+				outline-width: 6px;
+			}
+
+		}
+		/* for keyboard tabbing */
+		&:active:hover ~ label, &:focus:hover ~ label, &:focus:hover ~ label, &:checked:hover ~ label {
+			&:before {
+				outline-color: none;
+				outline-offset: 0;
+				outline-style: none;
+				outline-width: 0;
+				cursor: default;
+			}
+
+			&, &:hover {
+				color: @text-color;
+				cursor: default;
+			}
+		}
+
+	}
+}
+

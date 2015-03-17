@@ -1,0 +1,14 @@
+// Checked on page load:
+- add 'checked="checked"' attribute to input
+
+// Disabled on page load:
+- add 'disabled="disabled"' attribute to input
+
+// Toggling with checkboxes uses plain old Bootstrap Collapse: 
+- See: http://getbootstrap.com/javascript/#collapse
+- add `data-toggle="collapse"`
+- add `data-target="{{selector}}"`
+- optionally consider adding aria attributes `aria-expanded` and `aria-controls`
+
+// Highlighting checkboxes:
+- add 'highlight' class to the `.checkbox` or `.checkbox-inline` wrapper. This will highlight the checkbox on check / uncheck.

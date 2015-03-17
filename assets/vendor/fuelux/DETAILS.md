@@ -30,7 +30,7 @@ Fuel UX can be applied to a section of your your HTML or the entire page by addi
 ## Downloading code
 Fuel UX can be obtained in any of the following ways:
 
-* Request files from [the Fuel UX CDN](http://www.fuelcdn.com/fuelux/3.6.3/)
+* Request files from [the Fuel UX CDN](http://www.fuelcdn.com/fuelux/3.6.4/)
 * Using [Bower](https://github.com/bower/bower) (ensures you get all the [dependencies](#dependencies)):
 
    ```
@@ -53,7 +53,7 @@ Fuel UX can be obtained in any of the following ways:
 
    Cloning the repository ensures you can apply future updates to Fuel UX easily, but requires to you manage its [dependencies](#dependencies) on your own.
 
-* Download a .zip archive of the [latest release](http://www.fuelcdn.com/fuelux/3.6.3/fuelux.zip).
+* Download a .zip archive of the [latest release](http://www.fuelcdn.com/fuelux/3.6.4/fuelux.zip).
 
 ## AMD support
 
@@ -63,7 +63,7 @@ If using AMD (such as [RequireJS](http://requirejs.org)), reference the FuelUX d
 ```javascript
 require.config({
     paths: {
-        'fuelux': 'http://www.fuelcdn.com/fuelux/3.6.3/'
+        'fuelux': 'http://www.fuelcdn.com/fuelux/3.6.4/'
         //...
     }
 });
@@ -118,7 +118,7 @@ Should you encounter problems with installing dependencies or running Grunt comm
 1. If necessary, [install Jekyll](http://jekyllrb.com/docs/installation) (requires v2.3.x).
   - **Windows users:** Read [this unofficial guide](http://jekyll-windows.juthilo.com/) to get Jekyll up and running without problems.
 2. Install the Ruby-based syntax highlighter, [Rouge](https://github.com/jneen/rouge), with `gem install rouge`.
-3. From the root `/bootstrap` directory, run `jekyll serve` in the command line.
+3. From the root `/fuelux` directory, run `jekyll serve` in the command line.
 4. Open <http://localhost:9001> in your browser, and voilà.
 
 Learn more about using Jekyll by reading its [documentation](http://jekyllrb.com/docs/home/).
