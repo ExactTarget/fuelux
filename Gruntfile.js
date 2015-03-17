@@ -55,7 +55,7 @@ module.exports = function (grunt) {
 				return 'http://localhost:<%= connect.testServer.options.port %>/test/?no-moment=true';
 			}
 			else {
-				// test dist with multiple jQuery versions 
+				// test dist with multiple jQuery versions
 				return 'http://localhost:<%= connect.testServer.options.port %>/test/?testdist=true';
 			}
 		}),
@@ -555,31 +555,31 @@ module.exports = function (grunt) {
 		TESTS
 	------------- */
 	// The default build task
-	grunt.registerTask('default', 'Run source file tests. Pass --no-resetdist to keep "dist" changes from being wiped out', 
+	grunt.registerTask('default', 'Run source file tests. Pass --no-resetdist to keep "dist" changes from being wiped out',
 		['test', 'clean:screenshots', 'resetdist']);
 
 	// to be run prior to submitting a PR
-	grunt.registerTask('test', 'run jshint, qunit source w/ coverage, and validate HTML', 
+	grunt.registerTask('test', 'run jshint, qunit source w/ coverage, and validate HTML',
 		['jshint', 'connect:testServer', 'blanket_qunit:source', 'qunit:noMoment', 'qunit:globals', 'validation']);
 
 	//If qunit:source is working but qunit:full is breaking, check to see if the dist broke the code. This would be especially useful if we start mangling our code, but, is 99.99% unlikely right now
-	grunt.registerTask('validate-dist', 'run qunit:source, dist, and then qunit:full', 
+	grunt.registerTask('validate-dist', 'run qunit:source, dist, and then qunit:full',
 		['connect:testServer', 'qunit:source', 'dist', 'qunit:dist']);
 
 	// multiple jQuery versions, then run SauceLabs VMs
-	grunt.registerTask('releasetest', 'run jshint, build dist, all source tests, validation, and qunit on SauceLabs', 
+	grunt.registerTask('releasetest', 'run jshint, build dist, all source tests, validation, and qunit on SauceLabs',
 		['test', 'dist', 'qunit:dist', 'saucelabs-qunit:defaultBrowsers']);
 
 	// can be run locally instead of through TravisCI, but requires the Fuel UX Saucelabs API key file which is not public at this time.
-	grunt.registerTask('saucelabs', 'run jshint, and qunit on saucelabs', 
+	grunt.registerTask('saucelabs', 'run jshint, and qunit on saucelabs',
 		['connect:testServer', 'jshint', 'saucelabs-qunit:defaultBrowsers']);
 
 	// can be run locally instead of through TravisCI, but requires the FuelUX Saucelabs API key file which is not public at this time.
-	grunt.registerTask('trickysauce', 'run tests, jshint, and qunit for "tricky browsers" (IE8-11)', 
+	grunt.registerTask('trickysauce', 'run tests, jshint, and qunit for "tricky browsers" (IE8-11)',
 		['connect:testServer', 'jshint', 'saucelabs-qunit:trickyBrowsers']);
 
 	// Travis CI task. This task no longer uses SauceLabs. Please run 'grunt saucelabs' manually.
-	grunt.registerTask('travisci', 'Tests to run when in Travis CI environment', 
+	grunt.registerTask('travisci', 'Tests to run when in Travis CI environment',
 		['test', 'dist', 'qunit:dist']);
 
 	//if you've already accidentally added your files for commit, this will at least unstage them. If you haven't, this will wipe them out.
@@ -606,9 +606,9 @@ module.exports = function (grunt) {
 		grunt.log.oklns('releasing: ', grunt.config('bump.increment'));
 
 		if (!grunt.option('no-tests')) {
-			grunt.task.run(['releasetest']);
-			// Delete any screenshots that may have happened if it got this far. This isn't foolproof 
-			// because it relies on the phantomjs server/page timeout, which can take longer than this 
+			grunt.task.run(['releasetest']); //If phantom timeouts happening because of long-running qunit tests, look into setting `resourceTimeout` in phantom: http://phantomjs.org/api/webpage/property/settings.html
+			// Delete any screenshots that may have happened if it got this far. This isn't foolproof
+			// because it relies on the phantomjs server/page timeout, which can take longer than this
 			// grunt task depending on how long saucelabs takes to run...
 			grunt.task.run('clean:screenshots');
 		}
