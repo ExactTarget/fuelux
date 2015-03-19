@@ -40,6 +40,16 @@ define(function (require) {
 		log(markup);
 		$container.append(markup);
 	});
+	$('#btnCheckboxIsChecked').on('click', function () {
+		var checked = $('#myCustomCheckbox1').checkbox('isChecked');
+		console.log(checked);
+	});
+	$('#btnCheckboxCheck').on('click', function () {
+		$('#myCustomCheckbox1').checkbox('check');
+	});
+	$('#btnCheckboxUncheck').on('click', function () {
+		$('#myCustomCheckbox1').checkbox('uncheck');
+	});
 
 	// $('#myCustomCheckbox1 > input').on('change', function(){
 	// 	console.log('changed');

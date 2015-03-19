@@ -54,10 +54,12 @@
 				<section id="checkboxes-block">
 					<div class="checkbox">
 						<label class="checkbox-custom" data-initialize="checkbox" id="myCustomCheckbox1">
-							<input class="sr-only" type="checkbox" value="">
+							<input class="sr-only" type="checkbox" value="" data-toggle="#myCheckboxToggleContainer">
 							<span class="checkbox-label">Custom checkbox unchecked on page load</span>
 						</label>
 					</div>
+					<div id="myCheckboxToggleContainer">Hello world</div>
+
 					<div class="checkbox">
 						<label class="checkbox-custom" data-initialize="checkbox" id="myCustomCheckbox2">
 							<input checked="checked" class="checked sr-only" type="checkbox" value="">
@@ -77,7 +79,6 @@
 						</label>
 					</div>
 				</section>
-
 
 				<section id="checkboxes-inline">
 					<label class="checkbox-custom checkbox-inline" data-initialize="checkbox" id="myCustomInlineCheckbox1">
@@ -151,6 +152,9 @@
 				<button type="button" class="btn btn-default" id="btnCheckboxDisable">disable #myCustomCheckbox1</button>
 				<button type="button" class="btn btn-default" id="btnCheckboxEnable">enable #myCustomCheckbox1</button>
 				<button type="button" class="btn btn-default" id="btnCheckboxDestroy">destroy and append #myCustomCheckbox1</button>
+				<button type="button" class="btn btn-default" id="btnCheckboxIsChecked">is #myCustomCheckbox1 checked?</button>
+				<button type="button" class="btn btn-default" id="btnCheckboxCheck">check #myCustomCheckbox1</button>
+				<button type="button" class="btn btn-default" id="btnCheckboxUncheck">uncheck #myCustomCheckbox1</button>
 			</div>
 		</section>
 
