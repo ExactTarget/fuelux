@@ -119,4 +119,24 @@ require(['jquery', 'fuelux/select'], function ($) {
 		equal(selectedText, 'One', 'text passed in from changed event');
 		equal(selectedValue, 1, 'value passed in from changed event');
 	});
+
+	test("should not fire changed event on disabled items", function () {
+		var eventFired = false;
+		var selectedText = '';
+		var selectedValue = '';
+
+		var $select = $(html).select().on('changed', function (evt, data) {
+			eventFired = true;
+			selectedText = data.text;
+			selectedValue = data.value;
+		});
+
+		// Disable menu item then simulate changed event
+		$select.find('li:first').addClass('disabled')
+			.find('a').click();
+
+		equal(eventFired, false, 'changed event not fired');
+		equal(selectedText, '', 'text not changed');
+		equal(selectedValue, '', 'value not changed');
+	});
 });
