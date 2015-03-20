@@ -38,7 +38,7 @@
 
 			td {
 				b, button {
-					color: #231f20;
+					color: #333;
 					display: inline-block;
 					font-weight: normal;
 					height: 30px;
@@ -52,6 +52,7 @@
 
 				span {
 					display: block;
+					border-radius: @baseBorderRadius;
 
 					&:hover {
 						background: @selectableHover;
@@ -60,18 +61,30 @@
 				}
 
 				&.current-day {
-					b, button {
+					span {
 						border: 1px solid #333;
+						b, button {
+						}
 					}
 				}
 
 				&.last-month, &.next-month {
-					background: #e3e2e1;
+					background: darken(@selected, 10%);
+					&.first {
+						border-top-left-radius: @baseBorderRadius;
+						border-bottom-left-radius: @baseBorderRadius;
+						padding-left: 1px;
+					}
+					&.last {
+						border-top-right-radius: @baseBorderRadius;
+						border-bottom-right-radius: @baseBorderRadius;
+						padding-right: 1px;
+					}
 				}
 
 				&.past {
 					b, button {
-						color: #8d8787;
+						color: lighten(#333, 40%);
 					}
 				}
 
@@ -112,6 +125,9 @@
 
 					&.current-day {
 						box-shadow: 0 0 0 1px #fff offset;
+						b, button {
+							color: #222;
+						}
 
 						span {
 							&:hover {
@@ -145,7 +161,7 @@
 				text-align: center;
 				display: block;
 				width: 174px;
-				color: #4d4d4f;
+				color: #222;
 				font-size: 20px;
 				line-height: 30px;
 				text-decoration: underline;
@@ -217,7 +233,7 @@
 			padding: 4px 14px;
 
 			.datepicker-today {
-				color: #231f20;
+				color: #333;
 				font-size: 14px;
 				text-decoration: underline;
 
@@ -263,7 +279,7 @@
 
 			.datepicker-wheels-back {
 				display: block;
-				color: #4d4d4f;
+				color: #222;
 				float: left;
 				line-height: 22px;
 				border: 0;
@@ -334,7 +350,7 @@
 				background-clip: padding-box;
 				border-bottom: 1px solid #cccaca;
 				border-radius: 4px 0 0 0;
-				color: #4d4d4f;
+				color: #222;
 				font-size: 20px;
 				font-weight: bold;
 				line-height: 30px;

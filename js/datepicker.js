@@ -471,7 +471,7 @@
 			var selected = this.selectedDate;
 			var $tbody = this.$days.find('tbody');
 			var year = date.getFullYear();
-			var curDate, curMonth, curYear, i, j, rows, stage, $td, $tr;
+			var curDate, curMonth, curYear, i, j, rows, stage, previousStage, lastStage, $td, $tr;
 
 			if (selected) {
 				selected = {
@@ -489,6 +489,7 @@
 				'data-year': year
 			});
 
+
 			$tbody.empty();
 			if (firstDay !== 0) {
 				curDate = lastMonthDate - firstDay + 1;
@@ -503,10 +504,18 @@
 				$tr = $('<tr></tr>');
 				for (j = 0; j < 7; j++) {
 					$td = $('<td></td>');
+					console.log("stage", stage);
+					console.log("previousStage", previousStage);
 					if (stage === -1) {
 						$td.addClass('last-month');
+						if (previousStage !== stage) {
+							$td.addClass('first');
+						}
 					} else if (stage === 1) {
 						$td.addClass('next-month');
+						if (previousStage !== stage) {
+							$td.addClass('first');
+						}
 					}
 
 					curMonth = month + stage;
@@ -550,12 +559,30 @@
 					}
 
 					curDate++;
+					lastStage = previousStage;
+					previousStage = stage;
+					console.log("lastStage", lastStage);
+					console.log("stage", stage);
+					console.log("previousStage", previousStage);
 					if (stage === -1 && curDate > lastMonthDate) {
 						curDate = 1;
 						stage = 0;
+						if (lastStage !== stage) {
+							$td.addClass('last');
+						}
 					} else if (stage === 0 && curDate > lastDate) {
 						curDate = 1;
 						stage = 1;
+						if (lastStage !== stage) {
+							$td.addClass('last');
+						}
+					}
+					console.log("i", i);
+					console.log("rows", rows);
+					console.log("j", j);
+					console.log("i == (rows - 1) && j == 6", i == (rows - 1) && j == 6);
+					if (i == (rows - 1) && j == 6) {
+						$td.addClass('last');
 					}
 
 					$tr.append($td);
