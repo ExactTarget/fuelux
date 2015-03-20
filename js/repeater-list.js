@@ -345,7 +345,7 @@
 				if ($item.hasClass('selected')) {
 					$item.removeClass('selected');
 					$item.find('.repeater-list-check').remove();
-					$item.$element.trigger('deselected.fu.repeaterList', $item);
+					self.$element.trigger('deselected.fu.repeaterList', $item);
 				} else {
 					if (self.viewOptions.list_selectable !== 'multi') {
 						self.$canvas.find('.repeater-list-check').remove();
