@@ -367,9 +367,9 @@
 		},
 
 		itemization: function (data) {
-			this.$count.html(data.count || '');
-			this.$end.html(data.end || '');
-			this.$start.html(data.start || '');
+			this.$count.html((data.count!==undefined) ? data.count : '?');
+			this.$end.html((data.end!==undefined) ? data.end : '?');
+			this.$start.html((data.start!==undefined) ? data.start : '?');
 		},
 
 		next: function (e) {
@@ -516,6 +516,8 @@
 			dataOptions = this.getDataOptions(options);
 
 			this.viewOptions.dataSource(dataOptions, function (data) {
+				data = data || {};
+
 				if (self.infiniteScrollingEnabled) {
 					self.infiniteScrollingCallback({});
 				} else {
@@ -708,7 +710,9 @@
 	};
 
 	$.fn.repeater.defaults = {
-		dataSource: function (options, callback) {},
+		dataSource: function (options, callback) {
+			callback({ count: 0, end: 0, items: [], page: 0, pages: 1, start: 0 });
+		},
 		defaultView: -1,	//should be a string value. -1 means it will grab the active view from the view controls
 		dropPagingCap: 10,
 		staticHeight: -1,	//normally true or false. -1 means it will look for data-staticheight on the element
