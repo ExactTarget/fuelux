@@ -81,18 +81,24 @@
 		setCheckedState: function(element, checked) {
 			var $chk = element;
 			var $lbl = this.$label;
-			var $container = this.$toggleContainer;
+			var $container = this.$container;
+			var $containerToggle = this.$toggleContainer;
+
+			// set class on outer container too...to support highlighting
+			// TODO: verify inline checkboxes, also test with MCTheme
 
 			if(checked) {
 				$chk.prop('checked', true);
 				$lbl.addClass('checked');
-				$container.removeClass('hide hidden');
+				//$container.addClass('checked');
+				$containerToggle.removeClass('hide hidden');
 				$lbl.trigger('checked.fu.checkbox');
 			}
 			else {
 				$chk.prop('checked', false);
 				$lbl.removeClass('checked');
-				$container.addClass('hidden');
+				//$container.removeClass('checked');
+				$containerToggle.addClass('hidden');
 				$lbl.trigger('unchecked.fu.checkbox');
 			}
 
