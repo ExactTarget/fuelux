@@ -1,40 +1,30 @@
 <div id="MyCheckboxContainer">
 
-	<div id="CheckboxWrapper1" class="checkbox">
+	<div id="CheckboxCheckedEnabled" class="checkbox">
 		<label class="checkbox-custom">
-			<input id="Checkbox1" class="sr-only checked" type="checkbox" value="" checked="checked">
-			<span class="checkbox-label">Custom appearance checkbox checked at page load (#chk1)</span>
-		</label>
-	</div>
-	<div id="CheckboxWrapper2" class="checkbox">
-		<label class="checkbox-custom">
-			<input id="Checkbox2" class="sr-only checked" type="checkbox" value="" checked="checked" data-toggle="#checkboxToggle1">
-			<span class="checkbox-label">Custom appearance checkbox checked at page load with linked element visibility toggle by id </span>
-		</label>
-	</div>
-	<div id="CheckboxWrapper3" class="checkbox">
-		<label class="checkbox-custom">
-			<input id="Checkbox3" class="sr-only checkbox" type="checkbox" value="" data-toggle=".checkboxToggle2">
-			<span class="checkbox-label">Custom appearance checkbox unchecked on page load <i>with linked element visibility toggle by class</i></span>
-		</label>
-	</div>
-	<div id="CheckboxWrapper4" class="checkbox">
-		<label class="checkbox-custom">
-			<input id="Checkbox4" class="sr-only checkbox" type="checkbox" value="" checked="checked" disabled="disabled">
-			<span class="checkbox-label">Disabled custom appearance checkbox <i>checked on page load</i></span>
-		</label>
-	</div>
-	<div id="CheckboxWrapper5" class="checkbox">
-		<label class="checkbox-custom">
-			<input id="Checkbox5" class="sr-only checkbox" type="checkbox" value="" disabled="disabled">
-			<span class="checkbox-label">Disabled custom appearance checkbox <i>unchecked on page load</i></span>
+			<input class="sr-only checked" type="checkbox" checked="checked" id="Checkbox1">
+			<span class="checkbox-label">Checked/Enabled</span>
 		</label>
 	</div>
 
-	<div id="CheckboxWrapperChangeCheck" class="checkbox">
+	<div id="CheckboxCheckedDisabled" class="checkbox">
 		<label class="checkbox-custom">
-			<input id="CheckboxChangeCheck" class="sr-only checked" type="checkbox" value="" checked="checked">
-			<span class="checkbox-label">Custom appearance checkbox checked at page load (#CheckboxChangeCheck)</span>
+			<input class="sr-only checked" type="checkbox" checked="checked" disabled="disabled">
+			<span class="checkbox-label">Checked/Disabled</span>
+		</label>
+	</div>
+
+	<div id="CheckboxUncheckedEnabled" class="checkbox">
+		<label class="checkbox-custom">
+			<input class="sr-only checked" type="checkbox">
+			<span class="checkbox-label">Unchecked/Enabled</span>
+		</label>
+	</div>
+
+	<div id="CheckboxUncheckedDisabled" class="checkbox">
+		<label class="checkbox-custom">
+			<input class="sr-only checked" type="checkbox" disabled="disabled">
+			<span class="checkbox-label">Unchecked/Disabled</span>
 		</label>
 	</div>
 

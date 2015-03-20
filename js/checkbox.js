@@ -28,20 +28,11 @@
 
 	// CHECKBOX CONSTRUCTOR AND PROTOTYPE
 
-	// issues:
-	// 1. control initialized on checkbox, but other methods invoked on label (where id selector is)
-	// 2. proxying external onchange event before state has been synced
-	// 3. multiple triggers on "onchange" event of input as well as "onclick" event of label.  since input is nested within label, this is problematic
-	// 4. simplified toggle logic by just simulating "click" event on label
-	// 5. isChecked function returns input.prop('checked') rather than the internal state
-	// 6. state was being maintained in 4 ways: attribute, prop, class, and internal state variable - simplified this (state on label is controlled by class, state on checkbox controlled by prop)
-	// 7. TODO: should we trigger a change event?  should we trigger checked/unchecked too
-
 	var Checkbox = function (element, options) {
 		this.options = $.extend({}, $.fn.checkbox.defaults, options);
 
 		if(element.tagName.toLowerCase() !== 'label') {
-			console.log('initialize checkbox on the label that wraps the checkbox');
+			//console.log('initialize checkbox on the label that wraps the checkbox');
 			return;
 		}
 
@@ -102,9 +93,7 @@
 				$lbl.trigger('unchecked.fu.checkbox');
 			}
 
-			// TODO: trigger generic changed event?  pass the checked state as an argument?
-			// noticed we aren't documenting this event anyway and are recommending developers
-			// use jQuery to listen to the onchange event on the native input??
+			$lbl.trigger('changed.fu.checkbox', checked);
 		},
 
 		setDisabledState: function(element, disabled) {
@@ -201,7 +190,7 @@
 	// DATA-API
 
 	$(document).on('mouseover.fu.checkbox.data-api', '[data-initialize=checkbox]', function (e) {
-		var $control = $(e.target);//.closest('.checkbox').find('[type=checkbox]');
+		var $control = $(e.target);
 		if (!$control.data('fu.checkbox')) {
 			$control.checkbox($control.data());
 		}

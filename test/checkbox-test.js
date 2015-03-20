@@ -23,135 +23,244 @@ define(function(require){
 		ok($chk1.checkbox() === $chk1, 'checkbox should be initialized');
 	});
 
-	test("should set initial state", function () {
-		var $list = $(html);
+	test("should set initial state for checked/enabled", function () {
+		var $element = $(html).find('#CheckboxCheckedEnabled').clone();
 
-		$list.find('input').checkbox();
+		// initialize checkbox
+		$element.find('label').checkbox();
 
-		// checked/enabled
-		var wrapper1 = $list.find('#CheckboxWrapper1');
-		equal(wrapper1.hasClass('checked'), true, 'wrapper1 has checked class');
-		equal(wrapper1.hasClass('disabled'), false, 'wrapper1 does not have disabled class');
+		// ensure label has checked class
+		var checked = $element.find('label').hasClass('checked');
+		equal(checked, true, 'label has "checked" class when input is checked');
 
-		// unchecked/enabled
-		var wrapper3 = $list.find('#CheckboxWrapper3');
-		equal(wrapper3.hasClass('checked'), false, 'wrapper3 does not have checked class');
-		equal(wrapper3.hasClass('disabled'), false, 'wrapper3 does not have disabled class');
-
-		// checked/disabled
-		var wrapper4 = $list.find('#CheckboxWrapper4');
-		equal(wrapper4.hasClass('checked'), true, 'wrapper4 has checked class');
-		equal(wrapper4.hasClass('disabled'), true, 'wrapper4 has disabled class');
-
-		// checked/disabled
-		var wrapper5 = $list.find('#CheckboxWrapper5');
-		equal(wrapper5.hasClass('checked'), false, 'wrapper5 does not have checked class');
-		equal(wrapper5.hasClass('disabled'), true, 'wrapper5 has disabled class');
+		// ensure label does not have disabled class
+		var disabled = $element.find('label').hasClass('disabled');
+		equal(disabled, false, 'label does not have "disabled" class when input is enabled');
 	});
 
-	test("should disable/enable checkbox", function () {
-		var $chk1 = $(html).find('#Checkbox1');
+	test("should set initial state for checked/disabled", function () {
+		var $element = $(html).find('#CheckboxCheckedDisabled').clone();
 
-		equal($chk1.is(':disabled'), false, 'enabled - default state');
-		$chk1.checkbox('disable');
-		equal($chk1.is(':disabled'), true, 'disabled');
-		$chk1.checkbox('enable');
-		equal($chk1.is(':disabled'), false, 're-enabled');
+		// initialize checkbox
+		$element.find('label').checkbox();
+
+		// ensure label has checked class
+		var checked = $element.find('label').hasClass('checked');
+		equal(checked, true, 'label has "checked" class when input is checked');
+
+		// ensure label has disabled class
+		var disabled = $element.find('label').hasClass('disabled');
+		equal(disabled, true, 'label has "disabled" class when input is disabled');
 	});
 
-	test("toggle should check/uncheck checkbox", function () {
-		var $fixture = $(html).appendTo('#qunit-fixture');
-		var $chk1 = $fixture.find('#Checkbox1');
+	test("should set initial state for unchecked/enabled", function () {
+		var $element = $(html).find('#CheckboxUncheckedEnabled').clone();
 
-		equal($chk1.is(':checked'), true, 'starts checked - confirmation by is(:checked)');
-		$chk1.checkbox('toggle');
-		equal($chk1.is(':checked'), false, 'calling toggle unchecks - confirmation by is(:checked)');
-		$chk1.checkbox('toggle');
-		equal($chk1.is(':checked'), true, 'calling toggle again ends with checked - confirmation by is(:checked)');
+		// initialize checkbox
+		$element.find('label').checkbox();
 
-		$fixture.remove();
+		// ensure label does not have checked class
+		var checked = $element.find('label').hasClass('checked');
+		equal(checked, false, 'label does not have "checked" class when input is unchecked');
+
+		// ensure label does not have disabled class
+		var disabled = $element.find('label').hasClass('disabled');
+		equal(disabled, false, 'label does not have "disabled" class when input is enabled');
 	});
 
-	test("click should check/uncheck checkbox", function () {
-		var $fixture = $(html).appendTo('#qunit-fixture');
-		var $chk1 = $fixture.find('#Checkbox1');
+	test("should set initial state for unchecked/disabled", function () {
+		var $element = $(html).find('#CheckboxUncheckedDisabled').clone();
 
-		equal($chk1.is(':checked'), true, 'starts checked - confirmation by is(:checked)');
-		$chk1.trigger('click');
-		equal($chk1.is(':checked'), false, 'calling click unchecks - confirmation by is(:checked)');
-		$chk1.trigger('click');
-		equal($chk1.is(':checked'), true, 'calling click again checks - confirmation by is(:checked)');
+		// initialize checkbox
+		$element.find('label').checkbox();
 
-		$fixture.remove();
+		// ensure label does not have checked class
+		var checked = $element.find('label').hasClass('checked');
+		equal(checked, false, 'label does not have "checked" class when input is unchecked');
+
+		// ensure label has disabled class
+		var disabled = $element.find('label').hasClass('disabled');
+		equal(disabled, true, 'label has "disabled" class when input is disabled');
 	});
 
-	test("test check/uncheck/isChecked convenience methods", function () {
-		var $fixture = $(html).appendTo('#qunit-fixture');
-		var $chk5 = $fixture.find('#Checkbox5');
-		var $wrapper5 = $fixture.find('#CheckboxWrapper5');
+	test("should disable checkbox", function () {
+		var $element = $(html).find('#CheckboxUncheckedEnabled').clone();
+		var $input = $element.find('input[type="checkbox"]');
 
-		$chk5.checkbox();
+		// initialize checkbox
+		var $chk = $element.find('label').checkbox();
 
-		equal($chk5.is(':checked'), false, 'unchecked - default value');
-
-		$chk5.checkbox('check');
-		equal($chk5.is(':checked'), true, 'checked - confirmation by is(:checked)');
-		equal($wrapper5.hasClass('checked'), true, 'checked - confirmation by css class');
-		equal($chk5.checkbox('isChecked'), true, 'checked - confirmation by isChecked method');
-
-		$chk5.checkbox('uncheck');
-		equal($chk5.is(':checked'), false, 'unchecked - confirmation by is(:checked)');
-		equal($wrapper5.hasClass('checked'), false, 'unchecked - confirmation by css class');
-		equal($chk5.checkbox('isChecked'), false, 'unchecked - confirmation by isChecked method');
-
-		$fixture.remove();
+		// set disabled state
+		equal($input.prop('disabled'), false, 'checkbox enabled initially');
+		$chk.checkbox('disable');
+		equal($input.prop('disabled'), true, 'checkbox disabled after calling disable method');
 	});
 
-	test("onchange should occur", function() {
-		var $fixture = $(html).appendTo('#qunit-fixture');
-		var $chk1Wrapper = $fixture.find('#CheckboxWrapperChangeCheck');
-		var $chk1 = $chk1Wrapper.find('input');
+	test("should enable checkbox", function () {
+		var $element = $(html).find('#CheckboxUncheckedDisabled').clone();
+		var $input = $element.find('input[type="checkbox"]');
 
-		var changeOccurred = false;
+		// initialize checkbox
+		var $chk = $element.find('label').checkbox();
 
-		equal(changeOccurred, false, 'No change occurred yet');
+		// set enabled state
+		equal($input.prop('disabled'), true, 'checkbox disabled initially');
+		$chk.checkbox('enable');
+		equal($input.prop('disabled'), false, 'checkbox enabled after calling enable method');
+	});
 
-		//this doesn't work right from terminal, but, if you open in browser you'll see 'changed' in console
-		$chk1.on('change', function(){
-			if(window.console && window.console.log) {
-				console.log('change fired');
-			}
-			changeOccurred = true;
+	test("should check checkbox", function () {
+		var $element = $(html).find('#CheckboxUncheckedEnabled').clone();
+		var $input = $element.find('input[type="checkbox"]');
+
+		// initialize checkbox
+		var $chk = $element.find('label').checkbox();
+
+		// set checked state
+		equal($input.prop('checked'), false, 'checkbox unchecked initially');
+		$chk.checkbox('check');
+		equal($input.prop('checked'), true, 'checkbox checked after calling check method');
+	});
+
+	test("should uncheck checkbox", function () {
+		var $element = $(html).find('#CheckboxCheckedEnabled').clone();
+		var $input = $element.find('input[type="checkbox"]');
+
+		// initialize checkbox
+		var $chk = $element.find('label').checkbox();
+
+		// set checked state
+		equal($input.prop('checked'), true, 'checkbox checked initially');
+		$chk.checkbox('uncheck');
+		equal($input.prop('checked'), false, 'checkbox unchecked after calling uncheck method');
+	});
+
+	test("should toggle checkbox", function () {
+		var $element = $(html).find('#CheckboxCheckedEnabled').clone();
+		var $input = $element.find('input[type="checkbox"]');
+
+		// initialize checkbox
+		var $chk = $element.find('label').checkbox();
+
+		// set checked state
+		equal($input.prop('checked'), true, 'checkbox checked initially');
+		$chk.checkbox('toggle');
+		equal($input.prop('checked'), false, 'checkbox unchecked after calling toggle method');
+		$chk.checkbox('toggle');
+		equal($input.prop('checked'), true, 'checkbox checked after calling toggle method');
+		$chk.checkbox('toggle');
+		equal($input.prop('checked'), false, 'checkbox unchecked after calling toggle method');
+	});
+
+	test("should return checked state", function () {
+		var $element = $(html).find('#CheckboxCheckedEnabled').clone();
+		var $input = $element.find('input[type="checkbox"]');
+
+		// initialize checkbox
+		var $chk = $element.find('label').checkbox();
+
+		// verify checked state changes with toggle method
+		equal($chk.checkbox('isChecked'), true, 'checkbox state is checked');
+		$chk.checkbox('toggle');
+		equal($chk.checkbox('isChecked'), false, 'checkbox state is unchecked');
+		$chk.checkbox('toggle');
+		equal($chk.checkbox('isChecked'), true, 'checkbox state is checked');
+
+		// verify checked state changes with uncheck method
+		$chk.checkbox('uncheck');
+		equal($chk.checkbox('isChecked'), false, 'checkbox state is unchecked');
+
+		// verify checked state changes with check method
+		$chk.checkbox('check');
+		equal($chk.checkbox('isChecked'), true, 'checkbox state is checked');
+	});
+
+	test("should trigger checked event when calling check method", function () {
+		var $element = $(html).find('#CheckboxUncheckedEnabled').clone();
+
+		// initialize checkbox
+		var $chk = $element.find('label').checkbox();
+
+		var triggered = false;
+		$chk.on('checked.fu.checkbox', function(){
+			triggered = true;
 		});
 
-		//clicking label should check box and trigger click
-		$chk1Wrapper.find('label').trigger('click');
+		$chk.checkbox('check');
 
-		//this kind of breaks the whole purpose of this test, but, otherwise the test doesn't work via terminal
-		if($chk1.is(':checked')){
-			changeOccurred = true;
-		}
-
-		stop(); // Pause the test
-		//Add your wait
-		setTimeout(function() {
-			//Make assertion
-			equal(changeOccurred, true, 'onchange triggered');
-			// After the assertion called, restart the test
-			start();
-		}, 1000);
-
-
-		$fixture.remove();
+		equal(triggered, true, 'checked event triggered');
 	});
 
-	test("should destroy control", function () {
-		var id = '#Checkbox1';
-		var $el = $(html).find(id);
-		var $parent = $el.closest('.checkbox');
+	test("should trigger unchecked event when calling uncheck method", function () {
+		var $element = $(html).find('#CheckboxCheckedEnabled').clone();
 
-		equal($el.checkbox('destroy'), '' + $parent[0].outerHTML, 'returns markup');
-		equal( $(html).find(id).length, false, 'element has been removed from DOM');
+		// initialize checkbox
+		var $chk = $element.find('label').checkbox();
+
+		var triggered = false;
+		$chk.on('unchecked.fu.checkbox', function(){
+			triggered = true;
+		});
+
+		$chk.checkbox('uncheck');
+
+		equal(triggered, true, 'unchecked event triggered');
 	});
 
+	test("should trigger changed event when calling checked/unchecked method", function () {
+		var $element = $(html).find('#CheckboxCheckedEnabled').clone();
+
+		// initialize checkbox
+		var $chk = $element.find('label').checkbox();
+
+		var triggered = false;
+		var state = false;
+		$chk.on('changed.fu.checkbox', function(evt, data){
+			triggered = true;
+			state = data;
+		});
+
+		$chk.checkbox('uncheck');
+
+		equal(triggered, true, 'changed event triggered');
+		equal(state, false, 'changed event triggered passing correct state');
+	});
+
+	test("should trigger changed event when clicking on input element", function () {
+		var $element = $(html).find('#CheckboxUncheckedEnabled').clone();
+		var $input = $element.find('input[type="checkbox"]');
+		$element.appendTo(document.body); // append to body to capture clicks
+
+		// initialize checkbox
+		var $chk = $element.find('label').checkbox();
+
+		var triggered = false;
+		$element.on('changed.fu.checkbox', function(){
+			triggered = true;
+		});
+
+		$input.click();
+		equal(triggered, true, 'changed event triggered');
+
+		$element.remove();
+	});
+
+	test("should trigger changed event when clicking on label element", function () {
+		var $element = $(html).find('#CheckboxUncheckedEnabled').clone();
+		var $label = $element.find('input[type="checkbox"]');
+		$element.appendTo(document.body); // append to body to capture clicks
+
+		// initialize checkbox
+		var $chk = $element.find('label').checkbox();
+
+		var triggered = false;
+		$element.on('changed.fu.checkbox', function(){
+			triggered = true;
+		});
+
+		$label.click();
+		equal(triggered, true, 'changed event triggered');
+
+		$element.remove();
+	});
 });

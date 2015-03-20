@@ -42,7 +42,7 @@ define(function (require) {
 	});
 	$('#btnCheckboxIsChecked').on('click', function () {
 		var checked = $('#myCustomCheckbox1').checkbox('isChecked');
-		console.log(checked);
+		log(checked);
 	});
 	$('#btnCheckboxCheck').on('click', function () {
 		$('#myCustomCheckbox1').checkbox('check');
@@ -51,11 +51,17 @@ define(function (require) {
 		$('#myCustomCheckbox1').checkbox('uncheck');
 	});
 
-	// $('#myCustomCheckbox1 > input').on('change', function(){
-	// 	console.log('changed');
-	// });
+	$('#myCustomCheckbox1').on('changed.fu.checkbox', function(evt, data) {
+		log('changed', data);
+	});
+	$('#myCustomCheckbox1').on('checked.fu.checkbox', function(evt, data) {
+		log('checked');
+	});
+	$('#myCustomCheckbox1').on('unchecked.fu.checkbox', function(evt, data) {
+		log('unchecked');
+	});
 
-	// $('#myCustomCheckbox1').trigger('click');
+
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		COMBOBOX
 	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
