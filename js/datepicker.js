@@ -572,7 +572,7 @@
 							$td.addClass('last');
 						}
 					}
-					if (i == (rows - 1) && j == 6) {
+					if (i === (rows - 1) && j === 6) {
 						$td.addClass('last');
 					}
 
