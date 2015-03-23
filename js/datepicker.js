@@ -504,8 +504,6 @@
 				$tr = $('<tr></tr>');
 				for (j = 0; j < 7; j++) {
 					$td = $('<td></td>');
-					console.log("stage", stage);
-					console.log("previousStage", previousStage);
 					if (stage === -1) {
 						$td.addClass('last-month');
 						if (previousStage !== stage) {
@@ -561,9 +559,6 @@
 					curDate++;
 					lastStage = previousStage;
 					previousStage = stage;
-					console.log("lastStage", lastStage);
-					console.log("stage", stage);
-					console.log("previousStage", previousStage);
 					if (stage === -1 && curDate > lastMonthDate) {
 						curDate = 1;
 						stage = 0;
@@ -577,10 +572,6 @@
 							$td.addClass('last');
 						}
 					}
-					console.log("i", i);
-					console.log("rows", rows);
-					console.log("j", j);
-					console.log("i == (rows - 1) && j == 6", i == (rows - 1) && j == 6);
 					if (i == (rows - 1) && j == 6) {
 						$td.addClass('last');
 					}
