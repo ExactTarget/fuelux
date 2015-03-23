@@ -146,7 +146,7 @@
 			list_columnSyncing: true,
 			list_highlightSortedColumn: false,
 			list_infiniteScroll: false,
-			list_noItemsHTML: '',
+			list_noItemsHTML: 'no items found',
 			list_selectable: false,
 			list_sortClearing: false,
 			list_rowRendered: null
