@@ -146,7 +146,7 @@
 			list_columnSyncing: true,
 			list_highlightSortedColumn: false,
 			list_infiniteScroll: false,
-			list_noItemsHTML: '',
+			list_noItemsHTML: 'no items found',
 			list_selectable: false,
 			list_sortClearing: false,
 			list_rowRendered: null
@@ -345,7 +345,7 @@
 				if ($item.hasClass('selected')) {
 					$item.removeClass('selected');
 					$item.find('.repeater-list-check').remove();
-					$item.$element.trigger('deselected.fu.repeaterList', $item);
+					self.$element.trigger('deselected.fu.repeaterList', $item);
 				} else {
 					if (self.viewOptions.list_selectable !== 'multi') {
 						self.$canvas.find('.repeater-list-check').remove();
