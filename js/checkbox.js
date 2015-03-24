@@ -120,7 +120,14 @@
 		},
 
 		toggle: function () {
-			this.$label[0].click();
+			var checked = this.isChecked();
+
+			if(checked) {
+				this.uncheck();
+			}
+			else {
+				this.check();
+			}
 		},
 
 		check: function () {
