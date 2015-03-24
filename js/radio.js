@@ -159,7 +159,7 @@
 						$(selector).addClass('hidden');
 						$(selector).attr('aria-hidden', 'true');
 					});
-					this.$toggleContainer.removeClass('hide hidden');
+					this.$toggleContainer.removeClass('hide hidden'); // hide is deprecated
 					this.$toggleContainer.attr('aria-hidden', 'false');
 				} else {
 					this.$toggleContainer.addClass('hidden');

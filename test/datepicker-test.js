@@ -188,7 +188,7 @@ define(function(require){
 		equal($titleYear.text(), '1987', 'user can\'t prev click outside current year');
 
 		$titleButton.trigger('click');
-		equal($datepicker.find('.datepicker-wheels-year').hasClass('hide'), true, 'years wheel hidden');
+		equal($datepicker.find('.datepicker-wheels-year').hasClass('hidden'), true, 'years wheel hidden');
 
 		$datepickerInput.val('03/31/1988');
 		$datepickerInput.trigger('blur');

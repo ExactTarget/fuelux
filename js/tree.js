@@ -78,19 +78,19 @@
 			var loader = $parent.find('.tree-loader:eq(0)');
 			var treeData = $parent.data();
 
-			loader.removeClass('hide');
+			loader.removeClass('hide hidden'); // hide is deprecated
 			this.options.dataSource(treeData ? treeData : {}, function (items) {
-				loader.addClass('hide');
+				loader.addClass('hidden');
 
 				$.each(items.data, function (index, value) {
 					var $entity;
 
 					if (value.type === 'folder') {
-						$entity = self.$element.find('[data-template=treebranch]:eq(0)').clone().removeClass('hide').removeData('template');
+						$entity = self.$element.find('[data-template=treebranch]:eq(0)').clone().removeClass('hide hidden').removeData('template'); // hide is deprecated
 						$entity.data(value);
 						$entity.find('.tree-branch-name > .tree-label').html(value.text || value.name);
 					} else if (value.type === 'item') {
-						$entity = self.$element.find('[data-template=treeitem]:eq(0)').clone().removeClass('hide').removeData('template');
+						$entity = self.$element.find('[data-template=treeitem]:eq(0)').clone().removeClass('hide hidden').removeData('template'); // hide is deprecated
 						$entity.find('.tree-item-name > .tree-label').html(value.text || value.name);
 						$entity.data(value);
 					}
@@ -228,7 +228,7 @@
 			//take care of the styles
 			$branch.addClass('tree-open');
 			$branch.attr('aria-expanded', 'true');
-			$treeFolderContentFirstChild.removeClass('hide');
+			$treeFolderContentFirstChild.removeClass('hide hidden'); // hide is deprecated
 			$branch.find('> .tree-branch-header .icon-folder').eq(0)
 				.removeClass('glyphicon-folder-close')
 				.addClass('glyphicon-folder-open');
@@ -250,7 +250,7 @@
 			//take care of the styles
 			$branch.removeClass('tree-open');
 			$branch.attr('aria-expanded', 'false');
-			$treeFolderContentFirstChild.addClass('hide');
+			$treeFolderContentFirstChild.addClass('hidden');
 			$branch.find('> .tree-branch-header .icon-folder').eq(0)
 				.removeClass('glyphicon-folder-open')
 				.addClass('glyphicon-folder-close');
@@ -339,7 +339,8 @@
 			var closedReported = function closedReported(event, closed) {
 				reportedClosed.push(closed);
 
-				if (self.$element.find(".tree-branch.tree-open:not('.hide')").length === 0) {
+				// hide is deprecated
+				if (self.$element.find(".tree-branch.tree-open:not('.hidden, .hide')").length === 0) {
 					self.$element.trigger('closedAll.fu.tree', {
 						tree: self.$element,
 						reportedClosed: reportedClosed
@@ -351,7 +352,7 @@
 			//trigger callback when all folders have reported closed
 			self.$element.on('closed.fu.tree', closedReported);
 
-			self.$element.find(".tree-branch.tree-open:not('.hide')").each(function () {
+			self.$element.find(".tree-branch.tree-open:not('.hidden, .hide')").each(function () {
 				self.closeFolder(this);
 			});
 		},
@@ -359,7 +360,8 @@
 		//disclose visible will only disclose visible tree folders
 		discloseVisible: function discloseVisible() {
 			var self = this;
-			var $openableFolders = self.$element.find(".tree-branch:not('.tree-open, .hide')");
+
+			var $openableFolders = self.$element.find(".tree-branch:not('.tree-open, .hidden, .hide')");
 			var reportedOpened = [];
 
 			var openReported = function openReported(event, opened) {
@@ -382,7 +384,7 @@
 			self.$element.on('loaded.fu.tree', openReported);
 
 			// open all visible folders
-			self.$element.find(".tree-branch:not('.tree-open, .hide')").each(function triggerOpen() {
+			self.$element.find(".tree-branch:not('.tree-open, .hidden, .hide')").each(function triggerOpen() {
 				self.openFolder($(this).find('.tree-branch-header'), true);
 			});
 		},
@@ -401,7 +403,7 @@
 			}
 
 			var isExceededLimit = (self.options.disclosuresUpperLimit >= 1 && self.$element.data('disclosures') >= self.options.disclosuresUpperLimit);
-			var isAllDisclosed = self.$element.find(".tree-branch:not('.tree-open, .hide')").length === 0;
+			var isAllDisclosed = self.$element.find(".tree-branch:not('.tree-open, .hidden, .hide')").length === 0;
 
 
 			if (!isAllDisclosed) {
