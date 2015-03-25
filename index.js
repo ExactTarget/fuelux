@@ -35,7 +35,7 @@ define(function (require) {
 		$('#myCustomCheckbox1').checkbox('enable');
 	});
 	$('#btnCheckboxDestroy').on('click', function () {
-		var $container = $('#myCustomCheckbox1').parents('.thin-box:first');
+		var $container = $('#myCustomCheckbox1').parent();
 		var markup = $('#myCustomCheckbox1').checkbox('destroy');
 		log(markup);
 		$container.append(markup);

@@ -245,9 +245,9 @@ define(function(require){
 		$element.remove();
 	});
 
-	test("should trigger changed event when clicking on label element", function () {
+	test("should trigger changed event when clicking on input element", function () {
 		var $element = $(html).find('#CheckboxUncheckedEnabled').clone();
-		var $label = $element.find('input[type="checkbox"]');
+		var $input = $element.find('input[type="checkbox"]');
 		$element.appendTo(document.body); // append to body to capture clicks
 
 		// initialize checkbox
@@ -258,9 +258,41 @@ define(function(require){
 			triggered = true;
 		});
 
-		$label.click();
+		$input.click();
 		equal(triggered, true, 'changed event triggered');
 
 		$element.remove();
+	});
+
+	test("should toggle checkbox container visibility", function() {
+		var $element = $(html).find('#CheckboxToggle').clone();
+		var $container = $element.find('.checkboxToggle');
+		$element.appendTo(document.body); // append to body to check visibility
+
+		// initialize checkbox
+		var $chk = $element.find('label').checkbox();
+
+		equal($container.is(':visible'), false, 'toggle container hidden by default');
+		$chk.checkbox('check');
+		equal($container.is(':visible'), true, 'toggle container visible after check');
+		$chk.checkbox('uncheck');
+		equal($container.is(':visible'), false, 'toggle container hidden after uncheck');
+
+		$element.remove();
+	});
+
+	test("should destroy checkbox", function() {
+		var $element = $(html).find('#CheckboxCheckedEnabled').clone();
+
+		// initialize checkbox
+		var $chk = $element.find('label').checkbox();
+		var originalMarkup = $element.find('label')[0].outerHTML;
+
+		equal($element.find('#Checkbox1').length, 1, 'checkbox exists in DOM by default');
+
+		var markup = $chk.checkbox('destroy');
+
+		equal(originalMarkup, markup, 'returned original markup');
+		equal($element.find('#Checkbox1').length, 0, 'checkbox removed from DOM');
 	});
 });

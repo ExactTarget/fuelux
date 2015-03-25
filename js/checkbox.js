@@ -152,12 +152,12 @@
 		},
 
 		destroy: function () {
-			this.$container.remove();
+			this.$label.remove();
 			// remove any external bindings
 			// [none]
 			// empty elements to return to original markup
 			// [none]
-			return this.$container[0].outerHTML;
+			return this.$label[0].outerHTML;
 		}
 	};
 
