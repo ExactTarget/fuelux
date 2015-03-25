@@ -688,13 +688,13 @@
 				<!--Block-level Radios-->
 				<div class="radio">
 					<label class="radio-custom" data-initialize="radio" id="myCustomRadio1">
-						<input class="sr-only" name="radio1" type="radio" value="">
+						<input class="sr-only" name="radio1" type="radio" value="" id="radio1">
 						<span class="radio-label">Custom radio unchecked on page load</span>
 					</label>
 				</div>
 				<div class="radio">
 					<label class="radio-custom" data-initialize="radio" id="myCustomRadio2">
-						<input checked="checked" class="checked sr-only" name="radio1" type="radio" value="">
+						<input checked="checked" class="checked sr-only" name="radio1" type="radio" value="" id="radio2">
 						<span class="radio-label">Custom radio checked on page load</span>
 					</label>
 				</div>
@@ -766,6 +766,14 @@
 				<label class="radio-custom radio-inline highlight" data-initialize="radio" id="myCustomHighlightRadio4">
 					<input class="sr-only" name="radio7" type="radio" value=""> <span class="radio-label">Custom inline highlight radio</span>
 				</label>
+			</div>
+			<div class="btn-panel">
+				<button type="button" class="btn btn-default" id="btnRadioDisable">disable #myCustomRadio1</button>
+				<button type="button" class="btn btn-default" id="btnRadioEnable">enable #myCustomRadio1</button>
+				<button type="button" class="btn btn-default" id="btnRadioDestroy">destroy and append #myCustomRadio1</button>
+				<button type="button" class="btn btn-default" id="btnRadioIsChecked">is #myCustomRadio1 checked?</button>
+				<button type="button" class="btn btn-default" id="btnRadioCheck">check #myCustomRadio1</button>
+				<button type="button" class="btn btn-default" id="btnRadioUncheck">uncheck #myCustomRadio1</button>
 			</div>
 		</section>
 
