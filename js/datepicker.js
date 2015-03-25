@@ -591,10 +591,10 @@
 
 			if (this.sameYearOnly) {
 				this.$wheelsMonth.addClass('full');
-				this.$wheelsYear.addClass('hide');
+				this.$wheelsYear.addClass('hidden');
 			} else {
 				this.$wheelsMonth.removeClass('full');
-				this.$wheelsYear.removeClass('hide');
+				this.$wheelsYear.removeClass('hide hidden');	// .hide is deprecated
 			}
 
 			$monthUl.find('.selected').removeClass('selected');

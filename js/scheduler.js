@@ -200,17 +200,17 @@
 			}
 
 			// hide all panels
-			this.$endAfter.parent().addClass('hide');
+			this.$endAfter.parent().addClass('hidden');
 			this.$endAfter.parent().attr('aria-hidden', 'true');
 
-			this.$endDate.parent().addClass('hide');
+			this.$endDate.parent().addClass('hidden');
 			this.$endDate.parent().attr('aria-hidden', 'true');
 
 			if (val === 'after') {
-				this.$endAfter.parent().removeClass('hide');
+				this.$endAfter.parent().removeClass('hide hidden'); // hide is deprecated
 				this.$endAfter.parent().attr('aria-hidden', 'false');
 			} else if (val === 'date') {
-				this.$endDate.parent().removeClass('hide');
+				this.$endDate.parent().removeClass('hide hidden');	// hide is deprecated
 				this.$endDate.parent().attr('aria-hidden', 'false');
 			}
 		},
@@ -382,30 +382,30 @@
 				case 'daily':
 				case 'weekly':
 				case 'monthly':
-					this.$repeatIntervalPanel.removeClass('hide');
+					this.$repeatIntervalPanel.removeClass('hide hidden'); // hide is deprecated
 					this.$repeatIntervalPanel.attr('aria-hidden', 'false');
 					break;
 				default:
-					this.$repeatIntervalPanel.addClass('hide');
+					this.$repeatIntervalPanel.addClass('hidden'); // hide is deprecated
 					this.$repeatIntervalPanel.attr('aria-hidden', 'true');
 					break;
 			}
 
 			// hide all panels
-			this.$recurrencePanels.addClass('hide');
+			this.$recurrencePanels.addClass('hidden');
 			this.$recurrencePanels.attr('aria-hidden', 'true');
 
 			// show panel for current selection
-			this.$element.find('.repeat-' + val).removeClass('hide');
+			this.$element.find('.repeat-' + val).removeClass('hide hidden'); // hide is deprecated
 			this.$element.find('.repeat-' + val).attr('aria-hidden', 'false');
 
 			// the end selection should only be shown when
 			// the repeat interval is not "None (run once)"
 			if (val === 'none') {
-				this.$end.addClass('hide');
+				this.$end.addClass('hidden');
 				this.$end.attr('aria-hidden', 'true');
 			} else {
-				this.$end.removeClass('hide');
+				this.$end.removeClass('hide hidden'); // hide is deprecated
 				this.$end.attr('aria-hidden', 'false');
 			}
 		},

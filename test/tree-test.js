@@ -273,11 +273,11 @@ define(function (require) {
 			dataSource: this.dataSource
 		});
 
-		var toBeOpened = $tree.find(".tree-branch:not('.tree-open, .hide')").length;
-		equal($tree.find(".tree-branch.tree-open:not('.hide')").length, 0, '0 folders open');
+		var toBeOpened = $tree.find(".tree-branch:not('.tree-open, .hidden')").length;
+		equal($tree.find(".tree-branch.tree-open:not('.hidden')").length, 0, '0 folders open');
 
 		$tree.one('disclosedVisible.fu.tree', function () {
-			equal($tree.find(".tree-branch.tree-open:not('.hide')").length, toBeOpened, toBeOpened + ' folders open');
+			equal($tree.find(".tree-branch.tree-open:not('.hidden')").length, toBeOpened, toBeOpened + ' folders open');
 			start();
 		});
 
@@ -292,17 +292,17 @@ define(function (require) {
 			disclosuresUpperLimit: 2
 		});
 
-		equal($tree.find(".tree-branch.tree-open:not('.hide')").length, 0, '0 folders open');
+		equal($tree.find(".tree-branch.tree-open:not('.hidden')").length, 0, '0 folders open');
 		$tree.one('exceededDisclosuresLimit.fu.tree', function exceededDisclosuresLimit() {
-			equal($tree.find(".tree-branch.tree-open:not('.hide')").length, 20, '20 folders open');
+			equal($tree.find(".tree-branch.tree-open:not('.hidden')").length, 20, '20 folders open');
 
 			$tree.one('closedAll.fu.tree', function closedAll() {
-				equal($tree.find(".tree-branch.tree-open:not('.hide')").length, 0, '0 folders open');
+				equal($tree.find(".tree-branch.tree-open:not('.hidden')").length, 0, '0 folders open');
 
 				$tree.data('ignore-disclosures-limit', true);
 
 				$tree.one('disclosedAll.fu.tree', function exceededDisclosuresLimit() {
-					equal($tree.find(".tree-branch.tree-open:not('.hide')").length, 200, '200 folders open');
+					equal($tree.find(".tree-branch.tree-open:not('.hidden')").length, 200, '200 folders open');
 					start();
 				});
 
