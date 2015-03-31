@@ -34,6 +34,17 @@ require(['jquery', 'fuelux/spinner'], function($) {
 		'</button>' +
 		'</div>';
 
+	var spinnerHTMLWithDataAttributes = '<div id="ex-spinner" class="spinner"' +
+			' data-min="5" data-max="20" data-value="7" data-cycle="true">' +
+		'<input type="text" class="input-mini spinner-input">' +
+		'<button class="btn  spinner-up">' +
+		'<i class="icon-chevron-up"></i>' +
+		'</button>' +
+		'<button class="btn spinner-down">' +
+		'<i class="icon-chevron-down"></i>' +
+		'</button>' +
+		'</div>';
+
 	test("should behave as designed", function () {
 		var $spinner = $(spinnerHTML).spinner();
 
@@ -102,4 +113,23 @@ require(['jquery', 'fuelux/spinner'], function($) {
 		equal($spinner.spinner('value'), 2, 'spinner value cycled at min');
 	});
 
+	test("instantiating indirectly via method uses data attributes", function() {
+		var $spinner = $(spinnerHTMLWithDataAttributes);
+		var expected = {
+			max: 20,
+			min: 5,
+			value: 7,
+			cycle: true
+		};
+		var options;
+
+		// Call a method to indirectly instantiate the spinner
+		$spinner.spinner('disable');
+
+		options = $spinner.data('spinner').options;
+
+		for (var e in expected) {
+			equal(options[e], expected[e]);
+		}
+	});
 });
