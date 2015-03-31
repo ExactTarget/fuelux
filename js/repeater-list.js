@@ -144,7 +144,7 @@
 			list_columnRendered: null,
 			list_columnSizing: true,
 			list_columnSyncing: true,
-			list_highlightSortedColumn: false,
+			list_highlightSortedColumn: true,
 			list_infiniteScroll: false,
 			list_noItemsHTML: 'no items found',
 			list_selectable: false,
