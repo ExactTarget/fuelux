@@ -2,7 +2,7 @@ Fuel UX - Live Documentation
 ======
 
 ### Setup
-* To install bower globally, `npm install --g bower`
+* To install bower globally, `npm install --g bower `
 * To install bower dependencies, `bower install`
 * To update bower dependencies, run `bower update`
 * To update a specific bower dependency, `bower update fuelux`
