@@ -145,6 +145,3 @@ And thank you to all those that have submitted issues and contributed to this li
 Copyright &copy; 2012-2014 Salesforce Marketing Cloud, Inc.
 
 View [BSD-3 license](https://github.com/ExactTarget/fuelux/blob/master/LICENSE).
-
-
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/8b519d39e18063752f24876583a6526b "githalytics.com")](http://githalytics.com/ExactTarget/fuelux)
