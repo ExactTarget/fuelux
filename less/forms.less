@@ -1,22 +1,16 @@
-.checkbox-radio-focus() {
-	box-shadow: inset 0px 0px 2px 1px rgba(91, 157, 217, .9), 0px 0px 5px 0px rgba(91, 157, 217, .9);
+.checkbox-radio-hover() {
+	box-shadow: inset 0px 0px 2px 1px rgba(91, 157, 217, .7), 0px 0px 5px 0px rgba(91, 157, 217, .7);
 }
 
-.labelHover() {
-	&:hover {
-		// color: @grayLight;
-	}
+.checkbox-radio-focus() {
+	box-shadow: inset 0px 0px 2px 1px rgb(91, 157, 217), 0px 0px 5px 0px rgb(91, 157, 217);
 }
 
 .radio, .checkbox {
-		// text-indent: -20px;
-		// padding-left: 40px;
 
 	&-inline {
-		// text-indent: 0px;
-		// margin-left: 0px;
-
 		padding-left: 0;
+
 		&.highlight {
 			left: -8px;
 		}
@@ -34,13 +28,14 @@
 		// Sometimes the label itself is the wrapping container, and has .checkbox or .radio on it.
 		// The use of the amperstand "parent selector" here allows us to cover many scenarios at once, with terse, but elegant, code.
 		label&, .input-label&, & label, & .input-label {
-			.labelHover;
+			&:hover:before {
+				.checkbox-radio-hover();
+			}
 		}
 		
 		label, .input-label, label& {
 			cursor: pointer;
 			font-weight: normal;
-			.labelHover;
 		}
 
 		&.highlight {
@@ -89,6 +84,7 @@
 					margin-bottom: -2px;
 					cursor: pointer;
 					display: inline-block;
+					text-align: left;
 					z-index: 2;
 					content: "";
 				}
@@ -106,10 +102,6 @@
 				&:before {
 					.checkbox-radio-focus();
 					outline: none;
-					// outline-color: rgb(91, 157, 217);
-					// outline-offset: -2px;
-					// outline-style: auto;
-					// outline-width: 5px;
 				}
 
 				&, &:hover {
@@ -146,14 +138,6 @@
 
 		}
 
-		&, &:hover {
-			input {
-				&:checked {
-
-				}
-			}
-		}
-
 		&.highlight {
 			&:before {
 				left: 4px;
@@ -185,3 +169,25 @@
 	}
 
 }
+
+
+
+// Allows multiline labels next to checkboxes and radio 
+// Should be wrapped in `<form class="form-horizontal"><div class="form-group">`
+.checkbox.multiline, .radio.multiline {
+	float: left; 
+	margin-left: 15px;
+}
+
+.checkbox.multiline ~ .control-label, .radio.multiline ~ .control-label {
+	float: left; 
+	width: 80%; 
+	margin-left: 10px; 
+	text-align: left;
+
+	& > label {
+		font-weight: normal;
+		cursor: pointer;
+	}
+}
+
