@@ -1,11 +1,21 @@
+.checkbox-radio-focus() {
+	box-shadow: inset 0px 0px 2px 1px rgba(91, 157, 217, .9), 0px 0px 5px 0px rgba(91, 157, 217, .9);
+}
+
 .labelHover() {
 	&:hover {
-		color: @grayLight;
+		// color: @grayLight;
 	}
 }
 
 .radio, .checkbox {
+		// text-indent: -20px;
+		// padding-left: 40px;
+
 	&-inline {
+		// text-indent: 0px;
+		// margin-left: 0px;
+
 		padding-left: 0;
 		&.highlight {
 			left: -8px;
@@ -94,10 +104,12 @@
 				cursor: pointer;
 				
 				&:before {
-					outline-color: rgb(91, 157, 217);
-					outline-offset: -2px;
-					outline-style: auto;
-					outline-width: 5px;
+					.checkbox-radio-focus();
+					outline: none;
+					// outline-color: rgb(91, 157, 217);
+					// outline-offset: -2px;
+					// outline-style: auto;
+					// outline-width: 5px;
 				}
 
 				&, &:hover {
@@ -120,6 +132,8 @@
 					color: @text-color;
 					opacity: 0.5 !important;
 					cursor: not-allowed !important;
+					outline: none;
+					box-shadow: none;
 				}
 			}
 

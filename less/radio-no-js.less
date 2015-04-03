@@ -1,3 +1,5 @@
+@import "forms.less";
+
 .radio, .radio-inline {
 	
 	input[type="radio"]:not(.sr-only) {
@@ -26,16 +28,11 @@
 		}
 
 
-
-
 		/* for keyboard tabbing */
 		&:hover ~ label, &:active ~ label, &:focus ~ label {
 		
 			&:before {
-				outline-color: rgba(91, 157, 217, 0.7);
-				outline-offset: -4px;
-				outline-style: auto;
-				outline-width: 6px;
+				.checkbox-radio-focus();
 			}
 
 		}
