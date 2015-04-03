@@ -119,10 +119,21 @@ lead: "Guidance on how to upgrade from Fuel UX v2.x to v3.x with emphasis on set
 						</tbody>
 					</table>
 				</div>
+				
+				
+				
+				<h2 id="get-started">Get Started Today With Fuel UX</h2>
+				<p>Here's all the assets you will need to get started with Fuel UX:</p>
+				<ul>
+					<li><a href="https://github.com/ExactTarget/fuelux" target="new">Fuel UX on Github</a></li>
+					<li><a href="http://exacttarget.github.io/fuelux/" target="new">Fuel UX Documentation</a></li>
+					<li><a href="https://github.com/ExactTarget/fuelux-mctheme/" target="new">Marketing Cloud Theme</a></li>
+				</ul>
 
 				<h2 id="notes">Additional notes</h2>
 				<p>Other changes in v3.0 are not immediately apparent. Here's a partial list:</p>
 				<ul>
+				    <li>Be sure to first convert your project to Bootstrap 3</li>
 					<li>Events have been namespaced to follow the <code>[eventname].fu.[controlname]</code> format, which is
 						different than the previous structure that contained only the <code>[eventname]</code>. This has been
 						done to avoid collision with events outside the Fuel UX library. Example event: <code>actionclicked.fu.wizard</code>
@@ -131,7 +142,32 @@ lead: "Guidance on how to upgrade from Fuel UX v2.x to v3.x with emphasis on set
 					<li>Images are no longer a part of Fuel UX. The loader control uses font-icons, but everything else
 						is all CSS.
 					</li>
+					<li>Fuel UX controls are based on jQuery and JavaScript controls, so try to use JavaScript when interacting with them.</li>
+					<li>Fuel UX 3 has all the benefits and <em>trappings</em> of Bootstrap 3</li>
 				</ul>
+				
+				<h2 id="bootstrap-upgrade">Upgrading to Bootstrap 3</h2>
+				<p><b>Migrate your html: Guides and "best effort" convertors</b></p>
+				<ul>
+					<li><a href="http://getbootstrap.com/migration/" target="new">Official migration guide</a></li>
+					<li>
+					    Bootply's Migration guide & convertor
+					    <ul>
+					        <li><a href="http://www.bootply.com/bootstrap-3-migration-guide" target="new">http://www.bootply.com/bootstrap-3-migration-guide</a></li>
+					        <li><a href="http://upgrade-bootstrap.bootply.com/" target="new">http://upgrade-bootstrap.bootply.com/</a></li>
+					    </ul>
+				    </li>
+				    <li><a href="http://twitterbootstrapmigrator.w3masters.nl/" target="new">http://twitterbootstrapmigrator.w3masters.nl/</a></li>
+				    <li><a href="http://code.divshot.com/bootstrap3_upgrader/" target="new">http://code.divshot.com/bootstrap3_upgrader/</a></li>
+				</ul>
+				<p><b>Start from scratch</b></p>
+				<ul>
+				    <li><a href="http://www.bootply.com/" target="new">Bootply</a></li>
+				</ul>
+				
+				<h2 id="get-help">Get help with Fuel UX</h2>
+				<p>Create an issue on Github if you think it is a bug, or ask a 'fuelux' tagged question on <a href="http://stackoverflow.com/" target="new">StackOverflow</a>.</p>
+				
 			</div>
 		</div>
 	</div>
