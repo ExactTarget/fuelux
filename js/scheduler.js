@@ -418,7 +418,6 @@
 				startDate = temp[0];
 
 				if (temp[1]) {
-					startTime = temp[1];
 					temp[1] = temp[1].split(':');
 					hours = parseInt(temp[1][0], 10);
 					minutes = (temp[1][1]) ? parseInt(temp[1][1].split('+')[0].split('-')[0].split('Z')[0], 10) : 0;
@@ -438,7 +437,6 @@
 				} else {
 					startTime = '00:00';
 				}
-
 			} else {
 				startTime = '00:00';
 				var currentDate = this.$startDate.datepicker('getDate');
@@ -455,7 +453,6 @@
 					} else {
 						item += '-offset="' + options.timeZone.offset;
 					}
-
 				}
 
 				item += '"]';
@@ -471,7 +468,6 @@
 					} else {
 						temp = '+00:00';
 					}
-
 				} else {
 					temp = '+00:00';
 				}
@@ -492,7 +488,6 @@
 						item = temp[i].split('=');
 						recur[item[0]] = item[1];
 					}
-
 				}
 
 				if (recur.FREQ === 'DAILY') {
@@ -504,9 +499,7 @@
 						} else {
 							item = 'daily';
 						}
-
 					}
-
 				} else if (recur.FREQ === 'HOURLY') {
 					item = 'hourly';
 				} else if (recur.FREQ === 'WEEKLY') {
@@ -592,6 +585,8 @@
 					this.$endDate.datepicker('setDate', utcEndHours);
 
 					this.$endSelect.selectlist('selectByValue', 'date');
+				} else {
+					this.$endSelect.selectlist('selectByValue', 'never');
 				}
 
 				this.endSelectChanged();
