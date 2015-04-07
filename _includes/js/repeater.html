@@ -262,6 +262,12 @@
           the rendering. Review more details on using <a href="#repeater-dataSource">dataSource</a> below.</td>
       </tr>
       <tr>
+        <td>dataSourceOptions</td>
+        <td>object</td>
+        <td>null</td>
+        <td>Use this object to pass a parameter to a custom-defined dataSource function mentioned above. Then, use those values to customize the data that gets passed back into the repeater from your API. Suggested uses include sorting, filtering, and search values. This object is also valuable in custom renders when used as an object within the <code>render</code> methods's <a href="#repeater-usage-methods-render">options parameter</a>. Did you lose your custom <code>dataSourceOptions</code> when you changed the page within repeater? If you did, set <code>preserveDataSourceOptions</code> to true in order to keep them.</td>
+      </tr>
+      <tr>
         <td>defaultView</td>
         <td>string or number</td>
         <td>-1</td>
@@ -276,6 +282,12 @@
         <td>10</td>
         <td>Specifies the number of items allowed within the <code>.repeater-primaryPaging</code> drop-down menu.
           If the number of pages exceeds this amount, the code will use the <code>.repeater-secondaryPaging</code> input.</td>
+      </tr>
+      <tr>
+        <td>preserveDataSourceOptions</td>
+        <td>boolean</td>
+        <td>false</td>
+        <td>Sets whether defined<code>dataSourceOptions</code> get preserved or reset when the <code>dataSource</code> is called. For example, the <code>dataSource</code> function is called when navigating to another page. If you would like to keep previously defined settings such as search or filtering, then set to <code>true</code>. Setting to <code>true</code> is generally recommended when using <code>dataSourceOptions</code> to manipulate your data.</td>
       </tr>
       <tr>
         <td>staticHeight</td>
@@ -443,7 +455,7 @@ $('#myRepeater').repeater({
   <h3 id="repeater-dataSource">Data Source</h3>
   <p>Call the <code>dataSource</code> function prior to rendering data for the current view. Receives an
     <code>options</code> object and <code>callback</code> function as arguments. The <code>options</code> object
-    provides context for which data should return. Use the <code>callback</code> to continue onward
+    provides context for which data should return. Please review the <code>dataSourceOptions</code> option if the <code>dataSource</code> needs to be manipulated (such as for a custom render, to search, to sort, or to filter). Use the <code>callback</code> to continue onward
     with rendering.
   </p>
 
