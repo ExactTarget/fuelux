@@ -1,5 +1,6 @@
 /*!
- * Fuel UX v3.6.4 
+ * Fuel UX EDGE - Built 2015/04/06, 9:45:46 PM 
+ * Previous release: v3.6.4 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -78,23 +79,27 @@
 .fuelux .checkbox-inline.highlight {
   left: -8px;
 }
-.fuelux label.radio:hover,
-.fuelux label.checkbox:hover,
-.fuelux label.radio-inline:hover,
-.fuelux label.checkbox-inline:hover,
-.fuelux .input-label.radio:hover,
-.fuelux .input-label.checkbox:hover,
-.fuelux .input-label.radio-inline:hover,
-.fuelux .input-label.checkbox-inline:hover,
-.fuelux .radio label:hover,
-.fuelux .checkbox label:hover,
-.fuelux .radio-inline label:hover,
-.fuelux .checkbox-inline label:hover,
-.fuelux .radio .input-label:hover,
-.fuelux .checkbox .input-label:hover,
-.fuelux .radio-inline .input-label:hover,
-.fuelux .checkbox-inline .input-label:hover {
-  color: #999999;
+.fuelux .radio-inline label,
+.fuelux .checkbox-inline label {
+  margin-bottom: 0;
+}
+.fuelux label.radio:hover:before,
+.fuelux label.checkbox:hover:before,
+.fuelux label.radio-inline:hover:before,
+.fuelux label.checkbox-inline:hover:before,
+.fuelux .input-label.radio:hover:before,
+.fuelux .input-label.checkbox:hover:before,
+.fuelux .input-label.radio-inline:hover:before,
+.fuelux .input-label.checkbox-inline:hover:before,
+.fuelux .radio label:hover:before,
+.fuelux .checkbox label:hover:before,
+.fuelux .radio-inline label:hover:before,
+.fuelux .checkbox-inline label:hover:before,
+.fuelux .radio .input-label:hover:before,
+.fuelux .checkbox .input-label:hover:before,
+.fuelux .radio-inline .input-label:hover:before,
+.fuelux .checkbox-inline .input-label:hover:before {
+  box-shadow: inset 0px 0px 2px 1px rgba(91, 157, 217, 0.7), 0px 0px 5px 0px rgba(91, 157, 217, 0.7);
 }
 .fuelux .radio label,
 .fuelux .checkbox label,
@@ -110,20 +115,6 @@
 .fuelux label.checkbox-inline {
   cursor: pointer;
   font-weight: normal;
-}
-.fuelux .radio label:hover,
-.fuelux .checkbox label:hover,
-.fuelux .radio-inline label:hover,
-.fuelux .checkbox-inline label:hover,
-.fuelux .radio .input-label:hover,
-.fuelux .checkbox .input-label:hover,
-.fuelux .radio-inline .input-label:hover,
-.fuelux .checkbox-inline .input-label:hover,
-.fuelux label.radio:hover,
-.fuelux label.checkbox:hover,
-.fuelux label.radio-inline:hover,
-.fuelux label.checkbox-inline:hover {
-  color: #999999;
 }
 .fuelux .radio.highlight input:not(.sr-only) ~ label,
 .fuelux .checkbox.highlight input:not(.sr-only) ~ label,
@@ -181,6 +172,7 @@
   margin-bottom: -2px;
   cursor: pointer;
   display: inline-block;
+  text-align: left;
   z-index: 2;
   content: "";
 }
@@ -204,10 +196,8 @@
 .fuelux .checkbox input:not(.sr-only):focus ~ label:before,
 .fuelux .radio-inline input:not(.sr-only):focus ~ label:before,
 .fuelux .checkbox-inline input:not(.sr-only):focus ~ label:before {
-  outline-color: #5b9dd9;
-  outline-offset: -2px;
-  outline-style: auto;
-  outline-width: 5px;
+  box-shadow: inset 0px 0px 2px 1px #5b9dd9, 0px 0px 5px 0px #5b9dd9;
+  outline: none;
 }
 .fuelux .radio input:not(.sr-only):active ~ label,
 .fuelux .checkbox input:not(.sr-only):active ~ label,
@@ -267,13 +257,31 @@
 .fuelux .checkbox input:not(.sr-only)[disabled="disabled"] ~ label,
 .fuelux .radio-inline input:not(.sr-only)[disabled="disabled"] ~ label,
 .fuelux .checkbox-inline input:not(.sr-only)[disabled="disabled"] ~ label,
+.fuelux .radio input:not(.sr-only)[disabled] ~ label,
+.fuelux .checkbox input:not(.sr-only)[disabled] ~ label,
+.fuelux .radio-inline input:not(.sr-only)[disabled] ~ label,
+.fuelux .checkbox-inline input:not(.sr-only)[disabled] ~ label,
+.fuelux .radio input:not(.sr-only):disabled ~ label,
+.fuelux .checkbox input:not(.sr-only):disabled ~ label,
+.fuelux .radio-inline input:not(.sr-only):disabled ~ label,
+.fuelux .checkbox-inline input:not(.sr-only):disabled ~ label,
 .fuelux .radio input:not(.sr-only)[disabled="disabled"] ~ label:before,
 .fuelux .checkbox input:not(.sr-only)[disabled="disabled"] ~ label:before,
 .fuelux .radio-inline input:not(.sr-only)[disabled="disabled"] ~ label:before,
-.fuelux .checkbox-inline input:not(.sr-only)[disabled="disabled"] ~ label:before {
+.fuelux .checkbox-inline input:not(.sr-only)[disabled="disabled"] ~ label:before,
+.fuelux .radio input:not(.sr-only)[disabled] ~ label:before,
+.fuelux .checkbox input:not(.sr-only)[disabled] ~ label:before,
+.fuelux .radio-inline input:not(.sr-only)[disabled] ~ label:before,
+.fuelux .checkbox-inline input:not(.sr-only)[disabled] ~ label:before,
+.fuelux .radio input:not(.sr-only):disabled ~ label:before,
+.fuelux .checkbox input:not(.sr-only):disabled ~ label:before,
+.fuelux .radio-inline input:not(.sr-only):disabled ~ label:before,
+.fuelux .checkbox-inline input:not(.sr-only):disabled ~ label:before {
   color: #333333;
   opacity: 0.5 !important;
   cursor: not-allowed !important;
+  outline: none;
+  box-shadow: none;
 }
 .fuelux .radio input:not(.sr-only):checked ~ label:before,
 .fuelux .checkbox input:not(.sr-only):checked ~ label:before,
@@ -302,6 +310,23 @@
 .fuelux .checkbox-inline:before {
   left: 0;
   top: 3px;
+}
+.fuelux .checkbox.multiline,
+.fuelux .radio.multiline {
+  float: left;
+  margin-left: 15px;
+}
+.fuelux .checkbox.multiline ~ .control-label,
+.fuelux .radio.multiline ~ .control-label {
+  float: left;
+  width: 80%;
+  margin-left: 10px;
+  text-align: left;
+}
+.fuelux .checkbox.multiline ~ .control-label > label,
+.fuelux .radio.multiline ~ .control-label > label {
+  font-weight: normal;
+  cursor: pointer;
 }
 .fuelux .checkbox {
   /* for keyboard tabbing */
@@ -568,10 +593,7 @@
 .fuelux .radio-inline input[type="radio"]:not(.sr-only):active ~ label:before,
 .fuelux .radio input[type="radio"]:not(.sr-only):focus ~ label:before,
 .fuelux .radio-inline input[type="radio"]:not(.sr-only):focus ~ label:before {
-  outline-color: rgba(91, 157, 217, 0.7);
-  outline-offset: -4px;
-  outline-style: auto;
-  outline-width: 6px;
+  box-shadow: inset 0px 0px 2px 1px #5b9dd9, 0px 0px 5px 0px #5b9dd9;
 }
 .fuelux .radio input[type="radio"]:not(.sr-only):active:hover ~ label:before,
 .fuelux .radio-inline input[type="radio"]:not(.sr-only):active:hover ~ label:before,
@@ -647,7 +669,7 @@
 }
 .fuelux .datepicker-calendar-days td b,
 .fuelux .datepicker-calendar-days td button {
-  color: #231f20;
+  color: #333;
   display: inline-block;
   font-weight: normal;
   height: 30px;
@@ -659,22 +681,34 @@
 }
 .fuelux .datepicker-calendar-days td span {
   display: block;
+  border-radius: 4px;
 }
 .fuelux .datepicker-calendar-days td span:hover {
   background: #f1f1f1;
   text-decoration: none;
 }
-.fuelux .datepicker-calendar-days td.current-day b,
-.fuelux .datepicker-calendar-days td.current-day button {
+.fuelux .datepicker-calendar-days td.current-day span {
   border: 1px solid #333;
 }
 .fuelux .datepicker-calendar-days td.last-month,
 .fuelux .datepicker-calendar-days td.next-month {
-  background: #e3e2e1;
+  background: #d6d6d6;
+}
+.fuelux .datepicker-calendar-days td.last-month.first,
+.fuelux .datepicker-calendar-days td.next-month.first {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  padding-left: 1px;
+}
+.fuelux .datepicker-calendar-days td.last-month.last,
+.fuelux .datepicker-calendar-days td.next-month.last {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  padding-right: 1px;
 }
 .fuelux .datepicker-calendar-days td.past b,
 .fuelux .datepicker-calendar-days td.past button {
-  color: #8d8787;
+  color: #999999;
 }
 .fuelux .datepicker-calendar-days td.restricted b,
 .fuelux .datepicker-calendar-days td.restricted button {
@@ -709,6 +743,10 @@
 .fuelux .datepicker-calendar-days td.selected.current-day {
   box-shadow: 0 0 0 1px #fff offset;
 }
+.fuelux .datepicker-calendar-days td.selected.current-day b,
+.fuelux .datepicker-calendar-days td.selected.current-day button {
+  color: #222;
+}
 .fuelux .datepicker-calendar-days td.selected.current-day span:hover b,
 .fuelux .datepicker-calendar-days td.selected.current-day span:hover button {
   border-color: #0f5f9f;
@@ -740,7 +778,7 @@
   text-align: center;
   display: block;
   width: 174px;
-  color: #4d4d4f;
+  color: #222;
   font-size: 20px;
   line-height: 30px;
   text-decoration: underline;
@@ -803,7 +841,7 @@
   padding: 4px 14px;
 }
 .fuelux .datepicker-calendar-footer .datepicker-today {
-  color: #231f20;
+  color: #333;
   font-size: 14px;
   text-decoration: underline;
 }
@@ -841,7 +879,7 @@
 }
 .fuelux .datepicker-wheels-footer .datepicker-wheels-back {
   display: block;
-  color: #4d4d4f;
+  color: #222;
   float: left;
   line-height: 22px;
   border: 0;
@@ -906,7 +944,7 @@
   background-clip: padding-box;
   border-bottom: 1px solid #cccaca;
   border-radius: 4px 0 0 0;
-  color: #4d4d4f;
+  color: #222;
   font-size: 20px;
   font-weight: bold;
   line-height: 30px;
@@ -1016,71 +1054,6 @@
 }
 .fuelux .loader[data-frame="8"]:after {
   content: '\e008';
-}
-.fuelux input.glass,
-.fuelux textarea.glass {
-  background: transparent;
-  border: 1px solid #fff;
-  box-shadow: none;
-}
-.fuelux input.glass:hover,
-.fuelux textarea.glass:hover {
-  background: #d9edf7;
-  border-color: #66afe9;
-  cursor: pointer;
-}
-.fuelux input.glass:hover[disabled],
-.fuelux textarea.glass:hover[disabled] {
-  background: transparent;
-  border-color: #fff;
-  cursor: not-allowed;
-}
-.fuelux input.glass:focus,
-.fuelux textarea.glass:focus {
-  background: #fff;
-  border-color: #66afe9;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-  cursor: auto;
-}
-.fuelux input.glass:focus[disabled],
-.fuelux textarea.glass:focus[disabled] {
-  background: transparent;
-  border-color: #fff;
-  cursor: not-allowed;
-}
-.fuelux input.glass[disabled],
-.fuelux textarea.glass[disabled] {
-  cursor: not-allowed;
-}
-.fuelux .input-group-addon {
-  padding: 6px 18px;
-}
-.fuelux [data-toggle="buttons"] > .btn > input[type="radio"],
-.fuelux [data-toggle="buttons"] > .btn > input[type="checkbox"] {
-  display: inline;
-  position: absolute;
-  left: -9999px;
-}
-.fuelux .button-sizer,
-.fuelux .selectlist-sizer {
-  display: inline-block;
-  position: absolute;
-  visibility: hidden;
-  top: 0;
-  float: left;
-}
-.fuelux .button-sizer .selectlist,
-.fuelux .selectlist-sizer .selectlist {
-  display: block !important;
-}
-.fuelux .button-sizer .dropdown-menu,
-.fuelux .selectlist-sizer .dropdown-menu {
-  display: block;
-  min-width: inherit;
-}
-.fuelux .button-sizer .selected-label,
-.fuelux .selectlist-sizer .selected-label {
-  width: auto !important;
 }
 .fuelux .pillbox {
   border: 1px solid #BBBBBB;
@@ -1302,6 +1275,35 @@
   right: -8px;
   top: -8px;
 }
+.fuelux .placard .glass {
+  background: transparent;
+  border: 1px solid #fff;
+  box-shadow: none;
+}
+.fuelux .placard .glass:hover {
+  background: #d9edf7;
+  border-color: #66afe9;
+  cursor: pointer;
+}
+.fuelux .placard .glass:hover[disabled] {
+  background: transparent;
+  border-color: #fff;
+  cursor: not-allowed;
+}
+.fuelux .placard .glass:focus {
+  background: #fff;
+  border-color: #66afe9;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  cursor: auto;
+}
+.fuelux .placard .glass:focus[disabled] {
+  background: transparent;
+  border-color: #fff;
+  cursor: not-allowed;
+}
+.fuelux .placard .glass[disabled] {
+  cursor: not-allowed;
+}
 .fuelux .repeater {
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -1481,6 +1483,7 @@
 }
 .fuelux .repeater-list table tbody tr.empty td {
   border-bottom: none;
+  font-size: 14px;
   font-style: italic;
   padding: 20px;
   text-align: center;
@@ -1674,8 +1677,9 @@
   text-align: right;
 }
 .fuelux .repeater-thumbnail-cont div.empty {
+  font-size: 14px;
   font-style: italic;
-  padding: 20px 10px;
+  padding: 14px 10px 20px;
   text-align: center;
 }
 .fuelux .repeater-thumbnail-cont .selectable:hover {
@@ -1981,6 +1985,27 @@ END
   top: 0;
   bottom: 0;
   right: 12px;
+}
+.fuelux .button-sizer,
+.fuelux .selectlist-sizer {
+  display: inline-block;
+  position: absolute;
+  visibility: hidden;
+  top: 0;
+  float: left;
+}
+.fuelux .button-sizer .selectlist,
+.fuelux .selectlist-sizer .selectlist {
+  display: block !important;
+}
+.fuelux .button-sizer .dropdown-menu,
+.fuelux .selectlist-sizer .dropdown-menu {
+  display: block;
+  min-width: inherit;
+}
+.fuelux .button-sizer .selected-label,
+.fuelux .selectlist-sizer .selected-label {
+  width: auto !important;
 }
 .fuelux .tree {
   border: 1px solid #999999;

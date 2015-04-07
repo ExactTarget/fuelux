@@ -1,5 +1,6 @@
 /*!
- * Fuel UX v3.6.4
+ * Fuel UX EDGE - Built 2015/04/06, 9:45:46 PM
+ * Previous release: v3.6.4
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -994,7 +995,7 @@
 				var selected = this.selectedDate;
 				var $tbody = this.$days.find( 'tbody' );
 				var year = date.getFullYear();
-				var curDate, curMonth, curYear, i, j, rows, stage, $td, $tr;
+				var curDate, curMonth, curYear, i, j, rows, stage, previousStage, lastStage, $td, $tr;
 
 				if ( selected ) {
 					selected = {
@@ -1012,6 +1013,7 @@
 					'data-year': year
 				} );
 
+
 				$tbody.empty();
 				if ( firstDay !== 0 ) {
 					curDate = lastMonthDate - firstDay + 1;
@@ -1028,8 +1030,14 @@
 						$td = $( '<td></td>' );
 						if ( stage === -1 ) {
 							$td.addClass( 'last-month' );
+							if ( previousStage !== stage ) {
+								$td.addClass( 'first' );
+							}
 						} else if ( stage === 1 ) {
 							$td.addClass( 'next-month' );
+							if ( previousStage !== stage ) {
+								$td.addClass( 'first' );
+							}
 						}
 
 						curMonth = month + stage;
@@ -1073,12 +1081,23 @@
 						}
 
 						curDate++;
+						lastStage = previousStage;
+						previousStage = stage;
 						if ( stage === -1 && curDate > lastMonthDate ) {
 							curDate = 1;
 							stage = 0;
+							if ( lastStage !== stage ) {
+								$td.addClass( 'last' );
+							}
 						} else if ( stage === 0 && curDate > lastDate ) {
 							curDate = 1;
 							stage = 1;
+							if ( lastStage !== stage ) {
+								$td.addClass( 'last' );
+							}
+						}
+						if ( i === ( rows - 1 ) && j === 6 ) {
+							$td.addClass( 'last' );
 						}
 
 						$tr.append( $td );
@@ -1096,10 +1115,10 @@
 
 				if ( this.sameYearOnly ) {
 					this.$wheelsMonth.addClass( 'full' );
-					this.$wheelsYear.addClass( 'hide' );
+					this.$wheelsYear.addClass( 'hidden' );
 				} else {
 					this.$wheelsMonth.removeClass( 'full' );
-					this.$wheelsYear.removeClass( 'hide' );
+					this.$wheelsYear.removeClass( 'hide hidden' ); // .hide is deprecated
 				}
 
 				$monthUl.find( '.selected' ).removeClass( 'selected' );
@@ -2020,7 +2039,7 @@
 							$( selector ).addClass( 'hidden' );
 							$( selector ).attr( 'aria-hidden', 'true' );
 						} );
-						this.$toggleContainer.removeClass( 'hide hidden' );
+						this.$toggleContainer.removeClass( 'hide hidden' ); // hide is deprecated
 						this.$toggleContainer.attr( 'aria-hidden', 'false' );
 					} else {
 						this.$toggleContainer.addClass( 'hidden' );
@@ -3040,19 +3059,19 @@
 				var loader = $parent.find( '.tree-loader:eq(0)' );
 				var treeData = $parent.data();
 
-				loader.removeClass( 'hide' );
+				loader.removeClass( 'hide hidden' ); // hide is deprecated
 				this.options.dataSource( treeData ? treeData : {}, function( items ) {
-					loader.addClass( 'hide' );
+					loader.addClass( 'hidden' );
 
 					$.each( items.data, function( index, value ) {
 						var $entity;
 
 						if ( value.type === 'folder' ) {
-							$entity = self.$element.find( '[data-template=treebranch]:eq(0)' ).clone().removeClass( 'hide' ).removeData( 'template' );
+							$entity = self.$element.find( '[data-template=treebranch]:eq(0)' ).clone().removeClass( 'hide hidden' ).removeData( 'template' ); // hide is deprecated
 							$entity.data( value );
 							$entity.find( '.tree-branch-name > .tree-label' ).html( value.text || value.name );
 						} else if ( value.type === 'item' ) {
-							$entity = self.$element.find( '[data-template=treeitem]:eq(0)' ).clone().removeClass( 'hide' ).removeData( 'template' );
+							$entity = self.$element.find( '[data-template=treeitem]:eq(0)' ).clone().removeClass( 'hide hidden' ).removeData( 'template' ); // hide is deprecated
 							$entity.find( '.tree-item-name > .tree-label' ).html( value.text || value.name );
 							$entity.data( value );
 						}
@@ -3190,7 +3209,7 @@
 				//take care of the styles
 				$branch.addClass( 'tree-open' );
 				$branch.attr( 'aria-expanded', 'true' );
-				$treeFolderContentFirstChild.removeClass( 'hide' );
+				$treeFolderContentFirstChild.removeClass( 'hide hidden' ); // hide is deprecated
 				$branch.find( '> .tree-branch-header .icon-folder' ).eq( 0 )
 					.removeClass( 'glyphicon-folder-close' )
 					.addClass( 'glyphicon-folder-open' );
@@ -3212,7 +3231,7 @@
 				//take care of the styles
 				$branch.removeClass( 'tree-open' );
 				$branch.attr( 'aria-expanded', 'false' );
-				$treeFolderContentFirstChild.addClass( 'hide' );
+				$treeFolderContentFirstChild.addClass( 'hidden' );
 				$branch.find( '> .tree-branch-header .icon-folder' ).eq( 0 )
 					.removeClass( 'glyphicon-folder-open' )
 					.addClass( 'glyphicon-folder-close' );
@@ -3301,7 +3320,8 @@
 				var closedReported = function closedReported( event, closed ) {
 					reportedClosed.push( closed );
 
-					if ( self.$element.find( ".tree-branch.tree-open:not('.hide')" ).length === 0 ) {
+					// hide is deprecated
+					if ( self.$element.find( ".tree-branch.tree-open:not('.hidden, .hide')" ).length === 0 ) {
 						self.$element.trigger( 'closedAll.fu.tree', {
 							tree: self.$element,
 							reportedClosed: reportedClosed
@@ -3313,7 +3333,7 @@
 				//trigger callback when all folders have reported closed
 				self.$element.on( 'closed.fu.tree', closedReported );
 
-				self.$element.find( ".tree-branch.tree-open:not('.hide')" ).each( function() {
+				self.$element.find( ".tree-branch.tree-open:not('.hidden, .hide')" ).each( function() {
 					self.closeFolder( this );
 				} );
 			},
@@ -3321,7 +3341,8 @@
 			//disclose visible will only disclose visible tree folders
 			discloseVisible: function discloseVisible() {
 				var self = this;
-				var $openableFolders = self.$element.find( ".tree-branch:not('.tree-open, .hide')" );
+
+				var $openableFolders = self.$element.find( ".tree-branch:not('.tree-open, .hidden, .hide')" );
 				var reportedOpened = [];
 
 				var openReported = function openReported( event, opened ) {
@@ -3344,7 +3365,7 @@
 				self.$element.on( 'loaded.fu.tree', openReported );
 
 				// open all visible folders
-				self.$element.find( ".tree-branch:not('.tree-open, .hide')" ).each( function triggerOpen() {
+				self.$element.find( ".tree-branch:not('.tree-open, .hidden, .hide')" ).each( function triggerOpen() {
 					self.openFolder( $( this ).find( '.tree-branch-header' ), true );
 				} );
 			},
@@ -3363,7 +3384,7 @@
 				}
 
 				var isExceededLimit = ( self.options.disclosuresUpperLimit >= 1 && self.$element.data( 'disclosures' ) >= self.options.disclosuresUpperLimit );
-				var isAllDisclosed = self.$element.find( ".tree-branch:not('.tree-open, .hide')" ).length === 0;
+				var isAllDisclosed = self.$element.find( ".tree-branch:not('.tree-open, .hidden, .hide')" ).length === 0;
 
 
 				if ( !isAllDisclosed ) {
@@ -5241,9 +5262,9 @@
 			},
 
 			itemization: function( data ) {
-				this.$count.html( data.count || '' );
-				this.$end.html( data.end || '' );
-				this.$start.html( data.start || '' );
+				this.$count.html( ( data.count !== undefined ) ? data.count : '?' );
+				this.$end.html( ( data.end !== undefined ) ? data.end : '?' );
+				this.$start.html( ( data.start !== undefined ) ? data.start : '?' );
 			},
 
 			next: function( e ) {
@@ -5390,6 +5411,8 @@
 				dataOptions = this.getDataOptions( options );
 
 				this.viewOptions.dataSource( dataOptions, function( data ) {
+					data = data || {};
+
 					if ( self.infiniteScrollingEnabled ) {
 						self.infiniteScrollingCallback( {} );
 					} else {
@@ -5582,7 +5605,16 @@
 		};
 
 		$.fn.repeater.defaults = {
-			dataSource: function( options, callback ) {},
+			dataSource: function( options, callback ) {
+				callback( {
+					count: 0,
+					end: 0,
+					items: [],
+					page: 0,
+					pages: 1,
+					start: 0
+				} );
+			},
 			defaultView: -1, //should be a string value. -1 means it will grab the active view from the view controls
 			dropPagingCap: 10,
 			staticHeight: -1, //normally true or false. -1 means it will look for data-staticheight on the element
@@ -5737,9 +5769,9 @@
 				list_columnRendered: null,
 				list_columnSizing: true,
 				list_columnSyncing: true,
-				list_highlightSortedColumn: false,
+				list_highlightSortedColumn: true,
 				list_infiniteScroll: false,
-				list_noItemsHTML: '',
+				list_noItemsHTML: 'no items found',
 				list_selectable: false,
 				list_sortClearing: false,
 				list_rowRendered: null
@@ -5938,7 +5970,7 @@
 					if ( $item.hasClass( 'selected' ) ) {
 						$item.removeClass( 'selected' );
 						$item.find( '.repeater-list-check' ).remove();
-						$item.$element.trigger( 'deselected.fu.repeaterList', $item );
+						self.$element.trigger( 'deselected.fu.repeaterList', $item );
 					} else {
 						if ( self.viewOptions.list_selectable !== 'multi' ) {
 							self.$canvas.find( '.repeater-list-check' ).remove();
@@ -6186,6 +6218,7 @@
 				thumbnail_alignment: 'left',
 				thumbnail_infiniteScroll: false,
 				thumbnail_itemRendered: null,
+				thumbnail_noItemsHTML: 'no items found',
 				thumbnail_selectable: false,
 				thumbnail_template: '<div class="thumbnail repeater-thumbnail"><img height="75" src="{{src}}" width="65"><span>{{name}}</span></div>'
 			} );
@@ -6219,11 +6252,12 @@
 							alignment = ( validAlignments[ alignment ] ) ? alignment : 'justify';
 							$cont.addClass( 'align-' + alignment );
 							this.thumbnail_injectSpacers = true;
-							response.item = $cont;
 						} else {
 							this.thumbnail_injectSpacers = false;
-							response.action = 'none';
 						}
+						response.item = $cont;
+					} else {
+						response.action = 'none';
 					}
 
 					if ( data.items && data.items.length < 1 ) {
@@ -6499,17 +6533,17 @@
 				}
 
 				// hide all panels
-				this.$endAfter.parent().addClass( 'hide' );
+				this.$endAfter.parent().addClass( 'hidden' );
 				this.$endAfter.parent().attr( 'aria-hidden', 'true' );
 
-				this.$endDate.parent().addClass( 'hide' );
+				this.$endDate.parent().addClass( 'hidden' );
 				this.$endDate.parent().attr( 'aria-hidden', 'true' );
 
 				if ( val === 'after' ) {
-					this.$endAfter.parent().removeClass( 'hide' );
+					this.$endAfter.parent().removeClass( 'hide hidden' ); // hide is deprecated
 					this.$endAfter.parent().attr( 'aria-hidden', 'false' );
 				} else if ( val === 'date' ) {
-					this.$endDate.parent().removeClass( 'hide' );
+					this.$endDate.parent().removeClass( 'hide hidden' ); // hide is deprecated
 					this.$endDate.parent().attr( 'aria-hidden', 'false' );
 				}
 			},
@@ -6681,30 +6715,30 @@
 					case 'daily':
 					case 'weekly':
 					case 'monthly':
-						this.$repeatIntervalPanel.removeClass( 'hide' );
+						this.$repeatIntervalPanel.removeClass( 'hide hidden' ); // hide is deprecated
 						this.$repeatIntervalPanel.attr( 'aria-hidden', 'false' );
 						break;
 					default:
-						this.$repeatIntervalPanel.addClass( 'hide' );
+						this.$repeatIntervalPanel.addClass( 'hidden' ); // hide is deprecated
 						this.$repeatIntervalPanel.attr( 'aria-hidden', 'true' );
 						break;
 				}
 
 				// hide all panels
-				this.$recurrencePanels.addClass( 'hide' );
+				this.$recurrencePanels.addClass( 'hidden' );
 				this.$recurrencePanels.attr( 'aria-hidden', 'true' );
 
 				// show panel for current selection
-				this.$element.find( '.repeat-' + val ).removeClass( 'hide' );
+				this.$element.find( '.repeat-' + val ).removeClass( 'hide hidden' ); // hide is deprecated
 				this.$element.find( '.repeat-' + val ).attr( 'aria-hidden', 'false' );
 
 				// the end selection should only be shown when
 				// the repeat interval is not "None (run once)"
 				if ( val === 'none' ) {
-					this.$end.addClass( 'hide' );
+					this.$end.addClass( 'hidden' );
 					this.$end.attr( 'aria-hidden', 'true' );
 				} else {
-					this.$end.removeClass( 'hide' );
+					this.$end.removeClass( 'hide hidden' ); // hide is deprecated
 					this.$end.attr( 'aria-hidden', 'false' );
 				}
 			},
@@ -6717,7 +6751,6 @@
 					startDate = temp[ 0 ];
 
 					if ( temp[ 1 ] ) {
-						startTime = temp[ 1 ];
 						temp[ 1 ] = temp[ 1 ].split( ':' );
 						hours = parseInt( temp[ 1 ][ 0 ], 10 );
 						minutes = ( temp[ 1 ][ 1 ] ) ? parseInt( temp[ 1 ][ 1 ].split( '+' )[ 0 ].split( '-' )[ 0 ].split( 'Z' )[ 0 ], 10 ) : 0;
@@ -6737,7 +6770,6 @@
 					} else {
 						startTime = '00:00';
 					}
-
 				} else {
 					startTime = '00:00';
 					var currentDate = this.$startDate.datepicker( 'getDate' );
@@ -6754,7 +6786,6 @@
 						} else {
 							item += '-offset="' + options.timeZone.offset;
 						}
-
 					}
 
 					item += '"]';
@@ -6770,7 +6801,6 @@
 						} else {
 							temp = '+00:00';
 						}
-
 					} else {
 						temp = '+00:00';
 					}
@@ -6791,7 +6821,6 @@
 							item = temp[ i ].split( '=' );
 							recur[ item[ 0 ] ] = item[ 1 ];
 						}
-
 					}
 
 					if ( recur.FREQ === 'DAILY' ) {
@@ -6803,9 +6832,7 @@
 							} else {
 								item = 'daily';
 							}
-
 						}
-
 					} else if ( recur.FREQ === 'HOURLY' ) {
 						item = 'hourly';
 					} else if ( recur.FREQ === 'WEEKLY' ) {
@@ -6891,6 +6918,8 @@
 						this.$endDate.datepicker( 'setDate', utcEndHours );
 
 						this.$endSelect.selectlist( 'selectByValue', 'date' );
+					} else {
+						this.$endSelect.selectlist( 'selectByValue', 'never' );
 					}
 
 					this.endSelectChanged();
