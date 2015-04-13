@@ -379,7 +379,7 @@
 			self.$element.on('loaded.fu.tree', openReported);
 
 			// open all visible folders
-			self.$element.find(".tree-branch:not('.tree-open, .hide')").each(function triggerOpen() {
+			self.$element.find(".tree-branch:not('.tree-open, .hidden, .hide')").each(function triggerOpen() {
 				self.discloseFolder($(this).find('.tree-branch-header'));
 			});
 		},
