@@ -231,7 +231,7 @@
 		enable: function() {
 			var disabled = 'disabled';
 			var enable = 'enable';
-			var noMore = 'no-more';
+			var pageEnd = 'page-end';
 
 			this.$search.search(enable);
 			this.$filters.selectlist(enable);
@@ -240,10 +240,10 @@
 			this.$primaryPaging.find('.combobox').combobox(enable);
 			this.$secondaryPaging.removeAttr(disabled);
 
-			if(!this.$prevBtn.hasClass(noMore)){
+			if(!this.$prevBtn.hasClass(pageEnd)){
 				this.$prevBtn.removeAttr(disabled);
 			}
-			if(!this.$nextBtn.hasClass(noMore)){
+			if(!this.$nextBtn.hasClass(pageEnd)){
 				this.$nextBtn.removeAttr(disabled);
 			}
 
@@ -439,8 +439,8 @@
 		pagination: function (data) {
 			var act = 'active';
 			var dsbl = 'disabled';
-			var noMore = 'no-more';
 			var page = data.page;
+			var pageEnd = 'page-end';
 			var pages = data.pages;
 			var dropMenu, i, l;
 
@@ -470,19 +470,19 @@
 			// this is not the last page
 			if ((this.currentPage + 1) < pages) {
 				this.$nextBtn.removeAttr(dsbl);
-				this.$nextBtn.removeClass(noMore);
+				this.$nextBtn.removeClass(pageEnd);
 			} else {
 				this.$nextBtn.attr(dsbl, dsbl);
-				this.$nextBtn.addClass(noMore);
+				this.$nextBtn.addClass(pageEnd);
 			}
 
 			// this is not the first page
 			if ((this.currentPage - 1) >= 0) {
 				this.$prevBtn.removeAttr(dsbl);
-				this.$prevBtn.removeClass(noMore);
+				this.$prevBtn.removeClass(pageEnd);
 			} else {
 				this.$prevBtn.attr(dsbl, dsbl);
-				this.$prevBtn.addClass(noMore);
+				this.$prevBtn.addClass(pageEnd);
 			}
 
 			// return focus to next/previous buttons after navigating
