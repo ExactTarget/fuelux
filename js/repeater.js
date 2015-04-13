@@ -224,6 +224,7 @@
 			this.$prevBtn.attr(disabled, disabled);
 			this.$nextBtn.attr(disabled, disabled);
 
+			this.$element.addClass('disabled');
 			this.$element.trigger('disabled.fu.repeater');
 		},
 
@@ -246,6 +247,7 @@
 				this.$nextBtn.removeAttr(disabled);
 			}
 
+			this.$element.removeClass('disabled');
 			this.$element.trigger('enabled.fu.repeater');
 		},
 
