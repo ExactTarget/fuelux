@@ -12,7 +12,7 @@ define(function (require) {
 	};
 
 	// programmatically injecting this is so much easier than writing the html by hand 376 times...
-	$('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id], dt[id]').each(function(i){
+	$('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id], dt[id]').each(function (i) {
 		$(this).prepend(['<a class="header-anchor" href="#', this.id, '"><small><span class="glyphicon glyphicon-link"></span></a></small> '].join(''));
 	});
 
@@ -984,7 +984,7 @@ define(function (require) {
 		log('Updated Event: ', selected);
 		log($('#myTree1').tree('selectedItems'));
 	});
-	$('#myTree1').on('opened.fu.tree', function (event, parentData) {
+	$('#myTree1').on('disclosedFolder.fu.tree', function (event, parentData) {
 		log('Opened Event, parent data: ', parentData);
 	});
 	$('#myTree1').on('closed.fu.tree', function (event, parentData) {
