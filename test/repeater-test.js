@@ -288,6 +288,59 @@ define(function(require){
 		});
 	});
 
+	test("should handle disable / enable correctly", function () {
+		var $repeater = $(this.$markup);
+
+		var $search = $repeater.find('.repeater-header .search');
+		var $filters = $repeater.find('.repeater-header .repeater-filters');
+		var $views = $repeater.find('.repeater-header .repeater-views label');
+		var $pageSize = $repeater.find('.repeater-footer .repeater-itemization .selectlist');
+		var $primaryPaging = $repeater.find('.repeater-footer .repeater-primaryPaging .combobox');
+		var $secondaryPaging = $repeater.find('.repeater-footer .repeater-secondaryPaging');
+		var $prevBtn = $repeater.find('.repeater-prev');
+		var $nextBtn = $repeater.find('.repeater-next');
+
+		var disabled = 'disabled';
+
+		$repeater.on('disabled.fu.repeater', function(){
+			ok(1===1, 'disabled event called as expected');
+		});
+
+		$repeater.on('enabled.fu.repeater', function(){
+			ok(1===1, 'enabled event called as expected');
+		});
+
+		$repeater.on('rendered.fu.repeater', function(){
+			setTimeout(function(){
+				$repeater.repeater('disable');
+
+				equal($search.hasClass(disabled), true, 'repeater search disabled as expected');
+				equal($filters.hasClass(disabled), true, 'repeater filters disabled as expected');
+				equal($views.attr(disabled), disabled, 'repeater views disabled as expected');
+				equal($pageSize.hasClass(disabled), true, 'repeater pageSize disabled as expected');
+				equal($primaryPaging.hasClass(disabled), true, 'repeater primaryPaging disabled as expected');
+				equal($secondaryPaging.attr(disabled), disabled, 'repeater secondaryPaging disabled as expected');
+				equal($prevBtn.attr(disabled), disabled, 'repeater prevBtn disabled as expected');
+				equal($nextBtn.attr(disabled), disabled, 'repeater nextBtn disabled as expected');
+				equal($repeater.hasClass(disabled), true, 'repeater has disabled class as expected');
+
+				$repeater.repeater('enable');
+
+				equal($search.hasClass(disabled), false, 'repeater search enabled as expected');
+				equal($filters.hasClass(disabled), false, 'repeater filters enabled as expected');
+				equal($views.attr(disabled), undefined, 'repeater views enabled as expected');
+				equal($pageSize.hasClass(disabled), false, 'repeater pageSize enabled as expected');
+				equal($primaryPaging.hasClass(disabled), false, 'repeater primaryPaging enabled as expected');
+				equal($secondaryPaging.attr(disabled), undefined, 'repeater secondaryPaging enabled as expected');
+				equal($prevBtn.attr(disabled), disabled, 'repeater prevBtn still disabled as expected (no more pages)');
+				equal($nextBtn.attr(disabled), disabled, 'repeater nextBtn still disabled as expected (no more pages)');
+
+				equal($repeater.hasClass(disabled), false, 'repeater no longer has disabled class as expected');
+			}, 0);
+		});
+		$repeater.repeater();
+	});
+
 	asyncTest('should destroy control', function(){
 		var $repeater = $(this.$markup);
 
