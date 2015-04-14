@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.6.5
+ * Fuel UX v3.7.0
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -1910,152 +1910,130 @@
 		var Radio = function( element, options ) {
 			this.options = $.extend( {}, $.fn.radio.defaults, options );
 
+			if ( element.tagName.toLowerCase() !== 'label' ) {
+				//console.log('initialize radio on the label that wraps the radio');
+				return;
+			}
+
 			// cache elements
-			this.$radio = $( element ).is( 'input[type="radio"]' ) ? $( element ) : $( element ).find( 'input[type="radio"]:first' );
-			this.$label = this.$radio.parent();
-			this.groupName = this.$radio.attr( 'name' );
-			this.$blockWrapper = this.$label.parent( '.radio' ); // only used if block radio control, otherwise radio is inline
-			this.isBlockWrapped = true; // initialized as a block radio control
-			this.$toggleContainer = null;
+			this.$label = $( element );
+			this.$radio = this.$label.find( 'input[type="radio"]' );
+			this.groupName = this.$radio.attr( 'name' ); // don't cache group itself since items can be added programmatically
 
-			if ( this.$blockWrapper.length === 0 ) {
-				this.isBlockWrapped = false;
-			}
+			// determine if a toggle container is specified
+			var containerSelector = this.$radio.attr( 'data-toggle' );
+			this.$toggleContainer = $( containerSelector );
 
-			var toggleSelector = this.$radio.attr( 'data-toggle' );
-			if ( toggleSelector ) {
-				this.$toggleContainer = $( toggleSelector );
-			}
+			// handle internal events
+			this.$radio.on( 'change', $.proxy( this.itemchecked, this ) );
 
 			// set default state
-			this.setState( this.$radio );
-
-			// handle events
-			this.$radio.on( 'change.fu.radio', $.proxy( this.itemchecked, this ) );
+			this.setInitialState();
 		};
 
 		Radio.prototype = {
 
 			constructor: Radio,
 
+			setInitialState: function() {
+				var $radio = this.$radio;
+				var $lbl = this.$label;
+
+				// get current state of input
+				var checked = $radio.prop( 'checked' );
+				var disabled = $radio.prop( 'disabled' );
+
+				// sync label class with input state
+				this.setCheckedState( $radio, checked );
+				this.setDisabledState( $radio, disabled );
+			},
+
+			resetGroup: function() {
+				var $radios = $( 'input[name="' + this.groupName + '"]' );
+				$radios.each( function( index, item ) {
+					var $radio = $( item );
+					var $lbl = $radio.parent();
+					var containerSelector = $radio.attr( 'data-toggle' );
+					var $containerToggle = $( containerSelector );
+
+
+					$lbl.removeClass( 'checked' );
+					$containerToggle.addClass( 'hidden' );
+				} );
+			},
+
+			setCheckedState: function( element, checked ) {
+				// reset all items in group
+				this.resetGroup();
+
+				var $radio = element;
+				var $lbl = $radio.parent();
+				var containerSelector = $radio.attr( 'data-toggle' );
+				var $containerToggle = $( containerSelector );
+
+				if ( checked ) {
+					$radio.prop( 'checked', true );
+					$lbl.addClass( 'checked' );
+					$containerToggle.removeClass( 'hide hidden' );
+					$lbl.trigger( 'checked.fu.radio' );
+				} else {
+					$radio.prop( 'checked', false );
+					$lbl.removeClass( 'checked' );
+					$containerToggle.addClass( 'hidden' );
+					$lbl.trigger( 'unchecked.fu.radio' );
+				}
+
+				$lbl.trigger( 'changed.fu.radio', checked );
+			},
+
+			setDisabledState: function( element, disabled ) {
+				var $radio = element;
+				var $lbl = this.$label;
+
+				if ( disabled ) {
+					this.$radio.prop( 'disabled', true );
+					$lbl.addClass( 'disabled' );
+					$lbl.trigger( 'disabled.fu.radio' );
+				} else {
+					this.$radio.prop( 'disabled', false );
+					$lbl.removeClass( 'disabled' );
+					$lbl.trigger( 'enabled.fu.radio' );
+				}
+			},
+
+			itemchecked: function( evt ) {
+				var $radio = $( evt.target );
+				this.setCheckedState( $radio, true );
+			},
+
+			check: function() {
+				this.setCheckedState( this.$radio, true );
+			},
+
+			uncheck: function() {
+				this.setCheckedState( this.$radio, false );
+			},
+
+			isChecked: function() {
+				var checked = this.$radio.prop( 'checked' );
+				return checked;
+			},
+
+			enable: function() {
+				this.setDisabledState( this.$radio, false );
+			},
+
+			disable: function() {
+				this.setDisabledState( this.$radio, true );
+			},
+
 			destroy: function() {
+				this.$label.remove();
 				// remove any external bindings
 				// [none]
 				// empty elements to return to original markup
 				// [none]
-				// return string of markup
-				if ( this.isBlockWrapped ) {
-					this.$blockWrapper.remove();
-					return this.$blockWrapper[ 0 ].outerHTML;
-				} else {
-					this.$label.remove();
-					return this.$label[ 0 ].outerHTML;
-				}
-
-			},
-
-			setState: function( $radio ) {
-				$radio = $radio || this.$radio;
-
-				var checked = $radio.is( ':checked' );
-				var disabled = !!$radio.prop( 'disabled' );
-
-				this.$label.removeClass( 'checked' );
-				if ( this.isBlockWrapped ) {
-					this.$blockWrapper.removeClass( 'checked disabled' );
-				}
-
-				// set state of radio
-				if ( checked === true ) {
-					this.$label.addClass( 'checked' );
-					if ( this.isBlockWrapped ) {
-						this.$blockWrapper.addClass( 'checked' );
-					}
-
-				}
-
-				if ( disabled === true ) {
-					this.$label.addClass( 'disabled' );
-					if ( this.isBlockWrapped ) {
-						this.$blockWrapper.addClass( 'disabled' );
-					}
-
-				}
-
-				//toggle container
-				this.toggleContainer();
-			},
-
-			resetGroup: function() {
-				var group = $( 'input[name="' + this.groupName + '"]' );
-
-				group.each( function() {
-					var lbl = $( this ).parent( 'label' );
-					lbl.removeClass( 'checked' );
-					lbl.parent( '.radio' ).removeClass( 'checked' );
-				} );
-			},
-
-			enable: function() {
-				this.$radio.attr( 'disabled', false );
-				this.$label.removeClass( 'disabled' );
-				if ( this.isBlockWrapped ) {
-					this.$blockWrapper.removeClass( 'disabled' );
-				}
-			},
-
-			disable: function() {
-				this.$radio.attr( 'disabled', true );
-				this.$label.addClass( 'disabled' );
-				if ( this.isBlockWrapped ) {
-					this.$blockWrapper.addClass( 'disabled' );
-				}
-			},
-
-			itemchecked: function( e ) {
-				var radio = $( e.target );
-
-				this.resetGroup();
-				this.setState( radio );
-			},
-
-			check: function() {
-				this.resetGroup();
-				this.$radio.prop( 'checked', true );
-				this.$radio.attr( 'checked', 'checked' );
-				this.setState( this.$radio );
-			},
-
-			toggleContainer: function() {
-				var group;
-				if ( this.$toggleContainer ) {
-					// show corresponding container for currently selected radio
-					if ( this.isChecked() ) {
-						// hide containers for each item in group
-						group = $( 'input[name="' + this.groupName + '"]' );
-						group.each( function() {
-							var selector = $( this ).attr( 'data-toggle' );
-							$( selector ).addClass( 'hidden' );
-							$( selector ).attr( 'aria-hidden', 'true' );
-						} );
-						this.$toggleContainer.removeClass( 'hide hidden' ); // hide is deprecated
-						this.$toggleContainer.attr( 'aria-hidden', 'false' );
-					} else {
-						this.$toggleContainer.addClass( 'hidden' );
-						this.$toggleContainer.attr( 'aria-hidden', 'true' );
-					}
-
-				}
-			},
-
-			uncheck: function() {
-				this.$radio.prop( 'checked', false );
-				this.$radio.removeAttr( 'checked' );
-				this.setState( this.$radio );
-			},
-
-			isChecked: function() {
-				return this.$radio.is( ':checked' );
+				return this.$label[ 0 ].outerHTML;
 			}
 		};
 
@@ -2095,8 +2073,8 @@
 
 		// DATA-API
 
-		$( document ).on( 'mouseover.fu.checkbox.data-api', '[data-initialize=radio]', function( e ) {
-			var $control = $( e.target ).closest( '.radio' ).find( '[type=radio]' );
+		$( document ).on( 'mouseover.fu.radio.data-api', '[data-initialize=radio]', function( e ) {
+			var $control = $( e.target );
 			if ( !$control.data( 'fu.radio' ) ) {
 				$control.radio( $control.data() );
 			}
@@ -2104,13 +2082,13 @@
 
 		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '[data-initialize=radio] [type=radio]' ).each( function() {
+			$( '[data-initialize=radio]' ).each( function() {
 				var $this = $( this );
-				if ( $this.data( 'fu.radio' ) ) return;
-				$this.radio( $this.data() );
+				if ( !$this.data( 'fu.radio' ) ) {
+					$this.radio( $this.data() );
+				}
 			} );
 		} );
-
 
 
 	} )( jQuery );
@@ -3193,13 +3171,8 @@
 				} );
 			},
 
-			openFolder: function openFolder( el, ignoreRedundantOpens ) {
+			discloseFolder: function discloseFolder( el ) {
 				var $el = $( el );
-
-				//don't break the API :| (make this functionally the same as calling 'toggleFolder')
-				if ( !ignoreRedundantOpens && $el.find( '.glyphicon-folder-open' ).length && !this.options.ignoreRedundantOpens ) {
-					this.closeFolder( el );
-				}
 
 				var $branch = $el.closest( '.tree-branch' );
 				var $treeFolderContent = $branch.find( '.tree-branch-children' );
@@ -3218,7 +3191,7 @@
 					this.populate( $treeFolderContent );
 				}
 
-				this.$element.trigger( 'opened.fu.tree', $branch.data() );
+				this.$element.trigger( 'disclosedFolder.fu.tree', $branch.data() );
 			},
 
 			closeFolder: function closeFolder( el ) {
@@ -3247,7 +3220,7 @@
 				var $el = $( el );
 
 				if ( $el.find( '.glyphicon-folder-close' ).length ) {
-					this.openFolder( el );
+					this.discloseFolder( el );
 				} else if ( $el.find( '.glyphicon-folder-open' ).length ) {
 					this.closeFolder( el );
 				}
@@ -3365,7 +3338,7 @@
 
 				// open all visible folders
 				self.$element.find( ".tree-branch:not('.tree-open, .hidden, .hide')" ).each( function triggerOpen() {
-					self.openFolder( $( this ).find( '.tree-branch-header' ), true );
+					self.discloseFolder( $( this ).find( '.tree-branch-header' ) );
 				} );
 			},
 
@@ -3450,6 +3423,8 @@
 
 		//alias for collapse for consistency. "Collapse" is an ambiguous term (collapse what? All? One specific branch?)
 		Tree.prototype.closeAll = Tree.prototype.collapse;
+		//alias for backwards compatibility because there's no reason not to.
+		Tree.prototype.openFolder = Tree.prototype.discloseFolder;
 
 		// TREE PLUGIN DEFINITION
 
@@ -3480,15 +3455,6 @@
 			cacheItems: true,
 			folderSelect: true,
 			itemSelect: true,
-			/*
-			 * Calling "open" on something, should do that. However, the current API
-			 * instead treats "open" as a "toggle" and will close a folder that is open
-			 * if you call `openFolder` on it. Setting `ignoreRedundantOpens` to `true`
-			 * will make the folder instead ignore the redundant call and stay open.
-			 * This allows you to fix the API until 3.7.x when we can deprecate the switch
-			 * and make `openFolder` behave correctly by default.
-			 */
-			ignoreRedundantOpens: false,
 			/*
 			 * How many times `discloseAll` should be called before a stopping and firing
 			 * an `exceededDisclosuresLimit` event. You can force it to continue by
@@ -5105,6 +5071,46 @@
 				return markup;
 			},
 
+			disable: function() {
+				var disable = 'disable';
+				var disabled = 'disabled';
+
+				this.$search.search( disable );
+				this.$filters.selectlist( disable );
+				this.$views.find( 'label' ).attr( disabled, disabled );
+				this.$pageSize.selectlist( disable );
+				this.$primaryPaging.find( '.combobox' ).combobox( disable );
+				this.$secondaryPaging.attr( disabled, disabled );
+				this.$prevBtn.attr( disabled, disabled );
+				this.$nextBtn.attr( disabled, disabled );
+
+				this.$element.addClass( 'disabled' );
+				this.$element.trigger( 'disabled.fu.repeater' );
+			},
+
+			enable: function() {
+				var disabled = 'disabled';
+				var enable = 'enable';
+				var pageEnd = 'page-end';
+
+				this.$search.search( enable );
+				this.$filters.selectlist( enable );
+				this.$views.find( 'label' ).removeAttr( disabled );
+				this.$pageSize.selectlist( 'enable' );
+				this.$primaryPaging.find( '.combobox' ).combobox( enable );
+				this.$secondaryPaging.removeAttr( disabled );
+
+				if ( !this.$prevBtn.hasClass( pageEnd ) ) {
+					this.$prevBtn.removeAttr( disabled );
+				}
+				if ( !this.$nextBtn.hasClass( pageEnd ) ) {
+					this.$nextBtn.removeAttr( disabled );
+				}
+
+				this.$element.removeClass( 'disabled' );
+				this.$element.trigger( 'enabled.fu.repeater' );
+			},
+
 			getDataOptions: function( options ) {
 				var dataSourceOptions = {};
 				var opts = {};
@@ -5294,6 +5300,7 @@
 				var act = 'active';
 				var dsbl = 'disabled';
 				var page = data.page;
+				var pageEnd = 'page-end';
 				var pages = data.pages;
 				var dropMenu, i, l;
 
@@ -5323,15 +5330,19 @@
 				// this is not the last page
 				if ( ( this.currentPage + 1 ) < pages ) {
 					this.$nextBtn.removeAttr( dsbl );
+					this.$nextBtn.removeClass( pageEnd );
 				} else {
 					this.$nextBtn.attr( dsbl, dsbl );
+					this.$nextBtn.addClass( pageEnd );
 				}
 
 				// this is not the first page
 				if ( ( this.currentPage - 1 ) >= 0 ) {
 					this.$prevBtn.removeAttr( dsbl );
+					this.$prevBtn.removeClass( pageEnd );
 				} else {
 					this.$prevBtn.attr( dsbl, dsbl );
+					this.$prevBtn.addClass( pageEnd );
 				}
 
 				// return focus to next/previous buttons after navigating
@@ -5375,6 +5386,7 @@
 				var dataOptions, prevView;
 
 				options = options || {};
+				this.disable();
 
 				if ( options.changeView && ( this.currentView !== options.changeView ) ) {
 					prevView = this.currentView;
@@ -5437,6 +5449,8 @@
 
 						//for maintaining support of 'loaded' event
 						self.$element.trigger( 'loaded.fu.repeater', dataOptions );
+
+						self.enable();
 					} );
 				} );
 			},
@@ -5763,6 +5777,56 @@
 				} );
 			};
 
+			$.fn.repeater.Constructor.prototype.list_setFrozenColumns = function() {
+				var frozenTable = this.$canvas.find( '.table-frozen' );
+				var $table = this.$element.find( '.repeater-list table' );
+				var repeaterWrapper = this.$element.find( '.repeater-list' );
+				var numFrozenColumns = this.viewOptions.list_frozenColumns;
+
+				if ( frozenTable.length < 1 ) {
+					//setup frozen column markup
+					//main wrapper and remove unneeded columns
+					var $frozenColumnWrapper = $( '<div class="frozen-column-wrapper"></div>' ).insertBefore( $table );
+					var $frozenColumn = $table.clone().addClass( 'table-frozen' );
+					$frozenColumn.find( 'th:not(:lt(' + numFrozenColumns + '))' ).remove();
+					$frozenColumn.find( 'td:not(:nth-child(n+0):nth-child(-n+' + numFrozenColumns + '))' ).remove();
+
+					//need to set absolute heading for vertical scrolling
+					var $frozenThead = $frozenColumn.clone().removeClass( 'table-frozen' );
+					$frozenThead.find( 'tbody' ).remove();
+					var $frozenTheadWrapper = $( '<div class="frozen-thead-wrapper"></div>' ).append( $frozenThead );
+
+					$frozenColumnWrapper.append( $frozenColumn );
+					repeaterWrapper.append( $frozenTheadWrapper );
+					this.$canvas.addClass( 'frozen-enabled' );
+				}
+
+				this.$element.find( '.repeater-list table.table-frozen tr' ).each( function( i, elem ) {
+					$( this ).height( $table.find( 'tr:eq(' + i + ')' ).height() );
+				} );
+				var columnWidth = $table.find( 'td:eq(0)' ).outerWidth();
+				this.$element.find( '.frozen-column-wrapper, .frozen-thead-wrapper' ).width( columnWidth );
+			};
+
+			$.fn.repeater.Constructor.prototype.list_positionFrozenColumns = function() {
+				var $wrapper = this.$element.find( '.repeater-canvas' );
+				var scrollTop = $wrapper.scrollTop();
+				var scrollLeft = $wrapper.scrollLeft();
+				if ( scrollTop > 0 ) {
+					$wrapper.find( '.repeater-list-heading' ).css( 'top', scrollTop );
+				} else {
+					$wrapper.find( '.repeater-list-heading' ).css( 'top', '0' );
+				}
+				if ( scrollLeft > 0 ) {
+					$wrapper.find( '.frozen-thead-wrapper' ).css( 'left', scrollLeft );
+					$wrapper.find( '.frozen-column-wrapper' ).css( 'left', scrollLeft );
+				} else {
+					$wrapper.find( '.frozen-thead-wrapper' ).css( 'left', '0' );
+					$wrapper.find( '.frozen-column-wrapper' ).css( 'left', '0' );
+				}
+
+			};
+
 			//ADDITIONAL DEFAULT OPTIONS
 			$.fn.repeater.defaults = $.extend( {}, $.fn.repeater.defaults, {
 				list_columnRendered: null,
@@ -5773,7 +5837,8 @@
 				list_noItemsHTML: 'no items found',
 				list_selectable: false,
 				list_sortClearing: false,
-				list_rowRendered: null
+				list_rowRendered: null,
+				list_frozenColumns: 0
 			} );
 
 			//EXTENSION DEFINITION
@@ -5826,6 +5891,11 @@
 								self.list_positionHeadings();
 							}
 						} );
+						if ( self.viewOptions.list_frozenColumns ) {
+							helpers.container.on( 'scroll.fu.repeaterList', function() {
+								self.list_positionFrozenColumns();
+							} );
+						}
 						helpers.container.append( $listContainer );
 					}
 
@@ -5845,6 +5915,11 @@
 					if ( this.viewOptions.list_columnSyncing ) {
 						this.list_sizeHeadings();
 						this.list_positionHeadings();
+					}
+
+					if ( this.viewOptions.list_frozenColumns ) {
+						this.list_setFrozenColumns();
+						this.list_positionFrozenColumns();
 					}
 
 					$sorted = this.$canvas.find( '.repeater-list-heading.sorted' );
@@ -6430,7 +6505,7 @@
 			this.$element.find( '.datepicker' ).on( 'changed.fu.datepicker', $.proxy( this.changed, this ) );
 			this.$element.find( '.selectlist' ).on( 'changed.fu.selectlist', $.proxy( this.changed, this ) );
 			this.$element.find( '.spinbox' ).on( 'changed.fu.spinbox', $.proxy( this.changed, this ) );
-			this.$element.find( '.repeat-monthly .radio, .repeat-yearly .radio' ).on( 'change.fu.scheduler', $.proxy( this.changed, this ) );
+			this.$element.find( '.repeat-monthly .radio-custom, .repeat-yearly .radio-custom' ).on( 'change.fu.scheduler', $.proxy( this.changed, this ) );
 		};
 
 		Scheduler.prototype = {
@@ -6453,7 +6528,7 @@
 				this.$element.find( '.datepicker' ).datepicker( 'destroy' );
 				this.$element.find( '.selectlist' ).selectlist( 'destroy' );
 				this.$element.find( '.spinbox' ).spinbox( 'destroy' );
-				this.$element.find( '[type=radio]' ).radio( 'destroy' );
+				this.$element.find( '.radio-custom' ).radio( 'destroy' );
 				this.$element.remove();
 
 				// any external bindings
@@ -6941,7 +7016,7 @@
 				this.$element.find( '.datepicker' ).datepicker( action );
 				this.$element.find( '.selectlist' ).selectlist( action );
 				this.$element.find( '.spinbox' ).spinbox( action );
-				this.$element.find( '[type=radio]' ).radio( action );
+				this.$element.find( '.radio-custom' ).radio( action );
 
 				if ( action === 'disable' ) {
 					action = 'addClass';
