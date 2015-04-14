@@ -139,6 +139,57 @@
 			});
 		};
 
+		$.fn.repeater.Constructor.prototype.list_setFrozenColumns = function () {
+			var frozenTable = this.$canvas.find('.table-frozen');
+			var $table = this.$element.find('.repeater-list table');
+			var repeaterWrapper = this.$element.find('.repeater-list');
+			var numFrozenColumns = this.viewOptions.list_frozenColumns;
+
+			if (frozenTable.length < 1) {
+				//setup frozen column markup
+				//main wrapper and remove unneeded columns
+				var $frozenColumnWrapper = $('<div class="frozen-column-wrapper"></div>').insertBefore($table);
+				var $frozenColumn = $table.clone().addClass('table-frozen');
+				$frozenColumn.find('th:not(:lt('+ numFrozenColumns +'))').remove();
+				$frozenColumn.find('td:not(:nth-child(n+0):nth-child(-n+'+ numFrozenColumns +'))').remove();
+
+				//need to set absolute heading for vertical scrolling
+				var $frozenThead = $frozenColumn.clone().removeClass('table-frozen');
+				$frozenThead.find('tbody').remove();
+				var $frozenTheadWrapper = $('<div class="frozen-thead-wrapper"></div>').append($frozenThead);
+
+				$frozenColumnWrapper.append($frozenColumn);
+				repeaterWrapper.append($frozenTheadWrapper);
+				this.$canvas.addClass('frozen-enabled');
+			}
+
+			this.$element.find('.repeater-list table.table-frozen tr').each(function (i, elem) {
+				$(this).height($table.find('tr:eq(' + i + ')').height());
+			});
+			var columnWidth = $table.find('td:eq(0)').outerWidth();
+			this.$element.find('.frozen-column-wrapper, .frozen-thead-wrapper').width(columnWidth);
+		};
+
+		$.fn.repeater.Constructor.prototype.list_positionFrozenColumns = function () {
+			var $wrapper = this.$element.find('.repeater-canvas');
+			var scrollTop = $wrapper.scrollTop();
+			var scrollLeft = $wrapper.scrollLeft();
+			if (scrollTop > 0) {
+				$wrapper.find('.repeater-list-heading').css('top', scrollTop);
+			}
+			else {
+				$wrapper.find('.repeater-list-heading').css('top','0');
+			}
+			if (scrollLeft > 0) {
+				$wrapper.find('.frozen-thead-wrapper').css('left', scrollLeft);
+				$wrapper.find('.frozen-column-wrapper').css('left', scrollLeft);
+			} else {
+				$wrapper.find('.frozen-thead-wrapper').css('left', '0');
+				$wrapper.find('.frozen-column-wrapper').css('left', '0');
+			}
+
+		};
+
 		//ADDITIONAL DEFAULT OPTIONS
 		$.fn.repeater.defaults = $.extend({}, $.fn.repeater.defaults, {
 			list_columnRendered: null,
@@ -149,7 +200,8 @@
 			list_noItemsHTML: 'no items found',
 			list_selectable: false,
 			list_sortClearing: false,
-			list_rowRendered: null
+			list_rowRendered: null,
+			list_frozenColumns: 0
 		});
 
 		//EXTENSION DEFINITION
@@ -202,6 +254,11 @@
 							self.list_positionHeadings();
 						}
 					});
+					if (self.viewOptions.list_frozenColumns) {
+						helpers.container.on('scroll.fu.repeaterList', function () {
+							self.list_positionFrozenColumns();
+						});
+					}
 					helpers.container.append($listContainer);
 				}
 
@@ -221,6 +278,11 @@
 				if (this.viewOptions.list_columnSyncing) {
 					this.list_sizeHeadings();
 					this.list_positionHeadings();
+				}
+
+				if (this.viewOptions.list_frozenColumns) {
+					this.list_setFrozenColumns();
+					this.list_positionFrozenColumns();
 				}
 
 				$sorted = this.$canvas.find('.repeater-list-heading.sorted');
