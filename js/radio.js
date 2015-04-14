@@ -31,152 +31,132 @@
 	var Radio = function (element, options) {
 		this.options = $.extend({}, $.fn.radio.defaults, options);
 
+		if(element.tagName.toLowerCase() !== 'label') {
+			//console.log('initialize radio on the label that wraps the radio');
+			return;
+		}
+
 		// cache elements
-		this.$radio = $(element).is('input[type="radio"]') ? $(element) : $(element).find('input[type="radio"]:first');
-		this.$label = this.$radio.parent();
-		this.groupName = this.$radio.attr('name');
-		this.$blockWrapper = this.$label.parent('.radio');	// only used if block radio control, otherwise radio is inline
-		this.isBlockWrapped = true;	// initialized as a block radio control
-		this.$toggleContainer = null;
+		this.$label = $(element);
+		this.$radio = this.$label.find('input[type="radio"]');
+		this.groupName = this.$radio.attr('name'); // don't cache group itself since items can be added programmatically
 
-		if (this.$blockWrapper.length === 0) {
-			this.isBlockWrapped = false;
-		}
+		// determine if a toggle container is specified
+		var containerSelector = this.$radio.attr('data-toggle');
+		this.$toggleContainer = $(containerSelector);
 
-		var toggleSelector = this.$radio.attr('data-toggle');
-		if (toggleSelector) {
-			this.$toggleContainer = $(toggleSelector);
-		}
+		// handle internal events
+		this.$radio.on('change', $.proxy(this.itemchecked, this));
 
 		// set default state
-		this.setState(this.$radio);
-
-		// handle events
-		this.$radio.on('change.fu.radio', $.proxy(this.itemchecked, this));
+		this.setInitialState();
 	};
 
 	Radio.prototype = {
 
 		constructor: Radio,
 
+		setInitialState: function() {
+			var $radio = this.$radio;
+			var $lbl = this.$label;
+
+			// get current state of input
+			var checked = $radio.prop('checked');
+			var disabled = $radio.prop('disabled');
+
+			// sync label class with input state
+			this.setCheckedState($radio, checked);
+			this.setDisabledState($radio, disabled);
+		},
+
+		resetGroup: function() {
+			var $radios = $('input[name="' + this.groupName + '"]');
+			$radios.each(function(index, item) {
+				var $radio = $(item);
+				var $lbl = $radio.parent();
+				var containerSelector = $radio.attr('data-toggle');
+				var $containerToggle = $(containerSelector);
+
+
+				$lbl.removeClass('checked');
+				$containerToggle.addClass('hidden');
+			});
+		},
+
+		setCheckedState: function(element, checked) {
+			// reset all items in group
+			this.resetGroup();
+
+			var $radio = element;
+			var $lbl = $radio.parent();
+			var containerSelector = $radio.attr('data-toggle');
+			var $containerToggle = $(containerSelector);
+
+			if(checked) {
+				$radio.prop('checked', true);
+				$lbl.addClass('checked');
+				$containerToggle.removeClass('hide hidden');
+				$lbl.trigger('checked.fu.radio');
+			}
+			else {
+				$radio.prop('checked', false);
+				$lbl.removeClass('checked');
+				$containerToggle.addClass('hidden');
+				$lbl.trigger('unchecked.fu.radio');
+			}
+
+			$lbl.trigger('changed.fu.radio', checked);
+		},
+
+		setDisabledState: function(element, disabled) {
+			var $radio = element;
+			var $lbl = this.$label;
+
+			if(disabled) {
+				this.$radio.prop('disabled', true);
+				$lbl.addClass('disabled');
+				$lbl.trigger('disabled.fu.radio');
+			}
+			else {
+				this.$radio.prop('disabled', false);
+				$lbl.removeClass('disabled');
+				$lbl.trigger('enabled.fu.radio');
+			}
+		},
+
+		itemchecked: function (evt) {
+			var $radio = $(evt.target);
+			this.setCheckedState($radio, true);
+		},
+
+		check: function () {
+			this.setCheckedState(this.$radio, true);
+		},
+
+		uncheck: function () {
+			this.setCheckedState(this.$radio, false);
+		},
+
+		isChecked: function () {
+			var checked = this.$radio.prop('checked');
+			return checked;
+		},
+
+		enable: function () {
+			this.setDisabledState(this.$radio, false);
+		},
+
+		disable: function () {
+			this.setDisabledState(this.$radio, true);
+		},
+
 		destroy: function () {
+			this.$label.remove();
 			// remove any external bindings
 			// [none]
 			// empty elements to return to original markup
 			// [none]
-			// return string of markup
-			if (this.isBlockWrapped) {
-				this.$blockWrapper.remove();
-				return this.$blockWrapper[0].outerHTML;
-			}	else {
-				this.$label.remove();
-				return this.$label[0].outerHTML;
-			}
-
-		},
-
-		setState: function ($radio) {
-			$radio = $radio || this.$radio;
-
-			var checked = $radio.is(':checked');
-			var disabled = !!$radio.prop('disabled');
-
-			this.$label.removeClass('checked');
-			if (this.isBlockWrapped) {
-				this.$blockWrapper.removeClass('checked disabled');
-			}
-
-			// set state of radio
-			if (checked === true) {
-				this.$label.addClass('checked');
-				if (this.isBlockWrapped) {
-					this.$blockWrapper.addClass('checked');
-				}
-
-			}
-
-			if (disabled === true) {
-				this.$label.addClass('disabled');
-				if (this.isBlockWrapped) {
-					this.$blockWrapper.addClass('disabled');
-				}
-
-			}
-
-			//toggle container
-			this.toggleContainer();
-		},
-
-		resetGroup: function () {
-			var group = $('input[name="' + this.groupName + '"]');
-
-			group.each(function () {
-				var lbl = $(this).parent('label');
-				lbl.removeClass('checked');
-				lbl.parent('.radio').removeClass('checked');
-			});
-		},
-
-		enable: function () {
-			this.$radio.attr('disabled', false);
-			this.$label.removeClass('disabled');
-			if (this.isBlockWrapped) {
-				this.$blockWrapper.removeClass('disabled');
-			}
-		},
-
-		disable: function () {
-			this.$radio.attr('disabled', true);
-			this.$label.addClass('disabled');
-			if (this.isBlockWrapped) {
-				this.$blockWrapper.addClass('disabled');
-			}
-		},
-
-		itemchecked: function (e) {
-			var radio = $(e.target);
-
-			this.resetGroup();
-			this.setState(radio);
-		},
-
-		check: function () {
-			this.resetGroup();
-			this.$radio.prop('checked', true);
-			this.$radio.attr('checked', 'checked');
-			this.setState(this.$radio);
-		},
-
-		toggleContainer: function () {
-			var group;
-			if (this.$toggleContainer) {
-				// show corresponding container for currently selected radio
-				if (this.isChecked()) {
-					// hide containers for each item in group
-					group = $('input[name="' + this.groupName + '"]');
-					group.each(function () {
-						var selector = $(this).attr('data-toggle');
-						$(selector).addClass('hidden');
-						$(selector).attr('aria-hidden', 'true');
-					});
-					this.$toggleContainer.removeClass('hide hidden'); // hide is deprecated
-					this.$toggleContainer.attr('aria-hidden', 'false');
-				} else {
-					this.$toggleContainer.addClass('hidden');
-					this.$toggleContainer.attr('aria-hidden', 'true');
-				}
-
-			}
-		},
-
-		uncheck: function () {
-			this.$radio.prop('checked', false);
-			this.$radio.removeAttr('checked');
-			this.setState(this.$radio);
-		},
-
-		isChecked: function () {
-			return this.$radio.is(':checked');
+			return this.$label[0].outerHTML;
 		}
 	};
 
@@ -216,8 +196,8 @@
 
 	// DATA-API
 
-	$(document).on('mouseover.fu.checkbox.data-api', '[data-initialize=radio]', function (e) {
-		var $control = $(e.target).closest('.radio').find('[type=radio]');
+	$(document).on('mouseover.fu.radio.data-api', '[data-initialize=radio]', function (e) {
+		var $control = $(e.target);
 		if (!$control.data('fu.radio')) {
 			$control.radio($control.data());
 		}
@@ -225,10 +205,11 @@
 
 	// Must be domReady for AMD compatibility
 	$(function () {
-		$('[data-initialize=radio] [type=radio]').each(function () {
+		$('[data-initialize=radio]').each(function () {
 			var $this = $(this);
-			if ($this.data('fu.radio')) return;
-			$this.radio($this.data());
+			if (!$this.data('fu.radio')) {
+				$this.radio($this.data());
+			}
 		});
 	});
 

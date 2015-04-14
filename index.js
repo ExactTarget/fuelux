@@ -426,22 +426,27 @@ define(function (require) {
 
 	// sample method buttons
 	$('#btnRadioDisable').on('click', function () {
-		$('[name=radio1]').radio('disable');
+		console.log('in disable');
+		$('#myCustomRadio1').radio('disable');
 	});
 	$('#btnRadioEnable').on('click', function () {
-		$('[name=radio1]').radio('enable');
+		$('#myCustomRadio1').radio('enable');
 	});
 	$('#btnRadioDestroy').on('click', function () {
-		var $container = $('#myCustomRadio1').parents('.thin-box:first');
+		var $container = $('#myCustomRadio1').parent();
 		var markup = $('#myCustomRadio1').radio('destroy');
+		log(markup);
 		$container.append(markup);
-		$('#myRadio1').radio();
 	});
-	$('#btnRadioInlineDestroy').on('click', function () {
-		var $container = $('#myCustomInlineRadio1').parents('.thin-box:first');
-		var markup = $('#myCustomInlineRadio1').radio('destroy');
-		$container.append(markup);
-		$('#myCustomInlineRadio1').radio();
+	$('#btnRadioIsChecked').on('click', function () {
+		var checked = $('#myCustomRadio1').radio('isChecked');
+		log(checked);
+	});
+	$('#btnRadioCheck').on('click', function () {
+		$('#myCustomRadio1').radio('check');
+	});
+	$('#btnRadioUncheck').on('click', function () {
+		$('#myCustomRadio1').radio('uncheck');
 	});
 
 

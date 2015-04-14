@@ -1,47 +1,42 @@
 <div id="MyRadioContainer">
 
-	<div id="RadioWrapper1" class="radio">
-		<label class="radio-custom" id="lbl1">
-			<input id="radio1" checked="checked" data-toggle="#radioToggle1" name="radio1a" type="radio">
-			<span class="radio-label">Custom appearance radio selected on page load <i>with linked element visibility toggle by id</i></span>
+	<div id="RadioCheckedEnabled" class="radio">
+		<label class="radio-custom">
+			<input class="sr-only checked" type="radio" checked="checked" id="Radio1">
+			<span class="radio-label">Checked/Enabled</span>
 		</label>
 	</div>
 
-	<div id="RadioWrapper2" class="radio">
-		<label class="radio-custom" id="lbl2">
-			<input id="radio2" data-toggle=".radioToggle2" name="radio1a" type="radio">
-			<span class="radio-label">Custom appearance radio not selected on page load <i>with linked element visibility toggle by class</i></span>
+	<div id="RadioCheckedDisabled" class="radio">
+		<label class="radio-custom">
+			<input class="sr-only checked" type="radio" checked="checked" disabled="disabled">
+			<span class="radio-label">Checked/Disabled</span>
 		</label>
 	</div>
 
-	<div id="RadioWrapper3" class="radio">
-		<label class="radio-custom" id="lbl3">
-			<input id="radio3" checked="checked" disabled="disabled" name="radio1b" type="radio">
-			<span class="radio-label">Disabled custom appearance radio selected on page load</span>
+	<div id="RadioUncheckedEnabled" class="radio">
+		<label class="radio-custom">
+			<input class="sr-only checked" type="radio">
+			<span class="radio-label">Unchecked/Enabled</span>
 		</label>
 	</div>
 
-	<div id="RadioWrapper4" class="radio">
-		<label class="radio-custom" id="lbl4">
-			<input id="radio4" disabled="disabled" name="radio1b" type="radio">
-			<span class="radio-label">Disabled custom appearance radio not selected on page load</span>
+	<div id="RadioUncheckedDisabled" class="radio">
+		<label class="radio-custom">
+			<input class="sr-only checked" type="radio" disabled="disabled">
+			<span class="radio-label">Unchecked/Disabled</span>
 		</label>
 	</div>
 
-	<br/>
-	<!--Inline radios-->
-	<label class="radio-custom radio-inline" data-initialize="radio" id="myCustomInlineRadio1">
-		<input checked="checked" class="checked sr-only" name="radio3" type="radio" value=""> <span class="radio-label">1, 2, buckle my shoe</span>
-	</label>
-	<label class="radio-custom radio-inline" data-initialize="radio" id="myCustomInlineRadio2">
-		<input class="sr-only" name="radio3" type="radio" value=""> <span class="radio-label">3, 4, shut the door</span>
-	</label>
-	<label class="radio-custom radio-inline" data-initialize="radio" id="myCustomInlineRadio3">
-		<input class="sr-only" disabled="disabled" name="radio4" type="radio" value=""> <span class="radio-label">5, 6, pick up sticks</span>
-	</label>
-	<label class="radio-custom radio-inline" data-initialize="radio" id="myCustomInlineRadio4">
-		<input checked="checked" class="checked sr-only" disabled="disabled" name="radio4" type="radio" value=""> <span class="radio-label">7, 8, lay them straight</span>
-	</label>
 
+	<div id="RadioToggle">
+		<div class="radio">
+			<label class="radio-custom">
+				<input type="radio" class="sr-only" data-toggle=".radioToggle">
+				Custom radio toggles by class
+			</label>
+		</div>
+		<div class="radioToggle hidden">This message's visibility toggles by class with a radio above.</div>
+	</div>
 
 </div>

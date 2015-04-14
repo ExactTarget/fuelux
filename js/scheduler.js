@@ -99,7 +99,7 @@
 		this.$element.find('.datepicker').on('changed.fu.datepicker', $.proxy(this.changed, this));
 		this.$element.find('.selectlist').on('changed.fu.selectlist', $.proxy(this.changed, this));
 		this.$element.find('.spinbox').on('changed.fu.spinbox', $.proxy(this.changed, this));
-		this.$element.find('.repeat-monthly .radio, .repeat-yearly .radio').on('change.fu.scheduler', $.proxy(this.changed, this));
+		this.$element.find('.repeat-monthly .radio-custom, .repeat-yearly .radio-custom').on('change.fu.scheduler', $.proxy(this.changed, this));
 	};
 
 	Scheduler.prototype = {
@@ -122,7 +122,7 @@
 			this.$element.find('.datepicker').datepicker('destroy');
 			this.$element.find('.selectlist').selectlist('destroy');
 			this.$element.find('.spinbox').spinbox('destroy');
-			this.$element.find('[type=radio]').radio('destroy');
+			this.$element.find('.radio-custom').radio('destroy');
 			this.$element.remove();
 
 			// any external bindings
@@ -609,7 +609,7 @@
 			this.$element.find('.datepicker').datepicker(action);
 			this.$element.find('.selectlist').selectlist(action);
 			this.$element.find('.spinbox').spinbox(action);
-			this.$element.find('[type=radio]').radio(action);
+			this.$element.find('.radio-custom').radio(action);
 
 			if (action === 'disable') {
 				action = 'addClass';
