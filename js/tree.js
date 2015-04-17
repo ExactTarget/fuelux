@@ -42,7 +42,9 @@
 			this.toggleFolder(ev.currentTarget);
 		}, this));
 
+		// folderSelect default is true
 		if (this.options.folderSelect) {
+			this.$element.addClass('tree-folder-select');
 			this.$element.off('click.fu.tree', '.tree-branch-name');
 			this.$element.on('click.fu.tree', '.icon-caret', $.proxy(function (ev) {
 				this.toggleFolder($(ev.currentTarget).parent());
