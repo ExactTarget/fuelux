@@ -271,6 +271,11 @@ module.exports = function (grunt) {
 				options: {
 					urls: ['http://localhost:<%= connect.testServer.options.port %>/test/?testdist=true']
 				}
+			},
+			distBundledAMD: {
+				options: {
+					urls: ['http://localhost:<%= connect.testServer.options.port %>/test/tests-bundled-amd.html']
+				}
 			}
 		},
 		less: {
@@ -378,6 +383,24 @@ module.exports = function (grunt) {
 					from: /fuelux\/\d\.\d\.\d/g,
 					to: "fuelux/<%= pkg.version %>"
 				}]
+			}
+		},
+		requirejs: {
+			'bundled-amd': {
+				options: {
+					baseUrl: "./grunt",
+					paths: {
+						jquery: '../bower_components/jquery/dist/jquery',
+						bootstrap: '../bower_components/bootstrap/dist/js/bootstrap',
+						moment: '../bower_components/moment/min/moment-with-locales',
+						fuelux: '../dist/js/fuelux',
+						requirejs: '../bower_components/requirejs/require'
+					},
+					name: "fuelux-bundled-amd",
+					include: ['requirejs'],
+					out: './dist/js/fuelux-bundled-amd.js',
+					optimize: "uglify",
+				}
 			}
 		},
 		'saucelabs-qunit': {
@@ -527,7 +550,7 @@ module.exports = function (grunt) {
 		BUILD
 	------------- */
 	// JS distribution task
-	grunt.registerTask('distjs', 'concat, uglify', ['concat', 'uglify', 'jsbeautifier']);
+	grunt.registerTask('distjs', 'concat, uglify', ['concat', 'uglify', 'jsbeautifier', 'requirejs:bundled-amd']);
 
 	// CSS distribution task
 	grunt.registerTask('distcss', 'Compile LESS into CSS', ['less', 'usebanner', 'delete-temp-less-file']);
@@ -566,9 +589,13 @@ module.exports = function (grunt) {
 	grunt.registerTask('validate-dist', 'run qunit:source, dist, and then qunit:full',
 		['connect:testServer', 'qunit:source', 'dist', 'qunit:dist']);
 
+	//If qunit:source and qunit:full is working, but fuelux-bundled-amd.js. fuelux-bundled-amd is mangled via require.js/uglify
+	grunt.registerTask('validate-distBundledAMD', 'run dist and qunit:distBundledAMD',
+		['connect:testServer', 'dist', 'qunit:distBundledAMD']);
+
 	// multiple jQuery versions, then run SauceLabs VMs
 	grunt.registerTask('releasetest', 'run jshint, build dist, all source tests, validation, and qunit on SauceLabs',
-		['test', 'dist', 'qunit:dist', 'saucelabs-qunit:defaultBrowsers']);
+		['test', 'dist', 'qunit:dist', 'validate-distBundledAMD', 'saucelabs-qunit:defaultBrowsers']);
 
 	// can be run locally instead of through TravisCI, but requires the Fuel UX Saucelabs API key file which is not public at this time.
 	grunt.registerTask('saucelabs', 'run jshint, and qunit on saucelabs',

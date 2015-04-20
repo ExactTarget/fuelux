@@ -27,6 +27,7 @@
     "grunt-contrib-jshint": "0.x",
     "grunt-contrib-less": "1.x",
     "grunt-contrib-qunit": "0.5.x",
+    "grunt-contrib-requirejs": "0.x",
     "grunt-contrib-uglify": "0.x",
     "grunt-contrib-watch": "0.x",
     "grunt-html-validation": "0.x",
