@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>FuelUX Component Initialization (Bundled AMD)</title>
+		<link rel="stylesheet" href="../bower_components/qunit/qunit/qunit.css" media="screen">
+		<link href="../bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+		<link href="../dist/css/fuelux.css" rel="stylesheet" type="text/css">
+
+		<script src="../bower_components/qunit/qunit/qunit.js"></script>
+		<script>QUnit.config.autostart = false;</script>
+
+		<!-- bundled JS file -->
+		<script src="../dist/js/fuelux-bundled-amd.js"></script>
+
+		<script type="text/javascript">
+			(function () {
+				requirejs.config({
+					baseUrl: '../',
+					config: {
+						moment: {
+							noGlobal: true
+						}
+					},
+					paths: {
+						jquery: 'dist/js/fuelux-bundled-amd',
+						// underscore: 'bower_components/underscore/underscore',
+						bootstrap: 'dist/js/fuelux-bundled-amd',
+						moment: 'dist/js/fuelux-bundled-amd',
+						fuelux: 'dist/js/fuelux-bundled-amd',
+						'fuelux-bundled-amd': 'dist/js/fuelux-bundled-amd',
+						tests: 'test/tests-bundled-amd',
+						text: 'bower_components/requirejs-text/text'
+					},
+					map: {
+						'*': {
+							'fuelux/checkbox': 'dist/js/fuelux-bundled-amd',
+							'fuelux/combobox': 'dist/js/fuelux-bundled-amd',
+							'fuelux/datepicker': 'dist/js/fuelux-bundled-amd',
+							'fuelux/dropdown-autoflip': 'dist/js/fuelux-bundled-amd',
+							'fuelux/infinite-scroll': 'dist/js/fuelux-bundled-amd',
+							'fuelux/loader': 'dist/js/fuelux-bundled-amd',
+							'fuelux/pillbox': 'dist/js/fuelux-bundled-amd',
+							'fuelux/placard': 'dist/js/fuelux-bundled-amd',
+							'fuelux/radio': 'dist/js/fuelux-bundled-amd',
+							'fuelux/repeater-list': 'dist/js/fuelux-bundled-amd',
+							'fuelux/repeater-thumbnail': 'dist/js/fuelux-bundled-amd',
+							'fuelux/repeater': 'dist/js/fuelux-bundled-amd',
+							'fuelux/scheduler': 'dist/js/fuelux-bundled-amd',
+							'fuelux/search': 'dist/js/fuelux-bundled-amd',
+							'fuelux/selectlist': 'dist/js/fuelux-bundled-amd',
+							'fuelux/spinbox': 'dist/js/fuelux-bundled-amd',
+							'fuelux/tree': 'dist/js/fuelux-bundled-amd',
+							'fuelux/wizard': 'dist/js/fuelux-bundled-amd'
+						}
+					}
+				});
+
+				
+			})();
+
+			// the following are the same as tests.js
+			require(['fuelux-bundled-amd', 
+							'./test/checkbox-test', 
+							'./test/combobox-test', 
+							'./test/datepicker-moment-test', 
+							'./test/infinite-scroll-test',
+							'./test/loader-test',
+							'./test/pillbox-test',
+							'./test/placard-test',
+							'./test/radio-test',
+							'./test/repeater-test',
+							'./test/repeater-list-test',
+							'./test/repeater-thumbnail-test',
+							'./test/scheduler-test',
+							'./test/search-test',
+							'./test/selectlist-test',
+							'./test/spinbox-test',
+							'./test/tree-test',
+							'./test/wizard-test'
+							], function(){ 
+
+					QUnit.start(); // starting qunit, or phantom js will have a problem
+					
+					// Needed for saucelab testing
+					var log = [];
+					var testName;
+
+					QUnit.done(function (test_results) {
+						var tests = [];
+						for(var i = 0, len = log.length; i < len; i++) {
+							var details = log[i];
+							tests.push({
+								name: details.name,
+								result: details.result,
+								expected: details.expected,
+								actual: details.actual,
+								source: details.source
+							});
+						}
+						test_results.tests = tests;
+
+						window.global_test_results = test_results;
+
+					// hide passed tests, helps with VM testing screencasts
+					if (!$('#qunit-filter-pass').is(':checked')) {
+						$('#qunit-filter-pass').click();
+					}
+
+					});
+					QUnit.testStart(function(testDetails){
+						QUnit.log = function(details){
+							if (!details.result) {
+								details.name = testDetails.name;
+								log.push(details);
+							}
+						};
+					});
+
+			 });
+		</script>
+
+	</head>
+	<body class="fuelux">
+		<h1 id="qunit-header">Fuel UX (Bundled AMD) Initialization Test Suite</h1>
+
+		<h2 id="qunit-banner"></h2>
+
+		<div id="qunit-testrunner-toolbar"></div>
+		<h2 id="qunit-userAgent"></h2>
+		<ol id="qunit-tests"></ol>
+		<div id="qunit-fixture"></div>
+
+		<!-- Test -->
+		
+		<!-- <script src="browser-globals.js"></script> -->
+
+	</body>
+</html>
