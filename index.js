@@ -750,128 +750,7 @@ define(function (require) {
 		TREE
 	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-	// initialize
-	function myTreeInit() {
-		var callLimit = 200;
-		var callCount = 0;
-		$('#myTree1').tree({
-			dataSource: function (parentData, callback) {
-				// log("Opening branch data: ", parentData);
-
-				if (callCount >= callLimit) {
-					setTimeout(function () {
-						callback({
-							data: [
-								{
-									"name": "Sky and Water I (with custom icon)",
-									"type": "item",
-									"attr": {
-										"id": "item1",
-										"data-icon": "glyphicon glyphicon-file"
-									}
-								},
-								{
-									"name": "Waterfall",
-									"type": "item",
-									"attr": {
-										"id": "item2"
-									}
-								},
-								{
-									"name": "Relativity (with custom icon)",
-									"type": "item",
-									"attr": {
-										"id": "item3",
-										"data-icon": "glyphicon glyphicon-picture"
-									}
-								},
-								{
-									"name": "Convex and Concave",
-									"type": "item",
-									"attr": {
-										"id": "item4"
-									}
-								}
-							]
-						});
-					}, 400);
-					return;
-				}
-
-				callCount++;
-
-				setTimeout(function () {
-					callback({
-						data: [
-							{
-								"name": "Ascending and Descending",
-								"type": "folder",
-								"attr": {
-									"id": "folder1",
-									"cssClass": "example-tree-class"
-								}
-							},
-							{
-								"name": "Sky and Water I (with custom icon)",
-								"type": "item",
-								"attr": {
-									"id": "item1",
-									"data-icon": "glyphicon glyphicon-file"
-								}
-							},
-							{
-								"name": "Drawing Hands",
-								"type": "folder",
-								"attr": {
-									"id": "folder2"
-								}
-							},
-							{
-								"name": "Waterfall",
-								"type": "item",
-								"attr": {
-									"id": "item2"
-								}
-							},
-							{
-								"name": "Belvedere",
-								"type": "folder",
-								"attr": {
-									"id": "folder3"
-								}
-							},
-							{
-								"name": "Relativity (with custom icon)",
-								"type": "item",
-								"attr": {
-									"id": "item3",
-									"data-icon": "glyphicon glyphicon-picture"
-								}
-							},
-							{
-								"name": "House of Stairs",
-								"type": "folder",
-								"attr": {
-									"id": "folder4"
-								}
-							},
-							{
-								"name": "Convex and Concave",
-								"type": "item",
-								"attr": {
-									"id": "item4"
-								}
-							}
-						]
-					});
-				}, 400);
-			},
-			folderSelect: false
-		});
-	}
-	myTreeInit();
-
-	$('#myTree2').tree({
+	$('#myTree1').tree({
 		dataSource: function (parentData, callback) {
 			log("Opening branch data: ", parentData);
 
@@ -944,6 +823,127 @@ define(function (require) {
 		folderSelect: true,
 		multiSelect: true
 	});
+
+// initialize
+function myTreeInit() {
+	var callLimit = 200;
+	var callCount = 0;
+	$('#myTree2').tree({
+		dataSource: function (parentData, callback) {
+			// log("Opening branch data: ", parentData);
+
+			if (callCount >= callLimit) {
+				setTimeout(function () {
+					callback({
+						data: [
+							{
+								"name": "Sky and Water I (with custom icon)",
+								"type": "item",
+								"attr": {
+									"id": "item1",
+									"data-icon": "glyphicon glyphicon-file"
+								}
+							},
+							{
+								"name": "Waterfall",
+								"type": "item",
+								"attr": {
+									"id": "item2"
+								}
+							},
+							{
+								"name": "Relativity (with custom icon)",
+								"type": "item",
+								"attr": {
+									"id": "item3",
+									"data-icon": "glyphicon glyphicon-picture"
+								}
+							},
+							{
+								"name": "Convex and Concave",
+								"type": "item",
+								"attr": {
+									"id": "item4"
+								}
+							}
+						]
+					});
+				}, 400);
+				return;
+			}
+
+			callCount++;
+
+			setTimeout(function () {
+				callback({
+					data: [
+						{
+							"name": "Ascending and Descending",
+							"type": "folder",
+							"attr": {
+								"id": "folder1",
+								"cssClass": "example-tree-class"
+							}
+						},
+						{
+							"name": "Sky and Water I (with custom icon)",
+							"type": "item",
+							"attr": {
+								"id": "item1",
+								"data-icon": "glyphicon glyphicon-file"
+							}
+						},
+						{
+							"name": "Drawing Hands",
+							"type": "folder",
+							"attr": {
+								"id": "folder2"
+							}
+						},
+						{
+							"name": "Waterfall",
+							"type": "item",
+							"attr": {
+								"id": "item2"
+							}
+						},
+						{
+							"name": "Belvedere",
+							"type": "folder",
+							"attr": {
+								"id": "folder3"
+							}
+						},
+						{
+							"name": "Relativity (with custom icon)",
+							"type": "item",
+							"attr": {
+								"id": "item3",
+								"data-icon": "glyphicon glyphicon-picture"
+							}
+						},
+						{
+							"name": "House of Stairs",
+							"type": "folder",
+							"attr": {
+								"id": "folder4"
+							}
+						},
+						{
+							"name": "Convex and Concave",
+							"type": "item",
+							"attr": {
+								"id": "item4"
+							}
+						}
+					]
+				});
+			}, 400);
+		},
+		folderSelect: false
+	});
+}
+myTreeInit();
 
 	// sample method buttons
 	$('#btnTreeDestroy').click(function () {

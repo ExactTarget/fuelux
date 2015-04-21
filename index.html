@@ -2306,27 +2306,8 @@
 		<section id="tree">
 			<h2>Tree</h2>
 			<div class="thin-box">
+				<h3>folders selectable (please note structure of treebranch)</h3>
 				<ul class="tree" id="myTree1" role="tree">
-					<li class="tree-branch hidden" data-template="treebranch" role="treeitem" aria-expanded="false">
-						<div class="tree-branch-header">
-							<button class="tree-branch-name">
-								<span class="glyphicon icon-caret glyphicon-play"></span>
-								<span class="glyphicon icon-folder glyphicon-folder-close"></span>
-								<span class="tree-label"></span>
-							</button>
-						</div>
-						<ul class="tree-branch-children" role="group"></ul>
-						<div class="tree-loader" role="alert">Loading...</div>
-					</li>
-					<li class="tree-item hidden" data-template="treeitem" role="treeitem">
-						<button class="tree-item-name">
-							<span class="glyphicon icon-item fueluxicon-bullet"></span>
-							<span class="tree-label"></span>
-						</button>
-					</li>
-				</ul>
-
-				<ul class="tree tree-folder-select" id="myTree2" role="tree">
 					<li class="tree-branch hidden" data-template="treebranch" role="treeitem" aria-expanded="false">
 						<div class="tree-branch-header">
 							<button class="glyphicon icon-caret glyphicon-play"><span class="sr-only">Open</span>
@@ -2346,6 +2327,28 @@
 						</button>
 					</li>
 				</ul>
+
+				<h3>only items selectable (please note structure of treebranch)</h3>
+				<ul class="tree" id="myTree2" role="tree">
+					<li class="tree-branch hidden" data-template="treebranch" role="treeitem" aria-expanded="false">
+						<div class="tree-branch-header">
+							<button class="tree-branch-name">
+								<span class="glyphicon icon-caret glyphicon-play"></span>
+								<span class="glyphicon icon-folder glyphicon-folder-close"></span>
+								<span class="tree-label"></span>
+							</button>
+						</div>
+						<ul class="tree-branch-children" role="group"></ul>
+						<div class="tree-loader" role="alert">Loading...</div>
+					</li>
+					<li class="tree-item hidden" data-template="treeitem" role="treeitem">
+						<button class="tree-item-name">
+							<span class="glyphicon icon-item fueluxicon-bullet"></span>
+							<span class="tree-label"></span>
+						</button>
+					</li>
+				</ul>
+
 			</div>
 			<div class="btn-panel">
 				<button type="button" class="btn btn-default" id="btnTreeDestroy">destroy and append</button>
