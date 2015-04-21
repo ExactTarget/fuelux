@@ -29,15 +29,11 @@ Read the [Getting started page](http://getfuelux.com/getting-started.html) for m
 
 Add `fuelux` class to the portion of the page using Fuel UX as seen [here](https://github.com/exacttarget/fuelux/blob/master/DETAILS.md#using-fuel-ux).
 
-Ensure all the dependencies are included on the page (eg, such as using the CDN as shown below).
+Ensure all the dependencies are included on the page (eg, such as using [jsDelivr CDN](http://www.jsdelivr.com/#!fuelux) as shown below).
 ```
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-<link href="//www.fuelcdn.com/fuelux/3.7.0/css/fuelux.min.css" rel="stylesheet">
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.1/js/bootstrap.min.js"></script>
-<script src="//www.fuelcdn.com/fuelux/3.7.0/js/fuelux.min.js"></script>
-
+<!-- load jQuery 1.11.x, Bootstrap 3.3.x, & Fuel UX 3.7.x -->
+<link href="//cdn.jsdelivr.net/g/bootstrap@3.3(css/bootstrap.min.css),fuelux@3.7(css/fuelux.min.css)" rel="stylesheet">
+<script src="//cdn.jsdelivr.net/g/jquery@1.11,bootstrap@3.3,fuelux@3.7"></script>
 ```
 
 ### Install
