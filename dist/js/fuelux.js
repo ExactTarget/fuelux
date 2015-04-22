@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.7.0
+ * Fuel UX v3.7.1 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -3000,7 +3000,9 @@
 				this.toggleFolder( ev.currentTarget );
 			}, this ) );
 
+			// folderSelect default is true
 			if ( this.options.folderSelect ) {
+				this.$element.addClass( 'tree-folder-select' );
 				this.$element.off( 'click.fu.tree', '.tree-branch-name' );
 				this.$element.on( 'click.fu.tree', '.icon-caret', $.proxy( function( ev ) {
 					this.toggleFolder( $( ev.currentTarget ).parent() );
