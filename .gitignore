@@ -35,3 +35,11 @@ dist/css/fuelux-dev.css
 dist/css/fuelux-dev.css.map
 dist/css/fuelux-fuelux-no-namespace.css.map
 
+# generate release notes
+notes.sh 
+
+# release task and commit
+stage.sh
+
+# push major branch, the version tag, and SFTP upload to CDN
+publish.sh
