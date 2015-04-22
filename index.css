@@ -46,3 +46,7 @@
 	font-style: italic;
 	font-weight: bold;
 }
+
+#myRepeater[data-currentview="list.frozen"] table thead tr th, #myRepeater[data-currentview="list.frozen"] .repeater-list-heading {
+	width: 400px;
+}

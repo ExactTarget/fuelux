@@ -566,11 +566,32 @@ define(function (require) {
 					thumbnail(options, callback);
 				}
 			},
-			list_selectable: 'multi',
 			list_noItemsHTML: 'no items found',
 			thumbnail_noItemsHTML: 'no items found',
-			thumbnail_infiniteScroll: {
-				hybrid: true
+			views: {
+				'list.list': {
+					dataSource: function (options, callback) {
+						list(options, callback);
+					},
+					list_selectable: 'multi'
+				},
+				'thumbnail': {
+					dataSource: function (options, callback) {
+						thumbnail(options, callback);
+					},
+					thumbnail_infiniteScroll: {
+						hybrid: true
+					}
+				},
+				'list.frozen': {
+					dataSource: function (options, callback) {
+						list(options, callback);
+					},
+					list_columnSizing:false,
+					list_columnSyncing: false,
+					list_selectable: false, // (single | multi)
+					list_frozenColumns: 1
+				}
 			}
 		});
 	}
@@ -591,6 +612,7 @@ define(function (require) {
 
 		initRepeater();
 	});
+
 
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
