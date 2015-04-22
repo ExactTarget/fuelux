@@ -1,18 +1,20 @@
 .repeater[data-viewtype="list"] {
-	.repeater-canvas.scrolling {
-		overflow: visible;
+	.repeater-canvas {
+		&.scrolling {
+			overflow: visible;
 
-		.repeater-list {
-			bottom: 0;
-			left: 0;
-			position: absolute;
-			right: 0;
-			top: 0;
-		}
+			.repeater-list {
+				bottom: 0;
+				left: 0;
+				position: absolute;
+				right: 0;
+				top: 0;
+			}
 
-		.repeater-list-wrapper {
-			height: 100%;
-			overflow: auto;
+			.repeater-list-wrapper {
+				height: 100%;
+				overflow: auto;
+			}
 		}
 
 		.repeater-list {
