@@ -49,6 +49,16 @@ dt[id]{
 	margin-top: -40px;
 }
 
+.fu-callout h1,
+.fu-callout h2,
+.fu-callout h3,
+.fu-callout h4,
+.fu-callout h5,
+.fu-callout h6,
+.fu-callout dt{
+	padding-top: 35px;
+}
+
 .header-anchor {
   position: absolute;
   opacity: 0;
@@ -523,7 +533,7 @@ dt:hover .header-anchor{
 
 /* Space things out */
 .fu-docs-section {
-	margin-bottom: 60px;
+	margin-bottom: 35px;
 }
 .fu-docs-section:last-child {
 	margin-bottom: 0;
@@ -611,7 +621,7 @@ dt:hover .header-anchor{
 /* Common styles for all types */
 .fu-callout {
   margin: 20px 0;
-  padding: 0 20px 60px 40px;/* no padding on top because of scrollspy/navbar hack, extra padding on left and bottom to try and even things out */
+  padding: 0 20px 35px 40px;/* no padding on top because of scrollspy/navbar hack, extra padding on left and bottom to try and even things out */
   border-left: 3px solid #eee;
 }
 .fu-callout h4 {
