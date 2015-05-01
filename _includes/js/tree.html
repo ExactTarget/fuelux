@@ -76,7 +76,7 @@ $('#myTree').tree({ dataSource: dataSource });
     <dt id="tree-usage-methods-populate">.tree('populate', $el)</dt>
     <dd><em>deprecated</em> Populate the passed in element as if it were a new copy of the instantiated tree. If you call this on an already instantiated tree, it will append all of the items to the tree again. You probably don't want to call this. It will most likely become a private function in the future.</dd>
 
-    <dt id="tree-usage-methods-render">.render('render')</dt>
+    <dt id="tree-usage-methods-render">.tree('render')</dt>
     <dd><em>caution</em> Currently a short-cut to <a href="#tree-usage-methods-populate">.tree('populate', $el)</a> but in the future may behave as a <code>refresh();</code>. At that point this may be deprecated in favor of an actual <code>refresh()</code> function.</dd>
 
     <dt id="tree-usage-methods-collapse">.tree('collapse')</dt>
