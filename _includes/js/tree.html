@@ -199,25 +199,29 @@ $('#myTree').tree({ dataSource: dataSource });
       </tr>
       </thead>
       <tbody>
+      	<tr>
+        <td>selected.fu.tree</td>
+        <td>This event fires when a user selects one or more items. Returns an object containing <code>{info: data}</code>. <code>data</code> represents an array of selected items.</td>
+      </tr>
       <tr>
         <td>deselected.fu.tree</td>
-        <td>This event fires when a user closes a sub-folder. Returns an object containing folder information.</td>
+        <td>This event fires when a user deselects one or more items. Returns an object containing <code>{info: data}</code>. <code>data</code> represents an array of selected items.</td>
       </tr>
       <tr>
         <td>loaded.fu.tree</td>
         <td>This event fires when sub-content has been is loaded.</td>
       </tr>
+	  <tr>
+        <td>updated.fu.tree</td>
+		  <td>This event fires after <code>selected.fu.tree , deselected.fu.tree</code> events. Returns an object containing selected items , curent item and event type.</td>
+      </tr>
       <tr>
-        <td>opened.fu.tree</td>
+        <td>disclosedFolder.fu.tree</td>
         <td>This event fires when a user opens a folder. Returns an object containing folder information.</td>
       </tr>
       <tr>
         <td>closed.fu.tree</td>
         <td>This event fires when a user closes a folder. Returns an object containing folder information.</td>
-      </tr>
-      <tr>
-        <td>selected.fu.tree</td>
-        <td>This event fires when a user selects one or more items. Returns an object containing <code>{info: data}</code>. <code>data</code> represents an array of selected items.</td>
       </tr>
       <tr>
         <td>closeAll.fu.tree</td>
