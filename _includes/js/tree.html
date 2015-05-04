@@ -201,50 +201,49 @@ $('#myTree').tree({ dataSource: dataSource });
       <tbody>
       	<tr>
         <td>selected.fu.tree</td>
-        <td>This event fires when a user selects one or more items. Returns an object containing <code>{info: data}</code>. <code>data</code> represents an array of selected items.</td>
+        <td>Fires when a user selects an item or folder. Returns an object containing an array of the selected items' jQuery data and the jQuery data of the triggering item. <code>{ selected: [array], target: [object] }</code></td>
       </tr>
       <tr>
         <td>deselected.fu.tree</td>
-        <td>This event fires when a user deselects one or more items. Returns an object containing <code>{info: data}</code>. <code>data</code> represents an array of selected items.</td>
+        <td>Fires when a user deselects an item or folder. Returns an object containing an array of the selected items' jQuery data and the jQuery data of the triggering item. <code>{ selected: [array], target: [object] }</code></td>
       </tr>
       <tr>
         <td>loaded.fu.tree</td>
-        <td>This event fires when sub-content has been is loaded.</td>
+        <td>Fires when sub-content has been is loaded. Returns the jQuery element of the folder loaded.</td>
       </tr>
 	  <tr>
         <td>updated.fu.tree</td>
-		  <td>This event fires after <code>selected.fu.tree , deselected.fu.tree</code> events. Returns an object containing selected items , curent item and event type.</td>
+        <td>Fires after <code>selected.fu.tree</code> and <code>deselected.fu.tree</code> events. Returns an object containing an array of selected items' jQuery data, the triggering jQuery element and the event type. <code>{ selected: [array], item: [object], eventType: [string] }</code></td>
       </tr>
       <tr>
         <td>disclosedFolder.fu.tree</td>
-        <td>This event fires when a user opens a folder. Returns an object containing folder information.</td>
+        <td>Fires when a user opens a folder. Returns an object containing the jQuery data of the opened folder.</td>
       </tr>
       <tr>
         <td>closed.fu.tree</td>
-        <td>This event fires when a user closes a folder. Returns an object containing folder information.</td>
+        <td>Fires when a user closes a folder. Returns an object containing the jQuery data of the closed folder.</td>
       </tr>
       <tr>
-        <td>closeAll.fu.tree</td>
-        <td>This event fires when all folders have finished closing</td>
+        <td>closedAll.fu.tree</td>
+        <td>Fires when all folders have finished closing. Returns an object containing an array of closed folders' jQuery data and the tree's jQuery element. The <code>length</code> of <code>reportedClosed</code> will provide the number of folders closed. <code>{ reportedClosed: [array], tree: [$element] }</code></td>
       </tr>
-      <tr>
       <tr>
         <td>disclosedVisible.fu.tree</td>
-        <td>This event fires when all visible folders have disclosed. Returns an object containing <code>{tree: $el, reportedOpened: N}</code></td>
+        <td>Fires when all visible folders have disclosed/opened. Returns an object containing an array of disclosed folders' jQuery data and the tree's jQuery element. The <code>length</code> of <code>reportedOpened</code> will provide the number of folders opened. <code>{ reportedOpened: [array], tree: [$element] }</code></td>
       </tbody>
         <td>exceededDisclosuresLimit.fu.tree</td>
-        <td>This event fires when tree halts disclosing due to hitting discloserLimit cap. Returns an object containing <code>{tree: $el, disclosures: N}</code></td>
+        <td>Fires when tree halts disclosing due to hitting discloserLimit cap. Returns an object containing <code>{ disclosures: [number], tree: [$element] }</code></td>
       </tbody>
       <tr>
         <td>disclosedAll.fu.tree</td>
-        <td>This event fires when all folders have disclosed. It will not fire if tree stops disclosing due to hitting discloserLimit cap. Returns an object containing <code>{tree: $el, disclosures: N}</code></td>
+        <td>Fires when all folders have disclosed. <em>It will not fire if tree stops disclosing due to hitting discloserLimit cap.</em> Returns an object containing <code>{ disclosures: [number], tree: [$element] }</code></td>
       </tbody>
     </table>
   </div><!-- ./fu-table-responsive -->
-  <p>All tree events are fired on the <code>.tree</code> classed element.</p>
+  <p>All tree events are triggered from the <code>.tree</code> classed element.</p>
 {% highlight js %}
-$('#myTree').on('loaded.fu.tree', function () {
-  // do something
+$('#myTree').on('selected.fu.tree', function (event, data) {
+  // do something with data: { selected: [array], target: [object] }
 })
 {% endhighlight %}
 
