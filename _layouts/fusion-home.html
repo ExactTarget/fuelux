@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" class="fuelux">
+	<head>
+		<!-- Meta, title, CSS, favicons, etc. -->
+		{% include header.html %}
+	</head>
+<!-- <body style="display:none;"> -->
+<body>
+	<!-- Page Content -->
+	{{ content }}
+    
+    <!-- Script is pulled from footer -->
+    <script>
+        require(['jquery', 'bootstrap', 'moment', 'assets/js/application'], function($){});
+    </script>
+</body>
+</html>
