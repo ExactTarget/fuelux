@@ -4,8 +4,8 @@
   <h1 id="radio" class="page-header">Radio <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/radio.js"><small>radio.js</small></a></h1>
 
   <p>The radio control provides a customized look and feel that can be standardized across all browsers.</p>
-  <div class="radio" data-initialize="radio" id="radioIllustration">
-    <label class="radio-custom">
+  <div class="radio" id="radioIllustration">
+    <label class="radio-custom" data-initialize="radio">
       <input class="sr-only" name="radioEx1" type="radio" value="option1">
       Browser-independent radio
     </label>
@@ -196,8 +196,8 @@
   <p>Use the <code>.highlight</code> class to add a background highlight upon check.
   </p>
   <div class="fu-example section">
-    <div class="radio highlight" data-initialize="radio">
-      <label class="radio-custom">
+    <div class="radio highlight">
+      <label class="radio-custom highlight" data-initialize="radio">
         <input class="sr-only" name="radioEx4" type="radio" value="option1">
         This block-level radio will highlight on check.
       </label>
@@ -208,8 +208,8 @@
     </label>
   </div>
   {% highlight html %}
-<div class="radio highlight" data-initialize="radio" id="myCustomRadioLabel10">
-  <label class="radio-custom">
+<div class="radio highlight" id="myCustomRadioLabel10">
+  <label class="radio-custom highlight" data-initialize="radio">
     <input class="sr-only" name="radioEx4" type="radio" value="option1">
     This block-level radio will highlight on check.
   </label>
