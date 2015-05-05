@@ -40,7 +40,7 @@
 
 		&.highlight {
 
-				input:not(.sr-only) {
+				input[type="checkbox"]:not(.sr-only), input[type="radio"]:not(.sr-only) {
 				& ~ label {
 					padding: 4px;
 					border-radius: @baseBorderRadius;
@@ -53,7 +53,7 @@
 			}
 		}
 
-		input:not(.sr-only) {
+		input[type="checkbox"]:not(.sr-only), input[type="radio"]:not(.sr-only) {
 
 			position: absolute;
 			width: 1px;
@@ -148,7 +148,7 @@
 
 
 	&.highlight {
-		input:not(.sr-only) {
+		input[type="checkbox"]:not(.sr-only), input[type="radio"]:not(.sr-only) {
 			& ~ label {
 				left: -8px;
 				position: relative;
