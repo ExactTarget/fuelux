@@ -42,7 +42,9 @@
 			this.toggleFolder(ev.currentTarget);
 		}, this));
 
+		// folderSelect default is true
 		if (this.options.folderSelect) {
+			this.$element.addClass('tree-folder-select');
 			this.$element.off('click.fu.tree', '.tree-branch-name');
 			this.$element.on('click.fu.tree', '.icon-caret', $.proxy(function (ev) {
 				this.toggleFolder($(ev.currentTarget).parent());
@@ -78,19 +80,19 @@
 			var loader = $parent.find('.tree-loader:eq(0)');
 			var treeData = $parent.data();
 
-			loader.removeClass('hide');
+			loader.removeClass('hide hidden'); // hide is deprecated
 			this.options.dataSource(treeData ? treeData : {}, function (items) {
-				loader.addClass('hide');
+				loader.addClass('hidden');
 
 				$.each(items.data, function (index, value) {
 					var $entity;
 
 					if (value.type === 'folder') {
-						$entity = self.$element.find('[data-template=treebranch]:eq(0)').clone().removeClass('hide').removeData('template');
+						$entity = self.$element.find('[data-template=treebranch]:eq(0)').clone().removeClass('hide hidden').removeData('template'); // hide is deprecated
 						$entity.data(value);
 						$entity.find('.tree-branch-name > .tree-label').html(value.text || value.name);
 					} else if (value.type === 'item') {
-						$entity = self.$element.find('[data-template=treeitem]:eq(0)').clone().removeClass('hide').removeData('template');
+						$entity = self.$element.find('[data-template=treeitem]:eq(0)').clone().removeClass('hide hidden').removeData('template'); // hide is deprecated
 						$entity.find('.tree-item-name > .tree-label').html(value.text || value.name);
 						$entity.data(value);
 					}
@@ -213,13 +215,8 @@
 			});
 		},
 
-		openFolder: function openFolder(el, ignoreRedundantOpens) {
+		discloseFolder: function discloseFolder(el) {
 			var $el = $(el);
-
-			//don't break the API :| (make this functionally the same as calling 'toggleFolder')
-			if (!ignoreRedundantOpens && $el.find('.glyphicon-folder-open').length && !this.options.ignoreRedundantOpens) {
-				this.closeFolder(el);
-			}
 
 			var $branch = $el.closest('.tree-branch');
 			var $treeFolderContent = $branch.find('.tree-branch-children');
@@ -228,7 +225,7 @@
 			//take care of the styles
 			$branch.addClass('tree-open');
 			$branch.attr('aria-expanded', 'true');
-			$treeFolderContentFirstChild.removeClass('hide');
+			$treeFolderContentFirstChild.removeClass('hide hidden'); // hide is deprecated
 			$branch.find('> .tree-branch-header .icon-folder').eq(0)
 				.removeClass('glyphicon-folder-close')
 				.addClass('glyphicon-folder-open');
@@ -238,7 +235,7 @@
 				this.populate($treeFolderContent);
 			}
 
-			this.$element.trigger('opened.fu.tree', $branch.data());
+			this.$element.trigger('disclosedFolder.fu.tree', $branch.data());
 		},
 
 		closeFolder: function closeFolder(el) {
@@ -250,7 +247,7 @@
 			//take care of the styles
 			$branch.removeClass('tree-open');
 			$branch.attr('aria-expanded', 'false');
-			$treeFolderContentFirstChild.addClass('hide');
+			$treeFolderContentFirstChild.addClass('hidden');
 			$branch.find('> .tree-branch-header .icon-folder').eq(0)
 				.removeClass('glyphicon-folder-open')
 				.addClass('glyphicon-folder-close');
@@ -267,7 +264,7 @@
 			var $el = $(el);
 
 			if ($el.find('.glyphicon-folder-close').length) {
-				this.openFolder(el);
+				this.discloseFolder(el);
 			} else if ($el.find('.glyphicon-folder-open').length) {
 				this.closeFolder(el);
 			}
@@ -339,7 +336,8 @@
 			var closedReported = function closedReported(event, closed) {
 				reportedClosed.push(closed);
 
-				if (self.$element.find(".tree-branch.tree-open:not('.hide')").length === 0) {
+				// hide is deprecated
+				if (self.$element.find(".tree-branch.tree-open:not('.hidden, .hide')").length === 0) {
 					self.$element.trigger('closedAll.fu.tree', {
 						tree: self.$element,
 						reportedClosed: reportedClosed
@@ -351,7 +349,7 @@
 			//trigger callback when all folders have reported closed
 			self.$element.on('closed.fu.tree', closedReported);
 
-			self.$element.find(".tree-branch.tree-open:not('.hide')").each(function () {
+			self.$element.find(".tree-branch.tree-open:not('.hidden, .hide')").each(function () {
 				self.closeFolder(this);
 			});
 		},
@@ -359,7 +357,8 @@
 		//disclose visible will only disclose visible tree folders
 		discloseVisible: function discloseVisible() {
 			var self = this;
-			var $openableFolders = self.$element.find(".tree-branch:not('.tree-open, .hide')");
+
+			var $openableFolders = self.$element.find(".tree-branch:not('.tree-open, .hidden, .hide')");
 			var reportedOpened = [];
 
 			var openReported = function openReported(event, opened) {
@@ -382,8 +381,8 @@
 			self.$element.on('loaded.fu.tree', openReported);
 
 			// open all visible folders
-			self.$element.find(".tree-branch:not('.tree-open, .hide')").each(function triggerOpen() {
-				self.openFolder($(this).find('.tree-branch-header'), true);
+			self.$element.find(".tree-branch:not('.tree-open, .hidden, .hide')").each(function triggerOpen() {
+				self.discloseFolder($(this).find('.tree-branch-header'));
 			});
 		},
 
@@ -401,7 +400,7 @@
 			}
 
 			var isExceededLimit = (self.options.disclosuresUpperLimit >= 1 && self.$element.data('disclosures') >= self.options.disclosuresUpperLimit);
-			var isAllDisclosed = self.$element.find(".tree-branch:not('.tree-open, .hide')").length === 0;
+			var isAllDisclosed = self.$element.find(".tree-branch:not('.tree-open, .hidden, .hide')").length === 0;
 
 
 			if (!isAllDisclosed) {
@@ -468,6 +467,8 @@
 
 	//alias for collapse for consistency. "Collapse" is an ambiguous term (collapse what? All? One specific branch?)
 	Tree.prototype.closeAll = Tree.prototype.collapse;
+	//alias for backwards compatibility because there's no reason not to.
+	Tree.prototype.openFolder = Tree.prototype.discloseFolder;
 
 	// TREE PLUGIN DEFINITION
 
@@ -498,15 +499,6 @@
 		cacheItems: true,
 		folderSelect: true,
 		itemSelect: true,
-		/*
-		* Calling "open" on something, should do that. However, the current API
-		* instead treats "open" as a "toggle" and will close a folder that is open
-		* if you call `openFolder` on it. Setting `ignoreRedundantOpens` to `true`
-		* will make the folder instead ignore the redundant call and stay open.
-		* This allows you to fix the API until 3.7.x when we can deprecate the switch
-		* and make `openFolder` behave correctly by default.
-		*/
-		ignoreRedundantOpens: false,
 		/*
 		* How many times `discloseAll` should be called before a stopping and firing
 		* an `exceededDisclosuresLimit` event. You can force it to continue by

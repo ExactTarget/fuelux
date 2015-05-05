@@ -1,6 +1,6 @@
 {
   "name": "moment",
-  "version": "2.9.0",
+  "version": "2.10.2",
   "main": "moment.js",
   "ignore": [
     "**/.*",
@@ -18,11 +18,11 @@
     "package.json"
   ],
   "homepage": "https://github.com/moment/moment",
-  "_release": "2.9.0",
+  "_release": "2.10.2",
   "_resolution": {
     "type": "version",
-    "tag": "2.9.0",
-    "commit": "8b35bc74c0e88c1a8c58ccb90117a9edc9f6a479"
+    "tag": "2.10.2",
+    "commit": "b54fa78b74d55a1680293b5260a42bd2751c333c"
   },
   "_source": "git://github.com/moment/moment.git",
   "_target": "2.x",

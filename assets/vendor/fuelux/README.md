@@ -32,18 +32,18 @@ Add `fuelux` class to the portion of the page using Fuel UX as seen [here](https
 Ensure all the dependencies are included on the page (eg, such as using the CDN as shown below).
 ```
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-<link href="//www.fuelcdn.com/fuelux/3.6.4/css/fuelux.min.css" rel="stylesheet">
+<link href="//www.fuelcdn.com/fuelux/3.7.1/css/fuelux.min.css" rel="stylesheet">
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.1/js/bootstrap.min.js"></script>
-<script src="//www.fuelcdn.com/fuelux/3.6.4/js/fuelux.min.js"></script>
+<script src="//www.fuelcdn.com/fuelux/3.7.1/js/fuelux.min.js"></script>
 
 ```
 
 ### Install
 A few ways available to install.
 
-- Request files from [the Fuel UX CDN](http://www.fuelcdn.com/fuelux/3.6.4/)
+- Request files from [the Fuel UX CDN](http://www.fuelcdn.com/fuelux/3.7.1/)
 - [Download the latest release](https://github.com/exacttarget/fuelux/archive/3.4.0.zip).
 - Clone the repo: `git clone https://github.com/exacttarget/fuelux.git`.
 - Install with [Bower](http://bower.io): `bower install fuelux`.
@@ -132,10 +132,6 @@ Our aim is to provide a suite of related but independent projects that help web 
 |Stephen Williams | [![swilliamsui on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/swilliamsui) [![swilliamset on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/swilliamset)|
 |Dave Woodward | [![futuremint on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/futuremint) [![futuremint on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/futuremint)|
 
-|Creator | |
-|:----|----:|
-|Adam Alexander | [![adamalex on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/adamalex) [![adamalex on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/adamalex) |
-
 Special thanks to [major contributors](https://github.com/exacttarget/fuelux/blob/master/DETAILS.md#contributors) and [active contributors](https://github.com/ExactTarget/fuelux/graphs/contributors).
 
 And thank you to all those that have submitted issues and contributed to this library.
@@ -145,6 +141,3 @@ And thank you to all those that have submitted issues and contributed to this li
 Copyright &copy; 2012-2014 Salesforce Marketing Cloud, Inc.
 
 View [BSD-3 license](https://github.com/ExactTarget/fuelux/blob/master/LICENSE).
-
-
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/8b519d39e18063752f24876583a6526b "githalytics.com")](http://githalytics.com/ExactTarget/fuelux)
