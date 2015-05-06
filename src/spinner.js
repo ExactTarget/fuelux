@@ -201,6 +201,8 @@ define(function(require) {
 			var data    = $this.data( 'spinner' );
 			var options = typeof option === 'object' && option;
 
+			options = $.extend({}, $this.data(), options);
+
 			if( !data ) $this.data('spinner', (data = new Spinner( this, options ) ) );
 			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
