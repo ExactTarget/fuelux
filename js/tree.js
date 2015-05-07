@@ -60,6 +60,13 @@
 	Tree.prototype = {
 		constructor: Tree,
 
+		clearSelected: function clearSelected(nodes) {
+			nodes = nodes || this.$element;
+			var selectedElements = $(nodes).find('.tree-selected');
+			selectedElements.removeClass('tree-selected');
+			return selectedElements;
+		},
+
 		destroy: function destroy() {
 			// any external bindings [none]
 			// empty elements to return to original markup
@@ -159,58 +166,104 @@
 			});
 		},
 
-		selectItem: function selectItem(el) {
-			if (!this.options.itemSelect) return;
-			var $el = $(el);
-			var selData = $el.data();
-			var $all = this.$element.find('.tree-selected');
-			var data = [];
-			var $icon = $el.find('.icon-item');
+		selectTreeNode: function selectItem(clickedElement, nodeType) {
+			var $clickedElement = $(clickedElement);
+			var $clickedElementIcon;
+			var $selectedElements = this.$element.find('.tree-selected');
+			var eventType;
+			var selectedDataForEvent = [];
+			var clickedElementData;
 
-			if (this.options.multiSelect) {
-				$.each($all, function (index, value) {
-					var $val = $(value);
-					if ($val[0] !== $el[0]) {
-						data.push($(value).data());
+			if (nodeType === 'folder') {
+				// make the $clickedElement the container branch
+				$clickedElement = $clickedElement.closest('.tree-branch');
+				$clickedElementIcon = $clickedElement.find('.icon-folder');
+			}
+			else {
+				$clickedElementIcon = $clickedElement.find('.icon-item');
+			}
+
+			clickedElementData = $clickedElement.data();
+
+			function multiSelectSyncNodes() {
+				// search for currently selected and add to selected data list if needed
+				$.each($selectedElements, function (index, element) {
+					var $element = $(element);
+					if ($element[0] !== $clickedElement[0]) {
+						selectedDataForEvent.push( $($element).data() );
 					}
 				});
-			} else if ($all[0] !== $el[0]) {
-				$all.removeClass('tree-selected')
-					.find('.glyphicon').removeClass('glyphicon-ok').addClass('fueluxicon-bullet');
-				data.push(selData);
+
+				if ($clickedElement.hasClass('tree-selected')) {
+					// update styling of clicked element
+					$clickedElement.removeClass('tree-selected');
+					if ( $clickedElement.data('type') === 'item' && $clickedElementIcon.hasClass('glyphicon-ok') ) { 
+						$clickedElementIcon.removeClass('glyphicon-ok').addClass('fueluxicon-bullet'); // make bullet
+					}
+					// set event data
+					eventType = 'deselected';
+				} 
+				else {
+					// update styling of clicked element
+					$clickedElement.addClass('tree-selected');
+					if ( $clickedElement.data('type') === 'item' && $clickedElementIcon.hasClass('fueluxicon-bullet') ) { 
+						$clickedElementIcon.removeClass('fueluxicon-bullet').addClass('glyphicon-ok'); // make checkmark
+					}
+					// set event data
+					eventType = 'selected';
+					selectedDataForEvent.push(clickedElementData);
+				}
 			}
 
-			var eventType = 'selected';
-			if ($el.hasClass('tree-selected')) {
-				eventType = 'deselected';
-				$el.removeClass('tree-selected');
-				if ($icon.hasClass('glyphicon-ok') || $icon.hasClass('fueluxicon-bullet')) {
-					$icon.removeClass('glyphicon-ok').addClass('fueluxicon-bullet');
+			function singleSelectSyncNodes(self) {
+				// element is not currently selected
+				if ($selectedElements[0] !== $clickedElement[0]) {
+					var clearedElements = self.clearSelected(self.$element);
+					// change styling of deselected element
+					if ($(clearedElements[0]).data('type') === 'item' ) {
+						if( $(clearedElements[0]).find( '.glyphicon' ).hasClass('glyphicon-ok') ) {
+							$(clearedElements[0]).find( '.glyphicon' ).removeClass( 'glyphicon-ok' ).addClass( 'fueluxicon-bullet' );
+						}
+					}
+					// update styling of clicked element
+					$clickedElement.addClass('tree-selected');
+					if ( $clickedElement.data('type') === 'item' && $clickedElementIcon.hasClass('fueluxicon-bullet') ) { 
+						$clickedElementIcon.removeClass('fueluxicon-bullet').addClass('glyphicon-ok'); // make checkmark
+					}
+					// set event data
+					eventType = 'selected';
+					selectedDataForEvent = [clickedElementData];
 				}
+				else {
+					// add styling to clicked element
+					$clickedElement.removeClass('tree-selected');
+					if ( $clickedElement.data('type') === 'item' && $clickedElementIcon.hasClass('glyphicon-ok') ) { 
+						$clickedElementIcon.removeClass('glyphicon-ok').addClass('fueluxicon-bullet'); // make bullet
+					}
 
-			} else {
-				$el.addClass ('tree-selected');
-				// add tree dot back in
-				if ($icon.hasClass('glyphicon-ok') || $icon.hasClass('fueluxicon-bullet')) {
-					$icon.removeClass('fueluxicon-bullet').addClass('glyphicon-ok');
+					// set event data
+					eventType = 'deselected';
+					selectedDataForEvent = [];
 				}
-
-				if (this.options.multiSelect) {
-					data.push(selData);
-				}
-
 			}
 
+			// start here
+			if ( this.options.multiSelect ) {
+				multiSelectSyncNodes(this);
+			}
+			else {
+				singleSelectSyncNodes(this);
+			} 
+
+			// all done with the DOM, now fire events
 			this.$element.trigger(eventType + '.fu.tree', {
-				target: selData,
-				selected: data
+				target: clickedElementData,
+				selected: selectedDataForEvent
 			});
 
-			// Return new list of selected items, the item
-			// clicked, and the type of event:
-			$el.trigger('updated.fu.tree', {
-				selected: data,
-				item: $el,
+			$clickedElement.trigger('updated.fu.tree', {
+				selected: selectedDataForEvent,
+				item: $clickedElement,
 				eventType: eventType
 			});
 		},
@@ -270,52 +323,16 @@
 			}
 		},
 
-		selectFolder: function selectFolder(clickedElement) {
-			if (!this.options.folderSelect) return;
-			var $clickedElement = $(clickedElement);
-			var $clickedBranch = $clickedElement.closest('.tree-branch');
-			var $selectedBranch = this.$element.find('.tree-branch.tree-selected');
-			var clickedData = $clickedBranch.data();
-			var selectedData = [];
-			var eventType = 'selected';
-
-			// select clicked item
-			if ($clickedBranch.hasClass('tree-selected')) {
-				eventType = 'deselected';
-				$clickedBranch.removeClass('tree-selected');
-			} else {
-				$clickedBranch.addClass('tree-selected');
+		selectFolder: function selectFolder(el) {
+			if (this.options.folderSelect) {
+				this.selectTreeNode(el, 'folder');
 			}
+		},
 
-			if (this.options.multiSelect) {
-				// get currently selected
-				$selectedBranch = this.$element.find('.tree-branch.tree-selected');
-
-				$.each($selectedBranch, function (index, value) {
-					var $value = $(value);
-					if ($value[0] !== $clickedElement[0]) {
-						selectedData.push($(value).data());
-					}
-				});
-
-			} else if ($selectedBranch[0] !== $clickedElement[0]) {
-				$selectedBranch.removeClass('tree-selected');
-
-				selectedData.push(clickedData);
+		selectItem: function selectItem(el) {
+			if (this.options.itemSelect) {
+				this.selectTreeNode(el, 'item');
 			}
-
-			this.$element.trigger(eventType + '.fu.tree', {
-				target: clickedData,
-				selected: selectedData
-			});
-
-			// Return new list of selected items, the item
-			// clicked, and the type of event:
-			$clickedElement.trigger('updated.fu.tree', {
-				selected: selectedData,
-				item: $clickedElement,
-				eventType: eventType
-			});
 		},
 
 		selectedItems: function selectedItems() {

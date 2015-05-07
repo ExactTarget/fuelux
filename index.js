@@ -992,6 +992,10 @@ myTreeInit();
 		myTreeInit();
 	});
 
+	$('#btnTreeClearSelected').click(function () {
+		log('Items/folders cleared: ', $('#myTree1').tree('clearSelected') );
+	});
+
 	$('#btnTreeDiscloseVisible').click(function () {
 		$('#myTree1').tree('discloseVisible');
 	});
