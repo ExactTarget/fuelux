@@ -1,3 +1,22 @@
 #fusion-body{
-    padding:50px;   
+    padding:50px;
+    padding-top:0px;
+}
+h1 .header-anchor{
+    left:-1px;   
+}
+h2 .header-anchor{
+    left:7px;
+}
+h3 .header-anchor{
+    left:12px;   
+}
+h4 .header-anchor{
+    left:15px;   
+}
+dt .header-anchor{
+    left:20px;   
+}
+h1:first-of-type{
+    padding-top:0px;   
 }
