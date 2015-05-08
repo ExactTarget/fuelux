@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" class="fuelux">
+	<head>
+		<!-- Meta, title, CSS, favicons, etc. -->
+		{% include header.html %}
+        
+        <!-- fusion specific css -->
+        <link type="text/css" href="/assets/css/fusion.css" rel="stylesheet" />
+	</head>
+<body>
+    <div id="fusion-body">
+	   <!-- Page Content -->
+	   {{ content }}
+    </div>
+    <!-- Script is pulled from footer -->
+    <script>
+        require(['jquery', 'bootstrap', 'moment', 'assets/js/application'], function($){});
+    </script>
+</body>
+</html>
