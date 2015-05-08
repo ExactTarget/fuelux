@@ -37,7 +37,9 @@
     "grunt-umd": "2.x",
     "grunt-zip": "0.x",
     "load-grunt-tasks": "3.x",
-    "semver": "4.x"
+    "semver": "4.x",
+	"grunt-exec": "^0.4.6",
+    "spacejam": "^1.1.1"
   },
   "engines": {
     "node": "0.10.x"

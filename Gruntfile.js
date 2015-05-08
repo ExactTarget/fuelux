@@ -13,16 +13,16 @@ module.exports = function (grunt) {
 	grunt.initConfig({
 		// Metadata
 		bannerRelease: '/*!\n' +
-		' * Fuel UX v<%= pkg.version %> \n' +
-		' * Copyright 2012-<%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
-		' * Licensed under the <%= pkg.license.type %> license (<%= pkg.license.url %>)\n' +
-		' */\n',
+			' * Fuel UX v<%= pkg.version %> \n' +
+			' * Copyright 2012-<%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
+			' * Licensed under the <%= pkg.license.type %> license (<%= pkg.license.url %>)\n' +
+			' */\n',
 		banner: '/*!\n' +
-		' * Fuel UX EDGE - Built <%= grunt.template.today("yyyy/mm/dd, h:MM:ss TT") %> \n' +
-		' * Previous release: v<%= pkg.version %> \n' +
-		' * Copyright 2012-<%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
-		' * Licensed under the <%= pkg.license.type %> license (<%= pkg.license.url %>)\n' +
-		' */\n',
+			' * Fuel UX EDGE - Built <%= grunt.template.today("yyyy/mm/dd, h:MM:ss TT") %> \n' +
+			' * Previous release: v<%= pkg.version %> \n' +
+			' * Copyright 2012-<%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
+			' * Licensed under the <%= pkg.license.type %> license (<%= pkg.license.url %>)\n' +
+			' */\n',
 		bump: {
 			options: {
 				files: ['bower.json', 'package.json'],
@@ -37,24 +37,21 @@ module.exports = function (grunt) {
 		},
 		jqueryCheck: 'if (typeof jQuery === \'undefined\') { throw new Error(\'Fuel UX\\\'s JavaScript requires jQuery\') }\n\n',
 		bootstrapCheck: 'if (typeof jQuery.fn.dropdown === \'undefined\' || typeof jQuery.fn.collapse === \'undefined\') ' +
-		'{ throw new Error(\'Fuel UX\\\'s JavaScript requires Bootstrap\') }\n\n',
+			'{ throw new Error(\'Fuel UX\\\'s JavaScript requires Bootstrap\') }\n\n',
 		pkg: grunt.file.readJSON('package.json'),
 		// Try ENV variables (export SAUCE_ACCESS_KEY=XXXX), if key doesn't exist, try key file
 		sauceLoginFile: grunt.file.exists('SAUCE_API_KEY.yml') ? grunt.file.readYAML('SAUCE_API_KEY.yml') : undefined,
 		sauceUser: process.env.SAUCE_USERNAME || 'fuelux',
 		sauceKey: process.env.SAUCE_ACCESS_KEY ? process.env.SAUCE_ACCESS_KEY : '<%= sauceLoginFile.key %>',
 		// TEST URLS
-		allTestUrls: ['2.1.0', '1.11.0', '1.9.1', 'browserGlobals', 'noMoment', 'codeCoverage' ].map(function (type) {
+		allTestUrls: ['2.1.0', '1.11.0', '1.9.1', 'browserGlobals', 'noMoment', 'codeCoverage'].map(function (type) {
 			if (type === 'browserGlobals') {
 				return 'http://localhost:<%= connect.testServer.options.port %>/test/browser-globals.html';
-			}
-			else if (type === 'codeCoverage') {
+			} else if (type === 'codeCoverage') {
 				return 'http://localhost:<%= connect.testServer.options.port %>/test/?coverage=true';
-			}
-			else if (type === 'noMoment') {
+			} else if (type === 'noMoment') {
 				return 'http://localhost:<%= connect.testServer.options.port %>/test/?no-moment=true';
-			}
-			else {
+			} else {
 				// test dist with multiple jQuery versions
 				return 'http://localhost:<%= connect.testServer.options.port %>/test/?testdist=true';
 			}
@@ -72,8 +69,19 @@ module.exports = function (grunt) {
 		},
 		clean: {
 			dist: ['dist'],
-			zipsrc: ['dist/fuelux'],// temp folder
-			screenshots: ['page-at-timeout-*.jpg']
+			zipsrc: ['dist/fuelux'], // temp folder
+			screenshots: ['page-at-timeout-*.jpg'],
+			meteor: ['.build.*', 'versions.json']
+		},
+		exec: {
+			'meteor-init': {
+				command: [
+          'type meteor >/dev/null 2>&1 || { curl https://install.meteor.com/ | sh; }'
+        ].join(';')
+			},
+			'meteor-publish': {
+				command: 'meteor publish'
+			}
 		},
 		compress: {
 			zip: {
@@ -119,16 +127,16 @@ module.exports = function (grunt) {
 				},
 				options: {
 					banner: '<%= banner %>' + '\n\n' +
-					'// For more information on UMD visit: https://github.com/umdjs/umd/' + '\n' +
-					'(function (factory) {' + '\n' +
-					'\tif (typeof define === \'function\' && define.amd) {' + '\n' +
-					'\t\tdefine([\'jquery\', \'bootstrap\'], factory);' + '\n' +
-					'\t} else {' + '\n' +
-					'\t\tfactory(jQuery);' + '\n' +
-					'\t}' + '\n' +
-					'}(function (jQuery) {\n\n' +
-					'<%= jqueryCheck %>' +
-					'<%= bootstrapCheck %>',
+						'// For more information on UMD visit: https://github.com/umdjs/umd/' + '\n' +
+						'(function (factory) {' + '\n' +
+						'\tif (typeof define === \'function\' && define.amd) {' + '\n' +
+						'\t\tdefine([\'jquery\', \'bootstrap\'], factory);' + '\n' +
+						'\t} else {' + '\n' +
+						'\t\tfactory(jQuery);' + '\n' +
+						'\t}' + '\n' +
+						'}(function (jQuery) {\n\n' +
+						'<%= jqueryCheck %>' +
+						'<%= bootstrapCheck %>',
 					footer: '\n}));',
 					process: function (source) {
 						source = '(function ($) {\n\n' +
@@ -163,7 +171,7 @@ module.exports = function (grunt) {
 					},
 					hostname: '*',
 					port: 9000, // allows main server to be run simultaneously
-					useAvailablePort: true// increment port number, if unavailable...
+					useAvailablePort: true // increment port number, if unavailable...
 				}
 			}
 		},
@@ -223,7 +231,7 @@ module.exports = function (grunt) {
 				noarg: true,
 				sub: true,
 				undef: true,
-				unused: false// changed
+				unused: false // changed
 			},
 			sourceAndDist: ['Gruntfile.js', 'js/*.js', 'dist/fuelux.js'],
 			tests: {
@@ -373,7 +381,7 @@ module.exports = function (grunt) {
 		replace: {
 			readme: {
 				src: ['DETAILS.md', 'README.md'],
-				overwrite: true,// overwrite matched source files
+				overwrite: true, // overwrite matched source files
 				replacements: [{
 					from: /fuelux\/\d\.\d\.\d/g,
 					to: "fuelux/<%= pkg.version %>"
@@ -451,10 +459,10 @@ module.exports = function (grunt) {
 			// if many errors are found, this may log to console while other tasks are running
 			options: {
 				reset: function () {
-					grunt.option('reset') || false ;
+					grunt.option('reset') || false;
 				},
 				stoponerror: true,
-				relaxerror: [//ignores these errors
+				relaxerror: [ //ignores these errors
 					'Section lacks heading. Consider using h2-h6 elements to add identifying headings to all sections.',
 					'Bad value X-UA-Compatible for attribute http-equiv on element meta.',
 					'Element head is missing a required instance of child element title.'
@@ -521,7 +529,11 @@ module.exports = function (grunt) {
 	require('load-grunt-tasks')(grunt, {
 		scope: 'devDependencies'
 	});
-
+	
+	grunt.loadNpmTasks('grunt-exec');
+	
+	// METEOR
+	grunt.registerTask('meteor-publish', ['exec:meteor-init', 'exec:meteor-publish']);
 
 	/* -------------
 		BUILD
@@ -555,32 +567,25 @@ module.exports = function (grunt) {
 		TESTS
 	------------- */
 	// The default build task
-	grunt.registerTask('default', 'Run source file tests. Pass --no-resetdist to keep "dist" changes from being wiped out',
-		['test', 'clean:screenshots', 'resetdist']);
+	grunt.registerTask('default', 'Run source file tests. Pass --no-resetdist to keep "dist" changes from being wiped out', ['test', 'clean:screenshots', 'resetdist']);
 
 	// to be run prior to submitting a PR
-	grunt.registerTask('test', 'run jshint, qunit source w/ coverage, and validate HTML',
-		['jshint', 'connect:testServer', 'blanket_qunit:source', 'qunit:noMoment', 'qunit:globals', 'validation']);
+	grunt.registerTask('test', 'run jshint, qunit source w/ coverage, and validate HTML', ['jshint', 'connect:testServer', 'blanket_qunit:source', 'qunit:noMoment', 'qunit:globals', 'validation']);
 
 	//If qunit:source is working but qunit:full is breaking, check to see if the dist broke the code. This would be especially useful if we start mangling our code, but, is 99.99% unlikely right now
-	grunt.registerTask('validate-dist', 'run qunit:source, dist, and then qunit:full',
-		['connect:testServer', 'qunit:source', 'dist', 'qunit:dist']);
+	grunt.registerTask('validate-dist', 'run qunit:source, dist, and then qunit:full', ['connect:testServer', 'qunit:source', 'dist', 'qunit:dist']);
 
 	// multiple jQuery versions, then run SauceLabs VMs
-	grunt.registerTask('releasetest', 'run jshint, build dist, all source tests, validation, and qunit on SauceLabs',
-		['test', 'dist', 'qunit:dist', 'saucelabs-qunit:defaultBrowsers']);
+	grunt.registerTask('releasetest', 'run jshint, build dist, all source tests, validation, and qunit on SauceLabs', ['test', 'dist', 'qunit:dist', 'saucelabs-qunit:defaultBrowsers']);
 
 	// can be run locally instead of through TravisCI, but requires the Fuel UX Saucelabs API key file which is not public at this time.
-	grunt.registerTask('saucelabs', 'run jshint, and qunit on saucelabs',
-		['connect:testServer', 'jshint', 'saucelabs-qunit:defaultBrowsers']);
+	grunt.registerTask('saucelabs', 'run jshint, and qunit on saucelabs', ['connect:testServer', 'jshint', 'saucelabs-qunit:defaultBrowsers']);
 
 	// can be run locally instead of through TravisCI, but requires the FuelUX Saucelabs API key file which is not public at this time.
-	grunt.registerTask('trickysauce', 'run tests, jshint, and qunit for "tricky browsers" (IE8-11)',
-		['connect:testServer', 'jshint', 'saucelabs-qunit:trickyBrowsers']);
+	grunt.registerTask('trickysauce', 'run tests, jshint, and qunit for "tricky browsers" (IE8-11)', ['connect:testServer', 'jshint', 'saucelabs-qunit:trickyBrowsers']);
 
 	// Travis CI task. This task no longer uses SauceLabs. Please run 'grunt saucelabs' manually.
-	grunt.registerTask('travisci', 'Tests to run when in Travis CI environment',
-		['test', 'dist', 'qunit:dist']);
+	grunt.registerTask('travisci', 'Tests to run when in Travis CI environment', ['test', 'dist', 'qunit:dist']);
 
 	//if you've already accidentally added your files for commit, this will at least unstage them. If you haven't, this will wipe them out.
 	grunt.registerTask('resetdist', 'resets changes to dist to keep them from being checked in', function () {
@@ -665,8 +670,8 @@ module.exports = function (grunt) {
 	});
 
 	// Complies the less files into the -dev versions, does not overwrite the main css files.
-	grunt.registerTask('servedev', 'Serve the files with no "dist" build or tests. Optional --no-less to also disable compiling less into css.', function() {
-		if (! grunt.option('no-less') ) {
+	grunt.registerTask('servedev', 'Serve the files with no "dist" build or tests. Optional --no-less to also disable compiling less into css.', function () {
+		if (!grunt.option('no-less')) {
 			grunt.task.run(['distcssdev']);
 		}
 		grunt.task.run(['connect:server', 'watch:cssdev']);
