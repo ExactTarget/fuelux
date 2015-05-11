@@ -99,7 +99,7 @@
 		this.$element.find('.datepicker').on('changed.fu.datepicker', $.proxy(this.changed, this));
 		this.$element.find('.selectlist').on('changed.fu.selectlist', $.proxy(this.changed, this));
 		this.$element.find('.spinbox').on('changed.fu.spinbox', $.proxy(this.changed, this));
-		this.$element.find('.repeat-monthly .radio, .repeat-yearly .radio').on('change.fu.scheduler', $.proxy(this.changed, this));
+		this.$element.find('.repeat-monthly .radio-custom, .repeat-yearly .radio-custom').on('change.fu.scheduler', $.proxy(this.changed, this));
 	};
 
 	Scheduler.prototype = {
@@ -122,7 +122,7 @@
 			this.$element.find('.datepicker').datepicker('destroy');
 			this.$element.find('.selectlist').selectlist('destroy');
 			this.$element.find('.spinbox').spinbox('destroy');
-			this.$element.find('[type=radio]').radio('destroy');
+			this.$element.find('.radio-custom').radio('destroy');
 			this.$element.remove();
 
 			// any external bindings
@@ -200,17 +200,17 @@
 			}
 
 			// hide all panels
-			this.$endAfter.parent().addClass('hide');
+			this.$endAfter.parent().addClass('hidden');
 			this.$endAfter.parent().attr('aria-hidden', 'true');
 
-			this.$endDate.parent().addClass('hide');
+			this.$endDate.parent().addClass('hidden');
 			this.$endDate.parent().attr('aria-hidden', 'true');
 
 			if (val === 'after') {
-				this.$endAfter.parent().removeClass('hide');
+				this.$endAfter.parent().removeClass('hide hidden'); // hide is deprecated
 				this.$endAfter.parent().attr('aria-hidden', 'false');
 			} else if (val === 'date') {
-				this.$endDate.parent().removeClass('hide');
+				this.$endDate.parent().removeClass('hide hidden');	// hide is deprecated
 				this.$endDate.parent().attr('aria-hidden', 'false');
 			}
 		},
@@ -382,30 +382,30 @@
 				case 'daily':
 				case 'weekly':
 				case 'monthly':
-					this.$repeatIntervalPanel.removeClass('hide');
+					this.$repeatIntervalPanel.removeClass('hide hidden'); // hide is deprecated
 					this.$repeatIntervalPanel.attr('aria-hidden', 'false');
 					break;
 				default:
-					this.$repeatIntervalPanel.addClass('hide');
+					this.$repeatIntervalPanel.addClass('hidden'); // hide is deprecated
 					this.$repeatIntervalPanel.attr('aria-hidden', 'true');
 					break;
 			}
 
 			// hide all panels
-			this.$recurrencePanels.addClass('hide');
+			this.$recurrencePanels.addClass('hidden');
 			this.$recurrencePanels.attr('aria-hidden', 'true');
 
 			// show panel for current selection
-			this.$element.find('.repeat-' + val).removeClass('hide');
+			this.$element.find('.repeat-' + val).removeClass('hide hidden'); // hide is deprecated
 			this.$element.find('.repeat-' + val).attr('aria-hidden', 'false');
 
 			// the end selection should only be shown when
 			// the repeat interval is not "None (run once)"
 			if (val === 'none') {
-				this.$end.addClass('hide');
+				this.$end.addClass('hidden');
 				this.$end.attr('aria-hidden', 'true');
 			} else {
-				this.$end.removeClass('hide');
+				this.$end.removeClass('hide hidden'); // hide is deprecated
 				this.$end.attr('aria-hidden', 'false');
 			}
 		},
@@ -418,7 +418,6 @@
 				startDate = temp[0];
 
 				if (temp[1]) {
-					startTime = temp[1];
 					temp[1] = temp[1].split(':');
 					hours = parseInt(temp[1][0], 10);
 					minutes = (temp[1][1]) ? parseInt(temp[1][1].split('+')[0].split('-')[0].split('Z')[0], 10) : 0;
@@ -438,7 +437,6 @@
 				} else {
 					startTime = '00:00';
 				}
-
 			} else {
 				startTime = '00:00';
 				var currentDate = this.$startDate.datepicker('getDate');
@@ -455,7 +453,6 @@
 					} else {
 						item += '-offset="' + options.timeZone.offset;
 					}
-
 				}
 
 				item += '"]';
@@ -471,7 +468,6 @@
 					} else {
 						temp = '+00:00';
 					}
-
 				} else {
 					temp = '+00:00';
 				}
@@ -492,7 +488,6 @@
 						item = temp[i].split('=');
 						recur[item[0]] = item[1];
 					}
-
 				}
 
 				if (recur.FREQ === 'DAILY') {
@@ -504,9 +499,7 @@
 						} else {
 							item = 'daily';
 						}
-
 					}
-
 				} else if (recur.FREQ === 'HOURLY') {
 					item = 'hourly';
 				} else if (recur.FREQ === 'WEEKLY') {
@@ -592,6 +585,8 @@
 					this.$endDate.datepicker('setDate', utcEndHours);
 
 					this.$endSelect.selectlist('selectByValue', 'date');
+				} else {
+					this.$endSelect.selectlist('selectByValue', 'never');
 				}
 
 				this.endSelectChanged();
@@ -614,7 +609,7 @@
 			this.$element.find('.datepicker').datepicker(action);
 			this.$element.find('.selectlist').selectlist(action);
 			this.$element.find('.spinbox').spinbox(action);
-			this.$element.find('[type=radio]').radio(action);
+			this.$element.find('.radio-custom').radio(action);
 
 			if (action === 'disable') {
 				action = 'addClass';

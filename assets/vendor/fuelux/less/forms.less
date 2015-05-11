@@ -1,16 +1,26 @@
-.labelHover() {
-	&:hover {
-		color: @grayLight;
-	}
+.checkbox-radio-hover() {
+	box-shadow: inset 0px 0px 2px 1px rgba(91, 157, 217, .7), 0px 0px 5px 0px rgba(91, 157, 217, .7);
+}
+
+.checkbox-radio-focus() {
+	box-shadow: inset 0px 0px 2px 1px rgb(91, 157, 217), 0px 0px 5px 0px rgb(91, 157, 217);
 }
 
 .radio, .checkbox {
+
 	&-inline {
 		padding-left: 0;
+
 		&.highlight {
 			left: -8px;
 		}
+
+		// for checkboxes without text labels and alignment in .input-group-addon container
+		label {
+			margin-bottom: 0;
+		}
 	}
+
 	// This handy trick allows us to make rules for .radio, .checkbox, .radio-inline, and, .checkbox-inline all at once.
 	&, &-inline {
 
@@ -18,13 +28,14 @@
 		// Sometimes the label itself is the wrapping container, and has .checkbox or .radio on it.
 		// The use of the amperstand "parent selector" here allows us to cover many scenarios at once, with terse, but elegant, code.
 		label&, .input-label&, & label, & .input-label {
-			.labelHover;
+			&:hover:before {
+				.checkbox-radio-hover();
+			}
 		}
 		
 		label, .input-label, label& {
 			cursor: pointer;
 			font-weight: normal;
-			.labelHover;
 		}
 
 		&.highlight {
@@ -73,6 +84,7 @@
 					margin-bottom: -2px;
 					cursor: pointer;
 					display: inline-block;
+					text-align: left;
 					z-index: 2;
 					content: "";
 				}
@@ -88,10 +100,8 @@
 				cursor: pointer;
 				
 				&:before {
-					outline-color: rgb(91, 157, 217);
-					outline-offset: -2px;
-					outline-style: auto;
-					outline-width: 5px;
+					.checkbox-radio-focus();
+					outline: none;
 				}
 
 				&, &:hover {
@@ -109,11 +119,13 @@
 
 
 
-			&[disabled="disabled"] {
+			&[disabled="disabled"], &[disabled], &:disabled {
 				& ~ label, & ~ label:before {
 					color: @text-color;
 					opacity: 0.5 !important;
 					cursor: not-allowed !important;
+					outline: none;
+					box-shadow: none;
 				}
 			}
 
@@ -124,14 +136,6 @@
 				}
 			}
 
-		}
-
-		&, &:hover {
-			input {
-				&:checked {
-
-				}
-			}
 		}
 
 		&.highlight {
@@ -164,5 +168,26 @@
 		}
 	}
 
-
 }
+
+
+
+// Allows multiline labels next to checkboxes and radio 
+// Should be wrapped in `<form class="form-horizontal"><div class="form-group">`
+.checkbox.multiline, .radio.multiline {
+	float: left; 
+	margin-left: 15px;
+}
+
+.checkbox.multiline ~ .control-label, .radio.multiline ~ .control-label {
+	float: left; 
+	width: 80%; 
+	margin-left: 10px; 
+	text-align: left;
+
+	& > label {
+		font-weight: normal;
+		cursor: pointer;
+	}
+}
+

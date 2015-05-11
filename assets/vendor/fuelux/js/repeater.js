@@ -211,6 +211,46 @@
 			return markup;
 		},
 
+		disable: function() {
+			var disable = 'disable';
+			var disabled = 'disabled';
+
+			this.$search.search(disable);
+			this.$filters.selectlist(disable);
+			this.$views.find('label').attr(disabled, disabled);
+			this.$pageSize.selectlist(disable);
+			this.$primaryPaging.find('.combobox').combobox(disable);
+			this.$secondaryPaging.attr(disabled, disabled);
+			this.$prevBtn.attr(disabled, disabled);
+			this.$nextBtn.attr(disabled, disabled);
+
+			this.$element.addClass('disabled');
+			this.$element.trigger('disabled.fu.repeater');
+		},
+
+		enable: function() {
+			var disabled = 'disabled';
+			var enable = 'enable';
+			var pageEnd = 'page-end';
+
+			this.$search.search(enable);
+			this.$filters.selectlist(enable);
+			this.$views.find('label').removeAttr(disabled);
+			this.$pageSize.selectlist('enable');
+			this.$primaryPaging.find('.combobox').combobox(enable);
+			this.$secondaryPaging.removeAttr(disabled);
+
+			if(!this.$prevBtn.hasClass(pageEnd)){
+				this.$prevBtn.removeAttr(disabled);
+			}
+			if(!this.$nextBtn.hasClass(pageEnd)){
+				this.$nextBtn.removeAttr(disabled);
+			}
+
+			this.$element.removeClass('disabled');
+			this.$element.trigger('enabled.fu.repeater');
+		},
+
 		getDataOptions: function (options) {
 			var dataSourceOptions = {};
 			var opts = {};
@@ -367,9 +407,9 @@
 		},
 
 		itemization: function (data) {
-			this.$count.html(data.count || '');
-			this.$end.html(data.end || '');
-			this.$start.html(data.start || '');
+			this.$count.html((data.count!==undefined) ? data.count : '?');
+			this.$end.html((data.end!==undefined) ? data.end : '?');
+			this.$start.html((data.start!==undefined) ? data.start : '?');
 		},
 
 		next: function (e) {
@@ -400,6 +440,7 @@
 			var act = 'active';
 			var dsbl = 'disabled';
 			var page = data.page;
+			var pageEnd = 'page-end';
 			var pages = data.pages;
 			var dropMenu, i, l;
 
@@ -429,15 +470,19 @@
 			// this is not the last page
 			if ((this.currentPage + 1) < pages) {
 				this.$nextBtn.removeAttr(dsbl);
+				this.$nextBtn.removeClass(pageEnd);
 			} else {
 				this.$nextBtn.attr(dsbl, dsbl);
+				this.$nextBtn.addClass(pageEnd);
 			}
 
 			// this is not the first page
 			if ((this.currentPage - 1) >= 0) {
 				this.$prevBtn.removeAttr(dsbl);
+				this.$prevBtn.removeClass(pageEnd);
 			} else {
 				this.$prevBtn.attr(dsbl, dsbl);
+				this.$prevBtn.addClass(pageEnd);
 			}
 
 			// return focus to next/previous buttons after navigating
@@ -481,6 +526,7 @@
 			var dataOptions, prevView;
 
 			options = options || {};
+			this.disable();
 
 			if (options.changeView && (this.currentView !== options.changeView)) {
 				prevView = this.currentView;
@@ -516,6 +562,8 @@
 			dataOptions = this.getDataOptions(options);
 
 			this.viewOptions.dataSource(dataOptions, function (data) {
+				data = data || {};
+
 				if (self.infiniteScrollingEnabled) {
 					self.infiniteScrollingCallback({});
 				} else {
@@ -541,6 +589,8 @@
 
 					//for maintaining support of 'loaded' event
 					self.$element.trigger('loaded.fu.repeater', dataOptions);
+
+					self.enable();
 				});
 			});
 		},
@@ -708,7 +758,9 @@
 	};
 
 	$.fn.repeater.defaults = {
-		dataSource: function (options, callback) {},
+		dataSource: function (options, callback) {
+			callback({ count: 0, end: 0, items: [], page: 0, pages: 1, start: 0 });
+		},
 		defaultView: -1,	//should be a string value. -1 means it will grab the active view from the view controls
 		dropPagingCap: 10,
 		staticHeight: -1,	//normally true or false. -1 means it will look for data-staticheight on the element

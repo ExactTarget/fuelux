@@ -106,6 +106,7 @@
 			thumbnail_alignment: 'left',
 			thumbnail_infiniteScroll: false,
 			thumbnail_itemRendered: null,
+			thumbnail_noItemsHTML: 'no items found',
 			thumbnail_selectable: false,
 			thumbnail_template: '<div class="thumbnail repeater-thumbnail"><img height="75" src="{{src}}" width="65"><span>{{name}}</span></div>'
 		});
@@ -139,11 +140,12 @@
 						alignment = (validAlignments[alignment]) ? alignment : 'justify';
 						$cont.addClass('align-' + alignment);
 						this.thumbnail_injectSpacers = true;
-						response.item = $cont;
 					} else {
 						this.thumbnail_injectSpacers = false;
-						response.action = 'none';
 					}
+					response.item = $cont;
+				} else {
+					response.action = 'none';
 				}
 
 				if (data.items && data.items.length < 1) {

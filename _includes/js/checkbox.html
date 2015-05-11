@@ -227,8 +227,9 @@ $('.checkbox input').on('change', function () {
   <p>Use the <code>.highlight</code> class to add a background highlight upon check.
   </p>
   <div class="fu-example section">
-    <div class="checkbox highlight" data-initialize="checkbox">
-      <label class="checkbox-custom">
+
+    <div class="checkbox highlight">
+      <label class="checkbox-custom highlight" data-initialize="checkbox">
         <input class="sr-only" type="checkbox" value="option1">
         This control highlights a block-level checkbox on check
       </label>
@@ -240,7 +241,7 @@ $('.checkbox input').on('change', function () {
   </div>
 {% highlight html %}
 <div class="checkbox highlight" data-initialize="checkbox" id="myCheckbox10">
-  <label class="checkbox-custom">
+  <label class="checkbox-custom highlight">
     <input class="sr-only" type="checkbox" value="option1">
     This control highlights a block-level checkbox on check
   </label>

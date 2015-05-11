@@ -471,7 +471,7 @@
 			var selected = this.selectedDate;
 			var $tbody = this.$days.find('tbody');
 			var year = date.getFullYear();
-			var curDate, curMonth, curYear, i, j, rows, stage, $td, $tr;
+			var curDate, curMonth, curYear, i, j, rows, stage, previousStage, lastStage, $td, $tr;
 
 			if (selected) {
 				selected = {
@@ -489,6 +489,7 @@
 				'data-year': year
 			});
 
+
 			$tbody.empty();
 			if (firstDay !== 0) {
 				curDate = lastMonthDate - firstDay + 1;
@@ -505,8 +506,14 @@
 					$td = $('<td></td>');
 					if (stage === -1) {
 						$td.addClass('last-month');
+						if (previousStage !== stage) {
+							$td.addClass('first');
+						}
 					} else if (stage === 1) {
 						$td.addClass('next-month');
+						if (previousStage !== stage) {
+							$td.addClass('first');
+						}
 					}
 
 					curMonth = month + stage;
@@ -550,12 +557,23 @@
 					}
 
 					curDate++;
+					lastStage = previousStage;
+					previousStage = stage;
 					if (stage === -1 && curDate > lastMonthDate) {
 						curDate = 1;
 						stage = 0;
+						if (lastStage !== stage) {
+							$td.addClass('last');
+						}
 					} else if (stage === 0 && curDate > lastDate) {
 						curDate = 1;
 						stage = 1;
+						if (lastStage !== stage) {
+							$td.addClass('last');
+						}
+					}
+					if (i === (rows - 1) && j === 6) {
+						$td.addClass('last');
 					}
 
 					$tr.append($td);
@@ -573,10 +591,10 @@
 
 			if (this.sameYearOnly) {
 				this.$wheelsMonth.addClass('full');
-				this.$wheelsYear.addClass('hide');
+				this.$wheelsYear.addClass('hidden');
 			} else {
 				this.$wheelsMonth.removeClass('full');
-				this.$wheelsYear.removeClass('hide');
+				this.$wheelsYear.removeClass('hide hidden');	// .hide is deprecated
 			}
 
 			$monthUl.find('.selected').removeClass('selected');
