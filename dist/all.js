@@ -4693,6 +4693,11 @@ define('fuelux/select',['require','jquery','./util'],function(require) {
 
         itemclicked: function (e) {
             this.$selectedItem = $(e.target).parent();
+
+            if (this.$selectedItem.is('.disabled')) {
+                return;
+            }
+
             this.$hiddenField.val(this.$selectedItem.attr('data-value'));
             this.$label.text(this.$selectedItem.text());
 
@@ -5040,6 +5045,8 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 			var data    = $this.data( 'spinner' );
 			var options = typeof option === 'object' && option;
 
+			options = $.extend({}, $this.data(), options);
+
 			if( !data ) $this.data('spinner', (data = new Spinner( this, options ) ) );
 			if( typeof option === 'string' ) methodReturn = data[ option ].apply( data, args );
 		});
@@ -5075,6 +5082,7 @@ define('fuelux/spinner',['require','jquery'],function(require) {
 		});
 	});
 });
+
 /*
  * Fuel UX Scheduler
  * https://github.com/ExactTarget/fuelux

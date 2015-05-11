@@ -6264,10 +6264,6 @@ textarea.span1,
   border-radius: 0 4px 4px 0;
 }
 
-.fuelux .datagrid th {
-  cursor: pointer;
-}
-
 .fuelux .datagrid thead {
   background-color: #f9f9f9;
 }

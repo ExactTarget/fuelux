@@ -34,6 +34,11 @@ define(['require','jquery','./util'],function(require) {
 
         itemclicked: function (e) {
             this.$selectedItem = $(e.target).parent();
+
+            if (this.$selectedItem.is('.disabled')) {
+                return;
+            }
+
             this.$hiddenField.val(this.$selectedItem.attr('data-value'));
             this.$label.text(this.$selectedItem.text());
 
