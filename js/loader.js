@@ -54,6 +54,8 @@
 		constructor: Loader,
 
 		destroy: function () {
+			this.pause();
+
 			this.$element.remove();
 			// any external bindings
 			// [none]
