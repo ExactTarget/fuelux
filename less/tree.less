@@ -1,171 +1,175 @@
-.tree {
-	border: 1px solid @grayLight;
-	border-radius: 4px 4px 4px 4px;
-	padding: 10px 15px 0 15px;
-	overflow-x: auto;
-	overflow-y: auto;
-	position: relative;
-	list-style: none;
+.fuelux {
 
-	*:focus {
-		outline: none;
-	}
-
-	button:focus {
-		color: @treeHoverText;
-	}
-
-	ul {
-		padding-left: 0;
-		margin-top: 0;
-		margin-bottom: 0;
-		list-style: none;
-	}
-
-	li {
-		margin: 0;
-		margin-top: 5px;
-		margin-bottom: 5px;
-	}
-
-	.tree-loader {
-		// make even with tree-branch-children
-		margin-left: 45px;
-	}
-
-	.tree-open > .tree-branch-header .glyphicon-play {
-		transform:rotate(90deg);
-		-ms-transform:rotate(90deg);
-		-webkit-transform:rotate(90deg);
+	.tree {
+		border: 1px solid @grayLight;
+		border-radius: 4px 4px 4px 4px;
+		padding: 10px 15px 0 15px;
+		overflow-x: auto;
+		overflow-y: auto;
 		position: relative;
-	}
+		list-style: none;
 
-	[data-children=false] > .tree-branch-header .icon-caret:before {
-		content: '\00a0'; //space
-	}
+		*:focus {
+			outline: none;
+		}
 
-	.tree-branch {
+		button:focus {
+			color: @treeHoverText;
+		}
 
-		.tree-branch-header {
+		ul {
+			padding-left: 0;
+			margin-top: 0;
+			margin-bottom: 0;
+			list-style: none;
+		}
+
+		li {
+			margin: 0;
+			margin-top: 5px;
+			margin-bottom: 5px;
+		}
+
+		.tree-loader {
+			// make even with tree-branch-children
+			margin-left: 45px;
+		}
+
+		.tree-open > .tree-branch-header .glyphicon-play {
+			transform:rotate(90deg);
+			-ms-transform:rotate(90deg);
+			-webkit-transform:rotate(90deg);
 			position: relative;
-			border-radius: 6px;
-			white-space: nowrap;
+		}
 
-			.tree-branch-name:hover {
-				color: @treeHoverText;
-			}
+		[data-children=false] > .tree-branch-header .icon-caret:before {
+			content: '\00a0'; //space
+		}
 
-			.glyphicon-play {
-				font-size: 10px;
-				padding-right: 5px;
-				padding-left: 7px;
+		.tree-branch {
 
-				&:before {
-					position: relative;
-					top: -2px;
+			.tree-branch-header {
+				position: relative;
+				border-radius: 6px;
+				white-space: nowrap;
+
+				.tree-branch-name:hover {
+					color: @treeHoverText;
+				}
+
+				.glyphicon-play {
+					font-size: 10px;
+					padding-right: 5px;
+					padding-left: 7px;
+
+					&:before {
+						position: relative;
+						top: -2px;
+					}
+
+				}
+
+				.tree-branch-name {
+					white-space: nowrap;
+					border-radius: 6px;
+					background-color: transparent;
+					border: 0;
+				}
+
+				label {
+					font-weight: normal;
+					padding-left: 3px;
+					margin-bottom: 0;
+					cursor: pointer;
 				}
 
 			}
 
-			.tree-branch-name {
+			.tree-branch-children {
+				margin-left: 14px;
+			}
+			&[haschildren='false'] {
+				.icon-caret {
+					visibility: hidden;
+				}
+			}
+
+		}
+
+		.tree-item {
+			white-space: nowrap;
+			position: relative;
+			cursor: pointer;
+			border-radius: 6px;
+			margin-left: 26px;
+
+			.tree-item-name {
 				white-space: nowrap;
 				border-radius: 6px;
 				background-color: transparent;
 				border: 0;
 			}
 
+			.tree-item-name:hover {
+				color: @treeHoverText;
+			}
+
+			&.tree-selected .tree-item-name {
+				background-color: @treeSelectBackground;
+				color: #333;
+			}
+
 			label {
 				font-weight: normal;
-				padding-left: 3px;
+				padding-left: 7px;
 				margin-bottom: 0;
 				cursor: pointer;
 			}
 
 		}
 
-		.tree-branch-children {
-			margin-left: 14px;
-		}
-		&[haschildren='false'] {
-			.icon-caret {
-				visibility: hidden;
-			}
-		}
-
-	}
-
-	.tree-item {
-		white-space: nowrap;
-		position: relative;
-		cursor: pointer;
-		border-radius: 6px;
-		margin-left: 26px;
-
-		.tree-item-name {
-			white-space: nowrap;
-			border-radius: 6px;
-			background-color: transparent;
-			border: 0;
-		}
-
-		.tree-item-name:hover {
+		.icon-caret:hover + .tree-branch-name {
 			color: @treeHoverText;
 		}
 
-		&.tree-selected .tree-item-name {
-			background-color: @treeSelectBackground;
-			color: #333;
-		}
+		// - - - - - - - - - - - - - -
+		// folder selectable option
+		// - - - - - - - - - - - - - -
 
-		label {
-			font-weight: normal;
-			padding-left: 7px;
-			margin-bottom: 0;
-			cursor: pointer;
-		}
+		&.tree-folder-select {
 
-	}
+			.tree-branch {
 
-	.icon-caret:hover + .tree-branch-name {
-		color: @treeHoverText;
-	}
+				.icon-caret {
+					background-color: transparent;
+					border: 0;
+				}
 
-	// - - - - - - - - - - - - - -
-	// folder selectable option
-	// - - - - - - - - - - - - - -
+				.icon-caret:hover {
+					cursor: pointer;
+					color: @treeHoverText;
+				}
 
-	&.tree-folder-select {
+				> .tree-branch-name {
+					padding: 1px 5px 0 5px;
+					border-radius: 6px;
 
-		.tree-branch {
 
-			.icon-caret {
-				background-color: transparent;
-				border: 0;
+					&.tree-selected {
+						background-color: @treeSelectBackground;
+					}
+				}
+
 			}
 
-			.icon-caret:hover {
-				cursor: pointer;
-				color: @treeHoverText;
-			}
+			.tree-branch.tree-selected > .tree-branch-header .tree-branch-name {
+				background-color: @treeSelectBackground;
 
-			> .tree-branch-name {
-				padding: 1px 5px 0 5px;
-				border-radius: 6px;
-
-
-				&.tree-selected {
+				&:hover {
 					background-color: @treeSelectBackground;
 				}
 			}
 
-		}
-
-		.tree-branch.tree-selected > .tree-branch-header .tree-branch-name {
-			background-color: @treeSelectBackground;
-
-			&:hover {
-				background-color: @treeSelectBackground;
-			}
 		}
 
 	}
