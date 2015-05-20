@@ -993,7 +993,7 @@ myTreeInit();
 	});
 
 	$('#btnTreeClearSelected').click(function () {
-		log('Items/folders cleared: ', $('#myTree1').tree('clearSelected') );
+		log('Items/folders cleared: ', $('#myTree1').tree('deselectAll') );
 	});
 
 	$('#btnTreeDiscloseVisible').click(function () {
