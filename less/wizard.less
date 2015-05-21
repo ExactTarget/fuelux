@@ -33,7 +33,7 @@
 				}
 			}
 		}
-		
+
 		li {
 			float: left;
 			margin: 0;
@@ -85,6 +85,7 @@
 					border-left: 14px solid #f3f4f5;
 				}
 			}
+
 			&.active {
 				background: #f1f6fc;
 				color: @infoText;
@@ -111,6 +112,96 @@
 		li:first-child {
 			border-radius: 4px 0 0 4px;
 			padding-left: 20px;
+		}
+	}
+
+	&.rtl {
+		direction: rtl;
+
+		>.steps {
+			right: 0;
+			left: auto;
+			float: right;
+
+			&.previous-disabled {
+				li {
+					&.complete {
+						&:hover {
+							.chevron:before {
+								border-right-color: #f3f4f5;
+							}
+						}
+					}
+				}
+			}
+
+			li {
+				float: right;
+
+				.chevron {
+					right: auto;
+					left: -14px;
+					border-right: 14px solid #d4d4d4;
+					border-left: 0;
+
+
+					&:before {
+						right: auto;
+						left: 1px;
+						border-right: 14px solid #ededed;
+						border-left: 0;
+					}
+				}
+
+				&.active {
+					.chevron {
+						&:before {
+							border-right: 14px solid #f1f6fc;
+						}
+					}
+				}
+
+				&.complete {
+					.chevron {
+						&:before {
+							border-right: 14px solid #f3f4f5;
+						}
+					}
+
+					&:hover {
+						.chevron {
+							&:before {
+								border-right: 14px solid #e7eff8;
+								border-left: none;
+							}
+						}
+					}
+				}
+
+				.badge {
+					margin-left: 8px;
+				}
+			}
+		}
+
+		>.actions {
+			right: auto;
+			left: 0;
+			float: left;
+
+			.btn-prev {
+				span {
+					margin-left: 5px;
+					margin-right: 0;
+				}
+			}
+
+			.btn-next {
+				span {
+					margin-left: 0;
+					margin-right: 5px;
+				}
+			}
 		}
 	}
 
@@ -176,11 +267,12 @@
 
 	// when complete
 	&.complete {
-		> .actions .glyphicon-arrow-right:before {
-			display: none;
-		}
-		> .actions .glyphicon-arrow-right {
-			margin-left: 0;
+		>.actions {
+			.btn-next {
+				.glyphicon {
+					display: none;
+				}
+			}
 		}
 	}
 }
