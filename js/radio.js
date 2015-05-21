@@ -84,15 +84,15 @@
 		},
 
 		setCheckedState: function(element, checked) {
-			// reset all items in group
-			this.resetGroup();
-
 			var $radio = element;
 			var $lbl = $radio.parent();
 			var containerSelector = $radio.attr('data-toggle');
 			var $containerToggle = $(containerSelector);
 
 			if(checked) {
+				// reset all items in group
+				this.resetGroup();
+
 				$radio.prop('checked', true);
 				$lbl.addClass('checked');
 				$containerToggle.removeClass('hide hidden');
