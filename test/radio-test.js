@@ -38,6 +38,85 @@ define(function(require){
 		equal(disabled, false, 'label does not have "disabled" class when input is enabled');
 	});
 
+	test("should set initial state to checked for first item in group", function () {
+		var $element = $(html).find('#RadioGroup').clone();
+
+		$element.find('input').eq(0).prop('checked', 'checked');
+
+		// initialize radio
+		$element.find('label').radio();
+
+		var item0 = $element.find('label').eq(0);
+		equal(item0.hasClass('checked'), true, 'index 0 label has "checked" class when input is checked');
+
+		var item1 = $element.find('label').eq(1);
+		equal(item1.hasClass('checked'), false, 'index 1 label does not have "checked" class');
+
+		var item2 = $element.find('label').eq(2);
+		equal(item2.hasClass('checked'), false, 'index 2 label does not have "checked" class');
+	});
+
+	test("should set 2nd item checked and 1st item unchecked after selecting 2nd item in group", function () {
+		var $element = $(html).find('#RadioGroup').clone();
+		$element.appendTo(document.body); // append to body to capture clicks
+
+		$element.find('input').eq(0).prop('checked', 'checked');
+
+		// initialize radio
+		$element.find('label').radio();
+
+		var $input = $element.find('input').eq(1);
+		$input.click();
+
+		// ensure item 0 (1st) label has checked class
+		var item0 = $element.find('label').eq(0);
+		equal(item0.hasClass('checked'), false, 'index 0 label does not have "checked" class when input is checked');
+
+		var item1 = $element.find('label').eq(1);
+		equal(item1.hasClass('checked'), true, 'index 1 label has "checked" class');
+
+		var item2 = $element.find('label').eq(2);
+		equal(item2.hasClass('checked'), false, 'index 2 label does not have "checked" class');
+
+		$element.remove();
+	});
+
+	test("should set initial state to checked for middle item in group", function () {
+		var $element = $(html).find('#RadioGroup').clone();
+
+		$element.find('input').eq(1).prop('checked', 'checked');
+
+		// initialize radio
+		$element.find('label').radio();
+
+		var item0 = $element.find('label').eq(0);
+		equal(item0.hasClass('checked'), false, 'index 0 label does not have "checked" class when input is checked');
+
+		var item1 = $element.find('label').eq(1);
+		equal(item1.hasClass('checked'), true, 'index 1 label has "checked" class');
+
+		var item2 = $element.find('label').eq(2);
+		equal(item2.hasClass('checked'), false, 'index 2 label does not have "checked" class');
+	});
+
+	test("should set initial state to checked for last item in group", function () {
+		var $element = $(html).find('#RadioGroup').clone();
+
+		$element.find('input').eq(2).prop('checked', 'checked');
+
+		// initialize radio
+		$element.find('label').radio();
+
+		var item0 = $element.find('label').eq(0);
+		equal(item0.hasClass('checked'), false, 'index 0 label does not have "checked" class when input is checked');
+
+		var item1 = $element.find('label').eq(1);
+		equal(item1.hasClass('checked'), false, 'index 1 label does not have "checked" class');
+
+		var item2 = $element.find('label').eq(2);
+		equal(item2.hasClass('checked'), true, 'index 2 label has "checked" class');
+	});
+
 	test("should set initial state for checked/disabled", function () {
 		var $element = $(html).find('#RadioCheckedDisabled').clone();
 
