@@ -357,7 +357,7 @@
 			if (selectedItem) {
 				step = selectedItem.step || -1;
 				//allow selection of step by data-name
-				step = isNaN(step) && this.$element.find('.steps li[data-name="' + step + '"]').first().attr('data-step') || step;
+				step = Number(this.$element.find('.steps li[data-name="' + step + '"]').first().attr('data-step')) || Number(step);
 
 				if (1 <= step && step <= this.numSteps) {
 					this.currentStep = step;
