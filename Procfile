@@ -1,1 +1,1 @@
-web: grunt dist && node devserver.js
+web: tar -zcf dev/node_modules.tar.gz node_modules/ && grunt dist && node devserver.js
