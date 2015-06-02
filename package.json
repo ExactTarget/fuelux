@@ -70,8 +70,8 @@
   },
   "scripts": {
     "main": "devserver.js",
-    "postinstall": "./node_modules/bower/bin/bower install && tar -zcf dev/node_modules.tar.gz node_modules/;",
-    "test": "grunt travisci --verbose"
+    "postinstall": "node ./node_modules/bower/bin/bower install",
+    "test": "tar -zcf dev/node_modules.tar.gz node_modules/ && grunt travisci --verbose"
   },
   "title": "Fuel UX",
   "version": "3.7.3",
