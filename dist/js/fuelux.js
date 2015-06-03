@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.7.2 
+ * Fuel UX v3.7.3 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -1488,6 +1488,8 @@
 			constructor: Loader,
 
 			destroy: function() {
+				this.pause();
+
 				this.$element.remove();
 				// any external bindings
 				// [none]
@@ -1963,15 +1965,15 @@
 			},
 
 			setCheckedState: function( element, checked ) {
-				// reset all items in group
-				this.resetGroup();
-
 				var $radio = element;
 				var $lbl = $radio.parent();
 				var containerSelector = $radio.attr( 'data-toggle' );
 				var $containerToggle = $( containerSelector );
 
 				if ( checked ) {
+					// reset all items in group
+					this.resetGroup();
+
 					$radio.prop( 'checked', true );
 					$lbl.addClass( 'checked' );
 					$containerToggle.removeClass( 'hide hidden' );
@@ -3018,6 +3020,16 @@
 		Tree.prototype = {
 			constructor: Tree,
 
+			deselectAll: function deselectAll( nodes ) {
+				// clear all child tree nodes and style as deselected
+				nodes = nodes || this.$element;
+				var $selectedElements = $( nodes ).find( '.tree-selected' );
+				$selectedElements.each( function( index, element ) {
+					styleNodeDeselected( $( element ), $( element ).find( '.glyphicon' ) );
+				} );
+				return $selectedElements;
+			},
+
 			destroy: function destroy() {
 				// any external bindings [none]
 				// empty elements to return to original markup
@@ -3117,59 +3129,41 @@
 				} );
 			},
 
-			selectItem: function selectItem( el ) {
-				if ( !this.options.itemSelect ) return;
-				var $el = $( el );
-				var selData = $el.data();
-				var $all = this.$element.find( '.tree-selected' );
-				var data = [];
-				var $icon = $el.find( '.icon-item' );
+			selectTreeNode: function selectItem( clickedElement, nodeType ) {
+				var clicked = {}; // object for clicked element
+				clicked.$element = $( clickedElement );
 
-				if ( this.options.multiSelect ) {
-					$.each( $all, function( index, value ) {
-						var $val = $( value );
-						if ( $val[ 0 ] !== $el[ 0 ] ) {
-							data.push( $( value ).data() );
-						}
-					} );
-				} else if ( $all[ 0 ] !== $el[ 0 ] ) {
-					$all.removeClass( 'tree-selected' )
-						.find( '.glyphicon' ).removeClass( 'glyphicon-ok' ).addClass( 'fueluxicon-bullet' );
-					data.push( selData );
-				}
+				var selected = {}; // object for selected elements
+				selected.$elements = this.$element.find( '.tree-selected' );
+				selected.dataForEvent = [];
 
-				var eventType = 'selected';
-				if ( $el.hasClass( 'tree-selected' ) ) {
-					eventType = 'deselected';
-					$el.removeClass( 'tree-selected' );
-					if ( $icon.hasClass( 'glyphicon-ok' ) || $icon.hasClass( 'fueluxicon-bullet' ) ) {
-						$icon.removeClass( 'glyphicon-ok' ).addClass( 'fueluxicon-bullet' );
-					}
-
+				// determine clicked element and it's icon
+				if ( nodeType === 'folder' ) {
+					// make the clicked.$element the container branch
+					clicked.$element = clicked.$element.closest( '.tree-branch' );
+					clicked.$icon = clicked.$element.find( '.icon-folder' );
 				} else {
-					$el.addClass( 'tree-selected' );
-					// add tree dot back in
-					if ( $icon.hasClass( 'glyphicon-ok' ) || $icon.hasClass( 'fueluxicon-bullet' ) ) {
-						$icon.removeClass( 'fueluxicon-bullet' ).addClass( 'glyphicon-ok' );
-					}
+					clicked.$icon = clicked.$element.find( '.icon-item' );
+				}
+				clicked.elementData = clicked.$element.data();
 
-					if ( this.options.multiSelect ) {
-						data.push( selData );
-					}
-
+				// the below functions pass objects by copy/reference and use modified object in this function
+				if ( this.options.multiSelect ) {
+					multiSelectSyncNodes( this, clicked, selected );
+				} else {
+					singleSelectSyncNodes( this, clicked, selected );
 				}
 
-				this.$element.trigger( eventType + '.fu.tree', {
-					target: selData,
-					selected: data
+				// all done with the DOM, now fire events
+				this.$element.trigger( selected.eventType + '.fu.tree', {
+					target: clicked.elementData,
+					selected: selected.dataForEvent
 				} );
 
-				// Return new list of selected items, the item
-				// clicked, and the type of event:
-				$el.trigger( 'updated.fu.tree', {
-					selected: data,
-					item: $el,
-					eventType: eventType
+				clicked.$element.trigger( 'updated.fu.tree', {
+					selected: selected.dataForEvent,
+					item: clicked.$element,
+					eventType: selected.eventType
 				} );
 			},
 
@@ -3228,52 +3222,16 @@
 				}
 			},
 
-			selectFolder: function selectFolder( clickedElement ) {
-				if ( !this.options.folderSelect ) return;
-				var $clickedElement = $( clickedElement );
-				var $clickedBranch = $clickedElement.closest( '.tree-branch' );
-				var $selectedBranch = this.$element.find( '.tree-branch.tree-selected' );
-				var clickedData = $clickedBranch.data();
-				var selectedData = [];
-				var eventType = 'selected';
-
-				// select clicked item
-				if ( $clickedBranch.hasClass( 'tree-selected' ) ) {
-					eventType = 'deselected';
-					$clickedBranch.removeClass( 'tree-selected' );
-				} else {
-					$clickedBranch.addClass( 'tree-selected' );
+			selectFolder: function selectFolder( el ) {
+				if ( this.options.folderSelect ) {
+					this.selectTreeNode( el, 'folder' );
 				}
+			},
 
-				if ( this.options.multiSelect ) {
-					// get currently selected
-					$selectedBranch = this.$element.find( '.tree-branch.tree-selected' );
-
-					$.each( $selectedBranch, function( index, value ) {
-						var $value = $( value );
-						if ( $value[ 0 ] !== $clickedElement[ 0 ] ) {
-							selectedData.push( $( value ).data() );
-						}
-					} );
-
-				} else if ( $selectedBranch[ 0 ] !== $clickedElement[ 0 ] ) {
-					$selectedBranch.removeClass( 'tree-selected' );
-
-					selectedData.push( clickedData );
+			selectItem: function selectItem( el ) {
+				if ( this.options.itemSelect ) {
+					this.selectTreeNode( el, 'item' );
 				}
-
-				this.$element.trigger( eventType + '.fu.tree', {
-					target: clickedData,
-					selected: selectedData
-				} );
-
-				// Return new list of selected items, the item
-				// clicked, and the type of event:
-				$clickedElement.trigger( 'updated.fu.tree', {
-					selected: selectedData,
-					item: $clickedElement,
-					eventType: eventType
-				} );
 			},
 
 			selectedItems: function selectedItems() {
@@ -3423,10 +3381,68 @@
 			}
 		};
 
+
+		// ALIASES
+
 		//alias for collapse for consistency. "Collapse" is an ambiguous term (collapse what? All? One specific branch?)
 		Tree.prototype.closeAll = Tree.prototype.collapse;
 		//alias for backwards compatibility because there's no reason not to.
 		Tree.prototype.openFolder = Tree.prototype.discloseFolder;
+
+
+		// PRIVATE FUNCTIONS
+
+		function styleNodeSelected( $element, $icon ) {
+			$element.addClass( 'tree-selected' );
+			if ( $element.data( 'type' ) === 'item' && $icon.hasClass( 'fueluxicon-bullet' ) ) {
+				$icon.removeClass( 'fueluxicon-bullet' ).addClass( 'glyphicon-ok' ); // make checkmark
+			}
+		}
+
+		function styleNodeDeselected( $element, $icon ) {
+			$element.removeClass( 'tree-selected' );
+			if ( $element.data( 'type' ) === 'item' && $icon.hasClass( 'glyphicon-ok' ) ) {
+				$icon.removeClass( 'glyphicon-ok' ).addClass( 'fueluxicon-bullet' ); // make bullet
+			}
+		}
+
+		function multiSelectSyncNodes( self, clicked, selected ) {
+			// search for currently selected and add to selected data list if needed
+			$.each( selected.$elements, function( index, element ) {
+				var $element = $( element );
+				if ( $element[ 0 ] !== clicked.$element[ 0 ] ) {
+					selected.dataForEvent.push( $( $element ).data() );
+				}
+			} );
+
+			if ( clicked.$element.hasClass( 'tree-selected' ) ) {
+				styleNodeDeselected( clicked.$element, clicked.$icon );
+				// set event data
+				selected.eventType = 'deselected';
+			} else {
+				styleNodeSelected( clicked.$element, clicked.$icon );
+				// set event data
+				selected.eventType = 'selected';
+				selected.dataForEvent.push( clicked.elementData );
+			}
+		}
+
+		function singleSelectSyncNodes( self, clicked, selected ) {
+			// element is not currently selected
+			if ( selected.$elements[ 0 ] !== clicked.$element[ 0 ] ) {
+				var clearedElements = self.deselectAll( self.$element );
+				styleNodeSelected( clicked.$element, clicked.$icon );
+				// set event data
+				selected.eventType = 'selected';
+				selected.dataForEvent = [ clicked.elementData ];
+			} else {
+				styleNodeDeselected( clicked.$element, clicked.$icon );
+				// set event data
+				selected.eventType = 'deselected';
+				selected.dataForEvent = [];
+			}
+		}
+
 
 		// TREE PLUGIN DEFINITION
 

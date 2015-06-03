@@ -28,12 +28,14 @@ define(function(require){
 	test("should autosize correctly", function () {
 		var $selectlist8 = $('body').find('#MySelectlist8').selectlist();
 		var $selectlist9 = $('body').find('#MySelectlist9').selectlist();
-		var minWidth;
+		var $btn, minWidth;
 
 		//measure all children of selectlist to be tested (add them all to a span and see how wide the span is) and make sure the selectlist is actually big enough to fit that
+		$btn = $selectlist8.find('button.dropdown-toggle');
 		var $textLengthTester = $('<span id="textLengthTester" style="display:inline-block;"></span>').appendTo('body');
 		$selectlist8.find('li').each(function(index, element){
-			$('<p style="padding: 0 12px 0 28px;">' + $(element).text() + '</p>').appendTo($textLengthTester);
+			//set the p tag right/left padding to that of the selectlist button right/left padding
+			$('<p style="padding: 0 ' + $btn.css('padding-right') + ' 0 ' + $btn.css('padding-left') + ';">' + $(element).text() + '</p>').appendTo($textLengthTester);
 		});
 		minWidth = $textLengthTester.width();
 		ok(($selectlist8.width() >= minWidth), 'selectlist autoresized to ' + $selectlist8.width() + ' should be greater than ' + minWidth);
@@ -46,9 +48,11 @@ define(function(require){
 		$selectlist9.removeClass('hidden');
 
 		//measure all children of selectlist to be tested (add them all to a span and see how wide the span is) and make sure the selectlist is actually big enough to fit that
+		$btn = $selectlist9.find('button.dropdown-toggle');
 		$textLengthTester = $('<span id="textLengthTester" style="display:inline-block;"></span>').appendTo('body');
 		$selectlist9.find('li').each(function(index, element){
-			$('<p style="padding: 0 12px 0 28px;">' + $(element).text() + '</p>').appendTo($textLengthTester);
+			//set the p tag right/left padding to that of the selectlist button right/left padding
+			$('<p style="padding: 0 ' + $btn.css('padding-right') + ' 0 ' + $btn.css('padding-left') + ';">' + $(element).text() + '</p>').appendTo($textLengthTester);
 		});
 		minWidth = $textLengthTester.width();
 		ok(($selectlist9.width() >= minWidth), 'selectlist was hidden, now shown, sized ' + $selectlist9.width() + ' should be greater than ' + minWidth);

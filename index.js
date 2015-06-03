@@ -35,17 +35,33 @@ define(function (require) {
 		$('#myCustomCheckbox1').checkbox('enable');
 	});
 	$('#btnCheckboxDestroy').on('click', function () {
-		var $container = $('#myCustomCheckbox1').parents('.thin-box:first');
+		var $container = $('#myCustomCheckbox1').parent();
 		var markup = $('#myCustomCheckbox1').checkbox('destroy');
 		log(markup);
 		$container.append(markup);
 	});
+	$('#btnCheckboxIsChecked').on('click', function () {
+		var checked = $('#myCustomCheckbox1').checkbox('isChecked');
+		log(checked);
+	});
+	$('#btnCheckboxCheck').on('click', function () {
+		$('#myCustomCheckbox1').checkbox('check');
+	});
+	$('#btnCheckboxUncheck').on('click', function () {
+		$('#myCustomCheckbox1').checkbox('uncheck');
+	});
 
-	// $('#myCustomCheckbox1 > input').on('change', function(){
-	// 	console.log('changed');
-	// });
+	$('#myCustomCheckbox1').on('changed.fu.checkbox', function(evt, data) {
+		log('changed', data);
+	});
+	$('#myCustomCheckbox1').on('checked.fu.checkbox', function(evt, data) {
+		log('checked');
+	});
+	$('#myCustomCheckbox1').on('unchecked.fu.checkbox', function(evt, data) {
+		log('unchecked');
+	});
 
-	// $('#myCustomCheckbox1').trigger('click');
+
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		COMBOBOX
 	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -974,6 +990,10 @@ myTreeInit();
 		log(markup);
 		$container.append(markup);
 		myTreeInit();
+	});
+
+	$('#btnTreeClearSelected').click(function () {
+		log('Items/folders cleared: ', $('#myTree1').tree('deselectAll') );
 	});
 
 	$('#btnTreeDiscloseVisible').click(function () {
