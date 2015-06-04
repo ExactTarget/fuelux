@@ -19,6 +19,11 @@
     <li>Checkbox input elements that are created with <code>data-initialize="checkbox"</code> after <code>$.ready()</code> executes will initialize when a <code>mouseover</code> event occurs on them.</li>
   </ul>
 
+  <div class="fu-callout fu-callout-warning">
+    <h4 id="deprecated-checkbox-markup">Deprecated checkbox markup</h4>
+    <p>Before v3.8.0, the checkbox control could be bound with <code>$().checkbox();</code> or <code>data-initialize="checkbox"</code> to the <code>div.checkbox</code> or the <code>input</code> elements. This is no longer supported. Please update your markup and JavaScript to be bound to the <code>label</code> only.</p>
+  </div>
+
   <h3 id="checkbox-usage-methods">Methods</h3>
   <p>Once your checkbox is <a href="#checkbox-usage">initialized</a>, you can execute any of the following methods on it:</p>
 
@@ -188,15 +193,15 @@ $('.checkbox input').on('change', function () {
   <p>Use the <code>data-toggle="{{selector}}"</code> to automatically show or hide elements matching the selector within the body upon check or uncheck. This control works with any <a href="http://api.jquery.com/category/selectors/">jQuery selector</a>.
   </p>
   <div class="fu-example section">
-    <div class="checkbox" data-initialize="checkbox">
-      <label class="checkbox-custom">
+    <div class="checkbox">
+      <label class="checkbox-custom" data-initialize="checkbox">
         <input class="sr-only" data-toggle="#checkboxToggleID" type="checkbox" value="option1">
         <span class="checkbox-label">Toggles element with matching ID</span>
       </label>
     </div>
 
-    <div class="checkbox" data-initialize="checkbox">
-      <label class="checkbox-custom">
+    <div class="checkbox">
+      <label class="checkbox-custom" data-initialize="checkbox">
         <input class="sr-only" data-toggle=".checkboxToggleCLASS" type="checkbox" value="option1">
         <span class="checkbox-label">Toggles elements with matching class</span>
       </label>
@@ -207,13 +212,13 @@ $('.checkbox input').on('change', function () {
     <div class="alert bg-success checkboxToggleCLASS">Class toggling container</div>
   </div>
 {% highlight html %}
-<div class="checkbox" data-initialize="checkbox" id="myCheckbox8">
-  <label class="checkbox-custom">
+<div class="checkbox" id="myCheckbox8">
+  <label class="checkbox-custom" data-initialize="checkbox">
     <input class="sr-only" data-toggle="#checkboxToggleID" type="checkbox" value="option1">
     <span class="checkbox-label">Toggles element with matching ID</span>
   </label>
 </div>
-<label class="checkbox-custom checkbox-inline" id="myCheckbox9">
+<label class="checkbox-custom checkbox-inline" id="myCheckbox9" data-initialize="checkbox">
   <input class="sr-only" data-toggle=".checkboxToggleCLASS" type="checkbox" value="option1">
   <span class="checkbox-label">Toggles elements with matching class.</span>
 </label>
@@ -240,13 +245,13 @@ $('.checkbox input').on('change', function () {
     </label>
   </div>
 {% highlight html %}
-<div class="checkbox highlight" data-initialize="checkbox" id="myCheckbox10">
-  <label class="checkbox-custom highlight">
+<div class="checkbox highlight" id="myCheckbox10">
+  <label class="checkbox-custom highlight" data-initialize="checkbox">
     <input class="sr-only" type="checkbox" value="option1">
     This control highlights a block-level checkbox on check
   </label>
 </div>
-<label class="checkbox-custom checkbox-inline highlight"  id="myCheckbox11">
+<label class="checkbox-custom checkbox-inline highlight" data-initialize="checkbox" id="myCheckbox11">
   <input class="sr-only" type="checkbox" value="option2">
   This control highlights an inline checkbox on check
 </label>
