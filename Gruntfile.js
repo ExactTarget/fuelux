@@ -274,18 +274,6 @@ module.exports = function (grunt) {
 			}
 		},
 		less: {
-			pre: {
-				options: {
-					strictMath: true,
-					sourceMap: true,
-					outputSourceFiles: true,
-					sourceMapURL: '<%= pkg.name %>-fuelux-no-namespace.css.map',
-					sourceMapFilename: 'dist/css/<%= pkg.name %>-fuelux-no-namespace.css.map'
-				},
-				files: {
-					'less/fuelux-no-namespace.less': 'less/fuelux.less'
-				}
-			},
 			dev: {
 				options: {
 					strictMath: true,
@@ -307,10 +295,9 @@ module.exports = function (grunt) {
 					sourceMapFilename: 'dist/css/<%= pkg.name %>.css.map'
 				},
 				files: {
-					'dist/css/fuelux.css': 'less/fuelux-namespace.less'
+					'dist/css/fuelux.css': 'less/fuelux.less'
 				}
 			},
-
 			minify: {
 				options: {
 					cleancss: true,
@@ -485,7 +472,7 @@ module.exports = function (grunt) {
 			},
 			//only watch and dist less, useful when doing LESS/CSS work
 			less: {
-				files: ['fonts/**', 'less/**', '!less/fuelux-no-namespace.less'],
+				files: ['fonts/**', 'less/**'],
 				options: {
 					livereload: isLivereloadEnabled
 				},
@@ -530,11 +517,10 @@ module.exports = function (grunt) {
 	grunt.registerTask('distjs', 'concat, uglify', ['concat', 'uglify', 'jsbeautifier']);
 
 	// CSS distribution task
-	grunt.registerTask('distcss', 'Compile LESS into CSS', ['less', 'usebanner', 'delete-temp-less-file']);
+	grunt.registerTask('distcss', 'Compile LESS into CSS', ['less:dist', 'less:minify', 'usebanner']);
 
 	// CSS distribution task (dev)
-	grunt.registerTask('distcssdev', 'Compile LESS into the dev CSS', ['less:pre', 'less:dev', 'delete-temp-less-file']);
-
+	grunt.registerTask('distcssdev', 'Compile LESS into the dev CSS', [ 'less:dev', 'delete-temp-less-file']);
 
 	// Temporary LESS file deletion task
 	grunt.registerTask('delete-temp-less-file', 'Delete the temporary LESS file created during the build process', function () {

@@ -1,122 +1,126 @@
-.repeater {
-	border: 1px solid #ddd;
-	border-radius: 4px;
+.fuelux {
 
-	&-canvas {
-		&.scrolling{
-			bottom: 0;
-			left: 0;
-			overflow-y: auto;
-			position: absolute;
-			right: 0;
-			top: 0;
-		}
-	}
+	.repeater {
+		border: 1px solid #ddd;
+		border-radius: 4px;
 
-	&-header,
-	&-footer
-	{
-		background: #f9f9f9;
-		min-height: 50px;
-		padding: 8px;
-		.clearfix;
-
-		&-left {
-			float: left;
-		}
-
-		&-right {
-			float: right;
-		}
-
-		@media (max-width: 625px) {
-			&-left,
-			&-right {
-				float: none;
-				.clearfix;
+		&-canvas {
+			&.scrolling{
+				bottom: 0;
+				left: 0;
+				overflow-y: auto;
+				position: absolute;
+				right: 0;
+				top: 0;
 			}
+		}
+
+		&-header,
+		&-footer
+		{
+			background: #f9f9f9;
+			min-height: 50px;
+			padding: 8px;
+			.clearfix;
 
 			&-left {
-				margin-bottom: 8px;
+				float: left;
+			}
+
+			&-right {
+				float: right;
+			}
+
+			@media (max-width: 625px) {
+				&-left,
+				&-right {
+					float: none;
+					.clearfix;
+				}
+
+				&-left {
+					margin-bottom: 8px;
+				}
 			}
 		}
-	}
 
-	&-header {
-		border-bottom: 1px solid #ddd;
-		.border-top-radius(4px);
-	}
-
-	&-footer {
-		border-top: 1px solid #ddd;
-		.border-bottom-radius(4px);
-	}
-
-	&-loader {
-		display: none;
-		left: 50%;
-		position: absolute;
-		margin: -32px 0 0 -32px;
-		top: 50%;
-	}
-
-	&-viewport {
-		min-height: 80px;
-		position: relative;
-	}
-
-	&-pagination {
-
-		label {
-			font-weight: normal;
+		&-header {
+			border-bottom: 1px solid #ddd;
+			.border-top-radius(4px);
 		}
 
-		.repeater-primaryPaging {
+		&-footer {
+			border-top: 1px solid #ddd;
+			.border-bottom-radius(4px);
+		}
+
+		&-loader {
 			display: none;
-			vertical-align: middle;
-			width: 116px;
+			left: 50%;
+			position: absolute;
+			margin: -32px 0 0 -32px;
+			top: 50%;
+		}
 
-			&.active {
-				display: inline-block;
+		&-viewport {
+			min-height: 80px;
+			position: relative;
+		}
+
+		&-pagination {
+
+			label {
+				font-weight: normal;
 			}
 
-			ul.dropdown-menu {
-				min-width: 116px;
+			.repeater-primaryPaging {
+				display: none;
+				vertical-align: middle;
+				width: 116px;
+
+				&.active {
+					display: inline-block;
+				}
+
+				ul.dropdown-menu {
+					min-width: 116px;
+				}
+			}
+
+			.repeater-secondaryPaging {
+				display: none;
+				width: 82px;
+
+				&.active {
+					display: inline-block;
+				}
 			}
 		}
 
-		.repeater-secondaryPaging {
-			display: none;
-			width: 82px;
+		&-search {
+			float: left;
+			width: 200px;
+		}
 
-			&.active {
-				display: inline-block;
-			}
+		&-title {
+			display: block;
+			float: left;
+			line-height: 34px;
+			margin-right: 10px;
+		}
+
+		/*
+		 * reinforce spacing around control buttons
+		 */
+		&-itemization .selectlist, // TODO add specfic class for page size dropdown
+		&-filters,
+		&-secondaryPaging,
+		&-primaryPaging,
+		&-next,
+		&-prev
+		{
+			margin: auto 0.3em;
 		}
 	}
 
-	&-search {
-		float: left;
-		width: 200px;
-	}
-
-	&-title {
-		display: block;
-		float: left;
-		line-height: 34px;
-		margin-right: 10px;
-	}
-
-	/*
-	 * reinforce spacing around control buttons
-	 */
-	&-itemization .selectlist, // TODO add specfic class for page size dropdown
-	&-filters,
-	&-secondaryPaging,
-	&-primaryPaging,
-	&-next,
-	&-prev
-	{
-		margin: auto 0.3em;
-	}
 }

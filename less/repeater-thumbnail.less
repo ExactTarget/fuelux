@@ -1,77 +1,81 @@
-.repeater-thumbnail {
-	border: 1px solid #ddd;
-	color: #666;
-	float: left;
-	font-size: 14px;
-	min-height: 110px;
-	min-width: 100px;
-	margin: 8px 7px;
-	text-align: center;
+.fuelux {
 
-	img {
-		display: block;
-		margin-top: 10px;
-		margin-bottom: 3px;
-	}
+	.repeater-thumbnail {
+		border: 1px solid #ddd;
+		color: #666;
+		float: left;
+		font-size: 14px;
+		min-height: 110px;
+		min-width: 100px;
+		margin: 8px 7px;
+		text-align: center;
 
-	&-cont {
-		height: 100%;
-		overflow-y: auto;
-		padding: 6px;
-		width: 100%;
+		img {
+			display: block;
+			margin-top: 10px;
+			margin-bottom: 3px;
+		}
 
-		&.align-center, &.align-justify, &.align-left, &.align-right {
-			position: relative;
-			font-size: 0.1px;
+		&-cont {
+			height: 100%;
+			overflow-y: auto;
+			padding: 6px;
+			width: 100%;
 
-			&:after {
-				display: inline-block;
-				width: 100%;
-				content: '';
-			}
-
-			.infinitescroll {
-				&-end, &-load {
-					display: inline-block;
-					width: 100%;
-				}
-			}
-
-			.repeater-thumbnail {
-				display: inline-block;
-				float: none;
-				font-size: 14px;
+			&.align-center, &.align-justify, &.align-left, &.align-right {
+				position: relative;
+				font-size: 0.1px;
 
 				&:after {
-					content: ' ';
+					display: inline-block;
+					width: 100%;
+					content: '';
+				}
+
+				.infinitescroll {
+					&-end, &-load {
+						display: inline-block;
+						width: 100%;
+					}
+				}
+
+				.repeater-thumbnail {
+					display: inline-block;
+					float: none;
+					font-size: 14px;
+
+					&:after {
+						content: ' ';
+					}
 				}
 			}
-		}
-		&.align-center { text-align: center; }
-		&.align-justify { text-align: justify; }
-		&.align-left { text-align: left; }
-		&.align-right { text-align: right; }
+			&.align-center { text-align: center; }
+			&.align-justify { text-align: justify; }
+			&.align-left { text-align: left; }
+			&.align-right { text-align: right; }
 
-		div.empty {
-			font-size: 14px;
-			font-style: italic;
-			padding: 14px 10px 20px;
-			text-align: center;
-		}
-
-		.selectable {
-			&:hover {
-				background: @selectableHover;
-				cursor: pointer;
+			div.empty {
+				font-size: 14px;
+				font-style: italic;
+				padding: 14px 10px 20px;
+				text-align: center;
 			}
 
-			&.selected {
-				background: @selected;
-
+			.selectable {
 				&:hover {
-					background: @selectedHover;
+					background: @selectableHover;
+					cursor: pointer;
+				}
+
+				&.selected {
+					background: @selected;
+
+					&:hover {
+						background: @selectedHover;
+					}
 				}
 			}
 		}
 	}
+
 }

@@ -1,153 +1,10 @@
-.datepicker {
+.fuelux {
 
-	&-calendar {
-		padding: 16px 16px 0;
-		min-height: 262px;
+	.datepicker {
 
-		button {
-			border: 0;
-			padding: 0;
-			background-color: transparent;
-		}
-
-		&-days {
-			height: 182px;
-			margin: 10px 0 12px;
-			width: 100%;
-
-			thead {
-				border-bottom: 1px solid #cccaca;
-			}
-
-			/* for spacing */
-			tbody:before {
-				color: transparent;
-				content: "\200C";
-				display: block;
-				line-height: 3px;
-				visibility: hidden;
-			}
-
-			td, th {
-				font-size: 14px;
-				height: 32px;
-				text-align: center;
-				vertical-align: middle;
-				width: 14.29%;
-			}
-
-			td {
-				b, button {
-					color: #333;
-					display: inline-block;
-					font-weight: normal;
-					height: 30px;
-					text-decoration: none;
-					width: 30px;
-				}
-
-				b {
-					line-height: 30px;
-				}
-
-				span {
-					display: block;
-
-					border-radius: @baseBorderRadius;
-
-					&:hover {
-						background: @selectableHover;
-						text-decoration: none;
-					}
-				}
-
-				&.current-day {
-					span {
-						border: 1px solid #333;
-					}
-				}
-
-				&.last-month, &.next-month {
-					background: darken(@selected, 10%);
-					&.first {
-						border-top-left-radius: @baseBorderRadius;
-						border-bottom-left-radius: @baseBorderRadius;
-						padding-left: 1px;
-					}
-					&.last {
-						border-top-right-radius: @baseBorderRadius;
-						border-bottom-right-radius: @baseBorderRadius;
-						padding-right: 1px;
-					}
-				}
-
-				&.past {
-					b, button {
-						color: lighten(#333, 40%);
-					}
-				}
-
-				&.restricted {
-					b, button {
-						cursor: no-drop;
-						position: relative;
-
-						&:before {
-							border-top: 1px solid #a94442;
-							bottom: 0;
-							content: " ";
-							display: block;
-							left: 5px;
-							position: absolute;
-							right: 5px;
-							top: 50%;
-						}
-
-						&:hover {
-							background: none;
-						}
-					}
-				}
-
-				&.selected {
-					span {
-						background: @selected;
-
-						&:hover {
-							background: @selectedHover;
-						}
-					}
-
-					b, button {
-						color: #8d8787;
-					}
-
-					&.current-day {
-						box-shadow: 0 0 0 1px #fff offset;
-						b, button {
-							color: #222;
-						}
-
-						span {
-							&:hover {
-								b, button {
-									border-color: #0f5f9f;
-								}
-							}
-						}
-					}
-				}
-			}
-
-			th {
-				font-weight: bold;
-				height: 22px;
-				vertical-align: top;
-			}
-		}
-
-		&-header {
-			.clearfix;
+		&-calendar {
+			padding: 16px 16px 0;
+			min-height: 262px;
 
 			button {
 				border: 0;
@@ -155,232 +12,379 @@
 				background-color: transparent;
 			}
 
-			.title {
-				margin: 0 auto;
-				text-align: center;
-				display: block;
-				width: 174px;
-				color: #222;
-				font-size: 20px;
-				line-height: 30px;
-				text-decoration: underline;
-				vertical-align: middle;
+			&-days {
+				height: 182px;
+				margin: 10px 0 12px;
+				width: 100%;
 
-					&:hover {
-						color: #1d75bb;
-						text-decoration: underline;
-					}
+				thead {
+					border-bottom: 1px solid #cccaca;
+				}
 
-					&.disabled {
-						cursor: default;
-						pointer-events: none;
+				/* for spacing */
+				tbody:before {
+					color: transparent;
+					content: "\200C";
+					display: block;
+					line-height: 3px;
+					visibility: hidden;
+				}
+
+				td, th {
+					font-size: 14px;
+					height: 32px;
+					text-align: center;
+					vertical-align: middle;
+					width: 14.29%;
+				}
+
+				td {
+					b, button {
+						color: #333;
+						display: inline-block;
+						font-weight: normal;
+						height: 30px;
 						text-decoration: none;
+						width: 30px;
 					}
 
-					.month {
-						display: inline;
-						margin: 0;
-						padding: 0;
-
-						span {
-							display: none;
-
-							&.current {
-								display: inline;
-							}
-						}
+					b {
+						line-height: 30px;
 					}
-				}
 
-			.next, .prev {
-				background: #666669;
-				background-clip: padding-box;
-				border-radius: 30px;
-				cursor: pointer;
-				float: left;
-				height: 30px;
-				text-align: center;
-				width: 30px;
-
-				span.glyphicon {
-					color: #fff;
-					font-size: 16px;
-					line-height: 30px;
-				}
-
-				&:hover {
-					background: #1d75bb;
-				}
-			}
-
-			.next {
-				float: right;
-
-				span.glyphicon {
-					line-height: 28px;
-				}
-			}
-		}
-
-		&-footer {
-			background: #e3e2e1;
-			background-clip: padding-box;
-			border-radius: 0 0 4px 4px;
-			border-top: 1px solid #cccaca;
-			height: 30px;
-			margin: 0 -16px;
-			padding: 4px 14px;
-
-			.datepicker-today {
-				color: #333;
-				font-size: 14px;
-				text-decoration: underline;
-
-				&:hover {
-					color: #1b75bb;
-					text-decoration: underline;
-				}
-
-				&.disabled {
-					color: #8b8c8e;
-					cursor: default;
-					pointer-events: none;
-
-					&:hover {
-						color: #8b8c8e
-					}
-				}
-			}
-		}
-	}
-
-	&-calendar-wrapper {
-		border: 1px solid #6e6f71;
-		min-height: 20px;
-		padding: 0;
-		width: 300px;
-	}
-
-	&-wheels {
-		display: none;
-
-		ul button {
-			border: 0;
-			padding: 0;
-			background-color: transparent;
-		}
-
-		&-footer {
-			background: #e3e2e1;
-			border-radius: 0 0 4px 4px;
-			border-top: 1px solid #cccaca;
-			clear: both;
-
-			.datepicker-wheels-back {
-				display: block;
-				color: #222;
-				float: left;
-				line-height: 22px;
-				border: 0;
-				background-color: transparent;
-
-				&:hover {
-					color: #1d75bb;
-				}
-			}
-
-			.datepicker-wheels-select {
-				float: right;
-				background-color: transparent;
-				color: @blue;
-
-				&:hover {
-					color: #1d75bb;
-				}
-			}
-		}
-
-		&-month, &-year {
-			float: left;
-			width: 50%;
-
-			ul {
-				height: 217px;
-				list-style-type: none;
-				margin: 0;
-				overflow: auto;
-				padding: 0;
-				text-align: center;
-
-				li {
-					margin: 4px 0;
-
-					button {
+					span {
 						display: block;
-						width: 100%;
-						text-align: center;
-						color: #414041;
-						display: block;
-						font-size: 16px;
-						line-height: 24px;
-						text-decoration: none;
+
+						border-radius: @baseBorderRadius;
 
 						&:hover {
-							background: #aee0f8;
+							background: @selectableHover;
 							text-decoration: none;
 						}
 					}
 
-					&.selected {
-						button {
-							background: #1d75bb;
-							color: #fff;
+					&.current-day {
+						span {
+							border: 1px solid #333;
+						}
+					}
+
+					&.last-month, &.next-month {
+						background: darken(@selected, 10%);
+						&.first {
+							border-top-left-radius: @baseBorderRadius;
+							border-bottom-left-radius: @baseBorderRadius;
+							padding-left: 1px;
+						}
+						&.last {
+							border-top-right-radius: @baseBorderRadius;
+							border-bottom-right-radius: @baseBorderRadius;
+							padding-right: 1px;
+						}
+					}
+
+					&.past {
+						b, button {
+							color: lighten(#333, 40%);
+						}
+					}
+
+					&.restricted {
+						b, button {
+							cursor: no-drop;
+							position: relative;
+
+							&:before {
+								border-top: 1px solid #a94442;
+								bottom: 0;
+								content: " ";
+								display: block;
+								left: 5px;
+								position: absolute;
+								right: 5px;
+								top: 50%;
+							}
 
 							&:hover {
-								background: #0f5f9f;
+								background: none;
+							}
+						}
+					}
+
+					&.selected {
+						span {
+							background: @selected;
+
+							&:hover {
+								background: @selectedHover;
+							}
+						}
+
+						b, button {
+							color: #8d8787;
+						}
+
+						&.current-day {
+							box-shadow: 0 0 0 1px #fff offset;
+							b, button {
+								color: #222;
+							}
+
+							span {
+								&:hover {
+									b, button {
+										border-color: #0f5f9f;
+									}
+								}
 							}
 						}
 					}
 				}
+
+				th {
+					font-weight: bold;
+					height: 22px;
+					vertical-align: top;
+				}
 			}
 
-			.header {
+			&-header {
+				.clearfix;
+
+				button {
+					border: 0;
+					padding: 0;
+					background-color: transparent;
+				}
+
+				.title {
+					margin: 0 auto;
+					text-align: center;
+					display: block;
+					width: 174px;
+					color: #222;
+					font-size: 20px;
+					line-height: 30px;
+					text-decoration: underline;
+					vertical-align: middle;
+
+						&:hover {
+							color: #1d75bb;
+							text-decoration: underline;
+						}
+
+						&.disabled {
+							cursor: default;
+							pointer-events: none;
+							text-decoration: none;
+						}
+
+						.month {
+							display: inline;
+							margin: 0;
+							padding: 0;
+
+							span {
+								display: none;
+
+								&.current {
+									display: inline;
+								}
+							}
+						}
+					}
+
+				.next, .prev {
+					background: #666669;
+					background-clip: padding-box;
+					border-radius: 30px;
+					cursor: pointer;
+					float: left;
+					height: 30px;
+					text-align: center;
+					width: 30px;
+
+					span.glyphicon {
+						color: #fff;
+						font-size: 16px;
+						line-height: 30px;
+					}
+
+					&:hover {
+						background: #1d75bb;
+					}
+				}
+
+				.next {
+					float: right;
+
+					span.glyphicon {
+						line-height: 28px;
+					}
+				}
+			}
+
+			&-footer {
 				background: #e3e2e1;
 				background-clip: padding-box;
-				border-bottom: 1px solid #cccaca;
-				border-radius: 4px 0 0 0;
-				color: #222;
-				font-size: 20px;
-				font-weight: bold;
-				line-height: 30px;
-				margin-top: 0;
-				margin-bottom: 0;
-				text-align: center;
-			}
+				border-radius: 0 0 4px 4px;
+				border-top: 1px solid #cccaca;
+				height: 30px;
+				margin: 0 -16px;
+				padding: 4px 14px;
 
-			&.full {
-				border-left: 0;
-				width: 100%;
+				.datepicker-today {
+					color: #333;
+					font-size: 14px;
+					text-decoration: underline;
 
-				.header {
-					border-radius: 4px 4px 0 0;
+					&:hover {
+						color: #1b75bb;
+						text-decoration: underline;
+					}
+
+					&.disabled {
+						color: #8b8c8e;
+						cursor: default;
+						pointer-events: none;
+
+						&:hover {
+							color: #8b8c8e
+						}
+					}
 				}
 			}
 		}
 
-		&-year {
-			border-left: 1px solid #cccaca;
-			float: right;
+		&-calendar-wrapper {
+			border: 1px solid #6e6f71;
+			min-height: 20px;
+			padding: 0;
+			width: 300px;
+		}
 
-			.header {
-				border-radius: 0 4px 0 0;
+		&-wheels {
+			display: none;
+
+			ul button {
+				border: 0;
+				padding: 0;
+				background-color: transparent;
+			}
+
+			&-footer {
+				background: #e3e2e1;
+				border-radius: 0 0 4px 4px;
+				border-top: 1px solid #cccaca;
+				clear: both;
+
+				.datepicker-wheels-back {
+					display: block;
+					color: #222;
+					float: left;
+					line-height: 22px;
+					border: 0;
+					background-color: transparent;
+
+					&:hover {
+						color: #1d75bb;
+					}
+				}
+
+				.datepicker-wheels-select {
+					float: right;
+					background-color: transparent;
+					color: @blue;
+
+					&:hover {
+						color: #1d75bb;
+					}
+				}
+			}
+
+			&-month, &-year {
+				float: left;
+				width: 50%;
+
+				ul {
+					height: 217px;
+					list-style-type: none;
+					margin: 0;
+					overflow: auto;
+					padding: 0;
+					text-align: center;
+
+					li {
+						margin: 4px 0;
+
+						button {
+							display: block;
+							width: 100%;
+							text-align: center;
+							color: #414041;
+							display: block;
+							font-size: 16px;
+							line-height: 24px;
+							text-decoration: none;
+
+							&:hover {
+								background: #aee0f8;
+								text-decoration: none;
+							}
+						}
+
+						&.selected {
+							button {
+								background: #1d75bb;
+								color: #fff;
+
+								&:hover {
+									background: #0f5f9f;
+								}
+							}
+						}
+					}
+				}
+
+				.header {
+					background: #e3e2e1;
+					background-clip: padding-box;
+					border-bottom: 1px solid #cccaca;
+					border-radius: 4px 0 0 0;
+					color: #222;
+					font-size: 20px;
+					font-weight: bold;
+					line-height: 30px;
+					margin-top: 0;
+					margin-bottom: 0;
+					text-align: center;
+				}
+
+				&.full {
+					border-left: 0;
+					width: 100%;
+
+					.header {
+						border-radius: 4px 4px 0 0;
+					}
+				}
+			}
+
+			&-year {
+				border-left: 1px solid #cccaca;
+				float: right;
+
+				.header {
+					border-radius: 0 4px 0 0;
+				}
+			}
+		}
+
+		input {
+			&::-ms-clear {
+				display:none;
 			}
 		}
 	}
 
-	input {
-		&::-ms-clear {
-			display:none;
-		}
-	}
 }

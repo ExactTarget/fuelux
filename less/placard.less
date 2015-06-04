@@ -1,150 +1,153 @@
-.placard {
-	display: inline-block;
-	position: relative;
+.fuelux {
 
-	&[data-ellipsis="true"] {
-		&.showing {
+	.placard {
+		display: inline-block;
+		position: relative;
+
+		&[data-ellipsis="true"] {
+			&.showing {
+				input.placard-field {
+					overflow: visible;
+					text-overflow: clip;
+					white-space: normal;
+				}
+			}
+
 			input.placard-field {
-				overflow: visible;
-				text-overflow: clip;
-				white-space: normal;
-			}
-		}
-
-		input.placard-field {
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-
-			&::-ms-clear {
-				display:none;
-			}
-		}
-
-		textarea.placard-field {
-			&[readonly] {
 				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+
+				&::-ms-clear {
+					display:none;
+				}
 			}
-		}
-	}
 
-	&.showing {
-		.placard-footer,
-		.placard-header,
-		.placard-popup {
-			display: block;
-			z-index: 1;
-		}
-
-		input.placard-field, textarea.placard-field {
-			background: #fff;
-			border: 1px solid #CCCCCC;
-			box-shadow: none;
-			position: relative;
-			z-index: 1;
-		}
-	}
-
-	input.placard-field, textarea.placard-field {
-		resize: none;
-
-		&[readonly] {
-			background: #fff;
-			cursor: auto;
-
-			&.glass {
-				background: none;
-
-				&:hover {
-					background: #d9edf7;
-					cursor: pointer;
+			textarea.placard-field {
+				&[readonly] {
+					overflow: hidden;
 				}
 			}
 		}
 
-		&:focus {
-			border: 1px solid #CCCCCC;
-			box-shadow: none;
+		&.showing {
+			.placard-footer,
+			.placard-header,
+			.placard-popup {
+				display: block;
+				z-index: 1;
+			}
+
+			input.placard-field, textarea.placard-field {
+				background: #fff;
+				border: 1px solid #CCCCCC;
+				box-shadow: none;
+				position: relative;
+				z-index: 1;
+			}
 		}
-	}
 
-	&-cancel {
-		font-size: 12px;
-		margin-right: 4px;
-		vertical-align: middle;
-	}
+		input.placard-field, textarea.placard-field {
+			resize: none;
 
-	&-footer,
-	&-header {
-		display: none;
-		left: 0;
-		line-height: 1;
-		position: absolute;
-		right: 0;
-	}
+			&[readonly] {
+				background: #fff;
+				cursor: auto;
 
-	&-footer {
-		padding: 4px 0 8px 0;
-		text-align: right;
-		top: 100%;
-	}
+				&.glass {
+					background: none;
 
-	&-header {
-		bottom: 100%;
-		padding: 8px 0 4px 0;
+					&:hover {
+						background: #d9edf7;
+						cursor: pointer;
+					}
+				}
+			}
 
-		h1, h2, h3, h4, h5, h6 {
-			margin: 0;
+			&:focus {
+				border: 1px solid #CCCCCC;
+				box-shadow: none;
+			}
 		}
-	}
 
-	&-popup {
-		background: #d9edf7;
-		background-clip: padding-box;
-		border: 1px solid #ccc;
-		border-radius: 4px;
-		bottom: -8px;
-		box-shadow: 0 0 0 1px #fff inset;
-		display: none;
-		left: -8px;
-		position: absolute;
-		right: -8px;
-		top: -8px;
-	}
+		&-cancel {
+			font-size: 12px;
+			margin-right: 4px;
+			vertical-align: middle;
+		}
 
-	.glass {
-		background: transparent;
-		border: 1px solid #fff;
-		box-shadow: none;
+		&-footer,
+		&-header {
+			display: none;
+			left: 0;
+			line-height: 1;
+			position: absolute;
+			right: 0;
+		}
 
-		&:hover {
+		&-footer {
+			padding: 4px 0 8px 0;
+			text-align: right;
+			top: 100%;
+		}
+
+		&-header {
+			bottom: 100%;
+			padding: 8px 0 4px 0;
+
+			h1, h2, h3, h4, h5, h6 {
+				margin: 0;
+			}
+		}
+
+		&-popup {
 			background: #d9edf7;
-			border-color: #66afe9;
-			cursor: pointer;
-
-			&[disabled] {
-				background: transparent;
-				border-color: #fff;
-				cursor: not-allowed;
-			}
+			background-clip: padding-box;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			bottom: -8px;
+			box-shadow: 0 0 0 1px #fff inset;
+			display: none;
+			left: -8px;
+			position: absolute;
+			right: -8px;
+			top: -8px;
 		}
 
-		&:focus {
-			background: #fff;
-			border-color: #66afe9;
-			box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
-			cursor: auto;
+		.glass {
+			background: transparent;
+			border: 1px solid #fff;
+			box-shadow: none;
+
+			&:hover {
+				background: #d9edf7;
+				border-color: #66afe9;
+				cursor: pointer;
+
+				&[disabled] {
+					background: transparent;
+					border-color: #fff;
+					cursor: not-allowed;
+				}
+			}
+
+			&:focus {
+				background: #fff;
+				border-color: #66afe9;
+				box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+				cursor: auto;
+
+				&[disabled] {
+					background: transparent;
+					border-color: #fff;
+					cursor: not-allowed;
+				}
+			}
 
 			&[disabled] {
-				background: transparent;
-				border-color: #fff;
 				cursor: not-allowed;
 			}
-		}
-
-		&[disabled] {
-			cursor: not-allowed;
 		}
 	}
-	
+
 }
