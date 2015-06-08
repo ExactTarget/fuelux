@@ -165,6 +165,12 @@ define(function(require){
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;INTERVAL=1;COUNT=1;' });
 		equal($repIntSelDrop.html(), 'None (run once)', 'no recurrence set correctly');
 
+		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=SECONDLY;INTERVAL=19;' });
+		ok(($repIntSelDrop.html()==='Secondly' && $repPanSpinbox.spinbox('value')==='19'), 'secondly recurrence set correctly');
+
+		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=MINUTELY;INTERVAL=10;' });
+		ok(($repIntSelDrop.html()==='Minutely' && $repPanSpinbox.spinbox('value')==='10'), 'minutely recurrence set correctly');
+
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=HOURLY;INTERVAL=3;' });
 		ok(($repIntSelDrop.html()==='Hourly' && $repPanSpinbox.spinbox('value')==='3'), 'hourly recurrence set correctly');
 
@@ -238,7 +244,7 @@ define(function(require){
 	});
 
 	// TODO: need more end date test or dry out code where start and end use same methods
-	
+
 	test('should initialize with end date provided', function() {
 		//needed due to PhantomJS bug: https://github.com/ariya/phantomjs/issues/11151
 		// var isPhantomJS = (window.navigator.userAgent.search('PhantomJS')>=0);
@@ -251,7 +257,7 @@ define(function(require){
 			equal( tmpDatepickerVal, '04/01/2050', 'endDate set correctly');
 		// }
 	});
-	
+
 
 	test("should destroy control", function () {
 		var $el = $(html).scheduler();

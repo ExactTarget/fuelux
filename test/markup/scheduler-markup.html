@@ -272,6 +272,8 @@
 					</button>
 					<ul class="dropdown-menu" role="menu">
 						<li data-value="none"><a href="#">None (run once)</a></li>
+						<li data-value="secondly" data-text="second(s)"><a href="#">Secondly</a>
+						<li data-value="minutely" data-text="minute(s)"><a href="#">Minutely</a>
 						<li data-value="hourly" data-text="hour(s)"><a href="#">Hourly</a></li>
 						<li data-value="daily" data-text="day(s)"><a href="#">Daily</a></li>
 						<li data-value="weekdays"><a href="#">Weekdays</a></li>
@@ -282,7 +284,7 @@
 					<input type="text" aria-hidden="true" readonly="readonly" name="intervalSelectlist" class="hidden hidden-field">
 				</div>
 
-				<div class="repeat-panel repeat-every-panel repeat-hourly repeat-daily repeat-weekly hidden" aria-hidden="true">
+				<div class="repeat-panel repeat-every-panel repeat-secondly repeat-minutely repeat-hourly repeat-daily repeat-weekly hidden" aria-hidden="true">
 					<label id="MySchedulerEveryLabel" class="inline-form-text repeat-every-pretext">every</label>
 
 					<div class="spinbox digits-3 repeat-every">

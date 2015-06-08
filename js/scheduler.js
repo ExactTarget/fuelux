@@ -216,7 +216,7 @@
 		},
 
 		getValue: function () {
-			// FREQ = frequency (hourly, daily, monthly...)
+			// FREQ = frequency (secondly, minutely, hourly, daily, weekdays, weekly, monthly, yearly)
 			// BYDAY = when picking days (MO,TU,WE,etc)
 			// BYMONTH = when picking months (Jan,Feb,March) - note the values should be 1,2,3...
 			// BYMONTHDAY = when picking days of the month (1,2,3...)
@@ -277,6 +277,12 @@
 
 			if (repeat === 'none') {
 				pattern = 'FREQ=DAILY;INTERVAL=1;COUNT=1;';
+			} else if (repeat === 'secondly') {
+				pattern = 'FREQ=SECONDLY;';
+				pattern += 'INTERVAL=' + interval + ';';
+			} else if (repeat === 'minutely') {
+				pattern = 'FREQ=MINUTELY;';
+				pattern += 'INTERVAL=' + interval + ';';
 			} else if (repeat === 'hourly') {
 				pattern = 'FREQ=HOURLY;';
 				pattern += 'INTERVAL=' + interval + ';';
@@ -500,6 +506,10 @@
 							item = 'daily';
 						}
 					}
+				} else if (recur.FREQ === 'SECONDLY') {
+					item = 'secondly';
+				} else if (recur.FREQ === 'MINUTELY') {
+					item = 'minutely';
 				} else if (recur.FREQ === 'HOURLY') {
 					item = 'hourly';
 				} else if (recur.FREQ === 'WEEKLY') {
