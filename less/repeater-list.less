@@ -1,5 +1,6 @@
-.fuelux {
+@actions-width: 44px;
 
+.fuelux {
 	.repeater[data-viewtype="list"] {
 		.repeater-canvas {
 			&.scrolling {
@@ -57,7 +58,7 @@
 								}
 							}
 
-							&.selectable{
+							&.selectable {
 								&:hover td {
 									background: @selectableHover;
 									cursor: pointer;
@@ -153,7 +154,7 @@
 						margin-left: -1px;
 
 						//Webkit override
-						@media screen and (-webkit-min-device-pixel-ratio:0) {
+						@media screen and (-webkit-min-device-pixel-ratio: 0) {
 							margin-left: 0;
 						}
 					}
@@ -206,7 +207,7 @@
 						table-layout: fixed;
 						word-wrap: break-word;
 
-						&.table-frozen{
+						&.table-frozen {
 							border-right: 1px solid #ddd;
 							z-index: 2;
 							background: #ffffff;
@@ -227,6 +228,79 @@
 					}
 				}
 			}
+
+			&.actions-enabled {
+				overflow: auto;
+				.repeater-list-wrapper {
+					overflow: visible;
+				}
+				.repeater-list {
+					.actions-column-wrapper {
+						position: absolute;
+						z-index: 2;
+						right: 0;
+						width: @actions-width;
+						table {
+							table-layout: fixed;
+							word-wrap: break-word;
+
+							&.table-actions {
+								border-left: 1px solid #ddd;
+								z-index: 2;
+								border-collapse: collapse;
+								table-layout: fixed;
+								float: right;
+								tr {
+									border-left: 1px solid #ddd;
+									background: #ffffff;
+									&.empty-heading {
+										background: transparent;
+										border-left: 1px solid transparent;
+										th {
+											background: transparent;
+										}
+									}
+									td, th {
+										border-collapse: collapse;
+										word-wrap: break-word;
+										position: relative;
+										width: @actions-width;
+										padding-bottom: 7px;
+									}
+									th {
+										border-bottom: 1px solid #ddd;
+										.repeater-list-heading {
+											padding: 6px 0 5px;
+											margin-left: 0;
+											border-left: 1px solid transparent;
+											width: auto;
+										}
+									}
+									&:last-child {
+										td {
+											border-bottom: 1px solid transparent;
+										}
+									}
+								}
+
+								.caret {
+									margin-left: 0;
+								}
+							}
+						}
+					}
+					.actions-thead-wrapper {
+						position: absolute;
+						top: 0;
+						right: 0;
+						z-index: 3;
+					}
+					table {
+						table-layout: fixed;
+						word-wrap: break-word;
+					}
+				}
+			}
 		}
 
 		.repeater-loader {
@@ -240,6 +314,11 @@
 		.repeater-viewport {
 			overflow: hidden;
 		}
-	}
 
+		.actions-wrapper {
+			z-index: 10;
+			text-align: right;
+		}
+	}
 }
+

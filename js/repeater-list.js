@@ -141,7 +141,7 @@
 
 		$.fn.repeater.Constructor.prototype.list_setFrozenColumns = function () {
 			var frozenTable = this.$canvas.find('.table-frozen');
-			var $table = this.$element.find('.repeater-list table');
+			var $table = this.$element.find('.repeater-list .repeater-list-wrapper > table');
 			var repeaterWrapper = this.$element.find('.repeater-list');
 			var numFrozenColumns = this.viewOptions.list_frozenColumns;
 
@@ -170,10 +170,21 @@
 			this.$element.find('.frozen-column-wrapper, .frozen-thead-wrapper').width(columnWidth);
 		};
 
-		$.fn.repeater.Constructor.prototype.list_positionFrozenColumns = function () {
+		$.fn.repeater.Constructor.prototype.list_positionColumns = function () {
 			var $wrapper = this.$element.find('.repeater-canvas');
 			var scrollTop = $wrapper.scrollTop();
 			var scrollLeft = $wrapper.scrollLeft();
+			var frozenEnabled = this.viewOptions.list_frozenColumns;
+			var actionsEnabled = this.viewOptions.list_itemActions;
+
+			var canvasWidth = this.$element.find('.repeater-canvas').outerWidth();
+			var tableWidth = this.$element.find('.repeater-list .repeater-list-wrapper > table').outerWidth();
+
+			var actionsWidth = this.$element.find('.table-actions') ? this.$element.find('.table-actions').outerWidth() : 0;
+
+			var shouldScroll = (tableWidth - (canvasWidth - actionsWidth)) >= scrollLeft;
+
+
 			if (scrollTop > 0) {
 				$wrapper.find('.repeater-list-heading').css('top', scrollTop);
 			}
@@ -181,13 +192,101 @@
 				$wrapper.find('.repeater-list-heading').css('top','0');
 			}
 			if (scrollLeft > 0) {
-				$wrapper.find('.frozen-thead-wrapper').css('left', scrollLeft);
-				$wrapper.find('.frozen-column-wrapper').css('left', scrollLeft);
+				if (frozenEnabled) {
+					$wrapper.find('.frozen-thead-wrapper').css('left', scrollLeft);
+					$wrapper.find('.frozen-column-wrapper').css('left', scrollLeft);
+				}
+				if (actionsEnabled && shouldScroll) {
+					$wrapper.find('.actions-thead-wrapper').css('right', -scrollLeft);
+					$wrapper.find('.actions-column-wrapper').css('right', -scrollLeft);
+				}
+
 			} else {
-				$wrapper.find('.frozen-thead-wrapper').css('left', '0');
-				$wrapper.find('.frozen-column-wrapper').css('left', '0');
+				if (frozenEnabled) {
+					$wrapper.find('.frozen-thead-wrapper').css('left', '0');
+					$wrapper.find('.frozen-column-wrapper').css('left', '0');
+				}
+				if (actionsEnabled) {
+					$wrapper.find('.actions-thead-wrapper').css('right', '0');
+					$wrapper.find('.actions-column-wrapper').css('right', '0');
+				}
+			}
+		};
+		
+		$.fn.repeater.Constructor.prototype.list_createItemActions = function () {
+			var actionsHtml = '';
+			var self = this;
+			var i, l;
+			var $table = this.$element.find('.repeater-list .repeater-list-wrapper > table');
+			var $actionsTable = this.$canvas.find('.table-actions');
+
+			for (i = 0, l = this.viewOptions.list_itemActions.length; i < l; i++) {
+				var action = this.viewOptions.list_itemActions[i];
+				var html = action.html();
+
+				actionsHtml += '<li><a data-action="'+ action.name +'" class="action-item"> ' + html + '</a></li>';
 			}
 
+			var selectlist = '<div class="btn-group">' +
+				'<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
+				'<span class="caret"></span>' +
+				'</button>' +
+				'<ul class="dropdown-menu dropdown-menu-right" role="menu">' +
+				actionsHtml +
+				'</ul></div>';
+
+			if ($actionsTable.length < 1) {
+
+				var $actionsColumnWrapper = $('<div class="actions-column-wrapper"></div>').insertBefore($table);
+				var $actionsColumn = $table.clone().addClass('table-actions');
+				$actionsColumn.find('th:not(:lt(1))').remove();
+				$actionsColumn.find('td:not(:nth-child(n+0):nth-child(-n+1))').remove();
+
+				// Dont show actions dropdown in header if not multi select
+				if (this.viewOptions.list_selectable === 'multi') {
+					$actionsColumn.find('thead tr').html('<th><div class="repeater-list-heading">' + selectlist + '</div></th>');
+				}
+				else {
+					$actionsColumn.find('thead tr').addClass('empty-heading').html('<th></th>');
+				}
+
+				// Create Actions dropdown for each cell in actions table
+				var $actionsCells = $actionsColumn.find('td');
+
+				$actionsCells.each(function(i) {
+					$(this).html(selectlist);
+					$(this).find('a').attr('data-row', parseInt([i]) + 1);
+				});
+
+				$actionsColumnWrapper.append($actionsColumn);
+
+				this.$canvas.addClass('actions-enabled');
+			}
+			this.$element.find('.repeater-list table.table-actions tr').each(function (i, elem) {
+				$(this).height($table.find('tr:eq(' + i + ')').height());
+			});
+
+			this.$element.find('.table-actions .action-item').on('click', function() {
+				var actionName = $(this).data('action');
+				var row = $(this).data('row');
+				self.list_getActionItems(actionName,row);
+			});
+		};
+
+		$.fn.repeater.Constructor.prototype.list_getActionItems = function (actionName, row) {
+
+			var clickedRow = this.$canvas.find('.repeater-list-wrapper > table tbody tr:nth-child('+ row +')');
+
+			var actionObj = $.grep(this.viewOptions.list_itemActions, function(actions){
+				return actions.name === actionName;
+			})[0];
+
+			if (actionObj.clickAction) {
+				actionObj.clickAction({
+					item: clickedRow,
+					rowData: clickedRow.data('item_data')
+				}, function () {});
+			}
 		};
 
 		//ADDITIONAL DEFAULT OPTIONS
@@ -201,7 +300,8 @@
 			list_selectable: false,
 			list_sortClearing: false,
 			list_rowRendered: null,
-			list_frozenColumns: 0
+			list_frozenColumns: 0,
+			list_itemActions: false
 		});
 
 		//EXTENSION DEFINITION
@@ -254,11 +354,12 @@
 							self.list_positionHeadings();
 						}
 					});
-					if (self.viewOptions.list_frozenColumns) {
+					if (self.viewOptions.list_frozenColumns || self.viewOptions.list_itemActions) {
 						helpers.container.on('scroll.fu.repeaterList', function () {
-							self.list_positionFrozenColumns();
+							self.list_positionColumns();
 						});
 					}
+
 					helpers.container.append($listContainer);
 				}
 
@@ -282,7 +383,15 @@
 
 				if (this.viewOptions.list_frozenColumns) {
 					this.list_setFrozenColumns();
-					this.list_positionFrozenColumns();
+
+				}
+
+				if (this.viewOptions.list_itemActions) {
+					this.list_createItemActions();
+				}
+
+				if (this.viewOptions.list_frozenColumns || this.viewOptions.list_itemActions) {
+					this.list_positionColumns();
 				}
 
 				$sorted = this.$canvas.find('.repeater-list-heading.sorted');
@@ -429,6 +538,10 @@
 					$row.trigger('click.fu.repeaterList');
 				}
 			});
+		}
+
+		if (this.viewOptions.list_itemActions && !this.viewOptions.list_selectable) {
+			$row.data('item_data', rows[index]);
 		}
 
 		$tbody.append($row);
