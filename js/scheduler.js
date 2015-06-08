@@ -580,8 +580,7 @@
 					var timeZone = this.$timeZone.selectlist('selectedItem');
 					var timezoneOffset = (timeZone.offset === '+00:00') ? 'Z' : timeZone.offset;
 
-					startDate = temp;
-					var utcEndHours = this.setUtcTime(startDate, startTime, timezoneOffset);
+					var utcEndHours = this.setUtcTime(temp, startTime, timezoneOffset);
 					this.$endDate.datepicker('setDate', utcEndHours);
 
 					this.$endSelect.selectlist('selectByValue', 'date');
