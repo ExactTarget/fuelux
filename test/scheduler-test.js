@@ -166,10 +166,10 @@ define(function(require){
 		equal($repIntSelDrop.html(), 'None (run once)', 'no recurrence set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=SECONDLY;INTERVAL=19;' });
-		ok(($repIntSelDrop.html()==='Secondly' && $repPanSpinbox.spinbox('value')==='19'), 'secondly recurrence set correctly');
+		ok(($repIntSelDrop.html()==='Per Second' && $repPanSpinbox.spinbox('value')==='19'), 'secondly recurrence set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=MINUTELY;INTERVAL=10;' });
-		ok(($repIntSelDrop.html()==='Minutely' && $repPanSpinbox.spinbox('value')==='10'), 'minutely recurrence set correctly');
+		ok(($repIntSelDrop.html()==='Per Minute' && $repPanSpinbox.spinbox('value')==='10'), 'minutely recurrence set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=HOURLY;INTERVAL=3;' });
 		ok(($repIntSelDrop.html()==='Hourly' && $repPanSpinbox.spinbox('value')==='3'), 'hourly recurrence set correctly');
