@@ -320,16 +320,16 @@
 		},
 
 		next: function () {
-			if (this.currentStep < this.numSteps) {
-				var e = $.Event('actionclicked.fu.wizard');
-				this.$element.trigger(e, {
-					step: this.currentStep,
-					direction: 'next'
-				});
-				if (e.isDefaultPrevented()) {
-					return;
-				}// respect preventDefault in case dev has attached validation to step and wants to stop propagation based on it.
+			var e = $.Event('actionclicked.fu.wizard');
+			this.$element.trigger(e, {
+				step: this.currentStep,
+				direction: 'next'
+			});
+			if (e.isDefaultPrevented()) {
+				return;
+			}// respect preventDefault in case dev has attached validation to step and wants to stop propagation based on it.
 
+			if (this.currentStep < this.numSteps) {
 				this.currentStep += 1;
 				this.setState();
 			} else {//is last step
