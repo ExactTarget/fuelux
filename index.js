@@ -750,6 +750,7 @@ define(function (require) {
 		repeaterActions.repeater({
 			list_noItemsHTML: '<span>foo</span>',
 			list_highlightSortedColumn: true,
+			list_selectable: 'multi',
 			list_actions:  {
 				width: 37,
 				items: [
