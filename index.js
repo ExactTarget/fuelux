@@ -141,8 +141,13 @@ define(function (require) {
 
 	// events
 	$('#myDatepicker').on('changed.fu.datepicker', function (event, data) {
-		log('datepicker change event fired');
+		log('datepicker change event fired: ' + data);
 	});
+
+	$('#myDatepicker').on('dateClicked.fu.datepicker', function (event, data) {
+		log('datepicker dateClicked event fired: ' + data);
+	});
+
 	$('#myDatepicker').on('inputParsingFailed.fu.datepicker', function () {
 		log('datepicker inputParsingFailed event fired');
 	});
