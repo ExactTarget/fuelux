@@ -97,6 +97,7 @@
 		});
 		this.$element.find('.combobox').on('changed.fu.combobox', $.proxy(this.changed, this));
 		this.$element.find('.datepicker').on('changed.fu.datepicker', $.proxy(this.changed, this));
+		this.$element.find('.datepicker').on('dateClicked.fu.datepicker', $.proxy(this.changed, this));
 		this.$element.find('.selectlist').on('changed.fu.selectlist', $.proxy(this.changed, this));
 		this.$element.find('.spinbox').on('changed.fu.spinbox', $.proxy(this.changed, this));
 		this.$element.find('.repeat-monthly .radio-custom, .repeat-yearly .radio-custom').on('change.fu.scheduler', $.proxy(this.changed, this));
