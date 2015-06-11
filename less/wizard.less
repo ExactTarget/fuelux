@@ -10,13 +10,22 @@
 		background-color: @tableBackgroundAccent;
 		position: relative;
 		min-height: 48px;
-		overflow: hidden;
 
-		> .steps {
+		&.no-steps-container {	// maintains backwards compatibility with < 3.8, will be removed in the future
+			overflow: hidden;
+		}
+
+		.steps-container {
+			border-radius: @baseBorderRadius @baseBorderRadius 0 0;
+			overflow: hidden;
+
+		}
+
+		> ul.steps, > .steps-container > ul.steps {
 			list-style: none outside none;
 			padding: 0;
 			margin: 0;
-			width: 4000px;
+			width: 999999px; //using a ridiculously giant width here to allow practically infinite space for the li's to flow horizontally
 
 			&.previous-disabled {
 				li {
@@ -120,7 +129,7 @@
 		&.rtl {
 			direction: rtl;
 
-			>.steps {
+			> ul.steps, > .steps-container > ul.steps {
 				right: 0;
 				left: auto;
 				float: right;
@@ -190,6 +199,9 @@
 				right: auto;
 				left: 0;
 				float: left;
+				border-left: none;
+				border-right: 1px solid @navbarBorder;
+				border-radius: @baseBorderRadius 0 0 0;
 
 				.btn-prev {
 					span {
@@ -211,6 +223,7 @@
 			z-index: 1000;
 			position: absolute;
 			right: 0;
+			top: 0;
 			line-height: 46px;
 			float: right;
 			padding-left: 15px;
@@ -218,6 +231,7 @@
 			vertical-align: middle;
 			background-color: #e5e5e5;
 			border-left: 1px solid @navbarBorder;
+			border-radius: 0 @baseBorderRadius 0 0;
 
 			a {
 				line-height: 45px;
