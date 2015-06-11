@@ -17,7 +17,14 @@
   <p>The wizard will automatically instantiate any wizards with <code>data-initialize="wizard"</code>. If you add control markup <em>after page load</em> with <code>data-initialize="wizard"</code>, this control initializes on <code>mouseover</code>.
 
   <h3 id="wizard-usage-markup">Markup</h3>
+
+  <div class="fu-callout fu-callout-warning">
+    <h4 id="deprecated-wizard-markup">Deprecated wizard markup</h4>
+    <p>Before v3.8.0, the wizard control did not have a <code>.steps-container</code> element.
+  </div>
+
   <p>Wrap <code>class="wizard"</code> around a list of steps, navigation, and content within a <code>class="fuelux"</code> container.</p>
+  
   <div class="truncate-highlight">
 {% highlight html %}
 <div class="wizard" data-initialize="wizard" id="myWizard">
