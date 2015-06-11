@@ -1,6 +1,5 @@
 /*!
- * Fuel UX EDGE - Built 2015/06/09, 10:46:14 AM 
- * Previous release: v3.7.3 
+ * Fuel UX v3.8.0 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -3480,6 +3479,14 @@
 			this.$prevBtn = this.$element.find( 'button.btn-prev' );
 			this.$nextBtn = this.$element.find( 'button.btn-next' );
 
+			// maintains backwards compatibility with < 3.8, will be removed in the future
+			if ( this.$element.children( '.steps-container' ).length === 0 ) {
+				this.$element.addClass( 'no-steps-container' );
+				if ( window && window.console && window.console.warn ) {
+					window.console.warn( 'please update your wizard markup to include ".steps-container" as seen in http://getfuelux.com/javascript.html#wizard-usage-markup' );
+				}
+			}
+
 			kids = this.$nextBtn.children().detach();
 			this.nextText = $.trim( this.$nextBtn.text() );
 			this.$nextBtn.append( kids );
@@ -3761,16 +3768,16 @@
 			},
 
 			next: function() {
-				if ( this.currentStep < this.numSteps ) {
-					var e = $.Event( 'actionclicked.fu.wizard' );
-					this.$element.trigger( e, {
-						step: this.currentStep,
-						direction: 'next'
-					} );
-					if ( e.isDefaultPrevented() ) {
-						return;
-					} // respect preventDefault in case dev has attached validation to step and wants to stop propagation based on it.
+				var e = $.Event( 'actionclicked.fu.wizard' );
+				this.$element.trigger( e, {
+					step: this.currentStep,
+					direction: 'next'
+				} );
+				if ( e.isDefaultPrevented() ) {
+					return;
+				} // respect preventDefault in case dev has attached validation to step and wants to stop propagation based on it.
 
+				if ( this.currentStep < this.numSteps ) {
 					this.currentStep += 1;
 					this.setState();
 				} else { //is last step
@@ -6461,6 +6468,7 @@
 			} );
 			this.$element.find( '.combobox' ).on( 'changed.fu.combobox', $.proxy( this.changed, this ) );
 			this.$element.find( '.datepicker' ).on( 'changed.fu.datepicker', $.proxy( this.changed, this ) );
+			this.$element.find( '.datepicker' ).on( 'dateClicked.fu.datepicker', $.proxy( this.changed, this ) );
 			this.$element.find( '.selectlist' ).on( 'changed.fu.selectlist', $.proxy( this.changed, this ) );
 			this.$element.find( '.spinbox' ).on( 'changed.fu.spinbox', $.proxy( this.changed, this ) );
 			this.$element.find( '.repeat-monthly .radio-custom, .repeat-yearly .radio-custom' ).on( 'change.fu.scheduler', $.proxy( this.changed, this ) );
