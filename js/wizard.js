@@ -39,6 +39,14 @@
 		this.$prevBtn = this.$element.find('button.btn-prev');
 		this.$nextBtn = this.$element.find('button.btn-next');
 
+		// maintains backwards compatibility with < 3.8, will be removed in the future
+		if (this.$element.children('.steps-container').length === 0) {
+			this.$element.addClass('no-steps-container');
+			if (window && window.console && window.console.warn) {
+				window.console.warn('please update your wizard markup to include ".steps-container" as seen in http://getfuelux.com/javascript.html#wizard-usage-markup');
+			}
+		}
+
 		kids = this.$nextBtn.children().detach();
 		this.nextText = $.trim(this.$nextBtn.text());
 		this.$nextBtn.append(kids);
