@@ -117,6 +117,10 @@
 							float: right;
 							margin-top: 2px;
 						}
+
+						.actions-hidden {
+							visibility: hidden;
+						}
 					}
 				}
 
@@ -265,7 +269,7 @@
 										word-wrap: break-word;
 										position: relative;
 										width: @actions-width;
-										padding-bottom: 7px;
+										padding-bottom: 6px;
 									}
 									th {
 										border-bottom: 1px solid #ddd;
@@ -273,12 +277,8 @@
 											padding: 6px 0 5px;
 											margin-left: 0;
 											border-left: 1px solid transparent;
-											width: auto;
-										}
-									}
-									&:last-child {
-										td {
 											border-bottom: 1px solid transparent;
+											width: auto;
 										}
 									}
 								}
@@ -298,6 +298,22 @@
 					table {
 						table-layout: fixed;
 						word-wrap: break-word;
+					}
+					&.ie-9 {
+						.actions-column-wrapper {
+							table {
+								&.table-actions {
+									tr {
+										td, th {
+											padding-bottom: 7px;
+										}
+										td {
+											line-height: 1.35;
+										}
+									}
+								}
+							}
+						}
 					}
 				}
 			}
