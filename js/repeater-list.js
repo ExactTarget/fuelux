@@ -263,9 +263,9 @@
 
 				this.$canvas.addClass('actions-enabled');
 			}
-			this.$element.find('.repeater-list table.table-actions tr').each(function (i, elem) {
-				$(this).height($table.find('tr:eq(' + i + ')').height());
-			});
+
+			this.$element.find('.repeater-list .actions-column-wrapper, .repeater-list .actions-column-wrapper td, .repeater-list .actions-column-wrapper th')
+				.css('width', this.list_actions_width);
 
 			this.$element.find('.table-actions .action-item').on('click', function() {
 				var actionName = $(this).data('action');
@@ -325,6 +325,7 @@
 			initialize: function (helpers, callback) {
 				this.list_sortDirection = null;
 				this.list_sortProperty = null;
+				this.list_actions_width = (this.viewOptions.list_actions.width !== undefined) ? this.viewOptions.list_actions.width : '37px';
 				callback();
 			},
 			resize: function () {
@@ -415,7 +416,7 @@
 
 		var property = columns[columnIndex].property;
 		if(this.viewOptions.list_actions !== false && property === '@_ACTIONS_@'){
-			content = '<div class="repeater-list-actions-placeholder" style="width: ' + this.viewOptions.list_actions.width  + '"></div>';
+			content = '<div class="repeater-list-actions-placeholder" style="width: ' + this.list_actions_width  + '"></div>';
 		}
 
 		content = (content!==undefined) ? content : '';
@@ -455,7 +456,7 @@
 		$spans = $span.add($header.find(chevron));
 
 		if (this.viewOptions.list_actions && columns[index].property === '@_ACTIONS_@') {
-			var width = (this.viewOptions.list_actions.width !== undefined) ? this.viewOptions.list_actions.width : '50px';
+			var width = this.list_actions_width;
 			$header.css('width', width);
 			$div.css('width', width);
 		}
@@ -629,7 +630,7 @@
 					label: this.viewOptions.list_actions.label || '<span class="actions-hidden">a</span>',
 					property: '@_ACTIONS_@',
 					sortable: false,
-					width: (this.viewOptions.list_actions.width !== undefined) ? this.viewOptions.list_actions.width : '50px'
+					width: this.list_actions_width
 				};
 				columns.push(actionsColumn);
 			}

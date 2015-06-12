@@ -366,4 +366,76 @@ define(function(require){
 		});
 	});
 
+	asyncTest('actions column should show up when enabled', function(){
+		var $repeater = $(this.$markup);
+		var repeaterOptions = {
+			dataSource: dataSource,
+			list_actions:  {
+				width: '37px',
+				items: [
+					{
+						name: 'edit',
+						html: function () {
+							return '<div class="fuelux-icon fuelux-icon-pencil"></div> Edit'
+						}
+					},
+					{
+						name: 'copy',
+						html: function () {
+							return '<div class="fuelux-icon fuelux-icon-copy"></div> Copy'
+						}
+					},
+					{
+						name: 'delete',
+						html: function () {
+							return '<div class="fuelux-icon fuelux-icon-delete"></div> Delete'
+						},
+						clickAction: function(helpers, callback) {
+							testClickAction(helpers);
+							callback();
+						}
+					}
+				]
+			}
+		};
+
+		$repeater.one('loaded.fu.repeater', function(){
+			var $repeaterCanvas = $repeater.find('.repeater-canvas');
+			var $actionsTable = $repeater.find('table.table-actions');
+			var $firstActionRowBtn = $actionsTable.find('tbody tr:first button');
+			var $actionItem = $actionsTable.find('tbody tr:first li:last a');
+
+			$firstActionRowBtn.dropdown('toggle');
+
+			setTimeout(function(){
+				start();
+
+				equal($repeaterCanvas.hasClass('actions-enabled'), true, 'actions-enabled class added to repeater canvas');
+
+				equal($actionsTable.length !== 0 && $actionsTable.length === 1, true, 'Actions table was created and only one');
+
+				equal($repeater.find('.actions-column-wrapper').css('width') === repeaterOptions.list_actions.width, true, 'Actions table width set correctly');
+
+				ok($actionsTable.find('tbody tr:first-child .btn-group').hasClass('open'), 'Actions dropdown opens on click');
+
+				$actionItem.click();
+
+			}, 0);
+
+		});
+
+		function testClickAction(helpers) {
+			equal((typeof helpers === 'object' && helpers.item.length > 0), true, 'Items in row were returned after action click');
+			var count = 0;
+			for (var k in helpers.rowData) {
+				if (helpers.rowData.hasOwnProperty(k)) {
+					++count;
+				}
+			}
+			equal(count === 4, true, 'Full row object was returned');
+		}
+
+		$repeater.repeater(repeaterOptions);
+	});
+
 });

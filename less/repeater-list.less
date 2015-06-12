@@ -1,5 +1,3 @@
-@actions-width: 44px;
-
 .fuelux {
 	.repeater[data-viewtype="list"] {
 		.repeater-canvas {
@@ -243,7 +241,6 @@
 						position: absolute;
 						z-index: 2;
 						right: 0;
-						width: @actions-width;
 						table {
 							table-layout: fixed;
 							word-wrap: break-word;
@@ -262,23 +259,24 @@
 										border-left: 1px solid transparent;
 										th {
 											background: transparent;
+											padding-left: 0;
 										}
 									}
 									td, th {
 										border-collapse: collapse;
 										word-wrap: break-word;
 										position: relative;
-										width: @actions-width;
 										padding-bottom: 6px;
 									}
 									th {
 										border-bottom: 1px solid #ddd;
+										padding-bottom: 8px;
 										.repeater-list-heading {
-											padding: 6px 0 5px;
+											padding: 8px 0 7px;
 											margin-left: 0;
 											border-left: 1px solid transparent;
 											border-bottom: 1px solid transparent;
-											width: auto;
+											width: 100%;
 										}
 									}
 								}
@@ -298,17 +296,34 @@
 					table {
 						table-layout: fixed;
 						word-wrap: break-word;
+						thead {
+							tr {
+								th {
+									&:last-child {
+										.repeater-list-heading {
+											border-left: 1px solid transparent;
+										}
+									}
+								}
+							}
+						}
 					}
 					&.ie-9 {
 						.actions-column-wrapper {
 							table {
 								&.table-actions {
+									background-color: #ffffff;
 									tr {
-										td, th {
-											padding-bottom: 7px;
+										background-color: transparent;
+										&.empty-heading {
+											border-left: 1px solid #F9F9F9;
+										}
+										th {
+											padding-bottom: 8px;
 										}
 										td {
-											line-height: 1.35;
+											padding-bottom: 6px;
+											line-height: 1.39;
 										}
 									}
 								}
