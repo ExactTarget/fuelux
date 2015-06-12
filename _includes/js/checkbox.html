@@ -41,7 +41,7 @@
     <dd>Ensures the checkbox is enabled.</dd>
 
     <dt>.checkbox('isChecked')</dt>
-    <dd>Returns <code>true</code> or <code>false</code> indicating the checked state of the checkbox.</dt>
+    <dd>Returns <code>true</code> or <code>false</code> indicating the checked state of the checkbox.</dd>
 
     <dt>.checkbox('toggle')</dt>
     <dd>Toggles the checkbox between checked/unchecked states.</dd>
@@ -100,7 +100,7 @@ $('.checkbox input').on('change', function () {
       </label>
     </div>
     <div class="checkbox" data-initialize="checkbox">
-      <label class="checkbox-custom">
+      <label class="checkbox-custom checked">
         <input class="sr-only" checked="checked" type="checkbox" value="option2">
         <span class="checkbox-label">Custom checkbox checked on page load</span>
       </label>
@@ -112,7 +112,7 @@ $('.checkbox input').on('change', function () {
       </label>
     </div>
     <div class="checkbox" data-initialize="checkbox">
-      <label class="checkbox-custom">
+      <label class="checkbox-custom checked disabled">
         <input class="sr-only" checked="checked" disabled="disabled" type="checkbox" value="option4">
         <span class="checkbox-label">Disabled custom checkbox checked on page load</span>
       </label>
@@ -126,7 +126,7 @@ $('.checkbox input').on('change', function () {
   </label>
 </div>
 <div class="checkbox" id="myCheckbox2">
-  <label class="checkbox-custom" data-initialize="checkbox">
+  <label class="checkbox-custom checked" data-initialize="checkbox">
     <input class="sr-only" checked="checked" type="checkbox" value="">
     <span class="checkbox-label">Custom checkbox checked on page load</span>
   </label>
@@ -138,7 +138,7 @@ $('.checkbox input').on('change', function () {
   </label>
 </div>
 <div class="checkbox" id="myCheckbox4">
-  <label class="checkbox-custom" data-initialize="checkbox">
+  <label class="checkbox-custom checked disabled" data-initialize="checkbox">
     <input class="sr-only" checked="checked" disabled="disabled" type="checkbox" value="">
     <span class="checkbox-label">Disabled custom checkbox checked on page load</span>
   </label>
