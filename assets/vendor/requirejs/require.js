@@ -1,5 +1,5 @@
 /** vim: et:ts=4:sw=4:sts=4
- * @license RequireJS 2.1.17 Copyright (c) 2010-2015, The Dojo Foundation All Rights Reserved.
+ * @license RequireJS 2.1.18 Copyright (c) 2010-2015, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
  * see: http://github.com/jrburke/requirejs for details
  */
@@ -12,7 +12,7 @@ var requirejs, require, define;
 (function (global) {
     var req, s, head, baseElement, dataMain, src,
         interactiveScript, currentlyAddingScript, mainScript, subPath,
-        version = '2.1.17',
+        version = '2.1.18',
         commentRegExp = /(\/\*([\s\S]*?)\*\/|([^:]|^)\/\/(.*)$)/mg,
         cjsRequireRegExp = /[^.]\s*require\s*\(\s*["']([^'"\s]+)["']\s*\)/g,
         jsSuffixRegExp = /\.js$/,
@@ -589,7 +589,7 @@ var requirejs, require, define;
                         id: mod.map.id,
                         uri: mod.map.url,
                         config: function () {
-                            return  getOwn(config.config, mod.map.id) || {};
+                            return getOwn(config.config, mod.map.id) || {};
                         },
                         exports: mod.exports || (mod.exports = {})
                     });
@@ -1117,6 +1117,9 @@ var requirejs, require, define;
                         this.depCount += 1;
 
                         on(depMap, 'defined', bind(this, function (depExports) {
+                            if (this.undefed) {
+                                return;
+                            }
                             this.defineDep(i, depExports);
                             this.check();
                         }));
@@ -1233,7 +1236,8 @@ var requirejs, require, define;
             while (defQueue.length) {
                 args = defQueue.shift();
                 if (args[0] === null) {
-                    return onError(makeError('mismatch', 'Mismatched anonymous define() module: ' + args[args.length - 1]));
+                    return onError(makeError('mismatch', 'Mismatched anonymous define() module: ' +
+                        args[args.length - 1]));
                 } else {
                     //args are id, deps, factory. Should be normalized by the
                     //define() function.
@@ -1320,7 +1324,7 @@ var requirejs, require, define;
                     each(cfg.packages, function (pkgObj) {
                         var location, name;
 
-                        pkgObj = typeof pkgObj === 'string' ? { name: pkgObj } : pkgObj;
+                        pkgObj = typeof pkgObj === 'string' ? {name: pkgObj} : pkgObj;
 
                         name = pkgObj.name;
                         location = pkgObj.location;
@@ -1347,7 +1351,7 @@ var requirejs, require, define;
                     //late to modify them, and ignore unnormalized ones
                     //since they are transient.
                     if (!mod.inited && !mod.map.unnormalized) {
-                        mod.map = makeModuleMap(id);
+                        mod.map = makeModuleMap(id, null, true);
                     }
                 });
 
@@ -1483,6 +1487,7 @@ var requirejs, require, define;
                         var map = makeModuleMap(id, relMap, true),
                             mod = getOwn(registry, id);
 
+                        mod.undefed = true;
                         removeScript(id);
 
                         delete defined[id];
@@ -1493,7 +1498,7 @@ var requirejs, require, define;
                         //in array so that the splices do not
                         //mess up the iteration.
                         eachReverse(defQueue, function(args, i) {
-                            if(args[0] === id) {
+                            if (args[0] === id) {
                                 defQueue.splice(i, 1);
                             }
                         });
@@ -1980,7 +1985,7 @@ var requirejs, require, define;
                 //like a module name.
                 mainScript = mainScript.replace(jsSuffixRegExp, '');
 
-                 //If mainScript is still a path, fall back to dataMain
+                //If mainScript is still a path, fall back to dataMain
                 if (req.jsExtRegExp.test(mainScript)) {
                     mainScript = dataMain;
                 }
@@ -2065,7 +2070,6 @@ var requirejs, require, define;
     define.amd = {
         jQuery: true
     };
-
 
     /**
      * Executes the text. Normally just uses eval, but can be modified

@@ -32,18 +32,18 @@ Add `fuelux` class to the portion of the page using Fuel UX as seen [here](https
 Ensure all the dependencies are included on the page (eg, such as using the CDN as shown below).
 ```
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-<link href="//www.fuelcdn.com/fuelux/3.7.1/css/fuelux.min.css" rel="stylesheet">
+<link href="//www.fuelcdn.com/fuelux/3.8.0/css/fuelux.min.css" rel="stylesheet">
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.1/js/bootstrap.min.js"></script>
-<script src="//www.fuelcdn.com/fuelux/3.7.1/js/fuelux.min.js"></script>
+<script src="//www.fuelcdn.com/fuelux/3.8.0/js/fuelux.min.js"></script>
 
 ```
 
 ### Install
 A few ways available to install.
 
-- Request files from [the Fuel UX CDN](http://www.fuelcdn.com/fuelux/3.7.1/)
+- Request files from [the Fuel UX CDN](http://www.fuelcdn.com/fuelux/3.8.0/)
 - [Download the latest release](https://github.com/exacttarget/fuelux/archive/3.4.0.zip).
 - Clone the repo: `git clone https://github.com/exacttarget/fuelux.git`.
 - Install with [Bower](http://bower.io): `bower install fuelux`.

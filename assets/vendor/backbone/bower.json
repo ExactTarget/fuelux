@@ -1,9 +1,9 @@
 {
   "name"          : "backbone",
-  "version"       : "1.1.2",
+  "version"       : "1.2.1",
   "main"          : "backbone.js",
   "dependencies"  : {
-    "underscore"  : ">=1.5.0"
+    "underscore"  : ">=1.7.0"
   },
-  "ignore"        : ["backbone-min.js", "docs", "examples", "test", "*.yml", "*.map", ".html", "*.ico"]
+  "ignore"        : ["docs", "examples", "test", "*.yml", "*.html", "*.ico", "*.md", "CNAME", ".*", "karma.*", "component.json", "package.json"]
 }

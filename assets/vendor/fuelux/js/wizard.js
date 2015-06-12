@@ -39,6 +39,14 @@
 		this.$prevBtn = this.$element.find('button.btn-prev');
 		this.$nextBtn = this.$element.find('button.btn-next');
 
+		// maintains backwards compatibility with < 3.8, will be removed in the future
+		if (this.$element.children('.steps-container').length === 0) {
+			this.$element.addClass('no-steps-container');
+			if (window && window.console && window.console.warn) {
+				window.console.warn('please update your wizard markup to include ".steps-container" as seen in http://getfuelux.com/javascript.html#wizard-usage-markup');
+			}
+		}
+
 		kids = this.$nextBtn.children().detach();
 		this.nextText = $.trim(this.$nextBtn.text());
 		this.$nextBtn.append(kids);
@@ -320,16 +328,16 @@
 		},
 
 		next: function () {
-			if (this.currentStep < this.numSteps) {
-				var e = $.Event('actionclicked.fu.wizard');
-				this.$element.trigger(e, {
-					step: this.currentStep,
-					direction: 'next'
-				});
-				if (e.isDefaultPrevented()) {
-					return;
-				}// respect preventDefault in case dev has attached validation to step and wants to stop propagation based on it.
+			var e = $.Event('actionclicked.fu.wizard');
+			this.$element.trigger(e, {
+				step: this.currentStep,
+				direction: 'next'
+			});
+			if (e.isDefaultPrevented()) {
+				return;
+			}// respect preventDefault in case dev has attached validation to step and wants to stop propagation based on it.
 
+			if (this.currentStep < this.numSteps) {
 				this.currentStep += 1;
 				this.setState();
 			} else {//is last step
@@ -357,7 +365,7 @@
 			if (selectedItem) {
 				step = selectedItem.step || -1;
 				//allow selection of step by data-name
-				step = isNaN(step) && this.$element.find('.steps li[data-name="' + step + '"]').first().attr('data-step') || step;
+				step = Number(this.$element.find('.steps li[data-name="' + step + '"]').first().attr('data-step')) || Number(step);
 
 				if (1 <= step && step <= this.numSteps) {
 					this.currentStep = step;

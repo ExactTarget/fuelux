@@ -33,6 +33,7 @@
     "grunt-jsbeautifier": "0.x",
     "grunt-prompt": "1.x",
     "grunt-saucelabs": "8.x",
+    "grunt-shell": "1.x",
     "grunt-text-replace": "0.x",
     "grunt-umd": "2.x",
     "grunt-zip": "0.x",
@@ -70,11 +71,11 @@
   },
   "scripts": {
     "main": "devserver.js",
-    "postinstall": "./node_modules/bower/bin/bower install && tar -zcf dev/node_modules.tar.gz node_modules/;",
+    "postinstall": "node ./node_modules/bower/bin/bower install",
     "test": "grunt travisci --verbose"
   },
   "title": "Fuel UX",
-  "version": "3.7.1",
+  "version": "3.8.0",
   "volo": {
     "baseDir": "lib",
     "dependencies": {

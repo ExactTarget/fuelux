@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.7.1 
+ * Fuel UX v3.8.0 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -43,191 +43,130 @@
 		var Checkbox = function( element, options ) {
 			this.options = $.extend( {}, $.fn.checkbox.defaults, options );
 
+			if ( element.tagName.toLowerCase() !== 'label' ) {
+				//console.log('initialize checkbox on the label that wraps the checkbox');
+				return;
+			}
+
 			// cache elements
-			this.$element = $( element ).is( 'input[type="checkbox"]' ) ? $( element ) : $( element ).find( 'input[type="checkbox"]:first' );
-			this.$label = this.$element.parent();
-			this.$parent = this.$label.parent( '.checkbox' );
-			this.$toggleContainer = this.$element.attr( 'data-toggle' );
-			this.state = {
-				disabled: false,
-				checked: false
-			};
+			this.$label = $( element );
+			this.$chk = this.$label.find( 'input[type="checkbox"]' );
+			this.$container = $( element ).parent( '.checkbox' ); // the container div
 
-			if ( this.$parent.length === 0 ) {
-				this.$parent = null;
-			}
+			// determine if a toggle container is specified
+			var containerSelector = this.$chk.attr( 'data-toggle' );
+			this.$toggleContainer = $( containerSelector );
 
-			if ( Boolean( this.$toggleContainer ) ) {
-				this.$toggleContainer = $( this.$toggleContainer );
-			} else {
-				this.$toggleContainer = null;
-			}
-
-			// handle events
-			this.$element.on( 'change.fu.checkbox', $.proxy( this.itemchecked, this ) );
-			this.$label.unbind( 'click', $.proxy( this.toggle, this ) ); //unbind previous binds so that double clickage doesn't happen (thus making checkbox appear to not work)
-			this.$label.on( 'click', $.proxy( this.toggle, this ) ); //make repeated label clicks work
+			// handle internal events
+			this.$chk.on( 'change', $.proxy( this.itemchecked, this ) );
 
 			// set default state
-			this.setState();
+			this.setInitialState();
 		};
 
 		Checkbox.prototype = {
 
 			constructor: Checkbox,
 
-			setState: function( $chk ) {
-				$chk = $chk || this.$element;
+			setInitialState: function() {
+				var $chk = this.$chk;
+				var $lbl = this.$label;
 
-				this.state.disabled = Boolean( $chk.prop( 'disabled' ) );
-				this.state.checked = Boolean( $chk.is( ':checked' ) );
+				// get current state of input
+				var checked = $chk.prop( 'checked' );
+				var disabled = $chk.prop( 'disabled' );
 
-				this._resetClasses();
-
-				// set state of checkbox
-				this._toggleCheckedState();
-				this._toggleDisabledState();
-
-				//toggle container
-				this.toggleContainer();
+				// sync label class with input state
+				this.setCheckedState( $chk, checked );
+				this.setDisabledState( $chk, disabled );
 			},
 
-			enable: function() {
-				this.state.disabled = false;
-				this.$element.removeAttr( 'disabled' );
-				this.$element.prop( 'disabled', false );
-				this._resetClasses();
-				this.$element.trigger( 'enabled.fu.checkbox' );
+			setCheckedState: function( element, checked ) {
+				var $chk = element;
+				var $lbl = this.$label;
+				var $container = this.$container;
+				var $containerToggle = this.$toggleContainer;
+
+				// set class on outer container too...to support highlighting
+				// TODO: verify inline checkboxes, also test with MCTheme
+
+				if ( checked ) {
+					$chk.prop( 'checked', true );
+					$lbl.addClass( 'checked' );
+					//$container.addClass('checked');
+					$containerToggle.removeClass( 'hide hidden' );
+					$lbl.trigger( 'checked.fu.checkbox' );
+				} else {
+					$chk.prop( 'checked', false );
+					$lbl.removeClass( 'checked' );
+					//$container.removeClass('checked');
+					$containerToggle.addClass( 'hidden' );
+					$lbl.trigger( 'unchecked.fu.checkbox' );
+				}
+
+				$lbl.trigger( 'changed.fu.checkbox', checked );
 			},
 
-			disable: function() {
-				this.state.disabled = true;
-				this.$element.prop( 'disabled', true );
-				this.$element.attr( 'disabled', 'disabled' );
-				this._setDisabledClass();
-				this.$element.trigger( 'disabled.fu.checkbox' );
+			setDisabledState: function( element, disabled ) {
+				var $chk = element;
+				var $lbl = this.$label;
+
+				if ( disabled ) {
+					this.$chk.prop( 'disabled', true );
+					$lbl.addClass( 'disabled' );
+					$lbl.trigger( 'disabled.fu.checkbox' );
+				} else {
+					this.$chk.prop( 'disabled', false );
+					$lbl.removeClass( 'disabled' );
+					$lbl.trigger( 'enabled.fu.checkbox' );
+				}
+			},
+
+			itemchecked: function( evt ) {
+				var $chk = $( evt.target );
+				var checked = $chk.prop( 'checked' );
+
+				this.setCheckedState( $chk, checked );
+			},
+
+			toggle: function() {
+				var checked = this.isChecked();
+
+				if ( checked ) {
+					this.uncheck();
+				} else {
+					this.check();
+				}
 			},
 
 			check: function() {
-				this.state.checked = true;
-				this.$element.prop( 'checked', true );
-				this.$element.attr( 'checked', 'checked' );
-				this._setCheckedClass();
-				this.$element.trigger( 'checked.fu.checkbox' );
+				this.setCheckedState( this.$chk, true );
 			},
 
 			uncheck: function() {
-				this.state.checked = false;
-				this.$element.prop( 'checked', false );
-				this.$element.removeAttr( 'checked' );
-				this._resetClasses();
-				this.$element.trigger( 'unchecked.fu.checkbox' );
+				this.setCheckedState( this.$chk, false );
 			},
 
 			isChecked: function() {
-				return this.state.checked;
+				var checked = this.$chk.prop( 'checked' );
+				return checked;
 			},
 
-			toggle: function( e ) {
-				//keep checkbox from being used if it is disabled. You can't rely on this.state.disabled, because on bind time it might not be disabled, but, state.disabled may be set to true after bind time (and this.state.disabled won't be updated for this bound instance)
-				//To see how this works, uncomment the next line of code and go to http://0.0.0.0:8000/index.html click the "disable #myCustomCheckbox1" and then click on the first checkbox and see the disparity in the output between this.state and this.$element.attr
-				//console.log('is disabled? this.state says, "' + this.state.disabled + '"; this.$element.attr says, "' + this.$element.attr('disabled') + '"');
-				if ( /* do not change this to this.state.disabled. It will break edge cases */ this.$element.prop( 'disabled' ) ) {
-					return;
-				}
-
-				//keep event from firing twice in Chrome
-				if ( !e || ( e.target === e.originalEvent.target ) ) {
-					this.state.checked = !this.state.checked;
-
-					this._toggleCheckedState();
-
-					if ( Boolean( e ) ) {
-						//stop bubbling, otherwise event fires twice in Firefox.
-						e.preventDefault();
-						//make change event still fire (prevented by preventDefault to avoid firefox bug, see preceeding line)
-						this.$element.trigger( 'change', e );
-					}
-
-				}
+			enable: function() {
+				this.setDisabledState( this.$chk, false );
 			},
 
-			toggleContainer: function() {
-				if ( Boolean( this.$toggleContainer ) ) {
-					if ( this.state.checked ) {
-						this.$toggleContainer.removeClass( 'hide hidden' );
-						this.$toggleContainer.attr( 'aria-hidden', 'false' );
-					} else {
-						this.$toggleContainer.addClass( 'hidden' );
-						this.$toggleContainer.attr( 'aria-hidden', 'true' );
-					}
-
-				}
-			},
-
-			itemchecked: function( element ) {
-				this.setState( $( element.target ) );
+			disable: function() {
+				this.setDisabledState( this.$chk, true );
 			},
 
 			destroy: function() {
-				this.$parent.remove();
+				this.$label.remove();
 				// remove any external bindings
 				// [none]
 				// empty elements to return to original markup
 				// [none]
-				return this.$parent[ 0 ].outerHTML;
-			},
-
-			_resetClasses: function() {
-				var classesToRemove = [];
-
-				if ( !this.state.checked ) {
-					classesToRemove.push( 'checked' );
-				}
-
-				if ( !this.state.disabled ) {
-					classesToRemove.push( 'disabled' );
-				}
-
-				classesToRemove = classesToRemove.join( ' ' );
-
-				this.$label.removeClass( classesToRemove );
-
-				if ( this.$parent ) {
-					this.$parent.removeClass( classesToRemove );
-				}
-			},
-
-			_toggleCheckedState: function() {
-				if ( this.state.checked ) {
-					this.check();
-				} else {
-					this.uncheck();
-				}
-			},
-
-			_toggleDisabledState: function() {
-				if ( this.state.disabled ) {
-					this.disable();
-				} else {
-					this.enable();
-				}
-			},
-
-			_setCheckedClass: function() {
-				this.$label.addClass( 'checked' );
-
-				if ( this.$parent ) {
-					this.$parent.addClass( 'checked' );
-				}
-			},
-
-			_setDisabledClass: function() {
-				this.$label.addClass( 'disabled' );
-
-				if ( this.$parent ) {
-					this.$parent.addClass( 'disabled' );
-				}
+				return this.$label[ 0 ].outerHTML;
 			}
 		};
 
@@ -267,7 +206,7 @@
 		// DATA-API
 
 		$( document ).on( 'mouseover.fu.checkbox.data-api', '[data-initialize=checkbox]', function( e ) {
-			var $control = $( e.target ).closest( '.checkbox' ).find( '[type=checkbox]' );
+			var $control = $( e.target );
 			if ( !$control.data( 'fu.checkbox' ) ) {
 				$control.checkbox( $control.data() );
 			}
@@ -275,7 +214,7 @@
 
 		// Must be domReady for AMD compatibility
 		$( function() {
-			$( '[data-initialize=checkbox] [type=checkbox]' ).each( function() {
+			$( '[data-initialize=checkbox]' ).each( function() {
 				var $this = $( this );
 				if ( !$this.data( 'fu.checkbox' ) ) {
 					$this.checkbox( $this.data() );
@@ -1488,6 +1427,8 @@
 			constructor: Loader,
 
 			destroy: function() {
+				this.pause();
+
 				this.$element.remove();
 				// any external bindings
 				// [none]
@@ -1963,15 +1904,15 @@
 			},
 
 			setCheckedState: function( element, checked ) {
-				// reset all items in group
-				this.resetGroup();
-
 				var $radio = element;
 				var $lbl = $radio.parent();
 				var containerSelector = $radio.attr( 'data-toggle' );
 				var $containerToggle = $( containerSelector );
 
 				if ( checked ) {
+					// reset all items in group
+					this.resetGroup();
+
 					$radio.prop( 'checked', true );
 					$lbl.addClass( 'checked' );
 					$containerToggle.removeClass( 'hide hidden' );
@@ -3018,6 +2959,16 @@
 		Tree.prototype = {
 			constructor: Tree,
 
+			deselectAll: function deselectAll( nodes ) {
+				// clear all child tree nodes and style as deselected
+				nodes = nodes || this.$element;
+				var $selectedElements = $( nodes ).find( '.tree-selected' );
+				$selectedElements.each( function( index, element ) {
+					styleNodeDeselected( $( element ), $( element ).find( '.glyphicon' ) );
+				} );
+				return $selectedElements;
+			},
+
 			destroy: function destroy() {
 				// any external bindings [none]
 				// empty elements to return to original markup
@@ -3117,59 +3068,41 @@
 				} );
 			},
 
-			selectItem: function selectItem( el ) {
-				if ( !this.options.itemSelect ) return;
-				var $el = $( el );
-				var selData = $el.data();
-				var $all = this.$element.find( '.tree-selected' );
-				var data = [];
-				var $icon = $el.find( '.icon-item' );
+			selectTreeNode: function selectItem( clickedElement, nodeType ) {
+				var clicked = {}; // object for clicked element
+				clicked.$element = $( clickedElement );
 
-				if ( this.options.multiSelect ) {
-					$.each( $all, function( index, value ) {
-						var $val = $( value );
-						if ( $val[ 0 ] !== $el[ 0 ] ) {
-							data.push( $( value ).data() );
-						}
-					} );
-				} else if ( $all[ 0 ] !== $el[ 0 ] ) {
-					$all.removeClass( 'tree-selected' )
-						.find( '.glyphicon' ).removeClass( 'glyphicon-ok' ).addClass( 'fueluxicon-bullet' );
-					data.push( selData );
-				}
+				var selected = {}; // object for selected elements
+				selected.$elements = this.$element.find( '.tree-selected' );
+				selected.dataForEvent = [];
 
-				var eventType = 'selected';
-				if ( $el.hasClass( 'tree-selected' ) ) {
-					eventType = 'deselected';
-					$el.removeClass( 'tree-selected' );
-					if ( $icon.hasClass( 'glyphicon-ok' ) || $icon.hasClass( 'fueluxicon-bullet' ) ) {
-						$icon.removeClass( 'glyphicon-ok' ).addClass( 'fueluxicon-bullet' );
-					}
-
+				// determine clicked element and it's icon
+				if ( nodeType === 'folder' ) {
+					// make the clicked.$element the container branch
+					clicked.$element = clicked.$element.closest( '.tree-branch' );
+					clicked.$icon = clicked.$element.find( '.icon-folder' );
 				} else {
-					$el.addClass( 'tree-selected' );
-					// add tree dot back in
-					if ( $icon.hasClass( 'glyphicon-ok' ) || $icon.hasClass( 'fueluxicon-bullet' ) ) {
-						$icon.removeClass( 'fueluxicon-bullet' ).addClass( 'glyphicon-ok' );
-					}
+					clicked.$icon = clicked.$element.find( '.icon-item' );
+				}
+				clicked.elementData = clicked.$element.data();
 
-					if ( this.options.multiSelect ) {
-						data.push( selData );
-					}
-
+				// the below functions pass objects by copy/reference and use modified object in this function
+				if ( this.options.multiSelect ) {
+					multiSelectSyncNodes( this, clicked, selected );
+				} else {
+					singleSelectSyncNodes( this, clicked, selected );
 				}
 
-				this.$element.trigger( eventType + '.fu.tree', {
-					target: selData,
-					selected: data
+				// all done with the DOM, now fire events
+				this.$element.trigger( selected.eventType + '.fu.tree', {
+					target: clicked.elementData,
+					selected: selected.dataForEvent
 				} );
 
-				// Return new list of selected items, the item
-				// clicked, and the type of event:
-				$el.trigger( 'updated.fu.tree', {
-					selected: data,
-					item: $el,
-					eventType: eventType
+				clicked.$element.trigger( 'updated.fu.tree', {
+					selected: selected.dataForEvent,
+					item: clicked.$element,
+					eventType: selected.eventType
 				} );
 			},
 
@@ -3228,52 +3161,16 @@
 				}
 			},
 
-			selectFolder: function selectFolder( clickedElement ) {
-				if ( !this.options.folderSelect ) return;
-				var $clickedElement = $( clickedElement );
-				var $clickedBranch = $clickedElement.closest( '.tree-branch' );
-				var $selectedBranch = this.$element.find( '.tree-branch.tree-selected' );
-				var clickedData = $clickedBranch.data();
-				var selectedData = [];
-				var eventType = 'selected';
-
-				// select clicked item
-				if ( $clickedBranch.hasClass( 'tree-selected' ) ) {
-					eventType = 'deselected';
-					$clickedBranch.removeClass( 'tree-selected' );
-				} else {
-					$clickedBranch.addClass( 'tree-selected' );
+			selectFolder: function selectFolder( el ) {
+				if ( this.options.folderSelect ) {
+					this.selectTreeNode( el, 'folder' );
 				}
+			},
 
-				if ( this.options.multiSelect ) {
-					// get currently selected
-					$selectedBranch = this.$element.find( '.tree-branch.tree-selected' );
-
-					$.each( $selectedBranch, function( index, value ) {
-						var $value = $( value );
-						if ( $value[ 0 ] !== $clickedElement[ 0 ] ) {
-							selectedData.push( $( value ).data() );
-						}
-					} );
-
-				} else if ( $selectedBranch[ 0 ] !== $clickedElement[ 0 ] ) {
-					$selectedBranch.removeClass( 'tree-selected' );
-
-					selectedData.push( clickedData );
+			selectItem: function selectItem( el ) {
+				if ( this.options.itemSelect ) {
+					this.selectTreeNode( el, 'item' );
 				}
-
-				this.$element.trigger( eventType + '.fu.tree', {
-					target: clickedData,
-					selected: selectedData
-				} );
-
-				// Return new list of selected items, the item
-				// clicked, and the type of event:
-				$clickedElement.trigger( 'updated.fu.tree', {
-					selected: selectedData,
-					item: $clickedElement,
-					eventType: eventType
-				} );
 			},
 
 			selectedItems: function selectedItems() {
@@ -3423,10 +3320,68 @@
 			}
 		};
 
+
+		// ALIASES
+
 		//alias for collapse for consistency. "Collapse" is an ambiguous term (collapse what? All? One specific branch?)
 		Tree.prototype.closeAll = Tree.prototype.collapse;
 		//alias for backwards compatibility because there's no reason not to.
 		Tree.prototype.openFolder = Tree.prototype.discloseFolder;
+
+
+		// PRIVATE FUNCTIONS
+
+		function styleNodeSelected( $element, $icon ) {
+			$element.addClass( 'tree-selected' );
+			if ( $element.data( 'type' ) === 'item' && $icon.hasClass( 'fueluxicon-bullet' ) ) {
+				$icon.removeClass( 'fueluxicon-bullet' ).addClass( 'glyphicon-ok' ); // make checkmark
+			}
+		}
+
+		function styleNodeDeselected( $element, $icon ) {
+			$element.removeClass( 'tree-selected' );
+			if ( $element.data( 'type' ) === 'item' && $icon.hasClass( 'glyphicon-ok' ) ) {
+				$icon.removeClass( 'glyphicon-ok' ).addClass( 'fueluxicon-bullet' ); // make bullet
+			}
+		}
+
+		function multiSelectSyncNodes( self, clicked, selected ) {
+			// search for currently selected and add to selected data list if needed
+			$.each( selected.$elements, function( index, element ) {
+				var $element = $( element );
+				if ( $element[ 0 ] !== clicked.$element[ 0 ] ) {
+					selected.dataForEvent.push( $( $element ).data() );
+				}
+			} );
+
+			if ( clicked.$element.hasClass( 'tree-selected' ) ) {
+				styleNodeDeselected( clicked.$element, clicked.$icon );
+				// set event data
+				selected.eventType = 'deselected';
+			} else {
+				styleNodeSelected( clicked.$element, clicked.$icon );
+				// set event data
+				selected.eventType = 'selected';
+				selected.dataForEvent.push( clicked.elementData );
+			}
+		}
+
+		function singleSelectSyncNodes( self, clicked, selected ) {
+			// element is not currently selected
+			if ( selected.$elements[ 0 ] !== clicked.$element[ 0 ] ) {
+				var clearedElements = self.deselectAll( self.$element );
+				styleNodeSelected( clicked.$element, clicked.$icon );
+				// set event data
+				selected.eventType = 'selected';
+				selected.dataForEvent = [ clicked.elementData ];
+			} else {
+				styleNodeDeselected( clicked.$element, clicked.$icon );
+				// set event data
+				selected.eventType = 'deselected';
+				selected.dataForEvent = [];
+			}
+		}
+
 
 		// TREE PLUGIN DEFINITION
 
@@ -3523,6 +3478,14 @@
 			this.numSteps = this.$element.find( '.steps li' ).length;
 			this.$prevBtn = this.$element.find( 'button.btn-prev' );
 			this.$nextBtn = this.$element.find( 'button.btn-next' );
+
+			// maintains backwards compatibility with < 3.8, will be removed in the future
+			if ( this.$element.children( '.steps-container' ).length === 0 ) {
+				this.$element.addClass( 'no-steps-container' );
+				if ( window && window.console && window.console.warn ) {
+					window.console.warn( 'please update your wizard markup to include ".steps-container" as seen in http://getfuelux.com/javascript.html#wizard-usage-markup' );
+				}
+			}
 
 			kids = this.$nextBtn.children().detach();
 			this.nextText = $.trim( this.$nextBtn.text() );
@@ -3805,16 +3768,16 @@
 			},
 
 			next: function() {
-				if ( this.currentStep < this.numSteps ) {
-					var e = $.Event( 'actionclicked.fu.wizard' );
-					this.$element.trigger( e, {
-						step: this.currentStep,
-						direction: 'next'
-					} );
-					if ( e.isDefaultPrevented() ) {
-						return;
-					} // respect preventDefault in case dev has attached validation to step and wants to stop propagation based on it.
+				var e = $.Event( 'actionclicked.fu.wizard' );
+				this.$element.trigger( e, {
+					step: this.currentStep,
+					direction: 'next'
+				} );
+				if ( e.isDefaultPrevented() ) {
+					return;
+				} // respect preventDefault in case dev has attached validation to step and wants to stop propagation based on it.
 
+				if ( this.currentStep < this.numSteps ) {
 					this.currentStep += 1;
 					this.setState();
 				} else { //is last step
@@ -3842,7 +3805,7 @@
 				if ( selectedItem ) {
 					step = selectedItem.step || -1;
 					//allow selection of step by data-name
-					step = isNaN( step ) && this.$element.find( '.steps li[data-name="' + step + '"]' ).first().attr( 'data-step' ) || step;
+					step = Number( this.$element.find( '.steps li[data-name="' + step + '"]' ).first().attr( 'data-step' ) ) || Number( step );
 
 					if ( 1 <= step && step <= this.numSteps ) {
 						this.currentStep = step;
@@ -6505,6 +6468,7 @@
 			} );
 			this.$element.find( '.combobox' ).on( 'changed.fu.combobox', $.proxy( this.changed, this ) );
 			this.$element.find( '.datepicker' ).on( 'changed.fu.datepicker', $.proxy( this.changed, this ) );
+			this.$element.find( '.datepicker' ).on( 'dateClicked.fu.datepicker', $.proxy( this.changed, this ) );
 			this.$element.find( '.selectlist' ).on( 'changed.fu.selectlist', $.proxy( this.changed, this ) );
 			this.$element.find( '.spinbox' ).on( 'changed.fu.spinbox', $.proxy( this.changed, this ) );
 			this.$element.find( '.repeat-monthly .radio-custom, .repeat-yearly .radio-custom' ).on( 'change.fu.scheduler', $.proxy( this.changed, this ) );
@@ -6625,7 +6589,7 @@
 			},
 
 			getValue: function() {
-				// FREQ = frequency (hourly, daily, monthly...)
+				// FREQ = frequency (secondly, minutely, hourly, daily, weekdays, weekly, monthly, yearly)
 				// BYDAY = when picking days (MO,TU,WE,etc)
 				// BYMONTH = when picking months (Jan,Feb,March) - note the values should be 1,2,3...
 				// BYMONTHDAY = when picking days of the month (1,2,3...)
@@ -6686,6 +6650,12 @@
 
 				if ( repeat === 'none' ) {
 					pattern = 'FREQ=DAILY;INTERVAL=1;COUNT=1;';
+				} else if ( repeat === 'secondly' ) {
+					pattern = 'FREQ=SECONDLY;';
+					pattern += 'INTERVAL=' + interval + ';';
+				} else if ( repeat === 'minutely' ) {
+					pattern = 'FREQ=MINUTELY;';
+					pattern += 'INTERVAL=' + interval + ';';
 				} else if ( repeat === 'hourly' ) {
 					pattern = 'FREQ=HOURLY;';
 					pattern += 'INTERVAL=' + interval + ';';
@@ -6909,6 +6879,10 @@
 								item = 'daily';
 							}
 						}
+					} else if ( recur.FREQ === 'SECONDLY' ) {
+						item = 'secondly';
+					} else if ( recur.FREQ === 'MINUTELY' ) {
+						item = 'minutely';
 					} else if ( recur.FREQ === 'HOURLY' ) {
 						item = 'hourly';
 					} else if ( recur.FREQ === 'WEEKLY' ) {
@@ -6989,8 +6963,7 @@
 						var timeZone = this.$timeZone.selectlist( 'selectedItem' );
 						var timezoneOffset = ( timeZone.offset === '+00:00' ) ? 'Z' : timeZone.offset;
 
-						startDate = temp;
-						var utcEndHours = this.setUtcTime( startDate, startTime, timezoneOffset );
+						var utcEndHours = this.setUtcTime( temp, startTime, timezoneOffset );
 						this.$endDate.datepicker( 'setDate', utcEndHours );
 
 						this.$endSelect.selectlist( 'selectByValue', 'date' );
