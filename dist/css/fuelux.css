@@ -1,6 +1,5 @@
 /*!
- * Fuel UX EDGE - Built 2015/06/09, 10:46:14 AM 
- * Previous release: v3.7.3 
+ * Fuel UX v3.8.0 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -2314,7 +2313,6 @@ label.fuelux .checkbox-inline {
   background-color: #f9f9f9;
   position: relative;
   min-height: 48px;
-  overflow: hidden;
 }
 .fuelux .wizard:before,
 .fuelux .wizard:after {
@@ -2325,24 +2323,36 @@ label.fuelux .checkbox-inline {
 .fuelux .wizard:after {
   clear: both;
 }
-.fuelux .wizard > .steps {
+.fuelux .wizard.no-steps-container {
+  overflow: hidden;
+}
+.fuelux .wizard .steps-container {
+  border-radius: 4px 4px 0 0;
+  overflow: hidden;
+}
+.fuelux .wizard > ul.steps,
+.fuelux .wizard > .steps-container > ul.steps {
   list-style: none outside none;
   padding: 0;
   margin: 0;
-  width: 4000px;
+  width: 999999px;
 }
-.fuelux .wizard > .steps.previous-disabled li.complete {
+.fuelux .wizard > ul.steps.previous-disabled li.complete,
+.fuelux .wizard > .steps-container > ul.steps.previous-disabled li.complete {
   cursor: default;
 }
-.fuelux .wizard > .steps.previous-disabled li.complete:hover {
+.fuelux .wizard > ul.steps.previous-disabled li.complete:hover,
+.fuelux .wizard > .steps-container > ul.steps.previous-disabled li.complete:hover {
   background: #f3f4f5;
   color: #468847;
   cursor: default;
 }
-.fuelux .wizard > .steps.previous-disabled li.complete:hover .chevron:before {
+.fuelux .wizard > ul.steps.previous-disabled li.complete:hover .chevron:before,
+.fuelux .wizard > .steps-container > ul.steps.previous-disabled li.complete:hover .chevron:before {
   border-left-color: #f3f4f5;
 }
-.fuelux .wizard > .steps li {
+.fuelux .wizard > ul.steps li,
+.fuelux .wizard > .steps-container > ul.steps li {
   float: left;
   margin: 0;
   padding: 0 20px 0 30px;
@@ -2354,7 +2364,8 @@ label.fuelux .checkbox-inline {
   font-size: 16px;
   cursor: not-allowed;
 }
-.fuelux .wizard > .steps li .chevron {
+.fuelux .wizard > ul.steps li .chevron,
+.fuelux .wizard > .steps-container > ul.steps li .chevron {
   border: 24px solid transparent;
   border-left: 14px solid #d4d4d4;
   border-right: 0;
@@ -2364,7 +2375,8 @@ label.fuelux .checkbox-inline {
   top: 0;
   z-index: 1;
 }
-.fuelux .wizard > .steps li .chevron:before {
+.fuelux .wizard > ul.steps li .chevron:before,
+.fuelux .wizard > .steps-container > ul.steps li .chevron:before {
   border: 24px solid transparent;
   border-left: 14px solid #ededed;
   border-right: 0;
@@ -2374,84 +2386,106 @@ label.fuelux .checkbox-inline {
   right: 1px;
   top: -24px;
 }
-.fuelux .wizard > .steps li.complete {
+.fuelux .wizard > ul.steps li.complete,
+.fuelux .wizard > .steps-container > ul.steps li.complete {
   background: #f3f4f5;
   color: #468847;
 }
-.fuelux .wizard > .steps li.complete:hover {
+.fuelux .wizard > ul.steps li.complete:hover,
+.fuelux .wizard > .steps-container > ul.steps li.complete:hover {
   background: #e7eff8;
   cursor: pointer;
 }
-.fuelux .wizard > .steps li.complete:hover .chevron:before {
+.fuelux .wizard > ul.steps li.complete:hover .chevron:before,
+.fuelux .wizard > .steps-container > ul.steps li.complete:hover .chevron:before {
   border-left: 14px solid #e7eff8;
 }
-.fuelux .wizard > .steps li.complete .chevron:before {
+.fuelux .wizard > ul.steps li.complete .chevron:before,
+.fuelux .wizard > .steps-container > ul.steps li.complete .chevron:before {
   border-left: 14px solid #f3f4f5;
 }
-.fuelux .wizard > .steps li.active {
+.fuelux .wizard > ul.steps li.active,
+.fuelux .wizard > .steps-container > ul.steps li.active {
   background: #f1f6fc;
   color: #3a87ad;
   cursor: default;
 }
-.fuelux .wizard > .steps li.active .chevron:before {
+.fuelux .wizard > ul.steps li.active .chevron:before,
+.fuelux .wizard > .steps-container > ul.steps li.active .chevron:before {
   border-left: 14px solid #f1f6fc;
 }
-.fuelux .wizard > .steps li.active .badge {
+.fuelux .wizard > ul.steps li.active .badge,
+.fuelux .wizard > .steps-container > ul.steps li.active .badge {
   background-color: #3a87ad;
 }
-.fuelux .wizard > .steps li .badge {
+.fuelux .wizard > ul.steps li .badge,
+.fuelux .wizard > .steps-container > ul.steps li .badge {
   margin-right: 8px;
 }
-.fuelux .wizard > .steps li .badge-success {
+.fuelux .wizard > ul.steps li .badge-success,
+.fuelux .wizard > .steps-container > ul.steps li .badge-success {
   background-color: #468847;
 }
-.fuelux .wizard > .steps li:first-child {
+.fuelux .wizard > ul.steps li:first-child,
+.fuelux .wizard > .steps-container > ul.steps li:first-child {
   border-radius: 4px 0 0 4px;
   padding-left: 20px;
 }
 .fuelux .wizard.rtl {
   direction: rtl;
 }
-.fuelux .wizard.rtl > .steps {
+.fuelux .wizard.rtl > ul.steps,
+.fuelux .wizard.rtl > .steps-container > ul.steps {
   right: 0;
   left: auto;
   float: right;
 }
-.fuelux .wizard.rtl > .steps.previous-disabled li.complete:hover .chevron:before {
+.fuelux .wizard.rtl > ul.steps.previous-disabled li.complete:hover .chevron:before,
+.fuelux .wizard.rtl > .steps-container > ul.steps.previous-disabled li.complete:hover .chevron:before {
   border-right-color: #f3f4f5;
 }
-.fuelux .wizard.rtl > .steps li {
+.fuelux .wizard.rtl > ul.steps li,
+.fuelux .wizard.rtl > .steps-container > ul.steps li {
   float: right;
 }
-.fuelux .wizard.rtl > .steps li .chevron {
+.fuelux .wizard.rtl > ul.steps li .chevron,
+.fuelux .wizard.rtl > .steps-container > ul.steps li .chevron {
   right: auto;
   left: -14px;
   border-right: 14px solid #d4d4d4;
   border-left: 0;
 }
-.fuelux .wizard.rtl > .steps li .chevron:before {
+.fuelux .wizard.rtl > ul.steps li .chevron:before,
+.fuelux .wizard.rtl > .steps-container > ul.steps li .chevron:before {
   right: auto;
   left: 1px;
   border-right: 14px solid #ededed;
   border-left: 0;
 }
-.fuelux .wizard.rtl > .steps li.active .chevron:before {
+.fuelux .wizard.rtl > ul.steps li.active .chevron:before,
+.fuelux .wizard.rtl > .steps-container > ul.steps li.active .chevron:before {
   border-right: 14px solid #f1f6fc;
 }
-.fuelux .wizard.rtl > .steps li.complete .chevron:before {
+.fuelux .wizard.rtl > ul.steps li.complete .chevron:before,
+.fuelux .wizard.rtl > .steps-container > ul.steps li.complete .chevron:before {
   border-right: 14px solid #f3f4f5;
 }
-.fuelux .wizard.rtl > .steps li.complete:hover .chevron:before {
+.fuelux .wizard.rtl > ul.steps li.complete:hover .chevron:before,
+.fuelux .wizard.rtl > .steps-container > ul.steps li.complete:hover .chevron:before {
   border-right: 14px solid #e7eff8;
   border-left: none;
 }
-.fuelux .wizard.rtl > .steps li .badge {
+.fuelux .wizard.rtl > ul.steps li .badge,
+.fuelux .wizard.rtl > .steps-container > ul.steps li .badge {
   margin-left: 8px;
 }
 .fuelux .wizard.rtl > .actions {
   right: auto;
   left: 0;
   float: left;
+  border-left: none;
+  border-right: 1px solid #d4d4d4;
+  border-radius: 4px 0 0 0;
 }
 .fuelux .wizard.rtl > .actions .btn-prev span {
   margin-left: 5px;
@@ -2465,6 +2499,7 @@ label.fuelux .checkbox-inline {
   z-index: 1000;
   position: absolute;
   right: 0;
+  top: 0;
   line-height: 46px;
   float: right;
   padding-left: 15px;
@@ -2472,6 +2507,7 @@ label.fuelux .checkbox-inline {
   vertical-align: middle;
   background-color: #e5e5e5;
   border-left: 1px solid #d4d4d4;
+  border-radius: 0 4px 0 0;
 }
 .fuelux .wizard > .actions a {
   line-height: 45px;
