@@ -813,7 +813,19 @@ module.exports = function (grunt) {
 	grunt.registerTask('notes', 'Run a ruby gem that will request from Github unreleased pull requests', ['shell:notes']);
 
 	// Maintainers: Run prior to a release. Includes SauceLabs VM tests.
-	grunt.registerTask('release', 'Release a new version, push it and publish it', ['prompt:build', 'dorelease']);
+	grunt.registerTask('release', 'Release a new version, push it and publish it', function() {
+		if ( typeof grunt.config('sauceLoginFile') === 'undefined' ) {
+			grunt.log.write('The file SAUCE_API_KEY.yml is needed in order to run tests in SauceLabs.' +
+				' Please contact another maintainer to obtain this file.');
+		}
+
+		if ( typeof grunt.config('cdnLoginFile') === 'undefined' ) {
+			grunt.log.write('The file FUEL_CDN.yml is needed in order to upload the release files to the CDN.' +
+				' Please contact another maintainer to obtain this file.');
+		}
+
+		grunt.task.run(['prompt:build', 'dorelease']);
+		});
 
 	// formerally dorelease task
 	grunt.registerTask('dorelease', '', function () {
