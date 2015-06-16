@@ -1,0 +1,34 @@
+{
+	"server": {
+		"options": {
+			"hostname": "*",
+			"base": {
+				"path": ".",
+				"options": {
+					"index": [
+						"index.html",
+						"tests.html"
+					]
+				}
+			},
+			"port": 8000,
+			"useAvailablePort": true
+		}
+	},
+	"testServer": {
+		"options": {
+			"base": {
+				"path": ".",
+				"options": {
+					"index": [
+						"index.html",
+						"tests.html"
+					]
+				}
+			},
+			"hostname": "*",
+			"port": 9000,
+			"useAvailablePort": true
+		}
+	}
+}

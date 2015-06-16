@@ -1,0 +1,1 @@
+"if (typeof jQuery.fn.dropdown === 'undefined' || typeof jQuery.fn.collapse === 'undefined') { throw new Error('Fuel UX\\'s JavaScript requires Bootstrap') }\n\n"

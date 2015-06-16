@@ -1,0 +1,42 @@
+{
+	"release": {
+		"options": {
+			"urls": "<%= allTestUrls %>",
+			"screenshot": true,
+			"page": {
+				"viewportSize": {
+					"width": 1280,
+					"height": 1024
+				}
+			}
+		}
+	},
+	"globals": {
+		"options": {
+			"urls": [
+				"http://localhost:<%= connect.testServer.options.port %>/test/browser-globals.html"
+			]
+		}
+	},
+	"noMoment": {
+		"options": {
+			"urls": [
+				"http://localhost:<%= connect.testServer.options.port %>/test/?no-moment=true"
+			]
+		}
+	},
+	"source": {
+		"options": {
+			"urls": [
+				"http://localhost:<%= connect.testServer.options.port %>/test/"
+			]
+		}
+	},
+	"dist": {
+		"options": {
+			"urls": [
+				"http://localhost:<%= connect.testServer.options.port %>/test/?testdist=true"
+			]
+		}
+	}
+}

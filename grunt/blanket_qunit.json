@@ -1,0 +1,11 @@
+{
+	"source": {
+		"options": {
+			"urls": [
+				"http://localhost:<%= connect.testServer.options.port %>/test/?coverage=true&gruntReport"
+			],
+			"threshold": 1,
+			"globalThreshold": 1
+		}
+	}
+}

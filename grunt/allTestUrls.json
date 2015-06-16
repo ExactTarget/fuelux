@@ -1,0 +1,8 @@
+[
+	"http://localhost:<%= connect.testServer.options.port %>/test/?testdist=true",
+	"http://localhost:<%= connect.testServer.options.port %>/test/?testdist=true",
+	"http://localhost:<%= connect.testServer.options.port %>/test/?testdist=true",
+	"http://localhost:<%= connect.testServer.options.port %>/test/browser-globals.html",
+	"http://localhost:<%= connect.testServer.options.port %>/test/?no-moment=true",
+	"http://localhost:<%= connect.testServer.options.port %>/test/?coverage=true"
+]
