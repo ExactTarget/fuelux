@@ -96,10 +96,8 @@ $('#myDatepicker').datepicker({
           <td>array</td>
           <td>[]</td>
           <td>Specifies dates that are restricted from user input and selection. Uses an array of objects to provide
-          the ranges. Each object must have the following format: <code>{ from: '03/31/2015', to: '03/31/2016' }</code>
-          The <code>from</code> attribute represents the start date of the restricted range, and the <code>to</code>
-          attribute represents the end date of the range, inclusively. Both attributes can be set to either a valid date
-          string or a date object.</td>
+          the ranges. Each of the object must have the following format: <code>{ from: '03/31/2015', to: '03/31/2016' }</code>, but multiple ranges are supported. The <code>from</code> attribute represents the start date of the restricted range, and the <code>to</code> attribute represents the end date of the range, inclusively. Both attributes can be set to either a valid date
+          string or a date object. <code>-Infinity</code> and <code>Infinity</code> are valid delimiters. View this gist to see <a href="https://gist.github.com/interactivellama/eee7795377b2914ca1c4">how to set the datepicker to only allow dates from the past 365 days</a>.</td>
         </tr>
         <tr>
           <td>sameYearOnly</td>
