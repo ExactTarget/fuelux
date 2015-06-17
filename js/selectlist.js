@@ -31,6 +31,7 @@
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.selectlist.defaults, options);
 
+
 		this.$button = this.$element.find('.btn.dropdown-toggle');
 		this.$hiddenField = this.$element.find('.hidden-field');
 		this.$label = this.$element.find('.selected-label');
@@ -42,6 +43,14 @@
 		if (options.resize === 'auto' || this.$element.attr('data-resize') === 'auto') {
 			this.resize();
 		}
+
+		// if selectlist is empty or is one item, disable it
+		var items = this.$dropdownMenu.children('li');
+		if( items.length === 0) {
+			this.disable();
+			this.doSelect( $(this.options.emptyLabelHTML));
+		}
+
 	};
 
 	Selectlist.prototype = {
@@ -215,7 +224,9 @@
 		return (methodReturn === undefined) ? $set : methodReturn;
 	};
 
-	$.fn.selectlist.defaults = {};
+	$.fn.selectlist.defaults = {
+		emptyLabelHTML: '<li data-value=""><a href="#">No items</a></li>'
+	};
 
 	$.fn.selectlist.Constructor = Selectlist;
 
