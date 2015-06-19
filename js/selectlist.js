@@ -42,6 +42,30 @@
 		if (options.resize === 'auto' || this.$element.attr('data-resize') === 'auto') {
 			this.resize();
 		}
+
+		// support jumping focus to first letter in dropdown when key is pressed
+		this.$element.on('shown.bs.dropdown', function () {
+				var $this = $(this);
+				// attach key listener when dropdown is shown
+				$(document).on('keypress.fu.selectlist', function(e){
+					
+					// get the key that was pressed
+					var key = String.fromCharCode(e.which);
+					// look the items to find the first item with the first character match and set focus
+					$this.find("li").each(function(idx,item){
+						if ($(item).text().charAt(0).toLowerCase() === key) {
+							$(item).children('a').focus();
+							return false;
+						}
+					});
+					
+			});
+		});
+
+		// unbind key event when dropdown is hidden
+		this.$element.on('hide.bs.dropdown', function () {
+				$(document).off('keypress.fu.selectlist');
+		});
 	};
 
 	Selectlist.prototype = {
