@@ -34,7 +34,7 @@
 	}
 
 	// Gradient Bar Colors for buttons and alerts
-	.gradientBar(@primaryColor, @secondaryColor, @textColor: #fff, @textShadow: 0 -1px 0 rgba(0,0,0,.25)) {
+	.gradient-bar(@primaryColor, @secondaryColor, @textColor: #fff, @textShadow: 0 -1px 0 rgba(0,0,0,.25)) {
 		color: @textColor;
 		text-shadow: @textShadow;
 		#gradient > .vertical(@primaryColor, @secondaryColor);
@@ -55,7 +55,7 @@
 	}
 
 	// Icon Base Styles
-	.iconBaseStyles(@fontFamily: "fuelux"){
+	.icon-base-styles(@fontFamily: "fuelux"){
 		font-family: @fontFamily !important;
 		font-style: normal !important;
 		font-weight: normal !important;
@@ -68,7 +68,7 @@
 	}
 
 	// Disables selection of text
-	.noSelectionAllowed(){
+	.no-selection-allowed(){
 		-webkit-user-select: none;
 		-moz-user-select: none;
 		-ms-user-select: none;
