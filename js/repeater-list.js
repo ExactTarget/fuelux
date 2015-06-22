@@ -267,6 +267,12 @@
 			this.$element.find('.repeater-list .actions-column-wrapper, .repeater-list .actions-column-wrapper td, .repeater-list .actions-column-wrapper th')
 				.css('width', this.list_actions_width);
 
+			this.$element.find('.repeater-list .actions-column-wrapper th .repeater-list-heading').css('width', parseInt(this.list_actions_width) + 1 + 'px');
+
+			this.$element.find('.repeater-list table.table-actions tr').each(function (i, elem) {
+				$(this).height($table.find('tr:eq(' + i + ')').height());
+			});
+
 			this.$element.find('.table-actions .action-item').on('click', function() {
 				var actionName = $(this).data('action');
 				var row = $(this).data('row');
@@ -291,10 +297,14 @@
 			}
 		};
 
-		$.fn.repeater.Constructor.prototype.list_hasScrollBar = function (el) {
-			return el.get(0).scrollHeight > el.get(0).clientHeight;
+		$.fn.repeater.Constructor.prototype.list_sizeActionsTable = function () {
+			var $table = this.$element.find('.repeater-list table');
+			$table.find('thead th').each(function () {
+				var $hr = $(this);
+				var $heading = $hr.find('.repeater-list-heading');
+				$heading.outerHeight($hr.outerHeight());
+			});
 		};
-
 
 		//ADDITIONAL DEFAULT OPTIONS
 		$.fn.repeater.defaults = $.extend({}, $.fn.repeater.defaults, {
@@ -396,6 +406,7 @@
 
 				if (this.viewOptions.list_actions) {
 					this.list_createItemActions();
+					this.list_sizeActionsTable();
 				}
 
 				if (this.viewOptions.list_frozenColumns || this.viewOptions.list_actions) {
