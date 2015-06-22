@@ -291,6 +291,11 @@
 			}
 		};
 
+		$.fn.repeater.Constructor.prototype.list_hasScrollBar = function (el) {
+			return el.get(0).scrollHeight > el.get(0).clientHeight;
+		};
+
+
 		//ADDITIONAL DEFAULT OPTIONS
 		$.fn.repeater.defaults = $.extend({}, $.fn.repeater.defaults, {
 			list_columnRendered: null,
@@ -697,9 +702,12 @@
 	function specialBrowserClass() {
 		var ua = window.navigator.userAgent;
 		var msie = ua.indexOf("MSIE ");
+		var firefox = ua.indexOf('Firefox');
 
 		if (msie > 0 ) {
 			return 'ie-' + parseInt(ua.substring(msie + 5, ua.indexOf(".", msie)));
+		} else if (firefox > 0) {
+			return 'firefox';
 		} else {
 			return '';
 		}

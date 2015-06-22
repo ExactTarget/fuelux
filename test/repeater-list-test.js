@@ -376,19 +376,19 @@ define(function(require){
 					{
 						name: 'edit',
 						html: function () {
-							return '<div class="fuelux-icon fuelux-icon-pencil"></div> Edit'
+							return '<div class="fuelux-icon fuelux-icon-pencil"></div> Edit';
 						}
 					},
 					{
 						name: 'copy',
 						html: function () {
-							return '<div class="fuelux-icon fuelux-icon-copy"></div> Copy'
+							return '<div class="fuelux-icon fuelux-icon-copy"></div> Copy';
 						}
 					},
 					{
 						name: 'delete',
 						html: function () {
-							return '<div class="fuelux-icon fuelux-icon-delete"></div> Delete'
+							return '<div class="fuelux-icon fuelux-icon-delete"></div> Delete';
 						},
 						clickAction: function(helpers, callback) {
 							testClickAction(helpers);

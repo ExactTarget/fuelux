@@ -273,8 +273,8 @@
 										padding-bottom: 8px;
 										.repeater-list-heading {
 											padding: 8px 0 7px;
-											margin-left: 0;
-											border-left: 1px solid transparent;
+											border-left: 1px solid #F9F9F9;
+											margin-left: -1px;
 											border-bottom: 1px solid transparent;
 											width: 100%;
 										}
@@ -302,6 +302,21 @@
 									&:last-child {
 										.repeater-list-heading {
 											border-left: 1px solid transparent;
+										}
+									}
+								}
+							}
+						}
+					}
+					&.firefox {
+						.actions-column-wrapper {
+							table {
+								&.table-actions {
+									td {
+										.btn-group {
+											.btn-xs {
+												line-height: 1.4;
+											}
 										}
 									}
 								}
