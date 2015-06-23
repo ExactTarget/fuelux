@@ -634,6 +634,547 @@ define(function (require) {
 		initRepeater();
 	});
 
+	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	 REPEATER w/ actions
+	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+	function initRepeaterActions() {
+		function getSampleDataSet(options, callback) {
+			var columns = [
+				{
+					label: 'Email Address',
+					property: 'email',
+					sortable: false
+				},
+				{
+					label: 'First Name',
+					property: 'firstname',
+					sortable: false
+				},
+				{
+					label: 'Last Name',
+					property: 'lastname',
+					sortable: false
+				},
+				{
+					label: 'Discipline',
+					property: 'discipline',
+					sortable: false
+				},
+				{
+					label: 'Gender',
+					property: 'gender',
+					sortable: false
+				},
+				{
+					label: 'HTML Email',
+					property: 'htmlemail',
+					sortable: false
+				},
+				{
+					label: 'Subscriber Key',
+					property: 'key',
+					sortable: false
+				},
+				{
+					label: 'Status',
+					property: 'status',
+					sortable: false
+				}
+
+			];
+
+			var items = [
+				{
+					"email":"mbeard@salesforce.com",
+					"firstname":"Matt",
+					"lastname":"Beard",
+					"discipline":"Architecture",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"mbeard",
+					"status":"Active"
+				},
+				{
+					"email":"ben.davis@salesforce.com",
+					"firstname":"Benjamin",
+					"lastname":"Davis",
+					"discipline":"Architecture",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"benjamin.davis",
+					"status":"Active"
+				},
+				{
+					"email":"corinthe.bailey@salesforce.com",
+					"firstname":"Corinthe",
+					"lastname":"Bailey",
+					"discipline":"Research",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"cbailey",
+					"status":"Active"
+				},
+				{
+					"email":"cbirchler@salesforce.com",
+					"firstname":"Craig",
+					"lastname":"Birchler",
+					"discipline":"Design",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"CBirchler",
+					"status":"Active"
+				},
+				{
+					"email":"cmcculloh@salesforce.com",
+					"firstname":"Christopher",
+					"lastname":"McCulloh",
+					"discipline":"Architecture",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"cmcculloh",
+					"status":"Active"
+				},
+				{
+					"email":"CVaulter@salesforce.com",
+					"firstname":"Chris",
+					"lastname":"Vaulter",
+					"discipline":"Research",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"CVaulter",
+					"status":"Active"
+				},
+				{
+					"email":"dwaltz@salesforce.com",
+					"firstname":"David",
+					"lastname":"Waltz",
+					"discipline":"Architecture",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"dwaltz",
+					"status":"Active"
+				},
+				{
+					"email":"gmcbride@exacttarget.com",
+					"firstname":"Skip",
+					"lastname":"McBride",
+					"discipline":"Architecture",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"gmcbride",
+					"status":"Active"
+				},
+				{
+					"email":"Jason.Gekeler@exacttarget.com",
+					"firstname":"Jason",
+					"lastname":"Gekeler",
+					"discipline":"Architecture",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"Jason.Gekeler",
+					"status":"Active"
+				},
+				{
+					"email":"jday@salesforce.com",
+					"firstname":"Jason",
+					"lastname":"Day",
+					"discipline":"",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"jday",
+					"status":"Active"
+				},
+				{
+					"email":"jheide@salesforce.com",
+					"firstname":"Janie",
+					"lastname":"Heide",
+					"discipline":"Design",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"JHeide",
+					"status":"Active"
+				},
+				{
+					"email":"kcarter@salesforce.com",
+					"firstname":"Kellie",
+					"lastname":"Carter",
+					"discipline":"Research",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"kcarter",
+					"status":"Active"
+				},
+				{
+					"email":"ksurfus@salesforce.com",
+					"firstname":"Kathleen",
+					"lastname":"Surfus",
+					"discipline":"Design",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"KSurfus",
+					"status":"Active"
+				},
+				{
+					"email":"pjohnson@exacttarget.com",
+					"firstname":"Pat",
+					"lastname":"Johnson",
+					"discipline":"Design",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"pjohnson",
+					"status":"Active"
+				},
+				{
+					"email":"pshea@salesforce.com",
+					"firstname":"Pat",
+					"lastname":"Shea",
+					"discipline":"Beta",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"pshea",
+					"status":"Active"
+				},
+				{
+					"email":"rprice@salesforce.com",
+					"firstname":"Rachel",
+					"lastname":"Price",
+					"discipline":"Design",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"RPrice",
+					"status":"Active"
+				},
+				{
+					"email":"scott.williams@salesforce.com",
+					"firstname":"Scott",
+					"lastname":"Williams",
+					"discipline":"Architecture",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"Scott.Williams",
+					"status":"Active"
+				},
+				{
+					"email":"sgoforth@salesforce.com",
+					"firstname":"Steve",
+					"lastname":"Goforth",
+					"discipline":"Research",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"sgoforth",
+					"status":"Active"
+				},
+				{
+					"email":"sough@salesforce.com",
+					"firstname":"Stuart",
+					"lastname":"Ough",
+					"discipline":"Research",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"SOugh",
+					"status":"Active"
+				},
+				{
+					"email":"zmcnulty@salesforce.com",
+					"firstname":"Zach",
+					"lastname":"McNulty",
+					"discipline":"Design",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"zmcnulty",
+					"status":"Active"
+				},
+				{
+					"email":"sough@exacttarget.com",
+					"firstname":"",
+					"lastname":"",
+					"discipline":"",
+					"gender":"",
+					"htmlemail":"HTML",
+					"key":"sough@exacttarget.com",
+					"status":"Active"
+				},
+				{
+					"email":"asaraceno@salesforce.com",
+					"firstname":"Anna",
+					"lastname":"Saraceno",
+					"discipline":"Design",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"asaraceno",
+					"status":"Active"
+				},
+				{
+					"email":"azhong@salesforce.com",
+					"firstname":"Amy",
+					"lastname":"Zhong",
+					"discipline":"Research",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"azhong",
+					"status":"Active"
+				},
+				{
+					"email":"btuttle@salesforce.com",
+					"firstname":"Brian",
+					"lastname":"Tuttle",
+					"discipline":"Design",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"btuttle",
+					"status":"Active"
+				},
+				{
+					"email":"cbill@exacttarget.com",
+					"firstname":"Chris",
+					"lastname":"Bill",
+					"discipline":"Design",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"cbill",
+					"status":"Active"
+				},
+				{
+					"email":"ccorwin@salesforce.com",
+					"firstname":"Chris",
+					"lastname":"Corwin",
+					"discipline":"Architecture",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"CCorwin",
+					"status":"Active"
+				},
+				{
+					"email":"dbrainer-banker@salesforce.com",
+					"firstname":"David ",
+					"lastname":"Brainer-Banker",
+					"discipline":"Architecture",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"dbrainer-banker",
+					"status":"Active"
+				},
+				{
+					"email":"dwoodward@salesforce.com",
+					"firstname":"Dave",
+					"lastname":"Woodward",
+					"discipline":"Architecture",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"dwoodward",
+					"status":"Active"
+				},
+				{
+					"email":"iheyveld@salesforce.com",
+					"firstname":"Isaac",
+					"lastname":"Heyveld",
+					"discipline":"Program",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"iheyveld",
+					"status":"Active"
+				},
+				{
+					"email":"jbyers@salesforce.com",
+					"firstname":"Julie",
+					"lastname":"Byers",
+					"discipline":"Design",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"JByers",
+					"status":"Active"
+				},
+				{
+					"email":"jamin.hall@salesforce.com",
+					"firstname":"Jamin",
+					"lastname":"Hall",
+					"discipline":"Design",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"jhall",
+					"status":"Active"
+				},
+				{
+					"email":"jnewby@salesforce.com",
+					"firstname":"Jonathon",
+					"lastname":"Newby",
+					"discipline":"Design",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"JNewby",
+					"status":"Active"
+				},
+				{
+					"email":"kparkerson@salesforce.com",
+					"firstname":"Kevin",
+					"lastname":"Parkerson",
+					"discipline":"Architecture",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"kparkerson",
+					"status":"Active"
+				},
+				{
+					"email":"kwilloughby@salesforce.com",
+					"firstname":"Keith",
+					"lastname":"Willoughby",
+					"discipline":"Design",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"kwilloughby",
+					"status":"Active"
+				},
+				{
+					"email":"pschroeder@salesforce.com",
+					"firstname":"Phil",
+					"lastname":"Schroeder",
+					"discipline":"Design",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"pschroeder",
+					"status":"Active"
+				},
+				{
+					"email":"rich.spencer@salesforce.com",
+					"firstname":"Rich",
+					"lastname":"Spencer",
+					"discipline":"Design",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"rich.spencer",
+					"status":"Active"
+				},
+				{
+					"email":"sbrechbuhl@salesforce.com",
+					"firstname":"Stephanie",
+					"lastname":"Brechbuhl",
+					"discipline":"Design",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"sbrechbuhl",
+					"status":"Active"
+				},
+				{
+					"email":"sflamion@salesforce.com",
+					"firstname":"Sarah",
+					"lastname":"Flamion",
+					"discipline":"Research",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"SFlamion",
+					"status":"Active"
+				},
+				{
+					"email":"sjames@salesforce.com",
+					"firstname":"Stephen",
+					"lastname":"James",
+					"discipline":"Architecture",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"sjames",
+					"status":"Active"
+				},
+				{
+					"email":"stephenwilliams@salesforce.com",
+					"firstname":"Stephen",
+					"lastname":"Williams",
+					"discipline":"Architecture",
+					"gender":"Male",
+					"htmlemail":"HTML",
+					"key":"swilliams",
+					"status":"Active"
+				},
+				{
+					"email":"sgoforth@exacttarget.com",
+					"firstname":"",
+					"lastname":"",
+					"discipline":"",
+					"gender":"",
+					"htmlemail":"HTML",
+					"key":"sgoforth@exacttarget.com",
+					"status":"Active"
+				},
+				{
+					"email":"cbailey@exacttarget.com",
+					"firstname":"",
+					"lastname":"",
+					"discipline":"",
+					"gender":"",
+					"htmlemail":"HTML",
+					"key":"cbailey@exacttarget.com",
+					"status":"Active"
+				}
+			]
+
+			// transform array
+			var pageIndex = options.pageIndex;
+			var pageSize = options.pageSize;
+			var totalItems = items.length;
+			var totalPages = Math.ceil(totalItems / pageSize);
+			var startIndex = (pageIndex * pageSize) + 1;
+			var endIndex = (startIndex + pageSize) - 1;
+			if (endIndex > items.length) {
+				endIndex = items.length;
+			}
+
+			var rows = items.slice(startIndex - 1, endIndex);
+
+			// define the datasource
+			var dataSource = {
+				'page': pageIndex,
+				'pages': totalPages,
+				'count': totalItems,
+				'start': startIndex,
+				'end': endIndex,
+				'columns': columns,
+				'items': rows
+			};
+
+			// pass the datasource back to the repeater
+			callback(dataSource);
+		};
+
+		// initialize the repeater
+		var repeaterActions = $('#myRepeaterActions');
+		repeaterActions.repeater({
+			list_columnSizing:false,
+			list_columnSyncing: false,
+			list_noItemsHTML: '<span>foo</span>',
+			list_highlightSortedColumn: true,
+			list_actions:  {
+				width: '37px',
+				items: [
+					{
+						name: 'edit',
+						html: function () {
+							return '<div class="fuelux-icon fuelux-icon-pencil"></div> Edit'
+						}
+					},
+					{
+						name: 'copy',
+						html: function () {
+							return '<div class="fuelux-icon fuelux-icon-copy"></div> Copy'
+						}
+					},
+					{
+						name: 'delete',
+						html: function () {
+							return '<div class="fuelux-icon fuelux-icon-delete"></div> Delete'
+						},
+						clickAction: function(helpers, callback) {
+							console.log('hey it worked');
+							console.log(helpers);
+							callback();
+						}
+					}
+				]
+			},
+			// setup your custom datasource to handle data retrieval;
+			// responsible for any paging, sorting, filtering, searching logic
+			dataSource: getSampleDataSet
+		});
+	}
+	initRepeaterActions();
 
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
