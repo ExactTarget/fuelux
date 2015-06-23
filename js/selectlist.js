@@ -80,6 +80,8 @@
 			this.$element.trigger('clicked.fu.selectlist', this.$selectedItem);
 
 			e.preventDefault();
+			// ignore if a disabled item is clicked
+			if ($(e.currentTarget).parent('li').is('.disabled, :disabled')) { return; }
 
 			// is clicked element different from currently selected element?
 			if (!($(e.target).parent().is(this.$selectedItem))) {

@@ -151,6 +151,26 @@ define(function(require){
 		equal(selectedValue, 1, 'value passed in from change event');
 	});
 
+	test("should not fire changed event on disabled items", function () {
+		var eventFired = false;
+		var selectedText = '';
+		var selectedValue = '';
+
+		var $selectlist = $(html).find('#MySelectlist').selectlist().on('changed.fu.selectlist', function (evt, data) {
+			eventFired = true;
+			selectedText = data.text;
+			selectedValue = data.value;
+		});
+
+		// Disable menu item then simulate changed event
+		$selectlist.find('li:first').addClass('disabled')
+			.find('a').click();
+
+		equal(eventFired, false, 'changed event not fired');
+		equal(selectedText, '', 'text not changed');
+		equal(selectedValue, '', 'value not changed');
+	});
+
 	test("should destroy control", function () {
 		var $el = $(html).find('#MySelectlist').selectlist();
 
