@@ -354,6 +354,8 @@
 			}
 
 			pattern += duration;
+			// remove trailing semicolon
+			pattern = pattern.substring(pattern.length - 1) === ';' ? pattern.substring(0, pattern.length - 1) : pattern;
 
 			var data = {
 				startDateTime: startDateTime,
