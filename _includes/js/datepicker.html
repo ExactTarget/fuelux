@@ -109,6 +109,11 @@ $('#myDatepicker').datepicker({
     </table>
   </div><!-- ./fu-table-responsive -->
 
+  <h3 id="datepicker-usage-moment">Date Parsing and MomentJS</h3>
+
+  <p><a href="http://momentjs.com/docs/">MomentJS</a> parsing is the <b>same format</b> for the API as the output within the <code>input</code> element. Datepicker's default MomentJS locale is regionalistic (American). If you are using MomentJS (and it is recommended that you do), option strings such as those within restricted date ranges expect the format that you provide within <code>momentConfig</code>. Locales and formats are available in the <a href="http://momentjs.com/docs/#/customization/long-date-formats/">MomentJS documentation</a>. The default locale configuration is <code>momentConfig: { culture: 'en', format: 'L' }</code></p>
+
+  <p>Therefore if you do not specify your own locale and format, <code>restricted</code> will be expecting an array of objects of the<code>'MM/DD/YYYY'</code> format--that is the <code>'L'</code> MomentJS format. An example of this would be <code>restricted: [{ from: '08/10/2014', to: '08/15/2014' }]</code></p>
 
   <h3 id="datepicker-usage-methods">Methods</h3>
   <dl>
