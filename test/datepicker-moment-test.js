@@ -256,10 +256,19 @@ define(function(require){
 			});
 			var result4 = $datepicker4.datepicker('checkForMomentJS');
 
+			var $datepicker5 = $(html).datepicker({
+				momentConfig: {
+					culture: 'en',
+					formatCode: ''
+				}
+			});
+			var result5 = $datepicker5.datepicker('checkForMomentJS');
+
 			equal(result1, false, 'moment is not used because the option momentConfig.culture is null');
 			equal(result2, false, 'moment is not used because the option momentConfig.format is null');
 			equal(result3, false, 'moment is not used because the options momentConfig.culture and momentConfig.format are null');
 			equal(result4, true, 'moment is used because both momentConfig options are set');
+			equal(result5, true, 'moment is used because both momentConfig options are set, formatCode is empty');
 		});
 
 		test('should be initialized with different culture', function(){
