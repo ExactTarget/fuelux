@@ -33,7 +33,7 @@
     "grunt-jsbeautifier": "0.x",
     "grunt-prompt": "1.x",
     "grunt-saucelabs": "8.x",
-    "grunt-shell": "1.x",
+    "grunt-shell": "0.x",
     "grunt-text-replace": "0.x",
     "grunt-umd": "2.x",
     "grunt-zip": "0.x",
