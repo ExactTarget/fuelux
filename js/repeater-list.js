@@ -298,12 +298,9 @@
 		};
 
 		$.fn.repeater.Constructor.prototype.list_sizeActionsTable = function () {
-			var $table = this.$element.find('.repeater-list table');
-			$table.find('thead th').each(function () {
-				var $hr = $(this);
-				var $heading = $hr.find('.repeater-list-heading');
-				$heading.outerHeight($hr.outerHeight());
-			});
+			var $table = this.$element.find('.repeater-list-wrapper > table');
+			var $actionsTableHeading = this.$element.find('.repeater-list-wrapper .actions-column-wrapper thead th .repeater-list-heading');
+			$actionsTableHeading.outerHeight($table.find('thead th .repeater-list-heading').outerHeight());
 		};
 
 		//ADDITIONAL DEFAULT OPTIONS
