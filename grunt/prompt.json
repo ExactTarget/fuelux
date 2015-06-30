@@ -1,0 +1,36 @@
+{
+	"bump": {
+		"options": {
+			"questions": [
+				{
+					"config": "bump.increment",
+					"type": "list",
+					"message": "Bump version from <%= pkg.version %> to:",
+					"choices": [
+						{
+							"value": "patch",
+							"name": "Patch:  3.8.1 Backwards-compatible bug fixes."
+						},
+						{
+							"value": "minor",
+							"name": "Minor:  3.9.0 Add functionality in a backwards-compatible manner."
+						},
+						{
+							"value": "major",
+							"name": "Major:  4.0.0 Incompatible API changes."
+						},
+						{
+							"value": "custom",
+							"name": "Custom: ?.?.? Specify version..."
+						}
+					]
+				},
+				{
+					"config": "bump.version",
+					"type": "input",
+					"message": "What specific version would you like"
+				}
+			]
+		}
+	}
+}

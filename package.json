@@ -37,6 +37,7 @@
     "grunt-text-replace": "0.x",
     "grunt-umd": "2.x",
     "grunt-zip": "0.x",
+    "load-grunt-configs": "0.x",
     "load-grunt-tasks": "3.x",
     "semver": "4.x"
   },

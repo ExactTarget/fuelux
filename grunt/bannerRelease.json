@@ -1,0 +1,1 @@
+"/*!\n * Fuel UX v<%= pkg.version %> \n * Copyright 2012-<%= grunt.template.today(\"yyyy\") %> <%= pkg.author.name %>\n * Licensed under the <%= pkg.license.type %> license (<%= pkg.license.url %>)\n */\n"

@@ -1,0 +1,15 @@
+{
+	"readme": {
+		"src": [
+			"DETAILS.md",
+			"README.md"
+		],
+		"overwrite": true,
+		"replacements": [
+			{
+				"from": {},
+				"to": "fuelux/<%= pkg.version %>"
+			}
+		]
+	}
+}

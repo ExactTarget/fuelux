@@ -1,0 +1,87 @@
+{
+	"author": {
+		"email": "kparkerson@exacttarget.com",
+		"name": "ExactTarget",
+		"url": "http://code.exacttarget.com"
+	},
+	"bugs": {
+		"url": "https://github.com/ExactTarget/fuelux/issues"
+	},
+	"dependencies": {
+		"bower": "1.x",
+		"connect": "3.x",
+		"serve-static": ">=1.7.2"
+	},
+	"description": "Base Fuel UX styles and controls",
+	"devDependencies": {
+		"grunt": "0.x",
+		"grunt-banner": "0.x",
+		"grunt-blanket-qunit": "~0.2.0",
+		"grunt-bump": "0.x",
+		"grunt-cli": "0.x",
+		"grunt-contrib-clean": "0.x",
+		"grunt-contrib-compress": "0.x",
+		"grunt-contrib-concat": "0.x",
+		"grunt-contrib-connect": "0.x",
+		"grunt-contrib-copy": "0.x",
+		"grunt-contrib-jshint": "0.x",
+		"grunt-contrib-less": "1.x",
+		"grunt-contrib-qunit": "0.5.x",
+		"grunt-contrib-uglify": "0.x",
+		"grunt-contrib-watch": "0.x",
+		"grunt-html-validation": "0.x",
+		"grunt-jsbeautifier": "0.x",
+		"grunt-prompt": "1.x",
+		"grunt-saucelabs": "8.x",
+		"grunt-shell": "1.x",
+		"grunt-text-replace": "0.x",
+		"grunt-umd": "2.x",
+		"grunt-zip": "0.x",
+		"load-grunt-tasks": "3.x",
+		"semver": "4.x"
+	},
+	"engines": {
+		"node": "0.10.x"
+	},
+	"homepage": "https://github.com/ExactTarget/fuelux",
+	"keywords": [
+		"application",
+		"bootstrap",
+		"controls",
+		"css",
+		"exacttarget",
+		"exact target",
+		"front-end",
+		"fuelux",
+		"fuel ux",
+		"js",
+		"salesforce",
+		"user interface",
+		"web"
+	],
+	"license": {
+		"type": "BSD-3-Clause",
+		"url": "https://github.com/ExactTarget/fuelux/blob/master/LICENSE"
+	},
+	"name": "fuelux",
+	"private": true,
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/ExactTarget/fuelux.git"
+	},
+	"scripts": {
+		"main": "devserver.js",
+		"postinstall": "node ./node_modules/bower/bin/bower install",
+		"test": "grunt travisci --verbose"
+	},
+	"title": "Fuel UX",
+	"version": "3.8.0",
+	"volo": {
+		"baseDir": "lib",
+		"dependencies": {
+			"moment": "http://momentjs.com/downloads/moment-with-locales.js"
+		},
+		"type": "directory",
+		"url": "https://raw.github.com/ExactTarget/fuelux/{version}/dist/fuelux.zip"
+	}
+}
