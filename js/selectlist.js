@@ -44,6 +44,13 @@
 			this.resize();
 		}
 
+		// if selectlist is empty or is one item, disable it
+		var items = this.$dropdownMenu.children('li');
+		if( items.length === 0) {
+			this.disable();
+			this.doSelect( $(this.options.emptyLabelHTML));
+		}
+
 		// support jumping focus to first letter in dropdown when key is pressed
 		this.$element.on('shown.bs.dropdown', function () {
 				var $this = $(this);
