@@ -72,6 +72,7 @@
   "scripts": {
     "main": "devserver.js",
     "postinstall": "node ./node_modules/bower/bin/bower install",
+    "start": "grunt serve",
     "test": "grunt travisci --verbose"
   },
   "title": "Fuel UX",
