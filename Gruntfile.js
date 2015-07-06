@@ -321,6 +321,34 @@ module.exports = function (grunt) {
 		},
 		prompt: {
 			// asks for what version you want to build
+			'tempbranch': {
+				options: {
+					questions: [
+						{
+							config: 'release.remoteRepository',
+							default : '<%= release.remoteRepository %>',
+							type: 'input',
+							message: function() {
+								return 'What repository would like to base your local release branch from?';
+							}
+						},
+						{
+							// Assumption is made that you are releasing the code within a "release branch" currently 
+							// on the upstream remote repo. This branch will be tracked locally and be used to run 
+							// the build process in. It will be named release_{BUILD_VERSION}_{MMSS} (that is, it will
+							// use the version specified earlier and a "mini-timestamp" of the current hour and minute).
+							config: 'release.remoteBaseBranch',
+							type: 'input',
+							default : '<%= release.remoteBaseBranch %>',
+							message: function() {
+								return 'What remote branch from ' + grunt.config('release.remoteRepository') + 
+								' would like to build your release based on?';
+							}
+						}
+					]
+				}
+			},
+			// asks for what version you want to build
 			'build': {
 				options: {
 					questions: [
@@ -358,27 +386,6 @@ module.exports = function (grunt) {
 							validate: function (value) {
 								var valid = semver.valid(value);
 								return valid || 'Must be a valid semver, such as 1.2.3-rc1. See http://semver.org/ for more details.';
-							}
-						},
-						{
-							config: 'release.remoteRepository',
-							default : '<%= release.remoteRepository %>',
-							type: 'input',
-							message: function() {
-								return 'What repository would like to base your local release branch from?';
-							}
-						},
-						{
-							// Assumption is made that you are releasing the code within a "release branch" currently 
-							// on the upstream remote repo. This branch will be tracked locally and be used to run 
-							// the build process in. It will be named release_{BUILD_VERSION}_{MMSS} (that is, it will
-							// use the version specified earlier and a "mini-timestamp" of the current hour and minute).
-							config: 'release.remoteBaseBranch',
-							type: 'input',
-							default : '<%= release.remoteBaseBranch %>',
-							message: function() {
-								return 'What remote branch from ' + grunt.config('release.remoteRepository') + 
-								' would like to build your release based upon?';
 							}
 						}
 					]
@@ -567,13 +574,14 @@ module.exports = function (grunt) {
 				command: 'github_changelog_generator --no-author --unreleased-only --compare-link'
 			},
 			checkoutRemoteReleaseBranch: {
-				// this makes a local branch based on the prior prompt, such as release_{BUILD_VERSION}_{HOURSMINUTES}
+				// this makes a local branch based on the prior prompt, such as release_{TIMESTAMP}
+				// then update tags from remote in order to prevent duplicate tags
 				command: function() {
-					grunt.config('release.localBranch', 'release_' + semver.inc(packageVersion, grunt.config('release.buildSemVerType')) + 
-							'_' + new Date().getTime() );
+					grunt.config('release.localBranch', 'release_' + new Date().getTime() );
 					var command = [
 						'git checkout -b ' + grunt.config('release.localBranch') + ' ' + 
-							grunt.config('release.remoteRepository') + '/' + grunt.config('release.remoteBaseBranch')
+							grunt.config('release.remoteRepository') + '/' + grunt.config('release.remoteBaseBranch'),
+							'git fetch ' + grunt.config('release.remoteRepository') + ' --tag'
 					].join(' && ');
 					grunt.log.write('Checking out new local branch based on ' + grunt.config('release.remoteBaseBranch') + ': ' + command);
 					return command;
@@ -824,18 +832,18 @@ module.exports = function (grunt) {
 				' Please contact another maintainer to obtain this file.');
 		}
 
-		grunt.task.run(['prompt:build', 'dorelease']);
+		grunt.task.run(['prompt:tempbranch','dorelease']);
 		});
 
 	// formerally dorelease task
 	grunt.registerTask('dorelease', '', function () {
-		if (typeof grunt.config('release.buildSemVerType') === 'undefined') {
-			grunt.fail.fatal('you must choose a version to bump to');
-		}
 
 		grunt.task.run(['shell:checkoutRemoteReleaseBranch']);
+		//update local variable to make sure build prompt is using temp branch's package version
+		packageVersion = require('./package.json').version;
+		grunt.task.run(['prompt:build']);
+
 		grunt.log.writeln('');
-		grunt.log.oklns('releasing: ', grunt.config('release.buildSemVerType'));
 
 		if (!grunt.option('no-tests')) {
 			grunt.task.run(['releasetest']); //If phantom timeouts happening because of long-running qunit tests, look into setting `resourceTimeout` in phantom: http://phantomjs.org/api/webpage/property/settings.html
