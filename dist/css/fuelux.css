@@ -1,5 +1,6 @@
 /*!
- * Fuel UX v3.9.0 
+ * Fuel UX EDGE - Built 2015/07/06, 1:18:13 PM 
+ * Previous release: v3.9.0 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -381,7 +382,7 @@ label.fuelux .checkbox-inline {
 .fuelux .radio-inline input[type="radio"]:not(.sr-only):disabled ~ label:before,
 .fuelux .checkbox-inline input[type="radio"]:not(.sr-only):disabled ~ label:before {
   color: #333333;
-  opacity: 0.5 !important;
+  opacity: .65;
   cursor: not-allowed !important;
   outline: none;
   box-shadow: none;
@@ -513,10 +514,11 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .checkbox-custom.disabled {
   cursor: not-allowed;
+  opacity: .65;
 }
 .fuelux .checkbox-custom.disabled:before {
   cursor: not-allowed;
-  opacity: .5;
+  opacity: .65;
 }
 .fuelux .checkbox-custom.checkbox-inline:before {
   left: 0;
@@ -650,13 +652,14 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .radio-custom.disabled {
   cursor: not-allowed;
+  opacity: .65;
 }
 .fuelux .radio-custom.disabled:after {
   cursor: not-allowed;
 }
 .fuelux .radio-custom.disabled:before {
   cursor: not-allowed;
-  opacity: .5;
+  opacity: .65;
 }
 .fuelux .radio-custom.radio-inline:after {
   left: 4px;
