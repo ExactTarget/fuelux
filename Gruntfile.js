@@ -570,7 +570,7 @@ module.exports = function (grunt) {
 				// this makes a local branch based on the prior prompt, such as release_{BUILD_VERSION}_{HOURSMINUTES}
 				command: function() {
 					grunt.config('release.localBranch', 'release_' + semver.inc(packageVersion, grunt.config('release.buildSemVerType')) + 
-							'_' + grunt.template.today('hMM'));
+							'_' + grunt.template.today());
 					var command = [
 						'git checkout -b ' + grunt.config('release.localBranch') + ' ' + 
 							grunt.config('release.remoteRepository') + '/' + grunt.config('release.remoteBaseBranch')
