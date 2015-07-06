@@ -1,5 +1,6 @@
 /*!
- * Fuel UX v3.8.0 
+ * Fuel UX EDGE - Built 2015/07/06, 1:18:13 PM 
+ * Previous release: v3.9.0 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -260,6 +261,13 @@
 
 			// set default selection
 			this.setDefaultSelection();
+
+			// if dropdown is empty, disable it
+			var items = this.$dropMenu.children( 'li' );
+			if ( items.length === 0 ) {
+				this.$button.addClass( 'disabled' );
+			}
+
 		};
 
 		Combobox.prototype = {
@@ -623,7 +631,7 @@
 				if (
 					( $.isFunction( window.moment ) || ( typeof moment !== 'undefined' && $.isFunction( moment ) ) ) &&
 					$.isPlainObject( this.options.momentConfig ) &&
-					this.options.momentConfig.culture && this.options.momentConfig.format
+					( typeof this.options.momentConfig.culture === 'string' && typeof this.options.momentConfig.format === 'string' )
 				) {
 					return true;
 				} else {
@@ -2251,6 +2259,7 @@
 			this.$element = $( element );
 			this.options = $.extend( {}, $.fn.selectlist.defaults, options );
 
+
 			this.$button = this.$element.find( '.btn.dropdown-toggle' );
 			this.$hiddenField = this.$element.find( '.hidden-field' );
 			this.$label = this.$element.find( '.selected-label' );
@@ -2262,6 +2271,37 @@
 			if ( options.resize === 'auto' || this.$element.attr( 'data-resize' ) === 'auto' ) {
 				this.resize();
 			}
+
+			// if selectlist is empty or is one item, disable it
+			var items = this.$dropdownMenu.children( 'li' );
+			if ( items.length === 0 ) {
+				this.disable();
+				this.doSelect( $( this.options.emptyLabelHTML ) );
+			}
+
+			// support jumping focus to first letter in dropdown when key is pressed
+			this.$element.on( 'shown.bs.dropdown', function() {
+				var $this = $( this );
+				// attach key listener when dropdown is shown
+				$( document ).on( 'keypress.fu.selectlist', function( e ) {
+
+					// get the key that was pressed
+					var key = String.fromCharCode( e.which );
+					// look the items to find the first item with the first character match and set focus
+					$this.find( "li" ).each( function( idx, item ) {
+						if ( $( item ).text().charAt( 0 ).toLowerCase() === key ) {
+							$( item ).children( 'a' ).focus();
+							return false;
+						}
+					} );
+
+				} );
+			} );
+
+			// unbind key event when dropdown is hidden
+			this.$element.on( 'hide.bs.dropdown', function() {
+				$( document ).off( 'keypress.fu.selectlist' );
+			} );
 		};
 
 		Selectlist.prototype = {
@@ -2300,6 +2340,10 @@
 				this.$element.trigger( 'clicked.fu.selectlist', this.$selectedItem );
 
 				e.preventDefault();
+				// ignore if a disabled item is clicked
+				if ( $( e.currentTarget ).parent( 'li' ).is( '.disabled, :disabled' ) ) {
+					return;
+				}
 
 				// is clicked element different from currently selected element?
 				if ( !( $( e.target ).parent().is( this.$selectedItem ) ) ) {
@@ -2435,7 +2479,9 @@
 			return ( methodReturn === undefined ) ? $set : methodReturn;
 		};
 
-		$.fn.selectlist.defaults = {};
+		$.fn.selectlist.defaults = {
+			emptyLabelHTML: '<li data-value=""><a href="#">No items</a></li>'
+		};
 
 		$.fn.selectlist.Constructor = Selectlist;
 
@@ -5072,6 +5118,12 @@
 					this.$nextBtn.removeAttr( disabled );
 				}
 
+				// is 0 or 1 pages, if using $primaryPaging (combobox)
+				// if using selectlist allow user to use selectlist to select 0 or 1
+				if ( this.$prevBtn.hasClass( pageEnd ) && this.$nextBtn.hasClass( pageEnd ) ) {
+					this.$primaryPaging.combobox( 'disable' );
+				}
+
 				this.$element.removeClass( 'disabled' );
 				this.$element.trigger( 'enabled.fu.repeater' );
 			},
@@ -5268,11 +5320,15 @@
 				var pageEnd = 'page-end';
 				var pages = data.pages;
 				var dropMenu, i, l;
+				var currenPageOutput;
 
 				this.currentPage = ( page !== undefined ) ? page : NaN;
 
 				this.$primaryPaging.removeClass( act );
 				this.$secondaryPaging.removeClass( act );
+
+				// set paging to 0 if total pages is 0, otherwise use one-based index
+				currenPageOutput = pages === 0 ? 0 : this.currentPage + 1;
 
 				if ( pages <= this.viewOptions.dropPagingCap ) {
 					this.$primaryPaging.addClass( act );
@@ -5282,15 +5338,16 @@
 						l = i + 1;
 						dropMenu.append( '<li data-value="' + l + '"><a href="#">' + l + '</a></li>' );
 					}
-					this.$primaryPaging.find( 'input.form-control' ).val( this.currentPage + 1 );
+
+					this.$primaryPaging.find( 'input.form-control' ).val( currenPageOutput );
 				} else {
 					this.$secondaryPaging.addClass( act );
-					this.$secondaryPaging.val( this.currentPage + 1 );
+					this.$secondaryPaging.val( currenPageOutput );
 				}
 
 				this.lastPageInput = this.currentPage + 1 + '';
 
-				this.$pages.html( pages );
+				this.$pages.html( '' + pages );
 
 				// this is not the last page
 				if ( ( this.currentPage + 1 ) < pages ) {
@@ -5744,7 +5801,7 @@
 
 			$.fn.repeater.Constructor.prototype.list_setFrozenColumns = function() {
 				var frozenTable = this.$canvas.find( '.table-frozen' );
-				var $table = this.$element.find( '.repeater-list table' );
+				var $table = this.$element.find( '.repeater-list .repeater-list-wrapper > table' );
 				var repeaterWrapper = this.$element.find( '.repeater-list' );
 				var numFrozenColumns = this.viewOptions.list_frozenColumns;
 
@@ -5773,23 +5830,135 @@
 				this.$element.find( '.frozen-column-wrapper, .frozen-thead-wrapper' ).width( columnWidth );
 			};
 
-			$.fn.repeater.Constructor.prototype.list_positionFrozenColumns = function() {
+			$.fn.repeater.Constructor.prototype.list_positionColumns = function() {
 				var $wrapper = this.$element.find( '.repeater-canvas' );
 				var scrollTop = $wrapper.scrollTop();
 				var scrollLeft = $wrapper.scrollLeft();
+				var frozenEnabled = this.viewOptions.list_frozenColumns;
+				var actionsEnabled = this.viewOptions.list_actions;
+
+				var canvasWidth = this.$element.find( '.repeater-canvas' ).outerWidth();
+				var tableWidth = this.$element.find( '.repeater-list .repeater-list-wrapper > table' ).outerWidth();
+
+				var actionsWidth = this.$element.find( '.table-actions' ) ? this.$element.find( '.table-actions' ).outerWidth() : 0;
+
+				var shouldScroll = ( tableWidth - ( canvasWidth - actionsWidth ) ) >= scrollLeft;
+
+
 				if ( scrollTop > 0 ) {
 					$wrapper.find( '.repeater-list-heading' ).css( 'top', scrollTop );
 				} else {
 					$wrapper.find( '.repeater-list-heading' ).css( 'top', '0' );
 				}
 				if ( scrollLeft > 0 ) {
-					$wrapper.find( '.frozen-thead-wrapper' ).css( 'left', scrollLeft );
-					$wrapper.find( '.frozen-column-wrapper' ).css( 'left', scrollLeft );
+					if ( frozenEnabled ) {
+						$wrapper.find( '.frozen-thead-wrapper' ).css( 'left', scrollLeft );
+						$wrapper.find( '.frozen-column-wrapper' ).css( 'left', scrollLeft );
+					}
+					if ( actionsEnabled && shouldScroll ) {
+						$wrapper.find( '.actions-thead-wrapper' ).css( 'right', -scrollLeft );
+						$wrapper.find( '.actions-column-wrapper' ).css( 'right', -scrollLeft );
+					}
+
 				} else {
-					$wrapper.find( '.frozen-thead-wrapper' ).css( 'left', '0' );
-					$wrapper.find( '.frozen-column-wrapper' ).css( 'left', '0' );
+					if ( frozenEnabled ) {
+						$wrapper.find( '.frozen-thead-wrapper' ).css( 'left', '0' );
+						$wrapper.find( '.frozen-column-wrapper' ).css( 'left', '0' );
+					}
+					if ( actionsEnabled ) {
+						$wrapper.find( '.actions-thead-wrapper' ).css( 'right', '0' );
+						$wrapper.find( '.actions-column-wrapper' ).css( 'right', '0' );
+					}
+				}
+			};
+
+			$.fn.repeater.Constructor.prototype.list_createItemActions = function() {
+				var actionsHtml = '';
+				var self = this;
+				var i, l;
+				var $table = this.$element.find( '.repeater-list .repeater-list-wrapper > table' );
+				var $actionsTable = this.$canvas.find( '.table-actions' );
+
+				for ( i = 0, l = this.viewOptions.list_actions.items.length; i < l; i++ ) {
+					var action = this.viewOptions.list_actions.items[ i ];
+					var html = action.html();
+
+					actionsHtml += '<li><a data-action="' + action.name + '" class="action-item"> ' + html + '</a></li>';
 				}
 
+				var selectlist = '<div class="btn-group">' +
+					'<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
+					'<span class="caret"></span>' +
+					'</button>' +
+					'<ul class="dropdown-menu dropdown-menu-right" role="menu">' +
+					actionsHtml +
+					'</ul></div>';
+
+				if ( $actionsTable.length < 1 ) {
+
+					var $actionsColumnWrapper = $( '<div class="actions-column-wrapper"></div>' ).insertBefore( $table );
+					var $actionsColumn = $table.clone().addClass( 'table-actions' );
+					$actionsColumn.find( 'th:not(:lt(1))' ).remove();
+					$actionsColumn.find( 'td:not(:nth-child(n+0):nth-child(-n+1))' ).remove();
+
+					// Dont show actions dropdown in header if not multi select
+					if ( this.viewOptions.list_selectable === 'multi' ) {
+						$actionsColumn.find( 'thead tr' ).html( '<th><div class="repeater-list-heading">' + selectlist + '</div></th>' );
+					} else {
+						var label = this.viewOptions.list_actions.label || '<span class="actions-hidden">a</span>';
+						$actionsColumn.find( 'thead tr' ).addClass( 'empty-heading' ).html( '<th>' + label + '<div class="repeater-list-heading">' + label + '</div></th>' );
+					}
+
+					// Create Actions dropdown for each cell in actions table
+					var $actionsCells = $actionsColumn.find( 'td' );
+
+					$actionsCells.each( function( i ) {
+						$( this ).html( selectlist );
+						$( this ).find( 'a' ).attr( 'data-row', parseInt( [ i ] ) + 1 );
+					} );
+
+					$actionsColumnWrapper.append( $actionsColumn );
+
+					this.$canvas.addClass( 'actions-enabled' );
+				}
+
+				this.$element.find( '.repeater-list .actions-column-wrapper, .repeater-list .actions-column-wrapper td, .repeater-list .actions-column-wrapper th' )
+					.css( 'width', this.list_actions_width );
+
+				this.$element.find( '.repeater-list .actions-column-wrapper th .repeater-list-heading' ).css( 'width', parseInt( this.list_actions_width ) + 1 + 'px' );
+
+				this.$element.find( '.repeater-list table.table-actions tr' ).each( function( i, elem ) {
+					$( this ).height( $table.find( 'tr:eq(' + i + ')' ).height() );
+				} );
+
+				this.$element.find( '.table-actions .action-item' ).on( 'click', function() {
+					var actionName = $( this ).data( 'action' );
+					var row = $( this ).data( 'row' );
+					self.list_getActionItems( actionName, row );
+				} );
+
+			};
+
+			$.fn.repeater.Constructor.prototype.list_getActionItems = function( actionName, row ) {
+
+				var clickedRow = this.$canvas.find( '.repeater-list-wrapper > table tbody tr:nth-child(' + row + ')' );
+
+				var actionObj = $.grep( this.viewOptions.list_actions.items, function( actions ) {
+					return actions.name === actionName;
+				} )[ 0 ];
+
+				if ( actionObj.clickAction ) {
+					actionObj.clickAction( {
+						item: clickedRow,
+						rowData: clickedRow.data( 'item_data' )
+					}, function() {} );
+				}
+			};
+
+			$.fn.repeater.Constructor.prototype.list_sizeActionsTable = function() {
+				var $table = this.$element.find( '.repeater-list-wrapper > table' );
+				var $actionsTableHeading = this.$element.find( '.repeater-list-wrapper .actions-column-wrapper thead th .repeater-list-heading' );
+				$actionsTableHeading.outerHeight( $table.find( 'thead th .repeater-list-heading' ).outerHeight() );
 			};
 
 			//ADDITIONAL DEFAULT OPTIONS
@@ -5803,7 +5972,8 @@
 				list_selectable: false,
 				list_sortClearing: false,
 				list_rowRendered: null,
-				list_frozenColumns: 0
+				list_frozenColumns: 0,
+				list_actions: false
 			} );
 
 			//EXTENSION DEFINITION
@@ -5825,6 +5995,7 @@
 				initialize: function( helpers, callback ) {
 					this.list_sortDirection = null;
 					this.list_sortProperty = null;
+					this.list_actions_width = ( this.viewOptions.list_actions.width !== undefined ) ? this.viewOptions.list_actions.width : '37px';
 					callback();
 				},
 				resize: function() {
@@ -5850,17 +6021,18 @@
 					var $table;
 
 					if ( $listContainer.length < 1 ) {
-						$listContainer = $( '<div class="repeater-list" data-preserve="shallow"><div class="repeater-list-wrapper" data-infinite="true" data-preserve="shallow"><table aria-readonly="true" class="table" data-preserve="shallow" role="grid"></table></div></div>' );
+						$listContainer = $( '<div class="repeater-list ' + specialBrowserClass() + '" data-preserve="shallow"><div class="repeater-list-wrapper" data-infinite="true" data-preserve="shallow"><table aria-readonly="true" class="table" data-preserve="shallow" role="grid"></table></div></div>' );
 						$listContainer.find( '.repeater-list-wrapper' ).on( 'scroll.fu.repeaterList', function() {
 							if ( self.viewOptions.list_columnSyncing ) {
 								self.list_positionHeadings();
 							}
 						} );
-						if ( self.viewOptions.list_frozenColumns ) {
+						if ( self.viewOptions.list_frozenColumns || self.viewOptions.list_actions ) {
 							helpers.container.on( 'scroll.fu.repeaterList', function() {
-								self.list_positionFrozenColumns();
+								self.list_positionColumns();
 							} );
 						}
+
 						helpers.container.append( $listContainer );
 					}
 
@@ -5884,7 +6056,16 @@
 
 					if ( this.viewOptions.list_frozenColumns ) {
 						this.list_setFrozenColumns();
-						this.list_positionFrozenColumns();
+
+					}
+
+					if ( this.viewOptions.list_actions ) {
+						this.list_createItemActions();
+						this.list_sizeActionsTable();
+					}
+
+					if ( this.viewOptions.list_frozenColumns || this.viewOptions.list_actions ) {
+						this.list_positionColumns();
 					}
 
 					$sorted = this.$canvas.find( '.repeater-list-heading.sorted' );
@@ -5903,6 +6084,13 @@
 			var content = rows[ rowIndex ][ columns[ columnIndex ].property ];
 			var $col = $( '<td></td>' );
 			var width = columns[ columnIndex ]._auto_width;
+
+			var property = columns[ columnIndex ].property;
+			if ( this.viewOptions.list_actions !== false && property === '@_ACTIONS_@' ) {
+				content = '<div class="repeater-list-actions-placeholder" style="width: ' + this.list_actions_width + '"></div>';
+			}
+
+			content = ( content !== undefined ) ? content : '';
 
 			$col.addClass( ( ( className !== undefined ) ? className : '' ) ).append( content );
 			if ( width !== undefined ) {
@@ -5937,6 +6125,12 @@
 			$both = $header.add( $div );
 			$span = $div.find( chevron );
 			$spans = $span.add( $header.find( chevron ) );
+
+			if ( this.viewOptions.list_actions && columns[ index ].property === '@_ACTIONS_@' ) {
+				var width = this.list_actions_width;
+				$header.css( 'width', width );
+				$div.css( 'width', width );
+			}
 
 			className = columns[ index ].className;
 			if ( className !== undefined ) {
@@ -6033,6 +6227,10 @@
 				} );
 			}
 
+			if ( this.viewOptions.list_actions && !this.viewOptions.list_selectable ) {
+				$row.data( 'item_data', rows[ index ] );
+			}
+
 			$tbody.append( $row );
 
 			for ( i = 0, l = this.list_columns.length; i < l; i++ ) {
@@ -6098,6 +6296,17 @@
 				this.list_firstRender = false;
 				this.$loader.removeClass( 'noHeader' );
 
+				if ( this.viewOptions.list_actions ) {
+					var actionsColumn = {
+						label: this.viewOptions.list_actions.label || '<span class="actions-hidden">a</span>',
+						property: '@_ACTIONS_@',
+						sortable: false,
+						width: this.list_actions_width
+					};
+					columns.push( actionsColumn );
+				}
+
+
 				$thead = $( '<thead data-preserve="deep"><tr></tr></thead>' );
 				$tr = $thead.find( 'tr' );
 				for ( i = 0, l = columns.length; i < l; i++ ) {
@@ -6153,6 +6362,20 @@
 
 					}
 				}
+			}
+		}
+
+		function specialBrowserClass() {
+			var ua = window.navigator.userAgent;
+			var msie = ua.indexOf( "MSIE " );
+			var firefox = ua.indexOf( 'Firefox' );
+
+			if ( msie > 0 ) {
+				return 'ie-' + parseInt( ua.substring( msie + 5, ua.indexOf( ".", msie ) ) );
+			} else if ( firefox > 0 ) {
+				return 'firefox';
+			} else {
+				return '';
 			}
 		}
 
@@ -6684,8 +6907,8 @@
 						day = parseInt( this.$element.find( '.repeat-monthly-date .selectlist' ).selectlist( 'selectedItem' ).text, 10 );
 						pattern += 'BYMONTHDAY=' + day + ';';
 					} else if ( type === 'bysetpos' ) {
-						days = this.$element.find( '.month-days' ).selectlist( 'selectedItem' ).value;
-						pos = this.$element.find( '.month-day-pos' ).selectlist( 'selectedItem' ).value;
+						days = this.$element.find( '.repeat-monthly-day .month-days' ).selectlist( 'selectedItem' ).value;
+						pos = this.$element.find( '.repeat-monthly-day .month-day-pos' ).selectlist( 'selectedItem' ).value;
 						pattern += 'BYDAY=' + days + ';';
 						pattern += 'BYSETPOS=' + pos + ';';
 					}
@@ -6695,13 +6918,15 @@
 					type = this.$element.find( 'input[name=repeat-yearly]:checked' ).val();
 
 					if ( type === 'bymonthday' ) {
+						// there are multiple .year-month classed elements in scheduler markup
 						month = this.$element.find( '.repeat-yearly-date .year-month' ).selectlist( 'selectedItem' ).value;
-						day = this.$element.find( '.year-month-day' ).selectlist( 'selectedItem' ).text;
+						day = this.$element.find( '.repeat-yearly-date .year-month-day' ).selectlist( 'selectedItem' ).text;
 						pattern += 'BYMONTH=' + month + ';';
 						pattern += 'BYMONTHDAY=' + day + ';';
 					} else if ( type === 'bysetpos' ) {
-						days = this.$element.find( '.year-month-days' ).selectlist( 'selectedItem' ).value;
-						pos = this.$element.find( '.year-month-day-pos' ).selectlist( 'selectedItem' ).value;
+						days = this.$element.find( '.repeat-yearly-day .year-month-days' ).selectlist( 'selectedItem' ).value;
+						pos = this.$element.find( '.repeat-yearly-day .year-month-day-pos' ).selectlist( 'selectedItem' ).value;
+						// there are multiple .year-month classed elements in scheduler markup
 						month = this.$element.find( '.repeat-yearly-day .year-month' ).selectlist( 'selectedItem' ).value;
 
 						pattern += 'BYDAY=' + days + ';';
@@ -6726,6 +6951,8 @@
 				}
 
 				pattern += duration;
+				// remove trailing semicolon
+				pattern = pattern.substring( pattern.length - 1 ) === ';' ? pattern.substring( 0, pattern.length - 1 ) : pattern;
 
 				var data = {
 					startDateTime: startDateTime,

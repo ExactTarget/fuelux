@@ -23,6 +23,11 @@ define(function(require){
 		ok($combobox.combobox() === $combobox , 'combobox should be initialized');
 	});
 
+	test("should disable dropdown menu if no items exists", function () {
+		var $combobox = $(html).find('#MyComboboxSingleItem').combobox();
+		equal($combobox.find('.btn').hasClass('disabled'), true, 'dropdown disabled');
+	});
+
 	test("should set disabled state", function () {
 		var $combobox = $(html).find("#MyCombobox").combobox();
 		$combobox.combobox('disable');
