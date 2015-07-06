@@ -44,13 +44,29 @@
 			this.resize();
 		}
 
-		// if selectlist is empty or is one item, disable it
-		var items = this.$dropdownMenu.children('li');
-		if( items.length === 0) {
-			this.disable();
-			this.doSelect( $(this.options.emptyLabelHTML));
-		}
+		// support jumping focus to first letter in dropdown when key is pressed
+		this.$element.on('shown.bs.dropdown', function () {
+				var $this = $(this);
+				// attach key listener when dropdown is shown
+				$(document).on('keypress.fu.selectlist', function(e){
+					
+					// get the key that was pressed
+					var key = String.fromCharCode(e.which);
+					// look the items to find the first item with the first character match and set focus
+					$this.find("li").each(function(idx,item){
+						if ($(item).text().charAt(0).toLowerCase() === key) {
+							$(item).children('a').focus();
+							return false;
+						}
+					});
+					
+			});
+		});
 
+		// unbind key event when dropdown is hidden
+		this.$element.on('hide.bs.dropdown', function () {
+				$(document).off('keypress.fu.selectlist');
+		});
 	};
 
 	Selectlist.prototype = {
@@ -89,6 +105,8 @@
 			this.$element.trigger('clicked.fu.selectlist', this.$selectedItem);
 
 			e.preventDefault();
+			// ignore if a disabled item is clicked
+			if ($(e.currentTarget).parent('li').is('.disabled, :disabled')) { return; }
 
 			// is clicked element different from currently selected element?
 			if (!($(e.target).parent().is(this.$selectedItem))) {

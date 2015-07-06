@@ -105,12 +105,29 @@ define(function (require) {
 		DATEPICKER
 	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+	function formatClientTimezone8601() {
+		var now = new Date(),
+				tzo = now.getTimezoneOffset() * -1,	//invert
+				dif = tzo >= 0 ? '+' : '-',
+				pad = function(num) {
+						var norm = Math.abs(Math.floor(num));
+						return (norm < 10 ? '0' : '') + norm;
+				};
+		return dif + pad(tzo / 60) + ':' + pad(tzo % 60);
+	}
+
+	var localTimezone = formatClientTimezone8601();
+
 	// initialize
 	$('#myDatepicker').datepicker({
+		momentConfig: {
+			culture: 'en',
+			format: ''
+		},
 		allowPastDates: true,
 		restricted: [{
-			from: '08/10/2014',
-			to: '08/15/2014'
+			from: '2014-08-10T00:00:00' + localTimezone,
+			to: '2014-08-15T00:00:00' + localTimezone
 		}]
 	});
 
@@ -634,6 +651,110 @@ define(function (require) {
 		initRepeater();
 	});
 
+	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	 REPEATER w/ actions
+	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+	function initRepeaterActions() {
+		var loadDelays = ['300', '600', '900', '1200'];
+		function getSampleDataSet(options, callback) {
+			var resp = {
+				count: data.repeater.listData.length,
+				items: [],
+				page: options.pageIndex
+			};
+
+			// get start and end limits for JSON
+			var i, l;
+			resp.pages = Math.ceil(resp.count / (options.pageSize || 50));
+
+			i = options.pageIndex * (options.pageSize || 50);
+			l = i + (options.pageSize || 50);
+			l = (l <= resp.count) ? l : resp.count;
+			resp.start = i + 1;
+			resp.end = l;
+
+			// setup columns for list view
+			resp.columns = [
+				{
+					label: 'Common Name',
+					property: 'commonName',
+					sortable: true
+				},
+				{
+					label: 'Latin Name',
+					property: 'latinName',
+					sortable: true
+				},
+				{
+					label: 'Appearance',
+					property: 'appearance',
+					sortable: true
+				},
+				{
+					label: 'Sound',
+					property: 'sound',
+					sortable: true
+				}
+			];
+
+			// add sample items to datasource
+			for (i; i < l; i++) {
+				// from data.js
+				resp.items.push(data.repeater.listData[i]);
+			}
+
+			//if(options.search){
+			//resp.items = [];
+			//}
+
+			// call and simulate latency
+			setTimeout(function () {
+				callback(resp);
+			}, loadDelays[Math.floor(Math.random() * 4)]);
+
+		};
+
+		// initialize the repeater
+		var repeaterActions = $('#myRepeaterActions');
+		repeaterActions.repeater({
+			list_columnSizing:false,
+			list_columnSyncing: false,
+			list_noItemsHTML: '<span>foo</span>',
+			list_highlightSortedColumn: true,
+			list_actions:  {
+				width: '37px',
+				items: [
+					{
+						name: 'edit',
+						html: function () {
+							return '<div class="fuelux-icon fuelux-icon-pencil"></div> Edit'
+						}
+					},
+					{
+						name: 'copy',
+						html: function () {
+							return '<div class="fuelux-icon fuelux-icon-copy"></div> Copy'
+						}
+					},
+					{
+						name: 'delete',
+						html: function () {
+							return '<div class="fuelux-icon fuelux-icon-delete"></div> Delete'
+						},
+						clickAction: function(helpers, callback) {
+							console.log('hey it worked');
+							console.log(helpers);
+							callback();
+						}
+					}
+				]
+			},
+			// setup your custom datasource to handle data retrieval;
+			// responsible for any paging, sorting, filtering, searching logic
+			dataSource: getSampleDataSet
+		});
+	}
+	initRepeaterActions();
 
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -658,7 +779,7 @@ define(function (require) {
 				"name": "Namibia Standard Time",
 				"offset": "+02:00"
 			},
-			"recurrencePattern": "FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;"
+			"recurrencePattern": "FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919"
 		};
 		log(newVal);
 		$('#myScheduler').scheduler('value', newVal);

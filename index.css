@@ -50,3 +50,11 @@
 #myRepeater[data-currentview="list.frozen"] table thead tr th, #myRepeater[data-currentview="list.frozen"] .repeater-list-heading {
 	width: 400px;
 }
+
+#myRepeaterActions table thead tr th, #myRepeaterActions .repeater-list-heading {
+	width: 400px;
+}
+
+#myRepeaterActions table.table-actions .repeater-list-heading {
+	width: 100%;
+}
