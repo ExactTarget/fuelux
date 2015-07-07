@@ -606,7 +606,8 @@
 
 	function renderThead ($table, data) {
 		var columns = data.columns || [];
-		var i, j, l, $thead, $tr;
+		var $thead = $table.find('thead');
+		var i, j, l, $tr;
 
 		function differentColumns (oldCols, newCols) {
 			if (!newCols) {
@@ -631,8 +632,8 @@
 			return false;
 		}
 
-		if (this.list_firstRender || differentColumns(this.list_columns, columns)) {
-			$table.find('thead').remove();
+		if (this.list_firstRender || differentColumns(this.list_columns, columns) || $thead.length === 0) {
+			$thead.remove();
 
 			this.list_columns = columns;
 			this.list_firstRender = false;
