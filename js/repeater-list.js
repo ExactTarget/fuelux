@@ -141,7 +141,7 @@
 
 		$.fn.repeater.Constructor.prototype.list_setFrozenColumns = function () {
 			var frozenTable = this.$canvas.find('.table-frozen');
-			var $table = this.$element.find('.repeater-list .repeater-list-wrapper > table');
+			var $table = this.$element.find('.repeater-list table');
 			var repeaterWrapper = this.$element.find('.repeater-list');
 			var numFrozenColumns = this.viewOptions.list_frozenColumns;
 
@@ -170,21 +170,10 @@
 			this.$element.find('.frozen-column-wrapper, .frozen-thead-wrapper').width(columnWidth);
 		};
 
-		$.fn.repeater.Constructor.prototype.list_positionColumns = function () {
+		$.fn.repeater.Constructor.prototype.list_positionFrozenColumns = function () {
 			var $wrapper = this.$element.find('.repeater-canvas');
 			var scrollTop = $wrapper.scrollTop();
 			var scrollLeft = $wrapper.scrollLeft();
-			var frozenEnabled = this.viewOptions.list_frozenColumns;
-			var actionsEnabled = this.viewOptions.list_actions;
-
-			var canvasWidth = this.$element.find('.repeater-canvas').outerWidth();
-			var tableWidth = this.$element.find('.repeater-list .repeater-list-wrapper > table').outerWidth();
-
-			var actionsWidth = this.$element.find('.table-actions') ? this.$element.find('.table-actions').outerWidth() : 0;
-
-			var shouldScroll = (tableWidth - (canvasWidth - actionsWidth)) >= scrollLeft;
-
-
 			if (scrollTop > 0) {
 				$wrapper.find('.repeater-list-heading').css('top', scrollTop);
 			}
@@ -192,115 +181,13 @@
 				$wrapper.find('.repeater-list-heading').css('top','0');
 			}
 			if (scrollLeft > 0) {
-				if (frozenEnabled) {
-					$wrapper.find('.frozen-thead-wrapper').css('left', scrollLeft);
-					$wrapper.find('.frozen-column-wrapper').css('left', scrollLeft);
-				}
-				if (actionsEnabled && shouldScroll) {
-					$wrapper.find('.actions-thead-wrapper').css('right', -scrollLeft);
-					$wrapper.find('.actions-column-wrapper').css('right', -scrollLeft);
-				}
-
+				$wrapper.find('.frozen-thead-wrapper').css('left', scrollLeft);
+				$wrapper.find('.frozen-column-wrapper').css('left', scrollLeft);
 			} else {
-				if (frozenEnabled) {
-					$wrapper.find('.frozen-thead-wrapper').css('left', '0');
-					$wrapper.find('.frozen-column-wrapper').css('left', '0');
-				}
-				if (actionsEnabled) {
-					$wrapper.find('.actions-thead-wrapper').css('right', '0');
-					$wrapper.find('.actions-column-wrapper').css('right', '0');
-				}
-			}
-		};
-		
-		$.fn.repeater.Constructor.prototype.list_createItemActions = function () {
-			var actionsHtml = '';
-			var self = this;
-			var i, l;
-			var $table = this.$element.find('.repeater-list .repeater-list-wrapper > table');
-			var $actionsTable = this.$canvas.find('.table-actions');
-
-			for (i = 0, l = this.viewOptions.list_actions.items.length; i < l; i++) {
-				var action = this.viewOptions.list_actions.items[i];
-				var html = action.html();
-
-				actionsHtml += '<li><a data-action="'+ action.name +'" class="action-item"> ' + html + '</a></li>';
+				$wrapper.find('.frozen-thead-wrapper').css('left', '0');
+				$wrapper.find('.frozen-column-wrapper').css('left', '0');
 			}
 
-			var selectlist = '<div class="btn-group">' +
-				'<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
-				'<span class="caret"></span>' +
-				'</button>' +
-				'<ul class="dropdown-menu dropdown-menu-right" role="menu">' +
-				actionsHtml +
-				'</ul></div>';
-
-			if ($actionsTable.length < 1) {
-
-				var $actionsColumnWrapper = $('<div class="actions-column-wrapper"></div>').insertBefore($table);
-				var $actionsColumn = $table.clone().addClass('table-actions');
-				$actionsColumn.find('th:not(:lt(1))').remove();
-				$actionsColumn.find('td:not(:nth-child(n+0):nth-child(-n+1))').remove();
-
-				// Dont show actions dropdown in header if not multi select
-				if (this.viewOptions.list_selectable === 'multi') {
-					$actionsColumn.find('thead tr').html('<th><div class="repeater-list-heading">' + selectlist + '</div></th>');
-				}
-				else {
-					var label = this.viewOptions.list_actions.label || '<span class="actions-hidden">a</span>';
-					$actionsColumn.find('thead tr').addClass('empty-heading').html('<th>'+ label +'<div class="repeater-list-heading">'+ label +'</div></th>');
-				}
-
-				// Create Actions dropdown for each cell in actions table
-				var $actionsCells = $actionsColumn.find('td');
-
-				$actionsCells.each(function(i) {
-					$(this).html(selectlist);
-					$(this).find('a').attr('data-row', parseInt([i]) + 1);
-				});
-
-				$actionsColumnWrapper.append($actionsColumn);
-
-				this.$canvas.addClass('actions-enabled');
-			}
-
-			this.$element.find('.repeater-list .actions-column-wrapper, .repeater-list .actions-column-wrapper td, .repeater-list .actions-column-wrapper th')
-				.css('width', this.list_actions_width);
-
-			this.$element.find('.repeater-list .actions-column-wrapper th .repeater-list-heading').css('width', parseInt(this.list_actions_width) + 1 + 'px');
-
-			this.$element.find('.repeater-list table.table-actions tr').each(function (i, elem) {
-				$(this).height($table.find('tr:eq(' + i + ')').height());
-			});
-
-			this.$element.find('.table-actions .action-item').on('click', function() {
-				var actionName = $(this).data('action');
-				var row = $(this).data('row');
-				self.list_getActionItems(actionName,row);
-			});
-
-		};
-
-		$.fn.repeater.Constructor.prototype.list_getActionItems = function (actionName, row) {
-
-			var clickedRow = this.$canvas.find('.repeater-list-wrapper > table tbody tr:nth-child('+ row +')');
-
-			var actionObj = $.grep(this.viewOptions.list_actions.items, function(actions){
-				return actions.name === actionName;
-			})[0];
-
-			if (actionObj.clickAction) {
-				actionObj.clickAction({
-					item: clickedRow,
-					rowData: clickedRow.data('item_data')
-				}, function () {});
-			}
-		};
-
-		$.fn.repeater.Constructor.prototype.list_sizeActionsTable = function () {
-			var $table = this.$element.find('.repeater-list-wrapper > table');
-			var $actionsTableHeading = this.$element.find('.repeater-list-wrapper .actions-column-wrapper thead th .repeater-list-heading');
-			$actionsTableHeading.outerHeight($table.find('thead th .repeater-list-heading').outerHeight());
 		};
 
 		//ADDITIONAL DEFAULT OPTIONS
@@ -314,8 +201,7 @@
 			list_selectable: false,
 			list_sortClearing: false,
 			list_rowRendered: null,
-			list_frozenColumns: 0,
-			list_actions: false
+			list_frozenColumns: 0
 		});
 
 		//EXTENSION DEFINITION
@@ -337,7 +223,6 @@
 			initialize: function (helpers, callback) {
 				this.list_sortDirection = null;
 				this.list_sortProperty = null;
-				this.list_actions_width = (this.viewOptions.list_actions.width !== undefined) ? this.viewOptions.list_actions.width : '37px';
 				callback();
 			},
 			resize: function () {
@@ -363,18 +248,17 @@
 				var $table;
 
 				if ($listContainer.length < 1) {
-					$listContainer = $('<div class="repeater-list ' + specialBrowserClass() + '" data-preserve="shallow"><div class="repeater-list-wrapper" data-infinite="true" data-preserve="shallow"><table aria-readonly="true" class="table" data-preserve="shallow" role="grid"></table></div></div>');
+					$listContainer = $('<div class="repeater-list" data-preserve="shallow"><div class="repeater-list-wrapper" data-infinite="true" data-preserve="shallow"><table aria-readonly="true" class="table" data-preserve="shallow" role="grid"></table></div></div>');
 					$listContainer.find('.repeater-list-wrapper').on('scroll.fu.repeaterList', function () {
 						if (self.viewOptions.list_columnSyncing) {
 							self.list_positionHeadings();
 						}
 					});
-					if (self.viewOptions.list_frozenColumns || self.viewOptions.list_actions) {
+					if (self.viewOptions.list_frozenColumns) {
 						helpers.container.on('scroll.fu.repeaterList', function () {
-							self.list_positionColumns();
+							self.list_positionFrozenColumns();
 						});
 					}
-
 					helpers.container.append($listContainer);
 				}
 
@@ -398,16 +282,7 @@
 
 				if (this.viewOptions.list_frozenColumns) {
 					this.list_setFrozenColumns();
-
-				}
-
-				if (this.viewOptions.list_actions) {
-					this.list_createItemActions();
-					this.list_sizeActionsTable();
-				}
-
-				if (this.viewOptions.list_frozenColumns || this.viewOptions.list_actions) {
-					this.list_positionColumns();
+					this.list_positionFrozenColumns();
 				}
 
 				$sorted = this.$canvas.find('.repeater-list-heading.sorted');
@@ -426,13 +301,6 @@
 		var content = rows[rowIndex][columns[columnIndex].property];
 		var $col = $('<td></td>');
 		var width = columns[columnIndex]._auto_width;
-
-		var property = columns[columnIndex].property;
-		if(this.viewOptions.list_actions !== false && property === '@_ACTIONS_@'){
-			content = '<div class="repeater-list-actions-placeholder" style="width: ' + this.list_actions_width  + '"></div>';
-		}
-
-		content = (content!==undefined) ? content : '';
 
 		$col.addClass(((className !== undefined) ? className : '')).append(content);
 		if (width !== undefined) {
@@ -467,12 +335,6 @@
 		$both = $header.add($div);
 		$span = $div.find(chevron);
 		$spans = $span.add($header.find(chevron));
-
-		if (this.viewOptions.list_actions && columns[index].property === '@_ACTIONS_@') {
-			var width = this.list_actions_width;
-			$header.css('width', width);
-			$div.css('width', width);
-		}
 
 		className = columns[index].className;
 		if (className !== undefined) {
@@ -569,10 +431,6 @@
 			});
 		}
 
-		if (this.viewOptions.list_actions && !this.viewOptions.list_selectable) {
-			$row.data('item_data', rows[index]);
-		}
-
 		$tbody.append($row);
 
 		for (i = 0, l = this.list_columns.length; i < l; i++) {
@@ -606,7 +464,8 @@
 
 	function renderThead ($table, data) {
 		var columns = data.columns || [];
-		var i, j, l, $thead, $tr;
+		var $thead = $table.find('thead');
+		var i, j, l, $tr;
 
 		function differentColumns (oldCols, newCols) {
 			if (!newCols) {
@@ -631,23 +490,12 @@
 			return false;
 		}
 
-		if (this.list_firstRender || differentColumns(this.list_columns, columns)) {
-			$table.find('thead').remove();
+		if (this.list_firstRender || differentColumns(this.list_columns, columns) || $thead.length === 0) {
+			$thead.remove();
 
 			this.list_columns = columns;
 			this.list_firstRender = false;
 			this.$loader.removeClass('noHeader');
-
-			if (this.viewOptions.list_actions){
-				var actionsColumn = {
-					label: this.viewOptions.list_actions.label || '<span class="actions-hidden">a</span>',
-					property: '@_ACTIONS_@',
-					sortable: false,
-					width: this.list_actions_width
-				};
-				columns.push(actionsColumn);
-			}
-
 
 			$thead = $('<thead data-preserve="deep"><tr></tr></thead>');
 			$tr = $thead.find('tr');
@@ -704,20 +552,6 @@
 
 				}
 			}
-		}
-	}
-
-	function specialBrowserClass() {
-		var ua = window.navigator.userAgent;
-		var msie = ua.indexOf("MSIE ");
-		var firefox = ua.indexOf('Firefox');
-
-		if (msie > 0 ) {
-			return 'ie-' + parseInt(ua.substring(msie + 5, ua.indexOf(".", msie)));
-		} else if (firefox > 0) {
-			return 'firefox';
-		} else {
-			return '';
 		}
 	}
 
