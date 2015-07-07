@@ -46,6 +46,13 @@
 
 		// set default selection
 		this.setDefaultSelection();
+
+		// if dropdown is empty, disable it
+		var items = this.$dropMenu.children('li');
+		if( items.length === 0) {
+			this.$button.addClass('disabled');
+		}
+
 	};
 
 	Combobox.prototype = {

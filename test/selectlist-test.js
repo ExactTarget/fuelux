@@ -58,6 +58,16 @@ define(function(require){
 		ok(($selectlist9.width() >= minWidth), 'selectlist was hidden, now shown, sized ' + $selectlist9.width() + ' should be greater than ' + minWidth);
 	});
 
+	test("should disable itself if empty", function () {
+		var $selectlist = $(html).find('#selectlistEmpty').selectlist({
+			emptyLabelHTML: '<li data-value=""><a href="#">I am feeling so empty</a></li>'
+		});
+		equal($selectlist.find('.btn').hasClass('disabled'), true, 'element disabled');
+		equal($selectlist.find('.selected-label').html(), 'I am feeling so empty', 'custom emptyLabelHTML set as label');
+		equal($selectlist.selectlist('selectedItem').text, 'I am feeling so empty', 'selectedItem returns correct text');
+		equal($selectlist.selectlist('selectedItem').value, '', 'selectedItem returns correct value');
+	});
+
 	test("should set disabled state", function () {
 		var $selectlist = $(html).find('#MySelectlist').selectlist();
 		$selectlist.selectlist('disable');
@@ -149,6 +159,26 @@ define(function(require){
 		equal(eventFired, true, 'change event fired');
 		equal(selectedText, 'One', 'text passed in from change event');
 		equal(selectedValue, 1, 'value passed in from change event');
+	});
+
+	test("should not fire changed event on disabled items", function () {
+		var eventFired = false;
+		var selectedText = '';
+		var selectedValue = '';
+
+		var $selectlist = $(html).find('#MySelectlist').selectlist().on('changed.fu.selectlist', function (evt, data) {
+			eventFired = true;
+			selectedText = data.text;
+			selectedValue = data.value;
+		});
+
+		// Disable menu item then simulate changed event
+		$selectlist.find('li:first').addClass('disabled')
+			.find('a').click();
+
+		equal(eventFired, false, 'changed event not fired');
+		equal(selectedText, '', 'text not changed');
+		equal(selectedValue, '', 'value not changed');
 	});
 
 	test("should destroy control", function () {

@@ -1,5 +1,6 @@
 /*!
- * Fuel UX v3.8.0 
+ * Fuel UX EDGE - Built 2015/07/06, 1:18:13 PM 
+ * Previous release: v3.9.0 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -381,7 +382,7 @@ label.fuelux .checkbox-inline {
 .fuelux .radio-inline input[type="radio"]:not(.sr-only):disabled ~ label:before,
 .fuelux .checkbox-inline input[type="radio"]:not(.sr-only):disabled ~ label:before {
   color: #333333;
-  opacity: 0.5 !important;
+  opacity: .65;
   cursor: not-allowed !important;
   outline: none;
   box-shadow: none;
@@ -513,10 +514,11 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .checkbox-custom.disabled {
   cursor: not-allowed;
+  opacity: .65;
 }
 .fuelux .checkbox-custom.disabled:before {
   cursor: not-allowed;
-  opacity: .5;
+  opacity: .65;
 }
 .fuelux .checkbox-custom.checkbox-inline:before {
   left: 0;
@@ -650,13 +652,14 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .radio-custom.disabled {
   cursor: not-allowed;
+  opacity: .65;
 }
 .fuelux .radio-custom.disabled:after {
   cursor: not-allowed;
 }
 .fuelux .radio-custom.disabled:before {
   cursor: not-allowed;
-  opacity: .5;
+  opacity: .65;
 }
 .fuelux .radio-custom.radio-inline:after {
   left: 4px;
@@ -1663,6 +1666,9 @@ label.fuelux .checkbox-inline {
   float: right;
   margin-top: 2px;
 }
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table thead > tr > th .actions-hidden {
+  visibility: hidden;
+}
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list-check {
   display: inline-block;
   height: 0;
@@ -1768,6 +1774,92 @@ label.fuelux .checkbox-inline {
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.frozen-enabled .repeater-list table.table-frozen .repeater-frozen-heading.shifted {
   left: -1px;
 }
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled {
+  overflow: auto;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list-wrapper {
+  overflow: visible;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table {
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions {
+  border-left: 1px solid #ddd;
+  z-index: 2;
+  border-collapse: collapse;
+  table-layout: fixed;
+  float: right;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions tr {
+  border-left: 1px solid #ddd;
+  background: #ffffff;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions tr.empty-heading {
+  background: transparent;
+  border-left: 1px solid transparent;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions tr.empty-heading th {
+  background: transparent;
+  padding-left: 0;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions tr td,
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions tr th {
+  border-collapse: collapse;
+  word-wrap: break-word;
+  position: relative;
+  padding-bottom: 6px;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions tr th {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions tr th .repeater-list-heading {
+  padding: 8px 0 7px;
+  border-left: 1px solid #F9F9F9;
+  margin-left: -1px;
+  width: 100%;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions .caret {
+  margin-left: 0;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-thead-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list table {
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list table thead tr th:last-child .repeater-list-heading {
+  border-left: 1px solid transparent;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list.firefox .actions-column-wrapper table.table-actions td .btn-group .btn-xs {
+  line-height: 1.4;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list.ie-9 .actions-column-wrapper table.table-actions {
+  background-color: #ffffff;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list.ie-9 .actions-column-wrapper table.table-actions tr {
+  background-color: transparent;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list.ie-9 .actions-column-wrapper table.table-actions tr.empty-heading {
+  border-left: 1px solid #F9F9F9;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list.ie-9 .actions-column-wrapper table.table-actions tr th {
+  padding-bottom: 8px;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list.ie-9 .actions-column-wrapper table.table-actions tr td {
+  padding-bottom: 6px;
+  line-height: 1.39;
+}
 .fuelux .repeater[data-viewtype="list"] .repeater-loader {
   margin-top: -12px;
 }
@@ -1776,6 +1868,10 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-viewport {
   overflow: hidden;
+}
+.fuelux .repeater[data-viewtype="list"] .actions-wrapper {
+  z-index: 10;
+  text-align: right;
 }
 .fuelux .repeater-thumbnail {
   border: 1px solid #ddd;

@@ -164,7 +164,7 @@
 			if (
 			($.isFunction(window.moment) || (typeof moment !== 'undefined' && $.isFunction(moment))) &&
 				$.isPlainObject(this.options.momentConfig) &&
-				this.options.momentConfig.culture && this.options.momentConfig.format
+				(typeof this.options.momentConfig.culture === 'string' && typeof this.options.momentConfig.format === 'string')
 			) {
 				return true;
 			} else {
