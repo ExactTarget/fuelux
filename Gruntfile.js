@@ -823,12 +823,12 @@ module.exports = function (grunt) {
 	// Maintainers: Run prior to a release. Includes SauceLabs VM tests.
 	grunt.registerTask('release', 'Release a new version, push it and publish it', function() {
 		if ( typeof grunt.config('sauceLoginFile') === 'undefined' ) {
-			grunt.log.write('The file SAUCE_API_KEY.yml is needed in order to run tests in SauceLabs.' +
+			grunt.log.write('The file SAUCE_API_KEY.yml is needed in order to run tests in SauceLabs.'['red'].bold +
 				' Please contact another maintainer to obtain this file.');
 		}
 
 		if ( typeof grunt.config('cdnLoginFile') === 'undefined' ) {
-			grunt.log.write('The file FUEL_CDN.yml is needed in order to upload the release files to the CDN.' +
+			grunt.log.write('The file FUEL_CDN.yml is needed in order to upload the release files to the CDN.'['red'].bold +
 				' Please contact another maintainer to obtain this file.');
 		}
 
