@@ -89,7 +89,7 @@
 						line-height: 1.42857;
 						padding: 8px;
 
-						.noSelectionAllowed();
+						#fuelux > .no-selection-allowed();
 
 						&:first-child {
 							border-left: none;
@@ -99,7 +99,7 @@
 							&:hover, &.sorted {
 								background: #F1F1F1;
 								cursor: pointer;
-								#gradient > .vertical(@startColor: #F9F9F9; @endColor: #E5E5E5);
+								#fuelux > .vertical(@startColor: #F9F9F9; @endColor: #E5E5E5);
 							}
 						}
 
@@ -150,7 +150,7 @@
 					top: 0;
 					z-index: 1;
 
-					.noSelectionAllowed();
+					#fuelux > .no-selection-allowed();
 
 					&.shifted {
 						margin-left: -1px;
@@ -165,7 +165,7 @@
 						&:hover, &.sorted {
 							background: #F1F1F1;
 							cursor: pointer;
-							#gradient > .vertical(@startColor: #F9F9F9; @endColor: #E5E5E5);
+							#fuelux > .vertical(@startColor: #F9F9F9; @endColor: #E5E5E5);
 						}
 
 						&.sorted {
