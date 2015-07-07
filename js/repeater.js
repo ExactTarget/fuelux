@@ -715,7 +715,7 @@
 			var opts = {};
 			var viewName = curView.split('.')[1];
 
-			if (viewName && this.options.views) {
+			if (this.options.views) {
 				opts = this.options.views[viewName] || this.options.views[curView] || {};
 			} else {
 				opts = {};
