@@ -89,7 +89,7 @@
 						line-height: 1.42857;
 						padding: 8px;
 
-						#fuelux > .noSelectionAllowed();
+						#fuelux > .no-selection-allowed();
 
 						&:first-child {
 							border-left: none;
@@ -99,7 +99,7 @@
 							&:hover, &.sorted {
 								background: @selectableHover;
 								cursor: pointer;
-								#fuelux > #gradient > .vertical(@startColor: @gray98; @endColor: @gray90);
+								#fuelux > .vertical(@startColor: @gray98; @endColor: @gray90);
 							}
 						}
 
@@ -150,7 +150,7 @@
 					top: 0;
 					z-index: 1;
 
-					#fuelux > .noSelectionAllowed();
+					#fuelux > .no-selection-allowed();
 
 					&.shifted {
 						margin-left: -1px;
@@ -165,7 +165,7 @@
 						&:hover, &.sorted {
 							background: @gray96;
 							cursor: pointer;
-							#fuelux > #gradient > .vertical(@startColor: @gray98; @endColor: @gray90);
+							#fuelux > .vertical(@startColor: @gray98; @endColor: @gray90);
 						}
 
 						&.sorted {
