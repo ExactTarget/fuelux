@@ -25,6 +25,7 @@
 	// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.placard;
+	var EVENT_CALLBACK_MAP = { 'accepted': 'onAccept', 'cancelled': 'onCancel' };
 
 	// PLACARD CONSTRUCTOR AND PROTOTYPE
 
@@ -51,9 +52,9 @@
 
 		this.$field.on('focus.fu.placard', $.proxy(this.show, this));
 		this.$field.on('keydown.fu.placard', $.proxy(this.keyComplete, this));
-		this.$accept.on('click.fu.placard', $.proxy(this.complete, this, 'accept'));
+		this.$accept.on('click.fu.placard', $.proxy(this.complete, this, 'accepted'));
 		this.$cancel.on('click.fu.placard', function (e) {
-			e.preventDefault(); self.complete('cancel');
+			e.preventDefault(); self.complete('cancelled');
 		});
 
 		this.ellipsis();
@@ -63,30 +64,31 @@
 		constructor: Placard,
 
 		complete: function (action) {
-			var func = this.options['on' + action[0].toUpperCase() + action.substring(1)];
+			var func = this.options[ EVENT_CALLBACK_MAP[action] ];
+
 			var obj = {
 				previousValue: this.previousValue,
 				value: this.$field.val()
 			};
 			if (func) {
 				func(obj);
-				this.$element.trigger(action, obj);
+				this.$element.trigger(action + '.fu.placard', obj);
 			} else {
-				if (action === 'cancel' && this.options.revertOnCancel) {
+				if (action === 'cancelled' && this.options.revertOnCancel) {
 					this.$field.val(this.previousValue);
 				}
 
-				this.$element.trigger(action, obj);
+				this.$element.trigger(action + '.fu.placard', obj);
 				this.hide();
 			}
 		},
 
 		keyComplete: function (e) {
 			if (this.isInput && e.keyCode === 13) {
-				this.complete('accept');
+				this.complete('accepted');
 				this.$field.blur();
 			} else if (e.keyCode === 27) {
-				this.complete('cancel');
+				this.complete('cancelled');
 				this.$field.blur();
 			}
 		},
@@ -261,7 +263,7 @@
 	$.fn.placard.defaults = {
 		onAccept: undefined,
 		onCancel: undefined,
-		externalClickAction: 'cancel',
+		externalClickAction: 'cancelled',
 		externalClickExceptions: [],
 		explicit: false,
 		revertOnCancel: -1//negative 1 will check for an '.placard-accept' button. Also can be set to true or false
