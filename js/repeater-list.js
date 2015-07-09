@@ -15,6 +15,9 @@
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
 		define(['jquery', 'fuelux/repeater'], factory);
+	} else if (typeof exports === 'object') {
+		// Node/CommonJS
+		module.exports = factory(require('jquery'));
 	} else {
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
@@ -606,7 +609,8 @@
 
 	function renderThead ($table, data) {
 		var columns = data.columns || [];
-		var i, j, l, $thead, $tr;
+		var $thead = $table.find('thead');
+		var i, j, l, $tr;
 
 		function differentColumns (oldCols, newCols) {
 			if (!newCols) {
@@ -631,8 +635,8 @@
 			return false;
 		}
 
-		if (this.list_firstRender || differentColumns(this.list_columns, columns)) {
-			$table.find('thead').remove();
+		if (this.list_firstRender || differentColumns(this.list_columns, columns) || $thead.length === 0) {
+			$thead.remove();
 
 			this.list_columns = columns;
 			this.list_firstRender = false;

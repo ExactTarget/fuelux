@@ -27,7 +27,7 @@ define(function(require){
 
 		$('body').append($placard);
 		$placard.placard();
-		$placard.on('cancel', function(e, helpers){
+		$placard.on('cancelled.fu.placard', function(e, helpers){
 			ok(1===1, 'default action event (cancel) triggered upon external click');
 		});
 
@@ -43,7 +43,7 @@ define(function(require){
 		var $placard = $(html).find('#placard2');
 
 		$placard.placard();
-		$placard.on('cancel', function(e, helpers){
+		$placard.on('cancelled.fu.placard', function(e, helpers){
 			ok(1===1, 'default action event (cancel) triggered upon external click');
 		});
 		$('body').append($placard);
@@ -71,13 +71,13 @@ define(function(require){
 		var $placard = $(html).find('#placard1');
 
 		$placard.placard();
-		$placard.on('accept', function(e, helpers){
+		$placard.on('accepted.fu.placard', function(e, helpers){
 			ok(1===1, 'accept event triggers on accept');
 			equal(typeof e, 'object', 'event object passed in accept event');
 			equal(typeof helpers, 'object', 'helpers object passed in accept event');
 			equal((helpers.previousValue!==undefined && helpers.value!==undefined), true, 'helpers object contains correct attributes');
 		});
-		$placard.on('cancel', function(e, helpers){
+		$placard.on('cancelled.fu.placard', function(e, helpers){
 			ok(1===1, 'cancel event triggers on cancel');
 			equal(typeof e, 'object', 'event object passed in cancel event');
 			equal(typeof helpers, 'object', 'helpers object passed in cancel event');
@@ -146,7 +146,7 @@ define(function(require){
 		var $placard = $(html).find('#placard1');
 
 		$placard.placard({
-			externalClickAction: 'accept'
+			externalClickAction: 'accepted'
 		});
 
 		$placard.find('input').focus().focus().val('test');

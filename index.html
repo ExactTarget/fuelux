@@ -55,44 +55,49 @@
 
 					<section id="checkboxes-block">
 
-						<div class="checkbox">
+						<div class="checkbox" id="myCheckbox">
 							<label class="checkbox-custom" data-initialize="checkbox" id="myCustomCheckbox1">
-								<input type="checkbox" class="sr-only">
-								Custom checkbox unchecked on page load
+								<input class="sr-only" type="checkbox" value="">
+								<span class="checkbox-label">Custom checkbox unchecked on page load</span>
 							</label>
 						</div>
-						<div class="checkbox">
-							<label class="checkbox-custom" data-initialize="checkbox" id="myCustomCheckbox2">
-								<input type="checkbox" class="sr-only" checked="checked">
-								Highlight Custom checkbox checked on page load
+						<div class="checkbox" id="myCheckbox2">
+							<label class="checkbox-custom checked" data-initialize="checkbox" id="myCustomCheckbox2">
+								<input class="sr-only" checked="checked" type="checkbox" value="">
+								<span class="checkbox-label">Custom checkbox checked on page load</span>
 							</label>
 						</div>
-						<div class="checkbox">
+						<div class="checkbox" id="myCheckbox3">
 							<label class="checkbox-custom" data-initialize="checkbox" id="myCustomCheckbox3">
-								<input type="checkbox" class="sr-only" disabled="disabled">
-								Custom checkbox disabled and unchecked on page load
+								<input class="sr-only" disabled="disabled" type="checkbox" value="">
+								<span class="checkbox-label">Disabled custom checkbox unchecked on page load</span>
 							</label>
 						</div>
-						<div class="checkbox">
-							<label class="checkbox-custom" data-initialize="checkbox" id="myCustomCheckbox4">
-								<input type="checkbox" class="sr-only" checked="checked" disabled="disabled">
-								Custom checkbox disabled and checked on page load
+						<div class="checkbox" id="myCheckbox4">
+							<label class="checkbox-custom checked disabled" data-initialize="checkbox" id="myCustomCheckbox4">
+								<input class="sr-only" checked="checked" disabled="disabled" type="checkbox" value="">
+								<span class="checkbox-label">Disabled custom checkbox checked on page load</span>
 							</label>
 						</div>
+
 					</section>
 
 					<section id="checkboxes-inline">
 						<label class="checkbox-custom checkbox-inline" data-initialize="checkbox" id="myCustomInlineCheckbox1">
-							<input type="checkbox" class="sr-only" checked="checked">1, 2, buckle my shoe
+							<input type="checkbox" class="sr-only" checked="checked">
+							<span class="checkbox-label">1, 2, buckle my shoe</span>
 						</label>
 						<label class="checkbox-custom checkbox-inline" data-initialize="checkbox" id="myCustomInlineCheckbox2">
-							<input type="checkbox" class="sr-only">3, 4, shut the door
+							<input type="checkbox" class="sr-only">
+							<span class="checkbox-label">3, 4, shut the door</span>
 						</label>
 						<label class="checkbox-custom checkbox-inline" data-initialize="checkbox" id="myCustomInlineCheckbox3">
-							<input type="checkbox" class="sr-only" disabled="disabled">5, 6, pick up sticks
+							<input type="checkbox" class="sr-only" disabled="disabled">
+							<span class="checkbox-label">5, 6, pick up sticks</span>
 						</label>
 						<label class="checkbox-custom checkbox-inline" data-initialize="checkbox" id="myCustomInlineCheckbox4">
-							<input type="checkbox" class="checked sr-only" checked="checked" disabled="disabled">7, 8, lay them straight
+							<input type="checkbox" class="checked sr-only" checked="checked" disabled="disabled">
+							<span class="checkbox-label">7, 8, lay them straight</span>
 						</label>
 					</section>
 
@@ -100,13 +105,13 @@
 						<div class="checkbox">
 							<label class="checkbox-custom" data-initialize="checkbox" id="myCustomTogglingCheckbox1">
 								<input type="checkbox" class="sr-only" data-toggle=".checkboxToggle">
-								Custom checkbox toggles by class
+								<span class="checkbox-label">Custom checkbox toggles by class</span>
 							</label>
 						</div>
 						<div class="checkbox">
 							<label class="checkbox-custom" data-initialize="checkbox" id="myCustomTogglingCheckbox2">
 								<input type="checkbox" class="sr-only" data-toggle="#checkboxToggle">
-								Custom checkbox toggles by id
+								<span class="checkbox-label">Custom checkbox toggles by id</span>
 							</label>
 						</div>
 						<div aria-hidden="true" class="checkboxToggle alert alert-warning hidden">This message's visibility toggles by class with a checkbox above.</div>
@@ -117,34 +122,36 @@
 						<div class="checkbox highlight">
 							<label class="checkbox-custom highlight" data-initialize="checkbox" id="myCustomHighlightCheckbox1">
 								<input type="checkbox" class="sr-only">
-								Custom block-level highlight checkbox
+								<span class="checkbox-label">Custom block-level highlight checkbox</span>
 							</label>
 						</div>
 						<div class="checkbox highlight">
 							<label class="checkbox-custom highlight" data-initialize="checkbox" id="myCustomHighlightCheckbox2">
 								<input type="checkbox" class="sr-only">
-								Custom block-level highlight checkbox
+								<span class="checkbox-label">Custom block-level highlight checkbox</span>
 							</label>
 						</div>
 						<div class="checkbox highlight">
 							<label class="checkbox-custom highlight" data-initialize="checkbox" id="myCustomHighlightCheckbox3">
 								<input type="checkbox" class="sr-only">
-								Custom block-level highlight checkbox
+								<span class="checkbox-label">Custom block-level highlight checkbox</span>
 							</label>
 						</div>
 						<div class="checkbox highlight">
 							<label class="checkbox-custom highlight" data-initialize="checkbox" id="myCustomHighlightCheckbox4">
 								<input type="checkbox" class="sr-only">
-								Custom block-level highlight checkbox
+								<span class="checkbox-label">Custom block-level highlight checkbox</span>
 							</label>
 						</div>
 					</section>
 					<section id="checkboxes-highlighting-inline">
 						<label class="checkbox-custom checkbox-inline highlight" data-initialize="checkbox" id="myCustomHighlightCheckbox5">
-							<input type="checkbox" class="sr-only">Custom inline highlight checkbox
+							<input type="checkbox" class="sr-only">
+							<span class="checkbox-label">Custom inline highlight checkbox</span>
 						</label>
 						<label class="checkbox-custom checkbox-inline highlight" data-initialize="checkbox" id="myCustomHighlightCheckbox6">
-							<input type="checkbox" class="sr-only">Custom inline highlight checkbox
+							<input type="checkbox" class="sr-only">
+							<span class="checkbox-label">Custom inline highlight checkbox</span>
 						</label>
 					</section>
 				</div>
@@ -2478,7 +2485,7 @@
 
 				</div>
 				<div class="btn-panel">
-	        <button type="button" class="btn btn-default" id="btnTreeDestroy">destroy and append</button>
+					<button type="button" class="btn btn-default" id="btnTreeDestroy">destroy and append</button>
 					<button type="button" class="btn btn-default" id="btnTreeClearSelected">clear all selected</button>
 					<button type="button" class="btn btn-default" id="btnTreeDiscloseVisible">disclose visible</button>
 					<button type="button" class="btn btn-default" id="btnTreeDiscloseAll">disclose all</button>

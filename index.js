@@ -457,6 +457,13 @@ define(function (require) {
 		});
 	});
 
+	$('#myPlacard3').on('accepted.fu.placard', function() {
+		console.log('accepted.fu.placard');
+	});
+
+	$('#myPlacard3').on('cancelled.fu.placard', function() {
+		console.log('cancelled.fu.placard');
+	});
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		RADIO

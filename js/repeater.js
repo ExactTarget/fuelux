@@ -15,6 +15,9 @@
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
 		define(['jquery', 'fuelux/combobox', 'fuelux/infinite-scroll', 'fuelux/search', 'fuelux/selectlist'], factory);
+		} else if (typeof exports === 'object') {
+			// Node/CommonJS
+			module.exports = factory(require('jquery'));
 	} else {
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
@@ -726,7 +729,7 @@
 			var opts = {};
 			var viewName = curView.split('.')[1];
 
-			if (viewName && this.options.views) {
+			if (this.options.views) {
 				opts = this.options.views[viewName] || this.options.views[curView] || {};
 			} else {
 				opts = {};
