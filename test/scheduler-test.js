@@ -162,51 +162,51 @@ define(function(require){
 		$scheduler.scheduler('value', { timeZone: { name: 'Namibia Standard Time', offset: '+02:00' }});
 		equal($scheduler.find('.timezone-container .selected-label').html(), '(GMT+02:00) Windhoek *', 'timeZone set correctly');
 
-		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;INTERVAL=1;COUNT=1;' });
+		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;INTERVAL=1;COUNT=1' });
 		equal($repIntSelDrop.html(), 'None (run once)', 'no recurrence set correctly');
 
-		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=SECONDLY;INTERVAL=19;' });
+		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=SECONDLY;INTERVAL=19' });
 		ok(($repIntSelDrop.html()==='Per Second' && $repPanSpinbox.spinbox('value')==='19'), 'secondly recurrence set correctly');
 
-		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=MINUTELY;INTERVAL=10;' });
+		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=MINUTELY;INTERVAL=10' });
 		ok(($repIntSelDrop.html()==='Per Minute' && $repPanSpinbox.spinbox('value')==='10'), 'minutely recurrence set correctly');
 
-		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=HOURLY;INTERVAL=3;' });
+		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=HOURLY;INTERVAL=3' });
 		ok(($repIntSelDrop.html()==='Hourly' && $repPanSpinbox.spinbox('value')==='3'), 'hourly recurrence set correctly');
 
-		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;INTERVAL=4;' });
+		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;INTERVAL=4' });
 		ok(($repIntSelDrop.html()==='Daily' && $repPanSpinbox.spinbox('value')==='4'), 'daily recurrence set correctly');
 
-		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;BYDAY=MO,TU,WE,TH,FR;INTERVAL=1;' });
+		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;BYDAY=MO,TU,WE,TH,FR;INTERVAL=1' });
 		equal($repIntSelDrop.html(), 'Weekdays', 'weekday recurrence set correctly');
 
-		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=WEEKLY;BYDAY=MO,TH;INTERVAL=7;' });
+		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=WEEKLY;BYDAY=MO,TH;INTERVAL=7' });
 		test = $scheduler.find('.repeat-days-of-the-week .btn-group');
 		test = (test.find('[data-value="MO"]').parent().hasClass('active') && test.find('[data-value="TH"]').parent().hasClass('active')) ? true : false;
 		ok(($repIntSelDrop.html()==='Weekly' && $repPanSpinbox.spinbox('value')==='7' && test), 'weekly recurrence set correctly');
 
-		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=WEEKLY;BYDAY=MO,TH;' });
+		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=WEEKLY;BYDAY=MO,TH' });
 		test = $scheduler.find('.repeat-days-of-the-week .btn-group');
 		ok(test.find('[data-value="MO"]').is(':checked'), 'weekly recurrence option set correctly with "checked" attribute');
 		ok(test.find('[data-value="TH"]').is(':checked'), 'weekly recurrence option set correctly with "checked" attribute');
 
-		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=MONTHLY;INTERVAL=9;BYDAY=SA;BYSETPOS=4;' });
+		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=MONTHLY;INTERVAL=9;BYDAY=SA;BYSETPOS=4' });
 		test = $scheduler.find('.repeat-monthly-day');
 		ok(($repIntSelDrop.html()==='Monthly' && $repPanSpinbox.spinbox('value')==='9' && test.find('div.radio input').hasClass('checked') &&
 			test.find('.month-day-pos .selected-label').html()==='Fourth' && test.find('.month-days .selected-label').html()==='Saturday'),
 			'monthly recurrence set correctly');
 
-		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=YEARLY;BYDAY=WE;BYSETPOS=3;BYMONTH=10;' });
+		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=YEARLY;BYDAY=WE;BYSETPOS=3;BYMONTH=10' });
 		test = $scheduler.find('.repeat-yearly-day');
 		ok(($repIntSelDrop.html()==='Yearly' && test.find('div.radio input').hasClass('checked') &&
 			test.find('.year-month-day-pos .selected-label').html()==='Third' && test.find('.year-month-days .selected-label').html()==='Wednesday' &&
 			test.find('.year-month .selected-label').html()==='October'), 'yearly recurrence set correctly');
 
-		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;INTERVAL=9;COUNT=4;' });
+		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;INTERVAL=9;COUNT=4' });
 		ok(($scheduler.find('.repeat-end .selectlist .selected-label').html()==='After' && $scheduler.find('.repeat-end .spinbox').spinbox('value')==='4'),
 			'end after occurence(s) set correctly');
 
-		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;INTERVAL=9;UNTIL=20510331;' });
+		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;INTERVAL=9;UNTIL=20510331' });
 		//make this test always present once PhantomJS fixes their bug
 		test = (!isPhantomJS) ? ($scheduler.find('.repeat-end .datepicker input').val() ==='03-31-2051' || $scheduler.find('.repeat-end .datepicker input').val() ==='03/31/2051' ) : true;
 		ok(($scheduler.find('.repeat-end .selectlist .selected-label').html()==='On date' && test), 'end on date set correctly');
@@ -231,7 +231,7 @@ define(function(require){
 			timeZone: {
 				offset: '+02:00'
 			},
-			recurrencePattern: 'FREQ=WEEKLY;BYDAY=WE;INTERVAL=1;'
+			recurrencePattern: 'FREQ=WEEKLY;BYDAY=WE;INTERVAL=1'
 		};
 
 		// note: currently, the scheduler doesn't reset it's markup/state

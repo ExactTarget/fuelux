@@ -15,6 +15,9 @@ validation-status.json
 # Sauce Labs. because it's classified...
 SAUCE_API_KEY.yml
 
+# Fuel CDN Login. because it's classified...
+FUEL_CDN.yml
+
 # Editors / IDEs
 .idea
 

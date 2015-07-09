@@ -298,12 +298,9 @@
 		};
 
 		$.fn.repeater.Constructor.prototype.list_sizeActionsTable = function () {
-			var $table = this.$element.find('.repeater-list table');
-			$table.find('thead th').each(function () {
-				var $hr = $(this);
-				var $heading = $hr.find('.repeater-list-heading');
-				$heading.outerHeight($hr.outerHeight());
-			});
+			var $table = this.$element.find('.repeater-list-wrapper > table');
+			var $actionsTableHeading = this.$element.find('.repeater-list-wrapper .actions-column-wrapper thead th .repeater-list-heading');
+			$actionsTableHeading.outerHeight($table.find('thead th .repeater-list-heading').outerHeight());
 		};
 
 		//ADDITIONAL DEFAULT OPTIONS
@@ -609,7 +606,8 @@
 
 	function renderThead ($table, data) {
 		var columns = data.columns || [];
-		var i, j, l, $thead, $tr;
+		var $thead = $table.find('thead');
+		var i, j, l, $tr;
 
 		function differentColumns (oldCols, newCols) {
 			if (!newCols) {
@@ -634,8 +632,8 @@
 			return false;
 		}
 
-		if (this.list_firstRender || differentColumns(this.list_columns, columns)) {
-			$table.find('thead').remove();
+		if (this.list_firstRender || differentColumns(this.list_columns, columns) || $thead.length === 0) {
+			$thead.remove();
 
 			this.list_columns = columns;
 			this.list_firstRender = false;

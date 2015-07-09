@@ -105,12 +105,29 @@ define(function (require) {
 		DATEPICKER
 	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+	function formatClientTimezone8601() {
+		var now = new Date(),
+				tzo = now.getTimezoneOffset() * -1,	//invert
+				dif = tzo >= 0 ? '+' : '-',
+				pad = function(num) {
+						var norm = Math.abs(Math.floor(num));
+						return (norm < 10 ? '0' : '') + norm;
+				};
+		return dif + pad(tzo / 60) + ':' + pad(tzo % 60);
+	}
+
+	var localTimezone = formatClientTimezone8601();
+
 	// initialize
 	$('#myDatepicker').datepicker({
+		momentConfig: {
+			culture: 'en',
+			format: ''
+		},
 		allowPastDates: true,
 		restricted: [{
-			from: '08/10/2014',
-			to: '08/15/2014'
+			from: '2014-08-10T00:00:00' + localTimezone,
+			to: '2014-08-15T00:00:00' + localTimezone
 		}]
 	});
 
@@ -769,7 +786,7 @@ define(function (require) {
 				"name": "Namibia Standard Time",
 				"offset": "+02:00"
 			},
-			"recurrencePattern": "FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;"
+			"recurrencePattern": "FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919"
 		};
 		log(newVal);
 		$('#myScheduler').scheduler('value', newVal);
