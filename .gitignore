@@ -18,6 +18,9 @@ SAUCE_API_KEY.yml
 # Fuel CDN Login. because it's classified...
 FUEL_CDN.yml
 
+# Generated file from commonjs-test.js
+test/commonjs-bundle.js
+
 # Editors / IDEs
 .idea
 

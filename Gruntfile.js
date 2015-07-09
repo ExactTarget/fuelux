@@ -9,6 +9,10 @@ module.exports = function (grunt) {
 	var semver = require('semver');
 	var packageVersion = require('./package.json').version;
 
+	var fs = require('fs');
+	var path = require('path');
+	var commonJSBundledReferenceModule = require('./grunt/commonjs-reference-module.js');
+
 	// Project configuration.
 	grunt.initConfig({
 		// Metadata
@@ -79,6 +83,13 @@ module.exports = function (grunt) {
 				}
 			}
 		},
+		browserify: {
+			commonjs: {
+				files: {
+					'test/commonjs-bundle.js': ['test/commonjs-test.js'],
+				}
+			}
+		},
 		clean: {
 			dist: ['dist'],
 			zipsrc: ['dist/fuelux'],// temp folder
@@ -100,51 +111,50 @@ module.exports = function (grunt) {
 			}
 		},
 		concat: {
-			dist: {
-				files: {
-					// manually concatenate JS files (due to dependency management)
-					'dist/js/fuelux.js': [
-						'js/checkbox.js',
-						'js/combobox.js',
-						'js/datepicker.js',
-						'js/dropdown-autoflip.js',
-						'js/loader.js',
-						'js/placard.js',
-						'js/radio.js',
-						'js/search.js',
-						'js/selectlist.js',
-						'js/spinbox.js',
-						'js/tree.js',
-						'js/wizard.js',
+			// manually concatenate JS files (due to dependency management)
+			fuelux: {
+				src: [
+					'js/checkbox.js',
+					'js/combobox.js',
+					'js/datepicker.js',
+					'js/dropdown-autoflip.js',
+					'js/loader.js',
+					'js/placard.js',
+					'js/radio.js',
+					'js/search.js',
+					'js/selectlist.js',
+					'js/spinbox.js',
+					'js/tree.js',
+					'js/wizard.js',
 
-						//items with dependencies on other controls
-						'js/infinite-scroll.js',
-						'js/pillbox.js',
-						'js/repeater.js',
-						'js/repeater-list.js',
-						'js/repeater-thumbnail.js',
-						'js/scheduler.js'
-					]
-				},
-				options: {
-					banner: '<%= banner %>' + '\n\n' +
-					'// For more information on UMD visit: https://github.com/umdjs/umd/' + '\n' +
-					'(function (factory) {' + '\n' +
-					'\tif (typeof define === \'function\' && define.amd) {' + '\n' +
-					'\t\tdefine([\'jquery\', \'bootstrap\'], factory);' + '\n' +
-					'\t} else {' + '\n' +
-					'\t\tfactory(jQuery);' + '\n' +
-					'\t}' + '\n' +
-					'}(function (jQuery) {\n\n' +
-					'<%= jqueryCheck %>' +
-					'<%= bootstrapCheck %>',
-					footer: '\n}));',
-					process: function (source) {
-						source = '(function ($) {\n\n' +
-							source.replace(/\/\/ -- BEGIN UMD WRAPPER PREFACE --(\n|.)*\/\/ -- END UMD WRAPPER PREFACE --/g, '');
-						source = source.replace(/\/\/ -- BEGIN UMD WRAPPER AFTERWORD --(\n|.)*\/\/ -- END UMD WRAPPER AFTERWORD --/g, '') + '\n})(jQuery);\n\n';
-						return source;
-					}
+					//items with dependencies on other controls
+					'js/infinite-scroll.js',
+					'js/pillbox.js',
+					'js/repeater.js',
+					'js/repeater-list.js',
+					'js/repeater-thumbnail.js',
+					'js/scheduler.js'
+				],
+				dest: 'dist/js/<%= pkg.name %>.js'
+			},
+			options: {
+				banner: '<%= banner %>' + '\n\n' +
+				'// For more information on UMD visit: https://github.com/umdjs/umd/' + '\n' +
+				'(function (factory) {' + '\n' +
+				'\tif (typeof define === \'function\' && define.amd) {' + '\n' +
+				'\t\tdefine([\'jquery\', \'bootstrap\'], factory);' + '\n' +
+				'\t} else {' + '\n' +
+				'\t\tfactory(jQuery);' + '\n' +
+				'\t}' + '\n' +
+				'}(function (jQuery) {\n\n' +
+				'<%= jqueryCheck %>' +
+				'<%= bootstrapCheck %>',
+				footer: '\n}));',
+				process: function (source) {
+					source = '(function ($) {\n\n' +
+						source.replace(/\/\/ -- BEGIN UMD WRAPPER PREFACE --(\n|.)*\/\/ -- END UMD WRAPPER PREFACE --/g, '');
+					source = source.replace(/\/\/ -- BEGIN UMD WRAPPER AFTERWORD --(\n|.)*\/\/ -- END UMD WRAPPER AFTERWORD --/g, '') + '\n})(jQuery);\n\n';
+					return source;
 				}
 			}
 		},
@@ -224,7 +234,8 @@ module.exports = function (grunt) {
 				globals: {
 					jQuery: true,
 					define: true,
-					require: true
+					require: true,
+					module: true
 				},
 				immed: true,
 				latedef: true,
@@ -278,7 +289,8 @@ module.exports = function (grunt) {
 			},
 			dist: {
 				options: {
-					urls: ['http://localhost:<%= connect.testServer.options.port %>/test/?testdist=true']
+					urls: ['http://localhost:<%= connect.testServer.options.port %>/test/?testdist=true', 
+						'http://localhost:<%= connect.testServer.options.port %>/test/commonjs.html']
 				}
 			}
 		},
@@ -776,8 +788,16 @@ module.exports = function (grunt) {
 	// ZIP distribution task
 	grunt.registerTask('distzip', 'Compress and zip "dist"', ['copy:zipsrc', 'compress', 'clean:zipsrc']);
 
+	// create dist/js/npm.js
+	grunt.registerTask('commonjs', 'Create CommonJS "bundled reference" module in `dist`', function () {
+		var files = grunt.config.get('concat.fuelux.src');
+		var bundledReferenceFile = 'dist/js/npm.js';
+		commonJSBundledReferenceModule(grunt, files, bundledReferenceFile);
+	});
+
 	// Full distribution task
-	grunt.registerTask('dist', 'Build "dist." Contributors: do not commit "dist."', ['clean:dist', 'distcss', 'copy:fonts', 'distjs', 'distzip']);
+	grunt.registerTask('dist', 'Build "dist." Contributors: do not commit "dist."',
+			['clean:dist', 'distcss', 'copy:fonts', 'distjs', 'commonjs', 'distzip']);
 
 
 	/* -------------
@@ -793,7 +813,7 @@ module.exports = function (grunt) {
 
 	//If qunit:source is working but qunit:full is breaking, check to see if the dist broke the code. This would be especially useful if we start mangling our code, but, is 99.99% unlikely right now
 	grunt.registerTask('validate-dist', 'run qunit:source, dist, and then qunit:full',
-		['connect:testServer', 'qunit:source', 'dist', 'qunit:dist']);
+		['connect:testServer', 'qunit:source', 'dist', 'browserify:commonjs', 'qunit:dist']);
 
 	// multiple jQuery versions, then run SauceLabs VMs
 	grunt.registerTask('releasetest', 'run jshint, build dist, all source tests, validation, and qunit on SauceLabs',
@@ -809,7 +829,7 @@ module.exports = function (grunt) {
 
 	// Travis CI task. This task no longer uses SauceLabs. Please run 'grunt saucelabs' manually.
 	grunt.registerTask('travisci', 'Tests to run when in Travis CI environment',
-		['test', 'dist', 'qunit:dist']);
+		['test', 'dist', 'browserify:commonjs', 'qunit:dist']);
 
 	//if you've already accidentally added your files for commit, this will at least unstage them. If you haven't, this will wipe them out.
 	grunt.registerTask('resetdist', 'resets changes to dist to keep them from being checked in', function () {
