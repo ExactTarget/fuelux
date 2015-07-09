@@ -633,13 +633,19 @@ module.exports = function (grunt) {
 			},
 			uploadToCDN: {
 				command: function() {
-					var command = [
-						'mv dist ' + '<%= pkg.version %>',
-						'scp -i ~/.ssh/fuelcdn -r "' + '<%= pkg.version %>' + '"/ ' +
+
+					function createUploadCommand(version) {
+						return ['mv dist ' + version,
+						'scp -i ~/.ssh/fuelcdn -r "' + version + '"/ ' +
 						'<%= cdnLoginFile.user %>' + '@' + '<%= cdnLoginFile.server %>' + ':' + '<%= cdnLoginFile.folder %>',
-						'mv "' + '<%= pkg.version %>' + '" dist',
-						'echo "Done uploading files."'
-					].join(' && ');
+						'mv "' + version + '" dist',
+						'echo "Done uploading files."'].join(' && ');
+					}
+					var command = [
+							packageVersion, 
+							semver.major(packageVersion) + '.' + semver.minor(packageVersion), 
+							semver.major(packageVersion)
+						].map(createUploadCommand).join(' && ');
 					grunt.log.write('Uploading: ' + command);
 					grunt.log.writeln('');
 					return command;
@@ -820,6 +826,10 @@ module.exports = function (grunt) {
 	------------- */
 	grunt.registerTask('notes', 'Run a ruby gem that will request from Github unreleased pull requests', ['shell:notes']);
 
+	grunt.registerTask('updateRelease', '', function () {
+		packageVersion = require('./package.json').version;
+	});
+
 	// Maintainers: Run prior to a release. Includes SauceLabs VM tests.
 	grunt.registerTask('release', 'Release a new version, push it and publish it', function() {
 		if ( typeof grunt.config('sauceLoginFile') === 'undefined' ) {
@@ -832,16 +842,13 @@ module.exports = function (grunt) {
 				' Please contact another maintainer to obtain this file.');
 		}
 
-		grunt.task.run(['prompt:tempbranch','dorelease']);
-		});
+		// update local variable to make sure build prompt is using temp branch's package version
+		grunt.task.run(['prompt:tempbranch', 'shell:checkoutRemoteReleaseBranch', 
+			'updateRelease', 'prompt:build', 'dorelease']);
+	});
 
-	// formerally dorelease task
+// formerally dorelease task
 	grunt.registerTask('dorelease', '', function () {
-
-		grunt.task.run(['shell:checkoutRemoteReleaseBranch']);
-		//update local variable to make sure build prompt is using temp branch's package version
-		packageVersion = require('./package.json').version;
-		grunt.task.run(['prompt:build']);
 
 		grunt.log.writeln('');
 
