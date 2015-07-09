@@ -25,6 +25,7 @@
 	// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.placard;
+	var EVENT_CALLBACK_MAP = { 'accepted': 'onAccept', 'cancelled': 'onCancel' };
 
 	// PLACARD CONSTRUCTOR AND PROTOTYPE
 
@@ -32,8 +33,6 @@
 		var self = this;
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.placard.defaults, options);
-
-		this.EVENT_CALLBACK_MAP = { 'accepted': 'onAccept', 'cancelled': 'onCancel' };
 
 		this.$accept = this.$element.find('.placard-accept');
 		this.$cancel = this.$element.find('.placard-cancel');
@@ -65,7 +64,7 @@
 		constructor: Placard,
 
 		complete: function (action) {
-			var func = this.options[ this.EVENT_CALLBACK_MAP[action] ];
+			var func = this.options[ EVENT_CALLBACK_MAP[action] ];
 
 			var obj = {
 				previousValue: this.previousValue,
