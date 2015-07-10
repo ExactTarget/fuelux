@@ -253,7 +253,7 @@ module.exports = function (grunt) {
 					unused: false
 				},
 				files: {
-					src: ['test/**/*.js']
+					src: ['test/**/*.js','!test/commonjs-bundle.js']
 				}
 			}
 		},
