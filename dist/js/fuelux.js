@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.9.0 
+ * Fuel UX v3.9.1 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -623,7 +623,7 @@
 				if (
 					( $.isFunction( window.moment ) || ( typeof moment !== 'undefined' && $.isFunction( moment ) ) ) &&
 					$.isPlainObject( this.options.momentConfig ) &&
-					this.options.momentConfig.culture && this.options.momentConfig.format
+					( typeof this.options.momentConfig.culture === 'string' && typeof this.options.momentConfig.format === 'string' )
 				) {
 					return true;
 				} else {
@@ -5540,7 +5540,7 @@
 				var opts = {};
 				var viewName = curView.split( '.' )[ 1 ];
 
-				if ( viewName && this.options.views ) {
+				if ( this.options.views ) {
 					opts = this.options.views[ viewName ] || this.options.views[ curView ] || {};
 				} else {
 					opts = {};
@@ -5899,12 +5899,9 @@
 			};
 
 			$.fn.repeater.Constructor.prototype.list_sizeActionsTable = function() {
-				var $table = this.$element.find( '.repeater-list table' );
-				$table.find( 'thead th' ).each( function() {
-					var $hr = $( this );
-					var $heading = $hr.find( '.repeater-list-heading' );
-					$heading.outerHeight( $hr.outerHeight() );
-				} );
+				var $table = this.$element.find( '.repeater-list-wrapper > table' );
+				var $actionsTableHeading = this.$element.find( '.repeater-list-wrapper .actions-column-wrapper thead th .repeater-list-heading' );
+				$actionsTableHeading.outerHeight( $table.find( 'thead th .repeater-list-heading' ).outerHeight() );
 			};
 
 			//ADDITIONAL DEFAULT OPTIONS
@@ -6210,7 +6207,8 @@
 
 		function renderThead( $table, data ) {
 			var columns = data.columns || [];
-			var i, j, l, $thead, $tr;
+			var $thead = $table.find( 'thead' );
+			var i, j, l, $tr;
 
 			function differentColumns( oldCols, newCols ) {
 				if ( !newCols ) {
@@ -6235,8 +6233,8 @@
 				return false;
 			}
 
-			if ( this.list_firstRender || differentColumns( this.list_columns, columns ) ) {
-				$table.find( 'thead' ).remove();
+			if ( this.list_firstRender || differentColumns( this.list_columns, columns ) || $thead.length === 0 ) {
+				$thead.remove();
 
 				this.list_columns = columns;
 				this.list_firstRender = false;
@@ -6853,8 +6851,8 @@
 						day = parseInt( this.$element.find( '.repeat-monthly-date .selectlist' ).selectlist( 'selectedItem' ).text, 10 );
 						pattern += 'BYMONTHDAY=' + day + ';';
 					} else if ( type === 'bysetpos' ) {
-						days = this.$element.find( '.month-days' ).selectlist( 'selectedItem' ).value;
-						pos = this.$element.find( '.month-day-pos' ).selectlist( 'selectedItem' ).value;
+						days = this.$element.find( '.repeat-monthly-day .month-days' ).selectlist( 'selectedItem' ).value;
+						pos = this.$element.find( '.repeat-monthly-day .month-day-pos' ).selectlist( 'selectedItem' ).value;
 						pattern += 'BYDAY=' + days + ';';
 						pattern += 'BYSETPOS=' + pos + ';';
 					}
@@ -6864,13 +6862,15 @@
 					type = this.$element.find( 'input[name=repeat-yearly]:checked' ).val();
 
 					if ( type === 'bymonthday' ) {
+						// there are multiple .year-month classed elements in scheduler markup
 						month = this.$element.find( '.repeat-yearly-date .year-month' ).selectlist( 'selectedItem' ).value;
-						day = this.$element.find( '.year-month-day' ).selectlist( 'selectedItem' ).text;
+						day = this.$element.find( '.repeat-yearly-date .year-month-day' ).selectlist( 'selectedItem' ).text;
 						pattern += 'BYMONTH=' + month + ';';
 						pattern += 'BYMONTHDAY=' + day + ';';
 					} else if ( type === 'bysetpos' ) {
-						days = this.$element.find( '.year-month-days' ).selectlist( 'selectedItem' ).value;
-						pos = this.$element.find( '.year-month-day-pos' ).selectlist( 'selectedItem' ).value;
+						days = this.$element.find( '.repeat-yearly-day .year-month-days' ).selectlist( 'selectedItem' ).value;
+						pos = this.$element.find( '.repeat-yearly-day .year-month-day-pos' ).selectlist( 'selectedItem' ).value;
+						// there are multiple .year-month classed elements in scheduler markup
 						month = this.$element.find( '.repeat-yearly-day .year-month' ).selectlist( 'selectedItem' ).value;
 
 						pattern += 'BYDAY=' + days + ';';
