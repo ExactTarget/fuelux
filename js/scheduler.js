@@ -15,6 +15,10 @@
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
 		define(['jquery', 'fuelux/combobox', 'fuelux/datepicker', 'fuelux/radio', 'fuelux/selectlist', 'fuelux/spinbox'], factory);
+	} else if (typeof exports === 'object') {
+		// Node/CommonJS
+		module.exports = factory(require('jquery'), require('./combobox'), require('./datepicker'), 
+			require('./radio'), require('./selectlist'), require('./spinbox') );
 	} else {
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
@@ -356,6 +360,8 @@
 			}
 
 			pattern += duration;
+			// remove trailing semicolon
+			pattern = pattern.substring(pattern.length - 1) === ';' ? pattern.substring(0, pattern.length - 1) : pattern;
 
 			var data = {
 				startDateTime: startDateTime,

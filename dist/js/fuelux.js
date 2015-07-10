@@ -1,5 +1,6 @@
 /*!
- * Fuel UX v3.9.0 
+ * Fuel UX EDGE - Built 2015/07/06, 1:18:13 PM 
+ * Previous release: v3.9.0 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -260,6 +261,13 @@
 
 			// set default selection
 			this.setDefaultSelection();
+
+			// if dropdown is empty, disable it
+			var items = this.$dropMenu.children( 'li' );
+			if ( items.length === 0 ) {
+				this.$button.addClass( 'disabled' );
+			}
+
 		};
 
 		Combobox.prototype = {
@@ -623,7 +631,7 @@
 				if (
 					( $.isFunction( window.moment ) || ( typeof moment !== 'undefined' && $.isFunction( moment ) ) ) &&
 					$.isPlainObject( this.options.momentConfig ) &&
-					this.options.momentConfig.culture && this.options.momentConfig.format
+					( typeof this.options.momentConfig.culture === 'string' && typeof this.options.momentConfig.format === 'string' )
 				) {
 					return true;
 				} else {
@@ -2251,6 +2259,7 @@
 			this.$element = $( element );
 			this.options = $.extend( {}, $.fn.selectlist.defaults, options );
 
+
 			this.$button = this.$element.find( '.btn.dropdown-toggle' );
 			this.$hiddenField = this.$element.find( '.hidden-field' );
 			this.$label = this.$element.find( '.selected-label' );
@@ -2262,6 +2271,37 @@
 			if ( options.resize === 'auto' || this.$element.attr( 'data-resize' ) === 'auto' ) {
 				this.resize();
 			}
+
+			// if selectlist is empty or is one item, disable it
+			var items = this.$dropdownMenu.children( 'li' );
+			if ( items.length === 0 ) {
+				this.disable();
+				this.doSelect( $( this.options.emptyLabelHTML ) );
+			}
+
+			// support jumping focus to first letter in dropdown when key is pressed
+			this.$element.on( 'shown.bs.dropdown', function() {
+				var $this = $( this );
+				// attach key listener when dropdown is shown
+				$( document ).on( 'keypress.fu.selectlist', function( e ) {
+
+					// get the key that was pressed
+					var key = String.fromCharCode( e.which );
+					// look the items to find the first item with the first character match and set focus
+					$this.find( "li" ).each( function( idx, item ) {
+						if ( $( item ).text().charAt( 0 ).toLowerCase() === key ) {
+							$( item ).children( 'a' ).focus();
+							return false;
+						}
+					} );
+
+				} );
+			} );
+
+			// unbind key event when dropdown is hidden
+			this.$element.on( 'hide.bs.dropdown', function() {
+				$( document ).off( 'keypress.fu.selectlist' );
+			} );
 		};
 
 		Selectlist.prototype = {
@@ -2300,6 +2340,10 @@
 				this.$element.trigger( 'clicked.fu.selectlist', this.$selectedItem );
 
 				e.preventDefault();
+				// ignore if a disabled item is clicked
+				if ( $( e.currentTarget ).parent( 'li' ).is( '.disabled, :disabled' ) ) {
+					return;
+				}
 
 				// is clicked element different from currently selected element?
 				if ( !( $( e.target ).parent().is( this.$selectedItem ) ) ) {
@@ -2435,7 +2479,9 @@
 			return ( methodReturn === undefined ) ? $set : methodReturn;
 		};
 
-		$.fn.selectlist.defaults = {};
+		$.fn.selectlist.defaults = {
+			emptyLabelHTML: '<li data-value=""><a href="#">No items</a></li>'
+		};
 
 		$.fn.selectlist.Constructor = Selectlist;
 
@@ -5072,6 +5118,12 @@
 					this.$nextBtn.removeAttr( disabled );
 				}
 
+				// is 0 or 1 pages, if using $primaryPaging (combobox)
+				// if using selectlist allow user to use selectlist to select 0 or 1
+				if ( this.$prevBtn.hasClass( pageEnd ) && this.$nextBtn.hasClass( pageEnd ) ) {
+					this.$primaryPaging.combobox( 'disable' );
+				}
+
 				this.$element.removeClass( 'disabled' );
 				this.$element.trigger( 'enabled.fu.repeater' );
 			},
@@ -5268,11 +5320,15 @@
 				var pageEnd = 'page-end';
 				var pages = data.pages;
 				var dropMenu, i, l;
+				var currenPageOutput;
 
 				this.currentPage = ( page !== undefined ) ? page : NaN;
 
 				this.$primaryPaging.removeClass( act );
 				this.$secondaryPaging.removeClass( act );
+
+				// set paging to 0 if total pages is 0, otherwise use one-based index
+				currenPageOutput = pages === 0 ? 0 : this.currentPage + 1;
 
 				if ( pages <= this.viewOptions.dropPagingCap ) {
 					this.$primaryPaging.addClass( act );
@@ -5282,15 +5338,16 @@
 						l = i + 1;
 						dropMenu.append( '<li data-value="' + l + '"><a href="#">' + l + '</a></li>' );
 					}
-					this.$primaryPaging.find( 'input.form-control' ).val( this.currentPage + 1 );
+
+					this.$primaryPaging.find( 'input.form-control' ).val( currenPageOutput );
 				} else {
 					this.$secondaryPaging.addClass( act );
-					this.$secondaryPaging.val( this.currentPage + 1 );
+					this.$secondaryPaging.val( currenPageOutput );
 				}
 
 				this.lastPageInput = this.currentPage + 1 + '';
 
-				this.$pages.html( pages );
+				this.$pages.html( '' + pages );
 
 				// this is not the last page
 				if ( ( this.currentPage + 1 ) < pages ) {
@@ -5899,12 +5956,9 @@
 			};
 
 			$.fn.repeater.Constructor.prototype.list_sizeActionsTable = function() {
-				var $table = this.$element.find( '.repeater-list table' );
-				$table.find( 'thead th' ).each( function() {
-					var $hr = $( this );
-					var $heading = $hr.find( '.repeater-list-heading' );
-					$heading.outerHeight( $hr.outerHeight() );
-				} );
+				var $table = this.$element.find( '.repeater-list-wrapper > table' );
+				var $actionsTableHeading = this.$element.find( '.repeater-list-wrapper .actions-column-wrapper thead th .repeater-list-heading' );
+				$actionsTableHeading.outerHeight( $table.find( 'thead th .repeater-list-heading' ).outerHeight() );
 			};
 
 			//ADDITIONAL DEFAULT OPTIONS
@@ -6853,8 +6907,8 @@
 						day = parseInt( this.$element.find( '.repeat-monthly-date .selectlist' ).selectlist( 'selectedItem' ).text, 10 );
 						pattern += 'BYMONTHDAY=' + day + ';';
 					} else if ( type === 'bysetpos' ) {
-						days = this.$element.find( '.month-days' ).selectlist( 'selectedItem' ).value;
-						pos = this.$element.find( '.month-day-pos' ).selectlist( 'selectedItem' ).value;
+						days = this.$element.find( '.repeat-monthly-day .month-days' ).selectlist( 'selectedItem' ).value;
+						pos = this.$element.find( '.repeat-monthly-day .month-day-pos' ).selectlist( 'selectedItem' ).value;
 						pattern += 'BYDAY=' + days + ';';
 						pattern += 'BYSETPOS=' + pos + ';';
 					}
@@ -6864,13 +6918,15 @@
 					type = this.$element.find( 'input[name=repeat-yearly]:checked' ).val();
 
 					if ( type === 'bymonthday' ) {
+						// there are multiple .year-month classed elements in scheduler markup
 						month = this.$element.find( '.repeat-yearly-date .year-month' ).selectlist( 'selectedItem' ).value;
-						day = this.$element.find( '.year-month-day' ).selectlist( 'selectedItem' ).text;
+						day = this.$element.find( '.repeat-yearly-date .year-month-day' ).selectlist( 'selectedItem' ).text;
 						pattern += 'BYMONTH=' + month + ';';
 						pattern += 'BYMONTHDAY=' + day + ';';
 					} else if ( type === 'bysetpos' ) {
-						days = this.$element.find( '.year-month-days' ).selectlist( 'selectedItem' ).value;
-						pos = this.$element.find( '.year-month-day-pos' ).selectlist( 'selectedItem' ).value;
+						days = this.$element.find( '.repeat-yearly-day .year-month-days' ).selectlist( 'selectedItem' ).value;
+						pos = this.$element.find( '.repeat-yearly-day .year-month-day-pos' ).selectlist( 'selectedItem' ).value;
+						// there are multiple .year-month classed elements in scheduler markup
 						month = this.$element.find( '.repeat-yearly-day .year-month' ).selectlist( 'selectedItem' ).value;
 
 						pattern += 'BYDAY=' + days + ';';
@@ -6895,6 +6951,8 @@
 				}
 
 				pattern += duration;
+				// remove trailing semicolon
+				pattern = pattern.substring( pattern.length - 1 ) === ';' ? pattern.substring( 0, pattern.length - 1 ) : pattern;
 
 				var data = {
 					startDateTime: startDateTime,

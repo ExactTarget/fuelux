@@ -457,6 +457,13 @@ define(function (require) {
 		});
 	});
 
+	$('#myPlacard3').on('accepted.fu.placard', function() {
+		console.log('accepted.fu.placard');
+	});
+
+	$('#myPlacard3').on('cancelled.fu.placard', function() {
+		console.log('cancelled.fu.placard');
+	});
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 		RADIO
@@ -779,7 +786,7 @@ define(function (require) {
 				"name": "Namibia Standard Time",
 				"offset": "+02:00"
 			},
-			"recurrencePattern": "FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919;"
+			"recurrencePattern": "FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919"
 		};
 		log(newVal);
 		$('#myScheduler').scheduler('value', newVal);

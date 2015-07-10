@@ -8,15 +8,18 @@
     "url": "https://github.com/ExactTarget/fuelux/issues"
   },
   "dependencies": {
-    "bower": "1.x",
-    "connect": "3.x",
-    "serve-static": ">=1.7.2"
+    "bootstrap": "3.x",
+    "jquery": "2.x",
+    "moment": "2.x"
   },
   "description": "Base Fuel UX styles and controls",
   "devDependencies": {
+    "bower": "1.x",
+    "connect": "3.x",
     "grunt": "0.x",
     "grunt-banner": "0.x",
     "grunt-blanket-qunit": "~0.2.0",
+    "grunt-browserify": "3.x",
     "grunt-bump": "0.x",
     "grunt-cli": "0.x",
     "grunt-contrib-clean": "0.x",
@@ -38,7 +41,9 @@
     "grunt-umd": "2.x",
     "grunt-zip": "0.x",
     "load-grunt-tasks": "3.x",
-    "semver": "4.x"
+    "qunitjs": "1.x",
+    "semver": "4.x",
+    "serve-static": ">=1.7.2"
   },
   "engines": {
     "node": "0.10.x"
@@ -63,8 +68,9 @@
     "type": "BSD-3-Clause",
     "url": "https://github.com/ExactTarget/fuelux/blob/master/LICENSE"
   },
+  "main": "./dist/js/npm",
   "name": "fuelux",
-  "private": true,
+  "private": false,
   "repository": {
     "type": "git",
     "url": "git://github.com/ExactTarget/fuelux.git"
@@ -72,6 +78,7 @@
   "scripts": {
     "main": "devserver.js",
     "postinstall": "node ./node_modules/bower/bin/bower install",
+    "start": "grunt serve",
     "test": "grunt travisci --verbose"
   },
   "title": "Fuel UX",

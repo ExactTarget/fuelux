@@ -15,6 +15,9 @@
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
 		define(['jquery', 'fuelux/combobox', 'fuelux/infinite-scroll', 'fuelux/search', 'fuelux/selectlist'], factory);
+		} else if (typeof exports === 'object') {
+			// Node/CommonJS
+			module.exports = factory(require('jquery'));
 	} else {
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
@@ -247,6 +250,12 @@
 				this.$nextBtn.removeAttr(disabled);
 			}
 
+			// is 0 or 1 pages, if using $primaryPaging (combobox)
+			// if using selectlist allow user to use selectlist to select 0 or 1
+			if (this.$prevBtn.hasClass(pageEnd) && this.$nextBtn.hasClass(pageEnd)) {
+				this.$primaryPaging.combobox('disable');
+			}
+
 			this.$element.removeClass('disabled');
 			this.$element.trigger('enabled.fu.repeater');
 		},
@@ -443,11 +452,15 @@
 			var pageEnd = 'page-end';
 			var pages = data.pages;
 			var dropMenu, i, l;
+			var currenPageOutput;
 
 			this.currentPage = (page !== undefined) ? page : NaN;
 
 			this.$primaryPaging.removeClass(act);
 			this.$secondaryPaging.removeClass(act);
+
+			// set paging to 0 if total pages is 0, otherwise use one-based index
+			currenPageOutput = pages === 0 ? 0 : this.currentPage + 1;
 
 			if (pages <= this.viewOptions.dropPagingCap) {
 				this.$primaryPaging.addClass(act);
@@ -457,15 +470,16 @@
 					l = i + 1;
 					dropMenu.append('<li data-value="' + l + '"><a href="#">' + l + '</a></li>');
 				}
-				this.$primaryPaging.find('input.form-control').val(this.currentPage + 1);
+
+				this.$primaryPaging.find('input.form-control').val(currenPageOutput);
 			} else {
 				this.$secondaryPaging.addClass(act);
-				this.$secondaryPaging.val(this.currentPage + 1);
+				this.$secondaryPaging.val(currenPageOutput);
 			}
 
 			this.lastPageInput = this.currentPage + 1 + '';
 
-			this.$pages.html(pages);
+			this.$pages.html('' + pages);
 
 			// this is not the last page
 			if ((this.currentPage + 1) < pages) {
