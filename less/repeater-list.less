@@ -27,8 +27,8 @@
 
 					tbody {
 						td {
-							border-bottom: 1px solid #ddd;
-							border-left: 1px solid #ddd;
+							border-bottom: 1px solid @gray87;
+							border-left: 1px solid @gray87;
 							border-top: none;
 
 							&:first-child {
@@ -36,13 +36,13 @@
 							}
 
 							&.sorted {
-								background: #f9f9f9;
+								background: @gray98;
 							}
 						}
 
 						tr {
 							&:focus {
-								outline: 1px dotted #d7d7d7;
+								outline: 1px dotted @gray87;
 							}
 
 							&.empty {
@@ -70,7 +70,7 @@
 
 								td {
 									background: @selected;
-									color: #333;
+									color: @gray20;
 
 									&:first-child {
 										padding-left: 30px;
@@ -81,11 +81,11 @@
 					}
 
 					thead > tr > th {
-						background: #F9F9F9;
-						border-bottom: 1px solid #ddd;
+						background: @gray98;
+						border-bottom: 1px solid @gray87;
 						border-left: 1px solid transparent;
 						border-top: none;
-						color: rgba(0, 0, 0, 0);
+						color: fade(@true-black, 0);	// transparent
 						line-height: 1.42857;
 						padding: 8px;
 
@@ -97,9 +97,9 @@
 
 						&.sortable {
 							&:hover, &.sorted {
-								background: #F1F1F1;
+								background: @selectableHover;
 								cursor: pointer;
-								#fuelux > .vertical(@startColor: #F9F9F9; @endColor: #E5E5E5);
+								#fuelux > .vertical(@startColor: @gray98; @endColor: @gray90);
 							}
 						}
 
@@ -138,11 +138,11 @@
 				}
 
 				&-heading {
-					background: #F9F9F9;
-					border-bottom: 1px solid #ddd;
-					border-left: 1px solid #ddd;
+					background: @gray98;
+					border-bottom: 1px solid @gray87;
+					border-left: 1px solid @gray87;
 					border-top: none;
-					color: #333;
+					color: @gray20;
 					line-height: 1.42857;
 					margin-left: -9px;
 					padding: 8px;
@@ -163,9 +163,9 @@
 
 					&.sortable {
 						&:hover, &.sorted {
-							background: #F1F1F1;
+							background: @gray96;
 							cursor: pointer;
-							#fuelux > .vertical(@startColor: #F9F9F9; @endColor: #E5E5E5);
+							#fuelux > .vertical(@startColor: @gray98; @endColor: @gray90);
 						}
 
 						&.sorted {
@@ -209,10 +209,10 @@
 						table-layout: fixed;
 						word-wrap: break-word;
 
-						&.table-frozen {
-							border-right: 1px solid #ddd;
+						&.table-frozen{
+							border-right: 1px solid @gray87;
 							z-index: 2;
-							background: #ffffff;
+							background: @true-white;
 							border-collapse: collapse;
 							table-layout: fixed;
 							float: left;
@@ -221,7 +221,7 @@
 								word-wrap: break-word;
 							}
 							.repeater-frozen-heading {
-								background: #F9F9F9;
+								background: @gray98;
 								&.shifted {
 									left: -1px;
 								}
@@ -246,14 +246,14 @@
 							word-wrap: break-word;
 
 							&.table-actions {
-								border-left: 1px solid #ddd;
+								border-left: 1px solid @gray87;
 								z-index: 2;
 								border-collapse: collapse;
 								table-layout: fixed;
 								float: right;
 								tr {
-									border-left: 1px solid #ddd;
-									background: #ffffff;
+									border-left: 1px solid @gray87;
+									background: @true-white;
 									&.empty-heading {
 										background: transparent;
 										border-left: 1px solid transparent;
@@ -269,11 +269,11 @@
 										padding-bottom: 6px;
 									}
 									th {
-										border-bottom: 1px solid #ddd;
+										border-bottom: 1px solid @gray87;
 										padding-bottom: 8px;
 										.repeater-list-heading {
 											padding: 8px 0 7px;
-											border-left: 1px solid #F9F9F9;
+											border-left: 1px solid @gray98;
 											margin-left: -1px;
 											width: 100%;
 										}
@@ -326,11 +326,11 @@
 						.actions-column-wrapper {
 							table {
 								&.table-actions {
-									background-color: #ffffff;
+									background-color: @true-white;
 									tr {
 										background-color: transparent;
 										&.empty-heading {
-											border-left: 1px solid #F9F9F9;
+											border-left: 1px solid @gray98;
 										}
 										th {
 											padding-bottom: 8px;

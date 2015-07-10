@@ -43,7 +43,7 @@
 	}
 
 	// Gradients
-	.vertical(@startColor: #555, @endColor: #333) {
+	.vertical(@startColor: @gray33, @endColor: @gray20) {
 		background-color: mix(@startColor, @endColor, 60%);
 		background-image: -moz-linear-gradient(top, @startColor, @endColor); // FF 3.6+
 		background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@startColor), to(@endColor)); // Safari 4+, Chrome 2+
@@ -88,8 +88,8 @@
 	  text-transform: uppercase;
 	  font-size: 10px;
 	  margin-bottom: 2px;
-	  text-shadow: 0 1px #fff;
-	  color: #666;
+	  text-shadow: 0 1px @true-white;
+	  color: @gray40;
 	}
 
 	.data-value() {
@@ -98,15 +98,15 @@
 
 	.section-heading() {
 	  font-size: 16px;
-	  color: #333;
+	  color: @gray20;
 	  margin: 0 0 10px;
 	  padding: 0;
-	  text-shadow: 0 1px #fff;
+	  text-shadow: 0 1px @true-white;
 	}
 
 	.text-emphasis-variant(@color) {
 		color: @color;
-		a&:hover {
+		&:hover {
 			color: darken(@color, 10%);
 		}
 	}
