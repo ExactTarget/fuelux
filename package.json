@@ -82,7 +82,7 @@
     "test": "grunt travisci --verbose"
   },
   "title": "Fuel UX",
-  "version": "3.9.0",
+  "version": "3.10.0",
   "volo": {
     "baseDir": "lib",
     "dependencies": {
