@@ -817,7 +817,7 @@ module.exports = function (grunt) {
 
 	// multiple jQuery versions, then run SauceLabs VMs
 	grunt.registerTask('releasetest', 'run jshint, build dist, all source tests, validation, and qunit on SauceLabs',
-		['test', 'dist', 'qunit:dist', 'saucelabs-qunit:defaultBrowsers']);
+		['test', 'dist', 'browserify:commonjs', 'qunit:dist', 'saucelabs-qunit:defaultBrowsers']);
 
 	// can be run locally instead of through TravisCI, but requires the Fuel UX Saucelabs API key file which is not public at this time.
 	grunt.registerTask('saucelabs', 'run jshint, and qunit on saucelabs',
@@ -951,7 +951,7 @@ module.exports = function (grunt) {
 		grunt.task.run(['connect:testServer']);
 
 		if (grunt.option('test')) {
-			grunt.task.run(['qunit:dist', 'watch:full']);
+			grunt.task.run(['browserify:commonjs','qunit:dist', 'watch:full']);
 		} else {
 			grunt.task.run(['watch:dist']);
 		}
