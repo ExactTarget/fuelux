@@ -1,5 +1,5 @@
 /*!
- * Fuel UX EDGE - Built 2015/07/06, 1:18:13 PM 
+ * Fuel UX EDGE - Built 2015/07/10, 7:25:45 PM 
  * Previous release: v3.9.0 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
@@ -1565,6 +1565,10 @@
 		// -- BEGIN MODULE CODE HERE --
 
 		var old = $.fn.placard;
+		var EVENT_CALLBACK_MAP = {
+			'accepted': 'onAccept',
+			'cancelled': 'onCancel'
+		};
 
 		// PLACARD CONSTRUCTOR AND PROTOTYPE
 
@@ -1591,10 +1595,10 @@
 
 			this.$field.on( 'focus.fu.placard', $.proxy( this.show, this ) );
 			this.$field.on( 'keydown.fu.placard', $.proxy( this.keyComplete, this ) );
-			this.$accept.on( 'click.fu.placard', $.proxy( this.complete, this, 'accept' ) );
+			this.$accept.on( 'click.fu.placard', $.proxy( this.complete, this, 'accepted' ) );
 			this.$cancel.on( 'click.fu.placard', function( e ) {
 				e.preventDefault();
-				self.complete( 'cancel' );
+				self.complete( 'cancelled' );
 			} );
 
 			this.ellipsis();
@@ -1604,30 +1608,31 @@
 			constructor: Placard,
 
 			complete: function( action ) {
-				var func = this.options[ 'on' + action[ 0 ].toUpperCase() + action.substring( 1 ) ];
+				var func = this.options[ EVENT_CALLBACK_MAP[ action ] ];
+
 				var obj = {
 					previousValue: this.previousValue,
 					value: this.$field.val()
 				};
 				if ( func ) {
 					func( obj );
-					this.$element.trigger( action, obj );
+					this.$element.trigger( action + '.fu.placard', obj );
 				} else {
-					if ( action === 'cancel' && this.options.revertOnCancel ) {
+					if ( action === 'cancelled' && this.options.revertOnCancel ) {
 						this.$field.val( this.previousValue );
 					}
 
-					this.$element.trigger( action, obj );
+					this.$element.trigger( action + '.fu.placard', obj );
 					this.hide();
 				}
 			},
 
 			keyComplete: function( e ) {
 				if ( this.isInput && e.keyCode === 13 ) {
-					this.complete( 'accept' );
+					this.complete( 'accepted' );
 					this.$field.blur();
 				} else if ( e.keyCode === 27 ) {
-					this.complete( 'cancel' );
+					this.complete( 'cancelled' );
 					this.$field.blur();
 				}
 			},
@@ -1802,7 +1807,7 @@
 		$.fn.placard.defaults = {
 			onAccept: undefined,
 			onCancel: undefined,
-			externalClickAction: 'cancel',
+			externalClickAction: 'cancelled',
 			externalClickExceptions: [],
 			explicit: false,
 			revertOnCancel: -1 //negative 1 will check for an '.placard-accept' button. Also can be set to true or false
@@ -5597,7 +5602,7 @@
 				var opts = {};
 				var viewName = curView.split( '.' )[ 1 ];
 
-				if ( viewName && this.options.views ) {
+				if ( this.options.views ) {
 					opts = this.options.views[ viewName ] || this.options.views[ curView ] || {};
 				} else {
 					opts = {};
@@ -6264,7 +6269,8 @@
 
 		function renderThead( $table, data ) {
 			var columns = data.columns || [];
-			var i, j, l, $thead, $tr;
+			var $thead = $table.find( 'thead' );
+			var i, j, l, $tr;
 
 			function differentColumns( oldCols, newCols ) {
 				if ( !newCols ) {
@@ -6289,8 +6295,8 @@
 				return false;
 			}
 
-			if ( this.list_firstRender || differentColumns( this.list_columns, columns ) ) {
-				$table.find( 'thead' ).remove();
+			if ( this.list_firstRender || differentColumns( this.list_columns, columns ) || $thead.length === 0 ) {
+				$thead.remove();
 
 				this.list_columns = columns;
 				this.list_firstRender = false;
