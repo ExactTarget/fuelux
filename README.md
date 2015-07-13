@@ -44,6 +44,7 @@ Ensure all the dependencies are included on the page (eg, such as using the CDN 
 A few ways available to install.
 
 - Request files from [the Fuel UX CDN](http://www.fuelcdn.com/fuelux/3.10.0/)
+- Install with [NPM](https://www.npmjs.com/package/fuelux): `npm install fuelux`.
 - [Download the latest release](https://github.com/exacttarget/fuelux/archive/3.4.0.zip).
 - Clone the repo: `git clone https://github.com/exacttarget/fuelux.git`.
 - Install with [Bower](http://bower.io): `bower install fuelux`.
