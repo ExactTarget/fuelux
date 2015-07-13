@@ -36,13 +36,13 @@
     "grunt-jsbeautifier": "0.x",
     "grunt-prompt": "1.x",
     "grunt-saucelabs": "8.x",
-    "grunt-shell": "0.x",
+    "grunt-shell": "1.x",
     "grunt-text-replace": "0.x",
     "grunt-umd": "2.x",
     "grunt-zip": "0.x",
     "load-grunt-tasks": "3.x",
     "qunitjs": "1.x",
-    "semver": "4.x",
+    "semver": "5.x",
     "serve-static": ">=1.7.2"
   },
   "engines": {
