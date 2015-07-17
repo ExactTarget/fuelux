@@ -176,7 +176,6 @@
 			$('.frozen-thead-wrapper .repeater-list-heading').on('click', function() {
 				var index = $(this).parent('th').index();
 				index = index + 1;
-				console.log(index);
 				self.$element.find('.repeater-list-wrapper > table thead th:nth-child('+ index +') .repeater-list-heading')[0].click();
 			});
 
