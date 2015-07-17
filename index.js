@@ -635,7 +635,7 @@ define(function (require) {
 					list_columnSizing:false,
 					list_columnSyncing: false,
 					list_selectable: false, // (single | multi)
-					list_frozenColumns: 1
+					list_frozenColumns: 2
 				}
 			}
 		});
