@@ -15,6 +15,9 @@
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
 		define(['jquery'], factory);
+	} else if (typeof exports === 'object') {
+		// Node/CommonJS
+		module.exports = factory(require('jquery'), require('moment'));
 	} else {
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
@@ -161,7 +164,7 @@
 			if (
 			($.isFunction(window.moment) || (typeof moment !== 'undefined' && $.isFunction(moment))) &&
 				$.isPlainObject(this.options.momentConfig) &&
-				this.options.momentConfig.culture && this.options.momentConfig.format
+				(typeof this.options.momentConfig.culture === 'string' && typeof this.options.momentConfig.format === 'string')
 			) {
 				return true;
 			} else {
