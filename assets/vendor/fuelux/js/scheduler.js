@@ -15,6 +15,10 @@
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
 		define(['jquery', 'fuelux/combobox', 'fuelux/datepicker', 'fuelux/radio', 'fuelux/selectlist', 'fuelux/spinbox'], factory);
+	} else if (typeof exports === 'object') {
+		// Node/CommonJS
+		module.exports = factory(require('jquery'), require('./combobox'), require('./datepicker'), 
+			require('./radio'), require('./selectlist'), require('./spinbox') );
 	} else {
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
@@ -312,8 +316,8 @@
 					day = parseInt(this.$element.find('.repeat-monthly-date .selectlist').selectlist('selectedItem').text, 10);
 					pattern += 'BYMONTHDAY=' + day + ';';
 				} else if (type === 'bysetpos') {
-					days = this.$element.find('.month-days').selectlist('selectedItem').value;
-					pos = this.$element.find('.month-day-pos').selectlist('selectedItem').value;
+					days = this.$element.find('.repeat-monthly-day .month-days').selectlist('selectedItem').value;
+					pos = this.$element.find('.repeat-monthly-day .month-day-pos').selectlist('selectedItem').value;
 					pattern += 'BYDAY=' + days + ';';
 					pattern += 'BYSETPOS=' + pos + ';';
 				}
@@ -323,13 +327,15 @@
 				type = this.$element.find('input[name=repeat-yearly]:checked').val();
 
 				if (type === 'bymonthday') {
+					// there are multiple .year-month classed elements in scheduler markup
 					month = this.$element.find('.repeat-yearly-date .year-month').selectlist('selectedItem').value;
-					day = this.$element.find('.year-month-day').selectlist('selectedItem').text;
+					day = this.$element.find('.repeat-yearly-date .year-month-day').selectlist('selectedItem').text;
 					pattern += 'BYMONTH=' + month + ';';
 					pattern += 'BYMONTHDAY=' + day + ';';
 				} else if (type === 'bysetpos') {
-					days = this.$element.find('.year-month-days').selectlist('selectedItem').value;
-					pos = this.$element.find('.year-month-day-pos').selectlist('selectedItem').value;
+					days = this.$element.find('.repeat-yearly-day .year-month-days').selectlist('selectedItem').value;
+					pos = this.$element.find('.repeat-yearly-day .year-month-day-pos').selectlist('selectedItem').value;
+					// there are multiple .year-month classed elements in scheduler markup
 					month = this.$element.find('.repeat-yearly-day .year-month').selectlist('selectedItem').value;
 
 					pattern += 'BYDAY=' + days + ';';
@@ -354,6 +360,8 @@
 			}
 
 			pattern += duration;
+			// remove trailing semicolon
+			pattern = pattern.substring(pattern.length - 1) === ';' ? pattern.substring(0, pattern.length - 1) : pattern;
 
 			var data = {
 				startDateTime: startDateTime,

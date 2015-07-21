@@ -93,26 +93,26 @@ $('.checkbox input').on('change', function () {
 
   <h4 id="checkbox-examples-default">Default (stacked)</h4>
   <div class="fu-example section">
-    <div id="myCheckbox" class="checkbox" data-initialize="checkbox">
-      <label class="checkbox-custom">
+    <div id="myCheckbox" class="checkbox">
+      <label class="checkbox-custom" data-initialize="checkbox">
         <input class="sr-only" type="checkbox" value="option1">
         <span class="checkbox-label">Custom checkbox unchecked on page load</span>
       </label>
     </div>
-    <div class="checkbox" data-initialize="checkbox">
-      <label class="checkbox-custom checked">
+    <div class="checkbox">
+      <label class="checkbox-custom checked" data-initialize="checkbox">
         <input class="sr-only" checked="checked" type="checkbox" value="option2">
         <span class="checkbox-label">Custom checkbox checked on page load</span>
       </label>
     </div>
-    <div class="checkbox" data-initialize="checkbox">
-      <label class="checkbox-custom">
+    <div class="checkbox">
+      <label class="checkbox-custom disabled" data-initialize="checkbox">
         <input class="sr-only" disabled="disabled" type="checkbox" value="option3">
         <span class="checkbox-label">Disabled custom checkbox unchecked on page load</span>
       </label>
     </div>
-    <div class="checkbox" data-initialize="checkbox">
-      <label class="checkbox-custom checked disabled">
+    <div class="checkbox">
+      <label class="checkbox-custom checked disabled" data-initialize="checkbox">
         <input class="sr-only" checked="checked" disabled="disabled" type="checkbox" value="option4">
         <span class="checkbox-label">Disabled custom checkbox checked on page load</span>
       </label>
@@ -132,7 +132,7 @@ $('.checkbox input').on('change', function () {
   </label>
 </div>
 <div class="checkbox" id="myCheckbox3">
-  <label class="checkbox-custom" data-initialize="checkbox">
+  <label class="checkbox-custom disabled" data-initialize="checkbox">
     <input class="sr-only" disabled="disabled" type="checkbox" value="">
     <span class="checkbox-label">Disabled custom checkbox unchecked on page load</span>
   </label>
@@ -154,7 +154,7 @@ $('.checkbox input').on('change', function () {
     <label class="checkbox-custom checkbox-inline" data-initialize="checkbox">
       <input class="sr-only" checked="checked" type="checkbox" value="option2"> <span class="checkbox-label">2</span>
     </label>
-    <label class="checkbox-custom checkbox-inline" data-initialize="checkbox">
+    <label class="checkbox-custom checkbox-inline disabled" data-initialize="checkbox">
       <input class="sr-only" disabled="disabled" type="checkbox" value="option3"> <span class="checkbox-label">3</span>
     </label>
   </div>
@@ -165,7 +165,7 @@ $('.checkbox input').on('change', function () {
 <label class="checkbox-custom checkbox-inline" data-initialize="checkbox"  id="myCheckbox6">
   <input class="sr-only" checked="checked" type="checkbox" value="option2"> <span class="checkbox-label">2</span>
 </label>
-<label class="checkbox-custom checkbox-inline" data-initialize="checkbox"  id="myCheckbox7">
+<label class="checkbox-custom checkbox-inline disabled" data-initialize="checkbox"  id="myCheckbox7">
   <input class="sr-only" disabled="disabled" type="checkbox" value="option3"> <span class="checkbox-label">3</span>
 </label>
 {% endhighlight %}

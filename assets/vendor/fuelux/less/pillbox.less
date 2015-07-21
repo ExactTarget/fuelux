@@ -1,7 +1,7 @@
 .fuelux {
 
 	.pillbox {
-		border: 1px solid #BBBBBB;
+		border: 1px solid @gray74;
 		border-radius: 4px;
 		cursor: text;
 		padding: 3px;
@@ -68,7 +68,7 @@
 				word-break: break-all;
 
 				&.pillbox-highlight {
-					outline: 1px dotted @grayLight;
+					outline: 1px dotted @gray60;
 				}
 
 				&.truncated {
@@ -77,7 +77,7 @@
 
 				.pillbox-list-edit {
 					border: none;
-					color: @grayDark;
+					color: @gray20;
 					font-weight: normal;
 					border-radius: 2px;
 
@@ -110,13 +110,13 @@
 			float: left;
 
 			&.editing {
-				border: 1px solid #ccc;
+				border: 1px solid @gray80;
 				border-radius: 4px;
 				margin: 2px 0 3px 3px;
 
 				input.pillbox-add-item {
 					border-radius: 4px;
-					color: #333;
+					color: @gray20;
 					height: 32px;
 				}
 			}
@@ -148,11 +148,11 @@
 				padding: 3px 20px;
 
 				&.pillbox-suggest-sel {
-					background-color: @grayLighter;
+					background-color: @gray93;
 				}
 
 				&:hover {
-					background-color: @grayLighter;
+					background-color: @gray93;
 				}
 			}
 		}

@@ -18,7 +18,7 @@
 				width: 100%;
 
 				thead {
-					border-bottom: 1px solid #cccaca;
+					border-bottom: 1px solid @gray80;
 				}
 
 				/* for spacing */
@@ -40,7 +40,7 @@
 
 				td {
 					b, button {
-						color: #333;
+						color: @gray20;
 						display: inline-block;
 						font-weight: normal;
 						height: 30px;
@@ -65,7 +65,7 @@
 
 					&.current-day {
 						span {
-							border: 1px solid #333;
+							border: 1px solid @gray20;
 						}
 					}
 
@@ -85,7 +85,7 @@
 
 					&.past {
 						b, button {
-							color: lighten(#333, 40%);
+							color: lighten(@gray20, 40%);
 						}
 					}
 
@@ -95,7 +95,7 @@
 							position: relative;
 
 							&:before {
-								border-top: 1px solid #a94442;
+								border-top: 1px solid darken(@btnDangerBackground, 10%);
 								bottom: 0;
 								content: " ";
 								display: block;
@@ -121,19 +121,19 @@
 						}
 
 						b, button {
-							color: #8d8787;
+							color: @gray53;
 						}
 
 						&.current-day {
-							box-shadow: 0 0 0 1px #fff offset;
+							box-shadow: 0 0 0 1px @true-white offset;
 							b, button {
-								color: #222;
+								color: @gray13;
 							}
 
 							span {
 								&:hover {
 									b, button {
-										border-color: #0f5f9f;
+										border-color: @datepickerHover;
 									}
 								}
 							}
@@ -162,14 +162,14 @@
 					text-align: center;
 					display: block;
 					width: 174px;
-					color: #222;
+					color: @gray13;
 					font-size: 20px;
 					line-height: 30px;
 					text-decoration: underline;
 					vertical-align: middle;
 
 						&:hover {
-							color: #1d75bb;
+							color: @datepickerHover;
 							text-decoration: underline;
 						}
 
@@ -195,7 +195,7 @@
 					}
 
 				.next, .prev {
-					background: #666669;
+					background: @gray40;
 					background-clip: padding-box;
 					border-radius: 30px;
 					cursor: pointer;
@@ -205,13 +205,13 @@
 					width: 30px;
 
 					span.glyphicon {
-						color: #fff;
+						color: @true-white;
 						font-size: 16px;
 						line-height: 30px;
 					}
 
 					&:hover {
-						background: #1d75bb;
+						background: @datepickerHover;
 					}
 				}
 
@@ -225,31 +225,31 @@
 			}
 
 			&-footer {
-				background: #e3e2e1;
+				background: @gray90;
 				background-clip: padding-box;
 				border-radius: 0 0 4px 4px;
-				border-top: 1px solid #cccaca;
+				border-top: 1px solid @gray80;
 				height: 30px;
 				margin: 0 -16px;
 				padding: 4px 14px;
 
 				.datepicker-today {
-					color: #333;
+					color: @gray20;
 					font-size: 14px;
 					text-decoration: underline;
 
 					&:hover {
-						color: #1b75bb;
+						color: @datepickerHoverAlt;
 						text-decoration: underline;
 					}
 
 					&.disabled {
-						color: #8b8c8e;
+						color: @gray53;
 						cursor: default;
 						pointer-events: none;
 
 						&:hover {
-							color: #8b8c8e
+							color: @gray53;
 						}
 					}
 				}
@@ -257,7 +257,7 @@
 		}
 
 		&-calendar-wrapper {
-			border: 1px solid #6e6f71;
+			border: 1px solid @gray46;
 			min-height: 20px;
 			padding: 0;
 			width: 300px;
@@ -273,31 +273,31 @@
 			}
 
 			&-footer {
-				background: #e3e2e1;
+				background: @gray90;
 				border-radius: 0 0 4px 4px;
-				border-top: 1px solid #cccaca;
+				border-top: 1px solid @gray80;
 				clear: both;
 
 				.datepicker-wheels-back {
 					display: block;
-					color: #222;
+					color: @gray13;
 					float: left;
 					line-height: 22px;
 					border: 0;
 					background-color: transparent;
 
 					&:hover {
-						color: #1d75bb;
+						color: @datepickerHoverAlt;
 					}
 				}
 
 				.datepicker-wheels-select {
 					float: right;
 					background-color: transparent;
-					color: @blue;
+					color: @focusColor;
 
 					&:hover {
-						color: #1d75bb;
+						color: @datepickerHoverAlt;
 					}
 				}
 			}
@@ -321,25 +321,25 @@
 							display: block;
 							width: 100%;
 							text-align: center;
-							color: #414041;
+							color: @gray27;
 							display: block;
 							font-size: 16px;
 							line-height: 24px;
 							text-decoration: none;
 
 							&:hover {
-								background: #aee0f8;
+								background: @infoBackground;
 								text-decoration: none;
 							}
 						}
 
 						&.selected {
 							button {
-								background: #1d75bb;
-								color: #fff;
+								background: @datepickerHoverAlt;
+								color: @true-white;
 
 								&:hover {
-									background: #0f5f9f;
+									background: @datepickerHover;
 								}
 							}
 						}
@@ -347,11 +347,11 @@
 				}
 
 				.header {
-					background: #e3e2e1;
+					background: @gray90;
 					background-clip: padding-box;
-					border-bottom: 1px solid #cccaca;
+					border-bottom: 1px solid @gray80;
 					border-radius: 4px 0 0 0;
-					color: #222;
+					color: @gray13;
 					font-size: 20px;
 					font-weight: bold;
 					line-height: 30px;
@@ -371,7 +371,7 @@
 			}
 
 			&-year {
-				border-left: 1px solid #cccaca;
+				border-left: 1px solid @gray80;
 				float: right;
 
 				.header {

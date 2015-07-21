@@ -48,7 +48,7 @@
 					border-radius: @baseBorderRadius;
 				}
 				&:checked ~ label {
-					background-color: #e9e9e9;
+					background-color: @gray90;
 					opacity: 1;
 					z-index: 0;
 				}
@@ -76,8 +76,8 @@
 					text-transform: none;
 					line-height: 1;
 					speak: none;
-					border: 1px solid #adadad;
-					color: #fff;
+					border: 1px solid @gray67;
+					color: @true-white;
 					font-size: 9px;
 					width: 14px;
 					height: 14px;
@@ -98,7 +98,7 @@
 			/* for keyboard tabbing */
 			&:active ~ label, &:focus ~ label {
 				color: @text-color;
-				color: rgb(91, 157, 217);
+				color: @checkboxPrimaryColor;
 				cursor: pointer;
 				
 				&:before {
@@ -124,7 +124,7 @@
 			&[disabled="disabled"], &[disabled], &:disabled {
 				& ~ label, & ~ label:before {
 					color: @text-color;
-					opacity: 0.5 !important;
+					opacity: .65;
 					cursor: not-allowed !important;
 					outline: none;
 					box-shadow: none;
@@ -133,8 +133,8 @@
 
 			&:checked ~ label {
 				&:before {
-					background: #39b3d7;
-					border-color: #39b3d7;
+					background: @checkboxPrimaryColor;
+					border-color: @checkboxPrimaryColor;
 				}
 			}
 

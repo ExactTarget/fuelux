@@ -15,6 +15,9 @@
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
 		define(['jquery'], factory);
+	} else if (typeof exports === 'object') {
+		// Node/CommonJS
+		module.exports = factory(require('jquery'));
 	} else {
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
@@ -43,6 +46,13 @@
 
 		// set default selection
 		this.setDefaultSelection();
+
+		// if dropdown is empty, disable it
+		var items = this.$dropMenu.children('li');
+		if( items.length === 0) {
+			this.$button.addClass('disabled');
+		}
+
 	};
 
 	Combobox.prototype = {
