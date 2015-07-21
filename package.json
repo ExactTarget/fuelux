@@ -78,7 +78,8 @@
   "scripts": {
     "main": "devserver.js",
     "start": "grunt serve",
-    "test": "grunt travisci --verbose"
+    "test": "grunt travisci --verbose",
+    "postinstall": "./postinstall.sh"
   },
   "title": "Fuel UX",
   "version": "3.10.0",
