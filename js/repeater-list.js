@@ -35,7 +35,7 @@
 		};
 
 		$.fn.repeater.Constructor.prototype.list_highlightColumn = function (index, force) {
-			var tbody = this.$canvas.find('.repeater-list tbody');
+			var tbody = this.$canvas.find('.repeater-list-wrapper > table tbody');
 			if (this.viewOptions.list_highlightSortedColumn || force) {
 				tbody.find('td.sorted').removeClass('sorted');
 				tbody.find('tr').each(function () {
@@ -147,6 +147,7 @@
 			var $table = this.$element.find('.repeater-list .repeater-list-wrapper > table');
 			var repeaterWrapper = this.$element.find('.repeater-list');
 			var numFrozenColumns = this.viewOptions.list_frozenColumns;
+			var self = this;
 
 			if (frozenTable.length < 1) {
 				//setup frozen column markup
@@ -171,6 +172,14 @@
 			});
 			var columnWidth = $table.find('td:eq(0)').outerWidth();
 			this.$element.find('.frozen-column-wrapper, .frozen-thead-wrapper').width(columnWidth);
+
+			$('.frozen-thead-wrapper .repeater-list-heading').on('click', function() {
+				var index = $(this).parent('th').index();
+				index = index + 1;
+				self.$element.find('.repeater-list-wrapper > table thead th:nth-child('+ index +') .repeater-list-heading')[0].click();
+			});
+
+
 		};
 
 		$.fn.repeater.Constructor.prototype.list_positionColumns = function () {
@@ -413,7 +422,7 @@
 					this.list_positionColumns();
 				}
 
-				$sorted = this.$canvas.find('.repeater-list-heading.sorted');
+				$sorted = this.$canvas.find('.repeater-list-wrapper > table .repeater-list-heading.sorted');
 				if ($sorted.length > 0) {
 					this.list_highlightColumn($sorted.data('fu_item_index'));
 				}
