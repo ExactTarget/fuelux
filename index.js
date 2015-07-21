@@ -19,10 +19,12 @@ define(function (require) {
 	// load fuel controls
 	require('fuelux/all');
 
+	var _ = require('underscore');
+
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-		CHECKBOX
-	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+	 CHECKBOX
+	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 	// sample method buttons
 	$('#btnCheckboxToggle').on('click', function () {
@@ -63,8 +65,8 @@ define(function (require) {
 
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-		COMBOBOX
-	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+	 COMBOBOX
+	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 	// sample method buttons
 	$('#btnComboboxGetSelectedItem').on('click', function () {
@@ -102,17 +104,17 @@ define(function (require) {
 
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-		DATEPICKER
-	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+	 DATEPICKER
+	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 	function formatClientTimezone8601() {
 		var now = new Date(),
-				tzo = now.getTimezoneOffset() * -1,	//invert
-				dif = tzo >= 0 ? '+' : '-',
-				pad = function(num) {
-						var norm = Math.abs(Math.floor(num));
-						return (norm < 10 ? '0' : '') + norm;
-				};
+			tzo = now.getTimezoneOffset() * -1,	//invert
+			dif = tzo >= 0 ? '+' : '-',
+			pad = function(num) {
+				var norm = Math.abs(Math.floor(num));
+				return (norm < 10 ? '0' : '') + norm;
+			};
 		return dif + pad(tzo / 60) + ':' + pad(tzo % 60);
 	}
 
@@ -171,8 +173,8 @@ define(function (require) {
 
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-		INFINITE SCROLL
-	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+	 INFINITE SCROLL
+	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 	// intitialize
 	function initMyInfiniteScroll1() {
@@ -231,8 +233,8 @@ define(function (require) {
 
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-		LOADER
-	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+	 LOADER
+	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 	// sample method buttons
 	$('#btnLoaderPlay').on('click', function () {
@@ -257,8 +259,8 @@ define(function (require) {
 
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-		PILLBOX
-	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+	 PILLBOX
+	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 	// intitialize
 	$('#myPillbox1').pillbox({
@@ -437,8 +439,8 @@ define(function (require) {
 
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-		PLACARD
-	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+	 PLACARD
+	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 	// sample method buttons
 	$('#btnPlacardEnable').click(function () {
@@ -466,8 +468,8 @@ define(function (require) {
 	});
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-		RADIO
-	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+	 RADIO
+	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 	// sample method buttons
 	$('#btnRadioDisable').on('click', function () {
@@ -496,13 +498,25 @@ define(function (require) {
 
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-		REPEATER
-	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+	 REPEATER
+	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 	// intitialize
 	function initRepeater() {
 		// simulate network latency
 		var loadDelays = ['300', '600', '900', '1200'];
+		var sort = function( data, sortProperty, sortDirection ) {
+			var sortedData = _.sortBy( data, function( item ) {
+				return item[ sortProperty ];
+			} );
+
+			// sort direction
+			if ( sortDirection === 'desc' ) {
+				sortedData = sortedData.reverse();
+			}
+
+			return sortedData;
+		};
 
 		// list view setup
 		var list = function (options, callback) {
@@ -553,9 +567,7 @@ define(function (require) {
 				resp.items.push(data.repeater.listData[i]);
 			}
 
-			//if(options.search){
-			//resp.items = [];
-			//}
+			resp.items = sort( resp.items, options.sortProperty, options.sortDirection );
 
 			// call and simulate latency
 			setTimeout(function () {
@@ -618,7 +630,9 @@ define(function (require) {
 					dataSource: function (options, callback) {
 						list(options, callback);
 					},
-					list_selectable: 'multi'
+					list_selectable: 'multi',
+					list_columnSizing:false,
+					list_columnSyncing: false
 				},
 				'thumbnail': {
 					dataSource: function (options, callback) {
@@ -635,7 +649,7 @@ define(function (require) {
 					list_columnSizing:false,
 					list_columnSyncing: false,
 					list_selectable: false, // (single | multi)
-					list_frozenColumns: 2
+					list_frozenColumns: 1
 				}
 			}
 		});
@@ -663,6 +677,20 @@ define(function (require) {
 	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 	function initRepeaterActions() {
 		var loadDelays = ['300', '600', '900', '1200'];
+
+		var sort = function( data, sortProperty, sortDirection ) {
+			var sortedData = _.sortBy( data, function( item ) {
+				return item[ sortProperty ];
+			} );
+
+			// sort direction
+			if ( sortDirection === 'desc' ) {
+				sortedData = sortedData.reverse();
+			}
+
+			return sortedData;
+		};
+
 		function getSampleDataSet(options, callback) {
 			var resp = {
 				count: data.repeater.listData.length,
@@ -710,9 +738,7 @@ define(function (require) {
 				resp.items.push(data.repeater.listData[i]);
 			}
 
-			//if(options.search){
-			//resp.items = [];
-			//}
+			resp.items = sort( resp.items, options.sortProperty, options.sortDirection );
 
 			// call and simulate latency
 			setTimeout(function () {
@@ -765,8 +791,8 @@ define(function (require) {
 
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-		SCHEDULER
-	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+	 SCHEDULER
+	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 	// sample method buttons
 	$('#btnSchedulerEnable').on('click', function () {
@@ -806,8 +832,8 @@ define(function (require) {
 
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-		SEARCH
-	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+	 SEARCH
+	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 	// sample method buttons
 	$('#btnSearchDisable').on('click', function () {
@@ -831,8 +857,8 @@ define(function (require) {
 
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-		SELECTLIST
-	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+	 SELECTLIST
+	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 	// sample method buttons
 	$('#btnSelectlistGetSelectedItem').on('click', function () {
@@ -874,8 +900,8 @@ define(function (require) {
 
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-		SPINBOX
-	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+	 SPINBOX
+	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 	// intitalize control
 	$('#mySpinbox2').spinbox({
@@ -918,8 +944,8 @@ define(function (require) {
 
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-		TREE
-	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+	 TREE
+	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 	$('#myTree1').tree({
 		dataSource: function (parentData, callback) {
@@ -996,23 +1022,79 @@ define(function (require) {
 	});
 
 // initialize
-function myTreeInit() {
-	var callLimit = 200;
-	var callCount = 0;
-	$('#myTree2').tree({
-		dataSource: function (parentData, callback) {
-			// log("Opening branch data: ", parentData);
+	function myTreeInit() {
+		var callLimit = 200;
+		var callCount = 0;
+		$('#myTree2').tree({
+			dataSource: function (parentData, callback) {
+				// log("Opening branch data: ", parentData);
 
-			if (callCount >= callLimit) {
+				if (callCount >= callLimit) {
+					setTimeout(function () {
+						callback({
+							data: [
+								{
+									"name": "Sky and Water I (with custom icon)",
+									"type": "item",
+									"attr": {
+										"id": "item1",
+										"data-icon": "glyphicon glyphicon-file"
+									}
+								},
+								{
+									"name": "Waterfall",
+									"type": "item",
+									"attr": {
+										"id": "item2"
+									}
+								},
+								{
+									"name": "Relativity (with custom icon)",
+									"type": "item",
+									"attr": {
+										"id": "item3",
+										"data-icon": "glyphicon glyphicon-picture"
+									}
+								},
+								{
+									"name": "Convex and Concave",
+									"type": "item",
+									"attr": {
+										"id": "item4"
+									}
+								}
+							]
+						});
+					}, 400);
+					return;
+				}
+
+				callCount++;
+
 				setTimeout(function () {
 					callback({
 						data: [
+							{
+								"name": "Ascending and Descending",
+								"type": "folder",
+								"attr": {
+									"id": "folder1",
+									"cssClass": "example-tree-class"
+								}
+							},
 							{
 								"name": "Sky and Water I (with custom icon)",
 								"type": "item",
 								"attr": {
 									"id": "item1",
 									"data-icon": "glyphicon glyphicon-file"
+								}
+							},
+							{
+								"name": "Drawing Hands",
+								"type": "folder",
+								"attr": {
+									"id": "folder2"
 								}
 							},
 							{
@@ -1023,11 +1105,25 @@ function myTreeInit() {
 								}
 							},
 							{
+								"name": "Belvedere",
+								"type": "folder",
+								"attr": {
+									"id": "folder3"
+								}
+							},
+							{
 								"name": "Relativity (with custom icon)",
 								"type": "item",
 								"attr": {
 									"id": "item3",
 									"data-icon": "glyphicon glyphicon-picture"
+								}
+							},
+							{
+								"name": "House of Stairs",
+								"type": "folder",
+								"attr": {
+									"id": "folder4"
 								}
 							},
 							{
@@ -1040,81 +1136,11 @@ function myTreeInit() {
 						]
 					});
 				}, 400);
-				return;
-			}
-
-			callCount++;
-
-			setTimeout(function () {
-				callback({
-					data: [
-						{
-							"name": "Ascending and Descending",
-							"type": "folder",
-							"attr": {
-								"id": "folder1",
-								"cssClass": "example-tree-class"
-							}
-						},
-						{
-							"name": "Sky and Water I (with custom icon)",
-							"type": "item",
-							"attr": {
-								"id": "item1",
-								"data-icon": "glyphicon glyphicon-file"
-							}
-						},
-						{
-							"name": "Drawing Hands",
-							"type": "folder",
-							"attr": {
-								"id": "folder2"
-							}
-						},
-						{
-							"name": "Waterfall",
-							"type": "item",
-							"attr": {
-								"id": "item2"
-							}
-						},
-						{
-							"name": "Belvedere",
-							"type": "folder",
-							"attr": {
-								"id": "folder3"
-							}
-						},
-						{
-							"name": "Relativity (with custom icon)",
-							"type": "item",
-							"attr": {
-								"id": "item3",
-								"data-icon": "glyphicon glyphicon-picture"
-							}
-						},
-						{
-							"name": "House of Stairs",
-							"type": "folder",
-							"attr": {
-								"id": "folder4"
-							}
-						},
-						{
-							"name": "Convex and Concave",
-							"type": "item",
-							"attr": {
-								"id": "item4"
-							}
-						}
-					]
-				});
-			}, 400);
-		},
-		folderSelect: false
-	});
-}
-myTreeInit();
+			},
+			folderSelect: false
+		});
+	}
+	myTreeInit();
 
 	// sample method buttons
 	$('#btnTreeDestroy').click(function () {
@@ -1180,29 +1206,29 @@ myTreeInit();
 
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-		WIZARD
-	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+	 WIZARD
+	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 	// sample markup
 	var emailSetupSamplePane = '<div class="bg-warning alert">' +
-	'	<h4>Setup Message</h4>' +
-	'	<p>Soko radicchio bunya nuts gram dulse silver beet parsnip napa cabbage ' +
-	'	lotus root sea lettuce brussels sprout cabbage. Catsear cauliflower garbanzo yarrow ' +
-	'	salsify chicory garlic bell pepper napa cabbage lettuce tomato kale arugula melon ' +
-	'	sierra leone bologi rutabaga tigernut. Sea lettuce gumbo grape kale kombu cauliflower ' +
-	'	salsify kohlrabi okra sea lettuce broccoli celery lotus root carrot winter purslane ' +
-	'	turnip greens garlic. Jacama garlic courgette coriander radicchio plantain scallion ' +
-	'	cauliflower fava bean desert raisin spring onion chicory bunya nuts. Sea lettuce water ' +
-	'	spinach gram fava bean leek dandelion silver beet eggplant bush tomato. </p>' +
-	'	<p>Pea horseradish azuki bean lettuce avocado asparagus okra. ' +
-	'	Kohlrabi radish okra azuki bean corn fava bean mustard tigernut jacama green bean ' +
-	'	celtuce collard greens avocado quandong fennel gumbo black-eyed pea. Grape silver ' +
-	'	beet watercress potato tigernut corn groundnut. Chickweed okra pea winter ' +
-	'	purslane coriander yarrow sweet pepper radish garlic brussels sprout groundnut ' +
-	'	summer purslane earthnut pea tomato spring onion azuki bean gourd. Gumbo kakadu ' +
-	'	plum komatsuna black-eyed pea green bean zucchini gourd winter purslane silver ' +
-	'	beet rock melon radish asparagus spinach. </p>' +
-	'</div>';
+		'	<h4>Setup Message</h4>' +
+		'	<p>Soko radicchio bunya nuts gram dulse silver beet parsnip napa cabbage ' +
+		'	lotus root sea lettuce brussels sprout cabbage. Catsear cauliflower garbanzo yarrow ' +
+		'	salsify chicory garlic bell pepper napa cabbage lettuce tomato kale arugula melon ' +
+		'	sierra leone bologi rutabaga tigernut. Sea lettuce gumbo grape kale kombu cauliflower ' +
+		'	salsify kohlrabi okra sea lettuce broccoli celery lotus root carrot winter purslane ' +
+		'	turnip greens garlic. Jacama garlic courgette coriander radicchio plantain scallion ' +
+		'	cauliflower fava bean desert raisin spring onion chicory bunya nuts. Sea lettuce water ' +
+		'	spinach gram fava bean leek dandelion silver beet eggplant bush tomato. </p>' +
+		'	<p>Pea horseradish azuki bean lettuce avocado asparagus okra. ' +
+		'	Kohlrabi radish okra azuki bean corn fava bean mustard tigernut jacama green bean ' +
+		'	celtuce collard greens avocado quandong fennel gumbo black-eyed pea. Grape silver ' +
+		'	beet watercress potato tigernut corn groundnut. Chickweed okra pea winter ' +
+		'	purslane coriander yarrow sweet pepper radish garlic brussels sprout groundnut ' +
+		'	summer purslane earthnut pea tomato spring onion azuki bean gourd. Gumbo kakadu ' +
+		'	plum komatsuna black-eyed pea green bean zucchini gourd winter purslane silver ' +
+		'	beet rock melon radish asparagus spinach. </p>' +
+		'</div>';
 
 	// sample method buttons
 	$('#btnWizardPrev').on('click', function () {
