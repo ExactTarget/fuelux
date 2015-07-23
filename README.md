@@ -1,6 +1,7 @@
 #[Fuel UX](http://getfuelux.com/)
 [![slack channel](https://fuelux-slack.herokuapp.com/badge.svg)](https://fuelux-slack.herokuapp.com/)
 [![Bower version](https://badge.fury.io/bo/fuelux.svg)](http://badge.fury.io/bo/fuelux)
+[![npm version](https://badge.fury.io/js/fuelux.svg)](https://www.npmjs.com/package/fuelux)
 [![Build Status](https://api.travis-ci.org/ExactTarget/fuelux.svg?branch=master)](http://travis-ci.org/ExactTarget/fuelux)
 [![devDependency Status](https://david-dm.org/exacttarget/fuelux/dev-status.svg)](https://david-dm.org/exacttarget/fuelux#info=devDependencies)
 
