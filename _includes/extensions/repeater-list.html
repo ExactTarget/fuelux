@@ -191,6 +191,47 @@
 		</thead>
 		<tbody>
 			<tr>
+				<td>list_actions</td>
+				<td>object</td>
+				<td>null</td>
+				<td>Can be used to configure an additional actions column in the repeater. It will positioned as the rightmost column
+					and will always be visible. It creates a dropdown menu that can be populated with x number of actions to be applied
+					to the row. If multi select is also enabled will allow for bulk actions.
+					<ul>
+						<li><code>width</code> - optional width to the actions column</li>
+						<li><code>items</code> - Array of objects representing the different action items in the dropdown
+							<ul>
+								<li><code>name</code> - String representing the name of the action</li>
+								<li><code>html</code> - Function that would modify the markup of the action item
+								</li>
+								<li><code>clickAction</code> - returns a helpers obj once this action item has been clicked<br>
+									<ul>
+										<li><code>helpers</code> returns an object that contains <code>helpers.item</code>
+										which is the jquery element of the current table row. Also returns <code>helpers.rowData</code>
+										which are all key/value data from the current item/row in the dataSource</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+{% highlight js %}
+list_actions:  {
+  width: '37px',
+  items: [{
+    name: 'delete'
+	html: function () {
+		return '&lt;span class="glyphicon glyphicon-trash"&gt;&lt;/span&gt; Delete'
+	},
+	clickAction: function(helpers, callback) {
+		console.log('hey it worked');
+		console.log(helpers);
+		callback();
+	}
+}
+{% endhighlight %}
+				</td>
+			</tr>
+			<tr>
 				<td>list_columnRendered</td>
 				<td>function</td>
 				<td>null</td>
@@ -219,6 +260,15 @@
 				<td>Dictates whether the repeater should run the post-render column syncing algorithm. This feature keeps
 					the `.repeater-list-heading` classed divs in alignment with the columns. Setting this value to
 					<code>false</code> will disable this feature entirely.
+				</td>
+			</tr>
+			<tr>
+				<td>list_frozenColumns</td>
+				<td>number</td>
+				<td>0</td>
+				<td>Dictates whether the repeater should create frozen columns in the repeater. This feature creates
+					x number of frozen columns on the left side of the repeater. Frozen columns means that when scrolled
+					left to right these columns will not move and always be visible.
 				</td>
 			</tr>
 			<tr>
