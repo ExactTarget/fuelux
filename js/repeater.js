@@ -239,7 +239,6 @@
 			this.$search.search(enable);
 			this.$filters.selectlist(enable);
 			this.$views.find('label').removeAttr(disabled);
-			this.$pageSize.selectlist('enable');
 			this.$primaryPaging.find('.combobox').combobox(enable);
 			this.$secondaryPaging.removeAttr(disabled);
 
@@ -254,6 +253,14 @@
 			// if using selectlist allow user to use selectlist to select 0 or 1
 			if (this.$prevBtn.hasClass(pageEnd) && this.$nextBtn.hasClass(pageEnd)) {
 				this.$primaryPaging.combobox('disable');
+			}
+
+			//if there are no items
+			if (parseInt(this.$count.html()) !== 0) {
+				this.$pageSize.selectlist('enable');
+			}
+			else {
+				this.$pageSize.selectlist('disable');
 			}
 
 			this.$element.removeClass('disabled');
