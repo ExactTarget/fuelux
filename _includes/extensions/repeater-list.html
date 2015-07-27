@@ -202,7 +202,7 @@
 						<li><code>items</code> - Array of objects representing the different action items in the dropdown
 							<ul>
 								<li><code>name</code> - String representing the name of the action</li>
-								<li><code>html</code> - Function that would modify the markup of the action item
+								<li><code>html</code> - HTML string that would modify the markup of the action item
 								</li>
 								<li><code>clickAction</code> - returns a helpers obj once this action item has been clicked<br>
 									<ul>
@@ -219,9 +219,7 @@ list_actions:  {
   width: '37px',
   items: [{
     name: 'delete'
-	html: function () {
-		return '&lt;span class="glyphicon glyphicon-trash"&gt;&lt;/span&gt; Delete'
-	},
+	html: '<span class="glyphicon glyphicon-trash"></span> Delete',
 	clickAction: function(helpers, callback) {
 		console.log('hey it worked');
 		console.log(helpers);
