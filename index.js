@@ -542,12 +542,14 @@ define(function (require) {
 				{
 					label: 'Common Name',
 					property: 'commonName',
-					sortable: true
+					sortable: true,
+					width: 600
 				},
 				{
 					label: 'Latin Name',
 					property: 'latinName',
-					sortable: true
+					sortable: true,
+					width: 600
 				},
 				{
 					label: 'Appearance',
@@ -630,9 +632,7 @@ define(function (require) {
 					dataSource: function (options, callback) {
 						list(options, callback);
 					},
-					list_selectable: 'multi',
-					list_columnSizing:false,
-					list_columnSyncing: false
+					list_selectable: 'multi'
 				},
 				'thumbnail': {
 					dataSource: function (options, callback) {
@@ -646,8 +646,6 @@ define(function (require) {
 					dataSource: function (options, callback) {
 						list(options, callback);
 					},
-					list_columnSizing:false,
-					list_columnSyncing: false,
 					list_selectable: false, // (single | multi)
 					list_frozenColumns: 1
 				}
@@ -750,30 +748,22 @@ define(function (require) {
 		// initialize the repeater
 		var repeaterActions = $('#myRepeaterActions');
 		repeaterActions.repeater({
-			list_columnSizing:false,
-			list_columnSyncing: false,
 			list_noItemsHTML: '<span>foo</span>',
 			list_highlightSortedColumn: true,
 			list_actions:  {
-				width: '37px',
+				width: 37,
 				items: [
 					{
 						name: 'edit',
-						html: function () {
-							return '<span class="glyphicon glyphicon-pencil"></span> Edit'
-						}
+						html: '<span class="glyphicon glyphicon-pencil"></span> Edit'
 					},
 					{
 						name: 'copy',
-						html: function () {
-							return '<span class="glyphicon glyphicon-copy"></span> Copy'
-						}
+						html: '<span class="glyphicon glyphicon-copy"></span> Copy'
 					},
 					{
 						name: 'delete',
-						html: function () {
-							return '<span class="glyphicon glyphicon-trash"></span> Delete'
-						},
+						html: '<span class="glyphicon glyphicon-trash"></span> Delete',
 						clickAction: function(helpers, callback) {
 							console.log('hey it worked');
 							console.log(helpers);
@@ -788,7 +778,6 @@ define(function (require) {
 		});
 	}
 	initRepeaterActions();
-
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	 SCHEDULER
