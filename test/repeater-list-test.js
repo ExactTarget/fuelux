@@ -371,25 +371,19 @@ define(function(require){
 		var repeaterOptions = {
 			dataSource: dataSource,
 			list_actions:  {
-				width: '37px',
+				width: 37,
 				items: [
 					{
 						name: 'edit',
-						html: function () {
-							return '<div class="fuelux-icon fuelux-icon-pencil"></div> Edit';
-						}
+						html: '<span class="glyphicon glyphicon-pencil"></span> Edit'
 					},
 					{
 						name: 'copy',
-						html: function () {
-							return '<div class="fuelux-icon fuelux-icon-copy"></div> Copy';
-						}
+						html: '<span class="glyphicon glyphicon-copy"></span> Copy'
 					},
 					{
 						name: 'delete',
-						html: function () {
-							return '<div class="fuelux-icon fuelux-icon-delete"></div> Delete';
-						},
+						html: '<span class="glyphicon glyphicon-trash"></span> Delete',
 						clickAction: function(helpers, callback) {
 							testClickAction(helpers);
 							callback();
@@ -414,7 +408,7 @@ define(function(require){
 
 				equal($actionsTable.length !== 0 && $actionsTable.length === 1, true, 'Actions table was created and only one');
 
-				equal($repeater.find('.actions-column-wrapper').css('width') === repeaterOptions.list_actions.width, true, 'Actions table width set correctly');
+				equal($repeater.find('.actions-column-wrapper').width() === repeaterOptions.list_actions.width, true, 'Actions table width set correctly');
 
 				ok($actionsTable.find('tbody tr:first-child .btn-group').hasClass('open'), 'Actions dropdown opens on click');
 
