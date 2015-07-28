@@ -239,6 +239,7 @@
 			this.$search.search(enable);
 			this.$filters.selectlist(enable);
 			this.$views.find('label').removeAttr(disabled);
+			this.$pageSize.selectlist('enable');
 			this.$primaryPaging.find('.combobox').combobox(enable);
 			this.$secondaryPaging.removeAttr(disabled);
 
