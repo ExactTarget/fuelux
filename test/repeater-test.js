@@ -329,7 +329,7 @@ define(function(require){
 				equal($search.hasClass(disabled), false, 'repeater search enabled as expected');
 				equal($filters.hasClass(disabled), false, 'repeater filters enabled as expected');
 				equal($views.attr(disabled), undefined, 'repeater views enabled as expected');
-				equal($pageSize.hasClass(disabled), false, 'repeater pageSize enabled as expected');
+				equal($pageSize.hasClass(disabled), true, 'repeater pageSize disabled as expected');
 				equal($primaryPaging.hasClass(disabled), false, 'repeater primaryPaging enabled as expected');
 				equal($secondaryPaging.attr(disabled), undefined, 'repeater secondaryPaging enabled as expected');
 				equal($prevBtn.attr(disabled), disabled, 'repeater prevBtn still disabled as expected (no more pages)');

@@ -256,6 +256,14 @@
 				this.$primaryPaging.combobox('disable');
 			}
 
+			//if there are no items
+			if (parseInt(this.$count.html()) !== 0) {
+				this.$pageSize.selectlist('enable');
+			}
+			else {
+				this.$pageSize.selectlist('disable');
+			}
+
 			this.$element.removeClass('disabled');
 			this.$element.trigger('enabled.fu.repeater');
 		},
