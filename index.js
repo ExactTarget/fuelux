@@ -632,7 +632,6 @@ define(function (require) {
 					dataSource: function (options, callback) {
 						list(options, callback);
 					},
-					list_selectable: 'multi'
 				},
 				'thumbnail': {
 					dataSource: function (options, callback) {
