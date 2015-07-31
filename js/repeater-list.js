@@ -39,7 +39,7 @@
 			if (this.viewOptions.list_highlightSortedColumn || force) {
 				tbody.find('td.sorted').removeClass('sorted');
 				tbody.find('tr').each(function () {
-					var col = $(this).find('td:nth-child(' + (index + 1) + ')');
+					var col = $(this).find('td:nth-child(' + (index + 1) + ')').filter(function(){return !$(this).parent().hasClass('empty');});
 					col.addClass('sorted');
 				});
 			}
