@@ -289,10 +289,12 @@
 				.css('width', this.list_actions_width);
 
 			this.$element.find('.repeater-list .actions-column-wrapper th .repeater-list-heading').css('width', this.list_actions_width + 1 + 'px');*/
-
-			this.$element.find('.repeater-list table.table-actions tr').each(function (i, elem) {
-				$(this).height($table.find('tr:eq(' + i + ')').height());
+			this.$element.find('.repeater-list table.table-actions thead tr th').outerHeight($table.find('thead tr th').outerHeight());
+			this.$element.find('.repeater-list table.table-actions tbody tr td:first-child').each(function (i, elem) {
+				$(this).outerHeight($table.find('tbody tr:eq(' + i + ') td').outerHeight());
 			});
+
+
 			//row level actions click
 			this.$element.find('.table-actions tbody .action-item').on('click', function() {
 				var actionName = $(this).data('action');
