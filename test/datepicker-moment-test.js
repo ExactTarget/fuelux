@@ -145,7 +145,7 @@ define(function(require){
 			});
 
 			$datepickerInput.val('03/31/1987');
-			$datepickerInput.trigger('blur');
+			$datepickerInput.trigger('change');
 
 			equal(called, 1, 'Event was triggered as expected');
 			equal(typeof event, 'object', 'Appropriate event object passed back as argument');
@@ -175,7 +175,7 @@ define(function(require){
 			equal($datepicker.find('.datepicker-wheels-year').hasClass('hidden'), true, 'years wheel hidden');
 
 			$datepickerInput.val('03/31/1988');
-			$datepickerInput.trigger('blur');
+			$datepickerInput.trigger('change');
 			dateString = $datepicker.datepicker('getDate').toString();
 			equal((dateString==='Invalid Date' || dateString==='NaN'), true, 'user can\t input date outside current year');
 		});
@@ -349,7 +349,7 @@ define(function(require){
 			var formatted;
 
 			$datepickerInput.val(dateString);
-			$datepickerInput.trigger('blur');
+			$datepickerInput.trigger('change');
 			formatted = $datepicker.datepicker('getFormattedDate');
 
 			equal( formatted, dateString, 'moment.js formatted date should be equal to input');
@@ -384,7 +384,7 @@ define(function(require){
 			equal($datepicker.datepicker('getFormattedDate'), date, 'moment.js parsed date correctly after initialization with de culture');
 
 			$input.val('aa.bb.cccc');
-			$input.trigger('blur');
+			$input.trigger('change');
 			dateString = $datepicker.datepicker('getDate').toString();
 			equal((dateString==='Invalid Date' || dateString==='NaN'), true, 'datepicker should return \'Invalid Date\' or \'NaN\' when bad data is entered');
 		});

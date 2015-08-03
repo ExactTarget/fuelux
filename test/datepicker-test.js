@@ -117,7 +117,7 @@ define(function(require){
 		});
 
 		$datepickerInput.val('03/31/1987');
-		$datepickerInput.trigger('blur');
+		$datepickerInput.trigger('change');
 
 		equal(called, 1, 'Event was triggered as expected');
 		equal(typeof event, 'object', 'Appropriate event object passed back as argument');
@@ -191,7 +191,7 @@ define(function(require){
 		equal($datepicker.find('.datepicker-wheels-year').hasClass('hidden'), true, 'years wheel hidden');
 
 		$datepickerInput.val('03/31/1988');
-		$datepickerInput.trigger('blur');
+		$datepickerInput.trigger('change');
 		dateString = $datepicker.datepicker('getDate').toString();
 		equal((dateString==='Invalid Date' || dateString==='NaN'), true, 'user can\t input date outside current year');
 	});
