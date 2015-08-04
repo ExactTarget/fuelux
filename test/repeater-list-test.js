@@ -67,8 +67,8 @@ define(function(require){
 			this.$markup = $(html);
 			this.$markup.find('.repeater-views').append('' +
 				'<label class="btn btn-default active">' +
-					'<input name="repeaterViews" type="radio" value="list">' +
-					'<span class="glyphicon glyphicon-list"></span>' +
+				'<input name="repeaterViews" type="radio" value="list">' +
+				'<span class="glyphicon glyphicon-list"></span>' +
 				'</label>');
 		}
 	});
@@ -157,7 +157,7 @@ define(function(require){
 
 		$repeater.on('loaded.fu.repeater', function(e, options){
 			count++;
-			
+
 			switch(count){
 				case 1:
 					$first = $repeater.find('.repeater-list thead .repeater-list-heading:first');
@@ -198,7 +198,7 @@ define(function(require){
 
 		$repeater.on('loaded.fu.repeater', function(){
 			count++;
-			
+
 			switch(count){
 				case 1:
 					$repeater.find('.repeater-list thead th:nth-child(1) .repeater-list-heading').click();
@@ -296,7 +296,7 @@ define(function(require){
 
 			$firstRow.click();
 			$lastRow.click();
-			
+
 			setTimeout(function(){
 				start();
 				$repeater.repeater('list_clearSelectedItems');
@@ -321,7 +321,7 @@ define(function(require){
 
 			$firstRow.click();
 			$lastRow.click();
-			
+
 			setTimeout(function(){
 				start();
 				selected = $repeater.repeater('list_getSelectedItems');
@@ -345,15 +345,15 @@ define(function(require){
 
 			setTimeout(function(){
 				start();
-	
+
 				$repeater.repeater('list_setSelectedItems', [{ index: 0 }]);
 				equal($repeater.repeater('list_getSelectedItems').length, 1, 'correct number of items selected');
 				equal($items.find('tr:first').hasClass('selected'), true, 'correct row selected by index');
-	
+
 				$repeater.repeater('list_setSelectedItems', [{ property: 'commonName', value: 'pig' }]);
 				equal($repeater.repeater('list_getSelectedItems').length, 1, 'correct number of items selected');
 				equal($items.find('tr:nth-child(5)').hasClass('selected'), true, 'correct row selected by property/value');
-	
+
 				$repeater.repeater('list_setSelectedItems', [{ index: 0 }, { property: 'commonName', value: 'dog' }], true);
 				equal($repeater.repeater('list_getSelectedItems').length, 4, 'correct number of items selected when using force');
 			}, 0);
@@ -413,16 +413,15 @@ define(function(require){
 				ok($actionsTable.find('tbody tr:first-child .btn-group').hasClass('open'), 'Actions dropdown opens on click');
 
 				$actionItem.click();
-
 			}, 0);
 
 		});
 
 		function testClickAction(helpers) {
-			equal((typeof helpers === 'object' && helpers.item.length > 0), true, 'Items in row were returned after action click');
+			equal((typeof helpers === 'object' && helpers.length > 0), true, 'Items in row were returned after action click');
 			var count = 0;
-			for (var k in helpers.rowData) {
-				if (helpers.rowData.hasOwnProperty(k)) {
+			for (var k in helpers[0].rowData) {
+				if (helpers[0].rowData.hasOwnProperty(k)) {
 					++count;
 				}
 			}

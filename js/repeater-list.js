@@ -264,6 +264,8 @@
 				// Dont show actions dropdown in header if not multi select
 				if (this.viewOptions.list_selectable === 'multi') {
 					$actionsColumn.find('thead tr').html('<th><div class="repeater-list-heading">' + selectlist + '</div></th>');
+					//disable the header dropdown until an item is selected
+					$actionsColumn.find('thead .btn').attr('disabled', 'disabled');
 				}
 				else {
 					var label = this.viewOptions.list_actions.label || '<span class="actions-hidden">a</span>';
@@ -287,32 +289,55 @@
 				.css('width', this.list_actions_width);
 
 			this.$element.find('.repeater-list .actions-column-wrapper th .repeater-list-heading').css('width', this.list_actions_width + 1 + 'px');*/
-
-			this.$element.find('.repeater-list table.table-actions tr').each(function (i, elem) {
-				$(this).height($table.find('tr:eq(' + i + ')').height());
+			this.$element.find('.repeater-list table.table-actions thead tr th').outerHeight($table.find('thead tr th').outerHeight());
+			this.$element.find('.repeater-list table.table-actions tbody tr td:first-child').each(function (i, elem) {
+				$(this).outerHeight($table.find('tbody tr:eq(' + i + ') td').outerHeight());
 			});
 
-			this.$element.find('.table-actions .action-item').on('click', function() {
+
+			//row level actions click
+			this.$element.find('.table-actions tbody .action-item').on('click', function() {
 				var actionName = $(this).data('action');
 				var row = $(this).data('row');
-				self.list_getActionItems(actionName,row);
+				var selected = {
+					actionName: actionName,
+					rows: [row]
+				};
+				self.list_getActionItems(selected);
 			});
+			// bulk actions click
+			this.$element.find('.table-actions thead .action-item').on('click', function() {
+				var actionName = $(this).data('action');
+				var selected = {
+					actionName: actionName,
+					rows: []
+				};
+				self.$element.find('.repeater-list-wrapper > table .selected').each(function() {
+					var index = $(this).index();
+					index = index + 1;
+					selected.rows.push(index);
+				});
 
+				self.list_getActionItems(selected);
+			});
 		};
 
-		$.fn.repeater.Constructor.prototype.list_getActionItems = function (actionName, row) {
-
-			var clickedRow = this.$canvas.find('.repeater-list-wrapper > table tbody tr:nth-child('+ row +')');
-
+		$.fn.repeater.Constructor.prototype.list_getActionItems = function (selected) {
+			var i;
+			var selectedObj = [];
 			var actionObj = $.grep(this.viewOptions.list_actions.items, function(actions){
-				return actions.name === actionName;
+				return actions.name === selected.actionName;
 			})[0];
-
-			if (actionObj.clickAction) {
-				actionObj.clickAction({
+			for (i = 0; i < selected.rows.length; i++) {
+				var clickedRow = this.$canvas.find('.repeater-list-wrapper > table tbody tr:nth-child('+ selected.rows[i] +')');
+				selectedObj.push({
 					item: clickedRow,
 					rowData: clickedRow.data('item_data')
-				}, function () {});
+				});
+			}
+
+			if (actionObj.clickAction) {
+				actionObj.clickAction(selectedObj, function () {});
 			}
 		};
 
@@ -322,35 +347,46 @@
 			$actionsTableHeading.outerHeight($table.find('thead th .repeater-list-heading').outerHeight());
 		};
 
-		$.fn.repeater.Constructor.prototype.list_multiSelectInitialize = function () {
+		$.fn.repeater.Constructor.prototype.list_frozenOptionsInitialize = function () {
 			var self = this;
+			var isFrozen = this.viewOptions.list_frozenColumns;
+			var isActions = this.viewOptions.list_actions;
+			var isMulti = this.viewOptions.list_selectable === 'multi';
 
-			var $checkboxes = self.$element.find('.frozen-column-wrapper .checkbox-inline');
+			var $checkboxes = this.$element.find('.frozen-column-wrapper .checkbox-inline');
+
+			var $everyTable = this.$element.find('.repeater-list table');
+
+
 
 			//Make sure if row is hovered that it is shown in frozen column as well
 			this.$element.find('tr.selectable').on('mouseover mouseleave', function(e) {
 				var index = $(this).index();
 				index = index + 1;
 				if (e.type === 'mouseover'){
-					self.$element.find('.repeater-list-wrapper > table tbody tr:nth-child('+ index +'), ' +
-						'.frozen-column-wrapper tbody tr:nth-child('+ index +')').addClass('hovered');
+					$everyTable.find('tbody tr:nth-child('+ index +')').addClass('hovered');
 				}
 				else {
-					self.$element.find('.repeater-list-wrapper > table tbody tr:nth-child('+ index +'), ' +
-						'.frozen-column-wrapper tbody tr:nth-child('+ index +')').removeClass('hovered');
+					$everyTable.find('tbody tr:nth-child('+ index +')').removeClass('hovered');
 				}
 			});
 
 			$checkboxes.checkbox();
 
+			this.$element.find('.table-frozen tbody .checkbox-inline').on('change', function(e) {
+				e.preventDefault();
+				var row = $(this).attr('data-row');
+				row = parseInt(row) + 1;
+				self.$element.find('.repeater-list-wrapper > table tbody tr:nth-child('+ row +')').click();
+			});
+
 			this.$element.find('.frozen-thead-wrapper thead .checkbox-inline').on('change', function () {
-				var $checkboxes = self.$element.find('.frozen-column-wrapper .checkbox-inline');
 				if ($(this).checkbox('isChecked')){
-					$checkboxes.checkbox('check');
+					self.$element.find('.repeater-list-wrapper > table tbody tr:not(.selected)').click();
 					self.$element.trigger('selected.fu.repeaterList', $checkboxes);
 				}
 				else {
-					$checkboxes.checkbox('uncheck');
+					self.$element.find('.repeater-list-wrapper > table tbody tr.selected').click();
 					self.$element.trigger('deselected.fu.repeaterList', $checkboxes);
 				}
 			});
@@ -456,10 +492,7 @@
 
 				if (this.viewOptions.list_frozenColumns || this.viewOptions.list_actions || this.viewOptions.list_selectable === 'multi') {
 					this.list_positionColumns();
-				}
-
-				if (this.viewOptions.list_selectable === 'multi') {
-					this.list_multiSelectInitialize();
+					this.list_frozenOptionsInitialize();
 				}
 
 				if (this.viewOptions.list_columnSyncing) {
@@ -498,16 +531,10 @@
 		$row.append($col);
 
 		if (this.viewOptions.list_selectable === 'multi' && columns[columnIndex].property === '@_CHECKBOX_@') {
-			var checkBoxMarkup = '<label class="checkbox-custom checkbox-inline body-checkbox">' +
+			var checkBoxMarkup = '<label data-row="'+ rowIndex +'" class="checkbox-custom checkbox-inline body-checkbox">' +
 				'<input class="sr-only" type="checkbox"></label>';
 
 			$col.html(checkBoxMarkup);
-
-			//Prevent default click action on the actual click of the checkbox because already handled
-			//with any click anywhere in the row
-			$col.find('.checkbox-custom').on('click', function(e) {
-				e.preventDefault();
-			});
 		}
 
 		if (this.viewOptions.list_columnRendered) {
@@ -614,6 +641,7 @@
 		var self = this;
 		var i, l;
 		var isMulti = this.viewOptions.list_selectable === 'multi';
+		var isActions = this.viewOptions.list_actions;
 
 		if (this.viewOptions.list_selectable) {
 			$row.addClass('selectable');
@@ -625,12 +653,17 @@
 				var index = $(this).index();
 				index = index + 1;
 				var $frozenRow = self.$element.find('.frozen-column-wrapper tr:nth-child('+ index +')');
+				var $actionsRow = self.$element.find('.actions-column-wrapper tr:nth-child('+ index +')');
 				var $checkBox = self.$element.find('.frozen-column-wrapper tr:nth-child('+ index +') .checkbox-inline');
+
 				if ($item.is('.selected')) {
 					$item.removeClass('selected');
 					if (isMulti){
 						$checkBox.checkbox('uncheck');
 						$frozenRow.removeClass('selected');
+						if (isActions) {
+							$actionsRow.removeClass('selected');
+						}
 					}
 					else {
 						$item.find('.repeater-list-check').remove();
@@ -646,15 +679,26 @@
 						});
 						$item.find('td:first').prepend('<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>');
 						$item.addClass('selected');
+						$frozenRow.addClass('selected');
 					}
 					else {
 						$checkBox.checkbox('check');
 						$item.addClass('selected');
 						$frozenRow.addClass('selected');
+						if (isActions) {
+							$actionsRow.addClass('selected');
+						}
 					}
-
-
 					self.$element.trigger('selected.fu.repeaterList', $item);
+				}
+				var $selected = self.$canvas.find('.repeater-list-wrapper > table .selected');
+				var $actionsColumn = self.$element.find('.table-actions');
+
+				if ($selected.length > 0) {
+					$actionsColumn.find('thead .btn').removeAttr('disabled');
+				}
+				else {
+					$actionsColumn.find('thead .btn').attr('disabled', 'disabled');
 				}
 			});
 
@@ -772,22 +816,7 @@
 					return column.property === '@_CHECKBOX_@';
 				})[0];
 				selectColumn.width = checkboxWidth;
-
-				$table.find('.header-checkbox input').on('change', function() {
-					var checked = $(this).is(':checked') ? true : false;
-					var bodyCheckboxes = $table.find('.body-checkbox');
-
-					if (checked){
-						bodyCheckboxes.checkbox('check');
-						bodyCheckboxes.closest('tr').addClass('selected');
-					}
-					else {
-						bodyCheckboxes.checkbox('uncheck');
-						bodyCheckboxes.closest('tr').removeClass('selected');
-					}
-				});
 			}
-
 			sizeColumns.call(this, $tr);
 		}
 	}
@@ -848,6 +877,10 @@
 				}
 			}
 		}
+	}
+
+	function hoverClick() {
+
 	}
 
 	function specialBrowserClass() {
