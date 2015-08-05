@@ -739,7 +739,12 @@
 			$table.append($tbody);
 		}
 
-		if (data.items && data.items.length < 1) {
+		if (typeof data.error === 'string' && data.error.length > 0) {
+			$empty = $('<tr class="empty text-danger"><td colspan="' + this.list_columns.length + '"></td></tr>');
+			$empty.find('td').append(data.error);
+			$tbody.append($empty);
+		}
+		else if (data.items && data.items.length < 1) {
 			$empty = $('<tr class="empty"><td colspan="' + this.list_columns.length + '"></td></tr>');
 			$empty.find('td').append(this.viewOptions.list_noItemsHTML);
 			$tbody.append($empty);
