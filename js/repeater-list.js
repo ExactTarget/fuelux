@@ -427,6 +427,7 @@
 				this.list_sortDirection = null;
 				this.list_sortProperty = null;
 				this.list_actions_width = (this.viewOptions.list_actions.width !== undefined) ? this.viewOptions.list_actions.width : 37;
+				this.list_noItems = false;
 				callback();
 			},
 			resize: function () {
@@ -481,16 +482,16 @@
 			after: function(){
 				var $sorted;
 
-				if (this.viewOptions.list_frozenColumns || this.viewOptions.list_selectable === 'multi') {
+				if ((this.viewOptions.list_frozenColumns || this.viewOptions.list_selectable === 'multi') && !this.list_noItems) {
 					this.list_setFrozenColumns();
 				}
 
-				if (this.viewOptions.list_actions) {
+				if (this.viewOptions.list_actions && !this.list_noItems) {
 					this.list_createItemActions();
 					this.list_sizeActionsTable();
 				}
 
-				if (this.viewOptions.list_frozenColumns || this.viewOptions.list_actions || this.viewOptions.list_selectable === 'multi') {
+				if ((this.viewOptions.list_frozenColumns || this.viewOptions.list_actions || this.viewOptions.list_selectable === 'multi') && !this.list_noItems) {
 					this.list_positionColumns();
 					this.list_frozenOptionsInitialize();
 				}
@@ -782,7 +783,11 @@
 		if (this.list_firstRender || differentColumns(this.list_columns, columns) || $thead.length === 0) {
 			$thead.remove();
 
-			if (this.viewOptions.list_selectable === 'multi') {
+			if (data.count < 1) {
+				this.list_noItems = true;
+			}
+
+			if (this.viewOptions.list_selectable === 'multi' && !this.list_noItems) {
 				var checkboxColumn = {
 					label: 'c',
 					property: '@_CHECKBOX_@',
@@ -795,7 +800,7 @@
 			this.list_firstRender = false;
 			this.$loader.removeClass('noHeader');
 
-			if (this.viewOptions.list_actions){
+			if (this.viewOptions.list_actions && !this.list_noItems){
 				var actionsColumn = {
 					label: this.viewOptions.list_actions.label || '<span class="actions-hidden">a</span>',
 					property: '@_ACTIONS_@',
@@ -813,7 +818,7 @@
 			}
 			$table.prepend($thead);
 
-			if (this.viewOptions.list_selectable === 'multi') {
+			if (this.viewOptions.list_selectable === 'multi' && !this.list_noItems) {
 				//after checkbox column is created need to get width of checkbox column from
 				//its css class
 				var checkboxWidth = this.$element.find('.repeater-list-wrapper .header-checkbox').outerWidth();
