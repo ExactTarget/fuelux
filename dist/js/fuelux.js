@@ -1,5 +1,6 @@
 /*!
- * Fuel UX v3.10.0 
+ * Fuel UX EDGE - Built 2015/08/05, 1:01:42 PM 
+ * Previous release: v3.10.0 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -556,12 +557,11 @@
 
 			this.$calendar.find( '.datepicker-today' ).on( 'click.fu.datepicker', $.proxy( this.todayClicked, this ) );
 			this.$days.on( 'click.fu.datepicker', 'tr td button', $.proxy( this.dateClicked, this ) );
-			this.$element.find( '.dropdown-menu' ).on( 'mousedown.fu.datepicker', $.proxy( this.dropdownMousedown, this ) );
 			this.$header.find( '.next' ).on( 'click.fu.datepicker', $.proxy( this.next, this ) );
 			this.$header.find( '.prev' ).on( 'click.fu.datepicker', $.proxy( this.prev, this ) );
 			this.$headerTitle.on( 'click.fu.datepicker', $.proxy( this.titleClicked, this ) );
-			this.$input.on( 'blur.fu.datepicker', $.proxy( this.inputBlurred, this ) );
-			this.$input.on( 'focus.fu.datepicker', $.proxy( this.inputFocused, this ) );
+			this.$input.on( 'change.fu.datepicker', $.proxy( this.inputChanged, this ) );
+			this.$input.on( 'mousedown.fu.datepicker', $.proxy( this.showDropdown, this ) );
 			this.$wheels.find( '.datepicker-wheels-back' ).on( 'click.fu.datepicker', $.proxy( this.backClicked, this ) );
 			this.$wheels.find( '.datepicker-wheels-select' ).on( 'click.fu.datepicker', $.proxy( this.selectClicked, this ) );
 			this.$wheelsMonth.on( 'click.fu.datepicker', 'ul button', $.proxy( this.monthClicked, this ) );
@@ -653,6 +653,7 @@
 				this.selectedDate = date;
 				this.$input.val( this.formatDate( date ) );
 				this.inputValue = this.$input.val();
+				this.hideDropdown();
 				this.$input.focus();
 				this.$element.trigger( 'dateClicked.fu.datepicker', date );
 			},
@@ -673,14 +674,6 @@
 				this.$element.addClass( 'disabled' );
 				this.$element.find( 'input, button' ).attr( 'disabled', 'disabled' );
 				this.$element.find( '.input-group-btn' ).removeClass( 'open' );
-			},
-
-			dropdownMousedown: function() {
-				var self = this;
-				this.preventBlurHide = true;
-				setTimeout( function() {
-					self.preventBlurHide = false;
-				}, 0 );
 			},
 
 			enable: function() {
@@ -729,7 +722,7 @@
 				return this.restricted;
 			},
 
-			inputBlurred: function( e ) {
+			inputChanged: function() {
 				var inputVal = this.$input.val();
 				var date;
 				if ( inputVal !== this.inputValue ) {
@@ -743,14 +736,16 @@
 					}
 
 				}
+			},
 
-				if ( !this.preventBlurHide ) {
-					this.$element.find( '.input-group-btn' ).removeClass( 'open' );
+			showDropdown: function( e ) {
+				if ( !this.$input.is( ':focus' ) ) {
+					this.$element.find( '.input-group-btn' ).addClass( 'open' );
 				}
 			},
 
-			inputFocused: function( e ) {
-				this.$element.find( '.input-group-btn' ).addClass( 'open' );
+			hideDropdown: function() {
+				this.$element.find( '.input-group-btn' ).removeClass( 'open' );
 			},
 
 			isInvalidDate: function( date ) {
@@ -5128,6 +5123,13 @@
 					this.$primaryPaging.combobox( 'disable' );
 				}
 
+				//if there are no items
+				if ( parseInt( this.$count.html() ) !== 0 ) {
+					this.$pageSize.selectlist( 'enable' );
+				} else {
+					this.$pageSize.selectlist( 'disable' );
+				}
+
 				this.$element.removeClass( 'disabled' );
 				this.$element.trigger( 'enabled.fu.repeater' );
 			},
@@ -5696,11 +5698,13 @@
 			};
 
 			$.fn.repeater.Constructor.prototype.list_highlightColumn = function( index, force ) {
-				var tbody = this.$canvas.find( '.repeater-list tbody' );
+				var tbody = this.$canvas.find( '.repeater-list-wrapper > table tbody' );
 				if ( this.viewOptions.list_highlightSortedColumn || force ) {
 					tbody.find( 'td.sorted' ).removeClass( 'sorted' );
 					tbody.find( 'tr' ).each( function() {
-						var col = $( this ).find( 'td:nth-child(' + ( index + 1 ) + ')' );
+						var col = $( this ).find( 'td:nth-child(' + ( index + 1 ) + ')' ).filter( function() {
+							return !$( this ).parent().hasClass( 'empty' );
+						} );
 						col.addClass( 'sorted' );
 					} );
 				}
@@ -5708,7 +5712,7 @@
 
 			$.fn.repeater.Constructor.prototype.list_getSelectedItems = function() {
 				var selected = [];
-				this.$canvas.find( '.repeater-list table tbody tr.selected' ).each( function() {
+				this.$canvas.find( '.repeater-list .repeater-list-wrapper > table tbody tr.selected' ).each( function() {
 					var $item = $( this );
 					selected.push( {
 						data: $item.data( 'item_data' ),
@@ -5805,9 +5809,16 @@
 
 			$.fn.repeater.Constructor.prototype.list_setFrozenColumns = function() {
 				var frozenTable = this.$canvas.find( '.table-frozen' );
+				var $wrapper = this.$element.find( '.repeater-canvas' );
 				var $table = this.$element.find( '.repeater-list .repeater-list-wrapper > table' );
 				var repeaterWrapper = this.$element.find( '.repeater-list' );
 				var numFrozenColumns = this.viewOptions.list_frozenColumns;
+				var self = this;
+
+				if ( this.viewOptions.list_selectable === 'multi' ) {
+					numFrozenColumns = numFrozenColumns + 1;
+					$wrapper.addClass( 'multi-select-enabled' );
+				}
 
 				if ( frozenTable.length < 1 ) {
 					//setup frozen column markup
@@ -5830,15 +5841,24 @@
 				this.$element.find( '.repeater-list table.table-frozen tr' ).each( function( i, elem ) {
 					$( this ).height( $table.find( 'tr:eq(' + i + ')' ).height() );
 				} );
+
 				var columnWidth = $table.find( 'td:eq(0)' ).outerWidth();
 				this.$element.find( '.frozen-column-wrapper, .frozen-thead-wrapper' ).width( columnWidth );
+
+				$( '.frozen-thead-wrapper .repeater-list-heading' ).on( 'click', function() {
+					var index = $( this ).parent( 'th' ).index();
+					index = index + 1;
+					self.$element.find( '.repeater-list-wrapper > table thead th:nth-child(' + index + ') .repeater-list-heading' )[ 0 ].click();
+				} );
+
+
 			};
 
 			$.fn.repeater.Constructor.prototype.list_positionColumns = function() {
 				var $wrapper = this.$element.find( '.repeater-canvas' );
 				var scrollTop = $wrapper.scrollTop();
 				var scrollLeft = $wrapper.scrollLeft();
-				var frozenEnabled = this.viewOptions.list_frozenColumns;
+				var frozenEnabled = this.viewOptions.list_frozenColumns || this.viewOptions.list_selectable === 'multi';
 				var actionsEnabled = this.viewOptions.list_actions;
 
 				var canvasWidth = this.$element.find( '.repeater-canvas' ).outerWidth();
@@ -5885,13 +5905,13 @@
 
 				for ( i = 0, l = this.viewOptions.list_actions.items.length; i < l; i++ ) {
 					var action = this.viewOptions.list_actions.items[ i ];
-					var html = action.html();
+					var html = action.html;
 
-					actionsHtml += '<li><a data-action="' + action.name + '" class="action-item"> ' + html + '</a></li>';
+					actionsHtml += '<li><a href="#" data-action="' + action.name + '" class="action-item"> ' + html + '</a></li>';
 				}
 
 				var selectlist = '<div class="btn-group">' +
-					'<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
+					'<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" data-flip="auto" aria-expanded="false">' +
 					'<span class="caret"></span>' +
 					'</button>' +
 					'<ul class="dropdown-menu dropdown-menu-right" role="menu">' +
@@ -5900,14 +5920,16 @@
 
 				if ( $actionsTable.length < 1 ) {
 
-					var $actionsColumnWrapper = $( '<div class="actions-column-wrapper"></div>' ).insertBefore( $table );
+					var $actionsColumnWrapper = $( '<div class="actions-column-wrapper" style="width: ' + this.list_actions_width + 'px"></div>' ).insertBefore( $table );
 					var $actionsColumn = $table.clone().addClass( 'table-actions' );
-					$actionsColumn.find( 'th:not(:lt(1))' ).remove();
-					$actionsColumn.find( 'td:not(:nth-child(n+0):nth-child(-n+1))' ).remove();
+					$actionsColumn.find( 'th:not(:last-child)' ).remove();
+					$actionsColumn.find( 'tr td:not(:last-child)' ).remove();
 
 					// Dont show actions dropdown in header if not multi select
 					if ( this.viewOptions.list_selectable === 'multi' ) {
 						$actionsColumn.find( 'thead tr' ).html( '<th><div class="repeater-list-heading">' + selectlist + '</div></th>' );
+						//disable the header dropdown until an item is selected
+						$actionsColumn.find( 'thead .btn' ).attr( 'disabled', 'disabled' );
 					} else {
 						var label = this.viewOptions.list_actions.label || '<span class="actions-hidden">a</span>';
 						$actionsColumn.find( 'thead tr' ).addClass( 'empty-heading' ).html( '<th>' + label + '<div class="repeater-list-heading">' + label + '</div></th>' );
@@ -5926,36 +5948,59 @@
 					this.$canvas.addClass( 'actions-enabled' );
 				}
 
-				this.$element.find( '.repeater-list .actions-column-wrapper, .repeater-list .actions-column-wrapper td, .repeater-list .actions-column-wrapper th' )
-					.css( 'width', this.list_actions_width );
+				/*			this.$element.find('.repeater-list .actions-column-wrapper, .repeater-list .actions-column-wrapper td, .repeater-list .actions-column-wrapper th')
+								.css('width', this.list_actions_width);
 
-				this.$element.find( '.repeater-list .actions-column-wrapper th .repeater-list-heading' ).css( 'width', parseInt( this.list_actions_width ) + 1 + 'px' );
-
-				this.$element.find( '.repeater-list table.table-actions tr' ).each( function( i, elem ) {
-					$( this ).height( $table.find( 'tr:eq(' + i + ')' ).height() );
+							this.$element.find('.repeater-list .actions-column-wrapper th .repeater-list-heading').css('width', this.list_actions_width + 1 + 'px');*/
+				this.$element.find( '.repeater-list table.table-actions thead tr th' ).outerHeight( $table.find( 'thead tr th' ).outerHeight() );
+				this.$element.find( '.repeater-list table.table-actions tbody tr td:first-child' ).each( function( i, elem ) {
+					$( this ).outerHeight( $table.find( 'tbody tr:eq(' + i + ') td' ).outerHeight() );
 				} );
 
-				this.$element.find( '.table-actions .action-item' ).on( 'click', function() {
+
+				//row level actions click
+				this.$element.find( '.table-actions tbody .action-item' ).on( 'click', function() {
 					var actionName = $( this ).data( 'action' );
 					var row = $( this ).data( 'row' );
-					self.list_getActionItems( actionName, row );
+					var selected = {
+						actionName: actionName,
+						rows: [ row ]
+					};
+					self.list_getActionItems( selected );
 				} );
+				// bulk actions click
+				this.$element.find( '.table-actions thead .action-item' ).on( 'click', function() {
+					var actionName = $( this ).data( 'action' );
+					var selected = {
+						actionName: actionName,
+						rows: []
+					};
+					self.$element.find( '.repeater-list-wrapper > table .selected' ).each( function() {
+						var index = $( this ).index();
+						index = index + 1;
+						selected.rows.push( index );
+					} );
 
+					self.list_getActionItems( selected );
+				} );
 			};
 
-			$.fn.repeater.Constructor.prototype.list_getActionItems = function( actionName, row ) {
-
-				var clickedRow = this.$canvas.find( '.repeater-list-wrapper > table tbody tr:nth-child(' + row + ')' );
-
+			$.fn.repeater.Constructor.prototype.list_getActionItems = function( selected ) {
+				var i;
+				var selectedObj = [];
 				var actionObj = $.grep( this.viewOptions.list_actions.items, function( actions ) {
-					return actions.name === actionName;
+					return actions.name === selected.actionName;
 				} )[ 0 ];
-
-				if ( actionObj.clickAction ) {
-					actionObj.clickAction( {
+				for ( i = 0; i < selected.rows.length; i++ ) {
+					var clickedRow = this.$canvas.find( '.repeater-list-wrapper > table tbody tr:nth-child(' + selected.rows[ i ] + ')' );
+					selectedObj.push( {
 						item: clickedRow,
 						rowData: clickedRow.data( 'item_data' )
-					}, function() {} );
+					} );
+				}
+
+				if ( actionObj.clickAction ) {
+					actionObj.clickAction( selectedObj, function() {} );
 				}
 			};
 
@@ -5963,6 +6008,49 @@
 				var $table = this.$element.find( '.repeater-list-wrapper > table' );
 				var $actionsTableHeading = this.$element.find( '.repeater-list-wrapper .actions-column-wrapper thead th .repeater-list-heading' );
 				$actionsTableHeading.outerHeight( $table.find( 'thead th .repeater-list-heading' ).outerHeight() );
+			};
+
+			$.fn.repeater.Constructor.prototype.list_frozenOptionsInitialize = function() {
+				var self = this;
+				var isFrozen = this.viewOptions.list_frozenColumns;
+				var isActions = this.viewOptions.list_actions;
+				var isMulti = this.viewOptions.list_selectable === 'multi';
+
+				var $checkboxes = this.$element.find( '.frozen-column-wrapper .checkbox-inline' );
+
+				var $everyTable = this.$element.find( '.repeater-list table' );
+
+
+
+				//Make sure if row is hovered that it is shown in frozen column as well
+				this.$element.find( 'tr.selectable' ).on( 'mouseover mouseleave', function( e ) {
+					var index = $( this ).index();
+					index = index + 1;
+					if ( e.type === 'mouseover' ) {
+						$everyTable.find( 'tbody tr:nth-child(' + index + ')' ).addClass( 'hovered' );
+					} else {
+						$everyTable.find( 'tbody tr:nth-child(' + index + ')' ).removeClass( 'hovered' );
+					}
+				} );
+
+				$checkboxes.checkbox();
+
+				this.$element.find( '.table-frozen tbody .checkbox-inline' ).on( 'change', function( e ) {
+					e.preventDefault();
+					var row = $( this ).attr( 'data-row' );
+					row = parseInt( row ) + 1;
+					self.$element.find( '.repeater-list-wrapper > table tbody tr:nth-child(' + row + ')' ).click();
+				} );
+
+				this.$element.find( '.frozen-thead-wrapper thead .checkbox-inline' ).on( 'change', function() {
+					if ( $( this ).checkbox( 'isChecked' ) ) {
+						self.$element.find( '.repeater-list-wrapper > table tbody tr:not(.selected)' ).click();
+						self.$element.trigger( 'selected.fu.repeaterList', $checkboxes );
+					} else {
+						self.$element.find( '.repeater-list-wrapper > table tbody tr.selected' ).click();
+						self.$element.trigger( 'deselected.fu.repeaterList', $checkboxes );
+					}
+				} );
 			};
 
 			//ADDITIONAL DEFAULT OPTIONS
@@ -5999,7 +6087,8 @@
 				initialize: function( helpers, callback ) {
 					this.list_sortDirection = null;
 					this.list_sortProperty = null;
-					this.list_actions_width = ( this.viewOptions.list_actions.width !== undefined ) ? this.viewOptions.list_actions.width : '37px';
+					this.list_actions_width = ( this.viewOptions.list_actions.width !== undefined ) ? this.viewOptions.list_actions.width : 37;
+					this.list_noItems = false;
 					callback();
 				},
 				resize: function() {
@@ -6031,7 +6120,7 @@
 								self.list_positionHeadings();
 							}
 						} );
-						if ( self.viewOptions.list_frozenColumns || self.viewOptions.list_actions ) {
+						if ( self.viewOptions.list_frozenColumns || self.viewOptions.list_actions || self.viewOptions.list_selectable === 'multi' ) {
 							helpers.container.on( 'scroll.fu.repeaterList', function() {
 								self.list_positionColumns();
 							} );
@@ -6039,6 +6128,7 @@
 
 						helpers.container.append( $listContainer );
 					}
+					helpers.container.removeClass( 'actions-enabled actions-enabled multi-select-enabled' );
 
 					$table = $listContainer.find( 'table' );
 					renderThead.call( this, $table, helpers.data );
@@ -6053,26 +6143,26 @@
 				after: function() {
 					var $sorted;
 
+					if ( ( this.viewOptions.list_frozenColumns || this.viewOptions.list_selectable === 'multi' ) && !this.list_noItems ) {
+						this.list_setFrozenColumns();
+					}
+
+					if ( this.viewOptions.list_actions && !this.list_noItems ) {
+						this.list_createItemActions();
+						this.list_sizeActionsTable();
+					}
+
+					if ( ( this.viewOptions.list_frozenColumns || this.viewOptions.list_actions || this.viewOptions.list_selectable === 'multi' ) && !this.list_noItems ) {
+						this.list_positionColumns();
+						this.list_frozenOptionsInitialize();
+					}
+
 					if ( this.viewOptions.list_columnSyncing ) {
 						this.list_sizeHeadings();
 						this.list_positionHeadings();
 					}
 
-					if ( this.viewOptions.list_frozenColumns ) {
-						this.list_setFrozenColumns();
-
-					}
-
-					if ( this.viewOptions.list_actions ) {
-						this.list_createItemActions();
-						this.list_sizeActionsTable();
-					}
-
-					if ( this.viewOptions.list_frozenColumns || this.viewOptions.list_actions ) {
-						this.list_positionColumns();
-					}
-
-					$sorted = this.$canvas.find( '.repeater-list-heading.sorted' );
+					$sorted = this.$canvas.find( '.repeater-list-wrapper > table .repeater-list-heading.sorted' );
 					if ( $sorted.length > 0 ) {
 						this.list_highlightColumn( $sorted.data( 'fu_item_index' ) );
 					}
@@ -6091,7 +6181,7 @@
 
 			var property = columns[ columnIndex ].property;
 			if ( this.viewOptions.list_actions !== false && property === '@_ACTIONS_@' ) {
-				content = '<div class="repeater-list-actions-placeholder" style="width: ' + this.list_actions_width + '"></div>';
+				content = '<div class="repeater-list-actions-placeholder" style="width: ' + this.list_actions_width + 'px"></div>';
 			}
 
 			content = ( content !== undefined ) ? content : '';
@@ -6101,6 +6191,13 @@
 				$col.outerWidth( width );
 			}
 			$row.append( $col );
+
+			if ( this.viewOptions.list_selectable === 'multi' && columns[ columnIndex ].property === '@_CHECKBOX_@' ) {
+				var checkBoxMarkup = '<label data-row="' + rowIndex + '" class="checkbox-custom checkbox-inline body-checkbox">' +
+					'<input class="sr-only" type="checkbox"></label>';
+
+				$col.html( checkBoxMarkup );
+			}
 
 			if ( this.viewOptions.list_columnRendered ) {
 				this.viewOptions.list_columnRendered( {
@@ -6117,6 +6214,8 @@
 			var chevron = '.glyphicon.rlc:first';
 			var chevUp = 'glyphicon-chevron-up';
 			var $div = $( '<div class="repeater-list-heading"><span class="glyphicon rlc"></span></div>' );
+			var checkBoxMarkup = '<div class="repeater-list-heading header-checkbox"><label class="checkbox-custom checkbox-inline">' +
+				'<input class="sr-only" type="checkbox"></label><div class="clearfix"></div></div>';
 			var $header = $( '<th></th>' );
 			var self = this;
 			var $both, className, sortable, $span, $spans;
@@ -6124,7 +6223,12 @@
 			$div.data( 'fu_item_index', index );
 			$div.prepend( columns[ index ].label );
 			$header.html( $div.html() ).find( '[id]' ).removeAttr( 'id' );
-			$header.append( $div );
+
+			if ( columns[ index ].property !== '@_CHECKBOX_@' ) {
+				$header.append( $div );
+			} else {
+				$header.append( checkBoxMarkup );
+			}
 
 			$both = $header.add( $div );
 			$span = $div.find( chevron );
@@ -6197,31 +6301,65 @@
 			var $row = $( '<tr></tr>' );
 			var self = this;
 			var i, l;
+			var isMulti = this.viewOptions.list_selectable === 'multi';
+			var isActions = this.viewOptions.list_actions;
 
 			if ( this.viewOptions.list_selectable ) {
 				$row.addClass( 'selectable' );
 				$row.attr( 'tabindex', 0 ); // allow items to be tabbed to / focused on
 				$row.data( 'item_data', rows[ index ] );
+
 				$row.on( 'click.fu.repeaterList', function() {
 					var $item = $( this );
-					if ( $item.hasClass( 'selected' ) ) {
+					var index = $( this ).index();
+					index = index + 1;
+					var $frozenRow = self.$element.find( '.frozen-column-wrapper tr:nth-child(' + index + ')' );
+					var $actionsRow = self.$element.find( '.actions-column-wrapper tr:nth-child(' + index + ')' );
+					var $checkBox = self.$element.find( '.frozen-column-wrapper tr:nth-child(' + index + ') .checkbox-inline' );
+
+					if ( $item.is( '.selected' ) ) {
 						$item.removeClass( 'selected' );
-						$item.find( '.repeater-list-check' ).remove();
+						if ( isMulti ) {
+							$checkBox.checkbox( 'uncheck' );
+							$frozenRow.removeClass( 'selected' );
+							if ( isActions ) {
+								$actionsRow.removeClass( 'selected' );
+							}
+						} else {
+							$item.find( '.repeater-list-check' ).remove();
+						}
+
 						self.$element.trigger( 'deselected.fu.repeaterList', $item );
 					} else {
-						if ( self.viewOptions.list_selectable !== 'multi' ) {
+						if ( !isMulti ) {
 							self.$canvas.find( '.repeater-list-check' ).remove();
 							self.$canvas.find( '.repeater-list tbody tr.selected' ).each( function() {
 								$( this ).removeClass( 'selected' );
 								self.$element.trigger( 'deselected.fu.repeaterList', $( this ) );
 							} );
+							$item.find( 'td:first' ).prepend( '<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>' );
+							$item.addClass( 'selected' );
+							$frozenRow.addClass( 'selected' );
+						} else {
+							$checkBox.checkbox( 'check' );
+							$item.addClass( 'selected' );
+							$frozenRow.addClass( 'selected' );
+							if ( isActions ) {
+								$actionsRow.addClass( 'selected' );
+							}
 						}
-
-						$item.addClass( 'selected' );
-						$item.find( 'td:first' ).prepend( '<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>' );
 						self.$element.trigger( 'selected.fu.repeaterList', $item );
 					}
+					var $selected = self.$canvas.find( '.repeater-list-wrapper > table .selected' );
+					var $actionsColumn = self.$element.find( '.table-actions' );
+
+					if ( $selected.length > 0 ) {
+						$actionsColumn.find( 'thead .btn' ).removeAttr( 'disabled' );
+					} else {
+						$actionsColumn.find( 'thead .btn' ).attr( 'disabled', 'disabled' );
+					}
 				} );
+
 				// allow selection via enter key
 				$row.keyup( function( e ) {
 					if ( e.keyCode === 13 ) {
@@ -6259,7 +6397,11 @@
 				$table.append( $tbody );
 			}
 
-			if ( data.items && data.items.length < 1 ) {
+			if ( typeof data.error === 'string' && data.error.length > 0 ) {
+				$empty = $( '<tr class="empty text-danger"><td colspan="' + this.list_columns.length + '"></td></tr>' );
+				$empty.find( 'td' ).append( data.error );
+				$tbody.append( $empty );
+			} else if ( data.items && data.items.length < 1 ) {
 				$empty = $( '<tr class="empty"><td colspan="' + this.list_columns.length + '"></td></tr>' );
 				$empty.find( 'td' ).append( this.viewOptions.list_noItemsHTML );
 				$tbody.append( $empty );
@@ -6297,11 +6439,24 @@
 			if ( this.list_firstRender || differentColumns( this.list_columns, columns ) || $thead.length === 0 ) {
 				$thead.remove();
 
+				if ( data.count < 1 ) {
+					this.list_noItems = true;
+				}
+
+				if ( this.viewOptions.list_selectable === 'multi' && !this.list_noItems ) {
+					var checkboxColumn = {
+						label: 'c',
+						property: '@_CHECKBOX_@',
+						sortable: false
+					};
+					columns.splice( 0, 0, checkboxColumn );
+				}
+
 				this.list_columns = columns;
 				this.list_firstRender = false;
 				this.$loader.removeClass( 'noHeader' );
 
-				if ( this.viewOptions.list_actions ) {
+				if ( this.viewOptions.list_actions && !this.list_noItems ) {
 					var actionsColumn = {
 						label: this.viewOptions.list_actions.label || '<span class="actions-hidden">a</span>',
 						property: '@_ACTIONS_@',
@@ -6319,6 +6474,15 @@
 				}
 				$table.prepend( $thead );
 
+				if ( this.viewOptions.list_selectable === 'multi' && !this.list_noItems ) {
+					//after checkbox column is created need to get width of checkbox column from
+					//its css class
+					var checkboxWidth = this.$element.find( '.repeater-list-wrapper .header-checkbox' ).outerWidth();
+					var selectColumn = $.grep( columns, function( column ) {
+						return column.property === '@_CHECKBOX_@';
+					} )[ 0 ];
+					selectColumn.width = checkboxWidth;
+				}
 				sizeColumns.call( this, $tr );
 			}
 		}
@@ -6326,11 +6490,12 @@
 		function sizeColumns( $tr ) {
 			var auto = [];
 			var self = this;
-			var i, l, newWidth, taken;
+			var i, l, newWidth, taken, total;
 
 			if ( this.viewOptions.list_columnSizing ) {
 				i = 0;
 				taken = 0;
+				total = 0;
 				$tr.find( 'th' ).each( function() {
 					var $th = $( this );
 					var isLast = ( $th.next( 'th' ).length === 0 );
@@ -6339,6 +6504,7 @@
 						width = self.list_columns[ i ].width;
 						$th.outerWidth( width );
 						taken += $th.outerWidth();
+						total += $th.outerWidth();
 						if ( !isLast ) {
 							self.list_columns[ i ]._auto_width = width;
 						} else {
@@ -6346,10 +6512,13 @@
 						}
 
 					} else {
+						var outerWidth = $th.find( '.repeater-list-heading' ).outerWidth();
+						total += $th.outerWidth();
 						auto.push( {
 							col: $th,
 							index: i,
-							last: isLast
+							last: isLast,
+							minWidth: outerWidth
 						} );
 					}
 
@@ -6357,10 +6526,15 @@
 				} );
 
 				l = auto.length;
+
 				if ( l > 0 ) {
-					newWidth = Math.floor( ( this.$canvas.width() - taken ) / l );
+					var canvasWidth = this.$canvas.find( '.repeater-list-wrapper' ).outerWidth();
+					newWidth = Math.floor( ( canvasWidth - taken ) / l );
 					for ( i = 0; i < l; i++ ) {
-						if ( !auto[ i ].last ) {
+						if ( auto[ i ].minWidth > newWidth ) {
+							newWidth = auto[ i ].minWidth;
+						}
+						if ( !auto[ i ].last || total > canvasWidth ) {
 							auto[ i ].col.outerWidth( newWidth );
 							this.list_columns[ auto[ i ].index ]._auto_width = newWidth;
 						}
@@ -6368,6 +6542,10 @@
 					}
 				}
 			}
+		}
+
+		function hoverClick() {
+
 		}
 
 		function specialBrowserClass() {
