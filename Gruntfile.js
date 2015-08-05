@@ -630,7 +630,7 @@ module.exports = function (grunt) {
 			},
 			pushTagToUpstream: {
 				command: function() {
-					var command = 'git push ' + grunt.config('release.remoteRepository') + ' ' + packageVersion;
+					var command = 'git push ' + grunt.config('release.remoteRepository') + ' ' + grunt.config('pkg.version');
 					grunt.log.write('Publishing tag: ' + command);
 					return command;
 				}
@@ -645,11 +645,11 @@ module.exports = function (grunt) {
 			},
 			uploadToCDN: {
 				command: function() {
+					var cdnLoginFile = grunt.config('cdnLoginFile');
 
 					function createUploadCommand(version) {
 						return ['mv dist ' + version,
-						'scp -i ~/.ssh/fuelcdn -r "' + version + '"/ ' +
-						'<%= cdnLoginFile.user %>' + '@' + '<%= cdnLoginFile.server %>' + ':' + '<%= cdnLoginFile.folder %>',
+						'scp -i ~/.ssh/fuelcdn -r "' + version + '"/ ' + cdnLoginFile.user + '@' + cdnLoginFile.server + ':' + cdnLoginFile.folder,
 						'mv "' + version + '" dist',
 						'echo "Done uploading files."'].join(' && ');
 					}
