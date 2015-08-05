@@ -32,7 +32,7 @@
     "grunt-contrib-qunit": "0.5.x",
     "grunt-contrib-uglify": "0.x",
     "grunt-contrib-watch": "0.x",
-    "grunt-html-validation": "0.x",
+    "grunt-html": "^5.0.0",
     "grunt-jsbeautifier": "0.x",
     "grunt-prompt": "1.x",
     "grunt-saucelabs": "8.x",
