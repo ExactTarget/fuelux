@@ -82,7 +82,7 @@
     "postinstall": "./postinstall.sh"
   },
   "title": "Fuel UX",
-  "version": "3.10.0",
+  "version": "3.11.0",
   "volo": {
     "baseDir": "lib",
     "dependencies": {
