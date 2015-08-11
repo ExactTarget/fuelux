@@ -3,7 +3,7 @@
 /*global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false*/
 define(function (require) {
 	var $ = require('jquery');
-	var html = require('text!test/markup/tree-markup.html');
+	var html = require('text!test/markup/tree-markup.html!strip');
 
 	$('body').append(html);
 

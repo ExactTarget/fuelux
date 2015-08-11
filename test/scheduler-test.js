@@ -4,7 +4,7 @@
 
 define(function(require){
 	var $ = require('jquery');
-	var html = require('text!test/markup/scheduler-markup.html');
+	var html = require('text!test/markup/scheduler-markup.html!strip');
 	var templateHtml = html;
 
 	/* FOR DEV TESTING */

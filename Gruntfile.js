@@ -201,6 +201,17 @@ module.exports = function (grunt) {
 				src: ['**']
 			}
 		},
+		htmllint: {
+			options: {
+				ignore:[
+					'Section lacks heading. Consider using “h2”-“h6” elements to add identifying headings to all sections.',
+					'Bad value X-UA-Compatible for attribute http-equiv on element meta.',
+					'Element head is missing a required instance of child element title.'
+				],
+				force: true
+			},
+			src: ['index.html', 'markup/*.html', 'test/markup/*.html']
+		},
 		jsbeautifier: {
 			files: ['dist/js/fuelux.js'],
 			options: {
@@ -690,25 +701,6 @@ module.exports = function (grunt) {
 				}
 			}
 		},
-		validation: {
-			// if many errors are found, this may log to console while other tasks are running
-			options: {
-				reset: function () {
-					grunt.option('reset') || false ;
-				},
-				stoponerror: true,
-				relaxerror: [//ignores these errors
-					'Section lacks heading. Consider using h2-h6 elements to add identifying headings to all sections.',
-					'Bad value X-UA-Compatible for attribute http-equiv on element meta.',
-					'Element head is missing a required instance of child element title.'
-				],
-				doctype: 'HTML5',
-				reportpath: false
-			},
-			files: {
-				src: ['index.html', 'test/markup/*.html']
-			}
-		},
 		watch: {
 			//watch everything and test everything (test dist)
 			full: {
@@ -716,7 +708,7 @@ module.exports = function (grunt) {
 				options: {
 					livereload: isLivereloadEnabled
 				},
-				tasks: ['jshint', 'blanket_qunit:source', 'qunit:noMoment', 'qunit:globals', 'dist', 'qunit:dist', 'validation']
+				tasks: ['jshint', 'blanket_qunit:source', 'qunit:noMoment', 'qunit:globals', 'dist', 'qunit:dist', 'htmllint']
 			},
 			//watch everything but only perform source qunit tests (don't test dist)
 			source: {
@@ -724,7 +716,7 @@ module.exports = function (grunt) {
 				options: {
 					livereload: isLivereloadEnabled
 				},
-				tasks: ['jshint', 'connect:testServer', 'blanket_qunit:source', 'qunit:noMoment', 'qunit:globals', 'validation']
+				tasks: ['jshint', 'connect:testServer', 'blanket_qunit:source', 'qunit:noMoment', 'qunit:globals', 'htmllint']
 			},
 			//only watch and dist less, useful when doing LESS/CSS work
 			less: {
@@ -809,7 +801,7 @@ module.exports = function (grunt) {
 
 	// to be run prior to submitting a PR
 	grunt.registerTask('test', 'run jshint, qunit source w/ coverage, and validate HTML',
-		['jshint', 'connect:testServer', 'blanket_qunit:source', 'qunit:noMoment', 'qunit:globals', 'validation']);
+		['jshint', 'connect:testServer', 'blanket_qunit:source', 'qunit:noMoment', 'qunit:globals', 'htmllint']);
 
 	//If qunit:source is working but qunit:full is breaking, check to see if the dist broke the code. This would be especially useful if we start mangling our code, but, is 99.99% unlikely right now
 	grunt.registerTask('validate-dist', 'run qunit:source, dist, and then qunit:full',
