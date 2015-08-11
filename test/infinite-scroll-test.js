@@ -5,7 +5,7 @@
 define(function(require){
 	var $ = require('jquery');
 	var data = require('data');
-	var html = require('text!test/markup/infinite-scroll-markup.html');
+	var html = require('text!test/markup/infinite-scroll-markup.html!strip');
 
 	require('bootstrap');
 	require('fuelux/infinite-scroll');

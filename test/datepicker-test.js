@@ -4,7 +4,7 @@
 
 define(function(require){
 	var $ = require('jquery');
-	var html = require('text!test/markup/datepicker-markup.html');
+	var html = require('text!test/markup/datepicker-markup.html!strip');
 	/* FOR DEV TESTING - uncomment to test against index.html */
 	//html = require('text!index.html!strip');
 
@@ -18,7 +18,7 @@ define(function(require){
 	});
 
 	test("should return element", function () {
-		var $datepicker = $(html);
+		var $datepicker = $(html).find('#MyDatepicker');
 		ok($datepicker.datepicker()===$datepicker, 'datepicker should be initialized');
 	});
 
@@ -37,7 +37,7 @@ define(function(require){
 	});
 
 	test('should initialize with date other than now', function(){
-		var $datepicker = $(html);
+		var $datepicker = $(html).find('#MyDatepicker');
 		var futureDate = new Date(new Date().getTime() + 604800000).getTime();	// 7 days in the future
 		var pickerDate;
 
