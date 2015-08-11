@@ -210,7 +210,7 @@ module.exports = function (grunt) {
 				],
 				force: true
 			},
-			src: ['index.html', 'test/markup/*.html']
+			src: ['index.html', 'markup/*.html', 'test/markup/*.html']
 		},
 		jsbeautifier: {
 			files: ['dist/js/fuelux.js'],
@@ -708,7 +708,7 @@ module.exports = function (grunt) {
 				options: {
 					livereload: isLivereloadEnabled
 				},
-				tasks: ['jshint', 'blanket_qunit:source', 'qunit:noMoment', 'qunit:globals', 'dist', 'qunit:dist', 'validation']
+				tasks: ['jshint', 'blanket_qunit:source', 'qunit:noMoment', 'qunit:globals', 'dist', 'qunit:dist', 'htmllint']
 			},
 			//watch everything but only perform source qunit tests (don't test dist)
 			source: {
@@ -716,7 +716,7 @@ module.exports = function (grunt) {
 				options: {
 					livereload: isLivereloadEnabled
 				},
-				tasks: ['jshint', 'connect:testServer', 'blanket_qunit:source', 'qunit:noMoment', 'qunit:globals', 'validation']
+				tasks: ['jshint', 'connect:testServer', 'blanket_qunit:source', 'qunit:noMoment', 'qunit:globals', 'htmllint']
 			},
 			//only watch and dist less, useful when doing LESS/CSS work
 			less: {

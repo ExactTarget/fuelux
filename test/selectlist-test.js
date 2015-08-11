@@ -4,7 +4,7 @@
 
 define(function(require){
 	var $ = require('jquery');
-	var html = require('text!test/markup/selectlist-markup.html');
+	var html = require('text!test/markup/selectlist-markup.html!strip');
 	/* FOR DEV TESTING */
 	//var html = require('text!dev.html!strip');
 	html = $('<div>'+html+'</div>');

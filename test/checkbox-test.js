@@ -4,7 +4,7 @@
 
 define(function(require){
 	var $ = require('jquery');
-	var html = require('text!test/markup/checkbox-markup.html');
+	var html = require('text!test/markup/checkbox-markup.html!strip');
 	/* FOR DEV TESTING - uncomment to test against index.html */
 	//html = require('text!index.html!strip');
 	html = $('<div>'+html+'</div>').find('#MyCheckboxContainer');

@@ -4,7 +4,7 @@
 
 define(function(require) {
 	var $ = require('jquery');
-	var html = require('text!test/markup/pillbox-markup.html');
+	var html = require('text!test/markup/pillbox-markup.html!strip');
 
 	require('bootstrap');
 	require('fuelux/pillbox');

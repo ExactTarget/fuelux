@@ -55,7 +55,7 @@ define(function(require){
 
 		callback(resp);
 	};
-	var html = require('text!test/markup/repeater-markup.html');
+	var html = require('text!test/markup/repeater-markup.html!strip');
 	var noItems = false;
 
 	require('bootstrap');
