@@ -3,11 +3,14 @@
 module.exports = function (grunt) {
 	'use strict';
 
+	function getPackageVersion() {
+		return grunt.file.readJSON('./package.json').version;
+	}
+
 	// use --no-livereload to disable livereload. Helpful to 'serve' multiple projects
 	var isLivereloadEnabled = (typeof grunt.option('livereload') !== 'undefined') ? grunt.option('livereload') : true;
 
 	var semver = require('semver');
-	var packageVersion = require('./package.json').version;
 
 	var fs = require('fs');
 	var path = require('path');
@@ -382,15 +385,15 @@ module.exports = function (grunt) {
 							choices: [
 								{
 									value: 'patch',
-									name: 'Patch:  ' + semver.inc(packageVersion, 'patch') + ' Backwards-compatible bug fixes.'
+									name: 'Patch:  ' + semver.inc(getPackageVersion(), 'patch') + ' Backwards-compatible bug fixes.'
 								},
 								{
 									value: 'minor',
-									name: 'Minor:  ' + semver.inc(packageVersion, 'minor') + ' Add functionality in a backwards-compatible manner.'
+									name: 'Minor:  ' + semver.inc(getPackageVersion(), 'minor') + ' Add functionality in a backwards-compatible manner.'
 								},
 								{
 									value: 'major',
-									name: 'Major:  ' + semver.inc(packageVersion, 'major') + ' Incompatible API changes.'
+									name: 'Major:  ' + semver.inc(getPackageVersion(), 'major') + ' Incompatible API changes.'
 								},
 								{
 									value: 'custom',
@@ -626,7 +629,7 @@ module.exports = function (grunt) {
 			},
 			tag: {
 				command: function() {
-					var command = 'git tag -a "' + grunt.config('pkg.version') + '" -m "' + grunt.config('pkg.version') + '"';
+					var command = 'git tag -a "' + getPackageVersion() + '" -m "' + getPackageVersion() + '"';
 					grunt.log.write('Tagging: ' + command);
 					return command;
 				}
@@ -641,7 +644,7 @@ module.exports = function (grunt) {
 			},
 			pushTagToUpstream: {
 				command: function() {
-					var command = 'git push ' + grunt.config('release.remoteRepository') + ' ' + packageVersion;
+					var command = 'git push ' + grunt.config('release.remoteRepository') + ' ' + getPackageVersion();
 					grunt.log.write('Publishing tag: ' + command);
 					return command;
 				}
@@ -665,9 +668,9 @@ module.exports = function (grunt) {
 						'echo "Done uploading files."'].join(' && ');
 					}
 					var command = [
-							packageVersion, 
-							semver.major(packageVersion) + '.' + semver.minor(packageVersion), 
-							semver.major(packageVersion)
+							getPackageVersion(), 
+							semver.major(getPackageVersion()) + '.' + semver.minor(getPackageVersion()), 
+							semver.major(getPackageVersion())
 						].map(createUploadCommand).join(' && ');
 					grunt.log.write('Uploading: ' + command);
 					grunt.log.writeln('');
@@ -838,10 +841,6 @@ module.exports = function (grunt) {
 	------------- */
 	grunt.registerTask('notes', 'Run a ruby gem that will request from Github unreleased pull requests', ['shell:notes']);
 
-	grunt.registerTask('updateRelease', '', function () {
-		packageVersion = require('./package.json').version;
-	});
-
 	// Maintainers: Run prior to a release. Includes SauceLabs VM tests.
 	grunt.registerTask('release', 'Release a new version, push it and publish it', function() {
 		if ( typeof grunt.config('sauceLoginFile') === 'undefined' ) {
@@ -856,7 +855,7 @@ module.exports = function (grunt) {
 
 		// update local variable to make sure build prompt is using temp branch's package version
 		grunt.task.run(['prompt:tempbranch', 'shell:checkoutRemoteReleaseBranch', 
-			'updateRelease', 'prompt:build', 'dorelease']);
+			'prompt:build', 'dorelease']);
 	});
 
 // formerally dorelease task
