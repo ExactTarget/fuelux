@@ -538,7 +538,7 @@
 			$col.html(checkBoxMarkup);
 		}
 
-		if (this.viewOptions.list_columnRendered && !(columns[columnIndex].property === '@_CHECKBOX_@' || columns[columnIndex].property === '@_ACTIONS_@')) {
+		if (!(columns[columnIndex].property === '@_CHECKBOX_@' || columns[columnIndex].property === '@_ACTIONS_@') && this.viewOptions.list_columnRendered) {
 			this.viewOptions.list_columnRendered({
 				container: $row,
 				columnAttr: columns[columnIndex].property,
