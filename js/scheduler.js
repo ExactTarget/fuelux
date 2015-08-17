@@ -17,7 +17,7 @@
 		define(['jquery', 'fuelux/combobox', 'fuelux/datepicker', 'fuelux/radio', 'fuelux/selectlist', 'fuelux/spinbox'], factory);
 	} else if (typeof exports === 'object') {
 		// Node/CommonJS
-		module.exports = factory(require('jquery'), require('./combobox'), require('./datepicker'), 
+		module.exports = factory(require('jquery'), require('./combobox'), require('./datepicker'),
 			require('./radio'), require('./selectlist'), require('./spinbox') );
 	} else {
 		// OR use browser globals if AMD is not present
@@ -365,10 +365,7 @@
 
 			var data = {
 				startDateTime: startDateTime,
-				timeZone: {
-					name: timeZone.name,
-					offset: timeZone.offset
-				},
+				timeZone: timezone,
 				recurrencePattern: pattern
 			};
 
