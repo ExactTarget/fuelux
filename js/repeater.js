@@ -325,8 +325,8 @@
 		},
 
 		infiniteScrolling: function (enable, options) {
-			var itemization = this.$element.find('.repeater-itemization');
-			var pagination = this.$element.find('.repeater-pagination');
+			var footer = this.$element.find('.repeater-footer');
+			var viewport = this.$element.find('.repeater-viewport');
 			var cont, data;
 
 			options = options || {};
@@ -337,8 +337,10 @@
 				delete options.dataSource;
 				delete options.end;
 				this.infiniteScrollingOptions = options;
-				itemization.hide();
-				pagination.hide();
+				viewport.css({
+					height: viewport.height() + footer.outerHeight()
+				});
+				footer.hide();
 			} else {
 				cont = this.infiniteScrollingCont;
 				data = cont.data();
@@ -350,8 +352,10 @@
 				this.infiniteScrollingEnabled = false;
 				this.infiniteScrollingEnd = null;
 				this.infiniteScrollingOptions = {};
-				itemization.show();
-				pagination.show();
+				viewport.css({
+					height: viewport.height() - footer.outerHeight()
+				});
+				footer.show();
 			}
 		},
 
