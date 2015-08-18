@@ -365,7 +365,7 @@
 
 			var data = {
 				startDateTime: startDateTime,
-				timeZone: timezone,
+				timeZone: timeZone,
 				recurrencePattern: pattern
 			};
 
