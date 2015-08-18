@@ -11,12 +11,16 @@ module.exports = function (grunt) {
 	 *	since it has not been initialized yet, until grunt.initConfig() is executed.
 	 */
 
+	function getPackage() {
+		return grunt.file.readJSON('./package.json');
+	}
+
 	// use --no-livereload to disable livereload. Helpful to 'serve' multiple projects
 	var isLivereloadEnabled = (typeof grunt.option('livereload') !== 'undefined') ? grunt.option('livereload') : true;
 
 	// external libraries
 	var semver = require('semver');
-	var packageVersion = require('./package.json').version;
+	var packageVersion = getPackage().version;
 	var fs = require('fs');
 	var path = require('path');
 	var commonJSBundledReferenceModule = require('./grunt/other/commonjs-reference-module.js');
@@ -49,7 +53,7 @@ module.exports = function (grunt) {
 			jqueryCheck: 'if (typeof jQuery === \'undefined\') { throw new Error(\'Fuel UX\\\'s JavaScript requires jQuery\') }\n\n',
 			bootstrapCheck: 'if (typeof jQuery.fn.dropdown === \'undefined\' || typeof jQuery.fn.collapse === \'undefined\') ' +
 			'{ throw new Error(\'Fuel UX\\\'s JavaScript requires Bootstrap\') }\n\n',
-			pkg: grunt.file.readJSON('package.json'),
+			pkg: getPackage(),
 			// Try ENV variables (export SAUCE_ACCESS_KEY=XXXX), if key doesn't exist, try key file
 			sauceLoginFile: grunt.file.exists('SAUCE_API_KEY.yml') ? grunt.file.readYAML('SAUCE_API_KEY.yml') : undefined,
 			cdnLoginFile: grunt.file.exists('FUEL_CDN.yml') ? grunt.file.readYAML('FUEL_CDN.yml') : undefined,

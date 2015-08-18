@@ -1,6 +1,10 @@
 module.exports = function (grunt) {
 	var semver = require('semver');
 
+	function getPackage() {
+		return grunt.file.readJSON('./package.json');
+	}
+
 	return {
 		// Compile release notes while waiting for tests to pass. Needs Ruby gem and ONLY LOOKS AT THE REMOTE NAMED ORIGIN.
 		// Install with: gem install github_changelog_generator
@@ -30,14 +34,14 @@ module.exports = function (grunt) {
 		},
 		commit: {
 			command: function() {
-				var command = 'git commit -m "release ' + grunt.config('pkg.version') + '"';
+				var command = 'git commit -m "release ' + getPackage().version + '"';
 				grunt.log.write('Committing: ' + command);
 				return command;
 			}
 		},
 		tag: {
 			command: function() {
-				var command = 'git tag -a "' + grunt.config('pkg.version') + '" -m "' + grunt.config('pkg.version') + '"';
+				var command = 'git tag -a "' + getPackage().version + '" -m "' + getPackage().version + '"';
 				grunt.log.write('Tagging: ' + command);
 				return command;
 			}

@@ -2,6 +2,13 @@ module.exports = function (grunt) {
 
 	var minifiedOutput = 'dist/css/' + '<%= pkg.name %>' + '.min.css';
 
+	var minifyFiles = function() {
+		var minifyFiles = {};
+		var output = 'dist/css/' + '<%= pkg.name %>' + '.min.css'
+		minifyFiles[output] = 'dist/css/' + '<%= pkg.name %>' + '.css'
+		return minifyFiles
+	};
+
 	return {
 		dev: {
 			options: {
@@ -33,9 +40,7 @@ module.exports = function (grunt) {
 				compress: true,
 				report: 'min'
 			},
-			files: {
-				minifiedOutput : 'dist/css/' + '<%= pkg.name %>' + '.css'
-			}
+			files: minifyFiles()
 		}
 	}
 
