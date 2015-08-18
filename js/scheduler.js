@@ -458,19 +458,17 @@
 				startDate = currentDate.getFullYear() + '-' + currentDate.getMonth() + '-' + currentDate.getDate();
 			}
 
-			item = 'li[data';
+			// create jQuery selection string for timezone object
+			// based on data-attributes and pass to selectlist
+			item = 'li';
 			if (options.timeZone) {
 				if (typeof (options.timeZone) === 'string') {
-					item += '-name="' + options.timeZone;
+					item += '[data-name="' + options.timeZone + '"]';
 				} else {
-					if (options.timeZone.name) {
-						item += '-name="' + options.timeZone.name;
-					} else {
-						item += '-offset="' + options.timeZone.offset;
-					}
+					$.each(options.timeZone, function(key, value) {
+						item += '[data-' + key + '="' + value + '"]';
+					});
 				}
-
-				item += '"]';
 				timeOffset = options.timeZone.offset;
 				this.$timeZone.selectlist('selectBySelector', item);
 			} else if (options.startDateTime) {
@@ -486,10 +484,8 @@
 				} else {
 					temp = '+00:00';
 				}
-
 				timeOffset = (temp === '+00:00') ? 'Z' : temp;
-
-				item += '-offset="' + temp + '"]';
+				item += '[data-offset="' + temp + '"]';
 				this.$timeZone.selectlist('selectBySelector', item);
 			} else {
 				timeOffset = 'Z';
