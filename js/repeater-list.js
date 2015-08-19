@@ -670,7 +670,10 @@
 						$item.find('.repeater-list-check').remove();
 					}
 
-					self.$element.trigger('deselected.fu.repeaterList', $item);
+					self.$element.trigger('deselected.fu.repeaterList', {
+						data: $item.data('item_data'),
+						element: $item
+					});
 				} else {
 					if (!isMulti) {
 						self.$canvas.find('.repeater-list-check').remove();
@@ -690,7 +693,10 @@
 							$actionsRow.addClass('selected');
 						}
 					}
-					self.$element.trigger('selected.fu.repeaterList', $item);
+					self.$element.trigger('selected.fu.repeaterList', {
+						data: $item.data('item_data'),
+						element: $item
+					});
 				}
 				var $selected = self.$canvas.find('.repeater-list-wrapper > table .selected');
 				var $actionsColumn = self.$element.find('.table-actions');
