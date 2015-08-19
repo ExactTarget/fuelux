@@ -679,7 +679,10 @@
 						self.$canvas.find('.repeater-list-check').remove();
 						self.$canvas.find('.repeater-list tbody tr.selected').each(function () {
 							$(this).removeClass('selected');
-							self.$element.trigger('deselected.fu.repeaterList', $(this));
+							self.$element.trigger('deselected.fu.repeaterList', {
+									data: $item.data('item_data'),
+									element: $item
+								});
 						});
 						$item.find('td:first').prepend('<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>');
 						$item.addClass('selected');
