@@ -88,6 +88,13 @@ module.exports = function (grunt) {
 				grunt.log.writeln('');
 				return command;
 			}
+		},
+		publishToNPM: {
+			command: function() {
+				var command = 'npm publish';
+				grunt.log.write(command);
+				return command;
+			}
 		}
 	}
 

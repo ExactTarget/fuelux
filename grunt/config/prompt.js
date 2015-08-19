@@ -197,6 +197,23 @@ module.exports = function (grunt) {
 					return false;
 				}
 			}
+		},
+		'publishToNPM': {
+			options: {
+				questions: [
+					{
+						config: 'release.publishToNPM',
+						type: 'confirm',
+						message: 'Would you like to publish to NPM?'
+					}
+				],
+				then: function (answers, done) {
+					if (answers['release.publishToNPM'] === true) {
+						grunt.task.run(['shell:publishToNPM']);
+					}
+					return false;
+				}
+			}
 		}
 	}
 }
