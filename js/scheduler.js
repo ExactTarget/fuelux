@@ -379,8 +379,8 @@
 
 			if (!data) {
 				selectedItem = this.$repeatIntervalSelect.selectlist('selectedItem');
-				val = selectedItem.value;
-				txt = selectedItem.text;
+				val = selectedItem.value || "";
+				txt = selectedItem.text || "";
 			} else {
 				val = data.value;
 				txt = data.text;
