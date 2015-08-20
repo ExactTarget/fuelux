@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.11.0 
+ * Fuel UX v3.11.1 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -5190,8 +5190,8 @@
 			},
 
 			infiniteScrolling: function( enable, options ) {
-				var itemization = this.$element.find( '.repeater-itemization' );
-				var pagination = this.$element.find( '.repeater-pagination' );
+				var footer = this.$element.find( '.repeater-footer' );
+				var viewport = this.$element.find( '.repeater-viewport' );
 				var cont, data;
 
 				options = options || {};
@@ -5202,8 +5202,10 @@
 					delete options.dataSource;
 					delete options.end;
 					this.infiniteScrollingOptions = options;
-					itemization.hide();
-					pagination.hide();
+					viewport.css( {
+						height: viewport.height() + footer.outerHeight()
+					} );
+					footer.hide();
 				} else {
 					cont = this.infiniteScrollingCont;
 					data = cont.data();
@@ -5215,8 +5217,10 @@
 					this.infiniteScrollingEnabled = false;
 					this.infiniteScrollingEnd = null;
 					this.infiniteScrollingOptions = {};
-					itemization.show();
-					pagination.show();
+					viewport.css( {
+						height: viewport.height() - footer.outerHeight()
+					} );
+					footer.show();
 				}
 			},
 
@@ -6198,7 +6202,7 @@
 				$col.html( checkBoxMarkup );
 			}
 
-			if ( this.viewOptions.list_columnRendered ) {
+			if ( !( columns[ columnIndex ].property === '@_CHECKBOX_@' || columns[ columnIndex ].property === '@_ACTIONS_@' ) && this.viewOptions.list_columnRendered ) {
 				this.viewOptions.list_columnRendered( {
 					container: $row,
 					columnAttr: columns[ columnIndex ].property,
@@ -6541,10 +6545,6 @@
 					}
 				}
 			}
-		}
-
-		function hoverClick() {
-
 		}
 
 		function specialBrowserClass() {
@@ -7138,10 +7138,7 @@
 
 				var data = {
 					startDateTime: startDateTime,
-					timeZone: {
-						name: timeZone.name,
-						offset: timeZone.offset
-					},
+					timeZone: timeZone,
 					recurrencePattern: pattern
 				};
 
@@ -7155,8 +7152,8 @@
 
 				if ( !data ) {
 					selectedItem = this.$repeatIntervalSelect.selectlist( 'selectedItem' );
-					val = selectedItem.value;
-					txt = selectedItem.text;
+					val = selectedItem.value || "";
+					txt = selectedItem.text || "";
 				} else {
 					val = data.value;
 					txt = data.text;
@@ -7231,19 +7228,17 @@
 					startDate = currentDate.getFullYear() + '-' + currentDate.getMonth() + '-' + currentDate.getDate();
 				}
 
-				item = 'li[data';
+				// create jQuery selection string for timezone object
+				// based on data-attributes and pass to selectlist
+				item = 'li';
 				if ( options.timeZone ) {
 					if ( typeof( options.timeZone ) === 'string' ) {
-						item += '-name="' + options.timeZone;
+						item += '[data-name="' + options.timeZone + '"]';
 					} else {
-						if ( options.timeZone.name ) {
-							item += '-name="' + options.timeZone.name;
-						} else {
-							item += '-offset="' + options.timeZone.offset;
-						}
+						$.each( options.timeZone, function( key, value ) {
+							item += '[data-' + key + '="' + value + '"]';
+						} );
 					}
-
-					item += '"]';
 					timeOffset = options.timeZone.offset;
 					this.$timeZone.selectlist( 'selectBySelector', item );
 				} else if ( options.startDateTime ) {
@@ -7259,10 +7254,8 @@
 					} else {
 						temp = '+00:00';
 					}
-
 					timeOffset = ( temp === '+00:00' ) ? 'Z' : temp;
-
-					item += '-offset="' + temp + '"]';
+					item += '[data-offset="' + temp + '"]';
 					this.$timeZone.selectlist( 'selectBySelector', item );
 				} else {
 					timeOffset = 'Z';
