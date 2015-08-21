@@ -38,6 +38,8 @@
 			e.preventDefault();
 		});
 		this.options = $.extend({}, $.fn.spinbox.defaults, options);
+		this.options.step = this.$element.data('step') || this.options.step;
+		
 		this.$input = this.$element.find('.spinbox-input');
 		this.$element.on('focusin.fu.spinbox', this.$input, $.proxy(this.changeFlag, this));
 		this.$element.on('focusout.fu.spinbox', this.$input, $.proxy(this.change, this));
