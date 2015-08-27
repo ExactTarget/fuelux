@@ -128,6 +128,10 @@
 
 		output: function (value, updateField) {
 			value = (value + '').split('.').join(this.options.decimalMark);
+			// if set and default unit if not already present, add default unit
+			if (this.options.defaultUnit !== '' && this.options.defaultUnit !== value.slice(-2)) {
+				value = value + this.options.defaultUnit;
+			}
 			updateField = (updateField || true);
 			if (updateField) {
 				this.$input.val(value);
@@ -420,7 +424,8 @@
 		disabled: false,
 		cycle: false,
 		units: [],
-		decimalMark: '.'
+		decimalMark: '.',
+		defaultUnit: ''
 	};
 
 	$.fn.spinbox.Constructor = Spinbox;
