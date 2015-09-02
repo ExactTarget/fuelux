@@ -256,6 +256,14 @@
 				this.$primaryPaging.combobox('disable');
 			}
 
+			//if there are no items
+			if (parseInt(this.$count.html()) !== 0) {
+				this.$pageSize.selectlist('enable');
+			}
+			else {
+				this.$pageSize.selectlist('disable');
+			}
+
 			this.$element.removeClass('disabled');
 			this.$element.trigger('enabled.fu.repeater');
 		},
@@ -317,8 +325,8 @@
 		},
 
 		infiniteScrolling: function (enable, options) {
-			var itemization = this.$element.find('.repeater-itemization');
-			var pagination = this.$element.find('.repeater-pagination');
+			var footer = this.$element.find('.repeater-footer');
+			var viewport = this.$element.find('.repeater-viewport');
 			var cont, data;
 
 			options = options || {};
@@ -329,8 +337,10 @@
 				delete options.dataSource;
 				delete options.end;
 				this.infiniteScrollingOptions = options;
-				itemization.hide();
-				pagination.hide();
+				viewport.css({
+					height: viewport.height() + footer.outerHeight()
+				});
+				footer.hide();
 			} else {
 				cont = this.infiniteScrollingCont;
 				data = cont.data();
@@ -342,8 +352,10 @@
 				this.infiniteScrollingEnabled = false;
 				this.infiniteScrollingEnd = null;
 				this.infiniteScrollingOptions = {};
-				itemization.show();
-				pagination.show();
+				viewport.css({
+					height: viewport.height() - footer.outerHeight()
+				});
+				footer.show();
 			}
 		},
 

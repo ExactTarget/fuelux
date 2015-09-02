@@ -32,17 +32,17 @@
     "grunt-contrib-qunit": "0.5.x",
     "grunt-contrib-uglify": "0.x",
     "grunt-contrib-watch": "0.x",
-    "grunt-html-validation": "0.x",
+    "grunt-html": "^5.0.0",
     "grunt-jsbeautifier": "0.x",
     "grunt-prompt": "1.x",
     "grunt-saucelabs": "8.x",
-    "grunt-shell": "0.x",
+    "grunt-shell": "1.x",
     "grunt-text-replace": "0.x",
     "grunt-umd": "2.x",
     "grunt-zip": "0.x",
     "load-grunt-tasks": "3.x",
     "qunitjs": "1.x",
-    "semver": "4.x",
+    "semver": "5.x",
     "serve-static": ">=1.7.2"
   },
   "engines": {
@@ -77,12 +77,12 @@
   },
   "scripts": {
     "main": "devserver.js",
-    "postinstall": "node ./node_modules/bower/bin/bower install",
     "start": "grunt serve",
-    "test": "grunt travisci --verbose"
+    "test": "grunt travisci --verbose",
+    "postinstall": "node postinstall.js"
   },
   "title": "Fuel UX",
-  "version": "3.10.0",
+  "version": "3.11.1",
   "volo": {
     "baseDir": "lib",
     "dependencies": {
