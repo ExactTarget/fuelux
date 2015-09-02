@@ -40,6 +40,7 @@
     "grunt-text-replace": "0.x",
     "grunt-umd": "2.x",
     "grunt-zip": "0.x",
+    "load-grunt-config": "0.x",
     "load-grunt-tasks": "3.x",
     "qunitjs": "1.x",
     "semver": "5.x",

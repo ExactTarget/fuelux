@@ -18,13 +18,14 @@ var banner = '// This file has been created by the `commonjs` Grunt task.' +
 
 module.exports = function createBundledReferenceModule(grunt, files, destFile) {
 	var destDir = path.dirname(destFile);
+	var files = files || [];
 
 	function srcPathToDestRequire(files) {
 		var requirePath = path.relative(destDir, files).replace(/\\/g, '/').replace(/\.js$/g, '');
 		return 'require(\'' + requirePath + '\');';
 	}
 
-	var moduleOutputJs = banner + files.map(srcPathToDestRequire).join('\n');
+	var moduleOutputJs = banner + String(files.map(srcPathToDestRequire).join('\n'));
 	try {
 		fs.writeFileSync(destFile, moduleOutputJs);
 	} catch (err) {
