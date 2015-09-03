@@ -104,35 +104,29 @@
 
     <dt id="wizard-usage-methods-selectedItem">.wizard('selectedItem')</dt>
     <dd>Returns the current step index.
-  {% highlight js %}
-  $('#myWizard').wizard('selectedItem');
-  {% endhighlight %}
+  {% highlight js %}$('#myWizard').wizard('selectedItem');{% endhighlight %}
     </dd>
 
     <dt id="wizard-usage-methods-selectedItem">.wizard('selectedItem', 3)</dt>
     <dd>Moves to passed in step. This can be either an integer or the `data-name` of a step.
-  {% highlight js %}
-  $('#myWizard').wizard('selectedItem', {
-    step: 3
-  });
+  {% highlight js %}$('#myWizard').wizard('selectedItem', {
+  step: 3
+});
 
-  $('#myWizard').wizard('selectedItem', {
-    step: "named item"
-  });
-  {% endhighlight %}
+$('#myWizard').wizard('selectedItem', {
+  step: "named item"
+});{% endhighlight %}
     </dd>
 
     <dt id="wizard-usage-methods-addSteps">.wizard('addSteps')</dt>
     <dd>Add a pane or an array of panes to a wizard. Wrap this markup with <code>&lt;div class=&quot;step-pane&quot;&gt;&lt;/div&gt;</code>
-  {% highlight js %}
-  $('#myWizard').wizard('addSteps', index, [
-    {
-      badge: 'badge-customicon',
-      label: 'A Step Label',
-      pane: '<div>Content</div>'
-    }
-  ]);
-  {% endhighlight %}
+  {% highlight js %}$('#myWizard').wizard('addSteps', index, [
+  {
+    badge: 'badge-customicon',
+    label: 'A Step Label',
+    pane: '<div>Content</div>'
+  }
+]);{% endhighlight %}
       <div class="table-responsive">
         <table class="table table-bordered table-striped">
           <thead>
@@ -163,9 +157,7 @@
 
     <dt id="wizard-usage-methods-removeSteps">.wizard('removeSteps')</dt>
     <dd>Remove a pane or multiple panes from a wizard
-  {% highlight js %}
-    $('#myWizard').wizard('removeSteps', index, howMany);
-  {% endhighlight %}
+  {% highlight js %}$('#myWizard').wizard('removeSteps', index, howMany);{% endhighlight %}
 
       <div class="table-responsive">
         <table class="table table-bordered table-striped">
