@@ -42,9 +42,11 @@
 	<!-- Bootstrap CSS-->
 	<link href="{{ site.url }}/assets/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="{{ site.url }}/assets/vendor/fuelux/dist/css/fuelux.css" rel="stylesheet" type="text/css">
-
 	<!-- Docs CSS -->
 	<link href="{{ site.url }}/assets/css/docs.css" rel="stylesheet">
+
+	<!-- Copy select -->
+	<link href="{{ site.url }}/assets/css/super-copy.css"  rel="stylesheet" type="text/css">
 
 	<!-- Specific Page CSS -->
 	{% if page.title != "Fuel UX" %}
@@ -79,6 +81,7 @@
 					templates: '{{ site.url }}/assets/js/form-builder/templates',
 					views: '{{ site.url }}/assets/js/form-builder/views',
 					text: '{{ site.url }}/assets/vendor/requirejs-text/text',
+					supercopy: '{{ site.url }}/assets/js/super-copy',
 				},
 				// Bootstrap is a "browser globals" script :-(
 				shim: {

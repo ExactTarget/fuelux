@@ -22,6 +22,8 @@ define(function (require) {
 	require('assets/js/tree-examples');
 	require('assets/js/wizard-examples');
 
+	require('supercopy');
+
 	$body.scrollspy({
 		target: '.fu-sidebar'
 	});
