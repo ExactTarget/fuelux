@@ -837,6 +837,7 @@ h6 {
 	margin-bottom: 0;
 	background-color: transparent;
 	border: 0;
+	min-height: 21px;
 	white-space: nowrap;
 }
 .highlight pre code {
