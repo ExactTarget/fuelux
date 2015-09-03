@@ -1,0 +1,149 @@
+.fuelux {
+
+	.superpicker {
+		display: inline-block;
+		position: relative;
+
+		&[data-ellipsis="true"] {
+			&.showing {
+				input.superpicker-field {
+					overflow: visible;
+					text-overflow: clip;
+					white-space: normal;
+				}
+			}
+
+			input.superpicker-field {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+
+				&::-ms-clear {
+					display:none;
+				}
+			}
+
+			textarea.superpicker-field {
+				&[readonly] {
+					overflow: hidden;
+				}
+			}
+		}
+
+		&.showing {
+			.superpicker-footer,
+			.superpicker-header,
+			.superpicker-popup {
+				display: block;
+				z-index: 1;
+			}
+
+			input.superpicker-field, textarea.superpicker-field {
+				background: @true-white;
+				border: 1px solid @gray80;
+				box-shadow: none;
+				position: relative;
+				z-index: 1;
+			}
+		}
+
+		input.superpicker-field, textarea.superpicker-field {
+			resize: none;
+
+			&[readonly] {
+				background: @true-white;
+				cursor: auto;
+
+				&.glass {
+					background: none;
+
+					&:hover {
+						background: @infoBackground;
+						cursor: pointer;
+					}
+				}
+			}
+
+			&:focus {
+				border: 1px solid @gray80;
+				box-shadow: none;
+			}
+		}
+
+		&-cancel {
+			font-size: 12px;
+			margin-right: 4px;
+			vertical-align: middle;
+		}
+
+		&-footer,
+		&-header {
+			display: none;
+			left: 0;
+			line-height: 1;
+			position: absolute;
+			right: 0;
+		}
+
+		&-footer {
+			padding: 4px 10px 8px 0;
+			text-align: right;
+			bottom: 0;
+		}
+
+		&-header {
+			padding: 8px 0 4px 10px;
+
+			h1, h2, h3, h4, h5, h6 {
+				margin: 0;
+			}
+		}
+
+		&-popup {
+			background: @infoBackground;
+			background-clip: padding-box;
+			border: 1px solid @gray80;
+			border-radius: 4px;
+			box-shadow: 0 0 0 1px @true-white inset;
+			display: none;
+			position: absolute;
+
+		}
+
+		.glass {
+			background: transparent;
+			border: 1px solid @true-white;
+			box-shadow: none;
+
+			&:hover {
+				background: @infoBackground;
+				border-color: @focusColor;
+				cursor: pointer;
+
+				&[disabled] {
+					background: transparent;
+					border-color: @true-white;
+					cursor: not-allowed;
+				}
+			}
+
+			&:focus {
+				background: @true-white;
+				border-color: @focusColor;
+				box-shadow: inset 0 1px 1px fade(@true-black, 75%), 0 0 8px fade(@focusColor, 60%);
+				cursor: auto;
+
+				&[disabled] {
+					background: transparent;
+					border-color: @true-white;
+					cursor: not-allowed;
+				}
+			}
+
+			&[disabled] {
+				cursor: not-allowed;
+			}
+		}
+	}
+
+}
