@@ -1033,11 +1033,12 @@ define(function (require) {
 		multiSelect: true
 	});
 
-	$('#mysuperpicker2').on('accepted.fu.superpicker', function(o){
-		var selected = $('#mySuperpickerTree1').find('.tree-selected');
-		var selectedPaths = getListItemPaths('#mySuperpickerTree1', selected, '.tree-label', '/', ', ');
-		$('#mysuperpicker2').superpicker('setValue', selectedPaths);
-	});
+	// requires https://github.com/exacttarget/get-list-item-path
+	// $('#mysuperpicker2').on('accepted.fu.superpicker', function(o){
+	// 	var selected = $('#mySuperpickerTree1').find('.tree-selected');
+	// 	var selectedPaths = getListItemPaths('#mySuperpickerTree1', selected, '.tree-label', '/', ', ');
+	// 	$('#mysuperpicker2').superpicker('setValue', selectedPaths);
+	// });
 
 
 	function guid() {
