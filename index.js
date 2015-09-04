@@ -1031,9 +1031,12 @@ define(function (require) {
 		cacheItems: true,
 		folderSelect: true,
 		multiSelect: true
-	})
-	$('#mySuperpickerTree1').on('accepted.fu.superpicker', function(o){
-		console.log(o);
+	});
+
+	$('#mysuperpicker2').on('accepted.fu.superpicker', function(o){
+		var selected = $('#mySuperpickerTree1').find('.tree-selected');
+		var selectedPaths = getListItemPaths('#mySuperpickerTree1', selected, '.tree-label', '/', ', ');
+		$('#mysuperpicker2').superpicker('setValue', selectedPaths);
 	});
 
 

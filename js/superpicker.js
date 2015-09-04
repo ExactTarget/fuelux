@@ -81,14 +81,12 @@
 
 			if (func) {
 				func(obj);
-				console.log('action1', action);
 				this.$element.trigger(action + '.fu.superpicker', obj);
 			} else {
 				if (action === 'cancelled' && this.options.revertOnCancel) {
 					this.$field.val(this.previousValue);
 				}
 
-				console.log('action2', action);
 				this.$element.trigger(action + '.fu.superpicker', obj);
 				this.hide();
 			}
@@ -203,6 +201,14 @@
 			if (!this.options.explicit) {
 				$(document).on('click.fu.superpicker.externalClick.' + this.clickStamp, $.proxy(this.externalClickListener, this));
 			}
+		},
+
+		setValue: function setValue(value) {
+			this.$field.val(value);
+		},
+
+		getValue: function getValue() {
+			return this.$field.val();
 		}
 	};
 
