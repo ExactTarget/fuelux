@@ -90,12 +90,11 @@
 
 		this.$calendar.find('.datepicker-today').on('click.fu.datepicker', $.proxy(this.todayClicked, this));
 		this.$days.on('click.fu.datepicker', 'tr td button', $.proxy(this.dateClicked, this));
-		this.$element.find('.dropdown-menu').on('mousedown.fu.datepicker', $.proxy(this.dropdownMousedown, this));
 		this.$header.find('.next').on('click.fu.datepicker', $.proxy(this.next, this));
 		this.$header.find('.prev').on('click.fu.datepicker', $.proxy(this.prev, this));
 		this.$headerTitle.on('click.fu.datepicker', $.proxy(this.titleClicked, this));
-		this.$input.on('blur.fu.datepicker', $.proxy(this.inputBlurred, this));
-		this.$input.on('focus.fu.datepicker', $.proxy(this.inputFocused, this));
+		this.$input.on('change.fu.datepicker', $.proxy(this.inputChanged, this));
+		this.$input.on('mousedown.fu.datepicker', $.proxy(this.showDropdown, this));
 		this.$wheels.find('.datepicker-wheels-back').on('click.fu.datepicker', $.proxy(this.backClicked, this));
 		this.$wheels.find('.datepicker-wheels-select').on('click.fu.datepicker', $.proxy(this.selectClicked, this));
 		this.$wheelsMonth.on('click.fu.datepicker', 'ul button', $.proxy(this.monthClicked, this));
@@ -187,6 +186,7 @@
 			this.selectedDate = date;
 			this.$input.val(this.formatDate(date));
 			this.inputValue = this.$input.val();
+			this.hideDropdown();
 			this.$input.focus();
 			this.$element.trigger('dateClicked.fu.datepicker', date);
 		},
@@ -207,14 +207,6 @@
 			this.$element.addClass('disabled');
 			this.$element.find('input, button').attr('disabled', 'disabled');
 			this.$element.find('.input-group-btn').removeClass('open');
-		},
-
-		dropdownMousedown: function () {
-			var self = this;
-			this.preventBlurHide = true;
-			setTimeout(function () {
-				self.preventBlurHide = false;
-			}, 0);
 		},
 
 		enable: function () {
@@ -263,7 +255,7 @@
 			return this.restricted;
 		},
 
-		inputBlurred: function (e) {
+		inputChanged: function () {
 			var inputVal = this.$input.val();
 			var date;
 			if (inputVal !== this.inputValue) {
@@ -277,14 +269,16 @@
 				}
 
 			}
+		},
 
-			if (!this.preventBlurHide) {
-				this.$element.find('.input-group-btn').removeClass('open');
+		showDropdown: function (e) {
+			if (!this.$input.is(':focus')){
+				this.$element.find('.input-group-btn').addClass('open');
 			}
 		},
 
-		inputFocused: function (e) {
-			this.$element.find('.input-group-btn').addClass('open');
+		hideDropdown: function () {
+			this.$element.find('.input-group-btn').removeClass('open');
 		},
 
 		isInvalidDate: function (date) {

@@ -3,26 +3,32 @@
 <div class="fu-docs-section">
   <h1 id="scheduler" class="page-header">Scheduler <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/scheduler.js"><small>scheduler.js</small></a></h1>
 
-  <p>Create a time object with support for start date and time, timezone and iCal-compatible reccurance patterns.</p>
+  <p>Control which allows users to choose <code>startDateTime</code>, <code>timeZone</code>, and iCal-compatible <code>recurrencePattern</code></p>
   <div class="form-horizontal container-fluid scheduler" data-initialize="scheduler" role="form" id="schedulerIllustration">
   {% include js/scheduler-example.html %}
   </div>
 
 
   <h2 id="scheduler-usage">Usage</h2>
-  <!-- TODO: evaluate this line, it seems very out of place... -->
-  <p>A scheduler can return a time object with a <code>startDateTime</code>, a <code>timeZone</code>, and a<code>recurrencePattern</code></p>
 
   <h3 id="scheduler-usage-javascript">Via JavaScript</h3>
-  <p>Call the scheduler control via JavaScript:</p>
-  {% highlight js %}$('#myscheduler').scheduler();{% endhighlight %}
+  <p>Instantiate the scheduler control via JavaScript:</p>
+  {% highlight js %}$('#myScheduler').scheduler();{% endhighlight %}
+  <p>The scheduler also accepts optional options params during initialization, one for each start and end date:</p>
+  {% highlight js %}$('#myScheduler').scheduler({
+    startDateOptions: {
+      allowPastDates: true
+    },
+    endDateOptions: {
+      sameYearOnly: true
+    }
+  });{% endhighlight %}
 
   <h3 id="scheduler-usage-data-attributes">Via data-attributes</h3>
-  <p>To enable the scheduler control without writing JavaScript, add <code>data-initialize="scheduler"</code> to the <code>.scheduler</code> element that you wish to initialize. Such elements that exist when <code>$.ready()</code> executes will be initialized. Any scheduler markup that is programmatically created with <code>data-initialize="scheduler"</code> sometime after the initial page load will not immediately initialize. Rather, it will initialize when the <code>mousedown</code> event is fired on it.</p>
-
+  <p>Add <code>data-initialize="scheduler"</code> to the <code>.scheduler</code> element that you wish to initialize on <code>$.ready()</code>. Any scheduler that is programmatically generated after the initial page load will initialize when the mousedown event is fired on it if it has <code>data-initialize="scheduler"</code>.</p>
 
   <h3 id="scheduler-usage-markup">Markup</h3>
-  <p>Wrap <code>class="scheduler"</code> around a start date and time, a timezone, and a recurrance pattern within a <code>class="fuelux"</code> container.</p>
+  <p>Place all of the following markup within any "fuelux" classed container (typically the html element). Scheduler consists of a specific arrangement of <a href="#datepicker">Datepickers</a>, <a href="#combobox">Comboboxes</a>, <a href="#radio">Radios</a>, <a href="#selectlist">Selectlists</a>, and <a href="#spinbox">Spinboxes</a>.</p>
 
   <div class="truncate-highlight">
     {% highlight html %}
@@ -33,7 +39,7 @@
   </div>
 
   <h3 id="scheduler-usage-options">Options</h3>
-  <p>Pass options via JavaScript upon initialization.</p>
+  <p>Should be passed in as an <code>object</code> (eg. <code>{name: value}</code>) on initialization. If initializing with options, <a href="#scheduler-usage-javascript">Javascript initialization</a> is required (you can't initialize with options through data-attributes).</p>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>
@@ -49,7 +55,7 @@
         <td>startDateOptions</td>
         <td>object</td>
         <td>{}</td>
-        <td>Attributes used to configure the datepicker object. All options for datepicker are avaibable and they can
+        <td>Attributes used to configure the datepicker object. All options for datepicker are available and they can
           be found in the <a href="#datepicker-usage-options">datepicker documentation</a>.</td>
       </tr>
       <tr>
@@ -57,7 +63,7 @@
         <td>object</td>
         <td>{}</td>
         <td>This option can be set but will only be used if the event is repeated. Attributes used to configure the datepicker object.
-          All options for datepicker are avaibable and they can
+          All options for datepicker are available and they can
           be found in the <a href="#datepicker-usage-options">datepicker documentation</a>.</td>
       </tr>
       </tbody>
@@ -65,6 +71,8 @@
   </div><!-- ./fu-table-responsive -->
 
   <h3 id="scheduler-usage-methods">Methods</h3>
+  <p>Once your scheduler is <a href="#scheduler-usage-javascript">initialized</a>, you can execute any of the following methods on it:</p>
+
   <dl>
     <dt id="scheduler-usage-methods-destroy">.scheduler('destroy')</dt>
     <dd>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</dd>
@@ -130,7 +138,7 @@
       </tbody>
     </table>
   </div><!-- ./fu-table-responsive -->
-  <p>All scheduler events are fired on the <code>.scheduler</code> classed element.</p>
+  <p>All scheduler event listeners should be attached to the element containing the <code>scheduler</code> class. Given the above <a href="#scheduler-usage-markup">example markup</a>, you would attach event listeners thusly:</p>
   {% highlight js %}$('#myScheduler').on('changed.fu.scheduler', function () {
   // do something
 });{% endhighlight %}
@@ -145,10 +153,8 @@
   </ul>
 
   <h2 id="scheduler-examples">Examples</h2>
-  <p>Create a time object with support for start date and time, timezone and iCal-compatible reccurance patterns.</p>
-
   <h3 id="scheduler-examples-static">Static example</h3>
-  <p>A scheduler with start date and time, timezone, and all recurrance and recurrance end options. All options do not show simutaneously in the live demo further along in this document.</p>
+  <p>The following static scheduler displays all components simultaneously (start date and time, timezone, and all recurrence and recurrence end options) for illustration purposes only.</p>
   <div class="fu-example fu-example-scheduler">
     <fieldset id="mySchedulerStatic" class="form-horizontal container-fluid scheduler" role="form">
     {% include js/scheduler-example.html %}
@@ -164,12 +170,17 @@
     <br/>
     <h5>Sample Methods</h5>
     <div class="btn-group">
-        <button class="btn btn-default" id="btnSchedulerEnable">enable</button>
-        <button class="btn btn-default" id="btnSchedulerDisable">disable</button>
-        <button class="btn btn-default" id="btnSchedulerLogValue">log value</button>
-        <button class="btn btn-default" id="btnSchedulerSetValue">set value to the following schedule</button>
-        <button class="btn btn-default" id="btnSchedulerDestroy">destroy and append</button>
+        <button type="button" class="btn btn-default" id="btnSchedulerEnable">enable</button>
+        <button type="button" class="btn btn-default" id="btnSchedulerDisable">disable</button>
+        <button type="button" class="btn btn-default" id="btnSchedulerLogValue">log value</button>
+        <button type="button" class="btn btn-default" id="btnSchedulerSetValue">set value to the following schedule</button>
+        <button type="button" class="btn btn-default" id="btnSchedulerDestroy">destroy and append</button>
     </div>
 
   </div><!-- /example -->
+  <div class="truncate-highlight">
+  {% highlight html %}
+{% include js/scheduler-example.html %}
+  {% endhighlight %}
+  </div>
 </div>

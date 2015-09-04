@@ -88,7 +88,7 @@ Fuel UX is lightweight to give you a fast dependable foundation to build upon. I
 From the command line:
 
 1. Install `grunt-cli` globally with `npm install -g grunt-cli`.
-2. Make sure you're in the root of the fuel directory, then run `npm install`. npm will look at [package.json](https://github.com/exacttarget/fuelux/blob/master/package.json) and automatically install the necessary local dependencies listed there.
+2. Make sure you're in the root of the fuel directory, then run `npm install`. npm will look at [package.json](https://github.com/exacttarget/fuelux/blob/master/package.json) and automatically install the necessary local dependencies listed there. Finally, run `bower install` to install front-end dependencies.
 
 When completed, you'll be able to run the various Grunt commands provided from the command line.
 
