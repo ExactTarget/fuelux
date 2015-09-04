@@ -81,7 +81,6 @@
 			display: none;
 			left: 0;
 			line-height: 1;
-			position: absolute;
 			right: 0;
 		}
 
@@ -89,9 +88,11 @@
 			padding: 4px 10px 8px 0;
 			text-align: right;
 			bottom: 0;
+			position: absolute;
 		}
 
 		&-header {
+			height: 34px;
 			padding: 8px 0 4px 10px;
 
 			h1, h2, h3, h4, h5, h6 {
@@ -107,7 +108,19 @@
 			box-shadow: 0 0 0 1px @true-white inset;
 			display: none;
 			position: absolute;
+			padding-left: 6px;
+			padding-right: 6px;
 
+		}
+
+		.well {
+			background-color: #fff;
+			overflow: scroll;
+			padding: 0;
+		}
+
+		.tree {
+			border: none;
 		}
 
 		.glass {

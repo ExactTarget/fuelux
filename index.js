@@ -936,8 +936,7 @@ define(function (require) {
 	 TREE
 	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-	$('#myTree1').tree({
-		dataSource: function (parentData, callback) {
+	 var treeDataSource =  function (parentData, callback) {
 			log("Opening branch data: ", parentData);
 
 			setTimeout(function () {
@@ -1004,10 +1003,23 @@ define(function (require) {
 					]
 				});
 			}, 400);
-		},
+		}
+
+	$('#myTree1').tree({
+		dataSource: treeDataSource,
 		cacheItems: true,
 		folderSelect: true,
 		multiSelect: true
+	});
+
+	$('#mySuperpickerTree1').tree({
+		dataSource: treeDataSource,
+		cacheItems: true,
+		folderSelect: true,
+		multiSelect: true
+	})
+	$('#mySuperpickerTree1').on('accepted.fu.superpicker', function(o){
+		console.log(o);
 	});
 
 // initialize

@@ -2436,10 +2436,39 @@
 				<h2>Superpicker</h2>
 				<div class="thin-box">
 					<div class="superpicker" data-ellipsis="true" data-initialize="superpicker" id="mysuperpicker2">
-						<input class="form-control superpicker-field" type="text" />
+						<div class="form-inline">
+							<div class="form-group">
+								<input class="form-control superpicker-field" type="text" placeholder="choose folder location"/>
+							</div><div class="form-group">
+								<input class="btn btn-default superpicker-trigger" type="button" value="Choose..."/>
+							</div>
+						</div>
 						<div class="superpicker-popup">
 							<div class="superpicker-header">
-								<h5>Header</h5>
+								<h5>Choose Folder Location</h5>
+							</div>
+
+							<div class="superpicker-body well">
+								<ul class="tree" id="mySuperpickerTree1" role="tree">
+									<li class="tree-branch hidden" data-template="treebranch" role="treeitem" aria-expanded="false">
+										<div class="tree-branch-header">
+											<button type="button" class="glyphicon icon-caret glyphicon-play"><span class="sr-only">Open</span>
+											</button>
+											<button type="button" class="tree-branch-name">
+												<span class="glyphicon icon-folder glyphicon-folder-close"></span>
+												<span class="tree-label"></span>
+											</button>
+										</div>
+										<ul class="tree-branch-children" role="group"></ul>
+										<div class="tree-loader" role="alert">Loading...</div>
+									</li>
+									<li class="tree-item hidden" data-template="treeitem" role="treeitem">
+										<button type="button" class="tree-item-name">
+											<span class="glyphicon icon-item fueluxicon-bullet"></span>
+											<span class="tree-label"></span>
+										</button>
+									</li>
+								</ul>
 							</div>
 
 							<div class="superpicker-footer">

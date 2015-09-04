@@ -42,9 +42,11 @@
 		this.$accept = this.$element.find('.superpicker-accept');
 		this.$cancel = this.$element.find('.superpicker-cancel');
 		this.$field = this.$element.find('.superpicker-field');
+		this.$trigger = this.$element.find('.superpicker-trigger');
 		this.$footer = this.$element.find('.superpicker-footer');
 		this.$header = this.$element.find('.superpicker-header');
 		this.$popup = this.$element.find('.superpicker-popup');
+		this.$body = this.$element.find('.superpicker-body');
 
 		this.actualValue = null;
 		this.clickStamp = '_';
@@ -57,6 +59,7 @@
 
 		this.$field.on('focus.fu.superpicker', $.proxy(this.show, this));
 		this.$field.on('keydown.fu.superpicker', $.proxy(this.keyComplete, this));
+		this.$trigger.on('focus.fu.superpicker', $.proxy(this.show, this));
 		this.$accept.on('click.fu.superpicker', $.proxy(this.complete, this, 'accepted'));
 		this.$cancel.on('click.fu.superpicker', function (e) {
 			e.preventDefault(); self.complete('cancelled');
@@ -73,16 +76,19 @@
 
 			var obj = {
 				previousValue: this.previousValue,
-				value: this.$field.val()
+				contents: this.$body
 			};
+
 			if (func) {
 				func(obj);
+				console.log('action1', action);
 				this.$element.trigger(action + '.fu.superpicker', obj);
 			} else {
 				if (action === 'cancelled' && this.options.revertOnCancel) {
 					this.$field.val(this.previousValue);
 				}
 
+				console.log('action2', action);
 				this.$element.trigger(action + '.fu.superpicker', obj);
 				this.hide();
 			}
@@ -135,6 +141,7 @@
 			}
 
 			this.$element.removeClass('showing');
+			this.$field.removeAttr('disabled');
 			$(document).off('click.fu.superpicker.externalClick.' + this.clickStamp);
 			this.$element.trigger('hidden.fu.superpicker');
 		},
@@ -182,12 +189,15 @@
 			this.$popup.css('top', (this.$field.outerHeight(true)+4) + 'px');
 
 			this.$popup.css('height', (this.options.height)?this.options.height : DEFAULT_HEIGHT + 'px');
+			this.$body.css('height', ((this.options.height)?this.options.height : DEFAULT_HEIGHT) - 73 + 'px');
 			this.$popup.css('width', (this.options.width)?this.options.height : DEFAULT_WIDTH + 'px');
 
 			this.$element.trigger('shown.fu.superpicker', this.actualValue);
 			if (this.actualValue !== null) {
 				this.actualValue = null;
 			}
+
+			this.$field.attr('disabled', 'disabled');
 
 			this.clickStamp = new Date().getTime() + (Math.floor(Math.random() * 100) + 1);
 			if (!this.options.explicit) {
