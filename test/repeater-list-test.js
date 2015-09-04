@@ -325,8 +325,10 @@ define(function(require){
 			setTimeout(function(){
 				start();
 				selected = $repeater.repeater('list_getSelectedItems');
+				var getValue = $repeater.repeater('getValue');
 				equal(selected.length, 2, 'returned array contains appropriate number of items');
 				equal((typeof selected[0].data==='object' && selected[0].element.length>0), true, 'items in returned array contain appropriate object and attributes');
+				deepEqual(selected, getValue, 'getValue aliases selected');
 			}, 0);
 
 		});

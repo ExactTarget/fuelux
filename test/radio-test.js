@@ -230,6 +230,20 @@ define(function(require){
 		equal($radio.radio('isChecked'), true, 'radio state is checked');
 	});
 
+	test("should support getValue alias", function () {
+		var $element = $(html).find('#CheckboxCheckedEnabled').clone();
+		var $input = $element.find('input[type="checkbox"]');
+
+		// initialize checkbox
+		var $radio = $element.find('label').radio();
+		// verify alias aliases
+		equal($radio.radio('isChecked'), $radio.radio('getValue'), 'getValue alias matches isChecked');
+		$radio.radio('toggle');
+		equal($radio.radio('isChecked'), $radio.radio('getValue'), 'getValue alias matches isChecked');
+		$radio.checkbox('toggle');
+		equal($radio.radio('isChecked'), $radio.radio('getValue'), 'getValue alias matches isChecked');
+	});
+
 	test("should trigger checked event when calling check method", function () {
 		var $element = $(html).find('#RadioUncheckedEnabled').clone();
 

@@ -56,6 +56,24 @@ define(function(require){
 		deepEqual(item, expectedItem, 'no item selected');
 	});
 
+	test("should return selectedItem", function () {
+		var $combobox = $(html).find("#MyCombobox").combobox();
+		$combobox.combobox('selectByIndex', 0);
+
+		var item = $combobox.combobox('selectedItem');
+		var expectedItem = { text: 'One', value: 1 };
+		deepEqual(item, expectedItem, 'selectedItem returns expected value');
+	});
+
+	test("should return selectedItem", function () {
+		var $combobox = $(html).find("#MyCombobox").combobox();
+		$combobox.combobox('selectByIndex', 0);
+
+		var item1 = $combobox.combobox('selectedItem');
+		var item2 = $combobox.combobox('getValue');
+		deepEqual(item1, item2, 'getValue alias matches selectedItem');
+	});
+
 	test("should select by index", function () {
 		var $combobox = $(html).find("#MyCombobox").combobox();
 		$combobox.combobox('selectByIndex', 0);

@@ -28,6 +28,8 @@ define(function(require){
 		//returning default value
 		equal($spinbox.spinbox('value'), 0, 'spinbox returns selected item');
 
+		equal($spinbox.spinbox('value'), $spinbox.spinbox('getValue'), 'getValue aliases value');
+
 		//set number value
 		$spinbox.spinbox('value',2);
 		equal($spinbox.spinbox('value'), 2, 'spinbox sets number value');

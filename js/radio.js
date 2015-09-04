@@ -163,6 +163,7 @@
 		}
 	};
 
+	Radio.prototype.getValue = Radio.prototype.isChecked;
 
 	// RADIO PLUGIN DEFINITION
 

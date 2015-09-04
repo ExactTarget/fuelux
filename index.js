@@ -46,6 +46,10 @@ define(function (require) {
 		var checked = $('#myCustomCheckbox1').checkbox('isChecked');
 		log(checked);
 	});
+	$('#btnCheckboxGetValue').on('click', function () {
+		var value = $('#myCustomCheckbox1').checkbox('getValue');
+		log(value);
+	});
 	$('#btnCheckboxCheck').on('click', function () {
 		$('#myCustomCheckbox1').checkbox('check');
 	});
@@ -779,6 +783,11 @@ define(function (require) {
 	}
 	initRepeaterActions();
 
+	$('#btnRepeaterLogValue').on('click', function () {
+		console.log($('#myRepeaterActions').repeater('getValue'));
+	});
+
+
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	 SCHEDULER
 	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -792,6 +801,10 @@ define(function (require) {
 	});
 	$('#btnSchedulerLogValue').on('click', function () {
 		var val = $('#myScheduler').scheduler('value');
+		log(val);
+	});
+	$('#btnSchedulerLogStringValue').on('click', function () {
+		var val = $('#myScheduler').scheduler('getValue');
 		log(val);
 	});
 	$('#btnSchedulerSetValue').on('click', function () {
@@ -947,14 +960,14 @@ define(function (require) {
 							"name": "Ascending and Descending",
 							"type": "folder",
 							"attr": {
-								"id": "folder1"
+								"id": "folder" + guid()
 							}
 						},
 						{
 							"name": "Sky and Water I (with custom icon)",
 							"type": "item",
 							"attr": {
-								"id": "item1",
+								"id": "item" + guid(),
 								"data-icon": "glyphicon glyphicon-file"
 							}
 						},
@@ -962,28 +975,28 @@ define(function (require) {
 							"name": "Drawing Hands",
 							"type": "folder",
 							"attr": {
-								"id": "folder2"
+								"id": "folder" + guid()
 							}
 						},
 						{
 							"name": "Waterfall",
 							"type": "item",
 							"attr": {
-								"id": "item2"
+								"id": "item" + guid()
 							}
 						},
 						{
 							"name": "Belvedere",
 							"type": "folder",
 							"attr": {
-								"id": "folder3"
+								"id": "folder" + guid()
 							}
 						},
 						{
 							"name": "Relativity (with custom icon)",
 							"type": "item",
 							"attr": {
-								"id": "item3",
+								"id": "item" + guid(),
 								"data-icon": "glyphicon glyphicon-picture"
 							}
 						},
@@ -991,14 +1004,14 @@ define(function (require) {
 							"name": "House of Stairs",
 							"type": "folder",
 							"attr": {
-								"id": "folder4"
+								"id": "folder" + guid()
 							}
 						},
 						{
 							"name": "Convex and Concave",
 							"type": "item",
 							"attr": {
-								"id": "item4"
+								"id": "item" + guid()
 							}
 						}
 					]
@@ -1009,6 +1022,17 @@ define(function (require) {
 		folderSelect: true,
 		multiSelect: true
 	});
+
+
+	function guid() {
+		function s4() {
+			return Math.floor((1 + Math.random()) * 0x10000)
+				.toString(16)
+				.substring(1);
+		}
+		return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+	}
+
 
 // initialize
 	function myTreeInit() {
@@ -1026,7 +1050,7 @@ define(function (require) {
 									"name": "Sky and Water I (with custom icon)",
 									"type": "item",
 									"attr": {
-										"id": "item1",
+										"id": "item" + guid(),
 										"data-icon": "glyphicon glyphicon-file"
 									}
 								},
@@ -1034,14 +1058,14 @@ define(function (require) {
 									"name": "Waterfall",
 									"type": "item",
 									"attr": {
-										"id": "item2"
+										"id": "item" + guid()
 									}
 								},
 								{
 									"name": "Relativity (with custom icon)",
 									"type": "item",
 									"attr": {
-										"id": "item3",
+										"id": "item" + guid(),
 										"data-icon": "glyphicon glyphicon-picture"
 									}
 								},
@@ -1049,7 +1073,7 @@ define(function (require) {
 									"name": "Convex and Concave",
 									"type": "item",
 									"attr": {
-										"id": "item4"
+										"id": "item" + guid()
 									}
 								}
 							]
@@ -1067,7 +1091,7 @@ define(function (require) {
 								"name": "Ascending and Descending",
 								"type": "folder",
 								"attr": {
-									"id": "folder1",
+									"id": "folder" + guid(),
 									"cssClass": "example-tree-class"
 								}
 							},
@@ -1075,7 +1099,7 @@ define(function (require) {
 								"name": "Sky and Water I (with custom icon)",
 								"type": "item",
 								"attr": {
-									"id": "item1",
+									"id": "item" + guid(),
 									"data-icon": "glyphicon glyphicon-file"
 								}
 							},
@@ -1083,28 +1107,28 @@ define(function (require) {
 								"name": "Drawing Hands",
 								"type": "folder",
 								"attr": {
-									"id": "folder2"
+									"id": "folder" + guid()
 								}
 							},
 							{
 								"name": "Waterfall",
 								"type": "item",
 								"attr": {
-									"id": "item2"
+									"id": "item" + guid()
 								}
 							},
 							{
 								"name": "Belvedere",
 								"type": "folder",
 								"attr": {
-									"id": "folder3"
+									"id": "folder" + guid()
 								}
 							},
 							{
 								"name": "Relativity (with custom icon)",
 								"type": "item",
 								"attr": {
-									"id": "item3",
+									"id": "item" + guid(),
 									"data-icon": "glyphicon glyphicon-picture"
 								}
 							},
@@ -1112,14 +1136,14 @@ define(function (require) {
 								"name": "House of Stairs",
 								"type": "folder",
 								"attr": {
-									"id": "folder4"
+									"id": "item" + guid()
 								}
 							},
 							{
 								"name": "Convex and Concave",
 								"type": "item",
 								"attr": {
-									"id": "item4"
+									"id": "item" + guid()
 								}
 							}
 						]
@@ -1157,6 +1181,14 @@ define(function (require) {
 
 	$('#btnTreeCloseAll').click(function () {
 		$('#myTree1').tree('closeAll');
+	});
+
+	$('#btnTreeGetValue').click(function () {
+		console.log($('#myTree1').tree('getValue'));
+	});
+
+	$('#btnTreeValue').click(function () {
+		console.log($('#myTree1').tree('selectedItems'));
 	});
 
 	// events

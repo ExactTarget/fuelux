@@ -34,6 +34,12 @@ define(function(require) {
 		}, 'pillbox returns item data');
 	});
 
+	test('getValue alias should function', function() {
+		var $pillbox = $(html).find('#MyPillbox').pillbox();
+
+		deepEqual($pillbox.pillbox('items'), $pillbox.pillbox('getValue'), 'getValue aliases items');
+	});
+
 	test('Input functionality should behave as designed', function() {
 		var $pillbox = $(html).find('#MyPillbox').pillbox();
 		var $input = $pillbox.find('.pillbox-add-item');
