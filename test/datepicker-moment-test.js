@@ -75,6 +75,53 @@ define(function(require){
 			equal(pickerDate.getTime(), futureDate, 'markup datepicker initialized with different date than now');
 		});
 
+		test('should handle 2 digit year', function(){
+			var $datepicker = $(html).datepicker();
+			var $datepickerInput = $datepicker.find('input');
+			var parsedAs;
+
+			$datepickerInput.val('01/01/15');
+			$datepickerInput.trigger('change');
+			parsedAs = $datepicker.datepicker('getFormattedDate');
+			equal(parsedAs, '01/01/2015', '01/01/15 parsed correctly');
+
+			$datepickerInput.val('1/1/2015');
+			$datepickerInput.trigger('change');
+			parsedAs = $datepicker.datepicker('getFormattedDate');
+			equal(parsedAs, '01/01/2015', '1/1/2015 parsed correctly');
+
+			$datepickerInput.val('1/1/15');
+			$datepickerInput.trigger('change');
+			parsedAs = $datepicker.datepicker('getFormattedDate');
+			equal(parsedAs, '01/01/2015', '1/1/15 parsed correctly');
+
+			$datepickerInput.val('01/01/80');
+			$datepickerInput.trigger('change');
+			parsedAs = $datepicker.datepicker('getFormattedDate');
+			equal(parsedAs, '01/01/1980', '01/01/80 parsed correctly');
+		});
+
+		test('should not handle accommodate 2 digit year', function(){
+			var $datepicker = $(html).datepicker({twoDigitYearProtection: false});
+			var $datepickerInput = $datepicker.find('input');
+			var parsedAs;
+
+			$datepickerInput.val('01/01/15');
+			$datepickerInput.trigger('change');
+			parsedAs = $datepicker.datepicker('getFormattedDate');
+			equal(parsedAs, '01/01/0015', '01/01/15 parsed incorrectly correctly');
+
+			$datepickerInput.val('1/1/15');
+			$datepickerInput.trigger('change');
+			parsedAs = $datepicker.datepicker('getFormattedDate');
+			equal(parsedAs, '01/01/0015', '1/1/15 parsed incorrectly correctly');
+
+			$datepickerInput.val('01/01/80');
+			$datepickerInput.trigger('change');
+			parsedAs = $datepicker.datepicker('getFormattedDate');
+			equal(parsedAs, '01/01/0080', '01/01/80 parsed incorrectly correctly');
+		});
+
 		test('should initialize with null date', function(){
 			var $datepicker = $(html).datepicker({ date: null });
 			var initializedDate = $datepicker.datepicker('getDate').toString();
