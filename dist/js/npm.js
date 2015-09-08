@@ -12,6 +12,7 @@ require('../../js/radio');
 require('../../js/search');
 require('../../js/selectlist');
 require('../../js/spinbox');
+require('../../js/superpicker');
 require('../../js/tree');
 require('../../js/wizard');
 require('../../js/infinite-scroll');

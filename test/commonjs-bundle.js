@@ -13,6 +13,7 @@ require('../../js/radio');
 require('../../js/search');
 require('../../js/selectlist');
 require('../../js/spinbox');
+require('../../js/superpicker');
 require('../../js/tree');
 require('../../js/wizard');
 require('../../js/infinite-scroll');
@@ -21,7 +22,7 @@ require('../../js/repeater');
 require('../../js/repeater-list');
 require('../../js/repeater-thumbnail');
 require('../../js/scheduler');
-},{"../../js/checkbox":2,"../../js/combobox":3,"../../js/datepicker":4,"../../js/dropdown-autoflip":5,"../../js/infinite-scroll":6,"../../js/loader":7,"../../js/pillbox":8,"../../js/placard":9,"../../js/radio":10,"../../js/repeater":13,"../../js/repeater-list":11,"../../js/repeater-thumbnail":12,"../../js/scheduler":14,"../../js/search":15,"../../js/selectlist":16,"../../js/spinbox":17,"../../js/tree":18,"../../js/wizard":19,"bootstrap":20,"jquery":33}],2:[function(require,module,exports){
+},{"../../js/checkbox":2,"../../js/combobox":3,"../../js/datepicker":4,"../../js/dropdown-autoflip":5,"../../js/infinite-scroll":6,"../../js/loader":7,"../../js/pillbox":8,"../../js/placard":9,"../../js/radio":10,"../../js/repeater":13,"../../js/repeater-list":11,"../../js/repeater-thumbnail":12,"../../js/scheduler":14,"../../js/search":15,"../../js/selectlist":16,"../../js/spinbox":17,"../../js/superpicker":18,"../../js/tree":19,"../../js/wizard":20,"bootstrap":21,"jquery":34}],2:[function(require,module,exports){
 /*
  * Fuel UX Checkbox
  * https://github.com/ExactTarget/fuelux
@@ -244,7 +245,7 @@ require('../../js/scheduler');
 }));
 // -- END UMD WRAPPER AFTERWORD --
 
-},{"jquery":33}],3:[function(require,module,exports){
+},{"jquery":34}],3:[function(require,module,exports){
 /*
  * Fuel UX Combobox
  * https://github.com/ExactTarget/fuelux
@@ -511,7 +512,7 @@ require('../../js/scheduler');
 }));
 // -- END UMD WRAPPER AFTERWORD --
 
-},{"jquery":33}],4:[function(require,module,exports){
+},{"jquery":34}],4:[function(require,module,exports){
 /*
  * Fuel UX Datepicker
  * https://github.com/ExactTarget/fuelux
@@ -604,12 +605,11 @@ require('../../js/scheduler');
 
 		this.$calendar.find('.datepicker-today').on('click.fu.datepicker', $.proxy(this.todayClicked, this));
 		this.$days.on('click.fu.datepicker', 'tr td button', $.proxy(this.dateClicked, this));
-		this.$element.find('.dropdown-menu').on('mousedown.fu.datepicker', $.proxy(this.dropdownMousedown, this));
 		this.$header.find('.next').on('click.fu.datepicker', $.proxy(this.next, this));
 		this.$header.find('.prev').on('click.fu.datepicker', $.proxy(this.prev, this));
 		this.$headerTitle.on('click.fu.datepicker', $.proxy(this.titleClicked, this));
-		this.$input.on('blur.fu.datepicker', $.proxy(this.inputBlurred, this));
-		this.$input.on('focus.fu.datepicker', $.proxy(this.inputFocused, this));
+		this.$input.on('change.fu.datepicker', $.proxy(this.inputChanged, this));
+		this.$input.on('mousedown.fu.datepicker', $.proxy(this.showDropdown, this));
 		this.$wheels.find('.datepicker-wheels-back').on('click.fu.datepicker', $.proxy(this.backClicked, this));
 		this.$wheels.find('.datepicker-wheels-select').on('click.fu.datepicker', $.proxy(this.selectClicked, this));
 		this.$wheelsMonth.on('click.fu.datepicker', 'ul button', $.proxy(this.monthClicked, this));
@@ -701,6 +701,7 @@ require('../../js/scheduler');
 			this.selectedDate = date;
 			this.$input.val(this.formatDate(date));
 			this.inputValue = this.$input.val();
+			this.hideDropdown();
 			this.$input.focus();
 			this.$element.trigger('dateClicked.fu.datepicker', date);
 		},
@@ -721,14 +722,6 @@ require('../../js/scheduler');
 			this.$element.addClass('disabled');
 			this.$element.find('input, button').attr('disabled', 'disabled');
 			this.$element.find('.input-group-btn').removeClass('open');
-		},
-
-		dropdownMousedown: function () {
-			var self = this;
-			this.preventBlurHide = true;
-			setTimeout(function () {
-				self.preventBlurHide = false;
-			}, 0);
 		},
 
 		enable: function () {
@@ -777,7 +770,7 @@ require('../../js/scheduler');
 			return this.restricted;
 		},
 
-		inputBlurred: function (e) {
+		inputChanged: function () {
 			var inputVal = this.$input.val();
 			var date;
 			if (inputVal !== this.inputValue) {
@@ -791,14 +784,16 @@ require('../../js/scheduler');
 				}
 
 			}
+		},
 
-			if (!this.preventBlurHide) {
-				this.$element.find('.input-group-btn').removeClass('open');
+		showDropdown: function (e) {
+			if (!this.$input.is(':focus')){
+				this.$element.find('.input-group-btn').addClass('open');
 			}
 		},
 
-		inputFocused: function (e) {
-			this.$element.find('.input-group-btn').addClass('open');
+		hideDropdown: function () {
+			this.$element.find('.input-group-btn').removeClass('open');
 		},
 
 		isInvalidDate: function (date) {
@@ -1320,7 +1315,7 @@ require('../../js/scheduler');
 }));
 // -- END UMD WRAPPER AFTERWORD --
 
-},{"jquery":33,"moment":34}],5:[function(require,module,exports){
+},{"jquery":34,"moment":35}],5:[function(require,module,exports){
 /*
  * Fuel UX Dropdown Auto Flip
  * https://github.com/ExactTarget/fuelux
@@ -1452,7 +1447,7 @@ require('../../js/scheduler');
 }));
 // -- END UMD WRAPPER AFTERWORD --
 
-},{"jquery":33}],6:[function(require,module,exports){
+},{"jquery":34}],6:[function(require,module,exports){
 /*
  * Fuel UX Infinite Scroll
  * https://github.com/ExactTarget/fuelux
@@ -1642,7 +1637,7 @@ require('../../js/scheduler');
 }));
 // -- END UMD WRAPPER AFTERWORD --
 
-},{"jquery":33}],7:[function(require,module,exports){
+},{"jquery":34}],7:[function(require,module,exports){
 /*
  * Fuel UX Loader
  * https://github.com/ExactTarget/fuelux
@@ -1816,7 +1811,7 @@ require('../../js/scheduler');
 }));
 // -- END UMD WRAPPER AFTERWORD --
 
-},{"jquery":33}],8:[function(require,module,exports){
+},{"jquery":34}],8:[function(require,module,exports){
 /*
  * Fuel UX Pillbox
  * https://github.com/ExactTarget/fuelux
@@ -2599,7 +2594,7 @@ require('../../js/scheduler');
 }));
 // -- END UMD WRAPPER AFTERWORD --
 
-},{"jquery":33}],9:[function(require,module,exports){
+},{"jquery":34}],9:[function(require,module,exports){
 /*
  * Fuel UX Placard
  * https://github.com/ExactTarget/fuelux
@@ -2903,7 +2898,7 @@ require('../../js/scheduler');
 }));
 // -- END UMD WRAPPER AFTERWORD --
 
-},{"jquery":33}],10:[function(require,module,exports){
+},{"jquery":34}],10:[function(require,module,exports){
 /*
  * Fuel UX Radio
  * https://github.com/ExactTarget/fuelux
@@ -3125,7 +3120,7 @@ require('../../js/scheduler');
 	// -- BEGIN UMD WRAPPER AFTERWORD --
 }));
 // -- END UMD WRAPPER AFTERWORD --
-},{"jquery":33}],11:[function(require,module,exports){
+},{"jquery":34}],11:[function(require,module,exports){
 /*
  * Fuel UX Repeater - List View Plugin
  * https://github.com/ExactTarget/fuelux
@@ -3163,11 +3158,11 @@ require('../../js/scheduler');
 		};
 
 		$.fn.repeater.Constructor.prototype.list_highlightColumn = function (index, force) {
-			var tbody = this.$canvas.find('.repeater-list tbody');
+			var tbody = this.$canvas.find('.repeater-list-wrapper > table tbody');
 			if (this.viewOptions.list_highlightSortedColumn || force) {
 				tbody.find('td.sorted').removeClass('sorted');
 				tbody.find('tr').each(function () {
-					var col = $(this).find('td:nth-child(' + (index + 1) + ')');
+					var col = $(this).find('td:nth-child(' + (index + 1) + ')').filter(function(){return !$(this).parent().hasClass('empty');});
 					col.addClass('sorted');
 				});
 			}
@@ -3175,7 +3170,7 @@ require('../../js/scheduler');
 
 		$.fn.repeater.Constructor.prototype.list_getSelectedItems = function () {
 			var selected = [];
-			this.$canvas.find('.repeater-list table tbody tr.selected').each(function () {
+			this.$canvas.find('.repeater-list .repeater-list-wrapper > table tbody tr.selected').each(function () {
 				var $item = $(this);
 				selected.push({
 					data: $item.data('item_data'),
@@ -3272,9 +3267,16 @@ require('../../js/scheduler');
 
 		$.fn.repeater.Constructor.prototype.list_setFrozenColumns = function () {
 			var frozenTable = this.$canvas.find('.table-frozen');
+			var $wrapper = this.$element.find('.repeater-canvas');
 			var $table = this.$element.find('.repeater-list .repeater-list-wrapper > table');
 			var repeaterWrapper = this.$element.find('.repeater-list');
 			var numFrozenColumns = this.viewOptions.list_frozenColumns;
+			var self = this;
+
+			if (this.viewOptions.list_selectable === 'multi') {
+				numFrozenColumns = numFrozenColumns + 1;
+				$wrapper.addClass('multi-select-enabled');
+			}
 
 			if (frozenTable.length < 1) {
 				//setup frozen column markup
@@ -3297,15 +3299,24 @@ require('../../js/scheduler');
 			this.$element.find('.repeater-list table.table-frozen tr').each(function (i, elem) {
 				$(this).height($table.find('tr:eq(' + i + ')').height());
 			});
+
 			var columnWidth = $table.find('td:eq(0)').outerWidth();
 			this.$element.find('.frozen-column-wrapper, .frozen-thead-wrapper').width(columnWidth);
+
+			$('.frozen-thead-wrapper .repeater-list-heading').on('click', function() {
+				var index = $(this).parent('th').index();
+				index = index + 1;
+				self.$element.find('.repeater-list-wrapper > table thead th:nth-child('+ index +') .repeater-list-heading')[0].click();
+			});
+
+
 		};
 
 		$.fn.repeater.Constructor.prototype.list_positionColumns = function () {
 			var $wrapper = this.$element.find('.repeater-canvas');
 			var scrollTop = $wrapper.scrollTop();
 			var scrollLeft = $wrapper.scrollLeft();
-			var frozenEnabled = this.viewOptions.list_frozenColumns;
+			var frozenEnabled = this.viewOptions.list_frozenColumns || this.viewOptions.list_selectable === 'multi';
 			var actionsEnabled = this.viewOptions.list_actions;
 
 			var canvasWidth = this.$element.find('.repeater-canvas').outerWidth();
@@ -3353,13 +3364,13 @@ require('../../js/scheduler');
 
 			for (i = 0, l = this.viewOptions.list_actions.items.length; i < l; i++) {
 				var action = this.viewOptions.list_actions.items[i];
-				var html = action.html();
+				var html = action.html;
 
-				actionsHtml += '<li><a data-action="'+ action.name +'" class="action-item"> ' + html + '</a></li>';
+				actionsHtml += '<li><a href="#" data-action="'+ action.name +'" class="action-item"> ' + html + '</a></li>';
 			}
 
 			var selectlist = '<div class="btn-group">' +
-				'<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
+				'<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" data-flip="auto" aria-expanded="false">' +
 				'<span class="caret"></span>' +
 				'</button>' +
 				'<ul class="dropdown-menu dropdown-menu-right" role="menu">' +
@@ -3368,14 +3379,16 @@ require('../../js/scheduler');
 
 			if ($actionsTable.length < 1) {
 
-				var $actionsColumnWrapper = $('<div class="actions-column-wrapper"></div>').insertBefore($table);
+				var $actionsColumnWrapper = $('<div class="actions-column-wrapper" style="width: '+ this.list_actions_width +'px"></div>').insertBefore($table);
 				var $actionsColumn = $table.clone().addClass('table-actions');
-				$actionsColumn.find('th:not(:lt(1))').remove();
-				$actionsColumn.find('td:not(:nth-child(n+0):nth-child(-n+1))').remove();
+				$actionsColumn.find('th:not(:last-child)').remove();
+				$actionsColumn.find('tr td:not(:last-child)').remove();
 
 				// Dont show actions dropdown in header if not multi select
 				if (this.viewOptions.list_selectable === 'multi') {
 					$actionsColumn.find('thead tr').html('<th><div class="repeater-list-heading">' + selectlist + '</div></th>');
+					//disable the header dropdown until an item is selected
+					$actionsColumn.find('thead .btn').attr('disabled', 'disabled');
 				}
 				else {
 					var label = this.viewOptions.list_actions.label || '<span class="actions-hidden">a</span>';
@@ -3395,36 +3408,59 @@ require('../../js/scheduler');
 				this.$canvas.addClass('actions-enabled');
 			}
 
-			this.$element.find('.repeater-list .actions-column-wrapper, .repeater-list .actions-column-wrapper td, .repeater-list .actions-column-wrapper th')
+/*			this.$element.find('.repeater-list .actions-column-wrapper, .repeater-list .actions-column-wrapper td, .repeater-list .actions-column-wrapper th')
 				.css('width', this.list_actions_width);
 
-			this.$element.find('.repeater-list .actions-column-wrapper th .repeater-list-heading').css('width', parseInt(this.list_actions_width) + 1 + 'px');
-
-			this.$element.find('.repeater-list table.table-actions tr').each(function (i, elem) {
-				$(this).height($table.find('tr:eq(' + i + ')').height());
+			this.$element.find('.repeater-list .actions-column-wrapper th .repeater-list-heading').css('width', this.list_actions_width + 1 + 'px');*/
+			this.$element.find('.repeater-list table.table-actions thead tr th').outerHeight($table.find('thead tr th').outerHeight());
+			this.$element.find('.repeater-list table.table-actions tbody tr td:first-child').each(function (i, elem) {
+				$(this).outerHeight($table.find('tbody tr:eq(' + i + ') td').outerHeight());
 			});
 
-			this.$element.find('.table-actions .action-item').on('click', function() {
+
+			//row level actions click
+			this.$element.find('.table-actions tbody .action-item').on('click', function() {
 				var actionName = $(this).data('action');
 				var row = $(this).data('row');
-				self.list_getActionItems(actionName,row);
+				var selected = {
+					actionName: actionName,
+					rows: [row]
+				};
+				self.list_getActionItems(selected);
 			});
+			// bulk actions click
+			this.$element.find('.table-actions thead .action-item').on('click', function() {
+				var actionName = $(this).data('action');
+				var selected = {
+					actionName: actionName,
+					rows: []
+				};
+				self.$element.find('.repeater-list-wrapper > table .selected').each(function() {
+					var index = $(this).index();
+					index = index + 1;
+					selected.rows.push(index);
+				});
 
+				self.list_getActionItems(selected);
+			});
 		};
 
-		$.fn.repeater.Constructor.prototype.list_getActionItems = function (actionName, row) {
-
-			var clickedRow = this.$canvas.find('.repeater-list-wrapper > table tbody tr:nth-child('+ row +')');
-
+		$.fn.repeater.Constructor.prototype.list_getActionItems = function (selected) {
+			var i;
+			var selectedObj = [];
 			var actionObj = $.grep(this.viewOptions.list_actions.items, function(actions){
-				return actions.name === actionName;
+				return actions.name === selected.actionName;
 			})[0];
-
-			if (actionObj.clickAction) {
-				actionObj.clickAction({
+			for (i = 0; i < selected.rows.length; i++) {
+				var clickedRow = this.$canvas.find('.repeater-list-wrapper > table tbody tr:nth-child('+ selected.rows[i] +')');
+				selectedObj.push({
 					item: clickedRow,
 					rowData: clickedRow.data('item_data')
-				}, function () {});
+				});
+			}
+
+			if (actionObj.clickAction) {
+				actionObj.clickAction(selectedObj, function () {});
 			}
 		};
 
@@ -3432,6 +3468,51 @@ require('../../js/scheduler');
 			var $table = this.$element.find('.repeater-list-wrapper > table');
 			var $actionsTableHeading = this.$element.find('.repeater-list-wrapper .actions-column-wrapper thead th .repeater-list-heading');
 			$actionsTableHeading.outerHeight($table.find('thead th .repeater-list-heading').outerHeight());
+		};
+
+		$.fn.repeater.Constructor.prototype.list_frozenOptionsInitialize = function () {
+			var self = this;
+			var isFrozen = this.viewOptions.list_frozenColumns;
+			var isActions = this.viewOptions.list_actions;
+			var isMulti = this.viewOptions.list_selectable === 'multi';
+
+			var $checkboxes = this.$element.find('.frozen-column-wrapper .checkbox-inline');
+
+			var $everyTable = this.$element.find('.repeater-list table');
+
+
+
+			//Make sure if row is hovered that it is shown in frozen column as well
+			this.$element.find('tr.selectable').on('mouseover mouseleave', function(e) {
+				var index = $(this).index();
+				index = index + 1;
+				if (e.type === 'mouseover'){
+					$everyTable.find('tbody tr:nth-child('+ index +')').addClass('hovered');
+				}
+				else {
+					$everyTable.find('tbody tr:nth-child('+ index +')').removeClass('hovered');
+				}
+			});
+
+			$checkboxes.checkbox();
+
+			this.$element.find('.table-frozen tbody .checkbox-inline').on('change', function(e) {
+				e.preventDefault();
+				var row = $(this).attr('data-row');
+				row = parseInt(row) + 1;
+				self.$element.find('.repeater-list-wrapper > table tbody tr:nth-child('+ row +')').click();
+			});
+
+			this.$element.find('.frozen-thead-wrapper thead .checkbox-inline').on('change', function () {
+				if ($(this).checkbox('isChecked')){
+					self.$element.find('.repeater-list-wrapper > table tbody tr:not(.selected)').click();
+					self.$element.trigger('selected.fu.repeaterList', $checkboxes);
+				}
+				else {
+					self.$element.find('.repeater-list-wrapper > table tbody tr.selected').click();
+					self.$element.trigger('deselected.fu.repeaterList', $checkboxes);
+				}
+			});
 		};
 
 		//ADDITIONAL DEFAULT OPTIONS
@@ -3468,7 +3549,8 @@ require('../../js/scheduler');
 			initialize: function (helpers, callback) {
 				this.list_sortDirection = null;
 				this.list_sortProperty = null;
-				this.list_actions_width = (this.viewOptions.list_actions.width !== undefined) ? this.viewOptions.list_actions.width : '37px';
+				this.list_actions_width = (this.viewOptions.list_actions.width !== undefined) ? this.viewOptions.list_actions.width : 37;
+				this.list_noItems = false;
 				callback();
 			},
 			resize: function () {
@@ -3500,7 +3582,7 @@ require('../../js/scheduler');
 							self.list_positionHeadings();
 						}
 					});
-					if (self.viewOptions.list_frozenColumns || self.viewOptions.list_actions) {
+					if (self.viewOptions.list_frozenColumns || self.viewOptions.list_actions || self.viewOptions.list_selectable === 'multi') {
 						helpers.container.on('scroll.fu.repeaterList', function () {
 							self.list_positionColumns();
 						});
@@ -3508,6 +3590,7 @@ require('../../js/scheduler');
 
 					helpers.container.append($listContainer);
 				}
+				helpers.container.removeClass('actions-enabled actions-enabled multi-select-enabled');
 
 				$table = $listContainer.find('table');
 				renderThead.call(this, $table, helpers.data);
@@ -3522,26 +3605,26 @@ require('../../js/scheduler');
 			after: function(){
 				var $sorted;
 
+				if ((this.viewOptions.list_frozenColumns || this.viewOptions.list_selectable === 'multi') && !this.list_noItems) {
+					this.list_setFrozenColumns();
+				}
+
+				if (this.viewOptions.list_actions && !this.list_noItems) {
+					this.list_createItemActions();
+					this.list_sizeActionsTable();
+				}
+
+				if ((this.viewOptions.list_frozenColumns || this.viewOptions.list_actions || this.viewOptions.list_selectable === 'multi') && !this.list_noItems) {
+					this.list_positionColumns();
+					this.list_frozenOptionsInitialize();
+				}
+
 				if (this.viewOptions.list_columnSyncing) {
 					this.list_sizeHeadings();
 					this.list_positionHeadings();
 				}
 
-				if (this.viewOptions.list_frozenColumns) {
-					this.list_setFrozenColumns();
-
-				}
-
-				if (this.viewOptions.list_actions) {
-					this.list_createItemActions();
-					this.list_sizeActionsTable();
-				}
-
-				if (this.viewOptions.list_frozenColumns || this.viewOptions.list_actions) {
-					this.list_positionColumns();
-				}
-
-				$sorted = this.$canvas.find('.repeater-list-heading.sorted');
+				$sorted = this.$canvas.find('.repeater-list-wrapper > table .repeater-list-heading.sorted');
 				if ($sorted.length > 0) {
 					this.list_highlightColumn($sorted.data('fu_item_index'));
 				}
@@ -3560,7 +3643,7 @@ require('../../js/scheduler');
 
 		var property = columns[columnIndex].property;
 		if(this.viewOptions.list_actions !== false && property === '@_ACTIONS_@'){
-			content = '<div class="repeater-list-actions-placeholder" style="width: ' + this.list_actions_width  + '"></div>';
+			content = '<div class="repeater-list-actions-placeholder" style="width: ' + this.list_actions_width  + 'px"></div>';
 		}
 
 		content = (content!==undefined) ? content : '';
@@ -3571,7 +3654,14 @@ require('../../js/scheduler');
 		}
 		$row.append($col);
 
-		if (this.viewOptions.list_columnRendered) {
+		if (this.viewOptions.list_selectable === 'multi' && columns[columnIndex].property === '@_CHECKBOX_@') {
+			var checkBoxMarkup = '<label data-row="'+ rowIndex +'" class="checkbox-custom checkbox-inline body-checkbox">' +
+				'<input class="sr-only" type="checkbox"></label>';
+
+			$col.html(checkBoxMarkup);
+		}
+
+		if (!(columns[columnIndex].property === '@_CHECKBOX_@' || columns[columnIndex].property === '@_ACTIONS_@') && this.viewOptions.list_columnRendered) {
 			this.viewOptions.list_columnRendered({
 				container: $row,
 				columnAttr: columns[columnIndex].property,
@@ -3586,6 +3676,8 @@ require('../../js/scheduler');
 		var chevron = '.glyphicon.rlc:first';
 		var chevUp = 'glyphicon-chevron-up';
 		var $div = $('<div class="repeater-list-heading"><span class="glyphicon rlc"></span></div>');
+		var checkBoxMarkup = '<div class="repeater-list-heading header-checkbox"><label class="checkbox-custom checkbox-inline">' +
+			'<input class="sr-only" type="checkbox"></label><div class="clearfix"></div></div>';
 		var $header = $('<th></th>');
 		var self = this;
 		var $both, className, sortable, $span, $spans;
@@ -3593,7 +3685,13 @@ require('../../js/scheduler');
 		$div.data('fu_item_index', index);
 		$div.prepend(columns[index].label);
 		$header.html($div.html()).find('[id]').removeAttr('id');
-		$header.append($div);
+
+		if (columns[index].property !== '@_CHECKBOX_@') {
+			$header.append($div);
+		}
+		else {
+			$header.append(checkBoxMarkup);
+		}
 
 		$both = $header.add($div);
 		$span = $div.find(chevron);
@@ -3666,31 +3764,68 @@ require('../../js/scheduler');
 		var $row = $('<tr></tr>');
 		var self = this;
 		var i, l;
+		var isMulti = this.viewOptions.list_selectable === 'multi';
+		var isActions = this.viewOptions.list_actions;
 
 		if (this.viewOptions.list_selectable) {
 			$row.addClass('selectable');
 			$row.attr('tabindex', 0);	// allow items to be tabbed to / focused on
 			$row.data('item_data', rows[index]);
+
 			$row.on('click.fu.repeaterList', function () {
 				var $item = $(this);
-				if ($item.hasClass('selected')) {
+				var index = $(this).index();
+				index = index + 1;
+				var $frozenRow = self.$element.find('.frozen-column-wrapper tr:nth-child('+ index +')');
+				var $actionsRow = self.$element.find('.actions-column-wrapper tr:nth-child('+ index +')');
+				var $checkBox = self.$element.find('.frozen-column-wrapper tr:nth-child('+ index +') .checkbox-inline');
+
+				if ($item.is('.selected')) {
 					$item.removeClass('selected');
-					$item.find('.repeater-list-check').remove();
+					if (isMulti){
+						$checkBox.checkbox('uncheck');
+						$frozenRow.removeClass('selected');
+						if (isActions) {
+							$actionsRow.removeClass('selected');
+						}
+					}
+					else {
+						$item.find('.repeater-list-check').remove();
+					}
+
 					self.$element.trigger('deselected.fu.repeaterList', $item);
 				} else {
-					if (self.viewOptions.list_selectable !== 'multi') {
+					if (!isMulti) {
 						self.$canvas.find('.repeater-list-check').remove();
 						self.$canvas.find('.repeater-list tbody tr.selected').each(function () {
 							$(this).removeClass('selected');
 							self.$element.trigger('deselected.fu.repeaterList', $(this));
 						});
+						$item.find('td:first').prepend('<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>');
+						$item.addClass('selected');
+						$frozenRow.addClass('selected');
 					}
-
-					$item.addClass('selected');
-					$item.find('td:first').prepend('<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>');
+					else {
+						$checkBox.checkbox('check');
+						$item.addClass('selected');
+						$frozenRow.addClass('selected');
+						if (isActions) {
+							$actionsRow.addClass('selected');
+						}
+					}
 					self.$element.trigger('selected.fu.repeaterList', $item);
 				}
+				var $selected = self.$canvas.find('.repeater-list-wrapper > table .selected');
+				var $actionsColumn = self.$element.find('.table-actions');
+
+				if ($selected.length > 0) {
+					$actionsColumn.find('thead .btn').removeAttr('disabled');
+				}
+				else {
+					$actionsColumn.find('thead .btn').attr('disabled', 'disabled');
+				}
 			});
+
 			// allow selection via enter key
 			$row.keyup(function (e) {
 				if (e.keyCode === 13) {
@@ -3728,7 +3863,12 @@ require('../../js/scheduler');
 			$table.append($tbody);
 		}
 
-		if (data.items && data.items.length < 1) {
+		if (typeof data.error === 'string' && data.error.length > 0) {
+			$empty = $('<tr class="empty text-danger"><td colspan="' + this.list_columns.length + '"></td></tr>');
+			$empty.find('td').append(data.error);
+			$tbody.append($empty);
+		}
+		else if (data.items && data.items.length < 1) {
 			$empty = $('<tr class="empty"><td colspan="' + this.list_columns.length + '"></td></tr>');
 			$empty.find('td').append(this.viewOptions.list_noItemsHTML);
 			$tbody.append($empty);
@@ -3766,11 +3906,24 @@ require('../../js/scheduler');
 		if (this.list_firstRender || differentColumns(this.list_columns, columns) || $thead.length === 0) {
 			$thead.remove();
 
+			if (data.count < 1) {
+				this.list_noItems = true;
+			}
+
+			if (this.viewOptions.list_selectable === 'multi' && !this.list_noItems) {
+				var checkboxColumn = {
+					label: 'c',
+					property: '@_CHECKBOX_@',
+					sortable: false
+				};
+				columns.splice(0, 0, checkboxColumn);
+			}
+
 			this.list_columns = columns;
 			this.list_firstRender = false;
 			this.$loader.removeClass('noHeader');
 
-			if (this.viewOptions.list_actions){
+			if (this.viewOptions.list_actions && !this.list_noItems){
 				var actionsColumn = {
 					label: this.viewOptions.list_actions.label || '<span class="actions-hidden">a</span>',
 					property: '@_ACTIONS_@',
@@ -3788,6 +3941,15 @@ require('../../js/scheduler');
 			}
 			$table.prepend($thead);
 
+			if (this.viewOptions.list_selectable === 'multi' && !this.list_noItems) {
+				//after checkbox column is created need to get width of checkbox column from
+				//its css class
+				var checkboxWidth = this.$element.find('.repeater-list-wrapper .header-checkbox').outerWidth();
+				var selectColumn = $.grep(columns, function(column){
+					return column.property === '@_CHECKBOX_@';
+				})[0];
+				selectColumn.width = checkboxWidth;
+			}
 			sizeColumns.call(this, $tr);
 		}
 	}
@@ -3795,11 +3957,12 @@ require('../../js/scheduler');
 	function sizeColumns ($tr) {
 		var auto = [];
 		var self = this;
-		var i, l, newWidth, taken;
+		var i, l, newWidth, taken, total;
 
 		if (this.viewOptions.list_columnSizing) {
 			i = 0;
 			taken = 0;
+			total = 0;
 			$tr.find('th').each(function () {
 				var $th = $(this);
 				var isLast = ($th.next('th').length === 0);
@@ -3808,17 +3971,22 @@ require('../../js/scheduler');
 					width = self.list_columns[i].width;
 					$th.outerWidth(width);
 					taken += $th.outerWidth();
+					total += $th.outerWidth();
 					if (!isLast) {
 						self.list_columns[i]._auto_width = width;
-					} else {
+					}
+					else {
 						$th.outerWidth('');
 					}
 
 				} else {
+					var outerWidth = $th.find('.repeater-list-heading').outerWidth();
+					total += $th.outerWidth();
 					auto.push({
 						col: $th,
 						index: i,
-						last: isLast
+						last: isLast,
+						minWidth: outerWidth
 					});
 				}
 
@@ -3826,10 +3994,15 @@ require('../../js/scheduler');
 			});
 
 			l = auto.length;
+
 			if (l > 0) {
-				newWidth = Math.floor((this.$canvas.width() - taken) / l);
+				var canvasWidth = this.$canvas.find('.repeater-list-wrapper').outerWidth();
+					newWidth = Math.floor((canvasWidth - taken) / l);
 				for (i = 0; i < l; i++) {
-					if (!auto[i].last) {
+					if (auto[i].minWidth > newWidth) {
+						newWidth = auto[i].minWidth;
+					}
+					if (!auto[i].last || total > canvasWidth) {
 						auto[i].col.outerWidth(newWidth);
 						this.list_columns[auto[i].index]._auto_width = newWidth;
 					}
@@ -3857,7 +4030,7 @@ require('../../js/scheduler');
 }));
 // -- END UMD WRAPPER AFTERWORD --
 
-},{"jquery":33}],12:[function(require,module,exports){
+},{"jquery":34}],12:[function(require,module,exports){
 /*
  * Fuel UX Repeater - Thumbnail View Plugin
  * https://github.com/ExactTarget/fuelux
@@ -4096,7 +4269,7 @@ require('../../js/scheduler');
 }));
 // -- END UMD WRAPPER AFTERWORD --
 
-},{"jquery":33}],13:[function(require,module,exports){
+},{"jquery":34}],13:[function(require,module,exports){
 /*
  * Fuel UX Repeater
  * https://github.com/ExactTarget/fuelux
@@ -4355,6 +4528,14 @@ require('../../js/scheduler');
 				this.$primaryPaging.combobox('disable');
 			}
 
+			//if there are no items
+			if (parseInt(this.$count.html()) !== 0) {
+				this.$pageSize.selectlist('enable');
+			}
+			else {
+				this.$pageSize.selectlist('disable');
+			}
+
 			this.$element.removeClass('disabled');
 			this.$element.trigger('enabled.fu.repeater');
 		},
@@ -4416,8 +4597,8 @@ require('../../js/scheduler');
 		},
 
 		infiniteScrolling: function (enable, options) {
-			var itemization = this.$element.find('.repeater-itemization');
-			var pagination = this.$element.find('.repeater-pagination');
+			var footer = this.$element.find('.repeater-footer');
+			var viewport = this.$element.find('.repeater-viewport');
 			var cont, data;
 
 			options = options || {};
@@ -4428,8 +4609,10 @@ require('../../js/scheduler');
 				delete options.dataSource;
 				delete options.end;
 				this.infiniteScrollingOptions = options;
-				itemization.hide();
-				pagination.hide();
+				viewport.css({
+					height: viewport.height() + footer.outerHeight()
+				});
+				footer.hide();
 			} else {
 				cont = this.infiniteScrollingCont;
 				data = cont.data();
@@ -4441,8 +4624,10 @@ require('../../js/scheduler');
 				this.infiniteScrollingEnabled = false;
 				this.infiniteScrollingEnd = null;
 				this.infiniteScrollingOptions = {};
-				itemization.show();
-				pagination.show();
+				viewport.css({
+					height: viewport.height() - footer.outerHeight()
+				});
+				footer.show();
 			}
 		},
 
@@ -4893,7 +5078,7 @@ require('../../js/scheduler');
 }));
 // -- END UMD WRAPPER AFTERWORD --
 
-},{"jquery":33}],14:[function(require,module,exports){
+},{"jquery":34}],14:[function(require,module,exports){
 /*
  * Fuel UX Scheduler
  * https://github.com/ExactTarget/fuelux
@@ -4913,7 +5098,7 @@ require('../../js/scheduler');
 		define(['jquery', 'fuelux/combobox', 'fuelux/datepicker', 'fuelux/radio', 'fuelux/selectlist', 'fuelux/spinbox'], factory);
 	} else if (typeof exports === 'object') {
 		// Node/CommonJS
-		module.exports = factory(require('jquery'), require('./combobox'), require('./datepicker'), 
+		module.exports = factory(require('jquery'), require('./combobox'), require('./datepicker'),
 			require('./radio'), require('./selectlist'), require('./spinbox') );
 	} else {
 		// OR use browser globals if AMD is not present
@@ -5261,10 +5446,7 @@ require('../../js/scheduler');
 
 			var data = {
 				startDateTime: startDateTime,
-				timeZone: {
-					name: timeZone.name,
-					offset: timeZone.offset
-				},
+				timeZone: timeZone,
 				recurrencePattern: pattern
 			};
 
@@ -5278,8 +5460,8 @@ require('../../js/scheduler');
 
 			if (!data) {
 				selectedItem = this.$repeatIntervalSelect.selectlist('selectedItem');
-				val = selectedItem.value;
-				txt = selectedItem.text;
+				val = selectedItem.value || "";
+				txt = selectedItem.text || "";
 			} else {
 				val = data.value;
 				txt = data.text;
@@ -5354,19 +5536,17 @@ require('../../js/scheduler');
 				startDate = currentDate.getFullYear() + '-' + currentDate.getMonth() + '-' + currentDate.getDate();
 			}
 
-			item = 'li[data';
+			// create jQuery selection string for timezone object
+			// based on data-attributes and pass to selectlist
+			item = 'li';
 			if (options.timeZone) {
 				if (typeof (options.timeZone) === 'string') {
-					item += '-name="' + options.timeZone;
+					item += '[data-name="' + options.timeZone + '"]';
 				} else {
-					if (options.timeZone.name) {
-						item += '-name="' + options.timeZone.name;
-					} else {
-						item += '-offset="' + options.timeZone.offset;
-					}
+					$.each(options.timeZone, function(key, value) {
+						item += '[data-' + key + '="' + value + '"]';
+					});
 				}
-
-				item += '"]';
 				timeOffset = options.timeZone.offset;
 				this.$timeZone.selectlist('selectBySelector', item);
 			} else if (options.startDateTime) {
@@ -5382,10 +5562,8 @@ require('../../js/scheduler');
 				} else {
 					temp = '+00:00';
 				}
-
 				timeOffset = (temp === '+00:00') ? 'Z' : temp;
-
-				item += '-offset="' + temp + '"]';
+				item += '[data-offset="' + temp + '"]';
 				this.$timeZone.selectlist('selectBySelector', item);
 			} else {
 				timeOffset = 'Z';
@@ -5599,7 +5777,7 @@ require('../../js/scheduler');
 }));
 // -- END UMD WRAPPER AFTERWORD --
 
-},{"./combobox":3,"./datepicker":4,"./radio":10,"./selectlist":16,"./spinbox":17,"jquery":33}],15:[function(require,module,exports){
+},{"./combobox":3,"./datepicker":4,"./radio":10,"./selectlist":16,"./spinbox":17,"jquery":34}],15:[function(require,module,exports){
 /*
  * Fuel UX Search
  * https://github.com/ExactTarget/fuelux
@@ -5809,7 +5987,7 @@ require('../../js/scheduler');
 }));
 // -- END UMD WRAPPER AFTERWORD --
 
-},{"jquery":33}],16:[function(require,module,exports){
+},{"jquery":34}],16:[function(require,module,exports){
 /*
  * Fuel UX Selectlist
  * https://github.com/ExactTarget/fuelux
@@ -6099,7 +6277,7 @@ require('../../js/scheduler');
 }));
 // -- END UMD WRAPPER AFTERWORD --
 
-},{"jquery":33}],17:[function(require,module,exports){
+},{"jquery":34}],17:[function(require,module,exports){
 /*
  * Fuel UX Spinbox
  * https://github.com/ExactTarget/fuelux
@@ -6140,6 +6318,8 @@ require('../../js/scheduler');
 			e.preventDefault();
 		});
 		this.options = $.extend({}, $.fn.spinbox.defaults, options);
+		this.options.step = this.$element.data('step') || this.options.step;
+		
 		this.$input = this.$element.find('.spinbox-input');
 		this.$element.on('focusin.fu.spinbox', this.$input, $.proxy(this.changeFlag, this));
 		this.$element.on('focusout.fu.spinbox', this.$input, $.proxy(this.change, this));
@@ -6554,7 +6734,283 @@ require('../../js/scheduler');
 }));
 // -- END UMD WRAPPER AFTERWORD --
 
-},{"jquery":33}],18:[function(require,module,exports){
+},{"jquery":34}],18:[function(require,module,exports){
+/*
+ * Fuel UX Superpicker
+ * https://github.com/ExactTarget/fuelux
+ *
+ * Copyright (c) 2014 ExactTarget
+ * Licensed under the BSD New license.
+ */
+
+// -- BEGIN UMD WRAPPER PREFACE --
+
+// For more information on UMD visit:
+// https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
+
+(function (factory) {
+	if (typeof define === 'function' && define.amd) {
+		// if AMD loader is available, register as an anonymous module.
+		define(['jquery'], factory);
+	} else if (typeof exports === 'object') {
+		// Node/CommonJS
+		module.exports = factory(require('jquery'));
+	} else {
+		// OR use browser globals if AMD is not present
+		factory(jQuery);
+	}
+}(function ($) {
+	// -- END UMD WRAPPER PREFACE --
+
+	// -- BEGIN MODULE CODE HERE --
+
+	var old = $.fn.superpicker;
+	var EVENT_CALLBACK_MAP = { 'accepted': 'onAccept', 'cancelled': 'onCancel' };
+	var DEFAULT_HEIGHT = 234;
+	var DEFAULT_WIDTH = 350;
+
+	// PLACARD CONSTRUCTOR AND PROTOTYPE
+
+	var Superpicker = function (element, options) {
+		var self = this;
+		this.$element = $(element);
+		this.options = $.extend({}, $.fn.superpicker.defaults, options);
+
+		this.$accept = this.$element.find('.superpicker-accept');
+		this.$cancel = this.$element.find('.superpicker-cancel');
+		this.$field = this.$element.find('.superpicker-field');
+		this.$trigger = this.$element.find('.superpicker-trigger');
+		this.$footer = this.$element.find('.superpicker-footer');
+		this.$header = this.$element.find('.superpicker-header');
+		this.$popup = this.$element.find('.superpicker-popup');
+		this.$body = this.$element.find('.superpicker-body');
+
+		this.actualValue = null;
+		this.clickStamp = '_';
+		this.previousValue = '';
+		if (this.options.revertOnCancel === -1) {
+			this.options.revertOnCancel = (this.$accept.length > 0) ? true : false;
+		}
+
+		this.isInput = this.$field.is('input');
+
+		this.$field.on('focus.fu.superpicker', $.proxy(this.show, this));
+		this.$field.on('keydown.fu.superpicker', $.proxy(this.keyComplete, this));
+		this.$trigger.on('focus.fu.superpicker', $.proxy(this.show, this));
+		this.$accept.on('click.fu.superpicker', $.proxy(this.complete, this, 'accepted'));
+		this.$cancel.on('click.fu.superpicker', function (e) {
+			e.preventDefault(); self.complete('cancelled');
+		});
+
+
+	};
+
+	Superpicker.prototype = {
+		constructor: Superpicker,
+
+		complete: function (action) {
+			var func = this.options[ EVENT_CALLBACK_MAP[action] ];
+
+			var obj = {
+				previousValue: this.previousValue,
+				contents: this.$body
+			};
+
+			if (func) {
+				func(obj);
+				this.$element.trigger(action + '.fu.superpicker', obj);
+			} else {
+				if (action === 'cancelled' && this.options.revertOnCancel) {
+					this.$field.val(this.previousValue);
+				}
+
+				this.$element.trigger(action + '.fu.superpicker', obj);
+				this.hide();
+			}
+		},
+
+		keyComplete: function (e) {
+			if (this.isInput && e.keyCode === 13) {
+				this.complete('accepted');
+				this.$field.blur();
+			} else if (e.keyCode === 27) {
+				this.complete('cancelled');
+				this.$field.blur();
+			}
+		},
+
+		destroy: function () {
+			this.$element.remove();
+			// remove any external bindings
+			$(document).off('click.fu.superpicker.externalClick.' + this.clickStamp);
+			// set input value attrbute
+			this.$element.find('input').each(function () {
+				$(this).attr('value', $(this).val());
+			});
+			// empty elements to return to original markup
+			// [none]
+			// return string of markup
+			return this.$element[0].outerHTML;
+		},
+
+		disable: function () {
+			this.$element.addClass('disabled');
+			this.$field.attr('disabled', 'disabled');
+			this.hide();
+		},
+
+		enable: function () {
+			this.$element.removeClass('disabled');
+			this.$field.removeAttr('disabled');
+		},
+
+		externalClickListener: function (e, force) {
+			if (force === true || this.isExternalClick(e)) {
+				this.complete(this.options.externalClickAction);
+			}
+		},
+
+		hide: function () {
+			if (!this.$element.hasClass('showing')) {
+				return;
+			}
+
+			this.$element.removeClass('showing');
+			this.$field.removeAttr('disabled');
+			$(document).off('click.fu.superpicker.externalClick.' + this.clickStamp);
+			this.$element.trigger('hidden.fu.superpicker');
+		},
+
+		isExternalClick: function (e) {
+			var el = this.$element.get(0);
+			var exceptions = this.options.externalClickExceptions || [];
+			var $originEl = $(e.target);
+			var i, l;
+
+			if (e.target === el || $originEl.parents('.superpicker:first').get(0) === el) {
+				return false;
+			} else {
+				for (i = 0, l = exceptions.length; i < l; i++) {
+					if ($originEl.is(exceptions[i]) || $originEl.parents(exceptions[i]).length > 0) {
+						return false;
+					}
+
+				}
+			}
+
+			return true;
+		},
+
+		show: function () {
+			var other;
+
+			if (this.$element.hasClass('showing')) {
+				return;
+			}
+
+			other = $(document).find('.superpicker.showing');
+			if (other.length > 0) {
+				if (other.data('fu.superpicker') && other.data('fu.superpicker').options.explicit) {
+					return;
+				}
+
+				other.superpicker('externalClickListener', {}, true);
+			}
+
+			this.previousValue = this.$field.val();
+
+			this.$element.addClass('showing');
+
+			this.$popup.css('top', (this.$field.outerHeight(true)+4) + 'px');
+
+			this.$popup.css('height', (this.options.height)?this.options.height : DEFAULT_HEIGHT + 'px');
+			this.$body.css('height', ((this.options.height)?this.options.height : DEFAULT_HEIGHT) - 73 + 'px');
+			this.$popup.css('width', (this.options.width)?this.options.height : DEFAULT_WIDTH + 'px');
+
+			this.$element.trigger('shown.fu.superpicker', this.actualValue);
+			if (this.actualValue !== null) {
+				this.actualValue = null;
+			}
+
+			this.$field.attr('disabled', 'disabled');
+
+			this.clickStamp = new Date().getTime() + (Math.floor(Math.random() * 100) + 1);
+			if (!this.options.explicit) {
+				$(document).on('click.fu.superpicker.externalClick.' + this.clickStamp, $.proxy(this.externalClickListener, this));
+			}
+		},
+
+		setValue: function setValue(value) {
+			this.$field.val(value);
+		},
+
+		getValue: function getValue() {
+			return this.$field.val();
+		}
+	};
+
+	// PLACARD PLUGIN DEFINITION
+
+	$.fn.superpicker = function (option) {
+		var args = Array.prototype.slice.call(arguments, 1);
+		var methodReturn;
+
+		var $set = this.each(function () {
+			var $this = $(this);
+			var data = $this.data('fu.superpicker');
+			var options = typeof option === 'object' && option;
+
+			if (!data) {
+				$this.data('fu.superpicker', (data = new Superpicker(this, options)));
+			}
+
+			if (typeof option === 'string') {
+				methodReturn = data[option].apply(data, args);
+			}
+		});
+
+		return (methodReturn === undefined) ? $set : methodReturn;
+	};
+
+	$.fn.superpicker.defaults = {
+		onAccept: undefined,
+		onCancel: undefined,
+		externalClickAction: 'cancelled',
+		externalClickExceptions: [],
+		explicit: false,
+		revertOnCancel: -1//negative 1 will check for an '.placard-accept' button. Also can be set to true or false
+	};
+
+	$.fn.superpicker.Constructor = Superpicker;
+
+	$.fn.superpicker.noConflict = function () {
+		$.fn.superpicker = old;
+		return this;
+	};
+
+	// DATA-API
+
+	$(document).on('focus.fu.superpicker.data-api', '[data-initialize=superpicker]', function (e) {
+		var $control = $(e.target).closest('.superpicker');
+		if (!$control.data('fu.superpicker')) {
+			$control.superpicker($control.data());
+		}
+	});
+
+	// Must be domReady for AMD compatibility
+	$(function () {
+		$('[data-initialize=superpicker]').each(function () {
+			var $this = $(this);
+			if ($this.data('fu.superpicker')) return;
+			$this.superpicker($this.data());
+		});
+	});
+
+	// -- BEGIN UMD WRAPPER AFTERWORD --
+}));
+// -- END UMD WRAPPER AFTERWORD --
+
+},{"jquery":34}],19:[function(require,module,exports){
 /*
  * Fuel UX Tree
  * https://github.com/ExactTarget/fuelux
@@ -7114,7 +7570,7 @@ require('../../js/scheduler');
 }));
 // -- END UMD WRAPPER AFTERWORD --
 
-},{"jquery":33}],19:[function(require,module,exports){
+},{"jquery":34}],20:[function(require,module,exports){
 /*
  * Fuel UX Wizard
  * https://github.com/ExactTarget/fuelux
@@ -7575,7 +8031,7 @@ require('../../js/scheduler');
 }));
 // -- END UMD WRAPPER AFTERWORD --
 
-},{"jquery":33}],20:[function(require,module,exports){
+},{"jquery":34}],21:[function(require,module,exports){
 // This file is autogenerated via the `commonjs` Grunt task. You can require() this file in a CommonJS environment.
 require('../../js/transition.js')
 require('../../js/alert.js')
@@ -7589,9 +8045,9 @@ require('../../js/popover.js')
 require('../../js/scrollspy.js')
 require('../../js/tab.js')
 require('../../js/affix.js')
-},{"../../js/affix.js":21,"../../js/alert.js":22,"../../js/button.js":23,"../../js/carousel.js":24,"../../js/collapse.js":25,"../../js/dropdown.js":26,"../../js/modal.js":27,"../../js/popover.js":28,"../../js/scrollspy.js":29,"../../js/tab.js":30,"../../js/tooltip.js":31,"../../js/transition.js":32}],21:[function(require,module,exports){
+},{"../../js/affix.js":22,"../../js/alert.js":23,"../../js/button.js":24,"../../js/carousel.js":25,"../../js/collapse.js":26,"../../js/dropdown.js":27,"../../js/modal.js":28,"../../js/popover.js":29,"../../js/scrollspy.js":30,"../../js/tab.js":31,"../../js/tooltip.js":32,"../../js/transition.js":33}],22:[function(require,module,exports){
 /* ========================================================================
- * Bootstrap: affix.js v3.3.4
+ * Bootstrap: affix.js v3.3.5
  * http://getbootstrap.com/javascript/#affix
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
@@ -7620,7 +8076,7 @@ require('../../js/affix.js')
     this.checkPosition()
   }
 
-  Affix.VERSION  = '3.3.4'
+  Affix.VERSION  = '3.3.5'
 
   Affix.RESET    = 'affix affix-top affix-bottom'
 
@@ -7670,7 +8126,7 @@ require('../../js/affix.js')
     var offset       = this.options.offset
     var offsetTop    = offset.top
     var offsetBottom = offset.bottom
-    var scrollHeight = $(document.body).height()
+    var scrollHeight = Math.max($(document).height(), $(document.body).height())
 
     if (typeof offset != 'object')         offsetBottom = offsetTop = offset
     if (typeof offsetTop == 'function')    offsetTop    = offset.top(this.$element)
@@ -7753,9 +8209,9 @@ require('../../js/affix.js')
 
 }(jQuery);
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 /* ========================================================================
- * Bootstrap: alert.js v3.3.4
+ * Bootstrap: alert.js v3.3.5
  * http://getbootstrap.com/javascript/#alerts
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
@@ -7774,7 +8230,7 @@ require('../../js/affix.js')
     $(el).on('click', dismiss, this.close)
   }
 
-  Alert.VERSION = '3.3.4'
+  Alert.VERSION = '3.3.5'
 
   Alert.TRANSITION_DURATION = 150
 
@@ -7849,9 +8305,9 @@ require('../../js/affix.js')
 
 }(jQuery);
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 /* ========================================================================
- * Bootstrap: button.js v3.3.4
+ * Bootstrap: button.js v3.3.5
  * http://getbootstrap.com/javascript/#buttons
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
@@ -7871,7 +8327,7 @@ require('../../js/affix.js')
     this.isLoading = false
   }
 
-  Button.VERSION  = '3.3.4'
+  Button.VERSION  = '3.3.5'
 
   Button.DEFAULTS = {
     loadingText: 'loading...'
@@ -7883,7 +8339,7 @@ require('../../js/affix.js')
     var val  = $el.is('input') ? 'val' : 'html'
     var data = $el.data()
 
-    state = state + 'Text'
+    state += 'Text'
 
     if (data.resetText == null) $el.data('resetText', $el[val]())
 
@@ -7908,15 +8364,19 @@ require('../../js/affix.js')
     if ($parent.length) {
       var $input = this.$element.find('input')
       if ($input.prop('type') == 'radio') {
-        if ($input.prop('checked') && this.$element.hasClass('active')) changed = false
-        else $parent.find('.active').removeClass('active')
+        if ($input.prop('checked')) changed = false
+        $parent.find('.active').removeClass('active')
+        this.$element.addClass('active')
+      } else if ($input.prop('type') == 'checkbox') {
+        if (($input.prop('checked')) !== this.$element.hasClass('active')) changed = false
+        this.$element.toggleClass('active')
       }
-      if (changed) $input.prop('checked', !this.$element.hasClass('active')).trigger('change')
+      $input.prop('checked', this.$element.hasClass('active'))
+      if (changed) $input.trigger('change')
     } else {
       this.$element.attr('aria-pressed', !this.$element.hasClass('active'))
+      this.$element.toggleClass('active')
     }
-
-    if (changed) this.$element.toggleClass('active')
   }
 
 
@@ -7959,7 +8419,7 @@ require('../../js/affix.js')
       var $btn = $(e.target)
       if (!$btn.hasClass('btn')) $btn = $btn.closest('.btn')
       Plugin.call($btn, 'toggle')
-      e.preventDefault()
+      if (!($(e.target).is('input[type="radio"]') || $(e.target).is('input[type="checkbox"]'))) e.preventDefault()
     })
     .on('focus.bs.button.data-api blur.bs.button.data-api', '[data-toggle^="button"]', function (e) {
       $(e.target).closest('.btn').toggleClass('focus', /^focus(in)?$/.test(e.type))
@@ -7967,9 +8427,9 @@ require('../../js/affix.js')
 
 }(jQuery);
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 /* ========================================================================
- * Bootstrap: carousel.js v3.3.4
+ * Bootstrap: carousel.js v3.3.5
  * http://getbootstrap.com/javascript/#carousel
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
@@ -8000,7 +8460,7 @@ require('../../js/affix.js')
       .on('mouseleave.bs.carousel', $.proxy(this.cycle, this))
   }
 
-  Carousel.VERSION  = '3.3.4'
+  Carousel.VERSION  = '3.3.5'
 
   Carousel.TRANSITION_DURATION = 600
 
@@ -8206,9 +8666,9 @@ require('../../js/affix.js')
 
 }(jQuery);
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 /* ========================================================================
- * Bootstrap: collapse.js v3.3.4
+ * Bootstrap: collapse.js v3.3.5
  * http://getbootstrap.com/javascript/#collapse
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
@@ -8238,7 +8698,7 @@ require('../../js/affix.js')
     if (this.options.toggle) this.toggle()
   }
 
-  Collapse.VERSION  = '3.3.4'
+  Collapse.VERSION  = '3.3.5'
 
   Collapse.TRANSITION_DURATION = 350
 
@@ -8419,9 +8879,9 @@ require('../../js/affix.js')
 
 }(jQuery);
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 /* ========================================================================
- * Bootstrap: dropdown.js v3.3.4
+ * Bootstrap: dropdown.js v3.3.5
  * http://getbootstrap.com/javascript/#dropdowns
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
@@ -8441,7 +8901,41 @@ require('../../js/affix.js')
     $(element).on('click.bs.dropdown', this.toggle)
   }
 
-  Dropdown.VERSION = '3.3.4'
+  Dropdown.VERSION = '3.3.5'
+
+  function getParent($this) {
+    var selector = $this.attr('data-target')
+
+    if (!selector) {
+      selector = $this.attr('href')
+      selector = selector && /#[A-Za-z]/.test(selector) && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
+    }
+
+    var $parent = selector && $(selector)
+
+    return $parent && $parent.length ? $parent : $this.parent()
+  }
+
+  function clearMenus(e) {
+    if (e && e.which === 3) return
+    $(backdrop).remove()
+    $(toggle).each(function () {
+      var $this         = $(this)
+      var $parent       = getParent($this)
+      var relatedTarget = { relatedTarget: this }
+
+      if (!$parent.hasClass('open')) return
+
+      if (e && e.type == 'click' && /input|textarea/i.test(e.target.tagName) && $.contains($parent[0], e.target)) return
+
+      $parent.trigger(e = $.Event('hide.bs.dropdown', relatedTarget))
+
+      if (e.isDefaultPrevented()) return
+
+      $this.attr('aria-expanded', 'false')
+      $parent.removeClass('open').trigger('hidden.bs.dropdown', relatedTarget)
+    })
+  }
 
   Dropdown.prototype.toggle = function (e) {
     var $this = $(this)
@@ -8456,7 +8950,10 @@ require('../../js/affix.js')
     if (!isActive) {
       if ('ontouchstart' in document.documentElement && !$parent.closest('.navbar-nav').length) {
         // if mobile we use a backdrop because click events don't delegate
-        $('<div class="dropdown-backdrop"/>').insertAfter($(this)).on('click', clearMenus)
+        $(document.createElement('div'))
+          .addClass('dropdown-backdrop')
+          .insertAfter($(this))
+          .on('click', clearMenus)
       }
 
       var relatedTarget = { relatedTarget: this }
@@ -8489,55 +8986,23 @@ require('../../js/affix.js')
     var $parent  = getParent($this)
     var isActive = $parent.hasClass('open')
 
-    if ((!isActive && e.which != 27) || (isActive && e.which == 27)) {
+    if (!isActive && e.which != 27 || isActive && e.which == 27) {
       if (e.which == 27) $parent.find(toggle).trigger('focus')
       return $this.trigger('click')
     }
 
     var desc = ' li:not(.disabled):visible a'
-    var $items = $parent.find('[role="menu"]' + desc + ', [role="listbox"]' + desc)
+    var $items = $parent.find('.dropdown-menu' + desc)
 
     if (!$items.length) return
 
     var index = $items.index(e.target)
 
-    if (e.which == 38 && index > 0)                 index--                        // up
-    if (e.which == 40 && index < $items.length - 1) index++                        // down
-    if (!~index)                                      index = 0
+    if (e.which == 38 && index > 0)                 index--         // up
+    if (e.which == 40 && index < $items.length - 1) index++         // down
+    if (!~index)                                    index = 0
 
     $items.eq(index).trigger('focus')
-  }
-
-  function clearMenus(e) {
-    if (e && e.which === 3) return
-    $(backdrop).remove()
-    $(toggle).each(function () {
-      var $this         = $(this)
-      var $parent       = getParent($this)
-      var relatedTarget = { relatedTarget: this }
-
-      if (!$parent.hasClass('open')) return
-
-      $parent.trigger(e = $.Event('hide.bs.dropdown', relatedTarget))
-
-      if (e.isDefaultPrevented()) return
-
-      $this.attr('aria-expanded', 'false')
-      $parent.removeClass('open').trigger('hidden.bs.dropdown', relatedTarget)
-    })
-  }
-
-  function getParent($this) {
-    var selector = $this.attr('data-target')
-
-    if (!selector) {
-      selector = $this.attr('href')
-      selector = selector && /#[A-Za-z]/.test(selector) && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
-    }
-
-    var $parent = selector && $(selector)
-
-    return $parent && $parent.length ? $parent : $this.parent()
   }
 
 
@@ -8577,14 +9042,13 @@ require('../../js/affix.js')
     .on('click.bs.dropdown.data-api', '.dropdown form', function (e) { e.stopPropagation() })
     .on('click.bs.dropdown.data-api', toggle, Dropdown.prototype.toggle)
     .on('keydown.bs.dropdown.data-api', toggle, Dropdown.prototype.keydown)
-    .on('keydown.bs.dropdown.data-api', '[role="menu"]', Dropdown.prototype.keydown)
-    .on('keydown.bs.dropdown.data-api', '[role="listbox"]', Dropdown.prototype.keydown)
+    .on('keydown.bs.dropdown.data-api', '.dropdown-menu', Dropdown.prototype.keydown)
 
 }(jQuery);
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 /* ========================================================================
- * Bootstrap: modal.js v3.3.4
+ * Bootstrap: modal.js v3.3.5
  * http://getbootstrap.com/javascript/#modals
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
@@ -8618,7 +9082,7 @@ require('../../js/affix.js')
     }
   }
 
-  Modal.VERSION  = '3.3.4'
+  Modal.VERSION  = '3.3.5'
 
   Modal.TRANSITION_DURATION = 300
   Modal.BACKDROP_TRANSITION_DURATION = 150
@@ -8675,9 +9139,7 @@ require('../../js/affix.js')
         that.$element[0].offsetWidth // force reflow
       }
 
-      that.$element
-        .addClass('in')
-        .attr('aria-hidden', false)
+      that.$element.addClass('in')
 
       that.enforceFocus()
 
@@ -8711,7 +9173,6 @@ require('../../js/affix.js')
 
     this.$element
       .removeClass('in')
-      .attr('aria-hidden', true)
       .off('click.dismiss.bs.modal')
       .off('mouseup.dismiss.bs.modal')
 
@@ -8775,7 +9236,8 @@ require('../../js/affix.js')
     if (this.isShown && this.options.backdrop) {
       var doAnimate = $.support.transition && animate
 
-      this.$backdrop = $('<div class="modal-backdrop ' + animate + '" />')
+      this.$backdrop = $(document.createElement('div'))
+        .addClass('modal-backdrop ' + animate)
         .appendTo(this.$body)
 
       this.$element.on('click.dismiss.bs.modal', $.proxy(function (e) {
@@ -8923,9 +9385,9 @@ require('../../js/affix.js')
 
 }(jQuery);
 
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 /* ========================================================================
- * Bootstrap: popover.js v3.3.4
+ * Bootstrap: popover.js v3.3.5
  * http://getbootstrap.com/javascript/#popovers
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
@@ -8945,7 +9407,7 @@ require('../../js/affix.js')
 
   if (!$.fn.tooltip) throw new Error('Popover requires tooltip.js')
 
-  Popover.VERSION  = '3.3.4'
+  Popover.VERSION  = '3.3.5'
 
   Popover.DEFAULTS = $.extend({}, $.fn.tooltip.Constructor.DEFAULTS, {
     placement: 'right',
@@ -9033,9 +9495,9 @@ require('../../js/affix.js')
 
 }(jQuery);
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 /* ========================================================================
- * Bootstrap: scrollspy.js v3.3.4
+ * Bootstrap: scrollspy.js v3.3.5
  * http://getbootstrap.com/javascript/#scrollspy
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
@@ -9064,7 +9526,7 @@ require('../../js/affix.js')
     this.process()
   }
 
-  ScrollSpy.VERSION  = '3.3.4'
+  ScrollSpy.VERSION  = '3.3.5'
 
   ScrollSpy.DEFAULTS = {
     offset: 10
@@ -9207,9 +9669,9 @@ require('../../js/affix.js')
 
 }(jQuery);
 
-},{}],30:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 /* ========================================================================
- * Bootstrap: tab.js v3.3.4
+ * Bootstrap: tab.js v3.3.5
  * http://getbootstrap.com/javascript/#tabs
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
@@ -9224,10 +9686,12 @@ require('../../js/affix.js')
   // ====================
 
   var Tab = function (element) {
+    // jscs:disable requireDollarBeforejQueryAssignment
     this.element = $(element)
+    // jscs:enable requireDollarBeforejQueryAssignment
   }
 
-  Tab.VERSION = '3.3.4'
+  Tab.VERSION = '3.3.5'
 
   Tab.TRANSITION_DURATION = 150
 
@@ -9275,7 +9739,7 @@ require('../../js/affix.js')
     var $active    = container.find('> .active')
     var transition = callback
       && $.support.transition
-      && (($active.length && $active.hasClass('fade')) || !!container.find('> .fade').length)
+      && ($active.length && $active.hasClass('fade') || !!container.find('> .fade').length)
 
     function next() {
       $active
@@ -9362,9 +9826,9 @@ require('../../js/affix.js')
 
 }(jQuery);
 
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 /* ========================================================================
- * Bootstrap: tooltip.js v3.3.4
+ * Bootstrap: tooltip.js v3.3.5
  * http://getbootstrap.com/javascript/#tooltip
  * Inspired by the original jQuery.tipsy by Jason Frame
  * ========================================================================
@@ -9386,11 +9850,12 @@ require('../../js/affix.js')
     this.timeout    = null
     this.hoverState = null
     this.$element   = null
+    this.inState    = null
 
     this.init('tooltip', element, options)
   }
 
-  Tooltip.VERSION  = '3.3.4'
+  Tooltip.VERSION  = '3.3.5'
 
   Tooltip.TRANSITION_DURATION = 150
 
@@ -9415,7 +9880,8 @@ require('../../js/affix.js')
     this.type      = type
     this.$element  = $(element)
     this.options   = this.getOptions(options)
-    this.$viewport = this.options.viewport && $(this.options.viewport.selector || this.options.viewport)
+    this.$viewport = this.options.viewport && $($.isFunction(this.options.viewport) ? this.options.viewport.call(this, this.$element) : (this.options.viewport.selector || this.options.viewport))
+    this.inState   = { click: false, hover: false, focus: false }
 
     if (this.$element[0] instanceof document.constructor && !this.options.selector) {
       throw new Error('`selector` option must be specified when initializing ' + this.type + ' on the window.document object!')
@@ -9474,14 +9940,18 @@ require('../../js/affix.js')
     var self = obj instanceof this.constructor ?
       obj : $(obj.currentTarget).data('bs.' + this.type)
 
-    if (self && self.$tip && self.$tip.is(':visible')) {
-      self.hoverState = 'in'
-      return
-    }
-
     if (!self) {
       self = new this.constructor(obj.currentTarget, this.getDelegateOptions())
       $(obj.currentTarget).data('bs.' + this.type, self)
+    }
+
+    if (obj instanceof $.Event) {
+      self.inState[obj.type == 'focusin' ? 'focus' : 'hover'] = true
+    }
+
+    if (self.tip().hasClass('in') || self.hoverState == 'in') {
+      self.hoverState = 'in'
+      return
     }
 
     clearTimeout(self.timeout)
@@ -9495,6 +9965,14 @@ require('../../js/affix.js')
     }, self.options.delay.show)
   }
 
+  Tooltip.prototype.isInStateTrue = function () {
+    for (var key in this.inState) {
+      if (this.inState[key]) return true
+    }
+
+    return false
+  }
+
   Tooltip.prototype.leave = function (obj) {
     var self = obj instanceof this.constructor ?
       obj : $(obj.currentTarget).data('bs.' + this.type)
@@ -9503,6 +9981,12 @@ require('../../js/affix.js')
       self = new this.constructor(obj.currentTarget, this.getDelegateOptions())
       $(obj.currentTarget).data('bs.' + this.type, self)
     }
+
+    if (obj instanceof $.Event) {
+      self.inState[obj.type == 'focusout' ? 'focus' : 'hover'] = false
+    }
+
+    if (self.isInStateTrue()) return
 
     clearTimeout(self.timeout)
 
@@ -9550,6 +10034,7 @@ require('../../js/affix.js')
         .data('bs.' + this.type, this)
 
       this.options.container ? $tip.appendTo(this.options.container) : $tip.insertAfter(this.$element)
+      this.$element.trigger('inserted.bs.' + this.type)
 
       var pos          = this.getPosition()
       var actualWidth  = $tip[0].offsetWidth
@@ -9557,13 +10042,12 @@ require('../../js/affix.js')
 
       if (autoPlace) {
         var orgPlacement = placement
-        var $container   = this.options.container ? $(this.options.container) : this.$element.parent()
-        var containerDim = this.getPosition($container)
+        var viewportDim = this.getPosition(this.$viewport)
 
-        placement = placement == 'bottom' && pos.bottom + actualHeight > containerDim.bottom ? 'top'    :
-                    placement == 'top'    && pos.top    - actualHeight < containerDim.top    ? 'bottom' :
-                    placement == 'right'  && pos.right  + actualWidth  > containerDim.width  ? 'left'   :
-                    placement == 'left'   && pos.left   - actualWidth  < containerDim.left   ? 'right'  :
+        placement = placement == 'bottom' && pos.bottom + actualHeight > viewportDim.bottom ? 'top'    :
+                    placement == 'top'    && pos.top    - actualHeight < viewportDim.top    ? 'bottom' :
+                    placement == 'right'  && pos.right  + actualWidth  > viewportDim.width  ? 'left'   :
+                    placement == 'left'   && pos.left   - actualWidth  < viewportDim.left   ? 'right'  :
                     placement
 
         $tip
@@ -9604,8 +10088,8 @@ require('../../js/affix.js')
     if (isNaN(marginTop))  marginTop  = 0
     if (isNaN(marginLeft)) marginLeft = 0
 
-    offset.top  = offset.top  + marginTop
-    offset.left = offset.left + marginLeft
+    offset.top  += marginTop
+    offset.left += marginLeft
 
     // $.fn.offset doesn't round pixel values
     // so we use setOffset directly with our own function B-0
@@ -9687,7 +10171,7 @@ require('../../js/affix.js')
 
   Tooltip.prototype.fixTitle = function () {
     var $e = this.$element
-    if ($e.attr('title') || typeof ($e.attr('data-original-title')) != 'string') {
+    if ($e.attr('title') || typeof $e.attr('data-original-title') != 'string') {
       $e.attr('data-original-title', $e.attr('title') || '').attr('title', '')
     }
   }
@@ -9742,7 +10226,7 @@ require('../../js/affix.js')
       var rightEdgeOffset = pos.left + viewportPadding + actualWidth
       if (leftEdgeOffset < viewportDimensions.left) { // left overflow
         delta.left = viewportDimensions.left - leftEdgeOffset
-      } else if (rightEdgeOffset > viewportDimensions.width) { // right overflow
+      } else if (rightEdgeOffset > viewportDimensions.right) { // right overflow
         delta.left = viewportDimensions.left + viewportDimensions.width - rightEdgeOffset
       }
     }
@@ -9768,7 +10252,13 @@ require('../../js/affix.js')
   }
 
   Tooltip.prototype.tip = function () {
-    return (this.$tip = this.$tip || $(this.options.template))
+    if (!this.$tip) {
+      this.$tip = $(this.options.template)
+      if (this.$tip.length != 1) {
+        throw new Error(this.type + ' `template` option must consist of exactly 1 top-level element!')
+      }
+    }
+    return this.$tip
   }
 
   Tooltip.prototype.arrow = function () {
@@ -9797,7 +10287,13 @@ require('../../js/affix.js')
       }
     }
 
-    self.tip().hasClass('in') ? self.leave(self) : self.enter(self)
+    if (e) {
+      self.inState.click = !self.inState.click
+      if (self.isInStateTrue()) self.enter(self)
+      else self.leave(self)
+    } else {
+      self.tip().hasClass('in') ? self.leave(self) : self.enter(self)
+    }
   }
 
   Tooltip.prototype.destroy = function () {
@@ -9805,6 +10301,12 @@ require('../../js/affix.js')
     clearTimeout(this.timeout)
     this.hide(function () {
       that.$element.off('.' + that.type).removeData('bs.' + that.type)
+      if (that.$tip) {
+        that.$tip.detach()
+      }
+      that.$tip = null
+      that.$arrow = null
+      that.$viewport = null
     })
   }
 
@@ -9840,9 +10342,9 @@ require('../../js/affix.js')
 
 }(jQuery);
 
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 /* ========================================================================
- * Bootstrap: transition.js v3.3.4
+ * Bootstrap: transition.js v3.3.5
  * http://getbootstrap.com/javascript/#transitions
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
@@ -9901,7 +10403,7 @@ require('../../js/affix.js')
 
 }(jQuery);
 
-},{}],33:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
@@ -19113,9 +19615,9 @@ return jQuery;
 
 }));
 
-},{}],34:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 //! moment.js
-//! version : 2.10.3
+//! version : 2.10.6
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -19210,6 +19712,7 @@ return jQuery;
                 flags.overflow < 0 &&
                 !flags.empty &&
                 !flags.invalidMonth &&
+                !flags.invalidWeekday &&
                 !flags.nullInput &&
                 !flags.invalidFormat &&
                 !flags.userInvalidated;
@@ -19290,7 +19793,7 @@ return jQuery;
     // Moment prototype object
     function Moment(config) {
         copyConfig(this, config);
-        this._d = new Date(+config._d);
+        this._d = new Date(config._d != null ? config._d.getTime() : NaN);
         // Prevent infinite loop in case updateOffset creates new moment
         // objects.
         if (updateInProgress === false) {
@@ -19304,16 +19807,20 @@ return jQuery;
         return obj instanceof Moment || (obj != null && obj._isAMomentObject != null);
     }
 
+    function absFloor (number) {
+        if (number < 0) {
+            return Math.ceil(number);
+        } else {
+            return Math.floor(number);
+        }
+    }
+
     function toInt(argumentForCoercion) {
         var coercedNumber = +argumentForCoercion,
             value = 0;
 
         if (coercedNumber !== 0 && isFinite(coercedNumber)) {
-            if (coercedNumber >= 0) {
-                value = Math.floor(coercedNumber);
-            } else {
-                value = Math.ceil(coercedNumber);
-            }
+            value = absFloor(coercedNumber);
         }
 
         return value;
@@ -19411,9 +19918,7 @@ return jQuery;
     function defineLocale (name, values) {
         if (values !== null) {
             values.abbr = name;
-            if (!locales[name]) {
-                locales[name] = new Locale();
-            }
+            locales[name] = locales[name] || new Locale();
             locales[name].set(values);
 
             // backwards compat for now: also set the locale
@@ -19517,16 +20022,14 @@ return jQuery;
     }
 
     function zeroFill(number, targetLength, forceSign) {
-        var output = '' + Math.abs(number),
+        var absNumber = '' + Math.abs(number),
+            zerosToFill = targetLength - absNumber.length,
             sign = number >= 0;
-
-        while (output.length < targetLength) {
-            output = '0' + output;
-        }
-        return (sign ? (forceSign ? '+' : '') : '-') + output;
+        return (sign ? (forceSign ? '+' : '') : '-') +
+            Math.pow(10, Math.max(0, zerosToFill)).toString().substr(1) + absNumber;
     }
 
-    var formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Q|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|S{1,4}|x|X|zz?|ZZ?|.)/g;
+    var formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Q|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g;
 
     var localFormattingTokens = /(\[[^\[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g;
 
@@ -19594,10 +20097,7 @@ return jQuery;
         }
 
         format = expandFormat(format, m.localeData());
-
-        if (!formatFunctions[format]) {
-            formatFunctions[format] = makeFormatFunction(format);
-        }
+        formatFunctions[format] = formatFunctions[format] || makeFormatFunction(format);
 
         return formatFunctions[format](m);
     }
@@ -19641,8 +20141,15 @@ return jQuery;
 
     var regexes = {};
 
+    function isFunction (sth) {
+        // https://github.com/moment/moment/issues/2325
+        return typeof sth === 'function' &&
+            Object.prototype.toString.call(sth) === '[object Function]';
+    }
+
+
     function addRegexToken (token, regex, strictRegex) {
-        regexes[token] = typeof regex === 'function' ? regex : function (isStrict) {
+        regexes[token] = isFunction(regex) ? regex : function (isStrict) {
             return (isStrict && strictRegex) ? strictRegex : regex;
         };
     }
@@ -19850,12 +20357,11 @@ return jQuery;
     }
 
     function deprecate(msg, fn) {
-        var firstTime = true,
-            msgWithStack = msg + '\n' + (new Error()).stack;
+        var firstTime = true;
 
         return extend(function () {
             if (firstTime) {
-                warn(msgWithStack);
+                warn(msg + '\n' + (new Error()).stack);
                 firstTime = false;
             }
             return fn.apply(this, arguments);
@@ -19903,14 +20409,14 @@ return jQuery;
             getParsingFlags(config).iso = true;
             for (i = 0, l = isoDates.length; i < l; i++) {
                 if (isoDates[i][1].exec(string)) {
-                    // match[5] should be 'T' or undefined
-                    config._f = isoDates[i][0] + (match[6] || ' ');
+                    config._f = isoDates[i][0];
                     break;
                 }
             }
             for (i = 0, l = isoTimes.length; i < l; i++) {
                 if (isoTimes[i][1].exec(string)) {
-                    config._f += isoTimes[i][0];
+                    // match[6] should be 'T' or space
+                    config._f += (match[6] || ' ') + isoTimes[i][0];
                     break;
                 }
             }
@@ -19989,7 +20495,10 @@ return jQuery;
     addRegexToken('YYYYY',  match1to6, match6);
     addRegexToken('YYYYYY', match1to6, match6);
 
-    addParseToken(['YYYY', 'YYYYY', 'YYYYYY'], YEAR);
+    addParseToken(['YYYYY', 'YYYYYY'], YEAR);
+    addParseToken('YYYY', function (input, array) {
+        array[YEAR] = input.length === 2 ? utils_hooks__hooks.parseTwoDigitYear(input) : toInt(input);
+    });
     addParseToken('YY', function (input, array) {
         array[YEAR] = utils_hooks__hooks.parseTwoDigitYear(input);
     });
@@ -20116,18 +20625,18 @@ return jQuery;
 
     //http://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
     function dayOfYearFromWeeks(year, week, weekday, firstDayOfWeekOfYear, firstDayOfWeek) {
-        var d = createUTCDate(year, 0, 1).getUTCDay();
-        var daysToAdd;
-        var dayOfYear;
+        var week1Jan = 6 + firstDayOfWeek - firstDayOfWeekOfYear, janX = createUTCDate(year, 0, 1 + week1Jan), d = janX.getUTCDay(), dayOfYear;
+        if (d < firstDayOfWeek) {
+            d += 7;
+        }
 
-        d = d === 0 ? 7 : d;
-        weekday = weekday != null ? weekday : firstDayOfWeek;
-        daysToAdd = firstDayOfWeek - d + (d > firstDayOfWeekOfYear ? 7 : 0) - (d < firstDayOfWeek ? 7 : 0);
-        dayOfYear = 7 * (week - 1) + (weekday - firstDayOfWeek) + daysToAdd + 1;
+        weekday = weekday != null ? 1 * weekday : firstDayOfWeek;
+
+        dayOfYear = 1 + week1Jan + 7 * (week - 1) - d + weekday;
 
         return {
-            year      : dayOfYear > 0 ? year      : year - 1,
-            dayOfYear : dayOfYear > 0 ? dayOfYear : daysInYear(year - 1) + dayOfYear
+            year: dayOfYear > 0 ? year : year - 1,
+            dayOfYear: dayOfYear > 0 ?  dayOfYear : daysInYear(year - 1) + dayOfYear
         };
     }
 
@@ -20413,9 +20922,19 @@ return jQuery;
     }
 
     function createFromConfig (config) {
+        var res = new Moment(checkOverflow(prepareConfig(config)));
+        if (res._nextDay) {
+            // Adding is smart enough around DST
+            res.add(1, 'd');
+            res._nextDay = undefined;
+        }
+
+        return res;
+    }
+
+    function prepareConfig (config) {
         var input = config._i,
-            format = config._f,
-            res;
+            format = config._f;
 
         config._locale = config._locale || locale_locales__getLocale(config._l);
 
@@ -20439,14 +20958,7 @@ return jQuery;
             configFromInput(config);
         }
 
-        res = new Moment(checkOverflow(config));
-        if (res._nextDay) {
-            // Adding is smart enough around DST
-            res.add(1, 'd');
-            res._nextDay = undefined;
-        }
-
-        return res;
+        return config;
     }
 
     function configFromInput(config) {
@@ -20526,7 +21038,7 @@ return jQuery;
         }
         res = moments[0];
         for (i = 1; i < moments.length; ++i) {
-            if (moments[i][fn](res)) {
+            if (!moments[i].isValid() || moments[i][fn](res)) {
                 res = moments[i];
             }
         }
@@ -20638,7 +21150,6 @@ return jQuery;
         } else {
             return local__createLocal(input).local();
         }
-        return model._isUTC ? local__createLocal(input).zone(model._offset || 0) : local__createLocal(input).local();
     }
 
     function getDateOffset (m) {
@@ -20738,12 +21249,7 @@ return jQuery;
     }
 
     function hasAlignedHourOffset (input) {
-        if (!input) {
-            input = 0;
-        }
-        else {
-            input = local__createLocal(input).utcOffset();
-        }
+        input = input ? local__createLocal(input).utcOffset() : 0;
 
         return (this.utcOffset() - input) % 60 === 0;
     }
@@ -20756,12 +21262,24 @@ return jQuery;
     }
 
     function isDaylightSavingTimeShifted () {
-        if (this._a) {
-            var other = this._isUTC ? create_utc__createUTC(this._a) : local__createLocal(this._a);
-            return this.isValid() && compareArrays(this._a, other.toArray()) > 0;
+        if (typeof this._isDSTShifted !== 'undefined') {
+            return this._isDSTShifted;
         }
 
-        return false;
+        var c = {};
+
+        copyConfig(c, this);
+        c = prepareConfig(c);
+
+        if (c._a) {
+            var other = c._isUTC ? create_utc__createUTC(c._a) : local__createLocal(c._a);
+            this._isDSTShifted = this.isValid() &&
+                compareArrays(c._a, other.toArray()) > 0;
+        } else {
+            this._isDSTShifted = false;
+        }
+
+        return this._isDSTShifted;
     }
 
     function isLocal () {
@@ -20921,7 +21439,7 @@ return jQuery;
     var add_subtract__add      = createAdder(1, 'add');
     var add_subtract__subtract = createAdder(-1, 'subtract');
 
-    function moment_calendar__calendar (time) {
+    function moment_calendar__calendar (time, formats) {
         // We want to compare the start of today, vs this.
         // Getting start-of-today depends on whether we're local/utc/offset or not.
         var now = time || local__createLocal(),
@@ -20933,7 +21451,7 @@ return jQuery;
                 diff < 1 ? 'sameDay' :
                 diff < 2 ? 'nextDay' :
                 diff < 7 ? 'nextWeek' : 'sameElse';
-        return this.format(this.localeData().calendar(format, this, local__createLocal(now)));
+        return this.format(formats && formats[format] || this.localeData().calendar(format, this, local__createLocal(now)));
     }
 
     function clone () {
@@ -20977,14 +21495,6 @@ return jQuery;
         } else {
             inputMs = +local__createLocal(input);
             return +(this.clone().startOf(units)) <= inputMs && inputMs <= +(this.clone().endOf(units));
-        }
-    }
-
-    function absFloor (number) {
-        if (number < 0) {
-            return Math.ceil(number);
-        } else {
-            return Math.floor(number);
         }
     }
 
@@ -21178,6 +21688,19 @@ return jQuery;
         return [m.year(), m.month(), m.date(), m.hour(), m.minute(), m.second(), m.millisecond()];
     }
 
+    function toObject () {
+        var m = this;
+        return {
+            years: m.year(),
+            months: m.month(),
+            date: m.date(),
+            hours: m.hours(),
+            minutes: m.minutes(),
+            seconds: m.seconds(),
+            milliseconds: m.milliseconds()
+        };
+    }
+
     function moment_valid__isValid () {
         return valid__isValid(this);
     }
@@ -21349,18 +21872,20 @@ return jQuery;
     // HELPERS
 
     function parseWeekday(input, locale) {
-        if (typeof input === 'string') {
-            if (!isNaN(input)) {
-                input = parseInt(input, 10);
-            }
-            else {
-                input = locale.weekdaysParse(input);
-                if (typeof input !== 'number') {
-                    return null;
-                }
-            }
+        if (typeof input !== 'string') {
+            return input;
         }
-        return input;
+
+        if (!isNaN(input)) {
+            return parseInt(input, 10);
+        }
+
+        input = locale.weekdaysParse(input);
+        if (typeof input === 'number') {
+            return input;
+        }
+
+        return null;
     }
 
     // LOCALES
@@ -21383,9 +21908,7 @@ return jQuery;
     function localeWeekdaysParse (weekdayName) {
         var i, mom, regex;
 
-        if (!this._weekdaysParse) {
-            this._weekdaysParse = [];
-        }
+        this._weekdaysParse = this._weekdaysParse || [];
 
         for (i = 0; i < 7; i++) {
             // make the regex if we don't have it already
@@ -21532,12 +22055,26 @@ return jQuery;
         return ~~(this.millisecond() / 10);
     });
 
-    function millisecond__milliseconds (token) {
-        addFormatToken(0, [token, 3], 0, 'millisecond');
-    }
+    addFormatToken(0, ['SSS', 3], 0, 'millisecond');
+    addFormatToken(0, ['SSSS', 4], 0, function () {
+        return this.millisecond() * 10;
+    });
+    addFormatToken(0, ['SSSSS', 5], 0, function () {
+        return this.millisecond() * 100;
+    });
+    addFormatToken(0, ['SSSSSS', 6], 0, function () {
+        return this.millisecond() * 1000;
+    });
+    addFormatToken(0, ['SSSSSSS', 7], 0, function () {
+        return this.millisecond() * 10000;
+    });
+    addFormatToken(0, ['SSSSSSSS', 8], 0, function () {
+        return this.millisecond() * 100000;
+    });
+    addFormatToken(0, ['SSSSSSSSS', 9], 0, function () {
+        return this.millisecond() * 1000000;
+    });
 
-    millisecond__milliseconds('SSS');
-    millisecond__milliseconds('SSSS');
 
     // ALIASES
 
@@ -21548,11 +22085,19 @@ return jQuery;
     addRegexToken('S',    match1to3, match1);
     addRegexToken('SS',   match1to3, match2);
     addRegexToken('SSS',  match1to3, match3);
-    addRegexToken('SSSS', matchUnsigned);
-    addParseToken(['S', 'SS', 'SSS', 'SSSS'], function (input, array) {
-        array[MILLISECOND] = toInt(('0.' + input) * 1000);
-    });
 
+    var token;
+    for (token = 'SSSS'; token.length <= 9; token += 'S') {
+        addRegexToken(token, matchUnsigned);
+    }
+
+    function parseMs(input, array) {
+        array[MILLISECOND] = toInt(('0.' + input) * 1000);
+    }
+
+    for (token = 'S'; token.length <= 9; token += 'S') {
+        addParseToken(token, parseMs);
+    }
     // MOMENTS
 
     var getSetMillisecond = makeGetSet('Milliseconds', false);
@@ -21599,6 +22144,7 @@ return jQuery;
     momentPrototype__proto.startOf      = startOf;
     momentPrototype__proto.subtract     = add_subtract__subtract;
     momentPrototype__proto.toArray      = toArray;
+    momentPrototype__proto.toObject     = toObject;
     momentPrototype__proto.toDate       = toDate;
     momentPrototype__proto.toISOString  = moment_format__toISOString;
     momentPrototype__proto.toJSON       = moment_format__toISOString;
@@ -21698,19 +22244,23 @@ return jQuery;
         LT   : 'h:mm A',
         L    : 'MM/DD/YYYY',
         LL   : 'MMMM D, YYYY',
-        LLL  : 'MMMM D, YYYY LT',
-        LLLL : 'dddd, MMMM D, YYYY LT'
+        LLL  : 'MMMM D, YYYY h:mm A',
+        LLLL : 'dddd, MMMM D, YYYY h:mm A'
     };
 
     function longDateFormat (key) {
-        var output = this._longDateFormat[key];
-        if (!output && this._longDateFormat[key.toUpperCase()]) {
-            output = this._longDateFormat[key.toUpperCase()].replace(/MMMM|MM|DD|dddd/g, function (val) {
-                return val.slice(1);
-            });
-            this._longDateFormat[key] = output;
+        var format = this._longDateFormat[key],
+            formatUpper = this._longDateFormat[key.toUpperCase()];
+
+        if (format || !formatUpper) {
+            return format;
         }
-        return output;
+
+        this._longDateFormat[key] = formatUpper.replace(/MMMM|MM|DD|dddd/g, function (val) {
+            return val.slice(1);
+        });
+
+        return this._longDateFormat[key];
     }
 
     var defaultInvalidDate = 'Invalid date';
@@ -21919,12 +22469,29 @@ return jQuery;
         return duration_add_subtract__addSubtract(this, input, value, -1);
     }
 
+    function absCeil (number) {
+        if (number < 0) {
+            return Math.floor(number);
+        } else {
+            return Math.ceil(number);
+        }
+    }
+
     function bubble () {
         var milliseconds = this._milliseconds;
         var days         = this._days;
         var months       = this._months;
         var data         = this._data;
-        var seconds, minutes, hours, years = 0;
+        var seconds, minutes, hours, years, monthsFromDays;
+
+        // if we have a mix of positive and negative values, bubble down first
+        // check: https://github.com/moment/moment/issues/2166
+        if (!((milliseconds >= 0 && days >= 0 && months >= 0) ||
+                (milliseconds <= 0 && days <= 0 && months <= 0))) {
+            milliseconds += absCeil(monthsToDays(months) + days) * 864e5;
+            days = 0;
+            months = 0;
+        }
 
         // The following code bubbles up values, see the tests for
         // examples of what that means.
@@ -21941,17 +22508,13 @@ return jQuery;
 
         days += absFloor(hours / 24);
 
-        // Accurately convert days to years, assume start from year 0.
-        years = absFloor(daysToYears(days));
-        days -= absFloor(yearsToDays(years));
-
-        // 30 days to a month
-        // TODO (iskren): Use anchor date (like 1st Jan) to compute this.
-        months += absFloor(days / 30);
-        days   %= 30;
+        // convert days to months
+        monthsFromDays = absFloor(daysToMonths(days));
+        months += monthsFromDays;
+        days -= absCeil(monthsToDays(monthsFromDays));
 
         // 12 months -> 1 year
-        years  += absFloor(months / 12);
+        years = absFloor(months / 12);
         months %= 12;
 
         data.days   = days;
@@ -21961,15 +22524,15 @@ return jQuery;
         return this;
     }
 
-    function daysToYears (days) {
+    function daysToMonths (days) {
         // 400 years have 146097 days (taking into account leap year rules)
-        return days * 400 / 146097;
+        // 400 years have 12 months === 4800
+        return days * 4800 / 146097;
     }
 
-    function yearsToDays (years) {
-        // years * 365 + absFloor(years / 4) -
-        //     absFloor(years / 100) + absFloor(years / 400);
-        return years * 146097 / 400;
+    function monthsToDays (months) {
+        // the reverse of daysToMonths
+        return months * 146097 / 4800;
     }
 
     function as (units) {
@@ -21981,11 +22544,11 @@ return jQuery;
 
         if (units === 'month' || units === 'year') {
             days   = this._days   + milliseconds / 864e5;
-            months = this._months + daysToYears(days) * 12;
+            months = this._months + daysToMonths(days);
             return units === 'month' ? months : months / 12;
         } else {
             // handle milliseconds separately because of floating point math errors (issue #1867)
-            days = this._days + Math.round(yearsToDays(this._months / 12));
+            days = this._days + Math.round(monthsToDays(this._months));
             switch (units) {
                 case 'week'   : return days / 7     + milliseconds / 6048e5;
                 case 'day'    : return days         + milliseconds / 864e5;
@@ -22035,7 +22598,7 @@ return jQuery;
         };
     }
 
-    var duration_get__milliseconds = makeGetter('milliseconds');
+    var milliseconds = makeGetter('milliseconds');
     var seconds      = makeGetter('seconds');
     var minutes      = makeGetter('minutes');
     var hours        = makeGetter('hours');
@@ -22113,13 +22676,36 @@ return jQuery;
     var iso_string__abs = Math.abs;
 
     function iso_string__toISOString() {
+        // for ISO strings we do not use the normal bubbling rules:
+        //  * milliseconds bubble up until they become hours
+        //  * days do not bubble at all
+        //  * months bubble up until they become years
+        // This is because there is no context-free conversion between hours and days
+        // (think of clock changes)
+        // and also not between days and months (28-31 days per month)
+        var seconds = iso_string__abs(this._milliseconds) / 1000;
+        var days         = iso_string__abs(this._days);
+        var months       = iso_string__abs(this._months);
+        var minutes, hours, years;
+
+        // 3600 seconds -> 60 minutes -> 1 hour
+        minutes           = absFloor(seconds / 60);
+        hours             = absFloor(minutes / 60);
+        seconds %= 60;
+        minutes %= 60;
+
+        // 12 months -> 1 year
+        years  = absFloor(months / 12);
+        months %= 12;
+
+
         // inspired by https://github.com/dordille/moment-isoduration/blob/master/moment.isoduration.js
-        var Y = iso_string__abs(this.years());
-        var M = iso_string__abs(this.months());
-        var D = iso_string__abs(this.days());
-        var h = iso_string__abs(this.hours());
-        var m = iso_string__abs(this.minutes());
-        var s = iso_string__abs(this.seconds() + this.milliseconds() / 1000);
+        var Y = years;
+        var M = months;
+        var D = days;
+        var h = hours;
+        var m = minutes;
+        var s = seconds;
         var total = this.asSeconds();
 
         if (!total) {
@@ -22156,7 +22742,7 @@ return jQuery;
     duration_prototype__proto.valueOf        = duration_as__valueOf;
     duration_prototype__proto._bubble        = bubble;
     duration_prototype__proto.get            = duration_get__get;
-    duration_prototype__proto.milliseconds   = duration_get__milliseconds;
+    duration_prototype__proto.milliseconds   = milliseconds;
     duration_prototype__proto.seconds        = seconds;
     duration_prototype__proto.minutes        = minutes;
     duration_prototype__proto.hours          = hours;
@@ -22194,7 +22780,7 @@ return jQuery;
     // Side effect imports
 
 
-    utils_hooks__hooks.version = '2.10.3';
+    utils_hooks__hooks.version = '2.10.6';
 
     setHookCallback(local__createLocal);
 
@@ -22225,7 +22811,7 @@ return jQuery;
     return _moment;
 
 }));
-},{}],35:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 /*!
  * QUnit 1.18.0
  * http://qunitjs.com/
@@ -26055,7 +26641,7 @@ if ( defined.document ) {
 
 })();
 
-},{}],36:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 window.$ = window.jQuery = require('jquery');
 var bootstrap = require('bootstrap');
 var moment = require('moment');
@@ -26130,4 +26716,4 @@ test('wizard should be defined on jQuery object', function () {
 	ok($().wizard, 'wizard method is defined');
 });
 
-},{"../dist/js/npm":1,"bootstrap":20,"jquery":33,"moment":34,"qunitjs":35}]},{},[36]);
+},{"../dist/js/npm":1,"bootstrap":21,"jquery":34,"moment":35,"qunitjs":36}]},{},[37]);
