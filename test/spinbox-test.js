@@ -161,6 +161,17 @@ define(function(require){
 
 	});
 
+	test("spinbox should not add default unit if it not allowed", function () {
+		var $spinbox = $(html).find('#MySpinbox').spinbox({
+			units: ['px'],
+			defaultUnit: 'ouch'
+		});
+
+		$spinbox.spinbox('value', 1);
+		ok($spinbox.spinbox('value') === '1', 'spinbox returned value WITHOUT default unit');
+
+	});
+
 	test("spinbox should behave correctly when custom decimalMark is used", function () {
 		var $spinbox = $(html).find('#MySpinboxDecimal').spinbox({
 			value: '1,1',

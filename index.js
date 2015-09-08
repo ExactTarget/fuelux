@@ -894,11 +894,11 @@ define(function (require) {
 
 	// intitalize control
 	$('#mySpinbox2').spinbox({
-		value: '10px',
+		value: '1,0px',
 		min: 0,
 		max: 10,
 		step: 0.1,
-		// decimalMark: ',',
+		decimalMark: ',',
 		units: ['px'],
 		defaultUnit: 'px'
 	});
