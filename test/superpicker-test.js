@@ -36,6 +36,10 @@ define(function(require){
 
 		$('body').click();
 		equal($superpicker.hasClass('showing'), false, 'superpicker hides when appropriate');
+
+		$superpicker.find('.superpicker-trigger').focus();
+		equal($superpicker.hasClass('showing'), true, 'superpicker shows when appropriate');
+
 		$superpicker.remove();
 	});
 
