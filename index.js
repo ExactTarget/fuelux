@@ -894,7 +894,7 @@ define(function (require) {
 
 	// intitalize control
 	$('#mySpinbox2').spinbox({
-		value: '10 px',
+		value: '10px',
 		min: 0,
 		max: 10,
 		step: 0.1,
