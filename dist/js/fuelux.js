@@ -1,5 +1,6 @@
 /*!
- * Fuel UX v3.11.1 
+ * Fuel UX EDGE - Built 2015/09/08, 5:44:28 PM
+ * Previous release: v3.11.1
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -2538,6 +2539,8 @@
 				e.preventDefault();
 			} );
 			this.options = $.extend( {}, $.fn.spinbox.defaults, options );
+			this.options.step = this.$element.data( 'step' ) || this.options.step;
+
 			this.$input = this.$element.find( '.spinbox-input' );
 			this.$element.on( 'focusin.fu.spinbox', this.$input, $.proxy( this.changeFlag, this ) );
 			this.$element.on( 'focusout.fu.spinbox', this.$input, $.proxy( this.change, this ) );
