@@ -335,6 +335,9 @@
 					rowData: clickedRow.data('item_data')
 				});
 			}
+			if (selectedObj.length === 1) {
+				selectedObj = selectedObj[0];
+			}
 
 			if (actionObj.clickAction) {
 				actionObj.clickAction(selectedObj, function () {});
