@@ -899,7 +899,8 @@ define(function (require) {
 		max: 10,
 		step: 0.1,
 		decimalMark: ',',
-		units: ['px']
+		units: ['px'],
+		defaultUnit: 'px'
 	});
 
 	// events
