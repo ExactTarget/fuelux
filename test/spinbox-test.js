@@ -161,7 +161,7 @@ define(function(require){
 
 	});
 
-	test("spinbox should not add default unit if it not allowed", function () {
+	test("spinbox should NOT add default unit if it not allowed", function () {
 		var $spinbox = $(html).find('#MySpinbox').spinbox({
 			units: ['px'],
 			defaultUnit: 'ouch'
@@ -169,6 +169,19 @@ define(function(require){
 
 		$spinbox.spinbox('value', 1);
 		ok($spinbox.spinbox('value') === '1', 'spinbox returned value WITHOUT default unit');
+
+	});
+
+	test("spinbox should keep 3 character default unit when incremented", function () {
+		var $spinbox = $(html).find('#MySpinbox').spinbox({
+			units: ['rem', 'px', '%'],
+			step: 1, // default, but explicit
+			defaultUnit: 'rem'
+		});
+
+		$spinbox.spinbox('value', 1);
+		$spinbox.spinbox('step', true);
+		ok($spinbox.spinbox('value') === '2rem', 'spinbox returned value with default unit');
 
 	});
 
