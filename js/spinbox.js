@@ -131,7 +131,7 @@
 			// if set and default unit if not already present, 
 			// and is an allowed unit, then add default unit
 			if (this.options.defaultUnit !== '' && 
-					this.options.defaultUnit !== value.slice(-2) &&
+					this.options.defaultUnit !== value.slice(-Math.abs(this.options.defaultUnit.length)) &&
 					this.isUnitLegal(this.options.defaultUnit)) {
 				value = value + this.options.defaultUnit;
 			}
