@@ -1,5 +1,5 @@
 /*
- * Fuel UX Superpicker
+ * Fuel UX Placard
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2014 ExactTarget
@@ -27,26 +27,26 @@
 
 	// -- BEGIN MODULE CODE HERE --
 
-	var old = $.fn.superpicker;
+	var old = $.fn.placard;
 	var EVENT_CALLBACK_MAP = { 'accepted': 'onAccept', 'cancelled': 'onCancel' };
 	var DEFAULT_HEIGHT = 234;
 	var DEFAULT_WIDTH = 350;
 
 	// PLACARD CONSTRUCTOR AND PROTOTYPE
 
-	var Superpicker = function (element, options) {
+	var Placard = function (element, options) {
 		var self = this;
 		this.$element = $(element);
-		this.options = $.extend({}, $.fn.superpicker.defaults, options);
+		this.options = $.extend({}, $.fn.placard.defaults, options);
 
-		this.$accept = this.$element.find('.superpicker-accept');
-		this.$cancel = this.$element.find('.superpicker-cancel');
-		this.$field = this.$element.find('.superpicker-field');
-		this.$trigger = this.$element.find('.superpicker-trigger');
-		this.$footer = this.$element.find('.superpicker-footer');
-		this.$header = this.$element.find('.superpicker-header');
-		this.$popup = this.$element.find('.superpicker-popup');
-		this.$body = this.$element.find('.superpicker-body');
+		this.$accept = this.$element.find('.placard-accept');
+		this.$cancel = this.$element.find('.placard-cancel');
+		this.$field = this.$element.find('.placard-field');
+		this.$trigger = this.$element.find('.placard-trigger');
+		this.$footer = this.$element.find('.placard-footer');
+		this.$header = this.$element.find('.placard-header');
+		this.$popup = this.$element.find('.placard-popup');
+		this.$body = this.$element.find('.placard-body');
 
 		this.actualValue = null;
 		this.clickStamp = '_';
@@ -57,19 +57,18 @@
 
 		this.isInput = this.$field.is('input');
 
-		this.$field.on('focus.fu.superpicker', $.proxy(this.show, this));
-		this.$field.on('keydown.fu.superpicker', $.proxy(this.keyComplete, this));
-		this.$trigger.on('focus.fu.superpicker', $.proxy(this.show, this));
-		this.$accept.on('click.fu.superpicker', $.proxy(this.complete, this, 'accepted'));
-		this.$cancel.on('click.fu.superpicker', function (e) {
+		this.$field.on('focus.fu.placard', $.proxy(this.show, this));
+		this.$field.on('keydown.fu.placard', $.proxy(this.keyComplete, this));
+		this.$trigger.on('focus.fu.placard', $.proxy(this.show, this));
+		this.$accept.on('click.fu.placard', $.proxy(this.complete, this, 'accepted'));
+		this.$cancel.on('click.fu.placard', function (e) {
 			e.preventDefault(); self.complete('cancelled');
 		});
 
-
 	};
 
-	Superpicker.prototype = {
-		constructor: Superpicker,
+	Placard.prototype = {
+		constructor: Placard,
 
 		complete: function (action) {
 			var func = this.options[ EVENT_CALLBACK_MAP[action] ];
@@ -78,16 +77,15 @@
 				previousValue: this.previousValue,
 				contents: this.$body
 			};
-
 			if (func) {
 				func(obj);
-				this.$element.trigger(action + '.fu.superpicker', obj);
+				this.$element.trigger(action + '.fu.placard', obj);
 			} else {
 				if (action === 'cancelled' && this.options.revertOnCancel) {
 					this.$field.val(this.previousValue);
 				}
 
-				this.$element.trigger(action + '.fu.superpicker', obj);
+				this.$element.trigger(action + '.fu.placard', obj);
 				this.hide();
 			}
 		},
@@ -105,7 +103,7 @@
 		destroy: function () {
 			this.$element.remove();
 			// remove any external bindings
-			$(document).off('click.fu.superpicker.externalClick.' + this.clickStamp);
+			$(document).off('click.fu.placard.externalClick.' + this.clickStamp);
 			// set input value attrbute
 			this.$element.find('input').each(function () {
 				$(this).attr('value', $(this).val());
@@ -140,8 +138,8 @@
 
 			this.$element.removeClass('showing');
 			this.$field.removeAttr('disabled');
-			$(document).off('click.fu.superpicker.externalClick.' + this.clickStamp);
-			this.$element.trigger('hidden.fu.superpicker');
+			$(document).off('click.fu.placard.externalClick.' + this.clickStamp);
+			this.$element.trigger('hidden.fu.placard');
 		},
 
 		isExternalClick: function (e) {
@@ -150,7 +148,7 @@
 			var $originEl = $(e.target);
 			var i, l;
 
-			if (e.target === el || $originEl.parents('.superpicker:first').get(0) === el) {
+			if (e.target === el || $originEl.parents('.placard:first').get(0) === el) {
 				return false;
 			} else {
 				for (i = 0, l = exceptions.length; i < l; i++) {
@@ -171,13 +169,13 @@
 				return;
 			}
 
-			other = $(document).find('.superpicker.showing');
+			other = $(document).find('.placard.showing');
 			if (other.length > 0) {
-				if (other.data('fu.superpicker') && other.data('fu.superpicker').options.explicit) {
+				if (other.data('fu.placard') && other.data('fu.placard').options.explicit) {
 					return;
 				}
 
-				other.superpicker('externalClickListener', {}, true);
+				other.placard('externalClickListener', {}, true);
 			}
 
 			this.previousValue = this.$field.val();
@@ -190,7 +188,7 @@
 			this.$body.css('height', ((this.options.height)?this.options.height : DEFAULT_HEIGHT) - 73 + 'px');
 			this.$popup.css('width', (this.options.width)?this.options.height : DEFAULT_WIDTH + 'px');
 
-			this.$element.trigger('shown.fu.superpicker', this.actualValue);
+			this.$element.trigger('shown.fu.placard', this.actualValue);
 			if (this.actualValue !== null) {
 				this.actualValue = null;
 			}
@@ -199,7 +197,7 @@
 
 			this.clickStamp = new Date().getTime() + (Math.floor(Math.random() * 100) + 1);
 			if (!this.options.explicit) {
-				$(document).on('click.fu.superpicker.externalClick.' + this.clickStamp, $.proxy(this.externalClickListener, this));
+				$(document).on('click.fu.placard.externalClick.' + this.clickStamp, $.proxy(this.externalClickListener, this));
 			}
 		},
 
@@ -214,17 +212,17 @@
 
 	// PLACARD PLUGIN DEFINITION
 
-	$.fn.superpicker = function (option) {
+	$.fn.placard = function (option) {
 		var args = Array.prototype.slice.call(arguments, 1);
 		var methodReturn;
 
 		var $set = this.each(function () {
 			var $this = $(this);
-			var data = $this.data('fu.superpicker');
+			var data = $this.data('fu.placard');
 			var options = typeof option === 'object' && option;
 
 			if (!data) {
-				$this.data('fu.superpicker', (data = new Superpicker(this, options)));
+				$this.data('fu.placard', (data = new Placard(this, options)));
 			}
 
 			if (typeof option === 'string') {
@@ -235,7 +233,7 @@
 		return (methodReturn === undefined) ? $set : methodReturn;
 	};
 
-	$.fn.superpicker.defaults = {
+	$.fn.placard.defaults = {
 		onAccept: undefined,
 		onCancel: undefined,
 		externalClickAction: 'cancelled',
@@ -244,28 +242,28 @@
 		revertOnCancel: -1//negative 1 will check for an '.placard-accept' button. Also can be set to true or false
 	};
 
-	$.fn.superpicker.Constructor = Superpicker;
+	$.fn.placard.Constructor = Placard;
 
-	$.fn.superpicker.noConflict = function () {
-		$.fn.superpicker = old;
+	$.fn.placard.noConflict = function () {
+		$.fn.placard = old;
 		return this;
 	};
 
 	// DATA-API
 
-	$(document).on('focus.fu.superpicker.data-api', '[data-initialize=superpicker]', function (e) {
-		var $control = $(e.target).closest('.superpicker');
-		if (!$control.data('fu.superpicker')) {
-			$control.superpicker($control.data());
+	$(document).on('focus.fu.placard.data-api', '[data-initialize=placard]', function (e) {
+		var $control = $(e.target).closest('.placard');
+		if (!$control.data('fu.placard')) {
+			$control.placard($control.data());
 		}
 	});
 
 	// Must be domReady for AMD compatibility
 	$(function () {
-		$('[data-initialize=superpicker]').each(function () {
+		$('[data-initialize=placard]').each(function () {
 			var $this = $(this);
-			if ($this.data('fu.superpicker')) return;
-			$this.superpicker($this.data());
+			if ($this.data('fu.placard')) return;
+			$this.placard($this.data());
 		});
 	});
 
