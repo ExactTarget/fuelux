@@ -20,7 +20,7 @@
     "jquery": "latest",
     "requirejs": "2.x",
     "bootstrap": "3.x",
-    "moment": "2.x"
+    "moment": "~2.10.6"
   },
   "devDependencies": {
     "jquery": null,
