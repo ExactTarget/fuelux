@@ -420,10 +420,10 @@ define(function(require){
 		});
 
 		function testClickAction(helpers) {
-			equal((typeof helpers === 'object' && helpers.length > 0), true, 'Items in row were returned after action click');
+			equal((typeof helpers === 'object'), true, 'Items in row were returned after action click');
 			var count = 0;
-			for (var k in helpers[0].rowData) {
-				if (helpers[0].rowData.hasOwnProperty(k)) {
+			for (var k in helpers.rowData) {
+				if (helpers.rowData.hasOwnProperty(k)) {
 					++count;
 				}
 			}
