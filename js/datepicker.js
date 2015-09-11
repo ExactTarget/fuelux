@@ -717,7 +717,8 @@
 			$(e.currentTarget).parent().addClass('selected');
 		}
 	};
-
+	//for control library consistency
+	Datepicker.prototype.getValue = Datepicker.prototype.getDate;
 
 	// DATEPICKER PLUGIN DEFINITION
 

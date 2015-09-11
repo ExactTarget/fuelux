@@ -185,6 +185,18 @@ define(function (require) {
 		equal($selNode.find('.tree-branch-children > li').length, 8, 'Folder has been populated with sub-folders and items');
 	});
 
+	test("getValue alias should function", function() {
+		var $tree = $(html).find('#MyTree');
+
+		// multiSelect: false is the default
+		$tree.tree({
+			dataSource: this.dataSource
+		});
+
+		$tree.tree('selectItem', $tree.find('.tree-item:eq(1)'));
+		deepEqual($tree.tree('selectedItems'), $tree.tree('getValue'), 'getValue aliases selectedItems');
+	});
+
 	test("Single item/folder selection works as designed", function () {
 		var $tree = $(html).find('#MyTree');
 

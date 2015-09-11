@@ -94,6 +94,14 @@ define(function(require){
 			equal(dateFormatted, '03/31/1987', 'returned correct formatted date');
 		});
 
+		test('should return date using getValue alias', function(){
+			var $datepicker = $(html).datepicker({ date: new Date(1987, 2, 31) });
+			var date1 = $datepicker.datepicker('getDate');
+			var date2 = $datepicker.datepicker('getValue');
+
+			equal(date1, date2, 'getValue alias matches getDate');
+		});
+
 		test('should set new date using setDate method', function(){
 			var $datepicker = $(html).datepicker();
 			var newDate = new Date(1987, 2, 31);

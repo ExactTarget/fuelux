@@ -39,7 +39,7 @@
 		});
 		this.options = $.extend({}, $.fn.spinbox.defaults, options);
 		this.options.step = this.$element.data('step') || this.options.step;
-		
+
 		this.$input = this.$element.find('.spinbox-input');
 		this.$element.on('focusin.fu.spinbox', this.$input, $.proxy(this.changeFlag, this));
 		this.$element.on('focusout.fu.spinbox', this.$input, $.proxy(this.change, this));
@@ -250,6 +250,10 @@
 				var cycleVal = isIncrease ? this.options.min : this.options.max;
 				this.value(cycleVal);
 			}
+		},
+
+		getValue: function getValue() {
+			return this.value();
 		},
 
 		value: function (value) {

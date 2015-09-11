@@ -175,6 +175,20 @@ define(function(require){
 		equal($chk.checkbox('isChecked'), true, 'checkbox state is checked');
 	});
 
+	test("should support getValue alias", function () {
+		var $element = $(html).find('#CheckboxCheckedEnabled').clone();
+		var $input = $element.find('input[type="checkbox"]');
+
+		// initialize checkbox
+		var $chk = $element.find('label').checkbox();
+		// verify alias aliases
+		equal($chk.checkbox('isChecked'), $chk.checkbox('getValue'), 'getValue alias matches isChecked');
+		$chk.checkbox('toggle');
+		equal($chk.checkbox('isChecked'), $chk.checkbox('getValue'), 'getValue alias matches isChecked');
+		$chk.checkbox('toggle');
+		equal($chk.checkbox('isChecked'), $chk.checkbox('getValue'), 'getValue alias matches isChecked');
+	});
+
 	test("should trigger checked event when calling check method", function () {
 		var $element = $(html).find('#CheckboxUncheckedEnabled').clone();
 

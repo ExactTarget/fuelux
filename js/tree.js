@@ -197,7 +197,7 @@
 			}
 			else {
 				singleSelectSyncNodes(this, clicked, selected);
-			} 
+			}
 
 			// all done with the DOM, now fire events
 			this.$element.trigger(selected.eventType + '.fu.tree', {
@@ -433,20 +433,21 @@
 	Tree.prototype.closeAll = Tree.prototype.collapse;
 	//alias for backwards compatibility because there's no reason not to.
 	Tree.prototype.openFolder = Tree.prototype.discloseFolder;
-
+	//For library consistency
+	Tree.prototype.getValue = Tree.prototype.selectedItems;
 
 	// PRIVATE FUNCTIONS
 
 	function styleNodeSelected ($element, $icon) {
 		$element.addClass('tree-selected');
-		if ( $element.data('type') === 'item' && $icon.hasClass('fueluxicon-bullet') ) { 
+		if ( $element.data('type') === 'item' && $icon.hasClass('fueluxicon-bullet') ) {
 			$icon.removeClass('fueluxicon-bullet').addClass('glyphicon-ok'); // make checkmark
 		}
 	}
 
 	function styleNodeDeselected ($element, $icon) {
 		$element.removeClass('tree-selected');
-		if ( $element.data('type') === 'item' && $icon.hasClass('glyphicon-ok') ) { 
+		if ( $element.data('type') === 'item' && $icon.hasClass('glyphicon-ok') ) {
 			$icon.removeClass('glyphicon-ok').addClass('fueluxicon-bullet'); // make bullet
 		}
 	}
@@ -464,7 +465,7 @@
 			styleNodeDeselected (clicked.$element, clicked.$icon);
 			// set event data
 			selected.eventType = 'deselected';
-		} 
+		}
 		else {
 			styleNodeSelected(clicked.$element, clicked.$icon);
 			// set event data

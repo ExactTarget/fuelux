@@ -106,6 +106,15 @@ define(function(require){
 		deepEqual(item, expectedItem, 'item selected');
 	});
 
+	test("should alias getValue", function () {
+		var $selectlist = $(html.find('#MySelectlist4').selectlist()); //.selectlist();
+		$selectlist.selectlist('selectByValue', 2);
+
+		var item1 = $selectlist.selectlist('selectedItem');
+		var item2 = $selectlist.selectlist('getValue');
+		deepEqual(item1, item2, 'getValue aliases selectedItem');
+	});
+
 	test("should select by value with whitespace", function () {
 		var $selectlist = $(html).find('#MySelectlist5').selectlist();
 		$selectlist.selectlist('selectByValue', 'Item Five');

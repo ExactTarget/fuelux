@@ -693,6 +693,8 @@
 		}
 	};
 
+	Pillbox.prototype.getValue = Pillbox.prototype.items;
+
 	// PILLBOX PLUGIN DEFINITION
 
 	$.fn.pillbox = function (option) {

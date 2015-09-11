@@ -206,6 +206,7 @@
 		}
 	};
 
+	Combobox.prototype.getValue = Combobox.prototype.selectedItem;
 
 	// COMBOBOX PLUGIN DEFINITION
 
