@@ -12,6 +12,7 @@ module.exports = function (grunt) {
 				'js/search.js',
 				'js/selectlist.js',
 				'js/spinbox.js',
+				'js/superpicker.js',
 				'js/tree.js',
 				'js/wizard.js',
 				'js/infinite-scroll.js',
@@ -34,5 +35,5 @@ module.exports = function (grunt) {
 			}
 		}
 	}
-	
+
 };

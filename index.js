@@ -12,8 +12,8 @@ define(function (require) {
 	};
 
 	// programmatically injecting this is so much easier than writing the html by hand 376 times...
-	$('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id], dt[id]').each(function (i) {
-		$(this).prepend(['<a class="header-anchor" href="#', this.id, '"><small><span class="glyphicon glyphicon-link"></span></a></small> '].join(''));
+	$('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id], dt[id], section[id]').each(function (i) {
+		$(this).children('h2:first').prepend(['<a class="header-anchor" href="#', this.id, '"><small><span class="glyphicon glyphicon-link"></span></a></small> '].join(''));
 	});
 
 	// load fuel controls
@@ -937,8 +937,7 @@ define(function (require) {
 	 TREE
 	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-	$('#myTree1').tree({
-		dataSource: function (parentData, callback) {
+	 var treeDataSource =  function (parentData, callback) {
 			log("Opening branch data: ", parentData);
 
 			setTimeout(function () {
@@ -1005,11 +1004,28 @@ define(function (require) {
 					]
 				});
 			}, 400);
-		},
+		}
+
+	$('#myTree1').tree({
+		dataSource: treeDataSource,
 		cacheItems: true,
 		folderSelect: true,
 		multiSelect: true
 	});
+
+	$('#mySuperpickerTree1').tree({
+		dataSource: treeDataSource,
+		cacheItems: true,
+		folderSelect: true,
+		multiSelect: true
+	});
+
+	// requires https://github.com/exacttarget/get-list-item-path
+	// $('#mysuperpicker2').on('accepted.fu.superpicker', function(o){
+	// 	var selected = $('#mySuperpickerTree1').find('.tree-selected');
+	// 	var selectedPaths = getListItemPaths('#mySuperpickerTree1', selected, '.tree-label', '/', ', ');
+	// 	$('#mysuperpicker2').superpicker('setValue', selectedPaths);
+	// });
 
 // initialize
 	function myTreeInit() {

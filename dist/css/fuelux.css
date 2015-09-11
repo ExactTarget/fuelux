@@ -1,5 +1,6 @@
 /*!
- * Fuel UX v3.11.1 
+ * Fuel UX EDGE - Built 2015/09/10, 2:16:49 PM 
+ * Previous release: v3.11.1 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -2329,6 +2330,141 @@ label.fuelux .checkbox-inline {
 .fuelux .selectlist-sizer .selected-label {
   width: auto !important;
 }
+.fuelux .superpicker {
+  display: inline-block;
+  position: relative;
+}
+.fuelux .superpicker[data-ellipsis="true"].showing input.superpicker-field {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+}
+.fuelux .superpicker[data-ellipsis="true"] input.superpicker-field {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.fuelux .superpicker[data-ellipsis="true"] input.superpicker-field::-ms-clear {
+  display: none;
+}
+.fuelux .superpicker[data-ellipsis="true"] textarea.superpicker-field[readonly] {
+  overflow: hidden;
+}
+.fuelux .superpicker.showing .superpicker-footer,
+.fuelux .superpicker.showing .superpicker-header,
+.fuelux .superpicker.showing .superpicker-popup {
+  display: block;
+  z-index: 1;
+}
+.fuelux .superpicker.showing input.superpicker-field,
+.fuelux .superpicker.showing textarea.superpicker-field {
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  box-shadow: none;
+  position: relative;
+  z-index: 1;
+}
+.fuelux .superpicker input.superpicker-field,
+.fuelux .superpicker textarea.superpicker-field {
+  resize: none;
+}
+.fuelux .superpicker input.superpicker-field[readonly],
+.fuelux .superpicker textarea.superpicker-field[readonly] {
+  background: #ffffff;
+  cursor: auto;
+}
+.fuelux .superpicker input.superpicker-field[readonly].glass,
+.fuelux .superpicker textarea.superpicker-field[readonly].glass {
+  background: none;
+}
+.fuelux .superpicker input.superpicker-field[readonly].glass:hover,
+.fuelux .superpicker textarea.superpicker-field[readonly].glass:hover {
+  background: #d9edf7;
+  cursor: pointer;
+}
+.fuelux .superpicker input.superpicker-field:focus,
+.fuelux .superpicker textarea.superpicker-field:focus {
+  border: 1px solid #cccccc;
+  box-shadow: none;
+}
+.fuelux .superpicker-cancel {
+  font-size: 12px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+.fuelux .superpicker-footer,
+.fuelux .superpicker-header {
+  display: none;
+  left: 0;
+  line-height: 1;
+  right: 0;
+}
+.fuelux .superpicker-footer {
+  padding: 4px 10px 8px 0;
+  text-align: right;
+  bottom: 0;
+  position: absolute;
+}
+.fuelux .superpicker-header {
+  height: 34px;
+  padding: 8px 0 4px 10px;
+}
+.fuelux .superpicker-header h1,
+.fuelux .superpicker-header h2,
+.fuelux .superpicker-header h3,
+.fuelux .superpicker-header h4,
+.fuelux .superpicker-header h5,
+.fuelux .superpicker-header h6 {
+  margin: 0;
+}
+.fuelux .superpicker-popup {
+  background: #d9edf7;
+  background-clip: padding-box;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px #ffffff inset;
+  display: none;
+  position: absolute;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+.fuelux .superpicker .well {
+  background-color: #fff;
+  overflow: scroll;
+  padding: 0;
+}
+.fuelux .superpicker .tree {
+  border: none;
+}
+.fuelux .superpicker .glass {
+  background: transparent;
+  border: 1px solid #ffffff;
+  box-shadow: none;
+}
+.fuelux .superpicker .glass:hover {
+  background: #d9edf7;
+  border-color: #5b9dd9;
+  cursor: pointer;
+}
+.fuelux .superpicker .glass:hover[disabled] {
+  background: transparent;
+  border-color: #ffffff;
+  cursor: not-allowed;
+}
+.fuelux .superpicker .glass:focus {
+  background: #ffffff;
+  border-color: #5b9dd9;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.75), 0 0 8px rgba(91, 157, 217, 0.6);
+  cursor: auto;
+}
+.fuelux .superpicker .glass:focus[disabled] {
+  background: transparent;
+  border-color: #ffffff;
+  cursor: not-allowed;
+}
+.fuelux .superpicker .glass[disabled] {
+  cursor: not-allowed;
+}
 .fuelux .tree {
   border: 1px solid #999999;
   border-radius: 4px 4px 4px 4px;
@@ -2399,7 +2535,8 @@ label.fuelux .checkbox-inline {
 .fuelux .tree .tree-branch .tree-branch-children {
   margin-left: 14px;
 }
-.fuelux .tree .tree-branch[haschildren='false'] .icon-caret {
+.fuelux .tree .tree-branch[haschildren='false'] .icon-caret,
+.fuelux .tree .tree-branch[data-has-children='false'] .icon-caret {
   visibility: hidden;
 }
 .fuelux .tree .tree-item {
@@ -2574,7 +2711,7 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .wizard > ul.steps li:first-child,
 .fuelux .wizard > .steps-container > ul.steps li:first-child {
-  border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 0;
   padding-left: 20px;
 }
 .fuelux .wizard.rtl {
