@@ -20,7 +20,7 @@ module.exports = function(grunt) {
 				localBranch: 'release',
 				remoteBaseBranch: 'master',
 				remoteDestinationBranch: '3.x',
-				remoteRepository: 'origin'
+				remoteRepository: 'upstream'
 			}
 		};
 
