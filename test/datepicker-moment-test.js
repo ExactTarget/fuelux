@@ -80,25 +80,25 @@ define(function(require){
 			var $datepickerInput = $datepicker.find('input');
 			var parsedAs;
 
-			$datepickerInput.val('01/01/15');
+			$datepickerInput.val('01/01/68');
 			$datepickerInput.trigger('change');
 			parsedAs = $datepicker.datepicker('getFormattedDate');
-			equal(parsedAs, '01/01/2015', '01/01/15 parsed correctly');
+			equal(parsedAs, '01/01/1968', '01/01/68 parsed correctly');
 
-			$datepickerInput.val('1/1/2015');
+			$datepickerInput.val('1/1/68');
 			$datepickerInput.trigger('change');
 			parsedAs = $datepicker.datepicker('getFormattedDate');
-			equal(parsedAs, '01/01/2015', '1/1/2015 parsed correctly');
+			equal(parsedAs, '01/01/1968', '1/1/68 parsed correctly');
 
-			$datepickerInput.val('1/1/15');
+			$datepickerInput.val('1/1/69');
 			$datepickerInput.trigger('change');
 			parsedAs = $datepicker.datepicker('getFormattedDate');
-			equal(parsedAs, '01/01/2015', '1/1/15 parsed correctly');
+			equal(parsedAs, '01/01/2069', '1/1/69 parsed correctly');
 
-			$datepickerInput.val('01/01/80');
+			$datepickerInput.val('01/01/69');
 			$datepickerInput.trigger('change');
 			parsedAs = $datepicker.datepicker('getFormattedDate');
-			equal(parsedAs, '01/01/1980', '01/01/80 parsed correctly');
+			equal(parsedAs, '01/01/2069', '01/01/69 parsed correctly');
 		});
 
 		test('should initialize with null date', function(){
