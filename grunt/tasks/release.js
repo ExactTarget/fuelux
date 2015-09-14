@@ -7,26 +7,26 @@ module.exports = function(grunt) {
 	grunt.registerTask('notes', 'Run a ruby gem that will request from Github unreleased pull requests', ['shell:notes']);
 
 	grunt.registerTask('updateRelease', '', function () {
-		packageVersion = require('./package.json').version;
+		packageVersion = require('../../package.json').version;
 	});
 
 	// Maintainers: Run prior to a release. Includes SauceLabs VM tests.
 	grunt.registerTask('release', 'Release a new version, push it and publish it', function() {
-	
-		// default variables for release task
-	var releaseDefaults = {
-		release: {
-			files: ['dist', 'README.md', 'DETAILS.md', 'bower.json', 'package.json'],
-			localBranch: 'release',
-			remoteBaseBranch: 'master',
-			remoteDestinationBranch: '3.x',
-			remoteRepository: 'upstream'
-		}
-	};
 
-	// add releaseDefaults
-	grunt.config.merge(releaseDefaults);
-		
+		// default variables for release task
+		var releaseDefaults = {
+			release: {
+				files: ['dist', 'README.md', 'DETAILS.md', 'bower.json', 'package.json'],
+				localBranch: 'release',
+				remoteBaseBranch: 'master',
+				remoteDestinationBranch: '3.x',
+				remoteRepository: 'upstream'
+			}
+		};
+
+		// add releaseDefaults
+		grunt.config.merge(releaseDefaults);
+
 		if ( typeof grunt.config('sauceLoginFile') === 'undefined' ) {
 			grunt.log.write('The file SAUCE_API_KEY.yml is needed in order to run tests in SauceLabs.'['red'].bold +
 				' Please contact another maintainer to obtain this file.');
@@ -38,11 +38,10 @@ module.exports = function(grunt) {
 		}
 
 		// update local variable to make sure build prompt is using temp branch's package version
-		grunt.task.run(['prompt:tempbranch', 'shell:checkoutRemoteReleaseBranch', 
+		grunt.task.run(['prompt:tempbranch', 'shell:checkoutRemoteReleaseBranch',
 			'updateRelease', 'prompt:build', 'dorelease']);
 	});
 
-// formerally dorelease task
 	grunt.registerTask('dorelease', '', function () {
 
 		grunt.log.writeln('');
@@ -58,9 +57,9 @@ module.exports = function(grunt) {
 		grunt.config('banner', '<%= bannerRelease %>');
 
 		// Run dist again to grab the latest version numbers. Yeah, we're running it twice... ¯\_(ツ)_/¯
-		grunt.task.run(['bump-only:' + grunt.config('release.buildSemVerType'), 'replace:readme', 'dist', 
-			'shell:addReleaseFiles', 'prompt:commit', 'prompt:tag', 'prompt:pushLocalBranchToUpstream', 
-			'prompt:pushTagToUpstream', 'prompt:uploadToCDN', 'prompt:pushLocalBranchToUpstreamMaster', 'publishToNPM']);
+		grunt.task.run(['bump-only:' + grunt.config('release.buildSemVerType'), 'replace:readme', 'dist',
+			'shell:addReleaseFiles', 'prompt:commit', 'prompt:tag', 'prompt:pushLocalBranchToUpstream',
+			'prompt:pushTagToUpstream', 'prompt:uploadToCDN', 'prompt:pushLocalBranchToUpstreamMaster', 'shell:publishToNPM']);
 	});
 
 
