@@ -1,7 +1,33 @@
+@font-face {
+    font-family:"Salesforce Sans";
+    src:url(../fonts/SalesforceSans-Regular.eot) format("eot"),
+    url(../fonts/SalesforceSans-Regular.woff) format("woff"),
+    url(../fonts/SalesforceSans-Regular.ttf) format("truetype"),
+    url(../fonts/SalesforceSans-Regular.svg) format("svg")
+}
+
 #fusion-body{
     padding:50px;
-    padding-top:0px;
+    padding-top:0;
+    font-size: 14px;
+    font-family: "Salesforce Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
+
+#fusion-body .page-header {
+    font-size: 24px;
+    color: #333;
+}
+
+#fusion-body .fu-docs-section > h2 {
+    font-size: 18px;
+    color: #333;
+}
+
+#fusion-body .fu-docs-section > p {
+    font-size: 14px;
+    color: #333;
+}
+
 h1 .header-anchor{
     left:-1px;   
 }
