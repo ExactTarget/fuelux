@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.11.1 
+ * Fuel UX v3.11.2 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -2399,7 +2399,8 @@ label.fuelux .checkbox-inline {
 .fuelux .tree .tree-branch .tree-branch-children {
   margin-left: 14px;
 }
-.fuelux .tree .tree-branch[haschildren='false'] .icon-caret {
+.fuelux .tree .tree-branch[haschildren='false'] .icon-caret,
+.fuelux .tree .tree-branch[data-has-children='false'] .icon-caret {
   visibility: hidden;
 }
 .fuelux .tree .tree-item {
@@ -2574,7 +2575,7 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .wizard > ul.steps li:first-child,
 .fuelux .wizard > .steps-container > ul.steps li:first-child {
-  border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 0;
   padding-left: 20px;
 }
 .fuelux .wizard.rtl {

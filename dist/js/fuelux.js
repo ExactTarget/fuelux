@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.11.1 
+ * Fuel UX v3.11.2
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -170,6 +170,7 @@
 			}
 		};
 
+		Checkbox.prototype.getValue = Checkbox.prototype.isChecked;
 
 		// CHECKBOX PLUGIN DEFINITION
 
@@ -420,6 +421,7 @@
 			}
 		};
 
+		Combobox.prototype.getValue = Combobox.prototype.selectedItem;
 
 		// COMBOBOX PLUGIN DEFINITION
 
@@ -1183,7 +1185,8 @@
 				$( e.currentTarget ).parent().addClass( 'selected' );
 			}
 		};
-
+		//for control library consistency
+		Datepicker.prototype.getValue = Datepicker.prototype.getDate;
 
 		// DATEPICKER PLUGIN DEFINITION
 
@@ -1565,10 +1568,14 @@
 
 		// PLACARD CONSTRUCTOR AND PROTOTYPE
 
-		var Placard = function( element, options ) {
+		var Placard = function Placard( element, options ) {
 			var self = this;
 			this.$element = $( element );
 			this.options = $.extend( {}, $.fn.placard.defaults, options );
+
+			if ( this.$element.attr( 'data-ellipsis' ) === 'true' ) {
+				this.options.applyEllipsis = true;
+			}
 
 			this.$accept = this.$element.find( '.placard-accept' );
 			this.$cancel = this.$element.find( '.placard-cancel' );
@@ -1588,31 +1595,55 @@
 
 			this.$field.on( 'focus.fu.placard', $.proxy( this.show, this ) );
 			this.$field.on( 'keydown.fu.placard', $.proxy( this.keyComplete, this ) );
+			this.$element.on( 'close.fu.placard', $.proxy( this.hide, this ) );
 			this.$accept.on( 'click.fu.placard', $.proxy( this.complete, this, 'accepted' ) );
 			this.$cancel.on( 'click.fu.placard', function( e ) {
 				e.preventDefault();
 				self.complete( 'cancelled' );
 			} );
 
-			this.ellipsis();
+			this.applyEllipsis();
+		};
+
+		var _isShown = function _isShown( placard ) {
+			if ( placard.$element.hasClass( 'showing' ) ) {
+				return true;
+			}
+			return false;
+		};
+
+		var _closeOtherPlacards = function _closeOtherPlacards() {
+			var otherPlacards;
+
+			otherPlacards = $( document ).find( '.placard.showing' );
+			if ( otherPlacards.length > 0 ) {
+				if ( otherPlacards.data( 'fu.placard' ) && otherPlacards.data( 'fu.placard' ).options.explicit ) {
+					return false; //failed
+				}
+
+				otherPlacards.placard( 'externalClickListener', {}, true );
+			}
+
+			return true; //succeeded
 		};
 
 		Placard.prototype = {
 			constructor: Placard,
 
-			complete: function( action ) {
+			complete: function complete( action ) {
 				var func = this.options[ EVENT_CALLBACK_MAP[ action ] ];
 
 				var obj = {
 					previousValue: this.previousValue,
-					value: this.$field.val()
+					value: this.getValue()
 				};
+
 				if ( func ) {
 					func( obj );
 					this.$element.trigger( action + '.fu.placard', obj );
 				} else {
 					if ( action === 'cancelled' && this.options.revertOnCancel ) {
-						this.$field.val( this.previousValue );
+						this.setValue( this.previousValue, true );
 					}
 
 					this.$element.trigger( action + '.fu.placard', obj );
@@ -1620,7 +1651,7 @@
 				}
 			},
 
-			keyComplete: function( e ) {
+			keyComplete: function keyComplete( e ) {
 				if ( this.isInput && e.keyCode === 13 ) {
 					this.complete( 'accepted' );
 					this.$field.blur();
@@ -1630,7 +1661,7 @@
 				}
 			},
 
-			destroy: function() {
+			destroy: function destroy() {
 				this.$element.remove();
 				// remove any external bindings
 				$( document ).off( 'click.fu.placard.externalClick.' + this.clickStamp );
@@ -1644,32 +1675,33 @@
 				return this.$element[ 0 ].outerHTML;
 			},
 
-			disable: function() {
+			disable: function disable() {
 				this.$element.addClass( 'disabled' );
 				this.$field.attr( 'disabled', 'disabled' );
 				this.hide();
 			},
 
-			ellipsis: function() {
+			applyEllipsis: function applyEllipsis() {
 				var field, i, str;
-				if ( this.$element.attr( 'data-ellipsis' ) === 'true' ) {
+				if ( this.options.applyEllipsis ) {
 					field = this.$field.get( 0 );
 					if ( this.$field.is( 'input' ) ) {
 						field.scrollLeft = 0;
+						//TODO: apply ellipsis to input field overflow
 					} else {
 						field.scrollTop = 0;
 						if ( field.clientHeight < field.scrollHeight ) {
-							this.actualValue = this.$field.val();
-							this.$field.val( '' );
+							this.actualValue = this.getValue();
+							this.setValue( '', true );
 							str = '';
 							i = 0;
 							while ( field.clientHeight >= field.scrollHeight ) {
 								str += this.actualValue[ i ];
-								this.$field.val( str + '...' );
+								this.setValue( str + '...', true );
 								i++;
 							}
 							str = ( str.length > 0 ) ? str.substring( 0, str.length - 1 ) : '';
-							this.$field.val( str + '...' );
+							this.setValue( str + '...', true );
 						}
 
 					}
@@ -1677,18 +1709,18 @@
 				}
 			},
 
-			enable: function() {
+			enable: function enable() {
 				this.$element.removeClass( 'disabled' );
 				this.$field.removeAttr( 'disabled' );
 			},
 
-			externalClickListener: function( e, force ) {
+			externalClickListener: function externalClickListener( e, force ) {
 				if ( force === true || this.isExternalClick( e ) ) {
 					this.complete( this.options.externalClickAction );
 				}
 			},
 
-			getValue: function() {
+			getValue: function getValue() {
 				if ( this.actualValue !== null ) {
 					return this.actualValue;
 				} else {
@@ -1696,18 +1728,18 @@
 				}
 			},
 
-			hide: function() {
+			hide: function hide() {
 				if ( !this.$element.hasClass( 'showing' ) ) {
 					return;
 				}
 
 				this.$element.removeClass( 'showing' );
-				this.ellipsis();
+				this.applyEllipsis();
 				$( document ).off( 'click.fu.placard.externalClick.' + this.clickStamp );
 				this.$element.trigger( 'hidden.fu.placard' );
 			},
 
-			isExternalClick: function( e ) {
+			isExternalClick: function isExternalClick( e ) {
 				var el = this.$element.get( 0 );
 				var exceptions = this.options.externalClickExceptions || [];
 				var $originEl = $( e.target );
@@ -1727,36 +1759,53 @@
 				return true;
 			},
 
-			setValue: function( val ) {
-				this.$field.val( val );
-				if ( !this.$element.hasClass( 'showing' ) ) {
-					this.ellipsis();
+			/**
+			 * setValue() sets the Placard triggering DOM element's display value
+			 *
+			 * @param {String} the value to be displayed
+			 * @param {Boolean} If you want to explicitly suppress the application
+			 *					of ellipsis, pass `true`. This would typically only be
+			 *					done from internal functions (like `applyEllipsis`)
+			 *					that want to avoid circular logic. Otherwise, the
+			 *					value of the option applyEllipsis will be used.
+			 * @return {Object} jQuery object representing the DOM element whose
+			 *					value was set
+			 */
+			setValue: function setValue( val, suppressEllipsis ) {
+				//if suppressEllipsis is undefined, check placards init settings
+				if ( typeof suppressEllipsis === "undefined" ) {
+					suppressEllipsis = !this.options.applyEllipsis;
 				}
+
+				this.$field.val( val );
+
+				if ( !suppressEllipsis && !_isShown ) {
+					this.applyEllipsis();
+				}
+
+				return this.$field;
 			},
 
-			show: function() {
-				var other;
-
-				if ( this.$element.hasClass( 'showing' ) ) {
+			show: function show() {
+				if ( _isShown( this ) ) {
 					return;
 				}
-
-				other = $( document ).find( '.placard.showing' );
-				if ( other.length > 0 ) {
-					if ( other.data( 'fu.placard' ) && other.data( 'fu.placard' ).options.explicit ) {
-						return;
-					}
-
-					other.placard( 'externalClickListener', {}, true );
+				if ( !_closeOtherPlacards() ) {
+					return;
 				}
 
 				this.previousValue = this.$field.val();
 
-				this.$element.addClass( 'showing' );
 				if ( this.actualValue !== null ) {
-					this.$field.val( this.actualValue );
+					this.setValue( this.actualValue );
 					this.actualValue = null;
 				}
+
+				this.showPlacard();
+			},
+
+			showPlacard: function showPlacard() {
+				this.$element.addClass( 'showing' );
 
 				if ( this.$header.length > 0 ) {
 					this.$popup.css( 'top', '-' + this.$header.outerHeight( true ) + 'px' );
@@ -1803,7 +1852,8 @@
 			externalClickAction: 'cancelled',
 			externalClickExceptions: [],
 			explicit: false,
-			revertOnCancel: -1 //negative 1 will check for an '.placard-accept' button. Also can be set to true or false
+			revertOnCancel: -1, //negative 1 will check for an '.placard-accept' button. Also can be set to true or false
+			applyEllipsis: false
 		};
 
 		$.fn.placard.Constructor = Placard;
@@ -1984,6 +2034,7 @@
 			}
 		};
 
+		Radio.prototype.getValue = Radio.prototype.isChecked;
 
 		// RADIO PLUGIN DEFINITION
 
@@ -2453,6 +2504,8 @@
 			}
 		};
 
+		Selectlist.prototype.getValue = Selectlist.prototype.selectedItem;
+
 
 		// SELECT PLUGIN DEFINITION
 
@@ -2538,6 +2591,8 @@
 				e.preventDefault();
 			} );
 			this.options = $.extend( {}, $.fn.spinbox.defaults, options );
+			this.options.step = this.$element.data( 'step' ) || this.options.step;
+
 			this.$input = this.$element.find( '.spinbox-input' );
 			this.$element.on( 'focusin.fu.spinbox', this.$input, $.proxy( this.changeFlag, this ) );
 			this.$element.on( 'focusout.fu.spinbox', this.$input, $.proxy( this.change, this ) );
@@ -2626,6 +2681,13 @@
 
 			output: function( value, updateField ) {
 				value = ( value + '' ).split( '.' ).join( this.options.decimalMark );
+				// if set and default unit if not already present, 
+				// and is an allowed unit, then add default unit
+				if ( this.options.defaultUnit !== '' &&
+					this.options.defaultUnit !== value.slice( -Math.abs( this.options.defaultUnit.length ) ) &&
+					this.isUnitLegal( this.options.defaultUnit ) ) {
+					value = value + this.options.defaultUnit;
+				}
 				updateField = ( updateField || true );
 				if ( updateField ) {
 					this.$input.val( value );
@@ -2741,6 +2803,10 @@
 					var cycleVal = isIncrease ? this.options.min : this.options.max;
 					this.value( cycleVal );
 				}
+			},
+
+			getValue: function getValue() {
+				return this.value();
 			},
 
 			value: function( value ) {
@@ -2918,7 +2984,8 @@
 			disabled: false,
 			cycle: false,
 			units: [],
-			decimalMark: '.'
+			decimalMark: '.',
+			defaultUnit: ''
 		};
 
 		$.fn.spinbox.Constructor = Spinbox;
@@ -3371,7 +3438,8 @@
 		Tree.prototype.closeAll = Tree.prototype.collapse;
 		//alias for backwards compatibility because there's no reason not to.
 		Tree.prototype.openFolder = Tree.prototype.discloseFolder;
-
+		//For library consistency
+		Tree.prototype.getValue = Tree.prototype.selectedItems;
 
 		// PRIVATE FUNCTIONS
 
@@ -4791,6 +4859,8 @@
 			}
 		};
 
+		Pillbox.prototype.getValue = Pillbox.prototype.items;
+
 		// PILLBOX PLUGIN DEFINITION
 
 		$.fn.pillbox = function( option ) {
@@ -5725,6 +5795,8 @@
 				return selected;
 			};
 
+			$.fn.repeater.Constructor.prototype.getValue = $.fn.repeater.Constructor.prototype.list_getSelectedItems;
+
 			$.fn.repeater.Constructor.prototype.list_positionHeadings = function() {
 				var $wrapper = this.$element.find( '.repeater-list-wrapper' );
 				var offsetLeft = $wrapper.offset().left;
@@ -6000,6 +6072,9 @@
 						item: clickedRow,
 						rowData: clickedRow.data( 'item_data' )
 					} );
+				}
+				if ( selectedObj.length === 1 ) {
+					selectedObj = selectedObj[ 0 ];
 				}
 
 				if ( actionObj.clickAction ) {
