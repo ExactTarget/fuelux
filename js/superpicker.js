@@ -106,7 +106,7 @@
 			this.$element.remove();
 			// remove any external bindings
 			$(document).off('click.fu.superpicker.externalClick.' + this.clickStamp);
-			// set input value attrbute
+			// set input value attribute
 			this.$element.find('input').each(function () {
 				$(this).attr('value', $(this).val());
 			});
@@ -118,12 +118,13 @@
 
 		disable: function () {
 			this.$element.addClass('disabled');
+			this.$trigger.attr('disabled', 'disabled');
 			this.$field.attr('disabled', 'disabled');
-			this.hide();
 		},
 
 		enable: function () {
 			this.$element.removeClass('disabled');
+			this.$trigger.removeAttr('disabled');
 			this.$field.removeAttr('disabled');
 		},
 
@@ -139,7 +140,7 @@
 			}
 
 			this.$element.removeClass('showing');
-			this.$field.removeAttr('disabled');
+			this.enable();
 			$(document).off('click.fu.superpicker.externalClick.' + this.clickStamp);
 			this.$element.trigger('hidden.fu.superpicker');
 		},
@@ -195,7 +196,7 @@
 				this.actualValue = null;
 			}
 
-			this.$field.attr('disabled', 'disabled');
+			this.disable();
 
 			this.clickStamp = new Date().getTime() + (Math.floor(Math.random() * 100) + 1);
 			if (!this.options.explicit) {

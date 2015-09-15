@@ -945,7 +945,6 @@ define(function (require) {
 		$('#mySpinbox1').spinbox();
 	});
 
-
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	 TREE
 	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -1025,20 +1024,6 @@ define(function (require) {
 		folderSelect: true,
 		multiSelect: true
 	});
-
-	$('#mySuperpickerTree1').tree({
-		dataSource: treeDataSource,
-		cacheItems: true,
-		folderSelect: true,
-		multiSelect: true
-	});
-
-	// requires https://github.com/exacttarget/get-list-item-path
-	// $('#mysuperpicker2').on('accepted.fu.superpicker', function(o){
-	// 	var selected = $('#mySuperpickerTree1').find('.tree-selected');
-	// 	var selectedPaths = getListItemPaths('#mySuperpickerTree1', selected, '.tree-label', '/', ', ');
-	// 	$('#mysuperpicker2').superpicker('setValue', selectedPaths);
-	// });
 
 
 	function guid() {
@@ -1242,6 +1227,50 @@ define(function (require) {
 		log('Disclosed All, this many recursions: ', data.disclosures);
 	});
 
+	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	 SUPERPICKER
+	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+	$('#btnSuperpickerEnable').click(function () {
+		$('#mysuperpicker').superpicker('enable');
+	});
+	$('#btnSuperpickerDisable').click(function () {
+		$('#mysuperpicker').superpicker('disable');
+	});
+	$('#btnSuperpickerDestroy').click(function () {
+		var $container = $('#mysuperpicker').parent();
+		var markup = $('#mysuperpicker').superpicker('destroy');
+		log(markup);
+		$container.append(markup);
+		$('#mysuperpicker').superpicker({
+			edit: true
+		});
+	});
+
+	$('#mysuperpicker').on('accepted.fu.superpicker', function() {
+		console.log('accepted.fu.superpicker');
+	});
+
+	$('#mysuperpicker').on('cancelled.fu.superpicker', function() {
+		console.log('cancelled.fu.superpicker');
+	});
+
+	$('#mysuperpicker').on('shown.fu.superpicker', function() {
+		console.log('shown.fu.superpicker');
+	});
+
+	$('#mySuperpickerTree1').tree({
+		dataSource: treeDataSource,
+		cacheItems: true,
+		folderSelect: true,
+		multiSelect: true
+	});
+
+	// requires https://github.com/exacttarget/get-list-item-path
+	// $('#mysuperpicker2').on('accepted.fu.superpicker', function(o){
+	// 	var selected = $('#mySuperpickerTree1').find('.tree-selected');
+	// 	var selectedPaths = getListItemPaths('#mySuperpickerTree1', selected, '.tree-label', '/', ', ');
+	// 	$('#mysuperpicker2').superpicker('setValue', selectedPaths);
+	// });
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	 WIZARD
