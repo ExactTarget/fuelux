@@ -1230,35 +1230,35 @@ define(function (require) {
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	 SUPERPICKER
 	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-	$('#btnSuperpickerEnable').click(function () {
-		$('#mysuperpicker').superpicker('enable');
+	$('#btnPickerEnable').click(function () {
+		$('#mypicker').picker('enable');
 	});
-	$('#btnSuperpickerDisable').click(function () {
-		$('#mysuperpicker').superpicker('disable');
+	$('#btnPickerDisable').click(function () {
+		$('#mypicker').picker('disable');
 	});
-	$('#btnSuperpickerDestroy').click(function () {
-		var $container = $('#mysuperpicker').parent();
-		var markup = $('#mysuperpicker').superpicker('destroy');
+	$('#btnPickerDestroy').click(function () {
+		var $container = $('#mypicker').parent();
+		var markup = $('#mypicker').picker('destroy');
 		log(markup);
 		$container.append(markup);
-		$('#mysuperpicker').superpicker({
+		$('#mypicker').picker({
 			edit: true
 		});
 	});
 
-	$('#mysuperpicker').on('accepted.fu.superpicker', function() {
-		console.log('accepted.fu.superpicker');
+	$('#mypicker').on('accepted.fu.picker', function() {
+		console.log('accepted.fu.picker');
 	});
 
-	$('#mysuperpicker').on('cancelled.fu.superpicker', function() {
-		console.log('cancelled.fu.superpicker');
+	$('#mypicker').on('cancelled.fu.picker', function() {
+		console.log('cancelled.fu.picker');
 	});
 
-	$('#mysuperpicker').on('shown.fu.superpicker', function() {
-		console.log('shown.fu.superpicker');
+	$('#mypicker').on('shown.fu.picker', function() {
+		console.log('shown.fu.picker');
 	});
 
-	$('#mySuperpickerTree1').tree({
+	$('#myPickerTree1').tree({
 		dataSource: treeDataSource,
 		cacheItems: true,
 		folderSelect: true,
@@ -1266,10 +1266,10 @@ define(function (require) {
 	});
 
 	// requires https://github.com/exacttarget/get-list-item-path
-	// $('#mysuperpicker2').on('accepted.fu.superpicker', function(o){
-	// 	var selected = $('#mySuperpickerTree1').find('.tree-selected');
-	// 	var selectedPaths = getListItemPaths('#mySuperpickerTree1', selected, '.tree-label', '/', ', ');
-	// 	$('#mysuperpicker2').superpicker('setValue', selectedPaths);
+	// $('#mypicker2').on('accepted.fu.picker', function(o){
+	// 	var selected = $('#myPickerTree1').find('.tree-selected');
+	// 	var selectedPaths = getListItemPaths('#myPickerTree1', selected, '.tree-label', '/', ', ');
+	// 	$('#mypicker2').picker('setValue', selectedPaths);
 	// });
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

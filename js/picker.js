@@ -1,5 +1,5 @@
 /*
- * Fuel UX Superpicker
+ * Fuel UX Picker
  * https://github.com/ExactTarget/fuelux
  *
  * Copyright (c) 2014 ExactTarget
@@ -27,26 +27,26 @@
 
 	// -- BEGIN MODULE CODE HERE --
 
-	var old = $.fn.superpicker;
+	var old = $.fn.picker;
 	var EVENT_CALLBACK_MAP = { 'accepted': 'onAccept', 'cancelled': 'onCancel' };
 	var DEFAULT_HEIGHT = 234;
 	var DEFAULT_WIDTH = 350;
 
 	// PLACARD CONSTRUCTOR AND PROTOTYPE
 
-	var Superpicker = function (element, options) {
+	var Picker = function (element, options) {
 		var self = this;
 		this.$element = $(element);
-		this.options = $.extend({}, $.fn.superpicker.defaults, options);
+		this.options = $.extend({}, $.fn.picker.defaults, options);
 
-		this.$accept = this.$element.find('.superpicker-accept');
-		this.$cancel = this.$element.find('.superpicker-cancel');
-		this.$field = this.$element.find('.superpicker-field');
-		this.$trigger = this.$element.find('.superpicker-trigger');
-		this.$footer = this.$element.find('.superpicker-footer');
-		this.$header = this.$element.find('.superpicker-header');
-		this.$popup = this.$element.find('.superpicker-popup');
-		this.$body = this.$element.find('.superpicker-body');
+		this.$accept = this.$element.find('.picker-accept');
+		this.$cancel = this.$element.find('.picker-cancel');
+		this.$field = this.$element.find('.picker-field');
+		this.$trigger = this.$element.find('.picker-trigger');
+		this.$footer = this.$element.find('.picker-footer');
+		this.$header = this.$element.find('.picker-header');
+		this.$popup = this.$element.find('.picker-popup');
+		this.$body = this.$element.find('.picker-body');
 
 		this.actualValue = null;
 		this.clickStamp = '_';
@@ -57,19 +57,19 @@
 
 		this.isInput = this.$field.is('input');
 
-		this.$field.on('click.fu.superpicker', $.proxy(this.toggle, this));
-		this.$field.on('keydown.fu.superpicker', $.proxy(this.keyComplete, this));
-		this.$trigger.on('click.fu.superpicker', $.proxy(this.toggle, this));
-		this.$accept.on('click.fu.superpicker', $.proxy(this.complete, this, 'accepted'));
-		this.$cancel.on('click.fu.superpicker', function (e) {
+		this.$field.on('click.fu.picker', $.proxy(this.toggle, this));
+		this.$field.on('keydown.fu.picker', $.proxy(this.keyComplete, this));
+		this.$trigger.on('click.fu.picker', $.proxy(this.toggle, this));
+		this.$accept.on('click.fu.picker', $.proxy(this.complete, this, 'accepted'));
+		this.$cancel.on('click.fu.picker', function (e) {
 			e.preventDefault(); self.complete('cancelled');
 		});
 
 
 	};
 
-	Superpicker.prototype = {
-		constructor: Superpicker,
+	Picker.prototype = {
+		constructor: Picker,
 
 		complete: function (action) {
 			var func = this.options[ EVENT_CALLBACK_MAP[action] ];
@@ -81,13 +81,13 @@
 
 			if (func) {
 				func(obj);
-				this.$element.trigger(action + '.fu.superpicker', obj);
+				this.$element.trigger(action + '.fu.picker', obj);
 			} else {
 				if (action === 'cancelled' && this.options.revertOnCancel) {
 					this.$field.val(this.previousValue);
 				}
 
-				this.$element.trigger(action + '.fu.superpicker', obj);
+				this.$element.trigger(action + '.fu.picker', obj);
 				this.hide();
 			}
 		},
@@ -105,7 +105,7 @@
 		destroy: function () {
 			this.$element.remove();
 			// remove any external bindings
-			$(document).off('click.fu.superpicker.externalClick.' + this.clickStamp);
+			$(document).off('click.fu.picker.externalClick.' + this.clickStamp);
 			// set input value attribute
 			this.$element.find('input').each(function () {
 				$(this).attr('value', $(this).val());
@@ -148,8 +148,8 @@
 			}
 
 			this.$element.removeClass('showing');
-			$(document).off('click.fu.superpicker.externalClick.' + this.clickStamp);
-			this.$element.trigger('hidden.fu.superpicker');
+			$(document).off('click.fu.picker.externalClick.' + this.clickStamp);
+			this.$element.trigger('hidden.fu.picker');
 		},
 
 		isExternalClick: function (e) {
@@ -158,7 +158,7 @@
 			var $originEl = $(e.target);
 			var i, l;
 
-			if (e.target === el || $originEl.parents('.superpicker:first').get(0) === el) {
+			if (e.target === el || $originEl.parents('.picker:first').get(0) === el) {
 				return false;
 			} else {
 				for (i = 0, l = exceptions.length; i < l; i++) {
@@ -173,7 +173,7 @@
 		},
 
 		_isOffscreen: function _isOffscreen() {
-			var windowHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+			var windowHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 			var scrollTop = $(document).scrollTop();
 			var popupTop = this.$popup.offset();
 			var popupBottom = popupTop.top + this.$popup.outerHeight(true);
@@ -225,13 +225,13 @@
 				return;
 			}
 
-			other = $(document).find('.superpicker.showing');
+			other = $(document).find('.picker.showing');
 			if (other.length > 0) {
-				if (other.data('fu.superpicker') && other.data('fu.superpicker').options.explicit) {
+				if (other.data('fu.picker') && other.data('fu.picker').options.explicit) {
 					return;
 				}
 
-				other.superpicker('externalClickListener', {}, true);
+				other.picker('externalClickListener', {}, true);
 			}
 
 			this.previousValue = this.$field.val();
@@ -240,14 +240,14 @@
 
 			this._display();
 
-			this.$element.trigger('shown.fu.superpicker', this.actualValue);
+			this.$element.trigger('shown.fu.picker', this.actualValue);
 			if (this.actualValue !== null) {
 				this.actualValue = null;
 			}
 
 			this.clickStamp = new Date().getTime() + (Math.floor(Math.random() * 100) + 1);
 			if (!this.options.explicit) {
-				$(document).on('click.fu.superpicker.externalClick.' + this.clickStamp, $.proxy(this.externalClickListener, this));
+				$(document).on('click.fu.picker.externalClick.' + this.clickStamp, $.proxy(this.externalClickListener, this));
 			}
 		},
 
@@ -262,17 +262,17 @@
 
 	// PLACARD PLUGIN DEFINITION
 
-	$.fn.superpicker = function (option) {
+	$.fn.picker = function (option) {
 		var args = Array.prototype.slice.call(arguments, 1);
 		var methodReturn;
 
 		var $set = this.each(function () {
 			var $this = $(this);
-			var data = $this.data('fu.superpicker');
+			var data = $this.data('fu.picker');
 			var options = typeof option === 'object' && option;
 
 			if (!data) {
-				$this.data('fu.superpicker', (data = new Superpicker(this, options)));
+				$this.data('fu.picker', (data = new Picker(this, options)));
 			}
 
 			if (typeof option === 'string') {
@@ -283,7 +283,7 @@
 		return (methodReturn === undefined) ? $set : methodReturn;
 	};
 
-	$.fn.superpicker.defaults = {
+	$.fn.picker.defaults = {
 		onAccept: undefined,
 		onCancel: undefined,
 		externalClickAction: 'cancelled',
@@ -292,28 +292,28 @@
 		revertOnCancel: -1//negative 1 will check for an '.placard-accept' button. Also can be set to true or false
 	};
 
-	$.fn.superpicker.Constructor = Superpicker;
+	$.fn.picker.Constructor = Picker;
 
-	$.fn.superpicker.noConflict = function () {
-		$.fn.superpicker = old;
+	$.fn.picker.noConflict = function () {
+		$.fn.picker = old;
 		return this;
 	};
 
 	// DATA-API
 
-	$(document).on('focus.fu.superpicker.data-api', '[data-initialize=superpicker]', function (e) {
-		var $control = $(e.target).closest('.superpicker');
-		if (!$control.data('fu.superpicker')) {
-			$control.superpicker($control.data());
+	$(document).on('focus.fu.picker.data-api', '[data-initialize=picker]', function (e) {
+		var $control = $(e.target).closest('.picker');
+		if (!$control.data('fu.picker')) {
+			$control.picker($control.data());
 		}
 	});
 
 	// Must be domReady for AMD compatibility
 	$(function () {
-		$('[data-initialize=superpicker]').each(function () {
+		$('[data-initialize=picker]').each(function () {
 			var $this = $(this);
-			if ($this.data('fu.superpicker')) return;
-			$this.superpicker($this.data());
+			if ($this.data('fu.picker')) return;
+			$this.picker($this.data());
 		});
 	});
 

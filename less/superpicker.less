@@ -1,19 +1,19 @@
 .fuelux {
 
-	.superpicker {
+	.picker {
 		display: inline-block;
 		position: relative;
 
 		&[data-ellipsis="true"] {
 			&.showing {
-				input.superpicker-field {
+				input.picker-field {
 					overflow: visible;
 					text-overflow: clip;
 					white-space: normal;
 				}
 			}
 
-			input.superpicker-field {
+			input.picker-field {
 				overflow: hidden;
 				text-overflow: ellipsis;
 				white-space: nowrap;
@@ -23,7 +23,7 @@
 				}
 			}
 
-			textarea.superpicker-field {
+			textarea.picker-field {
 				&[readonly] {
 					overflow: hidden;
 				}
@@ -31,14 +31,14 @@
 		}
 
 		&.showing {
-			.superpicker-footer,
-			.superpicker-header,
-			.superpicker-popup {
+			.picker-footer,
+			.picker-header,
+			.picker-popup {
 				display: block;
 				z-index: 1;
 			}
 
-			input.superpicker-field, textarea.superpicker-field {
+			input.picker-field, textarea.picker-field {
 				background: @true-white;
 				border: 1px solid @gray80;
 				box-shadow: none;
@@ -47,7 +47,7 @@
 			}
 		}
 
-		input.superpicker-field, textarea.superpicker-field {
+		input.picker-field, textarea.picker-field {
 			resize: none;
 
 			&[readonly] {

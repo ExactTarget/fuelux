@@ -20,7 +20,7 @@ module.exports = function (grunt) {
 				'js/repeater-list.js',
 				'js/repeater-thumbnail.js',
 				'js/scheduler.js',
-				'js/superpicker.js'
+				'js/picker.js'
 			],
 			dest: 'dist/js/' + '<%= pkg.name %>' + '.js'
 		},

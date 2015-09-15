@@ -58,7 +58,7 @@ define(function(require){
 	require('./test/search-test');
 	require('./test/selectlist-test');
 	require('./test/spinbox-test');
-	require('./test/superpicker-test');
+	require('./test/picker-test');
 	require('./test/tree-test');
 	require('./test/wizard-test');
 

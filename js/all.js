@@ -39,7 +39,7 @@
 	require('fuelux/search');
 	require('fuelux/spinbox');
 	require('fuelux/selectlist');
-	require('fuelux/superpicker');
+	require('fuelux/picker');
 	require('fuelux/tree');
 	require('fuelux/wizard');
 
