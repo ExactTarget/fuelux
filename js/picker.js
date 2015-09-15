@@ -34,7 +34,7 @@
 
 	// PLACARD CONSTRUCTOR AND PROTOTYPE
 
-	var Picker = function (element, options) {
+	var Picker = function Picker(element, options) {
 		var self = this;
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.picker.defaults, options);
@@ -71,7 +71,7 @@
 	Picker.prototype = {
 		constructor: Picker,
 
-		complete: function (action) {
+		complete: function complete(action) {
 			var func = this.options[ EVENT_CALLBACK_MAP[action] ];
 
 			var obj = {
@@ -92,7 +92,7 @@
 			}
 		},
 
-		keyComplete: function (e) {
+		keyComplete: function keyComplete(e) {
 			if (this.isInput && e.keyCode === 13) {
 				this.complete('accepted');
 				this.$field.blur();
@@ -102,7 +102,7 @@
 			}
 		},
 
-		destroy: function () {
+		destroy: function destroy() {
 			this.$element.remove();
 			// remove any external bindings
 			$(document).off('click.fu.picker.externalClick.' + this.clickStamp);
@@ -116,19 +116,19 @@
 			return this.$element[0].outerHTML;
 		},
 
-		disable: function () {
+		disable: function disable() {
 			this.$element.addClass('disabled');
 			this.$trigger.attr('disabled', 'disabled');
 			this.$field.attr('disabled', 'disabled');
 		},
 
-		enable: function () {
+		enable: function enable() {
 			this.$element.removeClass('disabled');
 			this.$trigger.removeAttr('disabled');
 			this.$field.removeAttr('disabled');
 		},
 
-		externalClickListener: function (e, force) {
+		externalClickListener: function externalClickListener(e, force) {
 			if (force === true || this.isExternalClick(e)) {
 				this.complete(this.options.externalClickAction);
 			}
@@ -142,7 +142,7 @@
 			}
 		},
 
-		hide: function () {
+		hide: function hide() {
 			if (!this.$element.hasClass('showing')) {
 				return;
 			}
@@ -152,7 +152,7 @@
 			this.$element.trigger('hidden.fu.picker');
 		},
 
-		isExternalClick: function (e) {
+		isExternalClick: function isExternalClick(e) {
 			var el = this.$element.get(0);
 			var exceptions = this.options.externalClickExceptions || [];
 			var $originEl = $(e.target);
@@ -218,7 +218,7 @@
 			this.$popup.css('width', (this.options.width)?this.options.height : DEFAULT_WIDTH + 'px');
 		},
 
-		show: function () {
+		show: function show() {
 			var other;
 
 			if (this.$element.hasClass('showing')) {
@@ -262,7 +262,7 @@
 
 	// PLACARD PLUGIN DEFINITION
 
-	$.fn.picker = function (option) {
+	$.fn.picker = function picker(option) {
 		var args = Array.prototype.slice.call(arguments, 1);
 		var methodReturn;
 
@@ -294,7 +294,7 @@
 
 	$.fn.picker.Constructor = Picker;
 
-	$.fn.picker.noConflict = function () {
+	$.fn.picker.noConflict = function noConflict() {
 		$.fn.picker = old;
 		return this;
 	};
