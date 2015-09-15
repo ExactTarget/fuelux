@@ -57,9 +57,9 @@
 
 		this.isInput = this.$field.is('input');
 
-		this.$field.on('focus.fu.superpicker', $.proxy(this.show, this));
+		this.$field.on('click.fu.superpicker', $.proxy(this.toggle, this));
 		this.$field.on('keydown.fu.superpicker', $.proxy(this.keyComplete, this));
-		this.$trigger.on('focus.fu.superpicker', $.proxy(this.show, this));
+		this.$trigger.on('click.fu.superpicker', $.proxy(this.toggle, this));
 		this.$accept.on('click.fu.superpicker', $.proxy(this.complete, this, 'accepted'));
 		this.$cancel.on('click.fu.superpicker', function (e) {
 			e.preventDefault(); self.complete('cancelled');
@@ -134,13 +134,20 @@
 			}
 		},
 
+		toggle: function toggle() {
+			if (this.$element.hasClass('showing')) {
+				this.hide();
+			}else{
+				this.show();
+			}
+		},
+
 		hide: function () {
 			if (!this.$element.hasClass('showing')) {
 				return;
 			}
 
 			this.$element.removeClass('showing');
-			this.enable();
 			$(document).off('click.fu.superpicker.externalClick.' + this.clickStamp);
 			this.$element.trigger('hidden.fu.superpicker');
 		},
@@ -165,6 +172,52 @@
 			return true;
 		},
 
+		_isOffscreen: function _isOffscreen() {
+			var windowHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+			var scrollTop = $(document).scrollTop();
+			var popupTop = this.$popup.offset();
+			var popupBottom = popupTop.top + this.$popup.outerHeight(true);
+
+			//if the bottom of the popup goes off the page, but the top does not, dropup.
+			if (popupBottom > windowHeight + scrollTop || popupTop.top < scrollTop){
+				return true;
+			}else{//otherwise, prefer showing the top of the popup only vs the bottom
+				return false;
+			}
+		},
+
+		_display: function _display() {
+			this.$popup.css('visibility', 'hidden');
+
+			this._showBelow();
+
+			//if part of the popup is offscreen try to show it above
+			if(this._isOffscreen()){
+				this._showAbove();
+
+				//if part of the popup is still offscreen, prefer cutting off the bottom
+				if(this._isOffscreen()){
+					this._showBelow();
+				}
+			}
+
+			this.$popup.css('visibility', 'visible');
+		},
+
+		_showAbove: function _showAbove() {
+			this.$popup.css('height', (this.options.height)?this.options.height : DEFAULT_HEIGHT + 'px');
+			this.$body.css('height', ((this.options.height)?this.options.height : DEFAULT_HEIGHT) - 73 + 'px');
+			this.$popup.css('width', (this.options.width)?this.options.height : DEFAULT_WIDTH + 'px');
+			this.$popup.css('top', -(this.$popup.outerHeight(true) + 4) + 'px');
+		},
+
+		_showBelow: function _showBelow() {
+			this.$popup.css('top', (this.$field.outerHeight(true)+4) + 'px');
+			this.$popup.css('height', (this.options.height)?this.options.height : DEFAULT_HEIGHT + 'px');
+			this.$body.css('height', ((this.options.height)?this.options.height : DEFAULT_HEIGHT) - 73 + 'px');
+			this.$popup.css('width', (this.options.width)?this.options.height : DEFAULT_WIDTH + 'px');
+		},
+
 		show: function () {
 			var other;
 
@@ -185,18 +238,12 @@
 
 			this.$element.addClass('showing');
 
-			this.$popup.css('top', (this.$field.outerHeight(true)+4) + 'px');
-
-			this.$popup.css('height', (this.options.height)?this.options.height : DEFAULT_HEIGHT + 'px');
-			this.$body.css('height', ((this.options.height)?this.options.height : DEFAULT_HEIGHT) - 73 + 'px');
-			this.$popup.css('width', (this.options.width)?this.options.height : DEFAULT_WIDTH + 'px');
+			this._display();
 
 			this.$element.trigger('shown.fu.superpicker', this.actualValue);
 			if (this.actualValue !== null) {
 				this.actualValue = null;
 			}
-
-			this.disable();
 
 			this.clickStamp = new Date().getTime() + (Math.floor(Math.random() * 100) + 1);
 			if (!this.options.explicit) {
