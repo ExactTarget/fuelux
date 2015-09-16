@@ -41,31 +41,79 @@
 
 		this.$accept = this.$element.find('.picker-accept');
 		this.$cancel = this.$element.find('.picker-cancel');
-		this.$field = this.$element.find('.picker-field');
 		this.$trigger = this.$element.find('.picker-trigger');
 		this.$footer = this.$element.find('.picker-footer');
 		this.$header = this.$element.find('.picker-header');
 		this.$popup = this.$element.find('.picker-popup');
 		this.$body = this.$element.find('.picker-body');
 
-		this.actualValue = null;
 		this.clickStamp = '_';
-		this.previousValue = '';
-		if (this.options.revertOnCancel === -1) {
-			this.options.revertOnCancel = (this.$accept.length > 0) ? true : false;
-		}
 
-		this.isInput = this.$field.is('input');
+		this.isInput = this.$trigger.is('input');
 
-		this.$field.on('click.fu.picker', $.proxy(this.toggle, this));
-		this.$field.on('keydown.fu.picker', $.proxy(this.keyComplete, this));
-		this.$trigger.on('click.fu.picker', $.proxy(this.toggle, this));
+		this.$trigger.on('keydown.fu.picker', $.proxy(this.keyComplete, this));
+		this.$trigger.on('focus.fu.picker', $.proxy(function inputFocus(e){
+			$.proxy(this.show(), this);
+		}, this));
+		this.$trigger.on('click.fu.picker', $.proxy(function triggerClick(e){
+			if(!$(e.target).is('input[type=text]')){
+				$.proxy(this.toggle(), this);
+			}else{
+				$.proxy(this.show(), this);
+			}
+		}, this));
 		this.$accept.on('click.fu.picker', $.proxy(this.complete, this, 'accepted'));
 		this.$cancel.on('click.fu.picker', function (e) {
 			e.preventDefault(); self.complete('cancelled');
 		});
 
 
+	};
+
+	var _isOffscreen = function _isOffscreen(picker) {
+		var windowHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+		var scrollTop = $(document).scrollTop();
+		var popupTop = picker.$popup.offset();
+		var popupBottom = popupTop.top + picker.$popup.outerHeight(true);
+
+		//if the bottom of the popup goes off the page, but the top does not, dropup.
+		if (popupBottom > windowHeight + scrollTop || popupTop.top < scrollTop){
+			return true;
+		}else{//otherwise, prefer showing the top of the popup only vs the bottom
+			return false;
+		}
+	};
+
+	var _display = function _display(picker) {
+		picker.$popup.css('visibility', 'hidden');
+
+		_showBelow(picker);
+
+		//if part of the popup is offscreen try to show it above
+		if(_isOffscreen(picker)){
+			_showAbove(picker);
+
+			//if part of the popup is still offscreen, prefer cutting off the bottom
+			if(_isOffscreen(picker)){
+				_showBelow(picker);
+			}
+		}
+
+		picker.$popup.css('visibility', 'visible');
+	};
+
+	var _showAbove = function _showAbove(picker) {
+		picker.$popup.css('height', (picker.options.height)?picker.options.height : DEFAULT_HEIGHT + 'px');
+		picker.$body.css('height', ((picker.options.height)?picker.options.height : DEFAULT_HEIGHT) - 73 + 'px');
+		picker.$popup.css('width', (picker.options.width)?picker.options.height : DEFAULT_WIDTH + 'px');
+		picker.$popup.css('top', -(picker.$popup.outerHeight(true) + 4) + 'px');
+	};
+
+	var _showBelow = function _showBelow(picker) {
+		picker.$popup.css('top', (picker.$trigger.outerHeight(true)+4) + 'px');
+		picker.$popup.css('height', (picker.options.height)?picker.options.height : DEFAULT_HEIGHT + 'px');
+		picker.$body.css('height', ((picker.options.height)?picker.options.height : DEFAULT_HEIGHT) - 73 + 'px');
+		picker.$popup.css('width', (picker.options.width)?picker.options.height : DEFAULT_WIDTH + 'px');
 	};
 
 	Picker.prototype = {
@@ -75,7 +123,6 @@
 			var func = this.options[ EVENT_CALLBACK_MAP[action] ];
 
 			var obj = {
-				previousValue: this.previousValue,
 				contents: this.$body
 			};
 
@@ -83,10 +130,6 @@
 				func(obj);
 				this.$element.trigger(action + '.fu.picker', obj);
 			} else {
-				if (action === 'cancelled' && this.options.revertOnCancel) {
-					this.$field.val(this.previousValue);
-				}
-
 				this.$element.trigger(action + '.fu.picker', obj);
 				this.hide();
 			}
@@ -95,10 +138,10 @@
 		keyComplete: function keyComplete(e) {
 			if (this.isInput && e.keyCode === 13) {
 				this.complete('accepted');
-				this.$field.blur();
+				this.$trigger.blur();
 			} else if (e.keyCode === 27) {
 				this.complete('cancelled');
-				this.$field.blur();
+				this.$trigger.blur();
 			}
 		},
 
@@ -119,19 +162,11 @@
 		disable: function disable() {
 			this.$element.addClass('disabled');
 			this.$trigger.attr('disabled', 'disabled');
-			this.$field.attr('disabled', 'disabled');
 		},
 
 		enable: function enable() {
 			this.$element.removeClass('disabled');
 			this.$trigger.removeAttr('disabled');
-			this.$field.removeAttr('disabled');
-		},
-
-		externalClickListener: function externalClickListener(e, force) {
-			if (force === true || this.isExternalClick(e)) {
-				this.complete(this.options.externalClickAction);
-			}
 		},
 
 		toggle: function toggle() {
@@ -150,6 +185,12 @@
 			this.$element.removeClass('showing');
 			$(document).off('click.fu.picker.externalClick.' + this.clickStamp);
 			this.$element.trigger('hidden.fu.picker');
+		},
+
+		externalClickListener: function externalClickListener(e, force) {
+			if (force === true || this.isExternalClick(e)) {
+				this.complete('exit');
+			}
 		},
 
 		isExternalClick: function isExternalClick(e) {
@@ -172,52 +213,6 @@
 			return true;
 		},
 
-		_isOffscreen: function _isOffscreen() {
-			var windowHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-			var scrollTop = $(document).scrollTop();
-			var popupTop = this.$popup.offset();
-			var popupBottom = popupTop.top + this.$popup.outerHeight(true);
-
-			//if the bottom of the popup goes off the page, but the top does not, dropup.
-			if (popupBottom > windowHeight + scrollTop || popupTop.top < scrollTop){
-				return true;
-			}else{//otherwise, prefer showing the top of the popup only vs the bottom
-				return false;
-			}
-		},
-
-		_display: function _display() {
-			this.$popup.css('visibility', 'hidden');
-
-			this._showBelow();
-
-			//if part of the popup is offscreen try to show it above
-			if(this._isOffscreen()){
-				this._showAbove();
-
-				//if part of the popup is still offscreen, prefer cutting off the bottom
-				if(this._isOffscreen()){
-					this._showBelow();
-				}
-			}
-
-			this.$popup.css('visibility', 'visible');
-		},
-
-		_showAbove: function _showAbove() {
-			this.$popup.css('height', (this.options.height)?this.options.height : DEFAULT_HEIGHT + 'px');
-			this.$body.css('height', ((this.options.height)?this.options.height : DEFAULT_HEIGHT) - 73 + 'px');
-			this.$popup.css('width', (this.options.width)?this.options.height : DEFAULT_WIDTH + 'px');
-			this.$popup.css('top', -(this.$popup.outerHeight(true) + 4) + 'px');
-		},
-
-		_showBelow: function _showBelow() {
-			this.$popup.css('top', (this.$field.outerHeight(true)+4) + 'px');
-			this.$popup.css('height', (this.options.height)?this.options.height : DEFAULT_HEIGHT + 'px');
-			this.$body.css('height', ((this.options.height)?this.options.height : DEFAULT_HEIGHT) - 73 + 'px');
-			this.$popup.css('width', (this.options.width)?this.options.height : DEFAULT_WIDTH + 'px');
-		},
-
 		show: function show() {
 			var other;
 
@@ -234,29 +229,16 @@
 				other.picker('externalClickListener', {}, true);
 			}
 
-			this.previousValue = this.$field.val();
-
 			this.$element.addClass('showing');
 
-			this._display();
+			_display(this);
 
-			this.$element.trigger('shown.fu.picker', this.actualValue);
-			if (this.actualValue !== null) {
-				this.actualValue = null;
-			}
+			this.$element.trigger('shown.fu.picker');
 
 			this.clickStamp = new Date().getTime() + (Math.floor(Math.random() * 100) + 1);
 			if (!this.options.explicit) {
 				$(document).on('click.fu.picker.externalClick.' + this.clickStamp, $.proxy(this.externalClickListener, this));
 			}
-		},
-
-		setValue: function setValue(value) {
-			this.$field.val(value);
-		},
-
-		getValue: function getValue() {
-			return this.$field.val();
 		}
 	};
 
@@ -286,10 +268,9 @@
 	$.fn.picker.defaults = {
 		onAccept: undefined,
 		onCancel: undefined,
-		externalClickAction: 'cancelled',
+		onExit: undefined,
 		externalClickExceptions: [],
-		explicit: false,
-		revertOnCancel: -1//negative 1 will check for an '.placard-accept' button. Also can be set to true or false
+		explicit: false
 	};
 
 	$.fn.picker.Constructor = Picker;
