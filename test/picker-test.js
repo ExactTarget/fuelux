@@ -31,19 +31,29 @@ define(function(require){
 			ok(1===1, 'default action event (cancel) triggered upon external click');
 		});
 
-		$picker.find('.picker-field').focus();
+		console.log($picker.find('.picker-trigger'));
+
+		var $textInputTrigger = $($picker.find('.picker-trigger')[0]);
+		var $otherTrigger = $($picker.find('.picker-trigger')[1]);
+		$textInputTrigger.focus().focus();
 		equal($picker.hasClass('showing'), true, 'picker shows when appropriate');
 
 		$('body').click();
 		equal($picker.hasClass('showing'), false, 'picker hides when appropriate');
 
-		$picker.find('.picker-trigger').focus();
+		$textInputTrigger.click();
 		equal($picker.hasClass('showing'), true, 'picker shows when appropriate');
+
+		$textInputTrigger.click();
+		equal($picker.hasClass('showing'), true, 'picker continues showing when text input clicked and picker is already showing');
+
+		$otherTrigger.click();
+		equal($picker.hasClass('showing'), false, 'picker hides when non-text input clicked and picker is already showing');
 
 		$picker.remove();
 	});
 
-	test('should behave as expected - textarea', function(){
+	test('should behave as expected - button', function(){
 		var $picker = $(html).find('#picker2');
 
 		$picker.picker();
@@ -52,7 +62,7 @@ define(function(require){
 		});
 		$('body').append($picker);
 
-		$picker.find('textarea').focus();
+		$($picker.find('.picker-trigger')[1]).focus();
 		equal($picker.hasClass('showing'), true, 'picker shows when appropriate');
 
 		$('body').click();
@@ -79,13 +89,13 @@ define(function(require){
 			ok(1===1, 'accept event triggers on accept');
 			equal(typeof e, 'object', 'event object passed in accept event');
 			equal(typeof helpers, 'object', 'helpers object passed in accept event');
-			equal((helpers.previousValue!==undefined && helpers.contents!==undefined), true, 'helpers object contains correct attributes');
+			equal((helpers.contents!==undefined), true, 'helpers object contains correct attributes');
 		});
 		$picker.on('cancelled.fu.picker', function(e, helpers){
 			ok(1===1, 'cancel event triggers on cancel');
 			equal(typeof e, 'object', 'event object passed in cancel event');
 			equal(typeof helpers, 'object', 'helpers object passed in cancel event');
-			equal((helpers.previousValue!==undefined && helpers.contents!==undefined), true, 'helpers object contains correct attributes');
+			equal((helpers.contents!==undefined), true, 'helpers object contains correct attributes');
 		});
 
 		$picker.find('input').focus().focus();
@@ -101,7 +111,7 @@ define(function(require){
 			onAccept: function(helpers){
 				ok(1===1, 'onAccept function called on accept');
 				equal(typeof helpers, 'object', 'helpers object passed to onAccept function');
-				equal((helpers.previousValue!==undefined && helpers.contents!==undefined), true, 'helpers object contains correct attributes');
+				equal((helpers.contents!==undefined), true, 'helpers object contains correct attributes');
 				$picker.picker('hide');
 			}
 		});
@@ -117,7 +127,7 @@ define(function(require){
 			onCancel: function(helpers){
 				ok(1===1, 'onCancel function called on cancel');
 				equal(typeof helpers, 'object', 'helpers object passed to onCancel function');
-				equal((helpers.previousValue!==undefined && helpers.contents!==undefined), true, 'helpers object contains correct attributes');
+				equal((helpers.contents!==undefined), true, 'helpers object contains correct attributes');
 				$picker.picker('hide');
 			}
 		});
@@ -146,17 +156,6 @@ define(function(require){
 		$input.trigger(e);
 	});
 
-	test('externalClickAction option should work as expected', function(){
-		var $picker = $(html).find('#picker1');
-
-		$picker.picker({
-			externalClickAction: 'accepted'
-		});
-
-		$picker.find('input').focus().focus().val('test');
-		$('body').click();
-		equal($picker.find('input').val(), 'test', 'desired externalClickAction triggered on external click');
-	});
 
 	test('externalClickExceptions option should work as expected', function(){
 		var $picker = $(html).find('#picker1');
@@ -196,59 +195,17 @@ define(function(require){
 		$picker.remove();
 	});
 
-	test('revertOnCancel option should work as expected', function(){
-		var $picker;
-
-		var setup = function(revert){
-			$picker = $(html).find('#picker1');
-			$('body').append($picker);
-			$picker.find('input').val('test');
-			$picker.picker({
-				revertOnCancel: revert
-			});
-			$picker.find('input').focus().focus().val('blah blah blah');
-			$picker.find('.picker-cancel').click();
-		};
-
-		setup(true);
-		equal($picker.find('input').val(), 'test', 'value reverted when set to true');
-		$picker.remove();
-
-		setup(false);
-		equal($picker.find('input').val(), 'blah blah blah', 'value not reverted when set to false');
-		$picker.remove();
-	});
-
-	test('getValue method should function as expected', function(){
-		var $picker = $(html).find('#picker1');
-
-		$picker.find('input').val('test');
-		$picker.picker();
-
-		equal($picker.picker('getValue'), 'test', 'getValue working as expected');
-	});
-
-	test('setValue method should function as expected', function(){
-		var $picker = $(html).find('#picker1');
-
-		$picker.find('input').val('test');
-		$picker.picker();
-
-		$picker.picker('setValue', 'bloop');
-		equal($picker.picker('getValue'), 'bloop', 'setValue working as expected');
-	});
-
 	test('should disable/enable as expected', function(){
 		var $picker = $(html).find('#picker1');
-		var $field = $picker.find('.picker-field');
+		var $trigger = $picker.find('.picker-trigger');
 
 		$picker.picker('disable');
 		equal($picker.hasClass('disabled'), true, 'disabled class properly added to element');
-		equal($field.attr('disabled'), 'disabled', 'disabled attribute properly added to field');
+		equal($trigger.attr('disabled'), 'disabled', 'disabled attribute properly added to trigger');
 
 		$picker.picker('enable');
 		equal($picker.hasClass('disabled'), false, 'disabled class properly removed from element');
-		equal($field.attr('disabled'), undefined, 'disabled attribute properly removed from field');
+		equal($trigger.attr('disabled'), undefined, 'disabled attribute properly removed from trigger');
 	});
 
 	test("should destroy control", function () {
