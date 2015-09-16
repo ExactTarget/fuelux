@@ -149,10 +149,6 @@
 			this.$element.remove();
 			// remove any external bindings
 			$(document).off('click.fu.picker.externalClick.' + this.clickStamp);
-			// set input value attribute
-			this.$element.find('input').each(function () {
-				$(this).attr('value', $(this).val());
-			});
 			// empty elements to return to original markup
 			// [none]
 			// return string of markup
