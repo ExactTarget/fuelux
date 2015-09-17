@@ -11,8 +11,6 @@ define(function(require){
 
 	module('Fuel UX Picker');
 
-	// TODO: add shown/hidden event test
-
 	test('should be defined on jquery object', function () {
 		ok($().find('#picker1').picker(), 'picker method is defined');
 	});
@@ -30,8 +28,6 @@ define(function(require){
 		$picker.on('cancelled.fu.picker', function(e, helpers){
 			ok(1===1, 'default action event (cancel) triggered upon external click');
 		});
-
-		console.log($picker.find('.picker-trigger'));
 
 		var $textInputTrigger = $($picker.find('.picker-trigger')[0]);
 		var $otherTrigger = $($picker.find('.picker-trigger')[1]);
@@ -73,6 +69,14 @@ define(function(require){
 	test('show/hide functions should behave as expected', function(){
 		var $picker = $(html).find('#picker1');
 		$picker.picker();
+
+		$picker.on('shown.fu.picker', function(e, helpers){
+			equal($picker.hasClass('showing'), true, 'picker shows when appropriate');
+		});
+
+		$picker.on('hidden.fu.picker', function(e, helpers){
+			equal($picker.hasClass('showing'), false, 'picker shows when appropriate');
+		});
 
 		$picker.picker('show');
 		equal($picker.hasClass('showing'), true, 'picker shows when appropriate');
