@@ -53,7 +53,9 @@
 
 		this.$trigger.on('keydown.fu.picker', $.proxy(this.keyComplete, this));
 		this.$trigger.on('focus.fu.picker', $.proxy(function inputFocus(e){
-			$.proxy(this.show(), this);
+			if(typeof e === "undefined" || $(e.target).is('input[type=text]')){
+				$.proxy(this.show(), this);
+			}
 		}, this));
 		this.$trigger.on('click.fu.picker', $.proxy(function triggerClick(e){
 			if(!$(e.target).is('input[type=text]')){

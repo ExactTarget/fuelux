@@ -62,7 +62,7 @@ define(function(require){
 		});
 		$('body').append($picker);
 
-		$($picker.find('.picker-trigger')[1]).focus();
+		$($picker.find('.picker-trigger')[1]).click();
 		equal($picker.hasClass('showing'), true, 'picker shows when appropriate');
 
 		$('body').click();
