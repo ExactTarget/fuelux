@@ -43,7 +43,7 @@ module.exports = function(grunt) {
 				'prompt:createmilestone',
 				'prompt:bumpmilestones',
 				'prompt:closemilestone',
-				'prompt:startrelease'
+				'prompt:startrelease',
 				'prompt:tempbranch',
 				'shell:checkoutRemoteReleaseBranch',
 				'updateRelease',
