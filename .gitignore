@@ -51,4 +51,4 @@ stage.sh
 publish.sh
 
 # github token
-github.token
+GITHUB_TOKEN.json
