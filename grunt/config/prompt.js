@@ -1,6 +1,8 @@
 module.exports = function (grunt) {
 	var semver = require('semver');
-	var packageVersion = require('../../package.json').version;
+	function getPackageVersion() {
+		return grunt.file.readJSON('./package.json').version;
+	}
 
 	return {
 		// asks for what version you want to build
@@ -42,15 +44,15 @@ module.exports = function (grunt) {
 						choices: [
 							{
 								value: 'patch',
-								name: 'Patch:  ' + semver.inc(packageVersion, 'patch') + ' Backwards-compatible bug fixes.'
+								name: 'Patch:  ' + semver.inc(getPackageVersion(), 'patch') + ' Backwards-compatible bug fixes.'
 							},
 							{
 								value: 'minor',
-								name: 'Minor:  ' + semver.inc(packageVersion, 'minor') + ' Add functionality in a backwards-compatible manner.'
+								name: 'Minor:  ' + semver.inc(getPackageVersion(), 'minor') + ' Add functionality in a backwards-compatible manner.'
 							},
 							{
 								value: 'major',
-								name: 'Major:  ' + semver.inc(packageVersion, 'major') + ' Incompatible API changes.'
+								name: 'Major:  ' + semver.inc(getPackageVersion(), 'major') + ' Incompatible API changes.'
 							},
 							{
 								value: 'custom',
@@ -80,7 +82,7 @@ module.exports = function (grunt) {
 					{
 						config: 'release.commit',
 						type: 'confirm',
-						message: 'Please review your files. Would you like to commit?'
+						message: 'Please review your files.\n Check dist files visually to make sure comment banners have correct release version listed, and that *.min files are minified as expected.\n Also confirm that version number is updated in package.json.\n\n Would you like to commit?'
 					}
 				],
 				then: function (answers, done) {
@@ -97,7 +99,7 @@ module.exports = function (grunt) {
 					{
 						config: 'release.tag',
 						type: 'confirm',
-						message: 'Would you like to tag as ' + packageVersion + '?'
+						message: 'Would you like to tag as ' + getPackageVersion() + '?'
 					}
 				],
 				then: function (answers, done) {
@@ -134,7 +136,7 @@ module.exports = function (grunt) {
 					{
 						config: 'release.upstreamTag',
 						type: 'confirm',
-						message: 'Would you like to push tag ' + packageVersion + ' to upstream?'
+						message: 'Would you like to push tag ' + getPackageVersion() + ' to upstream?'
 					}
 				],
 				then: function (answers, done) {
