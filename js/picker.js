@@ -61,9 +61,9 @@
 				$.proxy(this.show(), this);
 			}
 		}, this));
-		this.$accept.on('click.fu.picker', $.proxy(this.complete, this, 'accept'));
+		this.$accept.on('click.fu.picker', $.proxy(this.complete, this, 'accepted'));
 		this.$cancel.on('click.fu.picker', function (e) {
-			e.preventDefault(); self.complete('cancel');
+			e.preventDefault(); self.complete('cancelled');
 		});
 
 
@@ -114,9 +114,9 @@
 
 		complete: function complete(action) {
 			var EVENT_CALLBACK_MAP = {
-				'accept': 'onAccept',
-				'cancel': 'onCancel',
-				'exit': 'onExit'
+				'accepted': 'onAccept',
+				'cancelled': 'onCancel',
+				'exited': 'onExit'
 			};
 			var func = this.options[ EVENT_CALLBACK_MAP[action] ];
 
@@ -135,10 +135,10 @@
 
 		keyComplete: function keyComplete(e) {
 			if (this.isInput && e.keyCode === 13) {
-				this.complete('accept');
+				this.complete('accepted');
 				this.$trigger.blur();
 			} else if (e.keyCode === 27) {
-				this.complete('cancel');
+				this.complete('cancelled');
 				this.$trigger.blur();
 			}
 		},
@@ -183,7 +183,7 @@
 
 		externalClickListener: function externalClickListener(e, force) {
 			if (force === true || this.isExternalClick(e)) {
-				this.complete('exit');
+				this.complete('exited');
 			}
 		},
 
