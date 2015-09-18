@@ -29,8 +29,6 @@
 
 	var old = $.fn.picker;
 	var EVENT_CALLBACK_MAP = { 'accepted': 'onAccept', 'cancelled': 'onCancel' };
-	var DEFAULT_HEIGHT = 234;
-	var DEFAULT_WIDTH = 350;
 
 	// PLACARD CONSTRUCTOR AND PROTOTYPE
 
@@ -105,17 +103,11 @@
 	};
 
 	var _showAbove = function _showAbove(picker) {
-		picker.$popup.css('height', (picker.options.height)?picker.options.height : DEFAULT_HEIGHT + 'px');
-		picker.$body.css('height', ((picker.options.height)?picker.options.height : DEFAULT_HEIGHT) - 73 + 'px');
-		picker.$popup.css('width', (picker.options.width)?picker.options.height : DEFAULT_WIDTH + 'px');
-		picker.$popup.css('top', -(picker.$popup.outerHeight(true) + 4) + 'px');
+		picker.$popup.css('top', - picker.$popup.outerHeight(true) + 'px');
 	};
 
 	var _showBelow = function _showBelow(picker) {
-		picker.$popup.css('top', (picker.$trigger.outerHeight(true)+4) + 'px');
-		picker.$popup.css('height', (picker.options.height)?picker.options.height : DEFAULT_HEIGHT + 'px');
-		picker.$body.css('height', ((picker.options.height)?picker.options.height : DEFAULT_HEIGHT) - 73 + 'px');
-		picker.$popup.css('width', (picker.options.width)?picker.options.height : DEFAULT_WIDTH + 'px');
+		picker.$popup.css('top', picker.$trigger.outerHeight(true) + 'px');
 	};
 
 	Picker.prototype = {
