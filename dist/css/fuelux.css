@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.11.2 
+ * Fuel UX v3.11.3 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -2328,6 +2328,145 @@ label.fuelux .checkbox-inline {
 .fuelux .button-sizer .selected-label,
 .fuelux .selectlist-sizer .selected-label {
   width: auto !important;
+}
+.fuelux .picker {
+  display: inline-block;
+  position: relative;
+}
+.fuelux .picker[data-ellipsis="true"].showing input.picker-field {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+}
+.fuelux .picker[data-ellipsis="true"] input.picker-field {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.fuelux .picker[data-ellipsis="true"] input.picker-field::-ms-clear {
+  display: none;
+}
+.fuelux .picker[data-ellipsis="true"] textarea.picker-field[readonly] {
+  overflow: hidden;
+}
+.fuelux .picker.showing .picker-footer,
+.fuelux .picker.showing .picker-header,
+.fuelux .picker.showing .picker-popup {
+  display: block;
+  z-index: 1;
+}
+.fuelux .picker.showing input.picker-field,
+.fuelux .picker.showing textarea.picker-field {
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  box-shadow: none;
+  position: relative;
+  z-index: 1;
+}
+.fuelux .picker input.picker-field,
+.fuelux .picker textarea.picker-field {
+  resize: none;
+}
+.fuelux .picker input.picker-field[readonly],
+.fuelux .picker textarea.picker-field[readonly] {
+  background: #ffffff;
+  cursor: auto;
+}
+.fuelux .picker input.picker-field[readonly].glass,
+.fuelux .picker textarea.picker-field[readonly].glass {
+  background: none;
+}
+.fuelux .picker input.picker-field[readonly].glass:hover,
+.fuelux .picker textarea.picker-field[readonly].glass:hover {
+  background: #d9edf7;
+  cursor: pointer;
+}
+.fuelux .picker input.picker-field:focus,
+.fuelux .picker textarea.picker-field:focus {
+  border: 1px solid #cccccc;
+  box-shadow: none;
+}
+.fuelux .picker-cancel {
+  font-size: 12px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+.fuelux .picker-footer,
+.fuelux .picker-header {
+  display: none;
+  left: 0;
+  line-height: 1;
+  right: 0;
+}
+.fuelux .picker-footer {
+  padding: 8px 10px 8px 0;
+  text-align: right;
+  bottom: 0;
+  position: absolute;
+}
+.fuelux .picker-header {
+  height: 31px;
+  padding: 8px 0 0px 10px;
+}
+.fuelux .picker-header h1,
+.fuelux .picker-header h2,
+.fuelux .picker-header h3,
+.fuelux .picker-header h4,
+.fuelux .picker-header h5,
+.fuelux .picker-header h6 {
+  margin: 0;
+}
+.fuelux .picker-popup {
+  background: #d9edf7;
+  background-clip: padding-box;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px #ffffff inset;
+  display: none;
+  position: absolute;
+  padding-left: 6px;
+  padding-right: 6px;
+  height: 234px;
+  width: 350px;
+  margin: 4px 0;
+}
+.fuelux .picker .picker-body.well {
+  background-color: #fff;
+  overflow: scroll;
+  padding: 0;
+  height: 165px;
+}
+.fuelux .picker .tree {
+  border: none;
+}
+.fuelux .picker .glass {
+  background: transparent;
+  border: 1px solid #ffffff;
+  box-shadow: none;
+}
+.fuelux .picker .glass:hover {
+  background: #d9edf7;
+  border-color: #5b9dd9;
+  cursor: pointer;
+}
+.fuelux .picker .glass:hover[disabled] {
+  background: transparent;
+  border-color: #ffffff;
+  cursor: not-allowed;
+}
+.fuelux .picker .glass:focus {
+  background: #ffffff;
+  border-color: #5b9dd9;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.75), 0 0 8px rgba(91, 157, 217, 0.6);
+  cursor: auto;
+}
+.fuelux .picker .glass:focus[disabled] {
+  background: transparent;
+  border-color: #ffffff;
+  cursor: not-allowed;
+}
+.fuelux .picker .glass[disabled] {
+  cursor: not-allowed;
 }
 .fuelux .tree {
   border: 1px solid #999999;
