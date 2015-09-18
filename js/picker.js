@@ -206,10 +206,6 @@
 		show: function show() {
 			var other;
 
-			if (this.$element.hasClass('showing')) {
-				return;
-			}
-
 			other = $(document).find('.picker.showing');
 			if (other.length > 0) {
 				if (other.data('fu.picker') && other.data('fu.picker').options.explicit) {
