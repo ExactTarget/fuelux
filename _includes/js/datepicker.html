@@ -211,7 +211,7 @@ $('#myDatepicker').on('changed.fu.datepicker dateClicked.fu.datepicker', functio
 });
 {% endhighlight %}
 
-  <p>To listen for changes on the <code>datepicker</code> component, including setting the date to <code>invalid</code> values, you will need to combine two listeners:</p>
+  <p>To listen for all changes to the <code>datepicker</code>'s input value, including setting the date to <code>invalid</code> values, you will need to combine two listeners:</p>
 {% highlight js %}
 $('#myDatepicker').on('change dateClicked.fu.datepicker', function (evt, date) {
   // do something…
