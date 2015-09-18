@@ -21,7 +21,7 @@ module.exports = function (grunt) {
 			command: function() {
 				grunt.config('release.localBranch', 'release_' + new Date().getTime() );
 				var command = [
-					'git fetch ' + grunt.config('release.remoteRepository') + ' --tags',
+					'git fetch --tags ' + grunt.config('release.remoteRepository'),
 					'git fetch ' + grunt.config('release.remoteRepository'),
 					'git checkout -b ' + grunt.config('release.localBranch') + ' ' +
 						grunt.config('release.remoteRepository') + '/' + grunt.config('release.remoteBaseBranch')
