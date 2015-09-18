@@ -38,8 +38,20 @@ module.exports = function(grunt) {
 		}
 
 		// update local variable to make sure build prompt is using temp branch's package version
-		grunt.task.run(['prompt:tempbranch', 'shell:checkoutRemoteReleaseBranch',
-			'updateRelease', 'prompt:build', 'dorelease']);
+		grunt.task.run(
+			[
+				'prompt:createmilestone',
+				'prompt:bumpmilestones',
+				'prompt:closemilestone',
+				'prompt:startrelease',
+				'prompt:tempbranch',
+				'shell:checkoutRemoteReleaseBranch',
+				'updateRelease',
+				'prompt:build',
+				'prompt:generatelogs',
+				'dorelease'
+			]
+		);
 	});
 
 	grunt.registerTask('dorelease', '', function () {

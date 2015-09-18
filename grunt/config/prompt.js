@@ -16,15 +16,15 @@ module.exports = function (grunt) {
 						}
 					},
 					{
-						// Assumption is made that you are releasing the code within a "release branch" currently 
-						// on the upstream remote repo. This branch will be tracked locally and be used to run 
+						// Assumption is made that you are releasing the code within a "release branch" currently
+						// on the upstream remote repo. This branch will be tracked locally and be used to run
 						// the build process in. It will be named release_{BUILD_VERSION}_{MMSS} (that is, it will
 						// use the version specified earlier and a "mini-timestamp" of the current hour and minute).
 						config: 'release.remoteBaseBranch',
 						type: 'input',
 						default : '<%= release.remoteBaseBranch %>',
 						message: function() {
-							return 'What remote branch from ' + grunt.config('release.remoteRepository') + 
+							return 'What remote branch from ' + grunt.config('release.remoteRepository') +
 							' would like to build your release based on?';
 						}
 					}
@@ -115,7 +115,7 @@ module.exports = function (grunt) {
 						config: 'release.remoteDestinationBranch',
 						type: 'input',
 						message: function() {
-							return 'What upstream branch would you like to push ' + grunt.config('release.localBranch') + 
+							return 'What upstream branch would you like to push ' + grunt.config('release.localBranch') +
 								' to (probably ' + grunt.config('release.remoteDestinationBranch') + ')? (leave blank to skip)';
 						}
 					}
@@ -210,6 +210,87 @@ module.exports = function (grunt) {
 				then: function (answers, done) {
 					if (answers['release.publishToNPM'] === true) {
 						grunt.task.run(['shell:publishToNPM']);
+					}
+					return false;
+				}
+			}
+		},
+		'createmilestone': {
+			options: {
+				questions: [
+					{
+						config: 'release.createmilestone',
+						type: 'confirm',
+						message: 'Have you created a milestone in GitHub for the next version?'
+					}
+				],
+				then: function (answers, done) {
+					if (answers['release.createmilestone'] === false) {
+						grunt.fail.fatal("Please follow the wiki https://github.com/ExactTarget/fuelux/wiki/How-to-release-a-new-version#how-to-release", 1);
+					}
+				}
+			}
+		},
+		'bumpmilestones': {
+			options: {
+				questions: [
+					{
+						config: 'release.bumpmilestones',
+						type: 'confirm',
+						message: 'Have you bumped all open tickets to the next version?'
+					}
+				],
+				then: function (answers, done) {
+					if (answers['release.bumpmilestones'] === false) {
+						grunt.fail.fatal("Please follow the wiki https://github.com/ExactTarget/fuelux/wiki/How-to-release-a-new-version#how-to-release", 1);
+					}
+				}
+			}
+		},
+		'closemilestone': {
+			options: {
+				questions: [
+					{
+						config: 'release.closemilestone',
+						type: 'confirm',
+						message: 'Have you marked the current release milestone as closed?'
+					}
+				],
+				then: function (answers, done) {
+					if (answers['release.closemilestone'] === false) {
+						grunt.fail.fatal("Please follow the wiki https://github.com/ExactTarget/fuelux/wiki/How-to-release-a-new-version#how-to-release", 1);
+					}
+				}
+			}
+		},
+		'startrelease': {
+			options: {
+				questions: [
+					{
+						config: 'release.startrelease',
+						type: 'confirm',
+						message: 'Would you like to start the release?'
+					}
+				],
+				then: function (answers, done) {
+					if (answers['release.startrelease'] === false) {
+						grunt.fail.fatal("Please follow the wiki https://github.com/ExactTarget/fuelux/wiki/How-to-release-a-new-version#how-to-release", 1);
+					}
+				}
+			}
+		},
+		'generatelogs': {
+			options: {
+				questions: [
+					{
+						config: 'release.generatelogs',
+						type: 'confirm',
+						message: 'Would you like to generate change logs?'
+					}
+				],
+				then: function (answers, done) {
+					if (answers['release.startrelease'] === true) {
+						grunt.task.run(['shell:notes']);
 					}
 					return false;
 				}
