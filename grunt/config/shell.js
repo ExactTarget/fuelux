@@ -17,7 +17,7 @@ module.exports = function (grunt) {
 			command: function() {
 				grunt.config('release.localBranch', 'release_' + new Date().getTime() );
 				var command = [
-					'git checkout -b ' + grunt.config('release.localBranch') + ' ' + 
+					'git checkout -b ' + grunt.config('release.localBranch') + ' ' +
 						grunt.config('release.remoteRepository') + '/' + grunt.config('release.remoteBaseBranch'),
 						'git fetch ' + grunt.config('release.remoteRepository') + ' --tag'
 				].join(' && ');
@@ -48,7 +48,7 @@ module.exports = function (grunt) {
 		},
 		pushLocalBranchToUpstream: {
 			command: function() {
-				var command = 'git push ' + grunt.config('release.remoteRepository') + ' ' +  
+				var command = 'git push ' + grunt.config('release.remoteRepository') + ' ' +
 						grunt.config('release.localBranch') + ':' + grunt.config('release.remoteDestinationBranch');
 				grunt.log.write('Pushing: ' + command);
 				return command;
@@ -56,14 +56,14 @@ module.exports = function (grunt) {
 		},
 		pushTagToUpstream: {
 			command: function() {
-				var command = 'git push ' + grunt.config('release.remoteRepository') + ' ' + packageVersion;
+				var command = 'git push ' + grunt.config('release.remoteRepository') + ' ' + getPackage().version;
 				grunt.log.write('Publishing tag: ' + command);
 				return command;
 			}
 		},
 		pushLocalBranchToUpstreamMaster: {
 			command: function() {
-				var command = 'git push ' + grunt.config('release.remoteRepository')  + ' ' + 
+				var command = 'git push ' + grunt.config('release.remoteRepository')  + ' ' +
 					grunt.config('release.localBranch') + ':master';
 				grunt.log.write(command);
 				return command;
@@ -80,9 +80,9 @@ module.exports = function (grunt) {
 					'echo "Done uploading files."'].join(' && ');
 				}
 				var command = [
-						packageVersion, 
-						semver.major(packageVersion) + '.' + semver.minor(packageVersion), 
-						semver.major(packageVersion)
+						getPackage().version,
+						semver.major(getPackage().version) + '.' + semver.minor(getPackage().version),
+						semver.major(getPackage().version)
 					].map(createUploadCommand).join(' && ');
 				grunt.log.write('Uploading: ' + command);
 				grunt.log.writeln('');
