@@ -28,7 +28,6 @@
 	// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.picker;
-	var EVENT_CALLBACK_MAP = { 'accepted': 'onAccept', 'cancelled': 'onCancel' };
 
 	// PLACARD CONSTRUCTOR AND PROTOTYPE
 
@@ -62,9 +61,9 @@
 				$.proxy(this.show(), this);
 			}
 		}, this));
-		this.$accept.on('click.fu.picker', $.proxy(this.complete, this, 'accepted'));
+		this.$accept.on('click.fu.picker', $.proxy(this.complete, this, 'accept'));
 		this.$cancel.on('click.fu.picker', function (e) {
-			e.preventDefault(); self.complete('cancelled');
+			e.preventDefault(); self.complete('cancel');
 		});
 
 
@@ -114,6 +113,11 @@
 		constructor: Picker,
 
 		complete: function complete(action) {
+			var EVENT_CALLBACK_MAP = {
+				'accept': 'onAccept',
+				'cancel': 'onCancel',
+				'exit': 'onExit'
+			};
 			var func = this.options[ EVENT_CALLBACK_MAP[action] ];
 
 			var obj = {
@@ -131,10 +135,10 @@
 
 		keyComplete: function keyComplete(e) {
 			if (this.isInput && e.keyCode === 13) {
-				this.complete('accepted');
+				this.complete('accept');
 				this.$trigger.blur();
 			} else if (e.keyCode === 27) {
-				this.complete('cancelled');
+				this.complete('cancel');
 				this.$trigger.blur();
 			}
 		},
