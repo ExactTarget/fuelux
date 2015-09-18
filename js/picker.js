@@ -138,7 +138,7 @@
 				this.complete('accepted');
 				this.$trigger.blur();
 			} else if (e.keyCode === 27) {
-				this.complete('cancelled');
+				this.complete('exited');
 				this.$trigger.blur();
 			}
 		},
