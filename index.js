@@ -12,8 +12,8 @@ define(function (require) {
 	};
 
 	// programmatically injecting this is so much easier than writing the html by hand 376 times...
-	$('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id], dt[id]').each(function (i) {
-		$(this).prepend(['<a class="header-anchor" href="#', this.id, '"><small><span class="glyphicon glyphicon-link"></span></a></small> '].join(''));
+	$('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id], dt[id], section[id]').each(function (i) {
+		$(this).children('h2:first').prepend(['<a class="header-anchor" href="#', this.id, '"><small><span class="glyphicon glyphicon-link"></span></a></small> '].join(''));
 	});
 
 	// load fuel controls
@@ -945,13 +945,11 @@ define(function (require) {
 		$('#mySpinbox1').spinbox();
 	});
 
-
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	 TREE
 	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-	$('#myTree1').tree({
-		dataSource: function (parentData, callback) {
+	 var treeDataSource =  function (parentData, callback) {
 			log("Opening branch data: ", parentData);
 
 			setTimeout(function () {
@@ -1018,7 +1016,10 @@ define(function (require) {
 					]
 				});
 			}, 400);
-		},
+		}
+
+	$('#myTree1').tree({
+		dataSource: treeDataSource,
 		cacheItems: true,
 		folderSelect: true,
 		multiSelect: true
@@ -1226,6 +1227,51 @@ define(function (require) {
 		log('Disclosed All, this many recursions: ', data.disclosures);
 	});
 
+	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	 SUPERPICKER
+	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+	$('#btnPickerEnable').click(function () {
+		$('#mypicker').picker('enable');
+	});
+	$('#btnPickerDisable').click(function () {
+		$('#mypicker').picker('disable');
+	});
+	$('#btnPickerDestroy').click(function () {
+		var $container = $('#mypicker').parent();
+		var markup = $('#mypicker').picker('destroy');
+		log(markup);
+		$container.append(markup);
+		$('#mypicker').picker({
+			edit: true
+		});
+	});
+
+	$('#mypicker').on('accepted.fu.picker', function() {
+		console.log('accepted.fu.picker');
+	});
+	$('#mypicker').on('cancelled.fu.picker', function() {
+		console.log('cancelled.fu.picker');
+	});
+	$('#mypicker').on('exited.fu.picker', function() {
+		console.log('exited.fu.picker');
+	});
+	$('#mypicker').on('shown.fu.picker', function() {
+		console.log('shown.fu.picker');
+	});
+
+	$('#myPickerTree1').tree({
+		dataSource: treeDataSource,
+		cacheItems: true,
+		folderSelect: true,
+		multiSelect: true
+	});
+
+	// requires https://github.com/exacttarget/get-list-item-path
+	// $('#mypicker2').on('accepted.fu.picker', function(o){
+	// 	var selected = $('#myPickerTree1').find('.tree-selected');
+	// 	var selectedPaths = getListItemPaths('#myPickerTree1', selected, '.tree-label', '/', ', ');
+	// 	$('#mypicker2').picker('setValue', selectedPaths);
+	// });
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	 WIZARD

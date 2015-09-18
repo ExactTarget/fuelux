@@ -242,7 +242,7 @@
 
 			this.$field.val(val);
 
-			if (!suppressEllipsis && !_isShown) {
+			if (!suppressEllipsis && !_isShown(this)) {
 				this.applyEllipsis();
 			}
 

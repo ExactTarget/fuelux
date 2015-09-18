@@ -25,7 +25,7 @@
   "devDependencies": {
     "jquery": null,
     "jquery-1.9.1": "jquery#1.9.1",
-    "qunit": "~1.14.0",
+    "qunit": "1.x",
     "requirejs-text": "2.x",
     "underscore": "1.x",
     "blanket": "1.x"

@@ -19,7 +19,8 @@ module.exports = function (grunt) {
 				'js/repeater.js',
 				'js/repeater-list.js',
 				'js/repeater-thumbnail.js',
-				'js/scheduler.js'
+				'js/scheduler.js',
+				'js/picker.js'
 			],
 			dest: 'dist/js/' + '<%= pkg.name %>' + '.js'
 		},
@@ -34,5 +35,5 @@ module.exports = function (grunt) {
 			}
 		}
 	}
-	
+
 };

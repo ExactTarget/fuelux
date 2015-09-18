@@ -6,7 +6,7 @@ define(function(require){
 	var $ = require('jquery');
 
 	QUnit.start(); // starting qunit, or phantom js will have a problem
-	
+
 	// Needed for saucelab testing
 	var log = [];
 	var testName;
@@ -58,6 +58,7 @@ define(function(require){
 	require('./test/search-test');
 	require('./test/selectlist-test');
 	require('./test/spinbox-test');
+	require('./test/picker-test');
 	require('./test/tree-test');
 	require('./test/wizard-test');
 
