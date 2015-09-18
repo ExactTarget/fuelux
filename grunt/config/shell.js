@@ -1,5 +1,6 @@
 module.exports = function (grunt) {
 	var semver = require('semver');
+	var originalVersion = grunt.file.readJSON('./package.json').version;
 
 	function getPackage() {
 		return grunt.file.readJSON('./package.json');
@@ -10,10 +11,9 @@ module.exports = function (grunt) {
 	}
 
 	return {
-		// Compile release notes while waiting for tests to pass. Needs Ruby gem and ONLY LOOKS AT THE REMOTE NAMED ORIGIN.
 		// Install with: gem install github_changelog_generator
 		notes: {
-			command: 'github_changelog_generator --no-author --unreleased-only --compare-link -t ' + getGithubToken()
+			command: 'github_changelog_generator --no-author --between-tags ' + originalVersion + ',' + getPackage().version + ' --compare-link -t ' + getGithubToken()
 		},
 		checkoutRemoteReleaseBranch: {
 			// this makes a local branch based on the prior prompt, such as release_{TIMESTAMP}
