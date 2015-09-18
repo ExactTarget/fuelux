@@ -176,22 +176,22 @@ $('#myDatepicker').datepicker({
     </tr>
     </thead>
     <tbody>
-	<tr>
-		<td>changed.fu.datepicker</td>
-		<td>This event is fired when the date value has been changed by the user. Arguments include <code>event, date</code> where date is a JavaScript <code>Date</code> object.</td>
-	</tr>
-	<tr>
-		<td>dateClicked.fu.datepicker</td>
-		<td>This event is fired when a day has been selected on the calendar. Arguments include <code>event, date</code> where date is a JavaScript <code>Date</code> object.</td>
-	</tr>
-	<tr>
-		<td>inputParsingFailed.fu.datepicker</td>
-		<td>This event is fired when an invalid date is parsed on blur of the datepicker. Arguments include <code>event, date</code> where date is a JavaScript <code>Date</code> object.</td>
-	</tr>
-	<tr>
-		<td>inputRestrictedDate.fu.datepicker</td>
-		<td>This event is fired when an restricted date is parsed on blur of the datepicker. Arguments include <code>event, date</code> where date is a JavaScript <code>Date</code> object.</td>
-	</tr>
+      <tr>
+        <td>changed.fu.datepicker</td>
+        <td>This event is fired when the date value has been changed by the user inputing text into the input box. <em>Choosing the date by clicking in the datepicker will not fire this event</em>. Arguments include <code>event, date</code> where date is a JavaScript <code>Date</code> object.</td>
+      </tr>
+      <tr>
+        <td>dateClicked.fu.datepicker</td>
+        <td>This event is fired when a day has been selected on the calendar. Arguments include <code>event, date</code> where date is a JavaScript <code>Date</code> object.</td>
+      </tr>
+      <tr>
+        <td>inputParsingFailed.fu.datepicker</td>
+        <td>This event is fired when an invalid date is parsed on blur of the datepicker. Arguments include <code>event, date</code> where date is a JavaScript <code>Date</code> object.</td>
+      </tr>
+      <tr>
+        <td>inputRestrictedDate.fu.datepicker</td>
+        <td>This event is fired when an restricted date is parsed on blur of the datepicker. Arguments include <code>event, date</code> where date is a JavaScript <code>Date</code> object.</td>
+      </tr>
     </tbody>
   </table>
 
@@ -200,6 +200,20 @@ $('#myDatepicker').datepicker({
   <p>All <code>datepicker()</code> events are fired on the <code>.datepicker</code> classed element.</p>
 {% highlight js %}
 $('#myDatepicker').on('changed.fu.datepicker', function (evt, date) {
+  // do something…
+});
+{% endhighlight %}
+
+  <p>To listen for changes on the <code>Date()</code> object, you will need to combine two listeners (as shown below). The reason for this is to keep double events firing when a date is clicked (previously when a date was clicked <code>dateClicked</code> and <code>changed</code> would both fire, which was confusing to many people.</p>
+{% highlight js %}
+$('#myDatepicker').on('changed.fu.datepicker dateClicked.fu.datepicker', function (evt, date) {
+  // do something…
+});
+{% endhighlight %}
+
+  <p>To listen for all changes to the <code>datepicker</code>'s input value, including setting the date to <code>invalid</code> values, you will need to combine two listeners:</p>
+{% highlight js %}
+$('#myDatepicker').on('change dateClicked.fu.datepicker', function (evt, date) {
   // do something…
 });
 {% endhighlight %}
