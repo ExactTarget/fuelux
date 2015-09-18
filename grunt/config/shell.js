@@ -7,7 +7,7 @@ module.exports = function (grunt) {
 	}
 
 	function getGithubToken() {
-		return grunt.file.readJSON('./GITHUB_TOKEN.json').token;
+		return grunt.file.exists('./GITHUB_TOKEN.json') ? grunt.file.readJSON('./GITHUB_TOKEN.json').token : '';
 	}
 
 	return {
