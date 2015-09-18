@@ -20,21 +20,27 @@ define(function(require){
 		ok($picker.picker() === $picker, 'picker should be initialized');
 	});
 
-	test('should behave as expected - input', function(){
+	test('should show and hide as expected - input', function(assert){
 		var $picker = $(html).find('#picker1');
 
 		$('body').append($picker);
 		$picker.picker();
-		$picker.on('cancelled.fu.picker', function(e, helpers){
-			ok(1===1, 'default action event (cancel) triggered upon external click');
-		});
+
+		var cancelledDone = assert.async();
+		var allDone = assert.async();
 
 		var $textInputTrigger = $($picker.find('.picker-trigger')[0]);
 		var $otherTrigger = $($picker.find('.picker-trigger')[1]);
 		$textInputTrigger.focus().focus();
 		equal($picker.hasClass('showing'), true, 'picker shows when appropriate');
 
+		$picker.one('exited.fu.picker', function(e, helpers){
+			ok(1===1, 'default action event (exited) triggered upon external click');
+			cancelledDone();
+		});
+
 		$('body').click();
+
 		equal($picker.hasClass('showing'), false, 'picker hides when appropriate');
 
 		$textInputTrigger.click();
@@ -47,16 +53,20 @@ define(function(require){
 		equal($picker.hasClass('showing'), false, 'picker hides when non-text input clicked and picker is already showing');
 
 		$picker.remove();
+		allDone();
 	});
 
-	test('should behave as expected - button', function(){
+	test('should behave as expected - button', function(assert){
 		var $picker = $(html).find('#picker2');
-
-		$picker.picker();
-		$picker.on('cancelled.fu.picker', function(e, helpers){
-			ok(1===1, 'default action event (cancel) triggered upon external click');
-		});
 		$('body').append($picker);
+		$picker.picker();
+
+		var cancelledDone = assert.async();
+		var allDone = assert.async();
+		$picker.one('exited.fu.picker', function(e, helpers){
+			ok(1===1, 'default action event (exited) triggered upon external click');
+			cancelledDone();
+		});
 
 		$($picker.find('.picker-trigger')[1]).click();
 		equal($picker.hasClass('showing'), true, 'picker shows when appropriate');
@@ -64,18 +74,28 @@ define(function(require){
 		$('body').click();
 		equal($picker.hasClass('showing'), false, 'picker hides when appropriate');
 		$picker.remove();
+
+		allDone();
 	});
 
-	test('show/hide functions should behave as expected', function(){
+	test('show/hide functions should behave as expected', function(assert){
 		var $picker = $(html).find('#picker1');
+		$('body').append($picker);
 		$picker.picker();
 
-		$picker.on('shown.fu.picker', function(e, helpers){
-			equal($picker.hasClass('showing'), true, 'picker shows when appropriate');
-		});
+		var shownDone = assert.async();
+		var hiddenDone = assert.async();
+		var allDone = assert.async();
 
-		$picker.on('hidden.fu.picker', function(e, helpers){
-			equal($picker.hasClass('showing'), false, 'picker shows when appropriate');
+		$picker.one('shown.fu.picker', function(e){
+			ok(1===1, 'shown event triggers on show');
+			equal(typeof e, 'object', 'event object passed in shown event');
+			shownDone();
+		});
+		$picker.one('hidden.fu.picker', function(e, helpers){
+			ok(1===1, 'hidden event triggers on hide');
+			equal(typeof e, 'object', 'event object passed in hidden event');
+			hiddenDone();
 		});
 
 		$picker.picker('show');
@@ -83,74 +103,136 @@ define(function(require){
 
 		$picker.picker('hide');
 		equal($picker.hasClass('showing'), false, 'picker hides when appropriate');
+
+		allDone();
+
+		$picker.remove();
 	});
 
-	test('trigger events should fire as expected', function(){
+	test('trigger events should fire as expected', function(assert){
 		var $picker = $(html).find('#picker1');
 
+		$('body').append($picker);
 		$picker.picker();
-		$picker.on('accepted.fu.picker', function(e, helpers){
+
+
+		var acceptedDone = assert.async();
+		var cancelledDone = assert.async();
+		var exitedDone = assert.async();
+		var allDone = assert.async();
+
+		$picker.one('accepted.fu.picker', function(e, helpers){
 			ok(1===1, 'accept event triggers on accept');
 			equal(typeof e, 'object', 'event object passed in accept event');
 			equal(typeof helpers, 'object', 'helpers object passed in accept event');
 			equal((helpers.contents!==undefined), true, 'helpers object contains correct attributes');
+			acceptedDone();
 		});
-		$picker.on('cancelled.fu.picker', function(e, helpers){
+		$picker.one('cancelled.fu.picker', function(e, helpers){
 			ok(1===1, 'cancel event triggers on cancel');
 			equal(typeof e, 'object', 'event object passed in cancel event');
 			equal(typeof helpers, 'object', 'helpers object passed in cancel event');
 			equal((helpers.contents!==undefined), true, 'helpers object contains correct attributes');
+			cancelledDone();
+		});
+		$picker.on('exited.fu.picker', function(e, helpers){
+			ok(1===1, 'exit event triggers on exit');
+			equal(typeof e, 'object', 'event object passed in exit event');
+			equal(typeof helpers, 'object', 'helpers object passed in exit event');
+			equal((helpers.contents!==undefined), true, 'helpers object contains correct attributes');
+			exitedDone();
 		});
 
-		$picker.find('input').focus().focus();
+
+		$picker.find('.picker-trigger')[0].click();
+		equal($picker.hasClass('showing'), true, 'picker shows when appropriate');
 		$picker.find('.picker-cancel').click();
-		$picker.find('input').focus().focus();
+		equal($picker.hasClass('showing'), false, 'picker hides when appropriate');
+		$picker.find('.picker-trigger')[0].click();
+		equal($picker.hasClass('showing'), true, 'picker shows when appropriate');
 		$picker.find('.picker-accept').click();
+		equal($picker.hasClass('showing'), false, 'picker hides when appropriate');
+		$picker.find('.picker-trigger')[0].click();
+		equal($picker.hasClass('showing'), true, 'picker shows when appropriate');
+		$('body').click();
+		equal($picker.hasClass('showing'), false, 'picker hides when appropriate');
+		allDone();
+
+		$picker.remove();
 	});
 
-	test('onAccept function should be called as expected', function(){
+	test('onAccept function should be called as expected', function(assert){
 		var $picker = $(html).find('#picker1');
 
+		var acceptedDone = assert.async();
 		$picker.picker({
 			onAccept: function(helpers){
 				ok(1===1, 'onAccept function called on accept');
 				equal(typeof helpers, 'object', 'helpers object passed to onAccept function');
 				equal((helpers.contents!==undefined), true, 'helpers object contains correct attributes');
 				$picker.picker('hide');
+				acceptedDone();
 			}
 		});
 
-		$picker.find('input').focus().focus();
+		$picker.find('.picker-trigger')[0].click();
 		$picker.find('.picker-accept').click();
 	});
 
-	test('onCancel function should be called as expected', function(){
+	test('onCancel function should be called as expected', function(assert){
 		var $picker = $(html).find('#picker1');
 
+		var cancelledDone = assert.async();
 		$picker.picker({
 			onCancel: function(helpers){
 				ok(1===1, 'onCancel function called on cancel');
 				equal(typeof helpers, 'object', 'helpers object passed to onCancel function');
 				equal((helpers.contents!==undefined), true, 'helpers object contains correct attributes');
 				$picker.picker('hide');
+				cancelledDone();
 			}
 		});
 
-		$picker.find('input').focus().focus();
+		$picker.find('.picker-trigger')[0].click();
 		$picker.find('.picker-cancel').click();
 	});
 
-	test('Enter and exit keys should trigger appropriate response', function(){
+	test('onExit function should be called as expected', function(assert){
 		var $picker = $(html).find('#picker1');
-		var $input  = $picker.find('input');
+		$('body').append($picker);
+
+		var exitedDone = assert.async();
+		$picker.picker({
+			onExit: function(helpers){
+				ok(1===1, 'onExit function called on exit');
+				equal(typeof helpers, 'object', 'helpers object passed to onExit function');
+				equal((helpers.contents!==undefined), true, 'helpers object contains correct attributes');
+				$picker.picker('hide');
+				exitedDone();
+			}
+		});
+
+		$picker.find('.picker-trigger')[0].click();
+		$('body').click();
+	});
+
+	test('Enter and exit keys should trigger appropriate response', function(assert){
+		var $picker = $(html).find('#picker1');
+		$('body').append($picker);
+
+		var $input  = $($picker.find('input')[0]);
 		var e = $.Event("keydown");
 
+		var acceptedDone = assert.async();
+		var exitedDone = assert.async();
 		$picker.picker({
-			onAccept: function(){
+			onAccept: function(e){
 				ok(1===1, 'onAccept function called when enter keypress');
+				acceptedDone();
 			},
-			onCancel: function(){
-				ok(1===1, 'onCancel function called when exit keypress');
+			onExit: function(){
+				ok(1===1, 'onExit function called when exit keypress');
+				exitedDone();
 			}
 		});
 
@@ -158,6 +240,8 @@ define(function(require){
 		$input.trigger(e);
 		e.keyCode = 27;
 		$input.trigger(e);
+
+		$picker.remove();
 	});
 
 
@@ -170,7 +254,7 @@ define(function(require){
 			externalClickExceptions: ['.test', '#test']
 		});
 
-		$picker.find('input').focus().focus();
+		$picker.find('.picker-trigger')[0].click();
 		$('#test').click();
 		equal($picker.hasClass('showing'), true, 'externalClick ignored for specified id');
 		$('.test').click();
@@ -190,7 +274,7 @@ define(function(require){
 			explicit: true
 		});
 
-		$picker.find('input').focus().focus();
+		$picker.find('.picker-trigger')[0].click();
 		$('body').click();
 		equal($picker.hasClass('showing'), true, 'externalClick ignored due to not being an explicit accept/cancel action');
 		$picker.find('.picker-accept').click();

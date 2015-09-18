@@ -1249,11 +1249,12 @@ define(function (require) {
 	$('#mypicker').on('accepted.fu.picker', function() {
 		console.log('accepted.fu.picker');
 	});
-
 	$('#mypicker').on('cancelled.fu.picker', function() {
 		console.log('cancelled.fu.picker');
 	});
-
+	$('#mypicker').on('exited.fu.picker', function() {
+		console.log('exited.fu.picker');
+	});
 	$('#mypicker').on('shown.fu.picker', function() {
 		console.log('shown.fu.picker');
 	});
