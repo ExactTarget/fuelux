@@ -114,7 +114,7 @@
 			if (inputValue !== '' && this.options.value === 0) {
 				this.value(inputValue);
 			} else {
-				this.output (this.options.value);
+				this.output(this.options.value);
 			}
 
 			if (this.options.units.length) {
@@ -128,9 +128,9 @@
 
 		output: function (value, updateField) {
 			value = (value + '').split('.').join(this.options.decimalMark);
-			// if set and default unit if not already present, 
+			// if set and default unit if not already present,
 			// and is an allowed unit, then add default unit
-			if (this.options.defaultUnit !== '' && 
+			if (this.options.defaultUnit !== '' &&
 					this.options.defaultUnit !== value.slice(-Math.abs(this.options.defaultUnit.length)) &&
 					this.isUnitLegal(this.options.defaultUnit)) {
 				value = value + this.options.defaultUnit;
@@ -161,7 +161,7 @@
 				this.options.value = newVal / 1;
 			}
 
-			this.output (newVal);
+			this.output(newVal);
 
 			this.changeFlag = false;
 			this.triggerChangedEvent();
@@ -264,7 +264,7 @@
 
 				} else if (!isNaN(parseFloat(value)) && isFinite(value)) {
 					this.options.value = value / 1;
-					this.output (value + (this.unit ? this.unit : ''));
+					this.output(value + (this.unit ? this.unit : ''));
 					return this;
 
 				}
@@ -432,7 +432,8 @@
 		cycle: false,
 		units: [],
 		decimalMark: '.',
-		defaultUnit: ''
+		defaultUnit: '',
+		limitIncrementsToStep: false
 	};
 
 	$.fn.spinbox.Constructor = Spinbox;
