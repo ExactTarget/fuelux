@@ -20,3 +20,4 @@ require('../../js/repeater');
 require('../../js/repeater-list');
 require('../../js/repeater-thumbnail');
 require('../../js/scheduler');
+require('../../js/picker');

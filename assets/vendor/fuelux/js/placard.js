@@ -32,10 +32,14 @@
 
 	// PLACARD CONSTRUCTOR AND PROTOTYPE
 
-	var Placard = function (element, options) {
+	var Placard = function Placard(element, options) {
 		var self = this;
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.placard.defaults, options);
+
+		if(this.$element.attr('data-ellipsis') === 'true'){
+			this.options.applyEllipsis = true;
+		}
 
 		this.$accept = this.$element.find('.placard-accept');
 		this.$cancel = this.$element.find('.placard-cancel');
@@ -55,30 +59,54 @@
 
 		this.$field.on('focus.fu.placard', $.proxy(this.show, this));
 		this.$field.on('keydown.fu.placard', $.proxy(this.keyComplete, this));
+		this.$element.on('close.fu.placard', $.proxy(this.hide, this));
 		this.$accept.on('click.fu.placard', $.proxy(this.complete, this, 'accepted'));
 		this.$cancel.on('click.fu.placard', function (e) {
 			e.preventDefault(); self.complete('cancelled');
 		});
 
-		this.ellipsis();
+		this.applyEllipsis();
+	};
+
+	var _isShown = function _isShown(placard) {
+		if (placard.$element.hasClass('showing')) {
+			return true;
+		}
+		return false;
+	};
+
+	var _closeOtherPlacards = function _closeOtherPlacards() {
+		var otherPlacards;
+
+		otherPlacards = $(document).find('.placard.showing');
+		if (otherPlacards.length > 0) {
+			if (otherPlacards.data('fu.placard') && otherPlacards.data('fu.placard').options.explicit) {
+				return false;//failed
+			}
+
+			otherPlacards.placard('externalClickListener', {}, true);
+		}
+
+		return true;//succeeded
 	};
 
 	Placard.prototype = {
 		constructor: Placard,
 
-		complete: function (action) {
+		complete: function complete(action) {
 			var func = this.options[ EVENT_CALLBACK_MAP[action] ];
 
 			var obj = {
 				previousValue: this.previousValue,
-				value: this.$field.val()
+				value: this.getValue()
 			};
+
 			if (func) {
 				func(obj);
 				this.$element.trigger(action + '.fu.placard', obj);
 			} else {
 				if (action === 'cancelled' && this.options.revertOnCancel) {
-					this.$field.val(this.previousValue);
+					this.setValue(this.previousValue, true);
 				}
 
 				this.$element.trigger(action + '.fu.placard', obj);
@@ -86,7 +114,7 @@
 			}
 		},
 
-		keyComplete: function (e) {
+		keyComplete: function keyComplete(e) {
 			if (this.isInput && e.keyCode === 13) {
 				this.complete('accepted');
 				this.$field.blur();
@@ -96,7 +124,7 @@
 			}
 		},
 
-		destroy: function () {
+		destroy: function destroy() {
 			this.$element.remove();
 			// remove any external bindings
 			$(document).off('click.fu.placard.externalClick.' + this.clickStamp);
@@ -110,32 +138,33 @@
 			return this.$element[0].outerHTML;
 		},
 
-		disable: function () {
+		disable: function disable() {
 			this.$element.addClass('disabled');
 			this.$field.attr('disabled', 'disabled');
 			this.hide();
 		},
 
-		ellipsis: function () {
+		applyEllipsis: function applyEllipsis() {
 			var field, i, str;
-			if (this.$element.attr('data-ellipsis') === 'true') {
+			if (this.options.applyEllipsis) {
 				field = this.$field.get(0);
 				if (this.$field.is('input')) {
 					field.scrollLeft = 0;
+					//TODO: apply ellipsis to input field overflow
 				} else {
 					field.scrollTop = 0;
 					if (field.clientHeight < field.scrollHeight) {
-						this.actualValue = this.$field.val();
-						this.$field.val('');
+						this.actualValue = this.getValue();
+						this.setValue('', true);
 						str = '';
 						i = 0;
 						while (field.clientHeight >= field.scrollHeight) {
 							str += this.actualValue[i];
-							this.$field.val(str + '...');
+							this.setValue(str + '...', true);
 							i++;
 						}
 						str = (str.length > 0) ? str.substring(0, str.length - 1) : '';
-						this.$field.val(str + '...');
+						this.setValue(str + '...', true);
 					}
 
 				}
@@ -143,18 +172,18 @@
 			}
 		},
 
-		enable: function () {
+		enable: function enable() {
 			this.$element.removeClass('disabled');
 			this.$field.removeAttr('disabled');
 		},
 
-		externalClickListener: function (e, force) {
+		externalClickListener: function externalClickListener(e, force) {
 			if (force === true || this.isExternalClick(e)) {
 				this.complete(this.options.externalClickAction);
 			}
 		},
 
-		getValue: function () {
+		getValue: function getValue() {
 			if (this.actualValue !== null) {
 				return this.actualValue;
 			} else {
@@ -162,18 +191,18 @@
 			}
 		},
 
-		hide: function () {
+		hide: function hide() {
 			if (!this.$element.hasClass('showing')) {
 				return;
 			}
 
 			this.$element.removeClass('showing');
-			this.ellipsis();
+			this.applyEllipsis();
 			$(document).off('click.fu.placard.externalClick.' + this.clickStamp);
 			this.$element.trigger('hidden.fu.placard');
 		},
 
-		isExternalClick: function (e) {
+		isExternalClick: function isExternalClick(e) {
 			var el = this.$element.get(0);
 			var exceptions = this.options.externalClickExceptions || [];
 			var $originEl = $(e.target);
@@ -193,36 +222,49 @@
 			return true;
 		},
 
-		setValue: function (val) {
-			this.$field.val(val);
-			if (!this.$element.hasClass('showing')) {
-				this.ellipsis();
+		/**
+		 * setValue() sets the Placard triggering DOM element's display value
+		 *
+		 * @param {String} the value to be displayed
+		 * @param {Boolean} If you want to explicitly suppress the application
+		 *					of ellipsis, pass `true`. This would typically only be
+		 *					done from internal functions (like `applyEllipsis`)
+		 *					that want to avoid circular logic. Otherwise, the
+		 *					value of the option applyEllipsis will be used.
+		 * @return {Object} jQuery object representing the DOM element whose
+		 *					value was set
+		 */
+		setValue: function setValue(val, suppressEllipsis) {
+			//if suppressEllipsis is undefined, check placards init settings
+			if(typeof suppressEllipsis === "undefined"){
+				suppressEllipsis = !this.options.applyEllipsis;
 			}
+
+			this.$field.val(val);
+
+			if (!suppressEllipsis && !_isShown(this)) {
+				this.applyEllipsis();
+			}
+
+			return this.$field;
 		},
 
-		show: function () {
-			var other;
-
-			if (this.$element.hasClass('showing')) {
-				return;
-			}
-
-			other = $(document).find('.placard.showing');
-			if (other.length > 0) {
-				if (other.data('fu.placard') && other.data('fu.placard').options.explicit) {
-					return;
-				}
-
-				other.placard('externalClickListener', {}, true);
-			}
+		show: function show() {
+			if(_isShown(this)){return;}
+			if(!_closeOtherPlacards()){return;}
 
 			this.previousValue = this.$field.val();
 
-			this.$element.addClass('showing');
 			if (this.actualValue !== null) {
-				this.$field.val(this.actualValue);
+				this.setValue(this.actualValue);
 				this.actualValue = null;
 			}
+
+			this.showPlacard();
+		},
+
+		showPlacard: function showPlacard() {
+			this.$element.addClass('showing');
 
 			if (this.$header.length > 0) {
 				this.$popup.css('top', '-' + this.$header.outerHeight(true) + 'px');
@@ -269,7 +311,8 @@
 		externalClickAction: 'cancelled',
 		externalClickExceptions: [],
 		explicit: false,
-		revertOnCancel: -1//negative 1 will check for an '.placard-accept' button. Also can be set to true or false
+		revertOnCancel: -1,//negative 1 will check for an '.placard-accept' button. Also can be set to true or false
+		applyEllipsis: false
 	};
 
 	$.fn.placard.Constructor = Placard;

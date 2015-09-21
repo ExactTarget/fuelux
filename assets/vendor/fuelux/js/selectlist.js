@@ -59,7 +59,7 @@
 				var $this = $(this);
 				// attach key listener when dropdown is shown
 				$(document).on('keypress.fu.selectlist', function(e){
-					
+
 					// get the key that was pressed
 					var key = String.fromCharCode(e.which);
 					// look the items to find the first item with the first character match and set focus
@@ -69,7 +69,7 @@
 							return false;
 						}
 					});
-					
+
 			});
 		});
 
@@ -227,6 +227,8 @@
 			this.$button.addClass('disabled');
 		}
 	};
+
+	Selectlist.prototype.getValue = Selectlist.prototype.selectedItem;
 
 
 	// SELECT PLUGIN DEFINITION

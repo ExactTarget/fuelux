@@ -38,6 +38,8 @@
 			e.preventDefault();
 		});
 		this.options = $.extend({}, $.fn.spinbox.defaults, options);
+		this.options.step = this.$element.data('step') || this.options.step;
+
 		this.$input = this.$element.find('.spinbox-input');
 		this.$element.on('focusin.fu.spinbox', this.$input, $.proxy(this.changeFlag, this));
 		this.$element.on('focusout.fu.spinbox', this.$input, $.proxy(this.change, this));
@@ -126,6 +128,13 @@
 
 		output: function (value, updateField) {
 			value = (value + '').split('.').join(this.options.decimalMark);
+			// if set and default unit if not already present, 
+			// and is an allowed unit, then add default unit
+			if (this.options.defaultUnit !== '' && 
+					this.options.defaultUnit !== value.slice(-Math.abs(this.options.defaultUnit.length)) &&
+					this.isUnitLegal(this.options.defaultUnit)) {
+				value = value + this.options.defaultUnit;
+			}
 			updateField = (updateField || true);
 			if (updateField) {
 				this.$input.val(value);
@@ -241,6 +250,10 @@
 				var cycleVal = isIncrease ? this.options.min : this.options.max;
 				this.value(cycleVal);
 			}
+		},
+
+		getValue: function getValue() {
+			return this.value();
 		},
 
 		value: function (value) {
@@ -418,7 +431,8 @@
 		disabled: false,
 		cycle: false,
 		units: [],
-		decimalMark: '.'
+		decimalMark: '.',
+		defaultUnit: ''
 	};
 
 	$.fn.spinbox.Constructor = Spinbox;

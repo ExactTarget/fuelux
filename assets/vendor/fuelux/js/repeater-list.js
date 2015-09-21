@@ -57,6 +57,8 @@
 			return selected;
 		};
 
+		$.fn.repeater.Constructor.prototype.getValue = $.fn.repeater.Constructor.prototype.list_getSelectedItems;
+
 		$.fn.repeater.Constructor.prototype.list_positionHeadings = function () {
 			var $wrapper = this.$element.find('.repeater-list-wrapper');
 			var offsetLeft = $wrapper.offset().left;
@@ -231,7 +233,7 @@
 				}
 			}
 		};
-		
+
 		$.fn.repeater.Constructor.prototype.list_createItemActions = function () {
 			var actionsHtml = '';
 			var self = this;
@@ -334,6 +336,9 @@
 					item: clickedRow,
 					rowData: clickedRow.data('item_data')
 				});
+			}
+			if (selectedObj.length === 1) {
+				selectedObj = selectedObj[0];
 			}
 
 			if (actionObj.clickAction) {

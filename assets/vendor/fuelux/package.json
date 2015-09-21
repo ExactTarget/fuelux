@@ -10,7 +10,7 @@
   "dependencies": {
     "bootstrap": "3.x",
     "jquery": "2.x",
-    "moment": "2.x"
+    "moment": "^2.10.6"
   },
   "description": "Base Fuel UX styles and controls",
   "devDependencies": {
@@ -40,6 +40,7 @@
     "grunt-text-replace": "0.x",
     "grunt-umd": "2.x",
     "grunt-zip": "0.x",
+    "load-grunt-config": "0.x",
     "load-grunt-tasks": "3.x",
     "qunitjs": "1.x",
     "semver": "5.x",
@@ -82,7 +83,7 @@
     "postinstall": "node postinstall.js"
   },
   "title": "Fuel UX",
-  "version": "3.11.1",
+  "version": "3.11.3",
   "volo": {
     "baseDir": "lib",
     "dependencies": {

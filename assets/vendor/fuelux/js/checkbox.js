@@ -164,6 +164,7 @@
 		}
 	};
 
+	Checkbox.prototype.getValue = Checkbox.prototype.isChecked;
 
 	// CHECKBOX PLUGIN DEFINITION
 
