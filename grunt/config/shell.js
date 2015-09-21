@@ -1,15 +1,19 @@
 module.exports = function (grunt) {
 	var semver = require('semver');
+	var originalVersion = grunt.file.readJSON('./package.json').version;
 
 	function getPackage() {
 		return grunt.file.readJSON('./package.json');
 	}
 
+	function getGithubToken() {
+		return grunt.file.exists('./GITHUB_TOKEN.json') ? grunt.file.readJSON('./GITHUB_TOKEN.json').token : '';
+	}
+
 	return {
-		// Compile release notes while waiting for tests to pass. Needs Ruby gem and ONLY LOOKS AT THE REMOTE NAMED ORIGIN.
 		// Install with: gem install github_changelog_generator
 		notes: {
-			command: 'github_changelog_generator --no-author --unreleased-only --compare-link'
+			command: 'github_changelog_generator --no-author --between-tags ' + originalVersion + ',' + getPackage().version + ' --compare-link -t ' + getGithubToken()
 		},
 		checkoutRemoteReleaseBranch: {
 			// this makes a local branch based on the prior prompt, such as release_{TIMESTAMP}
@@ -17,9 +21,10 @@ module.exports = function (grunt) {
 			command: function() {
 				grunt.config('release.localBranch', 'release_' + new Date().getTime() );
 				var command = [
+					'git fetch --tags ' + grunt.config('release.remoteRepository'),
+					'git fetch ' + grunt.config('release.remoteRepository'),
 					'git checkout -b ' + grunt.config('release.localBranch') + ' ' +
-						grunt.config('release.remoteRepository') + '/' + grunt.config('release.remoteBaseBranch'),
-						'git fetch ' + grunt.config('release.remoteRepository') + ' --tag'
+						grunt.config('release.remoteRepository') + '/' + grunt.config('release.remoteBaseBranch')
 				].join(' && ');
 				grunt.log.write('Checking out new local branch based on ' + grunt.config('release.remoteBaseBranch') + ': ' + command);
 				return command;

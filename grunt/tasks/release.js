@@ -48,7 +48,6 @@ module.exports = function(grunt) {
 				'shell:checkoutRemoteReleaseBranch',
 				'updateRelease',
 				'prompt:build',
-				'prompt:generatelogs',
 				'dorelease'
 			]
 		);
@@ -71,7 +70,7 @@ module.exports = function(grunt) {
 		// Run dist again to grab the latest version numbers. Yeah, we're running it twice... ¯\_(ツ)_/¯
 		grunt.task.run(['bump-only:' + grunt.config('release.buildSemVerType'), 'replace:readme', 'dist',
 			'shell:addReleaseFiles', 'prompt:commit', 'prompt:tag', 'prompt:pushLocalBranchToUpstream',
-			'prompt:pushTagToUpstream', 'prompt:uploadToCDN', 'prompt:pushLocalBranchToUpstreamMaster', 'shell:publishToNPM']);
+			'prompt:pushTagToUpstream', 'prompt:uploadToCDN', 'prompt:pushLocalBranchToUpstreamMaster', 'shell:publishToNPM', 'prompt:generatelogs']);
 	});
 
 
