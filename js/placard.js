@@ -150,7 +150,6 @@
 				field = this.$field.get(0);
 				if (this.$field.is('input')) {
 					field.scrollLeft = 0;
-					//TODO: apply ellipsis to input field overflow
 				} else {
 					field.scrollTop = 0;
 					if (field.clientHeight < field.scrollHeight) {
