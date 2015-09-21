@@ -102,6 +102,41 @@ define(function(require){
 		equal($spinbox.spinbox('value'), -10, 'spinbox resets to min value when min value is surpassed');
 	});
 
+	test("spinbox should not allow non-step values to be surpassed by manual input when increments are limited to step", function () {
+		var $spinbox = $(html).find('#MySpinbox').spinbox({
+			step: 3,
+			limitToStep: true,
+			min: 1,
+			max: 7
+		});
+
+		$spinbox.find('.spinbox-input').val(1);
+		$spinbox.find('.spinbox-input').focusout();
+		equal($spinbox.spinbox('value'), 3, 'spinbox sets to step value when min value is less than step value and value is set by hand');
+
+		$spinbox.find('.spinbox-input').val(4);
+		$spinbox.find('.spinbox-input').focusout();
+		equal($spinbox.spinbox('value'), 3, 'spinbox rounds down to step when appropriate');
+
+		$spinbox.find('.spinbox-input').val(5);
+		$spinbox.find('.spinbox-input').focusout();
+		equal($spinbox.spinbox('value'), 6, 'spinbox rounds up to step when appropriate');
+
+		$spinbox.find('.spinbox-input').val(7);
+		$spinbox.find('.spinbox-input').focusout();
+		equal($spinbox.spinbox('value'), 6, 'spinbox sets to step value when value is max value and is not multiple of step value and value is set by hand');
+
+		$spinbox.find('.spinbox-input').val(-10000000000);
+		$spinbox.find('.spinbox-input').focusout();
+		equal($spinbox.spinbox('value'), 3, 'spinbox sets to step value when min value is less than step value and value is set by hand');
+
+		$spinbox.find('.spinbox-input').val(9999999999999);
+		$spinbox.find('.spinbox-input').focusout();
+		equal($spinbox.spinbox('value'), 6, 'spinbox sets to step value when value is max value and is not multiple of step value and value is set by hand');
+
+
+	});
+
 	test("should cycle when min or max values are reached", function () {
 		var $spinbox = $(html).find('#MySpinbox').spinbox({
 			min: 1,

@@ -89,6 +89,21 @@
 		}
 	};
 
+	var _limitToStep = function _limitToStep(number, step, roundDirection) {
+		var limitedNumber = number;
+
+		var remainder = number % step;
+		if(remainder > 0){
+			if(remainder > step/2 || typeof roundDirection !== 'undefined' && roundDirection > 0){
+				limitedNumber = number - remainder + step;
+			}else{
+				limitedNumber = number - remainder;
+			}
+		}
+
+		return limitedNumber;
+	};
+
 	Spinbox.prototype = {
 		constructor: Spinbox,
 
@@ -110,7 +125,6 @@
 			var inputValue = this.parseInput(this.$input.val());
 			var maxUnitLength = '';
 
-			// if input is empty and option value is default, 0
 			if (inputValue !== '' && this.options.value === 0) {
 				this.value(inputValue);
 			} else {
@@ -128,13 +142,17 @@
 
 		output: function output(value, updateField) {
 			value = (value + '').split('.').join(this.options.decimalMark);
-			// if set and default unit if not already present,
-			// and is an allowed unit, then add default unit
+
+			// If defaultUnit is set,
+			// if value does not contain defaultUnit already,
+			// and if defaultUnit is legal,
+			// add defaultUnit to value
 			if (this.options.defaultUnit !== '' &&
 					this.options.defaultUnit !== value.slice(-Math.abs(this.options.defaultUnit.length)) &&
 					this.isUnitLegal(this.options.defaultUnit)) {
 				value = value + this.options.defaultUnit;
 			}
+
 			updateField = (updateField || true);
 			if (updateField) {
 				this.$input.val(value);
@@ -155,10 +173,18 @@
 			if (this.options.units.length || this.options.decimalMark !== '.') {
 				newVal = this.parseValueWithUnit(newVal);
 			} else if (newVal / 1) {
-				newVal = this.options.value = this.checkMaxMin(newVal / 1);
+				newVal = this.checkMaxMin(newVal / 1);
+				if(this.options.limitToStep){
+					newVal = _limitToStep(newVal, this.options.step);
+				}
+				this.options.value = newVal;
 			} else {
 				newVal = this.checkMaxMin(newVal.replace(/[^0-9.-]/g, '') || '');
-				this.options.value = newVal / 1;
+				newVal = newVal / 1;
+				if(this.options.limitToStep){
+					newVal = _limitToStep(newVal, this.options.step);
+				}
+				this.options.value = newVal;
 			}
 
 			this.output(newVal);
@@ -256,15 +282,19 @@
 			return this.value();
 		},
 
-		value: function value(value) {
-			if (value || value === 0) {
+		setValue: function setValue(val) {
+			return this.value(val);
+		},
+
+		value: function value(val) {
+			if (val || val === 0) {
 				if (this.options.units.length || this.options.decimalMark !== '.') {
-					this.output(this.parseValueWithUnit(value + (this.unit || '')));
+					this.output(this.parseValueWithUnit(val + (this.unit || '')));
 					return this;
 
-				} else if (!isNaN(parseFloat(value)) && isFinite(value)) {
-					this.options.value = value / 1;
-					this.output(value + (this.unit ? this.unit : ''));
+				} else if (!isNaN(parseFloat(val)) && isFinite(val)) {
+					this.options.value = val / 1;
+					this.output(val + (this.unit ? this.unit : ''));
 					return this;
 
 				}
@@ -296,16 +326,27 @@
 			return legalUnit;
 		},
 
+		getIntValue: function getIntValue(value) {
+			value = (typeof value === "undefined") ? this.getValue() : value;
+			var number = value.replace(/[^0-9.-]/g, '');
+			return number;
+		},
+
 		// strips units and add them back
 		parseValueWithUnit: function parseValueWithUnit(value) {
 			var unit = value.replace(/[^a-zA-Z]/g, '');
-			var number = value.replace(/[^0-9.-]/g, '');
+			var number = this.getIntValue(value);
 
 			if (unit) {
 				unit = this.isUnitLegal(unit);
 			}
 
-			this.options.value = this.checkMaxMin(number / 1);
+			number = this.checkMaxMin(number / 1);
+			if(this.options.limitToStep){
+				number = _limitToStep(number, this.options.step);
+			}
+
+			this.options.value = number;
 			this.unit = unit || undefined;
 			return this.options.value + (unit || '');
 		},
@@ -318,7 +359,16 @@
 
 			// if not within range return the limit
 			if (!(value <= this.options.max && value >= this.options.min)) {
-				value = value >= this.options.max ? this.options.max : this.options.min;
+				if(value >= this.options.max){
+					value = this.options.max;
+				}else{
+					value = this.options.min;
+				}
+			}
+
+			if(this.options.limitToStep && value % this.options.step > 0){
+				//force round direction so that it stays within bounds
+				value = _limitToStep(value, this.options.step, (value === this.options.min) ? 1 : -1);
 			}
 
 			return value;
@@ -433,7 +483,7 @@
 		units: [],
 		decimalMark: '.',
 		defaultUnit: '',
-		limitIncrementsToStep: false
+		limitToStep: false
 	};
 
 	$.fn.spinbox.Constructor = Spinbox;
