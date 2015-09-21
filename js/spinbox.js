@@ -31,7 +31,7 @@
 
 	// SPINBOX CONSTRUCTOR AND PROTOTYPE
 
-	var Spinbox = function (element, options) {
+	var Spinbox = function Spinbox(element, options) {
 		this.$element = $(element);
 		this.$element.find('.btn').on('click', function (e) {
 			//keep spinbox from submitting if they forgot to say type="button" on their spinner buttons
@@ -92,7 +92,7 @@
 	Spinbox.prototype = {
 		constructor: Spinbox,
 
-		destroy: function () {
+		destroy: function destroy() {
 			this.$element.remove();
 			// any external bindings
 			// [none]
@@ -106,7 +106,7 @@
 			return this.$element[0].outerHTML;
 		},
 
-		render: function () {
+		render: function render() {
 			var inputValue = this.parseInput(this.$input.val());
 			var maxUnitLength = '';
 
@@ -126,7 +126,7 @@
 			}
 		},
 
-		output: function (value, updateField) {
+		output: function output(value, updateField) {
 			value = (value + '').split('.').join(this.options.decimalMark);
 			// if set and default unit if not already present,
 			// and is an allowed unit, then add default unit
@@ -143,13 +143,13 @@
 			return value;
 		},
 
-		parseInput: function (value) {
+		parseInput: function parseInput(value) {
 			value = (value + '').split(this.options.decimalMark).join('.');
 
 			return value;
 		},
 
-		change: function () {
+		change: function change() {
 			var newVal = this.parseInput(this.$input.val()) || '';
 
 			if (this.options.units.length || this.options.decimalMark !== '.') {
@@ -167,11 +167,11 @@
 			this.triggerChangedEvent();
 		},
 
-		changeFlag: function () {
+		changeFlag: function changeFlag() {
 			this.changeFlag = true;
 		},
 
-		stopSpin: function () {
+		stopSpin: function stopSpin() {
 			if (this.switches.timeout !== undefined) {
 				clearTimeout(this.switches.timeout);
 				this.switches.count = 1;
@@ -179,7 +179,7 @@
 			}
 		},
 
-		triggerChangedEvent: function () {
+		triggerChangedEvent: function triggerChangedEvent() {
 			var currentValue = this.value();
 			if (currentValue === this.lastValue) return;
 			this.lastValue = currentValue;
@@ -188,7 +188,7 @@
 			this.$element.trigger('changed.fu.spinbox', this.output(currentValue, false));// no DOM update
 		},
 
-		startSpin: function (type) {
+		startSpin: function startSpin(type) {
 			if (!this.options.disabled) {
 				var divisor = this.switches.count;
 
@@ -210,12 +210,12 @@
 			}
 		},
 
-		iterate: function (type) {
+		iterate: function iterate(type) {
 			this.step(type);
 			this.startSpin(type);
 		},
 
-		step: function (isIncrease) {
+		step: function step(isIncrease) {
 			// isIncrease: true is up, false is down
 
 			var digits, multiple, currentValue, limitValue;
@@ -256,7 +256,7 @@
 			return this.value();
 		},
 
-		value: function (value) {
+		value: function value(value) {
 			if (value || value === 0) {
 				if (this.options.units.length || this.options.decimalMark !== '.') {
 					this.output(this.parseValueWithUnit(value + (this.unit || '')));
@@ -283,7 +283,7 @@
 			}
 		},
 
-		isUnitLegal: function (unit) {
+		isUnitLegal: function isUnitLegal(unit) {
 			var legalUnit;
 
 			$.each(this.options.units, function (index, value) {
@@ -297,7 +297,7 @@
 		},
 
 		// strips units and add them back
-		parseValueWithUnit: function (value) {
+		parseValueWithUnit: function parseValueWithUnit(value) {
 			var unit = value.replace(/[^a-zA-Z]/g, '');
 			var number = value.replace(/[^0-9.-]/g, '');
 
@@ -310,7 +310,7 @@
 			return this.options.value + (unit || '');
 		},
 
-		checkMaxMin: function (value) {
+		checkMaxMin: function checkMaxMin(value) {
 			// if unreadable
 			if (isNaN(parseFloat(value))) {
 				return value;
@@ -324,21 +324,21 @@
 			return value;
 		},
 
-		disable: function () {
+		disable: function disable() {
 			this.options.disabled = true;
 			this.$element.addClass('disabled');
 			this.$input.attr('disabled', '');
 			this.$element.find('button').addClass('disabled');
 		},
 
-		enable: function () {
+		enable: function enable() {
 			this.options.disabled = false;
 			this.$element.removeClass('disabled');
 			this.$input.removeAttr('disabled');
 			this.$element.find('button').removeClass('disabled');
 		},
 
-		keydown: function (event) {
+		keydown: function keydown(event) {
 			var keyCode = event.keyCode;
 			if (keyCode === 38) {
 				this.step(true);
@@ -347,7 +347,7 @@
 			}
 		},
 
-		keyup: function (event) {
+		keyup: function keyup(event) {
 			var keyCode = event.keyCode;
 
 			if (keyCode === 38 || keyCode === 40) {
@@ -355,7 +355,7 @@
 			}
 		},
 
-		bindMousewheelListeners: function () {
+		bindMousewheelListeners: function bindMousewheelListeners() {
 			var inputEl = this.$input.get(0);
 			if (inputEl.addEventListener) {
 				//IE 9, Chrome, Safari, Opera
@@ -368,7 +368,7 @@
 			}
 		},
 
-		mousewheelHandler: function (event) {
+		mousewheelHandler: function mousewheelHandler(event) {
 			if (!this.options.disabled) {
 				var e = window.event || event;// old IE support
 				var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
@@ -399,7 +399,7 @@
 
 	// SPINBOX PLUGIN DEFINITION
 
-	$.fn.spinbox = function (option) {
+	$.fn.spinbox = function spinbox(option) {
 		var args = Array.prototype.slice.call(arguments, 1);
 		var methodReturn;
 
@@ -438,7 +438,7 @@
 
 	$.fn.spinbox.Constructor = Spinbox;
 
-	$.fn.spinbox.noConflict = function () {
+	$.fn.spinbox.noConflict = function noConflict() {
 		$.fn.spinbox = old;
 		return this;
 	};
