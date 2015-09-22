@@ -12,7 +12,15 @@ module.exports = function (grunt) {
 				from: /fuelux\/\d\.\d\.\d/g,
 				to: 'fuelux/' + getPackage().version
 			}]
-		}
+		},
+    packageJs: {
+			src: ['package.js'],
+			overwrite: true,
+			replacements: [{
+				from: /version: '\d\.\d\.\d'/,
+				to: "version: '" + getPackage().version + "'"
+			}]
+    }
 	}
 
 };
