@@ -80,6 +80,9 @@
 			this.switches.speed = 500;
 		}
 
+		this.options.defaultUnit = _isUnitLegal(this.options.defaultUnit, this.options.units) ? this.options.defaultUnit : '';
+		this.unit = this.options.defaultUnit;
+
 		this.lastValue = this.options.value;
 
 		this.render();
@@ -104,6 +107,21 @@
 		return limitedNumber;
 	};
 
+	_isUnitLegal = function _isUnitLegal(unit, validUnits) {
+		var legalUnit = false;
+		var suspectUnit = unit.toLowerCase();
+
+		$.each(validUnits, function (i, validUnit) {
+			validUnit = validUnit.toLowerCase();
+			if (suspectUnit === validUnit) {
+				legalUnit = true;
+				return false;//break out of the loop
+			}
+		});
+
+		return legalUnit;
+	};
+
 	Spinbox.prototype = {
 		constructor: Spinbox,
 
@@ -123,37 +141,14 @@
 
 		render: function render() {
 			var inputValue = this.parseInput(this.$input.val());
-			var maxUnitLength = '';
+			var value = (inputValue !== '' && this.options.value === 0) ? inputValue : this.options.value;
 
-			if (inputValue !== '' && this.options.value === 0) {
-				this.value(inputValue);
-			} else {
-				this.output(this.options.value);
-			}
-
-			if (this.options.units.length) {
-				$.each(this.options.units, function (index, value) {
-					if (value.length > maxUnitLength.length) {
-						maxUnitLength = value;
-					}
-				});
-			}
+			this.setValue(value);
 		},
 
 		output: function output(value, updateField) {
-			value = (value + '').split('.').join(this.options.decimalMark);
+			updateField = (typeof updateField === 'boolean') ? updateField : true;
 
-			// If defaultUnit is set,
-			// if value does not contain defaultUnit already,
-			// and if defaultUnit is legal,
-			// add defaultUnit to value
-			if (this.options.defaultUnit !== '' &&
-					this.options.defaultUnit !== value.slice(-Math.abs(this.options.defaultUnit.length)) &&
-					this.isUnitLegal(this.options.defaultUnit)) {
-				value = value + this.options.defaultUnit;
-			}
-
-			updateField = (updateField || true);
 			if (updateField) {
 				this.$input.val(value);
 			}
@@ -161,33 +156,10 @@
 			return value;
 		},
 
-		parseInput: function parseInput(value) {
-			value = (value + '').split(this.options.decimalMark).join('.');
-
-			return value;
-		},
-
 		change: function change() {
-			var newVal = this.parseInput(this.$input.val()) || '';
+			var newVal = this.$input.val() || '';
 
-			if (this.options.units.length || this.options.decimalMark !== '.') {
-				newVal = this.parseValueWithUnit(newVal);
-			} else if (newVal / 1) {
-				newVal = this.checkMaxMin(newVal / 1);
-				if(this.options.limitToStep){
-					newVal = _limitToStep(newVal, this.options.step);
-				}
-				this.options.value = newVal;
-			} else {
-				newVal = this.checkMaxMin(newVal.replace(/[^0-9.-]/g, '') || '');
-				newVal = newVal / 1;
-				if(this.options.limitToStep){
-					newVal = _limitToStep(newVal, this.options.step);
-				}
-				this.options.value = newVal;
-			}
-
-			this.output(newVal);
+			this.setValue(newVal);
 
 			this.changeFlag = false;
 			this.triggerChangedEvent();
@@ -206,7 +178,7 @@
 		},
 
 		triggerChangedEvent: function triggerChangedEvent() {
-			var currentValue = this.value();
+			var currentValue = this.getValue();
 			if (currentValue === this.lastValue) return;
 			this.lastValue = currentValue;
 
@@ -267,88 +239,96 @@
 
 				// if outside limits, set to limit value
 				if (isIncrease ? newVal > limitValue : newVal < limitValue) {
-					this.value(limitValue);
+					this.setValue(limitValue);
 				} else {
-					this.value(newVal);
+					this.setValue(newVal);
 				}
 
 			} else if (this.options.cycle) {
 				var cycleVal = isIncrease ? this.options.min : this.options.max;
-				this.value(cycleVal);
+				this.setValue(cycleVal);
 			}
 		},
 
 		getValue: function getValue() {
-			return this.value();
+			var val = this.options.value
+			if (this.options.decimalMark !== '.'){
+				val = (val + '').split('.').join(this.options.decimalMark);
+			}
+			return val + this.unit;
 		},
 
 		setValue: function setValue(val) {
-			return this.value(val);
+			//remove any i18n on the number
+			if (this.options.decimalMark !== '.') {
+				val = this.parseInput(val);
+			}
+
+			//are we dealing with united numbers?
+			if(typeof val !== "number"){
+				var potentialUnit = val.replace(/[0-9.-]/g, '');
+				//make sure unit is valid, or else drop it in favor of current unit, or default unit (potentially nothing)
+				this.unit = _isUnitLegal(potentialUnit, this.options.units) ? potentialUnit : this.options.defaultUnit;
+			}
+
+			var intVal = this.getIntValue(val);
+
+			//make sure we are dealing with a number
+			if (isNaN(parseFloat(intVal)) && !isFinite(intVal)) {
+				return;
+			}
+
+			//conform
+			intVal = this.checkMaxMin(intVal / 1);
+
+			if(this.options.limitToStep){
+				intVal = _limitToStep(intVal, this.options.step);
+			}
+
+			//cache the pure int value
+			this.options.value = intVal;
+
+			//prepare number for display
+			val = intVal + this.unit;
+
+			if (this.options.decimalMark !== '.'){
+				val = (val + '').split('.').join(this.options.decimalMark);
+			}
+
+			//display number
+			this.output(val);
+
+			return this;
 		},
 
 		value: function value(val) {
+
 			if (val || val === 0) {
-				if (this.options.units.length || this.options.decimalMark !== '.') {
-					this.output(this.parseValueWithUnit(val + (this.unit || '')));
-					return this;
-
-				} else if (!isNaN(parseFloat(val)) && isFinite(val)) {
-					this.options.value = val / 1;
-					this.output(val + (this.unit ? this.unit : ''));
-					return this;
-
-				}
-
+				return this.setValue(val);
 			} else {
-				if (this.changeFlag) {
-					this.change();
-				}
-
-				if (this.unit) {
-					return this.options.value + this.unit;
-				} else {
-					return this.output(this.options.value, false);// no DOM update
-				}
-
+				return this.getValue();
 			}
 		},
 
-		isUnitLegal: function isUnitLegal(unit) {
-			var legalUnit;
+		parseInput: function parseInput(value) {
+			value = (value + '').split(this.options.decimalMark).join('.');
 
-			$.each(this.options.units, function (index, value) {
-				if (value.toLowerCase() === unit.toLowerCase()) {
-					legalUnit = unit.toLowerCase();
-					return false;
-				}
-			});
-
-			return legalUnit;
+			return value;
 		},
 
 		getIntValue: function getIntValue(value) {
+			//if they didn't pass in a number, try and get the number
 			value = (typeof value === "undefined") ? this.getValue() : value;
-			var number = value.replace(/[^0-9.-]/g, '');
-			return number;
-		},
+			// if there still isn't a number, abort
+			if(typeof value === "undefined"){return;}
 
-		// strips units and add them back
-		parseValueWithUnit: function parseValueWithUnit(value) {
-			var unit = value.replace(/[^a-zA-Z]/g, '');
-			var number = this.getIntValue(value);
-
-			if (unit) {
-				unit = this.isUnitLegal(unit);
+			if (typeof value === 'string'){
+				value = this.parseInput(value);
 			}
 
-			number = this.checkMaxMin(number / 1);
-			if(this.options.limitToStep){
-				number = _limitToStep(number, this.options.step);
-			}
+			value = parseFloat(value, 10);
 
-			this.options.value = number;
-			this.unit = unit || undefined;
-			return this.options.value + (unit || '');
+			return value;
 		},
 
 		checkMaxMin: function checkMaxMin(value) {
