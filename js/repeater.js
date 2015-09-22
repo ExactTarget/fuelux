@@ -218,6 +218,8 @@
 			var disable = 'disable';
 			var disabled = 'disabled';
 
+			this.isDisabled = true;
+
 			this.$search.search(disable);
 			this.$filters.selectlist(disable);
 			this.$views.find('label').attr(disabled, disabled);
@@ -235,6 +237,8 @@
 			var disabled = 'disabled';
 			var enable = 'enable';
 			var pageEnd = 'page-end';
+
+			this.isDisabled = false;
 
 			this.$search.search(enable);
 			this.$filters.selectlist(enable);
