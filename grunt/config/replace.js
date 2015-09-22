@@ -1,7 +1,6 @@
 module.exports = function (grunt) {
 
 	function getPackage() {
-		console.log ('getPackage', grunt.file.readJSON('./package.json').version);
 		return grunt.file.readJSON('./package.json');
 	}
 
