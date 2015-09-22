@@ -9,18 +9,18 @@ module.exports = function (grunt) {
 			src: ['DETAILS.md', 'README.md'],
 			overwrite: true,
 			replacements: [{
-				from: /fuelux\/\d\.\d\.\d/g,
+				from: /fuelux\/\d{1,2}\.\d{1,2}\.\d{1,2}/g,
 				to: 'fuelux/' + getPackage().version
 			}]
 		},
-    packageJs: {
+		packageJs: {
 			src: ['package.js'],
 			overwrite: true,
 			replacements: [{
-				from: /version: '\d\.\d\.\d'/,
+				from: /version\:\ \'\d{1,2}\.\d{1,2}\.\d{1,2}\'/g,
 				to: "version: '" + getPackage().version + "'"
 			}]
-    }
+		}
 	}
 
 };
