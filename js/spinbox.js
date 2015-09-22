@@ -92,6 +92,7 @@
 		}
 	};
 
+	// Truly private methods
 	var _limitToStep = function _limitToStep(number, step, roundDirection) {
 		var limitedNumber = number;
 
@@ -107,7 +108,7 @@
 		return limitedNumber;
 	};
 
-	_isUnitLegal = function _isUnitLegal(unit, validUnits) {
+	var _isUnitLegal = function _isUnitLegal(unit, validUnits) {
 		var legalUnit = false;
 		var suspectUnit = unit.toLowerCase();
 
@@ -251,7 +252,7 @@
 		},
 
 		getValue: function getValue() {
-			var val = this.options.value
+			var val = this.options.value;
 			if (this.options.decimalMark !== '.'){
 				val = (val + '').split('.').join(this.options.decimalMark);
 			}

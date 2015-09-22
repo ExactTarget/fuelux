@@ -267,7 +267,7 @@ define(function(require){
 
 
 
-	})
+	});
 
 	test("should destroy control", function () {
 		var $el = $(html).find('#MySpinbox');
