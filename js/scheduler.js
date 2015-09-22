@@ -78,17 +78,20 @@
 		if (this.$repeatIntervalSpinbox.find('input').val() === '0') {
 			this.$repeatIntervalSpinbox.spinbox({
 				'value': 1,
-				'min': 1
+				'min': 1,
+				'limitToStep': true
 			});
 		} else {
 			this.$repeatIntervalSpinbox.spinbox({
-				'min': 1
+				'min': 1,
+				'limitToStep': true
 			});
 		}
 
 		this.$endAfter.spinbox({
 			'value': 1,
-			'min': 1
+			'min': 1,
+			'limitToStep': true
 		});
 		this.$endDate.datepicker(this.options.endDateOptions);
 		this.$element.find('.radio-custom').radio();
