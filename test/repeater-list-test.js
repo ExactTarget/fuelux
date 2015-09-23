@@ -155,34 +155,40 @@ define(function(require){
 		var count = 0;
 		var $first;
 
+		$repeater.on('rendered.fu.repeater', function(e, data){
+			setTimeout(function(){
+				$repeater.repeater('enable');
+				var options = data.options;
+				count++;
+				switch(count){
+					case 1:
+						$first = $repeater.find('.repeater-list thead .repeater-list-heading:first');
+						$first.click();
+						break;
+					case 2:
+						equal(($first.hasClass('sorted') && $first.find('span').hasClass('glyphicon-chevron-up')), true, 'asc sorted header has appropriate class and icon');
+						equal(options.sortDirection, 'asc', 'dataSource passed appropriate sortDirection value');
+						equal(options.sortProperty, 'commonName', 'dataSource passed appropriate sortProperty value');
+						$first.click();
+						break;
+					case 3:
+						equal(($first.hasClass('sorted') && $first.find('span').hasClass('glyphicon-chevron-down')), true, 'desc sorted header has appropriate class and icon');
+						equal(options.sortDirection, 'desc', 'dataSource passed appropriate sortDirection value');
+						equal(options.sortProperty, 'commonName', 'dataSource passed appropriate sortProperty value');
+						$first.click();
+						break;
+					case 4:
+						equal($first.hasClass('sorted'), false, 'previously sorted header reverted to non-sorted');
+						equal(options.sortDirection, undefined, 'dataSource passed appropriate sortDirection value');
+						equal(options.sortProperty, undefined, 'dataSource passed appropriate sortProperty value');
+						$repeater.off('loaded.fu.repeater');
+						start();
+						break;
+				}
+			}, 0);
+		});
 		$repeater.on('loaded.fu.repeater', function(e, options){
-			count++;
 
-			switch(count){
-				case 1:
-					$first = $repeater.find('.repeater-list thead .repeater-list-heading:first');
-					$first.click();
-					break;
-				case 2:
-					equal(($first.hasClass('sorted') && $first.find('span').hasClass('glyphicon-chevron-up')), true, 'asc sorted header has appropriate class and icon');
-					equal(options.sortDirection, 'asc', 'dataSource passed appropriate sortDirection value');
-					equal(options.sortProperty, 'commonName', 'dataSource passed appropriate sortProperty value');
-					$first.click();
-					break;
-				case 3:
-					equal(($first.hasClass('sorted') && $first.find('span').hasClass('glyphicon-chevron-down')), true, 'desc sorted header has appropriate class and icon');
-					equal(options.sortDirection, 'desc', 'dataSource passed appropriate sortDirection value');
-					equal(options.sortProperty, 'commonName', 'dataSource passed appropriate sortProperty value');
-					$first.click();
-					break;
-				case 4:
-					equal($first.hasClass('sorted'), false, 'previously sorted header reverted to non-sorted');
-					equal(options.sortDirection, undefined, 'dataSource passed appropriate sortDirection value');
-					equal(options.sortProperty, undefined, 'dataSource passed appropriate sortProperty value');
-					$repeater.off('loaded.fu.repeater');
-					start();
-					break;
-			}
 		});
 
 		$repeater.repeater({

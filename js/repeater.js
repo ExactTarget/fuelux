@@ -60,6 +60,7 @@
 		this.infiniteScrollingEnabled = false;
 		this.infiniteScrollingEnd = null;
 		this.infiniteScrollingOptions = {};
+		this.isDisabled = false;
 		this.lastPageInput = 0;
 		this.options = $.extend({}, $.fn.repeater.defaults, options);
 		this.pageIncrement = 0;// store direction navigated
@@ -218,6 +219,7 @@
 			var disable = 'disable';
 			var disabled = 'disabled';
 
+			this.isDisabled = true;
 			this.$search.search(disable);
 			this.$filters.selectlist(disable);
 			this.$views.find('label').attr(disabled, disabled);
@@ -226,6 +228,14 @@
 			this.$secondaryPaging.attr(disabled, disabled);
 			this.$prevBtn.attr(disabled, disabled);
 			this.$nextBtn.attr(disabled, disabled);
+
+			if(this.options.list_actions) {
+				this.$element.find('.actions-column-wrapper button').attr(disabled, disabled);
+			}
+			if(this.options.list_selectable === 'multi') {
+				this.$element.find('.checkbox-custom').checkbox(disable);
+			}
+
 
 			this.$element.addClass('disabled');
 			this.$element.trigger('disabled.fu.repeater');
@@ -236,6 +246,7 @@
 			var enable = 'enable';
 			var pageEnd = 'page-end';
 
+			this.isDisabled = false;
 			this.$search.search(enable);
 			this.$filters.selectlist(enable);
 			this.$views.find('label').removeAttr(disabled);
