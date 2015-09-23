@@ -36,7 +36,7 @@
 
 	// SCHEDULER CONSTRUCTOR AND PROTOTYPE
 
-	var Scheduler = function (element, options) {
+	var Scheduler = function Scheduler(element, options) {
 		var self = this;
 
 		this.$element = $(element);
@@ -113,7 +113,7 @@
 	Scheduler.prototype = {
 		constructor: Scheduler,
 
-		destroy: function () {
+		destroy: function destroy() {
 			var markup;
 			// set input value attribute
 			this.$element.find('input').each(function () {
@@ -139,7 +139,7 @@
 			return markup;
 		},
 
-		changed: function (e, data, propagate) {
+		changed: function changed(e, data, propagate) {
 			if (!propagate) {
 				e.stopPropagation();
 			}
@@ -151,15 +151,15 @@
 			});
 		},
 
-		disable: function () {
+		disable: function disable() {
 			this.toggleState('disable');
 		},
 
-		enable: function () {
+		enable: function enable() {
 			this.toggleState('enable');
 		},
 
-		setUtcTime: function (d, t, offset) {
+		setUtcTime: function setUtcTime(d, t, offset) {
 			var date = d.split('-');
 			var time = t.split(':');
 			function z(n) {
@@ -197,7 +197,7 @@
 
 		// called when the end range changes
 		// (Never, After, On date)
-		endSelectChanged: function (e, data) {
+		endSelectChanged: function endSelectChanged(e, data) {
 			var selectedItem, val;
 
 			if (!data) {
@@ -223,7 +223,7 @@
 			}
 		},
 
-		getValue: function () {
+		getValue: function getValue() {
 			// FREQ = frequency (secondly, minutely, hourly, daily, weekdays, weekly, monthly, yearly)
 			// BYDAY = when picking days (MO,TU,WE,etc)
 			// BYMONTH = when picking months (Jan,Feb,March) - note the values should be 1,2,3...
@@ -244,9 +244,7 @@
 			}
 
 			var timeZone = this.$timeZone.selectlist('selectedItem');
-			var getFormattedDate;
-
-			getFormattedDate = function (dateObj, dash) {
+			var getFormattedDate = function getFormattedDate(dateObj, dash) {
 				var fdate = '';
 				var item;
 
@@ -377,7 +375,7 @@
 
 		// called when the repeat interval changes
 		// (None, Hourly, Daily, Weekdays, Weekly, Monthly, Yearly
-		repeatIntervalSelectChanged: function (e, data) {
+		repeatIntervalSelectChanged: function repeatIntervalSelectChanged(e, data) {
 			var selectedItem, val, txt;
 
 			if (!data) {
@@ -425,7 +423,7 @@
 			}
 		},
 
-		setValue: function (options) {
+		setValue: function setValue(options) {
 			var hours, i, item, l, minutes, period, recur, temp, startDate, startTime, timeOffset;
 
 			if (options.startDateTime) {
@@ -618,7 +616,7 @@
 			this.$startDate.datepicker('setDate', utcStartHours);
 		},
 
-		toggleState: function (action) {
+		toggleState: function toggleState(action) {
 			this.$element.find('.combobox').combobox(action);
 			this.$element.find('.datepicker').datepicker(action);
 			this.$element.find('.selectlist').selectlist(action);
@@ -634,7 +632,7 @@
 			this.$element.find('.repeat-days-of-the-week .btn-group')[action]('disabled');
 		},
 
-		value: function (options) {
+		value: function value(options) {
 			if (options) {
 				return this.setValue(options);
 			} else {
@@ -646,7 +644,7 @@
 
 	// SCHEDULER PLUGIN DEFINITION
 
-	$.fn.scheduler = function (option) {
+	$.fn.scheduler = function scheduler(option) {
 		var args = Array.prototype.slice.call(arguments, 1);
 		var methodReturn;
 
@@ -671,7 +669,7 @@
 
 	$.fn.scheduler.Constructor = Scheduler;
 
-	$.fn.scheduler.noConflict = function () {
+	$.fn.scheduler.noConflict = function noConflict() {
 		$.fn.scheduler = old;
 		return this;
 	};
