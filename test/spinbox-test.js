@@ -102,6 +102,41 @@ define(function(require){
 		equal($spinbox.spinbox('value'), -10, 'spinbox resets to min value when min value is surpassed');
 	});
 
+	test("spinbox should not allow non-step values to be surpassed by manual input when increments are limited to step", function () {
+		var $spinbox = $(html).find('#MySpinbox').spinbox({
+			step: 3,
+			limitToStep: true,
+			min: 1,
+			max: 7
+		});
+
+		$spinbox.find('.spinbox-input').val(1);
+		$spinbox.find('.spinbox-input').focusout();
+		equal($spinbox.spinbox('value'), 3, 'spinbox sets to step value when min value is less than step value and value is set by hand');
+
+		$spinbox.find('.spinbox-input').val(4);
+		$spinbox.find('.spinbox-input').focusout();
+		equal($spinbox.spinbox('value'), 3, 'spinbox rounds down to step when appropriate');
+
+		$spinbox.find('.spinbox-input').val(5);
+		$spinbox.find('.spinbox-input').focusout();
+		equal($spinbox.spinbox('value'), 6, 'spinbox rounds up to step when appropriate');
+
+		$spinbox.find('.spinbox-input').val(7);
+		$spinbox.find('.spinbox-input').focusout();
+		equal($spinbox.spinbox('value'), 6, 'spinbox sets to step value when value is max value and is not multiple of step value and value is set by hand');
+
+		$spinbox.find('.spinbox-input').val(-10000000000);
+		$spinbox.find('.spinbox-input').focusout();
+		equal($spinbox.spinbox('value'), 3, 'spinbox sets to step value when min value is less than step value and value is set by hand');
+
+		$spinbox.find('.spinbox-input').val(9999999999999);
+		$spinbox.find('.spinbox-input').focusout();
+		equal($spinbox.spinbox('value'), 6, 'spinbox sets to step value when value is max value and is not multiple of step value and value is set by hand');
+
+
+	});
+
 	test("should cycle when min or max values are reached", function () {
 		var $spinbox = $(html).find('#MySpinbox').spinbox({
 			min: 1,
@@ -119,36 +154,30 @@ define(function(require){
 		equal($spinbox.spinbox('value'), 2, 'spinbox value cycled at min');
 	});
 
-	test("spinbox should behave correctly when units are included", function () {
+	test("spinbox should behave correctly when units are included", function testForUnits() {
 		var $spinbox = $(html).find('#MySpinbox').spinbox({
 			min: -10,
 			units: ['px']
 		});
 
-		//spinbox behaves when units are enabled for non-unit values
 		$spinbox.spinbox('value', 1);
-		ok($spinbox.spinbox('value') === '1', 'spinbox returned integer');
+		ok($spinbox.spinbox('value') === '1', 'spinbox does not add units when units are enabled but not present in input; 1 === ' + $spinbox.spinbox('value'));
 
-		//spinbox handles string with appropriate unit
 		$spinbox.spinbox('value', '1px');
-		ok($spinbox.spinbox('value') === '1px', 'spinbox returned string and supported units');
+		ok($spinbox.spinbox('value') === '1px', 'spinbox handles string with allowed unit; 1px === ' + $spinbox.spinbox('value'));
 
-		//increment positive
-		$spinbox.spinbox('step',true);
-		equal($spinbox.spinbox('value'), '2px', 'spinbox increments positive');
+		$spinbox.spinbox('step', true);
+		equal($spinbox.spinbox('value'), '2px', 'spinbox increments; ' + $spinbox.spinbox('value') + ' === 2px');
 
-		//increment nagative
-		$spinbox.spinbox('step',false);
-		equal($spinbox.spinbox('value'), '1px', 'spinbox increments negative');
+		$spinbox.spinbox('step', false);
+		equal($spinbox.spinbox('value'), '1px', 'spinbox decrements; ' + $spinbox.spinbox('value') + ' === 1px');
 
-		//Should not allow units not supported
-		$spinbox.spinbox('value','2pp');
-		equal($spinbox.spinbox('value'), 2, 'spinbox not allowing units not supported');
+		$spinbox.spinbox('value', '2pp');
+		equal($spinbox.spinbox('value'), 2, 'spinbox does not allow unsupported units; 2 === ' + $spinbox.spinbox('value'));
 
-		//Spinbox should change on focusout with units
 		$spinbox.find('.spinbox-input').val('4px');
 		$spinbox.find('.spinbox-input').focusout();
-		equal($spinbox.spinbox('value'), '4px', 'spinbox updates string value on focus out');
+		equal($spinbox.spinbox('value'), '4px', 'spinbox updates string value on focus out with units present; 4px === ' + $spinbox.spinbox('value'));
 
 	});
 
@@ -163,14 +192,14 @@ define(function(require){
 
 	});
 
-	test("spinbox should NOT add default unit if it not allowed", function () {
+	test("spinbox should NOT add default unit if it is not an allowed unit", function () {
 		var $spinbox = $(html).find('#MySpinbox').spinbox({
 			units: ['px'],
 			defaultUnit: 'ouch'
 		});
 
 		$spinbox.spinbox('value', 1);
-		ok($spinbox.spinbox('value') === '1', 'spinbox returned value WITHOUT default unit');
+		ok($spinbox.spinbox('value') === '1', 'spinbox returned value WITHOUT default unit; ' + $spinbox.spinbox('value') + ' === 1');
 
 	});
 
@@ -196,17 +225,47 @@ define(function(require){
 			decimalMark: ','
 		});
 
-		//spinbox behaves when there is no custom decimal mark
 		$spinbox.spinbox('value', '1');
-		equal($spinbox.spinbox('value'), '1', 'spinbox returned correct number');
+		equal($spinbox.spinbox('value'), '1', 'spinbox returned expected number when there is was custom decimal mark; ' + $spinbox.spinbox('value') + ' === 1');
 
-		//increment positive
 		$spinbox.spinbox('step',true);
-		equal($spinbox.spinbox('value'), '1,1', 'spinbox increments positive');
+		equal($spinbox.spinbox('value'), '1,1', 'spinbox increments; ' + $spinbox.spinbox('value') + ' === 1,1');
 
-		//increment nagative
 		$spinbox.spinbox('step',false);
-		equal($spinbox.spinbox('value'), '1', 'spinbox increments negative');
+		equal($spinbox.spinbox('value'), '1', 'spinbox decrements; ' + $spinbox.spinbox('value') + ' === 1');
+
+	});
+
+	test("spinbox should allow retrieval of unadulterated number", function () {
+		var $spinbox = $(html).find('#MySpinboxDecimal').spinbox({
+			value: '1,1',
+			min: 0,
+			max: 10,
+			step: 0.1,
+			decimalMark: ','
+		});
+
+		$spinbox.spinbox('value', '1');
+		equal($spinbox.spinbox('getIntValue'), 1, 'spinbox returns expected integer; ' + $spinbox.spinbox('getIntValue') + ' === 1');
+
+		$spinbox.spinbox('value', '1,1');
+		equal($spinbox.spinbox('getIntValue'), 1.1, 'spinbox returns expected float; ' + $spinbox.spinbox('value') + ' === 1.1');
+
+		var $spinbox2 = $(html).find('#MySpinboxDecimal').spinbox({
+			value: '1.1',
+			min: 0,
+			max: 10,
+			step: 0.1,
+			decimalMark: '.'
+		});
+
+		$spinbox.spinbox('value', '1');
+		equal($spinbox.spinbox('getIntValue'), 1, 'spinbox returns expected integer; ' + $spinbox.spinbox('getIntValue') + ' === 1');
+
+		$spinbox.spinbox('value', '1.1');
+		equal($spinbox.spinbox('getIntValue'), 1.1, 'spinbox returns expected float; ' + $spinbox.spinbox('value') + ' === 1.1');
+
+
 
 	});
 
