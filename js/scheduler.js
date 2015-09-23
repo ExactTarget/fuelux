@@ -68,6 +68,7 @@
 		//initialize sub-controls
 		this.$element.find('.selectlist').selectlist();
 		this.$startDate.datepicker(this.options.startDateOptions);
+		this.$startDate.on('changed.fu.datepicker', $.proxy(this.startDateChanged, this));
 		this.$startTime.combobox();
 		// init start time
 		if (this.$startTime.find('input').val() === '') {
@@ -221,6 +222,13 @@
 				this.$endDate.parent().removeClass('hide hidden');	// hide is deprecated
 				this.$endDate.parent().attr('aria-hidden', 'false');
 			}
+		},
+
+		startDateChanged: function startDateChanged(e) {
+			console.log('startDateChanged', e);
+			//if repeats
+			//if enddate is before start date
+			//set enddate forward by greater of 1 day or repeat interval
 		},
 
 		getValue: function getValue() {
