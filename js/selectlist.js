@@ -59,7 +59,7 @@
 				var $this = $(this);
 				// attach key listener when dropdown is shown
 				$(document).on('keypress.fu.selectlist', function(e){
-					
+
 					// get the key that was pressed
 					var key = String.fromCharCode(e.which);
 					// look the items to find the first item with the first character match and set focus
@@ -69,7 +69,7 @@
 							return false;
 						}
 					});
-					
+
 			});
 		});
 
@@ -155,7 +155,7 @@
 			sizer.append(this.$element.clone());
 
 			this.$element.find('a').each(function () {
-				sizer.find('.selected-label').text($(this).text());
+				sizer.find('.selected-label').html($(this).html());
 				newWidth = sizer.find('.selectlist').outerWidth();
 				newWidth = newWidth + sizer.find('.sr-only').outerWidth();
 				if (newWidth > width) {
