@@ -41,7 +41,6 @@
 		this.options.step = this.$element.data('step') || this.options.step;
 
 		this.$input = this.$element.find('.spinbox-input');
-		this.$element.on('focusin.fu.spinbox', this.$input, $.proxy(this.changeFlag, this));
 		this.$element.on('focusout.fu.spinbox', this.$input, $.proxy(this.change, this));
 		this.$element.on('keydown.fu.spinbox', this.$input, $.proxy(this.keydown, this));
 		this.$element.on('keyup.fu.spinbox', this.$input, $.proxy(this.keyup, this));
@@ -93,19 +92,8 @@
 	};
 
 	// Truly private methods
-	var _limitToStep = function _limitToStep(number, step, roundDirection) {
-		var limitedNumber = number;
-
-		var remainder = number % step;
-		if(remainder > 0){
-			if(remainder > step/2 || typeof roundDirection !== 'undefined' && roundDirection > 0){
-				limitedNumber = number - remainder + step;
-			}else{
-				limitedNumber = number - remainder;
-			}
-		}
-
-		return limitedNumber;
+	var _limitToStep = function _limitToStep(number, step) {
+		return Math.round(number / step) * step;
 	};
 
 	var _isUnitLegal = function _isUnitLegal(unit, validUnits) {
@@ -121,6 +109,41 @@
 		});
 
 		return legalUnit;
+	};
+
+	var _applyLimits = function _applyLimits(value) {
+		// if unreadable
+		if (isNaN(parseFloat(value))) {
+			return value;
+		}
+
+		// if not within range return the limit
+		if (value > this.options.max) {
+			if (this.options.cycle) {
+				value = this.options.min;
+			} else {
+				value = this.options.max;
+			}
+		} else if (value < this.options.min) {
+			if (this.options.cycle) {
+				value = this.options.max;
+			} else {
+				value = this.options.min;
+			}
+		}
+
+		if (this.options.limitToStep && this.options.step) {
+			value = _limitToStep(value, this.options.step);
+
+			//force round direction so that it stays within bounds
+			if(value > this.options.max){
+				value = value - this.options.step;
+			} else if(value < this.options.min) {
+				value = value + this.options.step;
+			}
+		}
+
+		return value;
 	};
 
 	Spinbox.prototype = {
@@ -147,14 +170,8 @@
 			this.setValue(value);
 		},
 
-		output: function output(value, updateField) {
-			updateField = (typeof updateField === 'boolean') ? updateField : true;
-
-			if (updateField) {
-				this.$input.val(value);
-			}
-
-			return value;
+		output: function output(value) {
+			this.$input.val(value);
 		},
 
 		change: function change() {
@@ -162,12 +179,7 @@
 
 			this.setValue(newVal);
 
-			this.changeFlag = false;
 			this.triggerChangedEvent();
-		},
-
-		changeFlag: function changeFlag() {
-			this.changeFlag = true;
 		},
 
 		stopSpin: function stopSpin() {
@@ -184,7 +196,7 @@
 			this.lastValue = currentValue;
 
 			// Primary changed event
-			this.$element.trigger('changed.fu.spinbox', this.output(currentValue, false));// no DOM update
+			this.$element.trigger('changed.fu.spinbox', currentValue);
 		},
 
 		startSpin: function startSpin(type) {
@@ -215,40 +227,15 @@
 		},
 
 		step: function step(isIncrease) {
-			// isIncrease: true is up, false is down
+			var newVal = this.options.value;
 
-			var digits, multiple, currentValue, limitValue;
-
-			// trigger change event
-			if (this.changeFlag) {
-				this.change();
+			if (isIncrease) {
+				newVal += this.options.step;
+			} else {
+				newVal -= this.options.step;
 			}
 
-			// get current value and min/max options
-			currentValue = this.options.value;
-			limitValue = isIncrease ? this.options.max : this.options.min;
-
-			if ( (isIncrease ? currentValue < limitValue : currentValue > limitValue) ) {
-				var newVal = currentValue + (isIncrease ? 1 : -1) * this.options.step;
-
-				// raise to power of 10 x number of decimal places, then round
-				if (this.options.step % 1 !== 0) {
-					digits = (this.options.step + '').split('.')[1].length;
-					multiple = Math.pow(10, digits);
-					newVal = Math.round(newVal * multiple) / multiple;
-				}
-
-				// if outside limits, set to limit value
-				if (isIncrease ? newVal > limitValue : newVal < limitValue) {
-					this.setValue(limitValue);
-				} else {
-					this.setValue(newVal);
-				}
-
-			} else if (this.options.cycle) {
-				var cycleVal = isIncrease ? this.options.min : this.options.max;
-				this.setValue(cycleVal);
-			}
+			this.setValue(newVal);
 		},
 
 		getValue: function getValue() {
@@ -275,16 +262,12 @@
 			var intVal = this.getIntValue(val);
 
 			//make sure we are dealing with a number
-			if (isNaN(parseFloat(intVal)) && !isFinite(intVal)) {
-				return;
+			if (isNaN(intVal) && !isFinite(intVal)) {
+				return this.setValue(this.options.value);
 			}
 
 			//conform
-			intVal = this.checkMaxMin(intVal / 1);
-
-			if(this.options.limitToStep){
-				intVal = _limitToStep(intVal, this.options.step);
-			}
+			intVal = _applyLimits.call(this, intVal);
 
 			//cache the pure int value
 			this.options.value = intVal;
@@ -303,7 +286,6 @@
 		},
 
 		value: function value(val) {
-
 			if (val || val === 0) {
 				return this.setValue(val);
 			} else {
@@ -332,29 +314,6 @@
 			return value;
 		},
 
-		checkMaxMin: function checkMaxMin(value) {
-			// if unreadable
-			if (isNaN(parseFloat(value))) {
-				return value;
-			}
-
-			// if not within range return the limit
-			if (!(value <= this.options.max && value >= this.options.min)) {
-				if(value >= this.options.max){
-					value = this.options.max;
-				}else{
-					value = this.options.min;
-				}
-			}
-
-			if(this.options.limitToStep && value % this.options.step > 0){
-				//force round direction so that it stays within bounds
-				value = _limitToStep(value, this.options.step, (value === this.options.min) ? 1 : -1);
-			}
-
-			return value;
-		},
-
 		disable: function disable() {
 			this.options.disabled = true;
 			this.$element.addClass('disabled');
@@ -375,6 +334,8 @@
 				this.step(true);
 			} else if (keyCode === 40) {
 				this.step(false);
+			} else if (keyCode === 13) {
+				this.change();
 			}
 		},
 

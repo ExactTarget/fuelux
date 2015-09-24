@@ -918,8 +918,9 @@ define(function (require) {
 
 	$('#mySpinbox3').spinbox({
 		value: 1,
-		min: 1,
-		max: 10,
+		min: 0,
+		max: 1100,
+		step:1,
 		'limitToStep': true
 	});
 
