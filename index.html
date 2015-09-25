@@ -1788,11 +1788,29 @@
 										<input type="text" aria-hidden="true" readonly="readonly" name="intervalSelectlist" class="hidden hidden-field">
 									</div>
 
-									<div class="repeat-panel repeat-every-panel repeat-secondly repeat-minutely repeat-hourly repeat-daily repeat-weekly hidden" aria-hidden="true">
+									<div class="repeat-panel repeat-every-panel repeat-secondly repeat-hourly repeat-daily repeat-weekly hidden" aria-hidden="true">
 										<label id="MySchedulerEveryLabel" class="inline-form-text repeat-every-pretext">every</label>
 
 										<div class="spinbox digits-3 repeat-every">
 											<input type="text" class="form-control input-mini spinbox-input" aria-labelledby="MySchedulerEveryLabel">
+											<div class="spinbox-buttons btn-group btn-group-vertical">
+												<button type="button" class="btn btn-default spinbox-up btn-xs">
+													<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
+												</button>
+												<button type="button" class="btn btn-default spinbox-down btn-xs">
+													<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
+												</button>
+											</div>
+										</div>
+
+										<div class="inline-form-text repeat-every-text"></div>
+									</div>
+
+									<div class="repeat-panel repeat-every-panel repeat-minutely hidden" aria-hidden="true">
+										<label id="MySchedulerMinutelyLabel" class="inline-form-text repeat-every-pretext">every</label>
+
+										<div class="spinbox digits-3 repeat-every" data-step="5">
+											<input type="text" class="form-control input-mini spinbox-input" aria-labelledby="MySchedulerMinutelyLabel">
 											<div class="spinbox-buttons btn-group btn-group-vertical">
 												<button type="button" class="btn btn-default spinbox-up btn-xs">
 													<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
@@ -2418,6 +2436,17 @@
 					</div>
 					<div class="spinbox" id="mySpinbox2">
 						<input class="form-control input-mini spinbox-input" id="mySpinboxInput2" type="text" value="10">
+						<div class="spinbox-buttons btn-group btn-group-vertical">
+							<button type="button" class="btn btn-default spinbox-up btn-xs">
+								<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
+							</button>
+							<button type="button" class="btn btn-default spinbox-down btn-xs">
+								<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
+							</button>
+						</div>
+					</div>
+					<div class="spinbox" id="mySpinbox3">
+						<input class="form-control input-mini spinbox-input" id="mySpinboxInput3" type="text">
 						<div class="spinbox-buttons btn-group btn-group-vertical">
 							<button type="button" class="btn btn-default spinbox-up btn-xs">
 								<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>

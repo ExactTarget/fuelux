@@ -102,6 +102,22 @@ define(function(require){
 		equal($spinbox.spinbox('value'), -10, 'spinbox resets to min value when min value is surpassed');
 	});
 
+	test("spinbox should not allow maximum/minimum values to be surpassed by default values", function () {
+		var $spinbox = $(html).find('#MySpinbox').spinbox({
+			min: 1,
+			value: 0
+		});
+
+		equal($spinbox.spinbox('value'), 1, 'spinbox inits to min when default value is less than min');
+
+		$spinbox = $(html).find('#MySpinbox').spinbox({
+			max: 1,
+			value: 2
+		});
+
+		equal($spinbox.spinbox('value'), 1, 'spinbox inits to max when default value is more than min');
+	});
+
 	test("spinbox should not allow non-step values to be surpassed by manual input when increments are limited to step", function () {
 		var $spinbox = $(html).find('#MySpinbox').spinbox({
 			step: 3,
@@ -143,6 +159,7 @@ define(function(require){
 			max: 3,
 			cycle: true
 		});
+
 		$spinbox.spinbox('step',true); // 2
 		$spinbox.spinbox('step',true); // 3
 		$spinbox.spinbox('step',true); // 1

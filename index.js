@@ -916,6 +916,14 @@ define(function (require) {
 		defaultUnit: 'px'
 	});
 
+	$('#mySpinbox3').spinbox({
+		value: 1,
+		min: 0,
+		max: 1100,
+		step:1,
+		'limitToStep': true
+	});
+
 	// events
 	$('#mySpinbox1').on('changed.fu.spinbox', function (event, value) {
 		log('Spinbox changed: ', value);
