@@ -594,6 +594,7 @@
 		if (sortable) {
 			$both.addClass('sortable');
 			$div.on('click.fu.repeaterList', function () {
+				if(self.isDisabled) { return; }
 				self.list_sortProperty = (typeof sortable === 'string') ? sortable : columns[index].property;
 				if ($div.hasClass('sorted')) {
 					if ($span.hasClass(chevUp)) {
@@ -655,6 +656,7 @@
 			$row.data('item_data', rows[index]);
 
 			$row.on('click.fu.repeaterList', function () {
+				if(self.isDisabled) { return; }
 				var $item = $(this);
 				var index = $(this).index();
 				index = index + 1;
