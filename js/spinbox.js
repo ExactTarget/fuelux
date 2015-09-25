@@ -40,6 +40,12 @@
 		this.options = $.extend({}, $.fn.spinbox.defaults, options);
 		this.options.step = this.$element.data('step') || this.options.step;
 
+		if (this.options.value < this.options.min) {
+			this.options.value = this.options.min
+		} else if (this.options.max < this.options.value) {
+			this.options.value = this.options.max;
+		}
+
 		this.$input = this.$element.find('.spinbox-input');
 		this.$input.on('focusout.fu.spinbox', this.$input, $.proxy(this.change, this));
 		this.$element.on('keydown.fu.spinbox', this.$input, $.proxy(this.keydown, this));
@@ -218,20 +224,24 @@
 		},
 
 		step: function step(isIncrease) {
-			var newVal = this.getDisplayValue();
+			//refresh value from display before trying to increment in case they have just been typing before clicking the nubbins
+			this.setValue(this.getDisplayValue());
+			var newVal;
 
 			if (isIncrease) {
-				newVal += this.options.step;
+				newVal = this.options.value + this.options.step;
 			} else {
-				newVal -= this.options.step;
+				newVal = this.options.value - this.options.step;
 			}
 
-			this.setValue(newVal);
+			newVal = newVal.toFixed(5);
+
+			this.setValue(newVal + this.unit);
 		},
 
 		getDisplayValue: function getDisplayValue() {
-			var inputValue = this.getIntValue(this.parseInput(this.$input.val()));
-			var value = (inputValue !== '') ? inputValue : this.options.value;
+			var inputValue = this.parseInput(this.$input.val());
+			var value = (!!inputValue) ? inputValue : this.options.value;
 			return value;
 		},
 
