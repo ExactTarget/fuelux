@@ -675,13 +675,19 @@
 						$item.find('.repeater-list-check').remove();
 					}
 
-					self.$element.trigger('deselected.fu.repeaterList', $item);
+					self.$element.trigger('deselected.fu.repeaterList', {
+						data: $item.data('item_data'),
+						element: $item
+					});
 				} else {
 					if (!isMulti) {
 						self.$canvas.find('.repeater-list-check').remove();
 						self.$canvas.find('.repeater-list tbody tr.selected').each(function () {
 							$(this).removeClass('selected');
-							self.$element.trigger('deselected.fu.repeaterList', $(this));
+							self.$element.trigger('deselected.fu.repeaterList', {
+									data: $item.data('item_data'),
+									element: $item
+								});
 						});
 						$item.find('td:first').prepend('<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>');
 						$item.addClass('selected');
@@ -695,7 +701,10 @@
 							$actionsRow.addClass('selected');
 						}
 					}
-					self.$element.trigger('selected.fu.repeaterList', $item);
+					self.$element.trigger('selected.fu.repeaterList', {
+						data: $item.data('item_data'),
+						element: $item
+					});
 				}
 				var $selected = self.$canvas.find('.repeater-list-wrapper > table .selected');
 				var $actionsColumn = self.$element.find('.table-actions');
