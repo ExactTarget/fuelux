@@ -41,7 +41,7 @@
 		this.options.step = this.$element.data('step') || this.options.step;
 
 		if (this.options.value < this.options.min) {
-			this.options.value = this.options.min
+			this.options.value = this.options.min;
 		} else if (this.options.max < this.options.value) {
 			this.options.value = this.options.max;
 		}

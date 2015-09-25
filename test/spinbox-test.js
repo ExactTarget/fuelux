@@ -110,7 +110,7 @@ define(function(require){
 
 		equal($spinbox.spinbox('value'), 1, 'spinbox inits to min when default value is less than min');
 
-		var $spinbox = $(html).find('#MySpinbox').spinbox({
+		$spinbox = $(html).find('#MySpinbox').spinbox({
 			max: 1,
 			value: 2
 		});
