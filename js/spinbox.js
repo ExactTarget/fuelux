@@ -41,7 +41,7 @@
 		this.options.step = this.$element.data('step') || this.options.step;
 
 		this.$input = this.$element.find('.spinbox-input');
-		this.$element.on('focusout.fu.spinbox', this.$input, $.proxy(this.change, this));
+		this.$input.on('focusout.fu.spinbox', this.$input, $.proxy(this.change, this));
 		this.$element.on('keydown.fu.spinbox', this.$input, $.proxy(this.keydown, this));
 		this.$element.on('keyup.fu.spinbox', this.$input, $.proxy(this.keyup, this));
 
@@ -164,20 +164,11 @@
 		},
 
 		render: function render() {
-			var inputValue = this.parseInput(this.$input.val());
-			var value = (inputValue !== '' && this.options.value === 0) ? inputValue : this.options.value;
-
-			this.setValue(value);
-		},
-
-		output: function output(value) {
-			this.$input.val(value);
+			this.setValue(this.getDisplayValue());
 		},
 
 		change: function change() {
-			var newVal = this.$input.val() || '';
-
-			this.setValue(newVal);
+			this.setValue(this.getDisplayValue());
 
 			this.triggerChangedEvent();
 		},
@@ -227,7 +218,7 @@
 		},
 
 		step: function step(isIncrease) {
-			var newVal = this.options.value;
+			var newVal = this.getDisplayValue();
 
 			if (isIncrease) {
 				newVal += this.options.step;
@@ -236,6 +227,16 @@
 			}
 
 			this.setValue(newVal);
+		},
+
+		getDisplayValue: function getDisplayValue() {
+			var inputValue = this.getIntValue(this.parseInput(this.$input.val()));
+			var value = (inputValue !== '') ? inputValue : this.options.value;
+			return value;
+		},
+
+		setDisplayValue: function setDisplayValue(value) {
+			this.$input.val(value);
 		},
 
 		getValue: function getValue() {
@@ -280,7 +281,7 @@
 			}
 
 			//display number
-			this.output(val);
+			this.setDisplayValue(val);
 
 			return this;
 		},
