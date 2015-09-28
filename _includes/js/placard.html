@@ -190,11 +190,11 @@
       </thead>
       <tbody>
         <tr>
-          <td>accept.fu.placard</td>
+          <td>accepted.fu.placard</td>
           <td>Fires when the user indicates the desire to 'accept' changes. This event fires after the <code>onAccept</code> function, if defined.</td>
         </tr>
         <tr>
-          <td>cancel.fu.placard</td>
+          <td>canceled.fu.placard</td>
           <td>Fires when the user indicates the desire to 'cancel' changes. This event fires after the <code>onCancel</code> function, if defined.</td>
         </tr>
         <tr>
@@ -210,7 +210,7 @@
   </div><!-- ./fu-table-responsive -->
   <p>All placard events are fired on the <code>.placard</code> classed element.</p>
 {% highlight js %}
-$('#myPlacard').on('accept.fu.placard', function () {
+$('#myPlacard').on('accepted.fu.placard', function () {
   // do something…
 });
 {% endhighlight %}
