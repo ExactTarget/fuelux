@@ -559,6 +559,75 @@ $('#myRepeater').repeater({
     </table>
   </div><!-- ./fu-table-responsive -->
 
+  <h3 id="repeater-usage-events">Events</h3>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th style="width: 150px;">Event Type</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>disabled.fu.repeater</td>
+        <td>Fires whenever the repeater is disabled.</td>
+      </tr>
+      <tr>
+        <td>enabled.fu.repeater</td>
+        <td>Fires whenever the repeater is enabled.</td>
+      </tr>
+      <tr>
+        <td>filtered.fu.repeater</td>
+        <td>Fires whenever the repeater is filtered via the dropdown. Passes a filter <code>value</code> argument.</td>
+      </tr>
+      <tr>
+        <td>nextClicked.fu.repeater</td>
+        <td>Fires whenever the repeater next page button is clicked.</td>
+      </tr>
+      <tr>
+        <td>pageChanged.fu.repeater</td>
+        <td>Fires whenever the repeater page is changed via primary or secondary paging. NOTE: if the paged via
+        primary paging, an <code>array</code> is passed back as a parameter, containing the <code>value</code> and
+          <code>data</code>, respectively. If secondary paging causes the change, only a <code>value</code> is passed as
+        an argument.
+        </td>
+      </tr>
+      <tr>
+        <td>pageSizeChanged.fu.repeater</td>
+        <td>Fires whenever the repeater page size is changed. Passes a <code>value</code> argument.</td>
+      </tr>
+      <tr>
+        <td>previousClicked.fu.repeater</td>
+        <td>Fires whenever the repeater previous page button is clicked.</td>
+      </tr>
+      <tr>
+        <td>rendered.fu.repeater</td>
+        <td>Fires whenever the repeater has rendered data returned from the dataSource. Passses an <code>object</code> containing
+        <code>data</code>, <code>options</code>, and <code>renderOptions</code>.</td>
+      </tr>
+      <tr>
+        <td>resized.fu.repeater</td>
+        <td>Fires whenever the repeater is resized.</td>
+      </tr>
+      <tr>
+        <td>searchChanged.fu.repeater</td>
+        <td>Fires whenever the repeater search control is used.</td>
+      </tr>
+      <tr>
+        <td>viewChanged.fu.repeater</td>
+        <td>Fires whenever the repeater view is switched. Passes the <code>currentView</code> as an argument.</td>
+      </tr>
+      </tbody>
+    </table>
+  </div><!-- ./fu-table-responsive -->
+  <p>All repeater events are fired on the <code>.repeater</code> classed element.</p>
+  {% highlight js %}
+  $('#myRepeater').on('resized.fu.repeater', function () {
+  // do something…
+  });
+  {% endhighlight %}
+
   <h3 id="repeater-dependencies">Fuel UX Dependencies</h3>
   <ul>
     <li><a href="#combobox">Combobox</a></li>
