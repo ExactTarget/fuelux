@@ -51,7 +51,7 @@
 		background-image: -o-linear-gradient(top, @start-color, @end-color); // Opera 11.10
 		background-image: linear-gradient(to bottom, @start-color, @end-color); // Standard, IE10
 		background-repeat: repeat-x;
-		filter: e(%("progid:DXImage-transform.Microsoft.gradient(start-colorstr='%d', end-colorstr='%d', Gradient-type=0)",argb(@start-color),argb(@end-color))); // IE9 and down
+		filter: e(%("progid:DXImageTransform.Microsoft.gradient(start-colorstr='%d', end-colorstr='%d', Gradient-type=0)",argb(@start-color),argb(@end-color))); // IE9 and down
 	}
 
 	// Icon Base Styles
