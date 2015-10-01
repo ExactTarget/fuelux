@@ -57,13 +57,13 @@ define(function (require) {
 		$('#myCustomCheckbox1').checkbox('uncheck');
 	});
 
-	$('#myCustomCheckbox1').on('changed.fu.checkbox', function(evt, data) {
+	$('#myCustomCheckbox1').on('changed.fu.checkbox', function (evt, data) {
 		log('changed', data);
 	});
-	$('#myCustomCheckbox1').on('checked.fu.checkbox', function(evt, data) {
+	$('#myCustomCheckbox1').on('checked.fu.checkbox', function (evt, data) {
 		log('checked');
 	});
-	$('#myCustomCheckbox1').on('unchecked.fu.checkbox', function(evt, data) {
+	$('#myCustomCheckbox1').on('unchecked.fu.checkbox', function (evt, data) {
 		log('unchecked');
 	});
 
@@ -111,11 +111,11 @@ define(function (require) {
 	 DATEPICKER
 	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-	function formatClientTimezone8601() {
+	function formatClientTimezone8601 () {
 		var now = new Date(),
-			tzo = now.getTimezoneOffset() * -1,	//invert
+			tzo = now.getTimezoneOffset() * -1, // invert
 			dif = tzo >= 0 ? '+' : '-',
-			pad = function(num) {
+			pad = function (num) {
 				var norm = Math.abs(Math.floor(num));
 				return (norm < 10 ? '0' : '') + norm;
 			};
@@ -181,7 +181,7 @@ define(function (require) {
 	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 	// intitialize
-	function initMyInfiniteScroll1() {
+	function initMyInfiniteScroll1 () {
 		$('#myInfiniteScroll1').infinitescroll({
 			dataSource: function (helpers, callback) {
 				log('helpers variables', helpers);
@@ -275,110 +275,110 @@ define(function (require) {
 			callback({
 				data: [
 					{
-						"text": "African cherry orange",
-						"value": "african cherry orange",
-						"attr": {
-							"cssClass": "example-pill-class",
-							"style": "background-color: orange;",
-							"data-example-attribute": "true"
+						'text': 'African cherry orange',
+						'value': 'african cherry orange',
+						'attr': {
+							'cssClass': 'example-pill-class',
+							'style': 'background-color: orange;',
+							'data-example-attribute': 'true'
 						},
-						"data": {
-							"flora": true,
-							"color": "orange"
+						'data': {
+							'flora': true,
+							'color': 'orange'
 						}
 					},
 					{
-						"text": "Bilberry",
-						"value": "bilberry",
-						"attr": {
-							"cssClass": "example-pill-class",
-							"style": "background-color: midnightBlue;",
-							"data-example-attribute": "true"
+						'text': 'Bilberry',
+						'value': 'bilberry',
+						'attr': {
+							'cssClass': 'example-pill-class',
+							'style': 'background-color: midnightBlue;',
+							'data-example-attribute': 'true'
 						},
-						"data": {
-							"flora": true,
-							"color": "blue"
+						'data': {
+							'flora': true,
+							'color': 'blue'
 						}
 					},
 					{
-						"text": "Ceylon gooseberry",
-						"value": "ceylon gooseberry",
-						"attr": {
-							"cssClass": "example-pill-class",
-							"style": "background-color: mediumBlue;",
-							"data-example-attribute": "true"
+						'text': 'Ceylon gooseberry',
+						'value': 'ceylon gooseberry',
+						'attr': {
+							'cssClass': 'example-pill-class',
+							'style': 'background-color: mediumBlue;',
+							'data-example-attribute': 'true'
 						}
 					},
 					{
-						"text": "Dead Man's Fingers",
-						"value": "dead man's fingers",
-						"attr": {
-							"cssClass": "example-pill-class",
-							"style": "background-color: darkSlateBlue;",
-							"data-example-attribute": "true"
+						'text': "Dead Man's Fingers",
+						'value': "dead man's fingers",
+						'attr': {
+							'cssClass': 'example-pill-class',
+							'style': 'background-color: darkSlateBlue;',
+							'data-example-attribute': 'true'
 						}
 					},
 					{
-						"text": "Governor’s Plum",
-						"value": "governor’s plum",
-						"attr": {
-							"cssClass": "example-pill-class",
-							"style": "background-color: darkViolet;",
-							"data-example-attribute": "true"
+						'text': 'Governor’s Plum',
+						'value': 'governor’s plum',
+						'attr': {
+							'cssClass': 'example-pill-class',
+							'style': 'background-color: darkViolet;',
+							'data-example-attribute': 'true'
 						}
 					},
 					{
-						"text": "Huckleberry",
-						"value": "huckleberry",
-						"attr": {
-							"cssClass": "example-pill-class",
-							"style": "background-color: darkBlue;",
-							"data-example-attribute": "true"
+						'text': 'Huckleberry',
+						'value': 'huckleberry',
+						'attr': {
+							'cssClass': 'example-pill-class',
+							'style': 'background-color: darkBlue;',
+							'data-example-attribute': 'true'
 						}
 					},
 					{
-						"text": "Jackfruit",
-						"value": "jackfruit",
-						"attr": {
-							"cssClass": "example-pill-class",
-							"style": "background-color: yellow;",
-							"data-example-attribute": "true"
+						'text': 'Jackfruit',
+						'value': 'jackfruit',
+						'attr': {
+							'cssClass': 'example-pill-class',
+							'style': 'background-color: yellow;',
+							'data-example-attribute': 'true'
 						}
 					},
 					{
-						"text": "Lillypilly",
-						"value": "lillypilly",
-						"attr": {
-							"cssClass": "example-pill-class",
-							"style": "background-color: pink;",
-							"data-example-attribute": "true"
+						'text': 'Lillypilly',
+						'value': 'lillypilly',
+						'attr': {
+							'cssClass': 'example-pill-class',
+							'style': 'background-color: pink;',
+							'data-example-attribute': 'true'
 						}
 					},
 					{
-						"text": "Soursop",
-						"value": "soursop",
-						"attr": {
-							"cssClass": "example-pill-class",
-							"style": "background-color: beige;",
-							"data-example-attribute": "true"
+						'text': 'Soursop',
+						'value': 'soursop',
+						'attr': {
+							'cssClass': 'example-pill-class',
+							'style': 'background-color: beige;',
+							'data-example-attribute': 'true'
 						}
 					},
 					{
-						"text": "Thimbleberry",
-						"value": "thimbleberry",
-						"attr": {
-							"cssClass": "example-pill-class",
-							"style": "background-color: Crimson;",
-							"data-example-attribute": "true"
+						'text': 'Thimbleberry',
+						'value': 'thimbleberry',
+						'attr': {
+							'cssClass': 'example-pill-class',
+							'style': 'background-color: Crimson;',
+							'data-example-attribute': 'true'
 						}
 					},
 					{
-						"text": "Wongi",
-						"value": "wongi",
-						"attr": {
-							"cssClass": "example-pill-class",
-							"style": "background-color: red;",
-							"data-example-attribute": "true"
+						'text': 'Wongi',
+						'value': 'wongi',
+						'attr': {
+							'cssClass': 'example-pill-class',
+							'style': 'background-color: red;',
+							'data-example-attribute': 'true'
 						}
 					},
 				]
@@ -401,12 +401,12 @@ define(function (require) {
 		var randomBackgroundColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
 		$('#myPillbox1').pillbox('addItems',
 			{
-				"text": "item " + newItemCount,
-				"value": "item" + newItemCount,
-				"attr": {
-					"cssClass": "example-pill-class",
-					"style": "background-color:" + randomBackgroundColor + ";",
-					"data-example-attribute": "true"
+				'text': 'item ' + newItemCount,
+				'value': 'item' + newItemCount,
+				'attr': {
+					'cssClass': 'example-pill-class',
+					'style': 'background-color:' + randomBackgroundColor + ';',
+					'data-example-attribute': 'true'
 				}
 			});
 	});
@@ -463,11 +463,11 @@ define(function (require) {
 		});
 	});
 
-	$('#myPlacard3').on('accepted.fu.placard', function() {
+	$('#myPlacard3').on('accepted.fu.placard', function () {
 		console.log('accepted.fu.placard');
 	});
 
-	$('#myPlacard3').on('cancelled.fu.placard', function() {
+	$('#myPlacard3').on('cancelled.fu.placard', function () {
 		console.log('cancelled.fu.placard');
 	});
 
@@ -506,16 +506,16 @@ define(function (require) {
 	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 	// intitialize
-	function initRepeater() {
+	function initRepeater () {
 		// simulate network latency
 		var loadDelays = ['300', '600', '900', '1200'];
-		var sort = function( data, sortProperty, sortDirection ) {
-			var sortedData = _.sortBy( data, function( item ) {
-				return item[ sortProperty ];
-			} );
+		var sort = function (data, sortProperty, sortDirection) {
+			var sortedData = _.sortBy(data, function (item) {
+				return item[sortProperty];
+			});
 
 			// sort direction
-			if ( sortDirection === 'desc' ) {
+			if (sortDirection === 'desc') {
 				sortedData = sortedData.reverse();
 			}
 
@@ -573,7 +573,7 @@ define(function (require) {
 				resp.items.push(data.repeater.listData[i]);
 			}
 
-			resp.items = sort( resp.items, options.sortProperty, options.sortDirection );
+			resp.items = sort(resp.items, options.sortProperty, options.sortDirection);
 
 			// call and simulate latency
 			setTimeout(function () {
@@ -610,9 +610,9 @@ define(function (require) {
 				});
 			}
 
-			//if(options.search){
-			//resp.items = [];
-			//}
+			// if(options.search){
+			// resp.items = [];
+			// }
 
 			// call and simulate latency
 			setTimeout(function () {
@@ -676,23 +676,23 @@ define(function (require) {
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	 REPEATER w/ actions
 	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-	function initRepeaterActions() {
+	function initRepeaterActions () {
 		var loadDelays = ['300', '600', '900', '1200'];
 
-		var sort = function( data, sortProperty, sortDirection ) {
-			var sortedData = _.sortBy( data, function( item ) {
-				return item[ sortProperty ];
-			} );
+		var sort = function (data, sortProperty, sortDirection) {
+			var sortedData = _.sortBy(data, function (item) {
+				return item[sortProperty];
+			});
 
 			// sort direction
-			if ( sortDirection === 'desc' ) {
+			if (sortDirection === 'desc') {
 				sortedData = sortedData.reverse();
 			}
 
 			return sortedData;
 		};
 
-		function getSampleDataSet(options, callback) {
+		function getSampleDataSet (options, callback) {
 			var resp = {
 				count: data.repeater.listData.length,
 				items: [],
@@ -739,14 +739,14 @@ define(function (require) {
 				resp.items.push(data.repeater.listData[i]);
 			}
 
-			resp.items = sort( resp.items, options.sortProperty, options.sortDirection );
+			resp.items = sort(resp.items, options.sortProperty, options.sortDirection);
 
 			// call and simulate latency
 			setTimeout(function () {
 				callback(resp);
 			}, loadDelays[Math.floor(Math.random() * 4)]);
 
-		};
+		}
 
 		// initialize the repeater
 		var repeaterActions = $('#myRepeaterActions');
@@ -754,7 +754,7 @@ define(function (require) {
 			list_noItemsHTML: '<span>foo</span>',
 			list_highlightSortedColumn: true,
 			list_selectable: 'multi',
-			list_actions:  {
+			list_actions: {
 				width: 37,
 				items: [
 					{
@@ -768,7 +768,7 @@ define(function (require) {
 					{
 						name: 'delete',
 						html: '<span class="glyphicon glyphicon-trash"></span> Delete',
-						clickAction: function(helpers, callback) {
+						clickAction: function (helpers, callback) {
 							console.log('hey it worked');
 							console.log(helpers);
 							callback();
@@ -809,12 +809,12 @@ define(function (require) {
 	});
 	$('#btnSchedulerSetValue').on('click', function () {
 		var newVal = {
-			"startDateTime": "2014-03-31T03:23+02:00",
-			"timeZone": {
-				"name": "Namibia Standard Time",
-				"offset": "+02:00"
+			'startDateTime': '2014-03-31T03:23+02:00',
+			'timeZone': {
+				'name': 'Namibia Standard Time',
+				'offset': '+02:00'
 			},
-			"recurrencePattern": "FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919"
+			'recurrencePattern': 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919'
 		};
 		log(newVal);
 		$('#myScheduler').scheduler('value', newVal);
@@ -918,10 +918,15 @@ define(function (require) {
 
 	$('#mySpinbox3').spinbox({
 		value: 1,
-		min: 0,
-		max: 1100,
-		step:1,
+		min: 5,
+		max: 22,
+		step: 5,
 		'limitToStep': true
+	});
+
+
+	$('#spinboxCreateBtn').on('click', function () {
+		$('#mySpinbox4').spinbox();
 	});
 
 	// events
@@ -957,74 +962,74 @@ define(function (require) {
 	 TREE
 	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-	 var treeDataSource =  function (parentData, callback) {
-			log("Opening branch data: ", parentData);
+	var treeDataSource = function (parentData, callback) {
+		log('Opening branch data: ', parentData);
 
-			setTimeout(function () {
-				callback({
-					data: [
-						{
-							"name": "Ascending and Descending",
-							"type": "folder",
-							"attr": {
-								"id": "folder" + guid()
-							}
-						},
-						{
-							"name": "Sky and Water I (with custom icon)",
-							"type": "item",
-							"attr": {
-								"id": "item" + guid(),
-								"data-icon": "glyphicon glyphicon-file"
-							}
-						},
-						{
-							"name": "Drawing Hands",
-							"type": "folder",
-							"attr": {
-								"id": "folder" + guid()
-							}
-						},
-						{
-							"name": "Waterfall",
-							"type": "item",
-							"attr": {
-								"id": "item" + guid()
-							}
-						},
-						{
-							"name": "Belvedere",
-							"type": "folder",
-							"attr": {
-								"id": "folder" + guid()
-							}
-						},
-						{
-							"name": "Relativity (with custom icon)",
-							"type": "item",
-							"attr": {
-								"id": "item" + guid(),
-								"data-icon": "glyphicon glyphicon-picture"
-							}
-						},
-						{
-							"name": "House of Stairs",
-							"type": "folder",
-							"attr": {
-								"id": "folder" + guid()
-							}
-						},
-						{
-							"name": "Convex and Concave",
-							"type": "item",
-							"attr": {
-								"id": "item" + guid()
-							}
+		setTimeout(function () {
+			callback({
+				data: [
+					{
+						'name': 'Ascending and Descending',
+						'type': 'folder',
+						'attr': {
+							'id': 'folder' + guid()
 						}
-					]
-				});
-			}, 400);
-		}
+					},
+					{
+						'name': 'Sky and Water I (with custom icon)',
+						'type': 'item',
+						'attr': {
+							'id': 'item' + guid(),
+							'data-icon': 'glyphicon glyphicon-file'
+						}
+					},
+					{
+						'name': 'Drawing Hands',
+						'type': 'folder',
+						'attr': {
+							'id': 'folder' + guid()
+						}
+					},
+					{
+						'name': 'Waterfall',
+						'type': 'item',
+						'attr': {
+							'id': 'item' + guid()
+						}
+					},
+					{
+						'name': 'Belvedere',
+						'type': 'folder',
+						'attr': {
+							'id': 'folder' + guid()
+						}
+					},
+					{
+						'name': 'Relativity (with custom icon)',
+						'type': 'item',
+						'attr': {
+							'id': 'item' + guid(),
+							'data-icon': 'glyphicon glyphicon-picture'
+						}
+					},
+					{
+						'name': 'House of Stairs',
+						'type': 'folder',
+						'attr': {
+							'id': 'folder' + guid()
+						}
+					},
+					{
+						'name': 'Convex and Concave',
+						'type': 'item',
+						'attr': {
+							'id': 'item' + guid()
+						}
+					}
+				]
+			});
+		}, 400);
+	};
 
 	$('#myTree1').tree({
 		dataSource: treeDataSource,
@@ -1034,8 +1039,8 @@ define(function (require) {
 	});
 
 
-	function guid() {
-		function s4() {
+	function guid () {
+		function s4 () {
 			return Math.floor((1 + Math.random()) * 0x10000)
 				.toString(16)
 				.substring(1);
@@ -1044,8 +1049,8 @@ define(function (require) {
 	}
 
 
-// initialize
-	function myTreeInit() {
+	// initialize
+	function myTreeInit () {
 		var callLimit = 200;
 		var callCount = 0;
 		$('#myTree2').tree({
@@ -1057,33 +1062,33 @@ define(function (require) {
 						callback({
 							data: [
 								{
-									"name": "Sky and Water I (with custom icon)",
-									"type": "item",
-									"attr": {
-										"id": "item" + guid(),
-										"data-icon": "glyphicon glyphicon-file"
+									'name': 'Sky and Water I (with custom icon)',
+									'type': 'item',
+									'attr': {
+										'id': 'item' + guid(),
+										'data-icon': 'glyphicon glyphicon-file'
 									}
 								},
 								{
-									"name": "Waterfall",
-									"type": "item",
-									"attr": {
-										"id": "item" + guid()
+									'name': 'Waterfall',
+									'type': 'item',
+									'attr': {
+										'id': 'item' + guid()
 									}
 								},
 								{
-									"name": "Relativity (with custom icon)",
-									"type": "item",
-									"attr": {
-										"id": "item" + guid(),
-										"data-icon": "glyphicon glyphicon-picture"
+									'name': 'Relativity (with custom icon)',
+									'type': 'item',
+									'attr': {
+										'id': 'item' + guid(),
+										'data-icon': 'glyphicon glyphicon-picture'
 									}
 								},
 								{
-									"name": "Convex and Concave",
-									"type": "item",
-									"attr": {
-										"id": "item" + guid()
+									'name': 'Convex and Concave',
+									'type': 'item',
+									'attr': {
+										'id': 'item' + guid()
 									}
 								}
 							]
@@ -1098,62 +1103,62 @@ define(function (require) {
 					callback({
 						data: [
 							{
-								"name": "Ascending and Descending",
-								"type": "folder",
-								"attr": {
-									"id": "folder" + guid(),
-									"cssClass": "example-tree-class"
+								'name': 'Ascending and Descending',
+								'type': 'folder',
+								'attr': {
+									'id': 'folder' + guid(),
+									'cssClass': 'example-tree-class'
 								}
 							},
 							{
-								"name": "Sky and Water I (with custom icon)",
-								"type": "item",
-								"attr": {
-									"id": "item" + guid(),
-									"data-icon": "glyphicon glyphicon-file"
+								'name': 'Sky and Water I (with custom icon)',
+								'type': 'item',
+								'attr': {
+									'id': 'item' + guid(),
+									'data-icon': 'glyphicon glyphicon-file'
 								}
 							},
 							{
-								"name": "Drawing Hands",
-								"type": "folder",
-								"attr": {
-									"id": "folder" + guid()
+								'name': 'Drawing Hands',
+								'type': 'folder',
+								'attr': {
+									'id': 'folder' + guid()
 								}
 							},
 							{
-								"name": "Waterfall",
-								"type": "item",
-								"attr": {
-									"id": "item" + guid()
+								'name': 'Waterfall',
+								'type': 'item',
+								'attr': {
+									'id': 'item' + guid()
 								}
 							},
 							{
-								"name": "Belvedere",
-								"type": "folder",
-								"attr": {
-									"id": "folder" + guid()
+								'name': 'Belvedere',
+								'type': 'folder',
+								'attr': {
+									'id': 'folder' + guid()
 								}
 							},
 							{
-								"name": "Relativity (with custom icon)",
-								"type": "item",
-								"attr": {
-									"id": "item" + guid(),
-									"data-icon": "glyphicon glyphicon-picture"
+								'name': 'Relativity (with custom icon)',
+								'type': 'item',
+								'attr': {
+									'id': 'item' + guid(),
+									'data-icon': 'glyphicon glyphicon-picture'
 								}
 							},
 							{
-								"name": "House of Stairs",
-								"type": "folder",
-								"attr": {
-									"id": "item" + guid()
+								'name': 'House of Stairs',
+								'type': 'folder',
+								'attr': {
+									'id': 'item' + guid()
 								}
 							},
 							{
-								"name": "Convex and Concave",
-								"type": "item",
-								"attr": {
-									"id": "item" + guid()
+								'name': 'Convex and Concave',
+								'type': 'item',
+								'attr': {
+									'id': 'item' + guid()
 								}
 							}
 						]
@@ -1175,7 +1180,7 @@ define(function (require) {
 	});
 
 	$('#btnTreeClearSelected').click(function () {
-		log('Items/folders cleared: ', $('#myTree1').tree('deselectAll') );
+		log('Items/folders cleared: ', $('#myTree1').tree('deselectAll'));
 	});
 
 	$('#btnTreeDiscloseVisible').click(function () {
@@ -1254,16 +1259,16 @@ define(function (require) {
 		});
 	});
 
-	$('#mypicker').on('accepted.fu.picker', function() {
+	$('#mypicker').on('accepted.fu.picker', function () {
 		console.log('accepted.fu.picker');
 	});
-	$('#mypicker').on('cancelled.fu.picker', function() {
+	$('#mypicker').on('cancelled.fu.picker', function () {
 		console.log('cancelled.fu.picker');
 	});
-	$('#mypicker').on('exited.fu.picker', function() {
+	$('#mypicker').on('exited.fu.picker', function () {
 		console.log('exited.fu.picker');
 	});
-	$('#mypicker').on('shown.fu.picker', function() {
+	$('#mypicker').on('shown.fu.picker', function () {
 		console.log('shown.fu.picker');
 	});
 
@@ -1287,24 +1292,24 @@ define(function (require) {
 
 	// sample markup
 	var emailSetupSamplePane = '<div class="bg-warning alert">' +
-		'	<h4>Setup Message</h4>' +
-		'	<p>Soko radicchio bunya nuts gram dulse silver beet parsnip napa cabbage ' +
-		'	lotus root sea lettuce brussels sprout cabbage. Catsear cauliflower garbanzo yarrow ' +
-		'	salsify chicory garlic bell pepper napa cabbage lettuce tomato kale arugula melon ' +
-		'	sierra leone bologi rutabaga tigernut. Sea lettuce gumbo grape kale kombu cauliflower ' +
-		'	salsify kohlrabi okra sea lettuce broccoli celery lotus root carrot winter purslane ' +
-		'	turnip greens garlic. Jacama garlic courgette coriander radicchio plantain scallion ' +
-		'	cauliflower fava bean desert raisin spring onion chicory bunya nuts. Sea lettuce water ' +
-		'	spinach gram fava bean leek dandelion silver beet eggplant bush tomato. </p>' +
-		'	<p>Pea horseradish azuki bean lettuce avocado asparagus okra. ' +
-		'	Kohlrabi radish okra azuki bean corn fava bean mustard tigernut jacama green bean ' +
-		'	celtuce collard greens avocado quandong fennel gumbo black-eyed pea. Grape silver ' +
-		'	beet watercress potato tigernut corn groundnut. Chickweed okra pea winter ' +
-		'	purslane coriander yarrow sweet pepper radish garlic brussels sprout groundnut ' +
-		'	summer purslane earthnut pea tomato spring onion azuki bean gourd. Gumbo kakadu ' +
-		'	plum komatsuna black-eyed pea green bean zucchini gourd winter purslane silver ' +
-		'	beet rock melon radish asparagus spinach. </p>' +
-		'</div>';
+			'	<h4>Setup Message</h4>' +
+			'	<p>Soko radicchio bunya nuts gram dulse silver beet parsnip napa cabbage ' +
+			'	lotus root sea lettuce brussels sprout cabbage. Catsear cauliflower garbanzo yarrow ' +
+			'	salsify chicory garlic bell pepper napa cabbage lettuce tomato kale arugula melon ' +
+			'	sierra leone bologi rutabaga tigernut. Sea lettuce gumbo grape kale kombu cauliflower ' +
+			'	salsify kohlrabi okra sea lettuce broccoli celery lotus root carrot winter purslane ' +
+			'	turnip greens garlic. Jacama garlic courgette coriander radicchio plantain scallion ' +
+			'	cauliflower fava bean desert raisin spring onion chicory bunya nuts. Sea lettuce water ' +
+			'	spinach gram fava bean leek dandelion silver beet eggplant bush tomato. </p>' +
+			'	<p>Pea horseradish azuki bean lettuce avocado asparagus okra. ' +
+			'	Kohlrabi radish okra azuki bean corn fava bean mustard tigernut jacama green bean ' +
+			'	celtuce collard greens avocado quandong fennel gumbo black-eyed pea. Grape silver ' +
+			'	beet watercress potato tigernut corn groundnut. Chickweed okra pea winter ' +
+			'	purslane coriander yarrow sweet pepper radish garlic brussels sprout groundnut ' +
+			'	summer purslane earthnut pea tomato spring onion azuki bean gourd. Gumbo kakadu ' +
+			'	plum komatsuna black-eyed pea green bean zucchini gourd winter purslane silver ' +
+			'	beet rock melon radish asparagus spinach. </p>' +
+			'</div>';
 
 	// sample method buttons
 	$('#btnWizardPrev').on('click', function () {
@@ -1324,7 +1329,7 @@ define(function (require) {
 	});
 	$('#btnWizardSetStepByName').on('click', function () {
 		var item = $('#myWizard').wizard('selectedItem', {
-			step: "distep"
+			step: 'distep'
 		});
 		log(item);
 	});
@@ -1366,3 +1371,4 @@ define(function (require) {
 		log('finished');
 	});
 });
+
