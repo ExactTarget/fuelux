@@ -4,9 +4,9 @@
 
 		.clearfix;
 
-		border: 1px solid @navbarBorder;
-		border-radius: @baseBorderRadius;
-		background-color: @tableBackgroundAccent;
+		border: 1px solid @navbar-border;
+		border-radius: @base-border-radius;
+		background-color: @table-background-accent;
 		position: relative;
 		min-height: 48px;
 
@@ -15,7 +15,7 @@
 		}
 
 		.steps-container {
-			border-radius: @baseBorderRadius @baseBorderRadius 0 0;
+			border-radius: @base-border-radius @base-border-radius 0 0;
 			overflow: hidden;
 
 		}
@@ -33,7 +33,7 @@
 
 						&:hover {
 							background: @gray96;
-							color: @successText;
+							color: @success-text;
 							cursor: default;
 
 							.chevron:before {
@@ -58,7 +58,7 @@
 
 				.chevron {
 					border: 24px solid transparent;
-					border-left: 14px solid @navbarBorder;
+					border-left: 14px solid @navbar-border;
 					border-right: 0;
 					display: block;
 					position: absolute;
@@ -80,14 +80,14 @@
 
 				&.complete {
 					background: @gray96;
-					color: @successText;
+					color: @success-text;
 
 					&:hover {
-						background: desaturate(@infoBackground, 40%);
+						background: desaturate(@info-background, 40%);
 						cursor: pointer;
 
 						.chevron:before {
-							border-left: 14px solid desaturate(@infoBackground, 40%);
+							border-left: 14px solid desaturate(@info-background, 40%);
 						}
 					}
 
@@ -97,16 +97,16 @@
 				}
 
 				&.active {
-					background: lighten(@infoBackground, 5%);
-					color: @infoText;
+					background: lighten(@info-background, 5%);
+					color: @info-text;
 					cursor: default;
 
 					.chevron:before {
-						border-left: 14px solid lighten(@infoBackground, 5%);
+						border-left: 14px solid lighten(@info-background, 5%);
 					}
 
 					.badge {
-						background-color: @infoText;
+						background-color: @info-text;
 					}
 				}
 
@@ -115,7 +115,7 @@
 				}
 
 				.badge-success {
-					background-color: @successText;
+					background-color: @success-text;
 				}
 			}
 
@@ -166,7 +166,7 @@
 					&.active {
 						.chevron {
 							&:before {
-								border-right: 14px solid lighten(@infoBackground, 5%);
+								border-right: 14px solid lighten(@info-background, 5%);
 							}
 						}
 					}
@@ -181,7 +181,7 @@
 						&:hover {
 							.chevron {
 								&:before {
-									border-right: 14px solid desaturate(@infoBackground, 40%);
+									border-right: 14px solid desaturate(@info-background, 40%);
 									border-left: none;
 								}
 							}
@@ -199,8 +199,8 @@
 				left: 0;
 				float: left;
 				border-left: none;
-				border-right: 1px solid @navbarBorder;
-				border-radius: @baseBorderRadius 0 0 0;
+				border-right: 1px solid @navbar-border;
+				border-radius: @base-border-radius 0 0 0;
 
 				.btn-prev {
 					span {
@@ -229,8 +229,8 @@
 			padding-right: 15px;
 			vertical-align: middle;
 			background-color: @gray90;
-			border-left: 1px solid @navbarBorder;
-			border-radius: 0 @baseBorderRadius 0 0;
+			border-left: 1px solid @navbar-border;
+			border-radius: 0 @base-border-radius 0 0;
 
 			a {
 				line-height: 45px;

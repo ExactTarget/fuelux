@@ -45,7 +45,7 @@
 				input[type="checkbox"]:not(.sr-only), input[type="radio"]:not(.sr-only) {
 				& ~ label {
 					padding: 4px;
-					border-radius: @baseBorderRadius;
+					border-radius: @base-border-radius;
 				}
 				&:checked ~ label {
 					background-color: @gray90;
@@ -98,7 +98,7 @@
 			/* for keyboard tabbing */
 			&:active ~ label, &:focus ~ label {
 				color: @text-color;
-				color: @checkboxPrimaryColor;
+				color: @checkbox-primary-color;
 				cursor: pointer;
 				
 				&:before {
@@ -133,8 +133,8 @@
 
 			&:checked ~ label {
 				&:before {
-					background: @checkboxPrimaryColor;
-					border-color: @checkboxPrimaryColor;
+					background: @checkbox-primary-color;
+					border-color: @checkbox-primary-color;
 				}
 			}
 

@@ -17,7 +17,7 @@
 
 			&.checked label.checkbox-custom, label.checked.checkbox-custom {
 				background: @gray90;
-				border-radius: @baseBorderRadius;
+				border-radius: @base-border-radius;
 			}
 		}
 
@@ -53,7 +53,7 @@
 		&:before {
 			#fuelux > .icon-base-styles("Glyphicons Halflings");
 			border: 1px solid @gray67;
-			border-radius: @baseBorderRadius;
+			border-radius: @base-border-radius;
 			color: @true-white;
 			content: " ";
 			font-size: 9px;
@@ -67,9 +67,9 @@
 
 		/* for keyboard tabbing */
 		&:active:before, &:focus:before {
-			color: @focusColor;
+			color: @focus-color;
 			cursor: pointer;
-			box-shadow: inset 0px 0px 2px 1px @focusColor, 0px 0px 5px 0px @focusColor;
+			box-shadow: inset 0px 0px 2px 1px @focus-color, 0px 0px 5px 0px @focus-color;
 		}
 
 		&.highlight {
@@ -81,8 +81,8 @@
 
 		&.checked {
 			&:before {
-				background: @checkboxPrimaryColor;
-				border-color: @checkboxPrimaryColor;
+				background: @checkbox-primary-color;
+				border-color: @checkbox-primary-color;
 				content: "\e013";
 			}
 		}
@@ -115,7 +115,7 @@
 
 				&.checked {
 					background: @gray90;
-					border-radius: @baseBorderRadius;
+					border-radius: @base-border-radius;
 				}
 			}
 		}
