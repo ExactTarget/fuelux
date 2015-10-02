@@ -1,5 +1,6 @@
-@import "forms.less";
 
+@import "fuelux-core.less";
+@import "forms.less";
 .fuelux {
 	.radio, .radio-inline {
 	
@@ -16,14 +17,14 @@
 
 				& ~ label {
 					&:before {
-						background: @checkboxPrimaryColor; /* Old browsers */
-						background: -moz-radial-gradient(center, ellipse cover, @true-white 0%, @true-white 40%, @checkboxPrimaryColor 41%, @checkboxPrimaryColor 100%); /* FF3.6+ */
-						background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,@true-white), color-stop(40%,@true-white), color-stop(41%,@checkboxPrimaryColor), color-stop(100%,@checkboxPrimaryColor)); /* Chrome,Safari4+ */
-						background: -webkit-radial-gradient(center, ellipse cover, @true-white 0%, @true-white 40%, @checkboxPrimaryColor 41%, @checkboxPrimaryColor 100%); /* Chrome10+,Safari5.1+ */
-						background: -o-radial-gradient(center, ellipse cover, @true-white 0%, @true-white 40%, @checkboxPrimaryColor 41%, @checkboxPrimaryColor 100%); /* Opera 12+ */
-						background: -ms-radial-gradient(center, ellipse cover, @true-white 0%, @true-white 40%, @checkboxPrimaryColor 41%, @checkboxPrimaryColor 100%); /* IE10+ */
-						background: radial-gradient(ellipse at center, @true-white 0%, @true-white 40%, @checkboxPrimaryColor 41%, @checkboxPrimaryColor 100%); /* W3C */
-						filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorstr='@{true-white}', endColorstr='@{checkboxPrimaryColor}', GradientType=1)"; /* IE6-9 fallback on horizontal gradient */
+						background: @checkbox-primary-color; /* Old browsers */
+						background: -moz-radial-gradient(center, ellipse cover, @true-white 0%, @true-white 40%, @checkbox-primary-color 41%, @checkbox-primary-color 100%); /* FF3.6+ */
+						background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,@true-white), color-stop(40%,@true-white), color-stop(41%,@checkbox-primary-color), color-stop(100%,@checkbox-primary-color)); /* Chrome,Safari4+ */
+						background: -webkit-radial-gradient(center, ellipse cover, @true-white 0%, @true-white 40%, @checkbox-primary-color 41%, @checkbox-primary-color 100%); /* Chrome10+,Safari5.1+ */
+						background: -o-radial-gradient(center, ellipse cover, @true-white 0%, @true-white 40%, @checkbox-primary-color 41%, @checkbox-primary-color 100%); /* Opera 12+ */
+						background: -ms-radial-gradient(center, ellipse cover, @true-white 0%, @true-white 40%, @checkbox-primary-color 41%, @checkbox-primary-color 100%); /* IE10+ */
+						background: radial-gradient(ellipse at center, @true-white 0%, @true-white 40%, @checkbox-primary-color 41%, @checkbox-primary-color 100%); /* W3C */
+						filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorstr='@{true-white}', endColorstr='@{checkbox-primary-color}', GradientType=1)"; /* IE6-9 fallback on horizontal gradient */
 					}
 				}
 			}

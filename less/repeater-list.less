@@ -1,8 +1,9 @@
+@import "fuelux-core.less";
 @mutli-select-enabled-width: 37px;
 .selectable() {
 	&.selectable {
 		&:hover td, &.hovered td {
-			background: @selectableHover;
+			background: @selectable-hover;
 			cursor: pointer;
 		}
 		.checkbox-custom:before {
@@ -104,9 +105,9 @@
 
 						&.sortable {
 							&:hover, &.sorted {
-								background: @selectableHover;
+								background: @selectable-hover;
 								cursor: pointer;
-								#fuelux > .vertical(@startColor: @gray98; @endColor: @gray90);
+								#fuelux > .vertical(@start-color: @gray98; @end-color: @gray90);
 							}
 						}
 
@@ -172,7 +173,7 @@
 						&:hover, &.sorted {
 							background: @gray96;
 							cursor: pointer;
-							#fuelux > .vertical(@startColor: @gray98; @endColor: @gray90);
+							#fuelux > .vertical(@start-color: @gray98; @end-color: @gray90);
 						}
 
 						&.sorted {

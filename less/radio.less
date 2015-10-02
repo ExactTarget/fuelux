@@ -1,3 +1,4 @@
+@import "fuelux-core.less";
 .radioTabbing() {
 
 	/* for keyboard tabbing */
@@ -20,7 +21,7 @@
 			& label.radio-custom {
 				left: -8px;
 				padding: 4px 4px 4px 24px;
-				border-radius: @baseBorderRadius;
+				border-radius: @base-border-radius;
 				&:before {
 					left: 5px;
 					top: 7px;
@@ -33,7 +34,7 @@
 			&.checked label.radio-custom,
 			& label.radio-custom.checked {
 				background: @gray90;
-				border-radius: @baseBorderRadius;
+				border-radius: @base-border-radius;
 			}
 		}
 
@@ -66,7 +67,7 @@
 
 			&.checked {
 				background: @gray90;
-				border-radius: @baseBorderRadius;
+				border-radius: @base-border-radius;
 			}
 		}
 		&:after {
@@ -94,8 +95,8 @@
 				background: @true-white;
 			}
 			&:before {
-				background: @checkboxPrimaryColor;
-				border-color: @checkboxPrimaryColor;
+				background: @checkbox-primary-color;
+				border-color: @checkbox-primary-color;
 			}
 		}
 		&.disabled {
@@ -134,7 +135,7 @@
 				}
 				&.checked {
 					background: @gray90;
-					border-radius: @baseBorderRadius;
+					border-radius: @base-border-radius;
 				}
 			}
 		}
