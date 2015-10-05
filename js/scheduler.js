@@ -70,7 +70,7 @@
 		this.$startDate.datepicker(this.options.startDateOptions);
 
 		var startDateResponse = (typeof this.options.startDateChanged === "function") ? this.options.startDateChanged : this._guessEndDate;
-		this.$startDate.on('change dateClicked.fu.datepicker', $.proxy(startDateResponse, this));
+		this.$startDate.on('change changed.fu.datepicker dateClicked.fu.datepicker', $.proxy(startDateResponse, this));
 
 		this.$startTime.combobox();
 		// init start time
