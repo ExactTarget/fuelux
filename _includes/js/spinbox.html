@@ -61,6 +61,21 @@
     <dd>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.
     {% highlight js %}$('#mySpinbox').spinbox('destroy');{% endhighlight %}</dd>
 
+    <dt id="spinbox-usage-methods-getvalue">.spinbox('getIntValue')</dt>
+    <dd>
+      Returns spinner value as a JS number (so, if spinner is set to <code>"12,1px"</code> it will return <code>12.1</code>)
+    </dd>
+
+    <dt id="spinbox-usage-methods-getvalue">.spinbox('getValue')</dt>
+    <dd>
+      Alias for <a href="#spinbox-usage-methods-value">.spinbox('value')</a>
+    </dd>
+
+    <dt id="spinbox-usage-methods-setvalue">.spinbox('setValue')</dt>
+    <dd>
+      Alias for <a href="#spinbox-usage-methods-value">.spinbox('value', number)</a>
+    </dd>
+
     <dt id="spinbox-usage-methods-value">.spinbox('value')</dt>
     <dd>
       Sets or returns the spinner value
@@ -106,6 +121,12 @@
           <td>number</td>
           <td>1</td>
           <td>Sets the increment by which the value in the spinbox will change each time the spinbox buttons are pressed</td>
+        </tr>
+        <tr>
+          <td>limitToStep</td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>Limits the spinner value to increments of the step value. Eg. If <code>step</code> is <code>5</code>, spinner values will be limited to increments of 5, (<code>0, 5, 10, 15...</code>)</td>
         </tr>
         <tr>
           <td>hold</td>
