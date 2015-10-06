@@ -243,6 +243,37 @@ define(function(require){
 		equal($scheduler.scheduler('value').recurrencePattern, schedule.recurrencePattern, 'schedule set correctly');
 	});
 
+	test('should guess end date when start date changed to be after end date', function(assert) {
+		var allDone = assert.async();
+		var today = new Date('10/06/2015');
+
+		var schedule = {
+			startDateTime: '2015-10-06T03:23-04:00',
+			endDateOptions: { date: '10/06/2015' },
+			recurrencePattern: 'FREQ=DAILY;INTERVAL=5;UNTIL=20151006'
+		};
+
+		var $schedulerDOM = $('<div>'+templateHtml+'</div>').find('#MyScheduler');
+		var $scheduler = $schedulerDOM.scheduler();
+		$scheduler.scheduler('value', schedule);
+		var $start = $scheduler.find('.start-datetime .start-date');
+		var $end = $scheduler.find('.end-on-date');
+
+		$start.on('changed.fu.datepicker', function(){
+			var end = $end.datepicker('getDate');
+			var start = $start.datepicker('getDate');
+
+			ok(start < end, 'end date after start date');
+
+			allDone();
+		});
+
+		$start.find('input').val('10/11/2015');
+		$start.find('input').trigger('change');
+
+
+	});
+
 	// TODO: need more end date test or dry out code where start and end use same methods
 
 	test('should initialize with end date provided', function() {
