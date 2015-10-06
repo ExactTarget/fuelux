@@ -14,13 +14,21 @@
 }
 
 #fusion-body .page-header {
-    font-size: 24px;
-    color: #333;
+    display: none;
 }
 
 #fusion-body .fu-docs-section > h2 {
-    font-size: 18px;
-    color: #333;
+    color: #16325c;
+    font-size: 20px;
+    font-weight: normal;
+}
+
+#fusion-body .fu-docs-section > h3 {
+    color: #16325c;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
 }
 
 #fusion-body .fu-docs-section > p {
@@ -45,4 +53,16 @@ dt .header-anchor{
 }
 h1:first-of-type{
     padding-top:0px;   
+}
+
+#fusion-body .page-header {
+    display: none;
+}
+
+#fusion-body .fu-example {
+    font-family: Arial,sans-serif;
+}
+
+#fusion-body .glyphicon-link:before {
+    display: none;
 }
