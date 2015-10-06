@@ -2,7 +2,7 @@ window.$ = window.jQuery = require('jquery');
 var bootstrap = require('bootstrap');
 var moment = require('moment');
 var fuelux = require('../dist/js/npm');
-var QUnit = require('qunitjs');
+require('qunitjs');
 
 // In order to be be UMD compliant, modules must work with
 // CommonJS. The following tests check to see if the plugin
