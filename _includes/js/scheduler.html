@@ -3,7 +3,7 @@
 <div class="fu-docs-section">
   <h1 id="scheduler" class="page-header">Scheduler <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/scheduler.js"><small>scheduler.js</small></a></h1>
 
-  <p>Control which allows users to choose <code>startDateTime</code>, <code>timeZone</code>, and iCal-compatible <code>recurrencePattern</code></p>
+  <p>Control which allows users to choose <code>startDateTime</code>, <code>timeZone</code>, and iCal-compatible <code>recurrencePattern</code>. As of 3.11.5, when the user changes the start date, the <a href="#scheduler-usage-options-start-date-changed">end date will attempt to intelligently re-set itself if the start date is set to later than the end date</a>.</p>
   <div class="form-horizontal container-fluid scheduler" data-initialize="scheduler" role="form" id="schedulerIllustration">
   {% include js/scheduler-example.html %}
   </div>
@@ -65,6 +65,14 @@
         <td>This option can be set but will only be used if the event is repeated. Attributes used to configure the datepicker object.
           All options for datepicker are available and they can
           be found in the <a href="#datepicker-usage-options">datepicker documentation</a>.</td>
+      </tr>
+      <tr id="scheduler-usage-options-start-date-changed">
+        <td>startDateChanged</td>
+        <td>function</td>
+        <td>undefined</td>
+        <td>As of 3.11.5, Function to be run when the start date is changed. Currently <code>this._guessEndDate();</code> is called, but, if you pass
+        a function, your function will be called instead. Your function can call <code>this._guessEndDate();</code> at any point from
+        within the function to take advantage of the pre-built Guess End Date AI. <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/scheduler.js">See the code for details</a>. <a href="http://jsfiddle.net/cmcculloh/urcrge74/">Example here</a>.</td>
       </tr>
       </tbody>
     </table>
