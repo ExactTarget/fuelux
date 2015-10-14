@@ -386,8 +386,8 @@ define(function(require){
 					{
 						name: 'delete',
 						html: '<span class="glyphicon glyphicon-trash"></span> Delete',
-						clickAction: function(helpers, callback) {
-							testClickAction(helpers);
+						clickAction: function(helpers, callback, e) {
+							testClickAction(helpers, callback, e);
 							callback();
 						}
 					}
@@ -419,7 +419,7 @@ define(function(require){
 
 		});
 
-		function testClickAction(helpers) {
+		function testClickAction(helpers, callback, e) {
 			equal((typeof helpers === 'object'), true, 'Items in row were returned after action click');
 			var count = 0;
 			for (var k in helpers.rowData) {
@@ -428,6 +428,9 @@ define(function(require){
 				}
 			}
 			equal(count === 4, true, 'Full row object was returned');
+			equal((typeof callback === 'function'), true, 'callback is a function');
+			equal((typeof e === 'object'), true, 'e is an object');
+			equal((typeof e.target !== 'undefined'), true, 'e is probably a jQuery event object');
 		}
 
 		$repeater.repeater(repeaterOptions);
