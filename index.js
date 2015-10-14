@@ -768,9 +768,10 @@ define(function (require) {
 					{
 						name: 'delete',
 						html: '<span class="glyphicon glyphicon-trash"></span> Delete',
-						clickAction: function (helpers, callback) {
+						clickAction: function (helpers, callback, e) {
 							console.log('hey it worked');
 							console.log(helpers);
+							e.preventDefault();
 							callback();
 						}
 					}

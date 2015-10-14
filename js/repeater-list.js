@@ -298,17 +298,17 @@
 
 
 			//row level actions click
-			this.$element.find('.table-actions tbody .action-item').on('click', function() {
+			this.$element.find('.table-actions tbody .action-item').on('click', function(e) {
 				var actionName = $(this).data('action');
 				var row = $(this).data('row');
 				var selected = {
 					actionName: actionName,
 					rows: [row]
 				};
-				self.list_getActionItems(selected);
+				self.list_getActionItems(selected, e);
 			});
 			// bulk actions click
-			this.$element.find('.table-actions thead .action-item').on('click', function() {
+			this.$element.find('.table-actions thead .action-item').on('click', function(e) {
 				var actionName = $(this).data('action');
 				var selected = {
 					actionName: actionName,
@@ -320,11 +320,26 @@
 					selected.rows.push(index);
 				});
 
-				self.list_getActionItems(selected);
+				self.list_getActionItems(selected, e);
 			});
 		};
 
-		$.fn.repeater.Constructor.prototype.list_getActionItems = function (selected) {
+		/*
+		 * list_getActionItems
+		 *
+		 * Called when user clicks on an "action item".
+		 *
+		 * Object selected - object containing `actionName`, string value of the `data-action` attribute of the clicked
+		 *					"action item", and `rows` Array of jQuery objects of selected rows
+		 * Object e - jQuery event of triggering event
+		 *
+		 * Calls implementor's clickAction function if provided. Passes `selectedObj`, `callback` and `e`.
+		 *		Object selectedObj - Object containing jQuery object `item` for selected row, and Object `rowData` for
+		 *							selected row's data-attributes, or Array of such Objects if multiple selections were made
+		 *		Function callback - ¯\_(ツ)_/¯
+		 *		Object e - jQuery event object representing the triggering event
+		 */
+		$.fn.repeater.Constructor.prototype.list_getActionItems = function (selected, e) {
 			var i;
 			var selectedObj = [];
 			var actionObj = $.grep(this.viewOptions.list_actions.items, function(actions){
@@ -342,7 +357,8 @@
 			}
 
 			if (actionObj.clickAction) {
-				actionObj.clickAction(selectedObj, function () {});
+				var callback = function callback () {};// for backwards compatibility. No idea why this was originally here...
+				actionObj.clickAction(selectedObj, callback, e);
 			}
 		};
 
