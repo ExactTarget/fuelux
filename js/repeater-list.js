@@ -497,7 +497,7 @@
 				return false;
 			},
 			renderItem: function(helpers){
-				renderRow.call(this, helpers.container, helpers.subset, helpers.index);
+				renderRow.call(this, helpers.container, helpers.subset[helpers.index], helpers.index);
 				return false;
 			},
 			after: function(){
@@ -533,132 +533,168 @@
 	}
 
 	//ADDITIONAL METHODS
-	function renderColumn ($row, rows, rowIndex, columns, columnIndex) {
-		var className = columns[columnIndex].className;
-		var content = rows[rowIndex][columns[columnIndex].property];
+	function renderColumn ($tr, row, rowIndex, column) {
+		var className = column.className;
+		var content = row[column.property];
 		var $col = $('<td></td>');
-		var width = columns[columnIndex]._auto_width;
+		var width = column._auto_width;
 
-		var property = columns[columnIndex].property;
+		var property = column.property;
 		if(this.viewOptions.list_actions !== false && property === '@_ACTIONS_@'){
 			content = '<div class="repeater-list-actions-placeholder" style="width: ' + this.list_actions_width  + 'px"></div>';
 		}
 
 		content = (content!==undefined) ? content : '';
 
-		$col.addClass(((className !== undefined) ? className : '')).append(content);
+		$col.addClass(className).append(content);
 		if (width !== undefined) {
 			$col.outerWidth(width);
 		}
-		$row.append($col);
+		$tr.append($col);
 
-		if (this.viewOptions.list_selectable === 'multi' && columns[columnIndex].property === '@_CHECKBOX_@') {
+		if (this.viewOptions.list_selectable === 'multi' && column.property === '@_CHECKBOX_@') {
 			var checkBoxMarkup = '<label data-row="'+ rowIndex +'" class="checkbox-custom checkbox-inline body-checkbox">' +
 				'<input class="sr-only" type="checkbox"></label>';
 
 			$col.html(checkBoxMarkup);
 		}
 
-		if (!(columns[columnIndex].property === '@_CHECKBOX_@' || columns[columnIndex].property === '@_ACTIONS_@') && this.viewOptions.list_columnRendered) {
+		if (!(column.property === '@_CHECKBOX_@' || column.property === '@_ACTIONS_@') && this.viewOptions.list_columnRendered) {
 			this.viewOptions.list_columnRendered({
-				container: $row,
-				columnAttr: columns[columnIndex].property,
+				container: $tr,
+				columnAttr: column.property,
 				item: $col,
-				rowData: rows[rowIndex]
+				rowData: row
 			}, function () {});
 		}
 	}
 
-	function renderHeader ($tr, columns, index) {
+	/*
+	 * Handle column header click to do sort.
+	 *
+	 * This function was extracted from the renderHeader function in this file
+	 *
+	 * Expects:
+	 * e.data.$headerOverlay - visible/clickable header overlay
+	 * e.data.$headerBase - sizer `<th>` element
+	 * e.data.column - object representing raw data for clicked column
+	 * e.data.$tr - `<tr>` from `<thead>`
+	 * e.data.self - `this` context of the `renderHeader` function
+	 */
+	var handleColumnSort = function handleColumnSort (e) {
+		var self = e.data.self;
+		// Create a new jQuery object as set of both elements.
+		var $headers = e.data.$headerOverlay.add(e.data.$headerBase);
+		var $chevron = e.data.$headerOverlay.find('.glyphicon.rlc:first');
+		var $tr = e.data.$tr;
+		var column = e.data.column;
+
+		self.list_sortProperty = (typeof column.sortable === 'string') ? column.sortable : column.property;
+
 		var chevDown = 'glyphicon-chevron-down';
-		var chevron = '.glyphicon.rlc:first';
 		var chevUp = 'glyphicon-chevron-up';
-		var $div = $('<div class="repeater-list-heading"><span class="glyphicon rlc"></span></div>');
-		var checkBoxMarkup = '<div class="repeater-list-heading header-checkbox"><label class="checkbox-custom checkbox-inline">' +
-			'<input class="sr-only" type="checkbox"></label><div class="clearfix"></div></div>';
-		var $header = $('<th></th>');
-		var self = this;
-		var $both, className, sortable, $span, $spans;
-
-		$div.data('fu_item_index', index);
-		$div.prepend(columns[index].label);
-		$header.html($div.html()).find('[id]').removeAttr('id');
-
-		if (columns[index].property !== '@_CHECKBOX_@') {
-			$header.append($div);
-		}
-		else {
-			$header.append(checkBoxMarkup);
-		}
-
-		$both = $header.add($div);
-		$span = $div.find(chevron);
-		$spans = $span.add($header.find(chevron));
-
-		if (this.viewOptions.list_actions && columns[index].property === '@_ACTIONS_@') {
-			var width = this.list_actions_width;
-			$header.css('width', width);
-			$div.css('width', width);
-		}
-
-		className = columns[index].className;
-		if (className !== undefined) {
-			$both.addClass(className);
-		}
-
-		sortable = columns[index].sortable;
-		if (sortable) {
-			$both.addClass('sortable');
-			$div.on('click.fu.repeaterList', function () {
-				self.list_sortProperty = (typeof sortable === 'string') ? sortable : columns[index].property;
-				if ($div.hasClass('sorted')) {
-					if ($span.hasClass(chevUp)) {
-						$spans.removeClass(chevUp).addClass(chevDown);
-						self.list_sortDirection = 'desc';
-					} else {
-						if (!self.viewOptions.list_sortClearing) {
-							$spans.removeClass(chevDown).addClass(chevUp);
-							self.list_sortDirection = 'asc';
-						} else {
-							$both.removeClass('sorted');
-							$spans.removeClass(chevDown);
-							self.list_sortDirection = null;
-							self.list_sortProperty = null;
-						}
-					}
-
-				} else {
-					$tr.find('th, .repeater-list-heading').removeClass('sorted');
-					$spans.removeClass(chevDown).addClass(chevUp);
+		if ($headers.hasClass('sorted')) {
+			if ($chevron.hasClass(chevUp)) {
+				$chevron.removeClass(chevUp).addClass(chevDown);
+				self.list_sortDirection = 'desc';
+			} else {
+				if (!self.viewOptions.list_sortClearing) {
+					$chevron.removeClass(chevDown).addClass(chevUp);
 					self.list_sortDirection = 'asc';
-					$both.addClass('sorted');
+				} else {
+					$headers.removeClass('sorted');
+					$chevron.removeClass(chevDown);
+					self.list_sortDirection = null;
+					self.list_sortProperty = null;
 				}
-
-				self.render({
-					clearInfinite: true,
-					pageIncrement: null
-				});
-			});
+			}
+		} else {
+			$tr.find('th, .repeater-list-heading').removeClass('sorted');
+			$chevron.removeClass(chevDown).addClass(chevUp);
+			self.list_sortDirection = 'asc';
+			$headers.addClass('sorted');
 		}
 
-		if (columns[index].sortDirection === 'asc' || columns[index].sortDirection === 'desc') {
+		self.render({
+			clearInfinite: true,
+			pageIncrement: null
+		});
+	};
+
+	var renderHeader = function renderHeader ($tr, column, columnIndex) {
+		var self = this;
+
+		// visible portion (top layer) of header
+		var $headerOverlay = $('<div class="repeater-list-heading"><span class="glyphicon rlc"></span></div>');
+		$headerOverlay.data('fu_item_index', columnIndex);
+		$headerOverlay.prepend(column.label);
+
+		// header underlayment
+		var $headerBase = $('<th></th>');
+
+		if (this.viewOptions.list_actions && column.property === '@_ACTIONS_@') {
+			var width = this.list_actions_width;
+			$headerBase.css('width', width);
+			$headerOverlay.css('width', width);
+		}
+
+		var headerClasses = [];
+		headerClasses.push(column.className);
+
+		var sortable = column.sortable;
+		if (sortable) {
+			headerClasses.push('sortable');
+
+			$headerOverlay.on(
+				'click.fu.repeaterList',
+				{
+					'self': self,
+					'$tr': $tr,
+					'$headerBase': $headerBase,
+					'$headerOverlay': $headerOverlay,
+					'column': column
+				},
+				handleColumnSort
+			);
+		}
+
+		var $chevron = $headerOverlay.find('.glyphicon.rlc:first');
+
+		if (column.sortDirection === 'asc' || column.sortDirection === 'desc') {
 			$tr.find('th, .repeater-list-heading').removeClass('sorted');
-			$both.addClass('sortable sorted');
-			if (columns[index].sortDirection === 'asc') {
-				$spans.addClass(chevUp);
+
+			headerClasses.push('sortable sorted');
+
+			if (column.sortDirection === 'asc') {
+				$chevron.addClass('glyphicon-chevron-up');
 				this.list_sortDirection = 'asc';
 			} else {
-				$spans.addClass(chevDown);
+				$chevron.addClass('glyphicon-chevron-down');
 				this.list_sortDirection = 'desc';
 			}
 
-			this.list_sortProperty = (typeof sortable === 'string') ? sortable : columns[index].property;
+			this.list_sortProperty = (typeof sortable === 'string') ? sortable : column.property;
 		}
 
-		$tr.append($header);
-	}
+		// duplicate the header's overlay content into the header if appropriate (possibly for dimensional styling???)
+		$headerBase.html($headerOverlay.html());
 
-	function renderRow ($tbody, rows, index) {
+		// place visible content into header for display to user
+		if (column.property !== '@_CHECKBOX_@') {
+			$headerBase.append($headerOverlay);
+		} else {
+			var checkBoxMarkup = '<div class="repeater-list-heading header-checkbox"><label class="checkbox-custom checkbox-inline"><input class="sr-only" type="checkbox"></label><div class="clearfix"></div></div>';
+			$headerBase.append(checkBoxMarkup);
+		}
+
+		headerClasses = headerClasses.join(' ');
+		$headerBase.addClass(headerClasses);
+		$headerOverlay.addClass(headerClasses);
+
+		$tr.append($headerBase);
+	};
+
+	function renderRow ($tbody, row, rowIndex) {
 		var $row = $('<tr></tr>');
 		var self = this;
 		var i, l;
@@ -668,7 +704,7 @@
 		if (this.viewOptions.list_selectable) {
 			$row.addClass('selectable');
 			$row.attr('tabindex', 0);	// allow items to be tabbed to / focused on
-			$row.data('item_data', rows[index]);
+			$row.data('item_data', row);
 
 			$row.on('click.fu.repeaterList', function () {
 				var $item = $(this);
@@ -734,20 +770,20 @@
 		}
 
 		if (this.viewOptions.list_actions && !this.viewOptions.list_selectable) {
-			$row.data('item_data', rows[index]);
+			$row.data('item_data', row);
 		}
 
 		$tbody.append($row);
 
-		for (i = 0, l = this.list_columns.length; i < l; i++) {
-			renderColumn.call(this, $row, rows, index, this.list_columns, i);
+		for (i = 0; i < this.list_columns.length; i++) {
+			renderColumn.call(this, $row, row, rowIndex, this.list_columns[i]);
 		}
 
 		if (this.viewOptions.list_rowRendered) {
 			this.viewOptions.list_rowRendered({
 				container: $tbody,
 				item: $row,
-				rowData: rows[index]
+				rowData: row
 			}, function () {});
 		}
 	}
@@ -773,54 +809,54 @@
 		}
 	}
 
-	function renderThead ($table, data) {
-		var columns = data.columns || [];
-		var $thead = $table.find('thead');
-		var i, j, l, $tr;
-
-		function differentColumns (oldCols, newCols) {
-			if (!newCols) {
-				return false;
-			}
-			if (!oldCols || (newCols.length !== oldCols.length)) {
-				return true;
-			}
-			for (i = 0, l = newCols.length; i < l; i++) {
-				if (!oldCols[i]) {
-					return true;
-				} else {
-					for (j in newCols[i]) {
-						if (oldCols[i][j] !== newCols[i][j]) {
-							return true;
-						}
-
-					}
-				}
-
-			}
+	var areDifferentColumns = function areDifferentColumns (oldCols, newCols) {
+		if (!newCols) {
 			return false;
 		}
+		if (!oldCols || (newCols.length !== oldCols.length)) {
+			return true;
+		}
+		for (var i = 0; i < newCols.length; i++) {
+			if (!oldCols[i]) {
+				return true;
+			} else {
+				for (var j in newCols[i]) {
+					if (oldCols[i][j] !== newCols[i][j]) {
+						return true;
+					}
 
-		if (this.list_firstRender || differentColumns(this.list_columns, columns) || $thead.length === 0) {
+				}
+			}
+
+		}
+		return false;
+	};
+
+	var renderThead = function renderThead ($table, data) {
+		var columns = data.columns || [];
+		var $thead = $table.find('thead');
+
+		if (this.list_firstRender || areDifferentColumns(this.list_columns, columns) || $thead.length === 0) {
 			$thead.remove();
+
+			this.list_firstRender = false;
+			this.$loader.removeClass('noHeader');
 
 			if (data.count < 1) {
 				this.list_noItems = true;
 			}
 
+			// insert checkbox column, if applicable
 			if (this.viewOptions.list_selectable === 'multi' && !this.list_noItems) {
 				var checkboxColumn = {
 					label: 'c',
 					property: '@_CHECKBOX_@',
 					sortable: false
 				};
-				columns.splice(0, 0, checkboxColumn);
+				columns.unshift(checkboxColumn);
 			}
 
-			this.list_columns = columns;
-			this.list_firstRender = false;
-			this.$loader.removeClass('noHeader');
-
+			// insert actions column, if applicable
 			if (this.viewOptions.list_actions && !this.list_noItems){
 				var actionsColumn = {
 					label: this.viewOptions.list_actions.label || '<span class="actions-hidden">a</span>',
@@ -831,84 +867,79 @@
 				columns.push(actionsColumn);
 			}
 
+			this.list_columns = columns;
 
-			$thead = $('<thead data-preserve="deep"><tr></tr></thead>');
-			$tr = $thead.find('tr');
-			for (i = 0, l = columns.length; i < l; i++) {
-				renderHeader.call(this, $tr, columns, i);
+			var $headerRow = $('<tr></tr>');
+			for (var i = 0; i < columns.length; i++) {
+				renderHeader.call(this, $headerRow, columns[i], i);
 			}
+
+			$thead = $('<thead data-preserve="deep"></thead>');
+			$thead.append($headerRow);
 			$table.prepend($thead);
 
+			// after checkbox column is created need to get width of checkbox column from its css class
 			if (this.viewOptions.list_selectable === 'multi' && !this.list_noItems) {
-				//after checkbox column is created need to get width of checkbox column from
-				//its css class
 				var checkboxWidth = this.$element.find('.repeater-list-wrapper .header-checkbox').outerWidth();
-				var selectColumn = $.grep(columns, function(column){
-					return column.property === '@_CHECKBOX_@';
-				})[0];
-				selectColumn.width = checkboxWidth;
+				columns[0].width = checkboxWidth;
 			}
-			sizeColumns.call(this, $tr);
+
+			sizeColumns.call(this, $headerRow);
 		}
-	}
+	};
 
-	function sizeColumns ($tr) {
-		var auto = [];
+	var sizeColumns = function sizeColumns ($tr) {
+		var autoGauge = [];
 		var self = this;
-		var i, l, newWidth, taken, total;
+		var takenWidth = 0;
+		var totalWidth = 0;
 
-		if (this.viewOptions.list_columnSizing) {
-			i = 0;
-			taken = 0;
-			total = 0;
-			$tr.find('th').each(function () {
-				var $th = $(this);
-				var isLast = ($th.next('th').length === 0);
-				var width;
+		if (self.viewOptions.list_columnSizing) {
+			$tr.find('th').each(function (i, th) {
+				var $th = $(th);
+				var isLast = ($(this).next('th').length === 0);
+
 				if (self.list_columns[i].width !== undefined) {
-					width = self.list_columns[i].width;
-					$th.outerWidth(width);
-					taken += $th.outerWidth();
-					total += $th.outerWidth();
-					if (!isLast) {
-						self.list_columns[i]._auto_width = width;
-					}
-					else {
-						$th.outerWidth('');
-					}
+					var width = self.list_columns[i].width;
 
+					takenWidth += width;
+					totalWidth += width;
+
+					if (!isLast) {
+						$th.outerWidth(width);
+						self.list_columns[i]._auto_width = width;
+					}else{
+						$th.outerWidth('');// why does this work? This is invalid jQuery.
+					}
 				} else {
-					var outerWidth = $th.find('.repeater-list-heading').outerWidth();
-					total += $th.outerWidth();
-					auto.push({
+					totalWidth += $th.outerWidth();
+
+					autoGauge.push({
 						col: $th,
 						index: i,
 						last: isLast,
-						minWidth: outerWidth
+						minWidth: $th.find('.repeater-list-heading').outerWidth()
 					});
 				}
-
-				i++;
 			});
 
-			l = auto.length;
+			var canvasWidth = self.$canvas.find('.repeater-list-wrapper').outerWidth();
+			var newWidth = Math.floor((canvasWidth - takenWidth) / autoGauge.length);
 
-			if (l > 0) {
-				var canvasWidth = this.$canvas.find('.repeater-list-wrapper').outerWidth();
-					newWidth = Math.floor((canvasWidth - taken) / l);
-				for (i = 0; i < l; i++) {
-					if (auto[i].minWidth > newWidth) {
-						newWidth = auto[i].minWidth;
-					}
-					if (!auto[i].last || total > canvasWidth) {
-						auto[i].col.outerWidth(newWidth);
-						this.list_columns[auto[i].index]._auto_width = newWidth;
-					}
+			for (var i = 0; i < autoGauge.length; i++) {
+				var th = autoGauge[i];
 
+				if (newWidth < th.minWidth) {
+					newWidth = th.minWidth;
+				}
+
+				if (!th.last || canvasWidth < totalWidth) {
+					th.col.outerWidth(newWidth);
+					self.list_columns[th.index]._auto_width = newWidth;
 				}
 			}
 		}
-	}
+	};
 
 	function specialBrowserClass() {
 		var ua = window.navigator.userAgent;
