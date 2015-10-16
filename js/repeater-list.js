@@ -270,8 +270,12 @@
 					$actionsColumn.find('thead .btn').attr('disabled', 'disabled');
 				}
 				else {
-					var label = this.viewOptions.list_actions.label || '<span class="actions-hidden">a</span>';
-					$actionsColumn.find('thead tr').addClass('empty-heading').html('<th>'+ label +'<div class="repeater-list-heading">'+ label +'</div></th>');
+					var label = this.viewOptions.list_actions.label || '';
+					var labelHTML = label;
+					if(label !== ''){
+						labelHTML = label +'<div class="repeater-list-heading">'+ label +'</div>';
+					}
+					$actionsColumn.find('thead tr').addClass('empty-heading').html('<th>' + labelHTML + '</th>');
 				}
 
 				// Create Actions dropdown for each cell in actions table
@@ -823,7 +827,7 @@
 
 			if (this.viewOptions.list_actions && !this.list_noItems){
 				var actionsColumn = {
-					label: this.viewOptions.list_actions.label || '<span class="actions-hidden">a</span>',
+					label: this.viewOptions.list_actions.label || '',
 					property: '@_ACTIONS_@',
 					sortable: false,
 					width: this.list_actions_width
