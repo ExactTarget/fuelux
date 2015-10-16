@@ -457,9 +457,7 @@
 			},
 			resize: function () {
 				if (this.viewOptions.list_frozenColumns || this.viewOptions.list_actions){
-					this.render({
-						pageIncrement: 0
-					});
+					this.render();
 				}else{
 					if (this.viewOptions.list_columnSyncing) {
 						this.list_sizeHeadings();
