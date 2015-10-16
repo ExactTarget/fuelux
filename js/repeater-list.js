@@ -452,8 +452,14 @@
 				callback();
 			},
 			resize: function () {
-				if (this.viewOptions.list_columnSyncing) {
-					this.list_sizeHeadings();
+				if (this.viewOptions.list_frozenColumns || this.viewOptions.list_actions){
+					this.render({
+						pageIncrement: 0
+					});
+				}else{
+					if (this.viewOptions.list_columnSyncing) {
+						this.list_sizeHeadings();
+					}
 				}
 			},
 			selected: function () {
@@ -541,6 +547,7 @@
 
 		var property = column.property;
 		if(this.viewOptions.list_actions !== false && property === '@_ACTIONS_@'){
+			$col.addClass('repeater-list-actions-placeholder-column');
 			content = '<div class="repeater-list-actions-placeholder" style="width: ' + this.list_actions_width  + 'px"></div>';
 		}
 

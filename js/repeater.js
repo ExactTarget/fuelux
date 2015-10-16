@@ -116,7 +116,7 @@
 			self.resizeTimeout = setTimeout(function () {
 				self.resize();
 				self.$element.trigger('resized.fu.repeater');
-			}, 75);
+			}, 500);//any faster and you get weird catastrophic errors with the header of the list repeater
 		});
 
 		this.$loader.loader();
