@@ -26,7 +26,7 @@
     "grunt-contrib-compress": "0.13.0",
     "grunt-contrib-concat": "0.5.1",
     "grunt-contrib-connect": "0.11.2",
-    "grunt-contrib-copy": "0.8.1",
+    "grunt-contrib-copy": "0.8.2",
     "grunt-contrib-jshint": "0.11.3",
     "grunt-contrib-less": "1.0.1",
     "grunt-contrib-qunit": "0.5.2",
