@@ -1,5 +1,5 @@
 /*!
- * Fuel UX EDGE - Built 2015/10/07, 4:03:12 PM 
+ * Fuel UX EDGE - Built 2015/10/20, 11:44:20 AM 
  * Previous release: v3.11.4 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
@@ -1602,6 +1602,9 @@ label.fuelux .checkbox-inline {
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table tbody td.sorted {
   background: #fafafa;
 }
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table tbody td.repeater-list-actions-placeholder {
+  border-left: none;
+}
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table tbody tr:focus {
   outline: 1px dotted #dddddd;
 }
@@ -1670,9 +1673,6 @@ label.fuelux .checkbox-inline {
   display: none;
   float: right;
   margin-top: 2px;
-}
-.fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table thead > tr > th .actions-hidden {
-  visibility: hidden;
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list-check {
   display: inline-block;
@@ -2091,6 +2091,12 @@ label.fuelux .checkbox-inline {
 	END
 	------------------------------- */
 }
+.fuelux .scheduler .row {
+  margin-bottom: 10px;
+}
+.fuelux .scheduler .row.no-margin {
+  margin-bottom: 0px;
+}
 .fuelux .scheduler .control-label {
   min-width: 7em;
 }
@@ -2099,8 +2105,8 @@ label.fuelux .checkbox-inline {
   line-height: 27px;
   margin-top: 4px;
 }
-.fuelux .scheduler .start-datetime.form-group {
-  margin-bottom: 0;
+.fuelux .scheduler .form-group {
+  margin-bottom: 0px;
 }
 .fuelux .scheduler .start-datetime .form-group {
   margin-left: 0;
@@ -2245,6 +2251,19 @@ label.fuelux .checkbox-inline {
 .fuelux .scheduler .repeat-yearly .repeat-yearly-day .repeat-yearly-day-text {
   margin-left: 10px;
 }
+.fuelux .scheduler .repeat-weekly.repeat-days-of-the-week {
+  margin-top: 10px;
+  *zoom: 1;
+}
+.fuelux .scheduler .repeat-weekly.repeat-days-of-the-week:before,
+.fuelux .scheduler .repeat-weekly.repeat-days-of-the-week:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.fuelux .scheduler .repeat-weekly.repeat-days-of-the-week:after {
+  clear: both;
+}
 .fuelux .scheduler .repeat-weekly button:not(.active) {
   background-color: #ffffff;
 }
@@ -2279,6 +2298,16 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .scheduler .repeat-end .form-group {
   margin-left: 0;
+}
+.fuelux .scheduler .repeat-end .end-option-panel {
+  padding-left: 10px;
+}
+.fuelux .scheduler .repeat-end .selectlist {
+  min-width: 100%;
+}
+.fuelux .scheduler .repeat-end .selectlist button,
+.fuelux .scheduler .repeat-end .selectlist ul {
+  min-width: 100%;
 }
 .fuelux .scheduler input::-ms-clear {
   display: none;
