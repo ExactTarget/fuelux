@@ -34,18 +34,18 @@
 @gray99:            lighten(@true-black, 99%);     // #FCFCFC
 
 @black:                 @true-black;
-@grayDarker:            @gray13;
-@grayDark:              @gray20;
+@gray-darker:            @gray13;
+@gray-dark:              @gray20;
 @gray:                  @gray33;
-@grayLight:             @gray60;
-@grayLighter:           @gray93;
+@gray-light:             @gray60;
+@gray-lighter:           @gray93;
 @white:                 @true-white;
 
 
 // Accent colors
 // -------------------------
 @blue:                  #049cdb;
-@blueDark:              #0064cd;
+@blue-dark:              #0064cd;
 @green:                 #46a546;
 @red:                   #9d261d;
 @yellow:                #ffc40d;
@@ -65,115 +65,114 @@
 
 // Scaffolding
 // -------------------------
-@bodyBackground:        @white;
-@textColor:             @grayDark;
-@text-color:            @textColor;
-@focusColor:            #5B9DD9;
+@body-background:        @white;
+@text-color:             @gray-dark;
+@focus-color:            #5B9DD9;
 
 // Links
 // -------------------------
-@linkColor:             #0088cc;
-@linkColorHover:        darken(@linkColor, 15%);
+@link-color:             #0088cc;
+@link-color-hover:        darken(@link-color, 15%);
 
 
 // Typography
 // -------------------------
-@sansFontFamily:        "Helvetica Neue", Helvetica, Arial, sans-serif;
-@serifFontFamily:       Georgia, "Times New Roman", Times, serif;
-@monoFontFamily:        Monaco, Menlo, Consolas, "Courier New", monospace;
+@sans-font-family:        "Helvetica Neue", Helvetica, Arial, sans-serif;
+@serif-font-family:       Georgia, "Times New Roman", Times, serif;
+@mono-font-family:        Monaco, Menlo, Consolas, "Courier New", monospace;
 
-@baseFontSize:          14px;
-@baseFontFamily:        @sansFontFamily;
-@baseLineHeight:        20px;
-@altFontFamily:         @serifFontFamily;
+@base-font-size:          14px;
+@base-font-family:        @sans-font-family;
+@base-line-height:        20px;
+@alt-font-family:         @serif-font-family;
 
-@headingsFontFamily:    inherit; // empty to use BS default, @baseFontFamily
-@headingsFontWeight:    bold;    // instead of browser default, bold
-@headingsColor:         inherit; // empty to use BS default, @textColor
+@headings-font-family:    inherit; // empty to use BS default, @base-font-family
+@headings-font-weight:    bold;    // instead of browser default, bold
+@headings-color:         inherit; // empty to use BS default, @text-color
 
 
 // Component sizing
 // -------------------------
 // Based on 14px font-size and 20px line-height
 
-@fontSizeLarge:         @baseFontSize * 1.25; // ~18px
-@fontSizeSmall:         @baseFontSize * 0.85; // ~12px
-@fontSizeMini:          @baseFontSize * 0.75; // ~11px
+@font-size-large:         @base-font-size * 1.25; // ~18px
+@font-size-small:         @base-font-size * 0.85; // ~12px
+@font-size-mini:          @base-font-size * 0.75; // ~11px
 
-@font-size-h1:            floor((@baseFontSize * 2.6)); // ~36px
-@font-size-h2:            floor((@baseFontSize * 2.15)); // ~30px
-@font-size-h3:            ceil((@baseFontSize * 1.7)); // ~24px
-@font-size-h4:            ceil((@baseFontSize * 1.25)); // ~18px
-@font-size-h5:            @baseFontSize;
-@font-size-h6:            ceil((@baseFontSize * 0.85)); // ~12pxgr
+@font-size-h1:            floor((@base-font-size * 2.6)); // ~36px
+@font-size-h2:            floor((@base-font-size * 2.15)); // ~30px
+@font-size-h3:            ceil((@base-font-size * 1.7)); // ~24px
+@font-size-h4:            ceil((@base-font-size * 1.25)); // ~18px
+@font-size-h5:            @base-font-size;
+@font-size-h6:            ceil((@base-font-size * 0.85)); // ~12pxgr
 
-@paddingLarge:          11px 19px; // 44px
-@paddingSmall:          2px 10px;  // 26px
-@paddingMini:           0 6px;   // 22px
+@padding-large:          11px 19px; // 44px
+@padding-small:          2px 10px;  // 26px
+@padding-mini:           0 6px;   // 22px
 
-@baseBorderRadius:      4px;
-@borderRadiusLarge:     6px;
-@borderRadiusSmall:     3px;
+@base-border-radius:      4px;
+@border-radius-large:     6px;
+@border-radius-small:     3px;
 
 
 // Tables
 // -------------------------
-@tableBackground:                   transparent; // overall background-color
-@tableBackgroundAccent:             @gray98; // for striping
-@tableBackgroundHover:              @gray96; // for hover
-@tableBorder:                       @gray87; // table and cell border
+@table-background:                   transparent; // overall background-color
+@table-background-accent:             @gray98; // for striping
+@table-background-hover:              @gray96; // for hover
+@table-border:                       @gray87; // table and cell border
 
 // Buttons
 // -------------------------
-@btnBackground:                     @white;
-@btnBackgroundHighlight:            darken(@white, 10%);
-@btnBorder:                         @gray80;
+@btn-background:                     @white;
+@btn-background-highlight:            darken(@white, 10%);
+@btn-border:                         @gray80;
 
-@btnPrimaryBackground:              @linkColor;
-@btnPrimaryBackgroundHighlight:     spin(@btnPrimaryBackground, 20%);
+@btn-primary-background:              @link-color;
+@btn-primary-background-highlight:     spin(@btn-primary-background, 20%);
 
-@btnInfoBackground:                 #5bc0de;
-@btnInfoBackgroundHighlight:        #2f96b4;
+@btn-info-background:                 #5bc0de;
+@btn-info-background-highlight:        #2f96b4;
 
-@btnSuccessBackground:              #62c462;
-@btnSuccessBackgroundHighlight:     #51a351;
+@btn-success-background:              #62c462;
+@btn-success-background-highlight:     #51a351;
 
-@btnWarningBackground:              lighten(@orange, 15%);
-@btnWarningBackgroundHighlight:     @orange;
+@btn-warning-background:              lighten(@orange, 15%);
+@btn-warning-background-highlight:     @orange;
 
-@btnDangerBackground:               #ee5f5b;
-@btnDangerBackgroundHighlight:      #bd362f;
+@btn-danger-background:               #ee5f5b;
+@btn-danger-background-highlight:      #bd362f;
 
-@btnInverseBackground:              @gray27;
-@btnInverseBackgroundHighlight:     @grayDarker;
+@btn-inverse-background:              @gray27;
+@btn-inverse-background-highlight:     @gray-darker;
 
-@btnPaddingVertical:                6px;
-@btnPaddingHorizontal:              12px;
+@btn-padding-vertical:                6px;
+@btn-padding-horizontal:              12px;
 
 
 // Forms
 // -------------------------
-@inputBackground:               @white;
-@inputBorder:                   @gray80;
-@inputBorderRadius:             @baseBorderRadius;
-@inputDisabledBackground:       @gray93;
-@formActionsBackground:         @gray96;
-@inputHeight:                   @baseLineHeight + 10px; // base line-height + 8px vertical padding + 2px top/bottom border
+@input-background:               @white;
+@input-border:                   @gray80;
+@input-border-radius:             @base-border-radius;
+@input-disabled-background:       @gray93;
+@form-actions-background:         @gray96;
+@input-height:                   @base-line-height + 10px; // base line-height + 8px vertical padding + 2px top/bottom border
 
 
 // Dropdowns
 // -------------------------
-@dropdownBackground:            @white;
-@dropdownBorder:                rgba(0,0,0,.2);
-@dropdownDividerTop:            @gray90;
-@dropdownDividerBottom:         @white;
+@dropdown-background:            @white;
+@dropdown-border:                rgba(0,0,0,.2);
+@dropdown-divider-top:            @gray90;
+@dropdown-divider-bottom:         @white;
 
-@dropdownLinkColor:             @grayDark;
-@dropdownLinkColorHover:        @white;
-@dropdownLinkColorActive:       @white;
+@dropdown-link-color:             @gray-dark;
+@dropdown-link-color-hover:        @white;
+@dropdown-link-color-active:       @white;
 
-@dropdownLinkBackgroundActive:  @linkColor;
-@dropdownLinkBackgroundHover:   @dropdownLinkBackgroundActive;
+@dropdown-link-background-active:  @link-color;
+@dropdown-link-background-hover:   @dropdown-link-background-active;
 
 
 
@@ -185,134 +184,134 @@
 // -------------------------
 // Used for a bird's eye view of components dependent on the z-axis
 // Try to avoid customizing these :)
-@zindexDropdown:          1000;
-@zindexPopover:           1010;
-@zindexTooltip:           1030;
-@zindexFixedNavbar:       1030;
-@zindexModalBackdrop:     1040;
-@zindexModal:             1050;
+@zindex-dropdown:          1000;
+@zindex-popover:           1010;
+@zindex-tooltip:           1030;
+@zindex-fixed-navbar:       1030;
+@zindex-modal-backdrop:     1040;
+@zindex-modal:             1050;
 
 //Selectable Hover, Selected, Selected Hover
 // -------------------------
-@selectableHover: #f1f1f1;
-@selected: #efefef;
-@selectedHover: @gray87;
+@selectable-hover: @gray96;
+@selected: @gray93;
+@selected-hover: @gray87;
 
 
 
 // Sprite icons path
 // -------------------------
-@iconSpritePath:          "../img/glyphicons-halflings.png";
-@iconWhiteSpritePath:     "../img/glyphicons-halflings-white.png";
+@icon-sprite-path:          "../img/glyphicons-halflings.png";
+@icon-white-sprite-path:     "../img/glyphicons-halflings-white.png";
 
 
 // Input placeholder text color
 // -------------------------
-@placeholderText:         @gray60;
+@placeholder-text:         @gray60;
 
 
 // Hr border color
 // -------------------------
-@hrBorder:                @gray93;
+@hr-border:                @gray93;
 
 
 // Horizontal forms & lists
 // -------------------------
-@horizontalComponentOffset:       180px;
+@horizontal-component-offset:       180px;
 
 
 // Wells
 // -------------------------
-@wellBackground:                  @gray96;
+@well-background:                  @gray96;
 
 
 // Navbar
 // -------------------------
-@navbarCollapseWidth:             979px;
-@navbarCollapseDesktopWidth:      @navbarCollapseWidth + 1;
+@navbar-collapse-width:             979px;
+@navbar-collapse-desktop-width:      @navbar-collapse-width + 1;
 
-@navbarHeight:                    40px;
-@navbarBackgroundHighlight:       @true-white;
-@navbarBackground:                darken(@navbarBackgroundHighlight, 5%);
-@navbarBorder:                    darken(@navbarBackground, 12%);
+@navbar-height:                    40px;
+@navbar-background-highlight:       @true-white;
+@navbar-background:                darken(@navbar-background-highlight, 5%);
+@navbar-border:                    darken(@navbar-background, 12%);
 
-@navbarText:                      @gray40;;
-@navbarLinkColor:                 @gray40;;
-@navbarLinkColorHover:            @grayDark;
-@navbarLinkColorActive:           @gray;
-@navbarLinkBackgroundHover:       transparent;
-@navbarLinkBackgroundActive:      darken(@navbarBackground, 5%);
+@navbar-text:                      @gray40;;
+@navbar-link-color:                 @gray40;;
+@navbar-link-color-hover:            @gray-dark;
+@navbar-link-color-active:           @gray;
+@navbar-link-background-hover:       transparent;
+@navbar-link-background-active:      darken(@navbar-background, 5%);
 
-@navbarBrandColor:                @navbarLinkColor;
+@navbar-brand-color:                @navbar-link-color;
 
 // Inverted navbar
-@navbarInverseBackground:                @gray07;
-@navbarInverseBackgroundHighlight:       @gray13;
-@navbarInverseBorder:                    @gray15;
+@navbar-inverse-background:                @gray07;
+@navbar-inverse-background-highlight:       @gray13;
+@navbar-inverse-border:                    @gray15;
 
-@navbarInverseText:                      @gray60;
-@navbarInverseLinkColor:                 @gray60;
-@navbarInverseLinkColorHover:            @white;
-@navbarInverseLinkColorActive:           @navbarInverseLinkColorHover;
-@navbarInverseLinkBackgroundHover:       transparent;
-@navbarInverseLinkBackgroundActive:      @navbarInverseBackground;
+@navbar-inverse-text:                      @gray60;
+@navbar-inverse-link-color:                 @gray60;
+@navbar-inverse-link-color-hover:            @white;
+@navbar-inverse-link-color-active:           @navbar-inverse-link-color-hover;
+@navbar-inverse-link-background-hover:       transparent;
+@navbar-inverse-link-background-active:      @navbar-inverse-background;
 
-@navbarInverseSearchBackground:          lighten(@navbarInverseBackground, 25%);
-@navbarInverseSearchBackgroundFocus:     @white;
-@navbarInverseSearchBorder:              @navbarInverseBackground;
-@navbarInverseSearchPlaceholderColor:    @gray80;
+@navbar-inverse-search-background:          lighten(@navbar-inverse-background, 25%);
+@navbar-inverse-search-background-focus:     @white;
+@navbar-inverse-search-border:              @navbar-inverse-background;
+@navbar-inverse-search-placeholder-color:    @gray80;
 
-@navbarInverseBrandColor:                @navbarInverseLinkColor;
+@navbar-inverse-brand-color:                @navbar-inverse-link-color;
 
 
 // Pagination
 // -------------------------
-@paginationBackground:                @true-white;
-@paginationBorder:                    @gray87;
-@paginationActiveBackground:          @gray96;
+@pagination-background:                @true-white;
+@pagination-border:                    @gray87;
+@pagination-active-background:          @gray96;
 
 
 // Hero unit
 // -------------------------
-@heroUnitBackground:              @gray93;
-@heroUnitHeadingColor:            inherit;
-@heroUnitLeadColor:               inherit;
+@hero-unit-background:              @gray93;
+@hero-unit-heading-color:            inherit;
+@hero-unit-lead-color:               inherit;
 
 
 // Form states and alerts
 // -------------------------
-@warningText:             #c09853;
-@warningBackground:       #fcf8e3;
-@warningBorder:           darken(spin(@warningBackground, -10), 3%);
+@warning-text:             #c09853;
+@warning-background:       #fcf8e3;
+@warning-border:           darken(spin(@warning-background, -10), 3%);
 
-@errorText:               #b94a48;
-@errorBackground:         #f2dede;
-@errorBorder:             darken(spin(@errorBackground, -10), 3%);
+@error-text:               #b94a48;
+@error-background:         #f2dede;
+@error-border:             darken(spin(@error-background, -10), 3%);
 
-@successText:             #468847;
-@successBackground:       #dff0d8;
-@successBorder:           darken(spin(@successBackground, -10), 5%);
+@success-text:             #468847;
+@success-background:       #dff0d8;
+@success-border:           darken(spin(@success-background, -10), 5%);
 
-@infoText:                #3a87ad;
-@infoBackground:          #d9edf7;
-@infoBorder:              darken(spin(@infoBackground, -10), 7%);
+@info-text:                #3a87ad;
+@info-background:          #d9edf7;
+@info-border:              darken(spin(@info-background, -10), 7%);
 
 
 // Tooltips and popovers
 // -------------------------
-@tooltipColor:            @true-white;
-@tooltipBackground:       @true-black;
-@tooltipArrowWidth:       5px;
-@tooltipArrowColor:       @tooltipBackground;
+@tooltip-color:            @true-white;
+@tooltip-background:       @true-black;
+@tooltip-arrow-width:       5px;
+@tooltip-arrow-color:       @tooltip-background;
 
-@popoverBackground:       @true-white;
-@popoverArrowWidth:       10px;
-@popoverArrowColor:       @true-white;
-@popoverTitleBackground:  darken(@popoverBackground, 3%);
+@popover-background:       @true-white;
+@popover-arrow-width:       10px;
+@popover-arrow-color:       @true-white;
+@popover-title-background:  darken(@popover-background, 3%);
 
 // Special enhancement for popovers
-@popoverArrowOuterWidth:  @popoverArrowWidth + 1;
-@popoverArrowOuterColor:  rgba(0,0,0,.25);
+@popover-arrow-outer-width:  @popover-arrow-width + 1;
+@popover-arrow-outer-color:  rgba(0,0,0,.25);
 
 
 
@@ -322,34 +321,34 @@
 
 // Default 940px grid
 // -------------------------
-@gridColumns:             12;
-@gridColumnWidth:         60px;
-@gridGutterWidth:         20px;
-@gridRowWidth:            (@gridColumns * @gridColumnWidth) + (@gridGutterWidth * (@gridColumns - 1));
+@grid-columns:             12;
+@grid-column-width:         60px;
+@grid-gutter-width:         20px;
+@grid-row-width:            (@grid-columns * @grid-column-width) + (@grid-gutter-width * (@grid-columns - 1));
 
 // 1200px min
-@gridColumnWidth1200:     70px;
-@gridGutterWidth1200:     30px;
-@gridRowWidth1200:        (@gridColumns * @gridColumnWidth1200) + (@gridGutterWidth1200 * (@gridColumns - 1));
+@grid-column-width1200:     70px;
+@grid-gutter-width1200:     30px;
+@grid-row-width1200:        (@grid-columns * @grid-column-width1200) + (@grid-gutter-width1200 * (@grid-columns - 1));
 
 // 768px-979px
-@gridColumnWidth768:      42px;
-@gridGutterWidth768:      20px;
-@gridRowWidth768:         (@gridColumns * @gridColumnWidth768) + (@gridGutterWidth768 * (@gridColumns - 1));
+@grid-column-width768:      42px;
+@grid-gutter-width768:      20px;
+@grid-row-width768:         (@grid-columns * @grid-column-width768) + (@grid-gutter-width768 * (@grid-columns - 1));
 
 
 // Fluid grid
 // -------------------------
-@fluidGridColumnWidth:    percentage(@gridColumnWidth/@gridRowWidth);
-@fluidGridGutterWidth:    percentage(@gridGutterWidth/@gridRowWidth);
+@fluid-grid-column-width:    percentage(@grid-column-width/@grid-row-width);
+@fluid-grid-gutter-width:    percentage(@grid-gutter-width/@grid-row-width);
 
 // 1200px min
-@fluidGridColumnWidth1200:     percentage(@gridColumnWidth1200/@gridRowWidth1200);
-@fluidGridGutterWidth1200:     percentage(@gridGutterWidth1200/@gridRowWidth1200);
+@fluid-grid-column-width1200:     percentage(@grid-column-width1200/@grid-row-width1200);
+@fluid-grid-gutter-width1200:     percentage(@grid-gutter-width1200/@grid-row-width1200);
 
 // 768px-979px
-@fluidGridColumnWidth768:      percentage(@gridColumnWidth768/@gridRowWidth768);
-@fluidGridGutterWidth768:      percentage(@gridGutterWidth768/@gridRowWidth768);
+@fluid-grid-column-width768:      percentage(@grid-column-width768/@grid-row-width768);
+@fluid-grid-gutter-width768:      percentage(@grid-gutter-width768/@grid-row-width768);
 
 
 // Controls
@@ -357,22 +356,22 @@
 
 // Checkbox
 // -------------------------
-@checkboxPrimaryColor:                 #39b3d7;
+@checkbox-primary-color:                 #39b3d7;
 
 // Datepicker
 // -------------------------
-@datepickerHover:      #0f5f9f;
-@datepickerHoverAlt:   #1b75bb;
+@datepicker-hover:      #0f5f9f;
+@datepicker-hover-alt:   #1b75bb;
 
 // Tree
 // -------------------------
-@treeHoverText: @gray60;
-@treeSelectBackground: @selected;
+@tree-hover-text: @gray60;
+@tree-select-background: @selected;
 
 
 // Icons
 // -------------------------
-@fueluxFontPath: "../fonts/";
+@fuelux-font-path: "../fonts/";
 
 
 

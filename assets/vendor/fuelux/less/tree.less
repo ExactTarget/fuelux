@@ -1,3 +1,4 @@
+@import "fuelux-core.less";
 .fuelux {
 
 	.tree {
@@ -14,7 +15,7 @@
 		}
 
 		button:focus {
-			color: @treeHoverText;
+			color: @tree-hover-text;
 		}
 
 		ul {
@@ -54,7 +55,7 @@
 				white-space: nowrap;
 
 				.tree-branch-name:hover {
-					color: @treeHoverText;
+					color: @tree-hover-text;
 				}
 
 				.glyphicon-play {
@@ -111,11 +112,11 @@
 			}
 
 			.tree-item-name:hover {
-				color: @treeHoverText;
+				color: @tree-hover-text;
 			}
 
 			&.tree-selected .tree-item-name {
-				background-color: @treeSelectBackground;
+				background-color: @tree-select-background;
 				color: @gray20;
 			}
 
@@ -129,7 +130,7 @@
 		}
 
 		.icon-caret:hover + .tree-branch-name {
-			color: @treeHoverText;
+			color: @tree-hover-text;
 		}
 
 		// - - - - - - - - - - - - - -
@@ -147,7 +148,7 @@
 
 				.icon-caret:hover {
 					cursor: pointer;
-					color: @treeHoverText;
+					color: @tree-hover-text;
 				}
 
 				> .tree-branch-name {
@@ -156,17 +157,17 @@
 
 
 					&.tree-selected {
-						background-color: @treeSelectBackground;
+						background-color: @tree-select-background;
 					}
 				}
 
 			}
 
 			.tree-branch.tree-selected > .tree-branch-header .tree-branch-name {
-				background-color: @treeSelectBackground;
+				background-color: @tree-select-background;
 
 				&:hover {
-					background-color: @treeSelectBackground;
+					background-color: @tree-select-background;
 				}
 			}
 

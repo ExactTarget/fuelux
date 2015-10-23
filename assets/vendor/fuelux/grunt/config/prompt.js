@@ -1,6 +1,8 @@
 module.exports = function (grunt) {
 	var semver = require('semver');
-	var packageVersion = require('../../package.json').version;
+	function getPackageVersion () {
+		return grunt.file.readJSON('./package.json').version;
+	}
 
 	return {
 		// asks for what version you want to build
@@ -9,23 +11,23 @@ module.exports = function (grunt) {
 				questions: [
 					{
 						config: 'release.remoteRepository',
-						default : '<%= release.remoteRepository %>',
+						default: '<%= release.remoteRepository %>',
 						type: 'input',
-						message: function() {
+						message: function () {
 							return 'What repository would like to base your local release branch from?';
 						}
 					},
 					{
-						// Assumption is made that you are releasing the code within a "release branch" currently 
-						// on the upstream remote repo. This branch will be tracked locally and be used to run 
+						// Assumption is made that you are releasing the code within a "release branch" currently
+						// on the upstream remote repo. This branch will be tracked locally and be used to run
 						// the build process in. It will be named release_{BUILD_VERSION}_{MMSS} (that is, it will
 						// use the version specified earlier and a "mini-timestamp" of the current hour and minute).
 						config: 'release.remoteBaseBranch',
 						type: 'input',
-						default : '<%= release.remoteBaseBranch %>',
-						message: function() {
-							return 'What remote branch from ' + grunt.config('release.remoteRepository') + 
-							' would like to build your release based on?';
+						default: '<%= release.remoteBaseBranch %>',
+						message: function () {
+							return 'What remote branch from ' + grunt.config('release.remoteRepository') +
+									' would like to build your release based on?';
 						}
 					}
 				]
@@ -42,15 +44,15 @@ module.exports = function (grunt) {
 						choices: [
 							{
 								value: 'patch',
-								name: 'Patch:  ' + semver.inc(packageVersion, 'patch') + ' Backwards-compatible bug fixes.'
+								name: 'Patch:  ' + semver.inc(getPackageVersion(), 'patch') + ' Backwards-compatible bug fixes.'
 							},
 							{
 								value: 'minor',
-								name: 'Minor:  ' + semver.inc(packageVersion, 'minor') + ' Add functionality in a backwards-compatible manner.'
+								name: 'Minor:  ' + semver.inc(getPackageVersion(), 'minor') + ' Add functionality in a backwards-compatible manner.'
 							},
 							{
 								value: 'major',
-								name: 'Major:  ' + semver.inc(packageVersion, 'major') + ' Incompatible API changes.'
+								name: 'Major:  ' + semver.inc(getPackageVersion(), 'major') + ' Incompatible API changes.'
 							},
 							{
 								value: 'custom',
@@ -80,7 +82,7 @@ module.exports = function (grunt) {
 					{
 						config: 'release.commit',
 						type: 'confirm',
-						message: 'Please review your files. Would you like to commit?'
+						message: 'Please review your files.\n Check dist files visually to make sure comment banners have correct release version listed, and that *.min files are minified as expected.\n Also confirm that version number is updated in package.json.\n\n Would you like to commit?'
 					}
 				],
 				then: function (answers, done) {
@@ -97,7 +99,7 @@ module.exports = function (grunt) {
 					{
 						config: 'release.tag',
 						type: 'confirm',
-						message: 'Would you like to tag as ' + packageVersion + '?'
+						message: 'Would you like to tag as ' + getPackageVersion() + '?'
 					}
 				],
 				then: function (answers, done) {
@@ -114,14 +116,14 @@ module.exports = function (grunt) {
 					{
 						config: 'release.remoteDestinationBranch',
 						type: 'input',
-						message: function() {
-							return 'What upstream branch would you like to push ' + grunt.config('release.localBranch') + 
-								' to (probably ' + grunt.config('release.remoteDestinationBranch') + ')? (leave blank to skip)';
+						message: function () {
+							return 'What upstream branch would you like to push ' + grunt.config('release.localBranch') +
+									' to (probably ' + grunt.config('release.remoteDestinationBranch') + ')? (leave blank to skip)';
 						}
 					}
 				],
 				then: function (answers, done) {
-					if (answers['release.remoteDestinationBranch'] !== '' && answers['release.remoteDestinationBranch'] !== 'n' ) {
+					if (answers['release.remoteDestinationBranch'] !== '' && answers['release.remoteDestinationBranch'] !== 'n') {
 						grunt.task.run(['shell:pushLocalBranchToUpstream']);
 					}
 					return false;
@@ -134,7 +136,7 @@ module.exports = function (grunt) {
 					{
 						config: 'release.upstreamTag',
 						type: 'confirm',
-						message: 'Would you like to push tag ' + packageVersion + ' to upstream?'
+						message: 'Would you like to push tag ' + getPackageVersion() + ' to upstream?'
 					}
 				],
 				then: function (answers, done) {
@@ -168,7 +170,7 @@ module.exports = function (grunt) {
 					{
 						config: 'release.pushToUpstreamMaster',
 						type: 'confirm',
-						message: 'Would you like to push your local release branch to upstream\'s master branch?'
+						message: "Would you like to push your local release branch to upstream's master branch?"
 					}
 				],
 				then: function (answers, done) {
@@ -185,7 +187,7 @@ module.exports = function (grunt) {
 					{
 						config: 'release.deleteLocalReleaseBranch',
 						type: 'confirm',
-						message: function() {
+						message: function () {
 							return 'Would you like to delete your local release branch' + '?';
 						}
 					}
@@ -214,6 +216,121 @@ module.exports = function (grunt) {
 					return false;
 				}
 			}
+		},
+		'createmilestone': {
+			options: {
+				questions: [
+					{
+						config: 'release.createmilestone',
+						type: 'confirm',
+						message: 'Have you created a milestone in GitHub for the next version?'
+					}
+				],
+				then: function (answers, done) {
+					if (answers['release.createmilestone'] === false) {
+						grunt.fail.fatal('Please follow the wiki https://github.com/ExactTarget/fuelux/wiki/How-to-release-a-new-version#how-to-release', 1);
+					}
+				}
+			}
+		},
+		'bumpmilestones': {
+			options: {
+				questions: [
+					{
+						config: 'release.bumpmilestones',
+						type: 'confirm',
+						message: 'Have you bumped all open tickets to the next version?'
+					}
+				],
+				then: function (answers, done) {
+					if (answers['release.bumpmilestones'] === false) {
+						grunt.fail.fatal('Please follow the wiki https://github.com/ExactTarget/fuelux/wiki/How-to-release-a-new-version#how-to-release', 1);
+					}
+				}
+			}
+		},
+		'closemilestone': {
+			options: {
+				questions: [
+					{
+						config: 'release.closemilestone',
+						type: 'confirm',
+						message: 'Have you marked the current release milestone as closed?'
+					}
+				],
+				then: function (answers, done) {
+					if (answers['release.closemilestone'] === false) {
+						grunt.fail.fatal('Please follow the wiki https://github.com/ExactTarget/fuelux/wiki/How-to-release-a-new-version#how-to-release', 1);
+					}
+				}
+			}
+		},
+		'startrelease': {
+			options: {
+				questions: [
+					{
+						config: 'release.startrelease',
+						type: 'confirm',
+						message: 'Would you like to start the release?'
+					}
+				],
+				then: function (answers, done) {
+					if (answers['release.startrelease'] === false) {
+						grunt.fail.fatal('Please follow the wiki https://github.com/ExactTarget/fuelux/wiki/How-to-release-a-new-version#how-to-release', 1);
+					}
+				}
+			}
+		},
+		'generatelogs': {
+			options: {
+				questions: [
+					{
+						config: 'release.generatelogs',
+						type: 'confirm',
+						message: 'Would you like to generate change logs?'
+					}
+				],
+				then: function (answers, done) {
+					if (answers['release.generatelogs'] === true) {
+						grunt.task.run(['shell:notes']);
+					}
+					return false;
+				}
+			}
+		},
+		'generatelogsmanually': {
+			options: {
+				questions: [
+					{
+						config: 'release.generatelogsmanuallystart',
+						type: 'input',
+						message: 'Which releases would you like to start diff for changelogs from? (eg. 3.11.4)',
+					},
+					{
+						config: 'release.generatelogsmanuallyend',
+						type: 'input',
+						message: 'Which releases would you like to end diff for changelogs from? (eg. 3.11.5)',
+					},
+					{
+						config: 'release.generatelogsmanually',
+						type: 'confirm',
+						message: 'Would you like to generate change logs now?'
+					}
+				],
+				then: function (answers, done) {
+					if (answers['release.generatelogsmanually'] === true && answers['release.generatelogsmanuallystart'] !== '' && answers['release.generatelogsmanuallyend'] !== '') {
+						grunt.log.writeln('About to generate changelogs between ' + answers['release.generatelogsmanuallystart'] + ' and ' + answers['release.generatelogsmanuallyend'] + '.');
+						grunt.log.writeln('There will be no more output for possibly several minutes.');
+						grunt.log.writeln('Thank you for your patience, have an ohana mahalo kilikilikiwana day.');
+						grunt.log.writeln('//TODO: Insert tiki dancing nyan cat here. --jschmidt');
+						grunt.task.run(['shell:manualnotes']);
+					} else {
+						grunt.log.writeln('You have failed us all. You are no longer ohana.');
+					}
+					return false;
+				}
+			}
 		}
-	}
-}
+	};
+};
+

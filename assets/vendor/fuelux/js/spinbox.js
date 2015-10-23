@@ -31,7 +31,7 @@
 
 	// SPINBOX CONSTRUCTOR AND PROTOTYPE
 
-	var Spinbox = function (element, options) {
+	var Spinbox = function Spinbox(element, options) {
 		this.$element = $(element);
 		this.$element.find('.btn').on('click', function (e) {
 			//keep spinbox from submitting if they forgot to say type="button" on their spinner buttons
@@ -40,9 +40,14 @@
 		this.options = $.extend({}, $.fn.spinbox.defaults, options);
 		this.options.step = this.$element.data('step') || this.options.step;
 
+		if (this.options.value < this.options.min) {
+			this.options.value = this.options.min;
+		} else if (this.options.max < this.options.value) {
+			this.options.value = this.options.max;
+		}
+
 		this.$input = this.$element.find('.spinbox-input');
-		this.$element.on('focusin.fu.spinbox', this.$input, $.proxy(this.changeFlag, this));
-		this.$element.on('focusout.fu.spinbox', this.$input, $.proxy(this.change, this));
+		this.$input.on('focusout.fu.spinbox', this.$input, $.proxy(this.change, this));
 		this.$element.on('keydown.fu.spinbox', this.$input, $.proxy(this.keydown, this));
 		this.$element.on('keyup.fu.spinbox', this.$input, $.proxy(this.keyup, this));
 
@@ -80,6 +85,9 @@
 			this.switches.speed = 500;
 		}
 
+		this.options.defaultUnit = _isUnitLegal(this.options.defaultUnit, this.options.units) ? this.options.defaultUnit : '';
+		this.unit = this.options.defaultUnit;
+
 		this.lastValue = this.options.value;
 
 		this.render();
@@ -89,10 +97,65 @@
 		}
 	};
 
+	// Truly private methods
+	var _limitToStep = function _limitToStep(number, step) {
+		return Math.round(number / step) * step;
+	};
+
+	var _isUnitLegal = function _isUnitLegal(unit, validUnits) {
+		var legalUnit = false;
+		var suspectUnit = unit.toLowerCase();
+
+		$.each(validUnits, function (i, validUnit) {
+			validUnit = validUnit.toLowerCase();
+			if (suspectUnit === validUnit) {
+				legalUnit = true;
+				return false;//break out of the loop
+			}
+		});
+
+		return legalUnit;
+	};
+
+	var _applyLimits = function _applyLimits(value) {
+		// if unreadable
+		if (isNaN(parseFloat(value))) {
+			return value;
+		}
+
+		// if not within range return the limit
+		if (value > this.options.max) {
+			if (this.options.cycle) {
+				value = this.options.min;
+			} else {
+				value = this.options.max;
+			}
+		} else if (value < this.options.min) {
+			if (this.options.cycle) {
+				value = this.options.max;
+			} else {
+				value = this.options.min;
+			}
+		}
+
+		if (this.options.limitToStep && this.options.step) {
+			value = _limitToStep(value, this.options.step);
+
+			//force round direction so that it stays within bounds
+			if(value > this.options.max){
+				value = value - this.options.step;
+			} else if(value < this.options.min) {
+				value = value + this.options.step;
+			}
+		}
+
+		return value;
+	};
+
 	Spinbox.prototype = {
 		constructor: Spinbox,
 
-		destroy: function () {
+		destroy: function destroy() {
 			this.$element.remove();
 			// any external bindings
 			// [none]
@@ -106,72 +169,17 @@
 			return this.$element[0].outerHTML;
 		},
 
-		render: function () {
-			var inputValue = this.parseInput(this.$input.val());
-			var maxUnitLength = '';
-
-			// if input is empty and option value is default, 0
-			if (inputValue !== '' && this.options.value === 0) {
-				this.value(inputValue);
-			} else {
-				this.output (this.options.value);
-			}
-
-			if (this.options.units.length) {
-				$.each(this.options.units, function (index, value) {
-					if (value.length > maxUnitLength.length) {
-						maxUnitLength = value;
-					}
-				});
-			}
+		render: function render() {
+			this.setValue(this.getDisplayValue());
 		},
 
-		output: function (value, updateField) {
-			value = (value + '').split('.').join(this.options.decimalMark);
-			// if set and default unit if not already present, 
-			// and is an allowed unit, then add default unit
-			if (this.options.defaultUnit !== '' && 
-					this.options.defaultUnit !== value.slice(-Math.abs(this.options.defaultUnit.length)) &&
-					this.isUnitLegal(this.options.defaultUnit)) {
-				value = value + this.options.defaultUnit;
-			}
-			updateField = (updateField || true);
-			if (updateField) {
-				this.$input.val(value);
-			}
+		change: function change() {
+			this.setValue(this.getDisplayValue());
 
-			return value;
-		},
-
-		parseInput: function (value) {
-			value = (value + '').split(this.options.decimalMark).join('.');
-
-			return value;
-		},
-
-		change: function () {
-			var newVal = this.parseInput(this.$input.val()) || '';
-
-			if (this.options.units.length || this.options.decimalMark !== '.') {
-				newVal = this.parseValueWithUnit(newVal);
-			} else if (newVal / 1) {
-				newVal = this.options.value = this.checkMaxMin(newVal / 1);
-			} else {
-				newVal = this.checkMaxMin(newVal.replace(/[^0-9.-]/g, '') || '');
-				this.options.value = newVal / 1;
-			}
-
-			this.output (newVal);
-
-			this.changeFlag = false;
 			this.triggerChangedEvent();
 		},
 
-		changeFlag: function () {
-			this.changeFlag = true;
-		},
-
-		stopSpin: function () {
+		stopSpin: function stopSpin() {
 			if (this.switches.timeout !== undefined) {
 				clearTimeout(this.switches.timeout);
 				this.switches.count = 1;
@@ -179,16 +187,16 @@
 			}
 		},
 
-		triggerChangedEvent: function () {
-			var currentValue = this.value();
+		triggerChangedEvent: function triggerChangedEvent() {
+			var currentValue = this.getValue();
 			if (currentValue === this.lastValue) return;
 			this.lastValue = currentValue;
 
 			// Primary changed event
-			this.$element.trigger('changed.fu.spinbox', this.output(currentValue, false));// no DOM update
+			this.$element.trigger('changed.fu.spinbox', currentValue);
 		},
 
-		startSpin: function (type) {
+		startSpin: function startSpin(type) {
 			if (!this.options.disabled) {
 				var divisor = this.switches.count;
 
@@ -210,144 +218,139 @@
 			}
 		},
 
-		iterate: function (type) {
+		iterate: function iterate(type) {
 			this.step(type);
 			this.startSpin(type);
 		},
 
-		step: function (isIncrease) {
-			// isIncrease: true is up, false is down
+		step: function step(isIncrease) {
+			//refresh value from display before trying to increment in case they have just been typing before clicking the nubbins
+			this.setValue(this.getDisplayValue());
+			var newVal;
 
-			var digits, multiple, currentValue, limitValue;
-
-			// trigger change event
-			if (this.changeFlag) {
-				this.change();
+			if (isIncrease) {
+				newVal = this.options.value + this.options.step;
+			} else {
+				newVal = this.options.value - this.options.step;
 			}
 
-			// get current value and min/max options
-			currentValue = this.options.value;
-			limitValue = isIncrease ? this.options.max : this.options.min;
+			newVal = newVal.toFixed(5);
 
-			if ( (isIncrease ? currentValue < limitValue : currentValue > limitValue) ) {
-				var newVal = currentValue + (isIncrease ? 1 : -1) * this.options.step;
+			this.setValue(newVal + this.unit);
+		},
 
-				// raise to power of 10 x number of decimal places, then round
-				if (this.options.step % 1 !== 0) {
-					digits = (this.options.step + '').split('.')[1].length;
-					multiple = Math.pow(10, digits);
-					newVal = Math.round(newVal * multiple) / multiple;
-				}
+		getDisplayValue: function getDisplayValue() {
+			var inputValue = this.parseInput(this.$input.val());
+			var value = (!!inputValue) ? inputValue : this.options.value;
+			return value;
+		},
 
-				// if outside limits, set to limit value
-				if (isIncrease ? newVal > limitValue : newVal < limitValue) {
-					this.value(limitValue);
-				} else {
-					this.value(newVal);
-				}
-
-			} else if (this.options.cycle) {
-				var cycleVal = isIncrease ? this.options.min : this.options.max;
-				this.value(cycleVal);
-			}
+		setDisplayValue: function setDisplayValue(value) {
+			this.$input.val(value);
 		},
 
 		getValue: function getValue() {
-			return this.value();
+			var val = this.options.value;
+			if (this.options.decimalMark !== '.'){
+				val = (val + '').split('.').join(this.options.decimalMark);
+			}
+			return val + this.unit;
 		},
 
-		value: function (value) {
-			if (value || value === 0) {
-				if (this.options.units.length || this.options.decimalMark !== '.') {
-					this.output(this.parseValueWithUnit(value + (this.unit || '')));
-					return this;
+		setValue: function setValue(val) {
+			//remove any i18n on the number
+			if (this.options.decimalMark !== '.') {
+				val = this.parseInput(val);
+			}
 
-				} else if (!isNaN(parseFloat(value)) && isFinite(value)) {
-					this.options.value = value / 1;
-					this.output (value + (this.unit ? this.unit : ''));
-					return this;
+			//are we dealing with united numbers?
+			if(typeof val !== "number"){
+				var potentialUnit = val.replace(/[0-9.-]/g, '');
+				//make sure unit is valid, or else drop it in favor of current unit, or default unit (potentially nothing)
+				this.unit = _isUnitLegal(potentialUnit, this.options.units) ? potentialUnit : this.options.defaultUnit;
+			}
 
-				}
+			var intVal = this.getIntValue(val);
 
+			//make sure we are dealing with a number
+			if (isNaN(intVal) && !isFinite(intVal)) {
+				return this.setValue(this.options.value);
+			}
+
+			//conform
+			intVal = _applyLimits.call(this, intVal);
+
+			//cache the pure int value
+			this.options.value = intVal;
+
+			//prepare number for display
+			val = intVal + this.unit;
+
+			if (this.options.decimalMark !== '.'){
+				val = (val + '').split('.').join(this.options.decimalMark);
+			}
+
+			//display number
+			this.setDisplayValue(val);
+
+			return this;
+		},
+
+		value: function value(val) {
+			if (val || val === 0) {
+				return this.setValue(val);
 			} else {
-				if (this.changeFlag) {
-					this.change();
-				}
-
-				if (this.unit) {
-					return this.options.value + this.unit;
-				} else {
-					return this.output(this.options.value, false);// no DOM update
-				}
-
+				return this.getValue();
 			}
 		},
 
-		isUnitLegal: function (unit) {
-			var legalUnit;
-
-			$.each(this.options.units, function (index, value) {
-				if (value.toLowerCase() === unit.toLowerCase()) {
-					legalUnit = unit.toLowerCase();
-					return false;
-				}
-			});
-
-			return legalUnit;
-		},
-
-		// strips units and add them back
-		parseValueWithUnit: function (value) {
-			var unit = value.replace(/[^a-zA-Z]/g, '');
-			var number = value.replace(/[^0-9.-]/g, '');
-
-			if (unit) {
-				unit = this.isUnitLegal(unit);
-			}
-
-			this.options.value = this.checkMaxMin(number / 1);
-			this.unit = unit || undefined;
-			return this.options.value + (unit || '');
-		},
-
-		checkMaxMin: function (value) {
-			// if unreadable
-			if (isNaN(parseFloat(value))) {
-				return value;
-			}
-
-			// if not within range return the limit
-			if (!(value <= this.options.max && value >= this.options.min)) {
-				value = value >= this.options.max ? this.options.max : this.options.min;
-			}
+		parseInput: function parseInput(value) {
+			value = (value + '').split(this.options.decimalMark).join('.');
 
 			return value;
 		},
 
-		disable: function () {
+		getIntValue: function getIntValue(value) {
+			//if they didn't pass in a number, try and get the number
+			value = (typeof value === "undefined") ? this.getValue() : value;
+			// if there still isn't a number, abort
+			if(typeof value === "undefined"){return;}
+
+			if (typeof value === 'string'){
+				value = this.parseInput(value);
+			}
+
+			value = parseFloat(value, 10);
+
+			return value;
+		},
+
+		disable: function disable() {
 			this.options.disabled = true;
 			this.$element.addClass('disabled');
 			this.$input.attr('disabled', '');
 			this.$element.find('button').addClass('disabled');
 		},
 
-		enable: function () {
+		enable: function enable() {
 			this.options.disabled = false;
 			this.$element.removeClass('disabled');
 			this.$input.removeAttr('disabled');
 			this.$element.find('button').removeClass('disabled');
 		},
 
-		keydown: function (event) {
+		keydown: function keydown(event) {
 			var keyCode = event.keyCode;
 			if (keyCode === 38) {
 				this.step(true);
 			} else if (keyCode === 40) {
 				this.step(false);
+			} else if (keyCode === 13) {
+				this.change();
 			}
 		},
 
-		keyup: function (event) {
+		keyup: function keyup(event) {
 			var keyCode = event.keyCode;
 
 			if (keyCode === 38 || keyCode === 40) {
@@ -355,7 +358,7 @@
 			}
 		},
 
-		bindMousewheelListeners: function () {
+		bindMousewheelListeners: function bindMousewheelListeners() {
 			var inputEl = this.$input.get(0);
 			if (inputEl.addEventListener) {
 				//IE 9, Chrome, Safari, Opera
@@ -368,7 +371,7 @@
 			}
 		},
 
-		mousewheelHandler: function (event) {
+		mousewheelHandler: function mousewheelHandler(event) {
 			if (!this.options.disabled) {
 				var e = window.event || event;// old IE support
 				var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
@@ -399,7 +402,7 @@
 
 	// SPINBOX PLUGIN DEFINITION
 
-	$.fn.spinbox = function (option) {
+	$.fn.spinbox = function spinbox(option) {
 		var args = Array.prototype.slice.call(arguments, 1);
 		var methodReturn;
 
@@ -432,12 +435,13 @@
 		cycle: false,
 		units: [],
 		decimalMark: '.',
-		defaultUnit: ''
+		defaultUnit: '',
+		limitToStep: false
 	};
 
 	$.fn.spinbox.Constructor = Spinbox;
 
-	$.fn.spinbox.noConflict = function () {
+	$.fn.spinbox.noConflict = function noConflict() {
 		$.fn.spinbox = old;
 		return this;
 	};

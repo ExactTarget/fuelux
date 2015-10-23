@@ -56,12 +56,12 @@
     "dist/fonts/fuelux.ttf",
     "dist/fonts/fuelux.woff"
   ],
-  "version": "3.11.3",
-  "_release": "3.11.3",
+  "version": "3.11.5",
+  "_release": "3.11.5",
   "_resolution": {
     "type": "version",
-    "tag": "3.11.3",
-    "commit": "867745df4eb588b3308e6740652d21c3ce13a395"
+    "tag": "3.11.5",
+    "commit": "c8a6fef6d4a992eed8f34d3dfc12dc443732041c"
   },
   "_source": "git://github.com/ExactTarget/fuelux.git",
   "_target": "3.x",

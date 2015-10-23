@@ -1,8 +1,9 @@
+@import "fuelux-core.less";
 @mutli-select-enabled-width: 37px;
 .selectable() {
 	&.selectable {
 		&:hover td, &.hovered td {
-			background: @selectableHover;
+			background: @selectable-hover;
 			cursor: pointer;
 		}
 		.checkbox-custom:before {
@@ -62,6 +63,10 @@
 							&.sorted {
 								background: @gray98;
 							}
+
+							&.repeater-list-actions-placeholder {
+								border-left: none;
+							}
 						}
 
 						tr {
@@ -104,9 +109,9 @@
 
 						&.sortable {
 							&:hover, &.sorted {
-								background: @selectableHover;
+								background: @selectable-hover;
 								cursor: pointer;
-								#fuelux > .vertical(@startColor: @gray98; @endColor: @gray90);
+								#fuelux > .vertical(@start-color: @gray98; @end-color: @gray90);
 							}
 						}
 
@@ -121,10 +126,6 @@
 							display: none;
 							float: right;
 							margin-top: 2px;
-						}
-
-						.actions-hidden {
-							visibility: hidden;
 						}
 					}
 				}
@@ -172,7 +173,7 @@
 						&:hover, &.sorted {
 							background: @gray96;
 							cursor: pointer;
-							#fuelux > .vertical(@startColor: @gray98; @endColor: @gray90);
+							#fuelux > .vertical(@start-color: @gray98; @end-color: @gray90);
 						}
 
 						&.sorted {
@@ -314,12 +315,6 @@
 								}
 							}
 						}
-					}
-					.actions-thead-wrapper {
-						position: absolute;
-						top: 0;
-						right: 0;
-						z-index: 3;
 					}
 					table {
 						table-layout: fixed;

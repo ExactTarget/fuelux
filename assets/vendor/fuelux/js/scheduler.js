@@ -36,7 +36,7 @@
 
 	// SCHEDULER CONSTRUCTOR AND PROTOTYPE
 
-	var Scheduler = function (element, options) {
+	var Scheduler = function Scheduler(element, options) {
 		var self = this;
 
 		this.$element = $(element);
@@ -68,6 +68,10 @@
 		//initialize sub-controls
 		this.$element.find('.selectlist').selectlist();
 		this.$startDate.datepicker(this.options.startDateOptions);
+
+		var startDateResponse = (typeof this.options.startDateChanged === "function") ? this.options.startDateChanged : this._guessEndDate;
+		this.$startDate.on('change changed.fu.datepicker dateClicked.fu.datepicker', $.proxy(startDateResponse, this));
+
 		this.$startTime.combobox();
 		// init start time
 		if (this.$startTime.find('input').val() === '') {
@@ -78,17 +82,20 @@
 		if (this.$repeatIntervalSpinbox.find('input').val() === '0') {
 			this.$repeatIntervalSpinbox.spinbox({
 				'value': 1,
-				'min': 1
+				'min': 1,
+				'limitToStep': true
 			});
 		} else {
 			this.$repeatIntervalSpinbox.spinbox({
-				'min': 1
+				'min': 1,
+				'limitToStep': true
 			});
 		}
 
 		this.$endAfter.spinbox({
 			'value': 1,
-			'min': 1
+			'min': 1,
+			'limitToStep': true
 		});
 		this.$endDate.datepicker(this.options.endDateOptions);
 		this.$element.find('.radio-custom').radio();
@@ -107,10 +114,46 @@
 		this.$element.find('.repeat-monthly .radio-custom, .repeat-yearly .radio-custom').on('change.fu.scheduler', $.proxy(this.changed, this));
 	};
 
+	var _getFormattedDate = function _getFormattedDate(dateObj, dash) {
+		var fdate = '';
+		var item;
+
+		fdate += dateObj.getFullYear();
+		fdate += dash;
+		item = dateObj.getMonth() + 1;//because 0 indexing makes sense when dealing with months /sarcasm
+		fdate += (item < 10) ? '0' + item : item;
+		fdate += dash;
+		item = dateObj.getDate();
+		fdate += (item < 10) ? '0' + item : item;
+
+		return fdate;
+	};
+
+	var ONE_SECOND = 1000;
+	var ONE_MINUTE = ONE_SECOND * 60;
+	var ONE_HOUR = ONE_MINUTE * 60;
+	var ONE_DAY = ONE_HOUR * 24;
+	var ONE_WEEK = ONE_DAY * 7;
+	var ONE_MONTH = ONE_WEEK * 5;// No good way to increment by one month using vanilla JS. Since this is an end date, we only need to ensure that this date occurs after at least one or more repeat increments, but there is no reason for it to be exact.
+	var ONE_YEAR = ONE_WEEK * 52;
+	var INTERVALS = {
+		secondly: ONE_SECOND,
+		minutely: ONE_MINUTE,
+		hourly: ONE_HOUR,
+		daily: ONE_DAY,
+		weekly: ONE_WEEK,
+		monthly: ONE_MONTH,
+		yearly: ONE_YEAR
+	};
+
+	var _incrementDate = function _incrementDate(start, end, interval, increment) {
+		return new Date(start.getTime() + (INTERVALS[interval] * increment));
+	};
+
 	Scheduler.prototype = {
 		constructor: Scheduler,
 
-		destroy: function () {
+		destroy: function destroy() {
 			var markup;
 			// set input value attribute
 			this.$element.find('input').each(function () {
@@ -136,7 +179,7 @@
 			return markup;
 		},
 
-		changed: function (e, data, propagate) {
+		changed: function changed(e, data, propagate) {
 			if (!propagate) {
 				e.stopPropagation();
 			}
@@ -148,15 +191,15 @@
 			});
 		},
 
-		disable: function () {
+		disable: function disable() {
 			this.toggleState('disable');
 		},
 
-		enable: function () {
+		enable: function enable() {
 			this.toggleState('enable');
 		},
 
-		setUtcTime: function (d, t, offset) {
+		setUtcTime: function setUtcTime(d, t, offset) {
 			var date = d.split('-');
 			var time = t.split(':');
 			function z(n) {
@@ -194,7 +237,7 @@
 
 		// called when the end range changes
 		// (Never, After, On date)
-		endSelectChanged: function (e, data) {
+		endSelectChanged: function endSelectChanged(e, data) {
 			var selectedItem, val;
 
 			if (!data) {
@@ -220,7 +263,34 @@
 			}
 		},
 
-		getValue: function () {
+		_guessEndDate: function _guessEndDate() {
+			var interval = this.$repeatIntervalSelect.selectlist('selectedItem').value;
+			var end = new Date(this.$endDate.datepicker('getDate'));
+			var start = new Date(this.$startDate.datepicker('getDate'));
+			var increment = this.$repeatIntervalSpinbox.find('input').val();
+
+			if(interval !== "none" && end <= start){
+				// if increment spinbox is hidden, user has no idea what it is set to and it is probably not set to
+				// something they intended. Safest option is to set date forward by an increment of 1.
+				// this will keep monthly & yearly from auto-incrementing by more than a single interval
+				if(!this.$repeatIntervalSpinbox.is(':visible')){
+					increment = 1;
+				}
+
+				// treat weekdays as weekly. This treats all "weekdays" as a single set, of which a single increment
+				// is one week.
+				if(interval === "weekdays"){
+					increment = 1;
+					interval = "weekly";
+				}
+
+				end = _incrementDate(start, end, interval, increment);
+
+				this.$endDate.datepicker('setDate', end);
+			}
+		},
+
+		getValue: function getValue() {
 			// FREQ = frequency (secondly, minutely, hourly, daily, weekdays, weekly, monthly, yearly)
 			// BYDAY = when picking days (MO,TU,WE,etc)
 			// BYMONTH = when picking months (Jan,Feb,March) - note the values should be 1,2,3...
@@ -241,26 +311,9 @@
 			}
 
 			var timeZone = this.$timeZone.selectlist('selectedItem');
-			var getFormattedDate;
-
-			getFormattedDate = function (dateObj, dash) {
-				var fdate = '';
-				var item;
-
-				fdate += dateObj.getFullYear();
-				fdate += dash;
-				item = dateObj.getMonth() + 1;//because 0 indexing makes sense when dealing with months /sarcasm
-				fdate += (item < 10) ? '0' + item : item;
-				fdate += dash;
-				item = dateObj.getDate();
-				fdate += (item < 10) ? '0' + item : item;
-
-				return fdate;
-			};
-
 			var day, days, hasAm, hasPm, month, pos, startDateTime, type;
 
-			startDateTime = '' + getFormattedDate(this.$startDate.datepicker('getDate'), '-');
+			startDateTime = '' + _getFormattedDate(this.$startDate.datepicker('getDate'), '-');
 
 			startDateTime += 'T';
 			hasAm = (startTime.search('am') >= 0);
@@ -354,7 +407,7 @@
 				if (end === 'after') {
 					duration = 'COUNT=' + this.$endAfter.spinbox('value') + ';';
 				} else if (end === 'date') {
-					duration = 'UNTIL=' + getFormattedDate(this.$endDate.datepicker('getDate'), '') + ';';
+					duration = 'UNTIL=' + _getFormattedDate(this.$endDate.datepicker('getDate'), '') + ';';
 				}
 
 			}
@@ -374,7 +427,7 @@
 
 		// called when the repeat interval changes
 		// (None, Hourly, Daily, Weekdays, Weekly, Monthly, Yearly
-		repeatIntervalSelectChanged: function (e, data) {
+		repeatIntervalSelectChanged: function repeatIntervalSelectChanged(e, data) {
 			var selectedItem, val, txt;
 
 			if (!data) {
@@ -420,9 +473,11 @@
 				this.$end.removeClass('hide hidden'); // hide is deprecated
 				this.$end.attr('aria-hidden', 'false');
 			}
+
+			this._guessEndDate();
 		},
 
-		setValue: function (options) {
+		setValue: function setValue(options) {
 			var hours, i, item, l, minutes, period, recur, temp, startDate, startTime, timeOffset;
 
 			if (options.startDateTime) {
@@ -615,7 +670,7 @@
 			this.$startDate.datepicker('setDate', utcStartHours);
 		},
 
-		toggleState: function (action) {
+		toggleState: function toggleState(action) {
 			this.$element.find('.combobox').combobox(action);
 			this.$element.find('.datepicker').datepicker(action);
 			this.$element.find('.selectlist').selectlist(action);
@@ -631,7 +686,7 @@
 			this.$element.find('.repeat-days-of-the-week .btn-group')[action]('disabled');
 		},
 
-		value: function (options) {
+		value: function value(options) {
 			if (options) {
 				return this.setValue(options);
 			} else {
@@ -643,7 +698,7 @@
 
 	// SCHEDULER PLUGIN DEFINITION
 
-	$.fn.scheduler = function (option) {
+	$.fn.scheduler = function scheduler(option) {
 		var args = Array.prototype.slice.call(arguments, 1);
 		var methodReturn;
 
@@ -668,7 +723,7 @@
 
 	$.fn.scheduler.Constructor = Scheduler;
 
-	$.fn.scheduler.noConflict = function () {
+	$.fn.scheduler.noConflict = function noConflict() {
 		$.fn.scheduler = old;
 		return this;
 	};

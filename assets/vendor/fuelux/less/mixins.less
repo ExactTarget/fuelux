@@ -1,3 +1,4 @@
+@import "fuelux-core.less";
 // For clearing floats
 .clearfix {
 	*zoom: 1;
@@ -34,29 +35,29 @@
 	}
 
 	// Gradient Bar Colors for buttons and alerts
-	.gradient-bar(@primaryColor, @secondaryColor, @textColor: #fff, @textShadow: 0 -1px 0 rgba(0,0,0,.25)) {
-		color: @textColor;
-		text-shadow: @textShadow;
-		#gradient > .vertical(@primaryColor, @secondaryColor);
-		border-color: @secondaryColor @secondaryColor darken(@secondaryColor, 15%);
+	.gradient-bar(@primary-color, @secondary-color, @text-color: #fff, @text-shadow: 0 -1px 0 rgba(0,0,0,.25)) {
+		color: @text-color;
+		text-shadow: @text-shadow;
+		#gradient > .vertical(@primary-color, @secondary-color);
+		border-color: @secondary-color @secondary-color darken(@secondary-color, 15%);
 		border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) fadein(rgba(0,0,0,.1), 15%);
 	}
 
 	// Gradients
-	.vertical(@startColor: @gray33, @endColor: @gray20) {
-		background-color: mix(@startColor, @endColor, 60%);
-		background-image: -moz-linear-gradient(top, @startColor, @endColor); // FF 3.6+
-		background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@startColor), to(@endColor)); // Safari 4+, Chrome 2+
-		background-image: -webkit-linear-gradient(top, @startColor, @endColor); // Safari 5.1+, Chrome 10+
-		background-image: -o-linear-gradient(top, @startColor, @endColor); // Opera 11.10
-		background-image: linear-gradient(to bottom, @startColor, @endColor); // Standard, IE10
+	.vertical(@start-color: @gray33, @end-color: @gray20) {
+		background-color: mix(@start-color, @end-color, 60%);
+		background-image: -moz-linear-gradient(top, @start-color, @end-color); // FF 3.6+
+		background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@start-color), to(@end-color)); // Safari 4+, Chrome 2+
+		background-image: -webkit-linear-gradient(top, @start-color, @end-color); // Safari 5.1+, Chrome 10+
+		background-image: -o-linear-gradient(top, @start-color, @end-color); // Opera 11.10
+		background-image: linear-gradient(to bottom, @start-color, @end-color); // Standard, IE10
 		background-repeat: repeat-x;
-		filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",argb(@startColor),argb(@endColor))); // IE9 and down
+		filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",argb(@start-color),argb(@end-color))); // IE9 and down
 	}
 
 	// Icon Base Styles
-	.icon-base-styles(@fontFamily: "fuelux"){
-		font-family: @fontFamily !important;
+	.icon-base-styles(@font-family: "fuelux"){
+		font-family: @font-family !important;
 		font-style: normal !important;
 		font-weight: normal !important;
 		font-variant: normal !important;

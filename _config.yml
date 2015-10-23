@@ -8,27 +8,27 @@ url:              http://getfuelux.com
 # url:              http://0.0.0.0:4000/
 
 # Custom vars
-current_version:  3.11.0
+current_version:  3.11.5
 repo:             https://github.com/ExactTarget/fuelux
 
 
 download:
-  source:         https://github.com/ExactTarget/fuelux/archive/3.11.0.zip
+  source:         https://github.com/ExactTarget/fuelux/archive/3.11.5.zip
   dist:           https://github.com/ExactTarget/fuelux/raw/master/dist/fuelux.zip
 
 blog:             http://code.exacttarget.com
 
 cdn:
-  css:            //www.fuelcdn.com/fuelux/3.11.0/css/fuelux.min.css
-  js:             //www.fuelcdn.com/fuelux/3.11.0/js/fuelux.min.js
-  js_amd:         //www.fuelcdn.com/fuelux/3.11.0/js/fuelux.min
-  zip:            //www.fuelcdn.com/fuelux/3.11.0/fuelux.zip
+  css:            //www.fuelcdn.com/fuelux/3.11.5/css/fuelux.min.css
+  js:             //www.fuelcdn.com/fuelux/3.11.5/js/fuelux.min.js
+  js_amd:         //www.fuelcdn.com/fuelux/3.11.5/js/fuelux.min
+  zip:            //www.fuelcdn.com/fuelux/3.11.5/fuelux.zip
 
 mctheme:
-  css:            //www.fuelcdn.com/fuelux-mctheme/1.0.0/css/fuelux-mctheme.min.css
+  css:            //www.fuelcdn.com/fuelux-mctheme/1.11.0/css/fuelux-mctheme.min.css
 
 bootstrap:
-  css:            //maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css
-  js:             //maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js
-  js_amd:         //maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min
+  css:            //maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css
+  js:             //maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js
+  js_amd:         //maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min
 

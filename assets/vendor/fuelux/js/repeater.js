@@ -116,7 +116,7 @@
 			self.resizeTimeout = setTimeout(function () {
 				self.resize();
 				self.$element.trigger('resized.fu.repeater');
-			}, 75);
+			}, 500);//any faster and you get weird catastrophic errors with the header of the list repeater
 		});
 
 		this.$loader.loader();
@@ -636,12 +636,15 @@
 					bottom: this.$viewport.css('margin-bottom'),
 					top: this.$viewport.css('margin-top')
 				};
-				height = ((staticHeight === 'true' || staticHeight === true) ? this.$element.height() : parseInt(staticHeight, 10)) -
-				this.$element.find('.repeater-header').outerHeight() -
-				this.$element.find('.repeater-footer').outerHeight() -
-				((viewportMargins.bottom === 'auto') ? 0 : parseInt(viewportMargins.bottom, 10)) -
-				((viewportMargins.top === 'auto') ? 0 : parseInt(viewportMargins.top, 10));
-				this.$viewport.outerHeight(height);
+
+				var staticHeightValue = (staticHeight === 'true' || staticHeight === true) ? this.$element.height() : parseInt(staticHeight, 10);
+				var headerHeight = this.$element.find('.repeater-header').outerHeight();
+				var footerHeight = this.$element.find('.repeater-footer').outerHeight();
+				var bottomMargin = (viewportMargins.bottom === 'auto') ? 0 : parseInt(viewportMargins.bottom, 10);
+				var topMargin = (viewportMargins.top === 'auto') ? 0 : parseInt(viewportMargins.top, 10);
+				height = staticHeightValue - headerHeight - footerHeight - bottomMargin - topMargin;
+
+				this.$viewport.outerHeight(height); // but WHY are we setting the outerHeight of the viewport to this???
 			} else {
 				this.$canvas.removeClass('scrolling');
 			}

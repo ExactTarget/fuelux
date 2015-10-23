@@ -1,3 +1,4 @@
+@import "fuelux-core.less";
 .fuelux {
 
 	.datepicker {
@@ -55,10 +56,10 @@
 					span {
 						display: block;
 
-						border-radius: @baseBorderRadius;
+						border-radius: @base-border-radius;
 
 						&:hover {
-							background: @selectableHover;
+							background: @selectable-hover;
 							text-decoration: none;
 						}
 					}
@@ -72,13 +73,13 @@
 					&.last-month, &.next-month {
 						background: darken(@selected, 10%);
 						&.first {
-							border-top-left-radius: @baseBorderRadius;
-							border-bottom-left-radius: @baseBorderRadius;
+							border-top-left-radius: @base-border-radius;
+							border-bottom-left-radius: @base-border-radius;
 							padding-left: 1px;
 						}
 						&.last {
-							border-top-right-radius: @baseBorderRadius;
-							border-bottom-right-radius: @baseBorderRadius;
+							border-top-right-radius: @base-border-radius;
+							border-bottom-right-radius: @base-border-radius;
 							padding-right: 1px;
 						}
 					}
@@ -95,7 +96,7 @@
 							position: relative;
 
 							&:before {
-								border-top: 1px solid darken(@btnDangerBackground, 10%);
+								border-top: 1px solid darken(@btn-danger-background, 10%);
 								bottom: 0;
 								content: " ";
 								display: block;
@@ -116,7 +117,7 @@
 							background: @selected;
 
 							&:hover {
-								background: @selectedHover;
+								background: @selected-hover;
 							}
 						}
 
@@ -133,7 +134,7 @@
 							span {
 								&:hover {
 									b, button {
-										border-color: @datepickerHover;
+										border-color: @datepicker-hover;
 									}
 								}
 							}
@@ -169,7 +170,7 @@
 					vertical-align: middle;
 
 						&:hover {
-							color: @datepickerHover;
+							color: @datepicker-hover;
 							text-decoration: underline;
 						}
 
@@ -211,7 +212,7 @@
 					}
 
 					&:hover {
-						background: @datepickerHover;
+						background: @datepicker-hover;
 					}
 				}
 
@@ -239,7 +240,7 @@
 					text-decoration: underline;
 
 					&:hover {
-						color: @datepickerHoverAlt;
+						color: @datepicker-hover-alt;
 						text-decoration: underline;
 					}
 
@@ -287,17 +288,17 @@
 					background-color: transparent;
 
 					&:hover {
-						color: @datepickerHoverAlt;
+						color: @datepicker-hover-alt;
 					}
 				}
 
 				.datepicker-wheels-select {
 					float: right;
 					background-color: transparent;
-					color: @focusColor;
+					color: @focus-color;
 
 					&:hover {
-						color: @datepickerHoverAlt;
+						color: @datepicker-hover-alt;
 					}
 				}
 			}
@@ -328,18 +329,18 @@
 							text-decoration: none;
 
 							&:hover {
-								background: @infoBackground;
+								background: @info-background;
 								text-decoration: none;
 							}
 						}
 
 						&.selected {
 							button {
-								background: @datepickerHoverAlt;
+								background: @datepicker-hover-alt;
 								color: @true-white;
 
 								&:hover {
-									background: @datepickerHover;
+									background: @datepicker-hover;
 								}
 							}
 						}

@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.11.3
+ * Fuel UX v3.11.5 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -1687,7 +1687,6 @@
 					field = this.$field.get( 0 );
 					if ( this.$field.is( 'input' ) ) {
 						field.scrollLeft = 0;
-						//TODO: apply ellipsis to input field overflow
 					} else {
 						field.scrollTop = 0;
 						if ( field.clientHeight < field.scrollHeight ) {
@@ -2584,7 +2583,7 @@
 
 		// SPINBOX CONSTRUCTOR AND PROTOTYPE
 
-		var Spinbox = function( element, options ) {
+		var Spinbox = function Spinbox( element, options ) {
 			this.$element = $( element );
 			this.$element.find( '.btn' ).on( 'click', function( e ) {
 				//keep spinbox from submitting if they forgot to say type="button" on their spinner buttons
@@ -2593,9 +2592,14 @@
 			this.options = $.extend( {}, $.fn.spinbox.defaults, options );
 			this.options.step = this.$element.data( 'step' ) || this.options.step;
 
+			if ( this.options.value < this.options.min ) {
+				this.options.value = this.options.min;
+			} else if ( this.options.max < this.options.value ) {
+				this.options.value = this.options.max;
+			}
+
 			this.$input = this.$element.find( '.spinbox-input' );
-			this.$element.on( 'focusin.fu.spinbox', this.$input, $.proxy( this.changeFlag, this ) );
-			this.$element.on( 'focusout.fu.spinbox', this.$input, $.proxy( this.change, this ) );
+			this.$input.on( 'focusout.fu.spinbox', this.$input, $.proxy( this.change, this ) );
 			this.$element.on( 'keydown.fu.spinbox', this.$input, $.proxy( this.keydown, this ) );
 			this.$element.on( 'keyup.fu.spinbox', this.$input, $.proxy( this.keyup, this ) );
 
@@ -2633,6 +2637,9 @@
 				this.switches.speed = 500;
 			}
 
+			this.options.defaultUnit = _isUnitLegal( this.options.defaultUnit, this.options.units ) ? this.options.defaultUnit : '';
+			this.unit = this.options.defaultUnit;
+
 			this.lastValue = this.options.value;
 
 			this.render();
@@ -2642,10 +2649,65 @@
 			}
 		};
 
+		// Truly private methods
+		var _limitToStep = function _limitToStep( number, step ) {
+			return Math.round( number / step ) * step;
+		};
+
+		var _isUnitLegal = function _isUnitLegal( unit, validUnits ) {
+			var legalUnit = false;
+			var suspectUnit = unit.toLowerCase();
+
+			$.each( validUnits, function( i, validUnit ) {
+				validUnit = validUnit.toLowerCase();
+				if ( suspectUnit === validUnit ) {
+					legalUnit = true;
+					return false; //break out of the loop
+				}
+			} );
+
+			return legalUnit;
+		};
+
+		var _applyLimits = function _applyLimits( value ) {
+			// if unreadable
+			if ( isNaN( parseFloat( value ) ) ) {
+				return value;
+			}
+
+			// if not within range return the limit
+			if ( value > this.options.max ) {
+				if ( this.options.cycle ) {
+					value = this.options.min;
+				} else {
+					value = this.options.max;
+				}
+			} else if ( value < this.options.min ) {
+				if ( this.options.cycle ) {
+					value = this.options.max;
+				} else {
+					value = this.options.min;
+				}
+			}
+
+			if ( this.options.limitToStep && this.options.step ) {
+				value = _limitToStep( value, this.options.step );
+
+				//force round direction so that it stays within bounds
+				if ( value > this.options.max ) {
+					value = value - this.options.step;
+				} else if ( value < this.options.min ) {
+					value = value + this.options.step;
+				}
+			}
+
+			return value;
+		};
+
 		Spinbox.prototype = {
 			constructor: Spinbox,
 
-			destroy: function() {
+			destroy: function destroy() {
 				this.$element.remove();
 				// any external bindings
 				// [none]
@@ -2659,72 +2721,17 @@
 				return this.$element[ 0 ].outerHTML;
 			},
 
-			render: function() {
-				var inputValue = this.parseInput( this.$input.val() );
-				var maxUnitLength = '';
-
-				// if input is empty and option value is default, 0
-				if ( inputValue !== '' && this.options.value === 0 ) {
-					this.value( inputValue );
-				} else {
-					this.output( this.options.value );
-				}
-
-				if ( this.options.units.length ) {
-					$.each( this.options.units, function( index, value ) {
-						if ( value.length > maxUnitLength.length ) {
-							maxUnitLength = value;
-						}
-					} );
-				}
+			render: function render() {
+				this.setValue( this.getDisplayValue() );
 			},
 
-			output: function( value, updateField ) {
-				value = ( value + '' ).split( '.' ).join( this.options.decimalMark );
-				// if set and default unit if not already present, 
-				// and is an allowed unit, then add default unit
-				if ( this.options.defaultUnit !== '' &&
-					this.options.defaultUnit !== value.slice( -Math.abs( this.options.defaultUnit.length ) ) &&
-					this.isUnitLegal( this.options.defaultUnit ) ) {
-					value = value + this.options.defaultUnit;
-				}
-				updateField = ( updateField || true );
-				if ( updateField ) {
-					this.$input.val( value );
-				}
+			change: function change() {
+				this.setValue( this.getDisplayValue() );
 
-				return value;
-			},
-
-			parseInput: function( value ) {
-				value = ( value + '' ).split( this.options.decimalMark ).join( '.' );
-
-				return value;
-			},
-
-			change: function() {
-				var newVal = this.parseInput( this.$input.val() ) || '';
-
-				if ( this.options.units.length || this.options.decimalMark !== '.' ) {
-					newVal = this.parseValueWithUnit( newVal );
-				} else if ( newVal / 1 ) {
-					newVal = this.options.value = this.checkMaxMin( newVal / 1 );
-				} else {
-					newVal = this.checkMaxMin( newVal.replace( /[^0-9.-]/g, '' ) || '' );
-					this.options.value = newVal / 1;
-				}
-
-				this.output( newVal );
-
-				this.changeFlag = false;
 				this.triggerChangedEvent();
 			},
 
-			changeFlag: function() {
-				this.changeFlag = true;
-			},
-
-			stopSpin: function() {
+			stopSpin: function stopSpin() {
 				if ( this.switches.timeout !== undefined ) {
 					clearTimeout( this.switches.timeout );
 					this.switches.count = 1;
@@ -2732,16 +2739,16 @@
 				}
 			},
 
-			triggerChangedEvent: function() {
-				var currentValue = this.value();
+			triggerChangedEvent: function triggerChangedEvent() {
+				var currentValue = this.getValue();
 				if ( currentValue === this.lastValue ) return;
 				this.lastValue = currentValue;
 
 				// Primary changed event
-				this.$element.trigger( 'changed.fu.spinbox', this.output( currentValue, false ) ); // no DOM update
+				this.$element.trigger( 'changed.fu.spinbox', currentValue );
 			},
 
-			startSpin: function( type ) {
+			startSpin: function startSpin( type ) {
 				if ( !this.options.disabled ) {
 					var divisor = this.switches.count;
 
@@ -2763,144 +2770,141 @@
 				}
 			},
 
-			iterate: function( type ) {
+			iterate: function iterate( type ) {
 				this.step( type );
 				this.startSpin( type );
 			},
 
-			step: function( isIncrease ) {
-				// isIncrease: true is up, false is down
+			step: function step( isIncrease ) {
+				//refresh value from display before trying to increment in case they have just been typing before clicking the nubbins
+				this.setValue( this.getDisplayValue() );
+				var newVal;
 
-				var digits, multiple, currentValue, limitValue;
-
-				// trigger change event
-				if ( this.changeFlag ) {
-					this.change();
+				if ( isIncrease ) {
+					newVal = this.options.value + this.options.step;
+				} else {
+					newVal = this.options.value - this.options.step;
 				}
 
-				// get current value and min/max options
-				currentValue = this.options.value;
-				limitValue = isIncrease ? this.options.max : this.options.min;
+				newVal = newVal.toFixed( 5 );
 
-				if ( ( isIncrease ? currentValue < limitValue : currentValue > limitValue ) ) {
-					var newVal = currentValue + ( isIncrease ? 1 : -1 ) * this.options.step;
+				this.setValue( newVal + this.unit );
+			},
 
-					// raise to power of 10 x number of decimal places, then round
-					if ( this.options.step % 1 !== 0 ) {
-						digits = ( this.options.step + '' ).split( '.' )[ 1 ].length;
-						multiple = Math.pow( 10, digits );
-						newVal = Math.round( newVal * multiple ) / multiple;
-					}
+			getDisplayValue: function getDisplayValue() {
+				var inputValue = this.parseInput( this.$input.val() );
+				var value = ( !!inputValue ) ? inputValue : this.options.value;
+				return value;
+			},
 
-					// if outside limits, set to limit value
-					if ( isIncrease ? newVal > limitValue : newVal < limitValue ) {
-						this.value( limitValue );
-					} else {
-						this.value( newVal );
-					}
-
-				} else if ( this.options.cycle ) {
-					var cycleVal = isIncrease ? this.options.min : this.options.max;
-					this.value( cycleVal );
-				}
+			setDisplayValue: function setDisplayValue( value ) {
+				this.$input.val( value );
 			},
 
 			getValue: function getValue() {
-				return this.value();
+				var val = this.options.value;
+				if ( this.options.decimalMark !== '.' ) {
+					val = ( val + '' ).split( '.' ).join( this.options.decimalMark );
+				}
+				return val + this.unit;
 			},
 
-			value: function( value ) {
-				if ( value || value === 0 ) {
-					if ( this.options.units.length || this.options.decimalMark !== '.' ) {
-						this.output( this.parseValueWithUnit( value + ( this.unit || '' ) ) );
-						return this;
+			setValue: function setValue( val ) {
+				//remove any i18n on the number
+				if ( this.options.decimalMark !== '.' ) {
+					val = this.parseInput( val );
+				}
 
-					} else if ( !isNaN( parseFloat( value ) ) && isFinite( value ) ) {
-						this.options.value = value / 1;
-						this.output( value + ( this.unit ? this.unit : '' ) );
-						return this;
+				//are we dealing with united numbers?
+				if ( typeof val !== "number" ) {
+					var potentialUnit = val.replace( /[0-9.-]/g, '' );
+					//make sure unit is valid, or else drop it in favor of current unit, or default unit (potentially nothing)
+					this.unit = _isUnitLegal( potentialUnit, this.options.units ) ? potentialUnit : this.options.defaultUnit;
+				}
 
-					}
+				var intVal = this.getIntValue( val );
 
+				//make sure we are dealing with a number
+				if ( isNaN( intVal ) && !isFinite( intVal ) ) {
+					return this.setValue( this.options.value );
+				}
+
+				//conform
+				intVal = _applyLimits.call( this, intVal );
+
+				//cache the pure int value
+				this.options.value = intVal;
+
+				//prepare number for display
+				val = intVal + this.unit;
+
+				if ( this.options.decimalMark !== '.' ) {
+					val = ( val + '' ).split( '.' ).join( this.options.decimalMark );
+				}
+
+				//display number
+				this.setDisplayValue( val );
+
+				return this;
+			},
+
+			value: function value( val ) {
+				if ( val || val === 0 ) {
+					return this.setValue( val );
 				} else {
-					if ( this.changeFlag ) {
-						this.change();
-					}
-
-					if ( this.unit ) {
-						return this.options.value + this.unit;
-					} else {
-						return this.output( this.options.value, false ); // no DOM update
-					}
-
+					return this.getValue();
 				}
 			},
 
-			isUnitLegal: function( unit ) {
-				var legalUnit;
-
-				$.each( this.options.units, function( index, value ) {
-					if ( value.toLowerCase() === unit.toLowerCase() ) {
-						legalUnit = unit.toLowerCase();
-						return false;
-					}
-				} );
-
-				return legalUnit;
-			},
-
-			// strips units and add them back
-			parseValueWithUnit: function( value ) {
-				var unit = value.replace( /[^a-zA-Z]/g, '' );
-				var number = value.replace( /[^0-9.-]/g, '' );
-
-				if ( unit ) {
-					unit = this.isUnitLegal( unit );
-				}
-
-				this.options.value = this.checkMaxMin( number / 1 );
-				this.unit = unit || undefined;
-				return this.options.value + ( unit || '' );
-			},
-
-			checkMaxMin: function( value ) {
-				// if unreadable
-				if ( isNaN( parseFloat( value ) ) ) {
-					return value;
-				}
-
-				// if not within range return the limit
-				if ( !( value <= this.options.max && value >= this.options.min ) ) {
-					value = value >= this.options.max ? this.options.max : this.options.min;
-				}
+			parseInput: function parseInput( value ) {
+				value = ( value + '' ).split( this.options.decimalMark ).join( '.' );
 
 				return value;
 			},
 
-			disable: function() {
+			getIntValue: function getIntValue( value ) {
+				//if they didn't pass in a number, try and get the number
+				value = ( typeof value === "undefined" ) ? this.getValue() : value;
+				// if there still isn't a number, abort
+				if ( typeof value === "undefined" ) {
+					return;
+				}
+
+				if ( typeof value === 'string' ) {
+					value = this.parseInput( value );
+				}
+
+				value = parseFloat( value, 10 );
+
+				return value;
+			},
+
+			disable: function disable() {
 				this.options.disabled = true;
 				this.$element.addClass( 'disabled' );
 				this.$input.attr( 'disabled', '' );
 				this.$element.find( 'button' ).addClass( 'disabled' );
 			},
 
-			enable: function() {
+			enable: function enable() {
 				this.options.disabled = false;
 				this.$element.removeClass( 'disabled' );
 				this.$input.removeAttr( 'disabled' );
 				this.$element.find( 'button' ).removeClass( 'disabled' );
 			},
 
-			keydown: function( event ) {
+			keydown: function keydown( event ) {
 				var keyCode = event.keyCode;
 				if ( keyCode === 38 ) {
 					this.step( true );
 				} else if ( keyCode === 40 ) {
 					this.step( false );
+				} else if ( keyCode === 13 ) {
+					this.change();
 				}
 			},
 
-			keyup: function( event ) {
+			keyup: function keyup( event ) {
 				var keyCode = event.keyCode;
 
 				if ( keyCode === 38 || keyCode === 40 ) {
@@ -2908,7 +2912,7 @@
 				}
 			},
 
-			bindMousewheelListeners: function() {
+			bindMousewheelListeners: function bindMousewheelListeners() {
 				var inputEl = this.$input.get( 0 );
 				if ( inputEl.addEventListener ) {
 					//IE 9, Chrome, Safari, Opera
@@ -2921,7 +2925,7 @@
 				}
 			},
 
-			mousewheelHandler: function( event ) {
+			mousewheelHandler: function mousewheelHandler( event ) {
 				if ( !this.options.disabled ) {
 					var e = window.event || event; // old IE support
 					var delta = Math.max( -1, Math.min( 1, ( e.wheelDelta || -e.detail ) ) );
@@ -2952,7 +2956,7 @@
 
 		// SPINBOX PLUGIN DEFINITION
 
-		$.fn.spinbox = function( option ) {
+		$.fn.spinbox = function spinbox( option ) {
 			var args = Array.prototype.slice.call( arguments, 1 );
 			var methodReturn;
 
@@ -2985,12 +2989,13 @@
 			cycle: false,
 			units: [],
 			decimalMark: '.',
-			defaultUnit: ''
+			defaultUnit: '',
+			limitToStep: false
 		};
 
 		$.fn.spinbox.Constructor = Spinbox;
 
-		$.fn.spinbox.noConflict = function() {
+		$.fn.spinbox.noConflict = function noConflict() {
 			$.fn.spinbox = old;
 			return this;
 		};
@@ -5052,7 +5057,7 @@
 				self.resizeTimeout = setTimeout( function() {
 					self.resize();
 					self.$element.trigger( 'resized.fu.repeater' );
-				}, 75 );
+				}, 500 ); //any faster and you get weird catastrophic errors with the header of the list repeater
 			} );
 
 			this.$loader.loader();
@@ -5571,12 +5576,15 @@
 						bottom: this.$viewport.css( 'margin-bottom' ),
 						top: this.$viewport.css( 'margin-top' )
 					};
-					height = ( ( staticHeight === 'true' || staticHeight === true ) ? this.$element.height() : parseInt( staticHeight, 10 ) ) -
-						this.$element.find( '.repeater-header' ).outerHeight() -
-						this.$element.find( '.repeater-footer' ).outerHeight() -
-						( ( viewportMargins.bottom === 'auto' ) ? 0 : parseInt( viewportMargins.bottom, 10 ) ) -
-						( ( viewportMargins.top === 'auto' ) ? 0 : parseInt( viewportMargins.top, 10 ) );
-					this.$viewport.outerHeight( height );
+
+					var staticHeightValue = ( staticHeight === 'true' || staticHeight === true ) ? this.$element.height() : parseInt( staticHeight, 10 );
+					var headerHeight = this.$element.find( '.repeater-header' ).outerHeight();
+					var footerHeight = this.$element.find( '.repeater-footer' ).outerHeight();
+					var bottomMargin = ( viewportMargins.bottom === 'auto' ) ? 0 : parseInt( viewportMargins.bottom, 10 );
+					var topMargin = ( viewportMargins.top === 'auto' ) ? 0 : parseInt( viewportMargins.top, 10 );
+					height = staticHeightValue - headerHeight - footerHeight - bottomMargin - topMargin;
+
+					this.$viewport.outerHeight( height ); // but WHY are we setting the outerHeight of the viewport to this???
 				} else {
 					this.$canvas.removeClass( 'scrolling' );
 				}
@@ -5878,7 +5886,8 @@
 					var $hr = $( this );
 					var $heading = $hr.find( '.repeater-list-heading' );
 					$heading.outerHeight( $hr.outerHeight() );
-					$heading.outerWidth( $hr.outerWidth() );
+					// outerWidth isn't always appropriate or desirable. Allow an explicit value to be set if needed
+					$heading.outerWidth( $heading.data( 'forced-width' ) || $hr.outerWidth() );
 				} );
 			};
 
@@ -5955,7 +5964,6 @@
 						$wrapper.find( '.frozen-column-wrapper' ).css( 'left', scrollLeft );
 					}
 					if ( actionsEnabled && shouldScroll ) {
-						$wrapper.find( '.actions-thead-wrapper' ).css( 'right', -scrollLeft );
 						$wrapper.find( '.actions-column-wrapper' ).css( 'right', -scrollLeft );
 					}
 
@@ -5965,7 +5973,6 @@
 						$wrapper.find( '.frozen-column-wrapper' ).css( 'left', '0' );
 					}
 					if ( actionsEnabled ) {
-						$wrapper.find( '.actions-thead-wrapper' ).css( 'right', '0' );
 						$wrapper.find( '.actions-column-wrapper' ).css( 'right', '0' );
 					}
 				}
@@ -5985,16 +5992,16 @@
 					actionsHtml += '<li><a href="#" data-action="' + action.name + '" class="action-item"> ' + html + '</a></li>';
 				}
 
-				var selectlist = '<div class="btn-group">' +
-					'<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" data-flip="auto" aria-expanded="false">' +
-					'<span class="caret"></span>' +
-					'</button>' +
-					'<ul class="dropdown-menu dropdown-menu-right" role="menu">' +
-					actionsHtml +
-					'</ul></div>';
-
 				if ( $actionsTable.length < 1 ) {
+					var selectlist = '<div class="btn-group">' +
+						'<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" data-flip="auto" aria-expanded="false">' +
+						'<span class="caret"></span>' +
+						'</button>' +
+						'<ul class="dropdown-menu dropdown-menu-right" role="menu">' +
+						actionsHtml +
+						'</ul></div>';
 
+					// The width set here is overwritten in `list_sizeHeadings`. This is used for sizing the subsequent rows.
 					var $actionsColumnWrapper = $( '<div class="actions-column-wrapper" style="width: ' + this.list_actions_width + 'px"></div>' ).insertBefore( $table );
 					var $actionsColumn = $table.clone().addClass( 'table-actions' );
 					$actionsColumn.find( 'th:not(:last-child)' ).remove();
@@ -6006,8 +6013,18 @@
 						//disable the header dropdown until an item is selected
 						$actionsColumn.find( 'thead .btn' ).attr( 'disabled', 'disabled' );
 					} else {
-						var label = this.viewOptions.list_actions.label || '<span class="actions-hidden">a</span>';
-						$actionsColumn.find( 'thead tr' ).addClass( 'empty-heading' ).html( '<th>' + label + '<div class="repeater-list-heading">' + label + '</div></th>' );
+						var labelText = this.viewOptions.list_actions.label || '';
+
+						var $labelOverlay = $( '<div class="repeater-list-heading empty">' + labelText + '</div>' );
+
+						// repeater-list.less:302 has `margin-left: -9px;` which shifts this over and makes it not actually cover what it is supposed to cover. Make it wider to compensate.
+						var negative_maring_accomodation = 9;
+						$labelOverlay.data( 'forced-width', this.list_actions_width + negative_maring_accomodation );
+
+						var $th = $( '<th>' + labelText + '</th>' );
+						$th.append( $labelOverlay );
+
+						$actionsColumn.find( 'thead tr' ).addClass( 'empty-heading' ).append( $th );
 					}
 
 					// Create Actions dropdown for each cell in actions table
@@ -6023,10 +6040,6 @@
 					this.$canvas.addClass( 'actions-enabled' );
 				}
 
-				/*			this.$element.find('.repeater-list .actions-column-wrapper, .repeater-list .actions-column-wrapper td, .repeater-list .actions-column-wrapper th')
-								.css('width', this.list_actions_width);
-
-							this.$element.find('.repeater-list .actions-column-wrapper th .repeater-list-heading').css('width', this.list_actions_width + 1 + 'px');*/
 				this.$element.find( '.repeater-list table.table-actions thead tr th' ).outerHeight( $table.find( 'thead tr th' ).outerHeight() );
 				this.$element.find( '.repeater-list table.table-actions tbody tr td:first-child' ).each( function( i, elem ) {
 					$( this ).outerHeight( $table.find( 'tbody tr:eq(' + i + ') td' ).outerHeight() );
@@ -6034,17 +6047,17 @@
 
 
 				//row level actions click
-				this.$element.find( '.table-actions tbody .action-item' ).on( 'click', function() {
+				this.$element.find( '.table-actions tbody .action-item' ).on( 'click', function( e ) {
 					var actionName = $( this ).data( 'action' );
 					var row = $( this ).data( 'row' );
 					var selected = {
 						actionName: actionName,
 						rows: [ row ]
 					};
-					self.list_getActionItems( selected );
+					self.list_getActionItems( selected, e );
 				} );
 				// bulk actions click
-				this.$element.find( '.table-actions thead .action-item' ).on( 'click', function() {
+				this.$element.find( '.table-actions thead .action-item' ).on( 'click', function( e ) {
 					var actionName = $( this ).data( 'action' );
 					var selected = {
 						actionName: actionName,
@@ -6056,11 +6069,26 @@
 						selected.rows.push( index );
 					} );
 
-					self.list_getActionItems( selected );
+					self.list_getActionItems( selected, e );
 				} );
 			};
 
-			$.fn.repeater.Constructor.prototype.list_getActionItems = function( selected ) {
+			/*
+			 * list_getActionItems
+			 *
+			 * Called when user clicks on an "action item".
+			 *
+			 * Object selected - object containing `actionName`, string value of the `data-action` attribute of the clicked
+			 *					"action item", and `rows` Array of jQuery objects of selected rows
+			 * Object e - jQuery event of triggering event
+			 *
+			 * Calls implementor's clickAction function if provided. Passes `selectedObj`, `callback` and `e`.
+			 *		Object selectedObj - Object containing jQuery object `item` for selected row, and Object `rowData` for
+			 *							selected row's data-attributes, or Array of such Objects if multiple selections were made
+			 *		Function callback - ¯\_(ツ)_/¯
+			 *		Object e - jQuery event object representing the triggering event
+			 */
+			$.fn.repeater.Constructor.prototype.list_getActionItems = function( selected, e ) {
 				var i;
 				var selectedObj = [];
 				var actionObj = $.grep( this.viewOptions.list_actions.items, function( actions ) {
@@ -6078,7 +6106,8 @@
 				}
 
 				if ( actionObj.clickAction ) {
-					actionObj.clickAction( selectedObj, function() {} );
+					var callback = function callback() {}; // for backwards compatibility. No idea why this was originally here...
+					actionObj.clickAction( selectedObj, callback, e );
 				}
 			};
 
@@ -6170,8 +6199,12 @@
 					callback();
 				},
 				resize: function() {
-					if ( this.viewOptions.list_columnSyncing ) {
-						this.list_sizeHeadings();
+					if ( this.viewOptions.list_frozenColumns || this.viewOptions.list_actions ) {
+						this.render();
+					} else {
+						if ( this.viewOptions.list_columnSyncing ) {
+							this.list_sizeHeadings();
+						}
 					}
 				},
 				selected: function() {
@@ -6215,7 +6248,7 @@
 					return false;
 				},
 				renderItem: function( helpers ) {
-					renderRow.call( this, helpers.container, helpers.subset, helpers.index );
+					renderRow.call( this, helpers.container, helpers.subset[ helpers.index ], helpers.index );
 					return false;
 				},
 				after: function() {
@@ -6251,131 +6284,173 @@
 		}
 
 		//ADDITIONAL METHODS
-		function renderColumn( $row, rows, rowIndex, columns, columnIndex ) {
-			var className = columns[ columnIndex ].className;
-			var content = rows[ rowIndex ][ columns[ columnIndex ].property ];
+		function renderColumn( $tr, row, rowIndex, column ) {
+			var content = row[ column.property ];
 			var $col = $( '<td></td>' );
-			var width = columns[ columnIndex ]._auto_width;
 
-			var property = columns[ columnIndex ].property;
-			if ( this.viewOptions.list_actions !== false && property === '@_ACTIONS_@' ) {
-				content = '<div class="repeater-list-actions-placeholder" style="width: ' + this.list_actions_width + 'px"></div>';
+			$col.addClass( column.className );
+
+			if ( this.viewOptions.list_actions !== false && column.property === '@_ACTIONS_@' ) {
+				$col.addClass( 'repeater-list-actions-placeholder-column' );
+				content = '';
 			}
 
 			content = ( content !== undefined ) ? content : '';
+			$col.append( content );
 
-			$col.addClass( ( ( className !== undefined ) ? className : '' ) ).append( content );
-			if ( width !== undefined ) {
-				$col.outerWidth( width );
+			// excludes checkbox and actions columns, as well as columns with user set widths
+			if ( column._auto_width !== undefined ) {
+				$col.outerWidth( column._auto_width );
 			}
-			$row.append( $col );
 
-			if ( this.viewOptions.list_selectable === 'multi' && columns[ columnIndex ].property === '@_CHECKBOX_@' ) {
+			$tr.append( $col );
+
+			if ( this.viewOptions.list_selectable === 'multi' && column.property === '@_CHECKBOX_@' ) {
 				var checkBoxMarkup = '<label data-row="' + rowIndex + '" class="checkbox-custom checkbox-inline body-checkbox">' +
 					'<input class="sr-only" type="checkbox"></label>';
 
 				$col.html( checkBoxMarkup );
 			}
 
-			if ( !( columns[ columnIndex ].property === '@_CHECKBOX_@' || columns[ columnIndex ].property === '@_ACTIONS_@' ) && this.viewOptions.list_columnRendered ) {
+			if ( !( column.property === '@_CHECKBOX_@' || column.property === '@_ACTIONS_@' ) && this.viewOptions.list_columnRendered ) {
 				this.viewOptions.list_columnRendered( {
-					container: $row,
-					columnAttr: columns[ columnIndex ].property,
+					container: $tr,
+					columnAttr: column.property,
 					item: $col,
-					rowData: rows[ rowIndex ]
+					rowData: row
 				}, function() {} );
 			}
 		}
 
-		function renderHeader( $tr, columns, index ) {
+		/*
+		 * Handle column header click to do sort.
+		 *
+		 * This function was extracted from the renderHeader function in this file
+		 *
+		 * Expects:
+		 * e.data.$headerOverlay - visible/clickable header overlay
+		 * e.data.$headerBase - sizer `<th>` element
+		 * e.data.column - object representing raw data for clicked column
+		 * e.data.$tr - `<tr>` from `<thead>`
+		 * e.data.self - `this` context of the `renderHeader` function
+		 */
+		var handleColumnSort = function handleColumnSort( e ) {
+			var self = e.data.self;
+			// Create a new jQuery object as set of both elements.
+			var $headers = e.data.$headerOverlay.add( e.data.$headerBase );
+			var $chevron = e.data.$headerOverlay.find( '.glyphicon.rlc:first' );
+			var $tr = e.data.$tr;
+			var column = e.data.column;
+
+			self.list_sortProperty = ( typeof column.sortable === 'string' ) ? column.sortable : column.property;
+
 			var chevDown = 'glyphicon-chevron-down';
-			var chevron = '.glyphicon.rlc:first';
 			var chevUp = 'glyphicon-chevron-up';
-			var $div = $( '<div class="repeater-list-heading"><span class="glyphicon rlc"></span></div>' );
-			var checkBoxMarkup = '<div class="repeater-list-heading header-checkbox"><label class="checkbox-custom checkbox-inline">' +
-				'<input class="sr-only" type="checkbox"></label><div class="clearfix"></div></div>';
-			var $header = $( '<th></th>' );
-			var self = this;
-			var $both, className, sortable, $span, $spans;
-
-			$div.data( 'fu_item_index', index );
-			$div.prepend( columns[ index ].label );
-			$header.html( $div.html() ).find( '[id]' ).removeAttr( 'id' );
-
-			if ( columns[ index ].property !== '@_CHECKBOX_@' ) {
-				$header.append( $div );
-			} else {
-				$header.append( checkBoxMarkup );
-			}
-
-			$both = $header.add( $div );
-			$span = $div.find( chevron );
-			$spans = $span.add( $header.find( chevron ) );
-
-			if ( this.viewOptions.list_actions && columns[ index ].property === '@_ACTIONS_@' ) {
-				var width = this.list_actions_width;
-				$header.css( 'width', width );
-				$div.css( 'width', width );
-			}
-
-			className = columns[ index ].className;
-			if ( className !== undefined ) {
-				$both.addClass( className );
-			}
-
-			sortable = columns[ index ].sortable;
-			if ( sortable ) {
-				$both.addClass( 'sortable' );
-				$div.on( 'click.fu.repeaterList', function() {
-					self.list_sortProperty = ( typeof sortable === 'string' ) ? sortable : columns[ index ].property;
-					if ( $div.hasClass( 'sorted' ) ) {
-						if ( $span.hasClass( chevUp ) ) {
-							$spans.removeClass( chevUp ).addClass( chevDown );
-							self.list_sortDirection = 'desc';
-						} else {
-							if ( !self.viewOptions.list_sortClearing ) {
-								$spans.removeClass( chevDown ).addClass( chevUp );
-								self.list_sortDirection = 'asc';
-							} else {
-								$both.removeClass( 'sorted' );
-								$spans.removeClass( chevDown );
-								self.list_sortDirection = null;
-								self.list_sortProperty = null;
-							}
-						}
-
-					} else {
-						$tr.find( 'th, .repeater-list-heading' ).removeClass( 'sorted' );
-						$spans.removeClass( chevDown ).addClass( chevUp );
+			if ( $headers.hasClass( 'sorted' ) ) {
+				if ( $chevron.hasClass( chevUp ) ) {
+					$chevron.removeClass( chevUp ).addClass( chevDown );
+					self.list_sortDirection = 'desc';
+				} else {
+					if ( !self.viewOptions.list_sortClearing ) {
+						$chevron.removeClass( chevDown ).addClass( chevUp );
 						self.list_sortDirection = 'asc';
-						$both.addClass( 'sorted' );
+					} else {
+						$headers.removeClass( 'sorted' );
+						$chevron.removeClass( chevDown );
+						self.list_sortDirection = null;
+						self.list_sortProperty = null;
 					}
-
-					self.render( {
-						clearInfinite: true,
-						pageIncrement: null
-					} );
-				} );
+				}
+			} else {
+				$tr.find( 'th, .repeater-list-heading' ).removeClass( 'sorted' );
+				$chevron.removeClass( chevDown ).addClass( chevUp );
+				self.list_sortDirection = 'asc';
+				$headers.addClass( 'sorted' );
 			}
 
-			if ( columns[ index ].sortDirection === 'asc' || columns[ index ].sortDirection === 'desc' ) {
+			self.render( {
+				clearInfinite: true,
+				pageIncrement: null
+			} );
+		};
+
+		var renderHeader = function renderHeader( $tr, column, columnIndex ) {
+			var self = this;
+
+			// visible portion (top layer) of header
+			var $headerOverlay = $( '<div class="repeater-list-heading"><span class="glyphicon rlc"></span></div>' );
+			$headerOverlay.data( 'fu_item_index', columnIndex );
+			$headerOverlay.prepend( column.label );
+
+			// header underlayment
+			var $headerBase = $( '<th></th>' );
+
+			// actions column is _always_ hidden underneath absolute positioned actions table.
+			// Neither headerBase nor headerOverlay will ever be visible for actions column.
+			// This is here strictly for sizing purposes for the benefit of the other columns'
+			// sizing calculations.
+			if ( this.viewOptions.list_actions && column.property === '@_ACTIONS_@' ) {
+				var width = this.list_actions_width;
+				$headerBase.css( 'width', width );
+				$headerOverlay.css( 'width', width );
+			}
+
+			var headerClasses = [];
+			headerClasses.push( column.className );
+
+			var sortable = column.sortable;
+			if ( sortable ) {
+				headerClasses.push( 'sortable' );
+
+				$headerOverlay.on(
+					'click.fu.repeaterList', {
+						'self': self,
+						'$tr': $tr,
+						'$headerBase': $headerBase,
+						'$headerOverlay': $headerOverlay,
+						'column': column
+					},
+					handleColumnSort
+				);
+			}
+
+			var $chevron = $headerOverlay.find( '.glyphicon.rlc:first' );
+
+			if ( column.sortDirection === 'asc' || column.sortDirection === 'desc' ) {
 				$tr.find( 'th, .repeater-list-heading' ).removeClass( 'sorted' );
-				$both.addClass( 'sortable sorted' );
-				if ( columns[ index ].sortDirection === 'asc' ) {
-					$spans.addClass( chevUp );
+
+				headerClasses.push( 'sortable sorted' );
+
+				if ( column.sortDirection === 'asc' ) {
+					$chevron.addClass( 'glyphicon-chevron-up' );
 					this.list_sortDirection = 'asc';
 				} else {
-					$spans.addClass( chevDown );
+					$chevron.addClass( 'glyphicon-chevron-down' );
 					this.list_sortDirection = 'desc';
 				}
 
-				this.list_sortProperty = ( typeof sortable === 'string' ) ? sortable : columns[ index ].property;
+				this.list_sortProperty = ( typeof sortable === 'string' ) ? sortable : column.property;
 			}
 
-			$tr.append( $header );
-		}
+			// duplicate the header's overlay content into the header if appropriate (possibly for dimensional styling???)
+			$headerBase.html( $headerOverlay.html() );
 
-		function renderRow( $tbody, rows, index ) {
+			// place visible content into header for display to user
+			if ( column.property !== '@_CHECKBOX_@' ) {
+				$headerBase.append( $headerOverlay );
+			} else {
+				var checkBoxMarkup = '<div class="repeater-list-heading header-checkbox"><label class="checkbox-custom checkbox-inline"><input class="sr-only" type="checkbox"></label><div class="clearfix"></div></div>';
+				$headerBase.append( checkBoxMarkup );
+			}
+
+			headerClasses = headerClasses.join( ' ' );
+			$headerBase.addClass( headerClasses );
+			$headerOverlay.addClass( headerClasses );
+
+			$tr.append( $headerBase );
+		};
+
+		function renderRow( $tbody, row, rowIndex ) {
 			var $row = $( '<tr></tr>' );
 			var self = this;
 			var i, l;
@@ -6385,7 +6460,7 @@
 			if ( this.viewOptions.list_selectable ) {
 				$row.addClass( 'selectable' );
 				$row.attr( 'tabindex', 0 ); // allow items to be tabbed to / focused on
-				$row.data( 'item_data', rows[ index ] );
+				$row.data( 'item_data', row );
 
 				$row.on( 'click.fu.repeaterList', function() {
 					var $item = $( this );
@@ -6448,20 +6523,20 @@
 			}
 
 			if ( this.viewOptions.list_actions && !this.viewOptions.list_selectable ) {
-				$row.data( 'item_data', rows[ index ] );
+				$row.data( 'item_data', row );
 			}
 
 			$tbody.append( $row );
 
-			for ( i = 0, l = this.list_columns.length; i < l; i++ ) {
-				renderColumn.call( this, $row, rows, index, this.list_columns, i );
+			for ( i = 0; i < this.list_columns.length; i++ ) {
+				renderColumn.call( this, $row, row, rowIndex, this.list_columns[ i ] );
 			}
 
 			if ( this.viewOptions.list_rowRendered ) {
 				this.viewOptions.list_rowRendered( {
 					container: $tbody,
 					item: $row,
-					rowData: rows[ index ]
+					rowData: row
 				}, function() {} );
 			}
 		}
@@ -6486,57 +6561,57 @@
 			}
 		}
 
-		function renderThead( $table, data ) {
-			var columns = data.columns || [];
-			var $thead = $table.find( 'thead' );
-			var i, j, l, $tr;
-
-			function differentColumns( oldCols, newCols ) {
-				if ( !newCols ) {
-					return false;
-				}
-				if ( !oldCols || ( newCols.length !== oldCols.length ) ) {
-					return true;
-				}
-				for ( i = 0, l = newCols.length; i < l; i++ ) {
-					if ( !oldCols[ i ] ) {
-						return true;
-					} else {
-						for ( j in newCols[ i ] ) {
-							if ( oldCols[ i ][ j ] !== newCols[ i ][ j ] ) {
-								return true;
-							}
-
-						}
-					}
-
-				}
+		var areDifferentColumns = function areDifferentColumns( oldCols, newCols ) {
+			if ( !newCols ) {
 				return false;
 			}
+			if ( !oldCols || ( newCols.length !== oldCols.length ) ) {
+				return true;
+			}
+			for ( var i = 0; i < newCols.length; i++ ) {
+				if ( !oldCols[ i ] ) {
+					return true;
+				} else {
+					for ( var j in newCols[ i ] ) {
+						if ( oldCols[ i ][ j ] !== newCols[ i ][ j ] ) {
+							return true;
+						}
 
-			if ( this.list_firstRender || differentColumns( this.list_columns, columns ) || $thead.length === 0 ) {
+					}
+				}
+
+			}
+			return false;
+		};
+
+		var renderThead = function renderThead( $table, data ) {
+			var columns = data.columns || [];
+			var $thead = $table.find( 'thead' );
+
+			if ( this.list_firstRender || areDifferentColumns( this.list_columns, columns ) || $thead.length === 0 ) {
 				$thead.remove();
+
+				this.list_firstRender = false;
+				this.$loader.removeClass( 'noHeader' );
 
 				if ( data.count < 1 ) {
 					this.list_noItems = true;
 				}
 
+				// insert checkbox column, if applicable
 				if ( this.viewOptions.list_selectable === 'multi' && !this.list_noItems ) {
 					var checkboxColumn = {
 						label: 'c',
 						property: '@_CHECKBOX_@',
 						sortable: false
 					};
-					columns.splice( 0, 0, checkboxColumn );
+					columns.unshift( checkboxColumn );
 				}
 
-				this.list_columns = columns;
-				this.list_firstRender = false;
-				this.$loader.removeClass( 'noHeader' );
-
+				// insert actions column, if applicable
 				if ( this.viewOptions.list_actions && !this.list_noItems ) {
 					var actionsColumn = {
-						label: this.viewOptions.list_actions.label || '<span class="actions-hidden">a</span>',
+						label: this.viewOptions.list_actions.label || '',
 						property: '@_ACTIONS_@',
 						sortable: false,
 						width: this.list_actions_width
@@ -6544,83 +6619,79 @@
 					columns.push( actionsColumn );
 				}
 
+				this.list_columns = columns;
 
-				$thead = $( '<thead data-preserve="deep"><tr></tr></thead>' );
-				$tr = $thead.find( 'tr' );
-				for ( i = 0, l = columns.length; i < l; i++ ) {
-					renderHeader.call( this, $tr, columns, i );
+				var $headerRow = $( '<tr></tr>' );
+				for ( var i = 0; i < columns.length; i++ ) {
+					renderHeader.call( this, $headerRow, columns[ i ], i );
 				}
+
+				$thead = $( '<thead data-preserve="deep"></thead>' );
+				$thead.append( $headerRow );
 				$table.prepend( $thead );
 
+				// after checkbox column is created need to get width of checkbox column from its css class
 				if ( this.viewOptions.list_selectable === 'multi' && !this.list_noItems ) {
-					//after checkbox column is created need to get width of checkbox column from
-					//its css class
 					var checkboxWidth = this.$element.find( '.repeater-list-wrapper .header-checkbox' ).outerWidth();
-					var selectColumn = $.grep( columns, function( column ) {
-						return column.property === '@_CHECKBOX_@';
-					} )[ 0 ];
-					selectColumn.width = checkboxWidth;
+					columns[ 0 ].width = checkboxWidth;
 				}
-				sizeColumns.call( this, $tr );
+
+				sizeColumns.call( this, $headerRow );
 			}
-		}
+		};
 
-		function sizeColumns( $tr ) {
-			var auto = [];
+		var sizeColumns = function sizeColumns( $tr ) {
+			var autoGauge = [];
 			var self = this;
-			var i, l, newWidth, taken, total;
+			var takenWidth = 0;
+			var totalWidth = 0;
 
-			if ( this.viewOptions.list_columnSizing ) {
-				i = 0;
-				taken = 0;
-				total = 0;
-				$tr.find( 'th' ).each( function() {
-					var $th = $( this );
-					var isLast = ( $th.next( 'th' ).length === 0 );
-					var width;
+			if ( self.viewOptions.list_columnSizing ) {
+				$tr.find( 'th' ).each( function( i, th ) {
+					var $th = $( th );
+					var isLast = ( $( this ).next( 'th' ).length === 0 );
+
 					if ( self.list_columns[ i ].width !== undefined ) {
-						width = self.list_columns[ i ].width;
-						$th.outerWidth( width );
-						taken += $th.outerWidth();
-						total += $th.outerWidth();
+						var width = self.list_columns[ i ].width;
+
+						takenWidth += width;
+						totalWidth += width;
+
 						if ( !isLast ) {
+							$th.outerWidth( width );
 							self.list_columns[ i ]._auto_width = width;
 						} else {
-							$th.outerWidth( '' );
+							$th.outerWidth( '' ); // why does this work? This is invalid jQuery.
 						}
-
 					} else {
-						var outerWidth = $th.find( '.repeater-list-heading' ).outerWidth();
-						total += $th.outerWidth();
-						auto.push( {
+						totalWidth += $th.outerWidth();
+
+						autoGauge.push( {
 							col: $th,
 							index: i,
 							last: isLast,
-							minWidth: outerWidth
+							minWidth: $th.find( '.repeater-list-heading' ).outerWidth()
 						} );
 					}
-
-					i++;
 				} );
 
-				l = auto.length;
+				var canvasWidth = self.$canvas.find( '.repeater-list-wrapper' ).outerWidth();
+				var newWidth = Math.floor( ( canvasWidth - takenWidth ) / autoGauge.length );
 
-				if ( l > 0 ) {
-					var canvasWidth = this.$canvas.find( '.repeater-list-wrapper' ).outerWidth();
-					newWidth = Math.floor( ( canvasWidth - taken ) / l );
-					for ( i = 0; i < l; i++ ) {
-						if ( auto[ i ].minWidth > newWidth ) {
-							newWidth = auto[ i ].minWidth;
-						}
-						if ( !auto[ i ].last || total > canvasWidth ) {
-							auto[ i ].col.outerWidth( newWidth );
-							this.list_columns[ auto[ i ].index ]._auto_width = newWidth;
-						}
+				for ( var i = 0; i < autoGauge.length; i++ ) {
+					var th = autoGauge[ i ];
 
+					if ( newWidth < th.minWidth ) {
+						newWidth = th.minWidth;
+					}
+
+					if ( !th.last || canvasWidth < totalWidth ) {
+						th.col.outerWidth( newWidth );
+						self.list_columns[ th.index ]._auto_width = newWidth;
 					}
 				}
 			}
-		}
+		};
 
 		function specialBrowserClass() {
 			var ua = window.navigator.userAgent;
@@ -6883,7 +6954,7 @@
 
 		// SCHEDULER CONSTRUCTOR AND PROTOTYPE
 
-		var Scheduler = function( element, options ) {
+		var Scheduler = function Scheduler( element, options ) {
 			var self = this;
 
 			this.$element = $( element );
@@ -6915,6 +6986,10 @@
 			//initialize sub-controls
 			this.$element.find( '.selectlist' ).selectlist();
 			this.$startDate.datepicker( this.options.startDateOptions );
+
+			var startDateResponse = ( typeof this.options.startDateChanged === "function" ) ? this.options.startDateChanged : this._guessEndDate;
+			this.$startDate.on( 'change changed.fu.datepicker dateClicked.fu.datepicker', $.proxy( startDateResponse, this ) );
+
 			this.$startTime.combobox();
 			// init start time
 			if ( this.$startTime.find( 'input' ).val() === '' ) {
@@ -6925,17 +7000,20 @@
 			if ( this.$repeatIntervalSpinbox.find( 'input' ).val() === '0' ) {
 				this.$repeatIntervalSpinbox.spinbox( {
 					'value': 1,
-					'min': 1
+					'min': 1,
+					'limitToStep': true
 				} );
 			} else {
 				this.$repeatIntervalSpinbox.spinbox( {
-					'min': 1
+					'min': 1,
+					'limitToStep': true
 				} );
 			}
 
 			this.$endAfter.spinbox( {
 				'value': 1,
-				'min': 1
+				'min': 1,
+				'limitToStep': true
 			} );
 			this.$endDate.datepicker( this.options.endDateOptions );
 			this.$element.find( '.radio-custom' ).radio();
@@ -6954,10 +7032,46 @@
 			this.$element.find( '.repeat-monthly .radio-custom, .repeat-yearly .radio-custom' ).on( 'change.fu.scheduler', $.proxy( this.changed, this ) );
 		};
 
+		var _getFormattedDate = function _getFormattedDate( dateObj, dash ) {
+			var fdate = '';
+			var item;
+
+			fdate += dateObj.getFullYear();
+			fdate += dash;
+			item = dateObj.getMonth() + 1; //because 0 indexing makes sense when dealing with months /sarcasm
+			fdate += ( item < 10 ) ? '0' + item : item;
+			fdate += dash;
+			item = dateObj.getDate();
+			fdate += ( item < 10 ) ? '0' + item : item;
+
+			return fdate;
+		};
+
+		var ONE_SECOND = 1000;
+		var ONE_MINUTE = ONE_SECOND * 60;
+		var ONE_HOUR = ONE_MINUTE * 60;
+		var ONE_DAY = ONE_HOUR * 24;
+		var ONE_WEEK = ONE_DAY * 7;
+		var ONE_MONTH = ONE_WEEK * 5; // No good way to increment by one month using vanilla JS. Since this is an end date, we only need to ensure that this date occurs after at least one or more repeat increments, but there is no reason for it to be exact.
+		var ONE_YEAR = ONE_WEEK * 52;
+		var INTERVALS = {
+			secondly: ONE_SECOND,
+			minutely: ONE_MINUTE,
+			hourly: ONE_HOUR,
+			daily: ONE_DAY,
+			weekly: ONE_WEEK,
+			monthly: ONE_MONTH,
+			yearly: ONE_YEAR
+		};
+
+		var _incrementDate = function _incrementDate( start, end, interval, increment ) {
+			return new Date( start.getTime() + ( INTERVALS[ interval ] * increment ) );
+		};
+
 		Scheduler.prototype = {
 			constructor: Scheduler,
 
-			destroy: function() {
+			destroy: function destroy() {
 				var markup;
 				// set input value attribute
 				this.$element.find( 'input' ).each( function() {
@@ -6983,7 +7097,7 @@
 				return markup;
 			},
 
-			changed: function( e, data, propagate ) {
+			changed: function changed( e, data, propagate ) {
 				if ( !propagate ) {
 					e.stopPropagation();
 				}
@@ -6995,15 +7109,15 @@
 				} );
 			},
 
-			disable: function() {
+			disable: function disable() {
 				this.toggleState( 'disable' );
 			},
 
-			enable: function() {
+			enable: function enable() {
 				this.toggleState( 'enable' );
 			},
 
-			setUtcTime: function( d, t, offset ) {
+			setUtcTime: function setUtcTime( d, t, offset ) {
 				var date = d.split( '-' );
 				var time = t.split( ':' );
 
@@ -7042,7 +7156,7 @@
 
 			// called when the end range changes
 			// (Never, After, On date)
-			endSelectChanged: function( e, data ) {
+			endSelectChanged: function endSelectChanged( e, data ) {
 				var selectedItem, val;
 
 				if ( !data ) {
@@ -7068,7 +7182,34 @@
 				}
 			},
 
-			getValue: function() {
+			_guessEndDate: function _guessEndDate() {
+				var interval = this.$repeatIntervalSelect.selectlist( 'selectedItem' ).value;
+				var end = new Date( this.$endDate.datepicker( 'getDate' ) );
+				var start = new Date( this.$startDate.datepicker( 'getDate' ) );
+				var increment = this.$repeatIntervalSpinbox.find( 'input' ).val();
+
+				if ( interval !== "none" && end <= start ) {
+					// if increment spinbox is hidden, user has no idea what it is set to and it is probably not set to
+					// something they intended. Safest option is to set date forward by an increment of 1.
+					// this will keep monthly & yearly from auto-incrementing by more than a single interval
+					if ( !this.$repeatIntervalSpinbox.is( ':visible' ) ) {
+						increment = 1;
+					}
+
+					// treat weekdays as weekly. This treats all "weekdays" as a single set, of which a single increment
+					// is one week.
+					if ( interval === "weekdays" ) {
+						increment = 1;
+						interval = "weekly";
+					}
+
+					end = _incrementDate( start, end, interval, increment );
+
+					this.$endDate.datepicker( 'setDate', end );
+				}
+			},
+
+			getValue: function getValue() {
 				// FREQ = frequency (secondly, minutely, hourly, daily, weekdays, weekly, monthly, yearly)
 				// BYDAY = when picking days (MO,TU,WE,etc)
 				// BYMONTH = when picking months (Jan,Feb,March) - note the values should be 1,2,3...
@@ -7089,26 +7230,9 @@
 				}
 
 				var timeZone = this.$timeZone.selectlist( 'selectedItem' );
-				var getFormattedDate;
-
-				getFormattedDate = function( dateObj, dash ) {
-					var fdate = '';
-					var item;
-
-					fdate += dateObj.getFullYear();
-					fdate += dash;
-					item = dateObj.getMonth() + 1; //because 0 indexing makes sense when dealing with months /sarcasm
-					fdate += ( item < 10 ) ? '0' + item : item;
-					fdate += dash;
-					item = dateObj.getDate();
-					fdate += ( item < 10 ) ? '0' + item : item;
-
-					return fdate;
-				};
-
 				var day, days, hasAm, hasPm, month, pos, startDateTime, type;
 
-				startDateTime = '' + getFormattedDate( this.$startDate.datepicker( 'getDate' ), '-' );
+				startDateTime = '' + _getFormattedDate( this.$startDate.datepicker( 'getDate' ), '-' );
 
 				startDateTime += 'T';
 				hasAm = ( startTime.search( 'am' ) >= 0 );
@@ -7202,7 +7326,7 @@
 					if ( end === 'after' ) {
 						duration = 'COUNT=' + this.$endAfter.spinbox( 'value' ) + ';';
 					} else if ( end === 'date' ) {
-						duration = 'UNTIL=' + getFormattedDate( this.$endDate.datepicker( 'getDate' ), '' ) + ';';
+						duration = 'UNTIL=' + _getFormattedDate( this.$endDate.datepicker( 'getDate' ), '' ) + ';';
 					}
 
 				}
@@ -7222,7 +7346,7 @@
 
 			// called when the repeat interval changes
 			// (None, Hourly, Daily, Weekdays, Weekly, Monthly, Yearly
-			repeatIntervalSelectChanged: function( e, data ) {
+			repeatIntervalSelectChanged: function repeatIntervalSelectChanged( e, data ) {
 				var selectedItem, val, txt;
 
 				if ( !data ) {
@@ -7268,9 +7392,11 @@
 					this.$end.removeClass( 'hide hidden' ); // hide is deprecated
 					this.$end.attr( 'aria-hidden', 'false' );
 				}
+
+				this._guessEndDate();
 			},
 
-			setValue: function( options ) {
+			setValue: function setValue( options ) {
 				var hours, i, item, l, minutes, period, recur, temp, startDate, startTime, timeOffset;
 
 				if ( options.startDateTime ) {
@@ -7463,7 +7589,7 @@
 				this.$startDate.datepicker( 'setDate', utcStartHours );
 			},
 
-			toggleState: function( action ) {
+			toggleState: function toggleState( action ) {
 				this.$element.find( '.combobox' ).combobox( action );
 				this.$element.find( '.datepicker' ).datepicker( action );
 				this.$element.find( '.selectlist' ).selectlist( action );
@@ -7479,7 +7605,7 @@
 				this.$element.find( '.repeat-days-of-the-week .btn-group' )[ action ]( 'disabled' );
 			},
 
-			value: function( options ) {
+			value: function value( options ) {
 				if ( options ) {
 					return this.setValue( options );
 				} else {
@@ -7491,7 +7617,7 @@
 
 		// SCHEDULER PLUGIN DEFINITION
 
-		$.fn.scheduler = function( option ) {
+		$.fn.scheduler = function scheduler( option ) {
 			var args = Array.prototype.slice.call( arguments, 1 );
 			var methodReturn;
 
@@ -7516,7 +7642,7 @@
 
 		$.fn.scheduler.Constructor = Scheduler;
 
-		$.fn.scheduler.noConflict = function() {
+		$.fn.scheduler.noConflict = function noConflict() {
 			$.fn.scheduler = old;
 			return this;
 		};

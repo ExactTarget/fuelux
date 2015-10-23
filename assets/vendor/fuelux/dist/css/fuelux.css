@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.11.3 
+ * Fuel UX v3.11.5 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -815,7 +815,7 @@ label.fuelux .checkbox-inline {
   border-radius: 4px;
 }
 .fuelux .datepicker-calendar-days td span:hover {
-  background: #f1f1f1;
+  background: #f5f5f5;
   text-decoration: none;
 }
 .fuelux .datepicker-calendar-days td.current-day span {
@@ -823,7 +823,7 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .datepicker-calendar-days td.last-month,
 .fuelux .datepicker-calendar-days td.next-month {
-  background: #d6d6d6;
+  background: #d5d5d5;
 }
 .fuelux .datepicker-calendar-days td.last-month.first,
 .fuelux .datepicker-calendar-days td.next-month.first {
@@ -862,7 +862,7 @@ label.fuelux .checkbox-inline {
   background: none;
 }
 .fuelux .datepicker-calendar-days td.selected span {
-  background: #efefef;
+  background: #eeeeee;
 }
 .fuelux .datepicker-calendar-days td.selected span:hover {
   background: #dddddd;
@@ -1125,7 +1125,8 @@ label.fuelux .checkbox-inline {
   margin: 0 auto;
   width: 32px;
 }
-.fuelux .dropUp {
+.fuelux .dropUp,
+.fuelux .dropup {
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -1600,6 +1601,9 @@ label.fuelux .checkbox-inline {
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table tbody td.sorted {
   background: #fafafa;
 }
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table tbody td.repeater-list-actions-placeholder {
+  border-left: none;
+}
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table tbody tr:focus {
   outline: 1px dotted #dddddd;
 }
@@ -1613,7 +1617,7 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table tbody tr.selectable:hover td,
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table tbody tr.selectable.hovered td {
-  background: #f1f1f1;
+  background: #f5f5f5;
   cursor: pointer;
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table tbody tr.selectable .checkbox-custom:before {
@@ -1621,7 +1625,7 @@ label.fuelux .checkbox-inline {
   top: 0;
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table tbody tr.selected td {
-  background: #efefef;
+  background: #eeeeee;
   color: #333333;
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table tbody tr.selected td:first-child {
@@ -1649,7 +1653,7 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table thead > tr > th.sortable:hover,
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table thead > tr > th.sortable.sorted {
-  background: #f1f1f1;
+  background: #f5f5f5;
   cursor: pointer;
   background-color: #f2f2f2;
   background-image: -moz-linear-gradient(top, #fafafa, #e6e6e6);
@@ -1668,9 +1672,6 @@ label.fuelux .checkbox-inline {
   display: none;
   float: right;
   margin-top: 2px;
-}
-.fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table thead > tr > th .actions-hidden {
-  visibility: hidden;
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list-check {
   display: inline-block;
@@ -1814,7 +1815,7 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions tr.selectable:hover td,
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions tr.selectable.hovered td {
-  background: #f1f1f1;
+  background: #f5f5f5;
   cursor: pointer;
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions tr.selectable .checkbox-custom:before {
@@ -1822,7 +1823,7 @@ label.fuelux .checkbox-inline {
   top: 0;
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions tr.selected td {
-  background: #efefef;
+  background: #eeeeee;
   color: #333333;
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions tr.selected td:first-child {
@@ -1863,12 +1864,6 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions .caret {
   margin-left: 0;
-}
-.fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-thead-wrapper {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 3;
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list table {
   table-layout: fixed;
@@ -2004,11 +1999,11 @@ label.fuelux .checkbox-inline {
   text-align: center;
 }
 .fuelux .repeater-thumbnail-cont .selectable:hover {
-  background: #f1f1f1;
+  background: #f5f5f5;
   cursor: pointer;
 }
 .fuelux .repeater-thumbnail-cont .selectable.selected {
-  background: #efefef;
+  background: #eeeeee;
 }
 .fuelux .repeater-thumbnail-cont .selectable.selected:hover {
   background: #dddddd;
@@ -2039,6 +2034,7 @@ label.fuelux .checkbox-inline {
   padding-top: 0;
   padding-right: 9px;
   padding-left: 9px;
+  overflow-y: hidden;
 }
 .fuelux .spinbox .btn.disabled {
   cursor: not-allowed;
@@ -2068,8 +2064,8 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .spinbox .spinbox-down .glyphicon-chevron-down {
   position: relative;
-  left: -1px;
-  top: 0px;
+  left: 0;
+  top: 0;
 }
 .fuelux .spinbox input::-ms-clear {
   display: none;
@@ -2088,6 +2084,12 @@ label.fuelux .checkbox-inline {
 	END
 	------------------------------- */
 }
+.fuelux .scheduler .row {
+  margin-bottom: 10px;
+}
+.fuelux .scheduler .row.no-margin {
+  margin-bottom: 0px;
+}
 .fuelux .scheduler .control-label {
   min-width: 7em;
 }
@@ -2096,8 +2098,8 @@ label.fuelux .checkbox-inline {
   line-height: 27px;
   margin-top: 4px;
 }
-.fuelux .scheduler .start-datetime.form-group {
-  margin-bottom: 0;
+.fuelux .scheduler .form-group {
+  margin-bottom: 0px;
 }
 .fuelux .scheduler .start-datetime .form-group {
   margin-left: 0;
@@ -2242,6 +2244,19 @@ label.fuelux .checkbox-inline {
 .fuelux .scheduler .repeat-yearly .repeat-yearly-day .repeat-yearly-day-text {
   margin-left: 10px;
 }
+.fuelux .scheduler .repeat-weekly.repeat-days-of-the-week {
+  margin-top: 10px;
+  *zoom: 1;
+}
+.fuelux .scheduler .repeat-weekly.repeat-days-of-the-week:before,
+.fuelux .scheduler .repeat-weekly.repeat-days-of-the-week:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.fuelux .scheduler .repeat-weekly.repeat-days-of-the-week:after {
+  clear: both;
+}
 .fuelux .scheduler .repeat-weekly button:not(.active) {
   background-color: #ffffff;
 }
@@ -2276,6 +2291,16 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .scheduler .repeat-end .form-group {
   margin-left: 0;
+}
+.fuelux .scheduler .repeat-end .end-option-panel {
+  padding-left: 10px;
+}
+.fuelux .scheduler .repeat-end .selectlist {
+  min-width: 100%;
+}
+.fuelux .scheduler .repeat-end .selectlist button,
+.fuelux .scheduler .repeat-end .selectlist ul {
+  min-width: 100%;
 }
 .fuelux .scheduler input::-ms-clear {
   display: none;
@@ -2559,7 +2584,7 @@ label.fuelux .checkbox-inline {
   color: #999999;
 }
 .fuelux .tree .tree-item.tree-selected .tree-item-name {
-  background-color: #efefef;
+  background-color: #eeeeee;
   color: #333333;
 }
 .fuelux .tree .tree-item label {
@@ -2584,13 +2609,13 @@ label.fuelux .checkbox-inline {
   border-radius: 6px;
 }
 .fuelux .tree.tree-folder-select .tree-branch > .tree-branch-name.tree-selected {
-  background-color: #efefef;
+  background-color: #eeeeee;
 }
 .fuelux .tree.tree-folder-select .tree-branch.tree-selected > .tree-branch-header .tree-branch-name {
-  background-color: #efefef;
+  background-color: #eeeeee;
 }
 .fuelux .tree.tree-folder-select .tree-branch.tree-selected > .tree-branch-header .tree-branch-name:hover {
-  background-color: #efefef;
+  background-color: #eeeeee;
 }
 .fuelux .wizard {
   *zoom: 1;
