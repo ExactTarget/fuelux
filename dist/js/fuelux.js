@@ -1,6 +1,5 @@
 /*!
- * Fuel UX EDGE - Built 2015/10/20, 11:44:20 AM 
- * Previous release: v3.11.4 
+ * Fuel UX v3.11.5 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -5887,7 +5886,8 @@
 					var $hr = $( this );
 					var $heading = $hr.find( '.repeater-list-heading' );
 					$heading.outerHeight( $hr.outerHeight() );
-					$heading.outerWidth( $hr.outerWidth() );
+					// outerWidth isn't always appropriate or desirable. Allow an explicit value to be set if needed
+					$heading.outerWidth( $heading.data( 'forced-width' ) || $hr.outerWidth() );
 				} );
 			};
 
@@ -5964,7 +5964,6 @@
 						$wrapper.find( '.frozen-column-wrapper' ).css( 'left', scrollLeft );
 					}
 					if ( actionsEnabled && shouldScroll ) {
-						$wrapper.find( '.actions-thead-wrapper' ).css( 'right', -scrollLeft );
 						$wrapper.find( '.actions-column-wrapper' ).css( 'right', -scrollLeft );
 					}
 
@@ -5974,7 +5973,6 @@
 						$wrapper.find( '.frozen-column-wrapper' ).css( 'left', '0' );
 					}
 					if ( actionsEnabled ) {
-						$wrapper.find( '.actions-thead-wrapper' ).css( 'right', '0' );
 						$wrapper.find( '.actions-column-wrapper' ).css( 'right', '0' );
 					}
 				}
@@ -5994,16 +5992,16 @@
 					actionsHtml += '<li><a href="#" data-action="' + action.name + '" class="action-item"> ' + html + '</a></li>';
 				}
 
-				var selectlist = '<div class="btn-group">' +
-					'<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" data-flip="auto" aria-expanded="false">' +
-					'<span class="caret"></span>' +
-					'</button>' +
-					'<ul class="dropdown-menu dropdown-menu-right" role="menu">' +
-					actionsHtml +
-					'</ul></div>';
-
 				if ( $actionsTable.length < 1 ) {
+					var selectlist = '<div class="btn-group">' +
+						'<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" data-flip="auto" aria-expanded="false">' +
+						'<span class="caret"></span>' +
+						'</button>' +
+						'<ul class="dropdown-menu dropdown-menu-right" role="menu">' +
+						actionsHtml +
+						'</ul></div>';
 
+					// The width set here is overwritten in `list_sizeHeadings`. This is used for sizing the subsequent rows.
 					var $actionsColumnWrapper = $( '<div class="actions-column-wrapper" style="width: ' + this.list_actions_width + 'px"></div>' ).insertBefore( $table );
 					var $actionsColumn = $table.clone().addClass( 'table-actions' );
 					$actionsColumn.find( 'th:not(:last-child)' ).remove();
@@ -6015,12 +6013,18 @@
 						//disable the header dropdown until an item is selected
 						$actionsColumn.find( 'thead .btn' ).attr( 'disabled', 'disabled' );
 					} else {
-						var label = this.viewOptions.list_actions.label || '';
-						var labelHTML = label;
-						if ( label !== '' ) {
-							labelHTML = label + '<div class="repeater-list-heading">' + label + '</div>';
-						}
-						$actionsColumn.find( 'thead tr' ).addClass( 'empty-heading' ).html( '<th>' + labelHTML + '</th>' );
+						var labelText = this.viewOptions.list_actions.label || '';
+
+						var $labelOverlay = $( '<div class="repeater-list-heading empty">' + labelText + '</div>' );
+
+						// repeater-list.less:302 has `margin-left: -9px;` which shifts this over and makes it not actually cover what it is supposed to cover. Make it wider to compensate.
+						var negative_maring_accomodation = 9;
+						$labelOverlay.data( 'forced-width', this.list_actions_width + negative_maring_accomodation );
+
+						var $th = $( '<th>' + labelText + '</th>' );
+						$th.append( $labelOverlay );
+
+						$actionsColumn.find( 'thead tr' ).addClass( 'empty-heading' ).append( $th );
 					}
 
 					// Create Actions dropdown for each cell in actions table
@@ -6036,10 +6040,6 @@
 					this.$canvas.addClass( 'actions-enabled' );
 				}
 
-				/*			this.$element.find('.repeater-list .actions-column-wrapper, .repeater-list .actions-column-wrapper td, .repeater-list .actions-column-wrapper th')
-								.css('width', this.list_actions_width);
-
-							this.$element.find('.repeater-list .actions-column-wrapper th .repeater-list-heading').css('width', this.list_actions_width + 1 + 'px');*/
 				this.$element.find( '.repeater-list table.table-actions thead tr th' ).outerHeight( $table.find( 'thead tr th' ).outerHeight() );
 				this.$element.find( '.repeater-list table.table-actions tbody tr td:first-child' ).each( function( i, elem ) {
 					$( this ).outerHeight( $table.find( 'tbody tr:eq(' + i + ') td' ).outerHeight() );
@@ -6285,23 +6285,24 @@
 
 		//ADDITIONAL METHODS
 		function renderColumn( $tr, row, rowIndex, column ) {
-			var className = column.className;
 			var content = row[ column.property ];
 			var $col = $( '<td></td>' );
-			var width = column._auto_width;
 
-			var property = column.property;
-			if ( this.viewOptions.list_actions !== false && property === '@_ACTIONS_@' ) {
+			$col.addClass( column.className );
+
+			if ( this.viewOptions.list_actions !== false && column.property === '@_ACTIONS_@' ) {
 				$col.addClass( 'repeater-list-actions-placeholder-column' );
-				content = '<div class="repeater-list-actions-placeholder" style="width: ' + this.list_actions_width + 'px"></div>';
+				content = '';
 			}
 
 			content = ( content !== undefined ) ? content : '';
+			$col.append( content );
 
-			$col.addClass( className ).append( content );
-			if ( width !== undefined ) {
-				$col.outerWidth( width );
+			// excludes checkbox and actions columns, as well as columns with user set widths
+			if ( column._auto_width !== undefined ) {
+				$col.outerWidth( column._auto_width );
 			}
+
 			$tr.append( $col );
 
 			if ( this.viewOptions.list_selectable === 'multi' && column.property === '@_CHECKBOX_@' ) {
@@ -6384,6 +6385,10 @@
 			// header underlayment
 			var $headerBase = $( '<th></th>' );
 
+			// actions column is _always_ hidden underneath absolute positioned actions table.
+			// Neither headerBase nor headerOverlay will ever be visible for actions column.
+			// This is here strictly for sizing purposes for the benefit of the other columns'
+			// sizing calculations.
 			if ( this.viewOptions.list_actions && column.property === '@_ACTIONS_@' ) {
 				var width = this.list_actions_width;
 				$headerBase.css( 'width', width );
