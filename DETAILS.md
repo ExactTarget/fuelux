@@ -7,6 +7,61 @@ Additional details to supplement the brief nature of the README file.
  * [Contributors](#contributors)
  * [Travis CI](#travis-ci)
  * [Edge Servers](#edge-servers)
+* Using [Bower](https://github.com/bower/bower) (ensures you get all the [dependencies](#dependencies)):
+
+   ```
+   bower install fuelux
+   ```
+   Update with `bower update fuelux`.
+
+* Using [Volo](https://github.com/volojs/volo) (ensures you get all the [dependencies](#dependencies)):
+
+   ```
+   volo add fuelux
+
+   ```
+   Update with `volo add -f fuelux`.
+
+* Clone the Git repository:
+   ```
+   git clone https://github.com/ExactTarget/fuelux/
+   ```
+
+   Cloning the repository ensures you can apply future updates to Fuel UX easily, but requires to you manage its [dependencies](#dependencies) on your own.
+
+* Download a .zip archive of the [latest release](http://www.fuelcdn.com/fuelux/3.11.4/fuelux.zip).
+
+## AMD support
+
+We recommend only loading the controls you need (eg `fuelux/checkbox`).
+
+If using AMD (such as [RequireJS](http://requirejs.org)), reference the FuelUX directory in your paths configuration, wherever it is located:
+```javascript
+require.config({
+    paths: {
+        'fuelux': 'http://www.fuelcdn.com/fuelux/3.11.4/'
+        //...
+    }
+});
+```
+Then list any individual fuel ux controls needed as dependencies within your application modules:
+```javascript
+define(function(require) {
+    var spinbox = require('fuelux/spinbox');
+    //...
+});
+```
+In instances where you require every module from Fuel UX, you can use `fuelux/all` instead of listing each module individually.
+
+Fuel UX also supports placing components in their own `<script>` tags. Be sure to [check component dependencies in the controls documentation](http://getfuelux.com/javascript.html) and put modules in the correct order if you load them in this method. Errors will appear in the console if you have not loaded dependencies correctly ((Repeater)[http://getfuelux.com/javascript.html#repeater-dependencies] and [Scheduler](http://getfuelux.com/javascript.html#scheduler-dependencies) are the only components with dependencies currently).
+
+## Compiling code
+
+Fuel UX is lightweight to give you a fast dependable foundation to build upon. It uses [Grunt](http://gruntjs.com/) with convenient methods for working with the library. It's how we compile our code, run tests, and more. To use it, install the required dependencies as directed, and then run some Grunt tasks.
+
+### Install grunt
+
+From the command line:
 
 ### Install Dependencies
 

@@ -27,7 +27,34 @@ Fuel UX can be used with an existing page via CDN or installed in a project.
 
 Read the [Getting started page](http://getfuelux.com/getting-started.html) for more detailed information on the framework contents, templates, examples, and more.
 
+### Use
+
+Add `fuelux` class to the portion of the page using Fuel UX as seen [here](https://github.com/exacttarget/fuelux/blob/master/DETAILS.md#using-fuel-ux).
+
+Ensure all the dependencies are included on the page (eg, such as using the CDN as shown below).
+```
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="//www.fuelcdn.com/fuelux/3.11.4/css/fuelux.min.css" rel="stylesheet">
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.1/js/bootstrap.min.js"></script>
+<script src="//www.fuelcdn.com/fuelux/3.11.4/js/fuelux.min.js"></script>
+
+```
+
 #### The code you want is in `dist`
+A few ways available to install.
+
+- Request files from [the Fuel UX CDN](http://www.fuelcdn.com/fuelux/3.11.4/)
+- Install with [NPM](https://www.npmjs.com/package/fuelux): `npm install fuelux`.
+- [Download the latest release](https://github.com/exacttarget/fuelux/archive/3.4.0.zip).
+- Clone the repo: `git clone https://github.com/exacttarget/fuelux.git`.
+- Install with [Bower](http://bower.io): `bower install fuelux`.
+- Install with [Volo](https://github.com/volojs/volo): `volo add fuelux`.
+
+More details for the above can be found [here](https://github.com/exacttarget/fuelux/blob/master/DETAILS.md#downloading-code).
+
+#### What's included
 
 We provide compiled CSS and JS (like `fuelux.*`), as well as compiled and minified CSS and JS (like `fuelux.min.*`) in the `dist` folder. Supporting icons are provided as fonts.
 ```
