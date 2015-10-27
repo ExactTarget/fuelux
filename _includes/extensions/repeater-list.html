@@ -220,9 +220,11 @@ list_actions:  {
   items: [{
     name: 'delete'
 	html: '<span class="glyphicon glyphicon-trash"></span> Delete',
-	clickAction: function(helpers, callback) {
+	clickAction: function(helpers, callback, e) {
+		e.preventDefaul();
 		console.log('hey it worked');
 		console.log(helpers);
+		console.log(e);
 		callback();
 	}
 }
