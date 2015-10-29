@@ -270,16 +270,16 @@
 				} else {
 					var labelText = this.viewOptions.list_actions.label || '';
 
-					var $labelOverlay = $('<div class="repeater-list-heading empty">' + labelText + '</div>');
+					var $labelOverlay = $('<div class="repeater-list-heading">' + labelText + '</div>');
 
 					// repeater-list.less:302 has `margin-left: -9px;` which shifts this over and makes it not actually cover what it is supposed to cover. Make it wider to compensate.
-					var negative_maring_accomodation = 9;
-					$labelOverlay.data('forced-width', this.list_actions_width + negative_maring_accomodation);
+					var negative_margin_accomodation = 9;
+					$labelOverlay.data('forced-width', this.list_actions_width + negative_margin_accomodation);
 
 					var $th = $('<th>' + labelText + '</th>');
 					$th.append($labelOverlay);
 
-					$actionsColumn.find('thead tr').addClass('empty-heading').append($th);
+					$actionsColumn.find('thead tr').addClass('empty-heading').html($th);
 				}
 
 				// Create Actions dropdown for each cell in actions table
