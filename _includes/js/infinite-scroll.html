@@ -1,158 +1,193 @@
 <!-- infinite-scroll
 ================================================== -->
 <div class="fu-docs-section">
-  <h1 id="infinite-scroll" class="page-header">Infinite Scroll <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/infinite-scroll.js"><small>infinite-scroll.js</small></a></h1>
+    <h1 id="infinite-scroll" class="page-header">Infinite Scroll <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/infinite-scroll.js"><small>infinite-scroll.js</small></a></h1>
 
-  <p>Turn any element into an infinite scrolling region with content that loads on demand.</p>
-  <div class="infinitescroll" id="infiniteScrollIllustration" style="border: 1px solid #ccc; border-radius: 4px; height: 200px; padding: 6px 10px; width: 300px;"></div>
+    <p>Turn any element into an infinite scrolling region with content that loads on demand.</p>
+    <div class="infinitescroll" id="infiniteScrollIllustration" style="border: 1px solid #ccc; border-radius: 4px; height: 200px; padding: 6px 10px; width: 300px;"></div>
 
-  <h2 id="infinite-scroll-usage">Usage</h2>
-  <p>Because of its dependency on a <code>dataSource</code>, you must initialize an <code>infinitescroll()</code> component via JavaScript:</p>
+    <h2 id="infinite-scroll-usage">Usage</h2>
+    <p>Because of its dependency on a <code>dataSource</code>, you must initialize an <code>infinitescroll()</code> component via JavaScript:</p>
 {% highlight js %}
 $('#myInfiniteScroll').infinitescroll({
-  //dataSource is required to append additional content
-  dataSource: function(helpers, callback){
-    //passing back more content
-    callback({ content: '...' });
-  }
+    //dataSource is required to append additional content
+    dataSource: function(helpers, callback){
+        //passing back more content
+        callback({ content: '...' });
+    }
 });
 {% endhighlight %}
 
-  <h3 id="infinite-scroll-usage-markup">Markup</h3>
-  <p>Simply place <code>class="infinitescroll"</code> on an element of your choosing (preferably a div or span).</p>
+    <h3 id="infinite-scroll-usage-markup">Markup</h3>
+    <p>Simply place <code>class="infinitescroll"</code> on an element of your choosing (preferably a div or span).</p>
 {% highlight html %}
 <div class="infinitescroll" id="myInfiniteScroll"></div>
 {% endhighlight %}
 
-  <h3 id="infinite-scroll-usage-options">Options</h3>
-  <p>You can pass options via JavaScript at initialization.</p>
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead>
-      <tr>
-        <th style="width: 100px;">Name</th>
-        <th style="width: 100px;">type</th>
-        <th style="width: 50px;">default</th>
-        <th>description</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>dataSource</td>
-        <td>function</td>
-        <td>null</td>
-        <td>Called whenever the user scrolls the specified percentage towards the bottom. Arguments passed
-          include a <code>helpers</code> object and <code>callback</code> function. The <code>helpers</code>
-          object contains current <code>percentage</code> and <code>scrollTop</code> values. The
-          <code>callback</code> function appends more content to the element. Pass an object
-          back within the <code>callback</code> function structured as follows:
-
-          <code>{ content: '...' }</code>
-
-          If you append no additonal content, add the attribute <code>end: true</code> to that
-          object. This code will append <code>'---------'</code> by default and prevent further dataSource calls. Pass a
-          string value for the <code>end</code> attribute to append that string instead of the default.
-        </td>
-      </tr>
-      <tr>
-        <td>hybrid</td>
-        <td>boolean OR object</td>
-        <td>false</td>
-        <td>Indicates whether the code will use "hybrid mode" and require the user to click a button before loading
-          additional content. If set to <code>true</code>, the code will use a default "load more" icon within
-          the button. Additionally, you can set the control to an object with the following structure:
-
-          <code>{ label: (string or jQuery obj) }</code>
-
-          The code will then append the <code>label</code> attribute value within the button instead of the default icon.
-        </td>
-      </tr>
-      <tr>
-        <td>percentage</td>
-        <td>number</td>
-        <td>95</td>
-        <td>Percentage scrolled to the bottom before calling the dataSource function for more content.</td>
-      </tr>
-      </tbody>
-    </table>
-  </div><!-- ./fu-table-responsive -->
-
-  <h3 id="infinite-scroll-usage-methods">Methods</h3>
-  <dl>
-    <dt id="infinite-scroll-usage-destroy">.infinitescroll('destroy')</dt>
-    <dd>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</dd>
-
-    <dt id="infinite-scroll-usage-disable">.infinitescroll('disable');</dt>
-    <dd>Ensures the infinite scrolling region is disabled</dd>
-
-    <dt id="infinite-scroll-usage-enable">.infinitescroll('enable');</dt>
-    <dd>Ensures the infinite scrolling region is enabled</dd>
-
-    <dt id="infinite-scroll-usage-end">.infinitescroll('end');</dt>
-    <dd>
-      Disables the infinite scrolling region and appends an "end" indicator
-      {% highlight js %}$('#myInfiniteScroll').infinitescroll('fetchData');{% endhighlight %}
-      {% highlight js %}$('#myInfiniteScroll').infinitescroll('fetchData', {content: 'endicator'});{% endhighlight %}
-
-      <div class="table-responsive">
+    <h3 id="infinite-scroll-usage-options">Options</h3>
+    <p>You can pass options via JavaScript at initialization.</p>
+    <div class="table-responsive">
         <table class="table table-bordered table-striped">
-          <thead>
-          <tr>
-            <th style="width: 150px;">Parameter</th>
-            <th>description</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>content</td>
-            <td><em>Optional.</em> String or jQuery object appended as an "end" indicator. Defaults to <code>'---------'</code></td>
-          </tr>
-          </tbody>
+            <thead>
+            <tr>
+                <th style="width: 100px;">Name</th>
+                <th style="width: 100px;">type</th>
+                <th style="width: 50px;">default</th>
+                <th>description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>dataSource</td>
+                <td>function</td>
+                <td>null</td>
+                <td>Called whenever the user scrolls the specified percentage towards the bottom. Arguments passed
+                    include a <code>helpers</code> object and <code>callback</code> function. The <code>helpers</code>
+                    object contains current <code>percentage</code> and <code>scrollTop</code> values. The
+                    <code>callback</code> function appends more content to the element. Pass an object
+                    back within the <code>callback</code> function structured as follows:
+
+                    <code>{ content: '...' }</code>
+
+                    If you append no additonal content, add the attribute <code>end: true</code> to that
+                    object. This code will append <code>'---------'</code> by default and prevent further dataSource calls. Pass a
+                    string value for the <code>end</code> attribute to append that string instead of the default.
+                </td>
+            </tr>
+            <tr>
+                <td>hybrid</td>
+                <td>boolean OR object</td>
+                <td>false</td>
+                <td>Indicates whether the code will use "hybrid mode" and require the user to click a button before loading
+                    additional content. If set to <code>true</code>, the code will use a default "load more" icon within
+                    the button. Additionally, you can set the control to an object with the following structure:
+
+                    <code>{ label: (string or jQuery obj) }</code>
+
+                    The code will then append the <code>label</code> attribute value within the button instead of the default icon.
+                </td>
+            </tr>
+            <tr>
+                <td>percentage</td>
+                <td>number</td>
+                <td>95</td>
+                <td>Percentage scrolled to the bottom before calling the dataSource function for more content.</td>
+            </tr>
+            </tbody>
         </table>
-      </div><!-- ./fu-table-responsive -->
-    </dd>
+    </div><!-- ./fu-table-responsive -->
 
-    <dt id="infinite-scroll-usage-fetch-data">.infinitescroll('fetchData');</dt>
-    <dd>
-      Tells the infinite scrolling region to make a call to its <code>dataSource</code> for additional content.
-      {% highlight js %}$('#myInfiniteScroll').infinitescroll('fetchData');{% endhighlight %}
-      {% highlight js %}$('#myInfiniteScroll').infinitescroll('fetchData', {force: true});{% endhighlight %}
+    <h3 id="infinite-scroll-usage-methods">Methods</h3>
+    <dl>
+        <dt id="infinite-scroll-usage-destroy">.infinitescroll('destroy')</dt>
+        <dd>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup.</dd>
 
-      <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-          <thead>
-          <tr>
-            <th style="width: 150px;">Parameter</th>
-            <th>description</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>force</td>
-            <td><em>Optional.</em> Boolean dictating whether to bypass the button click in hybrid mode and immediately
-              call dataSoruce for more content. Defaults to <code>false</code>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div><!-- ./fu-table-responsive -->
-    </dd>
-  </dl>
+        <dt id="infinite-scroll-usage-disable">.infinitescroll('disable');</dt>
+        <dd>Ensures the infinite scrolling region is disabled</dd>
 
-  <h2 id="infinite-scroll-examples">Examples</h2>
-  <p>Turn any element into an infinite scrolling region with content that loads on demand.</p>
+        <dt id="infinite-scroll-usage-enable">.infinitescroll('enable');</dt>
+        <dd>Ensures the infinite scrolling region is enabled</dd>
 
-  <div class="fu-example section">
-    <div class="infinitescroll" id="myInfiniteScroll1" style="border: 1px solid #ccc; border-radius: 4px; float: left; height: 200px; padding: 6px 10px; width: 48%;"></div>
-    <div class="infinitescroll" id="myInfiniteScroll2" style="border: 1px solid #ccc; border-radius: 4px; float: right; height: 200px; padding: 6px 10px; width: 48%;"></div>
-    <div style="clear:both;"></div>
-  </div>
+        <dt id="infinite-scroll-usage-end">.infinitescroll('end');</dt>
+        <dd>
+            Disables the infinite scrolling region and appends an "end" indicator
+            {% highlight js %}$('#myInfiniteScroll').infinitescroll('fetchData');{% endhighlight %}
+            {% highlight js %}$('#myInfiniteScroll').infinitescroll('fetchData', {content: 'endicator'});{% endhighlight %}
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th style="width: 150px;">Parameter</th>
+                        <th>description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>content</td>
+                        <td><em>Optional.</em> String or jQuery object appended as an "end" indicator. Defaults to <code>'---------'</code></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div><!-- ./fu-table-responsive -->
+        </dd>
+
+        <dt id="infinite-scroll-usage-fetch-data">.infinitescroll('fetchData');</dt>
+        <dd>
+            Tells the infinite scrolling region to make a call to its <code>dataSource</code> for additional content.
+            {% highlight js %}$('#myInfiniteScroll').infinitescroll('fetchData');{% endhighlight %}
+            {% highlight js %}$('#myInfiniteScroll').infinitescroll('fetchData', {force: true});{% endhighlight %}
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th style="width: 150px;">Parameter</th>
+                        <th>description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>force</td>
+                        <td><em>Optional.</em> Boolean dictating whether to bypass the button click in hybrid mode and immediately
+                            call dataSoruce for more content. Defaults to <code>false</code>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div><!-- ./fu-table-responsive -->
+        </dd>
+    </dl>
+
+    <h2 id="infinite-scroll-examples">Examples</h2>
+    <p>Turn any element into an infinite scrolling region with content that loads on demand.</p>
+
+    <div class="fu-example section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Auto-loads content</div>
+                        <div class="panel-body">
+                            <div class="infinitescroll" id="myInfiniteScroll1" style="height: 200px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Loads with button</div>
+                        <div class="panel-body">
+                            <div class="infinitescroll" id="myInfiniteScroll2" style="height: 200px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% highlight html %}
-  <div class="fu-example section">
-    <div class="infinitescroll" id="myInfiniteScroll1" style="border: 1px solid #ccc; border-radius: 4px; float: left; height: 200px; padding: 6px 10px; width: 48%;"></div>
-    <div class="infinitescroll" id="myInfiniteScroll2" style="border: 1px solid #ccc; border-radius: 4px; float: right; height: 200px; padding: 6px 10px; width: 48%;"></div>
-    <div style="clear:both;"></div>
+<div class="fu-example section">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">Auto-loads content</div>
+          <div class="panel-body">
+            <div class="infinitescroll" id="myInfiniteScroll1" style="height: 200px;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">Loads with button</div>
+          <div class="panel-body">
+            <div class="infinitescroll" id="myInfiniteScroll2" style="height: 200px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 {% endhighlight %}
 </div>
 
