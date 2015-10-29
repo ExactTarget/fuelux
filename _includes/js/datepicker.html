@@ -4,10 +4,19 @@
   <h1 id="datepicker" class="page-header">Datepicker <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/datepicker.js"><small>datepicker.js</small></a></h1>
   <p>The <code>datepicker()</code> control provides the user with the ability to choose a date from a highly customizable calender. Datepicker also offers many <a href="#datepicker-usage-methods">methods</a> that allow you to programmatically manipulate it.</p>
 
-  <div style="width: 140px; margin-left: 150px;">
-    <div class="datepicker" data-initialize="datepicker" id="datepickerIllustration">
-      {% include js/datepicker-example.html %}
+<form class="form-horizontal" style="width: 300px;">
+  <div class="form-group">
+    <label for="datepickerIllustration" class="col-sm-2 control-label">Date</label>
+    <div class="col-sm-10">
+      <div class="datepicker" data-initialize="datepicker" id="datepickerIllustration">
+        {% include js/datepicker-example.html %}
+      </div>
     </div>
+  </div>
+</form>
+
+
+  <div style="width: 140px; margin-left: 150px;">
   </div>
 
   <h2 id="datepicker-usage">Usage</h2>
