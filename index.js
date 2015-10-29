@@ -1207,6 +1207,18 @@ define(function (require) {
 		console.log($('#myTree1').tree('selectedItems'));
 	});
 
+	var mostRecentlyOpenedFolderId = null;
+	$('#btnTreeRefresh').click(function () {
+		if (mostRecentlyOpenedFolderId === null) {
+			log('Please open a folder first. This is only needed for already opened and "DOM cached" folders.');
+		}
+		else {
+			var $itemToRefresh = $('#'+mostRecentlyOpenedFolderId)
+			$('#myTree1').tree('refreshFolder', $itemToRefresh);
+		}
+
+	});
+
 	// events
 	$('#myTree1').on('loaded.fu.tree', function (e) {
 		log('#myTree1 Loaded');
@@ -1223,6 +1235,7 @@ define(function (require) {
 		log($('#myTree1').tree('selectedItems'));
 	});
 	$('#myTree1').on('disclosedFolder.fu.tree', function (event, parentData) {
+		mostRecentlyOpenedFolderId = parentData.attr.id;
 		log('Opened Event, parent data: ', parentData);
 	});
 	$('#myTree1').on('closed.fu.tree', function (event, parentData) {
@@ -1239,6 +1252,9 @@ define(function (require) {
 	});
 	$('#myTree1').on('disclosedAll.fu.tree', function (event, data) {
 		log('Disclosed All, this many recursions: ', data.disclosures);
+	});
+	$('#myTree1').on('refreshedFolder.fu.tree', function (event, parentData) {
+		log('Refreshed Folder Event: ', parentData);
 	});
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

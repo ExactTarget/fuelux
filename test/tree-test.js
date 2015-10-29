@@ -15,6 +15,15 @@ define(function (require) {
 			var callLimit = 50;
 			var callCount = 0;
 
+			function guid () {
+				function s4 () {
+					return Math.floor((1 + Math.random()) * 0x10000)
+						.toString(16)
+						.substring(1);
+				}
+				return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+			}
+
 			this.dataSource = function (options, callback) {
 				if (callCount >= callLimit) {
 					callback({
@@ -39,14 +48,14 @@ define(function (require) {
 							name: 'Ascending and Descending',
 							type: 'folder',
 							attr: {
-								id: 'folder1'
+								id: 'folder' + guid(),
 							}
 						},
 						{
 							name: 'Sky and Water I (with custom icon)',
 							type: 'item',
 							attr: {
-								id: 'item1',
+								id: 'folder' + guid(),
 								'data-icon': 'glyphicon glyphicon-file'
 							}
 						},
@@ -54,7 +63,7 @@ define(function (require) {
 							name: 'Drawing Hands',
 							type: 'folder',
 							attr: {
-								id: 'folder2',
+								id: 'folder' + guid(),
 								'data-children': false
 							}
 						},
@@ -69,7 +78,7 @@ define(function (require) {
 							name: 'Belvedere',
 							type: 'folder',
 							attr: {
-								id: 'folder3'
+								id: 'folder' + guid(),
 							}
 						},
 						{
@@ -84,7 +93,7 @@ define(function (require) {
 							name: 'House of Stairs',
 							type: 'folder',
 							attr: {
-								id: 'folder4'
+								id: 'folder' + guid(),
 							}
 						},
 						{
@@ -111,6 +120,7 @@ define(function (require) {
 					]
 				});
 			};
+
 		}
 	});
 
@@ -365,6 +375,27 @@ define(function (require) {
 		$tree.tree('discloseAll');
 	});
 
+	test("should refresh an already opened/cached folder with new nodes", function () {
+		var $tree = $(html).find('#MyTree');
+		var $folderToRefresh;
+		var initialLoadedFolderId, refreshedLoadedFolderId;
+		var selector = '.tree-branch-children > li:eq(0)';
+
+		$tree.tree({
+			dataSource: this.dataSource
+		});
+		$folderToRefresh = $tree.find('.tree-branch:eq(1)');
+
+		// open folder
+		$tree.tree('discloseFolder', $folderToRefresh.find('.tree-branch-name'));
+		equal($folderToRefresh.find('.tree-branch-children > li').length, 8, 'Folder has been populated with items/sub-folders');
+		initialLoadedFolderId = $folderToRefresh.find(selector).attr('id');
+
+		// refresh and see if it's the same ID
+		$tree.tree('refreshFolder', $folderToRefresh);
+		refreshedLoadedFolderId = $folderToRefresh.find('.tree-branch-children > li:eq(0)').attr('id');
+		notEqual(refreshedLoadedFolderId, initialLoadedFolderId, 'Folder has been refreshed and populated with different items/sub-folders');
+	});
 
 	test("should destroy control", function () {
 		var $tree = $(html).find('#MyTree');
