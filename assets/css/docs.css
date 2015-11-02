@@ -677,7 +677,7 @@ dt:hover .header-anchor{
   border-width: 1px 0;
 }
 .fu-example .fu-example-narrowize {
-	max-width: 400px;
+	max-width: 140px;
 }
 /* Echo out a label for the example */
 .fu-example:after {
