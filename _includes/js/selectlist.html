@@ -3,29 +3,33 @@
 <div class="fu-docs-section">
   <h1 id="selectlist" class="page-header">Selectlist <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/selectlist.js"><small>selectlist.js</small></a></h1>
 
-  <p>A single select drop-down similar to the native <code>select</code> control, but standardized to look the same across browsers.</p>
+  <p class="lead">A single select drop-down similar to the native <code>select</code> control, but standardized to look the same across browsers.</p>
 
-  <div class="form-group">
-    <label class="control-label" for="selectlistIllustrationInput">selectlist</label>
-    <div class="input-group">
+  <div class="fu-example">
+      <div class="form-group">
+        <label class="control-label" for="selectlistIllustrationInput">Fruits</label>
+        <div class="input-group">
 
-      <div class="btn-group selectlist" data-resize="auto" data-initialize="selectlist" id="selectlistIllustration">
-        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
-          <span class="selected-label">&nbsp;</span>
-          <span class="caret"></span>
-          <span class="sr-only">Toggle Dropdown</span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-          <li data-value="1"><a href="#">One</a></li>
-          <li data-value="2" data-selected="true"><a href="#">Two</a></li>
-          <li data-value="3"><a href="#">Three</a></li>
-          <li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Buzz</a></li>
-          <li data-value="Item Five"><a href="#">Item Five</a></li>
-        </ul>
-        <input class="hidden hidden-field" name="selectlistIllustrationInput" id="selectlistIllustrationInput" readonly="readonly" aria-hidden="true" type="text"/>
+          <div class="btn-group selectlist" data-resize="auto" data-initialize="selectlist" id="selectlistIllustration">
+            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
+              <span class="selected-label">&nbsp;</span>
+              <span class="caret"></span>
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li data-value="1"><a href="#">Apples</a></li>
+              <li data-value="2" data-selected="true"><a href="#">Oranges</a></li>
+              <li data-value="3"><a href="#">Melons</a></li>
+              <li data-value="4" data-foo="bar" data-fizz="buzz"><a href="#">Tomatos</a></li>
+              <li data-value="Item Five"><a href="#">Avocado</a></li>
+            </ul>
+            <input class="hidden hidden-field" name="selectlistIllustrationInput" id="selectlistIllustrationInput" readonly="readonly" aria-hidden="true" type="text"/>
+          </div>
+        </div>
       </div>
-    </div>
   </div>
+    <form>
+    </form>
 
   <h2 id="selectlist-usage">Usage</h2>
 
