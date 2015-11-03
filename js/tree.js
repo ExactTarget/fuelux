@@ -87,13 +87,16 @@
 			this.populate(this.$element);
 		},
 
-		populate: function populate($el) {
+		populate: function populate($el, isBackgroundProcess) {
 			var self = this;
 			var $parent = ($el.hasClass('tree')) ? $el : $el.parent();
 			var loader = $parent.find('.tree-loader:eq(0)');
 			var treeData = $parent.data();
+			isBackgroundProcess = isBackgroundProcess || false;	// no user affordance needed (ex.- "loading")
 
-			loader.removeClass('hide hidden'); // hide is deprecated
+			if (isBackgroundProcess === false) {
+				loader.removeClass('hide hidden'); // hide is deprecated
+			}
 			this.options.dataSource(treeData ? treeData : {}, function (items) {
 				loader.addClass('hidden');
 
@@ -423,9 +426,27 @@
 				}
 
 			}
-		}
-	};
+		},
 
+		// This refreshes the children of a folder. Please destroy and re-initilize for "root level" refresh.
+		// The data of the refreshed folder is not updated. This control's architecture only allows updating of children.
+		// Folder renames should probably be handled directly on the node.
+		refreshFolder: function refreshFolder($el) {
+			var $treeFolder = $el.closest('.tree-branch');
+			var $treeFolderChildren = $treeFolder.find('.tree-branch-children');
+			$treeFolderChildren.eq(0).empty();
+
+			if ($treeFolder.hasClass('tree-open')) {
+				this.populate($treeFolderChildren, false);
+			}
+			else {
+				this.populate($treeFolderChildren, true);
+			}
+
+			this.$element.trigger('refreshedFolder.fu.tree', $treeFolder.data());
+		}
+
+	};
 
 	// ALIASES
 
