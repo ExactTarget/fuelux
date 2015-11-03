@@ -77,7 +77,10 @@ $('#myTree').tree({ dataSource: dataSource });
     <dd><em>deprecated</em> Populate the passed in element as if it were a new copy of the instantiated tree. If you call this on an already instantiated tree, it will append all of the items to the tree again. You probably don't want to call this. It will most likely become a private function in the future.</dd>
 
     <dt id="tree-usage-methods-render">.tree('render')</dt>
-    <dd><em>caution</em> Currently a short-cut to <a href="#tree-usage-methods-populate">.tree('populate', $el)</a> but in the future may behave as a <code>refresh();</code>. At that point this may be deprecated in favor of an actual <code>refresh()</code> function.</dd>
+    <dd>Calls <code>datasource</code> callback for entire tree. <em>Caution:</em> Does not remove current top-level tree nodes.</dd>
+
+    <dt id="tree-usage-methods-render">.tree('refreshFolder', $('#folderId'))</dt>
+    <dd>Removes children and calls <code>datasource</code> callback for specified folder. <em>Does not</em> update data and attributes of the specified folder.</dd>
 
     <dt id="tree-usage-methods-collapse">.tree('collapse')</dt>
     <dd><em>deprecated</em> Same as <a href="#tree-usage-methods-closeAll">.tree('closeAll')</a></dd>
@@ -199,44 +202,51 @@ $('#myTree').tree({ dataSource: dataSource });
       </tr>
       </thead>
       <tbody>
-      	<tr>
-        <td>selected.fu.tree</td>
-        <td>Fires when a user selects an item or folder. Returns an object containing an array of the selected items' jQuery data and the jQuery data of the triggering item. <code>{ selected: [array], target: [object] }</code></td>
-      </tr>
-      <tr>
-        <td>deselected.fu.tree</td>
-        <td>Fires when a user deselects an item or folder. Returns an object containing an array of the selected items' jQuery data and the jQuery data of the triggering item. <code>{ selected: [array], target: [object] }</code></td>
-      </tr>
-      <tr>
-        <td>loaded.fu.tree</td>
-        <td>Fires when sub-content has been is loaded. Returns the jQuery element of the folder loaded.</td>
-      </tr>
-	  <tr>
-        <td>updated.fu.tree</td>
-        <td>Fires after <code>selected.fu.tree</code> and <code>deselected.fu.tree</code> events. Returns an object containing an array of selected items' jQuery data, the triggering jQuery element and the event type. <code>{ selected: [array], item: [object], eventType: [string] }</code></td>
-      </tr>
-      <tr>
-        <td>disclosedFolder.fu.tree</td>
-        <td>Fires when a user opens a folder. Returns an object containing the jQuery data of the opened folder.</td>
-      </tr>
-      <tr>
-        <td>closed.fu.tree</td>
-        <td>Fires when a user closes a folder. Returns an object containing the jQuery data of the closed folder.</td>
-      </tr>
-      <tr>
-        <td>closedAll.fu.tree</td>
-        <td>Fires when all folders have finished closing. Returns an object containing an array of closed folders' jQuery data and the tree's jQuery element. The <code>length</code> of <code>reportedClosed</code> will provide the number of folders closed. <code>{ reportedClosed: [array], tree: [$element] }</code></td>
-      </tr>
-      <tr>
-        <td>disclosedVisible.fu.tree</td>
-        <td>Fires when all visible folders have disclosed/opened. Returns an object containing an array of disclosed folders' jQuery data and the tree's jQuery element. The <code>length</code> of <code>reportedOpened</code> will provide the number of folders opened. <code>{ reportedOpened: [array], tree: [$element] }</code></td>
-      </tbody>
-        <td>exceededDisclosuresLimit.fu.tree</td>
-        <td>Fires when tree halts disclosing due to hitting discloserLimit cap. Returns an object containing <code>{ disclosures: [number], tree: [$element] }</code></td>
-      </tbody>
-      <tr>
-        <td>disclosedAll.fu.tree</td>
-        <td>Fires when all folders have disclosed. <em>It will not fire if tree stops disclosing due to hitting discloserLimit cap.</em> Returns an object containing <code>{ disclosures: [number], tree: [$element] }</code></td>
+        <tr>
+          <td>selected.fu.tree</td>
+          <td>Fires when a user selects an item or folder. Returns an object containing an array of the selected items' jQuery data and the jQuery data of the triggering item. <code>{ selected: [array], target: [object] }</code></td>
+        </tr>
+        <tr>
+          <td>deselected.fu.tree</td>
+          <td>Fires when a user deselects an item or folder. Returns an object containing an array of the selected items' jQuery data and the jQuery data of the triggering item. <code>{ selected: [array], target: [object] }</code></td>
+        </tr>
+        <tr>
+          <td>loaded.fu.tree</td>
+          <td>Fires when sub-content has been is loaded. Returns the jQuery element of the folder loaded.</td>
+        </tr>
+        <tr>
+          <td>updated.fu.tree</td>
+          <td>Fires after <code>selected.fu.tree</code> and <code>deselected.fu.tree</code> events. Returns an object containing an array of selected items' jQuery data, the triggering jQuery element and the event type. <code>{ selected: [array], item: [object], eventType: [string] }</code></td>
+        </tr>
+        <tr>
+          <td>disclosedFolder.fu.tree</td>
+          <td>Fires when a user opens a folder. Returns an object containing the jQuery data of the opened folder.</td>
+        </tr>
+        <tr>
+          <td>refreshedFolder.fu.tree</td>
+          <td>Fires when a user refreshes a folder. Returns an object containing the jQuery data of the opened folder.</td>
+        </tr>
+        <tr>
+          <td>closed.fu.tree</td>
+          <td>Fires when a user closes a folder. Returns an object containing the jQuery data of the closed folder.</td>
+        </tr>
+        <tr>
+          <td>closedAll.fu.tree</td>
+          <td>Fires when all folders have finished closing. Returns an object containing an array of closed folders' jQuery data and the tree's jQuery element. The <code>length</code> of <code>reportedClosed</code> will provide the number of folders closed. <code>{ reportedClosed: [array], tree: [$element] }</code></td>
+        </tr>
+        <tr>
+          <td>disclosedVisible.fu.tree</td>
+          <td>Fires when all visible folders have disclosed/opened. Returns an object containing an array of disclosed folders' jQuery data and the tree's jQuery element. The <code>length</code> of <code>reportedOpened</code> will provide the number of folders opened. <code>{ reportedOpened: [array], tree: [$element] }</code></td>
+        </tr>
+        <tr>
+          <td>exceededDisclosuresLimit.fu.tree</td>
+          <td>Fires when tree halts disclosing due to hitting discloserLimit cap. Returns an object containing <code>{ disclosures: [number], tree: [$element] }</code></td>
+        </tr>
+        <tr>
+          <td>disclosedAll.fu.tree</td>
+          <td>Fires when all folders have disclosed. <em>It will not fire if tree stops disclosing due to hitting discloserLimit cap.</em> Returns an object containing <code>{ disclosures: [number], tree: [$element] }</code></td>
+        </tr>
+
       </tbody>
     </table>
   </div><!-- ./fu-table-responsive -->
