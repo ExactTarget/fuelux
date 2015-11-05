@@ -111,14 +111,20 @@
 		},
 
 		keypress: function (e) {
-			if (e.which === 13) {
-				// enter pressed
+			var ENTER_KEY_CODE = 13;
+			var TAB_KEY_CODE = 9;
+			var ESC_KEY_CODE = 27;
+
+			if (e.which === ENTER_KEY_CODE) {
 				e.preventDefault();
 				this.action();
 			}
-			else if(e.which === 9) {
-				// tab pressed
+			else if(e.which === TAB_KEY_CODE) {
 				e.preventDefault();
+			}
+			else if(e.which === ESC_KEY_CODE) {
+				e.preventDefault();
+				this.clear();
 			}
 			else if(this.options.searchOnKeyPress) {
 				// search on other keypress
