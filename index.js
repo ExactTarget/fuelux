@@ -610,10 +610,6 @@ define(function (require) {
 				});
 			}
 
-			// if(options.search){
-			// resp.items = [];
-			// }
-
 			// call and simulate latency
 			setTimeout(function () {
 				callback(resp);
@@ -622,6 +618,7 @@ define(function (require) {
 
 		// initialize repater
 		$('#myRepeater').repeater({
+			searchOnKeyPress: true,
 			dataSource: function (options, callback) {
 				if (options.view === 'list') {
 					list(options, callback);
@@ -856,6 +853,9 @@ define(function (require) {
 	// events
 	$('#mySearch').on('searched.fu.search', function (event, text) {
 		log('Searched: ' + text);
+	});
+	$('#mySearch').on('cleared.fu.search', function (event, text) {
+		log('cleared search');
 	});
 
 

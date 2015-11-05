@@ -72,7 +72,9 @@
 		this.$filters.selectlist();
 		this.$pageSize.selectlist();
 		this.$primaryPaging.find('.combobox').combobox();
-		this.$search.search();
+		this.$search.search({
+			searchOnKeyPress: this.options.searchOnKeyPress
+		});
 
 		this.$filters.on('changed.fu.selectlist', function (e, value) {
 			self.$element.trigger('filtered.fu.repeater', value);
@@ -793,7 +795,8 @@
 		defaultView: -1,	//should be a string value. -1 means it will grab the active view from the view controls
 		dropPagingCap: 10,
 		staticHeight: -1,	//normally true or false. -1 means it will look for data-staticheight on the element
-		views: null			//can be set to an object to configure multiple views of the same type
+		views: null,		//can be set to an object to configure multiple views of the same type,
+		searchOnKeyPress: false
 	};
 
 	$.fn.repeater.viewTypes = {};
