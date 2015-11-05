@@ -35,13 +35,16 @@
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.search.defaults, options);
 
+		if (this.$element.attr('data-searchOnKeyPress') === 'true'){
+			this.options.searchOnKeyPress = true;
+		}
+
 		this.$button = this.$element.find('button');
 		this.$input = this.$element.find('input');
 		this.$icon = this.$element.find('.glyphicon');
 
 		this.$button.on('click.fu.search', $.proxy(this.buttonclicked, this));
-		this.$input.on('keydown.fu.search', $.proxy(this.keypress, this));
-		this.$input.on('keyup.fu.search', $.proxy(this.keypressed, this));
+		this.$input.on('keyup.fu.search', $.proxy(this.keypress, this));
 
 		this.activeSearch = '';
 	};
@@ -87,52 +90,39 @@
 
 		action: function () {
 			var val = this.$input.val();
-			var inputEmptyOrUnchanged = (val === '' || val === this.activeSearch);
-
-			if (this.activeSearch && inputEmptyOrUnchanged) {
-				this.clear();
-			} else if (val) {
+			if (val && val.length > 0) {
 				this.search(val);
+			}
+			else {
+				this.clear();
 			}
 		},
 
 		buttonclicked: function (e) {
 			e.preventDefault();
 			if ($(e.currentTarget).is('.disabled, :disabled')) return;
-			this.action();
+
+			if(this.$element.hasClass('searched')) {
+				this.clear();
+			}
+			else {
+				this.action();
+			}
 		},
 
 		keypress: function (e) {
 			if (e.which === 13) {
-				e.preventDefault();
-			}
-		},
-
-		keypressed: function (e) {
-			var remove = 'glyphicon-remove';
-			var search = 'glyphicon-search';
-			var val;
-
-			if (e.which === 13) {
+				// enter pressed
 				e.preventDefault();
 				this.action();
-			} else if (e.which === 9) {
+			}
+			else if(e.which === 9) {
+				// tab pressed
 				e.preventDefault();
-			} else {
-				val = this.$input.val();
-
-				if (val !== this.activeSearch || !val) {
-					this.$icon.removeClass(remove).addClass(search);
-					if (val) {
-						this.$element.removeClass('searched');
-					} else if (this.options.clearOnEmpty) {
-						this.clear();
-					}
-
-				} else {
-					this.$icon.removeClass(search).addClass(remove);
-				}
-
+			}
+			else if(this.options.searchOnKeyPress) {
+				// search on other keypress
+				this.action();
 			}
 		},
 
@@ -174,7 +164,8 @@
 	};
 
 	$.fn.search.defaults = {
-		clearOnEmpty: false
+		clearOnEmpty: false,
+		searchOnKeyPress: false
 	};
 
 	$.fn.search.Constructor = Search;
