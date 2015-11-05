@@ -70,27 +70,6 @@ define(function(require){
 		equal(clearedEventFired, true, 'cleared event was fired');
 	});
 
-	test("should process sequential searches", function () {
-		var $search = $(html);
-		var searchText = '';
-
-		$search.search().on('searched.fu.search', function (e, text) { searchText = text; });
-
-		$search.find('input').val('search text');
-		$search.find('button').click();
-
-		equal($search.find('.glyphicon').attr('class'), 'glyphicon glyphicon-remove', 'search icon has changed');
-		equal(searchText, 'search text', 'search text was provided in event');
-
-		$search.find('input').val('search text 2').keyup();
-		equal($search.find('.glyphicon').attr('class'), 'glyphicon glyphicon-search', 'search icon has returned');
-
-		$search.find('button').click();
-
-		equal($search.find('.glyphicon').attr('class'), 'glyphicon glyphicon-remove', 'search icon has changed');
-		equal(searchText, 'search text 2', 'search text was provided in event');
-	});
-
 	test("should correctly respond to disable and enable methods", function () {
 		var $search = $(html);
 
