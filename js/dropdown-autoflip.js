@@ -97,31 +97,33 @@
 	}
 
 	function _getContainer(element) {
-		var containerElement, isWindow;
+		var targetSelector = element.attr('data-target');
+		var isWindow = true;
+		var containerElement;
 
-		// manual override
-		if (element.attr('data-target')) {
-			containerElement = element.attr('data-target');
-			isWindow = false;
-		} else {
-			// default to window otherwise
-			containerElement = window;
-			isWindow = true;
-
-			// unless there's a parent element with non-visible overflow
-			$.each(element.parents(), function (index, value) {
-				if ($(value).css('overflow') !== 'visible') {
-					containerElement = value;
+		if(!targetSelector) {
+			// no selection so find the relevant ancestor
+			$.each(element.parents(), function (index, parentElement) {
+				if ($(parentElement).css('overflow') !== 'visible') {
+					containerElement = parentElement;
 					isWindow = false;
 					return false;
 				}
 			});
+		}
+		else if (targetSelector !== 'window') {
+			containerElement = $(targetSelector);
+			isWindow = false;
+		}
 
+		// fallback to window
+		if (isWindow) {
+			containerElement = window;
 		}
 
 		return {
-			overflowElement: $(containerElement),
-			isWindow: isWindow
+				overflowElement: $(containerElement),
+				isWindow: isWindow
 		};
 	}
 
