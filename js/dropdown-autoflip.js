@@ -98,21 +98,26 @@
 
 	function _getContainer(element) {
 		var containerElement, isWindow;
+
+		// manual override
 		if (element.attr('data-target')) {
 			containerElement = element.attr('data-target');
 			isWindow = false;
 		} else {
+			// default to window otherwise
 			containerElement = window;
 			isWindow = true;
-		}
 
-		$.each(element.parents(), function (index, value) {
-			if ($(value).css('overflow') !== 'visible') {
-				containerElement = value;
-				isWindow = false;
-				return false;
-			}
-		});
+			// unless there's a parent element with non-visible overflow
+			$.each(element.parents(), function (index, value) {
+				if ($(value).css('overflow') !== 'visible') {
+					containerElement = value;
+					isWindow = false;
+					return false;
+				}
+			});
+
+		}
 
 		return {
 			overflowElement: $(containerElement),
