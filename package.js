@@ -6,7 +6,7 @@
 Package.describe({
   name: 'exacttarget:fuelux',  // http://atmospherejs.com/exacttarget/fuelux
   summary: 'Base Fuel UX styles and controls',
-  version: '3.11.3',
+  version: '3.12.0',
   git: 'https://github.com/ExactTarget/fuelux.git'
 });
 
