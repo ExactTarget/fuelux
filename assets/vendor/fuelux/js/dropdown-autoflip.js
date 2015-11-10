@@ -97,26 +97,33 @@
 	}
 
 	function _getContainer(element) {
-		var containerElement, isWindow;
-		if (element.attr('data-target')) {
-			containerElement = element.attr('data-target');
+		var targetSelector = element.attr('data-target');
+		var isWindow = true;
+		var containerElement;
+
+		if(!targetSelector) {
+			// no selection so find the relevant ancestor
+			$.each(element.parents(), function (index, parentElement) {
+				if ($(parentElement).css('overflow') !== 'visible') {
+					containerElement = parentElement;
+					isWindow = false;
+					return false;
+				}
+			});
+		}
+		else if (targetSelector !== 'window') {
+			containerElement = $(targetSelector);
 			isWindow = false;
-		} else {
-			containerElement = window;
-			isWindow = true;
 		}
 
-		$.each(element.parents(), function (index, value) {
-			if ($(value).css('overflow') !== 'visible') {
-				containerElement = value;
-				isWindow = false;
-				return false;
-			}
-		});
+		// fallback to window
+		if (isWindow) {
+			containerElement = window;
+		}
 
 		return {
-			overflowElement: $(containerElement),
-			isWindow: isWindow
+				overflowElement: $(containerElement),
+				isWindow: isWindow
 		};
 	}
 

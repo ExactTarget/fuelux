@@ -35,13 +35,16 @@
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.search.defaults, options);
 
+		if (this.$element.attr('data-searchOnKeyPress') === 'true'){
+			this.options.searchOnKeyPress = true;
+		}
+
 		this.$button = this.$element.find('button');
 		this.$input = this.$element.find('input');
 		this.$icon = this.$element.find('.glyphicon');
 
 		this.$button.on('click.fu.search', $.proxy(this.buttonclicked, this));
-		this.$input.on('keydown.fu.search', $.proxy(this.keypress, this));
-		this.$input.on('keyup.fu.search', $.proxy(this.keypressed, this));
+		this.$input.on('keyup.fu.search', $.proxy(this.keypress, this));
 
 		this.activeSearch = '';
 	};
@@ -87,52 +90,45 @@
 
 		action: function () {
 			var val = this.$input.val();
-			var inputEmptyOrUnchanged = (val === '' || val === this.activeSearch);
-
-			if (this.activeSearch && inputEmptyOrUnchanged) {
-				this.clear();
-			} else if (val) {
+			if (val && val.length > 0) {
 				this.search(val);
+			}
+			else {
+				this.clear();
 			}
 		},
 
 		buttonclicked: function (e) {
 			e.preventDefault();
 			if ($(e.currentTarget).is('.disabled, :disabled')) return;
-			this.action();
-		},
 
-		keypress: function (e) {
-			if (e.which === 13) {
-				e.preventDefault();
+			if(this.$element.hasClass('searched')) {
+				this.clear();
+			}
+			else {
+				this.action();
 			}
 		},
 
-		keypressed: function (e) {
-			var remove = 'glyphicon-remove';
-			var search = 'glyphicon-search';
-			var val;
+		keypress: function (e) {
+			var ENTER_KEY_CODE = 13;
+			var TAB_KEY_CODE = 9;
+			var ESC_KEY_CODE = 27;
 
-			if (e.which === 13) {
+			if (e.which === ENTER_KEY_CODE) {
 				e.preventDefault();
 				this.action();
-			} else if (e.which === 9) {
+			}
+			else if(e.which === TAB_KEY_CODE) {
 				e.preventDefault();
-			} else {
-				val = this.$input.val();
-
-				if (val !== this.activeSearch || !val) {
-					this.$icon.removeClass(remove).addClass(search);
-					if (val) {
-						this.$element.removeClass('searched');
-					} else if (this.options.clearOnEmpty) {
-						this.clear();
-					}
-
-				} else {
-					this.$icon.removeClass(search).addClass(remove);
-				}
-
+			}
+			else if(e.which === ESC_KEY_CODE) {
+				e.preventDefault();
+				this.clear();
+			}
+			else if(this.options.searchOnKeyPress) {
+				// search on other keypress
+				this.action();
 			}
 		},
 
@@ -174,7 +170,8 @@
 	};
 
 	$.fn.search.defaults = {
-		clearOnEmpty: false
+		clearOnEmpty: false,
+		searchOnKeyPress: false
 	};
 
 	$.fn.search.Constructor = Search;

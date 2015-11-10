@@ -2,35 +2,11 @@ Additional details to supplement the brief nature of the README file.
 
 ## Table of contents
 
- * [Using Fuel UX](#using-fuel-ux)
- * [Downloading code](#downloading-code)
- * [AMD support](#amd-support)
  * [Compiling code](#compiling-code)
  * [Running docs locally](#running-docs-locally)
  * [Contributors](#contributors)
  * [Travis CI](#travis-ci)
-
-## Using Fuel UX
-
-Fuel UX can be applied to a section of your your HTML or the entire page by adding the `fuelux` wrapper class (eg. [checkbox](http://getfuelux.com/javascript.html#checkbox)):
-
-```html
-<body class="fuelux">
-<!-- .... -->
-<div class="checkbox">
-  <label class="checkbox-custom" data-initialize="checkbox" id="myCustomCheckbox">
-    <input class="sr-only" type="checkbox" value="">
-    <span class="checkbox-label">Custom checkbox unchecked on page load</span>
-  </label>
-</div>
-<!-- .... -->
-</body>
-```
-
-## Downloading code
-Fuel UX can be obtained in any of the following ways:
-
-* Request files from [the Fuel UX CDN](http://www.fuelcdn.com/fuelux/3.11.4/)
+ * [Edge Servers](#edge-servers)
 * Using [Bower](https://github.com/bower/bower) (ensures you get all the [dependencies](#dependencies)):
 
    ```
@@ -53,7 +29,7 @@ Fuel UX can be obtained in any of the following ways:
 
    Cloning the repository ensures you can apply future updates to Fuel UX easily, but requires to you manage its [dependencies](#dependencies) on your own.
 
-* Download a .zip archive of the [latest release](http://www.fuelcdn.com/fuelux/3.11.4/fuelux.zip).
+* Download a .zip archive of the [latest release](http://www.fuelcdn.com/fuelux/3.12.0/fuelux.zip).
 
 ## AMD support
 
@@ -63,7 +39,7 @@ If using AMD (such as [RequireJS](http://requirejs.org)), reference the FuelUX d
 ```javascript
 require.config({
     paths: {
-        'fuelux': 'http://www.fuelcdn.com/fuelux/3.11.4/'
+        'fuelux': 'http://www.fuelcdn.com/fuelux/3.12.0/'
         //...
     }
 });
@@ -87,27 +63,29 @@ Fuel UX is lightweight to give you a fast dependable foundation to build upon. I
 
 From the command line:
 
-1. Install `grunt-cli` globally with `npm install -g grunt-cli`.
-2. Make sure you're in the root of the fuel directory, then run `npm install`. npm will look at [package.json](https://github.com/exacttarget/fuelux/blob/master/package.json) and automatically install the necessary local dependencies listed there. Finally, run `bower install` to install front-end dependencies.
+### Install Dependencies
 
-When completed, you'll be able to run the various Grunt commands provided from the command line.
+In terminal from root directory of fuelux repo:
 
-**Unfamiliar with npm? Don't have node installed?** npm stands for [node packaged modules](http://npmjs.org/) and is a way to manage development dependencies through node.js. [Download and install node.js](http://nodejs.org/download/) before proceeding.
+1. `npm install`
+2. `bower install`
 
 ### Grunt tasks
 
 Run `grunt --help` or [check out the Gruntfile](https://github.com/ExactTarget/fuelux/blob/master/Gruntfile.js) to see all possible grunt tasks. When contributing, these are the grunt tasks you will be most likely to use:
 
+#### Serving - `grunt serve`
+Starts a watch server for automated javascript validation and basic tests (JSHint, simplified QUnit) allowing for prototyping at [http://localhost:8000/](http://localhost:8000/) (not good for unit testing because server catastrophically fails if unit test fails).
+
+#### Serving - `grunt servefast`
+Starts a watch server allowing for prototyping at [http://localhost:8000/](http://localhost:8000/) visual review of tests at [http://localhost:8000/test/](http://localhost:8000/test/).
+
 #### Testing - `grunt`
 Runs JSHint and full suite of QUnit tests.
 
-#### Serving - `grunt serve`
-Starts a watch server for automated javascript validation and basic tests (JSHint, simplified QUnit) allowing for visual review of tests at http://localhost:8000/test/.
-
-#### Compiling - `grunt release`
-_If you have forked the repo for personal use, you will also find this task useful._
-
+#### Building dist - `grunt dist`
 This builds the dist directory (compiling your CSS and JS). If you are going to issue a pull request, you should not include changes to the dist directory that are generated from this grunt task.
+
 
 ### Troubleshooting dependencies
 
@@ -120,8 +98,6 @@ Should you encounter problems with installing dependencies or running Grunt comm
 2. Install the Ruby-based syntax highlighter, [Rouge](https://github.com/jneen/rouge), with `gem install rouge`.
 3. From the root `/fuelux` directory, run `jekyll serve` in the command line.
 4. Open <http://localhost:9001> in your browser, and voilà.
-
-Learn more about using Jekyll by reading its [documentation](http://jekyllrb.com/docs/home/).
 
 ## Contributors
 
@@ -145,7 +121,7 @@ Giving credit where credit is due.
 
 Pull requests are validate via [Travis CI](https://travis-ci.org/).
 
-Periodically pull requests may fail Travis CI build integration testing with a false negative. If you suspect this is the case you can restart the test via the command line.
+Periodically pull requests may fail Travis CI build integration testing with a false negative. If you suspect this is the case you can restart the test via the command line (see below).
 
 [Travis](https://travis-ci.org/) downloads the `node_modules` folder from the "[Edge](https://fuelux-dev.herokuapp.com)" server (["fuelux-dev"](https://fuelux-dev.herokuapp.com)) hosted on [Heroku](https://www.heroku.com). If you add or update a dependency in `package.json`, you will need to also update `package.json` in `master` locally and push it to [Heroku](https://www.heroku.com) for the dependency errors to be resolved in [Travis](https://travis-ci.org/).
 

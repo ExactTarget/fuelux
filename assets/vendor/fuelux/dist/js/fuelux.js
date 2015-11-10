@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.11.5 
+ * Fuel UX v3.12.0 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -1354,22 +1354,28 @@
 		}
 
 		function _getContainer( element ) {
-			var containerElement, isWindow;
-			if ( element.attr( 'data-target' ) ) {
-				containerElement = element.attr( 'data-target' );
+			var targetSelector = element.attr( 'data-target' );
+			var isWindow = true;
+			var containerElement;
+
+			if ( !targetSelector ) {
+				// no selection so find the relevant ancestor
+				$.each( element.parents(), function( index, parentElement ) {
+					if ( $( parentElement ).css( 'overflow' ) !== 'visible' ) {
+						containerElement = parentElement;
+						isWindow = false;
+						return false;
+					}
+				} );
+			} else if ( targetSelector !== 'window' ) {
+				containerElement = $( targetSelector );
 				isWindow = false;
-			} else {
-				containerElement = window;
-				isWindow = true;
 			}
 
-			$.each( element.parents(), function( index, value ) {
-				if ( $( value ).css( 'overflow' ) !== 'visible' ) {
-					containerElement = value;
-					isWindow = false;
-					return false;
-				}
-			} );
+			// fallback to window
+			if ( isWindow ) {
+				containerElement = window;
+			}
 
 			return {
 				overflowElement: $( containerElement ),
@@ -2113,13 +2119,16 @@
 			this.$element = $( element );
 			this.options = $.extend( {}, $.fn.search.defaults, options );
 
+			if ( this.$element.attr( 'data-searchOnKeyPress' ) === 'true' ) {
+				this.options.searchOnKeyPress = true;
+			}
+
 			this.$button = this.$element.find( 'button' );
 			this.$input = this.$element.find( 'input' );
 			this.$icon = this.$element.find( '.glyphicon' );
 
 			this.$button.on( 'click.fu.search', $.proxy( this.buttonclicked, this ) );
-			this.$input.on( 'keydown.fu.search', $.proxy( this.keypress, this ) );
-			this.$input.on( 'keyup.fu.search', $.proxy( this.keypressed, this ) );
+			this.$input.on( 'keyup.fu.search', $.proxy( this.keypress, this ) );
 
 			this.activeSearch = '';
 		};
@@ -2165,52 +2174,40 @@
 
 			action: function() {
 				var val = this.$input.val();
-				var inputEmptyOrUnchanged = ( val === '' || val === this.activeSearch );
-
-				if ( this.activeSearch && inputEmptyOrUnchanged ) {
-					this.clear();
-				} else if ( val ) {
+				if ( val && val.length > 0 ) {
 					this.search( val );
+				} else {
+					this.clear();
 				}
 			},
 
 			buttonclicked: function( e ) {
 				e.preventDefault();
 				if ( $( e.currentTarget ).is( '.disabled, :disabled' ) ) return;
-				this.action();
-			},
 
-			keypress: function( e ) {
-				if ( e.which === 13 ) {
-					e.preventDefault();
+				if ( this.$element.hasClass( 'searched' ) ) {
+					this.clear();
+				} else {
+					this.action();
 				}
 			},
 
-			keypressed: function( e ) {
-				var remove = 'glyphicon-remove';
-				var search = 'glyphicon-search';
-				var val;
+			keypress: function( e ) {
+				var ENTER_KEY_CODE = 13;
+				var TAB_KEY_CODE = 9;
+				var ESC_KEY_CODE = 27;
 
-				if ( e.which === 13 ) {
+				if ( e.which === ENTER_KEY_CODE ) {
 					e.preventDefault();
 					this.action();
-				} else if ( e.which === 9 ) {
+				} else if ( e.which === TAB_KEY_CODE ) {
 					e.preventDefault();
-				} else {
-					val = this.$input.val();
-
-					if ( val !== this.activeSearch || !val ) {
-						this.$icon.removeClass( remove ).addClass( search );
-						if ( val ) {
-							this.$element.removeClass( 'searched' );
-						} else if ( this.options.clearOnEmpty ) {
-							this.clear();
-						}
-
-					} else {
-						this.$icon.removeClass( search ).addClass( remove );
-					}
-
+				} else if ( e.which === ESC_KEY_CODE ) {
+					e.preventDefault();
+					this.clear();
+				} else if ( this.options.searchOnKeyPress ) {
+					// search on other keypress
+					this.action();
 				}
 			},
 
@@ -2252,7 +2249,8 @@
 		};
 
 		$.fn.search.defaults = {
-			clearOnEmpty: false
+			clearOnEmpty: false,
+			searchOnKeyPress: false
 		};
 
 		$.fn.search.Constructor = Search;
@@ -3099,13 +3097,16 @@
 				this.populate( this.$element );
 			},
 
-			populate: function populate( $el ) {
+			populate: function populate( $el, isBackgroundProcess ) {
 				var self = this;
 				var $parent = ( $el.hasClass( 'tree' ) ) ? $el : $el.parent();
 				var loader = $parent.find( '.tree-loader:eq(0)' );
 				var treeData = $parent.data();
+				isBackgroundProcess = isBackgroundProcess || false; // no user affordance needed (ex.- "loading")
 
-				loader.removeClass( 'hide hidden' ); // hide is deprecated
+				if ( isBackgroundProcess === false ) {
+					loader.removeClass( 'hide hidden' ); // hide is deprecated
+				}
 				this.options.dataSource( treeData ? treeData : {}, function( items ) {
 					loader.addClass( 'hidden' );
 
@@ -3433,9 +3434,26 @@
 					}
 
 				}
-			}
-		};
+			},
 
+			// This refreshes the children of a folder. Please destroy and re-initilize for "root level" refresh.
+			// The data of the refreshed folder is not updated. This control's architecture only allows updating of children.
+			// Folder renames should probably be handled directly on the node.
+			refreshFolder: function refreshFolder( $el ) {
+				var $treeFolder = $el.closest( '.tree-branch' );
+				var $treeFolderChildren = $treeFolder.find( '.tree-branch-children' );
+				$treeFolderChildren.eq( 0 ).empty();
+
+				if ( $treeFolder.hasClass( 'tree-open' ) ) {
+					this.populate( $treeFolderChildren, false );
+				} else {
+					this.populate( $treeFolderChildren, true );
+				}
+
+				this.$element.trigger( 'refreshedFolder.fu.tree', $treeFolder.data() );
+			}
+
+		};
 
 		// ALIASES
 
@@ -5013,7 +5031,9 @@
 			this.$filters.selectlist();
 			this.$pageSize.selectlist();
 			this.$primaryPaging.find( '.combobox' ).combobox();
-			this.$search.search();
+			this.$search.search( {
+				searchOnKeyPress: this.options.searchOnKeyPress
+			} );
 
 			this.$filters.on( 'changed.fu.selectlist', function( e, value ) {
 				self.$element.trigger( 'filtered.fu.repeater', value );
@@ -5740,7 +5760,8 @@
 			defaultView: -1, //should be a string value. -1 means it will grab the active view from the view controls
 			dropPagingCap: 10,
 			staticHeight: -1, //normally true or false. -1 means it will look for data-staticheight on the element
-			views: null //can be set to an object to configure multiple views of the same type
+			views: null, //can be set to an object to configure multiple views of the same type,
+			searchOnKeyPress: false
 		};
 
 		$.fn.repeater.viewTypes = {};
@@ -6015,16 +6036,16 @@
 					} else {
 						var labelText = this.viewOptions.list_actions.label || '';
 
-						var $labelOverlay = $( '<div class="repeater-list-heading empty">' + labelText + '</div>' );
+						var $labelOverlay = $( '<div class="repeater-list-heading">' + labelText + '</div>' );
 
 						// repeater-list.less:302 has `margin-left: -9px;` which shifts this over and makes it not actually cover what it is supposed to cover. Make it wider to compensate.
-						var negative_maring_accomodation = 9;
-						$labelOverlay.data( 'forced-width', this.list_actions_width + negative_maring_accomodation );
+						var negative_margin_accomodation = 9;
+						$labelOverlay.data( 'forced-width', this.list_actions_width + negative_margin_accomodation );
 
 						var $th = $( '<th>' + labelText + '</th>' );
 						$th.append( $labelOverlay );
 
-						$actionsColumn.find( 'thead tr' ).addClass( 'empty-heading' ).append( $th );
+						$actionsColumn.find( 'thead tr' ).addClass( 'empty-heading' ).html( $th );
 					}
 
 					// Create Actions dropdown for each cell in actions table
