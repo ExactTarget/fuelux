@@ -83,7 +83,7 @@
     "postinstall": "node postinstall.js"
   },
   "title": "Fuel UX",
-  "version": "3.11.5",
+  "version": "3.12.0",
   "volo": {
     "baseDir": "lib",
     "dependencies": {
