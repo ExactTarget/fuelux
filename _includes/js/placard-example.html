@@ -1,33 +1,52 @@
-<div id="myPlacard1" class="placard" data-initialize="placard">
-	<div class="placard-popup"></div>
-	<input class="form-control placard-field" type="text" placeholder="[Field label]"/>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">On an <code>input</code></div>
+                <div class="panel-body">
+					<div id="myPlacard1" class="placard" data-initialize="placard">
+						<div class="placard-popup"></div>
+						<input class="form-control placard-field" type="text" placeholder="Example input"/>
+					</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">With <code>.placard-header</code> and <code>.placard-footer</code> option.</div>
+                <div class="panel-body">
+					<div id="myPlacard2" class="placard" data-initialize="placard" data-ellipsis="true">
+						<div class="placard-popup"></div>
+						<div class="placard-header"><h5>Field label</h5></div>
+						<input class="form-control placard-field" type="text" placeholder="Example input"/>
+						<div class="placard-footer">
+							<a class="placard-cancel" href="#">Cancel</a>
+							<button class="btn btn-primary btn-xs placard-accept" type="button">Save</button>
+						</div>
+					</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">With the <code>.glass</code> option on <code>.placard-field</code></div>
+                <div class="panel-body">
+					<div id="myPlacard3" class="placard" data-initialize="placard" data-ellipsis="true">
+						<div class="placard-popup"></div>
+						<div class="placard-header"><h5>Field label</h5></div>
+						<textarea class="form-control placard-field glass" placeholder="Example input"></textarea>
+						<div class="placard-footer">
+							<a class="placard-cancel" href="#">Cancel</a>
+							<button class="btn btn-primary btn-xs placard-accept" type="button">Save</button>
+						</div>
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<br/>
-
-<div id="myPlacard2" class="placard" data-initialize="placard" data-ellipsis="true">
-	<div class="placard-popup"></div>
-	<div class="placard-header"><h5>Field label</h5></div>
-	<input class="form-control placard-field" type="text" placeholder="[Field label]"/>
-	<div class="placard-footer">
-		<a class="placard-cancel" href="#">Cancel</a>
-		<button class="btn btn-primary btn-xs placard-accept" type="button">Save</button>
-	</div>
-</div>
-
-<br/>
-
-<div id="myPlacard3" class="placard" data-initialize="placard" data-ellipsis="true">
-	<div class="placard-popup"></div>
-	<div class="placard-header"><h5>Field label</h5></div>
-	<textarea class="form-control placard-field glass" placeholder="[Field label]"></textarea>
-	<div class="placard-footer">
-		<a class="placard-cancel" href="#">Cancel</a>
-		<button class="btn btn-primary btn-xs placard-accept" type="button">Save</button>
-	</div>
-</div>
-
-<br/>
 <h5>Sample Methods</h5>
 <div class="btn-group">
 	<button type="button" class="btn btn-default" id="btnPlacardEnable">enable</button>
