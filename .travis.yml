@@ -7,6 +7,7 @@ before_install:
 - time tar -zxf node_modules.tar.gz
 - chmod +x ./node_modules
 install:
+- time npm update
 - time ./node_modules/bower/bin/bower update
 env:
   global:
