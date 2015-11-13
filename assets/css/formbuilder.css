@@ -63,6 +63,10 @@ textarea {
   overflow: hidden;
 }
 
+.drag-helper-component form .control-group {
+  width: 400px;
+}
+
 #render{
   min-height: 500px;
   font-family: monospace;
