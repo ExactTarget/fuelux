@@ -37,6 +37,7 @@ define(function MyFormSnippet(require) {
 			}
 
 			$('.popover .checkbox-custom').checkbox();
+			$('.popover .spinbox').spinbox();
 		},
 
 		preventPropagation: function preventPropagation(e) {
