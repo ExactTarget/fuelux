@@ -92,7 +92,7 @@ define(function MyFormSnippet(require) {
 							break;
 					}
 				});
-				boundContext.model.trigger('change');
+				boundContext.model.trigger('change', boundContext.model);
 				$('.popover').remove();
 			};
 		},
