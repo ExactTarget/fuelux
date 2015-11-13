@@ -3,9 +3,9 @@
 	<label class="control-label" for="<%= id %>"><%= label %></label>
 	<div class="controls">
 		<div class="input-group">
-			<input id="<%= id %>" name="<%= id %>" class="<%= inputsize %> form-control" placeholder="<%= placeholder %>" type="text" <% if(required) {%> required <% } %> />
+			<input id="<%= id %>" name="<%= id %>" class="input-<%= inputsize %> form-control" placeholder="<%= placeholder %>" type="text" <% if(required) {%> required <% } %> />
 			<div class="input-group-btn">
-				<button class="btn dropdown-toggle" data-toggle="dropdown">
+				<button class="btn dropdown-toggle btn-<%= inputsize %>" data-toggle="dropdown">
 					<%= buttontext %>
 					<span class="caret"></span>
 				</button>

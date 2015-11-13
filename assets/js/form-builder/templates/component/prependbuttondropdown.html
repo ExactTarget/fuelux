@@ -4,7 +4,7 @@
 	<div class="controls">
 		<div class="input-group">
 			<div class="input-group-btn">
-				<button class="btn dropdown-toggle" data-toggle="dropdown">
+				<button class="btn dropdown-toggle btn-<%= inputsize %>" data-toggle="dropdown">
 					<%= buttontext %>
 					<span class="caret"></span>
 				</button>
@@ -12,7 +12,7 @@
 					<li><a href="#"><%= value %></a></li><% }); %>
 				</ul>
 			</div><!-- /btn-group -->
-			<input id="<%= id %>" name="<%= id %>" class="<%= inputsize %> form-control" placeholder="<%= placeholder %>" type="text" <% if(required) {%> required <% } %> />
+			<input id="<%= id %>" name="<%= id %>" class="input-<%= inputsize %> form-control" placeholder="<%= placeholder %>" type="text" <% if(required) {%> required <% } %> />
 		</div><!-- /input-group -->
 
 		<% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>

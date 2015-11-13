@@ -12,7 +12,7 @@
 				"value": [
 					{
 						"label": "Small",
-						"value": "input-sm",
+						"value": "sm",
 						"selected": false
 					},{
 						"label": "Normal",
@@ -21,7 +21,7 @@
 					},
 					{
 						"label": "Large",
-						"value": "input-lg",
+						"value": "lg",
 						"selected": false
 					}
 				]
@@ -62,7 +62,7 @@
 				"value": [
 					{
 						"label": "Small",
-						"value": "input-sm",
+						"value": "sm",
 						"selected": false
 					},{
 						"label": "Normal",
@@ -71,7 +71,7 @@
 					},
 					{
 						"label": "Large",
-						"value": "input-lg",
+						"value": "lg",
 						"selected": false
 					}
 				]
@@ -111,7 +111,7 @@
 				"value": [
 					{
 						"label": "Small",
-						"value": "input-sm",
+						"value": "sm",
 						"selected": false
 					},{
 						"label": "Normal",
@@ -120,7 +120,7 @@
 					},
 					{
 						"label": "Large",
-						"value": "input-lg",
+						"value": "lg",
 						"selected": false
 					}
 				]
@@ -166,7 +166,7 @@
 				"value": [
 					{
 						"label": "Small",
-						"value": "input-sm",
+						"value": "sm",
 						"selected": false
 					},{
 						"label": "Normal",
@@ -175,7 +175,7 @@
 					},
 					{
 						"label": "Large",
-						"value": "input-lg",
+						"value": "lg",
 						"selected": false
 					}
 				]
@@ -235,7 +235,7 @@
 				"value": [
 					{
 						"label": "Small",
-						"value": "input-sm",
+						"value": "sm",
 						"selected": false
 					},{
 						"label": "Normal",
@@ -244,7 +244,7 @@
 					},
 					{
 						"label": "Large",
-						"value": "input-lg",
+						"value": "lg",
 						"selected": false
 					}
 				]
@@ -299,7 +299,7 @@
 				"value": [
 					{
 						"label": "Small",
-						"value": "input-sm",
+						"value": "sm",
 						"selected": false
 					},{
 						"label": "Normal",
@@ -308,7 +308,7 @@
 					},
 					{
 						"label": "Large",
-						"value": "input-lg",
+						"value": "lg",
 						"selected": false
 					}
 				]
@@ -363,7 +363,7 @@
 				"value": [
 					{
 						"label": "Small",
-						"value": "input-sm",
+						"value": "sm",
 						"selected": false
 					},{
 						"label": "Normal",
@@ -372,7 +372,7 @@
 					},
 					{
 						"label": "Large",
-						"value": "input-lg",
+						"value": "lg",
 						"selected": false
 					}
 				]
@@ -427,7 +427,7 @@
 				"value": [
 					{
 						"label": "Small",
-						"value": "input-sm",
+						"value": "sm",
 						"selected": false
 					},{
 						"label": "Normal",
@@ -436,7 +436,7 @@
 					},
 					{
 						"label": "Large",
-						"value": "input-lg",
+						"value": "lg",
 						"selected": false
 					}
 				]

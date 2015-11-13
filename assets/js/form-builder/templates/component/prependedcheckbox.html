@@ -6,7 +6,7 @@
 			<label class="input-group-addon checkbox-custom checkbox-inline" data-initialize="checkbox">
 			<input class="sr-only" type="checkbox" value="option1">
 			</label>
-			<input type="text" class="form-control <%= inputsize %>" id="<%= id %>" name="<%= id %>" placeholder="<%= placeholder %>" <% if(required) {%> required <% } %> <% if (checked){ %>checked="checked"<% } %>>
+			<input type="text" class="form-control input-<%= inputsize %>" id="<%= id %>" name="<%= id %>" placeholder="<%= placeholder %>" <% if(required) {%> required <% } %> <% if (checked){ %>checked="checked"<% } %>>
 		</div>
 
 		<% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
