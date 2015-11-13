@@ -5,7 +5,7 @@
     "requirejs": "2.x",
     "bootstrap": "3.x",
     "moment": "2.x",
-    "backbone": "1.x",
+    "backbone": "1.2.3",
     "requirejs-text": "2.x"
   },
   "ignore": [
