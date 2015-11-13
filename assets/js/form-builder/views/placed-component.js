@@ -91,7 +91,6 @@ define(function MyFormSnippet(require) {
 									label: $(e).text()
 								};
 							});
-							console.log('select', valarr);
 							boundContext.model.setField(name, valarr);
 							break;
 					}

@@ -4,7 +4,7 @@
 	<div class="controls">
 		<div class="input-group">
 			<input id="<%= id %>" name="<%= id %>" class="<%= inputsize %> form-control" placeholder="<%= placeholder %>" type="text"<% if(required) {%> required <% } %> />
-			<span class="input-group-addon"><%= append %></span>
+			<span class="<%= inputsize %> input-group-addon"><%= append %></span>
 		</div>
 		<% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
 	</div>

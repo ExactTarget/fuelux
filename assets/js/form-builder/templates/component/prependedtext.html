@@ -3,7 +3,7 @@
 	<label class="control-label" for="<%= id %>"><%= label %></label>
 	<div class="controls">
 		<div class="input-group">
-			<span class="input-group-addon"><%= prepend %></span>
+			<span class="<%= inputsize %> input-group-addon"><%= prepend %></span>
 			<input id="<%= id %>" name="<%= id %>" class="<%= inputsize %> form-control" placeholder="<%= placeholder %>" type="text"<% if(required) {%> required <% } %> />
 		</div>
 		<% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
