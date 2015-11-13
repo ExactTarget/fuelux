@@ -156,26 +156,6 @@
 				"label": "ID / Name",
 				"value": "spinbox"
 			},
-			"inputsize": {
-				"type": "select",
-				"label": "Input Size",
-				"value": [
-					{
-						"label": "Small",
-						"value": "input-sm",
-						"selected": false
-					},{
-						"label": "Normal",
-						"value": "",
-						"selected": true
-					},
-					{
-						"label": "Large",
-						"value": "input-lg",
-						"selected": false
-					}
-				]
-			},
 			"label": {
 				"type": "input",
 				"label": "Label Text",
