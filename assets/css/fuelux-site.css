@@ -6,24 +6,24 @@
     url(../fonts/SalesforceSans-Regular.svg) format("svg")
 }
 
-#fusion-body{
+#fuelux-site-body{
     padding:50px;
     padding-top:0;
     font-size: 14px;
     font-family: "Salesforce Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
-#fusion-body .page-header {
+#fuelux-site-body .page-header {
     display: none;
 }
 
-#fusion-body .fu-docs-section > h2 {
+#fuelux-site-body .fu-docs-section > h2 {
     color: #16325c;
     font-size: 20px;
     font-weight: normal;
 }
 
-#fusion-body .fu-docs-section > h3 {
+#fuelux-site-body .fu-docs-section > h3 {
     color: #16325c;
     font-size: 12px;
     font-weight: bold;
@@ -31,7 +31,7 @@
     text-transform: uppercase;
 }
 
-#fusion-body .fu-docs-section > p {
+#fuelux-site-body .fu-docs-section > p {
     font-size: 14px;
     color: #333;
 }
@@ -55,14 +55,14 @@ h1:first-of-type{
     padding-top:0px;   
 }
 
-#fusion-body .page-header {
+#fuelux-site-body .page-header {
     display: none;
 }
 
-#fusion-body .fu-example {
+#fuelux-site-body .fu-example {
     font-family: Arial,sans-serif;
 }
 
-#fusion-body .glyphicon-link:before {
+#fuelux-site-body .glyphicon-link:before {
     display: none;
 }
