@@ -92,7 +92,7 @@ define(function MyFormSnippet(require) {
 							break;
 					}
 				});
-				boundContext.model.trigger('change');
+				boundContext.model.trigger('change', boundContext.model);
 				$('.popover').remove();
 			};
 		},
@@ -101,7 +101,7 @@ define(function MyFormSnippet(require) {
 			return function (mouseEvent) {
 				mouseEvent.preventDefault();
 				$('.popover').remove();
-				boundContext.model.trigger('change');
+				boundContext.model.trigger('change', boundContext.model);
 			};
 		}
 	});
