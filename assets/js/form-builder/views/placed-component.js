@@ -35,6 +35,8 @@ define(function MyFormSnippet(require) {
 					}
 				});
 			}
+
+			$('.popover .checkbox-custom').checkbox();
 		},
 
 		preventPropagation: function preventPropagation(e) {
@@ -50,7 +52,7 @@ define(function MyFormSnippet(require) {
 			return function (mouseEvent) {
 				mouseEvent.preventDefault();
 
-				var fields = $('.popover input:not([type=submit],[type=button]), textarea');
+				var fields = $('.popover input:not([type=submit],[type=button]), textarea, select');
 
 				_.each(fields, function (e) {
 					var $e = $(e),
@@ -88,6 +90,7 @@ define(function MyFormSnippet(require) {
 									label: $(e).text()
 								};
 							});
+							console.log('select', valarr);
 							boundContext.model.setField(name, valarr);
 							break;
 					}
@@ -101,7 +104,7 @@ define(function MyFormSnippet(require) {
 			return function (mouseEvent) {
 				mouseEvent.preventDefault();
 				$('.popover').remove();
-				boundContext.model.trigger('change');
+				boundContext.model.trigger('change', boundContext.model);
 			};
 		}
 	});
