@@ -43,7 +43,7 @@
     "load-grunt-config": "0.19.0",
     "load-grunt-tasks": "3.3.0",
     "qunitjs": "1.20.0",
-    "semver": "5.0.3",
+    "semver": "5.1.0",
     "serve-static": "1.10.0"
   },
   "engines": {
