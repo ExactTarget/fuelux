@@ -177,7 +177,7 @@ define(function(require){
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;INTERVAL=4' });
 		ok(($repIntSelDrop.html()==='Daily' && $repPanSpinbox.spinbox('value')==='4'), 'daily recurrence set correctly');
 
-		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=DAILY;BYDAY=MO,TU,WE,TH,FR;INTERVAL=1' });
+		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;INTERVAL=1' });
 		equal($repIntSelDrop.html(), 'Weekdays', 'weekday recurrence set correctly');
 
 		$scheduler.scheduler('value', { recurrencePattern: 'FREQ=WEEKLY;BYDAY=MO,TH;INTERVAL=7' });
