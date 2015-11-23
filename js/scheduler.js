@@ -570,6 +570,8 @@
 				} else if (recur.FREQ === 'HOURLY') {
 					item = 'hourly';
 				} else if (recur.FREQ === 'WEEKLY') {
+					item = 'weekly';
+					
 					if (recur.BYDAY) {
 						if (recur.BYDAY === 'MO,TU,WE,TH,FR') {
 							item = 'weekdays';
@@ -582,8 +584,6 @@
 							}
 						}
 					}
-
-					item = 'weekly';
 				} else if (recur.FREQ === 'MONTHLY') {
 					this.$element.find('.repeat-monthly input').removeAttr('checked').removeClass('checked');
 					this.$element.find('.repeat-monthly label.radio-custom').removeClass('checked');
