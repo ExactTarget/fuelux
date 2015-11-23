@@ -576,11 +576,11 @@
 						if (recur.BYDAY === 'MO,TU,WE,TH,FR') {
 							item = 'weekdays';
 						} else {
-							item = this.$element.find('.repeat-days-of-the-week .btn-group');
-							item.find('label').removeClass('active');
+							var el = this.$element.find('.repeat-days-of-the-week .btn-group');
+							el.find('label').removeClass('active');
 							temp = recur.BYDAY.split(',');
 							for (i = 0, l = temp.length; i < l; i++) {
-								item.find('input[data-value="' + temp[i] + '"]').prop('checked',true).parent().addClass('active');
+								el.find('input[data-value="' + temp[i] + '"]').prop('checked',true).parent().addClass('active');
 							}
 						}
 					}
