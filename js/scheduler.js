@@ -554,11 +554,11 @@
 				}
 
 				if (recur.FREQ === 'DAILY') {
-						if (recur.INTERVAL === '1' && recur.COUNT === '1') {
-							item = 'none';
-						} else {
-							item = 'daily';
-						}
+					if (recur.INTERVAL === '1' && recur.COUNT === '1') {
+						item = 'none';
+					} else {
+						item = 'daily';
+					}
 				} else if (recur.FREQ === 'SECONDLY') {
 					item = 'secondly';
 				} else if (recur.FREQ === 'MINUTELY') {
