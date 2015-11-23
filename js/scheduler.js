@@ -555,7 +555,7 @@
 
 				if (recur.FREQ === 'DAILY') {
 					if (recur.BYDAY === 'MO,TU,WE,TH,FR') {
-							item = 'weekdays';
+						item = 'weekdays';
 					} else {
 						if (recur.INTERVAL === '1' && recur.COUNT === '1') {
 							item = 'none';
