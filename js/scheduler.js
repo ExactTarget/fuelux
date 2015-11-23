@@ -348,7 +348,7 @@
 				pattern += 'FREQ=DAILY;';
 				pattern += 'INTERVAL=' + interval + ';';
 			} else if (repeat === 'weekdays') {
-				pattern += 'FREQ=DAILY;';
+				pattern += 'FREQ=WEEKLY;';
 				pattern += 'BYDAY=MO,TU,WE,TH,FR;';
 				pattern += 'INTERVAL=1;';
 			} else if (repeat === 'weekly') {
