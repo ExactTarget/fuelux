@@ -15,9 +15,9 @@
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
 		define(['jquery', 'fuelux/combobox', 'fuelux/infinite-scroll', 'fuelux/search', 'fuelux/selectlist'], factory);
-		} else if (typeof exports === 'object') {
-			// Node/CommonJS
-			module.exports = factory(require('jquery'));
+	} else if (typeof exports === 'object') {
+		// Node/CommonJS
+		module.exports = factory(require('jquery'));
 	} else {
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
@@ -118,7 +118,7 @@
 			self.resizeTimeout = setTimeout(function () {
 				self.resize();
 				self.$element.trigger('resized.fu.repeater');
-			}, 500);//any faster and you get weird catastrophic errors with the header of the list repeater
+			}, 75);
 		});
 
 		this.$loader.loader();
@@ -638,15 +638,12 @@
 					bottom: this.$viewport.css('margin-bottom'),
 					top: this.$viewport.css('margin-top')
 				};
-
-				var staticHeightValue = (staticHeight === 'true' || staticHeight === true) ? this.$element.height() : parseInt(staticHeight, 10);
-				var headerHeight = this.$element.find('.repeater-header').outerHeight();
-				var footerHeight = this.$element.find('.repeater-footer').outerHeight();
-				var bottomMargin = (viewportMargins.bottom === 'auto') ? 0 : parseInt(viewportMargins.bottom, 10);
-				var topMargin = (viewportMargins.top === 'auto') ? 0 : parseInt(viewportMargins.top, 10);
-				height = staticHeightValue - headerHeight - footerHeight - bottomMargin - topMargin;
-
-				this.$viewport.outerHeight(height); // but WHY are we setting the outerHeight of the viewport to this???
+				height = ((staticHeight === 'true' || staticHeight === true) ? this.$element.height() : parseInt(staticHeight, 10)) -
+					this.$element.find('.repeater-header').outerHeight() -
+					this.$element.find('.repeater-footer').outerHeight() -
+					((viewportMargins.bottom === 'auto') ? 0 : parseInt(viewportMargins.bottom, 10)) -
+					((viewportMargins.top === 'auto') ? 0 : parseInt(viewportMargins.top, 10));
+				this.$viewport.outerHeight(height);
 			} else {
 				this.$canvas.removeClass('scrolling');
 			}
