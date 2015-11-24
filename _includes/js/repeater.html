@@ -539,14 +539,14 @@ $('#myRepeater').repeater({
           <td>page</td>
           <td>number</td>
           <td>Sets the current repeater page. Also shown in the <code>.repeater-primaryPaging</code> or
-            <code>.repeater-secondaryPaging</code> element.
+            <code>.repeater-secondaryPaging</code> element. <code>page</code> is 0-based.
           </td>
         </tr>
         <tr>
           <td>pages</td>
           <td>number</td>
           <td>Provides the number of available pages of data to the repeater. Use this value as the text value for the <code>.repeater-pages</code>
-            element.
+            element. <code>pages</code> is 1-based.
           </td>
         </tr>
         <tr>
@@ -559,7 +559,7 @@ $('#myRepeater').repeater({
       </tbody>
     </table>
   </div><!-- ./fu-table-responsive -->
-  <p>The default values are <code>{ count: 0, end: 0, items: [], page: 0, pages: 1, start: 0 }</code> where <code>page</code> is 0-based and <code>pages</code> is 1-based.</p>
+  <p>The default values are <code>{ count: 0, end: 0, items: [], page: 0, pages: 1, start: 0 }</code>.</p>
 
   <h3 id="repeater-usage-events">Events</h3>
   <div class="table-responsive">
