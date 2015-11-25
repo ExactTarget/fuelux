@@ -79,7 +79,7 @@
 		$.fn.repeater.Constructor.prototype.list_setSelectedItems = function (items, force) {
 			var selectable = this.viewOptions.list_selectable;
 			var self = this;
-			var data, i, $item, l;
+			var data, i, $item, length;
 
 			//this function is necessary because lint yells when a function is in a loop
 			function checkIfItemMatchesValue () {
@@ -113,14 +113,14 @@
 			}
 
 			if (force === true || selectable === 'multi') {
-				l = items.length;
+				length = items.length;
 			} else if (selectable) {
-				l = (items.length > 0) ? 1 : 0;
+				length = (items.length > 0) ? 1 : 0;
 			} else {
-				l = 0;
+				length = 0;
 			}
 
-			for (i = 0; i < l; i++) {
+			for (i = 0; i < length; i++) {
 				if (items[i].index !== undefined) {
 					$item = this.$canvas.find('.repeater-list table tbody tr:nth-child(' + (items[i].index + 1) + ')');
 					if ($item.length > 0) {
@@ -232,11 +232,11 @@
 		$.fn.repeater.Constructor.prototype.list_createItemActions = function () {
 			var actionsHtml = '';
 			var self = this;
-			var i, l;
+			var i, length;
 			var $table = this.$element.find('.repeater-list .repeater-list-wrapper > table');
 			var $actionsTable = this.$canvas.find('.table-actions');
 
-			for (i = 0, l = this.viewOptions.list_actions.items.length; i < l; i++) {
+			for (i = 0, length = this.viewOptions.list_actions.items.length; i < length; i++) {
 				var action = this.viewOptions.list_actions.items[i];
 				var html = action.html;
 
@@ -358,14 +358,9 @@
 		};
 
 		$.fn.repeater.Constructor.prototype.list_frozenOptionsInitialize = function () {
-			var self = this;
-			var isFrozen = this.viewOptions.list_frozenColumns;
-			var isActions = this.viewOptions.list_actions;
-			var isMulti = this.viewOptions.list_selectable === 'multi';
-
 			var $checkboxes = this.$element.find('.frozen-column-wrapper .checkbox-inline');
-
 			var $everyTable = this.$element.find('.repeater-list table');
+			var self = this;
 
 			//Make sure if row is hovered that it is shown in frozen column as well
 			this.$element.find('tr.selectable').on('mouseover mouseleave', function(e) {
@@ -679,7 +674,7 @@
 	function renderRow ($tbody, rows, index) {
 		var $row = $('<tr></tr>');
 		var self = this;
-		var i, l;
+		var i, length;
 		var isMulti = this.viewOptions.list_selectable === 'multi';
 		var isActions = this.viewOptions.list_actions;
 
@@ -757,7 +752,7 @@
 
 		$tbody.append($row);
 
-		for (i = 0, l = this.list_columns.length; i < l; i++) {
+		for (i = 0, length = this.list_columns.length; i < length; i++) {
 			renderColumn.call(this, $row, rows, index, this.list_columns, i);
 		}
 
@@ -794,7 +789,7 @@
 	function renderThead ($table, data) {
 		var columns = data.columns || [];
 		var $thead = $table.find('thead');
-		var i, l, $tr;
+		var i, length, $tr;
 
 		if (this.list_firstRender || areDifferentColumns(this.list_columns, columns) || $thead.length === 0) {
 			$thead.remove();
@@ -829,7 +824,7 @@
 
 			$thead = $('<thead data-preserve="deep"><tr></tr></thead>');
 			$tr = $thead.find('tr');
-			for (i = 0, l = columns.length; i < l; i++) {
+			for (i = 0, length = columns.length; i < length; i++) {
 				renderHeader.call(this, $tr, columns, i);
 			}
 			$table.prepend($thead);
@@ -848,9 +843,9 @@
 	}
 
 	function sizeColumns ($tr) {
-		var autoWidths = [];
+		var automaticallyGeneratedWidths = [];
 		var self = this;
-		var i, l, newWidth, widthTaken;
+		var i, length, newWidth, widthTaken;
 
 		if (this.viewOptions.list_columnSizing) {
 			i = 0;
@@ -865,7 +860,7 @@
 					self.list_columns[i]._auto_width = width;
 				} else {
 					var outerWidth = $th.find('.repeater-list-heading').outerWidth();
-					autoWidths.push({
+					automaticallyGeneratedWidths.push({
 						col: $th,
 						index: i,
 						minWidth: outerWidth
@@ -875,16 +870,16 @@
 				i++;
 			});
 
-			l = autoWidths.length;
-			if (l > 0) {
+			length = automaticallyGeneratedWidths.length;
+			if (length > 0) {
 				var canvasWidth = this.$canvas.find('.repeater-list-wrapper').outerWidth();
-				newWidth = Math.floor((canvasWidth - widthTaken) / l);
-				for (i = 0; i < l; i++) {
-					if (autoWidths[i].minWidth > newWidth) {
-						newWidth = autoWidths[i].minWidth;
+				newWidth = Math.floor((canvasWidth - widthTaken) / length);
+				for (i = 0; i < length; i++) {
+					if (automaticallyGeneratedWidths[i].minWidth > newWidth) {
+						newWidth = automaticallyGeneratedWidths[i].minWidth;
 					}
-					autoWidths[i].col.outerWidth(newWidth);
-					this.list_columns[autoWidths[i].index]._auto_width = newWidth;
+					automaticallyGeneratedWidths[i].col.outerWidth(newWidth);
+					this.list_columns[automaticallyGeneratedWidths[i].index]._auto_width = newWidth;
 				}
 			}
 		}
