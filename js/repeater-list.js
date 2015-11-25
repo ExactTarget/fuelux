@@ -794,7 +794,7 @@
 	function renderThead ($table, data) {
 		var columns = data.columns || [];
 		var $thead = $table.find('thead');
-		var i, j, l, $tr;
+		var i, l, $tr;
 
 		if (this.list_firstRender || areDifferentColumns(this.list_columns, columns) || $thead.length === 0) {
 			$thead.remove();
@@ -848,24 +848,24 @@
 	}
 
 	function sizeColumns ($tr) {
-		var auto = [];
+		var autoWidths = [];
 		var self = this;
-		var i, l, newWidth, taken;
+		var i, l, newWidth, widthTaken;
 
 		if (this.viewOptions.list_columnSizing) {
 			i = 0;
-			taken = 0;
+			widthTaken = 0;
 			$tr.find('th').each(function () {
 				var $th = $(this);
 				var width;
 				if (self.list_columns[i].width !== undefined) {
 					width = self.list_columns[i].width;
 					$th.outerWidth(width);
-					taken += $th.outerWidth();
+					widthTaken += $th.outerWidth();
 					self.list_columns[i]._auto_width = width;
 				} else {
 					var outerWidth = $th.find('.repeater-list-heading').outerWidth();
-					auto.push({
+					autoWidths.push({
 						col: $th,
 						index: i,
 						minWidth: outerWidth
@@ -875,16 +875,16 @@
 				i++;
 			});
 
-			l = auto.length;
+			l = autoWidths.length;
 			if (l > 0) {
 				var canvasWidth = this.$canvas.find('.repeater-list-wrapper').outerWidth();
-				newWidth = Math.floor((canvasWidth - taken) / l);
+				newWidth = Math.floor((canvasWidth - widthTaken) / l);
 				for (i = 0; i < l; i++) {
-					if (auto[i].minWidth > newWidth) {
-						newWidth = auto[i].minWidth;
+					if (autoWidths[i].minWidth > newWidth) {
+						newWidth = autoWidths[i].minWidth;
 					}
-					auto[i].col.outerWidth(newWidth);
-					this.list_columns[auto[i].index]._auto_width = newWidth;
+					autoWidths[i].col.outerWidth(newWidth);
+					this.list_columns[autoWidths[i].index]._auto_width = newWidth;
 				}
 			}
 		}
