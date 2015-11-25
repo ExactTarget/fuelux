@@ -63,10 +63,6 @@
 							&.sorted {
 								background: @gray98;
 							}
-
-							&.repeater-list-actions-placeholder {
-								border-left: none;
-							}
 						}
 
 						tr {
@@ -126,6 +122,10 @@
 							display: none;
 							float: right;
 							margin-top: 2px;
+						}
+
+						.actions-hidden {
+							visibility: hidden;
 						}
 					}
 				}
@@ -270,7 +270,6 @@
 										border-left: 1px solid transparent;
 										th {
 											background: transparent;
-											padding-left: 0;
 										}
 									}
 									td {
@@ -315,6 +314,12 @@
 								}
 							}
 						}
+					}
+					.actions-thead-wrapper {
+						position: absolute;
+						top: 0;
+						right: 0;
+						z-index: 3;
 					}
 					table {
 						table-layout: fixed;
@@ -426,4 +431,3 @@
 		}
 	}
 }
-
