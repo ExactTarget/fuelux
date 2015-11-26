@@ -25,7 +25,7 @@ cdn:
   zip:            //www.fuelcdn.com/fuelux/3.12.0/fuelux.zip
 
 mctheme:
-  css:            //www.fuelcdn.com/fuelux-mctheme/1.11.0/css/fuelux-mctheme.min.css
+  css:            //www.fuelcdn.com/fuelux-mctheme/1.12.1/css/fuelux-mctheme.min.css
 
 bootstrap:
   css:            //maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css
