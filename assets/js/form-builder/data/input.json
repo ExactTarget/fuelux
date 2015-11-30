@@ -1,5 +1,6 @@
 [
 	{
+		"title": "Input",
 		"fields": {
 			"id": {
 				"type": "input",
@@ -26,52 +27,78 @@
 					}
 				]
 			},
-			"label": {
-				"type": "input",
-				"label": "Label Text",
-				"value": "Text Input"
-			},
-			"helptext": {
-				"type": "input",
-				"label": "Help Text",
-				"value": "help"
-			},
-			"placeholder": {
-				"type": "input",
-				"label": "Placeholder",
-				"value": "placeholder"
-			},
-			"required": {
-				"type": "checkbox",
-				"label": "Required",
-				"value": false
-			}
-		},
-		"title": "Text Input"
-	},
-	{
-		"fields": {
-			"id": {
-				"type": "input",
-				"label": "ID / Name",
-				"value": "passwordinput"
-			},
-			"inputsize": {
+			"inputtype": {
 				"type": "select",
-				"label": "Input Size",
+				"label": "Input Type",
 				"value": [
 					{
-						"label": "Small",
-						"value": "input-sm",
-						"selected": false
-					},{
-						"label": "Normal",
-						"value": "",
+						"label": "Text",
+						"value": "text",
 						"selected": true
 					},
 					{
-						"label": "Large",
-						"value": "input-lg",
+						"label": "Password",
+						"value": "password",
+						"selected": false
+					},
+					{
+						"label": "Datetime",
+						"value": "datetime",
+						"selected": false
+					},
+					{
+						"label": "Datetime-Local",
+						"value": "datetime-local",
+						"selected": false
+					},
+					{
+						"label": "Date",
+						"value": "date",
+						"selected": false
+					},
+					{
+						"label": "Month",
+						"value": "month",
+						"selected": false
+					},
+					{
+						"label": "Time",
+						"value": "time",
+						"selected": false
+					},
+					{
+						"label": "Week",
+						"value": "week",
+						"selected": false
+					},
+					{
+						"label": "Number",
+						"value": "number",
+						"selected": false
+					},
+					{
+						"label": "Email",
+						"value": "email",
+						"selected": false
+					},
+					{
+						"label": "URL",
+						"value": "url",
+						"selected": false
+					},
+					{
+						"label": "Search",
+						"value": "search",
+						"selected": false
+					},
+					{
+						"label": "Tel",
+						"value": "tel",
+						"selected": false
+					},
+					{
+						"label": "Color",
+						"value": "color",
 						"selected": false
 					}
 				]
@@ -79,7 +106,7 @@
 			"label": {
 				"type": "input",
 				"label": "Label Text",
-				"value": "Password Input"
+				"value": "Input"
 			},
 			"helptext": {
 				"type": "input",
@@ -95,61 +122,21 @@
 				"type": "checkbox",
 				"label": "Required",
 				"value": false
-			}
-		},
-		"title": "Password Input"
-	},
-	{
-		"fields": {
-			"id": {
-				"type": "input",
-				"label": "ID / Name",
-				"value": "searchinput"
 			},
-			"inputsize": {
-				"type": "select",
-				"label": "Input Size",
-				"value": [
-					{
-						"label": "Small",
-						"value": "input-sm",
-						"selected": false
-					},{
-						"label": "Normal",
-						"value": "",
-						"selected": true
-					},
-					{
-						"label": "Large",
-						"value": "input-lg",
-						"selected": false
-					}
-				]
-			},
-			"label": {
-				"type": "input",
-				"label": "Label Text",
-				"value": "Search Input"
-			},
-			"helptext": {
-				"type": "input",
-				"label": "Help Text",
-				"value": "help"
-			},
-			"placeholder": {
-				"type": "input",
-				"label": "Placeholder",
-				"value": "placeholder"
-			},
-			"required": {
+			"isDisabled": {
 				"type": "checkbox",
-				"label": "Required",
+				"label": "Disabled",
+				"value": false
+			},
+			"readonly": {
+				"type": "checkbox",
+				"label": "Readonly",
 				"value": false
 			}
-		},
-		"title": "Search Input"
+		}
 	},
 	{
+		"title": "Spinbox",
 		"fields": {
 			"id": {
 				"type": "input",
@@ -176,10 +163,10 @@
 				"label": "Required",
 				"value": false
 			}
-		},
-		"title": "Spinbox"
+		}
 	},
 	{
+		"title": "Prepended Text",
 		"fields": {
 			"id": {
 				"type": "input",
@@ -231,10 +218,10 @@
 				"label": "Required",
 				"value": false
 			}
-		},
-		"title": "Prepended Text"
+		}
 	},
 	{
+		"title": "Appended Text",
 		"fields": {
 			"id": {
 				"type": "input",
@@ -286,10 +273,10 @@
 				"label": "Required",
 				"value": false
 			}
-		},
-		"title": "Appended Text"
+		}
 	},
 	{
+		"title": "Text Area",
 		"fields": {
 			"id": {
 				"type": "input",
@@ -306,7 +293,6 @@
 				"label": "Starting Text",
 				"value": "default text"
 			}
-		},
-		"title": "Text Area"
+		}
 	}
 ]

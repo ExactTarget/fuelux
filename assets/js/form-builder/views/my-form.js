@@ -27,11 +27,15 @@ define(function MyForm(require) {
 			_.each(this.collection.renderAll(), function (component) {
 				that.$el.append(component);
 			});
-			$('#render').val(that.renderForm({
+
+			var formData = {
 				text: _.map(this.collection.renderAllClean(), function (e) {
 					return e.html();
 				}).join('\n')
-			}));
+				, horizontal: $('#horizontal-toggle').checkbox('isChecked')
+			};
+
+			$('#render').val(that.renderForm(formData));
 			this.$el.appendTo('#build form');
 			this.delegateEvents();
 		},

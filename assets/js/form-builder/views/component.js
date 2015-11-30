@@ -35,7 +35,7 @@ define(function Component(require) {
 				'popoverTemplates': that.popoverTemplates
 			});
 
-			var theHTML = that.template(that.model.getValues());
+			var theHTML = that.template(_.extend({}, {horizontal: true}, that.model.getValues()));
 			if (withAttributes) {
 				return this.$el.html(theHTML).attr({
 					'data-content': content,

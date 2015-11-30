@@ -69,6 +69,17 @@ define(function (require) {
 					$('#mctheme').remove();
 				}
 			});
+
+			if($('#horizontal-toggle').checkbox('isChecked')){
+				$('#target').addClass('form-horizontal');
+			}
+			$('#horizontal-toggle').on('change', function (e) {
+				if ($(e.target).is(':checked')) {
+					$('#target').addClass('form-horizontal');
+				} else {
+					$('#target').removeClass('form-horizontal');
+				}
+			});
 		}
 	};
 });
