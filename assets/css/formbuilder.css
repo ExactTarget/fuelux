@@ -72,6 +72,11 @@ textarea {
   font-family: monospace;
 }
 
+form.form-horizontal .form-group{
+  margin-left: 0;
+  margin-right: 0;
+}
+
 /* Popovers now are appended to their parent rather
 than to the body/main document as they once were.
 We need to over-ride some inherited stuff.. */
