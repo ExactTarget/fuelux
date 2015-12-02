@@ -1,0 +1,20 @@
+<!-- Prepended text http://getbootstrap.com/components/#input-groups -->
+<div class="form-group<% if(horizontal && inputsize) {%> form-group-<%= inputsize %><% } %>">
+	<label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>"><%= label %></label>
+<% if(horizontal) {%>
+	<div class="col-sm-10">
+<% } %>
+		<div class="input-group">
+			<% if(prepend) { %>
+				<span class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> input-group-addon"><%= prepend %></span>
+			<% } %>
+			<input id="<%= id %>" name="<%= id %>" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" type="text"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
+			<% if(append) { %>
+				<span class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> input-group-addon"><%= append %></span>
+			<% } %>
+		</div>
+		<% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+<% if(horizontal) {%>
+	</div>
+<% } %>
+</div>
