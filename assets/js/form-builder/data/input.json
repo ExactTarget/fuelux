@@ -162,6 +162,16 @@
 				"type": "checkbox",
 				"label": "Required",
 				"value": false
+			},
+			"isDisabled": {
+				"type": "checkbox",
+				"label": "Disabled",
+				"value": false
+			},
+			"readonly": {
+				"type": "checkbox",
+				"label": "Readonly",
+				"value": false
 			}
 		}
 	},
@@ -216,6 +226,16 @@
 			"required": {
 				"type": "checkbox",
 				"label": "Required",
+				"value": false
+			},
+			"isDisabled": {
+				"type": "checkbox",
+				"label": "Disabled",
+				"value": false
+			},
+			"readonly": {
+				"type": "checkbox",
+				"label": "Readonly",
 				"value": false
 			}
 		}
@@ -272,6 +292,16 @@
 				"type": "checkbox",
 				"label": "Required",
 				"value": false
+			},
+			"isDisabled": {
+				"type": "checkbox",
+				"label": "Disabled",
+				"value": false
+			},
+			"readonly": {
+				"type": "checkbox",
+				"label": "Readonly",
+				"value": false
 			}
 		}
 	},
@@ -292,6 +322,21 @@
 				"type": "textarea",
 				"label": "Starting Text",
 				"value": "default text"
+			},
+			"required": {
+				"type": "checkbox",
+				"label": "Required",
+				"value": false
+			},
+			"isDisabled": {
+				"type": "checkbox",
+				"label": "Disabled",
+				"value": false
+			},
+			"readonly": {
+				"type": "checkbox",
+				"label": "Readonly",
+				"value": false
 			}
 		}
 	}

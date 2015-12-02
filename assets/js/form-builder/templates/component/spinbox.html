@@ -1,18 +1,22 @@
-<!-- Spinbox -->
-<div class="control-group">
-	<label class="control-label" for ="<%= id %>"><%= label %></label>
-	<div class="controls">
-		<div class="spinbox" data-initialize="spinbox">
-			<input type="text" class="form-control spinbox-input" value="<%= placeholder %>" id="<%= id %>" <% if(required) {%> required <% } %>>
+<!-- Spinbox http://getfuelux.com/javascript.html#spinbox -->
+<div class="form-group">
+	<label for="<%= id %>" <% if(horizontal) { %>class="col-sm-2 control-label"<% } %>><%= label %></label>
+<% if(horizontal) {%>
+	<div class="col-sm-10">
+<% } else { %>
+	<div class="form-group">
+<% } %>
+		<div class="spinbox" data-initialize="spinbox" id="<%= id %>">
+			<input id="<%= id %>Input" type="text" class="form-control input-mini spinbox-input" value="<%= placeholder %>" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
 			<div class="spinbox-buttons btn-group btn-group-vertical">
-				<button class="btn btn-default spinbox-up btn-xs">
+				<button type="button" class="btn btn-default spinbox-up btn-xs">
 					<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
 				</button>
-				<button class="btn btn-default spinbox-down btn-xs">
+				<button type="button" class="btn btn-default spinbox-down btn-xs">
 					<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
 				</button>
 			</div>
-			<% if (helptext.length > 0) { %><span class="help-block"><%= helptext %></span><% } %>
 		</div>
+		<% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
 	</div>
 </div>

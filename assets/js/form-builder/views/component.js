@@ -13,6 +13,8 @@ define(function Component(require) {
 	require('bootstrap');
 	require('fuelux');
 
+	var myForm = require('models/my-form');
+
 	return Backbone.View.extend({
 		tagName: 'div',
 		className: 'component',
@@ -35,7 +37,7 @@ define(function Component(require) {
 				'popoverTemplates': that.popoverTemplates
 			});
 
-			var theHTML = that.template(_.extend({}, {horizontal: true}, that.model.getValues()));
+			var theHTML = that.template(_.extend({}, {horizontal: myForm.get('horizontal')}, that.model.getValues()));
 			if (withAttributes) {
 				return this.$el.html(theHTML).attr({
 					'data-content': content,

@@ -12,6 +12,8 @@ define(function (require) {
 	var selectJSON = require('text!data/select.json');
 	var buttonsJSON = require('text!data/buttons.json');
 	var renderTab = require('text!templates/app/render.html');
+
+	var myForm = require('models/my-form');
 	require('fuelux');
 
 	return {
@@ -59,7 +61,8 @@ define(function (require) {
 							}
 						}
 					}
-				])
+				]),
+				model: myForm
 			});
 
 			$('#theme-toggle').on('change', function (e) {
@@ -67,17 +70,6 @@ define(function (require) {
 					$('head').append('<link rel="stylesheet" href="http://www.fuelcdn.com/fuelux-mctheme/1.1.0/css/fuelux-mctheme.min.css" type="text/css" id="mctheme"/>');
 				} else {
 					$('#mctheme').remove();
-				}
-			});
-
-			if($('#horizontal-toggle').checkbox('isChecked')){
-				$('#target').addClass('form-horizontal');
-			}
-			$('#horizontal-toggle').on('change', function (e) {
-				if ($(e.target).is(':checked')) {
-					$('#target').addClass('form-horizontal');
-				} else {
-					$('#target').removeClass('form-horizontal');
 				}
 			});
 		}
