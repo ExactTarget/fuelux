@@ -253,6 +253,46 @@
 				"label": "ID / Name",
 				"value": "textarea"
 			},
+			"rows": {
+				"type": "select",
+				"label": "Rows",
+				"value": [
+					{
+						"label": "1",
+						"value": 1,
+						"selected": true
+					},{
+						"label": "2",
+						"value": 2,
+						"selected": false
+					},
+					{
+						"label": "3",
+						"value": 3,
+						"selected": false
+					},
+					{
+						"label": "4",
+						"value": 4,
+						"selected": false
+					},
+					{
+						"label": "5",
+						"value": 5,
+						"selected": false
+					},
+					{
+						"label": "6",
+						"value": 6,
+						"selected": false
+					},
+					{
+						"label": "7",
+						"value": 7,
+						"selected": false
+					}
+				]
+			},
 			"label": {
 				"type": "input",
 				"label": "Label Text",
