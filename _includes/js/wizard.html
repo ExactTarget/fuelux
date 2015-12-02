@@ -1,244 +1,263 @@
 <!-- wizard
 ================================================== -->
 <div class="fu-docs-section">
-  <h1 id="wizard" class="page-header">Wizard <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/wizard.js"><small>wizard.js</small></a></h1>
+	<h1 id="wizard" class="page-header">
+		Wizard <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/wizard.js"><small>wizard.js</small></a>
+	</h1>
 
-  <p>A wizard divides a complex goal into multiple steps by separating sub-tasks or content into panes. You can add or remove panes. Completed steps remain clickable.</p>
+	<p>A wizard divides a complex goal into multiple steps by separating sub-tasks or content into panes. You can add or remove panes. Completed steps remain clickable.</p>
 
-<div class="wizard" data-initialize="wizard" id="wizardIllustration">
-  {% include js/wizard-example.html %}
-</div>
+	<div class="wizard fuelux" data-initialize="wizard" id="wizardIllustration">
+		{% include js/wizard-example.html %}
+	</div>
 
-  <h2 id="wizard-usage">Usage</h2>
-  <h3 id="wizard-usage-javascript">Via JavaScript</h3>
-  {% highlight js %}$('#myWizard').wizard();{% endhighlight %}
+	<h2 id="wizard-usage">Usage</h2>
+	<h3 id="wizard-usage-javascript">Via JavaScript</h3>
+	{% highlight js %}$('#myWizard').wizard();{% endhighlight %}
 
-  <h3 id="wizard-usage-data-attributes">Via data-attributes</h3>
-  <p>The wizard will automatically instantiate any wizards with <code>data-initialize="wizard"</code>. If you add control markup <em>after page load</em> with <code>data-initialize="wizard"</code>, this control initializes on <code>mouseover</code>.
+	<h3 id="wizard-usage-data-attributes">Via data-attributes</h3>
+	<p>The wizard will automatically instantiate any wizards with <code>data-initialize="wizard"</code>. If you add control markup <em>after page load</em> with <code>data-initialize="wizard"</code>, this control initializes on <code>mouseover</code>.
 
-  <h3 id="wizard-usage-markup">Markup</h3>
+	<h3 id="wizard-usage-markup">Markup</h3>
 
-  <div class="fu-callout fu-callout-warning">
-    <h4 id="deprecated-wizard-markup">Deprecated wizard markup</h4>
-    <p>Before v3.8.0, the wizard control did not have a <code>.steps-container</code> element.
-  </div>
+	<div class="fu-callout fu-callout-warning">
+		<h4 id="deprecated-wizard-markup">Deprecated wizard markup</h4>
+		<p>Before v3.8.0, the wizard control did not have a <code>.steps-container</code> element.
+	</div>
 
-  <p>Wrap <code>class="wizard"</code> around a list of steps, navigation, and content within a <code>class="fuelux"</code> container.</p>
-  
-  <div class="truncate-highlight">
+	<p>Wrap <code>class="wizard"</code> around a list of steps, navigation, and content within a <code>class="fuelux"</code> container.</p>
+	
+	<div class="truncate-highlight">
 {% highlight html %}
 <div class="wizard" data-initialize="wizard" id="myWizard">
 {% include js/wizard-example.html %}
 </div>
 {% endhighlight %}
-  </div>
+	</div>
 
-  <h3 id="wizard-usage-data-attributes">Data Attribute Options</h3>
-  <p>For data attributes, append the option name to data-, as in data-restrict="".</p>
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th style="width: 150px;">Attribute</th>
-          <th style="width: 50px;">Value</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>restrict</td>
-          <td>previous</td>
-          <td>Prevents the user from navigating to a previous step</td>
-        </tr>
-        <tr>
-          <td>step</td>
-          <td>1</td>
-          <td>Sets the current wizard step. Replace the value with a number of the wizard step to load on.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div><!-- ./fu-table-responsive -->
+	<h3 id="wizard-usage-data-attributes">Data Attribute Options</h3>
+	<p>For data attributes, append the option name to data-, as in data-restrict="".</p>
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th style="width: 150px;">Attribute</th>
+					<th style="width: 50px;">Value</th>
+					<th>Description</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>restrict</td>
+					<td>previous</td>
+					<td>Prevents the user from navigating to a previous step</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>step</td>
+					<td>1</td>
+					<td>Sets the current wizard step. Replace the value with a number of the wizard step to load on.</td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</div><!-- ./fu-table-responsive -->
 
-  <h3 id="wizard-usage-options">Options</h3>
-  <p>You can pass options via Javascript upon initialization.</p>
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead>
-      <tr>
-        <th style="width: 100px;">Name</th>
-        <th style="width: 100px;">type</th>
-        <th style="width: 200px;">default</th>
-        <th>description</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>disablePreviousStep</td>
-        <td>boolean</td>
-        <td>false</td>
-        <td>Dictates whether the wizard should make the previous step button disabled.
-          Setting this value to <code>true</code> will make the previous step button disabled</td>
-      </tr>
-      <tr>
-        <td>selectedItem</td>
-        <td>object</td>
-        <td>{ step: -1 }</td>
-        <td>By default <code>{ step: -1 }</code> means it will attempt to look for "active" class in order to set the
-          step. Changing the step number would set the step that is loaded by default when the wizard loads.
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div><!-- ./fu-table-responsive -->
+	<h3 id="wizard-usage-options">Options</h3>
+	<p>You can pass options via Javascript upon initialization.</p>
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead>
+			<tr>
+				<th style="width: 100px;">Name</th>
+				<th style="width: 100px;">Type</th>
+				<th style="width: 200px;">Default</th>
+				<th>Description</th>
+				<th></th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>disablePreviousStep</td>
+				<td>boolean</td>
+				<td>false</td>
+				<td>Dictates whether the wizard should make the previous step button disabled. Setting this value to <code>true</code> will make the previous step button disabled</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>selectedItem</td>
+				<td>object</td>
+				<td>{ step: -1 }</td>
+				<td>
+					By default <code>{ step: -1 }</code> means it will attempt to look for "active" class in order to set the
+					step. Changing the step number would set the step that is loaded by default when the wizard loads.
+				</td>
+				<td></td>
+			</tr>
+			</tbody>
+		</table>
+	</div><!-- ./fu-table-responsive -->
 
-  <h3 id="wizard-usage-methods">Methods</h3>
-  <dl>
-    <dt id="wizard-usage-methods-destroy">.wizard('destroy')</dt>
-    <dd>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup</dd>
+	<h3 id="wizard-usage-methods">Methods</h3>
+	<dl>
+		<dt id="wizard-usage-methods-destroy">.wizard('destroy')</dt>
+		<dd>Removes all functionality, jQuery data, and the markup from the DOM. Returns string of control markup</dd>
 
-    <dt id="wizard-usage-methods-previous">.wizard('previous')</dt>
-    <dd>Moves to the previous step</dd>
+		<dt id="wizard-usage-methods-previous">.wizard('previous')</dt>
+		<dd>Moves to the previous step</dd>
 
-    <dt id="wizard-usage-methods-next">.wizard('next')</dt>
-    <dd>Moves to the next step</dd>
+		<dt id="wizard-usage-methods-next">.wizard('next')</dt>
+		<dd>Moves to the next step</dd>
 
-    <dt id="wizard-usage-methods-selectedItem">.wizard('selectedItem')</dt>
-    <dd>Returns the current step index.
-  {% highlight js %}$('#myWizard').wizard('selectedItem');{% endhighlight %}
-    </dd>
+		<dt id="wizard-usage-methods-selectedItem">.wizard('selectedItem')</dt>
+		<dd>Returns the current step index.
+			{% highlight js %}$('#myWizard').wizard('selectedItem');{% endhighlight %}
+		</dd>
 
-    <dt id="wizard-usage-methods-selectedItem">.wizard('selectedItem', 3)</dt>
-    <dd>Moves to passed in step. This can be either an integer or the `data-name` of a step.
-  {% highlight js %}$('#myWizard').wizard('selectedItem', {
-  step: 3
+		<dt id="wizard-usage-methods-selectedItem">.wizard('selectedItem', 3)</dt>
+		<dd>Moves to passed in step. This can be either an integer or the `data-name` of a step.
+	{% highlight js %}$('#myWizard').wizard('selectedItem', {
+	step: 3
 });
 
 $('#myWizard').wizard('selectedItem', {
-  step: "named item"
+	step: "named item"
 });{% endhighlight %}
-    </dd>
+		</dd>
 
-    <dt id="wizard-usage-methods-addSteps">.wizard('addSteps')</dt>
-    <dd>Add a pane or an array of panes to a wizard. Wrap this markup with <code>&lt;div class=&quot;step-pane&quot;&gt;&lt;/div&gt;</code>
-  {% highlight js %}$('#myWizard').wizard('addSteps', index, [
-  {
-    badge: 'badge-customicon',
-    label: 'A Step Label',
-    pane: '<div>Content</div>'
-  }
+		<dt id="wizard-usage-methods-addSteps">.wizard('addSteps')</dt>
+		<dd>Add a pane or an array of panes to a wizard. Wrap this markup with <code>&lt;div class=&quot;step-pane&quot;&gt;&lt;/div&gt;</code>
+	{% highlight js %}$('#myWizard').wizard('addSteps', index, [
+	{
+		badge: 'badge-customicon',
+		label: 'A Step Label',
+		pane: '<div>Content</div>'
+	}
 ]);{% endhighlight %}
-      <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th style="width: 150px;">Parameter</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>index</td>
-              <td><em>Required.</em> Identifies the position used to start inserting pane(s). First pane exists at position 1. If you use -1, the item will append to end of the list of panes.</td>
-            </tr>
-            <tr>
-              <td><em>[item1, ..., itemX] <br/> item1, ..., itemX</em></td>
-              <td>Identifies an array or list of content pane objects to add at the <code>index</code>. Each pane can contain three strings:
-                <ul>
-                  <li>a <code>badge</code> class to be appended to the <code>class</code> attribute of the step in order to override the default number</li>
-                  <li>a <code>label</code> for the name of the step</li>
-                  <li>the <code>pane</code> of HTML content</li>
-                </ul>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div><!-- ./fu-table-responsive -->
-    </dd>
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th style="width: 150px;">Parameter</th>
+							<th>Description</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>index</td>
+							<td><em>Required.</em> Identifies the position used to start inserting pane(s). First pane exists at position 1. If you use -1, the item will append to end of the list of panes.</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><em>[item1, ..., itemX] <br/> item1, ..., itemX</em></td>
+							<td>Identifies an array or list of content pane objects to add at the <code>index</code>. Each pane can contain three strings:
+								<ul>
+									<li>a <code>badge</code> class to be appended to the <code>class</code> attribute of the step in order to override the default number</li>
+									<li>a <code>label</code> for the name of the step</li>
+									<li>the <code>pane</code> of HTML content</li>
+								</ul>
+							</td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div><!-- ./fu-table-responsive -->
+		</dd>
 
-    <dt id="wizard-usage-methods-removeSteps">.wizard('removeSteps')</dt>
-    <dd>Remove a pane or multiple panes from a wizard
-  {% highlight js %}$('#myWizard').wizard('removeSteps', index, howMany);{% endhighlight %}
+		<dt id="wizard-usage-methods-removeSteps">.wizard('removeSteps')</dt>
+		<dd>Remove a pane or multiple panes from a wizard
+	{% highlight js %}$('#myWizard').wizard('removeSteps', index, howMany);{% endhighlight %}
 
-      <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th style="width: 150px;">Parameter</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>index</td>
-              <td><em>Required.</em> Identifies the position where to begin removing pane(s). First pane exists at position 1.</td>
-            </tr>
-            <tr>
-              <td>howMany</td>
-              <td><em>Optional.</em> Specifies the number of panes to removed. Defaults to 1.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div><!-- ./fu-table-responsive -->
-    </dd>
-  </dl>
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th style="width: 150px;">Parameter</th>
+							<th>Description</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>index</td>
+							<td><em>Required.</em> Identifies the position where to begin removing pane(s). First pane exists at position 1.</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>howMany</td>
+							<td><em>Optional.</em> Specifies the number of panes to removed. Defaults to 1.</td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div><!-- ./fu-table-responsive -->
+		</dd>
+	</dl>
 
-  <h3 id="wizard-usage-events">Events</h3>
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th style="width: 150px;">Event Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>actionclicked.fu.wizard</td>
-		  <td>This event fires immediately when the step changes, but before the wizard shows the new step. Use <code>event.preventDefault()</code> to cancel the event.  Arguments include <code>event, data</code> where data is an object <code>{ step:1, direction:'next' }</code>.</td>
-        </tr>
-        <tr>
-          <td>changed.fu.wizard</td>
-          <td>This event fires when the step changes and displays to the user.</td>
-        </tr>
-        <tr>
-          <td>finished.fu.wizard</td>
-          <td>This event fires when the user clicks the next button on the last step of the wizard.</td>
-        </tr>
-        <tr>
-          <td>stepclicked.fu.wizard</td>
-          <td>This event fires when the user clicks a completed step. Use <code>event.preventDefault</code> to cancel the event.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div><!-- ./fu-table-responsive -->
+	<h3 id="wizard-usage-events">Events</h3>
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th style="width: 150px;">Event Type</th>
+					<th>Description</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>actionclicked.fu.wizard</td>
+					<td>This event fires immediately when the step changes, but before the wizard shows the new step. Use <code>event.preventDefault()</code> to cancel the event.  Arguments include <code>event, data</code> where data is an object <code>{ step:1, direction:'next' }</code>.</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>changed.fu.wizard</td>
+					<td>This event fires when the step changes and displays to the user.</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>finished.fu.wizard</td>
+					<td>This event fires when the user clicks the next button on the last step of the wizard.</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>stepclicked.fu.wizard</td>
+					<td>This event fires when the user clicks a completed step. Use <code>event.preventDefault</code> to cancel the event.</td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</div><!-- ./fu-table-responsive -->
 
-  <p>All wizard events are fired on the <code>.wizard</code> classed element.</p>
+	<p>All wizard events are fired on the <code>.wizard</code> classed element.</p>
 {% highlight js %}
 $('#myWizard').on('actionclicked.fu.wizard', function (evt, data) {
-  // do something
+	// do something
 });
 {% endhighlight %}
 
-  <h2 id="wizard-examples">Examples</h2>
-  <p>Wrap the input and wizard button within <code>.fuelux .wizard</code></p>
-  <div class="fu-example section">
-    <div class="wizard" data-initialize="wizard" id="myWizard">
-      {% include js/wizard-example.html %}
-    </div>
+	<h2 id="wizard-examples">Examples</h2>
+	<p>Wrap the input and wizard button within <code>.fuelux .wizard</code></p>
+	<div class="fu-example section">
+		<div class="wizard" data-initialize="wizard" id="myWizard">
+			{% include js/wizard-example.html %}
+		</div>
 
-    <h5 id="wizard-examples-sample-methods">Sample Methods</h5>
-    <div class="btn-group">
-      <button type="button" class="btn btn-default" id="btnWizardPrev">previous</button>
-      <button type="button" class="btn btn-default" id="btnWizardNext">next</button>
-      <button type="button" class="btn btn-default" id="btnWizardStep">log current step index</button>
-      <button type="button" class="btn btn-default" id="btnWizardSetStep">jump to step 3</button>
-      <button type="button" class="btn btn-default" id="btnWizardSetStepByName">jump to named step (Template)</button>
-    </div>
-  <div class="btn-group">
-      <button type="button" class="btn btn-default" id="btnWizardAddSteps">add step at index 2</button>
-    <button type="button" class="btn btn-default" id="btnWizardRemoveStep">remove step 1</button>
-    <button type="button" class="btn btn-default" id="btnWizardDestroy">destroy and append</button>
-  </div>
+		<h5 id="wizard-examples-sample-methods">Sample Methods</h5>
+		<div class="btn-group">
+			<button type="button" class="btn btn-default" id="btnWizardPrev">previous</button>
+			<button type="button" class="btn btn-default" id="btnWizardNext">next</button>
+			<button type="button" class="btn btn-default" id="btnWizardStep">log current step index</button>
+			<button type="button" class="btn btn-default" id="btnWizardSetStep">jump to step 3</button>
+			<button type="button" class="btn btn-default" id="btnWizardSetStepByName">jump to named step (Template)</button>
+		</div>
+	<div class="btn-group">
+			<button type="button" class="btn btn-default" id="btnWizardAddSteps">add step at index 2</button>
+		<button type="button" class="btn btn-default" id="btnWizardRemoveStep">remove step 1</button>
+		<button type="button" class="btn btn-default" id="btnWizardDestroy">destroy and append</button>
+	</div>
 
-  </div><!-- /example -->
+	</div><!-- /example -->
 </div><!-- end docs-section -->

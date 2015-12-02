@@ -6,15 +6,31 @@
     url(../fonts/SalesforceSans-Regular.svg) format("svg")
 }
 
-#fuelux-site-body{
+#fuelux-site-body {
     padding:50px;
     padding-top:0;
     font-size: 14px;
-    font-family: "Salesforce Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
+
 
 #fuelux-site-body .page-header {
     display: none;
+}
+
+
+#fuelux-site-body .fu-docs-section > h1,
+#fuelux-site-body .fu-docs-section > h2,
+#fuelux-site-body .fu-docs-section > h3,
+#fuelux-site-body .fu-docs-section > h4,
+#fuelux-site-body .fu-docs-section > h5,
+#fuelux-site-body .fu-docs-section > h6,
+#fuelux-site-body .fu-docs-section > .table-responsive th,
+#fuelux-site-body .fu-docs-section > .table-responsive td,
+#fuelux-site-body .fu-docs-section > dl dt,
+#fuelux-site-body .fu-docs-section > dl dd,
+#fuelux-site-body .fu-docs-section > p
+{
+    font-family: "Salesforce Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 #fuelux-site-body .fu-docs-section > h2 {

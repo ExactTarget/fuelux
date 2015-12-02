@@ -3,21 +3,61 @@
 	<head>
 		<!-- Meta, title, CSS, favicons, etc. -->
 		{% include header.html %}
-
-        <!-- Adding mc-theme to documentation for the fuel site -->
-        <link href="http://www.fuelcdn.com/fuelux-mctheme/1.12.1/css/fuelux-mctheme.min.css" rel="stylesheet" type="text/css"/>
-        
-        <!-- fuelux-site specific css -->
-        <link type="text/css" href="/assets/css/fuelux-site.css" rel="stylesheet" />
+		<!-- Adding mc-theme to documentation for the fuel site -->
+		
+		<!-- fuelux-site specific css -->
+		<link type="text/css" href="/assets/css/fuelux-site.css" rel="stylesheet">
+		<link href="//www.fuelcdn.com/fuelux-mctheme/1.12.2/css/fuelux-mctheme.min.css" rel="stylesheet" type="text/css">
+		<link href="//www.fuelcdn.com/fuelux-mctheme/1.12.2/css/fuelux-mctheme-content.min.css" rel="stylesheet" type="text/css">
+		
 	</head>
-<body>
-    <div id="fuelux-site-body">
-	   <!-- Page Content -->
-	   {{ content }}
-    </div>
-    <!-- Script is pulled from footer -->
-    <script>
-        require(['jquery', 'bootstrap', 'moment', 'assets/js/application'], function($){});
-    </script>
-</body>
+	
+	<body>
+		<div id="fuelux-site-body">
+		   <!-- Page Content -->
+		   {{ content }}
+		</div>
+		<!-- Script is pulled from footer -->
+		<script src="{{ site.url }}/assets/vendor/requirejs/require.js"></script>
+		<script>
+			(function () {
+				requirejs.config({
+					config: {
+						moment: {
+							noGlobal: true
+						}
+					},
+					paths: {
+						assets: '{{ site.url }}/assets',
+						bootstrap: '{{ site.url }}/assets/vendor/bootstrap/dist/js/bootstrap',
+						fuelux: '{{ site.url }}/assets/vendor/fuelux/dist/js/fuelux',
+						jquery: '{{ site.url }}/assets/vendor/jquery-1.11.0/dist/jquery',
+						moment: '{{ site.url }}/assets/vendor/moment/min/moment-with-locales.min', // comment out if you dont want momentjs to be default
+						underscore: '{{ site.url }}/assets/vendor/underscore/underscore',
+						backbone: '{{ site.url }}/assets/vendor/backbone/backbone',
+						formbuilder: '{{ site.url }}/assets/js/form-builder',
+						collections: '{{ site.url }}/assets/js/form-builder/collections',
+						data: '{{ site.url }}/assets/js/form-builder/data',
+						models: '{{ site.url }}/assets/js/form-builder/models',
+						helper: '{{ site.url }}/assets/js/form-builder/helper',
+						templates: '{{ site.url }}/assets/js/form-builder/templates',
+						views: '{{ site.url }}/assets/js/form-builder/views',
+						text: '{{ site.url }}/assets/vendor/requirejs-text/text',
+						supercopy: '{{ site.url }}/assets/js/super-copy',
+					},
+					// Bootstrap is a "browser globals" script :-(
+					shim: {
+						'bootstrap': { deps: ['jquery'] },
+						'backbone': {
+							deps: ['underscore', 'jquery'],
+							exports: 'Backbone'
+						}
+					}
+				});
+			})();
+		</script>
+		<script>
+			require(['jquery', 'bootstrap', 'moment', 'assets/js/application'], function($){});
+		</script>
+	</body>
 </html>
