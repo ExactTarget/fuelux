@@ -1,9 +1,10 @@
 define(function ComponentTemplates(require) {
 	var formname = require('text!templates/component/formname.html');
-	var prependedtext = require('text!templates/component/prependedtext.html');
 	var input = require('text!templates/component/input.html');
+	var pendedtext = require('text!templates/component/pendedtext.html');
+	var spinbox = require('text!templates/component/spinbox.html');
+
 	var appendedcheckbox = require('text!templates/component/appendedcheckbox.html');
-	var appendedtext = require('text!templates/component/appendedtext.html');
 	var filebutton = require('text!templates/component/filebutton.html');
 	var button = require('text!templates/component/button.html');
 	var buttondouble = require('text!templates/component/buttondouble.html');
@@ -19,16 +20,18 @@ define(function ComponentTemplates(require) {
 	var selectbasic = require('text!templates/component/selectbasic.html');
 	var selectmultiple = require('text!templates/component/selectmultiple.html');
 	var textarea = require('text!templates/component/textarea.html');
-	var spinbox = require('text!templates/component/spinbox.html');
 	var prependedsearch = require('text!templates/component/prependedsearch.html');
 	var appendedsearch = require('text!templates/component/appendedsearch.html');
 
 	return {
+		/* audited */
 		formname: formname,
-		prependedtext: prependedtext,
 		input: input,
+		pendedtext: pendedtext,
+		spinbox: spinbox,
+
+		/* to be audited */
 		appendedcheckbox: appendedcheckbox,
-		appendedtext: appendedtext,
 		filebutton: filebutton,
 		singlebutton: button,
 		doublebutton: buttondouble,
@@ -44,7 +47,6 @@ define(function ComponentTemplates(require) {
 		selectbasic: selectbasic,
 		selectmultiple: selectmultiple,
 		textarea: textarea,
-		spinbox: spinbox,
 		prependedsearch: prependedsearch,
 		appendedsearch: appendedsearch
 	};

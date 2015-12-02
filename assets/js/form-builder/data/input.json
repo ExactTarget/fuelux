@@ -13,7 +13,7 @@
 				"value": [
 					{
 						"label": "Small",
-						"value": "input-sm",
+						"value": "sm",
 						"selected": false
 					},{
 						"label": "Normal",
@@ -22,7 +22,7 @@
 					},
 					{
 						"label": "Large",
-						"value": "input-lg",
+						"value": "lg",
 						"selected": false
 					}
 				]
@@ -176,77 +176,17 @@
 		}
 	},
 	{
-		"title": "Prepended Text",
+		"title": "Pended Text",
 		"fields": {
 			"id": {
 				"type": "input",
 				"label": "ID / Name",
-				"value": "prependedtext"
+				"value": "pendedtext"
 			},
 			"prepend": {
 				"type": "input",
 				"label": "Prepend",
 				"value": "prepend"
-			},
-			"inputsize": {
-				"type": "select",
-				"label": "Input Size",
-				"value": [
-					{
-						"label": "Small",
-						"value": "input-sm",
-						"selected": false
-					},{
-						"label": "Normal",
-						"value": "",
-						"selected": true
-					},
-					{
-						"label": "Large",
-						"value": "input-lg",
-						"selected": false
-					}
-				]
-			},
-			"label": {
-				"type": "input",
-				"label": "Label Text",
-				"value": "Prepended Text"
-			},
-			"helptext": {
-				"type": "input",
-				"label": "Help Text",
-				"value": "help"
-			},
-			"placeholder": {
-				"type": "input",
-				"label": "Placeholder",
-				"value": "placeholder"
-			},
-			"required": {
-				"type": "checkbox",
-				"label": "Required",
-				"value": false
-			},
-			"isDisabled": {
-				"type": "checkbox",
-				"label": "Disabled",
-				"value": false
-			},
-			"readonly": {
-				"type": "checkbox",
-				"label": "Readonly",
-				"value": false
-			}
-		}
-	},
-	{
-		"title": "Appended Text",
-		"fields": {
-			"id": {
-				"type": "input",
-				"label": "ID / Name",
-				"value": "appendedtext"
 			},
 			"append": {
 				"type": "input",
@@ -259,7 +199,7 @@
 				"value": [
 					{
 						"label": "Small",
-						"value": "input-sm",
+						"value": "sm",
 						"selected": false
 					},{
 						"label": "Normal",
@@ -268,7 +208,7 @@
 					},
 					{
 						"label": "Large",
-						"value": "input-lg",
+						"value": "lg",
 						"selected": false
 					}
 				]
@@ -276,7 +216,7 @@
 			"label": {
 				"type": "input",
 				"label": "Label Text",
-				"value": "Appended Text"
+				"value": "Pended Text"
 			},
 			"helptext": {
 				"type": "input",
