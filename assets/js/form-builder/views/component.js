@@ -2,6 +2,7 @@ define(function Component(require) {
 	var $ = require('jquery');
 	var _ = require('underscore');
 	var Backbone = require('backbone');
+	var PubSub = require('helper/pubsub');
 	var _PopoverMain = require('text!templates/popover/popover-main.html');
 	var _PopoverInput = require('text!templates/popover/popover-input.html');
 	var _PopoverNumber = require('text!templates/popover/popover-number.html');
@@ -28,6 +29,11 @@ define(function Component(require) {
 				'textarea-split': _.template(_PopoverTextAreaSplit),
 				'checkbox': _.template(_PopoverCheckbox)
 			};
+			PubSub.on('horizontalToggle', this.handleHorizontalToggle, this);
+		},
+		handleHorizontalToggle: function handleHorizontalToggle() {
+			myForm.refreshHorizontalSetting();
+			this.render();
 		},
 		render: function render(withAttributes) {
 			var that = this;

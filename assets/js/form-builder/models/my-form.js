@@ -7,8 +7,9 @@ define(function Snippet(require) {
 		horizontal: $('#horizontal-toggle').checkbox('isChecked')
 	});
 
-
-	console.log('in myForm', myForm);
+	myForm.refreshHorizontalSetting = function refreshHorizontalSetting() {
+		myForm.set({horizontal: $('#horizontal-toggle').checkbox('isChecked')});
+	}
 
 	return myForm;
 });

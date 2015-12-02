@@ -78,7 +78,7 @@ define(function MyForm(require) {
 		},
 
 		handleHorizontalToggle: function handleHorizontalToggle(mouseEvent) {
-			myForm.set({horizontal: $('#horizontal-toggle').checkbox('isChecked')});
+			myForm.refreshHorizontalSetting();
 			this.render();
 		},
 
