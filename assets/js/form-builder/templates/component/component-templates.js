@@ -3,6 +3,7 @@ define(function ComponentTemplates(require) {
 	var input = require('text!templates/component/input.html');
 	var pendedtext = require('text!templates/component/pendedtext.html');
 	var spinbox = require('text!templates/component/spinbox.html');
+	var textarea = require('text!templates/component/textarea.html');
 
 	var appendedcheckbox = require('text!templates/component/appendedcheckbox.html');
 	var filebutton = require('text!templates/component/filebutton.html');
@@ -19,7 +20,6 @@ define(function ComponentTemplates(require) {
 	var prependedcheckbox = require('text!templates/component/prependedcheckbox.html');
 	var selectbasic = require('text!templates/component/selectbasic.html');
 	var selectmultiple = require('text!templates/component/selectmultiple.html');
-	var textarea = require('text!templates/component/textarea.html');
 	var prependedsearch = require('text!templates/component/prependedsearch.html');
 	var appendedsearch = require('text!templates/component/appendedsearch.html');
 
@@ -29,6 +29,7 @@ define(function ComponentTemplates(require) {
 		input: input,
 		pendedtext: pendedtext,
 		spinbox: spinbox,
+		textarea: textarea,
 
 		/* to be audited */
 		appendedcheckbox: appendedcheckbox,
@@ -46,7 +47,6 @@ define(function ComponentTemplates(require) {
 		prependedcheckbox: prependedcheckbox,
 		selectbasic: selectbasic,
 		selectmultiple: selectmultiple,
-		textarea: textarea,
 		prependedsearch: prependedsearch,
 		appendedsearch: appendedsearch
 	};

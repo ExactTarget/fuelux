@@ -63,7 +63,9 @@ textarea {
   overflow: hidden;
 }
 
-.drag-helper-component form .control-group {
+/* TODO: remove .control-group target once all have been replaced with form-group */
+.drag-helper-component form .control-group,
+.drag-helper-component form .form-group {
   width: 400px;
 }
 
