@@ -76,11 +76,12 @@
 		}
 	},
 	{
+		"title": "Pended Checkbox",
 		"fields": {
 			"id": {
 				"type": "input",
 				"label": "ID / Name",
-				"value": "prependedcheckbox"
+				"value": "pendedcheckbox"
 			},
 			"inputsize": {
 				"type": "select",
@@ -102,65 +103,26 @@
 					}
 				]
 			},
-			"label": {
-				"type": "input",
-				"label": "Label Text",
-				"value": "Prepended Checkbox"
-			},
-			"helptext": {
-				"type": "input",
-				"label": "Help Text",
-				"value": "help"
-			},
-			"placeholder": {
-				"type": "input",
-				"label": "Placeholder",
-				"value": "placeholder"
-			},
-			"checked": {
-				"type": "checkbox",
-				"label": "Checked",
-				"value": false
-			},
-			"required": {
-				"type": "checkbox",
-				"label": "Required",
-				"value": false
-			}
-		},
-		"title": "Prepended Checkbox"
-	},
-	{
-		"fields": {
-			"id": {
-				"type": "input",
-				"label": "ID / Name",
-				"value": "appendedcheckbox"
-			},
-			"inputsize": {
+			"placement": {
 				"type": "select",
-				"label": "Input Size",
+				"label": "Placement",
 				"value": [
 					{
-						"label": "Small",
-						"value": "sm",
+						"label": "Prepended",
+						"value": "prepended",
 						"selected": false
-					},{
-						"label": "Normal",
-						"value": "",
-						"selected": true
 					},
 					{
-						"label": "Large",
-						"value": "lg",
-						"selected": false
+						"label": "Appended",
+						"value": "appended",
+						"selected": true
 					}
 				]
 			},
 			"label": {
 				"type": "input",
 				"label": "Label Text",
-				"value": "Appended Checkbox"
+				"value": "Pended Checkbox"
 			},
 			"helptext": {
 				"type": "input",
@@ -177,13 +139,27 @@
 				"label": "Checked",
 				"value": false
 			},
+			"checkboxValue": {
+				"type": "input",
+				"label": "Checkbox Value",
+				"value": "option1"
+			},
 			"required": {
 				"type": "checkbox",
 				"label": "Required",
 				"value": false
+			},
+			"isDisabled": {
+				"type": "checkbox",
+				"label": "Disabled",
+				"value": false
+			},
+			"readonly": {
+				"type": "checkbox",
+				"label": "Readonly",
+				"value": false
 			}
-		},
-		"title": "Appended Checkbox"
+		}
 	},
 	{
 		"fields": {

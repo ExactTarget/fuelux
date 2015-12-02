@@ -4,7 +4,7 @@
 <% if(horizontal) {%>
 	<div class="col-sm-10">
 <% } %>
-		<div class="input-group">
+		<div class="input-group<% if(inputsize) {%> input-group-<%= inputsize %><% } %>">
 			<% if(prepend) { %>
 				<span class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> input-group-addon"><%= prepend %></span>
 			<% } %>

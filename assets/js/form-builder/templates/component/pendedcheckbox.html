@@ -1,4 +1,4 @@
-<!-- Pended Search http://getfuelux.com/javascript.html#search-->
+<!-- Appended checkbox -->
 <div class="form-group<% if(horizontal && inputsize) {%> form-group-<%= inputsize %><% } %>">
 	<label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>Input"><%= label %></label>
 <% if(horizontal) {%>
@@ -8,11 +8,9 @@
 			<% if(placement=="appended") { %>
 				<input id="<%= id %>Input" name="<%= id %>Input" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" type="search" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
 			<% } %>
-			<span class="input-group-btn">
-				<button class="btn btn-default btn-<%= inputsize %>" type="button">
-					<span class="glyphicon glyphicon-search"></span>
-					<span class="sr-only">Search</span>
-				</button>
+			<span class="input-group-addon">
+				<!-- TODO: make this a Fuel UX checkbox -->
+				<input type="checkbox" aria-label="..." <% if (checked){ %>checked="checked"<% } %> id="<%= id %>Checkbox" value="<%= checkboxValue %>">
 			</span>
 			<% if(placement=="prepended") { %>
 				<input id="<%= id %>Input" name="<%= id %>Input" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" type="search" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
