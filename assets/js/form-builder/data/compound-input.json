@@ -1,10 +1,11 @@
 [
 	{
+		"title": "Pended Search",
 		"fields": {
 			"id": {
 				"type": "input",
 				"label": "ID / Name",
-				"value": "prependedsearch"
+				"value": "pendedsearch"
 			},
 			"inputsize": {
 				"type": "select",
@@ -26,10 +27,26 @@
 					}
 				]
 			},
+			"placement": {
+				"type": "select",
+				"label": "Placement",
+				"value": [
+					{
+						"label": "Prepended",
+						"value": "prepended",
+						"selected": false
+					},
+					{
+						"label": "Appended",
+						"value": "appended",
+						"selected": true
+					}
+				]
+			},
 			"label": {
 				"type": "input",
 				"label": "Label Text",
-				"value": "Prepended Search"
+				"value": "Pended Search"
 			},
 			"helptext": {
 				"type": "input",
@@ -45,60 +62,20 @@
 				"type": "checkbox",
 				"label": "Required",
 				"value": false
+			},
+			"isDisabled": {
+				"type": "checkbox",
+				"label": "Disabled",
+				"value": false
+			},
+			"readonly": {
+				"type": "checkbox",
+				"label": "Readonly",
+				"value": false
 			}
-		},
-		"title": "Prepended Search"
+		}
 	},
 	{
-		"fields": {
-			"id": {
-				"type": "input",
-				"label": "ID / Name",
-				"value": "appendedsearch"
-			},
-			"inputsize": {
-				"type": "select",
-				"label": "Input Size",
-				"value": [
-					{
-						"label": "Small",
-						"value": "sm",
-						"selected": false
-					},{
-						"label": "Normal",
-						"value": "",
-						"selected": true
-					},
-					{
-						"label": "Large",
-						"value": "lg",
-						"selected": false
-					}
-				]
-			},
-			"label": {
-				"type": "input",
-				"label": "Label Text",
-				"value": "Appended Search"
-			},
-			"helptext": {
-				"type": "input",
-				"label": "Help Text",
-				"value": "help"
-			},
-			"placeholder": {
-				"type": "input",
-				"label": "Placeholder",
-				"value": "placeholder"
-			},
-			"required": {
-				"type": "checkbox",
-				"label": "Required",
-				"value": false
-			}
-		},
-		"title": "Appended Search"
-	},{
 		"fields": {
 			"id": {
 				"type": "input",

@@ -213,6 +213,82 @@
 					}
 				]
 			},
+			"inputtype": {
+				"type": "select",
+				"label": "Input Type",
+				"value": [
+					{
+						"label": "Text",
+						"value": "text",
+						"selected": true
+					},
+					{
+						"label": "Password",
+						"value": "password",
+						"selected": false
+					},
+					{
+						"label": "Datetime",
+						"value": "datetime",
+						"selected": false
+					},
+					{
+						"label": "Datetime-Local",
+						"value": "datetime-local",
+						"selected": false
+					},
+					{
+						"label": "Date",
+						"value": "date",
+						"selected": false
+					},
+					{
+						"label": "Month",
+						"value": "month",
+						"selected": false
+					},
+					{
+						"label": "Time",
+						"value": "time",
+						"selected": false
+					},
+					{
+						"label": "Week",
+						"value": "week",
+						"selected": false
+					},
+					{
+						"label": "Number",
+						"value": "number",
+						"selected": false
+					},
+					{
+						"label": "Email",
+						"value": "email",
+						"selected": false
+					},
+					{
+						"label": "URL",
+						"value": "url",
+						"selected": false
+					},
+					{
+						"label": "Search",
+						"value": "search",
+						"selected": false
+					},
+					{
+						"label": "Tel",
+						"value": "tel",
+						"selected": false
+					},
+					{
+						"label": "Color",
+						"value": "color",
+						"selected": false
+					}
+				]
+			},
 			"label": {
 				"type": "input",
 				"label": "Label Text",

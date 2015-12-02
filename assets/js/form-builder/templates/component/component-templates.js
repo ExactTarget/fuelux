@@ -1,9 +1,11 @@
 define(function ComponentTemplates(require) {
 	var formname = require('text!templates/component/formname.html');
 	var input = require('text!templates/component/input.html');
+	var pendedsearch = require('text!templates/component/pendedsearch.html');
 	var pendedtext = require('text!templates/component/pendedtext.html');
 	var spinbox = require('text!templates/component/spinbox.html');
 	var textarea = require('text!templates/component/textarea.html');
+
 
 	var appendedcheckbox = require('text!templates/component/appendedcheckbox.html');
 	var filebutton = require('text!templates/component/filebutton.html');
@@ -20,13 +22,13 @@ define(function ComponentTemplates(require) {
 	var prependedcheckbox = require('text!templates/component/prependedcheckbox.html');
 	var selectbasic = require('text!templates/component/selectbasic.html');
 	var selectmultiple = require('text!templates/component/selectmultiple.html');
-	var prependedsearch = require('text!templates/component/prependedsearch.html');
-	var appendedsearch = require('text!templates/component/appendedsearch.html');
+
 
 	return {
 		/* audited */
 		formname: formname,
 		input: input,
+		pendedsearch: pendedsearch,
 		pendedtext: pendedtext,
 		spinbox: spinbox,
 		textarea: textarea,
@@ -46,8 +48,6 @@ define(function ComponentTemplates(require) {
 		multipleradiosinline: multipleradiosinline,
 		prependedcheckbox: prependedcheckbox,
 		selectbasic: selectbasic,
-		selectmultiple: selectmultiple,
-		prependedsearch: prependedsearch,
-		appendedsearch: appendedsearch
+		selectmultiple: selectmultiple
 	};
 });

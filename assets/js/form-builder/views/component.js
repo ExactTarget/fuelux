@@ -20,7 +20,9 @@ define(function Component(require) {
 		tagName: 'div',
 		className: 'component',
 		initialize: function initialize() {
-			this.template = _.template(_componentTemplates[this.model.idFriendlyTitle()]);
+			var componentId = this.model.idFriendlyTitle();
+			// console.log('componentId', componentId);
+			this.template = _.template(_componentTemplates[componentId]);
 			this.popoverTemplates = {
 				'input': _.template(_PopoverInput),
 				'number': _.template(_PopoverNumber),
