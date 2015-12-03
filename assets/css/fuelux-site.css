@@ -82,3 +82,7 @@ h1:first-of-type{
 #fuelux-site-body .glyphicon-link:before {
     display: none;
 }
+
+#fuelux-site-body .fu-docs-section .fuelux-mctheme-do-not-use {
+    display: none;
+}
