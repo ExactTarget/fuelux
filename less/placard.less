@@ -24,6 +24,12 @@
 				}
 			}
 
+			div.placard-field[data-textarea] {
+				overflow: auto;
+				text-overflow: clip;
+				white-space: normal;
+			}
+
 			textarea.placard-field {
 				&[readonly] {
 					overflow: hidden;
@@ -74,6 +80,10 @@
 		div.placard-field {
 			width: 168px;
 			overflow: auto;
+
+			&[data-textarea] {
+				height: 54px;
+			}
 		}
 
 		&-cancel {

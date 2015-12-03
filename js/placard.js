@@ -57,7 +57,7 @@
 
 		this.isDiv = this.$field.is('div');
 		this.isInput = this.$field.is('input');
-		this.textareaDivMode = (this.isDiv && this.$field.attr('data-textareamode') === 'true');
+		this.divInTextareaMode = (this.isDiv && this.$field.attr('data-textarea') === 'true');
 
 		this.$field.on('focus.fu.placard', $.proxy(this.show, this));
 		this.$field.on('keydown.fu.placard', $.proxy(this.keyComplete, this));
@@ -114,7 +114,7 @@
 		},
 
 		keyComplete: function keyComplete(e) {
-			if (((this.isDiv && !this.textareaDivMode) || this.isInput) && e.keyCode === 13) {
+			if (((this.isDiv && !this.divInTextareaMode) || this.isInput) && e.keyCode === 13) {
 				this.complete('accepted');
 				this.$field.blur();
 			} else if (e.keyCode === 27) {
@@ -150,10 +150,9 @@
 			var field, i, str;
 			if (this.options.applyEllipsis) {
 				field = this.$field.get(0);
-				if ((this.isDiv && !this.textareaDivMode) || this.isInput) {
+				if ((this.isDiv && !this.divInTextareaMode) || this.isInput) {
 					field.scrollLeft = 0;
 				} else {
-					//TODO: consider ellipsis for contenteditable divs
 					field.scrollTop = 0;
 					if (field.clientHeight < field.scrollHeight) {
 						this.actualValue = this.getValue();
@@ -191,7 +190,7 @@
 			if (this.actualValue !== null) {
 				return this.actualValue;
 			} else if (this.isDiv) {
-				return this.$field.html();	//TODO: should this be an object with contents and html?
+				return this.$field.html();
 			} else {
 				return this.$field.val();
 			}
@@ -266,7 +265,7 @@
 			this.previousValue = (this.isDiv) ? this.$field.html() : this.$field.val();
 
 			if (this.actualValue !== null) {
-				this.setValue(this.actualValue);
+				this.setValue(this.actualValue, true);
 				this.actualValue = null;
 			}
 
