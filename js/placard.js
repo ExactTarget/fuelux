@@ -55,9 +55,10 @@
 			this.options.revertOnCancel = (this.$accept.length > 0);
 		}
 
-		this.isDiv = this.$field.is('div');
+		// Placard supports inputs, textareas, or contenteditable divs. These checks determine which is being used
+		this.isContentEditableDiv = this.$field.is('div');
 		this.isInput = this.$field.is('input');
-		this.divInTextareaMode = (this.isDiv && this.$field.attr('data-textarea') === 'true');
+		this.divInTextareaMode = (this.isContentEditableDiv && this.$field.attr('data-textarea') === 'true');
 
 		this.$field.on('focus.fu.placard', $.proxy(this.show, this));
 		this.$field.on('keydown.fu.placard', $.proxy(this.keyComplete, this));
@@ -114,7 +115,7 @@
 		},
 
 		keyComplete: function keyComplete(e) {
-			if (((this.isDiv && !this.divInTextareaMode) || this.isInput) && e.keyCode === 13) {
+			if (((this.isContentEditableDiv && !this.divInTextareaMode) || this.isInput) && e.keyCode === 13) {
 				this.complete('accepted');
 				this.$field.blur();
 			} else if (e.keyCode === 27) {
@@ -140,7 +141,7 @@
 		disable: function disable() {
 			this.$element.addClass('disabled');
 			this.$field.attr('disabled', 'disabled');
-			if (this.isDiv) {
+			if (this.isContentEditableDiv) {
 				this.$field.removeAttr('contenteditable');
 			}
 			this.hide();
@@ -150,7 +151,7 @@
 			var field, i, str;
 			if (this.options.applyEllipsis) {
 				field = this.$field.get(0);
-				if ((this.isDiv && !this.divInTextareaMode) || this.isInput) {
+				if ((this.isContentEditableDiv && !this.divInTextareaMode) || this.isInput) {
 					field.scrollLeft = 0;
 				} else {
 					field.scrollTop = 0;
@@ -175,7 +176,7 @@
 		enable: function enable() {
 			this.$element.removeClass('disabled');
 			this.$field.removeAttr('disabled');
-			if (this.isDiv) {
+			if (this.isContentEditableDiv) {
 				this.$field.attr('contenteditable', 'true');
 			}
 		},
@@ -189,7 +190,7 @@
 		getValue: function getValue() {
 			if (this.actualValue !== null) {
 				return this.actualValue;
-			} else if (this.isDiv) {
+			} else if (this.isContentEditableDiv) {
 				return this.$field.html();
 			} else {
 				return this.$field.val();
@@ -245,7 +246,7 @@
 				suppressEllipsis = !this.options.applyEllipsis;
 			}
 
-			if (this.isDiv) {
+			if (this.isContentEditableDiv) {
 				this.$field.empty().append(val);
 			} else {
 				this.$field.val(val);
@@ -262,7 +263,7 @@
 			if (_isShown(this)) { return; }
 			if (!_closeOtherPlacards()) { return; }
 
-			this.previousValue = (this.isDiv) ? this.$field.html() : this.$field.val();
+			this.previousValue = (this.isContentEditableDiv) ? this.$field.html() : this.$field.val();
 
 			if (this.actualValue !== null) {
 				this.setValue(this.actualValue, true);
