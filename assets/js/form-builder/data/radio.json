@@ -55,12 +55,17 @@
     }
   },
   {
-    "title": "Multiple Checkboxes",
+    "title": "Fuel UX Checkboxes",
     "fields": {
       "label": {
         "type": "input",
         "label": "Label Text",
-        "value": "Multiple Checkboxes"
+        "value": "Fuel UX Checkboxes"
+      },
+      "helptext": {
+        "type": "input",
+        "label": "Help Text",
+        "value": "help"
       },
       "checkboxes": {
         "type": "textarea-split",
@@ -79,16 +84,31 @@
         "type": "input",
         "label": "Group Name",
         "value": "checkboxes"
+      },
+      "isDisabled": {
+        "type": "checkbox",
+        "label": "Disabled",
+        "value": false
+      },
+      "readonly": {
+        "type": "checkbox",
+        "label": "Readonly",
+        "value": false
       }
     }
   },
   {
-    "title": "Multiple Checkboxes Inline",
+    "title": "Fuel UX Checkboxes Inline",
     "fields": {
       "label": {
         "type": "input",
         "label": "Label Text",
-        "value": "Inline Checkboxes"
+        "value": "Fuel UX Inline Checkboxes"
+      },
+      "helptext": {
+        "type": "input",
+        "label": "Help Text",
+        "value": "help"
       },
       "checkboxes": {
         "type": "textarea-split",
@@ -106,6 +126,16 @@
         "type": "input",
         "label": "Group Name",
         "value": "checkboxes"
+      },
+      "isDisabled": {
+        "type": "checkbox",
+        "label": "Disabled",
+        "value": false
+      },
+      "readonly": {
+        "type": "checkbox",
+        "label": "Readonly",
+        "value": false
       }
     }
   }
