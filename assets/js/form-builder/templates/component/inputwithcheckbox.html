@@ -1,0 +1,23 @@
+<!-- Appended checkbox http://getbootstrap.com/components/#input-groups-checkboxes-radios -->
+<div class="form-group<% if(horizontal && inputsize) {%> form-group-<%= inputsize %><% } %>">
+	<label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>Input"><%= label %></label>
+<% if(horizontal) {%>
+	<div class="col-sm-10">
+<% } %>
+		<div class="search input-group<% if(inputsize) {%> input-group-<%= inputsize %><% } %>" data-initialize="search" role="search" id="<%= id %>">
+			<% if(placement=="appended") { %>
+				<input id="<%= id %>Input" name="<%= id %>Input" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" type="search" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
+			<% } %>
+			<span class="input-group-addon">
+				<!-- TODO: make this a Fuel UX checkbox -->
+				<input type="checkbox" aria-label="..." <% if (checked){ %>checked="checked"<% } %> id="<%= id %>Checkbox" value="<%= checkboxValue %>">
+			</span>
+			<% if(placement=="prepended") { %>
+				<input id="<%= id %>Input" name="<%= id %>Input" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" type="search" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
+			<% } %>
+		</div>
+		<% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+<% if(horizontal) {%>
+	</div>
+<% } %>
+</div>

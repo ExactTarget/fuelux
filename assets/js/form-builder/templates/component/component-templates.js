@@ -1,11 +1,11 @@
 define(function ComponentTemplates(require) {
 	var formname = require('text!templates/component/formname.html');
 	var input = require('text!templates/component/input.html');
-	var pendedbuttondropdown = require('text!templates/component/pendedbuttondropdown.html');
-	var pendedcheckbox = require('text!templates/component/pendedcheckbox.html');
-	var pendedcombobox = require('text!templates/component/pendedcombobox.html');
-	var pendedsearch = require('text!templates/component/pendedsearch.html');
-	var pendedtext = require('text!templates/component/pendedtext.html');
+	var inputwithbuttondropdown = require('text!templates/component/inputwithbuttondropdown.html');
+	var inputwithcheckbox = require('text!templates/component/inputwithcheckbox.html');
+	var inputwithcombobox = require('text!templates/component/inputwithcombobox.html');
+	var inputwithtext = require('text!templates/component/inputwithtext.html');
+	var search = require('text!templates/component/search.html');
 	var spinbox = require('text!templates/component/spinbox.html');
 	var textarea = require('text!templates/component/textarea.html');
 
@@ -25,11 +25,11 @@ define(function ComponentTemplates(require) {
 		/* audited */
 		formname: formname,
 		input: input,
-		pendedbuttondropdown: pendedbuttondropdown,
-		pendedcheckbox: pendedcheckbox,
-		pendedcombobox: pendedcombobox,
-		pendedsearch: pendedsearch,
-		pendedtext: pendedtext,
+		inputwithbuttondropdown: inputwithbuttondropdown,
+		inputwithcheckbox: inputwithcheckbox,
+		inputwithcombobox: inputwithcombobox,
+		inputwithtext: inputwithtext,
+		search: search,
 		spinbox: spinbox,
 		textarea: textarea,
 

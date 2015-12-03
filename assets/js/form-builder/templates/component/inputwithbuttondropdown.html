@@ -1,4 +1,4 @@
-<!-- Appended checkbox -->
+<!-- Button Drop Down http://getbootstrap.com/components/#input-groups-buttons-dropdowns -->
 <div class="form-group<% if(horizontal && inputsize) {%> form-group-<%= inputsize %><% } %>">
 	<label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>Input"><%= label %></label>
 <% if(horizontal) {%>
@@ -8,15 +8,21 @@
 			<% if(placement=="appended") { %>
 				<input id="<%= id %>Input" name="<%= id %>Input" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" type="search" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
 			<% } %>
-			<span class="input-group-addon">
-				<!-- TODO: make this a Fuel UX checkbox -->
-				<input type="checkbox" aria-label="..." <% if (checked){ %>checked="checked"<% } %> id="<%= id %>Checkbox" value="<%= checkboxValue %>">
-			</span>
+			<div class="input-group-btn">
+				<button class="btn btn-default dropdown-toggle btn-<%= inputsize %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<%= buttontext %>
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu"><% _.each(buttonoptions, function(value) { %>
+					<li><a href="#"><%= value %></a></li><% }); %>
+				</ul>
+			</div><!-- /btn-group -->
 			<% if(placement=="prepended") { %>
 				<input id="<%= id %>Input" name="<%= id %>Input" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" type="search" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
 			<% } %>
-		</div>
-		<% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+		</div><!-- /input-group -->
+
+	<% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
 <% if(horizontal) {%>
 	</div>
 <% } %>

@@ -1,11 +1,11 @@
 [
 	{
-		"title": "Pended Search",
+		"title": "Search",
 		"fields": {
 			"id": {
 				"type": "input",
 				"label": "ID / Name",
-				"value": "pendedsearch"
+				"value": "search"
 			},
 			"inputsize": {
 				"type": "select",
@@ -46,7 +46,7 @@
 			"label": {
 				"type": "input",
 				"label": "Label Text",
-				"value": "Pended Search"
+				"value": "Search"
 			},
 			"helptext": {
 				"type": "input",
@@ -76,12 +76,12 @@
 		}
 	},
 	{
-		"title": "Pended Checkbox",
+		"title": "Input With Checkbox",
 		"fields": {
 			"id": {
 				"type": "input",
 				"label": "ID / Name",
-				"value": "pendedcheckbox"
+				"value": "inputwithcheckbox"
 			},
 			"inputsize": {
 				"type": "select",
@@ -122,7 +122,7 @@
 			"label": {
 				"type": "input",
 				"label": "Label Text",
-				"value": "Pended Checkbox"
+				"value": "Input With Checkbox"
 			},
 			"helptext": {
 				"type": "input",
@@ -162,12 +162,12 @@
 		}
 	},
 	{
-		"title": "Pended Button Drop Down",
+		"title": "Input With Button Drop Down",
 		"fields": {
 			"id": {
 				"type": "input",
 				"label": "ID / Name",
-				"value": "pendedbuttondropdown"
+				"value": "inputwithbuttondropdown"
 			},
 			"buttonoptions": {
 				"type": "textarea-split",
@@ -222,7 +222,7 @@
 			"label": {
 				"type": "input",
 				"label": "Label Text",
-				"value": "Prepend Button Drop Down"
+				"value": "Input With Button Drop Down"
 			},
 			"helptext": {
 				"type": "input",
@@ -252,12 +252,12 @@
 		}
 	},
 	{
-		"title": "Pended Combobox",
+		"title": "Input With Combobox",
 		"fields": {
 			"id": {
 				"type": "input",
 				"label": "ID / Name",
-				"value": "pendedcombobox"
+				"value": "inputwithcombobox"
 			},
 			"buttonoptions": {
 				"type": "textarea-split",
@@ -312,7 +312,7 @@
 			"label": {
 				"type": "input",
 				"label": "Label Text",
-				"value": "Prepend Combobox"
+				"value": "Input With Combobox"
 			},
 			"helptext": {
 				"type": "input",

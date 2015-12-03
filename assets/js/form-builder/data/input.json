@@ -176,12 +176,12 @@
 		}
 	},
 	{
-		"title": "Pended Text",
+		"title": "Input With Text",
 		"fields": {
 			"id": {
 				"type": "input",
 				"label": "ID / Name",
-				"value": "pendedtext"
+				"value": "inputwithtext"
 			},
 			"prepend": {
 				"type": "input",
@@ -292,7 +292,7 @@
 			"label": {
 				"type": "input",
 				"label": "Label Text",
-				"value": "Pended Text"
+				"value": "Input With Text"
 			},
 			"helptext": {
 				"type": "input",
