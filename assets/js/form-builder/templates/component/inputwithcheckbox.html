@@ -9,7 +9,7 @@
 				<input id="<%= id %>Input" name="<%= id %>Input" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
 			<% } %>
 
-			<label class="input-group-addon checkbox-custom checkbox-inline" data-initialize="checkbox">
+			<label class="input-group-addon checkbox-custom" data-initialize="checkbox">
 				<input class="sr-only" type="checkbox" aria-label="..." <% if (checked){ %>checked="checked"<% } %> id="<%= id %>Checkbox" value="<%= checkboxValue %>" <% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> >
 			</label>
 
