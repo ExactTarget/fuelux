@@ -56,6 +56,23 @@ define(function(require){
 		$placard.remove();
 	});
 
+	test('should behave as expected - contenteditable div', function(){
+		var $placard = $(html).find('#placard3');
+
+		$placard.placard();
+		$placard.on('cancelled.fu.placard', function(e, helpers){
+			ok(1===1, 'default action event (cancel) triggered upon external click');
+		});
+		$('body').append($placard);
+
+		$placard.find('.placard-field').focus().focus();
+		equal($placard.hasClass('showing'), true, 'placard shows when appropriate');
+
+		$('body').click();
+		equal($placard.hasClass('showing'), false, 'placard hides when appropriate');
+		$placard.remove();
+	});
+
 	test('show/hide functions should behave as expected', function(){
 		var $placard = $(html).find('#placard1');
 		$placard.placard();
