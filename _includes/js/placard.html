@@ -5,9 +5,9 @@
 
   <p>Adds a pop-up element to inputs/textareas on focus with additional options for explicit accept/cancel actions.</p>
 
-<div id="placardIllustration" class="placard" data-initialize="placard">
+<div data-ellipsis="true" id="placardIllustration" class="placard" data-initialize="placard">
   <div class="placard-popup"></div>
-  <input class="form-control placard-field glass" type="text" placeholder="Click here to see example"/>
+  <input class="form-control placard-field" type="text" placeholder="Click to see example"/>
   <div class="placard-footer">
     <a class="placard-cancel" href="#">Cancel</a>
     <button class="btn btn-primary btn-xs placard-accept" type="button">Save</button>
@@ -22,13 +22,10 @@
   {% highlight js %}$('#myPlacard').placard();{% endhighlight %}
 
   <h3 id="placard-usage-data-attributes">Via data-attributes</h3>
-  <p>The placard will automatically instantiate any placard with <code>data-initialize="placard"</code>. If you add the control markup <em>after page load</em> with <code>data-initialize="placard"</code>, this control initialize on <code>focus</code>.
-
-  <p>Add <code>data-ellipsis="true"</code> to the placard element to enable ellipsis to use JavaScript to enable ellipsis for textareas (For input elements, <a href="http://jsfiddle.net/cmcculloh/n39kao70/">use CSS</a>). Use the <code>.('getValue');</code> and <code>.('setValue');</code> methods to retrieve or set values upon focus gain/loss. Performance drops with larger textareas when ellipsis is enabled.
-  </p>
+  <p>The placard will automatically instantiate any placard with <code>data-initialize="placard"</code>. If you add the control markup <em>after page load</em> with <code>data-initialize="placard"</code>, the control will initialize on <code>focus</code>.
 
   <h3 id="placard-usage-markup">Markup</h3>
-  <p>Use the following markup for a simple input OR textarea placard:</p>
+  <p>Use the following markup for a simple input OR textarea OR contenteditable div placard:</p>
 {% highlight html %}
 <div class="placard" data-initialize="placard" id="myPlacard">
   <div class="placard-popup"></div>
@@ -41,10 +38,16 @@
   <textarea class="form-control placard-field"></textarea>
 </div>
 {% endhighlight %}
-
-  <p>For header and footer content, use the following input OR textarea placards:</p>
 {% highlight html %}
-<div class="placard" data-ellipsis="true" data-initialize="placard" id="myPlacard3">
+<div class="placard" data-initialize="placard" id="myPlacard3">
+  <div class="placard-popup"></div>
+  <div class="form-control placard-field" contenteditable="true"></div>
+</div>
+{% endhighlight %}
+
+  <p>For header and footer content, use the following input OR textarea OR contenteditable div placards:</p>
+{% highlight html %}
+<div class="placard" data-initialize="placard" id="myPlacard4">
   <div class="placard-popup"></div>
   <div class="placard-header"><h5>Header</h5></div>
   <input class="form-control placard-field" type="text"/>
@@ -55,7 +58,7 @@
 </div>
 {% endhighlight %}
 {% highlight html %}
-<div class="placard" data-ellipsis="true" data-initialize="placard" id="myPlacard4">
+<div class="placard" data-initialize="placard" id="myPlacard5">
   <div class="placard-popup"></div>
   <div class="placard-header"><h5>Header</h5></div>
   <textarea class="form-control placard-field"></textarea>
@@ -65,10 +68,29 @@
   </div>
 </div>
 {% endhighlight %}
+{% highlight html %}
+<div class="placard" data-initialize="placard" id="myPlacard6">
+  <div class="placard-popup"></div>
+  <div class="placard-header"><h5>Header</h5></div>
+  <div class="form-control placard-field" contenteditable="true"></div>
+  <div class="placard-footer">
+    <a class="placard-cancel" href="#">Cancel</a>
+    <button class="btn btn-primary btn-xs placard-accept" type="button">Save</button>
+  </div>
+</div>
+{% endhighlight %}
+
+  <h3 id="placard-usage-optional-data-attributes">Optional data-attributes</h3>
+  <ul>
+    <li>Add <code>data-ellipsis="true"</code> to the placard element to enable ellipsis on the <code>placard-field</code>. Inputs and regular contenteditable divs <a href="https://css-tricks.com/snippets/css/truncate-string-with-ellipsis/">use CSS</a>.
+      JavaScript is used to enable ellipsis for textareas and contenteditable divs with <code>data-textarea="true"</code>. Use the <code>.('getValue');</code> and <code>.('setValue');</code> methods to retrieve or set values for placards with ellipsis enabled to avoid incorrect values.
+      Be warned: performance drops with large fields for the JavaScript solution when ellipsis is enabled.</li>
+    <li>Add <code>data-textarea="true"</code> to the <code>.placard-field</code> element if using a contenteditable div to make that element look and behave more like a textarea.</li>
+  </ul>
 
   <h3 id="placard-usage-glass-styling">Glass styling</h3>
-  <p>Add the <code>glass</code> class to the <code>input</code> or <code>textarea</code> with class <code>placard-field</code>
-    for an input area with minimalistic chrome unless hovered upon or clicked.
+  <p>Add the <code>glass</code> class to the <code>input</code>, <code>textarea</code>, or contenteditable <code>div</code> with class <code>placard-field</code>
+    for a field with minimalistic chrome unless hovered upon or clicked.
   </p>
 
   <h3 id="placard-usage-options">Options</h3>
@@ -217,7 +239,7 @@ $('#myPlacard').on('accepted.fu.placard', function () {
 
 
   <h2 id="placard-examples">Examples</h2>
-  <p>Adds a pop-up element to inputs/textareas on focus with additional options for explicit accept/cancel actions.</p>
+  <p>Adds a pop-up element to inputs/textareas/contenteditable-divs on focus with additional options for explicit accept/cancel actions.</p>
 
   <div class="fu-example section">
 {% include js/placard-example.html %}
