@@ -2,6 +2,8 @@ define(function ComponentTemplates(require) {
 	var formname = require('text!templates/component/formname.html');
 	var fueluxcheckboxes = require('text!templates/component/fueluxcheckboxes.html');
 	var fueluxcheckboxesinline = require('text!templates/component/fueluxcheckboxesinline.html');
+	var fueluxradios = require('text!templates/component/fueluxradios.html');
+	var fueluxradiosinline = require('text!templates/component/fueluxradiosinline.html');
 	var input = require('text!templates/component/input.html');
 	var inputwithbuttondropdown = require('text!templates/component/inputwithbuttondropdown.html');
 	var inputwithcheckbox = require('text!templates/component/inputwithcheckbox.html');
@@ -14,8 +16,6 @@ define(function ComponentTemplates(require) {
 	var filebutton = require('text!templates/component/filebutton.html');
 	var button = require('text!templates/component/button.html');
 	var buttondouble = require('text!templates/component/buttondouble.html');
-	var multipleradios = require('text!templates/component/multipleradios.html');
-	var multipleradiosinline = require('text!templates/component/multipleradiosinline.html');
 	var selectbasic = require('text!templates/component/selectbasic.html');
 	var selectmultiple = require('text!templates/component/selectmultiple.html');
 
@@ -25,6 +25,8 @@ define(function ComponentTemplates(require) {
 		formname: formname,
 		fueluxcheckboxes: fueluxcheckboxes,
 		fueluxcheckboxesinline: fueluxcheckboxesinline,
+		fueluxradios: fueluxradios,
+		fueluxradiosinline: fueluxradiosinline,
 		input: input,
 		inputwithbuttondropdown: inputwithbuttondropdown,
 		inputwithcheckbox: inputwithcheckbox,
@@ -38,8 +40,6 @@ define(function ComponentTemplates(require) {
 		filebutton: filebutton,
 		singlebutton: button,
 		doublebutton: buttondouble,
-		multipleradios: multipleradios,
-		multipleradiosinline: multipleradiosinline,
 		selectbasic: selectbasic,
 		selectmultiple: selectmultiple
 	};

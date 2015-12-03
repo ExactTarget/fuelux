@@ -1,7 +1,12 @@
 [
   {
-    "title": "Multiple Radios",
+    "title": "Fuel UX Radios",
     "fields": {
+      "name": {
+        "type": "input",
+        "label": "Group Name",
+        "value": "radios"
+      },
       "label": {
         "type": "input",
         "label": "Label Text",
@@ -20,16 +25,26 @@
         "label": "Required",
         "value": false
       },
-      "name": {
-        "type": "input",
-        "label": "Group Name",
-        "value": "radios"
+      "isDisabled": {
+        "type": "checkbox",
+        "label": "Disabled",
+        "value": false
+      },
+      "readonly": {
+        "type": "checkbox",
+        "label": "Readonly",
+        "value": false
       }
     }
   },
   {
-    "title": "Multiple Radios Inline",
+    "title": "Fuel UX Radios Inline",
     "fields": {
+      "name": {
+        "type": "input",
+        "label": "Group Name",
+        "value": "radios"
+      },
       "label": {
         "type": "input",
         "label": "Label Text",
@@ -47,16 +62,26 @@
         "label": "Required",
         "value": false
       },
-      "name": {
-        "type": "input",
-        "label": "Group Name",
-        "value": "radios"
+      "isDisabled": {
+        "type": "checkbox",
+        "label": "Disabled",
+        "value": false
+      },
+      "readonly": {
+        "type": "checkbox",
+        "label": "Readonly",
+        "value": false
       }
     }
   },
   {
     "title": "Fuel UX Checkboxes",
     "fields": {
+      "name": {
+        "type": "input",
+        "label": "Group Name",
+        "value": "checkboxes"
+      },
       "label": {
         "type": "input",
         "label": "Label Text",
@@ -80,11 +105,6 @@
         "label": "Required",
         "value": false
       },
-      "name": {
-        "type": "input",
-        "label": "Group Name",
-        "value": "checkboxes"
-      },
       "isDisabled": {
         "type": "checkbox",
         "label": "Disabled",
@@ -100,6 +120,11 @@
   {
     "title": "Fuel UX Checkboxes Inline",
     "fields": {
+      "name": {
+        "type": "input",
+        "label": "Group Name",
+        "value": "checkboxes"
+      },
       "label": {
         "type": "input",
         "label": "Label Text",
@@ -121,11 +146,6 @@
         "type": "checkbox",
         "label": "Required",
         "value": false
-      },
-      "name": {
-        "type": "input",
-        "label": "Group Name",
-        "value": "checkboxes"
       },
       "isDisabled": {
         "type": "checkbox",
