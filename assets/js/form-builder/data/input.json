@@ -292,7 +292,7 @@
 			"label": {
 				"type": "input",
 				"label": "Label Text",
-				"value": "Input With Text"
+				"value": "Aside Text"
 			},
 			"helptext": {
 				"type": "input",

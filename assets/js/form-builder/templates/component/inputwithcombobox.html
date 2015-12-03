@@ -1,16 +1,25 @@
-<div class="control-group">
-	<label class="control-label" for="<%= id %>"><%= label %></label>
-	<div class="controls">
-		<div class="input-group input-append dropdown combobox" data-initialize="combobox" id="<%= id %>">
-			<input type="text" class="input-<%= inputsize %> form-control" placeholder="<%= placeholder %>" name="<%= id %>" <% if(required) {%> required <% } %>>
+<!-- Input With Combobox http://getfuelux.com/javascript.html#combobox -->
+<div class="form-group<% if(horizontal && inputsize) {%> form-group-<%= inputsize %><% } %>">
+	<label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>Input"><%= label %></label>
+<% if(horizontal) {%>
+	<div class="col-sm-10">
+<% } %>
+		<div class="input-group dropdown combobox<% if(inputsize) {%> input-group-<%= inputsize %><% } %>" data-initialize="combobox" id="<%= id %>">
+			<% if(placement=="appended") { %>
+				<input id="<%= id %>Input" name="<%= id %>Input" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" type="search" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
+			<% } %>
 			<div class="input-group-btn">
 				<button type="button" class="btn btn-default dropdown-toggle btn-<%= inputsize %>" data-toggle="dropdown"><span class="caret"></span></button>
-				<ul class="dropdown-menu dropdown-menu-right"><% _.each(buttonoptions, function(value) { %>
+				<ul class="dropdown-menu dropdown-menu-right" role="menu"><% _.each(buttonoptions, function(value) { %>
 					<li data-value="<%= value %>"><a href="#"><%= value %></a></li><% }); %>
 				</ul>
 			</div>
+			<% if(placement=="prepended") { %>
+				<input id="<%= id %>Input" name="<%= id %>Input" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" type="search" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
+			<% } %>
 		</div>
-
 		<% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+<% if(horizontal) {%>
 	</div>
+<% } %>
 </div>

@@ -122,7 +122,7 @@
 			"label": {
 				"type": "input",
 				"label": "Label Text",
-				"value": "Input With Checkbox"
+				"value": "Checkbox"
 			},
 			"helptext": {
 				"type": "input",
@@ -222,7 +222,7 @@
 			"label": {
 				"type": "input",
 				"label": "Label Text",
-				"value": "Input With Button Drop Down"
+				"value": "Drop Down"
 			},
 			"helptext": {
 				"type": "input",
@@ -312,7 +312,7 @@
 			"label": {
 				"type": "input",
 				"label": "Label Text",
-				"value": "Input With Combobox"
+				"value": "Combobox"
 			},
 			"helptext": {
 				"type": "input",
