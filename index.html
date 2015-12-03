@@ -144,6 +144,26 @@
 						</div>
 					</section>
 
+					<section id="checkbox-add-on" class="x-panel x-panel-default">
+						<header class="hidden x-panel-heading">
+							<h3 class="panel-title">Checkbox within input-group-addon</h3>
+						</header>
+						<section class="x-panel-body">
+							<div class="input-group" id="inputwithcheckbox">
+								<input id="inputwithcheckboxInput" name="inputwithcheckboxInput" class=" form-control" placeholder="placeholder">
+								<label class="input-group-addon checkbox-custom" data-initialize="checkbox">
+									<input class="sr-only" type="checkbox" aria-label="..." id="inputwithcheckboxCheckbox" value="option1">
+								</label>
+							</div>
+							<div class="input-group" id="inputwithcheckbox">
+								<label class="input-group-addon checkbox-custom" data-initialize="checkbox">
+									<input class="sr-only" type="checkbox" aria-label="..." id="inputwithcheckboxCheckbox" value="option1">
+								</label>
+								<input id="inputwithcheckboxInput" name="inputwithcheckboxInput" class=" form-control" placeholder="placeholder">
+							</div><!-- /input-group -->
+						</section>
+					</section>
+
 					<section id="checkboxes-highlighting-inline">
 						<label class="checkbox-custom checkbox-inline highlight" data-initialize="checkbox" id="myCustomHighlightCheckbox5">
 							<input type="checkbox" class="sr-only">
@@ -312,23 +332,6 @@
 								</label>
 							</div>
 
-						</section>
-					</section>
-
-					<section id="checkbox-no-js-add-on" class="x-panel x-panel-default">
-						<header class="hidden x-panel-heading">
-							<h3 class="panel-title">Checkbox (no javascript) Checkbox inline within input-group-addon</h3>
-						</header>
-						<section class="x-panel-body">
-							<div class="input-group">
-								<span class="input-group-addon">
-									<span class="checkbox-inline">
-										<input type="checkbox" id="example-checkbox-addon" checked="checked" value="">
-										<label for="example-checkbox-addon"></label>
-									</span>
-								</span>
-								<input type="text" class="form-control" value="Checkbox within input add-on">
-							</div><!-- /input-group -->
 						</section>
 					</section>
 

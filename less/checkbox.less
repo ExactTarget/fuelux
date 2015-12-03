@@ -43,9 +43,21 @@
 		padding-top: 0;
 	}
 
-	.input-group-addon.checkbox-custom.checkbox-inline:before {
-		left: 11px;
-		top: 9px;
+
+	.input-group-addon.checkbox-custom {
+		margin-bottom: 0;
+		cursor: pointer;
+		padding-left: 24px;
+
+		input[type=checkbox]{
+			position: absolute;
+			margin-left: -24px;
+		}
+
+		&:before {
+			left: 11px;
+			top: 9px;
+		}
 	}
 
 	.checkbox-custom {
