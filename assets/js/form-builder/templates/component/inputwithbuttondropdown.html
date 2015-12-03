@@ -9,7 +9,7 @@
 				<input id="<%= id %>Input" name="<%= id %>Input" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" type="search" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
 			<% } %>
 			<div class="input-group-btn">
-				<button class="btn btn-default dropdown-toggle btn-<%= inputsize %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<button class="btn btn-default dropdown-toggle btn-<%= inputsize %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
 					<%= buttontext %>
 					<span class="caret"></span>
 				</button>

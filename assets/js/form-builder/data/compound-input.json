@@ -29,7 +29,7 @@
 			},
 			"placement": {
 				"type": "select",
-				"label": "Placement",
+				"label": "Layout",
 				"value": [
 					{
 						"label": "Prepended",
@@ -105,7 +105,7 @@
 			},
 			"placement": {
 				"type": "select",
-				"label": "Placement",
+				"label": "Layout",
 				"value": [
 					{
 						"label": "Prepended",
@@ -185,7 +185,7 @@
 			},
 			"placement": {
 				"type": "select",
-				"label": "Placement",
+				"label": "Layout",
 				"value": [
 					{
 						"label": "Prepended",
@@ -275,7 +275,7 @@
 			},
 			"placement": {
 				"type": "select",
-				"label": "Placement",
+				"label": "Layout",
 				"value": [
 					{
 						"label": "Prepended",
