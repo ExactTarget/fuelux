@@ -7,14 +7,14 @@
 
 		&[data-ellipsis="true"] {
 			&.showing {
-				input.placard-field {
-					overflow: visible;
+				div.placard-field, input.placard-field {
+					overflow: auto;
 					text-overflow: clip;
 					white-space: normal;
 				}
 			}
 
-			input.placard-field {
+			div.placard-field, input.placard-field {
 				overflow: hidden;
 				text-overflow: ellipsis;
 				white-space: nowrap;
@@ -39,7 +39,7 @@
 				z-index: 1;
 			}
 
-			input.placard-field, textarea.placard-field {
+			div.placard-field, input.placard-field, textarea.placard-field {
 				background: @true-white;
 				border: 1px solid @gray80;
 				box-shadow: none;
@@ -48,7 +48,7 @@
 			}
 		}
 
-		input.placard-field, textarea.placard-field {
+		div.placard-field, input.placard-field, textarea.placard-field {
 			resize: none;
 
 			&[readonly] {
@@ -69,6 +69,11 @@
 				border: 1px solid @gray80;
 				box-shadow: none;
 			}
+		}
+
+		div.placard-field {
+			width: 168px;
+			overflow: auto;
 		}
 
 		&-cancel {
