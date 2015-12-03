@@ -10,7 +10,7 @@
 			<% } %>
 			<span class="input-group-addon">
 				<!-- TODO: make this a Fuel UX checkbox -->
-				<input type="checkbox" aria-label="..." <% if (checked){ %>checked="checked"<% } %> id="<%= id %>Checkbox" value="<%= checkboxValue %>">
+				<input type="checkbox" aria-label="..." <% if (checked){ %>checked="checked"<% } %> id="<%= id %>Checkbox" value="<%= checkboxValue %>" <% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> >
 			</span>
 			<% if(placement=="prepended") { %>
 				<input id="<%= id %>Input" name="<%= id %>Input" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" type="search" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />

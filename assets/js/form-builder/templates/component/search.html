@@ -9,7 +9,7 @@
 				<input id="<%= id %>Input" name="<%= id %>Input" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" type="search" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
 			<% } %>
 			<span class="input-group-btn">
-				<button class="btn btn-default btn-<%= inputsize %>" type="button">
+				<button class="btn btn-default btn-<%= inputsize %>" type="button" <% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> >
 					<span class="glyphicon glyphicon-search"></span>
 					<span class="sr-only">Search</span>
 				</button>
