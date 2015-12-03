@@ -1,6 +1,10 @@
 //Text area placard
 - replace input element classed '.placard-field' with the following:
-    '<textarea class="form-control placard-field" readonly="readonly"></textarea>'
+    '<textarea class="form-control placard-field"></textarea>'
+
+//Content-editable div placard
+- replace input element classed '.placard-field' with the following:
+    '<div class="form-control placard-field" contenteditable="true"></div>'
 
 //Glass styling
 - add the class 'glass' to the '.placard-field' element
