@@ -52,6 +52,10 @@
     color: #333;
 }
 
+#fuelux-site-body .fu-example.section:last-child {
+    margin-bottom: 200px;
+}
+
 h1 .header-anchor{
     left:-1px;   
 }

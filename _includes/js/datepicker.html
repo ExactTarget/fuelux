@@ -4,16 +4,16 @@
   <h1 id="datepicker" class="page-header">Datepicker <a href="{{ site.repo }}/blob/{{ site.current_version }}/js/datepicker.js"><small>datepicker.js</small></a></h1>
   <p>The <code>datepicker()</code> control provides the user with the ability to choose a date from a highly customizable calender. Datepicker also offers many <a href="#datepicker-usage-methods">methods</a> that allow you to programmatically manipulate it.</p>
 
-<form class="form-horizontal" style="width: 300px;">
-  <div class="form-group">
-    <label for="datepickerIllustration" class="col-sm-2 control-label">Date</label>
-    <div class="col-sm-10">
-      <div class="datepicker" data-initialize="datepicker" id="datepickerIllustration">
-        {% include js/datepicker-example.html %}
+  <form class="form-horizontal" style="width: 300px;">
+    <div class="form-group">
+      <label for="datepickerIllustration" class="col-sm-2 control-label">Date</label>
+      <div class="col-sm-10">
+        <div class="datepicker" data-initialize="datepicker" id="datepickerIllustration">
+          {% include js/datepicker-example.html %}
+        </div>
       </div>
     </div>
-  </div>
-</form>
+  </form>
 
 
   <div style="width: 140px; margin-left: 150px;">
@@ -231,18 +231,20 @@ $('#myDatepicker').on('change dateClicked.fu.datepicker', function (evt, date) {
   <p>Choose a date from a calendar dropdown, with input parsing and formatting. Works with moment.js for extended functionality.</p>
 
   <p>To support various date formats around the world, <code>datepicker()</code> has an optional dependency on <a href="http://momentjs.com/">moment.js</a>. <a href="https://github.com/moment/moment/tree/master/min">Download moment.js (with locales).</a></p>
+
   <div class="fu-example section">
     <div id="myDatepickerContainer">
-      <div class="form-group">
-        <label class="control-label" for="myDatepickerInput">Choose a date (default) </label>
-        <div>
-          <div class="datepicker" data-initialize="datepicker" id="myDatepicker">
-            {% include js/datepicker-example.html %}
+      <form class="form-horizontal" style="width: 600px;">
+        <div class="form-group">
+          <label for="datepickerIllustration" class="col-sm-4 control-label" for="myDatepickerInput">Choose a date (default)</label>
+          <div class="col-sm-8">
+            <div class="datepicker" data-initialize="datepicker" id="myDatepicker">
+              {% include js/datepicker-example.html %}
+            </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
-    <br/>
     <h5 id="datepicker-examples-sample-methods">Sample Methods</h5>
     <div class="btn-group">
       <button type="button" class="btn btn-default" id="btnDatepickerEnable">enable</button>
@@ -254,5 +256,7 @@ $('#myDatepicker').on('change dateClicked.fu.datepicker', function (evt, date) {
       <button type="button" class="btn btn-default" id="btnDatepickerSetDate">set date 7 days ahead (will log new value)</button>
       <button type="button" class="btn btn-default" id="btnDatepickerDestroy">destroy and append</button>
     </div>
-  </div><!-- /example -->
+  </div>
+
+
 </div>
