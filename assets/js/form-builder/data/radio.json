@@ -20,6 +20,11 @@
           "Option two"
         ]
       },
+      "helptext": {
+        "type": "input",
+        "label": "Help Text",
+        "value": "help"
+      },
       "required": {
         "type": "checkbox",
         "label": "Required",
@@ -57,6 +62,11 @@
           1,2,3,4
         ]
       },
+      "helptext": {
+        "type": "input",
+        "label": "Help Text",
+        "value": "help"
+      },
       "required": {
         "type": "checkbox",
         "label": "Required",
@@ -87,11 +97,6 @@
         "label": "Label Text",
         "value": "Fuel UX Checkboxes"
       },
-      "helptext": {
-        "type": "input",
-        "label": "Help Text",
-        "value": "help"
-      },
       "checkboxes": {
         "type": "textarea-split",
         "label": "Checkboxes",
@@ -99,6 +104,11 @@
           "Option one",
           "Option two"
         ]
+      },
+      "helptext": {
+        "type": "input",
+        "label": "Help Text",
+        "value": "help"
       },
       "required": {
         "type": "checkbox",
@@ -130,17 +140,17 @@
         "label": "Label Text",
         "value": "Fuel UX Inline Checkboxes"
       },
-      "helptext": {
-        "type": "input",
-        "label": "Help Text",
-        "value": "help"
-      },
       "checkboxes": {
         "type": "textarea-split",
         "label": "Checkboxes",
         "value": [
           1,2,3,4
         ]
+      },
+      "helptext": {
+        "type": "input",
+        "label": "Help Text",
+        "value": "help"
       },
       "required": {
         "type": "checkbox",
