@@ -4,9 +4,9 @@
 <% if(horizontal) {%>
 	<div class="col-sm-10">
 <% } %>
-		<div class="search input-group<% if(inputsize) {%> input-group-<%= inputsize %><% } %>" data-initialize="search" role="search" id="<%= id %>">
+		<div class="input-group<% if(inputsize) {%> input-group-<%= inputsize %><% } %>" id="<%= id %>">
 			<% if(placement=="appended") { %>
-				<input id="<%= id %>Input" name="<%= id %>Input" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" type="search" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
+				<input id="<%= id %>Input" name="<%= id %>Input" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
 			<% } %>
 			<div class="input-group-btn">
 				<button class="btn btn-default dropdown-toggle btn-<%= inputsize %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
@@ -18,7 +18,7 @@
 				</ul>
 			</div><!-- /btn-group -->
 			<% if(placement=="prepended") { %>
-				<input id="<%= id %>Input" name="<%= id %>Input" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" type="search" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
+				<input id="<%= id %>Input" name="<%= id %>Input" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
 			<% } %>
 		</div><!-- /input-group -->
 

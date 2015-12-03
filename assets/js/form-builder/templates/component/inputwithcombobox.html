@@ -6,7 +6,7 @@
 <% } %>
 		<div class="input-group dropdown combobox<% if(inputsize) {%> input-group-<%= inputsize %><% } %>" data-initialize="combobox" id="<%= id %>">
 			<% if(placement=="appended") { %>
-				<input id="<%= id %>Input" name="<%= id %>Input" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" type="search" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
+				<input id="<%= id %>Input" name="<%= id %>Input" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
 			<% } %>
 			<div class="input-group-btn">
 				<button type="button" class="btn btn-default dropdown-toggle btn-<%= inputsize %>" data-toggle="dropdown"><span class="caret"></span></button>
@@ -15,7 +15,7 @@
 				</ul>
 			</div>
 			<% if(placement=="prepended") { %>
-				<input id="<%= id %>Input" name="<%= id %>Input" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" type="search" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
+				<input id="<%= id %>Input" name="<%= id %>Input" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
 			<% } %>
 		</div>
 		<% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
