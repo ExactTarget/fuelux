@@ -1,11 +1,11 @@
 [
   {
-    "title": "Select Basic",
+    "title": "Fuel UX Select",
     "fields": {
       "label": {
         "type": "input",
         "label": "Label Text",
-        "value": "Select Basic"
+        "value": "Fuel UX Select"
       },
       "id": {
         "type": "input",
@@ -85,17 +85,17 @@
     }
   },
   {
-    "title": "Select Multiple",
+    "title": "Bootstrap Select",
     "fields": {
       "label": {
         "type": "input",
         "label": "Label Text",
-        "value": "Select Multiple"
+        "value": "Bootstrap Select"
       },
       "id": {
         "type": "input",
         "label": "ID / Name",
-        "value": "selectmultiple"
+        "value": "bootstrapselect"
       },
       "options": {
         "type": "textarea-split",
@@ -109,7 +109,6 @@
         "type": "select",
         "label": "Input Size",
         "value": [
-
           {
             "label": "Small",
             "value": "input-sm",
@@ -131,6 +130,11 @@
         "type": "input",
         "label": "Help Text",
         "value": "help"
+      },
+      "multiple": {
+        "type": "checkbox",
+        "label": "Multiselect",
+        "value": true
       },
       "required": {
         "type": "checkbox",
