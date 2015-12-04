@@ -1,6 +1,7 @@
 define(function ComponentTemplates(require) {
 	var button = require('text!templates/component/button.html');
 	var buttongroup = require('text!templates/component/buttongroup.html');
+	var filebutton = require('text!templates/component/filebutton.html');
 	var formname = require('text!templates/component/formname.html');
 	var fueluxcheckboxes = require('text!templates/component/fueluxcheckboxes.html');
 	var fueluxcheckboxesinline = require('text!templates/component/fueluxcheckboxesinline.html');
@@ -15,7 +16,6 @@ define(function ComponentTemplates(require) {
 	var spinbox = require('text!templates/component/spinbox.html');
 	var textarea = require('text!templates/component/textarea.html');
 
-	var filebutton = require('text!templates/component/filebutton.html');
 	var selectbasic = require('text!templates/component/selectbasic.html');
 	var selectmultiple = require('text!templates/component/selectmultiple.html');
 
@@ -24,6 +24,7 @@ define(function ComponentTemplates(require) {
 		/* audited */
 		button: button,
 		buttongroup: buttongroup,
+		filebutton: filebutton,
 		formname: formname,
 		fueluxcheckboxes: fueluxcheckboxes,
 		fueluxcheckboxesinline: fueluxcheckboxesinline,
@@ -39,7 +40,6 @@ define(function ComponentTemplates(require) {
 		textarea: textarea,
 
 		/* to be audited */
-		filebutton: filebutton,
 		selectbasic: selectbasic,
 		selectmultiple: selectmultiple
 	};

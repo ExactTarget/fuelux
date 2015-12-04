@@ -5,12 +5,32 @@
 			"label": {
 				"type": "input",
 				"label": "Label Text",
-				"value": "File Button"
+				"value": "Input"
 			},
 			"id": {
 				"type": "input",
 				"label": "ID / Name",
-				"value": "filebutton"
+				"value": "textinput"
+			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
+			},
+			"required": {
+				"type": "checkbox",
+				"label": "Required",
+				"value": false
+			},
+			"isDisabled": {
+				"type": "checkbox",
+				"label": "Disabled",
+				"value": false
+			},
+			"readonly": {
+				"type": "checkbox",
+				"label": "Readonly",
+				"value": false
 			}
 		}
 	},
