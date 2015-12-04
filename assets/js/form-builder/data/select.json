@@ -1,6 +1,12 @@
 [
   {
+    "title": "Select Basic",
     "fields": {
+      "label": {
+        "type": "input",
+        "label": "Label Text",
+        "value": "Select Basic"
+      },
       "id": {
         "type": "input",
         "label": "ID / Name",
@@ -12,6 +18,27 @@
         "value": [
           "Option one",
           "Option two"
+        ]
+      },
+      "buttonalign": {
+        "type": "select",
+        "label": "Alignment",
+        "value": [
+          {
+            "label": "Left",
+            "value": "text-left",
+            "selected": false
+          },
+          {
+            "label": "Center",
+            "value": "text-center",
+            "selected": false
+          },
+          {
+            "label": "Right",
+            "value": "text-right",
+            "selected": true
+          }
         ]
       },
       "inputsize": {
@@ -35,16 +62,36 @@
           }
         ]
       },
+      "helptext": {
+        "type": "input",
+        "label": "Help Text",
+        "value": "help"
+      },
+      "required": {
+        "type": "checkbox",
+        "label": "Required",
+        "value": false
+      },
+      "isDisabled": {
+        "type": "checkbox",
+        "label": "Disabled",
+        "value": false
+      },
+      "readonly": {
+        "type": "checkbox",
+        "label": "Readonly",
+        "value": false
+      }
+    }
+  },
+  {
+    "title": "Select Multiple",
+    "fields": {
       "label": {
         "type": "input",
         "label": "Label Text",
-        "value": "Select Basic"
-      }
-    },
-    "title": "Select Basic"
-  },
-  {
-    "fields": {
+        "value": "Select Multiple"
+      },
       "id": {
         "type": "input",
         "label": "ID / Name",
@@ -80,12 +127,26 @@
           }
         ]
       },
-      "label": {
+      "helptext": {
         "type": "input",
-        "label": "Label Text",
-        "value": "Select Multiple"
+        "label": "Help Text",
+        "value": "help"
+      },
+      "required": {
+        "type": "checkbox",
+        "label": "Required",
+        "value": false
+      },
+      "isDisabled": {
+        "type": "checkbox",
+        "label": "Disabled",
+        "value": false
+      },
+      "readonly": {
+        "type": "checkbox",
+        "label": "Readonly",
+        "value": false
       }
-    },
-    "title": "Select Multiple"
+    }
   }
 ]

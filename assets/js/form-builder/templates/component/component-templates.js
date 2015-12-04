@@ -13,10 +13,10 @@ define(function ComponentTemplates(require) {
 	var inputwithcombobox = require('text!templates/component/inputwithcombobox.html');
 	var inputwithtext = require('text!templates/component/inputwithtext.html');
 	var search = require('text!templates/component/search.html');
+	var selectbasic = require('text!templates/component/selectbasic.html');
 	var spinbox = require('text!templates/component/spinbox.html');
 	var textarea = require('text!templates/component/textarea.html');
 
-	var selectbasic = require('text!templates/component/selectbasic.html');
 	var selectmultiple = require('text!templates/component/selectmultiple.html');
 
 
@@ -36,11 +36,11 @@ define(function ComponentTemplates(require) {
 		inputwithcombobox: inputwithcombobox,
 		inputwithtext: inputwithtext,
 		search: search,
+		selectbasic: selectbasic,
 		spinbox: spinbox,
 		textarea: textarea,
 
 		/* to be audited */
-		selectbasic: selectbasic,
 		selectmultiple: selectmultiple
 	};
 });
