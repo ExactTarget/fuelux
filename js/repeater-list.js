@@ -139,7 +139,7 @@
 			$table.find('thead th').each(function () {
 				var $th = $(this);
 				var $heading = $th.find('.repeater-list-heading');
-				$heading.outerHeight($th.outerHeight());
+				$heading.css({ height: $th.outerHeight() });
 				$heading.outerWidth($heading.data('forced-width') || $th.outerWidth());
 			});
 		};
