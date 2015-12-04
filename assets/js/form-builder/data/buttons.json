@@ -1,190 +1,305 @@
 [
-  {
-    "fields": {
-      "id": {
-        "type": "input",
-        "label": "ID / Name",
-        "value": "filebutton"
-      },
-      "label": {
-        "type": "input",
-        "label": "Label Text",
-        "value": "File Button"
-      }
-    },
-    "title": "File Button"
-  },
-  {
-    "fields": {
-      "buttontype": {
-        "type": "select",
-        "label": "Button Type",
-        "value": [
-          {
-            "label": "Default",
-            "value": "btn-default",
-            "selected": false
-          },
-          {
-            "label": "Primary",
-            "value": "btn-primary",
-            "selected": true
-          },
-          {
-            "label": "Info",
-            "value": "btn-info",
-            "selected": false
-          },
-          {
-            "label": "Success",
-            "value": "btn-success",
-            "selected": false
-          },
-          {
-            "label": "Warning",
-            "value": "btn-warning",
-            "selected": false
-          },
-          {
-            "label": "Danger",
-            "value": "btn-danger",
-            "selected": false
-          },
-          {
-            "label": "Inverse",
-            "value": "btn-inverse",
-            "selected": false
-          }
-        ]
-      },
-      "id": {
-        "type": "input",
-        "label": "ID / Name",
-        "value": "singlebutton"
-      },
-      "label": {
-        "type": "input",
-        "label": "Label Text",
-        "value": "Single Button"
-      },
-      "buttonlabel": {
-        "type": "input",
-        "label": "Button Label",
-        "value": "Button"
-      }
-    },
-    "title": "Single Button"
-  },
-  {
-    "fields": {
-      "button2type": {
-        "type": "select",
-        "label": "Button Type",
-        "value": [
-          {
-            "label": "Default",
-            "value": "btn-default",
-            "selected": false
-          },
-          {
-            "label": "Primary",
-            "value": "btn-primary",
-            "selected": false
-          },
-          {
-            "label": "Info",
-            "value": "btn-info",
-            "selected": false
-          },
-          {
-            "label": "Success",
-            "value": "btn-success",
-            "selected": false
-          },
-          {
-            "label": "Warning",
-            "value": "btn-warning",
-            "selected": false
-          },
-          {
-            "label": "Danger",
-            "value": "btn-danger",
-            "selected": true
-          },
-          {
-            "label": "Inverse",
-            "value": "btn-inverse",
-            "selected": false
-          }
-        ]
-      },
-      "id": {
-        "type": "input",
-        "label": "Button 1 ID / Name",
-        "value": "button1id"
-      },
-      "id2": {
-        "type": "input",
-        "label": "Button 2 ID / Name",
-        "value": "button2id"
-      },
-      "label": {
-        "type": "input",
-        "label": "Label Text",
-        "value": "Double Button"
-      },
-      "button1type": {
-        "type": "select",
-        "label": "Button Type",
-        "value": [
-          {
-            "label": "Default",
-            "value": "btn-default",
-            "selected": false
-          },
-          {
-            "label": "Primary",
-            "value": "btn-primary",
-            "selected": false
-          },
-          {
-            "label": "Info",
-            "value": "btn-info",
-            "selected": false
-          },
-          {
-            "label": "Success",
-            "value": "btn-success",
-            "selected": true
-          },
-          {
-            "label": "Warning",
-            "value": "btn-warning",
-            "selected": false
-          },
-          {
-            "label": "Danger",
-            "value": "btn-danger",
-            "selected": false
-          },
-          {
-            "label": "Inverse",
-            "value": "btn-inverse",
-            "selected": false
-          }
-        ]
-      },
-      "button1label": {
-        "type": "input",
-        "label": "Button Label",
-        "value": "Good Button"
-      },
-      "button2label": {
-        "type": "input",
-        "label": "Button Label",
-        "value": "Scary Button"
-      }
-    },
-    "title": "Double Button"
-  }
+	{
+		"title": "File Button",
+		"fields": {
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "File Button"
+			},
+			"id": {
+				"type": "input",
+				"label": "ID / Name",
+				"value": "filebutton"
+			}
+		}
+	},
+	{
+		"title": "Button",
+		"fields": {
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Single Button"
+			},
+			"id": {
+				"type": "input",
+				"label": "ID / Name",
+				"value": "singlebutton"
+			},
+			"buttonlabel": {
+				"type": "input",
+				"label": "Button Value",
+				"value": "Button"
+			},
+			"buttontype": {
+				"type": "select",
+				"label": "Button Type",
+				"value": [
+					{
+						"label": "Default",
+						"value": "btn-default",
+						"selected": false
+					},
+					{
+						"label": "Primary",
+						"value": "btn-primary",
+						"selected": true
+					},
+					{
+						"label": "Info",
+						"value": "btn-info",
+						"selected": false
+					},
+					{
+						"label": "Success",
+						"value": "btn-success",
+						"selected": false
+					},
+					{
+						"label": "Warning",
+						"value": "btn-warning",
+						"selected": false
+					},
+					{
+						"label": "Danger",
+						"value": "btn-danger",
+						"selected": false
+					},
+					{
+						"label": "Inverse",
+						"value": "btn-inverse",
+						"selected": false
+					},
+					{
+						"label": "Link",
+						"value": "btn-link",
+						"selected": false
+					}
+				]
+			},
+			"buttonalign": {
+				"type": "select",
+				"label": "Alignment",
+				"value": [
+					{
+						"label": "Left",
+						"value": "text-left",
+						"selected": false
+					},
+					{
+						"label": "Center",
+						"value": "text-center",
+						"selected": false
+					},
+					{
+						"label": "Right",
+						"value": "text-right",
+						"selected": true
+					}
+				]
+			},
+			"inputsize": {
+				"type": "select",
+				"label": "Input Size",
+				"value": [
+					{
+						"label": "Extra Small",
+						"value": "btn-xs",
+						"selected": false
+					},{
+						"label": "Small",
+						"value": "btn-sm",
+						"selected": false
+					},{
+						"label": "Normal",
+						"value": "",
+						"selected": true
+					},
+					{
+						"label": "Large",
+						"value": "btn-lg",
+						"selected": false
+					}
+				]
+			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
+			},
+			"isDisabled": {
+				"type": "checkbox",
+				"label": "Disabled",
+				"value": false
+			}
+		}
+	},
+	{
+		"title": "Button Group",
+		"fields": {
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Button Group"
+			},
+			"id": {
+				"type": "input",
+				"label": "Left Button ID / Name",
+				"value": "button1id"
+			},
+			"id2": {
+				"type": "input",
+				"label": "Right Button ID / Name",
+				"value": "button2id"
+			},
+			"button1label": {
+				"type": "input",
+				"label": "Left Button Value",
+				"value": "Left Button"
+			},
+			"button2label": {
+				"type": "input",
+				"label": "Right Button Value",
+				"value": "Right Button"
+			},
+			"button1type": {
+				"type": "select",
+				"label": "Left Button Type",
+				"value": [
+					{
+						"label": "Default",
+						"value": "btn-default",
+						"selected": false
+					},
+					{
+						"label": "Primary",
+						"value": "btn-primary",
+						"selected": false
+					},
+					{
+						"label": "Info",
+						"value": "btn-info",
+						"selected": false
+					},
+					{
+						"label": "Success",
+						"value": "btn-success",
+						"selected": true
+					},
+					{
+						"label": "Warning",
+						"value": "btn-warning",
+						"selected": false
+					},
+					{
+						"label": "Danger",
+						"value": "btn-danger",
+						"selected": false
+					},
+					{
+						"label": "Inverse",
+						"value": "btn-inverse",
+						"selected": false
+					}
+				]
+			},
+			"button2type": {
+				"type": "select",
+				"label": "Right Button Type",
+				"value": [
+					{
+						"label": "Default",
+						"value": "btn-default",
+						"selected": false
+					},
+					{
+						"label": "Primary",
+						"value": "btn-primary",
+						"selected": false
+					},
+					{
+						"label": "Info",
+						"value": "btn-info",
+						"selected": false
+					},
+					{
+						"label": "Success",
+						"value": "btn-success",
+						"selected": false
+					},
+					{
+						"label": "Warning",
+						"value": "btn-warning",
+						"selected": false
+					},
+					{
+						"label": "Danger",
+						"value": "btn-danger",
+						"selected": true
+					},
+					{
+						"label": "Inverse",
+						"value": "btn-inverse",
+						"selected": false
+					}
+				]
+			},
+			"buttonalign": {
+				"type": "select",
+				"label": "Alignment",
+				"value": [
+					{
+						"label": "Left",
+						"value": "text-left",
+						"selected": false
+					},
+					{
+						"label": "Center",
+						"value": "text-center",
+						"selected": false
+					},
+					{
+						"label": "Right",
+						"value": "text-right",
+						"selected": true
+					}
+				]
+			},
+			"inputsize": {
+				"type": "select",
+				"label": "Input Size",
+				"value": [
+					{
+						"label": "Extra Small",
+						"value": "btn-xs",
+						"selected": false
+					},{
+						"label": "Small",
+						"value": "btn-sm",
+						"selected": false
+					},{
+						"label": "Normal",
+						"value": "",
+						"selected": true
+					},
+					{
+						"label": "Large",
+						"value": "btn-lg",
+						"selected": false
+					}
+				]
+			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
+			},
+			"isDisabled": {
+				"type": "checkbox",
+				"label": "Disabled",
+				"value": false
+			}
+		}
+	}
 ]

@@ -2,30 +2,15 @@
 	{
 		"title": "Input",
 		"fields": {
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Input"
+			},
 			"id": {
 				"type": "input",
 				"label": "ID / Name",
 				"value": "textinput"
-			},
-			"inputsize": {
-				"type": "select",
-				"label": "Input Size",
-				"value": [
-					{
-						"label": "Small",
-						"value": "sm",
-						"selected": false
-					},{
-						"label": "Normal",
-						"value": "",
-						"selected": true
-					},
-					{
-						"label": "Large",
-						"value": "lg",
-						"selected": false
-					}
-				]
 			},
 			"inputtype": {
 				"type": "select",
@@ -103,20 +88,35 @@
 					}
 				]
 			},
-			"label": {
-				"type": "input",
-				"label": "Label Text",
-				"value": "Input"
-			},
-			"helptext": {
-				"type": "input",
-				"label": "Help Text",
-				"value": "help"
+			"inputsize": {
+				"type": "select",
+				"label": "Input Size",
+				"value": [
+					{
+						"label": "Small",
+						"value": "sm",
+						"selected": false
+					},{
+						"label": "Normal",
+						"value": "",
+						"selected": true
+					},
+					{
+						"label": "Large",
+						"value": "lg",
+						"selected": false
+					}
+				]
 			},
 			"placeholder": {
 				"type": "input",
 				"label": "Placeholder",
 				"value": "placeholder"
+			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
 			},
 			"required": {
 				"type": "checkbox",
@@ -148,15 +148,15 @@
 				"label": "Label Text",
 				"value": "Spinbox"
 			},
-			"helptext": {
-				"type": "input",
-				"label": "Help Text",
-				"value": "help"
-			},
 			"placeholder": {
 				"type": "number",
 				"label": "Initial Value",
 				"value": 1
+			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
 			},
 			"required": {
 				"type": "checkbox",
@@ -178,6 +178,11 @@
 	{
 		"title": "Input With Text",
 		"fields": {
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Aside Text"
+			},
 			"id": {
 				"type": "input",
 				"label": "ID / Name",
@@ -192,26 +197,6 @@
 				"type": "input",
 				"label": "Append",
 				"value": "append"
-			},
-			"inputsize": {
-				"type": "select",
-				"label": "Input Size",
-				"value": [
-					{
-						"label": "Small",
-						"value": "sm",
-						"selected": false
-					},{
-						"label": "Normal",
-						"value": "",
-						"selected": true
-					},
-					{
-						"label": "Large",
-						"value": "lg",
-						"selected": false
-					}
-				]
 			},
 			"inputtype": {
 				"type": "select",
@@ -289,20 +274,35 @@
 					}
 				]
 			},
-			"label": {
-				"type": "input",
-				"label": "Label Text",
-				"value": "Aside Text"
-			},
-			"helptext": {
-				"type": "input",
-				"label": "Help Text",
-				"value": "help"
+			"inputsize": {
+				"type": "select",
+				"label": "Input Size",
+				"value": [
+					{
+						"label": "Small",
+						"value": "sm",
+						"selected": false
+					},{
+						"label": "Normal",
+						"value": "",
+						"selected": true
+					},
+					{
+						"label": "Large",
+						"value": "lg",
+						"selected": false
+					}
+				]
 			},
 			"placeholder": {
 				"type": "input",
 				"label": "Placeholder",
 				"value": "placeholder"
+			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
 			},
 			"required": {
 				"type": "checkbox",
@@ -324,6 +324,11 @@
 	{
 		"title": "Text Area",
 		"fields": {
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Text Area"
+			},
 			"id": {
 				"type": "input",
 				"label": "ID / Name",
@@ -369,15 +374,15 @@
 					}
 				]
 			},
-			"label": {
-				"type": "input",
-				"label": "Label Text",
-				"value": "Text Area"
-			},
 			"textarea": {
 				"type": "textarea",
 				"label": "Starting Text",
 				"value": "default text"
+			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
 			},
 			"required": {
 				"type": "checkbox",

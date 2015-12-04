@@ -2,10 +2,31 @@
 	{
 		"title": "Search",
 		"fields": {
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Search"
+			},
 			"id": {
 				"type": "input",
 				"label": "ID / Name",
 				"value": "search"
+			},
+			"placement": {
+				"type": "select",
+				"label": "Layout",
+				"value": [
+					{
+						"label": "Prepended",
+						"value": "prepended",
+						"selected": false
+					},
+					{
+						"label": "Appended",
+						"value": "appended",
+						"selected": true
+					}
+				]
 			},
 			"inputsize": {
 				"type": "select",
@@ -27,36 +48,15 @@
 					}
 				]
 			},
-			"placement": {
-				"type": "select",
-				"label": "Layout",
-				"value": [
-					{
-						"label": "Prepended",
-						"value": "prepended",
-						"selected": false
-					},
-					{
-						"label": "Appended",
-						"value": "appended",
-						"selected": true
-					}
-				]
-			},
-			"label": {
+			"placeholder": {
 				"type": "input",
-				"label": "Label Text",
-				"value": "Search"
+				"label": "Placeholder",
+				"value": "placeholder"
 			},
 			"helptext": {
 				"type": "input",
 				"label": "Help Text",
 				"value": "help"
-			},
-			"placeholder": {
-				"type": "input",
-				"label": "Placeholder",
-				"value": "placeholder"
 			},
 			"required": {
 				"type": "checkbox",
@@ -78,10 +78,107 @@
 	{
 		"title": "Input With Checkbox",
 		"fields": {
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Checkbox"
+			},
 			"id": {
 				"type": "input",
 				"label": "ID / Name",
 				"value": "inputwithcheckbox"
+			},
+			"inputtype": {
+				"type": "select",
+				"label": "Input Type",
+				"value": [
+					{
+						"label": "Text",
+						"value": "text",
+						"selected": true
+					},
+					{
+						"label": "Password",
+						"value": "password",
+						"selected": false
+					},
+					{
+						"label": "Datetime",
+						"value": "datetime",
+						"selected": false
+					},
+					{
+						"label": "Datetime-Local",
+						"value": "datetime-local",
+						"selected": false
+					},
+					{
+						"label": "Date",
+						"value": "date",
+						"selected": false
+					},
+					{
+						"label": "Month",
+						"value": "month",
+						"selected": false
+					},
+					{
+						"label": "Time",
+						"value": "time",
+						"selected": false
+					},
+					{
+						"label": "Week",
+						"value": "week",
+						"selected": false
+					},
+					{
+						"label": "Number",
+						"value": "number",
+						"selected": false
+					},
+					{
+						"label": "Email",
+						"value": "email",
+						"selected": false
+					},
+					{
+						"label": "URL",
+						"value": "url",
+						"selected": false
+					},
+					{
+						"label": "Search",
+						"value": "search",
+						"selected": false
+					},
+					{
+						"label": "Tel",
+						"value": "tel",
+						"selected": false
+					},
+					{
+						"label": "Color",
+						"value": "color",
+						"selected": false
+					}
+				]
+			},
+			"placement": {
+				"type": "select",
+				"label": "Layout",
+				"value": [
+					{
+						"label": "Prepended",
+						"value": "prepended",
+						"selected": false
+					},
+					{
+						"label": "Appended",
+						"value": "appended",
+						"selected": true
+					}
+				]
 			},
 			"inputsize": {
 				"type": "select",
@@ -103,46 +200,25 @@
 					}
 				]
 			},
-			"placement": {
-				"type": "select",
-				"label": "Layout",
-				"value": [
-					{
-						"label": "Prepended",
-						"value": "prepended",
-						"selected": false
-					},
-					{
-						"label": "Appended",
-						"value": "appended",
-						"selected": true
-					}
-				]
-			},
-			"label": {
-				"type": "input",
-				"label": "Label Text",
-				"value": "Checkbox"
-			},
-			"helptext": {
-				"type": "input",
-				"label": "Help Text",
-				"value": "help"
-			},
 			"placeholder": {
 				"type": "input",
 				"label": "Placeholder",
 				"value": "placeholder"
+			},
+			"checkboxValue": {
+				"type": "input",
+				"label": "Checkbox Value",
+				"value": "option1"
 			},
 			"checked": {
 				"type": "checkbox",
 				"label": "Checked",
 				"value": false
 			},
-			"checkboxValue": {
+			"helptext": {
 				"type": "input",
-				"label": "Checkbox Value",
-				"value": "option1"
+				"label": "Help Text",
+				"value": "help"
 			},
 			"required": {
 				"type": "checkbox",
@@ -164,24 +240,91 @@
 	{
 		"title": "Input With Button Drop Down",
 		"fields": {
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Drop Down"
+			},
 			"id": {
 				"type": "input",
 				"label": "ID / Name",
 				"value": "inputwithbuttondropdown"
 			},
-			"buttonoptions": {
-				"type": "textarea-split",
-				"label": "Options",
+			"inputtype": {
+				"type": "select",
+				"label": "Input Type",
 				"value": [
-					"Option one",
-					"Option two",
-					"Option three"
+					{
+						"label": "Text",
+						"value": "text",
+						"selected": true
+					},
+					{
+						"label": "Password",
+						"value": "password",
+						"selected": false
+					},
+					{
+						"label": "Datetime",
+						"value": "datetime",
+						"selected": false
+					},
+					{
+						"label": "Datetime-Local",
+						"value": "datetime-local",
+						"selected": false
+					},
+					{
+						"label": "Date",
+						"value": "date",
+						"selected": false
+					},
+					{
+						"label": "Month",
+						"value": "month",
+						"selected": false
+					},
+					{
+						"label": "Time",
+						"value": "time",
+						"selected": false
+					},
+					{
+						"label": "Week",
+						"value": "week",
+						"selected": false
+					},
+					{
+						"label": "Number",
+						"value": "number",
+						"selected": false
+					},
+					{
+						"label": "Email",
+						"value": "email",
+						"selected": false
+					},
+					{
+						"label": "URL",
+						"value": "url",
+						"selected": false
+					},
+					{
+						"label": "Search",
+						"value": "search",
+						"selected": false
+					},
+					{
+						"label": "Tel",
+						"value": "tel",
+						"selected": false
+					},
+					{
+						"label": "Color",
+						"value": "color",
+						"selected": false
+					}
 				]
-			},
-			"buttontext": {
-				"type": "input",
-				"label": "Button Text",
-				"value": "Action"
 			},
 			"placement": {
 				"type": "select",
@@ -219,20 +362,70 @@
 					}
 				]
 			},
-			"label": {
+			"placeholder": {
 				"type": "input",
-				"label": "Label Text",
-				"value": "Drop Down"
+				"label": "Placeholder",
+				"value": "placeholder"
+			},
+			"buttonoptions": {
+				"type": "textarea-split",
+				"label": "Options",
+				"value": [
+					"Option one",
+					"Option two",
+					"Option three"
+				]
+			},
+			"buttontext": {
+				"type": "input",
+				"label": "Button Text",
+				"value": "Action"
+			},
+			"buttontype": {
+				"type": "select",
+				"label": "Button Type",
+				"value": [
+					{
+						"label": "Default",
+						"value": "btn-default",
+						"selected": true
+					},
+					{
+						"label": "Primary",
+						"value": "btn-primary",
+						"selected": false
+					},
+					{
+						"label": "Info",
+						"value": "btn-info",
+						"selected": false
+					},
+					{
+						"label": "Success",
+						"value": "btn-success",
+						"selected": false
+					},
+					{
+						"label": "Warning",
+						"value": "btn-warning",
+						"selected": false
+					},
+					{
+						"label": "Danger",
+						"value": "btn-danger",
+						"selected": false
+					},
+					{
+						"label": "Inverse",
+						"value": "btn-inverse",
+						"selected": false
+					}
+				]
 			},
 			"helptext": {
 				"type": "input",
 				"label": "Help Text",
 				"value": "help"
-			},
-			"placeholder": {
-				"type": "input",
-				"label": "Placeholder",
-				"value": "placeholder"
 			},
 			"required": {
 				"type": "checkbox",
@@ -254,24 +447,91 @@
 	{
 		"title": "Input With Combobox",
 		"fields": {
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Combobox"
+			},
 			"id": {
 				"type": "input",
 				"label": "ID / Name",
 				"value": "inputwithcombobox"
 			},
-			"buttonoptions": {
-				"type": "textarea-split",
-				"label": "Options",
+			"inputtype": {
+				"type": "select",
+				"label": "Input Type",
 				"value": [
-					"Option one",
-					"Option two",
-					"Option three"
+					{
+						"label": "Text",
+						"value": "text",
+						"selected": true
+					},
+					{
+						"label": "Password",
+						"value": "password",
+						"selected": false
+					},
+					{
+						"label": "Datetime",
+						"value": "datetime",
+						"selected": false
+					},
+					{
+						"label": "Datetime-Local",
+						"value": "datetime-local",
+						"selected": false
+					},
+					{
+						"label": "Date",
+						"value": "date",
+						"selected": false
+					},
+					{
+						"label": "Month",
+						"value": "month",
+						"selected": false
+					},
+					{
+						"label": "Time",
+						"value": "time",
+						"selected": false
+					},
+					{
+						"label": "Week",
+						"value": "week",
+						"selected": false
+					},
+					{
+						"label": "Number",
+						"value": "number",
+						"selected": false
+					},
+					{
+						"label": "Email",
+						"value": "email",
+						"selected": false
+					},
+					{
+						"label": "URL",
+						"value": "url",
+						"selected": false
+					},
+					{
+						"label": "Search",
+						"value": "search",
+						"selected": false
+					},
+					{
+						"label": "Tel",
+						"value": "tel",
+						"selected": false
+					},
+					{
+						"label": "Color",
+						"value": "color",
+						"selected": false
+					}
 				]
-			},
-			"buttontext": {
-				"type": "input",
-				"label": "Button Text",
-				"value": "Action"
 			},
 			"placement": {
 				"type": "select",
@@ -309,20 +569,70 @@
 					}
 				]
 			},
-			"label": {
+			"placeholder": {
 				"type": "input",
-				"label": "Label Text",
-				"value": "Combobox"
+				"label": "Placeholder",
+				"value": "placeholder"
+			},
+			"buttonoptions": {
+				"type": "textarea-split",
+				"label": "Options",
+				"value": [
+					"Option one",
+					"Option two",
+					"Option three"
+				]
+			},
+			"buttontext": {
+				"type": "input",
+				"label": "Button Text",
+				"value": "Action"
+			},
+			"buttontype": {
+				"type": "select",
+				"label": "Button Type",
+				"value": [
+					{
+						"label": "Default",
+						"value": "btn-default",
+						"selected": true
+					},
+					{
+						"label": "Primary",
+						"value": "btn-primary",
+						"selected": false
+					},
+					{
+						"label": "Info",
+						"value": "btn-info",
+						"selected": false
+					},
+					{
+						"label": "Success",
+						"value": "btn-success",
+						"selected": false
+					},
+					{
+						"label": "Warning",
+						"value": "btn-warning",
+						"selected": false
+					},
+					{
+						"label": "Danger",
+						"value": "btn-danger",
+						"selected": false
+					},
+					{
+						"label": "Inverse",
+						"value": "btn-inverse",
+						"selected": false
+					}
+				]
 			},
 			"helptext": {
 				"type": "input",
 				"label": "Help Text",
 				"value": "help"
-			},
-			"placeholder": {
-				"type": "input",
-				"label": "Placeholder",
-				"value": "placeholder"
 			},
 			"required": {
 				"type": "checkbox",

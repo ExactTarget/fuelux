@@ -1,7 +1,8 @@
-<!-- Button -->
-<div class="control-group">
-  <label class="control-label" for="<%= id %>"><%= label %></label>
-  <div class="controls">
-    <button id="<%= id %>" name="<%= id %>" class='btn <%= buttontype %>'><%= buttonlabel %></button>
-  </div>
+<!-- Button http://getbootstrap.com/css/#buttons -->
+<div class="form-group">
+	<label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>"><%= label %></label>
+	<div class="controls <%= buttonalign %><% if(horizontal) {%> col-sm-10<% } %>">
+		<button id="<%= id %>" name="<%= id %>" class='btn <%= buttontype %> <%= inputsize %>' <% if(isDisabled) {%> disabled <% } %> aria-label="<%= label %>"><%= buttonlabel %></button>
+		<% if (helptext.length > 0) { %><p class="help-block"><%= helptext %></p><% } %>
+	</div>
 </div>

@@ -6,10 +6,10 @@
 <% } %>
 		<div class="input-group<% if(inputsize) {%> input-group-<%= inputsize %><% } %>" id="<%= id %>">
 			<% if(placement=="appended") { %>
-				<input id="<%= id %>Input" name="<%= id %>Input" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
+				<input id="<%= id %>Input" name="<%= id %>Input" type="<%= inputtype %>" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
 			<% } %>
 			<div class="input-group-btn">
-				<button class="btn btn-default dropdown-toggle btn-<%= inputsize %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
+				<button class="btn <%= buttontype %> dropdown-toggle btn-<%= inputsize %>" data-toggle="dropdown" aria-label="<%= label %> related options" aria-haspopup="true" aria-expanded="false" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
 					<%= buttontext %>
 					<span class="caret"></span>
 				</button>
@@ -18,7 +18,7 @@
 				</ul>
 			</div><!-- /btn-group -->
 			<% if(placement=="prepended") { %>
-				<input id="<%= id %>Input" name="<%= id %>Input" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
+				<input id="<%= id %>Input" name="<%= id %>Input" type="<%= inputtype %>" class="<% if(!horizontal && inputsize) {%>input-<%= inputsize %><% } %> form-control" placeholder="<%= placeholder %>" <% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %> />
 			<% } %>
 		</div><!-- /input-group -->
 
