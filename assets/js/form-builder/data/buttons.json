@@ -5,12 +5,12 @@
 			"label": {
 				"type": "input",
 				"label": "Label Text",
-				"value": "Input"
+				"value": "File Input"
 			},
 			"id": {
 				"type": "input",
 				"label": "ID / Name",
-				"value": "textinput"
+				"value": "fileinput"
 			},
 			"helptext": {
 				"type": "input",
