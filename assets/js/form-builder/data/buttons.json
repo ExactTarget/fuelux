@@ -57,6 +57,22 @@
 				"label": "Button Type",
 				"value": [
 					{
+						"label": "Button",
+						"value": "button",
+						"selected": true
+					},
+					{
+						"label": "Submit",
+						"value": "submit",
+						"selected": false
+					}
+				]
+			},
+			"buttonstyle": {
+				"type": "select",
+				"label": "Button Style",
+				"value": [
+					{
 						"label": "Default",
 						"value": "btn-default",
 						"selected": false
@@ -188,6 +204,38 @@
 				"label": "Left Button Type",
 				"value": [
 					{
+						"label": "Button",
+						"value": "button",
+						"selected": true
+					},
+					{
+						"label": "Submit",
+						"value": "submit",
+						"selected": false
+					}
+				]
+			},
+			"button2type": {
+				"type": "select",
+				"label": "Right Button Type",
+				"value": [
+					{
+						"label": "Button",
+						"value": "button",
+						"selected": true
+					},
+					{
+						"label": "Submit",
+						"value": "submit",
+						"selected": false
+					}
+				]
+			},
+			"button1style": {
+				"type": "select",
+				"label": "Left Button Style",
+				"value": [
+					{
 						"label": "Default",
 						"value": "btn-default",
 						"selected": false
@@ -224,9 +272,9 @@
 					}
 				]
 			},
-			"button2type": {
+			"button2style": {
 				"type": "select",
-				"label": "Right Button Type",
+				"label": "Right Button Style",
 				"value": [
 					{
 						"label": "Default",

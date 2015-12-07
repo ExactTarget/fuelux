@@ -381,9 +381,9 @@
 				"label": "Button Text",
 				"value": "Action"
 			},
-			"buttontype": {
+			"buttonstyle": {
 				"type": "select",
-				"label": "Button Type",
+				"label": "Button Style",
 				"value": [
 					{
 						"label": "Default",
@@ -588,9 +588,9 @@
 				"label": "Button Text",
 				"value": "Action"
 			},
-			"buttontype": {
+			"buttonstyle": {
 				"type": "select",
-				"label": "Button Type",
+				"label": "Button Style",
 				"value": [
 					{
 						"label": "Default",

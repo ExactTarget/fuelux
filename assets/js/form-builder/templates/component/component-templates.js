@@ -14,7 +14,7 @@ define(function ComponentTemplates(require) {
 	var inputwithcombobox = require('text!templates/component/inputwithcombobox.html');
 	var inputwithtext = require('text!templates/component/inputwithtext.html');
 	var search = require('text!templates/component/search.html');
-	var fueluxselect = require('text!templates/component/fueluxselect.html');
+	var selectlist = require('text!templates/component/selectlist.html');
 	var spinbox = require('text!templates/component/spinbox.html');
 	var textarea = require('text!templates/component/textarea.html');
 
@@ -34,7 +34,7 @@ define(function ComponentTemplates(require) {
 		inputwithcombobox: inputwithcombobox,
 		inputwithtext: inputwithtext,
 		search: search,
-		fueluxselect: fueluxselect,
+		selectlist: selectlist,
 		spinbox: spinbox,
 		textarea: textarea,
 	};

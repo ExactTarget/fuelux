@@ -1,16 +1,16 @@
 [
   {
-    "title": "Fuel UX Select",
+    "title": "Selectlist",
     "fields": {
       "label": {
         "type": "input",
         "label": "Label Text",
-        "value": "Fuel UX Select"
+        "value": "Selectlist"
       },
       "id": {
         "type": "input",
         "label": "ID / Name",
-        "value": "selectbasic"
+        "value": "selectlist"
       },
       "options": {
         "type": "textarea-split",

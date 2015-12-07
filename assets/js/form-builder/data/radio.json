@@ -5,7 +5,7 @@
 			"label": {
 				"type": "input",
 				"label": "Label Text",
-				"value": "Multiple Radios"
+				"value": "Fuel UX Radios"
 			},
 			"name": {
 				"type": "input",
@@ -48,12 +48,12 @@
 			"label": {
 				"type": "input",
 				"label": "Label Text",
-				"value": "Inline Radios"
+				"value": "Fuel UX Inline Radios"
 			},
 			"name": {
 				"type": "input",
 				"label": "Group Name",
-				"value": "radios"
+				"value": "radios-inline"
 			},
 			"radios": {
 				"type": "textarea-split",
@@ -138,7 +138,7 @@
 			"name": {
 				"type": "input",
 				"label": "Group Name",
-				"value": "checkboxes"
+				"value": "checkboxes-inline"
 			},
 			"checkboxes": {
 				"type": "textarea-split",
