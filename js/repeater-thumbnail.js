@@ -170,6 +170,8 @@
 				if (selectable) {
 					$thumbnail.addClass('selectable');
 					$thumbnail.on('click', function () {
+						if (self.$element.hasClass('disabled')) return;
+
 						if (!$thumbnail.hasClass(selected)) {
 							if (selectable !== 'multi') {
 								self.$canvas.find('.repeater-thumbnail-cont .selectable.selected').each(function () {
