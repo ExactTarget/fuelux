@@ -368,7 +368,7 @@
 
 			this.currentPage = (page !== undefined) ? page : NaN;
 
-			if ((this.currentPage + 1) >= pages) {
+			if (data.end === true || (this.currentPage + 1) >= pages) {
 				this.infiniteScrollingCont.infinitescroll('end', end);
 			}
 		},
@@ -593,6 +593,7 @@
 				data = data || {};
 
 				if (self.infiniteScrollingEnabled) {
+					// pass empty object because data handled in infiniteScrollPaging method
 					self.infiniteScrollingCallback({});
 				} else {
 					self.itemization(data);
