@@ -286,6 +286,8 @@
 
 			//row level actions click
 			this.$element.find('.table-actions tbody .action-item').on('click', function(e) {
+				if (self.$element.hasClass('disabled')) return;
+
 				var actionName = $(this).data('action');
 				var row = $(this).data('row');
 				var selected = {
@@ -296,6 +298,8 @@
 			});
 			// bulk actions click
 			this.$element.find('.table-actions thead .action-item').on('click', function(e) {
+				if (self.$element.hasClass('disabled')) return;
+
 				var actionName = $(this).data('action');
 				var selected = {
 					actionName: actionName,
@@ -378,21 +382,47 @@
 
 			this.$element.find('.table-frozen tbody .checkbox-inline').on('change', function(e) {
 				e.preventDefault();
-				var row = $(this).attr('data-row');
-				row = parseInt(row) + 1;
-				self.$element.find('.repeater-list-wrapper > table tbody tr:nth-child('+ row +')').click();
+
+				if (!self.list_revertingCheckbox) {
+					if (self.$element.hasClass('disabled')) {
+						revertCheckbox($(e.currentTarget));
+					} else {
+						var row = $(this).attr('data-row');
+						row = parseInt(row) + 1;
+						self.$element.find('.repeater-list-wrapper > table tbody tr:nth-child('+ row +')').click();
+					}
+				}
 			});
 
-			this.$element.find('.frozen-thead-wrapper thead .checkbox-inline').on('change', function () {
-				if ($(this).checkbox('isChecked')){
-					self.$element.find('.repeater-list-wrapper > table tbody tr:not(.selected)').click();
-					self.$element.trigger('selected.fu.repeaterList', $checkboxes);
-				}
-				else {
-					self.$element.find('.repeater-list-wrapper > table tbody tr.selected').click();
-					self.$element.trigger('deselected.fu.repeaterList', $checkboxes);
+			this.$element.find('.frozen-thead-wrapper thead .checkbox-inline').on('change', function (e) {
+				if (!self.list_revertingCheckbox) {
+					if (self.$element.hasClass('disabled')) {
+						revertCheckbox($(e.currentTarget));
+					} else {
+						if ($(this).checkbox('isChecked')){
+							self.$element.find('.repeater-list-wrapper > table tbody tr:not(.selected)').click();
+							self.$element.trigger('selected.fu.repeaterList', $checkboxes);
+						}
+						else {
+							self.$element.find('.repeater-list-wrapper > table tbody tr.selected').click();
+							self.$element.trigger('deselected.fu.repeaterList', $checkboxes);
+						}
+					}
 				}
 			});
+
+			function revertCheckbox ($checkboxLabel) {
+				self.list_revertingCheckbox = true;
+				var $input = $checkboxLabel.find('input');
+				if ($input.is(':checked')) {
+					$checkboxLabel.removeClass('checked');
+					$input.prop('checked', false);
+				} else {
+					$checkboxLabel.addClass('checked');
+					$input.prop('checked', true);
+				}
+				delete self.list_revertingCheckbox;
+			}
 		};
 
 		//ADDITIONAL DEFAULT OPTIONS
@@ -623,6 +653,8 @@
 		if (sortable) {
 			$both.addClass('sortable');
 			$div.on('click.fu.repeaterList', function () {
+				if (self.$element.hasClass('disabled')) return;
+
 				self.list_sortProperty = (typeof sortable === 'string') ? sortable : columns[index].property;
 				if ($div.hasClass('sorted')) {
 					if ($span.hasClass(chevUp)) {
@@ -684,6 +716,8 @@
 			$row.data('item_data', rows[index]);
 
 			$row.on('click.fu.repeaterList', function () {
+				if (self.$element.hasClass('disabled')) return;
+
 				var $item = $(this);
 				var index = $(this).index();
 				index = index + 1;
