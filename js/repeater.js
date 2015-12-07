@@ -366,7 +366,7 @@
 
 			this.currentPage = (page !== undefined) ? page : NaN;
 
-			if (data.end || (this.currentPage + 1) >= pages) {
+			if (data.end === true || (this.currentPage + 1) >= pages) {
 				this.infiniteScrollingCont.infinitescroll('end', end);
 			}
 		},
