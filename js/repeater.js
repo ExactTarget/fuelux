@@ -66,6 +66,7 @@
 		this.resizeTimeout = {};
 		this.stamp = new Date().getTime() + (Math.floor(Math.random() * 100) + 1);
 		this.storedDataSourceOpts = null;
+		this.syncingViewButtonState = false;
 		this.viewOptions = {};
 		this.viewType = null;
 
@@ -222,7 +223,7 @@
 
 			this.$search.search(disable);
 			this.$filters.selectlist(disable);
-			this.$views.find('label').attr(disabled, disabled);
+			this.$views.find('label, input').addClass(disabled).attr(disabled, disabled);
 			this.$pageSize.selectlist(disable);
 			this.$primaryPaging.find('.combobox').combobox(disable);
 			this.$secondaryPaging.attr(disabled, disabled);
@@ -240,7 +241,7 @@
 
 			this.$search.search(enable);
 			this.$filters.selectlist(enable);
-			this.$views.find('label').removeAttr(disabled);
+			this.$views.find('label, input').removeClass(disabled).removeAttr(disabled);
 			this.$pageSize.selectlist('enable');
 			this.$primaryPaging.find('.combobox').combobox(enable);
 			this.$secondaryPaging.removeAttr(disabled);
@@ -580,6 +581,8 @@
 				}
 			}
 
+			this.syncViewButtonState();
+
 			options.preserve = (options.preserve !== undefined) ? options.preserve : !viewChanged;
 			this.clear(options);
 
@@ -758,10 +761,31 @@
 		viewChanged: function (e) {
 			var $selected = $(e.target);
 			var val = $selected.val();
-			this.render({
-				changeView: val,
-				pageIncrement: null
-			});
+
+			if (!this.syncingViewButtonState) {
+				if (this.$element.hasClass('disabled') || $selected.parents('label:first').hasClass('disabled')) {
+					this.syncViewButtonState();
+				} else {
+					this.render({
+						changeView: val,
+						pageIncrement: null
+					});
+				}
+			}
+		},
+
+		syncViewButtonState: function () {
+			var $itemToCheck = this.$views.find('input[value="' + this.currentView + '"]');
+
+			this.syncingViewButtonState = true;
+			this.$views.find('input').prop('checked', false);
+			this.$views.find('label.active').removeClass('active');
+
+			if ($itemToCheck.length > 0) {
+				$itemToCheck.prop('checked', true);
+				$itemToCheck.parents('label:first').addClass('active');
+			}
+			this.syncingViewButtonState = false;
 		}
 	};
 
