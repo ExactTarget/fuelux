@@ -411,16 +411,9 @@
 				}
 			});
 
-			function revertCheckbox ($checkboxLabel) {
+			function revertCheckbox ($checkbox) {
 				self.list_revertingCheckbox = true;
-				var $input = $checkboxLabel.find('input');
-				if ($input.is(':checked')) {
-					$checkboxLabel.removeClass('checked');
-					$input.prop('checked', false);
-				} else {
-					$checkboxLabel.addClass('checked');
-					$input.prop('checked', true);
-				}
+				$checkbox.checkbox('toggle');
 				delete self.list_revertingCheckbox;
 			}
 		};
