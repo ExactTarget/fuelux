@@ -55,6 +55,7 @@
 
 		this.currentPage = 0;
 		this.currentView = null;
+		this.isDisabled = false;
 		this.infiniteScrollingCallback = function () {};
 		this.infiniteScrollingCont = null;
 		this.infiniteScrollingEnabled = false;
@@ -230,6 +231,7 @@
 			this.$prevBtn.attr(disabled, disabled);
 			this.$nextBtn.attr(disabled, disabled);
 
+			this.isDisabled = true;
 			this.$element.addClass('disabled');
 			this.$element.trigger('disabled.fu.repeater');
 		},
@@ -267,6 +269,7 @@
 				this.$pageSize.selectlist('disable');
 			}
 
+			this.isDisabled = false;
 			this.$element.removeClass('disabled');
 			this.$element.trigger('enabled.fu.repeater');
 		},
@@ -763,7 +766,7 @@
 			var val = $selected.val();
 
 			if (!this.syncingViewButtonState) {
-				if (this.$element.hasClass('disabled') || $selected.parents('label:first').hasClass('disabled')) {
+				if (this.isDisabled || $selected.parents('label:first').hasClass('disabled')) {
 					this.syncViewButtonState();
 				} else {
 					this.render({

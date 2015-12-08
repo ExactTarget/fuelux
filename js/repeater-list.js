@@ -286,7 +286,7 @@
 
 			//row level actions click
 			this.$element.find('.table-actions tbody .action-item').on('click', function(e) {
-				if (self.$element.hasClass('disabled')) return;
+				if (self.isDisabled) return;
 
 				var actionName = $(this).data('action');
 				var row = $(this).data('row');
@@ -298,7 +298,7 @@
 			});
 			// bulk actions click
 			this.$element.find('.table-actions thead .action-item').on('click', function(e) {
-				if (self.$element.hasClass('disabled')) return;
+				if (self.isDisabled) return;
 
 				var actionName = $(this).data('action');
 				var selected = {
@@ -384,7 +384,7 @@
 				e.preventDefault();
 
 				if (!self.list_revertingCheckbox) {
-					if (self.$element.hasClass('disabled')) {
+					if (self.isDisabled) {
 						revertCheckbox($(e.currentTarget));
 					} else {
 						var row = $(this).attr('data-row');
@@ -396,7 +396,7 @@
 
 			this.$element.find('.frozen-thead-wrapper thead .checkbox-inline').on('change', function (e) {
 				if (!self.list_revertingCheckbox) {
-					if (self.$element.hasClass('disabled')) {
+					if (self.isDisabled) {
 						revertCheckbox($(e.currentTarget));
 					} else {
 						if ($(this).checkbox('isChecked')){
@@ -653,7 +653,7 @@
 		if (sortable) {
 			$both.addClass('sortable');
 			$div.on('click.fu.repeaterList', function () {
-				if (self.$element.hasClass('disabled')) return;
+				if (self.isDisabled) return;
 
 				self.list_sortProperty = (typeof sortable === 'string') ? sortable : columns[index].property;
 				if ($div.hasClass('sorted')) {
@@ -716,7 +716,7 @@
 			$row.data('item_data', rows[index]);
 
 			$row.on('click.fu.repeaterList', function () {
-				if (self.$element.hasClass('disabled')) return;
+				if (self.isDisabled) return;
 
 				var $item = $(this);
 				var index = $(this).index();
