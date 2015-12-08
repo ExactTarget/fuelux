@@ -322,12 +322,12 @@
 		}
 	},
 	{
-		"title": "Text Area",
+		"title": "Textarea",
 		"fields": {
 			"label": {
 				"type": "input",
 				"label": "Label Text",
-				"value": "Text Area"
+				"value": "Textarea"
 			},
 			"id": {
 				"type": "input",

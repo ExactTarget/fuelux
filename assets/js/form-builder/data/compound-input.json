@@ -238,12 +238,12 @@
 		}
 	},
 	{
-		"title": "Input With Button Drop Down",
+		"title": "Input With Button Dropdown",
 		"fields": {
 			"label": {
 				"type": "input",
 				"label": "Label Text",
-				"value": "Drop Down"
+				"value": "Dropdown"
 			},
 			"id": {
 				"type": "input",

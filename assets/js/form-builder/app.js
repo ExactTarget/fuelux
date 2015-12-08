@@ -18,7 +18,7 @@ define(function (require) {
 
 	return {
 		initialize: function initialize() {
-			//Bootstrap tabs from json.
+			//Bootstrap tabs created from json models under /data folder.
 			new TabView({
 				title: 'Input',
 				collection: new AvailableComponents(JSON.parse(inputJSON))

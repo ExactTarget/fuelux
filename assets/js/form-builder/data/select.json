@@ -1,156 +1,156 @@
 [
-  {
-    "title": "Selectlist",
-    "fields": {
-      "label": {
-        "type": "input",
-        "label": "Label Text",
-        "value": "Selectlist"
-      },
-      "id": {
-        "type": "input",
-        "label": "ID / Name",
-        "value": "selectlist"
-      },
-      "options": {
-        "type": "textarea-split",
-        "label": "Options",
-        "value": [
-          "Option one",
-          "Option two"
-        ]
-      },
-      "buttonalign": {
-        "type": "select",
-        "label": "Alignment",
-        "value": [
-          {
-            "label": "Left",
-            "value": "text-left",
-            "selected": false
-          },
-          {
-            "label": "Center",
-            "value": "text-center",
-            "selected": false
-          },
-          {
-            "label": "Right",
-            "value": "text-right",
-            "selected": true
-          }
-        ]
-      },
-      "inputsize": {
-        "type": "select",
-        "label": "Input Size",
-        "value": [
-          {
-            "label": "Small",
-            "value": "input-sm",
-            "selected": false
-          },
-          {
-            "label": "Normal",
-            "value": "",
-            "selected": true
-          },
-          {
-            "label": "Large",
-            "value": "input-lg",
-            "selected": false
-          }
-        ]
-      },
-      "helptext": {
-        "type": "input",
-        "label": "Help Text",
-        "value": "help"
-      },
-      "required": {
-        "type": "checkbox",
-        "label": "Required",
-        "value": false
-      },
-      "isDisabled": {
-        "type": "checkbox",
-        "label": "Disabled",
-        "value": false
-      },
-      "readonly": {
-        "type": "checkbox",
-        "label": "Readonly",
-        "value": false
-      }
-    }
-  },
-  {
-    "title": "Bootstrap Select",
-    "fields": {
-      "label": {
-        "type": "input",
-        "label": "Label Text",
-        "value": "Bootstrap Select"
-      },
-      "id": {
-        "type": "input",
-        "label": "ID / Name",
-        "value": "bootstrapselect"
-      },
-      "options": {
-        "type": "textarea-split",
-        "label": "Options",
-        "value": [
-          "Option one",
-          "Option two"
-        ]
-      },
-      "inputsize": {
-        "type": "select",
-        "label": "Input Size",
-        "value": [
-          {
-            "label": "Small",
-            "value": "input-sm",
-            "selected": false
-          },
-          {
-            "label": "Normal",
-            "value": "",
-            "selected": true
-          },
-          {
-            "label": "Large",
-            "value": "input-lg",
-            "selected": false
-          }
-        ]
-      },
-      "helptext": {
-        "type": "input",
-        "label": "Help Text",
-        "value": "help"
-      },
-      "multiple": {
-        "type": "checkbox",
-        "label": "Multiselect",
-        "value": true
-      },
-      "required": {
-        "type": "checkbox",
-        "label": "Required",
-        "value": false
-      },
-      "isDisabled": {
-        "type": "checkbox",
-        "label": "Disabled",
-        "value": false
-      },
-      "readonly": {
-        "type": "checkbox",
-        "label": "Readonly",
-        "value": false
-      }
-    }
-  }
+	{
+		"title": "Selectlist",
+		"fields": {
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Selectlist"
+			},
+			"id": {
+				"type": "input",
+				"label": "ID / Name",
+				"value": "selectlist"
+			},
+			"options": {
+				"type": "textarea-split",
+				"label": "Options",
+				"value": [
+					"Option one",
+					"Option two"
+				]
+			},
+			"buttonalign": {
+				"type": "select",
+				"label": "Alignment",
+				"value": [
+					{
+						"label": "Left",
+						"value": "text-left",
+						"selected": false
+					},
+					{
+						"label": "Center",
+						"value": "text-center",
+						"selected": false
+					},
+					{
+						"label": "Right",
+						"value": "text-right",
+						"selected": true
+					}
+				]
+			},
+			"inputsize": {
+				"type": "select",
+				"label": "Input Size",
+				"value": [
+					{
+						"label": "Small",
+						"value": "input-sm",
+						"selected": false
+					},
+					{
+						"label": "Normal",
+						"value": "",
+						"selected": true
+					},
+					{
+						"label": "Large",
+						"value": "input-lg",
+						"selected": false
+					}
+				]
+			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
+			},
+			"required": {
+				"type": "checkbox",
+				"label": "Required",
+				"value": false
+			},
+			"isDisabled": {
+				"type": "checkbox",
+				"label": "Disabled",
+				"value": false
+			},
+			"readonly": {
+				"type": "checkbox",
+				"label": "Readonly",
+				"value": false
+			}
+		}
+	},
+	{
+		"title": "Bootstrap Select",
+		"fields": {
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Bootstrap Select"
+			},
+			"id": {
+				"type": "input",
+				"label": "ID / Name",
+				"value": "bootstrapselect"
+			},
+			"options": {
+				"type": "textarea-split",
+				"label": "Options",
+				"value": [
+					"Option one",
+					"Option two"
+				]
+			},
+			"inputsize": {
+				"type": "select",
+				"label": "Input Size",
+				"value": [
+					{
+						"label": "Small",
+						"value": "input-sm",
+						"selected": false
+					},
+					{
+						"label": "Normal",
+						"value": "",
+						"selected": true
+					},
+					{
+						"label": "Large",
+						"value": "input-lg",
+						"selected": false
+					}
+				]
+			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
+			},
+			"multiple": {
+				"type": "checkbox",
+				"label": "Multiselect",
+				"value": true
+			},
+			"required": {
+				"type": "checkbox",
+				"label": "Required",
+				"value": false
+			},
+			"isDisabled": {
+				"type": "checkbox",
+				"label": "Disabled",
+				"value": false
+			},
+			"readonly": {
+				"type": "checkbox",
+				"label": "Readonly",
+				"value": false
+			}
+		}
+	}
 ]
