@@ -615,16 +615,15 @@
 					}
 
 					self.$loader.hide().loader('pause');
+					self.enable();
+
 					self.$element.trigger('rendered.fu.repeater', {
 						data: data,
 						options: dataOptions,
 						renderOptions: options
 					});
-
 					//for maintaining support of 'loaded' event
 					self.$element.trigger('loaded.fu.repeater', dataOptions);
-
-					self.enable();
 				});
 			});
 		},
