@@ -314,6 +314,8 @@ define(function(require){
 			setTimeout(function(){
 				$repeater.repeater('disable');
 
+				$views.click();
+
 				equal($search.hasClass(disabled), true, 'repeater search disabled as expected');
 				equal($filters.hasClass(disabled), true, 'repeater filters disabled as expected');
 				equal($views.attr(disabled), disabled, 'repeater views disabled as expected');

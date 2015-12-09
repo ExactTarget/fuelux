@@ -1,5 +1,17 @@
 @import "fuelux-core.less";
 .fuelux {
+	.repeater.disabled {	//overrides for disabled stuff
+		.repeater-thumbnail.selectable {
+			&:hover {
+				background: #fff;
+				cursor: auto;
+			}
+
+			&.selected:hover {
+				background: @selected;
+			}
+		}
+	}
 
 	.repeater-thumbnail {
 		border: 1px solid @gray87;

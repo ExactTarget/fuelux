@@ -244,7 +244,7 @@
 			}
 
 			var selectlist = '<div class="btn-group">' +
-				'<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" data-flip="auto" aria-expanded="false">' +
+				'<button type="button" class="btn btn-xs btn-default dropdown-toggle repeater-actions-button" data-toggle="dropdown" data-flip="auto" aria-expanded="false">' +
 				'<span class="caret"></span>' +
 				'</button>' +
 				'<ul class="dropdown-menu dropdown-menu-right" role="menu">' +
@@ -286,28 +286,32 @@
 
 			//row level actions click
 			this.$element.find('.table-actions tbody .action-item').on('click', function(e) {
-				var actionName = $(this).data('action');
-				var row = $(this).data('row');
-				var selected = {
-					actionName: actionName,
-					rows: [row]
-				};
-				self.list_getActionItems(selected, e);
+				if (!self.isDisabled) {
+					var actionName = $(this).data('action');
+					var row = $(this).data('row');
+					var selected = {
+						actionName: actionName,
+						rows: [row]
+					};
+					self.list_getActionItems(selected, e);
+				}
 			});
 			// bulk actions click
 			this.$element.find('.table-actions thead .action-item').on('click', function(e) {
-				var actionName = $(this).data('action');
-				var selected = {
-					actionName: actionName,
-					rows: []
-				};
-				self.$element.find('.repeater-list-wrapper > table .selected').each(function() {
-					var index = $(this).index();
-					index = index + 1;
-					selected.rows.push(index);
-				});
+				if (!self.isDisabled) {
+					var actionName = $(this).data('action');
+					var selected = {
+						actionName: actionName,
+						rows: []
+					};
+					self.$element.find('.repeater-list-wrapper > table .selected').each(function() {
+						var index = $(this).index();
+						index = index + 1;
+						selected.rows.push(index);
+					});
 
-				self.list_getActionItems(selected, e);
+					self.list_getActionItems(selected, e);
+				}
 			});
 		};
 
@@ -378,21 +382,40 @@
 
 			this.$element.find('.table-frozen tbody .checkbox-inline').on('change', function(e) {
 				e.preventDefault();
-				var row = $(this).attr('data-row');
-				row = parseInt(row) + 1;
-				self.$element.find('.repeater-list-wrapper > table tbody tr:nth-child('+ row +')').click();
+
+				if (!self.list_revertingCheckbox) {
+					if (self.isDisabled) {
+						revertCheckbox($(e.currentTarget));
+					} else {
+						var row = $(this).attr('data-row');
+						row = parseInt(row) + 1;
+						self.$element.find('.repeater-list-wrapper > table tbody tr:nth-child('+ row +')').click();
+					}
+				}
 			});
 
-			this.$element.find('.frozen-thead-wrapper thead .checkbox-inline').on('change', function () {
-				if ($(this).checkbox('isChecked')){
-					self.$element.find('.repeater-list-wrapper > table tbody tr:not(.selected)').click();
-					self.$element.trigger('selected.fu.repeaterList', $checkboxes);
-				}
-				else {
-					self.$element.find('.repeater-list-wrapper > table tbody tr.selected').click();
-					self.$element.trigger('deselected.fu.repeaterList', $checkboxes);
+			this.$element.find('.frozen-thead-wrapper thead .checkbox-inline').on('change', function (e) {
+				if (!self.list_revertingCheckbox) {
+					if (self.isDisabled) {
+						revertCheckbox($(e.currentTarget));
+					} else {
+						if ($(this).checkbox('isChecked')){
+							self.$element.find('.repeater-list-wrapper > table tbody tr:not(.selected)').click();
+							self.$element.trigger('selected.fu.repeaterList', $checkboxes);
+						}
+						else {
+							self.$element.find('.repeater-list-wrapper > table tbody tr.selected').click();
+							self.$element.trigger('deselected.fu.repeaterList', $checkboxes);
+						}
+					}
 				}
 			});
+
+			function revertCheckbox ($checkbox) {
+				self.list_revertingCheckbox = true;
+				$checkbox.checkbox('toggle');
+				delete self.list_revertingCheckbox;
+			}
 		};
 
 		//ADDITIONAL DEFAULT OPTIONS
@@ -425,6 +448,16 @@
 					options.sortProperty = this.list_sortProperty;
 				}
 				return options;
+			},
+			enabled: function (helpers) {
+				if (this.viewOptions.list_actions) {
+					if (!helpers.status) {
+						this.$canvas.find('.repeater-actions-button').attr('disabled', 'disabled');
+					} else {
+						this.$canvas.find('.repeater-actions-button').removeAttr('disabled');
+						toggleActionsHeaderButton.call(this);
+					}
+				}
 			},
 			initialize: function (helpers, callback) {
 				this.list_sortDirection = null;
@@ -523,7 +556,7 @@
 	}
 
 	//ADDITIONAL METHODS
-	var areDifferentColumns = function areDifferentColumns (oldCols, newCols) {
+	function areDifferentColumns (oldCols, newCols) {
 		if (!newCols) {
 			return false;
 		}
@@ -544,7 +577,7 @@
 
 		}
 		return false;
-	};
+	}
 
 	function renderColumn ($row, rows, rowIndex, columns, columnIndex) {
 		var className = columns[columnIndex].className;
@@ -566,7 +599,7 @@
 		$row.append($col);
 
 		if (this.viewOptions.list_selectable === 'multi' && columns[columnIndex].property === '@_CHECKBOX_@') {
-			var checkBoxMarkup = '<label data-row="'+ rowIndex +'" class="checkbox-custom checkbox-inline body-checkbox">' +
+			var checkBoxMarkup = '<label data-row="'+ rowIndex +'" class="checkbox-custom checkbox-inline body-checkbox repeater-select-checkbox">' +
 				'<input class="sr-only" type="checkbox"></label>';
 
 			$col.html(checkBoxMarkup);
@@ -587,7 +620,7 @@
 		var chevron = '.glyphicon.rlc:first';
 		var chevUp = 'glyphicon-chevron-up';
 		var $div = $('<div class="repeater-list-heading"><span class="glyphicon rlc"></span></div>');
-		var checkBoxMarkup = '<div class="repeater-list-heading header-checkbox"><label class="checkbox-custom checkbox-inline">' +
+		var checkBoxMarkup = '<div class="repeater-list-heading header-checkbox"><label class="checkbox-custom checkbox-inline repeater-select-checkbox">' +
 			'<input class="sr-only" type="checkbox"></label><div class="clearfix"></div></div>';
 		var $header = $('<th></th>');
 		var self = this;
@@ -623,34 +656,36 @@
 		if (sortable) {
 			$both.addClass('sortable');
 			$div.on('click.fu.repeaterList', function () {
-				self.list_sortProperty = (typeof sortable === 'string') ? sortable : columns[index].property;
-				if ($div.hasClass('sorted')) {
-					if ($span.hasClass(chevUp)) {
-						$spans.removeClass(chevUp).addClass(chevDown);
-						self.list_sortDirection = 'desc';
-					} else {
-						if (!self.viewOptions.list_sortClearing) {
-							$spans.removeClass(chevDown).addClass(chevUp);
-							self.list_sortDirection = 'asc';
+				if (!self.isDisabled) {
+					self.list_sortProperty = (typeof sortable === 'string') ? sortable : columns[index].property;
+					if ($div.hasClass('sorted')) {
+						if ($span.hasClass(chevUp)) {
+							$spans.removeClass(chevUp).addClass(chevDown);
+							self.list_sortDirection = 'desc';
 						} else {
-							$both.removeClass('sorted');
-							$spans.removeClass(chevDown);
-							self.list_sortDirection = null;
-							self.list_sortProperty = null;
+							if (!self.viewOptions.list_sortClearing) {
+								$spans.removeClass(chevDown).addClass(chevUp);
+								self.list_sortDirection = 'asc';
+							} else {
+								$both.removeClass('sorted');
+								$spans.removeClass(chevDown);
+								self.list_sortDirection = null;
+								self.list_sortProperty = null;
+							}
 						}
+
+					} else {
+						$tr.find('th, .repeater-list-heading').removeClass('sorted');
+						$spans.removeClass(chevDown).addClass(chevUp);
+						self.list_sortDirection = 'asc';
+						$both.addClass('sorted');
 					}
 
-				} else {
-					$tr.find('th, .repeater-list-heading').removeClass('sorted');
-					$spans.removeClass(chevDown).addClass(chevUp);
-					self.list_sortDirection = 'asc';
-					$both.addClass('sorted');
+					self.render({
+						clearInfinite: true,
+						pageIncrement: null
+					});
 				}
-
-				self.render({
-					clearInfinite: true,
-					pageIncrement: null
-				});
 			});
 		}
 
@@ -684,56 +719,51 @@
 			$row.data('item_data', rows[index]);
 
 			$row.on('click.fu.repeaterList', function () {
-				var $item = $(this);
-				var index = $(this).index();
-				index = index + 1;
-				var $frozenRow = self.$element.find('.frozen-column-wrapper tr:nth-child('+ index +')');
-				var $actionsRow = self.$element.find('.actions-column-wrapper tr:nth-child('+ index +')');
-				var $checkBox = self.$element.find('.frozen-column-wrapper tr:nth-child('+ index +') .checkbox-inline');
+				if (!self.isDisabled) {
+					var $item = $(this);
+					var index = $(this).index();
+					index = index + 1;
+					var $frozenRow = self.$element.find('.frozen-column-wrapper tr:nth-child('+ index +')');
+					var $actionsRow = self.$element.find('.actions-column-wrapper tr:nth-child('+ index +')');
+					var $checkBox = self.$element.find('.frozen-column-wrapper tr:nth-child('+ index +') .checkbox-inline');
 
-				if ($item.is('.selected')) {
-					$item.removeClass('selected');
-					if (isMulti){
-						$checkBox.checkbox('uncheck');
-						$frozenRow.removeClass('selected');
-						if (isActions) {
-							$actionsRow.removeClass('selected');
+					if ($item.is('.selected')) {
+						$item.removeClass('selected');
+						if (isMulti){
+							$checkBox.checkbox('uncheck');
+							$frozenRow.removeClass('selected');
+							if (isActions) {
+								$actionsRow.removeClass('selected');
+							}
 						}
-					}
-					else {
-						$item.find('.repeater-list-check').remove();
-					}
-
-					self.$element.trigger('deselected.fu.repeaterList', $item);
-				} else {
-					if (!isMulti) {
-						self.$canvas.find('.repeater-list-check').remove();
-						self.$canvas.find('.repeater-list tbody tr.selected').each(function () {
-							$(this).removeClass('selected');
-							self.$element.trigger('deselected.fu.repeaterList', $(this));
-						});
-						$item.find('td:first').prepend('<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>');
-						$item.addClass('selected');
-						$frozenRow.addClass('selected');
-					}
-					else {
-						$checkBox.checkbox('check');
-						$item.addClass('selected');
-						$frozenRow.addClass('selected');
-						if (isActions) {
-							$actionsRow.addClass('selected');
+						else {
+							$item.find('.repeater-list-check').remove();
 						}
-					}
-					self.$element.trigger('selected.fu.repeaterList', $item);
-				}
-				var $selected = self.$canvas.find('.repeater-list-wrapper > table .selected');
-				var $actionsColumn = self.$element.find('.table-actions');
 
-				if ($selected.length > 0) {
-					$actionsColumn.find('thead .btn').removeAttr('disabled');
-				}
-				else {
-					$actionsColumn.find('thead .btn').attr('disabled', 'disabled');
+						self.$element.trigger('deselected.fu.repeaterList', $item);
+					} else {
+						if (!isMulti) {
+							self.$canvas.find('.repeater-list-check').remove();
+							self.$canvas.find('.repeater-list tbody tr.selected').each(function () {
+								$(this).removeClass('selected');
+								self.$element.trigger('deselected.fu.repeaterList', $(this));
+							});
+							$item.find('td:first').prepend('<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>');
+							$item.addClass('selected');
+							$frozenRow.addClass('selected');
+						}
+						else {
+							$checkBox.checkbox('check');
+							$item.addClass('selected');
+							$frozenRow.addClass('selected');
+							if (isActions) {
+								$actionsRow.addClass('selected');
+							}
+						}
+						self.$element.trigger('selected.fu.repeaterList', $item);
+					}
+
+					toggleActionsHeaderButton.call(self);
 				}
 			});
 
@@ -885,7 +915,7 @@
 		}
 	}
 
-	function specialBrowserClass() {
+	function specialBrowserClass () {
 		var ua = window.navigator.userAgent;
 		var msie = ua.indexOf("MSIE ");
 		var firefox = ua.indexOf('Firefox');
@@ -896,6 +926,16 @@
 			return 'firefox';
 		} else {
 			return '';
+		}
+	}
+
+	function toggleActionsHeaderButton () {
+		var $selected = this.$canvas.find('.repeater-list-wrapper > table .selected');
+		var $actionsColumn = this.$element.find('.table-actions');
+		if ($selected.length > 0) {
+			$actionsColumn.find('thead .btn').removeAttr('disabled');
+		} else {
+			$actionsColumn.find('thead .btn').attr('disabled', 'disabled');
 		}
 	}
 

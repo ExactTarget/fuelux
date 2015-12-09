@@ -56,6 +56,7 @@
 
 		this.currentPage = 0;
 		this.currentView = null;
+		this.isDisabled = false;
 		this.infiniteScrollingCallback = function () {};
 		this.infiniteScrollingCont = null;
 		this.infiniteScrollingEnabled = false;
@@ -67,6 +68,7 @@
 		this.resizeTimeout = {};
 		this.stamp = new Date().getTime() + (Math.floor(Math.random() * 100) + 1);
 		this.storedDataSourceOpts = null;
+		this.syncingViewButtonState = false;
 		this.viewOptions = {};
 		this.viewType = null;
 
@@ -220,16 +222,24 @@
 		disable: function() {
 			var disable = 'disable';
 			var disabled = 'disabled';
+			var viewTypeObj = $.fn.repeater.viewTypes[this.viewType] || {};
 
 			this.$search.search(disable);
 			this.$filters.selectlist(disable);
-			this.$views.find('label').attr(disabled, disabled);
+			this.$views.find('label, input').addClass(disabled).attr(disabled, disabled);
 			this.$pageSize.selectlist(disable);
 			this.$primaryPaging.find('.combobox').combobox(disable);
 			this.$secondaryPaging.attr(disabled, disabled);
 			this.$prevBtn.attr(disabled, disabled);
 			this.$nextBtn.attr(disabled, disabled);
 
+			if (viewTypeObj.enabled) {
+				viewTypeObj.enabled.call(this, {
+					status: false
+				});
+			}
+
+			this.isDisabled = true;
 			this.$element.addClass('disabled');
 			this.$element.trigger('disabled.fu.repeater');
 		},
@@ -238,10 +248,11 @@
 			var disabled = 'disabled';
 			var enable = 'enable';
 			var pageEnd = 'page-end';
+			var viewTypeObj = $.fn.repeater.viewTypes[this.viewType] || {};
 
 			this.$search.search(enable);
 			this.$filters.selectlist(enable);
-			this.$views.find('label').removeAttr(disabled);
+			this.$views.find('label, input').removeClass(disabled).removeAttr(disabled);
 			this.$pageSize.selectlist('enable');
 			this.$primaryPaging.find('.combobox').combobox(enable);
 			this.$secondaryPaging.removeAttr(disabled);
@@ -267,6 +278,13 @@
 				this.$pageSize.selectlist('disable');
 			}
 
+			if (viewTypeObj.enabled) {
+				viewTypeObj.enabled.call(this, {
+					status: true
+				});
+			}
+
+			this.isDisabled = false;
 			this.$element.removeClass('disabled');
 			this.$element.trigger('enabled.fu.repeater');
 		},
@@ -581,6 +599,8 @@
 				}
 			}
 
+			this.syncViewButtonState();
+
 			options.preserve = (options.preserve !== undefined) ? options.preserve : !viewChanged;
 			this.clear(options);
 
@@ -611,16 +631,15 @@
 					}
 
 					self.$loader.hide().loader('pause');
+					self.enable();
+
 					self.$element.trigger('rendered.fu.repeater', {
 						data: data,
 						options: dataOptions,
 						renderOptions: options
 					});
-
 					//for maintaining support of 'loaded' event
 					self.$element.trigger('loaded.fu.repeater', dataOptions);
-
-					self.enable();
 				});
 			});
 		},
@@ -760,10 +779,31 @@
 		viewChanged: function (e) {
 			var $selected = $(e.target);
 			var val = $selected.val();
-			this.render({
-				changeView: val,
-				pageIncrement: null
-			});
+
+			if (!this.syncingViewButtonState) {
+				if (this.isDisabled || $selected.parents('label:first').hasClass('disabled')) {
+					this.syncViewButtonState();
+				} else {
+					this.render({
+						changeView: val,
+						pageIncrement: null
+					});
+				}
+			}
+		},
+
+		syncViewButtonState: function () {
+			var $itemToCheck = this.$views.find('input[value="' + this.currentView + '"]');
+
+			this.syncingViewButtonState = true;
+			this.$views.find('input').prop('checked', false);
+			this.$views.find('label.active').removeClass('active');
+
+			if ($itemToCheck.length > 0) {
+				$itemToCheck.prop('checked', true);
+				$itemToCheck.parents('label:first').addClass('active');
+			}
+			this.syncingViewButtonState = false;
 		}
 	};
 
