@@ -17,7 +17,7 @@
 		define(['jquery', 'fuelux/dropdown-autoflip'], factory);
 	} else if (typeof exports === 'object') {
 		// Node/CommonJS
-		module.exports = factory(require('jquery'));
+		module.exports = factory(require('jquery'), require('./dropdown-autoflip'));
 	} else {
 		// OR use browser globals if AMD is not present
 		factory(jQuery);

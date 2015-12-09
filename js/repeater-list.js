@@ -14,10 +14,10 @@
 (function (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
-		define(['jquery', 'fuelux/repeater'], factory);
+		define(['jquery', 'fuelux/repeater', 'fuelux/checkbox'], factory);
 	} else if (typeof exports === 'object') {
 		// Node/CommonJS
-		module.exports = factory(require('jquery'));
+		module.exports = factory(require('jquery'), require('./repeater'), require('./checkbox'));
 	} else {
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
