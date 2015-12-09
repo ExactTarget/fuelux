@@ -244,7 +244,7 @@
 			}
 
 			var selectlist = '<div class="btn-group">' +
-				'<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" data-flip="auto" aria-expanded="false">' +
+				'<button type="button" class="btn btn-xs btn-default dropdown-toggle repeater-actions-button" data-toggle="dropdown" data-flip="auto" aria-expanded="false">' +
 				'<span class="caret"></span>' +
 				'</button>' +
 				'<ul class="dropdown-menu dropdown-menu-right" role="menu">' +
@@ -449,6 +449,16 @@
 				}
 				return options;
 			},
+			enabled: function (helpers) {
+				if (this.viewOptions.list_actions) {
+					if (!helpers.status) {
+						this.$canvas.find('.repeater-actions-button').attr('disabled', 'disabled');
+					} else {
+						this.$canvas.find('.repeater-actions-button').removeAttr('disabled');
+						toggleActionsHeaderButton.call(this);
+					}
+				}
+			},
 			initialize: function (helpers, callback) {
 				this.list_sortDirection = null;
 				this.list_sortProperty = null;
@@ -546,7 +556,7 @@
 	}
 
 	//ADDITIONAL METHODS
-	var areDifferentColumns = function areDifferentColumns (oldCols, newCols) {
+	function areDifferentColumns (oldCols, newCols) {
 		if (!newCols) {
 			return false;
 		}
@@ -567,7 +577,7 @@
 
 		}
 		return false;
-	};
+	}
 
 	function renderColumn ($row, rows, rowIndex, columns, columnIndex) {
 		var className = columns[columnIndex].className;
@@ -589,7 +599,7 @@
 		$row.append($col);
 
 		if (this.viewOptions.list_selectable === 'multi' && columns[columnIndex].property === '@_CHECKBOX_@') {
-			var checkBoxMarkup = '<label data-row="'+ rowIndex +'" class="checkbox-custom checkbox-inline body-checkbox">' +
+			var checkBoxMarkup = '<label data-row="'+ rowIndex +'" class="checkbox-custom checkbox-inline body-checkbox repeater-select-checkbox">' +
 				'<input class="sr-only" type="checkbox"></label>';
 
 			$col.html(checkBoxMarkup);
@@ -610,7 +620,7 @@
 		var chevron = '.glyphicon.rlc:first';
 		var chevUp = 'glyphicon-chevron-up';
 		var $div = $('<div class="repeater-list-heading"><span class="glyphicon rlc"></span></div>');
-		var checkBoxMarkup = '<div class="repeater-list-heading header-checkbox"><label class="checkbox-custom checkbox-inline">' +
+		var checkBoxMarkup = '<div class="repeater-list-heading header-checkbox"><label class="checkbox-custom checkbox-inline repeater-select-checkbox">' +
 			'<input class="sr-only" type="checkbox"></label><div class="clearfix"></div></div>';
 		var $header = $('<th></th>');
 		var self = this;
@@ -752,15 +762,8 @@
 						}
 						self.$element.trigger('selected.fu.repeaterList', $item);
 					}
-					var $selected = self.$canvas.find('.repeater-list-wrapper > table .selected');
-					var $actionsColumn = self.$element.find('.table-actions');
 
-					if ($selected.length > 0) {
-						$actionsColumn.find('thead .btn').removeAttr('disabled');
-					}
-					else {
-						$actionsColumn.find('thead .btn').attr('disabled', 'disabled');
-					}
+					toggleActionsHeaderButton.call(self);
 				}
 			});
 
@@ -912,7 +915,7 @@
 		}
 	}
 
-	function specialBrowserClass() {
+	function specialBrowserClass () {
 		var ua = window.navigator.userAgent;
 		var msie = ua.indexOf("MSIE ");
 		var firefox = ua.indexOf('Firefox');
@@ -923,6 +926,16 @@
 			return 'firefox';
 		} else {
 			return '';
+		}
+	}
+
+	function toggleActionsHeaderButton () {
+		var $selected = this.$canvas.find('.repeater-list-wrapper > table .selected');
+		var $actionsColumn = this.$element.find('.table-actions');
+		if ($selected.length > 0) {
+			$actionsColumn.find('thead .btn').removeAttr('disabled');
+		} else {
+			$actionsColumn.find('thead .btn').attr('disabled', 'disabled');
 		}
 	}
 

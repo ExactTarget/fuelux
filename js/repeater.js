@@ -221,6 +221,7 @@
 		disable: function() {
 			var disable = 'disable';
 			var disabled = 'disabled';
+			var viewTypeObj = $.fn.repeater.viewTypes[this.viewType] || {};
 
 			this.$search.search(disable);
 			this.$filters.selectlist(disable);
@@ -231,6 +232,12 @@
 			this.$prevBtn.attr(disabled, disabled);
 			this.$nextBtn.attr(disabled, disabled);
 
+			if (viewTypeObj.enabled) {
+				viewTypeObj.enabled.call(this, {
+					status: false
+				});
+			}
+
 			this.isDisabled = true;
 			this.$element.addClass('disabled');
 			this.$element.trigger('disabled.fu.repeater');
@@ -240,6 +247,7 @@
 			var disabled = 'disabled';
 			var enable = 'enable';
 			var pageEnd = 'page-end';
+			var viewTypeObj = $.fn.repeater.viewTypes[this.viewType] || {};
 
 			this.$search.search(enable);
 			this.$filters.selectlist(enable);
@@ -267,6 +275,12 @@
 			}
 			else {
 				this.$pageSize.selectlist('disable');
+			}
+
+			if (viewTypeObj.enabled) {
+				viewTypeObj.enabled.call(this, {
+					status: true
+				});
 			}
 
 			this.isDisabled = false;
