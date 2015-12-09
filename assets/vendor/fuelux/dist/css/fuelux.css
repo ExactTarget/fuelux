@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.12.0 
+ * Fuel UX v3.13.0 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -464,7 +464,16 @@ label.fuelux .checkbox-inline {
 .fuelux .form-horizontal .checkbox-inline {
   padding-top: 0;
 }
-.fuelux .input-group-addon.checkbox-custom.checkbox-inline:before {
+.fuelux .input-group-addon.checkbox-custom {
+  margin-bottom: 0;
+  cursor: pointer;
+  padding-left: 24px;
+}
+.fuelux .input-group-addon.checkbox-custom input[type=checkbox] {
+  position: absolute;
+  margin-left: -24px;
+}
+.fuelux .input-group-addon.checkbox-custom:before {
   left: 11px;
   top: 9px;
 }
@@ -1311,18 +1320,26 @@ label.fuelux .checkbox-inline {
   display: inline-block;
   position: relative;
 }
+.fuelux .placard[data-ellipsis="true"].showing div.placard-field,
 .fuelux .placard[data-ellipsis="true"].showing input.placard-field {
-  overflow: visible;
+  overflow: auto;
   text-overflow: clip;
   white-space: normal;
 }
+.fuelux .placard[data-ellipsis="true"] div.placard-field,
 .fuelux .placard[data-ellipsis="true"] input.placard-field {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.fuelux .placard[data-ellipsis="true"] div.placard-field::-ms-clear,
 .fuelux .placard[data-ellipsis="true"] input.placard-field::-ms-clear {
   display: none;
+}
+.fuelux .placard[data-ellipsis="true"] div.placard-field[data-textarea] {
+  overflow: auto;
+  text-overflow: clip;
+  white-space: normal;
 }
 .fuelux .placard[data-ellipsis="true"] textarea.placard-field[readonly] {
   overflow: hidden;
@@ -1333,6 +1350,7 @@ label.fuelux .checkbox-inline {
   display: block;
   z-index: 1;
 }
+.fuelux .placard.showing div.placard-field,
 .fuelux .placard.showing input.placard-field,
 .fuelux .placard.showing textarea.placard-field {
   background: #ffffff;
@@ -1341,28 +1359,40 @@ label.fuelux .checkbox-inline {
   position: relative;
   z-index: 1;
 }
+.fuelux .placard div.placard-field,
 .fuelux .placard input.placard-field,
 .fuelux .placard textarea.placard-field {
   resize: none;
 }
+.fuelux .placard div.placard-field[readonly],
 .fuelux .placard input.placard-field[readonly],
 .fuelux .placard textarea.placard-field[readonly] {
   background: #ffffff;
   cursor: auto;
 }
+.fuelux .placard div.placard-field[readonly].glass,
 .fuelux .placard input.placard-field[readonly].glass,
 .fuelux .placard textarea.placard-field[readonly].glass {
   background: none;
 }
+.fuelux .placard div.placard-field[readonly].glass:hover,
 .fuelux .placard input.placard-field[readonly].glass:hover,
 .fuelux .placard textarea.placard-field[readonly].glass:hover {
   background: #d9edf7;
   cursor: pointer;
 }
+.fuelux .placard div.placard-field:focus,
 .fuelux .placard input.placard-field:focus,
 .fuelux .placard textarea.placard-field:focus {
   border: 1px solid #cccccc;
   box-shadow: none;
+}
+.fuelux .placard div.placard-field {
+  width: 168px;
+  overflow: auto;
+}
+.fuelux .placard div.placard-field[data-textarea] {
+  height: 54px;
 }
 .fuelux .placard-cancel {
   font-size: 12px;
@@ -1569,6 +1599,27 @@ label.fuelux .checkbox-inline {
 .fuelux .repeater-prev {
   margin: auto 0.3em;
 }
+.fuelux .repeater[data-viewtype="list"].disabled .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions tr.selectable:hover td,
+.fuelux .repeater[data-viewtype="list"].disabled .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions tr.selectable.hovered td {
+  background: #fff;
+}
+.fuelux .repeater[data-viewtype="list"].disabled .repeater-canvas .repeater-list .repeater-select-checkbox {
+  cursor: not-allowed;
+}
+.fuelux .repeater[data-viewtype="list"].disabled .repeater-canvas .repeater-list .repeater-list-wrapper table thead tr th.sortable,
+.fuelux .repeater[data-viewtype="list"].disabled .repeater-canvas .repeater-list .repeater-list-wrapper table thead tr th .repeater-list-heading.sortable {
+  background: #fafafa;
+  cursor: auto;
+}
+.fuelux .repeater[data-viewtype="list"].disabled .repeater-canvas .repeater-list .repeater-list-wrapper table tbody tr.selectable:hover.selected td,
+.fuelux .repeater[data-viewtype="list"].disabled .repeater-canvas .repeater-list .repeater-list-wrapper table tbody tr.selectable.hovered.selected td {
+  background: #eee;
+}
+.fuelux .repeater[data-viewtype="list"].disabled .repeater-canvas .repeater-list .repeater-list-wrapper table tbody tr.selectable:hover td,
+.fuelux .repeater[data-viewtype="list"].disabled .repeater-canvas .repeater-list .repeater-list-wrapper table tbody tr.selectable.hovered td {
+  background: #fff;
+  cursor: auto;
+}
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.scrolling {
   overflow: visible;
 }
@@ -1600,9 +1651,6 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table tbody td.sorted {
   background: #fafafa;
-}
-.fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table tbody td.repeater-list-actions-placeholder {
-  border-left: none;
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table tbody tr:focus {
   outline: 1px dotted #dddddd;
@@ -1672,6 +1720,9 @@ label.fuelux .checkbox-inline {
   display: none;
   float: right;
   margin-top: 2px;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table thead > tr > th .actions-hidden {
+  visibility: hidden;
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list-check {
   display: inline-block;
@@ -1808,7 +1859,6 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions tr.empty-heading th {
   background: transparent;
-  padding-left: 0;
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions tr td {
   background: #ffffff;
@@ -1865,6 +1915,12 @@ label.fuelux .checkbox-inline {
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions .caret {
   margin-left: 0;
 }
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-thead-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
+}
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list table {
   table-layout: fixed;
   word-wrap: break-word;
@@ -1918,6 +1974,13 @@ label.fuelux .checkbox-inline {
 .fuelux .repeater[data-viewtype="list"] .actions-wrapper {
   z-index: 10;
   text-align: right;
+}
+.fuelux .repeater.disabled .repeater-thumbnail.selectable:hover {
+  background: #fff;
+  cursor: auto;
+}
+.fuelux .repeater.disabled .repeater-thumbnail.selectable.selected:hover {
+  background: #eeeeee;
 }
 .fuelux .repeater-thumbnail {
   border: 1px solid #dddddd;

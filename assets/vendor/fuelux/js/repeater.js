@@ -15,9 +15,10 @@
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
 		define(['jquery', 'fuelux/combobox', 'fuelux/infinite-scroll', 'fuelux/search', 'fuelux/selectlist'], factory);
-		} else if (typeof exports === 'object') {
-			// Node/CommonJS
-			module.exports = factory(require('jquery'));
+	} else if (typeof exports === 'object') {
+		// Node/CommonJS
+		module.exports = factory(require('jquery'), require('./combobox'), require('./infinite-scroll'),
+			require('./search'), require('./selectlist'));
 	} else {
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
@@ -55,6 +56,7 @@
 
 		this.currentPage = 0;
 		this.currentView = null;
+		this.isDisabled = false;
 		this.infiniteScrollingCallback = function () {};
 		this.infiniteScrollingCont = null;
 		this.infiniteScrollingEnabled = false;
@@ -66,6 +68,7 @@
 		this.resizeTimeout = {};
 		this.stamp = new Date().getTime() + (Math.floor(Math.random() * 100) + 1);
 		this.storedDataSourceOpts = null;
+		this.syncingViewButtonState = false;
 		this.viewOptions = {};
 		this.viewType = null;
 
@@ -118,7 +121,7 @@
 			self.resizeTimeout = setTimeout(function () {
 				self.resize();
 				self.$element.trigger('resized.fu.repeater');
-			}, 500);//any faster and you get weird catastrophic errors with the header of the list repeater
+			}, 75);
 		});
 
 		this.$loader.loader();
@@ -219,16 +222,24 @@
 		disable: function() {
 			var disable = 'disable';
 			var disabled = 'disabled';
+			var viewTypeObj = $.fn.repeater.viewTypes[this.viewType] || {};
 
 			this.$search.search(disable);
 			this.$filters.selectlist(disable);
-			this.$views.find('label').attr(disabled, disabled);
+			this.$views.find('label, input').addClass(disabled).attr(disabled, disabled);
 			this.$pageSize.selectlist(disable);
 			this.$primaryPaging.find('.combobox').combobox(disable);
 			this.$secondaryPaging.attr(disabled, disabled);
 			this.$prevBtn.attr(disabled, disabled);
 			this.$nextBtn.attr(disabled, disabled);
 
+			if (viewTypeObj.enabled) {
+				viewTypeObj.enabled.call(this, {
+					status: false
+				});
+			}
+
+			this.isDisabled = true;
 			this.$element.addClass('disabled');
 			this.$element.trigger('disabled.fu.repeater');
 		},
@@ -237,10 +248,11 @@
 			var disabled = 'disabled';
 			var enable = 'enable';
 			var pageEnd = 'page-end';
+			var viewTypeObj = $.fn.repeater.viewTypes[this.viewType] || {};
 
 			this.$search.search(enable);
 			this.$filters.selectlist(enable);
-			this.$views.find('label').removeAttr(disabled);
+			this.$views.find('label, input').removeClass(disabled).removeAttr(disabled);
 			this.$pageSize.selectlist('enable');
 			this.$primaryPaging.find('.combobox').combobox(enable);
 			this.$secondaryPaging.removeAttr(disabled);
@@ -266,6 +278,13 @@
 				this.$pageSize.selectlist('disable');
 			}
 
+			if (viewTypeObj.enabled) {
+				viewTypeObj.enabled.call(this, {
+					status: true
+				});
+			}
+
+			this.isDisabled = false;
 			this.$element.removeClass('disabled');
 			this.$element.trigger('enabled.fu.repeater');
 		},
@@ -368,7 +387,7 @@
 
 			this.currentPage = (page !== undefined) ? page : NaN;
 
-			if ((this.currentPage + 1) >= pages) {
+			if (data.end === true || (this.currentPage + 1) >= pages) {
 				this.infiniteScrollingCont.infinitescroll('end', end);
 			}
 		},
@@ -580,6 +599,8 @@
 				}
 			}
 
+			this.syncViewButtonState();
+
 			options.preserve = (options.preserve !== undefined) ? options.preserve : !viewChanged;
 			this.clear(options);
 
@@ -593,6 +614,7 @@
 				data = data || {};
 
 				if (self.infiniteScrollingEnabled) {
+					// pass empty object because data handled in infiniteScrollPaging method
 					self.infiniteScrollingCallback({});
 				} else {
 					self.itemization(data);
@@ -609,16 +631,15 @@
 					}
 
 					self.$loader.hide().loader('pause');
+					self.enable();
+
 					self.$element.trigger('rendered.fu.repeater', {
 						data: data,
 						options: dataOptions,
 						renderOptions: options
 					});
-
 					//for maintaining support of 'loaded' event
 					self.$element.trigger('loaded.fu.repeater', dataOptions);
-
-					self.enable();
 				});
 			});
 		},
@@ -644,9 +665,9 @@
 				var footerHeight = this.$element.find('.repeater-footer').outerHeight();
 				var bottomMargin = (viewportMargins.bottom === 'auto') ? 0 : parseInt(viewportMargins.bottom, 10);
 				var topMargin = (viewportMargins.top === 'auto') ? 0 : parseInt(viewportMargins.top, 10);
-				height = staticHeightValue - headerHeight - footerHeight - bottomMargin - topMargin;
 
-				this.$viewport.outerHeight(height); // but WHY are we setting the outerHeight of the viewport to this???
+				height = staticHeightValue - headerHeight - footerHeight - bottomMargin - topMargin;
+				this.$viewport.outerHeight(height);
 			} else {
 				this.$canvas.removeClass('scrolling');
 			}
@@ -758,10 +779,31 @@
 		viewChanged: function (e) {
 			var $selected = $(e.target);
 			var val = $selected.val();
-			this.render({
-				changeView: val,
-				pageIncrement: null
-			});
+
+			if (!this.syncingViewButtonState) {
+				if (this.isDisabled || $selected.parents('label:first').hasClass('disabled')) {
+					this.syncViewButtonState();
+				} else {
+					this.render({
+						changeView: val,
+						pageIncrement: null
+					});
+				}
+			}
+		},
+
+		syncViewButtonState: function () {
+			var $itemToCheck = this.$views.find('input[value="' + this.currentView + '"]');
+
+			this.syncingViewButtonState = true;
+			this.$views.find('input').prop('checked', false);
+			this.$views.find('label.active').removeClass('active');
+
+			if ($itemToCheck.length > 0) {
+				$itemToCheck.prop('checked', true);
+				$itemToCheck.parents('label:first').addClass('active');
+			}
+			this.syncingViewButtonState = false;
 		}
 	};
 

@@ -52,10 +52,13 @@
 		this.clickStamp = '_';
 		this.previousValue = '';
 		if (this.options.revertOnCancel === -1) {
-			this.options.revertOnCancel = (this.$accept.length > 0) ? true : false;
+			this.options.revertOnCancel = (this.$accept.length > 0);
 		}
 
+		// Placard supports inputs, textareas, or contenteditable divs. These checks determine which is being used
+		this.isContentEditableDiv = this.$field.is('div');
 		this.isInput = this.$field.is('input');
+		this.divInTextareaMode = (this.isContentEditableDiv && this.$field.attr('data-textarea') === 'true');
 
 		this.$field.on('focus.fu.placard', $.proxy(this.show, this));
 		this.$field.on('keydown.fu.placard', $.proxy(this.keyComplete, this));
@@ -69,10 +72,7 @@
 	};
 
 	var _isShown = function _isShown(placard) {
-		if (placard.$element.hasClass('showing')) {
-			return true;
-		}
-		return false;
+		return placard.$element.hasClass('showing');
 	};
 
 	var _closeOtherPlacards = function _closeOtherPlacards() {
@@ -115,7 +115,7 @@
 		},
 
 		keyComplete: function keyComplete(e) {
-			if (this.isInput && e.keyCode === 13) {
+			if (((this.isContentEditableDiv && !this.divInTextareaMode) || this.isInput) && e.keyCode === 13) {
 				this.complete('accepted');
 				this.$field.blur();
 			} else if (e.keyCode === 27) {
@@ -128,7 +128,7 @@
 			this.$element.remove();
 			// remove any external bindings
 			$(document).off('click.fu.placard.externalClick.' + this.clickStamp);
-			// set input value attrbute
+			// set input value attribute
 			this.$element.find('input').each(function () {
 				$(this).attr('value', $(this).val());
 			});
@@ -141,6 +141,9 @@
 		disable: function disable() {
 			this.$element.addClass('disabled');
 			this.$field.attr('disabled', 'disabled');
+			if (this.isContentEditableDiv) {
+				this.$field.removeAttr('contenteditable');
+			}
 			this.hide();
 		},
 
@@ -148,7 +151,7 @@
 			var field, i, str;
 			if (this.options.applyEllipsis) {
 				field = this.$field.get(0);
-				if (this.$field.is('input')) {
+				if ((this.isContentEditableDiv && !this.divInTextareaMode) || this.isInput) {
 					field.scrollLeft = 0;
 				} else {
 					field.scrollTop = 0;
@@ -165,7 +168,6 @@
 						str = (str.length > 0) ? str.substring(0, str.length - 1) : '';
 						this.setValue(str + '...', true);
 					}
-
 				}
 
 			}
@@ -174,6 +176,9 @@
 		enable: function enable() {
 			this.$element.removeClass('disabled');
 			this.$field.removeAttr('disabled');
+			if (this.isContentEditableDiv) {
+				this.$field.attr('contenteditable', 'true');
+			}
 		},
 
 		externalClickListener: function externalClickListener(e, force) {
@@ -185,6 +190,8 @@
 		getValue: function getValue() {
 			if (this.actualValue !== null) {
 				return this.actualValue;
+			} else if (this.isContentEditableDiv) {
+				return this.$field.html();
 			} else {
 				return this.$field.val();
 			}
@@ -235,11 +242,15 @@
 		 */
 		setValue: function setValue(val, suppressEllipsis) {
 			//if suppressEllipsis is undefined, check placards init settings
-			if(typeof suppressEllipsis === "undefined"){
+			if (typeof suppressEllipsis === 'undefined') {
 				suppressEllipsis = !this.options.applyEllipsis;
 			}
 
-			this.$field.val(val);
+			if (this.isContentEditableDiv) {
+				this.$field.empty().append(val);
+			} else {
+				this.$field.val(val);
+			}
 
 			if (!suppressEllipsis && !_isShown(this)) {
 				this.applyEllipsis();
@@ -249,13 +260,13 @@
 		},
 
 		show: function show() {
-			if(_isShown(this)){return;}
-			if(!_closeOtherPlacards()){return;}
+			if (_isShown(this)) { return; }
+			if (!_closeOtherPlacards()) { return; }
 
-			this.previousValue = this.$field.val();
+			this.previousValue = (this.isContentEditableDiv) ? this.$field.html() : this.$field.val();
 
 			if (this.actualValue !== null) {
-				this.setValue(this.actualValue);
+				this.setValue(this.actualValue, true);
 				this.actualValue = null;
 			}
 

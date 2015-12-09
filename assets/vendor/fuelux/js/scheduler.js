@@ -348,7 +348,7 @@
 				pattern += 'FREQ=DAILY;';
 				pattern += 'INTERVAL=' + interval + ';';
 			} else if (repeat === 'weekdays') {
-				pattern += 'FREQ=DAILY;';
+				pattern += 'FREQ=WEEKLY;';
 				pattern += 'BYDAY=MO,TU,WE,TH,FR;';
 				pattern += 'INTERVAL=1;';
 			} else if (repeat === 'weekly') {
@@ -570,16 +570,20 @@
 				} else if (recur.FREQ === 'HOURLY') {
 					item = 'hourly';
 				} else if (recur.FREQ === 'WEEKLY') {
+					item = 'weekly';
+					
 					if (recur.BYDAY) {
-						item = this.$element.find('.repeat-days-of-the-week .btn-group');
-						item.find('label').removeClass('active');
-						temp = recur.BYDAY.split(',');
-						for (i = 0, l = temp.length; i < l; i++) {
-							item.find('input[data-value="' + temp[i] + '"]').prop('checked',true).parent().addClass('active');
+						if (recur.BYDAY === 'MO,TU,WE,TH,FR') {
+							item = 'weekdays';
+						} else {
+							var el = this.$element.find('.repeat-days-of-the-week .btn-group');
+							el.find('label').removeClass('active');
+							temp = recur.BYDAY.split(',');
+							for (i = 0, l = temp.length; i < l; i++) {
+								el.find('input[data-value="' + temp[i] + '"]').prop('checked',true).parent().addClass('active');
+							}
 						}
 					}
-
-					item = 'weekly';
 				} else if (recur.FREQ === 'MONTHLY') {
 					this.$element.find('.repeat-monthly input').removeAttr('checked').removeClass('checked');
 					this.$element.find('.repeat-monthly label.radio-custom').removeClass('checked');

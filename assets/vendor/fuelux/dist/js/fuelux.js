@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.12.0 
+ * Fuel UX v3.13.0 
  * Copyright 2012-2015 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -1594,10 +1594,13 @@
 			this.clickStamp = '_';
 			this.previousValue = '';
 			if ( this.options.revertOnCancel === -1 ) {
-				this.options.revertOnCancel = ( this.$accept.length > 0 ) ? true : false;
+				this.options.revertOnCancel = ( this.$accept.length > 0 );
 			}
 
+			// Placard supports inputs, textareas, or contenteditable divs. These checks determine which is being used
+			this.isContentEditableDiv = this.$field.is( 'div' );
 			this.isInput = this.$field.is( 'input' );
+			this.divInTextareaMode = ( this.isContentEditableDiv && this.$field.attr( 'data-textarea' ) === 'true' );
 
 			this.$field.on( 'focus.fu.placard', $.proxy( this.show, this ) );
 			this.$field.on( 'keydown.fu.placard', $.proxy( this.keyComplete, this ) );
@@ -1612,10 +1615,7 @@
 		};
 
 		var _isShown = function _isShown( placard ) {
-			if ( placard.$element.hasClass( 'showing' ) ) {
-				return true;
-			}
-			return false;
+			return placard.$element.hasClass( 'showing' );
 		};
 
 		var _closeOtherPlacards = function _closeOtherPlacards() {
@@ -1658,7 +1658,7 @@
 			},
 
 			keyComplete: function keyComplete( e ) {
-				if ( this.isInput && e.keyCode === 13 ) {
+				if ( ( ( this.isContentEditableDiv && !this.divInTextareaMode ) || this.isInput ) && e.keyCode === 13 ) {
 					this.complete( 'accepted' );
 					this.$field.blur();
 				} else if ( e.keyCode === 27 ) {
@@ -1671,7 +1671,7 @@
 				this.$element.remove();
 				// remove any external bindings
 				$( document ).off( 'click.fu.placard.externalClick.' + this.clickStamp );
-				// set input value attrbute
+				// set input value attribute
 				this.$element.find( 'input' ).each( function() {
 					$( this ).attr( 'value', $( this ).val() );
 				} );
@@ -1684,6 +1684,9 @@
 			disable: function disable() {
 				this.$element.addClass( 'disabled' );
 				this.$field.attr( 'disabled', 'disabled' );
+				if ( this.isContentEditableDiv ) {
+					this.$field.removeAttr( 'contenteditable' );
+				}
 				this.hide();
 			},
 
@@ -1691,7 +1694,7 @@
 				var field, i, str;
 				if ( this.options.applyEllipsis ) {
 					field = this.$field.get( 0 );
-					if ( this.$field.is( 'input' ) ) {
+					if ( ( this.isContentEditableDiv && !this.divInTextareaMode ) || this.isInput ) {
 						field.scrollLeft = 0;
 					} else {
 						field.scrollTop = 0;
@@ -1708,7 +1711,6 @@
 							str = ( str.length > 0 ) ? str.substring( 0, str.length - 1 ) : '';
 							this.setValue( str + '...', true );
 						}
-
 					}
 
 				}
@@ -1717,6 +1719,9 @@
 			enable: function enable() {
 				this.$element.removeClass( 'disabled' );
 				this.$field.removeAttr( 'disabled' );
+				if ( this.isContentEditableDiv ) {
+					this.$field.attr( 'contenteditable', 'true' );
+				}
 			},
 
 			externalClickListener: function externalClickListener( e, force ) {
@@ -1728,6 +1733,8 @@
 			getValue: function getValue() {
 				if ( this.actualValue !== null ) {
 					return this.actualValue;
+				} else if ( this.isContentEditableDiv ) {
+					return this.$field.html();
 				} else {
 					return this.$field.val();
 				}
@@ -1778,11 +1785,15 @@
 			 */
 			setValue: function setValue( val, suppressEllipsis ) {
 				//if suppressEllipsis is undefined, check placards init settings
-				if ( typeof suppressEllipsis === "undefined" ) {
+				if ( typeof suppressEllipsis === 'undefined' ) {
 					suppressEllipsis = !this.options.applyEllipsis;
 				}
 
-				this.$field.val( val );
+				if ( this.isContentEditableDiv ) {
+					this.$field.empty().append( val );
+				} else {
+					this.$field.val( val );
+				}
 
 				if ( !suppressEllipsis && !_isShown( this ) ) {
 					this.applyEllipsis();
@@ -1799,10 +1810,10 @@
 					return;
 				}
 
-				this.previousValue = this.$field.val();
+				this.previousValue = ( this.isContentEditableDiv ) ? this.$field.html() : this.$field.val();
 
 				if ( this.actualValue !== null ) {
-					this.setValue( this.actualValue );
+					this.setValue( this.actualValue, true );
 					this.actualValue = null;
 				}
 
@@ -5014,6 +5025,7 @@
 
 			this.currentPage = 0;
 			this.currentView = null;
+			this.isDisabled = false;
 			this.infiniteScrollingCallback = function() {};
 			this.infiniteScrollingCont = null;
 			this.infiniteScrollingEnabled = false;
@@ -5025,6 +5037,7 @@
 			this.resizeTimeout = {};
 			this.stamp = new Date().getTime() + ( Math.floor( Math.random() * 100 ) + 1 );
 			this.storedDataSourceOpts = null;
+			this.syncingViewButtonState = false;
 			this.viewOptions = {};
 			this.viewType = null;
 
@@ -5077,7 +5090,7 @@
 				self.resizeTimeout = setTimeout( function() {
 					self.resize();
 					self.$element.trigger( 'resized.fu.repeater' );
-				}, 500 ); //any faster and you get weird catastrophic errors with the header of the list repeater
+				}, 75 );
 			} );
 
 			this.$loader.loader();
@@ -5178,16 +5191,24 @@
 			disable: function() {
 				var disable = 'disable';
 				var disabled = 'disabled';
+				var viewTypeObj = $.fn.repeater.viewTypes[ this.viewType ] || {};
 
 				this.$search.search( disable );
 				this.$filters.selectlist( disable );
-				this.$views.find( 'label' ).attr( disabled, disabled );
+				this.$views.find( 'label, input' ).addClass( disabled ).attr( disabled, disabled );
 				this.$pageSize.selectlist( disable );
 				this.$primaryPaging.find( '.combobox' ).combobox( disable );
 				this.$secondaryPaging.attr( disabled, disabled );
 				this.$prevBtn.attr( disabled, disabled );
 				this.$nextBtn.attr( disabled, disabled );
 
+				if ( viewTypeObj.enabled ) {
+					viewTypeObj.enabled.call( this, {
+						status: false
+					} );
+				}
+
+				this.isDisabled = true;
 				this.$element.addClass( 'disabled' );
 				this.$element.trigger( 'disabled.fu.repeater' );
 			},
@@ -5196,10 +5217,11 @@
 				var disabled = 'disabled';
 				var enable = 'enable';
 				var pageEnd = 'page-end';
+				var viewTypeObj = $.fn.repeater.viewTypes[ this.viewType ] || {};
 
 				this.$search.search( enable );
 				this.$filters.selectlist( enable );
-				this.$views.find( 'label' ).removeAttr( disabled );
+				this.$views.find( 'label, input' ).removeClass( disabled ).removeAttr( disabled );
 				this.$pageSize.selectlist( 'enable' );
 				this.$primaryPaging.find( '.combobox' ).combobox( enable );
 				this.$secondaryPaging.removeAttr( disabled );
@@ -5224,6 +5246,13 @@
 					this.$pageSize.selectlist( 'disable' );
 				}
 
+				if ( viewTypeObj.enabled ) {
+					viewTypeObj.enabled.call( this, {
+						status: true
+					} );
+				}
+
+				this.isDisabled = false;
 				this.$element.removeClass( 'disabled' );
 				this.$element.trigger( 'enabled.fu.repeater' );
 			},
@@ -5326,7 +5355,7 @@
 
 				this.currentPage = ( page !== undefined ) ? page : NaN;
 
-				if ( ( this.currentPage + 1 ) >= pages ) {
+				if ( data.end === true || ( this.currentPage + 1 ) >= pages ) {
 					this.infiniteScrollingCont.infinitescroll( 'end', end );
 				}
 			},
@@ -5538,6 +5567,8 @@
 					}
 				}
 
+				this.syncViewButtonState();
+
 				options.preserve = ( options.preserve !== undefined ) ? options.preserve : !viewChanged;
 				this.clear( options );
 
@@ -5551,6 +5582,7 @@
 					data = data || {};
 
 					if ( self.infiniteScrollingEnabled ) {
+						// pass empty object because data handled in infiniteScrollPaging method
 						self.infiniteScrollingCallback( {} );
 					} else {
 						self.itemization( data );
@@ -5567,16 +5599,15 @@
 						}
 
 						self.$loader.hide().loader( 'pause' );
+						self.enable();
+
 						self.$element.trigger( 'rendered.fu.repeater', {
 							data: data,
 							options: dataOptions,
 							renderOptions: options
 						} );
-
 						//for maintaining support of 'loaded' event
 						self.$element.trigger( 'loaded.fu.repeater', dataOptions );
-
-						self.enable();
 					} );
 				} );
 			},
@@ -5602,9 +5633,9 @@
 					var footerHeight = this.$element.find( '.repeater-footer' ).outerHeight();
 					var bottomMargin = ( viewportMargins.bottom === 'auto' ) ? 0 : parseInt( viewportMargins.bottom, 10 );
 					var topMargin = ( viewportMargins.top === 'auto' ) ? 0 : parseInt( viewportMargins.top, 10 );
-					height = staticHeightValue - headerHeight - footerHeight - bottomMargin - topMargin;
 
-					this.$viewport.outerHeight( height ); // but WHY are we setting the outerHeight of the viewport to this???
+					height = staticHeightValue - headerHeight - footerHeight - bottomMargin - topMargin;
+					this.$viewport.outerHeight( height );
 				} else {
 					this.$canvas.removeClass( 'scrolling' );
 				}
@@ -5716,10 +5747,31 @@
 			viewChanged: function( e ) {
 				var $selected = $( e.target );
 				var val = $selected.val();
-				this.render( {
-					changeView: val,
-					pageIncrement: null
-				} );
+
+				if ( !this.syncingViewButtonState ) {
+					if ( this.isDisabled || $selected.parents( 'label:first' ).hasClass( 'disabled' ) ) {
+						this.syncViewButtonState();
+					} else {
+						this.render( {
+							changeView: val,
+							pageIncrement: null
+						} );
+					}
+				}
+			},
+
+			syncViewButtonState: function() {
+				var $itemToCheck = this.$views.find( 'input[value="' + this.currentView + '"]' );
+
+				this.syncingViewButtonState = true;
+				this.$views.find( 'input' ).prop( 'checked', false );
+				this.$views.find( 'label.active' ).removeClass( 'active' );
+
+				if ( $itemToCheck.length > 0 ) {
+					$itemToCheck.prop( 'checked', true );
+					$itemToCheck.parents( 'label:first' ).addClass( 'active' );
+				}
+				this.syncingViewButtonState = false;
 			}
 		};
 
@@ -5846,7 +5898,7 @@
 			$.fn.repeater.Constructor.prototype.list_setSelectedItems = function( items, force ) {
 				var selectable = this.viewOptions.list_selectable;
 				var self = this;
-				var data, i, $item, l;
+				var data, i, $item, length;
 
 				//this function is necessary because lint yells when a function is in a loop
 				function checkIfItemMatchesValue() {
@@ -5880,14 +5932,14 @@
 				}
 
 				if ( force === true || selectable === 'multi' ) {
-					l = items.length;
+					length = items.length;
 				} else if ( selectable ) {
-					l = ( items.length > 0 ) ? 1 : 0;
+					length = ( items.length > 0 ) ? 1 : 0;
 				} else {
-					l = 0;
+					length = 0;
 				}
 
-				for ( i = 0; i < l; i++ ) {
+				for ( i = 0; i < length; i++ ) {
 					if ( items[ i ].index !== undefined ) {
 						$item = this.$canvas.find( '.repeater-list table tbody tr:nth-child(' + ( items[ i ].index + 1 ) + ')' );
 						if ( $item.length > 0 ) {
@@ -5904,11 +5956,12 @@
 			$.fn.repeater.Constructor.prototype.list_sizeHeadings = function() {
 				var $table = this.$element.find( '.repeater-list table' );
 				$table.find( 'thead th' ).each( function() {
-					var $hr = $( this );
-					var $heading = $hr.find( '.repeater-list-heading' );
-					$heading.outerHeight( $hr.outerHeight() );
-					// outerWidth isn't always appropriate or desirable. Allow an explicit value to be set if needed
-					$heading.outerWidth( $heading.data( 'forced-width' ) || $hr.outerWidth() );
+					var $th = $( this );
+					var $heading = $th.find( '.repeater-list-heading' );
+					$heading.css( {
+						height: $th.outerHeight()
+					} );
+					$heading.outerWidth( $heading.data( 'forced-width' ) || $th.outerWidth() );
 				} );
 			};
 
@@ -5943,12 +5996,7 @@
 					this.$canvas.addClass( 'frozen-enabled' );
 				}
 
-				this.$element.find( '.repeater-list table.table-frozen tr' ).each( function( i, elem ) {
-					$( this ).height( $table.find( 'tr:eq(' + i + ')' ).height() );
-				} );
-
-				var columnWidth = $table.find( 'td:eq(0)' ).outerWidth();
-				this.$element.find( '.frozen-column-wrapper, .frozen-thead-wrapper' ).width( columnWidth );
+				this.list_sizeFrozenColumns();
 
 				$( '.frozen-thead-wrapper .repeater-list-heading' ).on( 'click', function() {
 					var index = $( this ).parent( 'th' ).index();
@@ -5985,6 +6033,7 @@
 						$wrapper.find( '.frozen-column-wrapper' ).css( 'left', scrollLeft );
 					}
 					if ( actionsEnabled && shouldScroll ) {
+						$wrapper.find( '.actions-thead-wrapper' ).css( 'right', -scrollLeft );
 						$wrapper.find( '.actions-column-wrapper' ).css( 'right', -scrollLeft );
 					}
 
@@ -5994,6 +6043,7 @@
 						$wrapper.find( '.frozen-column-wrapper' ).css( 'left', '0' );
 					}
 					if ( actionsEnabled ) {
+						$wrapper.find( '.actions-thead-wrapper' ).css( 'right', '0' );
 						$wrapper.find( '.actions-column-wrapper' ).css( 'right', '0' );
 					}
 				}
@@ -6002,27 +6052,27 @@
 			$.fn.repeater.Constructor.prototype.list_createItemActions = function() {
 				var actionsHtml = '';
 				var self = this;
-				var i, l;
+				var i, length;
 				var $table = this.$element.find( '.repeater-list .repeater-list-wrapper > table' );
 				var $actionsTable = this.$canvas.find( '.table-actions' );
 
-				for ( i = 0, l = this.viewOptions.list_actions.items.length; i < l; i++ ) {
+				for ( i = 0, length = this.viewOptions.list_actions.items.length; i < length; i++ ) {
 					var action = this.viewOptions.list_actions.items[ i ];
 					var html = action.html;
 
 					actionsHtml += '<li><a href="#" data-action="' + action.name + '" class="action-item"> ' + html + '</a></li>';
 				}
 
-				if ( $actionsTable.length < 1 ) {
-					var selectlist = '<div class="btn-group">' +
-						'<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" data-flip="auto" aria-expanded="false">' +
-						'<span class="caret"></span>' +
-						'</button>' +
-						'<ul class="dropdown-menu dropdown-menu-right" role="menu">' +
-						actionsHtml +
-						'</ul></div>';
+				var selectlist = '<div class="btn-group">' +
+					'<button type="button" class="btn btn-xs btn-default dropdown-toggle repeater-actions-button" data-toggle="dropdown" data-flip="auto" aria-expanded="false">' +
+					'<span class="caret"></span>' +
+					'</button>' +
+					'<ul class="dropdown-menu dropdown-menu-right" role="menu">' +
+					actionsHtml +
+					'</ul></div>';
 
-					// The width set here is overwritten in `list_sizeHeadings`. This is used for sizing the subsequent rows.
+				if ( $actionsTable.length < 1 ) {
+
 					var $actionsColumnWrapper = $( '<div class="actions-column-wrapper" style="width: ' + this.list_actions_width + 'px"></div>' ).insertBefore( $table );
 					var $actionsColumn = $table.clone().addClass( 'table-actions' );
 					$actionsColumn.find( 'th:not(:last-child)' ).remove();
@@ -6034,18 +6084,8 @@
 						//disable the header dropdown until an item is selected
 						$actionsColumn.find( 'thead .btn' ).attr( 'disabled', 'disabled' );
 					} else {
-						var labelText = this.viewOptions.list_actions.label || '';
-
-						var $labelOverlay = $( '<div class="repeater-list-heading">' + labelText + '</div>' );
-
-						// repeater-list.less:302 has `margin-left: -9px;` which shifts this over and makes it not actually cover what it is supposed to cover. Make it wider to compensate.
-						var negative_margin_accomodation = 9;
-						$labelOverlay.data( 'forced-width', this.list_actions_width + negative_margin_accomodation );
-
-						var $th = $( '<th>' + labelText + '</th>' );
-						$th.append( $labelOverlay );
-
-						$actionsColumn.find( 'thead tr' ).addClass( 'empty-heading' ).html( $th );
+						var label = this.viewOptions.list_actions.label || '<span class="actions-hidden">a</span>';
+						$actionsColumn.find( 'thead tr' ).addClass( 'empty-heading' ).html( '<th>' + label + '<div class="repeater-list-heading">' + label + '</div></th>' );
 					}
 
 					// Create Actions dropdown for each cell in actions table
@@ -6061,54 +6101,39 @@
 					this.$canvas.addClass( 'actions-enabled' );
 				}
 
-				this.$element.find( '.repeater-list table.table-actions thead tr th' ).outerHeight( $table.find( 'thead tr th' ).outerHeight() );
-				this.$element.find( '.repeater-list table.table-actions tbody tr td:first-child' ).each( function( i, elem ) {
-					$( this ).outerHeight( $table.find( 'tbody tr:eq(' + i + ') td' ).outerHeight() );
-				} );
-
+				this.list_sizeActionsTable();
 
 				//row level actions click
 				this.$element.find( '.table-actions tbody .action-item' ).on( 'click', function( e ) {
-					var actionName = $( this ).data( 'action' );
-					var row = $( this ).data( 'row' );
-					var selected = {
-						actionName: actionName,
-						rows: [ row ]
-					};
-					self.list_getActionItems( selected, e );
+					if ( !self.isDisabled ) {
+						var actionName = $( this ).data( 'action' );
+						var row = $( this ).data( 'row' );
+						var selected = {
+							actionName: actionName,
+							rows: [ row ]
+						};
+						self.list_getActionItems( selected, e );
+					}
 				} );
 				// bulk actions click
 				this.$element.find( '.table-actions thead .action-item' ).on( 'click', function( e ) {
-					var actionName = $( this ).data( 'action' );
-					var selected = {
-						actionName: actionName,
-						rows: []
-					};
-					self.$element.find( '.repeater-list-wrapper > table .selected' ).each( function() {
-						var index = $( this ).index();
-						index = index + 1;
-						selected.rows.push( index );
-					} );
+					if ( !self.isDisabled ) {
+						var actionName = $( this ).data( 'action' );
+						var selected = {
+							actionName: actionName,
+							rows: []
+						};
+						self.$element.find( '.repeater-list-wrapper > table .selected' ).each( function() {
+							var index = $( this ).index();
+							index = index + 1;
+							selected.rows.push( index );
+						} );
 
-					self.list_getActionItems( selected, e );
+						self.list_getActionItems( selected, e );
+					}
 				} );
 			};
 
-			/*
-			 * list_getActionItems
-			 *
-			 * Called when user clicks on an "action item".
-			 *
-			 * Object selected - object containing `actionName`, string value of the `data-action` attribute of the clicked
-			 *					"action item", and `rows` Array of jQuery objects of selected rows
-			 * Object e - jQuery event of triggering event
-			 *
-			 * Calls implementor's clickAction function if provided. Passes `selectedObj`, `callback` and `e`.
-			 *		Object selectedObj - Object containing jQuery object `item` for selected row, and Object `rowData` for
-			 *							selected row's data-attributes, or Array of such Objects if multiple selections were made
-			 *		Function callback - ¯\_(ツ)_/¯
-			 *		Object e - jQuery event object representing the triggering event
-			 */
 			$.fn.repeater.Constructor.prototype.list_getActionItems = function( selected, e ) {
 				var i;
 				var selectedObj = [];
@@ -6133,22 +6158,32 @@
 			};
 
 			$.fn.repeater.Constructor.prototype.list_sizeActionsTable = function() {
+				var $actionsTable = this.$element.find( '.repeater-list table.table-actions' );
+				var $actionsTableHeader = $actionsTable.find( 'thead tr th' );
 				var $table = this.$element.find( '.repeater-list-wrapper > table' );
-				var $actionsTableHeading = this.$element.find( '.repeater-list-wrapper .actions-column-wrapper thead th .repeater-list-heading' );
-				$actionsTableHeading.outerHeight( $table.find( 'thead th .repeater-list-heading' ).outerHeight() );
+
+				$actionsTableHeader.outerHeight( $table.find( 'thead tr th' ).outerHeight() );
+				$actionsTableHeader.find( '.repeater-list-heading' ).outerHeight( $actionsTableHeader.outerHeight() );
+				$actionsTable.find( 'tbody tr td:first-child' ).each( function( i, elem ) {
+					$( this ).outerHeight( $table.find( 'tbody tr:eq(' + i + ') td' ).outerHeight() );
+				} );
+			};
+
+			$.fn.repeater.Constructor.prototype.list_sizeFrozenColumns = function() {
+				var $table = this.$element.find( '.repeater-list .repeater-list-wrapper > table' );
+
+				this.$element.find( '.repeater-list table.table-frozen tr' ).each( function( i ) {
+					$( this ).height( $table.find( 'tr:eq(' + i + ')' ).height() );
+				} );
+
+				var columnWidth = $table.find( 'td:eq(0)' ).outerWidth();
+				this.$element.find( '.frozen-column-wrapper, .frozen-thead-wrapper' ).width( columnWidth );
 			};
 
 			$.fn.repeater.Constructor.prototype.list_frozenOptionsInitialize = function() {
-				var self = this;
-				var isFrozen = this.viewOptions.list_frozenColumns;
-				var isActions = this.viewOptions.list_actions;
-				var isMulti = this.viewOptions.list_selectable === 'multi';
-
 				var $checkboxes = this.$element.find( '.frozen-column-wrapper .checkbox-inline' );
-
 				var $everyTable = this.$element.find( '.repeater-list table' );
-
-
+				var self = this;
 
 				//Make sure if row is hovered that it is shown in frozen column as well
 				this.$element.find( 'tr.selectable' ).on( 'mouseover mouseleave', function( e ) {
@@ -6165,20 +6200,39 @@
 
 				this.$element.find( '.table-frozen tbody .checkbox-inline' ).on( 'change', function( e ) {
 					e.preventDefault();
-					var row = $( this ).attr( 'data-row' );
-					row = parseInt( row ) + 1;
-					self.$element.find( '.repeater-list-wrapper > table tbody tr:nth-child(' + row + ')' ).click();
-				} );
 
-				this.$element.find( '.frozen-thead-wrapper thead .checkbox-inline' ).on( 'change', function() {
-					if ( $( this ).checkbox( 'isChecked' ) ) {
-						self.$element.find( '.repeater-list-wrapper > table tbody tr:not(.selected)' ).click();
-						self.$element.trigger( 'selected.fu.repeaterList', $checkboxes );
-					} else {
-						self.$element.find( '.repeater-list-wrapper > table tbody tr.selected' ).click();
-						self.$element.trigger( 'deselected.fu.repeaterList', $checkboxes );
+					if ( !self.list_revertingCheckbox ) {
+						if ( self.isDisabled ) {
+							revertCheckbox( $( e.currentTarget ) );
+						} else {
+							var row = $( this ).attr( 'data-row' );
+							row = parseInt( row ) + 1;
+							self.$element.find( '.repeater-list-wrapper > table tbody tr:nth-child(' + row + ')' ).click();
+						}
 					}
 				} );
+
+				this.$element.find( '.frozen-thead-wrapper thead .checkbox-inline' ).on( 'change', function( e ) {
+					if ( !self.list_revertingCheckbox ) {
+						if ( self.isDisabled ) {
+							revertCheckbox( $( e.currentTarget ) );
+						} else {
+							if ( $( this ).checkbox( 'isChecked' ) ) {
+								self.$element.find( '.repeater-list-wrapper > table tbody tr:not(.selected)' ).click();
+								self.$element.trigger( 'selected.fu.repeaterList', $checkboxes );
+							} else {
+								self.$element.find( '.repeater-list-wrapper > table tbody tr.selected' ).click();
+								self.$element.trigger( 'deselected.fu.repeaterList', $checkboxes );
+							}
+						}
+					}
+				} );
+
+				function revertCheckbox( $checkbox ) {
+					self.list_revertingCheckbox = true;
+					$checkbox.checkbox( 'toggle' );
+					delete self.list_revertingCheckbox;
+				}
 			};
 
 			//ADDITIONAL DEFAULT OPTIONS
@@ -6212,20 +6266,34 @@
 					}
 					return options;
 				},
+				enabled: function( helpers ) {
+					if ( this.viewOptions.list_actions ) {
+						if ( !helpers.status ) {
+							this.$canvas.find( '.repeater-actions-button' ).attr( 'disabled', 'disabled' );
+						} else {
+							this.$canvas.find( '.repeater-actions-button' ).removeAttr( 'disabled' );
+							toggleActionsHeaderButton.call( this );
+						}
+					}
+				},
 				initialize: function( helpers, callback ) {
 					this.list_sortDirection = null;
 					this.list_sortProperty = null;
+					this.list_specialBrowserClass = specialBrowserClass();
 					this.list_actions_width = ( this.viewOptions.list_actions.width !== undefined ) ? this.viewOptions.list_actions.width : 37;
 					this.list_noItems = false;
 					callback();
 				},
 				resize: function() {
-					if ( this.viewOptions.list_frozenColumns || this.viewOptions.list_actions ) {
-						this.render();
-					} else {
-						if ( this.viewOptions.list_columnSyncing ) {
-							this.list_sizeHeadings();
-						}
+					sizeColumns.call( this, this.$element.find( '.repeater-list-wrapper > table thead tr' ) );
+					if ( this.viewOptions.list_actions ) {
+						this.list_sizeActionsTable();
+					}
+					if ( this.viewOptions.list_frozenColumns || this.viewOptions.list_selectable === 'multi' ) {
+						this.list_sizeFrozenColumns();
+					}
+					if ( this.viewOptions.list_columnSyncing ) {
+						this.list_sizeHeadings();
 					}
 				},
 				selected: function() {
@@ -6246,7 +6314,7 @@
 					var $table;
 
 					if ( $listContainer.length < 1 ) {
-						$listContainer = $( '<div class="repeater-list ' + specialBrowserClass() + '" data-preserve="shallow"><div class="repeater-list-wrapper" data-infinite="true" data-preserve="shallow"><table aria-readonly="true" class="table" data-preserve="shallow" role="grid"></table></div></div>' );
+						$listContainer = $( '<div class="repeater-list ' + this.list_specialBrowserClass + '" data-preserve="shallow"><div class="repeater-list-wrapper" data-infinite="true" data-preserve="shallow"><table aria-readonly="true" class="table" data-preserve="shallow" role="grid"></table></div></div>' );
 						$listContainer.find( '.repeater-list-wrapper' ).on( 'scroll.fu.repeaterList', function() {
 							if ( self.viewOptions.list_columnSyncing ) {
 								self.list_positionHeadings();
@@ -6269,7 +6337,7 @@
 					return false;
 				},
 				renderItem: function( helpers ) {
-					renderRow.call( this, helpers.container, helpers.subset[ helpers.index ], helpers.index );
+					renderRow.call( this, helpers.container, helpers.subset, helpers.index );
 					return false;
 				},
 				after: function() {
@@ -6305,232 +6373,211 @@
 		}
 
 		//ADDITIONAL METHODS
-		function renderColumn( $tr, row, rowIndex, column ) {
-			var content = row[ column.property ];
+		function areDifferentColumns( oldCols, newCols ) {
+			if ( !newCols ) {
+				return false;
+			}
+			if ( !oldCols || ( newCols.length !== oldCols.length ) ) {
+				return true;
+			}
+			for ( var i = 0; i < newCols.length; i++ ) {
+				if ( !oldCols[ i ] ) {
+					return true;
+				} else {
+					for ( var j in newCols[ i ] ) {
+						if ( oldCols[ i ][ j ] !== newCols[ i ][ j ] ) {
+							return true;
+						}
+
+					}
+				}
+
+			}
+			return false;
+		}
+
+		function renderColumn( $row, rows, rowIndex, columns, columnIndex ) {
+			var className = columns[ columnIndex ].className;
+			var content = rows[ rowIndex ][ columns[ columnIndex ].property ];
 			var $col = $( '<td></td>' );
+			var width = columns[ columnIndex ]._auto_width;
 
-			$col.addClass( column.className );
-
-			if ( this.viewOptions.list_actions !== false && column.property === '@_ACTIONS_@' ) {
-				$col.addClass( 'repeater-list-actions-placeholder-column' );
-				content = '';
+			var property = columns[ columnIndex ].property;
+			if ( this.viewOptions.list_actions !== false && property === '@_ACTIONS_@' ) {
+				content = '<div class="repeater-list-actions-placeholder" style="width: ' + this.list_actions_width + 'px"></div>';
 			}
 
 			content = ( content !== undefined ) ? content : '';
-			$col.append( content );
 
-			// excludes checkbox and actions columns, as well as columns with user set widths
-			if ( column._auto_width !== undefined ) {
-				$col.outerWidth( column._auto_width );
+			$col.addClass( ( ( className !== undefined ) ? className : '' ) ).append( content );
+			if ( width !== undefined ) {
+				$col.outerWidth( width );
 			}
+			$row.append( $col );
 
-			$tr.append( $col );
-
-			if ( this.viewOptions.list_selectable === 'multi' && column.property === '@_CHECKBOX_@' ) {
-				var checkBoxMarkup = '<label data-row="' + rowIndex + '" class="checkbox-custom checkbox-inline body-checkbox">' +
+			if ( this.viewOptions.list_selectable === 'multi' && columns[ columnIndex ].property === '@_CHECKBOX_@' ) {
+				var checkBoxMarkup = '<label data-row="' + rowIndex + '" class="checkbox-custom checkbox-inline body-checkbox repeater-select-checkbox">' +
 					'<input class="sr-only" type="checkbox"></label>';
 
 				$col.html( checkBoxMarkup );
 			}
 
-			if ( !( column.property === '@_CHECKBOX_@' || column.property === '@_ACTIONS_@' ) && this.viewOptions.list_columnRendered ) {
+			if ( !( columns[ columnIndex ].property === '@_CHECKBOX_@' || columns[ columnIndex ].property === '@_ACTIONS_@' ) && this.viewOptions.list_columnRendered ) {
 				this.viewOptions.list_columnRendered( {
-					container: $tr,
-					columnAttr: column.property,
+					container: $row,
+					columnAttr: columns[ columnIndex ].property,
 					item: $col,
-					rowData: row
+					rowData: rows[ rowIndex ]
 				}, function() {} );
 			}
 		}
 
-		/*
-		 * Handle column header click to do sort.
-		 *
-		 * This function was extracted from the renderHeader function in this file
-		 *
-		 * Expects:
-		 * e.data.$headerOverlay - visible/clickable header overlay
-		 * e.data.$headerBase - sizer `<th>` element
-		 * e.data.column - object representing raw data for clicked column
-		 * e.data.$tr - `<tr>` from `<thead>`
-		 * e.data.self - `this` context of the `renderHeader` function
-		 */
-		var handleColumnSort = function handleColumnSort( e ) {
-			var self = e.data.self;
-			// Create a new jQuery object as set of both elements.
-			var $headers = e.data.$headerOverlay.add( e.data.$headerBase );
-			var $chevron = e.data.$headerOverlay.find( '.glyphicon.rlc:first' );
-			var $tr = e.data.$tr;
-			var column = e.data.column;
-
-			self.list_sortProperty = ( typeof column.sortable === 'string' ) ? column.sortable : column.property;
-
+		function renderHeader( $tr, columns, index ) {
 			var chevDown = 'glyphicon-chevron-down';
+			var chevron = '.glyphicon.rlc:first';
 			var chevUp = 'glyphicon-chevron-up';
-			if ( $headers.hasClass( 'sorted' ) ) {
-				if ( $chevron.hasClass( chevUp ) ) {
-					$chevron.removeClass( chevUp ).addClass( chevDown );
-					self.list_sortDirection = 'desc';
-				} else {
-					if ( !self.viewOptions.list_sortClearing ) {
-						$chevron.removeClass( chevDown ).addClass( chevUp );
-						self.list_sortDirection = 'asc';
-					} else {
-						$headers.removeClass( 'sorted' );
-						$chevron.removeClass( chevDown );
-						self.list_sortDirection = null;
-						self.list_sortProperty = null;
-					}
-				}
-			} else {
-				$tr.find( 'th, .repeater-list-heading' ).removeClass( 'sorted' );
-				$chevron.removeClass( chevDown ).addClass( chevUp );
-				self.list_sortDirection = 'asc';
-				$headers.addClass( 'sorted' );
-			}
-
-			self.render( {
-				clearInfinite: true,
-				pageIncrement: null
-			} );
-		};
-
-		var renderHeader = function renderHeader( $tr, column, columnIndex ) {
+			var $div = $( '<div class="repeater-list-heading"><span class="glyphicon rlc"></span></div>' );
+			var checkBoxMarkup = '<div class="repeater-list-heading header-checkbox"><label class="checkbox-custom checkbox-inline repeater-select-checkbox">' +
+				'<input class="sr-only" type="checkbox"></label><div class="clearfix"></div></div>';
+			var $header = $( '<th></th>' );
 			var self = this;
+			var $both, className, sortable, $span, $spans;
 
-			// visible portion (top layer) of header
-			var $headerOverlay = $( '<div class="repeater-list-heading"><span class="glyphicon rlc"></span></div>' );
-			$headerOverlay.data( 'fu_item_index', columnIndex );
-			$headerOverlay.prepend( column.label );
+			$div.data( 'fu_item_index', index );
+			$div.prepend( columns[ index ].label );
+			$header.html( $div.html() ).find( '[id]' ).removeAttr( 'id' );
 
-			// header underlayment
-			var $headerBase = $( '<th></th>' );
+			if ( columns[ index ].property !== '@_CHECKBOX_@' ) {
+				$header.append( $div );
+			} else {
+				$header.append( checkBoxMarkup );
+			}
 
-			// actions column is _always_ hidden underneath absolute positioned actions table.
-			// Neither headerBase nor headerOverlay will ever be visible for actions column.
-			// This is here strictly for sizing purposes for the benefit of the other columns'
-			// sizing calculations.
-			if ( this.viewOptions.list_actions && column.property === '@_ACTIONS_@' ) {
+			$both = $header.add( $div );
+			$span = $div.find( chevron );
+			$spans = $span.add( $header.find( chevron ) );
+
+			if ( this.viewOptions.list_actions && columns[ index ].property === '@_ACTIONS_@' ) {
 				var width = this.list_actions_width;
-				$headerBase.css( 'width', width );
-				$headerOverlay.css( 'width', width );
+				$header.css( 'width', width );
+				$div.css( 'width', width );
 			}
 
-			var headerClasses = [];
-			headerClasses.push( column.className );
+			className = columns[ index ].className;
+			if ( className !== undefined ) {
+				$both.addClass( className );
+			}
 
-			var sortable = column.sortable;
+			sortable = columns[ index ].sortable;
 			if ( sortable ) {
-				headerClasses.push( 'sortable' );
+				$both.addClass( 'sortable' );
+				$div.on( 'click.fu.repeaterList', function() {
+					if ( !self.isDisabled ) {
+						self.list_sortProperty = ( typeof sortable === 'string' ) ? sortable : columns[ index ].property;
+						if ( $div.hasClass( 'sorted' ) ) {
+							if ( $span.hasClass( chevUp ) ) {
+								$spans.removeClass( chevUp ).addClass( chevDown );
+								self.list_sortDirection = 'desc';
+							} else {
+								if ( !self.viewOptions.list_sortClearing ) {
+									$spans.removeClass( chevDown ).addClass( chevUp );
+									self.list_sortDirection = 'asc';
+								} else {
+									$both.removeClass( 'sorted' );
+									$spans.removeClass( chevDown );
+									self.list_sortDirection = null;
+									self.list_sortProperty = null;
+								}
+							}
 
-				$headerOverlay.on(
-					'click.fu.repeaterList', {
-						'self': self,
-						'$tr': $tr,
-						'$headerBase': $headerBase,
-						'$headerOverlay': $headerOverlay,
-						'column': column
-					},
-					handleColumnSort
-				);
+						} else {
+							$tr.find( 'th, .repeater-list-heading' ).removeClass( 'sorted' );
+							$spans.removeClass( chevDown ).addClass( chevUp );
+							self.list_sortDirection = 'asc';
+							$both.addClass( 'sorted' );
+						}
+
+						self.render( {
+							clearInfinite: true,
+							pageIncrement: null
+						} );
+					}
+				} );
 			}
 
-			var $chevron = $headerOverlay.find( '.glyphicon.rlc:first' );
-
-			if ( column.sortDirection === 'asc' || column.sortDirection === 'desc' ) {
+			if ( columns[ index ].sortDirection === 'asc' || columns[ index ].sortDirection === 'desc' ) {
 				$tr.find( 'th, .repeater-list-heading' ).removeClass( 'sorted' );
-
-				headerClasses.push( 'sortable sorted' );
-
-				if ( column.sortDirection === 'asc' ) {
-					$chevron.addClass( 'glyphicon-chevron-up' );
+				$both.addClass( 'sortable sorted' );
+				if ( columns[ index ].sortDirection === 'asc' ) {
+					$spans.addClass( chevUp );
 					this.list_sortDirection = 'asc';
 				} else {
-					$chevron.addClass( 'glyphicon-chevron-down' );
+					$spans.addClass( chevDown );
 					this.list_sortDirection = 'desc';
 				}
 
-				this.list_sortProperty = ( typeof sortable === 'string' ) ? sortable : column.property;
+				this.list_sortProperty = ( typeof sortable === 'string' ) ? sortable : columns[ index ].property;
 			}
 
-			// duplicate the header's overlay content into the header if appropriate (possibly for dimensional styling???)
-			$headerBase.html( $headerOverlay.html() );
+			$tr.append( $header );
+		}
 
-			// place visible content into header for display to user
-			if ( column.property !== '@_CHECKBOX_@' ) {
-				$headerBase.append( $headerOverlay );
-			} else {
-				var checkBoxMarkup = '<div class="repeater-list-heading header-checkbox"><label class="checkbox-custom checkbox-inline"><input class="sr-only" type="checkbox"></label><div class="clearfix"></div></div>';
-				$headerBase.append( checkBoxMarkup );
-			}
-
-			headerClasses = headerClasses.join( ' ' );
-			$headerBase.addClass( headerClasses );
-			$headerOverlay.addClass( headerClasses );
-
-			$tr.append( $headerBase );
-		};
-
-		function renderRow( $tbody, row, rowIndex ) {
+		function renderRow( $tbody, rows, index ) {
 			var $row = $( '<tr></tr>' );
 			var self = this;
-			var i, l;
+			var i, length;
 			var isMulti = this.viewOptions.list_selectable === 'multi';
 			var isActions = this.viewOptions.list_actions;
 
 			if ( this.viewOptions.list_selectable ) {
 				$row.addClass( 'selectable' );
 				$row.attr( 'tabindex', 0 ); // allow items to be tabbed to / focused on
-				$row.data( 'item_data', row );
+				$row.data( 'item_data', rows[ index ] );
 
 				$row.on( 'click.fu.repeaterList', function() {
-					var $item = $( this );
-					var index = $( this ).index();
-					index = index + 1;
-					var $frozenRow = self.$element.find( '.frozen-column-wrapper tr:nth-child(' + index + ')' );
-					var $actionsRow = self.$element.find( '.actions-column-wrapper tr:nth-child(' + index + ')' );
-					var $checkBox = self.$element.find( '.frozen-column-wrapper tr:nth-child(' + index + ') .checkbox-inline' );
+					if ( !self.isDisabled ) {
+						var $item = $( this );
+						var index = $( this ).index();
+						index = index + 1;
+						var $frozenRow = self.$element.find( '.frozen-column-wrapper tr:nth-child(' + index + ')' );
+						var $actionsRow = self.$element.find( '.actions-column-wrapper tr:nth-child(' + index + ')' );
+						var $checkBox = self.$element.find( '.frozen-column-wrapper tr:nth-child(' + index + ') .checkbox-inline' );
 
-					if ( $item.is( '.selected' ) ) {
-						$item.removeClass( 'selected' );
-						if ( isMulti ) {
-							$checkBox.checkbox( 'uncheck' );
-							$frozenRow.removeClass( 'selected' );
-							if ( isActions ) {
-								$actionsRow.removeClass( 'selected' );
+						if ( $item.is( '.selected' ) ) {
+							$item.removeClass( 'selected' );
+							if ( isMulti ) {
+								$checkBox.checkbox( 'uncheck' );
+								$frozenRow.removeClass( 'selected' );
+								if ( isActions ) {
+									$actionsRow.removeClass( 'selected' );
+								}
+							} else {
+								$item.find( '.repeater-list-check' ).remove();
 							}
+
+							self.$element.trigger( 'deselected.fu.repeaterList', $item );
 						} else {
-							$item.find( '.repeater-list-check' ).remove();
+							if ( !isMulti ) {
+								self.$canvas.find( '.repeater-list-check' ).remove();
+								self.$canvas.find( '.repeater-list tbody tr.selected' ).each( function() {
+									$( this ).removeClass( 'selected' );
+									self.$element.trigger( 'deselected.fu.repeaterList', $( this ) );
+								} );
+								$item.find( 'td:first' ).prepend( '<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>' );
+								$item.addClass( 'selected' );
+								$frozenRow.addClass( 'selected' );
+							} else {
+								$checkBox.checkbox( 'check' );
+								$item.addClass( 'selected' );
+								$frozenRow.addClass( 'selected' );
+								if ( isActions ) {
+									$actionsRow.addClass( 'selected' );
+								}
+							}
+							self.$element.trigger( 'selected.fu.repeaterList', $item );
 						}
 
-						self.$element.trigger( 'deselected.fu.repeaterList', $item );
-					} else {
-						if ( !isMulti ) {
-							self.$canvas.find( '.repeater-list-check' ).remove();
-							self.$canvas.find( '.repeater-list tbody tr.selected' ).each( function() {
-								$( this ).removeClass( 'selected' );
-								self.$element.trigger( 'deselected.fu.repeaterList', $( this ) );
-							} );
-							$item.find( 'td:first' ).prepend( '<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>' );
-							$item.addClass( 'selected' );
-							$frozenRow.addClass( 'selected' );
-						} else {
-							$checkBox.checkbox( 'check' );
-							$item.addClass( 'selected' );
-							$frozenRow.addClass( 'selected' );
-							if ( isActions ) {
-								$actionsRow.addClass( 'selected' );
-							}
-						}
-						self.$element.trigger( 'selected.fu.repeaterList', $item );
-					}
-					var $selected = self.$canvas.find( '.repeater-list-wrapper > table .selected' );
-					var $actionsColumn = self.$element.find( '.table-actions' );
-
-					if ( $selected.length > 0 ) {
-						$actionsColumn.find( 'thead .btn' ).removeAttr( 'disabled' );
-					} else {
-						$actionsColumn.find( 'thead .btn' ).attr( 'disabled', 'disabled' );
+						toggleActionsHeaderButton.call( self );
 					}
 				} );
 
@@ -6544,20 +6591,20 @@
 			}
 
 			if ( this.viewOptions.list_actions && !this.viewOptions.list_selectable ) {
-				$row.data( 'item_data', row );
+				$row.data( 'item_data', rows[ index ] );
 			}
 
 			$tbody.append( $row );
 
-			for ( i = 0; i < this.list_columns.length; i++ ) {
-				renderColumn.call( this, $row, row, rowIndex, this.list_columns[ i ] );
+			for ( i = 0, length = this.list_columns.length; i < length; i++ ) {
+				renderColumn.call( this, $row, rows, index, this.list_columns, i );
 			}
 
 			if ( this.viewOptions.list_rowRendered ) {
 				this.viewOptions.list_rowRendered( {
 					container: $tbody,
 					item: $row,
-					rowData: row
+					rowData: rows[ index ]
 				}, function() {} );
 			}
 		}
@@ -6582,57 +6629,34 @@
 			}
 		}
 
-		var areDifferentColumns = function areDifferentColumns( oldCols, newCols ) {
-			if ( !newCols ) {
-				return false;
-			}
-			if ( !oldCols || ( newCols.length !== oldCols.length ) ) {
-				return true;
-			}
-			for ( var i = 0; i < newCols.length; i++ ) {
-				if ( !oldCols[ i ] ) {
-					return true;
-				} else {
-					for ( var j in newCols[ i ] ) {
-						if ( oldCols[ i ][ j ] !== newCols[ i ][ j ] ) {
-							return true;
-						}
-
-					}
-				}
-
-			}
-			return false;
-		};
-
-		var renderThead = function renderThead( $table, data ) {
+		function renderThead( $table, data ) {
 			var columns = data.columns || [];
 			var $thead = $table.find( 'thead' );
+			var i, length, $tr;
 
 			if ( this.list_firstRender || areDifferentColumns( this.list_columns, columns ) || $thead.length === 0 ) {
 				$thead.remove();
-
-				this.list_firstRender = false;
-				this.$loader.removeClass( 'noHeader' );
 
 				if ( data.count < 1 ) {
 					this.list_noItems = true;
 				}
 
-				// insert checkbox column, if applicable
 				if ( this.viewOptions.list_selectable === 'multi' && !this.list_noItems ) {
 					var checkboxColumn = {
 						label: 'c',
 						property: '@_CHECKBOX_@',
 						sortable: false
 					};
-					columns.unshift( checkboxColumn );
+					columns.splice( 0, 0, checkboxColumn );
 				}
 
-				// insert actions column, if applicable
+				this.list_columns = columns;
+				this.list_firstRender = false;
+				this.$loader.removeClass( 'noHeader' );
+
 				if ( this.viewOptions.list_actions && !this.list_noItems ) {
 					var actionsColumn = {
-						label: this.viewOptions.list_actions.label || '',
+						label: this.viewOptions.list_actions.label || '<span class="actions-hidden">a</span>',
 						property: '@_ACTIONS_@',
 						sortable: false,
 						width: this.list_actions_width
@@ -6640,79 +6664,69 @@
 					columns.push( actionsColumn );
 				}
 
-				this.list_columns = columns;
 
-				var $headerRow = $( '<tr></tr>' );
-				for ( var i = 0; i < columns.length; i++ ) {
-					renderHeader.call( this, $headerRow, columns[ i ], i );
+				$thead = $( '<thead data-preserve="deep"><tr></tr></thead>' );
+				$tr = $thead.find( 'tr' );
+				for ( i = 0, length = columns.length; i < length; i++ ) {
+					renderHeader.call( this, $tr, columns, i );
 				}
-
-				$thead = $( '<thead data-preserve="deep"></thead>' );
-				$thead.append( $headerRow );
 				$table.prepend( $thead );
 
-				// after checkbox column is created need to get width of checkbox column from its css class
 				if ( this.viewOptions.list_selectable === 'multi' && !this.list_noItems ) {
+					//after checkbox column is created need to get width of checkbox column from
+					//its css class
 					var checkboxWidth = this.$element.find( '.repeater-list-wrapper .header-checkbox' ).outerWidth();
-					columns[ 0 ].width = checkboxWidth;
+					var selectColumn = $.grep( columns, function( column ) {
+						return column.property === '@_CHECKBOX_@';
+					} )[ 0 ];
+					selectColumn.width = checkboxWidth;
 				}
-
-				sizeColumns.call( this, $headerRow );
+				sizeColumns.call( this, $tr );
 			}
-		};
+		}
 
-		var sizeColumns = function sizeColumns( $tr ) {
-			var autoGauge = [];
+		function sizeColumns( $tr ) {
+			var automaticallyGeneratedWidths = [];
 			var self = this;
-			var takenWidth = 0;
-			var totalWidth = 0;
+			var i, length, newWidth, widthTaken;
 
-			if ( self.viewOptions.list_columnSizing ) {
-				$tr.find( 'th' ).each( function( i, th ) {
-					var $th = $( th );
-					var isLast = ( $( this ).next( 'th' ).length === 0 );
-
+			if ( this.viewOptions.list_columnSizing ) {
+				i = 0;
+				widthTaken = 0;
+				$tr.find( 'th' ).each( function() {
+					var $th = $( this );
+					var width;
 					if ( self.list_columns[ i ].width !== undefined ) {
-						var width = self.list_columns[ i ].width;
-
-						takenWidth += width;
-						totalWidth += width;
-
-						if ( !isLast ) {
-							$th.outerWidth( width );
-							self.list_columns[ i ]._auto_width = width;
-						} else {
-							$th.outerWidth( '' ); // why does this work? This is invalid jQuery.
-						}
+						width = self.list_columns[ i ].width;
+						$th.outerWidth( width );
+						widthTaken += $th.outerWidth();
+						self.list_columns[ i ]._auto_width = width;
 					} else {
-						totalWidth += $th.outerWidth();
-
-						autoGauge.push( {
+						var outerWidth = $th.find( '.repeater-list-heading' ).outerWidth();
+						automaticallyGeneratedWidths.push( {
 							col: $th,
 							index: i,
-							last: isLast,
-							minWidth: $th.find( '.repeater-list-heading' ).outerWidth()
+							minWidth: outerWidth
 						} );
 					}
+
+					i++;
 				} );
 
-				var canvasWidth = self.$canvas.find( '.repeater-list-wrapper' ).outerWidth();
-				var newWidth = Math.floor( ( canvasWidth - takenWidth ) / autoGauge.length );
-
-				for ( var i = 0; i < autoGauge.length; i++ ) {
-					var th = autoGauge[ i ];
-
-					if ( newWidth < th.minWidth ) {
-						newWidth = th.minWidth;
-					}
-
-					if ( !th.last || canvasWidth < totalWidth ) {
-						th.col.outerWidth( newWidth );
-						self.list_columns[ th.index ]._auto_width = newWidth;
+				length = automaticallyGeneratedWidths.length;
+				if ( length > 0 ) {
+					var canvasWidth = this.$canvas.find( '.repeater-list-wrapper' ).outerWidth();
+					newWidth = Math.floor( ( canvasWidth - widthTaken ) / length );
+					for ( i = 0; i < length; i++ ) {
+						if ( automaticallyGeneratedWidths[ i ].minWidth > newWidth ) {
+							newWidth = automaticallyGeneratedWidths[ i ].minWidth;
+						}
+						automaticallyGeneratedWidths[ i ].col.outerWidth( newWidth );
+						this.list_columns[ automaticallyGeneratedWidths[ i ].index ]._auto_width = newWidth;
 					}
 				}
 			}
-		};
+		}
 
 		function specialBrowserClass() {
 			var ua = window.navigator.userAgent;
@@ -6725,6 +6739,16 @@
 				return 'firefox';
 			} else {
 				return '';
+			}
+		}
+
+		function toggleActionsHeaderButton() {
+			var $selected = this.$canvas.find( '.repeater-list-wrapper > table .selected' );
+			var $actionsColumn = this.$element.find( '.table-actions' );
+			if ( $selected.length > 0 ) {
+				$actionsColumn.find( 'thead .btn' ).removeAttr( 'disabled' );
+			} else {
+				$actionsColumn.find( 'thead .btn' ).attr( 'disabled', 'disabled' );
 			}
 		}
 
@@ -6890,6 +6914,8 @@
 					if ( selectable ) {
 						$thumbnail.addClass( 'selectable' );
 						$thumbnail.on( 'click', function() {
+							if ( self.isDisabled ) return;
+
 							if ( !$thumbnail.hasClass( selected ) ) {
 								if ( selectable !== 'multi' ) {
 									self.$canvas.find( '.repeater-thumbnail-cont .selectable.selected' ).each( function() {
@@ -7288,7 +7314,7 @@
 					pattern += 'FREQ=DAILY;';
 					pattern += 'INTERVAL=' + interval + ';';
 				} else if ( repeat === 'weekdays' ) {
-					pattern += 'FREQ=DAILY;';
+					pattern += 'FREQ=WEEKLY;';
 					pattern += 'BYDAY=MO,TU,WE,TH,FR;';
 					pattern += 'INTERVAL=1;';
 				} else if ( repeat === 'weekly' ) {
@@ -7510,16 +7536,20 @@
 					} else if ( recur.FREQ === 'HOURLY' ) {
 						item = 'hourly';
 					} else if ( recur.FREQ === 'WEEKLY' ) {
+						item = 'weekly';
+
 						if ( recur.BYDAY ) {
-							item = this.$element.find( '.repeat-days-of-the-week .btn-group' );
-							item.find( 'label' ).removeClass( 'active' );
-							temp = recur.BYDAY.split( ',' );
-							for ( i = 0, l = temp.length; i < l; i++ ) {
-								item.find( 'input[data-value="' + temp[ i ] + '"]' ).prop( 'checked', true ).parent().addClass( 'active' );
+							if ( recur.BYDAY === 'MO,TU,WE,TH,FR' ) {
+								item = 'weekdays';
+							} else {
+								var el = this.$element.find( '.repeat-days-of-the-week .btn-group' );
+								el.find( 'label' ).removeClass( 'active' );
+								temp = recur.BYDAY.split( ',' );
+								for ( i = 0, l = temp.length; i < l; i++ ) {
+									el.find( 'input[data-value="' + temp[ i ] + '"]' ).prop( 'checked', true ).parent().addClass( 'active' );
+								}
 							}
 						}
-
-						item = 'weekly';
 					} else if ( recur.FREQ === 'MONTHLY' ) {
 						this.$element.find( '.repeat-monthly input' ).removeAttr( 'checked' ).removeClass( 'checked' );
 						this.$element.find( '.repeat-monthly label.radio-custom' ).removeClass( 'checked' );
