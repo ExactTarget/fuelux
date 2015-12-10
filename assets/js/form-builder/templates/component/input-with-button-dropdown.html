@@ -4,7 +4,7 @@
   <% if(horizontal) {%><div class="col-sm-10"><% } %>
     <div class="input-group<% if(inputsize.length > 0) {%> input-group-<%= inputsize %><% } %>" id="<%= id %>">
       <% if(placement=="appended") { %><input id="<%= id %>Input" name="<%= id %>Input" type="<%= inputtype %>" class="form-control<% if(!horizontal && inputsize.length > 0) {%> input-<%= inputsize %><% } %>" placeholder="<%= placeholder %>" aria-label=""<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>/><% } %>
-      <div class="input-group-btn">
+      <div class="input-group-btn<% if(placement=="appended") { %> pull-right<% } %>">
         <button type="button" class="btn <%= buttonstyle %> dropdown-toggle<% if(inputsize.length > 0) {%> btn-<%= inputsize %><% } %>" data-toggle="dropdown" aria-label="<%= label %> related options" aria-haspopup="true" aria-expanded="false"<% if(required) {%> required <% } %><% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>><%= buttontext %>&nbsp;<span class="caret"></span>
         </button>
         <ul class="dropdown-menu"><% _.each(buttonoptions, function(value) { %>
