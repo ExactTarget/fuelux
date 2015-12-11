@@ -30,6 +30,12 @@
 	(function () {
 		require(['formbuilder/app'], function(app) {
 			app.initialize();
+
+			$('#forkMeRibbon').remove();
+
+			window.onbeforeunload = function(){
+				return "Any work you've done in the Form Builder will be lost.";
+			};
 		});
 	})();
 </script

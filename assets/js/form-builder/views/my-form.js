@@ -6,6 +6,8 @@ define(function MyForm(require) {
 	var PubSub = require('helper/pubsub');
 	var _renderForm = require('text!templates/app/renderform.html');
 
+	var myForm = require('models/my-form');
+
 	return Backbone.View.extend({
 		tagName: 'fieldset',
 		initialize: function initialize() {
@@ -15,23 +17,37 @@ define(function MyForm(require) {
 			PubSub.on('placedComponentDrag', this.handlePlacedComponentDrag, this);
 			PubSub.on('dragHelperMove', this.handleDragHelperMove, this);
 			PubSub.on('dragHelperDrop', this.handleDragHelperDrop, this);
+			PubSub.on('horizontalToggle', this.handleHorizontalToggle, this);
 			this.$build = $('#build');
 			this.renderForm = _.template(_renderForm);
 			this.render();
+
+			$('#horizontal-toggle').on('change', function (e) {
+				PubSub.trigger('horizontalToggle', e, this);
+			});
 		},
 
 		render: function render() {
+			var self = this;
+
 			//Render Snippet Views
 			this.$el.empty();
-			var that = this;
+
+			if(myForm.get('horizontal')){
+				$('#target').addClass('form-horizontal');
+			}
+
 			_.each(this.collection.renderAll(), function (component) {
-				that.$el.append(component);
+				self.$el.append(component);
 			});
-			$('#render').val(that.renderForm({
-				text: _.map(this.collection.renderAllClean(), function (e) {
+
+			myForm.set({text: _.map(this.collection.renderAllClean(), function (e) {
 					return e.html();
 				}).join('\n')
-			}));
+				, horizontal: myForm.get('horizontal')
+			});
+
+			$('#render').val(self.renderForm(myForm.attributes));
 			this.$el.appendTo('#build form');
 			this.delegateEvents();
 		},
@@ -54,10 +70,16 @@ define(function MyForm(require) {
 
 		handlePlacedComponentDrag: function handlePlacedComponentDrag(mouseEvent, snippetModel) {
 			$('body').append(new DragHelperComponent({
-				model: snippetModel
+				model: snippetModel,
+				horizontal: myForm.get('horizontal')
 			}).render());
 			this.collection.remove(snippetModel);
 			PubSub.trigger('newDragHelperPostRender', mouseEvent);
+		},
+
+		handleHorizontalToggle: function handleHorizontalToggle(mouseEvent) {
+			myForm.refreshHorizontalSetting();
+			this.render();
 		},
 
 		mouseInBounds: function mouseInBounds(mouseEvent, $build) {

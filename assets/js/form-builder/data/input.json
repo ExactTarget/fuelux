@@ -1,18 +1,100 @@
 [
 	{
+		"title": "Input",
 		"fields": {
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Input"
+			},
 			"id": {
 				"type": "input",
 				"label": "ID / Name",
 				"value": "textinput"
 			},
+			"inputtype": {
+				"type": "select",
+				"label": "Input Type",
+				"value": [
+					{
+						"label": "Text",
+						"value": "text",
+						"selected": true
+					},
+					{
+						"label": "Password",
+						"value": "password",
+						"selected": false
+					},
+					{
+						"label": "Datetime",
+						"value": "datetime",
+						"selected": false
+					},
+					{
+						"label": "Datetime-Local",
+						"value": "datetime-local",
+						"selected": false
+					},
+					{
+						"label": "Date",
+						"value": "date",
+						"selected": false
+					},
+					{
+						"label": "Month",
+						"value": "month",
+						"selected": false
+					},
+					{
+						"label": "Time",
+						"value": "time",
+						"selected": false
+					},
+					{
+						"label": "Week",
+						"value": "week",
+						"selected": false
+					},
+					{
+						"label": "Number",
+						"value": "number",
+						"selected": false
+					},
+					{
+						"label": "Email",
+						"value": "email",
+						"selected": false
+					},
+					{
+						"label": "URL",
+						"value": "url",
+						"selected": false
+					},
+					{
+						"label": "Search",
+						"value": "search",
+						"selected": false
+					},
+					{
+						"label": "Tel",
+						"value": "tel",
+						"selected": false
+					},
+					{
+						"label": "Color",
+						"value": "color",
+						"selected": false
+					}
+				]
+			},
 			"inputsize": {
 				"type": "select",
 				"label": "Input Size",
 				"value": [
 					{
 						"label": "Small",
-						"value": "input-sm",
+						"value": "sm",
 						"selected": false
 					},{
 						"label": "Normal",
@@ -21,258 +103,184 @@
 					},
 					{
 						"label": "Large",
-						"value": "input-lg",
+						"value": "lg",
 						"selected": false
 					}
 				]
-			},
-			"label": {
-				"type": "input",
-				"label": "Label Text",
-				"value": "Text Input"
-			},
-			"helptext": {
-				"type": "input",
-				"label": "Help Text",
-				"value": "help"
 			},
 			"placeholder": {
 				"type": "input",
 				"label": "Placeholder",
 				"value": "placeholder"
 			},
-			"required": {
-				"type": "checkbox",
-				"label": "Required",
-				"value": false
-			}
-		},
-		"title": "Text Input"
-	},
-	{
-		"fields": {
-			"id": {
-				"type": "input",
-				"label": "ID / Name",
-				"value": "passwordinput"
-			},
-			"inputsize": {
-				"type": "select",
-				"label": "Input Size",
-				"value": [
-					{
-						"label": "Small",
-						"value": "input-sm",
-						"selected": false
-					},{
-						"label": "Normal",
-						"value": "",
-						"selected": true
-					},
-					{
-						"label": "Large",
-						"value": "input-lg",
-						"selected": false
-					}
-				]
-			},
-			"label": {
-				"type": "input",
-				"label": "Label Text",
-				"value": "Password Input"
-			},
 			"helptext": {
 				"type": "input",
 				"label": "Help Text",
 				"value": "help"
 			},
-			"placeholder": {
-				"type": "input",
-				"label": "Placeholder",
-				"value": "placeholder"
-			},
 			"required": {
 				"type": "checkbox",
 				"label": "Required",
 				"value": false
-			}
-		},
-		"title": "Password Input"
-	},
-	{
-		"fields": {
-			"id": {
-				"type": "input",
-				"label": "ID / Name",
-				"value": "searchinput"
 			},
-			"inputsize": {
-				"type": "select",
-				"label": "Input Size",
-				"value": [
-					{
-						"label": "Small",
-						"value": "input-sm",
-						"selected": false
-					},{
-						"label": "Normal",
-						"value": "",
-						"selected": true
-					},
-					{
-						"label": "Large",
-						"value": "input-lg",
-						"selected": false
-					}
-				]
-			},
-			"label": {
-				"type": "input",
-				"label": "Label Text",
-				"value": "Search Input"
-			},
-			"helptext": {
-				"type": "input",
-				"label": "Help Text",
-				"value": "help"
-			},
-			"placeholder": {
-				"type": "input",
-				"label": "Placeholder",
-				"value": "placeholder"
-			},
-			"required": {
+			"isDisabled": {
 				"type": "checkbox",
-				"label": "Required",
+				"label": "Disabled",
+				"value": false
+			},
+			"readonly": {
+				"type": "checkbox",
+				"label": "Readonly",
 				"value": false
 			}
-		},
-		"title": "Search Input"
+		}
 	},
 	{
+		"title": "Spinbox",
 		"fields": {
 			"id": {
 				"type": "input",
 				"label": "ID / Name",
 				"value": "spinbox"
 			},
-			"inputsize": {
-				"type": "select",
-				"label": "Input Size",
-				"value": [
-					{
-						"label": "Small",
-						"value": "input-sm",
-						"selected": false
-					},{
-						"label": "Normal",
-						"value": "",
-						"selected": true
-					},
-					{
-						"label": "Large",
-						"value": "input-lg",
-						"selected": false
-					}
-				]
-			},
 			"label": {
 				"type": "input",
 				"label": "Label Text",
 				"value": "Spinbox"
-			},
-			"helptext": {
-				"type": "input",
-				"label": "Help Text",
-				"value": "help"
 			},
 			"placeholder": {
 				"type": "number",
 				"label": "Initial Value",
 				"value": 1
 			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
+			},
 			"required": {
 				"type": "checkbox",
 				"label": "Required",
 				"value": false
+			},
+			"isDisabled": {
+				"type": "checkbox",
+				"label": "Disabled",
+				"value": false
+			},
+			"readonly": {
+				"type": "checkbox",
+				"label": "Readonly",
+				"value": false
 			}
-		},
-		"title": "Spinbox"
+		}
 	},
 	{
+		"title": "Input With Text",
 		"fields": {
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Aside Text"
+			},
 			"id": {
 				"type": "input",
 				"label": "ID / Name",
-				"value": "prependedtext"
+				"value": "inputwithtext"
 			},
 			"prepend": {
 				"type": "input",
 				"label": "Prepend",
 				"value": "prepend"
 			},
-			"inputsize": {
-				"type": "select",
-				"label": "Input Size",
-				"value": [
-					{
-						"label": "Small",
-						"value": "input-sm",
-						"selected": false
-					},{
-						"label": "Normal",
-						"value": "",
-						"selected": true
-					},
-					{
-						"label": "Large",
-						"value": "input-lg",
-						"selected": false
-					}
-				]
-			},
-			"label": {
-				"type": "input",
-				"label": "Label Text",
-				"value": "Prepended Text"
-			},
-			"helptext": {
-				"type": "input",
-				"label": "Help Text",
-				"value": "help"
-			},
-			"placeholder": {
-				"type": "input",
-				"label": "Placeholder",
-				"value": "placeholder"
-			},
-			"required": {
-				"type": "checkbox",
-				"label": "Required",
-				"value": false
-			}
-		},
-		"title": "Prepended Text"
-	},
-	{
-		"fields": {
-			"id": {
-				"type": "input",
-				"label": "ID / Name",
-				"value": "appendedtext"
-			},
 			"append": {
 				"type": "input",
 				"label": "Append",
 				"value": "append"
 			},
+			"inputtype": {
+				"type": "select",
+				"label": "Input Type",
+				"value": [
+					{
+						"label": "Text",
+						"value": "text",
+						"selected": true
+					},
+					{
+						"label": "Password",
+						"value": "password",
+						"selected": false
+					},
+					{
+						"label": "Datetime",
+						"value": "datetime",
+						"selected": false
+					},
+					{
+						"label": "Datetime-Local",
+						"value": "datetime-local",
+						"selected": false
+					},
+					{
+						"label": "Date",
+						"value": "date",
+						"selected": false
+					},
+					{
+						"label": "Month",
+						"value": "month",
+						"selected": false
+					},
+					{
+						"label": "Time",
+						"value": "time",
+						"selected": false
+					},
+					{
+						"label": "Week",
+						"value": "week",
+						"selected": false
+					},
+					{
+						"label": "Number",
+						"value": "number",
+						"selected": false
+					},
+					{
+						"label": "Email",
+						"value": "email",
+						"selected": false
+					},
+					{
+						"label": "URL",
+						"value": "url",
+						"selected": false
+					},
+					{
+						"label": "Search",
+						"value": "search",
+						"selected": false
+					},
+					{
+						"label": "Tel",
+						"value": "tel",
+						"selected": false
+					},
+					{
+						"label": "Color",
+						"value": "color",
+						"selected": false
+					}
+				]
+			},
 			"inputsize": {
 				"type": "select",
 				"label": "Input Size",
 				"value": [
 					{
 						"label": "Small",
-						"value": "input-sm",
+						"value": "sm",
 						"selected": false
 					},{
 						"label": "Normal",
@@ -281,52 +289,116 @@
 					},
 					{
 						"label": "Large",
-						"value": "input-lg",
+						"value": "lg",
 						"selected": false
 					}
 				]
-			},
-			"label": {
-				"type": "input",
-				"label": "Label Text",
-				"value": "Appended Text"
-			},
-			"helptext": {
-				"type": "input",
-				"label": "Help Text",
-				"value": "help"
 			},
 			"placeholder": {
 				"type": "input",
 				"label": "Placeholder",
 				"value": "placeholder"
 			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
+			},
 			"required": {
 				"type": "checkbox",
 				"label": "Required",
 				"value": false
+			},
+			"isDisabled": {
+				"type": "checkbox",
+				"label": "Disabled",
+				"value": false
+			},
+			"readonly": {
+				"type": "checkbox",
+				"label": "Readonly",
+				"value": false
 			}
-		},
-		"title": "Appended Text"
+		}
 	},
 	{
+		"title": "Textarea",
 		"fields": {
+			"label": {
+				"type": "input",
+				"label": "Label Text",
+				"value": "Textarea"
+			},
 			"id": {
 				"type": "input",
 				"label": "ID / Name",
 				"value": "textarea"
 			},
-			"label": {
-				"type": "input",
-				"label": "Label Text",
-				"value": "Text Area"
+			"rows": {
+				"type": "select",
+				"label": "Rows",
+				"value": [
+					{
+						"label": "1",
+						"value": 1,
+						"selected": true
+					},{
+						"label": "2",
+						"value": 2,
+						"selected": false
+					},
+					{
+						"label": "3",
+						"value": 3,
+						"selected": false
+					},
+					{
+						"label": "4",
+						"value": 4,
+						"selected": false
+					},
+					{
+						"label": "5",
+						"value": 5,
+						"selected": false
+					},
+					{
+						"label": "6",
+						"value": 6,
+						"selected": false
+					},
+					{
+						"label": "7",
+						"value": 7,
+						"selected": false
+					}
+				]
 			},
 			"textarea": {
 				"type": "textarea",
 				"label": "Starting Text",
 				"value": "default text"
+			},
+			"helptext": {
+				"type": "input",
+				"label": "Help Text",
+				"value": "help"
+			},
+			"required": {
+				"type": "checkbox",
+				"label": "Required",
+				"value": false
+			},
+			"isDisabled": {
+				"type": "checkbox",
+				"label": "Disabled",
+				"value": false
+			},
+			"readonly": {
+				"type": "checkbox",
+				"label": "Readonly",
+				"value": false
 			}
-		},
-		"title": "Text Area"
+		}
 	}
 ]

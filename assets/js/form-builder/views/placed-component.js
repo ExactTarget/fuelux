@@ -35,6 +35,9 @@ define(function MyFormSnippet(require) {
 					}
 				});
 			}
+
+			$('.popover .checkbox-custom').checkbox();
+			$('.popover .spinbox').spinbox();
 		},
 
 		preventPropagation: function preventPropagation(e) {
@@ -50,7 +53,7 @@ define(function MyFormSnippet(require) {
 			return function (mouseEvent) {
 				mouseEvent.preventDefault();
 
-				var fields = $('.popover input:not([type=submit],[type=button]), textarea');
+				var fields = $('.popover input:not([type=submit],[type=button]), textarea, select');
 
 				_.each(fields, function (e) {
 					var $e = $(e),

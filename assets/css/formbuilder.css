@@ -63,9 +63,20 @@ textarea {
   overflow: hidden;
 }
 
+/* TODO: remove .control-group target once all have been replaced with form-group */
+.drag-helper-component form .control-group,
+.drag-helper-component form .form-group {
+  width: 400px;
+}
+
 #render{
   min-height: 500px;
   font-family: monospace;
+}
+
+form.form-horizontal .form-group{
+  margin-left: 0;
+  margin-right: 0;
 }
 
 /* Popovers now are appended to their parent rather

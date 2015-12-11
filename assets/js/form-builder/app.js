@@ -12,11 +12,13 @@ define(function (require) {
 	var selectJSON = require('text!data/select.json');
 	var buttonsJSON = require('text!data/buttons.json');
 	var renderTab = require('text!templates/app/render.html');
+
+	var myForm = require('models/my-form');
 	require('fuelux');
 
 	return {
 		initialize: function initialize() {
-			//Bootstrap tabs from json.
+			//Bootstrap tabs created from json models under /data folder.
 			new TabView({
 				title: 'Input',
 				collection: new AvailableComponents(JSON.parse(inputJSON))
@@ -59,7 +61,8 @@ define(function (require) {
 							}
 						}
 					}
-				])
+				]),
+				model: myForm
 			});
 
 			$('#theme-toggle').on('change', function (e) {

@@ -3,6 +3,7 @@ define(function TempSnippet(require) {
 	var Component = require('views/component');
 	var _dragHelperTemplate = require('text!templates/app/drag-helper-component.html');
 	var PubSub = require('helper/pubsub');
+	var myForm = require('models/my-form');
 
 	return Component.extend({
 		className: 'drag-helper-component',
@@ -17,7 +18,8 @@ define(function TempSnippet(require) {
 		},
 		render: function render() {
 			return this.$el.html(this.dragHelperTemplate({
-				text: this.constructor.__super__.render.call(this).html()
+				text: this.constructor.__super__.render.call(this).html(),
+				horizontal: myForm.get('horizontal')
 			}));
 		},
 		postRender: function postRender(mouseEvent) {

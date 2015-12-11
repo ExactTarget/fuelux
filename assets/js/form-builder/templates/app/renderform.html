@@ -1,6 +1,11 @@
-<form class="form-horizontal">
+<form <% if(horizontal){ %>class="form-horizontal"<% } %>>
 <fieldset>
 
+<% if(horizontal){ %>
+<!-- change col-sm-N to reflect how you would like your column spacing (http://getbootstrap.com/css/#forms-control-sizes) -->
+<% } %>
+
 <%= text %>
+
 </fieldset>
 </form>
