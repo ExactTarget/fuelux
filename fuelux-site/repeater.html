@@ -9,7 +9,11 @@ mctheme: true
 {% include js/repeater.html %}
 
 <script>
-	$('a').each(function( index ) {
-		$( this ).attr('target', '_blank');
-	});
+var links = document.getElementsByTagName('a');
+var len = links.length;
+
+for(var i=0; i<len; i++)
+{
+   links[i].target = "_blank";
+}
 </script>
