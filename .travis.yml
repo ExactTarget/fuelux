@@ -3,7 +3,7 @@ node_js:
 - 0.1
 sudo: false
 before_install:
-- time wget http://fuelux-dev.herokuapp.com/dev/node_modules.tar.gz
+- time wget http://fuelux-edge.herokuapp.com/dev/node_modules.tar.gz
 - time tar -zxf node_modules.tar.gz
 - chmod +x ./node_modules
 install:

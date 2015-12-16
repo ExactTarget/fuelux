@@ -123,7 +123,7 @@ Pull requests are validate via [Travis CI](https://travis-ci.org/).
 
 Periodically pull requests may fail Travis CI build integration testing with a false negative. If you suspect this is the case you can restart the test via the command line (see below).
 
-[Travis](https://travis-ci.org/) downloads the `node_modules` folder from the "[Edge](https://fuelux-dev.herokuapp.com)" server (["fuelux-dev"](https://fuelux-dev.herokuapp.com)) hosted on [Heroku](https://www.heroku.com). If you add or update a dependency in `package.json`, you will need to also update `package.json` in `master` locally and push it to [Heroku](https://www.heroku.com) for the dependency errors to be resolved in [Travis](https://travis-ci.org/).
+[Travis](https://travis-ci.org/) downloads the `node_modules` folder from the "[Edge](https://fuelux-dev.herokuapp.com)" server (["fuelux-edge"](https://fuelux-edge.herokuapp.com)) hosted on [Heroku](https://www.heroku.com). If you add or update a dependency in `package.json`, you will need to also update `package.json` in `master` locally and push it to [Heroku](https://www.heroku.com) for the dependency errors to be resolved in [Travis](https://travis-ci.org/).
 
 ### Install Travis CI Client
 
