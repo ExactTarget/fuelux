@@ -199,33 +199,33 @@
 			this.toggleState('enable');
 		},
 
-		setUtcTime: function setUtcTime(d, t, offset) {
-			var date = d.split('-');
-			var time = t.split(':');
+		setUtcTime: function setUtcTime(day, time, offset) {
+			var dateSplit = day.split('-');
+			var timeSplit = time.split(':');
 			function z(n) {
 				return (n < 10 ? '0' : '') + n;
 			}
 
-			var utcDate = new Date(Date.UTC(date[0], (date[1] - 1), date[2], time[0], time[1], (time[2] ? time[2] : 0)));
+			var utcDate = new Date(Date.UTC(dateSplit[0], (dateSplit[1] - 1), dateSplit[2], timeSplit[0], timeSplit[1], (timeSplit[2] ? timeSplit[2] : 0)));
 
 			if (offset === 'Z') {
 				utcDate.setUTCHours(utcDate.getUTCHours() + 0);
 			} else {
-				var re1 = '(.)';// Any Single Character 1
-				var re2 = '.*?';// Non-greedy match on filler
-				var re3 = '\\d';// Uninteresting: d
-				var re4 = '.*?';// Non-greedy match on filler
-				var re5 = '(\\d)';// Any Single Digit 1
+				var expression = [];
+				expression[0] = '(.)'; // Any Single Character 1
+				expression[1] = '.*?'; // Non-greedy match on filler
+				expression[2] = '\\d'; // Uninteresting and ignored: d
+				expression[3] = '.*?'; // Non-greedy match on filler
+				expression[4] = '(\\d)'; // Any Single Digit 1
 
-				var p = new RegExp(re1 + re2 + re3 + re4 + re5, ["i"]);
-				var m = p.exec(offset);
-				if (m !== null) {
-					var c1 = m[1];
-					var d1 = m[2];
+				var p = new RegExp(expression.join(''), ["i"]);
+				var offsetMatch = p.exec(offset);
+				if (offsetMatch !== null) {
+					var offsetDirection = offsetMatch[1];
+					var offsetInteger = offsetMatch[2];
+					var modifier = (offsetDirection === '+') ? 1 : -1;
 
-					var modifier = (c1 === '+') ? 1 : -1;
-
-					utcDate.setUTCHours(utcDate.getUTCHours() + (modifier * parseInt(d1, 10)));
+					utcDate.setUTCHours(utcDate.getUTCHours() + (modifier * parseInt(offsetInteger, 10)));
 				}
 
 			}
@@ -477,200 +477,239 @@
 			this._guessEndDate();
 		},
 
-		setValue: function setValue(options) {
-			var hours, i, item, l, minutes, period, recur, temp, startDate, startTime, timeOffset;
+		_parseAndSetRecurrencePattern: function(recurrencePattern, startTime) {
+			var recur = {};
+			var i = 0;
+			var item = '';
+			var commaSplitPattern;
 
-			if (options.startDateTime) {
-				temp = options.startDateTime.split('T');
-				startDate = temp[0];
+			var $repeatMonthlyDate, $repeatYearlyDate, $repeatYearlyDay;
 
-				if (temp[1]) {
-					temp[1] = temp[1].split(':');
-					hours = parseInt(temp[1][0], 10);
-					minutes = (temp[1][1]) ? parseInt(temp[1][1].split('+')[0].split('-')[0].split('Z')[0], 10) : 0;
-					period = (hours < 12) ? 'AM' : 'PM';
+			var semiColonSplitPattern = recurrencePattern.toUpperCase().split(';');
+			for (i = 0; i < semiColonSplitPattern.length; i++) {
+				if (semiColonSplitPattern[i] !== '') {
+					item = semiColonSplitPattern[i].split('=');
+					recur[item[0]] = item[1];
+				}
+			}
 
-					if (hours === 0) {
-						hours = 12;
-					} else if (hours > 12) {
-						hours -= 12;
+			if (recur.FREQ === 'DAILY') {
+				if (recur.BYDAY === 'MO,TU,WE,TH,FR') {
+					item = 'weekdays';
+				} else {
+					if (recur.INTERVAL === '1' && recur.COUNT === '1') {
+						item = 'none';
+					} else {
+						item = 'daily';
+					}
+				}
+			} else if (recur.FREQ === 'SECONDLY') {
+				item = 'secondly';
+			} else if (recur.FREQ === 'MINUTELY') {
+				item = 'minutely';
+			} else if (recur.FREQ === 'HOURLY') {
+				item = 'hourly';
+			} else if (recur.FREQ === 'WEEKLY') {
+				item = 'weekly';
+				
+				if (recur.BYDAY) {
+					if (recur.BYDAY === 'MO,TU,WE,TH,FR') {
+						item = 'weekdays';
+					} else {
+						var el = this.$element.find('.repeat-days-of-the-week .btn-group');
+						el.find('label').removeClass('active');
+						commaSplitPattern = recur.BYDAY.split(',');
+						for (i = 0; i < commaSplitPattern.length; i++) {
+							el.find('input[data-value="' + commaSplitPattern[i] + '"]').prop('checked',true).parent().addClass('active');
+						}
+					}
+				}
+			} else if (recur.FREQ === 'MONTHLY') {
+				this.$element.find('.repeat-monthly input').removeAttr('checked').removeClass('checked');
+				this.$element.find('.repeat-monthly label.radio-custom').removeClass('checked');
+				if (recur.BYMONTHDAY) {
+					$repeatMonthlyDate = this.$element.find('.repeat-monthly-date');
+					$repeatMonthlyDate.find('input').addClass('checked').prop('checked', true);
+					$repeatMonthlyDate.find('label.radio-custom').addClass('checked');
+					$repeatMonthlyDate.find('.selectlist').selectlist('selectByValue', recur.BYMONTHDAY);
+				} else if (recur.BYDAY) {
+					var $repeatMonthlyDay = this.$element.find('.repeat-monthly-day');
+					$repeatMonthlyDay.find('input').addClass('checked').prop('checked', true);
+					$repeatMonthlyDay.find('label.radio-custom').addClass('checked');
+					if (recur.BYSETPOS) {
+						$repeatMonthlyDay.find('.month-day-pos').selectlist('selectByValue', recur.BYSETPOS);
 					}
 
-					minutes = (minutes < 10) ? '0' + minutes : minutes;
-					startTime = hours + ':' + minutes;
-					temp = hours + ':' + minutes + ' ' + period;
-					this.$startTime.find('input').val(temp);
-					this.$startTime.combobox('selectByText', temp);
+					$repeatMonthlyDay.find('.month-days').selectlist('selectByValue', recur.BYDAY);
+				}
+
+				item = 'monthly';
+			} else if (recur.FREQ === 'YEARLY') {
+				this.$element.find('.repeat-yearly input').removeAttr('checked').removeClass('checked');
+				this.$element.find('.repeat-yearly label.radio-custom').removeClass('checked');
+				if (recur.BYMONTHDAY) {
+					$repeatYearlyDate = this.$element.find('.repeat-yearly-date');
+					$repeatYearlyDate.find('input').addClass('checked').prop('checked', true);
+					$repeatYearlyDate.find('label.radio-custom').addClass('checked');
+					if (recur.BYMONTH) {
+						$repeatYearlyDate.find('.year-month').selectlist('selectByValue', recur.BYMONTH);
+					}
+
+					$repeatYearlyDate.find('.year-month-day').selectlist('selectByValue', recur.BYMONTHDAY);
+				} else if (recur.BYSETPOS) {
+					$repeatYearlyDay = this.$element.find('.repeat-yearly-day');
+					$repeatYearlyDay.find('input').addClass('checked').prop('checked', true);
+					$repeatYearlyDay.find('label.radio-custom').addClass('checked');
+					$repeatYearlyDay.find('.year-month-day-pos').selectlist('selectByValue', recur.BYSETPOS);
+					
+					if (recur.BYDAY) {
+						$repeatYearlyDay.find('.year-month-days').selectlist('selectByValue', recur.BYDAY);
+					}
+
+					if (recur.BYMONTH) {
+						$repeatYearlyDay.find('.year-month').selectlist('selectByValue', recur.BYMONTH);
+					}
+				}
+
+				item = 'yearly';
+			} else {
+				item = 'none';
+			}
+
+			if (recur.COUNT) {
+				this.$endAfter.spinbox('value', parseInt(recur.COUNT, 10));
+				this.$endSelect.selectlist('selectByValue', 'after');
+			} else if (recur.UNTIL) {
+				var untilSplit, untilDate;
+				
+				if (recur.UNTIL.length === 8) {
+					untilSplit = recur.UNTIL.split('');
+					untilSplit.splice(4, 0, '-');
+					untilSplit.splice(7, 0, '-');
+					untilDate = untilSplit.join('');
+				}
+
+				var timeZone = this.$timeZone.selectlist('selectedItem');
+				var timezoneOffset = (timeZone.offset === '+00:00') ? 'Z' : timeZone.offset;
+
+				var utcEndHours = this.setUtcTime(untilDate, startTime.time24HourFormat, timezoneOffset);
+				this.$endDate.datepicker('setDate', utcEndHours);
+
+				this.$endSelect.selectlist('selectByValue', 'date');
+			} else {
+				this.$endSelect.selectlist('selectByValue', 'never');
+			}
+
+			this.endSelectChanged();
+
+			if (recur.INTERVAL) {
+				this.$repeatIntervalSpinbox.spinbox('value', parseInt(recur.INTERVAL, 10));
+			}
+
+			this.$repeatIntervalSelect.selectlist('selectByValue', item);
+			this.repeatIntervalSelectChanged();
+		},
+
+		_parseStartDateTime: function(startTimeISO8601) {
+			var startTime = {};
+			var startDate, startDateTimeISO8601FormatSplit, hours, minutes, period;
+
+			startTime.time24HourFormat = startTimeISO8601.split('+')[0].split('-')[0];
+
+			if (startTimeISO8601.search(/\+/) > -1) {
+				startTime.timeZoneOffset = '+' + $.trim(startTimeISO8601.split('+')[1]);
+			} else if (startTimeISO8601.search(/\-/) > -1) {
+				startTime.timeZoneOffset = '-' + $.trim(startTimeISO8601.split('-')[1]);
+			} else {
+				startTime.timeZoneOffset = '+00:00';
+			}
+
+			startTime.time24HourFormatSplit = startTime.time24HourFormat.split(':');
+			hours = parseInt(startTime.time24HourFormatSplit[0], 10);
+			minutes = (startTime.time24HourFormatSplit[1]) ? parseInt(startTime.time24HourFormatSplit[1].split('+')[0].split('-')[0].split('Z')[0], 10) : 0;
+			period = (hours < 12) ? 'AM' : 'PM';
+
+			if (hours === 0) {
+				hours = 12;
+			} else if (hours > 12) {
+				hours -= 12;
+			}
+
+			minutes = (minutes < 10) ? '0' + minutes : minutes;
+			startTime.time12HourFormat = hours + ':' + minutes;
+			startTime.time12HourFormatWithPeriod = hours + ':' + minutes + ' ' + period;
+
+			return startTime;
+		},
+
+		_parseTimeZone: function(options, startTime) {
+			startTime.timeZoneQuerySelector = '';
+			if (options.timeZone) {
+				if (typeof (options.timeZone) === 'string') {
+					startTime.timeZoneQuerySelector += 'li[data-name="' + options.timeZone + '"]';
 				} else {
-					startTime = '00:00';
+					$.each(options.timeZone, function(key, value) {
+						startTime.timeZoneQuerySelector += 'li[data-' + key + '="' + value + '"]';
+					});
+				}
+				startTime.timeZoneOffset = options.timeZone.offset;
+			} else if (options.startDateTime) {
+				// Time zone has not been specified via options object, therefore use the timeZoneOffset from _parseAndSetStartDateTime
+				startTime.timeZoneOffset = (startTime.timeZoneOffset === '+00:00') ? 'Z' : startTime.timeZoneOffset;
+				startTime.timeZoneQuerySelector += 'li[data-offset="' + startTime.timeZoneOffset + '"]';
+			} else {
+				startTime.timeZoneOffset = 'Z';
+			}
+
+			return startTime.timeZoneOffset;
+		},
+
+		_setTimeUI: function(time12HourFormatWithPeriod) {
+			this.$startTime.find('input').val(time12HourFormatWithPeriod);
+			this.$startTime.combobox('selectByText', time12HourFormatWithPeriod);
+		},
+
+		_setTimeZoneUI: function(querySelector) {
+			this.$timeZone.selectlist('selectBySelector', querySelector);
+		},
+
+		setValue: function setValue(options) {
+			var startTime = {};
+			var startDateTime, startDate, startTimeISO8601, timeOffset, utcStartHours;
+
+			// TIME
+			if (options.startDateTime) {
+				startDateTime = options.startDateTime.split('T');
+				startDate = startDateTime[0];
+				startTimeISO8601 = startDateTime[1];
+
+				if(startTimeISO8601) {
+					startTime = this._parseStartDateTime(startTimeISO8601);
+					this._setTimeUI(startTime.time12HourFormatWithPeriod);
+				}
+				else {
+					startTime.time12HourFormat = '00:00';
+					startTime.time24HourFormat = '00:00';
 				}
 			} else {
-				startTime = '00:00';
+				startTime.time12HourFormat = '00:00';
+				startTime.time24HourFormat = '00:00';
 				var currentDate = this.$startDate.datepicker('getDate');
 				startDate = currentDate.getFullYear() + '-' + currentDate.getMonth() + '-' + currentDate.getDate();
 			}
 
-			// create jQuery selection string for timezone object
-			// based on data-attributes and pass to selectlist
-			item = 'li';
-			if (options.timeZone) {
-				if (typeof (options.timeZone) === 'string') {
-					item += '[data-name="' + options.timeZone + '"]';
-				} else {
-					$.each(options.timeZone, function(key, value) {
-						item += '[data-' + key + '="' + value + '"]';
-					});
-				}
-				timeOffset = options.timeZone.offset;
-				this.$timeZone.selectlist('selectBySelector', item);
-			} else if (options.startDateTime) {
-				temp = options.startDateTime.split('T')[1];
-				if (temp) {
-					if (temp.search(/\+/) > -1) {
-						temp = '+' + $.trim(temp.split('+')[1]);
-					} else if (temp.search(/\-/) > -1) {
-						temp = '-' + $.trim(temp.split('-')[1]);
-					} else {
-						temp = '+00:00';
-					}
-				} else {
-					temp = '+00:00';
-				}
-				timeOffset = (temp === '+00:00') ? 'Z' : temp;
-				item += '[data-offset="' + temp + '"]';
-				this.$timeZone.selectlist('selectBySelector', item);
-			} else {
-				timeOffset = 'Z';
+			// TIMEZONE
+			this._parseTimeZone(options, startTime);
+			if (startTime.timeZoneQuerySelector) {
+				this._setTimeZoneUI(startTime.timeZoneQuerySelector);
 			}
 
-			if (options.recurrencePattern) {
-				recur = {};
-				temp = options.recurrencePattern.toUpperCase().split(';');
-				for (i = 0, l = temp.length; i < l; i++) {
-					if (temp[i] !== '') {
-						item = temp[i].split('=');
-						recur[item[0]] = item[1];
-					}
-				}
-
-				if (recur.FREQ === 'DAILY') {
-					if (recur.BYDAY === 'MO,TU,WE,TH,FR') {
-						item = 'weekdays';
-					} else {
-						if (recur.INTERVAL === '1' && recur.COUNT === '1') {
-							item = 'none';
-						} else {
-							item = 'daily';
-						}
-					}
-				} else if (recur.FREQ === 'SECONDLY') {
-					item = 'secondly';
-				} else if (recur.FREQ === 'MINUTELY') {
-					item = 'minutely';
-				} else if (recur.FREQ === 'HOURLY') {
-					item = 'hourly';
-				} else if (recur.FREQ === 'WEEKLY') {
-					item = 'weekly';
-					
-					if (recur.BYDAY) {
-						if (recur.BYDAY === 'MO,TU,WE,TH,FR') {
-							item = 'weekdays';
-						} else {
-							var el = this.$element.find('.repeat-days-of-the-week .btn-group');
-							el.find('label').removeClass('active');
-							temp = recur.BYDAY.split(',');
-							for (i = 0, l = temp.length; i < l; i++) {
-								el.find('input[data-value="' + temp[i] + '"]').prop('checked',true).parent().addClass('active');
-							}
-						}
-					}
-				} else if (recur.FREQ === 'MONTHLY') {
-					this.$element.find('.repeat-monthly input').removeAttr('checked').removeClass('checked');
-					this.$element.find('.repeat-monthly label.radio-custom').removeClass('checked');
-					if (recur.BYMONTHDAY) {
-						temp = this.$element.find('.repeat-monthly-date');
-						temp.find('input').addClass('checked').prop('checked', true);
-						temp.find('label.radio-custom').addClass('checked');
-						temp.find('.selectlist').selectlist('selectByValue', recur.BYMONTHDAY);
-					} else if (recur.BYDAY) {
-						temp = this.$element.find('.repeat-monthly-day');
-						temp.find('input').addClass('checked').prop('checked', true);
-						temp.find('label.radio-custom').addClass('checked');
-						if (recur.BYSETPOS) {
-							temp.find('.month-day-pos').selectlist('selectByValue', recur.BYSETPOS);
-						}
-
-						temp.find('.month-days').selectlist('selectByValue', recur.BYDAY);
-					}
-
-					item = 'monthly';
-				} else if (recur.FREQ === 'YEARLY') {
-					this.$element.find('.repeat-yearly input').removeAttr('checked').removeClass('checked');
-					this.$element.find('.repeat-yearly label.radio-custom').removeClass('checked');
-					if (recur.BYMONTHDAY) {
-						temp = this.$element.find('.repeat-yearly-date');
-						temp.find('input').addClass('checked').prop('checked', true);
-						temp.find('label.radio-custom').addClass('checked');
-						if (recur.BYMONTH) {
-							temp.find('.year-month').selectlist('selectByValue', recur.BYMONTH);
-						}
-
-						temp.find('.year-month-day').selectlist('selectByValue', recur.BYMONTHDAY);
-					} else if (recur.BYSETPOS) {
-						temp = this.$element.find('.repeat-yearly-day');
-						temp.find('input').addClass('checked').prop('checked', true);
-						temp.find('label.radio-custom').addClass('checked');
-						temp.find('.year-month-day-pos').selectlist('selectByValue', recur.BYSETPOS);
-						if (recur.BYDAY) {
-							temp.find('.year-month-days').selectlist('selectByValue', recur.BYDAY);
-						}
-
-						if (recur.BYMONTH) {
-							temp.find('.year-month').selectlist('selectByValue', recur.BYMONTH);
-						}
-
-					}
-
-					item = 'yearly';
-				} else {
-					item = 'none';
-				}
-
-				if (recur.COUNT) {
-					this.$endAfter.spinbox('value', parseInt(recur.COUNT, 10));
-					this.$endSelect.selectlist('selectByValue', 'after');
-				} else if (recur.UNTIL) {
-					temp = recur.UNTIL;
-					if (temp.length === 8) {
-						temp = temp.split('');
-						temp.splice(4, 0, '-');
-						temp.splice(7, 0, '-');
-						temp = temp.join('');
-					}
-
-					var timeZone = this.$timeZone.selectlist('selectedItem');
-					var timezoneOffset = (timeZone.offset === '+00:00') ? 'Z' : timeZone.offset;
-
-					var utcEndHours = this.setUtcTime(temp, startTime, timezoneOffset);
-					this.$endDate.datepicker('setDate', utcEndHours);
-
-					this.$endSelect.selectlist('selectByValue', 'date');
-				} else {
-					this.$endSelect.selectlist('selectByValue', 'never');
-				}
-
-				this.endSelectChanged();
-
-				if (recur.INTERVAL) {
-					this.$repeatIntervalSpinbox.spinbox('value', parseInt(recur.INTERVAL, 10));
-				}
-
-				this.$repeatIntervalSelect.selectlist('selectByValue', item);
-				this.repeatIntervalSelectChanged();
+			// RECURRENCE PATTERN
+			if(options.recurrencePattern) {
+				this._parseAndSetRecurrencePattern(options.recurrencePattern, startTime);
 			}
 
-			var utcStartHours = this.setUtcTime(startDate, startTime, timeOffset);
-
+			utcStartHours = this.setUtcTime(startDate, startTime.time24HourFormat, startTime.timeZoneOffset);
 			this.$startDate.datepicker('setDate', utcStartHours);
 		},
 
