@@ -807,12 +807,12 @@ define(function (require) {
 	});
 	$('#btnSchedulerSetValue').on('click', function () {
 		var newVal = {
-			'startDateTime': '2014-03-31T03:23+02:00',
+			'startDateTime': '2015-11-27T23:00:00+02:00',
 			'timeZone': {
 				'name': 'Namibia Standard Time',
 				'offset': '+02:00'
 			},
-			'recurrencePattern': 'FREQ=MONTHLY;INTERVAL=6;BYDAY=WE;BYSETPOS=3;UNTIL=20140919'
+			'recurrencePattern': 'FREQ=WEEKLY;BYDAY=MO,TU,WE,TH;INTERVAL=1;UNTIL=20140919'
 		};
 		log(newVal);
 		$('#myScheduler').scheduler('value', newVal);
