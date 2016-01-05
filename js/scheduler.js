@@ -481,14 +481,14 @@
 			var recur = {};
 			var i = 0;
 			var item = '';
-			var commaSplitPattern;
+			var commaPatternSplit;
 
 			var $repeatMonthlyDate, $repeatYearlyDate, $repeatYearlyDay;
 
-			var semiColonSplitPattern = recurrencePattern.toUpperCase().split(';');
-			for (i = 0; i < semiColonSplitPattern.length; i++) {
-				if (semiColonSplitPattern[i] !== '') {
-					item = semiColonSplitPattern[i].split('=');
+			var semiColonPatternSplit = recurrencePattern.toUpperCase().split(';');
+			for (i = 0; i < semiColonPatternSplit.length; i++) {
+				if (semiColonPatternSplit[i] !== '') {
+					item = semiColonPatternSplit[i].split('=');
 					recur[item[0]] = item[1];
 				}
 			}
@@ -518,9 +518,9 @@
 					} else {
 						var el = this.$element.find('.repeat-days-of-the-week .btn-group');
 						el.find('label').removeClass('active');
-						commaSplitPattern = recur.BYDAY.split(',');
-						for (i = 0; i < commaSplitPattern.length; i++) {
-							el.find('input[data-value="' + commaSplitPattern[i] + '"]').prop('checked',true).parent().addClass('active');
+						commaPatternSplit = recur.BYDAY.split(',');
+						for (i = 0; i < commaPatternSplit.length; i++) {
+							el.find('input[data-value="' + commaPatternSplit[i] + '"]').prop('checked',true).parent().addClass('active');
 						}
 					}
 				}
