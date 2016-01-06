@@ -481,13 +481,12 @@ $('#myRepeater').repeater({
         <tr>
           <td>pageIndex</td>
           <td>number</td>
-          <td>Represents the current page of data</td>
+          <td>Represents the current page of data. <code>pageIndex</code> is a zero-based index into an array and may need to be manipulated before requesting more data, if the server request is a one-based index.</td>
         </tr>
         <tr>
           <td>pageSize</td>
           <td>number</td>
-          <td>Provides context for the selected <code>.repeater-itemization</code> dropdown item value, representing
-            number of data items to be displayed</td>
+          <td>Provides context for the selected <code>.repeater-itemization</code> dropdown item value, representing the number of data items to be displayed</td>
         </tr>
         <tr>
           <td>search</td>
