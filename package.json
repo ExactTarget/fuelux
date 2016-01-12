@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "bootstrap": "3.3.6",
-    "jquery": "2.1.4",
+    "jquery": "2.2.0",
     "moment": "2.10.6"
   },
   "description": "Base Fuel UX styles and controls",
