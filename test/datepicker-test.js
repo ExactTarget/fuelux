@@ -176,6 +176,51 @@ define(function(require){
 		equal(errors.setFormat, defaultErrorReturned, 'setFormat is not available for use');
 	});
 
+	test('should show datepicker', function () {
+		var $datepicker = $(html).datepicker({
+			date: new Date(1987, 2, 31)
+		});
+
+		$datepicker.on('shown.fu.datepicker', function () {
+			ok(1===1, 'shown event thrown as expected');
+			equal($datepicker.find('.input-group-btn').hasClass('open'), true, 'datepicker shown as expected');
+		});
+		$datepicker.datepicker('show');
+	});
+
+	test('should hide datepicker', function () {
+		var $datepicker = $(html).datepicker({
+			date: new Date(1987, 2, 31)
+		});
+
+		$datepicker.on('hidden.fu.datepicker', function () {
+			ok(1===1, 'hidden event thrown as expected');
+			equal($datepicker.find('.input-group-btn').hasClass('open'), false, 'datepicker hidden as expected');
+		});
+		$datepicker.datepicker('show');
+		$datepicker.datepicker('hide');
+	});
+
+	test('should open with calendar showing selected date', function () {
+		var attrMonth = 'data-month';
+		var attrYear = 'data-year';
+		var $datepicker = $(html).datepicker({
+			date: new Date(1987, 2, 31)
+		});
+		var $title = $datepicker.find('.datepicker-calendar-header .title');
+
+		$datepicker.datepicker('show');
+		equal(($title.attr(attrMonth) === '2' && $title.attr(attrYear) === '1987'), true, 'selected date showing initially');
+		$datepicker.find('.datepicker-calendar-header .next').click().click();
+		$datepicker.datepicker('hide');
+		$datepicker.datepicker('show');
+		equal(($title.attr(attrMonth) === '2' && $title.attr(attrYear) === '1987'), true, 'selected date showing after switching through months');
+		$title.click();
+		$datepicker.datepicker('hide');
+		$datepicker.datepicker('show');
+		equal(($title.attr(attrMonth) === '2' && $title.attr(attrYear) === '1987'), true, 'selected date showing after entering wheel view');
+	});
+
 	test('should restrict navigation and selection of dates within other years if option sameYearOnly is set to true', function() {
 		var $datepicker = $(html).datepicker({
 			date: new Date(1987, 2, 31),
