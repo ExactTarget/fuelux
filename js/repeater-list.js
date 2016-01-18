@@ -82,15 +82,18 @@
 			var data, i, $item, length;
 
 			//this function is necessary because lint yells when a function is in a loop
-			function checkIfItemMatchesValue () {
+			function checkIfItemMatchesValue (rowIndex) {
 				$item = $(this);
+
 				data = $item.data('item_data') || {};
 				if (data[items[i].property] === items[i].value) {
-					selectItem($item, items[i].selected);
+					selectItem($item, items[i].selected, rowIndex);
 				}
 			}
 
-			function selectItem ($itm, select) {
+			function selectItem ($itm, select, index) {
+				var $frozenCols;
+
 				select = (select !== undefined) ? select : true;
 				if (select) {
 					if (!force && selectable !== 'multi') {
@@ -99,10 +102,33 @@
 
 					if (!$itm.hasClass('selected')) {
 						$itm.addClass('selected');
+
+						if (self.viewOptions.list_frozenColumns || self.viewOptions.list_selectable === 'multi') {
+							$frozenCols = self.$element.find('.frozen-column-wrapper tr:nth-child('+ (index + 1) +')');
+
+							$frozenCols.addClass('selected');
+							$frozenCols.find('.repeater-select-checkbox').addClass('checked');
+						}
+
+						if (self.viewOptions.list_actions) {
+							self.$element.find('.actions-column-wrapper tr:nth-child('+ (index + 1) +')').addClass('selected');
+						}
+
 						$itm.find('td:first').prepend('<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>');
 					}
 
 				} else {
+					if (self.viewOptions.list_frozenColumns) {
+						$frozenCols = self.$element.find('.frozen-column-wrapper tr:nth-child('+ (index + 1) +')');
+
+						$frozenCols.addClass('selected');
+						$frozenCols.find('.repeater-select-checkbox').removeClass('checked');
+					}
+
+					if (self.viewOptions.list_actions) {
+						self.$element.find('.actions-column-wrapper tr:nth-child('+ (index + 1) +')').removeClass('selected');
+					}
+
 					$itm.find('.repeater-list-check').remove();
 					$itm.removeClass('selected');
 				}
@@ -122,13 +148,13 @@
 
 			for (i = 0; i < length; i++) {
 				if (items[i].index !== undefined) {
-					$item = this.$canvas.find('.repeater-list table tbody tr:nth-child(' + (items[i].index + 1) + ')');
+					$item = this.$canvas.find('.repeater-list .repeater-list-wrapper > table tbody tr:nth-child(' + (items[i].index + 1) + ')');
 					if ($item.length > 0) {
-						selectItem($item, items[i].selected);
+						selectItem($item, items[i].selected, items[i].index);
 					}
 
 				} else if (items[i].property !== undefined && items[i].value !== undefined) {
-					this.$canvas.find('.repeater-list table tbody tr').each(checkIfItemMatchesValue);
+					this.$canvas.find('.repeater-list .repeater-list-wrapper > table tbody tr').each(checkIfItemMatchesValue);
 				}
 
 			}
