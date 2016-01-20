@@ -967,8 +967,16 @@
 	}
 
 	function toggleActionsHeaderButton () {
-		var $selected = this.$canvas.find('.repeater-list-wrapper > table .selected');
+		var selectedSelector = '.repeater-list-wrapper > table .selected';
 		var $actionsColumn = this.$element.find('.table-actions');
+		var $selected;
+
+		if (this.viewOptions.list_selectable === 'action') {
+			selectedSelector = '.repeater-list-wrapper > table tr';
+		}
+
+		$selected = this.$canvas.find( selectedSelector );
+
 		if ($selected.length > 0) {
 			$actionsColumn.find('thead .btn').removeAttr('disabled');
 		} else {
