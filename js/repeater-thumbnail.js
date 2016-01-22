@@ -36,10 +36,7 @@
 		$.fn.repeater.Constructor.prototype.thumbnail_getSelectedItems = function () {
 			var selected = [];
 			this.$canvas.find('.repeater-thumbnail-cont .selectable.selected').each(function () {
-				selected.push( {
-					element: $(this)
-					, data: $(this).data('item_data')
-				} );
+				selected.push($(this));
 			});
 			return selected;
 		};
