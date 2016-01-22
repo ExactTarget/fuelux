@@ -36,7 +36,10 @@
 		$.fn.repeater.Constructor.prototype.thumbnail_getSelectedItems = function () {
 			var selected = [];
 			this.$canvas.find('.repeater-thumbnail-cont .selectable.selected').each(function () {
-				selected.push($(this));
+				selected.push( {
+					element: $(this)
+					, data: $(this).data('item_data')
+				} );
 			});
 			return selected;
 		};
@@ -166,6 +169,8 @@
 				var selected = 'selected';
 				var self = this;
 				var $thumbnail = $(fillTemplate(helpers.subset[helpers.index], this.viewOptions.thumbnail_template));
+				
+				$thumbnail.data('item_data', helpers.data.items[helpers.index]);
 
 				if (selectable) {
 					$thumbnail.addClass('selectable');
