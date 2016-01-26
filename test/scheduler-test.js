@@ -225,6 +225,34 @@ define(function(require){
 		// }
 	});
 
+	test('timezone set properly under acceptable variation of value input', function () {
+		var schedule = {
+			startDateTime: '2016-03-31T03:23-07:00'
+		};
+
+		var $scheduler = $('<div>'+templateHtml+'</div>').find('#MyScheduler').scheduler();
+
+		$scheduler.scheduler('value', schedule);
+		equal($scheduler.scheduler('value').timeZone.name, 'US Mountain Standard Time', 'timezone parameter not provided but UTC time given with appropriate offset');
+
+		schedule = {
+			startDateTime: '2016-03-31T24:23+07:00',
+			timeZone: {
+				offset: '+07:00'
+			}
+		};
+		$scheduler.scheduler('value', schedule);
+		equal($scheduler.scheduler('value').timeZone.name, 'SE Asia Standard Time', 'timezone parameter provided along side UTC timezone');
+
+		schedule = {
+			timeZone: {
+				offset: '-07:00'
+			}
+		};
+		$scheduler.scheduler('value', schedule);
+		equal($scheduler.scheduler('value').timeZone.name, 'US Mountain Standard Time', 'timezone is the only parameter provided');
+	});
+
 	test('should set/get recurrence pattern properly', function() {
 		var schedule = {
 			startDateTime: '2014-03-31T03:23+02:00',
