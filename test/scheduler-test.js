@@ -231,9 +231,8 @@ define(function(require){
 		};
 
 		var $scheduler = $('<div>'+templateHtml+'</div>').find('#MyScheduler').scheduler();
-		$scheduler.scheduler('value', schedule);
 
-		console.log($scheduler.scheduler('value'));
+		$scheduler.scheduler('value', schedule);
 		equal($scheduler.scheduler('value').timeZone.name, 'US Mountain Standard Time', 'timezone parameter not provided but UTC time given with appropriate offset');
 
 		schedule = {
