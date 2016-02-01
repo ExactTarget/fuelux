@@ -20,3 +20,9 @@ Fuel UX - Live Documentation
 ### Notes
 * Any h tag with an id will automagically be given a little link thing to its left that people can use to link back to the documentation. The more h tags have ids, the more reference-able our documentation will be.
 * The fuelux-site folder breaks each section down into its own page. Doing this exposes individual control documentation to other web sites.
+
+
+### Form Builder
+The Form Builder is a Backbone App which utilizes a series of Underscore templates to allow you to quickly mock-up a Fuel UX form.
+
+Read more about Form Builder in /assets/js/form-builder/README.md
