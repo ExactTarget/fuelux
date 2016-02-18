@@ -135,15 +135,15 @@
 					var $entity;
 
 					if (value.type === 'folder') {
-						$entity = self.$element.find('[data-template=treebranch]:eq(0)').clone().removeClass('hide hidden').removeData('template'); // hide is deprecated
+						$entity = self.$element.find('[data-template=treebranch]:eq(0)').clone().removeClass('hide hidden').removeData('template').removeAttr('data-template'); // hide is deprecated
 						$entity.data(value);
 						$entity.find('.tree-branch-name > .tree-label').html(value.text || value.name);
 					} else if (value.type === 'item') {
-						$entity = self.$element.find('[data-template=treeitem]:eq(0)').clone().removeClass('hide hidden').removeData('template'); // hide is deprecated
+						$entity = self.$element.find('[data-template=treeitem]:eq(0)').clone().removeClass('hide hidden').removeData('template').removeAttr('data-template'); // hide is deprecated
 						$entity.find('.tree-item-name > .tree-label').html(value.text || value.name);
 						$entity.data(value);
 					} else if (value.type === 'overflow') {
-						$entity = self.$element.find('[data-template=treeoverflow]:eq(0)').clone().removeClass('hide hidden').removeData('template'); // hide is deprecated
+						$entity = self.$element.find('[data-template=treeoverflow]:eq(0)').clone().removeClass('hide hidden').removeData('template').removeAttr('data-template'); // hide is deprecated
 						$entity.find('.tree-overflow-name > .tree-label').html(value.text || value.name);
 						$entity.data(value);
 					}
