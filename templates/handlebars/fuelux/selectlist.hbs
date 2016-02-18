@@ -1,4 +1,4 @@
-<div class="form-group{{#if validation}}has-{{validation}}{{/if}}">
+<div class="form-group{{#if validation}} has-{{validation}}{{/if}}">
 	<label class="control-label{{#if horizontal}} col-sm-2{{/if}}" for="{{#if id}}{{id}}{{else}}mySelectlist{{/if}}">{{#if label}}{{label}}{{/if}}</label>
 	<div class="controls text-{{#if buttonalign}}{{buttonalign}}{{else}}left{{/if}}{{#if horizontal}} col-sm-10{{/if}}">
 		<div class="btn-group selectlist"{{#unless doNotInit}} data-initialize="selectlist"{{/unless}} data-resize="auto" id="{{#if id}}{{id}}{{else}}mySelectlist{{/if}}">
