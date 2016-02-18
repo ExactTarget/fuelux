@@ -45,6 +45,10 @@
 			this.toggleFolder(ev.currentTarget);
 		}, this));
 
+		this.$element.on('click.fu.tree', '.tree-overflow', $.proxy(function (ev){
+			this.populate($(ev.currentTarget));
+		}, this));
+
 		// folderSelect default is true
 		if (this.options.folderSelect) {
 			this.$element.addClass('tree-folder-select');
@@ -89,17 +93,44 @@
 
 		populate: function populate($el, isBackgroundProcess) {
 			var self = this;
+
+			// populate was initiated based on clicking overflow link
+			var isOverflow = $el.hasClass('tree-overflow');
+
 			var $parent = ($el.hasClass('tree')) ? $el : $el.parent();
-			var loader = $parent.find('.tree-loader:eq(0)');
+			var atRoot = $parent.hasClass('tree');
+
+			if(isOverflow && !atRoot){
+				$parent = $parent.parent();
+			}
+
 			var treeData = $parent.data();
+			// expose overflow data to datasource so it can be responded to appropriately.
+			if(isOverflow){
+				treeData.overflow = $el.data();
+			}
+
 			isBackgroundProcess = isBackgroundProcess || false;	// no user affordance needed (ex.- "loading")
 
-			if (isBackgroundProcess === false) {
-				loader.removeClass('hide hidden'); // hide is deprecated
+			if(isOverflow){
+				if(atRoot){
+					// the loader at the root level needs to continually replace the overflow trigger
+					// otherwise, when loader is shown below, it will be the loader for the last folder
+					// in the tree, instead of the loader at the root level.
+					$el.replaceWith($parent.find('> .tree-loader').remove());
+				}else{
+					$el.remove();
+				}
 			}
-			this.options.dataSource(treeData ? treeData : {}, function (items) {
-				loader.addClass('hidden');
 
+			var $loader = $parent.find('.tree-loader:last');
+
+			if (isBackgroundProcess === false) {
+				$loader.removeClass('hide hidden'); // hide is deprecated
+			}
+
+
+			this.options.dataSource(treeData ? treeData : {}, function (items) {
 				$.each(items.data, function (index, value) {
 					var $entity;
 
@@ -110,6 +141,10 @@
 					} else if (value.type === 'item') {
 						$entity = self.$element.find('[data-template=treeitem]:eq(0)').clone().removeClass('hide hidden').removeData('template'); // hide is deprecated
 						$entity.find('.tree-item-name > .tree-label').html(value.text || value.name);
+						$entity.data(value);
+					} else if (value.type === 'overflow') {
+						$entity = self.$element.find('[data-template=treeoverflow]:eq(0)').clone().removeClass('hide hidden').removeData('template'); // hide is deprecated
+						$entity.find('.tree-overflow-name > .tree-label').html(value.text || value.name);
 						$entity.data(value);
 					}
 
@@ -162,13 +197,15 @@
 						}
 					});
 
-					// add child nodes
-					if ($el.hasClass('tree-branch-header')) {
-						$parent.find('.tree-branch-children:eq(0)').append($entity);
+					// add child node
+					if (atRoot) {
+						$parent.append($entity);
 					} else {
-						$el.append($entity);
+						$parent.find('.tree-branch-children:eq(0)').append($entity);
 					}
 				});
+
+				$parent.find('.tree-loader').addClass('hidden');
 
 				// return newly populated folder
 				self.$element.trigger('loaded.fu.tree', $parent);
