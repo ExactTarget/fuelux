@@ -1,4 +1,4 @@
-<div class="form-group{{#if horizontal}}{{#if inputsize}} form-group-{{inputsize}}{{/if}}{{/if}}{{#if validation}} has-{{validation}}{{/if}}">
+<div class="form-group{{#if horizontal}}{{#if inputsize}} form-group-{{inputsize}}{{/if}}{{/if}}{{#if validation}} has-{{validation}}{{#if feedback}} has-feedback{{/if}}{{/if}}">
 	{{#if label}}<label for="{{#if id}}{{id}}{{else}}myInput{{/if}}" class="control-label{{#if horizontal}} col-sm-2{{/if}}">{{label}}</label>{{/if}}
 	{{#if horizontal}}<div class="col-sm-10">{{/if}}
 		{{#if hasAside}}<div class="input-group">{{/if}}
@@ -26,6 +26,7 @@
 			</label>{{/with}}
 			{{#if appendText}}<span id="{{#if id}}{{id}}{{else}}myInput{{/if}}Prepend" class="input-group-addon{{#if horizontal}}{{#if inputsize}} input-{{inputsize}}{{/if}}{{/if}}">{{appendText}}</span>{{/if}}
 		{{#if hasAside}}</div>{{/if}}
+		{{#if feedback}}<span class="glyphicon glyphicon-{{feedback}} form-control-feedback" aria-hidden="true"></span>{{/if}}
 		{{#if helptext}}<p class="help-block">{{helptext}}</p>{{/if}}
 	{{#if horizontal}}</div>{{/if}}
 </div>

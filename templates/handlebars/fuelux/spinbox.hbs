@@ -1,4 +1,4 @@
-<div class="form-group{{#if validation}} has-{{validation}}{{/if}}">
+<div class="form-group{{#if validation}} has-{{validation}}{{#if feedback}} has-feedback{{/if}}{{/if}}">
 	<label class="control-label{{#if horizontal}} col-sm-2{{/if}}" for="{{#if id}}{{id}}{{else}}mySpinbox{{/if}}Input">{{#if label}}{{label}}{{/if}}</label>
 	<div{{#if horizontal}} class="col-sm-10"{{/if}}>
 		<div class="spinbox" {{#unless doNotInit}}data-initialize="spinbox"{{/unless}} id="{{#if id}}{{id}}{{else}}mySpinbox{{/if}}">
@@ -11,6 +11,7 @@
 					<span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
 				</button>
 			</div>
+			{{#if feedback}}<span class="glyphicon glyphicon-{{feedback}} form-control-feedback" aria-hidden="true"></span>{{/if}}
 		</div>
 		{{#if helptext}}<p class="help-block">{{helptext}}</p>{{/if}}
 	</div>
