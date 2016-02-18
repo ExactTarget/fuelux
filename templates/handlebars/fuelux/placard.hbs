@@ -7,9 +7,9 @@
 {{#if div}}
 	<div class="form-control placard-field{{#if glass}} glass{{/if}}"{{#if textarea}} data-textarea="true"{{/if}} contenteditable="true">{{#if placeholder}}{{placeholder}}{{/if}}</div>
 {{else if textarea}}
-	<textarea class="form-control placard-field{{#if glass}} glass{{/if}}">{{#if placeholder}}{{placeholder}}{{/if}}</textarea>
+	<textarea class="form-control placard-field{{#if glass}} glass{{/if}}" name="{{#if name}}{{name}}{{else}}{{#if id}}{{id}}{{else}}myPlacard{{/if}}{{/if}}>{{#if placeholder}}{{placeholder}}{{/if}}</textarea>
 {{else}}
-	<input class="form-control placard-field{{#if glass}} glass{{/if}}" type="text"{{#if placeholder}} placeholder="{{placeholder}}"{{/if}}/>
+	<input class="form-control placard-field{{#if glass}} glass{{/if}}" type="text"{{#if placeholder}} placeholder="{{placeholder}}"{{/if}} name="{{#if name}}{{name}}{{else}}{{#if id}}{{id}}{{else}}myPlacard{{/if}}{{/if}}/>
 {{/if}}
 {{#if footer}}
 	<div class="placard-footer">
