@@ -267,12 +267,6 @@ define(function (require) {
 			dataSource: this.dataSource
 		});
 
-		var $tree = $(html).find('#MyTree');
-
-		$tree.tree({
-			dataSource: this.dataSource
-		});
-
 		equal($tree.find('> li:not([data-template])').length, NUM_CHILDREN, 'Initial set of folders (' + NUM_CHILDREN + ' children) have been added');
 		$tree.find('.tree-overflow:eq(0)').click();
 		//Once overflow is clicked, all original contents is loaded again, and original overflow is actually REMOVED from tree contents.
