@@ -126,7 +126,7 @@
 			var $loader = $parent.find('.tree-loader:last');
 
 			if (isBackgroundProcess === false) {
-				$loader.removeClass('hide hidden'); // hide is deprecated
+				$loader.removeClass('hide hidden'); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 			}
 
 
@@ -135,15 +135,15 @@
 					var $entity;
 
 					if (value.type === 'folder') {
-						$entity = self.$element.find('[data-template=treebranch]:eq(0)').clone().removeClass('hide hidden').removeData('template').removeAttr('data-template'); // hide is deprecated
+						$entity = self.$element.find('[data-template=treebranch]:eq(0)').clone().removeClass('hide hidden').removeData('template').removeAttr('data-template'); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 						$entity.data(value);
 						$entity.find('.tree-branch-name > .tree-label').html(value.text || value.name);
 					} else if (value.type === 'item') {
-						$entity = self.$element.find('[data-template=treeitem]:eq(0)').clone().removeClass('hide hidden').removeData('template').removeAttr('data-template'); // hide is deprecated
+						$entity = self.$element.find('[data-template=treeitem]:eq(0)').clone().removeClass('hide hidden').removeData('template').removeAttr('data-template'); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 						$entity.find('.tree-item-name > .tree-label').html(value.text || value.name);
 						$entity.data(value);
 					} else if (value.type === 'overflow') {
-						$entity = self.$element.find('[data-template=treeoverflow]:eq(0)').clone().removeClass('hide hidden').removeData('template').removeAttr('data-template'); // hide is deprecated
+						$entity = self.$element.find('[data-template=treeoverflow]:eq(0)').clone().removeClass('hide hidden').removeData('template').removeAttr('data-template'); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 						$entity.find('.tree-overflow-name > .tree-label').html(value.text || value.name);
 						$entity.data(value);
 					}
@@ -262,7 +262,7 @@
 			//take care of the styles
 			$branch.addClass('tree-open');
 			$branch.attr('aria-expanded', 'true');
-			$treeFolderContentFirstChild.removeClass('hide hidden'); // hide is deprecated
+			$treeFolderContentFirstChild.removeClass('hide hidden'); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 			$branch.find('> .tree-branch-header .icon-folder').eq(0)
 				.removeClass('glyphicon-folder-close')
 				.addClass('glyphicon-folder-open');
@@ -337,7 +337,7 @@
 			var closedReported = function closedReported(event, closed) {
 				reportedClosed.push(closed);
 
-				// hide is deprecated
+				// jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 				if (self.$element.find(".tree-branch.tree-open:not('.hidden, .hide')").length === 0) {
 					self.$element.trigger('closedAll.fu.tree', {
 						tree: self.$element,
