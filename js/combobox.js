@@ -209,10 +209,10 @@
 			var DOWN = 40;
 
 			var IS_NAVIGATIONAL = (
-				e.which === UP
-				|| e.which === DOWN
-				|| e.which === LEFT
-				|| e.which === RIGHT
+				e.which === UP ||
+				e.which === DOWN ||
+				e.which === LEFT ||
+				e.which === RIGHT
 			);
 
 			if(this.options.showOptionsOnKeypress && !this.$inputGroupBtn.hasClass('open')){
@@ -319,7 +319,6 @@
 		filterOnKeypress: false,
 		showOptionsOnKeypress: false,
 		filter: function filter(list, predicate, self) {
-			console.log('do filter');
 			var visible = 0;
 			self.$dropMenu.find('.empty-indicator').remove();
 
