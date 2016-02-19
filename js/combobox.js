@@ -55,6 +55,11 @@
 			this.$button.addClass('disabled');
 		}
 
+		// filter on load in case the first thing they do is press navigational key to pop open the menu
+		if (this.options.filterOnKeypress) {
+			this.options.filter(this.$dropMenu.find('li'), this.$input.val(), this);
+		}
+
 	};
 
 	Combobox.prototype = {
@@ -89,6 +94,7 @@
 		clearSelection: function () {
 			this.$selectedItem = null;
 			this.$input.val('');
+			this.$dropMenu.find('li').removeClass('selected');
 		},
 
 		menuShown: function () {
@@ -202,8 +208,16 @@
 			var RIGHT = 39;
 			var DOWN = 40;
 
-			if(this.options.showOptionsOnKeypress){
-				this.$inputGroupBtn.addClass('open');
+			var IS_NAVIGATIONAL = (
+				e.which === UP
+				|| e.which === DOWN
+				|| e.which === LEFT
+				|| e.which === RIGHT
+			);
+
+			if(this.options.showOptionsOnKeypress && !this.$inputGroupBtn.hasClass('open')){
+				this.$button.dropdown('toggle');
+				this.$input.focus();
 			}
 
 			if (e.which === ENTER) {
@@ -217,32 +231,41 @@
 				}
 
 				this.$inputGroupBtn.removeClass('open');
+				this.inputchanged(e);
 			} else if (e.which === ESC) {
 				e.preventDefault();
 				this.clearSelection();
 				this.$inputGroupBtn.removeClass('open');
-			} else if (this.options.showOptionsOnKeypress && (e.which === DOWN || e.which === UP)) {
-				var $selected = this.$dropMenu.find('li.selected');
-				if ($selected.length > 0) {
-					if (e.which === DOWN) {
-						$selected = $selected.next(':not(.hidden)');
-					} else {
-						$selected = $selected.prev(':not(.hidden)');
+			} else if (this.options.showOptionsOnKeypress) {
+				if (e.which === DOWN || e.which === UP) {
+					e.preventDefault();
+					var $selected = this.$dropMenu.find('li.selected');
+					if ($selected.length > 0) {
+						if (e.which === DOWN) {
+							$selected = $selected.next(':not(.hidden)');
+						} else {
+							$selected = $selected.prev(':not(.hidden)');
+						}
 					}
-				}
 
-				if ($selected.length === 0){
-					if (e.which === DOWN) {
-						$selected = this.$dropMenu.find('li:not(.hidden):first');
-					} else {
-						$selected = this.$dropMenu.find('li:not(.hidden):last');
+					if ($selected.length === 0){
+						if (e.which === DOWN) {
+							$selected = this.$dropMenu.find('li:not(.hidden):first');
+						} else {
+							$selected = this.$dropMenu.find('li:not(.hidden):last');
+						}
 					}
+					this.$dropMenu.find('li').removeClass('selected');
+					$selected.addClass('selected');
 				}
-				this.$dropMenu.find('li').removeClass('selected');
-				$selected.addClass('selected');
-			} else if (this.options.showOptionsOnKeypress && this.options.filterOnKeypress) {
+			}
+
+			// Avoid filtering on navigation key presses
+			if (this.options.filterOnKeypress && !IS_NAVIGATIONAL) {
 				this.options.filter(this.$dropMenu.find('li'), this.$input.val(), this);
 			}
+
+			this.previousKeyPress = e.which;
 		},
 
 		inputchanged: function (e, extra) {
@@ -296,6 +319,7 @@
 		filterOnKeypress: false,
 		showOptionsOnKeypress: false,
 		filter: function filter(list, predicate, self) {
+			console.log('do filter');
 			var visible = 0;
 			self.$dropMenu.find('.empty-indicator').remove();
 

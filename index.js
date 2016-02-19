@@ -71,7 +71,10 @@ define(function (require) {
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	 COMBOBOX
 	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
+	$('#myCombobox').combobox({
+		filterOnKeypress: true,
+		showOptionsOnKeypress: true
+	});
 	// sample method buttons
 	$('#btnComboboxGetSelectedItem').on('click', function () {
 		var selectedItem = $('#myCombobox').combobox('selectedItem');
