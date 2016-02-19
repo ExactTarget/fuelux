@@ -13,7 +13,7 @@
 					{{#if separator}}<li role="separator" class="divider"></li>{{else}}<li><a href="#">{{value}}</a></li>{{/if}}{{/each}}
 				</ul>
 			</div>{{/with}}
-			<input type="{{#if type}}{{type}}{{else}}text{{/if}}" class="{{#unless horizontal}}{{#if inputsize}}input-{{inputsize}} {{/if}}{{/unless}}form-control" id="{{#if id}}{{id}}{{else}}myInput{{/if}}" name="{{#if name}}{{name}}{{else}}{{#if id}}{{id}}{{else}}myInput{{/if}}{{/if}}"{{#if placeholder}} placeholder="{{placeholder}}"{{/if}}{{#if required}} required{{/if}}{{#if readonly}} readonly{{/if}}{{#if disabled}} disabled{{/if}}>
+			<input type="{{#if type}}{{type}}{{else}}text{{/if}}" class="{{#unless horizontal}}{{#if inputsize}}input-{{inputsize}} {{/if}}{{/unless}}form-control" id="{{#if id}}{{id}}{{else}}myInput{{/if}}" name="{{#if name}}{{name}}{{else}}{{#if id}}{{id}}{{else}}myInput{{/if}}{{/if}}"{{#if placeholder}} placeholder="{{placeholder}}"{{/if}}{{#if required}} required{{/if}}{{#if readonly}} readonly{{/if}}{{#if disabled}} disabled{{/if}}{{#if validation}}{{#if feedback}}aria-describedby="{{#if id}}{{id}}{{else}}myInput{{/if}}Status"{{/if}}{{/if}}>
 			{{#with appendButtonDropdown}}
 			<div class="input-group-btn">
 				<button type="button" class="btn dropdown-toggle{{#if ../inputsize}} btn-{{../inputsize}}{{/if}}{{#if style}} {{style}}{{/if}}" data-toggle="dropdown"{{#if ../label}} aria-label="{{../label}} related options"{{/if}} aria-haspopup="true" aria-expanded="false"{{#if required}} required{{/if}}{{#if readonly}} readonly{{/if}}{{#if disabled}} disabled{{/if}}>{{text}}&nbsp;<span class="caret"></span></button>
@@ -26,7 +26,7 @@
 			</label>{{/with}}
 			{{#if appendText}}<span id="{{#if id}}{{id}}{{else}}myInput{{/if}}Prepend" class="input-group-addon{{#if horizontal}}{{#if inputsize}} input-{{inputsize}}{{/if}}{{/if}}">{{appendText}}</span>{{/if}}
 		{{#if hasAside}}</div>{{/if}}
-		{{#if feedback}}<span class="glyphicon glyphicon-{{feedback}} form-control-feedback" aria-hidden="true"></span>{{/if}}
+		{{#if feedback}}<span class="glyphicon glyphicon-{{feedback}} form-control-feedback" aria-hidden="true"></span><span id="{{#if id}}{{id}}{{else}}myInput{{/if}}Status" class="sr-only">({{#if validation}}{{validation}}{{/if}})</span>{{/if}}
 		{{#if helptext}}<p class="help-block">{{helptext}}</p>{{/if}}
 	{{#if horizontal}}</div>{{/if}}
 </div>
