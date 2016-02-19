@@ -39,10 +39,12 @@
 		this.$dropMenu = this.$element.find('.dropdown-menu');
 		this.$input = this.$element.find('input');
 		this.$button = this.$element.find('.btn');
+		this.$inputGroupBtn = this.$element.find('.input-group-btn');
 
 		this.$element.on('click.fu.combobox', 'a', $.proxy(this.itemclicked, this));
 		this.$element.on('change.fu.combobox', 'input', $.proxy(this.inputchanged, this));
 		this.$element.on('shown.bs.dropdown', $.proxy(this.menuShown, this));
+		this.$input.on('keyup.fu.combobox', $.proxy(this.keypress, this));
 
 		// set default selection
 		this.setDefaultSelection();
@@ -84,6 +86,11 @@
 			}
 		},
 
+		clearSelection: function () {
+			this.$selectedItem = null;
+			this.$input.val('');
+		},
+
 		menuShown: function () {
 			if (this.options.autoResizeMenu) {
 				this.resizeMenu();
@@ -116,11 +123,12 @@
 		selectByText: function (text) {
 			var $item = $([]);
 			this.$element.find('li').each(function () {
-				if ((this.textContent || this.innerText || $(this).text() || '').toLowerCase() === (text || '').toLowerCase()) {
+				if ((this.textContent || this.innerText || $(this).text() || '').trim().toLowerCase() === (text || '').trim().toLowerCase()) {
 					$item = $(this);
 					return false;
 				}
 			});
+
 			this.doSelect($item);
 		},
 
@@ -185,6 +193,58 @@
 			this.$element.find('.dropdown-toggle').focus();
 		},
 
+		keypress: function (e) {
+			var ENTER = 13;
+			//var TAB = 9;
+			var ESC = 27;
+			var LEFT = 37;
+			var UP = 38;
+			var RIGHT = 39;
+			var DOWN = 40;
+
+			if(this.options.showOptionsOnKeypress){
+				this.$inputGroupBtn.addClass('open');
+			}
+
+			if (e.which === ENTER) {
+				e.preventDefault();
+
+				var selected = this.$dropMenu.find('li.selected').text().trim();
+				if(selected.length > 0){
+					this.selectByText(selected);
+				}else{
+					this.selectByText(this.$input.val());
+				}
+
+				this.$inputGroupBtn.removeClass('open');
+			} else if (e.which === ESC) {
+				e.preventDefault();
+				this.clearSelection();
+				this.$inputGroupBtn.removeClass('open');
+			} else if (this.options.showOptionsOnKeypress && (e.which === DOWN || e.which === UP)) {
+				var $selected = this.$dropMenu.find('li.selected');
+				if ($selected.length > 0) {
+					if (e.which === DOWN) {
+						$selected = $selected.next(':not(.hidden)');
+					} else {
+						$selected = $selected.prev(':not(.hidden)');
+					}
+				}
+
+				if ($selected.length === 0){
+					if (e.which === DOWN) {
+						$selected = this.$dropMenu.find('li:not(.hidden):first');
+					} else {
+						$selected = this.$dropMenu.find('li:not(.hidden):last');
+					}
+				}
+				this.$dropMenu.find('li').removeClass('selected');
+				$selected.addClass('selected');
+			} else if (this.options.showOptionsOnKeypress && this.options.filterOnKeypress) {
+				this.options.filter(this.$dropMenu.find('li'), this.$input.val(), this);
+			}
+		},
+
 		inputchanged: function (e, extra) {
 			// skip processing for internally-generated synthetic event
 			// to avoid double processing
@@ -232,7 +292,34 @@
 	};
 
 	$.fn.combobox.defaults = {
-		autoResizeMenu: true
+		autoResizeMenu: true,
+		filterOnKeypress: false,
+		showOptionsOnKeypress: false,
+		filter: function filter(list, predicate, self) {
+			var visible = 0;
+			self.$dropMenu.find('.empty-indicator').remove();
+
+			list.each(function(i){
+				var $li = $(this);
+				var text = $(this).text().trim();
+
+				$li.removeClass();
+
+				if (text === predicate) {
+					$li.addClass('text-success');
+					visible++;
+				} else if (text.substr(0, predicate.length) === predicate) {
+					$li.addClass('text-info');
+					visible++;
+				} else {
+					$li.addClass('hidden');
+				}
+			});
+
+			if (visible === 0) {
+				self.$dropMenu.append('<li class="empty-indicator text-muted"><em>No Matches</em></li>');
+			}
+		}
 	};
 
 	$.fn.combobox.Constructor = Combobox;
