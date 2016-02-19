@@ -33,13 +33,19 @@
 					underscore: 'bower_components/underscore/underscore',
 					bootstrap: 'bower_components/bootstrap/dist/js/bootstrap',
 					moment: 'bower_components/moment/min/moment-with-locales',
-					fuelux: 'js'
+					fuelux: 'js',
+					hbs: 'bower_components/require-handlebars-plugin/hbs',
+					fuelux_templates: 'templates/handlebars/fuelux',
+					bootstrap_templates: 'templates/handlebars/bootstrap'
 				},
 				shim: {
 					'bootstrap': {
 						deps: ['jquery'],
 						exports: 'bootstrap'
 					}
+				},
+				hbs: {
+					partialsUrl: 'templates/handlebars'
 				}
 			});
 		})();
@@ -2221,48 +2227,12 @@
 			<section id="tree">
 				<h2>Tree</h2>
 				<div class="thin-box">
+					<!-- Utilizes Handlebars templates (see index.js) -->
 					<h3>folders selectable (please note structure of treebranch)</h3>
-					<ul class="tree" id="myTree1" role="tree">
-						<li class="tree-branch hidden" data-template="treebranch" role="treeitem" aria-expanded="false">
-							<div class="tree-branch-header">
-								<button type="button" class="glyphicon icon-caret glyphicon-play"><span class="sr-only">Open</span>
-								</button>
-								<button type="button" class="tree-branch-name">
-									<span class="glyphicon icon-folder glyphicon-folder-close"></span>
-									<span class="tree-label"></span>
-								</button>
-							</div>
-							<ul class="tree-branch-children" role="group"></ul>
-							<div class="tree-loader" role="alert">Loading...</div>
-						</li>
-						<li class="tree-item hidden" data-template="treeitem" role="treeitem">
-							<button type="button" class="tree-item-name">
-								<span class="glyphicon icon-item fueluxicon-bullet"></span>
-								<span class="tree-label"></span>
-							</button>
-						</li>
-					</ul>
+					<div id="myTreeWrapper"></div>
 
 					<h3>only items selectable (please note structure of treebranch)</h3>
-					<ul class="tree" id="myTree2" role="tree">
-						<li class="tree-branch hidden" data-template="treebranch" role="treeitem" aria-expanded="false">
-							<div class="tree-branch-header">
-								<button type="button" class="tree-branch-name">
-									<span class="glyphicon icon-caret glyphicon-play"></span>
-									<span class="glyphicon icon-folder glyphicon-folder-close"></span>
-									<span class="tree-label"></span>
-								</button>
-							</div>
-							<ul class="tree-branch-children" role="group"></ul>
-							<div class="tree-loader" role="alert">Loading...</div>
-						</li>
-						<li class="tree-item hidden" data-template="treeitem" role="treeitem">
-							<button type="button" class="tree-item-name">
-								<span class="glyphicon icon-item fueluxicon-bullet"></span>
-								<span class="tree-label"></span>
-							</button>
-						</li>
-					</ul>
+					<div id="myTree2Wrapper"></div>
 
 				</div>
 				<div class="btn-panel">
