@@ -1,4 +1,4 @@
-<div class="repeater" id="{{#if id}}{{id}}{{else}}myRepeater{{/if}}">
+<div class="repeater"{{#each data}} data-{{name}}="{{value}}"{{/each}} id="{{#if id}}{{id}}{{else}}myRepeater{{/if}}">
 	<div class="repeater-header">
 		<div class="repeater-header-left">
 			<span class="repeater-title">{{#if title}}{{title}}{{else}}Awesome Repeater{{/if}}</span>
