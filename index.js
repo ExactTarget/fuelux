@@ -72,7 +72,7 @@ define(function (require) {
 	 COMBOBOX
 	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 	$('#myCombobox').combobox({
-		filterOnKeypress: true,
+		filterOnKeypress: false,
 		showOptionsOnKeypress: true
 	});
 	// sample method buttons

@@ -84,6 +84,7 @@
 
 		doSelect: function ($item) {
 			if (typeof $item[0] !== 'undefined') {
+				$item.addClass('selected');
 				this.$selectedItem = $item;
 				this.$input.val(this.$selectedItem.text().trim());
 			} else {
@@ -119,7 +120,7 @@
 				}, this.$selectedItem.data());
 			} else {
 				data = {
-					text: this.$input.val()
+					text: this.$input.val().trim()
 				};
 			}
 
@@ -318,11 +319,11 @@
 		autoResizeMenu: true,
 		filterOnKeypress: false,
 		showOptionsOnKeypress: false,
-		filter: function filter(list, predicate, self) {
+		filter: function filter (list, predicate, self) {
 			var visible = 0;
 			self.$dropMenu.find('.empty-indicator').remove();
 
-			list.each(function(i){
+			list.each(function (i) {
 				var $li = $(this);
 				var text = $(this).text().trim();
 
