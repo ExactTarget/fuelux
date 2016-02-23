@@ -4,12 +4,12 @@
 
 define(function(require){
 	var $ = require('jquery');
-	require('sim/libs/bililiteRange');
-	require('sim/libs/jquery.simulate');
-	require('sim/src/jquery.simulate.ext');
-	require('sim/src/jquery.simulate.drag-n-drop');
-	require('sim/src/jquery.simulate.key-sequence');
-	require('sim/src/jquery.simulate.key-combo');
+	// require('sim/libs/bililiteRange');
+	// require('sim/libs/jquery.simulate');
+	// require('sim/src/jquery.simulate.ext');
+	// require('sim/src/jquery.simulate.drag-n-drop');
+	// require('sim/src/jquery.simulate.key-sequence');
+	// require('sim/src/jquery.simulate.key-combo');
 	var html = require('text!test/markup/combobox-markup.html!strip');
 	/* FOR DEV TESTING - uncomment to test against index.html */
 	//html = require('text!index.html!strip');
@@ -116,21 +116,21 @@ define(function(require){
 		deepEqual(item, expectedItem, 'item selected');
 	});
 
-	var userInteracts = function userInteracts($combobox) {
-		var DOWN_KEY = 40;
-		var UP_KEY = 38;
-		var deleteAllTypeT = "{backspace}{backspace}{backspace}{backspace}{backspace}T";
-		var hitEnter = "{enter}";
+	// var userInteracts = function userInteracts($combobox) {
+	// 	var DOWN_KEY = 40;
+	// 	var UP_KEY = 38;
+	// 	var deleteAllTypeT = "{backspace}{backspace}{backspace}{backspace}{backspace}T";
+	// 	var hitEnter = "{enter}";
 
-		var hitDown = jQuery.Event("keyup");
-		hitDown.which = DOWN_KEY;
-		hitDown.keyCode = DOWN_KEY;
-		hitDown.keypress = DOWN_KEY;
+	// 	var hitDown = jQuery.Event("keyup");
+	// 	hitDown.which = DOWN_KEY;
+	// 	hitDown.keyCode = DOWN_KEY;
+	// 	hitDown.keypress = DOWN_KEY;
 
-		$combobox.find('input').simulate("key-sequence", {sequence: deleteAllTypeT});
-		$combobox.find('input').trigger(hitDown);
-		$combobox.find('input').simulate("key-sequence", {sequence: hitEnter});
-	};
+	// 	$combobox.find('input').simulate("key-sequence", {sequence: deleteAllTypeT});
+	// 	$combobox.find('input').trigger(hitDown);
+	// 	$combobox.find('input').simulate("key-sequence", {sequence: hitEnter});
+	// };
 
 	// test("should respond to keypresses appropriately with filter and showOptionsOnKeypress off", function() {
 	// 	var $combobox = $(html).find("#MyCombobox").combobox();
