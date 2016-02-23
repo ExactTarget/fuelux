@@ -42,7 +42,7 @@
     "grunt-zip": "0.17.1",
     "load-grunt-config": "0.19.1",
     "load-grunt-tasks": "3.4.0",
-    "qunitjs": "1.20.0",
+    "qunitjs": "1.22.0",
     "semver": "5.1.0",
     "serve-static": "1.10.1"
   },
