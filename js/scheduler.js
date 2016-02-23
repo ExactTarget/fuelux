@@ -255,10 +255,10 @@
 			this.$endDate.parent().attr('aria-hidden', 'true');
 
 			if (val === 'after') {
-				this.$endAfter.parent().removeClass('hide hidden'); // hide is deprecated
+				this.$endAfter.parent().removeClass('hide hidden'); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 				this.$endAfter.parent().attr('aria-hidden', 'false');
 			} else if (val === 'date') {
-				this.$endDate.parent().removeClass('hide hidden');	// hide is deprecated
+				this.$endDate.parent().removeClass('hide hidden');	// jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 				this.$endDate.parent().attr('aria-hidden', 'false');
 			}
 		},
@@ -447,11 +447,11 @@
 				case 'daily':
 				case 'weekly':
 				case 'monthly':
-					this.$repeatIntervalPanel.removeClass('hide hidden'); // hide is deprecated
+					this.$repeatIntervalPanel.removeClass('hide hidden'); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 					this.$repeatIntervalPanel.attr('aria-hidden', 'false');
 					break;
 				default:
-					this.$repeatIntervalPanel.addClass('hidden'); // hide is deprecated
+					this.$repeatIntervalPanel.addClass('hidden'); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 					this.$repeatIntervalPanel.attr('aria-hidden', 'true');
 					break;
 			}
@@ -461,7 +461,7 @@
 			this.$recurrencePanels.attr('aria-hidden', 'true');
 
 			// show panel for current selection
-			this.$element.find('.repeat-' + val).removeClass('hide hidden'); // hide is deprecated
+			this.$element.find('.repeat-' + val).removeClass('hide hidden'); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 			this.$element.find('.repeat-' + val).attr('aria-hidden', 'false');
 
 			// the end selection should only be shown when
@@ -470,7 +470,7 @@
 				this.$end.addClass('hidden');
 				this.$end.attr('aria-hidden', 'true');
 			} else {
-				this.$end.removeClass('hide hidden'); // hide is deprecated
+				this.$end.removeClass('hide hidden'); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 				this.$end.attr('aria-hidden', 'false');
 			}
 
@@ -511,7 +511,7 @@
 				item = 'hourly';
 			} else if (recur.FREQ === 'WEEKLY') {
 				item = 'weekly';
-				
+
 				if (recur.BYDAY) {
 					if (recur.BYDAY === 'MO,TU,WE,TH,FR') {
 						item = 'weekdays';
@@ -561,7 +561,7 @@
 					$repeatYearlyDay.find('input').addClass('checked').prop('checked', true);
 					$repeatYearlyDay.find('label.radio-custom').addClass('checked');
 					$repeatYearlyDay.find('.year-month-day-pos').selectlist('selectByValue', recur.BYSETPOS);
-					
+
 					if (recur.BYDAY) {
 						$repeatYearlyDay.find('.year-month-days').selectlist('selectByValue', recur.BYDAY);
 					}
@@ -581,7 +581,7 @@
 				this.$endSelect.selectlist('selectByValue', 'after');
 			} else if (recur.UNTIL) {
 				var untilSplit, untilDate;
-				
+
 				if (recur.UNTIL.length === 8) {
 					untilSplit = recur.UNTIL.split('');
 					untilSplit.splice(4, 0, '-');

@@ -32,8 +32,13 @@
 		}
 
 		.tree-loader {
-			// make even with tree-branch-children
-			margin-left: 45px;
+			// make even with tree-branch-children text
+			margin-left: 65px;
+		}
+
+		// The loader at the root level has different wrapping/nesting/spacing
+		> .tree-loader {
+			margin-left: 50px;
 		}
 
 		.tree-open > .tree-branch-header .glyphicon-play {
@@ -97,21 +102,26 @@
 
 		}
 
-		.tree-item {
+		.tree-item, .tree-overflow {
 			white-space: nowrap;
 			position: relative;
 			cursor: pointer;
 			border-radius: 6px;
 			margin-left: 26px;
 
-			.tree-item-name {
+			.tree-item-name, .tree-overflow-name {
 				white-space: nowrap;
 				border-radius: 6px;
 				background-color: transparent;
 				border: 0;
 			}
 
-			.tree-item-name:hover {
+			.tree-overflow-name .tree-label {
+				margin-left: 15px;
+				color: @link-color;
+			}
+
+			.tree-item-name:hover, .tree-overflow-name:hover {
 				color: @tree-hover-text;
 			}
 

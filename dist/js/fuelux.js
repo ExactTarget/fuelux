@@ -1,5 +1,6 @@
 /*!
- * Fuel UX v3.14.1 
+ * Fuel UX EDGE - Built 2016/02/22, 5:40:55 PM 
+ * Previous release: v3.14.1 
  * Copyright 2012-2016 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -3081,6 +3082,10 @@
 				this.toggleFolder( ev.currentTarget );
 			}, this ) );
 
+			this.$element.on( 'click.fu.tree', '.tree-overflow', $.proxy( function( ev ) {
+				this.populate( $( ev.currentTarget ) );
+			}, this ) );
+
 			// folderSelect default is true
 			if ( this.options.folderSelect ) {
 				this.$element.addClass( 'tree-folder-select' );
@@ -3125,27 +3130,58 @@
 
 			populate: function populate( $el, isBackgroundProcess ) {
 				var self = this;
+
+				// populate was initiated based on clicking overflow link
+				var isOverflow = $el.hasClass( 'tree-overflow' );
+
 				var $parent = ( $el.hasClass( 'tree' ) ) ? $el : $el.parent();
-				var loader = $parent.find( '.tree-loader:eq(0)' );
+				var atRoot = $parent.hasClass( 'tree' );
+
+				if ( isOverflow && !atRoot ) {
+					$parent = $parent.parent();
+				}
+
 				var treeData = $parent.data();
+				// expose overflow data to datasource so it can be responded to appropriately.
+				if ( isOverflow ) {
+					treeData.overflow = $el.data();
+				}
+
 				isBackgroundProcess = isBackgroundProcess || false; // no user affordance needed (ex.- "loading")
 
-				if ( isBackgroundProcess === false ) {
-					loader.removeClass( 'hide hidden' ); // hide is deprecated
+				if ( isOverflow ) {
+					if ( atRoot ) {
+						// the loader at the root level needs to continually replace the overflow trigger
+						// otherwise, when loader is shown below, it will be the loader for the last folder
+						// in the tree, instead of the loader at the root level.
+						$el.replaceWith( $parent.find( '> .tree-loader' ).remove() );
+					} else {
+						$el.remove();
+					}
 				}
-				this.options.dataSource( treeData ? treeData : {}, function( items ) {
-					loader.addClass( 'hidden' );
 
+				var $loader = $parent.find( '.tree-loader:last' );
+
+				if ( isBackgroundProcess === false ) {
+					$loader.removeClass( 'hide hidden' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
+				}
+
+
+				this.options.dataSource( treeData ? treeData : {}, function( items ) {
 					$.each( items.data, function( index, value ) {
 						var $entity;
 
 						if ( value.type === 'folder' ) {
-							$entity = self.$element.find( '[data-template=treebranch]:eq(0)' ).clone().removeClass( 'hide hidden' ).removeData( 'template' ); // hide is deprecated
+							$entity = self.$element.find( '[data-template=treebranch]:eq(0)' ).clone().removeClass( 'hide hidden' ).removeData( 'template' ).removeAttr( 'data-template' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 							$entity.data( value );
 							$entity.find( '.tree-branch-name > .tree-label' ).html( value.text || value.name );
 						} else if ( value.type === 'item' ) {
-							$entity = self.$element.find( '[data-template=treeitem]:eq(0)' ).clone().removeClass( 'hide hidden' ).removeData( 'template' ); // hide is deprecated
+							$entity = self.$element.find( '[data-template=treeitem]:eq(0)' ).clone().removeClass( 'hide hidden' ).removeData( 'template' ).removeAttr( 'data-template' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 							$entity.find( '.tree-item-name > .tree-label' ).html( value.text || value.name );
+							$entity.data( value );
+						} else if ( value.type === 'overflow' ) {
+							$entity = self.$element.find( '[data-template=treeoverflow]:eq(0)' ).clone().removeClass( 'hide hidden' ).removeData( 'template' ).removeAttr( 'data-template' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
+							$entity.find( '.tree-overflow-name > .tree-label' ).html( value.text || value.name );
 							$entity.data( value );
 						}
 
@@ -3198,13 +3234,15 @@
 							}
 						} );
 
-						// add child nodes
-						if ( $el.hasClass( 'tree-branch-header' ) ) {
-							$parent.find( '.tree-branch-children:eq(0)' ).append( $entity );
+						// add child node
+						if ( atRoot ) {
+							$parent.append( $entity );
 						} else {
-							$el.append( $entity );
+							$parent.find( '.tree-branch-children:eq(0)' ).append( $entity );
 						}
 					} );
+
+					$parent.find( '.tree-loader' ).addClass( 'hidden' );
 
 					// return newly populated folder
 					self.$element.trigger( 'loaded.fu.tree', $parent );
@@ -3259,7 +3297,7 @@
 				//take care of the styles
 				$branch.addClass( 'tree-open' );
 				$branch.attr( 'aria-expanded', 'true' );
-				$treeFolderContentFirstChild.removeClass( 'hide hidden' ); // hide is deprecated
+				$treeFolderContentFirstChild.removeClass( 'hide hidden' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 				$branch.find( '> .tree-branch-header .icon-folder' ).eq( 0 )
 					.removeClass( 'glyphicon-folder-close' )
 					.addClass( 'glyphicon-folder-open' );
@@ -3334,7 +3372,7 @@
 				var closedReported = function closedReported( event, closed ) {
 					reportedClosed.push( closed );
 
-					// hide is deprecated
+					// jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 					if ( self.$element.find( ".tree-branch.tree-open:not('.hidden, .hide')" ).length === 0 ) {
 						self.$element.trigger( 'closedAll.fu.tree', {
 							tree: self.$element,
@@ -7283,10 +7321,10 @@
 				this.$endDate.parent().attr( 'aria-hidden', 'true' );
 
 				if ( val === 'after' ) {
-					this.$endAfter.parent().removeClass( 'hide hidden' ); // hide is deprecated
+					this.$endAfter.parent().removeClass( 'hide hidden' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 					this.$endAfter.parent().attr( 'aria-hidden', 'false' );
 				} else if ( val === 'date' ) {
-					this.$endDate.parent().removeClass( 'hide hidden' ); // hide is deprecated
+					this.$endDate.parent().removeClass( 'hide hidden' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 					this.$endDate.parent().attr( 'aria-hidden', 'false' );
 				}
 			},
@@ -7475,11 +7513,11 @@
 					case 'daily':
 					case 'weekly':
 					case 'monthly':
-						this.$repeatIntervalPanel.removeClass( 'hide hidden' ); // hide is deprecated
+						this.$repeatIntervalPanel.removeClass( 'hide hidden' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 						this.$repeatIntervalPanel.attr( 'aria-hidden', 'false' );
 						break;
 					default:
-						this.$repeatIntervalPanel.addClass( 'hidden' ); // hide is deprecated
+						this.$repeatIntervalPanel.addClass( 'hidden' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 						this.$repeatIntervalPanel.attr( 'aria-hidden', 'true' );
 						break;
 				}
@@ -7489,7 +7527,7 @@
 				this.$recurrencePanels.attr( 'aria-hidden', 'true' );
 
 				// show panel for current selection
-				this.$element.find( '.repeat-' + val ).removeClass( 'hide hidden' ); // hide is deprecated
+				this.$element.find( '.repeat-' + val ).removeClass( 'hide hidden' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 				this.$element.find( '.repeat-' + val ).attr( 'aria-hidden', 'false' );
 
 				// the end selection should only be shown when
@@ -7498,7 +7536,7 @@
 					this.$end.addClass( 'hidden' );
 					this.$end.attr( 'aria-hidden', 'true' );
 				} else {
-					this.$end.removeClass( 'hide hidden' ); // hide is deprecated
+					this.$end.removeClass( 'hide hidden' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 					this.$end.attr( 'aria-hidden', 'false' );
 				}
 

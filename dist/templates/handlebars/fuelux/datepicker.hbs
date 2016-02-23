@@ -1,6 +1,6 @@
 <div class="datepicker" {{#unless doNotInit}}data-initialize="datepicker"{{/unless}} id="{{#if id}}{{id}}{{else}}myDatepicker{{/if}}">
 	<div class="input-group">
-		<input class="form-control" id="{{#if id}}{{id}}{{else}}myDatepicker{{/if}}Input" type="text"/>
+		<input class="form-control" id="{{#if id}}{{id}}Input{{else}}myDatepickerInput{{/if}}" name="{{#if name}}{{name}}{{#if id}}{{id}}Input{{else}}myDatepickerInput{{/if}}{{/if}}" type="text"/>
 		<div class="input-group-btn">
 			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 				<span class="glyphicon glyphicon-calendar"></span>

@@ -102,6 +102,13 @@ define(function (require) {
 							attr: {
 								id: 'item4'
 							}
+						},
+						{
+							name: 'Load More',
+							type: 'overflow',
+							attr: {
+								id: 'overflow1'
+							}
 						}
 					]
 				});
@@ -123,6 +130,11 @@ define(function (require) {
 
 		}
 	});
+
+	var NUM_CHILDREN = 9;
+	var NUM_FOLDERS = 4;
+	var NUM_ITEMS = 4;
+	var NUM_OVERFLOWS = 1;
 
 	test("should be defined on jquery object", function () {
 		ok($().tree, 'tree method is defined');
@@ -167,8 +179,9 @@ define(function (require) {
 			dataSource: this.dataSource
 		});
 
-		equal($tree.find('.tree-branch').length, 5, 'Initial set of folders have been added');
-		equal($tree.find('.tree-item').length, 5, 'Initial set of items have been added');
+		equal($tree.find('.tree-branch:not([data-template])').length, NUM_FOLDERS, 'Initial set of folders have been added');
+		equal($tree.find('.tree-item:not([data-template])').length, NUM_ITEMS, 'Initial set of items have been added');
+		equal($tree.find('.tree-overflow:not([data-template])').length, NUM_OVERFLOWS, 'Initial overflow has been added');
 	});
 
 	test("Folder should populate when opened", function () {
@@ -181,7 +194,7 @@ define(function (require) {
 
 		$selNode = $tree.find('.tree-branch:eq(1)');
 		$tree.tree('discloseFolder', $selNode.find('.tree-branch-name'));
-		equal($selNode.find('.tree-branch-children > li').length, 8, 'Folder has been populated with items/sub-folders');
+		equal($selNode.find('.tree-branch-children > li').length, NUM_CHILDREN, 'Folder has been populated with items/sub-folders');
 
 		$tree = $(html).find('#MyTreeSelectableFolder');
 
@@ -192,7 +205,7 @@ define(function (require) {
 
 		$selNode = $tree.find('.tree-branch:eq(1)');
 		$tree.tree('discloseFolder', $selNode.find('.tree-branch-header'));
-		equal($selNode.find('.tree-branch-children > li').length, 8, 'Folder has been populated with sub-folders and items');
+		equal($selNode.find('.tree-branch-children > li').length, NUM_CHILDREN, 'Folder has been populated with sub-folders and items');
 	});
 
 	test("getValue alias should function", function() {
@@ -244,6 +257,21 @@ define(function (require) {
 
 		$tree.find('.tree-item:eq(2)').click();
 		equal($tree.tree('selectedItems').length, 1, 'Return single selected item (folder previously selected, 3rd click selection)');
+
+	});
+
+	test("Overflow click works as designed", function () {
+		var $tree = $(html).find('#MyTree');
+
+		$tree.tree({
+			dataSource: this.dataSource
+		});
+
+		equal($tree.find('> li:not([data-template])').length, NUM_CHILDREN, 'Initial set of folders (' + NUM_CHILDREN + ' children) have been added');
+		$tree.find('.tree-overflow:eq(0)').click();
+		//Once overflow is clicked, all original contents is loaded again, and original overflow is actually REMOVED from tree contents.
+		var NUM_AFTER_OVERFLOW_CLICK = (NUM_CHILDREN * 2) - 1;
+		equal($tree.find('> li:not([data-template])').length, NUM_AFTER_OVERFLOW_CLICK, 'Overflow contents (now ' + NUM_AFTER_OVERFLOW_CLICK + ' children) have loaded');
 
 	});
 
@@ -388,7 +416,7 @@ define(function (require) {
 
 		// open folder
 		$tree.tree('discloseFolder', $folderToRefresh.find('.tree-branch-name'));
-		equal($folderToRefresh.find('.tree-branch-children > li').length, 8, 'Folder has been populated with items/sub-folders');
+		equal($folderToRefresh.find('.tree-branch-children > li').length, NUM_CHILDREN, 'Folder has been populated with items/sub-folders');
 		initialLoadedFolderId = $folderToRefresh.find(selector).attr('id');
 
 		// refresh and see if it's the same ID
