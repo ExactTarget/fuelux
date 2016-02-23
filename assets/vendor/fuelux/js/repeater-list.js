@@ -82,15 +82,18 @@
 			var data, i, $item, length;
 
 			//this function is necessary because lint yells when a function is in a loop
-			function checkIfItemMatchesValue () {
+			function checkIfItemMatchesValue (rowIndex) {
 				$item = $(this);
+
 				data = $item.data('item_data') || {};
 				if (data[items[i].property] === items[i].value) {
-					selectItem($item, items[i].selected);
+					selectItem($item, items[i].selected, rowIndex);
 				}
 			}
 
-			function selectItem ($itm, select) {
+			function selectItem ($itm, select, index) {
+				var $frozenCols;
+
 				select = (select !== undefined) ? select : true;
 				if (select) {
 					if (!force && selectable !== 'multi') {
@@ -99,10 +102,33 @@
 
 					if (!$itm.hasClass('selected')) {
 						$itm.addClass('selected');
+
+						if (self.viewOptions.list_frozenColumns || self.viewOptions.list_selectable === 'multi') {
+							$frozenCols = self.$element.find('.frozen-column-wrapper tr:nth-child('+ (index + 1) +')');
+
+							$frozenCols.addClass('selected');
+							$frozenCols.find('.repeater-select-checkbox').addClass('checked');
+						}
+
+						if (self.viewOptions.list_actions) {
+							self.$element.find('.actions-column-wrapper tr:nth-child('+ (index + 1) +')').addClass('selected');
+						}
+
 						$itm.find('td:first').prepend('<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>');
 					}
 
 				} else {
+					if (self.viewOptions.list_frozenColumns) {
+						$frozenCols = self.$element.find('.frozen-column-wrapper tr:nth-child('+ (index + 1) +')');
+
+						$frozenCols.addClass('selected');
+						$frozenCols.find('.repeater-select-checkbox').removeClass('checked');
+					}
+
+					if (self.viewOptions.list_actions) {
+						self.$element.find('.actions-column-wrapper tr:nth-child('+ (index + 1) +')').removeClass('selected');
+					}
+
 					$itm.find('.repeater-list-check').remove();
 					$itm.removeClass('selected');
 				}
@@ -122,13 +148,13 @@
 
 			for (i = 0; i < length; i++) {
 				if (items[i].index !== undefined) {
-					$item = this.$canvas.find('.repeater-list table tbody tr:nth-child(' + (items[i].index + 1) + ')');
+					$item = this.$canvas.find('.repeater-list .repeater-list-wrapper > table tbody tr:nth-child(' + (items[i].index + 1) + ')');
 					if ($item.length > 0) {
-						selectItem($item, items[i].selected);
+						selectItem($item, items[i].selected, items[i].index);
 					}
 
 				} else if (items[i].property !== undefined && items[i].value !== undefined) {
-					this.$canvas.find('.repeater-list table tbody tr').each(checkIfItemMatchesValue);
+					this.$canvas.find('.repeater-list .repeater-list-wrapper > table tbody tr').each(checkIfItemMatchesValue);
 				}
 
 			}
@@ -259,10 +285,13 @@
 				$actionsColumn.find('tr td:not(:last-child)').remove();
 
 				// Dont show actions dropdown in header if not multi select
-				if (this.viewOptions.list_selectable === 'multi') {
+				if (this.viewOptions.list_selectable === 'multi' || this.viewOptions.list_selectable === 'action') {
 					$actionsColumn.find('thead tr').html('<th><div class="repeater-list-heading">' + selectlist + '</div></th>');
-					//disable the header dropdown until an item is selected
-					$actionsColumn.find('thead .btn').attr('disabled', 'disabled');
+
+					if (this.viewOptions.list_selectable !== 'action') {
+						//disable the header dropdown until an item is selected
+						$actionsColumn.find('thead .btn').attr('disabled', 'disabled');
+					}
 				}
 				else {
 					var label = this.viewOptions.list_actions.label || '<span class="actions-hidden">a</span>';
@@ -304,7 +333,12 @@
 						actionName: actionName,
 						rows: []
 					};
-					self.$element.find('.repeater-list-wrapper > table .selected').each(function() {
+					var selector = '.repeater-list-wrapper > table .selected';
+
+					if ( self.viewOptions.list_selectable === 'action' ) {
+						selector = '.repeater-list-wrapper > table tr';
+					}
+					self.$element.find(selector).each(function() {
 						var index = $(this).index();
 						index = index + 1;
 						selected.rows.push(index);
@@ -714,66 +748,69 @@
 		var isActions = this.viewOptions.list_actions;
 
 		if (this.viewOptions.list_selectable) {
-			$row.addClass('selectable');
-			$row.attr('tabindex', 0);	// allow items to be tabbed to / focused on
 			$row.data('item_data', rows[index]);
 
-			$row.on('click.fu.repeaterList', function () {
-				if (!self.isDisabled) {
-					var $item = $(this);
-					var index = $(this).index();
-					index = index + 1;
-					var $frozenRow = self.$element.find('.frozen-column-wrapper tr:nth-child('+ index +')');
-					var $actionsRow = self.$element.find('.actions-column-wrapper tr:nth-child('+ index +')');
-					var $checkBox = self.$element.find('.frozen-column-wrapper tr:nth-child('+ index +') .checkbox-inline');
+			if (this.viewOptions.list_selectable !== 'action') {
+				$row.addClass('selectable');
+				$row.attr('tabindex', 0);	// allow items to be tabbed to / focused on
 
-					if ($item.is('.selected')) {
-						$item.removeClass('selected');
-						if (isMulti){
-							$checkBox.checkbox('uncheck');
-							$frozenRow.removeClass('selected');
-							if (isActions) {
-								$actionsRow.removeClass('selected');
+				$row.on('click.fu.repeaterList', function () {
+					if (!self.isDisabled) {
+						var $item = $(this);
+						var index = $(this).index();
+						index = index + 1;
+						var $frozenRow = self.$element.find('.frozen-column-wrapper tr:nth-child('+ index +')');
+						var $actionsRow = self.$element.find('.actions-column-wrapper tr:nth-child('+ index +')');
+						var $checkBox = self.$element.find('.frozen-column-wrapper tr:nth-child('+ index +') .checkbox-inline');
+
+						if ($item.is('.selected')) {
+							$item.removeClass('selected');
+							if (isMulti){
+								$checkBox.checkbox('uncheck');
+								$frozenRow.removeClass('selected');
+								if (isActions) {
+									$actionsRow.removeClass('selected');
+								}
 							}
-						}
-						else {
-							$item.find('.repeater-list-check').remove();
+							else {
+								$item.find('.repeater-list-check').remove();
+							}
+
+							self.$element.trigger('deselected.fu.repeaterList', $item);
+						} else {
+							if (!isMulti) {
+								self.$canvas.find('.repeater-list-check').remove();
+								self.$canvas.find('.repeater-list tbody tr.selected').each(function () {
+									$(this).removeClass('selected');
+									self.$element.trigger('deselected.fu.repeaterList', $(this));
+								});
+								$item.find('td:first').prepend('<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>');
+								$item.addClass('selected');
+								$frozenRow.addClass('selected');
+							}
+							else {
+								$checkBox.checkbox('check');
+								$item.addClass('selected');
+								$frozenRow.addClass('selected');
+								if (isActions) {
+									$actionsRow.addClass('selected');
+								}
+							}
+							self.$element.trigger('selected.fu.repeaterList', $item);
 						}
 
-						self.$element.trigger('deselected.fu.repeaterList', $item);
-					} else {
-						if (!isMulti) {
-							self.$canvas.find('.repeater-list-check').remove();
-							self.$canvas.find('.repeater-list tbody tr.selected').each(function () {
-								$(this).removeClass('selected');
-								self.$element.trigger('deselected.fu.repeaterList', $(this));
-							});
-							$item.find('td:first').prepend('<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>');
-							$item.addClass('selected');
-							$frozenRow.addClass('selected');
-						}
-						else {
-							$checkBox.checkbox('check');
-							$item.addClass('selected');
-							$frozenRow.addClass('selected');
-							if (isActions) {
-								$actionsRow.addClass('selected');
-							}
-						}
-						self.$element.trigger('selected.fu.repeaterList', $item);
+						toggleActionsHeaderButton.call(self);
 					}
+				});
 
-					toggleActionsHeaderButton.call(self);
-				}
-			});
-
-			// allow selection via enter key
-			$row.keyup(function (e) {
-				if (e.keyCode === 13) {
-					// triggering a standard click event to be caught by the row click handler above
-					$row.trigger('click.fu.repeaterList');
-				}
-			});
+				// allow selection via enter key
+				$row.keyup(function (e) {
+					if (e.keyCode === 13) {
+						// triggering a standard click event to be caught by the row click handler above
+						$row.trigger('click.fu.repeaterList');
+					}
+				});
+			}
 		}
 
 		if (this.viewOptions.list_actions && !this.viewOptions.list_selectable) {
@@ -930,8 +967,16 @@
 	}
 
 	function toggleActionsHeaderButton () {
-		var $selected = this.$canvas.find('.repeater-list-wrapper > table .selected');
+		var selectedSelector = '.repeater-list-wrapper > table .selected';
 		var $actionsColumn = this.$element.find('.table-actions');
+		var $selected;
+
+		if (this.viewOptions.list_selectable === 'action') {
+			selectedSelector = '.repeater-list-wrapper > table tr';
+		}
+
+		$selected = this.$canvas.find( selectedSelector );
+
 		if ($selected.length > 0) {
 			$actionsColumn.find('thead .btn').removeAttr('disabled');
 		} else {

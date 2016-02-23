@@ -70,6 +70,7 @@
 		this.$header = this.$calendar.find('.datepicker-calendar-header');
 		this.$headerTitle = this.$header.find('.title');
 		this.$input = this.$element.find('input');
+		this.$inputGroupBtn = this.$element.find('.input-group-btn');
 		this.$wheels = this.$element.find('.datepicker-wheels');
 		this.$wheelsMonth = this.$element.find('.datepicker-wheels-month');
 		this.$wheelsYear = this.$element.find('.datepicker-wheels-year');
@@ -95,6 +96,8 @@
 		this.$headerTitle.on('click.fu.datepicker', $.proxy(this.titleClicked, this));
 		this.$input.on('change.fu.datepicker', $.proxy(this.inputChanged, this));
 		this.$input.on('mousedown.fu.datepicker', $.proxy(this.showDropdown, this));
+		this.$inputGroupBtn.on('hidden.bs.dropdown', $.proxy(this.hide, this));
+		this.$inputGroupBtn.on('shown.bs.dropdown', $.proxy(this.show, this));
 		this.$wheels.find('.datepicker-wheels-back').on('click.fu.datepicker', $.proxy(this.backClicked, this));
 		this.$wheels.find('.datepicker-wheels-select').on('click.fu.datepicker', $.proxy(this.selectClicked, this));
 		this.$wheelsMonth.on('click.fu.datepicker', 'ul button', $.proxy(this.monthClicked, this));
@@ -186,7 +189,7 @@
 			this.selectedDate = date;
 			this.$input.val(this.formatDate(date));
 			this.inputValue = this.$input.val();
-			this.hideDropdown();
+			this.hide();
 			this.$input.focus();
 			this.$element.trigger('dateClicked.fu.datepicker', date);
 		},
@@ -206,7 +209,7 @@
 		disable: function () {
 			this.$element.addClass('disabled');
 			this.$element.find('input, button').attr('disabled', 'disabled');
-			this.$element.find('.input-group-btn').removeClass('open');
+			this.$inputGroupBtn.removeClass('open');
 		},
 
 		enable: function () {
@@ -271,14 +274,26 @@
 			}
 		},
 
-		showDropdown: function (e) {
-			if (!this.$input.is(':focus')){
-				this.$element.find('.input-group-btn').addClass('open');
+		show: function () {
+			var date = (this.selectedDate) ? this.selectedDate : new Date();
+			this.changeView('calendar', date);
+			this.$inputGroupBtn.addClass('open');
+			this.$element.trigger('shown.fu.datepicker');
+		},
+
+		showDropdown: function (e) {	//input mousedown handler, name retained for legacy support of showDropdown
+			if (!this.$input.is(':focus') && !this.$inputGroupBtn.hasClass('open')) {
+				this.show();
 			}
 		},
 
-		hideDropdown: function () {
-			this.$element.find('.input-group-btn').removeClass('open');
+		hide: function () {
+			this.$inputGroupBtn.removeClass('open');
+			this.$element.trigger('hidden.fu.datepicker');
+		},
+
+		hideDropdown: function () {		//for legacy support of hideDropdown
+			this.hide();
 		},
 
 		isInvalidDate: function (date) {

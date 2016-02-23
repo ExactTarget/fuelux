@@ -3,6 +3,7 @@ import { addUnitAlias } from './aliases';
 import { addRegexToken, match1to2, matchWord } from '../parse/regex';
 import { addWeekParseToken } from '../parse/token';
 import toInt from '../utils/to-int';
+import isArray from '../utils/is-array';
 import { createLocal } from '../create/local';
 import getParsingFlags from '../create/parsing-flags';
 
@@ -40,8 +41,8 @@ addRegexToken('dd',   matchWord);
 addRegexToken('ddd',  matchWord);
 addRegexToken('dddd', matchWord);
 
-addWeekParseToken(['dd', 'ddd', 'dddd'], function (input, week, config) {
-    var weekday = config._locale.weekdaysParse(input);
+addWeekParseToken(['dd', 'ddd', 'dddd'], function (input, week, config, token) {
+    var weekday = config._locale.weekdaysParse(input, token, config._strict);
     // if we didn't get a weekday name, mark the date as invalid
     if (weekday != null) {
         week.d = weekday;
@@ -76,8 +77,9 @@ function parseWeekday(input, locale) {
 // LOCALES
 
 export var defaultLocaleWeekdays = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_');
-export function localeWeekdays (m) {
-    return this._weekdays[m.day()];
+export function localeWeekdays (m, format) {
+    return isArray(this._weekdays) ? this._weekdays[m.day()] :
+        this._weekdays[this._weekdays.isFormat.test(format) ? 'format' : 'standalone'][m.day()];
 }
 
 export var defaultLocaleWeekdaysShort = 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_');
@@ -90,20 +92,37 @@ export function localeWeekdaysMin (m) {
     return this._weekdaysMin[m.day()];
 }
 
-export function localeWeekdaysParse (weekdayName) {
+export function localeWeekdaysParse (weekdayName, format, strict) {
     var i, mom, regex;
 
-    this._weekdaysParse = this._weekdaysParse || [];
+    if (!this._weekdaysParse) {
+        this._weekdaysParse = [];
+        this._minWeekdaysParse = [];
+        this._shortWeekdaysParse = [];
+        this._fullWeekdaysParse = [];
+    }
 
     for (i = 0; i < 7; i++) {
         // make the regex if we don't have it already
+
+        mom = createLocal([2000, 1]).day(i);
+        if (strict && !this._fullWeekdaysParse[i]) {
+            this._fullWeekdaysParse[i] = new RegExp('^' + this.weekdays(mom, '').replace('.', '\.?') + '$', 'i');
+            this._shortWeekdaysParse[i] = new RegExp('^' + this.weekdaysShort(mom, '').replace('.', '\.?') + '$', 'i');
+            this._minWeekdaysParse[i] = new RegExp('^' + this.weekdaysMin(mom, '').replace('.', '\.?') + '$', 'i');
+        }
         if (!this._weekdaysParse[i]) {
-            mom = createLocal([2000, 1]).day(i);
             regex = '^' + this.weekdays(mom, '') + '|^' + this.weekdaysShort(mom, '') + '|^' + this.weekdaysMin(mom, '');
             this._weekdaysParse[i] = new RegExp(regex.replace('.', ''), 'i');
         }
         // test the regex
-        if (this._weekdaysParse[i].test(weekdayName)) {
+        if (strict && format === 'dddd' && this._fullWeekdaysParse[i].test(weekdayName)) {
+            return i;
+        } else if (strict && format === 'ddd' && this._shortWeekdaysParse[i].test(weekdayName)) {
+            return i;
+        } else if (strict && format === 'dd' && this._minWeekdaysParse[i].test(weekdayName)) {
+            return i;
+        } else if (!strict && this._weekdaysParse[i].test(weekdayName)) {
             return i;
         }
     }
@@ -112,6 +131,9 @@ export function localeWeekdaysParse (weekdayName) {
 // MOMENTS
 
 export function getSetDayOfWeek (input) {
+    if (!this.isValid()) {
+        return input != null ? this : NaN;
+    }
     var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
     if (input != null) {
         input = parseWeekday(input, this.localeData());
@@ -122,11 +144,17 @@ export function getSetDayOfWeek (input) {
 }
 
 export function getSetLocaleDayOfWeek (input) {
+    if (!this.isValid()) {
+        return input != null ? this : NaN;
+    }
     var weekday = (this.day() + 7 - this.localeData()._week.dow) % 7;
     return input == null ? weekday : this.add(input - weekday, 'd');
 }
 
 export function getSetISODayOfWeek (input) {
+    if (!this.isValid()) {
+        return input != null ? this : NaN;
+    }
     // behaves the same as moment#day except
     // as a getter, returns 7 instead of 0 (1-7 range instead of 0-6)
     // as a setter, sunday should belong to the previous week.

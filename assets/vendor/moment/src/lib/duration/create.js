@@ -6,7 +6,7 @@ import { cloneWithOffset } from '../units/offset';
 import { createLocal } from '../create/local';
 
 // ASP.NET json date format regex
-var aspNetRegex = /(\-)?(?:(\d*)\.)?(\d+)\:(\d+)(?:\:(\d+)\.?(\d{3})?)?/;
+var aspNetRegex = /^(\-)?(?:(\d*)[. ])?(\d+)\:(\d+)(?:\:(\d+)\.?(\d{3})?\d*)?$/;
 
 // from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
 // somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
@@ -100,6 +100,10 @@ function positiveMomentsDifference(base, other) {
 
 function momentsDifference(base, other) {
     var res;
+    if (!(base.isValid() && other.isValid())) {
+        return {milliseconds: 0, months: 0};
+    }
+
     other = cloneWithOffset(other, base);
     if (base.isBefore(other)) {
         res = positiveMomentsDifference(base, other);

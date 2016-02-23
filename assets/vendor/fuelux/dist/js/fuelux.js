@@ -1,6 +1,6 @@
 /*!
- * Fuel UX v3.13.0 
- * Copyright 2012-2015 ExactTarget
+ * Fuel UX v3.14.2 
+ * Copyright 2012-2016 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
 
@@ -254,10 +254,12 @@
 			this.$dropMenu = this.$element.find( '.dropdown-menu' );
 			this.$input = this.$element.find( 'input' );
 			this.$button = this.$element.find( '.btn' );
+			this.$inputGroupBtn = this.$element.find( '.input-group-btn' );
 
 			this.$element.on( 'click.fu.combobox', 'a', $.proxy( this.itemclicked, this ) );
 			this.$element.on( 'change.fu.combobox', 'input', $.proxy( this.inputchanged, this ) );
 			this.$element.on( 'shown.bs.dropdown', $.proxy( this.menuShown, this ) );
+			this.$input.on( 'keyup.fu.combobox', $.proxy( this.keypress, this ) );
 
 			// set default selection
 			this.setDefaultSelection();
@@ -266,6 +268,11 @@
 			var items = this.$dropMenu.children( 'li' );
 			if ( items.length === 0 ) {
 				this.$button.addClass( 'disabled' );
+			}
+
+			// filter on load in case the first thing they do is press navigational key to pop open the menu
+			if ( this.options.filterOnKeypress ) {
+				this.options.filter( this.$dropMenu.find( 'li' ), this.$input.val(), this );
 			}
 
 		};
@@ -292,11 +299,18 @@
 
 			doSelect: function( $item ) {
 				if ( typeof $item[ 0 ] !== 'undefined' ) {
+					$item.addClass( 'selected' );
 					this.$selectedItem = $item;
 					this.$input.val( this.$selectedItem.text().trim() );
 				} else {
 					this.$selectedItem = null;
 				}
+			},
+
+			clearSelection: function() {
+				this.$selectedItem = null;
+				this.$input.val( '' );
+				this.$dropMenu.find( 'li' ).removeClass( 'selected' );
 			},
 
 			menuShown: function() {
@@ -321,7 +335,7 @@
 					}, this.$selectedItem.data() );
 				} else {
 					data = {
-						text: this.$input.val()
+						text: this.$input.val().trim()
 					};
 				}
 
@@ -331,11 +345,12 @@
 			selectByText: function( text ) {
 				var $item = $( [] );
 				this.$element.find( 'li' ).each( function() {
-					if ( ( this.textContent || this.innerText || $( this ).text() || '' ).toLowerCase() === ( text || '' ).toLowerCase() ) {
+					if ( ( this.textContent || this.innerText || $( this ).text() || '' ).trim().toLowerCase() === ( text || '' ).trim().toLowerCase() ) {
 						$item = $( this );
 						return false;
 					}
 				} );
+
 				this.doSelect( $item );
 			},
 
@@ -400,6 +415,75 @@
 				this.$element.find( '.dropdown-toggle' ).focus();
 			},
 
+			keypress: function( e ) {
+				var ENTER = 13;
+				//var TAB = 9;
+				var ESC = 27;
+				var LEFT = 37;
+				var UP = 38;
+				var RIGHT = 39;
+				var DOWN = 40;
+
+				var IS_NAVIGATIONAL = (
+					e.which === UP ||
+					e.which === DOWN ||
+					e.which === LEFT ||
+					e.which === RIGHT
+				);
+
+				if ( this.options.showOptionsOnKeypress && !this.$inputGroupBtn.hasClass( 'open' ) ) {
+					this.$button.dropdown( 'toggle' );
+					this.$input.focus();
+				}
+
+				if ( e.which === ENTER ) {
+					e.preventDefault();
+
+					var selected = this.$dropMenu.find( 'li.selected' ).text().trim();
+					if ( selected.length > 0 ) {
+						this.selectByText( selected );
+					} else {
+						this.selectByText( this.$input.val() );
+					}
+
+					this.$inputGroupBtn.removeClass( 'open' );
+					this.inputchanged( e );
+				} else if ( e.which === ESC ) {
+					e.preventDefault();
+					this.clearSelection();
+					this.$inputGroupBtn.removeClass( 'open' );
+				} else if ( this.options.showOptionsOnKeypress ) {
+					if ( e.which === DOWN || e.which === UP ) {
+						e.preventDefault();
+						var $selected = this.$dropMenu.find( 'li.selected' );
+						if ( $selected.length > 0 ) {
+							if ( e.which === DOWN ) {
+								$selected = $selected.next( ':not(.hidden)' );
+							} else {
+								$selected = $selected.prev( ':not(.hidden)' );
+							}
+						}
+
+						if ( $selected.length === 0 ) {
+							if ( e.which === DOWN ) {
+								$selected = this.$dropMenu.find( 'li:not(.hidden):first' );
+							} else {
+								$selected = this.$dropMenu.find( 'li:not(.hidden):last' );
+							}
+						}
+						this.$dropMenu.find( 'li' ).removeClass( 'selected' );
+						$selected.addClass( 'selected' );
+					}
+				}
+
+				// Avoid filtering on navigation key presses
+				if ( this.options.filterOnKeypress && !IS_NAVIGATIONAL ) {
+					this.options.filter( this.$dropMenu.find( 'li' ), this.$input.val(), this );
+				}
+
+				this.previousKeyPress = e.which;
+			},
+
 			inputchanged: function( e, extra ) {
 				// skip processing for internally-generated synthetic event
 				// to avoid double processing
@@ -447,7 +531,34 @@
 		};
 
 		$.fn.combobox.defaults = {
-			autoResizeMenu: true
+			autoResizeMenu: true,
+			filterOnKeypress: false,
+			showOptionsOnKeypress: false,
+			filter: function filter( list, predicate, self ) {
+				var visible = 0;
+				self.$dropMenu.find( '.empty-indicator' ).remove();
+
+				list.each( function( i ) {
+					var $li = $( this );
+					var text = $( this ).text().trim();
+
+					$li.removeClass();
+
+					if ( text === predicate ) {
+						$li.addClass( 'text-success' );
+						visible++;
+					} else if ( text.substr( 0, predicate.length ) === predicate ) {
+						$li.addClass( 'text-info' );
+						visible++;
+					} else {
+						$li.addClass( 'hidden' );
+					}
+				} );
+
+				if ( visible === 0 ) {
+					self.$dropMenu.append( '<li class="empty-indicator text-muted"><em>No Matches</em></li>' );
+				}
+			}
 		};
 
 		$.fn.combobox.Constructor = Combobox;
@@ -538,6 +649,7 @@
 			this.$header = this.$calendar.find( '.datepicker-calendar-header' );
 			this.$headerTitle = this.$header.find( '.title' );
 			this.$input = this.$element.find( 'input' );
+			this.$inputGroupBtn = this.$element.find( '.input-group-btn' );
 			this.$wheels = this.$element.find( '.datepicker-wheels' );
 			this.$wheelsMonth = this.$element.find( '.datepicker-wheels-month' );
 			this.$wheelsYear = this.$element.find( '.datepicker-wheels-year' );
@@ -563,6 +675,8 @@
 			this.$headerTitle.on( 'click.fu.datepicker', $.proxy( this.titleClicked, this ) );
 			this.$input.on( 'change.fu.datepicker', $.proxy( this.inputChanged, this ) );
 			this.$input.on( 'mousedown.fu.datepicker', $.proxy( this.showDropdown, this ) );
+			this.$inputGroupBtn.on( 'hidden.bs.dropdown', $.proxy( this.hide, this ) );
+			this.$inputGroupBtn.on( 'shown.bs.dropdown', $.proxy( this.show, this ) );
 			this.$wheels.find( '.datepicker-wheels-back' ).on( 'click.fu.datepicker', $.proxy( this.backClicked, this ) );
 			this.$wheels.find( '.datepicker-wheels-select' ).on( 'click.fu.datepicker', $.proxy( this.selectClicked, this ) );
 			this.$wheelsMonth.on( 'click.fu.datepicker', 'ul button', $.proxy( this.monthClicked, this ) );
@@ -654,7 +768,7 @@
 				this.selectedDate = date;
 				this.$input.val( this.formatDate( date ) );
 				this.inputValue = this.$input.val();
-				this.hideDropdown();
+				this.hide();
 				this.$input.focus();
 				this.$element.trigger( 'dateClicked.fu.datepicker', date );
 			},
@@ -674,7 +788,7 @@
 			disable: function() {
 				this.$element.addClass( 'disabled' );
 				this.$element.find( 'input, button' ).attr( 'disabled', 'disabled' );
-				this.$element.find( '.input-group-btn' ).removeClass( 'open' );
+				this.$inputGroupBtn.removeClass( 'open' );
 			},
 
 			enable: function() {
@@ -739,14 +853,26 @@
 				}
 			},
 
-			showDropdown: function( e ) {
-				if ( !this.$input.is( ':focus' ) ) {
-					this.$element.find( '.input-group-btn' ).addClass( 'open' );
+			show: function() {
+				var date = ( this.selectedDate ) ? this.selectedDate : new Date();
+				this.changeView( 'calendar', date );
+				this.$inputGroupBtn.addClass( 'open' );
+				this.$element.trigger( 'shown.fu.datepicker' );
+			},
+
+			showDropdown: function( e ) { //input mousedown handler, name retained for legacy support of showDropdown
+				if ( !this.$input.is( ':focus' ) && !this.$inputGroupBtn.hasClass( 'open' ) ) {
+					this.show();
 				}
 			},
 
-			hideDropdown: function() {
-				this.$element.find( '.input-group-btn' ).removeClass( 'open' );
+			hide: function() {
+				this.$inputGroupBtn.removeClass( 'open' );
+				this.$element.trigger( 'hidden.fu.datepicker' );
+			},
+
+			hideDropdown: function() { //for legacy support of hideDropdown
+				this.hide();
 			},
 
 			isInvalidDate: function( date ) {
@@ -3066,6 +3192,10 @@
 				this.toggleFolder( ev.currentTarget );
 			}, this ) );
 
+			this.$element.on( 'click.fu.tree', '.tree-overflow', $.proxy( function( ev ) {
+				this.populate( $( ev.currentTarget ) );
+			}, this ) );
+
 			// folderSelect default is true
 			if ( this.options.folderSelect ) {
 				this.$element.addClass( 'tree-folder-select' );
@@ -3110,27 +3240,58 @@
 
 			populate: function populate( $el, isBackgroundProcess ) {
 				var self = this;
+
+				// populate was initiated based on clicking overflow link
+				var isOverflow = $el.hasClass( 'tree-overflow' );
+
 				var $parent = ( $el.hasClass( 'tree' ) ) ? $el : $el.parent();
-				var loader = $parent.find( '.tree-loader:eq(0)' );
+				var atRoot = $parent.hasClass( 'tree' );
+
+				if ( isOverflow && !atRoot ) {
+					$parent = $parent.parent();
+				}
+
 				var treeData = $parent.data();
+				// expose overflow data to datasource so it can be responded to appropriately.
+				if ( isOverflow ) {
+					treeData.overflow = $el.data();
+				}
+
 				isBackgroundProcess = isBackgroundProcess || false; // no user affordance needed (ex.- "loading")
 
-				if ( isBackgroundProcess === false ) {
-					loader.removeClass( 'hide hidden' ); // hide is deprecated
+				if ( isOverflow ) {
+					if ( atRoot ) {
+						// the loader at the root level needs to continually replace the overflow trigger
+						// otherwise, when loader is shown below, it will be the loader for the last folder
+						// in the tree, instead of the loader at the root level.
+						$el.replaceWith( $parent.find( '> .tree-loader' ).remove() );
+					} else {
+						$el.remove();
+					}
 				}
-				this.options.dataSource( treeData ? treeData : {}, function( items ) {
-					loader.addClass( 'hidden' );
 
+				var $loader = $parent.find( '.tree-loader:last' );
+
+				if ( isBackgroundProcess === false ) {
+					$loader.removeClass( 'hide hidden' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
+				}
+
+
+				this.options.dataSource( treeData ? treeData : {}, function( items ) {
 					$.each( items.data, function( index, value ) {
 						var $entity;
 
 						if ( value.type === 'folder' ) {
-							$entity = self.$element.find( '[data-template=treebranch]:eq(0)' ).clone().removeClass( 'hide hidden' ).removeData( 'template' ); // hide is deprecated
+							$entity = self.$element.find( '[data-template=treebranch]:eq(0)' ).clone().removeClass( 'hide hidden' ).removeData( 'template' ).removeAttr( 'data-template' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 							$entity.data( value );
 							$entity.find( '.tree-branch-name > .tree-label' ).html( value.text || value.name );
 						} else if ( value.type === 'item' ) {
-							$entity = self.$element.find( '[data-template=treeitem]:eq(0)' ).clone().removeClass( 'hide hidden' ).removeData( 'template' ); // hide is deprecated
+							$entity = self.$element.find( '[data-template=treeitem]:eq(0)' ).clone().removeClass( 'hide hidden' ).removeData( 'template' ).removeAttr( 'data-template' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 							$entity.find( '.tree-item-name > .tree-label' ).html( value.text || value.name );
+							$entity.data( value );
+						} else if ( value.type === 'overflow' ) {
+							$entity = self.$element.find( '[data-template=treeoverflow]:eq(0)' ).clone().removeClass( 'hide hidden' ).removeData( 'template' ).removeAttr( 'data-template' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
+							$entity.find( '.tree-overflow-name > .tree-label' ).html( value.text || value.name );
 							$entity.data( value );
 						}
 
@@ -3183,13 +3344,15 @@
 							}
 						} );
 
-						// add child nodes
-						if ( $el.hasClass( 'tree-branch-header' ) ) {
-							$parent.find( '.tree-branch-children:eq(0)' ).append( $entity );
+						// add child node
+						if ( atRoot ) {
+							$parent.append( $entity );
 						} else {
-							$el.append( $entity );
+							$parent.find( '.tree-branch-children:eq(0)' ).append( $entity );
 						}
 					} );
+
+					$parent.find( '.tree-loader' ).addClass( 'hidden' );
 
 					// return newly populated folder
 					self.$element.trigger( 'loaded.fu.tree', $parent );
@@ -3244,7 +3407,7 @@
 				//take care of the styles
 				$branch.addClass( 'tree-open' );
 				$branch.attr( 'aria-expanded', 'true' );
-				$treeFolderContentFirstChild.removeClass( 'hide hidden' ); // hide is deprecated
+				$treeFolderContentFirstChild.removeClass( 'hide hidden' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 				$branch.find( '> .tree-branch-header .icon-folder' ).eq( 0 )
 					.removeClass( 'glyphicon-folder-close' )
 					.addClass( 'glyphicon-folder-open' );
@@ -3319,7 +3482,7 @@
 				var closedReported = function closedReported( event, closed ) {
 					reportedClosed.push( closed );
 
-					// hide is deprecated
+					// jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 					if ( self.$element.find( ".tree-branch.tree-open:not('.hidden, .hide')" ).length === 0 ) {
 						self.$element.trigger( 'closedAll.fu.tree', {
 							tree: self.$element,
@@ -5901,15 +6064,18 @@
 				var data, i, $item, length;
 
 				//this function is necessary because lint yells when a function is in a loop
-				function checkIfItemMatchesValue() {
+				function checkIfItemMatchesValue( rowIndex ) {
 					$item = $( this );
+
 					data = $item.data( 'item_data' ) || {};
 					if ( data[ items[ i ].property ] === items[ i ].value ) {
-						selectItem( $item, items[ i ].selected );
+						selectItem( $item, items[ i ].selected, rowIndex );
 					}
 				}
 
-				function selectItem( $itm, select ) {
+				function selectItem( $itm, select, index ) {
+					var $frozenCols;
+
 					select = ( select !== undefined ) ? select : true;
 					if ( select ) {
 						if ( !force && selectable !== 'multi' ) {
@@ -5918,10 +6084,33 @@
 
 						if ( !$itm.hasClass( 'selected' ) ) {
 							$itm.addClass( 'selected' );
+
+							if ( self.viewOptions.list_frozenColumns || self.viewOptions.list_selectable === 'multi' ) {
+								$frozenCols = self.$element.find( '.frozen-column-wrapper tr:nth-child(' + ( index + 1 ) + ')' );
+
+								$frozenCols.addClass( 'selected' );
+								$frozenCols.find( '.repeater-select-checkbox' ).addClass( 'checked' );
+							}
+
+							if ( self.viewOptions.list_actions ) {
+								self.$element.find( '.actions-column-wrapper tr:nth-child(' + ( index + 1 ) + ')' ).addClass( 'selected' );
+							}
+
 							$itm.find( 'td:first' ).prepend( '<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>' );
 						}
 
 					} else {
+						if ( self.viewOptions.list_frozenColumns ) {
+							$frozenCols = self.$element.find( '.frozen-column-wrapper tr:nth-child(' + ( index + 1 ) + ')' );
+
+							$frozenCols.addClass( 'selected' );
+							$frozenCols.find( '.repeater-select-checkbox' ).removeClass( 'checked' );
+						}
+
+						if ( self.viewOptions.list_actions ) {
+							self.$element.find( '.actions-column-wrapper tr:nth-child(' + ( index + 1 ) + ')' ).removeClass( 'selected' );
+						}
+
 						$itm.find( '.repeater-list-check' ).remove();
 						$itm.removeClass( 'selected' );
 					}
@@ -5941,13 +6130,13 @@
 
 				for ( i = 0; i < length; i++ ) {
 					if ( items[ i ].index !== undefined ) {
-						$item = this.$canvas.find( '.repeater-list table tbody tr:nth-child(' + ( items[ i ].index + 1 ) + ')' );
+						$item = this.$canvas.find( '.repeater-list .repeater-list-wrapper > table tbody tr:nth-child(' + ( items[ i ].index + 1 ) + ')' );
 						if ( $item.length > 0 ) {
-							selectItem( $item, items[ i ].selected );
+							selectItem( $item, items[ i ].selected, items[ i ].index );
 						}
 
 					} else if ( items[ i ].property !== undefined && items[ i ].value !== undefined ) {
-						this.$canvas.find( '.repeater-list table tbody tr' ).each( checkIfItemMatchesValue );
+						this.$canvas.find( '.repeater-list .repeater-list-wrapper > table tbody tr' ).each( checkIfItemMatchesValue );
 					}
 
 				}
@@ -6079,10 +6268,13 @@
 					$actionsColumn.find( 'tr td:not(:last-child)' ).remove();
 
 					// Dont show actions dropdown in header if not multi select
-					if ( this.viewOptions.list_selectable === 'multi' ) {
+					if ( this.viewOptions.list_selectable === 'multi' || this.viewOptions.list_selectable === 'action' ) {
 						$actionsColumn.find( 'thead tr' ).html( '<th><div class="repeater-list-heading">' + selectlist + '</div></th>' );
-						//disable the header dropdown until an item is selected
-						$actionsColumn.find( 'thead .btn' ).attr( 'disabled', 'disabled' );
+
+						if ( this.viewOptions.list_selectable !== 'action' ) {
+							//disable the header dropdown until an item is selected
+							$actionsColumn.find( 'thead .btn' ).attr( 'disabled', 'disabled' );
+						}
 					} else {
 						var label = this.viewOptions.list_actions.label || '<span class="actions-hidden">a</span>';
 						$actionsColumn.find( 'thead tr' ).addClass( 'empty-heading' ).html( '<th>' + label + '<div class="repeater-list-heading">' + label + '</div></th>' );
@@ -6123,7 +6315,12 @@
 							actionName: actionName,
 							rows: []
 						};
-						self.$element.find( '.repeater-list-wrapper > table .selected' ).each( function() {
+						var selector = '.repeater-list-wrapper > table .selected';
+
+						if ( self.viewOptions.list_selectable === 'action' ) {
+							selector = '.repeater-list-wrapper > table tr';
+						}
+						self.$element.find( selector ).each( function() {
 							var index = $( this ).index();
 							index = index + 1;
 							selected.rows.push( index );
@@ -6530,64 +6727,67 @@
 			var isActions = this.viewOptions.list_actions;
 
 			if ( this.viewOptions.list_selectable ) {
-				$row.addClass( 'selectable' );
-				$row.attr( 'tabindex', 0 ); // allow items to be tabbed to / focused on
 				$row.data( 'item_data', rows[ index ] );
 
-				$row.on( 'click.fu.repeaterList', function() {
-					if ( !self.isDisabled ) {
-						var $item = $( this );
-						var index = $( this ).index();
-						index = index + 1;
-						var $frozenRow = self.$element.find( '.frozen-column-wrapper tr:nth-child(' + index + ')' );
-						var $actionsRow = self.$element.find( '.actions-column-wrapper tr:nth-child(' + index + ')' );
-						var $checkBox = self.$element.find( '.frozen-column-wrapper tr:nth-child(' + index + ') .checkbox-inline' );
+				if ( this.viewOptions.list_selectable !== 'action' ) {
+					$row.addClass( 'selectable' );
+					$row.attr( 'tabindex', 0 ); // allow items to be tabbed to / focused on
 
-						if ( $item.is( '.selected' ) ) {
-							$item.removeClass( 'selected' );
-							if ( isMulti ) {
-								$checkBox.checkbox( 'uncheck' );
-								$frozenRow.removeClass( 'selected' );
-								if ( isActions ) {
-									$actionsRow.removeClass( 'selected' );
+					$row.on( 'click.fu.repeaterList', function() {
+						if ( !self.isDisabled ) {
+							var $item = $( this );
+							var index = $( this ).index();
+							index = index + 1;
+							var $frozenRow = self.$element.find( '.frozen-column-wrapper tr:nth-child(' + index + ')' );
+							var $actionsRow = self.$element.find( '.actions-column-wrapper tr:nth-child(' + index + ')' );
+							var $checkBox = self.$element.find( '.frozen-column-wrapper tr:nth-child(' + index + ') .checkbox-inline' );
+
+							if ( $item.is( '.selected' ) ) {
+								$item.removeClass( 'selected' );
+								if ( isMulti ) {
+									$checkBox.checkbox( 'uncheck' );
+									$frozenRow.removeClass( 'selected' );
+									if ( isActions ) {
+										$actionsRow.removeClass( 'selected' );
+									}
+								} else {
+									$item.find( '.repeater-list-check' ).remove();
 								}
+
+								self.$element.trigger( 'deselected.fu.repeaterList', $item );
 							} else {
-								$item.find( '.repeater-list-check' ).remove();
+								if ( !isMulti ) {
+									self.$canvas.find( '.repeater-list-check' ).remove();
+									self.$canvas.find( '.repeater-list tbody tr.selected' ).each( function() {
+										$( this ).removeClass( 'selected' );
+										self.$element.trigger( 'deselected.fu.repeaterList', $( this ) );
+									} );
+									$item.find( 'td:first' ).prepend( '<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>' );
+									$item.addClass( 'selected' );
+									$frozenRow.addClass( 'selected' );
+								} else {
+									$checkBox.checkbox( 'check' );
+									$item.addClass( 'selected' );
+									$frozenRow.addClass( 'selected' );
+									if ( isActions ) {
+										$actionsRow.addClass( 'selected' );
+									}
+								}
+								self.$element.trigger( 'selected.fu.repeaterList', $item );
 							}
 
-							self.$element.trigger( 'deselected.fu.repeaterList', $item );
-						} else {
-							if ( !isMulti ) {
-								self.$canvas.find( '.repeater-list-check' ).remove();
-								self.$canvas.find( '.repeater-list tbody tr.selected' ).each( function() {
-									$( this ).removeClass( 'selected' );
-									self.$element.trigger( 'deselected.fu.repeaterList', $( this ) );
-								} );
-								$item.find( 'td:first' ).prepend( '<div class="repeater-list-check"><span class="glyphicon glyphicon-ok"></span></div>' );
-								$item.addClass( 'selected' );
-								$frozenRow.addClass( 'selected' );
-							} else {
-								$checkBox.checkbox( 'check' );
-								$item.addClass( 'selected' );
-								$frozenRow.addClass( 'selected' );
-								if ( isActions ) {
-									$actionsRow.addClass( 'selected' );
-								}
-							}
-							self.$element.trigger( 'selected.fu.repeaterList', $item );
+							toggleActionsHeaderButton.call( self );
 						}
+					} );
 
-						toggleActionsHeaderButton.call( self );
-					}
-				} );
-
-				// allow selection via enter key
-				$row.keyup( function( e ) {
-					if ( e.keyCode === 13 ) {
-						// triggering a standard click event to be caught by the row click handler above
-						$row.trigger( 'click.fu.repeaterList' );
-					}
-				} );
+					// allow selection via enter key
+					$row.keyup( function( e ) {
+						if ( e.keyCode === 13 ) {
+							// triggering a standard click event to be caught by the row click handler above
+							$row.trigger( 'click.fu.repeaterList' );
+						}
+					} );
+				}
 			}
 
 			if ( this.viewOptions.list_actions && !this.viewOptions.list_selectable ) {
@@ -6743,8 +6943,16 @@
 		}
 
 		function toggleActionsHeaderButton() {
-			var $selected = this.$canvas.find( '.repeater-list-wrapper > table .selected' );
+			var selectedSelector = '.repeater-list-wrapper > table .selected';
 			var $actionsColumn = this.$element.find( '.table-actions' );
+			var $selected;
+
+			if ( this.viewOptions.list_selectable === 'action' ) {
+				selectedSelector = '.repeater-list-wrapper > table tr';
+			}
+
+			$selected = this.$canvas.find( selectedSelector );
+
 			if ( $selected.length > 0 ) {
 				$actionsColumn.find( 'thead .btn' ).removeAttr( 'disabled' );
 			} else {
@@ -6910,6 +7118,8 @@
 					var selected = 'selected';
 					var self = this;
 					var $thumbnail = $( fillTemplate( helpers.subset[ helpers.index ], this.viewOptions.thumbnail_template ) );
+
+					$thumbnail.data( 'item_data', helpers.data.items[ helpers.index ] );
 
 					if ( selectable ) {
 						$thumbnail.addClass( 'selectable' );
@@ -7164,34 +7374,34 @@
 				this.toggleState( 'enable' );
 			},
 
-			setUtcTime: function setUtcTime( d, t, offset ) {
-				var date = d.split( '-' );
-				var time = t.split( ':' );
+			setUtcTime: function setUtcTime( day, time, offset ) {
+				var dateSplit = day.split( '-' );
+				var timeSplit = time.split( ':' );
 
 				function z( n ) {
 					return ( n < 10 ? '0' : '' ) + n;
 				}
 
-				var utcDate = new Date( Date.UTC( date[ 0 ], ( date[ 1 ] - 1 ), date[ 2 ], time[ 0 ], time[ 1 ], ( time[ 2 ] ? time[ 2 ] : 0 ) ) );
+				var utcDate = new Date( Date.UTC( dateSplit[ 0 ], ( dateSplit[ 1 ] - 1 ), dateSplit[ 2 ], timeSplit[ 0 ], timeSplit[ 1 ], ( timeSplit[ 2 ] ? timeSplit[ 2 ] : 0 ) ) );
 
 				if ( offset === 'Z' ) {
 					utcDate.setUTCHours( utcDate.getUTCHours() + 0 );
 				} else {
-					var re1 = '(.)'; // Any Single Character 1
-					var re2 = '.*?'; // Non-greedy match on filler
-					var re3 = '\\d'; // Uninteresting: d
-					var re4 = '.*?'; // Non-greedy match on filler
-					var re5 = '(\\d)'; // Any Single Digit 1
+					var expression = [];
+					expression[ 0 ] = '(.)'; // Any Single Character 1
+					expression[ 1 ] = '.*?'; // Non-greedy match on filler
+					expression[ 2 ] = '\\d'; // Uninteresting and ignored: d
+					expression[ 3 ] = '.*?'; // Non-greedy match on filler
+					expression[ 4 ] = '(\\d)'; // Any Single Digit 1
 
-					var p = new RegExp( re1 + re2 + re3 + re4 + re5, [ "i" ] );
-					var m = p.exec( offset );
-					if ( m !== null ) {
-						var c1 = m[ 1 ];
-						var d1 = m[ 2 ];
+					var p = new RegExp( expression.join( '' ), [ "i" ] );
+					var offsetMatch = p.exec( offset );
+					if ( offsetMatch !== null ) {
+						var offsetDirection = offsetMatch[ 1 ];
+						var offsetInteger = offsetMatch[ 2 ];
+						var modifier = ( offsetDirection === '+' ) ? 1 : -1;
 
-						var modifier = ( c1 === '+' ) ? 1 : -1;
-
-						utcDate.setUTCHours( utcDate.getUTCHours() + ( modifier * parseInt( d1, 10 ) ) );
+						utcDate.setUTCHours( utcDate.getUTCHours() + ( modifier * parseInt( offsetInteger, 10 ) ) );
 					}
 
 				}
@@ -7221,10 +7431,10 @@
 				this.$endDate.parent().attr( 'aria-hidden', 'true' );
 
 				if ( val === 'after' ) {
-					this.$endAfter.parent().removeClass( 'hide hidden' ); // hide is deprecated
+					this.$endAfter.parent().removeClass( 'hide hidden' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 					this.$endAfter.parent().attr( 'aria-hidden', 'false' );
 				} else if ( val === 'date' ) {
-					this.$endDate.parent().removeClass( 'hide hidden' ); // hide is deprecated
+					this.$endDate.parent().removeClass( 'hide hidden' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 					this.$endDate.parent().attr( 'aria-hidden', 'false' );
 				}
 			},
@@ -7413,11 +7623,11 @@
 					case 'daily':
 					case 'weekly':
 					case 'monthly':
-						this.$repeatIntervalPanel.removeClass( 'hide hidden' ); // hide is deprecated
+						this.$repeatIntervalPanel.removeClass( 'hide hidden' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 						this.$repeatIntervalPanel.attr( 'aria-hidden', 'false' );
 						break;
 					default:
-						this.$repeatIntervalPanel.addClass( 'hidden' ); // hide is deprecated
+						this.$repeatIntervalPanel.addClass( 'hidden' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 						this.$repeatIntervalPanel.attr( 'aria-hidden', 'true' );
 						break;
 				}
@@ -7427,7 +7637,7 @@
 				this.$recurrencePanels.attr( 'aria-hidden', 'true' );
 
 				// show panel for current selection
-				this.$element.find( '.repeat-' + val ).removeClass( 'hide hidden' ); // hide is deprecated
+				this.$element.find( '.repeat-' + val ).removeClass( 'hide hidden' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 				this.$element.find( '.repeat-' + val ).attr( 'aria-hidden', 'false' );
 
 				// the end selection should only be shown when
@@ -7436,207 +7646,245 @@
 					this.$end.addClass( 'hidden' );
 					this.$end.attr( 'aria-hidden', 'true' );
 				} else {
-					this.$end.removeClass( 'hide hidden' ); // hide is deprecated
+					this.$end.removeClass( 'hide hidden' ); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 					this.$end.attr( 'aria-hidden', 'false' );
 				}
 
 				this._guessEndDate();
 			},
 
-			setValue: function setValue( options ) {
-				var hours, i, item, l, minutes, period, recur, temp, startDate, startTime, timeOffset;
+			_parseAndSetRecurrencePattern: function( recurrencePattern, startTime ) {
+				var recur = {};
+				var i = 0;
+				var item = '';
+				var commaPatternSplit;
 
-				if ( options.startDateTime ) {
-					temp = options.startDateTime.split( 'T' );
-					startDate = temp[ 0 ];
+				var $repeatMonthlyDate, $repeatYearlyDate, $repeatYearlyDay;
 
-					if ( temp[ 1 ] ) {
-						temp[ 1 ] = temp[ 1 ].split( ':' );
-						hours = parseInt( temp[ 1 ][ 0 ], 10 );
-						minutes = ( temp[ 1 ][ 1 ] ) ? parseInt( temp[ 1 ][ 1 ].split( '+' )[ 0 ].split( '-' )[ 0 ].split( 'Z' )[ 0 ], 10 ) : 0;
-						period = ( hours < 12 ) ? 'AM' : 'PM';
+				var semiColonPatternSplit = recurrencePattern.toUpperCase().split( ';' );
+				for ( i = 0; i < semiColonPatternSplit.length; i++ ) {
+					if ( semiColonPatternSplit[ i ] !== '' ) {
+						item = semiColonPatternSplit[ i ].split( '=' );
+						recur[ item[ 0 ] ] = item[ 1 ];
+					}
+				}
 
-						if ( hours === 0 ) {
-							hours = 12;
-						} else if ( hours > 12 ) {
-							hours -= 12;
+				if ( recur.FREQ === 'DAILY' ) {
+					if ( recur.BYDAY === 'MO,TU,WE,TH,FR' ) {
+						item = 'weekdays';
+					} else {
+						if ( recur.INTERVAL === '1' && recur.COUNT === '1' ) {
+							item = 'none';
+						} else {
+							item = 'daily';
+						}
+					}
+				} else if ( recur.FREQ === 'SECONDLY' ) {
+					item = 'secondly';
+				} else if ( recur.FREQ === 'MINUTELY' ) {
+					item = 'minutely';
+				} else if ( recur.FREQ === 'HOURLY' ) {
+					item = 'hourly';
+				} else if ( recur.FREQ === 'WEEKLY' ) {
+					item = 'weekly';
+
+					if ( recur.BYDAY ) {
+						if ( recur.BYDAY === 'MO,TU,WE,TH,FR' ) {
+							item = 'weekdays';
+						} else {
+							var el = this.$element.find( '.repeat-days-of-the-week .btn-group' );
+							el.find( 'label' ).removeClass( 'active' );
+							commaPatternSplit = recur.BYDAY.split( ',' );
+							for ( i = 0; i < commaPatternSplit.length; i++ ) {
+								el.find( 'input[data-value="' + commaPatternSplit[ i ] + '"]' ).prop( 'checked', true ).parent().addClass( 'active' );
+							}
+						}
+					}
+				} else if ( recur.FREQ === 'MONTHLY' ) {
+					this.$element.find( '.repeat-monthly input' ).removeAttr( 'checked' ).removeClass( 'checked' );
+					this.$element.find( '.repeat-monthly label.radio-custom' ).removeClass( 'checked' );
+					if ( recur.BYMONTHDAY ) {
+						$repeatMonthlyDate = this.$element.find( '.repeat-monthly-date' );
+						$repeatMonthlyDate.find( 'input' ).addClass( 'checked' ).prop( 'checked', true );
+						$repeatMonthlyDate.find( 'label.radio-custom' ).addClass( 'checked' );
+						$repeatMonthlyDate.find( '.selectlist' ).selectlist( 'selectByValue', recur.BYMONTHDAY );
+					} else if ( recur.BYDAY ) {
+						var $repeatMonthlyDay = this.$element.find( '.repeat-monthly-day' );
+						$repeatMonthlyDay.find( 'input' ).addClass( 'checked' ).prop( 'checked', true );
+						$repeatMonthlyDay.find( 'label.radio-custom' ).addClass( 'checked' );
+						if ( recur.BYSETPOS ) {
+							$repeatMonthlyDay.find( '.month-day-pos' ).selectlist( 'selectByValue', recur.BYSETPOS );
 						}
 
-						minutes = ( minutes < 10 ) ? '0' + minutes : minutes;
-						startTime = hours + ':' + minutes;
-						temp = hours + ':' + minutes + ' ' + period;
-						this.$startTime.find( 'input' ).val( temp );
-						this.$startTime.combobox( 'selectByText', temp );
+						$repeatMonthlyDay.find( '.month-days' ).selectlist( 'selectByValue', recur.BYDAY );
+					}
+
+					item = 'monthly';
+				} else if ( recur.FREQ === 'YEARLY' ) {
+					this.$element.find( '.repeat-yearly input' ).removeAttr( 'checked' ).removeClass( 'checked' );
+					this.$element.find( '.repeat-yearly label.radio-custom' ).removeClass( 'checked' );
+					if ( recur.BYMONTHDAY ) {
+						$repeatYearlyDate = this.$element.find( '.repeat-yearly-date' );
+						$repeatYearlyDate.find( 'input' ).addClass( 'checked' ).prop( 'checked', true );
+						$repeatYearlyDate.find( 'label.radio-custom' ).addClass( 'checked' );
+						if ( recur.BYMONTH ) {
+							$repeatYearlyDate.find( '.year-month' ).selectlist( 'selectByValue', recur.BYMONTH );
+						}
+
+						$repeatYearlyDate.find( '.year-month-day' ).selectlist( 'selectByValue', recur.BYMONTHDAY );
+					} else if ( recur.BYSETPOS ) {
+						$repeatYearlyDay = this.$element.find( '.repeat-yearly-day' );
+						$repeatYearlyDay.find( 'input' ).addClass( 'checked' ).prop( 'checked', true );
+						$repeatYearlyDay.find( 'label.radio-custom' ).addClass( 'checked' );
+						$repeatYearlyDay.find( '.year-month-day-pos' ).selectlist( 'selectByValue', recur.BYSETPOS );
+
+						if ( recur.BYDAY ) {
+							$repeatYearlyDay.find( '.year-month-days' ).selectlist( 'selectByValue', recur.BYDAY );
+						}
+
+						if ( recur.BYMONTH ) {
+							$repeatYearlyDay.find( '.year-month' ).selectlist( 'selectByValue', recur.BYMONTH );
+						}
+					}
+
+					item = 'yearly';
+				} else {
+					item = 'none';
+				}
+
+				if ( recur.COUNT ) {
+					this.$endAfter.spinbox( 'value', parseInt( recur.COUNT, 10 ) );
+					this.$endSelect.selectlist( 'selectByValue', 'after' );
+				} else if ( recur.UNTIL ) {
+					var untilSplit, untilDate;
+
+					if ( recur.UNTIL.length === 8 ) {
+						untilSplit = recur.UNTIL.split( '' );
+						untilSplit.splice( 4, 0, '-' );
+						untilSplit.splice( 7, 0, '-' );
+						untilDate = untilSplit.join( '' );
+					}
+
+					var timeZone = this.$timeZone.selectlist( 'selectedItem' );
+					var timezoneOffset = ( timeZone.offset === '+00:00' ) ? 'Z' : timeZone.offset;
+
+					var utcEndHours = this.setUtcTime( untilDate, startTime.time24HourFormat, timezoneOffset );
+					this.$endDate.datepicker( 'setDate', utcEndHours );
+
+					this.$endSelect.selectlist( 'selectByValue', 'date' );
+				} else {
+					this.$endSelect.selectlist( 'selectByValue', 'never' );
+				}
+
+				this.endSelectChanged();
+
+				if ( recur.INTERVAL ) {
+					this.$repeatIntervalSpinbox.spinbox( 'value', parseInt( recur.INTERVAL, 10 ) );
+				}
+
+				this.$repeatIntervalSelect.selectlist( 'selectByValue', item );
+				this.repeatIntervalSelectChanged();
+			},
+
+			_parseStartDateTime: function( startTimeISO8601 ) {
+				var startTime = {};
+				var startDate, startDateTimeISO8601FormatSplit, hours, minutes, period;
+
+				startTime.time24HourFormat = startTimeISO8601.split( '+' )[ 0 ].split( '-' )[ 0 ];
+
+				if ( startTimeISO8601.search( /\+/ ) > -1 ) {
+					startTime.timeZoneOffset = '+' + $.trim( startTimeISO8601.split( '+' )[ 1 ] );
+				} else if ( startTimeISO8601.search( /\-/ ) > -1 ) {
+					startTime.timeZoneOffset = '-' + $.trim( startTimeISO8601.split( '-' )[ 1 ] );
+				} else {
+					startTime.timeZoneOffset = '+00:00';
+				}
+
+				startTime.time24HourFormatSplit = startTime.time24HourFormat.split( ':' );
+				hours = parseInt( startTime.time24HourFormatSplit[ 0 ], 10 );
+				minutes = ( startTime.time24HourFormatSplit[ 1 ] ) ? parseInt( startTime.time24HourFormatSplit[ 1 ].split( '+' )[ 0 ].split( '-' )[ 0 ].split( 'Z' )[ 0 ], 10 ) : 0;
+				period = ( hours < 12 ) ? 'AM' : 'PM';
+
+				if ( hours === 0 ) {
+					hours = 12;
+				} else if ( hours > 12 ) {
+					hours -= 12;
+				}
+
+				minutes = ( minutes < 10 ) ? '0' + minutes : minutes;
+				startTime.time12HourFormat = hours + ':' + minutes;
+				startTime.time12HourFormatWithPeriod = hours + ':' + minutes + ' ' + period;
+
+				return startTime;
+			},
+
+			_parseTimeZone: function( options, startTime ) {
+				startTime.timeZoneQuerySelector = '';
+				if ( options.timeZone ) {
+					if ( typeof( options.timeZone ) === 'string' ) {
+						startTime.timeZoneQuerySelector += 'li[data-name="' + options.timeZone + '"]';
 					} else {
-						startTime = '00:00';
+						$.each( options.timeZone, function( key, value ) {
+							startTime.timeZoneQuerySelector += 'li[data-' + key + '="' + value + '"]';
+						} );
+					}
+					startTime.timeZoneOffset = options.timeZone.offset;
+				} else if ( options.startDateTime ) {
+					// Time zone has not been specified via options object, therefore use the timeZoneOffset from _parseAndSetStartDateTime
+					startTime.timeZoneOffset = ( startTime.timeZoneOffset === '+00:00' ) ? 'Z' : startTime.timeZoneOffset;
+					startTime.timeZoneQuerySelector += 'li[data-offset="' + startTime.timeZoneOffset + '"]';
+				} else {
+					startTime.timeZoneOffset = 'Z';
+				}
+
+				return startTime.timeZoneOffset;
+			},
+
+			_setTimeUI: function( time12HourFormatWithPeriod ) {
+				this.$startTime.find( 'input' ).val( time12HourFormatWithPeriod );
+				this.$startTime.combobox( 'selectByText', time12HourFormatWithPeriod );
+			},
+
+			_setTimeZoneUI: function( querySelector ) {
+				this.$timeZone.selectlist( 'selectBySelector', querySelector );
+			},
+
+			setValue: function setValue( options ) {
+				var startTime = {};
+				var startDateTime, startDate, startTimeISO8601, timeOffset, utcStartHours;
+
+				// TIME
+				if ( options.startDateTime ) {
+					startDateTime = options.startDateTime.split( 'T' );
+					startDate = startDateTime[ 0 ];
+					startTimeISO8601 = startDateTime[ 1 ];
+
+					if ( startTimeISO8601 ) {
+						startTime = this._parseStartDateTime( startTimeISO8601 );
+						this._setTimeUI( startTime.time12HourFormatWithPeriod );
+					} else {
+						startTime.time12HourFormat = '00:00';
+						startTime.time24HourFormat = '00:00';
 					}
 				} else {
-					startTime = '00:00';
+					startTime.time12HourFormat = '00:00';
+					startTime.time24HourFormat = '00:00';
 					var currentDate = this.$startDate.datepicker( 'getDate' );
 					startDate = currentDate.getFullYear() + '-' + currentDate.getMonth() + '-' + currentDate.getDate();
 				}
 
-				// create jQuery selection string for timezone object
-				// based on data-attributes and pass to selectlist
-				item = 'li';
-				if ( options.timeZone ) {
-					if ( typeof( options.timeZone ) === 'string' ) {
-						item += '[data-name="' + options.timeZone + '"]';
-					} else {
-						$.each( options.timeZone, function( key, value ) {
-							item += '[data-' + key + '="' + value + '"]';
-						} );
-					}
-					timeOffset = options.timeZone.offset;
-					this.$timeZone.selectlist( 'selectBySelector', item );
-				} else if ( options.startDateTime ) {
-					temp = options.startDateTime.split( 'T' )[ 1 ];
-					if ( temp ) {
-						if ( temp.search( /\+/ ) > -1 ) {
-							temp = '+' + $.trim( temp.split( '+' )[ 1 ] );
-						} else if ( temp.search( /\-/ ) > -1 ) {
-							temp = '-' + $.trim( temp.split( '-' )[ 1 ] );
-						} else {
-							temp = '+00:00';
-						}
-					} else {
-						temp = '+00:00';
-					}
-					timeOffset = ( temp === '+00:00' ) ? 'Z' : temp;
-					item += '[data-offset="' + temp + '"]';
-					this.$timeZone.selectlist( 'selectBySelector', item );
-				} else {
-					timeOffset = 'Z';
+				// TIMEZONE
+				this._parseTimeZone( options, startTime );
+				if ( startTime.timeZoneQuerySelector ) {
+					this._setTimeZoneUI( startTime.timeZoneQuerySelector );
 				}
 
+				// RECURRENCE PATTERN
 				if ( options.recurrencePattern ) {
-					recur = {};
-					temp = options.recurrencePattern.toUpperCase().split( ';' );
-					for ( i = 0, l = temp.length; i < l; i++ ) {
-						if ( temp[ i ] !== '' ) {
-							item = temp[ i ].split( '=' );
-							recur[ item[ 0 ] ] = item[ 1 ];
-						}
-					}
-
-					if ( recur.FREQ === 'DAILY' ) {
-						if ( recur.BYDAY === 'MO,TU,WE,TH,FR' ) {
-							item = 'weekdays';
-						} else {
-							if ( recur.INTERVAL === '1' && recur.COUNT === '1' ) {
-								item = 'none';
-							} else {
-								item = 'daily';
-							}
-						}
-					} else if ( recur.FREQ === 'SECONDLY' ) {
-						item = 'secondly';
-					} else if ( recur.FREQ === 'MINUTELY' ) {
-						item = 'minutely';
-					} else if ( recur.FREQ === 'HOURLY' ) {
-						item = 'hourly';
-					} else if ( recur.FREQ === 'WEEKLY' ) {
-						item = 'weekly';
-
-						if ( recur.BYDAY ) {
-							if ( recur.BYDAY === 'MO,TU,WE,TH,FR' ) {
-								item = 'weekdays';
-							} else {
-								var el = this.$element.find( '.repeat-days-of-the-week .btn-group' );
-								el.find( 'label' ).removeClass( 'active' );
-								temp = recur.BYDAY.split( ',' );
-								for ( i = 0, l = temp.length; i < l; i++ ) {
-									el.find( 'input[data-value="' + temp[ i ] + '"]' ).prop( 'checked', true ).parent().addClass( 'active' );
-								}
-							}
-						}
-					} else if ( recur.FREQ === 'MONTHLY' ) {
-						this.$element.find( '.repeat-monthly input' ).removeAttr( 'checked' ).removeClass( 'checked' );
-						this.$element.find( '.repeat-monthly label.radio-custom' ).removeClass( 'checked' );
-						if ( recur.BYMONTHDAY ) {
-							temp = this.$element.find( '.repeat-monthly-date' );
-							temp.find( 'input' ).addClass( 'checked' ).prop( 'checked', true );
-							temp.find( 'label.radio-custom' ).addClass( 'checked' );
-							temp.find( '.selectlist' ).selectlist( 'selectByValue', recur.BYMONTHDAY );
-						} else if ( recur.BYDAY ) {
-							temp = this.$element.find( '.repeat-monthly-day' );
-							temp.find( 'input' ).addClass( 'checked' ).prop( 'checked', true );
-							temp.find( 'label.radio-custom' ).addClass( 'checked' );
-							if ( recur.BYSETPOS ) {
-								temp.find( '.month-day-pos' ).selectlist( 'selectByValue', recur.BYSETPOS );
-							}
-
-							temp.find( '.month-days' ).selectlist( 'selectByValue', recur.BYDAY );
-						}
-
-						item = 'monthly';
-					} else if ( recur.FREQ === 'YEARLY' ) {
-						this.$element.find( '.repeat-yearly input' ).removeAttr( 'checked' ).removeClass( 'checked' );
-						this.$element.find( '.repeat-yearly label.radio-custom' ).removeClass( 'checked' );
-						if ( recur.BYMONTHDAY ) {
-							temp = this.$element.find( '.repeat-yearly-date' );
-							temp.find( 'input' ).addClass( 'checked' ).prop( 'checked', true );
-							temp.find( 'label.radio-custom' ).addClass( 'checked' );
-							if ( recur.BYMONTH ) {
-								temp.find( '.year-month' ).selectlist( 'selectByValue', recur.BYMONTH );
-							}
-
-							temp.find( '.year-month-day' ).selectlist( 'selectByValue', recur.BYMONTHDAY );
-						} else if ( recur.BYSETPOS ) {
-							temp = this.$element.find( '.repeat-yearly-day' );
-							temp.find( 'input' ).addClass( 'checked' ).prop( 'checked', true );
-							temp.find( 'label.radio-custom' ).addClass( 'checked' );
-							temp.find( '.year-month-day-pos' ).selectlist( 'selectByValue', recur.BYSETPOS );
-							if ( recur.BYDAY ) {
-								temp.find( '.year-month-days' ).selectlist( 'selectByValue', recur.BYDAY );
-							}
-
-							if ( recur.BYMONTH ) {
-								temp.find( '.year-month' ).selectlist( 'selectByValue', recur.BYMONTH );
-							}
-
-						}
-
-						item = 'yearly';
-					} else {
-						item = 'none';
-					}
-
-					if ( recur.COUNT ) {
-						this.$endAfter.spinbox( 'value', parseInt( recur.COUNT, 10 ) );
-						this.$endSelect.selectlist( 'selectByValue', 'after' );
-					} else if ( recur.UNTIL ) {
-						temp = recur.UNTIL;
-						if ( temp.length === 8 ) {
-							temp = temp.split( '' );
-							temp.splice( 4, 0, '-' );
-							temp.splice( 7, 0, '-' );
-							temp = temp.join( '' );
-						}
-
-						var timeZone = this.$timeZone.selectlist( 'selectedItem' );
-						var timezoneOffset = ( timeZone.offset === '+00:00' ) ? 'Z' : timeZone.offset;
-
-						var utcEndHours = this.setUtcTime( temp, startTime, timezoneOffset );
-						this.$endDate.datepicker( 'setDate', utcEndHours );
-
-						this.$endSelect.selectlist( 'selectByValue', 'date' );
-					} else {
-						this.$endSelect.selectlist( 'selectByValue', 'never' );
-					}
-
-					this.endSelectChanged();
-
-					if ( recur.INTERVAL ) {
-						this.$repeatIntervalSpinbox.spinbox( 'value', parseInt( recur.INTERVAL, 10 ) );
-					}
-
-					this.$repeatIntervalSelect.selectlist( 'selectByValue', item );
-					this.repeatIntervalSelectChanged();
+					this._parseAndSetRecurrencePattern( options.recurrencePattern, startTime );
 				}
 
-				var utcStartHours = this.setUtcTime( startDate, startTime, timeOffset );
-
+				utcStartHours = this.setUtcTime( startDate, startTime.time24HourFormat, startTime.timeZoneOffset );
 				this.$startDate.datepicker( 'setDate', utcStartHours );
 			},
 

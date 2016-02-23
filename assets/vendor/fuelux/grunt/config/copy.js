@@ -11,5 +11,11 @@ module.exports = {
 		dest: 'dist/fuelux/',
 		expand: true,
 		src: ['**']
+	},
+	templates: {
+		cwd: 'templates/',
+		dest: 'dist/templates/',
+		expand: true,
+		src: ['**']
 	}
 };

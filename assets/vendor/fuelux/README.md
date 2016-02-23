@@ -34,18 +34,18 @@ Add `fuelux` class to the portion of the page using Fuel UX as seen [here](https
 Ensure all the dependencies are included on the page (eg, such as using the CDN as shown below).
 ```
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-<link href="//www.fuelcdn.com/fuelux/3.13.0/css/fuelux.min.css" rel="stylesheet">
+<link href="//www.fuelcdn.com/fuelux/3.14.1/css/fuelux.min.css" rel="stylesheet">
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.1/js/bootstrap.min.js"></script>
-<script src="//www.fuelcdn.com/fuelux/3.13.0/js/fuelux.min.js"></script>
+<script src="//www.fuelcdn.com/fuelux/3.14.1/js/fuelux.min.js"></script>
 
 ```
 
 #### The code you want is in `dist`
 A few ways available to install.
 
-- Request files from [the Fuel UX CDN](http://www.fuelcdn.com/fuelux/3.13.0/)
+- Request files from [the Fuel UX CDN](http://www.fuelcdn.com/fuelux/3.14.1/)
 - Install with [NPM](https://www.npmjs.com/package/fuelux): `npm install fuelux`.
 - [Download the latest release](https://github.com/exacttarget/fuelux/archive/3.4.0.zip).
 - Clone the repo: `git clone https://github.com/exacttarget/fuelux.git`.
@@ -102,7 +102,7 @@ our roadmap.
 
 ### Writing code
 * Do not edit or commit files in the `dist` directory. *Project maintainers will commit files in the `dist` directory from time to time. Details on compiling CSS and JavasScript can be found [here](https://github.com/exacttarget/fuelux/blob/master/DETAILS.md#compiling-code).*
-* Source files are in respective `js`, `less`, and `fonts` directories. 
+* Source files are in respective `js`, `less`, and `fonts` directories.
 * Conform to [Salesforce Marketing Cloud style guide](https://github.com/ExactTarget/javascript).
 * Add and/or update unit tests for any new or changed functionality.
 * Test your code at [http://localhost:8000/](http://localhost:8000/). (start using `grunt servefast`)

@@ -28,7 +28,9 @@
     "qunit": "1.x",
     "requirejs-text": "2.x",
     "underscore": "1.x",
-    "blanket": "1.x"
+    "blanket": "1.x",
+    "jquery-simulate-ext": "~1.3.0",
+    "require-handlebars-plugin": "~1.0.0"
   },
   "ignore": [
     "**/.*",
@@ -56,12 +58,12 @@
     "dist/fonts/fuelux.ttf",
     "dist/fonts/fuelux.woff"
   ],
-  "version": "3.13.0",
-  "_release": "3.13.0",
+  "version": "3.14.2",
+  "_release": "3.14.2",
   "_resolution": {
     "type": "version",
-    "tag": "3.13.0",
-    "commit": "3fd4c4838db929d563722230f76afd59061b5799"
+    "tag": "3.14.2",
+    "commit": "724bfa2fcd974ee2a5886758c5155500bc416fbe"
   },
   "_source": "git://github.com/ExactTarget/fuelux.git",
   "_target": "3.x",

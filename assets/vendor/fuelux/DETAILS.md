@@ -29,7 +29,7 @@ Additional details to supplement the brief nature of the README file.
 
    Cloning the repository ensures you can apply future updates to Fuel UX easily, but requires to you manage its [dependencies](#dependencies) on your own.
 
-* Download a .zip archive of the [latest release](http://www.fuelcdn.com/fuelux/3.13.0/fuelux.zip).
+* Download a .zip archive of the [latest release](http://www.fuelcdn.com/fuelux/3.14.1/fuelux.zip).
 
 ## AMD support
 
@@ -39,7 +39,7 @@ If using AMD (such as [RequireJS](http://requirejs.org)), reference the FuelUX d
 ```javascript
 require.config({
     paths: {
-        'fuelux': 'http://www.fuelcdn.com/fuelux/3.13.0/'
+        'fuelux': 'http://www.fuelcdn.com/fuelux/3.14.1/'
         //...
     }
 });
@@ -123,7 +123,7 @@ Pull requests are validate via [Travis CI](https://travis-ci.org/).
 
 Periodically pull requests may fail Travis CI build integration testing with a false negative. If you suspect this is the case you can restart the test via the command line (see below).
 
-[Travis](https://travis-ci.org/) downloads the `node_modules` folder from the "[Edge](https://fuelux-dev.herokuapp.com)" server (["fuelux-dev"](https://fuelux-dev.herokuapp.com)) hosted on [Heroku](https://www.heroku.com). If you add or update a dependency in `package.json`, you will need to also update `package.json` in `master` locally and push it to [Heroku](https://www.heroku.com) for the dependency errors to be resolved in [Travis](https://travis-ci.org/).
+[Travis](https://travis-ci.org/) downloads the `node_modules` folder from the "[Edge](https://fuelux-dev.herokuapp.com)" server (["fuelux-edge"](https://fuelux-edge.herokuapp.com)) hosted on [Heroku](https://www.heroku.com). If you add or update a dependency in `package.json`, you will need to also update `package.json` in `master` locally and push it to [Heroku](https://www.heroku.com) for the dependency errors to be resolved in [Travis](https://travis-ci.org/).
 
 ### Install Travis CI Client
 
