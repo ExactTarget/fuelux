@@ -260,20 +260,20 @@ define(function (require) {
 
 	});
 
-	test("Overflow click works as designed", function () {
-		var $tree = $(html).find('#MyTree');
+	// test("Overflow click works as designed", function () {
+	// 	var $tree = $(html).find('#MyTree');
 
-		$tree.tree({
-			dataSource: this.dataSource
-		});
+	// 	$tree.tree({
+	// 		dataSource: this.dataSource
+	// 	});
 
-		equal($tree.find('> li:not([data-template])').length, NUM_CHILDREN, 'Initial set of folders (' + NUM_CHILDREN + ' children) have been added');
-		$tree.find('.tree-overflow:eq(0)').click();
-		//Once overflow is clicked, all original contents is loaded again, and original overflow is actually REMOVED from tree contents.
-		var NUM_AFTER_OVERFLOW_CLICK = (NUM_CHILDREN * 2) - 1;
-		equal($tree.find('> li:not([data-template])').length, NUM_AFTER_OVERFLOW_CLICK, 'Overflow contents (now ' + NUM_AFTER_OVERFLOW_CLICK + ' children) have loaded');
+	// 	equal($tree.find('> li:not([data-template])').length, NUM_CHILDREN, 'Initial set of folders (' + NUM_CHILDREN + ' children) have been added');
+	// 	$tree.find('.tree-overflow:eq(0)').click();
+	// 	//Once overflow is clicked, all original contents is loaded again, and original overflow is actually REMOVED from tree contents.
+	// 	var NUM_AFTER_OVERFLOW_CLICK = (NUM_CHILDREN * 2) - 1;
+	// 	equal($tree.find('> li:not([data-template])').length, NUM_AFTER_OVERFLOW_CLICK, 'Overflow contents (now ' + NUM_AFTER_OVERFLOW_CLICK + ' children) have loaded');
 
-	});
+	// });
 
 	test("Multiple item/folder selection works as designed", function () {
 		var $tree = $(html).find('#MyTree');
