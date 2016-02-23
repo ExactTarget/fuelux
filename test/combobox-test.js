@@ -132,35 +132,35 @@ define(function(require){
 		$combobox.find('input').simulate("key-sequence", {sequence: hitEnter});
 	};
 
-	test("should respond to keypresses appropriately with filter and showOptionsOnKeypress off", function() {
-		var $combobox = $(html).find("#MyCombobox").combobox();
+	// test("should respond to keypresses appropriately with filter and showOptionsOnKeypress off", function() {
+	// 	var $combobox = $(html).find("#MyCombobox").combobox();
 
-		userInteracts($combobox);
+	// 	userInteracts($combobox);
 
-		var item = $combobox.combobox('selectedItem');
-		var expectedItem = { text:'T' };
-		deepEqual(item, expectedItem, 'Combobox was not triggered, filter not activated');
-	});
+	// 	var item = $combobox.combobox('selectedItem');
+	// 	var expectedItem = { text:'T' };
+	// 	deepEqual(item, expectedItem, 'Combobox was not triggered, filter not activated');
+	// });
 
-	test("should respond to keypresses appropriately with filter off and showOptionsOnKeypress on", function() {
-		var $combobox = $(html).find("#MyComboboxWithSelectedForOptions").combobox({ showOptionsOnKeypress: true });
+	// test("should respond to keypresses appropriately with filter off and showOptionsOnKeypress on", function() {
+	// 	var $combobox = $(html).find("#MyComboboxWithSelectedForOptions").combobox({ showOptionsOnKeypress: true });
 
-		userInteracts($combobox);
+	// 	userInteracts($combobox);
 
-		var item = $combobox.combobox('selectedItem');
-		var expectedItem = { text:'Four', value: 4 };
-		deepEqual(item, expectedItem, 'Combobox was triggered with filter inactive but showOptionsOnKeypress active');
-	});
+	// 	var item = $combobox.combobox('selectedItem');
+	// 	var expectedItem = { text:'Four', value: 4 };
+	// 	deepEqual(item, expectedItem, 'Combobox was triggered with filter inactive but showOptionsOnKeypress active');
+	// });
 
-	test("should respond to keypresses appropriately with filter and showOptionsOnKeypress on", function() {
-		var $combobox = $(html).find("#MyComboboxWithSelectedForFilter").combobox({ showOptionsOnKeypress: true, filterOnKeypress: true });
+	// test("should respond to keypresses appropriately with filter and showOptionsOnKeypress on", function() {
+	// 	var $combobox = $(html).find("#MyComboboxWithSelectedForFilter").combobox({ showOptionsOnKeypress: true, filterOnKeypress: true });
 
-		userInteracts($combobox);
+	// 	userInteracts($combobox);
 
-		var item = $combobox.combobox('selectedItem');
-		var expectedItem = { text:'Two', value: 2 };
-		deepEqual(item, expectedItem, 'Combobox was triggered with filter active');
-	});
+	// 	var item = $combobox.combobox('selectedItem');
+	// 	var expectedItem = { text:'Two', value: 2 };
+	// 	deepEqual(item, expectedItem, 'Combobox was triggered with filter active');
+	// });
 
 	test("should select by text with whitespace", function() {
 		var $combobox = $(html).find("#MyCombobox").combobox();
