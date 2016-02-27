@@ -4,12 +4,6 @@
 
 define(function(require){
 	var $ = require('jquery');
-	// require('sim/libs/bililiteRange');
-	// require('sim/libs/jquery.simulate');
-	// require('sim/src/jquery.simulate.ext');
-	// require('sim/src/jquery.simulate.drag-n-drop');
-	// require('sim/src/jquery.simulate.key-sequence');
-	// require('sim/src/jquery.simulate.key-combo');
 	var html = require('text!test/markup/combobox-markup.html!strip');
 	/* FOR DEV TESTING - uncomment to test against index.html */
 	//html = require('text!index.html!strip');
@@ -116,51 +110,66 @@ define(function(require){
 		deepEqual(item, expectedItem, 'item selected');
 	});
 
-	// var userInteracts = function userInteracts($combobox) {
-	// 	var DOWN_KEY = 40;
-	// 	var UP_KEY = 38;
-	// 	var deleteAllTypeT = "{backspace}{backspace}{backspace}{backspace}{backspace}T";
-	// 	var hitEnter = "{enter}";
+	var userInteracts = function userInteracts($combobox) {
+		var DOWN_KEY = 40;
+		var DOWN_EVENT = jQuery.Event("keyup", {which: DOWN_KEY, keyCode: DOWN_KEY, charCode: DOWN_KEY});
+		var UP_KEY = 38;
+		var UP_EVENT = jQuery.Event("keyup", {which: UP_KEY, keyCode: UP_KEY, charCode: UP_KEY});
+		var BACKSPACE_KEY = 8;
+		var BACKSPACE_EVENT = jQuery.Event("keyup", {which: BACKSPACE_KEY, keyCode: BACKSPACE_KEY, charCode: BACKSPACE_KEY});
+		var ENTER_KEY = 13;
+		var ENTER_EVENT = jQuery.Event("keyup", {which: ENTER_KEY, keyCode: ENTER_KEY, charCode: ENTER_KEY});
+		var T_KEY = 84;
+		var T_EVENT = jQuery.Event("keyup", {which: T_KEY, keyCode: T_KEY, charCode: T_KEY});
 
-	// 	var hitDown = jQuery.Event("keyup");
-	// 	hitDown.which = DOWN_KEY;
-	// 	hitDown.keyCode = DOWN_KEY;
-	// 	hitDown.keypress = DOWN_KEY;
+		// Due to browser security, we are unable to fire "synthetic" events manually. Therefore, we must
+		// set the input to what we want -THEN- fire the event that would have caused that change
+		// http://stackoverflow.com/questions/13944835/how-to-simulate-typing-in-input-field-using-jquery
+		// NOTE that if we fire the event and then set the input it won't work because the input will not
+		// yet contain the value we are expecting. So, below you will see that we set the value to 'T' just
+		// prior to firing the keyboard event that would have done the setting.
+		$combobox.find('input')
+			.val('')
+			.trigger(BACKSPACE_EVENT)
+			.trigger(BACKSPACE_EVENT)
+			.trigger(BACKSPACE_EVENT)
+			.trigger(BACKSPACE_EVENT)
+			.trigger(BACKSPACE_EVENT)
+			.val('T')
+			.trigger(T_EVENT)
+			.trigger(DOWN_EVENT)
+			.trigger(ENTER_EVENT);
+	};
 
-	// 	$combobox.find('input').simulate("key-sequence", {sequence: deleteAllTypeT});
-	// 	$combobox.find('input').trigger(hitDown);
-	// 	$combobox.find('input').simulate("key-sequence", {sequence: hitEnter});
-	// };
+	test("should respond to keypresses appropriately with filter and showOptionsOnKeypress off", function() {
+		var $combobox = $(html).find("#MyCombobox").combobox();
 
-	// test("should respond to keypresses appropriately with filter and showOptionsOnKeypress off", function() {
-	// 	var $combobox = $(html).find("#MyCombobox").combobox();
+		userInteracts($combobox);
 
-	// 	userInteracts($combobox);
+		var item = $combobox.combobox('selectedItem');
+		var expectedItem = { text:'T' };
+		deepEqual(item, expectedItem, 'Combobox was not triggered, filter not activated');
+	});
 
-	// 	var item = $combobox.combobox('selectedItem');
-	// 	var expectedItem = { text:'T' };
-	// 	deepEqual(item, expectedItem, 'Combobox was not triggered, filter not activated');
-	// });
+	test("should respond to keypresses appropriately with filter off and showOptionsOnKeypress on", function() {
+		var $combobox = $(html).find("#MyComboboxWithSelectedForOptions").combobox({ showOptionsOnKeypress: true });
 
-	// test("should respond to keypresses appropriately with filter off and showOptionsOnKeypress on", function() {
-	// 	var $combobox = $(html).find("#MyComboboxWithSelectedForOptions").combobox({ showOptionsOnKeypress: true });
+		userInteracts($combobox);
 
-	// 	userInteracts($combobox);
+		var item = $combobox.combobox('selectedItem');
+		var expectedItem = { text:'Four', value: 4 };
+		deepEqual(item, expectedItem, 'Combobox was triggered with filter inactive but showOptionsOnKeypress active');
+	});
 
-	// 	var item = $combobox.combobox('selectedItem');
-	// 	var expectedItem = { text:'Four', value: 4 };
-	// 	deepEqual(item, expectedItem, 'Combobox was triggered with filter inactive but showOptionsOnKeypress active');
-	// });
+	test("should respond to keypresses appropriately with filter and showOptionsOnKeypress on", function() {
+		var $combobox = $(html).find("#MyComboboxWithSelectedForFilter").combobox({ showOptionsOnKeypress: true, filterOnKeypress: true });
 
-	// test("should respond to keypresses appropriately with filter and showOptionsOnKeypress on", function() {
-	// 	var $combobox = $(html).find("#MyComboboxWithSelectedForFilter").combobox({ showOptionsOnKeypress: true, filterOnKeypress: true });
+		userInteracts($combobox);
 
-	// 	userInteracts($combobox);
-
-	// 	var item = $combobox.combobox('selectedItem');
-	// 	var expectedItem = { text:'Two', value: 2 };
-	// 	deepEqual(item, expectedItem, 'Combobox was triggered with filter active');
-	// });
+		var item = $combobox.combobox('selectedItem');
+		var expectedItem = { text:'Two', value: 2 };
+		deepEqual(item, expectedItem, 'Combobox was triggered with filter active');
+	});
 
 	test("should select by text with whitespace", function() {
 		var $combobox = $(html).find("#MyCombobox").combobox();
