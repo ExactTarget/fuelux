@@ -15,19 +15,19 @@
   "description": "Base Fuel UX styles and controls",
   "devDependencies": {
     "bower": "1.7.7",
-    "connect": "3.4.0",
+    "connect": "3.4.1",
     "grunt": "0.4.5",
     "grunt-banner": "0.6.0",
     "grunt-blanket-qunit": "0.2.0",
     "grunt-browserify": "4.0.1",
     "grunt-bump": "0.7.0",
     "grunt-cli": "0.1.13",
-    "grunt-contrib-clean": "0.7.0",
+    "grunt-contrib-clean": "1.0.0",
     "grunt-contrib-compress": "0.14.0",
-    "grunt-contrib-concat": "0.5.1",
+    "grunt-contrib-concat": "1.0.0",
     "grunt-contrib-connect": "0.11.2",
     "grunt-contrib-copy": "0.8.2",
-    "grunt-contrib-jshint": "0.12.0",
+    "grunt-contrib-jshint": "1.0.0",
     "grunt-contrib-less": "1.0.1",
     "grunt-contrib-qunit": "0.5.2",
     "grunt-contrib-uglify": "0.11.0",
@@ -36,15 +36,15 @@
     "grunt-jsbeautifier": "0.2.10",
     "grunt-prompt": "1.3.3",
     "grunt-saucelabs": "8.6.2",
-    "grunt-shell": "1.1.2",
+    "grunt-shell": "1.2.1",
     "grunt-text-replace": "0.4.0",
     "grunt-umd": "2.3.5",
     "grunt-zip": "0.17.1",
     "load-grunt-config": "0.19.1",
     "load-grunt-tasks": "3.4.0",
-    "qunitjs": "1.20.0",
+    "qunitjs": "1.22.0",
     "semver": "5.1.0",
-    "serve-static": "1.10.1"
+    "serve-static": "1.10.2"
   },
   "engines": {
     "node": "0.10.x"
@@ -83,7 +83,7 @@
     "postinstall": "node postinstall.js"
   },
   "title": "Fuel UX",
-  "version": "3.14.1",
+  "version": "3.14.2",
   "volo": {
     "baseDir": "lib",
     "dependencies": {
