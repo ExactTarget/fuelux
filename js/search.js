@@ -150,8 +150,9 @@
 
 		disable: function () {
 			this.$element.addClass('disabled');
+			this.$input.attr('disabled', 'disabled');
+
 			if(!this.options.allowCancel) {
-				this.$input.attr('disabled', 'disabled');
 				this.$button.addClass('disabled');
 			}
 		},
