@@ -33,6 +33,7 @@
 
 	var Search = function (element, options) {
 		this.$element = $(element);
+		this.$repeater = $(element).closest('.repeater');
 		this.options = $.extend({}, $.fn.search.defaults, options);
 
 		if (this.$element.attr('data-searchOnKeyPress') === 'true'){
@@ -44,13 +45,16 @@
 		this.$icon = this.$element.find('.glyphicon');
 
 		this.$button.on('click.fu.search', $.proxy(this.buttonclicked, this));
-		this.$input.on('keyup.fu.search', $.proxy(this.keypress, this));
+		// this.$input.on('keyup.fu.search', $.proxy(this.keypress, this));
+
+		if(this.$repeater.length > 0) {
+			this.$repeater.on('rendered.fu.repeater', $.proxy(this.clearPending, this));
+		}
 
 		this.activeSearch = '';
 	};
 
 	Search.prototype = {
-
 		constructor: Search,
 
 		destroy: function () {
@@ -73,7 +77,7 @@
 			}
 
 			this.activeSearch = searchText;
-			this.$element.addClass('searched');
+			this.$element.addClass('searched pending');
 			this.$element.trigger('searched.fu.search', searchText);
 		},
 
@@ -82,14 +86,23 @@
 				this.$icon.removeClass('glyphicon-remove').addClass('glyphicon-search');
 			}
 
+			if(this.$element.hasClass('pending')) {
+				this.$element.trigger('canceled.fu.search');
+			}
+
 			this.activeSearch = '';
 			this.$input.val('');
-			this.$element.removeClass('searched');
 			this.$element.trigger('cleared.fu.search');
+			this.$element.removeClass('searched pending');
+		},
+
+		clearPending: function () {
+			this.$element.removeClass('pending');
 		},
 
 		action: function () {
 			var val = this.$input.val();
+
 			if (val && val.length > 0) {
 				this.search(val);
 			}
@@ -102,7 +115,10 @@
 			e.preventDefault();
 			if ($(e.currentTarget).is('.disabled, :disabled')) return;
 
-			if(this.$element.hasClass('searched')) {
+			if(this.$element.hasClass('pending')) {
+				this.clear();
+			}
+			else if(this.$element.hasClass('searched')) {
 				this.clear();
 			}
 			else {
@@ -134,8 +150,10 @@
 
 		disable: function () {
 			this.$element.addClass('disabled');
-			this.$input.attr('disabled', 'disabled');
-			this.$button.addClass('disabled');
+			if(!this.options.allowCancel) {
+				this.$input.attr('disabled', 'disabled');
+				this.$button.addClass('disabled');
+			}
 		},
 
 		enable: function () {
@@ -171,7 +189,8 @@
 
 	$.fn.search.defaults = {
 		clearOnEmpty: false,
-		searchOnKeyPress: false
+		searchOnKeyPress: false,
+		allowCancel: false
 	};
 
 	$.fn.search.Constructor = Search;

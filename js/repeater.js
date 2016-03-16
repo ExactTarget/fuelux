@@ -76,7 +76,8 @@
 		this.$pageSize.selectlist();
 		this.$primaryPaging.find('.combobox').combobox();
 		this.$search.search({
-			searchOnKeyPress: this.options.searchOnKeyPress
+			searchOnKeyPress: this.options.searchOnKeyPress,
+			allowCancel: true
 		});
 
 		this.$filters.on('changed.fu.selectlist', function (e, value) {
@@ -105,6 +106,10 @@
 				pageIncrement: null
 			});
 		});
+		this.$search.on('canceled.fu.search', function (e, value) {
+			self.$element.trigger('canceled.fu.repeater', value);
+		});
+
 		this.$secondaryPaging.on('blur.fu.repeater', function (e) {
 			self.pageInputChange(self.$secondaryPaging.val());
 		});
@@ -633,11 +638,13 @@
 					self.$loader.hide().loader('pause');
 					self.enable();
 
+					self.$search.trigger('rendered.fu.repeater');
 					self.$element.trigger('rendered.fu.repeater', {
 						data: data,
 						options: dataOptions,
 						renderOptions: options
 					});
+
 					//for maintaining support of 'loaded' event
 					self.$element.trigger('loaded.fu.repeater', dataOptions);
 				});
