@@ -45,7 +45,7 @@
 		this.$icon = this.$element.find('.glyphicon');
 
 		this.$button.on('click.fu.search', $.proxy(this.buttonclicked, this));
-		// this.$input.on('keyup.fu.search', $.proxy(this.keypress, this));
+		this.$input.on('keyup.fu.search', $.proxy(this.keypress, this));
 
 		if(this.$repeater.length > 0) {
 			this.$repeater.on('rendered.fu.repeater', $.proxy(this.clearPending, this));
