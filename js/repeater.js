@@ -77,7 +77,7 @@
 		this.$primaryPaging.find('.combobox').combobox();
 		this.$search.search({
 			searchOnKeyPress: this.options.searchOnKeyPress,
-			allowCancel: true
+			allowCancel: this.options.allowCancel
 		});
 
 		this.$filters.on('changed.fu.selectlist', function (e, value) {
@@ -108,6 +108,10 @@
 		});
 		this.$search.on('canceled.fu.search', function (e, value) {
 			self.$element.trigger('canceled.fu.repeater', value);
+			self.render({
+				clearInfinite: true,
+				pageIncrement: null
+			});
 		});
 
 		this.$secondaryPaging.on('blur.fu.repeater', function (e) {
@@ -278,8 +282,7 @@
 			//if there are no items
 			if (parseInt(this.$count.html()) !== 0) {
 				this.$pageSize.selectlist('enable');
-			}
-			else {
+			} else {
 				this.$pageSize.selectlist('disable');
 			}
 
@@ -845,7 +848,8 @@
 		dropPagingCap: 10,
 		staticHeight: -1,	//normally true or false. -1 means it will look for data-staticheight on the element
 		views: null,		//can be set to an object to configure multiple views of the same type,
-		searchOnKeyPress: false
+		searchOnKeyPress: false,
+		allowCancel: true
 	};
 
 	$.fn.repeater.viewTypes = {};

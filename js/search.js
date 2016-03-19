@@ -47,7 +47,7 @@
 		this.$button.on('click.fu.search', $.proxy(this.buttonclicked, this));
 		this.$input.on('keyup.fu.search', $.proxy(this.keypress, this));
 
-		if(this.$repeater.length > 0) {
+		if (this.$repeater.length > 0) {
 			this.$repeater.on('rendered.fu.repeater', $.proxy(this.clearPending, this));
 		}
 
@@ -86,7 +86,7 @@
 				this.$icon.removeClass('glyphicon-remove').addClass('glyphicon-search');
 			}
 
-			if(this.$element.hasClass('pending')) {
+			if (this.$element.hasClass('pending')) {
 				this.$element.trigger('canceled.fu.search');
 			}
 
@@ -105,8 +105,7 @@
 
 			if (val && val.length > 0) {
 				this.search(val);
-			}
-			else {
+			} else {
 				this.clear();
 			}
 		},
@@ -115,13 +114,9 @@
 			e.preventDefault();
 			if ($(e.currentTarget).is('.disabled, :disabled')) return;
 
-			if(this.$element.hasClass('pending')) {
+			if (this.$element.hasClass('pending') || this.$element.hasClass('searched')) {
 				this.clear();
-			}
-			else if(this.$element.hasClass('searched')) {
-				this.clear();
-			}
-			else {
+			} else {
 				this.action();
 			}
 		},
@@ -134,15 +129,12 @@
 			if (e.which === ENTER_KEY_CODE) {
 				e.preventDefault();
 				this.action();
-			}
-			else if(e.which === TAB_KEY_CODE) {
+			} else if (e.which === TAB_KEY_CODE) {
 				e.preventDefault();
-			}
-			else if(e.which === ESC_KEY_CODE) {
+			} else if (e.which === ESC_KEY_CODE) {
 				e.preventDefault();
 				this.clear();
-			}
-			else if(this.options.searchOnKeyPress) {
+			} else if (this.options.searchOnKeyPress) {
 				// search on other keypress
 				this.action();
 			}
@@ -152,7 +144,7 @@
 			this.$element.addClass('disabled');
 			this.$input.attr('disabled', 'disabled');
 
-			if(!this.options.allowCancel) {
+			if (!this.options.allowCancel) {
 				this.$button.addClass('disabled');
 			}
 		},
