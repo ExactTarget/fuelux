@@ -21,7 +21,7 @@
     "grunt-blanket-qunit": "0.2.0",
     "grunt-browserify": "4.0.1",
     "grunt-bump": "0.7.0",
-    "grunt-cli": "0.1.13",
+    "grunt-cli": "1.0.0",
     "grunt-contrib-clean": "1.0.0",
     "grunt-contrib-compress": "0.14.0",
     "grunt-contrib-concat": "1.0.0",
