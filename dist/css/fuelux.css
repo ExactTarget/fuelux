@@ -1,9 +1,3 @@
-/*!
- * Fuel UX v3.14.2 
- * Copyright 2012-2016 ExactTarget
- * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
- */
-
 @charset "UTF-8";
 .clearfix {
   *zoom: 1;
@@ -178,7 +172,7 @@ label.fuelux .checkbox-inline {
   line-height: 1;
   speak: none;
   border: 1px solid #aaaaaa;
-  color: #ffffff;
+  color: #FFF;
   font-size: 9px;
   width: 14px;
   height: 14px;
@@ -494,7 +488,7 @@ label.fuelux .checkbox-inline {
   -moz-osx-font-smoothing: grayscale;
   border: 1px solid #aaaaaa;
   border-radius: 4px;
-  color: #ffffff;
+  color: #FFF;
   content: " ";
   font-size: 9px;
   height: 14px;
@@ -506,9 +500,9 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .checkbox-custom:active:before,
 .fuelux .checkbox-custom:focus:before {
-  color: #5b9dd9;
+  color: #5B9DD9;
   cursor: pointer;
-  box-shadow: inset 0px 0px 2px 1px #5b9dd9, 0px 0px 5px 0px #5b9dd9;
+  box-shadow: inset 0px 0px 2px 1px #5B9DD9, 0px 0px 5px 0px #5B9DD9;
 }
 .fuelux .checkbox-custom.highlight:before {
   left: 4px;
@@ -651,7 +645,7 @@ label.fuelux .checkbox-inline {
   width: 14px;
 }
 .fuelux .radio-custom.checked:after {
-  background: #ffffff;
+  background: #FFF;
 }
 .fuelux .radio-custom.checked:before {
   background: #39b3d7;
@@ -712,19 +706,19 @@ label.fuelux .checkbox-inline {
 .fuelux .radio-inline input[type="radio"]:not(.sr-only):checked ~ label:before {
   background: #39b3d7;
   /* Old browsers */
-  background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #ffffff 40%, #39b3d7 41%, #39b3d7 100%);
+  background: -moz-radial-gradient(center, ellipse cover, #FFF 0%, #FFF 40%, #39b3d7 41%, #39b3d7 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #ffffff), color-stop(40%, #ffffff), color-stop(41%, #39b3d7), color-stop(100%, #39b3d7));
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #FFF), color-stop(40%, #FFF), color-stop(41%, #39b3d7), color-stop(100%, #39b3d7));
   /* Chrome,Safari4+ */
-  background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%, #ffffff 40%, #39b3d7 41%, #39b3d7 100%);
+  background: -webkit-radial-gradient(center, ellipse cover, #FFF 0%, #FFF 40%, #39b3d7 41%, #39b3d7 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-radial-gradient(center, ellipse cover, #ffffff 0%, #ffffff 40%, #39b3d7 41%, #39b3d7 100%);
+  background: -o-radial-gradient(center, ellipse cover, #FFF 0%, #FFF 40%, #39b3d7 41%, #39b3d7 100%);
   /* Opera 12+ */
-  background: -ms-radial-gradient(center, ellipse cover, #ffffff 0%, #ffffff 40%, #39b3d7 41%, #39b3d7 100%);
+  background: -ms-radial-gradient(center, ellipse cover, #FFF 0%, #FFF 40%, #39b3d7 41%, #39b3d7 100%);
   /* IE10+ */
-  background: radial-gradient(ellipse at center, #ffffff 0%, #ffffff 40%, #39b3d7 41%, #39b3d7 100%);
+  background: radial-gradient(ellipse at center, #FFF 0%, #FFF 40%, #39b3d7 41%, #39b3d7 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#39b3d7', GradientType=1);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFF', endColorstr='#39b3d7', GradientType=1);
   /* IE6-9 fallback on horizontal gradient */
 }
 .fuelux .radio input[type="radio"]:not(.sr-only):hover ~ label:before,
@@ -895,7 +889,7 @@ label.fuelux .checkbox-inline {
   color: #878787;
 }
 .fuelux .datepicker-calendar-days td.selected.current-day {
-  box-shadow: 0 0 0 1px #ffffff offset;
+  box-shadow: 0 0 0 1px #FFF offset;
 }
 .fuelux .datepicker-calendar-days td.selected.current-day b,
 .fuelux .datepicker-calendar-days td.selected.current-day button {
@@ -971,7 +965,7 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .datepicker-calendar-header .next span.glyphicon,
 .fuelux .datepicker-calendar-header .prev span.glyphicon {
-  color: #ffffff;
+  color: #FFF;
   font-size: 16px;
   line-height: 30px;
 }
@@ -1045,7 +1039,7 @@ label.fuelux .checkbox-inline {
 .fuelux .datepicker-wheels-footer .datepicker-wheels-select {
   float: right;
   background-color: transparent;
-  color: #5b9dd9;
+  color: #5B9DD9;
 }
 .fuelux .datepicker-wheels-footer .datepicker-wheels-select:hover {
   color: #1b75bb;
@@ -1086,7 +1080,7 @@ label.fuelux .checkbox-inline {
 .fuelux .datepicker-wheels-month ul li.selected button,
 .fuelux .datepicker-wheels-year ul li.selected button {
   background: #1b75bb;
-  color: #ffffff;
+  color: #FFF;
 }
 .fuelux .datepicker-wheels-month ul li.selected button:hover,
 .fuelux .datepicker-wheels-year ul li.selected button:hover {
@@ -1367,7 +1361,7 @@ label.fuelux .checkbox-inline {
 .fuelux .placard.showing div.placard-field,
 .fuelux .placard.showing input.placard-field,
 .fuelux .placard.showing textarea.placard-field {
-  background: #ffffff;
+  background: #FFF;
   border: 1px solid #cccccc;
   box-shadow: none;
   position: relative;
@@ -1381,7 +1375,7 @@ label.fuelux .checkbox-inline {
 .fuelux .placard div.placard-field[readonly],
 .fuelux .placard input.placard-field[readonly],
 .fuelux .placard textarea.placard-field[readonly] {
-  background: #ffffff;
+  background: #FFF;
   cursor: auto;
 }
 .fuelux .placard div.placard-field[readonly].glass,
@@ -1444,7 +1438,7 @@ label.fuelux .checkbox-inline {
   border: 1px solid #cccccc;
   border-radius: 4px;
   bottom: -8px;
-  box-shadow: 0 0 0 1px #ffffff inset;
+  box-shadow: 0 0 0 1px #FFF inset;
   display: none;
   left: -8px;
   position: absolute;
@@ -1453,28 +1447,28 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .placard .glass {
   background: transparent;
-  border: 1px solid #ffffff;
+  border: 1px solid #FFF;
   box-shadow: none;
 }
 .fuelux .placard .glass:hover {
   background: #d9edf7;
-  border-color: #5b9dd9;
+  border-color: #5B9DD9;
   cursor: pointer;
 }
 .fuelux .placard .glass:hover[disabled] {
   background: transparent;
-  border-color: #ffffff;
+  border-color: #FFF;
   cursor: not-allowed;
 }
 .fuelux .placard .glass:focus {
-  background: #ffffff;
-  border-color: #5b9dd9;
+  background: #FFF;
+  border-color: #5B9DD9;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.75), 0 0 8px rgba(91, 157, 217, 0.6);
   cursor: auto;
 }
 .fuelux .placard .glass:focus[disabled] {
   background: transparent;
-  border-color: #ffffff;
+  border-color: #FFF;
   cursor: not-allowed;
 }
 .fuelux .placard .glass[disabled] {
@@ -1826,7 +1820,7 @@ label.fuelux .checkbox-inline {
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.frozen-enabled .repeater-list table.table-frozen {
   border-right: 1px solid #dddddd;
   z-index: 2;
-  background: #ffffff;
+  background: #FFF;
   border-collapse: collapse;
   table-layout: fixed;
   float: left;
@@ -1875,7 +1869,7 @@ label.fuelux .checkbox-inline {
   background: transparent;
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions tr td {
-  background: #ffffff;
+  background: #FFF;
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions tr.selectable:hover td,
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions tr.selectable.hovered td {
@@ -1943,7 +1937,7 @@ label.fuelux .checkbox-inline {
   border-left: 1px solid transparent;
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list.ie-9 .actions-column-wrapper table.table-actions {
-  background-color: #ffffff;
+  background-color: #FFF;
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list.ie-9 .actions-column-wrapper table.table-actions tr {
   background-color: transparent;
@@ -2335,7 +2329,7 @@ label.fuelux .checkbox-inline {
   clear: both;
 }
 .fuelux .scheduler .repeat-weekly button:not(.active) {
-  background-color: #ffffff;
+  background-color: #FFF;
 }
 .fuelux .scheduler .repeat-weekly .btn-group.disabled {
   position: relative;
@@ -2459,7 +2453,7 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .picker.showing input.picker-field,
 .fuelux .picker.showing textarea.picker-field {
-  background: #ffffff;
+  background: #FFF;
   border: 1px solid #cccccc;
   box-shadow: none;
   position: relative;
@@ -2471,7 +2465,7 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .picker input.picker-field[readonly],
 .fuelux .picker textarea.picker-field[readonly] {
-  background: #ffffff;
+  background: #FFF;
   cursor: auto;
 }
 .fuelux .picker input.picker-field[readonly].glass,
@@ -2523,7 +2517,7 @@ label.fuelux .checkbox-inline {
   background-clip: padding-box;
   border: 1px solid #cccccc;
   border-radius: 4px;
-  box-shadow: 0 0 0 1px #ffffff inset;
+  box-shadow: 0 0 0 1px #FFF inset;
   display: none;
   position: absolute;
   padding-left: 6px;
@@ -2543,28 +2537,28 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .picker .glass {
   background: transparent;
-  border: 1px solid #ffffff;
+  border: 1px solid #FFF;
   box-shadow: none;
 }
 .fuelux .picker .glass:hover {
   background: #d9edf7;
-  border-color: #5b9dd9;
+  border-color: #5B9DD9;
   cursor: pointer;
 }
 .fuelux .picker .glass:hover[disabled] {
   background: transparent;
-  border-color: #ffffff;
+  border-color: #FFF;
   cursor: not-allowed;
 }
 .fuelux .picker .glass:focus {
-  background: #ffffff;
-  border-color: #5b9dd9;
+  background: #FFF;
+  border-color: #5B9DD9;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.75), 0 0 8px rgba(91, 157, 217, 0.6);
   cursor: auto;
 }
 .fuelux .picker .glass:focus[disabled] {
   background: transparent;
-  border-color: #ffffff;
+  border-color: #FFF;
   cursor: not-allowed;
 }
 .fuelux .picker .glass[disabled] {
@@ -3133,7 +3127,7 @@ label.fuelux .checkbox-inline {
   text-transform: uppercase;
   font-size: 10px;
   margin-bottom: 2px;
-  text-shadow: 0 1px #ffffff;
+  text-shadow: 0 1px #FFF;
   color: #666666;
 }
 .fuelux .data-value {
@@ -3144,6 +3138,6 @@ label.fuelux .checkbox-inline {
   color: #333333;
   margin: 0 0 10px;
   padding: 0;
-  text-shadow: 0 1px #ffffff;
+  text-shadow: 0 1px #FFF;
 }
 /*# sourceMappingURL=fuelux.css.map */
