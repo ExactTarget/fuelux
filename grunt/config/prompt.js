@@ -318,8 +318,10 @@ module.exports = function (grunt) {
 					}
 				],
 				then: function (answers, done) {
-					if (answers['release.generatelogsmanually'] === true && answers['release.generatelogsmanuallystart'] !== '' && answers['release.generatelogsmanuallyend'] !== '') {
-						grunt.log.writeln('About to generate changelogs between ' + answers['release.generatelogsmanuallystart'] + ' and ' + answers['release.generatelogsmanuallyend'] + '.');
+					grunt.config('release.generatelogsmanuallystart', answers['release.generatelogsmanuallystart']);
+					grunt.config('release.generatelogsmanuallystart', answers['release.generatelogsmanuallystart']);
+					if (answers['release.generatelogsmanually'] === true && grunt.config('release.generatelogsmanuallystart') !== '' && grunt.config('release.generatelogsmanuallyend') !== '') {
+						grunt.log.writeln('About to generate changelogs between ' + grunt.config('release.generatelogsmanuallystart') + ' and ' + grunt.config('release.generatelogsmanuallyend') + '.');
 						grunt.log.writeln('There will be no more output for possibly several minutes.');
 						grunt.log.writeln('Thank you for your patience, have an ohana mahalo kilikilikiwana day.');
 						grunt.log.writeln('//TODO: Insert tiki dancing nyan cat here. --jschmidt');

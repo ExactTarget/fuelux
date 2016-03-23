@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.14.1 
+ * Fuel UX v3.14.2 
  * Copyright 2012-2016 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -773,6 +773,20 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .combobox input::-ms-clear {
   display: none;
+}
+.fuelux .combobox .dropdown-menu > li.selected > a {
+  color: #262626;
+  text-decoration: none;
+  background-color: #f5f5f5;
+}
+.fuelux .combobox .dropdown-menu > li > em {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
 }
 .fuelux .datepicker-calendar {
   padding: 16px 16px 0;
@@ -2583,7 +2597,10 @@ label.fuelux .checkbox-inline {
   margin-bottom: 5px;
 }
 .fuelux .tree .tree-loader {
-  margin-left: 45px;
+  margin-left: 65px;
+}
+.fuelux .tree > .tree-loader {
+  margin-left: 50px;
 }
 .fuelux .tree .tree-open > .tree-branch-header .glyphicon-play {
   transform: rotate(90deg);
@@ -2630,27 +2647,41 @@ label.fuelux .checkbox-inline {
 .fuelux .tree .tree-branch[data-has-children='false'] .icon-caret {
   visibility: hidden;
 }
-.fuelux .tree .tree-item {
+.fuelux .tree .tree-item,
+.fuelux .tree .tree-overflow {
   white-space: nowrap;
   position: relative;
   cursor: pointer;
   border-radius: 6px;
   margin-left: 26px;
 }
-.fuelux .tree .tree-item .tree-item-name {
+.fuelux .tree .tree-item .tree-item-name,
+.fuelux .tree .tree-overflow .tree-item-name,
+.fuelux .tree .tree-item .tree-overflow-name,
+.fuelux .tree .tree-overflow .tree-overflow-name {
   white-space: nowrap;
   border-radius: 6px;
   background-color: transparent;
   border: 0;
 }
-.fuelux .tree .tree-item .tree-item-name:hover {
+.fuelux .tree .tree-item .tree-overflow-name .tree-label,
+.fuelux .tree .tree-overflow .tree-overflow-name .tree-label {
+  margin-left: 15px;
+  color: #0088cc;
+}
+.fuelux .tree .tree-item .tree-item-name:hover,
+.fuelux .tree .tree-overflow .tree-item-name:hover,
+.fuelux .tree .tree-item .tree-overflow-name:hover,
+.fuelux .tree .tree-overflow .tree-overflow-name:hover {
   color: #999999;
 }
-.fuelux .tree .tree-item.tree-selected .tree-item-name {
+.fuelux .tree .tree-item.tree-selected .tree-item-name,
+.fuelux .tree .tree-overflow.tree-selected .tree-item-name {
   background-color: #eeeeee;
   color: #333333;
 }
-.fuelux .tree .tree-item label {
+.fuelux .tree .tree-item label,
+.fuelux .tree .tree-overflow label {
   font-weight: normal;
   padding-left: 7px;
   margin-bottom: 0;

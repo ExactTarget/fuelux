@@ -20,6 +20,7 @@ define(function (require) {
 	require('fuelux/all');
 
 	var _ = require('underscore');
+	var hbs = require('hbs');
 
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -71,6 +72,10 @@ define(function (require) {
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	 COMBOBOX
 	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+	$('#myCombobox').combobox({
+		filterOnKeypress: true,
+		showOptionsOnKeypress: true
+	});
 
 	// sample method buttons
 	$('#btnComboboxGetSelectedItem').on('click', function () {
@@ -963,6 +968,10 @@ define(function (require) {
 	 TREE
 	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+	var tree = require('hbs!fuelux_templates/tree');
+	var $myTreeWrapper = $('#myTreeWrapper');
+	$myTreeWrapper.html(tree({id: 'myTree', folderSelect: true}));
+
 	var treeDataSource = function (parentData, callback) {
 		log('Opening branch data: ', parentData);
 
@@ -1026,13 +1035,21 @@ define(function (require) {
 						'attr': {
 							'id': 'item' + guid()
 						}
+					},
+					{
+						'name': 'Load More',
+						'type': 'overflow',
+						'attr': {
+							'layer': 'layer' + guid(),
+							'id': 'id' + guid()
+						}
 					}
 				]
 			});
 		}, 400);
 	};
 
-	$('#myTree1').tree({
+	$('#myTree').tree({
 		dataSource: treeDataSource,
 		cacheItems: true,
 		folderSelect: true,
@@ -1052,6 +1069,9 @@ define(function (require) {
 
 	// initialize
 	function myTreeInit () {
+		var $myTree2Wrapper = $('#myTree2Wrapper');
+		$myTree2Wrapper.html(tree({id: 'myTree2'}));
+
 		var callLimit = 200;
 		var callCount = 0;
 		$('#myTree2').tree({
@@ -1090,6 +1110,13 @@ define(function (require) {
 									'type': 'item',
 									'attr': {
 										'id': 'item' + guid()
+									}
+								},
+								{
+									'name': 'Load More',
+									'type': 'overflow',
+									'attr': {
+										'layer': 'layer' + guid()
 									}
 								}
 							]
@@ -1160,6 +1187,13 @@ define(function (require) {
 								'type': 'item',
 								'attr': {
 									'id': 'item' + guid()
+								}
+							},
+							{
+								'name': 'Load More Items',
+								'type': 'overflow',
+								'attr': {
+									'layer': 'layer' + guid()
 								}
 							}
 						]
