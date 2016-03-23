@@ -76,7 +76,8 @@
 		this.$pageSize.selectlist();
 		this.$primaryPaging.find('.combobox').combobox();
 		this.$search.search({
-			searchOnKeyPress: this.options.searchOnKeyPress
+			searchOnKeyPress: this.options.searchOnKeyPress,
+			allowCancel: this.options.allowCancel
 		});
 
 		this.$filters.on('changed.fu.selectlist', function (e, value) {
@@ -105,6 +106,14 @@
 				pageIncrement: null
 			});
 		});
+		this.$search.on('canceled.fu.search', function (e, value) {
+			self.$element.trigger('canceled.fu.repeater', value);
+			self.render({
+				clearInfinite: true,
+				pageIncrement: null
+			});
+		});
+
 		this.$secondaryPaging.on('blur.fu.repeater', function (e) {
 			self.pageInputChange(self.$secondaryPaging.val());
 		});
@@ -273,8 +282,7 @@
 			//if there are no items
 			if (parseInt(this.$count.html()) !== 0) {
 				this.$pageSize.selectlist('enable');
-			}
-			else {
+			} else {
 				this.$pageSize.selectlist('disable');
 			}
 
@@ -633,11 +641,13 @@
 					self.$loader.hide().loader('pause');
 					self.enable();
 
+					self.$search.trigger('rendered.fu.repeater');
 					self.$element.trigger('rendered.fu.repeater', {
 						data: data,
 						options: dataOptions,
 						renderOptions: options
 					});
+
 					//for maintaining support of 'loaded' event
 					self.$element.trigger('loaded.fu.repeater', dataOptions);
 				});
@@ -838,7 +848,8 @@
 		dropPagingCap: 10,
 		staticHeight: -1,	//normally true or false. -1 means it will look for data-staticheight on the element
 		views: null,		//can be set to an object to configure multiple views of the same type,
-		searchOnKeyPress: false
+		searchOnKeyPress: false,
+		allowCancel: true
 	};
 
 	$.fn.repeater.viewTypes = {};
