@@ -166,6 +166,36 @@ define(function(require){
 		});
 	});
 
+	test("should handle canceling search correctly", function () {
+		var count = -1;
+		var $repeater = $(this.$markup);
+		var $search = $repeater.find('.repeater-search');
+		$repeater.repeater({
+			dataSource: function(options, callback){
+				count++;
+				switch (count){
+					case 0:
+						equal(options.search, undefined, 'search value not passed to dataSource initially as expected');
+						callback({});
+						$search.find('input').val('something');
+						$search.trigger('searched.fu.repeater');
+						break;
+					case 1:
+						equal(options.search, 'something', 'correct search value passed to dataSource upon searching');
+						callback({});
+						$search.find('input').val('');
+						$search.trigger('canceled.fu.repeater');
+						break;
+					case 2:
+						equal(options.search, undefined, 'search value not passed to dataSource after canceling');
+						callback({});
+						break;
+				}
+			},
+			dropPagingCap: 3
+		});
+	});
+
 	test("should handle views correctly", function () {
 		var hasCalledDS = false;
 		var $repeater = $(this.$markup);
