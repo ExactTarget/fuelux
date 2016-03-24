@@ -7,7 +7,7 @@ module.exports = function (grunt) {
 				base: {
 					path: '.',
 					options: {
-						index: ['index.html', 'index-dev.html', 'tests.html']
+						index: ['index.html', 'tests.html']
 					}
 				},
 				port: 8000,
