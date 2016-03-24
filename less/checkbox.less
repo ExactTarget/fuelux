@@ -139,6 +139,17 @@
 			color: @gray60;
 		}
 
+
+		/* for keyboard tabbing */
+		input[type="checkbox"] + .checkbox-label {
+			&.truncate {
+				display: inherit;
+				line-height: 14px;
+				margin-top: 3px;
+				margin-bottom: -3px;
+			}
+		}
+
 	}
 
 	label.checkbox-custom.checkbox-inline {
