@@ -1,5 +1,8 @@
 # Releasing Fuel UX
 
+It is highly recommended that you have a look at the Wiki page on [How to release a new version](https://github.com/ExactTarget/fuelux/wiki/How-to-release-a-new-version).
+
+
 ## Build
 
 
