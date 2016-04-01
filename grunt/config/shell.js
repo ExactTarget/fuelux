@@ -11,6 +11,7 @@ module.exports = function (grunt) {
 	}
 
 	return {
+		// See [How to release a new version: Prerequisites](https://github.com/ExactTarget/fuelux/wiki/How-to-release-a-new-version#prerequisites-1) for information on generating release notes.
 		// Install with: gem install github_changelog_generator
 		// 'github_changelog_generator --no-author --between-tags 3.11.4,3.11.5 --compare-link -t '
 		notes: {
