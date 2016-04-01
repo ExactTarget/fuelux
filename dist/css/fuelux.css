@@ -1,3 +1,9 @@
+/*!
+ * Fuel UX v3.15.0 
+ * Copyright 2012-2016 ExactTarget
+ * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
+ */
+
 @charset "UTF-8";
 .clearfix {
   *zoom: 1;
@@ -475,6 +481,7 @@ label.fuelux .checkbox-inline {
   position: relative;
   /* for keyboard tabbing */
   /* for keyboard tabbing */
+  /* for keyboard tabbing */
 }
 .fuelux .checkbox-custom:before {
   font-family: "Glyphicons Halflings" !important;
@@ -539,6 +546,12 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .checkbox-custom input[type="checkbox"]:focus + .checkbox-label {
   color: #999999;
+}
+.fuelux .checkbox-custom input[type="checkbox"] + .checkbox-label.truncate {
+  display: inherit;
+  line-height: 14px;
+  margin-top: 3px;
+  margin-bottom: -3px;
 }
 .fuelux label.checkbox-custom.checkbox-inline {
   padding-left: 20px;
@@ -615,6 +628,7 @@ label.fuelux .checkbox-inline {
 .fuelux .radio-custom {
   position: relative;
   /* for keyboard tabbing */
+  /* for keyboard tabbing */
 }
 .fuelux .radio-custom .highlight {
   padding: 4px;
@@ -688,6 +702,12 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .radio-custom input[type="radio"]:focus + .radio-label {
   color: #999999;
+}
+.fuelux .radio-custom input[type="radio"] + .radio-label.truncate {
+  display: inherit;
+  line-height: 14px;
+  margin-top: 3px;
+  margin-bottom: -3px;
 }
 .fuelux label.radio-custom.radio-inline {
   padding-left: 20px;
@@ -1659,6 +1679,9 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table tbody td.sorted {
   background: #fafafa;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table tbody td.truncate {
+  display: inherit;
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table tbody tr:focus {
   outline: 1px dotted #dddddd;
@@ -2705,6 +2728,13 @@ label.fuelux .checkbox-inline {
 .fuelux .tree.tree-folder-select .tree-branch.tree-selected > .tree-branch-header .tree-branch-name:hover {
   background-color: #eeeeee;
 }
+.fuelux .truncate .tree .tree-branch-header .tree-branch-name,
+.fuelux .truncate .tree .tree-item .tree-item-name {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .fuelux .wizard {
   *zoom: 1;
   border: 1px solid #d4d4d4;
@@ -3139,5 +3169,11 @@ label.fuelux .checkbox-inline {
   margin: 0 0 10px;
   padding: 0;
   text-shadow: 0 1px #FFF;
+}
+.fuelux .truncate {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 /*# sourceMappingURL=fuelux.css.map */

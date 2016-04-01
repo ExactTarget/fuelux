@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.14.2 
+ * Fuel UX v3.15.0 
  * Copyright 2012-2016 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -2254,6 +2254,7 @@
 
 		var Search = function( element, options ) {
 			this.$element = $( element );
+			this.$repeater = $( element ).closest( '.repeater' );
 			this.options = $.extend( {}, $.fn.search.defaults, options );
 
 			if ( this.$element.attr( 'data-searchOnKeyPress' ) === 'true' ) {
@@ -2267,11 +2268,14 @@
 			this.$button.on( 'click.fu.search', $.proxy( this.buttonclicked, this ) );
 			this.$input.on( 'keyup.fu.search', $.proxy( this.keypress, this ) );
 
+			if ( this.$repeater.length > 0 ) {
+				this.$repeater.on( 'rendered.fu.repeater', $.proxy( this.clearPending, this ) );
+			}
+
 			this.activeSearch = '';
 		};
 
 		Search.prototype = {
-
 			constructor: Search,
 
 			destroy: function() {
@@ -2294,7 +2298,7 @@
 				}
 
 				this.activeSearch = searchText;
-				this.$element.addClass( 'searched' );
+				this.$element.addClass( 'searched pending' );
 				this.$element.trigger( 'searched.fu.search', searchText );
 			},
 
@@ -2303,14 +2307,23 @@
 					this.$icon.removeClass( 'glyphicon-remove' ).addClass( 'glyphicon-search' );
 				}
 
+				if ( this.$element.hasClass( 'pending' ) ) {
+					this.$element.trigger( 'canceled.fu.search' );
+				}
+
 				this.activeSearch = '';
 				this.$input.val( '' );
-				this.$element.removeClass( 'searched' );
 				this.$element.trigger( 'cleared.fu.search' );
+				this.$element.removeClass( 'searched pending' );
+			},
+
+			clearPending: function() {
+				this.$element.removeClass( 'pending' );
 			},
 
 			action: function() {
 				var val = this.$input.val();
+
 				if ( val && val.length > 0 ) {
 					this.search( val );
 				} else {
@@ -2322,7 +2335,7 @@
 				e.preventDefault();
 				if ( $( e.currentTarget ).is( '.disabled, :disabled' ) ) return;
 
-				if ( this.$element.hasClass( 'searched' ) ) {
+				if ( this.$element.hasClass( 'pending' ) || this.$element.hasClass( 'searched' ) ) {
 					this.clear();
 				} else {
 					this.action();
@@ -2351,7 +2364,10 @@
 			disable: function() {
 				this.$element.addClass( 'disabled' );
 				this.$input.attr( 'disabled', 'disabled' );
-				this.$button.addClass( 'disabled' );
+
+				if ( !this.options.allowCancel ) {
+					this.$button.addClass( 'disabled' );
+				}
 			},
 
 			enable: function() {
@@ -2387,7 +2403,8 @@
 
 		$.fn.search.defaults = {
 			clearOnEmpty: false,
-			searchOnKeyPress: false
+			searchOnKeyPress: false,
+			allowCancel: false
 		};
 
 		$.fn.search.Constructor = Search;
@@ -5208,7 +5225,8 @@
 			this.$pageSize.selectlist();
 			this.$primaryPaging.find( '.combobox' ).combobox();
 			this.$search.search( {
-				searchOnKeyPress: this.options.searchOnKeyPress
+				searchOnKeyPress: this.options.searchOnKeyPress,
+				allowCancel: this.options.allowCancel
 			} );
 
 			this.$filters.on( 'changed.fu.selectlist', function( e, value ) {
@@ -5237,6 +5255,14 @@
 					pageIncrement: null
 				} );
 			} );
+			this.$search.on( 'canceled.fu.search', function( e, value ) {
+				self.$element.trigger( 'canceled.fu.repeater', value );
+				self.render( {
+					clearInfinite: true,
+					pageIncrement: null
+				} );
+			} );
+
 			this.$secondaryPaging.on( 'blur.fu.repeater', function( e ) {
 				self.pageInputChange( self.$secondaryPaging.val() );
 			} );
@@ -5764,11 +5790,13 @@
 						self.$loader.hide().loader( 'pause' );
 						self.enable();
 
+						self.$search.trigger( 'rendered.fu.repeater' );
 						self.$element.trigger( 'rendered.fu.repeater', {
 							data: data,
 							options: dataOptions,
 							renderOptions: options
 						} );
+
 						//for maintaining support of 'loaded' event
 						self.$element.trigger( 'loaded.fu.repeater', dataOptions );
 					} );
@@ -5976,7 +6004,8 @@
 			dropPagingCap: 10,
 			staticHeight: -1, //normally true or false. -1 means it will look for data-staticheight on the element
 			views: null, //can be set to an object to configure multiple views of the same type,
-			searchOnKeyPress: false
+			searchOnKeyPress: false,
+			allowCancel: true
 		};
 
 		$.fn.repeater.viewTypes = {};
