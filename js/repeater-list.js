@@ -421,7 +421,10 @@
 
 			$checkboxes.checkbox();
 
-			this.$element.find('.table-frozen tbody .checkbox-inline').on('change', function(e) {
+			// Row checkboxes
+			var $rowCheckboxes = this.$element.find('.table-frozen tbody .checkbox-inline');
+			var $checkAll = this.$element.find('.frozen-thead-wrapper thead .checkbox-inline input');
+			$rowCheckboxes.on('change', function(e) {
 				e.preventDefault();
 
 				if (!self.list_revertingCheckbox) {
@@ -431,11 +434,26 @@
 						var row = $(this).attr('data-row');
 						row = parseInt(row) + 1;
 						self.$element.find('.repeater-list-wrapper > table tbody tr:nth-child('+ row +')').click();
+
+						var numSelected = self.$element.find('.table-frozen tbody .checkbox-inline.checked').length;
+						if(numSelected === 0){
+							$checkAll.prop('checked', false);
+							$checkAll.prop('indeterminate', false);
+						}
+						else if (numSelected === $rowCheckboxes.length){
+							$checkAll.prop('checked', true);
+							$checkAll.prop('indeterminate', false);
+						}
+						else {
+							$checkAll.prop('checked', false);
+							$checkAll.prop('indeterminate', true);
+						}
 					}
 				}
 			});
 
-			this.$element.find('.frozen-thead-wrapper thead .checkbox input').on('change', function (e) {
+			// "Check All" checkbox
+			$checkAll.on('change', function (e) {
 				if (!self.list_revertingCheckbox) {
 					if (self.isDisabled) {
 						revertCheckbox($(e.currentTarget));
@@ -662,7 +680,7 @@
 		var chevUp = 'glyphicon-chevron-up';
 		var $div = $('<div class="repeater-list-heading"><span class="glyphicon rlc"></span></div>');
 		var checkAllID = (this.$element.attr('id')+'_' || '') + 'checkall';
-		var checkBoxMarkup = '<div class="repeater-list-heading header-checkbox"><div class="checkbox"><input type="checkbox" id="' + checkAllID + '">'+
+		var checkBoxMarkup = '<div class="repeater-list-heading header-checkbox"><div class="checkbox checkbox-inline"><input type="checkbox" id="' + checkAllID + '">'+
 			'<label for="' + checkAllID + '"></label></div></div>';
 		var $header = $('<th></th>');
 		var self = this;
@@ -774,7 +792,7 @@
 						if ($item.is('.selected')) {
 							$item.removeClass('selected');
 							if (isMulti){
-								$checkBox.checkbox('uncheck');
+								$checkBox.click();
 								$frozenRow.removeClass('selected');
 								if (isActions) {
 									$actionsRow.removeClass('selected');
@@ -797,7 +815,7 @@
 								$frozenRow.addClass('selected');
 							}
 							else {
-								$checkBox.checkbox('check');
+								$checkBox.click();
 								$item.addClass('selected');
 								$frozenRow.addClass('selected');
 								if (isActions) {
