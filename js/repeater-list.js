@@ -196,6 +196,13 @@
 				$frozenThead.find('tbody').remove();
 				var $frozenTheadWrapper = $('<div class="frozen-thead-wrapper"></div>').append($frozenThead);
 
+				//this gets a little messy with all the cloning. We need to make sure the ID and FOR
+				//attribs are unique for the 'top most' cloned checkbox
+				var $checkbox = $frozenTheadWrapper.find('th input[type="checkbox"]');
+				$checkbox.attr('id', $checkbox.attr('id')+'_cloned');
+				var $label = $frozenTheadWrapper.find('th label');
+				$label.attr('for', $label.attr('for')+'_cloned');
+
 				$frozenColumnWrapper.append($frozenColumn);
 				repeaterWrapper.append($frozenTheadWrapper);
 				this.$canvas.addClass('frozen-enabled');
@@ -428,12 +435,12 @@
 				}
 			});
 
-			this.$element.find('.frozen-thead-wrapper thead .checkbox-inline').on('change', function (e) {
+			this.$element.find('.frozen-thead-wrapper thead .checkbox input').on('change', function (e) {
 				if (!self.list_revertingCheckbox) {
 					if (self.isDisabled) {
 						revertCheckbox($(e.currentTarget));
 					} else {
-						if ($(this).checkbox('isChecked')){
+						if ($(this).is(':checked')){
 							self.$element.find('.repeater-list-wrapper > table tbody tr:not(.selected)').click();
 							self.$element.trigger('selected.fu.repeaterList', $checkboxes);
 						}
@@ -654,8 +661,9 @@
 		var chevron = '.glyphicon.rlc:first';
 		var chevUp = 'glyphicon-chevron-up';
 		var $div = $('<div class="repeater-list-heading"><span class="glyphicon rlc"></span></div>');
-		var checkBoxMarkup = '<div class="repeater-list-heading header-checkbox"><label class="checkbox-custom checkbox-inline repeater-select-checkbox">' +
-			'<input class="sr-only" type="checkbox"></label><div class="clearfix"></div></div>';
+		var checkAllID = (this.$element.attr('id')+'_' || '') + 'checkall';
+		var checkBoxMarkup = '<div class="repeater-list-heading header-checkbox"><div class="checkbox"><input type="checkbox" id="' + checkAllID + '">'+
+			'<label for="' + checkAllID + '"></label></div></div>';
 		var $header = $('<th></th>');
 		var self = this;
 		var $both, className, sortable, $span, $spans;
