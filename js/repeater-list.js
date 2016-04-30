@@ -196,6 +196,13 @@
 				$frozenThead.find('tbody').remove();
 				var $frozenTheadWrapper = $('<div class="frozen-thead-wrapper"></div>').append($frozenThead);
 
+				//this gets a little messy with all the cloning. We need to make sure the ID and FOR
+				//attribs are unique for the 'top most' cloned checkbox
+				var $checkbox = $frozenTheadWrapper.find('th input[type="checkbox"]');
+				$checkbox.attr('id', $checkbox.attr('id')+'_cloned');
+				var $label = $frozenTheadWrapper.find('th label');
+				$label.attr('for', $label.attr('for')+'_cloned');
+
 				$frozenColumnWrapper.append($frozenColumn);
 				repeaterWrapper.append($frozenTheadWrapper);
 				this.$canvas.addClass('frozen-enabled');
@@ -414,7 +421,10 @@
 
 			$checkboxes.checkbox();
 
-			this.$element.find('.table-frozen tbody .checkbox-inline').on('change', function(e) {
+			// Row checkboxes
+			var $rowCheckboxes = this.$element.find('.table-frozen tbody .checkbox-inline');
+			var $checkAll = this.$element.find('.frozen-thead-wrapper thead .checkbox-inline input');
+			$rowCheckboxes.on('change', function(e) {
 				e.preventDefault();
 
 				if (!self.list_revertingCheckbox) {
@@ -424,16 +434,31 @@
 						var row = $(this).attr('data-row');
 						row = parseInt(row) + 1;
 						self.$element.find('.repeater-list-wrapper > table tbody tr:nth-child('+ row +')').click();
+
+						var numSelected = self.$element.find('.table-frozen tbody .checkbox-inline.checked').length;
+						if(numSelected === 0){
+							$checkAll.prop('checked', false);
+							$checkAll.prop('indeterminate', false);
+						}
+						else if (numSelected === $rowCheckboxes.length){
+							$checkAll.prop('checked', true);
+							$checkAll.prop('indeterminate', false);
+						}
+						else {
+							$checkAll.prop('checked', false);
+							$checkAll.prop('indeterminate', true);
+						}
 					}
 				}
 			});
 
-			this.$element.find('.frozen-thead-wrapper thead .checkbox-inline').on('change', function (e) {
+			// "Check All" checkbox
+			$checkAll.on('change', function (e) {
 				if (!self.list_revertingCheckbox) {
 					if (self.isDisabled) {
 						revertCheckbox($(e.currentTarget));
 					} else {
-						if ($(this).checkbox('isChecked')){
+						if ($(this).is(':checked')){
 							self.$element.find('.repeater-list-wrapper > table tbody tr:not(.selected)').click();
 							self.$element.trigger('selected.fu.repeaterList', $checkboxes);
 						}
@@ -654,8 +679,9 @@
 		var chevron = '.glyphicon.rlc:first';
 		var chevUp = 'glyphicon-chevron-up';
 		var $div = $('<div class="repeater-list-heading"><span class="glyphicon rlc"></span></div>');
-		var checkBoxMarkup = '<div class="repeater-list-heading header-checkbox"><label class="checkbox-custom checkbox-inline repeater-select-checkbox">' +
-			'<input class="sr-only" type="checkbox"></label><div class="clearfix"></div></div>';
+		var checkAllID = (this.$element.attr('id')+'_' || '') + 'checkall';
+		var checkBoxMarkup = '<div class="repeater-list-heading header-checkbox"><div class="checkbox checkbox-inline"><input type="checkbox" id="' + checkAllID + '">'+
+			'<label for="' + checkAllID + '"></label></div></div>';
 		var $header = $('<th></th>');
 		var self = this;
 		var $both, className, sortable, $span, $spans;
@@ -766,7 +792,7 @@
 						if ($item.is('.selected')) {
 							$item.removeClass('selected');
 							if (isMulti){
-								$checkBox.checkbox('uncheck');
+								$checkBox.click();
 								$frozenRow.removeClass('selected');
 								if (isActions) {
 									$actionsRow.removeClass('selected');
@@ -789,7 +815,7 @@
 								$frozenRow.addClass('selected');
 							}
 							else {
-								$checkBox.checkbox('check');
+								$checkBox.click();
 								$item.addClass('selected');
 								$frozenRow.addClass('selected');
 								if (isActions) {
