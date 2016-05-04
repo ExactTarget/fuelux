@@ -42,7 +42,7 @@
 
 		this.$button = this.$element.find('button');
 		this.$input = this.$element.find('input');
-		this.$icon = this.$element.find('.glyphicon');
+		this.$icon = this.$element.find('.glyphicon, .fuelux-icon');
 
 		this.$button.on('click.fu.search', $.proxy(this.buttonclicked, this));
 		this.$input.on('keyup.fu.search', $.proxy(this.keypress, this));
@@ -75,6 +75,9 @@
 			if (this.$icon.hasClass('glyphicon')) {
 				this.$icon.removeClass('glyphicon-search').addClass('glyphicon-remove');
 			}
+			if (this.$icon.hasClass('fuelux-icon')) {
+				this.$icon.removeClass('fuelux-icon-search').addClass('fuelux-icon-remove');
+			}
 
 			this.activeSearch = searchText;
 			this.$element.addClass('searched pending');
@@ -84,6 +87,9 @@
 		clear: function () {
 			if (this.$icon.hasClass('glyphicon')) {
 				this.$icon.removeClass('glyphicon-remove').addClass('glyphicon-search');
+			}
+			if (this.$icon.hasClass('fuelux-icon')) {
+				this.$icon.removeClass('fuelux-icon-remove').addClass('fuelux-icon-search');
 			}
 
 			if (this.$element.hasClass('pending')) {
