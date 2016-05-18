@@ -675,6 +675,11 @@ define(function (require) {
 		initRepeater();
 	});
 
+	$('#myRepeater').on('pageChanged.fu.repeater', function (e, data) { 
+		console.log('pagechanged', e, data);
+	});
+
+
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	 REPEATER w/ actions
 	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */

@@ -472,13 +472,15 @@
 			});
 		},
 
-		pageInputChange: function (val, data) {
+		pageInputChange: function (val, dataFromCombobox) {
+			// dataFromCombobox is a proxy for data from combobox's changed event,
+			// if no combobox is present data will be undefined
 			var pageInc;
 			if (val !== this.lastPageInput) {
 				this.lastPageInput = val;
 				val = parseInt(val, 10) - 1;
 				pageInc = val - this.currentPage;
-				this.$element.trigger('pageChanged.fu.repeater', [val, data]);
+				this.$element.trigger('pageChanged.fu.repeater', {value: val, data: dataFromCombobox});
 				this.render({
 					pageIncrement: pageInc
 				});
