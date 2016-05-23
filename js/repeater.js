@@ -480,7 +480,7 @@
 				this.lastPageInput = val;
 				val = parseInt(val, 10) - 1;
 				pageInc = val - this.currentPage;
-				this.$element.trigger('pageChanged.fu.repeater', {value: val, data: dataFromCombobox});
+				this.$element.trigger('pageChanged.fu.repeater', [val, dataFromCombobox]);
 				this.render({
 					pageIncrement: pageInc
 				});
