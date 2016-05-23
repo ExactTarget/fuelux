@@ -83,12 +83,22 @@
 		},
 
 		doSelect: function ($item) {
+			
 			if (typeof $item[0] !== 'undefined') {
-				$item.addClass('selected');
+				// remove selection from old item, may result in remove and 
+				// re-addition of class if item is the same
+				this.$element.find('li.selected:first').removeClass('selected');
+
+				// add selection to new item
 				this.$selectedItem = $item;
+				this.$selectedItem.addClass('selected');
+
+				// update input
 				this.$input.val(this.$selectedItem.text().trim());
 			} else {
+				// this is a custom input, not in the menu
 				this.$selectedItem = null;
+				this.$element.find('li.selected:first').removeClass('selected');
 			}
 		},
 
@@ -120,7 +130,8 @@
 				}, this.$selectedItem.data());
 			} else {
 				data = {
-					text: this.$input.val().trim()
+					text: this.$input.val().trim(),
+					notFound: true
 				};
 			}
 
@@ -232,7 +243,6 @@
 				}
 
 				this.$inputGroupBtn.removeClass('open');
-				this.inputchanged(e);
 			} else if (e.which === ESC) {
 				e.preventDefault();
 				this.clearSelection();
@@ -256,8 +266,7 @@
 							$selected = this.$dropMenu.find('li:not(.hidden):last');
 						}
 					}
-					this.$dropMenu.find('li').removeClass('selected');
-					$selected.addClass('selected');
+					this.doSelect($selected);
 				}
 			}
 
@@ -270,10 +279,13 @@
 		},
 
 		inputchanged: function (e, extra) {
+			var val = $(e.target).val();
 			// skip processing for internally-generated synthetic event
 			// to avoid double processing
-			if (extra && extra.synthetic) return;
-			var val = $(e.target).val();
+			if (extra && extra.synthetic) {
+				this.selectByText(val);
+				return;
+			} 
 			this.selectByText(val);
 
 			// find match based on input

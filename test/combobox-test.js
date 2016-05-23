@@ -4,15 +4,20 @@
 
 define(function(require){
 	var $ = require('jquery');
-	var html = require('text!test/markup/combobox-markup.html!strip');
+	var originalHTML = require('text!test/markup/combobox-markup.html!strip');
 	/* FOR DEV TESTING - uncomment to test against index.html */
 	//html = require('text!index.html!strip');
-	html = $('<div>'+html+'</div>').find('#MyComboboxContainer');
+	var html = $('<div>'+originalHTML+'</div>').find('#MyComboboxContainer');
 
 	require('bootstrap');
 	require('fuelux/combobox');
 
-	module("Fuel UX Combobox");
+	module("Fuel UX Combobox", {
+		beforeEach: function () {
+			html = null;
+			html = $('<div>'+originalHTML+'</div>').find('#MyComboboxContainer');
+		}
+	});
 
 	test("should be defined on jquery object", function () {
 		ok($().combobox, 'combobox method is defined');
@@ -52,7 +57,7 @@ define(function(require){
 	test("should not autoselect when no default selection", function () {
 		var $combobox = $(html).find("#MyCombobox").combobox();
 		var item = $combobox.combobox('selectedItem');
-		var expectedItem = { text: '' };
+		var expectedItem = { notFound: true, text: '' };
 		deepEqual(item, expectedItem, 'no item selected');
 	});
 
@@ -141,13 +146,13 @@ define(function(require){
 			.trigger(ENTER_EVENT);
 	};
 
-	test("should respond to keypresses appropriately with filter and showOptionsOnKeypress off", function() {
+	test("should not select any menu items via keyboard navigation with filter off and showOptionsOnKeypress off", function() {
 		var $combobox = $(html).find("#MyCombobox").combobox();
 
 		userInteracts($combobox);
 
 		var item = $combobox.combobox('selectedItem');
-		var expectedItem = { text:'T' };
+		var expectedItem = { notFound: true, text:'T' };
 		deepEqual(item, expectedItem, 'Combobox was not triggered, filter not activated');
 	});
 
@@ -238,7 +243,7 @@ define(function(require){
 		equal(eventFireCount, 1, 'change event bubbled once');
 	});
 
-	test("should fire changed event - input changed", function () {
+	test("should fire changed event once when input is changed", function () {
 		var eventFireCount = 0;
 		var selectedText = '';
 
