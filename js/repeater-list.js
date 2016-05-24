@@ -555,6 +555,13 @@
 				var self = this;
 				var $table;
 
+				// this is a patch, it was pulled out of `renderThead`
+				if (helpers.data.count > 0) {
+					this.list_noItems = false;
+				} else {
+					this.list_noItems = true;
+				}
+
 				if ($listContainer.length < 1) {
 					$listContainer = $('<div class="repeater-list ' + this.list_specialBrowserClass + '" data-preserve="shallow"><div class="repeater-list-wrapper" data-infinite="true" data-preserve="shallow"><table aria-readonly="true" class="table" data-preserve="shallow" role="grid"></table></div></div>');
 					$listContainer.find('.repeater-list-wrapper').on('scroll.fu.repeaterList', function () {
@@ -887,9 +894,7 @@
 		if (this.list_firstRender || areDifferentColumns(this.list_columns, columns) || $thead.length === 0) {
 			$thead.remove();
 
-			if (data.count < 1) {
-				this.list_noItems = true;
-			}
+			// list_noItems is set in `before` method
 
 			if (this.viewOptions.list_selectable === 'multi' && !this.list_noItems) {
 				var checkboxColumn = {
@@ -904,7 +909,8 @@
 			this.list_firstRender = false;
 			this.$loader.removeClass('noHeader');
 
-			if (this.viewOptions.list_actions && !this.list_noItems){
+			// keep action column header even when empty, you'll need it later....
+			if (this.viewOptions.list_actions){
 				var actionsColumn = {
 					label: this.viewOptions.list_actions.label || '<span class="actions-hidden">a</span>',
 					property: '@_ACTIONS_@',
