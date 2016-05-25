@@ -96,8 +96,7 @@
 		});
 		this.$prevBtn.on('click.fu.repeater', $.proxy(this.previous, this));
 		this.$primaryPaging.find('.combobox').on('changed.fu.combobox', function (evt, data) {
-			self.$element.trigger('pageChanged.fu.repeater', [data.text, data]);
-			self.pageInputChange(data.text);
+			self.pageInputChange(data.text, data);
 		});
 		this.$search.on('searched.fu.search cleared.fu.search', function (e, value) {
 			self.$element.trigger('searchChanged.fu.repeater', value);
@@ -473,13 +472,15 @@
 			});
 		},
 
-		pageInputChange: function (val) {
+		pageInputChange: function (val, dataFromCombobox) {
+			// dataFromCombobox is a proxy for data from combobox's changed event,
+			// if no combobox is present data will be undefined
 			var pageInc;
 			if (val !== this.lastPageInput) {
 				this.lastPageInput = val;
 				val = parseInt(val, 10) - 1;
 				pageInc = val - this.currentPage;
-				this.$element.trigger('pageChanged.fu.repeater', val);
+				this.$element.trigger('pageChanged.fu.repeater', [val, dataFromCombobox]);
 				this.render({
 					pageIncrement: pageInc
 				});
