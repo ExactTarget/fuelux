@@ -51,8 +51,10 @@
 		this.$element.on('keydown.fu.spinbox', this.$input, $.proxy(this.keydown, this));
 		this.$element.on('keyup.fu.spinbox', this.$input, $.proxy(this.keyup, this));
 
-		this.bindMousewheelListeners();
-		this.mousewheelTimeout = {};
+		if (this.options.enableMouseWheelScroll) {
+			this.bindMousewheelListeners();
+			this.mousewheelTimeout = {};
+		}
 
 		if (this.options.hold) {
 			this.$element.on('mousedown.fu.spinbox', '.spinbox-up', $.proxy(function () {
@@ -436,7 +438,8 @@
 		units: [],
 		decimalMark: '.',
 		defaultUnit: '',
-		limitToStep: false
+		limitToStep: false,
+		enableMouseWheelScroll: false
 	};
 
 	$.fn.spinbox.Constructor = Spinbox;
