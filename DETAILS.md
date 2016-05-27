@@ -29,7 +29,7 @@ Additional details to supplement the brief nature of the README file.
 
    Cloning the repository ensures you can apply future updates to Fuel UX easily, but requires to you manage its [dependencies](#dependencies) on your own.
 
-* Download a .zip archive of the [latest release](http://www.fuelcdn.com/fuelux/3.15.2/fuelux.zip).
+* Download a .zip archive of the [latest release](http://www.fuelcdn.com/fuelux/3.15.3/fuelux.zip).
 
 ## AMD support
 
@@ -39,7 +39,7 @@ If using AMD (such as [RequireJS](http://requirejs.org)), reference the FuelUX d
 ```javascript
 require.config({
     paths: {
-        'fuelux': 'http://www.fuelcdn.com/fuelux/3.15.2/'
+        'fuelux': 'http://www.fuelcdn.com/fuelux/3.15.3/'
         //...
     }
 });
