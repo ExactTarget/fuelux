@@ -404,6 +404,7 @@
 
 		$.fn.repeater.Constructor.prototype.list_frozenOptionsInitialize = function () {
 			var $checkboxes = this.$element.find('.frozen-column-wrapper .checkbox-inline');
+			var $headerCheckbox = this.$element.find('.header-checkbox .checkbox-custom');
 			var $everyTable = this.$element.find('.repeater-list table');
 			var self = this;
 
@@ -419,6 +420,7 @@
 				}
 			});
 
+			$headerCheckbox.checkbox();
 			$checkboxes.checkbox();
 
 			// Row checkboxes
@@ -687,8 +689,14 @@
 		var chevUp = 'glyphicon-chevron-up';
 		var $div = $('<div class="repeater-list-heading"><span class="glyphicon rlc"></span></div>');
 		var checkAllID = (this.$element.attr('id')+'_' || '') + 'checkall';
-		var checkBoxMarkup = '<div class="repeater-list-heading header-checkbox"><div class="checkbox checkbox-inline"><input type="checkbox" id="' + checkAllID + '">'+
-			'<label for="' + checkAllID + '"></label></div></div>';
+
+		var checkBoxMarkup = '<div class="repeater-list-heading header-checkbox">' +
+				'<label id="' + checkAllID + '" class="checkbox-custom checkbox-inline">' + 
+					'<input class="sr-only" type="checkbox" value="">' +
+					'<span class="checkbox-label">&nbsp;</span>' +
+				'</label>' +
+			'</div>';
+
 		var $header = $('<th></th>');
 		var self = this;
 		var $both, className, sortable, $span, $spans;

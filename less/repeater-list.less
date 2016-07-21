@@ -1,5 +1,7 @@
 @import "fuelux-core.less";
 @mutli-select-enabled-width: 37px;
+
+// row checkboxes for selection and actions
 .selectable() {
 	&.selectable {
 		&:hover td, &.hovered td {
@@ -142,6 +144,11 @@
 							border-left: none;
 							.header-checkbox {
 								width: @mutli-select-enabled-width;
+								padding-left: 12px;
+
+								.checkbox-inline:before {
+									top: 0;
+								}
 							}
 						}
 
