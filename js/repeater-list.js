@@ -198,10 +198,8 @@
 
 				//this gets a little messy with all the cloning. We need to make sure the ID and FOR
 				//attribs are unique for the 'top most' cloned checkbox
-				var $checkbox = $frozenTheadWrapper.find('th input[type="checkbox"]');
-				$checkbox.attr('id', $checkbox.attr('id')+'_cloned');
-				var $label = $frozenTheadWrapper.find('th label');
-				$label.attr('for', $label.attr('for')+'_cloned');
+				var $checkboxLabel = $frozenTheadWrapper.find('th label.checkbox-custom.checkbox-inline');
+				$checkboxLabel.attr('id', $checkboxLabel.attr('id')+'_cloned');
 
 				$frozenColumnWrapper.append($frozenColumn);
 				repeaterWrapper.append($frozenTheadWrapper);
