@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.15.4 
+ * Fuel UX v3.15.5 
  * Copyright 2012-2016 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -1729,6 +1729,10 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table thead > tr > th:first-child .header-checkbox {
   width: 37px;
+  padding-left: 12px;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table thead > tr > th:first-child .header-checkbox .checkbox-inline:before {
+  top: 0;
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table thead > tr > th.sortable:hover,
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table thead > tr > th.sortable.sorted {
