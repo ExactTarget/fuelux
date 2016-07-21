@@ -691,8 +691,8 @@
 		var checkAllID = (this.$element.attr('id')+'_' || '') + 'checkall';
 
 		var checkBoxMarkup = '<div class="repeater-list-heading header-checkbox">' +
-				'<label for="' + checkAllID + '" class="checkbox-custom checkbox-inline">' + 
-					'<input id="' + checkAllID + '" class="sr-only" type="checkbox" value="">' +
+				'<label id="' + checkAllID + '" class="checkbox-custom checkbox-inline">' + 
+					'<input class="sr-only" type="checkbox" value="">' +
 					'<span class="checkbox-label">&nbsp;</span>' +
 				'</label>' +
 			'</div>';
