@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.15.5 
+ * Fuel UX v3.15.6 
  * Copyright 2012-2016 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -6188,10 +6188,8 @@
 
 					//this gets a little messy with all the cloning. We need to make sure the ID and FOR
 					//attribs are unique for the 'top most' cloned checkbox
-					var $checkbox = $frozenTheadWrapper.find( 'th input[type="checkbox"]' );
-					$checkbox.attr( 'id', $checkbox.attr( 'id' ) + '_cloned' );
-					var $label = $frozenTheadWrapper.find( 'th label' );
-					$label.attr( 'for', $label.attr( 'for' ) + '_cloned' );
+					var $checkboxLabel = $frozenTheadWrapper.find( 'th label.checkbox-custom.checkbox-inline' );
+					$checkboxLabel.attr( 'id', $checkboxLabel.attr( 'id' ) + '_cloned' );
 
 					$frozenColumnWrapper.append( $frozenColumn );
 					repeaterWrapper.append( $frozenTheadWrapper );
