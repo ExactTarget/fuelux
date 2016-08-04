@@ -489,7 +489,8 @@
 			list_sortClearing: false,
 			list_rowRendered: null,
 			list_frozenColumns: 0,
-			list_actions: false
+			list_actions: false,
+			list_renderRowAfterColumns: false
 		});
 
 		//EXTENSION DEFINITION
@@ -856,10 +857,16 @@
 			$row.data('item_data', rows[index]);
 		}
 
-		$tbody.append($row);
+		if (!this.viewOptions.list_renderRowAfterColumns) {
+			$tbody.append($row);
+		}
 
 		for (i = 0, length = this.list_columns.length; i < length; i++) {
 			renderColumn.call(this, $row, rows, index, this.list_columns, i);
+		}
+
+		if (this.viewOptions.list_renderRowAfterColumns) {
+			$tbody.append($row);
 		}
 
 		if (this.viewOptions.list_rowRendered) {
