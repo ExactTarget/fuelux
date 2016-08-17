@@ -81,6 +81,18 @@ define(function(require) {
 		equal($pillbox.pillbox('items').length, 6, 'item added');
 	});
 
+	test('Input functionality should encode < character', function() {
+		var $pillbox = $(html).find('#MyPillbox').pillbox();
+		var $input = $pillbox.find('.pillbox-add-item');
+
+		$input.val('<');
+		$input.trigger($.Event('keydown', {
+			keyCode: 13
+		}));
+
+		equal($pillbox.pillbox('items').pop().text, "%3C", 'converted to %3C');
+	});
+
 	test('itemCount function', function() {
 		var $pillbox = $(html).find('#MyPillboxEmpty').pillbox();
 

@@ -62,7 +62,7 @@
 
 		// EVENTS
 		this.acceptKeyCodes = this._generateObject(this.options.acceptKeyCodes);
-		// Creatie an object out of the key code array, so we dont have to loop through it on every key stroke
+		// Create an object out of the key code array, so we don't have to loop through it on every key stroke
 
 		this.$element.on('click.fu.pillbox', '.pill-group > .pill', $.proxy(this.itemClicked, this));
 		this.$element.on('click.fu.pillbox', $.proxy(this.inputFocus, this));
@@ -354,7 +354,8 @@
 
 		inputEvent: function (e) {
 			var self = this;
-			var text = this.$addItem.val();
+			var cleanInput = this.options.cleanInput;
+			var text = cleanInput(this.$addItem.val());
 			var value;
 			var attr;
 			var $lastItem;
@@ -365,11 +366,10 @@
 					$selection = this.$suggest.find('.pillbox-suggest-sel');
 
 					if ($selection.length) {
-						text = $selection.html();
-						value = $selection.data('value');
+						text = cleanInput($selection.html());
+						value = cleanInput($selection.data('value'));
 						attr = $selection.data('attr');
 					}
-
 				}
 
 				//ignore comma and make sure text that has been entered (protects against " ,". https://github.com/ExactTarget/fuelux/issues/593), unless allowEmptyPills is true.
@@ -455,8 +455,8 @@
 					event: e,
 					value: text
 				}, function (data) {
-						self._openSuggestions(e, data);
-					});
+					self._openSuggestions(e, data);
+				});
 			}
 		},
 
@@ -727,9 +727,13 @@
 		truncate: false,
 		acceptKeyCodes: [
 			13,//Enter
-			188//Comma
+			188// `,` & `<` unless you check for shift modifier key not being pressed on event object (we don't)
 		],
-		allowEmptyPills: false
+		allowEmptyPills: false,
+		// Disallow `<` character by default. https://github.com/ExactTarget/fuelux/issues/1841
+		cleanInput: function cleanInput (text) {
+			return text.replace(/</gi, '%3C');
+		}
 
 		//example on remove
 		/*onRemove: function(data,callback){
