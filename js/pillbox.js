@@ -16,18 +16,31 @@
 (function umdWrapper (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
-		define(['jquery', 'fuelux/dropdown-autoflip'], factory);
+		define(['jquery', 'fuelux/utilities', 'fuelux/dropdown-autoflip'], factory);
 	} else if (typeof exports === 'object') {
 		// Node/CommonJS
-		module.exports = factory(require('jquery'), require('./dropdown-autoflip'));
+		module.exports = factory(require('jquery'), require('./utilities'), require('./dropdown-autoflip'));
 	} else {
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
 	}
-}(function pillboxWrapper ($) {
+}(function pillboxWrapper ($, utilities) {
 	if (!$.fn.dropdownautoflip) {
 		throw new Error('Fuel UX pillbox control requires dropdown-autoflip.');
 	}
+
+	if (!utilities) {
+		throw new Error('Fuel UX pillbox control requires FuelUX utilities.');
+	}
+	var COMMA_KEYCODE = utilities.COMMA_KEYCODE;
+	var ENTER_KEYCODE = utilities.ENTER_KEYCODE;
+	var isBackspaceKey = utilities.isBackspaceKey;
+	var isDeleteKey = utilities.isDeleteKey;
+	var isTabKey = utilities.isTabKey;
+	var isUpArrow = utilities.isUpArrow;
+	var isDownArrow = utilities.isDownArrow;
+	var cleanInput = utilities.cleanInput;
+	var isShiftHeld = utilities.isShiftHeld;
 
 	// -- END UMD WRAPPER PREFACE --
 
@@ -36,14 +49,6 @@
 	var old = $.fn.pillbox;
 
 	// PILLBOX CONSTRUCTOR AND PROTOTYPE
-
-	var ENTER_KEYCODE = 13;
-	var COMMA_KEYCODE = 188;// `,` & `<` unless you check for shift modifier key not being pressed on event object (we don't)
-	var isBackspaceKey = function isBackspaceKey(e) { return e.keyCode === 8; };
-	var isDeleteKey = function isDeleteKey(e) { return e.keyCode === 46; };
-	var isTabKey = function isTabKey(e) { return e.keyCode === 9; };
-	var isUpArrow = function isUpArrow(e) { return e.keyCode === 38; };
-	var isDownArrow = function isDownArrow(e) { return e.keyCode === 40; };
 
 	var Pillbox = function Pillbox (element, options) {
 		this.$element = $(element);
@@ -348,10 +353,11 @@
 
 		inputEvent: function inputEvent (e) {
 			var self = this;
-			var cleanInput = this.options.cleanInput;
-			var text = cleanInput(this.$addItem.val());
+			var text = self.options.cleanInput(this.$addItem.val());
 
-			if (this.acceptKeyCodes[e.keyCode]) {
+			// If we test for keycode only, it will match for `<` & `,` instead of just `,`
+			// This way users can type `<3` and `1 < 3`, etc...
+			if (this.acceptKeyCodes[e.keyCode] && !isShiftHeld(e)) {
 				var attr;
 				var value;
 
@@ -359,8 +365,8 @@
 					var $selection = this.$suggest.find('.pillbox-suggest-sel');
 
 					if ($selection.length) {
-						text = cleanInput($selection.html());
-						value = cleanInput($selection.data('value'));
+						text = self.options.cleanInput($selection.html());
+						value = self.options.cleanInput($selection.data('value'));
 						attr = $selection.data('attr');
 					}
 				}
@@ -715,10 +721,7 @@
 			COMMA_KEYCODE
 		],
 		allowEmptyPills: false,
-		// Disallow `<` character by default. https://github.com/ExactTarget/fuelux/issues/1841
-		cleanInput: function cleanInput (text) {
-			return text.replace(/</gi, '%3C');
-		}
+		cleanInput: cleanInput
 
 		// example on remove
 		/* onRemove: function(data,callback){

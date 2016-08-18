@@ -90,7 +90,19 @@ define(function(require) {
 			keyCode: 13
 		}));
 
-		equal($pillbox.pillbox('items').pop().text, "%3C", 'converted to %3C');
+		equal($pillbox.pillbox('items').pop().text, "&lt;", 'converted to &lt;');
+	});
+
+	test('Input functionality should protect against XSS', function() {
+		var $pillbox = $(html).find('#MyPillbox').pillbox();
+		var $input = $pillbox.find('.pillbox-add-item');
+
+		$input.val('<video/src="x"onloadstart="prompt()"> ');
+		$input.trigger($.Event('keydown', {
+			keyCode: 13
+		}));
+
+		equal($pillbox.pillbox('items').pop().text, '&lt;video/src="x"onloadstart="prompt()"&gt; ', 'converted to &lt;video/src="x"onloadstart="prompt()"&gt; ');
 	});
 
 	test('itemCount function', function() {
