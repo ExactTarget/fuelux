@@ -1,4 +1,4 @@
-/* global jQuery:true */
+/* global jQuery:true utilities:true */
 
 /*
  * Fuel UX Pillbox
@@ -23,14 +23,15 @@
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
 	}
-}(function pillboxWrapper ($, utilities) {
+}(function pillboxWrapper ($) {
 	if (!$.fn.dropdownautoflip) {
 		throw new Error('Fuel UX pillbox control requires dropdown-autoflip.');
 	}
 
-	if (!utilities) {
+	if (!$.fn.utilities) {
 		throw new Error('Fuel UX pillbox control requires FuelUX utilities.');
 	}
+	var utilities = $.fn.utilities;
 	var COMMA_KEYCODE = utilities.COMMA_KEYCODE;
 	var ENTER_KEYCODE = utilities.ENTER_KEYCODE;
 	var isBackspaceKey = utilities.isBackspaceKey;

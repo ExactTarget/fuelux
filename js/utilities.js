@@ -21,28 +21,27 @@
 		define(['jquery'], factory);
 	} else if (typeof module === 'object' && module.exports) {
 		// Node/CommonJS
-		module.exports = function exportsFunction ( root, jQuery ) {
-			var jQueryReturn;
-
-			if ( typeof jQuery === 'undefined' ) {
+		module.exports = function commonJS ( root, jq ) {
+			var jQuery = jq;
+			if ( jQuery === undefined ) {
 				// require('jQuery') returns a factory that requires window to
 				// build a jQuery instance, we normalize how we use modules
 				// that require this pattern but the window provided is a noop
 				// if it's defined (how jquery works)
 				if ( typeof window !== 'undefined' ) {
-					jQueryReturn = require('jquery');
+					jQuery = require('jquery');
 				} else {
-					jQueryReturn = require('jquery')(root);
+					jQuery = require('jquery')(root);
 				}
 			}
-			factory(jQueryReturn);
-			return jQueryReturn;
+			factory(jQuery);
+			return jQuery;
 		};
 	} else {
-		// Use browser globals if AMD is not present
+		// Browser globals
 		factory(jQuery);
 	}
-}(function makePlugin ($) {
+}(function defineModule ($) {
 	// -- END UMD WRAPPER PREFACE --
 	// -- BEGIN MODULE CODE HERE --
 
@@ -73,7 +72,7 @@
 		return cleanedInput;
 	};
 
-	return {
+	$.fn.utilities = {
 		BACKSPACE_KEYCODE: BACKSPACE_KEYCODE,
 		COMMA_KEYCODE: COMMA_KEYCODE,
 		DELETE_KEYCODE: DELETE_KEYCODE,
