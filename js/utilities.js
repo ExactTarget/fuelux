@@ -68,10 +68,10 @@
 	var isDownArrow = isKey(DOWN_ARROW_KEYCODE);
 
 	// https://github.com/ExactTarget/fuelux/issues/1841
+	var xssRegex = /<.*>/;
 	var cleanInput = function cleanInput (questionableInput) {
 		var cleanedInput = questionableInput;
 
-		var xssRegex = /<.*>/;
 		if (xssRegex.test(cleanedInput)) {
 			cleanedInput = $('<i>').text(questionableInput).html();
 		}
