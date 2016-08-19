@@ -12,7 +12,8 @@
 		"indent": ["error", "tab"],
 		"yoda": 0,
 		"space-before-function-paren": 0,
-		"requirejs/no-named-define": 2
+		"requirejs/no-named-define": 2,
+		"no-undefined": 0
 	},
 	"plugins": [
 		"requirejs"

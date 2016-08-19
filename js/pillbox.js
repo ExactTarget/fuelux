@@ -1,4 +1,4 @@
-/* global someFunction jQuery:true */
+/* global jQuery:true */
 
 /*
  * Fuel UX Pillbox
@@ -12,7 +12,6 @@
 
 // For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
-
 (function umdWrapper (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
@@ -67,7 +66,7 @@
 		this.options = $.extend({}, $.fn.pillbox.defaults, options);
 
 		if (this.options.readonly === -1) {
-			if (typeof this.$element.attr('data-readonly') !== 'undefined') {
+			if (this.$element.attr('data-readonly') !== undefined) {
 				this.readonly(true);
 			}
 		} else if (this.options.readonly) {
@@ -122,7 +121,7 @@
 
 			if (!$target.hasClass('pill')) {
 				$item = $target.parent();
-				if (typeof this.$element.attr('data-readonly') === 'undefined') {
+				if (this.$element.attr('data-readonly') === undefined) {
 					if ($target.hasClass('glyphicon-close')) {
 						if (this.options.onRemove) {
 							this.options.onRemove(this.getItemData($item, {
@@ -709,7 +708,7 @@
 			}
 		});
 
-		return (typeof methodReturn === 'undefined') ? $set : methodReturn;
+		return (methodReturn === undefined) ? $set : methodReturn;
 	};
 
 	$.fn.pillbox.defaults = {
