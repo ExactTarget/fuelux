@@ -53,12 +53,19 @@
 	var TAB_KEYCODE = 9;
 	var UP_ARROW_KEYCODE = 38;
 
-	var isShiftHeld = function isShiftHeld(e) { return e.shiftKey === true; };
-	var isBackspaceKey = function isBackspaceKey(e) { return e.keyCode === BACKSPACE_KEYCODE; };
-	var isDeleteKey = function isDeleteKey(e) { return e.keyCode === DELETE_KEYCODE; };
-	var isTabKey = function isTabKey(e) { return e.keyCode === TAB_KEYCODE; };
-	var isUpArrow = function isUpArrow(e) { return e.keyCode === UP_ARROW_KEYCODE; };
-	var isDownArrow = function isDownArrow(e) { return e.keyCode === DOWN_ARROW_KEYCODE; };
+	var isShiftHeld = function isShiftHeld (e) { return e.shiftKey === true; };
+
+	var isKey = function isKey (keyCode) {
+		return function compareKeycodes (e) {
+			return e.keyCode === keyCode;
+		};
+	};
+
+	var isBackspaceKey = isKey(BACKSPACE_KEYCODE);
+	var isDeleteKey = isKey(DELETE_KEYCODE);
+	var isTabKey = isKey(TAB_KEYCODE);
+	var isUpArrow = isKey(UP_ARROW_KEYCODE);
+	var isDownArrow = isKey(DOWN_ARROW_KEYCODE);
 
 	// https://github.com/ExactTarget/fuelux/issues/1841
 	var cleanInput = function cleanInput (questionableInput) {
@@ -73,13 +80,15 @@
 	};
 
 	$.fn.utilities = {
-		BACKSPACE_KEYCODE: BACKSPACE_KEYCODE,
-		COMMA_KEYCODE: COMMA_KEYCODE,
-		DELETE_KEYCODE: DELETE_KEYCODE,
-		DOWN_ARROW_KEYCODE: DOWN_ARROW_KEYCODE,
-		ENTER_KEYCODE: ENTER_KEYCODE,
-		TAB_KEYCODE: TAB_KEYCODE,
-		UP_ARROW_KEYCODE: UP_ARROW_KEYCODE,
+		CONST: {
+			BACKSPACE_KEYCODE: BACKSPACE_KEYCODE,
+			COMMA_KEYCODE: COMMA_KEYCODE,
+			DELETE_KEYCODE: DELETE_KEYCODE,
+			DOWN_ARROW_KEYCODE: DOWN_ARROW_KEYCODE,
+			ENTER_KEYCODE: ENTER_KEYCODE,
+			TAB_KEYCODE: TAB_KEYCODE,
+			UP_ARROW_KEYCODE: UP_ARROW_KEYCODE
+		},
 		cleanInput: cleanInput,
 		isBackspaceKey: isBackspaceKey,
 		isDeleteKey: isDeleteKey,

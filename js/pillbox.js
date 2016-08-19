@@ -32,8 +32,9 @@
 		throw new Error('Fuel UX pillbox control requires FuelUX utilities.');
 	}
 	var utilities = $.fn.utilities;
-	var COMMA_KEYCODE = utilities.COMMA_KEYCODE;
-	var ENTER_KEYCODE = utilities.ENTER_KEYCODE;
+	var CONST = $.fn.utilities.CONST;
+	var COMMA_KEYCODE = CONST.COMMA_KEYCODE;
+	var ENTER_KEYCODE = CONST.ENTER_KEYCODE;
 	var isBackspaceKey = utilities.isBackspaceKey;
 	var isDeleteKey = utilities.isDeleteKey;
 	var isTabKey = utilities.isTabKey;
