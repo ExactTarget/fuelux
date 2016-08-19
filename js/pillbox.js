@@ -10,6 +10,8 @@
 
 // -- BEGIN UMD WRAPPER PREFACE --
 
+// WARNING: Anything placed inside of the UMD Wrapper may be stripped out by dist task
+
 // For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 (function umdWrapper (factory) {
@@ -31,6 +33,11 @@
 	if (!$.fn.utilities) {
 		throw new Error('Fuel UX pillbox control requires FuelUX utilities.');
 	}
+	// -- END UMD WRAPPER PREFACE --
+
+	// -- BEGIN MODULE CODE HERE --
+	var old = $.fn.pillbox;
+
 	var utilities = $.fn.utilities;
 	var CONST = $.fn.utilities.CONST;
 	var COMMA_KEYCODE = CONST.COMMA_KEYCODE;
@@ -43,14 +50,7 @@
 	var cleanInput = utilities.cleanInput;
 	var isShiftHeld = utilities.isShiftHeld;
 
-	// -- END UMD WRAPPER PREFACE --
-
-	// -- BEGIN MODULE CODE HERE --
-
-	var old = $.fn.pillbox;
-
 	// PILLBOX CONSTRUCTOR AND PROTOTYPE
-
 	var Pillbox = function Pillbox (element, options) {
 		this.$element = $(element);
 		this.$moreCount = this.$element.find('.pillbox-more-count');

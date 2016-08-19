@@ -1,4 +1,4 @@
-/* global someFunction jQuery:true */
+/* global jQuery:true */
 
 /*
  * Fuel UX Utilities
@@ -17,31 +17,16 @@
 
 (function umdFactory (factory) {
 	if (typeof define === 'function' && define.amd) {
-		// AMD. Register as an anonymous module.
+		// if AMD loader is available, register as an anonymous module.
 		define(['jquery'], factory);
-	} else if (typeof module === 'object' && module.exports) {
+	} else if (typeof exports === 'object') {
 		// Node/CommonJS
-		module.exports = function commonJS ( root, jq ) {
-			var jQuery = jq;
-			if ( jQuery === undefined ) {
-				// require('jQuery') returns a factory that requires window to
-				// build a jQuery instance, we normalize how we use modules
-				// that require this pattern but the window provided is a noop
-				// if it's defined (how jquery works)
-				if ( typeof window !== 'undefined' ) {
-					jQuery = require('jquery');
-				} else {
-					jQuery = require('jquery')(root);
-				}
-			}
-			factory(jQuery);
-			return jQuery;
-		};
+		module.exports = factory(require('jquery'));
 	} else {
-		// Browser globals
+		// OR use browser globals if AMD is not present
 		factory(jQuery);
 	}
-}(function defineModule ($) {
+}(function utilities ($) {
 	// -- END UMD WRAPPER PREFACE --
 	// -- BEGIN MODULE CODE HERE --
 
