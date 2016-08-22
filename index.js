@@ -271,6 +271,10 @@ define(function (require) {
 	 PILLBOX
 	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+	var pillbox = require('hbs!fuelux_templates/pillbox');
+	var $myPillbox1Wrapper = $('#myPillbox1Wrapper');
+	$myPillbox1Wrapper.html(pillbox({ id: 'myPillbox1' }));
+
 	// intitialize
 	$('#myPillbox1').pillbox({
 		edit: true,
@@ -390,6 +394,31 @@ define(function (require) {
 			});
 		}
 	});
+
+
+	var pillboxItems = [
+		{
+			value: "foo",
+			title: "Item 1"
+		},
+		{
+			title: "Item 2"
+		},
+		{
+			value: "three-value",
+			title: "Item 3"
+		},
+		{
+			title: "Item 4"
+		},
+		{
+			title: "Item 5"
+		}
+	];
+
+	var $myPillbox2Wrapper = $('#myPillbox2Wrapper');
+	$myPillbox2Wrapper.html(pillbox({ id: 'myPillbox2', items: pillboxItems }));
+
 	$('#myPillbox2').pillbox({
 		truncate: true
 	});
@@ -675,7 +704,7 @@ define(function (require) {
 		initRepeater();
 	});
 
-	$('#myRepeater').on('pageChanged.fu.repeater', function (e, data) { 
+	$('#myRepeater').on('pageChanged.fu.repeater', function (e, data) {
 		console.log('pagechanged', e, data);
 	});
 

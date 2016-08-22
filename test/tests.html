@@ -9,7 +9,10 @@
 		<link href="../dist/css/fuelux.css" rel="stylesheet" type="text/css">
 
 		<script src="../bower_components/qunit/qunit/qunit.js"></script>
-		<script>QUnit.config.autostart = false;</script>
+		<script>
+			/* global QUnit:true */
+			QUnit.config.autostart = false;
+		</script>
 		<script src="../bower_components/requirejs/require.js"></script>
 
 		<!--[if gte IE 9]> -->
@@ -17,8 +20,8 @@
 		<!-- <![endif]-->
 
 		<script>
-			(function () {
-
+			/* global blanket:true */
+			(function onPageLoad () {
 				/* - - - - - - - - - - - - - - - - - -
 					URL PARAMETER CONFIGURATION
 				- - - - - - - - - - - - - - - - - - */
@@ -26,7 +29,7 @@
 				// jQuery config
 				var jQueryPath;
 				// Feature detect
-				if('querySelector' in document
+				if ('querySelector' in document
 					&& 'localStorage' in window
 					&& 'addEventListener' in window ) {
 					jQueryPath = 'bower_components/jquery/dist/jquery';	// v2.x
@@ -37,7 +40,7 @@
 				var jQueryVersionParameter = location.search.match(/[?&]jquery=(.*?)(?=&|$)/);
 				var jQueryVersion = (jQueryVersionParameter) ? jQueryVersionParameter[1] : undefined;
 				// if jquery version does not use dist folder
-				if(jQueryVersion == '1.9.1') {
+				if (jQueryVersion === '1.9.1') {
 					jQueryPath = 'bower_components/jquery-' + jQueryVersion + '/jquery';
 				}
 
@@ -53,7 +56,7 @@
 						jquery: jQueryPath,
 						bootstrap: 'bower_components/bootstrap/dist/js/bootstrap',
 						fuelux: 'js',
-						tests: window.noMoment ? 'test/tests-no-moment' : 'test/tests' ,
+						tests: window.noMoment ? 'test/tests-no-moment' : 'test/tests',
 						text: 'bower_components/requirejs-text/text'
 					},
 					shim: {
@@ -70,13 +73,13 @@
 
 				// have Blanket coverage test talk to grunt via alert()
 				if (location.href.match(/(\?|&)gruntReport($|&|=)/)) {
-					blanket.options("reporter", "/node_modules/grunt-blanket-qunit/reporter/grunt-reporter.js");
+					blanket.options('reporter', '/node_modules/grunt-blanket-qunit/reporter/grunt-reporter.js');
 				}
 
 				// default to not testing dist
 				var testdistParameter = location.search.match(/[?&]testdist=(true|false?)(?=&|$)/);
 				var testdist = (testdistParameter && testdistParameter[1] === 'true') ? true : false;
-				if(testdist){
+				if (testdist) {
 					// map all requests for individual modules to merged library
 					requireConfig.map = {
 						'*': {
@@ -98,15 +101,15 @@
 							'fuelux/spinbox': 'dist/js/fuelux.min',
 							'fuelux/picker': 'dist/js/fuelux.min',
 							'fuelux/tree': 'dist/js/fuelux.min',
+							'fuelux/utilities': 'dist/js/fuelux.min',
 							'fuelux/wizard': 'dist/js/fuelux.min'
 						}
-					}
+					};
 				}
 
 				require.config(requireConfig);
 
-				require(['jquery', 'tests'], function() {});
-
+				require(['jquery', 'tests'], function noop () {});
 			})();
 		</script>
 	</head>

@@ -1,0 +1,21 @@
+{
+	"extends": "eslint-config-airbnb-es5",
+	"parserOptions": {
+		"ecmaVersion": 5,
+		"sourceType": "module"
+	},
+	"env": {
+		"browser": true,
+		"amd": true
+	},
+	"rules": {
+		"indent": ["error", "tab"],
+		"yoda": 0,
+		"space-before-function-paren": 0,
+		"requirejs/no-named-define": 2,
+		"no-undefined": 0
+	},
+	"plugins": [
+		"requirejs"
+	]
+}

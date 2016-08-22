@@ -8,18 +8,15 @@
  * NOTE: This file works with AMD only.
  */
 
-(function (factory) {
+(function factoryMethod (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
 		define(factory);
-	} else {
+	} else if (window && window.console && window.console.log) {
 		// OR print to the console that this file is AMD only, if possible
-		if(window && window.console && window.console.log){
-			window.console.log('WARNING: The all.js file in the Fuel UX src directory is for use with AMD only.');
-		}
+		window.console.log('WARNING: The all.js file in the Fuel UX src directory is for use with AMD only.');
 	}
-}(function (require) {
-
+}(function requireAll (require) {
 	require('jquery');
 	require('bootstrap');
 
@@ -41,6 +38,6 @@
 	require('fuelux/selectlist');
 	require('fuelux/picker');
 	require('fuelux/tree');
+	require('fuelux/utilities');
 	require('fuelux/wizard');
-
 }));
