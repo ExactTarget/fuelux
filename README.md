@@ -47,7 +47,7 @@ A few ways available to install.
 
 - Request files from [the Fuel UX CDN](http://www.fuelcdn.com/fuelux/3.15.5/)
 - Install with [NPM](https://www.npmjs.com/package/fuelux): `npm install fuelux`.
-- [Download the latest release](https://github.com/exacttarget/fuelux/archive/3.4.0.zip).
+- [Download the latest release](https://github.com/exacttarget/fuelux/archive/3.15.5.zip).
 - Clone the repo: `git clone https://github.com/exacttarget/fuelux.git`.
 - Install with [Bower](http://bower.io): `bower install fuelux`.
 - Install with [Volo](https://github.com/volojs/volo): `volo add fuelux`.
