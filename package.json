@@ -20,7 +20,7 @@
     "grunt-banner": "0.6.0",
     "grunt-blanket-qunit": "0.2.0",
     "grunt-browserify": "5.0.0",
-    "grunt-bump": "0.7.0",
+    "grunt-bump": "0.7.2",
     "grunt-contrib-less": "1.2.0",
     "grunt-cli": "1.1.0",
     "grunt-contrib-clean": "1.0.0",
