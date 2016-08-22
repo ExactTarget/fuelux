@@ -29,14 +29,15 @@
 }(function utilities ($) {
 	// -- END UMD WRAPPER PREFACE --
 	// -- BEGIN MODULE CODE HERE --
-
-	var BACKSPACE_KEYCODE = 8;
-	var COMMA_KEYCODE = 188;// `,` & `<`
-	var DELETE_KEYCODE = 46;
-	var DOWN_ARROW_KEYCODE = 40;
-	var ENTER_KEYCODE = 13;
-	var TAB_KEYCODE = 9;
-	var UP_ARROW_KEYCODE = 38;
+	var CONST = {
+		BACKSPACE_KEYCODE: 8,
+		COMMA_KEYCODE: 188, // `,` & `<`
+		DELETE_KEYCODE: 46,
+		DOWN_ARROW_KEYCODE: 40,
+		ENTER_KEYCODE: 13,
+		TAB_KEYCODE: 9,
+		UP_ARROW_KEYCODE: 38
+	};
 
 	var isShiftHeld = function isShiftHeld (e) { return e.shiftKey === true; };
 
@@ -46,11 +47,11 @@
 		};
 	};
 
-	var isBackspaceKey = isKey(BACKSPACE_KEYCODE);
-	var isDeleteKey = isKey(DELETE_KEYCODE);
-	var isTabKey = isKey(TAB_KEYCODE);
-	var isUpArrow = isKey(UP_ARROW_KEYCODE);
-	var isDownArrow = isKey(DOWN_ARROW_KEYCODE);
+	var isBackspaceKey = isKey(CONST.BACKSPACE_KEYCODE);
+	var isDeleteKey = isKey(CONST.DELETE_KEYCODE);
+	var isTabKey = isKey(CONST.TAB_KEYCODE);
+	var isUpArrow = isKey(CONST.UP_ARROW_KEYCODE);
+	var isDownArrow = isKey(CONST.DOWN_ARROW_KEYCODE);
 
 	// https://github.com/ExactTarget/fuelux/issues/1841
 	var xssRegex = /<.*>/;
@@ -65,15 +66,7 @@
 	};
 
 	$.fn.utilities = {
-		CONST: {
-			BACKSPACE_KEYCODE: BACKSPACE_KEYCODE,
-			COMMA_KEYCODE: COMMA_KEYCODE,
-			DELETE_KEYCODE: DELETE_KEYCODE,
-			DOWN_ARROW_KEYCODE: DOWN_ARROW_KEYCODE,
-			ENTER_KEYCODE: ENTER_KEYCODE,
-			TAB_KEYCODE: TAB_KEYCODE,
-			UP_ARROW_KEYCODE: UP_ARROW_KEYCODE
-		},
+		CONST: CONST,
 		cleanInput: cleanInput,
 		isBackspaceKey: isBackspaceKey,
 		isDeleteKey: isDeleteKey,
