@@ -14,7 +14,7 @@
   },
   "description": "Base Fuel UX styles and controls",
   "devDependencies": {
-    "bower": "1.7.7",
+    "bower": "1.7.8",
     "connect": "3.4.1",
     "eslint": "^3.3.1",
     "eslint-config-airbnb-es5": "^1.0.9",
