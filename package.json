@@ -47,7 +47,7 @@
     "load-grunt-tasks": "3.4.1",
     "qunitjs": "1.23.0",
     "semver": "5.3.0",
-    "serve-static": "1.10.2"
+    "serve-static": "1.11.1"
   },
   "engines": {
     "node": "4.4.x"
