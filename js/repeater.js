@@ -1,3 +1,5 @@
+/* global jQuery:true */
+
 /*
  * Fuel UX Repeater
  * https://github.com/ExactTarget/fuelux
@@ -11,7 +13,7 @@
 // For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
-(function (factory) {
+(function UMDFactory (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
 		define(['jquery', 'fuelux/combobox', 'fuelux/infinite-scroll', 'fuelux/search', 'fuelux/selectlist'], factory);
@@ -23,7 +25,7 @@
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
 	}
-}(function ($) {
+}(function repeater ($) {
 	// -- END UMD WRAPPER PREFACE --
 
 	// -- BEGIN MODULE CODE HERE --
@@ -32,9 +34,10 @@
 
 	// REPEATER CONSTRUCTOR AND PROTOTYPE
 
-	var Repeater = function (element, options) {
+	var Repeater = function Repeater (element, options) {
 		var self = this;
-		var $btn, currentView;
+		var $btn;
+		var currentView;
 
 		this.$element = $(element);
 
@@ -57,7 +60,7 @@
 		this.currentPage = 0;
 		this.currentView = null;
 		this.isDisabled = false;
-		this.infiniteScrollingCallback = function () {};
+		this.infiniteScrollingCallback = function noop () {};
 		this.infiniteScrollingCont = null;
 		this.infiniteScrollingEnabled = false;
 		this.infiniteScrollingEnd = null;
@@ -80,7 +83,7 @@
 			allowCancel: this.options.allowCancel
 		});
 
-		this.$filters.on('changed.fu.selectlist', function (e, value) {
+		this.$filters.on('changed.fu.selectlist', function onFiltersChanged (e, value) {
 			self.$element.trigger('filtered.fu.repeater', value);
 			self.render({
 				clearInfinite: true,
@@ -88,24 +91,24 @@
 			});
 		});
 		this.$nextBtn.on('click.fu.repeater', $.proxy(this.next, this));
-		this.$pageSize.on('changed.fu.selectlist', function (e, value) {
+		this.$pageSize.on('changed.fu.selectlist', function onPageSizeChanged (e, value) {
 			self.$element.trigger('pageSizeChanged.fu.repeater', value);
 			self.render({
 				pageIncrement: null
 			});
 		});
 		this.$prevBtn.on('click.fu.repeater', $.proxy(this.previous, this));
-		this.$primaryPaging.find('.combobox').on('changed.fu.combobox', function (evt, data) {
+		this.$primaryPaging.find('.combobox').on('changed.fu.combobox', function onPrimaryPagingChanged (evt, data) {
 			self.pageInputChange(data.text, data);
 		});
-		this.$search.on('searched.fu.search cleared.fu.search', function (e, value) {
+		this.$search.on('searched.fu.search cleared.fu.search', function onSearched (e, value) {
 			self.$element.trigger('searchChanged.fu.repeater', value);
 			self.render({
 				clearInfinite: true,
 				pageIncrement: null
 			});
 		});
-		this.$search.on('canceled.fu.search', function (e, value) {
+		this.$search.on('canceled.fu.search', function onSearchCanceled (e, value) {
 			self.$element.trigger('canceled.fu.repeater', value);
 			self.render({
 				clearInfinite: true,
@@ -113,20 +116,19 @@
 			});
 		});
 
-		this.$secondaryPaging.on('blur.fu.repeater', function (e) {
+		this.$secondaryPaging.on('blur.fu.repeater', function onSecondaryPagingBlur () {
 			self.pageInputChange(self.$secondaryPaging.val());
 		});
-		this.$secondaryPaging.on('keyup', function (e) {
+		this.$secondaryPaging.on('keyup', function onSecondaryPagingKeyup (e) {
 			if (e.keyCode === 13) {
 				self.pageInputChange(self.$secondaryPaging.val());
 			}
 		});
 		this.$views.find('input').on('change.fu.repeater', $.proxy(this.viewChanged, this));
 
-		// ID needed since event is bound to instance
-		$(window).on('resize.fu.repeater.' + this.stamp, function (event) {
+		$(window).on('resize.fu.repeater.' + this.stamp, function onResizeRepeater () {
 			clearTimeout(self.resizeTimeout);
-			self.resizeTimeout = setTimeout(function () {
+			self.resizeTimeout = setTimeout(function resizeTimeout () {
 				self.resize();
 				self.$element.trigger('resized.fu.repeater');
 			}, 75);
@@ -143,7 +145,7 @@
 
 		this.setViewOptions(currentView);
 
-		this.initViewTypes(function () {
+		this.initViewTypes(function initViewTypes () {
 			self.resize();
 			self.$element.trigger('resized.fu.repeater');
 			self.render({
@@ -152,43 +154,126 @@
 		});
 	};
 
+	var logWarn = function logWarn (msg) {
+		if (window.console && window.console.warn) {
+			window.console.warn(msg);
+		}
+	};
+
+	var scan = function scan (cont) {
+		var keep = [];
+		cont.children().each(function eachContainerChild () {
+			var item = $(this);
+			var pres = item.attr('data-preserve');
+			if (pres === 'deep') {
+				item.detach();
+				keep.push(item);
+			} else if (pres === 'shallow') {
+				scan(item);
+				item.detach();
+				keep.push(item);
+			}
+		});
+		cont.empty();
+		cont.append(keep);
+	};
+
+	var addItem = function addItem ($parent, response) {
+		var action;
+		if (response) {
+			action = (response.action) ? response.action : 'append';
+			if (action !== 'none' && response.item !== undefined) {
+				var $container = (response.container !== undefined) ? $(response.container) : $parent;
+				$container[action](response.item);
+			}
+		}
+	};
+
+	var callNextInit = function callNextInit (currentViewType, viewTypes, callback) {
+		var nextViewType = currentViewType + 1;
+		if (nextViewType < viewTypes.length) {
+			initViewType.call(this, nextViewType, viewTypes, callback);
+		} else {
+			callback();
+		}
+	};
+
+	var initViewType = function initViewType (currentViewtype, viewTypes, callback) {
+		if (viewTypes[currentViewtype].initialize) {
+			viewTypes[currentViewtype].initialize.call(this, {}, function afterInitialize () {
+				callNextInit.call(this, currentViewtype, viewTypes, callback);
+			});
+		} else {
+			callNextInit.call(this, currentViewtype, viewTypes, callback);
+		}
+	};
+
+	// Does all of our cleanup post-render
+	var afterRender = function afterRender (state) {
+		var data = state.data || {};
+
+		if (this.infiniteScrollingEnabled) {
+			if (state.viewChanged || state.options.clearInfinite) {
+				this.initInfiniteScrolling();
+			}
+
+			this.infiniteScrollPaging(data, state.options);
+		}
+
+		this.$loader.hide().loader('pause');
+		this.enable();
+
+		this.$search.trigger('rendered.fu.repeater');
+		this.$element.trigger('rendered.fu.repeater', {
+			data: data,
+			options: state.dataOptions,
+			renderOptions: state.options
+		});
+
+		// for maintaining support of 'loaded' event
+		this.$element.trigger('loaded.fu.repeater', state.dataOptions);
+	};
+
+	// This does the actual rendering of the repeater
+	var doRender = function doRender (state) {
+		var data = state.data || {};
+
+		if (this.infiniteScrollingEnabled) {
+			// pass empty object because data handled in infiniteScrollPaging method
+			this.infiniteScrollingCallback({});
+		} else {
+			this.itemization(data);
+			this.pagination(data);
+		}
+
+		var self = this;
+		this.renderItems(
+			state.viewTypeObj,
+			data,
+			function callAfterRender (d) {
+				state.data = d;
+				afterRender.call(self, state);
+			}
+		);
+	};
+
 	Repeater.prototype = {
 		constructor: Repeater,
 
-		clear: function (options) {
-			var viewChanged, viewTypeObj;
-
-			function scan (cont) {
-				var keep = [];
-				cont.children().each(function () {
-					var item = $(this);
-					var pres = item.attr('data-preserve');
-					if (pres === 'deep') {
-						item.detach();
-						keep.push(item);
-					} else if (pres === 'shallow') {
-						scan(item);
-						item.detach();
-						keep.push(item);
-					}
-				});
-				cont.empty();
-				cont.append(keep);
-			}
-
-			options = options || {};
+		clear: function clear (opts) {
+			var options = opts || {};
 
 			if (!options.preserve) {
-				//Just trash everything because preserve is false
+				// Just trash everything because preserve is false
 				this.$canvas.empty();
 			} else if (!this.infiniteScrollingEnabled || options.clearInfinite) {
-				//Preserve clear only if infiniteScrolling is disabled or if specifically told to do so
+				// Preserve clear only if infiniteScrolling is disabled or if specifically told to do so
 				scan(this.$canvas);
-			}	//Otherwise don't clear because infiniteScrolling is enabled
+			} // Otherwise don't clear because infiniteScrolling is enabled
 
-			//If viewChanged and current viewTypeObj has a cleared function, call it
-			viewChanged = (options.viewChanged !== undefined) ? options.viewChanged : false;
-			viewTypeObj = $.fn.repeater.viewTypes[this.viewType] || {};
+			// If viewChanged and current viewTypeObj has a cleared function, call it
+			var viewChanged = (options.viewChanged !== undefined) ? options.viewChanged : false;
+			var viewTypeObj = $.fn.repeater.viewTypes[this.viewType] || {};
 			if (!viewChanged && viewTypeObj.cleared) {
 				viewTypeObj.cleared.call(this, {
 					options: options
@@ -196,14 +281,14 @@
 			}
 		},
 
-		clearPreservedDataSourceOptions: function () {
+		clearPreservedDataSourceOptions: function clearPreservedDataSourceOptions () {
 			this.storedDataSourceOpts = null;
 		},
 
-		destroy: function () {
+		destroy: function destroy () {
 			var markup;
 			// set input value attrbute in markup
-			this.$element.find('input').each(function () {
+			this.$element.find('input').each(function eachInput () {
 				$(this).attr('value', $(this).val());
 			});
 
@@ -227,19 +312,17 @@
 			return markup;
 		},
 
-		disable: function() {
-			var disable = 'disable';
-			var disabled = 'disabled';
+		disable: function disable () {
 			var viewTypeObj = $.fn.repeater.viewTypes[this.viewType] || {};
 
-			this.$search.search(disable);
-			this.$filters.selectlist(disable);
-			this.$views.find('label, input').addClass(disabled).attr(disabled, disabled);
-			this.$pageSize.selectlist(disable);
-			this.$primaryPaging.find('.combobox').combobox(disable);
-			this.$secondaryPaging.attr(disabled, disabled);
-			this.$prevBtn.attr(disabled, disabled);
-			this.$nextBtn.attr(disabled, disabled);
+			this.$search.search('disable');
+			this.$filters.selectlist('disable');
+			this.$views.find('label, input').addClass('disabled').attr('disabled', 'disabled');
+			this.$pageSize.selectlist('disable');
+			this.$primaryPaging.find('.combobox').combobox('disable');
+			this.$secondaryPaging.attr('disabled', 'disabled');
+			this.$prevBtn.attr('disabled', 'disabled');
+			this.$nextBtn.attr('disabled', 'disabled');
 
 			if (viewTypeObj.enabled) {
 				viewTypeObj.enabled.call(this, {
@@ -252,34 +335,31 @@
 			this.$element.trigger('disabled.fu.repeater');
 		},
 
-		enable: function() {
-			var disabled = 'disabled';
-			var enable = 'enable';
-			var pageEnd = 'page-end';
+		enable: function enable () {
 			var viewTypeObj = $.fn.repeater.viewTypes[this.viewType] || {};
 
-			this.$search.search(enable);
-			this.$filters.selectlist(enable);
-			this.$views.find('label, input').removeClass(disabled).removeAttr(disabled);
+			this.$search.search('enable');
+			this.$filters.selectlist('enable');
+			this.$views.find('label, input').removeClass('disabled').removeAttr('disabled');
 			this.$pageSize.selectlist('enable');
-			this.$primaryPaging.find('.combobox').combobox(enable);
-			this.$secondaryPaging.removeAttr(disabled);
+			this.$primaryPaging.find('.combobox').combobox('enable');
+			this.$secondaryPaging.removeAttr('disabled');
 
-			if(!this.$prevBtn.hasClass(pageEnd)){
-				this.$prevBtn.removeAttr(disabled);
+			if (!this.$prevBtn.hasClass('page-end')) {
+				this.$prevBtn.removeAttr('disabled');
 			}
-			if(!this.$nextBtn.hasClass(pageEnd)){
-				this.$nextBtn.removeAttr(disabled);
+			if (!this.$nextBtn.hasClass('page-end')) {
+				this.$nextBtn.removeAttr('disabled');
 			}
 
 			// is 0 or 1 pages, if using $primaryPaging (combobox)
 			// if using selectlist allow user to use selectlist to select 0 or 1
-			if (this.$prevBtn.hasClass(pageEnd) && this.$nextBtn.hasClass(pageEnd)) {
+			if (this.$prevBtn.hasClass('page-end') && this.$nextBtn.hasClass('page-end')) {
 				this.$primaryPaging.combobox('disable');
 			}
 
-			//if there are no items
-			if (parseInt(this.$count.html()) !== 0) {
+			// if there are no items
+			if (parseInt(this.$count.html(), 10) !== 0) {
 				this.$pageSize.selectlist('enable');
 			} else {
 				this.$pageSize.selectlist('disable');
@@ -296,43 +376,26 @@
 			this.$element.trigger('enabled.fu.repeater');
 		},
 
-		getDataOptions: function (options) {
-			var dataSourceOptions = {};
-			var opts = {};
-			var val, viewDataOpts;
-
-			options = options || {};
-
-			opts.filter = (this.$filters.length > 0) ? this.$filters.selectlist('selectedItem') : {
-				text: 'All',
-				value: 'all'
-			};
-			opts.view = this.currentView;
-
-			if (!this.infiniteScrollingEnabled) {
-				opts.pageSize = (this.$pageSize.length > 0) ? parseInt(this.$pageSize.selectlist('selectedItem').value, 10) : 25;
-			}
-
+		getDataOptions: function getDataOptions (opts) {
+			var options = opts || {};
 			if (options.pageIncrement !== undefined) {
 				if (options.pageIncrement === null) {
 					this.currentPage = 0;
 				} else {
 					this.currentPage += options.pageIncrement;
 				}
-
 			}
 
-			opts.pageIndex = this.currentPage;
-
-			val = (this.$search.length > 0) ? this.$search.find('input').val() : '';
-			if (val !== '') {
-				opts.search = val;
-			}
-
+			var dataSourceOptions = {};
 			if (options.dataSourceOptions) {
 				dataSourceOptions = options.dataSourceOptions;
+
 				if (options.preserveDataSourceOptions) {
-					this.storedDataSourceOpts = (this.storedDataSourceOpts) ? $.extend(this.storedDataSourceOpts, dataSourceOptions) : dataSourceOptions;
+					if (this.storedDataSourceOpts) {
+						this.storedDataSourceOpts = $.extend(this.storedDataSourceOpts, dataSourceOptions);
+					} else {
+						this.storedDataSourceOpts = dataSourceOptions;
+					}
 				}
 			}
 
@@ -340,24 +403,46 @@
 				dataSourceOptions = $.extend(this.storedDataSourceOpts, dataSourceOptions);
 			}
 
-			viewDataOpts = $.fn.repeater.viewTypes[this.viewType] || {};
-			viewDataOpts = viewDataOpts.dataOptions;
-			if (viewDataOpts) {
-				viewDataOpts = viewDataOpts.call(this, opts);
-				opts = $.extend(viewDataOpts, dataSourceOptions);
-			} else {
-				opts = $.extend(opts, dataSourceOptions);
+			var returnOptions = {
+				view: this.currentView,
+				pageIndex: this.currentPage,
+				filter: {
+					text: 'All',
+					value: 'all'
+				}
+			};
+			if (this.$filters.length > 0) {
+				returnOptions.filter = this.$filters.selectlist('selectedItem');
 			}
 
-			return opts;
+			if (!this.infiniteScrollingEnabled) {
+				returnOptions.pageSize = 25;
+
+				if (this.$pageSize.length > 0) {
+					returnOptions.pageSize = parseInt(this.$pageSize.selectlist('selectedItem').value, 10);
+				}
+			}
+
+			var searchValue = this.$search && this.$search.find('input') && this.$search.find('input').val();
+			if (searchValue !== '') {
+				returnOptions.search = searchValue;
+			}
+
+			var viewType = $.fn.repeater.viewTypes[this.viewType] || {};
+			var addViewTypeData = viewType.dataOptions;
+			if (addViewTypeData) {
+				returnOptions = addViewTypeData.call(this, returnOptions);
+			}
+
+			returnOptions = $.extend(returnOptions, dataSourceOptions);
+
+			return returnOptions;
 		},
 
-		infiniteScrolling: function (enable, options) {
+		infiniteScrolling: function infiniteScrolling (enable, opts) {
 			var footer = this.$element.find('.repeater-footer');
 			var viewport = this.$element.find('.repeater-viewport');
-			var cont, data;
-
-			options = options || {};
+			var options = opts || {};
 
 			if (enable) {
 				this.infiniteScrollingEnabled = true;
@@ -370,8 +455,8 @@
 				});
 				footer.hide();
 			} else {
-				cont = this.infiniteScrollingCont;
-				data = cont.data();
+				var cont = this.infiniteScrollingCont;
+				var data = cont.data();
 				delete data.infinitescroll;
 				cont.off('scroll');
 				cont.removeClass('infinitescroll');
@@ -387,7 +472,7 @@
 			}
 		},
 
-		infiniteScrollPaging: function (data, options) {
+		infiniteScrollPaging: function infiniteScrollPaging (data) {
 			var end = (this.infiniteScrollingEnd !== true) ? this.infiniteScrollingEnd : undefined;
 			var page = data.page;
 			var pages = data.pages;
@@ -399,17 +484,16 @@
 			}
 		},
 
-		initInfiniteScrolling: function () {
+		initInfiniteScrolling: function initInfiniteScrolling () {
 			var cont = this.$canvas.find('[data-infinite="true"]:first');
-			var opts, self;
 
 			cont = (cont.length < 1) ? this.$canvas : cont;
 			if (cont.data('fu.infinitescroll')) {
 				cont.infinitescroll('enable');
 			} else {
-				self = this;
-				opts = $.extend({}, this.infiniteScrollingOptions);
-				opts.dataSource = function (helpers, callback) {
+				var self = this;
+				var opts = $.extend({}, this.infiniteScrollingOptions);
+				opts.dataSource = function dataSource (helpers, callback) {
 					self.infiniteScrollingCallback = callback;
 					self.render({
 						pageIncrement: 1
@@ -420,51 +504,31 @@
 			}
 		},
 
-		initViewTypes: function (callback) {
-			var self = this;
+		initViewTypes: function initViewTypes (callback) {
 			var viewTypes = [];
-			var i, viewTypesLength;
 
-			function init (index) {
-				function next () {
-					index++;
-					if (index < viewTypesLength) {
-						init(index);
-					} else {
-						callback();
-					}
-				}
-
-				if (viewTypes[index].initialize) {
-					viewTypes[index].initialize.call(self, {}, function () {
-						next();
-					});
-				} else {
-					next();
+			for (var key in $.fn.repeater.viewTypes) {
+				if ({}.hasOwnProperty.call($.fn.repeater.viewTypes, key)) {
+					viewTypes.push($.fn.repeater.viewTypes[key]);
 				}
 			}
 
-			for (i in $.fn.repeater.viewTypes) {
-				viewTypes.push($.fn.repeater.viewTypes[i]);
-			}
-			viewTypesLength = viewTypes.length;
-			if (viewTypesLength > 0) {
-				init(0);
+			if (viewTypes.length > 0) {
+				initViewType.call(this, 0, viewTypes, callback);
 			} else {
 				callback();
 			}
 		},
 
-		itemization: function (data) {
-			this.$count.html((data.count!==undefined) ? data.count : '?');
-			this.$end.html((data.end!==undefined) ? data.end : '?');
-			this.$start.html((data.start!==undefined) ? data.start : '?');
+		itemization: function itemization (data) {
+			this.$count.html((data.count !== undefined) ? data.count : '?');
+			this.$end.html((data.end !== undefined) ? data.end : '?');
+			this.$start.html((data.start !== undefined) ? data.start : '?');
 		},
 
-		next: function (e) {
-			var d = 'disabled';
-			this.$nextBtn.attr(d, d);
-			this.$prevBtn.attr(d, d);
+		next: function next () {
+			this.$nextBtn.attr('disabled', 'disabled');
+			this.$prevBtn.attr('disabled', 'disabled');
 			this.pageIncrement = 1;
 			this.$element.trigger('nextClicked.fu.repeater');
 			this.render({
@@ -472,73 +536,65 @@
 			});
 		},
 
-		pageInputChange: function (val, dataFromCombobox) {
+		pageInputChange: function pageInputChange (val, dataFromCombobox) {
 			// dataFromCombobox is a proxy for data from combobox's changed event,
 			// if no combobox is present data will be undefined
 			var pageInc;
 			if (val !== this.lastPageInput) {
 				this.lastPageInput = val;
-				val = parseInt(val, 10) - 1;
-				pageInc = val - this.currentPage;
-				this.$element.trigger('pageChanged.fu.repeater', [val, dataFromCombobox]);
+				var value = parseInt(val, 10) - 1;
+				pageInc = value - this.currentPage;
+				this.$element.trigger('pageChanged.fu.repeater', [value, dataFromCombobox]);
 				this.render({
 					pageIncrement: pageInc
 				});
 			}
 		},
 
-		pagination: function (data) {
-			var act = 'active';
-			var dsbl = 'disabled';
-			var page = data.page;
-			var pageEnd = 'page-end';
-			var pages = data.pages;
-			var dropMenu, i, l;
-			var currenPageOutput;
+		pagination: function pagination (data) {
+			this.$primaryPaging.removeClass('active');
+			this.$secondaryPaging.removeClass('active');
 
-			this.currentPage = (page !== undefined) ? page : NaN;
-
-			this.$primaryPaging.removeClass(act);
-			this.$secondaryPaging.removeClass(act);
-
+			var totalPages = data.pages;
+			this.currentPage = (data.page !== undefined) ? data.page : NaN;
 			// set paging to 0 if total pages is 0, otherwise use one-based index
-			currenPageOutput = pages === 0 ? 0 : this.currentPage + 1;
+			var currenPageOutput = totalPages === 0 ? 0 : this.currentPage + 1;
 
-			if (pages <= this.viewOptions.dropPagingCap) {
-				this.$primaryPaging.addClass(act);
-				dropMenu = this.$primaryPaging.find('.dropdown-menu');
+			if (totalPages <= this.viewOptions.dropPagingCap) {
+				this.$primaryPaging.addClass('active');
+				var dropMenu = this.$primaryPaging.find('.dropdown-menu');
 				dropMenu.empty();
-				for (i = 0; i < pages; i++) {
-					l = i + 1;
+				for (var i = 0; i < totalPages; i++) {
+					var l = i + 1;
 					dropMenu.append('<li data-value="' + l + '"><a href="#">' + l + '</a></li>');
 				}
 
 				this.$primaryPaging.find('input.form-control').val(currenPageOutput);
 			} else {
-				this.$secondaryPaging.addClass(act);
+				this.$secondaryPaging.addClass('active');
 				this.$secondaryPaging.val(currenPageOutput);
 			}
 
 			this.lastPageInput = this.currentPage + 1 + '';
 
-			this.$pages.html('' + pages);
+			this.$pages.html('' + totalPages);
 
 			// this is not the last page
-			if ((this.currentPage + 1) < pages) {
-				this.$nextBtn.removeAttr(dsbl);
-				this.$nextBtn.removeClass(pageEnd);
+			if ((this.currentPage + 1) < totalPages) {
+				this.$nextBtn.removeAttr('disabled');
+				this.$nextBtn.removeClass('page-end');
 			} else {
-				this.$nextBtn.attr(dsbl, dsbl);
-				this.$nextBtn.addClass(pageEnd);
+				this.$nextBtn.attr('disabled', 'disabled');
+				this.$nextBtn.addClass('page-end');
 			}
 
 			// this is not the first page
 			if ((this.currentPage - 1) >= 0) {
-				this.$prevBtn.removeAttr(dsbl);
-				this.$prevBtn.removeClass(pageEnd);
+				this.$prevBtn.removeAttr('disabled');
+				this.$prevBtn.removeClass('page-end');
 			} else {
-				this.$prevBtn.attr(dsbl, dsbl);
-				this.$prevBtn.addClass(pageEnd);
+				this.$prevBtn.attr('disabled', 'disabled');
+				this.$prevBtn.addClass('page-end');
 			}
 
 			// return focus to next/previous buttons after navigating
@@ -550,24 +606,18 @@
 					} else {
 						this.$nextBtn.focus();
 					}
-
+				} else if (this.$prevBtn.is(':disabled')) {
+					// if you can't focus, go the other way
+					this.$nextBtn.focus();
 				} else {
-					if (this.$prevBtn.is(':disabled')) {
-						// if you can't focus, go the other way
-						this.$nextBtn.focus();
-					} else {
-						this.$prevBtn.focus();
-					}
-
+					this.$prevBtn.focus();
 				}
-
 			}
 		},
 
-		previous: function () {
-			var d = 'disabled';
-			this.$nextBtn.attr(d, d);
-			this.$prevBtn.attr(d, d);
+		previous: function previous () {
+			this.$nextBtn.attr('disabled', 'disabled');
+			this.$prevBtn.attr('disabled', 'disabled');
 			this.pageIncrement = -1;
 			this.$element.trigger('previousClicked.fu.repeater');
 			this.render({
@@ -575,17 +625,16 @@
 			});
 		},
 
-		render: function (options) {
-			var self = this;
-			var viewChanged = false;
-			var viewTypeObj = $.fn.repeater.viewTypes[this.viewType] || {};
-			var dataOptions, prevView;
-
-			options = options || {};
+		// This functions more as a "pre-render" than a true "render"
+		render: function render (opts) {
 			this.disable();
 
+			var viewChanged = false;
+			var viewTypeObj = $.fn.repeater.viewTypes[this.viewType] || {};
+			var options = opts || {};
+
 			if (options.changeView && (this.currentView !== options.changeView)) {
-				prevView = this.currentView;
+				var prevView = this.currentView;
 				this.currentView = options.changeView;
 				this.viewType = this.currentView.split('.')[0];
 				this.setViewOptions(this.currentView);
@@ -597,7 +646,7 @@
 				this.$element.trigger('viewChanged.fu.repeater', this.currentView);
 
 				if (this.infiniteScrollingEnabled) {
-					self.infiniteScrolling(false);
+					this.infiniteScrolling(false);
 				}
 
 				viewTypeObj = $.fn.repeater.viewTypes[this.viewType] || {};
@@ -617,48 +666,34 @@
 				this.$loader.show().loader('play');
 			}
 
-			dataOptions = this.getDataOptions(options);
+			var dataOptions = this.getDataOptions(options);
 
-			this.viewOptions.dataSource(dataOptions, function (data) {
-				data = data || {};
-
-				if (self.infiniteScrollingEnabled) {
-					// pass empty object because data handled in infiniteScrollPaging method
-					self.infiniteScrollingCallback({});
-				} else {
-					self.itemization(data);
-					self.pagination(data);
-				}
-
-				self.runRenderer(viewTypeObj, data, function () {
-					if (self.infiniteScrollingEnabled) {
-						if (viewChanged || options.clearInfinite) {
-							self.initInfiniteScrolling();
+			var beforeRender = this.viewOptions.dataSource;
+			var self = this;
+			beforeRender(
+				dataOptions,
+				// this serves as a bridge function to pass all required data through to the actual function
+				// that does the rendering for us.
+				function callDoRender (dataSourceReturnedData) {
+					doRender.call(
+						self,
+						{
+							data: dataSourceReturnedData,
+							dataOptions: dataOptions,
+							options: options,
+							viewChanged: viewChanged,
+							viewTypeObj: viewTypeObj
 						}
-
-						self.infiniteScrollPaging(data, options);
-					}
-
-					self.$loader.hide().loader('pause');
-					self.enable();
-
-					self.$search.trigger('rendered.fu.repeater');
-					self.$element.trigger('rendered.fu.repeater', {
-						data: data,
-						options: dataOptions,
-						renderOptions: options
-					});
-
-					//for maintaining support of 'loaded' event
-					self.$element.trigger('loaded.fu.repeater', dataOptions);
-				});
-			});
+					);
+				}
+			);
 		},
 
-		resize: function () {
+		resize: function resize () {
 			var staticHeight = (this.viewOptions.staticHeight === -1) ? this.$element.attr('data-staticheight') : this.viewOptions.staticHeight;
 			var viewTypeObj = {};
-			var height, viewportMargins;
+			var height;
+			var viewportMargins;
 
 			if (this.viewType) {
 				viewTypeObj = $.fn.repeater.viewTypes[this.viewType] || {};
@@ -691,34 +726,22 @@
 			}
 		},
 
-		runRenderer: function (viewTypeObj, data, callback) {
-			var $container, i, l, response, repeat, subset;
-
-			function addItem ($parent, resp) {
-				var action;
-				if (resp) {
-					action = (resp.action) ? resp.action : 'append';
-					if (action !== 'none' && resp.item !== undefined) {
-						$parent = (resp.container !== undefined) ? $(resp.container) : $parent;
-						$parent[action](resp.item);
-					}
-				}
-			}
-
+		renderItems: function renderItems (viewTypeObj, data, callback) {
 			if (!viewTypeObj.render) {
 				if (viewTypeObj.before) {
-					response = viewTypeObj.before.call(this, {
+					var addBefore = viewTypeObj.before.call(this, {
 						container: this.$canvas,
 						data: data
 					});
-					addItem(this.$canvas, response);
+					addItem(this.$canvas, addBefore);
 				}
 
-				$container = this.$canvas.find('[data-container="true"]:last');
+				var $container = this.$canvas.find('[data-container="true"]:last');
 				$container = ($container.length > 0) ? $container : this.$canvas;
 
 				if (viewTypeObj.renderItem) {
-					repeat = viewTypeObj.repeat || 'data.items';
+					var subset;
+					var repeat = viewTypeObj.repeat || 'data.items';
 					repeat = repeat.split('.');
 					if (repeat[0] === 'data' || repeat[0] === 'this') {
 						subset = (repeat[0] === 'this') ? this : data;
@@ -726,40 +749,36 @@
 					} else {
 						repeat = [];
 						subset = [];
-						if (window.console && window.console.warn) {
-							window.console.warn('WARNING: Repeater plugin "repeat" value must start with either "data" or "this"');
-						}
+						logWarn('WARNING: Repeater plugin "repeat" value must start with either "data" or "this"');
 					}
 
-					for (i = 0, l = repeat.length; i < l; i++) {
-						if (subset[repeat[i]] !== undefined){
-							subset = subset[repeat[i]];
+					for (var repeatI = 0, repeatL = repeat.length; repeatI < repeatL; repeatI++) {
+						if (subset[repeat[repeatI]] !== undefined) {
+							subset = subset[repeat[repeatI]];
 						} else {
 							subset = [];
-							if (window.console && window.console.warn) {
-								window.console.warn('WARNING: Repeater unable to find property to iterate renderItem on.');
-							}
-							break;
+							logWarn('WARNING: Repeater unable to find property to iterate renderItem on.');
+							repeatI = repeat.length;
 						}
 					}
 
-					for (i = 0, l = subset.length; i < l; i++) {
-						response = viewTypeObj.renderItem.call(this, {
+					for (var subItemI = 0, subsetL = subset.length; subItemI < subsetL; subItemI++) {
+						var addSubItem = viewTypeObj.renderItem.call(this, {
 							container: $container,
 							data: data,
-							index: i,
+							index: subItemI,
 							subset: subset
 						});
-						addItem($container, response);
+						addItem($container, addSubItem);
 					}
 				}
 
 				if (viewTypeObj.after) {
-					response = viewTypeObj.after.call(this, {
+					var addAfter = viewTypeObj.after.call(this, {
 						container: this.$canvas,
 						data: data
 					});
-					addItem(this.$canvas, response);
+					addItem(this.$canvas, addAfter);
 				}
 
 				callback();
@@ -767,14 +786,11 @@
 				viewTypeObj.render.call(this, {
 					container: this.$canvas,
 					data: data
-				}, function(){
-					callback();
-				});
+				}, callback);
 			}
-
 		},
 
-		setViewOptions: function (curView) {
+		setViewOptions: function setViewOptions (curView) {
 			var opts = {};
 			var viewName = curView.split('.')[1];
 
@@ -787,7 +803,7 @@
 			this.viewOptions = $.extend({}, this.options, opts);
 		},
 
-		viewChanged: function (e) {
+		viewChanged: function viewChanged (e) {
 			var $selected = $(e.target);
 			var val = $selected.val();
 
@@ -803,7 +819,7 @@
 			}
 		},
 
-		syncViewButtonState: function () {
+		syncViewButtonState: function syncViewButtonState () {
 			var $itemToCheck = this.$views.find('input[value="' + this.currentView + '"]');
 
 			this.syncingViewButtonState = true;
@@ -818,13 +834,16 @@
 		}
 	};
 
+	// For backwards compatibility.
+	Repeater.prototype.runRenderer = Repeater.prototype.renderItems;
+
 	// REPEATER PLUGIN DEFINITION
 
-	$.fn.repeater = function (option) {
+	$.fn.repeater = function fnrepeater (option) {
 		var args = Array.prototype.slice.call(arguments, 1);
 		var methodReturn;
 
-		var $set = this.each(function () {
+		var $set = this.each(function eachThis () {
 			var $this = $(this);
 			var data = $this.data('fu.repeater');
 			var options = typeof option === 'object' && option;
@@ -842,13 +861,13 @@
 	};
 
 	$.fn.repeater.defaults = {
-		dataSource: function (options, callback) {
+		dataSource: function dataSource (options, callback) {
 			callback({ count: 0, end: 0, items: [], page: 0, pages: 1, start: 0 });
 		},
-		defaultView: -1,	//should be a string value. -1 means it will grab the active view from the view controls
+		defaultView: -1, // should be a string value. -1 means it will grab the active view from the view controls
 		dropPagingCap: 10,
-		staticHeight: -1,	//normally true or false. -1 means it will look for data-staticheight on the element
-		views: null,		//can be set to an object to configure multiple views of the same type,
+		staticHeight: -1, // normally true or false. -1 means it will look for data-staticheight on the element
+		views: null, // can be set to an object to configure multiple views of the same type,
 		searchOnKeyPress: false,
 		allowCancel: true
 	};
@@ -857,7 +876,7 @@
 
 	$.fn.repeater.Constructor = Repeater;
 
-	$.fn.repeater.noConflict = function () {
+	$.fn.repeater.noConflict = function noConflict () {
 		$.fn.repeater = old;
 		return this;
 	};
