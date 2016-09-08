@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- 4.4
+- 5.8
 sudo: false
 before_install:
 - time wget http://fuelux-edge.herokuapp.com/dev/node_modules.tar.gz
