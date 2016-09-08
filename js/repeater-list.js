@@ -650,6 +650,7 @@
 		if (width !== undefined) {
 			$col.outerWidth(width);
 		}
+
 		$row.append($col);
 
 		if (this.viewOptions.list_selectable === 'multi' && columns[columnIndex].property === '@_CHECKBOX_@') {
@@ -659,14 +660,7 @@
 			$col.html(checkBoxMarkup);
 		}
 
-		if (!(columns[columnIndex].property === '@_CHECKBOX_@' || columns[columnIndex].property === '@_ACTIONS_@') && this.viewOptions.list_columnRendered) {
-			this.viewOptions.list_columnRendered({
-				container: $row,
-				columnAttr: columns[columnIndex].property,
-				item: $col,
-				rowData: rows[rowIndex]
-			}, function noop () {});
-		}
+		return $col;
 	};
 
 	var renderHeader = function renderHeader ($tr, columns, index) {
@@ -846,10 +840,24 @@
 			$row.data('item_data', rows[index]);
 		}
 
+		var columns = [];
+		for (var i = 0, length = this.list_columns.length; i < length; i++) {
+			columns.push(renderColumn.call(this, $row, rows, index, this.list_columns, i));
+		}
+
 		$tbody.append($row);
 
-		for (var i = 0, length = this.list_columns.length; i < length; i++) {
-			renderColumn.call(this, $row, rows, index, this.list_columns, i);
+		if (this.viewOptions.list_columnRendered) {
+			for (var columnIndex = 0, colLength = columns.length; columnIndex < colLength; columnIndex++) {
+				if (!(this.list_columns[columnIndex].property === '@_CHECKBOX_@' || this.list_columns[columnIndex].property === '@_ACTIONS_@')) {
+					this.viewOptions.list_columnRendered({
+						container: $row,
+						columnAttr: this.list_columns[columnIndex].property,
+						item: columns[columnIndex],
+						rowData: rows[index]
+					}, function noop () {});
+				}
+			}
 		}
 
 		if (this.viewOptions.list_rowRendered) {
