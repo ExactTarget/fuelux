@@ -124,7 +124,7 @@ define(function repeaterListTest (require) {
 		$repeater.one('loaded.fu.repeater', function reapeaterLoaded () {
 			start();
 			var doneRender = (Date.now() - startRender) / 1000;
-			ok(doneRender < 1, 'Took less than 1 second to render. Rendered in ' + doneRender + ' seconds.');
+			ok(doneRender < 2, 'Took less than 2 seconds to render. Rendered in ' + doneRender + ' seconds.');
 		});
 
 		var columnData = require('./data/enormousColumnData');
