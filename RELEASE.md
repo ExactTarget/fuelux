@@ -1,23 +1,90 @@
 # Releasing Fuel UX
 
-It is highly recommended that you have a look at the Wiki page on [How to release a new version](https://github.com/ExactTarget/fuelux/wiki/How-to-release-a-new-version).
+## Prerequisites 
+
+- [ ] Update dependencies to latest version as appropriate
+- [ ] Test
+    - [ ] `grunt test`
+    - [ ] Generate test distribution package for use on the Fuel UX Site
+        - [ ] `grunt dist`
+        - [ ] Copy the created `dist/` directory to the fuelux-site project, replacing `node_modules/fuelux/dist/`
+    - [ ] Test on Fuel UX Site
+        - [ ] `gulp release`
+        - [ ] Check all known affected controls on [dev instance of Fuel UX site on Heroku](http://fuelux-dev.herokuapp.com)
+            * Scroll to the bottom of each page scanning for visual errors
+            * Make sure right-hand nav functions correctly
+            * Click on the "base" example of each control on the control pages and make sure it functions
+            * Pay special attention to any controls that were modified in the release, look at each example and interact with it to make sure there are no obvious issues
+- [ ] Read this entire document including [Release Notes Prerequisites](#prerequisites-1). You may need SauceLabs, FuelCDN, NPM, Twitter, Browserstack, Aloha SSO, and TravisCI credentials in order to release.
+
+## Release
+
+- [ ] 1. Update GitHub issue tracker for release. Use clear, obvious language for pull request titles. Modify if necessary.
+      - [ ] 1a. Create a milestone in GitHub for the next version.
+      - [ ] 1b. Assign any remaining open tickets to the milestone you just created (or, if appropriate, assign them to the backlog).
+      - [ ] 1c. Mark the current release milestone as closed.
+
+- [ ] 2. `grunt release`
+    This grunt task:
+      * Creates a new release branch from remote master.
+      * Builds dist.
+      * Updates the `package.json`, `bower.json`, and markdown files with the version. This will build and run all tests on the `dist` folder (including SauceLabs cross browser testing). **You will need `SAUCE_API_KEY.yml`**.
+      * Adds modified release files. 
+      * Commits with version number.
+      * Adds version tag.
+      * Pushes to origin (`git push origin 3.x`).
+      * Publishes tag to Github. The tag commit should exist in the major.x branch.
+      * Upload contents of `dist` folder to Fuel CDN server via SFTP (`mv dist x.x.x && scp -i ~/.ssh/fuelcdn -r x.x.x/ [user@domain]:/[id]/fuelux/ && mv x.x.x dist`).
+      * Pushes 3.x to master if nothing new has been merged in.
+      * Runs `npm publish` using the fuelux profile (**contact another maintainer for credentials**).
+      * (with prompt) Runs Ruby Gem described below for Release Notes.
+- [ ] 3. Create Release Notes for release and publish
+        ![Draft release, copy/paste output from Ruby Gem, Publish](http://i.imgur.com/WQHN3Y6.gif)
+- [ ] 4. Update getfuelux.com
+      - [ ] 4a. Checkout the `gh-pages` branch.
+      - [ ] 4b. Run `bower update`. 
+      - [ ] 4c. Commit
+      - [ ] 4d. Push to `upstream`.
+
+- [ ] 5. Update Fuel UX Site
+- [ ] 6. [Update MC Theme] (https://github.com/ExactTarget/fuelux-mctheme/wiki/How-to-release-a-new-version)
+- [ ] 7. Update Rucksack
+- [ ] 8. Update Fusion
+- [ ] 9. Announce
+      - [ ] 9a. Tweet via @FuelUX account
+      - [ ] 9b. Post to Chatter in the Fuel UX Group
+
+## Generate Release Notes
+
+Release notes are generated automagically using [this Ruby gem](https://skywinder.github.io/github-changelog-generator/). 
+
+### Prerequisites
+- [ ] Create a [GitHub token](#creating-a-github-token) for the changelog generator, be sure to make note of the token that is created, because you'll need it :smile: 
+- [ ] Copy `GITHUB_TOKEN.json.template` to `GITHUB_TOKEN.json` (`GITHUB_TOKEN.json` is git ignored)
+- [ ] Fill the `token` variable in GITHUB_TOKEN.json with the token you just created.
+- [ ] Install Ruby
+- [ ] [Install the gem](https://skywinder.github.io/github-changelog-generator/#installation) `[sudo] gem install github_changelog_generator`
+
+#### Creating a GitHub token
+
+GitHub only allows only 50 unauthenticated requests per hour. 
+Therefore, it's recommended to run this script with authentication by using a **token**.
+
+Here's how:
+
+- [Generate a token here](https://github.com/settings/tokens/new?description=GitHub%20Changelog%20Generator%20token) - you only need "repo" scope for private repositories
+
+### Creating Release Notes
+
+Creating [release notes](https://github.com/exacttarget/fuelux/tags) can either be done as part of the release (by saying yes to the prompt) or manually afterwards.
+
+#### During Release
+- [ ] Say "yes" when prompted.
+
+#### Manually
+- [ ] Run `grunt prompt:generatelogsmanually`
 
 
-## Build
-
-
-
-## QA
-
-1. Import release into Fuel UX site (drop release into /node_modules/)
-1. Run `gulp release` to push to dev
-1. Go through ever single page on http://fuelux-dev.herokuapp.com
-    * Scroll to the bottom of each page scanning for visual errors
-    * Make sure right-hand nav functions correctly
-    * Click on the "base" example of each control on the control pages and make sure it functions
-    * Pay special attention to any controls that were modified in the release, look at each example and interact with it to make sure there are no obvious issues
-
-## Deploy
 
 ## Integrate
 Each time a release is done, it must be integrated into the following properties:
