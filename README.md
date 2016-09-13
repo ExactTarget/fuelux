@@ -95,30 +95,8 @@ Fuel UX documentation is built with [Jekyll](http://jekyllrb.com) and publicly h
 [Documentation for v2.6](http://getfuelux.com/2.6/) has been made available for the time being while folks transition to Bootstrap 3. You can download 2.6 updates (bug fixes only) from the [fuelux2 branch](https://github.com/ExactTarget/fuelux/tree/fuelux2).
 
 ## Contributing
-### Before writing code
-* [confirm issue is new](https://github.com/ExactTarget/fuelux/issues), if not, get involved in previous report of issue.
-* [create a new issue](https://github.com/ExactTarget/fuelux/issues/new) to confirm where your contribution fits into
-our roadmap.
 
-### Writing code
-* Do not edit or commit files in the `dist` directory. *Project maintainers will commit files in the `dist` directory from time to time. Details on compiling CSS and JavasScript can be found [here](https://github.com/exacttarget/fuelux/blob/master/DETAILS.md#compiling-code).*
-* Source files are in respective `js`, `less`, and `fonts` directories.
-* Conform to [Salesforce Marketing Cloud style guide](https://github.com/ExactTarget/javascript).
-* Add and/or update unit tests for any new or changed functionality.
-* Test your code at [http://localhost:8000/](http://localhost:8000/). (start using `grunt servefast`)
-* Run unit tests with `grunt test` or in browser at [http://localhost:8000/test/](http://localhost:8000/test/) (you'll need to `grunt servefast` to keep server from quitting on failed unit tests to troubleshoot in browser).
-
-### Submitting Pull Requests
-All pull requests are validated via [Travis CI](https://travis-ci.org/). If the tests fail and you feel it is a Travis issue, you can [trigger a restart](https://github.com/exacttarget/fuelux/blob/master/DETAILS.md#travis-ci).
-
-While grunt can run the included unit tests via PhantomJS, this isn't a substitute for running tests across a variety of browsers and environments. Please be sure to test in as many of the browsers listed in `sauce_browsers.yml` as you can before contributing.
-
-* Run `grunt` to lint & test your code.
-* Write meaningful commit messages.
-* Submit a pull request from your github fork, mentioning the issue your changes fix.
-* Follow your pull request answering questions and making adjustments as appropriate until it is merged.
-
-Read more about [contributing to FuelUX](https://github.com/ExactTarget/fuelux/wiki/Contributing-to-Fuel-UX)
+Please read the [CONTRIBUTING.md](CONTRIBUTING.md) first.
 
 ## Community
 
