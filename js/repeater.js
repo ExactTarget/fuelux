@@ -669,14 +669,14 @@
 			var dataOptions = this.getDataOptions(options);
 
 			var beforeRender = this.viewOptions.dataSource;
-			var self = this;
+			var repeaterPrototypeContext = this;
 			beforeRender(
 				dataOptions,
 				// this serves as a bridge function to pass all required data through to the actual function
 				// that does the rendering for us.
 				function callDoRender (dataSourceReturnedData) {
 					doRender.call(
-						self,
+						repeaterPrototypeContext,
 						{
 							data: dataSourceReturnedData,
 							dataOptions: dataOptions,
@@ -726,6 +726,7 @@
 			}
 		},
 
+		// e.g. "Rows" or "Thumbnails"
 		renderItems: function renderItems (viewTypeObj, data, callback) {
 			if (!viewTypeObj.render) {
 				if (viewTypeObj.before) {
@@ -736,40 +737,44 @@
 					addItem(this.$canvas, addBefore);
 				}
 
-				var $container = this.$canvas.find('[data-container="true"]:last');
-				$container = ($container.length > 0) ? $container : this.$canvas;
+				var $dataContainer = this.$canvas.find('[data-container="true"]:last');
+				var $container = ($dataContainer.length > 0) ? $dataContainer : this.$canvas;
 
+				// It appears that the following code would theoretically allow you to pass a deeply
+				// nested value to "repeat on" to be added to the repeater.
+				// eg. `data.foo.bar.items`
 				if (viewTypeObj.renderItem) {
 					var subset;
-					var repeat = viewTypeObj.repeat || 'data.items';
-					repeat = repeat.split('.');
-					if (repeat[0] === 'data' || repeat[0] === 'this') {
-						subset = (repeat[0] === 'this') ? this : data;
-						repeat.shift();
-					} else {
-						repeat = [];
-						subset = [];
-						logWarn('WARNING: Repeater plugin "repeat" value must start with either "data" or "this"');
-					}
+					var objectAndPropsToRepeatOnString = viewTypeObj.repeat || 'data.items';
+					var objectAndPropsToRepeatOn = objectAndPropsToRepeatOnString.split('.');
+					var objectToRepeatOn = objectAndPropsToRepeatOn[0];
 
-					for (var repeatI = 0, repeatL = repeat.length; repeatI < repeatL; repeatI++) {
-						if (subset[repeat[repeatI]] !== undefined) {
-							subset = subset[repeat[repeatI]];
-						} else {
-							subset = [];
-							logWarn('WARNING: Repeater unable to find property to iterate renderItem on.');
-							repeatI = repeat.length;
+					if (objectToRepeatOn === 'data' || objectToRepeatOn === 'this') {
+						subset = (objectToRepeatOn === 'this') ? this : data;
+
+						// Extracts subset from object chain (get `items` out of `foo.bar.items`). I think....
+						var propsToRepeatOn = objectAndPropsToRepeatOn.slice(1);
+						for (var prop = 0; prop < propsToRepeatOn.length; prop++) {
+							if (subset[propsToRepeatOn[prop]] !== undefined) {
+								subset = subset[propsToRepeatOn[prop]];
+							} else {
+								subset = [];
+								logWarn('WARNING: Repeater unable to find property to iterate renderItem on.');
+								break;
+							}
 						}
-					}
 
-					for (var subItemI = 0, subsetL = subset.length; subItemI < subsetL; subItemI++) {
-						var addSubItem = viewTypeObj.renderItem.call(this, {
-							container: $container,
-							data: data,
-							index: subItemI,
-							subset: subset
-						});
-						addItem($container, addSubItem);
+						for (var subItemIndex = 0; subItemIndex < subset.length; subItemIndex++) {
+							var addSubItem = viewTypeObj.renderItem.call(this, {
+								container: $container,
+								data: data,
+								index: subItemIndex,
+								subset: subset
+							});
+							addItem($container, addSubItem);
+						}
+					} else {
+						logWarn('WARNING: Repeater plugin "repeat" value must start with either "data" or "this"');
 					}
 				}
 
