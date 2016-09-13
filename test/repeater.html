@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<!-- ================================== -->
+<!-- PLEASE KEEP FOR SANDBOXING EXAMPLE -->
+<!-- copy file and remove '.example'	-->
+<!-- dev.html is included in .gitignore -->
+<!-- cleanliness is next to godliness	-->
+<!-- ================================== -->
+
+<html lang="en" class="fuelux">
+<head>
+	<meta charset="utf-8">
+	<title>dev.html</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="../bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+
+	<!--<link href="../dist/css/fuelux.css" rel="stylesheet" type="text/css">-->
+
+	<!--CLIENT-SIDE LESS COMPILATION FOR WATCHER-LESS DEV-->
+	<link href="../less/fuelux.less" rel="stylesheet/less" type="text/css"/>
+
+	<style>
+		/* ================ */
+		/* your styles here */
+		/* ================ */
+	</style>
+
+</head>
+
+<body>
+<div class="repeater" id="myRepeater">
+	<div class="repeater-header">
+		<div class="repeater-header-left">
+			<span class="repeater-title">Awesome Repeater</span>
+			<div class="repeater-search">
+				<div class="search input-group">
+					<input type="search" class="form-control" placeholder="Search"/>
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button">
+							<span class="glyphicon glyphicon-search"></span>
+							<span class="sr-only">Search</span>
+						</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="repeater-header-right">
+			<div class="btn-group selectlist repeater-filters" data-resize="auto">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+					<span class="selected-label">&nbsp;</span>
+					<span class="caret"></span>
+					<span class="sr-only">Toggle Filters</span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li data-value="all" data-selected="true"><a href="#">All</a></li>
+					<li data-value="some"><a href="#">Some</a></li>
+					<li data-value="others"><a href="#">Others</a></li>
+				</ul>
+				<input class="hidden hidden-field" name="filterSelection" readonly="readonly" aria-hidden="true" type="text"/>
+			</div>
+			<div class="btn-group repeater-views" data-toggle="buttons">
+				<label class="btn btn-default active">
+					<input name="repeaterViews" type="radio" value="list"><span class="glyphicon glyphicon-list"></span>
+				</label>
+				<label class="btn btn-default">
+					<input name="repeaterViews" type="radio" value="thumbnail"><span class="glyphicon glyphicon-th"></span>
+				</label>
+			</div>
+		</div>
+	</div>
+	<div class="repeater-viewport">
+		<div class="repeater-canvas"></div>
+		<div class="loader repeater-loader"></div>
+	</div>
+	<div class="repeater-footer">
+		<div class="repeater-footer-left">
+			<div class="repeater-itemization">
+				<span><span class="repeater-start"></span> - <span class="repeater-end"></span> of <span class="repeater-count"></span> items</span>
+				<div class="btn-group selectlist" data-resize="auto">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+						<span class="selected-label">&nbsp;</span>
+						<span class="caret"></span>
+						<span class="sr-only">Toggle Dropdown</span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+						<li data-value="5"><a href="#">5</a></li>
+						<li data-value="10" data-selected="true"><a href="#">10</a></li>
+						<li data-value="20"><a href="#">20</a></li>
+						<li data-value="50"><a href="#">50</a></li>
+					</ul>
+					<input class="hidden hidden-field" name="itemsPerPage" readonly="readonly" aria-hidden="true" type="text"/>
+				</div>
+				<span>Per Page</span>
+			</div>
+		</div>
+		<div class="repeater-footer-right">
+			<div class="repeater-pagination">
+				<button type="button" class="btn btn-default btn-sm repeater-prev">
+					<span class="glyphicon glyphicon-chevron-left"></span>
+					<span class="sr-only">Previous Page</span>
+				</button>
+				<label id="myPageLabel1" class="page-label">Page</label>
+				<div class="repeater-primaryPaging active">
+					<div class="input-group input-append dropdown combobox">
+						<input type="text" class="form-control" aria-labelledby="myPageLabel1">
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+								<span class="caret"></span>
+								<span class="sr-only">Toggle Dropdown</span>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-right"></ul>
+						</div>
+					</div>
+				</div>
+				<input type="text" class="form-control repeater-secondaryPaging" aria-labelledby="myPageLabel1">
+				<span>of <span class="repeater-pages"></span></span>
+				<button type="button" class="btn btn-default btn-sm repeater-next">
+					<span class="glyphicon glyphicon-chevron-right"></span>
+					<span class="sr-only">Next Page</span>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js"></script>
+
+<script src="../bower_components/requirejs/require.js" type="text/javascript"></script>
+<script type="text/javascript">
+	(function () {
+		requirejs.config({
+			config: {
+				moment: {
+					noGlobal: true
+				}
+			},
+			paths: {
+				jquery: '../bower_components/jquery/dist/jquery',
+				underscore: '../bower_components/underscore/underscore',
+				bootstrap: '../bower_components/bootstrap/dist/js/bootstrap',
+				moment: '../bower_components/moment/min/moment-with-locales.min',
+				fuelux: '../js',
+				ecd: '../test/data/enormousColumnData',
+				eid: '../test/data/enormousItemData'
+
+			},
+			shim: {
+				'bootstrap': {
+					deps: ['jquery'],
+					exports: 'bootstrap'
+				}
+			}
+		});
+
+		require(['jquery', 'ecd', 'eid', 'fuelux/all'], function($, ecd, eid) {
+			/* fully loaded with fuelux goodness and all it's dependencies */
+
+			/* ================= */
+			/* your scripts here */
+			/* ================= */
+
+			// var data = require('data');
+
+			var makeDataSource = function makeDataSource (columns, items) {
+				return function dataSource (options, callback) {
+					// TODO: add 'itemDeselected.fu.repeater-list' event test
+					var itemData = items;
+
+					var resp = {
+						count: itemData.length,
+						items: [],
+						page: options.pageIndex
+					};
+
+					resp.pages = Math.ceil(resp.count / (options.pageSize || 50));
+
+					var i = options.pageIndex * (options.pageSize || 50);
+					var l = i + (options.pageSize || 50);
+					l = (l <= resp.count) ? l : resp.count;
+					resp.start = i + 1;
+					resp.end = l;
+
+					resp.columns = columns || [
+						{
+							label: 'Common Name',
+							property: 'commonName',
+							sortable: true
+						},
+						{
+							label: 'Latin Name',
+							property: 'latinName',
+							sortable: true
+						},
+						{
+							label: 'Appearance',
+							property: 'appearance',
+							sortable: true
+						},
+						{
+							label: 'Sound',
+							property: 'sound',
+							sortable: true
+						}
+					];
+
+					for (i; i < l; i++) {
+						resp.items.push(itemData[i]);
+					}
+
+					callback(resp);
+				};
+			};
+
+			var $repeater = $('#myRepeater');
+
+			var startRender = Date.now();
+
+			$repeater.one('loaded.fu.repeater', function reapeaterLoaded () {
+				var doneRender = (Date.now() - startRender) / 1000;
+				console.log(' ' + doneRender + ' + ');
+			});
+
+			$repeater.repeater({ dataSource: makeDataSource(ecd, eid) });
+		});
+	})();
+</script>
+
+</html>
+</html>
