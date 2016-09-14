@@ -13,6 +13,7 @@ require('../../js/search');
 require('../../js/selectlist');
 require('../../js/spinbox');
 require('../../js/tree');
+require('../../js/utilities');
 require('../../js/wizard');
 require('../../js/infinite-scroll');
 require('../../js/pillbox');
