@@ -304,12 +304,12 @@ module.exports = function (grunt) {
 					{
 						config: 'release.generatelogsmanuallystart',
 						type: 'input',
-						message: 'Which releases would you like to start diff for changelogs from? (eg. 3.11.4)',
+						message: 'Which releases would you like to start diff for changelogs from? (current: ' + getPackageVersion() + ')'
 					},
 					{
 						config: 'release.generatelogsmanuallyend',
 						type: 'input',
-						message: 'Which releases would you like to end diff for changelogs from? (eg. 3.11.5)',
+						message: 'Which releases would you like to end diff for changelogs from? (current: ' + getPackageVersion() + ')'
 					},
 					{
 						config: 'release.generatelogsmanually',

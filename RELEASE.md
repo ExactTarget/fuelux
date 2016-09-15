@@ -1,8 +1,22 @@
 # Releasing Fuel UX
 
+** Read this entire document including [Release Notes Prerequisites](#prerequisites-1). You may need SauceLabs, FuelCDN, NPM, Twitter, Browserstack, Aloha SSO, and TravisCI credentials in order to release. **
+
 ## Prerequisites 
 
-- [ ] Update dependencies to latest version as appropriate
+### github_changelog_generator
+Complete the prerequisites for the [generating release notes](#generate-release-notes).
+
+### Saucelabs
+You will need `SAUCE_API_KEY.yml`. Get it from someone on the team. You could try contacting sjames@salesforce.com, mbeard@salesforce.com, cmcculloh@salesforce.com as a last resort.
+
+### FuelCDN
+You will need `FUEL_CDN.yml` file, as well as ssh keys. Contact another maintainer for credentials/keys.
+
+### NPM
+You will need to authorize your machine to do npm publishing using `npm adduser`. Contact another maintainer for credentials.
+
+### QA
 - [ ] Test
     - [ ] `grunt test`
     - [ ] `grunt saucelabs` Best to find out if they pass or not now as opposed to in the middle of a release.
@@ -18,7 +32,6 @@
             * Make sure right-hand nav functions correctly
             * Click on the "base" example of each control on the control pages and make sure it functions
             * Pay special attention to any controls that were modified in the release, look at each example and interact with it to make sure there are no obvious issues
-- [ ] Read this entire document including [Release Notes Prerequisites](#prerequisites-1). You may need SauceLabs, FuelCDN, NPM, Twitter, Browserstack, Aloha SSO, and TravisCI credentials in order to release.
 
 ## Release
 
@@ -31,7 +44,7 @@
     This grunt task:
       * Creates a new release branch from remote master.
       * Builds dist.
-      * Updates the `package.json`, `bower.json`, and markdown files with the version. This will build and run all tests on the `dist` folder (including SauceLabs cross browser testing). **You will need `SAUCE_API_KEY.yml`**.
+      * Updates the `package.json`, `bower.json`, and markdown files with the version. This will build and run all tests on the `dist` folder (including SauceLabs cross browser testing). 
       * Adds modified release files. 
       * Commits with version number.
       * Adds version tag.
@@ -39,7 +52,7 @@
       * Publishes tag to Github. The tag commit should exist in the major.x branch.
       * Upload contents of `dist` folder to Fuel CDN server via SFTP (`mv dist x.x.x && scp -i ~/.ssh/fuelcdn -r x.x.x/ [user@domain]:/[id]/fuelux/ && mv x.x.x dist`).
       * Pushes 3.x to master if nothing new has been merged in.
-      * Runs `npm publish` using the fuelux profile (**contact another maintainer for credentials**).
+      * Runs `npm publish` using the fuelux profile 
       * (with prompt) Runs Ruby Gem described below for Release Notes.
 - [ ] 3. Create Release Notes for release and publish
         ![Draft release, copy/paste output from Ruby Gem, Publish](http://i.imgur.com/WQHN3Y6.gif)
@@ -86,6 +99,10 @@ Creating [release notes](https://github.com/exacttarget/fuelux/tags) can either 
 
 #### Manually
 - [ ] Run `grunt prompt:generatelogsmanually`
+
+Release notes will be placed in `CHANGELOG.md`. There is a bug with the changelog_generator (or a mis-configuration or something) that makes it mess up and include links for basically every issue ever. 
+- [ ] Delete all issues listed for all previous releases leaving just the issues for the current release. 
+- [ ] Copy and paste the remaining issues into a New Release on Github titled after the release number, prepended with a `v` (eg "v3.15.7")
 
 
 
