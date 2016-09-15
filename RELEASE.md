@@ -5,6 +5,9 @@
 - [ ] Update dependencies to latest version as appropriate
 - [ ] Test
     - [ ] `grunt test`
+    - [ ] `grunt saucelabs` Best to find out if they pass or not now as opposed to in the middle of a release.
+        * If some environments fail, you can comment out the passing environments temporarily in `sauce_browsers.yml` while you debug
+        * If some environments fail, start your server with `grunt servefast` and use Browserstack to investigate.
     - [ ] Generate test distribution package for use on the Fuel UX Site
         - [ ] `grunt dist`
         - [ ] Copy the created `dist/` directory to the fuelux-site project, replacing `node_modules/fuelux/dist/`

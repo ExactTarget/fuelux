@@ -20,10 +20,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('saucelabs', 'run jshint, and qunit on saucelabs',
 		['connect:testServer', 'jshint', 'saucelabs-qunit:defaultBrowsers']);
 
-	// can be run locally instead of through TravisCI, but requires the FuelUX Saucelabs API key file which is not public at this time.
-	grunt.registerTask('trickysauce', 'run tests, jshint, and qunit for "tricky browsers" (IE8-11)',
-		['connect:testServer', 'jshint', 'saucelabs-qunit:trickyBrowsers']);
-
 	// Travis CI task. This task no longer uses SauceLabs. Please run 'grunt saucelabs' manually.
 	grunt.registerTask('travisci', 'Tests to run when in Travis CI environment',
 		['test', 'dist', 'browserify:commonjs', 'qunit:dist']);

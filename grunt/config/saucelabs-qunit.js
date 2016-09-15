@@ -4,19 +4,6 @@ module.exports = function (grunt) {
 	}
 
 	return {
-		trickyBrowsers: {
-			options: {
-				username: '<%= sauceUser %>',
-				key: '<%= sauceKey %>',
-				tunnelTimeout: 45,
-				testInterval: 3000,
-				tags: ['<%= sauceUser %>' + '@' + process.env.TRAVIS_BRANCH || '<%= sauceUser %>' + '@local'],
-				browsers: grunt.file.readYAML('sauce_browsers_tricky.yml'),
-				build: process.env.TRAVIS_BUILD_NUMBER || getPackage().version,
-				testname: process.env.TRAVIS_JOB_ID || Math.floor((new Date()).getTime() / 1000 - 1230768000).toString(),
-				urls: ['http://localhost:<%= connect.testServer.options.port %>/test/?testdist=true&hidepassed']
-			}
-		},
 		defaultBrowsers: {
 			options: {
 				username: '<%= sauceUser %>',

@@ -1,6 +1,8 @@
 [
 	# Docs: https://saucelabs.com/docs/platforms/webdriver
 
+	# If you are having trouble with a particular test, you can comment the others out to test just it
+
 	{
 		browserName: "safari",
 		platform: "OS X 10.9"
@@ -32,12 +34,7 @@
 		platform: "Windows 7"
 	},
 
-	# Not Supported by MC
-	# {
-	# 	browserName: "internet explorer",
-	# 	version: "8",
-	# 	platform: "Windows 7"
-	# },
+	# Windows 7, IE 8 Not Supported by MC
 
 	{
 		browserName: "chrome",
@@ -70,9 +67,4 @@
 
 	# Android Chrome not currently supported by Sauce Labs
 
-	# { # Android Browser (super-unofficial)
-	#	 browserName: "android",
-	#	 version: "4.0",
-	#	 platform: "Linux"
-	# }
 ]
