@@ -1,5 +1,29 @@
-#[Fuel UX](http://getfuelux.com/)
-[![slack channel](https://fuelux-slack.herokuapp.com/badge.svg)](https://fuelux-slack.herokuapp.com/)
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [Sanity Checks](#sanity-checks)
+- [Documentation](#documentation)
+- [Contributing](#contributing)
+- [Obtaining Fuel UX](#obtaining-fuel-ux)
+	- [NPM](#npm)
+	- [Bower](#bower)
+	- [Volo](#volo)
+	- [Github](#github)
+- [Using](#using)
+	- [Use](#use)
+		- [The code you want is in `dist`](#the-code-you-want-is-in-dist)
+		- [What's included](#whats-included)
+	- [Dependencies](#dependencies)
+	- [AMD support](#amd-support)
+- [Bugs and Feature Requests](#bugs-and-feature-requests)
+- [Previous releases](#previous-releases)
+- [Community](#community)
+- [Philosophy](#philosophy)
+	- [Copyright and License](#copyright-and-license)
+
+<!-- /TOC -->
+
+# Sanity Checks
+[Fuel UX](http://getfuelux.com/)
 [![Bower version](https://badge.fury.io/bo/fuelux.svg)](http://badge.fury.io/bo/fuelux)
 [![npm version](https://badge.fury.io/js/fuelux.svg)](https://www.npmjs.com/package/fuelux)
 [![Build Status](https://api.travis-ci.org/ExactTarget/fuelux.svg?branch=master)](http://travis-ci.org/ExactTarget/fuelux)
@@ -9,27 +33,49 @@
 
 Fuel UX extends [Bootstrap 3](https://github.com/twbs/bootstrap) with additional lightweight JavaScript controls. It is actively maintained by [members of Salesforce Marketing Cloud,](https://github.com/orgs/ExactTarget/people) with the support and involvement of the community.
 
-To get started, check out <http://getfuelux.com>!
+More thorough documentation and guides available at <http://getfuelux.com>
 
-## Table of contents
+# Documentation
 
- * [Using](#using)
- * [Bugs and feature requests](#bugs-and-feature-requests)
- * [Documentation](#documentation)
- * [Contributing](#contributing)
- * [Developing](#developing)
- * [Community](#community)
- * [Copyright and license](#copyright-and-license)
+Fuel UX documentation is built with [Jekyll](http://jekyllrb.com) and publicly hosted on GitHub Pages at <http://getfuelux.com>. More details on seting up Jekyll and running docs locally can be found [in our CONTRIBUTING.md documentation](https://github.com/exacttarget/fuelux/blob/master/CONTRIBUTING.md#running-gh-pages-locally).
 
-## Using
+# Contributing
+
+Please read the [CONTRIBUTING.md](CONTRIBUTING.md) first.
+
+# Obtaining Fuel UX
+
+NPM is the recommended method for obtaining Fuel UX.
+```
+npm install fuelux
+```
+
+You can also use on of the following methods:
+- [Bower](https://github.com/bower/bower) `bower install fuelux` (update with `bower update fuelux`).
+- [Volo](https://github.com/volojs/volo) `volo add fuelux` (update with `volo add -f fuelux`).
+- Clone via git `git clone https://github.com/ExactTarget/fuelux/`
+  - Cloning the repository ensures you can apply future updates to Fuel UX easily, but requires to you manage its [dependencies](#dependencies) on your own.
+- Download a [.zip archive](http://www.fuelcdn.com/fuelux/3.15.8/fuelux.zip).
+
+# Using Fuel UX
 
 Fuel UX can be used with an existing page via CDN or installed in a project.
 
 Read the [Getting started page](http://getfuelux.com/getting-started.html) for more detailed information on the framework contents, templates, examples, and more.
 
-### Use
+## Required fuelux class
 
-Add `fuelux` class to the portion of the page using Fuel UX as seen [here](https://github.com/exacttarget/fuelux/blob/master/DETAILS.md#using-fuel-ux).
+Add `fuelux` class to the portion of the page using Fuel UX, usually the body.
+```
+<body class="fuelux">
+```
+
+## Required Dependencies
+Fuel UX is dependent upon [Bootstrap 3](https://github.com/twbs/bootstrap) and [jQuery](https://github.com/jquery/jquery). If you installed by cloning the repo or by downloading a .zip archive, you'll also want to grab these dependencies, as it won't work without them.
+- [jQuery](https://github.com/jquery/jquery)
+- [Bootstrap 3](https://github.com/twbs/bootstrap)
+
+For other methods of managing dependencies consider [AMD support via require](https://github.com/exacttarget/fuelux/blob/master/DETAILS.md#umd/amd-support).
 
 Ensure all the dependencies are included on the page (eg, such as using the CDN as shown below).
 ```
@@ -42,21 +88,9 @@ Ensure all the dependencies are included on the page (eg, such as using the CDN 
 
 ```
 
-#### The code you want is in `dist`
-A few ways available to install.
 
-- Request files from [the Fuel UX CDN](http://www.fuelcdn.com/fuelux/3.15.6/)
-- Install with [NPM](https://www.npmjs.com/package/fuelux): `npm install fuelux`.
-- [Download the latest release](https://github.com/exacttarget/fuelux/archive/3.15.5.zip).
-- Clone the repo: `git clone https://github.com/exacttarget/fuelux.git`.
-- Install with [Bower](http://bower.io): `bower install fuelux`.
-- Install with [Volo](https://github.com/volojs/volo): `volo add fuelux`.
-
-More details for the above can be found [here](https://github.com/exacttarget/fuelux/blob/master/DETAILS.md#downloading-code).
-
-#### What's included
-
-We provide compiled CSS and JS (like `fuelux.*`), as well as compiled and minified CSS and JS (like `fuelux.min.*`) in the `dist` folder. Supporting icons are provided as fonts.
+## What's included
+The code you want is in `dist/`. We provide compiled CSS and JS (like `fuelux.*`), as well as compiled and minified CSS and JS (like `fuelux.min.*`) in the `dist` folder. Icons are provided as fonts.
 ```
 fuelux/
 ├── css/
@@ -73,50 +107,51 @@ fuelux/
 ```
 
 
-### Dependencies
-Fuel UX is dependent upon [Bootstrap 3](https://github.com/twbs/bootstrap) and [jQuery](https://github.com/jquery/jquery). If you installed by cloning the repo or by downloading a .zip archive, you'll also want to grab these things, as it won't work without them.
-- [jQuery](https://github.com/jquery/jquery)
-- [Bootstrap 3](https://github.com/twbs/bootstrap)
+## AMD support
 
-For other methods of managing dependencies consider [AMD support via require](https://github.com/exacttarget/fuelux/blob/master/DETAILS.md#umd/amd-support).
+We recommend only loading the controls you need (eg `fuelux/checkbox`).
 
-## Bugs and Feature Requests
+If using AMD (such as [RequireJS](http://requirejs.org)), reference the FuelUX directory in your paths configuration, wherever it is located:
+```javascript
+require.config({
+    paths: {
+        'fuelux': 'http://www.fuelcdn.com/fuelux/3.15.6/'
+        //...
+    }
+});
+```
+Then list any individual fuel ux controls needed as dependencies within your application modules:
+```javascript
+define(function(require) {
+    var spinbox = require('fuelux/spinbox');
+    //...
+});
+```
+In instances where you require every module from Fuel UX, you can use `fuelux/all` instead of listing each module individually.
+
+Fuel UX also supports placing components in their own `<script>` tags. Be sure to [check component dependencies in the controls documentation](http://getfuelux.com/javascript.html) and put modules in the correct order if you load them in this method. Errors will appear in the console if you have not loaded dependencies correctly ((Repeater)[http://getfuelux.com/javascript.html#repeater-dependencies] and [Scheduler](http://getfuelux.com/javascript.html#scheduler-dependencies) are the only components with dependencies currently).
+
+
+# Bugs and Feature Requests
 
 Have a bug or a feature request? Please first review the [open issues](https://github.com/ExactTarget/fuelux/issues), then search for existing and closed issues. If your problem or idea is not addressed yet, [please open a new issue](https://github.com/ExactTarget/fuelux/issues/new).
 
 For additional assistance connect with the [community](#community).
 
-## Documentation
 
-Fuel UX documentation is built with [Jekyll](http://jekyllrb.com) and publicly hosted on GitHub Pages at <http://getfuelux.com>. More details on seting up Jekyll and running docs locally can be found [here](https://github.com/exacttarget/fuelux/blob/master/DETAILS.md#running-docs-locally).
-
-### Previous releases
+# Previous releases
 
 [Documentation for v2.6](http://getfuelux.com/2.6/) has been made available for the time being while folks transition to Bootstrap 3. You can download 2.6 updates (bug fixes only) from the [fuelux2 branch](https://github.com/ExactTarget/fuelux/tree/fuelux2).
 
-## Contributing
-
-Please read the [CONTRIBUTING.md](CONTRIBUTING.md) first.
-
-## Community
+# Community
 
 - Implementation help may be found at Stack Overflow (tagged [`fuelux`](http://stackoverflow.com/questions/tagged/fuelux)).
 - Follow [@FuelUX on Twitter](https://twitter.com/fuelux).
 
-### Philosophy
+# Philosophy
 Our aim is to provide a suite of related but independent projects that help web developers integrate, manage, and customize quality libraries and utilities to more efficiently develop, maintain, test, and distribute their projects.  Any improvements or fixes we make to the open source projects, we use will be contributed upstream if they are useful to the rest of the community.
 
-|Project Maintainers (a-z) | |
-|:----|----:|
-|Stephen James | [![tweetllama on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/tweetllama) [![interactivellama on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/interactivellama)|
-|Christopher McCulloh | [![@cmcculloh on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/cmcculloh) [![cmcculloh on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/cmcculloh) [![cormacmccarthy on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/cormacmccarthy)|
-|Kevin Parkerson  | [![kevinparkerson on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/kevinparkerson) [![kevinparkerson on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/kevinparkerson)|
-|Stephen Williams | [![swilliamsui on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/swilliamsui) [![swilliamset on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/swilliamset)|
-|Dave Woodward | [![futuremint on Twitter](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertobird-sm.png)](http://twitter.com/futuremint) [![futuremint on Github](https://raw.githubusercontent.com/ExactTarget/fuelux/gh-pages/invertocat-sm.png)](http://github.com/futuremint)|
-
-Special thanks to [major contributors](https://github.com/exacttarget/fuelux/blob/master/DETAILS.md#contributors) and [active contributors](https://github.com/ExactTarget/fuelux/graphs/contributors).
-
-And thank you to all those that have submitted issues and contributed to this library.
+Thank you to all those that have submitted issues and contributed to this library.
 
 ## Copyright and License
 
