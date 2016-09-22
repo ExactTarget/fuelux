@@ -3,11 +3,16 @@ module.exports = function (grunt) {
 		return grunt.file.readJSON('./package.json');
 	}
 
+	// https://github.com/axemclion/grunt-saucelabs/issues/215
+	var getSaucekey = function getSaucekey () {
+		return grunt.file.readYAML('SAUCE_API_KEY.yml').key;
+	};
+
 	return {
 		defaultBrowsers: {
 			options: {
 				username: '<%= sauceUser %>',
-				key: '<%= sauceKey %>',
+				key: getSaucekey,
 				tunnelTimeout: 45,
 				testInterval: 3000,
 				tags: [getPackage().version, '<%= sauceUser %>' + '@' + process.env.TRAVIS_BRANCH || '<%= sauceUser %>@local'],
@@ -23,13 +28,12 @@ module.exports = function (grunt) {
 		all: {
 			options: {
 				username: '<%= sauceUser %>',
-				key: '<%= sauceKey %>',
+				key: getSaucekey,
 				browsers: grunt.file.readYAML('sauce_browsers.yml'),
 				build: process.env.TRAVIS_BUILD_NUMBER || '<%= pkg.version %>',
 				testname: 'grunt-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
 				urls: '<%= allTestUrls %>'
 			}
 		}
-	}
-
+	};
 };
