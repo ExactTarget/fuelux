@@ -8,7 +8,7 @@
     "url": "https://github.com/ExactTarget/fuelux/issues"
   },
   "dependencies": {
-    "bootstrap": "3.3.6",
+    "bootstrap": "3.3.7",
     "jquery": "2.2.2",
     "moment": "2.15.1"
   },
