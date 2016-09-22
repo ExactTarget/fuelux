@@ -223,7 +223,11 @@
 		this.$loader.hide().loader('pause');
 		this.enable();
 
-		this.$search.trigger('rendered.fu.repeater');
+		this.$search.trigger('rendered.fu.repeater', {
+			data: data,
+			options: state.dataOptions,
+			renderOptions: state.options
+		});
 		this.$element.trigger('rendered.fu.repeater', {
 			data: data,
 			options: state.dataOptions,
@@ -786,7 +790,7 @@
 					addItem(this.$canvas, addAfter);
 				}
 
-				callback();
+				callback(data);
 			} else {
 				viewTypeObj.render.call(this, {
 					container: this.$canvas,

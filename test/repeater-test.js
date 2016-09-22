@@ -375,6 +375,51 @@ define(function repeaterTests (require) {
 		$repeater.repeater();
 	});
 
+	asyncTest('rendered.fu.repeater callback should receive correct data when called by renderItems function', function dataSourceCallbackTest () {
+		var $repeater = $(this.$markup);
+		var count = 0;
+		$repeater.on('rendered.fu.repeater', function(e, state) {
+			count++;
+			if (count === 2) {
+				start();
+			}
+
+			ok(state.data, 'data object exists');
+			equal(state.data.myVar, 'passalong', 'data returned from datasource was passed along');
+		});
+		$repeater.repeater({
+			views: {
+				'test1.view1': {
+					dataSource: function dataSource (options, callback) {
+						callback({myVar: 'passalong'});
+					}
+				}
+			}
+		});
+	});
+
+	asyncTest('custom view\'s render function should receive correct data when called by renderItems function', function dataSourceCallbackTest () {
+		var $repeater = $(this.$markup);
+
+		$.fn.repeater.viewTypes.test1 = {
+			render: function(state, callback) {
+				start();
+				ok(state.data, 'data was passed to custom viewtype callback');
+				equal(state.data.myVar, 'passalong', 'data returned from datasource was passed along to custom viewtype callback');
+				callback(state.data);
+			}
+		};
+		$repeater.repeater({
+			views: {
+				'test1.view1': {
+					dataSource: function dataSource (options, callback) {
+						callback({myVar: 'passalong'});
+					}
+				}
+			}
+		});
+	});
+
 	asyncTest('should destroy control', function destroy () {
 		var $repeater = $(this.$markup);
 
