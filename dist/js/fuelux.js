@@ -1,5 +1,6 @@
 /*!
- * Fuel UX v3.15.7 
+ * Fuel UX EDGE - Built 2016/09/22, 1:48:06 PM 
+ * Previous release: v3.15.7 
  * Copyright 2012-2016 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -5406,7 +5407,11 @@
 			this.$loader.hide().loader( 'pause' );
 			this.enable();
 
-			this.$search.trigger( 'rendered.fu.repeater' );
+			this.$search.trigger( 'rendered.fu.repeater', {
+				data: data,
+				options: state.dataOptions,
+				renderOptions: state.options
+			} );
 			this.$element.trigger( 'rendered.fu.repeater', {
 				data: data,
 				options: state.dataOptions,
@@ -5968,7 +5973,7 @@
 						addItem( this.$canvas, addAfter );
 					}
 
-					callback();
+					callback( data );
 				} else {
 					viewTypeObj.render.call( this, {
 						container: this.$canvas,
