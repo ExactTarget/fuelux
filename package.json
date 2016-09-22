@@ -15,11 +15,11 @@
   "description": "Base Fuel UX styles and controls",
   "devDependencies": {
     "bower": "1.7.9",
-    "connect": "3.4.1",
+    "connect": "3.5.0",
     "eslint": "^3.3.1",
     "eslint-config-airbnb-es5": "^1.0.9",
     "eslint-plugin-requirejs": "^2.0.1",
-    "grunt": "^0.4.5",
+    "grunt": "^1.0.1",
     "grunt-banner": "0.6.0",
     "grunt-blanket-qunit": "0.2.0",
     "grunt-browserify": "5.0.0",
