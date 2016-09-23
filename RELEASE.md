@@ -21,6 +21,7 @@ You will need to authorize your machine to do npm publishing using `npm adduser`
   - [ ] `npm install`
   - [ ] `grunt test`
   - [ ] `grunt saucelabs` Best to find out if they pass or not now as opposed to in the middle of a release.
+    * **WILL NOT WORK ON VPN**
     * If some environments fail, you can comment out the passing environments temporarily in `sauce_browsers.yml` while you debug
     * If some environments fail, start your server with `grunt servefast` and use Browserstack to investigate.
   - [ ] Generate test distribution package for use on the Fuel UX Site
@@ -41,7 +42,9 @@ You will need to authorize your machine to do npm publishing using `npm adduser`
       - [ ] 1b. Assign any remaining open tickets to the milestone you just created (or, if appropriate, assign them to the backlog).
       - [ ] 1c. Mark the current release milestone as closed.
 
-- [ ] 2. `grunt release`
+- [ ] 2. Log off of VPN (or saucelabs will probably fail)
+
+- [ ] 3. `grunt release`
     This grunt task:
       * Creates a new release branch from remote master.
       * Builds dist.
@@ -55,21 +58,21 @@ You will need to authorize your machine to do npm publishing using `npm adduser`
       * Pushes 3.x to master if nothing new has been merged in.
       * Runs `npm publish` using the fuelux profile 
       * (with prompt) Runs Ruby Gem described below for Release Notes.
-- [ ] 3. Create Release Notes for release and publish
+- [ ] 4. Create Release Notes for release and publish
         ![Draft release, copy/paste output from Ruby Gem, Publish](http://i.imgur.com/WQHN3Y6.gif)
-- [ ] 4. Update getfuelux.com
+- [ ] 5. Update getfuelux.com
       - [ ] 4a. Checkout the `gh-pages` branch.
       - [ ] 4b. Run `bower update`. 
       - [ ] 4c. Commit
       - [ ] 4d. Push to `upstream`.
 
-- [ ] 5. Update Fuel UX Site
-- [ ] 6. [Update MC Theme] (https://github.com/ExactTarget/fuelux-mctheme/wiki/How-to-release-a-new-version)
-- [ ] 7. Update Rucksack
-- [ ] 8. Update Fusion
-- [ ] 9. Announce
-      - [ ] 9a. Tweet via @FuelUX account
-      - [ ] 9b. Post to Chatter in the Fuel UX Group
+- [ ] 6. Update Fuel UX Site
+- [ ] 7. [Update MC Theme] (https://github.com/ExactTarget/fuelux-mctheme/wiki/How-to-release-a-new-version)
+- [ ] 8. Update Rucksack
+- [ ] 9. Update Fusion
+- [ ] 10. Announce
+      - [ ] 10a. Tweet via @FuelUX account
+      - [ ] 10b. Post to Chatter in the Fuel UX Group
 
 ## Generate Release Notes
 

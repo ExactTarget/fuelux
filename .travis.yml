@@ -2,12 +2,8 @@ language: node_js
 node_js:
 - 5.8
 sudo: false
-before_install:
-- time wget http://fuelux-edge.herokuapp.com/dev/node_modules.tar.gz
-- time tar -zxf node_modules.tar.gz
-- chmod +x ./node_modules
 install:
-- time npm update
+- time npm install
 - time ./node_modules/bower/bin/bower update
 env:
   global:

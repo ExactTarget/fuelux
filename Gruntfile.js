@@ -5,9 +5,9 @@ module.exports = function (grunt) {
 
 	/*
 	 *	Welcome to our GruntFile.js!
-	 *	Configuration tasks (initConfig) are external JS modules that can be found in 
-	 *	`./grunt/config`. Additional custom tasks can be found in `./grunt/task`.	
-	 *	The "shared variables" belowcannot use grunt.config(), 
+	 *	Configuration tasks (initConfig) are external JS modules that can be found in
+	 *	`./grunt/config`. Additional custom tasks can be found in `./grunt/task`.
+	 *	The "shared variables" belowcannot use grunt.config(),
 	 *	since it has not been initialized yet, until grunt.initConfig() is executed.
 	 */
 
@@ -37,7 +37,7 @@ module.exports = function (grunt) {
 			scope: 'devDependencies'
 		},
 		data: {
-			// Variables shared across configuration tasks, use templates, <%= %>, to access 
+			// Variables shared across configuration tasks, use templates, <%= %>, to access
 			// within configuration tasks
 			bannerRelease: '/*!\n' +
 			' * Fuel UX v<%= pkg.version %> \n' +
@@ -54,11 +54,8 @@ module.exports = function (grunt) {
 			bootstrapCheck: 'if (typeof jQuery.fn.dropdown === \'undefined\' || typeof jQuery.fn.collapse === \'undefined\') ' +
 			'{ throw new Error(\'Fuel UX\\\'s JavaScript requires Bootstrap\') }\n\n',
 			pkg: getPackage(),
-			// Try ENV variables (export SAUCE_ACCESS_KEY=XXXX), if key doesn't exist, try key file
-			sauceLoginFile: grunt.file.exists('SAUCE_API_KEY.yml') ? grunt.file.readYAML('SAUCE_API_KEY.yml') : undefined,
 			cdnLoginFile: grunt.file.exists('FUEL_CDN.yml') ? grunt.file.readYAML('FUEL_CDN.yml') : undefined,
 			sauceUser: process.env.SAUCE_USERNAME || 'fuelux',
-			sauceKey: process.env.SAUCE_ACCESS_KEY ? process.env.SAUCE_ACCESS_KEY : '<%= sauceLoginFile.key %>',
 			// TEST URLS
 			allTestUrls: ['2.1.0', '1.11.0', '1.9.1', 'browserGlobals', 'noMoment', 'codeCoverage' ].map(function (type) {
 				if (type === 'browserGlobals') {
@@ -84,5 +81,5 @@ module.exports = function (grunt) {
 
 	// load custom build, release, serve, and test tasks from the folder specified
 	grunt.loadTasks('./grunt/tasks');
-	
+
 };

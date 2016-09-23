@@ -3,9 +3,12 @@ module.exports = function (grunt) {
 		return grunt.file.readJSON('./package.json');
 	}
 
+	// Try ENV variables (export SAUCE_ACCESS_KEY=XXXX), if key doesn't exist, try key file
+	var sauceKey = process.env.SAUCE_ACCESS_KEY ? process.env.SAUCE_ACCESS_KEY : grunt.file.exists('SAUCE_API_KEY.yml') ? grunt.file.readYAML('SAUCE_API_KEY.yml').key : undefined;
+
 	// https://github.com/axemclion/grunt-saucelabs/issues/215
 	var getSaucekey = function getSaucekey () {
-		return grunt.file.readYAML('SAUCE_API_KEY.yml').key;
+		return sauceKey;
 	};
 
 	return {
