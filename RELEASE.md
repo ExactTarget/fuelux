@@ -106,7 +106,7 @@ Creating [release notes](https://github.com/exacttarget/fuelux/tags) can either 
 
 Release notes will be placed in `CHANGELOG.md`. There is a bug with the changelog_generator (or a mis-configuration or something) that makes it mess up and include links for basically every issue ever. 
 - [ ] Delete all issues listed for all previous releases leaving just the issues for the current release. 
-- [ ] Copy and paste the remaining issues into a New Release on Github titled after the release number, prepended with a `v` (eg "v3.15.7")
+- [ ] Copy and paste the remaining issues into a New Release on Github titled after the release number, prepended with a `v` (eg "v3.15.8")
 
 
 
