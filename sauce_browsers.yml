@@ -4,16 +4,12 @@
 	# If you are having trouble with a particular test, you can comment the others out to test just it
 
 	{
-		browserName: "safari",
-		platform: "OS X 10.9"
-	},
-	{
 		browserName: "chrome",
-		platform: "OS X 10.9"
+		platform: "OS X 10.11"
 	},
 	{
 		browserName: "firefox",
-		platform: "OS X 10.9"
+		platform: "OS X 10.11"
 	},
 
 	# Mac Opera not currently supported by Sauce Labs
@@ -49,7 +45,7 @@
 
 	{
 		browserName: "iphone",
-		platform: "OS X 10.9",
+		platform: "OS X 10.11",
 		version: "7.1"
 	},
 
