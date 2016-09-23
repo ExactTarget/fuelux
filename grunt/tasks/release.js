@@ -15,7 +15,7 @@ module.exports = function (grunt) {
 		// default variables for release task
 		var releaseDefaults = {
 			release: {
-				files: ['dist', 'README.md', 'DETAILS.md', 'bower.json', 'package.json'],
+				files: ['dist', 'README.md', 'CONTRIBUTING.md', 'bower.json', 'package.json'],
 				localBranch: 'release',
 				remoteBaseBranch: 'master',
 				remoteDestinationBranch: '3.x',
