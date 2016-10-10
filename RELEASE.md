@@ -114,8 +114,6 @@ Release notes will be placed in `CHANGELOG.md`. There is a bug with the changelo
 Each time a release is done, it must be integrated into the following properties:
 
 * [Fuel UX](https://github.com/ExactTarget/fuelux)
-* [MC Theme](https://github.com/ExactTarget/fuelux-mctheme)
-* [Rucksack](https://github.com/ExactTarget/rucksack)
 * [Fuel UX Fusion](https://github.exacttarget.com/uxarchitecture/fusion-fuel)
 * [Components](https://github.exacttarget.com/uxarchitecture/fuelux-components)
 * [Site](https://github.exacttarget.com/uxarchitecture/fuelux-site)

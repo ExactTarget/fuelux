@@ -32,7 +32,7 @@
 	// WIZARD CONSTRUCTOR AND PROTOTYPE
 
 	var Wizard = function (element, options) {
-		var kids;
+		var kids, steps;
 
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.wizard.defaults, options);
@@ -42,13 +42,16 @@
 		this.$prevBtn = this.$element.find('button.btn-prev');
 		this.$nextBtn = this.$element.find('button.btn-next');
 
+		steps = this.$element.children('.steps-container');
 		// maintains backwards compatibility with < 3.8, will be removed in the future
-		if (this.$element.children('.steps-container').length === 0) {
+		if (steps.length === 0) {
+			steps = this.$element;
 			this.$element.addClass('no-steps-container');
 			if (window && window.console && window.console.warn) {
 				window.console.warn('please update your wizard markup to include ".steps-container" as seen in http://getfuelux.com/javascript.html#wizard-usage-markup');
 			}
 		}
+		steps = steps.find('.steps');
 
 		kids = this.$nextBtn.children().detach();
 		this.nextText = $.trim(this.$nextBtn.text());
@@ -57,7 +60,7 @@
 		// handle events
 		this.$prevBtn.on('click.fu.wizard', $.proxy(this.previous, this));
 		this.$nextBtn.on('click.fu.wizard', $.proxy(this.next, this));
-		this.$element.on('click.fu.wizard', 'li.complete', $.proxy(this.stepclicked, this));
+		steps.on('click.fu.wizard', 'li.complete', $.proxy(this.stepclicked, this));
 
 		this.selectedItem(this.options.selectedItem);
 
