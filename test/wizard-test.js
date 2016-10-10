@@ -10,7 +10,7 @@ define(function (require) {
 	require('fuelux/wizard');
 
 	function testWizardStepStates($wizard, activeStep) {
-		var $steps = $wizard.find('li');
+		var $steps = $wizard.find('.steps-container .steps li');
 
 		for (var i = 0; i < $steps.length; i++) {
 			if (i === (activeStep - 1)) {
@@ -129,6 +129,28 @@ define(function (require) {
 
 		equal(eventFired, true, 'stepclick event fired');
 		equal(index, 2, 'step not changed');
+	});
+
+	test("should not suppress stepclick event for content", function () {
+		var $wizard = $(html).find('#MyWizard').wizard();
+		var eventFired = false;
+
+		$wizard.on('stepclicked.fu.wizard', function (evt, data) {
+			eventFired = true;
+			return evt.preventDefault();// prevent action
+		});
+
+		// move to second step
+		$wizard.wizard('next');
+
+		// click content element
+		$wizard.find('.step-content li.complete:first').click();
+
+		var index = $wizard.wizard('selectedItem').step;
+
+		equal(eventFired, false, 'stepclick event not fired');
+		equal(index, 2, 'step not changed');
+
 	});
 
 
