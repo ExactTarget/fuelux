@@ -32,8 +32,6 @@
 	// WIZARD CONSTRUCTOR AND PROTOTYPE
 
 	var Wizard = function (element, options) {
-		var kids, steps;
-
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.wizard.defaults, options);
 		this.options.disablePreviousStep = (this.$element.attr('data-restrict') === 'previous') ? true : this.options.disablePreviousStep;
@@ -42,7 +40,11 @@
 		this.$prevBtn = this.$element.find('button.btn-prev');
 		this.$nextBtn = this.$element.find('button.btn-next');
 
-		steps = this.$element.children('.steps-container');
+		var kids = this.$nextBtn.children().detach();
+		this.nextText = $.trim(this.$nextBtn.text());
+		this.$nextBtn.append(kids);
+
+		var steps = this.$element.children('.steps-container');
 		// maintains backwards compatibility with < 3.8, will be removed in the future
 		if (steps.length === 0) {
 			steps = this.$element;
@@ -52,10 +54,6 @@
 			}
 		}
 		steps = steps.find('.steps');
-
-		kids = this.$nextBtn.children().detach();
-		this.nextText = $.trim(this.$nextBtn.text());
-		this.$nextBtn.append(kids);
 
 		// handle events
 		this.$prevBtn.on('click.fu.wizard', $.proxy(this.previous, this));
