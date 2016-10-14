@@ -177,7 +177,8 @@ const updateFuelUX = (project) => {
 
 const libraryGroups = [
 	[
-		'fuelux-lightning-theme'
+		'fuelux-lightning-theme',
+		'marketing-cloud-theme'
 	],
 	[
 		'fusion-fuel'

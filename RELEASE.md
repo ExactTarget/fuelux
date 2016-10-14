@@ -65,14 +65,11 @@ You will need to authorize your machine to do npm publishing using `npm adduser`
       - [ ] 4b. Run `bower update`. 
       - [ ] 4c. Commit
       - [ ] 4d. Push to `upstream`.
-
-- [ ] 6. Update Fuel UX Site
-- [ ] 7. [Update MC Theme] (https://github.com/ExactTarget/fuelux-mctheme/wiki/How-to-release-a-new-version)
-- [ ] 8. Update Rucksack
-- [ ] 9. Update Fusion
-- [ ] 10. Announce
-      - [ ] 10a. Tweet via @FuelUX account
-      - [ ] 10b. Post to Chatter in the Fuel UX Group
+- [ ] 6. Run `node update-dependencies.js`
+- [ ] 7. Go through the projects updated by the script and release new versions where appropriate
+- [ ] 8. Announce
+      - [ ] 8a. Tweet via @FuelUX account
+      - [ ] 8b. Post to Chatter in the Fuel UX Group
 
 ## Generate Release Notes
 
@@ -107,13 +104,3 @@ Creating [release notes](https://github.com/exacttarget/fuelux/tags) can either 
 Release notes will be placed in `CHANGELOG.md`. There is a bug with the changelog_generator (or a mis-configuration or something) that makes it mess up and include links for basically every issue ever. 
 - [ ] Delete all issues listed for all previous releases leaving just the issues for the current release. 
 - [ ] Copy and paste the remaining issues into a New Release on Github titled after the release number, prepended with a `v` (eg "v3.15.8")
-
-
-
-## Integrate
-Each time a release is done, it must be integrated into the following properties:
-
-* [Fuel UX](https://github.com/ExactTarget/fuelux)
-* [Fuel UX Fusion](https://github.exacttarget.com/uxarchitecture/fusion-fuel)
-* [Components](https://github.exacttarget.com/uxarchitecture/fuelux-components)
-* [Site](https://github.exacttarget.com/uxarchitecture/fuelux-site)
