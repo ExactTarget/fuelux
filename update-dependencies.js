@@ -151,8 +151,8 @@ const commitAndPush = (project, release, lightningThemeRelease) => {
 }
 
 const updateFuelUX = (project) => {
-	const fueluxRelease = '3.15.8';
-	const lightningThemeRelease = '0.3.0';
+	const fueluxRelease = process.argv[2];// eg 3.15.8
+	const lightningThemeRelease = process.argv[3]// eg 0.3.1
 
 	return new Promise((resolve, reject) => {
 		console.log(`${project} updating START`);
@@ -208,4 +208,11 @@ const updateFirstGroup = (groups) => {
 		group.map(updateFuelUX)
 	).then(() => updateFirstGroup(groups));
 }
-updateFirstGroup(libraryGroups);
+
+if (process.argv[2] !== undefined && process.argv[3] !== undefined) {
+	updateFirstGroup(libraryGroups);
+} else {
+	console.error('Fuel UX and Lightning Theme release numbers must be provided, eg:');
+	console.error('node update-dependencies.js 3.15.8 0.3.1')
+}
+

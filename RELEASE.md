@@ -65,7 +65,7 @@ You will need to authorize your machine to do npm publishing using `npm adduser`
       - [ ] 4b. Run `bower update`. 
       - [ ] 4c. Commit
       - [ ] 4d. Push to `upstream`.
-- [ ] 6. Run `node update-dependencies.js`
+- [ ] 6. Run `node update-dependencies.js [fuelux release #] [lightning theme release #]`
 - [ ] 7. Go through the projects updated by the script and release new versions where appropriate
 - [ ] 8. Announce
       - [ ] 8a. Tweet via @FuelUX account
