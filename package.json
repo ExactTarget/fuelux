@@ -50,7 +50,7 @@
     "serve-static": "1.11.1"
   },
   "engines": {
-    "node": "5.8.x"
+    "node": ">=5.8.x"
   },
   "homepage": "https://github.com/ExactTarget/fuelux",
   "keywords": [
