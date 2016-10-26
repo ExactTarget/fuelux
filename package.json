@@ -18,7 +18,7 @@
     "connect": "3.5.0",
     "eslint": "^3.5.0",
     "eslint-config-airbnb-es5": "^1.0.9",
-    "eslint-plugin-requirejs": "^2.0.1",
+    "eslint-plugin-requirejs": "^3.0.0",
     "grunt": "^1.0.1",
     "grunt-banner": "0.6.0",
     "grunt-blanket-qunit": "0.2.0",
