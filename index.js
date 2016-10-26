@@ -246,18 +246,6 @@ define(function (require) {
 	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 	// sample method buttons
-	$('#btnLoaderPlay').on('click', function () {
-		$('#myLoader1').loader('play');
-	});
-	$('#btnLoaderPause').on('click', function () {
-		$('#myLoader1').loader('pause');
-	});
-	$('#btnLoaderNext').on('click', function () {
-		$('#myLoader1').loader('next');
-	});
-	$('#btnLoaderPrevious').on('click', function () {
-		$('#myLoader1').loader('previous');
-	});
 	$('#btnLoaderDestroy').on('click', function () {
 		var $container = $('#myLoader1').parent();
 		var markup = $('#myLoader1').loader('destroy');
