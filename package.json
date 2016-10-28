@@ -17,7 +17,7 @@
     "bower": "1.7.9",
     "connect": "3.5.0",
     "eslint": "^3.5.0",
-    "eslint-config-airbnb-es5": "^1.0.9",
+    "eslint-config-airbnb-es5": "^1.1.0",
     "eslint-plugin-requirejs": "^3.0.0",
     "grunt": "^1.0.1",
     "grunt-banner": "0.6.0",
