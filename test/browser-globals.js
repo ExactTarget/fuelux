@@ -2,12 +2,12 @@
 /*global start:false, stop:false ok:false, equal:false, notEqual:false, deepEqual:false*/
 /*global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false*/
 
-( function() {
+(function(QUnit) {
 
 	$(function () {
 
-		module('FuelUX Component Initialization (via Browser Globals)', {
-			setup: function () {
+		QUnit.module('FuelUX Component Initialization (via Browser Globals)', {
+			beforeEach: function(assert) {
 				this.elems = $('#qunit-fixture').children();
 			}
 		});
@@ -46,74 +46,74 @@
 		// check to see if the only the browser global is present
 		// and nothing else.
 
-		test('checkbox should be defined on jQuery object', function () {
-			ok($().checkbox, 'checkbox method is defined');
+		QUnit.test('checkbox should be defined on jQuery object', function(assert) {
+			assert.ok($().checkbox, 'checkbox method is defined');
 		});
 
-		test('combobox should be defined on jQuery object', function () {
-			ok($().combobox, 'combobox method is defined');
+		QUnit.test('combobox should be defined on jQuery object', function(assert) {
+			assert.ok($().combobox, 'combobox method is defined');
 		});
 
-		test('datepicker should be defined on the jQuery object', function () {
-			ok($().datepicker, 'datepicker method is defined');
+		QUnit.test('datepicker should be defined on the jQuery object', function(assert) {
+			assert.ok($().datepicker, 'datepicker method is defined');
 		});
 
-		test('dropdownautoflip should be defined on the jQuery object', function () {
-			ok($().dropdownautoflip, 'dropdownautoflip method is defined');
+		QUnit.test('dropdownautoflip should be defined on the jQuery object', function(assert) {
+			assert.ok($().dropdownautoflip, 'dropdownautoflip method is defined');
 		});
 
-		test('infinitescroll should be defined on the jQuery object', function () {
-			ok($().infinitescroll, 'infinitescroll method is defined');
+		QUnit.test('infinitescroll should be defined on the jQuery object', function(assert) {
+			assert.ok($().infinitescroll, 'infinitescroll method is defined');
 		});
 
-		test('loader should be defined on the jQuery object', function () {
-			ok($().loader, 'loader method is defined');
+		QUnit.test('loader should be defined on the jQuery object', function(assert) {
+			assert.ok($().loader, 'loader method is defined');
 		});
 
-		test('pillbox should be defined on jQuery object', function () {
-			ok($().pillbox, 'pillbox method is defined');
+		QUnit.test('pillbox should be defined on jQuery object', function(assert) {
+			assert.ok($().pillbox, 'pillbox method is defined');
 		});
 
-		test('radio should be defined on jQuery object', function () {
-			ok($().radio, 'radio method is defined');
+		QUnit.test('radio should be defined on jQuery object', function(assert) {
+			assert.ok($().radio, 'radio method is defined');
 		});
 
-		test('repeater should be defined on jQuery object', function () {
-			ok($().repeater, 'repeater method is defined');
+		QUnit.test('repeater should be defined on jQuery object', function(assert) {
+			assert.ok($().repeater, 'repeater method is defined');
 		});
 
-		test('repeater list should be defined on jQuery object', function () {
-			ok($.fn.repeater.viewTypes.list, 'repeater list view is defined');
+		QUnit.test('repeater list should be defined on jQuery object', function(assert) {
+			assert.ok($.fn.repeater.viewTypes.list, 'repeater list view is defined');
 		});
 
-		test('repeater thumbnail should be defined on jQuery object', function () {
-			ok($.fn.repeater.viewTypes.thumbnail, 'repeater thumbnail view is defined');
+		QUnit.test('repeater thumbnail should be defined on jQuery object', function(assert) {
+			assert.ok($.fn.repeater.viewTypes.thumbnail, 'repeater thumbnail view is defined');
 		});
 
-		test('scheduler should be defined on the jQuery object', function () {
-			ok($().scheduler, 'scheduler method is defined');
+		QUnit.test('scheduler should be defined on the jQuery object', function(assert) {
+			assert.ok($().scheduler, 'scheduler method is defined');
 		});
 
-		test('search should be defined on jQuery object', function () {
-			ok($().search, 'search method is defined');
+		QUnit.test('search should be defined on jQuery object', function(assert) {
+			assert.ok($().search, 'search method is defined');
 		});
 
-		test('selectlist should be defined on jQuery object', function () {
-			ok($().selectlist, 'selectlist method is defined');
+		QUnit.test('selectlist should be defined on jQuery object', function(assert) {
+			assert.ok($().selectlist, 'selectlist method is defined');
 		});
 
-		test('spinbox should be defined on jQuery object', function () {
-			ok($().spinbox, 'spinbox method is defined');
+		QUnit.test('spinbox should be defined on jQuery object', function(assert) {
+			assert.ok($().spinbox, 'spinbox method is defined');
 		});
 
-		test('tree should be defined on jQuery object', function () {
-			ok($().tree, 'tree method is defined');
+		QUnit.test('tree should be defined on jQuery object', function(assert) {
+			assert.ok($().tree, 'tree method is defined');
 		});
 
-		test('wizard should be defined on jQuery object', function () {
-			ok($().wizard, 'wizard method is defined');
+		QUnit.test('wizard should be defined on jQuery object', function(assert) {
+			assert.ok($().wizard, 'wizard method is defined');
 		});
 
 	});
 
-})();
+})(QUnit);

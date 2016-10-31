@@ -1,7 +1,7 @@
 module.exports = function test (grunt) {
 	// to be run prior to submitting a PR
 	grunt.registerTask('test', 'run jshint, qunit source w/ coverage, and validate HTML',
-		['jshint', 'connect:testServer', 'blanket_qunit:source', 'qunit:noMoment', 'qunit:globals', 'htmllint']);
+		['jshint', 'connect:testServer', 'qunit:noMoment', 'qunit:globals', 'qunit:dist', 'htmllint']);
 
 	// If qunit:source is working but qunit:full is breaking, check to see if the dist broke the code. This would be especially useful if we start mangling our code, but, is 99.99% unlikely right now
 	grunt.registerTask('validate-dist', 'run qunit:source, dist, and then qunit:full',

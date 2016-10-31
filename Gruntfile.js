@@ -1,6 +1,6 @@
-/*jshint expr:true*/
-/*global module:false, process:false*/
-module.exports = function (grunt) {
+/* jshint expr:true*/
+/* global module:false, process:false*/
+module.exports = function gruntFile (grunt) {
 	'use strict';
 
 	/*
@@ -16,14 +16,14 @@ module.exports = function (grunt) {
 	}
 
 	// use --no-livereload to disable livereload. Helpful to 'serve' multiple projects
-	var isLivereloadEnabled = (typeof grunt.option('livereload') !== 'undefined') ? grunt.option('livereload') : true;
+	// var isLivereloadEnabled = (typeof grunt.option('livereload') !== 'undefined') ? grunt.option('livereload') : true;
 
 	// external libraries
-	var semver = require('semver');
-	var packageVersion = getPackage().version;
-	var fs = require('fs');
+	// var semver = require('semver');
+	// var packageVersion = getPackage().version;
+	// var fs = require('fs');
 	var path = require('path');
-	var commonJSBundledReferenceModule = require('./grunt/other/commonjs-reference-module.js');
+	// var commonJSBundledReferenceModule = require('./grunt/other/commonjs-reference-module.js');
 
 	// variables used in shared variables below
 	var connectTestServerOptionsPort = 9000;
@@ -57,22 +57,19 @@ module.exports = function (grunt) {
 			cdnLoginFile: grunt.file.exists('FUEL_CDN.yml') ? grunt.file.readYAML('FUEL_CDN.yml') : undefined,
 			sauceUser: process.env.SAUCE_USERNAME || 'fuelux',
 			// TEST URLS
-			allTestUrls: ['2.1.0', '1.11.0', '1.9.1', 'browserGlobals', 'noMoment', 'codeCoverage' ].map(function (type) {
+			allTestUrls: ['2.1.0', '1.11.0', '1.9.1', 'browserGlobals', 'noMoment', 'codeCoverage' ].map(function allTestUrls (type) {
 				if (type === 'browserGlobals') {
 					return 'http://localhost:' + connectTestServerOptionsPort + '/test/browser-globals.html';
-				}
-				else if (type === 'codeCoverage') {
+				} else if (type === 'codeCoverage') {
 					return 'http://localhost:' + connectTestServerOptionsPort + '/test/?coverage=true';
-				}
-				else if (type === 'noMoment') {
+				} else if (type === 'noMoment') {
 					return 'http://localhost:' + connectTestServerOptionsPort + '/test/?no-moment=true';
 				}
-				else {
-					// test dist with multiple jQuery versions
-					return 'http://localhost:' + connectTestServerOptionsPort + '/test/?testdist=true';
-				}
+
+				// test dist with multiple jQuery versions
+				return 'http://localhost:' + connectTestServerOptionsPort + '/test/?testdist=true';
 			}),
-			connectTestServerOptionsPort: connectTestServerOptionsPort,
+			connectTestServerOptionsPort: connectTestServerOptionsPort
 		}
 	});
 
@@ -81,5 +78,4 @@ module.exports = function (grunt) {
 
 	// load custom build, release, serve, and test tasks from the folder specified
 	grunt.loadTasks('./grunt/tasks');
-
 };

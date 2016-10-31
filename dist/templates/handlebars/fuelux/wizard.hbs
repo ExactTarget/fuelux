@@ -2,7 +2,7 @@
 	<div class="steps-container">
 		<ul class="steps">
 			{{#each steps}}
-				<li data-step="{{step}}" class="{{#if active}}active{{/if}}{{#if complete}}complete{{/if}}"><span class="badge">{{stepBadge}}</span>{{stepLabel}}<span class="chevron"></span></li>
+				<li data-step="{{step}}" class="{{#if active}}active{{/if}}{{#if complete}}complete{{/if}}"><span class="badge">{{stepBadge}}</span>{{#if secondaryText}}<div class="has-secondary-text"><h4>{{/if}}{{stepLabel}}{{#if secondaryText}}</h4><small>{{secondaryText}}</small></div>{{/if}}<span class="chevron"></span></li>
 			{{/each}}
 		</ul>
 	</div>

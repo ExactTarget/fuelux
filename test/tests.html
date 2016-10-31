@@ -8,16 +8,8 @@
 		<link href="../bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
 		<link href="../dist/css/fuelux.css" rel="stylesheet" type="text/css">
 
-		<script src="../bower_components/qunit/qunit/qunit.js"></script>
-		<script>
-			/* global QUnit:true */
-			QUnit.config.autostart = false;
-		</script>
 		<script src="../bower_components/requirejs/require.js"></script>
 
-		<!--[if gte IE 9]> -->
-		<script type="text/javascript" src="../bower_components/blanket/dist/qunit/blanket.js" data-cover-only="/js" data-cover-never="/bower_components"></script>
-		<!-- <![endif]-->
 
 		<script>
 			/* global blanket:true */
@@ -45,7 +37,7 @@
 				}
 
 				// moment config
-				var momentPath = './bower_components/moment/min/moment-with-locales';
+				var momentPath = 'bower_components/moment/min/moment-with-locales';
 				var momentParameter = location.search.match(/[?&]no-moment=(.*?)(?=&|$)/);
 				window.noMoment = (momentParameter) ? momentParameter[1] : false;
 
@@ -57,7 +49,8 @@
 						bootstrap: 'bower_components/bootstrap/dist/js/bootstrap',
 						fuelux: 'js',
 						tests: window.noMoment ? 'test/tests-no-moment' : 'test/tests',
-						text: 'bower_components/requirejs-text/text'
+						text: 'bower_components/requirejs-text/text',
+						qunit: 'bower_components/qunit/qunit/qunit'
 					},
 					shim: {
 						'bootstrap': {
@@ -109,7 +102,7 @@
 
 				require.config(requireConfig);
 
-				require(['jquery', 'tests'], function noop () {});
+				require(['tests'], function noop () {});
 			})();
 		</script>
 	</head>

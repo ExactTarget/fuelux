@@ -2,11 +2,12 @@
 /*global start:false, stop:false ok:false, equal:false, notEqual:false, deepEqual:false*/
 /*global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false*/
 
-define(function(require){
+define(function(require) {
 	var $ = require('jquery');
+	var QUnit = require('qunit');
 
 	QUnit.start(); // starting qunit, or phantom js will have a problem
-	
+
 	// Needed for saucelab testing
 	var log = [];
 	var testName;
