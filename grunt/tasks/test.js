@@ -18,7 +18,7 @@ module.exports = function test (grunt) {
 		['connect:testServer', 'jshint', 'saucelabs-qunit:defaultBrowsers']);
 
 	grunt.registerTask('travisci', 'Tests to run when in Travis CI environment',
-		['test', 'dist', 'browserify:commonjs', 'qunit:dist']);
+		['browserify:commonjs', 'test', 'dist', 'qunit:dist']);
 
 	// if you've already accidentally added your files for commit, this will at least unstage them. If you haven't, this will wipe them out.
 	grunt.registerTask('resetdist', 'resets changes to dist to keep them from being checked in', function resetdist () {
