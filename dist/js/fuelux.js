@@ -1,5 +1,6 @@
 /*!
- * Fuel UX v3.15.8 
+ * Fuel UX EDGE - Built 2016/10/28, 5:23:06 PM 
+ * Previous release: v3.15.8 
  * Copyright 2012-2016 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -1552,22 +1553,6 @@
 		var Loader = function( element, options ) {
 			this.$element = $( element );
 			this.options = $.extend( {}, $.fn.loader.defaults, options );
-
-			this.begin = ( this.$element.is( '[data-begin]' ) ) ? parseInt( this.$element.attr( 'data-begin' ), 10 ) : 1;
-			this.delay = ( this.$element.is( '[data-delay]' ) ) ? parseFloat( this.$element.attr( 'data-delay' ) ) : 150;
-			this.end = ( this.$element.is( '[data-end]' ) ) ? parseInt( this.$element.attr( 'data-end' ), 10 ) : 8;
-			this.frame = ( this.$element.is( '[data-frame]' ) ) ? parseInt( this.$element.attr( 'data-frame' ), 10 ) : this.begin;
-			this.isIElt9 = false;
-			this.timeout = {};
-
-			var ieVer = this.msieVersion();
-			if ( ieVer !== false && ieVer < 9 ) {
-				this.$element.addClass( 'iefix' );
-				this.isIElt9 = true;
-			}
-
-			this.$element.attr( 'data-frame', this.frame + '' );
-			this.play();
 		};
 
 		Loader.prototype = {
@@ -1575,8 +1560,6 @@
 			constructor: Loader,
 
 			destroy: function() {
-				this.pause();
-
 				this.$element.remove();
 				// any external bindings
 				// [none]
@@ -1586,60 +1569,19 @@
 				return this.$element[ 0 ].outerHTML;
 			},
 
-			ieRepaint: function() {
-				if ( this.isIElt9 ) {
-					this.$element.addClass( 'iefix_repaint' ).removeClass( 'iefix_repaint' );
-				}
-			},
+			ieRepaint: function() {},
 
-			msieVersion: function() {
-				var ua = window.navigator.userAgent;
-				var msie = ua.indexOf( 'MSIE ' );
-				if ( msie > 0 ) {
-					return parseInt( ua.substring( msie + 5, ua.indexOf( ".", msie ) ), 10 );
-				} else {
-					return false;
-				}
-			},
+			msieVersion: function() {},
 
-			next: function() {
-				this.frame++;
-				if ( this.frame > this.end ) {
-					this.frame = this.begin;
-				}
+			next: function() {},
 
-				this.$element.attr( 'data-frame', this.frame + '' );
-				this.ieRepaint();
-			},
+			pause: function() {},
 
-			pause: function() {
-				clearTimeout( this.timeout );
-			},
+			play: function() {},
 
-			play: function() {
-				var self = this;
-				clearTimeout( this.timeout );
-				this.timeout = setTimeout( function() {
-					self.next();
-					self.play();
-				}, this.delay );
-			},
+			previous: function() {},
 
-			previous: function() {
-				this.frame--;
-				if ( this.frame < this.begin ) {
-					this.frame = this.end;
-				}
-
-				this.$element.attr( 'data-frame', this.frame + '' );
-				this.ieRepaint();
-			},
-
-			reset: function() {
-				this.frame = this.begin;
-				this.$element.attr( 'data-frame', this.frame + '' );
-				this.ieRepaint();
-			}
+			reset: function() {}
 		};
 
 		// LOADER PLUGIN DEFINITION
@@ -3840,8 +3782,6 @@
 		// WIZARD CONSTRUCTOR AND PROTOTYPE
 
 		var Wizard = function( element, options ) {
-			var kids;
-
 			this.$element = $( element );
 			this.options = $.extend( {}, $.fn.wizard.defaults, options );
 			this.options.disablePreviousStep = ( this.$element.attr( 'data-restrict' ) === 'previous' ) ? true : this.options.disablePreviousStep;
@@ -3850,22 +3790,25 @@
 			this.$prevBtn = this.$element.find( 'button.btn-prev' );
 			this.$nextBtn = this.$element.find( 'button.btn-next' );
 
+			var kids = this.$nextBtn.children().detach();
+			this.nextText = $.trim( this.$nextBtn.text() );
+			this.$nextBtn.append( kids );
+
+			var steps = this.$element.children( '.steps-container' );
 			// maintains backwards compatibility with < 3.8, will be removed in the future
-			if ( this.$element.children( '.steps-container' ).length === 0 ) {
+			if ( steps.length === 0 ) {
+				steps = this.$element;
 				this.$element.addClass( 'no-steps-container' );
 				if ( window && window.console && window.console.warn ) {
 					window.console.warn( 'please update your wizard markup to include ".steps-container" as seen in http://getfuelux.com/javascript.html#wizard-usage-markup' );
 				}
 			}
-
-			kids = this.$nextBtn.children().detach();
-			this.nextText = $.trim( this.$nextBtn.text() );
-			this.$nextBtn.append( kids );
+			steps = steps.find( '.steps' );
 
 			// handle events
 			this.$prevBtn.on( 'click.fu.wizard', $.proxy( this.previous, this ) );
 			this.$nextBtn.on( 'click.fu.wizard', $.proxy( this.next, this ) );
-			this.$element.on( 'click.fu.wizard', 'li.complete', $.proxy( this.stepclicked, this ) );
+			steps.on( 'click.fu.wizard', 'li.complete', $.proxy( this.stepclicked, this ) );
 
 			this.selectedItem( this.options.selectedItem );
 

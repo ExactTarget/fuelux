@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- 5.8
+- 6.8.1
 sudo: false
 install:
 - time npm install

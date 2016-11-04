@@ -1,5 +1,6 @@
 /*!
- * Fuel UX v3.15.8 
+ * Fuel UX EDGE - Built 2016/10/28, 5:23:06 PM 
+ * Previous release: v3.15.8 
  * Copyright 2012-2016 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -1173,56 +1174,7 @@ label.fuelux .checkbox-inline {
   font-size: 64px;
   position: relative;
   width: 64px;
-}
-.fuelux .loader:after,
-.fuelux .loader:before {
-  font-family: "fuelux" !important;
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  line-height: 1;
-  speak: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  bottom: 0;
-  display: block;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-.fuelux .loader:before {
-  content: '\e000';
-  opacity: 0.33;
-}
-.fuelux .loader.iefix:before {
-  color: #bbbbbb;
-  opacity: 1;
-}
-.fuelux .loader[data-frame="1"]:after {
-  content: '\e001';
-}
-.fuelux .loader[data-frame="2"]:after {
-  content: '\e002';
-}
-.fuelux .loader[data-frame="3"]:after {
-  content: '\e003';
-}
-.fuelux .loader[data-frame="4"]:after {
-  content: '\e004';
-}
-.fuelux .loader[data-frame="5"]:after {
-  content: '\e005';
-}
-.fuelux .loader[data-frame="6"]:after {
-  content: '\e006';
-}
-.fuelux .loader[data-frame="7"]:after {
-  content: '\e007';
-}
-.fuelux .loader[data-frame="8"]:after {
-  content: '\e008';
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjRweCIgaGVpZ2h0PSI2NHB4IiB2aWV3Qm94PSIwIDAgNjQgNjQiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+PGcgd2lkdGg9IjU0cHgiIGhlaWdodD0iNTRweCIgdmlld0JveD0iNSA1IDU0IDU0IiBpZD0ibG9hZGVyIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNS4wMDAwMDAsIDUuMDAwMDAwKSIgZmlsbD0iIzE1ODllZSI+PGcgaWQ9InNwaW5uZXItbWVkaXVtIj48ZyBpZD0iT3ZhbC0zNSI+PGNpcmNsZSBpZD0iVG9wIiBjeD0iMjciIGN5PSI2IiByPSI1Ij48L2NpcmNsZT48Y2lyY2xlIGlkPSJUb3BSaWdodCIgY3g9IjQ4IiBjeT0iMTciIHI9IjUiPjwvY2lyY2xlPjxjaXJjbGUgaWQ9IkJvdHRvbVJpZ2h0IiBjeD0iNDgiIGN5PSIzNiIgcj0iNSI+PC9jaXJjbGU+PGNpcmNsZSBpZD0iQm90dG9tIiBjeD0iMjciIGN5PSI0OCIgcj0iNSI+PC9jaXJjbGU+PGNpcmNsZSBpZD0iQm90dG9tTGVmdCIgY3g9IjYiIGN5PSIzNiIgcj0iNSI+PC9jaXJjbGU+PGNpcmNsZSBpZD0iVG9wTGVmdCIgY3g9IjYiIGN5PSIxNyIgcj0iNSI+PC9jaXJjbGU+PC9nPjwvZz48L2c+PGFuaW1hdGVNb3Rpb24geGxpbms6aHJlZj0iI1RvcCIgcGF0aD0iTSAwIDAgViAtNSBaIiBkdXI9Ii4yNXMiIGJlZ2luPSIwczsgVG9wTGVmdEFuaW0uZW5kIiBpZD0iVG9wQW5pbSIgLz48YW5pbWF0ZU1vdGlvbiB4bGluazpocmVmPSIjVG9wUmlnaHQiIHBhdGg9Ik0gMCAwIEwgNSAtNSBaIiBkdXI9Ii4yNXMiIGJlZ2luPSJUb3BBbmltLmVuZCIgaWQ9IlRvcFJpZ2h0QW5pbSIgLz48YW5pbWF0ZU1vdGlvbiB4bGluazpocmVmPSIjQm90dG9tUmlnaHQiIHBhdGg9Ik0gMCAwIEwgNSA1IFoiIGR1cj0iLjI1cyIgYmVnaW49IlRvcFJpZ2h0QW5pbS5lbmQiIGlkPSJCb3R0b21SaWdodEFuaW0iIC8+PGFuaW1hdGVNb3Rpb24geGxpbms6aHJlZj0iI0JvdHRvbSIgcGF0aD0iTSAwIDAgViA1IFoiIGR1cj0iLjI1cyIgYmVnaW49IkJvdHRvbVJpZ2h0QW5pbS5lbmQiIGlkPSJCb3R0b21BbmltIiAvPjxhbmltYXRlTW90aW9uIHhsaW5rOmhyZWY9IiNCb3R0b21MZWZ0IiBwYXRoPSJNIDAgMCBMIC01IDUgWiIgZHVyPSIuMjVzIiBiZWdpbj0iQm90dG9tQW5pbS5lbmQiIGlkPSJCb3R0b21MZWZ0QW5pbSIgLz48YW5pbWF0ZU1vdGlvbiB4bGluazpocmVmPSIjVG9wTGVmdCIgcGF0aD0iTSAwIDAgTCAtNSAtNSBaIiBkdXI9Ii4yNXMiIGJlZ2luPSJCb3R0b21MZWZ0QW5pbS5lbmQiIGlkPSJUb3BMZWZ0QW5pbSIgLz48L3N2Zz4=");
 }
 .fuelux .pillbox {
   border: 1px solid #bbbbbb;
@@ -2794,6 +2746,20 @@ label.fuelux .checkbox-inline {
   color: #999999;
   font-size: 16px;
   cursor: not-allowed;
+}
+.fuelux .wizard > ul.steps li > .has-secondary-text,
+.fuelux .wizard > .steps-container > ul.steps li > .has-secondary-text {
+  display: inline;
+}
+.fuelux .wizard > ul.steps li > .has-secondary-text > h4,
+.fuelux .wizard > .steps-container > ul.steps li > .has-secondary-text > h4 {
+  display: inline;
+  font-size: 16px;
+  font-weight: normal;
+}
+.fuelux .wizard > ul.steps li > .has-secondary-text > small,
+.fuelux .wizard > .steps-container > ul.steps li > .has-secondary-text > small {
+  display: none;
 }
 .fuelux .wizard > ul.steps li .chevron,
 .fuelux .wizard > .steps-container > ul.steps li .chevron {

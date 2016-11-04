@@ -43,11 +43,7 @@
 
 	# Win Opera 15+ not currently supported by Sauce Labs
 
-	{
-		browserName: "iphone",
-		platform: "OS X 10.11",
-		version: "7.1"
-	},
+	# iOS Safari Not Supported by Fuel UX
 
 	# iOS Chrome not currently supported by Sauce Labs
 
