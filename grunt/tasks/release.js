@@ -47,6 +47,9 @@ module.exports = function (grunt) {
 		grunt.task.run(
 			[
 				'prompt:logoffvpn',
+				'prompt:rannpminstall',
+				'prompt:rangrunttest',
+				'prompt:ransauce',
 				'prompt:createmilestone',
 				'prompt:bumpmilestones',
 				'prompt:closemilestone',

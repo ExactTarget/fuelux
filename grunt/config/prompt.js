@@ -233,6 +233,54 @@ module.exports = function (grunt) {
 				}
 			}
 		},
+		'rannpminstall': {
+			options: {
+				questions: [
+					{
+						config: 'release.rannpminstall',
+						type: 'confirm',
+						message: 'Have you run `npm install && bower install`?'
+					}
+				],
+				then: function (answers, done) {
+					if (answers['release.rannpminstall'] === false) {
+						grunt.fail.fatal('Please run `npm install && bower install`', 1);
+					}
+				}
+			}
+		},
+		'rangrunttest': {
+			options: {
+				questions: [
+					{
+						config: 'release.rangrunttest',
+						type: 'confirm',
+						message: 'Have you run grunt test, and have all tests passed?'
+					}
+				],
+				then: function (answers, done) {
+					if (answers['release.rangrunttest'] === false) {
+						grunt.fail.fatal('Please run `grunt test`, and make sure all tests pass', 1);
+					}
+				}
+			}
+		},
+		'ransauce': {
+			options: {
+				questions: [
+					{
+						config: 'release.ransauce',
+						type: 'confirm',
+						message: 'Have you run `grunt saucelabs`, and have all tests passed?'
+					}
+				],
+				then: function (answers, done) {
+					if (answers['release.ransauce'] === false) {
+						grunt.fail.fatal('Please run `grunt saucelabs`, and make sure all tests pass', 1);
+					}
+				}
+			}
+		},
 		'createmilestone': {
 			options: {
 				questions: [
