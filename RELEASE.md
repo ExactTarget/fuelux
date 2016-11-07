@@ -44,7 +44,7 @@ You will need to authorize your machine to do npm publishing using `npm adduser`
 
 - [ ] 2. Log off of VPN (or saucelabs will probably fail)
 
-- [ ] 3. `grunt release`
+- [ ] 3. `npm run release`
     This grunt task:
       * Creates a new release branch from remote master.
       * Builds dist.
