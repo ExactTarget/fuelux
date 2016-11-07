@@ -82,7 +82,8 @@
     "main": "devserver.js",
     "start": "grunt serve",
     "test": "grunt travisci --verbose",
-    "postinstall": "node postinstall.js"
+    "postinstall": "node postinstall.js",
+    "local": "grunt servefast"
   },
   "title": "Fuel UX",
   "version": "3.15.8",
