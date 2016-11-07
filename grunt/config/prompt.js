@@ -217,6 +217,22 @@ module.exports = function (grunt) {
 				}
 			}
 		},
+		'logoffvpn': {
+			options: {
+				questions: [
+					{
+						config: 'release.logoffvpn',
+						type: 'confirm',
+						message: 'Have you logged off of VPN?'
+					}
+				],
+				then: function (answers, done) {
+					if (answers['release.logoffvpn'] === false) {
+						grunt.fail.fatal('Please log off of VPN and try again', 1);
+					}
+				}
+			}
+		},
 		'createmilestone': {
 			options: {
 				questions: [
