@@ -13,6 +13,12 @@ You will need `SAUCE_API_KEY.yml`. Get it from someone on the team. You could tr
 ### FuelCDN
 You will need `FUEL_CDN.yml` file, as well as ssh keys. Contact another maintainer for credentials/keys.
 
+You will also need to add the following to your `~/.ssh/config` file:
+```
+Host fuelux.upload.akamai.com
+  HostkeyAlgorithms +ssh-dss
+```
+
 ### NPM
 You will need to authorize your machine to do npm publishing using `npm adduser`. Contact another maintainer for credentials.
 
@@ -44,7 +50,7 @@ You will need to authorize your machine to do npm publishing using `npm adduser`
 
 - [ ] 2. Log off of VPN (or saucelabs will probably fail)
 
-- [ ] 3. `grunt release`
+- [ ] 3. `npm run release`
     This grunt task:
       * Creates a new release branch from remote master.
       * Builds dist.

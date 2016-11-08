@@ -99,7 +99,7 @@ module.exports = function (grunt) {
 					{
 						config: 'release.tag',
 						type: 'confirm',
-						message: 'Would you like to tag as ' + getPackageVersion() + '?'
+						message: 'Would you like to tag?'
 					}
 				],
 				then: function (answers, done) {
@@ -136,7 +136,7 @@ module.exports = function (grunt) {
 					{
 						config: 'release.upstreamTag',
 						type: 'confirm',
-						message: 'Would you like to push tag ' + getPackageVersion() + ' to upstream?'
+						message: 'Would you like to push tag to upstream?'
 					}
 				],
 				then: function (answers, done) {
@@ -214,6 +214,70 @@ module.exports = function (grunt) {
 						grunt.task.run(['shell:publishToNPM']);
 					}
 					return false;
+				}
+			}
+		},
+		'logoffvpn': {
+			options: {
+				questions: [
+					{
+						config: 'release.logoffvpn',
+						type: 'confirm',
+						message: 'Have you logged off of VPN?'
+					}
+				],
+				then: function (answers, done) {
+					if (answers['release.logoffvpn'] === false) {
+						grunt.fail.fatal('Please log off of VPN and try again', 1);
+					}
+				}
+			}
+		},
+		'rannpminstall': {
+			options: {
+				questions: [
+					{
+						config: 'release.rannpminstall',
+						type: 'confirm',
+						message: 'Have you run `npm install && bower install`?'
+					}
+				],
+				then: function (answers, done) {
+					// if (answers['release.rannpminstall'] === false) {
+					// 	grunt.fail.fatal('Please run `npm install && bower install`', 1);
+					// }
+				}
+			}
+		},
+		'rangrunttest': {
+			options: {
+				questions: [
+					{
+						config: 'release.rangrunttest',
+						type: 'confirm',
+						message: 'Have you run grunt test, and have all tests passed?'
+					}
+				],
+				then: function (answers, done) {
+					// if (answers['release.rangrunttest'] === false) {
+					// 	grunt.fail.fatal('Please run `grunt test`, and make sure all tests pass', 1);
+					// }
+				}
+			}
+		},
+		'ransauce': {
+			options: {
+				questions: [
+					{
+						config: 'release.ransauce',
+						type: 'confirm',
+						message: 'Have you run `grunt saucelabs`, and have all tests passed?'
+					}
+				],
+				then: function (answers, done) {
+					// if (answers['release.ransauce'] === false) {
+					// 	grunt.fail.fatal('Please run `grunt saucelabs`, and make sure all tests pass', 1);
+					// }
 				}
 			}
 		},
