@@ -602,5 +602,20 @@ define( function ( require ) {
 		assert.equal( $el.parent().length, false, "control has been removed from DOM" );
 	} );
 
+	QUnit.test( "should add a pill on blur event if input is not empty", function( assert ) {
+		var $pillbox = $( html ).find( "#MyPillboxEmpty" ).pillbox();
+		var $input = $pillbox.find( ".pillbox-add-item" );
+
+		assert.equal( $pillbox.pillbox( "itemCount" ), 0, "pillbox is empty to start" );
+
+		$input.val('');
+		$input.blur();
+		assert.equal( $pillbox.pillbox( "itemCount" ), 0, "pillbox remains empty" );
+
+		$input.val('testing');
+		$input.blur();
+		assert.equal( $pillbox.pillbox( "itemCount" ), 1, "pillbox has one item" );
+	} );
+	
 } );
 
