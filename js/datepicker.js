@@ -395,13 +395,13 @@
 						return (true === md.isValid()) ? md.toDate() : BAD_DATE;
 					};
 
-					tryMomentParseAll = function (d, parseFunc1, parseFunc2) {
-						var pd = parseFunc1(d);
+					tryMomentParseAll = function (rawDateString, parseFunc1, parseFunc2) {
+						var pd = parseFunc1(rawDateString);
 						if (!self.isInvalidDate(pd)) {
 							return pd;
 						}
 
-						pd = parseFunc2(pd);
+						pd = parseFunc2(rawDateString);
 						if (!self.isInvalidDate(pd)) {
 							return pd;
 						}
