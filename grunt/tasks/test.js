@@ -24,9 +24,9 @@ module.exports = function test (grunt) {
 	grunt.registerTask('resetdist', 'resets changes to dist to keep them from being checked in', function resetdist () {
 		// default resetdist to true... basically.
 		if (typeof grunt.option('resetdist') === 'undefined' || grunt.option('resetdist')) {
-			var exec = require('child_process').exec;
-			exec('git reset HEAD dist/*');
-			exec('git checkout -- dist/*');
+			var exec = require('child_process').execSync;
+			exec('git reset HEAD dist');
+			exec('git checkout -- dist');
 		}
 	});
 };
