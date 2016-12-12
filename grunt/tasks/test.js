@@ -1,7 +1,7 @@
 module.exports = function test (grunt) {
 	// to be run prior to submitting a PR
 	grunt.registerTask('test', 'run jshint, qunit source w/ coverage, and validate HTML',
-		['browserify:commonjs', 'jshint', 'connect:testServer', 'qunit:noMoment', 'qunit:globals', 'qunit:dist', 'htmllint']);
+		['browserify:commonjs', 'dist', 'jshint', 'connect:testServer', 'qunit:noMoment', 'qunit:globals', 'qunit:dist', 'htmllint', 'resetdist']);
 
 	// If qunit:source is working but qunit:full is breaking, check to see if the dist broke the code. This would be especially useful if we start mangling our code, but, is 99.99% unlikely right now
 	grunt.registerTask('validate-dist', 'run qunit:source, dist, and then qunit:full',
@@ -18,7 +18,7 @@ module.exports = function test (grunt) {
 		['connect:testServer', 'jshint', 'saucelabs-qunit:defaultBrowsers']);
 
 	grunt.registerTask('travisci', 'Tests to run when in Travis CI environment',
-		['browserify:commonjs', 'dist', 'test', 'qunit:dist']);
+		['browserify:commonjs', 'test', 'dist', 'qunit:dist']);
 
 	// if you've already accidentally added your files for commit, this will at least unstage them. If you haven't, this will wipe them out.
 	grunt.registerTask('resetdist', 'resets changes to dist to keep them from being checked in', function resetdist () {
