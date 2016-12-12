@@ -357,11 +357,12 @@
 			var self = this;
 			var text = self.options.cleanInput(this.$addItem.val());
 			var isFocusOutEvent = e.type === 'focusout';
-			var addOnFocusOut = (isFocusOutEvent && text.length > 0);
-
+			var blurredAfterInput = (isFocusOutEvent && text.length > 0);
 			// If we test for keycode only, it will match for `<` & `,` instead of just `,`
 			// This way users can type `<3` and `1 < 3`, etc...
-			if ((this.acceptKeyCodes[e.keyCode] && !isShiftHeld(e)) || addOnFocusOut) {
+			var acceptKeyPressed = (this.acceptKeyCodes[e.keyCode] && !isShiftHeld(e));
+
+			if (acceptKeyPressed || blurredAfterInput) {
 				var attr;
 				var value;
 
