@@ -20,6 +20,7 @@ FUEL_CDN.yml
 
 # Generated file from commonjs-test.js
 test/commonjs-bundle.js
+dist/npm.js
 
 # Editors / IDEs
 .idea
