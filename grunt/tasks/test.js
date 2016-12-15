@@ -3,7 +3,7 @@ module.exports = function test (grunt) {
 	grunt.registerTask('test', 'run jshint, qunit source w/ coverage, and validate HTML',
 		['jshint', 'connect:testServer', 'qunit:noMoment', 'qunit:globals', 'test-dist', 'htmllint']);
 
-	grunt.registerTask('prep-commonjs-test', 'run commonjs config buiild and browserify to prep for commonjs test',
+	grunt.registerTask('prep-commonjs-test', 'run commonjs config build and browserify to prep for commonjs test',
 		['commonjs', 'browserify:commonjs']);
 
 	grunt.registerTask('test-dist', 'run jshint, qunit source w/ coverage, and validate HTML',
