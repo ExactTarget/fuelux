@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : Boso Jowo (jv)
+//! locale : Javanese [jv]
 //! author : Rony Lantip : https://github.com/lantip
 //! reference: http://jv.wikipedia.org/wiki/Basa_Jawa
 

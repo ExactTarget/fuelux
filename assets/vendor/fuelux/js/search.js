@@ -33,6 +33,7 @@
 
 	var Search = function (element, options) {
 		this.$element = $(element);
+		this.$repeater = $(element).closest('.repeater');
 		this.options = $.extend({}, $.fn.search.defaults, options);
 
 		if (this.$element.attr('data-searchOnKeyPress') === 'true'){
@@ -41,16 +42,19 @@
 
 		this.$button = this.$element.find('button');
 		this.$input = this.$element.find('input');
-		this.$icon = this.$element.find('.glyphicon');
+		this.$icon = this.$element.find('.glyphicon, .fuelux-icon');
 
 		this.$button.on('click.fu.search', $.proxy(this.buttonclicked, this));
 		this.$input.on('keyup.fu.search', $.proxy(this.keypress, this));
+
+		if (this.$repeater.length > 0) {
+			this.$repeater.on('rendered.fu.repeater', $.proxy(this.clearPending, this));
+		}
 
 		this.activeSearch = '';
 	};
 
 	Search.prototype = {
-
 		constructor: Search,
 
 		destroy: function () {
@@ -71,9 +75,12 @@
 			if (this.$icon.hasClass('glyphicon')) {
 				this.$icon.removeClass('glyphicon-search').addClass('glyphicon-remove');
 			}
+			if (this.$icon.hasClass('fuelux-icon')) {
+				this.$icon.removeClass('fuelux-icon-search').addClass('fuelux-icon-remove');
+			}
 
 			this.activeSearch = searchText;
-			this.$element.addClass('searched');
+			this.$element.addClass('searched pending');
 			this.$element.trigger('searched.fu.search', searchText);
 		},
 
@@ -81,19 +88,30 @@
 			if (this.$icon.hasClass('glyphicon')) {
 				this.$icon.removeClass('glyphicon-remove').addClass('glyphicon-search');
 			}
+			if (this.$icon.hasClass('fuelux-icon')) {
+				this.$icon.removeClass('fuelux-icon-remove').addClass('fuelux-icon-search');
+			}
+
+			if (this.$element.hasClass('pending')) {
+				this.$element.trigger('canceled.fu.search');
+			}
 
 			this.activeSearch = '';
 			this.$input.val('');
-			this.$element.removeClass('searched');
 			this.$element.trigger('cleared.fu.search');
+			this.$element.removeClass('searched pending');
+		},
+
+		clearPending: function () {
+			this.$element.removeClass('pending');
 		},
 
 		action: function () {
 			var val = this.$input.val();
+
 			if (val && val.length > 0) {
 				this.search(val);
-			}
-			else {
+			} else {
 				this.clear();
 			}
 		},
@@ -102,10 +120,9 @@
 			e.preventDefault();
 			if ($(e.currentTarget).is('.disabled, :disabled')) return;
 
-			if(this.$element.hasClass('searched')) {
+			if (this.$element.hasClass('pending') || this.$element.hasClass('searched')) {
 				this.clear();
-			}
-			else {
+			} else {
 				this.action();
 			}
 		},
@@ -118,15 +135,12 @@
 			if (e.which === ENTER_KEY_CODE) {
 				e.preventDefault();
 				this.action();
-			}
-			else if(e.which === TAB_KEY_CODE) {
+			} else if (e.which === TAB_KEY_CODE) {
 				e.preventDefault();
-			}
-			else if(e.which === ESC_KEY_CODE) {
+			} else if (e.which === ESC_KEY_CODE) {
 				e.preventDefault();
 				this.clear();
-			}
-			else if(this.options.searchOnKeyPress) {
+			} else if (this.options.searchOnKeyPress) {
 				// search on other keypress
 				this.action();
 			}
@@ -135,7 +149,10 @@
 		disable: function () {
 			this.$element.addClass('disabled');
 			this.$input.attr('disabled', 'disabled');
-			this.$button.addClass('disabled');
+
+			if (!this.options.allowCancel) {
+				this.$button.addClass('disabled');
+			}
 		},
 
 		enable: function () {
@@ -171,7 +188,8 @@
 
 	$.fn.search.defaults = {
 		clearOnEmpty: false,
-		searchOnKeyPress: false
+		searchOnKeyPress: false,
+		allowCancel: false
 	};
 
 	$.fn.search.Constructor = Search;

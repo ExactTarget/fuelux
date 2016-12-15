@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : lao (lo)
+//! locale : Lao [lo]
 //! author : Ryan Hart : https://github.com/ryanhart2
 
 import moment from '../moment';
@@ -10,6 +10,7 @@ export default moment.defineLocale('lo', {
     weekdays : 'ອາທິດ_ຈັນ_ອັງຄານ_ພຸດ_ພະຫັດ_ສຸກ_ເສົາ'.split('_'),
     weekdaysShort : 'ທິດ_ຈັນ_ອັງຄານ_ພຸດ_ພະຫັດ_ສຸກ_ເສົາ'.split('_'),
     weekdaysMin : 'ທ_ຈ_ອຄ_ພ_ພຫ_ສກ_ສ'.split('_'),
+    weekdaysParseExact : true,
     longDateFormat : {
         LT : 'HH:mm',
         LTS : 'HH:mm:ss',

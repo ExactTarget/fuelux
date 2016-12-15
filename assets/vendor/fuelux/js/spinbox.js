@@ -51,9 +51,6 @@
 		this.$element.on('keydown.fu.spinbox', this.$input, $.proxy(this.keydown, this));
 		this.$element.on('keyup.fu.spinbox', this.$input, $.proxy(this.keyup, this));
 
-		this.bindMousewheelListeners();
-		this.mousewheelTimeout = {};
-
 		if (this.options.hold) {
 			this.$element.on('mousedown.fu.spinbox', '.spinbox-up', $.proxy(function () {
 				this.startSpin(true);
@@ -356,47 +353,8 @@
 			if (keyCode === 38 || keyCode === 40) {
 				this.triggerChangedEvent();
 			}
-		},
-
-		bindMousewheelListeners: function bindMousewheelListeners() {
-			var inputEl = this.$input.get(0);
-			if (inputEl.addEventListener) {
-				//IE 9, Chrome, Safari, Opera
-				inputEl.addEventListener('mousewheel', $.proxy(this.mousewheelHandler, this), false);
-				// Firefox
-				inputEl.addEventListener('DOMMouseScroll', $.proxy(this.mousewheelHandler, this), false);
-			} else {
-				// IE <9
-				inputEl.attachEvent('onmousewheel', $.proxy(this.mousewheelHandler, this));
-			}
-		},
-
-		mousewheelHandler: function mousewheelHandler(event) {
-			if (!this.options.disabled) {
-				var e = window.event || event;// old IE support
-				var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-				var self = this;
-
-				clearTimeout(this.mousewheelTimeout);
-				this.mousewheelTimeout = setTimeout(function () {
-					self.triggerChangedEvent();
-				}, 300);
-
-				if (delta < 0) {
-					this.step(true);
-				} else {
-					this.step(false);
-				}
-
-				if (e.preventDefault) {
-					e.preventDefault();
-				} else {
-					e.returnValue = false;
-				}
-
-				return false;
-			}
 		}
+
 	};
 
 

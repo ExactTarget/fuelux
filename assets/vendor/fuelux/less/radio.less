@@ -144,6 +144,17 @@
 		input[type="radio"]:focus + .radio-label {
 			color: @gray60;
 		}
+
+		/* for keyboard tabbing */
+		input[type="radio"] + .radio-label {
+			&.truncate {
+				display: inherit;
+				line-height: 14px;
+				margin-top: 3px;
+				margin-bottom: -3px;
+			}
+		}
+
 	}
 
 	label.radio-custom.radio-inline {

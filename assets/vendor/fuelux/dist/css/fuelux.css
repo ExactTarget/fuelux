@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.14.2 
+ * Fuel UX v3.15.10 
  * Copyright 2012-2016 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -178,7 +178,7 @@ label.fuelux .checkbox-inline {
   line-height: 1;
   speak: none;
   border: 1px solid #aaaaaa;
-  color: #ffffff;
+  color: #FFF;
   font-size: 9px;
   width: 14px;
   height: 14px;
@@ -481,6 +481,7 @@ label.fuelux .checkbox-inline {
   position: relative;
   /* for keyboard tabbing */
   /* for keyboard tabbing */
+  /* for keyboard tabbing */
 }
 .fuelux .checkbox-custom:before {
   font-family: "Glyphicons Halflings" !important;
@@ -494,7 +495,7 @@ label.fuelux .checkbox-inline {
   -moz-osx-font-smoothing: grayscale;
   border: 1px solid #aaaaaa;
   border-radius: 4px;
-  color: #ffffff;
+  color: #FFF;
   content: " ";
   font-size: 9px;
   height: 14px;
@@ -506,9 +507,9 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .checkbox-custom:active:before,
 .fuelux .checkbox-custom:focus:before {
-  color: #5b9dd9;
+  color: #5B9DD9;
   cursor: pointer;
-  box-shadow: inset 0px 0px 2px 1px #5b9dd9, 0px 0px 5px 0px #5b9dd9;
+  box-shadow: inset 0px 0px 2px 1px #5B9DD9, 0px 0px 5px 0px #5B9DD9;
 }
 .fuelux .checkbox-custom.highlight:before {
   left: 4px;
@@ -545,6 +546,12 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .checkbox-custom input[type="checkbox"]:focus + .checkbox-label {
   color: #999999;
+}
+.fuelux .checkbox-custom input[type="checkbox"] + .checkbox-label.truncate {
+  display: inherit;
+  line-height: 14px;
+  margin-top: 3px;
+  margin-bottom: -3px;
 }
 .fuelux label.checkbox-custom.checkbox-inline {
   padding-left: 20px;
@@ -621,6 +628,7 @@ label.fuelux .checkbox-inline {
 .fuelux .radio-custom {
   position: relative;
   /* for keyboard tabbing */
+  /* for keyboard tabbing */
 }
 .fuelux .radio-custom .highlight {
   padding: 4px;
@@ -651,7 +659,7 @@ label.fuelux .checkbox-inline {
   width: 14px;
 }
 .fuelux .radio-custom.checked:after {
-  background: #ffffff;
+  background: #FFF;
 }
 .fuelux .radio-custom.checked:before {
   background: #39b3d7;
@@ -695,6 +703,12 @@ label.fuelux .checkbox-inline {
 .fuelux .radio-custom input[type="radio"]:focus + .radio-label {
   color: #999999;
 }
+.fuelux .radio-custom input[type="radio"] + .radio-label.truncate {
+  display: inherit;
+  line-height: 14px;
+  margin-top: 3px;
+  margin-bottom: -3px;
+}
 .fuelux label.radio-custom.radio-inline {
   padding-left: 20px;
 }
@@ -712,19 +726,19 @@ label.fuelux .checkbox-inline {
 .fuelux .radio-inline input[type="radio"]:not(.sr-only):checked ~ label:before {
   background: #39b3d7;
   /* Old browsers */
-  background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #ffffff 40%, #39b3d7 41%, #39b3d7 100%);
+  background: -moz-radial-gradient(center, ellipse cover, #FFF 0%, #FFF 40%, #39b3d7 41%, #39b3d7 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #ffffff), color-stop(40%, #ffffff), color-stop(41%, #39b3d7), color-stop(100%, #39b3d7));
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #FFF), color-stop(40%, #FFF), color-stop(41%, #39b3d7), color-stop(100%, #39b3d7));
   /* Chrome,Safari4+ */
-  background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%, #ffffff 40%, #39b3d7 41%, #39b3d7 100%);
+  background: -webkit-radial-gradient(center, ellipse cover, #FFF 0%, #FFF 40%, #39b3d7 41%, #39b3d7 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-radial-gradient(center, ellipse cover, #ffffff 0%, #ffffff 40%, #39b3d7 41%, #39b3d7 100%);
+  background: -o-radial-gradient(center, ellipse cover, #FFF 0%, #FFF 40%, #39b3d7 41%, #39b3d7 100%);
   /* Opera 12+ */
-  background: -ms-radial-gradient(center, ellipse cover, #ffffff 0%, #ffffff 40%, #39b3d7 41%, #39b3d7 100%);
+  background: -ms-radial-gradient(center, ellipse cover, #FFF 0%, #FFF 40%, #39b3d7 41%, #39b3d7 100%);
   /* IE10+ */
-  background: radial-gradient(ellipse at center, #ffffff 0%, #ffffff 40%, #39b3d7 41%, #39b3d7 100%);
+  background: radial-gradient(ellipse at center, #FFF 0%, #FFF 40%, #39b3d7 41%, #39b3d7 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#39b3d7', GradientType=1);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFF', endColorstr='#39b3d7', GradientType=1);
   /* IE6-9 fallback on horizontal gradient */
 }
 .fuelux .radio input[type="radio"]:not(.sr-only):hover ~ label:before,
@@ -895,7 +909,7 @@ label.fuelux .checkbox-inline {
   color: #878787;
 }
 .fuelux .datepicker-calendar-days td.selected.current-day {
-  box-shadow: 0 0 0 1px #ffffff offset;
+  box-shadow: 0 0 0 1px #FFF offset;
 }
 .fuelux .datepicker-calendar-days td.selected.current-day b,
 .fuelux .datepicker-calendar-days td.selected.current-day button {
@@ -971,7 +985,7 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .datepicker-calendar-header .next span.glyphicon,
 .fuelux .datepicker-calendar-header .prev span.glyphicon {
-  color: #ffffff;
+  color: #FFF;
   font-size: 16px;
   line-height: 30px;
 }
@@ -1045,7 +1059,7 @@ label.fuelux .checkbox-inline {
 .fuelux .datepicker-wheels-footer .datepicker-wheels-select {
   float: right;
   background-color: transparent;
-  color: #5b9dd9;
+  color: #5B9DD9;
 }
 .fuelux .datepicker-wheels-footer .datepicker-wheels-select:hover {
   color: #1b75bb;
@@ -1086,7 +1100,7 @@ label.fuelux .checkbox-inline {
 .fuelux .datepicker-wheels-month ul li.selected button,
 .fuelux .datepicker-wheels-year ul li.selected button {
   background: #1b75bb;
-  color: #ffffff;
+  color: #FFF;
 }
 .fuelux .datepicker-wheels-month ul li.selected button:hover,
 .fuelux .datepicker-wheels-year ul li.selected button:hover {
@@ -1159,56 +1173,7 @@ label.fuelux .checkbox-inline {
   font-size: 64px;
   position: relative;
   width: 64px;
-}
-.fuelux .loader:after,
-.fuelux .loader:before {
-  font-family: "fuelux" !important;
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  line-height: 1;
-  speak: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  bottom: 0;
-  display: block;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-.fuelux .loader:before {
-  content: '\e000';
-  opacity: 0.33;
-}
-.fuelux .loader.iefix:before {
-  color: #bbbbbb;
-  opacity: 1;
-}
-.fuelux .loader[data-frame="1"]:after {
-  content: '\e001';
-}
-.fuelux .loader[data-frame="2"]:after {
-  content: '\e002';
-}
-.fuelux .loader[data-frame="3"]:after {
-  content: '\e003';
-}
-.fuelux .loader[data-frame="4"]:after {
-  content: '\e004';
-}
-.fuelux .loader[data-frame="5"]:after {
-  content: '\e005';
-}
-.fuelux .loader[data-frame="6"]:after {
-  content: '\e006';
-}
-.fuelux .loader[data-frame="7"]:after {
-  content: '\e007';
-}
-.fuelux .loader[data-frame="8"]:after {
-  content: '\e008';
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjRweCIgaGVpZ2h0PSI2NHB4IiB2aWV3Qm94PSIwIDAgNjQgNjQiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+PGcgd2lkdGg9IjU0cHgiIGhlaWdodD0iNTRweCIgdmlld0JveD0iNSA1IDU0IDU0IiBpZD0ibG9hZGVyIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNS4wMDAwMDAsIDUuMDAwMDAwKSIgZmlsbD0iIzE1ODllZSI+PGcgaWQ9InNwaW5uZXItbWVkaXVtIj48ZyBpZD0iT3ZhbC0zNSI+PGNpcmNsZSBpZD0iVG9wIiBjeD0iMjciIGN5PSI2IiByPSI1Ij48L2NpcmNsZT48Y2lyY2xlIGlkPSJUb3BSaWdodCIgY3g9IjQ4IiBjeT0iMTciIHI9IjUiPjwvY2lyY2xlPjxjaXJjbGUgaWQ9IkJvdHRvbVJpZ2h0IiBjeD0iNDgiIGN5PSIzNiIgcj0iNSI+PC9jaXJjbGU+PGNpcmNsZSBpZD0iQm90dG9tIiBjeD0iMjciIGN5PSI0OCIgcj0iNSI+PC9jaXJjbGU+PGNpcmNsZSBpZD0iQm90dG9tTGVmdCIgY3g9IjYiIGN5PSIzNiIgcj0iNSI+PC9jaXJjbGU+PGNpcmNsZSBpZD0iVG9wTGVmdCIgY3g9IjYiIGN5PSIxNyIgcj0iNSI+PC9jaXJjbGU+PC9nPjwvZz48L2c+PGFuaW1hdGVNb3Rpb24geGxpbms6aHJlZj0iI1RvcCIgcGF0aD0iTSAwIDAgViAtNSBaIiBkdXI9Ii4yNXMiIGJlZ2luPSIwczsgVG9wTGVmdEFuaW0uZW5kIiBpZD0iVG9wQW5pbSIgLz48YW5pbWF0ZU1vdGlvbiB4bGluazpocmVmPSIjVG9wUmlnaHQiIHBhdGg9Ik0gMCAwIEwgNSAtNSBaIiBkdXI9Ii4yNXMiIGJlZ2luPSJUb3BBbmltLmVuZCIgaWQ9IlRvcFJpZ2h0QW5pbSIgLz48YW5pbWF0ZU1vdGlvbiB4bGluazpocmVmPSIjQm90dG9tUmlnaHQiIHBhdGg9Ik0gMCAwIEwgNSA1IFoiIGR1cj0iLjI1cyIgYmVnaW49IlRvcFJpZ2h0QW5pbS5lbmQiIGlkPSJCb3R0b21SaWdodEFuaW0iIC8+PGFuaW1hdGVNb3Rpb24geGxpbms6aHJlZj0iI0JvdHRvbSIgcGF0aD0iTSAwIDAgViA1IFoiIGR1cj0iLjI1cyIgYmVnaW49IkJvdHRvbVJpZ2h0QW5pbS5lbmQiIGlkPSJCb3R0b21BbmltIiAvPjxhbmltYXRlTW90aW9uIHhsaW5rOmhyZWY9IiNCb3R0b21MZWZ0IiBwYXRoPSJNIDAgMCBMIC01IDUgWiIgZHVyPSIuMjVzIiBiZWdpbj0iQm90dG9tQW5pbS5lbmQiIGlkPSJCb3R0b21MZWZ0QW5pbSIgLz48YW5pbWF0ZU1vdGlvbiB4bGluazpocmVmPSIjVG9wTGVmdCIgcGF0aD0iTSAwIDAgTCAtNSAtNSBaIiBkdXI9Ii4yNXMiIGJlZ2luPSJCb3R0b21MZWZ0QW5pbS5lbmQiIGlkPSJUb3BMZWZ0QW5pbSIgLz48L3N2Zz4=");
 }
 .fuelux .pillbox {
   border: 1px solid #bbbbbb;
@@ -1367,7 +1332,7 @@ label.fuelux .checkbox-inline {
 .fuelux .placard.showing div.placard-field,
 .fuelux .placard.showing input.placard-field,
 .fuelux .placard.showing textarea.placard-field {
-  background: #ffffff;
+  background: #FFF;
   border: 1px solid #cccccc;
   box-shadow: none;
   position: relative;
@@ -1381,7 +1346,7 @@ label.fuelux .checkbox-inline {
 .fuelux .placard div.placard-field[readonly],
 .fuelux .placard input.placard-field[readonly],
 .fuelux .placard textarea.placard-field[readonly] {
-  background: #ffffff;
+  background: #FFF;
   cursor: auto;
 }
 .fuelux .placard div.placard-field[readonly].glass,
@@ -1444,7 +1409,7 @@ label.fuelux .checkbox-inline {
   border: 1px solid #cccccc;
   border-radius: 4px;
   bottom: -8px;
-  box-shadow: 0 0 0 1px #ffffff inset;
+  box-shadow: 0 0 0 1px #FFF inset;
   display: none;
   left: -8px;
   position: absolute;
@@ -1453,28 +1418,28 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .placard .glass {
   background: transparent;
-  border: 1px solid #ffffff;
+  border: 1px solid #FFF;
   box-shadow: none;
 }
 .fuelux .placard .glass:hover {
   background: #d9edf7;
-  border-color: #5b9dd9;
+  border-color: #5B9DD9;
   cursor: pointer;
 }
 .fuelux .placard .glass:hover[disabled] {
   background: transparent;
-  border-color: #ffffff;
+  border-color: #FFF;
   cursor: not-allowed;
 }
 .fuelux .placard .glass:focus {
-  background: #ffffff;
-  border-color: #5b9dd9;
+  background: #FFF;
+  border-color: #5B9DD9;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.75), 0 0 8px rgba(91, 157, 217, 0.6);
   cursor: auto;
 }
 .fuelux .placard .glass:focus[disabled] {
   background: transparent;
-  border-color: #ffffff;
+  border-color: #FFF;
   cursor: not-allowed;
 }
 .fuelux .placard .glass[disabled] {
@@ -1666,6 +1631,9 @@ label.fuelux .checkbox-inline {
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table tbody td.sorted {
   background: #fafafa;
 }
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table tbody td.truncate {
+  display: inherit;
+}
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table tbody tr:focus {
   outline: 1px dotted #dddddd;
 }
@@ -1712,6 +1680,10 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table thead > tr > th:first-child .header-checkbox {
   width: 37px;
+  padding-left: 12px;
+}
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table thead > tr > th:first-child .header-checkbox .checkbox-inline:before {
+  top: 0;
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table thead > tr > th.sortable:hover,
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas .repeater-list table thead > tr > th.sortable.sorted {
@@ -1826,7 +1798,7 @@ label.fuelux .checkbox-inline {
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.frozen-enabled .repeater-list table.table-frozen {
   border-right: 1px solid #dddddd;
   z-index: 2;
-  background: #ffffff;
+  background: #FFF;
   border-collapse: collapse;
   table-layout: fixed;
   float: left;
@@ -1875,7 +1847,7 @@ label.fuelux .checkbox-inline {
   background: transparent;
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions tr td {
-  background: #ffffff;
+  background: #FFF;
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions tr.selectable:hover td,
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list .actions-column-wrapper table.table-actions tr.selectable.hovered td {
@@ -1943,7 +1915,7 @@ label.fuelux .checkbox-inline {
   border-left: 1px solid transparent;
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list.ie-9 .actions-column-wrapper table.table-actions {
-  background-color: #ffffff;
+  background-color: #FFF;
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.actions-enabled .repeater-list.ie-9 .actions-column-wrapper table.table-actions tr {
   background-color: transparent;
@@ -1961,10 +1933,8 @@ label.fuelux .checkbox-inline {
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.multi-select-enabled .repeater-list thead tr:first-child .header-checkbox {
   width: 37px;
 }
-.fuelux .repeater[data-viewtype="list"] .repeater-canvas.multi-select-enabled .repeater-list thead tr:first-child .header-checkbox label {
-  top: -10px;
-  left: 4px;
-  padding-left: 0;
+.fuelux .repeater[data-viewtype="list"] .repeater-canvas.multi-select-enabled .repeater-list thead tr:first-child .header-checkbox .checkbox {
+  margin: 0 4px;
 }
 .fuelux .repeater[data-viewtype="list"] .repeater-canvas.multi-select-enabled .repeater-list tbody tr .body-checkbox {
   left: 4px;
@@ -2335,7 +2305,7 @@ label.fuelux .checkbox-inline {
   clear: both;
 }
 .fuelux .scheduler .repeat-weekly button:not(.active) {
-  background-color: #ffffff;
+  background-color: #FFF;
 }
 .fuelux .scheduler .repeat-weekly .btn-group.disabled {
   position: relative;
@@ -2459,7 +2429,7 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .picker.showing input.picker-field,
 .fuelux .picker.showing textarea.picker-field {
-  background: #ffffff;
+  background: #FFF;
   border: 1px solid #cccccc;
   box-shadow: none;
   position: relative;
@@ -2471,7 +2441,7 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .picker input.picker-field[readonly],
 .fuelux .picker textarea.picker-field[readonly] {
-  background: #ffffff;
+  background: #FFF;
   cursor: auto;
 }
 .fuelux .picker input.picker-field[readonly].glass,
@@ -2523,7 +2493,7 @@ label.fuelux .checkbox-inline {
   background-clip: padding-box;
   border: 1px solid #cccccc;
   border-radius: 4px;
-  box-shadow: 0 0 0 1px #ffffff inset;
+  box-shadow: 0 0 0 1px #FFF inset;
   display: none;
   position: absolute;
   padding-left: 6px;
@@ -2543,28 +2513,28 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .picker .glass {
   background: transparent;
-  border: 1px solid #ffffff;
+  border: 1px solid #FFF;
   box-shadow: none;
 }
 .fuelux .picker .glass:hover {
   background: #d9edf7;
-  border-color: #5b9dd9;
+  border-color: #5B9DD9;
   cursor: pointer;
 }
 .fuelux .picker .glass:hover[disabled] {
   background: transparent;
-  border-color: #ffffff;
+  border-color: #FFF;
   cursor: not-allowed;
 }
 .fuelux .picker .glass:focus {
-  background: #ffffff;
-  border-color: #5b9dd9;
+  background: #FFF;
+  border-color: #5B9DD9;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.75), 0 0 8px rgba(91, 157, 217, 0.6);
   cursor: auto;
 }
 .fuelux .picker .glass:focus[disabled] {
   background: transparent;
-  border-color: #ffffff;
+  border-color: #FFF;
   cursor: not-allowed;
 }
 .fuelux .picker .glass[disabled] {
@@ -2711,6 +2681,13 @@ label.fuelux .checkbox-inline {
 .fuelux .tree.tree-folder-select .tree-branch.tree-selected > .tree-branch-header .tree-branch-name:hover {
   background-color: #eeeeee;
 }
+.fuelux .truncate .tree .tree-branch-header .tree-branch-name,
+.fuelux .truncate .tree .tree-item .tree-item-name {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .fuelux .wizard {
   *zoom: 1;
   border: 1px solid #d4d4d4;
@@ -2768,6 +2745,20 @@ label.fuelux .checkbox-inline {
   color: #999999;
   font-size: 16px;
   cursor: not-allowed;
+}
+.fuelux .wizard > ul.steps li > .has-secondary-text,
+.fuelux .wizard > .steps-container > ul.steps li > .has-secondary-text {
+  display: inline;
+}
+.fuelux .wizard > ul.steps li > .has-secondary-text > h4,
+.fuelux .wizard > .steps-container > ul.steps li > .has-secondary-text > h4 {
+  display: inline;
+  font-size: 16px;
+  font-weight: normal;
+}
+.fuelux .wizard > ul.steps li > .has-secondary-text > small,
+.fuelux .wizard > .steps-container > ul.steps li > .has-secondary-text > small {
+  display: none;
 }
 .fuelux .wizard > ul.steps li .chevron,
 .fuelux .wizard > .steps-container > ul.steps li .chevron {
@@ -3133,7 +3124,7 @@ label.fuelux .checkbox-inline {
   text-transform: uppercase;
   font-size: 10px;
   margin-bottom: 2px;
-  text-shadow: 0 1px #ffffff;
+  text-shadow: 0 1px #FFF;
   color: #666666;
 }
 .fuelux .data-value {
@@ -3144,6 +3135,12 @@ label.fuelux .checkbox-inline {
   color: #333333;
   margin: 0 0 10px;
   padding: 0;
-  text-shadow: 0 1px #ffffff;
+  text-shadow: 0 1px #FFF;
+}
+.fuelux .truncate {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 /*# sourceMappingURL=fuelux.css.map */

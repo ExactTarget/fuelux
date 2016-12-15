@@ -1,5 +1,7 @@
 @import "fuelux-core.less";
 @mutli-select-enabled-width: 37px;
+
+// row checkboxes for selection and actions
 .selectable() {
 	&.selectable {
 		&:hover td, &.hovered td {
@@ -101,6 +103,10 @@
 							&.sorted {
 								background: @gray98;
 							}
+
+							&.truncate {
+								display: inherit;
+							}
 						}
 
 						tr {
@@ -138,6 +144,11 @@
 							border-left: none;
 							.header-checkbox {
 								width: @mutli-select-enabled-width;
+								padding-left: 12px;
+
+								.checkbox-inline:before {
+									top: 0;
+								}
 							}
 						}
 
@@ -416,10 +427,8 @@
 						tr:first-child {
 							.header-checkbox {
 								width: @mutli-select-enabled-width;
-								label {
-									top: -10px;
-									left: 4px;
-									padding-left: 0;
+								.checkbox {
+									margin: 0 4px;
 								}
 							}
 						}

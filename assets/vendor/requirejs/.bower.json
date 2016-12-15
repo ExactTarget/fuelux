@@ -1,6 +1,6 @@
 {
   "name": "requirejs",
-  "version": "2.1.22",
+  "version": "2.3.2",
   "ignore": [],
   "homepage": "http://requirejs.org",
   "authors": [
@@ -12,16 +12,15 @@
     "AMD"
   ],
   "license": [
-    "BSD-3-Clause",
     "MIT"
   ],
-  "_release": "2.1.22",
+  "_release": "2.3.2",
   "_resolution": {
     "type": "version",
-    "tag": "2.1.22",
-    "commit": "9cd0b99417eac61e890d11c5119f2e45e752c999"
+    "tag": "2.3.2",
+    "commit": "5b5d3ea2c754898b645cfeaa8871bb92ba4f2790"
   },
-  "_source": "git://github.com/jrburke/requirejs-bower.git",
+  "_source": "https://github.com/jrburke/requirejs-bower.git",
   "_target": "2.x",
   "_originalSource": "requirejs"
 }

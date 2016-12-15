@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : Serbian-cyrillic (sr-cyrl)
+//! locale : Serbian Cyrillic [sr-cyrl]
 //! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 
 import moment from '../moment';
@@ -28,15 +28,17 @@ var translator = {
 };
 
 export default moment.defineLocale('sr-cyrl', {
-    months: ['јануар', 'фебруар', 'март', 'април', 'мај', 'јун', 'јул', 'август', 'септембар', 'октобар', 'новембар', 'децембар'],
-    monthsShort: ['јан.', 'феб.', 'мар.', 'апр.', 'мај', 'јун', 'јул', 'авг.', 'сеп.', 'окт.', 'нов.', 'дец.'],
-    weekdays: ['недеља', 'понедељак', 'уторак', 'среда', 'четвртак', 'петак', 'субота'],
-    weekdaysShort: ['нед.', 'пон.', 'уто.', 'сре.', 'чет.', 'пет.', 'суб.'],
-    weekdaysMin: ['не', 'по', 'ут', 'ср', 'че', 'пе', 'су'],
+    months: 'јануар_фебруар_март_април_мај_јун_јул_август_септембар_октобар_новембар_децембар'.split('_'),
+    monthsShort: 'јан._феб._мар._апр._мај_јун_јул_авг._сеп._окт._нов._дец.'.split('_'),
+    monthsParseExact: true,
+    weekdays: 'недеља_понедељак_уторак_среда_четвртак_петак_субота'.split('_'),
+    weekdaysShort: 'нед._пон._уто._сре._чет._пет._суб.'.split('_'),
+    weekdaysMin: 'не_по_ут_ср_че_пе_су'.split('_'),
+    weekdaysParseExact : true,
     longDateFormat: {
         LT: 'H:mm',
         LTS : 'H:mm:ss',
-        L: 'DD. MM. YYYY',
+        L: 'DD.MM.YYYY',
         LL: 'D. MMMM YYYY',
         LLL: 'D. MMMM YYYY H:mm',
         LLLL: 'dddd, D. MMMM YYYY H:mm'
@@ -46,17 +48,17 @@ export default moment.defineLocale('sr-cyrl', {
         nextDay: '[сутра у] LT',
         nextWeek: function () {
             switch (this.day()) {
-            case 0:
-                return '[у] [недељу] [у] LT';
-            case 3:
-                return '[у] [среду] [у] LT';
-            case 6:
-                return '[у] [суботу] [у] LT';
-            case 1:
-            case 2:
-            case 4:
-            case 5:
-                return '[у] dddd [у] LT';
+                case 0:
+                    return '[у] [недељу] [у] LT';
+                case 3:
+                    return '[у] [среду] [у] LT';
+                case 6:
+                    return '[у] [суботу] [у] LT';
+                case 1:
+                case 2:
+                case 4:
+                case 5:
+                    return '[у] dddd [у] LT';
             }
         },
         lastDay  : '[јуче у] LT',
@@ -96,4 +98,3 @@ export default moment.defineLocale('sr-cyrl', {
         doy : 7  // The week that contains Jan 1st is the first week of the year.
     }
 });
-

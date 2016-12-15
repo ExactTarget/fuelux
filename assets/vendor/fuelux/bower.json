@@ -25,11 +25,10 @@
   "devDependencies": {
     "jquery": null,
     "jquery-1.9.1": "jquery#1.9.1",
-    "qunit": "1.x",
+    "qunit": "2.x",
     "requirejs-text": "2.x",
     "underscore": "1.x",
     "blanket": "1.x",
-    "jquery-simulate-ext": "~1.3.0",
     "require-handlebars-plugin": "~1.0.0"
   },
   "ignore": [

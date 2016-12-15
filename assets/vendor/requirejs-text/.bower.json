@@ -1,15 +1,16 @@
 {
   "name": "text",
-  "version": "2.0.14",
+  "version": "2.0.15",
   "main": "text.js",
+  "license": "MIT",
   "homepage": "https://github.com/requirejs/text",
-  "_release": "2.0.14",
+  "_release": "2.0.15",
   "_resolution": {
     "type": "version",
-    "tag": "2.0.14",
-    "commit": "195a482d24f1d515979ab26f29e968e99c4ab63c"
+    "tag": "2.0.15",
+    "commit": "77b6e63abb6c87a62bb895bda2f78b9403bf2716"
   },
-  "_source": "git://github.com/requirejs/text.git",
+  "_source": "https://github.com/requirejs/text.git",
   "_target": "2.x",
   "_originalSource": "requirejs-text"
 }

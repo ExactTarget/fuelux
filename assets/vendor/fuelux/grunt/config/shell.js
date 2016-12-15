@@ -11,13 +11,23 @@ module.exports = function (grunt) {
 	}
 
 	return {
+		// See [How to release a new version: Prerequisites](https://github.com/ExactTarget/fuelux/wiki/How-to-release-a-new-version#prerequisites-1) for information on generating release notes.
 		// Install with: gem install github_changelog_generator
-		// 'github_changelog_generator --no-author --between-tags 3.11.4,3.11.5 --compare-link -t '
+		// 'github_changelog_generator -u ExactTarget -p fuelux --no-author --between-tags 3.11.4,3.11.5 --compare-link -t '
 		notes: {
-			command: 'github_changelog_generator --no-author --between-tags ' + originalVersion + ',' + getPackage().version + ' --compare-link -t ' + getGithubToken()
+			command: 'github_changelog_generator -u ExactTarget -p fuelux --no-author --between-tags ' + originalVersion + ',' + getPackage().version + ' --compare-link -t ' + getGithubToken()
 		},
 		manualnotes: {
-			command: 'github_changelog_generator --no-author --between-tags ' + grunt.config('release.generatelogsmanuallystart') + ',' + grunt.config('release.generatelogsmanuallyend') + ' --compare-link -t ' + getGithubToken()
+			command: function getCommand () {
+				if (grunt.config('release.generatelogsmanuallystart') === undefined || grunt.config('release.generatelogsmanuallyend') === undefined) {
+					grunt.log.write('release start and end must be specified. Run task with grunt prompt:generatelogsmanually');
+					return false;
+				}
+
+				grunt.log.write('Running: github_changelog_generator -u ExactTarget -p fuelux --no-author --between-tags ' + grunt.config('release.generatelogsmanuallystart') + ',' + grunt.config('release.generatelogsmanuallyend') + ' --compare-link -t ');
+				grunt.log.write('\nPlease be patient.');
+				return 'github_changelog_generator -u ExactTarget -p fuelux --no-author --between-tags ' + grunt.config('release.generatelogsmanuallystart') + ',' + grunt.config('release.generatelogsmanuallyend') + ' --compare-link -t ' + getGithubToken();
+			}
 		},
 		checkoutRemoteReleaseBranch: {
 			// this makes a local branch based on the prior prompt, such as release_{TIMESTAMP}

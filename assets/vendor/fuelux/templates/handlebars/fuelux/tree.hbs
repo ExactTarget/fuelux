@@ -10,7 +10,7 @@
 		</div>
 		<ul class="tree-branch-children" role="group"></ul>
 		<!-- this loader shows on nested folders and when overflow is triggered -->
-		{{#if loaderHTML }}{{loaderHTML}}{{else}}<div class="tree-loader hidden" role="alert">Loading...</div>{{/if}}
+		{{#if loaderHTML }}{{loaderHTML}}{{else}}<div class="tree-loader hidden"><span role="alert">Loading...</span></div>{{/if}}
 	</li>
 	<li class="tree-item hidden" data-template="treeitem" role="treeitem">
 		<button type="button" class="tree-item-name">
@@ -25,5 +25,5 @@
 		</button>
 	</li>
 	<!-- Loader shown at root level and when tree is loading -->
-	{{#if initialLoaderHTML}}{{initialLoaderHTML}}{{else}}{{#if loaderHTML }}{{loaderHTML}}{{else}}<li class="tree-loader hidden" role="alert">Loading...</li>{{/if}}{{/if}}
+	{{#if initialLoaderHTML}}{{initialLoaderHTML}}{{else}}{{#if loaderHTML }}{{loaderHTML}}{{else}}<li class="tree-loader hidden"><span role="alert">Loading...</span></li>{{/if}}{{/if}}
 </ul>

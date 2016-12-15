@@ -2,12 +2,15 @@ import { get } from '../moment/get-set';
 import hasOwnProp from '../utils/has-own-prop';
 import { addFormatToken } from '../format/format';
 import { addUnitAlias } from './aliases';
+import { addUnitPriority } from './priorities';
 import { addRegexToken, match1to2, match2, matchWord, regexEscape } from '../parse/regex';
 import { addParseToken } from '../parse/token';
 import { hooks } from '../utils/hooks';
 import { MONTH } from './constants';
 import toInt from '../utils/to-int';
 import isArray from '../utils/is-array';
+import isNumber from '../utils/is-number';
+import indexOf from '../utils/index-of';
 import { createUTC } from '../create/utc';
 import getParsingFlags from '../create/parsing-flags';
 
@@ -32,6 +35,10 @@ addFormatToken('MMMM', 0, 0, function (format) {
 // ALIASES
 
 addUnitAlias('month', 'M');
+
+// PRIORITY
+
+addUnitPriority('month', 8);
 
 // PARSING
 
@@ -60,21 +67,72 @@ addParseToken(['MMM', 'MMMM'], function (input, array, config, token) {
 
 // LOCALES
 
-var MONTHS_IN_FORMAT = /D[oD]?(\[[^\[\]]*\]|\s+)+MMMM?/;
+var MONTHS_IN_FORMAT = /D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/;
 export var defaultLocaleMonths = 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_');
 export function localeMonths (m, format) {
+    if (!m) {
+        return this._months;
+    }
     return isArray(this._months) ? this._months[m.month()] :
-        this._months[MONTHS_IN_FORMAT.test(format) ? 'format' : 'standalone'][m.month()];
+        this._months[(this._months.isFormat || MONTHS_IN_FORMAT).test(format) ? 'format' : 'standalone'][m.month()];
 }
 
 export var defaultLocaleMonthsShort = 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_');
 export function localeMonthsShort (m, format) {
+    if (!m) {
+        return this._monthsShort;
+    }
     return isArray(this._monthsShort) ? this._monthsShort[m.month()] :
         this._monthsShort[MONTHS_IN_FORMAT.test(format) ? 'format' : 'standalone'][m.month()];
 }
 
+function handleStrictParse(monthName, format, strict) {
+    var i, ii, mom, llc = monthName.toLocaleLowerCase();
+    if (!this._monthsParse) {
+        // this is not used
+        this._monthsParse = [];
+        this._longMonthsParse = [];
+        this._shortMonthsParse = [];
+        for (i = 0; i < 12; ++i) {
+            mom = createUTC([2000, i]);
+            this._shortMonthsParse[i] = this.monthsShort(mom, '').toLocaleLowerCase();
+            this._longMonthsParse[i] = this.months(mom, '').toLocaleLowerCase();
+        }
+    }
+
+    if (strict) {
+        if (format === 'MMM') {
+            ii = indexOf.call(this._shortMonthsParse, llc);
+            return ii !== -1 ? ii : null;
+        } else {
+            ii = indexOf.call(this._longMonthsParse, llc);
+            return ii !== -1 ? ii : null;
+        }
+    } else {
+        if (format === 'MMM') {
+            ii = indexOf.call(this._shortMonthsParse, llc);
+            if (ii !== -1) {
+                return ii;
+            }
+            ii = indexOf.call(this._longMonthsParse, llc);
+            return ii !== -1 ? ii : null;
+        } else {
+            ii = indexOf.call(this._longMonthsParse, llc);
+            if (ii !== -1) {
+                return ii;
+            }
+            ii = indexOf.call(this._shortMonthsParse, llc);
+            return ii !== -1 ? ii : null;
+        }
+    }
+}
+
 export function localeMonthsParse (monthName, format, strict) {
     var i, mom, regex;
+
+    if (this._monthsParseExact) {
+        return handleStrictParse.call(this, monthName, format, strict);
+    }
 
     if (!this._monthsParse) {
         this._monthsParse = [];
@@ -82,6 +140,9 @@ export function localeMonthsParse (monthName, format, strict) {
         this._shortMonthsParse = [];
     }
 
+    // TODO: add sorting
+    // Sorting makes sure if one month (or abbr) is a prefix of another
+    // see sorting in computeMonthsParse
     for (i = 0; i < 12; i++) {
         // make the regex if we don't have it already
         mom = createUTC([2000, i]);
@@ -114,12 +175,15 @@ export function setMonth (mom, value) {
         return mom;
     }
 
-    // TODO: Move this out of here!
     if (typeof value === 'string') {
-        value = mom.localeData().monthsParse(value);
-        // TODO: Another silent failure?
-        if (typeof value !== 'number') {
-            return mom;
+        if (/^\d+$/.test(value)) {
+            value = toInt(value);
+        } else {
+            value = mom.localeData().monthsParse(value);
+            // TODO: Another silent failure?
+            if (!isNumber(value)) {
+                return mom;
+            }
         }
     }
 
@@ -142,7 +206,7 @@ export function getDaysInMonth () {
     return daysInMonth(this.year(), this.month());
 }
 
-export var defaultMonthsShortRegex = matchWord;
+var defaultMonthsShortRegex = matchWord;
 export function monthsShortRegex (isStrict) {
     if (this._monthsParseExact) {
         if (!hasOwnProp(this, '_monthsRegex')) {
@@ -154,12 +218,15 @@ export function monthsShortRegex (isStrict) {
             return this._monthsShortRegex;
         }
     } else {
+        if (!hasOwnProp(this, '_monthsShortRegex')) {
+            this._monthsShortRegex = defaultMonthsShortRegex;
+        }
         return this._monthsShortStrictRegex && isStrict ?
             this._monthsShortStrictRegex : this._monthsShortRegex;
     }
 }
 
-export var defaultMonthsRegex = matchWord;
+var defaultMonthsRegex = matchWord;
 export function monthsRegex (isStrict) {
     if (this._monthsParseExact) {
         if (!hasOwnProp(this, '_monthsRegex')) {
@@ -171,6 +238,9 @@ export function monthsRegex (isStrict) {
             return this._monthsRegex;
         }
     } else {
+        if (!hasOwnProp(this, '_monthsRegex')) {
+            this._monthsRegex = defaultMonthsRegex;
+        }
         return this._monthsStrictRegex && isStrict ?
             this._monthsStrictRegex : this._monthsRegex;
     }
@@ -199,11 +269,13 @@ function computeMonthsParse () {
     for (i = 0; i < 12; i++) {
         shortPieces[i] = regexEscape(shortPieces[i]);
         longPieces[i] = regexEscape(longPieces[i]);
+    }
+    for (i = 0; i < 24; i++) {
         mixedPieces[i] = regexEscape(mixedPieces[i]);
     }
 
     this._monthsRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'i');
     this._monthsShortRegex = this._monthsRegex;
-    this._monthsStrictRegex = new RegExp('^(' + longPieces.join('|') + ')$', 'i');
-    this._monthsShortStrictRegex = new RegExp('^(' + shortPieces.join('|') + ')$', 'i');
+    this._monthsStrictRegex = new RegExp('^(' + longPieces.join('|') + ')', 'i');
+    this._monthsShortStrictRegex = new RegExp('^(' + shortPieces.join('|') + ')', 'i');
 }

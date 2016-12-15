@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : azerbaijani (az)
+//! locale : Azerbaijani [az]
 //! author : topchiyev : https://github.com/topchiyev
 
 import moment from '../moment';
@@ -31,6 +31,7 @@ export default moment.defineLocale('az', {
     weekdays : 'Bazar_Bazar ertəsi_Çərşənbə axşamı_Çərşənbə_Cümə axşamı_Cümə_Şənbə'.split('_'),
     weekdaysShort : 'Baz_BzE_ÇAx_Çər_CAx_Cüm_Şən'.split('_'),
     weekdaysMin : 'Bz_BE_ÇA_Çə_CA_Cü_Şə'.split('_'),
+    weekdaysParseExact : true,
     longDateFormat : {
         LT : 'HH:mm',
         LTS : 'HH:mm:ss',

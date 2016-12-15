@@ -12,10 +12,17 @@ module.exports = function (grunt) {
 
 	// Maintainers: Run prior to a release. Includes SauceLabs VM tests.
 	grunt.registerTask('release', 'Release a new version, push it and publish it', function () {
+		grunt.log.write('Welcome to the FUEL UX Release process.\n');
+		grunt.log.write('\n');
+		grunt.log.write('Please review and complete prerequisites in RELEASE.md.\n');
+		grunt.log.write('\n');
+		grunt.log.write('Please make sure you are not on VPN.\n');
+		grunt.log.write('\n');
+
 		// default variables for release task
 		var releaseDefaults = {
 			release: {
-				files: ['dist', 'README.md', 'DETAILS.md', 'bower.json', 'package.json'],
+				files: ['dist', 'README.md', 'CONTRIBUTING.md', 'bower.json', 'package.json'],
 				localBranch: 'release',
 				remoteBaseBranch: 'master',
 				remoteDestinationBranch: '3.x',
@@ -26,7 +33,7 @@ module.exports = function (grunt) {
 		// add releaseDefaults
 		grunt.config.merge(releaseDefaults);
 
-		if (typeof grunt.config('sauceLoginFile') === 'undefined') {
+		if (!grunt.file.exists('SAUCE_API_KEY.yml')) {
 			grunt.log.write('The file SAUCE_API_KEY.yml is needed in order to run tests in SauceLabs.'.red.bold +
 					' Please contact another maintainer to obtain this file.');
 		}
@@ -39,6 +46,10 @@ module.exports = function (grunt) {
 		// update local variable to make sure build prompt is using temp branch's package version
 		grunt.task.run(
 			[
+				'prompt:logoffvpn',
+				'prompt:rannpminstall',
+				'prompt:rangrunttest',
+				'prompt:ransauce',
 				'prompt:createmilestone',
 				'prompt:bumpmilestones',
 				'prompt:closemilestone',

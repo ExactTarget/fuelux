@@ -7,7 +7,7 @@
 					<input type="search" class="form-control" placeholder="Search"/>
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="button">
-							<span class="glyphicon glyphicon-search"></span>
+							<span class="{{#unless mctheme}}glyphicon glyphicon-search{{else}}fuelux-icon fuelux-icon-search{{/unless}}"></span>
 							<span class="sr-only">Search</span>
 						</button>
 					</span>
@@ -30,10 +30,10 @@
 			</div>
 			<div class="btn-group repeater-views" data-toggle="buttons">
 				<label class="btn btn-default active">
-					<input name="repeaterViews" type="radio" value="list"><span class="glyphicon glyphicon-list"></span>
+					<input name="repeaterViews" type="radio" value="list"><span class="{{#unless mctheme}}glyphicon glyphicon-list{{else}}fuelux-icon fuelux-icon-gridview-list{{/unless}}"></span>
 				</label>
 				<label class="btn btn-default">
-					<input name="repeaterViews" type="radio" value="thumbnail"><span class="glyphicon glyphicon-th"></span>
+					<input name="repeaterViews" type="radio" value="thumbnail"><span class="{{#unless mctheme}}glyphicon glyphicon-th{{else}}fuelux-icon fuelux-icon-gridview-thumbnail{{/unless}}"></span>
 				</label>
 			</div>
 		</div>
@@ -65,7 +65,7 @@
 		<div class="repeater-footer-right">
 			<div class="repeater-pagination">
 				<button type="button" class="btn btn-default btn-sm repeater-prev">
-					<span class="glyphicon glyphicon-chevron-left"></span>
+					<span class="{{#unless mctheme}}glyphicon glyphicon-chevron-left{{else}}fuelux-icon fuelux-icon-chevron-left{{/unless}}"></span>
 					<span class="sr-only">Previous Page</span>
 				</button>
 				<label id="{{pageLabelID}}" class="page-label">{{pageLabel}}</label>
@@ -84,7 +84,7 @@
 				<input type="text" class="form-control repeater-secondaryPaging" aria-labelledby="{{pageLabelID}}">
 				<span>of <span class="repeater-pages"></span></span>
 				<button type="button" class="btn btn-default btn-sm repeater-next">
-					<span class="glyphicon glyphicon-chevron-right"></span>
+					<span class="{{#unless mctheme}}glyphicon glyphicon-chevron-right{{else}}fuelux-icon fuelux-icon-chevron-right{{/unless}}"></span>
 					<span class="sr-only">Next Page</span>
 				</button>
 			</div>

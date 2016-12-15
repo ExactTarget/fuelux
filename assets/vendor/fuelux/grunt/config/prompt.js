@@ -99,7 +99,7 @@ module.exports = function (grunt) {
 					{
 						config: 'release.tag',
 						type: 'confirm',
-						message: 'Would you like to tag as ' + getPackageVersion() + '?'
+						message: 'Would you like to tag?'
 					}
 				],
 				then: function (answers, done) {
@@ -136,7 +136,7 @@ module.exports = function (grunt) {
 					{
 						config: 'release.upstreamTag',
 						type: 'confirm',
-						message: 'Would you like to push tag ' + getPackageVersion() + ' to upstream?'
+						message: 'Would you like to push tag to upstream?'
 					}
 				],
 				then: function (answers, done) {
@@ -214,6 +214,70 @@ module.exports = function (grunt) {
 						grunt.task.run(['shell:publishToNPM']);
 					}
 					return false;
+				}
+			}
+		},
+		'logoffvpn': {
+			options: {
+				questions: [
+					{
+						config: 'release.logoffvpn',
+						type: 'confirm',
+						message: 'Have you logged off of VPN?'
+					}
+				],
+				then: function (answers, done) {
+					if (answers['release.logoffvpn'] === false) {
+						grunt.fail.fatal('Please log off of VPN and try again', 1);
+					}
+				}
+			}
+		},
+		'rannpminstall': {
+			options: {
+				questions: [
+					{
+						config: 'release.rannpminstall',
+						type: 'confirm',
+						message: 'Have you run `npm install && bower install`?'
+					}
+				],
+				then: function (answers, done) {
+					// if (answers['release.rannpminstall'] === false) {
+					// 	grunt.fail.fatal('Please run `npm install && bower install`', 1);
+					// }
+				}
+			}
+		},
+		'rangrunttest': {
+			options: {
+				questions: [
+					{
+						config: 'release.rangrunttest',
+						type: 'confirm',
+						message: 'Have you run grunt test, and have all tests passed?'
+					}
+				],
+				then: function (answers, done) {
+					// if (answers['release.rangrunttest'] === false) {
+					// 	grunt.fail.fatal('Please run `grunt test`, and make sure all tests pass', 1);
+					// }
+				}
+			}
+		},
+		'ransauce': {
+			options: {
+				questions: [
+					{
+						config: 'release.ransauce',
+						type: 'confirm',
+						message: 'Have you run `grunt saucelabs`, and have all tests passed?'
+					}
+				],
+				then: function (answers, done) {
+					// if (answers['release.ransauce'] === false) {
+					// 	grunt.fail.fatal('Please run `grunt saucelabs`, and make sure all tests pass', 1);
+					// }
 				}
 			}
 		},
@@ -304,12 +368,12 @@ module.exports = function (grunt) {
 					{
 						config: 'release.generatelogsmanuallystart',
 						type: 'input',
-						message: 'Which releases would you like to start diff for changelogs from? (eg. 3.11.4)',
+						message: 'Which releases would you like to start diff for changelogs from? (current: ' + getPackageVersion() + ')'
 					},
 					{
 						config: 'release.generatelogsmanuallyend',
 						type: 'input',
-						message: 'Which releases would you like to end diff for changelogs from? (eg. 3.11.5)',
+						message: 'Which releases would you like to end diff for changelogs from? (current: ' + getPackageVersion() + ')'
 					},
 					{
 						config: 'release.generatelogsmanually',
@@ -318,8 +382,10 @@ module.exports = function (grunt) {
 					}
 				],
 				then: function (answers, done) {
-					if (answers['release.generatelogsmanually'] === true && answers['release.generatelogsmanuallystart'] !== '' && answers['release.generatelogsmanuallyend'] !== '') {
-						grunt.log.writeln('About to generate changelogs between ' + answers['release.generatelogsmanuallystart'] + ' and ' + answers['release.generatelogsmanuallyend'] + '.');
+					grunt.config('release.generatelogsmanuallystart', answers['release.generatelogsmanuallystart']);
+					grunt.config('release.generatelogsmanuallystart', answers['release.generatelogsmanuallystart']);
+					if (answers['release.generatelogsmanually'] === true && grunt.config('release.generatelogsmanuallystart') !== '' && grunt.config('release.generatelogsmanuallyend') !== '') {
+						grunt.log.writeln('About to generate changelogs between ' + grunt.config('release.generatelogsmanuallystart') + ' and ' + grunt.config('release.generatelogsmanuallyend') + '.');
 						grunt.log.writeln('There will be no more output for possibly several minutes.');
 						grunt.log.writeln('Thank you for your patience, have an ohana mahalo kilikilikiwana day.');
 						grunt.log.writeln('//TODO: Insert tiki dancing nyan cat here. --jschmidt');

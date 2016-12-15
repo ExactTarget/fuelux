@@ -6,7 +6,7 @@ module.exports = function (grunt) {
 
 	return {
 		readme: {
-			src: ['DETAILS.md', 'README.md'],
+			src: ['CONTRIBUTING.md', 'README.md'],
 			overwrite: true,
 			replacements: [{
 				from: /fuelux\/\d{1,2}\.\d{1,2}\.\d{1,2}/g,

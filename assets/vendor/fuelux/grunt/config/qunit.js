@@ -1,5 +1,4 @@
-module.exports = function (grunt) {
-
+module.exports = function qunit (grunt) {
 	return {
 		release: {
 			options: {
@@ -35,6 +34,5 @@ module.exports = function (grunt) {
 				]
 			}
 		}
-	}
-
+	};
 };

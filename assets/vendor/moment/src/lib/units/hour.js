@@ -1,6 +1,7 @@
 import { makeGetSet } from '../moment/get-set';
 import { addFormatToken } from '../format/format';
 import { addUnitAlias } from './aliases';
+import { addUnitPriority } from './priorities';
 import { addRegexToken, match1to2, match2, match3to4, match5to6 } from '../parse/regex';
 import { addParseToken } from '../parse/token';
 import { HOUR, MINUTE, SECOND } from './constants';
@@ -14,8 +15,13 @@ function hFormat() {
     return this.hours() % 12 || 12;
 }
 
+function kFormat() {
+    return this.hours() || 24;
+}
+
 addFormatToken('H', ['HH', 2], 0, 'hour');
 addFormatToken('h', ['hh', 2], 0, hFormat);
+addFormatToken('k', ['kk', 2], 0, kFormat);
 
 addFormatToken('hmm', 0, 0, function () {
     return '' + hFormat.apply(this) + zeroFill(this.minutes(), 2);
@@ -47,6 +53,9 @@ meridiem('A', false);
 // ALIASES
 
 addUnitAlias('hour', 'h');
+
+// PRIORITY
+addUnitPriority('hour', 13);
 
 // PARSING
 

@@ -1,5 +1,5 @@
 //! moment.js locale configuration
-//! locale : japanese (ja)
+//! locale : Japanese [ja]
 //! author : LI Long : https://github.com/baryon
 
 import moment from '../moment';
@@ -36,6 +36,17 @@ export default moment.defineLocale('ja', {
         lastDay : '[昨日] LT',
         lastWeek : '[前週]dddd LT',
         sameElse : 'L'
+    },
+    ordinalParse : /\d{1,2}日/,
+    ordinal : function (number, period) {
+        switch (period) {
+            case 'd':
+            case 'D':
+            case 'DDD':
+                return number + '日';
+            default:
+                return number;
+        }
     },
     relativeTime : {
         future : '%s後',

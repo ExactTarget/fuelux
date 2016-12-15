@@ -1,32 +1,25 @@
 define( [
 	"../core",
+	"../core/stripAndCollapse",
 	"../core/parseHTML",
 	"../ajax",
 	"../traversing",
 	"../manipulation",
-	"../selector",
+	"../selector"
+], function( jQuery, stripAndCollapse ) {
 
-	// Optional event/alias dependency
-	"../event/alias"
-], function( jQuery ) {
-
-// Keep a copy of the old load method
-var _load = jQuery.fn.load;
+"use strict";
 
 /**
  * Load a url into a page
  */
 jQuery.fn.load = function( url, params, callback ) {
-	if ( typeof url !== "string" && _load ) {
-		return _load.apply( this, arguments );
-	}
-
 	var selector, type, response,
 		self = this,
 		off = url.indexOf( " " );
 
 	if ( off > -1 ) {
-		selector = jQuery.trim( url.slice( off ) );
+		selector = stripAndCollapse( url.slice( off ) );
 		url = url.slice( 0, off );
 	}
 
@@ -72,7 +65,7 @@ jQuery.fn.load = function( url, params, callback ) {
 		// If it fails, this function gets "jqXHR", "status", "error"
 		} ).always( callback && function( jqXHR, status ) {
 			self.each( function() {
-				callback.apply( self, response || [ jqXHR.responseText, status, jqXHR ] );
+				callback.apply( this, response || [ jqXHR.responseText, status, jqXHR ] );
 			} );
 		} );
 	}

@@ -1,6 +1,7 @@
 //! moment.js locale configuration
-//! locale : Welsh (cy)
-//! author : Robert Allen
+//! locale : Welsh [cy]
+//! author : Robert Allen : https://github.com/robgallen
+//! author : https://github.com/ryangreaves
 
 import moment from '../moment';
 
@@ -10,6 +11,7 @@ export default moment.defineLocale('cy', {
     weekdays: 'Dydd Sul_Dydd Llun_Dydd Mawrth_Dydd Mercher_Dydd Iau_Dydd Gwener_Dydd Sadwrn'.split('_'),
     weekdaysShort: 'Sul_Llun_Maw_Mer_Iau_Gwe_Sad'.split('_'),
     weekdaysMin: 'Su_Ll_Ma_Me_Ia_Gw_Sa'.split('_'),
+    weekdaysParseExact : true,
     // time formats are the same as en-gb
     longDateFormat: {
         LT: 'HH:mm',
