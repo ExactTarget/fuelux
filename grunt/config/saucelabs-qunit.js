@@ -22,7 +22,7 @@ module.exports = function (grunt) {
 				browsers: grunt.file.readYAML('sauce_browsers.yml'),
 				build: process.env.TRAVIS_BUILD_NUMBER || getPackage().version,
 				testname: process.env.TRAVIS_JOB_ID || getPackage().version + '-<%= grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT") %>',
-				urls: ['http://localhost:<%= connect.testServer.options.port %>/test/?testdist=true&hidepassed'],
+				urls: ['http://localhost:<%= connect.testServer.options.port %>/test/?testdist=true&hidepassed=true'],
 				maxPollRetries: 4,
 				throttled: 3,
 				maxRetries: 3
