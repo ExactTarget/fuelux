@@ -22,6 +22,14 @@ Host fuelux.upload.akamai.com
 ### NPM
 You will need to authorize your machine to do npm publishing using `npm adduser`. Contact another maintainer for credentials.
 
+### NPM LINK FUELUX -> FUELUX-STIE
+
+From Fuel UX repo:
+`npm link`
+
+From Fuel UX Site repo:
+`npm link fuelux`
+
 ### QA
 - [ ] Test
   - [ ] `npm install`
@@ -32,9 +40,9 @@ You will need to authorize your machine to do npm publishing using `npm adduser`
     * If some environments fail, start your server with `grunt servefast` and use Browserstack to investigate.
   - [ ] Generate test distribution package for use on the Fuel UX Site
     - [ ] `grunt dist`
-    - [ ] Copy the created `dist/` directory to the fuelux-site project, replacing `node_modules/fuelux/dist/`
   - [ ] Test on Fuel UX Site
-    - [ ] `gulp release`
+    - [ ] From Fuel UX Site repo
+    - [ ] `npm run local`
     - [ ] Check all known affected controls on [dev instance of Fuel UX site on Heroku](http://fuelux-dev.herokuapp.com)
       * Scroll to the bottom of each page scanning for visual errors
       * Make sure right-hand nav functions correctly
