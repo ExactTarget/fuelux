@@ -22,14 +22,6 @@ Host fuelux.upload.akamai.com
 ### NPM
 You will need to authorize your machine to do npm publishing using `npm adduser`. Contact another maintainer for credentials.
 
-### NPM LINK FUELUX -> FUELUX-STIE
-
-From Fuel UX repo:
-`npm link`
-
-From Fuel UX Site repo:
-`npm link fuelux`
-
 ### QA
 - [ ] Test
   - [ ] `npm install`
