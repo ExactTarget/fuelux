@@ -72,13 +72,11 @@ You will need to authorize your machine to do npm publishing using `npm adduser`
       - [ ] 4c. Commit
       - [ ] 4d. Push to `upstream`.
 
-- [ ] 6. Update Fuel UX Site
-- [ ] 7. [Update MC Theme] (https://github.com/ExactTarget/fuelux-mctheme/wiki/How-to-release-a-new-version)
-- [ ] 8. Update Rucksack
-- [ ] 9. Update Fusion
+- [ ] 6. Run fuelux-tools updatedependencies.js script
+- [ ] 7. Cut fusion release
 - [ ] 10. Announce
       - [ ] 10a. Tweet via @FuelUX account
-      - [ ] 10b. Post to Chatter in the Fuel UX Group
+      - [ ] 10b. Post to Chatter in the Marketing Cloud Lightning UX group
 
 ## Generate Release Notes
 
