@@ -1,6 +1,6 @@
 /*!
- * Fuel UX v3.15.9 
- * Copyright 2012-2016 ExactTarget
+ * Fuel UX v3.15.11 
+ * Copyright 2012-2017 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
 
@@ -986,13 +986,13 @@
 							return ( true === md.isValid() ) ? md.toDate() : BAD_DATE;
 						};
 
-						tryMomentParseAll = function( d, parseFunc1, parseFunc2 ) {
-							var pd = parseFunc1( d );
+						tryMomentParseAll = function( rawDateString, parseFunc1, parseFunc2 ) {
+							var pd = parseFunc1( rawDateString );
 							if ( !self.isInvalidDate( pd ) ) {
 								return pd;
 							}
 
-							pd = parseFunc2( pd );
+							pd = parseFunc2( rawDateString );
 							if ( !self.isInvalidDate( pd ) ) {
 								return pd;
 							}
@@ -4453,6 +4453,7 @@
 				this.$element.addClass( 'pills-editable' );
 				this.$element.on( 'blur.fu.pillbox', '.pillbox-add-item', $.proxy( this.cancelEdit, this ) );
 			}
+			this.$element.on( 'blur.fu.pillbox', '.pillbox-add-item', $.proxy( this.inputEvent, this ) );
 		};
 
 		Pillbox.prototype = {
@@ -4718,10 +4719,13 @@
 			inputEvent: function inputEvent( e ) {
 				var self = this;
 				var text = self.options.cleanInput( this.$addItem.val() );
-
+				var isFocusOutEvent = e.type === 'focusout';
+				var blurredAfterInput = ( isFocusOutEvent && text.length > 0 );
 				// If we test for keycode only, it will match for `<` & `,` instead of just `,`
 				// This way users can type `<3` and `1 < 3`, etc...
-				if ( this.acceptKeyCodes[ e.keyCode ] && !isShiftHeld( e ) ) {
+				var acceptKeyPressed = ( this.acceptKeyCodes[ e.keyCode ] && !isShiftHeld( e ) );
+
+				if ( acceptKeyPressed || blurredAfterInput ) {
 					var attr;
 					var value;
 
@@ -4738,7 +4742,7 @@
 					// ignore comma and make sure text that has been entered (protects against " ,". https://github.com/ExactTarget/fuelux/issues/593), unless allowEmptyPills is true.
 					if ( text.replace( /[ ]*\,[ ]*/, '' ).match( /\S/ ) || ( this.options.allowEmptyPills && text.length ) ) {
 						this._closeSuggestions();
-						this.$addItem.hide();
+						this.$addItem.hide().val( '' );
 
 						if ( attr ) {
 							this.addItems( {
@@ -4754,9 +4758,9 @@
 						}
 
 						setTimeout( function clearAddItemInput() {
-							self.$addItem.show().val( '' ).attr( {
+							self.$addItem.show().attr( {
 								size: 10
-							} );
+							} ).focus();
 						}, 0 );
 					}
 
@@ -4794,7 +4798,7 @@
 
 				this.$pillGroup.find( '.pill' ).removeClass( 'pillbox-highlight' );
 
-				if ( this.options.onKeyDown ) {
+				if ( this.options.onKeyDown && !isFocusOutEvent ) {
 					if (
 						isTabKey( e ) ||
 						isUpArrow( e ) ||

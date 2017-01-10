@@ -153,7 +153,7 @@ module.exports = function (grunt) {
 					{
 						config: 'release.uploadToCDN',
 						type: 'confirm',
-						message: 'Would you like to upload the `dist folder to fuelcdn.com?'
+						message: 'Would you like to upload the `dist` folder to fuelcdn.com?'
 					}
 				],
 				then: function (answers, done) {

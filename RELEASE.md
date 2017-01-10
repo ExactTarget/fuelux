@@ -32,9 +32,9 @@ You will need to authorize your machine to do npm publishing using `npm adduser`
     * If some environments fail, start your server with `grunt servefast` and use Browserstack to investigate.
   - [ ] Generate test distribution package for use on the Fuel UX Site
     - [ ] `grunt dist`
-    - [ ] Copy the created `dist/` directory to the fuelux-site project, replacing `node_modules/fuelux/dist/`
   - [ ] Test on Fuel UX Site
-    - [ ] `gulp release`
+    - [ ] From Fuel UX Site repo
+    - [ ] `npm run local`
     - [ ] Check all known affected controls on [dev instance of Fuel UX site on Heroku](http://fuelux-dev.herokuapp.com)
       * Scroll to the bottom of each page scanning for visual errors
       * Make sure right-hand nav functions correctly
@@ -72,13 +72,11 @@ You will need to authorize your machine to do npm publishing using `npm adduser`
       - [ ] 4c. Commit
       - [ ] 4d. Push to `upstream`.
 
-- [ ] 6. Update Fuel UX Site
-- [ ] 7. [Update MC Theme] (https://github.com/ExactTarget/fuelux-mctheme/wiki/How-to-release-a-new-version)
-- [ ] 8. Update Rucksack
-- [ ] 9. Update Fusion
+- [ ] 6. Run fuelux-tools updatedependencies.js script
+- [ ] 7. Cut fusion release
 - [ ] 10. Announce
       - [ ] 10a. Tweet via @FuelUX account
-      - [ ] 10b. Post to Chatter in the Fuel UX Group
+      - [ ] 10b. Post to Chatter in the Marketing Cloud Lightning UX group
 
 ## Generate Release Notes
 

@@ -28,7 +28,7 @@ module.exports = function(grunt) {
 
 	// Full distribution task
 	grunt.registerTask('dist', 'Build "dist." Contributors: do not commit "dist."',
-			['clean:dist', 'distcss', 'copy:fonts', 'copy:templates', 'distjs', 'commonjs', 'distzip']);
+			['clean:dist', 'distcss', 'copy:fonts', 'copy:templates', 'distjs', 'distzip']);
 
 
 };

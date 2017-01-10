@@ -75,12 +75,24 @@ define(function( require ) {
 		assert.equal( date1, date2, "getValue alias matches getDate" );
 	} );
 
-	QUnit.test( "should set new date using setDate method", function( assert ) {
+	QUnit.test( "should set new date using setDate method passing a Date object", function( assert ) {
 		var $datepicker = $( html ).datepicker();
 		var newDate = new Date( 1987, 2, 31 );
 		var datepickerDate;
 
 		$datepicker.datepicker( "setDate", newDate );
+		datepickerDate = $datepicker.datepicker( "getDate" );
+
+		assert.equal( datepickerDate.getTime(), newDate.getTime(), "setDate method works" );
+	} );
+
+	QUnit.test( "should set new date using setDate method passing a ISO string", function( assert ) {
+		var $datepicker = $( html ).datepicker();
+		var dateString = '2015-05-29T04:00:00.000Z';
+		var newDate = new Date(dateString);
+		var datepickerDate;
+
+		$datepicker.datepicker( "setDate", dateString);
 		datepickerDate = $datepicker.datepicker( "getDate" );
 
 		assert.equal( datepickerDate.getTime(), newDate.getTime(), "setDate method works" );
