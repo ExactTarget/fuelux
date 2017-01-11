@@ -2,10 +2,6 @@ language: node_js
 node_js:
 - 6.8.1
 sudo: false
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer
 install:
 - time npm install
 - time ./node_modules/bower/bin/bower update
