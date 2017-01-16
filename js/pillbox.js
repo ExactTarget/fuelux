@@ -654,7 +654,7 @@
 
 				// suggestion dropdown
 				this.$suggest.html('').append($suggestionList.children());
-				$(document.body).trigger('suggested.fu.pillbox', this.$suggest);
+				$(document).trigger('suggested.fu.pillbox', this.$suggest);
 			}
 
 			return true;
