@@ -75,7 +75,7 @@ Fuel UX is dependent upon [Bootstrap 3](https://github.com/twbs/bootstrap) and [
 - [jQuery](https://github.com/jquery/jquery)
 - [Bootstrap 3](https://github.com/twbs/bootstrap)
 
-For other methods of managing dependencies consider [AMD support via require](https://github.com/exacttarget/fuelux/blob/master/DETAILS.md#umd/amd-support).
+For other methods of managing dependencies consider [AMD support via require](#amd-support).
 
 Ensure all the dependencies are included on the page (eg, such as using the CDN as shown below).
 ```
