@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" class="fuelux">
 <head>
-	<meta charset="utf-8">
+	<meta charset="utf-8" />
 	<title>Fuel UX 3</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+	<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
 
 	<!-- allows for visual check of compiled LESS for debugging/testing purposes. Uncomment this, and comment out client-side LESS compilation code below to use this -->
 	<!--<link href="dist/css/fuelux.css" rel="stylesheet" type="text/css">-->
 	<!--<link href="dist/css/fuelux.min.css" rel="stylesheet" type="text/css">-->
 
 	<!--CLIENT-SIDE LESS COMPILATION FOR WATCHER-LESS DEV-->
-	<link href="less/fuelux.less" rel="stylesheet/less" type="text/css"/>
+	<link href="less/fuelux.less" rel="stylesheet/less" type="text/css" />
 	<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js"></script>
-	<script type="text/javascript">if(window.console && window.console.clear){ window.console.clear(); }</script>
 
-	<link href="index.css" rel="stylesheet" type="text/css">
+	<link href="index.css" rel="stylesheet" type="text/css" />
 	<!-- <link href="http://www.fuelcdn.com/fuelux-mctheme/1.4.0/css/fuelux-mctheme.css" rel="stylesheet" type="text/css" /> -->
 
 	<script src="bower_components/requirejs/require.js"></script>
@@ -62,25 +61,25 @@
 
 						<div class="checkbox" id="myCheckbox">
 							<label class="checkbox-custom" data-initialize="checkbox" id="myCustomCheckbox1">
-								<input class="sr-only" type="checkbox" value="">
+								<input class="sr-only" type="checkbox" value="" />
 								<span class="checkbox-label">Custom checkbox unchecked on page load</span>
 							</label>
 						</div>
 						<div class="checkbox" id="myCheckbox2">
 							<label class="checkbox-custom checked" data-initialize="checkbox" id="myCustomCheckbox2">
-								<input class="sr-only" checked="checked" type="checkbox" value="">
+								<input class="sr-only" checked="checked" type="checkbox" value="" />
 								<span class="checkbox-label">Custom checkbox checked on page load</span>
 							</label>
 						</div>
 						<div class="checkbox" id="myCheckbox3">
 							<label class="checkbox-custom" data-initialize="checkbox" id="myCustomCheckbox3">
-								<input class="sr-only" disabled="disabled" type="checkbox" value="">
+								<input class="sr-only" disabled="disabled" type="checkbox" value="" />
 								<span class="checkbox-label">Disabled custom checkbox unchecked on page load</span>
 							</label>
 						</div>
 						<div class="checkbox" id="myCheckbox4">
 							<label class="checkbox-custom checked disabled" data-initialize="checkbox" id="myCustomCheckbox4">
-								<input class="sr-only" checked="checked" disabled="disabled" type="checkbox" value="">
+								<input class="sr-only" checked="checked" disabled="disabled" type="checkbox" value="" />
 								<span class="checkbox-label">Disabled custom checkbox checked on page load</span>
 							</label>
 						</div>
@@ -88,19 +87,19 @@
 
 					<section id="checkboxes-inline">
 						<label class="checkbox-custom checkbox-inline" data-initialize="checkbox" id="myCustomInlineCheckbox1">
-							<input type="checkbox" class="sr-only" checked="checked">
+							<input type="checkbox" class="sr-only" checked="checked" />
 							<span class="checkbox-label">1, 2, buckle my shoe</span>
 						</label>
 						<label class="checkbox-custom checkbox-inline" data-initialize="checkbox" id="myCustomInlineCheckbox2">
-							<input type="checkbox" class="sr-only">
+							<input type="checkbox" class="sr-only" />
 							<span class="checkbox-label">3, 4, shut the door</span>
 						</label>
 						<label class="checkbox-custom checkbox-inline" data-initialize="checkbox" id="myCustomInlineCheckbox3">
-							<input type="checkbox" class="sr-only" disabled="disabled">
+							<input type="checkbox" class="sr-only" disabled="disabled" />
 							<span class="checkbox-label">5, 6, pick up sticks</span>
 						</label>
 						<label class="checkbox-custom checkbox-inline" data-initialize="checkbox" id="myCustomInlineCheckbox4">
-							<input type="checkbox" class="checked sr-only" checked="checked" disabled="disabled">
+							<input type="checkbox" class="checked sr-only" checked="checked" disabled="disabled" />
 							<span class="checkbox-label">7, 8, lay them straight</span>
 						</label>
 					</section>
@@ -108,13 +107,13 @@
 					<section id="checkboxes-toggling">
 						<div class="checkbox">
 							<label class="checkbox-custom" data-initialize="checkbox" id="myCustomTogglingCheckbox1">
-								<input type="checkbox" class="sr-only" data-toggle=".checkboxToggle">
+								<input type="checkbox" class="sr-only" data-toggle=".checkboxToggle" />
 								<span class="checkbox-label">Custom checkbox toggles by class</span>
 							</label>
 						</div>
 						<div class="checkbox">
 							<label class="checkbox-custom" data-initialize="checkbox" id="myCustomTogglingCheckbox2">
-								<input type="checkbox" class="sr-only" data-toggle="#checkboxToggle">
+								<input type="checkbox" class="sr-only" data-toggle="#checkboxToggle" />
 								<span class="checkbox-label">Custom checkbox toggles by id</span>
 							</label>
 						</div>
@@ -126,25 +125,25 @@
 					<section id="checkboxes-highlighting-block"><!-- why duplicate the highlight classes on div.checkbox and label?, why span.checkbox-label vs. text node, why does checked input require 'checked' class too? -->
 						<div class="checkbox highlight">
 							<label class="checkbox-custom highlight" data-initialize="checkbox" id="myCustomHighlightCheckbox1">
-								<input type="checkbox" class="sr-only">
+								<input type="checkbox" class="sr-only" />
 								<span class="checkbox-label">Custom block-level highlight checkbox</span>
 							</label>
 						</div>
 						<div class="checkbox highlight">
 							<label class="checkbox-custom highlight" data-initialize="checkbox" id="myCustomHighlightCheckbox2">
-								<input type="checkbox" class="sr-only">
+								<input type="checkbox" class="sr-only" />
 								<span class="checkbox-label">Custom block-level highlight checkbox</span>
 							</label>
 						</div>
 						<div class="checkbox highlight">
 							<label class="checkbox-custom highlight" data-initialize="checkbox" id="myCustomHighlightCheckbox3">
-								<input type="checkbox" class="sr-only">
+								<input type="checkbox" class="sr-only" />
 								<span class="checkbox-label">Custom block-level highlight checkbox</span>
 							</label>
 						</div>
 						<div class="checkbox highlight">
 							<label class="checkbox-custom highlight" data-initialize="checkbox" id="myCustomHighlightCheckbox4">
-								<input type="checkbox" class="sr-only">
+								<input type="checkbox" class="sr-only" />
 								<span class="checkbox-label">Custom block-level highlight checkbox</span>
 							</label>
 						</div>
@@ -156,27 +155,27 @@
 						</header>
 						<section class="x-panel-body">
 							<div class="input-group" id="inputwithcheckbox">
-								<input id="inputwithcheckboxInput" name="inputwithcheckboxInput" class=" form-control" placeholder="placeholder">
+								<input id="inputwithcheckboxInput" name="inputwithcheckboxInput" class=" form-control" placeholder="placeholder" />
 								<label class="input-group-addon checkbox-custom" data-initialize="checkbox">
-									<input class="sr-only" type="checkbox" aria-label="..." id="inputwithcheckboxCheckbox" value="option1">
+									<input class="sr-only" type="checkbox" aria-label="..." id="inputwithcheckboxCheckbox" value="option1" />
 								</label>
 							</div>
 							<div class="input-group" id="inputwithcheckbox2">
 								<label class="input-group-addon checkbox-custom" data-initialize="checkbox">
-									<input class="sr-only" type="checkbox" aria-label="..." id="inputwithcheckboxCheckbox2" value="option1">
+									<input class="sr-only" type="checkbox" aria-label="..." id="inputwithcheckboxCheckbox2" value="option1" />
 								</label>
-								<input id="inputwithcheckboxInput2" name="inputwithcheckboxInput2" class=" form-control" placeholder="placeholder">
+								<input id="inputwithcheckboxInput2" name="inputwithcheckboxInput2" class=" form-control" placeholder="placeholder" />
 							</div><!-- /input-group -->
 						</section>
 					</section>
 
 					<section id="checkboxes-highlighting-inline">
 						<label class="checkbox-custom checkbox-inline highlight" data-initialize="checkbox" id="myCustomHighlightCheckbox5">
-							<input type="checkbox" class="sr-only">
+							<input type="checkbox" class="sr-only" />
 							<span class="checkbox-label">Custom inline highlight checkbox</span>
 						</label>
 						<label class="checkbox-custom checkbox-inline highlight" data-initialize="checkbox" id="myCustomHighlightCheckbox6">
-							<input type="checkbox" class="sr-only">
+							<input type="checkbox" class="sr-only" />
 							<span class="checkbox-label">Custom inline highlight checkbox</span>
 						</label>
 					</section>
@@ -203,28 +202,28 @@
 						<section class="x-panel-body">
 
 							<div class="checkbox">
-								<input type="checkbox" id="checkboxes-no-js-block--1" name="checkboxes-no-js-block--1" value="">
+								<input type="checkbox" id="checkboxes-no-js-block--1" name="checkboxes-no-js-block--1" value="" />
 								<label for="checkboxes-no-js-block--1">
 									Checkbox: unchecked on page load
 								</label>
 							</div>
 
 							<div class="checkbox">
-								<input type="checkbox" id="checkboxes-no-js-block--2" name="checkboxes-no-js-block--2" checked="checked" value="">
+								<input type="checkbox" id="checkboxes-no-js-block--2" name="checkboxes-no-js-block--2" checked="checked" value="" />
 								<label for="checkboxes-no-js-block--2">
 									Checkbox: checked on page load
 								</label>
 							</div>
 
 							<div class="checkbox">
-								<input type="checkbox" id="checkboxes-no-js-block--3" name="checkboxes-no-js-block--3" disabled="disabled" value="">
+								<input type="checkbox" id="checkboxes-no-js-block--3" name="checkboxes-no-js-block--3" disabled="disabled" value="" />
 								<label for="checkboxes-no-js-block--3">
 									Checkbox: disabled and unchecked on page load
 								</label>
 							</div>
 
 							<div class="checkbox">
-								<input type="checkbox" id="checkboxes-no-js-block--4" name="checkboxes-no-js-block--4" disabled="disabled" checked="checked" value="">
+								<input type="checkbox" id="checkboxes-no-js-block--4" name="checkboxes-no-js-block--4" disabled="disabled" checked="checked" value="" />
 								<label for="checkboxes-no-js-block--4">
 									Checkbox: disabled and checked on page load
 								</label>
@@ -241,28 +240,28 @@
 						<section class="x-panel-body">
 
 							<span class="checkbox-inline">
-								<input type="checkbox" id="checkboxes-no-js-inline--1" name="checkboxes-no-js-inline--1" checked="checked" value="">
+								<input type="checkbox" id="checkboxes-no-js-inline--1" name="checkboxes-no-js-inline--1" checked="checked" value="" />
 								<label for="checkboxes-no-js-inline--1">
 									1, 2, buckle my shoe
 								</label>
 							</span>
 
 							<span class="checkbox-inline">
-								<input type="checkbox" id="checkboxes-no-js-inline--2" name="checkboxes-no-js-inline--2" value="">
+								<input type="checkbox" id="checkboxes-no-js-inline--2" name="checkboxes-no-js-inline--2" value="" />
 								<label for="checkboxes-no-js-inline--2">
 									3, 4, shut the door
 								</label>
 							</span>
 
 							<span class="checkbox-inline">
-								<input type="checkbox" id="checkboxes-no-js-inline--3" name="checkboxes-no-js-inline--3" checked="checked" disabled="disabled" value="">
+								<input type="checkbox" id="checkboxes-no-js-inline--3" name="checkboxes-no-js-inline--3" checked="checked" disabled="disabled" value="" />
 								<label for="checkboxes-no-js-inline--3">
 									5, 6, pick up sticks
 								</label>
 							</span>
 
 							<span class="checkbox-inline">
-								<input type="checkbox" id="checkboxes-no-js-inline--4" name="checkboxes-no-js-inline--4" disabled="disabled" value="">
+								<input type="checkbox" id="checkboxes-no-js-inline--4" name="checkboxes-no-js-inline--4" disabled="disabled" value="" />
 								<label for="checkboxes-no-js-inline--4">
 									7, 8, lay them straight
 								</label>
@@ -281,14 +280,14 @@
 						<div class="x-panel-body">
 
 							<div class="checkbox">
-								<input type="checkbox" id="checkboxes-no-js-toggling--1" name="checkboxes-no-js-toggling--1" data-toggle="collapse" data-target=".checkboxes-no-js-toggling-class" value="">
+								<input type="checkbox" id="checkboxes-no-js-toggling--1" name="checkboxes-no-js-toggling--1" data-toggle="collapse" data-target=".checkboxes-no-js-toggling-class" value="" />
 								<label for="checkboxes-no-js-toggling--1">
 									Toggles by class
 								</label>
 							</div>
 
 							<div class="checkbox">
-								<input type="checkbox" id="checkboxes-no-js-toggling--2" name="checkboxes-no-js-toggling--2" data-toggle="collapse" data-target="#checkboxes-no-js-toggling-id" aria-controls="checkboxes-no-js-toggling-id" value="">
+								<input type="checkbox" id="checkboxes-no-js-toggling--2" name="checkboxes-no-js-toggling--2" data-toggle="collapse" data-target="#checkboxes-no-js-toggling-id" aria-controls="checkboxes-no-js-toggling-id" value="" />
 								<label for="checkboxes-no-js-toggling--2">
 									Toggles by ID
 								</label>
@@ -311,28 +310,28 @@
 						<section class="x-panel-body">
 
 							<div class="checkbox highlight">
-								<input type="checkbox" id="checkboxes-no-js-block-highlighting--1" name="checkboxes-no-js-block-highlighting--1" checked="checked" value="">
+								<input type="checkbox" id="checkboxes-no-js-block-highlighting--1" name="checkboxes-no-js-block-highlighting--1" checked="checked" value="" />
 								<label for="checkboxes-no-js-block-highlighting--1">
 									Checkbox: checked on page load
 								</label>
 							</div>
 
 							<div class="checkbox highlight">
-								<input type="checkbox" id="checkboxes-no-js-block-highlighting--2" name="checkboxes-no-js-block-highlighting--2" value="">
+								<input type="checkbox" id="checkboxes-no-js-block-highlighting--2" name="checkboxes-no-js-block-highlighting--2" value="" />
 								<label for="checkboxes-no-js-block-highlighting--2">
 									Checkbox: unchecked on page load
 								</label>
 							</div>
 
 							<div class="checkbox highlight">
-								<input type="checkbox" id="checkboxes-no-js-block-highlighting--3" name="checkboxes-no-js-block-highlighting--3" checked="checked" disabled="disabled" value="">
+								<input type="checkbox" id="checkboxes-no-js-block-highlighting--3" name="checkboxes-no-js-block-highlighting--3" checked="checked" disabled="disabled" value="" />
 								<label for="checkboxes-no-js-block-highlighting--3">
 									Checkbox: unchecked and disabled on page load
 								</label>
 							</div>
 
 							<div class="checkbox highlight">
-								<input type="checkbox" id="checkboxes-no-js-block-highlighting--4" name="checkboxes-no-js-block-highlighting--4" disabled="disabled" value="">
+								<input type="checkbox" id="checkboxes-no-js-block-highlighting--4" name="checkboxes-no-js-block-highlighting--4" disabled="disabled" value="" />
 								<label for="checkboxes-no-js-block-highlighting--4">
 									Checkbox: checked and disabled on page load
 								</label>
@@ -350,7 +349,7 @@
 							<div class="form-horizontal">
 								<div class="form-group">
 									<div class="checkbox multiline">
-										<input type="checkbox" id="checkboxes-no-js-multiline" name="checkboxes-no-js-multiline" checked="checked" value="">
+										<input type="checkbox" id="checkboxes-no-js-multiline" name="checkboxes-no-js-multiline" checked="checked" value="" />
 										<label for="checkboxes-no-js-multiline"></label>
 									</div>
 									<div class="control-label">
@@ -369,28 +368,28 @@
 						<section class="x-panel-body">
 
 							<span class="checkbox-inline highlight">
-								<input type="checkbox" id="checkboxes-no-js-inline-highlighting--1" name="checkboxes-no-js-inline-highlighting--1" checked="checked" value="">
+								<input type="checkbox" id="checkboxes-no-js-inline-highlighting--1" name="checkboxes-no-js-inline-highlighting--1" checked="checked" value="" />
 								<label for="checkboxes-no-js-inline-highlighting--1">
 									1, 2, buckle my shoe
 								</label>
 							</span>
 
 							<span class="checkbox-inline highlight">
-								<input type="checkbox" id="checkboxes-no-js-inline-highlighting--2" name="checkboxes-no-js-inline-highlighting--2" value="">
+								<input type="checkbox" id="checkboxes-no-js-inline-highlighting--2" name="checkboxes-no-js-inline-highlighting--2" value="" />
 								<label for="checkboxes-no-js-inline-highlighting--2">
 									3, 4, shut the door
 								</label>
 							</span>
 
 							<span class="checkbox-inline highlight">
-								<input type="checkbox" id="checkboxes-no-js-inline-highlighting--3" name="checkboxes-no-js-inline-highlighting--3" checked="checked" disabled="disabled" value="">
+								<input type="checkbox" id="checkboxes-no-js-inline-highlighting--3" name="checkboxes-no-js-inline-highlighting--3" checked="checked" disabled="disabled" value="" />
 								<label for="checkboxes-no-js-inline-highlighting--3">
 									5, 6, pick up sticks
 								</label>
 							</span>
 
 							<span class="checkbox-inline highlight">
-								<input type="checkbox" id="checkboxes-no-js-inline-highlighting--4" name="checkboxes-no-js-inline-highlighting--4" disabled="disabled" value="">
+								<input type="checkbox" id="checkboxes-no-js-inline-highlighting--4" name="checkboxes-no-js-inline-highlighting--4" disabled="disabled" value="" />
 								<label for="checkboxes-no-js-inline-highlighting--4">
 									7, 8, lay them straight
 								</label>
@@ -411,7 +410,7 @@
 					<div style="width: 300px;">
 
 						<div class="input-group input-append dropdown combobox" id="myCombobox">
-							<input type="text" class="form-control">
+							<input type="text" class="form-control" />
 							<div class="input-group-btn">
 								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-flip="auto"><span class="caret"></span>
 								</button>
@@ -703,25 +702,25 @@
 					<!--Block-level Radios-->
 					<div class="radio">
 						<label class="radio-custom" data-initialize="radio" id="myCustomRadio1">
-							<input class="sr-only" name="radio1" type="radio" value="" id="radio1">
+							<input class="sr-only" name="radio1" type="radio" value="" id="radio1" />
 							<span class="radio-label">Custom radio unchecked on page load</span>
 						</label>
 					</div>
 					<div class="radio">
 						<label class="radio-custom" data-initialize="radio" id="myCustomRadio2">
-							<input checked="checked" class="checked sr-only" name="radio1" type="radio" value="" id="radio2">
+							<input checked="checked" class="checked sr-only" name="radio1" type="radio" value="" id="radio2" />
 							<span class="radio-label">Custom radio checked on page load</span>
 						</label>
 					</div>
 					<div class="radio">
 						<label class="radio-custom" data-initialize="radio" id="myCustomRadio3">
-							<input class="sr-only" disabled="disabled" name="radio2" type="radio" value="">
+							<input class="sr-only" disabled="disabled" name="radio2" type="radio" value="" />
 							<span class="radio-label">Custom radio disabled and unchecked on page load</span>
 						</label>
 					</div>
 					<div class="radio">
 						<label class="radio-custom" data-initialize="radio" id="myCustomRadio4">
-							<input checked="checked" class="checked sr-only" disabled="disabled" name="radio2" type="radio" value="">
+							<input checked="checked" class="checked sr-only" disabled="disabled" name="radio2" type="radio" value="" />
 							<span class="radio-label">Custom radio disabled and checked on page load</span>
 						</label>
 					</div>
@@ -729,16 +728,16 @@
 					<br/>
 					<!--Inline radios-->
 					<label class="radio-custom radio-inline" data-initialize="radio" id="myCustomInlineRadio1">
-						<input checked="checked" class="checked sr-only" name="radio3" type="radio" value=""> <span class="radio-label">1, 2, buckle my shoe</span>
+						<input checked="checked" class="checked sr-only" name="radio3" type="radio" value="" /> <span class="radio-label">1, 2, buckle my shoe</span>
 					</label>
 					<label class="radio-custom radio-inline" data-initialize="radio" id="myCustomInlineRadio2">
-						<input class="sr-only" name="radio3" type="radio" value=""> <span class="radio-label">3, 4, shut the door</span>
+						<input class="sr-only" name="radio3" type="radio" value="" /> <span class="radio-label">3, 4, shut the door</span>
 					</label>
 					<label class="radio-custom radio-inline" data-initialize="radio" id="myCustomInlineRadio3">
-						<input class="sr-only" disabled="disabled" name="radio4" type="radio" value=""> <span class="radio-label">5, 6, pick up sticks</span>
+						<input class="sr-only" disabled="disabled" name="radio4" type="radio" value="" /> <span class="radio-label">5, 6, pick up sticks</span>
 					</label>
 					<label class="radio-custom radio-inline" data-initialize="radio" id="myCustomInlineRadio4">
-						<input checked="checked" class="checked sr-only" disabled="disabled" name="radio4" type="radio" value=""> <span class="radio-label">7, 8, lay them straight</span>
+						<input checked="checked" class="checked sr-only" disabled="disabled" name="radio4" type="radio" value="" /> <span class="radio-label">7, 8, lay them straight</span>
 					</label>
 
 					<br/>
@@ -746,13 +745,13 @@
 					<!--Toggling capability-->
 					<div class="radio">
 						<label class="radio-custom" data-initialize="radio" id="myCustomTogglingRadio1">
-							<input class="sr-only" data-toggle=".radioToggle" name="radio5" type="radio" value="">
+							<input class="sr-only" data-toggle=".radioToggle" name="radio5" type="radio" value="" />
 							<span class="radio-label">Custom radio toggles by class</span>
 						</label>
 					</div>
 					<div class="radio">
 						<label class="radio-custom" data-initialize="radio" id="myCustomTogglingRadio2">
-							<input class="sr-only" data-toggle="#radioToggle" name="radio5" type="radio" value="">
+							<input class="sr-only" data-toggle="#radioToggle" name="radio5" type="radio" value="" />
 							<span class="radio-label">Custom radio toggles by id</span>
 						</label>
 					</div>
@@ -765,21 +764,21 @@
 					<!--Highlight capability-->
 					<div class="radio highlight">
 						<label class="radio-custom highlight" data-initialize="radio" id="myCustomHighlightRadio1">
-							<input class="sr-only" name="radio6" type="radio" value="">
+							<input class="sr-only" name="radio6" type="radio" value="" />
 							<span class="radio-label">Custom block-level highlight radio</span>
 						</label>
 					</div>
 					<div class="radio highlight">
 						<label class="radio-custom highlight" data-initialize="radio" id="myCustomHighlightRadio2">
-							<input class="sr-only" name="radio6" type="radio" value="">
+							<input class="sr-only" name="radio6" type="radio" value="" />
 							<span class="radio-label">Custom block-level highlight radio</span>
 						</label>
 					</div>
 					<label class="radio-custom radio-inline highlight" data-initialize="radio" id="myCustomHighlightRadio3">
-						<input class="sr-only" name="radio7" type="radio" value=""> <span class="radio-label">Custom inline highlight radio</span>
+						<input class="sr-only" name="radio7" type="radio" value="" /> <span class="radio-label">Custom inline highlight radio</span>
 					</label>
 					<label class="radio-custom radio-inline highlight" data-initialize="radio" id="myCustomHighlightRadio4">
-						<input class="sr-only" name="radio7" type="radio" value=""> <span class="radio-label">Custom inline highlight radio</span>
+						<input class="sr-only" name="radio7" type="radio" value="" /> <span class="radio-label">Custom inline highlight radio</span>
 					</label>
 				</div>
 				<div class="btn-panel">
@@ -802,28 +801,28 @@
 						<section class="x-panel-body">
 
 							<div class="radio">
-								<input type="radio" id="radiobuttons-no-js-block--1" name="radiobuttons-no-js-block--group-1" value="">
+								<input type="radio" id="radiobuttons-no-js-block--1" name="radiobuttons-no-js-block--group-1" value="" />
 								<label for="radiobuttons-no-js-block--1">
 									Radio Button: unchecked on page load
 								</label>
 							</div>
 
 							<div class="radio">
-								<input type="radio" id="radiobuttons-no-js-block--2" name="radiobuttons-no-js-block--group-1" checked="checked" value="">
+								<input type="radio" id="radiobuttons-no-js-block--2" name="radiobuttons-no-js-block--group-1" checked="checked" value="" />
 								<label for="radiobuttons-no-js-block--2">
 									Radio Button: checked on page load
 								</label>
 							</div>
 
 							<div class="radio">
-								<input type="radio" id="radiobuttons-no-js-block--3" name="radiobuttons-no-js-block--group-2" disabled="disabled" value="">
+								<input type="radio" id="radiobuttons-no-js-block--3" name="radiobuttons-no-js-block--group-2" disabled="disabled" value="" />
 								<label for="radiobuttons-no-js-block--3">
 									Radio Button: disabled and unchecked on page load
 								</label>
 							</div>
 
 							<div class="radio">
-								<input type="radio" id="radiobuttons-no-js-block--4" name="radiobuttons-no-js-block--group-2" disabled="disabled" checked="checked" value="">
+								<input type="radio" id="radiobuttons-no-js-block--4" name="radiobuttons-no-js-block--group-2" disabled="disabled" checked="checked" value="" />
 								<label for="radiobuttons-no-js-block--4">
 									Radio Button: disabled and checked on page load
 								</label>
@@ -840,28 +839,28 @@
 						<section class="x-panel-body">
 
 							<div class="radio-inline">
-								<input type="radio" id="radiobuttons-no-js-inline--1" name="radiobuttons-no-js-inline--group-1" checked="checked" value="">
+								<input type="radio" id="radiobuttons-no-js-inline--1" name="radiobuttons-no-js-inline--group-1" checked="checked" value="" />
 								<label for="radiobuttons-no-js-inline--1">
 									1, 2, buckle my shoe
 								</label>
 							</div>
 
 							<div class="radio-inline">
-								<input type="radio" id="radiobuttons-no-js-inline--2" name="radiobuttons-no-js-inline--group-1" value="">
+								<input type="radio" id="radiobuttons-no-js-inline--2" name="radiobuttons-no-js-inline--group-1" value="" />
 								<label for="radiobuttons-no-js-inline--2">
 									3, 4, shut the door
 								</label>
 							</div>
 
 							<div class="radio-inline">
-								<input type="radio" id="radiobuttons-no-js-inline--3" name="radiobuttons-no-js-inline--group-2" checked="checked" disabled="disabled" value="">
+								<input type="radio" id="radiobuttons-no-js-inline--3" name="radiobuttons-no-js-inline--group-2" checked="checked" disabled="disabled" value="" />
 								<label for="radiobuttons-no-js-inline--3">
 									5, 6, pick up sticks
 								</label>
 							</div>
 
 							<div class="radio-inline">
-								<input type="radio" id="radiobuttons-no-js-inline--4" name="radiobuttons-no-js-inline--group-2" disabled="disabled" value="">
+								<input type="radio" id="radiobuttons-no-js-inline--4" name="radiobuttons-no-js-inline--group-2" disabled="disabled" value="" />
 								<label for="radiobuttons-no-js-inline--4">
 									7, 8, lay them straight
 								</label>
@@ -882,7 +881,7 @@
 							<div class="container-fluid">
 								<div class="row">
 									<div class="radio-inline">
-										<input type="radio" id="radiobuttons-no-js-toggling--1--on" name="radiobuttons-no-js-toggling-class--1" data-toggle="collapse" data-target=".radiobuttons-no-js-toggling-class--1" aria-controls="radiobuttons-no-js-toggling-class--1" value="">
+										<input type="radio" id="radiobuttons-no-js-toggling--1--on" name="radiobuttons-no-js-toggling-class--1" data-toggle="collapse" data-target=".radiobuttons-no-js-toggling-class--1" aria-controls="radiobuttons-no-js-toggling-class--1" value="" />
 										<label for="radiobuttons-no-js-toggling--1--on">
 											On
 										</label>
@@ -890,7 +889,7 @@
 
 
 									<div class="radio-inline">
-										<input type="radio" id="radiobuttons-no-js-toggling--1--off" name="radiobuttons-no-js-toggling-class--1" data-toggle="collapse" data-target=".radiobuttons-no-js-toggling-class--1" aria-controls="radiobuttons-no-js-toggling-class--1" checked="checked" value="">
+										<input type="radio" id="radiobuttons-no-js-toggling--1--off" name="radiobuttons-no-js-toggling-class--1" data-toggle="collapse" data-target=".radiobuttons-no-js-toggling-class--1" aria-controls="radiobuttons-no-js-toggling-class--1" checked="checked" value="" />
 										<label for="radiobuttons-no-js-toggling--1--off">
 											Off
 										</label>
@@ -900,7 +899,7 @@
 
 								<div class="row">
 									<div class="radio-inline">
-										<input type="radio" id="radiobuttons-no-js-toggling--2--on" name="radiobuttons-no-js-toggling--2" data-toggle="collapse" data-target=".radiobuttons-no-js-toggling-class--2" aria-controls="radiobuttons-no-js-toggling-class--2" value="">
+										<input type="radio" id="radiobuttons-no-js-toggling--2--on" name="radiobuttons-no-js-toggling--2" data-toggle="collapse" data-target=".radiobuttons-no-js-toggling-class--2" aria-controls="radiobuttons-no-js-toggling-class--2" value="" />
 										<label for="radiobuttons-no-js-toggling--2--on">
 											On
 										</label>
@@ -908,7 +907,7 @@
 
 
 									<div class="radio-inline">
-										<input type="radio" id="radiobuttons-no-js-toggling--2--off" name="radiobuttons-no-js-toggling--2" data-toggle="collapse" data-target=".radiobuttons-no-js-toggling-class--2" aria-controls="radiobuttons-no-js-toggling-class--2" checked="checked" value="">
+										<input type="radio" id="radiobuttons-no-js-toggling--2--off" name="radiobuttons-no-js-toggling--2" data-toggle="collapse" data-target=".radiobuttons-no-js-toggling-class--2" aria-controls="radiobuttons-no-js-toggling-class--2" checked="checked" value="" />
 										<label for="radiobuttons-no-js-toggling--2--off">
 											Off
 										</label>
@@ -919,13 +918,13 @@
 								<div class="row">
 
 									<div class="radio-inline">
-										<input type="radio" id="radiobuttons-no-js-toggling--3--on" name="radiobuttons-no-js-toggling-id" data-toggle="collapse" data-target="#radiobuttons-no-js-toggling-id" aria-controls="radiobuttons-no-js-toggling-id" value="">
+										<input type="radio" id="radiobuttons-no-js-toggling--3--on" name="radiobuttons-no-js-toggling-id" data-toggle="collapse" data-target="#radiobuttons-no-js-toggling-id" aria-controls="radiobuttons-no-js-toggling-id" value="" />
 										<label for="radiobuttons-no-js-toggling--3--on">
 											On
 										</label>
 									</div>
 									<div class="radio-inline">
-										<input type="radio" id="radiobuttons-no-js-toggling--3--off" name="radiobuttons-no-js-toggling-id" data-toggle="collapse" data-target="#radiobuttons-no-js-toggling-id" aria-controls="radiobuttons-no-js-toggling-id" checked="checked" value="">
+										<input type="radio" id="radiobuttons-no-js-toggling--3--off" name="radiobuttons-no-js-toggling-id" data-toggle="collapse" data-target="#radiobuttons-no-js-toggling-id" aria-controls="radiobuttons-no-js-toggling-id" checked="checked" value="" />
 										<label for="radiobuttons-no-js-toggling--3--off">
 											Off
 										</label>
@@ -951,28 +950,28 @@
 						<section class="x-panel-body">
 
 							<div class="radio highlight">
-								<input type="radio" id="radiobuttons-no-js-block-highlighting--1" name="radiobuttons-no-js-block-highlighting--group-1" checked="checked" value="">
+								<input type="radio" id="radiobuttons-no-js-block-highlighting--1" name="radiobuttons-no-js-block-highlighting--group-1" checked="checked" value="" />
 								<label for="radiobuttons-no-js-block-highlighting--1">
 									Radio Button: checked on page load
 								</label>
 							</div>
 
 							<div class="radio highlight">
-								<input type="radio" id="radiobuttons-no-js-block-highlighting--2" name="radiobuttons-no-js-block-highlighting--group-1" value="">
+								<input type="radio" id="radiobuttons-no-js-block-highlighting--2" name="radiobuttons-no-js-block-highlighting--group-1" value="" />
 								<label for="radiobuttons-no-js-block-highlighting--2">
 									Radio Button: unchecked on page load
 								</label>
 							</div>
 
 							<div class="radio highlight">
-								<input type="radio" id="radiobuttons-no-js-block-highlighting--3" name="radiobuttons-no-js-block-highlighting--group-2" checked="checked" disabled="disabled" value="">
+								<input type="radio" id="radiobuttons-no-js-block-highlighting--3" name="radiobuttons-no-js-block-highlighting--group-2" checked="checked" disabled="disabled" value="" />
 								<label for="radiobuttons-no-js-block-highlighting--3">
 									Radio Button: unchecked and disabled on page load
 								</label>
 							</div>
 
 							<div class="radio highlight">
-								<input type="radio" id="radiobuttons-no-js-block-highlighting--4" name="radiobuttons-no-js-block-highlighting--group-2" disabled="disabled" value="">
+								<input type="radio" id="radiobuttons-no-js-block-highlighting--4" name="radiobuttons-no-js-block-highlighting--group-2" disabled="disabled" value="" />
 								<label for="radiobuttons-no-js-block-highlighting--4">
 									Radio Button: checked and disabled on page load
 								</label>
@@ -989,11 +988,11 @@
 							<div class="input-group">
 								<span class="input-group-addon">
 									<span class="radio-inline">
-										<input type="radio" id="example-radio-addon" value="">
+										<input type="radio" id="example-radio-addon" value="" />
 										<label for="example-radio-addon"></label>
 									</span>
 								</span>
-								<input type="text" class="form-control" value="Radio within input add-on">
+								<input type="text" class="form-control" value="Radio within input add-on" />
 							</div><!-- /input-group -->
 						</section>
 					</section>
@@ -1008,7 +1007,7 @@
 							<div class="form-horizontal">
 								<div class="form-group">
 									<div class="radio multiline">
-										<input type="radio" id="radio-no-js-multiline--1" name="radio-no-js-multiline" value="">
+										<input type="radio" id="radio-no-js-multiline--1" name="radio-no-js-multiline" value="" />
 										<label for="radio-no-js-multiline--1"></label>
 									</div>
 									<div class="control-label">
@@ -1017,7 +1016,7 @@
 								</div>
 								<div class="form-group">
 									<div class="radio multiline">
-										<input type="radio" id="radio-no-js-multiline--2" name="radio-no-js-multiline" value="">
+										<input type="radio" id="radio-no-js-multiline--2" name="radio-no-js-multiline" value="" />
 										<label for="radio-no-js-multiline--2"></label>
 									</div>
 									<div class="control-label">
@@ -1036,28 +1035,28 @@
 						<section class="x-panel-body">
 
 							<div class="radio-inline highlight">
-								<input type="radio" id="radiobuttons-no-js-inline-highlighting--1" name="radiobuttons-no-js-inline-highlighting--1" checked="checked" value="">
+								<input type="radio" id="radiobuttons-no-js-inline-highlighting--1" name="radiobuttons-no-js-inline-highlighting--1" checked="checked" value="" />
 								<label for="radiobuttons-no-js-inline-highlighting--1">
 									1, 2, buckle my shoe
 								</label>
 							</div>
 
 							<div class="radio-inline highlight">
-								<input type="radio" id="radiobuttons-no-js-inline-highlighting--2" name="radiobuttons-no-js-inline-highlighting--1" value="">
+								<input type="radio" id="radiobuttons-no-js-inline-highlighting--2" name="radiobuttons-no-js-inline-highlighting--1" value="" />
 								<label for="radiobuttons-no-js-inline-highlighting--2">
 									3, 4, shut the door
 								</label>
 							</div>
 
 							<div class="radio-inline highlight">
-								<input type="radio" id="radiobuttons-no-js-inline-highlighting--3" name="radiobuttons-no-js-inline-highlighting--2" checked="checked" disabled="disabled" value="">
+								<input type="radio" id="radiobuttons-no-js-inline-highlighting--3" name="radiobuttons-no-js-inline-highlighting--2" checked="checked" disabled="disabled" value="" />
 								<label for="radiobuttons-no-js-inline-highlighting--3">
 									5, 6, pick up sticks
 								</label>
 							</div>
 
 							<div class="radio-inline highlight">
-								<input type="radio" id="radiobuttons-no-js-inline-highlighting--4" name="radiobuttons-no-js-inline-highlighting--2" disabled="disabled" value="">
+								<input type="radio" id="radiobuttons-no-js-inline-highlighting--4" name="radiobuttons-no-js-inline-highlighting--2" disabled="disabled" value="" />
 								<label for="radiobuttons-no-js-inline-highlighting--4">
 									7, 8, lay them straight
 								</label>
@@ -1106,13 +1105,13 @@
 								</div>
 								<div class="btn-group repeater-views" data-toggle="buttons">
 									<label class="btn btn-default active">
-										<input name="repeaterViews" type="radio" value="list.list"><span class="glyphicon glyphicon-list"></span>
+										<input name="repeaterViews" type="radio" value="list.list" /><span class="glyphicon glyphicon-list"></span>
 									</label>
 									<label class="btn btn-default">
-										<input name="repeaterViews" type="radio" value="thumbnail"><span class="glyphicon glyphicon-th"></span>
+										<input name="repeaterViews" type="radio" value="thumbnail" /><span class="glyphicon glyphicon-th"></span>
 									</label>
 									<label class="btn btn-default">
-										<input name="repeaterViews" type="radio" value="list.frozen"><span class="glyphicon glyphicon-list"></span>
+										<input name="repeaterViews" type="radio" value="list.frozen" /><span class="glyphicon glyphicon-list"></span>
 									</label>
 								</div>
 							</div>
@@ -1155,7 +1154,7 @@
 									<label id="myPageLabel1" class="page-label">Page</label>
 									<div class="repeater-primaryPaging active">
 										<div class="input-group input-append dropdown combobox">
-											<input type="text" class="form-control" aria-labelledby="myPageLabel1">
+											<input type="text" class="form-control" aria-labelledby="myPageLabel1" />
 											<div class="input-group-btn">
 												<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 													<span class="caret"></span>
@@ -1165,7 +1164,7 @@
 											</div>
 										</div>
 									</div>
-									<input type="text" class="form-control repeater-secondaryPaging" aria-labelledby="myPageLabel1">
+									<input type="text" class="form-control repeater-secondaryPaging" aria-labelledby="myPageLabel1" />
 									<span>of <span class="repeater-pages"></span></span>
 									<button type="button" class="btn btn-default btn-sm repeater-next">
 										<span class="glyphicon glyphicon-chevron-right"></span>
@@ -1221,13 +1220,13 @@
 								</div>
 								<div class="btn-group repeater-views" data-toggle="buttons">
 									<label class="btn btn-default active">
-										<input name="repeaterViews" type="radio" value="list.list"><span class="glyphicon glyphicon-list"></span>
+										<input name="repeaterViews" type="radio" value="list.list" /><span class="glyphicon glyphicon-list"></span>
 									</label>
 									<label class="btn btn-default">
-										<input name="repeaterViews" type="radio" value="thumbnail"><span class="glyphicon glyphicon-th"></span>
+										<input name="repeaterViews" type="radio" value="thumbnail" /><span class="glyphicon glyphicon-th"></span>
 									</label>
 									<label class="btn btn-default">
-										<input name="repeaterViews" type="radio" value="list.frozen"><span class="glyphicon glyphicon-list"></span>
+										<input name="repeaterViews" type="radio" value="list.frozen" /><span class="glyphicon glyphicon-list"></span>
 									</label>
 								</div>
 							</div>
@@ -1270,7 +1269,7 @@
 									<label id="myPageLabel2" class="page-label">Page</label>
 									<div class="repeater-primaryPaging active">
 										<div class="input-group input-append dropdown combobox">
-											<input type="text" class="form-control" aria-labelledby="myPageLabel2">
+											<input type="text" class="form-control" aria-labelledby="myPageLabel2" />
 											<div class="input-group-btn">
 												<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 													<span class="caret"></span>
@@ -1280,7 +1279,7 @@
 											</div>
 										</div>
 									</div>
-									<input type="text" class="form-control repeater-secondaryPaging" aria-labelledby="myPageLabel2">
+									<input type="text" class="form-control repeater-secondaryPaging" aria-labelledby="myPageLabel2" />
 									<span>of <span class="repeater-pages"></span></span>
 									<button type="button" class="btn btn-default btn-sm repeater-next">
 										<span class="glyphicon glyphicon-chevron-right"></span>
@@ -1554,7 +1553,7 @@
 										<li data-name="Samoa Standard Time" data-offset="-11:00"><a href="#">(GMT-11:00) Midway Island, Samoa</a></li>
 										<li data-name="Dateline Standard Time" data-offset="-12:00"><a href="#">(GMT-12:00) International Date Line West</a></li>
 									</ul>
-									<input type="text" aria-hidden="true" readonly="readonly" name="TimeZoneSelectlist" class="hidden hidden-field">
+									<input type="text" aria-hidden="true" readonly="readonly" name="TimeZoneSelectlist" class="hidden hidden-field" />
 								</div>
 							</div>
 						</div>
@@ -1571,8 +1570,8 @@
 										</button>
 										<ul class="dropdown-menu" role="menu">
 											<li data-value="none"><a href="#">None (run once)</a></li>
-											<li data-value="secondly" data-text="second(s)"><a href="#">Per Second</a>
-											<li data-value="minutely" data-text="minute(s)"><a href="#">Per Minute</a>
+											<li data-value="secondly" data-text="second(s)"><a href="#">Per Second</a></li>
+											<li data-value="minutely" data-text="minute(s)"><a href="#">Per Minute</a></li>
 											<li data-value="hourly" data-text="hour(s)"><a href="#">Hourly</a></li>
 											<li data-value="daily" data-text="day(s)"><a href="#">Daily</a></li>
 											<li data-value="weekdays"><a href="#">Weekdays</a></li>
@@ -1580,14 +1579,14 @@
 											<li data-value="monthly" data-text="month(s)"><a href="#">Monthly</a></li>
 											<li data-value="yearly"><a href="#">Yearly</a></li>
 										</ul>
-										<input type="text" aria-hidden="true" readonly="readonly" name="intervalSelectlist" class="hidden hidden-field">
+										<input type="text" aria-hidden="true" readonly="readonly" name="intervalSelectlist" class="hidden hidden-field" />
 									</div>
 
 									<div class="repeat-panel repeat-every-panel repeat-hourly repeat-daily repeat-weekly hide" aria-hidden="true">
 										<label id="MySchedulerEveryLabel" class="inline-form-text repeat-every-pretext">every</label>
 
 										<div class="spinbox digits-3 repeat-every">
-											<input type="text" class="form-control input-mini spinbox-input" aria-labelledby="MySchedulerEveryLabel">
+											<input type="text" class="form-control input-mini spinbox-input" aria-labelledby="MySchedulerEveryLabel" />
 											<div class="spinbox-buttons btn-group btn-group-vertical">
 												<button type="button" class="btn btn-default spinbox-up btn-xs">
 													<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
@@ -1604,13 +1603,13 @@
 
 								<div class="form-group repeat-panel repeat-weekly repeat-days-of-the-week hide" aria-hidden="true">
 									<fieldset class="btn-group" data-toggle="buttons">
-										<label class="btn btn-default"><input type="checkbox" data-value="SU">Sun</label>
-										<label class="btn btn-default"><input type="checkbox" data-value="MO">Mon</label>
-										<label class="btn btn-default"><input type="checkbox" data-value="TU">Tue</label>
-										<label class="btn btn-default"><input type="checkbox" data-value="WE"> Wed</label>
-										<label class="btn btn-default"><input type="checkbox" data-value="TH"> Thu</label>
-										<label class="btn btn-default"><input type="checkbox" data-value="FR"> Fri</label>
-										<label class="btn btn-default"><input type="checkbox" data-value="SA"> Sat</label>
+										<label class="btn btn-default"><input type="checkbox" data-value="SU" />Sun</label>
+										<label class="btn btn-default"><input type="checkbox" data-value="MO" />Mon</label>
+										<label class="btn btn-default"><input type="checkbox" data-value="TU" />Tue</label>
+										<label class="btn btn-default"><input type="checkbox" data-value="WE" /> Wed</label>
+										<label class="btn btn-default"><input type="checkbox" data-value="TH" /> Thu</label>
+										<label class="btn btn-default"><input type="checkbox" data-value="FR" /> Fri</label>
+										<label class="btn btn-default"><input type="checkbox" data-value="SA" /> Sat</label>
 									</fieldset>
 								</div>
 
@@ -1618,7 +1617,7 @@
 									<div class="form-group repeat-monthly-date">
 										<div class="radio pull-left">
 											<label class="radio-custom">
-												<input class="sr-only" type="radio" checked="checked" name="repeat-monthly" value="bymonthday">
+												<input class="sr-only" type="radio" checked="checked" name="repeat-monthly" value="bymonthday" />
 												<span class="radio-label">on day</span>
 											</label>
 										</div>
@@ -1661,14 +1660,14 @@
 												<li data-value="30"><a href="#">30</a></li>
 												<li data-value="31"><a href="#">31</a></li>
 											</ul>
-											<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field">
+											<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field" />
 										</div>
 									</div>
 
 									<div class="repeat-monthly-day form-group">
 										<div class="radio pull-left">
 											<label class="radio-custom">
-												<input class="sr-only" type="radio" checked="checked" name="repeat-monthly" value="bysetpos">
+												<input class="sr-only" type="radio" checked="checked" name="repeat-monthly" value="bysetpos" />
 												<span class="radio-label">on the</span>
 											</label>
 										</div>
@@ -1685,7 +1684,7 @@
 												<li data-value="4"><a href="#">Fourth</a></li>
 												<li data-value="-1"><a href="#">Last</a></li>
 											</ul>
-											<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field">
+											<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field" />
 										</div>
 
 										<div data-resize="auto" class="btn-group selectlist month-days pull-left">
@@ -1705,7 +1704,7 @@
 												<li data-value="MO,TU,WE,TH,FR"><a href="#">Weekday</a></li>
 												<li data-value="SU,SA"><a href="#">Weekend day</a></li>
 											</ul>
-											<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field">
+											<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field" />
 										</div>
 
 									</div>
@@ -1716,7 +1715,7 @@
 
 										<div class="radio pull-left">
 											<label class="radio-custom">
-												<input class="sr-only" type="radio" checked="checked" name="repeat-yearly" value="bymonthday">
+												<input class="sr-only" type="radio" checked="checked" name="repeat-yearly" value="bymonthday" />
 												<span class="radio-label">on</span>
 											</label>
 										</div>
@@ -1740,7 +1739,7 @@
 												<li data-value="11"><a href="#">November</a></li>
 												<li data-value="12"><a href="#">December</a></li>
 											</ul>
-											<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field">
+											<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field" />
 										</div>
 
 										<div data-resize="auto" class="btn-group selectlist year-month-day pull-left">
@@ -1781,13 +1780,13 @@
 												<li data-value="30"><a href="#">30</a></li>
 												<li data-value="31"><a href="#">31</a></li>
 											</ul>
-											<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field">
+											<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field" />
 										</div>
 									</div>
 
 									<div class="form-group repeat-yearly-day">
 
-										<div class="radio pull-left"><label class="radio-custom"><input class="sr-only" type="radio" name="repeat-yearly" value="bysetpos"> on the</label></div>
+										<div class="radio pull-left"><label class="radio-custom"><input class="sr-only" type="radio" name="repeat-yearly" value="bysetpos" /> on the</label></div>
 
 										<div data-resize="auto" class="btn-group selectlist year-month-day-pos pull-left">
 											<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
@@ -1802,7 +1801,7 @@
 												<li data-value="4"><a href="#">Fourth</a></li>
 												<li data-value="-1"><a href="#">Last</a></li>
 											</ul>
-											<input type="text" aria-hidden="true" readonly="readonly" name="yearlyDateSelectlist" class="hidden hidden-field">
+											<input type="text" aria-hidden="true" readonly="readonly" name="yearlyDateSelectlist" class="hidden hidden-field" />
 										</div>
 
 										<div data-resize="auto" class="btn-group selectlist year-month-days pull-left">
@@ -1823,7 +1822,7 @@
 												<li data-value="MO,TU,WE,TH,FR"><a href="#">Weekday</a></li>
 												<li data-value="SU,SA"><a href="#">Weekend day</a></li>
 											</ul>
-											<input type="text" aria-hidden="true" readonly="readonly" name="yearlyDaySelectlist" class="hidden hidden-field">
+											<input type="text" aria-hidden="true" readonly="readonly" name="yearlyDaySelectlist" class="hidden hidden-field" />
 										</div>
 										<div class="inline-form-text repeat-yearly-day-text"> of </div>
 
@@ -1847,7 +1846,7 @@
 												<li data-value="11"><a href="#">November</a></li>
 												<li data-value="12"><a href="#">December</a></li>
 											</ul>
-											<input type="text" aria-hidden="true" readonly="readonly" name="yearlyDaySelectlist" class="hidden hidden-field">
+											<input type="text" aria-hidden="true" readonly="readonly" name="yearlyDaySelectlist" class="hidden hidden-field" />
 										</div>
 									</div>
 								</div>
@@ -1870,14 +1869,14 @@
 												<li data-value="after"><a href="#">After</a></li>
 												<li data-value="date"><a href="#">On date</a></li>
 											</ul>
-											<input type="text" aria-hidden="true" readonly="readonly" name="EndSelectlist" class="hidden hidden-field">
+											<input type="text" aria-hidden="true" readonly="readonly" name="EndSelectlist" class="hidden hidden-field" />
 										</div>
 									</div>
 
 									<div class="col-sm-4 col-lg-4 form-group end-option-panel end-after-panel pull-left hide" aria-hidden="true">
 										<div class="spinbox digits-3 end-after">
 											<label id="MyEndAfter" class="sr-only">End After</label>
-											<input type="text" class="form-control input-mini spinbox-input" aria-labelledby="MyEndAfter">
+											<input type="text" class="form-control input-mini spinbox-input" aria-labelledby="MyEndAfter" />
 											<div class="spinbox-buttons btn-group btn-group-vertical">
 												<button type="button" class="btn btn-default spinbox-up btn-xs">
 													<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
@@ -2048,7 +2047,7 @@
 				<h2>Spinbox</h2>
 				<div class="thin-box">
 					<div class="spinbox" data-initialize="spinbox" id="mySpinbox1">
-						<input class="form-control input-mini spinbox-input" id="mySpinboxInput1" type="text" value="10">
+						<input class="form-control input-mini spinbox-input" id="mySpinboxInput1" type="text" value="10" />
 						<div class="spinbox-buttons btn-group btn-group-vertical">
 							<button type="button" class="btn btn-default spinbox-up btn-xs">
 								<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
@@ -2059,7 +2058,7 @@
 						</div>
 					</div>
 					<div class="spinbox" id="mySpinbox2">
-						<input class="form-control input-mini spinbox-input" id="mySpinboxInput2" type="text" value="10">
+						<input class="form-control input-mini spinbox-input" id="mySpinboxInput2" type="text" value="10" />
 						<div class="spinbox-buttons btn-group btn-group-vertical">
 							<button type="button" class="btn btn-default spinbox-up btn-xs">
 								<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
@@ -2070,7 +2069,7 @@
 						</div>
 					</div>
 					<div class="spinbox" id="mySpinbox3">
-						<input class="form-control input-mini spinbox-input" id="mySpinboxInput3" type="text">
+						<input class="form-control input-mini spinbox-input" id="mySpinboxInput3" type="text" />
 						<div class="spinbox-buttons btn-group btn-group-vertical">
 							<button type="button" class="btn btn-default spinbox-up btn-xs">
 								<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
@@ -2081,7 +2080,7 @@
 						</div>
 					</div>
 					<div class="spinbox" id="mySpinbox4">
-						<input class="form-control input-mini spinbox-input" id="mySpinboxInput4" type="text">
+						<input class="form-control input-mini spinbox-input" id="mySpinboxInput4" type="text" />
 						<div class="spinbox-buttons btn-group btn-group-vertical">
 							<button type="button" class="btn btn-default spinbox-up btn-xs">
 								<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
