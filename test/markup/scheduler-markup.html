@@ -257,7 +257,7 @@
 					<li data-name="Samoa Standard Time" data-offset="-11:00"><a href="#">(GMT-11:00) Midway Island, Samoa</a></li>
 					<li data-name="Dateline Standard Time" data-offset="-12:00"><a href="#">(GMT-12:00) International Date Line West</a></li>
 				</ul>
-				<input type="text" aria-hidden="true" readonly="readonly" name="TimeZoneSelectlist" class="hidden hidden-field">
+				<input type="text" aria-hidden="true" readonly="readonly" name="TimeZoneSelectlist" class="hidden hidden-field" />
 			</div>
 		</div>
 	</div>
@@ -274,8 +274,8 @@
 					</button>
 					<ul class="dropdown-menu" role="menu">
 						<li data-value="none"><a href="#">None (run once)</a></li>
-						<li data-value="secondly" data-text="second(s)"><a href="#">Per Second</a>
-						<li data-value="minutely" data-text="minute(s)"><a href="#">Per Minute</a>
+						<li data-value="secondly" data-text="second(s)"><a href="#">Per Second</a></li>
+						<li data-value="minutely" data-text="minute(s)"><a href="#">Per Minute</a></li>
 						<li data-value="hourly" data-text="hour(s)"><a href="#">Hourly</a></li>
 						<li data-value="daily" data-text="day(s)"><a href="#">Daily</a></li>
 						<li data-value="weekdays"><a href="#">Weekdays</a></li>
@@ -283,14 +283,14 @@
 						<li data-value="monthly" data-text="month(s)"><a href="#">Monthly</a></li>
 						<li data-value="yearly"><a href="#">Yearly</a></li>
 					</ul>
-					<input type="text" aria-hidden="true" readonly="readonly" name="intervalSelectlist" class="hidden hidden-field">
+					<input type="text" aria-hidden="true" readonly="readonly" name="intervalSelectlist" class="hidden hidden-field" />
 				</div>
 
 				<div class="repeat-panel repeat-every-panel repeat-hourly repeat-daily repeat-weekly hide" aria-hidden="true">
 					<label id="MySchedulerEveryLabel" class="inline-form-text repeat-every-pretext">every</label>
 
 					<div class="spinbox digits-3 repeat-every">
-						<input type="text" class="form-control input-mini spinbox-input" aria-labelledby="MySchedulerEveryLabel">
+						<input type="text" class="form-control input-mini spinbox-input" aria-labelledby="MySchedulerEveryLabel" />
 						<div class="spinbox-buttons btn-group btn-group-vertical">
 							<button type="button" class="btn btn-default spinbox-up btn-xs">
 								<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
@@ -307,13 +307,13 @@
 
 			<div class="form-group repeat-panel repeat-weekly repeat-days-of-the-week hide" aria-hidden="true">
 				<fieldset class="btn-group" data-toggle="buttons">
-					<label class="btn btn-default"><input type="checkbox" data-value="SU">Sun</label>
-					<label class="btn btn-default"><input type="checkbox" data-value="MO">Mon</label>
-					<label class="btn btn-default"><input type="checkbox" data-value="TU">Tue</label>
-					<label class="btn btn-default"><input type="checkbox" data-value="WE"> Wed</label>
-					<label class="btn btn-default"><input type="checkbox" data-value="TH"> Thu</label>
-					<label class="btn btn-default"><input type="checkbox" data-value="FR"> Fri</label>
-					<label class="btn btn-default"><input type="checkbox" data-value="SA"> Sat</label>
+					<label class="btn btn-default"><input type="checkbox" data-value="SU" />Sun</label>
+					<label class="btn btn-default"><input type="checkbox" data-value="MO" />Mon</label>
+					<label class="btn btn-default"><input type="checkbox" data-value="TU" />Tue</label>
+					<label class="btn btn-default"><input type="checkbox" data-value="WE" />Wed</label>
+					<label class="btn btn-default"><input type="checkbox" data-value="TH" />Thu</label>
+					<label class="btn btn-default"><input type="checkbox" data-value="FR" />Fri</label>
+					<label class="btn btn-default"><input type="checkbox" data-value="SA" />Sat</label>
 				</fieldset>
 			</div>
 
@@ -321,7 +321,7 @@
 				<div class="form-group repeat-monthly-date">
 					<div class="radio pull-left">
 						<label class="radio-custom">
-							<input class="sr-only" type="radio" checked="checked" name="repeat-monthly" value="bymonthday">
+							<input class="sr-only" type="radio" checked="checked" name="repeat-monthly" value="bymonthday" />
 							<span class="radio-label">on day</span>
 						</label>
 					</div>
@@ -364,14 +364,14 @@
 							<li data-value="30"><a href="#">30</a></li>
 							<li data-value="31"><a href="#">31</a></li>
 						</ul>
-						<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field">
+						<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field" />
 					</div>
 				</div>
 
 				<div class="repeat-monthly-day form-group">
 					<div class="radio pull-left">
 						<label class="radio-custom">
-							<input class="sr-only" type="radio" checked="checked" name="repeat-monthly" value="bysetpos">
+							<input class="sr-only" type="radio" checked="checked" name="repeat-monthly" value="bysetpos" />
 							<span class="radio-label">on the</span>
 						</label>
 					</div>
@@ -388,7 +388,7 @@
 							<li data-value="4"><a href="#">Fourth</a></li>
 							<li data-value="-1"><a href="#">Last</a></li>
 						</ul>
-						<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field">
+						<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field" />
 					</div>
 
 					<div data-resize="auto" class="btn-group selectlist month-days pull-left">
@@ -408,7 +408,7 @@
 							<li data-value="MO,TU,WE,TH,FR"><a href="#">Weekday</a></li>
 							<li data-value="SU,SA"><a href="#">Weekend day</a></li>
 						</ul>
-						<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field">
+						<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field" />
 					</div>
 
 				</div>
@@ -419,7 +419,7 @@
 
 					<div class="radio pull-left">
 						<label class="radio-custom">
-							<input class="sr-only" type="radio" checked="checked" name="repeat-yearly" value="bymonthday">
+							<input class="sr-only" type="radio" checked="checked" name="repeat-yearly" value="bymonthday" />
 							<span class="radio-label">on</span>
 						</label>
 					</div>
@@ -443,7 +443,7 @@
 							<li data-value="11"><a href="#">November</a></li>
 							<li data-value="12"><a href="#">December</a></li>
 						</ul>
-						<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field">
+						<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field" />
 					</div>
 
 					<div data-resize="auto" class="btn-group selectlist year-month-day pull-left">
@@ -484,13 +484,13 @@
 							<li data-value="30"><a href="#">30</a></li>
 							<li data-value="31"><a href="#">31</a></li>
 						</ul>
-						<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field">
+						<input type="text" aria-hidden="true" readonly="readonly" name="monthlySelectlist" class="hidden hidden-field" />
 					</div>
 				</div>
 
 				<div class="form-group repeat-yearly-day">
 
-					<div class="radio pull-left"><label class="radio-custom"><input class="sr-only" type="radio" name="repeat-yearly" value="bysetpos"> on the</label></div>
+					<div class="radio pull-left"><label class="radio-custom"><input class="sr-only" type="radio" name="repeat-yearly" value="bysetpos" />on the</label></div>
 
 					<div data-resize="auto" class="btn-group selectlist year-month-day-pos pull-left">
 						<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
@@ -505,7 +505,7 @@
 							<li data-value="4"><a href="#">Fourth</a></li>
 							<li data-value="-1"><a href="#">Last</a></li>
 						</ul>
-						<input type="text" aria-hidden="true" readonly="readonly" name="yearlyDateSelectlist" class="hidden hidden-field">
+						<input type="text" aria-hidden="true" readonly="readonly" name="yearlyDateSelectlist" class="hidden hidden-field" />
 					</div>
 
 					<div data-resize="auto" class="btn-group selectlist year-month-days pull-left">
@@ -526,7 +526,7 @@
 							<li data-value="MO,TU,WE,TH,FR"><a href="#">Weekday</a></li>
 							<li data-value="SU,SA"><a href="#">Weekend day</a></li>
 						</ul>
-						<input type="text" aria-hidden="true" readonly="readonly" name="yearlyDaySelectlist" class="hidden hidden-field">
+						<input type="text" aria-hidden="true" readonly="readonly" name="yearlyDaySelectlist" class="hidden hidden-field" />
 					</div>
 					<div class="inline-form-text repeat-yearly-day-text"> of </div>
 
@@ -550,7 +550,7 @@
 							<li data-value="11"><a href="#">November</a></li>
 							<li data-value="12"><a href="#">December</a></li>
 						</ul>
-						<input type="text" aria-hidden="true" readonly="readonly" name="yearlyDaySelectlist" class="hidden hidden-field">
+						<input type="text" aria-hidden="true" readonly="readonly" name="yearlyDaySelectlist" class="hidden hidden-field" />
 					</div>
 				</div>
 			</div>
@@ -573,14 +573,14 @@
 							<li data-value="after"><a href="#">After</a></li>
 							<li data-value="date"><a href="#">On date</a></li>
 						</ul>
-						<input type="text" aria-hidden="true" readonly="readonly" name="EndSelectlist" class="hidden hidden-field">
+						<input type="text" aria-hidden="true" readonly="readonly" name="EndSelectlist" class="hidden hidden-field" />
 					</div>
 				</div>
 
 				<div class="col-sm-4 col-lg-4 form-group end-option-panel end-after-panel pull-left hide" aria-hidden="true">
 					<div class="spinbox digits-3 end-after">
 						<label id="MyEndAfter" class="sr-only">End After</label>
-						<input type="text" class="form-control input-mini spinbox-input" aria-labelledby="MyEndAfter">
+						<input type="text" class="form-control input-mini spinbox-input" aria-labelledby="MyEndAfter" />
 						<div class="spinbox-buttons btn-group btn-group-vertical">
 							<button type="button" class="btn btn-default spinbox-up btn-xs">
 								<span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
