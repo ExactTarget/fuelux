@@ -228,7 +228,7 @@
 			var canvasWidth = this.$element.find('.repeater-canvas').outerWidth();
 			var tableWidth = this.$element.find('.repeater-list .repeater-list-wrapper > table').outerWidth();
 
-			var bidiLTR = this.$canvas.css( 'direction' ) == 'ltr';
+			var bidiLTR = this.$canvas.css( 'direction' ) === 'ltr';
 			var actionsWidth = this.$element.find('.table-actions') ? this.$element.find('.table-actions').outerWidth() : 0;
 
 			var shouldScroll = (tableWidth - (canvasWidth - actionsWidth)) >= scrollLeft;
