@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.15.11 
+ * Fuel UX v3.15.12 
  * Copyright 2012-2017 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -1422,7 +1422,7 @@
 
 		// -- BEGIN MODULE CODE HERE --
 
-		$( document.body ).on( 'click.fu.dropdown-autoflip', '[data-toggle=dropdown][data-flip]', function( event ) {
+		$( document ).on( 'click.fu.dropdown-autoflip', '[data-toggle=dropdown][data-flip]', function( event ) {
 			if ( $( this ).data().flip === "auto" ) {
 				// have the drop down decide where to place itself
 				_autoFlip( $( this ).next( '.dropdown-menu' ) );
@@ -1430,7 +1430,7 @@
 		} );
 
 		// For pillbox suggestions dropdown
-		$( document.body ).on( 'suggested.fu.pillbox', function( event, element ) {
+		$( document ).on( 'suggested.fu.pillbox', function( event, element ) {
 			_autoFlip( $( element ) );
 			$( element ).parent().addClass( 'open' );
 		} );
@@ -5017,7 +5017,7 @@
 
 					// suggestion dropdown
 					this.$suggest.html( '' ).append( $suggestionList.children() );
-					$( document.body ).trigger( 'suggested.fu.pillbox', this.$suggest );
+					$( document ).trigger( 'suggested.fu.pillbox', this.$suggest );
 				}
 
 				return true;
@@ -5826,6 +5826,23 @@
 				var viewTypeObj = {};
 				var height;
 				var viewportMargins;
+				var scrubbedElements = [];
+				var previousProperties = [];
+				var $hiddenElements = this.$element.parentsUntil( ':visible' ).addBack();
+				var currentHiddenElement;
+				var currentElementIndex = 0;
+
+				// Set parents to 'display:block' until repeater is visible again
+				while ( currentElementIndex < $hiddenElements.length && this.$element.is( ':hidden' ) ) {
+					currentHiddenElement = $hiddenElements[ currentElementIndex ];
+					// Only set display property on elements that are explicitly hidden (i.e. do not inherit it from their parent)
+					if ( $( currentHiddenElement ).is( ':hidden' ) ) {
+						previousProperties.push( currentHiddenElement.style[ 'display' ] );
+						currentHiddenElement.style[ 'display' ] = 'block';
+						scrubbedElements.push( currentHiddenElement );
+					}
+					currentElementIndex++;
+				}
 
 				if ( this.viewType ) {
 					viewTypeObj = $.fn.repeater.viewTypes[ this.viewType ] || {};
@@ -5856,6 +5873,10 @@
 						width: this.$element.outerWidth()
 					} );
 				}
+
+				scrubbedElements.forEach( function( element, i ) {
+					element.style[ 'display' ] = previousProperties[ i ];
+				} );
 			},
 
 			// e.g. "Rows" or "Thumbnails"
