@@ -425,6 +425,31 @@ define( function ( require ) {
 		} );
 	} );
 
+	QUnit.test( 'resize should set height correctly when called inside hidden DOM object', function resize (assert) {
+		var ready = assert.async();
+		var $hiddenDiv = $('' +
+			'<div style="display:none">' +
+			'	<div class="repeaterDiv"></div>' +
+			'</div>');
+		$('.fuelux').append($hiddenDiv);
+		$hiddenDiv.find('.repeaterDiv').append(this.$markup);
+		var $repeater = $( $hiddenDiv.find('.repeater'));
+		var $repeaterViewport = $( $repeater.find('.repeater-viewport'));
+
+		$repeater.repeater( {
+			dataSource: function dataSource( options, callback ) {
+				callback( { smileys: [ ':)', ':)', ':)' ] } );
+				$hiddenDiv.show();
+				$repeaterViewport.css('min-height', 0);
+				assert.notEqual($repeaterViewport.height(), 0, 'height set to non-zero value on resize');
+				$hiddenDiv.remove();
+				ready();
+			},
+			staticHeight:true
+		} );
+
+	} );
+
 	QUnit.test( 'should destroy control', function destroy( assert ) {
 		var ready = assert.async();
 		var $repeater = $( this.$markup );
