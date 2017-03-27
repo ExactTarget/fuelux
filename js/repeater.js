@@ -698,6 +698,23 @@
 			var viewTypeObj = {};
 			var height;
 			var viewportMargins;
+			var scrubbedElements = [];
+			var previousProperties = [];
+			var $hiddenElements = this.$element.parentsUntil(':visible').addBack();
+			var currentHiddenElement;
+			var currentElementIndex = 0;
+
+			// Set parents to 'display:block' until repeater is visible again
+			while (currentElementIndex < $hiddenElements.length && this.$element.is(':hidden')) {
+				currentHiddenElement = $hiddenElements[currentElementIndex];
+				// Only set display property on elements that are explicitly hidden (i.e. do not inherit it from their parent)
+				if ($(currentHiddenElement).is(':hidden')) {
+					previousProperties.push(currentHiddenElement.style['display']);
+					currentHiddenElement.style['display'] = 'block';
+					scrubbedElements.push(currentHiddenElement);
+				}
+				currentElementIndex++;
+			}
 
 			if (this.viewType) {
 				viewTypeObj = $.fn.repeater.viewTypes[this.viewType] || {};
@@ -728,6 +745,10 @@
 					width: this.$element.outerWidth()
 				});
 			}
+
+			scrubbedElements.forEach(function (element, i) {
+				element.style['display'] = previousProperties[i];
+			});
 		},
 
 		// e.g. "Rows" or "Thumbnails"
