@@ -208,7 +208,7 @@ define( function ( require ) {
 
 		$scheduler.scheduler( "value", { recurrencePattern: "FREQ=DAILY;INTERVAL=9;COUNT=4" } );
 		assert.ok( ( $scheduler.find( ".repeat-end .selectlist .selected-label" ).html() === "After" && $scheduler.find( ".repeat-end .spinbox" ).spinbox( "value" ) === "4" ),
-			"end after occurence(s) set correctly" );
+			"end after occurrence(s) set correctly" );
 
 		$scheduler.scheduler( "value", { recurrencePattern: "FREQ=DAILY;INTERVAL=9;UNTIL=20510331" } );
 
