@@ -204,3 +204,16 @@
 
 }
 
+.fuelux {
+	.form-group {
+		&.required {
+			.control-label {
+				&:before {
+					content: '*';
+					color: @text-danger;
+					margin-right: @margin-xs;
+				}
+			}
+		}
+	}
+}
