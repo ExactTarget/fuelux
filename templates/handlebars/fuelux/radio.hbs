@@ -1,4 +1,4 @@
-<div class="form-group{{#if validation}} has-{{validation}}{{/if}}">
+<div class="form-group{{#if validation}} has-{{validation}}{{/if}}{{#if required}} required{{/if}}">
 	<label for="{{#if id}}{{id}}{{else}}myCustomRadioWrapper{{/if}}" class="control-label{{#if horizontal}} col-sm-2{{/if}}">{{#if label}}{{label}}{{/if}}</label>
 
 	<div class="{{#if inline}}radio{{/if}}{{#if horizontal}} col-sm-10{{/if}}"{{#if required}} required{{/if}}>
