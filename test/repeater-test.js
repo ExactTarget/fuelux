@@ -380,14 +380,12 @@ define( function ( require ) {
 	QUnit.test( 'rendered.fu.repeater callback should receive correct data when called by renderItems function', function dataSourceCallbackTest( assert ) {
 		var ready = assert.async();
 		var $repeater = $( this.$markup );
-		var count = 0;
 		$repeater.on( 'rendered.fu.repeater', function rendered ( e, state ) {
-			count++;
+			// rendered is triggered on `this.$search` and `this.$element` in repeater.js
+			if ( e.target.id === $repeater.attr('id') ) {
+				assert.ok( state.data, 'data object exists' );
+				assert.equal( state.data.myVar, 'passalong', 'data returned from datasource was passed along' );
 
-			assert.ok( state.data, 'data object exists' );
-			assert.equal( state.data.myVar, 'passalong', 'data returned from datasource was passed along' );
-
-			if ( count === 2 ) {
 				ready();
 			}
 		} );
