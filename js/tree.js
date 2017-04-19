@@ -149,7 +149,7 @@
 					}
 
 					// Decorate $entity with data or other attributes making the
-					// element easily accessable with libraries like jQuery.
+					// element easily accessible with libraries like jQuery.
 					//
 					// Values are contained within the object returned
 					// for folders and items as attr:
