@@ -1,5 +1,5 @@
 <!-- Fuel UX Checkboxes http://getfuelux.com/javascript.html#checkbox -->
-<div class="form-group">
+<div class="form-group<% if(validation) {%> has-<%= validation %><% } %><% if(required) {%> required<% } %>">
   <label for="<%= name %>" class="control-label<% if(horizontal) { %> col-sm-2<% } %>"><%= label %></label>
   <div class="<% if(horizontal) {%> col-sm-10<% } %><% if(required) {%> required<% } %>">
     <% _.each(checkboxes, function(checkbox, i){ %><div class="checkbox">
