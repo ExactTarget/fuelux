@@ -1,5 +1,6 @@
 /*!
- * Fuel UX v3.15.13 
+ * Fuel UX EDGE - Built 2017/05/03, 2:48:53 PM 
+ * Previous release: v3.15.13 
  * Copyright 2012-2017 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -436,6 +437,11 @@ label.fuelux .checkbox-inline {
 .fuelux .radio.multiline ~ .control-label > label {
   font-weight: normal;
   cursor: pointer;
+}
+.fuelux .form-group.required .control-label:before {
+  content: '*';
+  color: #a94442;
+  margin-right: 5px;
 }
 .fuelux .checkbox {
   /* for keyboard tabbing */

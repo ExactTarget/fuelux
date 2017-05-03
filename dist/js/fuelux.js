@@ -1,5 +1,6 @@
 /*!
- * Fuel UX v3.15.13 
+ * Fuel UX EDGE - Built 2017/05/03, 2:48:53 PM 
+ * Previous release: v3.15.13 
  * Copyright 2012-2017 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -3238,7 +3239,7 @@
 						}
 
 						// Decorate $entity with data or other attributes making the
-						// element easily accessable with libraries like jQuery.
+						// element easily accessible with libraries like jQuery.
 						//
 						// Values are contained within the object returned
 						// for folders and items as attr:
