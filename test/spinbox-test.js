@@ -285,6 +285,21 @@ define( function ( require ) {
 
 	} );
 
+	QUnit.test('spinbox should trigger change after using setValue', function (assert) {
+		var $spinbox = $(html).find('#MySpinboxDecimal').spinbox({
+			value: '1'
+		});
+
+		$spinbox.spinbox('setValue', '2');
+
+		$spinbox.on('changed.fu.spinbox', function () {
+			assert.ok(true, 'spinbox triggers changed after input' );
+		});
+
+		$spinbox.find('.spinbox-input').val(1);
+		$spinbox.find('.spinbox-input').focusout();
+	});
+
 	QUnit.test( "should destroy control", function( assert ) {
 		var $el = $( html ).find( "#MySpinbox" );
 
