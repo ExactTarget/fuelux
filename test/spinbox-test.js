@@ -286,6 +286,7 @@ define( function ( require ) {
 	} );
 
 	QUnit.test('spinbox should trigger change after using setValue', function (assert) {
+		var ready = assert.async();
 		var $spinbox = $(html).find('#MySpinboxDecimal').spinbox({
 			value: '1'
 		});
@@ -294,6 +295,7 @@ define( function ( require ) {
 
 		$spinbox.on('changed.fu.spinbox', function () {
 			assert.ok(true, 'spinbox triggers changed after input' );
+			ready();
 		});
 
 		$spinbox.find('.spinbox-input').val(1);
