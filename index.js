@@ -30,6 +30,10 @@ define(function (require) {
 	 CHECKBOX
 	 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+	var checkbox = require('hbs!fuelux_templates/checkbox');
+	var $myCheckbox1Wrapper = $('#myCheckbox1Wrapper');
+	$myCheckbox1Wrapper.html(checkbox({ id: 'myCheckbox1', required: true, validation: 'error', label: 'Checkboxes', checkboxes: [{label: 'Checkbox Label 1' }, {label: 'Checkbox Label 2' }]}));
+
 	// sample method buttons
 	$('#btnCheckboxToggle').on('click', function () {
 		$('#myCustomCheckbox1').checkbox('toggle');

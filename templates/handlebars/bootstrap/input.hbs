@@ -1,4 +1,4 @@
-<div class="form-group{{#if horizontal}}{{#if inputsize}} form-group-{{inputsize}}{{/if}}{{/if}}{{#if validation}} has-{{validation}}{{#if feedback}} has-feedback{{/if}}{{/if}}">
+<div class="form-group{{#if horizontal}}{{#if inputsize}} form-group-{{inputsize}}{{/if}}{{/if}}{{#if validation}} has-{{validation}}{{#if feedback}} has-feedback{{/if}}{{/if}}{{#if required}} required{{/if}}">
 	{{#if label}}<label for="{{#if id}}{{id}}{{else}}myInput{{/if}}" class="control-label{{#if horizontal}} col-sm-2{{/if}}">{{label}}</label>{{/if}}
 	{{#if horizontal}}<div class="col-sm-10">{{/if}}
 		{{#if hasAside}}<div class="input-group">{{/if}}

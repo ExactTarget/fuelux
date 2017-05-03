@@ -1,5 +1,5 @@
 <!-- Fuel UX Select http://getfuelux.com/javascript.html#selectlist -->
-<div class="form-group">
+<div class="form-group<% if(validation) {%> has-<%= validation %><% } %><% if(required) {%> required<% } %>">
   <label class="control-label<% if(horizontal) { %> col-sm-2<% } %>" for="<%= id %>"><%= label %></label>
   <div class="controls <%= buttonalign %><% if(horizontal) {%> col-sm-10<% } %>">
     <div class="btn-group selectlist" data-initialize="selectlist" data-resize="auto" id="<%= id %>">
