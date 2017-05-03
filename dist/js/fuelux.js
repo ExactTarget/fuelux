@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.15.12 
+ * Fuel UX v3.15.13 
  * Copyright 2012-2017 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -2830,11 +2830,11 @@
 			},
 
 			render: function render() {
-				this.setValue( this.getDisplayValue() );
+				this._setValue( this.getDisplayValue() );
 			},
 
 			change: function change() {
-				this.setValue( this.getDisplayValue() );
+				this._setValue( this.getDisplayValue() );
 
 				this.triggerChangedEvent();
 			},
@@ -2885,7 +2885,7 @@
 
 			step: function step( isIncrease ) {
 				//refresh value from display before trying to increment in case they have just been typing before clicking the nubbins
-				this.setValue( this.getDisplayValue() );
+				this._setValue( this.getDisplayValue() );
 				var newVal;
 
 				if ( isIncrease ) {
@@ -2896,7 +2896,7 @@
 
 				newVal = newVal.toFixed( 5 );
 
-				this.setValue( newVal + this.unit );
+				this._setValue( newVal + this.unit );
 			},
 
 			getDisplayValue: function getDisplayValue() {
@@ -2918,6 +2918,10 @@
 			},
 
 			setValue: function setValue( val ) {
+				return this._setValue( val, true );
+			},
+
+			_setValue: function _setValue( val, shouldSetLastValue ) {
 				//remove any i18n on the number
 				if ( this.options.decimalMark !== '.' ) {
 					val = this.parseInput( val );
@@ -2934,7 +2938,7 @@
 
 				//make sure we are dealing with a number
 				if ( isNaN( intVal ) && !isFinite( intVal ) ) {
-					return this.setValue( this.options.value );
+					return this._setValue( this.options.value, shouldSetLastValue );
 				}
 
 				//conform
@@ -2952,6 +2956,10 @@
 
 				//display number
 				this.setDisplayValue( val );
+
+				if ( shouldSetLastValue ) {
+					this.lastValue = val;
+				}
 
 				return this;
 			},

@@ -87,7 +87,7 @@
     "release": "grunt release"
   },
   "title": "Fuel UX",
-  "version": "3.15.12",
+  "version": "3.15.13",
   "volo": {
     "baseDir": "lib",
     "dependencies": {
