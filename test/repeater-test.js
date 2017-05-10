@@ -380,14 +380,12 @@ define( function ( require ) {
 	QUnit.test( 'rendered.fu.repeater callback should receive correct data when called by renderItems function', function dataSourceCallbackTest( assert ) {
 		var ready = assert.async();
 		var $repeater = $( this.$markup );
-		var count = 0;
 		$repeater.on( 'rendered.fu.repeater', function rendered ( e, state ) {
-			count++;
+			// rendered is triggered on `this.$search` and `this.$element` in repeater.js
+			if ( e.target.id === $repeater.attr('id') ) {
+				assert.ok( state.data, 'data object exists' );
+				assert.equal( state.data.myVar, 'passalong', 'data returned from datasource was passed along' );
 
-			assert.ok( state.data, 'data object exists' );
-			assert.equal( state.data.myVar, 'passalong', 'data returned from datasource was passed along' );
-
-			if ( count === 2 ) {
 				ready();
 			}
 		} );
@@ -423,6 +421,31 @@ define( function ( require ) {
 				}
 			}
 		} );
+	} );
+
+	QUnit.test( 'resize should set height correctly when called inside hidden DOM object', function resize (assert) {
+		var ready = assert.async();
+		var $hiddenDiv = $('' +
+			'<div style="display:none">' +
+			'	<div class="repeaterDiv"></div>' +
+			'</div>');
+		$('.fuelux').append($hiddenDiv);
+		$hiddenDiv.find('.repeaterDiv').append(this.$markup);
+		var $repeater = $( $hiddenDiv.find('.repeater'));
+		var $repeaterViewport = $( $repeater.find('.repeater-viewport'));
+
+		$repeater.repeater( {
+			dataSource: function dataSource( options, callback ) {
+				callback( { smileys: [ ':)', ':)', ':)' ] } );
+				$hiddenDiv.show();
+				$repeaterViewport.css('min-height', 0);
+				assert.notEqual($repeaterViewport.height(), 0, 'height set to non-zero value on resize');
+				$hiddenDiv.remove();
+				ready();
+			},
+			staticHeight:true
+		} );
+
 	} );
 
 	QUnit.test( 'should destroy control', function destroy( assert ) {

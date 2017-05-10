@@ -92,7 +92,7 @@ module.exports = function (grunt) {
 			command: function () {
 				function createUploadCommand (version) {
 					return ['mv dist ' + version,
-						'scp -i ~/.ssh/fuelcdn -r "' + version + '"/ ' +
+						'scp -i ~/.ssh/fuelcdn -oHostKeyAlgorithms=+ssh-dss -r "' + version + '"/ ' +
 							'<%= cdnLoginFile.user %>' + '@' + '<%= cdnLoginFile.server %>' + ':' + '<%= cdnLoginFile.folder %>',
 						'mv "' + version + '" dist',
 						'echo "Done uploading files."'].join(' && ');

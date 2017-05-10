@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.15.11 
+ * Fuel UX v3.16.0 
  * Copyright 2012-2017 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -1422,7 +1422,7 @@
 
 		// -- BEGIN MODULE CODE HERE --
 
-		$( document.body ).on( 'click.fu.dropdown-autoflip', '[data-toggle=dropdown][data-flip]', function( event ) {
+		$( document ).on( 'click.fu.dropdown-autoflip', '[data-toggle=dropdown][data-flip]', function( event ) {
 			if ( $( this ).data().flip === "auto" ) {
 				// have the drop down decide where to place itself
 				_autoFlip( $( this ).next( '.dropdown-menu' ) );
@@ -1430,7 +1430,7 @@
 		} );
 
 		// For pillbox suggestions dropdown
-		$( document.body ).on( 'suggested.fu.pillbox', function( event, element ) {
+		$( document ).on( 'suggested.fu.pillbox', function( event, element ) {
 			_autoFlip( $( element ) );
 			$( element ).parent().addClass( 'open' );
 		} );
@@ -2830,11 +2830,11 @@
 			},
 
 			render: function render() {
-				this.setValue( this.getDisplayValue() );
+				this._setValue( this.getDisplayValue() );
 			},
 
 			change: function change() {
-				this.setValue( this.getDisplayValue() );
+				this._setValue( this.getDisplayValue() );
 
 				this.triggerChangedEvent();
 			},
@@ -2885,7 +2885,7 @@
 
 			step: function step( isIncrease ) {
 				//refresh value from display before trying to increment in case they have just been typing before clicking the nubbins
-				this.setValue( this.getDisplayValue() );
+				this._setValue( this.getDisplayValue() );
 				var newVal;
 
 				if ( isIncrease ) {
@@ -2896,7 +2896,7 @@
 
 				newVal = newVal.toFixed( 5 );
 
-				this.setValue( newVal + this.unit );
+				this._setValue( newVal + this.unit );
 			},
 
 			getDisplayValue: function getDisplayValue() {
@@ -2918,6 +2918,10 @@
 			},
 
 			setValue: function setValue( val ) {
+				return this._setValue( val, true );
+			},
+
+			_setValue: function _setValue( val, shouldSetLastValue ) {
 				//remove any i18n on the number
 				if ( this.options.decimalMark !== '.' ) {
 					val = this.parseInput( val );
@@ -2934,7 +2938,7 @@
 
 				//make sure we are dealing with a number
 				if ( isNaN( intVal ) && !isFinite( intVal ) ) {
-					return this.setValue( this.options.value );
+					return this._setValue( this.options.value, shouldSetLastValue );
 				}
 
 				//conform
@@ -2952,6 +2956,10 @@
 
 				//display number
 				this.setDisplayValue( val );
+
+				if ( shouldSetLastValue ) {
+					this.lastValue = val;
+				}
 
 				return this;
 			},
@@ -3230,7 +3238,7 @@
 						}
 
 						// Decorate $entity with data or other attributes making the
-						// element easily accessable with libraries like jQuery.
+						// element easily accessible with libraries like jQuery.
 						//
 						// Values are contained within the object returned
 						// for folders and items as attr:
@@ -5017,7 +5025,7 @@
 
 					// suggestion dropdown
 					this.$suggest.html( '' ).append( $suggestionList.children() );
-					$( document.body ).trigger( 'suggested.fu.pillbox', this.$suggest );
+					$( document ).trigger( 'suggested.fu.pillbox', this.$suggest );
 				}
 
 				return true;
@@ -5826,6 +5834,23 @@
 				var viewTypeObj = {};
 				var height;
 				var viewportMargins;
+				var scrubbedElements = [];
+				var previousProperties = [];
+				var $hiddenElements = this.$element.parentsUntil( ':visible' ).addBack();
+				var currentHiddenElement;
+				var currentElementIndex = 0;
+
+				// Set parents to 'display:block' until repeater is visible again
+				while ( currentElementIndex < $hiddenElements.length && this.$element.is( ':hidden' ) ) {
+					currentHiddenElement = $hiddenElements[ currentElementIndex ];
+					// Only set display property on elements that are explicitly hidden (i.e. do not inherit it from their parent)
+					if ( $( currentHiddenElement ).is( ':hidden' ) ) {
+						previousProperties.push( currentHiddenElement.style[ 'display' ] );
+						currentHiddenElement.style[ 'display' ] = 'block';
+						scrubbedElements.push( currentHiddenElement );
+					}
+					currentElementIndex++;
+				}
 
 				if ( this.viewType ) {
 					viewTypeObj = $.fn.repeater.viewTypes[ this.viewType ] || {};
@@ -5856,6 +5881,10 @@
 						width: this.$element.outerWidth()
 					} );
 				}
+
+				scrubbedElements.forEach( function( element, i ) {
+					element.style[ 'display' ] = previousProperties[ i ];
+				} );
 			},
 
 			// e.g. "Rows" or "Thumbnails"
