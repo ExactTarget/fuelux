@@ -2,10 +2,10 @@
 <html lang="en">
 <head><title>Sample Markup</title></head>
 <body>
-<ul class="tree" id="myTree" role="tree">
+<ul class="tree" id="myTree" role="tree" aria-activedescendant="">
 	<li class="tree-branch hidden" data-template="treebranch" role="treeitem" aria-expanded="false">
 		<div class="tree-branch-header">
-			<button type="button" class="tree-branch-name">
+			<button type="button" class="tree-branch-name" tabindex="-1">
 				<span class="glyphicon icon-caret glyphicon-play"></span>
 				<span class="glyphicon icon-folder glyphicon-folder-close"></span>
 				<span class="tree-label"></span>
@@ -15,13 +15,13 @@
 		<div class="tree-loader"><span role="alert">Loading...</span></div>
 	</li>
 	<li class="tree-item hidden" data-template="treeitem" role="treeitem">
-		<button type="button" class="tree-item-name">
+		<button type="button" class="tree-item-name" tabindex="-1">
 			<span class="glyphicon icon-item fueluxicon-bullet"></span>
 			<span class="tree-label"></span>
 		</button>
 	</li>
 	<li class="tree-overflow hidden" data-template="treeoverflow" role="treeitem">
-		<button type="button" class="tree-overflow-name">
+		<button type="button" class="tree-overflow-name" tabindex="-1">
 			<span class="glyphicon"></span>
 			<span class="tree-label"></span>
 		</button>
