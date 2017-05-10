@@ -134,21 +134,22 @@
 
 			this.options.dataSource(treeData ? treeData : {}, function populateNodes (items) {
 				$.each(items.data, function buildNode (i, treeNode) {
-					var $entity;
+					var nodeType = treeNode.type;
 
+					// 'item' and 'overflow' remain consistent, but 'folder' maps to 'branch'
 					if (treeNode.type === 'folder') {
-						$entity = self.$element.find('[data-template=treebranch]:eq(0)').clone().removeClass('hide hidden').removeData('template').removeAttr('data-template'); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
-						$entity.data(treeNode);
-						$entity.find('.tree-branch-name > .tree-label').html(treeNode.text || treeNode.name);
-					} else if (treeNode.type === 'item') {
-						$entity = self.$element.find('[data-template=treeitem]:eq(0)').clone().removeClass('hide hidden').removeData('template').removeAttr('data-template'); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
-						$entity.find('.tree-item-name > .tree-label').html(treeNode.text || treeNode.name);
-						$entity.data(treeNode);
-					} else if (treeNode.type === 'overflow') {
-						$entity = self.$element.find('[data-template=treeoverflow]:eq(0)').clone().removeClass('hide hidden').removeData('template').removeAttr('data-template'); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
-						$entity.find('.tree-overflow-name > .tree-label').html(treeNode.text || treeNode.name);
-						$entity.data(treeNode);
+						nodeType = 'branch';
 					}
+
+					var $entity = self.$element
+						.find('[data-template=tree' + nodeType + ']:eq(0)')
+						.clone()
+						.removeClass('hide hidden')// jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
+						.removeData('template')
+						.removeAttr('data-template');
+					$entity.find('.tree-' + nodeType + '-name > .tree-label').html(treeNode.text || treeNode.name);
+					$entity.data(treeNode);
+
 
 					// Decorate $entity with data or other attributes making the
 					// element easily accessible with libraries like jQuery.
@@ -201,6 +202,8 @@
 
 					// add child node
 					if (atRoot) {
+						// For accessibility reasons, the root element is the only tab-able element (see https://github.com/ExactTarget/fuelux/issues/1964)
+						$entity.attr('tabindex', '0');
 						$parent.append($entity);
 					} else {
 						$parent.find('.tree-branch-children:eq(0)').append($entity);
