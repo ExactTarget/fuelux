@@ -1,3 +1,5 @@
+/* global jQuery:true */
+
 /*
  * Fuel UX Tree
  * https://github.com/ExactTarget/fuelux
@@ -11,7 +13,7 @@
 // For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
-(function (factory) {
+(function umdFactory (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
 		define(['jquery'], factory);
@@ -22,7 +24,7 @@
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
 	}
-}(function ($) {
+}(function tree ($) {
 	// -- END UMD WRAPPER PREFACE --
 
 	// -- BEGIN MODULE CODE HERE --
@@ -36,16 +38,16 @@
 		this.options = $.extend({}, $.fn.tree.defaults, options);
 
 		if (this.options.itemSelect) {
-			this.$element.on('click.fu.tree', '.tree-item', $.proxy(function (ev) {
+			this.$element.on('click.fu.tree', '.tree-item', $.proxy(function callSelect (ev) {
 				this.selectItem(ev.currentTarget);
 			}, this));
 		}
 
-		this.$element.on('click.fu.tree', '.tree-branch-name', $.proxy(function (ev) {
+		this.$element.on('click.fu.tree', '.tree-branch-name', $.proxy(function callToggle (ev) {
 			this.toggleFolder(ev.currentTarget);
 		}, this));
 
-		this.$element.on('click.fu.tree', '.tree-overflow', $.proxy(function (ev){
+		this.$element.on('click.fu.tree', '.tree-overflow', $.proxy(function callPopulate (ev) {
 			this.populate($(ev.currentTarget));
 		}, this));
 
@@ -53,10 +55,10 @@
 		if (this.options.folderSelect) {
 			this.$element.addClass('tree-folder-select');
 			this.$element.off('click.fu.tree', '.tree-branch-name');
-			this.$element.on('click.fu.tree', '.icon-caret', $.proxy(function (ev) {
+			this.$element.on('click.fu.tree', '.icon-caret', $.proxy(function callToggle (ev) {
 				this.toggleFolder($(ev.currentTarget).parent());
 			}, this));
-			this.$element.on('click.fu.tree', '.tree-branch-name', $.proxy(function (ev) {
+			this.$element.on('click.fu.tree', '.tree-branch-name', $.proxy(function callSelect (ev) {
 				this.selectFolder($(ev.currentTarget));
 			}, this));
 		}
@@ -67,11 +69,11 @@
 	Tree.prototype = {
 		constructor: Tree,
 
-		deselectAll: function deselectAll(nodes) {
+		deselectAll: function deselectAll(n) {
 			// clear all child tree nodes and style as deselected
-			nodes = nodes || this.$element;
+			var nodes = n || this.$element;
 			var $selectedElements = $(nodes).find('.tree-selected');
-			$selectedElements.each(function (index, element) {
+			$selectedElements.each(function callStyleNodeDeselected (index, element) {
 				styleNodeDeselected( $(element), $(element).find( '.glyphicon' ) );
 			});
 			return $selectedElements;
@@ -80,7 +82,7 @@
 		destroy: function destroy() {
 			// any external bindings [none]
 			// empty elements to return to original markup
-			this.$element.find("li:not([data-template])").remove();
+			this.$element.find('li:not([data-template])').remove();
 
 			this.$element.remove();
 			// returns string of markup
@@ -91,7 +93,7 @@
 			this.populate(this.$element);
 		},
 
-		populate: function populate($el, isBackgroundProcess) {
+		populate: function populate($el, ibp) {
 			var self = this;
 
 			// populate was initiated based on clicking overflow link
@@ -100,25 +102,25 @@
 			var $parent = ($el.hasClass('tree')) ? $el : $el.parent();
 			var atRoot = $parent.hasClass('tree');
 
-			if(isOverflow && !atRoot){
+			if (isOverflow && !atRoot) {
 				$parent = $parent.parent();
 			}
 
 			var treeData = $parent.data();
 			// expose overflow data to datasource so it can be responded to appropriately.
-			if(isOverflow){
+			if (isOverflow) {
 				treeData.overflow = $el.data();
 			}
 
-			isBackgroundProcess = isBackgroundProcess || false;	// no user affordance needed (ex.- "loading")
+			var isBackgroundProcess = ibp || false;	// no user affordance needed (ex.- "loading")
 
-			if(isOverflow){
-				if(atRoot){
+			if (isOverflow) {
+				if (atRoot) {
 					// the loader at the root level needs to continually replace the overflow trigger
 					// otherwise, when loader is shown below, it will be the loader for the last folder
 					// in the tree, instead of the loader at the root level.
 					$el.replaceWith($parent.find('> .tree-loader').remove());
-				}else{
+				} else {
 					$el.remove();
 				}
 			}
@@ -130,22 +132,22 @@
 			}
 
 
-			this.options.dataSource(treeData ? treeData : {}, function (items) {
-				$.each(items.data, function (index, value) {
+			this.options.dataSource(treeData ? treeData : {}, function populateNodes (items) {
+				$.each(items.data, function buildNode (i, treeNode) {
 					var $entity;
 
-					if (value.type === 'folder') {
+					if (treeNode.type === 'folder') {
 						$entity = self.$element.find('[data-template=treebranch]:eq(0)').clone().removeClass('hide hidden').removeData('template').removeAttr('data-template'); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
-						$entity.data(value);
-						$entity.find('.tree-branch-name > .tree-label').html(value.text || value.name);
-					} else if (value.type === 'item') {
+						$entity.data(treeNode);
+						$entity.find('.tree-branch-name > .tree-label').html(treeNode.text || treeNode.name);
+					} else if (treeNode.type === 'item') {
 						$entity = self.$element.find('[data-template=treeitem]:eq(0)').clone().removeClass('hide hidden').removeData('template').removeAttr('data-template'); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
-						$entity.find('.tree-item-name > .tree-label').html(value.text || value.name);
-						$entity.data(value);
-					} else if (value.type === 'overflow') {
+						$entity.find('.tree-item-name > .tree-label').html(treeNode.text || treeNode.name);
+						$entity.data(treeNode);
+					} else if (treeNode.type === 'overflow') {
 						$entity = self.$element.find('[data-template=treeoverflow]:eq(0)').clone().removeClass('hide hidden').removeData('template').removeAttr('data-template'); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
-						$entity.find('.tree-overflow-name > .tree-label').html(value.text || value.name);
-						$entity.data(value);
+						$entity.find('.tree-overflow-name > .tree-label').html(treeNode.text || treeNode.name);
+						$entity.data(treeNode);
 					}
 
 					// Decorate $entity with data or other attributes making the
@@ -168,32 +170,32 @@
 					// the "name" attribute is also supported but is deprecated for "text".
 
 					// add attributes to tree-branch or tree-item
-					var attr = value.attr || value.dataAttributes || [];
-					$.each(attr, function (key, value) {
-						switch (key) {
-							case 'cssClass':
-							case 'class':
-							case 'className':
-								$entity.addClass(value);
-								break;
+					var attrs = treeNode.attr || treeNode.dataAttributes || [];
+					$.each(attrs, function setAttribute (attr, setTo) {
+						switch (attr) {
+						case 'cssClass':
+						case 'class':
+						case 'className':
+							$entity.addClass(setTo);
+							break;
 
-							// allow custom icons
-							case 'data-icon':
-								$entity.find('.icon-item').removeClass().addClass('icon-item ' + value);
-								$entity.attr(key, value);
-								break;
+						// allow custom icons
+						case 'data-icon':
+							$entity.find('.icon-item').removeClass().addClass('icon-item ' + setTo);
+							$entity.attr(attr, setTo);
+							break;
 
-							// ARIA support
-							case 'id':
-								$entity.attr(key, value);
-								$entity.attr('aria-labelledby', value + '-label');
-								$entity.find('.tree-branch-name > .tree-label').attr('id', value + '-label');
-								break;
+						// ARIA support
+						case 'id':
+							$entity.attr(attr, setTo);
+							$entity.attr('aria-labelledby', setTo + '-label');
+							$entity.find('.tree-branch-name > .tree-label').attr('id', setTo + '-label');
+							break;
 
-							// style, data-*
-							default:
-								$entity.attr(key, value);
-								break;
+						// style, data-*
+						default:
+							$entity.attr(attr, setTo);
+							break;
 						}
 					});
 
@@ -225,8 +227,7 @@
 				// make the clicked.$element the container branch
 				clicked.$element = clicked.$element.closest('.tree-branch');
 				clicked.$icon = clicked.$element.find('.icon-folder');
-			}
-			else {
+			} else {
 				clicked.$icon = clicked.$element.find('.icon-item');
 			}
 			clicked.elementData = clicked.$element.data();
@@ -234,8 +235,7 @@
 			// the below functions pass objects by copy/reference and use modified object in this function
 			if ( this.options.multiSelect ) {
 				multiSelectSyncNodes(this, clicked, selected);
-			}
-			else {
+			} else {
 				singleSelectSyncNodes(this, clicked, selected);
 			}
 
@@ -259,7 +259,7 @@
 			var $treeFolderContent = $branch.find('.tree-branch-children');
 			var $treeFolderContentFirstChild = $treeFolderContent.eq(0);
 
-			//take care of the styles
+			// take care of the styles
 			$branch.addClass('tree-open');
 			$branch.attr('aria-expanded', 'true');
 			$treeFolderContentFirstChild.removeClass('hide hidden'); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
@@ -267,7 +267,7 @@
 				.removeClass('glyphicon-folder-close')
 				.addClass('glyphicon-folder-open');
 
-			//add the children to the folder
+			// add the children to the folder
 			if (!$treeFolderContent.children().length) {
 				this.populate($treeFolderContent);
 			}
@@ -281,7 +281,7 @@
 			var $treeFolderContent = $branch.find('.tree-branch-children');
 			var $treeFolderContentFirstChild = $treeFolderContent.eq(0);
 
-			//take care of the styles
+			// take care of the styles
 			$branch.removeClass('tree-open');
 			$branch.attr('aria-expanded', 'false');
 			$treeFolderContentFirstChild.addClass('hidden');
@@ -321,12 +321,12 @@
 
 		selectedItems: function selectedItems() {
 			var $sel = this.$element.find('.tree-selected');
-			var data = [];
+			var selected = [];
 
-			$.each($sel, function (index, value) {
-				data.push($(value).data());
+			$.each($sel, function buildSelectedArray (i, value) {
+				selected.push($(value).data());
 			});
-			return data;
+			return selected;
 		},
 
 		// collapses open folders
@@ -347,15 +347,15 @@
 				}
 			};
 
-			//trigger callback when all folders have reported closed
+			// trigger callback when all folders have reported closed
 			self.$element.on('closed.fu.tree', closedReported);
 
-			self.$element.find(".tree-branch.tree-open:not('.hidden, .hide')").each(function () {
+			self.$element.find(".tree-branch.tree-open:not('.hidden, .hide')").each(function closeFolder () {
 				self.closeFolder(this);
 			});
 		},
 
-		//disclose visible will only disclose visible tree folders
+		// disclose visible will only disclose visible tree folders
 		discloseVisible: function discloseVisible() {
 			var self = this;
 
@@ -378,7 +378,7 @@
 				}
 			};
 
-			//trigger callback when all folders have reported opened
+			// trigger callback when all folders have reported opened
 			self.$element.on('loaded.fu.tree', openReported);
 
 			// open all visible folders
@@ -387,7 +387,7 @@
 			});
 		},
 
-		/**
+		/*
 		* Disclose all will keep listening for `loaded.fu.tree` and if `$(tree-el).data('ignore-disclosures-limit')`
 		* is `true` (defaults to `true`) it will attempt to disclose any new closed folders than were
 		* loaded in during the last disclosure.
@@ -395,7 +395,7 @@
 		discloseAll: function discloseAll() {
 			var self = this;
 
-			//first time
+			// first time
 			if (typeof self.$element.data('disclosures') === 'undefined') {
 				self.$element.data('disclosures', 0);
 			}
@@ -423,7 +423,6 @@
 					if (!self.$element.data('ignore-disclosures-limit')) {
 						return;
 					}
-
 				}
 
 				self.$element.data('disclosures', self.$element.data('disclosures') + 1);
@@ -437,7 +436,7 @@
 				* and then when the trigger happens, this will fire N times, where N equals the number
 				* of recursive `discloseAll` executions (instead of just one)
 				*/
-				self.$element.one('disclosedVisible.fu.tree', function () {
+				self.$element.one('disclosedVisible.fu.tree', function callDiscloseAll () {
 					self.discloseAll();
 				});
 
@@ -454,14 +453,13 @@
 					disclosures: self.$element.data('disclosures')
 				});
 
-				//if `cacheItems` is false, and they call closeAll, the data is trashed and therefore
-				//disclosures needs to accurately reflect that
+				// if `cacheItems` is false, and they call closeAll, the data is trashed and therefore
+				// disclosures needs to accurately reflect that
 				if (!self.options.cacheItems) {
-					self.$element.one('closeAll.fu.tree', function () {
+					self.$element.one('closeAll.fu.tree', function updateDisclosuresData () {
 						self.$element.data('disclosures', 0);
 					});
 				}
-
 			}
 		},
 
@@ -475,8 +473,7 @@
 
 			if ($treeFolder.hasClass('tree-open')) {
 				this.populate($treeFolderChildren, false);
-			}
-			else {
+			} else {
 				this.populate($treeFolderChildren, true);
 			}
 
@@ -487,11 +484,11 @@
 
 	// ALIASES
 
-	//alias for collapse for consistency. "Collapse" is an ambiguous term (collapse what? All? One specific branch?)
+	// alias for collapse for consistency. "Collapse" is an ambiguous term (collapse what? All? One specific branch?)
 	Tree.prototype.closeAll = Tree.prototype.collapse;
-	//alias for backwards compatibility because there's no reason not to.
+	// alias for backwards compatibility because there's no reason not to.
 	Tree.prototype.openFolder = Tree.prototype.discloseFolder;
-	//For library consistency
+	// For library consistency
 	Tree.prototype.getValue = Tree.prototype.selectedItems;
 
 	// PRIVATE FUNCTIONS
@@ -512,7 +509,7 @@
 
 	function multiSelectSyncNodes (self, clicked, selected) {
 		// search for currently selected and add to selected data list if needed
-		$.each(selected.$elements, function (index, element) {
+		$.each(selected.$elements, function findCurrentlySelected (index, element) {
 			var $element = $(element);
 			if ($element[0] !== clicked.$element[0]) {
 				selected.dataForEvent.push( $($element).data() );
@@ -520,11 +517,10 @@
 		});
 
 		if (clicked.$element.hasClass('tree-selected')) {
-			styleNodeDeselected (clicked.$element, clicked.$icon);
+			styleNodeDeselected(clicked.$element, clicked.$icon);
 			// set event data
 			selected.eventType = 'deselected';
-		}
-		else {
+		} else {
 			styleNodeSelected(clicked.$element, clicked.$icon);
 			// set event data
 			selected.eventType = 'selected';
@@ -535,13 +531,12 @@
 	function singleSelectSyncNodes(self, clicked, selected) {
 		// element is not currently selected
 		if (selected.$elements[0] !== clicked.$element[0]) {
-			var clearedElements = self.deselectAll(self.$element);
+			self.deselectAll(self.$element);
 			styleNodeSelected(clicked.$element, clicked.$icon);
 			// set event data
 			selected.eventType = 'selected';
 			selected.dataForEvent = [clicked.elementData];
-		}
-		else {
+		} else {
 			styleNodeDeselected(clicked.$element, clicked.$icon);
 			// set event data
 			selected.eventType = 'deselected';
@@ -552,11 +547,11 @@
 
 	// TREE PLUGIN DEFINITION
 
-	$.fn.tree = function tree(option) {
+	$.fn.tree = function fntree (option) {
 		var args = Array.prototype.slice.call(arguments, 1);
 		var methodReturn;
 
-		var $set = this.each(function () {
+		var $set = this.each(function eachThis () {
 			var $this = $(this);
 			var data = $this.data('fu.tree');
 			var options = typeof option === 'object' && option;
@@ -574,7 +569,7 @@
 	};
 
 	$.fn.tree.defaults = {
-		dataSource: function dataSource(options, callback) {},
+		dataSource: function dataSource() {},
 		multiSelect: false,
 		cacheItems: true,
 		folderSelect: true,
@@ -604,7 +599,7 @@
 
 	$.fn.tree.Constructor = Tree;
 
-	$.fn.tree.noConflict = function () {
+	$.fn.tree.noConflict = function noConflict () {
 		$.fn.tree = old;
 		return this;
 	};
