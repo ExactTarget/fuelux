@@ -37,6 +37,8 @@
 		this.$element = $(element);
 		this.options = $.extend({}, $.fn.tree.defaults, options);
 
+		this.$element.attr('tabindex', '0');
+
 		if (this.options.itemSelect) {
 			this.$element.on('click.fu.tree', '.tree-item', $.proxy(function callSelect (ev) {
 				this.selectItem(ev.currentTarget);
@@ -203,7 +205,6 @@
 					// add child node
 					if (atRoot) {
 						// For accessibility reasons, the root element is the only tab-able element (see https://github.com/ExactTarget/fuelux/issues/1964)
-						$entity.attr('tabindex', '0');
 						$parent.append($entity);
 					} else {
 						$parent.find('.tree-branch-children:eq(0)').append($entity);
