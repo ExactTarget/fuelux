@@ -67,7 +67,7 @@
 		}
 
 		this.$element.on('focus', function setFocusOnTab () {
-			var $selected = $element.find('.tree-selected');
+			var $selected = $element.find('.tree-selected:first');
 
 			// if a node is selected, when a tree is tabbed to, that node should receive focus
 			if ($selected.length > 0) {
