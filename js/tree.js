@@ -34,7 +34,8 @@
 	// TREE CONSTRUCTOR AND PROTOTYPE
 
 	var Tree = function Tree(element, options) {
-		this.$element = $(element);
+		var $element = $(element);
+		this.$element = $element;
 		this.options = $.extend({}, $.fn.tree.defaults, options);
 
 		this.$element.attr('tabindex', '0');
@@ -64,6 +65,20 @@
 				this.selectFolder($(ev.currentTarget));
 			}, this));
 		}
+
+		this.$element.on('focus', function setFocusOnTab () {
+			var $selected = $element.find('.tree-selected');
+
+			// if a node is selected, when a tree is tabbed to, that node should receive focus
+			if ($selected.length > 0) {
+				$selected.attr('tabindex', 0);// if tabindex is not set to 0 (or greater), node is not able to receive focus
+				$selected.focus();
+			} else {// otherwise, the first node in the tree should receive focus
+				var $focused = $element.find('> li:not(".hidden"):first');
+				$focused.attr('tabindex', 0);// if tabindex is not set to 0 (or greater), node is not able to receive focus
+				$focused.focus();
+			}
+		});
 
 		this.render();
 	};
