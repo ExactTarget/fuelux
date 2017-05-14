@@ -224,6 +224,7 @@
 			var scrollLeft = $wrapper.scrollLeft();
 			var frozenEnabled = this.viewOptions.list_frozenColumns || this.viewOptions.list_selectable === 'multi';
 			var actionsEnabled = this.viewOptions.list_actions;
+			var ltrDirection = this.viewOptions.list_direction === 'ltr';
 
 			var canvasWidth = this.$element.find('.repeater-canvas').outerWidth();
 			var tableWidth = this.$element.find('.repeater-list .repeater-list-wrapper > table').outerWidth();
@@ -231,7 +232,6 @@
 			var actionsWidth = this.$element.find('.table-actions') ? this.$element.find('.table-actions').outerWidth() : 0;
 
 			var shouldScroll = (tableWidth - (canvasWidth - actionsWidth)) >= scrollLeft;
-
 
 			if (scrollTop > 0) {
 				$wrapper.find('.repeater-list-heading').css('top', scrollTop);
@@ -248,14 +248,23 @@
 					$wrapper.find('.actions-thead-wrapper').css('right', -scrollLeft);
 					$wrapper.find('.actions-column-wrapper').css('right', -scrollLeft);
 				}
+			} else if ( scrollLeft < 0 ) {
+				if ( frozenEnabled ) {
+					$wrapper.find( '.frozen-thead-wrapper' ).css( 'right', -scrollLeft );
+					$wrapper.find( '.frozen-column-wrapper' ).css( 'right', -scrollLeft );
+				}
+				if ( actionsEnabled && shouldScroll ) {
+					$wrapper.find( '.actions-thead-wrapper' ).css( 'left', scrollLeft );
+					$wrapper.find( '.actions-column-wrapper' ).css( 'left', scrollLeft );
+				}
 			} else {
 				if (frozenEnabled) {
-					$wrapper.find('.frozen-thead-wrapper').css('left', '0');
-					$wrapper.find('.frozen-column-wrapper').css('left', '0');
+					$wrapper.find('.frozen-thead-wrapper').css(ltrDirection ? 'left' : 'right', '0');
+					$wrapper.find('.frozen-column-wrapper').css(ltrDirection ? 'left' : 'right', '0');
 				}
 				if (actionsEnabled) {
-					$wrapper.find('.actions-thead-wrapper').css('right', '0');
-					$wrapper.find('.actions-column-wrapper').css('right', '0');
+					$wrapper.find('.actions-thead-wrapper').css(ltrDirection ? 'right' : 'left', '0');
+					$wrapper.find('.actions-column-wrapper').css(ltrDirection ? 'right' : 'left', '0');
 				}
 			}
 		};
@@ -469,6 +478,7 @@
 
 		// ADDITIONAL DEFAULT OPTIONS
 		$.fn.repeater.defaults = $.extend({}, $.fn.repeater.defaults, {
+			list_direction: 'ltr',
 			list_columnRendered: null,
 			list_columnSizing: true,
 			list_columnSyncing: true,
