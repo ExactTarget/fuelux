@@ -80,6 +80,10 @@
 			}
 		});
 
+		this.$element.on('keydown', function processKeypress (e) {
+			return navigateTree(this, e);
+		});
+
 		this.render();
 	};
 
@@ -511,6 +515,51 @@
 	Tree.prototype.getValue = Tree.prototype.selectedItems;
 
 	// PRIVATE FUNCTIONS
+
+	var navigateTree = function navigateTree(theTree, e) {
+		e.preventDefault(); // prevent the default action (scroll / move caret)
+
+		switch (e.which) {
+		case 13: // enter
+			console.log('enter', theTree);
+			break;
+		case 35: // end
+			console.log('end', theTree);
+			break;
+		case 36: // home
+			console.log('home', theTree);
+			break;
+		case 37: // left
+			console.log('left', theTree);
+			// if focus == closed child node
+				// set focus to parent node
+			// if focus == open node
+				// close node
+			break;
+
+		case 38: // up
+			console.log('up', theTree);
+			// move focus to previous sibling
+			break;
+
+		case 39: // right
+			console.log('right', theTree);
+			// if focus == closed node
+				// open node
+			// if focus == open node
+				// set focus on first child in node
+			break;
+
+		case 40: // down
+			console.log('down', theTree);
+			// move focus to next sibling
+			break;
+
+		default:
+			console.log(e.which);
+			return; // exit this handler for other keys
+		}
+	};
 
 	function styleNodeSelected ($element, $icon) {
 		$element.addClass('tree-selected');
