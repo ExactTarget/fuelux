@@ -522,12 +522,17 @@
 		switch (e.which) {
 		case 13: // enter
 			console.log('enter', theTree);
+			// activates a node, i.e., performs its default action.
+			// For parent nodes, one possible default action is to open or close the node.
+			// In single-select trees where selection does not follow focus, the default action is typically to select the focused node.
 			break;
 		case 35: // end
 			console.log('end', theTree);
+			// Set focus to the last node in the tree that is focusable without opening a node.
 			break;
 		case 36: // home
 			console.log('home', theTree);
+			// set focus to the first node in the tree without opening or closing a node.
 			break;
 		case 37: // left
 			console.log('left', theTree);
