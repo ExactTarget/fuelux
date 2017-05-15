@@ -67,17 +67,7 @@
 		}
 
 		this.$element.on('focus', function setFocusOnTab () {
-			var $selected = $element.find('.tree-selected:first');
-
-			// if a node is selected, when a tree is tabbed to, that node should receive focus
-			if ($selected.length > 0) {
-				$selected.attr('tabindex', 0);// if tabindex is not set to 0 (or greater), node is not able to receive focus
-				$selected.focus();
-			} else {// otherwise, the first node in the tree should receive focus
-				var $focused = $element.find('> li:not(".hidden"):first');
-				$focused.attr('tabindex', 0);// if tabindex is not set to 0 (or greater), node is not able to receive focus
-				$focused.focus();
-			}
+			focusIn($element, $element);
 		});
 
 		this.$element.on('keydown', function processKeypress (e) {
@@ -524,11 +514,27 @@
 	};
 
 	var focusIn = function focusIn ($tree, $branch) {
-		var $focused = $branch.find('li:first');
+		var $focused = $branch.find('.tree-selected:first');
 
-		fixFocusability($tree, $focused);
+		// if a node is selected, when a tree is tabbed to, that node should receive focus
+		if ($focused.length > 0) {
+			$focused.attr('tabindex', 0);// if tabindex is not set to 0 (or greater), node is not able to receive focus
+			$focused.focus();
+		} else {// otherwise, the first node in the tree should receive focus
+			$focused = $branch.find('li:not(".hidden"):first');
+			$focused.attr('tabindex', 0);// if tabindex is not set to 0 (or greater), node is not able to receive focus
+			$focused.focus();
+		}
 
-		$focused.focus();
+		setFocus($tree, $focused);
+	};
+
+	var setFocus = function setFocus ($tree, $branch) {
+		fixFocusability($tree, $branch);
+
+		$tree.attr('aria-activedescendant', $branch.attr('id'));
+
+		$branch.focus();
 	};
 
 	var navigateTree = function navigateTree ($tree, e) {
