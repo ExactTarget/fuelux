@@ -81,7 +81,7 @@
 		});
 
 		this.$element.on('keydown', function processKeypress (e) {
-			return navigateTree(this, e);
+			return navigateTree($(this), e);
 		});
 
 		this.render();
@@ -516,26 +516,44 @@
 
 	// PRIVATE FUNCTIONS
 
-	var navigateTree = function navigateTree(theTree, e) {
+	var fixFocusability = function fixFocusability ($tree, $branch) {
+		$tree.find('li').attr('tabindex', -1);
+		if ($branch && $branch.length > 0) {
+			$branch.attr('tabindex', 0);
+		}
+	};
+
+	var focusIn = function focusIn ($tree, $branch) {
+		var $focused = $branch.find('li:first');
+
+		fixFocusability($tree, $focused);
+
+		$focused.focus();
+	};
+
+	var navigateTree = function navigateTree ($tree, e) {
 		e.preventDefault(); // prevent the default action (scroll / move caret)
+
+		var targetNode = e.originalEvent.target;
+		var isOpen = $(targetNode).hasClass('tree-open');
 
 		switch (e.which) {
 		case 13: // enter
-			console.log('enter', theTree);
+			console.log('enter', $tree);
 			// activates a node, i.e., performs its default action.
 			// For parent nodes, one possible default action is to open or close the node.
 			// In single-select trees where selection does not follow focus, the default action is typically to select the focused node.
 			break;
 		case 35: // end
-			console.log('end', theTree);
+			console.log('end', $tree);
 			// Set focus to the last node in the tree that is focusable without opening a node.
 			break;
 		case 36: // home
-			console.log('home', theTree);
+			console.log('home', $tree);
 			// set focus to the first node in the tree without opening or closing a node.
 			break;
 		case 37: // left
-			console.log('left', theTree);
+			console.log('left', $tree);
 			// if focus == closed child node
 				// set focus to parent node
 			// if focus == open node
@@ -543,20 +561,20 @@
 			break;
 
 		case 38: // up
-			console.log('up', theTree);
+			console.log('up', $tree);
 			// move focus to previous sibling
 			break;
 
 		case 39: // right
-			console.log('right', theTree);
-			// if focus == closed node
-				// open node
-			// if focus == open node
-				// set focus on first child in node
+			if (isOpen) {
+				focusIn($tree, $(targetNode));
+			} else {
+				$tree.tree('discloseFolder', targetNode);
+			}
 			break;
 
 		case 40: // down
-			console.log('down', theTree);
+			console.log('down', $tree);
 			// move focus to next sibling
 			break;
 
