@@ -565,7 +565,14 @@
 				$tree.tree('selectItem', $targetNode);
 			} else {
 				// should be isOverflow... Try and click on it either way.
+				$prev = $($targetNode.prevAll().not('.hidden')[0]);
 				$targetNode.click();
+
+				$tree.one('loaded.fu.tree', function selectFirstNewlyLoadedNode () {
+					$next = $($prev.nextAll().not('.hidden')[0]);
+
+					setFocus($tree, $next);
+				});
 			}
 
 			handled = true;
@@ -596,7 +603,7 @@
 			// move focus to previous sibling
 			var $prev = [];
 			// move to previous li not hidden
-			$prev = $($targetNode.prev('li:not(".hidden")')[0]);
+			$prev = $($targetNode.prevAll().not('.hidden')[0]);
 
 			// if the previous li is open, move to its last child so selection appears to move to the next "thing" up
 			if ($prev.hasClass('tree-open')) {
@@ -628,11 +635,11 @@
 			if (isOpen) {
 				$next = $($targetNode.find('li:not(".hidden"):first')[0]);
 			} else {
-				$next = $($targetNode.next('li:not(".hidden")')[0]);
+				$next = $($targetNode.nextAll().not('.hidden')[0]);
 			}
 
 			if ($next.length < 1) {
-				$next = $($($targetNode.parents('li')[0]).next('li:not(".hidden")')[0]);
+				$next = $($($targetNode.parents('li')[0]).nextAll().not('.hidden')[0]);
 			}
 			setFocus($tree, $next);
 
