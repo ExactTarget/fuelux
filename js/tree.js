@@ -541,15 +541,33 @@
 
 	var navigateTree = function navigateTree ($tree, e) {
 		var targetNode = e.originalEvent.target;
-		var isOpen = $(targetNode).hasClass('tree-open');
+		var $targetNode = $(targetNode);
+		var isOpen = $targetNode.hasClass('tree-open');
 		var handled = false;
 
 		switch (e.which) {
 		case 13: // enter
-			console.log('enter', $tree);
 			// activates a node, i.e., performs its default action.
 			// For parent nodes, one possible default action is to open or close the node.
 			// In single-select trees where selection does not follow focus, the default action is typically to select the focused node.
+			var foldersSelectable = $tree.hasClass('tree-folder-select');
+			var isFolder = $targetNode.hasClass('tree-branch');
+			var isItem = $targetNode.hasClass('tree-item');
+			// var isOverflow = $targetNode.hasClass('tree-overflow');
+
+			if (isFolder) {
+				if (foldersSelectable) {
+					$tree.tree('selectFolder', $targetNode.find('.tree-branch-header')[0]);
+				} else {
+					$tree.tree('toggleFolder', $targetNode.find('.tree-branch-header')[0]);
+				}
+			} else if (isItem) {
+				$tree.tree('selectItem', $targetNode);
+			} else {
+				// should be isOverflow... Try and click on it either way.
+				$targetNode.click();
+			}
+
 			handled = true;
 			break;
 		case 35: // end
@@ -568,7 +586,7 @@
 			if (isOpen) {
 				$tree.tree('closeFolder', targetNode);
 			} else {
-				setFocus($tree, $($(targetNode).parents('li')[0]));
+				setFocus($tree, $($targetNode.parents('li')[0]));
 			}
 			// if focus == closed child node
 				// set focus to parent node
@@ -587,7 +605,7 @@
 
 		case 39: // right
 			if (isOpen) {
-				focusIn($tree, $(targetNode));
+				focusIn($tree, $targetNode);
 			} else {
 				$tree.tree('discloseFolder', targetNode);
 			}
