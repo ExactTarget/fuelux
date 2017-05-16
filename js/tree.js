@@ -553,8 +553,8 @@
 			handled = true;
 			break;
 		case 35: // end
-			console.log('end', $tree);
 			// Set focus to the last node in the tree that is focusable without opening a node.
+			setFocus($tree, $tree.find('li:not(".hidden"):last'));
 
 			handled = true;
 			break;
