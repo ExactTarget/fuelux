@@ -513,6 +513,7 @@
 		}
 	};
 
+	// focuses into (onto one of the children of) the provided branch
 	var focusIn = function focusIn ($tree, $branch) {
 		var $focused = $branch.find('.tree-selected:first');
 
@@ -529,6 +530,7 @@
 		setFocus($tree, $focused);
 	};
 
+	// focuses on provided branch
 	var setFocus = function setFocus ($tree, $branch) {
 		fixFocusability($tree, $branch);
 
@@ -538,10 +540,9 @@
 	};
 
 	var navigateTree = function navigateTree ($tree, e) {
-		e.preventDefault(); // prevent the default action (scroll / move caret)
-
 		var targetNode = e.originalEvent.target;
 		var isOpen = $(targetNode).hasClass('tree-open');
+		var handled = false;
 
 		switch (e.which) {
 		case 13: // enter
@@ -549,26 +550,39 @@
 			// activates a node, i.e., performs its default action.
 			// For parent nodes, one possible default action is to open or close the node.
 			// In single-select trees where selection does not follow focus, the default action is typically to select the focused node.
+			handled = true;
 			break;
 		case 35: // end
 			console.log('end', $tree);
 			// Set focus to the last node in the tree that is focusable without opening a node.
+
+			handled = true;
 			break;
 		case 36: // home
 			console.log('home', $tree);
 			// set focus to the first node in the tree without opening or closing a node.
+
+			handled = true;
 			break;
 		case 37: // left
-			console.log('left', $tree);
+			if (isOpen) {
+				$tree.tree('closeFolder', targetNode);
+			} else {
+				setFocus($tree, $($(targetNode).parents('li')[0]));
+			}
 			// if focus == closed child node
 				// set focus to parent node
 			// if focus == open node
 				// close node
+
+			handled = true;
 			break;
 
 		case 38: // up
 			console.log('up', $tree);
 			// move focus to previous sibling
+
+			handled = true;
 			break;
 
 		case 39: // right
@@ -577,16 +591,25 @@
 			} else {
 				$tree.tree('discloseFolder', targetNode);
 			}
+
+			handled = true;
 			break;
 
 		case 40: // down
 			console.log('down', $tree);
 			// move focus to next sibling
+
+			handled = true;
 			break;
 
 		default:
 			console.log(e.which);
 			return; // exit this handler for other keys
+		}
+
+		// if we didn't handle the event, allow propagation to continue so something else might.
+		if (handled) {
+			e.preventDefault(); // prevent the default action (scroll / move caret)
 		}
 	};
 
