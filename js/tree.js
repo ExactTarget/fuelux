@@ -559,8 +559,8 @@
 			handled = true;
 			break;
 		case 36: // home
-			console.log('home', $tree);
 			// set focus to the first node in the tree without opening or closing a node.
+			setFocus($tree, $tree.find('li:not(".hidden"):first'));
 
 			handled = true;
 			break;
