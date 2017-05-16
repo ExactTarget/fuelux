@@ -588,10 +588,6 @@
 			} else {
 				setFocus($tree, $($targetNode.parents('li')[0]));
 			}
-			// if focus == closed child node
-				// set focus to parent node
-			// if focus == open node
-				// close node
 
 			handled = true;
 			break;
@@ -614,8 +610,18 @@
 			break;
 
 		case 40: // down
-			console.log('down', $tree);
-			// move focus to next sibling
+			// move focus to next selectable tree node
+			var $next = [];
+			if (isOpen) {
+				$next = $($targetNode.find('li:not(".hidden"):first')[0]);
+			} else {
+				$next = $($targetNode.next('li:not(".hidden")')[0]);
+			}
+
+			if ($next.length < 1) {
+				$next = $($($targetNode.parents('li')[0]).next('li:not(".hidden")')[0]);
+			}
+			setFocus($tree, $next);
 
 			handled = true;
 			break;
