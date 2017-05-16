@@ -593,8 +593,21 @@
 			break;
 
 		case 38: // up
-			console.log('up', $tree);
 			// move focus to previous sibling
+			var $prev = [];
+			// move to previous li not hidden
+			$prev = $($targetNode.prev('li:not(".hidden")')[0]);
+
+			// if the previous li is open, move to its last child so selection appears to move to the next "thing" up
+			if ($prev.hasClass('tree-open')) {
+				$prev = $($prev.find('li:not(".hidden"):last')[0]);
+			}
+
+			// if nothing has been selected, we are presumably at the top of an open li, select the immediate parent
+			if ($prev.length < 1) {
+				$prev = $($targetNode.parents('li')[0]);
+			}
+			setFocus($tree, $prev);
 
 			handled = true;
 			break;
