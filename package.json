@@ -46,7 +46,7 @@
     "load-grunt-config": "0.19.2",
     "load-grunt-tasks": "3.5.2",
     "semver": "5.3.0",
-    "serve-static": "1.12.2"
+    "serve-static": "1.12.3"
   },
   "engines": {
     "node": ">=5.8.x"
