@@ -537,6 +537,8 @@
 		$tree.attr('aria-activedescendant', $branch.attr('id'));
 
 		$branch.focus();
+
+		this.$element.trigger('setFocus.fu.tree', $branch);
 	};
 
 	var navigateTree = function navigateTree ($tree, e) {
@@ -647,12 +649,13 @@
 			break;
 
 		default:
-			console.log(e.which);
+			// console.log(e.which);
 			return; // exit this handler for other keys
 		}
 
 		// if we didn't handle the event, allow propagation to continue so something else might.
 		if (handled) {
+			this.$element.trigger('keyboardNavigated.fu.tree', e, $targetNode);
 			e.preventDefault(); // prevent the default action (scroll / move caret)
 		}
 	};
