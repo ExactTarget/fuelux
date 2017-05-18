@@ -115,7 +115,7 @@ define(function treeTest (require) {
 				});
 			};
 
-			this.textDataSource = function (options, callback) {
+			this.textDataSource = function textDataSource (options, callback) {
 				callback({
 					data: [
 						{
@@ -136,16 +136,16 @@ define(function treeTest (require) {
 	var NUM_ITEMS = 4;
 	var NUM_OVERFLOWS = 1;
 
-	QUnit.test('should be defined on jquery object', function (assert) {
+	QUnit.test('should be defined on jquery object', function isTreeDefined (assert) {
 		assert.ok($().tree, 'tree method is defined');
 	});
 
-	QUnit.test('should return element', function (assert) {
+	QUnit.test('should return element', function doesTreeReturnTree (assert) {
 		var $tree = $(html);
 		assert.ok($tree.tree() === $tree, 'tree should be initialized');
 	});
 
-	QUnit.test('should have correct defaults', function correctDefaults(assert) {
+	QUnit.test('should have correct defaults', function correctDefaults (assert) {
 		var $tree = $(html);
 
 		var defaults = $tree.tree.defaults;
@@ -158,10 +158,10 @@ define(function treeTest (require) {
 		assert.ok(defaults.dataSource, 'dataSource exists by default');
 	});
 
-	QUnit.test('should call dataSource correctly', function (assert) {
+	QUnit.test('should call dataSource correctly', function doesCallDataSource (assert) {
 		var $tree = $(html);
 		$tree.tree({
-			dataSource: function (options, callback) {
+			dataSource: function dataSource (options, callback) {
 				assert.ok(true, 'dataSource function called prior to rendering');
 				assert.equal(typeof options, 'object', 'dataSource provided options object');
 				assert.equal(typeof callback, 'function', 'dataSource provided callback function');
@@ -172,7 +172,7 @@ define(function treeTest (require) {
 		});
 	});
 
-	QUnit.test('Tree should be populated by items on initialization', function (assert) {
+	QUnit.test('Tree should be populated by items on initialization', function isTreePopulated (assert) {
 		var $tree = $(html).find('#MyTree');
 
 		$tree.tree({
@@ -184,7 +184,7 @@ define(function treeTest (require) {
 		assert.equal($tree.find('.tree-overflow:not([data-template])').length, NUM_OVERFLOWS, 'Initial overflow has been added');
 	});
 
-	QUnit.test('Folder should populate when opened', function (assert) {
+	QUnit.test('Folder should populate when opened', function doesFolderPopulate (assert) {
 		var $tree = $(html).find('#MyTree');
 		var $selNode;
 
@@ -208,7 +208,7 @@ define(function treeTest (require) {
 		assert.equal($selNode.find('.tree-branch-children > li').length, NUM_CHILDREN, 'Folder has been populated with sub-folders and items');
 	});
 
-	QUnit.test('getValue alias should function', function (assert) {
+	QUnit.test('getValue alias should function', function getValueAliasWorks (assert) {
 		var $tree = $(html).find('#MyTree');
 
 		// MultiSelect: false is the default
@@ -220,7 +220,7 @@ define(function treeTest (require) {
 		assert.deepEqual($tree.tree('selectedItems'), $tree.tree('getValue'), 'getValue aliases selectedItems');
 	});
 
-	QUnit.test('Single item/folder selection works as designed', function (assert) {
+	QUnit.test('Single item/folder selection works as designed', function singleSelectWorks (assert) {
 		var $tree = $(html).find('#MyTree');
 
 		// MultiSelect: false is the default
@@ -274,7 +274,7 @@ define(function treeTest (require) {
 
 	// });
 
-	QUnit.test('Multiple item/folder selection works as designed', function (assert) {
+	QUnit.test('Multiple item/folder selection works as designed', function multiSelectWorks (assert) {
 		var $tree = $(html).find('#MyTree');
 
 		$tree.tree({
@@ -305,7 +305,7 @@ define(function treeTest (require) {
 		assert.equal($tree.tree('selectedItems').length, 1, 'Return single selected value');
 	});
 
-	QUnit.test('should not allow selecting items if disabled', function (assert) {
+	QUnit.test('should not allow selecting items if disabled', function disableSelectItemsWorks (assert) {
 		var $tree = $(html).find('#MyTree');
 
 		$tree.tree({
@@ -317,7 +317,7 @@ define(function treeTest (require) {
 		assert.equal($tree.tree('selectedItems').length, 0, 'Return no value');
 	});
 
-	QUnit.test('should not allow selecting folders if disabled', function (assert) {
+	QUnit.test('should not allow selecting folders if disabled', function disableSelectFoldersWorks (assert) {
 		var $tree = $(html).find('#MyTree');
 
 		$tree.tree({
@@ -329,7 +329,7 @@ define(function treeTest (require) {
 		assert.equal($tree.tree('selectedItems').length, 0, 'Return no value');
 	});
 
-	QUnit.test('folders should open and close correctly', function (assert) {
+	QUnit.test('folders should open and close correctly', function foldersOpenClose (assert) {
 		var $tree = $(html).find('#MyTree');
 
 		$tree.tree({
@@ -353,7 +353,7 @@ define(function treeTest (require) {
 		assert.equal($targetBranch.hasClass('tree-open'), false, 'toggleFolder on open folder closes folder');
 	});
 
-	QUnit.test('should disclose visible folders', function (assert) {
+	QUnit.test('should disclose visible folders', function discloseVisibleWorks (assert) {
 		var ready = assert.async();
 		var $tree = $('body').find('#MyTree');
 
@@ -372,7 +372,7 @@ define(function treeTest (require) {
 		$tree.tree('discloseVisible');
 	});
 
-	QUnit.test('should disclose all folders up to limit, and then close them, then open them all', function (assert) {
+	QUnit.test('should disclose all folders up to limit, and then close them, then open them all', function discloseAllWorks (assert) {
 		var ready = assert.async();
 		var $tree = $('body').find('#MyTree2');
 
@@ -404,7 +404,7 @@ define(function treeTest (require) {
 		$tree.tree('discloseAll');
 	});
 
-	QUnit.test('should refresh an already opened/cached folder with new nodes', function (assert) {
+	QUnit.test('should refresh an already opened/cached folder with new nodes', function refreshWorks (assert) {
 		var $tree = $(html).find('#MyTree');
 		var $folderToRefresh;
 		var initialLoadedFolderId;
@@ -427,7 +427,7 @@ define(function treeTest (require) {
 		assert.notEqual(refreshedLoadedFolderId, initialLoadedFolderId, 'Folder has been refreshed and populated with different items/sub-folders');
 	});
 
-	QUnit.test('should destroy control', function (assert) {
+	QUnit.test('should destroy control', function destroyWorks (assert) {
 		var $tree = $(html).find('#MyTree');
 
 		$tree.tree({
@@ -438,7 +438,7 @@ define(function treeTest (require) {
 		assert.equal($tree.parent().length, false, 'control has been removed from DOM');
 	});
 
-	QUnit.test('Tree should accept TEXT as the NAME property in the datasource', function (assert) {
+	QUnit.test('Tree should accept TEXT as the NAME property in the datasource', function treeAcceptsName (assert) {
 		var $tree = $(html).find('#MyTree');
 
 		$tree.tree({
