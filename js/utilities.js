@@ -53,16 +53,18 @@
 	var isUpArrow = isKey(CONST.UP_ARROW_KEYCODE);
 	var isDownArrow = isKey(CONST.DOWN_ARROW_KEYCODE);
 
-	// https://github.com/ExactTarget/fuelux/issues/1841
-	var xssRegex = /<.*>/;
-	var cleanInput = function cleanInput (questionableInput) {
-		var cleanedInput = questionableInput;
-
-		if (xssRegex.test(cleanedInput)) {
-			cleanedInput = $('<i>').text(questionableInput).html();
+	var ENCODED_REGEX = /&[^\s]*;/;
+	/*
+	 * to prevent double encoding decodes content in loop until content is encoding free
+	 */
+	var cleanInput = function cleanInput (questionableMarkup) {
+		// check for encoding and decode
+		while (ENCODED_REGEX.test(questionableMarkup)) {
+			questionableMarkup = $('<i>').html(questionableMarkup).text();
 		}
 
-		return cleanedInput;
+		// string completely decoded now encode it
+		return $('<i>').text(questionableMarkup).html();
 	};
 
 	$.fn.utilities = {
@@ -79,4 +81,3 @@
 	// -- BEGIN UMD WRAPPER AFTERWORD --
 }));
 // -- END UMD WRAPPER AFTERWORD --
-
