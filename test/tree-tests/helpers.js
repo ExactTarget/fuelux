@@ -2,6 +2,13 @@
 /* global start:false, stop:false ok:false, equal:false, notEqual:false, deepEqual:false */
 /* global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false */
 define(function treeDataFactory () {
+	var constants =	{
+		NUM_CHILDREN: 9,
+		NUM_FOLDERS: 4,
+		NUM_ITEMS: 4,
+		NUM_OVERFLOWS: 1
+	};
+
 	var guid = function guid () {
 		var s4 = function s4 () {
 			return Math.floor((1 + Math.random()) * 0x10000)
@@ -9,9 +16,7 @@ define(function treeDataFactory () {
 				.substring(1);
 		};
 
-		var guid = s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-
-		return guid;
+		return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 	};
 
 	var callCountData = {
@@ -111,5 +116,32 @@ define(function treeDataFactory () {
 		};
 	};
 
-	return { treeData: treeData, callCountData: callCountData, textData: textData };
+	var generateGUIDandDataSource = function generateGUIDandDataSource () {
+		var callLimit = 50;
+		var callCount = 0;
+
+		this.dataSource = function genDataSource (options, callback) {
+			if (callCount >= callLimit) {
+				callback(callCountData, 400);
+				return;
+			}
+
+			callCount++;
+
+			callback(treeData());
+		};
+
+		this.textDataSource = function textDataSource (options, callback) {
+			callback(textData);
+		};
+	};
+
+
+	return {
+		treeData: treeData,
+		callCountData: callCountData,
+		textData: textData,
+		constants: constants,
+		generateGUIDandDataSource: generateGUIDandDataSource
+	};
 });
