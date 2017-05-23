@@ -507,7 +507,7 @@ $('#myRepeater').repeater({
   </div><!-- ./fu-table-responsive -->
 
 
-  <p>The <code>dataSource's callback</code> function should run after gathering the desired data for rendering. This function requires the code to pass a
+  <p>The <code>dataSource</code>'s <code>callback</code> function should run after gathering the desired data for rendering. This function requires the code to pass a
     <code>data</code> object as an argument. Contents of the object will vary depending on the view
     extension used. The attributes below include common expected attributes:</p>
   <div class="table-responsive">
@@ -533,6 +533,11 @@ $('#myRepeater').repeater({
           <td>Provides the end index of current displayed data items to the repeater. Use this value as the text value for the
             <code>.repeater-end</code> element.
           </td>
+        </tr>
+        <tr>
+          <td>items</td>
+          <td>array</td>
+          <td>Array of objects representing the item data that will be displayed within the repeater. Use this value to populate the records in the <code>.repeater-list</code> element. The item objects can contain any number of attributes. Necessary attributes are defined by the <a href="/extensions.html">repeater extension</a>.</td>
         </tr>
         <tr>
           <td>page</td>
@@ -604,7 +609,7 @@ $('#myRepeater').repeater({
       </tr>
       <tr>
         <td>rendered.fu.repeater</td>
-        <td>Fires whenever the repeater has rendered data returned from the dataSource. Passses an <code>object</code> containing
+        <td>Fires whenever the repeater has rendered data returned from the dataSource. Passes an <code>object</code> containing
         <code>data</code>, <code>options</code>, and <code>renderOptions</code>.</td>
       </tr>
       <tr>
