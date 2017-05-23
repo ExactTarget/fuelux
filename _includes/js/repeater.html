@@ -565,6 +565,17 @@ $('#myRepeater').repeater({
   </div><!-- ./fu-table-responsive -->
   <p>The default values are <code>{ count: 0, end: 0, items: [], page: 0, pages: 1, start: 0 }</code>.</p>
 
+  <div class="fu-callout fu-callout-warning">
+    <h4 id="repeater-dataSource-security">Security</h4>
+    <p>
+      Use the <code>dataSource</code> method to keep your page safe from XSS.
+      <ul>
+        <li>Do not include markup in the <code>data</code> object argument passed to <code>dataSource</code>'s <code>callback</code> function.</li>
+        <li>Use the <code>cleanInput</code> utility while gathering your data use the data is safely encoded.</li>
+      </ul>
+    </p>
+  </div>
+
   <h3 id="repeater-usage-events">Events</h3>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
