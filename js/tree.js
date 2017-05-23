@@ -538,7 +538,7 @@
 
 		$branch.focus();
 
-		this.$element.trigger('setFocus.fu.tree', $branch);
+		$tree.trigger('setFocus.fu.tree', $branch);
 	};
 
 	var navigateTree = function navigateTree ($tree, e) {
@@ -656,7 +656,7 @@
 
 		// if we didn't handle the event, allow propagation to continue so something else might.
 		if (handled) {
-			this.$element.trigger('keyboardNavigated.fu.tree', e, $targetNode);
+			$tree.trigger('keyboardNavigated.fu.tree', e, $targetNode);
 			e.preventDefault(); // prevent the default action (scroll / move caret)
 		}
 	};
