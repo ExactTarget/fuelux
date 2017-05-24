@@ -118,6 +118,17 @@ define(function treeDataFactory (require) {
 		};
 	};
 
+	var KEYMAP = {
+		left: 37
+	};
+
+	var getKeyDown = function getKeyDown (which) {
+		var eventObject = this.defaultEventObject;
+		eventObject.which = KEYMAP[which];
+
+		return $.Event( 'keydown', eventObject); // eslint-disable-line new-cap
+	};
+
 	var setup = function setup () {
 		var callLimit = 50;
 		var callCount = 0;
@@ -152,6 +163,8 @@ define(function treeDataFactory (require) {
 				console.log('default prevented');
 			}
 		};
+
+		this.getKeyDown = getKeyDown;
 	};
 
 	return {

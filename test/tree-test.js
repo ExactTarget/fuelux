@@ -10,7 +10,7 @@ define(function treeTest (require) {
 
 	QUnit.module('Fuel UX Tree', {
 		beforeEach: require('./tree-tests/helpers').setup
-	}, function () {
+	}, function runTreeTests () {
 		QUnit.test('should be defined on jquery object', function isTreeDefined (assert) {
 			assert.ok($().tree, 'tree method is defined');
 		});
@@ -34,7 +34,9 @@ define(function treeTest (require) {
 		QUnit.test('should refresh an already opened/cached folder with new nodes', require('./tree-tests/refresh'));
 		QUnit.test('should accept TEXT as the NAME property in the datasource', require('./tree-tests/tree-accepts-name'));
 		// QUnit.test('should have proper tabindexes', require('./tree-tests/tab-indexes'));
-		QUnit.module( 'keyboard input', {}, require('./tree-tests/responds-to-keyboard-input'));
+
+
+		require('./tree-tests/accessibility-module')(QUnit);
 
 		QUnit.test('should destroy control', require('./tree-tests/is-destroyed'));
 	});
