@@ -1,11 +1,6 @@
-define(function correctDefaultsModule (require) {
-	var $ = require('jquery');
-	var html = require('text!test/markup/tree-markup.html!strip');
-
+define(function correctDefaultsModule () {
 	return function correctDefaults (assert) {
-		var $tree = $(html);
-
-		var defaults = $tree.tree.defaults;
+		var defaults = this.$tree.tree.defaults;
 
 		assert.equal(defaults.multiSelect, false, 'multiSelect defaults to false');
 		assert.equal(defaults.cacheItems, true, 'cacheItems defaults to true');

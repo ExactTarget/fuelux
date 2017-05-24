@@ -1,7 +1,9 @@
 /* global QUnit:false, module:false, test:false, asyncTest:false, expect:false */
 /* global start:false, stop:false ok:false, equal:false, notEqual:false, deepEqual:false */
 /* global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false */
-define(function treeDataFactory () {
+define(function treeDataFactory (require) {
+	var $ = require('jquery');
+
 	var constants =	{
 		NUM_CHILDREN: 9,
 		NUM_FOLDERS: 4,
@@ -116,7 +118,7 @@ define(function treeDataFactory () {
 		};
 	};
 
-	var generateGUIDandDataSource = function generateGUIDandDataSource () {
+	var setup = function setup () {
 		var callLimit = 50;
 		var callCount = 0;
 
@@ -134,14 +136,29 @@ define(function treeDataFactory () {
 		this.textDataSource = function textDataSource (options, callback) {
 			callback(textData);
 		};
-	};
 
+		this.html = require('text!test/markup/tree-markup.html!strip');
+		this.$html = $(this.html);
+		this.$tree = this.$html.find('#MyTree');
+		this.$tree2 = this.$html.find('#MyTree2');
+		this.$selectableFolderTree = $(this.html).find('#MyTreeSelectableFolder');
+
+		this.defaultEventObject = {
+			originalEvent: {
+				target: this.$tree.find('li:not(".hidden"):first')
+			},
+			which: 37,
+			preventDefault: function preventDefault () {
+				console.log('default prevented');
+			}
+		};
+	};
 
 	return {
 		treeData: treeData,
 		callCountData: callCountData,
 		textData: textData,
 		constants: constants,
-		generateGUIDandDataSource: generateGUIDandDataSource
+		setup: setup
 	};
 });

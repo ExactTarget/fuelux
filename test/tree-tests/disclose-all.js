@@ -1,9 +1,7 @@
-define(function discloseAllWorksModule (require) {
-	var $ = require('jquery');
-
+define(function discloseAllWorksModule () {
 	return function discloseAllWorks (assert) {
 		var ready = assert.async();
-		var $tree = $('body').find('#MyTree2');
+		var $tree = this.$tree2;
 
 		$tree.tree({
 			dataSource: this.dataSource,

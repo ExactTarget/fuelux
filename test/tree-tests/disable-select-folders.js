@@ -1,16 +1,11 @@
-define(function disableSelectFoldersModule (require) {
-	var $ = require('jquery');
-	var html = require('text!test/markup/tree-markup.html!strip');
-
+define(function disableSelectFoldersModule () {
 	return function disableSelectFoldersWorks (assert) {
-		var $tree = $(html).find('#MyTree');
-
-		$tree.tree({
+		this.$tree.tree({
 			dataSource: this.dataSource,
 			folderSelect: false
 		});
 
-		$tree.tree('selectFolder', $tree.find('.tree-branch-name:eq(1)'));
-		assert.equal($tree.tree('selectedItems').length, 0, 'Return no value');
+		this.$tree.tree('selectFolder', this.$tree.find('.tree-branch-name:eq(1)'));
+		assert.equal(this.$tree.tree('selectedItems').length, 0, 'Return no value');
 	};
 });

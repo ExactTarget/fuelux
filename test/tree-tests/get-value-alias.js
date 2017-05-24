@@ -1,16 +1,11 @@
-define(function getValueAliasModule (require) {
-	var $ = require('jquery');
-	var html = require('text!test/markup/tree-markup.html!strip');
-
+define(function getValueAliasModule () {
 	return function getValueAliasWorks (assert) {
-		var $tree = $(html).find('#MyTree');
-
 		// MultiSelect: false is the default
-		$tree.tree({
+		this.$tree.tree({
 			dataSource: this.dataSource
 		});
 
-		$tree.tree('selectItem', $tree.find('.tree-item:eq(1)'));
-		assert.deepEqual($tree.tree('selectedItems'), $tree.tree('getValue'), 'getValue aliases selectedItems');
+		this.$tree.tree('selectItem', this.$tree.find('.tree-item:eq(1)'));
+		assert.deepEqual(this.$tree.tree('selectedItems'), this.$tree.tree('getValue'), 'getValue aliases selectedItems');
 	};
 });
