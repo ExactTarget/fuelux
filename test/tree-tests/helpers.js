@@ -119,7 +119,14 @@ define(function treeDataFactory (require) {
 	};
 
 	var KEYMAP = {
-		left: 37
+		enter: 13,
+		space: 32,
+		end: 35,
+		home: 36,
+		left: 37,
+		up: 38,
+		right: 39,
+		down: 40
 	};
 
 	var getKeyDown = function getKeyDown (which) {

@@ -3,11 +3,18 @@ define(function respondsToKeyboardInputModule (require) {
 
 	return function (QUnit) {
 		QUnit.module( 'accessibility', {}, function () {
-			QUnit.test('should respond to left key', function respondsToKeyboardInput (assert) {
-				var e = this.getKeyDown('left');
-				this.$tree.trigger(e);
+			QUnit.module( 'should respond to left key', {}, function() {
+				QUnit.test('when branch is closed', function respondsToKeyboardInput (assert) {
+					this.$tree.trigger(this.getKeyDown('left'));
 
-				assert.ok(true, 'test');
+					assert.ok(true, 'test');
+				});
+
+				QUnit.test('when branch is open', function respondsToKeyboardInput (assert) {
+					this.$tree.trigger(this.getKeyDown('left'));
+
+					assert.ok(true, 'test');
+				});
 			});
 		});
 	};
