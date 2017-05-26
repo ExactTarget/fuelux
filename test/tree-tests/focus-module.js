@@ -10,8 +10,34 @@ define(function focusModuleFactory (require) {
 				$tree.on('loaded.fu.tree', function fireFocus () {
 					$tree.on('focus', function testFocus () {
 						var $focused = $(document.activeElement);
-						var $firstFocusableChild = $(document.activeElement);
+						var $firstFocusableChild = $($tree.find('li:not(".hidden"):first')[0]);
 						assert.equal($focused.attr('id'), $firstFocusableChild.attr('id'), 'first focusable branch is focused on');
+					});
+
+					var tree = document.getElementById('MyTree');
+
+					var event = new Event('focus');
+
+					tree.dispatchEvent(event);
+				});
+
+				$tree.tree({
+					dataSource: this.dataSource
+				});
+			});
+
+			QUnit.test('should focus on selected child branch when it is selected', function checkFocusOnSelect (assert) {
+				assert.expect( 1 );
+				var $tree = this.$tree;
+
+				$tree.on('loaded.fu.tree', function fireFocus () {
+					var $secondSelectableChild = $($tree.find('li:not(".hidden")')[1]);
+					$tree.tree('selectItem', $secondSelectableChild);
+
+
+					$tree.on('focus', function testFocus () {
+						var $focused = $(document.activeElement);
+						assert.equal($focused.attr('id'), $secondSelectableChild.attr('id'), 'selected item is focused on');
 					});
 
 					var tree = document.getElementById('MyTree');
@@ -49,12 +75,6 @@ define(function focusModuleFactory (require) {
 					dataSource: this.dataSource
 				});
 			});
-
-			// QUnit.test('should focus on first selected item when there is a selection', function respondsToKeyboardInput (assert) {
-			// 	this.$tree.trigger(this.getKeyDown('left'));
-
-			// 	assert.ok(true, 'test');
-			// });
 		});
 	};
 });
