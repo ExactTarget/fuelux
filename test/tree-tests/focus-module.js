@@ -51,9 +51,11 @@ define(function focusModuleFactory (require) {
 					dataSource: this.dataSource
 				});
 			});
+		});
 
-			QUnit.test('should correctly set tabindex', function tabIndexTest (assert) {
-				assert.expect( 2 );
+		QUnit.module( 'fixFocusability', {}, function focusInModule () {
+			QUnit.test('should correctly set tabindexes', function tabIndexTest (assert) {
+				assert.expect( 3 );
 				var $tree = this.$tree;
 
 				$tree.on('loaded.fu.tree', function fireFocus () {
@@ -61,7 +63,17 @@ define(function focusModuleFactory (require) {
 					assert.equal($focused.attr('tabindex'), undefined, 'tabindex defaults to undefined');
 
 					$tree.on('focus', function testTabIndex () {
-						assert.equal($focused.attr('tabindex'), '0', 'tabindex set to 0');
+						var $notFocused = $($tree.find('li:not(".hidden, #' + $focused.attr('id') + '")'));
+						var allSetToMinus1 = true;
+
+						$notFocused.each(function gatherIndices (i, elm) {
+							if (parseInt($(elm).attr('tabindex'), 10) >= 0) {
+								allSetToMinus1 = false;
+							}
+						});
+
+						assert.equal($focused.attr('tabindex'), '0', "focused branch's tabindex set to 0");
+						assert.ok(allSetToMinus1, 'All ' + $notFocused.length + " other branch's tab indexes are set to -1");
 					});
 
 					var tree = document.getElementById('MyTree');
