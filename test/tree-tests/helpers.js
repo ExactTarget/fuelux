@@ -155,11 +155,13 @@ define(function treeDataFactory (require) {
 			callback(textData);
 		};
 
+		var $fixture = $( '#qunit-fixture' );
 		this.html = require('text!test/markup/tree-markup.html!strip');
 		this.$html = $(this.html);
-		this.$tree = this.$html.find('#MyTree');
-		this.$tree2 = this.$html.find('#MyTree2');
-		this.$selectableFolderTree = $(this.html).find('#MyTreeSelectableFolder');
+		$fixture.append(this.$html);
+		this.$tree = $fixture.find('#MyTree');
+		this.$tree2 = $fixture.find('#MyTree2');
+		this.$selectableFolderTree = $fixture.find('#MyTreeSelectableFolder');
 
 		this.defaultEventObject = {
 			originalEvent: {
