@@ -6,11 +6,10 @@
 	<label class="control-label">Items selectable only</label>
 	<div class="form-group">
 
-		<ul id="MyTree" class="tree" role="tree">
-			<!-- branch/folder template -->
+		<ul class="tree" id="MyTree" role="tree" aria-activedescendant="">
 			<li class="tree-branch hidden" data-template="treebranch" role="treeitem" aria-expanded="false">
 				<div class="tree-branch-header">
-					<button type="button" class="tree-branch-name">
+					<button type="button" class="tree-branch-name" tabindex="-1">
 						<span class="glyphicon icon-caret glyphicon-play"></span>
 						<span class="glyphicon icon-folder glyphicon-folder-close"></span>
 						<span class="tree-label">Example Folder</span>
@@ -19,15 +18,14 @@
 				<ul class="tree-branch-children" role="group"></ul>
 				<div class="tree-loader"><span role="alert">Loading...</span></div>
 			</li>
-			<!-- item template -->
 			<li class="tree-item hidden" data-template="treeitem" role="treeitem">
-				<button type="button" class="tree-item-name">
+				<button type="button" class="tree-item-name" tabindex="-1">
 					<span class="glyphicon icon-item fueluxicon-bullet"></span>
 					<span class="tree-label">Example Item</span>
 				</button>
 			</li>
 			<li class="tree-overflow hidden" data-template="treeoverflow" role="treeitem">
-				<button type="button" class="tree-overflow-name">
+				<button type="button" class="tree-overflow-name" tabindex="-1">
 					<span class="glyphicon"></span>
 					<span class="tree-label"></span>
 				</button>
@@ -35,11 +33,10 @@
 			<li class="tree-loader hidden"><span role="alert">Loading...</span></li>
 		</ul>
 
-		<ul id="MyTree2" class="tree" role="tree">
-			<!-- branch/folder template -->
+		<ul class="tree" id="MyTree2" role="tree" aria-activedescendant="">
 			<li class="tree-branch hidden" data-template="treebranch" role="treeitem" aria-expanded="false">
 				<div class="tree-branch-header">
-					<button type="button" class="tree-branch-name">
+					<button type="button" class="tree-branch-name" tabindex="-1">
 						<span class="glyphicon icon-caret glyphicon-play"></span>
 						<span class="glyphicon icon-folder glyphicon-folder-close"></span>
 						<span class="tree-label">Example Folder</span>
@@ -48,15 +45,14 @@
 				<ul class="tree-branch-children" role="group"></ul>
 				<div class="tree-loader"><span role="alert">Loading...</span></div>
 			</li>
-			<!-- item template -->
 			<li class="tree-item hidden" data-template="treeitem" role="treeitem">
-				<button type="button" class="tree-item-name">
+				<button type="button" class="tree-item-name" tabindex="-1">
 					<span class="glyphicon icon-item fueluxicon-bullet"></span>
 					<span class="tree-label">Example Item</span>
 				</button>
 			</li>
 			<li class="tree-overflow hidden" data-template="treeoverflow" role="treeitem">
-				<button type="button" class="tree-overflow-name">
+				<button type="button" class="tree-overflow-name" tabindex="-1">
 					<span class="glyphicon"></span>
 					<span class="tree-label"></span>
 				</button>
@@ -71,28 +67,26 @@
 	<label class="control-label">Folders selectable</label>
 	<div class="form-group">
 
-		<ul id="MyTreeSelectableFolder" class="tree tree-folder-select" role="tree">
-			<!-- branch/folder template -->
+		<ul id="MyTreeSelectableFolder" class="tree tree-folder-select" role="tree" aria-activedescendant="">
 			<li class="tree-branch hidden" data-template="treebranch" role="treeitem" aria-expanded="false">
 				<div class="tree-branch-header">
-					<button type="button" class="glyphicon icon-caret glyphicon-play"><span class="sr-only">Open</span></button>
-					<button type="button" class="tree-branch-name">
+					<button type="button" class="tree-branch-name" tabindex="-1">
+						<span class="glyphicon icon-caret glyphicon-play"></span>
 						<span class="glyphicon icon-folder glyphicon-folder-close"></span>
 						<span class="tree-label">Example Folder</span>
 					</button>
 				</div>
-				<ul class="tree-branch-children"></ul>
+				<ul class="tree-branch-children" role="group"></ul>
 				<div class="tree-loader"><span role="alert">Loading...</span></div>
 			</li>
-			<!-- item template -->
 			<li class="tree-item hidden" data-template="treeitem" role="treeitem">
-				<button type="button" class="tree-item-name">
+				<button type="button" class="tree-item-name" tabindex="-1">
 					<span class="glyphicon icon-item fueluxicon-bullet"></span>
 					<span class="tree-label">Example Item</span>
 				</button>
 			</li>
 			<li class="tree-overflow hidden" data-template="treeoverflow" role="treeitem">
-				<button type="button" class="tree-overflow-name">
+				<button type="button" class="tree-overflow-name" tabindex="-1">
 					<span class="glyphicon"></span>
 					<span class="tree-label"></span>
 				</button>
