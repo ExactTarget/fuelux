@@ -509,25 +509,20 @@
 	var fixFocusability = function fixFocusability ($tree, $branch) {
 		$tree.find('li').attr('tabindex', -1);
 		if ($branch && $branch.length > 0) {
-			$branch.attr('tabindex', 0); // elements with tabindex of -1 are not focusable
+			$branch.attr('tabindex', 0); // if tabindex is not set to 0 (or greater), node is not able to receive focus
 		}
 	};
 
 	// focuses into (onto one of the children of) the provided branch
 	var focusIn = function focusIn ($tree, $branch) {
-		var $focused = $branch.find('.tree-selected:first');
+		var $focusCandidate = $branch.find('.tree-selected:first');
 
-		// if a node is selected, when a tree is tabbed to, that node should receive focus
-		if ($focused.length > 0) {
-			$focused.attr('tabindex', 0); // if tabindex is not set to 0 (or greater), node is not able to receive focus
-			$focused.focus();
-		} else {// otherwise, the first node in the tree should receive focus
-			$focused = $branch.find('li:not(".hidden"):first');
-			$focused.attr('tabindex', 0); // if tabindex is not set to 0 (or greater), node is not able to receive focus
-			$focused.focus();
+		// if no node is selected, set focus to first visible node
+		if ($focusCandidate.length <= 0) {
+			$focusCandidate = $branch.find('li:not(".hidden"):first');
 		}
 
-		setFocus($tree, $focused);
+		setFocus($tree, $focusCandidate);
 	};
 
 	// focuses on provided branch
