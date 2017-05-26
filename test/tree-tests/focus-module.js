@@ -88,5 +88,77 @@ define(function focusModuleFactory (require) {
 				});
 			});
 		});
+
+		QUnit.module( 'setFocus', {}, function focusInModule () {
+			QUnit.test("should set tree's aria-activedescendant attr to branch id", function tabIndexTest (assert) {
+				assert.expect( 1 );
+				var $tree = this.$tree;
+
+				$tree.on('loaded.fu.tree', function fireFocus () {
+					$tree.on('focus', function testAriaActive () {
+						var $focused = $(document.activeElement);
+						assert.equal($tree.attr('aria-activedescendant'), $focused.attr('id'), "tree's aria-activedescendant is set to focused branch's ID");
+					});
+
+					var tree = document.getElementById('MyTree');
+
+					var event = new Event('focus');
+
+					tree.dispatchEvent(event);
+				});
+
+				$tree.tree({
+					dataSource: this.dataSource
+				});
+			});
+
+			QUnit.test('should focus on passed in branch', function tabIndexTest (assert) {
+				assert.expect( 1 );
+				var $tree = this.$tree;
+
+				$tree.on('loaded.fu.tree', function fireFocus () {
+					var $passedInBranch = $($tree.find('li:not(".hidden"):first')[0]);
+
+					$tree.on('focus', function testFocusedBranch () {
+						var $focused = $(document.activeElement);
+						assert.equal($passedInBranch.attr('id'), $focused.attr('id'), 'passed in branch is focused on');
+					});
+
+					var tree = document.getElementById('MyTree');
+
+					var event = new Event('focus');
+
+					tree.dispatchEvent(event);
+				});
+
+				$tree.tree({
+					dataSource: this.dataSource
+				});
+			});
+
+			QUnit.test('should fire setFocus.fu.tree', function tabIndexTest (assert) {
+				assert.expect( 2 );
+				var $tree = this.$tree;
+
+				$tree.on('loaded.fu.tree', function fireFocus () {
+					var $expectedBranch = $($tree.find('li:not(".hidden"):first')[0]);
+
+					$tree.on('setFocus.fu.tree', function testFiredEvent (e, bubbledBranch) {
+						assert.ok(true, 'setFocus.fu.tree fired.');
+						assert.equal($expectedBranch.attr('id'), $(bubbledBranch).attr('id'), 'bubbled branch is expected branch');
+					});
+
+					var tree = document.getElementById('MyTree');
+
+					var event = new Event('focus');
+
+					tree.dispatchEvent(event);
+				});
+
+				$tree.tree({
+					dataSource: this.dataSource
+				});
+			});
+		});
 	};
 });
