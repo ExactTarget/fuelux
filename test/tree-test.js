@@ -35,9 +35,8 @@ define(function treeTest (require) {
 		// QUnit.test('should accept TEXT as the NAME property in the datasource', require('./tree-tests/tree-accepts-name'));
 		// QUnit.test('should have proper tabindexes', require('./tree-tests/tab-indexes'));
 
-		require('./tree-tests/focus-module')(QUnit);
-
-		// require('./tree-tests/accessibility-module')(QUnit);
+		// require('./tree-tests/focus-module')(QUnit);
+		require('./tree-tests/keyboard-navigation-module')(QUnit);
 
 		// QUnit.test('should destroy control', require('./tree-tests/is-destroyed'));
 	});

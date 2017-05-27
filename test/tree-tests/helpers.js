@@ -164,13 +164,10 @@ define(function treeDataFactory (require) {
 		this.$selectableFolderTree = $fixture.find('#MyTreeSelectableFolder');
 
 		this.defaultEventObject = {
-			originalEvent: {
+			originalEvent: $.Event( 'keydown', { // eslint-disable-line new-cap
 				target: this.$tree.find('li:not(".hidden"):first')
-			},
-			which: 37,
-			preventDefault: function preventDefault () {
-				console.log('default prevented');
-			}
+			}),
+			which: 37
 		};
 
 		this.getKeyDown = getKeyDown;
