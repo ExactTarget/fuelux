@@ -247,10 +247,12 @@
 
 			// the below functions pass objects by copy/reference and use modified object in this function
 			if ( this.options.multiSelect ) {
-				multiSelectSyncNodes(this, clicked, selected);
+				selected = multiSelectSyncNodes(this, clicked, selected);
 			} else {
-				singleSelectSyncNodes(this, clicked, selected);
+				selected = singleSelectSyncNodes(this, clicked, selected);
 			}
+
+			setFocus(this.$element, clicked.$element);
 
 			// all done with the DOM, now fire events
 			this.$element.trigger(selected.eventType + '.fu.tree', {
@@ -537,6 +539,10 @@
 	};
 
 	var navigateTree = function navigateTree ($tree, e) {
+		if (e.isDefaultPrevented() || e.isPropagationStopped()) {
+			return false;
+		}
+
 		var targetNode = e.originalEvent.target;
 		var $targetNode = $(targetNode);
 		var isOpen = $targetNode.hasClass('tree-open');
@@ -651,9 +657,12 @@
 
 		// if we didn't handle the event, allow propagation to continue so something else might.
 		if (handled) {
+			e.preventDefault();
+			e.stopPropagation();
 			$tree.trigger('keyboardNavigated.fu.tree', e, $targetNode);
-			e.preventDefault(); // prevent the default action (scroll / move caret)
 		}
+
+		return;
 	};
 
 	function styleNodeSelected ($element, $icon) {
@@ -689,6 +698,8 @@
 			selected.eventType = 'selected';
 			selected.dataForEvent.push(clicked.elementData);
 		}
+
+		return selected;
 	}
 
 	function singleSelectSyncNodes(self, clicked, selected) {
@@ -705,6 +716,8 @@
 			selected.eventType = 'deselected';
 			selected.dataForEvent = [];
 		}
+
+		return selected;
 	}
 
 
