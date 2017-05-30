@@ -224,6 +224,7 @@
 
 				// return newly populated folder
 				self.$element.trigger('loaded.fu.tree', $parent);
+				self.$element.trigger('populated.fu.tree', $parent);
 			});
 		},
 
@@ -267,10 +268,10 @@
 			});
 		},
 
-		discloseFolder: function discloseFolder(el) {
-			var $el = $(el);
+		discloseFolder: function discloseFolder(folder) {
+			var $folder = $(folder);
 
-			var $branch = $el.closest('.tree-branch');
+			var $branch = $folder.closest('.tree-branch');
 			var $treeFolderContent = $branch.find('.tree-branch-children');
 			var $treeFolderContentFirstChild = $treeFolderContent.eq(0);
 
@@ -282,12 +283,18 @@
 				.removeClass('glyphicon-folder-close')
 				.addClass('glyphicon-folder-open');
 
+			var $tree = this.$element;
+			var disclosedCompleted = function disclosedCompleted () {
+				$tree.trigger('disclosedFolder.fu.tree', $branch.data());
+			};
+
 			// add the children to the folder
 			if (!$treeFolderContent.children().length) {
+				$tree.one('populated.fu.tree', disclosedCompleted);
 				this.populate($treeFolderContent);
+			} else {
+				disclosedCompleted();
 			}
-
-			this.$element.trigger('disclosedFolder.fu.tree', $branch.data());
 		},
 
 		closeFolder: function closeFolder(el) {
@@ -547,6 +554,10 @@
 		var $targetNode = $(targetNode);
 		var isOpen = $targetNode.hasClass('tree-open');
 		var handled = false;
+		var noPromise = true;
+		var done = function done () {
+			$tree.trigger('keyboardNavigated.fu.tree', e, $targetNode);
+		};
 
 		switch (e.which) {
 		case 13: // enter
@@ -559,13 +570,17 @@
 			var isItem = $targetNode.hasClass('tree-item');
 			// var isOverflow = $targetNode.hasClass('tree-overflow');
 
+			noPromise = false;
 			if (isFolder) {
 				if (foldersSelectable) {
+					$tree.one('selected.fu.tree deselected.fu.tree', done);
 					$tree.tree('selectFolder', $targetNode.find('.tree-branch-header')[0]);
 				} else {
+					$tree.one('populated.fu.tree closed.fu.tree', done);
 					$tree.tree('toggleFolder', $targetNode.find('.tree-branch-header')[0]);
 				}
 			} else if (isItem) {
+				$tree.one('selected.fu.tree', done);
 				$tree.tree('selectItem', $targetNode);
 			} else {
 				// should be isOverflow... Try and click on it either way.
@@ -576,6 +591,7 @@
 					$next = $($prev.nextAll().not('.hidden')[0]);
 
 					setFocus($tree, $next);
+					done();
 				});
 			}
 
@@ -595,6 +611,8 @@
 			break;
 		case 37: // left
 			if (isOpen) {
+				noPromise = false;
+				$tree.one('closed.fu.tree', done);
 				$tree.tree('closeFolder', targetNode);
 			} else {
 				setFocus($tree, $($targetNode.parents('li')[0]));
@@ -627,6 +645,8 @@
 			if (isOpen) {
 				focusIn($tree, $targetNode);
 			} else {
+				noPromise = false;
+				$tree.one('disclosed.fu.tree', done);
 				$tree.tree('discloseFolder', targetNode);
 			}
 
@@ -652,17 +672,19 @@
 
 		default:
 			// console.log(e.which);
-			return; // exit this handler for other keys
+			return true; // exit this handler for other keys
 		}
 
 		// if we didn't handle the event, allow propagation to continue so something else might.
 		if (handled) {
 			e.preventDefault();
 			e.stopPropagation();
-			$tree.trigger('keyboardNavigated.fu.tree', e, $targetNode);
+			if (noPromise) {
+				done();
+			}
 		}
 
-		return;
+		return true;
 	};
 
 	function styleNodeSelected ($element, $icon) {
