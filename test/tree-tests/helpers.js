@@ -129,9 +129,15 @@ define(function treeDataFactory (require) {
 		down: 40
 	};
 
-	var getKeyDown = function getKeyDown (which) {
+	var getKeyDown = function getKeyDown (which, $target) {
 		var eventObject = this.defaultEventObject;
 		eventObject.which = KEYMAP[which];
+
+		if ($target) {
+			eventObject.originalEvent = $.Event( 'keydown', { // eslint-disable-line new-cap
+				target: $target
+			});
+		}
 
 		return $.Event( 'keydown', eventObject); // eslint-disable-line new-cap
 	};
