@@ -55,3 +55,9 @@ DEPENDENCIES
   bundler
   jekyll
   rack-jekyll
+
+RUBY VERSION
+   ruby 2.1.1p76
+
+BUNDLED WITH
+   1.15.0

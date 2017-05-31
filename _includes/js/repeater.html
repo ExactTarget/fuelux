@@ -507,7 +507,7 @@ $('#myRepeater').repeater({
   </div><!-- ./fu-table-responsive -->
 
 
-  <p>The <code>dataSource's callback</code> function should run after gathering the desired data for rendering. This function requires the code to pass a
+  <p>The <code>dataSource</code>'s <code>callback</code> function should run after gathering the desired data for rendering. This function requires the code to pass a
     <code>data</code> object as an argument. Contents of the object will vary depending on the view
     extension used. The attributes below include common expected attributes:</p>
   <div class="table-responsive">
@@ -535,6 +535,11 @@ $('#myRepeater').repeater({
           </td>
         </tr>
         <tr>
+          <td>items</td>
+          <td>array</td>
+          <td>Array of objects representing the item data that will be displayed within the repeater. Use this value to populate the records in the <code>.repeater-list</code> element. The item objects can contain any number of attributes. Necessary attributes are defined by the <a href="/extensions.html">repeater extension</a>.</td>
+        </tr>
+        <tr>
           <td>page</td>
           <td>number</td>
           <td>Sets the current repeater page. Also shown in the <code>.repeater-primaryPaging</code> or
@@ -559,6 +564,17 @@ $('#myRepeater').repeater({
     </table>
   </div><!-- ./fu-table-responsive -->
   <p>The default values are <code>{ count: 0, end: 0, items: [], page: 0, pages: 1, start: 0 }</code>.</p>
+
+  <div class="fu-callout fu-callout-warning">
+    <h4 id="repeater-dataSource-security">Security</h4>
+    <p>
+      Use the <code>dataSource</code> method to keep your page safe from XSS.
+      <ul>
+        <li>Do not include markup in the <code>data</code> object argument passed to <code>dataSource</code>'s <code>callback</code> function.</li>
+        <li>Use the <code>cleanInput</code> utility while gathering your data use the data is safely encoded.</li>
+      </ul>
+    </p>
+  </div>
 
   <h3 id="repeater-usage-events">Events</h3>
   <div class="table-responsive">
@@ -604,7 +620,7 @@ $('#myRepeater').repeater({
       </tr>
       <tr>
         <td>rendered.fu.repeater</td>
-        <td>Fires whenever the repeater has rendered data returned from the dataSource. Passses an <code>object</code> containing
+        <td>Fires whenever the repeater has rendered data returned from the dataSource. Passes an <code>object</code> containing
         <code>data</code>, <code>options</code>, and <code>renderOptions</code>.</td>
       </tr>
       <tr>
