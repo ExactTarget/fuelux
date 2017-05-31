@@ -2,6 +2,7 @@ define(function isTreePopulatedModule (require) {
 	var constants = require('./helpers').constants;
 
 	return function isTreePopulated (assert) {
+		assert.expect( 3 );
 		this.$tree.tree({
 			dataSource: this.dataSource
 		});
