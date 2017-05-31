@@ -2908,6 +2908,22 @@
 			setDisplayValue: function setDisplayValue( value ) {
 				this.$input.val( value );
 			},
+			
+			setMinLimit: function setMinLimit( val ) {
+		                if ( val < this.options.max ) {
+		                    this.options.min = val;
+		                } else {
+		                    return false;
+		                }
+		        },
+            
+		        setMaxLimit: function setMaxLimit( val ) {
+		                if ( val > this.options.min ) {
+		                    this.options.max = val;
+		                } else {
+		                    return false;
+		                }
+		        },
 
 			getValue: function getValue() {
 				var val = this.options.value;
