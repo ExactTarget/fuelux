@@ -224,6 +224,8 @@
 
 				// return newly populated folder
 				self.$element.trigger('loaded.fu.tree', $parent);
+				// loaded.fu.tree was getting swallowed up somehow and was not triggering my listener when writing
+				// accessibility unit tests. Added populated.fu.tree so that I could listen for it instead.
 				self.$element.trigger('populated.fu.tree', $parent);
 			});
 		},
@@ -554,6 +556,11 @@
 		var $targetNode = $(targetNode);
 		var isOpen = $targetNode.hasClass('tree-open');
 		var handled = false;
+		// because es5 lacks promises and fuelux has no polyfil (and I'm not adding one just for this change)
+		// I am faking up promises here through callbacks and listeners. Done will be fired immediately at the end of
+		// the navigateTree method if there is no (fake) promise, but will be fired by an event listener that will
+		// be triggered by another function if necessary. This way when done runs, and fires keyboardNavigated.fu.tree
+		// anything listening for that event can be sure that everything tied to that event is actually completed.
 		var noPromise = true;
 		var done = function done () {
 			$tree.trigger('keyboardNavigated.fu.tree', e, $targetNode);
