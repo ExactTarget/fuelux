@@ -86,7 +86,7 @@
   "scripts": {
     "main": "devserver.js",
     "start": "grunt serve",
-    "test": "grunt travisci --verbose",
+    "test": "mocha test/mocha.js && grunt travisci --verbose",
     "postinstall": "node postinstall.js",
     "local": "grunt servefast",
     "release": "grunt release"
