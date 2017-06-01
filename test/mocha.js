@@ -1,12 +1,29 @@
-/* global describe:false, it:false */
+/* global describe:false, it:false, before:false, after:false */
 
 /* mocha tests for Niffy go here */
 
-var assert = require('assert');
-describe('Array', function testArray () {
-	describe('#indexOf()', function testIndexOf () {
-		it('should return -1 when the value is not present', function testReturn () {
-			assert.equal(-1, [1, 2, 3].indexOf(4));
+var should = require('chai').should();
+var Niffy = require('niffy');
+describe('Segment App', function () {
+	var basehost = 'http://fuelux-edge.herokuapp.com/';
+	var testhost = 'http://localhost:8000/';
+	var niffy;
+	before(function instantiateNiffy () {
+		niffy = new Niffy(basehost, testhost, { show: true, threshold: 0 });
+	});
+	after(function* () {
+		yield niffy.end();
+	});
+
+	/**
+	 * Logged in.
+	 */
+	describe('Logged In', function () {
+		/**
+		 * Top level.
+		 */
+		it('/', function* () {
+			yield niffy.test('/');
 		});
 	});
 });
