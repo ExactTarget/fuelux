@@ -400,12 +400,18 @@
 
 			var end = this.$endSelect.selectlist('selectedItem').value;
 			var duration = '';
+			var count = this.$endAfter.spinbox('value');
 
 			// if both UNTIL and COUNT are not specified, the recurrence will repeat forever
 			// http://tools.ietf.org/html/rfc2445#section-4.3.10
 			if (repeat !== 'none') {
 				if (end === 'after') {
-					duration = 'COUNT=' + this.$endAfter.spinbox('value') + ';';
+					if (repeat === 'weekly') {
+						// if using weekdays, the count is the total number of occurances, 
+						// so we need to mulitply by the number of days selected.
+						count = count * days.length;
+					}
+					duration = 'COUNT=' + count + ';';
 				} else if (end === 'date') {
 					duration = 'UNTIL=' + _getFormattedDate(this.$endDate.datepicker('getDate'), '') + ';';
 				}
