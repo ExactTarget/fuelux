@@ -154,6 +154,6 @@ Thank you to all those that have submitted issues and contributed to this librar
 
 ## Copyright and License
 
-Copyright &copy; 2012-2014 Salesforce Marketing Cloud, Inc.
+Copyright &copy; 2012-2015 Salesforce Marketing Cloud, Inc.
 
 View [BSD-3 license](https://github.com/ExactTarget/fuelux/blob/master/LICENSE).
