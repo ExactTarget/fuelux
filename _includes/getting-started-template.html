@@ -61,6 +61,38 @@
 
 </div>
 
+<h3><a name="user-content-commonjs-support" class="anchor" href="#commonjs-support"><span class="octicon octicon-link"></span></a>CommonJS Support</h3>
+
+<p>If you use a CommonJS build system (such as <a href="https://webpack.github.io/">Webpack</a> or <a href="http://browserify.org/">Browserify</a>), we recommend only loading the controls you need. You can also load all the controls by including the npm package.</p>
+
+<h4>Working with Browserify</h4>
+
+<p>This should work out of the box with Browserify.</p>
+
+<h4>Working with webpack</h4>
+
+{% highlight js %}
+npm install --save-dev imports-loader
+// or
+yarn add --dev imports-loader
+{% endhighlight %}
+
+{% highlight js %}
+// webpack 2 config
+// add as a rule to module.rule
+{
+  test: /fuelux\/js\/.*\.js$/,
+  use: ['imports-loader?define=>false']
+}
+{% endhighlight %}
+
+{% highlight js %}
+// include where you need to
+require('fuelux/js/checkbox')
+// or
+require('fuelux')
+{% endhighlight %}
+
 <div class="fu-docs-section">
 <!-- Cross link to new migration page -->
 <div class="fu-callout fu-callout-info">
