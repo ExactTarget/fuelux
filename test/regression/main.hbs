@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" class="fuelux">
+<head>
+	<meta charset="utf-8" />
+	<title>Fuel UX 3</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+	<link href="{{#if isReference}}./reference/dist/css/fuelux.css{{else}}./dist/css/fuelux.css{{/if}}" />
+
+	<script src="./bower_components/requirejs/require.js"></script>
+	<script type="text/javascript">
+		(function () {
+			requirejs.config({
+				config: {
+					moment: {
+						noGlobal: true
+					}
+				},
+				paths: {
+					jquery: './bower_components/jquery/dist/jquery',
+					underscore: './bower_components/underscore/underscore',
+					bootstrap: './bower_components/bootstrap/dist/js/bootstrap',
+					moment: './bower_components/moment/min/moment-with-locales',
+					fuelux: {{#if isReference}}'./reference/dist/js'{{else}}'./js'{{/if}}
+				},
+				shim: {
+					'bootstrap': {
+						deps: ['jquery'],
+						exports: 'bootstrap'
+					}
+				}
+			});
+		})();
+		require(['jquery', 'fuelux/all'], function ($) {});
+	</script>
+</head>
+<body>
+	<form>
+		{{{body}}}
+	</form>
+</body>

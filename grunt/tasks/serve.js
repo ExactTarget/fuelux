@@ -65,7 +65,6 @@ module.exports = function serveTasks (grunt) {
 	});
 
 	// http://localhost:8013/reference/
-	grunt.registerTask('serveregressiontests', 'Serve and watch regression test files', function serveregressiontests () {
-		grunt.task.run(['connect:regressionTestServer:keepalive']);
-	});
+	grunt.registerTask('serveregressiontests', 'Serve and watch regression test files', [ 'express:referenceServer', 'express:devServer', 'watch' ]);
+
 };

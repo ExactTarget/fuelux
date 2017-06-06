@@ -26,19 +26,6 @@ module.exports = function (grunt) {
 				port: '<%= connectTestServerOptionsPort %>',
 				useAvailablePort: true
 			}
-		},
-		regressionTestServer: {
-			options: {
-				base: {
-					path: '.',
-					options: {
-						index: ['index.html', 'tests.html']
-					}
-				},
-				hostname: '*',
-				port: '<%= connectRegressionTestServerOptionsPort %>',
-				useAvailablePort: true
-			}
 		}
 	};
 };
