@@ -27,6 +27,7 @@ module.exports = function gruntFile (grunt) {
 
 	// variables used in shared variables below
 	var connectTestServerOptionsPort = 9000;
+	var connectRegressionTestServerOptionsPort = 8013;
 
 	// load and initialize configuration tasks, including package.json's devDependencies
 	require('load-grunt-config')(grunt, {
@@ -69,7 +70,8 @@ module.exports = function gruntFile (grunt) {
 				// test dist with multiple jQuery versions
 				return 'http://localhost:' + connectTestServerOptionsPort + '/test/?testdist=true';
 			}),
-			connectTestServerOptionsPort: connectTestServerOptionsPort
+			connectTestServerOptionsPort: connectTestServerOptionsPort,
+			connectRegressionTestServerOptionsPort: connectRegressionTestServerOptionsPort
 		}
 	});
 

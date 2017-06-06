@@ -5,8 +5,8 @@
 var should = require('chai').should();
 var Niffy = require('niffy');
 describe('Segment App', function () {
-	var basehost = 'http://fuelux-edge.herokuapp.com/';
-	var testhost = 'http://localhost:8000/';
+	var basehost = 'http://localhost:8000/test/regression';
+	var testhost = 'http://localhost:8013/test/regression';
 	var niffy;
 	before(function instantiateNiffy () {
 		niffy = new Niffy(basehost, testhost, { show: true, threshold: 0 });
@@ -22,8 +22,8 @@ describe('Segment App', function () {
 		/**
 		 * Top level.
 		 */
-		it('/', function* () {
-			yield niffy.test('/');
+		it('/checkbox.html', function* () {
+			yield niffy.test('/checkbox.html');
 		});
 	});
 });

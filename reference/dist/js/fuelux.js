@@ -1,6 +1,6 @@
 /*!
- * Fuel UX EDGE - Built 2017/06/05, 2:24:54 PM 
- * Previous release: v3.16.0 
+ * Fuel UX EDGE - Built 2017/06/05, 2:15:24 PM
+ * Previous release: v3.16.0
  * Copyright 2012-2017 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -301,7 +301,7 @@
 			doSelect: function( $item ) {
 
 				if ( typeof $item[ 0 ] !== 'undefined' ) {
-					// remove selection from old item, may result in remove and 
+					// remove selection from old item, may result in remove and
 					// re-addition of class if item is the same
 					this.$element.find( 'li.selected:first' ).removeClass( 'selected' );
 
