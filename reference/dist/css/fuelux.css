@@ -3150,7 +3150,3 @@ label.fuelux .checkbox-inline {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.checkbox-label {
-  margin-left: 100px;
-  color: blue;
-}
