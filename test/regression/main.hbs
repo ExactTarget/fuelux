@@ -6,9 +6,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 	<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
-	<link href="{{#if isReference}}./reference/dist/css/fuelux.css{{else}}./dist/css/fuelux.css{{/if}}" />
+	<link href="{{#if isReference}}./reference/dist/css/fuelux.css{{else}}./dist/css/fuelux.css{{/if}}" rel="stylesheet" type="text/css" />
 
 	<script src="./bower_components/requirejs/require.js"></script>
+</head>
+<body>
+	<form>
+		{{{body}}}
+	</form>
 	<script type="text/javascript">
 		(function () {
 			requirejs.config({
@@ -32,11 +37,9 @@
 				}
 			});
 		})();
-		require(['jquery', 'fuelux/all'], function ($) {});
+		require(['jquery', 'underscore', 'bootstrap', 'moment', 'fuelux/all'], function ($) {
+			console.log('here');
+		});
 	</script>
-</head>
-<body>
-	<form>
-		{{{body}}}
-	</form>
 </body>
+</html>
