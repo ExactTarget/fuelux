@@ -16,18 +16,23 @@
 (function UMDFactory (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
-		define(['jquery', 'fuelux/repeater', 'fuelux/checkbox'], factory);
+		define(['jquery', 'fuelux/utilities', 'fuelux/repeater', 'fuelux/checkbox'], factory);
 	} else if (typeof exports === 'object') {
 		// Node/CommonJS
-		module.exports = factory(require('jquery'), require('./repeater'), require('./checkbox'));
+		module.exports = factory(require('jquery'), require('./utilities'), require('./repeater'), require('./checkbox'));
 	} else {
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
 	}
 }(function repeaterList ($) {
+	if (!$.fn.utilities) {
+		throw new Error('Fuel UX repeater control list extension requires FuelUX utilities.');
+	}
 	// -- END UMD WRAPPER PREFACE --
 
 	// -- BEGIN MODULE CODE HERE --
+	var utilities = $.fn.utilities;
+	var cleanInput = utilities.cleanInput;
 
 	if ($.fn.repeater) {
 		// ADDITIONAL METHODS
@@ -646,7 +651,7 @@
 
 		content = (content !== undefined) ? content : '';
 
-		$col.addClass(((className !== undefined) ? className : '')).append(content);
+		$col.addClass(((className !== undefined) ? className : '')).append(cleanInput(content));
 		if (width !== undefined) {
 			$col.outerWidth(width);
 		}

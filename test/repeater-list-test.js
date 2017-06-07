@@ -450,4 +450,39 @@ define( function repeaterListTest ( require ) {
 
 		$repeater.repeater( repeaterOptions );
 	} );
+
+
+	QUnit.test('Fuel Repeater List plugin is XSS free', function(assert) {
+		var ready = assert.async();
+		var exposedAttributes = [
+			'dataSource.property.value'
+		];
+
+		var CreateVulnarabilityTest = require('xss-tools/test-xss-vulnerabilities-in-jquery-markup.js');
+		var testVulnarabilities = new CreateVulnarabilityTest({
+			attributes: exposedAttributes,
+			buildControlContainer: function selectBoxBuildControl(vulnerability, attribute) {
+				var $controlContainer = this.$markup.clone().repeater({
+					dataSource: makeDataSource([{
+						label: 'test',
+						property: 'test'
+					}], [{
+						test: vulnerability.dirty
+					}])
+				});
+				$('body').append($controlContainer);
+
+				return $controlContainer.find('.repeater-viewport');
+			}.bind(this),
+			destroyControlContainer: function($controlContainerViewport) {
+				var $controlContainer = $controlContainerViewport.closest('.repeater');
+				$controlContainer.repeater('destroy');
+				$controlContainer.remove();
+			}
+		});
+
+		testVulnarabilities(function() {
+			ready();
+		});
+	});
 } );
