@@ -71,25 +71,29 @@
 
 <h4>Working with webpack</h4>
 
+<ol>
+  <li>Install <code>imports-loader</code> for webpack
 {% highlight js %}
 npm install --save-dev imports-loader
 {% endhighlight %}
-
+  </li>
+  <li>Add rule to webpack configuration
 {% highlight js %}
-// webpack 2 config
-// add as a rule to module.rule
 {
   test: /fuelux\/js\/.*\.js$/,
   use: ['imports-loader?define=>false']
 }
 {% endhighlight %}
-
+  </li>
+  <li>Include individual modules or fuelux lib where needed
 {% highlight js %}
 // include where you need to
 require('fuelux/js/checkbox')
 // or
 require('fuelux')
 {% endhighlight %}
+  </li>
+</ol>
 
 <div class="fu-docs-section">
 <!-- Cross link to new migration page -->
