@@ -4,8 +4,8 @@ var path = require('path');
 
 var app = express();
 
-var PORT = process.env.PORT || 8000;
-var isReference = (PORT === 8000);
+var PORT = process.env.PORT || "8000";
+var isReference = (PORT === "8000");
 var partialsDir = isReference ? './reference/dist/templates/handlebars/fuelux' : './templates/handlebars/fuelux';
 
 app.engine('.hbs',
@@ -25,9 +25,11 @@ app.get('/checkbox', function (req, res) {
 	res.render('./checkbox', {
 		isReference: isReference,
 		checkboxen: [
-			{id: 1, checkboxes: [
-				{id: 2, label: 'Custom checkbox unchecked on page load'},
-				{id: 3, label: 'Custom checkbox checked on page load', checked: true}
+			{checkboxes: [
+				{id: 'checkbox1', label: 'Custom checkbox unchecked on page load'},
+				{id: 'checkbox2', label: 'Custom checkbox checked on page load', checked: true},
+				{id: 'checkbox3', label: 'Disabled custom checkbox unchecked on page load', disabled: true},
+				{id: 'checkbox4', label: 'Disabled custom checkbox checked on page load', checked: true, disabled: true}
 			]}
 		]
 	});
