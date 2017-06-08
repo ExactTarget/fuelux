@@ -1,6 +1,5 @@
 /*!
- * Fuel UX EDGE - Built 2017/06/05, 2:24:54 PM 
- * Previous release: v3.16.0 
+ * Fuel UX v3.16.0 
  * Copyright 2012-2017 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */

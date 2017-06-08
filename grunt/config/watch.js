@@ -74,17 +74,6 @@ module.exports = {
 		},
 		tasks: ['dist']
 	},
-	reference: {
-		files: [
-			'reference/dist/css/**',
-			'reference/dist/fonts/**',
-			'reference/dist/js/**',
-			'reference/dist/templates/**'],
-		options: {
-			livereload: true
-		},
-		tasks: ['dist']
-	},
 	lite: {
 		files: [],
 		options: {
