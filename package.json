@@ -14,7 +14,7 @@
     "postinstall": "node postinstall.js",
     "local": "grunt servefast",
     "release": "grunt release",
-    "test": "mocha test/mocha.js && grunt travisci --verbose",
+    "test": "xvfb-maybe mocha test/mocha.js && grunt travisci --verbose",
     "regressionservers": "node test/regression/app.js",
     "regression": "mocha test/mocha.js",
     "updatereferences": "grunt shell:copyToReference"
