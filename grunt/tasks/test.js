@@ -3,7 +3,7 @@ module.exports = function test (grunt) {
 	grunt.registerTask('test', 'run jshint, qunit source w/ coverage, and validate HTML',
 		['jshint', 'connect:testServer', 'qunit:noMoment', 'qunit:globals', 'test-dist', 'htmllint']);
 
-	grunt.registerTask('unittest', 'run jshint, qunit source w/ coverage, and validate HTML',
+	grunt.registerTask('unittest', 'Just unit test the dist without all the fluff',
 		['connect:testServer', 'test-dist']);
 
 
