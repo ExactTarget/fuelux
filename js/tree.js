@@ -34,8 +34,7 @@
 	// TREE CONSTRUCTOR AND PROTOTYPE
 
 	var Tree = function Tree(element, options) {
-		var $element = $(element);
-		this.$element = $element;
+		this.$element = $(element);
 		this.options = $.extend({}, $.fn.tree.defaults, options);
 
 		this.$element.attr('tabindex', '0');
@@ -67,7 +66,8 @@
 		}
 
 		this.$element.on('focus', function setFocusOnTab () {
-			focusIn($element, $element);
+			var $tree = $(this);
+			focusIn($tree, $tree);
 		});
 
 		this.$element.on('keydown', function processKeypress (e) {
