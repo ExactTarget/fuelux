@@ -999,7 +999,7 @@ define(function (require) {
 
 	var tree = require('hbs!fuelux_templates/tree');
 	var $myTreeWrapper = $('#myTreeWrapper');
-	$myTreeWrapper.html(tree({id: 'myTree', folderSelect: true}));
+	$myTreeWrapper.html(tree({id: 'myTree', labelledBy: 'myTreeLabel', folderSelect: true}));
 
 	var treeDataSource = function (parentData, callback) {
 		log('Opening branch data: ', parentData);
@@ -1099,7 +1099,7 @@ define(function (require) {
 	// initialize
 	function myTreeInit () {
 		var $myTree2Wrapper = $('#myTree2Wrapper');
-		$myTree2Wrapper.html(tree({id: 'myTree2'}));
+		$myTree2Wrapper.html(tree({id: 'myTree2', labelledBy: 'myTree2Label'}));
 
 		var callLimit = 200;
 		var callCount = 0;

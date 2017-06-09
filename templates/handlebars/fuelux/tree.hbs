@@ -1,4 +1,9 @@
-<ul class="tree {{#if folderSelect}}tree-folder-select{{/if}}" id="{{#if id}}{{id}}{{else}}myTree{{/if}}" role="tree" aria-activedescendant="">
+<ul class="tree {{#if folderSelect}}tree-folder-select{{/if}}"
+	id="{{#if id}}{{id}}{{else}}myTree{{/if}}"
+	role="tree"
+	aria-activedescendant=""
+	{{#unless labelledBy}}aria-label="{{#if label}}{{label}}{{/if}}"{{/unless}}
+	{{#if labelledBy}}aria-labelledby="{{labelledBy}}"{{/if}}>
 	<li class="tree-branch hidden" data-template="treebranch" role="treeitem" aria-expanded="false">
 		<div class="tree-branch-header">
 			{{#if folderSelect}}<button type="button" class="glyphicon icon-caret glyphicon-play" tabindex="-1"><span class="sr-only">Open</span></button>{{/if}}
