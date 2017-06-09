@@ -20,7 +20,7 @@ describe('Fuel UX 3', function () {
 	before(function instantiateNiffy () {
 		devServer = server.getServer(8000);
 		refServer = server.getServer(8013);
-		niffy = new Niffy(basehost, testhost, { show: true, threshold: 0 });
+		niffy = new Niffy(basehost, testhost, { show: false, threshold: 0 });
 	});
 	after(function* () {
 		yield niffy.end();
