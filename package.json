@@ -15,7 +15,8 @@
     "local": "grunt servefast",
     "release": "grunt release",
     "test": "mocha test/mocha.js && grunt travisci --verbose",
-    "regressionservers": "node test/regression/app.js"
+    "regressionservers": "node test/regression/app.js",
+    "updatereferences": "grunt shell:copyToReference"
   },
   "dependencies": {
     "bootstrap": "3.3.7",

@@ -10,4 +10,12 @@ The test/regression folder has a separate file for each Fuel UX asset.
 
 The regression tests will look at either the local dev code (from `js/*` or `dist/css/fuelux.css`) or will look at the reference code in `reference/dist/`. Ideally the reference code will match the last prod release. Upon Fuel UX release the code from `/dist/` is copied into `/reference/dist/`.
 
-If a change intends to change the look of an asset, those changes should be manually copied into the reference directory. The reason this was done was that otherwise we would have to "ignore" failing tests when you made a change that changed the look and feel. Now since you will be manually copying the changes into the reference folder, you are intentionally changing the output of reference and when you run the tests they will merely be making sure they match. Further changes tested against this new output will make ensure that the change did not revert.
+If a change intends to change the look of an asset, you will need:
+
+1. Make a build (`npm build`)
+2. Run `npm test`
+3. View the failures and ensure they are the expected failures (and that no non-expected failures occurred)
+4. Run `npm updatereferences`
+5. Run `npm test` again to make sure all pass
+
+Further changes tested against this new output will now ensure that the new change does not revert.
