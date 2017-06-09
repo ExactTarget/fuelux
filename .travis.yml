@@ -2,9 +2,15 @@ language: node_js
 node_js:
 - 6.8.1
 sudo: false
+addons:
+  apt:
+    packages:
+      - xvfb
 install:
 - time npm install
 - time ./node_modules/bower/bin/bower update
+- export DISPLAY=':99.0'
+- Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
 env:
   global:
   - secure: |-
@@ -17,4 +23,3 @@ env:
       +M1cvJ2Cq14pEK6y2OMAooY2TY4p8MynxsqoKUGOYjmKXsLp1ZE=
 matrix:
   fast_finish: true
-
