@@ -17,3 +17,13 @@ env:
       +M1cvJ2Cq14pEK6y2OMAooY2TY4p8MynxsqoKUGOYjmKXsLp1ZE=
 matrix:
   fast_finish: true
+
+
+addons:
+  apt:
+    packages:
+      - xvfb
+
+install:
+  - export DISPLAY=':99.0'
+  - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
