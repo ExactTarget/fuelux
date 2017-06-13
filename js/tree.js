@@ -85,7 +85,9 @@
 			var nodes = n || this.$element;
 			var $selectedElements = $(nodes).find('.tree-selected');
 			$selectedElements.each(function callStyleNodeDeselected (index, element) {
-				styleNodeDeselected( $(element), $(element).find( '.glyphicon' ) );
+				var $element = $(element);
+				ariaDeselect($element);
+				styleNodeDeselected( $element, $element.find( '.glyphicon' ) );
 			});
 			return $selectedElements;
 		},
@@ -247,6 +249,8 @@
 				clicked.$icon = clicked.$element.find('.icon-item');
 			}
 			clicked.elementData = clicked.$element.data();
+
+			ariaSelect(clicked.$element);
 
 			// the below functions pass objects by copy/reference and use modified object in this function
 			if ( this.options.multiSelect ) {
@@ -694,6 +698,14 @@
 		return true;
 	};
 
+	var ariaSelect = function ariaSelect ($element) {
+		$element.attr('aria-selected', true);
+	};
+
+	var ariaDeselect = function ariaDeselect ($element) {
+		$element.removeAttr('aria-selected');
+	};
+
 	function styleNodeSelected ($element, $icon) {
 		$element.addClass('tree-selected');
 		if ( $element.data('type') === 'item' && $icon.hasClass('fueluxicon-bullet') ) {
@@ -712,6 +724,7 @@
 		// search for currently selected and add to selected data list if needed
 		$.each(selected.$elements, function findCurrentlySelected (index, element) {
 			var $element = $(element);
+
 			if ($element[0] !== clicked.$element[0]) {
 				selected.dataForEvent.push( $($element).data() );
 			}
