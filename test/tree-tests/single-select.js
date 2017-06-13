@@ -47,11 +47,11 @@ define(function singleSelectWorksModuleFactory () {
 				});
 
 				var $toSelect = this.$tree.find('.tree-item:eq(1)');
-				assert.notOk($toSelect.attr('aria-selected'), 'item does not contain aria-selected attr');
+				assert.equal($toSelect.attr('aria-selected'), 'false', "item's aria-selected attr present and set to false");
 				this.$tree.tree('selectItem', $toSelect);
 				assert.ok($toSelect.attr('aria-selected'), 'newly selected item contains aria-selected="true"');
 				this.$tree.tree('selectItem', this.$tree.find('.tree-item:eq(2)'));
-				assert.notOk($toSelect.attr('aria-selected'), 'newly deselected item no longer contains aria-selected="true"');
+				assert.equal($toSelect.attr('aria-selected'), 'false', "newly deselected item's aria-selected attr present and set to false");
 			});
 
 			QUnit.test('adds and removes aria-selected="true" to/from selected folder', function loadTree (assert) {
@@ -61,11 +61,11 @@ define(function singleSelectWorksModuleFactory () {
 				});
 
 				var $toSelect = this.$selectableFolderTree.find('.tree-branch-name:eq(1)');
-				assert.notOk($toSelect.attr('aria-selected'), 'folder does not contain aria-selected attr');
+				assert.equal($toSelect.attr('aria-selected'), 'false', "item's aria-selected attr present and set to false");
 				this.$selectableFolderTree.tree('selectItem', $toSelect);
-				assert.ok($toSelect.attr('aria-selected'), 'newly selected folder contains aria-selected="true"');
-				this.$selectableFolderTree.tree('selectFolder', this.$selectableFolderTree.find('.tree-branch-name:eq(2)'));
-				assert.notOk($toSelect.attr('aria-selected'), 'newly deselected folder no longer contains aria-selected="true"');
+				assert.ok($toSelect.attr('aria-selected'), 'newly selected item contains aria-selected="true"');
+				this.$selectableFolderTree.tree('selectItem', this.$selectableFolderTree.find('.tree-item:eq(2)'));
+				assert.equal($toSelect.attr('aria-selected'), 'false', "newly deselected item's aria-selected attr present and set to false");
 			});
 		});
 	};

@@ -6,8 +6,8 @@
 	<label class="control-label">Items selectable only</label>
 	<div class="form-group">
 
-		<ul class="tree" id="MyTree" role="tree" aria-activedescendant="" aria-label="My Tree">
-			<li class="tree-branch hidden" data-template="treebranch" role="treeitem" aria-expanded="false">
+		<ul class="tree" id="MyTree" role="tree" aria-activedescendant="" aria-label="My Tree" aria-multiselectable=false>
+			<li class="tree-branch hidden" data-template="treebranch" role="treeitem" aria-expanded="false" aria-selected="false">
 				<div class="tree-branch-header">
 					<button type="button" class="tree-branch-name" tabindex="-1">
 						<span class="glyphicon icon-caret glyphicon-play"></span>
@@ -18,7 +18,7 @@
 				<ul class="tree-branch-children" role="group"></ul>
 				<div class="tree-loader"><span role="alert">Loading...</span></div>
 			</li>
-			<li class="tree-item hidden" data-template="treeitem" role="treeitem">
+			<li class="tree-item hidden" data-template="treeitem" role="treeitem" aria-selected="false">
 				<button type="button" class="tree-item-name" tabindex="-1">
 					<span class="glyphicon icon-item fueluxicon-bullet"></span>
 					<span class="tree-label">Example Item</span>
@@ -33,8 +33,8 @@
 			<li class="tree-loader hidden"><span role="alert">Loading...</span></li>
 		</ul>
 
-		<ul class="tree" id="MyTree2" role="tree" aria-activedescendant="" aria-label="My Tree 2">
-			<li class="tree-branch hidden" data-template="treebranch" role="treeitem" aria-expanded="false">
+		<ul class="tree" id="MyTree2" role="tree" aria-activedescendant="" aria-label="My Tree 2" aria-multiselectable=false>
+			<li class="tree-branch hidden" data-template="treebranch" role="treeitem" aria-expanded="false" aria-selected="false">
 				<div class="tree-branch-header">
 					<button type="button" class="tree-branch-name" tabindex="-1">
 						<span class="glyphicon icon-caret glyphicon-play"></span>
@@ -45,7 +45,7 @@
 				<ul class="tree-branch-children" role="group"></ul>
 				<div class="tree-loader"><span role="alert">Loading...</span></div>
 			</li>
-			<li class="tree-item hidden" data-template="treeitem" role="treeitem">
+			<li class="tree-item hidden" data-template="treeitem" role="treeitem" aria-selected="false">
 				<button type="button" class="tree-item-name" tabindex="-1">
 					<span class="glyphicon icon-item fueluxicon-bullet"></span>
 					<span class="tree-label">Example Item</span>
@@ -67,8 +67,8 @@
 	<label class="control-label">Folders selectable</label>
 	<div class="form-group">
 
-		<ul id="MyTreeSelectableFolder" class="tree tree-folder-select" role="tree" aria-activedescendant=""  aria-label="My Tree Selectable">
-			<li class="tree-branch hidden" data-template="treebranch" role="treeitem" aria-expanded="false">
+		<ul id="MyTreeSelectableFolder" class="tree tree-folder-select" role="tree" aria-activedescendant=""  aria-label="My Tree Selectable" aria-multiselectable=false>
+			<li class="tree-branch hidden" data-template="treebranch" role="treeitem" aria-expanded="false" aria-selected="false">
 				<div class="tree-branch-header">
 					<button type="button" class="tree-branch-name" tabindex="-1">
 						<span class="glyphicon icon-caret glyphicon-play"></span>
@@ -79,7 +79,7 @@
 				<ul class="tree-branch-children" role="group"></ul>
 				<div class="tree-loader"><span role="alert">Loading...</span></div>
 			</li>
-			<li class="tree-item hidden" data-template="treeitem" role="treeitem">
+			<li class="tree-item hidden" data-template="treeitem" role="treeitem" aria-selected="false">
 				<button type="button" class="tree-item-name" tabindex="-1">
 					<span class="glyphicon icon-item fueluxicon-bullet"></span>
 					<span class="tree-label">Example Item</span>
