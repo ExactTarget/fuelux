@@ -24,8 +24,12 @@ define(function treeTest (require) {
 		QUnit.test('should be populated by items on initialization', require('./tree-tests/is-populated'));
 		QUnit.test('folder should populate when opened', require('./tree-tests/does-folder-populate'));
 		QUnit.test('getValue alias should function', require('./tree-tests/get-value-alias'));
-		QUnit.test('single item/folder selection works as designed', require('./tree-tests/single-select'));
-		QUnit.test('multiple item/folder selection works as designed', require('./tree-tests/multi-select'));
+
+		QUnit.module( 'Select', {}, function testHomeKeyPresses () {
+			require('./tree-tests/single-select')(QUnit);
+			require('./tree-tests/multi-select')(QUnit);
+		});
+
 		QUnit.test('should not allow selecting items if disabled', require('./tree-tests/disable-select-items'));
 		QUnit.test('should not allow selecting folders if disabled', require('./tree-tests/disable-select-folders'));
 		QUnit.test('folders should open and close correctly', require('./tree-tests/folders-open-close'));
