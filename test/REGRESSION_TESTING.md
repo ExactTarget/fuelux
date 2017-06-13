@@ -19,3 +19,41 @@ If a change intends to change the look of an asset, you will need:
 5. Run `npm test` again to make sure all pass
 
 Further changes tested against this new output will now ensure that the new change does not revert.
+
+
+When TravisCI was erring out on Niffy, Woodward was able to run Travis locally through Docker:
+
+1. [Install and setup Docker + Travis](https://docs.travis-ci.com/user/common-build-problems/#Troubleshooting-Locally-in-a-Docker-Image)
+2. Copy/paste the following into terminal in a directory without a current fuelux clone:
+```
+git clone --depth=50 --branch=master https://github.com/exacttarget/fuelux
+
+cd fuelux/
+
+git fetch origin +refs/pull/1990/merge
+
+git checkout -qf FETCH_HEAD
+
+export DEBIAN_FRONTEND=noninteractive
+
+sudo apt-get install libssl1.0.0
+
+sudo -E apt-get -yq update &>> ~/apt-get-update.log
+
+sudo -E apt-get -yq --no-install-suggests --no-install-recommends --force-yes install xvfb
+
+sudo -E apt-get -yq --no-install-suggests --no-install-recommends --force-yes install xvfb
+
+nvm install 6.8.1
+
+npm install
+
+./node_modules/bower/bin/bower update
+
+export DISPLAY=':99.0'
+
+Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+
+npm test
+
+```
