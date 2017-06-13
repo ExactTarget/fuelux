@@ -703,7 +703,7 @@
 	};
 
 	var ariaDeselect = function ariaDeselect ($element) {
-		$element.removeAttr('aria-selected');
+		$element.attr('aria-selected', false);
 	};
 
 	function styleNodeSelected ($element, $icon) {
