@@ -22,10 +22,10 @@ describe('Fuel UX 3', function testFuelUX3 () {
 		refServer = server.getServer(8013);
 		niffy = new Niffy(basehost, testhost, { show: true, threshold: 0 });
 	});
-	after(function stopAll () {
-		niffy.end();
+	after(function* stopAll () {
 		devServer.close();
 		refServer.close();
+		yield niffy.end();
 	});
 
 	describe('Components', function testComponents () {
