@@ -24,7 +24,7 @@ define(function singleSelectWorksModuleFactory () {
 				this.$selectableFolderTree.tree('selectItem', this.$selectableFolderTree.find('.tree-item:eq(1)'));
 				assert.equal(this.$selectableFolderTree.tree('selectedItems').length, 1, 'Return single selected item (none previously selected, 1st programatic selection)');
 
-				this.$selectableFolderTree.tree('selectFolder', this.$selectableFolderTree.find('.tree-branch-name:eq(1)'));
+				this.$selectableFolderTree.tree('selectFolder', this.$selectableFolderTree.find('.tree-branch:eq(1)'));
 				assert.equal(this.$selectableFolderTree.tree('selectedItems').length, 1, 'Return single selected folder (item previously selected, 2nd programatic selection)');
 
 				this.$selectableFolderTree.tree('selectItem', this.$selectableFolderTree.find('.tree-item:eq(2)'));
@@ -33,7 +33,7 @@ define(function singleSelectWorksModuleFactory () {
 				this.$selectableFolderTree.find('.tree-item:eq(1)').click();
 				assert.equal(this.$selectableFolderTree.tree('selectedItems').length, 1, 'Return single selected item (item previously selected, 1st click selection)');
 
-				this.$selectableFolderTree.find('.tree-branch-name:eq(1)').click();
+				this.$selectableFolderTree.find('.tree-branch:eq(1)').click();
 				assert.equal(this.$selectableFolderTree.tree('selectedItems').length, 1, 'Return single selected folder (item previously selected, 2nd click selection)');
 
 				this.$selectableFolderTree.find('.tree-item:eq(2)').click();
@@ -60,7 +60,7 @@ define(function singleSelectWorksModuleFactory () {
 					folderSelect: true
 				});
 
-				var $toSelect = this.$selectableFolderTree.find('.tree-branch-name:eq(1)');
+				var $toSelect = this.$selectableFolderTree.find('.tree-branch:eq(1)');
 				assert.equal($toSelect.attr('aria-selected'), 'false', "item's aria-selected attr present and set to false");
 				this.$selectableFolderTree.tree('selectItem', $toSelect);
 				assert.ok($toSelect.attr('aria-selected'), 'newly selected item contains aria-selected="true"');

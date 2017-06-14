@@ -22,11 +22,11 @@ define(function multiSelectWorksModuleFactory () {
 					folderSelect: true
 				});
 
-				this.$selectableFolderTree.tree('selectFolder', this.$selectableFolderTree.find('.tree-branch-name:eq(1)'));
+				this.$selectableFolderTree.tree('selectFolder', this.$selectableFolderTree.find('.tree-branch:eq(1)'));
 				assert.equal(this.$selectableFolderTree.tree('selectedItems').length, 1, 'Return single selected value');
-				this.$selectableFolderTree.tree('selectFolder', this.$selectableFolderTree.find('.tree-branch-name:eq(2)'));
+				this.$selectableFolderTree.tree('selectFolder', this.$selectableFolderTree.find('.tree-branch:eq(2)'));
 				assert.equal(this.$selectableFolderTree.tree('selectedItems').length, 2, 'Return multiple selected values');
-				this.$selectableFolderTree.tree('selectFolder', this.$selectableFolderTree.find('.tree-branch-name:eq(1)'));
+				this.$selectableFolderTree.tree('selectFolder', this.$selectableFolderTree.find('.tree-branch:eq(1)'));
 				assert.equal(this.$selectableFolderTree.tree('selectedItems').length, 1, 'Return single selected value');
 			});
 
@@ -58,8 +58,8 @@ define(function multiSelectWorksModuleFactory () {
 					folderSelect: true
 				});
 
-				var $toSelect1 = this.$selectableFolderTree.find('.tree-branch-name:eq(1)');
-				var $toSelect2 = this.$selectableFolderTree.find('.tree-branch-name:eq(2)');
+				var $toSelect1 = this.$selectableFolderTree.find('.tree-branch:eq(1)');
+				var $toSelect2 = this.$selectableFolderTree.find('.tree-branch:eq(2)');
 
 				assert.equal($toSelect1.attr('aria-selected'), 'false', "item 1's aria-selected attr present and set to false");
 				assert.equal($toSelect2.attr('aria-selected'), 'false', "item 2's aria-selected attr present and set to false");
