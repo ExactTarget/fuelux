@@ -7,6 +7,18 @@
   "bugs": {
     "url": "https://github.com/ExactTarget/fuelux/issues"
   },
+  "scripts": {
+    "build": "grunt dist",
+    "setup": "npm install && bower install",
+    "start": "grunt serve",
+    "postinstall": "node postinstall.js",
+    "local": "grunt servefast",
+    "release": "grunt release",
+    "test": "xvfb-maybe mocha test/mocha.js && grunt travisci --verbose",
+    "regressionservers": "node test/regression/app.js",
+    "regression": "mocha test/mocha.js",
+    "updatereferences": "grunt shell:copyToReference"
+  },
   "dependencies": {
     "bootstrap": "3.3.7",
     "jquery": "3.2.1",
@@ -15,10 +27,14 @@
   "description": "Base Fuel UX styles and controls",
   "devDependencies": {
     "bower": "1.8.0",
+    "chai": "^4.0.1",
+    "co-mocha": "^1.2.0",
     "connect": "3.6.2",
     "eslint": "^3.5.0",
     "eslint-config-airbnb-es5": "^1.0.9",
     "eslint-plugin-requirejs": "^3.0.0",
+    "express": "^4.15.3",
+    "express-handlebars": "^3.0.0",
     "grunt": "^1.0.1",
     "grunt-banner": "0.6.0",
     "grunt-blanket-qunit": "^0.2.0",
@@ -45,8 +61,12 @@
     "grunt-zip": "0.17.1",
     "load-grunt-config": "0.19.2",
     "load-grunt-tasks": "3.5.2",
+    "mocha": "^3.4.2",
+    "niffy": "^0.2.0",
+    "nightmare": "^2.10.0",
     "semver": "5.3.0",
-    "serve-static": "1.12.3"
+    "serve-static": "1.12.3",
+    "xvfb-maybe": "^0.2.1"
   },
   "engines": {
     "node": ">=5.8.x"
@@ -77,15 +97,6 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/ExactTarget/fuelux.git"
-  },
-  "scripts": {
-    "build": "grunt dist",
-    "setup": "npm install && bower install",
-    "start": "grunt serve",
-    "test": "grunt travisci --verbose",
-    "postinstall": "node postinstall.js",
-    "local": "grunt servefast",
-    "release": "grunt release"
   },
   "title": "Fuel UX",
   "version": "3.16.0",

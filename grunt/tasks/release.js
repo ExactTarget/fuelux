@@ -77,9 +77,22 @@ module.exports = function (grunt) {
 		grunt.config('banner', '<%= bannerRelease %>');
 
 		// Run dist again to grab the latest version numbers. Yeah, we're running it twice... ¯\_(ツ)_/¯
-		grunt.task.run(['bump-only:' + grunt.config('release.buildSemVerType'), 'replace:readme', 'replace:packageJs', 'dist',
-			'shell:addReleaseFiles', 'prompt:commit', 'prompt:tag', 'prompt:pushLocalBranchToUpstream',
-			'prompt:pushTagToUpstream', 'prompt:uploadToCDN', 'prompt:pushLocalBranchToUpstreamMaster', 'shell:publishToNPM', 'prompt:generatelogs']);
+		grunt.task.run([
+			'bump-only:' + grunt.config('release.buildSemVerType'),
+			'replace:readme',
+			'replace:packageJs',
+			'dist',
+			'shell:addReleaseFiles',
+			'prompt:commit',
+			'prompt:tag',
+			'prompt:pushLocalBranchToUpstream',
+			'prompt:pushTagToUpstream',
+			'prompt:uploadToCDN',
+			'prompt:pushLocalBranchToUpstreamMaster',
+			'shell:publishToNPM',
+			'shell:copyToReference',
+			'prompt:generatelogs'
+		]);
 	});
 };
 
