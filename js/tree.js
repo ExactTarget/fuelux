@@ -522,6 +522,26 @@
 	// PRIVATE FUNCTIONS
 
 	var fixFocusability = function fixFocusability ($tree, $branch) {
+		/*
+		When tree initializes on page, the `<ul>` element should have tabindex=0 and all sub-elements should have
+		tabindex=-1. When focus leaves the tree, whatever the last focused on element was will keep the tabindex=0. The
+		tree itself will have a tabindex=-1. The reason for this is that if you are inside of the tree and press
+		shift+tab, it will try and focus on the tree you are already in, which will cause focus to shift immediately
+		back to the element you are already focused on. That will make it seem like the event is getting "Swallowed up"
+		by an aggressive event listener trap.
+
+		For this reason, only one element in the entire tree, including the tree itself, should ever have tabindex=0.
+		If somewhere down the line problems are being caused by this, the only further potential improvement I can
+		envision at this time is listening for the tree to lose focus and reseting the tabindexes of all children to -1
+		and setting the tabindex of the tree itself back to 0. This seems overly complicated with no benefit that I can
+		imagine at this time, so instead I am leaving the last focused element with the tabindex of 0, even upon blur of
+		the tree.
+
+		One benefit to leaving the last focused element in a tree with a tabindex=0 is that if you accidentally tab out
+		of the tree and then want to tab back in, you will be placed exactly where you left off instead of at the
+		beginning of the tree.
+		*/
+		$tree.attr('tabindex', -1);
 		$tree.find('li').attr('tabindex', -1);
 		if ($branch && $branch.length > 0) {
 			$branch.attr('tabindex', 0); // if tabindex is not set to 0 (or greater), node is not able to receive focus

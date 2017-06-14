@@ -10,7 +10,10 @@ define(function Module (require) {
 			QUnit.skip('are set to 1 for selected items', function loadTree (assert) {
 
 			});
-			QUnit.skip('are all set to -1 on blur', function loadTree (assert) {
+			QUnit.skip('are all set to -1 on new item selection', function loadTree (assert) {
+
+			});
+			QUnit.skip('root tree element is set to -1 on item selection', function loadTree (assert) {
 
 			});
 		});
