@@ -43,7 +43,7 @@ module.exports = {
 		]
 	},
 	less: {
-		files: ['fonts/**', 
+		files: ['fonts/**',
 			'less/**'],
 		options: {
 			livereload: true
@@ -65,9 +65,9 @@ module.exports = {
 		tasks: ['distcssdev']
 	},
 	dist: {
-		files: ['fonts/**', 
+		files: ['fonts/**',
 			'grunt/**',
-			'js/**', 
+			'js/**',
 			'less/**'],
 		options: {
 			livereload: true

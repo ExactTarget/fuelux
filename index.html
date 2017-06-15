@@ -57,53 +57,6 @@
 			<section id="checkboxes">
 				<h2>Checkboxes</h2>
 				<div class="thin-box">
-					<section id="checkboxes-block">
-						<div id="myCheckbox1Wrapper" style="width: 300px;"></div>
-						<div class="checkbox" id="myCheckbox">
-							<label class="checkbox-custom" data-initialize="checkbox" id="myCustomCheckbox1">
-								<input class="sr-only" type="checkbox" value="" />
-								<span class="checkbox-label">Custom checkbox unchecked on page load</span>
-							</label>
-						</div>
-						<div class="checkbox" id="myCheckbox2">
-							<label class="checkbox-custom checked" data-initialize="checkbox" id="myCustomCheckbox2">
-								<input class="sr-only" checked="checked" type="checkbox" value="" />
-								<span class="checkbox-label">Custom checkbox checked on page load</span>
-							</label>
-						</div>
-						<div class="checkbox" id="myCheckbox3">
-							<label class="checkbox-custom" data-initialize="checkbox" id="myCustomCheckbox3">
-								<input class="sr-only" disabled="disabled" type="checkbox" value="" />
-								<span class="checkbox-label">Disabled custom checkbox unchecked on page load</span>
-							</label>
-						</div>
-						<div class="checkbox" id="myCheckbox4">
-							<label class="checkbox-custom checked disabled" data-initialize="checkbox" id="myCustomCheckbox4">
-								<input class="sr-only" checked="checked" disabled="disabled" type="checkbox" value="" />
-								<span class="checkbox-label">Disabled custom checkbox checked on page load</span>
-							</label>
-						</div>
-					</section>
-
-					<section id="checkboxes-inline">
-						<label class="checkbox-custom checkbox-inline" data-initialize="checkbox" id="myCustomInlineCheckbox1">
-							<input type="checkbox" class="sr-only" checked="checked" />
-							<span class="checkbox-label">1, 2, buckle my shoe</span>
-						</label>
-						<label class="checkbox-custom checkbox-inline" data-initialize="checkbox" id="myCustomInlineCheckbox2">
-							<input type="checkbox" class="sr-only" />
-							<span class="checkbox-label">3, 4, shut the door</span>
-						</label>
-						<label class="checkbox-custom checkbox-inline" data-initialize="checkbox" id="myCustomInlineCheckbox3">
-							<input type="checkbox" class="sr-only" disabled="disabled" />
-							<span class="checkbox-label">5, 6, pick up sticks</span>
-						</label>
-						<label class="checkbox-custom checkbox-inline" data-initialize="checkbox" id="myCustomInlineCheckbox4">
-							<input type="checkbox" class="checked sr-only" checked="checked" disabled="disabled" />
-							<span class="checkbox-label">7, 8, lay them straight</span>
-						</label>
-					</section>
-
 					<section id="checkboxes-toggling">
 						<div class="checkbox">
 							<label class="checkbox-custom" data-initialize="checkbox" id="myCustomTogglingCheckbox1">
@@ -2118,7 +2071,7 @@
 							</div>
 
 							<div class="picker-body well">
-								<ul class="tree" id="myPickerTree1" role="tree">
+								<ul class="tree" id="myPickerTree1" role="tree" aria-activedescendant="" aria-label="My Tree">
 									<li class="tree-branch hidden" data-template="treebranch" role="treeitem" aria-expanded="false">
 										<div class="tree-branch-header">
 											<button type="button" class="glyphicon icon-caret glyphicon-play"><span class="sr-only">Open</span>
@@ -2160,10 +2113,10 @@
 				<h2>Tree</h2>
 				<div class="thin-box">
 					<!-- Utilizes Handlebars templates (see index.js) -->
-					<h3>folders selectable (please note structure of treebranch)</h3>
+					<h3 id="myTreeLabel">folders selectable (please note structure of treebranch)</h3>
 					<div id="myTreeWrapper"></div>
 
-					<h3>only items selectable (please note structure of treebranch)</h3>
+					<h3 id="myTree2Label">only items selectable (please note structure of treebranch)</h3>
 					<div id="myTree2Wrapper"></div>
 
 				</div>
