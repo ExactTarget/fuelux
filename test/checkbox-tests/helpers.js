@@ -8,11 +8,11 @@ define(function treeDataFactory (require) {
 		var $fixture = $('#qunit-fixture');
 		this.html = require('text!test/markup/checkbox-markup.html!strip');
 		this.$html = $(this.html);
-		this.$checkedEnabled = this.$html.find('#CheckboxCheckedEnabled');
-		this.$checkedDisabled = this.$html.find('#CheckboxCheckedDisabled');
-		this.$uncheckedEnabled = this.$html.find('#CheckboxUncheckedEnabled');
-		this.$uncheckedDisabled = this.$html.find('#CheckboxUncheckedDisabled');
 		$fixture.append(this.$html);
+		this.$checkedEnabled = $fixture.find('#CheckboxCheckedEnabled').find('label').checkbox();
+		this.$checkedDisabled = $fixture.find('#CheckboxCheckedDisabled').find('label').checkbox();
+		this.$uncheckedEnabled = $fixture.find('#CheckboxUncheckedEnabled').find('label').checkbox();
+		this.$uncheckedDisabled = $fixture.find('#CheckboxUncheckedDisabled').find('label').checkbox();
 	};
 
 	return {
