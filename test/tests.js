@@ -60,4 +60,5 @@ define(function testWrapper (require) {
 	require('./test/picker-test');
 	require('./test/tree-test');
 	require('./test/wizard-test');
+	require('./test/utilities-test');
 });
