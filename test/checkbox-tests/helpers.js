@@ -9,10 +9,12 @@ define(function treeDataFactory (require) {
 		this.html = require('text!test/markup/checkbox-markup.html!strip');
 		this.$html = $(this.html);
 		$fixture.append(this.$html);
-		this.$checkedEnabled = $fixture.find('#CheckboxCheckedEnabled').find('label').checkbox();
-		this.$checkedDisabled = $fixture.find('#CheckboxCheckedDisabled').find('label').checkbox();
-		this.$uncheckedEnabled = $fixture.find('#CheckboxUncheckedEnabled').find('label').checkbox();
-		this.$uncheckedDisabled = $fixture.find('#CheckboxUncheckedDisabled').find('label').checkbox();
+		this.$checkedEnabled = $fixture.find('#CheckboxCheckedEnabled').checkbox();
+		this.$checkedDisabled = $fixture.find('#CheckboxCheckedDisabled').checkbox();
+		this.$uncheckedEnabled = $fixture.find('#CheckboxUncheckedEnabled').checkbox();
+		this.$uncheckedDisabled = $fixture.find('#CheckboxUncheckedDisabled').checkbox();
+		this.$checkboxToggle = $fixture.find('#CheckboxToggle').checkbox();
+		this.$fixture = $fixture;
 	};
 
 	return {
