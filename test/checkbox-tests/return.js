@@ -1,5 +1,5 @@
-define(function checkboxDisableEnableModule () {
-	return function checkboxDisableEnable (QUnit) {
+define(function checkboxReturnModule () {
+	return function checkboxReturn (QUnit) {
 		QUnit.test('should return checked state', function testReturn (assert) {
 			// Verify checked state changes with toggle method
 			assert.ok(this.$checkedEnabled.checkbox('isChecked'), 'checkbox state is checked');
