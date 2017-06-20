@@ -29,6 +29,5 @@ define(function checkboxTest (require) {
 		require('./checkbox-tests/events')(QUnit);
 		require('./checkbox-tests/visibility')(QUnit);
 		require('./checkbox-tests/destroy')(QUnit);
-		require('./checkbox-tests/keyboard')(QUnit);
 	});
 });
