@@ -4,7 +4,7 @@
   <div class="<% if(horizontal) {%> col-sm-10<% } %><% if(required) {%> required<% } %>">
     <% _.each(radios, function(radio, i){ %><div class="radio">
       <label class="radio-custom<% if(isDisabled) {%> disabled<% } %>" data-initialize="radio" id="<%= name+'-'+i %>">
-        <input class="sr-only" name="<%= name %>" type="radio" value="<%= radio %>"<% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %>>
+        <input class="sr-only" name="<%= name %>" type="radio" value="<%= radio %>"<% if(readonly) {%> readonly <% } %><% if(isDisabled) {%> disabled <% } %><% if(!noTabIndex) {%> tabindex="<% if(tabIndex) { %><%=tabIndex%><% } else { %>0<% } %>" <% } %>>
         <span class="radio-label"><%= radio %></span>
       </label>
     </div><% }); %>
