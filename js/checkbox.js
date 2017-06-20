@@ -1,3 +1,5 @@
+/* global jQuery:true */
+
 /*
  * Fuel UX Checkbox
  * https://github.com/ExactTarget/fuelux
@@ -11,7 +13,7 @@
 // For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
-(function (factory) {
+(function umdFactory (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
 		define(['jquery'], factory);
@@ -22,7 +24,7 @@
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
 	}
-}(function ($) {
+}(function CheckboxWrapper ($) {
 	// -- END UMD WRAPPER PREFACE --
 
 	// -- BEGIN MODULE CODE HERE --
@@ -31,7 +33,7 @@
 
 	// CHECKBOX CONSTRUCTOR AND PROTOTYPE
 
-	var Checkbox = function (element, options) {
+	var Checkbox = function Checkbox (element, options) {
 		this.options = $.extend({}, $.fn.checkbox.defaults, options);
 		var $element = $(element);
 

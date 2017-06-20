@@ -26,8 +26,9 @@
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
 	}
-}(function utilities ($) {
+}(function utilitiesWrapper ($) {
 	// -- END UMD WRAPPER PREFACE --
+
 	// -- BEGIN MODULE CODE HERE --
 	var CONST = {
 		BACKSPACE_KEYCODE: 8,

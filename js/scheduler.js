@@ -1,3 +1,5 @@
+/* global jQuery:true */
+
 /*
  * Fuel UX Scheduler
  * https://github.com/ExactTarget/fuelux
@@ -11,7 +13,7 @@
 // For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
-(function (factory) {
+(function umdFactory (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
 		define(['jquery', 'fuelux/combobox', 'fuelux/datepicker', 'fuelux/radio', 'fuelux/selectlist', 'fuelux/spinbox'], factory);
@@ -23,14 +25,13 @@
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
 	}
-}(function ($) {
-	if (!$.fn.combobox || !$.fn.datepicker || !$.fn.radio || !$.fn.selectlist || !$.fn.spinbox) {
-		throw new Error('Fuel UX scheduler control requires combobox, datepicker, radio, selectlist, and spinbox.');
-	}
-
+}(function SchedulerWrapper ($) {
 	// -- END UMD WRAPPER PREFACE --
 
 	// -- BEGIN MODULE CODE HERE --
+	if (!$.fn.combobox || !$.fn.datepicker || !$.fn.radio || !$.fn.selectlist || !$.fn.spinbox) {
+		throw new Error('Fuel UX scheduler control requires combobox, datepicker, radio, selectlist, and spinbox.');
+	}
 
 	var old = $.fn.scheduler;
 

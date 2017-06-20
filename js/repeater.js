@@ -13,7 +13,7 @@
 // For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
-(function UMDFactory (factory) {
+(function umdFactory (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
 		define(['jquery', 'fuelux/combobox', 'fuelux/infinite-scroll', 'fuelux/search', 'fuelux/selectlist'], factory);
@@ -25,7 +25,7 @@
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
 	}
-}(function repeater ($) {
+}(function RepeaterWrapper ($) {
 	// -- END UMD WRAPPER PREFACE --
 
 	// -- BEGIN MODULE CODE HERE --
