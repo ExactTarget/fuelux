@@ -39,10 +39,10 @@
 
 		var errors = '';
 		if (element.tagName.toLowerCase() !== 'label') {
-			errors += 'checkbox must be initialized on the `label` that wraps the `input` element. See https://github.com/ExactTarget/fuelux/blob/master/reference/markup/checkbox.html for example of proper markup. Call `.checkbox()` on the `<label>` not the `<input>`.';
+			errors += 'checkbox must be initialized on the `label` that wraps the `input` element. See https://github.com/ExactTarget/fuelux/blob/master/reference/markup/checkbox.html for example of proper markup. Call `.checkbox()` on the `<label>` not the `<input>`\n';
 		}
 		if ($element.css('visibility').match(/hidden|collapse/)) {
-			errors += 'for accessibility reasons, in order for tab and space to function on checkbox, `visibility` must not be set to `hidden` or `collapse`';
+			errors += 'for accessibility reasons, in order for tab and space to function on checkbox, `visibility` must not be set to `hidden` or `collapse.`\n';
 		}
 
 		if (errors !== '' && !this.options.ignoreErrors) {
