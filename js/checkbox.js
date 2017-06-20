@@ -33,16 +33,27 @@
 
 	var Checkbox = function (element, options) {
 		this.options = $.extend({}, $.fn.checkbox.defaults, options);
+		var $element = $(element);
 
-		if(element.tagName.toLowerCase() !== 'label') {
-			//console.log('initialize checkbox on the label that wraps the checkbox');
+		var errors = '';
+		if (element.tagName.toLowerCase() !== 'label') {
+			errors += 'checkbox must be initialized on the `label` that wraps the `input` element. See https://github.com/ExactTarget/fuelux/blob/master/reference/markup/checkbox.html for example of proper markup. Call `.checkbox()` on the `<label>` not the `<input>`.';
+		}
+		if ($element.css('visibility').match(/hidden|collapse/)) {
+			errors += 'for accessibility reasons, in order for tab and space to function on checkbox, `visibility` must not be set to `hidden` or `collapse`';
+		}
+
+		if (errors !== '' && !this.options.ignoreErrors) {
+			if (window && window.console && window.console.error) {
+				window.console.error(errors);
+			}
 			return;
 		}
 
 		// cache elements
-		this.$label = $(element);
+		this.$label = $element;
 		this.$chk = this.$label.find('input[type="checkbox"]');
-		this.$container = $(element).parent('.checkbox'); // the container div
+		this.$container = $element.parent('.checkbox'); // the container div
 
 		// determine if a toggle container is specified
 		var containerSelector = this.$chk.attr('data-toggle');
