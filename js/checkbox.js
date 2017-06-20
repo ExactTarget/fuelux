@@ -72,9 +72,8 @@
 
 		constructor: Checkbox,
 
-		setInitialState: function() {
+		setInitialState: function setInitialState () {
 			var $chk = this.$chk;
-			var $lbl = this.$label;
 
 			// get current state of input
 			var checked = $chk.prop('checked');
@@ -85,26 +84,19 @@
 			this.setDisabledState($chk, disabled);
 		},
 
-		setCheckedState: function(element, checked) {
+		setCheckedState: function setCheckedState (element, checked) {
 			var $chk = element;
 			var $lbl = this.$label;
-			var $container = this.$container;
 			var $containerToggle = this.$toggleContainer;
 
-			// set class on outer container too...to support highlighting
-			// TODO: verify inline checkboxes, also test with MCTheme
-
-			if(checked) {
+			if (checked) {
 				$chk.prop('checked', true);
 				$lbl.addClass('checked');
-				//$container.addClass('checked');
 				$containerToggle.removeClass('hide hidden');
 				$lbl.trigger('checked.fu.checkbox');
-			}
-			else {
+			} else {
 				$chk.prop('checked', false);
 				$lbl.removeClass('checked');
-				//$container.removeClass('checked');
 				$containerToggle.addClass('hidden');
 				$lbl.trigger('unchecked.fu.checkbox');
 			}
@@ -112,67 +104,60 @@
 			$lbl.trigger('changed.fu.checkbox', checked);
 		},
 
-		setDisabledState: function(element, disabled) {
-			var $chk = element;
+		setDisabledState: function setDisabledState (element, disabled) {
 			var $lbl = this.$label;
 
-			if(disabled) {
+			if (disabled) {
 				this.$chk.prop('disabled', true);
 				$lbl.addClass('disabled');
 				$lbl.trigger('disabled.fu.checkbox');
-			}
-			else {
+			} else {
 				this.$chk.prop('disabled', false);
 				$lbl.removeClass('disabled');
 				$lbl.trigger('enabled.fu.checkbox');
 			}
 		},
 
-		itemchecked: function (evt) {
+		itemchecked: function itemchecked (evt) {
 			var $chk = $(evt.target);
 			var checked = $chk.prop('checked');
 
 			this.setCheckedState($chk, checked);
 		},
 
-		toggle: function () {
+		toggle: function toggle () {
 			var checked = this.isChecked();
 
-			if(checked) {
+			if (checked) {
 				this.uncheck();
-			}
-			else {
+			} else {
 				this.check();
 			}
 		},
 
-		check: function () {
+		check: function check () {
 			this.setCheckedState(this.$chk, true);
 		},
 
-		uncheck: function () {
+		uncheck: function uncheck () {
 			this.setCheckedState(this.$chk, false);
 		},
 
-		isChecked: function () {
+		isChecked: function isChecked () {
 			var checked = this.$chk.prop('checked');
 			return checked;
 		},
 
-		enable: function () {
+		enable: function enable () {
 			this.setDisabledState(this.$chk, false);
 		},
 
-		disable: function () {
+		disable: function disable () {
 			this.setDisabledState(this.$chk, true);
 		},
 
-		destroy: function () {
+		destroy: function destroy () {
 			this.$label.remove();
-			// remove any external bindings
-			// [none]
-			// empty elements to return to original markup
-			// [none]
 			return this.$label[0].outerHTML;
 		}
 	};
@@ -181,11 +166,11 @@
 
 	// CHECKBOX PLUGIN DEFINITION
 
-	$.fn.checkbox = function (option) {
+	$.fn.checkbox = function checkbox (option) {
 		var args = Array.prototype.slice.call(arguments, 1);
 		var methodReturn;
 
-		var $set = this.each(function () {
+		var $set = this.each(function applyData () {
 			var $this = $(this);
 			var data = $this.data('fu.checkbox');
 			var options = typeof option === 'object' && option;
@@ -206,14 +191,14 @@
 
 	$.fn.checkbox.Constructor = Checkbox;
 
-	$.fn.checkbox.noConflict = function () {
+	$.fn.checkbox.noConflict = function noConflict () {
 		$.fn.checkbox = old;
 		return this;
 	};
 
 	// DATA-API
 
-	$(document).on('mouseover.fu.checkbox.data-api', '[data-initialize=checkbox]', function (e) {
+	$(document).on('mouseover.fu.checkbox.data-api', '[data-initialize=checkbox]', function initializeCheckboxes (e) {
 		var $control = $(e.target);
 		if (!$control.data('fu.checkbox')) {
 			$control.checkbox($control.data());
@@ -221,8 +206,8 @@
 	});
 
 	// Must be domReady for AMD compatibility
-	$(function () {
-		$('[data-initialize=checkbox]').each(function () {
+	$(function onReadyInitializeCheckboxes () {
+		$('[data-initialize=checkbox]').each(function initializeCheckbox () {
 			var $this = $(this);
 			if (!$this.data('fu.checkbox')) {
 				$this.checkbox($this.data());
