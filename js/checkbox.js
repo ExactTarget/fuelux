@@ -48,7 +48,7 @@
 			return;
 		}
 		if ($element.css('visibility').match(/hidden|collapse/)) {
-			logError('For accessibility reasons, in order for tab and space to function on checkbox, `visibility` must not be set to `hidden` or `collapse`. See https://github.com/ExactTarget/fuelux/pull/ for more details.');
+			logError('For accessibility reasons, in order for tab and space to function on checkbox, `visibility` must not be set to `hidden` or `collapse`. See https://github.com/ExactTarget/fuelux/pull/1996 for more details.');
 		}
 
 		// cache elements
