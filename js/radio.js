@@ -32,13 +32,22 @@
 	var old = $.fn.radio;
 
 	// RADIO CONSTRUCTOR AND PROTOTYPE
+	var logError = function logError (error) {
+		if (window && window.console && window.console.error) {
+			window.console.error(error);
+		}
+	};
 
 	var Radio = function (element, options) {
 		this.options = $.extend({}, $.fn.radio.defaults, options);
+		var $element = $(element);
 
-		if(element.tagName.toLowerCase() !== 'label') {
-			//console.log('initialize radio on the label that wraps the radio');
+		if (element.tagName.toLowerCase() !== 'label') {
+			logError('Radio must be initialized on the `label` that wraps the `input` element. See https://github.com/ExactTarget/fuelux/blob/master/reference/markup/radio.html for example of proper markup. Call `.radio()` on the `<label>` not the `<input>`');
 			return;
+		}
+		if ($element.css('visibility').match(/hidden|collapse/)) {
+			logError('For accessibility reasons, in order for tab and space to function on radio, `visibility` must not be set to `hidden` or `collapse`. See https://github.com/ExactTarget/fuelux/pull/1996 for more details.');
 		}
 
 		// cache elements
