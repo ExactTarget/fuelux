@@ -33,23 +33,22 @@
 
 	// CHECKBOX CONSTRUCTOR AND PROTOTYPE
 
+	var logError = function logError (error) {
+		if (window && window.console && window.console.error) {
+			window.console.error(error);
+		}
+	};
+
 	var Checkbox = function Checkbox (element, options) {
 		this.options = $.extend({}, $.fn.checkbox.defaults, options);
 		var $element = $(element);
 
-		var errors = '';
 		if (element.tagName.toLowerCase() !== 'label') {
-			errors += 'checkbox must be initialized on the `label` that wraps the `input` element. See https://github.com/ExactTarget/fuelux/blob/master/reference/markup/checkbox.html for example of proper markup. Call `.checkbox()` on the `<label>` not the `<input>`\n';
+			logError('Checkbox must be initialized on the `label` that wraps the `input` element. See https://github.com/ExactTarget/fuelux/blob/master/reference/markup/checkbox.html for example of proper markup. Call `.checkbox()` on the `<label>` not the `<input>`');
+			return;
 		}
 		if ($element.css('visibility').match(/hidden|collapse/)) {
-			errors += 'for accessibility reasons, in order for tab and space to function on checkbox, `visibility` must not be set to `hidden` or `collapse.`\n';
-		}
-
-		if (errors !== '' && !this.options.ignoreErrors) {
-			if (window && window.console && window.console.error) {
-				window.console.error(errors);
-			}
-			return;
+			logError('For accessibility reasons, in order for tab and space to function on checkbox, `visibility` must not be set to `hidden` or `collapse`. See https://github.com/ExactTarget/fuelux/pull/ for more details.');
 		}
 
 		// cache elements
