@@ -32,7 +32,7 @@ define(function checkboxEventsModule () {
 				this.$checkedEnabled.checkbox('uncheck');
 			});
 
-			QUnit.test('changed event when clicking on input element', function testClickChecked (assert) {
+			QUnit.test('changed event when clicking on input unchecked element', function testClickChecked (assert) {
 				assert.expect(1);
 
 				this.$uncheckedEnabled.on('changed.fu.checkbox', function changedTriggered () {
@@ -42,14 +42,14 @@ define(function checkboxEventsModule () {
 				this.$uncheckedEnabled.find('input[type="checkbox"]').click();
 			});
 
-			QUnit.test('changed event when clicking on input element', function testClickUnchecked (assert) {
+			QUnit.test('changed event when clicking on input checked element', function testClickUnchecked (assert) {
 				assert.expect(1);
 
-				this.$uncheckedEnabled.on('changed.fu.checkbox', function changedTriggered () {
+				this.$checkedEnabled.on('changed.fu.checkbox', function changedTriggered () {
 					assert.ok(true, 'changed event triggered');
 				});
 
-				this.$uncheckedEnabled.find('input[type="checkbox"]').click();
+				this.$checkedEnabled.find('input[type="checkbox"]').click();
 			});
 		});
 	};

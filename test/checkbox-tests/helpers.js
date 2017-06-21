@@ -1,7 +1,7 @@
 /* global QUnit:false, module:false, test:false, asyncTest:false, expect:false */
 /* global start:false, stop:false ok:false, equal:false, notEqual:false, deepEqual:false */
 /* global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false */
-define(function treeDataFactory (require) {
+define(function checkboxHelpers (require) {
 	var $ = require('jquery');
 	var $fixture = $('#qunit-fixture');
 	var html = require('text!test/markup/checkbox-markup.html!strip');
