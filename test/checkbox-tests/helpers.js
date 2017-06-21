@@ -3,11 +3,11 @@
 /* global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false */
 define(function treeDataFactory (require) {
 	var $ = require('jquery');
+	var $fixture = $('#qunit-fixture');
+	var html = require('text!test/markup/checkbox-markup.html!strip');
 
 	var setup = function setup () {
-		var $fixture = $('#qunit-fixture');
-		this.html = require('text!test/markup/checkbox-markup.html!strip');
-		this.$html = $(this.html);
+		this.$html = $(html);
 		$fixture.append(this.$html);
 		this.$checkedEnabled = $fixture.find('#CheckboxCheckedEnabled').checkbox();
 		this.$checkedDisabled = $fixture.find('#CheckboxCheckedDisabled').checkbox();
