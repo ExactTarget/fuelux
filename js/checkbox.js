@@ -47,14 +47,15 @@
 			logError('Checkbox must be initialized on the `label` that wraps the `input` element. See https://github.com/ExactTarget/fuelux/blob/master/reference/markup/checkbox.html for example of proper markup. Call `.checkbox()` on the `<label>` not the `<input>`');
 			return;
 		}
-		if (!this.options.ignoreVisibilityCheck && $element.css('visibility').match(/hidden|collapse/)) {
-			logError('For accessibility reasons, in order for tab and space to function on checkbox, `visibility` must not be set to `hidden` or `collapse`. See https://github.com/ExactTarget/fuelux/pull/1996 for more details.');
-		}
 
 		// cache elements
 		this.$label = $element;
 		this.$chk = this.$label.find('input[type="checkbox"]');
 		this.$container = $element.parent('.checkbox'); // the container div
+
+		if (!this.options.ignoreVisibilityCheck && this.$chk.css('visibility').match(/hidden|collapse/)) {
+			logError('For accessibility reasons, in order for tab and space to function on checkbox, checkbox `<input />`\'s `visibility` must not be set to `hidden` or `collapse`. See https://github.com/ExactTarget/fuelux/pull/1996 for more details.');
+		}
 
 		// determine if a toggle container is specified
 		var containerSelector = this.$chk.attr('data-toggle');
