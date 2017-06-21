@@ -14,6 +14,10 @@ define(function keyboardNavigationModuleFactory (require) {
 			QUnit.skip('when focus is on open branch, moves focus into open branch onto first focusable child', function respondsToKeyboardInput (assert) {
 
 			});
+
+			QUnit.skip('when focus is on open empty branch, moves focus down to next sibling', function respondsToKeyboardInput (assert) {
+
+			});
 		});
 	};
 });
