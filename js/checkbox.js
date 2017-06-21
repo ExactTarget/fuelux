@@ -104,17 +104,20 @@
 		},
 
 		setDisabledState: function setDisabledState (element, disabled) {
+			var $chk = $(element);
 			var $lbl = this.$label;
 
 			if (disabled) {
-				this.$chk.prop('disabled', true);
+				$chk.prop('disabled', true);
 				$lbl.addClass('disabled');
 				$lbl.trigger('disabled.fu.checkbox');
 			} else {
-				this.$chk.prop('disabled', false);
+				$chk.prop('disabled', false);
 				$lbl.removeClass('disabled');
 				$lbl.trigger('enabled.fu.checkbox');
 			}
+
+			return $chk;
 		},
 
 		itemchecked: function itemchecked (evt) {
