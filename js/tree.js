@@ -71,6 +71,7 @@
 		});
 
 		this.$element.on('keydown', function processKeypress (e) {
+			console.log('fired keydown');
 			return navigateTree($(this), e);
 		});
 
@@ -585,7 +586,7 @@
 		// the navigateTree method if there is no (fake) promise, but will be fired by an event listener that will
 		// be triggered by another function if necessary. This way when done runs, and fires keyboardNavigated.fu.tree
 		// anything listening for that event can be sure that everything tied to that event is actually completed.
-		var noPromise = true;
+		var fireDoneImmediately = true;
 		var done = function done () {
 			$tree.trigger('keyboardNavigated.fu.tree', e, $targetNode);
 		};
@@ -601,7 +602,7 @@
 			var isItem = $targetNode.hasClass('tree-item');
 			// var isOverflow = $targetNode.hasClass('tree-overflow');
 
-			noPromise = false;
+			fireDoneImmediately = false;
 			if (isFolder) {
 				if (foldersSelectable) {
 					$tree.one('selected.fu.tree deselected.fu.tree', done);
@@ -642,7 +643,7 @@
 			break;
 		case 37: // left
 			if (isOpen) {
-				noPromise = false;
+				fireDoneImmediately = false;
 				$tree.one('closed.fu.tree', done);
 				$tree.tree('closeFolder', targetNode);
 			} else {
@@ -676,7 +677,7 @@
 			if (isOpen) {
 				focusIn($tree, $targetNode);
 			} else {
-				noPromise = false;
+				fireDoneImmediately = false;
 				$tree.one('disclosed.fu.tree', done);
 				$tree.tree('discloseFolder', targetNode);
 			}
@@ -710,7 +711,7 @@
 		if (handled) {
 			e.preventDefault();
 			e.stopPropagation();
-			if (noPromise) {
+			if (fireDoneImmediately) {
 				done();
 			}
 		}
