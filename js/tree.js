@@ -71,7 +71,6 @@
 		});
 
 		this.$element.on('keydown', function processKeypress (e) {
-			console.log('fired keydown');
 			return navigateTree($(this), e);
 		});
 
