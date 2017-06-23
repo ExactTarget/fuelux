@@ -1,21 +1,45 @@
 define(function emptyFolderModule () {
-	return {
-		data: [
-			{
-				name: 'Empty Folder',
-				type: 'folder',
-				attr: {
-					id: 'folder1'
-				}
+	return [
+		{
+			name: 'Empty Folder',
+			type: 'folder',
+			attr: {
+				id: 'emptyFolder'
 			},
-			{
-				name: 'Folder Sibling',
-				type: 'item',
-				attr: {
-					id: 'sibling1',
-					'data-icon': 'glyphicon glyphicon-file'
+			children: []
+		},
+		{
+			name: 'Full Folder',
+			type: 'folder',
+			attr: {
+				id: 'fullFolder'
+			},
+			children: [
+				{
+					name: 'Empty Folder 2',
+					type: 'folder',
+					attr: {
+						id: 'emptyFolder2'
+					},
+					children: []
+				},
+				{
+					name: 'Folder Sibling 2',
+					type: 'item',
+					attr: {
+						id: 'sibling2',
+						'data-icon': 'glyphicon glyphicon-file'
+					}
 				}
+			]
+		},
+		{
+			name: 'Folder Sibling',
+			type: 'item',
+			attr: {
+				id: 'sibling1',
+				'data-icon': 'glyphicon glyphicon-file'
 			}
-		]
-	};
+		}
+	];
 });

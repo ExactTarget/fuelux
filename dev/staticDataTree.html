@@ -137,41 +137,32 @@
 				}
 			];
 
-			var findChildData = function findChildData (targetParent, rootData) {
-				if (_.isEmpty(targetParent)) {
-					return rootData;
-				}
+			var $tree = $('#myTree');
 
-				if (rootData === undefined) {
-					return false;
-				}
+			$tree.one('populated.fu.tree', function triggerDiscloseFolder () {
+				var $initialBranch = $($tree.find('li:not(".hidden"):first'));
+// 				// var $nextBranch = $($tree.find('li:not(".hidden")').get(1));
+console.log('in populated', $initialBranch);
+// 				$tree.on('disclosedFolder.fu.tree', function triggerDownArrow () {
+// 					$initialBranch.attr('tabindex', 0);
+// 					$initialBranch.focus();
+// console.log('in disclosed');
+// 					$tree.on('keyboardNavigated.fu.tree', function testDownArrowResult () {
+// 						// assert.equal($(document.activeElement).attr('id'), $nextBranch.attr('id'), 'next sibling now has focus');
+// console.log('complete');
+// 					});
 
-				for (var i = 0; i < rootData.length; i++) {
-					var potentialMatch = rootData[i];
+// 					// assert.equal($(document.activeElement).attr('id'), $initialBranch.attr('id'), 'initial branch has focus');
 
-					if (potentialMatch.attr && targetParent.attr && potentialMatch.attr.id === targetParent.attr.id) {
-						return potentialMatch.children;
-					} else if (potentialMatch.children) {
-						var foundChild = findChildData(targetParent, potentialMatch.children);
-						if (foundChild) {
-							return foundChild;
-						}
-					}
-				}
+// 					// var pressDownArrow = this.getKeyDown('down', $initialBranch);
+// 					// $initialBranch.trigger(pressDownArrow);
+// 				});
+// console.log('trigger disclosure', $initialBranch);
+				window.setTimeout(function() {$tree.tree('discloseFolder', $initialBranch);}, 1);
+			});
 
-				return false;
-			};
-
-			var staticDataSourceConsumer = function staticDataSourceConsumer (openedParentData, callback) {
-				var childData = findChildData(openedParentData, staticData);
-
-				callback({
-					data: childData
-				});
-			};
-
-			$('#myTree').tree({
-				dataSource: staticDataSourceConsumer
+			$tree.tree({
+				data: staticData
 			});
 		});
 	})();

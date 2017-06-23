@@ -1,5 +1,6 @@
 define(function keyboardNavigationModuleFactory (require) {
 	var $ = require('jquery');
+	var emptyFolderData = require('./data/emptyFolder');
 
 	return function downKeyModule (QUnit) {
 		QUnit.module( 'should respond to down key', {}, function testDownKeyPresses () {
@@ -36,8 +37,36 @@ define(function keyboardNavigationModuleFactory (require) {
 
 			});
 
-			QUnit.skip('when focus is on open empty branch, moves focus down to next sibling', function respondsToKeyboardInput (assert) {
+			QUnit.only('when focus is on open empty branch, moves focus down to next sibling', function respondsToKeyboardInput (assert) {
+				assert.expect(2);
+				var done = assert.async();
 
+				this.$tree.one('populated.fu.tree', function triggerDiscloseFolder () {
+					var $initialBranch = $(this.$tree.find('li:not(".hidden"):first'));
+					var $nextBranch = $(this.$tree.find('li:not(".hidden")').get(1));
+
+					this.$tree.one('disclosedFolder.fu.tree', function triggerDownArrow () {
+						$initialBranch.attr('tabindex', 0);
+						$initialBranch.focus();
+
+						this.$tree.one('keyboardNavigated.fu.tree', function testDownArrowResult () {
+							assert.equal($(document.activeElement).attr('id'), $nextBranch.attr('id'), 'next sibling now has focus');
+							done();
+						});
+
+						assert.equal($(document.activeElement).attr('id'), $initialBranch.attr('id'), 'initial branch has focus');
+
+						var pressDownArrow = this.getKeyDown('down', $initialBranch);
+						window.setTimeout(function disclose () {$initialBranch.trigger(pressDownArrow);}, 1);
+					}.bind(this));
+
+					var $tree = this.$tree;
+					window.setTimeout(function disclose () {$tree.tree('discloseFolder', $initialBranch);}, 1);
+				}.bind(this));
+
+				this.$tree.tree({
+					data: emptyFolderData
+				});
 			});
 		});
 	};
