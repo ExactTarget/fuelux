@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html lang="en" class="fuelux">
+<head>
+	<meta charset="utf-8">
+	<title>staticConsumer.html</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="../bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+
+	<!--<link href="../dist/css/fuelux.css" rel="stylesheet" type="text/css">-->
+
+	<!--CLIENT-SIDE LESS COMPILATION FOR WATCHER-LESS DEV-->
+	<link href="../less/fuelux.less" rel="stylesheet/less" type="text/css"/>
+
+	<style>
+		/* ================ */
+		/* your styles here */
+		/* ================ */
+
+		:focus {
+			outline: 1px solid red !important;
+		}
+
+	</style>
+
+</head>
+
+<body>
+	<section id="tree">
+		<h2>Tree</h2>
+		<div class="thin-box">
+			<!-- Utilizes Handlebars templates (see index.js) -->
+			<h3>folders selectable (please note structure of treebranch)</h3>
+			<div id="myTreeWrapper"></div>
+		</div>
+	</section>
+</body>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js"></script>
+
+<script src="../bower_components/requirejs/require.js" type="text/javascript"></script>
+<script type="text/javascript">
+	(function () {
+		requirejs.config({
+			config: {
+				moment: {
+					noGlobal: true
+				}
+			},
+			paths: {
+				jquery: '../bower_components/jquery/dist/jquery',
+				underscore: '../bower_components/underscore/underscore',
+				bootstrap: '../bower_components/bootstrap/dist/js/bootstrap',
+				moment: '../bower_components/moment/min/moment-with-locales.min',
+				fuelux: '../js',
+				hbs: '../bower_components/require-handlebars-plugin/hbs',
+				fuelux_templates: '../templates/handlebars/fuelux',
+				bootstrap_templates: '../templates/handlebars/bootstrap',
+				data: '../data'
+			},
+			shim: {
+				'bootstrap': {
+					deps: ['jquery'],
+					exports: 'bootstrap'
+				}
+			},
+			hbs: {
+				partialsUrl: 'templates/handlebars'
+			}
+		});
+
+		require(['data', 'jquery', 'underscore', 'hbs', 'hbs!fuelux_templates/tree', 'fuelux/all'], function (data, $, _, hbs, tree) {
+			/* fully loaded with fuelux goodness and all it's dependencies */
+
+			var $myTreeWrapper = $('#myTreeWrapper');
+			$myTreeWrapper.html(tree({id: 'myTree', folderSelect: true, multiSelect: true}));
+
+			var staticData = [
+				{
+					name: 'Empty Folder',
+					type: 'folder',
+					attr: {
+						id: 'emptyFolder'
+					},
+					children: []
+				},
+				{
+					name: 'Full Folder',
+					type: 'folder',
+					attr: {
+						id: 'fullFolder'
+					},
+					children: [
+						{
+							name: 'Full Folder 2',
+							type: 'folder',
+							attr: {
+								id: 'emptyFolder2'
+							},
+							children: [
+								{
+									name: 'Folder Sibling 3',
+									type: 'item',
+									attr: {
+										id: 'sibling3',
+										'data-icon': 'glyphicon glyphicon-file'
+									}
+								},
+								{
+									name: 'Folder Sibling 4',
+									type: 'item',
+									attr: {
+										id: 'sibling4',
+										'data-icon': 'glyphicon glyphicon-file'
+									}
+								}
+							]
+						},
+						{
+							name: 'Folder Sibling 2',
+							type: 'item',
+							attr: {
+								id: 'sibling2',
+								'data-icon': 'glyphicon glyphicon-file'
+							}
+						}
+					]
+				},
+				{
+					name: 'Folder Sibling',
+					type: 'item',
+					attr: {
+						id: 'sibling1',
+						'data-icon': 'glyphicon glyphicon-file'
+					}
+				}
+			];
+
+			var findChildData = function findChildData (targetParent, rootData) {
+				if (_.isEmpty(targetParent)) {
+					return rootData;
+				}
+
+				if (rootData === undefined) {
+					return false;
+				}
+
+				for (var i = 0; i < rootData.length; i++) {
+					var potentialMatch = rootData[i];
+
+					if (potentialMatch.attr && targetParent.attr && potentialMatch.attr.id === targetParent.attr.id) {
+						return potentialMatch.children;
+					} else if (potentialMatch.children) {
+						var foundChild = findChildData(targetParent, potentialMatch.children);
+						if (foundChild) {
+							return foundChild;
+						}
+					}
+				}
+
+				return false;
+			};
+
+			var staticDataSourceConsumer = function staticDataSourceConsumer (openedParentData, callback) {
+				var childData = findChildData(openedParentData, staticData);
+
+				callback({
+					data: childData
+				});
+			};
+
+			$('#myTree').tree({
+				dataSource: staticDataSourceConsumer
+			});
+		});
+	})();
+</script>
+
+</html>
+</html>
