@@ -653,9 +653,13 @@
 			// move to previous li not hidden
 			$prev = $($targetNode.prevAll().not('.hidden')[0]);
 
-			// if the previous li is open, move to its last child so selection appears to move to the next "thing" up
+			// if the previous li is open, and has children, move selection to its last child so selection
+			// appears to move to the next "thing" up
 			if ($prev.hasClass('tree-open')) {
-				$prev = $($prev.find('li:not(".hidden"):last')[0]);
+				var $prevChildren = $prev.find('li:not(".hidden"):last');
+				if ($prevChildren.length > 0) {
+					$prev = $($prevChildren[0]);
+				}
 			}
 
 			// if nothing has been selected, we are presumably at the top of an open li, select the immediate parent
@@ -681,10 +685,8 @@
 
 		case 40: // down
 			// move focus to next selectable tree node
-			var $next = [];
-			if (isOpen) {
-				$next = $($targetNode.find('li:not(".hidden"):first')[0]);
-			} else {
+			var $next = $($targetNode.find('li:not(".hidden"):first')[0]);
+			if (!isOpen || $next.length <= 0) {
 				$next = $($targetNode.nextAll().not('.hidden')[0]);
 			}
 
