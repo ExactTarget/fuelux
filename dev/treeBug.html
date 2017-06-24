@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html lang="en" class="fuelux">
+<head>
+	<meta charset="utf-8">
+	<title>staticConsumer.html</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="../bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+
+	<!--<link href="../dist/css/fuelux.css" rel="stylesheet" type="text/css">-->
+
+	<!--CLIENT-SIDE LESS COMPILATION FOR WATCHER-LESS DEV-->
+	<link href="../less/fuelux.less" rel="stylesheet/less" type="text/css"/>
+
+	<style>
+		/* ================ */
+		/* your styles here */
+		/* ================ */
+
+		:focus {
+			outline: 1px solid red !important;
+		}
+
+	</style>
+
+</head>
+
+<body>
+	<section id="tree">
+		<h2>Tree</h2>
+		<div class="thin-box">
+			<!-- Utilizes Handlebars templates (see index.js) -->
+			<h3>loaded.fu.tree bug</h3>
+			<p>loaded.fu.tree gets called before the tree is fully initialized (the data is not yet
+			added to the tree object on the DOM). Attaching a method to the `loaded.fu.tree` event that then calls
+			any methods on the tree gets you caught in a loop, because at that point it looks at the tree, thinks it
+			isn't loaded (based on the return of $.data('fu.tree') call in the plugin definition) and tries to re-initialize
+			the tree all over again, thus causing loaded.fu.tree to fire off again, loop forever, stack overflow, die.</p>
+
+			<p>Therefore, `loaded.fu.tree` cannot be relied upon to ascertain when the tree has been initialized. For that
+			purpose, `initialized.fu.tree` has been added to the tree.</p>
+
+			<p>In short, using `loaded.fu.tree` to fire events that in turn call the tree when the tree is loaded causes an
+			infinite loop. Use `initialized.fu.tree` instead.</p>
+
+			<h3>Right:</h3>
+			<code><pre>
+			$tree.on('initialized.fu.tree', function triggerDiscloseFolder () {
+				var $initialBranch = $($tree.find('li:not(".hidden"):first'));
+				$tree.tree('discloseFolder', $initialBranch);
+			});
+			</pre></code>
+
+			<h3>Wrong:</h3>
+			<code><pre>
+			$tree.on('loaded.fu.tree', function triggerDiscloseFolder () {
+				var $initialBranch = $($tree.find('li:not(".hidden"):first'));
+				// Causes infinite loop
+				$tree.tree('discloseFolder', $initialBranch);
+			});
+			</pre></code>
+
+			<p>To see the bug in action, change line 231 in this file and load the page in the browser. You will see
+			"loading..." show up below two of the folders (even though they appear closed). Another workaround is
+			to change the "on" to "one" instead, but this is sub-optimal in that it just ducks under the bug.</p>
+			<div id="myTreeWrapper"></div>
+		</div>
+	</section>
+</body>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js"></script>
+
+<script src="../bower_components/requirejs/require.js" type="text/javascript"></script>
+<script type="text/javascript">
+	(function () {
+		requirejs.config({
+			config: {
+				moment: {
+					noGlobal: true
+				}
+			},
+			paths: {
+				jquery: '../bower_components/jquery/dist/jquery',
+				underscore: '../bower_components/underscore/underscore',
+				bootstrap: '../bower_components/bootstrap/dist/js/bootstrap',
+				moment: '../bower_components/moment/min/moment-with-locales.min',
+				fuelux: '../js',
+				hbs: '../bower_components/require-handlebars-plugin/hbs',
+				fuelux_templates: '../templates/handlebars/fuelux',
+				bootstrap_templates: '../templates/handlebars/bootstrap',
+				data: '../data'
+			},
+			shim: {
+				'bootstrap': {
+					deps: ['jquery'],
+					exports: 'bootstrap'
+				}
+			},
+			hbs: {
+				partialsUrl: 'templates/handlebars'
+			}
+		});
+
+		require(['data', 'jquery', 'underscore', 'hbs', 'hbs!fuelux_templates/tree', 'fuelux/all'], function (data, $, _, hbs, tree) {
+			/* fully loaded with fuelux goodness and all it's dependencies */
+
+			var $myTreeWrapper = $('#myTreeWrapper');
+			$myTreeWrapper.html(tree({id: 'myTree', folderSelect: true, multiSelect: true}));
+			var guid = function guid () {
+				var s4 = function s4 () {
+					return Math.floor((1 + Math.random()) * 0x10000)
+						.toString(16)
+						.substring(1);
+				};
+
+				return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+			};
+
+			var callCountData = {
+				data: [
+					{
+						'name': 'Convex and Concave',
+						'type': 'item',
+						'attr': {
+							'id': 'item4'
+						}
+					}
+				]
+			};
+
+			var textData = {
+				data: [
+					{
+						text: 'node text',
+						type: 'folder',
+						attr: {
+							id: 'folder1'
+						}
+					}
+				]
+			};
+			var treeData = function generateTreeData () {
+				return {
+					data: [
+						{
+							name: 'Ascending and Descending',
+							type: 'folder',
+							attr: {
+								id: 'folder' + guid()
+							}
+						},
+						{
+							name: 'Sky and Water I (with custom icon)',
+							type: 'item',
+							attr: {
+								id: 'folder' + guid(),
+								'data-icon': 'glyphicon glyphicon-file'
+							}
+						},
+						{
+							name: 'Drawing Hands',
+							type: 'folder',
+							attr: {
+								id: 'folder' + guid(),
+								'data-children': false
+							}
+						},
+						{
+							name: 'Waterfall',
+							type: 'item',
+							attr: {
+								id: 'item2'
+							}
+						},
+						{
+							name: 'Belvedere',
+							type: 'folder',
+							attr: {
+								id: 'folder' + guid()
+							}
+						},
+						{
+							name: 'Relativity (with custom icon)',
+							type: 'item',
+							attr: {
+								id: 'item3',
+								'data-icon': 'glyphicon glyphicon-picture'
+							}
+						},
+						{
+							name: 'House of Stairs',
+							type: 'folder',
+							attr: {
+								id: 'folder' + guid()
+							}
+						},
+						{
+							name: 'Convex and Concave',
+							type: 'item',
+							attr: {
+								id: 'item4'
+							}
+						},
+						{
+							name: 'Load More',
+							type: 'overflow',
+							attr: {
+								id: 'overflow1'
+							}
+						}
+					]
+				};
+			};
+
+			var callLimit = 50;
+			var callCount = 0;
+
+			var dataSource = function genDataSource (options, callback) {
+				console.log('callCount', callCount);
+				if (callCount >= callLimit) {
+					callback(callCountData, 400);
+					return;
+				}
+
+				callCount++;
+
+				callback(treeData());
+			};
+
+			var $tree = $('#myTree');
+			// change 'initialized' to 'loaded', fire up the page, and open your console to see the bug
+			$tree.on('initialized.fu.tree', function triggerDiscloseFolder () {
+				var $initialBranch = $($tree.find('li:not(".hidden"):first'));
+				console.log('in populated', $initialBranch);
+
+				$tree.tree('discloseFolder', $initialBranch);
+			});
+
+			$tree.tree({
+				dataSource: dataSource
+			});
+		});
+	})();
+</script>
+
+</html>
+</html>

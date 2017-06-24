@@ -7,7 +7,7 @@ define(function focusModuleFactory (require) {
 				assert.expect( 1 );
 				var $tree = this.$tree;
 
-				$tree.on('loaded.fu.tree', function fireFocus () {
+				$tree.on('initialized.fu.tree', function fireFocus () {
 					$tree.on('focus', function testFocus () {
 						var $focused = $(document.activeElement);
 						var $firstFocusableChild = $($tree.find('li:not(".hidden"):first')[0]);
@@ -30,7 +30,7 @@ define(function focusModuleFactory (require) {
 				assert.expect( 1 );
 				var $tree = this.$tree;
 
-				$tree.on('loaded.fu.tree', function fireFocus () {
+				$tree.on('initialized.fu.tree', function fireFocus () {
 					var $secondSelectableChild = $($tree.find('li:not(".hidden")')[1]);
 					$tree.tree('selectItem', $secondSelectableChild);
 
@@ -58,7 +58,7 @@ define(function focusModuleFactory (require) {
 				assert.expect( 3 );
 				var $tree = this.$tree;
 
-				$tree.on('loaded.fu.tree', function fireFocus () {
+				$tree.on('initialized.fu.tree', function fireFocus () {
 					var $focused = $($tree.find('li:not(".hidden"):first')[0]);
 					assert.equal($focused.attr('tabindex'), undefined, 'tabindex defaults to undefined');
 
@@ -94,7 +94,7 @@ define(function focusModuleFactory (require) {
 				assert.expect( 1 );
 				var $tree = this.$tree;
 
-				$tree.on('loaded.fu.tree', function fireFocus () {
+				$tree.on('initialized.fu.tree', function fireFocus () {
 					$tree.on('focus', function testAriaActive () {
 						var $focused = $(document.activeElement);
 						assert.equal($tree.attr('aria-activedescendant'), $focused.attr('id'), "tree's aria-activedescendant is set to focused branch's ID");
@@ -116,7 +116,7 @@ define(function focusModuleFactory (require) {
 				assert.expect( 1 );
 				var $tree = this.$tree;
 
-				$tree.on('loaded.fu.tree', function fireFocus () {
+				$tree.on('initialized.fu.tree', function fireFocus () {
 					var $passedInBranch = $($tree.find('li:not(".hidden"):first')[0]);
 
 					$tree.on('focus', function testFocusedBranch () {
@@ -140,7 +140,7 @@ define(function focusModuleFactory (require) {
 				assert.expect( 2 );
 				var $tree = this.$tree;
 
-				$tree.on('loaded.fu.tree', function fireFocus () {
+				$tree.on('initialized.fu.tree', function fireFocus () {
 					var $expectedBranch = $($tree.find('li:not(".hidden"):first')[0]);
 
 					$tree.on('setFocus.fu.tree', function testFiredEvent (e, bubbledBranch) {
