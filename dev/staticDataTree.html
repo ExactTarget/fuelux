@@ -28,10 +28,10 @@
 
 <body>
 	<section id="tree">
-		<h2>Tree</h2>
+		<h2>Static Data Tree</h2>
 		<div class="thin-box">
 			<!-- Utilizes Handlebars templates (see index.js) -->
-			<h3>folders selectable (please note structure of treebranch)</h3>
+			<p>This file is useful for testing static data tree & keyboard navigation on tree</p>
 			<div id="myTreeWrapper"></div>
 		</div>
 	</section>
@@ -128,6 +128,14 @@
 					]
 				},
 				{
+					name: 'Empty Folder',
+					type: 'folder',
+					attr: {
+						id: 'emptyFolder'
+					},
+					children: []
+				},
+				{
 					name: 'Folder Sibling',
 					type: 'item',
 					attr: {
@@ -139,30 +147,8 @@
 
 			var $tree = $('#myTree');
 
-			$tree.one('populated.fu.tree', function triggerDiscloseFolder () {
-				var $initialBranch = $($tree.find('li:not(".hidden"):first'));
-// 				// var $nextBranch = $($tree.find('li:not(".hidden")').get(1));
-console.log('in populated', $initialBranch);
-// 				$tree.on('disclosedFolder.fu.tree', function triggerDownArrow () {
-// 					$initialBranch.attr('tabindex', 0);
-// 					$initialBranch.focus();
-// console.log('in disclosed');
-// 					$tree.on('keyboardNavigated.fu.tree', function testDownArrowResult () {
-// 						// assert.equal($(document.activeElement).attr('id'), $nextBranch.attr('id'), 'next sibling now has focus');
-// console.log('complete');
-// 					});
-
-// 					// assert.equal($(document.activeElement).attr('id'), $initialBranch.attr('id'), 'initial branch has focus');
-
-// 					// var pressDownArrow = this.getKeyDown('down', $initialBranch);
-// 					// $initialBranch.trigger(pressDownArrow);
-// 				});
-// console.log('trigger disclosure', $initialBranch);
-				window.setTimeout(function() {$tree.tree('discloseFolder', $initialBranch);}, 1);
-			});
-
 			$tree.tree({
-				data: staticData
+				staticData: staticData
 			});
 		});
 	})();
