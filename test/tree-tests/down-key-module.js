@@ -37,7 +37,7 @@ define(function keyboardNavigationModuleFactory (require) {
 
 			});
 
-			QUnit.skip('when focus is on open empty branch, moves focus down to next sibling', function respondsToKeyboardInput (assert) {
+			QUnit.test('when focus is on open empty branch, moves focus down to next sibling', function respondsToKeyboardInput (assert) {
 				assert.expect(2);
 
 				this.$tree.on('initialized.fu.tree', function triggerDiscloseFolder () {
