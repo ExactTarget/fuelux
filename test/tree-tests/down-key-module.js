@@ -7,7 +7,7 @@ define(function keyboardNavigationModuleFactory (require) {
 			QUnit.test('when focus is on node above sibling node, moves focus down to sibling', function loadTree (assert) {
 				assert.expect(2);
 
-				this.$tree.on('populated.fu.tree', function triggerDownArrow () {
+				this.$tree.on('initialized.fu.tree', function triggerDownArrow () {
 					var $initialBranch = $(this.$tree.find('li:not(".hidden"):first'));
 					var $nextBranch = $(this.$tree.find('li:not(".hidden")').get(1));
 
@@ -37,35 +37,32 @@ define(function keyboardNavigationModuleFactory (require) {
 
 			});
 
-			QUnit.only('when focus is on open empty branch, moves focus down to next sibling', function respondsToKeyboardInput (assert) {
+			QUnit.skip('when focus is on open empty branch, moves focus down to next sibling', function respondsToKeyboardInput (assert) {
 				assert.expect(2);
-				var done = assert.async();
 
-				this.$tree.one('populated.fu.tree', function triggerDiscloseFolder () {
+				this.$tree.on('initialized.fu.tree', function triggerDiscloseFolder () {
 					var $initialBranch = $(this.$tree.find('li:not(".hidden"):first'));
 					var $nextBranch = $(this.$tree.find('li:not(".hidden")').get(1));
 
-					this.$tree.one('disclosedFolder.fu.tree', function triggerDownArrow () {
+					this.$tree.on('disclosedFolder.fu.tree', function triggerDownArrow () {
 						$initialBranch.attr('tabindex', 0);
 						$initialBranch.focus();
 
-						this.$tree.one('keyboardNavigated.fu.tree', function testDownArrowResult () {
+						this.$tree.on('keyboardNavigated.fu.tree', function testDownArrowResult () {
 							assert.equal($(document.activeElement).attr('id'), $nextBranch.attr('id'), 'next sibling now has focus');
-							done();
 						});
 
 						assert.equal($(document.activeElement).attr('id'), $initialBranch.attr('id'), 'initial branch has focus');
 
 						var pressDownArrow = this.getKeyDown('down', $initialBranch);
-						window.setTimeout(function disclose () {$initialBranch.trigger(pressDownArrow);}, 1);
+						$initialBranch.trigger(pressDownArrow);
 					}.bind(this));
 
-					var $tree = this.$tree;
-					window.setTimeout(function disclose () {$tree.tree('discloseFolder', $initialBranch);}, 1);
+					this.$tree.tree('discloseFolder', $initialBranch);
 				}.bind(this));
 
 				this.$tree.tree({
-					data: emptyFolderData
+					staticData: emptyFolderData
 				});
 			});
 		});
