@@ -8,7 +8,7 @@ define(function keyboardNavigationModuleFactory (require) {
 				var $tree = this.$tree;
 				var leftKeyDown = this.getKeyDown('left');
 
-				$tree.one('loaded.fu.tree', function selectFolder () {
+				$tree.one('initialized.fu.tree', function selectFolder () {
 					$tree.one('selected.fu.tree', function triggerKeypress () {
 						var $focused = $(document.activeElement);
 						assert.ok(!$focused.hasClass('tree-open'), 'key is being pressed on closed folder.');
@@ -35,7 +35,7 @@ define(function keyboardNavigationModuleFactory (require) {
 				var $tree = this.$tree;
 				var self = this;
 
-				$tree.one('loaded.fu.tree', function selectFolder () {
+				$tree.one('initialized.fu.tree', function selectFolder () {
 					$tree.one('setFocus.fu.tree', function triggerDisclosure () {
 						var $finalTargetFolder = $(document.activeElement);
 
@@ -77,7 +77,7 @@ define(function keyboardNavigationModuleFactory (require) {
 				var $tree = this.$tree;
 				var self = this;
 
-				$tree.one('loaded.fu.tree', function selectFolder () {
+				$tree.one('initialized.fu.tree', function selectFolder () {
 					$tree.one('setFocus.fu.tree', function triggerDisclosure () {
 						$tree.one('disclosedFolder.fu.tree', function triggerKeypress () {
 							var $focused = $(document.activeElement);
