@@ -31,6 +31,8 @@ define(function keyboardNavigationModuleFactory (require) {
 			});
 
 			QUnit.skip('on child node when branch is closed', function loadTree (assert) {
+				// The following doesn't actually work due to issues with browsers and focus.
+				// Gave up due to time constraints. If you touch this part of the tree, please complete this test
 				assert.expect( 4 );
 				var $tree = this.$tree;
 				var self = this;
