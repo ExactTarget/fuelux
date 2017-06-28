@@ -25,7 +25,7 @@ You will need to authorize your machine to do npm publishing using `npm adduser`
 ### QA
 - [ ] Test
   - [ ] `npm install`
-  - [ ] `grunt test`
+  - [ ] `npm test`
   - [ ] `grunt saucelabs` Best to find out if they pass or not now as opposed to in the middle of a release.
     * **WILL NOT WORK ON VPN**
     * If some environments fail, you can comment out the passing environments temporarily in `sauce_browsers.yml` while you debug
