@@ -8,10 +8,10 @@
 Complete the prerequisites for the [generating release notes](#generate-release-notes).
 
 ### Saucelabs
-You will need `SAUCE_API_KEY.yml`. Get it from someone on the team. You could try contacting sjames@salesforce.com, mbeard@salesforce.com, cmcculloh@salesforce.com as a last resort.
+You will need `SAUCE_API_KEY.yml`. Try contacting the last person to do a release for this.
 
 ### FuelCDN
-You will need `FUEL_CDN.yml` file, as well as ssh keys. Contact another maintainer for credentials/keys.
+You will need `FUEL_CDN.yml` file, as well as ssh keys. Try contacting the last person to do a release for this.
 
 You will also need to add the following to your `~/.ssh/config` file:
 ```
@@ -20,7 +20,7 @@ Host fuelux.upload.akamai.com
 ```
 
 ### NPM
-You will need to authorize your machine to do npm publishing using `npm adduser`. Contact another maintainer for credentials.
+You will need to authorize your machine to do npm publishing using `npm adduser`. Try contacting the last person to do a release for this.
 
 ### QA
 - [ ] Test
