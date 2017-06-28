@@ -41,6 +41,21 @@ define(function testWrapper (require) {
 		};
 	});
 
+	(function polyFillEventForIE () {
+		if ( typeof window.Event === 'function' ) return false;
+
+		function Event ( event, params ) {
+			params = params || { bubbles: false, cancelable: false, detail: undefined };
+			var evt = document.createEvent( 'Event' );
+			evt.initEvent( event, params.bubbles, params.cancelable, params.detail );
+			return evt;
+		}
+
+		Event.prototype = window.Event.prototype;
+
+		window.Event = Event;
+	})();
+
 	require('moment');
 	require('./test/checkbox-test');
 	require('./test/combobox-test');
