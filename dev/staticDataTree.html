@@ -28,10 +28,10 @@
 
 <body>
 	<section id="tree">
-		<h2>Tree</h2>
+		<h2>Static Data Tree</h2>
 		<div class="thin-box">
 			<!-- Utilizes Handlebars templates (see index.js) -->
-			<h3>folders selectable (please note structure of treebranch)</h3>
+			<p>This file is useful for testing static data tree & keyboard navigation on tree</p>
 			<div id="myTreeWrapper"></div>
 		</div>
 	</section>
@@ -126,6 +126,14 @@
 							}
 						}
 					]
+				},
+				{
+					name: 'Empty Folder',
+					type: 'folder',
+					attr: {
+						id: 'emptyFolder'
+					},
+					children: []
 				},
 				{
 					name: 'Folder Sibling',

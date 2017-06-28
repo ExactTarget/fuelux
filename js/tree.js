@@ -144,7 +144,6 @@
 				$loader.removeClass('hide hidden'); // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 			}
 
-
 			this.options.dataSource(treeData ? treeData : {}, function populateNodes (items) {
 				$.each(items.data, function buildNode (i, treeNode) {
 					var nodeType = treeNode.type;
@@ -223,12 +222,8 @@
 				});
 
 				$parent.find('.tree-loader').addClass('hidden');
-
 				// return newly populated folder
 				self.$element.trigger('loaded.fu.tree', $parent);
-				// loaded.fu.tree was getting swallowed up somehow and was not triggering my listener when writing
-				// accessibility unit tests. Added populated.fu.tree so that I could listen for it instead.
-				self.$element.trigger('populated.fu.tree', $parent);
 			});
 		},
 
@@ -296,7 +291,7 @@
 
 			// add the children to the folder
 			if (!$treeFolderContent.children().length) {
-				$tree.one('populated.fu.tree', disclosedCompleted);
+				$tree.one('loaded.fu.tree', disclosedCompleted);
 				this.populate($treeFolderContent);
 			} else {
 				disclosedCompleted();
@@ -585,7 +580,7 @@
 		// the navigateTree method if there is no (fake) promise, but will be fired by an event listener that will
 		// be triggered by another function if necessary. This way when done runs, and fires keyboardNavigated.fu.tree
 		// anything listening for that event can be sure that everything tied to that event is actually completed.
-		var noPromise = true;
+		var fireDoneImmediately = true;
 		var done = function done () {
 			$tree.trigger('keyboardNavigated.fu.tree', e, $targetNode);
 		};
@@ -601,13 +596,13 @@
 			var isItem = $targetNode.hasClass('tree-item');
 			// var isOverflow = $targetNode.hasClass('tree-overflow');
 
-			noPromise = false;
+			fireDoneImmediately = false;
 			if (isFolder) {
 				if (foldersSelectable) {
 					$tree.one('selected.fu.tree deselected.fu.tree', done);
 					$tree.tree('selectFolder', $targetNode.find('.tree-branch-header')[0]);
 				} else {
-					$tree.one('populated.fu.tree closed.fu.tree', done);
+					$tree.one('loaded.fu.tree closed.fu.tree', done);
 					$tree.tree('toggleFolder', $targetNode.find('.tree-branch-header')[0]);
 				}
 			} else if (isItem) {
@@ -642,7 +637,7 @@
 			break;
 		case 37: // left
 			if (isOpen) {
-				noPromise = false;
+				fireDoneImmediately = false;
 				$tree.one('closed.fu.tree', done);
 				$tree.tree('closeFolder', targetNode);
 			} else {
@@ -658,9 +653,13 @@
 			// move to previous li not hidden
 			$prev = $($targetNode.prevAll().not('.hidden')[0]);
 
-			// if the previous li is open, move to its last child so selection appears to move to the next "thing" up
+			// if the previous li is open, and has children, move selection to its last child so selection
+			// appears to move to the next "thing" up
 			if ($prev.hasClass('tree-open')) {
-				$prev = $($prev.find('li:not(".hidden"):last')[0]);
+				var $prevChildren = $prev.find('li:not(".hidden"):last');
+				if ($prevChildren.length > 0) {
+					$prev = $($prevChildren[0]);
+				}
 			}
 
 			// if nothing has been selected, we are presumably at the top of an open li, select the immediate parent
@@ -676,7 +675,7 @@
 			if (isOpen) {
 				focusIn($tree, $targetNode);
 			} else {
-				noPromise = false;
+				fireDoneImmediately = false;
 				$tree.one('disclosed.fu.tree', done);
 				$tree.tree('discloseFolder', targetNode);
 			}
@@ -686,10 +685,8 @@
 
 		case 40: // down
 			// move focus to next selectable tree node
-			var $next = [];
-			if (isOpen) {
-				$next = $($targetNode.find('li:not(".hidden"):first')[0]);
-			} else {
+			var $next = $($targetNode.find('li:not(".hidden"):first')[0]);
+			if (!isOpen || $next.length <= 0) {
 				$next = $($targetNode.nextAll().not('.hidden')[0]);
 			}
 
@@ -710,7 +707,7 @@
 		if (handled) {
 			e.preventDefault();
 			e.stopPropagation();
-			if (noPromise) {
+			if (fireDoneImmediately) {
 				done();
 			}
 		}
@@ -817,7 +814,8 @@
 	 * or limit on the amount of branches that will be searched through.
 	 */
 	var findChildData = function findChildData (targetParent, rootData) {
-		if ($.isEmptyObject(targetParent)) {
+		var isRootOfTree = $.isEmptyObject(targetParent);
+		if (isRootOfTree) {
 			return rootData;
 		}
 
