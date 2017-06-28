@@ -3,6 +3,8 @@
 /* global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false */
 define(function treeDataFactory (require) {
 	var $ = require('jquery');
+	var getKeyDown = require('../../helpers.js').getKeyDown;
+	var KEYMAP = require('../../helpers.js').KEYMAP;
 
 	var constants =	{
 		NUM_CHILDREN: 9,
@@ -118,30 +120,6 @@ define(function treeDataFactory (require) {
 		};
 	};
 
-	var KEYMAP = {
-		enter: 13,
-		space: 32,
-		end: 35,
-		home: 36,
-		left: 37,
-		up: 38,
-		right: 39,
-		down: 40
-	};
-
-	var getKeyDown = function getKeyDown (which, $target) {
-		var eventObject = this.defaultEventObject;
-		eventObject.which = KEYMAP[which];
-
-		if ($target) {
-			eventObject.originalEvent = $.Event( 'keydown', { // eslint-disable-line new-cap
-				target: $target
-			});
-		}
-
-		return $.Event( 'keydown', eventObject); // eslint-disable-line new-cap
-	};
-
 	var setup = function setup () {
 		var callLimit = 50;
 		var callCount = 0;
@@ -173,7 +151,7 @@ define(function treeDataFactory (require) {
 			originalEvent: $.Event( 'keydown', { // eslint-disable-line new-cap
 				target: this.$tree.find('li:not(".hidden"):first')
 			}),
-			which: 37
+			which: KEYMAP.left
 		};
 
 		this.getKeyDown = getKeyDown;

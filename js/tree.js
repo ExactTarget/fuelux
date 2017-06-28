@@ -24,7 +24,7 @@
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
 	}
-}(function tree ($) {
+}(function TreeWrapper ($) {
 	// -- END UMD WRAPPER PREFACE --
 
 	// -- BEGIN MODULE CODE HERE --

@@ -4,20 +4,21 @@
 <body>
 <div id="MyRadioContainer">
 
-	<div id="RadioCheckedEnabled" class="radio">
-		<label class="radio-custom">
-			<input class="sr-only checked" type="radio" checked="checked" id="Radio1" />
+	<div class="radio">
+		<label class="radio-custom" id="RadioCheckedEnabled">
+			<input class="sr-only checked" type="radio" checked="checked" />
 			<span class="radio-label">Checked/Enabled</span>
 		</label>
 	</div>
 
-	<div id="RadioGroup" class="radio">
+
+	<div class="radio" id="RadioGroup">
 		<label class="radio-custom">
-			<input class="sr-only" type="radio" name="group" />
+			<input class="sr-only" type="radio" name="group" checked="checked"/><!-- two of the group's inputs are set to "checked" on purpose to make sure that the radio element set's the checked prop correctly on init -->
 			<span class="radio-label">Item 1</span>
 		</label>
 		<label class="radio-custom">
-			<input class="sr-only" type="radio" name="group" />
+			<input class="sr-only" type="radio" name="group" checked="checked"/><!-- two of the group's inputs are set to "checked" on purpose to make sure that the radio element set's the checked prop correctly on init -->
 			<span class="radio-label">Item 2</span>
 		</label>
 		<label class="radio-custom">
@@ -26,36 +27,47 @@
 		</label>
 	</div>
 
-	<div id="RadioCheckedDisabled" class="radio">
-		<label class="radio-custom">
+	<div class="radio">
+		<label class="radio-custom" id="RadioCheckedDisabled">
 			<input class="sr-only checked" type="radio" checked="checked" disabled="disabled" />
 			<span class="radio-label">Checked/Disabled</span>
 		</label>
 	</div>
 
-	<div id="RadioUncheckedEnabled" class="radio">
-		<label class="radio-custom">
+	<div class="radio">
+		<label class="radio-custom" id="RadioUncheckedEnabled">
 			<input class="sr-only checked" type="radio" />
 			<span class="radio-label">Unchecked/Enabled</span>
 		</label>
 	</div>
 
-	<div id="RadioUncheckedDisabled" class="radio">
-		<label class="radio-custom">
+	<div class="radio">
+		<label class="radio-custom" id="RadioUncheckedDisabled">
 			<input class="sr-only checked" type="radio" disabled="disabled" />
 			<span class="radio-label">Unchecked/Disabled</span>
 		</label>
 	</div>
 
 
-	<div id="RadioToggle">
+	<div>
 		<div class="radio">
-			<label class="radio-custom">
-				<input type="radio" class="sr-only" data-toggle=".radioToggle" />
-				Custom radio toggles by class
+			<label class="radio-custom" id="RadioToggleOn">
+				<input type="radio" class="sr-only" name="visibilityGroup" data-toggle=".radioToggle" />
+				Custom radio toggles on by class
+			</label>
+			<label class="radio-custom" id="RadioToggleOff">
+				<input type="radio" class="sr-only" name="visibilityGroup" />
+				Custom radio toggles off by class
 			</label>
 		</div>
 		<div class="radioToggle hidden">This message's visibility toggles by class with a radio above.</div>
+	</div>
+
+	<div class="radio">
+		<label class="radio-custom" id="RadioHidden">
+			<input class="sr-only checked" type="radio" checked="checked" style="visibility: hidden;" />
+			<span class="radio-label">Checked/Enabled</span>
+		</label>
 	</div>
 
 </div>

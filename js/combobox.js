@@ -1,3 +1,5 @@
+/* global jQuery:true */
+
 /*
  * Fuel UX Combobox
  * https://github.com/ExactTarget/fuelux
@@ -11,7 +13,7 @@
 // For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
-(function (factory) {
+(function umdFactory (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
 		define(['jquery'], factory);
@@ -22,7 +24,7 @@
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
 	}
-}(function ($) {
+}(function ComboboxWrapper ($) {
 	// -- END UMD WRAPPER PREFACE --
 
 	// -- BEGIN MODULE CODE HERE --
@@ -83,9 +85,9 @@
 		},
 
 		doSelect: function ($item) {
-			
+
 			if (typeof $item[0] !== 'undefined') {
-				// remove selection from old item, may result in remove and 
+				// remove selection from old item, may result in remove and
 				// re-addition of class if item is the same
 				this.$element.find('li.selected:first').removeClass('selected');
 
@@ -285,7 +287,7 @@
 			if (extra && extra.synthetic) {
 				this.selectByText(val);
 				return;
-			} 
+			}
 			this.selectByText(val);
 
 			// find match based on input

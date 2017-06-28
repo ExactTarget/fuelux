@@ -1,3 +1,5 @@
+/* global jQuery:true */
+
 /*
  * Fuel UX Repeater - Thumbnail View Plugin
  * https://github.com/ExactTarget/fuelux
@@ -11,7 +13,7 @@
 // For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
-(function (factory) {
+(function umdFactory (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
 		define(['jquery', 'fuelux/repeater'], factory);
@@ -22,7 +24,7 @@
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
 	}
-}(function ($) {
+}(function repeaterThumbnailWrapper ($) {
 	// -- END UMD WRAPPER PREFACE --
 
 	// -- BEGIN MODULE CODE HERE --
@@ -166,7 +168,7 @@
 				var selected = 'selected';
 				var self = this;
 				var $thumbnail = $(fillTemplate(helpers.subset[helpers.index], this.viewOptions.thumbnail_template));
-				
+
 				$thumbnail.data('item_data', helpers.data.items[helpers.index]);
 
 				if (selectable) {
