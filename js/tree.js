@@ -782,7 +782,6 @@
 		return selected;
 	}
 
-
 	// TREE PLUGIN DEFINITION
 
 	$.fn.tree = function fntree (option) {
@@ -796,6 +795,7 @@
 
 			if (!data) {
 				$this.data('fu.tree', (data = new Tree(this, options)));
+				$this.trigger('initialized.fu.tree');
 			}
 
 			if (typeof option === 'string') {
@@ -806,8 +806,91 @@
 		return (methodReturn === undefined) ? $set : methodReturn;
 	};
 
+	/*
+	 * Private method used only by the default dataSource for the tree, which is used to consume static
+	 * tree data.
+	 *
+	 * Find children of supplied parent in rootData. You can pass in an entire deeply nested tree
+	 * and this will look through it recursively until it finds the child data you are looking for.
+	 *
+	 * For extremely large trees, this could cause the browser to crash, as there is no protection
+	 * or limit on the amount of branches that will be searched through.
+	 */
+	var findChildData = function findChildData (targetParent, rootData) {
+		if ($.isEmptyObject(targetParent)) {
+			return rootData;
+		}
+
+		if (rootData === undefined) {
+			return false;
+		}
+
+		for (var i = 0; i < rootData.length; i++) {
+			var potentialMatch = rootData[i];
+
+			if (potentialMatch.attr && targetParent.attr && potentialMatch.attr.id === targetParent.attr.id) {
+				return potentialMatch.children;
+			} else if (potentialMatch.children) {
+				var foundChild = findChildData(targetParent, potentialMatch.children);
+				if (foundChild) {
+					return foundChild;
+				}
+			}
+		}
+
+		return false;
+	};
+
 	$.fn.tree.defaults = {
-		dataSource: function dataSource() {},
+		/*
+		 * A static data representation of your full tree data. If you do not override the tree's
+		 * default dataSource method, this will just make the tree work out of the box without
+		 * you having to bring your own dataSource.
+		 *
+		 * Array of Objects representing tree branches (folder) and leaves (item):
+			[
+				{
+					name: '',
+					type: 'folder',
+					attr: {
+						id: ''
+					},
+					children: [
+						{
+							name: '',
+							type: 'item',
+							attr: {
+								id: '',
+								'data-icon': 'glyphicon glyphicon-file'
+							}
+						}
+					]
+				},
+				{
+					name: '',
+					type: 'item',
+					attr: {
+						id: '',
+						'data-icon': 'glyphicon glyphicon-file'
+					}
+				}
+			];
+		 */
+		staticData: [],
+		/*
+		 * If you set the full tree data on options.staticData, you can use this default dataSource
+		 * to consume that data. This allows you to just pass in a JSON array representation
+		 * of your full tree data and the tree will just work out of the box.
+		 */
+		dataSource: function staticDataSourceConsumer (openedParentData, callback) {
+			if (this.staticData.length > 0) {
+				var childData = findChildData(openedParentData, this.staticData);
+
+				callback({
+					data: childData
+				});
+			}
+		},
 		multiSelect: false,
 		cacheItems: true,
 		folderSelect: true,
