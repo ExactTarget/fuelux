@@ -30,16 +30,6 @@ You will need to authorize your machine to do npm publishing using `npm adduser`
     * **WILL NOT WORK ON VPN**
     * If some environments fail, you can comment out the passing environments temporarily in `sauce_browsers.yml` while you debug
     * If some environments fail, start your server with `grunt servefast` and use Browserstack to investigate.
-  - [ ] Generate test distribution package for use on the Fuel UX Site
-    - [ ] `grunt dist`
-  - [ ] Test on Fuel UX Site
-    - [ ] From Fuel UX Site repo
-    - [ ] `npm run local`
-    - [ ] Check all known affected controls on [dev instance of Fuel UX site on Heroku](http://fuelux-dev.herokuapp.com)
-      * Scroll to the bottom of each page scanning for visual errors
-      * Make sure right-hand nav functions correctly
-      * Click on the "base" example of each control on the control pages and make sure it functions
-      * Pay special attention to any controls that were modified in the release, look at each example and interact with it to make sure there are no obvious issues
 
 ## Release
 
