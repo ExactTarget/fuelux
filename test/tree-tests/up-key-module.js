@@ -30,7 +30,7 @@ define(function keyboardNavigationModuleFactory (require) {
 			});
 
 			QUnit.skip('when focus is below open sibling, moves focus into last focusable child of sibling', function loadTree (assert) {
-
+				// Skipped due to time constraints. If you touch this part of the tree, please complete this test
 			});
 
 			QUnit.skip('when focus is in first child of open branch, moves focus onto parent', function respondsToKeyboardInput (assert) {

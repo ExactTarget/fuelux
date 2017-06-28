@@ -26,9 +26,6 @@
 		factory(jQuery);
 	}
 }(function PillboxWrapper ($) {
-	// -- END UMD WRAPPER PREFACE --
-
-	// -- BEGIN MODULE CODE HERE --
 	if (!$.fn.dropdownautoflip) {
 		throw new Error('Fuel UX pillbox control requires dropdown-autoflip.');
 	}
@@ -36,6 +33,9 @@
 	if (!$.fn.utilities) {
 		throw new Error('Fuel UX pillbox control requires FuelUX utilities.');
 	}
+	// -- END UMD WRAPPER PREFACE --
+
+	// -- BEGIN MODULE CODE HERE --
 
 	var old = $.fn.pillbox;
 
