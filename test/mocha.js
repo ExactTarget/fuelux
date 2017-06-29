@@ -6,6 +6,7 @@
 // var path = require('path');
 
 var server = require('./regression/server.js');
+var $ = require( 'jquery' );
 
 // var should = require('chai').should();
 var Niffy = require('niffy');
@@ -43,9 +44,9 @@ describe('Fuel UX 3', function testFuelUX3 () {
 		'search',
 		'selectlist',
 		'spinbox',
-		'tree',// Tree won't work until https://github.com/ExactTarget/fuelux/pull/2000 is merged and npm installed into this project
+		'tree', // Tree won't work until https://github.com/ExactTarget/fuelux/pull/2000 is merged and npm installed into this project
 		'wizard'
-	]
+	];
 
 	components.forEach(function describeTest (component) {
 		describe(component, function testComponent () {
@@ -57,7 +58,7 @@ describe('Fuel UX 3', function testFuelUX3 () {
 
 	describe('datepicker', function describeDatepickerTest () {
 		it('responds to interaction', function* interactWithDatepicker () {
-			yield niffy.test('/component/datepicker', function* (nightmare) {
+			yield niffy.test('/component/datepicker', function* clickOnDatepicker (nightmare) {
 				yield nightmare.click('#myDatepicker button');
 			});
 		});
@@ -65,7 +66,7 @@ describe('Fuel UX 3', function testFuelUX3 () {
 
 	describe('combobox', function describeComboboxTest () {
 		it('responds to interaction', function* interactWithCombobox () {
-			yield niffy.test('/component/combobox', function* (nightmare) {
+			yield niffy.test('/component/combobox', function* clickOnCombobox (nightmare) {
 				yield nightmare.click('#myCombobox button');
 			});
 		});
@@ -73,17 +74,17 @@ describe('Fuel UX 3', function testFuelUX3 () {
 
 	describe('placard', function describePlacardTest () {
 		it('responds to interaction', function* interactWithPlacard () {
-			yield niffy.test('/component/placard', function* (nightmare) {
-				yield nightmare.evaluate(function () {
+			yield niffy.test('/component/placard', function* runNightmareTest (nightmare) {
+				yield nightmare.evaluate(function showPlacard () {
 					return $('#myPlacard').placard('show');
-				})
+				});
 			});
 		});
 	});
 
 	describe('selectlist', function describeSelectlistTest () {
 		it('responds to interaction', function* interactWithSelectlist () {
-			yield niffy.test('/component/selectlist', function* (nightmare) {
+			yield niffy.test('/component/selectlist', function* clickOnSelectlist (nightmare) {
 				yield nightmare.click('#mySelectlist button');
 			});
 		});
@@ -91,7 +92,7 @@ describe('Fuel UX 3', function testFuelUX3 () {
 
 	describe('repeater', function describeRepeaterTest () {
 		it('allows single select', function* interactWithRepeater () {
-			yield niffy.test('/component/repeater-single', function* (nightmare) {
+			yield niffy.test('/component/repeater-single', function* clickInRepeater (nightmare) {
 				yield nightmare.click('#row1').click('#row2');
 			});
 		});
@@ -99,13 +100,12 @@ describe('Fuel UX 3', function testFuelUX3 () {
 
 	describe('repeater', function describeRepeaterTest () {
 		it('allows multi select', function* interactWithRepeater () {
-			yield niffy.test('/component/repeater-multi', function* (nightmare) {
-				yield nightmare.evaluate(function () {
+			yield niffy.test('/component/repeater-multi', function* runNightmareTest (nightmare) {
+				yield nightmare.evaluate(function clickInRepeater () {
 					$($('#myRepeaterMulti tr')[14]).click();
 					return $($('#myRepeaterMulti tr')[13]).click();
-				})
+				});
 			});
 		});
 	});
-
 });
