@@ -83,6 +83,7 @@ module.exports = function (grunt) {
 			'replace:packageJs',
 			'dist',
 			'shell:addReleaseFiles',
+			'shell:copyToReference',
 			'prompt:commit',
 			'prompt:tag',
 			'prompt:pushLocalBranchToUpstream',
@@ -90,7 +91,6 @@ module.exports = function (grunt) {
 			'prompt:uploadToCDN',
 			'prompt:pushLocalBranchToUpstreamMaster',
 			'shell:publishToNPM',
-			'shell:copyToReference',
 			'prompt:generatelogs'
 		]);
 	});
