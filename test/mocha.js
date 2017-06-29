@@ -30,12 +30,82 @@ describe('Fuel UX 3', function testFuelUX3 () {
 		yield niffy.end();
 	});
 
-	describe('Components', function testComponents () {
-		/**
-		 * Top level.
-		 */
-		it('/checkbox', function* testCheckbox () {
-			yield niffy.test('/checkbox');
+	var components = [
+		'checkbox',
+		'combobox',
+		'datepicker',
+		// 'loader', // Because it is animated, loader is consistently ~0.0046% different, and therefore cannot be reliably tested with the current setup
+		'pillbox',
+		'placard',
+		'radio',
+		'repeater',
+		'scheduler',
+		'search',
+		'selectlist',
+		'spinbox',
+		'tree',// Tree won't work until https://github.com/ExactTarget/fuelux/pull/2000 is merged and npm installed into this project
+		'wizard'
+	]
+
+	components.forEach(function describeTest (component) {
+		describe(component, function testComponent () {
+			it('correctly renders', function* executeTest () {
+				yield niffy.test('/component/' + component);
+			});
 		});
 	});
+
+	describe('datepicker', function describeDatepickerTest () {
+		it('responds to interaction', function* interactWithDatepicker () {
+			yield niffy.test('/component/datepicker', function* (nightmare) {
+				yield nightmare.click('#myDatepicker button');
+			});
+		});
+	});
+
+	describe('combobox', function describeComboboxTest () {
+		it('responds to interaction', function* interactWithCombobox () {
+			yield niffy.test('/component/combobox', function* (nightmare) {
+				yield nightmare.click('#myCombobox button');
+			});
+		});
+	});
+
+	describe('placard', function describePlacardTest () {
+		it('responds to interaction', function* interactWithPlacard () {
+			yield niffy.test('/component/placard', function* (nightmare) {
+				yield nightmare.evaluate(function () {
+					return $('#myPlacard').placard('show');
+				})
+			});
+		});
+	});
+
+	describe('selectlist', function describeSelectlistTest () {
+		it('responds to interaction', function* interactWithSelectlist () {
+			yield niffy.test('/component/selectlist', function* (nightmare) {
+				yield nightmare.click('#mySelectlist button');
+			});
+		});
+	});
+
+	describe('repeater', function describeRepeaterTest () {
+		it('allows single select', function* interactWithRepeater () {
+			yield niffy.test('/component/repeater-single', function* (nightmare) {
+				yield nightmare.click('#row1').click('#row2');
+			});
+		});
+	});
+
+	describe('repeater', function describeRepeaterTest () {
+		it('allows multi select', function* interactWithRepeater () {
+			yield niffy.test('/component/repeater-multi', function* (nightmare) {
+				yield nightmare.evaluate(function () {
+					$($('#myRepeaterMulti tr')[14]).click();
+					return $($('#myRepeaterMulti tr')[13]).click();
+				})
+			});
+		});
+	});
+
 });

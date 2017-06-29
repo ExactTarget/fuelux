@@ -1,5 +1,5 @@
 /*!
- * Fuel UX EDGE - Built 2017/06/09, 4:48:45 PM 
+ * Fuel UX EDGE - Built 2017/06/29, 3:37:54 PM 
  * Previous release: v3.16.0 
  * Copyright 2012-2017 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
@@ -2558,6 +2558,11 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .tree *:focus {
   outline: none;
+}
+.fuelux .tree :focus > .tree-branch-header .tree-label,
+.fuelux .tree :focus > button .tree-label {
+  outline: 0;
+  text-decoration: underline;
 }
 .fuelux .tree button:focus {
   color: #999999;

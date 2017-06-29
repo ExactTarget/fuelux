@@ -1,0 +1,176 @@
+<section id="repeater">
+	<h2>Repeater</h2>
+	<div class="thin-box">
+		<section>
+		{{#each repeaters}}
+			{{> repeater this }}
+		{{/each}}
+		</section>
+		<p><strong><em>Caution</em></strong>: Loading http://localhost:8000/component/repeater-multi followed by http://localhost:8000/component/repeater will cause the render of http://localhost:8000/component/repeater-multi to display again instead of the expected render of http://localhost:8000/component/repeater. I don't know why and it wasn't worth the time to figure it out (since you can fix it by just shutting down the server and re-starting). If you change the order of testing during the automated test to make /repeater happen after /repeater-multi, it will test /repeater-multi twice instead of testing /repeater. Don't do that.</p>
+	</div>
+</section>
+
+<script type="text/javascript">
+require(['jquery', 'underscore', 'bootstrap', 'moment', {{#if isReference}}'fuelux'{{else}}'fuelux/all'{{/if}}], function ($) {
+	// define the columns in your datasource
+	var columns = [
+		{
+			label: 'Name &amp; Description',
+			property: 'name',
+			sortable: true
+		},
+		{
+			label: 'Key',
+			property: 'key',
+			sortable: true
+		},
+		{
+			label: 'Status',
+			property: 'status',
+			sortable: true
+		}
+	];
+
+	var statuses = ['archived', 'active', 'draft'];
+	function getStatus(i) {
+		return statuses[i];
+	}
+
+	function customColumnRenderer(helpers, callback) {
+		// determine what column is being rendered
+		var column = helpers.columnAttr;
+
+		// get all the data for the entire row
+		var rowData = helpers.rowData;
+		var customMarkup = '';
+
+		// only override the output for specific columns.
+		// will default to output the text value of the row item
+		switch(column) {
+			case 'name':
+				// let's combine name and description into a single column
+				customMarkup = '<div style="font-size:12px;">' + rowData.name + '</div><div class="small text-muted">' + rowData.description + '</div>';
+				break;
+			default:
+				// otherwise, just use the existing text value
+				customMarkup = helpers.item.text();
+				break;
+		}
+
+		helpers.item.html(customMarkup);
+
+		callback();
+	}
+
+	function customRowRenderer(helpers, callback) {
+		// let's get the id and add it to the "tr" DOM element
+		var item = helpers.item;
+		item.attr('id', 'row' + helpers.rowData.id);
+
+		callback();
+	}
+
+	{{#each repeaters}}
+		// this example uses a static datasource and
+		// underscore is used to filter, sort, search, etc.
+		var {{this.id}}DataSource = function customDataSource(options, callback) {
+			var pageIndex = options.pageIndex;
+			var pageSize = options.pageSize;
+
+			var data = {{this.id}}Items;
+
+			// sort by
+			data = _.sortBy(data, function(item) {
+				return item[options.sortProperty];
+			});
+
+			// sort direction
+			if (options.sortDirection === 'desc') {
+				data = data.reverse();
+			}
+
+			// filter
+			if (options.filter && options.filter.value !== 'all') {
+				data = _.filter(data, function(item) {
+					return item.status === options.filter.value;
+				});
+			}
+
+			// search
+			if (options.search && options.search.length > 0) {
+				var searchedData = [];
+				var searchTerm = options.search.toLowerCase();
+
+				_.each(data, function(item) {
+					var values = _.values(item);
+					var found = _.find(values, function(val) {
+
+						if(val.toString().toLowerCase().indexOf(searchTerm) > -1) {
+							searchedData.push(item);
+							return true;
+						}
+					});
+				});
+
+				data = searchedData;
+			}
+
+			var totalItems = data.length;
+			var totalPages = Math.ceil(totalItems / pageSize);
+			var startIndex = (pageIndex * pageSize) + 1;
+			var endIndex = (startIndex + pageSize) - 1;
+			if(endIndex > data.length) {
+				endIndex = data.length;
+			}
+
+			data = data.slice(startIndex-1, endIndex);
+
+			var dataSource = {
+				page: pageIndex,
+				pages: totalPages,
+				count: totalItems,
+				start: startIndex,
+				end: endIndex,
+				columns: columns,
+				items: data
+			};
+
+			callback(dataSource);
+		}
+
+		var {{this.id}}Items = [];
+
+		for(var i=1; i<=100; i++) {
+			var item = {
+				id: i,
+				name: 'item ' + i,
+				key: 'key ' + i,
+				description: 'desc ' + i,
+				status: getStatus(i)
+			}
+			{{this.id}}Items.push(item);
+		}
+
+		// initialize the repeater
+		var {{this.id}} = $('#{{this.id}}');
+		{{this.id}}.repeater({
+			list_selectable: {{{this.listSelectable}}}, // (single | multi)
+			list_noItemsHTML: 'nothing to see here... move along',
+
+			// override the column output via a custom renderer.
+			// this will allow you to output custom markup for each column.
+			list_columnRendered: customColumnRenderer,
+
+			// override the row output via a custom renderer.
+			// this example will use this to add an "id" attribute to each row.
+			list_rowRendered: customRowRenderer,
+
+			// setup your custom datasource to handle data retrieval;
+			// responsible for any paging, sorting, filtering, searching logic
+			dataSource: {{this.id}}DataSource
+		});
+	{{/each}}
+
+	console.warn("Warning: Loading http://localhost:8000/component/repeater-multi followed by http://localhost:8000/component/repeater will cause the render of http://localhost:8000/component/repeater-multi to display again instead of the expected render of http://localhost:8000/component/repeater. I don't know why and it wasn't worth the time to figure it out (since you can fix it by just shutting down the server and re-starting). If you change the order of testing during the automated test to make /repeater happen after /repeater-multi, it will test /repeater-multi twice instead of testing /repeater. Don't do that.");
+});
+</script>

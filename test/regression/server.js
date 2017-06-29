@@ -10,12 +10,14 @@ module.exports = {
 		var app = express();
 		var exphbs  = require('express-handlebars');
 
+		app.disable('view cache');
+
 		app.engine('.hbs',
 			exphbs({
 				extname: '.hbs',
 				defaultLayout: 'main',
 				layoutsDir: './test/regression/',
-				partialsDir: partialsDir
+				partialsDir: [partialsDir, {namespace: 'lt', dir: './test/regression/components/'}]
 			})
 		);
 
@@ -25,10 +27,29 @@ module.exports = {
 		var path = require('path');
 		app.use(express.static(path.join(__dirname, '../../')));
 
-		app.get('/checkbox', function renderCheckboxPage (req, res) {
-			var checkboxData = require('./config/checkbox.js');
-			checkboxData.isReference = isReference;
-			res.render('./checkbox', checkboxData);
+		app.get('/component/:component', function renderCheckboxPage (req, res) {
+			var component = req.params.component;
+			var data = require('./config/' + component + '.js');
+			data.isReference = isReference;
+			data.components = [
+				'checkbox',
+				'combobox',
+				'datepicker',
+				'loader',
+				'pillbox',
+				'placard',
+				'radio',
+				'repeater',
+				'repeater-single',
+				'repeater-multi',
+				'scheduler',
+				'search',
+				'selectlist',
+				'spinbox',
+				'tree',
+				'wizard'
+			];
+			res.render('./components/' + component, data);
 		});
 
 		var server = app.listen(PORT, function listen () {

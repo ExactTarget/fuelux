@@ -1,0 +1,86 @@
+<section id="tree">
+	<h2>Tree</h2>
+	<div class="thin-box">
+		<section>
+		{{#each trees}}
+			{{> tree this }}
+		{{/each}}
+		</section>
+		<script type="text/javascript">
+		require(['jquery', 'underscore', 'bootstrap', 'moment', {{#if isReference}}'fuelux'{{else}}'fuelux/all'{{/if}}], function ($) {
+		{{#each trees}}
+			$('#{{this.id}}').tree({
+				staticData: [
+					{
+						name: 'Empty Folder',
+						type: 'folder',
+						attr: {
+							id: 'emptyFolder'
+						},
+						children: []
+					},
+					{
+						name: 'Full Folder',
+						type: 'folder',
+						attr: {
+							id: 'fullFolder'
+						},
+						children: [
+							{
+								name: 'Full Folder 2',
+								type: 'folder',
+								attr: {
+									id: 'emptyFolder2'
+								},
+								children: [
+									{
+										name: 'Folder Sibling 3',
+										type: 'item',
+										attr: {
+											id: 'sibling3',
+											'data-icon': 'glyphicon glyphicon-file'
+										}
+									},
+									{
+										name: 'Folder Sibling 4',
+										type: 'item',
+										attr: {
+											id: 'sibling4',
+											'data-icon': 'glyphicon glyphicon-file'
+										}
+									}
+								]
+							},
+							{
+								name: 'Folder Sibling 2',
+								type: 'item',
+								attr: {
+									id: 'sibling2',
+									'data-icon': 'glyphicon glyphicon-file'
+								}
+							}
+						]
+					},
+					{
+						name: 'Empty Folder',
+						type: 'folder',
+						attr: {
+							id: 'emptyFolder'
+						},
+						children: []
+					},
+					{
+						name: 'Folder Sibling',
+						type: 'item',
+						attr: {
+							id: 'sibling1',
+							'data-icon': 'glyphicon glyphicon-file'
+						}
+					}
+				]
+			})
+		{{/each}}
+		});
+		</script>
+	</div>
+</section>

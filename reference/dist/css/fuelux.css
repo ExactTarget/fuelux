@@ -1,6 +1,6 @@
 /*!
- * Fuel UX EDGE - Built 2017/06/05, 2:12:16 PM
- * Previous release: v3.16.0
+ * Fuel UX EDGE - Built 2017/06/29, 3:37:54 PM 
+ * Previous release: v3.16.0 
  * Copyright 2012-2017 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -2559,6 +2559,11 @@ label.fuelux .checkbox-inline {
 .fuelux .tree *:focus {
   outline: none;
 }
+.fuelux .tree :focus > .tree-branch-header .tree-label,
+.fuelux .tree :focus > button .tree-label {
+  outline: 0;
+  text-decoration: underline;
+}
 .fuelux .tree button:focus {
   color: #999999;
 }
@@ -3150,3 +3155,4 @@ label.fuelux .checkbox-inline {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+/*# sourceMappingURL=fuelux.css.map */
