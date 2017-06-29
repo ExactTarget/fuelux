@@ -13,7 +13,7 @@
     "start": "grunt serve",
     "postinstall": "node postinstall.js",
     "local": "grunt servefast",
-    "release": "grunt release",
+    "release": "xvfb-maybe mocha test/mocha.js && grunt release",
     "test": "xvfb-maybe mocha test/mocha.js && grunt travisci --verbose",
     "regressionservers": "node test/regression/app.js",
     "regression": "mocha test/mocha.js",
