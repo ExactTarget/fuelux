@@ -102,7 +102,7 @@
     "url": "git://github.com/ExactTarget/fuelux.git"
   },
   "title": "Fuel UX",
-  "version": "3.16.0",
+  "version": "3.16.1",
   "volo": {
     "baseDir": "lib",
     "dependencies": {
