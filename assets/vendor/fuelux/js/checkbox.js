@@ -1,3 +1,5 @@
+/* global jQuery:true */
+
 /*
  * Fuel UX Checkbox
  * https://github.com/ExactTarget/fuelux
@@ -11,7 +13,7 @@
 // For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
-(function (factory) {
+(function umdFactory (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
 		define(['jquery'], factory);
@@ -22,7 +24,7 @@
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
 	}
-}(function ($) {
+}(function CheckboxWrapper ($) {
 	// -- END UMD WRAPPER PREFACE --
 
 	// -- BEGIN MODULE CODE HERE --
@@ -31,18 +33,29 @@
 
 	// CHECKBOX CONSTRUCTOR AND PROTOTYPE
 
-	var Checkbox = function (element, options) {
-		this.options = $.extend({}, $.fn.checkbox.defaults, options);
+	var logError = function logError (error) {
+		if (window && window.console && window.console.error) {
+			window.console.error(error);
+		}
+	};
 
-		if(element.tagName.toLowerCase() !== 'label') {
-			//console.log('initialize checkbox on the label that wraps the checkbox');
+	var Checkbox = function Checkbox (element, options) {
+		this.options = $.extend({}, $.fn.checkbox.defaults, options);
+		var $element = $(element);
+
+		if (element.tagName.toLowerCase() !== 'label') {
+			logError('Checkbox must be initialized on the `label` that wraps the `input` element. See https://github.com/ExactTarget/fuelux/blob/master/reference/markup/checkbox.html for example of proper markup. Call `.checkbox()` on the `<label>` not the `<input>`');
 			return;
 		}
 
 		// cache elements
-		this.$label = $(element);
+		this.$label = $element;
 		this.$chk = this.$label.find('input[type="checkbox"]');
-		this.$container = $(element).parent('.checkbox'); // the container div
+		this.$container = $element.parent('.checkbox'); // the container div
+
+		if (!this.options.ignoreVisibilityCheck && this.$chk.css('visibility').match(/hidden|collapse/)) {
+			logError('For accessibility reasons, in order for tab and space to function on checkbox, checkbox `<input />`\'s `visibility` must not be set to `hidden` or `collapse`. See https://github.com/ExactTarget/fuelux/pull/1996 for more details.');
+		}
 
 		// determine if a toggle container is specified
 		var containerSelector = this.$chk.attr('data-toggle');
@@ -59,9 +72,8 @@
 
 		constructor: Checkbox,
 
-		setInitialState: function() {
+		setInitialState: function setInitialState () {
 			var $chk = this.$chk;
-			var $lbl = this.$label;
 
 			// get current state of input
 			var checked = $chk.prop('checked');
@@ -72,26 +84,19 @@
 			this.setDisabledState($chk, disabled);
 		},
 
-		setCheckedState: function(element, checked) {
+		setCheckedState: function setCheckedState (element, checked) {
 			var $chk = element;
 			var $lbl = this.$label;
-			var $container = this.$container;
 			var $containerToggle = this.$toggleContainer;
 
-			// set class on outer container too...to support highlighting
-			// TODO: verify inline checkboxes, also test with MCTheme
-
-			if(checked) {
+			if (checked) {
 				$chk.prop('checked', true);
 				$lbl.addClass('checked');
-				//$container.addClass('checked');
 				$containerToggle.removeClass('hide hidden');
 				$lbl.trigger('checked.fu.checkbox');
-			}
-			else {
+			} else {
 				$chk.prop('checked', false);
 				$lbl.removeClass('checked');
-				//$container.removeClass('checked');
 				$containerToggle.addClass('hidden');
 				$lbl.trigger('unchecked.fu.checkbox');
 			}
@@ -99,67 +104,63 @@
 			$lbl.trigger('changed.fu.checkbox', checked);
 		},
 
-		setDisabledState: function(element, disabled) {
-			var $chk = element;
+		setDisabledState: function setDisabledState (element, disabled) {
+			var $chk = $(element);
 			var $lbl = this.$label;
 
-			if(disabled) {
-				this.$chk.prop('disabled', true);
+			if (disabled) {
+				$chk.prop('disabled', true);
 				$lbl.addClass('disabled');
 				$lbl.trigger('disabled.fu.checkbox');
-			}
-			else {
-				this.$chk.prop('disabled', false);
+			} else {
+				$chk.prop('disabled', false);
 				$lbl.removeClass('disabled');
 				$lbl.trigger('enabled.fu.checkbox');
 			}
+
+			return $chk;
 		},
 
-		itemchecked: function (evt) {
+		itemchecked: function itemchecked (evt) {
 			var $chk = $(evt.target);
 			var checked = $chk.prop('checked');
 
 			this.setCheckedState($chk, checked);
 		},
 
-		toggle: function () {
+		toggle: function toggle () {
 			var checked = this.isChecked();
 
-			if(checked) {
+			if (checked) {
 				this.uncheck();
-			}
-			else {
+			} else {
 				this.check();
 			}
 		},
 
-		check: function () {
+		check: function check () {
 			this.setCheckedState(this.$chk, true);
 		},
 
-		uncheck: function () {
+		uncheck: function uncheck () {
 			this.setCheckedState(this.$chk, false);
 		},
 
-		isChecked: function () {
+		isChecked: function isChecked () {
 			var checked = this.$chk.prop('checked');
 			return checked;
 		},
 
-		enable: function () {
+		enable: function enable () {
 			this.setDisabledState(this.$chk, false);
 		},
 
-		disable: function () {
+		disable: function disable () {
 			this.setDisabledState(this.$chk, true);
 		},
 
-		destroy: function () {
+		destroy: function destroy () {
 			this.$label.remove();
-			// remove any external bindings
-			// [none]
-			// empty elements to return to original markup
-			// [none]
 			return this.$label[0].outerHTML;
 		}
 	};
@@ -168,11 +169,11 @@
 
 	// CHECKBOX PLUGIN DEFINITION
 
-	$.fn.checkbox = function (option) {
+	$.fn.checkbox = function checkbox (option) {
 		var args = Array.prototype.slice.call(arguments, 1);
 		var methodReturn;
 
-		var $set = this.each(function () {
+		var $set = this.each(function applyData () {
 			var $this = $(this);
 			var data = $this.data('fu.checkbox');
 			var options = typeof option === 'object' && option;
@@ -189,18 +190,20 @@
 		return (methodReturn === undefined) ? $set : methodReturn;
 	};
 
-	$.fn.checkbox.defaults = {};
+	$.fn.checkbox.defaults = {
+		ignoreVisibilityCheck: false
+	};
 
 	$.fn.checkbox.Constructor = Checkbox;
 
-	$.fn.checkbox.noConflict = function () {
+	$.fn.checkbox.noConflict = function noConflict () {
 		$.fn.checkbox = old;
 		return this;
 	};
 
 	// DATA-API
 
-	$(document).on('mouseover.fu.checkbox.data-api', '[data-initialize=checkbox]', function (e) {
+	$(document).on('mouseover.fu.checkbox.data-api', '[data-initialize=checkbox]', function initializeCheckboxes (e) {
 		var $control = $(e.target);
 		if (!$control.data('fu.checkbox')) {
 			$control.checkbox($control.data());
@@ -208,8 +211,8 @@
 	});
 
 	// Must be domReady for AMD compatibility
-	$(function () {
-		$('[data-initialize=checkbox]').each(function () {
+	$(function onReadyInitializeCheckboxes () {
+		$('[data-initialize=checkbox]').each(function initializeCheckbox () {
 			var $this = $(this);
 			if (!$this.data('fu.checkbox')) {
 				$this.checkbox($this.data());

@@ -92,7 +92,7 @@ module.exports = function (grunt) {
 			command: function () {
 				function createUploadCommand (version) {
 					return ['mv dist ' + version,
-						'scp -i ~/.ssh/fuelcdn -r "' + version + '"/ ' +
+						'scp -i ~/.ssh/fuelcdn -oHostKeyAlgorithms=+ssh-dss -r "' + version + '"/ ' +
 							'<%= cdnLoginFile.user %>' + '@' + '<%= cdnLoginFile.server %>' + ':' + '<%= cdnLoginFile.folder %>',
 						'mv "' + version + '" dist',
 						'echo "Done uploading files."'].join(' && ');
@@ -112,6 +112,28 @@ module.exports = function (grunt) {
 				var command = 'npm publish';
 				grunt.log.write(command);
 				return command;
+			}
+		},
+		copyToReference: {
+			command: function copyDistToRef() {
+				var moveDist = [
+					'rm -rf reference/dist',
+					'mkdir reference/dist',
+					'cp -R dist/* reference/dist'
+				].join(' && ');
+				grunt.log.write('Copying dist into reference/dist for use in visual regression testing.\n');
+				grunt.log.write(moveDist);
+
+				var deleteFluff = [
+					'rm reference/dist/css/fuelux.css.map',
+					'rm reference/dist/css/fuelux.min.css',
+					'rm reference/dist/fuelux.zip',
+					'rm reference/dist/js/fuelux.min.js'
+				].join(' && ');
+				grunt.log.write('\nRemovine .zip and .min files to save space in repo');
+				grunt.log.write(deleteFluff);
+
+				return moveDist + ' && ' + deleteFluff;
 			}
 		}
 	};

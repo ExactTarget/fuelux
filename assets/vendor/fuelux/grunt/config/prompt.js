@@ -153,7 +153,7 @@ module.exports = function (grunt) {
 					{
 						config: 'release.uploadToCDN',
 						type: 'confirm',
-						message: 'Would you like to upload the `dist folder to fuelcdn.com?'
+						message: 'Would you like to upload the `dist` folder to fuelcdn.com?'
 					}
 				],
 				then: function (answers, done) {
@@ -243,9 +243,9 @@ module.exports = function (grunt) {
 					}
 				],
 				then: function (answers, done) {
-					// if (answers['release.rannpminstall'] === false) {
-					// 	grunt.fail.fatal('Please run `npm install && bower install`', 1);
-					// }
+					if (answers['release.rannpminstall'] === false) {
+						grunt.fail.fatal('Please run `npm install && bower install`', 1);
+					}
 				}
 			}
 		},
@@ -259,9 +259,9 @@ module.exports = function (grunt) {
 					}
 				],
 				then: function (answers, done) {
-					// if (answers['release.rangrunttest'] === false) {
-					// 	grunt.fail.fatal('Please run `grunt test`, and make sure all tests pass', 1);
-					// }
+					if (answers['release.rangrunttest'] === false) {
+						grunt.fail.fatal('Please run `grunt test`, and make sure all tests pass', 1);
+					}
 				}
 			}
 		},
@@ -275,9 +275,9 @@ module.exports = function (grunt) {
 					}
 				],
 				then: function (answers, done) {
-					// if (answers['release.ransauce'] === false) {
-					// 	grunt.fail.fatal('Please run `grunt saucelabs`, and make sure all tests pass', 1);
-					// }
+					if (answers['release.ransauce'] === false) {
+						grunt.fail.fatal('Please run `grunt saucelabs`, and make sure all tests pass', 1);
+					}
 				}
 			}
 		},

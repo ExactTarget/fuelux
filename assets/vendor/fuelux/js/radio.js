@@ -1,3 +1,5 @@
+/* global jQuery:true */
+
 /*
  * Fuel UX Radio
  * https://github.com/ExactTarget/fuelux
@@ -11,7 +13,7 @@
 // For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
-(function (factory) {
+(function umdFactory (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
 		define(['jquery'], factory);
@@ -22,7 +24,7 @@
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
 	}
-}(function ($) {
+}(function RadioWrapper ($) {
 	// -- END UMD WRAPPER PREFACE --
 
 	// -- BEGIN MODULE CODE HERE --
@@ -30,12 +32,17 @@
 	var old = $.fn.radio;
 
 	// RADIO CONSTRUCTOR AND PROTOTYPE
+	var logError = function logError (error) {
+		if (window && window.console && window.console.error) {
+			window.console.error(error);
+		}
+	};
 
-	var Radio = function (element, options) {
+	var Radio = function Radio (element, options) {
 		this.options = $.extend({}, $.fn.radio.defaults, options);
 
-		if(element.tagName.toLowerCase() !== 'label') {
-			//console.log('initialize radio on the label that wraps the radio');
+		if (element.tagName.toLowerCase() !== 'label') {
+			logError('Radio must be initialized on the `label` that wraps the `input` element. See https://github.com/ExactTarget/fuelux/blob/master/reference/markup/radio.html for example of proper markup. Call `.radio()` on the `<label>` not the `<input>`');
 			return;
 		}
 
@@ -43,6 +50,10 @@
 		this.$label = $(element);
 		this.$radio = this.$label.find('input[type="radio"]');
 		this.groupName = this.$radio.attr('name'); // don't cache group itself since items can be added programmatically
+
+		if (!this.options.ignoreVisibilityCheck && this.$radio.css('visibility').match(/hidden|collapse/)) {
+			logError('For accessibility reasons, in order for tab and space to function on radio, `visibility` must not be set to `hidden` or `collapse`. See https://github.com/ExactTarget/fuelux/pull/1996 for more details.');
+		}
 
 		// determine if a toggle container is specified
 		var containerSelector = this.$radio.attr('data-toggle');
@@ -59,9 +70,8 @@
 
 		constructor: Radio,
 
-		setInitialState: function() {
+		setInitialState: function setInitialState () {
 			var $radio = this.$radio;
-			var $lbl = this.$label;
 
 			// get current state of input
 			var checked = $radio.prop('checked');
@@ -72,9 +82,9 @@
 			this.setDisabledState($radio, disabled);
 		},
 
-		resetGroup: function() {
+		resetGroup: function resetGroup () {
 			var $radios = $('input[name="' + this.groupName + '"]');
-			$radios.each(function(index, item) {
+			$radios.each(function resetRadio (index, item) {
 				var $radio = $(item);
 				var $lbl = $radio.parent();
 				var containerSelector = $radio.attr('data-toggle');
@@ -86,13 +96,13 @@
 			});
 		},
 
-		setCheckedState: function(element, checked) {
+		setCheckedState: function setCheckedState (element, checked) {
 			var $radio = element;
 			var $lbl = $radio.parent();
 			var containerSelector = $radio.attr('data-toggle');
 			var $containerToggle = $(containerSelector);
 
-			if(checked) {
+			if (checked) {
 				// reset all items in group
 				this.resetGroup();
 
@@ -100,8 +110,7 @@
 				$lbl.addClass('checked');
 				$containerToggle.removeClass('hide hidden');
 				$lbl.trigger('checked.fu.radio');
-			}
-			else {
+			} else {
 				$radio.prop('checked', false);
 				$lbl.removeClass('checked');
 				$containerToggle.addClass('hidden');
@@ -111,54 +120,51 @@
 			$lbl.trigger('changed.fu.radio', checked);
 		},
 
-		setDisabledState: function(element, disabled) {
-			var $radio = element;
+		setDisabledState: function setDisabledState (element, disabled) {
+			var $radio = $(element);
 			var $lbl = this.$label;
 
-			if(disabled) {
-				this.$radio.prop('disabled', true);
+			if (disabled) {
+				$radio.prop('disabled', true);
 				$lbl.addClass('disabled');
 				$lbl.trigger('disabled.fu.radio');
-			}
-			else {
-				this.$radio.prop('disabled', false);
+			} else {
+				$radio.prop('disabled', false);
 				$lbl.removeClass('disabled');
 				$lbl.trigger('enabled.fu.radio');
 			}
+
+			return $radio;
 		},
 
-		itemchecked: function (evt) {
+		itemchecked: function itemchecked (evt) {
 			var $radio = $(evt.target);
 			this.setCheckedState($radio, true);
 		},
 
-		check: function () {
+		check: function check () {
 			this.setCheckedState(this.$radio, true);
 		},
 
-		uncheck: function () {
+		uncheck: function uncheck () {
 			this.setCheckedState(this.$radio, false);
 		},
 
-		isChecked: function () {
+		isChecked: function isChecked () {
 			var checked = this.$radio.prop('checked');
 			return checked;
 		},
 
-		enable: function () {
+		enable: function enable () {
 			this.setDisabledState(this.$radio, false);
 		},
 
-		disable: function () {
+		disable: function disable () {
 			this.setDisabledState(this.$radio, true);
 		},
 
-		destroy: function () {
+		destroy: function destroy () {
 			this.$label.remove();
-			// remove any external bindings
-			// [none]
-			// empty elements to return to original markup
-			// [none]
 			return this.$label[0].outerHTML;
 		}
 	};
@@ -167,11 +173,11 @@
 
 	// RADIO PLUGIN DEFINITION
 
-	$.fn.radio = function (option) {
+	$.fn.radio = function radio (option) {
 		var args = Array.prototype.slice.call(arguments, 1);
 		var methodReturn;
 
-		var $set = this.each(function () {
+		var $set = this.each(function applyData () {
 			var $this = $(this);
 			var data = $this.data('fu.radio');
 			var options = typeof option === 'object' && option;
@@ -188,11 +194,13 @@
 		return (methodReturn === undefined) ? $set : methodReturn;
 	};
 
-	$.fn.radio.defaults = {};
+	$.fn.radio.defaults = {
+		ignoreVisibilityCheck: false
+	};
 
 	$.fn.radio.Constructor = Radio;
 
-	$.fn.radio.noConflict = function () {
+	$.fn.radio.noConflict = function noConflict () {
 		$.fn.radio = old;
 		return this;
 	};
@@ -200,7 +208,7 @@
 
 	// DATA-API
 
-	$(document).on('mouseover.fu.radio.data-api', '[data-initialize=radio]', function (e) {
+	$(document).on('mouseover.fu.radio.data-api', '[data-initialize=radio]', function initializeRadios (e) {
 		var $control = $(e.target);
 		if (!$control.data('fu.radio')) {
 			$control.radio($control.data());
@@ -208,8 +216,8 @@
 	});
 
 	// Must be domReady for AMD compatibility
-	$(function () {
-		$('[data-initialize=radio]').each(function () {
+	$(function onReadyInitializeRadios () {
+		$('[data-initialize=radio]').each(function initializeRadio () {
 			var $this = $(this);
 			if (!$this.data('fu.radio')) {
 				$this.radio($this.data());

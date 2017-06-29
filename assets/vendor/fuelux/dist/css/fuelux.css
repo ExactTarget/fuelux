@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.15.11 
+ * Fuel UX v3.16.1 
  * Copyright 2012-2017 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -436,6 +436,11 @@ label.fuelux .checkbox-inline {
 .fuelux .radio.multiline ~ .control-label > label {
   font-weight: normal;
   cursor: pointer;
+}
+.fuelux .form-group.required .control-label:before {
+  content: '*';
+  color: #a94442;
+  margin-right: 5px;
 }
 .fuelux .checkbox {
   /* for keyboard tabbing */
@@ -2552,6 +2557,11 @@ label.fuelux .checkbox-inline {
 }
 .fuelux .tree *:focus {
   outline: none;
+}
+.fuelux .tree :focus > .tree-branch-header .tree-label,
+.fuelux .tree :focus > button .tree-label {
+  outline: 0;
+  text-decoration: underline;
 }
 .fuelux .tree button:focus {
   color: #999999;

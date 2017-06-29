@@ -25,7 +25,7 @@
   "devDependencies": {
     "jquery": null,
     "jquery-1.9.1": "jquery#1.9.1",
-    "qunit": "2.x",
+    "qunit": "2.3.0",
     "requirejs-text": "2.x",
     "underscore": "1.x",
     "blanket": "1.x",
@@ -51,18 +51,14 @@
   "license": "BSD-3-Clause",
   "main": [
     "dist/css/fuelux.css",
-    "dist/js/fuelux.js",
-    "dist/fonts/fuelux.eot",
-    "dist/fonts/fuelux.svg",
-    "dist/fonts/fuelux.ttf",
-    "dist/fonts/fuelux.woff"
+    "dist/js/fuelux.js"
   ],
-  "version": "3.15.11",
-  "_release": "3.15.11",
+  "version": "3.16.1",
+  "_release": "3.16.1",
   "_resolution": {
     "type": "version",
-    "tag": "3.15.11",
-    "commit": "e6a0277c130e178dc775de59584b09bc90b475e1"
+    "tag": "3.16.1",
+    "commit": "1d89ba810b16b2ff85a7327c39b384564da30dcb"
   },
   "_source": "https://github.com/ExactTarget/fuelux.git",
   "_target": "3.x",

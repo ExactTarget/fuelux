@@ -14,7 +14,7 @@
 
 // For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
-(function umdWrapper (factory) {
+(function umdFactory (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
 		define(['jquery', 'fuelux/utilities', 'fuelux/dropdown-autoflip'], factory);
@@ -25,7 +25,7 @@
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
 	}
-}(function pillboxWrapper ($) {
+}(function PillboxWrapper ($) {
 	if (!$.fn.dropdownautoflip) {
 		throw new Error('Fuel UX pillbox control requires dropdown-autoflip.');
 	}
@@ -36,6 +36,7 @@
 	// -- END UMD WRAPPER PREFACE --
 
 	// -- BEGIN MODULE CODE HERE --
+
 	var old = $.fn.pillbox;
 
 	var utilities = $.fn.utilities;
@@ -654,7 +655,7 @@
 
 				// suggestion dropdown
 				this.$suggest.html('').append($suggestionList.children());
-				$(document.body).trigger('suggested.fu.pillbox', this.$suggest);
+				$(document).trigger('suggested.fu.pillbox', this.$suggest);
 			}
 
 			return true;

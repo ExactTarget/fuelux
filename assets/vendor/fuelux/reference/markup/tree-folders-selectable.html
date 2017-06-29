@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>Sample Markup</title></head>
+<body>
+<ul class="tree tree-folder-select" id="myTree" role="tree" aria-activedescendant="" aria-multiselectable=false>
+	<li class="tree-branch hidden" data-template="treebranch" role="treeitem" aria-expanded="false" aria-selected="false">
+		<div class="tree-branch-header">
+			<button type="button" class="glyphicon icon-caret glyphicon-play" tabindex="-1"><span class="sr-only">Open</span></button>
+			<button type="button" class="tree-branch-name" tabindex="-1">
+				<span class="glyphicon icon-folder glyphicon-folder-close"></span>
+				<span class="tree-label"></span>
+			</button>
+		</div>
+		<ul class="tree-branch-children" role="group"></ul>
+		<div class="tree-loader"><span role="alert">Loading...</span></div>
+	</li>
+	<li class="tree-item hidden" data-template="treeitem" role="treeitem" aria-selected="false">
+		<button type="button" class="tree-item-name" tabindex="-1">
+			<span class="glyphicon icon-item fueluxicon-bullet"></span>
+			<span class="tree-label"></span>
+		</button>
+	</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>Sample Markup</title></head>
+<body>
+<div class="pillbox" data-initialize="pillbox" id="myPillbox">
+	<ul class="clearfix pill-group">
+
+		<li class="btn btn-default pill" data-value="foo">
+			<span>Item 1</span>
+				<span class="glyphicon glyphicon-close">
+					<span class="sr-only">Remove</span>
+				</span>
+		</li>
+		<li class="btn pill btn-success">
+			<span>Item 2</span>
+				<span class="glyphicon glyphicon-close">
+					<span class="sr-only">Remove</span>
+				</span>
+		</li>
+		<li class="btn pill btn-warning" data-value="three-value">
+			<span>Item 3</span>
+				<span class="glyphicon glyphicon-close">
+					<span class="sr-only">Remove</span>
+				</span>
+		</li>
+		<li class="btn pill btn-danger">
+			<span>Item 4</span>
+				<span class="glyphicon glyphicon-close">
+					<span class="sr-only">Remove</span>
+				</span>
+		</li>
+		<li class="btn pill btn-info">
+			<span>Item 5</span>
+				<span class="glyphicon glyphicon-close">
+					<span class="sr-only">Remove</span>
+				</span>
+		</li>
+
+		<li class="pillbox-input-wrap btn-group">
+			<a class="pillbox-more">and <span class="pillbox-more-count"></span> more...</a>
+			<input type="text" class="form-control dropdown-toggle pillbox-add-item" placeholder="add item" />
+			<button type="button" class="dropdown-toggle sr-only">
+				<span class="caret"></span>
+				<span class="sr-only">Toggle Dropdown</span>
+			</button>
+			<ul class="suggest dropdown-menu" role="menu" data-toggle="dropdown" data-flip="auto"></ul>
+		</li>
+	</ul>
+</div>
+</body>
+</html>

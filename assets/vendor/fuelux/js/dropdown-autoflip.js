@@ -1,3 +1,5 @@
+/* global jQuery:true */
+
 /*
  * Fuel UX Dropdown Auto Flip
  * https://github.com/ExactTarget/fuelux
@@ -11,7 +13,7 @@
 // For more information on UMD visit:
 // https://github.com/umdjs/umd/blob/master/jqueryPlugin.js
 
-(function (factory) {
+(function umdFactory (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// if AMD loader is available, register as an anonymous module.
 		define(['jquery'], factory);
@@ -22,12 +24,12 @@
 		// OR use browser globals if AMD is not present
 		factory(jQuery);
 	}
-}(function ($) {
+}(function dropdownautoflipWrapper ($) {
 	// -- END UMD WRAPPER PREFACE --
 
 	// -- BEGIN MODULE CODE HERE --
 
-	$(document.body).on('click.fu.dropdown-autoflip', '[data-toggle=dropdown][data-flip]', function (event) {
+	$(document).on('click.fu.dropdown-autoflip', '[data-toggle=dropdown][data-flip]', function (event) {
 		if ($(this).data().flip === "auto") {
 			// have the drop down decide where to place itself
 			_autoFlip($(this).next('.dropdown-menu'));
@@ -35,7 +37,7 @@
 	});
 
 	// For pillbox suggestions dropdown
-	$(document.body).on('suggested.fu.pillbox', function (event, element) {
+	$(document).on('suggested.fu.pillbox', function (event, element) {
 		_autoFlip($(element));
 		$(element).parent().addClass('open');
 	});
