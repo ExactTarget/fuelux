@@ -1,4 +1,6 @@
 define(function checkboxVisibilityModule () {
+	window.console = window.console || {};
+
 	return function checkboxVisibility (QUnit) {
 		QUnit.test('should toggle checkbox container visibility', function testVisibility (assert) {
 			var $container = this.$fixture.find('.checkboxToggle');

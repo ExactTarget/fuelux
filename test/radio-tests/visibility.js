@@ -1,4 +1,6 @@
 define(function radioVisibilityModule () {
+	window.console = window.console || {};
+
 	return function radioVisibility (QUnit) {
 		QUnit.test('should toggle radio container visibility', function testVisibility (assert) {
 			var $container = this.$fixture.find('.radioToggle');
