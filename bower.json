@@ -51,10 +51,6 @@
   "license": "BSD-3-Clause",
   "main": [
     "dist/css/fuelux.css",
-    "dist/js/fuelux.js",
-    "dist/fonts/fuelux.eot",
-    "dist/fonts/fuelux.svg",
-    "dist/fonts/fuelux.ttf",
-    "dist/fonts/fuelux.woff"
+    "dist/js/fuelux.js"
   ]
 }
