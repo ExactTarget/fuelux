@@ -61,8 +61,6 @@ You will need to authorize your machine to do npm publishing using `npm adduser`
   - [ ] 5b. Run `bower update`. 
   - [ ] 5c. Commit
   - [ ] 5d. Push to `upstream`.
-- [ ] 6. Run fuelux-tools updatedependencies.js script
-- [ ] 7. Cut fusion release
 - [ ] 8. Announce
   - [ ] 8a. Tweet via @FuelUX account
   - [ ] 8b. Post to Chatter in the Marketing Cloud Lightning UX group
