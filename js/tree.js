@@ -71,6 +71,13 @@
 		});
 
 		this.$element.on('keydown', function processKeypress (e) {
+			var target = $(e.target);
+			// Only listen to keydown events on these classes,
+			// otherwise the events will not propagate to the proper children
+			if (!target.hasClass('tree-branch') && !target.hasClass('tree-item')) {
+				return;
+			}
+
 			return navigateTree($(this), e);
 		});
 
