@@ -20,7 +20,7 @@
     "updatereferences": "grunt shell:copyToReference"
   },
   "dependencies": {
-    "babel-eslint": "^7.2.3",
+    "babel-eslint": "^8.0.0",
     "bootstrap": "3.3.7",
     "eslint-plugin-react": "^7.0.1",
     "jquery": "3.2.1",
