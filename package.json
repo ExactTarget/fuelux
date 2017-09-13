@@ -29,7 +29,7 @@
   },
   "description": "Base Fuel UX styles and controls",
   "devDependencies": {
-    "bower": "1.8.0",
+    "bower": "1.8.1",
     "chai": "^4.0.1",
     "co-mocha": "^1.2.0",
     "connect": "3.6.2",
