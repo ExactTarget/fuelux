@@ -94,7 +94,7 @@
     "type": "BSD-3-Clause",
     "url": "https://github.com/ExactTarget/fuelux/blob/master/LICENSE"
   },
-  "main": "./dist/js/npm",
+  "main": "./js/npm",
   "name": "fuelux",
   "private": false,
   "repository": {
