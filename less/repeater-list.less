@@ -129,53 +129,62 @@
 						}
 					}
 
-					thead > tr > th {
-						background: @gray98;
-						border-bottom: 1px solid @gray87;
-						border-left: 1px solid transparent;
-						border-top: none;
-						color: fade(@true-black, 0);	// transparent
-						line-height: 1.42857;
-						padding: 8px;
+					thead {
+						// thead display defaults to 'table-row-group'
+						// 'table-row-group' has no specification on the default height
+						// fuelux relies on the thead to calculate size of sticky headers
+						// to have consistent heights across browsers resetting to block
+						display: block;
 
-						#fuelux > .no-selection-allowed();
+						> tr > th {
+							background: @gray98;
+							border-bottom: 1px solid @gray87;
+							border-left: 1px solid transparent;
+							border-top: none;
+							color: fade(@true-black, 0);	// transparent
+							line-height: 1.42857;
+							padding: 8px;
 
-						&:first-child {
-							border-left: none;
-							.header-checkbox {
-								width: @mutli-select-enabled-width;
-								padding-left: 12px;
+							#fuelux > .no-selection-allowed();
 
-								.checkbox-inline:before {
-									top: 0;
+							&:first-child {
+								border-left: none;
+								.header-checkbox {
+									width: @mutli-select-enabled-width;
+									padding-left: 12px;
+
+									.checkbox-inline:before {
+										top: 0;
+									}
 								}
 							}
-						}
 
-						&.sortable {
-							&:hover, &.sorted {
-								background: @selectable-hover;
-								cursor: pointer;
-								#fuelux > .vertical(@start-color: @gray98; @end-color: @gray90);
+							&.sortable {
+								&:hover, &.sorted {
+									background: @selectable-hover;
+									cursor: pointer;
+									#fuelux > .vertical(@start-color: @gray98; @end-color: @gray90);
+								}
 							}
-						}
 
-						&.sorted {
+							&.sorted {
+								span.glyphicon {
+									display: block;
+									visibility: hidden;
+								}
+							}
+
 							span.glyphicon {
-								display: block;
+								display: none;
+								float: right;
+								margin-top: 2px;
+							}
+
+							.actions-hidden {
 								visibility: hidden;
 							}
 						}
 
-						span.glyphicon {
-							display: none;
-							float: right;
-							margin-top: 2px;
-						}
-
-						.actions-hidden {
-							visibility: hidden;
-						}
 					}
 				}
 
