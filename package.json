@@ -60,7 +60,7 @@
     "grunt-saucelabs": "9.0.0",
     "grunt-shell": "2.1.0",
     "grunt-text-replace": "0.4.0",
-    "grunt-umd": "2.4.0",
+    "grunt-umd": "3.0.0",
     "grunt-zip": "0.17.1",
     "load-grunt-config": "0.19.2",
     "load-grunt-tasks": "3.5.2",
