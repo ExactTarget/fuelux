@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.16.4 
+ * Fuel UX v3.16.5 
  * Copyright 2012-2018 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -5979,10 +5979,12 @@
 
 				this.currentPage = ( page !== undefined ) ? page : NaN;
 
-				if ( data.end === true || ( this.currentPage + 1 ) >= pages ) {
-					this.infiniteScrollingCont.infinitescroll( 'end', end );
-				} else {
-					this.infiniteScrollingCont.infinitescroll( 'onScroll' );
+				if ( this.infiniteScrollingCont ) {
+					if ( data.end === true || ( this.currentPage + 1 ) >= pages ) {
+						this.infiniteScrollingCont.infinitescroll( 'end', end );
+					} else {
+						this.infiniteScrollingCont.infinitescroll( 'onScroll' );
+					}
 				}
 			},
 
