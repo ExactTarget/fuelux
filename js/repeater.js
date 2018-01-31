@@ -483,10 +483,12 @@
 
 			this.currentPage = (page !== undefined) ? page : NaN;
 
-			if (data.end === true || (this.currentPage + 1) >= pages) {
-				this.infiniteScrollingCont.infinitescroll('end', end);
-			} else {
-				this.infiniteScrollingCont.infinitescroll('onScroll');
+			if (this.infiniteScrollingCont) {
+				if (data.end === true || (this.currentPage + 1) >= pages) {
+					this.infiniteScrollingCont.infinitescroll('end', end);
+				} else {
+					this.infiniteScrollingCont.infinitescroll('onScroll');
+				}
 			}
 		},
 
