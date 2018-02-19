@@ -110,5 +110,10 @@
     },
     "type": "directory",
     "url": "https://raw.github.com/ExactTarget/fuelux/{version}/dist/fuelux.zip"
+  },
+  "greenkeeper": {
+    "ignore": [
+      "bootstrap"
+    ]
   }
 }
