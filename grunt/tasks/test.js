@@ -19,7 +19,7 @@ module.exports = function test (grunt) {
 
 	// multiple jQuery versions, then run SauceLabs VMs
 	grunt.registerTask('releasetest', 'run jshint, build dist, all source tests, validation, and qunit on SauceLabs',
-		['test', 'saucelabs-qunit:defaultBrowsers']);
+		['test'/*, 'saucelabs-qunit:defaultBrowsers'*/]);
 
 	// Due to TravisCI security concerns, Saucelabs can not be run for PRs from forks. Therefore, it can not become part of our PR process.
 	// https://docs.travis-ci.com/user/pull-requests/#Pull-Requests-and-Security-Restrictions
