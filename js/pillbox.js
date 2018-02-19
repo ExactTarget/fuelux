@@ -380,7 +380,7 @@
 				// ignore comma and make sure text that has been entered (protects against " ,". https://github.com/ExactTarget/fuelux/issues/593), unless allowEmptyPills is true.
 				if (text.replace(/[ ]*\,[ ]*/, '').match(/\S/) || (this.options.allowEmptyPills && text.length)) {
 					this._closeSuggestions();
-					this.$addItem.hide().val('');
+					this.$addItem.val('').hide();
 
 					if (attr) {
 						this.addItems({
