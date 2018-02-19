@@ -56,7 +56,7 @@ You can also use on of the following methods:
 - [Volo](https://github.com/volojs/volo) `volo add fuelux` (update with `volo add -f fuelux`).
 - Clone via git `git clone https://github.com/ExactTarget/fuelux/`
   - Cloning the repository ensures you can apply future updates to Fuel UX easily, but requires to you manage its [dependencies](#dependencies) on your own.
-- Download a [.zip archive](http://www.fuelcdn.com/fuelux/3.16.4/fuelux.zip).
+- Download a [.zip archive](http://www.fuelcdn.com/fuelux/3.16.5/fuelux.zip).
 
 # Using Fuel UX
 
@@ -81,11 +81,11 @@ For other methods of managing dependencies consider [AMD support via require](#a
 Ensure all the dependencies are included on the page (eg, such as using the CDN as shown below).
 ```
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-<link href="//www.fuelcdn.com/fuelux/3.16.4/css/fuelux.min.css" rel="stylesheet">
+<link href="//www.fuelcdn.com/fuelux/3.16.5/css/fuelux.min.css" rel="stylesheet">
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.1/js/bootstrap.min.js"></script>
-<script src="//www.fuelcdn.com/fuelux/3.16.4/js/fuelux.min.js"></script>
+<script src="//www.fuelcdn.com/fuelux/3.16.5/js/fuelux.min.js"></script>
 
 ```
 
@@ -116,7 +116,7 @@ If using AMD (such as [RequireJS](http://requirejs.org)), reference the FuelUX d
 ```javascript
 require.config({
     paths: {
-        'fuelux': 'http://www.fuelcdn.com/fuelux/3.16.4/'
+        'fuelux': 'http://www.fuelcdn.com/fuelux/3.16.5/'
         //...
     }
 });
