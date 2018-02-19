@@ -84,7 +84,7 @@
 		getPercentage: function () {
 			var height = (this.$element.css('box-sizing') === 'border-box') ? this.$element.outerHeight() : this.$element.height();
 			var scrollHeight = this.$element.get(0).scrollHeight;
-			return (scrollHeight > height) ? ((height / (scrollHeight - this.curScrollTop)) * 100) : 0;
+			return (height / (scrollHeight - this.curScrollTop)) * 100;
 		},
 
 		fetchData: function (force) {

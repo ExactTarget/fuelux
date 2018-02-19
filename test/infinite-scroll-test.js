@@ -69,6 +69,24 @@ define( function infiniteScrollTest ( require ) {
 		$infiniteScroll.scrollTop( ( $infiniteScroll.get( 0 ).scrollHeight - ( $infiniteScroll.height() / ( percent / 100 ) ) ) + 1 );
 	} );
 
+	QUnit.test( 'should fetch on initial load without any content', function autoLoadTest ( assert ) {
+		var ready = assert.async();
+		var $infiniteScroll = $( html );
+		var scrollHeight;
+
+		$( 'body' ).append( $infiniteScroll );
+		$infiniteScroll.infinitescroll( {
+			dataSource: function dataSource ( helpers, callback ) {
+				assert.ok( true, 'dataSource function called upon initial load' );
+				assert.ok( ( helpers.percentage && helpers.scrollTop === 0 ), 'appropriate helpers passed to dataSource function' );
+				assert.ok( typeof callback === 'function', 'appropriate callback passed to dataSource function' );
+
+				$infiniteScroll.remove();
+				ready();
+			}
+		} );
+	} );
+
 	QUnit.test( 'destroy control', function destroyControl ( assert ) {
 		var ready = assert.async();
 		var $infiniteScroll = $( html );
