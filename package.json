@@ -22,7 +22,7 @@
   "dependencies": {
     "bootstrap": "3.3.7",
     "jquery": "3.2.1",
-    "moment": "2.18.1",
+    "moment": "2.22.0",
     "require-handlebars-plugin": "^1.0.0"
   },
   "description": "Base Fuel UX styles and controls",
