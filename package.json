@@ -41,7 +41,7 @@
     "grunt": "^1.0.1",
     "grunt-banner": "0.6.0",
     "grunt-blanket-qunit": "^0.2.0",
-    "grunt-browserify": "5.0.0",
+    "grunt-browserify": "5.3.0",
     "grunt-bump": "0.8.0",
     "grunt-cli": "1.2.0",
     "grunt-contrib-clean": "1.1.0",
