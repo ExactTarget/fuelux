@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.16.6 
+ * Fuel UX v3.16.7 
  * Copyright 2012-2018 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -4644,6 +4644,11 @@
 			getPercentage: function() {
 				var height = ( this.$element.css( 'box-sizing' ) === 'border-box' ) ? this.$element.outerHeight() : this.$element.height();
 				var scrollHeight = this.$element.get( 0 ).scrollHeight;
+				// If we cannot compute the height, then we end up fetching all pages (ends up #/0 = Infinity).
+				// This can happen if the repeater is loaded, but is not in the dom
+				if ( scrollHeight === 0 || scrollHeight - this.curScrollTop === 0 ) {
+					return 0;
+				}
 				return ( height / ( scrollHeight - this.curScrollTop ) ) * 100;
 			},
 
