@@ -1,5 +1,5 @@
 /*!
- * Fuel UX v3.16.7 
+ * Fuel UX v3.17.0 
  * Copyright 2012-2018 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
@@ -3281,7 +3281,7 @@
 							.removeClass( 'hide hidden' ) // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 							.removeData( 'template' )
 							.removeAttr( 'data-template' );
-						$entity.find( '.tree-' + nodeType + '-name > .tree-label' ).html( treeNode.text || treeNode.name );
+						$entity.find( '.tree-' + nodeType + '-name > .tree-label' )[ self.options.html ? 'html' : 'text' ]( treeNode.text || treeNode.name );
 						$entity.data( treeNode );
 
 
