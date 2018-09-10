@@ -47,7 +47,7 @@
     "grunt-contrib-clean": "1.1.0",
     "grunt-contrib-compress": "1.4.3",
     "grunt-contrib-concat": "1.0.1",
-    "grunt-contrib-connect": "1.0.2",
+    "grunt-contrib-connect": "2.0.0",
     "grunt-contrib-copy": "1.0.0",
     "grunt-contrib-jshint": "1.1.0",
     "grunt-contrib-less": "1.4.1",
