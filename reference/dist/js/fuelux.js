@@ -1,6 +1,6 @@
 /*!
- * Fuel UX v3.16.1 
- * Copyright 2012-2017 ExactTarget
+ * Fuel UX v3.16.6 
+ * Copyright 2012-2018 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
 
@@ -4644,7 +4644,7 @@
 			getPercentage: function() {
 				var height = ( this.$element.css( 'box-sizing' ) === 'border-box' ) ? this.$element.outerHeight() : this.$element.height();
 				var scrollHeight = this.$element.get( 0 ).scrollHeight;
-				return ( scrollHeight > height ) ? ( ( height / ( scrollHeight - this.curScrollTop ) ) * 100 ) : 0;
+				return ( height / ( scrollHeight - this.curScrollTop ) ) * 100;
 			},
 
 			fetchData: function( force ) {
@@ -5109,7 +5109,7 @@
 					// ignore comma and make sure text that has been entered (protects against " ,". https://github.com/ExactTarget/fuelux/issues/593), unless allowEmptyPills is true.
 					if ( text.replace( /[ ]*\,[ ]*/, '' ).match( /\S/ ) || ( this.options.allowEmptyPills && text.length ) ) {
 						this._closeSuggestions();
-						this.$addItem.hide().val( '' );
+						this.$addItem.val( '' ).hide();
 
 						if ( attr ) {
 							this.addItems( {
@@ -5979,8 +5979,12 @@
 
 				this.currentPage = ( page !== undefined ) ? page : NaN;
 
-				if ( data.end === true || ( this.currentPage + 1 ) >= pages ) {
-					this.infiniteScrollingCont.infinitescroll( 'end', end );
+				if ( this.infiniteScrollingCont ) {
+					if ( data.end === true || ( this.currentPage + 1 ) >= pages ) {
+						this.infiniteScrollingCont.infinitescroll( 'end', end );
+					} else {
+						this.infiniteScrollingCont.infinitescroll( 'onScroll' );
+					}
 				}
 			},
 

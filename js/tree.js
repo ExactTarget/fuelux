@@ -159,7 +159,7 @@
 						.removeClass('hide hidden')// jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 						.removeData('template')
 						.removeAttr('data-template');
-					$entity.find('.tree-' + nodeType + '-name > .tree-label').html(treeNode.text || treeNode.name);
+					$entity.find('.tree-' + nodeType + '-name > .tree-label')[self.options.html ? 'html' : 'text'](treeNode.text || treeNode.name);
 					$entity.data(treeNode);
 
 

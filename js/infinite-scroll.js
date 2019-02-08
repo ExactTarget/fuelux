@@ -84,7 +84,12 @@
 		getPercentage: function () {
 			var height = (this.$element.css('box-sizing') === 'border-box') ? this.$element.outerHeight() : this.$element.height();
 			var scrollHeight = this.$element.get(0).scrollHeight;
-			return (scrollHeight > height) ? ((height / (scrollHeight - this.curScrollTop)) * 100) : 0;
+			// If we cannot compute the height, then we end up fetching all pages (ends up #/0 = Infinity).
+			// This can happen if the repeater is loaded, but is not in the dom
+			if (scrollHeight === 0 || scrollHeight - this.curScrollTop === 0) {
+				return 0;
+			}
+			return (height / (scrollHeight - this.curScrollTop)) * 100;
 		},
 
 		fetchData: function (force) {

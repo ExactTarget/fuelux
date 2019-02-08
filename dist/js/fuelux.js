@@ -1,7 +1,6 @@
 /*!
- * Fuel UX EDGE - Built 2017/10/25, 12:50:00 PM 
- * Previous release: v3.16.3 
- * Copyright 2012-2017 ExactTarget
+ * Fuel UX v3.17.0 
+ * Copyright 2012-2018 ExactTarget
  * Licensed under the BSD-3-Clause license (https://github.com/ExactTarget/fuelux/blob/master/LICENSE)
  */
 
@@ -3282,7 +3281,7 @@
 							.removeClass( 'hide hidden' ) // jQuery deprecated hide in 3.0. Use hidden instead. Leaving hide here to support previous markup
 							.removeData( 'template' )
 							.removeAttr( 'data-template' );
-						$entity.find( '.tree-' + nodeType + '-name > .tree-label' ).html( treeNode.text || treeNode.name );
+						$entity.find( '.tree-' + nodeType + '-name > .tree-label' )[ self.options.html ? 'html' : 'text' ]( treeNode.text || treeNode.name );
 						$entity.data( treeNode );
 
 
@@ -4645,7 +4644,12 @@
 			getPercentage: function() {
 				var height = ( this.$element.css( 'box-sizing' ) === 'border-box' ) ? this.$element.outerHeight() : this.$element.height();
 				var scrollHeight = this.$element.get( 0 ).scrollHeight;
-				return ( scrollHeight > height ) ? ( ( height / ( scrollHeight - this.curScrollTop ) ) * 100 ) : 0;
+				// If we cannot compute the height, then we end up fetching all pages (ends up #/0 = Infinity).
+				// This can happen if the repeater is loaded, but is not in the dom
+				if ( scrollHeight === 0 || scrollHeight - this.curScrollTop === 0 ) {
+					return 0;
+				}
+				return ( height / ( scrollHeight - this.curScrollTop ) ) * 100;
 			},
 
 			fetchData: function( force ) {
@@ -5980,8 +5984,12 @@
 
 				this.currentPage = ( page !== undefined ) ? page : NaN;
 
-				if ( data.end === true || ( this.currentPage + 1 ) >= pages ) {
-					this.infiniteScrollingCont.infinitescroll( 'end', end );
+				if ( this.infiniteScrollingCont ) {
+					if ( data.end === true || ( this.currentPage + 1 ) >= pages ) {
+						this.infiniteScrollingCont.infinitescroll( 'end', end );
+					} else {
+						this.infiniteScrollingCont.infinitescroll( 'onScroll' );
+					}
 				}
 			},
 
