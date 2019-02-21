@@ -37,7 +37,7 @@
     "eslint-plugin-react": "^7.7.0",
     "eslint-plugin-requirejs": "^3.0.0",
     "express": "^4.16.3",
-    "express-handlebars": "^3.0.0",
+    "express-handlebars": "3.0.0",
     "grunt": "^1.0.2",
     "grunt-banner": "0.6.0",
     "grunt-blanket-qunit": "^0.2.0",
