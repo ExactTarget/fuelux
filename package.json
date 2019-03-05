@@ -32,7 +32,7 @@
     "chai": "^4.0.1",
     "co-mocha": "^1.2.2",
     "connect": "3.6.2",
-    "eslint": "^4.19.1",
+    "eslint": "^5.15.1",
     "eslint-config-airbnb-es5": "^1.0.9",
     "eslint-plugin-react": "^7.7.0",
     "eslint-plugin-requirejs": "^3.0.0",
