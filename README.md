@@ -1,3 +1,14 @@
+Archive Statement:
+
+As of March 2019, this repository is read-only as Salesforce has archived the Aura open-source UI framework. Aura components will continue to be supported, but the project is no longer open source.
+
+Salesforce has introduced a new programming model for the Lightning Component Framework called Lightning Web Components. This programming model is designed for building fast components using modern JavaScript and Web Standards. Lightning web components and Aura components can coexist and interoperate on a page.
+
+To learn more about Aura components, start with the Aura Components Basics module in Trailhead.
+For more details, see the Lightning Aura Components Developer Guide.
+
+-----
+
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [Sanity Checks](#sanity-checks)
