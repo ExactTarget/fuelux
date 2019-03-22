@@ -1,8 +1,8 @@
 Archive Statement:
 
-As of March 2019, this repository is read-only as Salesforce has archived the FuelUX open-source UI framework. FuelUX will _not_ continue to be supported, and the project will no longer open source.
+As of March 2019, this repository is read-only as Salesforce has archived the FuelUX open-source UI framework and will no longer be supported.
 
-Salesforce has introduced a new programming model for the Lightning Component Framework called [Lightning Web Components](https://trailhead.salesforce.com/en/content/learn/projects/quick-start-lightning-web-components). This programming model is designed for building fast components using modern JavaScript and Web Standards.
+Salesforce has introduced a new programming model for the Lightning Component Framework called [Lightning Web Components](https://trailhead.salesforce.com/en/content/learn/projects/quick-start-lightning-web-components) which you are encouraged to check out instead. This programming model is designed for building fast components using modern JavaScript and Web Standards.
 
 -----
 
