@@ -19,7 +19,7 @@
   "dependencies": {
     "jquery": "latest",
     "requirejs": "2.x",
-    "bootstrap": "3.x",
+    "bootstrap": "^3.4.1",
     "moment": "^2.10.6"
   },
   "devDependencies": {
