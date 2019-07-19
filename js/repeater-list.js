@@ -910,8 +910,15 @@
 				columns.splice(0, 0, checkboxColumn);
 			}
 
-			this.list_columns = columns;
-			this.list_firstRender = false;
+			if (data.count > 0) {
+				this.list_columns = columns;
+			}
+			else {	//Patch for Issue #1522
+				this.list_columns = [];
+			}
+			if (this.list_firstRender) {
+				this.list_firstRender = false;
+			}
 			this.$loader.removeClass('noHeader');
 
 			// keep action column header even when empty, you'll need it later....
