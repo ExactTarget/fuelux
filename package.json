@@ -62,7 +62,7 @@
     "grunt-text-replace": "0.4.0",
     "grunt-umd": "3.0.0",
     "grunt-zip": "0.17.1",
-    "load-grunt-config": "0.19.2",
+    "load-grunt-config": "2.0.1",
     "load-grunt-tasks": "3.5.2",
     "mocha": "^3.4.2",
     "niffy": "^0.2.0",
