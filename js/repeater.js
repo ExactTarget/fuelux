@@ -455,7 +455,7 @@
 				delete options.end;
 				this.infiniteScrollingOptions = options;
 				viewport.css({
-					height: viewport.height() + footer.outerHeight()
+					height: viewport.height() + (footer.outerHeight() || 0)
 				});
 				footer.hide();
 			} else {
@@ -470,7 +470,7 @@
 				this.infiniteScrollingEnd = null;
 				this.infiniteScrollingOptions = {};
 				viewport.css({
-					height: viewport.height() - footer.outerHeight()
+					height: viewport.height() - (footer.outerHeight() || 0)
 				});
 				footer.show();
 			}
@@ -732,8 +732,8 @@
 				};
 
 				var staticHeightValue = (staticHeight === 'true' || staticHeight === true) ? this.$element.height() : parseInt(staticHeight, 10);
-				var headerHeight = this.$element.find('.repeater-header').outerHeight();
-				var footerHeight = this.$element.find('.repeater-footer').outerHeight();
+				var headerHeight = this.$element.find('.repeater-header').outerHeight() || 0;
+				var footerHeight = this.$element.find('.repeater-footer').outerHeight() || 0;
 				var bottomMargin = (viewportMargins.bottom === 'auto') ? 0 : parseInt(viewportMargins.bottom, 10);
 				var topMargin = (viewportMargins.top === 'auto') ? 0 : parseInt(viewportMargins.top, 10);
 
@@ -745,8 +745,8 @@
 
 			if (viewTypeObj.resize) {
 				viewTypeObj.resize.call(this, {
-					height: this.$element.outerHeight(),
-					width: this.$element.outerWidth()
+					height: this.$element.outerHeight() || 0,
+					width: this.$element.outerWidth() || 0
 				});
 			}
 
