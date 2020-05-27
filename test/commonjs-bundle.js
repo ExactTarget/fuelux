@@ -880,7 +880,7 @@ require('../../js/picker');
 			}
 		},
 
-		//some code ripped from http://stackoverflow.com/questions/2182246/javascript-dates-in-ie-nan-firefox-chrome-ok
+		//some code ripped from https://stackoverflow.com/questions/2182246/javascript-dates-in-ie-nan-firefox-chrome-ok
 		parseDate: function (date) {
 			var self = this;
 			var BAD_DATE = new Date(NaN);
@@ -1266,7 +1266,7 @@ require('../../js/picker');
 		formatDate: null,
 		momentConfig: {
 			culture: 'en',
-			format: 'L'// more formats can be found here http://momentjs.com/docs/#/customization/long-date-formats/.
+			format: 'L'// more formats can be found here https://momentjs.com/docs/#/customization/long-date-formats/.
 		},
 		parseDate: null,
 		restricted: [],//accepts an array of objects formatted as so: { from: {{date}}, to: {{date}} }  (ex: [ { from: new Date('12/11/2014'), to: new Date('03/31/2015') } ])
@@ -5895,7 +5895,7 @@ require('../../js/picker');
 			var duration = '';
 
 			// if both UNTIL and COUNT are not specified, the recurrence will repeat forever
-			// http://tools.ietf.org/html/rfc2445#section-4.3.10
+			// https://tools.ietf.org/html/rfc2445#section-4.3.10
 			if (repeat !== 'none') {
 				if (end === 'after') {
 					duration = 'COUNT=' + this.$endAfter.spinbox('value') + ';';
@@ -7829,7 +7829,7 @@ require('../../js/picker');
 		if (this.$element.children('.steps-container').length === 0) {
 			this.$element.addClass('no-steps-container');
 			if (window && window.console && window.console.warn) {
-				window.console.warn('please update your wizard markup to include ".steps-container" as seen in http://getfuelux.com/javascript.html#wizard-usage-markup');
+				window.console.warn('please update your wizard markup to include ".steps-container" as seen in https://getfuelux.com/javascript.html#wizard-usage-markup');
 			}
 		}
 
@@ -8258,7 +8258,7 @@ require('../../js/affix.js')
 },{"../../js/affix.js":22,"../../js/alert.js":23,"../../js/button.js":24,"../../js/carousel.js":25,"../../js/collapse.js":26,"../../js/dropdown.js":27,"../../js/modal.js":28,"../../js/popover.js":29,"../../js/scrollspy.js":30,"../../js/tab.js":31,"../../js/tooltip.js":32,"../../js/transition.js":33}],22:[function(require,module,exports){
 /* ========================================================================
  * Bootstrap: affix.js v3.3.5
- * http://getbootstrap.com/javascript/#affix
+ * https://getbootstrap.com/javascript/#affix
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -8422,7 +8422,7 @@ require('../../js/affix.js')
 },{}],23:[function(require,module,exports){
 /* ========================================================================
  * Bootstrap: alert.js v3.3.5
- * http://getbootstrap.com/javascript/#alerts
+ * https://getbootstrap.com/javascript/#alerts
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -8518,7 +8518,7 @@ require('../../js/affix.js')
 },{}],24:[function(require,module,exports){
 /* ========================================================================
  * Bootstrap: button.js v3.3.5
- * http://getbootstrap.com/javascript/#buttons
+ * https://getbootstrap.com/javascript/#buttons
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -8640,7 +8640,7 @@ require('../../js/affix.js')
 },{}],25:[function(require,module,exports){
 /* ========================================================================
  * Bootstrap: carousel.js v3.3.5
- * http://getbootstrap.com/javascript/#carousel
+ * https://getbootstrap.com/javascript/#carousel
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -8879,7 +8879,7 @@ require('../../js/affix.js')
 },{}],26:[function(require,module,exports){
 /* ========================================================================
  * Bootstrap: collapse.js v3.3.5
- * http://getbootstrap.com/javascript/#collapse
+ * https://getbootstrap.com/javascript/#collapse
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -9092,7 +9092,7 @@ require('../../js/affix.js')
 },{}],27:[function(require,module,exports){
 /* ========================================================================
  * Bootstrap: dropdown.js v3.3.5
- * http://getbootstrap.com/javascript/#dropdowns
+ * https://getbootstrap.com/javascript/#dropdowns
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -9259,7 +9259,7 @@ require('../../js/affix.js')
 },{}],28:[function(require,module,exports){
 /* ========================================================================
  * Bootstrap: modal.js v3.3.5
- * http://getbootstrap.com/javascript/#modals
+ * https://getbootstrap.com/javascript/#modals
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -9598,7 +9598,7 @@ require('../../js/affix.js')
 },{}],29:[function(require,module,exports){
 /* ========================================================================
  * Bootstrap: popover.js v3.3.5
- * http://getbootstrap.com/javascript/#popovers
+ * https://getbootstrap.com/javascript/#popovers
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -9708,7 +9708,7 @@ require('../../js/affix.js')
 },{}],30:[function(require,module,exports){
 /* ========================================================================
  * Bootstrap: scrollspy.js v3.3.5
- * http://getbootstrap.com/javascript/#scrollspy
+ * https://getbootstrap.com/javascript/#scrollspy
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -9882,7 +9882,7 @@ require('../../js/affix.js')
 },{}],31:[function(require,module,exports){
 /* ========================================================================
  * Bootstrap: tab.js v3.3.5
- * http://getbootstrap.com/javascript/#tabs
+ * https://getbootstrap.com/javascript/#tabs
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -10039,7 +10039,7 @@ require('../../js/affix.js')
 },{}],32:[function(require,module,exports){
 /* ========================================================================
  * Bootstrap: tooltip.js v3.3.5
- * http://getbootstrap.com/javascript/#tooltip
+ * https://getbootstrap.com/javascript/#tooltip
  * Inspired by the original jQuery.tipsy by Jason Frame
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
@@ -10555,7 +10555,7 @@ require('../../js/affix.js')
 },{}],33:[function(require,module,exports){
 /* ========================================================================
  * Bootstrap: transition.js v3.3.5
- * http://getbootstrap.com/javascript/#transitions
+ * https://getbootstrap.com/javascript/#transitions
  * ========================================================================
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -10565,7 +10565,7 @@ require('../../js/affix.js')
 +function ($) {
   'use strict';
 
-  // CSS TRANSITION SUPPORT (Shoutout: http://www.modernizr.com/)
+  // CSS TRANSITION SUPPORT (Shoutout: https://www.modernizr.com/)
   // ============================================================
 
   function transitionEnd() {
@@ -10587,7 +10587,7 @@ require('../../js/affix.js')
     return false // explicit for ie8 (  ._.)
   }
 
-  // http://blog.alexmaccaw.com/css-transitions
+  // https://blog.alexmaccaw.com/css-transitions
   $.fn.emulateTransitionEnd = function (duration) {
     var called = false
     var $el = this
@@ -10616,14 +10616,14 @@ require('../../js/affix.js')
 },{}],34:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
- * http://jquery.com/
+ * https://jquery.com/
  *
  * Includes Sizzle.js
- * http://sizzlejs.com/
+ * https://sizzlejs.com/
  *
  * Copyright 2005, 2014 jQuery Foundation, Inc. and other contributors
  * Released under the MIT license
- * http://jquery.org/license
+ * https://jquery.org/license
  *
  * Date: 2015-04-28T16:01Z
  */
@@ -11169,11 +11169,11 @@ function isArraylike( obj ) {
 var Sizzle =
 /*!
  * Sizzle CSS Selector Engine v2.2.0-pre
- * http://sizzlejs.com/
+ * https://sizzlejs.com/
  *
  * Copyright 2008, 2014 jQuery Foundation, Inc. and other contributors
  * Released under the MIT license
- * http://jquery.org/license
+ * https://jquery.org/license
  *
  * Date: 2014-12-16
  */
@@ -11227,7 +11227,7 @@ var i,
 	push = arr.push,
 	slice = arr.slice,
 	// Use a stripped-down indexOf as it's faster than native
-	// http://jsperf.com/thor-indexof-vs-for/5
+	// https://jsperf.com/thor-indexof-vs-for/5
 	indexOf = function( list, elem ) {
 		var i = 0,
 			len = list.length;
@@ -11243,17 +11243,17 @@ var i,
 
 	// Regular expressions
 
-	// Whitespace characters http://www.w3.org/TR/css3-selectors/#whitespace
+	// Whitespace characters https://www.w3.org/TR/css3-selectors/#whitespace
 	whitespace = "[\\x20\\t\\r\\n\\f]",
-	// http://www.w3.org/TR/css3-syntax/#characters
+	// https://www.w3.org/TR/css3-syntax/#characters
 	characterEncoding = "(?:\\\\.|[\\w-]|[^\\x00-\\xa0])+",
 
 	// Loosely modeled on CSS identifier characters
-	// An unquoted value should be a CSS identifier http://www.w3.org/TR/css3-selectors/#attribute-selectors
-	// Proper syntax: http://www.w3.org/TR/CSS21/syndata.html#value-def-identifier
+	// An unquoted value should be a CSS identifier https://www.w3.org/TR/css3-selectors/#attribute-selectors
+	// Proper syntax: https://www.w3.org/TR/CSS21/syndata.html#value-def-identifier
 	identifier = characterEncoding.replace( "w", "w#" ),
 
-	// Attribute selectors: http://www.w3.org/TR/selectors/#attribute-selectors
+	// Attribute selectors: https://www.w3.org/TR/selectors/#attribute-selectors
 	attributes = "\\[" + whitespace + "*(" + characterEncoding + ")(?:" + whitespace +
 		// Operator (capture 2)
 		"*([*^$|!~]?=)" + whitespace +
@@ -11310,7 +11310,7 @@ var i,
 	rsibling = /[+~]/,
 	rescape = /'|\\/g,
 
-	// CSS escapes http://www.w3.org/TR/CSS21/syndata.html#escaped-characters
+	// CSS escapes https://www.w3.org/TR/CSS21/syndata.html#escaped-characters
 	runescape = new RegExp( "\\\\([\\da-f]{1,6}" + whitespace + "?|(" + whitespace + ")|.)", "ig" ),
 	funescape = function( _, escaped, escapedWhitespace ) {
 		var high = "0x" + escaped - 0x10000;
@@ -11781,7 +11781,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 	// We allow this because of a bug in IE8/9 that throws an error
 	// whenever `document.activeElement` is accessed on an iframe
 	// So, we allow :focus to pass through QSA all the time to avoid the IE error
-	// See http://bugs.jquery.com/ticket/13378
+	// See https://bugs.jquery.com/ticket/13378
 	rbuggyQSA = [];
 
 	if ( (support.qsa = rnative.test( doc.querySelectorAll )) ) {
@@ -11792,7 +11792,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			// This is to test IE's treatment of not explicitly
 			// setting a boolean content attribute,
 			// since its presence should be enough
-			// http://bugs.jquery.com/ticket/12359
+			// https://bugs.jquery.com/ticket/12359
 			docElem.appendChild( div ).innerHTML = "<a id='" + expando + "'></a>" +
 				"<select id='" + expando + "-\f]' msallowcapture=''>" +
 				"<option selected=''></option></select>";
@@ -11800,7 +11800,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			// Support: IE8, Opera 11-12.16
 			// Nothing should be selected when empty strings follow ^= or $= or *=
 			// The test attribute must be unknown in Opera but "safe" for WinRT
-			// http://msdn.microsoft.com/en-us/library/ie/hh465388.aspx#attribute_section
+			// https://msdn.microsoft.com/en-us/library/ie/hh465388.aspx#attribute_section
 			if ( div.querySelectorAll("[msallowcapture^='']").length ) {
 				rbuggyQSA.push( "[*^$]=" + whitespace + "*(?:''|\"\")" );
 			}
@@ -11817,7 +11817,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			}
 
 			// Webkit/Opera - :checked should return selected option elements
-			// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
+			// https://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
 			// IE8 throws error here and will not see later tests
 			if ( !div.querySelectorAll(":checked").length ) {
 				rbuggyQSA.push(":checked");
@@ -12373,7 +12373,7 @@ Expr = Sizzle.selectors = {
 
 		"PSEUDO": function( pseudo, argument ) {
 			// pseudo-class names are case-insensitive
-			// http://www.w3.org/TR/selectors/#pseudo-classes
+			// https://www.w3.org/TR/selectors/#pseudo-classes
 			// Prioritize by case sensitivity in case custom pseudos are added with uppercase letters
 			// Remember that setFilters inherits from pseudos
 			var args,
@@ -12460,7 +12460,7 @@ Expr = Sizzle.selectors = {
 		// or beginning with the identifier C immediately followed by "-".
 		// The matching of C against the element's language value is performed case-insensitively.
 		// The identifier C does not have to be a valid language name."
-		// http://www.w3.org/TR/selectors/#lang-pseudo
+		// https://www.w3.org/TR/selectors/#lang-pseudo
 		"lang": markFunction( function( lang ) {
 			// lang value must be a valid identifier
 			if ( !ridentifier.test(lang || "") ) {
@@ -12507,7 +12507,7 @@ Expr = Sizzle.selectors = {
 
 		"checked": function( elem ) {
 			// In CSS3, :checked should return both checked and selected elements
-			// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
+			// https://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
 			var nodeName = elem.nodeName.toLowerCase();
 			return (nodeName === "input" && !!elem.checked) || (nodeName === "option" && !!elem.selected);
 		},
@@ -12524,7 +12524,7 @@ Expr = Sizzle.selectors = {
 
 		// Contents
 		"empty": function( elem ) {
-			// http://www.w3.org/TR/selectors/#empty-pseudo
+			// https://www.w3.org/TR/selectors/#empty-pseudo
 			// :empty is negated by element (1) or content nodes (text: 3; cdata: 4; entity ref: 5),
 			//   but not by others (comment: 8; processing instruction: 7; etc.)
 			// nodeType < 6 works because attributes (2) do not appear as children
@@ -13180,7 +13180,7 @@ support.sortDetached = assert(function( div1 ) {
 
 // Support: IE<8
 // Prevent attribute/property "interpolation"
-// http://msdn.microsoft.com/en-us/library/ms536429%28VS.85%29.aspx
+// https://msdn.microsoft.com/en-us/library/ms536429%28VS.85%29.aspx
 if ( !assert(function( div ) {
 	div.innerHTML = "<a href='#'></a>";
 	return div.firstChild.getAttribute("href") === "#" ;
@@ -14056,7 +14056,7 @@ jQuery.ready.promise = function( obj ) {
 
 		// Catch cases where $(document).ready() is called after the browser event has already occurred.
 		// We once tried to use readyState "interactive" here, but it caused issues like the one
-		// discovered by ChrisS here: http://bugs.jquery.com/ticket/12282#comment:15
+		// discovered by ChrisS here: https://bugs.jquery.com/ticket/12282#comment:15
 		if ( document.readyState === "complete" ) {
 			// Handle it asynchronously to allow scripts the opportunity to delay ready
 			setTimeout( jQuery.ready );
@@ -15319,7 +15319,7 @@ jQuery.Event = function( src, props ) {
 };
 
 // jQuery.Event is based on DOM3 Events as specified by the ECMAScript Language Binding
-// http://www.w3.org/TR/2003/WD-DOM-Level-3-Events-20030331/ecma-script-binding.html
+// https://www.w3.org/TR/2003/WD-DOM-Level-3-Events-20030331/ecma-script-binding.html
 jQuery.Event.prototype = {
 	isDefaultPrevented: returnFalse,
 	isPropagationStopped: returnFalse,
@@ -15665,7 +15665,7 @@ jQuery.extend({
 		if ( !support.noCloneChecked && ( elem.nodeType === 1 || elem.nodeType === 11 ) &&
 				!jQuery.isXMLDoc( elem ) ) {
 
-			// We eschew Sizzle here for performance reasons: http://jsperf.com/getall-vs-sizzle/2
+			// We eschew Sizzle here for performance reasons: https://jsperf.com/getall-vs-sizzle/2
 			destElements = getAll( clone );
 			srcElements = getAll( elem );
 
@@ -16187,7 +16187,7 @@ function curCSS( elem, name, computed ) {
 		// Support: iOS < 6
 		// A tribute to the "awesome hack by Dean Edwards"
 		// iOS < 6 (at least) returns percentage for a larger set of values, but width seems to be reliably pixels
-		// this is against the CSSOM draft spec: http://dev.w3.org/csswg/cssom/#resolved-values
+		// this is against the CSSOM draft spec: https://dev.w3.org/csswg/cssom/#resolved-values
 		if ( rnumnonpx.test( ret ) && rmargin.test( name ) ) {
 
 			// Remember the original values
@@ -17513,7 +17513,7 @@ jQuery.fx.speeds = {
 
 
 // Based off of the plugin by Clint Helfers, with permission.
-// http://blindsignals.com/index.php/2009/07/jquery-delay/
+// https://blindsignals.com/index.php/2009/07/jquery-delay/
 jQuery.fn.delay = function( time, type ) {
 	time = jQuery.fx ? jQuery.fx.speeds[ time ] || time : time;
 	type = type || "fx";
@@ -18656,8 +18656,8 @@ jQuery.extend({
 			parts = rurl.exec( s.url.toLowerCase() );
 			s.crossDomain = !!( parts &&
 				( parts[ 1 ] !== ajaxLocParts[ 1 ] || parts[ 2 ] !== ajaxLocParts[ 2 ] ||
-					( parts[ 3 ] || ( parts[ 1 ] === "http:" ? "80" : "443" ) ) !==
-						( ajaxLocParts[ 3 ] || ( ajaxLocParts[ 1 ] === "http:" ? "80" : "443" ) ) )
+					( parts[ 3 ] || ( parts[ 1 ] === "https:" ? "80" : "443" ) ) !==
+						( ajaxLocParts[ 3 ] || ( ajaxLocParts[ 1 ] === "https:" ? "80" : "443" ) ) )
 			);
 		}
 
@@ -20372,7 +20372,7 @@ return jQuery;
         return regexes[token](config._strict, config._locale);
     }
 
-    // Code from http://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript
+    // Code from https://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript
     function unescapeFormat(s) {
         return s.replace('\\', '').replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g, function (matched, p1, p2, p3, p4) {
             return p1 || p2 || p3 || p4;
@@ -20667,7 +20667,7 @@ return jQuery;
 
     function createDate (y, m, d, h, M, s, ms) {
         //can't just apply() to create a date:
-        //http://stackoverflow.com/questions/181348/instantiating-a-javascript-object-by-calling-prototype-constructor-apply
+        //https://stackoverflow.com/questions/181348/instantiating-a-javascript-object-by-calling-prototype-constructor-apply
         var date = new Date(y, m, d, h, M, s, ms);
 
         //the date constructor doesn't accept years < 1970
@@ -20833,7 +20833,7 @@ return jQuery;
 
     // HELPERS
 
-    //http://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
+    //https://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
     function dayOfYearFromWeeks(year, week, weekday, firstDayOfWeekOfYear, firstDayOfWeek) {
         var week1Jan = 6 + firstDayOfWeek - firstDayOfWeekOfYear, janX = createUTCDate(year, 0, 1 + week1Jan), d = janX.getUTCDay(), dayOfYear;
         if (d < firstDayOfWeek) {
@@ -21506,7 +21506,7 @@ return jQuery;
 
     var aspNetRegex = /(\-)?(?:(\d*)\.)?(\d+)\:(\d+)(?:\:(\d+)\.?(\d{3})?)?/;
 
-    // from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
+    // from https://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
     // somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
     var create__isoRegex = /^(-)?P(?:(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?|([0-9,.]*)W)$/;
 
@@ -23024,11 +23024,11 @@ return jQuery;
 },{}],36:[function(require,module,exports){
 /*!
  * QUnit 1.19.0
- * http://qunitjs.com/
+ * https://qunitjs.com/
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license
- * http://jquery.org/license
+ * https://jquery.org/license
  *
  * Date: 2015-09-01T15:00Z
  */
@@ -23413,7 +23413,7 @@ function verifyLoggingCallbacks() {
 				global.console.warn(
 					"QUnit." + loggingCallback + " was replaced with a new value.\n" +
 					"Please, check out the documentation on how to apply logging callbacks.\n" +
-					"Reference: http://api.qunitjs.com/category/callbacks/"
+					"Reference: https://api.qunitjs.com/category/callbacks/"
 				);
 			}
 		}
@@ -24720,7 +24720,7 @@ QUnit.equiv = (function() {
 }());
 
 // Based on jsDump by Ariel Flesler
-// http://flesler.blogspot.com/2008/05/jsdump-pretty-dump-of-any-javascript.html
+// https://flesler.blogspot.com/2008/05/jsdump-pretty-dump-of-any-javascript.html
 QUnit.dump = (function() {
 	function quote( str ) {
 		return "\"" + str.toString().replace( /\\/g, "\\\\" ).replace( /"/g, "\\\"" ) + "\"";
@@ -25062,13 +25062,13 @@ if ( typeof define === "function" && define.amd ) {
  * The original source of google-diff-match-patch is attributable and licensed as follows:
  *
  * Copyright 2006 Google Inc.
- * http://code.google.com/p/google-diff-match-patch/
+ * https://code.google.com/p/google-diff-match-patch/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -25295,7 +25295,7 @@ QUnit.diff = ( function() {
 			return 0;
 		}
 		// Binary search.
-		// Performance analysis: http://neil.fraser.name/news/2007/10/09/
+		// Performance analysis: https://neil.fraser.name/news/2007/10/09/
 		pointermin = 0;
 		pointermax = Math.min( text1.length, text2.length );
 		pointermid = pointermax;
@@ -25328,7 +25328,7 @@ QUnit.diff = ( function() {
 			return 0;
 		}
 		// Binary search.
-		// Performance analysis: http://neil.fraser.name/news/2007/10/09/
+		// Performance analysis: https://neil.fraser.name/news/2007/10/09/
 		pointermin = 0;
 		pointermax = Math.min( text1.length, text2.length );
 		pointermid = pointermax;
@@ -25910,7 +25910,7 @@ QUnit.diff = ( function() {
 
 		// Start by looking for a single character match
 		// and increase length until no match is found.
-		// Performance analysis: http://neil.fraser.name/news/2010/11/04/
+		// Performance analysis: https://neil.fraser.name/news/2010/11/04/
 		best = 0;
 		length = 1;
 		while ( true ) {

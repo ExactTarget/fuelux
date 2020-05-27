@@ -67,7 +67,7 @@ define(function (require) {
 
 			$('#theme-toggle').on('change', function (e) {
 				if ($(e.target).is(':checked')) {
-					$('head').append('<link rel="stylesheet" href="http://www.fuelcdn.com/fuelux-mctheme/1.1.0/css/fuelux-mctheme.min.css" type="text/css" id="mctheme"/>');
+					$('head').append('<link rel="stylesheet" href="https://www.fuelcdn.com/fuelux-mctheme/1.1.0/css/fuelux-mctheme.min.css" type="text/css" id="mctheme"/>');
 				} else {
 					$('#mctheme').remove();
 				}
