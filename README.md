@@ -32,7 +32,6 @@ Salesforce has introduced a new programming model for the Lightning Component Fr
 # Sanity Checks
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/ExactTarget/fuelux.svg)](https://greenkeeper.io/)
-[Fuel UX](http://getfuelux.com/)
 [![Bower version](https://badge.fury.io/bo/fuelux.svg)](http://badge.fury.io/bo/fuelux)
 [![npm version](https://badge.fury.io/js/fuelux.svg)](https://www.npmjs.com/package/fuelux)
 [![Build Status](https://api.travis-ci.org/ExactTarget/fuelux.svg?branch=master)](http://travis-ci.org/ExactTarget/fuelux)
@@ -42,11 +41,9 @@ Salesforce has introduced a new programming model for the Lightning Component Fr
 
 Fuel UX extends [Bootstrap 3](https://github.com/twbs/bootstrap) with additional lightweight JavaScript controls. It is actively maintained by [members of Salesforce Marketing Cloud,](https://github.com/orgs/ExactTarget/people) with the support and involvement of the community.
 
-More thorough documentation and guides available at <http://getfuelux.com>
-
 # Documentation
 
-Fuel UX documentation is built with [Jekyll](http://jekyllrb.com) and publicly hosted on GitHub Pages at <http://getfuelux.com>. More details on setting up Jekyll and running docs locally can be found [in our CONTRIBUTING.md documentation](https://github.com/exacttarget/fuelux/blob/master/CONTRIBUTING.md#running-gh-pages-locally).
+Fuel UX documentation is built with [Jekyll](http://jekyllrb.com). More details on setting up Jekyll and running docs locally can be found [in our CONTRIBUTING.md documentation](https://github.com/exacttarget/fuelux/blob/master/CONTRIBUTING.md#running-gh-pages-locally).
 
 # Contributing
 
@@ -69,8 +66,6 @@ You can also use on of the following methods:
 # Using Fuel UX
 
 Fuel UX can be used with an existing page via CDN or installed in a project.
-
-Read the [Getting started page](http://getfuelux.com/getting-started.html) for more detailed information on the framework contents, templates, examples, and more.
 
 ## Required fuelux class
 
@@ -138,7 +133,7 @@ define(function(require) {
 ```
 In instances where you require every module from Fuel UX, you can use `fuelux/all` instead of listing each module individually.
 
-Fuel UX also supports placing components in their own `<script>` tags. Be sure to [check component dependencies in the controls documentation](http://getfuelux.com/javascript.html) and put modules in the correct order if you load them in this method. Errors will appear in the console if you have not loaded dependencies correctly ((Repeater)[http://getfuelux.com/javascript.html#repeater-dependencies] and [Scheduler](http://getfuelux.com/javascript.html#scheduler-dependencies) are the only components with dependencies currently).
+Fuel UX also supports placing components in their own `<script>` tags. Errors will appear in the console if you have not loaded dependencies correctly.
 
 
 # Bugs and Feature Requests
@@ -150,7 +145,7 @@ For additional assistance connect with the [community](#community).
 
 # Previous releases
 
-[Documentation for v2.6](http://getfuelux.com/2.6/) has been made available for the time being while folks transition to Bootstrap 3. You can download 2.6 updates (bug fixes only) from the [fuelux2 branch](https://github.com/ExactTarget/fuelux/tree/fuelux2).
+You can download 2.6 updates (bug fixes only) from the [fuelux2 branch](https://github.com/ExactTarget/fuelux/tree/fuelux2).
 
 # Community
 
