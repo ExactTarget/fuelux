@@ -29,29 +29,20 @@ Salesforce has introduced a new programming model for the Lightning Component Fr
 
 <!-- /TOC -->
 
-# Sanity Checks
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/ExactTarget/fuelux.svg)](https://greenkeeper.io/)
-[![Bower version](https://badge.fury.io/bo/fuelux.svg)](http://badge.fury.io/bo/fuelux)
-[![npm version](https://badge.fury.io/js/fuelux.svg)](https://www.npmjs.com/package/fuelux)
-[![Build Status](https://api.travis-ci.org/ExactTarget/fuelux.svg?branch=master)](http://travis-ci.org/ExactTarget/fuelux)
-[![devDependency Status](https://david-dm.org/exacttarget/fuelux/dev-status.svg)](https://david-dm.org/exacttarget/fuelux#info=devDependencies)
-
-[![Selenium Test Status](https://saucelabs.com/browser-matrix/fuelux.svg)](https://saucelabs.com/u/fuelux)
-
-Fuel UX extends [Bootstrap 3](https://github.com/twbs/bootstrap) with additional lightweight JavaScript controls. It is actively maintained by [members of Salesforce Marketing Cloud,](https://github.com/orgs/ExactTarget/people) with the support and involvement of the community.
+Fuel UX extends [Bootstrap 3](https://github.com/twbs/bootstrap) with additional lightweight JavaScript controls. It has been sunsetted and is no longer maintained.
 
 # Documentation
 
-Fuel UX documentation is built with [Jekyll](http://jekyllrb.com). More details on setting up Jekyll and running docs locally can be found [in our CONTRIBUTING.md documentation](https://github.com/exacttarget/fuelux/blob/master/CONTRIBUTING.md#running-gh-pages-locally).
+Fuel UX documentation has been archived. You can find it in the gh-pages-archive branch. If you need it you are welcome to check out that branch and build it with [Jekyll](http://jekyllrb.com). More details on setting up Jekyll and running docs locally can be found [in our CONTRIBUTING.md documentation](https://github.com/exacttarget/fuelux/blob/master/CONTRIBUTING.md#running-gh-pages-locally). No one who originally worked on this has any lasting memory or expertise about how to do anything with this and any requests for help will be ignored.
 
 # Contributing
 
-Please read the [CONTRIBUTING.md](CONTRIBUTING.md) first.
+Contributions are no longer accepted.
 
 # Obtaining Fuel UX
 
-NPM is the recommended method for obtaining Fuel UX.
+It is recommended that you do not use Fuel UX. However, if you are determined to do so, NPM is a method for obtaining Fuel UX.
 ```
 npm install fuelux
 ```
@@ -138,9 +129,7 @@ Fuel UX also supports placing components in their own `<script>` tags. Errors wi
 
 # Bugs and Feature Requests
 
-Have a bug or a feature request? Please first review the [open issues](https://github.com/ExactTarget/fuelux/issues), then search for existing and closed issues. If your problem or idea is not addressed yet, [please open a new issue](https://github.com/ExactTarget/fuelux/issues/new).
-
-For additional assistance connect with the [community](#community).
+Have a bug or a feature request? Feel free to write the code and use the code you write. Pull and feature requests will be ignored.
 
 
 # Previous releases
@@ -149,13 +138,9 @@ You can download 2.6 updates (bug fixes only) from the [fuelux2 branch](https://
 
 # Community
 
-- Implementation help may be found at Stack Overflow (tagged [`fuelux`](http://stackoverflow.com/questions/tagged/fuelux)).
-- Follow [@FuelUX on Twitter](https://twitter.com/fuelux).
+- Implementation help might be found at Stack Overflow (tagged [`fuelux`](http://stackoverflow.com/questions/tagged/fuelux)).
 
-# Philosophy
-Our aim is to provide a suite of related but independent projects that help web developers integrate, manage, and customize quality libraries and utilities to more efficiently develop, maintain, test, and distribute their projects.  Any improvements or fixes we make to the open source projects, we use will be contributed upstream if they are useful to the rest of the community.
-
-Thank you to all those that have submitted issues and contributed to this library.
+Thank you to all those that worked on, submitted issues, and contributed to this library.
 
 ## Copyright and License
 
