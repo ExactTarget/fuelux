@@ -204,7 +204,7 @@
 	// DATA-API
 
 	$(document).on('mouseover.fu.checkbox.data-api', '[data-initialize=checkbox]', function initializeCheckboxes (e) {
-		var $control = $(e.target);
+		var $control = $(this);
 		if (!$control.data('fu.checkbox')) {
 			$control.checkbox($control.data());
 		}
